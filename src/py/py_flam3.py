@@ -6768,6 +6768,8 @@ json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode: bool=False,
 
 json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
 
+json_to_flam3h_get_preset_name(node: hou.SopNode) -> tuple[str, int]:
+
 menu_cp_presets_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
 
 menu_cp_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
@@ -7123,7 +7125,35 @@ reset_CP_palette_action(self) -> None:
             node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {_MSG.strip()}"}) # type: ignore
         else:
             node.setParms({MSG_PALETTE: f"{_MSG}"}) # type: ignore
-            
+
+
+
+    @staticmethod
+    def json_to_flam3h_get_preset_name(node: hou.SopNode) -> tuple[str, int]:
+        """Get the selected palette preset name string and its preset_id(index)
+
+        Args:
+            node(hou.SopNode): The FLAM3H node
+        
+        Returns:
+            tuple[str, int]: The selected palette preset name string stripped from the icon and enumeration index and the preset_id(index)
+        """
+        
+        # get current preset name
+        if node.parm(CP_ISVALID_PRESET).eval():
+            preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
+            menu_label: str = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD)[-1].strip()
+        else:
+            preset_id = int(node.parm(CP_PALETTE_PRESETS_OFF).eval())
+            menu_label: str = str(node.parm(CP_PALETTE_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY)[-1].strip()
+        
+        # Remove the enumeration menu index string from the preset name.
+        #
+        # We are using "str.lstrip()" because the preset name has been "str.strip()" already on save from inside: self.flam3h_ramp_save_JSON_DATA()
+        # and there are only the leading white spaces left from the menu enumaration index number string to remove.
+        if node.parm(PREFS_ENUMERATE_MENU).eval(): return ':'.join(menu_label.split(':')[1:]).lstrip(), preset_id
+        else: return menu_label, preset_id
+        
             
             
     @staticmethod
@@ -7231,8 +7261,6 @@ reset_CP_palette_action(self) -> None:
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
             else:
                 menu.append(f"{str(i)}:  {item}")
-        
-
 
 
 
@@ -7693,20 +7721,8 @@ reset_CP_palette_action(self) -> None:
                 rmp_src = node.parm(CP_RAMP_SRC_NAME)
                 rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
                 
-                # get current preset name
-                if node.parm(CP_ISVALID_PRESET).eval():
-                    preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
-                    menu_label: str = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD)[-1].strip()
-                else:
-                    preset_id = int(node.parm(CP_PALETTE_PRESETS_OFF).eval())
-                    menu_label: str = str(node.parm(CP_PALETTE_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY)[-1].strip()
-                    
-                # Remove the enumeration menu index string from the preset name.
-                #
-                # We are using "str.lstrip()" because the preset name has been "str.strip()" already on save from inside: self.flam3h_ramp_save_JSON_DATA()
-                # and there are only the leading white spaces left from the menu enumaration index number string to remove.
-                if node.parm(PREFS_ENUMERATE_MENU).eval(): preset = ':'.join(menu_label.split(':')[1:]).lstrip()
-                else: preset = menu_label
+                # get current preset name and preset_id(index)
+                preset, preset_id = self.json_to_flam3h_get_preset_name(node)
                 
                 HEXs = []
                 hsv_vals = []
@@ -7780,6 +7796,9 @@ reset_CP_palette_action(self) -> None:
         Args:
             (self):
             use_kwargs(bool): Default to: True. Use the houdini kwargs arguments or not. Defaults to True. This is being done as when this definition run from a menu parameter the kwargs arguments are not available. 
+        
+        Returns:
+            (None):
         """
         
         if use_kwargs:
@@ -7831,21 +7850,8 @@ reset_CP_palette_action(self) -> None:
                 filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
                 if self.isJSON_F3H_on_preset_load(node, filepath, False)[-1]:
                     
-                    # get current preset name
-                    if node.parm(CP_ISVALID_PRESET).eval():
-                        preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
-                        menu_label: str = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD)[-1].strip()
-                    else:
-                        preset_id = int(node.parm(CP_PALETTE_PRESETS_OFF).eval())
-                        menu_label: str = str(node.parm(CP_PALETTE_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY)[-1].strip()
-                    
-                    # Remove the enumeration menu index string from the preset name.
-                    #
-                    # We are using "str.lstrip()" because the preset name has been "str.strip()" already on save from inside: self.flam3h_ramp_save_JSON_DATA()
-                    # and there are only the leading white spaces left from the menu enumaration index number string to remove.
-                    if node.parm(PREFS_ENUMERATE_MENU).eval(): preset = ':'.join(menu_label.split(':')[1:]).lstrip()
-                    else: preset = menu_label
-                    
+                    # get current preset name and preset_id(index)
+                    preset, preset_id = self.json_to_flam3h_get_preset_name(node)
                     # SET the Palette name to the preset name
                     if preset:
                         node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset})
