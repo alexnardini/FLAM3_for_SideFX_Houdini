@@ -442,8 +442,8 @@ CP Preset reload:
     _Usage_:
     
     - ((LMB)) Reload the selected CP palette preset.
-    - ((ALT)) + ((LMB)) Load a palette from the clipboard.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
+    - ((ALT)) + ((LMB)) Load a palette from the clipboard.
     
 :box:
     #display: rounded white
@@ -483,8 +483,8 @@ IN Preset reload:
     _Usage_:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
-    - ((ALT)) + ((LMB)) to paste a Flame from the clipboard.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
+    - ((ALT)) + ((LMB)) to paste a Flame from the clipboard.
 
     _Additionally_:
 
@@ -534,8 +534,8 @@ OUT Save:
     _Usage_:
 
     - ((LMB)) to save this Flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
-    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((ALT)) + ((LMB)) to copy this Flame into the clipboard.
 
     - _If the selected file does not exist, it will be created_.
@@ -642,8 +642,8 @@ copy/paste:
     _Usage_:
     
     - ((LMB)) to mark this iterator for being copied. If already marked, it will unmark it.
-    - ((CTRL)) + ((LMB)) to copy the values from the marked iterator into this iterator.
     - ((SHIFT)) + ((LMB)) to unmark this FLAM3H node marked iterator for being copied.
+    - ((CTRL)) + ((LMB)) to copy the values from the marked iterator into this iterator.
     
     _Additionally_:
     
@@ -1088,8 +1088,8 @@ FF: copy/paste:
     _Usage_:
     
     - ((LMB)) to mark this FF for being copied. If already marked, it will unmark it.
-    - ((CTRL)) + ((LMB)) to copy the values from the marked FLAM3H node's FF into this FLAM3H node's FF.
     - ((SHIFT)) + ((LMB)) to unmark this FF for being copied.
+    - ((CTRL)) + ((LMB)) to copy the values from the marked FLAM3H node's FF into this FLAM3H node's FF.
     
     _Additionally_:
     
@@ -1544,8 +1544,8 @@ Reload:
     _Usage_:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
-    - ((ALT)) + ((LMB)) to paste a Flame from the clipboard.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
+    - ((ALT)) + ((LMB)) to paste a Flame from the clipboard.
 
     _Additionally_:
 
@@ -1838,8 +1838,8 @@ Save Flame:
     _Usage_:
     
     - ((LMB)) to save this Flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
-    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((ALT)) + ((LMB)) to copy this Flame into the clipboard.
 
     _Additionally_:
