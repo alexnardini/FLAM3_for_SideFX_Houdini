@@ -7312,7 +7312,6 @@ reset_CP_palette_action(self) -> None:
             node = self.node
             menu=[]
             filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
-            head_tail = os.path.split(filepath)
             
             if os.path.exists(filepath) and node.parm(CP_ISVALID_FILE).eval() and self.node.parm(CP_ISVALID_PRESET).eval():
                     
@@ -7324,6 +7323,7 @@ reset_CP_palette_action(self) -> None:
                 return menu
             
             flam3h_iterator_utils.destroy_cachedUserData(node, 'cp_presets_menu')
+            head_tail = os.path.split(filepath)
             if filepath and os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
                 return MENU_PRESETS_SAVEONE
             elif filepath and not os.path.isfile(filepath):
@@ -7386,7 +7386,6 @@ reset_CP_palette_action(self) -> None:
             node = self.node
             menu=[]
             filepath = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).eval())
-            head_tail = os.path.split(filepath)
 
             if self.isJSON_F3H(node, filepath, False)[-1] and node.parm(CP_ISVALID_FILE).eval() and not node.parm(CP_ISVALID_PRESET).eval():
                     
@@ -7398,6 +7397,7 @@ reset_CP_palette_action(self) -> None:
                 return menu
                 
             flam3h_iterator_utils.destroy_cachedUserData(node, 'cp_presets_menu_off')
+            head_tail = os.path.split(filepath)
             if filepath and os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
                 return MENU_PRESETS_SAVEONE
             if filepath and not os.path.isfile(filepath):
