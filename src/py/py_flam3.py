@@ -6768,7 +6768,7 @@ json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode: bool=False,
 
 json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
 
-json_to_flam3h_get_preset_name(node: hou.SopNode) -> tuple[str, int]:
+json_to_flam3h_get_preset_name_and_id(node: hou.SopNode) -> tuple[str, int]:
 
 menu_cp_presets_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
 
@@ -7129,7 +7129,7 @@ reset_CP_palette_action(self) -> None:
 
 
     @staticmethod
-    def json_to_flam3h_get_preset_name(node: hou.SopNode) -> tuple[str, int]:
+    def json_to_flam3h_get_preset_name_and_id(node: hou.SopNode) -> tuple[str, int]:
         """Get the selected palette preset name string and its preset_id(index)
 
         Args:
@@ -7722,7 +7722,7 @@ reset_CP_palette_action(self) -> None:
                 rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
                 
                 # get current preset name and preset_id(index)
-                preset, preset_id = self.json_to_flam3h_get_preset_name(node)
+                preset, preset_id = self.json_to_flam3h_get_preset_name_and_id(node)
                 
                 HEXs = []
                 hsv_vals = []
@@ -7851,7 +7851,7 @@ reset_CP_palette_action(self) -> None:
                 if self.isJSON_F3H_on_preset_load(node, filepath, False)[-1]:
                     
                     # get current preset name and preset_id(index)
-                    preset, preset_id = self.json_to_flam3h_get_preset_name(node)
+                    preset, preset_id = self.json_to_flam3h_get_preset_name_and_id(node)
                     # SET the Palette name to the preset name
                     if preset:
                         node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset})
