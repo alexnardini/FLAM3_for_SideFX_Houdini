@@ -14241,63 +14241,74 @@ __out_flame_palette_lookup_samples(self) -> Union[str, bool]:
         Returns:
             (str): A new name with either the iterations number added to it if needed or corrected or both.
         """
-        if autoadd:
+
+        name = name.strip()
+        
+        if name:
             
-            name = name.strip()
-            if name:
-                
-                splt = ':'
-                if flame: name_new = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
-                else: name_new = datetime.now().strftime("Palette_%b-%d-%Y_%H%M%S")
+            splt = ':'
+            if flame: name_new = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
+            else: name_new = datetime.now().strftime("Palette_%b-%d-%Y_%H%M%S")
+            
+            rp = name.split(splt)
+            rp[:] = [item for item in rp if item]
+            # Lets make some name checks first
+            #
+            # if it start with a special character
+            if not name[0].isalnum():
+                rp = name_new.split(splt)
+                rp[:] = [item for item in rp if item]
+            # if it end with special character
+            elif not name[-1].isalnum():
                 
                 rp = name.split(splt)
-                rp[:] = [item for item in rp if item]
-                # Lets make some name checks first
-                #
-                # if it start with a special character
-                if not name[0].isalnum():
+                if len(rp)==1 and len(rp[0]):
+                    item_cleaned =''.join(letter for letter in rp[0].strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM)
+                    rp = [item_cleaned]
+                    
+                elif len(rp)>1:
+                    name_new = ' '.join(rp[:-1])
                     rp = name_new.split(splt)
                     rp[:] = [item for item in rp if item]
-                # if it end with special character
-                elif not name[-1].isalnum():
-                    rp = name.split(splt)
-                    if len(rp)==1 and len(rp[0]):
-                        item_cleaned =''.join(letter for letter in rp[0].strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM)
-                        rp = [item_cleaned]
-                    elif len(rp)>1:
-                        name_new = ' '.join(rp[:-1])
-                        rp = name_new.split(splt)
-                        rp[:] = [item for item in rp if item]
-                    else:
-                        rp = name_new.split(splt)
-                        rp[:] = [item for item in rp if item]
-                
-                is_int = True
-                try:
-                    # if the name is a number, I want to still add the iteration num to it
-                    # and not evaluate this as integer, even if it is an integer.
-                    if rp[-1] != name:
-                        int(rp[-1].strip())
-                    else:
-                        is_int = False
-                except: is_int = False
                     
-                if is_int is False:
-                    rp_clean = [''.join(letter for letter in item.strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
-                    if flame: name_new = ' '.join(rp_clean) + FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
-                    else: name_new = ' '.join(rp_clean)
-                    return name_new.strip()
                 else:
-                    splt = name.split(":")
-                    if len(splt)>1:
-                        if flame: return ''.join([item.strip() for item in splt[:-1]]) + FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
-                        else: return ''.join([item.strip() for item in splt[:-1]])
-                    else:
-                        return name
+                    rp = name_new.split(splt)
+                    rp[:] = [item for item in rp if item]
+            
+            is_int = True
+            try:
+                # if the name is a number, I want to still add the iteration num to it
+                # and not evaluate this as integer, even if it is an integer.
+                if rp[-1] != name:
+                    int(rp[-1].strip())
+                else:
+                    is_int = False
+            except: is_int = False
+                
+            if is_int is False:
+                rp_clean = [''.join(letter for letter in item.strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
+                if flame:
+                    if autoadd: name_new = ' '.join(rp_clean) + FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
+                    else: name_new = ' '.join(rp_clean)
+                    
+                else: name_new = ' '.join(rp_clean)
+                return name_new.strip()
+            
             else:
-                return name
+                splt = name.split(":")
+                if len(splt)>1:
+                    if flame: 
+                        if autoadd: return ''.join([item.strip() for item in splt[:-1]]) + FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
+                        else: return ''.join([item.strip() for item in splt[:-1]])
+                        
+                    else: return ''.join([item.strip() for item in splt[:-1]])
+                    
+                else:
+                    return name
+                
         else:
             return name
+
     
     
     @staticmethod 
