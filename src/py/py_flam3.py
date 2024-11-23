@@ -1521,7 +1521,9 @@ flash_message(node: hou.SopNode, msg: Union[str, None], timer: float=FLAM3H_FLAS
 
 remove_locked_from_flame_stats(node) -> None:
 
-clamp(x, val_max: float=255) -> float:
+houdini_version() -> int:
+
+clamp(x, val_max: Union[int, float]=255) -> float:
 
 my_system() -> str:
 
@@ -1640,17 +1642,17 @@ reset_PREFS(self, mode: int=0) -> None:
         return int(''.join(str(x) for x in hou.applicationVersion()[:1]))
 
     @staticmethod  
-    def clamp(x, val_max: float=255) -> float:
+    def clamp(x, val_max: Union[int, float]=255) -> float:
         """clamp a value to be between Zero and 255.
 
         Args:
-            x (_type_): the value to clamp.
-            val_max (int/float): Default to: 255. Max value to clamp to.
+            x(Union[int, float]): the value to clamp.
+            val_max(Union[int, float]): Default to: 255. Max value to clamp to.
 
         Returns:
             float: value clamped between Zero and 255.
         """        
-        return max(0, min(x, val_max))
+        return float(max(0, min(x, val_max)))
 
 
     @staticmethod
@@ -3781,7 +3783,8 @@ iterator_vactive_and_update(self) -> None:
     Note that all the data will be of type: string.
 
         Args:
-            data (Union[list, tuple]): The actual data to set. A tuple can only come from: out_flame_utils.out_xf_xaos_from(self, mode=0) -> tuple:
+            node(hou.SopNode): The FLAM3H node
+            data(Union[list, tuple]): The actual data to set. A tuple can only come from: out_flame_utils.out_xf_xaos_from(self, mode=0) -> tuple:
 
         Returns:
             (None):
@@ -6743,7 +6746,7 @@ build_ramp_palette_default(ramp_parm: hou.Parm) -> None:
 
 build_ramp_palette_temp(ramp_tmp_parm: hou.Parm) -> None:
 
-build_ramp_palette_error() -> tuple[list, list, list]
+build_ramp_palette_error() -> tuple[list, list, list]:
 
 delete_ramp_all_keyframes(ramp_parm: hou.Parm) -> None:
 
@@ -7014,7 +7017,7 @@ reset_CP_palette_action(self) -> None:
         
     @staticmethod
     def rgb_to_hex(rgb: tuple) -> str:
-        """Convert a RGB color value into HEX color value.
+        """Convert a RGB color values into HEX color values.
 
         Args:
             rgb(tuple): the RGB color value to convert.
@@ -7032,7 +7035,7 @@ reset_CP_palette_action(self) -> None:
         """Convert a HEX color value into RGB color value.
 
         Args:
-            rgb(tuple): the HEX color value to convert.
+            rgb(str): the HEX color value to convert.
 
         Returns:
             (tuple): RGB color value
@@ -10923,11 +10926,11 @@ reset_IN(self, mode: int=0) -> None:
         
         
     @staticmethod 
-    def in_get_xforms_var_keys_PP(xforms: Union[tuple, None], 
-                                vars: dict, 
-                                prx: str, 
-                                exclude_keys: tuple
-                                ) -> Union[list, None]:
+    def in_get_xforms_var_keys_PP(  xforms: Union[tuple, None], 
+                                    vars: dict, 
+                                    prx: str, 
+                                    exclude_keys: tuple
+                                    ) -> Union[list, None]:
         """find a PRE or POST variation inside the currently processed xform/iterator. All xforms are passed in.
 
         Args:
@@ -12055,7 +12058,7 @@ reset_IN(self, mode: int=0) -> None:
         """Copy the loaded IN Flame preset SENSOR properties into the OUT Flame render properties to be written out. 
 
         Args:
-            kwargs (dict): this FLAM3H node houdini kwargs.
+            kwargs(dict): this FLAM3H node houdini kwargs.
             
         Returns:
             (None):
@@ -12099,7 +12102,7 @@ reset_IN(self, mode: int=0) -> None:
         """Copy the loaded IN Flame preset RENDER properties into the OUT Flame render properties to be written out. 
 
         Args:
-            kwargs (dict): this FLAM3H node houdini kwargs.
+            kwargs(dict): this FLAM3H node houdini kwargs.
             
         Returns:
             (None):
@@ -12153,7 +12156,7 @@ reset_IN(self, mode: int=0) -> None:
         """Copy the loaded IN Flame preset CC CURVES data into the OUT Flame render color correction curves properties to be written out. 
 
         Args:
-            kwargs (dict): this FLAM3H node houdini kwargs.
+            kwargs(dict): this FLAM3H node houdini kwargs.
             
         Returns:
             (None):
@@ -12227,10 +12230,10 @@ reset_IN(self, mode: int=0) -> None:
         """This is spcifically to be run inside a list comprehension.
 
         Args:
-            node (hou.SopNode): This FLAM3H node.
-            menu (list): the menu list to populate.
-            i (int): The outer loop index/iteration.
-            item (str): The outer loop item at index/iteration.
+            node(hou.SopNode): This FLAM3H node.
+            menu(list): the menu list to populate.
+            i(int): The outer loop index/iteration.
+            item(str): The outer loop item at index/iteration.
 
         Returns:
             (None):
@@ -12262,10 +12265,10 @@ reset_IN(self, mode: int=0) -> None:
         """This is spcifically to be run inside a list comprehension.
 
         Args:
-            node (hou.SopNode): This FLAM3H node.
-            menu (list): the menu list to populate.
-            i (int): The outer loop index/iteration.
-            item (str): The outer loop item at index/iteration.
+            node(hou.SopNode): This FLAM3H node.
+            menu(list): the menu list to populate.
+            i(int): The outer loop index/iteration.
+            item(str): The outer loop item at index/iteration.
 
         Returns:
             (None):
@@ -12297,10 +12300,10 @@ reset_IN(self, mode: int=0) -> None:
         """This is spcifically to be run inside a list comprehension.
 
         Args:
-            node (hou.SopNode): This FLAM3H node.
-            menu (list): the menu list to populate.
-            i (int): The outer loop index/iteration.
-            item (str): The outer loop item at index/iteration.
+            node(hou.SopNode): This FLAM3H node.
+            menu(list): the menu list to populate.
+            i(int): The outer loop index/iteration.
+            item(str): The outer loop item at index/iteration.
 
         Returns:
             (None):
@@ -12327,10 +12330,10 @@ reset_IN(self, mode: int=0) -> None:
         """This is spcifically to be run inside a list comprehension.
 
         Args:
-            node (hou.SopNode): This FLAM3H node.
-            menu (list): the menu list to populate.
-            i (int): The outer loop index/iteration.
-            item (str): The outer loop item at index/iteration.
+            node(hou.SopNode): This FLAM3H node.
+            menu(list): the menu list to populate.
+            i(int): The outer loop index/iteration.
+            item(str): The outer loop item at index/iteration.
 
         Returns:
             (None):
@@ -13933,6 +13936,8 @@ out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list[list[str]
 
 out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> list[list[str]]:
 
+_out_pretty_print(current: lxmlET.Element, parent: Union[lxmlET.Element, None]=None, index: int=-1, depth: int=0) -> None: #type: ignore
+
 _out_pretty_print(current, parent=None, index: int=-1, depth: int=0) -> None:
 
 menu_out_presets_loop(menu: list, i: int, item: str) -> None:
@@ -14408,7 +14413,7 @@ __out_flame_palette_lookup_samples(self) -> Union[str, bool]:
         """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
 
         Args:
-            VAL(float): The value to remove the floating zeros from
+            val(float): The value to remove the floating zeros from
 
         Returns:
             (str): A value without the floating zeros
@@ -14424,7 +14429,7 @@ __out_flame_palette_lookup_samples(self) -> Union[str, bool]:
         """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values 
 
         Args:
-            VAL_LIST(Union[list[list[str]], tuple[list]]): A collection of values to rounds
+            val_list(Union[list[list[str]], tuple[list]]): A collection of values to rounds
 
         Returns:
             (Union[list[str], list[list[str]], tuple[str]]): A list/tuple of list[str]/tuple[str] with the rounded values if any
@@ -14884,12 +14889,12 @@ __out_flame_palette_lookup_samples(self) -> Union[str, bool]:
 
 
     @staticmethod
-    def _out_pretty_print(current, parent=None, index: int=-1, depth: int=0) -> None:
+    def _out_pretty_print(current: lxmlET.Element, parent: Union[lxmlET.Element, None]=None, index: int=-1, depth: int=0) -> None: #type: ignore
         """Reformat the XML data in a pretty way.
 
         Args:
-            current(_type_): The Flame XML root we want to reformat.
-            parent(_type_, optional): _description_. Defaults to None.
+            current(lxmlET._Element): The Flame XML root we want to reformat.
+            parent(Union[lxmlET.Element, None]): Default to None.
             index(int): _description_. Defaults to -1.
             depth(int): _description_. Defaults to 0.
         """        
