@@ -402,22 +402,15 @@ class flam3h_varsPRM:
 class flam3h_varsPRM
 
 STATIC METHODS:
-
-__populate_keys_and_values(keys: list, values: list, item: Union[int, str], id: int) -> None:
-
-__populate_linear_list(linear: list, item: str, id: int) -> None:
+* __populate_keys_and_values(keys: list, values: list, item: Union[int, str], id: int) -> None:
+* __populate_linear_list(linear: list, item: str, id: int) -> None:
 
 METHODS:
-
-vars_all(self) -> list:
-
-menu_vars_all(self) -> list:
-
-menu_vars_no_PRM(self) -> list:
-
-build_menu_vars_all_linear(self) -> list:
-
-build_menu_vars_indexes(self) -> dict[int, int]:
+* vars_all(self) -> list:
+* menu_vars_all(self) -> list:
+* menu_vars_no_PRM(self) -> list:
+* build_menu_vars_all_linear(self) -> list:
+* build_menu_vars_indexes(self) -> dict[int, int]:
 
     """ 
 
