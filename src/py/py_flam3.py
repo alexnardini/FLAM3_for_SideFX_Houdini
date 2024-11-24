@@ -128,7 +128,7 @@ FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD: int = 64
 FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV = '::'
 
 # Node user data
-FLAM3H_USER_DATA_PRX = "nodeinfo_"
+FLAM3H_USER_DATA_PRX = "nodeinfo"
 FLAM3H_USER_DATA_ITER = "Marked iterator"
 FLAM3H_USER_DATA_FF = "Marked FF"
 
@@ -3197,7 +3197,7 @@ METHODS:
             (Union[int, bool]): Return the requested user data or False if it does not exist.
         """   
         
-        name = f"{FLAM3H_USER_DATA_PRX}{data_name}"
+        name = f"{FLAM3H_USER_DATA_PRX}_{data_name}"
         data = node.userData(f"{name}")
         if data is not None:
             return data
@@ -3216,7 +3216,7 @@ METHODS:
         Returns:
             (bool): Return True if the requested user data exist or False if it does not.
         """   
-        data_name = f"{FLAM3H_USER_DATA_PRX}{data}"
+        data_name = f"{FLAM3H_USER_DATA_PRX}_{data}"
         if node.userData(f"{data_name}") is None:
             return False
         else:
@@ -3235,9 +3235,9 @@ METHODS:
             (None):
         """   
         
-        data_name = f"{FLAM3H_USER_DATA_PRX}{data}"
-        data_iter_name = f"{FLAM3H_USER_DATA_PRX}{FLAM3H_USER_DATA_ITER}"
-        data_FF_name = f"{FLAM3H_USER_DATA_PRX}{FLAM3H_USER_DATA_FF}"
+        data_name = f"{FLAM3H_USER_DATA_PRX}_{data}"
+        data_iter_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_ITER}"
+        data_FF_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_FF}"
         
         if data_name == data_iter_name:
             
@@ -3284,9 +3284,9 @@ METHODS:
             (None):
         """   
         
-        data_name = f"{FLAM3H_USER_DATA_PRX}{data}"
-        data_iter_name = f"{FLAM3H_USER_DATA_PRX}{FLAM3H_USER_DATA_ITER}"
-        data_FF_name = f"{FLAM3H_USER_DATA_PRX}{FLAM3H_USER_DATA_FF}"
+        data_name = f"{FLAM3H_USER_DATA_PRX}_{data}"
+        data_iter_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_ITER}"
+        data_FF_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_FF}"
         
         if data_name == data_iter_name:
             if node.userData(f"{data_FF_name}") is None:
@@ -3779,8 +3779,8 @@ METHODS:
         
         So far the user data names being used are:
         
-        * nodeinfo_Marked iterator -> f"{FLAM3H_USER_DATA_PRX}{FLAM3H_USER_DATA_ITER}
-        * nodeinfo_Marked FF -> f"{FLAM3H_USER_DATA_PRX}{FLAM3H_USER_DATA_FF}
+        * nodeinfo_Marked iterator -> f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_ITER}
+        * nodeinfo_Marked FF -> f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_FF}
 
         Args:
             node(hou.SopNode): This FLAM3H node
