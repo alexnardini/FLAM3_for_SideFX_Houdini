@@ -8172,11 +8172,11 @@ METHODS:
             
         year = datetime.now().strftime("%Y")
         
-        flam3h_cvex_version = f"CODE LANGUAGE: CVEX H19.x.x"
-        hou_version = flam3h_general_utils.houdini_version()
-        if hou_version >= 19: flam3h_cvex_version = f"CODE LANGUAGE: cvex H{str(hou_version)}.x.x"
         flam3h_author = f"AUTHOR: Alessandro Nardini ( Italy )"
-        flam3h_python_version = f"python 3.7.13"
+        flam3h_cvex_version = f"CODE: cvex H19.x.x"
+        hou_version = flam3h_general_utils.houdini_version()
+        if hou_version >= 19: flam3h_cvex_version = f"CODE: cvex H{str(hou_version)}.x.x"
+        flam3h_python_version = f"py 3.7.13"
         flam3h_houdini_version = f"VERSION: {FLAM3H_VERSION}{FLAM3H_VERSION_STATUS_GOLD} :: (GPL v3)"
         Implementation_years = f"2020/{year}"
         Implementation_build = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{Implementation_years}"
