@@ -393,7 +393,7 @@ return menu
 # parameter name:    `alpha_#`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils.destroy_data(kwargs['node'], 'iter_sel')
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils.destroy_cachedUserData(kwargs['node'], 'iter_sel')
 ```
 # FLAME Tab
 # parameter name:    `preblurtype_#`
