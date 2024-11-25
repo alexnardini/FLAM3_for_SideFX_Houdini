@@ -1234,8 +1234,10 @@ class flam3h_scripts
             (None):
         """
         node = self.node
+        
         cp_is_valid = node.parm(CP_ISVALID_FILE).eval()
         in_is_valid = node.parm(IN_ISVALID_FILE).eval()
+        out_is_valid = node.parm(IN_ISVALID_FILE).eval()
         
         if cp_is_valid:
             cp_path = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
@@ -1246,6 +1248,11 @@ class flam3h_scripts
             xml = os.path.expandvars(node.parm(IN_PATH).eval())
             xml_checked = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT, False)
             if xml_checked is not False and os.path.isfile(xml_checked): node.setCachedUserData('in_presets_filepath', xml_checked)
+            
+        if out_is_valid:
+            xml = os.path.expandvars(node.parm(IN_PATH).eval())
+            xml_checked = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
+            if xml_checked is not False and os.path.isfile(xml_checked): node.setCachedUserData('out_presets_filepath', xml_checked)
             
 
  
@@ -2557,46 +2564,66 @@ class flam3h_general_utils
         node = self.node
         # Clear menu caches
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+        # Retrieve the filepath from the history (preview valid F3H json file path used)
+        out_presets_filepath_history = node.cachedUserData('out_presets_filepath')
         
+        is_valid = node.parm(OUT_ISVALID_FILE).eval()
         prm = node.parm(OUT_PRESETS)
         prm_sys = node.parm(OUT_SYS_PRESETS)
-        prm.set('-1')
-        prm_sys.set('-1')
         
-        xml = node.parm(OUT_PATH).eval()
+        xml = os.path.expandvars(node.parm(OUT_PATH).eval())
         xml_checked = out_flame_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
+        
+        if out_presets_filepath_history is not None and is_valid and os.path.isfile(out_presets_filepath_history) and out_presets_filepath_history == xml_checked:
+            pass
+        else:
+            prm.set('-1')
+            prm_sys.set('-1')
+        
         if xml_checked is not False:
-            node.setParms({OUT_PATH: xml_checked}) 
+            assert isinstance(xml_checked, str)
+            
+            # Set the IN filepath parameter to this checked and corrected filepath
+            node.setParms({OUT_PATH: xml_checked})
+            
             apo = _xml_tree(xml_checked) #type: ignore
             if apo.isvalidtree:
-                prm.set(f'{len(apo.name)-1}')
-                prm_sys.set(f'{len(apo.name)-1}')
-                # check if the selected Flame file is locked
-                if self.isLOCK(xml_checked):
-                    node.setParms({MSG_OUT: MSG_OUT_MSG})
-                    # Lets print to the status bar as well
-                    _MSG = f"OUT: {MSG_OUT_MSG}"
-                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {xml_checked}", 'WARN')
-                else:
-                    node.setParms({MSG_OUT: ''})
-                node.setParms({OUT_ISVALID_FILE: 1})
+                
+                if xml_checked != out_presets_filepath_history:
+                    
+                    # We store the file path only when we know it is a valid Flame file path
+                    node.setCachedUserData('out_presets_filepath', xml_checked)
+                    
+                    prm.set(f'{len(apo.name)-1}')
+                    prm_sys.set(f'{len(apo.name)-1}')
+                    # check if the selected Flame file is locked
+                    if self.isLOCK(xml_checked):
+                        node.setParms({MSG_OUT: MSG_OUT_MSG})
+                        # Lets print to the status bar as well
+                        _MSG = f"OUT: {MSG_OUT_MSG}"
+                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {xml_checked}", 'WARN')
+                    else:
+                        node.setParms({MSG_OUT: ''})
+                        
+                    node.setParms({OUT_ISVALID_FILE: 1})
                 
             else:
+                flam3h_iterator_utils.destroy_cachedUserData(node, 'out_presets_filepath')
+                
                 prm.set('-1')
                 prm_sys.set('-1')
                 node.setParms({MSG_OUT: ''})
                 node.setParms({OUT_ISVALID_FILE: 0})
                 
         else:
+            flam3h_iterator_utils.destroy_cachedUserData(node, 'out_presets_filepath')
+            
             node.setParms({MSG_OUT: ''})
             node.setParms({OUT_ISVALID_FILE: 0})
             # We do not want to print if the file path parameter is empty
             # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
             # if xml:
             #     print(f'{node.name()}.OUT: please select a valid file location.')
-                
-        # Force preset menu to updated
-        prm.eval()
 
 
 
@@ -3741,6 +3768,7 @@ class flam3h_iterator_utils
         * in_presets_menu_off_idx
         * in_presets_filepath
         * out_presets_menu
+        * out_presets_filepath
         * vars_menu_all_simple
             
         Args:
