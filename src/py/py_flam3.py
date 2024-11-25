@@ -401,11 +401,11 @@ class flam3h_varsPRM:
     """
 class flam3h_varsPRM
 
-STATIC METHODS:
+@STATICMETHODS
 * __populate_keys_and_values(keys: list, values: list, item: Union[int, str], id: int) -> None:
 * __populate_linear_list(linear: list, item: str, id: int) -> None:
 
-METHODS:
+@METHODS
 * vars_all(self) -> list:
 * menu_vars_all(self) -> list:
 * menu_vars_no_PRM(self) -> list:
@@ -841,13 +841,13 @@ class flam3h_scripts:
     """
 class flam3h_scripts
 
-STATIC METHODS:
+@STATICMETHODS
 * set_first_instance_global_var(cvex_precision: int) -> None:
 * flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 * flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 * flam3h_set_first_instance_global_var(cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
 
-METHODS:
+@METHODS
 * flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 * flam3h_on_create_set_houdini_session_data(self) -> None:
 * flam3h_on_create_set_prefs_viewport(self) -> None:
@@ -1509,7 +1509,7 @@ class flam3h_general_utils:
     """
 class flam3h_general_utils
 
-STATIC METHODS:
+@STATICMETHODS
 * flash_message(node: hou.SopNode, msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None) -> None:
 * remove_locked_from_flame_stats(node) -> None:
 * houdini_version() -> int:
@@ -1522,7 +1522,7 @@ STATIC METHODS:
 * util_clear_stashed_cam_data() -> None:
 * util_set_stashed_cam() -> None:
 
-METHODS:
+@METHODS
 * menus_refresh_enum_prefs(self) -> None:
 * get_bbox_node_path(self, node_name: str) -> Union[str, None]:
 * util_set_clipping_viewers(self) -> None:
@@ -2985,7 +2985,7 @@ class flam3h_iterator_utils:
     """
 class flam3h_iterator_utils
 
-STATIC METHODS:
+@STATICMETHODS
 * flam3h_on_loaded_set_density_menu(node: hou.SopNode) -> None:
 * sierpinski_settings(node: hou.SopNode) -> None:
 * get_user_data(node: hou.SopNode, data_name: str=FLAM3H_USER_DATA_ITER) -> Union[int, bool]:
@@ -3012,7 +3012,7 @@ STATIC METHODS:
 * menu_T_get_type_icon(w: float) -> str:
 * menu_T_PP_get_type_icon(w: float) -> str:
 
-METHODS:
+@METHODS
 * iterator_affine_scale(self) -> None:
 * iterator_post_affine_scale(self) -> None:
 * iterator_FF_affine_scale(self) -> None:
@@ -6627,7 +6627,7 @@ class flam3h_palette_utils:
     """
 class flam3h_palette_utils
 
-STATIC METHODS:
+@STATICMETHODS
 * build_ramp_palette_default(ramp_parm: hou.Parm) -> None:
 * build_ramp_palette_temp(ramp_tmp_parm: hou.Parm) -> None:
 * build_ramp_palette_error() -> tuple[list, list, list]:
@@ -6647,7 +6647,7 @@ STATIC METHODS:
 * menu_cp_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
 * menu_cp_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
 
-METHODS:
+@METHODS
 * cp_preset_name_set(self) -> None:
 * menu_cp_presets_data(self) -> list:
 * menu_cp_presets(self) -> list:
@@ -8119,7 +8119,7 @@ class flam3h_about_utils():
     """
 class flam3h_about_utils
 
-METHODS:
+@METHODS
 * flam3h_about_msg(self) -> None:
 * flam3h_about_plugins_msg(self) -> None:
 * flam3h_about_web_msg(self) -> None:
@@ -8401,7 +8401,7 @@ class flam3h_ui_msg_utils():
     """
 class flam3h_ui_msg_utils
 
-METHODS:
+@METHODS
 * ui_xaos_infos(self) -> None:
 * ui_OUT_presets_name_infos(self) -> None:
 * ui_active_iterator_infos(self) -> None:
@@ -9028,7 +9028,7 @@ class _xml:
     """
 class _xml
 
-METHODS:
+@METHODS
 * get_name(self, key=XML_XF_NAME) -> tuple
 
     """    
@@ -9110,10 +9110,10 @@ class _xml_tree:
     """
 class _xml_tree
 
-STATIC METHODS:
+@STATICMETHODS
 * xmlfile_root_chk(xmlfile: Union[str, None], clipboard: bool=False) -> Union[str, None]:
 
-METHODS:
+@METHODS
 * get_name(self, key: str=XML_XF_NAME) -> tuple:
 * __get_name_val_str(self, key: str, _DEFAULT: Union[str, list]=[]) -> tuple:
 * __get_name_curve_val_str(self, key: str, _DEFAULT: Union[str, list]=[]) -> tuple:
@@ -9388,7 +9388,7 @@ class in_flame(_xml_tree):
     """
 class in_flame
 
-STATIC METHODS:
+@STATICMETHODS
 * xf_val_cleanup_split_str(val: str, default_val: str='0') -> str:
 * xf_val_cleanup_str(val: str, default_val: str='0') -> str:
 * xf_list_cleanup(affine: list, default_val: str='0') -> list:
@@ -9396,7 +9396,7 @@ STATIC METHODS:
 * affine_coupling(affine: list, key: str='', mp_idx: Union[int, None]=None, type: int=0) -> list:
 * check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
 
-METHODS:
+@METHODS
 * __is_valid_idx(self, idx: int) -> int:
 * __get_xforms(self, idx: int, key: str) -> Union[tuple, None]:
 * __get_xaos(self, xforms: Union[tuple, None], key: str=XML_XF_XAOS) -> Union[tuple, None]:
@@ -10280,7 +10280,7 @@ class in_flame_utils:
     """
 class in_flame_utils
 
-STATIC METHODS:
+@STATICMETHODS
 * in_util_key_name_isalnum(key_name: str) -> str:
 * in_util_make_NULL(name: Union[str, list[str], tuple[str]]) -> Union[str, list[str], tuple[str]]:
 * in_util_make_VAR(name: Union[str, list[str], tuple[str]]) -> Union[Union[str, list[str]], None]:
@@ -10435,7 +10435,7 @@ STATIC METHODS:
 * menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
 * menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
 
-METHODS:
+@METHODS
 * in_flam3h_set_iterators(self, 
                         mode: int, 
                         node: hou.SopNode, 
@@ -10466,8 +10466,7 @@ METHODS:
 * in_to_flam3h_sys(self) -> None:
 * in_to_flam3h(self) -> None:
 * in_to_flam3h_render_properties_only(self) -> None:
-
-reset_IN(self, mode: int=0) -> None:
+* reset_IN(self, mode: int=0) -> None:
 
     """
     
@@ -13639,7 +13638,7 @@ class out_flame_utils:
     """
 class out_flame_utils
 
-STATIC METHODS:
+@STATICMETHODS
 * out_render_curves_set_data_defaults(node: hou.SopNode) -> None:
 * out_render_curves_retrive_data(node: hou.SopNode) -> None:
 * out_render_curves_set_and_retrieve_defaults(node: hou.SopNode) -> None:
@@ -13669,7 +13668,7 @@ STATIC METHODS:
 * out_collect_var_section_names(node: hou.SopNode, var_section: str="VAR") -> Union[list[str], None]:
 * out_collect_var_section_names_dict(node: hou.SopNode, mode: int=False, var_section="VAR") -> Union[dict[str, list[str]], bool]:
 
-METHODS:
+@METHODS
 * out_palette_256_plus_check(self) -> None:
 * out_presets_get_selected_menu_label(self) -> Union[str, None]:
 * out_presets_copy_menu_label_callback(self) -> None:
