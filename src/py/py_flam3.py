@@ -5193,21 +5193,21 @@ METHODS:
         # This is to make sure the hou.session's data is at least initialized.
         self.flam3h_init_hou_session_iterator_data(node)
         
+        # Adding ability to reset the current iterator to its default values. 
         if self.kwargs["ctrl"]:
-            with hou.undos.group(f"FLAM3H paste iterator data CTRL {id}"): # type: ignore
-                self.prm_paste_CTRL(id)
+            with hou.undos.group(f"FLAM3H reset iterator {id}"): # type: ignore
+                self.flam3h_reset_iterator()
+                _MSG = f"{node.name()}: Iterator {id} -> RESET"
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["shift"]:
             with hou.undos.group(f"FLAM3H unmark iterator SHIFT {id}"): # type: ignore
                 self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
                 self.prm_paste_SHIFT(id)
-                
-        # Adding ability to reset the current iterator to its default values.      
+                     
         elif self.kwargs["alt"]:
-            with hou.undos.group(f"FLAM3H reset iterator {id}"): # type: ignore
-                self.flam3h_reset_iterator()
-                _MSG = f"{node.name()}: Iterator {id} -> RESET"
-                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            with hou.undos.group(f"FLAM3H paste iterator data CTRL {id}"): # type: ignore
+                self.prm_paste_CTRL(id)
         
         else:
             if self.exist_user_data(node) and int(self.get_user_data(node))==id and id==hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node==hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
@@ -5345,20 +5345,20 @@ METHODS:
         # This is to make sure the hou.session's data is at least initialized.
         self.flam3h_init_hou_session_ff_data(node)
         
+        # Adding ability to reset the FF to its default values. 
         if self.kwargs["ctrl"]:
-            with hou.undos.group(f"FLAM3H paste FF data CTRL"): # type: ignore
-                self.prm_paste_FF_CTRL()
+            with hou.undos.group(f"FLAM3H FF RESET"): # type: ignore
+                self.reset_FF()
+                _MSG = f"{node.name()}: FF RESET"
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                 
         elif self.kwargs["shift"]:
             with hou.undos.group(f"FLAM3H unmark FF SHIFT"): # type: ignore
                 self.prm_paste_FF_SHIFT()
 
-        # Adding ability to reset the FF to its default values. 
         elif self.kwargs["alt"]:
-            with hou.undos.group(f"FLAM3H FF RESET"): # type: ignore
-                self.reset_FF()
-                _MSG = f"{node.name()}: FF RESET"
-                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+            with hou.undos.group(f"FLAM3H paste FF data CTRL"): # type: ignore
+                self.prm_paste_FF_CTRL()
         
         else:
             if self.exist_user_data(node, FLAM3H_USER_DATA_FF) and hou.session.FLAM3H_MARKED_FF_CHECK is not None and node==hou.session.FLAM3H_MARKED_FF_NODE: # type: ignore
