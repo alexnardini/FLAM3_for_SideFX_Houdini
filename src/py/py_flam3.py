@@ -3229,6 +3229,7 @@ METHODS:
         
         Args:
             node(hou.SopNode): FLAM3H node to set
+            value(str): The value to set this user data to.
             data(str): Default to: FLAM3H_USER_DATA_ITER. The name of the data we want to set the comment for. 
 
         Returns:
@@ -3436,6 +3437,7 @@ METHODS:
                     prm_from = flam3node.parmTuple(f"{prm[0]}{id_from}")
                     prm_to = node.parmTuple(f"{prm[0]}{id}")
                     [[prm_to[prm_idx].setKeyframe(k) for k in p.keyframes()] if len(p.keyframes()) else prm_to[prm_idx].set(p.eval()) for prm_idx, p in enumerate(prm_from)]
+                    
                     # prm_idx = 0
                     # for p in prm_from:
                     #     if len(p.keyframes()):
@@ -3443,6 +3445,7 @@ METHODS:
                     #     else:
                     #         prm_to[prm_idx].set(p.eval())
                     #     prm_idx += 1
+                    
                 else:
                     prm_from = flam3node.parm(f"{prm[0]}{id_from}")
                     prm_to = node.parm(f"{prm[0]}{id}")
@@ -3757,7 +3760,7 @@ METHODS:
     
     @staticmethod
     def destroy_cachedUserData_all_f3h(node, data_name: str) -> None:
-        """This is a one off just for this data and scope
+        """Destroy cached user data an all FLAM3H node in the current Houdini session.
 
         Args:
             node(hou.SopNode): The current FLAM3H node being loaded in the hip file.
@@ -4547,7 +4550,7 @@ METHODS:
         
         Args:
             (self):
-            hipLoad(bool): Default to False. To use when loading a hip file. Default to: False
+            hipLoad(bool): Default to False. To use when loading a hip file.
             
         Returns:
             (None):
@@ -7644,7 +7647,7 @@ METHODS:
 
         Args:
             (self):
-            use_kwargs(bool): Default to: True. Use the houdini kwargs arguments or not. Defaults to True. This is being done as when this definition run from a menu parameter the kwargs arguments are not available. 
+            use_kwargs(bool): Default to: True. Use the houdini kwargs arguments or not. This is being done as when this definition run from a menu parameter the kwargs arguments are not available. 
         
         Returns:
             (None):
