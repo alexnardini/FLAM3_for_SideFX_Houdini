@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.5.97 - Gold
+#version: 1.5.98 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -549,7 +549,7 @@ OUT Save:
 palette 256+ ON [Icon:TOP/xmlinput]:
     #id: SYS
     *`[256+]`*<br /><br />
-    when the preferences option *`palette 256+`* toggle is ON, this text in the SYS tab will signal it and when OFF it will disappear.
+    when the *PREFS options* tab toggle *`palette 256+`* is ON, this text in the SYS tab will signal it and when OFF it will disappear.
 
 
 :box:
@@ -840,9 +840,8 @@ menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     TIP:
         #display: orange
         When authoring your Flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3H
-        remeber that the variation *`pre_gaussian_blur`* will be remapped to *`pre_blur`* on Flame load by default.
-        
-        You can change this beahavior and load the *`pre_gaussian_blur`* variation instead, if any, inside the IN Tab.
+        remeber that the variation *`pre_gaussian_blur`* will be remapped to *`pre_blur`* on Flame load by default if it is the first one in the list of applied pre_variations.
+
     
 menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
@@ -1749,7 +1748,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.5.97" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
+  <flame version="FLAM3H-WIN-1.5.98" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -1857,7 +1856,7 @@ Save Flame:
         
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*:
     
-        - When saving out Flame files, if you created a palette with more than *`256`* colors, for example with *`1024`* color keys and want to save them all to keep all the subtle color changes, turn ON the Preferences tab option -> *`palette 256+`*. 
+        - When saving out Flame files, if you created a palette with more than *`256`* colors, for example with *`1024`* color keys and want to save them all to keep all the subtle color changes, turn ON the *PREFS options* tab toggle -> *`palette 256+`*. 
         
     NOTE:
         Keep in mind that you can not utilize a variation more than once in any of the available variation's types. 
@@ -1980,7 +1979,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.5.97" ... >
+          <flame version="FLAM3H-WIN-1.5.98" ... >
               ...
         }}}
         
@@ -1989,7 +1988,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.5.97" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.5.98" ... >
               ...
         }}}
         
@@ -2773,7 +2772,7 @@ _A list of all parametric variations and their parametric parameter's names._
     *FLAM3H Rendering tips*. _A few small tips to render your fractal Flame images._
 
 
-== Rendering: Workflow tips == (REND)
+== Rendering: Workflow tips == (RENDWFTIPS)
     
 :box:
     #display: rounded gray
@@ -2799,7 +2798,7 @@ _A list of all parametric variations and their parametric parameter's names._
         This is perfect for cloning FLAM3H nodes and layering them into a single fractal Flame to improve the quality of the final result.
 
 
-== Rendering: Point size == (REND)
+== Rendering: Point size == (RENDPSTIPS)
     
 :box:
     #display: rounded gray
@@ -2814,7 +2813,7 @@ _A list of all parametric variations and their parametric parameter's names._
     As a general rule, the more points, the smaller the *`@pscale`* or *`@widths`* values need to be.
 
 
-== Rendering: Helpful settings == (REND)
+== Rendering: Helpful settings == (RENDHSTIPS)
     
 :box:
     #display: rounded gray
@@ -2826,8 +2825,65 @@ _A list of all parametric variations and their parametric parameter's names._
     
     - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
     
+:box:
+    #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Points color values accumulation tips:
+        #id: Point value accumulation tips
+
     It will be crucial to experiment with the CP Ramp HSV values, notably the "*S*" (_Saturation_) and, most crucially, the "*V*" (_Value_).
     The more dense portions of the Flame will get brighter if the Value in HSV is increased from the default value of *`1`*(one), bringing the appearance of the Flame closer to that of a typical fractal Flame.
+
+    (_The following is valid for the time being and it will be subject to change sometime in the future_)
+
+    Since this implementation was crafted within Houdini,<br />
+    it chose to employ an alternative strategy to accumulate point color values while utilizing some of Houdini's technology rather than adhering to the same procedure as the original `Flam3` *`C`* source code.<br />
+    (_building a buffer with the histogram, or summation/accumulation, of every point in every pixel_).
+
+    We will do something similar—not exactly the same, but close.<br />
+
+    Rather than doing it ourselves,<br />
+    we will allow Houdini and the selected renderer do it for us in some way, and it will happen at render time.<br />
+
+    To illustrate the idea and approach taken, consider the following illustration:
+
+    [Image:opdef:.?FLAM3H_DOC_pixels_grid.svg]
+
+    The above illustration shows a grid of pixels,<br />
+    with the one we'll utilize in this example being the one that is marked in red.<br />
+
+    A pixel is really the lowest size that may exist in a picture in 2D applications; nothing can fit inside of one.
+
+    In Houdini (_or any other 3D application_), a pixel is the smallest unit of measurement in the final output image.<br />
+    However, during rendering, it can be thought of as a tiny window to the 3D virtual world we are processing;<br />
+    as a result, a pixel can be interpreted as a small domain with an area, through which we can see a tiny portion of that 3D virtual world.
+
+    The fractal Flame points have an attribute call: *`@pscale`* which define the real dimension of each point inside this world:
+
+    [Image:opdef:.?FLAM3H_DOC_point_dimension.svg]
+
+    Now lets set the "*V*" (_Value_) in the HSV paramater to *`4`*(_four_) and lets zoom into the highlighted pixel.<br />
+
+    We can now see some points of the fractal Flame we are rendering, as illustrated in the following picture:
+
+    [Image:opdef:.?FLAM3H_DOC_pixel_view.svg]
+
+    Those points, in relation to the area of the pixel/window, have a certain percentage of coverage.<br />
+    In this example, the final color of that pixel will be somewhere in the ball park of *`~80%`* red and *`~20%`* green 
+    and its final value, assuming the empty space have a value of *`0`*(_Zero_) will be in the ball park of *`~0.8`* or similar.
+
+    However,<br />
+    if more and more points happen to be visible through that pixel/window like in the following picture:
+
+    [Image:opdef:.?FLAM3H_DOC_pixel_fill.svg]
+
+    the final color of that pixel will now be in the ball park of *`~95%`* green and *`~5%`* red and its value in the ball park of *`~3.8`*, hence simulating a point values accumulation algorithm at no extra cost on our end.<br />
+    Setting the "*V*" (_Value_) in the HSV paramater at the beginning to *`4`*(_four_) it was like instructing the renderer about the final max value the image will have at any given pixel if it come to that.
+
+    That's why it is important to play with the "*V*" (_Value_) in the HSV paramater and the points *`@pscale`* value.
+
+    Using the output image *`Alpha`* channel as mask to brightnen further the more dense areas of the fractal will be the cherry on top of the cake.
+
+
 
 
 :box:
