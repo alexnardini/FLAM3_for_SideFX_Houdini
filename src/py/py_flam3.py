@@ -1345,7 +1345,7 @@ class flam3h_scripts
             
             # init CP PRESETS: mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
             flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS(0)
-            # inti IN PRESETS: mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
+            # init IN PRESETS: mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
             flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
             # init OUT PRESETS
             flam3h_general_utils(self.kwargs).flam3h_init_presets_OUT_PRESETS()
