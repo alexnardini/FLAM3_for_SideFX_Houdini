@@ -1575,8 +1575,8 @@ class flam3h_general_utils
         Args:
             node(hou.SopNode): the current FLAM3H node.
             msg(Union[str, None]): The string message to print or None.
-            timer(float): How long the printed message stay before it fade away. Default ot: FLAM3H_FLASH_MESSAGE_TIMER
-            img(str): specifies an icon or image file that should be displayed along with the text specified in the msg argument.
+            timer(float): Default to: FLAM3H_FLASH_MESSAGE_TIMER. How long the printed message stay before it fade away.
+            img(Union[str, None]): Default to none. specifies an icon or image file that should be displayed along with the text specified in the msg argument.
 
         Returns:
             (None):
