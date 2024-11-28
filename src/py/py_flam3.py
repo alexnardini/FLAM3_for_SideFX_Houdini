@@ -3099,9 +3099,9 @@ class flam3h_iterator_utils
 * flam3h_reset_iterator(self) -> None:
 * auto_set_xaos(self) -> None:
 * iterators_count(self) -> None:
-* iterator_keep_last_vactive(self) -> None:
-* iterator_keep_last_vactive_STAR(self) -> None:
-* iterator_keep_last_weight(self) -> None:
+* __iterator_keep_last_vactive(self) -> None:
+* __iterator_keep_last_vactive_STAR(self) -> None:
+* __iterator_keep_last_weight(self) -> None:
 * iterator_vactive_and_update(self) -> None:
     """    
     
@@ -6504,7 +6504,7 @@ class flam3h_iterator_utils
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
 
 
-    def iterator_keep_last_vactive(self) -> None:
+    def __iterator_keep_last_vactive(self) -> None:
         """ NOT USED ANYMORE
                 Since this case is now being addressed directly in the CVEX code,
                 it is not necessary anymore to revert the last iterator to being active anymore.
@@ -6548,7 +6548,7 @@ class flam3h_iterator_utils
             flam3h_general_utils.flash_message(node, f"iterator {str(id)} -> back to being Active")
 
 
-    def iterator_keep_last_vactive_STAR(self) -> None:
+    def __iterator_keep_last_vactive_STAR(self) -> None:
         """ NOT USED ANYMORE
                 Since this case is now being addressed directly in the CVEX code,
                 it is not necessary anymore to revert the last iterator to being active anymore.
@@ -6569,10 +6569,10 @@ class flam3h_iterator_utils
         id = self.kwargs['script_multiparm_index']
         vactive_prm_name = f"vactive_{str(id)}"
         flam3h_general_utils(self.kwargs).flam3h_toggle(vactive_prm_name)
-        self.iterator_keep_last_vactive()
+        self.__iterator_keep_last_vactive()
 
 
-    def iterator_keep_last_weight(self) -> None:
+    def __iterator_keep_last_weight(self) -> None:
         """ NOT USED ANYMORE
                 Since this case is now being addressed directly in the CVEX code,
                 it is not necessary anymore to revert the value to a non-zero value anymore.
@@ -7190,7 +7190,6 @@ class flam3h_palette_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            menu=[]
             filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
             
             if os.path.exists(filepath) and node.parm(CP_ISVALID_FILE).eval() and self.node.parm(CP_ISVALID_PRESET).eval():
@@ -7198,6 +7197,7 @@ class flam3h_palette_utils
                 with open(filepath) as f:
                     menuitems = json.load(f).keys()
                     
+                menu=[]
                 [self.menu_cp_presets_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_cp_presets_loop(node, menu, i, item) for i, item in enumerate(menuitems)]
                 node.setCachedUserData('cp_presets_menu', menu)
                 return menu
@@ -7264,7 +7264,6 @@ class flam3h_palette_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            menu=[]
             filepath = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).eval())
 
             if self.isJSON_F3H(node, filepath, False)[-1] and node.parm(CP_ISVALID_FILE).eval() and not node.parm(CP_ISVALID_PRESET).eval():
@@ -7272,6 +7271,7 @@ class flam3h_palette_utils
                 with open(filepath) as f:
                     menuitems = json.load(f).keys()
                     
+                menu=[]
                 [self.menu_cp_presets_empty_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_cp_presets_empty_loop(node, menu, i, item) for i, item in enumerate(menuitems)]
                 node.setCachedUserData('cp_presets_menu_off', menu)
                 return menu
@@ -12606,12 +12606,11 @@ class in_flame_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-
-            menu=[]
             xml = os.path.expandvars(node.parm(IN_PATH).eval())
 
             if _xml_tree(xml).isvalidtree and node.parm(IN_ISVALID_FILE).eval() and node.parm(IN_ISVALID_PRESET).eval():
                 
+                menu=[]
                 [self.menu_in_presets_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_in_presets_loop(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
                 node.setCachedUserData('in_presets_menu', menu)
                 return menu
@@ -12680,12 +12679,11 @@ class in_flame_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            
-            menu=[]
             xml = os.path.expandvars(node.parm(IN_PATH).eval())
 
             if _xml_tree(xml).isvalidtree and node.parm(IN_ISVALID_FILE).eval() and not node.parm(IN_ISVALID_PRESET).eval():
                     
+                menu=[]
                 [self.menu_in_presets_empty_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_in_presets_empty_loop(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
                 node.setCachedUserData('in_presets_menu_off', menu)
                 return menu
@@ -13680,7 +13678,7 @@ class out_flame_utils
 * out_util_round_float(val: float) -> str:
 * out_util_round_floats(val_list: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
 * out_util_check_duplicate_var_section(vars: list) -> bool:
-* out_util_iterators_vars_duplicate(vars: list) -> list:
+* __out_util_iterators_vars_duplicate(vars: list) -> list:
 * out_util_vars_duplicate(vars: list) -> list:
 * out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
 * out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
@@ -14170,7 +14168,7 @@ class out_flame_utils
     
     # not used
     @staticmethod
-    def out_util_iterators_vars_duplicate(vars: list) -> list:
+    def __out_util_iterators_vars_duplicate(vars: list) -> list:
         """ NOT USED ANYMORE
         Collect duplicate variation's names per each iterator.
 
@@ -15250,21 +15248,22 @@ class out_flame_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            menu=[]
             xml = os.path.expandvars(node.parm(OUT_PATH).eval())
-            head_tail = os.path.split(xml)
+            
             # For the OUT Tab menu presets we are forced to use the class: _xml_tree(...)
             # Instead of the lightweight version class: _xml(...)
             apo = _xml_tree(xml)
             
             if apo.isvalidtree:
                     
+                menu=[]
                 [self.menu_out_presets_loop_enum(menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_out_presets_loop(menu, i, item) for i, item in enumerate(apo.name)]
                 node.setCachedUserData('out_presets_menu', menu)
                 return menu
             
             else:
                 flam3h_iterator_utils.destroy_cachedUserData(node, 'out_presets_menu')
+                head_tail = os.path.split(xml)
                 if xml and os.path.isdir(head_tail[0]) and not os.path.isfile(xml):
                     return MENU_PRESETS_SAVEONE
                 elif xml and not os.path.isfile(xml):
