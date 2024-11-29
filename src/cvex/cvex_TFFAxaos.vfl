@@ -72,7 +72,8 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
     if(len(IW) == 0){
         append(IW, 1e-08);
         append(sIDX, '1');
-        warning("\nAll iterators are inactive or their Weight set to: 0(Zero)\nOne iterator's Weight internally set to: 1e-08");
+        if(inum) warning("\nAll iterators are inactive or their Weight set to: 0(Zero)\nOne iterator's Weight internally set to: 1e-08");
+        else warning("\nZERO ITERATORS");
     }
     
     // XAOS
@@ -95,7 +96,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
             append(varxaos_strip, strip(vx));
         }
         int isXAOS = (toupper(varxaos_strip[0])=="XAOS") ? 1 : 0;
-        if(!isXAOS) warning(concat("\nIterator: ", itoa(i+1), " -> without a valid \" xaos: \" command string."));
+        if(!isXAOS){ if(inum) warning(concat("\nIterator: ", itoa(i+1), " -> without a valid \" xaos: \" command string.")); }
         int isDigit = 1;
         foreach( string vxs; varxaos_strip[1:]){
             string new_vxs = join(split(vxs, "."), "");
