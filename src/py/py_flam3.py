@@ -1639,11 +1639,12 @@ class flam3h_general_utils
             (None):
             
         Returns:
-            (str): Possible outcomes are: WIN (windows)
-                                          LNX (linux)
-                                          MAC
-                                          JAVA
-                                          UNKNW
+            (str): Possible outcomes are: 
+            * WIN (windows)
+            * LNX (linux)
+            * MAC
+            * JAVA
+            * UNKNW
         """        
         sys = platform_system()
         sys_options = {'Windows': 'WIN', 'Linux': 'LNX', 'Darwin': 'MAC', 'Java': 'JAVA'}
