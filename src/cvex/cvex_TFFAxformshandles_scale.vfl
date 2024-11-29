@@ -1,0 +1,63 @@
+/*  
+ /  Tested on:  Houdini 19.x
+ /              Houdini 19.5
+ /              Houdini 20.x
+ /              Houdini 20.5
+ /
+ /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
+ /  Author:     Alessandro Nardini
+ /  date:       November 2024, Last revised November 2024
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm"
+ /  Authors:    Scott Draves, Erik Reckase
+ /
+ /  Paper:      https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Github:     https://github.com/scottdraves/flam3
+ /  Date:       December 2002, Last revised May 2015
+ /
+ /  Name:       FLAM3 XFORMS HANDLES TM "CVEX"
+ /
+ /  Comment:    xforms iterators affine handles viz.
+*/
+
+
+
+#pragma opname  "TFFAxformshandles"
+#pragma oplabel "TFFAxformshandles"
+#pragma opmininputs 1
+#pragma opmaxinputs 2
+
+#include <genome.h>
+
+
+void _FLAM3HANDLES_SCALE(const string _bound_sIDX[]; const vector _bound_P; float _bound_pscale)
+{
+    int idx = detail(1, "iteration");
+    matrix xf, xf_pre, xf_post;
+
+    // Build genome handle
+    string sIDX[]=_bound_sIDX;
+    gemhandles GEMH; GEMH->gemhandlesBuild(sIDX);
+    // cast HANDLES 
+    int PPL[]; /* CAST */ PPL=GEMH.PPL;
+    vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEMH.x; y=GEMH.y; o=GEMH.o; px=GEMH.px; py=GEMH.py; po=GEMH.po;
+
+    xf_pre = set((vector)x[idx], (vector)y[idx], {0, 0, 0}, (vector)o[idx]);
+    xf = xf_pre;
+    if(PPL[idx]){
+        xf_post = set((vector)px[idx], (vector)py[idx], {0, 0, 0}, (vector)po[idx]);
+        xf = xf_pre * xf_post;
+    }
+    // OUT
+    _bound_pscale = avg((vector2)cracktransform(0, 0, 2, 0, xf));
+}
+
+cvex
+FLAM3HANDLES_SCALE(  const  string sIDX[] = {};
+	                const vector P      = 0;
+                    export float pscale = 0)
+{
+    _FLAM3HANDLES_SCALE(sIDX, P, pscale);
+}
