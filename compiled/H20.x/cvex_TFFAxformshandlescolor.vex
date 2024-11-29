@@ -1,0 +1,98 @@
+;_name	FLAM3HANDLESCOLOR
+; ModuleID = 'FLAM3HANDLESCOLOR'
+source_filename = "FLAM3HANDLESCOLOR"
+
+@0 = private constant [3 x i8] c"Cd\00"
+@1 = private constant [0 x i8*] zeroinitializer
+@2 = private constant [10 x i8] c"iteration\00"
+@color = external global <3 x double>
+@3 = private constant [6 x i8] c"color\00"
+
+; Function Attrs: alwaysinline nounwind
+define private void @"_FLAM3HANDLESCOLOR@[SV"(i8*** %_bound_sIDX, <3 x double>* %_bound_color) #0 {
+__llvm_entry:
+  %return = call <3 x double> @"point@VISI"(i64 0, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @0, i64 0, i64 0), i64 10)
+  %_bound_sIDX1 = load i8**, i8*** %_bound_sIDX
+  %return3 = call i64 @"detail@IIS"(i64 1, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @2, i64 0, i64 0))
+  %return4 = call i8* @"getcomp@S[SI"(i8** %_bound_sIDX1, i64 %return3)
+  %return5 = call i64 @"atoi@IS"(i8* %return4)
+  %cast = sitofp i64 %return5 to double
+  %return6 = call double @"rand@FF"(double %cast)
+  %return8 = call <3 x double> @"rgbtohsv@VV"(<3 x double> %return)
+  %return10 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %return8, double %return6, i64 0)
+  %output = extractvalue { double, <3 x double> } %return10, 1
+  %return13 = call <3 x double> @"hsvtorgb@VV"(<3 x double> %output)
+  store <3 x double> %return13, <3 x double>* %_bound_color
+  ret void
+}
+
+; Function Attrs: nounwind
+declare <3 x double> @"point@VISI"(i64, i8*, i64) #1
+
+; Function Attrs: nounwind
+declare i64 @"detail@IIS"(i64, i8*) #1
+
+; Function Attrs: nounwind readnone
+declare i8* @"getcomp@S[SI"(i8**, i64) #2
+
+; Function Attrs: nounwind readnone
+declare i64 @"atoi@IS"(i8*) #2
+
+; Function Attrs: nounwind
+declare double @"rand@FF"(double) #1
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"rgbtohsv@VV"(<3 x double>) #2
+
+; Function Attrs: alwaysinline
+define private { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %rw11, double %rw22, i64 %rw33) #3 {
+__llvm_entry:
+  %rw16 = call <3 x double> @"setcomp@VFI"(<3 x double> %rw11, double %rw22, i64 0)
+  %mrv = insertvalue { double, <3 x double> } undef, double %rw22, 0
+  %mrv9 = insertvalue { double, <3 x double> } %mrv, <3 x double> %rw16, 1
+  ret { double, <3 x double> } %mrv9
+}
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #2
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"hsvtorgb@VV"(<3 x double>) #2
+
+; Function Attrs: nounwind
+define void @FLAM3HANDLESCOLOR(i8** %sIDX, <3 x double> %color) #1 {
+__llvm_entry:
+  %"<color>" = alloca <3 x double>
+  %0 = alloca i8**
+  store <3 x double> %color, <3 x double>* %"<color>"
+  store i8** %sIDX, i8*** %0
+  call void @"_FLAM3HANDLESCOLOR@[SV"(i8*** %0, <3 x double>* %"<color>")
+  %evalue = load <3 x double>, <3 x double>* %"<color>"
+  %gvalue = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @3, i64 0, i64 0), <3 x double> %evalue) #4
+  store <3 x double> %gvalue, <3 x double>* @color
+  ret void
+}
+
+declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
+
+define void @__shader_default_arguments() {
+__llvm_entry:
+  call void @FLAM3HANDLESCOLOR(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @1, i64 0, i64 0), <3 x double> zeroinitializer)
+  ret void
+}
+
+attributes #0 = { alwaysinline nounwind }
+attributes #1 = { nounwind }
+attributes #2 = { nounwind readnone }
+attributes #3 = { alwaysinline }
+attributes #4 = { nounwind readonly }
+
+!context = !{!0}
+!version = !{!1}
+!precision = !{!2}
+
+!0 = !{!"cvex"}
+!1 = !{!"20.5.370"}
+!2 = !{!"64"}
+
+;_code_end

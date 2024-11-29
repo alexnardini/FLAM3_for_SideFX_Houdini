@@ -1,0 +1,469 @@
+;_name	FLAM3HANDLESFF
+; ModuleID = 'FLAM3HANDLESFF'
+source_filename = "FLAM3HANDLESFF"
+
+%gemhandlesFF = type { i64, <2 x double>, <2 x double>, <2 x double>, <2 x double>, <2 x double>, <2 x double> }
+
+@0 = private constant [10 x i8] c"../../ffx\00"
+@1 = private constant [10 x i8] c"../../ffy\00"
+@2 = private constant [12 x i8] c"../../ffang\00"
+@3 = private constant [10 x i8] c"../../ffo\00"
+@4 = private constant [15 x i8] c"../../ffdopost\00"
+@5 = private constant [11 x i8] c"../../ffpx\00"
+@6 = private constant [11 x i8] c"../../ffpy\00"
+@7 = private constant [13 x i8] c"../../ffpang\00"
+@8 = private constant [11 x i8] c"../../ffpo\00"
+@P = external global <3 x double>
+@9 = private constant [2 x i8] c"P\00"
+
+; Function Attrs: nounwind readnone
+declare double @"div@FF"(double, double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FUI"(<2 x double>, i64) #0
+
+; Function Attrs: nounwind readnone
+declare double @"atan2@FFF"(double, double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"sqrt@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"neg@FF"(double) #0
+
+; Function Attrs: nounwind
+declare double @"clamp@FFFF"(double, double, double) #1
+
+; Function Attrs: nounwind readnone
+declare double @"tan@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"neg@II"(i64) #0
+
+; Function Attrs: nounwind readnone
+declare double @"floor@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"sin@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare double @"cos@FF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #0
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FVI"(<3 x double>, i64) #0
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"setcomp@UFI"(<2 x double>, double, i64) #0
+
+; Function Attrs: nounwind
+declare double @"abs@FF"(double) #1
+
+; Function Attrs: nounwind
+declare double @"nrandom@F:S"(i8*) #1
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"set@UFF"(double, double) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"isfinite@IF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"not@II"(i64) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"isnan@IF"(double) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"or@III"(i64, i64) #0
+
+; Function Attrs: nounwind
+declare double @"length@FU"(<2 x double>) #1
+
+; Function Attrs: alwaysinline nounwind
+define private void @"affine@UUUU"(<2 x double>* %p, <2 x double>* %x, <2 x double>* %y, <2 x double>* %o) #2 {
+__llvm_entry:
+  %x1 = load <2 x double>, <2 x double>* %x
+  %return = call double @"getcomp@FUI"(<2 x double> %x1, i64 0)
+  %p2 = load <2 x double>, <2 x double>* %p
+  %return3 = call double @"getcomp@FUI"(<2 x double> %p2, i64 0)
+  %output = fmul double %return, %return3
+  %y4 = load <2 x double>, <2 x double>* %y
+  %return5 = call double @"getcomp@FUI"(<2 x double> %y4, i64 0)
+  %return7 = call double @"getcomp@FUI"(<2 x double> %p2, i64 1)
+  %output8 = fmul double %return5, %return7
+  %output9 = fadd double %output, %output8
+  %o10 = load <2 x double>, <2 x double>* %o
+  %return11 = call double @"getcomp@FUI"(<2 x double> %o10, i64 0)
+  %output12 = fadd double %output9, %return11
+  %return14 = call double @"getcomp@FUI"(<2 x double> %x1, i64 1)
+  %output17 = fmul double %return14, %return3
+  %return19 = call double @"getcomp@FUI"(<2 x double> %y4, i64 1)
+  %output22 = fmul double %return19, %return7
+  %output23 = fadd double %output17, %output22
+  %return25 = call double @"getcomp@FUI"(<2 x double> %o10, i64 1)
+  %output26 = fadd double %output23, %return25
+  %return27 = call <2 x double> @"set@UFF"(double %output12, double %output26)
+  store <2 x double> %return27, <2 x double>* %p
+  ret void
+}
+
+; Function Attrs: alwaysinline nounwind
+define private void @"affineRot@2UUF"(<4 x double>* %m2, <2 x double>* %x, <2 x double>* %y, double* %ang) #2 {
+__llvm_entry:
+  %x1 = load <2 x double>, <2 x double>* %x
+  %y2 = load <2 x double>, <2 x double>* %y
+  %return = call <4 x double> @"set@2UU"(<2 x double> %x1, <2 x double> %y2)
+  store <4 x double> %return, <4 x double>* %m2
+  %ang4 = load double, double* %ang
+  %output = call <4 x double> @"rotate@2F"(<4 x double> %return, double %ang4)
+  store <4 x double> %output, <4 x double>* %m2
+  ret void
+}
+
+; Function Attrs: nounwind
+declare <4 x double> @"set@2UU"(<2 x double>, <2 x double>) #1
+
+; Function Attrs: nounwind readnone
+declare <4 x double> @"rotate@2F"(<4 x double>, double) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"lt@III"(i64, i64) #0
+
+; Function Attrs: nounwind readnone
+declare i8* @"getcomp@S[SI"(i8**, i64) #0
+
+; Function Attrs: nounwind
+declare i8** @"append@[SS"(i8**, i8*) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"len@I[S"(i8**) #0
+
+; Function Attrs: nounwind readnone
+declare i64* @"resize@[II"(i64*, i64) #0
+
+; Function Attrs: nounwind readnone
+declare double* @"resize@[FI"(double*, i64) #0
+
+; Function Attrs: nounwind readnone
+declare <2 x double>* @"resize@[UI"(<2 x double>*, i64) #0
+
+; Function Attrs: nounwind readnone
+declare i8* @"concat@SSS"(i8*, i8*) #0
+
+; Function Attrs: nounwind readnone
+declare double @"chf@FS"(i8*) #0
+
+; Function Attrs: nounwind readnone
+declare { double, double* } @"setcomp@F[FFI"(double*, double, i64) #0
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@F[FI"(double*, i64) #0
+
+; Function Attrs: nounwind readnone
+declare i8* @"chs@SS"(i8*) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"atoi@IS"(i8*) #0
+
+; Function Attrs: nounwind readnone
+declare { i64, i64* } @"setcomp@I[III"(i64*, i64, i64) #0
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"chu@US"(i8*) #0
+
+; Function Attrs: nounwind
+declare double @"radians@FF"(double) #1
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@F2II"(<4 x double>, i64, i64) #0
+
+; Function Attrs: nounwind readnone
+declare { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>*, <2 x double>, i64) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"chi@IS"(i8*) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"getcomp@I[II"(i64*, i64) #0
+
+; Function Attrs: nounwind
+declare i64 @"max@I[I"(i64*) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"gt@III"(i64, i64) #0
+
+; Function Attrs: nounwind readnone
+declare <3 x double>* @"resize@[VI"(<3 x double>*, i64) #0
+
+; Function Attrs: nounwind readnone
+declare <4 x double>* @"resize@[PI"(<4 x double>*, i64) #0
+
+; Function Attrs: nounwind
+declare i64 @"find@I[FF"(double*, double) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"ge@III"(i64, i64) #0
+
+; Function Attrs: nounwind readnone
+declare i64 @"eq@III"(i64, i64) #0
+
+; Function Attrs: nounwind readnone
+declare <4 x double> @"chp@PS"(i8*) #0
+
+; Function Attrs: nounwind readnone
+declare { <4 x double>, <4 x double>* } @"setcomp@P[PPI"(<4 x double>*, <4 x double>, i64) #0
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"chv@VS"(i8*) #0
+
+; Function Attrs: nounwind readnone
+declare { <3 x double>, <3 x double>* } @"setcomp@V[VVI"(<3 x double>*, <3 x double>, i64) #0
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"getcomp@U[UI"(<2 x double>*, i64) #0
+
+; Function Attrs: alwaysinline nounwind
+define private void @"gemhandlesFFBuild@Z12gemhandlesFFM7N3PFFIN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoU"(%gemhandlesFF* %this) #2 {
+__llvm_entry:
+  %_m2 = alloca <4 x double>
+  %0 = alloca <2 x double>
+  %1 = alloca <2 x double>
+  %2 = alloca double
+  %3 = alloca <2 x double>
+  %4 = alloca <2 x double>
+  %5 = alloca double
+  store <4 x double> zeroinitializer, <4 x double>* %_m2, !vex-initializer-store !3
+  %return = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @0, i64 0, i64 0))
+  %return1 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @1, i64 0, i64 0))
+  %return2 = call double @"chf@FS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @2, i64 0, i64 0))
+  %return4 = fcmp one double %return2, 0.000000e+00
+  br i1 %return4, label %true, label %end
+
+true:                                             ; preds = %__llvm_entry
+  store <2 x double> %return, <2 x double>* %0
+  store <2 x double> %return1, <2 x double>* %1
+  %return9 = call double @"radians@FF"(double %return2)
+  %return10 = call double @"neg@FF"(double %return9)
+  store double %return10, double* %2
+  call void @"affineRot@2UUF"(<4 x double>* %_m2, <2 x double>* %0, <2 x double>* %1, double* %2)
+  %_m211 = load <4 x double>, <4 x double>* %_m2
+  %return12 = call double @"getcomp@F2II"(<4 x double> %_m211, i64 0, i64 0)
+  %return14 = call double @"getcomp@F2II"(<4 x double> %_m211, i64 0, i64 1)
+  %return15 = call <2 x double> @"set@UFF"(double %return12, double %return14)
+  %return17 = call double @"getcomp@F2II"(<4 x double> %_m211, i64 1, i64 0)
+  %return19 = call double @"getcomp@F2II"(<4 x double> %_m211, i64 1, i64 1)
+  %return20 = call <2 x double> @"set@UFF"(double %return17, double %return19)
+  br label %end
+
+end:                                              ; preds = %true, %__llvm_entry
+  %_x.0 = phi <2 x double> [ %return15, %true ], [ %return, %__llvm_entry ]
+  %_y.0 = phi <2 x double> [ %return20, %true ], [ %return1, %__llvm_entry ]
+  %tmp = load %gemhandlesFF, %gemhandlesFF* %this
+  %6 = insertvalue %gemhandlesFF %tmp, <2 x double> %_x.0, 1
+  %7 = insertvalue %gemhandlesFF %6, <2 x double> %_y.0, 2
+  %return24 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @3, i64 0, i64 0))
+  %8 = insertvalue %gemhandlesFF %7, <2 x double> %return24, 3
+  %return26 = call i64 @"chi@IS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @4, i64 0, i64 0))
+  %9 = insertvalue %gemhandlesFF %8, i64 %return26, 0
+  store %gemhandlesFF %9, %gemhandlesFF* %this
+  %10 = icmp ne i64 %return26, 0
+  br i1 %10, label %true29, label %end30
+
+true29:                                           ; preds = %end
+  %return31 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @5, i64 0, i64 0))
+  %return32 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @6, i64 0, i64 0))
+  %return33 = call double @"chf@FS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @7, i64 0, i64 0))
+  %return35 = fcmp one double %return33, 0.000000e+00
+  br i1 %return35, label %true37, label %end38
+
+end30:                                            ; preds = %end38, %end
+  ret void
+
+true37:                                           ; preds = %true29
+  store <2 x double> %return31, <2 x double>* %3
+  store <2 x double> %return32, <2 x double>* %4
+  %return42 = call double @"radians@FF"(double %return33)
+  %return43 = call double @"neg@FF"(double %return42)
+  store double %return43, double* %5
+  call void @"affineRot@2UUF"(<4 x double>* %_m2, <2 x double>* %3, <2 x double>* %4, double* %5)
+  %_m244 = load <4 x double>, <4 x double>* %_m2
+  %return45 = call double @"getcomp@F2II"(<4 x double> %_m244, i64 0, i64 0)
+  %return47 = call double @"getcomp@F2II"(<4 x double> %_m244, i64 0, i64 1)
+  %return48 = call <2 x double> @"set@UFF"(double %return45, double %return47)
+  %return50 = call double @"getcomp@F2II"(<4 x double> %_m244, i64 1, i64 0)
+  %return52 = call double @"getcomp@F2II"(<4 x double> %_m244, i64 1, i64 1)
+  %return53 = call <2 x double> @"set@UFF"(double %return50, double %return52)
+  br label %end38
+
+end38:                                            ; preds = %true37, %true29
+  %_x.1 = phi <2 x double> [ %return48, %true37 ], [ %return31, %true29 ]
+  %_y.1 = phi <2 x double> [ %return53, %true37 ], [ %return32, %true29 ]
+  %tmp55 = load %gemhandlesFF, %gemhandlesFF* %this
+  %11 = insertvalue %gemhandlesFF %tmp55, <2 x double> %_x.1, 4
+  %12 = insertvalue %gemhandlesFF %11, <2 x double> %_y.1, 5
+  %return58 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @8, i64 0, i64 0))
+  %13 = insertvalue %gemhandlesFF %12, <2 x double> %return58, 6
+  store %gemhandlesFF %13, %gemhandlesFF* %this
+  br label %end30
+}
+
+; Function Attrs: alwaysinline nounwind
+define private %gemhandlesFF @"gemhandlesFF@Z12gemhandlesFFM7N3PFFIN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUIUUUUUU"(i64* %PFF, <2 x double>* %fx, <2 x double>* %fy, <2 x double>* %fo, <2 x double>* %pfx, <2 x double>* %pfy, <2 x double>* %pfo) #2 {
+__llvm_entry:
+  %PFF1 = load i64, i64* %PFF
+  %0 = insertvalue %gemhandlesFF undef, i64 %PFF1, 0
+  %fx2 = load <2 x double>, <2 x double>* %fx
+  %1 = insertvalue %gemhandlesFF %0, <2 x double> %fx2, 1
+  %fy4 = load <2 x double>, <2 x double>* %fy
+  %2 = insertvalue %gemhandlesFF %1, <2 x double> %fy4, 2
+  %fo6 = load <2 x double>, <2 x double>* %fo
+  %3 = insertvalue %gemhandlesFF %2, <2 x double> %fo6, 3
+  %pfx8 = load <2 x double>, <2 x double>* %pfx
+  %4 = insertvalue %gemhandlesFF %3, <2 x double> %pfx8, 4
+  %pfy10 = load <2 x double>, <2 x double>* %pfy
+  %5 = insertvalue %gemhandlesFF %4, <2 x double> %pfy10, 5
+  %pfo12 = load <2 x double>, <2 x double>* %pfo
+  %6 = insertvalue %gemhandlesFF %5, <2 x double> %pfo12, 6
+  ret %gemhandlesFF %6
+}
+
+; Function Attrs: alwaysinline nounwind
+define private %gemhandlesFF @"gemhandlesFF@Z12gemhandlesFFM7N3PFFIN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoU"() #2 {
+__llvm_entry:
+  %0 = alloca <2 x double>
+  %1 = alloca <2 x double>
+  %2 = alloca <2 x double>
+  %3 = alloca <2 x double>
+  %4 = alloca <2 x double>
+  %5 = alloca <2 x double>
+  %6 = alloca i64
+  store i64 0, i64* %6
+  store <2 x double> zeroinitializer, <2 x double>* %0
+  store <2 x double> zeroinitializer, <2 x double>* %1
+  store <2 x double> zeroinitializer, <2 x double>* %2
+  store <2 x double> zeroinitializer, <2 x double>* %3
+  store <2 x double> zeroinitializer, <2 x double>* %4
+  store <2 x double> zeroinitializer, <2 x double>* %5
+  %gemhandlesFF = call %gemhandlesFF @"gemhandlesFF@Z12gemhandlesFFM7N3PFFIN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUIUUUUUU"(i64* %6, <2 x double>* %0, <2 x double>* %1, <2 x double>* %2, <2 x double>* %3, <2 x double>* %4, <2 x double>* %5)
+  ret %gemhandlesFF %gemhandlesFF
+}
+
+; Function Attrs: alwaysinline nounwind
+define private void @"_FLAM3HANDLESFF@V"(<3 x double>* %_bound_P) #2 {
+__llvm_entry:
+  %GEMHFF = alloca %gemhandlesFF
+  %0 = alloca <2 x double>
+  %1 = alloca <2 x double>
+  %2 = alloca <2 x double>
+  %3 = alloca <2 x double>
+  %4 = alloca <2 x double>
+  %5 = alloca <2 x double>
+  %mem = alloca <2 x double>
+  %_bound_P1 = load <3 x double>, <3 x double>* %_bound_P
+  %cast = call <2 x double> @"set@UV"(<3 x double> %_bound_P1)
+  store <2 x double> %cast, <2 x double>* %mem
+  %GEMHFF2 = call %gemhandlesFF @"gemhandlesFF@Z12gemhandlesFFM7N3PFFIN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoU"()
+  %GEMHFF2.fca.0.extract = extractvalue %gemhandlesFF %GEMHFF2, 0
+  %GEMHFF2.fca.0.gep = getelementptr inbounds %gemhandlesFF, %gemhandlesFF* %GEMHFF, i32 0, i32 0
+  store i64 %GEMHFF2.fca.0.extract, i64* %GEMHFF2.fca.0.gep
+  %GEMHFF2.fca.1.extract = extractvalue %gemhandlesFF %GEMHFF2, 1
+  %GEMHFF2.fca.1.gep = getelementptr inbounds %gemhandlesFF, %gemhandlesFF* %GEMHFF, i32 0, i32 1
+  store <2 x double> %GEMHFF2.fca.1.extract, <2 x double>* %GEMHFF2.fca.1.gep
+  %GEMHFF2.fca.2.extract = extractvalue %gemhandlesFF %GEMHFF2, 2
+  %GEMHFF2.fca.2.gep = getelementptr inbounds %gemhandlesFF, %gemhandlesFF* %GEMHFF, i32 0, i32 2
+  store <2 x double> %GEMHFF2.fca.2.extract, <2 x double>* %GEMHFF2.fca.2.gep
+  %GEMHFF2.fca.3.extract = extractvalue %gemhandlesFF %GEMHFF2, 3
+  %GEMHFF2.fca.3.gep = getelementptr inbounds %gemhandlesFF, %gemhandlesFF* %GEMHFF, i32 0, i32 3
+  store <2 x double> %GEMHFF2.fca.3.extract, <2 x double>* %GEMHFF2.fca.3.gep
+  %GEMHFF2.fca.4.extract = extractvalue %gemhandlesFF %GEMHFF2, 4
+  %GEMHFF2.fca.4.gep = getelementptr inbounds %gemhandlesFF, %gemhandlesFF* %GEMHFF, i32 0, i32 4
+  store <2 x double> %GEMHFF2.fca.4.extract, <2 x double>* %GEMHFF2.fca.4.gep
+  %GEMHFF2.fca.5.extract = extractvalue %gemhandlesFF %GEMHFF2, 5
+  %GEMHFF2.fca.5.gep = getelementptr inbounds %gemhandlesFF, %gemhandlesFF* %GEMHFF, i32 0, i32 5
+  store <2 x double> %GEMHFF2.fca.5.extract, <2 x double>* %GEMHFF2.fca.5.gep
+  %GEMHFF2.fca.6.extract = extractvalue %gemhandlesFF %GEMHFF2, 6
+  %GEMHFF2.fca.6.gep = getelementptr inbounds %gemhandlesFF, %gemhandlesFF* %GEMHFF, i32 0, i32 6
+  store <2 x double> %GEMHFF2.fca.6.extract, <2 x double>* %GEMHFF2.fca.6.gep
+  call void @"gemhandlesFFBuild@Z12gemhandlesFFM7N3PFFIN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoU"(%gemhandlesFF* %GEMHFF)
+  %GEMHFF3.fca.0.load = load i64, i64* %GEMHFF2.fca.0.gep
+  %GEMHFF3.fca.0.insert = insertvalue %gemhandlesFF undef, i64 %GEMHFF3.fca.0.load, 0
+  %GEMHFF3.fca.1.load = load <2 x double>, <2 x double>* %GEMHFF2.fca.1.gep
+  %GEMHFF3.fca.1.insert = insertvalue %gemhandlesFF %GEMHFF3.fca.0.insert, <2 x double> %GEMHFF3.fca.1.load, 1
+  %GEMHFF3.fca.2.load = load <2 x double>, <2 x double>* %GEMHFF2.fca.2.gep
+  %GEMHFF3.fca.2.insert = insertvalue %gemhandlesFF %GEMHFF3.fca.1.insert, <2 x double> %GEMHFF3.fca.2.load, 2
+  %GEMHFF3.fca.3.load = load <2 x double>, <2 x double>* %GEMHFF2.fca.3.gep
+  %GEMHFF3.fca.3.insert = insertvalue %gemhandlesFF %GEMHFF3.fca.2.insert, <2 x double> %GEMHFF3.fca.3.load, 3
+  %GEMHFF3.fca.4.load = load <2 x double>, <2 x double>* %GEMHFF2.fca.4.gep
+  %GEMHFF3.fca.4.insert = insertvalue %gemhandlesFF %GEMHFF3.fca.3.insert, <2 x double> %GEMHFF3.fca.4.load, 4
+  %GEMHFF3.fca.5.load = load <2 x double>, <2 x double>* %GEMHFF2.fca.5.gep
+  %GEMHFF3.fca.5.insert = insertvalue %gemhandlesFF %GEMHFF3.fca.4.insert, <2 x double> %GEMHFF3.fca.5.load, 5
+  %GEMHFF3.fca.6.load = load <2 x double>, <2 x double>* %GEMHFF2.fca.6.gep
+  store <2 x double> %GEMHFF3.fca.1.load, <2 x double>* %0
+  store <2 x double> %GEMHFF3.fca.2.load, <2 x double>* %1
+  store <2 x double> %GEMHFF3.fca.3.load, <2 x double>* %2
+  call void @"affine@UUUU"(<2 x double>* %mem, <2 x double>* %0, <2 x double>* %1, <2 x double>* %2)
+  %6 = icmp ne i64 %GEMHFF3.fca.0.load, 0
+  br i1 %6, label %true, label %end
+
+true:                                             ; preds = %__llvm_entry
+  store <2 x double> %GEMHFF3.fca.4.load, <2 x double>* %3
+  store <2 x double> %GEMHFF3.fca.5.load, <2 x double>* %4
+  store <2 x double> %GEMHFF3.fca.6.load, <2 x double>* %5
+  call void @"affine@UUUU"(<2 x double>* %mem, <2 x double>* %3, <2 x double>* %4, <2 x double>* %5)
+  br label %end
+
+end:                                              ; preds = %true, %__llvm_entry
+  %mem24 = load <2 x double>, <2 x double>* %mem
+  %cast25 = call <3 x double> @"set@VU"(<2 x double> %mem24)
+  %output = call <3 x double> @"add@VV"(<3 x double> %cast25, <3 x double> <double 0.000000e+00, double 0.000000e+00, double 1.000000e-02>)
+  store <3 x double> %output, <3 x double>* %_bound_P
+  ret void
+}
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"set@UV"(<3 x double>) #0
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VU"(<2 x double>) #0
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"add@VV"(<3 x double>, <3 x double>) #0
+
+; Function Attrs: nounwind
+define void @FLAM3HANDLESFF(<3 x double> %P) #1 {
+__llvm_entry:
+  %"<P>" = alloca <3 x double>
+  store <3 x double> %P, <3 x double>* %"<P>"
+  call void @"_FLAM3HANDLESFF@V"(<3 x double>* %"<P>")
+  %evalue = load <3 x double>, <3 x double>* %"<P>"
+  %gvalue = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @9, i64 0, i64 0), <3 x double> %evalue) #3
+  store <3 x double> %gvalue, <3 x double>* @P
+  ret void
+}
+
+declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
+
+define void @__shader_default_arguments() {
+__llvm_entry:
+  call void @FLAM3HANDLESFF(<3 x double> zeroinitializer)
+  ret void
+}
+
+attributes #0 = { nounwind readnone }
+attributes #1 = { nounwind }
+attributes #2 = { alwaysinline nounwind }
+attributes #3 = { nounwind readonly }
+
+!context = !{!0}
+!version = !{!1}
+!precision = !{!2}
+
+!0 = !{!"cvex"}
+!1 = !{!"20.5.370"}
+!2 = !{!"64"}
+!3 = !{!""}
+
+;_code_end

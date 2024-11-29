@@ -2288,6 +2288,21 @@ flash messages (network editor) [Icon:DATATYPES/boolean]:
     
     Copy/Paste iterators and FF data uses flash messages, as well as some other features.
 
+Viewport xforms VIZ [Icon:DATATYPES/boolean]:
+    #id: prefs
+    OFF by default.<br />
+
+    When switched ON it will display the xforms handles in the viewport.<br />
+    
+    These handles are not editable, but only for visualization purpose.<br />
+    They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over the fractal Flame.
+
+    The FLAM3H node now posses a dive in location to only display the xforms handles without the FLAM3H points.<br />
+    This is useful to identify them visually as sometime they can be difficult to spot when the fractal Flame is present.
+    
+    :warning:
+        Turn this OFF when rendering.
+
 
 :box:
     #display: round white

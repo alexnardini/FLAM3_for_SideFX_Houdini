@@ -1,0 +1,61 @@
+/*  
+ /  Tested on:  Houdini 19.x
+ /              Houdini 19.5
+ /              Houdini 20.x
+ /              Houdini 20.5
+ /
+ /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
+ /  Author:     Alessandro Nardini
+ /  date:       Jan 2022, Last revised October 2024
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm"
+ /  Authors:    Scott Draves, Erik Reckase
+ /
+ /  Paper:      https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Github:     https://github.com/scottdraves/flam3
+ /  Date:       December 2002, Last revised May 2015
+ /
+ /  Name:       XFORMS ACTIVE LIST "CVEX"
+ /
+ /  Comment:    Collect all active xforms/iterators into a string array.
+*/
+
+
+#pragma opname  "TFFAxformsactive"
+#pragma oplabel "TFFAxformsactive"
+#pragma opmininputs 1
+#pragma opmaxinputs 1
+
+
+void
+_TFFAxformsactive(string _bound_sIDX[]; int _bound_RES)
+{
+
+    int inum = chi("../../flamefunc");
+    int va[];
+    string sIDX[];
+    
+    // ALL XFORMS/ITERATORS
+    for(int i=0; i<inum; ++i){
+        
+        string iIDX = itoa(i+1);
+        append(va, chi(concat("../../vactive_", iIDX)));
+        float IWcheck = chf(concat("../../iw_", iIDX));
+        if(IWcheck==0) va[i]=0;
+        if(!va[i]) continue;
+        append(sIDX, iIDX);
+    }
+
+    // OUT
+    _bound_sIDX = sIDX;
+    _bound_RES = len(sIDX);
+}
+
+cvex
+TFFAxformsactive(   export string sIDX[] = {};
+                    export int RES = 0)
+{
+    _TFFAxformsactive(sIDX, RES);
+}

@@ -1,0 +1,48 @@
+/*  
+ /  Tested on:  Houdini 19.x
+ /              Houdini 19.5
+ /              Houdini 20.x
+ /              Houdini 20.5
+ /
+ /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
+ /  Author:     Alessandro Nardini
+ /  date:       November 2024, Last revised November 2024
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm"
+ /  Authors:    Scott Draves, Erik Reckase
+ /
+ /  Paper:      https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Github:     https://github.com/scottdraves/flam3
+ /  Date:       December 2002, Last revised May 2015
+ /
+ /  Name:       FLAM3 XFORMS COLOR "CVEX"
+ /
+ /  Comment:    xforms/iterators affine handles viz.
+*/
+
+
+
+#pragma opname  "TFFAxformscolor"
+#pragma oplabel "TFFAxformscolor"
+#pragma opmininputs 1
+#pragma opmaxinputs 2
+
+
+void _FLAM3HANDLESCOLOR(const string _bound_sIDX[]; vector _bound_color)
+{
+    vector color = point(0, "Cd", 10);
+    string sIDX[] = _bound_sIDX;
+    float h = rand(atoi(sIDX[detail(1, "iteration")]));
+    vector hsv = rgbtohsv(color);
+    hsv[0] = h;
+    _bound_color = hsvtorgb(hsv);
+}
+
+cvex
+FLAM3HANDLESCOLOR(  const string sIDX[] = {};
+	                export vector color = 0)
+{
+    _FLAM3HANDLESCOLOR(sIDX, color);
+}

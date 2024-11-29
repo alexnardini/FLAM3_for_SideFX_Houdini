@@ -30,7 +30,7 @@
 #pragma opname  "FLAM3"
 #pragma oplabel "FLAM3"
 #pragma opmininputs 1
-#pragma opmaxinputs 1
+#pragma opmaxinputs 2
 
 #include <xaos.h>
 #include <flame.h>
