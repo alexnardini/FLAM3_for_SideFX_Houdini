@@ -104,7 +104,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
                 // If it's meant to be a valid xaos: command string
                 if(isXAOS){
                     isDigit = 0;
-                    warning(concat("\nNegative xaos values inside iterator: ", itoa(i+1), ".\nThis iterator will be reset to a default xaos value of 1's."));
+                    warning(concat("\nNegative xaos values inside iterator: ", sIDX[i], ".\nThis iterator will be reset to a default xaos value of 1's."));
                     break;
                     }
                 }
@@ -112,7 +112,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
                 // If it's meant to be a valid xaos: command string
                 if(isXAOS){
                     isDigit = 0;
-                    warning(concat("\nNon digit xaos values inside iterator: ", itoa(i+1), ".\nThis iterator will be reset to a default xaos value of 1's."));
+                    warning(concat("\nNon digit xaos values inside iterator: ", sIDX[i], ".\nThis iterator will be reset to a default xaos value of 1's."));
                     break;
                 }
             }

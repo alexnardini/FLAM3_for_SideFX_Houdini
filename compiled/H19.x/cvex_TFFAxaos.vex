@@ -346,16 +346,12 @@ end142:                                           ; preds = %false141, %true140
   br label %cond117
 
 true144:                                          ; preds = %true140
-  %output147 = add i64 %i64.0, 1
-  %return148 = call i8* @"itoa@SI"(i64 %output147)
-  %return149 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([40 x i8], [40 x i8]* @22, i64 0, i64 0), i8* %return148, i8* getelementptr inbounds ([62 x i8], [62 x i8]* @23, i64 0, i64 0))
+  %return149 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([40 x i8], [40 x i8]* @22, i64 0, i64 0), i8* %return74, i8* getelementptr inbounds ([62 x i8], [62 x i8]* @23, i64 0, i64 0))
   call void @"warning@S"(i8* %return149)
   br label %end122
 
 true158:                                          ; preds = %false141
-  %output161 = add i64 %i64.0, 1
-  %return162 = call i8* @"itoa@SI"(i64 %output161)
-  %return163 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([41 x i8], [41 x i8]* @24, i64 0, i64 0), i8* %return162, i8* getelementptr inbounds ([62 x i8], [62 x i8]* @23, i64 0, i64 0))
+  %return163 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([41 x i8], [41 x i8]* @24, i64 0, i64 0), i8* %return74, i8* getelementptr inbounds ([62 x i8], [62 x i8]* @23, i64 0, i64 0))
   call void @"warning@S"(i8* %return163)
   br label %end122
 
