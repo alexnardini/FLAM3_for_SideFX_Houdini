@@ -96,7 +96,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
             append(varxaos_strip, strip(vx));
         }
         int isXAOS = (toupper(varxaos_strip[0])=="XAOS") ? 1 : 0;
-        if(!isXAOS && inum) warning(concat("\nIterator: ", itoa(i+1), " -> without a valid \" xaos: \" command string."));
+        if(!isXAOS && inum) warning(concat("\nIterator: ", sIDX[i], " -> without a valid \" xaos: \" command string."));
         int isDigit = 1;
         foreach( string vxs; varxaos_strip[1:]){
             string new_vxs = join(split(vxs, "."), "");

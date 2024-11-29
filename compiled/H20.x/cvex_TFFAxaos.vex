@@ -295,9 +295,7 @@ end86:                                            ; preds = %cond81
   br i1 %10, label %true108, label %end109
 
 true108:                                          ; preds = %end86
-  %output111 = add i64 %i64.0, 1
-  %return112 = call i8* @"itoa@SI"(i64 %output111)
-  %return113 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @18, i64 0, i64 0), i8* %return112, i8* getelementptr inbounds ([46 x i8], [46 x i8]* @19, i64 0, i64 0))
+  %return113 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @18, i64 0, i64 0), i8* %return74, i8* getelementptr inbounds ([46 x i8], [46 x i8]* @19, i64 0, i64 0))
   call void @"warning@S"(i8* %return113)
   br label %end109
 
