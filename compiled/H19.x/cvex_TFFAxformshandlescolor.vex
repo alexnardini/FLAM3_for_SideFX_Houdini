@@ -22,7 +22,9 @@ __llvm_entry:
   %return10 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %return8, double %return6, i64 0)
   %output = extractvalue { double, <3 x double> } %return10, 1
   %return13 = call <3 x double> @"hsvtorgb@VV"(<3 x double> %output)
-  store <3 x double> %return13, <3 x double>* %_bound_color
+  %cast14 = call <3 x double> @"set@VF"(double 2.000000e+00)
+  %output15 = call <3 x double> @"mul@VV"(<3 x double> %return13, <3 x double> %cast14)
+  store <3 x double> %output15, <3 x double>* %_bound_color
   ret void
 }
 
@@ -58,6 +60,12 @@ declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #2
 
 ; Function Attrs: nounwind readnone
 declare <3 x double> @"hsvtorgb@VV"(<3 x double>) #2
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VF"(double) #2
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"mul@VV"(<3 x double>, <3 x double>) #2
 
 ; Function Attrs: nounwind
 define void @FLAM3HANDLESCOLOR(i8** %sIDX, <3 x double> %color) #1 {

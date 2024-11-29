@@ -37,7 +37,7 @@ void _FLAM3HANDLESCOLOR(const string _bound_sIDX[]; vector _bound_color)
     float h = rand(atoi(sIDX[detail(1, "iteration")]));
     vector hsv = rgbtohsv(color);
     hsv[0] = h;
-    _bound_color = hsvtorgb(hsv);
+    _bound_color = hsvtorgb(hsv)*2.0f; // Bumping this color becasue sometime the viewport do not lit using the GL_LIT detail attribute, weird.
 }
 
 cvex
