@@ -48,7 +48,7 @@ void _FLAM3HANDLES(const string _bound_sIDX[]; vector _bound_P)
     // post affine
     if(PPL[idx]) affine(mem, px[idx], py[idx], po[idx]);
     // OUT
-    _bound_P=(vector)mem + {0, 0, 0.02}; // Adding an offset to be on top of the FLAM3H points
+    _bound_P=(vector)mem + {0, 0, 0.01}; // Adding an offset to be on top of the FLAM3H points
 }
 
 cvex

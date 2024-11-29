@@ -46,7 +46,7 @@ void _FLAM3HANDLESFF(vector _bound_P)
     // post affine FF
     if(PFF) affine(mem, pfx, pfy, pfo);
     // OUT FF
-    _bound_P=(vector)mem + {0, 0, 0.01}; // Adding an offset to be on top of the FLAM3H points
+    _bound_P=(vector)mem + {0, 0, 0.02}; // Adding an offset to be on top of the FLAM3H points and the iterators handles.
 }
 
 cvex
