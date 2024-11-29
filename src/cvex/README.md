@@ -87,6 +87,38 @@ Build all the Xaos data to be used inside the Chaos game.
 <br>
 
 # CVEX Source
+# File name:    `cvex_TFFAxformsactive.vfl`
+### Description:
+Collect all iterator multi-parameter indexs and their count to drive the iterator's xforms handles generation.
+
+<br>
+<br>
+
+# CVEX Source
+# File name:    `cvex_TFFAxformshandles.vfl`
+### Description:
+Transform each iterator handle accordingly to their PRE and POST affine values.
+
+<br>
+<br>
+
+# CVEX Source
+# File name:    `cvex_TFFAxformshandlesFF.vfl`
+### Description:
+Transform the iterator FF handle accordingly to its PRE and POST affine values.
+
+<br>
+<br>
+
+# CVEX Source
+# File name:    `cvex_TFFAxformshandlescolor.vfl`
+### Description:
+Assign a unique color to each iterator xforms handle.
+
+<br>
+<br>
+
+# CVEX Source
 # File name:    `cvex_TheFractalFlameAlgorithm.vfl`
 ### Description:
 The Chaos game. This is where all the data is mixed, shuffled and executed based on the fractal flame logic set by the user.

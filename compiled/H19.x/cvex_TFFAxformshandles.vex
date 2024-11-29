@@ -491,7 +491,7 @@ true:                                             ; preds = %__llvm_entry
 end:                                              ; preds = %true, %__llvm_entry
   %mem40 = load <2 x double>, <2 x double>* %mem
   %cast41 = call <3 x double> @"set@VU"(<2 x double> %mem40)
-  %output = call <3 x double> @"add@VV"(<3 x double> %cast41, <3 x double> <double 0.000000e+00, double 0.000000e+00, double 2.000000e-02>)
+  %output = call <3 x double> @"add@VV"(<3 x double> %cast41, <3 x double> <double 0.000000e+00, double 0.000000e+00, double 1.000000e-02>)
   store <3 x double> %output, <3 x double>* %_bound_P
   ret void
 }
