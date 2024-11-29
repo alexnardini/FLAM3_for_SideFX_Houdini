@@ -2297,8 +2297,14 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
     These handles are not editable, but only for visualization purpose.<br />
     They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over the fractal Flame.
 
+    Each available iterator will get a random color while the FF will always be grey/white to make it easy to recognize when active. 
+
     The FLAM3H node now posses a dive in location to only display the xforms handles without the FLAM3H points.<br />
     This is useful to identify them visually as sometime they can be difficult to spot when the fractal Flame is present.
+
+    A second output also has been added to the FLAM3H node only for the xform handles.<br />
+    This make it handy to use it for viz purpose without having them baked into the points cloud<br />
+    so you can go back and forth between SOP and LOP and safe rendering the fractal Flame.
     
     :warning:
         Turn this OFF when rendering.
