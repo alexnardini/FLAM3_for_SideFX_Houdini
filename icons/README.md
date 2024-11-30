@@ -269,6 +269,18 @@ It is an ongoing effort and they have been regularly updated and improved even t
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_xfHandlesDisabledSVG.svg" /></p>
+<p align="center">icon_xfHandlesDisabledSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_xfHandlesEnabledSVG.svg" /></p>
+<p align="center">icon_xfHandlesEnabledSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_youtube_red_play.svg" /></p>
 <p align="center">icon_youtube_red_play.svg</p>
 <p align="center">.</p>

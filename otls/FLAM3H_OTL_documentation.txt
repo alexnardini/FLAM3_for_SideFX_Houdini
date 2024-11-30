@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.6.05 - Gold
+#version: 1.6.06 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -311,6 +311,37 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     TIP:
         #display: orange
         In Fractorium you can go to "Options" to find the exact same checkbox.
+
+
+Viewport xforms VIZ [Icon:DATATYPES/boolean]:
+    #id: SYS
+    OFF by default.<br />
+
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] vieport xforms VIZ is OFF.
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg] vieport xforms VIZ is ON.
+
+    When switched ON it will display the xforms handles in the viewport.<br />
+
+    They have been built do add as little as possible to the computation, in fact you can keep them ON all the time if you like, except when rendering.
+
+    [Image:opdef:.?FLAM3H_DOC_xforms_handles.svg]
+    
+    _These handles are not editable, but only for visualization purpose_.<br />
+    _They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator of the fractal Flame_.
+
+    Each available iterator will generate an xform handle with a color based on its multiparameter index number<br />
+    while the FF will always be grey/white to make it easier to recognize when active.
+
+    The FLAM3H node now posses a dive in location to only display the xforms handles without the FLAM3H points.<br />
+    With the FLAM3H node selected, either a double ((LMB)) or press the key: ((i)) to dive in and the key: ((u)) do dive out.<br />
+    It work when the mouse is over the node network and the viewport as well.<br />
+    This is useful to identify them visually as sometime it can be difficult to spot them when the fractal Flame is present.
+
+    A second output also has been added to the FLAM3H node only for the xform handles.<br />
+    This make it handy to use it for viz purpose without having them baked into the points cloud because you can go back and forth between SOP and LOP while safe rendering the fractal Flame.
+    
+    :warning:
+        Turn this OFF when rendering.
         
 
 :box:
@@ -1748,7 +1779,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.6.05" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.6.06" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -1979,7 +2010,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.6.05" ... >
+          <flame version="FLAM3H-WIN-1.6.06" ... >
               ...
         }}}
         
@@ -1988,7 +2019,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.6.05" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.6.06" ... >
               ...
         }}}
         
@@ -2287,34 +2318,6 @@ flash messages (network editor) [Icon:DATATYPES/boolean]:
     Causes a message to appear briefly in the upper left corner of the network editor, then fade away.
     
     Copy/Paste iterators and FF data uses flash messages, as well as some other features.
-
-Viewport xforms VIZ [Icon:DATATYPES/boolean]:
-    #id: prefs
-    OFF by default.<br />
-
-    When switched ON it will display the xforms handles in the viewport.<br />
-
-    They have been built do add as little as possible to the computation, in fact you can keep them ON all the time if you like, except when rendering.
-
-    [Image:opdef:.?FLAM3H_DOC_xforms_handles.svg]
-    
-    _These handles are not editable, but only for visualization purpose_.<br />
-    _They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator of the fractal Flame_.
-
-    Each available iterator will generate an xform handle with a color based on its multiparameter index number<br />
-    while the FF will always be grey/white to make it easier to recognize when active.
-
-    The FLAM3H node now posses a dive in location to only display the xforms handles without the FLAM3H points.<br />
-    With the FLAM3H node selected, either a double ((LMB)) or press the key: ((i)) to dive in and the key: ((u)) do dive out.<br />
-    It work when the mouse is over the node network and the viewport as well.<br />
-    This is useful to identify them visually as sometime it can be difficult to spot them when the fractal Flame is present.
-
-    A second output also has been added to the FLAM3H node only for the xform handles.<br />
-    This make it handy to use it for viz purpose without having them baked into the points cloud because you can go back and forth between SOP and LOP while safe rendering the fractal Flame.
-    
-    :warning:
-        Turn this OFF when rendering.
-
 
 :box:
     #display: round white
