@@ -169,6 +169,8 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
             fP2t = chi("../ffp2type");
             tmp  = FLAMEFF(FP, fP2t, f3c, tmp, fx, fy, fo, fP2w);
         }
+        
+        // FF post affine
         if(PFF) affine(tmp, pfx, pfy, pfo);
         
         // FF out
