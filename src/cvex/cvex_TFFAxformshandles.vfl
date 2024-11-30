@@ -29,20 +29,53 @@
 #pragma opmininputs 1
 #pragma opmaxinputs 2
 
-#include <genome.h>
+#include <functions.h>
 
 
 void _FLAM3HANDLES(const string _bound_sIDX[]; vector _bound_P)
 {
-    int id = detail(1, "iteration");
-    vector2 mem = (vector2)_bound_P;
+
+    int id, PPL;
+    id = detail(1, "iteration");
+    vector2 mem, x, y, o, px, py, po;
+    mem = (vector2)_bound_P;
 
     // Build genome handle
     string sIDX[]=_bound_sIDX;
-    gemhandles GEMH; GEMH->gemhandlesBuild(id, sIDX);
-    // cast HANDLES 
-    int PPL; /* CAST */ PPL=GEMH.PPL;
-    vector2 x, y, o, px, py, po; /* CAST */ x=GEMH.x; y=GEMH.y; o=GEMH.o; px=GEMH.px; py=GEMH.py; po=GEMH.po;
+    
+    // GENOME
+    int res = len(sIDX);
+    float _a;
+    vector2 _x, _y;
+    matrix2 _m2;
+    string idx=sIDX[id];
+    
+    // AFFINE
+    _x = chu(concat("../../x_", idx));
+    _y = chu(concat("../../y_", idx));
+    _a = chf(concat("../../ang_", idx));
+    if(_a!=0){
+        affineRot(_m2, _x, _y, -radians(_a));
+        _x = set(_m2.xx, _m2.xy);
+        _y = set(_m2.yx, _m2.yy);
+    }
+    x = _x; y = _y;
+    o = chu(concat("../../o_", idx));
+    // POST AFFINE
+    PPL = chi(concat("../../dopost_", idx));
+    if(PPL){
+        _x = chu(concat("../../px_", idx));
+        _y = chu(concat("../../py_", idx));
+        _a = chf(concat("../../pang_", idx));
+        if(_a!=0){
+            affineRot(_m2, _x, _y, -radians(_a));
+            _x = set(_m2.xx, _m2.xy);
+            _y = set(_m2.yx, _m2.yy);
+        }
+        px = _x; py = _y;
+        po = chu(concat("../../po_", idx));
+    }
+
     // pre affine
     affine(mem, x, y, o);
     // post affine

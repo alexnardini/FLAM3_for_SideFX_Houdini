@@ -335,6 +335,7 @@ struct gemPrm{
 
 
 // DATA: GENOME HANDLES ITERATORS (VIZ Only)
+// This is now done directly from inside: cvex_TFFAxformshandles.vfl (file size went from: 21kb to: 13kb)
 struct gemhandles{
 
     int     PPL;
@@ -348,7 +349,7 @@ struct gemhandles{
         vector2 _x, _y;
         matrix2 _m2;
         string idx=sIDX[id];
-        
+
         // AFFINE
         _x = chu(concat("../../x_", idx));
         _y = chu(concat("../../y_", idx));
@@ -380,6 +381,7 @@ struct gemhandles{
 
 
 // DATA: GENOME HANDLES FF (VIZ Only)
+// This is now done directly from inside: cvex_TFFAxformshandlesFF.vfl (file size went from: 20kb to: 12kb)
 struct gemhandlesFF{
 
     int     PFF;

@@ -29,18 +29,44 @@
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
-#include <genome.h>
+#include <functions.h>
 
 
 void _FLAM3HANDLESFF(vector _bound_P)
 {
-    vector2 mem = (vector2)_bound_P;
 
-    // Build genome FF
-    gemhandlesFF GEMHFF; GEMHFF->gemhandlesFFBuild();
-    // cast HANDLES FF
-    int PFF; /* CAST */ PFF=GEMHFF.PFF;
-    vector2 fx, fy, fo, pfx, pfy, pfo; /* CAST */ fx=GEMHFF.fx; fy=GEMHFF.fy; fo=GEMHFF.fo; pfx=GEMHFF.pfx; pfy=GEMHFF.pfy; pfo=GEMHFF.pfo;
+    int PFF;
+    float _a;
+    vector2 mem, _x, _y, fx, fy, fo, pfx, pfy, pfo;
+    mem = (vector2)_bound_P;
+    matrix2 _m2;
+    
+    // FF AFFINE
+    _x = chu("../../ffx");
+    _y = chu("../../ffy");
+    _a = chf("../../ffang");
+    if(_a!=0){
+        affineRot(_m2, _x, _y, -radians(_a));
+        _x = set(_m2.xx, _m2.xy);
+        _y = set(_m2.yx, _m2.yy);
+    }
+    fx = _x; fy = _y;
+    fo = chu("../../ffo");
+    // FF POST AFFINE
+    PFF = chi("../../ffdopost");
+    if(PFF){
+        _x = chu("../../ffpx");
+        _y = chu("../../ffpy");
+        _a = chf("../../ffpang");
+        if(_a!=0){
+            affineRot(_m2, _x, _y, -radians(_a));
+            _x = set(_m2.xx, _m2.xy);
+            _y = set(_m2.yx, _m2.yy);
+        }
+        pfx = _x; pfy = _y;
+        pfo = chu("../../ffpo");
+    }
+
     // pre affine FF
     affine(mem, fx, fy, fo);
     // post affine FF
