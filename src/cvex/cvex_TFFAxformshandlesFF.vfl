@@ -41,7 +41,7 @@ void _FLAM3HANDLESFF(vector _bound_P)
     mem = (vector2)_bound_P;
     matrix2 _m2;
     
-    // FF AFFINE
+    // FF PRE AFFINE
     _x = chu("../../ffx");
     _y = chu("../../ffy");
     _a = chf("../../ffang");
@@ -52,6 +52,9 @@ void _FLAM3HANDLESFF(vector _bound_P)
     }
     fx = _x; fy = _y;
     fo = chu("../../ffo");
+    // pre affine FF
+    affine(mem, fx, fy, fo);
+
     // FF POST AFFINE
     PFF = chi("../../ffdopost");
     if(PFF){
@@ -65,12 +68,10 @@ void _FLAM3HANDLESFF(vector _bound_P)
         }
         pfx = _x; pfy = _y;
         pfo = chu("../../ffpo");
+        // post affine FF
+        affine(mem, pfx, pfy, pfo);
     }
 
-    // pre affine FF
-    affine(mem, fx, fy, fo);
-    // post affine FF
-    if(PFF) affine(mem, pfx, pfy, pfo);
     // OUT FF
     _bound_P=(vector)mem + {0, 0, 0.02}; // Adding an offset to be on top of the FLAM3H points and the iterators handles.
 }

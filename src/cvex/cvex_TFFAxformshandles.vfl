@@ -50,7 +50,7 @@ void _FLAM3HANDLES(const string _bound_sIDX[]; vector _bound_P)
     matrix2 _m2;
     string idx=sIDX[id];
     
-    // AFFINE
+    // PRE AFFINE
     _x = chu(concat("../../x_", idx));
     _y = chu(concat("../../y_", idx));
     _a = chf(concat("../../ang_", idx));
@@ -61,6 +61,9 @@ void _FLAM3HANDLES(const string _bound_sIDX[]; vector _bound_P)
     }
     x = _x; y = _y;
     o = chu(concat("../../o_", idx));
+    // pre affine
+    affine(mem, x, y, o);
+
     // POST AFFINE
     PPL = chi(concat("../../dopost_", idx));
     if(PPL){
@@ -74,12 +77,9 @@ void _FLAM3HANDLES(const string _bound_sIDX[]; vector _bound_P)
         }
         px = _x; py = _y;
         po = chu(concat("../../po_", idx));
+        // post affine
+        affine(mem, px, py, po);
     }
-
-    // pre affine
-    affine(mem, x, y, o);
-    // post affine
-    if(PPL) affine(mem, px, py, po);
     // OUT
     _bound_P=(vector)mem + {0, 0, 0.01}; // Adding an offset to be on top of the FLAM3H points
 }
