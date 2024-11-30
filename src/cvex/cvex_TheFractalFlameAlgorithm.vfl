@@ -6,7 +6,7 @@
  /
  /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised November 2024
+ /  date:       October 2020, Last revised March 2024
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -56,11 +56,15 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
     f3c  = _bound_SYS[4];
     // Build genomes
     string sIDX[]=_bound_sIDX;
-    gem GEM; GEM->gemBuild(sIDX);
+    gem GEM; GEM->gemBuild(sIDX, FF);
     // cast FLAME
     int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], res; /* CAST */ res=GEM.res; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; P1t=GEM.P1t; PPL=GEM.PPL;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], P1w[], pbw[], _CLR[], OM[], A[]; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; p2w=GEM.p2w; P1w=GEM.P1w; pbw=GEM.pbw; _CLR=GEM.CLR; OM=GEM.OM; A=GEM.A;
     vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
+    // cast FF
+    int     fp1t, fv1t, fv2t, fP1t, fP2t, PFF; /* CAST */ fp1t=GEM.fp1t; fv1t=GEM.fv1t; fv2t=GEM.fv2t; fP1t=GEM.fP1t; fP2t=GEM.fP2t; PFF=GEM.PFF;
+    float   fp1w, fv1w, fv2w, fP1w, fP2w; /* CAST */ fp1w=GEM.fp1w; fv1w=GEM.fv1w; fv2w=GEM.fv2w; fP1w=GEM.fP1w; fP2w=GEM.fP2w;
+    vector2 fx, fy, fo, pfx, pfy, pfo;    /* CAST */ fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
     // Build genome's parametrics
     gemPrm p1GMP, p2GMP, v1GMP, v2GMP, v3GMP, v4GMP, P1GMP;
     p1GMP->gemPrmBuild(sIDX, res, p1t, p1w);
@@ -104,75 +108,19 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
     // FF
     if(FF){
 
-        tmp=0;
-        int     fp1t, fv1t, fv2t, fP1t, fP2t, PFF;
-        float   _a, fp1w, fv1w, fv2w, fP1w, fP2w;
-        vector2 _x, _y, fx, fy, fo, pfx, pfy, pfo;
-        matrix2 _m2;
-
-        // FF AFFINE
-        _x = chu("../ffx");
-        _y = chu("../ffy");
-        _a = chf("../ffang");
-        if(_a!=0){
-            affineRot(_m2, _x, _y, -radians(_a));
-            _x = set(_m2.xx, _m2.xy);
-            _y = set(_m2.yx, _m2.yy);
-        }
-        fx = _x; fy = _y;
-        fo = chu("../ffo");
-        // FF POST AFFINE
-        PFF = chi("../ffdopost");
-        if(PFF){
-            _x = chu("../ffpx");
-            _y = chu("../ffpy");
-            _a = chf("../ffpang");
-            if(_a!=0){
-                affineRot(_m2, _x, _y, -radians(_a));
-                _x = set(_m2.xx, _m2.xy);
-                _y = set(_m2.yx, _m2.yy);
-            }
-            pfx = _x; pfy = _y;
-            pfo = chu("../ffpo");
-        }
-
         // FF pre affine
         affine(mem, fx, fy, fo);
-
-        // FF PRE 01
-        fp1w = chf("../ffpre1weight");
-        if(fp1w >0){
-            fp1t = chi("../ffpre1type");
-            mem  = FLAMEFF(FP, fp1t, f3c, mem, fx, fy, fo, fp1w);
-        }
-        // FF VAR 01
-        fv1w = chf("../ffv1weight");
-        if(fv1w!=0){
-            fv1t = chi("../ffv1type");
-            tmp += FLAMEFF(FL, fv1t, f3c, mem, fx, fy, fo, fv1w);
-        }
-        // FF VAR 02
-        fv2w = chf("../ffv2weight");
-        if(fv2w!=0){
-            fv2t = chi("../ffv2type");
-            tmp += FLAMEFF(FL, fv2t, f3c, mem, fx, fy, fo, fv2w);
-        }
-        // // FF POST VAR 01
-        fP1w = chf("../ffp1weight");
-        if(fP1w >0){
-            fP1t = chi("../ffp1type");
-            tmp  = FLAMEFF(FP, fP1t, f3c, tmp, fx, fy, fo, fP1w);
-        }
-        // // FF POST VAR 02
-        fP2w = chf("../ffp2weight");
-        if(fP2w >0){
-            fP2t = chi("../ffp2type");
-            tmp  = FLAMEFF(FP, fP2t, f3c, tmp, fx, fy, fo, fP2w);
-        }
-        
+        // FF PRE
+        if(fp1w >0) mem  = FLAMEFF(FP, fp1t, f3c, mem, fx, fy, fo, fp1w);
+        // FF VAR
+        tmp=0;
+        if(fv1w!=0) tmp += FLAMEFF(FL, fv1t, f3c, mem, fx, fy, fo, fv1w);
+        if(fv2w!=0) tmp += FLAMEFF(FL, fv2t, f3c, mem, fx, fy, fo, fv2w);
+        // FF POST
+        if(fP1w >0) tmp  = FLAMEFF(FP, fP1t, f3c, tmp, fx, fy, fo, fP1w);
+        if(fP2w >0) tmp  = FLAMEFF(FP, fP2t, f3c, tmp, fx, fy, fo, fP2w);
         // FF post affine
         if(PFF) affine(tmp, pfx, pfy, pfo);
-        
         // FF out
         mem=tmp;
     }

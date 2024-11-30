@@ -32,11 +32,11 @@
 // GENOME
 struct gem{
 
-    int     res, v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[];
-    float   v1w[], v2w[], v3w[], v4w[], pbw[], p1w[], p2w[], P1w[], CLR[], OM[], A[];
-    vector2 x[], y[], o[], px[], py[], po[];
+    int     PFF, res, v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], fp1t, fv1t, fv2t, fP1t, fP2t;
+    float   v1w[], v2w[], v3w[], v4w[], pbw[], p1w[], p2w[], P1w[], CLR[], OM[], A[], fp1w, fv1w, fv2w, fP1w, fP2w;
+    vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     
-    void gemBuild(const string sIDX[]){
+    void gemBuild(const string sIDX[]; const int FF){
 
         // GENOME
         res = len(sIDX);
@@ -115,6 +115,48 @@ struct gem{
                 }
                 px[i] = _x; py[i] = _y;
                 po[i] = chu(concat("../po_", idx));
+            }
+        }
+        if(FF){
+            // FF PRE 01
+            fp1w = chf("../ffpre1weight");
+            if(fp1w >0) fp1t = chi("../ffpre1type");
+            // FF VAR 01
+            fv1w = chf("../ffv1weight");
+            if(fv1w!=0) fv1t = chi("../ffv1type");
+            // FF VAR 02
+            fv2w = chf("../ffv2weight");
+            if(fv2w!=0) fv2t = chi("../ffv2type");
+            // // FF POST VAR 01
+            fP1w = chf("../ffp1weight");
+            if(fP1w >0) fP1t = chi("../ffp1type");
+            // // FF POST VAR 02
+            fP2w = chf("../ffp2weight");
+            if(fP2w >0) fP2t = chi("../ffp2type");
+            // FF AFFINE
+            _x = chu("../ffx");
+            _y = chu("../ffy");
+            _a = chf("../ffang");
+            if(_a!=0){
+                affineRot(_m2, _x, _y, -radians(_a));
+                _x = set(_m2.xx, _m2.xy);
+                _y = set(_m2.yx, _m2.yy);
+            }
+            fx = _x; fy = _y;
+            fo = chu("../ffo");
+            // FF POST AFFINE
+            PFF = chi("../ffdopost");
+            if(PFF){
+                _x = chu("../ffpx");
+                _y = chu("../ffpy");
+                _a = chf("../ffpang");
+                if(_a!=0){
+                    affineRot(_m2, _x, _y, -radians(_a));
+                    _x = set(_m2.xx, _m2.xy);
+                    _y = set(_m2.yx, _m2.yy);
+                }
+                pfx = _x; pfy = _y;
+                pfo = chu("../ffpo");
             }
         }
     }
