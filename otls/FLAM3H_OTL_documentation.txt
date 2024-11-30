@@ -2294,6 +2294,8 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
 
     When switched ON it will display the xforms handles in the viewport.<br />
 
+    They have been built do add as little as possible to the computation, in fact you can keep them ON all the time if you like, except when rendering.
+
     [Image:opdef:.?FLAM3H_DOC_xforms_handles.svg]
     
     _These handles are not editable, but only for visualization purpose_.<br />
