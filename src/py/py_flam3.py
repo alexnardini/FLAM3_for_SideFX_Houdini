@@ -74,7 +74,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.6.02'
+FLAM3H_VERSION = '1.6.05'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
