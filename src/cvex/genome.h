@@ -347,9 +347,8 @@ struct gemhandles{
         float _a;
         vector2 _x, _y;
         matrix2 _m2;
-        string  idx;
-
-        idx=sIDX[id];
+        string idx=sIDX[id];
+        
         // AFFINE
         _x = chu(concat("../../x_", idx));
         _y = chu(concat("../../y_", idx));
