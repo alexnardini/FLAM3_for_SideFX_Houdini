@@ -34,19 +34,19 @@
 
 void _FLAM3HANDLES(const string _bound_sIDX[]; vector _bound_P)
 {
-    int idx = detail(1, "iteration");
+    int id = detail(1, "iteration");
     vector2 mem = (vector2)_bound_P;
 
     // Build genome handle
     string sIDX[]=_bound_sIDX;
-    gemhandles GEMH; GEMH->gemhandlesBuild(sIDX);
+    gemhandles GEMH; GEMH->gemhandlesBuild(id, sIDX);
     // cast HANDLES 
-    int PPL[]; /* CAST */ PPL=GEMH.PPL;
-    vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEMH.x; y=GEMH.y; o=GEMH.o; px=GEMH.px; py=GEMH.py; po=GEMH.po;
+    int PPL; /* CAST */ PPL=GEMH.PPL;
+    vector2 x, y, o, px, py, po; /* CAST */ x=GEMH.x; y=GEMH.y; o=GEMH.o; px=GEMH.px; py=GEMH.py; po=GEMH.po;
     // pre affine
-    affine(mem, x[idx], y[idx], o[idx]);
+    affine(mem, x, y, o);
     // post affine
-    if(PPL[idx]) affine(mem, px[idx], py[idx], po[idx]);
+    if(PPL) affine(mem, px, py, po);
     // OUT
     _bound_P=(vector)mem + {0, 0, 0.01}; // Adding an offset to be on top of the FLAM3H points
 }

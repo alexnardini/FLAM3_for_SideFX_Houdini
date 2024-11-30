@@ -334,57 +334,53 @@ struct gemPrm{
 
 
 
-// GENOME HANDLES ITERATORS (VIZ Only)
+// DATA: GENOME HANDLES ITERATORS (VIZ Only)
 struct gemhandles{
 
-    int     PPL[];
-    vector2 x[], y[], o[], px[], py[], po[];
+    int     PPL;
+    vector2 x, y, o, px, py, po;
     
-    void gemhandlesBuild(const string sIDX[]){
+    void gemhandlesBuild(const int id; const string sIDX[]){
 
         // GENOME
         int res = len(sIDX);
-        resize(x, res); y=o=px=py=po=x;
         float _a;
         vector2 _x, _y;
         matrix2 _m2;
         string  idx;
-        
-        for(int i=0; i<res; ++i){
 
-            idx=sIDX[i];
-            // AFFINE
-            _x = chu(concat("../../x_", idx));
-            _y = chu(concat("../../y_", idx));
-            _a = chf(concat("../../ang_", idx));
+        idx=sIDX[id];
+        // AFFINE
+        _x = chu(concat("../../x_", idx));
+        _y = chu(concat("../../y_", idx));
+        _a = chf(concat("../../ang_", idx));
+        if(_a!=0){
+            affineRot(_m2, _x, _y, -radians(_a));
+            _x = set(_m2.xx, _m2.xy);
+            _y = set(_m2.yx, _m2.yy);
+        }
+        x = _x; y = _y;
+        o = chu(concat("../../o_", idx));
+        // POST AFFINE
+        PPL = chi(concat("../../dopost_", idx));
+        if(PPL){
+            _x = chu(concat("../../px_", idx));
+            _y = chu(concat("../../py_", idx));
+            _a = chf(concat("../../pang_", idx));
             if(_a!=0){
                 affineRot(_m2, _x, _y, -radians(_a));
                 _x = set(_m2.xx, _m2.xy);
                 _y = set(_m2.yx, _m2.yy);
             }
-            x[i] = _x; y[i] = _y;
-            o[i] = chu(concat("../../o_", idx));
-            // POST AFFINE
-            PPL[i] = chi(concat("../../dopost_", idx));
-            if(PPL[i]){
-                _x = chu(concat("../../px_", idx));
-                _y = chu(concat("../../py_", idx));
-                _a = chf(concat("../../pang_", idx));
-                if(_a!=0){
-                    affineRot(_m2, _x, _y, -radians(_a));
-                    _x = set(_m2.xx, _m2.xy);
-                    _y = set(_m2.yx, _m2.yy);
-                }
-                px[i] = _x; py[i] = _y;
-                po[i] = chu(concat("../../po_", idx));
-            }
+            px = _x; py = _y;
+            po = chu(concat("../../po_", idx));
         }
     }
 }
 
 
 
-// GENOME HANDLES FF (VIZ Only)
+// DATA: GENOME HANDLES FF (VIZ Only)
 struct gemhandlesFF{
 
     int     PFF;
