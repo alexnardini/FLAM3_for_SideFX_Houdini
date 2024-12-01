@@ -4681,6 +4681,7 @@ class flam3h_iterator_utils
     # Set menu_density() Menu
     def menu_global_density_set_default(self) -> None:
         """Revert density parameter to its default value.
+        Additionally give the ability to also set lower tier density presets: 300k, 200k, 100k.
         
         Args:
             (self):
