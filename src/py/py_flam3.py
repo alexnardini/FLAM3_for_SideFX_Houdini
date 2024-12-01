@@ -4673,7 +4673,7 @@ class flam3h_iterator_utils
             node.parm(GLB_DENSITY).deleteAllKeyframes()
             node.setParms({GLB_DENSITY: val_get}) # type: ignore 
             
-            _MSG = f"{node.name()} -> SET density preset: \" {vals_name.get(sel)} \""
+            _MSG = f"{node.name()} -> SET Density: {vals_name.get(sel)}"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
@@ -4689,17 +4689,57 @@ class flam3h_iterator_utils
             (None):
         """        
         node = self.node
-        node.setParms({GLB_DENSITY_PRESETS: 1}) # set this to update here anyway
+        kwargs = self.kwargs
         
         ptcount = node.parm(GLB_DENSITY).eval()
-        if ptcount != FLAM3H_DEFAULT_GLB_DENSITY:
-            node.parm(GLB_DENSITY).deleteAllKeyframes()
-            node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY})
-            _MSG = f"{node.name()} -> SET default density preset: \" 500K points \""
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+        
+        if kwargs['shift']:
+            if ptcount != 300000:
+                node.parm(GLB_DENSITY).deleteAllKeyframes()
+                node.setParms({GLB_DENSITY: 300000})
+                node.setParms({GLB_DENSITY_PRESETS: -1})
+                flam3h_general_utils.flash_message(node, 'Density: 300k')
+                _MSG = f"{node.name()} -> SET Density: 300K points"
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+            else:
+                _MSG = f"{node.name()}: Density already at: 300k points"
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                
+        elif kwargs['ctrl']:
+            if ptcount != 200000:
+                node.parm(GLB_DENSITY).deleteAllKeyframes()
+                node.setParms({GLB_DENSITY: 200000})
+                node.setParms({GLB_DENSITY_PRESETS: -1})
+                flam3h_general_utils.flash_message(node, 'Density: 200k')
+                _MSG = f"{node.name()} -> SET Density: 200K points"
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+            else:
+                _MSG = f"{node.name()}: Density already at: 200k points"
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                
+        elif kwargs['alt']:
+            if ptcount != 100000:
+                node.parm(GLB_DENSITY).deleteAllKeyframes()
+                node.setParms({GLB_DENSITY: 100000})
+                node.setParms({GLB_DENSITY_PRESETS: -1})
+                flam3h_general_utils.flash_message(node, 'Density: 100k')
+                _MSG = f"{node.name()} -> SET Density: 100K points"
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+            else:
+                _MSG = f"{node.name()}: Density already at: 100k points"
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            
         else:
-            _MSG = f"{node.name()}: Density already at its default value."
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            # Default 500k
+            if ptcount != FLAM3H_DEFAULT_GLB_DENSITY:
+                node.parm(GLB_DENSITY).deleteAllKeyframes()
+                node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY})
+                node.setParms({GLB_DENSITY_PRESETS: 1}) # set this to update here anyway
+                _MSG = f"{node.name()} -> SET default density preset: 500K points"
+                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+            else:
+                _MSG = f"{node.name()}: Density already at its default value."
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
     
     
     def menu_copypaste(self) -> list:
