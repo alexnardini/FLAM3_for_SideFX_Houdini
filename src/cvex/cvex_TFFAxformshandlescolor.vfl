@@ -32,7 +32,7 @@
 
 void _FLAM3HANDLESCOLOR(const string _bound_sIDX[]; vector _bound_color)
 {
-    vector color = point(0, "Cd", 10);
+    vector color = {2, 0, 0}; // Always start from ZERO hue
     string sIDX[] = _bound_sIDX;
     float h = rand(atoi(sIDX[detail(1, "iteration")]));
     vector hsv = rgbtohsv(color);

@@ -2,32 +2,27 @@
 ; ModuleID = 'FLAM3HANDLESCOLOR'
 source_filename = "FLAM3HANDLESCOLOR"
 
-@0 = private constant [3 x i8] c"Cd\00"
-@1 = private constant [0 x i8*] zeroinitializer
-@2 = private constant [10 x i8] c"iteration\00"
+@0 = private constant [0 x i8*] zeroinitializer
+@1 = private constant [10 x i8] c"iteration\00"
 @color = external global <3 x double>
-@3 = private constant [6 x i8] c"color\00"
+@2 = private constant [6 x i8] c"color\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"_FLAM3HANDLESCOLOR@[SV"(i8*** %_bound_sIDX, <3 x double>* %_bound_color) #0 {
 __llvm_entry:
-  %return = call <3 x double> @"point@VISI"(i64 0, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @0, i64 0, i64 0), i64 10)
   %_bound_sIDX1 = load i8**, i8*** %_bound_sIDX
-  %return3 = call i64 @"detail@IIS"(i64 1, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @2, i64 0, i64 0))
-  %return4 = call i8* @"getcomp@S[SI"(i8** %_bound_sIDX1, i64 %return3)
-  %return5 = call i64 @"atoi@IS"(i8* %return4)
-  %cast = sitofp i64 %return5 to double
-  %return6 = call double @"rand@FF"(double %cast)
-  %return8 = call <3 x double> @"rgbtohsv@VV"(<3 x double> %return)
-  %return10 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %return8, double %return6, i64 0)
-  %output = extractvalue { double, <3 x double> } %return10, 1
-  %return13 = call <3 x double> @"hsvtorgb@VV"(<3 x double> %output)
-  store <3 x double> %return13, <3 x double>* %_bound_color
+  %return = call i64 @"detail@IIS"(i64 1, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @1, i64 0, i64 0))
+  %return3 = call i8* @"getcomp@S[SI"(i8** %_bound_sIDX1, i64 %return)
+  %return4 = call i64 @"atoi@IS"(i8* %return3)
+  %cast = sitofp i64 %return4 to double
+  %return5 = call double @"rand@FF"(double %cast)
+  %return7 = call <3 x double> @"rgbtohsv@VV"(<3 x double> <double 2.000000e+00, double 0.000000e+00, double 0.000000e+00>)
+  %return9 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %return7, double %return5, i64 0)
+  %output = extractvalue { double, <3 x double> } %return9, 1
+  %return12 = call <3 x double> @"hsvtorgb@VV"(<3 x double> %output)
+  store <3 x double> %return12, <3 x double>* %_bound_color
   ret void
 }
-
-; Function Attrs: nounwind
-declare <3 x double> @"point@VISI"(i64, i8*, i64) #1
 
 ; Function Attrs: nounwind
 declare i64 @"detail@IIS"(i64, i8*) #1
@@ -68,7 +63,7 @@ __llvm_entry:
   store i8** %sIDX, i8*** %0
   call void @"_FLAM3HANDLESCOLOR@[SV"(i8*** %0, <3 x double>* %"<color>")
   %evalue = load <3 x double>, <3 x double>* %"<color>"
-  %gvalue = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @3, i64 0, i64 0), <3 x double> %evalue) #4
+  %gvalue = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @2, i64 0, i64 0), <3 x double> %evalue) #4
   store <3 x double> %gvalue, <3 x double>* @color
   ret void
 }
@@ -77,7 +72,7 @@ declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @FLAM3HANDLESCOLOR(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @1, i64 0, i64 0), <3 x double> zeroinitializer)
+  call void @FLAM3HANDLESCOLOR(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @0, i64 0, i64 0), <3 x double> zeroinitializer)
   ret void
 }
 
