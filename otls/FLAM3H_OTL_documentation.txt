@@ -212,6 +212,8 @@ Reset density:
     ((LMB)) to reset density to its default: *`500k`*(_thousands_)<br />
     This is what should be used while editing fractal Flames most of the time.
 
+    _Following are lower tier density presets you can set if you desire:_
+
     - ((SHIFT)) + ((LMB)) set density to: *`300k`*(_thousands_)
     - ((CTRL)) + ((LMB)) set density to: *`200k`*(_thousands_)
     - ((ALT)) + ((LMB)) set density to: *`100k`*(_thousands_)
