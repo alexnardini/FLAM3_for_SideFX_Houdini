@@ -42,20 +42,26 @@
 
 // 01
 void V_SINUSOIDAL(vector2 p; const vector2 _p; const float w){
-    float _px, _py; assign(_px, _py, _p);
+    float _px, _py;
+    assign(_px, _py, _p);
+
     p[0] = w * sin(_px);
     p[1] = w * sin(_py);
 }
 // 02
 void V_SPHERICAL(vector2 p; const vector2 _p; const float w){
-    float r2, _px, _py; assign(_px, _py, _p);
+    float r2, _px, _py;
+    assign(_px, _py, _p);
+
     r2 = w / ( SUMSQ(_p) + EPS );
     p[0] = r2 * _px;
     p[1] = r2 * _py;
 }
 // 03
 void V_SWIRL(vector2 p; const vector2 _p; const float w){
-    float rr, c1, c2, nx, ny, _px, _py; assign(_px, _py, _p);
+    float rr, c1, c2, nx, ny, _px, _py;
+    assign(_px, _py, _p);
+
     rr = SUMSQ(_p);
     c1 = sin(rr);
     c2 = cos(rr);
@@ -66,7 +72,9 @@ void V_SWIRL(vector2 p; const vector2 _p; const float w){
 }
 // 04
 void V_HORSESHOE(vector2 p; const vector2 _p; const float w){
-    float rr, _px, _py; assign(_px, _py, _p);
+    float rr, _px, _py;
+    assign(_px, _py, _p);
+
     rr = w / (SQRT(_p) + EPS);
     p[0] = (_px - _py) * (_px + _py) * rr;
     p[1] = 2.0 * _px * _py * rr;
@@ -121,7 +129,9 @@ void V_HIPERBOLIC(vector2 p; const vector2 _p; const float w){
 }
 // 11 (precalc _p)
 void V_DIAMOND(vector2 p; const vector2 _p; const float w){
-    float a, r, _px, _py; assign(_px, _py, _p);
+    float a, r, _px, _py;
+    assign(_px, _py, _p);
+
     a = atan2(_px, _py);
     r = sqrt(_px*_px + _py*_py);
     p[0] = w * sin(a) * cos(r);
@@ -152,7 +162,9 @@ void V_JULIA(vector2 p; const vector2 _p; const float w){
 }
 // 14
 void V_BENT(vector2 p; const vector2 _p; const float w){
-    float nx, ny, _px, _py; assign(_px, _py, _p);;
+    float nx, ny, _px, _py;
+    assign(_px, _py, _p);
+
     nx = _px;
     ny = _py;
     if(nx < 0.0) nx = nx * 2.0;
@@ -163,7 +175,9 @@ void V_BENT(vector2 p; const vector2 _p; const float w){
 // 15
 void V_WAVES(vector2 p; const vector2 _p; const float w, b, c, e, f){
     // precalc
-    float m_Dx2, m_Dy2, nx, ny, _px, _py; assign(_px, _py, _p);
+    float m_Dx2, m_Dy2, nx, ny, _px, _py;
+    assign(_px, _py, _p);
+
     m_Dx2 = 1 / Zeps(c * c);
     m_Dy2 = 1 / Zeps(f * f);
     // compute
@@ -174,7 +188,9 @@ void V_WAVES(vector2 p; const vector2 _p; const float w, b, c, e, f){
 }
 // 16
 void V_FISHEYE(vector2 p; const vector2 _p; const float w){
-    float r, _px, _py; assign(_px, _py, _p);
+    float r, _px, _py;
+    assign(_px, _py, _p);
+
     r = SQRT(_p);
     r = 2 * w / (r+1);
     p[0] = r * _py;
@@ -182,7 +198,9 @@ void V_FISHEYE(vector2 p; const vector2 _p; const float w){
 }
 // 17
 void V_POPCORN(vector2 p; const vector2 _p; const float w, c, f){
-    float dx, dy, nx, ny, _px, _py; assign(_px, _py, _p);
+    float dx, dy, nx, ny, _px, _py;
+    assign(_px, _py, _p);
+
     dx = tan(3*_py);
     dy = tan(3*_px);
     nx = _px + c * sin(dx);
@@ -192,7 +210,9 @@ void V_POPCORN(vector2 p; const vector2 _p; const float w, c, f){
 }
 // 18
 void V_EXPONENTIAL(vector2 p; const vector2 _p; const float w){
-    float dx, dy, sdy, cdy, _px, _py; assign(_px, _py, _p);;
+    float dx, dy, sdy, cdy, _px, _py;
+    assign(_px, _py, _p);
+
     dx = w * exp(_px-1.0);
     dy = M_PI * _py;
     sincos(dy, sdy, cdy);
@@ -208,7 +228,9 @@ void V_POWER(vector2 p; const vector2 _p; const float w){
 }
 // 20
 void V_COSINE(vector2 p; const vector2 _p; const float w){
-    float a, sa, ca, nx, ny, _px, _py; assign(_px, _py, _p);;
+    float a, sa, ca, nx, ny, _px, _py;
+    assign(_px, _py, _p);
+
     a = _px * M_PI;
     sincos(a, sa, ca);
     nx = ca * cosh(_py);
@@ -241,20 +263,26 @@ void V_FAN(vector2 p; const vector2 _p; const float w, c, f){
 }
 // 23
 void V_BUBBLE(vector2 p; const vector2 _p; const float w){
-    float r, _px, _py; assign(_px, _py, _p);
+    float r, _px, _py;
+    assign(_px, _py, _p);
+
     r = w / (0.25 * SUMSQ(_p) + 1);
     p[0] = r * _px;
     p[1] = r * _py;
 }
 // 24
 void V_CYLINDER(vector2 p; const vector2 _p; const float w){
-    float _px, _py; assign(_px, _py, _p);
+    float _px, _py;
+    assign(_px, _py, _p);
+
     p[0] = w * sin(_px);
     p[1] = w * _py;
 }
 // 25
 void V_EYEFISH(vector2 p; const vector2 _p; const float w){
-    float r, _px, _py; assign(_px, _py, _p);
+    float r, _px, _py;
+    assign(_px, _py, _p);
+
     r =  (w * 2.0) / (1.0 + SQRT(_p));
     p[0] =  r*_px;
     p[1] =  r*_py;
@@ -271,7 +299,9 @@ void V_BLUR(vector2 p; const float w){
 // 27 ( parametric )
 void V_CURL(vector2 p; const vector2 _p; const float w, c1, c2){
     
-    float re, im, r, _px, _py; assign(_px, _py, _p);
+    float re, im, r, _px, _py;
+    assign(_px, _py, _p);
+
     // From FRACTORIUM
     re = 1.0 + c1 * _px + c2 * ((_px*_px) - (_py*_py));
     im = c1 * _py + (2.0*c2) *  _px * _py;
@@ -312,7 +342,9 @@ void V_CURL(vector2 p; const vector2 _p; const float w, c1, c2){
 }
 // 28 ( parametric )
 void V_NGON(vector2 p; const vector2 _p; const float w, pow, sides, corners, circle){
-    float cpower, csides, csidesinv, r_factor, theta, phi, amp, _px, _py; assign(_px, _py, _p);
+    float cpower, csides, csidesinv, r_factor, theta, phi, amp, _px, _py;
+    assign(_px, _py, _p);
+
     cpower = -0.5*pow; csides = 2.0*PI/sides; csidesinv = 1.0/csides;
     r_factor = (_px==0 && _py==0) ? 0 : pow(SUMSQ(_p), cpower);
     theta = ATANYX(_p);
@@ -324,7 +356,10 @@ void V_NGON(vector2 p; const vector2 _p; const float w, pow, sides, corners, cir
 }
 // 29 ( parametric )
 void V_PDJ(vector2 p; const vector2 _p; const float w; const vector4 pp){
-    float  nx1, nx2, ny1, ny2, a, b, c, d, _px, _py; assign(_px, _py, _p); assign(a, b, c, d, pp);
+    float  nx1, nx2, ny1, ny2, a, b, c, d, _px, _py;
+    assign(_px, _py, _p);
+    assign(a, b, c, d, pp);
+
     nx1 = cos(b * _px);
     nx2 = sin(c * _px);
     ny1 = sin(a * _py);
@@ -405,7 +440,10 @@ void V_RINGS2(vector2 p; const vector2 _p; const float w, rings2val){
 }
 // 36 ( parametric )
 void V_RECTANGLES(vector2 p; const vector2 _p; const float w; const vector2 rect){
-    float _px, _py, rx, ry; assign(_px, _py, _p); assign(rx, ry, rect);
+    float _px, _py, rx, ry;
+    assign(_px, _py, _p);
+    assign(rx, ry, rect);
+
     if(rx==0) p[0] = w * _px;
     else p[0] = w * ((2 * floor(_px / rx) + 1) * rx - _px);
     if(ry==0) p[1] = w * _py;
@@ -413,7 +451,9 @@ void V_RECTANGLES(vector2 p; const vector2 _p; const float w; const vector2 rect
 }
 // 37 ( parametric )
 void V_RADIALBLUR(vector2 p; const vector2 _p; const float w, angle){
-    float rndG, tmpa, ra, rz, sa, ca, m_spin, m_zoom, _px, _py; assign(_px, _py, _p);
+    float rndG, tmpa, ra, rz, sa, ca, m_spin, m_zoom, _px, _py;
+    assign(_px, _py, _p);
+
     // precalc ( this probably better done inside the genome.h )
     sincos(angle * M_PI / 2, m_spin, m_zoom);
     // compute
@@ -445,7 +485,9 @@ void V_ARCH(vector2 p; const vector2 _p; const float w){
 }
 // 40
 void V_TANGENT(vector2 p; const vector2 _p; const float w){
-    float _px, _py; assign(_px, _py, _p);
+    float _px, _py;
+    assign(_px, _py, _p);
+
     p[0] = w * (sin(_px)/cos(_py));
     p[1] = w * tan(_py);
 }
@@ -456,7 +498,9 @@ void V_SQUARE(vector2 p; const vector2 _p; const float w){
 }
 // 42
 void V_RAYS(vector2 p; const vector2 _p; const float w){
-    float ang, rr, tanrr, _px, _py; assign(_px, _py, _p);
+    float ang, rr, tanrr, _px, _py;
+    assign(_px, _py, _p);
+
     ang = w * nrandom("twister") * M_PI;
     rr = w / (SUMSQ(_p) + EPS);
     tanrr = w * tan(ang) * rr;
@@ -465,7 +509,9 @@ void V_RAYS(vector2 p; const vector2 _p; const float w){
 }
 // 43
 void V_BLADE(vector2 p; const vector2 _p; const float w){
-    float rr, sinr, cosr, _px, _py; assign(_px, _py, _p);
+    float rr, sinr, cosr, _px, _py;
+    assign(_px, _py, _p);
+
     rr = nrandom("twister") * w * SQRT(_p);
     sincos(rr, sinr, cosr);
     p[0] = w * _px * (cosr + sinr);
@@ -483,7 +529,9 @@ void V_SECANT2(vector2 p; const vector2 _p; const float w){
 }
 // 45
 void V_TWINTRIAN(vector2 p; const vector2 _p; const float w){
-    float rr, sinr, cosr, diff, _px, _py; assign(_px, _py, _p);
+    float rr, sinr, cosr, diff, _px, _py;
+    assign(_px, _py, _p);
+
     rr = nrandom("twister") * w * SQRT(_p);
     sincos(rr, sinr, cosr);
     diff = log10(sinr*sinr)+cosr;
@@ -494,7 +542,9 @@ void V_TWINTRIAN(vector2 p; const vector2 _p; const float w){
 }
 // 46
 void V_CROSS(vector2 p; const vector2 _p; const float w){
-    float ss, rr, _px, _py; assign(_px, _py, _p);
+    float ss, rr, _px, _py;
+    assign(_px, _py, _p);
+
     ss = _px*_px - _py*_py;
     rr = w * sqrt(1.0 / (ss*ss+EPS));
     p[0] = _px*rr;
@@ -502,7 +552,9 @@ void V_CROSS(vector2 p; const vector2 _p; const float w){
 }
 // 47 ( parametric )
 void V_DISC2(vector2 p; const vector2 _p; const float w, rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd){
-    float rr, tt, sinr, cosr, _px, _py; assign(_px, _py, _p);
+    float rr, tt, sinr, cosr, _px, _py;
+    assign(_px, _py, _p);
+
     tt = disc2_timespi * (_px + _py);
     sincos(tt, sinr, cosr);
     rr = w * ATAN(_p) / M_PI;
@@ -531,7 +583,10 @@ void V_DISC2_FF(vector2 p; const vector2 _p; const float w, rot, twist;){
 }
 // 48 ( parametric )
 void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w, ss_m, ss_rnd, ss_holes; const vector ss_n){
-    float theta, st, ct, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1, _px, _py, ss_nx, ss_ny, ss_nz; assign(_px, _py, _p); assign(ss_nx, ss_ny, ss_nz, ss_n);
+    float theta, st, ct, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1, _px, _py, ss_nx, ss_ny, ss_nz;
+    assign(_px, _py, _p);
+    assign(ss_nx, ss_ny, ss_nz, ss_n);
+
     ss_pm_4 = ss_m / 4.0;
     ss_pneg1_n1 = -1.0 / ss_nx;
 
@@ -546,7 +601,9 @@ void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w, ss_m, ss_rnd, ss_h
 }
 // 49 ( parametric )
 void V_FLOWER(vector2 p; const vector2 _p; const float w, petals, holes){
-    float theta, rr, _px, _py; assign(_px, _py, _p);
+    float theta, rr, _px, _py;
+    assign(_px, _py, _p);
+
     theta = ATANYX(_p);
     rr = w * (nrandom("twister") - holes) * cos(petals*theta) / SQRT(_p);
     p[0] = rr * _px;
@@ -554,7 +611,9 @@ void V_FLOWER(vector2 p; const vector2 _p; const float w, petals, holes){
 }
 // 50 ( parametric )
 void V_CONIC(vector2 p; const vector2 _p; const float w, eccentricity, holes){
-    float ct, rr, _px, _py; assign(_px, _py, _p);
+    float ct, rr, _px, _py;
+    assign(_px, _py, _p);
+
     float SQRT = SQRT(_p);
     ct = _px / SQRT;
     rr = w * (nrandom("twister") - holes) 
@@ -583,7 +642,9 @@ void V_BENT2(vector2 p; const vector2 _p; const float w; const vector2 bent2){
 }
 // 53 ( parametric )
 void V_BIPOLAR(vector2 p; const vector2 _p; const float w, shift){
-    float x2y2, tt, x2, ps, y, _px, _py; assign(_px, _py, _p);
+    float x2y2, tt, x2, ps, y, _px, _py;
+    assign(_px, _py, _p);
+
     x2y2 = SUMSQ(_p);
     tt = x2y2+1;
     x2 = 2*_px;
@@ -596,7 +657,9 @@ void V_BIPOLAR(vector2 p; const vector2 _p; const float w, shift){
 }
 // 54
 void V_BOARDERS(vector2 p; const vector2 _p; const float w){
-    float roundX, roundY, offsetX, offsetY, _px, _py; assign(_px, _py, _p);
+    float roundX, roundY, offsetX, offsetY, _px, _py;
+    assign(_px, _py, _p);
+
     roundX = rint(_px);
     roundY = rint(_py);
     offsetX = _px - roundX;
@@ -630,7 +693,9 @@ void V_BOARDERS(vector2 p; const vector2 _p; const float w){
 }
 // 55
 void V_BUTTERFLY(vector2 p; const vector2 _p; const float w){
-    float wx, y2, rr, _px, _py; assign(_px, _py, _p);
+    float wx, y2, rr, _px, _py;
+    assign(_px, _py, _p);
+
     wx = w*1.3029400317411197908970256609023;
     y2 = _py*2.0;
     rr = wx*sqrt(abs(_py*_px)/(EPS + _px*_px + y2*y2));
@@ -639,7 +704,9 @@ void V_BUTTERFLY(vector2 p; const vector2 _p; const float w){
 }
 // 56 ( parametric )
 void V_CELL(vector2 p; const vector2 _p; const float w, size){
-    float inv_cell_size, x, y, dx, dy, _px, _py; assign(_px, _py, _p);
+    float inv_cell_size, x, y, dx, dy, _px, _py;
+    assign(_px, _py, _p);
+
     inv_cell_size = 1 / size;
     x = floor(_px * inv_cell_size);
     y = floor(_py * inv_cell_size);
@@ -684,7 +751,9 @@ void V_CPOW(vector2 p; const vector2 _p; const float w, power, pow_r, pow_i){
 }
 // 58
 void V_EDISC(vector2 p; const vector2 _p; const float w){
-    float tmp, tmp2, rr1, rr2, xmax, aa1, aa2, ww, snv, csv, snhu, cshu, _px, _py; assign(_px, _py, _p);
+    float tmp, tmp2, rr1, rr2, xmax, aa1, aa2, ww, snv, csv, snhu, cshu, _px, _py;
+    assign(_px, _py, _p);
+
     tmp =SUMSQ(_p) + 1;
     tmp2 = 2.0 * _px;
     rr1 = sqrt(tmp+tmp2);
@@ -702,7 +771,9 @@ void V_EDISC(vector2 p; const vector2 _p; const float w){
 }
 // 59
 void V_ELLIPTIC(vector2 p; const vector2 _p; const float w){
-    float tmp, x2, xmax, aa, bb, ssx, ww, _px, _py; assign(_px, _py, _p);
+    float tmp, x2, xmax, aa, bb, ssx, ww, _px, _py;
+    assign(_px, _py, _p);
+
     tmp = SUMSQ(_p) + 1.0;
     x2 = 2.0 * _px;
     xmax = 0.5 * (sqrt(tmp+x2) + sqrt(tmp-x2));
@@ -718,7 +789,9 @@ void V_ELLIPTIC(vector2 p; const vector2 _p; const float w){
 
 // 60
 void V_NOISE(vector2 p; const vector2 _p; const float w){
-    float tmpr, sinr, cosr, rr, _px, _py; assign(_px, _py, _p);
+    float tmpr, sinr, cosr, rr, _px, _py;
+    assign(_px, _py, _p);
+
     tmpr = nrandom("twister") * 2 * M_PI;
     sincos(tmpr, sinr, cosr);
     rr = w * nrandom("twister");
@@ -741,7 +814,9 @@ void V_ESCHER(vector2 p; const vector2 _p; const float w, beta){
 }
 // 62
 void V_FOCI(vector2 p; const vector2 _p; const float w){
-    float expx, expnx, sn, cn, tmp, _px, _py; assign(_px, _py, _p);
+    float expx, expnx, sn, cn, tmp, _px, _py;
+    assign(_px, _py, _p);
+
     expx = exp(_px) * 0.5;
     expnx = 0.25 / Zeps(expx);
     sincos(_py, sn, cn);
@@ -751,7 +826,10 @@ void V_FOCI(vector2 p; const vector2 _p; const float w){
 }
 // 63 ( parametric )
 void V_LAZYSUSAN(vector2 p; const vector2 _p; const float w, spin, twist, space; const vector2 lazy){
-    float xx, yy, rr, sina, cosa, aa, _px, _py, lx, ly; assign(_px, _py, _p); assign(lx, ly, lazy);
+    float xx, yy, rr, sina, cosa, aa, _px, _py, lx, ly;
+    assign(_px, _py, _p);
+    assign(lx, ly, lazy);
+
     xx = _px - lx;
     yy = _py + ly;
     rr = SQRT(set(xx,yy));
@@ -770,7 +848,9 @@ void V_LAZYSUSAN(vector2 p; const vector2 _p; const float w, spin, twist, space;
 }
 // 64
 void V_LOONIE(vector2 p; const vector2 _p; const float w){
-    float rr, rr2, w2, _px, _py; assign(_px, _py, _p);
+    float rr, rr2, w2, _px, _py;
+    assign(_px, _py, _p);
+
     rr2 = SUMSQ(_p);
     w2 = w * w;
     if(rr2 < w2){
@@ -794,7 +874,9 @@ void V_PREBLUR(vector2 p; const float w){
 }
 // 66 ( parametric )
 void V_MODULUS(vector2 p; const vector2 _p; const float w; const vector2 m){
-    float mx, my, xr, yr, _px, _py; assign(_px, _py, _p); assign(mx, my, m);
+    float mx, my, xr, yr, _px, _py;
+    assign(_px, _py, _p);
+    assign(mx, my, m);
     
     xr=2*mx; yr=2*my;
     if(_px > mx)
@@ -813,7 +895,9 @@ void V_MODULUS(vector2 p; const vector2 _p; const float w; const vector2 m){
 }
 // 67 ( parametric )
 void V_OSCOPE(vector2 p; const vector2 _p; const float w, freq, amp, damp, sep){
-    float tpf, tt, _px, _py; assign(_px, _py, _p);
+    float tpf, tt, _px, _py;
+    assign(_px, _py, _p);
+
     tpf = 2 * M_PI * freq;
     if(damp == 0.0) tt = amp * cos(tpf*_px) + sep;
     else tt = amp * exp(-abs(_px)* damp) * cos(tpf*_px) + sep;
@@ -834,13 +918,18 @@ void V_POLAR2(vector2 p; const vector2 _p; const float w){
     }
 // 69 ( parametric )
 void V_POPCORN2(vector2 p; const vector2 _p; const float w, pop2c; const vector2 pop2){
-    float _px, _py, pop2x, pop2y; assign(_px, _py, _p);assign(pop2x, pop2y, pop2);
+    float _px, _py, pop2x, pop2y;
+    assign(_px, _py, _p);
+    assign(pop2x, pop2y, pop2);
+
     p[0] = w * (_px + pop2x * sin(SafeTan(_py*pop2c)));
     p[1] = w * (_py + pop2y * sin(SafeTan(_px*pop2c)));
 }
 // 70 ( parametric )
 void V_SCRY(vector2 p; const vector2 _p; const float w){
-    float tt, rr, _px, _py; assign(_px, _py, _p);
+    float tt, rr, _px, _py;
+    assign(_px, _py, _p);
+
     tt = SUMSQ(_p);
     rr = 1.0 / (SQRT(_p) * (tt + 1.0/(w+EPS)));
     p[0] = _px * rr;
@@ -848,7 +937,10 @@ void V_SCRY(vector2 p; const vector2 _p; const float w){
 }
 // 71 ( parametric )
 void V_SEPARATION(vector2 p; const vector2 _p; const float w; const vector2 sep, ins){
-    float sx2, sy2, _px, _py, ix, iy; assign(_px, _py, _p); assign(ix, iy, ins);
+    float sx2, sy2, _px, _py, ix, iy;
+    assign(_px, _py, _p);
+    assign(ix, iy, ins);
+
     sx2 = sep[0]*sep[0];
     sy2 = sep[1]*sep[1];
     if(_px > 0.0) p[0] = w * (sqrt(_px*_px + sx2) - _px*ix);
@@ -858,7 +950,10 @@ void V_SEPARATION(vector2 p; const vector2 _p; const float w; const vector2 sep,
 }
 // 72 ( parametric )
 void V_SPLIT(vector2 p; const vector2 _p; const float w; const vector2 split){
-    float _px, _py, sx, sy; assign(_px, _py, _p); assign(sx, sy, split);
+    float _px, _py, sx, sy;
+    assign(_px, _py, _p);
+    assign(sx, sy, split);
+
     if(cos(_px*sx*M_PI) >= 0) p[1] = w * _py;
     else p[1] = w * -_p[1];
     if(cos(_py*sy*M_PI) >= 0) p[0] = w * _px;
@@ -866,7 +961,10 @@ void V_SPLIT(vector2 p; const vector2 _p; const float w; const vector2 split){
 }
 // 73 ( parametric )
 void V_SPLITS(vector2 p; const vector2 _p; const float w; const vector2 splits){
-    float _px, _py, sx, sy; assign(_px, _py, _p); assign(sx, sy, splits);
+    float _px, _py, sx, sy;
+    assign(_px, _py, _p);
+    assign(sx, sy, splits);
+
     if(_px >= 0) p[0] = w * (_px + sx);
     else p[0] = w * (_px - sx);
     if(_py >= 0) p[1] = w * (_py + sy);
@@ -874,7 +972,9 @@ void V_SPLITS(vector2 p; const vector2 _p; const float w; const vector2 splits){
 }
 // 74 ( parametric )
 void V_STRIPES(vector2 p; const vector2 _p; const float w, space, warp){
-    float roundx, offsetx, _px, _py; assign(_px, _py, _p);
+    float roundx, offsetx, _px, _py;
+    assign(_px, _py, _p);
+
     roundx = floor(_px + 0.5);
     offsetx = _px - roundx;
     p[0] = w * (offsetx * (1.0 - space) + roundx);
@@ -971,13 +1071,17 @@ void V_WHORL(vector2 p; const vector2 _p; const float w, inside, outside){
 }
 // 79 ( parametric )
 void V_WAVES2(vector2 p; const vector2 _p; const float w; const vector2 scl, freq){
-    float _px, _py; assign(_px, _py, _p);
+    float _px, _py;
+    assign(_px, _py, _p);
+
     p[0] = w*(_px + scl[0]*sin(_py*freq[0]));
     p[1] = w*(_py + scl[1]*sin(_px*freq[1]));
 }
 // 80
 void V_EXP(vector2 p; const vector2 _p; const float w){
-    float expe, expz, expsin, expcos, _px, _py; assign(_px, _py, _p);
+    float expe, expz, expsin, expcos, _px, _py;
+    assign(_px, _py, _p);
+
     expe = w * exp(_px);
     p[0] = expe * cos(_py);
     p[1] = expe * sin(_py);
@@ -989,7 +1093,9 @@ void V_LOG(vector2 p; const vector2 _p; const float w){
 }
 // 82
 void V_SIN(const int f3c; vector2 p; const vector2 _p; const float w){
-    float _px, _py; assign(_px, _py, _p);
+    float _px, _py;
+    assign(_px, _py, _p);
+
     if(f3c){
         p[0] = w * sin(_px) * cosh(_py);
         p[1] = w * cos(_px) * sinh(_py);  
@@ -1004,7 +1110,9 @@ void V_SIN(const int f3c; vector2 p; const vector2 _p; const float w){
 }
 // 83
 void V_COS(const int f3c; vector2 p; const vector2 _p; const float w){
-    float _px, _py; assign(_px, _py, _p);
+    float _px, _py;
+    assign(_px, _py, _p);
+
     if(f3c){
         p[0] = w * cos(_px) * cosh(_py);
         p[1] = -(w * sin(_px) * sinh(_py)); }
@@ -1017,7 +1125,9 @@ void V_COS(const int f3c; vector2 p; const vector2 _p; const float w){
 }
 // 84
 void V_TAN(const int f3c; vector2 p; const vector2 _p; const float w){
-    float tansin, tancos, tansinh, tancosh, tanden, _px, _py; assign(_px, _py, _p);
+    float tansin, tancos, tansinh, tancosh, tanden, _px, _py;
+    assign(_px, _py, _p);
+
     if(f3c){
         sincos(2 * _px, tansin, tancos);
         tansinh = sinh(2 * _py);
@@ -1035,7 +1145,9 @@ void V_TAN(const int f3c; vector2 p; const vector2 _p; const float w){
 }
 // 85
 void V_SEC(const int f3c; vector2 p; const vector2 _p; const float w){
-    float secsin, seccos, secsinh, seccosh, secden, _px, _py; assign(_px, _py, _p);
+    float secsin, seccos, secsinh, seccosh, secden, _px, _py;
+    assign(_px, _py, _p);
+
     if(f3c){
         sincos(_px, secsin, seccos);
         secsinh = sinh(_py);
@@ -1057,7 +1169,9 @@ void V_SEC(const int f3c; vector2 p; const vector2 _p; const float w){
 }
 // 86 This somehow do not work as expected...
 void V_CSC(const int f3c; vector2 p; const vector2 _p; const float w){
-    float cscsin, csccos, cscsinh, csccosh, cscden, _px, _py; assign(_px, _py, _p);
+    float cscsin, csccos, cscsinh, csccosh, cscden, _px, _py;
+    assign(_px, _py, _p);
+
     if(f3c){
         sincos(_px, cscsin, csccos);
         cscsinh = sinh(_py);
@@ -1080,7 +1194,9 @@ void V_CSC(const int f3c; vector2 p; const vector2 _p; const float w){
 }
 // 87
 void V_COT(const int f3c; vector2 p; const vector2 _p; const float w){
-    float cotsin, cotcos, cotsinh, cotcosh, cotden, _px, _py; assign(_px, _py, _p);
+    float cotsin, cotcos, cotsinh, cotcosh, cotden, _px, _py;
+    assign(_px, _py, _p);
+
     if(f3c){
         sincos(2.0*_px, cotsin, cotcos);
         cotsinh = sinh(2.0*_py);
@@ -1102,7 +1218,9 @@ void V_COT(const int f3c; vector2 p; const vector2 _p; const float w){
 }
 // 88
 void V_SINH(const int f3c; vector2 p; const vector2 _p; const float w){
-    float sinhsin, sinhcos, sinhsinh, sinhcosh, _px, _py; assign(_px, _py, _p);
+    float sinhsin, sinhcos, sinhsinh, sinhcosh, _px, _py;
+    assign(_px, _py, _p);
+
     if(f3c){
         sincos(_py, sinhsin, sinhcos);
         sinhsinh = sinh(_px);
@@ -1122,7 +1240,9 @@ void V_SINH(const int f3c; vector2 p; const vector2 _p; const float w){
 }
 // 89
 void V_COSH(const int f3c; vector2 p; const vector2 _p; const float w){
-    float coshsin, coshcos, coshsinh, coshcosh, _px, _py; assign(_px, _py, _p);
+    float coshsin, coshcos, coshsinh, coshcosh, _px, _py;
+    assign(_px, _py, _p);
+
     if(f3c){
         sincos(_py, coshsin, coshcos);
         coshsinh = sinh(_px);
@@ -1142,7 +1262,9 @@ void V_COSH(const int f3c; vector2 p; const vector2 _p; const float w){
 }
 // 90
 void V_TANH(const int f3c; vector2 p; const vector2 _p; const float w){
-    float tanhsin, tanhcos, tanhsinh, tanhcosh, tanhden, _px, _py; assign(_px, _py, _p);
+    float tanhsin, tanhcos, tanhsinh, tanhcosh, tanhden, _px, _py;
+    assign(_px, _py, _p);
+
     if(f3c){
         sincos(2.0*_py, tanhsin, tanhcos);
         tanhsinh = sinh(2 * _px);
@@ -1164,7 +1286,9 @@ void V_TANH(const int f3c; vector2 p; const vector2 _p; const float w){
 }
 // 91
 void V_SECH(const int f3c; vector2 p; const vector2 _p; const float w){
-    float sechsin, sechcos, sechsinh, sechcosh, sechden, _px, _py; assign(_px, _py, _p);
+    float sechsin, sechcos, sechsinh, sechcosh, sechden, _px, _py;
+    assign(_px, _py, _p);
+
     if(f3c){
         sincos(_py, sechsin, sechcos);
         sechsinh = sinh(_px);
@@ -1186,7 +1310,9 @@ void V_SECH(const int f3c; vector2 p; const vector2 _p; const float w){
 }
 // 92
 void V_CSCH(const int f3c; vector2 p; const vector2 _p; const float w){
-    float cschsin, cschcos, cschsinh, cschcosh, cschden, _px, _py; assign(_px, _py, _p);
+    float cschsin, cschcos, cschsinh, cschcosh, cschden, _px, _py;
+    assign(_px, _py, _p);
+
     if(f3c){
         sincos(_py, cschsin, cschcos);
         cschsinh = sinh(_px);
@@ -1208,7 +1334,9 @@ void V_CSCH(const int f3c; vector2 p; const vector2 _p; const float w){
 }
 // 93
 void V_COTH(const int f3c; vector2 p; const vector2 _p; const float w){
-    float cothsin, cothcos, cothsinh, cothcosh, cothden, _px, _py; assign(_px, _py, _p);
+    float cothsin, cothcos, cothsinh, cothcosh, cothden, _px, _py;
+    assign(_px, _py, _p);
+
     if(f3c){
         sincos(2.0*_py, cothsin, cothcos);
         cothsinh = sinh(2.0*_px);
@@ -1230,7 +1358,9 @@ void V_COTH(const int f3c; vector2 p; const vector2 _p; const float w){
 }
 // 94 ( parametric )
 void V_AUGER(vector2 p; const vector2 _p; const float w, freq, scale, sym, ww){
-    float  s, t, uu, dy, dx, _px, _py; assign(_px, _py, _p);
+    float  s, t, uu, dy, dx, _px, _py;
+    assign(_px, _py, _p);
+
     float m_HalfScale = scale/2.0;
     s = sin(freq * _px);
     t = sin(freq * _py);
@@ -1241,7 +1371,9 @@ void V_AUGER(vector2 p; const vector2 _p; const float w, freq, scale, sym, ww){
 }
 // 95 ( parametric )
 void V_FLUX(vector2 p; const vector2 _p; const float w, spread){
-    float xpw, xmw, avgr, avga, _px, _py; assign(_px, _py, _p);
+    float xpw, xmw, avgr, avga, _px, _py;
+    assign(_px, _py, _p);
+
     xpw = _px + w;
     xmw = _px - w;
     avgr = w * (2 + spread) * sqrt(sqrt(_py*_py+xpw*xpw) / sqrt(_py*_py + xmw*xmw));
@@ -1251,8 +1383,11 @@ void V_FLUX(vector2 p; const vector2 _p; const float w, spread){
 }
 // 96 ( parametric )
 void V_MOBIUS(vector2 p; const vector2 _p; const float w; const vector4 re, im){
-    float reu, imu, rev, imv, radv, _px, _py, reA, reB, reC, reD, imA, imB, imC, imD; assign(_px, _py, _p);
-    assign(reA, reB, reC, reD, re); assign(imA, imB, imC, imD, im); 
+    float reu, imu, rev, imv, radv, _px, _py, reA, reB, reC, reD, imA, imB, imC, imD;
+    assign(_px, _py, _p);
+    assign(reA, reB, reC, reD, re);
+    assign(imA, imB, imC, imD, im); 
+
     reu = reA * _px - imA * _py + reB;
     imu = reA * _py + imA * _px + imB;
     rev = reC * _px - imC * _py + reD;
@@ -1263,13 +1398,19 @@ void V_MOBIUS(vector2 p; const vector2 _p; const float w; const vector4 re, im){
 }
 // 97 ( parametric )
 void V_CURVE(vector2 p; const vector2 _p; const float w; const vector2 l, a){
-    float lx, ly, ax, ay, _px, _py; assign(_px, _py, _p); assign(lx, ly, l); assign(ax, ay, a);
+    float lx, ly, ax, ay, _px, _py;
+    assign(_px, _py, _p);
+    assign(lx, ly, l);
+    assign(ax, ay, a);
+
     p[0] = w * _px + ax * exp(-_py * _py * lx);
     p[1] = w * _py + ay * exp(-_px * _px * ly);
 }
 // 98 ( parametric )
 void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w, angle, dist){
-    float tt, vsin, vfcos, _px, _py; assign(_px, _py, _p);
+    float tt, vsin, vfcos, _px, _py;
+    assign(_px, _py, _p);
+
     // precalc
     float ang = angle * M_PI / 2.0;
     vsin = sin(ang);
@@ -1386,14 +1527,21 @@ void V_BWRAPS_FF(vector2 p; const vector2 _p; const float w, cellsize, space, ga
 
 // 100
 void V_HEMISPHERE(vector2 p; const vector2 _p; const float w){
-    float tt, _px, _py; assign(_px, _py, _p);
+    float tt, _px, _py;
+    assign(_px, _py, _p);
+
     tt = w / sqrt(SUMSQ(_p) + 1);
     p[0] = _px * tt;
     p[1] = _py * tt;
 }
 // 101 ( parametric )
 void V_POLYNOMIAL(vector2 p; const vector2 _p; const float w; const vector2 pow, lc, sc){
-    float xp, yp, pwx, pwy, lx, ly, sx, sy, _px, _py; assign(_px, _py, _p); assign(pwx, pwy, pow); assign(lx, ly, lc); assign(sx, sy, sc);
+    float xp, yp, pwx, pwy, lx, ly, sx, sy, _px, _py;
+    assign(_px, _py, _p);
+    assign(pwx, pwy, pow);
+    assign(lx, ly, lc);
+    assign(sx, sy, sc);
+
     xp = pow(abs(w) * abs(_px), pwx);
     yp = pow(abs(w) * abs(_py), pwy);
     p[0] = xp * sgn(_px) + lx * _px + sx;
@@ -1444,7 +1592,9 @@ void V_CROP(vector2 p; const vector2 _p; const float w, m_X0, m_Y0, m_X1, m_Y1, 
 }
 // 103
 void V_UNPOLAR(vector2 p; const vector2 _p; const float w){
-    float m_Vvar2, r, s, c, _px, _py; assign(_px, _py, _p);
+    float m_Vvar2, r, s, c, _px, _py;
+    assign(_px, _py, _p);
+
     // precalc
     m_Vvar2 = (w / M_PI) * 0.5;
     // unpolar compute
@@ -1455,7 +1605,9 @@ void V_UNPOLAR(vector2 p; const vector2 _p; const float w){
 }
 // 104
 void V_GLYNNIA(vector2 p; const vector2 _p; const float w){
-    float d, r, m_V2, _px, _py; assign(_px, _py, _p);
+    float d, r, m_V2, _px, _py;
+    assign(_px, _py, _p);
+
     // precalc
     m_V2 = w * sqrt(2) / 2;
     // glynnia compute
@@ -1485,7 +1637,9 @@ void V_GLYNNIA(vector2 p; const vector2 _p; const float w){
 }
 // 105 ( parametric )
 void V_POINT_SYMMETRY(vector2 p; const vector2 _p; const float w, m_Order, m_X, m_Y){
-    float angle, dx, dy, cosa, sina, m_TwoPiDivOrder, _px, _py; assign(_px, _py, _p);
+    float angle, dx, dy, cosa, sina, m_TwoPiDivOrder, _px, _py;
+    assign(_px, _py, _p);
+    
     // precalc
     m_TwoPiDivOrder = M_PI2 / Zeps(m_Order);
     // compute
