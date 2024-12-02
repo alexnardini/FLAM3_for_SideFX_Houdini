@@ -175,7 +175,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
             // 30 BLOB ( parametric )
             else if(T==30){
                 vector blob = GMP.blob[idx];
-                V_BLOB(p, _p, w, blob[1], blob[0], blob[2]);
+                V_BLOB(p, _p, w,  blob[0], blob[1],blob[2]);
                 return p; }
             // 31 JuliaN ( parametric )
             else if(T==31){
@@ -264,7 +264,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 vector ss, ss_n;
                 ss = GMP.supershape[idx];
                 ss_n = GMP.supershape_n[idx];
-                V_SUPERSHAPE(p, _p, w, ss[1], ss[0], ss[2], ss_n);
+                V_SUPERSHAPE(p, _p, w, ss[0], ss[1], ss[2], ss_n);
                 return p; }
             // 49 FLOWER ( parametric )
             else if(T==49){

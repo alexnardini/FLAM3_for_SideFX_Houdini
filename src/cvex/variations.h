@@ -333,14 +333,14 @@ void V_PDJ(vector2 p; const vector2 _p; const float w; const vector4 pp){
     p[1] = w * (nx2 - ny2);
 }
 // 30 ( parametric ) (precalc _p)
-void V_BLOB(vector2 p; const vector2 _p; const float w, pp1, pp2, pp3){
+void V_BLOB(vector2 p; const vector2 _p; const float w, low, high, wave){
     vector2 precalc = (vector2)_p / SQRT(_p);
     float  blob_coeff, rr, aa, bdiff;
     float SQRT = SQRT(_p);
     rr = SQRT;
     aa = ATAN(_p);
-    bdiff = pp1 - pp2;
-    rr = rr * (pp2 + bdiff * (0.5 + 0.5 * sin(pp3 * aa)));
+    bdiff = high - low;
+    rr = rr * (low + bdiff * (0.5 + 0.5 * sin(wave * aa)));
     p[0] = w * precalc[0] * rr;
     p[1] = w * precalc[1] * rr;
 }
@@ -530,7 +530,7 @@ void V_DISC2_FF(vector2 p; const vector2 _p; const float w, rot, twist;){
     V_DISC2(p, _p, w, rot, twist, a, b, c);
 }
 // 48 ( parametric )
-void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w, ss_rnd, ss_m, ss_holes; const vector ss_n){
+void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w, ss_m, ss_rnd, ss_holes; const vector ss_n){
     float theta, st, ct, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1, _px, _py, ss_nx, ss_ny, ss_nz; assign(_px, _py, _p); assign(ss_nx, ss_ny, ss_nz, ss_n);
     ss_pm_4 = ss_m / 4.0;
     ss_pneg1_n1 = -1.0 / ss_nx;

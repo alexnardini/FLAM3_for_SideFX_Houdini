@@ -6094,7 +6094,7 @@ __llvm_entry:
 declare { double, double, double, double } @"assign@FFFFP"(<4 x double>) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_BLOB@UUFFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %pp1, double* %pp2, double* %pp3) #0 {
+define private void @"V_BLOB@UUFFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %low, double* %high, double* %wave) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -6110,16 +6110,16 @@ __llvm_entry:
   %_p7 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p7, <2 x double>* %2
   %ATAN = call double @"ATAN@FU"(<2 x double>* %2)
-  %pp18 = load double, double* %pp1
-  %pp29 = load double, double* %pp2
-  %output10 = fsub double %pp18, %pp29
-  %pp314 = load double, double* %pp3
-  %output16 = fmul double %pp314, %ATAN
+  %high8 = load double, double* %high
+  %low9 = load double, double* %low
+  %output10 = fsub double %high8, %low9
+  %wave14 = load double, double* %wave
+  %output16 = fmul double %wave14, %ATAN
   %return = call double @"sin@FF"(double %output16)
   %output17 = fmul double 5.000000e-01, %return
   %output18 = fadd double 5.000000e-01, %output17
   %output19 = fmul double %output10, %output18
-  %output20 = fadd double %pp29, %output19
+  %output20 = fadd double %low9, %output19
   %output21 = fmul double %SQRT5, %output20
   %w22 = load double, double* %w
   %return24 = call double @"getcomp@FUI"(<2 x double> %output, i64 0)
@@ -6920,7 +6920,7 @@ __llvm_entry:
 declare { double, double, double } @"assign@FFFV"(<3 x double>) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SUPERSHAPE@UUFFFFV"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %ss_rnd, double* %ss_m, double* %ss_holes, <3 x double>* %ss_n) #0 {
+define private void @"V_SUPERSHAPE@UUFFFFV"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %ss_m, double* %ss_rnd, double* %ss_holes, <3 x double>* %ss_n) #0 {
 __llvm_entry:
   %st = alloca double
   %ct = alloca double
@@ -11244,9 +11244,9 @@ true289:                                          ; preds = %false278
   store <2 x double> %pos1, <2 x double>* %73
   %w297 = load double, double* %w
   store double %w297, double* %74
-  %return299 = call double @"getcomp@FVI"(<3 x double> %return295, i64 1)
+  %return299 = call double @"getcomp@FVI"(<3 x double> %return295, i64 0)
   store double %return299, double* %75
-  %return301 = call double @"getcomp@FVI"(<3 x double> %return295, i64 0)
+  %return301 = call double @"getcomp@FVI"(<3 x double> %return295, i64 1)
   store double %return301, double* %76
   %return303 = call double @"getcomp@FVI"(<3 x double> %return295, i64 2)
   store double %return303, double* %77
@@ -11558,9 +11558,9 @@ true506:                                          ; preds = %false485
   store <2 x double> %pos1, <2 x double>* %126
   %w516 = load double, double* %w
   store double %w516, double* %127
-  %return518 = call double @"getcomp@FVI"(<3 x double> %return511, i64 1)
+  %return518 = call double @"getcomp@FVI"(<3 x double> %return511, i64 0)
   store double %return518, double* %128
-  %return520 = call double @"getcomp@FVI"(<3 x double> %return511, i64 0)
+  %return520 = call double @"getcomp@FVI"(<3 x double> %return511, i64 1)
   store double %return520, double* %129
   %return522 = call double @"getcomp@FVI"(<3 x double> %return511, i64 2)
   store double %return522, double* %130
