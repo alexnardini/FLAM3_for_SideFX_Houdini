@@ -8042,12 +8042,13 @@ class flam3h_palette_utils
         # CP
         node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1.0, 1.0, 1.0))})
         # CP->ramp
-        ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+        rmp_src = node.parm(CP_RAMP_SRC_NAME)
+        rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
         # Reset ramps
-        self.build_ramp_palette_default(ramp_parm)
+        self.build_ramp_palette_default(rmp_src)
         self.palette_cp()
-        self.delete_ramp_all_keyframes(ramp_parm)
-        self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
+        self.delete_ramp_all_keyframes(rmp_src)
+        self.delete_ramp_all_keyframes(rmp_hsv)
         # Reset CP options tab
         self.reset_CP_options()
         # CP->tmp ramp RESET
@@ -8123,12 +8124,13 @@ class flam3h_palette_utils
             (None):
         """
         node = self.node
-        ramp_parm = node.parm(CP_RAMP_SRC_NAME)
+        rmp_src = node.parm(CP_RAMP_SRC_NAME)
+        rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
         # Build ramp
-        self.build_ramp_palette_default(ramp_parm)
+        self.build_ramp_palette_default(rmp_src)
         self.palette_cp()
-        self.delete_ramp_all_keyframes(ramp_parm)
-        self.delete_ramp_all_keyframes(node.parm(CP_RAMP_HSV_NAME))
+        self.delete_ramp_all_keyframes(rmp_src)
+        self.delete_ramp_all_keyframes(rmp_hsv)
         # CP->tmp ramp RESET
         self.reset_CP_TMP()
         # Mark this as not a loaded preset
