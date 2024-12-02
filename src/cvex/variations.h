@@ -463,7 +463,7 @@ void V_BLADE(vector2 p; const vector2 _p; const float w){
     rr = nrandom("twister") * w * SQRT(_p);
     sincos(rr, sinr, cosr);
     p[0] = w * _px * (cosr + sinr);
-    p[1] = w * _py * (cosr - sinr);
+    p[1] = w * _px * (cosr - sinr);
 }
 // 44
 void V_SECANT2(vector2 p; const vector2 _p; const float w){
@@ -1247,7 +1247,7 @@ void V_FLUX(vector2 p; const vector2 _p; const float w, spread){
 void V_MOBIUS(vector2 p; const vector2 _p; const float w; const vector4 re, im){
     float reu, imu, rev, imv, radv, _px, _py, reA, reB, reC, reD, imA, imB, imC, imD; assign(_px, _py, _p);
     assign(reA, reB, reC, reD, re); assign(imA, imB, imC, imD, im); 
-    reu = reA * _px - imA * _py + reA;
+    reu = reA * _px - imA * _py + reB;
     imu = reA * _py + imA * _px + imB;
     rev = reC * _px - imC * _py + reD;
     imv = reC * _py + imC * _px + imD;

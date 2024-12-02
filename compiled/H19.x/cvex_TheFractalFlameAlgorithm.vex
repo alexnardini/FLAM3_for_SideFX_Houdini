@@ -6688,7 +6688,6 @@ __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
   %output2 = extractvalue { double, double } %output, 0
-  %output3 = extractvalue { double, double } %output, 1
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
   %w4 = load double, double* %w
   %output5 = fmul double %return, %w4
@@ -6709,7 +6708,7 @@ __llvm_entry:
   %output18 = extractvalue { double, <2 x double> } %return16, 1
   store <2 x double> %output18, <2 x double>* %p
   %w19 = load double, double* %w
-  %output21 = fmul double %w19, %output3
+  %output21 = fmul double %w19, %output2
   %cosr22 = load double, double* %cosr
   %sinr23 = load double, double* %sinr
   %output24 = fsub double %cosr22, %sinr23
@@ -9800,6 +9799,7 @@ __llvm_entry:
   %re4 = load <4 x double>, <4 x double>* %re
   %output5 = call { double, double, double, double } @"assign@FFFFP"(<4 x double> %re4)
   %output6 = extractvalue { double, double, double, double } %output5, 0
+  %output7 = extractvalue { double, double, double, double } %output5, 1
   %output8 = extractvalue { double, double, double, double } %output5, 2
   %output9 = extractvalue { double, double, double, double } %output5, 3
   %im10 = load <4 x double>, <4 x double>* %im
@@ -9811,7 +9811,7 @@ __llvm_entry:
   %output18 = fmul double %output6, %output2
   %output21 = fmul double %output12, %output3
   %output22 = fsub double %output18, %output21
-  %output24 = fadd double %output22, %output6
+  %output24 = fadd double %output22, %output7
   %output27 = fmul double %output6, %output3
   %output30 = fmul double %output12, %output2
   %output31 = fadd double %output27, %output30
