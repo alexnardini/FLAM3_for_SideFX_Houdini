@@ -42,14 +42,16 @@
 
 // 01
 void V_SINUSOIDAL(vector2 p; const vector2 _p; const float w){
-    p[0] = w * sin(_p[0]);
-    p[1] = w * sin(_p[1]);
+    float _px, _py; assign(_px, _py, _p);
+    p[0] = w * sin(_px);
+    p[1] = w * sin(_py);
 }
 // 02
 void V_SPHERICAL(vector2 p; const vector2 _p; const float w){
-    float r2 = w / ( SUMSQ(_p) + EPS );
-    p[0] = r2 * _p[0];
-    p[1] = r2 * _p[1];
+    float r2, _px, _py; assign(_px, _py, _p);
+    r2 = w / ( SUMSQ(_p) + EPS );
+    p[0] = r2 * _px;
+    p[1] = r2 * _py;
 }
 // 03
 void V_SWIRL(vector2 p; const vector2 _p; const float w){
@@ -150,9 +152,9 @@ void V_JULIA(vector2 p; const vector2 _p; const float w){
 }
 // 14
 void V_BENT(vector2 p; const vector2 _p; const float w){
-    float nx, ny;
-    nx = _p[0];
-    ny = _p[1];
+    float nx, ny, _px, _py; assign(_px, _py, _p);;
+    nx = _px;
+    ny = _py;
     if(nx < 0.0) nx = nx * 2.0;
     if(ny < 0.0) ny = ny / 2.0;
     p[0] = w * nx;
@@ -172,10 +174,11 @@ void V_WAVES(vector2 p; const vector2 _p; const float w, b, c, e, f){
 }
 // 16
 void V_FISHEYE(vector2 p; const vector2 _p; const float w){
-    float r = SQRT(_p);
+    float r, _px, _py; assign(_px, _py, _p);
+    r = SQRT(_p);
     r = 2 * w / (r+1);
-    p[0] = r * _p[1];
-    p[1] = r * _p[0];
+    p[0] = r * _py;
+    p[1] = r * _px;
 }
 // 17
 void V_POPCORN(vector2 p; const vector2 _p; const float w, c, f){
@@ -189,9 +192,9 @@ void V_POPCORN(vector2 p; const vector2 _p; const float w, c, f){
 }
 // 18
 void V_EXPONENTIAL(vector2 p; const vector2 _p; const float w){
-    float dx, dy, sdy, cdy;
-    dx = w * exp(_p[0]-1.0);
-    dy = M_PI * _p[1];
+    float dx, dy, sdy, cdy, _px, _py; assign(_px, _py, _p);;
+    dx = w * exp(_px-1.0);
+    dy = M_PI * _py;
     sincos(dy, sdy, cdy);
     p[0] = dx * cdy;
     p[1] = dx * sdy;
@@ -205,11 +208,11 @@ void V_POWER(vector2 p; const vector2 _p; const float w){
 }
 // 20
 void V_COSINE(vector2 p; const vector2 _p; const float w){
-    float a, sa, ca, nx, ny;
-    a = _p[0] * M_PI;
+    float a, sa, ca, nx, ny, _px, _py; assign(_px, _py, _p);;
+    a = _px * M_PI;
     sincos(a, sa, ca);
-    nx = ca * cosh(_p[1]);
-    ny = -sa * sinh(_p[1]);
+    nx = ca * cosh(_py);
+    ny = -sa * sinh(_py);
     p[0] = w * nx;
     p[1] = w * ny;
 }
@@ -238,20 +241,23 @@ void V_FAN(vector2 p; const vector2 _p; const float w, c, f){
 }
 // 23
 void V_BUBBLE(vector2 p; const vector2 _p; const float w){
-    float r = w / (0.25 * SUMSQ(_p) + 1);
-    p[0] = r * _p[0];
-    p[1] = r * _p[1];
+    float r, _px, _py; assign(_px, _py, _p);
+    r = w / (0.25 * SUMSQ(_p) + 1);
+    p[0] = r * _px;
+    p[1] = r * _py;
 }
 // 24
 void V_CYLINDER(vector2 p; const vector2 _p; const float w){
-    p[0] = w * sin(_p[0]);
-    p[1] = w * _p[1];
+    float _px, _py; assign(_px, _py, _p);
+    p[0] = w * sin(_px);
+    p[1] = w * _py;
 }
 // 25
 void V_EYEFISH(vector2 p; const vector2 _p; const float w){
-    float r =  (w * 2.0) / (1.0 + SQRT(_p));
-    p[0] =  r*_p[0];
-    p[1] =  r*_p[1];
+    float r, _px, _py; assign(_px, _py, _p);
+    r =  (w * 2.0) / (1.0 + SQRT(_p));
+    p[0] =  r*_px;
+    p[1] =  r*_py;
 }
 // 26
 void V_BLUR(vector2 p; const float w){
@@ -306,15 +312,15 @@ void V_CURL(vector2 p; const vector2 _p; const float w, c1, c2){
 }
 // 28 ( parametric )
 void V_NGON(vector2 p; const vector2 _p; const float w, pow, sides, corners, circle){
-    float cpower, csides, csidesinv, r_factor, theta, phi, amp;
+    float cpower, csides, csidesinv, r_factor, theta, phi, amp, _px, _py; assign(_px, _py, _p);
     cpower = -0.5*pow; csides = 2.0*PI/sides; csidesinv = 1.0/csides;
-    r_factor = (_p[0]==0 && _p[1]==0) ? 0 : pow(SUMSQ(_p), cpower);
+    r_factor = (_px==0 && _py==0) ? 0 : pow(SUMSQ(_p), cpower);
     theta = ATANYX(_p);
     phi = theta - csides * floor(theta*csidesinv);
     if(phi>0.5*csides) phi -= csides;
     amp = (corners * (1.0/cos(phi) - 1.0) + circle) * w * r_factor;
-    p[0] = amp * _p[0];
-    p[1] = amp * _p[1];
+    p[0] = amp * _px;
+    p[1] = amp * _py;
 }
 // 29 ( parametric )
 void V_PDJ(vector2 p; const vector2 _p; const float w; const vector4 pp){
@@ -535,8 +541,8 @@ void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w, ss_rnd, ss_m, ss_h
     tt2 = abs(st);  tt2 = pow(tt2, ss_nz);
     float SQRT = SQRT(_p);
     rr = w * ((ss_rnd*nrandom('twister') + (1.0-ss_rnd)*SQRT) - ss_holes) * pow(tt1+tt2, ss_pneg1_n1) / SQRT;
-    p[0] = rr * _p[0];
-    p[1] = rr * _p[1];
+    p[0] = rr * _px;
+    p[1] = rr * _py;
 }
 // 49 ( parametric )
 void V_FLOWER(vector2 p; const vector2 _p; const float w, petals, holes){
@@ -550,7 +556,7 @@ void V_FLOWER(vector2 p; const vector2 _p; const float w, petals, holes){
 void V_CONIC(vector2 p; const vector2 _p; const float w, eccentricity, holes){
     float ct, rr, _px, _py; assign(_px, _py, _p);
     float SQRT = SQRT(_p);
-    ct = _p[0] / SQRT;
+    ct = _px / SQRT;
     rr = w * (nrandom("twister") - holes) 
                 * eccentricity / (1 + eccentricity*ct) / SQRT;
     p[0] = rr * _px;
