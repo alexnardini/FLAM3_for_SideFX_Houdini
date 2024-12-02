@@ -39,7 +39,7 @@
 void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int _bound_ptnum; const float _bound_IW[], _bound_XST[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
     
-    int XS, idx, FF, RIP, MB, iter, f3c;
+    int XS, idx, _idx, FF, RIP, MB, iter, f3c;
     float pscl, clr, prv_clr, a, mbm; prv_clr=0; pscl=PSCL;
     vector2 tmp, mem;
     // SYS
@@ -59,8 +59,12 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
     gem GEM; GEM->gemBuild(sIDX, FF);
     // cast FLAME
     int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], res; /* CAST */ res=GEM.res; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; P1t=GEM.P1t; PPL=GEM.PPL;
-    float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], P1w[], pbw[], _CLR[], OM[], A[]; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; p2w=GEM.p2w; P1w=GEM.P1w; pbw=GEM.pbw; _CLR=GEM.CLR; OM=GEM.OM; A=GEM.A;
+    float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], P1w[], pbw[], CLR[], OM[], A[]; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; p2w=GEM.p2w; P1w=GEM.P1w; pbw=GEM.pbw; CLR=GEM.CLR; OM=GEM.OM; A=GEM.A;
     vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
+    // cast iterator (the least needed)
+    int _PPL;
+    float  _v1w, _v2w, _v3w, _v4w, _p1w, _p2w, _P1w, _pbw, _CLR, _OM;
+    vector2 _x, _y, _o;
     // cast FF
     int     fp1t, fv1t, fv2t, fP1t, fP2t, PFF; /* CAST */ fp1t=GEM.fp1t; fv1t=GEM.fv1t; fv2t=GEM.fv2t; fP1t=GEM.fP1t; fP2t=GEM.fP2t; PFF=GEM.PFF;
     float   fp1w, fv1w, fv2w, fP1w, fP2w; /* CAST */ fp1w=GEM.fp1w; fv1w=GEM.fv1w; fv2w=GEM.fv2w; fP1w=GEM.fP1w; fP2w=GEM.fP2w;
@@ -83,25 +87,27 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
 
         // xaos
         idx = (XS) ? XAOS(idx, res, _bound_XST) : sample_cdf((float[])_bound_IW, nrandom("twister"));
+        // cast iterator (the least needed)
+        _pbw=pbw[idx];_p1w=p1w[idx];_p2w=p2w[idx];_v1w=v1w[idx];_v2w=v2w[idx];_v3w=v3w[idx];_v4w=v4w[idx];_P1w=P1w[idx]; _x=x[idx];_y=y[idx];_o=o[idx]; _PPL=PPL[idx]; _CLR=CLR[idx];_OM=OM[idx];
 
         // pre affine
-        affine(mem, x[idx], y[idx], o[idx]);
+        affine(mem, _x, _y, _o);
         // PRE
-        if(pbw[idx] >0) V_PREBLUR(mem, pbw[idx]);
-        if(p1w[idx] >0) mem  = FLAME(p1GMP, idx, p1t[idx], f3c, mem, x[idx], y[idx], o[idx], p1w[idx]);
-        if(p2w[idx] >0) mem  = FLAME(p2GMP, idx, p2t[idx], f3c, mem, x[idx], y[idx], o[idx], p2w[idx]);
+        if(_pbw >0) V_PREBLUR(mem, _pbw);
+        if(_p1w >0) mem  = FLAME(p1GMP, idx, p1t[idx], f3c, mem, _x, _y, _o, _p1w);
+        if(_p2w >0) mem  = FLAME(p2GMP, idx, p2t[idx], f3c, mem, _x, _y, _o, _p2w);
         // VAR
         tmp=0;
-        if(v1w[idx]!=0) tmp += FLAME(v1GMP, idx, v1t[idx], f3c, mem, x[idx], y[idx], o[idx], v1w[idx]);
-        if(v2w[idx]!=0) tmp += FLAME(v2GMP, idx, v2t[idx], f3c, mem, x[idx], y[idx], o[idx], v2w[idx]);
-        if(v3w[idx]!=0) tmp += FLAME(v3GMP, idx, v3t[idx], f3c, mem, x[idx], y[idx], o[idx], v3w[idx]);
-        if(v4w[idx]!=0) tmp += FLAME(v4GMP, idx, v4t[idx], f3c, mem, x[idx], y[idx], o[idx], v4w[idx]);
+        if(_v1w!=0) tmp += FLAME(v1GMP, idx, v1t[idx], f3c, mem, _x, _y, _o, _v1w);
+        if(_v2w!=0) tmp += FLAME(v2GMP, idx, v2t[idx], f3c, mem, _x, _y, _o, _v2w);
+        if(_v3w!=0) tmp += FLAME(v3GMP, idx, v3t[idx], f3c, mem, _x, _y, _o, _v3w);
+        if(_v4w!=0) tmp += FLAME(v4GMP, idx, v4t[idx], f3c, mem, _x, _y, _o, _v4w);
         // POST
-        if(P1w[idx] >0) tmp  = FLAME(P1GMP, idx, P1t[idx], f3c, tmp, x[idx], y[idx], o[idx], P1w[idx]);
+        if(_P1w >0) tmp  = FLAME(P1GMP, idx, P1t[idx], f3c, tmp, _x, _y, _o, _P1w);
         // post affine
-        if(PPL[idx]) affine(tmp, px[idx], py[idx], po[idx]);
+        if(_PPL) affine(tmp, px[idx], py[idx], po[idx]);
         // clr
-        prv_clr=clr=_CLR[idx]+(OM[idx]*prv_clr);
+        prv_clr=clr=_CLR+(_OM*prv_clr);
         // out
         mem=tmp;
     }

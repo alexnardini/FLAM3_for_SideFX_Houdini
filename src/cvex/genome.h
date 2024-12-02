@@ -72,25 +72,25 @@ struct gem{
             pbw[i] = chf(concat("../preblurweight_" , idx));
             // PRE VAR 01
             p1w[i] = chf(concat("../pre1weight_" , idx));
-            if(p1w[i] >0) p1t[i]=atoi(chs(concat("../pre1type_", idx)));
+            p1t[i] = chi(concat("../pre1type_", idx));
             // PRE VAR 02
             p2w[i] = chf(concat("../pre2weight_", idx));
-            if(p2w[i] >0) p2t[i]=atoi(chs(concat("../pre2type_", idx)));
+            p2t[i] = chi(concat("../pre2type_", idx));
             // VAR 01
             v1w[i] = chf(concat("../v1weight_", idx));
-            if(v1w[i]!=0) v1t[i]=atoi(chs(concat("../v1type_", idx)));
+            v1t[i] = chi(concat("../v1type_", idx));
             // VAR 02
             v2w[i] = chf(concat("../v2weight_", idx));
-            if(v2w[i]!=0) v2t[i]=atoi(chs(concat("../v2type_", idx)));
+            v2t[i] = chi(concat("../v2type_", idx));
             // VAR 03
             v3w[i] = chf(concat("../v3weight_", idx));
-            if(v3w[i]!=0) v3t[i]=atoi(chs(concat("../v3type_", idx)));
+            v3t[i] = chi(concat("../v3type_", idx));
             // VAR 04
             v4w[i] = chf(concat("../v4weight_", idx));
-            if(v4w[i]!=0) v4t[i]=atoi(chs(concat("../v4type_", idx)));
+            v4t[i] = chi(concat("../v4type_", idx));
             // POST VAR 01
             P1w[i] = chf(concat("../p1weight_", idx));
-            if(P1w[i] >0) P1t[i]=atoi(chs(concat("../p1type_", idx)));
+            P1t[i] = chi(concat("../p1type_", idx));
             // AFFINE
             _x = chu(concat("../x_", idx));
             _y = chu(concat("../y_", idx));
@@ -120,19 +120,19 @@ struct gem{
         if(FF){
             // FF PRE 01
             fp1w = chf("../ffpre1weight");
-            if(fp1w >0) fp1t = chi("../ffpre1type");
+            fp1t = chi("../ffpre1type");
             // FF VAR 01
             fv1w = chf("../ffv1weight");
-            if(fv1w!=0) fv1t = chi("../ffv1type");
+            fv1t = chi("../ffv1type");
             // FF VAR 02
             fv2w = chf("../ffv2weight");
-            if(fv2w!=0) fv2t = chi("../ffv2type");
+            fv2t = chi("../ffv2type");
             // // FF POST VAR 01
             fP1w = chf("../ffp1weight");
-            if(fP1w >0) fP1t = chi("../ffp1type");
+            fP1t = chi("../ffp1type");
             // // FF POST VAR 02
             fP2w = chf("../ffp2weight");
-            if(fP2w >0) fP2t = chi("../ffp2type");
+            fP2t = chi("../ffp2type");
             // FF AFFINE
             _x = chu("../ffx");
             _y = chu("../ffy");
