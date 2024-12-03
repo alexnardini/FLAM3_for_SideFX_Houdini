@@ -1398,13 +1398,11 @@ void V_MOBIUS(vector2 p; const vector2 _p; const float w; const vector4 re, im){
 }
 // 97 ( parametric )
 void V_CURVE(vector2 p; const vector2 _p; const float w; const vector2 l, a){
-    float lx, ly, ax, ay, _px, _py;
+    float _px, _py;
     assign(_px, _py, _p);
-    assign(lx, ly, l);
-    assign(ax, ay, a);
 
-    p[0] = w * _px + ax * exp(-_py * _py * lx);
-    p[1] = w * _py + ay * exp(-_px * _px * ly);
+    p[0] = w * _px + a[0] * exp(-_py * _py * l[0]);
+    p[1] = w * _py + a[1] * exp(-_px * _px * l[1]);
 }
 // 98 ( parametric )
 void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w, angle, dist){
