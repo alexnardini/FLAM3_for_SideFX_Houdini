@@ -987,7 +987,14 @@ copy post affine values:
     #id: FLAME
     [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg]
      
-    Copy the values from the POST Affine.<br />It will copy the *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
+    Copy the values from the POST Affine.<br />
+
+    _Usage_:
+    
+    - ((LMB)) to copy all affine values: *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
+    - ((SHIFT)) + ((LMB)) to copy only the affine X and Y values.
+    - ((CTRL)) + ((LMB)) to copy only the affine O value.
+    - ((ALT)) + ((LMB)) to copy only the affine Rotation angle value.
 
 
 affine [Icon:TOP/xmlinput]:

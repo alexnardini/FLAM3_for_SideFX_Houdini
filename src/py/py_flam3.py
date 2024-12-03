@@ -5544,7 +5544,7 @@ class flam3h_iterator_utils
 
 
     def prm_paste_sel_pre_affine(self) -> None:
-        """Paste only either the POST affine.
+        """Copy/Paste POST affine inside the PRE affine.
         
         Args:
             (self):
@@ -5555,15 +5555,26 @@ class flam3h_iterator_utils
         # current iterator
         id = self.kwargs['script_multiparm_index']
         idx = str(id)
+        kwargs = self.kwargs
         
-        self.paste_from_list_affine(self.node, flam3h_iterator.sec_postAffine[1:], flam3h_iterator.sec_preAffine, idx)
-        _MSG = f"iterator.{id} - Post affine values copied into the Pre affine."
+        if kwargs['shift']:
+            self.paste_from_list_affine(self.node, flam3h_iterator.sec_postAffine[1:-2], flam3h_iterator.sec_preAffine[:-2], idx)
+            _MSG = f"iterator.{id} - POST affine X and Y copied into the PRE affine."
+        elif kwargs['ctrl']:
+            self.paste_from_list_affine(self.node, flam3h_iterator.sec_postAffine[3:-1], flam3h_iterator.sec_preAffine[2:-1], idx)
+            _MSG = f"iterator.{id} - POST affine Offset copied into the PRE affine."
+        elif kwargs['alt']:
+            self.paste_from_list_affine(self.node, flam3h_iterator.sec_postAffine[4:], flam3h_iterator.sec_preAffine[3:], idx)
+            _MSG = f"iterator.{id} - POST affine Rotation angle copied into the PRE affine."
+        else:
+            self.paste_from_list_affine(self.node, flam3h_iterator.sec_postAffine[1:], flam3h_iterator.sec_preAffine, idx)
+            _MSG = f"iterator.{id} - POST affine values copied into the PRE affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
         
     def prm_paste_sel_post_affine(self) -> None:
-        """Paste only either the PRE affine.
+        """Copy/Paste PRE affine inside the POST affine.
         
         Args:
             (self):
@@ -5574,9 +5585,20 @@ class flam3h_iterator_utils
         # current iterator
         id = self.kwargs['script_multiparm_index']
         idx = str(id)
+        kwargs = self.kwargs
         
-        self.paste_from_list_affine(self.node, flam3h_iterator.sec_preAffine, flam3h_iterator.sec_postAffine[1:], idx)
-        _MSG = f"iterator.{id} - Pre affine values copied into the Post affine."
+        if kwargs['shift']:
+            self.paste_from_list_affine(self.node, flam3h_iterator.sec_preAffine[:-2], flam3h_iterator.sec_postAffine[1:-2], idx)
+            _MSG = f"iterator.{id} - PRE affine X and Y copied into the POST affine."
+        elif kwargs['ctrl']:
+            self.paste_from_list_affine(self.node, flam3h_iterator.sec_preAffine[2:-1], flam3h_iterator.sec_postAffine[3:-1], idx)
+            _MSG = f"iterator.{id} - PRE affine Offset copied into the POST affine."
+        elif kwargs['alt']:
+            self.paste_from_list_affine(self.node, flam3h_iterator.sec_preAffine[3:], flam3h_iterator.sec_postAffine[4:], idx)
+            _MSG = f"iterator.{id} - PRE affine Rotation angle copied into the POST affine."
+        else:
+            self.paste_from_list_affine(self.node, flam3h_iterator.sec_preAffine, flam3h_iterator.sec_postAffine[1:], idx)
+            _MSG = f"iterator.{id} - PRE affine values copied into the POST affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
@@ -5590,9 +5612,20 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """    
+        kwargs = self.kwargs
         
-        self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_postAffine_FF[1:], flam3h_iterator_FF.sec_preAffine_FF, "")
-        _MSG = f"FF - Post affine values copied into the Pre affine."
+        if kwargs['shift']:
+            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_postAffine_FF[1:-2], flam3h_iterator_FF.sec_preAffine_FF[:-2], "")
+            _MSG = f"iterator.{id} - FF POST affine X and Y copied into the FF PRE affine."
+        elif kwargs['ctrl']:
+            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_postAffine_FF[3:-1], flam3h_iterator_FF.sec_preAffine_FF[2:-1], "")
+            _MSG = f"iterator.{id} - FF POST affine Offset copied into the FF PRE affine."
+        elif kwargs['alt']:
+            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_postAffine_FF[4:], flam3h_iterator_FF.sec_preAffine_FF[3:], "")
+            _MSG = f"iterator.{id} - FF POST affine Rotation angle copied into the FF PRE affine."
+        else:
+            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_postAffine_FF[1:], flam3h_iterator_FF.sec_preAffine_FF, "")
+            _MSG = f"iterator.{id} - FF POST affine values copied into the FF PRE affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
@@ -5606,9 +5639,20 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """    
+        kwargs = self.kwargs
         
-        self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_preAffine_FF, flam3h_iterator_FF.sec_postAffine_FF[1:], "")
-        _MSG = f"FF - Pre affine values copied into the Post affine"
+        if kwargs['shift']:
+            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_preAffine_FF[:-2], flam3h_iterator_FF.sec_postAffine_FF[1:-2], "")
+            _MSG = f"iterator.{id} - FF PRE affine X and Y copied into the FF POST affine."
+        elif kwargs['ctrl']:
+            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_preAffine_FF[2:-1], flam3h_iterator_FF.sec_postAffine_FF[3:-1], "")
+            _MSG = f"iterator.{id} - FF PRE affine Offset copied into the FF POST affine."
+        elif kwargs['alt']:
+            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_preAffine_FF[3:], flam3h_iterator_FF.sec_postAffine_FF[4:], "")
+            _MSG = f"iterator.{id} - FF PRE affine Rotation angle copied into the FF POST affine."
+        else:
+            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_preAffine_FF, flam3h_iterator_FF.sec_postAffine_FF[1:], "")
+            _MSG = f"iterator.{id} - FF PRE affine values copied into the FF POST affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
             
             
