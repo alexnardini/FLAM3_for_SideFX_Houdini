@@ -335,15 +335,26 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
     _These handles are not editable, but only for visualization purpose_.<br />
     _They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator of the fractal Flame_.
 
-    Each available iterator will generate an xform handle with a color based on its multiparameter index number<br />
-    while the FF will always be grey/white to make it easier to recognize when active.
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - When an iterator(_or FF_) POST affine is active, its xform' handle will turn dashed (_like the red handle in the above illustration_).
 
-    The FLAM3H node now posses a dive in location to only display the xforms handles without the FLAM3H points.<br />
-    With the FLAM3H node selected, either a double ((LMB)) on it or press the key: ((i)) to dive in and the key: ((u)) do dive out.<br />
-    It work when the mouse is over the node network and the viewport as well.<br />
-    This is useful to identify them visually as sometime it can be difficult to spot them when the fractal Flame is present.
+    - Each available iterator will generate an xform handle with a color based on the multiparameter index number
+    while the FF will always be grey/white and drawn on top of the others to make it easier to recognize when active.
 
-    A second output also has been added to the FLAM3H node only for the xform handles.<br />
+    - The FLAM3H node now posses a dive-in location to only display the xforms handles without the FLAM3H points.<br />
+
+        - double ((LMB)) on the FLAM3H node to dive-in, or:
+
+        _With the FLAM3H node selected_:
+        - press the key: ((i)) to dive-in
+
+        _Once you are in_:
+        - press the key: ((u)) to dive-out
+    
+        Those shortcut keys work when the mouse cursor is over the network editor as well over the viewport (_and over the parameters pane too_).
+        To dive-in is useful to identify them visually as sometime it can be difficult to spot them when the fractal Flame is present.
+
+    - A second output also has been added to the FLAM3H node to only ouput the xform handles.
     This make it handy to use it for viz purpose without having them baked into the points cloud because you can go back and forth between SOP and LOP while safe rendering the fractal Flame.
     
     :warning:
