@@ -180,56 +180,56 @@ true:                                             ; preds = %__llvm_entry
   br label %end
 
 end:                                              ; preds = %true, %__llvm_entry
-  %_x.0 = phi <2 x double> [ %return16, %true ], [ %return, %__llvm_entry ]
-  %_y.0 = phi <2 x double> [ %return21, %true ], [ %return2, %__llvm_entry ]
-  %return24 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @3, i64 0, i64 0))
-  store <2 x double> %_x.0, <2 x double>* %3
-  store <2 x double> %_y.0, <2 x double>* %4
-  store <2 x double> %return24, <2 x double>* %5
+  %fx.0 = phi <2 x double> [ %return16, %true ], [ %return, %__llvm_entry ]
+  %fy.0 = phi <2 x double> [ %return21, %true ], [ %return2, %__llvm_entry ]
+  %return22 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @3, i64 0, i64 0))
+  store <2 x double> %fx.0, <2 x double>* %3
+  store <2 x double> %fy.0, <2 x double>* %4
+  store <2 x double> %return22, <2 x double>* %5
   call void @"affine@UUUU"(<2 x double>* %mem, <2 x double>* %3, <2 x double>* %4, <2 x double>* %5)
-  %return28 = call i64 @"chi@IS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @4, i64 0, i64 0))
-  %12 = icmp ne i64 %return28, 0
-  br i1 %12, label %true30, label %end31
+  %return26 = call i64 @"chi@IS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @4, i64 0, i64 0))
+  %12 = icmp ne i64 %return26, 0
+  br i1 %12, label %true28, label %end29
 
-true30:                                           ; preds = %end
-  %return32 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @5, i64 0, i64 0))
-  %return33 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @6, i64 0, i64 0))
-  %return34 = call double @"chf@FS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @7, i64 0, i64 0))
-  %return36 = fcmp one double %return34, 0.000000e+00
-  br i1 %return36, label %true38, label %end39
+true28:                                           ; preds = %end
+  %return30 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @5, i64 0, i64 0))
+  %return31 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @6, i64 0, i64 0))
+  %return32 = call double @"chf@FS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @7, i64 0, i64 0))
+  %return34 = fcmp one double %return32, 0.000000e+00
+  br i1 %return34, label %true36, label %end37
 
-end31:                                            ; preds = %end39, %end
-  %mem61 = load <2 x double>, <2 x double>* %mem
-  %cast62 = call <3 x double> @"set@VU"(<2 x double> %mem61)
-  %output = call <3 x double> @"add@VV"(<3 x double> %cast62, <3 x double> <double 0.000000e+00, double 0.000000e+00, double 2.000000e-02>)
+end29:                                            ; preds = %end37, %end
+  %mem57 = load <2 x double>, <2 x double>* %mem
+  %cast58 = call <3 x double> @"set@VU"(<2 x double> %mem57)
+  %output = call <3 x double> @"add@VV"(<3 x double> %cast58, <3 x double> <double 0.000000e+00, double 0.000000e+00, double 2.000000e-02>)
   store <3 x double> %output, <3 x double>* %_bound_P
   ret void
 
-true38:                                           ; preds = %true30
-  store <2 x double> %return32, <2 x double>* %6
-  store <2 x double> %return33, <2 x double>* %7
-  %return43 = call double @"radians@FF"(double %return34)
-  %return44 = call double @"neg@FF"(double %return43)
-  store double %return44, double* %8
+true36:                                           ; preds = %true28
+  store <2 x double> %return30, <2 x double>* %6
+  store <2 x double> %return31, <2 x double>* %7
+  %return41 = call double @"radians@FF"(double %return32)
+  %return42 = call double @"neg@FF"(double %return41)
+  store double %return42, double* %8
   call void @"affineRot@2UUF"(<4 x double>* %_m2, <2 x double>* %6, <2 x double>* %7, double* %8)
-  %_m245 = load <4 x double>, <4 x double>* %_m2
-  %return46 = call double @"getcomp@F2II"(<4 x double> %_m245, i64 0, i64 0)
-  %return48 = call double @"getcomp@F2II"(<4 x double> %_m245, i64 0, i64 1)
-  %return49 = call <2 x double> @"set@UFF"(double %return46, double %return48)
-  %return51 = call double @"getcomp@F2II"(<4 x double> %_m245, i64 1, i64 0)
-  %return53 = call double @"getcomp@F2II"(<4 x double> %_m245, i64 1, i64 1)
-  %return54 = call <2 x double> @"set@UFF"(double %return51, double %return53)
-  br label %end39
+  %_m243 = load <4 x double>, <4 x double>* %_m2
+  %return44 = call double @"getcomp@F2II"(<4 x double> %_m243, i64 0, i64 0)
+  %return46 = call double @"getcomp@F2II"(<4 x double> %_m243, i64 0, i64 1)
+  %return47 = call <2 x double> @"set@UFF"(double %return44, double %return46)
+  %return49 = call double @"getcomp@F2II"(<4 x double> %_m243, i64 1, i64 0)
+  %return51 = call double @"getcomp@F2II"(<4 x double> %_m243, i64 1, i64 1)
+  %return52 = call <2 x double> @"set@UFF"(double %return49, double %return51)
+  br label %end37
 
-end39:                                            ; preds = %true38, %true30
-  %_x.1 = phi <2 x double> [ %return49, %true38 ], [ %return32, %true30 ]
-  %_y.1 = phi <2 x double> [ %return54, %true38 ], [ %return33, %true30 ]
-  %return57 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @8, i64 0, i64 0))
-  store <2 x double> %_x.1, <2 x double>* %9
-  store <2 x double> %_y.1, <2 x double>* %10
-  store <2 x double> %return57, <2 x double>* %11
+end37:                                            ; preds = %true36, %true28
+  %fx.1 = phi <2 x double> [ %return47, %true36 ], [ %return30, %true28 ]
+  %fy.1 = phi <2 x double> [ %return52, %true36 ], [ %return31, %true28 ]
+  %return53 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @8, i64 0, i64 0))
+  store <2 x double> %fx.1, <2 x double>* %9
+  store <2 x double> %fy.1, <2 x double>* %10
+  store <2 x double> %return53, <2 x double>* %11
   call void @"affine@UUUU"(<2 x double>* %mem, <2 x double>* %9, <2 x double>* %10, <2 x double>* %11)
-  br label %end31
+  br label %end29
 }
 
 ; Function Attrs: nounwind readnone

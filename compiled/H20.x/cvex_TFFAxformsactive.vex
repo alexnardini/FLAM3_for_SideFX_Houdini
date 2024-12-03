@@ -6,19 +6,23 @@ source_filename = "TFFAxformsactive"
 @1 = private constant [0 x i64] zeroinitializer
 @2 = private constant [0 x i8*] zeroinitializer
 @3 = private constant [15 x i8] c"../../vactive_\00"
-@4 = private constant [10 x i8] c"../../iw_\00"
+@4 = private constant [14 x i8] c"../../dopost_\00"
+@5 = private constant [10 x i8] c"../../iw_\00"
 @sIDX = external global i8**
+@POST = external global i64*
 @RES = external global i64
-@5 = private constant [5 x i8] c"sIDX\00"
-@6 = private constant [4 x i8] c"RES\00"
+@6 = private constant [5 x i8] c"sIDX\00"
+@7 = private constant [5 x i8] c"POST\00"
+@8 = private constant [4 x i8] c"RES\00"
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAxformsactive@[SI"(i8*** %_bound_sIDX, i64* %_bound_RES) #0 {
+define private void @"_TFFAxformsactive@[S[II"(i8*** %_bound_sIDX, i64** %_bound_POST, i64* %_bound_RES) #0 {
 __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @0, i64 0, i64 0))
   br label %cond
 
 cond:                                             ; preds = %iter, %__llvm_entry
+  %POST.0 = phi i64* [ getelementptr inbounds ([0 x i64], [0 x i64]* @1, i64 0, i64 0), %__llvm_entry ], [ %POST.1, %iter ]
   %sIDX.0 = phi i8** [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @2, i64 0, i64 0), %__llvm_entry ], [ %sIDX.1, %iter ]
   %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output, %iter ]
   %va.0 = phi i64* [ getelementptr inbounds ([0 x i64], [0 x i64]* @1, i64 0, i64 0), %__llvm_entry ], [ %va.1, %iter ]
@@ -32,35 +36,40 @@ body:                                             ; preds = %cond
   %return8 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([15 x i8], [15 x i8]* @3, i64 0, i64 0), i8* %return5)
   %return9 = call i64 @"chi@IS"(i8* %return8)
   %output10 = call i64* @"append@[II"(i64* %va.0, i64 %return9)
-  %return12 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @4, i64 0, i64 0), i8* %return5)
-  %return13 = call double @"chf@FS"(i8* %return12)
-  %return15 = fcmp oeq double %return13, 0.000000e+00
-  br i1 %return15, label %true, label %end17
+  %return12 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @4, i64 0, i64 0), i8* %return5)
+  %return13 = call i64 @"chi@IS"(i8* %return12)
+  %return15 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @5, i64 0, i64 0), i8* %return5)
+  %return16 = call double @"chf@FS"(i8* %return15)
+  %return18 = fcmp oeq double %return16, 0.000000e+00
+  br i1 %return18, label %true, label %end20
 
 end:                                              ; preds = %cond
   store i8** %sIDX.0, i8*** %_bound_sIDX
-  %return35 = call i64 @"len@I[S"(i8** %sIDX.0)
-  store i64 %return35, i64* %_bound_RES
+  store i64* %POST.0, i64** %_bound_POST
+  %return42 = call i64 @"len@I[S"(i8** %sIDX.0)
+  store i64 %return42, i64* %_bound_RES
   ret void
 
-iter:                                             ; preds = %end17, %end27
-  %sIDX.1 = phi i8** [ %sIDX.0, %end17 ], [ %output30, %end27 ]
+iter:                                             ; preds = %end20, %end30
+  %POST.1 = phi i64* [ %POST.0, %end20 ], [ %output36, %end30 ]
+  %sIDX.1 = phi i8** [ %sIDX.0, %end20 ], [ %output33, %end30 ]
   br label %cond
 
 true:                                             ; preds = %body
-  %return19 = call { i64, i64* } @"setcomp@I[III"(i64* %output10, i64 0, i64 %i.0)
-  %output21 = extractvalue { i64, i64* } %return19, 1
-  br label %end17
+  %return22 = call { i64, i64* } @"setcomp@I[III"(i64* %output10, i64 0, i64 %i.0)
+  %output24 = extractvalue { i64, i64* } %return22, 1
+  br label %end20
 
-end17:                                            ; preds = %true, %body
-  %va.1 = phi i64* [ %output21, %true ], [ %output10, %body ]
-  %return24 = call i64 @"getcomp@I[II"(i64* %va.1, i64 %i.0)
-  %return25 = call i64 @"not@II"(i64 %return24)
-  %1 = icmp ne i64 %return25, 0
-  br i1 %1, label %iter, label %end27
+end20:                                            ; preds = %true, %body
+  %va.1 = phi i64* [ %output24, %true ], [ %output10, %body ]
+  %return27 = call i64 @"getcomp@I[II"(i64* %va.1, i64 %i.0)
+  %return28 = call i64 @"not@II"(i64 %return27)
+  %1 = icmp ne i64 %return28, 0
+  br i1 %1, label %iter, label %end30
 
-end27:                                            ; preds = %end17
-  %output30 = call i8** @"append@[SS"(i8** %sIDX.0, i8* %return5)
+end30:                                            ; preds = %end20
+  %output33 = call i8** @"append@[SS"(i8** %sIDX.0, i8* %return5)
+  %output36 = call i64* @"append@[II"(i64* %POST.0, i64 %return13)
   br label %iter
 }
 
@@ -98,29 +107,36 @@ declare i8** @"append@[SS"(i8**, i8*) #2
 declare i64 @"len@I[S"(i8**) #1
 
 ; Function Attrs: nounwind
-define void @TFFAxformsactive(i8** %sIDX, i64 %RES) #2 {
+define void @TFFAxformsactive(i8** %sIDX, i64* %POST, i64 %RES) #2 {
 __llvm_entry:
+  %"<POST>" = alloca i64*
   %"<RES>" = alloca i64
   %"<sIDX>" = alloca i8**
   store i8** %sIDX, i8*** %"<sIDX>"
+  store i64* %POST, i64** %"<POST>"
   store i64 %RES, i64* %"<RES>"
-  call void @"_TFFAxformsactive@[SI"(i8*** %"<sIDX>", i64* %"<RES>")
+  call void @"_TFFAxformsactive@[S[II"(i8*** %"<sIDX>", i64** %"<POST>", i64* %"<RES>")
   %evalue = load i8**, i8*** %"<sIDX>"
-  %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @5, i64 0, i64 0), i8** %evalue) #3
-  %evalue1 = load i64, i64* %"<RES>"
-  %gvalue2 = call i64 @"_export@ISI"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @6, i64 0, i64 0), i64 %evalue1) #3
+  %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @6, i64 0, i64 0), i8** %evalue) #3
+  %evalue1 = load i64*, i64** %"<POST>"
+  %gvalue2 = call i64* @"_export@[IS[I"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @7, i64 0, i64 0), i64* %evalue1) #3
+  %evalue3 = load i64, i64* %"<RES>"
+  %gvalue4 = call i64 @"_export@ISI"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @8, i64 0, i64 0), i64 %evalue3) #3
   store i8** %gvalue, i8*** @sIDX
-  store i64 %gvalue2, i64* @RES
+  store i64* %gvalue2, i64** @POST
+  store i64 %gvalue4, i64* @RES
   ret void
 }
 
 declare i8** @"_export@[SS[S"(i8*, i8**)
 
+declare i64* @"_export@[IS[I"(i8*, i64*)
+
 declare i64 @"_export@ISI"(i8*, i64)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TFFAxformsactive(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @2, i64 0, i64 0), i64 0)
+  call void @TFFAxformsactive(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @2, i64 0, i64 0), i64* getelementptr inbounds ([0 x i64], [0 x i64]* @1, i64 0, i64 0), i64 0)
   ret void
 }
 

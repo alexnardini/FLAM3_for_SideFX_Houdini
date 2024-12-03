@@ -19,7 +19,8 @@
  /
  /  Name:       XFORMS ACTIVE LIST "CVEX"
  /
- /  Comment:    Collect all active xforms/iterators into a string array.
+ /  Comment:    Collect all active xforms/iterators and their dopost toggle values
+ /              into arrays along with the size of those.
 */
 
 
@@ -30,11 +31,11 @@
 
 
 void
-_TFFAxformsactive(string _bound_sIDX[]; int _bound_RES)
+_TFFAxformsactive(string _bound_sIDX[]; int _bound_POST[], _bound_RES)
 {
 
     int inum = chi("../../flamefunc");
-    int va[];
+    int va[], POST[];
     string sIDX[];
     
     // ALL XFORMS/ITERATORS
@@ -42,20 +43,24 @@ _TFFAxformsactive(string _bound_sIDX[]; int _bound_RES)
         
         string iIDX = itoa(i+1);
         append(va, chi(concat("../../vactive_", iIDX)));
+        int post = chi(concat("../../dopost_",  iIDX));
         float IWcheck = chf(concat("../../iw_", iIDX));
         if(IWcheck==0) va[i]=0;
         if(!va[i]) continue;
         append(sIDX, iIDX);
+        append(POST, post);
     }
 
     // OUT
     _bound_sIDX = sIDX;
-    _bound_RES = len(sIDX);
+    _bound_POST = POST;
+    _bound_RES  = len(sIDX);
 }
 
 cvex
 TFFAxformsactive(   export string sIDX[] = {};
+                    export int POST[] = {};
                     export int RES = 0)
 {
-    _TFFAxformsactive(sIDX, RES);
+    _TFFAxformsactive(sIDX, POST, RES);
 }

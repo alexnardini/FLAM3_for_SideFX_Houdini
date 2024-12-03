@@ -37,29 +37,26 @@ void _FLAM3HANDLES(const string _bound_sIDX[]; vector _bound_P)
 
     int id, PPL;
     id = detail(1, "iteration");
-    vector2 mem, x, y, o, px, py, po;
+    vector2 mem, x, y, o;
     mem = (vector2)_bound_P;
 
     // Build genome handle
     string sIDX[]=_bound_sIDX;
     
     // GENOME
-    int res = len(sIDX);
     float _a;
-    vector2 _x, _y;
     matrix2 _m2;
     string idx=sIDX[id];
     
     // PRE AFFINE
-    _x = chu(concat("../../x_", idx));
-    _y = chu(concat("../../y_", idx));
+    x = chu(concat("../../x_", idx));
+    y = chu(concat("../../y_", idx));
     _a = chf(concat("../../ang_", idx));
     if(_a!=0){
-        affineRot(_m2, _x, _y, -radians(_a));
-        _x = set(_m2.xx, _m2.xy);
-        _y = set(_m2.yx, _m2.yy);
+        affineRot(_m2, x, y, -radians(_a));
+        x = set(_m2.xx, _m2.xy);
+        y = set(_m2.yx, _m2.yy);
     }
-    x = _x; y = _y;
     o = chu(concat("../../o_", idx));
     // pre affine
     affine(mem, x, y, o);
@@ -67,18 +64,17 @@ void _FLAM3HANDLES(const string _bound_sIDX[]; vector _bound_P)
     // POST AFFINE
     PPL = chi(concat("../../dopost_", idx));
     if(PPL){
-        _x = chu(concat("../../px_", idx));
-        _y = chu(concat("../../py_", idx));
+        x = chu(concat("../../px_", idx));
+        y = chu(concat("../../py_", idx));
         _a = chf(concat("../../pang_", idx));
         if(_a!=0){
-            affineRot(_m2, _x, _y, -radians(_a));
-            _x = set(_m2.xx, _m2.xy);
-            _y = set(_m2.yx, _m2.yy);
+            affineRot(_m2, x, y, -radians(_a));
+            x = set(_m2.xx, _m2.xy);
+            y = set(_m2.yx, _m2.yy);
         }
-        px = _x; py = _y;
-        po = chu(concat("../../po_", idx));
+        o = chu(concat("../../po_", idx));
         // post affine
-        affine(mem, px, py, po);
+        affine(mem, x, y, o);
     }
     // OUT
     _bound_P=(vector)mem + {0, 0, 0.01}; // Adding an offset to be on top of the FLAM3H points

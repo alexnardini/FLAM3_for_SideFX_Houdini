@@ -37,20 +37,19 @@ void _FLAM3HANDLESFF(vector _bound_P)
 
     int PFF;
     float _a;
-    vector2 mem, _x, _y, fx, fy, fo, pfx, pfy, pfo;
+    vector2 mem, fx, fy, fo;
     mem = (vector2)_bound_P;
     matrix2 _m2;
     
     // FF PRE AFFINE
-    _x = chu("../../ffx");
-    _y = chu("../../ffy");
+    fx = chu("../../ffx");
+    fy = chu("../../ffy");
     _a = chf("../../ffang");
     if(_a!=0){
-        affineRot(_m2, _x, _y, -radians(_a));
-        _x = set(_m2.xx, _m2.xy);
-        _y = set(_m2.yx, _m2.yy);
+        affineRot(_m2, fx, fy, -radians(_a));
+        fx = set(_m2.xx, _m2.xy);
+        fy = set(_m2.yx, _m2.yy);
     }
-    fx = _x; fy = _y;
     fo = chu("../../ffo");
     // pre affine FF
     affine(mem, fx, fy, fo);
@@ -58,22 +57,21 @@ void _FLAM3HANDLESFF(vector _bound_P)
     // FF POST AFFINE
     PFF = chi("../../ffdopost");
     if(PFF){
-        _x = chu("../../ffpx");
-        _y = chu("../../ffpy");
+        fx = chu("../../ffpx");
+        fy = chu("../../ffpy");
         _a = chf("../../ffpang");
         if(_a!=0){
-            affineRot(_m2, _x, _y, -radians(_a));
-            _x = set(_m2.xx, _m2.xy);
-            _y = set(_m2.yx, _m2.yy);
+            affineRot(_m2, fx, fy, -radians(_a));
+            fx = set(_m2.xx, _m2.xy);
+            fy = set(_m2.yx, _m2.yy);
         }
-        pfx = _x; pfy = _y;
-        pfo = chu("../../ffpo");
+        fo = chu("../../ffpo");
         // post affine FF
-        affine(mem, pfx, pfy, pfo);
+        affine(mem, fx, fy, fo);
     }
 
     // OUT FF
-    _bound_P=(vector)mem + {0, 0, 0.02}; // Adding an offset to be on top of the FLAM3H points and the iterators handles.
+    _bound_P=(vector)mem + {0, 0, 0.02}; // Adding an offset to be on top of the FLAM3H points and iterators handles.
 }
 
 cvex
