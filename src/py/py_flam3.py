@@ -1563,6 +1563,8 @@ class flam3h_general_utils
         """ 
         self._kwargs = kwargs
         self._node = kwargs['node']
+        # Why am I doing the following ? Because with time FLAM3H grew and evolved and I was tiered to keep updating an hard coded node path,
+        # hence I added the folloing so I can always find the nodes even if I place them in a different location from time to time.
         self._bbox_sensor_path = self.get_bbox_node_path(OUT_BBOX_NODE_NAME_SENSOR)
         self._bbox_reframe_path = self.get_bbox_node_path(OUT_BBOX_NODE_NAME_REFRAME)
 
