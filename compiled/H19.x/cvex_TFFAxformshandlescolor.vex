@@ -2,42 +2,60 @@
 ; ModuleID = 'FLAM3HANDLESCOLOR'
 source_filename = "FLAM3HANDLESCOLOR"
 
-@0 = private constant [0 x i8*] zeroinitializer
-@1 = private constant [10 x i8] c"iteration\00"
-@color = external global <3 x double>
-@2 = private constant [6 x i8] c"color\00"
+@0 = private constant [0 x <3 x double>] zeroinitializer
+@1 = private constant [0 x i8*] zeroinitializer
+@COL = external global <3 x double>*
+@2 = private constant [4 x i8] c"COL\00"
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_FLAM3HANDLESCOLOR@[SV"(i8*** %_bound_sIDX, <3 x double>* %_bound_color) #0 {
+define private void @"_FLAM3HANDLESCOLOR@[S[V"(i8*** %_bound_sIDX, <3 x double>** %_bound_COL) #0 {
 __llvm_entry:
   %_bound_sIDX1 = load i8**, i8*** %_bound_sIDX
-  %return = call i64 @"detail@IIS"(i64 1, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @1, i64 0, i64 0))
-  %return3 = call i8* @"getcomp@S[SI"(i8** %_bound_sIDX1, i64 %return)
-  %return4 = call i64 @"atoi@IS"(i8* %return3)
-  %cast = sitofp i64 %return4 to double
-  %return5 = call double @"rand@FF"(double %cast)
-  %return7 = call <3 x double> @"rgbtohsv@VV"(<3 x double> <double 2.000000e+00, double 0.000000e+00, double 0.000000e+00>)
-  %return9 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %return7, double %return5, i64 0)
-  %output = extractvalue { double, <3 x double> } %return9, 1
-  %return12 = call <3 x double> @"hsvtorgb@VV"(<3 x double> %output)
-  store <3 x double> %return12, <3 x double>* %_bound_color
+  br label %cond
+
+cond:                                             ; preds = %body, %__llvm_entry
+  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output21, %body ]
+  %new.0 = phi <3 x double>* [ getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @0, i64 0, i64 0), %__llvm_entry ], [ %output18, %body ]
+  %return = call i64 @"len@I[S"(i8** %_bound_sIDX1)
+  %return4 = call i64 @"lt@III"(i64 %i.0, i64 %return)
+  %0 = icmp ne i64 %return4, 0
+  br i1 %0, label %body, label %end
+
+body:                                             ; preds = %cond
+  %return7 = call i8* @"getcomp@S[SI"(i8** %_bound_sIDX1, i64 %i.0)
+  %return8 = call i64 @"atoi@IS"(i8* %return7)
+  %cast = sitofp i64 %return8 to double
+  %return9 = call double @"rand@FF"(double %cast)
+  %return11 = call <3 x double> @"rgbtohsv@VV"(<3 x double> <double 2.000000e+00, double 0.000000e+00, double 0.000000e+00>)
+  %return13 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %return11, double %return9, i64 0)
+  %output = extractvalue { double, <3 x double> } %return13, 1
+  %return17 = call <3 x double> @"hsvtorgb@VV"(<3 x double> %output)
+  %output18 = call <3 x double>* @"append@[VV"(<3 x double>* %new.0, <3 x double> %return17)
+  %output21 = add i64 %i.0, 1
+  br label %cond
+
+end:                                              ; preds = %cond
+  store <3 x double>* %new.0, <3 x double>** %_bound_COL
   ret void
 }
 
+; Function Attrs: nounwind readnone
+declare i64 @"len@I[S"(i8**) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"lt@III"(i64, i64) #1
+
+; Function Attrs: nounwind readnone
+declare i8* @"getcomp@S[SI"(i8**, i64) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"atoi@IS"(i8*) #1
+
 ; Function Attrs: nounwind
-declare i64 @"detail@IIS"(i64, i8*) #1
+declare double @"rand@FF"(double) #2
 
 ; Function Attrs: nounwind readnone
-declare i8* @"getcomp@S[SI"(i8**, i64) #2
-
-; Function Attrs: nounwind readnone
-declare i64 @"atoi@IS"(i8*) #2
-
-; Function Attrs: nounwind
-declare double @"rand@FF"(double) #1
-
-; Function Attrs: nounwind readnone
-declare <3 x double> @"rgbtohsv@VV"(<3 x double>) #2
+declare <3 x double> @"rgbtohsv@VV"(<3 x double>) #1
 
 ; Function Attrs: alwaysinline
 define private { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %rw11, double %rw22, i64 %rw33) #3 {
@@ -49,36 +67,39 @@ __llvm_entry:
 }
 
 ; Function Attrs: nounwind readnone
-declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #2
+declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #1
 
 ; Function Attrs: nounwind readnone
-declare <3 x double> @"hsvtorgb@VV"(<3 x double>) #2
+declare <3 x double> @"hsvtorgb@VV"(<3 x double>) #1
 
 ; Function Attrs: nounwind
-define void @FLAM3HANDLESCOLOR(i8** %sIDX, <3 x double> %color) #1 {
+declare <3 x double>* @"append@[VV"(<3 x double>*, <3 x double>) #2
+
+; Function Attrs: nounwind
+define void @FLAM3HANDLESCOLOR(i8** %sIDX, <3 x double>* %COL) #2 {
 __llvm_entry:
-  %"<color>" = alloca <3 x double>
+  %"<COL>" = alloca <3 x double>*
   %0 = alloca i8**
-  store <3 x double> %color, <3 x double>* %"<color>"
+  store <3 x double>* %COL, <3 x double>** %"<COL>"
   store i8** %sIDX, i8*** %0
-  call void @"_FLAM3HANDLESCOLOR@[SV"(i8*** %0, <3 x double>* %"<color>")
-  %evalue = load <3 x double>, <3 x double>* %"<color>"
-  %gvalue = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @2, i64 0, i64 0), <3 x double> %evalue) #4
-  store <3 x double> %gvalue, <3 x double>* @color
+  call void @"_FLAM3HANDLESCOLOR@[S[V"(i8*** %0, <3 x double>** %"<COL>")
+  %evalue = load <3 x double>*, <3 x double>** %"<COL>"
+  %gvalue = call <3 x double>* @"_export@[VS[V"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @2, i64 0, i64 0), <3 x double>* %evalue) #4
+  store <3 x double>* %gvalue, <3 x double>** @COL
   ret void
 }
 
-declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
+declare <3 x double>* @"_export@[VS[V"(i8*, <3 x double>*)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @FLAM3HANDLESCOLOR(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @0, i64 0, i64 0), <3 x double> zeroinitializer)
+  call void @FLAM3HANDLESCOLOR(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @1, i64 0, i64 0), <3 x double>* getelementptr inbounds ([0 x <3 x double>], [0 x <3 x double>]* @0, i64 0, i64 0))
   ret void
 }
 
 attributes #0 = { alwaysinline nounwind }
-attributes #1 = { nounwind }
-attributes #2 = { nounwind readnone }
+attributes #1 = { nounwind readnone }
+attributes #2 = { nounwind }
 attributes #3 = { alwaysinline }
 attributes #4 = { nounwind readonly }
 

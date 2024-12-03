@@ -27,22 +27,27 @@
 #pragma opname  "TFFAxformscolor"
 #pragma oplabel "TFFAxformscolor"
 #pragma opmininputs 1
-#pragma opmaxinputs 2
+#pragma opmaxinputs 1
 
 
-void _FLAM3HANDLESCOLOR(const string _bound_sIDX[]; vector _bound_color)
+void _FLAM3HANDLESCOLOR(const string _bound_sIDX[]; vector _bound_COL[])
 {
     vector color = {2, 0, 0}; // Always start from ZERO hue
+    vector new[] = {};
     string sIDX[] = _bound_sIDX;
-    float h = rand(atoi(sIDX[detail(1, "iteration")]));
-    vector hsv = rgbtohsv(color);
-    hsv[0] = h;
-    _bound_color = hsvtorgb(hsv);
+
+    for(int i=0; i<len(sIDX); i++){
+        float h = rand(atoi(sIDX[i]));
+        vector hsv = rgbtohsv(color);
+        hsv[0] = h;
+        append(new, hsvtorgb(hsv));
+    }
+    _bound_COL = new;
 }
 
 cvex
 FLAM3HANDLESCOLOR(  const string sIDX[] = {};
-	                export vector color = 0)
+	                export vector COL[] = {})
 {
-    _FLAM3HANDLESCOLOR(sIDX, color);
+    _FLAM3HANDLESCOLOR(sIDX, COL);
 }
