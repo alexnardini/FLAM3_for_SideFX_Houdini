@@ -333,10 +333,10 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
     [Image:opdef:.?FLAM3H_DOC_xforms_handles.svg]
     
     _These handles are not editable, but only for visualization purpose_.<br />
-    _They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator of the fractal Flame_.
+    _They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator(or FF) of the fractal Flame_.
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    - When an iterator(_or FF_) POST affine is active, its xform' handle will turn dashed (_like the red handle in the above illustration_).
+    - When an iterator(_or FF_) POST affine is active, its xform' handle will turn dashed and an extra knot created to represent its POST affine' pivot/offset (_like the red dashed handle in the above illustration_).
 
     - Each available iterator will generate an xform handle with a color based on the multiparameter index number
     while the FF will always be grey/white and drawn on top of the others to make it easier to recognize when active.
@@ -354,8 +354,8 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
         Those shortcut keys work when the mouse cursor is over the network editor as well over the viewport (_and over the parameters pane too_).
         To dive-in is useful to identify them visually as sometime it can be difficult to spot them when the fractal Flame is present.
 
-    - A second output also has been added to the FLAM3H node to only ouput the xform handles.
-    This make it handy to use it for viz purpose without having them baked into the points cloud because you can go back and forth between SOP and LOP while safe rendering the fractal Flame.
+    - A second output has been added to the FLAM3H node to only ouput the xforms handles.
+    This is handy to use for viz purposes as not having them baked into the point cloud allow you to go back and forth between SOP and LOP while safe rendering the fractal Flame.
     
     :warning:
         Turn this OFF when rendering.
