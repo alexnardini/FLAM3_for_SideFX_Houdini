@@ -1357,7 +1357,7 @@ class flam3h_scripts
             # it wont block the houdini session until user input.
             self.flam3h_check_first_node_instance_msg(False)
             
-            # Updated FLAM3H viewport preferences
+            # Update FLAM3H viewport preferences
             self.flam3h_on_create_set_prefs_viewport()
             
             # init CP PRESETS: mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
@@ -2731,7 +2731,7 @@ class flam3h_general_utils
             count += 1
             
         if update_others:
-            # Updated dark preference's option toggle on other FLAM3H nodes instances
+            # Update dark preference's option toggle on other FLAM3H nodes instances
             all_f3h = self.node.type().instances()
             if len(all_f3h) > 1:
                 [f3h.setParms({PREFS_VIEWPORT_DARK: setprm}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_DARK).eval() != setprm]
@@ -2765,7 +2765,7 @@ class flam3h_general_utils
             elif pttype == 1:
                 settings.particleDisplayType(Pixels)
                 
-        # Updated Point Display type preference's option toggle on other FLAM3H nodes instances
+        # Update Point Display type preference's option toggle on other FLAM3H nodes instances
         all_f3h = self.node.type().instances()
         if len(all_f3h) > 1:
             [f3h.parm(PREFS_VIEWPORT_PT_TYPE).deleteAllKeyframes() for f3h in node.type().instances()]
@@ -2799,7 +2799,7 @@ class flam3h_general_utils
                 prm.deleteAllKeyframes()
                 prm.set(ptsize)
             
-        # Updated Point Size preference's option toggle on other FLAM3H nodes instances
+        # Update Point Size preference's option toggle on other FLAM3H nodes instances
         if node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
             [f3h.parm(PREFS_VIEWPORT_PT_SIZE).deleteAllKeyframes() for f3h in node.type().instances()]
             [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in node.type().instances() if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
@@ -2831,7 +2831,7 @@ class flam3h_general_utils
                 prm.deleteAllKeyframes()
                 prm.set(width)
             
-        # Updated wire width preference's option toggle on other FLAM3H nodes instances
+        # Update wire width preference's option toggle on other FLAM3H nodes instances
         [f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).deleteAllKeyframes() for f3h in node.type().instances()]
         [f3h.setParms({PREFS_VIEWPORT_WIRE_WIDTH: width}) for f3h in node.type().instances() if f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).eval() != width]
     
@@ -4817,7 +4817,7 @@ class flam3h_iterator_utils
         if self.exist_user_data(node):
             node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
         
-        # Updated data for copy/paste iterator's methods in case of Undos.
+        # Update data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
         
         # This undo's disabler is needed to make the undo work. They work best in H20.5
@@ -4890,7 +4890,7 @@ class flam3h_iterator_utils
         # This is to make sure the hou.session's data is at least initialized.
         self.flam3h_init_hou_session_ff_data(node)
         
-        # Updated data for FF copy/paste iterator's methods in case of Undos.
+        # Update data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
 
         if from_FLAM3H_NODE_FF_CHECK is not None:
@@ -5125,7 +5125,7 @@ class flam3h_iterator_utils
             (None):
         """    
         node = self.node
-        # Updated data for copy/paste iterator's methods in case of Undos.
+        # Update data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
                 
         if mp_id_from is not None:
@@ -5192,7 +5192,7 @@ class flam3h_iterator_utils
             (None):
         """   
         node = self.node
-        # Updated data for copy/paste iterator's methods in case of Undos.
+        # Update data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
 
         if node == from_FLAM3H_NODE: # type: ignore
@@ -5251,7 +5251,7 @@ class flam3h_iterator_utils
             (None):
         """        
         node = self.node
-        # Updated data for copy/paste iterator's methods in case of Undos.
+        # Update data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
                 
         if self.exist_user_data(node):
@@ -5352,7 +5352,7 @@ class flam3h_iterator_utils
             (None):
         """    
         node = self.node
-        # Updated data for FF copy/paste iterator's methods in case of Undos.
+        # Update data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
             
         if from_FLAM3H_NODE_FF_CHECK is not None:
@@ -5389,7 +5389,7 @@ class flam3h_iterator_utils
             (None):
         """  
         node = self.node
-        # Updated data for FF copy/paste iterator's methods in case of Undos.
+        # Update data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
             
         if from_FLAM3H_NODE_FF_CHECK is not None: # type: ignore
@@ -5425,7 +5425,7 @@ class flam3h_iterator_utils
             (None):
         """ 
         node = self.node
-        # Updated data for FF copy/paste iterator's methods in case of Undos.
+        # Update data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
         
         if self.exist_user_data(node, FLAM3H_USER_DATA_FF):
@@ -5789,7 +5789,7 @@ class flam3h_iterator_utils
         f3d = out_flame_utils(self.kwargs)
         # Convert xaos
         xaos_new = f3d.out_xf_xaos_from(0)
-        # updated CachedUserData: flam3h_xaos_iterators_prev
+        # update CachedUserData: flam3h_xaos_iterators_prev
         self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_new)
         prm_xaos = flam3h_iterator_prm_names.xaos
         [node.setParms({f"{prm_xaos}_{str(idx+1)}": div_xaos + div_weight.join(xaos_new[idx].split(" "))}) if xaos_new[idx] else node.setParms({f"{prm_xaos}_{str(idx+1)}": div_xaos}) for idx in range(f3d.iter_count)]
@@ -6430,7 +6430,7 @@ class flam3h_iterator_utils
             # Clear menu cache
             self.destroy_cachedUserData(node, 'iter_sel')
 
-            # updated CachedUserData: flam3h_xaos_iterators_prev
+            # update CachedUserData: flam3h_xaos_iterators_prev
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
             
             # Update copy/paste iterator's index if there is a need to do so
@@ -6471,7 +6471,7 @@ class flam3h_iterator_utils
             for x in xaos_str:
                 del x[idx_del_inbetween]
 
-            # updated CachedUserData: flam3h_xaos_iterators_prev
+            # update CachedUserData: flam3h_xaos_iterators_prev
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
             
             # Update copy/paste iterator's index if there is a need to do so
@@ -6523,7 +6523,7 @@ class flam3h_iterator_utils
                     # so lets remove the last element as it is not longer needed
                     del x[-1]
                     
-            # updated CachedUserData: flam3h_xaos_iterators_prev
+            # update CachedUserData: flam3h_xaos_iterators_prev
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
             
             # Update copy/paste iterator's index if there is a need to do so
@@ -6553,7 +6553,7 @@ class flam3h_iterator_utils
                         pass
             
         else:
-            # updated CachedUserData: flam3h_xaos_iterators_prev
+            # update CachedUserData: flam3h_xaos_iterators_prev
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
             
         # set all multi parms xaos strings parms
@@ -7475,7 +7475,7 @@ class flam3h_palette_utils
         if not presetname:
             presetname = datetime.now().strftime("Palette_%b-%d-%Y_%H%M%S")
 
-        # Updated HSV ramp before getting it
+        # Update HSV ramp before getting it
         self.palette_cp()
 
         hsv_vals = []
@@ -12893,7 +12893,7 @@ class in_flame_utils
         """        
         iter_on_load = self.node.parm(IN_ITER_NUM_ON_LOAD).eval()
         self.node.setParms({GLB_ITERATIONS: iter_on_load})
-        # updated Flame preset name if any
+        # update Flame preset name if any
         out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
         
         
@@ -12918,7 +12918,7 @@ class in_flame_utils
                 node.setParms({IN_ITER_NUM_ON_LOAD: iter})
             else:
                 node.setParms({GLB_ITERATIONS: iternumonload})
-                # updated Flame preset name if any
+                # update Flame preset name if any
                 out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
 
 
@@ -13579,11 +13579,11 @@ class in_flame_utils
         if xml and node.parm(IN_ISVALID_FILE).eval():
             if node.parm(IN_ISVALID_PRESET).eval():
                 preset_id = node.parm(IN_SYS_PRESETS).eval()
-                # Updated other PRESETS menu parameters
+                # Update other PRESETS menu parameters
                 [prm.set(preset_id) for prm in (node.parm(IN_SYS_PRESETS_OFF), node.parm(IN_PRESETS), node.parm(IN_PRESETS_OFF))]
             else:
                 preset_id = node.parm(IN_SYS_PRESETS_OFF).eval()
-                # Updated other PRESETS menu parameters
+                # Update other PRESETS menu parameters
                 [prm.set(preset_id) for prm in (node.parm(IN_SYS_PRESETS), node.parm(IN_PRESETS), node.parm(IN_PRESETS_OFF))]
         
             self.in_to_flam3h()
