@@ -269,6 +269,7 @@ PREFS_CAMERA = 'fcam'
 PREFS_CAMERA_CULL = 'camcull'
 PREFS_CAMERA_CULL_AMOUNT = 'cullamount'
 PREFS_VIEWPORT_DARK = 'setdark'
+PREFS_VIEWPORT_WIRE_WIDTH = 'vpww'
 PREFS_VIEWPORT_PT_TYPE = 'vptype'
 PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
 # Flame stats locked message string
@@ -1182,13 +1183,15 @@ class flam3h_scripts
         all_f3h = node.type().instances()
         all_f3h_vpptsize = []
         all_f3h_vptype = []
+        all_f3h_ww = []
         
         if len(all_f3h) > 1:
 
             for f3h in all_f3h:
                 if f3h != node:
                     all_f3h_vpptsize.append(f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval())
-                    all_f3h_vptype.append(f3h.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt())
+                    all_f3h_vptype.append(f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval())
+                    all_f3h_ww.append(f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).eval())
                     if f3h.parm(PREFS_VIEWPORT_DARK).eval():
                         node.setParms({PREFS_VIEWPORT_DARK: 1})
                         flam3h_general_utils(self.kwargs).colorSchemeDark(False)
@@ -1217,6 +1220,19 @@ class flam3h_scripts
                 type = settings.particleDisplayType()
                 if type == Pixels:
                     node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
+                    
+        # If we collected some data, set
+        if all_f3h_ww:
+            node.setParms({PREFS_VIEWPORT_WIRE_WIDTH: all_f3h_ww[0]})
+            
+        else:
+            
+            for view in flam3h_general_utils.util_getSceneViewers():
+                settings = view.curViewport().settings()
+                size = settings.wireWidth()
+                
+                if size != 1:
+                    node.setParms({PREFS_VIEWPORT_WIRE_WIDTH: size})
         
     
     
@@ -1548,6 +1564,7 @@ class flam3h_general_utils
 * colorSchemeDark(self, update_others: bool=True) -> None:
 * viewportParticleDisplay(self) -> None:
 * viewportParticleSize(self, reset_val: Union[float, None]=None) -> None:
+* viewportWireWidth(self, reset_val: Union[float, None]=None) -> None:
 * reset_SYS(self, density: int, iter: int, mode: int) -> None:
 * reset_MB(self) -> None:
 * reset_PREFS(self, mode: int=0) -> None:
@@ -2785,7 +2802,40 @@ class flam3h_general_utils
         if node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
             [f3h.parm(PREFS_VIEWPORT_PT_SIZE).deleteAllKeyframes() for f3h in node.type().instances()]
             [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in node.type().instances() if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
+
+
+
+    def viewportWireWidth(self, reset_val: Union[float, None]=None) -> None:
+        """When the viewport handle VIZ is ON
+        this will change their viewport setting wire width value.
+        
+        Args:
+            (self):
+            reset_val (Union[float, None]): Default to None. Can be either "None" or a float value. If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
             
+        Returns:
+            (None):
+        """        
+        node = self.node
+        Points = hou.viewportParticleDisplay.Points # type: ignore
+        width = node.parm(PREFS_VIEWPORT_WIRE_WIDTH).evalAsFloat()
+
+        for view in self.util_getSceneViewers():
+            settings = view.curViewport().settings()
+            if reset_val is None:
+                settings.wireWidth(width)
+            else:
+                width = float(reset_val)
+                settings.wireWidth(width)
+                prm = node.parm(self.kwargs['parmtuple'].name())
+                prm.deleteAllKeyframes()
+                prm.set(width)
+            
+        # Updated wire width preference's option toggle on other FLAM3H nodes instances
+        [f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).deleteAllKeyframes() for f3h in node.type().instances()]
+        [f3h.setParms({PREFS_VIEWPORT_WIRE_WIDTH: width}) for f3h in node.type().instances() if f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).eval() != width]
+    
+
             
             
     def reset_SYS(self, density: int, iter: int, mode: int) -> None:
