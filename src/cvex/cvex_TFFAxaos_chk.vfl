@@ -1,0 +1,131 @@
+/*  
+ /  Tested on:  Houdini 19.x
+ /              Houdini 19.5
+ /              Houdini 20.x
+ /              Houdini 20.5
+ /
+ /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
+ /  Author:     Alessandro Nardini
+ /  date:       Jan 2022, Last revised November 2024
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm"
+ /  Authors:    Scott Draves, Erik Reckase
+ /
+ /  Paper:      https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Github:     https://github.com/scottdraves/flam3
+ /  Date:       December 2002, Last revised May 2015
+ /
+ /  Name:       XAOS_CHK "CVEX"
+ /
+ /  Comment:    XOAS CHECK: check if Xaos is active.
+ /              This si a stripped down version of: cvex_TFFAxaos.vfl
+*/
+
+
+#pragma opname  "TFFAxaos_chk"
+#pragma oplabel "TFFAxaos_chk"
+#pragma opmininputs 1
+#pragma opmaxinputs 1
+
+
+#include <functions.h>
+
+
+void
+_TFFAxaosCHK(int _bound_XS;)
+{
+
+    int inum = chi("../flamefunc");
+    int va[];
+    float IW[];
+    string sIDX[];
+    
+    // ACTIVE VARS
+    for(int i=0; i<inum; ++i){
+        
+        string iIDX = itoa(i+1);
+        append(va, chi(concat("../vactive_", iIDX)));
+        float IWcheck = chf(concat("../iw_", iIDX));
+        if(IWcheck==0) va[i]=0;
+        if(!va[i]) continue;
+        append(IW, IWcheck);
+        append(sIDX, iIDX);
+    }
+    // This is to prevent Houdini from crashing
+    if(len(IW) == 0){
+        append(IW, 1e-08);
+        append(sIDX, '1');
+    }
+    
+    // XAOS
+    int isX, x_chk, res;
+    isX = 1;
+    x_chk = 0;
+    res = len(sIDX);
+    float XAOS_TO[];
+    // For "xaos FROM" string
+    string xaos_tos[], xaos_tos_t[];
+
+    for(int i=0; i<res; ++i){
+
+        string varnote = chs(concat("../xaos_", sIDX[i]));
+        string varxaos[] = split(varnote, ":");
+        float xaos[];
+
+        string varxaos_strip[] = {};
+        foreach(string vx; varxaos){
+            append(varxaos_strip, strip(vx));
+        }
+        int isXAOS = (toupper(varxaos_strip[0])=="XAOS") ? 1 : 0;
+        int isDigit = 1;
+        foreach( string vxs; varxaos_strip[1:]){
+            string new_vxs = join(split(vxs, "."), "");
+            if(isDigit && new_vxs[0]=="-" && isdigit(new_vxs[1:])){
+                // If it's meant to be a valid xaos: command string
+                if(isXAOS){
+                    isDigit = 0;
+                    break;
+                    }
+                }
+            else if(isDigit && !isdigit(new_vxs)){
+                // If it's meant to be a valid xaos: command string
+                if(isXAOS){
+                    isDigit = 0;
+                    break;
+                }
+            }
+        }
+
+        if(isXAOS && isDigit){
+            pop(varxaos_strip, 0);
+            foreach(string n; varxaos_strip) append(xaos, max(atof(n), 0));
+            resize(xaos, inum, 1.0);
+        }
+        else resize(xaos, inum, 1.0);
+        int trace = 0;
+        for(int j=0; j<inum; ++j){
+            if(!va[j]){ 
+                pop(xaos, j-trace);
+                trace++;
+            }
+        }
+        // For "xaos TO"
+        float IW_xaos[]; for(int k=0; k<res; ++k) append(IW_xaos, IW[i]*IW[k]*xaos[k]);
+        if(min(xaos)==max(xaos)){
+            if(min(xaos) == 1) append(XAOS_TO, (float[])create_cdf(IW));
+            else{ append(XAOS_TO, create_cdf((float[])IW_xaos)); if(!x_chk) x_chk=1; }
+        }
+        else{ append(XAOS_TO, create_cdf((float[])IW_xaos)); if(!x_chk) x_chk=1; }
+    }
+
+    // OUT
+    if(x_chk) _bound_XS = 1;
+}
+
+cvex
+TFFAxaosCHK(export int XS = 0)
+{
+    _TFFAxaosCHK(XS);
+}
