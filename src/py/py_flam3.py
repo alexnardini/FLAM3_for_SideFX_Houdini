@@ -257,6 +257,7 @@ OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe'
 
 PREFS_PALETTE_256_PLUS = 'paletteplus'
 PREFS_FLASH_MSG = 'flashmsg'
+PREFS_XF_VIZ = 'vizhandles'
 PREFS_F3C = 'f3c'
 PREFS_ITERATOR_BOOKMARK_ICONS = 'itericons'
 PREFS_ENUMERATE_MENU = 'enumeratemenu'
@@ -851,7 +852,7 @@ class flam3h_scripts
 @METHODS
 * flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 * flam3h_on_create_set_prefs_viewport(self, default_value: float=1) -> None:
-* flam3h_on_create_set_prefs_viewport(self) -> None:
+* flam3h_on_create_init_viewportWireWidth(self) -> None:
 * flam3h_presets_cache_filepath_on_load(self) -> None:
 * flam3h_on_create(self) -> None:
 * flam3h_on_loaded(self) -> None:
@@ -1236,6 +1237,21 @@ class flam3h_scripts
                     node.setParms({PREFS_VIEWPORT_WIRE_WIDTH: size})
         
     
+    def flam3h_on_create_init_viewportWireWidth(self) -> None:
+        """Initialize FLAM3H viewport wire width.
+        We set it ot 3 for now as it looks nice.
+        This will affect the viewport wireframe width as it is a global setting.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """
+        try: w = hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
+        except: hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH = 3 # type: ignore
+    
+    
     
     def flam3h_presets_cache_filepath_on_load(self) -> None:
         """Initialize presets cached data to be up to date.
@@ -1295,6 +1311,7 @@ class flam3h_scripts
         
         self.flam3h_on_create_set_houdini_session_data()
         self.flam3h_on_create_set_prefs_viewport()
+        self.flam3h_on_create_init_viewportWireWidth()
         
         # Remove any comment and user data from the node
         flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
@@ -1968,9 +1985,12 @@ class flam3h_general_utils
                 views_type.append(view.type())
                 
             # Store everything into the hou.session so we can retrieve them later
-            hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT: int = len(views_cam) # type: ignore
-            hou.session.FLAM3H_SENSOR_CAM_STASH_DICT: dict[str, hou.GeometryViewportCamera] = dict(zip(views_keys, views_cam)) # type: ignore
-            hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT: dict[str, hou.geometryViewportType] = dict(zip(views_keys, views_type)) # type: ignore
+            try: hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
+            except: hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT: int = len(views_cam) # type: ignore
+            try: hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
+            except: hou.session.FLAM3H_SENSOR_CAM_STASH_DICT: dict[str, hou.GeometryViewportCamera] = dict(zip(views_keys, views_cam)) # type: ignore
+            try: hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
+            except: hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT: dict[str, hou.geometryViewportType] = dict(zip(views_keys, views_type)) # type: ignore
             
 
 
@@ -2235,6 +2255,8 @@ class flam3h_general_utils
                     if f3h.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
                         f3h.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                         # If another FLAM3H node is in Camera Sensor mode, clear up its data.
+                        # after restoring the viewport prior to entering the Camera sensor mode
+                        self.util_set_stashed_cam()
                         self.util_clear_stashed_cam_data()
                         break
 
@@ -2310,6 +2332,38 @@ class flam3h_general_utils
             self.set_status_msg(_MSG, 'MSG')
             
         else:
+            node.setParms({prm: 1})
+            _MSG = f"{node.name()}: {prm.upper()}: ON"
+            self.set_status_msg(_MSG, 'IMP')
+
+
+    def flam3h_toggle_xf_viz(self, prm: str=PREFS_XF_VIZ) -> None:
+        """If a toggle is OFF it will switch ON, and viceversa.
+
+        Args:
+            (self):
+            prm(str): Defaults to SYS_TAG. Toggle parameter name to use.
+
+        Returns:
+            (None):  
+        """        
+        node = self.node
+        toggle = node.parm(prm).eval()
+        
+        # Refresh menu caches
+        self.menus_refresh_enum_prefs()
+        
+        if toggle:
+            node.setParms({prm: 0})
+            _MSG = f"{node.name()}: {prm.upper()}: OFF"
+            self.set_status_msg(_MSG, 'MSG')
+            
+        else:
+            # Retrieve the value we shoud be set to
+            try: w = hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
+            except: w = None
+            if w is not None: self.viewportWireWidth(w)
+            
             node.setParms({prm: 1})
             _MSG = f"{node.name()}: {prm.upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
@@ -2827,10 +2881,13 @@ class flam3h_general_utils
             else:
                 width = float(reset_val)
                 settings.wireWidth(width)
-                prm = node.parm(self.kwargs['parmtuple'].name())
+                prm = node.parm(PREFS_VIEWPORT_WIRE_WIDTH)
                 prm.deleteAllKeyframes()
                 prm.set(width)
             
+        # Updated FLAM3H wire width custom value
+        hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH = width # type: ignore
+        
         # Update wire width preference's option toggle on other FLAM3H nodes instances
         [f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).deleteAllKeyframes() for f3h in node.type().instances()]
         [f3h.setParms({PREFS_VIEWPORT_WIRE_WIDTH: width}) for f3h in node.type().instances() if f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).eval() != width]
