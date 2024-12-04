@@ -2806,7 +2806,7 @@ class flam3h_general_utils
         node.setParms({GLB_ITERATIONS: iter})
         if mode:
             node.setParms({SYS_DO_FF: 0})
-        node.setParms({SYS_TAG: 1})
+        node.setParms({SYS_TAG: 0})
         node.setParms({SYS_TAG_SIZE: 0})
         node.setParms({SYS_RIP: 0})
         
