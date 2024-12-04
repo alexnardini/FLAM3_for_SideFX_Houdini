@@ -56,7 +56,7 @@ _TFFAxformsdata(string _bound_sIDX[]; int _bound_POST[], _bound_RES; vector2 _bo
     vector2 x[], y[], o[], px[], py[], po[];
     resize(x, res); y=o=px=py=po=x;
     float _a;
-    vector color = {2, 0, 0}; // Always start from ZERO hue
+    vector color = {1, 0, 0}; // Always start from ZERO hue
     vector new[] = {};
     vector2 _x, _y;
     matrix2 _m2;
