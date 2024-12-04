@@ -850,7 +850,7 @@ class flam3h_scripts
 
 @METHODS
 * flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
-* flam3h_on_create_set_houdini_session_data(self) -> None:
+* flam3h_on_create_set_prefs_viewport(self, default_value: float=1) -> None:
 * flam3h_on_create_set_prefs_viewport(self) -> None:
 * flam3h_presets_cache_filepath_on_load(self) -> None:
 * flam3h_on_create(self) -> None:
@@ -1164,7 +1164,7 @@ class flam3h_scripts
 
 
 
-    def flam3h_on_create_set_prefs_viewport(self) -> None:
+    def flam3h_on_create_set_prefs_viewport(self, default_value: float=1) -> None:
         """Initialize the necessary data for the viewport display preference's option on creation.
         This need some work as it is a little rough, I'll be back to this at some point. Good enough for now.
         
@@ -1214,7 +1214,7 @@ class flam3h_scripts
                 settings = view.curViewport().settings()
                 size = settings.particlePointSize()
                 
-                if size != 1:
+                if size != default_value:
                     node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
                     
                 type = settings.particleDisplayType()
@@ -1231,7 +1231,7 @@ class flam3h_scripts
                 settings = view.curViewport().settings()
                 size = settings.wireWidth()
                 
-                if size != 1:
+                if size != default_value:
                     node.setParms({PREFS_VIEWPORT_WIRE_WIDTH: size})
         
     
