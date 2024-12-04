@@ -115,16 +115,16 @@ _TFFAxformsdata(string _bound_sIDX[]; int _bound_POST[], _bound_RES; vector2 _bo
 }
 
 cvex
-TFFAxformsdata(   export string sIDX[] = {};
-                    export int POST[] = {};
-                    export int RES = 0;
-                    export vector2 X[] = {};
-                    export vector2 Y[] = {};
-                    export vector2 O[] = {};
-                    export vector2 PX[] = {};
-                    export vector2 PY[] = {};
-                    export vector2 PO[] = {};
-                    export vector  COL[] = {};)
+TFFAxformsdata( export string sIDX[] = {};
+                export int POST[] = {};
+                export int RES = 0;
+                export vector2 X[] = {};
+                export vector2 Y[] = {};
+                export vector2 O[] = {};
+                export vector2 PX[] = {};
+                export vector2 PY[] = {};
+                export vector2 PO[] = {};
+                export vector  COL[] = {};)
 {
     _TFFAxformsdata(sIDX, POST, RES, X, Y, O, PX, PY, PO, COL);
 }
