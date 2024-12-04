@@ -2818,7 +2818,6 @@ class flam3h_general_utils
             (None):
         """        
         node = self.node
-        Points = hou.viewportParticleDisplay.Points # type: ignore
         width = node.parm(PREFS_VIEWPORT_WIRE_WIDTH).evalAsFloat()
 
         for view in self.util_getSceneViewers():
