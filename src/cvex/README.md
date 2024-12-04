@@ -87,6 +87,14 @@ Build all the Xaos data to be used inside the Chaos game.
 <br>
 
 # CVEX Source
+# File name:    `cvex_TFFAxaos_chk.vfl`
+### Description:
+Simply check if Xaos is active. This is a stripped down version of: cvex_TFFAxaos.vfl
+
+<br>
+<br>
+
+# CVEX Source
 # File name:    `cvex_TFFAxformsactive.vfl`
 ### Description:
 Collect all iterator multi-parameter indexs and their count to drive the iterator's xforms handles generation.

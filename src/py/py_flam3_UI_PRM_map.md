@@ -955,6 +955,16 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).colorSchemeDark()
 ```
 # prefs Tab
+# parameter name:    `vpww`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth()
+```
+### Action Button script
+```python
+kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(1.0)
+```
+# prefs Tab
 # parameter name:    `vptype`
 ### Callback Script
 ```python
