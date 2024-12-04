@@ -89,7 +89,7 @@ Build all the Xaos data to be used inside the Chaos game.
 # CVEX Source
 # File name:    `cvex_TFFAxaos_chk.vfl`
 ### Description:
-Simply check if Xaos is active. This is a stripped down version of: cvex_TFFAxaos.vfl
+Simply check if Xaos is active. This is a stripped down version of: `cvex_TFFAxaos.vfl`
 
 <br>
 <br>
