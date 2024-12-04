@@ -6,7 +6,7 @@
  /
  /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       Jan 2022, Last revised November 2024
+ /  date:       December 2024, Last revised December 2024
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -20,7 +20,7 @@
  /  Name:       XAOS_CHK "CVEX"
  /
  /  Comment:    XOAS CHECK: check if Xaos is active.
- /              This si a stripped down version of: cvex_TFFAxaos.vfl
+ /              This is a stripped down version of: cvex_TFFAxaos.vfl
 */
 
 
