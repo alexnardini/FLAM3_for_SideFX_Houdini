@@ -1170,6 +1170,7 @@ class flam3h_scripts
         
         Args:
             (self):
+            default_value(float): A default value to compare to. This must always be the same as the FLAM3H UI parameter's default values.
             
         Returns:
             (None):
