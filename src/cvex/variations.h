@@ -440,14 +440,13 @@ void V_RINGS2(vector2 p; const vector2 _p; const float w, rings2val){
 }
 // 36 ( parametric )
 void V_RECTANGLES(vector2 p; const vector2 _p; const float w; const vector2 rect){
-    float _px, _py, rx, ry;
+    float _px, _py;
     assign(_px, _py, _p);
-    assign(rx, ry, rect);
 
-    if(rx==0) p[0] = w * _px;
-    else p[0] = w * ((2 * floor(_px / rx) + 1) * rx - _px);
-    if(ry==0) p[1] = w * _py;
-    else p[1] = w * ((2 * floor(_py / ry) + 1) * ry - _py);
+    if(rect[0]==0) p[0] = w * _px;
+    else p[0] = w * ((2 * floor(_px / rect[0]) + 1) * rect[0] - _px);
+    if(rect[1]==0) p[1] = w * _py;
+    else p[1] = w * ((2 * floor(_py / rect[1]) + 1) * rect[1] - _py);
 }
 // 37 ( parametric )
 void V_RADIALBLUR(vector2 p; const vector2 _p; const float w, angle){

@@ -6388,38 +6388,40 @@ __llvm_entry:
   %output2 = extractvalue { double, double } %output, 0
   %output3 = extractvalue { double, double } %output, 1
   %rect4 = load <2 x double>, <2 x double>* %rect
-  %output5 = call { double, double } @"assign@FFU"(<2 x double> %rect4)
-  %output6 = extractvalue { double, double } %output5, 0
-  %output7 = extractvalue { double, double } %output5, 1
-  %return = fcmp oeq double %output6, 0.000000e+00
-  %w10 = load double, double* %w
-  br i1 %return, label %true, label %false
+  %return = call double @"getcomp@FUI"(<2 x double> %rect4, i64 0)
+  %return5 = fcmp oeq double %return, 0.000000e+00
+  %w7 = load double, double* %w
+  br i1 %return5, label %true, label %false
 
 true:                                             ; preds = %__llvm_entry
-  %output12 = fmul double %w10, %output2
+  %output9 = fmul double %w7, %output2
   %tmp = load <2 x double>, <2 x double>* %p
-  %return13 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output12, i64 0)
-  %output15 = extractvalue { double, <2 x double> } %return13, 1
-  store <2 x double> %output15, <2 x double>* %p
+  %return10 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output9, i64 0)
+  %output12 = extractvalue { double, <2 x double> } %return10, 1
+  store <2 x double> %output12, <2 x double>* %p
   br label %end
 
 false:                                            ; preds = %__llvm_entry
-  %output19 = call double @"div@FF"(double %output2, double %output6)
-  %return20 = call i64 @"floor@IF"(double %output19)
-  %output21 = mul i64 2, %return20
-  %output22 = add i64 %output21, 1
-  %cast = sitofp i64 %output22 to double
-  %output24 = fmul double %cast, %output6
-  %output26 = fsub double %output24, %output2
-  %output27 = fmul double %w10, %output26
-  %tmp28 = load <2 x double>, <2 x double>* %p
-  %return29 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp28, double %output27, i64 0)
-  %output31 = extractvalue { double, <2 x double> } %return29, 1
-  store <2 x double> %output31, <2 x double>* %p
+  %output17 = call double @"div@FF"(double %output2, double %return)
+  %return18 = call i64 @"floor@IF"(double %output17)
+  %output19 = mul i64 2, %return18
+  %output20 = add i64 %output19, 1
+  %rect21 = load <2 x double>, <2 x double>* %rect
+  %return22 = call double @"getcomp@FUI"(<2 x double> %rect21, i64 0)
+  %cast = sitofp i64 %output20 to double
+  %output23 = fmul double %cast, %return22
+  %output25 = fsub double %output23, %output2
+  %output26 = fmul double %w7, %output25
+  %tmp27 = load <2 x double>, <2 x double>* %p
+  %return28 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp27, double %output26, i64 0)
+  %output30 = extractvalue { double, <2 x double> } %return28, 1
+  store <2 x double> %output30, <2 x double>* %p
   br label %end
 
 end:                                              ; preds = %false, %true
-  %return33 = fcmp oeq double %output7, 0.000000e+00
+  %rect31 = load <2 x double>, <2 x double>* %rect
+  %return32 = call double @"getcomp@FUI"(<2 x double> %rect31, i64 1)
+  %return33 = fcmp oeq double %return32, 0.000000e+00
   %w38 = load double, double* %w
   br i1 %return33, label %true35, label %false36
 
@@ -6432,18 +6434,20 @@ true35:                                           ; preds = %end
   br label %end37
 
 false36:                                          ; preds = %end
-  %output48 = call double @"div@FF"(double %output3, double %output7)
-  %return49 = call i64 @"floor@IF"(double %output48)
-  %output50 = mul i64 2, %return49
-  %output51 = add i64 %output50, 1
-  %cast53 = sitofp i64 %output51 to double
-  %output54 = fmul double %cast53, %output7
-  %output56 = fsub double %output54, %output3
-  %output57 = fmul double %w38, %output56
-  %tmp58 = load <2 x double>, <2 x double>* %p
-  %return59 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp58, double %output57, i64 1)
-  %output61 = extractvalue { double, <2 x double> } %return59, 1
-  store <2 x double> %output61, <2 x double>* %p
+  %output49 = call double @"div@FF"(double %output3, double %return32)
+  %return50 = call i64 @"floor@IF"(double %output49)
+  %output51 = mul i64 2, %return50
+  %output52 = add i64 %output51, 1
+  %rect53 = load <2 x double>, <2 x double>* %rect
+  %return54 = call double @"getcomp@FUI"(<2 x double> %rect53, i64 1)
+  %cast55 = sitofp i64 %output52 to double
+  %output56 = fmul double %cast55, %return54
+  %output58 = fsub double %output56, %output3
+  %output59 = fmul double %w38, %output58
+  %tmp60 = load <2 x double>, <2 x double>* %p
+  %return61 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp60, double %output59, i64 1)
+  %output63 = extractvalue { double, <2 x double> } %return61, 1
+  store <2 x double> %output63, <2 x double>* %p
   br label %end37
 
 end37:                                            ; preds = %false36, %true35
