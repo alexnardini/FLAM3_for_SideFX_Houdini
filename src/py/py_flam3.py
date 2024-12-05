@@ -2453,18 +2453,28 @@ class flam3h_general_utils
             
         else:
             
-            if f3h_xf_viz_others is False:
-                self.util_store_all_viewers_xf_viz()
+            # There must be at least one viewport
+            viewports = self.util_getSceneViewers()
+            if len(viewports):
+                if f3h_xf_viz_others is False:
+                    self.util_store_all_viewers_xf_viz()
+                    
+                # Retrieve the value we shoud be set to
+                try: w = hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
+                except: w = None
+                if w is not None: self.viewportWireWidth(w)
                 
-            # Retrieve the value we shoud be set to
-            try: w = hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
-            except: w = None
-            if w is not None: self.viewportWireWidth(w)
-            
-            node.setParms({prm: 1})
-            _MSG = f"ON"
-            self.set_status_msg(f"{node.name()}: {prm.upper()}: {_MSG}", 'IMP')
-            self.flash_message(node, f"XF VIZ: {_MSG}")
+                node.setParms({prm: 1})
+                _MSG = f"ON"
+                self.set_status_msg(f"{node.name()}: {prm.upper()}: {_MSG}", 'IMP')
+                self.flash_message(node, f"XF VIZ: {_MSG}")
+                
+            else:
+                node.setParms({prm: 0})
+                _MSG = f"No viewports in the current Houdini Desktop."
+                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport for the xforms handles VIZ to work.", 'WARN')
+                self.flash_message(node, f"XF VIZ: {_MSG}")
+                
             
             
             
