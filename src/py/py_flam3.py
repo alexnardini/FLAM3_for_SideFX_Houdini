@@ -1506,9 +1506,9 @@ class flam3h_scripts
             try: del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
             except: pass
             
-            # Delete the xforms handles VIZ data id needed
-            try: del hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
-            except: pass
+            # Restore and delete the xforms handles VIZ data if needed
+            flam3h_general_utils.util_xf_viz_set_stashed_wire_width()
+            flam3h_general_utils.util_clear_xf_viz_stashed_wire_width_data()
             
             # Delete all data related to the Camera sensor viz
             flam3h_general_utils.util_clear_stashed_cam_data()
