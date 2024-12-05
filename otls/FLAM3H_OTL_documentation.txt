@@ -345,14 +345,15 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
     _They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator(or FF) of the fractal Flame_.
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - Each available iterator will generate an xform handle with a color based on its multi-parameter index number while the FF will always be grey/white and drawn on top of the others to make it easier to recognize when active.
+
+    - The *`RED`* and *`GREEN`* central axes represent respectively the *`X`* and *`Y`* axis as a frame of reference. Their triangle shape will help to visually read the scale in either one or the other dimension.
+
     - When an iterator(_or FF_) POST affine is active, its xform' handle will turn dashed and an extra knot created to represent its POST affine' pivot/offset (_like the red dashed handle in the above illustration_).
 
     - If the FLAM3H density value is raised above *`5M`*(_millions_) points the viewport handles will be automatically disabled.
 
-    - Each available iterator will generate an xform handle with a color based on the multiparameter index number
-    while the FF will always be grey/white and drawn on top of the others to make it easier to recognize when active.
-
-    - The FLAM3H node now posses a dive-in location to only display the xforms handles without the FLAM3H points.<br />
+    - The FLAM3H node posses a dive-in location to only display the xforms handles without the FLAM3H points.<br />
 
         - double ((LMB)) on the FLAM3H node to dive-in, or:
 
