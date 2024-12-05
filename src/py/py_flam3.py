@@ -2836,6 +2836,9 @@ class flam3h_general_utils
         and remember the current color scheme so to switch back to it when unchecked.
         If the viewport color scheme is already dark, checking this option will do nothing. 
         
+        _NOTE:
+            This definition is old (I think from 2018) and need to be updated to do its things in a better way.
+        
         Args:
             (self):
             update_others(bool): Default to True. Update also the other FLAM3H nodes in the scene if any
