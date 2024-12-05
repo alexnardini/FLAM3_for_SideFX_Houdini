@@ -333,9 +333,11 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg] vieport xforms VIZ is ON.
 
     When switched ON it will display the xforms handles in the viewport.<br />
+    They have been built to add as little as possible to the computation, in fact you can keep them ON all the time if you like, except when rendering.
+
     In the preferences' tab under *`prefs viewport`* you can set the thickness of the xforms handles curves using the parameter: *`wire width`*.
 
-    They have been built to add as little as possible to the computation, in fact you can keep them ON all the time if you like, except when rendering.
+    Since the *`wire width`* is a global attribute associated to each viewers in the current Houdini session, FLAM3H will store this data upon activating this mode and restore it upon exiting the mode assuming no other FLAM3H node in the scene has this mode ON, in which case it will keep the settings as they are.
 
     [Image:opdef:.?FLAM3H_DOC_xforms_handles.svg]
     
