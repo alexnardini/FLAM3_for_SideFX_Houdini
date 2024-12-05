@@ -1250,8 +1250,11 @@ class flam3h_scripts
         Returns:
             (None):
         """
-        try: w = hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
-        except: hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH = 3 # type: ignore
+        if flam3h_general_utils(self.kwargs).util_other_xf_viz() is False:
+            hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH = 3 # type: ignore
+        else:
+            try: w = hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
+            except: hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH = 3 # type: ignore
     
     
     
@@ -1518,6 +1521,13 @@ class flam3h_scripts
             # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
             # (ex. the user perform hand made modifications like renaming a Preset and such).
             flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
+            
+            # If we are deleting a FLAM3H node in xforms handles VIZ mode
+            # check if others FLAM3H node are in xfomrs handles VIZ mode as well
+            # and if not, restore the H viewports wire widths data
+            if flam3h_general_utils(self.kwargs).util_other_xf_viz() is False:
+                flam3h_general_utils.util_xf_viz_set_stashed_wire_width()
+                flam3h_general_utils.util_clear_xf_viz_stashed_wire_width_data()
             
             # If we are deleting a FLAM3H node in camera Sensor Viz mode,
             # restore the viewers to their preview states and clear all the stashed cams data
