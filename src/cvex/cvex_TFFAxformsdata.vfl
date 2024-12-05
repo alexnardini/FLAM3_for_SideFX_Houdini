@@ -34,11 +34,12 @@ void
 _TFFAxformsdata(string _bound_sIDX[]; int _bound_POST[], _bound_RES; vector2 _bound_X[], _bound_Y[], _bound_O[], _bound_PX[], _bound_PY[], _bound_PO[]; vector _bound_COL[])
 {
 
+    // INIT
     int inum = chi("../../flamefunc");
     int va[], POST[];
     string sIDX[];
     
-    // ALL XFORMS/ITERATORS
+    // ALL ACTIVE XFORMS/ITERATORS
     for(int i=0; i<inum; ++i){
         
         string iIDX = itoa(i+1);
@@ -51,7 +52,7 @@ _TFFAxformsdata(string _bound_sIDX[]; int _bound_POST[], _bound_RES; vector2 _bo
         append(POST, post);
     }
 
-    // GENOME
+    // INIT
     int res = len(sIDX);
     vector2 x[], y[], o[], px[], py[], po[];
     resize(x, res); y=o=px=py=po=x;
@@ -66,7 +67,7 @@ _TFFAxformsdata(string _bound_sIDX[]; int _bound_POST[], _bound_RES; vector2 _bo
 
         idx=sIDX[i];
 
-        // AFFINE
+        // PRE AFFINE
         _x = chu(concat("../../x_", idx));
         _y = chu(concat("../../y_", idx));
         _a = chf(concat("../../ang_", idx));
