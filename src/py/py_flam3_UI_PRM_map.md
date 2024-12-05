@@ -193,6 +193,18 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("f3c")
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("f3c")
 ```
 # SYS Tab
+# parameter name:    `xfviz_off`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle()
+```
+# SYS Tab
+# parameter name:    `xfviz_on`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle()
+```
+# SYS Tab
 # parameter name:    `sys_out_sensorviz`
 ### Callback Script
 ```python

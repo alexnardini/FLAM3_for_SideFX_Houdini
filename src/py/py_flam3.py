@@ -185,6 +185,8 @@ GLB_ITERATIONS = 'iter'
 SYS_SELECT_ITERATOR = 'iterlist'
 SYS_DO_FF = 'doff'
 SYS_RIP = 'rip'
+SYS_XF_VIZ_OFF = 'xfviz_off'
+SYS_XF_VIZ_ON = 'xfviz_on'
 SYS_TAG = 'tag'
 SYS_TAG_SIZE = 'tagsize'
 SYS_FRAME_VIEW_SENSOR = 'frameviewsensor'
@@ -1485,6 +1487,7 @@ class flam3h_scripts
         
         if len(node_instances) == 1:
             
+            # Init to defaults the Copy/Paste data
             try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
             except:
                 try:
@@ -1499,7 +1502,12 @@ class flam3h_scripts
                         hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
                 except: pass
                 
+            # Delete the Houdini update mode data if needed
             try: del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+            except: pass
+            
+            # Delete the xforms handles VIZ data id needed
+            try: del hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
             except: pass
             
             # Delete all data related to the Camera sensor viz
@@ -1562,6 +1570,8 @@ class flam3h_general_utils
 * util_getSceneViewers() -> list:
 * util_clear_stashed_cam_data() -> None:
 * util_set_stashed_cam() -> None:
+* util_clear_xf_viz_stashed_wire_width_data() -> None:
+* util_xf_viz_set_stashed_wire_width() -> None:
 
 @METHODS
 * menus_refresh_enum_prefs(self) -> None:
@@ -1570,9 +1580,12 @@ class flam3h_general_utils
 * util_store_all_viewers(self) -> None:
 * util_set_front_viewer(self, update: bool=True) -> bool:
 * util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool=True, ) -> bool:
+* util_store_all_viewers_xf_viz(self) -> None:
+* util_other_xf_viz(self) -> bool:
 * util_viewport_bbox_frame(self) -> None:
 * flam3h_other_sensor_viz_off(self, node: hou.SopNode) -> None:
 * flam3h_outsensor_toggle(self, prm: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
+* flam3h_xf_viz_toggle(self, prm: str=PREFS_XF_VIZ) -> None:
 * flam3h_toggle(self, prm: str=SYS_TAG) -> None:
 * flam3h_toggle_off(self, prm: str) -> None:
 * flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
@@ -1851,6 +1864,47 @@ class flam3h_general_utils
                                 view_obj = view.defaultCamera()
                                 view_obj.setOrthoWidth(_STASH.orthoWidth())
                                 view_obj.setTranslation(_STASH.translation())
+                                
+                                
+    
+    @staticmethod
+    def util_clear_xf_viz_stashed_wire_width_data() -> None:
+        """Clear the stored stashed cam/cams data.
+
+        Args:
+            (None):
+            
+        Returns:
+            (None):
+        """
+        try: del hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
+        except: pass
+    
+    
+    
+    @staticmethod
+    def util_xf_viz_set_stashed_wire_width() -> None:
+        """Set/Load the stored stashed cameras viewport wire widths.
+
+        Args:
+            (None):
+            
+        Returns:
+            (None):
+        """        
+        
+        
+        try: _STASH_DICT: Union[dict[str, float], None] = hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
+        except: _STASH_DICT: Union[dict[str, float], None] = None
+            
+        if _STASH_DICT is not None:
+            for v in flam3h_general_utils.util_getSceneViewers():
+                view = v.curViewport()
+                key = v.name()
+                _STASH: Union[float, None] = _STASH_DICT.get(key)
+                if _STASH is not None:
+                    settings = view.settings()
+                    settings.wireWidth(_STASH)
 
 
 
@@ -1984,7 +2038,8 @@ class flam3h_general_utils
                 views_keys.append(v.name())
                 views_type.append(view.type())
                 
-            # Store everything into the hou.session so we can retrieve them later
+            # Store everything into the hou.session so we can retrieve them later but keep them if they exist already
+            # as it mean another FLAM3H node was already im camera sensor mode and we likely want to restore what was already stored.
             try: hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
             except: hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT: int = len(views_cam) # type: ignore
             try: hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
@@ -2196,6 +2251,52 @@ class flam3h_general_utils
                 return False
             
         return False
+    
+    
+    
+    def util_store_all_viewers_xf_viz(self) -> None:
+        """Store dictionaries of viewers cameras and their wire width value
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):  
+        """  
+        # Do this only once; when we activate the xforms handles VIZ
+        try: parm = self.kwargs['parm']
+        except: parm = None
+        _ENTER_PRM = None
+        if parm is not None: _ENTER_PRM = parm.name()
+        if _ENTER_PRM is not None and _ENTER_PRM == SYS_XF_VIZ_OFF:
+            views_widths: list[float]  = []
+            views_keys: list[str] = []
+            for v in self.util_getSceneViewers():
+                view = v.curViewport()
+                settings = view.settings()
+                views_widths.append(settings.wireWidth())
+                views_keys.append(v.name())
+            
+            # Store everything into the hou.session so we can retrieve them later but keep them if they exist already
+            # as it mean another FLAM3H node had already its viewport xforms handles VIZ ON and we likely want to restore what was already stored.
+            try: hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
+            except: hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT: dict[str, hou.GeometryViewportCamera] = dict(zip(views_keys, views_widths)) # type: ignore
+            
+    
+    
+    def util_other_xf_viz(self) -> bool:
+        """Check if there are other FLAM3H nodes with the xforms handles VIZ ON.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (bool): True if there are other FLAM3H nodes with the xforms handles VIZ ON or False
+        """ 
+        node = self.node
+        if [1 for f3h in node.type().instances() if f3h != node and f3h.parm(PREFS_XF_VIZ).eval()]: return True
+        else: return False
+
 
 
     def util_viewport_bbox_frame(self) -> None:
@@ -2310,6 +2411,53 @@ class flam3h_general_utils
 
 
 
+    def flam3h_xf_viz_toggle(self, prm: str=PREFS_XF_VIZ) -> None:
+        """If a toggle is OFF it will switch ON, and viceversa.
+
+        Args:
+            (self):
+            prm(str): Defaults to PREFS_XF_VIZ. Toggle parameter name to use.
+
+        Returns:
+            (None):  
+        """        
+        node = self.node
+        toggle = node.parm(prm).eval()
+        f3h_xf_viz_others: bool = self.util_other_xf_viz()
+        
+        # Refresh menu caches
+        self.menus_refresh_enum_prefs()
+        
+        if toggle:
+            node.setParms({prm: 0})
+            
+            if f3h_xf_viz_others is False:
+                # Restore the viewport wire width prior to entering the xforms handles VIZ
+                # only if there not other FLAM3H node in xforms handles VIZ mode.
+                self.util_xf_viz_set_stashed_wire_width()
+                self.util_clear_xf_viz_stashed_wire_width_data()
+                
+            _MSG = f"OFF"
+            self.set_status_msg(f"{node.name()}: {prm.upper()}: {_MSG}", 'MSG')
+            self.flash_message(node, f"XF VIZ: {_MSG}")
+            
+        else:
+            
+            if f3h_xf_viz_others is False:
+                self.util_store_all_viewers_xf_viz()
+                
+            # Retrieve the value we shoud be set to
+            try: w = hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
+            except: w = None
+            if w is not None: self.viewportWireWidth(w)
+            
+            node.setParms({prm: 1})
+            _MSG = f"ON"
+            self.set_status_msg(f"{node.name()}: {prm.upper()}: {_MSG}", 'IMP')
+            self.flash_message(node, f"XF VIZ: {_MSG}")
+            
+            
+            
     def flam3h_toggle(self, prm: str=SYS_TAG) -> None:
         """If a toggle is OFF it will switch ON, and viceversa.
 
@@ -2332,38 +2480,6 @@ class flam3h_general_utils
             self.set_status_msg(_MSG, 'MSG')
             
         else:
-            node.setParms({prm: 1})
-            _MSG = f"{node.name()}: {prm.upper()}: ON"
-            self.set_status_msg(_MSG, 'IMP')
-
-
-    def flam3h_toggle_xf_viz(self, prm: str=PREFS_XF_VIZ) -> None:
-        """If a toggle is OFF it will switch ON, and viceversa.
-
-        Args:
-            (self):
-            prm(str): Defaults to SYS_TAG. Toggle parameter name to use.
-
-        Returns:
-            (None):  
-        """        
-        node = self.node
-        toggle = node.parm(prm).eval()
-        
-        # Refresh menu caches
-        self.menus_refresh_enum_prefs()
-        
-        if toggle:
-            node.setParms({prm: 0})
-            _MSG = f"{node.name()}: {prm.upper()}: OFF"
-            self.set_status_msg(_MSG, 'MSG')
-            
-        else:
-            # Retrieve the value we shoud be set to
-            try: w = hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
-            except: w = None
-            if w is not None: self.viewportWireWidth(w)
-            
             node.setParms({prm: 1})
             _MSG = f"{node.name()}: {prm.upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
