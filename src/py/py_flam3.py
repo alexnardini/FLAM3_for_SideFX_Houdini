@@ -2280,7 +2280,7 @@ class flam3h_general_utils
             # Store everything into the hou.session so we can retrieve them later but keep them if they exist already
             # as it mean another FLAM3H node had already its viewport xforms handles VIZ ON and we likely want to restore what was already stored.
             try: hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
-            except: hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT: dict[str, hou.GeometryViewportCamera] = dict(zip(views_keys, views_widths)) # type: ignore
+            except: hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT: dict[str, float] = dict(zip(views_keys, views_widths)) # type: ignore
             
     
     
