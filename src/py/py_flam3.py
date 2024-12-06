@@ -271,7 +271,7 @@ PREFS_VIEWPORT_DARK = 'setdark'
 PREFS_VIEWPORT_WIRE_WIDTH = 'vpww'
 PREFS_VIEWPORT_PT_TYPE = 'vptype'
 PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
-# PREFS SYSTEM
+# PREFS SYSTEM PRIVATE
 PREFS_DOFF = 'doff'
 PREFS_RIP = 'rip'
 PREFS_F3C = 'f3c'
@@ -279,6 +279,10 @@ PREFS_TAG = 'tag'
 PREFS_XF_VIZ = 'vizhandles'
 PREFS_XF_VIZ_SOLO = 'vizhandles_solo'
 PREFS_XF_VIZ_SOLO_MP_IDX = 'vizhandles_solo_mpidx'
+# PREFS SYSTEM PRIVATE: self prm names for user data
+FLAM3H_DATA_PRM_XAOS_MP_MEM = 'flam3h_data_mpmem'
+FLAM3H_DATA_PRM_XAOS_PREV = 'flam3h_data_xaos'
+FLAM3H_DATA_PRM_MPIDX = 'flam3h_data_mpidx'
 # Flame stats locked message string
 MSG_FLAMESTATS_LOCK = '-> LOCKED'
 # Flame stats message parameters
@@ -311,11 +315,6 @@ FLAM3H_LIB_LOCK = 'F3H_LOCK'
 # PALETTE JSON data keys
 CP_JSON_KEY_NAME_HEX = 'f3h_hex'
 CP_JSON_KEY_NAME_HSV = 'f3h_hsv'
-# self prm names for user data
-FLAM3H_DATA_PRM_XAOS_MP_MEM = 'flam3h_data_mpmem'
-FLAM3H_DATA_PRM_XAOS_PREV = 'flam3h_data_xaos'
-FLAM3H_DATA_PRM_MPIDX = 'flam3h_data_mpidx'
-
 # Flash messages timer
 FLAM3H_FLASH_MESSAGE_TIMER: float = 2
 
@@ -2579,7 +2578,9 @@ class flam3h_general_utils
             [node.setParms({f"{flam3h_iterator_prm_names.main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)] # type: ignore
             prm_mp.set(1)
             prm_xfviz_solo.set(1)
+            prm_xfviz_solo_mp_idx.lock(False)
             prm_xfviz_solo_mp_idx.set(int(mp_idx))
+            prm_xfviz_solo_mp_idx.lock(True)
             node.setUserData(f"{data_name}", mp_idx)
                 
             _MSG = f"{node.name()}: {prm_mp.name().upper()}: ON"
@@ -6694,6 +6695,7 @@ class flam3h_iterator_utils
         
         # unlock
         node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
+        prm_xfviz_solo_mp_idx.lock(False)
         
         # init indexes
         idx_del_inbetween = None
@@ -6928,6 +6930,7 @@ class flam3h_iterator_utils
         self.auto_set_xaos_data_set_MP_MEM(node, __mpmem_hou)
         # lock
         node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
+        prm_xfviz_solo_mp_idx.lock(True)
 
 
     def iterators_count(self) -> None:
