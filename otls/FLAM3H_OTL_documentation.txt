@@ -2497,6 +2497,10 @@ menu type [Icon:BUTTONS/pane_menu]:
 Size:
     #id: prefs
     When viewport particle display is set to Points, this will control their size in the viewport.
+
+Wire width:
+    #id: prefs
+    When the "xforms handles VIZ" is ON, this will set the their wire curves thickness for the viewport display. A value of 3 is generally good.
         
 :box:
     #display: rounded white
