@@ -2500,7 +2500,7 @@ Size:
 
 Wire width:
     #id: prefs
-    When the "xforms handles VIZ" is ON, this will set the their wire curves thickness for the viewport display. A value of 3 is generally good.
+    When the SYS -> "xforms handles VIZ" is ON, this will set the their wire curves thickness for the viewport display. A value of 3 is generally good.
         
 :box:
     #display: rounded white
