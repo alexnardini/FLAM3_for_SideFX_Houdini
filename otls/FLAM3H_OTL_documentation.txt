@@ -340,13 +340,13 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
 
     Since the *`wire width`* is a global attribute associated to each viewers in the current Houdini session, FLAM3H will store this data upon activating this mode and restore it upon exiting the mode assuming no other FLAM3H node in the scene has this mode ON, in which case it will keep the settings as they are.
 
+    Once this mode is active,<br />
+    from each iterator's tab you will be able to display an iterator of your choice in SOLO mode (_display only the viewport xform handle for the selected iterator, and nothing else_).
+
     [Image:opdef:.?FLAM3H_DOC_xforms_handles.svg]
     
     _These handles are not editable, but only for visualization purpose_.<br />
     _They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator(or FF) of the fractal Flame_.
-
-    Once this mode is active,<br />
-    from each iterator's tab you will be able to display an iterator of your choice in SOLO mode (_display only the viewport xform handle for the selected iterator, and nothing else_).
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - Each available iterator will generate an xform handle with a color based on its multi-parameter index number while the FF will always be grey/white and drawn on top of the others to make it easier to recognize when active.
@@ -736,9 +736,9 @@ xform VIZ [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] ((LMB)) to enter into SOLO mode and display only this iterator xform handle in the viewport.
     - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] ((LMB)) to exit the SOLO mode and revert back to display all xforms handles VIZ together.
 
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br /> 
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
     - Every time you activate the xform handle VIZ SOLO mode for an iterator, a custom user data is added to the FLAM3H node with the iterator number being in SOLO mode; the data name is: *`XF VIZ`*.<br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being displayed (_in case you do not remember or when many iterators have been created_).
-
+    - The FF(_finalxform_) viewport handle will always be displayed if Active (_it will always be of color grey/white_).
     
 W [Icon:TOP/xmlinput]:
     #id: FLAME
