@@ -41,10 +41,10 @@ struct sensor{
     float zoom, rot;
 
     void sensorDATA(){
-        res = chu("../../outres");
-        center = chu("../../outcenter");
-        zoom = chf("../../outscale");
-        rot = chf("../../outrotate");
+        res = chu("outres");
+        center = chu("outcenter");
+        zoom = chf("outscale");
+        rot = chf("outrotate");
     }
 }
 

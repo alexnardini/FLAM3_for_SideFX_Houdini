@@ -3,8 +3,8 @@
 source_filename = "TFFAcamcull"
 
 @0 = private constant [2 x i8] c".\00"
-@1 = private constant [8 x i8] c"../fcam\00"
-@2 = private constant [14 x i8] c"../cullamount\00"
+@1 = private constant [5 x i8] c"fcam\00"
+@2 = private constant [11 x i8] c"cullamount\00"
 @P = external global <3 x double>
 @ptnum = external global i64
 @3 = private constant [2 x i8] c"P\00"
@@ -15,10 +15,10 @@ define private void @"_TFFAcamcull@VI"(<3 x double>* %_bound_P, i64* %_bound_ptn
 __llvm_entry:
   %_bound_P1 = load <3 x double>, <3 x double>* %_bound_P
   %return = call i8* @"opfullpath@SS"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @0, i64 0, i64 0))
-  %return2 = call i8* @"chs@SS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @1, i64 0, i64 0))
+  %return2 = call i8* @"chs@SS"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @1, i64 0, i64 0))
   %return3 = call i8* @"relativepath@SSS"(i8* %return, i8* %return2)
   %return6 = call <3 x double> @"toNDC@VSV"(i8* %return3, <3 x double> %_bound_P1)
-  %return7 = call double @"chf@FS"(i8* getelementptr inbounds ([14 x i8], [14 x i8]* @2, i64 0, i64 0))
+  %return7 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @2, i64 0, i64 0))
   %output = fsub double 1.000000e+00, %return7
   %return9 = call double @"getcomp@FVI"(<3 x double> %return6, i64 0)
   %output11 = fsub double 0.000000e+00, %output
@@ -106,7 +106,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"20.0.506"}
+!1 = !{!"20.5.370"}
 !2 = !{!"64"}
 
 ;_code_end

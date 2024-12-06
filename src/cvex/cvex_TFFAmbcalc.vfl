@@ -34,9 +34,9 @@ _TFFAmbcalc(float _bound_Time; float _bound_Tstep; float _bound_Tstep_mult)
     int     samples, FPS, iter;
     float   t, t_f, shutter_speed, t_offset, 
             remap_iter_to_time, Tstep_mult, Tstep_mult_compensate;
-    FPS           = chi('../fps');
-    samples       = chi('../mbsamples');
-    shutter_speed = chf('../shutter');
+    FPS           = chi('fps');
+    samples       = chi('mbsamples');
+    shutter_speed = chf('shutter');
     
     t = _bound_Time;
     t_f = 1/(float)FPS;

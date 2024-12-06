@@ -33,7 +33,7 @@ _TFFAcompensate(float _bound_Tstep_mult_compensate)
 {   
     int     samples;
     float   Tstep_accum, Tstep_mult_compensate;
-    samples = chi('../mbsamples');
+    samples = chi('mbsamples');
     Tstep_accum = 0;
     for(int i=1; i<=samples; i++){
         Tstep_accum += (1-abs(fit(i, 1, samples, -0.8, 0.8)));

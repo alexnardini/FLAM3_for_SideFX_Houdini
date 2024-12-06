@@ -38,7 +38,7 @@ _TFFAcamhandles(vector4 _bound_orient)
             px, py, pz, x, y, z,
             near_pos, far_pos;
 
-    string CAM = chs("../../fcam");
+    string CAM = chs("fcam");
     float hp = ch(concat(CAM, "/near"))+0.05;
     center_from_NDC = set(0.5, 0.5, -1);
     cam_center = fromNDC(CAM, center_from_NDC);

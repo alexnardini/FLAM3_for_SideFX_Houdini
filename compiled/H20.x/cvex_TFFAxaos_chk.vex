@@ -2,15 +2,15 @@
 ; ModuleID = 'TFFAxaosCHK'
 source_filename = "TFFAxaosCHK"
 
-@0 = private constant [13 x i8] c"../flamefunc\00"
+@0 = private constant [10 x i8] c"flamefunc\00"
 @1 = private constant [0 x i64] zeroinitializer
 @2 = private constant [0 x double] zeroinitializer
 @3 = private constant [0 x i8*] zeroinitializer
 @4 = private constant [1 x i8] zeroinitializer
-@5 = private constant [12 x i8] c"../vactive_\00"
-@6 = private constant [7 x i8] c"../iw_\00"
+@5 = private constant [9 x i8] c"vactive_\00"
+@6 = private constant [4 x i8] c"iw_\00"
 @7 = private constant [2 x i8] c"1\00"
-@8 = private constant [9 x i8] c"../xaos_\00"
+@8 = private constant [6 x i8] c"xaos_\00"
 @9 = private constant [2 x i8] c":\00"
 @10 = private constant [5 x i8] c"XAOS\00"
 @11 = private constant [2 x i8] c".\00"
@@ -102,7 +102,7 @@ declare i8** @"append@[SS"(i8**, i8*) #1
 ; Function Attrs: alwaysinline nounwind
 define private void @"_TFFAxaosCHK@I"(i64* %_bound_XS) #2 {
 __llvm_entry:
-  %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @0, i64 0, i64 0))
+  %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @0, i64 0, i64 0))
   br label %cond
 
 cond:                                             ; preds = %iter, %__llvm_entry
@@ -117,10 +117,10 @@ cond:                                             ; preds = %iter, %__llvm_entry
 body:                                             ; preds = %cond
   %output = add i64 %i.0, 1
   %return5 = call i8* @"itoa@SI"(i64 %output)
-  %return8 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([12 x i8], [12 x i8]* @5, i64 0, i64 0), i8* %return5)
+  %return8 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @5, i64 0, i64 0), i8* %return5)
   %return9 = call i64 @"chi@IS"(i8* %return8)
   %output10 = call i64* @"append@[II"(i64* %va.0, i64 %return9)
-  %return12 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @6, i64 0, i64 0), i8* %return5)
+  %return12 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @6, i64 0, i64 0), i8* %return5)
   %return13 = call double @"chf@FS"(i8* %return12)
   %return15 = fcmp oeq double %return13, 0.000000e+00
   br i1 %return15, label %true, label %end17
@@ -174,7 +174,7 @@ cond48:                                           ; preds = %end220, %end40
 
 body49:                                           ; preds = %cond48
   %return57 = call i8* @"getcomp@S[SI"(i8** %sIDX.2, i64 %i47.0)
-  %return58 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @8, i64 0, i64 0), i8* %return57)
+  %return58 = call i8* @"concat@SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @8, i64 0, i64 0), i8* %return57)
   %return59 = call i8* @"chs@SS"(i8* %return58)
   %return61 = call i8** @"split@[SSS"(i8* %return59, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @9, i64 0, i64 0))
   %return63 = call i64 @"len@I[S"(i8** %return61)

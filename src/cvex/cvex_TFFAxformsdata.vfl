@@ -35,7 +35,7 @@ _TFFAxformsdata(string _bound_sIDX[]; int _bound_POST[], _bound_RES; vector2 _bo
 {
 
     // INIT
-    int inum = chi("../../flamefunc");
+    int inum = chi("flamefunc");
     int va[], POST[];
     string sIDX[];
     
@@ -43,9 +43,9 @@ _TFFAxformsdata(string _bound_sIDX[]; int _bound_POST[], _bound_RES; vector2 _bo
     for(int i=0; i<inum; ++i){
         
         string iIDX = itoa(i+1);
-        append(va, chi(concat("../../vactive_", iIDX)));
-        int post = chi(concat("../../dopost_",  iIDX));
-        float IWcheck = chf(concat("../../iw_", iIDX));
+        append(va, chi(concat("vactive_", iIDX)));
+        int post = chi(concat("dopost_",  iIDX));
+        float IWcheck = chf(concat("iw_", iIDX));
         if(IWcheck==0) va[i]=0;
         if(!va[i]) continue;
         append(sIDX, iIDX);
@@ -68,29 +68,29 @@ _TFFAxformsdata(string _bound_sIDX[]; int _bound_POST[], _bound_RES; vector2 _bo
         idx=sIDX[i];
 
         // PRE AFFINE
-        _x = chu(concat("../../x_", idx));
-        _y = chu(concat("../../y_", idx));
-        _a = chf(concat("../../ang_", idx));
+        _x = chu(concat("x_", idx));
+        _y = chu(concat("y_", idx));
+        _a = chf(concat("ang_", idx));
         if(_a!=0){
             affineRot(_m2, _x, _y, -radians(_a));
             _x = set(_m2.xx, _m2.xy);
             _y = set(_m2.yx, _m2.yy);
         }
         x[i] = _x; y[i] = _y;
-        o[i] = chu(concat("../../o_", idx));
+        o[i] = chu(concat("o_", idx));
         // POST AFFINE
-        int PPL = chi(concat("../../dopost_", idx));
+        int PPL = chi(concat("dopost_", idx));
         if(PPL){
-            _x = chu(concat("../../px_", idx));
-            _y = chu(concat("../../py_", idx));
-            _a = chf(concat("../../pang_", idx));
+            _x = chu(concat("px_", idx));
+            _y = chu(concat("py_", idx));
+            _a = chf(concat("pang_", idx));
             if(_a!=0){
                 affineRot(_m2, _x, _y, -radians(_a));
                 _x = set(_m2.xx, _m2.xy);
                 _y = set(_m2.yx, _m2.yy);
             }
             px[i] = _x; py[i] = _y;
-            po[i] = chu(concat("../../po_", idx));
+            po[i] = chu(concat("po_", idx));
         }
 
         // COLOR

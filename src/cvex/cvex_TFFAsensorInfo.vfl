@@ -38,6 +38,7 @@ struct sensor_info{
     vector2 res;
 
     void sensor_info_DATA(){
+        // The following channels are local to this node with a channel reference value to the upstream FLAM3H node
         mode = chi("mode");
         zoom = chf("flam3h_sensor_zoom");
         res  = chu("flam3h_sensor_res");

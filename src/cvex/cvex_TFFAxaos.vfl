@@ -38,21 +38,21 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
     
     // SYS
     int FF, RIP, iter, MB, F3C;
-    FF   = chi("../doff");
-    RIP  = chi("../rip");
-    MB   = chi("../domb");
-    iter = chi("../iter");
+    FF   = chi("doff");
+    RIP  = chi("rip");
+    MB   = chi("domb");
+    iter = chi("iter");
     // From Fractorium: flam3 comptibility (f3c). Check inside variations.h to see both versions of each.
     // The behavior of the:
     // cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan and tanh variations
     // are different in flam3/Apophysis versus Chaotica.
     //      Checked:    use the Apophysis behavior.
     //      Unchecked:  use the Chaotica behavior.
-    F3C = chi("../f3c");
+    F3C = chi("f3c");
     // Output all SYS
     _bound_SYS = array(FF, RIP, MB, iter, F3C);
 
-    int inum = chi("../flamefunc");
+    int inum = chi("flamefunc");
     int va[];
     float IW[];
     string sIDX[];
@@ -61,11 +61,11 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
     for(int i=0; i<inum; ++i){
         
         string iIDX = itoa(i+1);
-        append(va, chi(concat("../vactive_", iIDX)));
-        float IWcheck = chf(concat("../iw_", iIDX));
+        append(va, chi(concat("vactive_", iIDX)));
+        float IWcheck = chf(concat("iw_", iIDX));
         if(IWcheck==0) va[i]=0;
         if(!va[i]) continue;
-        append(IW, chf(concat("../iw_", iIDX)));
+        append(IW, chf(concat("iw_", iIDX)));
         append(sIDX, iIDX);
     }
     // This is to prevent Houdini from crashing
@@ -87,7 +87,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
 
     for(int i=0; i<res; ++i){
 
-        string varnote = chs(concat("../xaos_", sIDX[i]));
+        string varnote = chs(concat("xaos_", sIDX[i]));
         string varxaos[] = split(varnote, ":");
         float xaos[];
 
@@ -158,7 +158,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
      / and reformat/reconvert due to a bug in Houdini.
      / [Bug ID# 124486], SideFX Support Ticket [SESI #128304]
     */
-    int xm = chi("../xm");
+    int xm = chi("xm");
     if(xm && x_chk){
         XAOS_transpose_s(xaos_tos, xaos_tos_t, res);
         resize(XAOS_TO, 0);

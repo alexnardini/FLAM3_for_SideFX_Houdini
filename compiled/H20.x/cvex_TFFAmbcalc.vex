@@ -2,9 +2,9 @@
 ; ModuleID = 'TFFAmbcalc'
 source_filename = "TFFAmbcalc"
 
-@0 = private constant [7 x i8] c"../fps\00"
-@1 = private constant [13 x i8] c"../mbsamples\00"
-@2 = private constant [11 x i8] c"../shutter\00"
+@0 = private constant [4 x i8] c"fps\00"
+@1 = private constant [10 x i8] c"mbsamples\00"
+@2 = private constant [8 x i8] c"shutter\00"
 @3 = private constant [10 x i8] c"iteration\00"
 @4 = private constant [22 x i8] c"Tstep_mult_compensate\00"
 @Time = external global double
@@ -17,9 +17,9 @@ source_filename = "TFFAmbcalc"
 ; Function Attrs: alwaysinline nounwind
 define private void @"_TFFAmbcalc@FFF"(double* %_bound_Time, double* %_bound_Tstep, double* %_bound_Tstep_mult) #0 {
 __llvm_entry:
-  %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @0, i64 0, i64 0))
-  %return1 = call i64 @"chi@IS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @1, i64 0, i64 0))
-  %return2 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @2, i64 0, i64 0))
+  %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @0, i64 0, i64 0))
+  %return1 = call i64 @"chi@IS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @1, i64 0, i64 0))
+  %return2 = call double @"chf@FS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @2, i64 0, i64 0))
   %_bound_Time3 = load double, double* %_bound_Time
   %cast = sitofp i64 %return to double
   %output = call double @"div@FF"(double 1.000000e+00, double %cast)
@@ -105,7 +105,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"20.0.506"}
+!1 = !{!"20.5.370"}
 !2 = !{!"64"}
 
 ;_code_end

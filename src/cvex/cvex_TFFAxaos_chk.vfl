@@ -37,7 +37,7 @@ void
 _TFFAxaosCHK(int _bound_XS;)
 {
 
-    int inum = chi("../flamefunc");
+    int inum = chi("flamefunc");
     int va[];
     float IW[];
     string sIDX[];
@@ -46,8 +46,8 @@ _TFFAxaosCHK(int _bound_XS;)
     for(int i=0; i<inum; ++i){
         
         string iIDX = itoa(i+1);
-        append(va, chi(concat("../vactive_", iIDX)));
-        float IWcheck = chf(concat("../iw_", iIDX));
+        append(va, chi(concat("vactive_", iIDX)));
+        float IWcheck = chf(concat("iw_", iIDX));
         if(IWcheck==0) va[i]=0;
         if(!va[i]) continue;
         append(IW, IWcheck);
@@ -70,7 +70,7 @@ _TFFAxaosCHK(int _bound_XS;)
 
     for(int i=0; i<res; ++i){
 
-        string varnote = chs(concat("../xaos_", sIDX[i]));
+        string varnote = chs(concat("xaos_", sIDX[i]));
         string varxaos[] = split(varnote, ":");
         float xaos[];
 
