@@ -331,6 +331,7 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
 
     - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] vieport xforms VIZ is OFF.
     - [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg] vieport xforms VIZ is ON.
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] when one of the iteratos/xforms is in SOLO mode (the only xform handle displayed). ((LMB)) to revert back to display all xforms handles VIZ together.
 
     When switched ON it will display the xforms handles in the viewport.<br />
     They have been built to add as little as possible to the computation, in fact you can keep them ON all the time if you like, except when rendering.
@@ -724,11 +725,14 @@ Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         In case you still want to include the inactive iterator in the file, set its Weight to zero instead.
     
     
-A tip [Icon:opdef:.?icon_optionStarBlueSVG.svg]:
+xform VIZ [Icon:DATATYPES/boolean]:
     #id: FLAME
-    [Largeicon:opdef:.?icon_optionStarBlueSVG.svg]
 
-    Show active iterator informations and tips.
+    When the viewport xforms handles VIZ is ON this icon will become available.
+
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] ((LMB)) to enter into SOLO mode and display only this iterator xform handle in the viewport.
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] ((LMB)) to exit the SOLO mode and revert back to display all xforms handles VIZ together.
+
     
 W [Icon:TOP/xmlinput]:
     #id: FLAME

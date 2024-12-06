@@ -205,6 +205,12 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle()
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle()
 ```
 # SYS Tab
+# parameter name:    `xfviz_on_solo`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_viz_solo()
+```
+# SYS Tab
 # parameter name:    `sys_out_sensorviz`
 ### Callback Script
 ```python
@@ -367,10 +373,16 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_u
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update()
 ```
 # FLAME Tab
-# parameter name:    `activetip_#`
+# parameter name:    `xfviz_off_#`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_active_iterator_infos()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz()
+```
+# FLAME Tab
+# parameter name:    `xfviz_on_#`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz()
 ```
 # FLAME Tab
 # parameter name:    `iw_#`

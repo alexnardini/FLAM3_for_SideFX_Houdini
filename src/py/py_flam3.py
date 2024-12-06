@@ -131,6 +131,7 @@ FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV = '::'
 FLAM3H_USER_DATA_PRX = "nodeinfo"
 FLAM3H_USER_DATA_ITER = "Marked iterator"
 FLAM3H_USER_DATA_FF = "Marked FF"
+FLAM3H_USER_DATA_XF_VIZ = "XF VIZ"
 
 # Main tab in the UI
 FLAM3H_ITERATORS_TAB = "f_flam3h"
@@ -183,11 +184,8 @@ GLB_DENSITY = 'ptcount'
 GLB_DENSITY_PRESETS = 'ptcount_presets'
 GLB_ITERATIONS = 'iter'
 SYS_SELECT_ITERATOR = 'iterlist'
-SYS_DO_FF = 'doff'
-SYS_RIP = 'rip'
 SYS_XF_VIZ_OFF = 'xfviz_off'
 SYS_XF_VIZ_ON = 'xfviz_on'
-SYS_TAG = 'tag'
 SYS_TAG_SIZE = 'tagsize'
 SYS_FRAME_VIEW_SENSOR = 'frameviewsensor'
 FLAME_ITERATORS_COUNT = 'flamefunc'
@@ -259,8 +257,6 @@ OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe'
 
 PREFS_PALETTE_256_PLUS = 'paletteplus'
 PREFS_FLASH_MSG = 'flashmsg'
-PREFS_XF_VIZ = 'vizhandles'
-PREFS_F3C = 'f3c'
 PREFS_ITERATOR_BOOKMARK_ICONS = 'itericons'
 PREFS_ENUMERATE_MENU = 'enumeratemenu'
 PREFS_AUTO_PATH_CORRECTION = 'autopath'
@@ -275,6 +271,14 @@ PREFS_VIEWPORT_DARK = 'setdark'
 PREFS_VIEWPORT_WIRE_WIDTH = 'vpww'
 PREFS_VIEWPORT_PT_TYPE = 'vptype'
 PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
+# PREFS SYSTEM
+PREFS_DOFF = 'doff'
+PREFS_RIP = 'rip'
+PREFS_F3C = 'f3c'
+PREFS_TAG = 'tag'
+PREFS_XF_VIZ = 'vizhandles'
+PREFS_XF_VIZ_SOLO = 'vizhandles_solo'
+PREFS_XF_VIZ_SOLO_MP_IDX = 'vizhandles_solo_mpidx'
 # Flame stats locked message string
 MSG_FLAMESTATS_LOCK = '-> LOCKED'
 # Flame stats message parameters
@@ -353,6 +357,7 @@ class flam3h_iterator_prm_names:
     # ITERATOR
     #
     # Main
+    main_xf_viz = 'xfviz'
     main_mpmem = 'mpmem' # auto set xaos: custom data
     main_note = 'note'
     main_prmpastesel = 'prmpastesel'
@@ -1596,7 +1601,9 @@ class flam3h_general_utils
 * flam3h_other_sensor_viz_off(self, node: hou.SopNode) -> None:
 * flam3h_outsensor_toggle(self, prm: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
 * flam3h_xf_viz_toggle(self, prm: str=PREFS_XF_VIZ) -> None:
-* flam3h_toggle(self, prm: str=SYS_TAG) -> None:
+* flam3h_toggle_sys_xf_viz_solo(self) -> None:
+* flam3h_toggle_mp_xf_viz(self) -> None:
+* flam3h_toggle(self, prm: str=PREFS_TAG) -> None:
 * flam3h_toggle_off(self, prm: str) -> None:
 * flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
 * flam3h_init_presets_IN_PRESETS(self, mode: int=1) -> None:
@@ -1948,7 +1955,7 @@ class flam3h_general_utils
         * def util_set_front_viewer(self, update: bool=True) -> bool:
         * def util_viewport_bbox_frame(self) -> None:
         * def flam3h_outsensor_toggle(self, prm: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
-        * def flam3h_toggle(self, prm: str=SYS_TAG) -> None:
+        * def flam3h_toggle(self, prm: str=PREFS_TAG) -> None:
         * def flam3h_toggle_off(self, prm: str) -> None:
                                                             
         Args:
@@ -2475,15 +2482,119 @@ class flam3h_general_utils
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport for the xforms handles VIZ to work.", 'WARN')
                 self.flash_message(node, f"XF VIZ: {_MSG}")
                 
+    
+    
+    def flam3h_all_mp_xf_viz_check(self) -> bool:
+        """Check if any multiparameter have its xf_viz ON.
+
+        Args:
+            (self):
+
+        Returns:
+            (None):  
+        """ 
+        node = self.node
+        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        all_mp_xf_viz = [node.parm(f"{flam3h_iterator_prm_names.main_xf_viz}_{str(mp_idx+1)}").eval() for mp_idx in range(iter_num)]
+        if max(all_mp_xf_viz) == 1: return True
+        else: return False
+        
+        
+        
+    def flam3h_toggle_sys_xf_viz_solo(self) -> None:
+        """When in xform VIZ SOLO mode, this will turn it off and go back to viz them all.
+        Specifically built for the SYS -> "xfviz_on_solo" icon parameter.
+
+        Args:
+            (self):
+
+        Returns:
+            (None):  
+        """        
+        node = self.node
+        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        prm = node.parm(PREFS_XF_VIZ_SOLO)
+        toggle = prm.eval()
+        
+        # Refresh menu caches
+        self.menus_refresh_enum_prefs()
+        
+        if toggle:
+            prm.set(0)
+            [node.setParms({f"{flam3h_iterator_prm_names.main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)]
+            flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
+            
+            _MSG = f"{node.name()}: {prm.name().upper()}: OFF"
+            self.set_status_msg(_MSG, 'MSG')
+            self.flash_message(node, f"XF VIZ: ALL")
+            
+        else:
+            # This will never evaluate with the current system
+            # but I leave it here just in case we need this condition.
+            prm.set(1)
+            _MSG = f"{node.name()}: {prm.name().upper()}: ON"
+            self.set_status_msg(_MSG, 'IMP')
+                
+                
+                
+                
+    def flam3h_toggle_mp_xf_viz(self) -> None:
+        """If a toggle is OFF it will switch ON, and viceversa.
+        Specifically built for the XF VIZ multiparameter icons.
+        
+
+        Args:
+            (self):
+
+        Returns:
+            (None):  
+        """    
+        
+        # with hou.undos.disabler(): # type: ignore
+        
+        node: hou.SopNode = self.node
+        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        
+        mp_idx: str = self.kwargs['script_multiparm_index']
+        prm_mp = node.parm(f"{flam3h_iterator_prm_names.main_xf_viz}_{mp_idx}")
+        prm_xfviz_solo = node.parm(PREFS_XF_VIZ_SOLO)
+        prm_xfviz_solo_mp_idx = node.parm(PREFS_XF_VIZ_SOLO_MP_IDX)
+        toggle = prm_mp.eval()
+        
+        data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
+        
+        # Refresh menu caches
+        self.menus_refresh_enum_prefs()
+        
+        if toggle:
+            prm_mp.set(0)
+            prm_xfviz_solo.set(0)
+            flam3h_iterator_utils.destroy_userData(node, f"{data_name}")
+            
+            _MSG = f"{node.name()}: VIZHANDLES_SOLO: OFF"
+            self.set_status_msg(_MSG, 'MSG')
+            self.flash_message(node, f"XF VIZ: ALL")
+            
+        else:
+            [node.setParms({f"{flam3h_iterator_prm_names.main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)] # type: ignore
+            prm_mp.set(1)
+            prm_xfviz_solo.set(1)
+            prm_xfviz_solo_mp_idx.set(int(mp_idx))
+            node.setUserData(f"{data_name}", mp_idx)
+                
+            _MSG = f"{node.name()}: {prm_mp.name().upper()}: ON"
+            self.set_status_msg(_MSG, 'IMP')
+            self.flash_message(node, f"XF VIZ: {mp_idx}")
+                
             
             
             
-    def flam3h_toggle(self, prm: str=SYS_TAG) -> None:
+    def flam3h_toggle(self, prm: str=PREFS_TAG) -> None:
         """If a toggle is OFF it will switch ON, and viceversa.
 
         Args:
             (self):
-            prm(str): Defaults to SYS_TAG. Toggle parameter name to use.
+            prm(str): Defaults to PREFS_TAG. Toggle parameter name to use.
 
         Returns:
             (None):  
@@ -3051,10 +3162,10 @@ class flam3h_general_utils
         node.setParms({GLB_DENSITY_PRESETS: 1})
         node.setParms({GLB_ITERATIONS: iter})
         if mode:
-            node.setParms({SYS_DO_FF: 0})
-        node.setParms({SYS_TAG: 0})
+            node.setParms({PREFS_DOFF: 0})
+        node.setParms({PREFS_TAG: 0})
         node.setParms({SYS_TAG_SIZE: 0})
-        node.setParms({SYS_RIP: 0})
+        node.setParms({PREFS_RIP: 0})
         
 
     def reset_MB(self) -> None:
@@ -3089,6 +3200,11 @@ class flam3h_general_utils
         node.setParms({PREFS_CAMERA_CULL: 0})
         node.setParms({PREFS_CAMERA: ""})
         node.setParms({PREFS_CAMERA_CULL_AMOUNT: 0.99})
+        
+        # XF VIZ SOLO OFF (but leave the xforms handles VIZ ON)
+        node.setParms({PREFS_XF_VIZ_SOLO: 0})
+        flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
+        
         if mode:
             node.setParms({PREFS_F3C: 1})
 
@@ -3990,9 +4106,9 @@ class flam3h_iterator_utils
         """  
         iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         lambda_min_opacity = lambda: min([node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)])
-        if f3h_all: [f3h.setParms({SYS_RIP: 1}) if lambda_min_opacity() == 0 else ... for f3h in node.type().instances()]
+        if f3h_all: [f3h.setParms({PREFS_RIP: 1}) if lambda_min_opacity() == 0 else ... for f3h in node.type().instances()]
         else:
-            if lambda_min_opacity() == 0: node.setParms({SYS_RIP: 1}) # type: ignore
+            if lambda_min_opacity() == 0: node.setParms({PREFS_RIP: 1}) # type: ignore
 
 
 
@@ -5099,7 +5215,7 @@ class flam3h_iterator_utils
                 if node == flam3node_FF: return MENU_FF_COPY_PASTE_SELECT
                 else:
                     # Menu entrie sections bookmark icon
-                    active = flam3node_FF.parm(SYS_DO_FF).eval()
+                    active = flam3node_FF.parm(PREFS_DOFF).eval()
                     if active: _ICON = FLAM3H_ICON_COPY_PASTE_FF_ENTRIE
                     else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
                     
@@ -6550,6 +6666,7 @@ class flam3h_iterator_utils
 
     def auto_set_xaos(self) -> None:
         """Set iterator's xaos values every time an iterator is added or removed.
+        It will also update the data for the xform handles VIZ SOLO mode if Active.
 
         Args:
             (self):
@@ -6558,7 +6675,13 @@ class flam3h_iterator_utils
             (None):
         """
 
-        node = self.node
+        node: hou.SopNode = self.node
+        
+        # XF VIZ
+        prm_xfviz = node.parm(PREFS_XF_VIZ)
+        prm_xfviz_solo = node.parm(PREFS_XF_VIZ_SOLO)
+        prm_xfviz_solo_mp_idx = node.parm(PREFS_XF_VIZ_SOLO_MP_IDX)
+        data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
         
         iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         
@@ -6647,7 +6770,7 @@ class flam3h_iterator_utils
                     if (idx_del_inbetween+1) == flam3h_node_mp_id: # just in case..
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
                         # set
-                        node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
+                        node.setParms({FLAM3H_DATA_PRM_MPIDX: -1}) # type: ignore
                         self.del_comment_and_user_data_iterator(node)
                         # Let us know
                         _MSG = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
@@ -6655,6 +6778,19 @@ class flam3h_iterator_utils
                         
                     else:
                         pass
+                    
+            # XF VIZ
+            if prm_xfviz.eval() and prm_xfviz_solo.eval():
+                
+                xf_viz_mp_idx = prm_xfviz_solo_mp_idx.eval()
+                if (idx_del_inbetween + 1) == xf_viz_mp_idx:
+                    prm_xfviz_solo.set(0)
+                    self.destroy_userData(node, f"{data_name}")
+                    
+                    _MSG = f"{node.name()}: The iterator you just removed had its XF VIZ: ON. Reverted to display the xforms handles VIZ all together."
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                    
+
         
         # DEL
         elif idx_del_inbetween is not None and idx_del_inbetween < iter_num:
@@ -6688,7 +6824,7 @@ class flam3h_iterator_utils
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id - 1 # type: ignore
                         # set
                         idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).eval() - 1
-                        node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new})
+                        node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new}) # type: ignore
                         self.del_comment_and_user_data_iterator(node)
                         self.set_comment_and_user_data_iterator(node, str(idx_new))
 
@@ -6696,7 +6832,7 @@ class flam3h_iterator_utils
                         
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
                         # set
-                        node.setParms({FLAM3H_DATA_PRM_MPIDX: -1})
+                        node.setParms({FLAM3H_DATA_PRM_MPIDX: -1}) # type: ignore
                         self.del_comment_and_user_data_iterator(node)
                         # Let us know
                         _MSG = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
@@ -6704,6 +6840,20 @@ class flam3h_iterator_utils
                         
                     else:
                         pass
+                    
+            # XF VIZ
+            if prm_xfviz.eval() and prm_xfviz_solo.eval():
+                
+                xf_viz_mp_idx = prm_xfviz_solo_mp_idx.eval()
+                if (idx_del_inbetween + 1) < xf_viz_mp_idx:
+                    prm_xfviz_solo_mp_idx.set(xf_viz_mp_idx - 1)
+                    node.setUserData(f"{data_name}", str(xf_viz_mp_idx - 1))
+                elif (idx_del_inbetween + 1) == xf_viz_mp_idx:
+                    prm_xfviz_solo.set(0)
+                    self.destroy_userData(node, f"{data_name}")
+                    _MSG = f"{node.name()}: The iterator you just removed had its XF VIZ: ON. Reverted to display the xforms handles VIZ all together."
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                    
 
         # otherwise ADD
         # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
@@ -6741,12 +6891,21 @@ class flam3h_iterator_utils
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id + 1 # type: ignore
                         # set
                         idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).eval() + 1
-                        node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new})
+                        node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new}) # type: ignore
                         self.del_comment_and_user_data_iterator(node)
                         self.set_comment_and_user_data_iterator(node, str(idx_new))
                         
                     else:
                         pass
+                    
+            # XF VIZ
+            if prm_xfviz.eval() and prm_xfviz_solo.eval():
+                
+                xf_viz_mp_idx = prm_xfviz_solo_mp_idx.eval()
+                if (idx_add_inbetween + 1) <= xf_viz_mp_idx:
+                    prm_xfviz_solo_mp_idx.set(xf_viz_mp_idx + 1)
+                    node.setUserData(f"{data_name}", str(xf_viz_mp_idx + 1))
+                    
             
         else:
             # update CachedUserData: flam3h_xaos_iterators_prev
@@ -6755,7 +6914,7 @@ class flam3h_iterator_utils
         # set all multi parms xaos strings parms
         xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)])
         prm_xaos = flam3h_iterator_prm_names.xaos
-        [node.setParms({f"{prm_xaos}_{str(mp_idx+1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)]
+        [node.setParms({f"{prm_xaos}_{str(mp_idx+1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)] # type: ignore
             
         # lock
         node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(True)
@@ -6806,8 +6965,8 @@ class flam3h_iterator_utils
             # MB
             flam3h_general_utils(self.kwargs).reset_MB()
             # SYS, IN and PREFS
-            [prm.set(0) for prm in (node.parm(SYS_DO_FF), node.parm(SYS_RIP), node.parm(IN_ISVALID_PRESET), node.parm(IN_CLIPBOARD_TOGGLE), node.parm(PREFS_CAMERA_HANDLE), node.parm(PREFS_CAMERA_CULL))]
-
+            [prm.set(0) for prm in (node.parm(PREFS_DOFF), node.parm(PREFS_RIP), node.parm(IN_ISVALID_PRESET), node.parm(IN_CLIPBOARD_TOGGLE), node.parm(PREFS_CAMERA_HANDLE), node.parm(PREFS_CAMERA_CULL), node.parm(PREFS_XF_VIZ_SOLO))]
+            flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             # descriptive message parameter
             node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
             
@@ -8768,7 +8927,7 @@ class flam3h_ui_msg_utils
 @METHODS
 * ui_xaos_infos(self) -> None:
 * ui_OUT_presets_name_infos(self) -> None:
-* ui_active_iterator_infos(self) -> None:
+* __ui_active_iterator_infos(self) -> None:
     """
     
     def __init__(self, kwargs: dict) -> None:
@@ -8908,8 +9067,9 @@ and change the flame → “name” key afterwards.
 
 
     
-    def ui_active_iterator_infos(self) -> None:
-        """Open a message window with informations/tips turning iterators ON or OFF and their consequences.
+    def __ui_active_iterator_infos(self) -> None:
+        """ NOT USED ANYMORE:
+        Open a message window with informations/tips turning iterators ON or OFF and their consequences.
 
         Args:
             (self):
@@ -13315,11 +13475,11 @@ class in_flame_utils
         
         # RIP: if there are ZERO opacities, always turn RIP toggle ON
         if min(apo_data.opacity) == 0.0:
-            node.setParms({SYS_RIP: 1}) # type: ignore
+            node.setParms({PREFS_RIP: 1}) # type: ignore
         else:
             # Otherwise set RIP toggle accordingly from the XML data if any
             if apo_data.sys_flam3h_rip is not None:
-                node.setParms({SYS_RIP: apo_data.sys_flam3h_rip}) # type: ignore
+                node.setParms({PREFS_RIP: apo_data.sys_flam3h_rip}) # type: ignore
 
         # Set iterators
         self.in_flam3h_set_iterators(0, node, apo_data, preset_id, XML_XF_KEY_EXCLUDE)
@@ -13328,12 +13488,12 @@ class in_flame_utils
         ####################################################
         if apo_data.finalxform is not None:
             flam3h_iterator_utils(self.kwargs).reset_FF()
-            node.setParms({SYS_DO_FF: 1}) # type: ignore
+            node.setParms({PREFS_DOFF: 1}) # type: ignore
             # Set FF
             self.in_flam3h_set_iterators(1, node, apo_data, preset_id, XML_XF_KEY_EXCLUDE)
         else:
             flam3h_iterator_utils(self.kwargs).reset_FF()
-            node.setParms({SYS_DO_FF: 0}) # type: ignore
+            node.setParms({PREFS_DOFF: 0}) # type: ignore
 
 
 
@@ -13832,6 +13992,10 @@ class in_flame_utils
                 node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
                 node.setParms({GLB_DENSITY_PRESETS: 1}) # type: ignore
                 
+                # XF VIZ SOLO OFF (but leave the xforms handles VIZ ON)
+                node.setParms({PREFS_XF_VIZ_SOLO: 0})
+                flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
+                
             else:
                 if attempt_from_clipboard: _MSG = "Flame IN Clipboard: The loaded Flame preset have 0(Zero) xforms/iterators. SKIPPED"
                 else: _MSG = "Flame IN: The loaded Flame preset have 0(Zero) xforms/iterators. SKIPPED"
@@ -14094,7 +14258,7 @@ class out_flame_utils
         self._flam3h_iter_prm_names = flam3h_iterator_prm_names()
         self._flam3h_iter = flam3h_iterator()
         self._flam3h_iter_FF = flam3h_iterator_FF()
-        self._flam3h_do_FF = self._node.parm(SYS_DO_FF).eval()
+        self._flam3h_do_FF = self._node.parm(PREFS_DOFF).eval()
         self._iter_count = self._node.parm(FLAME_ITERATORS_COUNT).eval()
         self._palette: hou.Ramp = self._node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         self._palette_hsv_do = self._node.parm(OUT_HSV_PALETTE_DO).eval()
@@ -14106,7 +14270,7 @@ class out_flame_utils
         self._f3h_affine: bool = self._node.parm(OUT_FLAM3H_AFFINE_STYLE).eval()
         self._xm = self._node.parm(PREFS_XAOS_MODE).eval()
         # custom to FLAM3H only
-        self._flam3h_rip = self._node.parm(SYS_RIP).eval()
+        self._flam3h_rip = self._node.parm(PREFS_RIP).eval()
         self._flam3h_mb_do = self._node.parm(MB_DO).eval()
         self._flam3h_f3c = self._node.parm(PREFS_F3C).eval()
         self._flam3h_cp_lookup_samples = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).evalAsInt()
@@ -15068,7 +15232,7 @@ class out_flame_utils
             
             if mode:
                 # FF
-                if node.parm(SYS_DO_FF).eval():
+                if node.parm(PREFS_DOFF).eval():
                     
                     _MP_IDX = 'FF'
                     names_collect_values = []
@@ -15806,7 +15970,7 @@ class out_flame_utils
         _FF_VAR_dup = {}
         _FF_POST_dup = {}
         key = 'FF'
-        if node.parm(SYS_DO_FF).eval():
+        if node.parm(PREFS_DOFF).eval():
             _FF_VAR: Union[dict[str, list[str]], bool]  = self.out_collect_var_section_names_dict(node, 1, 'VAR')
             _FF_POST: Union[dict[str, list[str]], bool] = self.out_collect_var_section_names_dict(node, 1, 'POST')
             if _FF_VAR is not False:
