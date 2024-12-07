@@ -36,128 +36,64 @@ struct gem{
     float   v1w[], v2w[], v3w[], v4w[], pbw[], p1w[], p2w[], P1w[], CLR[], OM[], A[], fp1w, fv1w, fv2w, fP1w, fP2w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     
-    void gemBuild(const string sIDX[]; const int FF){
+    void gemBuild(const int FF){
 
-        // GENOME
-        res = len(sIDX);
-        resize(v1t, res); v2t=v3t=v4t=p1t=p2t=P1t=PPL=v1t;
-        resize(v1w, res); v2w=v3w=v4w=p1w=p2w=P1w=pbw=CLR=OM=A=v1w;
-        resize(x,   res); y=o=px=py=po=x;
-        float _a, clr, spd;
-        vector2 _x, _y;
-        matrix2 _m2;
-        string  idx;
+        // RES
+        res = detail(1, "RES");
+        // AFFINE
+        x = detail(1, "X");
+        y = detail(1, "Y");
+        o = detail(1, "O");
+        // POST AFFINE
+        PPL = detail(1, "POST");
+        px = detail(1, "PX");
+        py = detail(1, "PY");
+        po = detail(1, "PO");
+        // VARS TYPE
+        p1t = detail(1, "p1t");
+        p2t = detail(1, "p2t");
+        v1t = detail(1, "v1t");
+        v2t = detail(1, "v2t");
+        v3t = detail(1, "v3t");
+        v4t = detail(1, "v4t");
+        P1t = detail(1, "P1t");
+        // VARS WEIGHT
+        pbw = detail(1, "pbw");
+        p1w = detail(1, "p1w");
+        p2w = detail(1, "p2w");
+        v1w = detail(1, "v1w");
+        v2w = detail(1, "v2w");
+        v3w = detail(1, "v3w");
+        v4w = detail(1, "v4w");
+        P1w = detail(1, "P1w");
+        // SHADER
+        A = detail(1, "A");
+        CLR = detail(1, "CLR");
+        OM = detail(1, "OM");
         
-        for(int i=0; i<res; ++i){
-
-            idx=sIDX[i];
-            // SHADER
-            clr = chf(concat("clr_", idx));
-            spd = chf(concat("clrspeed_", idx));
-            /*
-                From Fractorium->Source->ember->Xform.h ( code line: 561)
-
-                m_OneMinusColorCache = (1 + m_ColorSpeed) / 2;
-                m_ColorSpeedCache = m_ColorX * (1 - m_ColorSpeed) / 2;  //Apo style.
-
-                m_OneMinusColorCache = static_cast<T>(1) - m_ColorSpeed;
-                m_ColorSpeedCache = m_ColorSpeed * m_ColorX;            //Flam3 style.
-            */
-            // Color: Use Apo style
-            CLR[i] = clr * (1.0-spd)/2.0;
-            OM[i]  = (1.0 + spd)/2.0;
-            // Alpha
-            A[i]   = chf(concat("alpha_", idx));
-            // PRE BLUR
-            pbw[i] = chf(concat("preblurweight_" , idx));
-            // PRE VAR 01
-            p1w[i] = chf(concat("pre1weight_" , idx));
-            p1t[i] = chi(concat("pre1type_", idx));
-            // PRE VAR 02
-            p2w[i] = chf(concat("pre2weight_", idx));
-            p2t[i] = chi(concat("pre2type_", idx));
-            // VAR 01
-            v1w[i] = chf(concat("v1weight_", idx));
-            v1t[i] = chi(concat("v1type_", idx));
-            // VAR 02
-            v2w[i] = chf(concat("v2weight_", idx));
-            v2t[i] = chi(concat("v2type_", idx));
-            // VAR 03
-            v3w[i] = chf(concat("v3weight_", idx));
-            v3t[i] = chi(concat("v3type_", idx));
-            // VAR 04
-            v4w[i] = chf(concat("v4weight_", idx));
-            v4t[i] = chi(concat("v4type_", idx));
-            // POST VAR 01
-            P1w[i] = chf(concat("p1weight_", idx));
-            P1t[i] = chi(concat("p1type_", idx));
-            // AFFINE
-            _x = chu(concat("x_", idx));
-            _y = chu(concat("y_", idx));
-            _a = chf(concat("ang_", idx));
-            if(_a!=0){
-                affineRot(_m2, _x, _y, -radians(_a));
-                _x = set(_m2.xx, _m2.xy);
-                _y = set(_m2.yx, _m2.yy);
-            }
-            x[i] = _x; y[i] = _y;
-            o[i] = chu(concat("o_", idx));
-            // POST AFFINE
-            PPL[i] = chi(concat("dopost_", idx));
-            if(PPL[i]){
-                _x = chu(concat("px_", idx));
-                _y = chu(concat("py_", idx));
-                _a = chf(concat("pang_", idx));
-                if(_a!=0){
-                    affineRot(_m2, _x, _y, -radians(_a));
-                    _x = set(_m2.xx, _m2.xy);
-                    _y = set(_m2.yx, _m2.yy);
-                }
-                px[i] = _x; py[i] = _y;
-                po[i] = chu(concat("po_", idx));
-            }
-        }
+        // FF
         if(FF){
-            // FF PRE 01
-            fp1w = chf("ffpre1weight");
-            fp1t = chi("ffpre1type");
-            // FF VAR 01
-            fv1w = chf("ffv1weight");
-            fv1t = chi("ffv1type");
-            // FF VAR 02
-            fv2w = chf("ffv2weight");
-            fv2t = chi("ffv2type");
-            // // FF POST VAR 01
-            fP1w = chf("ffp1weight");
-            fP1t = chi("ffp1type");
-            // // FF POST VAR 02
-            fP2w = chf("ffp2weight");
-            fP2t = chi("ffp2type");
             // FF AFFINE
-            _x = chu("ffx");
-            _y = chu("ffy");
-            _a = chf("ffang");
-            if(_a!=0){
-                affineRot(_m2, _x, _y, -radians(_a));
-                _x = set(_m2.xx, _m2.xy);
-                _y = set(_m2.yx, _m2.yy);
-            }
-            fx = _x; fy = _y;
-            fo = chu("ffo");
+            fx = detail(2, "FX"); 
+            fy = detail(2, "FY");
+            fo = detail(2, "FO");
             // FF POST AFFINE
-            PFF = chi("ffdopost");
-            if(PFF){
-                _x = chu("ffpx");
-                _y = chu("ffpy");
-                _a = chf("ffpang");
-                if(_a!=0){
-                    affineRot(_m2, _x, _y, -radians(_a));
-                    _x = set(_m2.xx, _m2.xy);
-                    _y = set(_m2.yx, _m2.yy);
-                }
-                pfx = _x; pfy = _y;
-                pfo = chu("ffpo");
-            }
+            PFF = detail(2, "PFF");
+            pfx = detail(2, "PFX");
+            pfy = detail(2, "PFY");
+            pfo = detail(2, "PFO");
+            // VARS TYPE
+            fp1t = detail(2, "fp1t");
+            fv1t = detail(2, "fv1t");
+            fv2t = detail(2, "fv2t");
+            fP1t = detail(2, "fP1t");
+            fP2t = detail(2, "fP2t");
+            // VARS WEIGHT
+            fp1w = detail(2, "fp1w");
+            fv1w = detail(2, "fv1w");
+            fv2w = detail(2, "fv2w");
+            fP1w = detail(2, "fP1w");
+            fP2w = detail(2, "fP2w");
         }
     }
 }
@@ -178,14 +114,6 @@ struct gemPrm{
             
             int T;
             string idx;
-            // float
-            resize(rings2_val, res); bipolar_shift=cell_size=radialblur=escher_beta=popcorn2_c=flux_spread=rings2_val;
-            // vector
-            resize(blob, res); pc_DISC2=pie=supershape=supershape_n=cpow=lazysusan=bwraps=point_symmetry=blob;
-            // vector2
-            resize(curl_c, res); parabola=fan2=rectangles=bent2=lazysusanxyz=modulus=popcorn2=separation=separation_inside=split=splits=waves2_scale=waves2_freq=curve_lenght=curve_amp=polynomial_pow=polynomial_lc=polynomial_sc=julian=juliascope=disc2=flower=conic=stripes=whorl=persp=bwrapstwist=crop_az=curl_c;
-            // vector4
-            resize(ngon, res); pdj_w=oscope=wedge=wedgejulia=wedgesph=auger=mobius_re=crop_ltrb=mobius_im=ngon;
 
             for(int i=0; i<res; ++i){
                 
