@@ -324,6 +324,9 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     
     == SYS: Viewport xforms VIZ == (SYSXFVIZ)
 
+    When reviewing and editing your fractal Flame, the viewport xforms handles provide excellent visual feedback. 
+    They will assist you in modifying each iterator (_or FF_) and rapidly help you comprehend the currently existing setup.
+
 
 Viewport xforms VIZ [Icon:DATATYPES/boolean]:
     #id: SYS
@@ -333,12 +336,12 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg] vieport xforms VIZ is ON.
     - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] when one of the iteratos/xforms is in SOLO mode (the only xform handle displayed). ((LMB)) to revert back to display all xforms handles VIZ together.
 
-    When switched ON it will display the xforms handles in the viewport.<br />
-    They have been built to add as little as possible to the computation, in fact you can keep them ON all the time if you like, except when rendering.
+    The xforms handles will be shown in the viewport when it is turned ON.<br />
+    Since they are designed to contribute as little as possible to the calculation, you may really leave them turned on at all times, until rendering is required.
 
     In the preferences' tab under *`prefs viewport`* you can set the thickness of the xforms handles curves using the parameter: *`wire width`*.
 
-    Since the *`wire width`* is a global attribute associated to each viewers in the current Houdini session, FLAM3H will store this data upon activating this mode and restore it upon exiting the mode assuming no other FLAM3H node in the scene has this mode ON, in which case it will keep the settings as they are.
+    Given that *`wire width`* is a global attribute linked to every viewer in the active Houdini session, FLAM3H will save this information when this mode is activated and restore it when the mode is terminated, provided that no other FLAM3H node in the scene has this mode enabled. If not, it will maintain the current settings.
 
     Once this mode is active,<br />
     from each iterator's tab you will be able to display an iterator of your choice in SOLO mode (_display only the viewport xform handle for the selected iterator, and nothing else_).
@@ -349,13 +352,13 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
     _They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator(or FF) of the fractal Flame_.
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    - Each available iterator will generate an xform handle with a color based on its multi-parameter index number while the FF will always be grey/white and drawn on top of the others to make it easier to recognize when active.
+    - Depending on its multi-parameter index number, each accessible iterator will produce an xform handle with a color, but the FF(_finalxform_) will always be grey/white and shown on top of the others to make it easy to identify when it is active.
 
-    - The *`RED`* and *`GREEN`* central axes represent respectively the *`X`* and *`Y`* axis as a frame of reference. Their triangle shape will help to visually read the scale in either one or the other dimension.
+    - The *`RED`* and *`GREEN`* central axes represent respectively the *`X`* and *`Y`* axis as a frame of reference. Their triangular form will make it easier to see the scale in one or both dimensions.
 
     - When an iterator(_or FF_) POST affine is active, its xform' handle will turn dashed and an extra knot created to represent its POST affine' pivot/offset (_like in the red dashed handle in the above illustration_).
 
-    - If the FLAM3H density value is raised above *`5M`*(_millions_) points the viewport handles will be automatically disabled.
+    - The viewport handles will be automatically disabled if the FLAM3H density value is raised above *`5M`*(_millions_) points.
 
     - The FLAM3H node posses a dive-in location to only display the xforms handles without the FLAM3H points.<br />
 
@@ -370,8 +373,8 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
         Those shortcut keys work when the mouse cursor is over the network editor as well over the viewport (_and over the parameters pane too_).
         To dive-in is useful to identify them visually as sometime it can be difficult to spot them when the fractal Flame is present.
 
-    - A second output has been added to the FLAM3H node to only ouput the xforms handles.
-    This is handy to use for viz purposes as not having them baked into the point cloud allow you to go back and forth between SOP and LOP while safe rendering the fractal Flame.
+    - To exclusively output the xforms handles, a second output has been introduced to the FLAM3H node.
+    Since they are not baked into the point cloud, you may safely render the fractal flame while switching between SOP and LOP, which makes it useful for viz purposes.
     
     :warning:
         Turn this OFF when rendering.
@@ -689,7 +692,7 @@ copy/paste:
 
     All the necessary methods for copy/paste iterator's data are contained in this icon.
     
-    This icon allows you to mark an iterator for being copied, and then copy the data from the marked iterator into another iterator number — even if it is located inside a separate FLAM3H node.
+    Using this icon, you can mark an iterator for copying, and then transfer the data from the marked iterator into another iterator number, even if it's within a different FLAM3H node.
 
     When you paste the data, it wil copy everything from the marked iterator but not Xaos.
     
@@ -2500,7 +2503,7 @@ Size:
 
 Wire width:
     #id: prefs
-    When the SYS -> "xforms handles VIZ" is ON, this will set the their wire curves thickness for the viewport display. A value of 3 is generally good.
+    When the SYS -> "xforms handles VIZ" is ON, this parameter will set the their wire curves thickness for the viewport display. A value of 3 is generally good.
         
 :box:
     #display: rounded white
