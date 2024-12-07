@@ -1,0 +1,189 @@
+/*  
+ /  Tested on:  Houdini 19.x
+ /              Houdini 19.5
+ /              Houdini 20.x
+ /              Houdini 20.5
+ /
+ /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
+ /  Author:     Alessandro Nardini
+ /  date:       December 2024, Last revised December 2024
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm"
+ /  Authors:    Scott Draves, Erik Reckase
+ /
+ /  Paper:      https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Github:     https://github.com/scottdraves/flam3
+ /  Date:       December 2002, Last revised May 2015
+ /
+ /  Name:       XFORMS DATA "CVEX"
+ /
+ /  Comment:    Collect all data for the xforms handles.
+*/
+
+
+#pragma opname  "TFFAxformsdata"
+#pragma oplabel "TFFAxformsdata"
+#pragma opmininputs 1
+#pragma opmaxinputs 1
+
+#include <functions.h>
+
+void
+_TFFAxformsdata(int _bound_RES, _bound_POST[], _bound_p1t[], _bound_p2t[], _bound_v1t[], _bound_v2t[], _bound_v3t[], _bound_v4t[], _bound_P1t[]; 
+                float _bound_pbw[], _bound_p1w[], _bound_p2w[], _bound_v1w[], _bound_v2w[], _bound_v3w[], _bound_v4w[], _bound_P1w[], _bound_A[], _bound_CLR[], _bound_OM[]; 
+                vector2 _bound_X[], _bound_Y[], _bound_O[], _bound_PX[], _bound_PY[], _bound_PO[];
+                )
+{
+
+    // INIT
+    int RES, POST[], v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[];
+    float pbw[], v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], P1w[], CLR[], OM[], A[];
+    vector2 x[], y[], o[], px[], py[], po[];
+
+    string sIDX[] = detail(1, "sIDX");
+    RES = len(sIDX);
+    
+    // Utils
+    float _a, clr, spd;
+    vector2 _x, _y;
+    matrix2 _m2;
+    string  idx;
+    
+    for(int i=0; i<RES; ++i){
+
+        idx=sIDX[i];
+
+        // SHADER
+        clr = chf(concat("clr_", idx));
+        spd = chf(concat("clrspeed_", idx));
+        /*
+            From Fractorium->Source->ember->Xform.h ( code line: 561)
+
+            m_OneMinusColorCache = (1 + m_ColorSpeed) / 2;
+            m_ColorSpeedCache = m_ColorX * (1 - m_ColorSpeed) / 2;  //Apo style.
+
+            m_OneMinusColorCache = static_cast<T>(1) - m_ColorSpeed;
+            m_ColorSpeedCache = m_ColorSpeed * m_ColorX;            //Flam3 style.
+        */
+        // Color: Use Apo style
+        CLR[i] = clr * (1.0-spd)/2.0;
+        OM[i]  = (1.0 + spd)/2.0;
+        // Alpha
+        A[i]   = chf(concat("alpha_", idx));
+        // PRE BLUR
+        pbw[i] = chf(concat("preblurweight_" , idx));
+        // PRE VAR 01
+        p1w[i] = chf(concat("pre1weight_" , idx));
+        p1t[i] = chi(concat("pre1type_", idx));
+        // PRE VAR 02
+        p2w[i] = chf(concat("pre2weight_", idx));
+        p2t[i] = chi(concat("pre2type_", idx));
+        // VAR 01
+        v1w[i] = chf(concat("v1weight_", idx));
+        v1t[i] = chi(concat("v1type_", idx));
+        // VAR 02
+        v2w[i] = chf(concat("v2weight_", idx));
+        v2t[i] = chi(concat("v2type_", idx));
+        // VAR 03
+        v3w[i] = chf(concat("v3weight_", idx));
+        v3t[i] = chi(concat("v3type_", idx));
+        // VAR 04
+        v4w[i] = chf(concat("v4weight_", idx));
+        v4t[i] = chi(concat("v4type_", idx));
+        // POST VAR 01
+        P1w[i] = chf(concat("p1weight_", idx));
+        P1t[i] = chi(concat("p1type_", idx));
+        // PRE AFFINE
+        _x = chu(concat("x_", idx));
+        _y = chu(concat("y_", idx));
+        _a = chf(concat("ang_", idx));
+        if(_a!=0){
+            affineRot(_m2, _x, _y, -radians(_a));
+            _x = set(_m2.xx, _m2.xy);
+            _y = set(_m2.yx, _m2.yy);
+        }
+        x[i] = _x; y[i] = _y;
+        o[i] = chu(concat("o_", idx));
+        // POST AFFINE
+        POST[i] = chi(concat("dopost_", idx));
+        if(POST[i]){
+            _x = chu(concat("px_", idx));
+            _y = chu(concat("py_", idx));
+            _a = chf(concat("pang_", idx));
+            if(_a!=0){
+                affineRot(_m2, _x, _y, -radians(_a));
+                _x = set(_m2.xx, _m2.xy);
+                _y = set(_m2.yx, _m2.yy);
+            }
+            px[i] = _x; py[i] = _y;
+            po[i] = chu(concat("po_", idx));
+        }
+    }
+
+    // OUT SYS
+    _bound_RES = RES;
+    _bound_POST = POST;
+    // OUT VARS TYPE
+    _bound_p1t = p1t;
+    _bound_p2t = p2t;
+    _bound_v1t = v1t;
+    _bound_v2t = v2t;
+    _bound_v3t = v3t;
+    _bound_v4t = v4t;
+    _bound_P1t = P1t;
+    // OUT VARS WEIGHTS
+    _bound_pbw = pbw;
+    _bound_p1w = p1w;
+    _bound_p2w = p2w;
+    _bound_v1w = v1w;
+    _bound_v2w = v2w;
+    _bound_v3w = v3w;
+    _bound_v4w = v4w;
+    _bound_P1w = P1w;
+    // OUT SHADER
+    _bound_A = A;
+    _bound_CLR = CLR;
+    _bound_OM = OM;
+    // OUT PRE Affine
+    _bound_X = x;
+    _bound_Y = y;
+    _bound_O = o;
+    // OUT PRE Affine
+    _bound_PX = px;
+    _bound_PY = py;
+    _bound_PO = po;
+
+}
+
+cvex
+TFFAxformsdata( export int RES = 0;
+                export int POST[] = {};
+                export int p1t[] = {};
+                export int p2t[] = {};
+                export int v1t[] = {};
+                export int v2t[] = {};
+                export int v3t[] = {};
+                export int v4t[] = {};
+                export int P1t[] = {};
+                export float pbw[] = {};
+                export float p1w[] = {};
+                export float p2w[] = {};
+                export float v1w[] = {};
+                export float v2w[] = {};
+                export float v3w[] = {};
+                export float v4w[] = {};
+                export float P1w[] = {};
+                export float A[] = {};
+                export float CLR[] = {};
+                export float OM[] = {};
+                export vector2 X[] = {};
+                export vector2 Y[] = {};
+                export vector2 O[] = {};
+                export vector2 PX[] = {};
+                export vector2 PY[] = {};
+                export vector2 PO[] = {};)
+{
+    _TFFAxformsdata(RES, POST, p1t, p2t, v1t, v2t, v3t, v4t, P1t, pbw, p1w, p2w, v1w, v2w, v3w, v4w, P1w,A, CLR, OM, X, Y, O, PX, PY, PO);
+}
