@@ -259,10 +259,8 @@ PREFS_PALETTE_256_PLUS = 'paletteplus'
 PREFS_FLASH_MSG = 'flashmsg'
 PREFS_ITERATOR_BOOKMARK_ICONS = 'itericons'
 PREFS_ENUMERATE_MENU = 'enumeratemenu'
-PREFS_AUTO_PATH_CORRECTION = 'autopath'
 PREFS_CVEX_PRECISION = 'vex_precision'
 PREFS_XAOS_MODE = 'xm'
-PREFS_XAOS_AUTO_SPACE = 'xaosdiv'
 PREFS_CAMERA_HANDLE = 'camhandle'
 PREFS_CAMERA = 'fcam'
 PREFS_CAMERA_CULL = 'camcull'
@@ -276,6 +274,8 @@ PREFS_DOFF = 'doff'
 PREFS_RIP = 'rip'
 PREFS_F3C = 'f3c'
 PREFS_TAG = 'tag'
+PREFS_XAOS_AUTO_SPACE = 'xaosdiv'
+PREFS_AUTO_PATH_CORRECTION = 'autopath'
 PREFS_XF_VIZ = 'vizhandles'
 PREFS_XF_VIZ_SOLO = 'vizhandles_solo'
 PREFS_XF_VIZ_SOLO_MP_IDX = 'vizhandles_solo_mpidx'
@@ -857,7 +857,7 @@ class flam3h_scripts
 
 @METHODS
 * flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
-* flam3h_on_create_set_prefs_viewport(self, default_value: float=1) -> None:
+* flam3h_on_create_set_prefs_viewport(self, default_value_pt: float=1, default_value_ww: float=3) -> None:
 * flam3h_on_create_init_viewportWireWidth(self) -> None:
 * flam3h_presets_cache_filepath_on_load(self) -> None:
 * flam3h_on_create(self) -> None:
@@ -1171,13 +1171,14 @@ class flam3h_scripts
 
 
 
-    def flam3h_on_create_set_prefs_viewport(self, default_value: float=1) -> None:
+    def flam3h_on_create_set_prefs_viewport(self, default_value_pt: float=1, default_value_ww: float=3) -> None:
         """Initialize the necessary data for the viewport display preference's option on creation.
         This need some work as it is a little rough, I'll be back to this at some point. Good enough for now.
         
         Args:
             (self):
-            default_value(float): A default value to compare to. This must always be the same as the FLAM3H UI parameter's default values.
+            default_value_pt(float): A default value to compare to for the point setting. This must always be the same as the FLAM3H UI parameter's default values.
+            default_value_ww(float): A default value to compare to for the wire width setting. This must always be the same as the FLAM3H UI parameter's default values.
             
         Returns:
             (None):
@@ -1222,7 +1223,7 @@ class flam3h_scripts
                 settings = view.curViewport().settings()
                 size = settings.particlePointSize()
                 
-                if size != default_value:
+                if size != default_value_pt:
                     node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
                     
                 type = settings.particleDisplayType()
@@ -1239,9 +1240,10 @@ class flam3h_scripts
                 settings = view.curViewport().settings()
                 size = settings.wireWidth()
                 
-                if size != default_value:
+                if size != default_value_ww:
                     node.setParms({PREFS_VIEWPORT_WIRE_WIDTH: size})
         
+    
     
     def flam3h_on_create_init_viewportWireWidth(self) -> None:
         """Initialize FLAM3H viewport wire width.
