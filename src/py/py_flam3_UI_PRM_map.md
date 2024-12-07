@@ -160,37 +160,37 @@ return menu
 # parameter name:    `doff_sysdisabled`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("doff")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("doff")
 ```
 # SYS Tab
 # parameter name:    `doff_sysenabled`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("doff")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("doff")
 ```
 # SYS Tab
 # parameter name:    `rip_disabled`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("rip")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("rip")
 ```
 # SYS Tab
 # parameter name:    `rip_enabled`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("rip")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("rip")
 ```
 # SYS Tab
 # parameter name:    `f3c_chaotica`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("f3c")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("f3c")
 ```
 # SYS Tab
 # parameter name:    `f3c_apophysis`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle("f3c")
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("f3c")
 ```
 # SYS Tab
 # parameter name:    `xfviz_off`
@@ -226,13 +226,13 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle
 # parameter name:    `sys_tag_off`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag")
 ```
 # SYS Tab
 # parameter name:    `sys_tag`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag")
 ```
 # SYS Tab
 # parameter name:    `loaddef`
@@ -485,6 +485,18 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine(
 _Iterators like Final Flame (FF) or finalXform function like camera lenses.<br>
 It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result._
 
+# FF Tab
+# parameter name:    `doff_disabled`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("doff")
+```
+# FF Tab
+# parameter name:    `doff_enabled`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("doff")
+```
 # FF Tab
 # parameter name:    `ffnote`
 ### Callback Script
