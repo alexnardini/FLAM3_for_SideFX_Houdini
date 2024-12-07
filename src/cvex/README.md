@@ -26,6 +26,24 @@ to form the final point cloud.
 <br>
 <br>
 
+
+# CVEX Source
+# File name:    `cvex_TFFAffdata.vfl`
+### Description:
+Collect all FF(_finalxform_) data to be passed to the chaos game.
+
+<br>
+<br>
+
+
+# CVEX Source
+# File name:    `cvex_TFFAiteratorsdata.vfl`
+### Description:
+Collect all iterators data to be passed to the chaos game.
+
+<br>
+<br>
+
 # CVEX Source
 # File name:    `cvex_TFFAmbcalc.vfl`
 ### Description:
@@ -95,33 +113,9 @@ Simply check if Xaos is active. This is a stripped down version of: `cvex_TFFAxa
 <br>
 
 # CVEX Source
-# File name:    `cvex_TFFAxformsactive.vfl`
+# File name:    `cvex_TFFAxformsdata.vfl`
 ### Description:
-Collect all iterator multi-parameter indexs and their count to drive the iterator's xforms handles generation.
-
-<br>
-<br>
-
-# CVEX Source
-# File name:    `cvex_TFFAxformshandles.vfl`
-### Description:
-Transform each iterator handle accordingly to their PRE and POST affine values.
-
-<br>
-<br>
-
-# CVEX Source
-# File name:    `cvex_TFFAxformshandlesFF.vfl`
-### Description:
-Transform the iterator FF handle accordingly to its PRE and POST affine values.
-
-<br>
-<br>
-
-# CVEX Source
-# File name:    `cvex_TFFAxformshandlescolor.vfl`
-### Description:
-Assign a unique color to each iterator xforms handle.
+Collect all iterators multi-parameter data needed to build the viewport xforms handles VIZ.
 
 <br>
 <br>
