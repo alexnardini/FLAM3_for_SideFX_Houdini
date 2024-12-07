@@ -40,7 +40,11 @@ struct gem{
 
         // RES
         res = detail(1, "RES");
-        // AFFINE
+        // SHADER
+        A = detail(1, "A");
+        CLR = detail(1, "CLR");
+        OM = detail(1, "OM");
+        // PRE AFFINE
         x = detail(1, "X");
         y = detail(1, "Y");
         o = detail(1, "O");
@@ -66,14 +70,10 @@ struct gem{
         v3w = detail(1, "v3w");
         v4w = detail(1, "v4w");
         P1w = detail(1, "P1w");
-        // SHADER
-        A = detail(1, "A");
-        CLR = detail(1, "CLR");
-        OM = detail(1, "OM");
         
         // FF
         if(FF){
-            // FF AFFINE
+            // FF PRE AFFINE
             fx = detail(2, "FX"); 
             fy = detail(2, "FY");
             fo = detail(2, "FO");
@@ -82,13 +82,13 @@ struct gem{
             pfx = detail(2, "PFX");
             pfy = detail(2, "PFY");
             pfo = detail(2, "PFO");
-            // VARS TYPE
+            // FF VARS TYPE
             fp1t = detail(2, "fp1t");
             fv1t = detail(2, "fv1t");
             fv2t = detail(2, "fv2t");
             fP1t = detail(2, "fP1t");
             fP2t = detail(2, "fP2t");
-            // VARS WEIGHT
+            // FF VARS WEIGHT
             fp1w = detail(2, "fp1w");
             fv1w = detail(2, "fv1w");
             fv2w = detail(2, "fv2w");
