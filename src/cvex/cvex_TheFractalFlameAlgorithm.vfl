@@ -57,7 +57,7 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
     // Build genomes
     gem GEM; GEM->gemBuild(FF);
     // cast FLAME
-    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], res; /* CAST */ res=GEM.res; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; P1t=GEM.P1t; PPL=GEM.PPL;
+    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], res; /* CAST */ v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; P1t=GEM.P1t; PPL=GEM.PPL; res=GEM.res;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], P1w[], pbw[], CLR[], OM[], A[]; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; p2w=GEM.p2w; P1w=GEM.P1w; pbw=GEM.pbw; CLR=GEM.CLR; OM=GEM.OM; A=GEM.A;
     vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
     // cast iterator (the least needed. To be used inside the big loop)
