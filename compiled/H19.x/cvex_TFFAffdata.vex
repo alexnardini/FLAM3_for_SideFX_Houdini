@@ -162,96 +162,136 @@ __llvm_entry:
   %5 = alloca double
   store <4 x double> zeroinitializer, <4 x double>* %_m2, !vex-initializer-store !3
   %return = call double @"chf@FS"(i8* getelementptr inbounds ([13 x i8], [13 x i8]* @0, i64 0, i64 0))
-  %return1 = call i64 @"chi@IS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @1, i64 0, i64 0))
-  %return2 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @2, i64 0, i64 0))
-  %return3 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @3, i64 0, i64 0))
-  %return4 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @4, i64 0, i64 0))
-  %return5 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @5, i64 0, i64 0))
-  %return6 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @6, i64 0, i64 0))
-  %return7 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @7, i64 0, i64 0))
-  %return8 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @8, i64 0, i64 0))
-  %return9 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @9, i64 0, i64 0))
-  %return10 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @10, i64 0, i64 0))
-  %return11 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @11, i64 0, i64 0))
-  %return12 = call double @"chf@FS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @12, i64 0, i64 0))
-  %return14 = fcmp one double %return12, 0.000000e+00
-  br i1 %return14, label %true, label %end
+  %return2 = fcmp ogt double %return, 0.000000e+00
+  br i1 %return2, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
-  store <2 x double> %return10, <2 x double>* %0
-  store <2 x double> %return11, <2 x double>* %1
-  %return19 = call double @"radians@FF"(double %return12)
-  %return20 = call double @"neg@FF"(double %return19)
-  store double %return20, double* %2
-  call void @"affineRot@2UUF"(<4 x double>* %_m2, <2 x double>* %0, <2 x double>* %1, double* %2)
-  %_m221 = load <4 x double>, <4 x double>* %_m2
-  %return22 = call double @"getcomp@F2II"(<4 x double> %_m221, i64 0, i64 0)
-  %return24 = call double @"getcomp@F2II"(<4 x double> %_m221, i64 0, i64 1)
-  %return25 = call <2 x double> @"set@UFF"(double %return22, double %return24)
-  %return27 = call double @"getcomp@F2II"(<4 x double> %_m221, i64 1, i64 0)
-  %return29 = call double @"getcomp@F2II"(<4 x double> %_m221, i64 1, i64 1)
-  %return30 = call <2 x double> @"set@UFF"(double %return27, double %return29)
+  %return4 = call i64 @"chi@IS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @1, i64 0, i64 0))
   br label %end
 
 end:                                              ; preds = %true, %__llvm_entry
-  %_x.0 = phi <2 x double> [ %return25, %true ], [ %return10, %__llvm_entry ]
-  %_y.0 = phi <2 x double> [ %return30, %true ], [ %return11, %__llvm_entry ]
-  %return33 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @13, i64 0, i64 0))
-  %return34 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @14, i64 0, i64 0))
-  %6 = icmp ne i64 %return34, 0
-  br i1 %6, label %true36, label %end37
+  %fp1t.0 = phi i64 [ %return4, %true ], [ 0, %__llvm_entry ]
+  %return5 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @2, i64 0, i64 0))
+  %return7 = fcmp one double %return5, 0.000000e+00
+  br i1 %return7, label %true9, label %end10
 
-true36:                                           ; preds = %end
-  %return38 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @15, i64 0, i64 0))
-  %return39 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @16, i64 0, i64 0))
-  %return40 = call double @"chf@FS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @17, i64 0, i64 0))
-  %return42 = fcmp one double %return40, 0.000000e+00
-  br i1 %return42, label %true44, label %end45
+true9:                                            ; preds = %end
+  %return11 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @3, i64 0, i64 0))
+  br label %end10
 
-end37:                                            ; preds = %end45, %end
-  %pfx.0 = phi <2 x double> [ %_x.1, %end45 ], [ zeroinitializer, %end ]
-  %pfy.0 = phi <2 x double> [ %_y.1, %end45 ], [ zeroinitializer, %end ]
-  %pfo.0 = phi <2 x double> [ %return63, %end45 ], [ zeroinitializer, %end ]
-  store i64 %return34, i64* %_bound_PFF
-  store i64 %return1, i64* %_bound_fp1t
-  store i64 %return3, i64* %_bound_fv1t
-  store i64 %return5, i64* %_bound_fv2t
-  store i64 %return7, i64* %_bound_fP1t
-  store i64 %return9, i64* %_bound_fP2t
+end10:                                            ; preds = %true9, %end
+  %fv1t.0 = phi i64 [ %return11, %true9 ], [ 0, %end ]
+  %return12 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @4, i64 0, i64 0))
+  %return14 = fcmp one double %return12, 0.000000e+00
+  br i1 %return14, label %true16, label %end17
+
+true16:                                           ; preds = %end10
+  %return18 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @5, i64 0, i64 0))
+  br label %end17
+
+end17:                                            ; preds = %true16, %end10
+  %fv2t.0 = phi i64 [ %return18, %true16 ], [ 0, %end10 ]
+  %return19 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @6, i64 0, i64 0))
+  %return21 = fcmp ogt double %return19, 0.000000e+00
+  br i1 %return21, label %true23, label %end24
+
+true23:                                           ; preds = %end17
+  %return25 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @7, i64 0, i64 0))
+  br label %end24
+
+end24:                                            ; preds = %true23, %end17
+  %fP1t.0 = phi i64 [ %return25, %true23 ], [ 0, %end17 ]
+  %return26 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @8, i64 0, i64 0))
+  %return28 = fcmp ogt double %return26, 0.000000e+00
+  br i1 %return28, label %true30, label %end31
+
+true30:                                           ; preds = %end24
+  %return32 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @9, i64 0, i64 0))
+  br label %end31
+
+end31:                                            ; preds = %true30, %end24
+  %fP2t.0 = phi i64 [ %return32, %true30 ], [ 0, %end24 ]
+  %return33 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @10, i64 0, i64 0))
+  %return34 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @11, i64 0, i64 0))
+  %return35 = call double @"chf@FS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @12, i64 0, i64 0))
+  %return37 = fcmp one double %return35, 0.000000e+00
+  br i1 %return37, label %true39, label %end40
+
+true39:                                           ; preds = %end31
+  store <2 x double> %return33, <2 x double>* %0
+  store <2 x double> %return34, <2 x double>* %1
+  %return44 = call double @"radians@FF"(double %return35)
+  %return45 = call double @"neg@FF"(double %return44)
+  store double %return45, double* %2
+  call void @"affineRot@2UUF"(<4 x double>* %_m2, <2 x double>* %0, <2 x double>* %1, double* %2)
+  %_m246 = load <4 x double>, <4 x double>* %_m2
+  %return47 = call double @"getcomp@F2II"(<4 x double> %_m246, i64 0, i64 0)
+  %return49 = call double @"getcomp@F2II"(<4 x double> %_m246, i64 0, i64 1)
+  %return50 = call <2 x double> @"set@UFF"(double %return47, double %return49)
+  %return52 = call double @"getcomp@F2II"(<4 x double> %_m246, i64 1, i64 0)
+  %return54 = call double @"getcomp@F2II"(<4 x double> %_m246, i64 1, i64 1)
+  %return55 = call <2 x double> @"set@UFF"(double %return52, double %return54)
+  br label %end40
+
+end40:                                            ; preds = %true39, %end31
+  %_x.0 = phi <2 x double> [ %return50, %true39 ], [ %return33, %end31 ]
+  %_y.0 = phi <2 x double> [ %return55, %true39 ], [ %return34, %end31 ]
+  %return58 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @13, i64 0, i64 0))
+  %return59 = call i64 @"chi@IS"(i8* getelementptr inbounds ([9 x i8], [9 x i8]* @14, i64 0, i64 0))
+  %6 = icmp ne i64 %return59, 0
+  br i1 %6, label %true61, label %end62
+
+true61:                                           ; preds = %end40
+  %return63 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @15, i64 0, i64 0))
+  %return64 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @16, i64 0, i64 0))
+  %return65 = call double @"chf@FS"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @17, i64 0, i64 0))
+  %return67 = fcmp one double %return65, 0.000000e+00
+  br i1 %return67, label %true69, label %end70
+
+end62:                                            ; preds = %end70, %end40
+  %pfx.0 = phi <2 x double> [ %_x.1, %end70 ], [ zeroinitializer, %end40 ]
+  %pfy.0 = phi <2 x double> [ %_y.1, %end70 ], [ zeroinitializer, %end40 ]
+  %pfo.0 = phi <2 x double> [ %return88, %end70 ], [ zeroinitializer, %end40 ]
+  store i64 %return59, i64* %_bound_PFF
+  store i64 %fp1t.0, i64* %_bound_fp1t
+  store i64 %fv1t.0, i64* %_bound_fv1t
+  store i64 %fv2t.0, i64* %_bound_fv2t
+  store i64 %fP1t.0, i64* %_bound_fP1t
+  store i64 %fP2t.0, i64* %_bound_fP2t
   store double %return, double* %_bound_fp1w
-  store double %return2, double* %_bound_fv1w
-  store double %return4, double* %_bound_fv2w
-  store double %return6, double* %_bound_fP1w
-  store double %return8, double* %_bound_fP2w
+  store double %return5, double* %_bound_fv1w
+  store double %return12, double* %_bound_fv2w
+  store double %return19, double* %_bound_fP1w
+  store double %return26, double* %_bound_fP2w
   store <2 x double> %_x.0, <2 x double>* %_bound_FX
   store <2 x double> %_y.0, <2 x double>* %_bound_FY
-  store <2 x double> %return33, <2 x double>* %_bound_FO
+  store <2 x double> %return58, <2 x double>* %_bound_FO
   store <2 x double> %pfx.0, <2 x double>* %_bound_PFX
   store <2 x double> %pfy.0, <2 x double>* %_bound_PFY
   store <2 x double> %pfo.0, <2 x double>* %_bound_PFO
   ret void
 
-true44:                                           ; preds = %true36
-  store <2 x double> %return38, <2 x double>* %3
-  store <2 x double> %return39, <2 x double>* %4
-  %return49 = call double @"radians@FF"(double %return40)
-  %return50 = call double @"neg@FF"(double %return49)
-  store double %return50, double* %5
+true69:                                           ; preds = %true61
+  store <2 x double> %return63, <2 x double>* %3
+  store <2 x double> %return64, <2 x double>* %4
+  %return74 = call double @"radians@FF"(double %return65)
+  %return75 = call double @"neg@FF"(double %return74)
+  store double %return75, double* %5
   call void @"affineRot@2UUF"(<4 x double>* %_m2, <2 x double>* %3, <2 x double>* %4, double* %5)
-  %_m251 = load <4 x double>, <4 x double>* %_m2
-  %return52 = call double @"getcomp@F2II"(<4 x double> %_m251, i64 0, i64 0)
-  %return54 = call double @"getcomp@F2II"(<4 x double> %_m251, i64 0, i64 1)
-  %return55 = call <2 x double> @"set@UFF"(double %return52, double %return54)
-  %return57 = call double @"getcomp@F2II"(<4 x double> %_m251, i64 1, i64 0)
-  %return59 = call double @"getcomp@F2II"(<4 x double> %_m251, i64 1, i64 1)
-  %return60 = call <2 x double> @"set@UFF"(double %return57, double %return59)
-  br label %end45
+  %_m276 = load <4 x double>, <4 x double>* %_m2
+  %return77 = call double @"getcomp@F2II"(<4 x double> %_m276, i64 0, i64 0)
+  %return79 = call double @"getcomp@F2II"(<4 x double> %_m276, i64 0, i64 1)
+  %return80 = call <2 x double> @"set@UFF"(double %return77, double %return79)
+  %return82 = call double @"getcomp@F2II"(<4 x double> %_m276, i64 1, i64 0)
+  %return84 = call double @"getcomp@F2II"(<4 x double> %_m276, i64 1, i64 1)
+  %return85 = call <2 x double> @"set@UFF"(double %return82, double %return84)
+  br label %end70
 
-end45:                                            ; preds = %true44, %true36
-  %_x.1 = phi <2 x double> [ %return55, %true44 ], [ %return38, %true36 ]
-  %_y.1 = phi <2 x double> [ %return60, %true44 ], [ %return39, %true36 ]
-  %return63 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @18, i64 0, i64 0))
-  br label %end37
+end70:                                            ; preds = %true69, %true61
+  %_x.1 = phi <2 x double> [ %return80, %true69 ], [ %return63, %true61 ]
+  %_y.1 = phi <2 x double> [ %return85, %true69 ], [ %return64, %true61 ]
+  %return88 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @18, i64 0, i64 0))
+  br label %end62
 }
 
 ; Function Attrs: nounwind readnone
