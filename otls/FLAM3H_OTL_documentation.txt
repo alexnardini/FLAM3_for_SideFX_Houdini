@@ -341,7 +341,7 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
 
     In the preferences' tab under *`prefs viewport`* you can set the thickness of the xforms handles curves using the parameter: *`wire width`*.
 
-    Given that *`wire width`* is a global attribute linked to every viewer in the active Houdini session, FLAM3H will save this information when this mode is activated and restore it when the mode is terminated, provided that no other FLAM3H node in the scene has this mode enabled. If not, it will maintain the current settings.
+    Since *`wire width`* parameter is setting a global attribute linked to every viewer in the active Houdini session, FLAM3H will save this information when this mode is activated and restore it when the mode is terminated, provided that no other FLAM3H node in the scene has this mode enabled. If not, it will maintain the current settings.
 
     Once this mode is active,<br />
     from each iterator's tab you will be able to display an iterator of your choice in SOLO mode (_display only the viewport xform handle for the selected iterator, and nothing else_).
