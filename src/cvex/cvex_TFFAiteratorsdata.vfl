@@ -42,7 +42,6 @@ _TFFAxformsdata(string _bound_sIDX[];
     int RES, POST[], v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[];
     float pbw[], v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], P1w[], CLR[], OM[], A[];
     vector2 x[], y[], o[], px[], py[], po[];
-
     string sIDX[] = detail(1, "sIDX");
     RES = len(sIDX);
     

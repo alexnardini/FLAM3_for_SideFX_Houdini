@@ -42,7 +42,7 @@ _TFFAxformsdata(int _bound_PFF, _bound_fp1t, _bound_fv1t, _bound_fv2t, _bound_fP
     float fp1w, fv1w, fv2w, fP1w, fP2w;
     vector2 fx, fy, fo, pfx, pfy, pfo;
     
-    // FF
+    // Utils
     float _a;
     vector2 _x, _y;
     matrix2 _m2;
