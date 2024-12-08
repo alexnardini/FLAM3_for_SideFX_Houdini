@@ -31,7 +31,8 @@
 #include <functions.h>
 
 void
-_TFFAxformsdata(int _bound_RES, _bound_POST[], _bound_p1t[], _bound_p2t[], _bound_v1t[], _bound_v2t[], _bound_v3t[], _bound_v4t[], _bound_P1t[]; 
+_TFFAxformsdata(string _bound_sIDX[];
+                int _bound_RES, _bound_POST[], _bound_p1t[], _bound_p2t[], _bound_v1t[], _bound_v2t[], _bound_v3t[], _bound_v4t[], _bound_P1t[]; 
                 float _bound_pbw[], _bound_p1w[], _bound_p2w[], _bound_v1w[], _bound_v2w[], _bound_v3w[], _bound_v4w[], _bound_P1w[], _bound_A[], _bound_CLR[], _bound_OM[]; 
                 vector2 _bound_X[], _bound_Y[], _bound_O[], _bound_PX[], _bound_PY[], _bound_PO[];
                 )
@@ -123,6 +124,7 @@ _TFFAxformsdata(int _bound_RES, _bound_POST[], _bound_p1t[], _bound_p2t[], _boun
     }
 
     // OUT SYS
+    _bound_sIDX = sIDX;
     _bound_RES = RES;
     _bound_POST = POST;
     // OUT VARS TYPE
@@ -158,7 +160,8 @@ _TFFAxformsdata(int _bound_RES, _bound_POST[], _bound_p1t[], _bound_p2t[], _boun
 }
 
 cvex
-TFFAxformsdata( export int RES = 0;
+TFFAxformsdata( export string sIDX[] = {};
+                export int RES = 0;
                 export int POST[] = {};
                 export int p1t[] = {};
                 export int p2t[] = {};
@@ -183,7 +186,8 @@ TFFAxformsdata( export int RES = 0;
                 export vector2 O[] = {};
                 export vector2 PX[] = {};
                 export vector2 PY[] = {};
-                export vector2 PO[] = {};)
+                export vector2 PO[] = {}
+                )
 {
-    _TFFAxformsdata(RES, POST, p1t, p2t, v1t, v2t, v3t, v4t, P1t, pbw, p1w, p2w, v1w, v2w, v3w, v4w, P1w,A, CLR, OM, X, Y, O, PX, PY, PO);
+    _TFFAxformsdata(sIDX, RES, POST, p1t, p2t, v1t, v2t, v3t, v4t, P1t, pbw, p1w, p2w, v1w, v2w, v3w, v4w, P1w,A, CLR, OM, X, Y, O, PX, PY, PO);
 }
