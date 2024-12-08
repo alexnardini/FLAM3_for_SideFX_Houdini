@@ -334,7 +334,7 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
 
     - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] vieport xforms VIZ is OFF.
     - [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg] vieport xforms VIZ is ON.
-    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] when one of the iteratos/xforms is in SOLO mode (the only xform handle displayed). ((LMB)) to revert back to display all xforms handles VIZ together.
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] one of the iteratos/xforms is in SOLO mode (the only visible xform handle in the viewport). ((LMB)) to revert back to display all xforms handles VIZ together.
 
     The xforms handles will be shown in the viewport when it is turned ON.<br />
     Since they are designed to contribute as little as possible to the calculation, you may really leave them turned on at all times, until rendering is required.
