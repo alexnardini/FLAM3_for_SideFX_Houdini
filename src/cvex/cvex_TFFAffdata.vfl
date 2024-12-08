@@ -52,10 +52,10 @@ _TFFAxformsdata(int _bound_PFF, _bound_fp1t, _bound_fv1t, _bound_fv2t, _bound_fP
     if(fp1w > 0) fp1t = chi("ffpre1type");
     // FF VAR 01
     fv1w = chf("ffv1weight");
-    if(fv1w != 0) fv1t = chi("ffv1type");
+    if(fv1w!= 0) fv1t = chi("ffv1type");
     // FF VAR 02
     fv2w = chf("ffv2weight");
-    if(fv2w != 0) fv2t = chi("ffv2type");
+    if(fv2w!= 0) fv2t = chi("ffv2type");
     // // FF POST VAR 01
     fP1w = chf("ffp1weight");
     if(fP1w > 0) fP1t = chi("ffp1type");

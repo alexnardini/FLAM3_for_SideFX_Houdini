@@ -82,16 +82,16 @@ _TFFAxformsdata(int _bound_RES, _bound_POST[], _bound_p1t[], _bound_p2t[], _boun
         if(p2w[i] > 0) p2t[i] = chi(concat("pre2type_", idx));
         // VAR 01
         v1w[i] = chf(concat("v1weight_", idx));
-        if(v1w[i] != 0) v1t[i] = chi(concat("v1type_", idx));
+        if(v1w[i]!= 0) v1t[i] = chi(concat("v1type_", idx));
         // VAR 02
         v2w[i] = chf(concat("v2weight_", idx));
-        if(v2w[i] != 0) v2t[i] = chi(concat("v2type_", idx));
+        if(v2w[i]!= 0) v2t[i] = chi(concat("v2type_", idx));
         // VAR 03
         v3w[i] = chf(concat("v3weight_", idx));
-        if(v3w[i] != 0) v3t[i] = chi(concat("v3type_", idx));
+        if(v3w[i]!= 0) v3t[i] = chi(concat("v3type_", idx));
         // VAR 04
         v4w[i] = chf(concat("v4weight_", idx));
-        if(v4w[i] != 0) v4t[i] = chi(concat("v4type_", idx));
+        if(v4w[i]!= 0) v4t[i] = chi(concat("v4type_", idx));
         // POST VAR 01
         P1w[i] = chf(concat("p1weight_", idx));
         if(P1w[i] > 0) P1t[i] = chi(concat("p1type_", idx));
