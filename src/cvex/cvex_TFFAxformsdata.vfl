@@ -44,7 +44,7 @@ _TFFAxformsdata(string _bound_sIDX[]; int _bound_POST[], _bound_RES; vector2 _bo
     for(int i=0; i<inum; ++i){
         
         string iIDX = itoa(i+1);
-        int va = chi(concat("vactive_", iIDX)));
+        int va = chi(concat("vactive_", iIDX));
         int post = chi(concat("dopost_",  iIDX));
         float IWcheck = chf(concat("iw_", iIDX));
         if(IWcheck==0) va=0;
