@@ -112,13 +112,6 @@ Simply check if Xaos is active. This is a stripped down version of: `cvex_TFFAxa
 <br>
 <br>
 
-# CVEX Source
-# File name:    `cvex_TFFAxformsdata.vfl`
-### Description:
-Collect all iterators multi-parameter data needed to build the viewport xforms handles VIZ.
-
-<br>
-<br>
 
 # CVEX Source
 # File name:    `cvex_TheFractalFlameAlgorithm.vfl`
