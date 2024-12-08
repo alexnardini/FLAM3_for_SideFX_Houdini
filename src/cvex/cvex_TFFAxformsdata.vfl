@@ -37,18 +37,18 @@ _TFFAxformsdata(string _bound_sIDX[]; int _bound_POST[], _bound_RES; vector2 _bo
 
     // INIT
     int inum = chi("flamefunc");
-    int va[], POST[];
+    int POST[];
     string sIDX[];
     
     // ALL ACTIVE XFORMS/ITERATORS
     for(int i=0; i<inum; ++i){
         
         string iIDX = itoa(i+1);
-        append(va, chi(concat("vactive_", iIDX)));
+        int va = chi(concat("vactive_", iIDX)));
         int post = chi(concat("dopost_",  iIDX));
         float IWcheck = chf(concat("iw_", iIDX));
-        if(IWcheck==0) va[i]=0;
-        if(!va[i]) continue;
+        if(IWcheck==0) va=0;
+        if(!va) continue;
         append(sIDX, iIDX);
         append(POST, post);
     }
