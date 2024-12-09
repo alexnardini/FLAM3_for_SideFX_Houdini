@@ -92,7 +92,7 @@ struct gemtagff{
 
 
 void
-_TFFAuicollect(string _bound_VARTYPE[]; const int _bound_XS){
+_TFFAuicollect(string _bound_VARTYPE[]){
 
     string T[];
     string Ts[] = { "linear", 
@@ -343,8 +343,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; const int _bound_XS){
 }
 
 cvex
-TFFAuicollect( export string VARTYPE[] = {};
-               const int XS = 0; )
+TFFAuicollect( export string VARTYPE[] = {} )
 {
-    _TFFAuicollect(VARTYPE, XS);
+    _TFFAuicollect(VARTYPE);
 }

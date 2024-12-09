@@ -145,8 +145,8 @@ source_filename = "TFFAuicollect"
 @137 = private constant [5 x i8] c"doff\00"
 @138 = private constant [4 x i8] c"rip\00"
 @139 = private constant [5 x i8] c"domb\00"
-@140 = private constant [5 x i8] c"iter\00"
-@141 = private constant [4 x i8] c"f3c\00"
+@140 = private constant [4 x i8] c"f3c\00"
+@141 = private constant [5 x i8] c"iter\00"
 @142 = private constant [3 x i8] c"XS\00"
 @143 = private constant [3 x i8] c"xm\00"
 @144 = private constant [2 x i8] c"[\00"
@@ -450,7 +450,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAuicollect@[SI"(i8*** %_bound_VARTYPE, i64* %_bound_XS) #0 {
+define private void @"_TFFAuicollect@[S"(i8*** %_bound_VARTYPE) #0 {
 __llvm_entry:
   %GEMTAG = alloca %gemtag
   %GEMTAGFF = alloca %gemtagff
@@ -458,8 +458,8 @@ __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @137, i64 0, i64 0))
   %return1 = call i64 @"chi@IS"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @138, i64 0, i64 0))
   %return2 = call i64 @"chi@IS"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @139, i64 0, i64 0))
-  %return3 = call i64 @"chi@IS"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @140, i64 0, i64 0))
-  %return4 = call i64 @"chi@IS"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @141, i64 0, i64 0))
+  %return3 = call i64 @"chi@IS"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @140, i64 0, i64 0))
+  %return4 = call i64 @"chi@IS"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @141, i64 0, i64 0))
   %return6 = call i64 @"detail@IIS"(i64 1, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @142, i64 0, i64 0))
   %return7 = call i64 @"chi@IS"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @143, i64 0, i64 0))
   %GEMTAG8 = call %gemtag @"gemtag@Z6gemtagM17N4sIDX[SN3RESIN3p1t[IN3p2t[IN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3P1t[IN3pbw[FN3p1w[FN3p2w[FN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3P1w[F"()
@@ -600,7 +600,7 @@ __llvm_entry:
   %GEMTAGFF45.fca.8.load = load double, double* %GEMTAGFF43.fca.8.gep
   %GEMTAGFF45.fca.8.insert = insertvalue %gemtagff %GEMTAGFF45.fca.7.insert, double %GEMTAGFF45.fca.8.load, 8
   %GEMTAGFF45.fca.9.load = load double, double* %GEMTAGFF43.fca.9.gep
-  %return67 = call i8* @"itoa@SI"(i64 %return3)
+  %return67 = call i8* @"itoa@SI"(i64 %return4)
   %return68 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @144, i64 0, i64 0), i8* %return67, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @145, i64 0, i64 0))
   %output = call i8** @"append@[SS"(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0), i8* %return68)
   %1 = icmp ne i64 %return6, 0
@@ -632,7 +632,7 @@ true81:                                           ; preds = %end
 
 end82:                                            ; preds = %true81, %end
   %T.1 = phi i8** [ %output84, %true81 ], [ %T.0, %end ]
-  %4 = icmp ne i64 %return4, 0
+  %4 = icmp ne i64 %return3, 0
   br i1 %4, label %true86, label %end87
 
 true86:                                           ; preds = %end82
@@ -1092,12 +1092,11 @@ declare i8* @"concat@SSS:SS"(i8*, i8*, i8*, i8*) #2
 declare i8* @"toupper@SS"(i8*) #1
 
 ; Function Attrs: nounwind
-define void @TFFAuicollect(i8** %VARTYPE, i64 %XS) #1 {
+define void @TFFAuicollect(i8** %VARTYPE) #1 {
 __llvm_entry:
-  %0 = alloca i64
   %"<VARTYPE>" = alloca i8**
   store i8** %VARTYPE, i8*** %"<VARTYPE>"
-  call void @"_TFFAuicollect@[SI"(i8*** %"<VARTYPE>", i64* %0)
+  call void @"_TFFAuicollect@[S"(i8*** %"<VARTYPE>")
   %evalue = load i8**, i8*** %"<VARTYPE>"
   %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @164, i64 0, i64 0), i8** %evalue) #3
   store i8** %gvalue, i8*** @VARTYPE
@@ -1108,7 +1107,7 @@ declare i8** @"_export@[SS[S"(i8*, i8**)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TFFAuicollect(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0), i64 0)
+  call void @TFFAuicollect(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0))
   ret void
 }
 
