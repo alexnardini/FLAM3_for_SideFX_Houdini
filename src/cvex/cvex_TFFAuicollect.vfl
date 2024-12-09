@@ -208,7 +208,6 @@ _TFFAuicollect(string _bound_VARTYPE[]; const int _bound_XS){
     FF   = chi("doff");
     RIP  = chi("rip");
     MB   = chi("domb");
-    iter = chi("iter");
     // From Fractorium: flam3 comptibility (f3c). Check inside variations.h to see both versions of each.
     // The behavior of the:
     // cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan and tanh variations
@@ -216,7 +215,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; const int _bound_XS){
     //      Checked:    use the Apophysis behavior.
     //      Unchecked:  use the Chaotica behavior.
     F3C = chi("f3c");
-
+    iter = chi("iter");
     inum = chi("flamefunc");
     xaos_chk = detail(1, "XS");
     xaos_mode = chi("xm");
