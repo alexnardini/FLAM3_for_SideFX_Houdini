@@ -142,13 +142,20 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
 
 
     // SYS
-    int SYS[], FF, RIP, MB, inum, iter, f3c, xaos_chk, xaos_mode;
-    SYS = detail(1, "SYS");
-    FF   = SYS[0];
-    RIP  = SYS[1];  
-    MB   = SYS[2];
-    iter = SYS[3];
-    f3c  = SYS[4];
+    int FF, RIP, iter, MB, F3C;
+    FF   = chi("doff");
+    RIP  = chi("rip");
+    MB   = chi("domb");
+    iter = chi("iter");
+    // From Fractorium: flam3 comptibility (f3c). Check inside variations.h to see both versions of each.
+    // The behavior of the:
+    // cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan and tanh variations
+    // are different in flam3/Apophysis versus Chaotica.
+    //      Checked:    use the Apophysis behavior.
+    //      Unchecked:  use the Chaotica behavior.
+    F3C = chi("f3c");
+
+    int inum, xaos_chk, xaos_mode;
     inum = chi("flamefunc");
     xaos_mode = chi("xm");
 
@@ -161,7 +168,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
         else append(T, concat("[", "fX", "]"));             // xaos FROM
     }
     if(RIP) append(T, "RIP");
-    if(f3c) append(T, "F3C");
+    if(F3C) append(T, "F3C");
     if(MB) append(T, "MB");
 
     for(int i=0; i<inum; ++i){
