@@ -247,7 +247,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; const int _bound_XS){
 
     for(int i=0; i<RES; ++i){
 
-        string ITERATOR_TAG, ITERNUM, W, PRE[], PB, V1, V2, V3, V4, POST;
+        string ITERATOR_TAG, ITERNUM, W, PRE[], PB, V1, V2, V3, V4, POST[];
         ITERNUM = concat("(", sIDX[i], ")");
 
         // VAR 1
@@ -285,7 +285,11 @@ _TFFAuicollect(string _bound_VARTYPE[]; const int _bound_XS){
         else pre_build = "";
         // POST VAR 1
         Pw1 = P1w[i];
-        if(Pw1>0) { if(w_total != 0) POST = concat( "[ ", Ts[P1t[i]], " ]:"); }
+        if(Pw1>0) { if(w_total != 0) append(POST, Ts[P1t[i]]); }
+        string post_build;
+        if(len(POST)==1) post_build = concat( "[ ", POST[0], " ]:");
+        else if(len(POST)>1) post_build = concat( "[ ", join(POST, ", "), " ]:");
+        else post_build = "";
         // Iterator weight
         if(w_total != 0) W = sprintf( "%g", chf(concat("iw_", sIDX[i]))); else W = "";
         
@@ -298,7 +302,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; const int _bound_XS){
         }
         else out = SPLIT;
         W = join(out, ".");
-        ITERATOR_TAG = concat(PB, ITERNUM, pre_build, V1, V2, V3, V4, POST, W);
+        ITERATOR_TAG = concat(PB, ITERNUM, pre_build, V1, V2, V3, V4, post_build, W);
 
         append(T, ITERATOR_TAG);
         PRE = {};
