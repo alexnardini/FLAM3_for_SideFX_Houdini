@@ -907,6 +907,17 @@ class flam3h_scripts
                     )
         
         [node.parm(prm_name).lock(True) for prm_name in prm_names]
+        
+        
+        disabler_prm_names = ("cpdisable",
+                              "hide_palette",
+                              "indisable",
+                              "outdisable",
+                              "prefsdisable",
+                              "aboutdisable"
+                            )
+        
+        [node.parm(prm_name).lock(True) for prm_name in disabler_prm_names]
 
 
 
@@ -10065,9 +10076,6 @@ class in_flame
         """        
         super().__init__(xmlfile)
         self._node = node
-        # self._name = self._xml_tree__get_name() # type: ignore
-        # self._sw_version = self.get_name(XML_FLAME_VERSION) # type: ignore
-        # self._flame_plugins = self.get_name(XML_FLAME_PLUGINS) # type: ignore
         self._flame = self._xml_tree__get_flame() # type: ignore
         self._flame_count = self._xml_tree__get_flame_count(self._flame) # type: ignore
         # render properties
