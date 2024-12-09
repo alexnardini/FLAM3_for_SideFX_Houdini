@@ -909,6 +909,8 @@ class flam3h_scripts
         [node.parm(prm_name).lock(True) for prm_name in prm_names]
         
         
+        # The following are FLAM3H UI utility parameters
+        # hence they do not have a global variable and only hard coded here.
         disabler_prm_names = ("cpdisable",
                               "hide_palette",
                               "indisable",
