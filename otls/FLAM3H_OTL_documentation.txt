@@ -401,8 +401,8 @@ TAG [Icon:DATATYPES/boolean]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *System infos*:<br />
     * The *`Iteration number`* will be the very first number inside square brackets.
     * *`Xaos`* when active will be next inside square brackets. Read the xaos documentation to know more about it.
-        - *`Xaos TO`* will be: *`Xt`*
-        - *`Xaos FROM`* wil be: *`fX`*
+        - *`Xaos TO`* will be: *`[Xt]`*
+        - *`Xaos FROM`* wil be: *`[fX]`*
     * *`RIP`* (_remove invalid points_) when the SYS option "Remove Invalid Points" is ON.
     * *`F3C`* (_flam3 compatibility_) when the  SYS option "flam3 compatibility" is ON.
     * *`MB`* (_Motion Blur_) when ON will be next.
@@ -420,16 +420,14 @@ TAG [Icon:DATATYPES/boolean]:
     
     TIP:
         #display: orange
-        The Tag icon will change when:
+        When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
+        Once clicked, it will exit the mode and back to being the default Tag blue icon:
         
-        - [Largeicon:opdef:.?icon_TagOBlueSVG.svg] when the Tag is ON ( _default_ ).
-        - [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg] when the Tag is OFF.
         - [Largeicon:opdef:.?icon_TagORedSVG.svg] when the OUT Camera sensor viz mode is ON and update sensor option is ON.
         - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when the OUT Camera sensor viz mode is ON and update sensor option is OFF.
-        - [Largeicon:opdef:.?icon_TagOSVG.svg] when iterator's count is zero and when Xaos is active but you cross the 20 iterators limit. ( _only in the viewport Tag_ )
-        
-        When in OUT Camera sensor mode, the Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
-        Once clicked, it will exit the mode and back to being the default Tag blue icon.
+
+        _Additionally only in the viewport Tag_:
+        - [Largeicon:opdef:.?icon_TagOSVG.svg] when iterator's count is *`0`*(Zero) and when Xaos is active but you cross the 20 iterators limit.
          
 mini-menu TAG size [Icon:BUTTONS/pane_menu]:
     #id: SYS
@@ -440,6 +438,8 @@ mini-menu TAG size [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_TagOBlueMenuSmallSVG.svg] for a small tag size.
     - [Largeicon:opdef:.?icon_TagOBlueMenuMidSVG.svg] for a Medium tag size.
     - [Largeicon:opdef:.?icon_TagOBlueMenuBigSVG.svg] for a BIG tag size.
+
+    The above bookmark icons will also appear in the viewport Tag.
     
     
 :box:
