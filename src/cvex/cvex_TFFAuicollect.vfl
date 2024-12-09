@@ -319,7 +319,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; const int _bound_XS){
         if(fv2w!=0) FV2 = Ts[fv2t]+":";
         else FV2 = ":";
         float fw_total = fv1w+fv2w;
-        // // FF PRE 1
+        // FF PRE 1
         if(fp1w>0){ if(fw_total != 0) append(FPRE, Ts[fp1t]); }
         string FPRE_build;
         if(len(FPRE)==1) FPRE_build = concat( "[ ", FPRE[0], " ]:");
