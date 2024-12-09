@@ -63,7 +63,7 @@ struct gemtag{
 }
 
 
-// TAG GENOME
+// TAG GENOME FF
 struct gemtagff{
 
     // FF
