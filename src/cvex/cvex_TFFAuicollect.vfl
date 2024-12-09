@@ -225,7 +225,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; const int _bound_XS){
     gemtag GEMTAG;
     GEMTAG->gemtagBuild();
     string sIDX[]; /* CAST */ sIDX=GEMTAG.sIDX;
-    int    RES, p1t[], p2t[], v1t[], v2t[], v3t[], v4t[], P1t[]; /* CAST */ RES=GEMTAG.RES; p1t=GEMTAG.p1t; p2t=GEMTAG.p2t; v1t=GEMTAG.v1t; v2t=GEMTAG.v2t; v3t=GEMTAG.v3t; v4t=GEMTAG.v4t; P1t=GEMTAG.P1t;
+    int    RES, p1t[], p2t[], v1t[], v2t[], v3t[], v4t[], P1t[];   /* CAST */ RES=GEMTAG.RES; p1t=GEMTAG.p1t; p2t=GEMTAG.p2t; v1t=GEMTAG.v1t; v2t=GEMTAG.v2t; v3t=GEMTAG.v3t; v4t=GEMTAG.v4t; P1t=GEMTAG.P1t;
     float  pbw[], p1w[], p2w[], v1w[], v2w[], v3w[], v4w[], P1w[]; /* CAST */ pbw=GEMTAG.pbw; p1w=GEMTAG.p1w; p2w=GEMTAG.p2w; v1w=GEMTAG.v1w; v2w=GEMTAG.v2w; v3w=GEMTAG.v3w; v4w=GEMTAG.v4w; P1w=GEMTAG.P1w;
     // GEM TAG tmp
     float ppbw, ppw1, ppw2, w1, w2, w3, w4, Pw1;
@@ -247,44 +247,49 @@ _TFFAuicollect(string _bound_VARTYPE[]; const int _bound_XS){
 
     for(int i=0; i<RES; ++i){
 
-        string ITERNUM, VAR, W, PP[], PB, V1, V2, V3, V4, P1;
+        string ITERATOR_TAG, ITERNUM, W, PRE[], PB, V1, V2, V3, V4, POST;
         ITERNUM = concat("(", sIDX[i], ")");
 
+        // VAR 1
         w1 = v1w[i];
         if(w1!=0) V1 = Ts[v1t[i]]+":";
         else V1 = ":";
+        // VAR 2
         w2 = v2w[i];
         if(w2!=0) V2 = Ts[v2t[i]]+":";
         else V2 = ":";
+        // VAR 3
         w3 = v3w[i];
         if(w3!=0) V3 = Ts[v3t[i]]+":";
         else V3 = ":";
+        // VAR 4
         w4 = v4w[i];
         if(w4!=0) V4 = Ts[v4t[i]]+":";
         else V4 = ":";
+        // VAR weights total
         float w_total = w1+w2+w3+w4;
         
-        // Pre blur
+        // PRE BLUR
         ppbw = pbw[i];
         if(ppbw>0){ if(w_total != 0) PB="*"; }
-        // Pre var 1
+        // PRE VAR 1
         ppw1 = p1w[i];
-        if(ppw1>0){ if(w_total != 0) append(PP, Ts[p1t[i]]); }
-        // Pre var 2
+        if(ppw1>0){ if(w_total != 0) append(PRE, Ts[p1t[i]]); }
+        // PRE VAR 2
         ppw2 = p2w[i];
-        if(ppw2>0){ if(w_total != 0) append(PP, Ts[p2t[i]]); }
+        if(ppw2>0){ if(w_total != 0) append(PRE, Ts[p2t[i]]); }
         // Build pre vars tag string
-        string p_build;
-        if(len(PP)==1) p_build = concat( "[ ", PP[0], " ]:");
-        else if(len(PP)>1) p_build = concat( "[ ", join(PP, ", "), " ]:");
-        else p_build = "";
-        // Post var
+        string pre_build;
+        if(len(PRE)==1) pre_build = concat( "[ ", PRE[0], " ]:");
+        else if(len(PRE)>1) pre_build = concat( "[ ", join(PRE, ", "), " ]:");
+        else pre_build = "";
+        // POST VAR 1
         Pw1 = P1w[i];
-        if(Pw1>0) { if(w_total != 0) P1 = concat( "[ ", Ts[P1t[i]], " ]:"); }
+        if(Pw1>0) { if(w_total != 0) POST = concat( "[ ", Ts[P1t[i]], " ]:"); }
         // Iterator weight
         if(w_total != 0) W = sprintf( "%g", chf(concat("iw_", sIDX[i]))); else W = "";
         
-        // Reformat iterator weight string floats
+        // Reformat iterator weights string floats
         string out[] = {};
         string SPLIT[] = split(W, ".");
         if(len(SPLIT)>1){
@@ -293,38 +298,41 @@ _TFFAuicollect(string _bound_VARTYPE[]; const int _bound_XS){
         }
         else out = SPLIT;
         W = join(out, ".");
-        VAR = concat(PB, ITERNUM, p_build, V1, V2, V3, V4, P1, W);
+        ITERATOR_TAG = concat(PB, ITERNUM, pre_build, V1, V2, V3, V4, POST, W);
 
-        append(T, VAR);
-        PP = {};
+        append(T, ITERATOR_TAG);
+        PRE = {};
     }
 
     if(FF){
 
-        string VAR, FV1, FV2, Fp[], FP[];
+        string FF_TAG, FV1, FV2, FPRE[], FPOST[];
+
+        // FF VAR 1
         if(fv1w!=0) FV1 = Ts[fv1t]+":";
         else FV1 = ":";
+        // FF VAR 1
         if(fv2w!=0) FV2 = Ts[fv2t]+":";
         else FV2 = ":";
         float fw_total = fv1w+fv2w;
-        // Pre var 01
-        if(fp1w>0){ if(fw_total != 0) append(Fp, Ts[fp1t]); }
-        string Fp_build;
-        if(len(Fp)==1) Fp_build = concat( "[ ", Fp[0], " ]:");
-        else if(len(Fp)>1) Fp_build = concat( "[", join(Fp, ", "), "]:");
-        else Fp_build = "";
-        // Post var 1
-        if(fP1w>0){ if(fw_total != 0) append(FP, Ts[fP1t]); }
-        // Post var 2
-        if(fP2w>0){ if(fw_total != 0) append(FP, Ts[fP2t]); }
+        // // FF PRE 1
+        if(fp1w>0){ if(fw_total != 0) append(FPRE, Ts[fp1t]); }
+        string FPRE_build;
+        if(len(FPRE)==1) FPRE_build = concat( "[ ", FPRE[0], " ]:");
+        else if(len(FPRE)>1) FPRE_build = concat( "[", join(FPRE, ", "), "]:");
+        else FPRE_build = "";
+        // FF POST 1
+        if(fP1w>0){ if(fw_total != 0) append(FPOST, Ts[fP1t]); }
+        // FF POST 2
+        if(fP2w>0){ if(fw_total != 0) append(FPOST, Ts[fP2t]); }
         // Build post vars tag string
-        string FP_build;
-        if(len(FP)==1) FP_build = concat( "[ ", FP[0], " ]");
-        else if(len(FP)>1) FP_build = concat( "[ ", join(FP, ", "), " ]");
-        else FP_build = "";
+        string FPOST_build;
+        if(len(FPOST)==1) FPOST_build = concat( "[ ", FPOST[0], " ]");
+        else if(len(FPOST)>1) FPOST_build = concat( "[ ", join(FPOST, ", "), " ]");
+        else FPOST_build = "";
 
-        VAR = concat(Fp_build, FV1, FV2, FP_build);
-        append(T, toupper(VAR));
+        FF_TAG = concat(FPRE_build, FV1, FV2, FPOST_build);
+        append(T, toupper(FF_TAG));
         }
         
     _bound_VARTYPE = T;
