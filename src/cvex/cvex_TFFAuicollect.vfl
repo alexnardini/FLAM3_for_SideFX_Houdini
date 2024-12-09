@@ -285,6 +285,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; const int _bound_XS){
         // POST VAR 1
         Pw1 = P1w[i];
         if(Pw1>0) { if(w_total != 0) append(POST, Ts[P1t[i]]); }
+        // Build post vars tag string
         string post_build;
         if(len(POST)==1) post_build = concat( "[ ", POST[0], " ]:");
         else if(len(POST)>1) post_build = concat( "[ ", join(POST, ", "), " ]:");
