@@ -904,8 +904,7 @@ class flam3h_scripts
                       IN_PVT_CLIPBOARD_TOGGLE, 
                       OUT_PVT_ISVALID_FILE, 
                       PREFS_PVT_F3C, 
-                      PREFS_PVT_XAOS_AUTO_SPACE,
-                      PREFS_PVT_XF_FF_VIZ_SOLO
+                      PREFS_PVT_XAOS_AUTO_SPACE
                     )
         
         [node.parm(prm_name).lock(True) for prm_name in prm_names]
@@ -1655,6 +1654,7 @@ class flam3h_general_utils
 * flam3h_outsensor_toggle(self, prm_name: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
 * flam3h_xf_viz_toggle(self, prm_name: str=PREFS_PVT_XF_VIZ) -> None:
 * flam3h_toggle_sys_xf_viz_solo(self) -> None:
+* flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
 * flam3h_toggle_mp_xf_viz(self) -> None:
 * flam3h_toggle_xf_ff_viz(self) -> None:
 * flam3h_toggle(self, prm_name: str) -> None:
@@ -2592,14 +2592,12 @@ class flam3h_general_utils
         node = self.node
         iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         prm = node.parm(PREFS_PVT_XF_VIZ_SOLO)
-        prm_FF = node.parm(PREFS_PVT_XF_FF_VIZ_SOLO)
         
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
         
         if prm.eval():
             self.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 0)
-            self.set_private_prm(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
             [node.setParms({f"{flam3h_iterator_prm_names.main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)]
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             
@@ -2608,13 +2606,40 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: ALL")
             
         else:
-            if prm_FF.eval():
-                self.set_private_prm(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
-                [node.setParms({f"{flam3h_iterator_prm_names.main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)] # type: ignore
-                self.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 0)
             
-            # self.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 1)
             _MSG = f"{node.name()}: {prm.name().upper()}: ON"
+            self.set_status_msg(_MSG, 'IMP')
+            
+            
+            
+    def flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
+        """When in xform VIZ SOLO mode, this will turn it off and go back to viz them all.
+        Specifically built for the SYS -> "xfviz_on_solo" icon parameter.
+
+        Args:
+            (self):
+
+        Returns:
+            (None):  
+        """        
+        node = self.node
+        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        prm_FF = node.parm(PREFS_PVT_XF_FF_VIZ_SOLO)
+        
+        # Refresh menu caches
+        self.menus_refresh_enum_prefs()
+        
+        if prm_FF.eval():
+            self.set_private_prm(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
+            flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
+            
+            _MSG = f"{node.name()}: {prm_FF.name().upper()}: OFF"
+            self.set_status_msg(_MSG, 'MSG')
+            self.flash_message(node, f"XF VIZ: ALL")
+            
+        else:
+            
+            _MSG = f"{node.name()}: {prm_FF.name().upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
                 
                 
@@ -2709,7 +2734,7 @@ class flam3h_general_utils
                 
             _MSG = f"{node.name()}: {prm_mp.name().upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
-            self.flash_message(node, f"XF FF VIZ: ON")
+            self.flash_message(node, f"XF VIZ: FF")
                 
             
             
@@ -3391,6 +3416,7 @@ class flam3h_general_utils
         
         # XF VIZ SOLO OFF (but leave the xforms handles VIZ ON)
         self.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 0)
+        self.set_private_prm(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
         flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
         
         if mode:
@@ -7169,7 +7195,7 @@ class flam3h_iterator_utils
             # SYS, IN and PREFS
             [prm.set(0) for prm in (node.parm(PREFS_CAMERA_HANDLE), node.parm(PREFS_CAMERA_CULL))]
             [flam3h_general_utils.set_private_prm(node, prm_name, 0) for prm_name in (IN_PVT_ISVALID_PRESET, IN_PVT_CLIPBOARD_TOGGLE)]
-            [flam3h_general_utils.set_private_prm(node, prm_name, 0) for prm_name in (PREFS_PVT_DOFF, PREFS_PVT_RIP, PREFS_PVT_XF_VIZ_SOLO)]
+            [flam3h_general_utils.set_private_prm(node, prm_name, 0) for prm_name in (PREFS_PVT_DOFF, PREFS_PVT_RIP, PREFS_PVT_XF_VIZ_SOLO, PREFS_PVT_XF_FF_VIZ_SOLO)]
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             # descriptive message parameter
             node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore

@@ -211,6 +211,12 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle()
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_viz_solo()
 ```
 # SYS Tab
+# parameter name:    `xfvizff_on_solo`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_ff_viz_solo()
+```
+# SYS Tab
 # parameter name:    `sys_out_sensorviz`
 ### Callback Script
 ```python

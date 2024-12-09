@@ -334,7 +334,8 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
 
     - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] vieport xforms VIZ is OFF.
     - [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg] vieport xforms VIZ is ON.
-    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] one of the iteratos/xforms is in SOLO mode (the only visible xform handle in the viewport). ((LMB)) to revert back to display all xforms handles VIZ together.
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] one of the iteratos/xforms is in SOLO mode.
+    - [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg] the FF is in SOLO mode.
 
     The xforms handles will be shown in the viewport when it is turned ON.<br />
     Since they are designed to contribute as little as possible to the calculation, you may really leave them turned on at all times, until rendering is required.
@@ -1148,7 +1149,7 @@ FF xform VIZ [Icon:DATATYPES/boolean]:
     When the SYS -> viewport xforms handles VIZ is ON this icon will become available.
 
     - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] ((LMB)) to enter into SOLO mode and display only the FF xform handle VIZ in the viewport.
-    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] ((LMB)) to exit the SOLO mode and revert back to display all xforms handles VIZ together.
+    - [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg] ((LMB)) to exit the SOLO mode and revert back to display all xforms handles VIZ together.
         
 FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FF
