@@ -738,9 +738,9 @@ Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 xform VIZ [Icon:DATATYPES/boolean]:
     #id: FLAME
 
-    When the viewport xforms handles VIZ is ON this icon will become available.
+    When the SYS -> viewport xforms handles VIZ is ON this icon will become available.
 
-    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] ((LMB)) to enter into SOLO mode and display only this iterator xform handle in the viewport.
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] ((LMB)) to enter into SOLO mode and display only this iterator xform handle VIZ in the viewport.
     - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] ((LMB)) to exit the SOLO mode and revert back to display all xforms handles VIZ together.
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
@@ -1135,12 +1135,20 @@ VARS Tab [Icon:TOP/xmlinput]:
     == FF == (FFMAIN)
     
 FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
-    #id: SYS
+    #id: FF
     
     - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
     - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is ON.
     
     Enable and disable [finalXform|#FF] transform/iterator.
+
+FF xform VIZ [Icon:DATATYPES/boolean]:
+    #id: FF
+
+    When the SYS -> viewport xforms handles VIZ is ON this icon will become available.
+
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] ((LMB)) to enter into SOLO mode and display only the FF xform handle VIZ in the viewport.
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] ((LMB)) to exit the SOLO mode and revert back to display all xforms handles VIZ together.
         
 FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FF

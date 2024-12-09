@@ -284,6 +284,7 @@ PREFS_PVT_AUTO_PATH_CORRECTION = 'autopath'
 PREFS_PVT_XF_VIZ = 'vizhandles'
 PREFS_PVT_XF_VIZ_SOLO = 'vizhandles_solo'
 PREFS_PVT_XF_VIZ_SOLO_MP_IDX = 'vizhandles_solo_mpidx'
+PREFS_PVT_XF_FF_VIZ_SOLO = 'vizhandlesff_solo'
 # PREFS SYSTEM PRIVATE: self prm names for user data
 FLAM3H_DATA_PRM_XAOS_MP_MEM = 'flam3h_data_mpmem'
 FLAM3H_DATA_PRM_XAOS_PREV = 'flam3h_data_xaos'
@@ -903,7 +904,8 @@ class flam3h_scripts
                       IN_PVT_CLIPBOARD_TOGGLE, 
                       OUT_PVT_ISVALID_FILE, 
                       PREFS_PVT_F3C, 
-                      PREFS_PVT_XAOS_AUTO_SPACE
+                      PREFS_PVT_XAOS_AUTO_SPACE,
+                      PREFS_PVT_XF_FF_VIZ_SOLO
                     )
         
         [node.parm(prm_name).lock(True) for prm_name in prm_names]
@@ -1654,8 +1656,10 @@ class flam3h_general_utils
 * flam3h_xf_viz_toggle(self, prm_name: str=PREFS_PVT_XF_VIZ) -> None:
 * flam3h_toggle_sys_xf_viz_solo(self) -> None:
 * flam3h_toggle_mp_xf_viz(self) -> None:
+* flam3h_toggle_xf_ff_viz(self) -> None:
 * flam3h_toggle(self, prm_name: str) -> None:
 * flam3h_toggle_private(self, prm_name: str) -> None:
+* flam3h_toggle_private_FF(self, prm_name: str=PREFS_PVT_DOFF) -> None:
 * flam3h_toggle_off(self, prm_name: str) -> None:
 * flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
 * flam3h_init_presets_IN_PRESETS(self, mode: int=1) -> None:
@@ -2588,12 +2592,14 @@ class flam3h_general_utils
         node = self.node
         iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         prm = node.parm(PREFS_PVT_XF_VIZ_SOLO)
+        prm_FF = node.parm(PREFS_PVT_XF_FF_VIZ_SOLO)
         
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
         
         if prm.eval():
             self.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 0)
+            self.set_private_prm(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
             [node.setParms({f"{flam3h_iterator_prm_names.main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)]
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             
@@ -2602,9 +2608,12 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: ALL")
             
         else:
-            # This will never evaluate with the current system
-            # but I leave it here just in case we need this condition.
-            self.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 1)
+            if prm_FF.eval():
+                self.set_private_prm(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
+                [node.setParms({f"{flam3h_iterator_prm_names.main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)] # type: ignore
+                self.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 0)
+            
+            # self.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 1)
             _MSG = f"{node.name()}: {prm.name().upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
                 
@@ -2650,11 +2659,57 @@ class flam3h_general_utils
             prm_mp.set(1)
             self.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 1)
             self.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, int(mp_idx))
+            self.set_private_prm(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
             node.setUserData(f"{data_name}", mp_idx)
                 
             _MSG = f"{node.name()}: {prm_mp.name().upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
             self.flash_message(node, f"XF VIZ: {mp_idx}")
+            
+            
+            
+    def flam3h_toggle_xf_ff_viz(self) -> None:
+        """If a toggle is OFF it will switch ON, and viceversa.
+        Specifically built for the XF FF VIZ icons.
+        
+
+        Args:
+            (self):
+
+        Returns:
+            (None):  
+        """    
+        
+        # with hou.undos.disabler(): # type: ignore
+        
+        node: hou.SopNode = self.node
+        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        
+        mp_idx: str = self.kwargs['script_multiparm_index']
+        prm_mp = node.parm(PREFS_PVT_XF_FF_VIZ_SOLO)
+        
+        data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
+        
+        # Refresh menu caches
+        self.menus_refresh_enum_prefs()
+        
+        if prm_mp.eval():
+            self.set_private_prm(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
+            flam3h_iterator_utils.destroy_userData(node, f"{data_name}")
+            
+            _MSG = f"{node.name()}: VIZHANDLESFF_SOLO: OFF"
+            self.set_status_msg(_MSG, 'MSG')
+            self.flash_message(node, f"XF VIZ: ALL")
+            
+        else:
+            [node.setParms({f"{flam3h_iterator_prm_names.main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)] # type: ignore
+            self.set_private_prm(node, PREFS_PVT_XF_FF_VIZ_SOLO, 1)
+            self.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 0)
+            node.setUserData(f"{data_name}", "FF")
+                
+            _MSG = f"{node.name()}: {prm_mp.name().upper()}: ON"
+            self.set_status_msg(_MSG, 'IMP')
+            self.flash_message(node, f"XF FF VIZ: ON")
                 
             
             
@@ -2706,6 +2761,37 @@ class flam3h_general_utils
         
         if prm.eval():
             self.set_private_prm(node, prm_name, 0)
+            _MSG = f"{node.name()}: {prm.name().upper()}: OFF"
+            self.set_status_msg(_MSG, 'MSG')
+            
+        else:
+            self.set_private_prm(node, prm_name, 1)
+            _MSG = f"{node.name()}: {prm.name().upper()}: ON"
+            self.set_status_msg(_MSG, 'IMP')
+            
+            
+            
+    def flam3h_toggle_private_FF(self, prm_name: str=PREFS_PVT_DOFF) -> None:
+        """If a toggle is OFF it will switch ON, and viceversa,
+        and make sure to unlock and lock the parameter.
+        Specifically built for the FF toggles ON/OFF
+
+        Args:
+            (self):
+            prm_name(str): Toggle parameter name to use.
+
+        Returns:
+            (None):  
+        """        
+        node = self.node
+        prm = node.parm(prm_name)
+        
+        # Refresh menu caches
+        self.menus_refresh_enum_prefs()
+        
+        if prm.eval():
+            self.set_private_prm(node, prm_name, 0)
+            self.set_private_prm(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
             _MSG = f"{node.name()}: {prm.name().upper()}: OFF"
             self.set_status_msg(_MSG, 'MSG')
             

@@ -498,6 +498,18 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("doff")
 ```
 # FF Tab
+# parameter name:    `xfvizff_off`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz()
+```
+# FF Tab
+# parameter name:    `xfvizff_on`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz()
+```
+# FF Tab
 # parameter name:    `ffnote`
 ### Callback Script
 ```python
