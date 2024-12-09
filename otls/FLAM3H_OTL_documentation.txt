@@ -385,7 +385,7 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
     
     == SYS: Tag == (SYSTAG)
 [Image:opdef:.?FLAM3H_DOC_tag.svg]
-_The above tag reference's image shows a Flame with two iterators ( the second one being disabled ) with the FF._
+_The above tag reference's image shows a Flame with 1(one) iterator with the FF(finalxform) active._
 
 TAG [Icon:DATATYPES/boolean]:
     #id: SYS
@@ -412,7 +412,7 @@ TAG [Icon:DATATYPES/boolean]:
     * *`POST`* variations will be inside square brackets at the end of each iterator, or FF
     * The [iterator's Weight|#FLAMEITER] value will be the last in each iterator.
     * The colons "*`:`*" indicate how many variation slots are still available; 4(four) in case of an iterator *`VAR`* section, plus a last colon "*`:`*" as a separator from the iterator's Weight.
-    * If an iterator is disabled, it will be displayed as: " *`::::::::::`* "
+    * If an iterator is disabled or *`0`*(Zero) Weight, it won't be included into the TAG infos.
     
     TIP:
         #display: orange
