@@ -17,16 +17,76 @@
  /  Github:     https://github.com/scottdraves/flam3
  /  Date:       December 2002, Last revised May 2015
  /
- /  Name:       UICOLLECT "CVEX"
+ /  Name:       TFFAUICOLLECT "CVEX"
  /
- /  Comment:    UI FLAM3 viewport TAG infos collection.
+ /  Comment:    UI FLAM3H viewport TAG infos collection.
 */
 
 
 #pragma opname  "TFFAuicollect"
 #pragma oplabel "TFFAuicollect"
 #pragma opmininputs 1
-#pragma opmaxinputs 1
+#pragma opmaxinputs 3
+
+
+// TAG GENOME
+struct gemtag{
+
+    // ITERATORS
+    int    RES, p1t[], p2t[], v1t[], v2t[], v3t[], v4t[], P1t[];
+    float  pbw[], p1w[], p2w[], v1w[], v2w[], v3w[], v4w[], P1w[];
+    
+    void gemtagBuild(){
+
+        // SYS
+        RES = detail(2, "RES");
+        // WEIGHTS
+        pbw = detail(2, "pbw");
+        p1w = detail(2, "p1w");
+        p2w = detail(2, "p2w");
+        v1w = detail(2, "v1w");
+        v2w = detail(2, "v2w");
+        v3w = detail(2, "v3w");
+        v4w = detail(2, "v4w");
+        P1w = detail(2, "P1w");
+        // TYPES
+        p1t = detail(2, "p1t");
+        p2t = detail(2, "p2t");
+        v1t = detail(2, "v1t");
+        v2t = detail(2, "v2t");
+        v3t = detail(2, "v3t");
+        v4t = detail(2, "v4t");
+        P1t = detail(2, "P1t");
+    }
+}
+
+
+// TAG GENOME
+struct gemtagff{
+
+    // FF
+    int    fp1t, fv1t, fv2t, fP1t, fP2t;
+    float  fp1w, fv1w, fv2w, fP1w, fP2w; 
+
+    void gemtagffBuild(const int FF){
+
+        if(FF){
+            // WEIGHTS
+            fp1w = detail(2, "fp1w");
+            fv1w = detail(2, "fv1w");
+            fv2w = detail(2, "fv2w");
+            fP1w = detail(2, "fP1w");
+            fP2w = detail(2, "fP2w");
+            // TYPES
+            fp1t = detail(2, "fp1t");
+            fv1t = detail(2, "fv1t");
+            fv2t = detail(2, "fv2t");
+            fP1t = detail(2, "fP1t");
+            fP2t = detail(2, "fP2t");
+        }
+    }
+
+}
 
 
 void
@@ -142,7 +202,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
 
 
     // SYS
-    int FF, RIP, iter, MB, F3C;
+    int FF, RIP, MB, F3C, iter, inum, xaos_chk, xaos_mode;
     FF   = chi("doff");
     RIP  = chi("rip");
     MB   = chi("domb");
@@ -155,73 +215,83 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
     //      Unchecked:  use the Chaotica behavior.
     F3C = chi("f3c");
 
-    int inum, xaos_chk, xaos_mode;
     inum = chi("flamefunc");
+    xaos_chk = detail(1, "XS");
     xaos_mode = chi("xm");
 
-    // UI collect
-    float ppw1, ppw2, pbw, w1, w2, w3, w4, pw1, fw1, fw2, fpw1, fPw1, fPw2;
+    // GEM TAG
+    gemtag GEMTAG;
+    GEMTAG->gemtagBuild();
+    int    RES, p1t[], p2t[], v1t[], v2t[], v3t[], v4t[], P1t[]; /* CAST */ RES=GEMTAG.RES; p1t=GEMTAG.p1t; p2t=GEMTAG.p2t; v1t=GEMTAG.v1t; v2t=GEMTAG.v2t; v3t=GEMTAG.v3t; v4t=GEMTAG.v4t; P1t=GEMTAG.P1t;
+    float  pbw[], p1w[], p2w[], v1w[], v2w[], v3w[], v4w[], P1w[]; /* CAST */ pbw=GEMTAG.pbw; p1w=GEMTAG.p1w; p2w=GEMTAG.p2w; v1w=GEMTAG.v1w; v2w=GEMTAG.v2w; v3w=GEMTAG.v3w; v4w=GEMTAG.v4w; P1w=GEMTAG.P1w;
+    // GEM TAG tmp
+    float ppbw, ppw1, ppw2, w1, w2, w3, w4, Pw1;
+    // GEM FF TAG
+    gemtagff GEMTAGFF;
+    GEMTAGFF->gemtagffBuild(FF);
+    int    fp1t, fv1t, fv2t, fP1t, fP2t; /* CAST */ fp1t=GEMTAGFF.fp1t; fv1t=GEMTAGFF.fv1t; fv2t=GEMTAGFF.fv2t; fP1t=GEMTAGFF.fP1t; fP2t=GEMTAGFF.fP2t;
+    float  fp1w, fv1w, fv2w, fP1w, fP2w; /* CAST */ fp1w=GEMTAGFF.fp1w; fv1w=GEMTAGFF.fv1w; fv2w=GEMTAGFF.fv2w; fP1w=GEMTAGFF.fP1w; fP2w=GEMTAGFF.fP2w;
+
     append(T, concat("[", itoa(iter), "]"));
-    xaos_chk = detail(1, "XS");
     if(xaos_chk){
         if(!xaos_mode) append(T, concat("[", "Xt", "]"));   // xaos TO
         else append(T, concat("[", "fX", "]"));             // xaos FROM
     }
+
     if(RIP) append(T, "RIP");
     if(F3C) append(T, "F3C");
     if(MB) append(T, "MB");
 
-    for(int i=0; i<inum; ++i){
+    for(int i=0; i<RES; ++i){
 
         string _IDX = itoa(i+1);
         string VAR, W, PP[], PB, V1, V2, V3, V4, P1;
-        if(!chi(concat("vactive_", _IDX))) VAR = " :::::::::: ";
-        else{
-            w1 = chf(concat("v1weight_", _IDX));
-            if(w1!=0) V1 = Ts[atoi(chs(concat("v1type_", _IDX)))]+":";
-            else V1 = ":";
-            w2 = chf(concat("v2weight_", _IDX));
-            if(w2!=0) V2 = Ts[atoi(chs(concat("v2type_", _IDX)))]+":";
-            else V2 = ":";
-            w3 = chf(concat("v3weight_", _IDX));
-            if(w3!=0) V3 = Ts[atoi(chs(concat("v3type_", _IDX)))]+":";
-            else V3 = ":";
-            w4 = chf(concat("v4weight_", _IDX));
-            if(w4!=0) V4 = Ts[atoi(chs(concat("v4type_", _IDX)))]+":";
-            else V4 = ":";
-            float w_total = w1+w2+w3+w4;
-            
-            // Pre blur
-            pbw = chf(concat("preblurweight_" , _IDX));
-            if(pbw>0){ if(w_total != 0) PB="*"; }
-            // Pre var 1
-            ppw1 = chf(concat("pre1weight_" , _IDX));
-            if(ppw1>0){ if(w_total != 0) append(PP, Ts[atoi(chs(concat("pre1type_", _IDX)))]); }
-            // Pre var 2
-            ppw2 = chf(concat("pre2weight_" , _IDX));
-            if(ppw2>0){ if(w_total != 0) append(PP, Ts[atoi(chs(concat("pre2type_", _IDX)))]); }
-            // Build pre vars tag string
-            string p_build;
-            if(len(PP)==1) p_build = concat( "[ ", PP[0], " ]:");
-            else if(len(PP)>1) p_build = concat( "[ ", join(PP, ", "), " ]:");
-            else p_build = "";
-            // Post var
-            pw1 = chf(concat("p1weight_", _IDX));
-            if(pw1>0) { if(w_total != 0) P1 = concat( "[ ", Ts[atoi(chs(concat("p1type_", _IDX)))], " ]:"); }
-            // Iterator weight
-            if(w_total != 0) W = sprintf( "%g", chf(concat("iw_", _IDX))); else W = "";
-            
-            // Reformat iterator weight string floats
-            string out[] = {};
-            string SPLIT[] = split(W, ".");
-            if(len(SPLIT)>1){
-                int count = 1;
-                foreach(string s; SPLIT){ append(out, s[:(6/count)]); count++; }
-            }
-            else out = SPLIT;
-            W = join(out, ".");
-            VAR = concat(PB, p_build, V1, V2, V3, V4, P1, W);
+    
+        w1 = v1w[i];
+        if(w1!=0) V1 = Ts[v1t[i]]+":";
+        else V1 = ":";
+        w2 = v2w[i];
+        if(w2!=0) V2 = Ts[v2t[i]]+":";
+        else V2 = ":";
+        w3 = v3w[i];
+        if(w3!=0) V3 = Ts[v3t[i]]+":";
+        else V3 = ":";
+        w4 = v4w[i];
+        if(w4!=0) V4 = Ts[v4t[i]]+":";
+        else V4 = ":";
+        float w_total = w1+w2+w3+w4;
+        
+        // Pre blur
+        ppbw = pbw[i];
+        if(ppbw>0){ if(w_total != 0) PB="*"; }
+        // Pre var 1
+        ppw1 = p1w[i];
+        if(ppw1>0){ if(w_total != 0) append(PP, Ts[p1t[i]]); }
+        // Pre var 2
+        ppw2 = p2w[i];
+        if(ppw2>0){ if(w_total != 0) append(PP, Ts[p2t[i]]); }
+        // Build pre vars tag string
+        string p_build;
+        if(len(PP)==1) p_build = concat( "[ ", PP[0], " ]:");
+        else if(len(PP)>1) p_build = concat( "[ ", join(PP, ", "), " ]:");
+        else p_build = "";
+        // Post var
+        Pw1 = P1w[i];
+        if(Pw1>0) { if(w_total != 0) P1 = concat( "[ ", Ts[P1t[i]], " ]:"); }
+        // Iterator weight
+        if(w_total != 0) W = sprintf( "%g", chf(concat("iw_", _IDX))); else W = "";
+        
+        // Reformat iterator weight string floats
+        string out[] = {};
+        string SPLIT[] = split(W, ".");
+        if(len(SPLIT)>1){
+            int count = 1;
+            foreach(string s; SPLIT){ append(out, s[:(6/count)]); count++; }
         }
+        else out = SPLIT;
+        W = join(out, ".");
+        VAR = concat(PB, p_build, V1, V2, V3, V4, P1, W);
+
         append(T, VAR);
         PP = {};
     }
@@ -229,26 +299,21 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
     if(FF){
 
         string VAR, FV1, FV2, Fp[], FP[];
-        fw1 = chf("ffv1weight");
-        if(fw1!=0) FV1 = Ts[atoi(chs("ffv1type"))]+":";
+        if(fv1w!=0) FV1 = Ts[fv1t]+":";
         else FV1 = ":";
-        fw2 = chf("ffv2weight");
-        if(fw2!=0) FV2 = Ts[atoi(chs("ffv2type"))]+":";
+        if(fv2w!=0) FV2 = Ts[fv2t]+":";
         else FV2 = ":";
-        float fw_total = fw1+fw2;
+        float fw_total = fv1w+fv2w;
         // Pre var 01
-        fpw1 = chf("ffpre1weight");
-        if(fpw1>0){ if(fw_total != 0) append(Fp, Ts[atoi(chs("ffpre1type"))]); }
+        if(fp1w>0){ if(fw_total != 0) append(Fp, Ts[fp1t]); }
         string Fp_build;
         if(len(Fp)==1) Fp_build = concat( "[ ", Fp[0], " ]:");
         else if(len(Fp)>1) Fp_build = concat( "[", join(Fp, ", "), "]:");
         else Fp_build = "";
         // Post var 1
-        fPw1 = chf("ffp1weight");
-        if(fPw1>0){ if(fw_total != 0) append(FP, Ts[atoi(chs("ffp1type"))]); }
+        if(fP1w>0){ if(fw_total != 0) append(FP, Ts[fP1t]); }
         // Post var 2
-        fPw2 = chf("ffp2weight");
-        if(fPw2>0){ if(fw_total != 0) append(FP, Ts[atoi(chs("ffp2type"))]); }
+        if(fP2w>0){ if(fw_total != 0) append(FP, Ts[fP2t]); }
         // Build post vars tag string
         string FP_build;
         if(len(FP)==1) FP_build = concat( "[ ", FP[0], " ]");
