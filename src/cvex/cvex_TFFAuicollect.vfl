@@ -234,6 +234,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     int    fp1t, fv1t, fv2t, fP1t, fP2t; /* CAST */ fp1t=GEMTAGFF.fp1t; fv1t=GEMTAGFF.fv1t; fv2t=GEMTAGFF.fv2t; fP1t=GEMTAGFF.fP1t; fP2t=GEMTAGFF.fP2t;
     float  fp1w, fv1w, fv2w, fP1w, fP2w; /* CAST */ fp1w=GEMTAGFF.fp1w; fv1w=GEMTAGFF.fv1w; fv2w=GEMTAGFF.fv2w; fP1w=GEMTAGFF.fP1w; fP2w=GEMTAGFF.fP2w;
 
+    // BUILD TAG
     append(T, concat("[", itoa(iter), "]"));
     if(xaos_chk){
         if(!xaos_mode) append(T, concat("[", "Xt", "]"));   // xaos TO
