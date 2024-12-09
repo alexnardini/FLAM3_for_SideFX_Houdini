@@ -33,12 +33,14 @@
 struct gemtag{
 
     // ITERATORS
+    string sIDX[];
     int    RES, p1t[], p2t[], v1t[], v2t[], v3t[], v4t[], P1t[];
     float  pbw[], p1w[], p2w[], v1w[], v2w[], v3w[], v4w[], P1w[];
     
     void gemtagBuild(){
 
         // SYS
+        sIDX = detail(2, "sIDX");
         RES = detail(2, "RES");
         // WEIGHTS
         pbw = detail(2, "pbw");
@@ -222,6 +224,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
     // GEM TAG
     gemtag GEMTAG;
     GEMTAG->gemtagBuild();
+    string sIDX[]; /* CAST */ sIDX=GEMTAG.sIDX;
     int    RES, p1t[], p2t[], v1t[], v2t[], v3t[], v4t[], P1t[]; /* CAST */ RES=GEMTAG.RES; p1t=GEMTAG.p1t; p2t=GEMTAG.p2t; v1t=GEMTAG.v1t; v2t=GEMTAG.v2t; v3t=GEMTAG.v3t; v4t=GEMTAG.v4t; P1t=GEMTAG.P1t;
     float  pbw[], p1w[], p2w[], v1w[], v2w[], v3w[], v4w[], P1w[]; /* CAST */ pbw=GEMTAG.pbw; p1w=GEMTAG.p1w; p2w=GEMTAG.p2w; v1w=GEMTAG.v1w; v2w=GEMTAG.v2w; v3w=GEMTAG.v3w; v4w=GEMTAG.v4w; P1w=GEMTAG.P1w;
     // GEM TAG tmp
@@ -244,9 +247,9 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
 
     for(int i=0; i<RES; ++i){
 
-        string _IDX = itoa(i+1);
-        string VAR, W, PP[], PB, V1, V2, V3, V4, P1;
-    
+        string ITERNUM, VAR, W, PP[], PB, V1, V2, V3, V4, P1;
+        ITERNUM = concat("(", sIDX[i], ")");
+
         w1 = v1w[i];
         if(w1!=0) V1 = Ts[v1t[i]]+":";
         else V1 = ":";
@@ -279,7 +282,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
         Pw1 = P1w[i];
         if(Pw1>0) { if(w_total != 0) P1 = concat( "[ ", Ts[P1t[i]], " ]:"); }
         // Iterator weight
-        if(w_total != 0) W = sprintf( "%g", chf(concat("iw_", _IDX))); else W = "";
+        if(w_total != 0) W = sprintf( "%g", chf(concat("iw_", sIDX[i]))); else W = "";
         
         // Reformat iterator weight string floats
         string out[] = {};
@@ -290,7 +293,7 @@ _TFFAuicollect(string _bound_VARTYPE[]; int _bound_XS){
         }
         else out = SPLIT;
         W = join(out, ".");
-        VAR = concat(PB, p_build, V1, V2, V3, V4, P1, W);
+        VAR = concat(PB, ITERNUM, p_build, V1, V2, V3, V4, P1, W);
 
         append(T, VAR);
         PP = {};
