@@ -385,7 +385,7 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
     
     == SYS: Tag == (SYSTAG)
 [Image:opdef:.?FLAM3H_DOC_tag.svg]
-_The above tag reference's image shows a Flame with 1(one) iterator with the FF(finalxform) active._
+_The above tag reference's image shows a Flame with 1(one) iterator and the FF(finalxform) active._
 
 TAG [Icon:DATATYPES/boolean]:
     #id: SYS
@@ -395,22 +395,26 @@ TAG [Icon:DATATYPES/boolean]:
     
     Enable/disable vieport TAG infos.
     
-    TAG allow you to review your fractal Flame construction infos in one compact viewport string. However, it has a cost and the default behavior is for it to be OFF.
+    TAG allow you to review your fractal Flame construction infos in one compact viewport string. 
+    Below you find a list of data names and their meaning starting from the left to the right of the above TAG reference image.
     
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    * The iteration number will be the very first number inside square brackets.
-    * [Xaos|#FLAMEITERXAOS] (_when active_) will be next inside square brackets. Read the xaos documentation to know more about it.
-    * Xaos TO will be: *`Xt`*
-    * Xaos FROM wil be: *`fX`*
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *System infos*:<br />
+    * The *`Iteration number`* will be the very first number inside square brackets.
+    * *`Xaos`* when active will be next inside square brackets. Read the xaos documentation to know more about it.
+        - *`Xaos TO`* will be: *`Xt`*
+        - *`Xaos FROM`* wil be: *`fX`*
     * *`RIP`* (_remove invalid points_) when the SYS option "Remove Invalid Points" is ON.
-    * *`F3C`* (_flam3 compatibility_) when the preference's option "flam3 compatibility" is ON.
-    * [Motion blur|#MB] (_when active_) will be next inside square brackets.
-    * [Iterator variations|#FLAMEITERVARS] are lowercase.
-    * [FF variations|#FFVARS] are UPPER CASE.
-    * *`pre_blur`* will be indicated witn an asterisk "*`*`*" at the beginning of each iterator and before all variations.
-    * *`PRE`* variations will be inside square brackets at the beginning of each iterator, or FF.
-    * *`POST`* variations will be inside square brackets at the end of each iterator, or FF
-    * The [iterator's Weight|#FLAMEITER] value will be the last in each iterator.
+    * *`F3C`* (_flam3 compatibility_) when the  SYS option "flam3 compatibility" is ON.
+    * *`MB`* (_Motion Blur_) when ON will be next.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Iterator/xform infos*:<br />
+    * The *`iterator's number`* will be inside round brackets.
+    * *`pre_blur`* will be indicated witn an asterisk "*`*`*" in front of the iterator' number.
+    * *`Iterator variations`* are all lowercase (_all types: PRE, VAR and POST_).
+    * *`FF variations`* are all UPPER CASE (_all types: PRE, VAR and POST_).
+    * *`PRE variations`* will be inside square brackets at the beginning of each iterator, or FF.
+    * *`POST variations`* will be inside square brackets at the end of each iterator, or FF
+    * The *`iterator's Weight`* value will be the very last in each iterator.
     * The colons "*`:`*" indicate how many variation slots are still available; 4(four) in case of an iterator *`VAR`* section, plus a last colon "*`:`*" as a separator from the iterator's Weight.
     * If an iterator is disabled or *`0`*(Zero) Weight, it won't be included into the TAG infos.
     
@@ -746,6 +750,7 @@ xform VIZ [Icon:DATATYPES/boolean]:
 W [Icon:TOP/xmlinput]:
     #id: FLAME
     The Weight of this iterator.<br />
+    
     Calculate the likelihood that this iterator will be selected during the Chaos game. You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator Weight is higher than the others.
     
 :box:
