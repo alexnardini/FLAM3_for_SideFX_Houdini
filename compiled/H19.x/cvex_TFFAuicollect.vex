@@ -170,7 +170,6 @@ source_filename = "TFFAuicollect"
 @162 = private constant [3 x i8] c"]:\00"
 @163 = private constant [3 x i8] c" ]\00"
 @VARTYPE = external global i8**
-@XS = external global i64
 @164 = private constant [8 x i8] c"VARTYPE\00"
 
 ; Function Attrs: alwaysinline nounwind
@@ -874,7 +873,6 @@ true323:                                          ; preds = %end98
 end324:                                           ; preds = %end417, %end98
   %T.5 = phi i8** [ %output438, %end417 ], [ %T.4, %end98 ]
   store i8** %T.5, i8*** %_bound_VARTYPE
-  store i64 %return6, i64* %_bound_XS
   ret void
 
 true329:                                          ; preds = %true323
@@ -1071,23 +1069,17 @@ declare i8* @"toupper@SS"(i8*) #1
 ; Function Attrs: nounwind
 define void @TFFAuicollect(i8** %VARTYPE, i64 %XS) #1 {
 __llvm_entry:
-  %"<XS>" = alloca i64
+  %0 = alloca i64
   %"<VARTYPE>" = alloca i8**
   store i8** %VARTYPE, i8*** %"<VARTYPE>"
-  store i64 %XS, i64* %"<XS>"
-  call void @"_TFFAuicollect@[SI"(i8*** %"<VARTYPE>", i64* %"<XS>")
+  call void @"_TFFAuicollect@[SI"(i8*** %"<VARTYPE>", i64* %0)
   %evalue = load i8**, i8*** %"<VARTYPE>"
   %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @164, i64 0, i64 0), i8** %evalue) #3
-  %evalue1 = load i64, i64* %"<XS>"
-  %gvalue2 = call i64 @"_export@ISI"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @142, i64 0, i64 0), i64 %evalue1) #3
   store i8** %gvalue, i8*** @VARTYPE
-  store i64 %gvalue2, i64* @XS
   ret void
 }
 
 declare i8** @"_export@[SS[S"(i8*, i8**)
-
-declare i64 @"_export@ISI"(i8*, i64)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
