@@ -2614,7 +2614,7 @@ class flam3h_general_utils
             
     def flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
         """When in xform VIZ SOLO mode, this will turn it off and go back to viz them all.
-        Specifically built for the SYS -> "xfviz_on_solo" icon parameter.
+        Specifically built for the SYS -> "xfvizff_on_solo" icon parameter.
 
         Args:
             (self):
