@@ -26,7 +26,6 @@
 */
 
 
-#include <functions.h>
 
 
 // GENOME

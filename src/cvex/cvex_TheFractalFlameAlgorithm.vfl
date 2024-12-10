@@ -32,6 +32,9 @@
 #pragma opmininputs 1
 #pragma opmaxinputs 2
 
+#include <functions.h>
+#include <genome.h>
+#include <variations.h>
 #include <xaos.h>
 #include <flame.h>
 #include <flameff.h>
@@ -55,13 +58,12 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
     //      Unchecked:  use the Chaotica behavior.
     f3c  = _bound_SYS[4];
     // Build genomes
-    string sIDX[]=_bound_sIDX;
     gem GEM; GEM->gemBuild(FF);
     // cast FLAME
-    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], res; /* CAST */ res=GEM.res; v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; P1t=GEM.P1t; PPL=GEM.PPL;
+    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], res; /* CAST */ v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; P1t=GEM.P1t; PPL=GEM.PPL; res=GEM.res;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], P1w[], pbw[], CLR[], OM[], A[]; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; p2w=GEM.p2w; P1w=GEM.P1w; pbw=GEM.pbw; CLR=GEM.CLR; OM=GEM.OM; A=GEM.A;
     vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
-    // cast iterator (the least needed. Do be used inside the big loop)
+    // cast iterator (the least needed. To be used inside the big loop)
     int _PPL;
     float  _v1w, _v2w, _v3w, _v4w, _p1w, _p2w, _P1w, _pbw, _CLR, _OM;
     vector2 _x, _y, _o;
@@ -70,6 +72,7 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
     float   fp1w, fv1w, fv2w, fP1w, fP2w; /* CAST */ fp1w=GEM.fp1w; fv1w=GEM.fv1w; fv2w=GEM.fv2w; fP1w=GEM.fP1w; fP2w=GEM.fP2w;
     vector2 fx, fy, fo, pfx, pfy, pfo;    /* CAST */ fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
     // Build genome's parametrics
+    string sIDX[]=_bound_sIDX;
     gemPrm p1GMP, p2GMP, v1GMP, v2GMP, v3GMP, v4GMP, P1GMP;
     p1GMP->gemPrmBuild(sIDX, res, p1t, p1w);
     p2GMP->gemPrmBuild(sIDX, res, p2t, p2w);
@@ -135,7 +138,7 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
     else{
         
         pscl*=a;
-        if(MB){ mbm=detail(1, "Tstep_mult", 0); pscl*=mbm; setpointattrib(0, "mb_mod", _bound_ptnum, mbm, "set"); }
+        if(MB){ mbm=detail(3, "Tstep_mult", 0); pscl*=mbm; setpointattrib(0, "mb_mod", _bound_ptnum, mbm, "set"); }
         // OUT
         _bound_P=(vector)mem;
         _bound_clr=clr;
