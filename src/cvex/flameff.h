@@ -28,7 +28,6 @@
 */
 
 
-#include <variations.h>
 
 
 // From Fractorium: flam3 comptibility (f3c). Check inside variations.h to see both versions of each.

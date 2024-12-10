@@ -28,8 +28,6 @@
 */
 
 
-#include <genome.h>
-#include <variations.h>
 
 // From Fractorium: flam3 comptibility (f3c). Check inside variations.h to see both versions of each.
 // The behavior of the:
@@ -37,7 +35,7 @@
 // are different in flam3/Apophysis versus Chaotica.
 //      Checked:    use the Apophysis behavior.
 //      Unchecked:  use the Chaotica behavior.
-vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, o; const float w){
+vector2 FLAME(const int idx, T, f3c; const vector2 pos, x, y, o; const float w){
 
     //  p = out position
     // _p = incoming position
@@ -159,32 +157,32 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
             // 27 CURL ( parametric )
             else if(T==27){
-                vector2 curl_c = GMP.curl_c[idx];
+                vector2 curl_c = detail(-1, "curl_c")[idx]; // GMP.curl_c[idx];
                 V_CURL(p, _p, w, curl_c[0], curl_c[1]);
                 return p; }
             // 28 NGON ( parametric )
             else if(T==28){
-                vector4 ngon = GMP.ngon[idx];
+                vector4 ngon = detail(-2, "ngon")[idx]; // GMP.ngon[idx];
                 V_NGON(p, _p, w, ngon[0], ngon[1], ngon[2], ngon[3]);
                 return p; }
             // 29 PDJ ( parametric )
             else if(T==29){
-                vector4 pp = GMP.pdj_w[idx];
+                vector4 pp = detail(-3, "pdj_w")[idx]; // GMP.pdj_w[idx];
                 V_PDJ(p, _p, w, pp);
                 return p; }
             // 30 BLOB ( parametric )
             else if(T==30){
-                vector blob = GMP.blob[idx];
+                vector blob = detail(-4, "blob")[idx]; // GMP.blob[idx];
                 V_BLOB(p, _p, w,  blob[0], blob[1],blob[2]);
                 return p; }
             // 31 JuliaN ( parametric )
             else if(T==31){
-                vector2 julian = GMP.julian[idx];
+                vector2 julian = detail(-5, "julian")[idx]; // GMP.julian[idx];
                 V_JULIAN(p, _p, w, julian[0], julian[1]);
                 return p; }
             // 32 JuliaScope ( parametric )
             else if(T==32){
-                vector2 juliascope = GMP.juliascope[idx];
+                vector2 juliascope = detail(-6, "juliascope")[idx]; // GMP.juliascope[idx];
                 V_JULIASCOPE(p, _p, w, juliascope[0], juliascope[1]);
                 return p; }
             // 33 Gaussian
@@ -193,7 +191,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
             // 34 Fan2 ( parametric )
             else if(T==34){
-                vector2 fan2 = GMP.fan2[idx];
+                vector2 fan2 = detail(-7, "fan2")[idx]; // GMP.fan2[idx];
                 V_FAN2(p, _p, w, fan2);
                 return p; }
         }
@@ -202,22 +200,22 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
         if(T<52){
             // 35 Rings2 ( parametric )
             if(T==35){
-                float rings2val = GMP.rings2_val[idx];
-                V_RINGS2(p, _p, w, rings2val);
+                float rings2val[] = detail(-8, "rings2_val"); // GMP.rings2_val[idx];
+                V_RINGS2(p, _p, w, rings2val[idx]);
                 return p; }
             // 36 Rectangles ( parametric )
             else if(T==36){
-                vector2 rect = GMP.rectangles[idx];
+                vector2 rect = detail(-9, "rectangles")[idx]; // GMP.rectangles[idx];
                 V_RECTANGLES(p, _p, w, rect);
                 return p; }
             // 37 Radial Blur ( parametric )
             else if(T==37){
-                float radialblur = GMP.radialblur[idx];
-                V_RADIALBLUR(p, _p, w, radialblur);
+                float radialblur[] = detail(-10, "radialblur"); // GMP.radialblur[idx];
+                V_RADIALBLUR(p, _p, w, radialblur[idx]);
                 return p; }
             // 38 PIE ( parametric )
             else if(T==38){
-                vector pie = GMP.pie[idx];
+                vector pie = detail(-11, "pie")[idx]; // GMP.pie[idx];
                 V_PIE(p, w, pie[0], pie[1], pie[2]);
                 return p; }
             // 39 ARCH
@@ -255,30 +253,30 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
             // 47 DISC2 ( parametric )
             else if(T==47){
                 float a, b, c; // disc2_timespi, disc2_sinadd, disc2_cosadd
-                vector2 disc2 = GMP.disc2[idx];
-                assign(a, b, c, GMP.pc_DISC2[idx]); // precalc
+                vector2 disc2 = detail(-12, "disc2")[idx]; // GMP.disc2[idx];
+                assign(a, b, c, detail(-12, "pc_DISC2")[idx]); // assign(a, b, c, GMP.pc_DISC2[idx]); // precalc
                 V_DISC2(p, _p, w, disc2[0], disc2[1], a, b, c);
                 return p; }
             // 48 SUPERSHAPE ( parametric )
             else if(T==48){
                 vector ss, ss_n;
-                ss = GMP.supershape[idx];
-                ss_n = GMP.supershape_n[idx];
+                ss = detail(-13, "supershape")[idx]; // GMP.supershape[idx];
+                ss_n = detail(-13, "supershape_n")[idx]; // GMP.supershape_n[idx];
                 V_SUPERSHAPE(p, _p, w, ss[0], ss[1], ss[2], ss_n);
                 return p; }
             // 49 FLOWER ( parametric )
             else if(T==49){
-                vector2 flower = GMP.flower[idx];
+                vector2 flower = detail(-14, "flower")[idx]; // GMP.flower[idx];
                 V_FLOWER(p, _p, w, flower[0], flower[1]);
                 return p; }
             // 50 CONIC ( parametric )
             else if(T==50){
-                vector2 conic = GMP.conic[idx];
+                vector2 conic = detail(-15, "conic")[idx]; // GMP.conic[idx];
                 V_CONIC(p, _p, w, conic[0], conic[1]);
                 return p; }
             // 51 PARABOLA ( parametric )
             else if(T==51){
-                vector2 parabola = GMP.parabola[idx];
+                vector2 parabola = detail(-16, "parabola")[idx]; // GMP.parabola[idx];
                 V_PARABOLA(p, _p, w, parabola[0], parabola[1]);
                 return p; }
         }
@@ -289,13 +287,13 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
             // 52 BENT2 ( parametric )
             else if(T==52){
-                vector2 bent2 = GMP.bent2[idx];
+                vector2 bent2 = detail(-17, "bent2")[idx]; // GMP.bent2[idx];
                 V_BENT2(p, _p, w, bent2);
                 return p; }
             // 53 BIPOLAR ( parametric )
             else if(T==53){
-                float shift = GMP.bipolar_shift[idx];
-                V_BIPOLAR(p, _p, w, shift);
+                float shift[] = detail(-18, "bipolar_shift"); // GMP.bipolar_shift[idx];
+                V_BIPOLAR(p, _p, w, shift[idx]);
                 return p; }
             // 54 BOARDERS
             else if(T==54){
@@ -307,12 +305,12 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
             // 56 CELL ( parametric )
             else if(T==56){
-                float size = GMP.cell_size[idx];
-                V_CELL(p, _p, w, size);
+                float size[] = detail(-19, "cell_size"); // GMP.cell_size[idx];
+                V_CELL(p, _p, w, size[idx]);
                 return p; }
             // 57 CPOW ( parametric )
             else if(T==57){
-                vector cpow = GMP.cpow[idx];
+                vector cpow = detail(-20, "cpow")[idx]; // GMP.cpow[idx];
                 V_CPOW(p, _p, w, cpow[0], cpow[1], cpow[2]);
                 return p; }
             // 58 EDISC
@@ -325,8 +323,8 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
             // 61 ESCHER ( parametric )
             else if(T==61){
-                float beta = GMP.escher_beta[idx];
-                V_ESCHER(p, _p, w, beta);
+                float beta[] = detail(-21, "escher_beta"); // GMP.escher_beta[idx];
+                V_ESCHER(p, _p, w, beta[idx]);
                 return p; }
             // 62 FOCI
             else if(T==62){
@@ -334,8 +332,8 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
             // 63 LAZYSUSAN ( parametric )
             else if(T==63){
-                vector lazysusan = GMP.lazysusan[idx];
-                vector2 lazysusanxyz = GMP.lazysusanxyz[idx];
+                vector lazysusan = detail(-22, "lazysusan")[idx]; // GMP.lazysusan[idx];
+                vector2 lazysusanxyz = detail(-22, "lazysusanxyz")[idx]; // GMP.lazysusanxyz[idx];
                 V_LAZYSUSAN(p, _p, w, lazysusan[0], lazysusan[1], lazysusan[2], lazysusanxyz);
                 return p; }
             // 64 LOONIE
@@ -350,12 +348,12 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
             */
             // 66 MODULUS ( parametric )
             else if(T==66){
-                vector2 mod = GMP.modulus[idx];
+                vector2 mod = detail(-23, "modulus")[idx]; // GMP.modulus[idx];
                 V_MODULUS(p, _p, w, mod);
                 return p; }
             // 67 OSCOPE ( parametric )
             else if(T==67){
-                vector4 oscope = GMP.oscope[idx];
+                vector4 oscope = detail(-24, "oscope")[idx]; // GMP.oscope[idx];
                 V_OSCOPE(p, _p, w, oscope[0], oscope[1], oscope[2], oscope[3]);
                 return p; }
             // 68 POLAR2
@@ -364,9 +362,9 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
             // 69 POPCORN2 ( parametric )
             else if(T==69){
-                float pop2c = GMP.popcorn2_c[idx];
-                vector2 pop2 = GMP.popcorn2[idx];
-                V_POPCORN2(p, _p, w, pop2c, pop2);
+                float pop2c[] = detail(-25, "popcorn2_c"); // GMP.popcorn2_c[idx];
+                vector2 pop2 = detail(-25, "popcorn2")[idx]; // GMP.popcorn2[idx];
+                V_POPCORN2(p, _p, w, pop2c[idx], pop2);
                 return p; }
         }
     }
@@ -374,7 +372,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
         if(T<88){
             // 73 SPLITS ( parametric )     # This has been moved at the top of this partition to make it a little faster
             if(T==73){ 
-                vector2 splits = GMP.splits[idx];
+                vector2 splits = detail(-28, "splits")[idx]; // GMP.splits[idx];
                 V_SPLITS(p, _p, w, splits);
                 return p; }
             // 70 SCRY ( parametric )
@@ -384,47 +382,47 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
             // 71 SEPARATION ( parametric )
             else if(T==71){
                 vector2 sep, ins;
-                sep = GMP.separation[idx];
-                ins = GMP.separation_inside[idx];
+                sep = detail(-26, "separation")[idx]; // GMP.separation[idx];
+                ins = detail(-26, "separation_inside")[idx]; // GMP.separation_inside[idx];
                 V_SEPARATION(p, _p, w, sep, ins);
                 return p; }
             // 72 SPLIT ( parametric )
             else if(T==72){
-                vector2 split = GMP.split[idx];
+                vector2 split = detail(-27, "split")[idx]; // GMP.split[idx];
                 V_SPLIT(p, _p, w, split);
                 return p; }
             // 74 STRIPES ( parametric )
             else if(T==74){
-                vector2 stripes = GMP.stripes[idx];
+                vector2 stripes = detail(-29, "stripes")[idx]; // GMP.stripes[idx];
                 V_STRIPES(p, _p, w, stripes[0], stripes[1]);
                 return p; }
             // 75 WEDGE ( parametric )
             else if(T==75){
-                vector4 wedge = GMP.wedge[idx];
+                vector4 wedge = detail(-30, "wedge")[idx]; // GMP.wedge[idx];
                 V_WEDGE(p, _p, w, wedge[0], wedge[1], wedge[2], wedge[3]);
                 return p; }
             // 76 WEDGE JULIA ( parametric )
             else if(T==76){
-                vector4 wedgejulia = GMP.wedgejulia[idx];
+                vector4 wedgejulia = detail(-31, "wedgejulia")[idx]; // GMP.wedgejulia[idx];
                 V_WEDGEJULIA(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]);
                 // vector precalc = GMP.pc_WEDGEJULIA[idx];
                 // V_WEDGEJULIA_L(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3], precalc);
                 return p; }
             // 77 WEDGE SPH ( parametric )
             else if(T==77){
-                vector4 wedgesph = GMP.wedgesph[idx];
+                vector4 wedgesph = detail(-32, "wedgesph")[idx]; // GMP.wedgesph[idx];
                 V_WEDGESPH(p, _p, w, wedgesph[0], wedgesph[1], wedgesph[2], wedgesph[3]);
                 return p; }
             // 78 WHORL ( parametric )
             else if(T==78){
-                vector2 whorl = GMP.whorl[idx];
+                vector2 whorl = detail(-33, "whorl")[idx]; // GMP.whorl[idx];
                 V_WHORL(p, _p, w, whorl[0], whorl[1]);
                 return p; }
             // 79 WAVES2 ( parametric )
             else if(T==79){
                 vector2 scl, freq;
-                scl = GMP.waves2_scale[idx];
-                freq = GMP.waves2_freq[idx];
+                scl = detail(-34, "waves2_scale")[idx]; // GMP.waves2_scale[idx];
+                freq = detail(-34, "waves2_freq")[idx]; // GMP.waves2_freq[idx];
                 V_WAVES2(p, _p, w, scl, freq);
                 return p; }
             // 80 COTHE EXP
@@ -487,37 +485,37 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
             // 94 AUGER ( parametric )
             else if(T==94){
-                vector4 auger = GMP.auger[idx];
+                vector4 auger = detail(-35, "auger")[idx]; // GMP.auger[idx];
                 V_AUGER(p, _p, w, auger[0], auger[1], auger[2], auger[3]);
                 return p; }
             // 95 FLUX ( parametric )
             else if(T==95){
-                float spread = GMP.flux_spread[idx];
-                V_FLUX(p, _p, w, spread);
+                float spread[] = detail(-36, "flux_spread"); // GMP.flux_spread[idx];
+                V_FLUX(p, _p, w, spread[idx]);
                 return p; }
             // 96 MOBIUS ( parametric )
             else if(T==96){
                 vector4 re, im;
-                re = GMP.mobius_re[idx];
-                im = GMP.mobius_im[idx];
+                re = detail(-37, "mobius_re")[idx]; // GMP.mobius_re[idx];
+                im = detail(-37, "mobius_im")[idx]; //GMP.mobius_im[idx];
                 V_MOBIUS(p, _p, w, re, im);
                 return p; }
             // 97 CURVE ( parametric )
             else if(T==97){
                 vector2 lgt, amp;
-                lgt = GMP.curve_lenght[idx];
-                amp = GMP.curve_amp[idx];
+                lgt = detail(-38, "curve_lenght")[idx]; // GMP.curve_lenght[idx];
+                amp = detail(-38, "curve_amp")[idx]; // GMP.curve_amp[idx];
                 V_CURVE(p, _p, w, lgt, amp);
                 return p; }
             // 98 PERSPECTIVE ( parametric )
             else if(T==98){
-                vector2 persp = GMP.persp[idx];
+                vector2 persp = detail(-39, "persp")[idx]; // GMP.persp[idx];
                 V_PERSPECTIVE(p, _p, w, persp[0], persp[1]);
                 return p; }
             // 99 BWRAPS ( parametric )
             else if(T==99){
-                vector bwraps = GMP.bwraps[idx];
-                vector2 bwrapstwist = GMP.bwrapstwist[idx];
+                vector bwraps = detail(-40, "bwraps")[idx]; // GMP.bwraps[idx];
+                vector2 bwrapstwist = detail(-40, "bwrapstwist")[idx]; // GMP.bwrapstwist[idx];
                 V_BWRAPS(p, _p, w, bwraps[0], bwraps[1], bwraps[2], bwrapstwist[0], bwrapstwist[1]);
                 // vector precalc = GMP.pc_BWRAPS[idx];
                 // V_BWRAPS_L(p, _p, w, bwraps[0], bwraps[1], bwraps[2], bwrapstwist[0], bwrapstwist[1], precalc);
@@ -529,15 +527,15 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
             // 101 POLYNOMIAL ( parametric )
             else if(T==101){
                 vector2 pow, lc, sc;
-                pow = GMP.polynomial_pow[idx];
-                lc = GMP.polynomial_lc[idx];
-                sc = GMP.polynomial_sc[idx];
+                pow = detail(-41, "polynomial_pow")[idx]; // GMP.polynomial_pow[idx];
+                lc = detail(-41, "polynomial_lc")[idx]; // GMP.polynomial_lc[idx];
+                sc = detail(-41, "polynomial_sc")[idx]; // GMP.polynomial_sc[idx];
                 V_POLYNOMIAL(p, _p, w, pow, lc, sc);
                 return p; }
             // 102 CROP ( parametric )
             else if(T==102){
-                vector4 ltrb = GMP.crop_ltrb[idx];
-                vector2 az = GMP.crop_az[idx];
+                vector4 ltrb = detail(-42, "crop_ltrb")[idx]; // GMP.crop_ltrb[idx];
+                vector2 az = detail(-42, "crop_az")[idx]; // GMP.crop_az[idx];
                 V_CROP(p, _p, w, ltrb[0], ltrb[1], ltrb[2], ltrb[3], az[0], az[1]);
                 return p; }
             // 103 UNPOLAR
@@ -550,7 +548,7 @@ vector2 FLAME(const gemPrm GMP; const int idx, T, f3c; const vector2 pos, x, y, 
                 return p; }
             // 105 POINT_SYMMETRY ( parametric )
             else if(T==105){
-                vector ptsym = GMP.point_symmetry[idx];
+                vector ptsym = detail(-43, "point_symmetry")[idx]; // GMP.point_symmetry[idx];
                 V_POINT_SYMMETRY(p, _p, w, ptsym[0], ptsym[1], ptsym[2]);
                 return p; }
         }
