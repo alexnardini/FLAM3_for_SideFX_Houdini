@@ -15,6 +15,7 @@
 - **New**: New viewport xforms handles VIZ implementation. It is now many times faster.
 - **New**: Viewport xforms handles VIZ now turn dashed when an iterator(_or FF_) POST affine is activated.
 - **New**: Viewport xforms handles VIZ now allow each iterator to be viz in SOLO mode (_only display the selected iterator's viewport handle_).
+- **New**: Viewport xforms handles VIZ now allow the FF to be viz in SOLO mode (_only display the FF viewport handle_).
 - **New**: Added the viewport' preferences tab option: **wire width** to control the curve thickness of the viewport xforms handles VIZ.
 - **New**: When an iterator(_or FF_) POST affine is activated, an extra knot in the viewport handle VIZ is created to represent its post affine' pivot/offset.
 - **New**: Viewport xforms handles VIZ will be visible up to a density value of 5M(millions) max and they will be hidden beyound that.
