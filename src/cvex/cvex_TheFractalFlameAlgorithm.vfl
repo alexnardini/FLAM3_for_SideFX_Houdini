@@ -24,8 +24,8 @@
 
 
 #define PSCL 0.001
-#define FL "ff_"
-#define FP "fp1_"
+#define FL "../ff_"
+#define FP "../fp1_"
 
 #pragma opname  "FLAM3"
 #pragma oplabel "FLAM3"
