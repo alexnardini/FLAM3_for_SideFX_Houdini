@@ -151,7 +151,7 @@ _TFFAxformsdata(string _bound_sIDX[];
     _bound_X = x;
     _bound_Y = y;
     _bound_O = o;
-    // OUT PRE Affine
+    // OUT POST Affine
     _bound_PX = px;
     _bound_PY = py;
     _bound_PO = po;
