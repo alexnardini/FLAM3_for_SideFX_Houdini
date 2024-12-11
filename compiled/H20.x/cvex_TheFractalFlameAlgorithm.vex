@@ -12021,9 +12021,9 @@ true287:                                          ; preds = %false276
   store <2 x double> %pos1, <2 x double>* %73
   %w294 = load double, double* %w
   store double %w294, double* %74
-  %return296 = call double @"getcomp@FVI"(<3 x double> %return292, i64 1)
+  %return296 = call double @"getcomp@FVI"(<3 x double> %return292, i64 0)
   store double %return296, double* %75
-  %return298 = call double @"getcomp@FVI"(<3 x double> %return292, i64 0)
+  %return298 = call double @"getcomp@FVI"(<3 x double> %return292, i64 1)
   store double %return298, double* %76
   %return300 = call double @"getcomp@FVI"(<3 x double> %return292, i64 2)
   store double %return300, double* %77
@@ -12323,9 +12323,9 @@ true491:                                          ; preds = %false477
   store <2 x double> %pos1, <2 x double>* %123
   %w501 = load double, double* %w
   store double %w501, double* %124
-  %return503 = call double @"getcomp@FVI"(<3 x double> %return496, i64 1)
+  %return503 = call double @"getcomp@FVI"(<3 x double> %return496, i64 0)
   store double %return503, double* %125
-  %return505 = call double @"getcomp@FVI"(<3 x double> %return496, i64 0)
+  %return505 = call double @"getcomp@FVI"(<3 x double> %return496, i64 1)
   store double %return505, double* %126
   %return507 = call double @"getcomp@FVI"(<3 x double> %return496, i64 2)
   store double %return507, double* %127

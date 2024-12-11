@@ -174,7 +174,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             // 30 BLOB ( parametric )
             else if(T==30){
                 vector blob = chv(concat(prx, "blob"));
-                V_BLOB(p, _p, w, blob[1], blob[0], blob[2]);
+                V_BLOB(p, _p, w, blob[0], blob[1], blob[2]);
                 return p; }
             // 31 JuliaN ( parametric )
             else if(T==31){
@@ -261,7 +261,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 vector ss, ss_n;
                 ss = chv(concat(prx, "supershape"));
                 ss_n = chv(concat(prx, "supershapen"));
-                V_SUPERSHAPE(p, _p, w, ss[1], ss[0], ss[2], ss_n);
+                V_SUPERSHAPE(p, _p, w, ss[0], ss[1], ss[2], ss_n);
                 return p; }
             // 49 FLOWER ( parametric )
             else if(T==49){
