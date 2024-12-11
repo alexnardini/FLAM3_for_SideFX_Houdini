@@ -10,7 +10,7 @@
 
 ### From v1.6.50 ###
 
-- **New**: ~**5%** faster (_All iterators,FF and parametrics variations parameters data are now pre-stored inside details wrangle-core nodes_).
+- **New**: ~**5%** faster (_All iterators,FF and parametrics variations parameters data are now pre-computed_).
 - **New**: A new way of query parametric parameters values made the tool more responsive and a bit more interactive while editing.
 - **New**: New viewport xforms handles VIZ implementation. It is now many times faster.
 - **New**: Viewport xforms handles VIZ now turn dashed when an iterator(_or FF_) POST affine is activated.
