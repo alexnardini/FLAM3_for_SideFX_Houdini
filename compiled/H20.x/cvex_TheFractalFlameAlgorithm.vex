@@ -139,17 +139,16 @@ source_filename = "FLAM3"
 @132 = private constant [11 x i8] c"Tstep_mult\00"
 @133 = private constant [7 x i8] c"mb_mod\00"
 @134 = private constant [4 x i8] c"set\00"
-@135 = private constant [0 x i8*] zeroinitializer
 @ptnum = external global i64
 @pscale = external global double
 @clr = external global double
 @Alpha = external global double
 @P = external global <3 x double>
-@136 = private constant [6 x i8] c"ptnum\00"
-@137 = private constant [7 x i8] c"pscale\00"
-@138 = private constant [4 x i8] c"clr\00"
-@139 = private constant [6 x i8] c"Alpha\00"
-@140 = private constant [2 x i8] c"P\00"
+@135 = private constant [6 x i8] c"ptnum\00"
+@136 = private constant [7 x i8] c"pscale\00"
+@137 = private constant [4 x i8] c"clr\00"
+@138 = private constant [6 x i8] c"Alpha\00"
+@139 = private constant [2 x i8] c"P\00"
 
 ; Function Attrs: nounwind readnone
 declare double @"div@FF"(double, double) #0
@@ -13324,7 +13323,7 @@ UnifiedReturnBlock:                               ; preds = %true1203, %true1195
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_FLAM3@[S[III[F[FFFFV"(i8*** %_bound_sIDX, i64** %_bound_SYS, i64* %_bound_XS, i64* %_bound_ptnum, double** %_bound_IW, double** %_bound_XST, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, <3 x double>* %_bound_P) #1 {
+define private void @"_FLAM3@[III[F[FFFFV"(i64** %_bound_SYS, i64* %_bound_XS, i64* %_bound_ptnum, double** %_bound_IW, double** %_bound_XST, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, <3 x double>* %_bound_P) #1 {
 __llvm_entry:
   %idx = alloca i64
   %tmp = alloca <2 x double>
@@ -14090,37 +14089,36 @@ declare i64 @"setpointattrib@IISIFS"(i64, i8*, i64, double, i8*) #2
 declare <3 x double> @"set@VU"(<2 x double>) #0
 
 ; Function Attrs: nounwind
-define void @FLAM3(i8** %sIDX, i64* %SYS, i64 %XS, i64 %ptnum, double* %IW, double* %XST, double %pscale, double %clr, double %Alpha, <3 x double> %P) #2 {
+define void @FLAM3(i64* %SYS, i64 %XS, i64 %ptnum, double* %IW, double* %XST, double %pscale, double %clr, double %Alpha, <3 x double> %P) #2 {
 __llvm_entry:
   %"<pscale>" = alloca double
   %"<clr>" = alloca double
   %"<Alpha>" = alloca double
   %"<P>" = alloca <3 x double>
-  %0 = alloca i8**
-  %1 = alloca i64*
+  %0 = alloca i64*
+  %1 = alloca i64
   %2 = alloca i64
-  %3 = alloca i64
+  %3 = alloca double*
   %4 = alloca double*
-  %5 = alloca double*
   store double %pscale, double* %"<pscale>"
   store double %clr, double* %"<clr>"
   store double %Alpha, double* %"<Alpha>"
   store <3 x double> %P, <3 x double>* %"<P>"
-  store i64* %SYS, i64** %1
-  store i64 %XS, i64* %2
-  store i64 %ptnum, i64* %3
-  store double* %IW, double** %4
-  store double* %XST, double** %5
-  call void @"_FLAM3@[S[III[F[FFFFV"(i8*** %0, i64** %1, i64* %2, i64* %3, double** %4, double** %5, double* %"<pscale>", double* %"<clr>", double* %"<Alpha>", <3 x double>* %"<P>")
-  %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @136, i64 0, i64 0), i64 %ptnum) #4
+  store i64* %SYS, i64** %0
+  store i64 %XS, i64* %1
+  store i64 %ptnum, i64* %2
+  store double* %IW, double** %3
+  store double* %XST, double** %4
+  call void @"_FLAM3@[III[F[FFFFV"(i64** %0, i64* %1, i64* %2, double** %3, double** %4, double* %"<pscale>", double* %"<clr>", double* %"<Alpha>", <3 x double>* %"<P>")
+  %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @135, i64 0, i64 0), i64 %ptnum) #4
   %evalue6 = load double, double* %"<pscale>"
-  %gvalue7 = call double @"_export@FSF"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @137, i64 0, i64 0), double %evalue6) #4
+  %gvalue7 = call double @"_export@FSF"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @136, i64 0, i64 0), double %evalue6) #4
   %evalue8 = load double, double* %"<clr>"
-  %gvalue9 = call double @"_export@FSF"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @138, i64 0, i64 0), double %evalue8) #4
+  %gvalue9 = call double @"_export@FSF"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @137, i64 0, i64 0), double %evalue8) #4
   %evalue10 = load double, double* %"<Alpha>"
-  %gvalue11 = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @139, i64 0, i64 0), double %evalue10) #4
+  %gvalue11 = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @138, i64 0, i64 0), double %evalue10) #4
   %evalue12 = load <3 x double>, <3 x double>* %"<P>"
-  %gvalue13 = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @140, i64 0, i64 0), <3 x double> %evalue12) #4
+  %gvalue13 = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @139, i64 0, i64 0), <3 x double> %evalue12) #4
   store i64 %gvalue, i64* @ptnum
   store double %gvalue7, double* @pscale
   store double %gvalue9, double* @clr
@@ -14137,7 +14135,7 @@ declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @FLAM3(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @135, i64 0, i64 0), i64* getelementptr inbounds ([0 x i64], [0 x i64]* @44, i64 0, i64 0), i64 0, i64 0, double* getelementptr inbounds ([0 x double], [0 x double]* @45, i64 0, i64 0), double* getelementptr inbounds ([0 x double], [0 x double]* @45, i64 0, i64 0), double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, <3 x double> zeroinitializer)
+  call void @FLAM3(i64* getelementptr inbounds ([0 x i64], [0 x i64]* @44, i64 0, i64 0), i64 0, i64 0, double* getelementptr inbounds ([0 x double], [0 x double]* @45, i64 0, i64 0), double* getelementptr inbounds ([0 x double], [0 x double]* @45, i64 0, i64 0), double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, <3 x double> zeroinitializer)
   ret void
 }
 

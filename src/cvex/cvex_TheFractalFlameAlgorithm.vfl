@@ -39,7 +39,7 @@
 #include <flame.h>
 #include <flameff.h>
 
-void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int _bound_ptnum; const float _bound_IW[], _bound_XST[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
+void _FLAM3(const int _bound_SYS[],  _bound_XS; int _bound_ptnum; const float _bound_IW[], _bound_XST[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
     
     int XS, idx, _idx, FF, RIP, MB, iter, f3c;
@@ -138,8 +138,7 @@ void _FLAM3(const string _bound_sIDX[]; const int _bound_SYS[],  _bound_XS; int 
 }
 
 cvex
-FLAM3(  const  string sIDX[] = {};
-        const  int    SYS[]  = {};
+FLAM3(  const  int    SYS[]  = {};
         const  int    XS     = 0;
         export int    ptnum  = 0;
         const  float  IW[]   = {};
@@ -149,5 +148,5 @@ FLAM3(  const  string sIDX[] = {};
         export float  Alpha  = 0;
 	    export vector P      = 0)
 {
-    _FLAM3(sIDX, SYS, XS, ptnum, IW, XST, pscale, clr, Alpha, P);
+    _FLAM3(SYS, XS, ptnum, IW, XST, pscale, clr, Alpha, P);
 }
