@@ -27,6 +27,7 @@
 - **Fix**: Loading a hip file with a FLAM3H node from a fresh houdini session was causing a python's **AttributeError** when attempting to reset to the default Sierpinski triangle. It is now fixed.
 - **Fix**: Fixed viewport TAG not being able to read and display some data.
 - **Fix**: Re-built viewport TAG using pre-stored data. It is now many times faster.
+- **Fix**: Fixed FF variations: "BLOB" and "SUPERSHAPE" having their arguments in the wrong order inside: "flameff.h" file.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
