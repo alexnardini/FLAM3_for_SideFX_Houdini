@@ -98,7 +98,18 @@ struct gem{
 }
 
 
-// GENOME PARAMETRICS
+/* GENOME PARAMETRICS
+ /
+ / THIS IS NOT USED ANYMORE
+ / It has been substituted in favor of wrangle cores nodes for each parametric variation' parameters set.
+ / While this was actually working great and added very little to the computation, the interactivity of the tool suffered
+ / as this data structure needed to alway be built ahead of time for the current point/sample to be processed.
+ /
+ / Now, using details wrangle cores nodes, the point/sample can just grab only a subset of the data it need when it needs it without storing it first.
+ / I leave this code here for reference as well as the associated (commented) code inside the file: "flame.h" to complete this reference.
+ /
+*/ 
+
 struct gemPrm{
 
     float   rings2_val[], bipolar_shift[], cell_size[], radialblur[], escher_beta[], popcorn2_c[], flux_spread[];
