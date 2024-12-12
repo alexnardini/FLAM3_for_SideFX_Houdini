@@ -112,7 +112,7 @@ void V_DISC(vector2 p; const vector2 _p; const float w){
 }
 // 09 (precalc _p)
 void V_SPIRAL(vector2 p; const vector2 _p; const float w){
-    vector2 precalc = (vector2)_p / SQRT(_p);
+    vector2 precalc = _p / SQRT(_p);
     float r, r1, sr, cr;
     r = SQRT(_p) + EPS;
     r1 = w/r;
@@ -221,7 +221,7 @@ void V_EXPONENTIAL(vector2 p; const vector2 _p; const float w){
 }
 // 19 (precalc _p)
 void V_POWER(vector2 p; const vector2 _p; const float w){
-    vector2 precalc = (vector2)_p / SQRT(_p);
+    vector2 precalc = _p / SQRT(_p);
     float r = w * pow(SQRT(_p), precalc[0]);
     p[0] = r * precalc[1];
     p[1] = r * precalc[0];
@@ -240,7 +240,7 @@ void V_COSINE(vector2 p; const vector2 _p; const float w){
 }
 // 21 (precalc _p)
 void V_RINGS(vector2 p; const vector2 _p; const float w, d){
-    vector2 precalc = (vector2)_p / SQRT(_p);
+    vector2 precalc = _p / SQRT(_p);
     float dx, rr;
     dx = d*d + EPS;
     rr = SQRT(_p);
@@ -369,7 +369,7 @@ void V_PDJ(vector2 p; const vector2 _p; const float w; const vector4 pp){
 }
 // 30 ( parametric ) (precalc _p)
 void V_BLOB(vector2 p; const vector2 _p; const float w, low, high, wave){
-    vector2 precalc = (vector2)_p / SQRT(_p);
+    vector2 precalc = _p / SQRT(_p);
     float  blob_coeff, rr, aa, bdiff;
     float SQRT = SQRT(_p);
     rr = SQRT;
@@ -429,7 +429,7 @@ void V_FAN2(vector2 p; const vector2 _p; const float w; const vector2 fan2){
 }
 // 35 ( parametric ) (precalc _p)
 void V_RINGS2(vector2 p; const vector2 _p; const float w, rings2val){
-    vector2 precalc = (vector2)_p / SQRT(_p);
+    vector2 precalc = _p / SQRT(_p);
     float rr, dx;
     int nrand;
     rr = SQRT(_p);
