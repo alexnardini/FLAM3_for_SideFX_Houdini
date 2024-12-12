@@ -9248,7 +9248,7 @@ If you type a non-numeric character in any of the xaos's weights,
 FLAM3H will undo to what you had before.
 
 If you dnt use the “ xaos: ” keywork at the beginning,
-the entire xaos string will be reset to all weights with value: 1
+FLAM3H will undo to what you had before.
 
 If you type a number,
 the entire xaos string will be reset to all weights set to that number.
@@ -15235,7 +15235,7 @@ class out_flame_utils
         FLAM3H will undo to what you had before.
 
         * If you dnt use the “ xaos: ” keywork at the beginning,
-        the entire xaos string will be reset to all weights with value: 1
+        FLAM3H will undo to what you had before.
 
         * If you type a number,
         the entire xaos string will be reset to all weights set to that number.
