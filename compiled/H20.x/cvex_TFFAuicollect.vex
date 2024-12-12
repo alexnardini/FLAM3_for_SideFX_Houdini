@@ -347,43 +347,43 @@ __llvm_entry:
   br i1 %0, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
-  %return = call double @"detail@FIS"(i64 2, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @20, i64 0, i64 0))
+  %return = call double @"detail@FIS"(i64 3, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @20, i64 0, i64 0))
   %tmp = load %gemtagff, %gemtagff* %this
   %1 = insertvalue %gemtagff %tmp, double %return, 5
   store %gemtagff %1, %gemtagff* %this
-  %return2 = call double @"detail@FIS"(i64 2, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @21, i64 0, i64 0))
+  %return2 = call double @"detail@FIS"(i64 3, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @21, i64 0, i64 0))
   %tmp3 = load %gemtagff, %gemtagff* %this
   %2 = insertvalue %gemtagff %tmp3, double %return2, 6
   store %gemtagff %2, %gemtagff* %this
-  %return4 = call double @"detail@FIS"(i64 2, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @22, i64 0, i64 0))
+  %return4 = call double @"detail@FIS"(i64 3, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @22, i64 0, i64 0))
   %tmp5 = load %gemtagff, %gemtagff* %this
   %3 = insertvalue %gemtagff %tmp5, double %return4, 7
   store %gemtagff %3, %gemtagff* %this
-  %return6 = call double @"detail@FIS"(i64 2, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @23, i64 0, i64 0))
+  %return6 = call double @"detail@FIS"(i64 3, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @23, i64 0, i64 0))
   %tmp7 = load %gemtagff, %gemtagff* %this
   %4 = insertvalue %gemtagff %tmp7, double %return6, 8
   store %gemtagff %4, %gemtagff* %this
-  %return8 = call double @"detail@FIS"(i64 2, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @24, i64 0, i64 0))
+  %return8 = call double @"detail@FIS"(i64 3, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @24, i64 0, i64 0))
   %tmp9 = load %gemtagff, %gemtagff* %this
   %5 = insertvalue %gemtagff %tmp9, double %return8, 9
   store %gemtagff %5, %gemtagff* %this
-  %return10 = call i64 @"detail@IIS"(i64 2, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @25, i64 0, i64 0))
+  %return10 = call i64 @"detail@IIS"(i64 3, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @25, i64 0, i64 0))
   %tmp11 = load %gemtagff, %gemtagff* %this
   %6 = insertvalue %gemtagff %tmp11, i64 %return10, 0
   store %gemtagff %6, %gemtagff* %this
-  %return12 = call i64 @"detail@IIS"(i64 2, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @26, i64 0, i64 0))
+  %return12 = call i64 @"detail@IIS"(i64 3, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @26, i64 0, i64 0))
   %tmp13 = load %gemtagff, %gemtagff* %this
   %7 = insertvalue %gemtagff %tmp13, i64 %return12, 1
   store %gemtagff %7, %gemtagff* %this
-  %return14 = call i64 @"detail@IIS"(i64 2, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @27, i64 0, i64 0))
+  %return14 = call i64 @"detail@IIS"(i64 3, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @27, i64 0, i64 0))
   %tmp15 = load %gemtagff, %gemtagff* %this
   %8 = insertvalue %gemtagff %tmp15, i64 %return14, 2
   store %gemtagff %8, %gemtagff* %this
-  %return16 = call i64 @"detail@IIS"(i64 2, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @28, i64 0, i64 0))
+  %return16 = call i64 @"detail@IIS"(i64 3, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @28, i64 0, i64 0))
   %tmp17 = load %gemtagff, %gemtagff* %this
   %9 = insertvalue %gemtagff %tmp17, i64 %return16, 3
   store %gemtagff %9, %gemtagff* %this
-  %return18 = call i64 @"detail@IIS"(i64 2, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @29, i64 0, i64 0))
+  %return18 = call i64 @"detail@IIS"(i64 3, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @29, i64 0, i64 0))
   %tmp19 = load %gemtagff, %gemtagff* %this
   %10 = insertvalue %gemtagff %tmp19, i64 %return18, 4
   store %gemtagff %10, %gemtagff* %this

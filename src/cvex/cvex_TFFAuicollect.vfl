@@ -74,17 +74,17 @@ struct gemtagff{
 
         if(FF){
             // WEIGHTS
-            fp1w = detail(2, "fp1w");
-            fv1w = detail(2, "fv1w");
-            fv2w = detail(2, "fv2w");
-            fP1w = detail(2, "fP1w");
-            fP2w = detail(2, "fP2w");
+            fp1w = detail(3, "fp1w");
+            fv1w = detail(3, "fv1w");
+            fv2w = detail(3, "fv2w");
+            fP1w = detail(3, "fP1w");
+            fP2w = detail(3, "fP2w");
             // TYPES
-            fp1t = detail(2, "fp1t");
-            fv1t = detail(2, "fv1t");
-            fv2t = detail(2, "fv2t");
-            fP1t = detail(2, "fP1t");
-            fP2t = detail(2, "fP2t");
+            fp1t = detail(3, "fp1t");
+            fv1t = detail(3, "fv1t");
+            fv2t = detail(3, "fv2t");
+            fP1t = detail(3, "fP1t");
+            fP2t = detail(3, "fP2t");
         }
     }
 
