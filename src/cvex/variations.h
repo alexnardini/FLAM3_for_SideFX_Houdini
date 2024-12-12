@@ -553,7 +553,7 @@ void V_CROSS(vector2 p; const vector2 _p; const float w){
 void V_DISC2(vector2 p; const vector2 _p; const float w, rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd){
     float rr, tt, sinr, cosr, _px, _py;
     assign(_px, _py, _p);
-
+    // PRECALC done inside its detail wrangle core in the Houdini environment
     tt = disc2_timespi * (_px + _py);
     sincos(tt, sinr, cosr);
     rr = w * ATAN(_p) / M_PI;
@@ -585,7 +585,7 @@ void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w, ss_m, ss_rnd, ss_h
     float theta, st, ct, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1, _px, _py, ss_nx, ss_ny, ss_nz;
     assign(_px, _py, _p);
     assign(ss_nx, ss_ny, ss_nz, ss_n);
-
+    // PRECALC
     ss_pm_4 = ss_m / 4.0;
     ss_pneg1_n1 = -1.0 / ss_nx;
 
@@ -994,7 +994,7 @@ void V_WEDGE(vector2 p; const vector2 _p; const float w, swirl, angle, hole, cou
 // 76 ( parametric ) // const vector precalc)
 void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w, power, angle, dist, count){ 
     float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, aa, cc, sa, ca;
-    // precalc
+    // PRECALC
     wedgeJulia_cf = 1.0 - angle * count * M_1_PI * 0.5;
     wedgeJulia_rN = abs(power);
     wedgeJulia_cn = dist / power / 2.0;
@@ -1407,8 +1407,7 @@ void V_CURVE(vector2 p; const vector2 _p; const float w; const vector2 l, a){
 void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w, angle, dist){
     float tt, vsin, vfcos, _px, _py;
     assign(_px, _py, _p);
-
-    // precalc
+    // PRECALC
     float ang = angle * M_PI / 2.0;
     vsin = sin(ang);
     vfcos = dist * cos(ang);
@@ -1420,7 +1419,7 @@ void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w, angle, dist){
 // 99 ( parametric )
 void V_BWRAPS(vector2 p; const vector2 _p; const float w, cellsize, space, gain, innertwist, outertwist){
     float g2, r2, rfactor, max_bubble, Vx, Vy, Cx, Cy, Lx, Ly, rr, theta, ss, cc;
-    // precalc
+    // PRECALC
     float radius = 0.5 * (cellsize / (1.0 + space*space ));
     g2 = sqrt(gain) / cellsize + 1e-6;
     max_bubble = g2 * radius;
