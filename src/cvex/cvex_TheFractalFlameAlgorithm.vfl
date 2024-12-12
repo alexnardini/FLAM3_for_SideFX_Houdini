@@ -81,7 +81,7 @@ void _FLAM3(const int _bound_SYS[],  _bound_XS; int _bound_ptnum; const float _b
         // xaos
         idx = (XS) ? XAOS(idx, res, _bound_XST) : sample_cdf((float[])_bound_IW, nrandom("twister"));
         // cast iterator (the least needed)
-        _pbw=pbw[idx];_p1w=p1w[idx];_p2w=p2w[idx];_v1w=v1w[idx];_v2w=v2w[idx];_v3w=v3w[idx];_v4w=v4w[idx];_P1w=P1w[idx]; _x=x[idx];_y=y[idx];_o=o[idx]; _PPL=PPL[idx]; _CLR=CLR[idx];_OM=OM[idx];
+        _x=x[idx];_y=y[idx];_o=o[idx]; _pbw=pbw[idx];_p1w=p1w[idx];_p2w=p2w[idx];_v1w=v1w[idx];_v2w=v2w[idx];_v3w=v3w[idx];_v4w=v4w[idx];_P1w=P1w[idx]; _PPL=PPL[idx]; _CLR=CLR[idx];_OM=OM[idx];
 
         // pre affine
         affine(mem, _x, _y, _o);
