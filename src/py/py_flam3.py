@@ -211,6 +211,7 @@ MB_DO = 'domb'
 MB_FPS = 'fps'
 MB_SAMPLES = 'mbsamples'
 MB_SHUTTER = 'shutter'
+MB_VIZ = 'vizmb'
 IN_CLIPBOARD_LABEL_MSG = '[CLIPBOARD]'
 IN_HSV_LABEL_MSG = '[HSV]'
 IN_PATH = 'inpath'
@@ -3391,10 +3392,13 @@ class flam3h_general_utils
             (None):
         """        
         node = self.node
-        node.setParms({MB_DO: 0})
-        node.setParms({MB_FPS: 24})
-        node.setParms({MB_SAMPLES: 16})
-        node.setParms({MB_SHUTTER: 0.5})
+        _MB: dict[str, Union[int, float]] = {MB_DO: 0,
+                                             MB_FPS: 24,
+                                             MB_SAMPLES: 16,
+                                             MB_SHUTTER: 0.5,
+                                             MB_VIZ: 0}
+        [node.setParms({key: value}) for key, value in _MB.items()]
+
 
 
     def reset_PREFS(self, mode: int=0) -> None:
