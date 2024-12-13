@@ -19,7 +19,8 @@
  /
  /  Name:       XAOS_CHK "CVEX"
  /
- /  Comment:    XOAS CHECK: check if Xaos is active.
+ /  Comment:    NOT USED ANYMORE
+ /              XOAS CHECK: check if Xaos is active.
  /              This is a stripped down version of: cvex_TFFAxaos.vfl
 */
 

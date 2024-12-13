@@ -7,6 +7,18 @@
 
 # Release history
 
+### From v1.6.60 ###
+
+- **Fix**: First node instance creation time is now twice as fast.
+- **Fix**: The overall responsiveness of the tool while editing feel a bit faster.
+- **Fix**: Fixed FLAM3H warning messages' node not being updated in the preview version/release.
+- **Fix**: Viewport xforms handles VIZ are a bit faster.
+- **Fix**: Viewport TAG is a bit faster.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+
 
 ### From v1.6.50 ###
 

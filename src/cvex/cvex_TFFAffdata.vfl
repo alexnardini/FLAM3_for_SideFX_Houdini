@@ -19,7 +19,8 @@
  /
  /  Name:       FF DATA "CVEX"
  /
- /  Comment:    Collect all FF iterator data.
+ /  Comment:    NOT USED ANYMORE (it is now done inside the Houdini environment)
+ /              Collect all FF iterator data.
 */
 
 

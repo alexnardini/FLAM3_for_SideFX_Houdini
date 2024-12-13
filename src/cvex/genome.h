@@ -26,6 +26,35 @@
 */
 
 
+struct gemSYSGLB{
+
+    int FF, RIP, MB, F3C, ITER;
+
+    void gemSYSGLBBuild(){
+    
+        FF = detail(-1, "FF");
+        RIP = detail(-1, "RIP");
+        MB = detail(-1, "MB");
+        F3C = detail(-1, "F3C");
+        ITER = detail(-1, "ITER");
+    }
+}
+
+
+struct gemSYS{
+
+    int RES, XS;
+    float IW[], XST[];
+
+    void gemSYSBuild(){
+    
+        RES = detail(-2, "RES");
+        IW = detail(-3, "IW");
+        XS = detail(-3, "XS");
+        XST = detail(-3, "XST");
+    }
+}
+
 
 
 // GENOME
@@ -38,61 +67,61 @@ struct gem{
     void gemBuild(const int FF){
 
         // RES
-        res = detail(1, "RES");
+        res = detail(-2, "RES");
         // SHADER
-        A = detail(1, "A");
-        CLR = detail(1, "CLR");
-        OM = detail(1, "OM");
+        A = detail(-4, "A");
+        CLR = detail(-4, "CLR");
+        OM = detail(-4, "OM");
         // PRE AFFINE
-        x = detail(1, "X");
-        y = detail(1, "Y");
-        o = detail(1, "O");
+        x = detail(-8, "X");
+        y = detail(-8, "Y");
+        o = detail(-8, "O");
         // POST AFFINE
-        PPL = detail(1, "POST");
-        px = detail(1, "PX");
-        py = detail(1, "PY");
-        po = detail(1, "PO");
+        PPL = detail(-9, "POST");
+        px = detail(-9, "PX");
+        py = detail(-9, "PY");
+        po = detail(-9, "PO");
         // VARS TYPE
-        p1t = detail(1, "p1t");
-        p2t = detail(1, "p2t");
-        v1t = detail(1, "v1t");
-        v2t = detail(1, "v2t");
-        v3t = detail(1, "v3t");
-        v4t = detail(1, "v4t");
-        P1t = detail(1, "P1t");
+        p1t = detail(-5, "p1t");
+        p2t = detail(-5, "p2t");
+        v1t = detail(-6, "v1t");
+        v2t = detail(-6, "v2t");
+        v3t = detail(-6, "v3t");
+        v4t = detail(-6, "v4t");
+        P1t = detail(-5, "P1t");
         // VARS WEIGHT
-        pbw = detail(1, "pbw");
-        p1w = detail(1, "p1w");
-        p2w = detail(1, "p2w");
-        v1w = detail(1, "v1w");
-        v2w = detail(1, "v2w");
-        v3w = detail(1, "v3w");
-        v4w = detail(1, "v4w");
-        P1w = detail(1, "P1w");
+        pbw = detail(-5, "pbw");
+        p1w = detail(-5, "p1w");
+        p2w = detail(-5, "p2w");
+        v1w = detail(-6, "v1w");
+        v2w = detail(-6, "v2w");
+        v3w = detail(-6, "v3w");
+        v4w = detail(-6, "v4w");
+        P1w = detail(-5, "P1w");
         
         // FF
         if(FF){
             // FF PRE AFFINE
-            fx = detail(2, "FX"); 
-            fy = detail(2, "FY");
-            fo = detail(2, "FO");
+            fx = detail(-13, "FX"); 
+            fy = detail(-13, "FY");
+            fo = detail(-13, "FO");
             // FF POST AFFINE
-            PFF = detail(2, "PFF");
-            pfx = detail(2, "PFX");
-            pfy = detail(2, "PFY");
-            pfo = detail(2, "PFO");
+            PFF = detail(-14, "PFF");
+            pfx = detail(-14, "PFX");
+            pfy = detail(-14, "PFY");
+            pfo = detail(-14, "PFO");
             // FF VARS TYPE
-            fp1t = detail(2, "fp1t");
-            fv1t = detail(2, "fv1t");
-            fv2t = detail(2, "fv2t");
-            fP1t = detail(2, "fP1t");
-            fP2t = detail(2, "fP2t");
+            fp1t = detail(-10, "fp1t");
+            fv1t = detail(-11, "fv1t");
+            fv2t = detail(-11, "fv2t");
+            fP1t = detail(-12, "fP1t");
+            fP2t = detail(-12, "fP2t");
             // FF VARS WEIGHT
-            fp1w = detail(2, "fp1w");
-            fv1w = detail(2, "fv1w");
-            fv2w = detail(2, "fv2w");
-            fP1w = detail(2, "fP1w");
-            fP2w = detail(2, "fP2w");
+            fp1w = detail(-10, "fp1w");
+            fv1w = detail(-11, "fv1w");
+            fv2w = detail(-11, "fv2w");
+            fP1w = detail(-12, "fP1w");
+            fP2w = detail(-12, "fP2w");
         }
     }
 }

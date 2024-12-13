@@ -30,6 +30,7 @@ to form the final point cloud.
 # CVEX Source
 # File name:    `cvex_TFFAffdata.vfl`
 ### Description:
+NOT USED ANYMORE. (it is now done inside the Houdini environment)<br>
 Collect all FF(_finalxform_) data to be passed to the chaos game.
 
 <br>
@@ -39,6 +40,7 @@ Collect all FF(_finalxform_) data to be passed to the chaos game.
 # CVEX Source
 # File name:    `cvex_TFFAiteratorsdata.vfl`
 ### Description:
+NOT USED ANYMORE. (it is now done inside the Houdini environment)<br>
 Collect all iterators data to be passed to the chaos game.
 
 <br>
@@ -107,7 +109,7 @@ Build all the Xaos data to be used inside the Chaos game.
 # CVEX Source
 # File name:    `cvex_TFFAxaos_chk.vfl`
 ### Description:
-Simply check if Xaos is active. This is a stripped down version of: `cvex_TFFAxaos.vfl`
+NOT USED ANYMORE. Simply check if Xaos is active. This is a stripped down version of: `cvex_TFFAxaos.vfl`
 
 <br>
 <br>

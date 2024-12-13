@@ -39,32 +39,25 @@
 #include <flame.h>
 #include <flameff.h>
 
-void _FLAM3(const int _bound_SYS[],  _bound_XS; int _bound_ptnum; const float _bound_IW[], _bound_XST[]; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
+void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
-    
-    int XS, idx, FF, RIP, MB, iter, f3c;
-    float pscl, clr, prv_clr, a, mbm; prv_clr=0; pscl=PSCL;
+    // UTILS
+    int RES, XS, FF, RIP, MB, F3C, ITER, idx;
+    float IW[], XST[], pscl, clr, prv_clr, a, mbm; prv_clr=0; pscl=PSCL;
     vector2 tmp, mem;
-    // SYS
-    FF   = _bound_SYS[0];
-    RIP  = _bound_SYS[1];
-    MB   = _bound_SYS[2];
-    iter = _bound_SYS[3];
-    
-    /*
-     /  From Fractorium: flam3 comptibility (f3c). Check inside variations.h to see both versions of each.
-     /  The behavior of the:
-     /  cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan and tanh variations
-     /  are different in flam3/Apophysis versus Chaotica.
-     /      Checked:    use the Apophysis behavior.
-     /      Unchecked:  use the Chaotica behavior.
-    */
-    f3c  = _bound_SYS[4];
 
-    // Build genomes
+    // BUILD genomes
+    //
+    // genome: SYS GLB
+    gemSYSGLB GEMSYSGLB; GEMSYSGLB->gemSYSGLBBuild();
+    /* CAST */ FF=GEMSYSGLB.FF; RIP=GEMSYSGLB.RIP; MB=GEMSYSGLB.MB; F3C=GEMSYSGLB.F3C; ITER=GEMSYSGLB.ITER;
+    // genome: SYS
+    gemSYS GEMSYS; GEMSYS->gemSYSBuild();
+    /* CAST */ RES=GEMSYS.RES; XS=GEMSYS.XS; IW=GEMSYS.IW; XST=GEMSYS.XST;
+    // genome: ITERATORS
     gem GEM; GEM->gemBuild(FF);
     // cast FLAME
-    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], res; /* CAST */ v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; P1t=GEM.P1t; PPL=GEM.PPL; res=GEM.res;
+    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[]; /* CAST */ v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; P1t=GEM.P1t; PPL=GEM.PPL;
     float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], P1w[], pbw[], CLR[], OM[], A[]; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; p2w=GEM.p2w; P1w=GEM.P1w; pbw=GEM.pbw; CLR=GEM.CLR; OM=GEM.OM; A=GEM.A;
     vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
     // cast iterator (the least needed. To be used inside the big loop)
@@ -75,15 +68,15 @@ void _FLAM3(const int _bound_SYS[],  _bound_XS; int _bound_ptnum; const float _b
     int     fp1t, fv1t, fv2t, fP1t, fP2t, PFF; /* CAST */ fp1t=GEM.fp1t; fv1t=GEM.fv1t; fv2t=GEM.fv2t; fP1t=GEM.fP1t; fP2t=GEM.fP2t; PFF=GEM.PFF;
     float   fp1w, fv1w, fv2w, fP1w, fP2w; /* CAST */ fp1w=GEM.fp1w; fv1w=GEM.fv1w; fv2w=GEM.fv2w; fP1w=GEM.fP1w; fP2w=GEM.fP2w;
     vector2 fx, fy, fo, pfx, pfy, pfo;    /* CAST */ fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
-    // CHAOS game
-    mem=biunit(); XS=_bound_XS;
+    // BUILD samples
+    mem=biunit();
     // If XAOS, pick a starting iterator from distribution
-    if(XS) idx=sample_cdf((float[])_bound_IW, nrandom('twister'));
-
-    for(int i=0; i<iter; ++i){
+    if(XS) idx=sample_cdf((float[])IW, nrandom('twister'));
+    // CHAOS game
+    for(int i=0; i<ITER; ++i){
 
         // xaos
-        idx = (XS) ? XAOS(idx, res, _bound_XST) : sample_cdf((float[])_bound_IW, nrandom("twister"));
+        idx = (XS) ? XAOS(idx, RES, XST) : sample_cdf((float[])IW, nrandom("twister"));
         // cast iterator (the least needed)
         _x=x[idx];_y=y[idx];_o=o[idx]; _pbw=pbw[idx];_p1w=p1w[idx];_p2w=p2w[idx];_v1w=v1w[idx];_v2w=v2w[idx];_v3w=v3w[idx];_v4w=v4w[idx];_P1w=P1w[idx]; _PPL=PPL[idx]; _CLR=CLR[idx];_OM=OM[idx];
 
@@ -91,16 +84,16 @@ void _FLAM3(const int _bound_SYS[],  _bound_XS; int _bound_ptnum; const float _b
         affine(mem, _x, _y, _o);
         // PRE
         if(_pbw >0) V_PREBLUR(mem, _pbw);
-        if(_p1w >0) mem  = FLAME(idx, p1t[idx], f3c, mem, _x, _y, _o, _p1w);
-        if(_p2w >0) mem  = FLAME(idx, p2t[idx], f3c, mem, _x, _y, _o, _p2w);
+        if(_p1w >0) mem  = FLAME(idx, p1t[idx], F3C, mem, _x, _y, _o, _p1w);
+        if(_p2w >0) mem  = FLAME(idx, p2t[idx], F3C, mem, _x, _y, _o, _p2w);
         // VAR
         tmp=0;
-        if(_v1w!=0) tmp += FLAME(idx, v1t[idx], f3c, mem, _x, _y, _o, _v1w);
-        if(_v2w!=0) tmp += FLAME(idx, v2t[idx], f3c, mem, _x, _y, _o, _v2w);
-        if(_v3w!=0) tmp += FLAME(idx, v3t[idx], f3c, mem, _x, _y, _o, _v3w);
-        if(_v4w!=0) tmp += FLAME(idx, v4t[idx], f3c, mem, _x, _y, _o, _v4w);
+        if(_v1w!=0) tmp += FLAME(idx, v1t[idx], F3C, mem, _x, _y, _o, _v1w);
+        if(_v2w!=0) tmp += FLAME(idx, v2t[idx], F3C, mem, _x, _y, _o, _v2w);
+        if(_v3w!=0) tmp += FLAME(idx, v3t[idx], F3C, mem, _x, _y, _o, _v3w);
+        if(_v4w!=0) tmp += FLAME(idx, v4t[idx], F3C, mem, _x, _y, _o, _v4w);
         // POST
-        if(_P1w >0) tmp  = FLAME(idx, P1t[idx], f3c, tmp, _x, _y, _o, _P1w);
+        if(_P1w >0) tmp  = FLAME(idx, P1t[idx], F3C, tmp, _x, _y, _o, _P1w);
         // post affine
         if(_PPL) affine(tmp, px[idx], py[idx], po[idx]);
         // clr
@@ -114,14 +107,14 @@ void _FLAM3(const int _bound_SYS[],  _bound_XS; int _bound_ptnum; const float _b
         // FF pre affine
         affine(mem, fx, fy, fo);
         // FF PRE
-        if(fp1w >0) mem  = FLAMEFF(FP, fp1t, f3c, mem, fx, fy, fo, fp1w);
+        if(fp1w >0) mem  = FLAMEFF(FP, fp1t, F3C, mem, fx, fy, fo, fp1w);
         // FF VAR
         tmp=0;
-        if(fv1w!=0) tmp += FLAMEFF(FL, fv1t, f3c, mem, fx, fy, fo, fv1w);
-        if(fv2w!=0) tmp += FLAMEFF(FL, fv2t, f3c, mem, fx, fy, fo, fv2w);
+        if(fv1w!=0) tmp += FLAMEFF(FL, fv1t, F3C, mem, fx, fy, fo, fv1w);
+        if(fv2w!=0) tmp += FLAMEFF(FL, fv2t, F3C, mem, fx, fy, fo, fv2w);
         // FF POST
-        if(fP1w >0) tmp  = FLAMEFF(FP, fP1t, f3c, tmp, fx, fy, fo, fP1w);
-        if(fP2w >0) tmp  = FLAMEFF(FP, fP2t, f3c, tmp, fx, fy, fo, fP2w);
+        if(fP1w >0) tmp  = FLAMEFF(FP, fP1t, F3C, tmp, fx, fy, fo, fP1w);
+        if(fP2w >0) tmp  = FLAMEFF(FP, fP2t, F3C, tmp, fx, fy, fo, fP2w);
         // FF post affine
         if(PFF) affine(tmp, pfx, pfy, pfo);
         // FF out
@@ -132,7 +125,7 @@ void _FLAM3(const int _bound_SYS[],  _bound_XS; int _bound_ptnum; const float _b
     else{
         
         pscl*=a;
-        if(MB){ mbm=detail(3, "Tstep_mult", 0); pscl*=mbm; setpointattrib(0, "mb_mod", _bound_ptnum, mbm, "set"); }
+        if(MB){ mbm=detail(1, "Tstep_mult", 0); pscl*=mbm; setpointattrib(0, "mb_mod", _bound_ptnum, mbm, "set"); }
         // OUT
         _bound_P=(vector)mem;
         _bound_clr=clr;
@@ -142,15 +135,11 @@ void _FLAM3(const int _bound_SYS[],  _bound_XS; int _bound_ptnum; const float _b
 }
 
 cvex
-FLAM3(  const  int    SYS[]  = {};
-        const  int    XS     = 0;
-        export int    ptnum  = 0;
-        const  float  IW[]   = {};
-        const  float  XST[]  = {};
+FLAM3(  export int    ptnum  = 0;
 	    export float  pscale = 0;
 	    export float  clr    = 0;
         export float  Alpha  = 0;
 	    export vector P      = 0)
 {
-    _FLAM3(SYS, XS, ptnum, IW, XST, pscale, clr, Alpha, P);
+    _FLAM3(ptnum, pscale, clr, Alpha, P);
 }

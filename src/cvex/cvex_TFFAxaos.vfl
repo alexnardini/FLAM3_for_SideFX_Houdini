@@ -33,7 +33,7 @@
 
 
 void
-_TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], _bound_XST[])
+_TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
 {
     
     // SYS
@@ -49,29 +49,15 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
     //      Checked:    use the Apophysis behavior.
     //      Unchecked:  use the Chaotica behavior.
     F3C = chi("f3c");
-    // Output all SYS
-    _bound_SYS = array(FF, RIP, MB, iter, F3C);
 
     int inum = chi("flamefunc");
-    int va[];
-    float IW[];
-    string sIDX[];
+    int VA[] = detail(1, "VA");
+    float IW[] = detail(1, "IW");
+    string sIDX[] = detail(1, "sIDX");
     
-    // ACTIVE VARS
-    for(int i=0; i<inum; ++i){
-        
-        string iIDX = itoa(i+1);
-        append(va, chi(concat("vactive_", iIDX)));
-        float IWcheck = chf(concat("iw_", iIDX));
-        if(IWcheck==0) va[i]=0;
-        if(!va[i]) continue;
-        append(IW, chf(concat("iw_", iIDX)));
-        append(sIDX, iIDX);
-    }
-    // This is to prevent Houdini from crashing
-    if(len(IW) == 0){
-        append(IW, 1e-08);
-        append(sIDX, '1');
+    if(len(IW)==1 && IW[0]==1e-08){
+        // append(IW, 1e-08);
+        // append(sIDX, '1');
         if(inum) warning("\nAll iterators are inactive or their Weight set to: 0(Zero)\nOne iterator's Weight internally set to: 1e-08");
         else warning("\nZERO ITERATORS");
     }
@@ -133,7 +119,7 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
             }
         int trace = 0;
         for(int j=0; j<inum; ++j){
-            if(!va[j]){ 
+            if(!VA[j]){ 
                 pop(xaos, j-trace);
                 // For "xaos FROM" string
                 pop(varxaos_strip, j-trace);
@@ -171,7 +157,6 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
     }
 
     // OUT
-    _bound_sIDX = sIDX;
     _bound_IW = create_cdf(IW);
     if(x_chk){
         _bound_XS = 1;
@@ -180,11 +165,9 @@ _TFFAxaos(string _bound_sIDX[]; int _bound_SYS[], _bound_XS; float _bound_IW[], 
 }
 
 cvex
-TFFAxaos( export string sIDX[] = {};
-          export int    SYS[]  = {};
-          export int    XS     = 0;
-          export float  IW[]   = {};
-          export float  XST[]  = {}; )
+TFFAxaos( export int    XS    = 0;
+          export float  IW[]  = {};
+          export float  XST[] = {}; )
 {
-    _TFFAxaos(sIDX, SYS, XS, IW, XST);
+    _TFFAxaos(XS, IW, XST);
 }
