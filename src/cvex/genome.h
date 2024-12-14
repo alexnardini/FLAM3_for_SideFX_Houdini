@@ -31,6 +31,12 @@ struct gemSYSGLB{
     int FF, RIP, MB, F3C, ITER;
 
     void gemSYSGLBBuild(){
+
+        /*
+            INPUTS
+
+            -1 -> SYS_GLB
+        */
     
         FF = detail(-1, "FF");
         RIP = detail(-1, "RIP");
@@ -47,6 +53,13 @@ struct gemSYS{
     float IW[], XST[];
 
     void gemSYSBuild(){
+
+        /*
+            INPUTS
+
+            -2 -> SYS
+            -3 -> XAOS
+        */
     
         RES = detail(-2, "RES");
         IW = detail(-3, "IW");
@@ -65,6 +78,24 @@ struct gem{
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     
     void gemBuild(const int FF){
+
+        /*
+            INPUTS
+
+            -2 -> SYS
+            -4 -> SHADER
+            -5 -> PRE VARS
+            -6 -> VARS
+            -7 -> POST VARS
+            -8 -> PRE AFFINE
+            -9 -> POST AFFINE
+
+            -10 -> FF PRE VARS
+            -11 -> FF VARS
+            -12 -> FF POST VARS
+            -13 -> FF PRE AFFINE
+            -14 -> FF POST AFFINE
+        */
 
         // RES
         res = detail(-2, "RES");
