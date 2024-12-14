@@ -10097,7 +10097,7 @@ class _xml_tree
         """      
         if self.isvalidtree:
             root = self.tree.getroot()
-            return tuple( [str(in_flame.xf_val_cleanup_split_str(name.get(key)).strip()) if name.get(key) is not None else _DEFAULT for name in root] )
+            return tuple( [str(in_flame.xf_val_cleanup_split_str(name.get(key)).strip()) if name.get(key) is not None and name.get(key) is not '' else _DEFAULT for name in root] )
         else:
             return () 
         
