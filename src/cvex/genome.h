@@ -73,7 +73,7 @@ struct gemSYS{
 // GENOME
 struct gem{
 
-    int     PFF, res, v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], fp1t, fv1t, fv2t, fP1t, fP2t;
+    int     PFF, v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], fp1t, fv1t, fv2t, fP1t, fP2t;
     float   v1w[], v2w[], v3w[], v4w[], pbw[], p1w[], p2w[], P1w[], CLR[], OM[], A[], fp1w, fv1w, fv2w, fP1w, fP2w;
     vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
     
@@ -97,8 +97,6 @@ struct gem{
             -14 -> FF POST AFFINE
         */
 
-        // RES
-        res = detail(-2, "RES");
         // SHADER
         A = detail(-4, "A");
         CLR = detail(-4, "CLR");

@@ -4,7 +4,7 @@ source_filename = "FLAM3"
 
 %gemSYSGLB = type { i64, i64, i64, i64, i64 }
 %gemSYS = type { i64, i64, double*, double* }
-%gem = type { i64, i64, i64*, i64*, i64*, i64*, i64*, i64*, i64*, i64*, i64, i64, i64, i64, i64, double*, double*, double*, double*, double*, double*, double*, double*, double*, double*, double*, double, double, double, double, double, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>, <2 x double>, <2 x double>, <2 x double>, <2 x double>, <2 x double> }
+%gem = type { i64, i64*, i64*, i64*, i64*, i64*, i64*, i64*, i64*, i64, i64, i64, i64, i64, double*, double*, double*, double*, double*, double*, double*, double*, double*, double*, double*, double, double, double, double, double, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>*, <2 x double>, <2 x double>, <2 x double>, <2 x double>, <2 x double>, <2 x double> }
 
 @0 = private constant [8 x i8] c"twister\00"
 @1 = private constant [3 x i8] c"FF\00"
@@ -643,197 +643,192 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemBuild@Z3gemM43N3PFFIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3p2t[IN3P1t[IN3PPL[IN4fp1tIN4fv1tIN4fv2tIN4fP1tIN4fP2tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3pbw[FN3p1w[FN3p2w[FN3P1w[FN3CLR[FN2OM[FN1A[FN4fp1wFN4fv1wFN4fv2wFN4fP1wFN4fP2wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUI"(%gem* %this, i64* %FF) #1 {
+define private void @"gemBuild@Z3gemM42N3PFFIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3p2t[IN3P1t[IN3PPL[IN4fp1tIN4fv1tIN4fv2tIN4fP1tIN4fP2tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3pbw[FN3p1w[FN3p2w[FN3P1w[FN3CLR[FN2OM[FN1A[FN4fp1wFN4fv1wFN4fv2wFN4fP1wFN4fP2wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUI"(%gem* %this, i64* %FF) #1 {
 __llvm_entry:
-  %return = call i64 @"neg@II"(i64 2)
-  %return1 = call i64 @"detail@IIS"(i64 %return, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @6, i64 0, i64 0))
+  %return = call i64 @"neg@II"(i64 4)
+  %return1 = call double* @"detail@[FIS"(i64 %return, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @11, i64 0, i64 0))
   %tmp = load %gem, %gem* %this
-  %0 = insertvalue %gem %tmp, i64 %return1, 1
+  %0 = insertvalue %gem %tmp, double* %return1, 24
   store %gem %0, %gem* %this
-  %return2 = call i64 @"neg@II"(i64 4)
-  %return3 = call double* @"detail@[FIS"(i64 %return2, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @11, i64 0, i64 0))
+  %return3 = call double* @"detail@[FIS"(i64 %return, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @12, i64 0, i64 0))
   %tmp4 = load %gem, %gem* %this
-  %1 = insertvalue %gem %tmp4, double* %return3, 25
+  %1 = insertvalue %gem %tmp4, double* %return3, 22
   store %gem %1, %gem* %this
-  %return6 = call double* @"detail@[FIS"(i64 %return2, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @12, i64 0, i64 0))
+  %return6 = call double* @"detail@[FIS"(i64 %return, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @13, i64 0, i64 0))
   %tmp7 = load %gem, %gem* %this
   %2 = insertvalue %gem %tmp7, double* %return6, 23
   store %gem %2, %gem* %this
-  %return9 = call double* @"detail@[FIS"(i64 %return2, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @13, i64 0, i64 0))
+  %return8 = call i64 @"neg@II"(i64 8)
+  %return9 = call <2 x double>* @"detail@[UIS"(i64 %return8, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @14, i64 0, i64 0))
   %tmp10 = load %gem, %gem* %this
-  %3 = insertvalue %gem %tmp10, double* %return9, 24
+  %3 = insertvalue %gem %tmp10, <2 x double>* %return9, 30
   store %gem %3, %gem* %this
-  %return11 = call i64 @"neg@II"(i64 8)
-  %return12 = call <2 x double>* @"detail@[UIS"(i64 %return11, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @14, i64 0, i64 0))
+  %return12 = call <2 x double>* @"detail@[UIS"(i64 %return8, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @15, i64 0, i64 0))
   %tmp13 = load %gem, %gem* %this
   %4 = insertvalue %gem %tmp13, <2 x double>* %return12, 31
   store %gem %4, %gem* %this
-  %return15 = call <2 x double>* @"detail@[UIS"(i64 %return11, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @15, i64 0, i64 0))
+  %return15 = call <2 x double>* @"detail@[UIS"(i64 %return8, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @16, i64 0, i64 0))
   %tmp16 = load %gem, %gem* %this
   %5 = insertvalue %gem %tmp16, <2 x double>* %return15, 32
   store %gem %5, %gem* %this
-  %return18 = call <2 x double>* @"detail@[UIS"(i64 %return11, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @16, i64 0, i64 0))
+  %return17 = call i64 @"neg@II"(i64 9)
+  %return18 = call i64* @"detail@[IIS"(i64 %return17, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @17, i64 0, i64 0))
   %tmp19 = load %gem, %gem* %this
-  %6 = insertvalue %gem %tmp19, <2 x double>* %return18, 33
+  %6 = insertvalue %gem %tmp19, i64* %return18, 8
   store %gem %6, %gem* %this
-  %return20 = call i64 @"neg@II"(i64 9)
-  %return21 = call i64* @"detail@[IIS"(i64 %return20, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @17, i64 0, i64 0))
+  %return21 = call <2 x double>* @"detail@[UIS"(i64 %return17, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @18, i64 0, i64 0))
   %tmp22 = load %gem, %gem* %this
-  %7 = insertvalue %gem %tmp22, i64* %return21, 9
+  %7 = insertvalue %gem %tmp22, <2 x double>* %return21, 33
   store %gem %7, %gem* %this
-  %return24 = call <2 x double>* @"detail@[UIS"(i64 %return20, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @18, i64 0, i64 0))
+  %return24 = call <2 x double>* @"detail@[UIS"(i64 %return17, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @19, i64 0, i64 0))
   %tmp25 = load %gem, %gem* %this
   %8 = insertvalue %gem %tmp25, <2 x double>* %return24, 34
   store %gem %8, %gem* %this
-  %return27 = call <2 x double>* @"detail@[UIS"(i64 %return20, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @19, i64 0, i64 0))
+  %return27 = call <2 x double>* @"detail@[UIS"(i64 %return17, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @20, i64 0, i64 0))
   %tmp28 = load %gem, %gem* %this
   %9 = insertvalue %gem %tmp28, <2 x double>* %return27, 35
   store %gem %9, %gem* %this
-  %return30 = call <2 x double>* @"detail@[UIS"(i64 %return20, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @20, i64 0, i64 0))
+  %return29 = call i64 @"neg@II"(i64 5)
+  %return30 = call i64* @"detail@[IIS"(i64 %return29, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @21, i64 0, i64 0))
   %tmp31 = load %gem, %gem* %this
-  %10 = insertvalue %gem %tmp31, <2 x double>* %return30, 36
+  %10 = insertvalue %gem %tmp31, i64* %return30, 5
   store %gem %10, %gem* %this
-  %return32 = call i64 @"neg@II"(i64 5)
-  %return33 = call i64* @"detail@[IIS"(i64 %return32, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @21, i64 0, i64 0))
+  %return33 = call i64* @"detail@[IIS"(i64 %return29, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @22, i64 0, i64 0))
   %tmp34 = load %gem, %gem* %this
   %11 = insertvalue %gem %tmp34, i64* %return33, 6
   store %gem %11, %gem* %this
-  %return36 = call i64* @"detail@[IIS"(i64 %return32, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @22, i64 0, i64 0))
+  %return35 = call i64 @"neg@II"(i64 6)
+  %return36 = call i64* @"detail@[IIS"(i64 %return35, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @23, i64 0, i64 0))
   %tmp37 = load %gem, %gem* %this
-  %12 = insertvalue %gem %tmp37, i64* %return36, 7
+  %12 = insertvalue %gem %tmp37, i64* %return36, 1
   store %gem %12, %gem* %this
-  %return38 = call i64 @"neg@II"(i64 6)
-  %return39 = call i64* @"detail@[IIS"(i64 %return38, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @23, i64 0, i64 0))
+  %return39 = call i64* @"detail@[IIS"(i64 %return35, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @24, i64 0, i64 0))
   %tmp40 = load %gem, %gem* %this
   %13 = insertvalue %gem %tmp40, i64* %return39, 2
   store %gem %13, %gem* %this
-  %return42 = call i64* @"detail@[IIS"(i64 %return38, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @24, i64 0, i64 0))
+  %return42 = call i64* @"detail@[IIS"(i64 %return35, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @25, i64 0, i64 0))
   %tmp43 = load %gem, %gem* %this
   %14 = insertvalue %gem %tmp43, i64* %return42, 3
   store %gem %14, %gem* %this
-  %return45 = call i64* @"detail@[IIS"(i64 %return38, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @25, i64 0, i64 0))
+  %return45 = call i64* @"detail@[IIS"(i64 %return35, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @26, i64 0, i64 0))
   %tmp46 = load %gem, %gem* %this
   %15 = insertvalue %gem %tmp46, i64* %return45, 4
   store %gem %15, %gem* %this
-  %return48 = call i64* @"detail@[IIS"(i64 %return38, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @26, i64 0, i64 0))
+  %return47 = call i64 @"neg@II"(i64 7)
+  %return48 = call i64* @"detail@[IIS"(i64 %return47, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @27, i64 0, i64 0))
   %tmp49 = load %gem, %gem* %this
-  %16 = insertvalue %gem %tmp49, i64* %return48, 5
+  %16 = insertvalue %gem %tmp49, i64* %return48, 7
   store %gem %16, %gem* %this
-  %return50 = call i64 @"neg@II"(i64 7)
-  %return51 = call i64* @"detail@[IIS"(i64 %return50, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @27, i64 0, i64 0))
+  %return51 = call double* @"detail@[FIS"(i64 %return29, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @28, i64 0, i64 0))
   %tmp52 = load %gem, %gem* %this
-  %17 = insertvalue %gem %tmp52, i64* %return51, 8
+  %17 = insertvalue %gem %tmp52, double* %return51, 18
   store %gem %17, %gem* %this
-  %return54 = call double* @"detail@[FIS"(i64 %return32, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @28, i64 0, i64 0))
+  %return54 = call double* @"detail@[FIS"(i64 %return29, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @29, i64 0, i64 0))
   %tmp55 = load %gem, %gem* %this
   %18 = insertvalue %gem %tmp55, double* %return54, 19
   store %gem %18, %gem* %this
-  %return57 = call double* @"detail@[FIS"(i64 %return32, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @29, i64 0, i64 0))
+  %return57 = call double* @"detail@[FIS"(i64 %return29, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @30, i64 0, i64 0))
   %tmp58 = load %gem, %gem* %this
   %19 = insertvalue %gem %tmp58, double* %return57, 20
   store %gem %19, %gem* %this
-  %return60 = call double* @"detail@[FIS"(i64 %return32, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @30, i64 0, i64 0))
+  %return60 = call double* @"detail@[FIS"(i64 %return35, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @31, i64 0, i64 0))
   %tmp61 = load %gem, %gem* %this
-  %20 = insertvalue %gem %tmp61, double* %return60, 21
+  %20 = insertvalue %gem %tmp61, double* %return60, 14
   store %gem %20, %gem* %this
-  %return63 = call double* @"detail@[FIS"(i64 %return38, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @31, i64 0, i64 0))
+  %return63 = call double* @"detail@[FIS"(i64 %return35, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @32, i64 0, i64 0))
   %tmp64 = load %gem, %gem* %this
   %21 = insertvalue %gem %tmp64, double* %return63, 15
   store %gem %21, %gem* %this
-  %return66 = call double* @"detail@[FIS"(i64 %return38, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @32, i64 0, i64 0))
+  %return66 = call double* @"detail@[FIS"(i64 %return35, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @33, i64 0, i64 0))
   %tmp67 = load %gem, %gem* %this
   %22 = insertvalue %gem %tmp67, double* %return66, 16
   store %gem %22, %gem* %this
-  %return69 = call double* @"detail@[FIS"(i64 %return38, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @33, i64 0, i64 0))
+  %return69 = call double* @"detail@[FIS"(i64 %return35, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @34, i64 0, i64 0))
   %tmp70 = load %gem, %gem* %this
   %23 = insertvalue %gem %tmp70, double* %return69, 17
   store %gem %23, %gem* %this
-  %return72 = call double* @"detail@[FIS"(i64 %return38, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @34, i64 0, i64 0))
+  %return72 = call double* @"detail@[FIS"(i64 %return47, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @35, i64 0, i64 0))
   %tmp73 = load %gem, %gem* %this
-  %24 = insertvalue %gem %tmp73, double* %return72, 18
+  %24 = insertvalue %gem %tmp73, double* %return72, 21
   store %gem %24, %gem* %this
-  %return75 = call double* @"detail@[FIS"(i64 %return50, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @35, i64 0, i64 0))
-  %tmp76 = load %gem, %gem* %this
-  %25 = insertvalue %gem %tmp76, double* %return75, 22
-  store %gem %25, %gem* %this
-  %FF77 = load i64, i64* %FF
-  %26 = icmp ne i64 %FF77, 0
-  br i1 %26, label %true, label %end
+  %FF74 = load i64, i64* %FF
+  %25 = icmp ne i64 %FF74, 0
+  br i1 %25, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
-  %return78 = call i64 @"neg@II"(i64 13)
-  %return79 = call <2 x double> @"detail@UIS"(i64 %return78, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @36, i64 0, i64 0))
+  %return75 = call i64 @"neg@II"(i64 13)
+  %return76 = call <2 x double> @"detail@UIS"(i64 %return75, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @36, i64 0, i64 0))
+  %tmp77 = load %gem, %gem* %this
+  %26 = insertvalue %gem %tmp77, <2 x double> %return76, 36
+  store %gem %26, %gem* %this
+  %return79 = call <2 x double> @"detail@UIS"(i64 %return75, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @37, i64 0, i64 0))
   %tmp80 = load %gem, %gem* %this
   %27 = insertvalue %gem %tmp80, <2 x double> %return79, 37
   store %gem %27, %gem* %this
-  %return82 = call <2 x double> @"detail@UIS"(i64 %return78, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @37, i64 0, i64 0))
+  %return82 = call <2 x double> @"detail@UIS"(i64 %return75, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @38, i64 0, i64 0))
   %tmp83 = load %gem, %gem* %this
   %28 = insertvalue %gem %tmp83, <2 x double> %return82, 38
   store %gem %28, %gem* %this
-  %return85 = call <2 x double> @"detail@UIS"(i64 %return78, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @38, i64 0, i64 0))
+  %return84 = call i64 @"neg@II"(i64 14)
+  %return85 = call i64 @"detail@IIS"(i64 %return84, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @39, i64 0, i64 0))
   %tmp86 = load %gem, %gem* %this
-  %29 = insertvalue %gem %tmp86, <2 x double> %return85, 39
+  %29 = insertvalue %gem %tmp86, i64 %return85, 0
   store %gem %29, %gem* %this
-  %return87 = call i64 @"neg@II"(i64 14)
-  %return88 = call i64 @"detail@IIS"(i64 %return87, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @39, i64 0, i64 0))
+  %return88 = call <2 x double> @"detail@UIS"(i64 %return84, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @40, i64 0, i64 0))
   %tmp89 = load %gem, %gem* %this
-  %30 = insertvalue %gem %tmp89, i64 %return88, 0
+  %30 = insertvalue %gem %tmp89, <2 x double> %return88, 39
   store %gem %30, %gem* %this
-  %return91 = call <2 x double> @"detail@UIS"(i64 %return87, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @40, i64 0, i64 0))
+  %return91 = call <2 x double> @"detail@UIS"(i64 %return84, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @41, i64 0, i64 0))
   %tmp92 = load %gem, %gem* %this
   %31 = insertvalue %gem %tmp92, <2 x double> %return91, 40
   store %gem %31, %gem* %this
-  %return94 = call <2 x double> @"detail@UIS"(i64 %return87, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @41, i64 0, i64 0))
+  %return94 = call <2 x double> @"detail@UIS"(i64 %return84, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @42, i64 0, i64 0))
   %tmp95 = load %gem, %gem* %this
   %32 = insertvalue %gem %tmp95, <2 x double> %return94, 41
   store %gem %32, %gem* %this
-  %return97 = call <2 x double> @"detail@UIS"(i64 %return87, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @42, i64 0, i64 0))
+  %return96 = call i64 @"neg@II"(i64 10)
+  %return97 = call i64 @"detail@IIS"(i64 %return96, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @43, i64 0, i64 0))
   %tmp98 = load %gem, %gem* %this
-  %33 = insertvalue %gem %tmp98, <2 x double> %return97, 42
+  %33 = insertvalue %gem %tmp98, i64 %return97, 9
   store %gem %33, %gem* %this
-  %return99 = call i64 @"neg@II"(i64 10)
-  %return100 = call i64 @"detail@IIS"(i64 %return99, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @43, i64 0, i64 0))
+  %return99 = call i64 @"neg@II"(i64 11)
+  %return100 = call i64 @"detail@IIS"(i64 %return99, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @44, i64 0, i64 0))
   %tmp101 = load %gem, %gem* %this
   %34 = insertvalue %gem %tmp101, i64 %return100, 10
   store %gem %34, %gem* %this
-  %return102 = call i64 @"neg@II"(i64 11)
-  %return103 = call i64 @"detail@IIS"(i64 %return102, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @44, i64 0, i64 0))
+  %return103 = call i64 @"detail@IIS"(i64 %return99, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @45, i64 0, i64 0))
   %tmp104 = load %gem, %gem* %this
   %35 = insertvalue %gem %tmp104, i64 %return103, 11
   store %gem %35, %gem* %this
-  %return106 = call i64 @"detail@IIS"(i64 %return102, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @45, i64 0, i64 0))
+  %return105 = call i64 @"neg@II"(i64 12)
+  %return106 = call i64 @"detail@IIS"(i64 %return105, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @46, i64 0, i64 0))
   %tmp107 = load %gem, %gem* %this
   %36 = insertvalue %gem %tmp107, i64 %return106, 12
   store %gem %36, %gem* %this
-  %return108 = call i64 @"neg@II"(i64 12)
-  %return109 = call i64 @"detail@IIS"(i64 %return108, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @46, i64 0, i64 0))
+  %return109 = call i64 @"detail@IIS"(i64 %return105, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @47, i64 0, i64 0))
   %tmp110 = load %gem, %gem* %this
   %37 = insertvalue %gem %tmp110, i64 %return109, 13
   store %gem %37, %gem* %this
-  %return112 = call i64 @"detail@IIS"(i64 %return108, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @47, i64 0, i64 0))
+  %return112 = call double @"detail@FIS"(i64 %return96, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @48, i64 0, i64 0))
   %tmp113 = load %gem, %gem* %this
-  %38 = insertvalue %gem %tmp113, i64 %return112, 14
+  %38 = insertvalue %gem %tmp113, double %return112, 25
   store %gem %38, %gem* %this
-  %return115 = call double @"detail@FIS"(i64 %return99, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @48, i64 0, i64 0))
+  %return115 = call double @"detail@FIS"(i64 %return99, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @49, i64 0, i64 0))
   %tmp116 = load %gem, %gem* %this
   %39 = insertvalue %gem %tmp116, double %return115, 26
   store %gem %39, %gem* %this
-  %return118 = call double @"detail@FIS"(i64 %return102, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @49, i64 0, i64 0))
+  %return118 = call double @"detail@FIS"(i64 %return99, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @50, i64 0, i64 0))
   %tmp119 = load %gem, %gem* %this
   %40 = insertvalue %gem %tmp119, double %return118, 27
   store %gem %40, %gem* %this
-  %return121 = call double @"detail@FIS"(i64 %return102, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @50, i64 0, i64 0))
+  %return121 = call double @"detail@FIS"(i64 %return105, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @51, i64 0, i64 0))
   %tmp122 = load %gem, %gem* %this
   %41 = insertvalue %gem %tmp122, double %return121, 28
   store %gem %41, %gem* %this
-  %return124 = call double @"detail@FIS"(i64 %return108, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @51, i64 0, i64 0))
+  %return124 = call double @"detail@FIS"(i64 %return105, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @52, i64 0, i64 0))
   %tmp125 = load %gem, %gem* %this
   %42 = insertvalue %gem %tmp125, double %return124, 29
   store %gem %42, %gem* %this
-  %return127 = call double @"detail@FIS"(i64 %return108, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @52, i64 0, i64 0))
-  %tmp128 = load %gem, %gem* %this
-  %43 = insertvalue %gem %tmp128, double %return127, 30
-  store %gem %43, %gem* %this
   br label %end
 
 end:                                              ; preds = %true, %__llvm_entry
@@ -853,101 +848,99 @@ declare <2 x double> @"detail@UIS"(i64, i8*) #2
 declare double @"detail@FIS"(i64, i8*) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private %gem @"gem@Z3gemM43N3PFFIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3p2t[IN3P1t[IN3PPL[IN4fp1tIN4fv1tIN4fv2tIN4fP1tIN4fP2tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3pbw[FN3p1w[FN3p2w[FN3P1w[FN3CLR[FN2OM[FN1A[FN4fp1wFN4fv1wFN4fv2wFN4fP1wFN4fP2wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUII[I[I[I[I[I[I[I[IIIIII[F[F[F[F[F[F[F[F[F[F[FFFFFF[U[U[U[U[U[UUUUUUU"(i64* %PFF, i64* %res, i64** %v1t, i64** %v2t, i64** %v3t, i64** %v4t, i64** %p1t, i64** %p2t, i64** %P1t, i64** %PPL, i64* %fp1t, i64* %fv1t, i64* %fv2t, i64* %fP1t, i64* %fP2t, double** %v1w, double** %v2w, double** %v3w, double** %v4w, double** %pbw, double** %p1w, double** %p2w, double** %P1w, double** %CLR, double** %OM, double** %A, double* %fp1w, double* %fv1w, double* %fv2w, double* %fP1w, double* %fP2w, <2 x double>** %x, <2 x double>** %y, <2 x double>** %o, <2 x double>** %px, <2 x double>** %py, <2 x double>** %po, <2 x double>* %fx, <2 x double>* %fy, <2 x double>* %fo, <2 x double>* %pfx, <2 x double>* %pfy, <2 x double>* %pfo) #1 {
+define private %gem @"gem@Z3gemM42N3PFFIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3p2t[IN3P1t[IN3PPL[IN4fp1tIN4fv1tIN4fv2tIN4fP1tIN4fP2tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3pbw[FN3p1w[FN3p2w[FN3P1w[FN3CLR[FN2OM[FN1A[FN4fp1wFN4fv1wFN4fv2wFN4fP1wFN4fP2wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUI[I[I[I[I[I[I[I[IIIIII[F[F[F[F[F[F[F[F[F[F[FFFFFF[U[U[U[U[U[UUUUUUU"(i64* %PFF, i64** %v1t, i64** %v2t, i64** %v3t, i64** %v4t, i64** %p1t, i64** %p2t, i64** %P1t, i64** %PPL, i64* %fp1t, i64* %fv1t, i64* %fv2t, i64* %fP1t, i64* %fP2t, double** %v1w, double** %v2w, double** %v3w, double** %v4w, double** %pbw, double** %p1w, double** %p2w, double** %P1w, double** %CLR, double** %OM, double** %A, double* %fp1w, double* %fv1w, double* %fv2w, double* %fP1w, double* %fP2w, <2 x double>** %x, <2 x double>** %y, <2 x double>** %o, <2 x double>** %px, <2 x double>** %py, <2 x double>** %po, <2 x double>* %fx, <2 x double>* %fy, <2 x double>* %fo, <2 x double>* %pfx, <2 x double>* %pfy, <2 x double>* %pfo) #1 {
 __llvm_entry:
   %PFF1 = load i64, i64* %PFF
   %0 = insertvalue %gem undef, i64 %PFF1, 0
-  %res2 = load i64, i64* %res
-  %1 = insertvalue %gem %0, i64 %res2, 1
-  %v1t4 = load i64*, i64** %v1t
-  %2 = insertvalue %gem %1, i64* %v1t4, 2
-  %v2t6 = load i64*, i64** %v2t
-  %3 = insertvalue %gem %2, i64* %v2t6, 3
-  %v3t8 = load i64*, i64** %v3t
-  %4 = insertvalue %gem %3, i64* %v3t8, 4
-  %v4t10 = load i64*, i64** %v4t
-  %5 = insertvalue %gem %4, i64* %v4t10, 5
-  %p1t12 = load i64*, i64** %p1t
-  %6 = insertvalue %gem %5, i64* %p1t12, 6
-  %p2t14 = load i64*, i64** %p2t
-  %7 = insertvalue %gem %6, i64* %p2t14, 7
-  %P1t16 = load i64*, i64** %P1t
-  %8 = insertvalue %gem %7, i64* %P1t16, 8
-  %PPL18 = load i64*, i64** %PPL
-  %9 = insertvalue %gem %8, i64* %PPL18, 9
-  %fp1t20 = load i64, i64* %fp1t
-  %10 = insertvalue %gem %9, i64 %fp1t20, 10
-  %fv1t22 = load i64, i64* %fv1t
-  %11 = insertvalue %gem %10, i64 %fv1t22, 11
-  %fv2t24 = load i64, i64* %fv2t
-  %12 = insertvalue %gem %11, i64 %fv2t24, 12
-  %fP1t26 = load i64, i64* %fP1t
-  %13 = insertvalue %gem %12, i64 %fP1t26, 13
-  %fP2t28 = load i64, i64* %fP2t
-  %14 = insertvalue %gem %13, i64 %fP2t28, 14
-  %v1w30 = load double*, double** %v1w
-  %15 = insertvalue %gem %14, double* %v1w30, 15
-  %v2w32 = load double*, double** %v2w
-  %16 = insertvalue %gem %15, double* %v2w32, 16
-  %v3w34 = load double*, double** %v3w
-  %17 = insertvalue %gem %16, double* %v3w34, 17
-  %v4w36 = load double*, double** %v4w
-  %18 = insertvalue %gem %17, double* %v4w36, 18
-  %pbw38 = load double*, double** %pbw
-  %19 = insertvalue %gem %18, double* %pbw38, 19
-  %p1w40 = load double*, double** %p1w
-  %20 = insertvalue %gem %19, double* %p1w40, 20
-  %p2w42 = load double*, double** %p2w
-  %21 = insertvalue %gem %20, double* %p2w42, 21
-  %P1w44 = load double*, double** %P1w
-  %22 = insertvalue %gem %21, double* %P1w44, 22
-  %CLR46 = load double*, double** %CLR
-  %23 = insertvalue %gem %22, double* %CLR46, 23
-  %OM48 = load double*, double** %OM
-  %24 = insertvalue %gem %23, double* %OM48, 24
-  %A50 = load double*, double** %A
-  %25 = insertvalue %gem %24, double* %A50, 25
-  %fp1w52 = load double, double* %fp1w
-  %26 = insertvalue %gem %25, double %fp1w52, 26
-  %fv1w54 = load double, double* %fv1w
-  %27 = insertvalue %gem %26, double %fv1w54, 27
-  %fv2w56 = load double, double* %fv2w
-  %28 = insertvalue %gem %27, double %fv2w56, 28
-  %fP1w58 = load double, double* %fP1w
-  %29 = insertvalue %gem %28, double %fP1w58, 29
-  %fP2w60 = load double, double* %fP2w
-  %30 = insertvalue %gem %29, double %fP2w60, 30
-  %x62 = load <2 x double>*, <2 x double>** %x
-  %31 = insertvalue %gem %30, <2 x double>* %x62, 31
-  %y64 = load <2 x double>*, <2 x double>** %y
-  %32 = insertvalue %gem %31, <2 x double>* %y64, 32
-  %o66 = load <2 x double>*, <2 x double>** %o
-  %33 = insertvalue %gem %32, <2 x double>* %o66, 33
-  %px68 = load <2 x double>*, <2 x double>** %px
-  %34 = insertvalue %gem %33, <2 x double>* %px68, 34
-  %py70 = load <2 x double>*, <2 x double>** %py
-  %35 = insertvalue %gem %34, <2 x double>* %py70, 35
-  %po72 = load <2 x double>*, <2 x double>** %po
-  %36 = insertvalue %gem %35, <2 x double>* %po72, 36
-  %fx74 = load <2 x double>, <2 x double>* %fx
-  %37 = insertvalue %gem %36, <2 x double> %fx74, 37
-  %fy76 = load <2 x double>, <2 x double>* %fy
-  %38 = insertvalue %gem %37, <2 x double> %fy76, 38
-  %fo78 = load <2 x double>, <2 x double>* %fo
-  %39 = insertvalue %gem %38, <2 x double> %fo78, 39
-  %pfx80 = load <2 x double>, <2 x double>* %pfx
-  %40 = insertvalue %gem %39, <2 x double> %pfx80, 40
-  %pfy82 = load <2 x double>, <2 x double>* %pfy
-  %41 = insertvalue %gem %40, <2 x double> %pfy82, 41
-  %pfo84 = load <2 x double>, <2 x double>* %pfo
-  %42 = insertvalue %gem %41, <2 x double> %pfo84, 42
-  ret %gem %42
+  %v1t2 = load i64*, i64** %v1t
+  %1 = insertvalue %gem %0, i64* %v1t2, 1
+  %v2t4 = load i64*, i64** %v2t
+  %2 = insertvalue %gem %1, i64* %v2t4, 2
+  %v3t6 = load i64*, i64** %v3t
+  %3 = insertvalue %gem %2, i64* %v3t6, 3
+  %v4t8 = load i64*, i64** %v4t
+  %4 = insertvalue %gem %3, i64* %v4t8, 4
+  %p1t10 = load i64*, i64** %p1t
+  %5 = insertvalue %gem %4, i64* %p1t10, 5
+  %p2t12 = load i64*, i64** %p2t
+  %6 = insertvalue %gem %5, i64* %p2t12, 6
+  %P1t14 = load i64*, i64** %P1t
+  %7 = insertvalue %gem %6, i64* %P1t14, 7
+  %PPL16 = load i64*, i64** %PPL
+  %8 = insertvalue %gem %7, i64* %PPL16, 8
+  %fp1t18 = load i64, i64* %fp1t
+  %9 = insertvalue %gem %8, i64 %fp1t18, 9
+  %fv1t20 = load i64, i64* %fv1t
+  %10 = insertvalue %gem %9, i64 %fv1t20, 10
+  %fv2t22 = load i64, i64* %fv2t
+  %11 = insertvalue %gem %10, i64 %fv2t22, 11
+  %fP1t24 = load i64, i64* %fP1t
+  %12 = insertvalue %gem %11, i64 %fP1t24, 12
+  %fP2t26 = load i64, i64* %fP2t
+  %13 = insertvalue %gem %12, i64 %fP2t26, 13
+  %v1w28 = load double*, double** %v1w
+  %14 = insertvalue %gem %13, double* %v1w28, 14
+  %v2w30 = load double*, double** %v2w
+  %15 = insertvalue %gem %14, double* %v2w30, 15
+  %v3w32 = load double*, double** %v3w
+  %16 = insertvalue %gem %15, double* %v3w32, 16
+  %v4w34 = load double*, double** %v4w
+  %17 = insertvalue %gem %16, double* %v4w34, 17
+  %pbw36 = load double*, double** %pbw
+  %18 = insertvalue %gem %17, double* %pbw36, 18
+  %p1w38 = load double*, double** %p1w
+  %19 = insertvalue %gem %18, double* %p1w38, 19
+  %p2w40 = load double*, double** %p2w
+  %20 = insertvalue %gem %19, double* %p2w40, 20
+  %P1w42 = load double*, double** %P1w
+  %21 = insertvalue %gem %20, double* %P1w42, 21
+  %CLR44 = load double*, double** %CLR
+  %22 = insertvalue %gem %21, double* %CLR44, 22
+  %OM46 = load double*, double** %OM
+  %23 = insertvalue %gem %22, double* %OM46, 23
+  %A48 = load double*, double** %A
+  %24 = insertvalue %gem %23, double* %A48, 24
+  %fp1w50 = load double, double* %fp1w
+  %25 = insertvalue %gem %24, double %fp1w50, 25
+  %fv1w52 = load double, double* %fv1w
+  %26 = insertvalue %gem %25, double %fv1w52, 26
+  %fv2w54 = load double, double* %fv2w
+  %27 = insertvalue %gem %26, double %fv2w54, 27
+  %fP1w56 = load double, double* %fP1w
+  %28 = insertvalue %gem %27, double %fP1w56, 28
+  %fP2w58 = load double, double* %fP2w
+  %29 = insertvalue %gem %28, double %fP2w58, 29
+  %x60 = load <2 x double>*, <2 x double>** %x
+  %30 = insertvalue %gem %29, <2 x double>* %x60, 30
+  %y62 = load <2 x double>*, <2 x double>** %y
+  %31 = insertvalue %gem %30, <2 x double>* %y62, 31
+  %o64 = load <2 x double>*, <2 x double>** %o
+  %32 = insertvalue %gem %31, <2 x double>* %o64, 32
+  %px66 = load <2 x double>*, <2 x double>** %px
+  %33 = insertvalue %gem %32, <2 x double>* %px66, 33
+  %py68 = load <2 x double>*, <2 x double>** %py
+  %34 = insertvalue %gem %33, <2 x double>* %py68, 34
+  %po70 = load <2 x double>*, <2 x double>** %po
+  %35 = insertvalue %gem %34, <2 x double>* %po70, 35
+  %fx72 = load <2 x double>, <2 x double>* %fx
+  %36 = insertvalue %gem %35, <2 x double> %fx72, 36
+  %fy74 = load <2 x double>, <2 x double>* %fy
+  %37 = insertvalue %gem %36, <2 x double> %fy74, 37
+  %fo76 = load <2 x double>, <2 x double>* %fo
+  %38 = insertvalue %gem %37, <2 x double> %fo76, 38
+  %pfx78 = load <2 x double>, <2 x double>* %pfx
+  %39 = insertvalue %gem %38, <2 x double> %pfx78, 39
+  %pfy80 = load <2 x double>, <2 x double>* %pfy
+  %40 = insertvalue %gem %39, <2 x double> %pfy80, 40
+  %pfo82 = load <2 x double>, <2 x double>* %pfo
+  %41 = insertvalue %gem %40, <2 x double> %pfo82, 41
+  ret %gem %41
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gem @"gem@Z3gemM43N3PFFIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3p2t[IN3P1t[IN3PPL[IN4fp1tIN4fv1tIN4fv2tIN4fP1tIN4fP2tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3pbw[FN3p1w[FN3p2w[FN3P1w[FN3CLR[FN2OM[FN1A[FN4fp1wFN4fv1wFN4fv2wFN4fP1wFN4fP2wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoU"() #1 {
+define private %gem @"gem@Z3gemM42N3PFFIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3p2t[IN3P1t[IN3PPL[IN4fp1tIN4fv1tIN4fv2tIN4fP1tIN4fP2tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3pbw[FN3p1w[FN3p2w[FN3P1w[FN3CLR[FN2OM[FN1A[FN4fp1wFN4fv1wFN4fv2wFN4fP1wFN4fP2wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoU"() #1 {
 __llvm_entry:
-  %0 = alloca i64
+  %0 = alloca i64*
   %1 = alloca i64*
   %2 = alloca i64*
   %3 = alloca i64*
@@ -955,12 +948,12 @@ __llvm_entry:
   %5 = alloca i64*
   %6 = alloca i64*
   %7 = alloca i64*
-  %8 = alloca i64*
+  %8 = alloca i64
   %9 = alloca i64
   %10 = alloca i64
   %11 = alloca i64
   %12 = alloca i64
-  %13 = alloca i64
+  %13 = alloca double*
   %14 = alloca double*
   %15 = alloca double*
   %16 = alloca double*
@@ -971,27 +964,26 @@ __llvm_entry:
   %21 = alloca double*
   %22 = alloca double*
   %23 = alloca double*
-  %24 = alloca double*
+  %24 = alloca double
   %25 = alloca double
   %26 = alloca double
   %27 = alloca double
   %28 = alloca double
-  %29 = alloca double
+  %29 = alloca <2 x double>*
   %30 = alloca <2 x double>*
   %31 = alloca <2 x double>*
   %32 = alloca <2 x double>*
   %33 = alloca <2 x double>*
   %34 = alloca <2 x double>*
-  %35 = alloca <2 x double>*
+  %35 = alloca <2 x double>
   %36 = alloca <2 x double>
   %37 = alloca <2 x double>
   %38 = alloca <2 x double>
   %39 = alloca <2 x double>
   %40 = alloca <2 x double>
-  %41 = alloca <2 x double>
-  %42 = alloca i64
-  store i64 0, i64* %42
-  store i64 0, i64* %0
+  %41 = alloca i64
+  store i64 0, i64* %41
+  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64** %0
   store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64** %1
   store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64** %2
   store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64** %3
@@ -999,12 +991,12 @@ __llvm_entry:
   store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64** %5
   store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64** %6
   store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64** %7
-  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @53, i64 0, i64 0), i64** %8
+  store i64 0, i64* %8
   store i64 0, i64* %9
   store i64 0, i64* %10
   store i64 0, i64* %11
   store i64 0, i64* %12
-  store i64 0, i64* %13
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @10, i64 0, i64 0), double** %13
   store double* getelementptr inbounds ([0 x double], [0 x double]* @10, i64 0, i64 0), double** %14
   store double* getelementptr inbounds ([0 x double], [0 x double]* @10, i64 0, i64 0), double** %15
   store double* getelementptr inbounds ([0 x double], [0 x double]* @10, i64 0, i64 0), double** %16
@@ -1015,25 +1007,24 @@ __llvm_entry:
   store double* getelementptr inbounds ([0 x double], [0 x double]* @10, i64 0, i64 0), double** %21
   store double* getelementptr inbounds ([0 x double], [0 x double]* @10, i64 0, i64 0), double** %22
   store double* getelementptr inbounds ([0 x double], [0 x double]* @10, i64 0, i64 0), double** %23
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @10, i64 0, i64 0), double** %24
+  store double 0.000000e+00, double* %24
   store double 0.000000e+00, double* %25
   store double 0.000000e+00, double* %26
   store double 0.000000e+00, double* %27
   store double 0.000000e+00, double* %28
-  store double 0.000000e+00, double* %29
+  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %29
   store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %30
   store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %31
   store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %32
   store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %33
   store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %34
-  store <2 x double>* getelementptr inbounds ([0 x <2 x double>], [0 x <2 x double>]* @54, i64 0, i64 0), <2 x double>** %35
+  store <2 x double> zeroinitializer, <2 x double>* %35
   store <2 x double> zeroinitializer, <2 x double>* %36
   store <2 x double> zeroinitializer, <2 x double>* %37
   store <2 x double> zeroinitializer, <2 x double>* %38
   store <2 x double> zeroinitializer, <2 x double>* %39
   store <2 x double> zeroinitializer, <2 x double>* %40
-  store <2 x double> zeroinitializer, <2 x double>* %41
-  %gem = call %gem @"gem@Z3gemM43N3PFFIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3p2t[IN3P1t[IN3PPL[IN4fp1tIN4fv1tIN4fv2tIN4fP1tIN4fP2tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3pbw[FN3p1w[FN3p2w[FN3P1w[FN3CLR[FN2OM[FN1A[FN4fp1wFN4fv1wFN4fv2wFN4fP1wFN4fP2wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUII[I[I[I[I[I[I[I[IIIIII[F[F[F[F[F[F[F[F[F[F[FFFFFF[U[U[U[U[U[UUUUUUU"(i64* %42, i64* %0, i64** %1, i64** %2, i64** %3, i64** %4, i64** %5, i64** %6, i64** %7, i64** %8, i64* %9, i64* %10, i64* %11, i64* %12, i64* %13, double** %14, double** %15, double** %16, double** %17, double** %18, double** %19, double** %20, double** %21, double** %22, double** %23, double** %24, double* %25, double* %26, double* %27, double* %28, double* %29, <2 x double>** %30, <2 x double>** %31, <2 x double>** %32, <2 x double>** %33, <2 x double>** %34, <2 x double>** %35, <2 x double>* %36, <2 x double>* %37, <2 x double>* %38, <2 x double>* %39, <2 x double>* %40, <2 x double>* %41)
+  %gem = call %gem @"gem@Z3gemM42N3PFFIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3p2t[IN3P1t[IN3PPL[IN4fp1tIN4fv1tIN4fv2tIN4fP1tIN4fP2tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3pbw[FN3p1w[FN3p2w[FN3P1w[FN3CLR[FN2OM[FN1A[FN4fp1wFN4fv1wFN4fv2wFN4fP1wFN4fP2wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUI[I[I[I[I[I[I[I[IIIIII[F[F[F[F[F[F[F[F[F[F[FFFFFF[U[U[U[U[U[UUUUUUU"(i64* %41, i64** %0, i64** %1, i64** %2, i64** %3, i64** %4, i64** %5, i64** %6, i64** %7, i64* %8, i64* %9, i64* %10, i64* %11, i64* %12, double** %13, double** %14, double** %15, double** %16, double** %17, double** %18, double** %19, double** %20, double** %21, double** %22, double** %23, double* %24, double* %25, double* %26, double* %27, double* %28, <2 x double>** %29, <2 x double>** %30, <2 x double>** %31, <2 x double>** %32, <2 x double>** %33, <2 x double>** %34, <2 x double>* %35, <2 x double>* %36, <2 x double>* %37, <2 x double>* %38, <2 x double>* %39, <2 x double>* %40)
   ret %gem %gem
 }
 
@@ -13631,13 +13622,13 @@ __llvm_entry:
   %GEMSYS13.fca.2.load = load double*, double** %GEMSYS12.fca.2.gep
   %GEMSYS13.fca.2.insert = insertvalue %gemSYS %GEMSYS13.fca.1.insert, double* %GEMSYS13.fca.2.load, 2
   %GEMSYS13.fca.3.load = load double*, double** %GEMSYS12.fca.3.gep
-  %GEM21 = call %gem @"gem@Z3gemM43N3PFFIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3p2t[IN3P1t[IN3PPL[IN4fp1tIN4fv1tIN4fv2tIN4fP1tIN4fP2tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3pbw[FN3p1w[FN3p2w[FN3P1w[FN3CLR[FN2OM[FN1A[FN4fp1wFN4fv1wFN4fv2wFN4fP1wFN4fP2wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoU"()
+  %GEM21 = call %gem @"gem@Z3gemM42N3PFFIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3p2t[IN3P1t[IN3PPL[IN4fp1tIN4fv1tIN4fv2tIN4fP1tIN4fP2tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3pbw[FN3p1w[FN3p2w[FN3P1w[FN3CLR[FN2OM[FN1A[FN4fp1wFN4fv1wFN4fv2wFN4fP1wFN4fP2wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoU"()
   %GEM21.fca.0.extract = extractvalue %gem %GEM21, 0
   %GEM21.fca.0.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 0
   store i64 %GEM21.fca.0.extract, i64* %GEM21.fca.0.gep
   %GEM21.fca.1.extract = extractvalue %gem %GEM21, 1
   %GEM21.fca.1.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 1
-  store i64 %GEM21.fca.1.extract, i64* %GEM21.fca.1.gep
+  store i64* %GEM21.fca.1.extract, i64** %GEM21.fca.1.gep
   %GEM21.fca.2.extract = extractvalue %gem %GEM21, 2
   %GEM21.fca.2.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 2
   store i64* %GEM21.fca.2.extract, i64** %GEM21.fca.2.gep
@@ -13661,7 +13652,7 @@ __llvm_entry:
   store i64* %GEM21.fca.8.extract, i64** %GEM21.fca.8.gep
   %GEM21.fca.9.extract = extractvalue %gem %GEM21, 9
   %GEM21.fca.9.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 9
-  store i64* %GEM21.fca.9.extract, i64** %GEM21.fca.9.gep
+  store i64 %GEM21.fca.9.extract, i64* %GEM21.fca.9.gep
   %GEM21.fca.10.extract = extractvalue %gem %GEM21, 10
   %GEM21.fca.10.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 10
   store i64 %GEM21.fca.10.extract, i64* %GEM21.fca.10.gep
@@ -13676,7 +13667,7 @@ __llvm_entry:
   store i64 %GEM21.fca.13.extract, i64* %GEM21.fca.13.gep
   %GEM21.fca.14.extract = extractvalue %gem %GEM21, 14
   %GEM21.fca.14.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 14
-  store i64 %GEM21.fca.14.extract, i64* %GEM21.fca.14.gep
+  store double* %GEM21.fca.14.extract, double** %GEM21.fca.14.gep
   %GEM21.fca.15.extract = extractvalue %gem %GEM21, 15
   %GEM21.fca.15.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 15
   store double* %GEM21.fca.15.extract, double** %GEM21.fca.15.gep
@@ -13709,7 +13700,7 @@ __llvm_entry:
   store double* %GEM21.fca.24.extract, double** %GEM21.fca.24.gep
   %GEM21.fca.25.extract = extractvalue %gem %GEM21, 25
   %GEM21.fca.25.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 25
-  store double* %GEM21.fca.25.extract, double** %GEM21.fca.25.gep
+  store double %GEM21.fca.25.extract, double* %GEM21.fca.25.gep
   %GEM21.fca.26.extract = extractvalue %gem %GEM21, 26
   %GEM21.fca.26.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 26
   store double %GEM21.fca.26.extract, double* %GEM21.fca.26.gep
@@ -13724,7 +13715,7 @@ __llvm_entry:
   store double %GEM21.fca.29.extract, double* %GEM21.fca.29.gep
   %GEM21.fca.30.extract = extractvalue %gem %GEM21, 30
   %GEM21.fca.30.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 30
-  store double %GEM21.fca.30.extract, double* %GEM21.fca.30.gep
+  store <2 x double>* %GEM21.fca.30.extract, <2 x double>** %GEM21.fca.30.gep
   %GEM21.fca.31.extract = extractvalue %gem %GEM21, 31
   %GEM21.fca.31.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 31
   store <2 x double>* %GEM21.fca.31.extract, <2 x double>** %GEM21.fca.31.gep
@@ -13742,7 +13733,7 @@ __llvm_entry:
   store <2 x double>* %GEM21.fca.35.extract, <2 x double>** %GEM21.fca.35.gep
   %GEM21.fca.36.extract = extractvalue %gem %GEM21, 36
   %GEM21.fca.36.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 36
-  store <2 x double>* %GEM21.fca.36.extract, <2 x double>** %GEM21.fca.36.gep
+  store <2 x double> %GEM21.fca.36.extract, <2 x double>* %GEM21.fca.36.gep
   %GEM21.fca.37.extract = extractvalue %gem %GEM21, 37
   %GEM21.fca.37.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 37
   store <2 x double> %GEM21.fca.37.extract, <2 x double>* %GEM21.fca.37.gep
@@ -13758,15 +13749,12 @@ __llvm_entry:
   %GEM21.fca.41.extract = extractvalue %gem %GEM21, 41
   %GEM21.fca.41.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 41
   store <2 x double> %GEM21.fca.41.extract, <2 x double>* %GEM21.fca.41.gep
-  %GEM21.fca.42.extract = extractvalue %gem %GEM21, 42
-  %GEM21.fca.42.gep = getelementptr inbounds %gem, %gem* %GEM, i32 0, i32 42
-  store <2 x double> %GEM21.fca.42.extract, <2 x double>* %GEM21.fca.42.gep
   store i64 %GEMSYSGLB2.fca.0.load, i64* %0
-  call void @"gemBuild@Z3gemM43N3PFFIN3resIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3p2t[IN3P1t[IN3PPL[IN4fp1tIN4fv1tIN4fv2tIN4fP1tIN4fP2tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3pbw[FN3p1w[FN3p2w[FN3P1w[FN3CLR[FN2OM[FN1A[FN4fp1wFN4fv1wFN4fv2wFN4fP1wFN4fP2wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUI"(%gem* %GEM, i64* %0)
+  call void @"gemBuild@Z3gemM42N3PFFIN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3p1t[IN3p2t[IN3P1t[IN3PPL[IN4fp1tIN4fv1tIN4fv2tIN4fP1tIN4fP2tIN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3pbw[FN3p1w[FN3p2w[FN3P1w[FN3CLR[FN2OM[FN1A[FN4fp1wFN4fv1wFN4fv2wFN4fP1wFN4fP2wFN1x[UN1y[UN1o[UN2px[UN2py[UN2po[UN2fxUN2fyUN2foUN3pfxUN3pfyUN3pfoUI"(%gem* %GEM, i64* %0)
   %GEM23.fca.0.load = load i64, i64* %GEM21.fca.0.gep
   %GEM23.fca.0.insert = insertvalue %gem undef, i64 %GEM23.fca.0.load, 0
-  %GEM23.fca.1.load = load i64, i64* %GEM21.fca.1.gep
-  %GEM23.fca.1.insert = insertvalue %gem %GEM23.fca.0.insert, i64 %GEM23.fca.1.load, 1
+  %GEM23.fca.1.load = load i64*, i64** %GEM21.fca.1.gep
+  %GEM23.fca.1.insert = insertvalue %gem %GEM23.fca.0.insert, i64* %GEM23.fca.1.load, 1
   %GEM23.fca.2.load = load i64*, i64** %GEM21.fca.2.gep
   %GEM23.fca.2.insert = insertvalue %gem %GEM23.fca.1.insert, i64* %GEM23.fca.2.load, 2
   %GEM23.fca.3.load = load i64*, i64** %GEM21.fca.3.gep
@@ -13781,8 +13769,8 @@ __llvm_entry:
   %GEM23.fca.7.insert = insertvalue %gem %GEM23.fca.6.insert, i64* %GEM23.fca.7.load, 7
   %GEM23.fca.8.load = load i64*, i64** %GEM21.fca.8.gep
   %GEM23.fca.8.insert = insertvalue %gem %GEM23.fca.7.insert, i64* %GEM23.fca.8.load, 8
-  %GEM23.fca.9.load = load i64*, i64** %GEM21.fca.9.gep
-  %GEM23.fca.9.insert = insertvalue %gem %GEM23.fca.8.insert, i64* %GEM23.fca.9.load, 9
+  %GEM23.fca.9.load = load i64, i64* %GEM21.fca.9.gep
+  %GEM23.fca.9.insert = insertvalue %gem %GEM23.fca.8.insert, i64 %GEM23.fca.9.load, 9
   %GEM23.fca.10.load = load i64, i64* %GEM21.fca.10.gep
   %GEM23.fca.10.insert = insertvalue %gem %GEM23.fca.9.insert, i64 %GEM23.fca.10.load, 10
   %GEM23.fca.11.load = load i64, i64* %GEM21.fca.11.gep
@@ -13791,8 +13779,8 @@ __llvm_entry:
   %GEM23.fca.12.insert = insertvalue %gem %GEM23.fca.11.insert, i64 %GEM23.fca.12.load, 12
   %GEM23.fca.13.load = load i64, i64* %GEM21.fca.13.gep
   %GEM23.fca.13.insert = insertvalue %gem %GEM23.fca.12.insert, i64 %GEM23.fca.13.load, 13
-  %GEM23.fca.14.load = load i64, i64* %GEM21.fca.14.gep
-  %GEM23.fca.14.insert = insertvalue %gem %GEM23.fca.13.insert, i64 %GEM23.fca.14.load, 14
+  %GEM23.fca.14.load = load double*, double** %GEM21.fca.14.gep
+  %GEM23.fca.14.insert = insertvalue %gem %GEM23.fca.13.insert, double* %GEM23.fca.14.load, 14
   %GEM23.fca.15.load = load double*, double** %GEM21.fca.15.gep
   %GEM23.fca.15.insert = insertvalue %gem %GEM23.fca.14.insert, double* %GEM23.fca.15.load, 15
   %GEM23.fca.16.load = load double*, double** %GEM21.fca.16.gep
@@ -13813,8 +13801,8 @@ __llvm_entry:
   %GEM23.fca.23.insert = insertvalue %gem %GEM23.fca.22.insert, double* %GEM23.fca.23.load, 23
   %GEM23.fca.24.load = load double*, double** %GEM21.fca.24.gep
   %GEM23.fca.24.insert = insertvalue %gem %GEM23.fca.23.insert, double* %GEM23.fca.24.load, 24
-  %GEM23.fca.25.load = load double*, double** %GEM21.fca.25.gep
-  %GEM23.fca.25.insert = insertvalue %gem %GEM23.fca.24.insert, double* %GEM23.fca.25.load, 25
+  %GEM23.fca.25.load = load double, double* %GEM21.fca.25.gep
+  %GEM23.fca.25.insert = insertvalue %gem %GEM23.fca.24.insert, double %GEM23.fca.25.load, 25
   %GEM23.fca.26.load = load double, double* %GEM21.fca.26.gep
   %GEM23.fca.26.insert = insertvalue %gem %GEM23.fca.25.insert, double %GEM23.fca.26.load, 26
   %GEM23.fca.27.load = load double, double* %GEM21.fca.27.gep
@@ -13823,8 +13811,8 @@ __llvm_entry:
   %GEM23.fca.28.insert = insertvalue %gem %GEM23.fca.27.insert, double %GEM23.fca.28.load, 28
   %GEM23.fca.29.load = load double, double* %GEM21.fca.29.gep
   %GEM23.fca.29.insert = insertvalue %gem %GEM23.fca.28.insert, double %GEM23.fca.29.load, 29
-  %GEM23.fca.30.load = load double, double* %GEM21.fca.30.gep
-  %GEM23.fca.30.insert = insertvalue %gem %GEM23.fca.29.insert, double %GEM23.fca.30.load, 30
+  %GEM23.fca.30.load = load <2 x double>*, <2 x double>** %GEM21.fca.30.gep
+  %GEM23.fca.30.insert = insertvalue %gem %GEM23.fca.29.insert, <2 x double>* %GEM23.fca.30.load, 30
   %GEM23.fca.31.load = load <2 x double>*, <2 x double>** %GEM21.fca.31.gep
   %GEM23.fca.31.insert = insertvalue %gem %GEM23.fca.30.insert, <2 x double>* %GEM23.fca.31.load, 31
   %GEM23.fca.32.load = load <2 x double>*, <2 x double>** %GEM21.fca.32.gep
@@ -13835,8 +13823,8 @@ __llvm_entry:
   %GEM23.fca.34.insert = insertvalue %gem %GEM23.fca.33.insert, <2 x double>* %GEM23.fca.34.load, 34
   %GEM23.fca.35.load = load <2 x double>*, <2 x double>** %GEM21.fca.35.gep
   %GEM23.fca.35.insert = insertvalue %gem %GEM23.fca.34.insert, <2 x double>* %GEM23.fca.35.load, 35
-  %GEM23.fca.36.load = load <2 x double>*, <2 x double>** %GEM21.fca.36.gep
-  %GEM23.fca.36.insert = insertvalue %gem %GEM23.fca.35.insert, <2 x double>* %GEM23.fca.36.load, 36
+  %GEM23.fca.36.load = load <2 x double>, <2 x double>* %GEM21.fca.36.gep
+  %GEM23.fca.36.insert = insertvalue %gem %GEM23.fca.35.insert, <2 x double> %GEM23.fca.36.load, 36
   %GEM23.fca.37.load = load <2 x double>, <2 x double>* %GEM21.fca.37.gep
   %GEM23.fca.37.insert = insertvalue %gem %GEM23.fca.36.insert, <2 x double> %GEM23.fca.37.load, 37
   %GEM23.fca.38.load = load <2 x double>, <2 x double>* %GEM21.fca.38.gep
@@ -13846,8 +13834,6 @@ __llvm_entry:
   %GEM23.fca.40.load = load <2 x double>, <2 x double>* %GEM21.fca.40.gep
   %GEM23.fca.40.insert = insertvalue %gem %GEM23.fca.39.insert, <2 x double> %GEM23.fca.40.load, 40
   %GEM23.fca.41.load = load <2 x double>, <2 x double>* %GEM21.fca.41.gep
-  %GEM23.fca.41.insert = insertvalue %gem %GEM23.fca.40.insert, <2 x double> %GEM23.fca.41.load, 41
-  %GEM23.fca.42.load = load <2 x double>, <2 x double>* %GEM21.fca.42.gep
   %biunit = call <2 x double> @"biunit@U"()
   store <2 x double> %biunit, <2 x double>* %mem
   %115 = icmp ne i64 %GEMSYS13.fca.1.load, 0
@@ -13892,20 +13878,20 @@ false:                                            ; preds = %body
 end116:                                           ; preds = %false, %true115
   %phi = phi i64 [ %XAOS, %true115 ], [ %return121, %false ]
   store i64 %phi, i64* %idx
-  %return124 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM23.fca.31.load, i64 %phi)
-  %return127 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM23.fca.32.load, i64 %phi)
-  %return130 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM23.fca.33.load, i64 %phi)
-  %return133 = call double @"getcomp@F[FI"(double* %GEM23.fca.19.load, i64 %phi)
-  %return136 = call double @"getcomp@F[FI"(double* %GEM23.fca.20.load, i64 %phi)
-  %return139 = call double @"getcomp@F[FI"(double* %GEM23.fca.21.load, i64 %phi)
-  %return142 = call double @"getcomp@F[FI"(double* %GEM23.fca.15.load, i64 %phi)
-  %return145 = call double @"getcomp@F[FI"(double* %GEM23.fca.16.load, i64 %phi)
-  %return148 = call double @"getcomp@F[FI"(double* %GEM23.fca.17.load, i64 %phi)
-  %return151 = call double @"getcomp@F[FI"(double* %GEM23.fca.18.load, i64 %phi)
-  %return154 = call double @"getcomp@F[FI"(double* %GEM23.fca.22.load, i64 %phi)
-  %return157 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.9.load, i64 %phi)
-  %return160 = call double @"getcomp@F[FI"(double* %GEM23.fca.23.load, i64 %phi)
-  %return163 = call double @"getcomp@F[FI"(double* %GEM23.fca.24.load, i64 %phi)
+  %return124 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM23.fca.30.load, i64 %phi)
+  %return127 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM23.fca.31.load, i64 %phi)
+  %return130 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM23.fca.32.load, i64 %phi)
+  %return133 = call double @"getcomp@F[FI"(double* %GEM23.fca.18.load, i64 %phi)
+  %return136 = call double @"getcomp@F[FI"(double* %GEM23.fca.19.load, i64 %phi)
+  %return139 = call double @"getcomp@F[FI"(double* %GEM23.fca.20.load, i64 %phi)
+  %return142 = call double @"getcomp@F[FI"(double* %GEM23.fca.14.load, i64 %phi)
+  %return145 = call double @"getcomp@F[FI"(double* %GEM23.fca.15.load, i64 %phi)
+  %return148 = call double @"getcomp@F[FI"(double* %GEM23.fca.16.load, i64 %phi)
+  %return151 = call double @"getcomp@F[FI"(double* %GEM23.fca.17.load, i64 %phi)
+  %return154 = call double @"getcomp@F[FI"(double* %GEM23.fca.21.load, i64 %phi)
+  %return157 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.8.load, i64 %phi)
+  %return160 = call double @"getcomp@F[FI"(double* %GEM23.fca.22.load, i64 %phi)
+  %return163 = call double @"getcomp@F[FI"(double* %GEM23.fca.23.load, i64 %phi)
   store <2 x double> %return124, <2 x double>* %3
   store <2 x double> %return127, <2 x double>* %4
   store <2 x double> %return130, <2 x double>* %5
@@ -13926,7 +13912,7 @@ true176:                                          ; preds = %end171
   %idx178 = load i64, i64* %idx
   store i64 %idx178, i64* %7
   %idx180 = load i64, i64* %idx
-  %return181 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.6.load, i64 %idx180)
+  %return181 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.5.load, i64 %idx180)
   store i64 %return181, i64* %8
   store i64 %GEMSYSGLB2.fca.3.load, i64* %9
   %mem183 = load <2 x double>, <2 x double>* %mem
@@ -13946,7 +13932,7 @@ true190:                                          ; preds = %end177
   %idx192 = load i64, i64* %idx
   store i64 %idx192, i64* %15
   %idx194 = load i64, i64* %idx
-  %return195 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.7.load, i64 %idx194)
+  %return195 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.6.load, i64 %idx194)
   store i64 %return195, i64* %16
   store i64 %GEMSYSGLB2.fca.3.load, i64* %17
   %mem197 = load <2 x double>, <2 x double>* %mem
@@ -13968,7 +13954,7 @@ true206:                                          ; preds = %end191
   %idx209 = load i64, i64* %idx
   store i64 %idx209, i64* %23
   %idx211 = load i64, i64* %idx
-  %return212 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.2.load, i64 %idx211)
+  %return212 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.1.load, i64 %idx211)
   store i64 %return212, i64* %24
   store i64 %GEMSYSGLB2.fca.3.load, i64* %25
   %mem214 = load <2 x double>, <2 x double>* %mem
@@ -13990,7 +13976,7 @@ true222:                                          ; preds = %end207
   %idx225 = load i64, i64* %idx
   store i64 %idx225, i64* %31
   %idx227 = load i64, i64* %idx
-  %return228 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.3.load, i64 %idx227)
+  %return228 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.2.load, i64 %idx227)
   store i64 %return228, i64* %32
   store i64 %GEMSYSGLB2.fca.3.load, i64* %33
   %mem230 = load <2 x double>, <2 x double>* %mem
@@ -14012,7 +13998,7 @@ true239:                                          ; preds = %end223
   %idx242 = load i64, i64* %idx
   store i64 %idx242, i64* %39
   %idx244 = load i64, i64* %idx
-  %return245 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.4.load, i64 %idx244)
+  %return245 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.3.load, i64 %idx244)
   store i64 %return245, i64* %40
   store i64 %GEMSYSGLB2.fca.3.load, i64* %41
   %mem247 = load <2 x double>, <2 x double>* %mem
@@ -14034,7 +14020,7 @@ true256:                                          ; preds = %end240
   %idx259 = load i64, i64* %idx
   store i64 %idx259, i64* %47
   %idx261 = load i64, i64* %idx
-  %return262 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.5.load, i64 %idx261)
+  %return262 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.4.load, i64 %idx261)
   store i64 %return262, i64* %48
   store i64 %GEMSYSGLB2.fca.3.load, i64* %49
   %mem264 = load <2 x double>, <2 x double>* %mem
@@ -14055,7 +14041,7 @@ true273:                                          ; preds = %end257
   %idx275 = load i64, i64* %idx
   store i64 %idx275, i64* %55
   %idx277 = load i64, i64* %idx
-  %return278 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.8.load, i64 %idx277)
+  %return278 = call i64 @"getcomp@I[II"(i64* %GEM23.fca.7.load, i64 %idx277)
   store i64 %return278, i64* %56
   store i64 %GEMSYSGLB2.fca.3.load, i64* %57
   %tmp280 = load <2 x double>, <2 x double>* %tmp
@@ -14073,13 +14059,13 @@ end274:                                           ; preds = %true273, %end257
 
 true286:                                          ; preds = %end274
   %idx289 = load i64, i64* %idx
-  %return290 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM23.fca.34.load, i64 %idx289)
+  %return290 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM23.fca.33.load, i64 %idx289)
   store <2 x double> %return290, <2 x double>* %63
   %idx292 = load i64, i64* %idx
-  %return293 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM23.fca.35.load, i64 %idx292)
+  %return293 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM23.fca.34.load, i64 %idx292)
   store <2 x double> %return293, <2 x double>* %64
   %idx295 = load i64, i64* %idx
-  %return296 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM23.fca.36.load, i64 %idx295)
+  %return296 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEM23.fca.35.load, i64 %idx295)
   store <2 x double> %return296, <2 x double>* %65
   call void @"affine@UUUU"(<2 x double>* %tmp, <2 x double>* %63, <2 x double>* %64, <2 x double>* %65)
   br label %end287
@@ -14093,16 +14079,16 @@ end287:                                           ; preds = %true286, %end274
   br label %cond
 
 true306:                                          ; preds = %end113
-  store <2 x double> %GEM23.fca.37.load, <2 x double>* %66
-  store <2 x double> %GEM23.fca.38.load, <2 x double>* %67
-  store <2 x double> %GEM23.fca.39.load, <2 x double>* %68
+  store <2 x double> %GEM23.fca.36.load, <2 x double>* %66
+  store <2 x double> %GEM23.fca.37.load, <2 x double>* %67
+  store <2 x double> %GEM23.fca.38.load, <2 x double>* %68
   call void @"affine@UUUU"(<2 x double>* %mem, <2 x double>* %66, <2 x double>* %67, <2 x double>* %68)
-  %return312 = fcmp ogt double %GEM23.fca.26.load, 0.000000e+00
+  %return312 = fcmp ogt double %GEM23.fca.25.load, 0.000000e+00
   br i1 %return312, label %true314, label %end315
 
 end307:                                           ; preds = %end377, %end113
   %idx383 = load i64, i64* %idx
-  %return384 = call double @"getcomp@F[FI"(double* %GEM23.fca.25.load, i64 %idx383)
+  %return384 = call double @"getcomp@F[FI"(double* %GEM23.fca.24.load, i64 %idx383)
   store i64 %GEMSYSGLB2.fca.1.load, i64* %69
   %mem386 = load <2 x double>, <2 x double>* %mem
   store <2 x double> %mem386, <2 x double>* %70
@@ -14113,13 +14099,13 @@ end307:                                           ; preds = %end377, %end113
 
 true314:                                          ; preds = %true306
   store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @138, i64 0, i64 0), i8** %72
-  store i64 %GEM23.fca.10.load, i64* %73
+  store i64 %GEM23.fca.9.load, i64* %73
   store i64 %GEMSYSGLB2.fca.3.load, i64* %74
   %mem318 = load <2 x double>, <2 x double>* %mem
   store <2 x double> %mem318, <2 x double>* %75
-  store <2 x double> %GEM23.fca.38.load, <2 x double>* %77
-  store <2 x double> %GEM23.fca.39.load, <2 x double>* %78
-  store double %GEM23.fca.26.load, double* %79
+  store <2 x double> %GEM23.fca.37.load, <2 x double>* %77
+  store <2 x double> %GEM23.fca.38.load, <2 x double>* %78
+  store double %GEM23.fca.25.load, double* %79
   %FLAMEFF = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %72, i64* %73, i64* %74, <2 x double>* %75, <2 x double>* %76, <2 x double>* %77, <2 x double>* %78, double* %79)
   store <2 x double> %FLAMEFF, <2 x double>* %mem
   br label %end315
@@ -14127,72 +14113,72 @@ true314:                                          ; preds = %true306
 end315:                                           ; preds = %true314, %true306
   %cast322 = call <2 x double> @"set@UI"(i64 0)
   store <2 x double> %cast322, <2 x double>* %tmp
-  %return324 = fcmp one double %GEM23.fca.27.load, 0.000000e+00
+  %return324 = fcmp one double %GEM23.fca.26.load, 0.000000e+00
   br i1 %return324, label %true326, label %end327
 
 true326:                                          ; preds = %end315
   store i8* getelementptr inbounds ([7 x i8], [7 x i8]* @139, i64 0, i64 0), i8** %80
-  store i64 %GEM23.fca.11.load, i64* %81
+  store i64 %GEM23.fca.10.load, i64* %81
   store i64 %GEMSYSGLB2.fca.3.load, i64* %82
   %mem331 = load <2 x double>, <2 x double>* %mem
   store <2 x double> %mem331, <2 x double>* %83
-  store <2 x double> %GEM23.fca.38.load, <2 x double>* %85
-  store <2 x double> %GEM23.fca.39.load, <2 x double>* %86
-  store double %GEM23.fca.27.load, double* %87
+  store <2 x double> %GEM23.fca.37.load, <2 x double>* %85
+  store <2 x double> %GEM23.fca.38.load, <2 x double>* %86
+  store double %GEM23.fca.26.load, double* %87
   %FLAMEFF335 = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %80, i64* %81, i64* %82, <2 x double>* %83, <2 x double>* %84, <2 x double>* %85, <2 x double>* %86, double* %87)
   %output336 = call <2 x double> @"add@UU"(<2 x double> %cast322, <2 x double> %FLAMEFF335)
   store <2 x double> %output336, <2 x double>* %tmp
   br label %end327
 
 end327:                                           ; preds = %true326, %end315
-  %return338 = fcmp one double %GEM23.fca.28.load, 0.000000e+00
+  %return338 = fcmp one double %GEM23.fca.27.load, 0.000000e+00
   br i1 %return338, label %true340, label %end341
 
 true340:                                          ; preds = %end327
   %tmp342 = load <2 x double>, <2 x double>* %tmp
   store i8* getelementptr inbounds ([7 x i8], [7 x i8]* @139, i64 0, i64 0), i8** %88
-  store i64 %GEM23.fca.12.load, i64* %89
+  store i64 %GEM23.fca.11.load, i64* %89
   store i64 %GEMSYSGLB2.fca.3.load, i64* %90
   %mem345 = load <2 x double>, <2 x double>* %mem
   store <2 x double> %mem345, <2 x double>* %91
-  store <2 x double> %GEM23.fca.38.load, <2 x double>* %93
-  store <2 x double> %GEM23.fca.39.load, <2 x double>* %94
-  store double %GEM23.fca.28.load, double* %95
+  store <2 x double> %GEM23.fca.37.load, <2 x double>* %93
+  store <2 x double> %GEM23.fca.38.load, <2 x double>* %94
+  store double %GEM23.fca.27.load, double* %95
   %FLAMEFF349 = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %88, i64* %89, i64* %90, <2 x double>* %91, <2 x double>* %92, <2 x double>* %93, <2 x double>* %94, double* %95)
   %output350 = call <2 x double> @"add@UU"(<2 x double> %tmp342, <2 x double> %FLAMEFF349)
   store <2 x double> %output350, <2 x double>* %tmp
   br label %end341
 
 end341:                                           ; preds = %true340, %end327
-  %return352 = fcmp ogt double %GEM23.fca.29.load, 0.000000e+00
+  %return352 = fcmp ogt double %GEM23.fca.28.load, 0.000000e+00
   br i1 %return352, label %true354, label %end355
 
 true354:                                          ; preds = %end341
   store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @138, i64 0, i64 0), i8** %96
-  store i64 %GEM23.fca.13.load, i64* %97
+  store i64 %GEM23.fca.12.load, i64* %97
   store i64 %GEMSYSGLB2.fca.3.load, i64* %98
   %tmp358 = load <2 x double>, <2 x double>* %tmp
   store <2 x double> %tmp358, <2 x double>* %99
-  store <2 x double> %GEM23.fca.38.load, <2 x double>* %101
-  store <2 x double> %GEM23.fca.39.load, <2 x double>* %102
-  store double %GEM23.fca.29.load, double* %103
+  store <2 x double> %GEM23.fca.37.load, <2 x double>* %101
+  store <2 x double> %GEM23.fca.38.load, <2 x double>* %102
+  store double %GEM23.fca.28.load, double* %103
   %FLAMEFF362 = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %96, i64* %97, i64* %98, <2 x double>* %99, <2 x double>* %100, <2 x double>* %101, <2 x double>* %102, double* %103)
   store <2 x double> %FLAMEFF362, <2 x double>* %tmp
   br label %end355
 
 end355:                                           ; preds = %true354, %end341
-  %return364 = fcmp ogt double %GEM23.fca.30.load, 0.000000e+00
+  %return364 = fcmp ogt double %GEM23.fca.29.load, 0.000000e+00
   br i1 %return364, label %true366, label %end367
 
 true366:                                          ; preds = %end355
   store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @138, i64 0, i64 0), i8** %104
-  store i64 %GEM23.fca.14.load, i64* %105
+  store i64 %GEM23.fca.13.load, i64* %105
   store i64 %GEMSYSGLB2.fca.3.load, i64* %106
   %tmp370 = load <2 x double>, <2 x double>* %tmp
   store <2 x double> %tmp370, <2 x double>* %107
-  store <2 x double> %GEM23.fca.38.load, <2 x double>* %109
-  store <2 x double> %GEM23.fca.39.load, <2 x double>* %110
-  store double %GEM23.fca.30.load, double* %111
+  store <2 x double> %GEM23.fca.37.load, <2 x double>* %109
+  store <2 x double> %GEM23.fca.38.load, <2 x double>* %110
+  store double %GEM23.fca.29.load, double* %111
   %FLAMEFF374 = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %104, i64* %105, i64* %106, <2 x double>* %107, <2 x double>* %108, <2 x double>* %109, <2 x double>* %110, double* %111)
   store <2 x double> %FLAMEFF374, <2 x double>* %tmp
   br label %end367
@@ -14202,9 +14188,9 @@ end367:                                           ; preds = %true366, %end355
   br i1 %120, label %true376, label %end377
 
 true376:                                          ; preds = %end367
-  store <2 x double> %GEM23.fca.40.load, <2 x double>* %112
-  store <2 x double> %GEM23.fca.41.load, <2 x double>* %113
-  store <2 x double> %GEM23.fca.42.load, <2 x double>* %114
+  store <2 x double> %GEM23.fca.39.load, <2 x double>* %112
+  store <2 x double> %GEM23.fca.40.load, <2 x double>* %113
+  store <2 x double> %GEM23.fca.41.load, <2 x double>* %114
   call void @"affine@UUUU"(<2 x double>* %tmp, <2 x double>* %112, <2 x double>* %113, <2 x double>* %114)
   br label %end377
 
