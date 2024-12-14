@@ -35,24 +35,10 @@
 void
 _TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
 {
-    
-    // SYS
-    int FF, RIP, iter, MB, F3C;
-    FF   = chi("doff");
-    RIP  = chi("rip");
-    MB   = chi("domb");
-    iter = chi("iter");
-    // From Fractorium: flam3 comptibility (f3c). Check inside variations.h to see both versions of each.
-    // The behavior of the:
-    // cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan and tanh variations
-    // are different in flam3/Apophysis versus Chaotica.
-    //      Checked:    use the Apophysis behavior.
-    //      Unchecked:  use the Chaotica behavior.
-    F3C = chi("f3c");
 
     int inum = chi("flamefunc");
     int VA[] = detail(1, "VA");
-    float IW[] = detail(1, "IW");
+    float IW[] = detail(1, "IW"); // This is coming in as just the iterators Weight float values, and it will go out as the weighted probability coefficents.
     string sIDX[] = detail(1, "sIDX");
     
     if(len(IW)==1 && IW[0]==1e-08){
@@ -63,8 +49,7 @@ _TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
     }
     
     // XAOS
-    int isX, x_chk, res;
-    isX = 1;
+    int x_chk, res;
     x_chk = 0;
     res = len(sIDX);
     float XAOS_TO[];
