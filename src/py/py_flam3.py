@@ -2551,8 +2551,6 @@ class flam3h_general_utils
                 if w is not None: self.viewportWireWidth(w)
                 
                 flam3h_general_utils.set_private_prm(node, prm_name, 1)
-                # Updated density menu
-                node.parm(GLB_DENSITY_PRESETS).eval()
                 
                 _MSG = f"ON"
                 self.set_status_msg(f"{node.name()}: {prm.name().upper()}: {_MSG}", 'IMP')
