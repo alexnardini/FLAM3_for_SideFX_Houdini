@@ -42,18 +42,18 @@
 void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
     // UTILS
-    int RES, XS, FF, RIP, MB, F3C, ITER, idx;
-    float IW[], XST[], pscl, clr, prv_clr, a, mbm; prv_clr=0; pscl=PSCL;
+    int idx;
+    float pscl, clr, prv_clr, a, mbm; prv_clr=0; pscl=PSCL;
     vector2 tmp, mem;
 
     // BUILD genomes
     //
     // genome: SYS GLB
     gemSYSGLB GEMSYSGLB; GEMSYSGLB->gemSYSGLBBuild();
-    /* CAST */ FF=GEMSYSGLB.FF; RIP=GEMSYSGLB.RIP; MB=GEMSYSGLB.MB; F3C=GEMSYSGLB.F3C; ITER=GEMSYSGLB.ITER;
+    int FF, RIP, MB, F3C, ITER; /* CAST */ FF=GEMSYSGLB.FF; RIP=GEMSYSGLB.RIP; MB=GEMSYSGLB.MB; F3C=GEMSYSGLB.F3C; ITER=GEMSYSGLB.ITER;
     // genome: SYS
     gemSYS GEMSYS; GEMSYS->gemSYSBuild();
-    /* CAST */ RES=GEMSYS.RES; XS=GEMSYS.XS; IW=GEMSYS.IW; XST=GEMSYS.XST;
+    int RES, XS; float IW[], XST[]; /* CAST */ RES=GEMSYS.RES; XS=GEMSYS.XS; IW=GEMSYS.IW; XST=GEMSYS.XST;
     // genome: ITERATORS
     gem GEM; GEM->gemBuild(FF);
     // cast FLAME
