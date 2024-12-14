@@ -11,7 +11,7 @@
 
 - **New**: When the xforms handles VIZ mode is ON, the density presets menu entries will display a small red handle to indicate the density values the xforms handles VIZ mode will keep being active.
 - **Fix**: When in xforms handles VIZ mode, if the density value is raised above 5M(_millions_) points, the related UI icons will be disabled as well.
-- **Fix**: Updated xfomrs handles VIZ icons parameters tooltips.
+- **Fix**: Updated xforms handles VIZ icons parameters tooltips.
 - **Updated HDA documentation.**
 
 
