@@ -7,6 +7,17 @@
 
 # Release history
 
+### From v1.6.65 ###
+
+_This release is a tentative: **Final** as of **H20.5.x**:_
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+
+
+
 ### From v1.6.63 ###
 
 - **New**: When the xforms handles VIZ mode is ON, the density presets menu entries will display a small red handle to indicate the density values the xforms handles VIZ mode will keep being active.
