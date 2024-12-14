@@ -719,7 +719,8 @@ __llvm_entry:
   %tmp49 = load %gem, %gem* %this
   %16 = insertvalue %gem %tmp49, i64* %return48, 5
   store %gem %16, %gem* %this
-  %return51 = call i64* @"detail@[IIS"(i64 %return32, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @27, i64 0, i64 0))
+  %return50 = call i64 @"neg@II"(i64 7)
+  %return51 = call i64* @"detail@[IIS"(i64 %return50, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @27, i64 0, i64 0))
   %tmp52 = load %gem, %gem* %this
   %17 = insertvalue %gem %tmp52, i64* %return51, 8
   store %gem %17, %gem* %this
@@ -751,7 +752,7 @@ __llvm_entry:
   %tmp73 = load %gem, %gem* %this
   %24 = insertvalue %gem %tmp73, double* %return72, 18
   store %gem %24, %gem* %this
-  %return75 = call double* @"detail@[FIS"(i64 %return32, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @35, i64 0, i64 0))
+  %return75 = call double* @"detail@[FIS"(i64 %return50, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @35, i64 0, i64 0))
   %tmp76 = load %gem, %gem* %this
   %25 = insertvalue %gem %tmp76, double* %return75, 22
   store %gem %25, %gem* %this

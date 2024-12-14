@@ -88,7 +88,7 @@ struct gem{
         v2t = detail(-6, "v2t");
         v3t = detail(-6, "v3t");
         v4t = detail(-6, "v4t");
-        P1t = detail(-5, "P1t");
+        P1t = detail(-7, "P1t");
         // VARS WEIGHT
         pbw = detail(-5, "pbw");
         p1w = detail(-5, "p1w");
@@ -97,7 +97,7 @@ struct gem{
         v2w = detail(-6, "v2w");
         v3w = detail(-6, "v3w");
         v4w = detail(-6, "v4w");
-        P1w = detail(-5, "P1w");
+        P1w = detail(-7, "P1w");
         
         // FF
         if(FF){
