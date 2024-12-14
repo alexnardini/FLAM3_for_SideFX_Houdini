@@ -1529,6 +1529,8 @@ Reload preset:
     *MB:* _Flame fractal moton blur._
     
     When animating your fractal Flame, turning this on will compute a proper temporal motion blur.
+
+_This functionality is included to complete the implementation as presented in the original FLAM3 paper_.
     
 
 :box:
