@@ -204,12 +204,12 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     When using a custom density value from inside the preferences density tab,<br />
     if the choosen value is not present in this global menu entries, this menu label will become empty to signal the use of a custom density value.
 
-    _Additionally, when the xforms hadnles VIZ mode is ON, some of the bookmark icon will signal the density values the mode will keep being active, like the following_:
+    _Additionally, when the xforms handles VIZ mode is ON, some of the bookmark icons will signal the density values the mode will keep being active, like the following_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSVG.svg]
     - [Largeicon:opdef:.?iconStarSwapCyanSmallXFVIZSVG.svg]
 
-    Beyound those bookmark icons, the xfomrs handles VIZ mode will be automatically disabled.
+    Beyound those bookmark icons, the xforms handles VIZ mode will be automatically disabled.
 
     
 Reset density:
