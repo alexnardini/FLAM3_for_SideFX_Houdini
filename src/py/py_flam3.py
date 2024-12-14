@@ -4348,6 +4348,10 @@ class flam3h_iterator_utils
         So far the cached user data names being used are:
         
         * iter_sel
+        * iter_sel_a
+        * iter_sel_w
+        * iter_sel_o
+        * iter_sel_id
         * edge_case_01
         * cp_presets_menu
         * cp_presets_menu_idx
