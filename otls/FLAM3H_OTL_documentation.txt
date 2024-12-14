@@ -2835,7 +2835,11 @@ _A list of all parametric variations and their parametric parameter's names._
     - [Smallicon:BUTTONS/show_parms] *Polynomial*      ->      _`Sc X`*,* `Sc Y`_
     
     - [Smallicon:BUTTONS/show_parms] *Point Symmetry*  ->      _`Order`*,* `Center X`*,* `Center Y`_
-    
+
+    - [Smallicon:BUTTONS/show_parms] *Popcorn2*        ->      _`X`*,* `Y`_
+
+    - [Smallicon:BUTTONS/show_parms] *Popcorn2*        ->      _`C`_
+
     - [Smallicon:BUTTONS/show_parms] *Radial Blur*     ->      _`Angle`_
     
     - [Smallicon:BUTTONS/show_parms] *Rectangles*      ->      _`X`*,* `Y`_
@@ -2849,6 +2853,12 @@ _A list of all parametric variations and their parametric parameter's names._
     - [Smallicon:BUTTONS/show_parms] *Split*           ->      _`X`*,* `Y`_
     
     - [Smallicon:BUTTONS/show_parms] *Splits*          ->      _`X`*,* `Y`_
+
+    - [Smallicon:BUTTONS/show_parms] *Stripes*         ->      _`Space`*,* `Warp`_
+
+    - [Smallicon:BUTTONS/show_parms] *Supershape*      ->      _`m`*,* `rnd`*,* `holes`_
+
+    - [Smallicon:BUTTONS/show_parms] *Supershape*      ->      _`n1`*,* `n2`*,* `n3`_
     
     - [Smallicon:BUTTONS/show_parms] *Waves2*          ->      _`Scale X`*,* `Scale Y`_
     
