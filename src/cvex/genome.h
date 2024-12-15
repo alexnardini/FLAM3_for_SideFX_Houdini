@@ -26,17 +26,13 @@
 */
 
 
+
+// GENOME: SYSTEM (GLOBAL)
 struct gemSYSGLB{
 
     int FF, RIP, MB, F3C, ITER;
 
     void gemSYSGLBBuild(){
-
-        /*
-            INPUTS
-
-            -1 -> SYS_GLB
-        */
     
         FF = detail(-1, "FF");
         RIP = detail(-1, "RIP");
@@ -47,21 +43,17 @@ struct gemSYSGLB{
 }
 
 
+
+// GENOME: SYS (XAOS)
 struct gemSYS{
 
     int RES, XS;
     float IW[], XST[];
 
     void gemSYSBuild(){
-
-        /*
-            INPUTS
-
-            -2 -> SYS
-            -3 -> XAOS
-        */
     
         RES = detail(-2, "RES");
+
         IW = detail(-3, "IW");
         XS = detail(-3, "XS");
         XST = detail(-3, "XST");
@@ -70,90 +62,207 @@ struct gemSYS{
 
 
 
-// GENOME
-struct gem{
+// GENOME: SHADER
+struct gemSHD{
 
-    int     PFF, v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[], fp1t, fv1t, fv2t, fP1t, fP2t;
-    float   v1w[], v2w[], v3w[], v4w[], pbw[], p1w[], p2w[], P1w[], CLR[], OM[], A[], fp1w, fv1w, fv2w, fP1w, fP2w;
-    vector2 x[], y[], o[], px[], py[], po[], fx, fy, fo, pfx, pfy, pfo;
+    float   CLR[], OM[], A[];
     
-    void gemBuild(const int FF){
-
-        /*
-            INPUTS
-
-            -2 -> SYS
-            -4 -> SHADER
-            -5 -> PRE VARS
-            -6 -> VARS
-            -7 -> POST VARS
-            -8 -> PRE AFFINE
-            -9 -> POST AFFINE
-
-            -10 -> FF PRE VARS
-            -11 -> FF VARS
-            -12 -> FF POST VARS
-            -13 -> FF PRE AFFINE
-            -14 -> FF POST AFFINE
-        */
+    void gemSHDBuild(){
 
         // SHADER
         A = detail(-4, "A");
         CLR = detail(-4, "CLR");
         OM = detail(-4, "OM");
+
+    }
+}
+
+
+
+// GENOME: PRE AFFINE
+struct gemPA{
+
+    vector2 x[], y[], o[];
+    
+    void gemPABuild(){
+
         // PRE AFFINE
         x = detail(-8, "X");
         y = detail(-8, "Y");
         o = detail(-8, "O");
+
+    }
+}
+
+
+
+// GENOME: POST AFFINE
+struct gemAP{
+
+    int PPL[];
+    vector2 px[], py[], po[];
+    
+    void gemAPBuild(){
+
         // POST AFFINE
         PPL = detail(-9, "POST");
         px = detail(-9, "PX");
         py = detail(-9, "PY");
         po = detail(-9, "PO");
+
+    }
+}
+
+
+
+// GENOME: PRE VAR
+struct gemPV{
+
+    int     p1t[], p2t[];
+    float   pbw[], p1w[], p2w[];
+    
+    void gemPVBuild(){
+
         // VARS TYPE
         p1t = detail(-5, "p1t");
         p2t = detail(-5, "p2t");
-        v1t = detail(-6, "v1t");
-        v2t = detail(-6, "v2t");
-        v3t = detail(-6, "v3t");
-        v4t = detail(-6, "v4t");
-        P1t = detail(-7, "P1t");
         // VARS WEIGHT
         pbw = detail(-5, "pbw");
         p1w = detail(-5, "p1w");
         p2w = detail(-5, "p2w");
+    }
+}
+
+
+
+// GENOME: VAR
+struct gemV{
+
+    int     v1t[], v2t[], v3t[], v4t[];
+    float   v1w[], v2w[], v3w[], v4w[];
+    
+    void gemVBuild(){
+
+        // VARS TYPE
+        v1t = detail(-6, "v1t");
+        v2t = detail(-6, "v2t");
+        v3t = detail(-6, "v3t");
+        v4t = detail(-6, "v4t");
+        // VARS WEIGHT
         v1w = detail(-6, "v1w");
         v2w = detail(-6, "v2w");
         v3w = detail(-6, "v3w");
         v4w = detail(-6, "v4w");
-        P1w = detail(-7, "P1w");
-        
-        // FF
-        if(FF){
-            // FF PRE AFFINE
-            fx = detail(-13, "FX"); 
-            fy = detail(-13, "FY");
-            fo = detail(-13, "FO");
-            // FF POST AFFINE
-            PFF = detail(-14, "PFF");
-            pfx = detail(-14, "PFX");
-            pfy = detail(-14, "PFY");
-            pfo = detail(-14, "PFO");
-            // FF VARS TYPE
-            fp1t = detail(-10, "fp1t");
-            fv1t = detail(-11, "fv1t");
-            fv2t = detail(-11, "fv2t");
-            fP1t = detail(-12, "fP1t");
-            fP2t = detail(-12, "fP2t");
-            // FF VARS WEIGHT
-            fp1w = detail(-10, "fp1w");
-            fv1w = detail(-11, "fv1w");
-            fv2w = detail(-11, "fv2w");
-            fP1w = detail(-12, "fP1w");
-            fP2w = detail(-12, "fP2w");
-        }
     }
 }
+
+
+
+// GENOME: POST VAR
+struct gemVP{
+
+    int     PPL[], P1t[];
+    float   P1w[];
+    
+    void gemVPBuild(){
+
+        // VARS TYPE
+        P1t = detail(-7, "P1t");
+        // VARS WEIGHT
+        P1w = detail(-7, "P1w");
+    }
+}
+
+
+
+// GENOME: FF PRE AFFINE
+struct gemFFPA{
+
+    vector2 fx, fy, fo;
+    
+    void gemFFPABuild(){
+
+        // FF PRE AFFINE
+        fx = detail(-13, "FX"); 
+        fy = detail(-13, "FY");
+        fo = detail(-13, "FO");
+
+    }
+}
+
+
+
+// GENOME: FF POST AFFINE
+struct gemFFAP{
+
+    int PFF;
+    vector2 pfx, pfy, pfo;
+    
+    void gemFFAPBuild(){
+
+        // FF POST AFFINE
+        PFF = detail(-14, "PFF");
+        pfx = detail(-14, "PFX");
+        pfy = detail(-14, "PFY");
+        pfo = detail(-14, "PFO");
+    }
+}
+
+
+
+// GENOME: FF PRE VAR
+struct gemFFPV{
+
+    int fp1t;
+    float fp1w;
+    
+    void gemFFPVBuild(){
+
+        // FF VARS TYPE
+        fp1t = detail(-10, "fp1t");
+        // FF VARS WEIGHT
+        fp1w = detail(-10, "fp1w");
+    }
+}
+
+
+
+// GENOME: FF VAR
+struct gemFFV{
+
+    int fv1t, fv2t;
+    float fv1w, fv2w;
+    
+    void gemFFVBuild(){
+
+        // FF VARS TYPE
+        fv1t = detail(-11, "fv1t");
+        fv2t = detail(-11, "fv2t");
+        // FF VARS WEIGHT
+        fv1w = detail(-11, "fv1w");
+        fv2w = detail(-11, "fv2w");
+    }
+}
+
+
+
+// GENOME: FF POST VAR
+struct gemFFVP{
+
+    int fP1t, fP2t;
+    float fP1w, fP2w;
+    
+    void gemFFVPBuild(){
+
+        // FF VARS TYPE
+        fP1t = detail(-12, "fP1t");
+        fP2t = detail(-12, "fP2t");
+        // FF VARS WEIGHT
+        fP1w = detail(-12, "fP1w");
+        fP2w = detail(-12, "fP2w");
+    }
+}
+
 
 
 /* GENOME PARAMETRICS

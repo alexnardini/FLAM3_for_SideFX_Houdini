@@ -39,6 +39,8 @@
 #include <flame.h>
 #include <flameff.h>
 
+
+
 void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
 {
     // UTILS
@@ -46,7 +48,7 @@ void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha; vec
     float pscl, clr, prv_clr, a, mbm; prv_clr=0; pscl=PSCL;
     vector2 tmp, mem;
 
-    // BUILD genomes
+    // BUILD ITERATORS genomes
     //
     // genome: SYS GLB
     gemSYSGLB GEMSYSGLB; GEMSYSGLB->gemSYSGLBBuild();
@@ -54,20 +56,51 @@ void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha; vec
     // genome: SYS
     gemSYS GEMSYS; GEMSYS->gemSYSBuild();
     int RES, XS; float IW[], XST[]; /* CAST */ RES=GEMSYS.RES; XS=GEMSYS.XS; IW=GEMSYS.IW; XST=GEMSYS.XST;
-    // genome: ITERATORS
-    gem GEM; GEM->gemBuild(FF);
-    // cast FLAME
-    int     v1t[], v2t[], v3t[], v4t[], p1t[], p2t[], P1t[], PPL[]; /* CAST */ v1t=GEM.v1t; v2t=GEM.v2t; v3t=GEM.v3t; v4t=GEM.v4t; p1t=GEM.p1t; p2t=GEM.p2t; P1t=GEM.P1t; PPL=GEM.PPL;
-    float   v1w[], v2w[], v3w[], v4w[], p1w[], p2w[], P1w[], pbw[], CLR[], OM[], A[]; /* CAST */ v1w=GEM.v1w; v2w=GEM.v2w; v3w=GEM.v3w; v4w=GEM.v4w; p1w=GEM.p1w; p2w=GEM.p2w; P1w=GEM.P1w; pbw=GEM.pbw; CLR=GEM.CLR; OM=GEM.OM; A=GEM.A;
-    vector2 x[], y[], o[], px[], py[], po[]; /* CAST */ x=GEM.x; y=GEM.y; o=GEM.o; px=GEM.px; py=GEM.py; po=GEM.po;
+    // genome: SHADER
+    gemSHD GEMSHD; GEMSHD->gemSHDBuild();
+    float CLR[], OM[], A[];  /* CAST */ CLR=GEMSHD.CLR; OM=GEMSHD.OM; A=GEMSHD.A;
+    // genome: PRE AFFINE
+    gemPA GEMPA; GEMPA->gemPABuild();
+    vector2 x[], y[], o[]; /* CAST */ x=GEMPA.x; y=GEMPA.y; o=GEMPA.o;
+    // genome: POST AFFINE
+    gemAP GEMAP; GEMAP->gemAPBuild();
+    int PPL[]; vector2 px[], py[], po[]; /* CAST */ PPL=GEMAP.PPL; px=GEMAP.px; py=GEMAP.py; po=GEMAP.po;
+    // genome: PRE VAR
+    gemPV GEMPV; GEMPV->gemPVBuild();
+    int   p1t[], p2t[]; /* CAST */ p1t=GEMPV.p1t; p2t=GEMPV.p2t;
+    float pbw[], p1w[], p2w[]; /* CAST */ pbw=GEMPV.pbw; p1w=GEMPV.p1w; p2w=GEMPV.p2w; 
+    // genome: VAR
+    gemV GEMV; GEMV->gemVBuild();
+    int   v1t[], v2t[], v3t[], v4t[]; /* CAST */ v1t=GEMV.v1t; v2t=GEMV.v2t; v3t=GEMV.v3t; v4t=GEMV.v4t;
+    float v1w[], v2w[], v3w[], v4w[]; /* CAST */ v1w=GEMV.v1w; v2w=GEMV.v2w; v3w=GEMV.v3w; v4w=GEMV.v4w;
+    // genome: POST VAR
+    gemVP GEMVP; GEMVP->gemVPBuild();
+    int   P1t[]; /* CAST */ P1t=GEMVP.P1t;
+    float P1w[]; /* CAST */ P1w=GEMVP.P1w;
+
+    // INIT FF genomes
+    //
+    // genome: FF PRE AFFINE
+    gemFFPA GEMFFPA;
+    vector2 fx, fy, fo;
+    // genome: FF POST AFFINE
+    gemFFAP GEMFFAP;
+    int PFF; vector2 pfx, pfy, pfo;
+    // genome: FF PRE VAR
+    gemFFPV GEMFFPV;
+    int fp1t; float fp1w;
+    // genome: FF VAR
+    gemFFV GEMFFV;
+    int fv1t, fv2t; float fv1w, fv2w;
+    // genome: FF POST VAR
+    gemFFVP GEMFFVP;
+    int fP1t, fP2t; float fP1w, fP2w;
+
     // cast iterator (the least needed. To be used inside the big loop)
     int _PPL;
     float  _v1w, _v2w, _v3w, _v4w, _p1w, _p2w, _P1w, _pbw, _CLR, _OM;
     vector2 _x, _y, _o;
-    // cast FF
-    int     fp1t, fv1t, fv2t, fP1t, fP2t, PFF; /* CAST */ fp1t=GEM.fp1t; fv1t=GEM.fv1t; fv2t=GEM.fv2t; fP1t=GEM.fP1t; fP2t=GEM.fP2t; PFF=GEM.PFF;
-    float   fp1w, fv1w, fv2w, fP1w, fP2w; /* CAST */ fp1w=GEM.fp1w; fv1w=GEM.fv1w; fv2w=GEM.fv2w; fP1w=GEM.fP1w; fP2w=GEM.fP2w;
-    vector2 fx, fy, fo, pfx, pfy, pfo;    /* CAST */ fx=GEM.fx; fy=GEM.fy; fo=GEM.fo; pfx=GEM.pfx; pfy=GEM.pfy; pfo=GEM.pfo;
+
     // BUILD samples
     mem=biunit();
     // If XAOS, pick a starting iterator from distribution
@@ -103,6 +136,24 @@ void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha; vec
     }
     // FF
     if(FF){
+
+        // POPULATE FF genomes
+        //
+        // genome: FF PRE AFFINE
+        GEMFFPA->gemFFPABuild();
+        /* CAST */ fx=GEMFFPA.fx; fy=GEMFFPA.fy; fo=GEMFFPA.fo;
+        // genome: FF POST AFFINE
+        GEMFFAP->gemFFAPBuild();
+        /* CAST */ PFF=GEMFFAP.PFF; pfx=GEMFFAP.pfx; pfy=GEMFFAP.pfy; pfo=GEMFFAP.pfo;
+        // genome: FF PRE VAR
+        GEMFFPV->gemFFPVBuild();
+        /* CAST */ fp1t=GEMFFPV.fp1t; fp1w=GEMFFPV.fp1w;
+        // genome: FF VAR
+        GEMFFV->gemFFVBuild();
+        /* CAST */ fv1t=GEMFFV.fv1t; fv2t=GEMFFV.fv2t; fv1w=GEMFFV.fv1w; fv2w=GEMFFV.fv2w;
+        // genome: FF POST VAR
+        GEMFFVP->gemFFVPBuild();
+        /* CAST */ fP1t=GEMFFVP.fP1t; fP2t=GEMFFVP.fP2t; fP1w=GEMFFVP.fP1w; fP2w=GEMFFVP.fP2w;
 
         // FF pre affine
         affine(mem, fx, fy, fo);
