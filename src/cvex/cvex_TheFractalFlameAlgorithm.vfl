@@ -96,7 +96,7 @@ void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha; vec
     gemFFVP GEMFFVP;
     int fP1t, fP2t; float fP1w, fP2w;
 
-    // cast iterator (the least needed. To be used inside the big loop)
+    // INIT iterator (the least needed. To be used inside the big loop)
     int _PPL;
     float  _v1w, _v2w, _v3w, _v4w, _p1w, _p2w, _P1w, _pbw, _CLR, _OM;
     vector2 _x, _y, _o;
@@ -110,7 +110,7 @@ void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha; vec
 
         // xaos
         idx = (XS) ? XAOS(idx, RES, XST) : sample_cdf((float[])IW, nrandom("twister"));
-        // cast iterator (the least needed)
+        // CAST iterator
         _x=x[idx];_y=y[idx];_o=o[idx]; _pbw=pbw[idx];_p1w=p1w[idx];_p2w=p2w[idx];_v1w=v1w[idx];_v2w=v2w[idx];_v3w=v3w[idx];_v4w=v4w[idx];_P1w=P1w[idx]; _PPL=PPL[idx]; _CLR=CLR[idx];_OM=OM[idx];
 
         // pre affine
