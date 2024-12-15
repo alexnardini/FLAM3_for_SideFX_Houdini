@@ -79,42 +79,6 @@ struct gemSHD{
 
 
 
-// GENOME: PRE AFFINE
-struct gemPA{
-
-    vector2 x[], y[], o[];
-    
-    void gemPABuild(){
-
-        // PRE AFFINE
-        x = detail(-8, "X");
-        y = detail(-8, "Y");
-        o = detail(-8, "O");
-
-    }
-}
-
-
-
-// GENOME: POST AFFINE
-struct gemAP{
-
-    int PPL[];
-    vector2 px[], py[], po[];
-    
-    void gemAPBuild(){
-
-        // POST AFFINE
-        PPL = detail(-9, "POST");
-        px = detail(-9, "PX");
-        py = detail(-9, "PY");
-        po = detail(-9, "PO");
-
-    }
-}
-
-
-
 // GENOME: PRE VAR
 struct gemPV{
 
@@ -175,36 +139,37 @@ struct gemVP{
 
 
 
-// GENOME: FF PRE AFFINE
-struct gemFFPA{
+// GENOME: PRE AFFINE
+struct gemPA{
 
-    vector2 fx, fy, fo;
+    vector2 x[], y[], o[];
     
-    void gemFFPABuild(){
+    void gemPABuild(){
 
-        // FF PRE AFFINE
-        fx = detail(-13, "FX"); 
-        fy = detail(-13, "FY");
-        fo = detail(-13, "FO");
+        // PRE AFFINE
+        x = detail(-8, "X");
+        y = detail(-8, "Y");
+        o = detail(-8, "O");
 
     }
 }
 
 
 
-// GENOME: FF POST AFFINE
-struct gemFFAP{
+// GENOME: POST AFFINE
+struct gemAP{
 
-    int PFF;
-    vector2 pfx, pfy, pfo;
+    int PPL[];
+    vector2 px[], py[], po[];
     
-    void gemFFAPBuild(){
+    void gemAPBuild(){
 
-        // FF POST AFFINE
-        PFF = detail(-14, "PFF");
-        pfx = detail(-14, "PFX");
-        pfy = detail(-14, "PFY");
-        pfo = detail(-14, "PFO");
+        // POST AFFINE
+        PPL = detail(-9, "POST");
+        px = detail(-9, "PX");
+        py = detail(-9, "PY");
+        po = detail(-9, "PO");
+
     }
 }
 
@@ -263,6 +228,40 @@ struct gemFFVP{
     }
 }
 
+
+
+// GENOME: FF PRE AFFINE
+struct gemFFPA{
+
+    vector2 fx, fy, fo;
+    
+    void gemFFPABuild(){
+
+        // FF PRE AFFINE
+        fx = detail(-13, "FX"); 
+        fy = detail(-13, "FY");
+        fo = detail(-13, "FO");
+
+    }
+}
+
+
+
+// GENOME: FF POST AFFINE
+struct gemFFAP{
+
+    int PFF;
+    vector2 pfx, pfy, pfo;
+    
+    void gemFFAPBuild(){
+
+        // FF POST AFFINE
+        PFF = detail(-14, "PFF");
+        pfx = detail(-14, "PFX");
+        pfy = detail(-14, "PFY");
+        pfo = detail(-14, "PFO");
+    }
+}
 
 
 /* GENOME PARAMETRICS
