@@ -260,6 +260,8 @@ OUT_PVT_ISVALID_FILE = 'outisvalidfile'
 # If not, the camera sensor mode wont be able to properly frame itself in the current viewport.
 OUT_BBOX_NODE_NAME_SENSOR = 'OUT_bbox_sensor'
 OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe'
+# PREFS XF VIZ NODE NAME TO COOK
+PREFS_XFVIZ_NODE_NAME = 'XFVIZ_GL'
 
 PREFS_PALETTE_256_PLUS = 'paletteplus'
 PREFS_FLASH_MSG = 'flashmsg'
@@ -1640,10 +1642,11 @@ class flam3h_general_utils
 * util_set_stashed_cam() -> None:
 * util_clear_xf_viz_stashed_wire_width_data() -> None:
 * util_xf_viz_set_stashed_wire_width() -> None:
+* util_xf_viz_force_cook(node: hou.SopNode, kwargs: dict) -> None:
 
 @METHODS
 * menus_refresh_enum_prefs(self) -> None:
-* get_bbox_node_path(self, node_name: str) -> Union[str, None]:
+* get_node_path(self, node_name: str) -> Union[str, None]:
 * util_set_clipping_viewers(self) -> None:
 * util_store_all_viewers(self) -> None:
 * util_set_front_viewer(self, update: bool=True) -> bool:
@@ -1687,8 +1690,8 @@ class flam3h_general_utils
         self._node = kwargs['node']
         # Why am I doing the following ? Because with time FLAM3H grew and evolved and I was tiered to keep updating an hard coded node path,
         # hence I added the following so I can always find the nodes even if I place them in different locations from time to time.
-        self._bbox_sensor_path = self.get_bbox_node_path(OUT_BBOX_NODE_NAME_SENSOR)
-        self._bbox_reframe_path = self.get_bbox_node_path(OUT_BBOX_NODE_NAME_REFRAME)
+        self._bbox_sensor_path = self.get_node_path(OUT_BBOX_NODE_NAME_SENSOR)
+        self._bbox_reframe_path = self.get_node_path(OUT_BBOX_NODE_NAME_REFRAME)
 
 
 
@@ -2004,6 +2007,30 @@ class flam3h_general_utils
 
 
 
+    @staticmethod
+    def util_xf_viz_force_cook(node: hou.SopNode, kwargs: dict) -> None:
+        """Force viewport xforms handles VIZ to cook when the mode is OFF
+        to have the geometry ready when the user turn the mode ON.
+        
+        If not success, it will pass silently and throw a warning message.
+
+        Args:
+            node(hou.SopNode): This FLAM3H node
+            kwargs:(dict): this FLAM3H node kwargs
+            
+        Returns:
+            (None):
+        """   
+        if not node.parm(PREFS_PVT_XF_VIZ).eval():
+            # BUILD XFVIZ
+            try: hou.node(flam3h_general_utils(kwargs).get_node_path(PREFS_XFVIZ_NODE_NAME)).cook(force=True)
+            except: 
+                flam3h_general_utils.set_status_msg(f"{node.name()}: XF VIZ node not found.", 'WARN')
+                pass
+
+
+
+
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -2063,7 +2090,7 @@ class flam3h_general_utils
 
 
 
-    def get_bbox_node_path(self, node_name: str) -> Union[str, None]:
+    def get_node_path(self, node_name: str) -> Union[str, None]:
         """Find the full path of the bbox data null node
         inside the current FLAM3H node.
         
@@ -6833,6 +6860,9 @@ class flam3h_iterator_utils
         # init/clear copy/paste iterator's data and prm if needed.
         self.flam3h_paste_reset_hou_session_data()
         
+        # BUILD XFVIZ
+        flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
+        
         # If the node has its display flag ON
         if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
             # Print to Houdini's status bar
@@ -7090,6 +7120,7 @@ class flam3h_iterator_utils
                     self.destroy_userData(node, f"{data_name}")
                     _MSG = f"{node.name()}: The iterator you just removed had its XF VIZ: ON. Reverted to display the xforms handles VIZ all together."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+
                     
 
         # otherwise ADD
@@ -7142,6 +7173,7 @@ class flam3h_iterator_utils
                 if (idx_add_inbetween + 1) <= xf_viz_mp_idx:
                     prm_xfviz_solo_mp_idx.set(xf_viz_mp_idx + 1)
                     node.setUserData(f"{data_name}", str(xf_viz_mp_idx + 1))
+                    
                     
             
         else:
@@ -14250,6 +14282,9 @@ class in_flame_utils
                 # XF VIZ SOLO OFF (but leave the xforms handles VIZ ON)
                 flam3h_general_utils.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 0)
                 flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
+                
+                # BUILD XFVIZ if needed
+                flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
                 
             else:
                 if attempt_from_clipboard: _MSG = "Flame IN Clipboard: The loaded Flame preset have 0(Zero) xforms/iterators. SKIPPED"
