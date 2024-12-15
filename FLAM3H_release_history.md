@@ -7,6 +7,22 @@
 
 # Release history
 
+
+### From v1.6.70 ###
+
+_Until the next Houdini version is out, this is now marked as: **Final**_.
+
+- **New**: Viewport xforms handles VIZ geo is now pre-cooked every time a flame preset is loaded.
+- **New**: Density menu entries now have xforms handles VIZ indicator to signal which mode is ON.
+- **Fix**: Fixed a rare case where the XML color correction curves can be an empty key.
+- **Fix**: Tool responsiveness and first node instance creation time are a tiny bit better.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+
+
+
 ### From v1.6.65 ###
 
 _This release is a tentative: **Final** as of **H20.5.x**:_

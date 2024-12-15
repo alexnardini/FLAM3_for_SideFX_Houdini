@@ -209,8 +209,20 @@ It is an ongoing effort and they have been regularly updated and improved even t
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_optionStarWhiteXFVIZOFFSVG.svg" /></p>
+<p align="center">icon_optionStarWhiteXFVIZOFFSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_optionStarWhiteXFVIZSVG.svg" /></p>
 <p align="center">icon_optionStarWhiteXFVIZSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_optionStarWhiteXFVIZSOLOSVG.svg" /></p>
+<p align="center">icon_optionStarWhiteXFVIZSOLOSVG.svg</p>
 <p align="center">.</p>
 
 
@@ -353,8 +365,20 @@ It is an ongoing effort and they have been regularly updated and improved even t
 
 
 <p align="center">
+  <img width="160" height="160" src="./iconStarSwapCyanSmallXFVIZOFFSVG.svg" /></p>
+<p align="center">iconStarSwapCyanSmallXFVIZOFFSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
   <img width="160" height="160" src="./iconStarSwapCyanSmallXFVIZSVG.svg" /></p>
 <p align="center">iconStarSwapCyanSmallXFVIZSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
+  <img width="160" height="160" src="./iconStarSwapCyanSmallXFVIZSOLOSVG.svg" /></p>
+<p align="center">iconStarSwapCyanSmallXFVIZSOLOSVG.svg</p>
 <p align="center">.</p>
 
 
