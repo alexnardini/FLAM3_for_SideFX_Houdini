@@ -766,6 +766,7 @@ xform VIZ [Icon:DATATYPES/boolean]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
     - Every time you activate the xform handle VIZ SOLO mode for an iterator, a custom user data is added to the FLAM3H node with the iterator number being in SOLO mode; the data name is: *`XF VIZ`*.<br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being displayed (_in case you do not remember or when many iterators have been created_).
     - The FF(_finalxform_) viewport handle will always be displayed if Active (_it will always be of color grey/white_).
+    - The viewport handles will be automatically disabled if the FLAM3H density value is raised above *`5M`*(_millions_) points.
     - The viewport handles will be automatically disabled when FLAM3H is in camera sensor VIZ mode.
     
 W [Icon:TOP/xmlinput]:
@@ -1161,7 +1162,6 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
     - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is ON.
     
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
     Enable and disable [finalXform|#FF] transform/iterator.
 
 FF xform VIZ [Icon:DATATYPES/boolean]:
@@ -1172,6 +1172,8 @@ FF xform VIZ [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] ((LMB)) to enter into SOLO mode and display only the FF xform handle VIZ in the viewport.
     - [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg] ((LMB)) to exit the SOLO mode and revert back to display all xforms handles VIZ together.
 
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
+    - The viewport handles will be automatically disabled if the FLAM3H density value is raised above *`5M`*(_millions_) points.
     - The viewport handles will be automatically disabled when FLAM3H is in camera sensor VIZ mode.
         
 FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
