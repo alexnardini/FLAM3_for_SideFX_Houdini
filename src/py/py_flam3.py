@@ -74,7 +74,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.6.70'
+FLAM3H_VERSION = '1.6.71'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -2526,7 +2526,7 @@ class flam3h_general_utils
                     self.flash_message(node, _MSG)
             else:
                 # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
-                node.setParms({prm: 0})
+                prm.set(0)
                 _MSG = f"This node display flag is OFF. Please use a FLAM3H node that is currently displayed to enter the Camera sensor viz."
                 self.set_status_msg(f"{node.name()}: {prm.name().upper()} -> {_MSG}", 'WARN')
                 self.flash_message(node, f"{_MSG[:30]}")
@@ -2652,7 +2652,6 @@ class flam3h_general_utils
             (None):  
         """        
         node = self.node
-        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         prm_FF = node.parm(PREFS_PVT_XF_FF_VIZ_SOLO)
         
         # Refresh menu caches
@@ -4307,12 +4306,7 @@ class flam3h_iterator_utils
             (None):
         """
         data_to_prm = ' '.join([str(x) for x in data])
-        # unlock
-        node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(False)
-        # set
-        node.setParms({FLAM3H_DATA_PRM_XAOS_MP_MEM: data_to_prm}) # type: ignore
-        # lock
-        node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).lock(True)
+        flam3h_general_utils.set_private_prm(node, FLAM3H_DATA_PRM_XAOS_MP_MEM, data_to_prm)
                 
 
 
