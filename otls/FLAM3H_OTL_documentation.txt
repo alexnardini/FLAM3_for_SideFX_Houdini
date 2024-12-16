@@ -2191,13 +2191,11 @@ SHOW sensor viz [Icon:DATATYPES/boolean]:
     _*[FLAM3H to Fractorium, camera sensor framing|https://github.com/user-attachments/assets/53624d53-4eed-4889-9e14-61e9222d17e6]*_
 
     When multiple FLAM3H node are present in the scene, FLAM3H ensures that, upon entering the Camera Sensor viz mode, there will only ever be one active Camera Sensor viz mode at any given time. This keeps the current viewport from jumping when concurrently stashed viewports are restored and saved at the same time.
-    
-    TIP:
-        #display: orange
-        When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
 
-    NOTE:
-        When entering the Sensor Viz mode, FLAM3H will store all the available viewports data prior to entering the mode and restore them all on exit.<br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - _When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab_.
+    - _When this mode is ON, the viewport xforms handles VIZ mode will be disabled_.
+    - _When entering the Sensor Viz mode, FLAM3H will store all the available viewports data prior to entering the mode and restore them all on exit_.
     
 Resolution [Icon:TOP/xmlinput]:
     #id: OUT
@@ -2542,9 +2540,17 @@ Size:
     #id: prefs
     When viewport particle display is set to Points, this will control their size in the viewport.
 
+Size default:
+    #id: prefs
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] ((LMB)) to reset the point size to a default of *`1`*(one).
+
 Wire width:
     #id: prefs
-    When the SYS -> "xforms handles VIZ" is ON, this parameter will set the their wire curves thickness for the viewport display. A value of 3 is generally good.
+    When the SYS -> "xforms handles VIZ" is ON, this parameter will set the wire curves thickness for the viewport display. A value of *`3`*(three) is generally good.
+
+Wire width default:
+    #id: prefs
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] ((LMB)) to reset the wire width to a default of *`3`*(three).
         
 :box:
     #display: rounded white
@@ -2568,44 +2574,50 @@ Plugins:
     
 Web links:
     #id: about
-    A list of useful web links to check out.
+    A list of useful web links to check out.<br /><br /><br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H web links*<br />
+    _The following are wbe links related to FLAM3H_.<br /><br />
     
     [Largeicon:opdef:.?iconSVG.svg] 
     
-    - Open a web browser to the FLAM3H website.
+    - ((LMB)) to open a web browser to the FLAM3H website.
     
      
     [Largeicon:opdef:.?iconGithubBlackSVG.svg] 
     
-    - Open a web browser to the FLAM3H github repository.
+    - ((LMB)) to open a web browser to the FLAM3H github repository.
      
      
     [Largeicon:opdef:.?iconInstagramSVG.svg] 
     
-    - Open a web browser to the FLAM3H instagram account. 
+    - ((LMB)) to open a web browser to the FLAM3H instagram account. 
 
     [Largeicon:opdef:.?icon_youtube_red_play.svg] 
     
-    - Open a web browser to the FLAM3H youtube video tutorials. 
+    - ((LMB)) to open a web browser to the FLAM3H youtube video tutorials.<br /><br /><br />
      
-     
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Web links*<br />
+    _The following are web links about the original the fractal Flame algorithm and related implemntations_.<br /><br />
+
     [Largeicon:opdef:.?iconWhiteSVG.svg] 
     
-    - Open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) publication's PDF. 
+    - ((LMB)) to open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) publication's PDF. 
      
      
     [Largeicon:opdef:.?iconGithubWhiteSVG.svg] 
     
-    - Open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) github repository. 
+    - ((LMB)) to open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) github repository. 
 
 
     [Largeicon:opdef:.?icon_bitbucketLogoSVG.svg] 
     
-    - Open a web browser to the Fractorium Bitbucket repository.
+    - ((LMB)) to open a web browser to the Fractorium Bitbucket repository.
 
     [Largeicon:opdef:.?icon_FractoriumWebSVG.svg] 
     
-    - Open a web browser to the Fractorium website.
+    - ((LMB)) to open a web browser to the Fractorium website.
     
     
     
