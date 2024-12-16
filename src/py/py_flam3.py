@@ -1343,7 +1343,7 @@ class flam3h_scripts
             if xml_checked is not False and os.path.isfile(xml_checked): node.setCachedUserData('in_presets_filepath', xml_checked)
             
         if out_is_valid:
-            xml = os.path.expandvars(node.parm(IN_PATH).eval())
+            xml = os.path.expandvars(node.parm(OUT_PATH).eval())
             xml_checked = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
             if xml_checked is not False and os.path.isfile(xml_checked): node.setCachedUserData('out_presets_filepath', xml_checked)
 
@@ -1549,7 +1549,7 @@ class flam3h_scripts
         
         if len(node_instances) == 1:
             
-            # Init to defaults the Copy/Paste data
+            # Init the Copy/Paste data to defaults
             try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
             except:
                 try:
