@@ -2577,7 +2577,7 @@ Web links:
     A list of useful web links to check out.<br /><br /><br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H web links*<br />
-    _The following are wbe links related to FLAM3H_.<br /><br />
+    _The following are web links related to FLAM3H_.<br /><br />
     
     [Largeicon:opdef:.?iconSVG.svg] 
     
