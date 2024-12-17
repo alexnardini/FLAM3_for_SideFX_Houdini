@@ -132,6 +132,7 @@ FLAM3H_USER_DATA_PRX = "nodeinfo"
 FLAM3H_USER_DATA_ITER = "Marked iterator"
 FLAM3H_USER_DATA_FF = "Marked FF"
 FLAM3H_USER_DATA_XF_VIZ = "XF VIZ"
+FLAM3H_USER_DATA_XML_LAST = 'XML_last_loaded'
 
 # Main tab in the UI
 FLAM3H_ITERATORS_TAB = "f_flam3h"
@@ -1377,6 +1378,7 @@ class flam3h_scripts
         # Remove any comment and user data from the node
         flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
         flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
+        flam3h_iterator_utils.destroy_userData(node, FLAM3H_USER_DATA_XML_LAST)
         
         # OUT render curves reset and set
         out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
@@ -1667,7 +1669,7 @@ class flam3h_general_utils
 * flam3h_toggle_off(self, prm_name: str) -> None:
 * flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
 * flam3h_init_presets_IN_PRESETS(self, mode: int=1) -> None:
-* flam3h_init_presets_OUT_PRESETS(self) -> None:
+* flam3h_init_presets_OUT_PRESETS(self, destroy_menus: bool=True) -> None:
 * flam3h_display_help(self) -> None:
 * colorSchemeDark(self, update_others: bool=True) -> None:
 * viewportParticleDisplay(self) -> None:
@@ -3110,7 +3112,7 @@ class flam3h_general_utils
 
 
 
-    def flam3h_init_presets_OUT_PRESETS(self) -> None:
+    def flam3h_init_presets_OUT_PRESETS(self, destroy_menus: bool=True) -> None:
         """Initialize parameter's menu presets for the OUT tab.
         
         _NOTE:
@@ -3124,7 +3126,7 @@ class flam3h_general_utils
         """    
         node = self.node
         # Clear menu caches
-        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+        if destroy_menus: flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         # Retrieve the filepath from the history (preview valid F3H json file path used)
         out_presets_filepath_history = node.cachedUserData('out_presets_filepath')
         
@@ -14282,9 +14284,10 @@ class in_flame_utils
                 # XF VIZ SOLO OFF (but leave the xforms handles VIZ ON)
                 flam3h_general_utils.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 0)
                 flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
-                
                 # BUILD XFVIZ if needed
                 flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
+                # Store the loaded Flame preset into the FLAM3H node data storage
+                out_flame_utils(self.kwargs).out_userData_XML_last_loaded()
                 
             else:
                 if attempt_from_clipboard: _MSG = "Flame IN Clipboard: The loaded Flame preset have 0(Zero) xforms/iterators. SKIPPED"
@@ -14513,6 +14516,7 @@ class out_flame_utils
                             MP_IDX: str, 
                             FUNC: Callable) -> list[str]:
 * out_build_XML(self, flame: lxmlET.Element) -> bool:
+* out_userData_XML_last_loaded(self, data_name: str=FLAM3H_USER_DATA_XML_LAST) -> None:
 * out_new_XML(self, outpath: str) -> None:
 * out_new_XML_clipboard(self) -> None:
 * out_append_XML(self, apo_data: in_flame, out_path: str) -> None:
@@ -16480,7 +16484,31 @@ class out_flame_utils
         
         # return if this flame is a valid 'flam3'
         return self.out_flam3_compatibility_check_and_msg()
+            
+            
+            
+    def out_userData_XML_last_loaded(self, data_name: str=FLAM3H_USER_DATA_XML_LAST) -> None:
+        """Store the loaded Flame preset into the FLAM3H node data storage.
+        
+        This is being added to have some sort of history/backup some how.
+        Will probably never be used but it is something more to have in any case.
 
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """ 
+        node = self.node
+        
+        root = lxmlET.Element(XML_FLAME_NAME) # type: ignore
+        
+        if self.out_build_XML(root):
+            self._out_pretty_print(root)
+            flame = lxmlET.tostring(root, encoding="unicode") # type: ignore
+            # Store the loaded Flame preset into the FLAM3H node data storage
+            node.setUserData(data_name, flame)
+            
 
 
     def out_new_XML(self, outpath: str) -> None:
@@ -16633,27 +16661,36 @@ class out_flame_utils
                             if exist:
                                 if apo_data.isvalidtree:
                                     self.out_new_XML(out_path_checked)
+                                    # Clear OUT presets menu filepath cache
+                                    flam3h_iterator_utils.destroy_cachedUserData(node, "out_presets_filepath")
                                 else:
                                     _CHK = False
                             else:
                                 self.out_new_XML(out_path_checked)
+                                # Clear OUT presets menu filepath cache
+                                flam3h_iterator_utils.destroy_cachedUserData(node, "out_presets_filepath")
                             
                         else:
                             
                             if exist:
                                 if apo_data.isvalidtree:
                                     self.out_append_XML(apo_data, out_path_checked)
+                                    # Clear OUT presets menu filepath cache
+                                    flam3h_iterator_utils.destroy_cachedUserData(node, "out_presets_filepath")
                                 else:
                                     _CHK = False
                             else:
                                 self.out_new_XML(out_path_checked)
+                                # Clear OUT presets menu filepath cache
+                                flam3h_iterator_utils.destroy_cachedUserData(node, "out_presets_filepath")
                                 
                         if not _CHK:
                             _MSG = "OUT File not a FLAME file"
                             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
                             flam3h_general_utils.flash_message(node, _MSG)
                                 
-                        flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS()
+                        # We forzed the presets menus to update at the start of this definition, lets skip the destroy menus part on this one
+                        flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS(False)
 
             else:
                 _MSG = f"{node.name()}: SAVE Flame -> Select a valid output file or a valid filename to create first."
