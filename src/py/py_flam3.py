@@ -1340,7 +1340,7 @@ class flam3h_scripts
                 
         if in_is_valid:
             xml = os.path.expandvars(node.parm(IN_PATH).eval())
-            xml_checked = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT, False)
+            xml_checked = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT, False, False)
             if xml_checked is not False and os.path.isfile(xml_checked): node.setCachedUserData('in_presets_filepath', xml_checked)
             
         if out_is_valid:
@@ -3032,7 +3032,7 @@ class flam3h_general_utils
         prm_off = node.parm(IN_PRESETS_OFF)
         
         xml = os.path.expandvars(node.parm(IN_PATH).eval())
-        xml_checked = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT, False)
+        xml_checked = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT, False, False)
         
         if in_presets_filepath_history is not None and is_valid and os.path.isfile(in_presets_filepath_history) and in_presets_filepath_history == xml_checked:
             pass
@@ -14476,7 +14476,7 @@ class out_flame_utils
 * out_util_vars_duplicate(vars: list) -> list:
 * out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
 * out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
-* out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, auto_name: bool=True) -> Union[str, bool]:
+* out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, out: bool=True, auto_name: bool=True) -> Union[str, bool]:
 * out_affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
 * out_xaos_cleanup(xaos: Union[list[str], list[list[str]], tuple[str]]) -> list[list[str]]:
 * out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list[list[str]]:
@@ -15084,7 +15084,7 @@ class out_flame_utils
     
     
     @staticmethod
-    def out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, auto_name: bool=True) -> Union[str, bool]:
+    def out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, out: bool=True, auto_name: bool=True) -> Union[str, bool]:
         """Check for the validity of the provided output file path and correct it if needed.
         
         _NOTE:
@@ -15095,6 +15095,7 @@ class out_flame_utils
             infile(str): THe file path to check.
             file_ext(str): Provide an extension to tell this function if it is a Flame file or a palette file. 
             prx(str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame' (AUTO_NAME_CP: str or AUTO_NAME_OUT: str)
+            out(int): Default to True. Which Flame tab are we running this from? False for IN tab, True for OUT tab.
             auto_name(bool): Default to: True. When checking the output path you some time do not want to generate a filename and extension, like for example inside the IN file string parameter.
         
         Returns:
@@ -15191,11 +15192,8 @@ class out_flame_utils
             else:
                 if file:
                     if OUT_FLAM3_FILE_EXT == file_ext:
-                        _MSG = f"OUT: Select a valid OUT directory location."
-                        print(f"{node.name()}.{_MSG}")
-                        flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
-                    elif OUT_PALETTE_FILE_EXT == file_ext:
-                        _MSG = f"Palette: Select a valid OUT directory location."
+                        if out: _MSG = f"OUT: Select a valid OUT flame directory location."
+                        else: _MSG = f"IN: Select a valid IN flame file path."
                         print(f"{node.name()}.{_MSG}")
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
                 else:
@@ -15212,11 +15210,12 @@ class out_flame_utils
             else:
                 if file:
                     if OUT_FLAM3_FILE_EXT == file_ext:
-                        _MSG = f"OUT: Select a valid OUT directory location."
+                        if out: _MSG = f"OUT: Select a valid OUT flame directory location."
+                        else: _MSG = f"IN: Select a valid IN flame file path."
                         print(f"{node.name()}.{_MSG}")
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
                     elif OUT_PALETTE_FILE_EXT == file_ext:
-                        _MSG = f"Palette: Select a valid OUT directory location."
+                        _MSG = f"PALETTE: Select a valid OUT directory location."
                         print(f"{node.name()}.{_MSG}")
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
                 else:
