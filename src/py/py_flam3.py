@@ -16689,7 +16689,7 @@ class out_flame_utils
                             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
                             flam3h_general_utils.flash_message(node, _MSG)
                                 
-                        # We forzed the presets menus to update at the start of this definition, lets skip the destroy menus part on this one
+                        # We forced the presets menus to update at the start of this definition, lets skip the destroy menus part on this one
                         flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS(False)
 
             else:
