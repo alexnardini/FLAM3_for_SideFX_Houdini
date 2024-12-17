@@ -4324,24 +4324,18 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        # unlock
-        node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(False)
         # to prm from: flam3_xaos_convert()
         if isinstance(data, tuple):
             data_to_prm = ':'.join(data)
             # set
-            node.setParms({FLAM3H_DATA_PRM_XAOS_PREV: data_to_prm}) # type: ignore
-            # lock
-            node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(True)
+            flam3h_general_utils.set_private_prm(node, FLAM3H_DATA_PRM_XAOS_PREV, data_to_prm)
         else:
             collect = []
             for xaos in data:
                 collect.append(' '.join(xaos))
             data_to_prm = ':'.join(collect)
             # set
-            node.setParms({FLAM3H_DATA_PRM_XAOS_PREV: data_to_prm}) # type: ignore
-            # lock
-            node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(True)
+            flam3h_general_utils.set_private_prm(node, FLAM3H_DATA_PRM_XAOS_PREV, data_to_prm)
             
             
             
@@ -7173,9 +7167,7 @@ class flam3h_iterator_utils
                 if (idx_add_inbetween + 1) <= xf_viz_mp_idx:
                     prm_xfviz_solo_mp_idx.set(xf_viz_mp_idx + 1)
                     node.setUserData(f"{data_name}", str(xf_viz_mp_idx + 1))
-                    
-                    
-            
+        
         else:
             # update CachedUserData: flam3h_xaos_iterators_prev
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
