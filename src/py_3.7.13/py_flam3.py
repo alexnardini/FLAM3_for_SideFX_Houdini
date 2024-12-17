@@ -8840,7 +8840,7 @@ class flam3h_palette_utils
         func_list = {0: self.reset_CP_run_0, 1: self.reset_CP_run_1, 2: self.reset_CP_run_2, 3: self.reset_CP_run_3}
         run = func_list.get(mode)
         if run is not None: run()
-        else: flam3h_general_utils.set_status_msg(f"{self.node.name()}: reset_CP(...) python definition have nothing to run with the passed \"mode\" value.", 'WARN')
+        else: flam3h_general_utils.set_status_msg(f"{self.node.name()}: reset_CP(...) python definition have nothing to run with the passed \"mode\": value.", 'WARN')
         
         
     def reset_CP_palette_action(self) -> None:
@@ -9419,7 +9419,7 @@ OUT_XML_FLAME_INTERPOLATION = 'interpolation'
 OUT_XML_FLAME_INTERPOLATION_TYPE = 'interpolation_type'
 # OUT XML Curves
 OUT_XML_FLAME_RENDER_CURVES = 'curves'
-OUT_XML_FLAME_RENDER_CURVES_DEFAULT = "0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1"
+OUT_XML_FLAME_RENDER_CURVES_DEFAULT = '0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1'
 OUT_XML_FLAME_RENDER_CURVES_DEFAULT_B = '0 0 1 0.25 0.25 1 0.75 0.75 1 1 1 1 0 0 1 0.25 0.25 1 0.75 0.75 1 1 1 1 0 0 1 0.25 0.25 1 0.75 0.75 1 1 1 1 0 0 1 0.25 0.25 1 0.75 0.75 1 1 1 1'
 OUT_XML_FLAME_RENDER_CURVES_DEFAULT_C = '0 0 1 0.25 0.25 1 1 1 1 0.75 0.75 1 0 0 1 0.25 0.25 1 1 1 1 0.75 0.75 1 0 0 1 0.25 0.25 1 1 1 1 0.75 0.75 1 0 0 1 0.25 0.25 1 1 1 1 0.75 0.75 1'
 OUT_XML_FLAME_RENDER_CURVES_DEFAULT_ALL: tuple = (OUT_XML_FLAME_RENDER_CURVES_DEFAULT, OUT_XML_FLAME_RENDER_CURVES_DEFAULT_B, OUT_XML_FLAME_RENDER_CURVES_DEFAULT_C) # I'll do a better solution another day for this
@@ -9427,7 +9427,7 @@ OUT_XML_FLAME_RENDER_CURVE_OVERALL = 'overall_curve'
 OUT_XML_FLAME_RENDER_CURVE_RED = 'red_curve'
 OUT_XML_FLAME_RENDER_CURVE_GREEN = 'green_curve'
 OUT_XML_FLAME_RENDER_CURVE_BLUE = 'blue_curve'
-OUT_XML_FLAME_RENDER_CURVE_DEFAULT = "0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1"
+OUT_XML_FLAME_RENDER_CURVE_DEFAULT = '0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1'
 OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B = '0 0 0.25 0.25 0.75 0.75 1 1'
 OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C = '0 0 0.25 0.25 1 1 0.75 0.75' # This order is odd but I have some flames coming in with this so...
 OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: tuple = (OUT_XML_FLAME_RENDER_CURVE_DEFAULT, OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B, OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C) # I'll do a better solution another day for this
