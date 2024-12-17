@@ -12,14 +12,12 @@
 
 _Until the next Houdini version is out, this is now marked as: **Final**_.
 
+- **New**: Viewport xforms handles VIZ geo is now pre-cooked every time a Flame preset is loaded.
+- **New**: Density menu entries now have xforms handles VIZ indicators to signal which mode is ON.
 - **Fix**: Fixed camera sensor toggle not being properly call when cloning a FLAM3H node. (_a regression from preview versions_)
 - **Fix**: Corrected back-up "OUT_PATH" menu cache variable's name.
 - **Fix**: OUT menu presets was not properly updating when saving a Flame out.
-
-### From v1.6.70 ###
-
-- **New**: Viewport xforms handles VIZ geo is now pre-cooked every time a Flame preset is loaded.
-- **New**: Density menu entries now have xforms handles VIZ indicators to signal which mode is ON.
+- **Fix**: Cloning a FLAM3H node with Zero iterators was erroring out in checking the opacities. It is now fixed.
 - **Fix**: Fixed a rare case where the XML color correction curves can be an empty key.
 - **Fix**: Tool responsiveness and first node instance creation time are a tiny bit better.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
