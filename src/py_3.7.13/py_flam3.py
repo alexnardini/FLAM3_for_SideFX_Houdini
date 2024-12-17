@@ -12629,7 +12629,6 @@ class in_flame_utils
             # but since this one is run also from a callback script, i'm doing the checks twice anyway
             out_flame_utils.out_render_curves_compare_and_set_toggle(node)
             
-            
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
             
             if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
@@ -14392,9 +14391,7 @@ class in_flame_utils
 
         flam3h_general_utils.set_private_prm(node, IN_PVT_ISVALID_PRESET, 0)
         flam3h_general_utils.set_private_prm(node, IN_PVT_CLIPBOARD_TOGGLE, 0)
-        node.setParms({MSG_FLAMESTATS: ""})
-        node.setParms({MSG_FLAMERENDER: ""})
-        node.setParms({MSG_DESCRIPTIVE_PRM: ""})
+        [node.setParms({prm_name: ""}) for prm_name in (MSG_FLAMESTATS, MSG_FLAMERENDER, MSG_DESCRIPTIVE_PRM)]
         if mode:
             node.setParms({IN_PATH: ""})
             node.setParms({IN_PRESETS: str(-1)})
