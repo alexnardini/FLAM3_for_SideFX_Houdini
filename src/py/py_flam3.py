@@ -1667,7 +1667,7 @@ class flam3h_general_utils
 * flam3h_toggle_private(self, prm_name: str) -> None:
 * flam3h_toggle_private_FF(self, prm_name: str=PREFS_PVT_DOFF) -> None:
 * flam3h_toggle_off(self, prm_name: str) -> None:
-* flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
+* flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy_menus: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
 * flam3h_init_presets_IN_PRESETS(self, mode: int=1) -> None:
 * flam3h_init_presets_OUT_PRESETS(self, destroy_menus: bool=True) -> None:
 * flam3h_display_help(self) -> None:
