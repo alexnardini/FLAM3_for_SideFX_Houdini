@@ -2883,7 +2883,7 @@ class flam3h_general_utils
                 
                 
                 
-    def flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
+    def flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy_menus: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
         """Initialize parameter's menu presets for the CP tab.
         
         Here I could use userData instead of a cachedUserData but can happen that between one houdini session
@@ -2906,7 +2906,7 @@ class flam3h_general_utils
         """    
         node = self.node
         # Clear menu cache
-        if destroy: flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+        if destroy_menus: flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         # Retrieve the filepath from the history (preview valid F3H json file path used)
         cp_presets_filepath_history = node.cachedUserData('cp_presets_filepath')
         
@@ -16661,13 +16661,13 @@ class out_flame_utils
                             if exist:
                                 if apo_data.isvalidtree:
                                     self.out_new_XML(out_path_checked)
-                                    # Clear OUT presets menu filepath cache
+                                    # Clear OUT presets menu filepath cache (this is done to force update the preset menu)
                                     flam3h_iterator_utils.destroy_cachedUserData(node, "out_presets_filepath")
                                 else:
                                     _CHK = False
                             else:
                                 self.out_new_XML(out_path_checked)
-                                # Clear OUT presets menu filepath cache
+                                # Clear OUT presets menu filepath cache (this is done to force update the preset menu)
                                 flam3h_iterator_utils.destroy_cachedUserData(node, "out_presets_filepath")
                             
                         else:
@@ -16675,13 +16675,13 @@ class out_flame_utils
                             if exist:
                                 if apo_data.isvalidtree:
                                     self.out_append_XML(apo_data, out_path_checked)
-                                    # Clear OUT presets menu filepath cache
+                                    # Clear OUT presets menu filepath cache (this is done to force update the preset menu)
                                     flam3h_iterator_utils.destroy_cachedUserData(node, "out_presets_filepath")
                                 else:
                                     _CHK = False
                             else:
                                 self.out_new_XML(out_path_checked)
-                                # Clear OUT presets menu filepath cache
+                                # Clear OUT presets menu filepath cache (this is done to force update the preset menu)
                                 flam3h_iterator_utils.destroy_cachedUserData(node, "out_presets_filepath")
                                 
                         if not _CHK:
