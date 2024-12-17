@@ -604,7 +604,7 @@ class flam3h_varsPRM
             
         Returns:
             (list): return an enumerated variations menu list with "linear" being the first one for convenience
-        """        
+        """
 
         vars_no_lin = list(enumerate(self.vars_all()))[1:]
         vars_no_lin.remove((65, 'Pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
@@ -962,7 +962,7 @@ class flam3h_scripts
             
         Returns:
             (None):
-        """        
+        """
         flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
         if hou.isUIAvailable():
             if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H: CVEX 32bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
@@ -995,7 +995,7 @@ class flam3h_scripts
             
         Returns:
             (None):
-        """        
+        """
         # m = nodesearch.State("Display", True)
         # _display_node = m.nodes(node.parent(), recursive=False)[0]
         flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
@@ -1056,7 +1056,7 @@ class flam3h_scripts
             
         Returns:
             (None):
-        """        
+        """
         
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
@@ -1117,7 +1117,7 @@ class flam3h_scripts
             
         Returns:
             (None):
-        """        
+        """
         
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
@@ -1184,7 +1184,7 @@ class flam3h_scripts
             
         Returns:
             (None):
-        """        
+        """
         
         node = self.node
         node_instances = self.node.type().instances()
@@ -1232,7 +1232,7 @@ class flam3h_scripts
             
         Returns:
             (None):
-        """        
+        """
         
         node = self.node
         
@@ -1545,7 +1545,7 @@ class flam3h_scripts
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         node_instances = node.type().instances()
         
@@ -1777,7 +1777,7 @@ class flam3h_general_utils
 
         Returns:
             float: value clamped between Zero and 255.
-        """        
+        """
         return float(max(0, min(x, val_max)))
 
 
@@ -1795,7 +1795,7 @@ class flam3h_general_utils
             * MAC
             * JAVA
             * UNKNW
-        """        
+        """
         sys = platform_system()
         sys_options = {'Windows': 'WIN', 'Linux': 'LNX', 'Darwin': 'MAC', 'Java': 'JAVA'}
         mysys = sys_options.get(sys)
@@ -1829,7 +1829,7 @@ class flam3h_general_utils
 
         Returns:
             (bool): True if locked. False if not.
-        """        
+        """
         if filepath is not False:
             if os.path.exists(filepath) and os.path.split(str(filepath))[-1].startswith(FLAM3H_LIB_LOCK):
                 return True
@@ -1908,7 +1908,7 @@ class flam3h_general_utils
             
         Returns:
             (None):
-        """        
+        """
         try: _CAMS: Union[int, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
         except: _CAMS: Union[int, None]  = None
         
@@ -1991,7 +1991,7 @@ class flam3h_general_utils
             
         Returns:
             (None):
-        """        
+        """
         
         
         try: _STASH_DICT: Union[dict[str, float], None] = hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
@@ -2127,7 +2127,7 @@ class flam3h_general_utils
             
         Returns:
             (None):  
-        """        
+        """
         for view in self.util_getSceneViewers():
             curView = view.curViewport()
             settings = curView.settings()
@@ -2496,7 +2496,7 @@ class flam3h_general_utils
             
         Returns:
             (None):
-        """        
+        """
         
         node = self.node
         prm = node.parm(prm_name)
@@ -2544,7 +2544,7 @@ class flam3h_general_utils
 
         Returns:
             (None):  
-        """        
+        """
         node = self.node
         prm = node.parm(prm_name)
         f3h_xf_viz_others: bool = self.util_other_xf_viz()
@@ -2619,7 +2619,7 @@ class flam3h_general_utils
 
         Returns:
             (None):  
-        """        
+        """
         node = self.node
         iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         prm = node.parm(PREFS_PVT_XF_VIZ_SOLO)
@@ -2652,7 +2652,7 @@ class flam3h_general_utils
 
         Returns:
             (None):  
-        """        
+        """
         node = self.node
         prm_FF = node.parm(PREFS_PVT_XF_FF_VIZ_SOLO)
         
@@ -2778,7 +2778,7 @@ class flam3h_general_utils
 
         Returns:
             (None):  
-        """        
+        """
         node = self.node
         prm = node.parm(prm_name)
         
@@ -2807,7 +2807,7 @@ class flam3h_general_utils
 
         Returns:
             (None):  
-        """        
+        """
         node = self.node
         prm = node.parm(prm_name)
         
@@ -2837,7 +2837,7 @@ class flam3h_general_utils
 
         Returns:
             (None):  
-        """        
+        """
         node = self.node
         prm = node.parm(prm_name)
         
@@ -3295,7 +3295,7 @@ class flam3h_general_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         pttype = node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt()
 
@@ -3327,7 +3327,7 @@ class flam3h_general_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         Points = hou.viewportParticleDisplay.Points # type: ignore
         ptsize = node.parm(PREFS_VIEWPORT_PT_SIZE).evalAsFloat()
@@ -3361,7 +3361,7 @@ class flam3h_general_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         width = node.parm(PREFS_VIEWPORT_WIRE_WIDTH).evalAsFloat()
 
@@ -3419,7 +3419,7 @@ class flam3h_general_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         _MB: dict[str, Union[int, float]] = {MB_DO: 0,
                                              MB_FPS: 24,
@@ -3439,7 +3439,7 @@ class flam3h_general_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         node.setParms({PREFS_XAOS_MODE: 0})
         node.setParms({PREFS_CAMERA_HANDLE: 0})
@@ -4768,7 +4768,7 @@ class flam3h_iterator_utils
             
         Returns:
             (tuple[int, str]): int: variation idx.    str: icon
-        """        
+        """
         _TYPE, w = self.menu_T_get_var_data()
         return _TYPE, self.menu_T_get_type_icon(w)
 
@@ -4783,7 +4783,7 @@ class flam3h_iterator_utils
 
         Returns:
             (tuple[int, str]): int: variation idx.    str: icon
-        """        
+        """
         _TYPE, w = self.menu_T_get_var_data()
         return _TYPE, self.menu_T_PP_get_type_icon(w)
     
@@ -4798,7 +4798,7 @@ class flam3h_iterator_utils
 
         Returns:
             (tuple[int, str]): int: variation idx.    str: icon
-        """        
+        """
         _TYPE, w = self.menu_T_FF_get_var_data()
         return _TYPE, self.menu_T_get_type_icon(w)
     
@@ -4813,7 +4813,7 @@ class flam3h_iterator_utils
 
         Returns:
             (tuple[int, str]): int: variation idx.    str: icon
-        """        
+        """
         _TYPE, w = self.menu_T_FF_get_var_data()
         return _TYPE, self.menu_T_PP_get_type_icon(w)
     
@@ -4828,7 +4828,7 @@ class flam3h_iterator_utils
 
         Returns:
             (tuple[int, str]): int: variation idx.    str: icon
-        """        
+        """
         idx = self.kwargs['script_multiparm_index']
         prm_weight_name = f"{flam3h_iterator_prm_names.prevar_weight_blur}_{str(idx)}"
 
@@ -5204,7 +5204,7 @@ class flam3h_iterator_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         
         try:
@@ -5315,7 +5315,7 @@ class flam3h_iterator_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         kwargs = self.kwargs
         
@@ -5513,7 +5513,7 @@ class flam3h_iterator_utils
             * from_FLAM3H_NODE -> is the node we are copying the data from. 
             * mp_id_from -> Multiparameter index. Is the iterator number we are copying from inside "from_FLAM3H_NODE".
             * isDELETED -> will tell us if "from_FLAM3H_NODE" still exist.
-        """        
+        """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
@@ -5824,7 +5824,7 @@ class flam3h_iterator_utils
 
         Returns:
             (None):
-        """        
+        """
         node = self.node
         # Update data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
@@ -6394,7 +6394,7 @@ class flam3h_iterator_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         n = flam3h_iterator_prm_names
         id = self.kwargs['script_multiparm_index']
@@ -6467,7 +6467,7 @@ class flam3h_iterator_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         n = flam3h_iterator_prm_names
         id = self.kwargs['script_multiparm_index']
@@ -6542,7 +6542,7 @@ class flam3h_iterator_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         n = flam3h_iterator_prm_names
         check = True
@@ -6612,7 +6612,7 @@ class flam3h_iterator_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         n = flam3h_iterator_prm_names
         
@@ -7335,7 +7335,7 @@ class flam3h_iterator_utils
             
         Returns:
             (None):
-        """        
+        """
         id = self.kwargs['script_multiparm_index']
         vactive_prm_name = f"vactive_{str(id)}"
         flam3h_general_utils(self.kwargs).flam3h_toggle(vactive_prm_name)
@@ -7560,7 +7560,7 @@ class flam3h_palette_utils
 
         Returns:
             (str): a palette colors/keys count string preset.
-        """        
+        """
         keys_count = len(ramp.keys())
         if keys_count <= 128:
             return PALETTE_COUNT_128
@@ -7584,7 +7584,7 @@ class flam3h_palette_utils
 
         Returns:
             (Union[str, bool]): The preset name, or False if not.
-        """        
+        """
         try:
             with open(filepath, 'r') as r:
                 return list(json.load(r).keys())[0]
@@ -7676,7 +7676,7 @@ class flam3h_palette_utils
 
         Returns:
             (str): HEX color value
-        """        
+        """
         vals = [flam3h_general_utils.clamp(255*x) for x in rgb]
         hex = ''.join(['{:02X}'.format(int(round(x))) for x in vals])
         return hex
@@ -9078,7 +9078,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
             
         Returns:
             (None):
-        """        
+        """
         page = "https://www.alexnardini.net/"
         www_open(page)
         
@@ -9945,7 +9945,7 @@ class _xml_tree
         Args:
             (self):
             xmlfile (str): xmlfile (str): [xml *.flame file v_type to load]
-        """        
+        """
         self._xmlfile = xmlfile
         self._xmlfile_data = self.xmlfile_root_chk(self._xmlfile)
         self._xmlfile_data_clipboard = self.xmlfile_root_chk(self._xmlfile, True)
@@ -10090,7 +10090,7 @@ class _xml_tree
 
         Returns:
             (tuple): Flame presets names packed into a tuple.
-        """        
+        """
         if self.isvalidtree:
             root = self.tree.getroot()
             if key == XML_XF_NAME: return tuple( [str(name.get(key)).strip() if name.get(key) is not None else '[]' for name in root] )
@@ -10147,7 +10147,7 @@ class _xml_tree
 
         Returns:
             (tuple): Return all values packed into a tuple.
-        """        
+        """
         if self.isvalidtree:
             root = self.tree.getroot()
             return tuple( [str(in_flame.xf_list_cleanup_str(str(name.get(key)).strip().split())) if name.get(key) is not None else [] for name in root] )
@@ -10164,7 +10164,7 @@ class _xml_tree
 
         Returns:
             Union[tuple, None]: Flames objects data or None if not found.
-        """        
+        """
         if self.isvalidtree:
             root = self.tree.getroot()
             return tuple( [f for f in root.iter(key)] )
@@ -10181,7 +10181,7 @@ class _xml_tree
 
         Returns:
             (int): Number of Flames.
-        """        
+        """
         if self.isvalidtree:
             return len(flames)
         return 0
@@ -10234,7 +10234,7 @@ class in_flame
             (self):
             node(hou.SopNode): This FLAM3H node
             xmlfile (str): xml *.flame v_type file to load
-        """        
+        """
         super().__init__(xmlfile)
         self._node = node
         self._flame = self._xml_tree__get_flame() # type: ignore
@@ -10611,7 +10611,7 @@ class in_flame
 
         Returns:
             (Union[tuple, None]): either a list of xaos strings or None
-        """        
+        """
         if  self.isvalidtree and xforms is not None:
 
             xaos = [f"xaos:{':'.join(self.xf_list_cleanup(str(xf.get(key)).split()))}" if xf.get(key) is not None else [] for xf in xforms]
@@ -10632,7 +10632,7 @@ class in_flame
 
         Returns:
             (Union[tuple, None]): Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None
-        """           
+        """   
         if  self.isvalidtree and xforms is not None:
             coefs = [tuple(self.affine_coupling([float(x) for x in self.xf_list_cleanup(str(xf.get(key)).split())], key, int(idx+1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
             if max(list(map(lambda x: len(x), coefs))): return tuple(coefs)
@@ -10651,7 +10651,7 @@ class in_flame
 
         Returns:
             (Union[tuple, None]): description
-        """        
+        """
         if self.isvalidtree and xforms is not None:
             
             vars_keys_pre: Union[list, None] = None
@@ -10859,7 +10859,7 @@ class in_flame
 
         Returns:
             (Union[int, None]): This flame toggle or None if not found
-        """        
+        """
 
         if self.isvalidtree:
             # f3c = self._flam3h_prefs_f3c[idx]
@@ -10901,7 +10901,7 @@ class in_flame_iter_data(in_flame):
             node(hou.SopNode): This FLAM3H node.
             xmlfile (str): xmlfile (str): xml flame v_type file to load
             idx (int, optional): flame idx out of all flames included in the loaded flame file]. Defaults to 0.
-        """        
+        """
         super().__init__(node, xmlfile)
         self._idx = self._in_flame__is_valid_idx(idx) # type: ignore
         self._xforms = self._in_flame__get_xforms(self._idx, XML_XF) # type: ignore
@@ -11331,7 +11331,7 @@ class in_flame_utils
 
         Returns:
             (Union[Union[str, list[str]], None]): A converted str, list[str], tuple[str] of variation's names.
-        """        
+        """
         if type(name) is str:
             if name.startswith(V_PRX_PRE):
                 return re_sub(REGEX_PRE, '', name)
@@ -11739,7 +11739,7 @@ class in_flame_utils
 
         Returns:
             (tuple): If an exception is confirmed, return the parameter expected parameter's name.
-        """        
+        """
         if app.startswith(XML_APP_NAME_FRACTORIUM):
             check = flam3h_varsPRM_APO.varsPRM_FRACTORIUM_EXCEPTIONS.get(v_type)
             if check is not None:
@@ -12219,7 +12219,7 @@ class in_flame_utils
 
         Returns:
             (float): If the passed in weight value is negative, return its absolute value. Only for PRE and POST variations.
-        """        
+        """
         if w < 0:
             print(f"{node.name()} warning:\n{v_type_name.upper()} variation weight value: {w}\nNegative weight not allowed in PRE or POST vars.\nUsing its absolute value instead: {abs(w)}\n")
             return abs(w)
@@ -12237,7 +12237,7 @@ class in_flame_utils
 
         Returns:
             (tuple[tuple, int]): Return a tuple containing either the iterator's xforms or the FF xform and max variation limit allowed.
-        """        
+        """
         xf = ()
         _MAX_VARS = 0
         if mode:
@@ -12258,7 +12258,7 @@ class in_flame_utils
 
         Returns:
             (Union[int, None]): The iteration number or none.
-        """        
+        """
         splt = list(menu_label.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV))
         if len([item for item in splt if item]) > 1:
             try: return int(splt[-1])
@@ -12293,7 +12293,7 @@ class in_flame_utils
 
         Returns:
             (list[str]): Return a flattened list of unique and sorted items without duplicates.
-        """        
+        """
         flatten = [item for sublist in VARS_list for item in sublist]
         result = []
         [result.append(x) for x in flatten if x not in result]
@@ -12355,7 +12355,7 @@ class in_flame_utils
 
         Returns:
             (int): The iteration number to set. If none is found, use the default value of 64 to load this Flame preset.
-        """        
+        """
         iter_on_load = node.parm(IN_ITER_NUM_ON_LOAD).eval()
         use_iter_on_load = node.parm(IN_USE_ITER_ON_LOAD).eval()
         
@@ -12391,7 +12391,7 @@ class in_flame_utils
 
         Returns:
             (str): A string to be used to set the IN Render properties data parameter message.
-        """        
+        """
         # spacers
         nl = "\n"
         nnl = "\n\n"
@@ -12436,7 +12436,7 @@ class in_flame_utils
 
         Returns:
             (str): A string to be used to set the IN Render properties data parameter message.
-        """        
+        """
         # spacers
         nl = "\n"
         nnl = "\n\n"
@@ -12665,7 +12665,7 @@ class in_flame_utils
             
         Returns:
             (None):
-        """        
+        """
         node = kwargs['node']
         
         inisvalidfile = node.parm(IN_PVT_ISVALID_FILE).eval()
@@ -12709,7 +12709,7 @@ class in_flame_utils
             
         Returns:
             (None):
-        """        
+        """
         node = kwargs['node']
         
         inisvalidfile = node.parm(IN_PVT_ISVALID_FILE).eval()
@@ -12763,7 +12763,7 @@ class in_flame_utils
             
         Returns:
             (None):
-        """        
+        """
         node = kwargs['node']
 
         inisvalidfile = node.parm(IN_PVT_ISVALID_FILE).eval()
@@ -13536,7 +13536,7 @@ class in_flame_utils
             
         Returns:
             (None):
-        """        
+        """
         iter_on_load = self.node.parm(IN_ITER_NUM_ON_LOAD).eval()
         self.node.setParms({GLB_ITERATIONS: iter_on_load})
         # update Flame preset name if any
@@ -13551,7 +13551,7 @@ class in_flame_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         useiteronload = node.parm(IN_USE_ITER_ON_LOAD).eval()
         if useiteronload:
@@ -13685,7 +13685,7 @@ class in_flame_utils
 
         Returns:
             (None):
-        """        
+        """
         # iterators
         flam3h_iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         
@@ -14044,7 +14044,7 @@ class in_flame_utils
                                                                     * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
                                                                     * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
                                                                     * chaos ( bool ): Is it a chaotica XML file type ? True or False.
-        """        
+        """
         
         flameFile = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
         flameFile_expandvars = os.path.expandvars(flameFile)
@@ -14398,7 +14398,7 @@ class in_flame_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
 
         flam3h_general_utils.set_private_prm(node, IN_PVT_ISVALID_PRESET, 0)
@@ -14909,7 +14909,7 @@ class out_flame_utils
 
         Returns:
             (str): Return a default name composed of today's date and time.
-        """        
+        """
         flame_name = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
         iter_num = node.parm(GLB_ITERATIONS).eval()
         return out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
@@ -14924,7 +14924,7 @@ class out_flame_utils
 
         Returns:
             (str): A value without the floating zeros
-        """        
+        """
         if float(val).is_integer(): # type: ignore - float.is_integer() is a valid method for a float
             return str(int(float(val)))
         else:
@@ -14953,7 +14953,7 @@ class out_flame_utils
 
         Returns:
             (bool): True if there are duplicates and False if not.
-        """        
+        """
         result = []
         [result.append(x) for x in vars if x not in result]
         if(len(vars) != len(result)):
@@ -15099,7 +15099,7 @@ class out_flame_utils
         
         Returns:
             Union[str, bool]: Either a corrected/valid file path or False if not valid.
-        """        
+        """
         
         file = os.path.expandvars(infile)
         
@@ -15257,7 +15257,7 @@ class out_flame_utils
 
         Returns:
            (list[list[str]]): an iterator Xaos cleaned up from the inactive iterator's values
-        """        
+        """
         xaos_cleaned = []
         for x in xaos:
             invert = x[::-1]
@@ -15404,7 +15404,7 @@ class out_flame_utils
             parent(Union[lxmlET.Element, None]): Default to None.
             index(int): _description_. Defaults to -1.
             depth(int): _description_. Defaults to 0.
-        """        
+        """
         [out_flame_utils._out_pretty_print(node, current, i, depth + 1) for i, node in enumerate(current)]
         if parent is not None:
             if index == 0:
@@ -15831,7 +15831,7 @@ class out_flame_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         sel = int(node.parm(OUT_RENDER_PROPERTIES_RES_PRESETS_MENU).eval())
         res = { -1: None, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), # 1 2 3 4
@@ -15965,7 +15965,7 @@ class out_flame_utils
 
         Returns:
             (None):
-        """        
+        """
         node = self.node
 
         self.reset_OUT_options()
@@ -16113,7 +16113,7 @@ class out_flame_utils
 
         Returns:
             (tuple[int, str, int]): A tuple with the needed data
-        """        
+        """
         node = self.node
         iter_num = node.parm(GLB_ITERATIONS).eval()
         flame_name = str(node.parm(OUT_FLAME_PRESET_NAME).eval()).strip()
@@ -16130,7 +16130,7 @@ class out_flame_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
         flame_name_new = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
@@ -16166,7 +16166,7 @@ class out_flame_utils
 
 
     def out_flame_properties_build(self, f3r: out_flame_render_properties) -> dict:
-        """Return a dictionary with all the flame properties to written out.
+        """Return a dictionary with all the flame properties to be written out.
 
         Args:
             (self):
@@ -16221,7 +16221,7 @@ class out_flame_utils
             
         Returns:
             (bool): Return True if the Flame is valid or False if not.
-        """        
+        """
         node = self.node
         
         # Here we are adding POST VARS and FF PRE VARS even tho they are only one slot,
@@ -16394,7 +16394,7 @@ class out_flame_utils
 
         Returns:
             (bool): return True if the Flame is a compatible FLAM3 flame or False if not.
-        """        
+        """
         # Build Flame data and render properties
         f3d = out_flame_xforms_data(self.kwargs)
         f3r = out_flame_render_properties(self.kwargs)
@@ -16523,7 +16523,7 @@ class out_flame_utils
             (none):
         """   
         node = self.node
-           
+        
         root = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
         flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
         flame.tag = XML_FLAME_NAME
@@ -16575,12 +16575,9 @@ class out_flame_utils
 
         Returns:
             (None):
-        """                
+        """
         node = self.node
         
-        # with lxmlET
-        # tree = lxmlET.parse(apo_data.xmlfile) # type: ignore
-        # root = tree.getroot()
         root = apo_data.tree.getroot()
         
         flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
@@ -16607,18 +16604,18 @@ class out_flame_utils
             
         Returns:
             (None):
-        """        
+        """
         node = self.node
         # Force this data to be rebuilt
         # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
         # (ex. the user perform hand made modifications like renaming a Preset and such).
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         
-        kwargs = self.kwargs
-        iterators_num = node.parm(FLAME_ITERATORS_COUNT).eval()
-        
         # if there is at least one iterator
+        iterators_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iterators_num:
+            
+            kwargs = self.kwargs
             
             out_path = os.path.expandvars(node.parm(OUT_PATH).eval())
             out_path_checked: Union[str, bool] = self.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
