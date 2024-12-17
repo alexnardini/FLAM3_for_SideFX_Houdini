@@ -6989,10 +6989,7 @@ class flam3h_iterator_utils
         fill_all_xaos = [np_pad(item, (0, iter_num-len(item)), 'constant', constant_values=1).tolist() for item in val]
         
         # convert all xaos into array of strings
-        xaos_str = []
-        for xaos in fill_all_xaos:
-            collect = [str(item) for item in xaos]
-            xaos_str.append(collect)
+        xaos_str = [[str(item) for item in xaos] for xaos in fill_all_xaos]
             
         # get xaos from CachedUserData
         __xaos_str_hou_get = self.auto_set_xaos_data_get_XAOS_PREV(node)
