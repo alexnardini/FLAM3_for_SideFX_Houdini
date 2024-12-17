@@ -6909,15 +6909,8 @@ class flam3h_iterator_utils
         """
 
         node: hou.SopNode = self.node
-        
-        # XF VIZ
-        prm_xfviz = node.parm(PREFS_PVT_XF_VIZ)
-        prm_xfviz_solo = node.parm(PREFS_PVT_XF_VIZ_SOLO)
-        prm_xfviz_solo_mp_idx = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
-        data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
-        
         iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
-        
+        # AUTO DIV XAOS
         autodiv = node.parm(PREFS_PVT_XAOS_AUTO_SPACE).eval()
         div_xaos = 'xaos:'
         div_weight = ':'
@@ -6925,11 +6918,16 @@ class flam3h_iterator_utils
             div_xaos = 'xaos :'
             div_weight = ' :'
         
+        # PRM DATA
+        prm_mpidx = node.parm(FLAM3H_DATA_PRM_MPIDX)
+        # PRM XF VIZ
+        prm_xfviz = node.parm(PREFS_PVT_XF_VIZ)
+        prm_xfviz_solo = node.parm(PREFS_PVT_XF_VIZ_SOLO)
+        prm_xfviz_solo_mp_idx = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
+        data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
+        
         # unlock
-        node.parm(FLAM3H_DATA_PRM_MPIDX).lock(False)
-        prm_xfviz.lock(False)
-        prm_xfviz_solo.lock(False)
-        prm_xfviz_solo_mp_idx.lock(False)
+        [prm.lock(False) for prm in (prm_mpidx, prm_xfviz, prm_xfviz_solo, prm_xfviz_solo_mp_idx)]
         
         # init indexes
         idx_del_inbetween = None
@@ -6940,8 +6938,8 @@ class flam3h_iterator_utils
         xaos_str_hou_get = []
         
         # get mpmem parms now
-        prm_mp_mem = flam3h_iterator_prm_names.main_mpmem
-        [mpmem.append(int(node.parm(f"{prm_mp_mem}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
+        mp_mem_name = flam3h_iterator_prm_names.main_mpmem
+        [mpmem.append(int(node.parm(f"{mp_mem_name}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
         
         # get mpmem from CachedUserData
         __mpmem_hou_get = self.auto_set_xaos_data_get_MP_MEM(node)
@@ -7004,7 +7002,7 @@ class flam3h_iterator_utils
                     if (idx_del_inbetween+1) == flam3h_node_mp_id: # just in case..
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
                         # set
-                        node.setParms({FLAM3H_DATA_PRM_MPIDX: -1}) # type: ignore
+                        prm_mpidx.set(-1)
                         self.del_comment_and_user_data_iterator(node)
                         # Let us know
                         _MSG = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
@@ -7057,8 +7055,8 @@ class flam3h_iterator_utils
                     if (idx_del_inbetween+1) < flam3h_node_mp_id:
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id - 1 # type: ignore
                         # set
-                        idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).eval() - 1
-                        node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new}) # type: ignore
+                        idx_new = prm_mpidx.eval() - 1
+                        prm_mpidx.set(idx_new)
                         self.del_comment_and_user_data_iterator(node)
                         self.set_comment_and_user_data_iterator(node, str(idx_new))
 
@@ -7066,7 +7064,7 @@ class flam3h_iterator_utils
                         
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
                         # set
-                        node.setParms({FLAM3H_DATA_PRM_MPIDX: -1}) # type: ignore
+                        prm_mpidx.set(-1)
                         self.del_comment_and_user_data_iterator(node)
                         # Let us know
                         _MSG = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
@@ -7125,8 +7123,8 @@ class flam3h_iterator_utils
                     if (idx_add_inbetween+1) <= flam3h_node_mp_id:
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id + 1 # type: ignore
                         # set
-                        idx_new = node.parm(FLAM3H_DATA_PRM_MPIDX).eval() + 1
-                        node.setParms({FLAM3H_DATA_PRM_MPIDX: idx_new}) # type: ignore
+                        idx_new = prm_mpidx.eval() + 1
+                        prm_mpidx.set(idx_new)
                         self.del_comment_and_user_data_iterator(node)
                         self.set_comment_and_user_data_iterator(node, str(idx_new))
                         
@@ -7150,21 +7148,16 @@ class flam3h_iterator_utils
         prm_xaos = flam3h_iterator_prm_names.xaos
         [node.setParms({f"{prm_xaos}_{str(mp_idx+1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)] # type: ignore
             
-        # lock
-        node.parm(FLAM3H_DATA_PRM_XAOS_PREV).lock(True)
-            
         # reset iterator's mpmem prm
-        [node.setParms({f"{prm_mp_mem}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
+        [node.setParms({f"{mp_mem_name}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
         # update flam3h_xaos_mpmem
-        __mpmem_hou = [int(node.parm(f"{prm_mp_mem}_{str(mp_idx+1)}").eval()) for mp_idx in range(iter_num)]
-        
+        __mpmem_hou = [int(node.parm(f"{mp_mem_name}_{str(mp_idx+1)}").eval()) for mp_idx in range(iter_num)]
         # export mpmem into CachedUserData
         self.auto_set_xaos_data_set_MP_MEM(node, __mpmem_hou)
+        
         # lock
-        node.parm(FLAM3H_DATA_PRM_MPIDX).lock(True)
-        prm_xfviz.lock(True)
-        prm_xfviz_solo.lock(True)
-        prm_xfviz_solo_mp_idx.lock(True)
+        [prm.lock(True) for prm in (prm_mpidx, prm_xfviz, prm_xfviz_solo, prm_xfviz_solo_mp_idx)]
+
 
 
     def iterators_count(self) -> None:
