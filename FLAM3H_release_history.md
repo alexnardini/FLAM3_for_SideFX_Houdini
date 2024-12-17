@@ -14,6 +14,7 @@ _Until the next Houdini version is out, this is now marked as: **Final**_.
 
 - **Fix**: Fixed camera sensor toggle not being properly call when cloning a FLAM3H node. (_a regression from preview versions_)
 - **Fix**: Corrected back-up "OUT_PATH" menu cache variable's name.
+- **Fix**: OUT menu presets was not properly updating when saving a Flame out.
 
 ### From v1.6.70 ###
 
