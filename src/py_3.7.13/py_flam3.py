@@ -6784,17 +6784,12 @@ class flam3h_iterator_utils
 
         n = flam3h_iterator_prm_names
 
+        # FF note
         node.setParms({f"{PRX_FF_PRM}{n.main_note}": "iterator_FF"}) # type: ignore
-        # FF pre
-        node.setParms({f"{PRX_FF_PRM}{n.prevar_type_1}":  0}) # type: ignore 
-        node.setParms({f"{PRX_FF_PRM}{n.prevar_weight_1}": 0}) # type: ignore
-        # FF var
-        node.setParms({f"{PRX_FF_PRM}{n.var_type_1}": 0}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.var_type_2}": 0}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.var_weight_1}": 1}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.var_weight_2}": 0}) # type: ignore
-        # FF post
-        [prm.set(0) for prm in (node.parm(f"{PRX_FF_PRM}{n.postvar_type_1}"), node.parm(f"{PRX_FF_PRM}{n.postvar_type_2}"), node.parm(f"{PRX_FF_PRM}{n.postvar_weight_1}"), node.parm(f"{PRX_FF_PRM}{n.postvar_weight_2}"))]
+        # FF vars
+        [node.setParms({f"{PRX_FF_PRM}{prm}": 1}) if prm==n.var_weight_1 
+                    else node.setParms({f"{PRX_FF_PRM}{prm}": 0})
+                        for prm in (n.prevar_type_1, n.prevar_weight_1, n.var_type_1, n.var_weight_1, n.var_type_2, n.var_weight_2, n.postvar_type_1, n.postvar_weight_1, n.postvar_type_2, n.postvar_weight_2)]
         # FF affine
         node.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))}) # type: ignore
         node.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))}) # type: ignore
@@ -6824,13 +6819,10 @@ class flam3h_iterator_utils
         self.destroy_cachedUserData(node, 'iter_sel')
         self.destroy_cachedUserData(node, 'edge_case_01')
         self.destroy_all_menus_data(node)
-        
         # Iterators reset
         in_flame_utils(self.kwargs).in_to_flam3h_reset_iterators_parms(node, 3)
-        
         # update xaos
         self.auto_set_xaos()
-
         # resets Tab contexts
         self.reset_FF()
         flam3h_general_utils(self.kwargs).reset_SYS(1, FLAM3H_DEFAULT_GLB_ITERATIONS, 1)
@@ -6839,28 +6831,19 @@ class flam3h_iterator_utils
         in_flame_utils(self.kwargs).reset_IN()
         out_flame_utils(self.kwargs).reset_OUT(1) # dnt clear the MSG_OUT if any
         flam3h_general_utils(self.kwargs).reset_PREFS()
-        
-        # Clear up stats if there already ( due to be stored into a houdini preset also, just in case... )
-        [prm.set("") for prm in (node.parm(MSG_FLAMESTATS), node.parm(MSG_FLAMERENDER), node.parm(MSG_FLAMESENSOR))]
-
-        # node.setParms({MSG_PALETTE: ''})
-        # node.setParms({MSG_OUT: ''})
-        node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+        # Reset/Set density
         node.setParms({GLB_DENSITY_PRESETS: 1}) # type: ignore
-        
+        node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
         # Sierpiński triangle settings
         self.sierpinski_settings(node)
-        
         # OUT render curves reset and set
         out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
-
         # init/clear copy/paste iterator's data and prm if needed.
         self.flam3h_paste_reset_hou_session_data()
-        
         # BUILD XFVIZ
         flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
         
-        # If the node has its display flag ON
+        # Print if the node has its display flag ON
         if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
             # Print to Houdini's status bar
             _MSG = f"{node.name()}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
@@ -6884,38 +6867,28 @@ class flam3h_iterator_utils
         # iterator prm names
         n = flam3h_iterator_prm_names
         
-        # iter 1
+        # iter idx
         #
-        # main
+        # iter main
         node.setParms({f"{n.main_note}_{idx}": f"iterator_{idx}"}) # type: ignore
         node.setParms({f"{n.main_weight}_{idx}": 0.5}) # type: ignore
-        # shader
+        #
+        # We leave xaos untouched becasue its handy to keep it and just reset it in a second step if desired
+        #
+        # iter shader
         node.setParms({f"{n.shader_color}_{idx}": 0}) # type: ignore
         node.setParms({f"{n.shader_speed}_{idx}": 0}) # type: ignore
         node.setParms({f"{n.shader_alpha}_{idx}": 1.0}) # type: ignore
-        # vars
-        node.setParms({f"{n.prevar_blur}_{idx}": 0}) # type: ignore
-        node.setParms({f"{n.prevar_weight_blur}_{idx}": 0.0}) # type: ignore
-        node.setParms({f"{n.prevar_type_1}_{idx}": 0}) # type: ignore
-        node.setParms({f"{n.prevar_weight_1}_{idx}": 0.0}) # type: ignore
-        node.setParms({f"{n.prevar_type_2}_{idx}": 0}) # type: ignore
-        node.setParms({f"{n.prevar_weight_2}_{idx}": 0.0}) # type: ignore
-        node.setParms({f"{n.var_type_1}_{idx}": 0}) # type: ignore
-        node.setParms({f"{n.var_weight_1}_{idx}": 1.0}) # type: ignore
-        node.setParms({f"{n.var_type_2}_{idx}": 0}) # type: ignore
-        node.setParms({f"{n.var_weight_2}_{idx}": 0.0}) # type: ignore
-        node.setParms({f"{n.var_type_3}_{idx}": 0}) # type: ignore
-        node.setParms({f"{n.var_weight_3}_{idx}": 0.0}) # type: ignore
-        node.setParms({f"{n.var_type_4}_{idx}": 0}) # type: ignore
-        node.setParms({f"{n.var_weight_4}_{idx}": 0.0}) # type: ignore
-        node.setParms({f"{n.postvar_type_1}_{idx}": 0}) # type: ignore
-        node.setParms({f"{n.postvar_weight_1}_{idx}": 0.0}) # type: ignore
-        # pre affine
+        # iter vars
+        [node.setParms({f"{prm}_{idx}": 1}) if prm==n.var_weight_1 
+            else node.setParms({f"{prm}_{idx}": 0})
+                for prm in (n.prevar_blur, n.prevar_weight_blur, n.prevar_type_1, n.prevar_weight_1, n.prevar_type_2, n.prevar_weight_2, n.var_type_1, n.var_weight_1, n.var_type_2, n.var_weight_2, n.var_type_3, n.var_weight_3, n.var_type_4, n.var_weight_4, n.postvar_type_1, n.postvar_weight_1)]
+        # iter pre affine
         node.setParms({f"{n.preaffine_x}_{idx}": AFFINE_DEFAULTS.get("affine_x")}) # type: ignore
         node.setParms({f"{n.preaffine_y}_{idx}": AFFINE_DEFAULTS.get("affine_y")}) # type: ignore
         node.setParms({f"{n.preaffine_o}_{idx}": AFFINE_DEFAULTS.get("affine_o")}) # type: ignore
         node.setParms({f"{n.preaffine_ang}_{idx}": AFFINE_DEFAULTS.get("angle")}) # type: ignore
-        # post affine
+        # iter post affine
         node.setParms({f"{n.postaffine_do}_{idx}": 0}) # type: ignore
         node.setParms({f"{n.postaffine_x}_{idx}": AFFINE_DEFAULTS.get("affine_x")}) # type: ignore
         node.setParms({f"{n.postaffine_y}_{idx}": AFFINE_DEFAULTS.get("affine_y")}) # type: ignore
@@ -14391,8 +14364,10 @@ class in_flame_utils
 
         flam3h_general_utils.set_private_prm(node, IN_PVT_ISVALID_PRESET, 0)
         flam3h_general_utils.set_private_prm(node, IN_PVT_CLIPBOARD_TOGGLE, 0)
-        [node.setParms({prm_name: ""}) for prm_name in (MSG_FLAMESTATS, MSG_FLAMERENDER, MSG_DESCRIPTIVE_PRM)]
+        [prm.set("") for prm in (node.parm(MSG_FLAMESTATS), node.parm(MSG_FLAMERENDER), node.parm(MSG_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM))]
+        
         if mode:
+            # This more is not being used anymore but I leave it here just in case
             node.setParms({IN_PATH: ""})
             node.setParms({IN_PRESETS: str(-1)})
             node.setParms({IN_PRESETS_OFF: str(-1)})
