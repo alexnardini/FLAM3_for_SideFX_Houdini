@@ -1082,9 +1082,9 @@ class flam3h_scripts
                 _MSG_DONE = f"FLAM3H CVEX nodes compile: DONE \nversion: {FLAM3H_VERSION}{FLAM3H_VERSION_STATUS_GOLD}"
             
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
-                    flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
+                    self.flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                 else:
-                    flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node, cvex_precision,_MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
+                    self.flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node, cvex_precision,_MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                     
                     
             elif cvex_precision == 64 and first_instance_64bit is True:
@@ -1096,15 +1096,15 @@ class flam3h_scripts
                 _MSG_DONE = f"FLAM3H CVEX 64-bit nodes compile: DONE\nversion: {FLAM3H_VERSION}"
                 
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
-                    flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
+                    self.flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                 else:
-                    flam3h_scripts.flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node, cvex_precision,_MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
+                    self.flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node, cvex_precision,_MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                     
             else:
                 pass
                 
         else:
-            flam3h_scripts.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
+            self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
 
 
 
@@ -1152,13 +1152,13 @@ class flam3h_scripts
                 if hou.isUIAvailable():
                     if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H: CVEX 64bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
                         # node.cook(force=True)
-                        flam3h_scripts.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
+                        self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
 
                         node.setParms({GLB_DENSITY: density})
                         hou.setUpdateMode(sys_updated_mode) # type: ignore
                         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
                 else:
-                    flam3h_scripts.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
+                    self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
 
                     node.setParms({GLB_DENSITY: density})
                     hou.setUpdateMode(sys_updated_mode) # type: ignore
@@ -1168,7 +1168,7 @@ class flam3h_scripts
                 flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
                 node.setParms({GLB_DENSITY: 1})
                 node.cook(force=True)
-                flam3h_scripts.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
+                self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
 
                 node.setParms({GLB_DENSITY: density})
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
@@ -14126,11 +14126,11 @@ class in_flame_utils
                                                                     chaos
                                                                     )
             
-                                                                    * xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
-                                                                    * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                                                    * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                                                    * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                                                    * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                                    * xml: either a flame preset from a flame file or from the Clipboard.
+                                                                    * clipboard: did we get a valid flame preset from the clipboard ? True or False.
+                                                                    * preset_id: flame preset index. From clipboard will always be ZERO.
+                                                                    * clipboard_flame_name: If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                                    * attempt_to_load_from_clipboard: Did we try to load flame preset from the clipboard ? True or False.
                                                                     * chaos ( bool ): Is it a chaotica XML file type ? True or False.
     """
         xml = os.path.expandvars(node.parm(IN_PATH).eval())
