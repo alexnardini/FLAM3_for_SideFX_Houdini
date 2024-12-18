@@ -4030,16 +4030,28 @@ class flam3h_iterator_utils
             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_iterator_utils.get_user_data(node) # type: ignore
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX) # type: ignore
         else:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+            # If this node do not posses the copy/paste data, lets first check if the data and its node exist (other FLAM3H node)
+            # before clearing it out
+            try: 
+                hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+            except:
+                hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
+                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
             
         # FF
         if flam3h_iterator_utils.exist_user_data(node, FLAM3H_USER_DATA_FF):
             hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
             hou.session.FLAM3H_MARKED_FF_CHECK = 1 # type: ignore
         else:
-            hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
-            hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
+            # If this node do not posses the copy/paste data, lets first check if the data and its node exist (other FLAM3H node)
+            # before clearing it out
+            try: 
+                hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
+            except:
+                hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
+                hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
 
 
 
