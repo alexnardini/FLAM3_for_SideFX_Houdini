@@ -10,7 +10,16 @@
 
 ### From v1.6.75 ###
 
-_Until the next Houdini version is out, this is now marked as: **Final**_.
+- **Fix**: Output path check messages now understand if they run from the IN or the OUT tab. Before was always from the OUT tab.
+- **Fix**: Loading a hip file with multiple FLAM3H nodes and a marked iterator was not recognizing the marked iterator as the other nodes init script was clearing out that data. It is now fixed.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+
+
+
+### From v1.6.71 ###
 
 - **New**: Viewport xforms handles VIZ geo is now pre-cooked every time a Flame preset is loaded.
 - **New**: Density menu entries now have xforms handles VIZ indicators to signal which mode is ON.
@@ -20,8 +29,6 @@ _Until the next Houdini version is out, this is now marked as: **Final**_.
 - **Fix**: Cloning a FLAM3H node with Zero iterators was erroring out in checking the opacities. It is now fixed.
 - **Fix**: Fixed a rare case where the XML color correction curves can be an empty key.
 - **Fix**: Tool responsiveness and first node instance creation time are a tiny bit better.
-- **Fix**: Output path check messages now understand if they run from the IN or the OUT tab. Before was always from the OUT tab.
-- **Fix**: Loading a hip file with multiple FLAM3H nodes and one with a marked iterator was not recognizing the marked iterator as the other nodes init script was clearing out that data. It is now fixed.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
