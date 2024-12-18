@@ -4140,6 +4140,7 @@ class flam3h_iterator_utils
                 prm_from = node.parmTuple(f"{prm[0]}{id}")
                 prm_to = node.parmTuple(f"{prm_list_affine_from[idx][0]}{id}")
                 [[prm_to[prm_idx].setKeyframe(k) for k in p.keyframes()] if len(p.keyframes()) else prm_to[prm_idx].set(p.eval()) for prm_idx, p in enumerate(prm_from)]
+                
                 # prm_idx = 0
                 # for p in prm_from:
                 #     if len(p.keyframes()):
@@ -4147,6 +4148,7 @@ class flam3h_iterator_utils
                 #     else:
                 #         prm_to[prm_idx].set(p.eval())
                 #     prm_idx += 1
+                
             else:
                 prm_from = node.parm(f"{prm[0]}{id}")
                 prm_to = node.parm(f"{prm_list_affine_from[idx][0]}{id}")
