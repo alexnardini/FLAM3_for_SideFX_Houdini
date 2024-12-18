@@ -63,7 +63,7 @@ int XAOS(int idx; const float res, XST[]){
             else if(idx==4){ return sample_cdf((float[])XST[20:25], nrandom('twister')); }
         }
         else if(res==6){
-            if(idx==0){ idx=sample_cdf((float[])XST[0:6], nrandom('twister')); }
+            if(idx==0){ return sample_cdf((float[])XST[0:6], nrandom('twister')); }
             else if(idx==1){ return sample_cdf((float[])XST[6:12], nrandom('twister')); }
             else if(idx==2){ return sample_cdf((float[])XST[12:18], nrandom('twister')); }
             else if(idx==3){ return sample_cdf((float[])XST[18:24], nrandom('twister')); }
