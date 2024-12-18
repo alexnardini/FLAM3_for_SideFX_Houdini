@@ -2987,7 +2987,8 @@ _A list of all parametric variations and their parametric parameter's names._
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Points color values accumulation tips*:<br />
     
-    (_The following is valid for the time being and it will be subject to change sometime in the future_)
+    _The following is valid for the time being and it will be subject to change sometime in the future._<br />
+    _Each pixel color sample that follow is indicative for reference._
 
     Since this implementation was crafted within Houdini,<br />
     it chose to employ an alternative strategy to accumulate point color values while utilizing some of Houdini's technology rather than adhering to the same procedure as the original `Flam3` *`C`* source code.<br />
@@ -3030,7 +3031,7 @@ _A list of all parametric variations and their parametric parameter's names._
 
     [Image:opdef:.?FLAM3H_DOC_pixel_fill.svg]
 
-    the final color of that pixel will now be in the ball park of *`~95%`* green and *`~5%`* red and its value in the ball park of *`~3.8`*, hence simulating a point values accumulation algorithm at no extra cost on our end.<br />
+    the final color of that pixel will now be in the ball park of *`~5%`* red and *`~95%`* green and its value in the ball park of *`~3.8`*, hence simulating a point values accumulation algorithm at no extra cost on our end.<br />
     Setting the "*V*" (_Value_) in the HSV paramater at the beginning to *`4`*(_four_) it was like instructing the renderer about the final max value the image will have at any given pixel if it come to that.
 
     That's why it is important to play with the "*V*" (_Value_) in the HSV paramater and the points *`@pscale`* value.
