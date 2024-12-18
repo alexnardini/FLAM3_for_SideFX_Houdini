@@ -401,7 +401,7 @@ class flam3h_iterator_prm_names:
     postvar_type_2 = 'p2type'
     postvar_weight_1 = 'p1weight'
     postvar_weight_2 = 'p2weight'
-    # Pre affine
+    # pre affine
     preaffine_scale = 'scl' # this do not really need to be stored/copied as it modify the pre affine only.
     preaffine_x = 'x'
     preaffine_y = 'y'
