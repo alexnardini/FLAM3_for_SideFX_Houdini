@@ -37,7 +37,7 @@
 //int XAOS(int idx; const int res; const float XST[]){
 
 // "res" is an INT but for some reasons this way is faster...
-int XAOS(int idx; const float res, XST[]){
+int XAOS(const int idx; const float res, XST[]){
  
     if(res<15){
         if(res==2){
