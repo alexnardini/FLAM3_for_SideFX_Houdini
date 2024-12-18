@@ -33,7 +33,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before the node is even created but invoked.
 
 ```python
-FLAM3H_VERSION = '1.6.71 - Gold'
+FLAM3H_VERSION = '1.6.75 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
