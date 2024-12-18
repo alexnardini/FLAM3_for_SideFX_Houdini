@@ -4027,8 +4027,9 @@ class flam3h_iterator_utils
         # Iterator
         if flam3h_iterator_utils.exist_user_data(node):
             hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_iterator_utils.get_user_data(node) # type: ignore
-            flam3h_iterator_utils.iterator_mpidx_mem_set(node, hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX) # type: ignore
+            data = flam3h_iterator_utils.get_user_data(node)
+            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = data # type: ignore
+            flam3h_iterator_utils.iterator_mpidx_mem_set(node, int(data)) # type: ignore
         else:
             # If this node do not posses the copy/paste data, lets first check if the data and its node exist (other FLAM3H node)
             # before clearing it out
