@@ -14562,7 +14562,7 @@ class out_flame_utils
     @staticmethod
     def out_render_curves_retrive_data(node: hou.SopNode) -> None:
         """Retrieve the data from color correction curves data parameters
-        and copy it into the correcsponding color correction curves UI parameters.
+        and copy it into the corresponding color correction curves UI parameters.
 
         Args:
             node(hou.SopNode): This FLAM3H node
@@ -15609,7 +15609,7 @@ class out_flame_utils
 
 
     def out_palette_256_plus_check(self) -> None:
-        """When activating the OUT option: palette 256+ toggle,
+        """When activating the PREFS option: palette 256+ toggle,
         let the user knows if the current palette posses enough colors and give some infos
 
         Args:
