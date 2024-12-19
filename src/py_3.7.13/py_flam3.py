@@ -2740,9 +2740,8 @@ class flam3h_general_utils
         node: hou.SopNode = self.node
         iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         
-        mp_idx: str = self.kwargs['script_multiparm_index']
+        # mp_idx: str = self.kwargs['script_multiparm_index']
         prm_mp = node.parm(PREFS_PVT_XF_FF_VIZ_SOLO)
-        
         data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
         
         # Refresh menu caches
@@ -4140,6 +4139,7 @@ class flam3h_iterator_utils
                 prm_from = node.parmTuple(f"{prm[0]}{id}")
                 prm_to = node.parmTuple(f"{prm_list_affine_from[idx][0]}{id}")
                 [[prm_to[prm_idx].setKeyframe(k) for k in p.keyframes()] if len(p.keyframes()) else prm_to[prm_idx].set(p.eval()) for prm_idx, p in enumerate(prm_from)]
+                
                 # prm_idx = 0
                 # for p in prm_from:
                 #     if len(p.keyframes()):
@@ -4147,6 +4147,7 @@ class flam3h_iterator_utils
                 #     else:
                 #         prm_to[prm_idx].set(p.eval())
                 #     prm_idx += 1
+                
             else:
                 prm_from = node.parm(f"{prm[0]}{id}")
                 prm_to = node.parm(f"{prm_list_affine_from[idx][0]}{id}")
