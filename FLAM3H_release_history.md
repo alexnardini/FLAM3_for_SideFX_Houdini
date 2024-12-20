@@ -7,6 +7,14 @@
 
 # Release history
 
+### From v1.6.76 ###
+
+- **Fix**: Xoas.h had a missing return statement even tho it was still able to correctly return the proper idx but for the sake of correctness it has been fixed.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+
 
 ### From v1.6.75 ###
 
