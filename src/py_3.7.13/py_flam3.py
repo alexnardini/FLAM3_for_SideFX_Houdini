@@ -9898,6 +9898,7 @@ class _xml_tree
 
 @STATICMETHODS
 * xmlfile_root_chk(xmlfile: Union[str, None], clipboard: bool=False) -> Union[str, None]:
+* xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
 
 @METHODS
 * get_name(self, key: str=XML_XF_NAME) -> tuple:
