@@ -12247,7 +12247,7 @@ class in_flame_utils
         Returns:
             (str): The final message without the extra empty line at the end.
         """     
-        vars = [", ".join(grp) + "\n" if id < len(groups)-1 else ", ".join(grp) + "." for id, grp in enumerate(groups)]   
+        vars = [", ".join(grp) + ",\n" if id < len(groups)-1 else ", ".join(grp) + "." for id, grp in enumerate(groups)]   
         return ''.join(vars)
 
 
