@@ -30,7 +30,6 @@
 */
 
 
-#include <variations.h>
 
 
 vector2 FLAMEPP(const int T; const vector2 pos, x, y, o; const float w){
