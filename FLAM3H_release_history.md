@@ -7,6 +7,15 @@
 
 # Release history
 
+### From v1.6.77 ###
+
+- **Fix**: Missing variations text message lines now ends with a comma(**,**) unless it is the last line in the message which will end with a dot(**.**).
+- **Fix**: Smaller compiled file size, almost 40kb saved.
+
+
+
+
+
 ### From v1.6.76 ###
 
 - **Fix**: Xoas.h had a missing return statement even tho it was still able to correctly return the proper idx but for the sake of correctness it has been fixed.
