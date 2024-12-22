@@ -29,7 +29,7 @@
 
 
 /*
-    PARAMETRICS parms INPUTS list:
+    Parametrics parms INPUTS list:
 
     -16     CURL
     -17     NGON
