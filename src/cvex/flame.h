@@ -28,6 +28,55 @@
 */
 
 
+/*
+    PARAMETRICS parms INPUTS list:
+
+    -16     CURL
+    -17     NGON
+    -18     PDJ
+    -19     BLOB
+    -20     JULIAN
+    -21     JULIASCOPE
+    -22     FAN2
+    -23     RINGS2
+    -24     RECTANGLES
+    -25     RADIALBLUR
+    -26     PIE
+    -27     DISC2
+    -28     SUPERSHAPE
+    -29     FLOWER
+    -30     CONIC
+    -31     PARABOLA
+    -32     BENT2
+    -33     BIPOLAR
+    -34     CELL
+    -35     CPOW
+    -36     ESCHER
+    -37     LAZYSUSAN
+    -38     MODULUS
+    -39     OSCOPE
+    -40     POPCORN2
+    -41     SEPARATION
+    -42     SPLIT
+    -43     SPLITS
+    -44     STRIPES
+    -45     WEDGE
+    -46     WEDGEJULIAN
+    -47     WEDGESPH
+    -48     WHORL
+    -49     WAVES2
+    -50     AUGER
+    -51     FLUX
+    -52     MOBIUS
+    -53     CURVE
+    -54     PERSPECTIVE
+    -55     BWRAPS
+    -56     POLYNOMIAL
+    -57     CROP
+    -58     POINT_SYMMETRY
+*/
+
+
 
 // From Fractorium: flam3 comptibility (f3c). Check inside variations.h to see both versions of each.
 // The behavior of the:
