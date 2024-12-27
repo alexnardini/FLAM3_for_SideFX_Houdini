@@ -3204,6 +3204,7 @@ class flam3h_general_utils
 
     def util_store_all_viewers_color_scheme_onCreate(self) -> None:
         """Store dictionaries of viewers color schemes if needed on FLAM3H node creation
+        This version do not check from which parameter run as we need it to run regardless.
         
         Args:
             (self):
