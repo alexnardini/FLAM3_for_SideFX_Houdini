@@ -3211,9 +3211,9 @@ class flam3h_general_utils
         Returns:
             (None):  
         """  
-        # Do this only if the parameter toggle is: PREFS_VIEWPORT_DARK
+        # Check if the required data exist already
         try: hou.session.H_CS_STASH_DICT # type: ignore
-        except:
+        except: # if not, lets create it
             views_scheme: list[hou.EnumValue]  = []
             views_keys: list[str] = []
             for v in self.util_getSceneViewers():
