@@ -1233,7 +1233,7 @@ class flam3h_scripts
         node = self.node
         
         # Update dark history
-        flam3h_general_utils(self.kwargs).util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
+        flam3h_general_utils.util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
         flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
         # Set other FLAM3H instances to dark if any
         all_f3h = node.type().instances()
@@ -1642,6 +1642,7 @@ class flam3h_general_utils
 * util_clear_xf_viz_stashed_wire_width_data() -> None:
 * util_xf_viz_set_stashed_wire_width() -> None:
 * util_xf_viz_force_cook(node: hou.SopNode, kwargs: dict) -> None:
+* util_store_all_viewers_color_scheme_onCreate(self) -> None:
 
 @METHODS
 * menus_refresh_enum_prefs(self) -> None:
@@ -1668,7 +1669,6 @@ class flam3h_general_utils
 * flam3h_init_presets_IN_PRESETS(self, mode: int=1) -> None:
 * flam3h_init_presets_OUT_PRESETS(self, destroy_menus: bool=True) -> None:
 * flam3h_display_help(self) -> None:
-* util_store_all_viewers_color_scheme_onCreate(self) -> None:
 * util_store_all_viewers_color_scheme(self) -> None:
 * colorSchemeDark(self, update_others: bool=True) -> None:
 * viewportParticleDisplay(self) -> None:
@@ -2028,6 +2028,35 @@ class flam3h_general_utils
             except: 
                 flam3h_general_utils.set_status_msg(f"{node.name()}: XF VIZ node not found.", 'WARN')
                 pass
+
+
+    @staticmethod
+    def util_store_all_viewers_color_scheme_onCreate() -> None:
+        """Store dictionaries of viewers color schemes if needed on FLAM3H node creation
+        This version do not check from which parameter run as we need it to run regardless.
+        
+        Args:
+            (None):
+            
+        Returns:
+            (None):  
+        """  
+        # Check if the required data exist already
+        try: hou.session.H_CS_STASH_DICT # type: ignore
+        except: # if not, lets create it
+            views_scheme: list[hou.EnumValue]  = []
+            views_keys: list[str] = []
+            for v in flam3h_general_utils.util_getSceneViewers():
+                view = v.curViewport()
+                settings = view.settings()
+                _CS = settings.colorScheme()
+                if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                    views_scheme.append(_CS)
+                    views_keys.append(v.name())
+            
+            # Always store and update this data
+            hou.session.H_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
+
 
 
 
@@ -3202,36 +3231,6 @@ class flam3h_general_utils
 
 
 
-    def util_store_all_viewers_color_scheme_onCreate(self) -> None:
-        """Store dictionaries of viewers color schemes if needed on FLAM3H node creation
-        This version do not check from which parameter run as we need it to run regardless.
-        
-        Args:
-            (self):
-            
-        Returns:
-            (None):  
-        """  
-        # Check if the required data exist already
-        try: hou.session.H_CS_STASH_DICT # type: ignore
-        except: # if not, lets create it
-            views_scheme: list[hou.EnumValue]  = []
-            views_keys: list[str] = []
-            for v in self.util_getSceneViewers():
-                view = v.curViewport()
-                settings = view.settings()
-                _CS = settings.colorScheme()
-                if _CS != hou.viewportColorScheme.Dark: # type: ignore
-                    views_scheme.append(_CS)
-                    views_keys.append(v.name())
-            
-            # Always store and update this data
-            hou.session.H_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
-
-
-
-
-
     def util_store_all_viewers_color_scheme(self) -> None:
         """Store dictionaries of viewers color schemes
         
@@ -3345,7 +3344,7 @@ class flam3h_general_utils
                 [f3h.setParms({PREFS_VIEWPORT_DARK: prm.eval()}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_DARK).eval() != prm.eval()]
         
 
-        
+    
     def viewportParticleDisplay(self) -> None:
         """Switch viewport particle display mode
         between Pixel and Points.
