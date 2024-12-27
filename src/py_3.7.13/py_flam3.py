@@ -1233,6 +1233,7 @@ class flam3h_scripts
         node = self.node
         
         # Update dark history
+        flam3h_general_utils(self.kwargs).util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
         flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
         # Set other FLAM3H instances to dark if any
         all_f3h = node.type().instances()
@@ -1667,6 +1668,8 @@ class flam3h_general_utils
 * flam3h_init_presets_IN_PRESETS(self, mode: int=1) -> None:
 * flam3h_init_presets_OUT_PRESETS(self, destroy_menus: bool=True) -> None:
 * flam3h_display_help(self) -> None:
+* util_store_all_viewers_color_scheme_onCreate(self) -> None:
+* util_store_all_viewers_color_scheme(self) -> None:
 * colorSchemeDark(self, update_others: bool=True) -> None:
 * viewportParticleDisplay(self) -> None:
 * viewportParticleSize(self, reset_val: Union[float, None]=None) -> None:
@@ -3198,6 +3201,36 @@ class flam3h_general_utils
 
 
 
+
+    def util_store_all_viewers_color_scheme_onCreate(self) -> None:
+        """Store dictionaries of viewers color schemes if needed on FLAM3H node creation
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):  
+        """  
+        # Do this only if the parameter toggle is: PREFS_VIEWPORT_DARK
+        try: hou.session.H_CS_STASH_DICT # type: ignore
+        except:
+            views_scheme: list[hou.EnumValue]  = []
+            views_keys: list[str] = []
+            for v in self.util_getSceneViewers():
+                view = v.curViewport()
+                settings = view.settings()
+                _CS = settings.colorScheme()
+                if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                    views_scheme.append(_CS)
+                    views_keys.append(v.name())
+            
+            # Always store and update this data
+            hou.session.H_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
+
+
+
+
+
     def util_store_all_viewers_color_scheme(self) -> None:
         """Store dictionaries of viewers color schemes
         
@@ -3241,38 +3274,74 @@ class flam3h_general_utils
             (None):
         """
         node = self.node
-        prm_val = node.parm(PREFS_VIEWPORT_DARK).eval()
+        prm = node.parm(PREFS_VIEWPORT_DARK)
+        views = self.util_getSceneViewers()
         
-        if prm_val:
-            # Store all viewers current color schemes
-            # if different than Dark
-            self.util_store_all_viewers_color_scheme()
-            
-            for v in self.util_getSceneViewers():
+        if views:
+            if prm.eval():
+                # Store all viewers current color schemes
+                # if different than Dark
+                self.util_store_all_viewers_color_scheme()
                 
-                settings = v.curViewport().settings()
-                _CS = settings.colorScheme()
-                if _CS != hou.viewportColorScheme.Dark: # type: ignore
-                    settings.setColorScheme(hou.viewportColorScheme.Dark) # type: ignore
+                dark = False
+                for v in views:
+                    
+                    settings = v.curViewport().settings()
+                    _CS = settings.colorScheme()
+                    if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                        settings.setColorScheme(hou.viewportColorScheme.Dark) # type: ignore
+                        dark = True
                 
+                if dark:   
+                    _MSG = f"Dark: ON"
+                    self.flash_message(node, _MSG)
+                    self.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                else:
+                    _MSG = f"Dark already"
+                    self.set_status_msg(f"{node.name()}: {_MSG}. Viewers are in Dark mode already", 'MSG')
+                    
+            else:
+                
+                try: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = hou.session.H_CS_STASH_DICT # type: ignore
+                except: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = None
+                    
+                dark = False
+                if _STASH_DICT is not None:
+                    for v in views:
+                        key = v.name()
+                        _STASH: Union[hou.EnumValue, None] = _STASH_DICT.get(key)
+                        if _STASH is not None:
+                            settings = v.curViewport().settings()
+                            _CS = settings.colorScheme()
+                            if _CS == hou.viewportColorScheme.Dark: # type: ignore
+                                settings.setColorScheme(_STASH)
+                                dark = True
+                                
+                if dark:
+                    _MSG = f"Dark: OFF"
+                    self.flash_message(node, _MSG)
+                    self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                else:
+                    if hou.session.H_CS_STASH_DICT: # type: ignore
+                        _MSG = f"No viewer in Dark mode"
+                        self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers are set to Dark.", 'MSG')
+                    else:
+                        _MSG = f"Nothing to restore"
+                        self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers has been switched to Dark. They probably were already in Dark mode.", 'MSG')
+                            
         else:
-            try: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = hou.session.H_CS_STASH_DICT # type: ignore
-            except: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = None
-                
-            if _STASH_DICT is not None:
-                for v in self.util_getSceneViewers():
-                    key = v.name()
-                    _STASH: Union[hou.EnumValue, None] = _STASH_DICT.get(key)
-                    if _STASH is not None:
-                        settings = v.curViewport().settings()
-                        settings.setColorScheme(_STASH)
+            prm.set(0)
+            
+            _MSG = f"No viewports in the current Houdini Desktop."
+            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport to either set to Dark or restore.", 'WARN')
+            self.flash_message(node, f"Dark: {_MSG}")
             
             
         if update_others:
             # Update dark preference's option toggle on other FLAM3H nodes instances
             all_f3h = self.node.type().instances()
             if len(all_f3h) > 1:
-                [f3h.setParms({PREFS_VIEWPORT_DARK: prm_val}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_DARK).eval() != prm_val]
+                [f3h.setParms({PREFS_VIEWPORT_DARK: prm.eval()}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_DARK).eval() != prm.eval()]
         
 
         
