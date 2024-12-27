@@ -7,6 +7,15 @@
 
 # Release history
 
+### From v1.6.78 ###
+
+- **Fix**: New Dark mode method, it is more accurate and scale better to new modes like for example the DarkGrey mode introduced in H20.x. It now also print more targeted status bar messages.
+- **Updated HDA documentation.**
+
+
+
+
+
 ### From v1.6.77 ###
 
 - **Fix**: Missing variations text message lines now ends with a comma(**,**) unless it is the last line in the message which will end with a dot(**.**).
