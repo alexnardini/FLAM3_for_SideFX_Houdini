@@ -1214,10 +1214,6 @@ class flam3h_scripts
             # Lets initialize back to himself.
             if len(node_instances) == 1:
                 hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
-                
-        # Initialize FLAM3H viewport Color Scheme
-        try: hou.session.flam3h_viewport_CS # type: ignore
-        except: hou.session.flam3h_viewport_CS = [] # type: ignore
 
 
 
@@ -3202,13 +3198,40 @@ class flam3h_general_utils
 
 
 
+    def util_store_all_viewers_color_scheme(self) -> None:
+        """Store dictionaries of viewers color schemes
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):  
+        """  
+        # Do this only if the parameter toggle is: PREFS_VIEWPORT_DARK
+        try: parm = self.kwargs['parm']
+        except: parm = None
+        _ENTER_PRM = None
+        if parm is not None: _ENTER_PRM = parm.name()
+        if _ENTER_PRM is not None and _ENTER_PRM == PREFS_VIEWPORT_DARK:
+            views_scheme: list[hou.EnumValue]  = []
+            views_keys: list[str] = []
+            for v in self.util_getSceneViewers():
+                view = v.curViewport()
+                settings = view.settings()
+                _CS = settings.colorScheme()
+                if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                    views_scheme.append(_CS)
+                    views_keys.append(v.name())
+            
+            # Always store and update this data
+            hou.session.H_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
+
+
+
     def colorSchemeDark(self, update_others: bool=True) -> None:
         """Change viewport color scheme to dark
         and remember the current color scheme so to switch back to it when unchecked.
         If the viewport color scheme is already dark, checking this option will do nothing. 
-        
-        _NOTE:
-            This definition is old (I think from 2018) and need to be updated to do its things in a better way.
         
         Args:
             (self):
@@ -3218,72 +3241,40 @@ class flam3h_general_utils
             (None):
         """
         node = self.node
+        prm_val = node.parm(PREFS_VIEWPORT_DARK).eval()
         
-        try: module_test = hou.session.flam3h_viewport_CS # type: ignore
-        except: hou.session.flam3h_viewport_CS = [] # type: ignore
-
-        count = 0
-        viewers_col = []
-
-        setprm = node.parm(PREFS_VIEWPORT_DARK).eval()
-        
-        Light = hou.viewportColorScheme.Light # type: ignore
-        Grey  = hou.viewportColorScheme.Grey # type: ignore
-        Dark  = hou.viewportColorScheme.Dark # type: ignore
-        # The following is a lazy way to make this backward compatible with H19.x
-        # as the DarkGrey color scheme has been introduced in H20.x first
-        if flam3h_general_utils.houdini_version() < 20: DarkGrey = Grey
-        else: DarkGrey = hou.viewportColorScheme.DarkGrey # type: ignore
-
-        for view in self.util_getSceneViewers():
-
-            settings = view.curViewport().settings()
-            col = settings.colorScheme()
-            viewers_col.append(col)
-            try: idx_test = hou.session.flam3h_viewport_CS[count] # type: ignore
-            except:
-                if len(hou.session.flam3h_viewport_CS) > 0: # type: ignore
-                    hou.session.flam3h_viewport_CS.append(viewers_col) # type: ignore
-                else:
-                    hou.session.flam3h_viewport_CS = [] # type: ignore
-                    hou.session.flam3h_viewport_CS.append(viewers_col) # type: ignore
-
-            if setprm:
-                if len(hou.session.flam3h_viewport_CS) == 0: # type: ignore
-                    if col == Light or col == Grey or col == DarkGrey:
-                        settings.setColorScheme(Dark)
-                else:
-                    if col == Light or col == Grey or col == DarkGrey:
-                        settings.setColorScheme(Dark)
-                    elif col == Dark and hou.session.flam3h_viewport_CS[count] != Dark: # type: ignore
-                        if hou.session.flam3h_viewport_CS[count] == Light: # type: ignore
-                            settings.setColorScheme(Light)
-                        elif hou.session.flam3h_viewport_CS[count] == Grey: # type: ignore
-                            settings.setColorScheme(Grey)
-                        elif hou.session.flam3h_viewport_CS[count] == DarkGrey: # type: ignore
-                            settings.setColorScheme(DarkGrey)
-
-            else:
-                if col == Dark and hou.session.flam3h_viewport_CS[count] != Dark: # type: ignore
-                    if hou.session.flam3h_viewport_CS[count] == Light: # type: ignore
-                        settings.setColorScheme(Light)
-                    elif hou.session.flam3h_viewport_CS[count] == Grey: # type: ignore
-                        settings.setColorScheme(Grey)
-                    elif hou.session.flam3h_viewport_CS[count] == DarkGrey: # type: ignore
-                        settings.setColorScheme(DarkGrey)
-                    
-            count += 1
+        if prm_val:
+            # Store all viewers current color schemes
+            # if different than Dark
+            self.util_store_all_viewers_color_scheme()
+            
+            for v in self.util_getSceneViewers():
+                
+                settings = v.curViewport().settings()
+                _CS = settings.colorScheme()
+                if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                    settings.setColorScheme(hou.viewportColorScheme.Dark) # type: ignore
+                
+        else:
+            try: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = hou.session.H_CS_STASH_DICT # type: ignore
+            except: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = None
+                
+            if _STASH_DICT is not None:
+                for v in self.util_getSceneViewers():
+                    key = v.name()
+                    _STASH: Union[hou.EnumValue, None] = _STASH_DICT.get(key)
+                    if _STASH is not None:
+                        settings = v.curViewport().settings()
+                        settings.setColorScheme(_STASH)
+            
             
         if update_others:
             # Update dark preference's option toggle on other FLAM3H nodes instances
             all_f3h = self.node.type().instances()
             if len(all_f3h) > 1:
-                [f3h.setParms({PREFS_VIEWPORT_DARK: setprm}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_DARK).eval() != setprm]
+                [f3h.setParms({PREFS_VIEWPORT_DARK: prm_val}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_DARK).eval() != prm_val]
         
-        # Update history
-        hou.session.flam3h_viewport_CS = [] # type: ignore
-        hou.session.flam3h_viewport_CS = viewers_col # type: ignore
-        
+
         
     def viewportParticleDisplay(self) -> None:
         """Switch viewport particle display mode
@@ -3315,7 +3306,8 @@ class flam3h_general_utils
             [f3h.parm(PREFS_VIEWPORT_PT_TYPE).deleteAllKeyframes() for f3h in node.type().instances()]
             [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
                 
-                
+    
+    
     def viewportParticleSize(self, reset_val: Union[float, None]=None) -> None:
         """When the viewport particle display type is set to Point
         this will change their viewport size.
