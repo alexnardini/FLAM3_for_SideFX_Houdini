@@ -2475,7 +2475,7 @@ class flam3h_general_utils
             viewports = self.util_getSceneViewers()
             if len(viewports):
                 self.util_set_clipping_viewers()
-                for v in self.util_getSceneViewers():
+                for v in viewports:
                     view = v.curViewport()
                     if self.bbox_reframe_path is not None:
                         node_bbox = hou.node(self.bbox_reframe_path)

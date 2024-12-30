@@ -2548,7 +2548,8 @@ Size:
 
 Size default:
     #id: prefs
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] ((LMB)) to reset the point size to a default of *`1`*(one).
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    - ((LMB)) to reset the point size to a default of *`1`*(one).
 
 Wire width:
     #id: prefs
@@ -2556,7 +2557,8 @@ Wire width:
 
 Wire width default:
     #id: prefs
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] ((LMB)) to reset the wire width to a default of *`3`*(three).
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    - ((LMB)) to reset the wire width to a default of *`3`*(three).
         
 :box:
     #display: rounded white
