@@ -16533,7 +16533,7 @@ class out_flame_utils
         
         root = lxmlET.Element(XML_FLAME_NAME) # type: ignore
         
-        if self.out_build_XML(root): # This can be probably be omitted as it is run right after we load a Flame preset.
+        if self.out_build_XML(root): # This can probably be omitted as it is run right after we load a Flame preset.
             self._out_pretty_print(root)
             flame = lxmlET.tostring(root, encoding="unicode") # type: ignore
             # Store the loaded Flame preset into the FLAM3H node data storage
