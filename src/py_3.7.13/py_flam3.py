@@ -4751,11 +4751,12 @@ class flam3h_iterator_utils
             self.destroy_cachedUserData(node, 'vars_menu_all_simple')
             
             # For some reasons the FF menus do not update so we force them to
-            node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.prevar_type_1}").pressButton()
-            node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.var_type_1}").pressButton()
-            node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.var_type_2}").pressButton()
-            node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.postvar_type_1}").pressButton()
-            node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.postvar_type_2}").pressButton()
+            prm_names = (f"{PRX_FF_PRM}{flam3h_iterator_prm_names.prevar_type_1}", 
+                         f"{PRX_FF_PRM}{flam3h_iterator_prm_names.var_type_1}",
+                         f"{PRX_FF_PRM}{flam3h_iterator_prm_names.var_type_2}",
+                         f"{PRX_FF_PRM}{flam3h_iterator_prm_names.postvar_type_1}",
+                         f"{PRX_FF_PRM}{flam3h_iterator_prm_names.postvar_type_2}")
+            [node.parm(name).pressButton() for name in prm_names]
             
             _MSG = "Iterator var menus: ICONS"
             flam3h_general_utils.flash_message(node, f"{_MSG}")
