@@ -8644,9 +8644,9 @@ class flam3h_palette_utils
             (None):
         """    
         node = self.node
-        rmpsrc = node.parm(CP_RAMP_SRC_NAME)
+        rmpsrc = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         rmphsv = node.parm(CP_RAMP_HSV_NAME)
-        rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
+        rmphsv.set(rmpsrc)
         # Apply HSV if any
         #
         # self.palette_hsv is running also inside self.palette_lock()
@@ -8655,8 +8655,8 @@ class flam3h_palette_utils
         self.palette_hsv()
         
         if node.parm(CP_PVT_ISVALID_FILE).eval():
-            rmptmp = node.parm(CP_RAMP_TMP_NAME)
-            if rmpsrc.evalAsRamp().keys() != rmptmp.evalAsRamp().keys() or rmpsrc.evalAsRamp().values() != rmptmp.evalAsRamp().values():
+            rmptmp = node.parm(CP_RAMP_TMP_NAME).evalAsRamp()
+            if rmpsrc.keys() != rmptmp.keys() or rmpsrc.values() != rmptmp.values():
                 # Mark this as not a loaded palette preset
                 flam3h_general_utils.set_private_prm(node, CP_PVT_ISVALID_PRESET, 0)
             else:
@@ -8664,7 +8664,7 @@ class flam3h_palette_utils
                 flam3h_general_utils.set_private_prm(node, CP_PVT_ISVALID_PRESET, 1)
 
         # Update/Set palette MSG
-        flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, rmpsrc.evalAsRamp().keys(), True, palette_plus_msg)    
+        flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, rmpsrc.keys(), True, palette_plus_msg)    
 
 
     def palette_cp_to_tmp(self) -> None:
@@ -8678,9 +8678,9 @@ class flam3h_palette_utils
             (None):
         """    
         node = self.node
-        rmpsrc = node.parm(CP_RAMP_SRC_NAME)
+        rmpsrc = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         rmptmp = node.parm(CP_RAMP_TMP_NAME)
-        rmptmp.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rmpsrc.evalAsRamp().values()))
+        rmptmp.set(rmpsrc)
 
 
 
@@ -8698,12 +8698,12 @@ class flam3h_palette_utils
         hsvprm_vals = hsvprm.eval()
         if min(hsvprm_vals) != max(hsvprm_vals):
             
-            rmpsrc = node.parm(CP_RAMP_SRC_NAME)
+            rmpsrc = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
             rmphsv = node.parm(CP_RAMP_HSV_NAME)
             # Apply color correction
-            rgb = [colorsys.hsv_to_rgb( item[0]+hsvprm[0].eval(), item[1]*hsvprm[1].eval(), item[2]*hsvprm[2].eval() ) for item in list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.evalAsRamp().values()))]
+            rgb = [colorsys.hsv_to_rgb( item[0]+hsvprm[0].eval(), item[1]*hsvprm[1].eval(), item[2]*hsvprm[2].eval() ) for item in list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.values()))]
             # Set the ramp
-            rmphsv.set(hou.Ramp(rmpsrc.evalAsRamp().basis(), rmpsrc.evalAsRamp().keys(), rgb))
+            rmphsv.set(hou.Ramp(rmpsrc.basis(), rmpsrc.keys(), rgb))
 
 
 
