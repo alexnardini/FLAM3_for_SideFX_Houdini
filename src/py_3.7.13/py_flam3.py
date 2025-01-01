@@ -8395,8 +8395,6 @@ class flam3h_palette_utils
             filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
             if self.isJSON_F3H_on_preset_load(node, filepath, False)[-1]:
                 
-                # lambda util
-                lambda_rmp_build = lambda rmp : hou.Ramp(rmp.evalAsRamp().basis(), rmp.evalAsRamp().keys(), rmp.evalAsRamp().values())
                 # get ramps parm
                 rmp_src = node.parm(CP_RAMP_SRC_NAME)
                 rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
@@ -8426,14 +8424,13 @@ class flam3h_palette_utils
                 
                 # Initialize and SET new ramp first
                 _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
-                rmp_src.set(_RAMP)
+                rmp_src.set(_RAMP) # Load the new palette colors
                 
-                # Set HSV values
-                self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
                 # Make sure we update the HSV palette
-                rmp_hsv.set(lambda_rmp_build(rmp_src))
-                self.palette_hsv()
-                # Update palette temp
+                rmp_hsv.set(_RAMP) # Load the new palette colors
+                self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals) # Set HSV values
+                self.palette_hsv() # Apply HSV values if any
+                # Update palette tmp
                 self.palette_cp_to_tmp()
                 # Update/Set palette MSG
                 flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, HEXs)
@@ -8446,7 +8443,7 @@ class flam3h_palette_utils
                 pidx = str(preset_id)
                 [prm.set(pidx) for prm in (node.parm(CP_SYS_PALETTE_PRESETS), node.parm(CP_SYS_PALETTE_PRESETS_OFF), node.parm(CP_PALETTE_PRESETS), node.parm(CP_PALETTE_PRESETS_OFF))]
                 
-                # Force this data to be rebuilt
+                # Force this data to be rebuilt - This need to be reworked as it is slowing things down on H20.5
                 # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
                 # (ex. the user perform hand made modifications like renaming a Preset and such).
                 flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
@@ -8568,8 +8565,6 @@ class flam3h_palette_utils
                         # If it is a valid FLAM3H Palette JSON data
                         if isJSON_F3H:
                             
-                            # lambda util
-                            lambda_rmp_build = lambda rmp : hou.Ramp(rmp.evalAsRamp().basis(), rmp.evalAsRamp().keys(), rmp.evalAsRamp().values())
                             # get ramps parm
                             rmp_src = node.parm(CP_RAMP_SRC_NAME)
                             rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
@@ -8591,14 +8586,12 @@ class flam3h_palette_utils
                             _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
                             rmp_src.set(_RAMP)
                             
-                            # Set HSV values
-                            self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals)
                             # Make sure we update the HSV palette
-                            rmp_hsv.set(lambda_rmp_build(rmp_src))
-                            self.palette_hsv()
+                            rmp_hsv.set(_RAMP) # Load the new palette colors
+                            self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals) # Set HSV values
+                            self.palette_hsv()# Apply HSV values if any
                             # Update palette tmp
                             self.reset_CP_TMP()
-                            
                             # Update/Set palette MSG
                             flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, HEXs)
                             
@@ -8630,14 +8623,12 @@ class flam3h_palette_utils
                     flam3h_general_utils.flash_message(node, f"Palette Clipboard: Nothing to load")
 
             # LMB - Load the currently selected palette preset
-            else:   
-                self.json_to_flam3h_ramp_SET_PRESET_DATA()
+            else: self.json_to_flam3h_ramp_SET_PRESET_DATA()
 
         # NO KWARGS - LMB - Load the currently selected palette preset
         #
         # This is used from the preset menus parameter, since kwargs are not available from here.
-        else:
-            self.json_to_flam3h_ramp_SET_PRESET_DATA()
+        else: self.json_to_flam3h_ramp_SET_PRESET_DATA()
 
 
 
