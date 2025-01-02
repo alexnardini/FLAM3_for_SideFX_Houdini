@@ -7881,13 +7881,14 @@ class flam3h_palette_utils
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i))
+            enum_label = str(i+1) # start count from 1
             
             # ICON tag
             if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
                 node.setCachedUserData('cp_presets_menu_idx', str(i))
-                menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {enum_label}:  {item}     ") # 5 ending \s to be able to read the full label
             else:
-                menu.append(f"{str(i)}:  {item}")
+                menu.append(f"{enum_label}:  {item}")
             
             
             
@@ -7907,7 +7908,7 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(i)
+            menu.append(str(i))
             
             # ICON tag
             if i == int(node.parm(CP_PALETTE_PRESETS_OFF).eval()):
@@ -7934,14 +7935,15 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(i)
+            menu.append(str(i))
+            enum_label = str(i+1) # start count from 1
             
             # ICON tag
             if i == int(node.parm(CP_PALETTE_PRESETS_OFF).eval()):
                 node.setCachedUserData('cp_presets_menu_off_idx', str(i))
-                menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {enum_label}:  {item}     ") # 5 ending \s to be able to read the full label
             else:
-                menu.append(f"{str(i)}:  {item}")
+                menu.append(f"{enum_label}:  {item}")
 
 
 
@@ -12872,7 +12874,7 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(i)
+            menu.append(str(i))
             
             # ICON bookmarks
             #
@@ -12907,22 +12909,23 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(i)
+            menu.append(str(i))
+            enum_label = str(i+1) # start count from 1
             
             # ICON bookmarks
             #
             # If a flame preset from a file is loaded
             if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
                 node.setCachedUserData('in_presets_menu_idx', str(i))
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {enum_label}:  {item}     ") # 5 ending \s to be able to read the full label
                 
             # If a flame preset from the clipboard is loaded
             elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
                 node.setCachedUserData('in_presets_menu_idx', str(i))
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {str(i)}:  {IN_CLIPBOARD_LABEL_MSG} {item}     ") # 5 ending \s to be able to read the full label
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {enum_label}:  {IN_CLIPBOARD_LABEL_MSG} {item}     ") # 5 ending \s to be able to read the full label
                 
             else:
-                menu.append(f"{str(i)}:  {item}")
+                menu.append(f"{enum_label}:  {item}")
             
             
             
@@ -12942,7 +12945,7 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(i)
+            menu.append(str(i))
             
             # ICON bookmarks
             #
@@ -12972,17 +12975,18 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(i)
+            menu.append(str(i))
+            enum_label = str(i+1) # start count from 1
             
             # ICON bookmarks
             #
             # If a flame preset from a file is loaded
             if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
                 node.setCachedUserData('in_presets_menu_off_idx', str(i))
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {str(i)}:  {item}     ") # 5 ending \s to be able to read the full label
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {enum_label}:  {item}     ") # 5 ending \s to be able to read the full label
 
             else:
-                menu.append(f"{str(i)}:  {item}")
+                menu.append(f"{enum_label}:  {item}")
 
 
 
@@ -15479,7 +15483,8 @@ class out_flame_utils
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i))
-            menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {str(i)}:  {item}     ")
+            enum_label = str(i+1) # start count from 1
+            menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {enum_label}:  {item}     ")
         
     
 
