@@ -8694,14 +8694,13 @@ class flam3h_palette_utils
             (None):
         """  
         node = self.node
-        hsvprm = node.parmTuple(CP_RAMP_HSV_VAL_NAME)
-        hsvprm_vals = hsvprm.eval()
-        if min(hsvprm_vals) != max(hsvprm_vals):
+        hsvprm_vals = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
+        if hsvprm_vals[0] != 1 or hsvprm_vals[1] != 1 or hsvprm_vals[2] != 1:
             
             rmpsrc = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
             rmphsv = node.parm(CP_RAMP_HSV_NAME)
             # Apply color correction
-            rgb = [colorsys.hsv_to_rgb( item[0]+hsvprm[0].eval(), item[1]*hsvprm[1].eval(), item[2]*hsvprm[2].eval() ) for item in list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.values()))]
+            rgb = [colorsys.hsv_to_rgb( item[0]+hsvprm_vals[0], item[1]*hsvprm_vals[1], item[2]*hsvprm_vals[2] ) for item in list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.values()))]
             # Set the ramp
             rmphsv.set(hou.Ramp(rmpsrc.basis(), rmpsrc.keys(), rgb))
 
