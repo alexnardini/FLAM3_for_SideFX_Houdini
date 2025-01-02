@@ -7,6 +7,14 @@
 
 # Release history
 
+### From v1.6.80 ###
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+
+
 ### From v1.6.78 ###
 
 - **Fix**: New Dark mode method, it is more accurate and scale better to new modes like for example the DarkGrey mode introduced in H20.x. It now also print more targeted status bar messages.
