@@ -7,6 +7,14 @@
 
 # Release history
 
+### From v1.6.81 ###
+
+- **Fix**: Enumerated presets menus now start to count from **1**.
+
+
+
+
+
 ### From v1.6.80 ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**

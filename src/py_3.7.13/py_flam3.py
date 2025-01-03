@@ -74,7 +74,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.6.80'
+FLAM3H_VERSION = '1.6.81'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -7853,7 +7853,7 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(str(i))
+            menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             
             # ICON tag
             if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
@@ -7880,7 +7880,7 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(str(i))
+            menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             enum_label = str(i+1) # start count from 1
             
             # ICON tag
@@ -7908,7 +7908,7 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(str(i))
+            menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             
             # ICON tag
             if i == int(node.parm(CP_PALETTE_PRESETS_OFF).eval()):
@@ -7935,7 +7935,7 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(str(i))
+            menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             enum_label = str(i+1) # start count from 1
             
             # ICON tag
@@ -12874,7 +12874,7 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(str(i))
+            menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             
             # ICON bookmarks
             #
@@ -12909,7 +12909,7 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(str(i))
+            menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             enum_label = str(i+1) # start count from 1
             
             # ICON bookmarks
@@ -12945,7 +12945,7 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(str(i))
+            menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             
             # ICON bookmarks
             #
@@ -12975,7 +12975,7 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(str(i))
+            menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             enum_label = str(i+1) # start count from 1
             
             # ICON bookmarks
@@ -15462,7 +15462,7 @@ class out_flame_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(str(i))
+            menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {item}     ")
 
             
@@ -15482,7 +15482,7 @@ class out_flame_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu.append(str(i))
+            menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             enum_label = str(i+1) # start count from 1
             menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {enum_label}:  {item}     ")
         
