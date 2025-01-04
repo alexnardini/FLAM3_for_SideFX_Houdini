@@ -9533,7 +9533,7 @@ XML_VALID_FLAMES_ROOT_TAG = 'flames'
 XML_VALID_CHAOS_ROOT_TAG = 'ifs'
 
 # Since we get the folowing keys in a separate action, we exclude them for later variation's names searches to help speed up a little.
-XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "post", "chaos", "opacity")
+XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed", "name", "animate", "pre_blur", "coefs", "f3h_coefs", "f3h_coefs_angle", "post", "f3h_post", "f3h_post_angle", "chaos", "opacity")
 
 # This has been fixed and now radial_blur variation matches all the other apps
 # but I leave it here just in case other variation will need it.
