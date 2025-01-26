@@ -11699,7 +11699,7 @@ class in_flame_utils
                 [node.setParms({f"{prx}{pre_affine[id]}_{idx}": apo_data.f3h_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
                 node.setParms({f"{prx}{flam3h_prm_names.preaffine_ang}_{idx}": apo_data.f3h_coefs_angle[mp_idx]}) # type: ignore
             else:
-                if apo_data.coefs and apo_data.coefs[mp_idx] is not None:
+                if apo_data.coefs is not None and apo_data.coefs[mp_idx] is not None:
                     # The affine XML key: "coefs" must always be present in the XML file.
                     [node.setParms({f"{prx}{pre_affine[id]}_{idx}": apo_data.coefs[mp_idx][id]}) for id in range(3)] # type: ignore
                 else:
