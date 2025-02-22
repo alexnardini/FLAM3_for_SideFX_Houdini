@@ -127,11 +127,12 @@ FLAM3H_DEFAULT_GLB_ITERATIONS: int = 10
 FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD: int = 64
 FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV = '::'
 
-# Node user data
+# Node user data (nodeinfo)
 FLAM3H_USER_DATA_PRX = "nodeinfo"
 FLAM3H_USER_DATA_ITER = "Marked iterator"
 FLAM3H_USER_DATA_FF = "Marked FF"
 FLAM3H_USER_DATA_XF_VIZ = "XF VIZ"
+# Node user data
 FLAM3H_USER_DATA_XML_LAST = 'XML_last_loaded'
 
 # Main tab in the UI
@@ -4503,6 +4504,9 @@ class flam3h_iterator_utils
         
         * nodeinfo_Marked iterator -> f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_ITER}
         * nodeinfo_Marked FF -> f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_FF}
+        * nodeinfo_XF VIZ -> f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}
+        
+        * XML_last_loaded -> f"{FLAM3H_USER_DATA_XML_LAST}"
 
         Args:
             node(hou.SopNode): This FLAM3H node
