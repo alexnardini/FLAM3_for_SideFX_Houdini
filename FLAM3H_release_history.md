@@ -7,6 +7,14 @@
 
 # Release history
 
+### From v1.6.82 ###
+
+- **Fix**: _Motion Blur_ is now initialized directly within the main function making it ~30% faster to compute when active.
+
+
+
+
+
 ### From v1.6.81 ###
 
 - **Fix**: Enumerated presets menus now start to count from **1**.
