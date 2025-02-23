@@ -157,18 +157,18 @@ source_filename = "FLAM3"
 @138 = private constant [8 x i8] c"../fp1_\00"
 @139 = private constant [7 x i8] c"../ff_\00"
 @140 = private constant [11 x i8] c"Tstep_mult\00"
-@141 = private constant [7 x i8] c"mb_mod\00"
-@142 = private constant [4 x i8] c"set\00"
 @ptnum = external global i64
 @pscale = external global double
 @clr = external global double
 @Alpha = external global double
+@mb = external global double
 @P = external global <3 x double>
-@143 = private constant [6 x i8] c"ptnum\00"
-@144 = private constant [7 x i8] c"pscale\00"
-@145 = private constant [4 x i8] c"clr\00"
-@146 = private constant [6 x i8] c"Alpha\00"
-@147 = private constant [2 x i8] c"P\00"
+@141 = private constant [6 x i8] c"ptnum\00"
+@142 = private constant [7 x i8] c"pscale\00"
+@143 = private constant [4 x i8] c"clr\00"
+@144 = private constant [6 x i8] c"Alpha\00"
+@145 = private constant [3 x i8] c"mb\00"
+@146 = private constant [2 x i8] c"P\00"
 
 ; Function Attrs: nounwind readnone
 declare double @"div@FF"(double, double) #0
@@ -13436,7 +13436,7 @@ UnifiedReturnBlock:                               ; preds = %true1203, %true1195
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_FLAM3@IFFFV"(i64* %_bound_ptnum, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, <3 x double>* %_bound_P) #1 {
+define private void @"_FLAM3@IFFFFV"(i64* %_bound_ptnum, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, double* %_bound_mb, <3 x double>* %_bound_P) #1 {
 __llvm_entry:
   %tmp = alloca <2 x double>
   %mem = alloca <2 x double>
@@ -14206,16 +14206,15 @@ end400:                                           ; preds = %end408, %true398
 
 true407:                                          ; preds = %false399
   %return409 = call double @"detail@FISI"(i64 1, i8* getelementptr inbounds ([11 x i8], [11 x i8]* @140, i64 0, i64 0), i64 0)
+  store double %return409, double* %_bound_mb
   %output412 = fmul double %output405, %return409
-  %_bound_ptnum413 = load i64, i64* %_bound_ptnum
-  %return415 = call i64 @"setpointattrib@IISIFS"(i64 0, i8* getelementptr inbounds ([7 x i8], [7 x i8]* @141, i64 0, i64 0), i64 %_bound_ptnum413, double %return409, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @142, i64 0, i64 0))
   br label %end408
 
 end408:                                           ; preds = %true407, %false399
   %pscl.0 = phi double [ %output412, %true407 ], [ %output405, %false399 ]
-  %mem416 = load <2 x double>, <2 x double>* %mem
-  %cast417 = call <3 x double> @"set@VU"(<2 x double> %mem416)
-  store <3 x double> %cast417, <3 x double>* %_bound_P
+  %mem413 = load <2 x double>, <2 x double>* %mem
+  %cast414 = call <3 x double> @"set@VU"(<2 x double> %mem413)
+  store <3 x double> %cast414, <3 x double>* %_bound_P
   store double %clr.0, double* %_bound_clr
   store double %pscl.0, double* %_bound_pscale
   store double %return394, double* %_bound_Alpha
@@ -14234,40 +14233,42 @@ declare i64 @"removepoint@III"(i64, i64) #2
 ; Function Attrs: nounwind
 declare double @"detail@FISI"(i64, i8*, i64) #2
 
-; Function Attrs: nounwind
-declare i64 @"setpointattrib@IISIFS"(i64, i8*, i64, double, i8*) #2
-
 ; Function Attrs: nounwind readnone
 declare <3 x double> @"set@VU"(<2 x double>) #0
 
 ; Function Attrs: nounwind
-define void @FLAM3(i64 %ptnum, double %pscale, double %clr, double %Alpha, <3 x double> %P) #2 {
+define void @FLAM3(i64 %ptnum, double %pscale, double %clr, double %Alpha, double %mb, <3 x double> %P) #2 {
 __llvm_entry:
   %"<pscale>" = alloca double
   %"<clr>" = alloca double
   %"<Alpha>" = alloca double
+  %"<mb>" = alloca double
   %"<P>" = alloca <3 x double>
   %0 = alloca i64
   store double %pscale, double* %"<pscale>"
   store double %clr, double* %"<clr>"
   store double %Alpha, double* %"<Alpha>"
+  store double %mb, double* %"<mb>"
   store <3 x double> %P, <3 x double>* %"<P>"
   store i64 %ptnum, i64* %0
-  call void @"_FLAM3@IFFFV"(i64* %0, double* %"<pscale>", double* %"<clr>", double* %"<Alpha>", <3 x double>* %"<P>")
-  %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @143, i64 0, i64 0), i64 %ptnum) #4
+  call void @"_FLAM3@IFFFFV"(i64* %0, double* %"<pscale>", double* %"<clr>", double* %"<Alpha>", double* %"<mb>", <3 x double>* %"<P>")
+  %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @141, i64 0, i64 0), i64 %ptnum) #4
   %evalue2 = load double, double* %"<pscale>"
-  %gvalue3 = call double @"_export@FSF"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @144, i64 0, i64 0), double %evalue2) #4
+  %gvalue3 = call double @"_export@FSF"(i8* getelementptr inbounds ([7 x i8], [7 x i8]* @142, i64 0, i64 0), double %evalue2) #4
   %evalue4 = load double, double* %"<clr>"
-  %gvalue5 = call double @"_export@FSF"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @145, i64 0, i64 0), double %evalue4) #4
+  %gvalue5 = call double @"_export@FSF"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @143, i64 0, i64 0), double %evalue4) #4
   %evalue6 = load double, double* %"<Alpha>"
-  %gvalue7 = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @146, i64 0, i64 0), double %evalue6) #4
-  %evalue8 = load <3 x double>, <3 x double>* %"<P>"
-  %gvalue9 = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @147, i64 0, i64 0), <3 x double> %evalue8) #4
+  %gvalue7 = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @144, i64 0, i64 0), double %evalue6) #4
+  %evalue8 = load double, double* %"<mb>"
+  %gvalue9 = call double @"_export@FSF"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @145, i64 0, i64 0), double %evalue8) #4
+  %evalue10 = load <3 x double>, <3 x double>* %"<P>"
+  %gvalue11 = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @146, i64 0, i64 0), <3 x double> %evalue10) #4
   store i64 %gvalue, i64* @ptnum
   store double %gvalue3, double* @pscale
   store double %gvalue5, double* @clr
   store double %gvalue7, double* @Alpha
-  store <3 x double> %gvalue9, <3 x double>* @P
+  store double %gvalue9, double* @mb
+  store <3 x double> %gvalue11, <3 x double>* @P
   ret void
 }
 
@@ -14279,7 +14280,7 @@ declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
 
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @FLAM3(i64 0, double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, <3 x double> zeroinitializer)
+  call void @FLAM3(i64 0, double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, double 0.000000e+00, <3 x double> zeroinitializer)
   ret void
 }
 
@@ -14294,7 +14295,7 @@ attributes #4 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"20.5.445"}
+!1 = !{!"20.5.487"}
 !2 = !{!"64"}
 !3 = !{!""}
 

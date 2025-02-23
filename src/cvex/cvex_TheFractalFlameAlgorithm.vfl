@@ -41,7 +41,7 @@
 
 
 
-void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha; vector _bound_P)
+void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha, _bound_mb; vector _bound_P)
 {
     // UTILS
     int idx;
@@ -175,7 +175,7 @@ void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha; vec
     else{
         
         pscl*=a;
-        if(MB){ mbm=detail(1, "Tstep_mult", 0); pscl*=mbm; setpointattrib(0, "mb_mod", _bound_ptnum, mbm, "set"); }
+        if(MB){ _bound_mb=mbm=detail(1, "Tstep_mult", 0); pscl*=mbm; }
         // OUT
         _bound_P=(vector)mem;
         _bound_clr=clr;
@@ -185,11 +185,12 @@ void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha; vec
 }
 
 cvex
-FLAM3(  export int    ptnum  = 0;
-	    export float  pscale = 0;
-	    export float  clr    = 0;
-        export float  Alpha  = 0;
-	    export vector P      = 0)
+FLAM3(  export int      ptnum   = 0;
+	    export float    pscale  = 0;
+	    export float    clr     = 0;
+        export float    Alpha   = 0;
+        export float    mb      = 0;
+	    export vector   P       = 0)
 {
-    _FLAM3(ptnum, pscale, clr, Alpha, P);
+    _FLAM3(ptnum, pscale, clr, Alpha, mb, P);
 }
