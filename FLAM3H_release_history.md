@@ -5,7 +5,11 @@
   <img width="160" height="160" src="https://github.com/alexnardini/FLAM3/blob/main/img/LOGO_F_github.svg" />
 </p>
 
-# Release history
+# Release history #
+Below is a list of all the releases and the updates that went into these.</br>
+They are all available in this github repository.</br>
+</br>
+
 
 ### From v1.6.82 ###
 
