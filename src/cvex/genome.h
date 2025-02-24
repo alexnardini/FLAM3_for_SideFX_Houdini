@@ -271,7 +271,7 @@ struct gemFFAP{
  / While this was actually working great and added very little to the computation, the interactivity of the tool suffered
  / as this data structure needed to alway be built ahead of time for the current point/sample to be processed.
  /
- / Now, using details wrangle cores nodes, the point/sample can just grab a subset of this data only when it needs it without building and storing it first.
+ / Now, using details wrangle cores nodes, the point/sample can just grab a subset of this data only when it needs it without building and storing it first ( on demand ).
  / I leave this code here for reference as well as the associated (commented) code inside the file: "flame.h" to complete this reference.
  /
 */ 
