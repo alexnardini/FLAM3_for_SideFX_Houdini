@@ -2203,6 +2203,10 @@ SHOW sensor viz [Icon:DATATYPES/boolean]:
     - _When this mode is ON, the viewport xforms handles VIZ mode will be disabled_.
     - _When entering the Sensor Viz mode, FLAM3H will store all the available viewports data prior to entering the mode and restore them all on exit_.
     
+    NOTE:
+        When in Solaris/LOP context, you wont be able to activate the Camera Sensor mode so to not interfere with your rendering workflow.
+
+
 Resolution [Icon:TOP/xmlinput]:
     #id: OUT
     The image resolution.
