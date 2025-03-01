@@ -1887,7 +1887,7 @@ class flam3h_general_utils
             (bool): [True if we are in Solaris and False if we are not.]
         """    
         context: hou.NodeTypeCategory = hou.ui.findPaneTab(viewport.name()).pwd().childTypeCategory() # type: ignore
-        if context.name() == 'Lop': return True # type: ignore
+        if context.name() == 'Lop': return True
         else: return False
 
 
