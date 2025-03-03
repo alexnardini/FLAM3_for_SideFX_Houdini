@@ -1638,7 +1638,7 @@ class flam3h_general_utils
 * isLOCK(filepath: Union[str, bool]) -> bool:
 * util_open_file_explorer(filepath_name: str) -> None:
 * util_getSceneViewers() -> list:
-* util_isLOPcontext(viewport: hou.paneTabType) -> bool:
+* util_is_context(context: str, viewport: hou.paneTabType) -> bool:
 * util_clear_stashed_cam_data() -> None:
 * util_set_stashed_cam() -> None:
 * util_clear_xf_viz_stashed_wire_width_data() -> None:
@@ -1876,19 +1876,24 @@ class flam3h_general_utils
         return [v for v in views if isinstance(v, hou.SceneViewer)]
     
     
+    
     @staticmethod
-    def util_isLOPcontext(viewport: hou.paneTabType) -> bool:
-        """Return if we are in Solaris context or not.
+    def util_is_context(context: str, viewport: hou.paneTabType) -> bool:
+        """Return if we are inside a context or not.
         
         Args:
-            (viewport): Any of the available pane tab types, in my case: hou.paneTabType.SceneViewer
+            context(str): The context we want to check if we are currently in. Options so far are: 
+                * Sop: str
+                * Lop: str
+            viewport(hou.paneTabType): Any of the available pane tab types, in my case will always be: hou.paneTabType.SceneViewer
             
         Returns:
             (bool): [True if we are in Solaris and False if we are not.]
         """    
-        context: hou.NodeTypeCategory = hou.ui.findPaneTab(viewport.name()).pwd().childTypeCategory() # type: ignore
-        if context.name() == 'Lop': return True
+        context_now: hou.NodeTypeCategory = hou.ui.findPaneTab(viewport.name()).pwd().childTypeCategory() # type: ignore
+        if str(context_now.name()).lower() == context.lower(): return True
         else: return False
+
 
 
     @staticmethod
@@ -1930,7 +1935,7 @@ class flam3h_general_utils
         
         # Lets first be sure we are not in 'Solaris'
         
-        if flam3h_general_utils.util_isLOPcontext(viewport) is False:
+        if flam3h_general_utils.util_is_context('Lop', viewport) is False:
                 
             try: _CAMS: Union[int, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
             except: _CAMS: Union[int, None]  = None
@@ -2262,7 +2267,7 @@ class flam3h_general_utils
             viewport: hou.paneTabType.SceneViewer = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
             
             # Lets first be sure we are not in 'Solaris'
-            if self.util_isLOPcontext(viewport) is False:
+            if self.util_is_context('Lop', viewport) is False:
                 
                 # check if there are more than one viewport available
                 viewports = self.util_getSceneViewers()
