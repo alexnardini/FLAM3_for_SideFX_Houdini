@@ -3,7 +3,7 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.0.6
+#version: 0.1.0
 
 """Simple utility node to quickly setup fractal flames point clouds in Solaris."""
 
@@ -11,6 +11,8 @@
 
 A simple utility node that will make it easier to render FLAM3H fractal flames in Solaris for previews.
 It offers the very fundamental functionalities to setup your fractal flame point cloud to start rendering with Karma within a few clicks.
+
+_*This version is only compatible with FLAM3H v1.6.84 or higher.*_
 
 
 
@@ -30,11 +32,6 @@ FLAM3H SOP path:
     Path to the FLAM3H node to be imported inside Solaris.
     A default path is already provided to import the default first FLAM3H node name. Change this as needed.
     
-widths:
-    #id: IMPORT
-    The point attribute *`@pscale`* will become *`@widths`* when importing FLAM3H into Stage/Solaris.
-    This option, which is a multiplier, enables rapid adjustments while Karma is rendering interactively.
-    
     
 == Prefs == (PREFS)
     
@@ -47,7 +44,7 @@ widths:
 :box:
     #display: rounded white
     
-    == Options == (OPTIONS)
+    == Viewport == (OPTIONS)
     
 dark:
     #id: PREFS
@@ -62,7 +59,7 @@ renderer:
 :box:
     #display: rounded white
     
-    == Options: GL == (OPTIONSGL)
+    == Viewport: GL == (OPTIONSGL)
     
 display:
     #id: prefs
@@ -75,7 +72,7 @@ size:
 :box:
     #display: rounded white
     
-    == Options: Karma == (OPTIONSKARMA)
+    == Viewport: Karma CPU == (OPTIONSKARMA)
     
 NOTE:
     Karma should only be used for previews while you are interactively perfecting your fractal flame.
@@ -83,12 +80,11 @@ NOTE:
     
     As soon as you're satisfied, set up your own Karma renderer nodes to output the finished pictures.
     
-rendering engine:
-    #id: prefs
-    Allow switching between CPU and XPU engines when Karma renderer is selected.
-    Due to the very high number of points that could result in a fractal Flame, CPU should be preferable.
-    However, if you have a highly expensive GPU, why not XPU ?
-    
+points widths:
+    #id: IMPORT
+    The point attribute *`@pscale`* will become *`@widths`* when importing FLAM3H into Stage/Solaris.
+    This option, which is a multiplier, enables rapid adjustments while Karma is rendering interactively.
+
 pixel samples:
     #id: prefs
     This will set the render samples when the Karma renderer is chosen.
@@ -96,6 +92,10 @@ pixel samples:
 denoiser:
     #id: prefs
     Give you the option to choose from the available denoisers when the Karma renderer is selected.
+
+FLAM3H Shader:
+    #id: prefs
+    Use a MaterialX Shader that will allow to change Gamma and HSV values on the fly.
     
 
     

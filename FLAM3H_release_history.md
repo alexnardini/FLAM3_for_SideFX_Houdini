@@ -10,6 +10,26 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### From v1.6.84 ###
+
+#### FLAM3H ####
+
+- **New**: FLAM3H will now check if the user is in Solaris/LOP context or not prior to activate the Camera Sensor mode.
+- **Fix**: Motion blur viz was not working. (a regression from preview version: v1.6.82)
+- **Updated HDA documentation.**
+
+#### FLAM3HUSD ####
+
+_This simple utility node got an upgrade._
+
+- **New**: New import location from within the selected FLAM3H node. This will prevent the xform handles viz and the camera sensor bbox geometries to show up in Solaris/Lop.
+- **New**: New materialX shader for Karma CPU. Simple and will allow to perform Gamma and HSV corrections on the fly.
+- **Fix**: Revisited UI a little.
+- **Updated HDA documentation.**
+
+
+
+
 
 ### From v1.6.82 ###
 

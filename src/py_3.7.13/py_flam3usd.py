@@ -16,11 +16,13 @@ import hou
 #
 #   Comment:    Simple utility node to quickly setup
 #               fractal flames point clouds in Solaris for previews.
+#
+#               THis is basic and its the start of something.
 #               
 #               Everything is then glued together inside Houdini.
 
 
-FLAM3HUSD_VERSION = '0.0.6'
+FLAM3HUSD_VERSION = '0.1.0'
 
 PREFS_PARTICLE_TYPE = 'vptype'
 PREFS_PARTICLE_SIZE = 'vpptsize'
@@ -224,9 +226,9 @@ def flam3USD_about_msg(self):
     nnl = "\n\n"
 
     year = datetime.now().strftime("%Y")
-    flam3husd_houdini_version = f"Version: {FLAM3HUSD_VERSION}"
+    flam3husd_houdini_version = f"VERSION: {FLAM3HUSD_VERSION} :: (GPL)"
     Implementation_years = f"2020/{year}"
-    Implementation_build = f"Author: Alessandro Nardini ( Italy )\nCode language: VEX H19.x, Python 3.9.10\n{flam3husd_houdini_version}\n{Implementation_years}"
+    Implementation_build = f"AUTHOR: Alessandro Nardini ( Italy )\n{flam3husd_houdini_version}\nCODE: vex H19.x, py 3.9.10\n{Implementation_years}"
 
     h_version = '.'.join(str(x) for x in hou.applicationVersion())
     Houdini_version = f"Host:\nSideFX Houdini {h_version}"
