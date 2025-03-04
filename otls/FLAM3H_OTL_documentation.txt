@@ -380,6 +380,8 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
 
     - The viewport handles will be automatically disabled when FLAM3H is in camera sensor VIZ mode.
 
+    - The viewport handles will be automatically disabled when FLAM3H is run from whithin the Solaris/Lop context.
+
     - The FLAM3H node posses a dive-in location to only display the xforms handles without the FLAM3H points.<br />
 
         - double ((LMB)) on the FLAM3H node to dive-in, or:
@@ -740,6 +742,12 @@ copy/paste:
     _Additionally_:
     
     - ((CTRL)) + ((LMB)) to reset this iterator to its default values.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - When an iterator is marked for being copied, a node note with the marked iterator number is being displayed in the network editor.<br />
+    
+    - Additionally,<br />a custom user data is added to the FLAM3H node with the iterator number being marked; the data name is: *`Marked iterator`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being marked.
     
 Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: FLAME
@@ -771,6 +779,7 @@ xform VIZ [Icon:DATATYPES/boolean]:
     - The FF(_finalxform_) viewport handle will always be displayed if Active (_it will always be of color grey/white_).
     - The viewport handles will be automatically disabled if the FLAM3H density value is raised above *`5M`*(_millions_) points.
     - The viewport handles will be automatically disabled when FLAM3H is in camera sensor VIZ mode.
+    - The viewport handles will be automatically disabled when FLAM3H is run from whithin the Solaris/Lop context.
     
 W [Icon:TOP/xmlinput]:
     #id: FLAME
@@ -1181,6 +1190,7 @@ FF xform VIZ [Icon:DATATYPES/boolean]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
     - The viewport handles will be automatically disabled if the FLAM3H density value is raised above *`5M`*(_millions_) points.
     - The viewport handles will be automatically disabled when FLAM3H is in camera sensor VIZ mode.
+    - The viewport handles will be automatically disabled when FLAM3H is run from whithin the Solaris/Lop context.
         
 FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FF
@@ -1219,6 +1229,12 @@ FF: copy/paste:
     _Additionally_:
     
     - ((CTRL)) + ((LMB)) to reset this FF to its default values.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - When the FF is marked for being copied, a node note with the text "*FF*" is being displayed in the network editor.<br />
+    
+    - Additionally,<br />a custom user data is added to the FLAM3H node signaling the FF being marked; the data name is: *`Marked FF`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out if the FF is being marked.
     
     
 :box:
