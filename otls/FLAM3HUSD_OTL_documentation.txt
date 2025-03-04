@@ -1,4 +1,4 @@
-#icon: opdef:.?FLAM3H_DOC_icon.svg
+#icon: opdef:.?iconSVG.svg
 #type: node
 #context: lop
 #namespace: FLAM3HUSD
