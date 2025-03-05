@@ -149,7 +149,7 @@ class flam3husd_scripts
                         break
         else:
             node.setParms({PREFS_VIEWPORT_DARK: 1})
-            flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
+            flam3husd_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
     
         # If we collected some data, set
         if all_f3h_vpptsize:
