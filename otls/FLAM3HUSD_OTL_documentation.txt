@@ -3,7 +3,7 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.1.0
+#version: 0.1.15
 
 """Simple utility node to quickly setup fractal flames point clouds in Solaris."""
 
@@ -59,7 +59,7 @@ renderer:
 :box:
     #display: rounded white
     
-    == Viewport: GL == (OPTIONSGL)
+    == Renderer: GL == (OPTIONSGL)
     
 display:
     #id: prefs
@@ -72,7 +72,7 @@ size:
 :box:
     #display: rounded white
     
-    == Viewport: Karma CPU == (OPTIONSKARMA)
+    == Renderer: Karma CPU == (OPTIONSKARMA)
     
 NOTE:
     Karma should only be used for previews while you are interactively perfecting your fractal flame.

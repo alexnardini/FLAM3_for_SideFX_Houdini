@@ -36,7 +36,7 @@ import nodesearch
 #
 #   Title:      FLAM3H. SideFX Houdini FLAM3: PYTHON
 #   Author:     Alessandro Nardini
-#   date:       January 2023, Last revised November 2024
+#   date:       January 2023, Last revised March 2025
 #
 #   Name:       PY_FLAM3 "PYTHON"
 #
@@ -74,7 +74,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.6.84'
+FLAM3H_VERSION = '1.6.90'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -1612,7 +1612,7 @@ class flam3h_scripts
 
 
 
-# FLAM3H GENERAL UTLIS start here
+# FLAM3H GENERAL UTILS start here
 ##########################################
 ##########################################
 ##########################################
@@ -1722,6 +1722,8 @@ class flam3h_general_utils
     @staticmethod
     def flash_message(node: hou.SopNode, msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None) -> None:
         """Cause a message to appear on the top left of the network editor.
+        This will work either in Sop and Lop context as it is handy to get those messages either ways. 
+        FLAM3HUSD flash messages are for now limited to the Lop context only.
 
         Args:
             node(hou.SopNode): the current FLAM3H node.
@@ -1885,7 +1887,7 @@ class flam3h_general_utils
             context(str): The context we want to check if we are currently in. Options so far are: 
                 * Sop: str
                 * Lop: str
-            viewport(hou.paneTabType): Any of the available pane tab types, in my case will always be: hou.paneTabType.SceneViewer
+            viewport(hou.paneTabType): Any of the available pane tab types, in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer
             
         Returns:
             (bool): [True if we are in Solaris and False if we are not.]
@@ -1934,7 +1936,7 @@ class flam3h_general_utils
         viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
         
         try: _CAMS: Union[int, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
-        except: _CAMS: Union[int, None]  = None
+        except: _CAMS: Union[int, None] = None
         
         if _CAMS is None:
             
@@ -2019,15 +2021,17 @@ class flam3h_general_utils
             (None):
         """
         
-        
+        # This stashed dict is already without any Lop viewers. They have been filtered inside:
+        #   * flam3h_general_utils.util_store_all_viewers_xf_viz(self) -> None:
         try: _STASH_DICT: Union[dict[str, float], None] = hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
         except: _STASH_DICT: Union[dict[str, float], None] = None
-            
+        
         if _STASH_DICT is not None:
             for v in flam3h_general_utils.util_getSceneViewers():
-                
                 view = v.curViewport()
                 key = v.name()
+                # Since all the viewers inside this stashed dict are sure not to be a Lop viewer
+                # we do not need to check and we can just proceed.
                 _STASH: Union[float, None] = _STASH_DICT.get(key)
                 if _STASH is not None:
                     settings = view.settings()
@@ -2491,6 +2495,7 @@ class flam3h_general_utils
             for v in self.util_getSceneViewers():
                 # Store only if it is not a Lop viewport
                 if self.util_is_context('Lop', v) is False:
+                    
                     view = v.curViewport()
                     settings = view.settings()
                     views_widths.append(settings.wireWidth())
@@ -2647,7 +2652,6 @@ class flam3h_general_utils
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
         
-        
         if prm.eval():
             flam3h_general_utils.set_private_prm(node, prm_name, 0)
             
@@ -2664,8 +2668,7 @@ class flam3h_general_utils
         else:
             
             # There must be at least one viewport
-            viewports = self.util_getSceneViewers()
-            if len(viewports):
+            if len(self.util_getSceneViewers()):
                 if f3h_xf_viz_others is False:
                     self.util_store_all_viewers_xf_viz()
                     
@@ -3316,12 +3319,16 @@ class flam3h_general_utils
             views_scheme: list[hou.EnumValue]  = []
             views_keys: list[str] = []
             for v in self.util_getSceneViewers():
-                view = v.curViewport()
-                settings = view.settings()
-                _CS = settings.colorScheme()
-                if _CS != hou.viewportColorScheme.Dark: # type: ignore
-                    views_scheme.append(_CS)
-                    views_keys.append(v.name())
+                
+                # Store only if it is not a Lop viewport
+                if flam3h_general_utils.util_is_context('Lop', v) is False:
+                    
+                    view = v.curViewport()
+                    settings = view.settings()
+                    _CS = settings.colorScheme()
+                    if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                        views_scheme.append(_CS)
+                        views_keys.append(v.name())
             
             # Always store and update this data
             hou.session.H_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
@@ -3353,11 +3360,14 @@ class flam3h_general_utils
                 dark = False
                 for v in views:
                     
-                    settings = v.curViewport().settings()
-                    _CS = settings.colorScheme()
-                    if _CS != hou.viewportColorScheme.Dark: # type: ignore
-                        settings.setColorScheme(hou.viewportColorScheme.Dark) # type: ignore
-                        dark = True
+                    # Set only if it is not a Lop viewport
+                    if flam3h_general_utils.util_is_context('Lop', v) is False:
+                        
+                        settings = v.curViewport().settings()
+                        _CS = settings.colorScheme()
+                        if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                            settings.setColorScheme(hou.viewportColorScheme.Dark) # type: ignore
+                            dark = True
                 
                 if dark:   
                     _MSG = f"Dark: ON"
@@ -3429,12 +3439,16 @@ class flam3h_general_utils
         Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
 
         for view in self.util_getSceneViewers():
-            settings = view.curViewport().settings()
-            if pttype == 0:
-                settings.particleDisplayType(Points)
-                self.viewportParticleSize()
-            elif pttype == 1:
-                settings.particleDisplayType(Pixels)
+            
+            # Set only if it is not a Lop viewport
+            if self.util_is_context('Lop', view) is False:
+            
+                settings = view.curViewport().settings()
+                if pttype == 0:
+                    settings.particleDisplayType(Points)
+                    self.viewportParticleSize()
+                elif pttype == 1:
+                    settings.particleDisplayType(Pixels)
                 
         # Update Point Display type preference's option toggle on other FLAM3H nodes instances
         all_f3h = self.node.type().instances()
@@ -3460,16 +3474,20 @@ class flam3h_general_utils
         ptsize = node.parm(PREFS_VIEWPORT_PT_SIZE).evalAsFloat()
 
         for view in self.util_getSceneViewers():
-            settings = view.curViewport().settings()
-            settings.particleDisplayType(Points)
-            if reset_val is None:
-                settings.particlePointSize(ptsize)
-            else:
-                ptsize = float(reset_val)
-                settings.particlePointSize(ptsize)
-                prm = node.parm(self.kwargs['parmtuple'].name())
-                prm.deleteAllKeyframes()
-                prm.set(ptsize)
+            
+            # Set only if it is not a Lop viewport
+            if self.util_is_context('Lop', view) is False:
+            
+                settings = view.curViewport().settings()
+                settings.particleDisplayType(Points)
+                if reset_val is None:
+                    settings.particlePointSize(ptsize)
+                else:
+                    ptsize = float(reset_val)
+                    settings.particlePointSize(ptsize)
+                    prm = node.parm(self.kwargs['parmtuple'].name())
+                    prm.deleteAllKeyframes()
+                    prm.set(ptsize)
             
         # Update Point Size preference's option toggle on other FLAM3H nodes instances
         if node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:

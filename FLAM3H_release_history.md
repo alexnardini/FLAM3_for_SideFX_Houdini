@@ -10,6 +10,30 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### From v1.6.90 ###
+
+#### FLAM3H ####
+
+- **New**: Camera Sensor viz and xforms handles viz now check each available viewer's type before performing any operations. If any of the viewers is in **Lop** context it will be ignored.
+- **Fix**: Xforms handles viz wire settings will now only affect viewers belonging to the **Sop** context. 
+- **Fix**: Viewport preferences point type will now only affect viewers belonging to the **Sop** context. 
+- **Fix**: Viewport preferences point size will now only affect viewers belonging to the **Sop** context. 
+- **Fix**: Dark mode will now only affect viewers belonging to the **Sop** context. 
+
+
+#### FLAM3HUSD v0.1.15 ####
+
+- **Fix**: Python code has been structured the same as the big brother FLAM3H so to facilitate future updates.
+- **Fix**: Viewport preferences point type will now only affect viewers belonging to the **Lop** context. 
+- **Fix**: Viewport preferences point size will now only affect viewers belonging to the **Lop** context. 
+- **Fix**: Dark mode will now only affect viewers belonging to the **Lop** context. 
+- **Fix**: Set hydra renderer menu will now only set viewers belonging to the **Lop** context.
+- **Fix**: FLAM3HUSD documentation ICON is now properly displayed.
+
+
+
+
+
 ### From v1.6.84 ###
 
 #### FLAM3H ####

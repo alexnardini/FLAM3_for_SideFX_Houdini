@@ -1,5 +1,6 @@
 from platform import python_version
 from datetime import datetime
+from typing import Union
 import hou
 
 
@@ -10,244 +11,754 @@ import hou
 #
 #   Title:      SideFX Houdini FLAM3HUSD
 #   Author:     Alessandro Nardini
-#   date:       September 2023, Last revised February 2024
+#   date:       September 2023, Last revised February 2025
 #
 #   Name:       PY_FLAM3USD "PYTHON"
 #
 #   Comment:    Simple utility node to quickly setup
 #               fractal flames point clouds in Solaris for previews.
 #
-#               THis is basic and its the start of something.
+#               This is basic and its the start of something.
 #               
 #               Everything is then glued together inside Houdini.
 
 
-FLAM3HUSD_VERSION = '0.1.0'
+FLAM3HUSD_VERSION = '0.1.15'
 
-PREFS_PARTICLE_TYPE = 'vptype'
-PREFS_PARTICLE_SIZE = 'vpptsize'
+
+'''
+LIST OF CLASSES:
+
+    flam3husd_scripts
+    flam3husd_general_utils
+    flam3husd_about_utils
+    
+    _NOTE:
+        - Class @properties are always defined inbetween the @staticmethods and the class methods.
+        - Global variables are all upper cases. Every upper case variable's name created inside any definition always start with an underscore (_)
+
+'''
+
+
+
+PREFS_VIEWPORT_PT_TYPE = 'vptype'
+PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
 PREFS_VIEWPORT_DARK = 'setdark'
 
+# Messages
 MSG_FLAM3HUSDABOUT = 'flam3husdabout_msg'
 
-
-def houdini_version() -> int:
-    return int(''.join(str(x) for x in hou.applicationVersion()[:1]))
-
+# Flash messages timer
+FLAM3H_FLASH_MESSAGE_TIMER: float = 2 # Note that for this FLAM3HUSD OTL the flash messages only run in netowrk editors belonging to the Lop context.
 
 
-def util_getSceneViewers() -> list:
+
+
+
+
+
+# FLAM3H SCRIPTS start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+
+
+class flam3husd_scripts:
     """
-    Returns:
-        list: [return a list of open scene viewers]
-    """    
-    views = hou.ui.paneTabs() # type: ignore
-    return [v for v in views if isinstance(v, hou.SceneViewer)]
+class flam3husd_scripts
+
+@STATICMETHODS
+
+@METHODS
+* flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float=1) -> None:
+* flam3husd_on_create(self) -> None:
+* autoSetRenderer_on_create(self) -> None:
+* flam3h_on_deleted(self) -> None:
+
+    """
 
 
-
-def autoSetRenderer_on_create(self: hou.LopNode) -> None:
-    for view in util_getSceneViewers():
-        cr = hou.SceneViewer.currentHydraRenderer(view)
-        if "Houdini" in cr:
-            hou.SceneViewer.setHydraRenderer(view, cr)
-            # Sync FLAM3H nodes
-            for n in self.type().instances():
-                n.setParms({"rndtype": 0}) # type: ignore
-        elif "Karma" in cr:
-            hou.SceneViewer.setHydraRenderer(view, cr)
-            # Sync FLAM3H nodes
-            for n in self.type().instances():
-                n.setParms({"rndtype": 1}) # type: ignore
-        elif "Storm" in cr:
-            hou.SceneViewer.setHydraRenderer(view, cr)
-            # Sync FLAM3H nodes
-            for n in self.type().instances():
-                n.setParms({"rndtype": 2}) # type: ignore
+    def __init__(self, kwargs: dict) -> None:
+        """
+        Args:
+            kwargs(dict): this FLAM3H node houdini kwargs.
             
-
-
-def flam3USD_on_create(kwargs: dict) -> None:
-    """
-    Args:
-        kwargs (dict): [kwargs[] dictionary]
-    """
-    # Set initial node color
-    node = kwargs['node']
-    node.setColor(hou.Color((0.165,0.165,0.165)))
-    # Set renderer
-    autoSetRenderer_on_create(node)
-    # Set about box
-    flam3USD_about_msg(node)
-
-    # INITIALIZE F3H_CS
-    try:
-        hou.session.flam3h_viewport_CS # type: ignore
-    except:
-        hou.session.flam3h_viewport_CS = [] # type: ignore
+        Returns:
+            (None):
+        """  
+        self._kwargs = kwargs
+        self._node = kwargs['node']
 
 
 
-def colorSchemeDark(self: hou.LopNode) -> None:
-    try:
-        module_test = hou.session.flam3h_viewport_CS # type: ignore
-    except:
-        hou.session.flam3h_viewport_CS = [] # type: ignore
 
-    count = 0
-    viewers_col = []
 
-    setprm = self.parm(PREFS_VIEWPORT_DARK).eval()
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
+
+    @property
+    def kwargs(self):
+        return self._kwargs
     
-    Light = hou.viewportColorScheme.Light # type: ignore
-    Grey  = hou.viewportColorScheme.Grey # type: ignore
-    Dark  = hou.viewportColorScheme.Dark # type: ignore
-    # The following is a lazy way to make this backward compatible with H19.x
-    # as the DarkGrey color scheme has been introduced in H20.x first
-    if houdini_version() < 20: DarkGrey = Grey
-    else: DarkGrey = hou.viewportColorScheme.DarkGrey # type: ignore
+    @property
+    def node(self):
+        return self._node
+    
+    
+    
+    def flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float=1) -> None:
+        """Initialize the necessary data for the viewport display preference's option on creation.
+        This need some work as it is a little rough, I'll be back to this at some point. Good enough for now.
+        
+        Args:
+            (self):
+            default_value_pt(float): A default value to compare to for the point setting. This must always be the same as the FLAM3H UI parameter's default values.
+            
+        Returns:
+            (None):
+        """
+        
+        node = self.node
+        
+        # Update dark history
+        flam3husd_general_utils.util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
+        flam3husd_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
+        # Set other FLAM3HUSD instances to dark if any
+        all_f3h = node.type().instances()
+        all_f3h_vpptsize = []
+        all_f3h_vptype = []
+        
+        if len(all_f3h) > 1:
 
-    for view in util_getSceneViewers():
-
-        settings = view.curViewport().settings()
-        col = settings.colorScheme()
-        viewers_col.append(col)
-        try:
-            idx_test = hou.session.flam3h_viewport_CS[count] # type: ignore
-        except:
-            if len(hou.session.flam3h_viewport_CS) > 0: # type: ignore
-                hou.session.flam3h_viewport_CS.append(viewers_col) # type: ignore
-            else:
-                hou.session.flam3h_viewport_CS = [] # type: ignore
-                hou.session.flam3h_viewport_CS.append(viewers_col) # type: ignore
-
-        if setprm:
-            if len(hou.session.flam3h_viewport_CS) == 0: # type: ignore
-                if col == Light or col == Grey or col == DarkGrey:
-                    settings.setColorScheme(Dark)
-            else:
-                if col == Light or col == Grey or col == DarkGrey:
-                    settings.setColorScheme(Dark)
-                elif col == Dark and hou.session.flam3h_viewport_CS[count] != Dark: # type: ignore
-                    if hou.session.flam3h_viewport_CS[count] == Light: # type: ignore
-                        settings.setColorScheme(Light)
-                    elif hou.session.flam3h_viewport_CS[count] == Grey: # type: ignore
-                        settings.setColorScheme(Grey)
-                    elif hou.session.flam3h_viewport_CS[count] == DarkGrey: # type: ignore
-                        settings.setColorScheme(DarkGrey)
-
+            for f3h in all_f3h:
+                if f3h != node:
+                    all_f3h_vpptsize.append(f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval())
+                    all_f3h_vptype.append(f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval())
+                    if f3h.parm(PREFS_VIEWPORT_DARK).eval():
+                        node.setParms({PREFS_VIEWPORT_DARK: 1})
+                        flam3husd_general_utils(self.kwargs).colorSchemeDark(False)
+                        break
+                    else:
+                        break
         else:
-            if col == Dark and hou.session.flam3h_viewport_CS[count] != Dark: # type: ignore
-                if hou.session.flam3h_viewport_CS[count] == Light: # type: ignore
-                    settings.setColorScheme(Light)
-                elif hou.session.flam3h_viewport_CS[count] == Grey: # type: ignore
-                    settings.setColorScheme(Grey)
-                elif hou.session.flam3h_viewport_CS[count] == DarkGrey: # type: ignore
-                    settings.setColorScheme(DarkGrey)
-        count += 1
-        
-    # Sync FLAM3H nodes
-    all_f3h = self.type().instances()
-    if len(all_f3h) > 1:
-        [f3h.setParms({PREFS_VIEWPORT_DARK: setprm}) for f3h in all_f3h if f3h != self if f3h.parm(PREFS_VIEWPORT_DARK).eval() != setprm]
+            node.setParms({PREFS_VIEWPORT_DARK: 1})
+            flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
     
-    # Update history
-    hou.session.flam3h_viewport_CS = [] # type: ignore
-    hou.session.flam3h_viewport_CS = viewers_col # type: ignore
-
-
-
-def viewportParticleDisplay(self: hou.LopNode) -> None:
-    pttype = self.parm("vptype").evalAsInt()
-    Points = hou.viewportParticleDisplay.Points # type: ignore
-    Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
-
-    for view in util_getSceneViewers():
-        settings = view.curViewport().settings()
-        if pttype == 0:
-            settings.particleDisplayType(Points)
-        elif pttype == 1:
-            settings.particleDisplayType(Pixels)
+        # If we collected some data, set
+        if all_f3h_vpptsize:
+            node.setParms({PREFS_VIEWPORT_PT_SIZE: all_f3h_vpptsize[0]})
+            node.setParms({PREFS_VIEWPORT_PT_TYPE: all_f3h_vptype[0]})
             
-    # Sync FLAM3H nodes
-    all_f3h = self.type().instances()
-    if len(all_f3h) > 1:
-        [f3h.setParms({PREFS_PARTICLE_TYPE: pttype}) for f3h in all_f3h if f3h != self if f3h.parm(PREFS_PARTICLE_TYPE).eval() != pttype]
+        else:
+            Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
+            
+            for view in flam3husd_general_utils.util_getSceneViewers():
+                settings = view.curViewport().settings()
+                size = settings.particlePointSize()
+                
+                if size != default_value_pt:
+                    node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
+                    
+                type = settings.particleDisplayType()
+                if type == Pixels:
+                    node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
+
+    
 
 
 
-def viewportParticleSize(self: hou.LopNode) -> None:
-    Points = hou.viewportParticleDisplay.Points # type: ignore
-    ptsize = self.parm("vpptsize").evalAsFloat()
+    def flam3husd_on_create(self) -> None:
+        """Initialize FLAM3HUSD node on creation and all the data it need to run.
+        
+        Args:
+            (self)
+            
+        Returns:
+            (None):
+        """
+        # Set initial node color
+        self.node.setColor(hou.Color((0.165,0.165,0.165)))
+        
+        # Set renderer
+        self.autoSetRenderer_on_create()
+        # Set viewport preferences settings
+        self.flam3husd_on_create_set_prefs_viewport()
+        
+        # Set about box
+        flam3husd_about_utils(self.kwargs).flam3husd_about_msg()
 
-    for view in util_getSceneViewers():
-        settings = view.curViewport().settings()
-        settings.particleDisplayType(Points)
-        settings.particlePointSize(ptsize)
+
+
+    def autoSetRenderer_on_create(self) -> None:
+        """This need more work to make it smarter...its a start
+        Set the hydra renderer based on the one found in the viewers already.
+        Since the renderer menu will set all the Lop viewers in one go, we assume that the are all the same type already.
         
-    # Sync FLAM3H nodes
-    all_f3h = self.type().instances()
-    if len(all_f3h) > 1:
-        [f3h.setParms({PREFS_PARTICLE_SIZE: ptsize}) for f3h in all_f3h if f3h != self if f3h.parm(PREFS_PARTICLE_SIZE).eval() != ptsize]
+        Args:
+            (self)
+            
+        Returns:
+            (None):
+        """
+        
+        node = self.node
+        
+        karma_name = 'Karma CPU'
+        if flam3husd_general_utils.houdini_version() < 20: karma_name = 'Karma'
+        
+        for view in flam3husd_general_utils.util_getSceneViewers():
+            
+            if flam3husd_general_utils.util_is_context('Lop', view):
+            
+                cr = hou.SceneViewer.currentHydraRenderer(view)
+                if "Houdini" in cr:
+                    hou.SceneViewer.setHydraRenderer(view, cr)
+                    # Sync FLAM3H nodes
+                    for n in node.type().instances():
+                        n.setParms({"rndtype": 0}) # type: ignore
+                elif karma_name in cr:
+                    hou.SceneViewer.setHydraRenderer(view, cr)
+                    # Sync FLAM3H nodes
+                    for n in node.type().instances():
+                        n.setParms({"rndtype": 1}) # type: ignore
+                elif "Storm" in cr:
+                    hou.SceneViewer.setHydraRenderer(view, cr)
+                    # Sync FLAM3H nodes
+                    for n in node.type().instances():
+                        n.setParms({"rndtype": 3}) # type: ignore
+                        
+                        
+                        
+    # Wip
+    def flam3h_on_deleted(self) -> None:
+        """Cleanup the data on deletion.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """
+        node = self.node
+        node_instances = node.type().instances()
+        
+        if len(node_instances) == 1:
+            
+            # Delete the Houdini update mode data if needed
+            try: del hou.session.HUSD_CS_STASH_DICT # type: ignore
+            except: pass
+
+
+
+
+
+
+
+
+# FLAM3HUSD GENERAL UTILS start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+
+class flam3husd_general_utils:
+    """
+class flam3husd_general_utils
+
+@STATICMETHODS
+* houdini_version() -> int:
+* util_getSceneViewers() -> list:
+* util_is_context(context: str, viewport: hou.paneTabType) -> bool:
+* flash_message(msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None, context: str='Lop') -> None:
+* set_status_msg(msg: str, type: str) -> None:
+
+@METHODS
+* util_store_all_viewers_color_scheme(self) -> None:
+* colorSchemeDark(self, update_others: bool=True) -> None:
+* viewportParticleDisplay(self) -> None:
+* viewportParticleSize(self) -> None:
+* setHydraRenderer(self) -> None:
+
+    """
+
+
+    def __init__(self, kwargs: dict) -> None:
+        """
+        Args:
+            kwargs(dict): this FLAM3HUSD node houdini kwargs.
+            
+        Returns:
+            (None):
+        """ 
+        self._kwargs = kwargs
+        self._node = kwargs['node']
+
+
+
+
+    @staticmethod
+    def houdini_version() -> int:
+        """Retrieve the major Houdini version number currently in use.
+
+        Args:
+            (None):
+
+        Returns:
+            (int): major Houdini version number. ex: 19, 20 but not: 19.5, 20.5
+        """ 
+        return int(''.join(str(x) for x in hou.applicationVersion()[:1]))
+
+
+
+    @staticmethod
+    def util_getSceneViewers() -> list:
+        """Return a list of viewer currently open in this Houdini session.
+        
+        Args:
+            (None):
+            
+        Returns:
+            (list): [return a list of open scene viewers]
+        """    
+        views = hou.ui.paneTabs() # type: ignore
+        return [v for v in views if isinstance(v, hou.SceneViewer)]
+    
+    
+    
+    @staticmethod
+    def util_is_context(context: str, viewport: hou.paneTabType) -> bool:
+        """Return if we are inside a context or not.
+        
+        Args:
+            context(str): The context we want to check if we are currently in. Options so far are: 
+                * Sop: str
+                * Lop: str
+            viewport(hou.paneTabType): Any of the available pane tab types, in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer
+            
+        Returns:
+            (bool): [True if we are in Solaris and False if we are not.]
+        """    
+        context_now: hou.NodeTypeCategory = hou.ui.findPaneTab(viewport.name()).pwd().childTypeCategory() # type: ignore
+        if str(context_now.name()).lower() == context.lower(): return True
+        else: return False
+        
+    
+    
+    @staticmethod
+    def flash_message(msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None, context: str='Lop') -> None:
+        """Cause a message to appear on the top left of the network editor.
+        Will only work if the network editors are within the Lop context.
+
+        Args:
+            msg(Union[str, None]): The string message to print or None.
+            timer(float): Default to: FLAM3H_FLASH_MESSAGE_TIMER. How long the printed message stay before it fade away.
+            img(Union[str, None]): Default to none. specifies an icon or image file that should be displayed along with the text specified in the msg argument.
+            context(str): Default to: "Lop". The context the network editors need to belong to in order to display the message.
+
+        Returns:
+            (None):
+        """  
+        if hou.isUIAvailable():
+            [ne.flashMessage(img, msg, timer) for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor and flam3husd_general_utils.util_is_context(context, p)]] # type: ignore
+
         
         
         
-def setHydraRenderer(self: hou.LopNode) -> None:
-    rndtype = self.parm("rndtype").evalAsInt()
-    for view in util_getSceneViewers():
-        if rndtype == 0:
-            hou.SceneViewer.setHydraRenderer(view, 'Houdini GL')
-            # Sync FLAM3H nodes
-            for n in self.type().instances():
-                if n != self:
-                    n.setParms({"rndtype": 0}) # type: ignore
-        elif rndtype == 1:
-            if houdini_version() < 20:
-                hou.SceneViewer.setHydraRenderer(view, 'Karma')
+    @staticmethod
+    def set_status_msg(msg: str, type: str) -> None:
+        """Print a message to the Houdini's status bar if the UI is available.
+
+        Args:
+            msg(str): The message string to print
+            type(str): The type of severity message to use, Possible choises are: MSG ( message ), IMP ( important message ), WARN ( warning ).
+            
+        Returns:
+            (None):
+        """
+
+        if hou.isUIAvailable():
+            st = { 'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning }  # type: ignore
+            hou.ui.setStatusMessage(msg, st.get(type)) # type: ignore
+        
+
+
+    @staticmethod
+    def util_store_all_viewers_color_scheme_onCreate() -> None:
+        """Store dictionaries of viewers color schemes if needed on FLAM3H node creation
+        This version do not check from which parameter run as we need it to run regardless.
+        
+        Args:
+            (None):
+            
+        Returns:
+            (None):  
+        """  
+        # Check if the required data exist already
+        try: hou.session.HUSD_CS_STASH_DICT # type: ignore
+        except: # if not, lets create it
+            views_scheme: list[hou.EnumValue]  = []
+            views_keys: list[str] = []
+            for v in flam3husd_general_utils.util_getSceneViewers():
+                view = v.curViewport()
+                settings = view.settings()
+                _CS = settings.colorScheme()
+                if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                    views_scheme.append(_CS)
+                    views_keys.append(v.name())
+            
+            # Always store and update this data
+            hou.session.HUSD_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
+
+
+
+
+
+
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
+
+    @property
+    def kwargs(self):
+        return self._kwargs
+    
+    @property
+    def node(self):
+        return self._node
+
+
+
+
+    def util_store_all_viewers_color_scheme(self) -> None:
+        """Store dictionaries of viewers color schemes
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):  
+        """  
+        # Do this only if the parameter toggle is: PREFS_VIEWPORT_DARK
+        try: parm = self.kwargs['parm']
+        except: parm = None
+        _ENTER_PRM = None
+        if parm is not None: _ENTER_PRM = parm.name()
+        if _ENTER_PRM is not None and _ENTER_PRM == PREFS_VIEWPORT_DARK:
+            views_scheme: list[hou.EnumValue]  = []
+            views_keys: list[str] = []
+            for v in self.util_getSceneViewers():
+                
+                # Store only if it is a Lop viewport
+                if self.util_is_context('Lop', v):
+                    
+                    view = v.curViewport()
+                    settings = view.settings()
+                    _CS = settings.colorScheme()
+                    if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                        views_scheme.append(_CS)
+                        views_keys.append(v.name())
+            
+            # Always store and update this data
+            hou.session.HUSD_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
+
+
+
+
+    def colorSchemeDark(self, update_others: bool=True) -> None:
+        """Change viewport color scheme to dark
+        and remember the current color scheme so to switch back to it when unchecked.
+        If the viewport color scheme is already dark, checking this option will do nothing. 
+        
+        Args:
+            (self):
+            update_others(bool): Default to True. Update also the other FLAM3H nodes in the scene if any
+            
+        Returns:
+            (None):
+        """
+        node = self.node
+        prm = node.parm(PREFS_VIEWPORT_DARK)
+        views = self.util_getSceneViewers()
+        
+        if views:
+            if prm.eval():
+                # Store all viewers current color schemes
+                # if different than Dark
+                self.util_store_all_viewers_color_scheme()
+                
+                dark = False
+                for v in views:
+                    
+                    # Set only if it is a Lop viewport
+                    if self.util_is_context('Lop', v):
+                        
+                        settings = v.curViewport().settings()
+                        _CS = settings.colorScheme()
+                        if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                            settings.setColorScheme(hou.viewportColorScheme.Dark) # type: ignore
+                            dark = True
+                
+                if dark:   
+                    _MSG = f"Dark: ON"
+                    self.flash_message(_MSG)
+                    self.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                else:
+                    _MSG = f"Dark already"
+                    self.set_status_msg(f"{node.name()}: {_MSG}. Viewers are in Dark mode already", 'MSG')
+                    
             else:
-                # H20 changed this name so let use the new one
-                hou.SceneViewer.setHydraRenderer(view, 'Karma CPU')
-            # Sync FLAM3H nodes
-            for n in self.type().instances():
-                if n != self:
-                    n.setParms({"rndtype": 1}) # type: ignore
-        elif rndtype == 2:
-            hou.SceneViewer.setHydraRenderer(view, 'Storm')
-            # Sync FLAM3H nodes
-            for n in self.type().instances():
-                if n != self:
-                    n.setParms({"rndtype": 2}) # type: ignore
+                
+                try: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = hou.session.HUSD_CS_STASH_DICT # type: ignore
+                except: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = None
+                    
+                dark = False
+                if _STASH_DICT is not None:
+                    for v in views:
+                        key = v.name()
+                        _STASH: Union[hou.EnumValue, None] = _STASH_DICT.get(key)
+                        if _STASH is not None:
+                            settings = v.curViewport().settings()
+                            _CS = settings.colorScheme()
+                            if _CS == hou.viewportColorScheme.Dark: # type: ignore
+                                settings.setColorScheme(_STASH)
+                                dark = True
+                                
+                if dark:
+                    _MSG = f"Dark: OFF"
+                    self.flash_message(_MSG)
+                    self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                else:
+                    if hou.session.HUSD_CS_STASH_DICT: # type: ignore
+                        _MSG = f"No viewer in Dark mode"
+                        self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers are set to Dark.", 'MSG')
+                    else:
+                        _MSG = f"Nothing to restore"
+                        self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers has been switched to Dark. They probably were already in Dark mode.", 'MSG')
+                            
+        else:
+            prm.set(0)
             
+            _MSG = f"No viewports in the current Houdini Desktop."
+            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport to either set to Dark or restore.", 'WARN')
+            self.flash_message(f"Dark: {_MSG}")
+            
+            
+        if update_others:
+            # Update dark preference's option toggle on other FLAM3H nodes instances
+            all_f3h = self.node.type().instances()
+            if len(all_f3h) > 1:
+                [f3h.setParms({PREFS_VIEWPORT_DARK: prm.eval()}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_DARK).eval() != prm.eval()]
 
 
-def flam3USD_about_msg(self):
+
+
+    def viewportParticleDisplay(self) -> None:
+        """Switch viewport particle display mode
+        between Pixel and Points.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """
+        node = self.node
+        pttype = node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt()
+        Points = hou.viewportParticleDisplay.Points # type: ignore
+        Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
+
+        for view in self.util_getSceneViewers():
+            
+            if self.util_is_context('Lop', view):
+                
+                settings = view.curViewport().settings()
+                if pttype == 0:
+                    settings.particleDisplayType(Points)
+                elif pttype == 1:
+                    settings.particleDisplayType(Pixels)
+                
+        # Sync FLAM3HUSD nodes
+        all_f3h = node.type().instances()
+        if len(all_f3h) > 1:
+            [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != self if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
+
+
+
+    def viewportParticleSize(self) -> None:
+        """When the viewport particle display type is set to Point
+        this will change their viewport size.
+        
+        Args:
+            (self):
+            reset_val (Union[float, None]): Default to None. Can be either "None" or a float value. If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
+            
+        Returns:
+            (None):
+        """
+        node = self.node
+        Points = hou.viewportParticleDisplay.Points # type: ignore
+        ptsize = node.parm(PREFS_VIEWPORT_PT_SIZE).evalAsFloat()
+
+        for view in self.util_getSceneViewers():
+            
+            if self.util_is_context('Lop', view):
+                
+                settings = view.curViewport().settings()
+                settings.particleDisplayType(Points)
+                settings.particlePointSize(ptsize)
+            
+        # Sync FLAM3H nodes
+        all_f3h = node.type().instances()
+        if len(all_f3h) > 1:
+            [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in all_f3h if f3h != self if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
+
+
+
+    def setHydraRenderer(self) -> None:
+        """Set the selected hydre renderer in the availables Lop viewers.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):  
+        """  
+        node = self.node
+        rndtype = node.parm("rndtype").evalAsInt()
+        
+        for view in self.util_getSceneViewers():
+            
+            if self.util_is_context('Lop', view):
+                
+                if rndtype == 0:
+                    hou.SceneViewer.setHydraRenderer(view, 'Houdini GL')
+                    # Sync FLAM3H nodes
+                    for n in node.type().instances():
+                        if n != self:
+                            n.setParms({"rndtype": 0}) # type: ignore
+                elif rndtype == 1:
+                    if self.houdini_version() < 20:
+                        hou.SceneViewer.setHydraRenderer(view, 'Karma')
+                    else:
+                        # H20 changed this name so let use the new one
+                        hou.SceneViewer.setHydraRenderer(view, 'Karma CPU')
+                    # Sync FLAM3H nodes
+                    for n in node.type().instances():
+                        if n != self:
+                            n.setParms({"rndtype": 1}) # type: ignore
+                elif rndtype == 2:
+                    hou.SceneViewer.setHydraRenderer(view, 'Storm')
+                    # Sync FLAM3H nodes
+                    for n in node.type().instances():
+                        if n != node:
+                            n.setParms({"rndtype": 3}) # type: ignore
+
+
+
+
+
+
+
+
+# FLAM3HUSD ABOUT start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+
+class flam3husd_about_utils():
+    """
+class flam3husd_about_utils
+
+@STATICMETHODS
+
+@METHODS
+* flam3husd_about_msg(self):
+
+    """
     
-    nl = "\n"
-    nnl = "\n\n"
+    def __init__(self, kwargs: dict) -> None:
+        """
+        Args:
+            kwargs(dict): this FLAM3HUSD node houdini kwargs.
+            
+        Returns:
+            (None):
+        """ 
+        self._kwargs = kwargs
+        self._node = kwargs['node']
 
-    year = datetime.now().strftime("%Y")
-    flam3husd_houdini_version = f"VERSION: {FLAM3HUSD_VERSION} :: (GPL)"
-    Implementation_years = f"2020/{year}"
-    Implementation_build = f"AUTHOR: Alessandro Nardini ( Italy )\n{flam3husd_houdini_version}\nCODE: vex H19.x, py 3.9.10\n{Implementation_years}"
 
-    h_version = '.'.join(str(x) for x in hou.applicationVersion())
-    Houdini_version = f"Host:\nSideFX Houdini {h_version}"
-    Python_version = f"Python: {python_version()}"
-    license_type = str(hou.licenseCategory()).split(".")[-1]
-    Houdini_license = f"License: {license_type}"
-    Platform = f"Platform: {hou.applicationPlatformInfo()}"
-    PC_name = f"Machine name: {hou.machineName()}"
-    User = f"User: {hou.userName()}"
+
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
+
+    @property
+    def kwargs(self):
+        return self._kwargs
     
-    build = (Implementation_build, nnl,
-             Houdini_version, nl,
-             Houdini_license, nl,
-             Python_version, nl,
-             Platform, nl,
-             PC_name, nl,
-             User
-             )
-    
-    build_about_msg = "".join(build)
+    @property
+    def node(self):
+        return self._node
 
-    self.setParms({MSG_FLAM3HUSDABOUT: build_about_msg})
+
+
+
+    def flam3husd_about_msg(self):
+        """Build and set the FLAM3H about message.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """ 
+        
+        nl = "\n"
+        nnl = "\n\n"
+
+        year = datetime.now().strftime("%Y")
+        flam3husd_houdini_version = f"VERSION: {FLAM3HUSD_VERSION} :: (GPL)"
+        Implementation_years = f"2020/{year}"
+        Implementation_build = f"AUTHOR: Alessandro Nardini ( Italy )\n{flam3husd_houdini_version}\nCODE: vex H19.x, py 3.9.10\n{Implementation_years}"
+
+        h_version = '.'.join(str(x) for x in hou.applicationVersion())
+        Houdini_version = f"Host:\nSideFX Houdini {h_version}"
+        Python_version = f"Python: {python_version()}"
+        license_type = str(hou.licenseCategory()).split(".")[-1]
+        Houdini_license = f"License: {license_type}"
+        Platform = f"Platform: {hou.applicationPlatformInfo()}"
+        PC_name = f"Machine name: {hou.machineName()}"
+        User = f"User: {hou.userName()}"
+        
+        build = (Implementation_build, nnl,
+                Houdini_version, nl,
+                Houdini_license, nl,
+                Python_version, nl,
+                Platform, nl,
+                PC_name, nl,
+                User
+                )
+        
+        build_about_msg = "".join(build)
+
+        self.node.setParms({MSG_FLAM3HUSDABOUT: build_about_msg})
+
