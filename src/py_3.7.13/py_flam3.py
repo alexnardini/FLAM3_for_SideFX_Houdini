@@ -1933,47 +1933,48 @@ class flam3h_general_utils
         desktop = hou.ui.curDesktop() # type: ignore
         viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
         
-        # Lets first be sure we are not in 'Solaris'
+        try: _CAMS: Union[int, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
+        except: _CAMS: Union[int, None]  = None
         
-        if flam3h_general_utils.util_is_context('Lop', viewport) is False:
-                
-            try: _CAMS: Union[int, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
-            except: _CAMS: Union[int, None]  = None
+        if _CAMS is None:
             
-            if _CAMS is None:
+            if viewport is not None and viewport.isCurrentTab() and flam3h_general_utils.util_is_context('Lop', viewport) is False:
                 
-                if viewport is not None and viewport.isCurrentTab():
+                view = viewport.curViewport()
+                
+                try: _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+                except: _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = None
                     
-                    view = viewport.curViewport()
+                if _CAM_STASHED is not None:
                     
-                    try: _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
-                    except: _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = None
+                    if _CAM_STASHED.isPerspective():
+                        view.changeType(hou.geometryViewportType.Perspective) # type: ignore
+                        view.setDefaultCamera(_CAM_STASHED) # type: ignore
                         
-                    if _CAM_STASHED is not None:
+                    elif _CAM_STASHED.isOrthographic:
                         
-                        if _CAM_STASHED.isPerspective():
-                            view.changeType(hou.geometryViewportType.Perspective) # type: ignore
-                            view.setDefaultCamera(_CAM_STASHED) # type: ignore
+                        try: _CAM_STASHED_TYPE: Union[hou.geometryViewportType, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
+                        except: _CAM_STASHED_TYPE: Union[hou.geometryViewportType, None] = None
                             
-                        elif _CAM_STASHED.isOrthographic:
+                        if _CAM_STASHED_TYPE is not None:
+                            view.changeType(_CAM_STASHED_TYPE) # type: ignore
+                            view_obj = view.defaultCamera()
+                            view_obj.setOrthoWidth(_CAM_STASHED.orthoWidth())
+                            view_obj.setTranslation(_CAM_STASHED.translation())
                             
-                            try: _CAM_STASHED_TYPE: Union[hou.geometryViewportType, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
-                            except: _CAM_STASHED_TYPE: Union[hou.geometryViewportType, None] = None
-                                
-                            if _CAM_STASHED_TYPE is not None:
-                                view.changeType(_CAM_STASHED_TYPE) # type: ignore
-                                view_obj = view.defaultCamera()
-                                view_obj.setOrthoWidth(_CAM_STASHED.orthoWidth())
-                                view_obj.setTranslation(_CAM_STASHED.translation())
-                                
-            else:
-                try: _STASH_DICT: Union[dict[str, hou.GeometryViewportCamera], None] = hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
-                except: _STASH_DICT: Union[dict[str, hou.GeometryViewportCamera], None] = None
-                try: _TYPE_DICT: Union[dict[str, hou.geometryViewportType], None] = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
-                except: _TYPE_DICT: Union[dict[str, hou.geometryViewportType], None] = None
+        else:
+            try: _STASH_DICT: Union[dict[str, hou.GeometryViewportCamera], None] = hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
+            except: _STASH_DICT: Union[dict[str, hou.GeometryViewportCamera], None] = None
+            try: _TYPE_DICT: Union[dict[str, hou.geometryViewportType], None] = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
+            except: _TYPE_DICT: Union[dict[str, hou.geometryViewportType], None] = None
+                
+            if _STASH_DICT is not None and _TYPE_DICT is not None:
+                
+                for v in flam3h_general_utils.util_getSceneViewers():
                     
-                if _STASH_DICT is not None and _TYPE_DICT is not None:
-                    for v in flam3h_general_utils.util_getSceneViewers():
+                    # Restore only if it is not a Lop viewport
+                    if flam3h_general_utils.util_is_context('Lop', v) is False:
+                        
                         view = v.curViewport()
                         key = v.name()
                         _STASH: Union[hou.GeometryViewportCamera, None] = _STASH_DICT.get(key)
@@ -2024,6 +2025,7 @@ class flam3h_general_utils
             
         if _STASH_DICT is not None:
             for v in flam3h_general_utils.util_getSceneViewers():
+                
                 view = v.curViewport()
                 key = v.name()
                 _STASH: Union[float, None] = _STASH_DICT.get(key)
@@ -2211,10 +2213,12 @@ class flam3h_general_utils
             views_keys: list[str] = []
             views_type: list[hou.geometryViewportType] = []
             for v in self.util_getSceneViewers():
-                view = v.curViewport()
-                views_cam.append(view.defaultCamera().stash())
-                views_keys.append(v.name())
-                views_type.append(view.type())
+                # Store only if it is not a Lop viewport
+                if self.util_is_context('Lop', v) is False:
+                    view = v.curViewport()
+                    views_cam.append(view.defaultCamera().stash())
+                    views_keys.append(v.name())
+                    views_type.append(view.type())
                 
             # Store everything into the hou.session so we can retrieve them later but keep them if they exist already
             # as it mean another FLAM3H node was already im camera sensor mode and we likely want to restore what was already stored.
@@ -2266,24 +2270,24 @@ class flam3h_general_utils
             desktop = hou.ui.curDesktop() # type: ignore
             viewport: hou.paneTabType.SceneViewer = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
             
-            # Lets first be sure we are not in 'Solaris'
-            if self.util_is_context('Lop', viewport) is False:
+            # check if there are more than one viewport available
+            viewports = self.util_getSceneViewers()
+            
+            # Get some data for down the line condition checks
+            update_sensor = self.node.parm(OUT_UPDATE_SENSOR).eval()
+            _SYS_FRAME_VIEW_SENSOR_prm = False
+            try:
+                if self.kwargs['parm'].name() == SYS_FRAME_VIEW_SENSOR:
+                    _SYS_FRAME_VIEW_SENSOR_prm =True
+                    # Refresh menu caches
+                    self.menus_refresh_enum_prefs()
+            except: pass
+            
+            # If the viewport is: viewport.isCurrentTab()
+            if viewport is not None and len(viewports) == 1 and viewport.isCurrentTab():
                 
-                # check if there are more than one viewport available
-                viewports = self.util_getSceneViewers()
-                
-                # Get some data for down the line condition checks
-                update_sensor = self.node.parm(OUT_UPDATE_SENSOR).eval()
-                _SYS_FRAME_VIEW_SENSOR_prm = False
-                try:
-                    if self.kwargs['parm'].name() == SYS_FRAME_VIEW_SENSOR:
-                        _SYS_FRAME_VIEW_SENSOR_prm =True
-                        # Refresh menu caches
-                        self.menus_refresh_enum_prefs()
-                except: pass
-                
-                # If the viewport is: viewport.isCurrentTab()
-                if viewport is not None and len(viewports) == 1 and viewport.isCurrentTab():
+                # Set only if it is not a Lop viewport
+                if self.util_is_context('Lop', viewport) is False:
                     
                     view = viewport.curViewport()
                     
@@ -2345,23 +2349,26 @@ class flam3h_general_utils
                                 return True
                             
                     return False
-                        
+                
                 else:
-                    self.util_store_all_viewers()
-                    if self.util_set_front_viewer_all(node, update_sensor, _SYS_FRAME_VIEW_SENSOR_prm, update):
-                        return True
-                    else:
-                        # Or just exit the Sensor Viz mode
-                        self.flam3h_other_sensor_viz_off(self.node)
-                        self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
-                        self.util_clear_stashed_cam_data()
-                        return False
+                    # If we were activating the Camera Sensor mode
+                    if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                        # Revert it back to OFF and fire a message
+                        node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                        flam3h_general_utils.set_status_msg(f"FLAM3H Camera Sensor skipped because you are in Solaris context.", 'IMP')
+                        
+                    return False
                     
             else:
-                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
-                    node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
-                    flam3h_general_utils.set_status_msg(f"FLAM3H Camera Sensor skipped because you are in Solaris context.", 'IMP')
-
+                self.util_store_all_viewers()
+                if self.util_set_front_viewer_all(node, update_sensor, _SYS_FRAME_VIEW_SENSOR_prm, update):
+                    return True
+                else:
+                    # Or just exit the Sensor Viz mode
+                    self.flam3h_other_sensor_viz_off(self.node)
+                    self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                    self.util_clear_stashed_cam_data()
+                    return False
                 
         return False
 
@@ -2385,31 +2392,19 @@ class flam3h_general_utils
             
             viewports = self.util_getSceneViewers()
             if len(viewports):
+                
+                lop_viewports = []
                 # Set them all without storing any stashed camera data 
                 self.util_set_clipping_viewers()
-                for v in self.util_getSceneViewers():
-                    view = v.curViewport()
-                    if view.type() != hou.geometryViewportType.Front: # type: ignore
-                        view.changeType(hou.geometryViewportType.Front) # type: ignore
-                    if update:
-                        if self.bbox_sensor_path is not None:
-                            node_bbox = hou.node(self.bbox_sensor_path)
-                            if hou.hipFile.isLoadingHipFile(): # type: ignore
-                                # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
-                                # but work on H20.0.590 and up, hence the try/except block
-                                try: view.frameBoundingBox(node_bbox.geometry().boundingBox())
-                                except:
-                                    node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0}) # type: ignore
-                                    self.util_clear_stashed_cam_data()
-                                    return False
-                            else:
-                                view.frameBoundingBox(node_bbox.geometry().boundingBox())
-
-                            if _SYS_FRAME_VIEW_SENSOR_prm:
-                                self.flash_message(self.node, f"Camera sensor REFRAMED")
-                                
-                    else:
-                        if update_sensor or _SYS_FRAME_VIEW_SENSOR_prm:
+                for v in viewports:
+                    
+                    # Set only if it is not a Lop viewport
+                    if self.util_is_context('Lop', v) is False:
+                        
+                        view = v.curViewport()
+                        if view.type() != hou.geometryViewportType.Front: # type: ignore
+                            view.changeType(hou.geometryViewportType.Front) # type: ignore
+                        if update:
                             if self.bbox_sensor_path is not None:
                                 node_bbox = hou.node(self.bbox_sensor_path)
                                 if hou.hipFile.isLoadingHipFile(): # type: ignore
@@ -2417,15 +2412,49 @@ class flam3h_general_utils
                                     # but work on H20.0.590 and up, hence the try/except block
                                     try: view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                     except:
-                                        self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                                        node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0}) # type: ignore
                                         self.util_clear_stashed_cam_data()
                                         return False
                                 else:
                                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
+
+                                if _SYS_FRAME_VIEW_SENSOR_prm:
+                                    self.flash_message(self.node, f"Camera sensor REFRAMED")
                                     
-                                    if _SYS_FRAME_VIEW_SENSOR_prm:
-                                        self.flash_message(self.node, f"Camera sensor REFRAMED")
-                return True
+                        else:
+                            if update_sensor or _SYS_FRAME_VIEW_SENSOR_prm:
+                                if self.bbox_sensor_path is not None:
+                                    node_bbox = hou.node(self.bbox_sensor_path)
+                                    if hou.hipFile.isLoadingHipFile(): # type: ignore
+                                        # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
+                                        # but work on H20.0.590 and up, hence the try/except block
+                                        try: view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                                        except:
+                                            self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                                            self.util_clear_stashed_cam_data()
+                                            return False
+                                    else:
+                                        view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                                        
+                                        if _SYS_FRAME_VIEW_SENSOR_prm:
+                                            self.flash_message(self.node, f"Camera sensor REFRAMED")
+                                            
+                    else:
+                        # Count how many Lop viewports are present
+                        lop_viewports.append(True)
+                        
+                # If all the viewports are Lop viewports
+                if len(lop_viewports) == len(viewports):
+                    
+                    # If we were activating the Camera Sensor mode
+                    if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                        # Revert it back to OFF and fire a message
+                        self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                        flam3h_general_utils.set_status_msg(f"FLAM3H Camera Sensor skipped because you are in Solaris context.", 'IMP')
+                        
+                    return False
+                
+                else: return True
             
             else:
                 # Exit the Sensor Viz mode
@@ -2460,10 +2489,12 @@ class flam3h_general_utils
             views_widths: list[float]  = []
             views_keys: list[str] = []
             for v in self.util_getSceneViewers():
-                view = v.curViewport()
-                settings = view.settings()
-                views_widths.append(settings.wireWidth())
-                views_keys.append(v.name())
+                # Store only if it is not a Lop viewport
+                if self.util_is_context('Lop', v) is False:
+                    view = v.curViewport()
+                    settings = view.settings()
+                    views_widths.append(settings.wireWidth())
+                    views_keys.append(v.name())
             
             # Store everything into the hou.session so we can retrieve them later but keep them if they exist already
             # as it mean another FLAM3H node had already its viewport xforms handles VIZ ON and we likely want to restore what was already stored.
@@ -3462,15 +3493,19 @@ class flam3h_general_utils
         width = node.parm(PREFS_VIEWPORT_WIRE_WIDTH).evalAsFloat()
 
         for view in self.util_getSceneViewers():
-            settings = view.curViewport().settings()
-            if reset_val is None:
-                settings.wireWidth(width)
-            else:
-                width = float(reset_val)
-                settings.wireWidth(width)
-                prm = node.parm(PREFS_VIEWPORT_WIRE_WIDTH)
-                prm.deleteAllKeyframes()
-                prm.set(width)
+            
+            # Set only if it is not a Lop viewport
+            if self.util_is_context('Lop', view) is False:
+                
+                settings = view.curViewport().settings()
+                if reset_val is None:
+                    settings.wireWidth(width)
+                else:
+                    width = float(reset_val)
+                    settings.wireWidth(width)
+                    prm = node.parm(PREFS_VIEWPORT_WIRE_WIDTH)
+                    prm.deleteAllKeyframes()
+                    prm.set(width)
             
         # Updated FLAM3H wire width custom value
         hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH = width # type: ignore
