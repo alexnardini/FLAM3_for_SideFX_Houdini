@@ -57,7 +57,7 @@ FLAM3H_FLASH_MESSAGE_TIMER: float = 2 # Note that for this FLAM3HUSD OTL the fla
 
 
 
-# FLAM3H SCRIPTS start here
+# FLAM3HUSD SCRIPTS start here
 ##########################################
 ##########################################
 ##########################################
@@ -119,7 +119,7 @@ class flam3husd_scripts
         
         Args:
             (self):
-            default_value_pt(float): A default value to compare to for the point setting. This must always be the same as the FLAM3H UI parameter's default values.
+            default_value_pt(float): A default value to compare to for the point setting. This must always be the same as the FLAM3HUSD UI parameter's default values.
             
         Returns:
             (None):
@@ -220,17 +220,17 @@ class flam3husd_scripts
                 cr = hou.SceneViewer.currentHydraRenderer(view)
                 if "Houdini" in cr:
                     hou.SceneViewer.setHydraRenderer(view, cr)
-                    # Sync FLAM3H nodes
+                    # Sync FLAM3HUSD nodes
                     for n in node.type().instances():
                         n.setParms({"rndtype": 0}) # type: ignore
                 elif karma_name in cr:
                     hou.SceneViewer.setHydraRenderer(view, cr)
-                    # Sync FLAM3H nodes
+                    # Sync FLAM3HUSD nodes
                     for n in node.type().instances():
                         n.setParms({"rndtype": 1}) # type: ignore
                 elif "Storm" in cr:
                     hou.SceneViewer.setHydraRenderer(view, cr)
-                    # Sync FLAM3H nodes
+                    # Sync FLAM3HUSD nodes
                     for n in node.type().instances():
                         n.setParms({"rndtype": 3}) # type: ignore
                         
@@ -395,7 +395,7 @@ class flam3husd_general_utils
 
     @staticmethod
     def util_store_all_viewers_color_scheme_onCreate() -> None:
-        """Store dictionaries of viewers color schemes if needed on FLAM3H node creation
+        """Store dictionaries of viewers color schemes if needed on FLAM3HUSD node creation
         This version do not check from which parameter run as we need it to run regardless.
         
         Args:
@@ -483,7 +483,7 @@ class flam3husd_general_utils
         
         Args:
             (self):
-            update_others(bool): Default to True. Update also the other FLAM3H nodes in the scene if any
+            update_others(bool): Default to True. Update also the other FLAM3HUSD nodes in the scene if any
             
         Returns:
             (None):
@@ -556,7 +556,7 @@ class flam3husd_general_utils
             
             
         if update_others:
-            # Update dark preference's option toggle on other FLAM3H nodes instances
+            # Update dark preference's option toggle on other FLAM3HUSD nodes instances
             all_f3h = self.node.type().instances()
             if len(all_f3h) > 1:
                 [f3h.setParms({PREFS_VIEWPORT_DARK: prm.eval()}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_DARK).eval() != prm.eval()]
@@ -619,7 +619,7 @@ class flam3husd_general_utils
                 settings.particleDisplayType(Points)
                 settings.particlePointSize(ptsize)
             
-        # Sync FLAM3H nodes
+        # Sync FLAM3HUSD nodes
         all_f3h = node.type().instances()
         if len(all_f3h) > 1:
             [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in all_f3h if f3h != self if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
@@ -644,7 +644,7 @@ class flam3husd_general_utils
                 
                 if rndtype == 0:
                     hou.SceneViewer.setHydraRenderer(view, 'Houdini GL')
-                    # Sync FLAM3H nodes
+                    # Sync FLAM3HUSD nodes
                     for n in node.type().instances():
                         if n != self:
                             n.setParms({"rndtype": 0}) # type: ignore
@@ -654,13 +654,13 @@ class flam3husd_general_utils
                     else:
                         # H20 changed this name so let use the new one
                         hou.SceneViewer.setHydraRenderer(view, 'Karma CPU')
-                    # Sync FLAM3H nodes
+                    # Sync FLAM3HUSD nodes
                     for n in node.type().instances():
                         if n != self:
                             n.setParms({"rndtype": 1}) # type: ignore
                 elif rndtype == 2:
                     hou.SceneViewer.setHydraRenderer(view, 'Storm')
-                    # Sync FLAM3H nodes
+                    # Sync FLAM3HUSD nodes
                     for n in node.type().instances():
                         if n != node:
                             n.setParms({"rndtype": 3}) # type: ignore
@@ -723,7 +723,7 @@ class flam3husd_about_utils
 
 
     def flam3husd_about_msg(self):
-        """Build and set the FLAM3H about message.
+        """Build and set the FLAM3HUSD about message.
         
         Args:
             (self):
