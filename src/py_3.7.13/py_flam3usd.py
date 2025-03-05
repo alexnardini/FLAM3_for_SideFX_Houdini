@@ -738,7 +738,7 @@ class flam3husd_about_utils
         year = datetime.now().strftime("%Y")
         flam3husd_houdini_version = f"VERSION: {FLAM3HUSD_VERSION} :: (GPL)"
         Implementation_years = f"2020/{year}"
-        Implementation_build = f"AUTHOR: Alessandro Nardini ( Italy )\n{flam3husd_houdini_version}\nCODE: vex H19.x, py 3.9.10\n{Implementation_years}"
+        Implementation_build = f"AUTHOR: Alessandro Nardini ( Italy )\n{flam3husd_houdini_version}\nCODE: vex H19.x.x, py 3.7.13\n{Implementation_years}"
 
         h_version = '.'.join(str(x) for x in hou.applicationVersion())
         Houdini_version = f"Host:\nSideFX Houdini {h_version}"
