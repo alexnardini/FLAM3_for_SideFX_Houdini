@@ -86,7 +86,7 @@ class flam3husd_scripts
     def __init__(self, kwargs: dict) -> None:
         """
         Args:
-            kwargs(dict): this FLAM3H node houdini kwargs.
+            kwargs(dict): this FLAM3HUSD node houdini kwargs.
             
         Returns:
             (None):
