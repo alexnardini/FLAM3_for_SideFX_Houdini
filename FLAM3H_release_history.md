@@ -42,7 +42,7 @@ They are all available in this github repository.</br>
 - **Fix**: Motion blur viz was not working. (a regression from preview version: v1.6.82)
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD ####
+#### FLAM3HUSD v0.1.0 ####
 
 _This simple utility node got an upgrade._
 
