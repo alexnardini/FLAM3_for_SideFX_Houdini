@@ -3,7 +3,7 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.1.15
+#version: 0.1.25
 
 """Simple utility node to quickly setup fractal flames point clouds in Solaris."""
 
@@ -87,11 +87,11 @@ points widths:
 
 pixel samples:
     #id: prefs
-    This will set the render samples when the Karma renderer is chosen.
+    Set the Karma renderer pixel samples.
     
 denoiser:
     #id: prefs
-    Give you the option to choose from the available denoisers when the Karma renderer is selected.
+    Options to choose from the available Karma denoisers.
 
 FLAM3H Shader:
     #id: prefs

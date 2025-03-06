@@ -10,6 +10,27 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### From v1.6.91 ###
+
+_This update is all about FLAM3HUSD._
+
+#### FLAM3HUSD v0.1.25 ####
+
+- **New**: Added validity check for the imported FLAM3H node.
+- **New**: Added action button to reset the Widths parameter to its default value.
+- **New**: Added action button to reset houdini GL viewport point size parameter to its default value.
+- **New**: Added action button to reset FLAM3H shader parameters to their default values.
+- **New**: Added action button to reset Karma pixel samples parameter to its default value.
+- **New**: Added: **py_flam3usd_UI_PRM_map.md** mark down file to this repository.
+- **Fix**: Improved USD hierarchy build.
+- **Fix**: Improved UI and UX.
+- **Fix**: FLAM3USD Corrected about box code python version used (always display the least needed).
+- **Small fixes/improvements**
+
+
+
+
+
 ### From v1.6.90 ###
 
 #### FLAM3H ####

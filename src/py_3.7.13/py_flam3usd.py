@@ -23,7 +23,7 @@ import hou
 #               Everything is then glued together inside Houdini.
 
 
-FLAM3HUSD_VERSION = '0.1.15'
+FLAM3HUSD_VERSION = '0.1.25'
 
 
 '''
@@ -44,6 +44,11 @@ LIST OF CLASSES:
 PREFS_VIEWPORT_PT_TYPE = 'vptype'
 PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
 PREFS_VIEWPORT_DARK = 'setdark'
+PREFS_KARMA_PIXEL_SAMPLES = 'pxsamples'
+PREFS_KARMA_F3H_SHADER_GAMMA = 'f3h_gamma'
+PREFS_KARMA_F3H_SHADER_HUE = 'f3h_hsv_h'
+PREFS_KARMA_F3H_SHADER_SATURATION = 'f3h_hsv_s'
+PREFS_KARMA_F3H_SHADER_VALUE = 'f3h_hsv_v'
 
 # Messages
 MSG_FLAM3HUSDABOUT = 'flam3husdabout_msg'
@@ -217,9 +222,6 @@ class flam3husd_scripts
         
         node: hou.LopNode = self.node
         
-        karma_name = 'Karma CPU'
-        if flam3husd_general_utils.houdini_version() < 20: karma_name = 'Karma'
-        
         for view in flam3husd_general_utils.util_getSceneViewers():
             
             if flam3husd_general_utils.util_is_context('Lop', view):
@@ -229,7 +231,7 @@ class flam3husd_scripts
                     hou.SceneViewer.setHydraRenderer(view, cr)
                     # Sync FLAM3HUSD nodes
                     [n.setParms({"rndtype": 0}) for n in node.type().instances()]
-                elif karma_name in cr:
+                elif flam3husd_general_utils.karma_hydra_renderer_name() in cr:
                     hou.SceneViewer.setHydraRenderer(view, cr)
                     # Sync FLAM3HUSD nodes
                     [n.setParms({"rndtype": 1}) for n in node.type().instances()]
@@ -281,6 +283,7 @@ class flam3husd_general_utils:
 class flam3husd_general_utils
 
 @STATICMETHODS
+* karma_hydra_renderer_name() -> str:
 * houdini_version() -> int:
 * util_getSceneViewers() -> list:
 * util_is_context(context: str, viewport: hou.paneTabType) -> bool:
@@ -291,8 +294,10 @@ class flam3husd_general_utils
 * util_store_all_viewers_color_scheme(self) -> None:
 * colorSchemeDark(self, update_others: bool=True) -> None:
 * viewportParticleDisplay(self) -> None:
-* viewportParticleSize(self) -> None:
+* viewportParticleSize(self, reset_val: Union[float, None]=None) -> None:
 * setHydraRenderer(self) -> None:
+* reset_flam3h_shader(self) -> None:
+* flam3husd_display_help(self) -> None:
 
     """
 
@@ -307,6 +312,24 @@ class flam3husd_general_utils
         """ 
         self._kwargs = kwargs
         self._node = kwargs['node']
+
+
+
+
+
+    @staticmethod
+    def karma_hydra_renderer_name() -> str:
+        """Return the internal hydra renderer name for Karma.
+        
+        Args:
+            (None):
+            
+        Returns:
+            (str): [Return the internal hydra renderer name for Karma.]
+        """    
+        karma_name = 'Karma CPU'
+        if flam3husd_general_utils.houdini_version() < 20: karma_name = 'Karma'
+        return karma_name
 
 
 
@@ -598,35 +621,46 @@ class flam3husd_general_utils
         if len(all_f3h) > 1:
             [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
 
-
-
-    def viewportParticleSize(self) -> None:
+            
+            
+            
+    def viewportParticleSize(self, reset_val: Union[float, None]=None, prm_name_size: str=PREFS_VIEWPORT_PT_SIZE) -> None:
         """When the viewport particle display type is set to Point
         this will change their viewport size.
         
         Args:
             (self):
             reset_val (Union[float, None]): Default to None. Can be either "None" or a float value. If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
+            prm_name_size(str): Default to: PREFS_VIEWPORT_PT_SIZE. The name of the parameter to set.
             
         Returns:
             (None):
         """
         node = self.node
         Points = hou.viewportParticleDisplay.Points # type: ignore
-        ptsize = node.parm(PREFS_VIEWPORT_PT_SIZE).evalAsFloat()
+        ptsize = node.parm(prm_name_size).eval()
 
         for view in self.util_getSceneViewers():
             
+            # Set only if it is a Lop viewport
             if self.util_is_context('Lop', view):
-                
+            
                 settings = view.curViewport().settings()
                 settings.particleDisplayType(Points)
-                settings.particlePointSize(ptsize)
+                if reset_val is None:
+                    if prm_name_size == PREFS_VIEWPORT_PT_SIZE: settings.particlePointSize(ptsize)
+                else:
+                    ptsize = float(reset_val)
+                    if prm_name_size == PREFS_VIEWPORT_PT_SIZE: settings.particlePointSize(ptsize)
+                    prm = node.parm(self.kwargs['parmtuple'].name())
+                    prm.deleteAllKeyframes()
+                    prm.set(ptsize)
             
-        # Sync FLAM3HUSD nodes
-        all_f3h = node.type().instances()
-        if len(all_f3h) > 1:
-            [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
+        # Update Point Size preference's option toggle on other FLAM3H nodes instances
+        if prm_name_size == PREFS_VIEWPORT_PT_SIZE and node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
+            [f3h.parm(prm_name_size).deleteAllKeyframes() for f3h in node.type().instances()]
+            [f3h.setParms({prm_name_size: ptsize}) for f3h in node.type().instances() if f3h.parm(prm_name_size).eval() != ptsize]
+            
 
 
 
@@ -646,24 +680,60 @@ class flam3husd_general_utils
             
             if self.util_is_context('Lop', view):
                 
-                if rndtype == 0:
-                    hou.SceneViewer.setHydraRenderer(view, 'Houdini GL')
-                    # Sync FLAM3HUSD nodes
-                    [n.setParms({"rndtype": 0}) for n in node.type().instances() if n != node]
+                # This double check should not be necessary
+                # But H19 did throw me an error in some cases so I leave it here for now
+                if isinstance(view, hou.SceneViewer):
                     
-                elif rndtype == 1:
-                    if self.houdini_version() < 20:
-                        hou.SceneViewer.setHydraRenderer(view, 'Karma')
-                    else:
-                        # H20 changed this name so let use the new one
-                        hou.SceneViewer.setHydraRenderer(view, 'Karma CPU')
-                    # Sync FLAM3HUSD nodes
-                    [n.setParms({"rndtype": 1}) for n in node.type().instances() if n != node]
+                    if rndtype == 0:
+                        hou.SceneViewer.setHydraRenderer(view, 'Houdini GL')
+                        # Sync FLAM3HUSD nodes
+                        [n.setParms({"rndtype": rndtype}) for n in node.type().instances() if n != node]
+                        
+                    elif rndtype == 1:
+                        hou.SceneViewer.setHydraRenderer(view, self.karma_hydra_renderer_name())
+                        # Sync FLAM3HUSD nodes
+                        [n.setParms({"rndtype": rndtype}) for n in node.type().instances() if n != node]
+                        
+                    elif rndtype == 2:
+                        hou.SceneViewer.setHydraRenderer(view, 'Storm')
+                        # Sync FLAM3HUSD nodes
+                        [n.setParms({"rndtype": rndtype}) for n in node.type().instances() if n != node]
+                        
                     
-                elif rndtype == 2:
-                    hou.SceneViewer.setHydraRenderer(view, 'Storm')
-                    # Sync FLAM3HUSD nodes
-                    [n.setParms({"rndtype": 3}) for n in node.type().instances() if n != node]
+                    
+                    
+    def reset_flam3h_shader(self) -> None:
+        """Reset the OUT Render settings parameters tab.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """
+        node = self.node
+        
+        prms_f3h_shader_data: dict = {  PREFS_KARMA_F3H_SHADER_GAMMA: 2.2,
+                                        PREFS_KARMA_F3H_SHADER_HUE: 1,
+                                        PREFS_KARMA_F3H_SHADER_SATURATION: 1,
+                                        PREFS_KARMA_F3H_SHADER_VALUE: 1 }
+        
+        # Clear and set
+        [node.parm(key).deleteAllKeyframes() for key in prms_f3h_shader_data.keys()]
+        [node.setParms({key: value}) for key, value in prms_f3h_shader_data.items()]
+        
+        
+        
+    def flam3husd_display_help(self) -> None:
+        """Open the Houdini help browser to display the FLAM3HUSD node documentation.
+
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """
+        hou.ui.displayNodeHelp(self.node.type()) # type: ignore
 
 
 
@@ -737,7 +807,7 @@ class flam3husd_about_utils
 
         year = datetime.now().strftime("%Y")
         flam3husd_houdini_version = f"VERSION: {FLAM3HUSD_VERSION} :: (GPL)"
-        Implementation_years = f"2020/{year}"
+        Implementation_years = f"2023/{year}"
         Implementation_build = f"AUTHOR: Alessandro Nardini ( Italy )\n{flam3husd_houdini_version}\nCODE: vex H19.x.x, py 3.7.13\n{Implementation_years}"
 
         h_version = '.'.join(str(x) for x in hou.applicationVersion())
