@@ -160,17 +160,23 @@ class flam3husd_scripts
             Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
             
             for view in flam3husd_general_utils.util_getSceneViewers():
-                settings = view.curViewport().settings()
-                size = settings.particlePointSize()
                 
-                if size != default_value_pt:
-                    node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
+                # Lets make sure we check for a viewer in the Lop context
+                if flam3husd_general_utils.util_is_context('Lop', view):
                     
-                type = settings.particleDisplayType()
-                if type == Pixels:
-                    node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
+                    settings = view.curViewport().settings()
+                    size = settings.particlePointSize()
+                    
+                    if size != default_value_pt:
+                        node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
+                        
+                    type = settings.particleDisplayType()
+                    if type == Pixels:
+                        node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
+                        
+                else:
+                    node.setParms({PREFS_VIEWPORT_PT_SIZE: default_value_pt})
 
-    
 
 
 
@@ -208,7 +214,7 @@ class flam3husd_scripts
             (None):
         """
         
-        node = self.node
+        node: hou.LopNode = self.node
         
         karma_name = 'Karma CPU'
         if flam3husd_general_utils.houdini_version() < 20: karma_name = 'Karma'
@@ -221,18 +227,15 @@ class flam3husd_scripts
                 if "Houdini" in cr:
                     hou.SceneViewer.setHydraRenderer(view, cr)
                     # Sync FLAM3HUSD nodes
-                    for n in node.type().instances():
-                        n.setParms({"rndtype": 0}) # type: ignore
+                    [n.setParms({"rndtype": 0}) for n in node.type().instances()]
                 elif karma_name in cr:
                     hou.SceneViewer.setHydraRenderer(view, cr)
                     # Sync FLAM3HUSD nodes
-                    for n in node.type().instances():
-                        n.setParms({"rndtype": 1}) # type: ignore
+                    [n.setParms({"rndtype": 1}) for n in node.type().instances()]
                 elif "Storm" in cr:
                     hou.SceneViewer.setHydraRenderer(view, cr)
                     # Sync FLAM3HUSD nodes
-                    for n in node.type().instances():
-                        n.setParms({"rndtype": 3}) # type: ignore
+                    [n.setParms({"rndtype": 3}) for n in node.type().instances()]
                         
                         
                         
@@ -645,9 +648,8 @@ class flam3husd_general_utils
                 if rndtype == 0:
                     hou.SceneViewer.setHydraRenderer(view, 'Houdini GL')
                     # Sync FLAM3HUSD nodes
-                    for n in node.type().instances():
-                        if n != self:
-                            n.setParms({"rndtype": 0}) # type: ignore
+                    [n.setParms({"rndtype": 0}) for n in node.type().instances() if n != node]
+                    
                 elif rndtype == 1:
                     if self.houdini_version() < 20:
                         hou.SceneViewer.setHydraRenderer(view, 'Karma')
@@ -655,15 +657,12 @@ class flam3husd_general_utils
                         # H20 changed this name so let use the new one
                         hou.SceneViewer.setHydraRenderer(view, 'Karma CPU')
                     # Sync FLAM3HUSD nodes
-                    for n in node.type().instances():
-                        if n != self:
-                            n.setParms({"rndtype": 1}) # type: ignore
+                    [n.setParms({"rndtype": 1}) for n in node.type().instances() if n != node]
+                    
                 elif rndtype == 2:
                     hou.SceneViewer.setHydraRenderer(view, 'Storm')
                     # Sync FLAM3HUSD nodes
-                    for n in node.type().instances():
-                        if n != node:
-                            n.setParms({"rndtype": 3}) # type: ignore
+                    [n.setParms({"rndtype": 3}) for n in node.type().instances() if n != node]
 
 
 
@@ -741,7 +740,7 @@ class flam3husd_about_utils
         Implementation_build = f"AUTHOR: Alessandro Nardini ( Italy )\n{flam3husd_houdini_version}\nCODE: vex H19.x.x, py 3.7.13\n{Implementation_years}"
 
         h_version = '.'.join(str(x) for x in hou.applicationVersion())
-        Houdini_version = f"Host:\nSideFX Houdini {h_version}"
+        Houdini_version = f"HOST:\nSideFX Houdini {h_version}"
         Python_version = f"Python: {python_version()}"
         license_type = str(hou.licenseCategory()).split(".")[-1]
         Houdini_license = f"License: {license_type}"

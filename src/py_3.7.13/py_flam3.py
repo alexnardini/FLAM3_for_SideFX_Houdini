@@ -1268,15 +1268,22 @@ class flam3h_scripts
             Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
             
             for view in flam3h_general_utils.util_getSceneViewers():
-                settings = view.curViewport().settings()
-                size = settings.particlePointSize()
                 
-                if size != default_value_pt:
-                    node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
+                # Lets make sure we check for a viewer in the Sop context
+                if flam3h_general_utils.util_is_context('Lop', view) is False:
                     
-                type = settings.particleDisplayType()
-                if type == Pixels:
-                    node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
+                    settings = view.curViewport().settings()
+                    size = settings.particlePointSize()
+                    
+                    if size != default_value_pt:
+                        node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
+                        
+                    type = settings.particleDisplayType()
+                    if type == Pixels:
+                        node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
+                        
+                else:
+                    node.setParms({PREFS_VIEWPORT_PT_SIZE: default_value_pt})
                     
         # If we collected some data, set
         if all_f3h_ww:
