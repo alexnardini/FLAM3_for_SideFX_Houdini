@@ -596,7 +596,7 @@ class flam3husd_general_utils
         # Sync FLAM3HUSD nodes
         all_f3h = node.type().instances()
         if len(all_f3h) > 1:
-            [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != self if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
+            [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
 
 
 
@@ -626,7 +626,7 @@ class flam3husd_general_utils
         # Sync FLAM3HUSD nodes
         all_f3h = node.type().instances()
         if len(all_f3h) > 1:
-            [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in all_f3h if f3h != self if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
+            [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
 
 
 
