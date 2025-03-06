@@ -1283,6 +1283,7 @@ class flam3h_scripts
                         node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
                         
                 else:
+                    # FLAM3H shoud use its parameter default value in this case, but just to be sure
                     node.setParms({PREFS_VIEWPORT_PT_SIZE: default_value_pt})
                     
         # If we collected some data, set
