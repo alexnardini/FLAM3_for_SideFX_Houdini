@@ -3,7 +3,7 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.1.25
+#version: 0.1.35
 
 """Simple utility node to quickly setup fractal flames point clouds in Solaris."""
 
@@ -12,7 +12,7 @@
 A simple utility node that will make it easier to render FLAM3H fractal flames in Solaris for previews.
 It offers the very fundamental functionalities to setup your fractal flame point cloud to start rendering with Karma within a few clicks.
 
-_*This version is only compatible with FLAM3H v1.6.84 or higher.*_
+_*This version is only compatible with FLAM3H v1.6.97 or higher.*_
 
 
 

@@ -10,6 +10,28 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### From v1.6.97 ###
+
+#### FLAM3H ####
+
+- **Fix**: Post affine xform handle viz offset segment is now properly cast as: **polyline** instead of **poly**.
+- **Fix**: Post affine xform handle viz offset segment is now properly positioned in the same plane as the main handle.
+- **Fix**: First node instance was not cooking/compiling if no Sop viewers were present in the current desktop.
+- **Fix**: Corrected some context checking and messages.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+#### FLAM3HUSD v0.1.35 ####
+
+- **New**: With Houdini versions higher than 19.0.x you can now import and render the xforms handles viz using Karma.
+- **New**: Addded checking for the validity of the imported FLAM3H node.
+- **Fix**: Reinforced viewers context checks.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+
+
 ### From v1.6.91 ###
 
 _This update is all about FLAM3HUSD._
