@@ -1650,6 +1650,7 @@ class flam3h_general_utils
 * isLOCK(filepath: Union[str, bool]) -> bool:
 * util_open_file_explorer(filepath_name: str) -> None:
 * util_getSceneViewers() -> list:
+* util_getNetworkEditors() -> list:
 * util_is_context(context: str, viewport: hou.paneTabType) -> bool:
 * util_is_context_available_viewer(context: str) -> bool:
 * util_clear_stashed_cam_data() -> None:
