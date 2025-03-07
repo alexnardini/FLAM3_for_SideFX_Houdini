@@ -328,7 +328,7 @@ class flam3husd_scripts
                         
                         
     # Wip
-    def flam3h_on_deleted(self) -> None:
+    def flam3husd_on_deleted(self) -> None:
         """Cleanup the data on deletion.
         
         Args:

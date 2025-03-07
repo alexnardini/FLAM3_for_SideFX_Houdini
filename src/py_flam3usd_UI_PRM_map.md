@@ -45,7 +45,7 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_loade
 Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted**:
 When deleting a FLAM3H node.
 ```python
-kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3h_on_deleted()
+kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_deleted()
 ```
 
 <br>
