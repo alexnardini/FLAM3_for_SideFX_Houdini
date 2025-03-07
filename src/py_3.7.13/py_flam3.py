@@ -1274,7 +1274,7 @@ class flam3h_scripts
             for view in flam3h_general_utils.util_getSceneViewers():
                 
                 # Lets make sure we check for a viewer in the Sop context
-                if flam3h_general_utils.util_is_context('Lop', view) is False:
+                if flam3h_general_utils.util_is_context('Sop', view):
                     
                     settings = view.curViewport().settings()
                     size = settings.particlePointSize()
@@ -2013,7 +2013,7 @@ class flam3h_general_utils
         
         if _CAMS is None:
             
-            if viewport is not None and viewport.isCurrentTab() and flam3h_general_utils.util_is_context('Lop', viewport) is False:
+            if viewport is not None and viewport.isCurrentTab() and flam3h_general_utils.util_is_context('Sop', viewport):
                 
                 view = viewport.curViewport()
                 
@@ -2047,8 +2047,8 @@ class flam3h_general_utils
                 
                 for v in flam3h_general_utils.util_getSceneViewers():
                     
-                    # Restore only if it is not a Lop viewport
-                    if flam3h_general_utils.util_is_context('Lop', v) is False:
+                    # Restore only if it is a Sop viewer
+                    if flam3h_general_utils.util_is_context('Sop', v):
                         
                         view = v.curViewport()
                         key = v.name()
@@ -2153,8 +2153,8 @@ class flam3h_general_utils
             views_keys: list[str] = []
             for v in flam3h_general_utils.util_getSceneViewers():
                 
-                # Store only if it is not a Lop viewport
-                if flam3h_general_utils.util_is_context('Lop', v) is False:
+                # Store only if it is a Sop viewer
+                if flam3h_general_utils.util_is_context('Sop', v):
                     
                     view = v.curViewport()
                     settings = view.settings()
@@ -2294,8 +2294,8 @@ class flam3h_general_utils
             views_keys: list[str] = []
             views_type: list[hou.geometryViewportType] = []
             for v in self.util_getSceneViewers():
-                # Store only if it is not a Lop viewport
-                if self.util_is_context('Lop', v) is False:
+                # Store only if it is a Sop viewer
+                if self.util_is_context('Sop', v):
                     view = v.curViewport()
                     views_cam.append(view.defaultCamera().stash())
                     views_keys.append(v.name())
@@ -2367,8 +2367,8 @@ class flam3h_general_utils
             # If the viewport is: viewport.isCurrentTab()
             if viewport is not None and len(viewports) == 1 and viewport.isCurrentTab():
                 
-                # Set only if it is not a Lop viewport
-                if self.util_is_context('Lop', viewport) is False:
+                # Set only if it is a Sop viewer
+                if self.util_is_context('Sop', viewport):
                     
                     view = viewport.curViewport()
                     
@@ -2479,8 +2479,8 @@ class flam3h_general_utils
                 self.util_set_clipping_viewers()
                 for v in viewports:
                     
-                    # Set only if it is not a Lop viewport
-                    if self.util_is_context('Lop', v) is False:
+                    # Set only if it is a Sop viewer
+                    if self.util_is_context('Sop', v):
                         
                         view = v.curViewport()
                         if view.type() != hou.geometryViewportType.Front: # type: ignore
@@ -2570,8 +2570,8 @@ class flam3h_general_utils
             views_widths: list[float]  = []
             views_keys: list[str] = []
             for v in self.util_getSceneViewers():
-                # Store only if it is not a Lop viewport
-                if self.util_is_context('Lop', v) is False:
+                # Store only if it is a Sop viewer
+                if self.util_is_context('Sop', v):
                     
                     view = v.curViewport()
                     settings = view.settings()
@@ -3398,8 +3398,8 @@ class flam3h_general_utils
             views_keys: list[str] = []
             for v in self.util_getSceneViewers():
                 
-                # Store only if it is not a Lop viewport
-                if flam3h_general_utils.util_is_context('Lop', v) is False:
+                # Store only if it is a Sop viewer
+                if flam3h_general_utils.util_is_context('Sop', v):
                     
                     view = v.curViewport()
                     settings = view.settings()
@@ -3440,8 +3440,8 @@ class flam3h_general_utils
                 
                 for v in views:
                     
-                    # Set only if it is not a Lop viewport
-                    if flam3h_general_utils.util_is_context('Lop', v) is False:
+                    # Set only if it is a Sop viewer
+                    if flam3h_general_utils.util_is_context('Sop', v):
                         
                         if sop_view is False: sop_view = True
                         
@@ -3540,8 +3540,8 @@ class flam3h_general_utils
 
         for view in self.util_getSceneViewers():
             
-            # Set only if it is not a Lop viewport
-            if self.util_is_context('Lop', view) is False:
+            # Set only if it is a Sop viewer
+            if self.util_is_context('Sop', view):
             
                 settings = view.curViewport().settings()
                 if pttype == 0:
@@ -3575,8 +3575,8 @@ class flam3h_general_utils
 
         for view in self.util_getSceneViewers():
             
-            # Set only if it is not a Lop viewport
-            if self.util_is_context('Lop', view) is False:
+            # Set only if it is a Sop viewer
+            if self.util_is_context('Sop', view):
             
                 settings = view.curViewport().settings()
                 settings.particleDisplayType(Points)
@@ -3612,8 +3612,8 @@ class flam3h_general_utils
 
         for view in self.util_getSceneViewers():
             
-            # Set only if it is not a Lop viewport
-            if self.util_is_context('Lop', view) is False:
+            # Set only if it is a Sop viewer
+            if self.util_is_context('Sop', view):
                 
                 settings = view.curViewport().settings()
                 if reset_val is None:
