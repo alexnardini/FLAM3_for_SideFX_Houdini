@@ -864,12 +864,11 @@ class flam3h_scripts
 @STATICMETHODS
 * flam3h_on_create_lock_parms(node: hou.SopNode) -> None:
 * set_first_instance_global_var(cvex_precision: int) -> None:
-* flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
+* flam3h_check_first_node_instance_msg_status_bar_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 * flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 * flam3h_set_first_instance_global_var(cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
 
 @METHODS
-* flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 * flam3h_on_create_set_prefs_viewport(self, default_value_pt: float=1, default_value_ww: float=3) -> None:
 * flam3h_on_create_init_viewportWireWidth(self) -> None:
 * flam3h_presets_cache_filepath_on_load(self) -> None:
@@ -947,7 +946,7 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
+    def flam3h_check_first_node_instance_msg_status_bar_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
         """This is temporary until I dnt have time to find a better solution
         to advice the user about the first node compile time without having any leftover
         messages in the Houdini status bar.
@@ -956,6 +955,7 @@ class flam3h_scripts
         if its display flag is True.
 
         Args:
+            node(hou.SopNode): This FLAM3H node
             cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter
             _MSG_INFO(str): The message to print in the status bar
             _MSG_DONE(str): The message to print in the hou window 
@@ -966,6 +966,10 @@ class flam3h_scripts
         """
         flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
         if hou.isUIAvailable():
+            
+            # If there are not any Sop viewer lets cook it since this is the first node instance of FLAM3H
+            if flam3h_general_utils.util_is_context_available_viewer('Sop') is False: node.cook(force=True)
+            
             if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title = "FLAM3H: CVEX 32bit compile", details=None, details_label=None, details_expanded=False) == 0: # type: ignore
                 flam3h_scripts.set_first_instance_global_var(cvex_precision)
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
@@ -1083,7 +1087,7 @@ class flam3h_scripts
                 _MSG_DONE = f"FLAM3H CVEX nodes compile: DONE \nversion: {FLAM3H_VERSION}{FLAM3H_VERSION_STATUS_GOLD}"
             
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
-                    self.flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
+                    self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                 else:
                     self.flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node, cvex_precision,_MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                     
@@ -1097,7 +1101,7 @@ class flam3h_scripts
                 _MSG_DONE = f"FLAM3H CVEX 64-bit nodes compile: DONE\nversion: {FLAM3H_VERSION}"
                 
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
-                    self.flam3h_check_first_node_instance_msg_status_bar_display_flag(cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
+                    self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                 else:
                     self.flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node, cvex_precision,_MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                     
@@ -1647,6 +1651,7 @@ class flam3h_general_utils
 * util_open_file_explorer(filepath_name: str) -> None:
 * util_getSceneViewers() -> list:
 * util_is_context(context: str, viewport: hou.paneTabType) -> bool:
+* util_is_context_available_viewer(context: str) -> bool:
 * util_clear_stashed_cam_data() -> None:
 * util_set_stashed_cam() -> None:
 * util_clear_xf_viz_stashed_wire_width_data() -> None:
@@ -1886,6 +1891,21 @@ class flam3h_general_utils
         return [v for v in views if isinstance(v, hou.SceneViewer)]
     
     
+    @staticmethod
+    def util_getNetworkEditors() -> list:
+        """Return a list of NetworkEditors currently open in this Houdini session.
+        
+        Args:
+            (None):
+            
+        Returns:
+            (list): [return a list of open scene viewers]
+        """    
+        views = hou.ui.paneTabs() # type: ignore
+        return [v for v in views if isinstance(v, hou.NetworkEditor)]
+    
+    
+    
     
     @staticmethod
     def util_is_context(context: str, viewport: hou.paneTabType) -> bool:
@@ -1898,11 +1918,30 @@ class flam3h_general_utils
             viewport(hou.paneTabType): Any of the available pane tab types, in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer
             
         Returns:
-            (bool): [True if we are in Solaris and False if we are not.]
+            (bool): [True if we are in desired context or False if we are not.]
         """    
         context_now: hou.NodeTypeCategory = hou.ui.findPaneTab(viewport.name()).pwd().childTypeCategory() # type: ignore
         if str(context_now.name()).lower() == context.lower(): return True
         else: return False
+
+
+
+    @staticmethod
+    def util_is_context_available_viewer(context: str) -> bool:
+        """Return if a viewer belong to a desired context.
+        
+        Args:
+            context(str): The context we want to check if we are currently in. Options so far are: 
+            
+        Returns:
+            (bool): [True if a viewer belong to a desired context or False if not.]
+        """    
+        available = False
+        for v in flam3h_general_utils.util_getSceneViewers():
+            if flam3h_general_utils.util_is_context(context, v):
+                available = True
+                break
+        return available
 
 
 
@@ -3425,13 +3464,20 @@ class flam3h_general_utils
                     _MSG = f"Dark: OFF"
                     self.flash_message(node, _MSG)
                     self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    
                 else:
-                    if hou.session.H_CS_STASH_DICT: # type: ignore
-                        _MSG = f"No viewer in Dark mode"
-                        self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers are set to Dark.", 'MSG')
-                    else:
-                        _MSG = f"Nothing to restore"
-                        self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers has been switched to Dark. They probably were already in Dark mode.", 'MSG')
+                    
+                    try:
+                        
+                        if hou.session.H_CS_STASH_DICT: # type: ignore
+                            _MSG = f"No viewer in Dark mode"
+                            self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers are set to Dark.", 'MSG')
+                        else:
+                            _MSG = f"Nothing to restore"
+                            self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers has been switched to Dark. They probably were already in Dark mode.", 'MSG')
+                            
+                    except AttributeError:
+                        pass
                             
         else:
             prm.set(0)
