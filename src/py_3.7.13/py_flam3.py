@@ -3399,7 +3399,7 @@ class flam3h_general_utils
                     prm.set(0)
                     
                     _MSG = f"No Sop viewers in the current Houdini Desktop."
-                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewers to either set to Dark or restore.", 'WARN')
+                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer to either set to Dark or restore.", 'WARN')
                     self.flash_message(node, f"Dark: {_MSG}")
                     
             else:
@@ -3437,7 +3437,7 @@ class flam3h_general_utils
             prm.set(0)
             
             _MSG = f"No Sop viewers in the current Houdini Desktop."
-            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewers to either set to Dark or restore.", 'WARN')
+            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer to either set to Dark or restore.", 'WARN')
             self.flash_message(node, f"Dark: {_MSG}")
             
             

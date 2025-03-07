@@ -558,8 +558,8 @@ class flam3husd_general_utils
                 else:
                     prm.set(0)
                     
-                    _MSG = f"No Lop viewports in the current Houdini Desktop."
-                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewport to either set to Dark or restore.", 'WARN')
+                    _MSG = f"No Lop viewers in the current Houdini Desktop."
+                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer to either set to Dark or restore.", 'WARN')
                     self.flash_message(f"Dark: {_MSG}")
                     
                     
@@ -589,7 +589,7 @@ class flam3husd_general_utils
                 else:
                     if hou.session.HUSD_CS_STASH_DICT: # type: ignore
                         _MSG = f"No viewer in Dark mode"
-                        self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers are set to Dark.", 'MSG')
+                        self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewer are set to Dark.", 'MSG')
                     else:
                         _MSG = f"Nothing to restore"
                         self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers has been switched to Dark. They probably were already in Dark mode.", 'MSG')
@@ -597,8 +597,8 @@ class flam3husd_general_utils
         else:
             prm.set(0)
             
-            _MSG = f"No Lop viewports in the current Houdini Desktop."
-            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport to either set to Dark or restore.", 'WARN')
+            _MSG = f"No Lop viewers in the current Houdini Desktop."
+            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewer to either set to Dark or restore.", 'WARN')
             self.flash_message(f"Dark: {_MSG}")
             
             
