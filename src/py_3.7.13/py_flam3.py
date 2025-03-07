@@ -1643,7 +1643,7 @@ class flam3h_general_utils
 * set_private_prm(node: hou.SopNode, prm_name: str, data: Union[str, int, float]) -> None:
 * flash_message(node: hou.SopNode, msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None) -> None:
 * remove_locked_from_flame_stats(node) -> None:
-* houdini_version() -> int:
+* houdini_version(digit: int=1) -> int:
 * clamp(x, val_max: Union[int, float]=255) -> float:
 * my_system() -> str:
 * set_status_msg(msg: str, type: str) -> None:
@@ -1774,16 +1774,16 @@ class flam3h_general_utils
 
 
     @staticmethod
-    def houdini_version() -> int:
+    def houdini_version(digit: int=1) -> int:
         """Retrieve the major Houdini version number currently in use.
 
         Args:
-            (None):
+            digit(int): Default to 1: H_19, H_20. if set to 2: H_190, H_195, H_200, H_205, and so on.
 
         Returns:
-            (int): major Houdini version number. ex: 19, 20 but not: 19.5, 20.5
+            (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 19.5, 20.5
         """  
-        return int(''.join(str(x) for x in hou.applicationVersion()[:1]))
+        return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
 
     @staticmethod  
     def clamp(x, val_max: Union[int, float]=255) -> float:
@@ -2543,8 +2543,8 @@ class flam3h_general_utils
                 self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                 self.util_clear_stashed_cam_data()
                 
-                _MSG = f"No viewports in the current Houdini Desktop."
-                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport for the Sensor Viz to work.", 'WARN')
+                _MSG = f"No Sop viewers in the current Houdini Desktop."
+                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewers for the Sensor Viz to work.", 'WARN')
                 self.flash_message(node, f"Sensor Viz: {_MSG}")
                 return False
             
@@ -2745,7 +2745,8 @@ class flam3h_general_utils
         else:
             
             # There must be at least one viewport
-            if len(self.util_getSceneViewers()):
+            if self.util_is_context_available_viewer('Sop'):
+            
                 if f3h_xf_viz_others is False:
                     self.util_store_all_viewers_xf_viz()
                     
@@ -2762,8 +2763,8 @@ class flam3h_general_utils
                 
             else:
                 flam3h_general_utils.set_private_prm(node, prm_name, 0)
-                _MSG = f"No viewports in the current Houdini Desktop."
-                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport for the xforms handles VIZ to work.", 'WARN')
+                _MSG = f"No Sop viewers in the current Houdini Desktop."
+                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the xforms handles VIZ to work.", 'WARN')
                 self.flash_message(node, f"XF VIZ: {_MSG}")
                 
     
