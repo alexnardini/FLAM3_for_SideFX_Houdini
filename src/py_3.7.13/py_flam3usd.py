@@ -40,7 +40,7 @@ LIST OF CLASSES:
 '''
 
 
-
+PREFS_FLAM3H_PATH = 'flam3hpath'
 PREFS_VIEWPORT_PT_TYPE = 'vptype'
 PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
 PREFS_VIEWPORT_DARK = 'setdark'
@@ -50,14 +50,20 @@ PREFS_KARMA_F3H_SHADER_HUE = 'f3h_hsv_h'
 PREFS_KARMA_F3H_SHADER_SATURATION = 'f3h_hsv_s'
 PREFS_KARMA_F3H_SHADER_VALUE = 'f3h_hsv_v'
 
+# DATA
+PREFS_PVT_FLAM3HUSD_DATA_DISABLED = 'disabled'
+PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID = 'f3h_valid'
+PREFS_PVT_FLAM3HUSD_DATA_H190 = 'h_19_0'
+
 # Messages
 MSG_FLAM3HUSDABOUT = 'flam3husdabout_msg'
 
 # Flash messages timer
 FLAM3H_FLASH_MESSAGE_TIMER: float = 2 # Note that for this FLAM3HUSD OTL the flash messages only run in netowrk editors belonging to the Lop context.
 
-
-
+# The full path will be the string inside the parameter: PREFS_FLAM3H_PATH
+# plus this one
+FLAM3H_TO_FLAM3HUSD_NODE_PATH = '/TAGS/OUT_TO_FLAM3HUSD'
 
 
 
@@ -80,6 +86,8 @@ class flam3husd_scripts
 @STATICMETHODS
 
 @METHODS
+* flam3husd_is_valid_flam3h_node(self) -> None:
+* flam3husd_h190_check(self) -> None:
 * flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float=1) -> None:
 * flam3husd_on_create(self) -> None:
 * autoSetRenderer_on_create(self) -> None:
@@ -115,6 +123,48 @@ class flam3husd_scripts
     @property
     def node(self):
         return self._node
+
+
+
+    def flam3husd_is_valid_flam3h_node(self) -> None:
+        """Check if the imported FLAM3H node is valid or not
+        
+        Args:
+            (self): 
+            
+        Returns:
+            (None): 
+        """  
+        node = self.node
+        f3h_path = node.parm(PREFS_FLAM3H_PATH).eval()
+        f3h_to_f3husd_node = hou.node(f"{f3h_path}{FLAM3H_TO_FLAM3HUSD_NODE_PATH}")
+        try:
+            type = f3h_to_f3husd_node.type()
+            if type.name() == 'null': flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+            else: flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+        except:
+            flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+        
+
+    
+    
+    
+    def flam3husd_h190_check(self) -> None:
+        """Karma CPU has a bug in Houdini version 19.0.x and it crashes if it find a null primitive.
+        Since the xform handls viz may generate one, this is used to hide the UI Karma handles import tab.
+        
+        Args:
+            (self): 
+            
+        Returns:
+            (None): 
+        """  
+
+        node = self.node
+        if flam3husd_general_utils.houdini_version(2) == 190:
+            flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 1)
+        else:
+            flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 0)
     
     
     
@@ -202,9 +252,43 @@ class flam3husd_scripts
         self.autoSetRenderer_on_create()
         # Set viewport preferences settings
         self.flam3husd_on_create_set_prefs_viewport()
-        
+        # Check if we are importing a valid FLAM3H node
+        self.flam3husd_is_valid_flam3h_node()
+        # Check H version and set
+        self.flam3husd_h190_check()
         # Set about box
         flam3husd_about_utils(self.kwargs).flam3husd_about_msg()
+        
+        # Lock utility parameters
+        self.node.parm(PREFS_PVT_FLAM3HUSD_DATA_DISABLED).lock(True)
+        
+        
+        
+    def flam3husd_on_loaded(self) -> None:
+        """Initialize FLAM3HUSD node on creation and all the data it need to run.
+        For now the same as the on_create script, will see later on how this will evolve.
+        
+        Args:
+            (self)
+            
+        Returns:
+            (None):
+        """
+        
+        # Set renderer
+        self.autoSetRenderer_on_create()
+        # Set viewport preferences settings
+        self.flam3husd_on_create_set_prefs_viewport()
+        # Check if we are importing a valid FLAM3H node
+        self.flam3husd_is_valid_flam3h_node()
+        # Check H version and set
+        self.flam3husd_h190_check()
+        # Set about box
+        flam3husd_about_utils(self.kwargs).flam3husd_about_msg()
+        
+        # Lock utility parameters
+        self.node.parm(PREFS_PVT_FLAM3HUSD_DATA_DISABLED).lock(True)
+        
 
 
 
@@ -224,6 +308,7 @@ class flam3husd_scripts
         
         for view in flam3husd_general_utils.util_getSceneViewers():
             
+            # Set only if it is a Lop viewer
             if flam3husd_general_utils.util_is_context('Lop', view):
             
                 cr = hou.SceneViewer.currentHydraRenderer(view)
@@ -283,8 +368,9 @@ class flam3husd_general_utils:
 class flam3husd_general_utils
 
 @STATICMETHODS
+* set_private_prm(node: hou.SopNode, prm_name: str, data: Union[str, int, float]) -> None:
 * karma_hydra_renderer_name() -> str:
-* houdini_version() -> int:
+* houdini_version(digit: int=1) -> int:
 * util_getSceneViewers() -> list:
 * util_is_context(context: str, viewport: hou.paneTabType) -> bool:
 * flash_message(msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None, context: str='Lop') -> None:
@@ -315,6 +401,27 @@ class flam3husd_general_utils
 
 
 
+    @staticmethod
+    def set_private_prm(node: hou.SopNode, prm_name: str, data: Union[str, int, float]) -> None:
+        """Set a parameter value while making sure to unlock and lock it right after.
+        This is being introduced to add an extra level of security so to speak to certain parameters
+        that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.
+        
+        Args:
+            node(hou.SopNode): this FLAM3HUSD node.
+            prm_name(str): the parameter name.
+            data(Union[str, int, float]): The value to set the parameter to.
+            
+        Returns:
+            (None):
+        """ 
+        prm = node.parm(prm_name)
+        prm.lock(False)
+        prm.set(data)
+        prm.lock(True)
+
+
+
 
 
     @staticmethod
@@ -335,16 +442,16 @@ class flam3husd_general_utils
 
 
     @staticmethod
-    def houdini_version() -> int:
+    def houdini_version(digit: int=1) -> int:
         """Retrieve the major Houdini version number currently in use.
 
         Args:
-            (None):
+            digit(int): Default to 1: 19, 20. if set to 2: 190, 195, 200, 205, and so on.
 
         Returns:
-            (int): major Houdini version number. ex: 19, 20 but not: 19.5, 20.5
+            (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
         """ 
-        return int(''.join(str(x) for x in hou.applicationVersion()[:1]))
+        return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
 
 
 
@@ -438,7 +545,7 @@ class flam3husd_general_utils
             views_keys: list[str] = []
             for v in flam3husd_general_utils.util_getSceneViewers():
                 
-                # Store only if it is a Lop viewport
+                # Store only if it is a Lop viewer
                 if flam3husd_general_utils.util_is_context('Lop', v):
                 
                     view = v.curViewport()
@@ -491,7 +598,7 @@ class flam3husd_general_utils
             views_keys: list[str] = []
             for v in self.util_getSceneViewers():
                 
-                # Store only if it is a Lop viewport
+                # Store only if it is a Lop viewer
                 if self.util_is_context('Lop', v):
                     
                     view = v.curViewport()
@@ -534,7 +641,7 @@ class flam3husd_general_utils
                 
                 for v in views:
                     
-                    # Set only if it is a Lop viewport
+                    # Set only if it is a Lop viewer
                     if self.util_is_context('Lop', v):
                         
                         if lop_view is False: lop_view = True
@@ -586,13 +693,20 @@ class flam3husd_general_utils
                     _MSG = f"Dark: OFF"
                     self.flash_message(_MSG)
                     self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    
                 else:
-                    if hou.session.HUSD_CS_STASH_DICT: # type: ignore
-                        _MSG = f"No viewer in Dark mode"
-                        self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewer are set to Dark.", 'MSG')
-                    else:
-                        _MSG = f"Nothing to restore"
-                        self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers has been switched to Dark. They probably were already in Dark mode.", 'MSG')
+                    
+                    try:
+                        
+                        if hou.session.HUSD_CS_STASH_DICT: # type: ignore
+                            _MSG = f"No viewer in Dark mode"
+                            self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewer are set to Dark.", 'MSG')
+                        else:
+                            _MSG = f"Nothing to restore"
+                            self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers has been switched to Dark. They probably were already in Dark mode.", 'MSG')
+                            
+                    except AttributeError:
+                        pass
                             
         else:
             prm.set(0)
@@ -628,6 +742,7 @@ class flam3husd_general_utils
 
         for view in self.util_getSceneViewers():
             
+            # Set only if it is a Lop viewer
             if self.util_is_context('Lop', view):
                 
                 settings = view.curViewport().settings()
@@ -662,7 +777,7 @@ class flam3husd_general_utils
 
         for view in self.util_getSceneViewers():
             
-            # Set only if it is a Lop viewport
+            # Set only if it is a Lop viewer
             if self.util_is_context('Lop', view):
             
                 settings = view.curViewport().settings()
@@ -698,6 +813,7 @@ class flam3husd_general_utils
         
         for view in self.util_getSceneViewers():
             
+            # Set only if it is a Lop viewer
             if self.util_is_context('Lop', view):
                 
                 # This double check should not be necessary

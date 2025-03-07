@@ -36,6 +36,12 @@ initialize what the tool need when you create its node in the network editor.
 kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_create()
 ```
 
+Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded**:
+When loading a hip file with a FLAM3HUSD node in it do some checks.
+```python
+kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_loaded()
+```
+
 Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted**:
 When deleting a FLAM3H node.
 ```python
@@ -53,6 +59,18 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3h_on_deleted(
 
 _Preferences parameters._
 
+# Prefs Tab
+# parameter name:    `sys_help`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display_help()
+```
+# Prefs Tab
+# parameter name:    `flam3hpath`
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_is_valid_flam3h_node()
+```
 # Prefs Tab
 # parameter name:    `setdark`
 ### Callback Script
