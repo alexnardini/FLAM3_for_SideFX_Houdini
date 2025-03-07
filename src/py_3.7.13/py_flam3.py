@@ -2087,15 +2087,19 @@ class flam3h_general_utils
             views_scheme: list[hou.EnumValue]  = []
             views_keys: list[str] = []
             for v in flam3h_general_utils.util_getSceneViewers():
-                view = v.curViewport()
-                settings = view.settings()
-                _CS = settings.colorScheme()
-                if _CS != hou.viewportColorScheme.Dark: # type: ignore
-                    views_scheme.append(_CS)
-                    views_keys.append(v.name())
+                
+                # Store only if it is not a Lop viewport
+                if flam3h_general_utils.util_is_context('Lop', v) is False:
+                    
+                    view = v.curViewport()
+                    settings = view.settings()
+                    _CS = settings.colorScheme()
+                    if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                        views_scheme.append(_CS)
+                        views_keys.append(v.name())
             
-            # Always store and update this data
-            hou.session.H_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
+            # Always store and update this data if we collected something
+            if views_scheme and views_keys: hou.session.H_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
 
 
 
