@@ -530,10 +530,14 @@ class flam3husd_general_utils
                 self.util_store_all_viewers_color_scheme()
                 
                 dark = False
+                lop_view = False
+                
                 for v in views:
                     
                     # Set only if it is a Lop viewport
                     if self.util_is_context('Lop', v):
+                        
+                        if lop_view is False: lop_view = True
                         
                         settings = v.curViewport().settings()
                         _CS = settings.colorScheme()
@@ -541,13 +545,23 @@ class flam3husd_general_utils
                             settings.setColorScheme(hou.viewportColorScheme.Dark) # type: ignore
                             dark = True
                 
-                if dark:   
-                    _MSG = f"Dark: ON"
-                    self.flash_message(_MSG)
-                    self.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                if lop_view:
+                    
+                    if dark:
+                        _MSG = f"Dark: ON"
+                        self.flash_message(_MSG)
+                        self.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                    else:
+                        _MSG = f"Dark already"
+                        self.set_status_msg(f"{node.name()}: {_MSG}. Viewers are in Dark mode already", 'MSG')
+                        
                 else:
-                    _MSG = f"Dark already"
-                    self.set_status_msg(f"{node.name()}: {_MSG}. Viewers are in Dark mode already", 'MSG')
+                    prm.set(0)
+                    
+                    _MSG = f"No Lop viewports in the current Houdini Desktop."
+                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewport to either set to Dark or restore.", 'WARN')
+                    self.flash_message(f"Dark: {_MSG}")
+                    
                     
             else:
                 
@@ -557,6 +571,8 @@ class flam3husd_general_utils
                 dark = False
                 if _STASH_DICT is not None:
                     for v in views:
+                        # Here we are not checking if the viewer belong to Sop or Lop
+                        # because the stashed dict has already the viewers filtered on creation inside: flam3husd_general_utils.util_store_all_viewers_color_scheme()
                         key = v.name()
                         _STASH: Union[hou.EnumValue, None] = _STASH_DICT.get(key)
                         if _STASH is not None:
@@ -581,7 +597,7 @@ class flam3husd_general_utils
         else:
             prm.set(0)
             
-            _MSG = f"No viewports in the current Houdini Desktop."
+            _MSG = f"No Lop viewports in the current Houdini Desktop."
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport to either set to Dark or restore.", 'WARN')
             self.flash_message(f"Dark: {_MSG}")
             
