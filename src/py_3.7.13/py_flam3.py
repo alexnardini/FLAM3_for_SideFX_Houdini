@@ -1653,6 +1653,7 @@ class flam3h_general_utils
 * util_getNetworkEditors() -> list:
 * util_is_context(context: str, viewport: hou.paneTabType) -> bool:
 * util_is_context_available_viewer(context: str) -> bool:
+* util_is_context_available_network_editor(context: str) -> bool:
 * util_clear_stashed_cam_data() -> None:
 * util_set_stashed_cam() -> None:
 * util_clear_xf_viz_stashed_wire_width_data() -> None:
@@ -1933,6 +1934,8 @@ class flam3h_general_utils
         
         Args:
             context(str): The context we want to check if we are currently in. Options so far are: 
+                * Sop: str
+                * Lop: str
             
         Returns:
             (bool): [True if a viewer belong to a desired context or False if not.]
@@ -1943,6 +1946,28 @@ class flam3h_general_utils
                 available = True
                 break
         return available
+    
+    
+    
+    @staticmethod
+    def util_is_context_available_network_editor(context: str) -> bool:
+        """Return if a network editor belong to a desired context.
+        
+        Args:
+            context(str): The context we want to check if we are currently in. Options so far are: 
+                * Sop: str
+                * Lop: str
+            
+        Returns:
+            (bool): [True if a viewer belong to a desired context or False if not.]
+        """    
+        available = False
+        for v in flam3h_general_utils.util_getNetworkEditors():
+            if flam3h_general_utils.util_is_context(context, v):
+                available = True
+                break
+        return available
+    
 
 
 
