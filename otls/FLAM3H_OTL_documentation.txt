@@ -836,7 +836,6 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     - If you type a non-numeric character in any of the xaos's weights, FLAM3H will undo to what you had before.
     - If you dnt use the "*`xaos:`*" keywork at the beginning of the string, the entire xaos string will be reset to all weights with value: *`1`*(one)
     - If you just type a number, the entire xaos string will be reset to all weights set to that number.
-    - If you just type a floating point number, the entire xaos string will be reset to all weights set to the integer part of that number. ( _ex: *`123.876`* will become -> *`123`*_ )
     - If you type a negative number, it will be reset to a value of:  *`1`*(one)
 
     TIP:

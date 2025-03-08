@@ -9518,10 +9518,6 @@ FLAM3H will undo to what you had before.
 If you type a number,
 the entire xaos string will be reset to all weights set to that number.
 
-If you type a floating point number,
-the entire xaos string will be reset to all weights set to the integer part of that number.
-ex: 123.876 will become -> 123
-
 If you type a negative number, it will be reset to a value of: 1"""
         
         node = self.node
@@ -15511,10 +15507,6 @@ class out_flame_utils
         * If you type a number,
         the entire xaos string will be reset to all weights set to that number.
 
-        * If you type a floating point number,
-        the entire xaos string will be reset to all weights set to the integer part of that number.
-        ex: 123.876 will become -> 123
-
         * If you type a negative number, it will be reset to a value of: 1
 
         Args:
@@ -15588,14 +15580,16 @@ class out_flame_utils
                         
                 else:
                     isNUM = False
+                    iter_xaos_clean: str = in_flame.xf_val_cleanup_str(iter_xaos.lower().strip(), '1')
+                    
                     try:
-                        if isinstance(float(str(iter_xaos.lower()).strip()), float):
+                        if isinstance(float(iter_xaos_clean), float):
                             isNUM = True
                     except: pass
+                    
                     # If a number is typed, fill all xaos weights with that number.
-                    # If a floating point number is typed, use the integer part of it ( ex: 123.687 will become -> 123 )
                     if isNUM:
-                        v = [str(int((float(str(iter_xaos.lower()).strip())))) if float(iter_xaos.lower().strip()) >= 0 else '1' for x in range(iter_count)]
+                        v = [str((float(iter_xaos_clean))) if float(iter_xaos_clean) >= 0 else '1' for x in range(iter_count)]
                         val.append(v)
                     else:
                         # if we entered an invalid string,
