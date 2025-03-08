@@ -10,6 +10,22 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+#### FLAM3H ####
+
+### From v1.7.00 ###
+
+- **New**: Xaos command string: typo checking, auto-corrections and undos. Retrieve from history can now retrieve single and multiple entries instead of the entire Xaos string for the selected iterator.
+- **New**: Xaos command string: you can now type a single floating point value to fill all entries with it (before you could only type integers).
+- **Updated HDA documentation.**
+
+#### FLAM3HUSD v0.1.37 ####
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+
+
 ### From v1.6.97 ###
 
 #### FLAM3H ####

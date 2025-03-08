@@ -23,7 +23,7 @@ import hou
 #               Everything is then glued together inside Houdini.
 
 
-FLAM3HUSD_VERSION = '0.1.35'
+FLAM3HUSD_VERSION = '0.1.36'
 
 
 '''
@@ -254,7 +254,7 @@ class flam3husd_scripts
         self.autoSetRenderer_on_create()
         # Set viewport preferences settings
         self.flam3husd_on_create_set_prefs_viewport()
-        # Check if we are importing a valid FLAM3H node
+        # Check if we are importing a valid FLAM3HUSD node
         self.flam3husd_is_valid_flam3h_node()
         # Check H version and set
         self.flam3husd_h190_check()
@@ -281,7 +281,7 @@ class flam3husd_scripts
         self.autoSetRenderer_on_create()
         # Set viewport preferences settings
         self.flam3husd_on_create_set_prefs_viewport()
-        # Check if we are importing a valid FLAM3H node
+        # Check if we are importing a valid FLAM3HUSD node
         self.flam3husd_is_valid_flam3h_node()
         # Check H version and set
         self.flam3husd_h190_check()
@@ -793,7 +793,7 @@ class flam3husd_general_utils
                     prm.deleteAllKeyframes()
                     prm.set(ptsize)
             
-        # Update Point Size preference's option toggle on other FLAM3H nodes instances
+        # Update Point Size preference's option toggle on other FLAM3HUSD nodes instances
         if prm_name_size == PREFS_VIEWPORT_PT_SIZE and node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
             [f3h.parm(prm_name_size).deleteAllKeyframes() for f3h in node.type().instances()]
             [f3h.setParms({prm_name_size: ptsize}) for f3h in node.type().instances() if f3h.parm(prm_name_size).eval() != ptsize]
