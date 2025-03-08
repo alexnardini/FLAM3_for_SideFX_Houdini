@@ -41,6 +41,7 @@ LIST OF CLASSES:
 
 
 PREFS_FLAM3H_PATH = 'flam3hpath'
+PREFS_VIEWPORT_RENDERER = 'rndtype'
 PREFS_VIEWPORT_PT_TYPE = 'vptype'
 PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
 PREFS_VIEWPORT_DARK = 'setdark'
@@ -65,7 +66,8 @@ FLAM3H_FLASH_MESSAGE_TIMER: float = 2 # Note that for this FLAM3HUSD OTL the fla
 # plus this one
 FLAM3H_TO_FLAM3HUSD_NODE_PATH = '/TAGS/OUT_TO_FLAM3HUSD'
 
-
+# FLAM3H
+FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
 
 
 # FLAM3HUSD SCRIPTS start here
@@ -140,7 +142,7 @@ class flam3husd_scripts
         f3h_to_f3husd_node = hou.node(f"{f3h_path}{FLAM3H_TO_FLAM3HUSD_NODE_PATH}")
         try:
             type = f3h_to_f3husd_node.type()
-            if type.name() == 'null': flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+            if hou.node(f3h_path).type().nameWithCategory() == FLAM3H_NODE_TYPE_NAME_CATEGORY and type.name() == 'null': flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
             else: flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
         except:
             flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
@@ -315,15 +317,15 @@ class flam3husd_scripts
                 if "Houdini" in cr:
                     hou.SceneViewer.setHydraRenderer(view, cr)
                     # Sync FLAM3HUSD nodes
-                    [n.setParms({"rndtype": 0}) for n in node.type().instances()]
+                    [n.setParms({PREFS_VIEWPORT_RENDERER: 0}) for n in node.type().instances()]
                 elif flam3husd_general_utils.karma_hydra_renderer_name() in cr:
                     hou.SceneViewer.setHydraRenderer(view, cr)
                     # Sync FLAM3HUSD nodes
-                    [n.setParms({"rndtype": 1}) for n in node.type().instances()]
+                    [n.setParms({PREFS_VIEWPORT_RENDERER: 1}) for n in node.type().instances()]
                 elif "Storm" in cr:
                     hou.SceneViewer.setHydraRenderer(view, cr)
                     # Sync FLAM3HUSD nodes
-                    [n.setParms({"rndtype": 3}) for n in node.type().instances()]
+                    [n.setParms({PREFS_VIEWPORT_RENDERER: 3}) for n in node.type().instances()]
                         
                         
                         
@@ -823,17 +825,17 @@ class flam3husd_general_utils
                     if rndtype == 0:
                         hou.SceneViewer.setHydraRenderer(view, 'Houdini GL')
                         # Sync FLAM3HUSD nodes
-                        [n.setParms({"rndtype": rndtype}) for n in node.type().instances() if n != node]
+                        [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
                         
                     elif rndtype == 1:
                         hou.SceneViewer.setHydraRenderer(view, self.karma_hydra_renderer_name())
                         # Sync FLAM3HUSD nodes
-                        [n.setParms({"rndtype": rndtype}) for n in node.type().instances() if n != node]
+                        [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
                         
                     elif rndtype == 2:
                         hou.SceneViewer.setHydraRenderer(view, 'Storm')
                         # Sync FLAM3HUSD nodes
-                        [n.setParms({"rndtype": rndtype}) for n in node.type().instances() if n != node]
+                        [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
                         
                     
                     
