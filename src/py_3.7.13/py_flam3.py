@@ -15530,25 +15530,42 @@ class out_flame_utils
         val_prev = flam3h_iterator_utils.auto_set_xaos_data_get_XAOS_PREV(node)
         
         for iter in range(iter_count):
+            
+            # Get this iterator Xoas command string
             iter_xaos: str = node.parm(f"{prm}_{iter+1}").eval()
             
             # If the xaos string is not empty
             if iter_xaos:
+                
                 strip: list[str] = iter_xaos.split(':')
                 
                 # if you just type "xaos" only
                 if iter_xaos.lower().strip() == 'xaos':
+                    
+                    # reset to all values of 1
+                    val.append([])
+                    
+                    # Beofre we used to retrieve from the history instead ( if an history data was available )
+                    '''
                     if val_prev is not None:
                         # retrive from the history instead ( Undo )
                         val.append(val_prev[iter])
                     else:
                         # Otherwise reset to all values of 1
                         val.append([])
+                        '''
                         
                 # if the first element of the strip is: "xaos"
                 elif strip[0].lower().strip() == 'xaos':
                     try:
-                        build_strip = [str(float(str(x).strip())) if float(str(x).strip()) >= 0 else '1' for x in strip[1:iter_count+1] if x]
+                        # Lets be sure we are not running out of index inside: val_prev
+                        if val_prev is not None and len(val_prev) == iter_count:
+                            build_strip = [str(float((in_flame.xf_val_cleanup_str(str(x).strip(), val_prev[iter][idx])))) if float(in_flame.xf_val_cleanup_str(str(x).strip(), val_prev[iter][idx])) >= 0 else '1' for idx, x in enumerate(strip[1:iter_count+1])]
+                        else:
+                            # Otherwise use the safer version.
+                            # This is used every time we add or remove an iterator or when loading Flames with different iterator's count than what we currently have.
+                            build_strip = [str(float(str(x).strip())) if float(str(x).strip()) >= 0 else '1' for x in strip[1:iter_count+1] if x]
+                            
                         val.append([float(x.strip()) for x in build_strip])
                     except:
                         # ( Assuming the "xaos:" keyword is present )
