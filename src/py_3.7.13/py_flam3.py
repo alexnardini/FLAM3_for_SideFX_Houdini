@@ -15568,7 +15568,7 @@ class out_flame_utils
                 else:
 
                     isNUM = False
-                    iter_xaos_clean: str = in_flame.xf_val_cleanup_str(iter_xaos, '@') # default_val here is set to an invalid char to make it fail on putpose if needed
+                    iter_xaos_clean: str = in_flame.xf_val_cleanup_str(iter_xaos, '@') # default_val here is set to an invalid char to make it fail on purpose if needed
                     
                     try:
                         if isinstance(float(iter_xaos_clean), float):
