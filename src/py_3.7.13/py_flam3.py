@@ -2436,7 +2436,9 @@ class flam3h_general_utils
                     if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
                         # Revert it back to OFF and fire a message
                         node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
-                        flam3h_general_utils.set_status_msg(f"FLAM3H Camera Sensor skipped because you are in Solaris context.", 'IMP')
+                        _MSG = f"No Sop viewers available."
+                        self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Camera Sensor to work.", 'WARN')
+                        self.flash_message(node, f"Sensor Viz: {_MSG}")
                         
                     return False
                     
@@ -2531,7 +2533,9 @@ class flam3h_general_utils
                     if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
                         # Revert it back to OFF and fire a message
                         self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
-                        flam3h_general_utils.set_status_msg(f"FLAM3H Camera Sensor skipped because you are in Solaris context.", 'IMP')
+                        _MSG = f"No Sop viewers available."
+                        self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Sensor Viz to work.", 'WARN')
+                        self.flash_message(node, f"Sensor Viz: {_MSG}")
                         
                     return False
                 
@@ -2543,8 +2547,8 @@ class flam3h_general_utils
                 self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                 self.util_clear_stashed_cam_data()
                 
-                _MSG = f"No Sop viewers in the current Houdini Desktop."
-                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewers for the Sensor Viz to work.", 'WARN')
+                _MSG = f"No Sop viewers available."
+                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Sensor Viz to work.", 'WARN')
                 self.flash_message(node, f"Sensor Viz: {_MSG}")
                 return False
             
@@ -2763,7 +2767,7 @@ class flam3h_general_utils
                 
             else:
                 flam3h_general_utils.set_private_prm(node, prm_name, 0)
-                _MSG = f"No Sop viewers in the current Houdini Desktop."
+                _MSG = f"No Sop viewers available."
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the xforms handles VIZ to work.", 'WARN')
                 self.flash_message(node, f"XF VIZ: {_MSG}")
                 
@@ -3464,7 +3468,7 @@ class flam3h_general_utils
                 else:
                     prm.set(0)
                     
-                    _MSG = f"No Sop viewers in the current Houdini Desktop."
+                    _MSG = f"No Sop viewers available."
                     self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer to either set to Dark or restore.", 'WARN')
                     self.flash_message(node, f"Dark: {_MSG}")
                     
@@ -3509,7 +3513,7 @@ class flam3h_general_utils
         else:
             prm.set(0)
             
-            _MSG = f"No Sop viewers in the current Houdini Desktop."
+            _MSG = f"No Sop viewers available."
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer to either set to Dark or restore.", 'WARN')
             self.flash_message(node, f"Dark: {_MSG}")
             
