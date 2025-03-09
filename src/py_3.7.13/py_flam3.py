@@ -7177,7 +7177,7 @@ class flam3h_iterator_utils
         """
 
         node: hou.SopNode = self.node
-        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         # AUTO DIV XAOS
         autodiv = node.parm(PREFS_PVT_XAOS_AUTO_SPACE).eval()
         div_xaos = 'xaos:'
@@ -7207,7 +7207,7 @@ class flam3h_iterator_utils
         
         # get mpmem parms now
         mp_mem_name = flam3h_iterator_prm_names.main_mpmem
-        [mpmem.append(int(node.parm(f"{mp_mem_name}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_num)]
+        [mpmem.append(int(node.parm(f"{mp_mem_name}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_count)]
         
         # get mpmem from CachedUserData
         __mpmem_hou_get = self.auto_set_xaos_data_get_MP_MEM(node)
@@ -7217,9 +7217,9 @@ class flam3h_iterator_utils
             mpmem_hou_get = list(__mpmem_hou_get)
         
         # collect all xaos
-        val = out_flame_utils.out_xaos_collect(node, iter_num, flam3h_iterator_prm_names.xaos)
+        val = out_flame_utils.out_xaos_collect(node, iter_count, flam3h_iterator_prm_names.xaos)
         # fill missing weights if any
-        fill_all_xaos = [np_pad(item, (0, iter_num-len(item)), 'constant', constant_values=1).tolist() for item in val]
+        fill_all_xaos = [np_pad(item, (0, iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
         
         # convert all xaos into array of strings
         xaos_str = [[str(item) for item in xaos] for xaos in fill_all_xaos]
@@ -7237,13 +7237,13 @@ class flam3h_iterator_utils
         _idx = list(set(s_history - s_current))
         if _idx: idx_del_inbetween = int(_idx[0]) - 1
         # ADD: INBETWEEN get index : try
-        for mp in range(iter_num-1):
+        for mp in range(iter_count-1):
             if mpmem[mp] == mpmem[mp + 1]:
                 idx_add_inbetween = mp
                 break
         
         # DEL -> ONLY LAST ITERATOR
-        if idx_del_inbetween is not None and idx_del_inbetween == iter_num:
+        if idx_del_inbetween is not None and idx_del_inbetween == iter_count:
             
             # Clear menu cache
             self.destroy_cachedUserData(node, 'iter_sel')
@@ -7293,7 +7293,7 @@ class flam3h_iterator_utils
 
         
         # DEL
-        elif idx_del_inbetween is not None and idx_del_inbetween < iter_num:
+        elif idx_del_inbetween is not None and idx_del_inbetween < iter_count:
             
             # Clear menu cache
             self.destroy_cachedUserData(node, 'iter_sel')
@@ -7414,13 +7414,13 @@ class flam3h_iterator_utils
         # set all multi parms xaos strings parms
         xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)])
         prm_xaos = flam3h_iterator_prm_names.xaos
-        [node.parm(f"{prm_xaos}_{str(mp_idx+1)}").deleteAllKeyframes() for mp_idx in range(iter_num)]
+        [node.parm(f"{prm_xaos}_{str(mp_idx+1)}").deleteAllKeyframes() for mp_idx in range(iter_count)]
         [node.setParms({f"{prm_xaos}_{str(mp_idx+1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)] # type: ignore
             
         # reset iterator's mpmem prm
-        [node.setParms({f"{mp_mem_name}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_num)] # type: ignore
+        [node.setParms({f"{mp_mem_name}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_count)] # type: ignore
         # update flam3h_xaos_mpmem
-        __mpmem_hou = [int(node.parm(f"{mp_mem_name}_{str(mp_idx+1)}").eval()) for mp_idx in range(iter_num)]
+        __mpmem_hou = [int(node.parm(f"{mp_mem_name}_{str(mp_idx+1)}").eval()) for mp_idx in range(iter_count)]
         # export mpmem into CachedUserData
         self.auto_set_xaos_data_set_MP_MEM(node, __mpmem_hou)
         
