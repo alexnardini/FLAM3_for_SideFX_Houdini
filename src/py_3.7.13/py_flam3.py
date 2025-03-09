@@ -13418,7 +13418,7 @@ class in_flame_utils
                     build = f"WARNING: {self.node}.iterator.{mp_idx+1}\n\tThe following variations are in excess and skipped:{''.join(iterator_vars_skipped)}\n"
                     print(build)
                                 
-                # Activate iterator, just in case...
+                # Activate iterator
                 node.setParms({f"{n.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
                 # Set the rest of the iterator(FLAME or FF) parameters
                 apo_data_set: dict = {  n.main_note: apo_data.xf_name, 
