@@ -323,10 +323,12 @@ class flam3husd_scripts
                     hou.SceneViewer.setHydraRenderer(view, cr)
                     # Sync FLAM3HUSD nodes
                     [n.setParms({PREFS_VIEWPORT_RENDERER: 1}) for n in node.type().instances()]
+                '''
                 elif "Storm" in cr:
                     hou.SceneViewer.setHydraRenderer(view, cr)
                     # Sync FLAM3HUSD nodes
                     [n.setParms({PREFS_VIEWPORT_RENDERER: 3}) for n in node.type().instances()]
+                '''
                         
                         
                         
@@ -833,10 +835,12 @@ class flam3husd_general_utils
                         # Sync FLAM3HUSD nodes
                         [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
                         
-                    elif rndtype == 2:
+                    '''
+                    elif rndtype == 3:
                         hou.SceneViewer.setHydraRenderer(view, 'Storm')
                         # Sync FLAM3HUSD nodes
                         [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
+                    '''
                         
                     
                     
