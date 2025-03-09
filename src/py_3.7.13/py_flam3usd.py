@@ -24,6 +24,7 @@ import hou
 
 
 FLAM3HUSD_VERSION = '0.1.36'
+FLAM3HUSD_VERSION_STATUS_BETA = " - Beta"
 
 
 '''
@@ -944,7 +945,7 @@ class flam3husd_about_utils
         nnl = "\n\n"
 
         year = datetime.now().strftime("%Y")
-        flam3husd_houdini_version = f"VERSION: {FLAM3HUSD_VERSION} :: (GPL)"
+        flam3husd_houdini_version = f"VERSION: {FLAM3HUSD_VERSION}{FLAM3HUSD_VERSION_STATUS_BETA} :: (GPL)"
         Implementation_years = f"2023/{year}"
         Implementation_build = f"AUTHOR: Alessandro Nardini ( Italy )\n{flam3husd_houdini_version}\nCODE: vex H19.x.x, py 3.7.13\n{Implementation_years}"
 
