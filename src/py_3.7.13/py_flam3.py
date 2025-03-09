@@ -15538,13 +15538,13 @@ class out_flame_utils
                         _xaos: list = strip[1:iter_count+1]
                         
                         if _xaos[0] and val_prev is not None and len(val_prev) == iter_count:
-                            build_strip = [str(float((in_flame.xf_val_cleanup_str(str(x), val_prev[iter][idx])))) if float(in_flame.xf_val_cleanup_str(str(x), val_prev[iter][idx])) >= 0 else '1' for idx, x in enumerate(_xaos)]
+                            _xaos_strip = [str(float((in_flame.xf_val_cleanup_str(str(x), val_prev[iter][idx])))) if float(in_flame.xf_val_cleanup_str(str(x), val_prev[iter][idx])) >= 0 else '1' for idx, x in enumerate(_xaos)]
                         else:
                             # Otherwise use the safer version.
                             # This is used every time we add or remove an iterator or when loading Flames with different iterator's count than what we currently have.
-                            build_strip = [str(float(str(x).strip())) if float(str(x).strip()) >= 0 else '1' for x in strip[1:iter_count+1] if x]
+                            _xaos_strip = [str(float(str(x).strip())) if float(str(x).strip()) >= 0 else '1' for x in strip[1:iter_count+1] if x]
                             
-                        val.append([float(x.strip()) for x in build_strip])
+                        val.append([float(x.strip()) for x in _xaos_strip])
                         
                     except:
                         
