@@ -10,15 +10,15 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
-### From v1.7.04 ###
+### <ins>From v1.7.04</ins></ins> ###
 
-#### FLAM3H ####
+#### FLAM3H</ins> ####
 
 - **Fix**: Better messages for contex aware functionalities.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.40 - Beta ####
+#### FLAM3HUSD v0.1.40 - Beta</ins> ####
 
 - **Fix**: This is now officially and internally marked as: Beta
 - **Fix**: Less invasive on_create actions.
@@ -30,7 +30,7 @@ They are all available in this github repository.</br>
 <br>
 
 
-### From v1.7.01 ###
+### <ins>From v1.7.01</ins> ###
 
 - **Fix**: Fixed a rare Xaos bug on Flame load introduced with the preview version: [**v1.7.00**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.00) - It was sometime setting the first xaos value on the first iterator to '0'(Zero) when all Xaos values were supposed to be '1'(One).
 
@@ -39,15 +39,15 @@ They are all available in this github repository.</br>
 <br>
 
 
-### From v1.7.00 ###
+### <ins>From v1.7.00</ins> ###
 
-#### FLAM3H ####
+#### FLAM3H</ins> ####
 
 - **New**: Xaos command string: typo checking, auto-corrections and undos. Retrieve from history can now retrieve single and multiple entries instead of the entire Xaos string for the selected iterator.
 - **New**: Xaos command string: you can now type a single floating point value to fill all entries with it (before you could only type integers).
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.37 ####
+#### FLAM3HUSD v0.1.37</ins> ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -56,9 +56,9 @@ They are all available in this github repository.</br>
 <br>
 
 
-### From v1.6.97 ###
+### <ins>From v1.6.97</ins> ###
 
-#### FLAM3H ####
+#### FLAM3H</ins> ####
 
 - **Fix**: Post affine xform handle viz offset segment is now properly cast as: **polyline** instead of **poly**.
 - **Fix**: Post affine xform handle viz offset segment is now properly positioned in the same plane as the main handle.
@@ -67,7 +67,7 @@ They are all available in this github repository.</br>
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.35 ####
+#### FLAM3HUSD v0.1.35</ins> ####
 
 - **New**: With Houdini versions higher than 19.0.x you can now import and render the xforms handles viz using Karma.
 - **New**: Addded checking for the validity of the imported FLAM3H node.
@@ -79,11 +79,11 @@ They are all available in this github repository.</br>
 <br>
 
 
-### From v1.6.91 ###
+### <ins>From v1.6.91</ins> ###
 
 _This update is all about FLAM3HUSD._
 
-#### FLAM3HUSD v0.1.25 ####
+#### FLAM3HUSD v0.1.25</ins> ####
 
 - **New**: Added validity check for the imported FLAM3H node.
 - **New**: Added action button to reset the Widths parameter to its default value.
@@ -101,9 +101,9 @@ _This update is all about FLAM3HUSD._
 <br>
 
 
-### From v1.6.90 ###
+### <ins>From v1.6.90</ins> ###
 
-#### FLAM3H ####
+#### FLAM3H</ins> ####
 
 - **New**: Camera Sensor viz and xforms handles viz now check each available viewer's type before performing any operations. If any of the viewers is in **Lop** context it will be ignored.
 - **Fix**: Xforms handles viz wire settings will now only affect viewers belonging to the **Sop** context. 
@@ -112,7 +112,7 @@ _This update is all about FLAM3HUSD._
 - **Fix**: Dark mode will now only affect viewers belonging to the **Sop** context. 
 
 
-#### FLAM3HUSD v0.1.15 ####
+#### FLAM3HUSD v0.1.15</ins> ####
 
 - **Fix**: Python code has been structured the same as the big brother FLAM3H so to facilitate future updates.
 - **Fix**: Viewport preferences point type will now only affect viewers belonging to the **Lop** context. 
@@ -126,15 +126,15 @@ _This update is all about FLAM3HUSD._
 <br>
 
 
-### From v1.6.84 ###
+### <ins>From v1.6.84</ins> ###
 
-#### FLAM3H ####
+#### FLAM3H</ins> ####
 
 - **New**: FLAM3H will now check if the user is in Solaris/LOP context or not prior to activate the Camera Sensor mode.
 - **Fix**: Motion blur viz was not working. (a regression from preview version: v1.6.82)
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.0 ####
+#### FLAM3HUSD v0.1.0</ins> ####
 
 _This simple utility node got an upgrade._
 
@@ -148,7 +148,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### From v1.6.82 ###
+### <ins>From v1.6.82</ins> ###
 
 - **Fix**: _Motion Blur_ is now initialized directly within the main function making it ~30% faster to compute when active.
 
@@ -157,7 +157,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### From v1.6.81 ###
+### <ins>From v1.6.81</ins> ###
 
 - **Fix**: Enumerated presets menus now start to count from **1**.
 
@@ -166,7 +166,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### From v1.6.80 ###
+### <ins>From v1.6.80</ins> ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -175,7 +175,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### From v1.6.78 ###
+### <ins>From v1.6.78</ins> ###
 
 - **Fix**: New Dark mode method, it is more accurate and scale better to new modes like for example the DarkGrey mode introduced in H20.x. It now also print more targeted status bar messages.
 - **Updated HDA documentation.**
@@ -185,7 +185,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### From v1.6.77 ###
+### <ins>From v1.6.77</ins> ###
 
 - **Fix**: Missing variations text message lines now ends with a comma(**,**) unless it is the last line in the message which will end with a dot(**.**).
 - **Fix**: Smaller compiled file size, almost 40kb saved.
@@ -195,7 +195,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### From v1.6.76 ###
+### <ins>From v1.6.76</ins> ###
 
 - **Fix**: Xoas.h had a missing return statement even tho it was still able to correctly return the proper idx but for the sake of correctness it has been fixed.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -205,7 +205,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### From v1.6.75 ###
+### <ins>From v1.6.75</ins> ###
 
 - **Fix**: Output path check messages now understand if they run from the IN or the OUT tab. Before was always from the OUT tab.
 - **Fix**: Loading a hip file with multiple FLAM3H nodes and a marked iterator was not recognizing the marked iterator as the other nodes init script was clearing out that data. It is now fixed.
@@ -217,7 +217,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### From v1.6.71 ###
+### <ins>From v1.6.71</ins> ###
 
 - **New**: Viewport xforms handles VIZ geo is now pre-cooked every time a Flame preset is loaded.
 - **New**: Density menu entries now have xforms handles VIZ indicators to signal which mode is ON.
@@ -235,7 +235,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### From v1.6.65 ###
+### <ins>From v1.6.65</ins> ###
 
 _This release is a tentative: **Final** as of **H20.5.x**:_
 
@@ -247,7 +247,7 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 <br>
 
 
-### From v1.6.63 ###
+### <ins>From v1.6.63</ins> ###
 
 - **New**: When the xforms handles VIZ mode is ON, the density presets menu entries will display a small red handle to indicate the density values the xforms handles VIZ mode will keep being active.
 - **Fix**: When in xforms handles VIZ mode, if the density value is raised above 5M(_millions_) points, the related UI icons will be disabled as well.
@@ -259,7 +259,7 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 <br>
 
 
-### From v1.6.60 ###
+### <ins>From v1.6.60</ins> ###
 
 - **Fix**: First node instance creation time is now twice as fast.
 - **Fix**: The overall responsiveness of the tool while editing feel a bit faster.
@@ -273,7 +273,7 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 <br>
 
 
-### From v1.6.50 ###
+### <ins>From v1.6.50</ins> ###
 
 - **New**: ~**5%** faster (_All iterators,FF and parametrics variations parameters data are now pre-computed_).
 - **New**: A new way of query parametric parameters values made the tool more responsive and a bit more interactive while editing.
@@ -301,7 +301,7 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 <br>
 
 
-### From v1.6.10 ###
+### <ins>From v1.6.10</ins> ###
 
 _This is the last update of 2024, after a very long time of development and unit test (**years**) it is now considered in good shape ;D_
 
@@ -317,7 +317,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### From v1.6.09 ###
+### <ins>From v1.6.09</ins> ###
 
 - **New**: New SYS tab "viewport handles VIZ" icon.
 - **Fix**: Improved a little the Global tab.
@@ -328,7 +328,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### From v1.6.06 ###
+### <ins>From v1.6.06</ins> ###
 
 - **New**: Added viewport handles VIZ icons to the SYS Utils' tab; Much more handy!
 - **Updated HDA documentation.**
@@ -338,7 +338,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### From v1.6.05 ###
+### <ins>From v1.6.05</ins> ###
 
 - **Fix**: Some xforms handles compiled cvex files size are now smaller(~40% smaller).
 - **Fix**: The xforms handles geo transformations are a bit faster.
@@ -349,7 +349,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### From v1.6.02 ###
+### <ins>From v1.6.02</ins> ###
 
 - **Fix**: iterators viewport xforms handles geo transformations is now many, many times faster.
 
@@ -358,7 +358,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### From v1.6.01 ###
+### <ins>From v1.6.01</ins> ###
 
 - **Fix**: viewport xforms handles knots now have a non-uniform scale, indipendent from each other allowing for a better scale computation during shear/stretching.
 
@@ -368,7 +368,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### From v1.6.00 ###
+### <ins>From v1.6.00</ins> ###
 
 - **New**: Added the ability to preview the xforms handles in the viewport. You can toggle it ON or OFF in the preferences options under: general tab. These handles are not editable and serve only a VIZ purpose. They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator/FF of the fractal Flame. They are meant to be a VIZ of manipulators as found in other fractal flame editors out there. (_it is a work in progress_)
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -387,7 +387,7 @@ _Some of those small fixes/improvements include_:
 <br>
 
 
-### From v1.5.98 ###
+### <ins>From v1.5.98</ins> ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -397,7 +397,7 @@ _Some of those small fixes/improvements include_:
 <br>
 
 
-### From v1.5.97 ###
+### <ins>From v1.5.97</ins> ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -406,7 +406,7 @@ _Some of those small fixes/improvements include_:
 <br>
 
 
-### From v1.5.96 ###
+### <ins>From v1.5.96</ins> ###
 
 - **New**: Added ArchViz High Quality palette libraries.
 - **New**: Added Portraits High Quality palette library.
@@ -420,7 +420,7 @@ _Some of those small fixes/improvements include_:
 <br>
 
 
-### From v1.5.95 ###
+### <ins>From v1.5.95</ins> ###
 
 - **New**: Added 3(three) new High Quality palette libraries with one derived from Super Heros characters with 50s colors.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -437,7 +437,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.93 ###
+### <ins>From v1.5.93</ins> ###
 
 - **New**: Added 2(two) new High Quality palette libraries.
 - **Fix**: CP and IN tab presets file path data initialization has been updated.
@@ -448,7 +448,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.90 ###
+### <ins>From v1.5.90</ins> ###
 
 - **Fix**: Optimized density menu presets' bookmark icons (about half the file size) making the menu a bit faster to build when you click on it.
 - **Fix**: Density presets menu's bookmark icons are now right aligned giving more sense of scale/progression while reinforcing the feeling of a boundary between the menu labels.
@@ -461,7 +461,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.88 ###
+### <ins>From v1.5.88</ins> ###
 
 - **New**: New global tab layout and its new density menu workflow; much lighter and pleasant to the eyes and takes up less UI space. You can still set a custom density value from inside the preferences tab.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -472,7 +472,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.85 ###
+### <ins>From v1.5.85</ins> ###
 
 - **Fix**: Remap "pre_gaussian_blur" on Flame load is now fully automatic and its IN option's toggle has been removed.
 - **Updated HDA documentation.**
@@ -482,7 +482,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.84 ###
+### <ins>From v1.5.84</ins> ###
 
 - **New**: The density presets menu entries now have new bookmark icons to identify the different ranges.
 - **Fix**: The CP palette lookup samples menu entries are now only from 256 to 1024 samples.
@@ -494,7 +494,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.82 ###
+### <ins>From v1.5.82</ins> ###
 
 - **Fix**: Fixed a not defined index variable that casued an error when resetting an iterator to its defaults (bug introduced in one of the preview versions).
 
@@ -503,7 +503,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.81 ###
+### <ins>From v1.5.81</ins> ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -513,7 +513,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.80 ###
+### <ins>From v1.5.80</ins> ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -523,7 +523,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.78 ###
+### <ins>From v1.5.78</ins> ###
 
 - **Fix**: improved copy/paste edge case handling. Now that case is being run once until it need to update again, having less impact on the UI performance.
 
@@ -532,7 +532,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.77 ###
+### <ins>From v1.5.77</ins> ###
 
 - **New**: Allow to reload an hip file with marked iterator or FF and pick up from there.
 - **Fix**: Fixed a rare bug causing a wrong message in the copy/paste iterator mechanism.
@@ -543,7 +543,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.74 ###
+### <ins>From v1.5.74</ins> ###
 
 - **Fix**: More Presets menus update/refresh sneaked into toggles and other places.
 - **Fix**: Grouped many toggle resets and wrapped all of them into list comprehensions.
@@ -555,7 +555,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.72 ###
+### <ins>From v1.5.72</ins> ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -565,7 +565,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.70 ###
+### <ins>From v1.5.70</ins> ###
 
 - **Fix**: Forced the Preset menus to be updated and refreshed from few other places, like for example inside the reframe Viewport SYS icon definition.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -576,7 +576,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.68 ###
+### <ins>From v1.5.68</ins> ###
 
 - **Fix**: Undos now work again. They work flawlessly in H20.5
 - **Updated HDA documentation.**
@@ -586,7 +586,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.66 ###
+### <ins>From v1.5.66</ins> ###
 
 - **New**: The OUT Flame preset Palette 256+ option is now one and global inside the preferences tab. It will Enable/Disable this feature for the OUT Flame preset save option. Since this implementation has been crafted to be used in tandem with Fractorium, there are no reasons to toggle this option OFF as Fractorium can handle Flame presets with more than 256 color keys.
 - **New**: When the preferences **palette 256+** toggle is ON(it is by default) the text **[256+]** at the end of the SYS tab will appear, and when OFF it will disappear.
@@ -600,7 +600,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.64 ###
+### <ins>From v1.5.64</ins> ###
 
 - **Fix**: During a Flame preset load it will now checks against multiple color correction curves data defaults.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -611,7 +611,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.62 ###
+### <ins>From v1.5.62</ins> ###
 
 - **Updated/Corrected HDA documentation.**
 
@@ -620,7 +620,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.60 ###
+### <ins>From v1.5.60</ins> ###
 
 - **New**: From the OUT render color correction curves folder, you can now copy only the cc curves from the loaded IN Flame preset.
 - **Fix**: The OUT color correction curves folder content is now properly setup internally for its default values and the folder name font won't be **bold** anymore when at default.
@@ -635,7 +635,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.56 ###
+### <ins>From v1.5.56</ins> ###
 
 - **Fix**: def get_ramp_keys_count(...) will now return a minimun of 128 color keys on save (before it could have been 64 but in some cases it was not enough)
 - **Updated HDA documentation.**
@@ -645,7 +645,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.55 ###
+### <ins>From v1.5.55</ins> ###
 
 - **Fix**: When loading hip files with older version of FLAM3H their color correction curves values were nulls resulting in a black image when saving the Flame out and load it in Fractorium and others. It will now set them to their default values on load if needed.
 - **Fix**: When saving out a palette with more than 256 color keys, will now always store the lookup sample value if greater than the number of the color keys, otherwise store the nearest lookup sample value that is greater than the number of color keys in the palette.
@@ -656,7 +656,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.54 ###
+### <ins>From v1.5.54</ins> ###
 
 - **Fix**: Only the color correction curves different from their default values will be listed inside the IN infos render properties.
 - **Fix**: In infos CC detection was not using the preset_id index to compare color correction curves values.
@@ -667,7 +667,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.53c ###
+### <ins>From v1.5.53c</ins> ###
 
 - **Fix**: IN tab Infos now shows if a loaded Flame preset uses color correction curves values different from default. Below the Palette count info line the text: *CC* will appear if so.
 - **Updated HDA documentation.**
@@ -677,7 +677,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.53b ###
+### <ins>From v1.5.53b</ins> ###
 
 - **Fix**: The OUT render color correction curves folder was missing an header's toggle to signal when a color correction was Active(ON) or at its default values(OFF).
 - **Updated HDA documentation.**
@@ -687,7 +687,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.53 ###
+### <ins>From v1.5.53</ins> ###
 
 - **Fix**: When the IN option toggle "copy render properties on Load" was ON, it was not copying the data into the OUT render properties. It is now fixed.
 
@@ -696,7 +696,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.52 ###
+### <ins>From v1.5.52</ins> ###
 
 - **New**: FLAM3H can now handle Fractorium color correction curves when the flame preset you are loading have it. If not, default values (no color correction) will be used instead. When saving the flame out from FLAM3H, the stored color correction curves will be saved back into the flame preset file so that the original color correction done in Fractorium won't be lost anymore.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -707,7 +707,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.50 ###
+### <ins>From v1.5.50</ins> ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -717,7 +717,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.45 ###
+### <ins>From v1.5.45</ins> ###
 
 - **New**: Added menu label for when an IN flame from the clipboard is loaded but an invalid file path is being entered in the IN file path parameter.
 - **New**: When activating the OUT option: palette 256+ toggle FLAM3H will let the user knows if the current palette posses enough colors and give some infos.
@@ -729,7 +729,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.42 ###
+### <ins>From v1.5.42</ins> ###
 
 - **Updated HDA documentation.**: Added the use of badges to signal some parameters' types and their scope. It make easier and clear to spot what you are looking for and to gather a quick understanding of it at glance.
 - **Updated HDA documentation.**: Added a Badges section to the documentation.
@@ -739,7 +739,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.41 ###
+### <ins>From v1.5.41</ins> ###
 
 - **Fix**: When loading a flame preset from the clipboard while a valid locked flame library was already loaded, deleting the file path string will leave the text: "-> LOCKED" inside the Flame stats. It will now be removed.
 - **Fix**: When a flame preset from the clipboard is loaded, trying to load an invalid flame file would toggle the isValidPreset check OFF causing the clipboard flame stats to disappear. It is now fixed.
@@ -750,7 +750,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.39 ###
+### <ins>From v1.5.39</ins> ###
 
 - **New**: The palette action button is now multipurpose allowing you to also only remove and clear all keyframes/expressions if any are present in both the Palette and the HSV Palette.
 - **Updated HDA documentation.**
@@ -760,7 +760,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.37 ###
+### <ins>From v1.5.37</ins> ###
 
 - **Fix**: Loading Palette presets is now much, much faster.
 - **Fix**: Splitted some large Palette lib files into smaller sets per file.
@@ -771,7 +771,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.35 ###
+### <ins>From v1.5.35</ins> ###
 
 - **Fix**: Fixed a bug that prevented the HDA definition to being matched in H20.5, throwing an error and making impossible to edit, update and save the tool anylonger.
 
@@ -780,7 +780,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.33 ###
+### <ins>From v1.5.33</ins> ###
 
 - **New**: You can now copy only the Render Properties of a Flame preset from the Clipboard. This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the clipboard into FLAM3H without the need to load the copied Flame preset fully, but just to updated the Render Properties.
 - **New**: Now you can create presets files with their LOCK state in the file name even if they do not exist yet on dirve and the LOCK will be active only after you save the first preset in it. (May that be from the CP or OUT tabs)
@@ -792,7 +792,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.30b ###
+### <ins>From v1.5.30b</ins> ###
 
 - **Fix**: Removed os.path.getsize() and used os.path.exists() instead so not to cause more checks if the file exist or not.
 
@@ -801,7 +801,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.30 ###
+### <ins>From v1.5.30</ins> ###
 
 - **Fix**: Improved output paths checks for the CP and OUT tabs and their messaging system.
 - **Fix**: Reduced the amount of messages print to the console.
@@ -812,7 +812,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.26 ###
+### <ins>From v1.5.26</ins> ###
 
 - **Fix**: Fixed wrangle cores: "Reload CVEX" button's tooltips.
 - **Fix**: Fixed a missing backslash in the generation of the output paths from the CP and OUT tabs. (introduced in one of the preview updates)
@@ -824,7 +824,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.22 ###
+### <ins>From v1.5.22</ins> ###
 
 - **New**: Created Markdown [readme file](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/py/README.md) inside the src/py/ files.
 - **New**: Created Markdown [readme file](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/cvex/README.md) readme file inside the src/cvex/ files.
@@ -835,7 +835,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.20 ###
+### <ins>From v1.5.20</ins> ###
 
 - **Fix**: The main IN Load Flame preset definition: def in_to_flam3h(self) -> None: has been splitted into separate functions, each with its own purpose. Much cleaner and easier to move around and update in the future.
 - **Fix**: Rewritten: def out_flam3_compatibility_check_and_msg(self) -> bool: for a better data formatting (long overdue) on OUT Flame save for FLAM3 compatibility messages and warnings.
@@ -845,7 +845,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.17 ###
+### <ins>From v1.5.17</ins> ###
 
 - **Fix**: Loading a Flame preset with 0(Zero) iterators was causing an error. It is now fixed (_All Flames have at least 1(one) iterator but just in case_).
 - **Fix**: Loading a Flame preset without any Palette data was causing an error. It is now fixed (_All Flames have a Palette XML data, but just in case_).
@@ -855,7 +855,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.15 ###
+### <ins>From v1.5.15</ins> ###
 
 - **New**: When in sensor mode and Zero iterators, the viewport sensor logo will switch to a blue version of itself to keep consistent with the logo displayed in the viewport.
 - **New**: Added warning for when a valid xaos command string is missing in any of the available iterators (_it is a rare case and it will probably never happen from H20 up_).
@@ -868,7 +868,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.10 ###
+### <ins>From v1.5.10</ins> ###
 
 - **New**: Added a "Special Thanks" section to the About Tab message.
 - **New**: Added Fractorium bitbucket repository inside the About Tab's web links.
@@ -880,7 +880,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.06 ###
+### <ins>From v1.5.06</ins> ###
 
 - **Fix**: The CP and OUT tabs automated file parameters now should work also with network paths.
 
@@ -889,7 +889,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.05 ###
+### <ins>From v1.5.05</ins> ###
 
 - **New**: When loading hip files with FLAM3H nodes inside, it will now check their iterator's opacity and if any is 0(Zero) it will turn the Remove Invalid Point(RIP) toggle ON.
 - **Fix**: The OUT tab sensor resolutions presets menu is now pre-built.
@@ -902,7 +902,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.00b ###
+### <ins>From v1.5.00b</ins> ###
 
 - **Fix**: Fixed an error occurring when resetting the Sensor Viz properties while being in the Sensor Viz mode.
 
@@ -911,7 +911,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.5.00 ###
+### <ins>From v1.5.00</ins> ###
 
 - **New**: When entering the Sensor Viz mode, FLAM3H will now store all viewers data and restore them all on exit to their preview state.
 - **New**: Added status bar messages when copy/paste affine values between pre and post affine within the same iterator and/or FF.
@@ -934,7 +934,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.4.95 ###
+### <ins>From v1.4.95</ins> ###
 
 - **New**: Added an affine Scale parameter to the PRE and POST affine tabs for iterator and FF (FLAME and FF tabs). This was long overdue.
 - **Fix**: When entering the Sensor Viz mode, FLAM3H will now check if at least one Viewport is available and if there is more than one, it will handle them all (to be continued...).
@@ -945,7 +945,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.4.94 ###
+### <ins>From v1.4.94</ins> ###
 
 - **New**: When typing an invalid file path inside the CP, IN or OUT presets file parameter, the menu labels will say so.
 - **New**: When an existing directory path is present inside the CP or OUT presets file parameter but the file do not exist yet, the menu labels will say so.
@@ -960,7 +960,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.4.88 ###
+### <ins>From v1.4.88</ins> ###
 
 - **New**: When there are 0(Zero) iterators, clicking the IN tab load Flame preset icon will now change the focus to the IN tab if not already.
 - **Fix**: When a Flame preset only had F3H affine style in the post affine, the reload Flame with F3H affine style toggle inside the IN tab was not working. It is now fixed.
@@ -972,7 +972,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.4.84 ###
+### <ins>From v1.4.84</ins> ###
 
 - **Fix**: Faster menus build when prefs tab "iterator menus bookmark icons" toggle is ON.
 - **Fix**: Palette ramp parameter now delete its parameter's keyframes when reset or when loading a new palette or flame preset.
@@ -982,7 +982,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.4.80 ###
+### <ins>From v1.4.80</ins> ###
 
 - **New**: Added a preferences tab section for the UI options.
 - **Fix**: Fixed prefs UI tab staying visible when display prefs was toggled OFF.
@@ -995,7 +995,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.4.77 ###
+### <ins>From v1.4.77</ins> ###
 
 - **Fix**: Added undos support to the SYS tab Select Iterator mini-menu.
 - **Fix**: Improved copy/paste iterator menu build.
@@ -1006,7 +1006,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### From v1.4.75 ###
+### <ins>From v1.4.75</ins> ###
 
 _This update focus is mainly to improve the UI performance_:
 
@@ -1027,7 +1027,7 @@ _This update focus is mainly to improve the UI performance_:
 <br>
 
 
-### From v1.4.65c ###
+### <ins>From v1.4.65c</ins> ###
 
 - **Fix**: Fixed palette HSV not being updated on Flame load if the loaded json preset posses the HSV values different from defaults.
 - **Fix**: Removed some duplicate definitions calls to palette_cp(), probably some left over from preview versions.
@@ -1037,7 +1037,7 @@ _This update focus is mainly to improve the UI performance_:
 <br>
 
 
-### From v1.4.65b ###
+### <ins>From v1.4.65b</ins> ###
 
 _Updated py_flam3 version number_:
 
@@ -1060,7 +1060,7 @@ _Updated py_flam3 version number_:
 <br>
 
 
-### From v1.4.48 ###
+### <ins>From v1.4.48</ins> ###
 
 - **Fix**: When deleting a FLAM3H node with its FF marked for being copied, it willl now clear that data and ask to mark the FF again instead of warning you about the node being deleted.
 - **Fix**: When deleting a FLAM3H node with its FF marked for being copied, it will now print to the status bar and fire a flash message as well.
@@ -1072,7 +1072,7 @@ _Updated py_flam3 version number_:
 <br>
 
 
-### From v1.4.44 ###
+### <ins>From v1.4.44</ins> ###
 
 - **New**: Added new bookmark icon for the copy/paste delete case info message.
 - **New**: Added Youtube video tutorials web link button to the about tab.
@@ -1085,7 +1085,7 @@ _Updated py_flam3 version number_:
 <br>
 
 
-### From v1.4.38 ###
+### <ins>From v1.4.38</ins> ###
 
 - **Fix**: When selecting an iterator using the SYS tab Select Iterator mini-menu, if it was a floating pane was erroring out.
 - **Fix**: When selecting an iterator using the SYS tab Select Iterator mini-menu, if it was a Network Editor's Parameter Dialog was erroring out.
@@ -1096,7 +1096,7 @@ _Updated py_flam3 version number_:
 <br>
 
 
-### From v1.4.35 ###
+### <ins>From v1.4.35</ins> ###
 
 - **New**: The IN Preset render properties can now be copied also in sections: SENSOR and RENDER.
 - **Fix**: Fixed a rare bug due to loading a Flame preset with Zero weights iterators, causing Houdini to crash.
@@ -1108,7 +1108,7 @@ _Updated py_flam3 version number_:
 <br>
 
 
-### From v1.4.31 ###
+### <ins>From v1.4.31</ins> ###
 
 - **Updated HDA documentation and About tab -> web links section.**
 
@@ -1117,7 +1117,7 @@ _Updated py_flam3 version number_:
 <br>
 
 
-### From v1.4.30 ###
+### <ins>From v1.4.30</ins> ###
 
 _More small things:_
 
@@ -1133,7 +1133,7 @@ _More small things:_
 <br>
 
 
-### From v1.4.23 ###
+### <ins>From v1.4.23</ins> ###
 
 - **Fix**: When marking an iterator for being copied, that data was destroyed once the user created a new FLAM3H node right after. It is now fixed.
 - **Fix**: Updated def flam3h_paste_reset_hou_session_data(self) -> None:
@@ -1144,7 +1144,7 @@ _More small things:_
 <br>
 
 
-### From v1.4.15 ###
+### <ins>From v1.4.15</ins> ###
 
 - **Fix**: Added OUT_PALETTE_256_PLUS to: def reset_OUT_options(self) -> None:
 - **Fix**: OUT_USE_FRACTORIUM_PRM_NAMES now default to: 1
@@ -1163,7 +1163,7 @@ _More small things:_
 <br>
 
 
-### From v1.4.05b ###
+### <ins>From v1.4.05b</ins> ###
 
 - **Fix**: Updated documentation with the correct and new bookmark icon when a variation's weight is set to 0.0 ( ZERO ).
 
@@ -1172,7 +1172,7 @@ _More small things:_
 <br>
 
 
-### From v1.4.05 ###
+### <ins>From v1.4.05</ins> ###
 
 - **New**: New bookmark icon for non active variations.
 - **Fix**: When loading a Flame, the Descriptive parameter will now display the Flame name without the iterations number baked into its name string.
@@ -1184,12 +1184,12 @@ _More small things:_
 <br>
 
 
-### From v1.4.01 ###
+### <ins>From v1.4.01</ins> ###
 
 - **Fix**: When copy the OUT preset flame name it will now print the copied name with a flash message or give a warning message in the status bar otherwise.
 
 
-### From v1.4.00 ###
+### <ins>From v1.4.00</ins> ###
 
 - **New**: The OUT file contents action script button is now a multi-purpose button.
 - **New**: You can now copy an existing preset Flame name from the selected OUT file into the Flame name string field. 
@@ -1202,7 +1202,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.96 ###
+### <ins>From v1.3.96</ins> ###
 
 - **Fix**: When the IN tab's "force iterations on load" toggle was ON, changing the iterations number was not updating the IN tab "iterations on Load" value. It is now fixed.
 - **Fix**: Flame preset info "Name" is now just below the "Software" info without an extra empty line as spacer.
@@ -1216,7 +1216,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.90 ###
+### <ins>From v1.3.90</ins> ###
 
 - **New**: The CP Palette, IN Flame and OUT Flame preset's menus entries can now be enumerated. It's handy and easier to remember a preset you liked while trying out others.
 - **New**: Added a preference's option to turn the presets menus enumeration ON/OFF.
@@ -1237,7 +1237,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.77 ###
+### <ins>From v1.3.77</ins> ###
 
 - **New**: added a new camera sensor's screenshot examples for the app Fractorium to the documentation.
 - **Fix**: improved some parameter's tool tips.
@@ -1251,7 +1251,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.70 ###
+### <ins>From v1.3.70</ins> ###
 
 - **New**: You can now save and load Flames with more than 256 palette colors. An option to enable saving with this spec has been added to the OUT: Options tab.
 - **New**: You can now save and load Palette with more than 256 palette colors. An option to enable saving with this spec has been added to the CP: Options tab.
@@ -1268,7 +1268,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.62 ###
+### <ins>From v1.3.62</ins> ###
 
 - **Fix**: XML key -> "Color Speed" is now always exported on save.
 - **Fix**: CP Palette lookup sample menu's "256" entry has now a bookmark icon to identify it as the default value that should be used.
@@ -1282,7 +1282,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.56 ###
+### <ins>From v1.3.56</ins> ###
 
 - **Fix**: Toggle parameter references are now properly rewired as they got erased in the preview version.
 
@@ -1291,7 +1291,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.54 ###
+### <ins>From v1.3.54</ins> ###
 
 - **Fix**: Fixed the iterator disabled tooltip.
 
@@ -1300,7 +1300,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.53 ###
+### <ins>From v1.3.53</ins> ###
 
 - **New**: When loading a Flame with more variations number than allowed it will now print the one that are in excess and skipped from being loaded.
 - **Fix**: Fixed the active iterator and FF buttons sliding one slot when clicked, introduced in the preview version.
@@ -1311,7 +1311,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.50 ###
+### <ins>From v1.3.50</ins> ###
 
 - **New**: Added a button in each affine's tab to copy and paste from/to the pre or post affine values in the same iterator.
 - **New**: Added a button in each FF affine's tab to copy and paste from/to the FF pre or FF post affine values.
@@ -1325,7 +1325,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.45 ###
+### <ins>From v1.3.45</ins> ###
 
 - **Fix**: When using the mini-menu in the SYS tab to quickly change focus to a desired iterator multi-parameter tab number, it will now bring you back to the FLAME Tab if the focus were somewhere else.
 - **Fix**: version number in the HDA about tab is now correct.
@@ -1336,7 +1336,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.44 ###
+### <ins>From v1.3.44</ins> ###
 
 - **New**: Added a mini-menu in the SYS tab to quickly change focus to a desired multi-parameter tab number.
 - **New**: the SYS Tag size menu is now turned into a mini-menu to save a bit of space.
@@ -1348,7 +1348,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.40 ###
+### <ins>From v1.3.40</ins> ###
 
 - **New**: Added reset action script button the the preferences tab viewport particle size parameter.
 - **New**: Flash messages are now printed into multiple network editors instead of only inside the main one.
@@ -1361,7 +1361,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.37 ###
+### <ins>From v1.3.37</ins> ###
 
 - **New**: Added option inside the CP tab to keep the HSV values untouched after loading a palette preset.
 - **Fix**: When saving a Flame out with "use Fractorium paramtetric prm names" option ON the exported ColorSpeed value was wrong resulting in different colors when loaded inside Fractorium. It is now fixed.
@@ -1373,7 +1373,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.35 ###
+### <ins>From v1.3.35</ins> ###
 
 - **Fix**: When in camera sensor mode, the camera cull option will now be turned off.
 - **Fix**: When loading a flame file without the expected root tag, it would not show the proper Flame name in the IN menu presets label list. It is now fixed.
@@ -1384,7 +1384,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.33 ###
+### <ins>From v1.3.33</ins> ###
 
 - **New**: Camera sensor icons now changes when the update sensor option is either ON or OFF. It change in the UI and in the viewport too.
 - **New**: Added higher tier bookmark icon to the CP lookup samples menu entries.
@@ -1403,7 +1403,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.20 ###
+### <ins>From v1.3.20</ins> ###
 
 - **New**: All of the variations that Fractorium lacks will now be classified as: "Unknown" during Flame load and listed inside the Flame preset's stats/info tab. Note that this will scan the Flame XML key's "plugins" and not through the available xforms.
 - **New**: Added info icon to the IN Tab -> IN Info folder's header. (purely cosmetic)
@@ -1421,7 +1421,7 @@ _More small things:_
 <br>
 
 
-### From v1.3.07 (last Studio commenrcial license available) ###
+### <ins>From v1.3.07 (last Studio commenrcial license available)</ins> ###
 
 - **New**: Sensor bbox node is now compiled as a native CVEX node.
 - **New**: About Tab folders title headers now have an icon to start with (purely cosmetic).
@@ -1457,7 +1457,7 @@ _More small things:_
 - **Python code cleanup.**
 - **Updated HDA documentation.**
 
-### FLAM3H USD ###
+### FLAM3H USD</ins> ###
 - **New**: The HDA node has a new icon that make more sense and in line with the FLAM3H HDA icons library.
 - **Updated HDA documentation.**
 
@@ -1466,7 +1466,7 @@ _More small things:_
 <br>
 
 
-### From v1.2.75 ###
+### <ins>From v1.2.75</ins> ###
 
 - **New**: Camera sensor infos are now turned into their own CVEX native node, much cleaner.
 - **New**: Camera sensor TAG logos transformations are now turned into their own CVEX native nodes. 
@@ -1486,7 +1486,7 @@ _More small things:_
 - **Improved Python code.**
 - **Updated HDA documentation.**
 
-### FLAM3H USD ###
+### FLAM3H USD</ins> ###
 - **Fix**: improved a the python code of this basic HDA for quickly rendering FLAM3H Flames in Solaris.
 
 
@@ -1494,7 +1494,7 @@ _More small things:_
 <br>
 
 
-### From v1.2.60 ###
+### <ins>From v1.2.60</ins> ###
 
 - **New**: Added check for chaotica XML style files, wich are not supported but now it wont error out if the user try to load them anyway.
 - **New**: Added few more flash messages for IN/OUT flame actions and few others.
@@ -1508,7 +1508,7 @@ _More small things:_
 <br>
 
 
-### From v1.2.55 ###
+### <ins>From v1.2.55</ins> ###
 
 - **New**: Added flash messages. Those are really nice, especially when marking/unmarking iterators or FF for being copied. You can disable them from the preferences tab otions.
 - **New**: New IN and OUT menu presets bookmark icons.
@@ -1523,7 +1523,7 @@ _More small things:_
 <br>
 
 
-### From v1.2.50 ###
+### <ins>From v1.2.50</ins> ###
 
 - **New**: The selected variation name in each of their menu parameter now posses a bookmark icon next to its label to display its state based on its weight.
 - **New**: The IN presets menu parameter now posses a bookmark icon next to the currently selected flame preset label. The bookmark icon will change once the flame preset is being loaded.
@@ -1546,7 +1546,7 @@ _More small things:_
 <br>
 
 
-### From v1.2.37 ###
+### <ins>From v1.2.37</ins> ###
 
 - **New**: New palette lookup method. When using up to 256 color palette keys it is many times faster in sampling it.
 - **New**: Added F3C toggle option to the SYS tab.
@@ -1569,7 +1569,7 @@ _More small things:_
 <br>
 
 
-### From v1.2.25 ###
+### <ins>From v1.2.25</ins> ###
 
 - **New**: New UX multipurpose icons ( best with a 4k display and the Houdini's Global UI scale set to: 1.75 or higher ).
 - **New**: You can now SHIFT + LMB to the SYS IN_LOAD Flame icon to open a file dialog to choose a flame file to load.
@@ -1593,7 +1593,7 @@ _More small things:_
 <br>
 
 
-### From v1.1.90 ###
+### <ins>From v1.1.90</ins> ###
 
 - **New**: In load option "remap pre_gaussian_blur" now has a multi-functional action button to automatically set its toggle and reload the flame preset.
 - **New**: In load option "remap pre_gaussian_blur" now capable to function also when re-loading a flame from the clipboard.
@@ -1611,7 +1611,7 @@ _More small things:_
 <br>
 
 
-### From v1.1.80 ###
+### <ins>From v1.1.80</ins> ###
 
 - **New**: The viewport TAG infos now display if a flame is using the preference's option flam3 compatibility (F3C) toggle.
 - **New**: If a negative value or a non digit character is left inside the xaos string ( ex: after an Undo action ), FLAM3H will rise appropriate warnings.
@@ -1628,7 +1628,7 @@ _More small things:_
 <br>
 
 
-### From v1.1.70 ###
+### <ins>From v1.1.70</ins> ###
 
 - **New**: When entering the Camera Sensor viz mode, FLAM3H will now guarantee there will only be one Camera sensor viz mode active at any given time. This is to prevent concurrent stashed cameras to be restored and saved at the same time causing a jump in the current viewport.
 - **Fix**: All the Houdini's status bar message are now execute if the Houdini's UI is available.
@@ -1644,7 +1644,7 @@ _More small things:_
 <br>
 
 
-### From v1.1.62 ###
+### <ins>From v1.1.62</ins> ###
 
 - **New**: Added an OUT save option to save a flame using variation parameter's names that Fractorium uses. This is only useful if you use Mobius or Oscilloscope ( oscope ) parametric variations and want to load the flame inside Fractorium as it uses diferent paramtric paramter's names for these.
 - **New**: Added Sensor viz update toggle. ON by default. Every change to the sensor parameters will update the sensor viewport viz. Turn this OFF to disable any sensor viewport's updates.
@@ -1659,7 +1659,7 @@ _More small things:_
 <br>
 
 
-### From v1.1.55 ###
+### <ins>From v1.1.55</ins> ###
 
 - **New**: Ability to copy/paste flames from/to the clipboard. This is great when exchanging flames between different third-party application, FLAM3H and vice-versa.
 - **New**: When loading a flame from the clipboard, its render properties will be automatically copied into the OUT tab render properties. This is done so not to loose those properties in case we copy another flame into the clipboard right after.
@@ -1678,7 +1678,7 @@ _More small things:_
 <br>
 
 
-### From v1.1.45 ###
+### <ins>From v1.1.45</ins> ###
 
 - **New**: Recompiled everything using the latest H20.x vcc compiler. I could not spot any differences but for peace of mind.
 - **New**: When in OUT Camera sensor mode, the SYS tab Tag icon will now turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
@@ -1698,7 +1698,7 @@ _More small things:_
 <br>
 
 
-### From v1.1.33 ###
+### <ins>From v1.1.33</ins> ###
 
 - **New**: Tested and working on the latest version of Houdini: H20
 - **New**: New OUT Tab Render properties Camera sensor viz. All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved out from FLAM3H. A portion of the render parameters deal with the camera and how the fractal flame you just saved is framed. The FLAM3H camera sensor will precisely display the image framing.
@@ -1718,7 +1718,7 @@ _More small things:_
 <br>
 
 
-### From v1.1.23 ###
+### <ins>From v1.1.23</ins> ###
 
 - **New**: Xaos command string now allow you to type a number and the xaos will be generated with all weights set to that number.
 - **Fix**: In some cases, deleting the very last iterator could messup the FLAM3H multiparameter index data.
@@ -1730,7 +1730,7 @@ _More small things:_
 <br>
 
 
-### From v1.1.22 ###
+### <ins>From v1.1.22</ins> ###
 
 _This update improves upon nearly everything, focusing mostly on the  workflow and user experience that was already in place. For example the method for the copy/paste iterator's data has been completely rebuilt to integrate with the Xaos method. Now that Xaos is completely automated, they employ their own techniques to handle Undo's actions. Additionally, it addresses a tonne of minor issues that were overlooked in preview releases._
 
@@ -1776,7 +1776,7 @@ _This update improves upon nearly everything, focusing mostly on the  workflow a
 <br>
 
 
-### From v1.0.28 ###
+### <ins>From v1.0.28</ins> ###
 
 _Will update once H20 release._ 
 
@@ -1793,7 +1793,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v1.0.25 ###
+### <ins>From v1.0.25</ins> ###
 
 - **New**: FLAM3H OTL documentation: Added a much, much more comprehensive documentation.
 - **New**: FLAM3H OTL documentation: Added new banner image.
@@ -1817,7 +1817,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v1.0.23 ###
+### <ins>From v1.0.23</ins> ###
 
 - **New**: Added "auto set xaos" preference option. ( ON by default ). Now Xaos is automatically set and taken care of by the tool. This was the the very last feature so to speak in my bucket list.
 - **New**: The viewport Tag icon will now turn to a red when "auto set xaos" preferences option is OFF.
@@ -1842,7 +1842,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v1.0.15 ###
+### <ins>From v1.0.15</ins> ###
 
 - New: added density presets.
 - New: added CP palette file presets menu to the SYS Tab.
@@ -1870,7 +1870,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v1.0.14 ###
+### <ins>From v1.0.14</ins> ###
 
 - New: Added few options inside the CP tab.
 - New: Added “Save Flame Out” icon to SYS Tab.
@@ -1890,7 +1890,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v1.0.13 ###
+### <ins>From v1.0.13</ins> ###
 
 - **New**: Added option to automatically copy the IN preset render properties to the OUT render properties on flame Load.
 - **Fixed**: PRE and/or POST var negative weight values check and auto correction. 
@@ -1905,7 +1905,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v1.0.11 ###
+### <ins>From v1.0.11</ins> ###
 
 
 - **Fixed**: Forced "pre_gaussian_blur" to be remapped into "pre_blur" when loading flames authored with other applications.
@@ -1923,7 +1923,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v1.0.00 ###
+### <ins>From v1.0.00</ins> ###
 
 - **New**: ability to save in a flame file format.
 - **New**: render properties settings on flame save to control the renderer of the saved flame file inside an host application ( Fractorium ideal, Apophysis as well. ).
@@ -1970,7 +1970,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.9.5.2 ###
+### <ins>From v0.9.5.2</ins> ###
 
 - **New**: Added Crop variation.
 - **New**: Added Unpolar variation.
@@ -1988,7 +1988,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.9.5 ###
+### <ins>From v0.9.5</ins> ###
 
 - **New**: Able to Load flame files ( “IN” Tab )
 - **New**: Added flame files examples library to load them in.
@@ -2019,7 +2019,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.9.3d ###
+### <ins>From v0.9.3d</ins> ###
 
 - Iterator and FF notes are now saved along with the copy/paste msg string.
 - When setting the iterator count to ZERO also the FF tab parameters will reset to their default values.
@@ -2032,7 +2032,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.9.3c ###
+### <ins>From v0.9.3c</ins> ###
 
 - Added extra ramp to preview HSV values. ( not editable - viz only )
 - HSV is now applied directly to the ramp instead of happening inside the TFFApalettesimple cvex code.
@@ -2047,7 +2047,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.9.3 ###
+### <ins>From v0.9.3</ins> ###
 
 - More robust copy/paste method.
 - Ability to copy and paste iterators between different FLAM3 nodes.
@@ -2064,7 +2064,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.9.2b ###
+### <ins>From v0.9.2b</ins> ###
 
 - Improved copy/paste of iterator' s values.
    Now you can copy/paste iterators between different FLAM3 nodes.
@@ -2079,7 +2079,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.9.2 ###
+### <ins>From v0.9.2</ins> ###
 
 - You can now copy iterator's values from one to another.
 - Updated Final Flame transform's parameters names.
@@ -2093,7 +2093,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.9.1c ###
+### <ins>From v0.9.1c</ins> ###
 
 - Added the ability to use Xaos in either **TO** or **FROM** mode.
   `You can find the option inside the preferences tab.`
@@ -2105,7 +2105,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.9.1 ###
+### <ins>From v0.9.1</ins> ###
 
 - Fixed XAOS.
   Due to a Houdini bug I needed to redo the Xaos implementation. Now is correct.
@@ -2124,7 +2124,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.9.0c ###
+### <ins>From v0.9.0c</ins> ###
 
 - More code cleanup.
 - Shortened local var's names and attrib's names.
@@ -2138,7 +2138,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.9.0c ###
+### <ins>From v0.9.0c</ins> ###
 
 - Code cleanup everywhere.
 - Compiled file size ~10kb smaller.
@@ -2151,7 +2151,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.9.0 ###
+### <ins>From v0.9.0</ins> ###
 
 - Added pre variations. ( non parametrics for now )
 - XAOS now has a better sampling.
@@ -2165,7 +2165,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.8.9b  ###
+### <ins>From v0.8.9b </ins> ###
 
 - Fixed a bug introduced with the preview release where the Alpha value was coming out wrong if XAOS was used.
 - XAOS now has its own field. You can still use it as an extra description note if you like so.
@@ -2176,7 +2176,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.8.8 ###
+### <ins>From v0.8.8</ins> ###
 
 - XAOS is now automatically active only when used. ( before it was always active)
 - As a result of the above, when not using XAOS it will be ~15/20% faster.
@@ -2187,7 +2187,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.8.7 ###
+### <ins>From v0.8.7</ins> ###
 
 - Added a first try of XAOS. Read the HDA documentation to learn how to use it within the tool UI.
 
@@ -2196,7 +2196,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.8.6 ###
+### <ins>From v0.8.6</ins> ###
 
 - Color speed can now be a negative value too.
 - Added color opacity, this allow to build simple but proper fractal flame containers.
@@ -2206,7 +2206,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.8.5 ###
+### <ins>From v0.8.5</ins> ###
 
 - A bit faster ( ~5% on average. H19.x version being the faster )
 - Improved HDA help/documentation.
@@ -2222,7 +2222,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.8.0 ###
+### <ins>From v0.8.0</ins> ###
 
 - Added rotation parameter inside iterators affine tab. This help when editing the fractal flame.
 - The rotation will take the values of *X, Y, O* and apply a rotation. Note that the resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm so that if you are copying values from Apophysis, then the rotation must be set to ZERO to match or you will apply a double transformation otherwise.
@@ -2235,7 +2235,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.7.9 ###
+### <ins>From v0.7.9</ins> ###
 
 - ~10/20% faster (depending on hardware).
 - Conformed UI with new H19 parameters look.
@@ -2246,7 +2246,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.7.8b ###
+### <ins>From v0.7.8b</ins> ###
 
 - Added POST Variation to Final Flame transform.
 - ~40% faster first node instance creation time.
@@ -2258,7 +2258,7 @@ _Will update once H20 release._
 <br>
 
 
-### From v0.7.7c3 ###
+### <ins>From v0.7.7c3</ins> ###
 
 Removed some leftover variables from variation.h and fixed an else statement inside genome.h
 
@@ -2267,7 +2267,7 @@ Removed some leftover variables from variation.h and fixed an else statement ins
 <br>
 
 
-### From v0.7.7c2 ###
+### <ins>From v0.7.7c2</ins> ###
 
 Fixed Final Flame transform POST affine not being used.
 
@@ -2276,7 +2276,7 @@ Fixed Final Flame transform POST affine not being used.
 <br>
 
 
-### From v0.7.7c ###
+### <ins>From v0.7.7c</ins> ###
 
 Color mode now in line with Apophysis and the other ( uses Color Location and Blend Speed).
 To test it out I replicated a preset from Chaotica software inside Houdini.
@@ -2288,7 +2288,7 @@ Added new presets file to play with, include the Chaotica's match preset as well
 <br>
 
 
-### From v0.7.6 ###
+### <ins>From v0.7.6</ins> ###
 
 Affine coefficients now have the same layout as Apophysis software. Improved genomeParametricBuild() function. New Presets file, override the old one ( back it up first ) as the UI layout as changed. Overall is ~10% faster.
 
@@ -2297,7 +2297,7 @@ Affine coefficients now have the same layout as Apophysis software. Improved gen
 <br>
 
 
-### From v0.7.5d ###
+### <ins>From v0.7.5d</ins> ###
 
 Fixed POST affine and faster first node instance creation time
 
