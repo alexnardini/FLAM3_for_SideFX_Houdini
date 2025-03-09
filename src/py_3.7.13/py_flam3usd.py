@@ -300,6 +300,9 @@ class flam3husd_scripts
         Set the hydra renderer based on the one found in the viewers already.
         Since the renderer menu will set all the Lop viewers in one go, we assume that the are all the same type already.
         
+        _NOTE:
+            This need work to make it meaningful.
+        
         Args:
             (self)
             
@@ -309,26 +312,45 @@ class flam3husd_scripts
         
         node: hou.LopNode = self.node
         
-        for view in flam3husd_general_utils.util_getSceneViewers():
+        views = flam3husd_general_utils.util_getSceneViewers()
+        renderers: list = []
+        for v in views:
+            # Store only if it is a Lop viewer
+            if flam3husd_general_utils.util_is_context('Lop', v):
+                renderers.append(hou.SceneViewer.currentHydraRenderer(v))
+                
+        if renderers:
             
-            # Set only if it is a Lop viewer
-            if flam3husd_general_utils.util_is_context('Lop', view):
+            _RND = ''
+            for r in renderers:
+                # Karma has the priority
+                if flam3husd_general_utils.karma_hydra_renderer_name() in r: _RND = flam3husd_general_utils.karma_hydra_renderer_name()
+                elif "Houdini" in r: _RND = 'Houdini GL'
             
-                cr = hou.SceneViewer.currentHydraRenderer(view)
-                if "Houdini" in cr:
-                    hou.SceneViewer.setHydraRenderer(view, cr)
-                    # Sync FLAM3HUSD nodes
-                    [n.setParms({PREFS_VIEWPORT_RENDERER: 0}) for n in node.type().instances()]
-                elif flam3husd_general_utils.karma_hydra_renderer_name() in cr:
-                    hou.SceneViewer.setHydraRenderer(view, cr)
-                    # Sync FLAM3HUSD nodes
-                    [n.setParms({PREFS_VIEWPORT_RENDERER: 1}) for n in node.type().instances()]
-                '''
-                elif "Storm" in cr:
-                    hou.SceneViewer.setHydraRenderer(view, cr)
-                    # Sync FLAM3HUSD nodes
-                    [n.setParms({PREFS_VIEWPORT_RENDERER: 3}) for n in node.type().instances()]
-                '''
+            if _RND:
+                
+                _RND_idx: dict =    {'Houdini GL': 0,
+                                    flam3husd_general_utils.karma_hydra_renderer_name(): 1
+                                    }
+                
+                instances = node.type().instances()
+                
+                if len(instances)>1:
+                    
+                    for v in views:
+                        
+                            # Set only if it is a Lop viewer
+                            if flam3husd_general_utils.util_is_context('Lop', v):
+                            
+                                # Sync FLAM3HUSD nodes
+                                for n in instances:
+                                    if n != node:
+                                        idx = n.parm(PREFS_VIEWPORT_RENDERER).eval()
+                                        node.setParms({PREFS_VIEWPORT_RENDERER: idx}) # type: ignore
+                                        flam3husd_general_utils.flash_message(flam3husd_general_utils.in_get_dict_key_from_value(_RND_idx, idx))
+                                        break
+                                
+                            else: pass
                         
                         
                         
@@ -373,6 +395,7 @@ class flam3husd_general_utils:
 class flam3husd_general_utils
 
 @STATICMETHODS
+* in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
 * set_private_prm(node: hou.SopNode, prm_name: str, data: Union[str, int, float]) -> None:
 * karma_hydra_renderer_name() -> str:
 * houdini_version(digit: int=1) -> int:
@@ -405,6 +428,23 @@ class flam3husd_general_utils
         self._node = kwargs['node']
 
 
+    @staticmethod
+    def in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
+        """Get the dictionary key from the dictionary value.
+        Used to get the current variation string name from its index from the global dict: VARS_FLAM3_DICT_IDX
+
+        Args:
+            mydict(dict): The dictionary for lookup
+            idx(int): The variation index to retrieve its string name from.
+
+        Returns:
+            (str): The variation string name.
+        """       
+        var_name = list(mydict.keys())[list(mydict.values()).index(idx)] 
+        return var_name
+
+
+
 
     @staticmethod
     def set_private_prm(node: hou.SopNode, prm_name: str, data: Union[str, int, float]) -> None:
@@ -424,8 +464,6 @@ class flam3husd_general_utils
         prm.lock(False)
         prm.set(data)
         prm.lock(True)
-
-
 
 
 
@@ -826,14 +864,18 @@ class flam3husd_general_utils
                 if isinstance(view, hou.SceneViewer):
                     
                     if rndtype == 0:
-                        hou.SceneViewer.setHydraRenderer(view, 'Houdini GL')
+                        _RND = 'Houdini GL'
+                        hou.SceneViewer.setHydraRenderer(view, _RND)
                         # Sync FLAM3HUSD nodes
                         [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
+                        self.flash_message(_RND)
                         
                     elif rndtype == 1:
-                        hou.SceneViewer.setHydraRenderer(view, self.karma_hydra_renderer_name())
+                        _RND = self.karma_hydra_renderer_name()
+                        hou.SceneViewer.setHydraRenderer(view, _RND)
                         # Sync FLAM3HUSD nodes
                         [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
+                        self.flash_message(_RND)
                         
                     '''
                     elif rndtype == 3:
@@ -841,6 +883,8 @@ class flam3husd_general_utils
                         # Sync FLAM3HUSD nodes
                         [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
                     '''
+                    
+                else: pass
                         
                     
                     
