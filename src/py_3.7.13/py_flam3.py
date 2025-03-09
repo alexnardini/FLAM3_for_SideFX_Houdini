@@ -15531,38 +15531,23 @@ class out_flame_utils
                 
                 strip: list[str] = iter_xaos.split(':')
                 
-                # if you just type "xaos" only
-                if iter_xaos.lower().strip() == 'xaos':
-                    
-                    # reset to all values of 1
-                    val.append([])
-                    
-                    # Beofre we used to retrieve from the history instead ( if an history data was available )
-                    '''
-                    if val_prev is not None:
-                        # retrive from the history instead ( Undo )
-                        val.append(val_prev[iter])
-                    else:
-                        # Otherwise reset to all values of 1
-                        val.append([])
-                        '''
-                        
                 # if the first element of the strip is: "xaos"
-                elif strip[0].lower().strip() == 'xaos':
+                if strip[0].lower().replace(" ", "") == 'xaos':
+                    
                     try:
-                        # Lets be sure we are not running out of index inside: val_prev
-                        if val_prev is not None and len(val_prev) == iter_count:
-                            build_strip = [str(float((in_flame.xf_val_cleanup_str(str(x).strip(), val_prev[iter][idx])))) if float(in_flame.xf_val_cleanup_str(str(x).strip(), val_prev[iter][idx])) >= 0 else '1' for idx, x in enumerate(strip[1:iter_count+1])]
+                        _xaos: list = strip[1:iter_count+1]
+                        
+                        if _xaos[0] and val_prev is not None and len(val_prev) == iter_count:
+                            build_strip = [str(float((in_flame.xf_val_cleanup_str(str(x), val_prev[iter][idx])))) if float(in_flame.xf_val_cleanup_str(str(x), val_prev[iter][idx])) >= 0 else '1' for idx, x in enumerate(_xaos)]
                         else:
                             # Otherwise use the safer version.
                             # This is used every time we add or remove an iterator or when loading Flames with different iterator's count than what we currently have.
                             build_strip = [str(float(str(x).strip())) if float(str(x).strip()) >= 0 else '1' for x in strip[1:iter_count+1] if x]
                             
                         val.append([float(x.strip()) for x in build_strip])
+                        
                     except:
-                        # ( Assuming the "xaos:" keyword is present )
-                        # if we entered an invalid string,
-                        # retrive from the history instead ( Undo )
+                        
                         if val_prev is not None:
                             val.append(val_prev[iter])
                         else:
@@ -15570,7 +15555,8 @@ class out_flame_utils
                             val.append([])
                             
                 # If the split fail to validate and it just start with the word: 'xaos'
-                elif iter_xaos.lower().strip().startswith('xaos'):
+                elif iter_xaos.lower().replace(" ", "").startswith('xaos'):
+                    
                     if val_prev is not None:
                         # retrive from the history instead ( Undo )
                         val.append(val_prev[iter])
@@ -15579,8 +15565,9 @@ class out_flame_utils
                         val.append([])
                         
                 else:
+
                     isNUM = False
-                    iter_xaos_clean: str = in_flame.xf_val_cleanup_str(iter_xaos.lower().strip(), '1')
+                    iter_xaos_clean: str = in_flame.xf_val_cleanup_str(iter_xaos, '@')
                     
                     try:
                         if isinstance(float(iter_xaos_clean), float):
