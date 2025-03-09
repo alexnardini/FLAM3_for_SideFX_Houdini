@@ -10,7 +10,7 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
-### <ins>From v1.7.04</ins></ins> ###
+### <ins>From v1.7.04</ins> ###
 
 #### FLAM3H</ins> ####
 
