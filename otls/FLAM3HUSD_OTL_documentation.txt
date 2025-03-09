@@ -51,10 +51,16 @@ dark:
     If it isn't already, change the viewport's color scheme to dark.
     If unchecked, it will remember the color scheme for every viewport and fall back on it.
     Checking this box has no effect if the color scheme in a viewport is already dark.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Context aware*<br />
+    - This option is context aware, and it will function only if a Lop viewer is available.
     
 renderer:
     #id: PREFS
     Select from a variety of Hydra renderers.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Context aware*<br />
+    - This option is context aware, and it will function only if a Lop viewer is available.
     
 :box:
     #display: rounded white
@@ -64,10 +70,16 @@ renderer:
 display:
     #id: prefs
     Either points or pixels should be selected for the viewport particle display mode.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Context aware*<br />
+    - This option is context aware, and it will function only if a Lop viewer is available.
     
 size:
     #id: prefs
     The setting for viewport particle display Points. Define how big the particles appear in the viewport.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Context aware*<br />
+    - This option is context aware, and it will function only if a Lop viewer is available.
     
 :box:
     #display: rounded white

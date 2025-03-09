@@ -2568,9 +2568,15 @@ menu type [Icon:BUTTONS/pane_menu]:
         
         A restart of Houdini is required for this change to take effect.
 
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Context aware*<br />
+    - This option is context aware, and it will function only if a Sop viewer is available.
+
 Size:
     #id: prefs
     When viewport particle display is set to Points, this will control their size in the viewport.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Context aware*<br />
+    - This option is context aware, and it will function only if a Sop viewer is available.
 
 Size default:
     #id: prefs
