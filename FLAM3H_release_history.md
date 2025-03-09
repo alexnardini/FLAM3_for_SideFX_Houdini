@@ -10,9 +10,18 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
-#### FLAM3H ####
+### From v1.7.01 ###
+
+- **Fix**: Fixed a rare Xaos bug on Flame load introduced with the preview version: v1.7.00 - It was sometime setting the first xaos value on the first iterator to '0'(Zero) when all Xaos values were supposed to be '1'(One).
+
+
+<br>
+<br>
+
 
 ### From v1.7.00 ###
+
+#### FLAM3H ####
 
 - **New**: Xaos command string: typo checking, auto-corrections and undos. Retrieve from history can now retrieve single and multiple entries instead of the entire Xaos string for the selected iterator.
 - **New**: Xaos command string: you can now type a single floating point value to fill all entries with it (before you could only type integers).
@@ -23,7 +32,8 @@ They are all available in this github repository.</br>
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.97 ###
@@ -45,7 +55,8 @@ They are all available in this github repository.</br>
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.91 ###
@@ -66,7 +77,8 @@ _This update is all about FLAM3HUSD._
 - **Small fixes/improvements**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.90 ###
@@ -90,7 +102,8 @@ _This update is all about FLAM3HUSD._
 - **Fix**: FLAM3HUSD documentation ICON is now properly displayed.
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.84 ###
@@ -111,7 +124,8 @@ _This simple utility node got an upgrade._
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.82 ###
@@ -119,7 +133,8 @@ _This simple utility node got an upgrade._
 - **Fix**: _Motion Blur_ is now initialized directly within the main function making it ~30% faster to compute when active.
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.81 ###
@@ -127,7 +142,8 @@ _This simple utility node got an upgrade._
 - **Fix**: Enumerated presets menus now start to count from **1**.
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.80 ###
@@ -135,7 +151,8 @@ _This simple utility node got an upgrade._
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.78 ###
@@ -144,7 +161,8 @@ _This simple utility node got an upgrade._
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.77 ###
@@ -153,7 +171,8 @@ _This simple utility node got an upgrade._
 - **Fix**: Smaller compiled file size, almost 40kb saved.
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.76 ###
@@ -162,7 +181,8 @@ _This simple utility node got an upgrade._
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.75 ###
@@ -173,7 +193,8 @@ _This simple utility node got an upgrade._
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.71 ###
@@ -190,7 +211,8 @@ _This simple utility node got an upgrade._
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.65 ###
@@ -201,7 +223,8 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.63 ###
@@ -212,7 +235,8 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.60 ###
@@ -225,7 +249,8 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.50 ###
@@ -252,7 +277,8 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.10 ###
@@ -267,7 +293,8 @@ _This is the last update of 2024, after a very long time of development and unit
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.09 ###
@@ -277,7 +304,8 @@ _This is the last update of 2024, after a very long time of development and unit
 - **Fix**: When entering the Sensor viz mode, the viewport handles viz icon will now switch to a disabled empty star.
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.06 ###
@@ -286,7 +314,8 @@ _This is the last update of 2024, after a very long time of development and unit
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.05 ###
@@ -296,7 +325,8 @@ _This is the last update of 2024, after a very long time of development and unit
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.02 ###
@@ -304,7 +334,8 @@ _This is the last update of 2024, after a very long time of development and unit
 - **Fix**: iterators viewport xforms handles geo transformations is now many, many times faster.
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.01 ###
@@ -313,7 +344,8 @@ _This is the last update of 2024, after a very long time of development and unit
 
 
 
-
+<br>
+<br>
 
 
 ### From v1.6.00 ###
@@ -331,7 +363,8 @@ _Some of those small fixes/improvements include_:
 - **Fix**: Improved and updated some parameter's tooltips. 
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.98 ###
@@ -340,7 +373,8 @@ _Some of those small fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.97 ###
@@ -348,7 +382,8 @@ _Some of those small fixes/improvements include_:
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.96 ###
@@ -361,7 +396,8 @@ _Some of those small fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.95 ###
@@ -377,7 +413,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: Updated and corrected all python definitions type-hints  - (_an ongoing effort_).
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.93 ###
@@ -387,7 +424,8 @@ _Some of those fixes/improvements include_:
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.90 ###
@@ -399,7 +437,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.88 ###
@@ -409,7 +448,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.85 ###
@@ -418,7 +458,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.84 ###
@@ -429,7 +470,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.82 ###
@@ -437,7 +479,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: Fixed a not defined index variable that casued an error when resetting an iterator to its defaults (bug introduced in one of the preview versions).
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.81 ###
@@ -446,7 +489,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.80 ###
@@ -455,7 +499,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.78 ###
@@ -463,7 +508,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: improved copy/paste edge case handling. Now that case is being run once until it need to update again, having less impact on the UI performance.
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.77 ###
@@ -473,7 +519,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: Fixed edge case so we don't have marked iterators in multiple FLAM3H node's "select iterator" mini-menus.
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.74 ###
@@ -484,7 +531,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.72 ###
@@ -493,7 +541,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.70 ###
@@ -503,7 +552,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.68 ###
@@ -512,7 +562,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.66 ###
@@ -525,7 +576,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.64 ###
@@ -535,7 +587,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.62 ###
@@ -543,7 +596,8 @@ _Some of those fixes/improvements include_:
 - **Updated/Corrected HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.60 ###
@@ -557,6 +611,9 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
+<br>
+<br>
+
 
 ### From v1.5.56 ###
 
@@ -564,7 +621,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.55 ###
@@ -574,7 +632,8 @@ _Some of those fixes/improvements include_:
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.54 ###
@@ -584,7 +643,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.53c ###
@@ -593,7 +653,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.53b ###
@@ -602,7 +663,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.53 ###
@@ -610,7 +672,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: When the IN option toggle "copy render properties on Load" was ON, it was not copying the data into the OUT render properties. It is now fixed.
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.52 ###
@@ -620,7 +683,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.50 ###
@@ -629,7 +693,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.45 ###
@@ -640,7 +705,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.42 ###
@@ -649,7 +715,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**: Added a Badges section to the documentation.
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.41 ###
@@ -659,7 +726,8 @@ _Some of those fixes/improvements include_:
 
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.39 ###
@@ -668,7 +736,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.37 ###
@@ -678,7 +747,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.35 ###
@@ -686,7 +756,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: Fixed a bug that prevented the HDA definition to being matched in H20.5, throwing an error and making impossible to edit, update and save the tool anylonger.
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.33 ###
@@ -697,7 +768,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.30b ###
@@ -705,7 +777,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: Removed os.path.getsize() and used os.path.exists() instead so not to cause more checks if the file exist or not.
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.30 ###
@@ -715,7 +788,8 @@ _Some of those fixes/improvements include_:
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.26 ###
@@ -726,7 +800,8 @@ _Some of those fixes/improvements include_:
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.22 ###
@@ -736,7 +811,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: A bit better data formatting on OUT Flame save for FLAM3 compatibility messages and warnings.
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.20 ###
@@ -745,7 +821,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: Rewritten: def out_flam3_compatibility_check_and_msg(self) -> bool: for a better data formatting (long overdue) on OUT Flame save for FLAM3 compatibility messages and warnings.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-
+<br>
+<br>
 
 
 ### From v1.5.17 ###
@@ -754,7 +831,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: Loading a Flame preset without any Palette data was causing an error. It is now fixed (_All Flames have a Palette XML data, but just in case_).
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.15 ###
@@ -766,7 +844,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.10 ###
@@ -777,7 +856,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.06 ###
@@ -785,7 +865,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: The CP and OUT tabs automated file parameters now should work also with network paths.
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.05 ###
@@ -797,7 +878,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.00b ###
@@ -805,7 +887,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: Fixed an error occurring when resetting the Sensor Viz properties while being in the Sensor Viz mode.
 
 
-
+<br>
+<br>
 
 
 ### From v1.5.00 ###
@@ -827,7 +910,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.95 ###
@@ -837,7 +921,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.94 ###
@@ -851,7 +936,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.88 ###
@@ -862,7 +948,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: Fixed a rare bug that caused Houdini to crash when all active iterator's Weights were set to 0(Zero) after an undo action.
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.84 ###
@@ -871,7 +958,8 @@ _Some of those fixes/improvements include_:
 - **Fix**: Palette ramp parameter now delete its parameter's keyframes when reset or when loading a new palette or flame preset.
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.80 ###
@@ -883,7 +971,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.77 ###
@@ -893,7 +982,8 @@ _Some of those fixes/improvements include_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.75 ###
@@ -913,7 +1003,8 @@ _This update focus is mainly to improve the UI performance_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.65c ###
@@ -922,7 +1013,8 @@ _This update focus is mainly to improve the UI performance_:
 - **Fix**: Removed some duplicate definitions calls to palette_cp(), probably some left over from preview versions.
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.65b ###
@@ -944,7 +1036,8 @@ _Updated py_flam3 version number_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.48 ###
@@ -955,7 +1048,8 @@ _Updated py_flam3 version number_:
 - **Fix**: improved the open web browser mechanism.
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.44 ###
@@ -967,7 +1061,8 @@ _Updated py_flam3 version number_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.38 ###
@@ -977,7 +1072,8 @@ _Updated py_flam3 version number_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.35 ###
@@ -988,7 +1084,8 @@ _Updated py_flam3 version number_:
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.31 ###
@@ -996,7 +1093,8 @@ _Updated py_flam3 version number_:
 - **Updated HDA documentation and About tab -> web links section.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.30 ###
@@ -1011,7 +1109,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.23 ###
@@ -1021,7 +1120,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.15 ###
@@ -1039,7 +1139,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.05b ###
@@ -1047,7 +1148,8 @@ _More small things:_
 - **Fix**: Updated documentation with the correct and new bookmark icon when a variation's weight is set to 0.0 ( ZERO ).
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.05 ###
@@ -1058,7 +1160,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.4.01 ###
@@ -1075,7 +1178,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.96 ###
@@ -1088,7 +1192,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.90 ###
@@ -1108,7 +1213,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.77 ###
@@ -1121,7 +1227,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.70 ###
@@ -1137,7 +1244,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.62 ###
@@ -1150,7 +1258,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.56 ###
@@ -1158,7 +1267,8 @@ _More small things:_
 - **Fix**: Toggle parameter references are now properly rewired as they got erased in the preview version.
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.54 ###
@@ -1166,7 +1276,8 @@ _More small things:_
 - **Fix**: Fixed the iterator disabled tooltip.
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.53 ###
@@ -1176,7 +1287,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.50 ###
@@ -1189,7 +1301,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.45 ###
@@ -1199,7 +1312,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.44 ###
@@ -1210,7 +1324,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.40 ###
@@ -1222,7 +1337,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.37 ###
@@ -1233,7 +1349,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.35 ###
@@ -1243,7 +1360,8 @@ _More small things:_
 - **Python code cleanup.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.33 ###
@@ -1261,7 +1379,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.20 ###
@@ -1278,7 +1397,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.3.07 (last Studio commenrcial license available) ###
@@ -1322,7 +1442,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.2.75 ###
@@ -1349,7 +1470,8 @@ _More small things:_
 - **Fix**: improved a the python code of this basic HDA for quickly rendering FLAM3H Flames in Solaris.
 
 
-
+<br>
+<br>
 
 
 ### From v1.2.60 ###
@@ -1362,7 +1484,8 @@ _More small things:_
 - **New**: New Reframe viewport flame icons.
 
 
-
+<br>
+<br>
 
 
 ### From v1.2.55 ###
@@ -1376,7 +1499,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.2.50 ###
@@ -1398,7 +1522,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.2.37 ###
@@ -1420,7 +1545,8 @@ _More small things:_
 - **Updated HDA documentation.**
 
 
-
+<br>
+<br>
 
 
 ### From v1.2.25 ###
@@ -1443,7 +1569,8 @@ _More small things:_
 - **Updated HDA documentation.** 
 
 
-
+<br>
+<br>
 
 
 ### From v1.1.90 ###
@@ -1460,7 +1587,8 @@ _More small things:_
 - **Updated HDA documentation.** 
 
 
-
+<br>
+<br>
 
 
 ### From v1.1.80 ###
@@ -1476,7 +1604,8 @@ _More small things:_
 - **Updated HDA documentation.** 
 
 
-
+<br>
+<br>
 
 
 ### From v1.1.70 ###
@@ -1491,7 +1620,8 @@ _More small things:_
 - **Updated HDA documentation.** 
 
 
-
+<br>
+<br>
 
 
 ### From v1.1.62 ###
@@ -1505,7 +1635,8 @@ _More small things:_
 - **Updated HDA documentation.** 
 
 
-
+<br>
+<br>
 
 
 ### From v1.1.55 ###
@@ -1523,7 +1654,8 @@ _More small things:_
 - **Fix**: Updated HDA documentation to include the new features.
 
 
-
+<br>
+<br>
 
 
 ### From v1.1.45 ###
@@ -1542,7 +1674,8 @@ _More small things:_
 - **Fix**: Updated documentation and its vcc compiler version tag number.
 
 
-
+<br>
+<br>
 
 
 ### From v1.1.33 ###
@@ -1561,7 +1694,8 @@ _More small things:_
 - **Fix**: Improved python code.
 
 
-
+<br>
+<br>
 
 
 ### From v1.1.23 ###
@@ -1572,7 +1706,8 @@ _More small things:_
 - **Fix**: Small python code improvements.
 
 
-
+<br>
+<br>
 
 
 ### From v1.1.22 ###
@@ -1617,7 +1752,8 @@ _This update improves upon nearly everything, focusing mostly on the  workflow a
 
 
 
-
+<br>
+<br>
 
 
 ### From v1.0.28 ###
@@ -1633,7 +1769,8 @@ _Will update once H20 release._
 - **Fix**: Python: FLAM3H xaos history data is now protected so to speak.
 
 
-
+<br>
+<br>
 
 
 ### From v1.0.25 ###
@@ -1656,7 +1793,8 @@ _Will update once H20 release._
 - **Fix**: FLAM3H XML custom data: Improved "flam3h motion blur" XML key's names.
 
 
-
+<br>
+<br>
 
 
 ### From v1.0.23 ###
@@ -1680,7 +1818,8 @@ _Will update once H20 release._
 - **Fix**: pyhton code cleanup and improvements.
 
 
-
+<br>
+<br>
 
 
 ### From v1.0.15 ###
@@ -1707,7 +1846,8 @@ _Will update once H20 release._
 - Fixed: The IN Tab parameter option "Use Fractorium color speed" has been hidden.
 
 
-
+<br>
+<br>
 
 
 ### From v1.0.14 ###
@@ -1726,7 +1866,8 @@ _Will update once H20 release._
 - Updated help/doc.
 
 
-
+<br>
+<br>
 
 
 ### From v1.0.13 ###
@@ -1740,7 +1881,8 @@ _Will update once H20 release._
 - Improved python code, better doc strings, type hints for many flame load functions and more cleanup.
 
 
-
+<br>
+<br>
 
 
 ### From v1.0.11 ###
@@ -1757,7 +1899,8 @@ _Will update once H20 release._
 - **Fixed**: "pre_blur" now set as header's parameter of its containing folder for easy access.
 
 
-
+<br>
+<br>
 
 
 ### From v1.0.00 ###
@@ -1803,7 +1946,8 @@ _Will update once H20 release._
 - **Fixed**: parameters tooltips now showing more descriptive and generous descriptions.
 
 
-
+<br>
+<br>
 
 
 ### From v0.9.5.2 ###
@@ -1820,7 +1964,8 @@ _Will update once H20 release._
 - **Fixed**: Juliascope variation distance parameter not being set on flame load.
 
 
-
+<br>
+<br>
 
 
 ### From v0.9.5 ###
@@ -1850,7 +1995,8 @@ _Will update once H20 release._
 - **Fixed**: wedge, wedge_julia, wedge_sph. They had their parameters order mixed up.
 
 
-
+<br>
+<br>
 
 
 ### From v0.9.3d ###
@@ -1862,7 +2008,8 @@ _Will update once H20 release._
 - Some parameter's name have been renamed to keep consistency.
 
 
-
+<br>
+<br>
 
 
 ### From v0.9.3c ###
@@ -1876,7 +2023,8 @@ _Will update once H20 release._
 - python code improvements there and there.
 
 
-
+<br>
+<br>
 
 
 ### From v0.9.3 ###
@@ -1892,7 +2040,8 @@ _Will update once H20 release._
 - Ability to clear/delete the stored data.
 
 
-
+<br>
+<br>
 
 
 ### From v0.9.2b ###
@@ -1906,7 +2055,8 @@ _Will update once H20 release._
 - Cleaner initial python setup, now using FLAM3 sub-module from section everywhere.
 
 
-
+<br>
+<br>
 
 
 ### From v0.9.2 ###
@@ -1919,7 +2069,8 @@ _Will update once H20 release._
 - Fixed TAG viewport display not showing PRE variations and Final Flame POST variations.
 
 
-
+<br>
+<br>
 
 
 ### From v0.9.1c ###
@@ -1930,7 +2081,8 @@ _Will update once H20 release._
 - Little code cleanup there and there.
 
 
-
+<br>
+<br>
 
 
 ### From v0.9.1 ###
@@ -1948,7 +2100,8 @@ _Will update once H20 release._
 - Little code cleanup there and there.
 
 
-
+<br>
+<br>
 
 
 ### From v0.9.0c ###
@@ -1961,7 +2114,8 @@ _Will update once H20 release._
 - `TFFAvactive.vfl` has been renamed to `TFFAxaos.vfl` as well its host wrangle core node.
 
 
-
+<br>
+<br>
 
 
 ### From v0.9.0c ###
@@ -1973,7 +2127,8 @@ _Will update once H20 release._
 - Fixed a small bug in the camera handles.
 
 
-
+<br>
+<br>
 
 
 ### From v0.9.0 ###
@@ -1986,7 +2141,8 @@ _Will update once H20 release._
 - Code optimizations.
 
 
-
+<br>
+<br>
 
 
 ### From v0.8.9b  ###
@@ -1996,7 +2152,8 @@ _Will update once H20 release._
 - Slightly faster.
 
 
-
+<br>
+<br>
 
 
 ### From v0.8.8 ###
@@ -2006,7 +2163,8 @@ _Will update once H20 release._
 - Variation's functions are now living in their own header file.
 
 
-
+<br>
+<br>
 
 
 ### From v0.8.7 ###
@@ -2014,7 +2172,8 @@ _Will update once H20 release._
 - Added a first try of XAOS. Read the HDA documentation to learn how to use it within the tool UI.
 
 
-
+<br>
+<br>
 
 
 ### From v0.8.6 ###
@@ -2023,7 +2182,8 @@ _Will update once H20 release._
 - Added color opacity, this allow to build simple but proper fractal flame containers.
 
 
-
+<br>
+<br>
 
 
 ### From v0.8.5 ###
@@ -2038,7 +2198,8 @@ _Will update once H20 release._
 - Code clean up and improvements.
 
 
-
+<br>
+<br>
 
 
 ### From v0.8.0 ###
@@ -2050,7 +2211,8 @@ _Will update once H20 release._
 - Little code cleanup there and there.
 
 
-
+<br>
+<br>
 
 
 ### From v0.7.9 ###
@@ -2060,7 +2222,8 @@ _Will update once H20 release._
 - This is a Houdini 19.x only version. SideFX have made some big updates to the vcc compiler and the results shows!
 
 
-
+<br>
+<br>
 
 
 ### From v0.7.8b ###
@@ -2071,7 +2234,8 @@ _Will update once H20 release._
 - Added new presets file
 
 
-
+<br>
+<br>
 
 
 ### From v0.7.7c3 ###
@@ -2079,7 +2243,8 @@ _Will update once H20 release._
 Removed some leftover variables from variation.h and fixed an else statement inside genome.h
 
 
-
+<br>
+<br>
 
 
 ### From v0.7.7c2 ###
@@ -2087,7 +2252,8 @@ Removed some leftover variables from variation.h and fixed an else statement ins
 Fixed Final Flame transform POST affine not being used.
 
 
-
+<br>
+<br>
 
 
 ### From v0.7.7c ###
@@ -2098,7 +2264,8 @@ This was one of Chaotica's preset I loved the most and kept it as my milestone. 
 Added new presets file to play with, include the Chaotica's match preset as well.
 
 
-
+<br>
+<br>
 
 
 ### From v0.7.6 ###
@@ -2106,7 +2273,8 @@ Added new presets file to play with, include the Chaotica's match preset as well
 Affine coefficients now have the same layout as Apophysis software. Improved genomeParametricBuild() function. New Presets file, override the old one ( back it up first ) as the UI layout as changed. Overall is ~10% faster.
 
 
-
+<br>
+<br>
 
 
 ### From v0.7.5d ###
