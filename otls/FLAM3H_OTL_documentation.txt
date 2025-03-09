@@ -398,6 +398,10 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
     - To exclusively output the xforms handles, a second output has been introduced to the FLAM3H node.
     Since they are not baked into the point cloud, you may safely render the fractal flame while switching between SOP and LOP, which makes it useful for viz purposes.
     
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Context aware*<br />
+    - Xforms handles viz are context aware, and you will be able to activate them only if a Sop viewer is available.
+
+
     :warning:
         Turn this OFF when rendering.
         
@@ -2218,8 +2222,8 @@ SHOW sensor viz [Icon:DATATYPES/boolean]:
     - _When this mode is ON, the viewport xforms handles VIZ mode will be disabled_.
     - _When entering the Sensor Viz mode, FLAM3H will store all the available viewports data prior to entering the mode and restore them all on exit_.
     
-    NOTE:
-        When in Solaris/LOP context, you wont be able to activate the Camera Sensor mode so to not interfere with your rendering workflow.
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Context aware*<br />
+    - Camera sensor viz is context aware, and you will be able to activate it only if a Sop viewer is available.
 
 
 Resolution [Icon:TOP/xmlinput]:
@@ -2545,6 +2549,9 @@ Dark [Icon:DATATYPES/boolean]:
     If it isn't already, change the viewport's color scheme to dark.<br /><br />
     If unchecked, it will remember the color scheme for every viewport and fall back on it.<br />
     Checking this box has no effect if the color scheme in a viewport is already dark.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Context aware*<br />
+    - This option is context aware, and it will function only if a Sop viewer is available.
     
 menu type [Icon:BUTTONS/pane_menu]:
     #id: prefs
