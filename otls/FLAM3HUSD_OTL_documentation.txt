@@ -3,14 +3,17 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.1.36 - Beta
+#version: 0.1.40 - Beta
 
 """Simple utility node to quickly setup fractal flames point clouds in Solaris."""
 
 == Welcome to FLAM3HUSD for SideFX Houdini ==
 
-A simple utility node that will make it easier to render FLAM3H fractal flames in Solaris for previews.
-It offers the very fundamental functionalities to setup your fractal flame point cloud to start rendering with Karma within a few clicks.
+A simple utility node to make rendering FLAM3H fractal flames in Solaris for previews easy.<br />
+It offers the very fundamental functionalities to setup your fractal flames point cloud and start rendering with Karma within a few clicks.<br /><br />
+This tool is under development and it may or may not change drastically in the future.
+
+_Currently, FLAM3HUSD rely entirely on Karma CPU_.
 
 _*This version is only compatible with FLAM3H v1.6.97 or higher.*_
 
@@ -27,10 +30,21 @@ _*This version is only compatible with FLAM3H v1.6.97 or higher.*_
 
     *FLAM3HUSD import*
 
+FLAM3HUSD documentation:
+    #id: IMPORT
+    [Largeicon:opdef:.?icon_F_docStarSVG.svg]
+    
+    Display this documentation.
+
+
 FLAM3H SOP path:
     #id: IMPORT
     Path to the FLAM3H node to be imported inside Solaris.
     A default path is already provided to import the default first FLAM3H node name. Change this as needed.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - Once a valid FLAM3H node has been imported, FLAM3HUSD will take care of bulding a useful Scene Graph Tree.
+    - When multiple FLAM3HUSD are created, the imported FLAM3H data will all be grouped under a common root named: FLAM3H.
     
     
 == Prefs == (PREFS)
@@ -61,6 +75,12 @@ renderer:
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Context aware*<br />
     - This option is context aware, and it will function only if a Lop viewer is available.
+
+force renderer:
+    #id: PREFS
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    - ((LMB)) to force all Lop viewers to be set to the selected renderer.
     
 :box:
     #display: rounded white
@@ -68,46 +88,68 @@ renderer:
     == Renderer: GL == (OPTIONSGL)
     
 display:
-    #id: prefs
+    #id: PREFS
     Either points or pixels should be selected for the viewport particle display mode.
+
+    _Some of the menu labels posses a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Context aware*<br />
     - This option is context aware, and it will function only if a Lop viewer is available.
     
 size:
-    #id: prefs
+    #id: PREFS
     The setting for viewport particle display Points. Define how big the particles appear in the viewport.
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Context aware*<br />
     - This option is context aware, and it will function only if a Lop viewer is available.
+
+Reset size:
+    #id: PREFS
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    - ((LMB)) to reset the point size to a default of *`1`*(one).
     
 :box:
     #display: rounded white
     
     == Renderer: Karma CPU == (OPTIONSKARMA)
     
-NOTE:
-    Karma should only be used for previews while you are interactively perfecting your fractal flame.
-    All the settings are already fine tuned for fractal flames previews ( _simplified lighting_ is ON ).
-    
-    As soon as you're satisfied, set up your own Karma renderer nodes to output the finished pictures.
-    
 points widths:
-    #id: IMPORT
+    #id: PREFS
     The point attribute *`@pscale`* will become *`@widths`* when importing FLAM3H into Stage/Solaris.
     This option, which is a multiplier, enables rapid adjustments while Karma is rendering interactively.
 
+Reset widths:
+    #id: PREFS
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    - ((LMB)) to reset the point size to a default of *`1`*(one).
+
 pixel samples:
-    #id: prefs
+    #id: PREFS
     Set the Karma renderer pixel samples.
+
+Reset pixel samples:
+    #id: PREFS
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    - ((LMB)) to reset the pixel samples to a default of *`128`*.
     
 denoiser:
-    #id: prefs
+    #id: PREFS
     Options to choose from the available Karma denoisers.
 
 FLAM3H Shader:
-    #id: prefs
+    #id: PREFS
     Use a MaterialX Shader that will allow to change Gamma and HSV values on the fly.
+
+Reset FLAM3H Shader:
+    #id: PREFS
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    - ((LMB)) to reset the FLAM3H Shader to its default values.
     
 
     

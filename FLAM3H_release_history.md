@@ -10,9 +10,29 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### From v1.7.04 ###
+
+#### FLAM3H ####
+
+- **Fix**: Better messages for contex aware functionalities.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+#### FLAM3HUSD v0.1.40 - Beta ####
+
+- **Fix**: This is now officially and internally marked as: Beta
+- **Fix**: Less invasive on_create actions.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+<br>
+<br>
+
+
 ### From v1.7.01 ###
 
-- **Fix**: Fixed a rare Xaos bug on Flame load introduced with the preview version: v1.7.00 - It was sometime setting the first xaos value on the first iterator to '0'(Zero) when all Xaos values were supposed to be '1'(One).
+- **Fix**: Fixed a rare Xaos bug on Flame load introduced with the preview version: [**v1.7.00**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.00) - It was sometime setting the first xaos value on the first iterator to '0'(Zero) when all Xaos values were supposed to be '1'(One).
 
 
 <br>

@@ -23,7 +23,7 @@ import hou
 #               Everything is then glued together inside Houdini.
 
 
-FLAM3HUSD_VERSION = '0.1.36'
+FLAM3HUSD_VERSION = '0.1.40'
 FLAM3HUSD_VERSION_STATUS_BETA = " - Beta"
 
 
@@ -56,6 +56,7 @@ PREFS_KARMA_F3H_SHADER_VALUE = 'f3h_hsv_v'
 PREFS_PVT_FLAM3HUSD_DATA_DISABLED = 'disabled'
 PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID = 'f3h_valid'
 PREFS_PVT_FLAM3HUSD_DATA_H190 = 'h_19_0'
+
 
 # Messages
 MSG_FLAM3HUSDABOUT = 'flam3husdabout_msg'
@@ -321,36 +322,37 @@ class flam3husd_scripts
                 
         if renderers:
             
-            _RND = ''
+            _RND = None
             for r in renderers:
                 # Karma has the priority
-                if flam3husd_general_utils.karma_hydra_renderer_name() in r: _RND = flam3husd_general_utils.karma_hydra_renderer_name()
-                elif "Houdini" in r: _RND = 'Houdini GL'
+                if flam3husd_general_utils.karma_hydra_renderer_name() in r:
+                    _RND = flam3husd_general_utils.karma_hydra_renderer_name()
+                    break
+                elif "Houdini" in r: 
+                    _RND = 'Houdini GL'
+                    break
+                else:
+                    pass
             
-            if _RND:
-                
-                _RND_idx: dict =    {'Houdini GL': 0,
-                                    flam3husd_general_utils.karma_hydra_renderer_name(): 1
-                                    }
+            if _RND is not None:
                 
                 instances = node.type().instances()
                 
                 if len(instances)>1:
                     
                     for v in views:
+                        # Set only if it is a Lop viewer
+                        if flam3husd_general_utils.util_is_context('Lop', v):
                         
-                            # Set only if it is a Lop viewer
-                            if flam3husd_general_utils.util_is_context('Lop', v):
+                            # Sync FLAM3HUSD nodes
+                            for n in instances:
+                                if n != node:
+                                    idx = n.parm(PREFS_VIEWPORT_RENDERER).eval()
+                                    node.setParms({PREFS_VIEWPORT_RENDERER: idx}) # type: ignore
+                                    flam3husd_general_utils.flash_message(flam3husd_general_utils.in_get_dict_key_from_value(flam3husd_general_utils.flam3husd_hydra_renderers_dict(), idx))
+                                    break
                             
-                                # Sync FLAM3HUSD nodes
-                                for n in instances:
-                                    if n != node:
-                                        idx = n.parm(PREFS_VIEWPORT_RENDERER).eval()
-                                        node.setParms({PREFS_VIEWPORT_RENDERER: idx}) # type: ignore
-                                        flam3husd_general_utils.flash_message(flam3husd_general_utils.in_get_dict_key_from_value(_RND_idx, idx))
-                                        break
-                                
-                            else: pass
+                        else: pass
                         
                         
                         
@@ -480,6 +482,25 @@ class flam3husd_general_utils
         karma_name = 'Karma CPU'
         if flam3husd_general_utils.houdini_version() < 20: karma_name = 'Karma'
         return karma_name
+
+
+
+    @staticmethod
+    def flam3husd_hydra_renderers_dict() -> dict:
+        """Return a dictionary with the available renderer as the keys
+        and their renderer menu parameter index as the values.
+        
+        Args:
+            (None):
+            
+        Returns:
+            (str): [Return the internal hydra renderer name for Karma.]
+        """    
+        _RND_idx: dict =    {'Houdini GL': 0,
+                            flam3husd_general_utils.karma_hydra_renderer_name(): 1
+                            }
+        
+        return _RND_idx
 
 
 
