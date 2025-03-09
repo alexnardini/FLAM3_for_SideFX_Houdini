@@ -15543,7 +15543,7 @@ class out_flame_utils
                         else:
                             # Otherwise use the safer version.
                             # This is used every time we add or remove an iterator or when loading Flames with different iterator's count than what we currently have.
-                            _xaos_strip = [str(float(str(x).strip())) if float(str(x).strip()) >= 0 else '1' for x in strip[1:iter_count+1] if x]
+                            _xaos_strip = [str(float(str(x).strip())) if float(str(x).strip()) >= 0 else '1' for x in _xaos if x]
                             
                         val.append([float(x.strip()) for x in _xaos_strip])
                         
@@ -15568,7 +15568,7 @@ class out_flame_utils
                 else:
 
                     isNUM = False
-                    iter_xaos_clean: str = in_flame.xf_val_cleanup_str(iter_xaos, '@')
+                    iter_xaos_clean: str = in_flame.xf_val_cleanup_str(iter_xaos, '@') # default_val here is set to an invalid char to make it fail on putpose if needed
                     
                     try:
                         if isinstance(float(iter_xaos_clean), float):
