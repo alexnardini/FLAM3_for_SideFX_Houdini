@@ -413,7 +413,7 @@ class flam3husd_general_utils
 * util_store_all_viewers_color_scheme(self) -> None:
 * colorSchemeDark(self, update_others: bool=True) -> None:
 * viewportParticleDisplay(self) -> None:
-* viewportParticleSize(self, reset_val: Union[float, None]=None) -> None:
+* viewportParticleSize(self, reset_val: Union[float, None]=None, prm_name_size: str=PREFS_VIEWPORT_PT_SIZE) -> None:
 * setHydraRenderer(self) -> None:
 * reset_flam3h_shader(self) -> None:
 * flam3husd_display_help(self) -> None:
