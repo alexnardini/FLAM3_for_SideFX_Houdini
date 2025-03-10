@@ -74,7 +74,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.7.04'
+FLAM3H_VERSION = '1.7.07'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -1738,7 +1738,6 @@ class flam3h_general_utils
     def flash_message(node: hou.SopNode, msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None) -> None:
         """Cause a message to appear on the top left of the network editor.
         This will work either in Sop and Lop context as it is handy to get those messages either ways. 
-        FLAM3HUSD flash messages are for now limited to the Lop context only.
 
         Args:
             node(hou.SopNode): the current FLAM3H node.
@@ -1930,7 +1929,7 @@ class flam3h_general_utils
 
     @staticmethod
     def util_is_context_available_viewer(context: str) -> bool:
-        """Return if a viewer belong to a desired context.
+        """Return if there are viewers that belong to a desired context.
         
         Args:
             context(str): The context we want to check if we are currently in. Options so far are: 
@@ -1938,7 +1937,7 @@ class flam3h_general_utils
                 * Lop: str
             
         Returns:
-            (bool): [True if a viewer belong to a desired context or False if not.]
+            (bool): [True if there is at least one viewer that belong to a desired context or False if not.]
         """    
         available = False
         for v in flam3h_general_utils.util_getSceneViewers():
@@ -1951,7 +1950,7 @@ class flam3h_general_utils
     
     @staticmethod
     def util_is_context_available_network_editor(context: str) -> bool:
-        """Return if a network editor belong to a desired context.
+        """Return if there are network editors that belong to a desired context.
         
         Args:
             context(str): The context we want to check if we are currently in. Options so far are: 
@@ -1959,7 +1958,7 @@ class flam3h_general_utils
                 * Lop: str
             
         Returns:
-            (bool): [True if a viewer belong to a desired context or False if not.]
+            (bool): [True if there is at least one NetworkEditor that belong to a desired context or False if not.]
         """    
         available = False
         for v in flam3h_general_utils.util_getNetworkEditors():
@@ -2438,7 +2437,7 @@ class flam3h_general_utils
                         node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                         _MSG = f"No Sop viewers available."
                         self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Camera Sensor to work.", 'WARN')
-                        self.flash_message(node, f"Sensor Viz: {_MSG}")
+                        self.flash_message(node, f"{_MSG}")
                         
                     return False
                     
@@ -2535,7 +2534,7 @@ class flam3h_general_utils
                         self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                         _MSG = f"No Sop viewers available."
                         self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Sensor Viz to work.", 'WARN')
-                        self.flash_message(node, f"Sensor Viz: {_MSG}")
+                        self.flash_message(node, f"{_MSG}")
                         
                     return False
                 
@@ -2549,7 +2548,7 @@ class flam3h_general_utils
                 
                 _MSG = f"No Sop viewers available."
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Sensor Viz to work.", 'WARN')
-                self.flash_message(node, f"Sensor Viz: {_MSG}")
+                self.flash_message(node, f"{_MSG}")
                 return False
             
         return False
@@ -2769,7 +2768,7 @@ class flam3h_general_utils
                 flam3h_general_utils.set_private_prm(node, prm_name, 0)
                 _MSG = f"No Sop viewers available."
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the xforms handles VIZ to work.", 'WARN')
-                self.flash_message(node, f"XF VIZ: {_MSG}")
+                self.flash_message(node, f"{_MSG}")
                 
     
     
@@ -3470,7 +3469,7 @@ class flam3h_general_utils
                     
                     _MSG = f"No Sop viewers available."
                     self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer to either set to Dark or restore.", 'WARN')
-                    self.flash_message(node, f"Dark: {_MSG}")
+                    self.flash_message(node, f"{_MSG}")
                     
             else:
                 
@@ -3515,7 +3514,7 @@ class flam3h_general_utils
             
             _MSG = f"No Sop viewers available."
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer to either set to Dark or restore.", 'WARN')
-            self.flash_message(node, f"Dark: {_MSG}")
+            self.flash_message(node, f"{_MSG}")
             
             
         if update_others:
@@ -3559,7 +3558,12 @@ class flam3h_general_utils
         if len(all_f3h) > 1:
             [f3h.parm(PREFS_VIEWPORT_PT_TYPE).deleteAllKeyframes() for f3h in node.type().instances()]
             [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
-                
+            
+        # This here for now because I still need to update the instances
+        if self.util_is_context_available_viewer('Sop') is False:
+            _MSG = f"No Sop viewers available."
+            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for this option to work.", 'WARN')
+            self.flash_message(node, f"{_MSG}")
     
     
     def viewportParticleSize(self, reset_val: Union[float, None]=None) -> None:
@@ -3598,7 +3602,14 @@ class flam3h_general_utils
             [f3h.parm(PREFS_VIEWPORT_PT_SIZE).deleteAllKeyframes() for f3h in node.type().instances()]
             [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in node.type().instances() if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
 
-
+        # This here for now because I still need to update the instances
+        if self.util_is_context_available_viewer('Sop') is False:
+            _MSG = f"No Sop viewers available."
+            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for this option to work.", 'WARN')
+            self.flash_message(node, f"{_MSG}")
+            
+            
+            
 
     def viewportWireWidth(self, reset_val: Union[float, None]=None) -> None:
         """When the viewport handle VIZ is ON
@@ -3636,7 +3647,13 @@ class flam3h_general_utils
         [f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).deleteAllKeyframes() for f3h in node.type().instances()]
         [f3h.setParms({PREFS_VIEWPORT_WIRE_WIDTH: width}) for f3h in node.type().instances() if f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).eval() != width]
     
-
+        # This here for now because I still need to update the instances
+        if self.util_is_context_available_viewer('Sop') is False:
+            _MSG = f"No Sop viewers available."
+            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for this option to work.", 'WARN')
+            self.flash_message(node, f"{_MSG}")
+            
+            
             
             
     def reset_SYS(self, density: int, iter: int, mode: int) -> None:

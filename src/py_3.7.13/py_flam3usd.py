@@ -23,7 +23,7 @@ import hou
 #               Everything is then glued together inside Houdini.
 
 
-FLAM3HUSD_VERSION = '0.1.40'
+FLAM3HUSD_VERSION = '0.1.45'
 FLAM3HUSD_VERSION_STATUS_BETA = " - Beta"
 
 
@@ -42,6 +42,7 @@ LIST OF CLASSES:
 
 
 PREFS_FLAM3H_PATH = 'flam3hpath'
+PREFS_FLAM3H_WIDTHS = 'widths'
 PREFS_VIEWPORT_RENDERER = 'rndtype'
 PREFS_VIEWPORT_PT_TYPE = 'vptype'
 PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
@@ -403,7 +404,8 @@ class flam3husd_general_utils
 * houdini_version(digit: int=1) -> int:
 * util_getSceneViewers() -> list:
 * util_is_context(context: str, viewport: hou.paneTabType) -> bool:
-* flash_message(msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None, context: str='Lop') -> None:
+* util_is_context_available_viewer(context: str) -> bool:
+* flash_message(msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None) -> None:
 * set_status_msg(msg: str, type: str) -> None:
 
 @METHODS
@@ -549,25 +551,44 @@ class flam3husd_general_utils
         context_now: hou.NodeTypeCategory = hou.ui.findPaneTab(viewport.name()).pwd().childTypeCategory() # type: ignore
         if str(context_now.name()).lower() == context.lower(): return True
         else: return False
+
+
+
+    @staticmethod
+    def util_is_context_available_viewer(context: str) -> bool:
+        """Return if there are viewers that belong to a desired context.
+        
+        Args:
+            context(str): The context we want to check if we are currently in. Options so far are: 
+                * Sop: str
+                * Lop: str
+            
+        Returns:
+            (bool): [True if there is at least one viewer that belong to a desired context or False if not.]
+        """    
+        available = False
+        for v in flam3husd_general_utils.util_getSceneViewers():
+            if flam3husd_general_utils.util_is_context(context, v):
+                available = True
+                break
+        return available
         
     
-    
     @staticmethod
-    def flash_message(msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None, context: str='Lop') -> None:
+    def flash_message(msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None) -> None:
         """Cause a message to appear on the top left of the network editor.
-        Will only work if the network editors are within the Lop context.
+        This will work either in Sop and Lop context as it is handy to get those messages either ways. 
 
         Args:
             msg(Union[str, None]): The string message to print or None.
             timer(float): Default to: FLAM3H_FLASH_MESSAGE_TIMER. How long the printed message stay before it fade away.
             img(Union[str, None]): Default to none. specifies an icon or image file that should be displayed along with the text specified in the msg argument.
-            context(str): Default to: "Lop". The context the network editors need to belong to in order to display the message.
 
         Returns:
             (None):
         """  
         if hou.isUIAvailable():
-            [ne.flashMessage(img, msg, timer) for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor and flam3husd_general_utils.util_is_context(context, p)]] # type: ignore
+            [ne.flashMessage(img, msg, timer) for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]] # type: ignore
 
         
         
@@ -818,6 +839,12 @@ class flam3husd_general_utils
         all_f3h = node.type().instances()
         if len(all_f3h) > 1:
             [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
+            
+        # This here for now because I still need to update the instances
+        if self.util_is_context_available_viewer('Lop') is False:
+            _MSG = f"No Lop viewers available."
+            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
+            self.flash_message(f"{_MSG}")
 
             
             
@@ -859,6 +886,12 @@ class flam3husd_general_utils
             [f3h.parm(prm_name_size).deleteAllKeyframes() for f3h in node.type().instances()]
             [f3h.setParms({prm_name_size: ptsize}) for f3h in node.type().instances() if f3h.parm(prm_name_size).eval() != ptsize]
             
+        # This here for now because I still need to update the instances
+        if self.util_is_context_available_viewer('Lop') is False:
+            _MSG = f"No Lop viewers available."
+            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
+            self.flash_message(f"{_MSG}")
+            
 
 
 
@@ -886,25 +919,28 @@ class flam3husd_general_utils
                     if rndtype == 0:
                         _RND = 'Houdini GL'
                         hou.SceneViewer.setHydraRenderer(view, _RND)
-                        # Sync FLAM3HUSD nodes
-                        [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
                         self.flash_message(_RND)
                         
                     elif rndtype == 1:
                         _RND = self.karma_hydra_renderer_name()
                         hou.SceneViewer.setHydraRenderer(view, _RND)
-                        # Sync FLAM3HUSD nodes
-                        [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
                         self.flash_message(_RND)
                         
                     '''
                     elif rndtype == 3:
                         hou.SceneViewer.setHydraRenderer(view, 'Storm')
-                        # Sync FLAM3HUSD nodes
-                        [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
                     '''
                     
                 else: pass
+                
+        # Sync FLAM3HUSD nodes
+        [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
+        
+        # This here for now because I still need to update the instances
+        if self.util_is_context_available_viewer('Lop') is False:
+            _MSG = f"No Lop viewers available."
+            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
+            self.flash_message(f"{_MSG}")
                         
                     
                     

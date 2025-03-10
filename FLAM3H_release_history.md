@@ -10,6 +10,26 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### <ins>From v1.7.07</ins> ###
+
+#### FLAM3H ####
+
+- **Fix**: Reinforced context aware options and messages.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+#### FLAM3HUSD v0.1.45 - Beta ####
+
+- **Fix**: Reinforced context aware options and messages.
+- **Fix**: New icons.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+<br>
+<br>
+
+
 ### <ins>From v1.7.04</ins> ###
 
 #### FLAM3H ####
