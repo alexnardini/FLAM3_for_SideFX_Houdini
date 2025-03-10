@@ -18,6 +18,22 @@ _Currently, FLAM3HUSD rely entirely on Karma CPU_.
 _*This version is only compatible with FLAM3H v1.6.97 or higher.*_
 
 
+@Badges
+
+This documentation adopt the use of badges to signal some parameter's types and their scope.
+
+_Below a list of the currently adopted badges and their meaning_:
+
+- [Icon:BUTTONS/pane_menu] it is either a menu or a mini-menu.
+
+- [Icon:DATATYPES/boolean] it is a toggle.
+
+- [Icon:DATATYPES/string] it is a string.
+
+- [Icon:opdef:.?icon_optionStarBlueSVG.svg] it is a tip/information.
+
+_Note that some parameters may use one or more of those badges_.
+
 
 @parameters FLAM3HUSD Tabs parameters
 
@@ -37,7 +53,7 @@ FLAM3HUSD documentation:
     Display this documentation.
 
 
-FLAM3H SOP path:
+FLAM3H SOP path [Icon:DATATYPES/string]:
     #id: IMPORT
     Path to the FLAM3H node to be imported inside Solaris.
     A default path is already provided to import the default first FLAM3H node name. Change this as needed.
@@ -60,7 +76,7 @@ FLAM3H SOP path:
     
     == Viewport == (OPTIONS)
     
-dark:
+dark [Icon:DATATYPES/boolean]:
     #id: PREFS
     If it isn't already, change the viewport's color scheme to dark.
     If unchecked, it will remember the color scheme for every viewport and fall back on it.
@@ -69,7 +85,7 @@ dark:
     [Icon:NETWORKS/lop] *Context aware*<br />
     - This option is context aware, and it will function only if a Lop viewer is available.
     
-renderer:
+renderer [Icon:BUTTONS/pane_menu]:
     #id: PREFS
     Select from a variety of Hydra renderers.
 
@@ -87,7 +103,7 @@ force renderer:
     
     == Renderer: GL == (OPTIONSGL)
     
-display:
+display [Icon:BUTTONS/pane_menu]:
     #id: PREFS
     Either points or pixels should be selected for the viewport particle display mode.
 
@@ -137,15 +153,15 @@ Reset pixel samples:
     
     - ((LMB)) to reset the pixel samples to a default of *`128`*.
     
-denoiser:
+denoiser [Icon:BUTTONS/pane_menu]:
     #id: PREFS
     Options to choose from the available Karma denoisers.
 
-FLAM3H Shader:
+use FLAM3H Shader [Icon:DATATYPES/boolean]:
     #id: PREFS
     Use a MaterialX Shader that will allow to change Gamma and HSV values on the fly.
 
-Reset FLAM3H Shader:
+Reset FLAM3H Shader parms:
     #id: PREFS
     [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
     
