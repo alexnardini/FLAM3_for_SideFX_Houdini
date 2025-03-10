@@ -326,8 +326,9 @@ class flam3husd_scripts
             _RND = None
             for r in renderers:
                 # Karma has the priority
-                if flam3husd_general_utils.karma_hydra_renderer_name() in r:
-                    _RND = flam3husd_general_utils.karma_hydra_renderer_name()
+                _karma_name = flam3husd_general_utils.karma_hydra_renderer_name()
+                if _karma_name in r:
+                    _RND = _karma_name
                     break
                 elif "Houdini" in r: 
                     _RND = 'Houdini GL'
