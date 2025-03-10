@@ -12,13 +12,13 @@ They are all available in this github repository.</br>
 
 ### <ins>From v1.7.04</ins> ###
 
-#### FLAM3H</ins> ####
+#### FLAM3H ####
 
 - **Fix**: Better messages for contex aware functionalities.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.40 - Beta</ins> ####
+#### FLAM3HUSD v0.1.40 - Beta ####
 
 - **Fix**: This is now officially and internally marked as: Beta
 - **Fix**: Less invasive on_create actions.
@@ -41,7 +41,7 @@ They are all available in this github repository.</br>
 
 ### <ins>From v1.7.00</ins> ###
 
-#### FLAM3H</ins> ####
+#### FLAM3H ####
 
 - **New**: Xaos command string: typo checking, auto-corrections and undos. Retrieve from history can now retrieve single and multiple entries instead of the entire Xaos string for the selected iterator.
 - **New**: Xaos command string: you can now type a single floating point value to fill all entries with it (before you could only type integers).
@@ -58,7 +58,7 @@ They are all available in this github repository.</br>
 
 ### <ins>From v1.6.97</ins> ###
 
-#### FLAM3H</ins> ####
+#### FLAM3H ####
 
 - **Fix**: Post affine xform handle viz offset segment is now properly cast as: **polyline** instead of **poly**.
 - **Fix**: Post affine xform handle viz offset segment is now properly positioned in the same plane as the main handle.
@@ -67,7 +67,7 @@ They are all available in this github repository.</br>
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.35</ins> ####
+#### FLAM3HUSD v0.1.35 ####
 
 - **New**: With Houdini versions higher than 19.0.x you can now import and render the xforms handles viz using Karma.
 - **New**: Addded checking for the validity of the imported FLAM3H node.
@@ -83,7 +83,7 @@ They are all available in this github repository.</br>
 
 _This update is all about FLAM3HUSD._
 
-#### FLAM3HUSD v0.1.25</ins> ####
+#### FLAM3HUSD v0.1.25 ####
 
 - **New**: Added validity check for the imported FLAM3H node.
 - **New**: Added action button to reset the Widths parameter to its default value.
@@ -103,7 +103,7 @@ _This update is all about FLAM3HUSD._
 
 ### <ins>From v1.6.90</ins> ###
 
-#### FLAM3H</ins> ####
+#### FLAM3H ####
 
 - **New**: Camera Sensor viz and xforms handles viz now check each available viewer's type before performing any operations. If any of the viewers is in **Lop** context it will be ignored.
 - **Fix**: Xforms handles viz wire settings will now only affect viewers belonging to the **Sop** context. 
@@ -112,7 +112,7 @@ _This update is all about FLAM3HUSD._
 - **Fix**: Dark mode will now only affect viewers belonging to the **Sop** context. 
 
 
-#### FLAM3HUSD v0.1.15</ins> ####
+#### FLAM3HUSD v0.1.15 ####
 
 - **Fix**: Python code has been structured the same as the big brother FLAM3H so to facilitate future updates.
 - **Fix**: Viewport preferences point type will now only affect viewers belonging to the **Lop** context. 
@@ -128,13 +128,13 @@ _This update is all about FLAM3HUSD._
 
 ### <ins>From v1.6.84</ins> ###
 
-#### FLAM3H</ins> ####
+#### FLAM3H ####
 
 - **New**: FLAM3H will now check if the user is in Solaris/LOP context or not prior to activate the Camera Sensor mode.
 - **Fix**: Motion blur viz was not working. (a regression from preview version: v1.6.82)
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.0</ins> ####
+#### FLAM3HUSD v0.1.0 ####
 
 _This simple utility node got an upgrade._
 
@@ -2260,7 +2260,7 @@ _Will update once H20 release._
 
 ### <ins>From v0.7.7c3</ins> ###
 
-Removed some leftover variables from variation.h and fixed an else statement inside genome.h
+- Removed some leftover variables from variation.h and fixed an else statement inside genome.h
 
 
 <br>
@@ -2269,7 +2269,7 @@ Removed some leftover variables from variation.h and fixed an else statement ins
 
 ### <ins>From v0.7.7c2</ins> ###
 
-Fixed Final Flame transform POST affine not being used.
+- Fixed Final Flame transform POST affine not being used.
 
 
 <br>
@@ -2278,10 +2278,10 @@ Fixed Final Flame transform POST affine not being used.
 
 ### <ins>From v0.7.7c</ins> ###
 
-Color mode now in line with Apophysis and the other ( uses Color Location and Blend Speed).
-To test it out I replicated a preset from Chaotica software inside Houdini.
-This was one of Chaotica's preset I loved the most and kept it as my milestone. Gloriously rendered with Mantra.
-Added new presets file to play with, include the Chaotica's match preset as well.
+- Color mode now in line with Apophysis and the other ( uses Color Location and Blend Speed).
+   To test it out I replicated a preset from Chaotica software inside Houdini.
+   This was one of Chaotica's preset I loved the most and kept it as my milestone. Gloriously rendered with Mantra.
+   Added new presets file to play with, include the Chaotica's match preset as well.
 
 
 <br>
@@ -2290,7 +2290,7 @@ Added new presets file to play with, include the Chaotica's match preset as well
 
 ### <ins>From v0.7.6</ins> ###
 
-Affine coefficients now have the same layout as Apophysis software. Improved genomeParametricBuild() function. New Presets file, override the old one ( back it up first ) as the UI layout as changed. Overall is ~10% faster.
+- Affine coefficients now have the same layout as Apophysis software. Improved genomeParametricBuild() function. New Presets file, override the old one ( back it up first ) as the UI layout as changed. Overall is ~10% faster.
 
 
 <br>
@@ -2299,8 +2299,8 @@ Affine coefficients now have the same layout as Apophysis software. Improved gen
 
 ### <ins>From v0.7.5d</ins> ###
 
-Fixed POST affine and faster first node instance creation time
+- Fixed POST affine and faster first node instance creation time
 
 
 
-_...plus many more from when I first started and this project was not on GitHub yet._
+_ ...plus many more from when I first started and this project was not on GitHub yet._
