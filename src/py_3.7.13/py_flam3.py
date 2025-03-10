@@ -16720,6 +16720,7 @@ class out_flame_utils
         
         This is being added to have some sort of history/backup some how.
         Will probably never be used but it is something more to have in any case.
+        This data is cleared every time a FLAM3H node is being created.
 
         Args:
             (self):
