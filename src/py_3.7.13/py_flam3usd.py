@@ -433,14 +433,13 @@ class flam3husd_general_utils
     @staticmethod
     def in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
         """Get the dictionary key from the dictionary value.
-        Used to get the current variation string name from its index from the global dict: VARS_FLAM3_DICT_IDX
 
         Args:
             mydict(dict): The dictionary for lookup
-            idx(int): The variation index to retrieve its string name from.
+            idx(int): The index to retrieve its key from.
 
         Returns:
-            (str): The variation string name.
+            (str): The key string.
         """       
         var_name = list(mydict.keys())[list(mydict.values()).index(idx)] 
         return var_name
@@ -1017,24 +1016,27 @@ class flam3husd_about_utils
         flam3husd_houdini_version = f"VERSION: {FLAM3HUSD_VERSION}{FLAM3HUSD_VERSION_STATUS_BETA} :: (GPL)"
         Implementation_years = f"2023/{year}"
         Implementation_build = f"AUTHOR: Alessandro Nardini ( Italy )\n{flam3husd_houdini_version}\nCODE: vex H19.x.x, py 3.7.13\n{Implementation_years}"
-
-        h_version = '.'.join(str(x) for x in hou.applicationVersion())
-        Houdini_version = f"HOST:\nSideFX Houdini {h_version}"
-        Python_version = f"Python: {python_version()}"
-        license_type = str(hou.licenseCategory()).split(".")[-1]
-        Houdini_license = f"License: {license_type}"
-        Platform = f"Platform: {hou.applicationPlatformInfo()}"
-        PC_name = f"Machine name: {hou.machineName()}"
-        User = f"User: {hou.userName()}"
         
-        build = (Implementation_build, nnl,
-                Houdini_version, nl,
-                Houdini_license, nl,
-                Python_version, nl,
-                Platform, nl,
-                PC_name, nl,
-                User
+        build = (Implementation_build, nl
                 )
+
+        # h_version = '.'.join(str(x) for x in hou.applicationVersion())
+        # Houdini_version = f"HOST:\nSideFX Houdini {h_version}"
+        # Python_version = f"Python: {python_version()}"
+        # license_type = str(hou.licenseCategory()).split(".")[-1]
+        # Houdini_license = f"License: {license_type}"
+        # Platform = f"Platform: {hou.applicationPlatformInfo()}"
+        # PC_name = f"Machine name: {hou.machineName()}"
+        # User = f"User: {hou.userName()}"
+        
+        # build = (Implementation_build, nnl
+        #         Houdini_version, nl,
+        #         Houdini_license, nl,
+        #         Python_version, nl,
+        #         Platform, nl,
+        #         PC_name, nl,
+        #         User
+        #         )
         
         build_about_msg = "".join(build)
 

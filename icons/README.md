@@ -239,6 +239,18 @@ It is an ongoing effort and they have been regularly updated and improved even t
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_rendererKarmaPropertiesSVG.svg" /></p>
+<p align="center">icon_rendererKarmaPropertiesSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_rendererMenuSVG.svg" /></p>
+<p align="center">icon_rendererMenuSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_TagOBlueMenuBigSVG.svg" /></p>
 <p align="center">icon_TagOBlueMenuBigSVG.svg</p>
 <p align="center">.</p>

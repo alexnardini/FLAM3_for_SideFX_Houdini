@@ -78,7 +78,7 @@ renderer:
 
 force renderer:
     #id: PREFS
-    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    [Largeicon:opdef:.?icon_rendererMenuSVG.svg]
     
     - ((LMB)) to force all Lop viewers to be set to the selected renderer.
     
@@ -133,7 +133,7 @@ pixel samples:
 
 Reset pixel samples:
     #id: PREFS
-    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
     
     - ((LMB)) to reset the pixel samples to a default of *`128`*.
     
@@ -147,7 +147,7 @@ FLAM3H Shader:
 
 Reset FLAM3H Shader:
     #id: PREFS
-    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
     
     - ((LMB)) to reset the FLAM3H Shader to its default values.
     
