@@ -1011,32 +1011,19 @@ class flam3husd_about_utils
         
         nl = "\n"
         nnl = "\n\n"
-
+        
         year = datetime.now().strftime("%Y")
-        flam3husd_houdini_version = f"VERSION: {FLAM3HUSD_VERSION}{FLAM3HUSD_VERSION_STATUS_BETA} :: (GPL)"
+        flam3h_author = f"AUTHOR: F stands for liFe ( made in Italy )"
+        flam3h_cvex_version = f"CODE: vex H19.x.x"
+        hou_version = flam3husd_general_utils.houdini_version()
+        if hou_version >= 19: flam3h_cvex_version = f"CODE: vex H{str(hou_version)}.x.x"
+        flam3h_python_version = f"py 3.7.13"
+        flam3h_houdini_version = f"VERSION: {FLAM3HUSD_VERSION}{FLAM3HUSD_VERSION_STATUS_BETA} :: (GPL)"
         Implementation_years = f"2023/{year}"
-        Implementation_build = f"AUTHOR: Alessandro Nardini ( Italy )\n{flam3husd_houdini_version}\nCODE: vex H19.x.x, py 3.7.13\n{Implementation_years}"
+        Implementation_build = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{Implementation_years}"
         
         build = (Implementation_build, nl
                 )
-
-        # h_version = '.'.join(str(x) for x in hou.applicationVersion())
-        # Houdini_version = f"HOST:\nSideFX Houdini {h_version}"
-        # Python_version = f"Python: {python_version()}"
-        # license_type = str(hou.licenseCategory()).split(".")[-1]
-        # Houdini_license = f"License: {license_type}"
-        # Platform = f"Platform: {hou.applicationPlatformInfo()}"
-        # PC_name = f"Machine name: {hou.machineName()}"
-        # User = f"User: {hou.userName()}"
-        
-        # build = (Implementation_build, nnl
-        #         Houdini_version, nl,
-        #         Houdini_license, nl,
-        #         Python_version, nl,
-        #         Platform, nl,
-        #         PC_name, nl,
-        #         User
-        #         )
         
         build_about_msg = "".join(build)
 
