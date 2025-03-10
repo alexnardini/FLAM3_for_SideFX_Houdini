@@ -5,7 +5,7 @@
 #internal: FLAM3HUSD
 #version: 0.1.40 - Beta
 
-"""Simple utility node to quickly setup fractal flames point clouds in Solaris."""
+"""Simple utility node to quickly render FLAM3H fractal flames in Solaris."""
 
 == Welcome to FLAM3HUSD for SideFX Houdini ==
 
