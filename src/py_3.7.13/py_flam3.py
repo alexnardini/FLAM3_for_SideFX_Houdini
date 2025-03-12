@@ -3467,9 +3467,10 @@ class flam3h_general_utils
                 else:
                     prm.set(0)
                     
-                    _MSG = f"No Sop viewers available."
-                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer to either set to Dark or restore.", 'WARN')
-                    self.flash_message(node, f"{_MSG}")
+                    if not hou.hipFile.isLoadingHipFile(): # type: ignore
+                        _MSG = f"No Sop viewers available."
+                        self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer to either set to Dark or restore.", 'WARN')
+                        self.flash_message(node, f"{_MSG}")
                     
             else:
                 
