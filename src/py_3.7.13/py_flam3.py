@@ -14531,7 +14531,7 @@ class in_flame_utils
                 # BUILD XFVIZ if needed
                 flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
                 # Store the loaded Flame preset into the FLAM3H node data storage
-                out_flame_utils(self.kwargs).out_userData_XML_last_loaded()
+                node.setUserData(FLAM3H_USER_DATA_XML_LAST, lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")) # type: ignore
                 
             else:
                 if attempt_from_clipboard: _MSG = "Flame IN Clipboard: The loaded Flame preset have 0(Zero) xforms/iterators. SKIPPED"
@@ -16739,6 +16739,9 @@ class out_flame_utils
         This is being added to have some sort of history/backup some how.
         Will probably never be used but it is something more to have in any case.
         This data is cleared every time a FLAM3H node is being created.
+        
+        It is now not used as I am storing the loaded flame directly from inside: def in_to_flam3h(self) -> None:
+        I leave this definition here as it is handy to save the flame out on the fly and store it as this fuction does already.
 
         Args:
             (self):
