@@ -751,9 +751,9 @@ class flam3husd_general_utils
                     prm.set(0)
                     
                     if not hou.hipFile.isLoadingHipFile(): # type: ignore
-                        _MSG = f"No Lop viewers in the current Houdini Desktop."
+                        _MSG = f"No Lop viewers available."
                         self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer to either set to Dark or restore.", 'WARN')
-                        self.flash_message(f"Dark: {_MSG}")
+                        self.flash_message(f"{_MSG}")
                     
                     
             else:
