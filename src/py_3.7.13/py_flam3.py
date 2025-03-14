@@ -4938,27 +4938,36 @@ class flam3h_iterator_utils
                 
                 if xml and inisvalidfile and inisvalidpreset and not clipboard:
                     
-                    preset_id: int = int(node.parm(IN_PRESETS).eval())
-
-                    # Backup the current data before attempting an update
-                    # old_data = node.userData(FLAM3H_USER_DATA_XML_LAST)
-                    
                     # Get the now data
+                    preset_id: int = int(node.parm(IN_PRESETS).eval())
                     apo_data = in_flame_iter_data(node, xml, preset_id)
                     if apo_data.isvalidtree:
-                        # Update/Store into the FLAM3H node data storage
-                        node.setUserData(FLAM3H_USER_DATA_XML_LAST, lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")) # type: ignore
-                        # Update flame stats
-                        node.setParms({MSG_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, clipboard)}) # type: ignore
-                        node.setParms({MSG_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
-                        node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
+                        
+                        old_data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+                        now_data = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode") # type: ignore
+                        if old_data is not None and old_data != now_data:
+                        
+                            # Update user data
+                            node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
+                            # Update flame stats
+                            node.setParms({MSG_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, clipboard)}) # type: ignore
+                            node.setParms({MSG_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
+                            node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
+                            
+                            # Let the user know
+                            _MSG = f"\"XML_last_loaded\" user data: Updated\n\tThe currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\n\thas been modified on disk. Reload the preset to update.\n\t-> Meanwhile, the IN flame preset infos have been updated."
+                            print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
+                            
+                        else:
+                            if old_data is None:
+                                
+                                _MSG = f"\"XML_last_loaded\" user data: Corrupted"
+                                print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
                     
                     else:
                         # Fire messages
-                        _MSG = f"XML last loaded: Failed to update"
+                        _MSG = f"\"XML_last_loaded\" user data: Failed"
                         print(f"{node.name()}: {_MSG}.")
-                        # flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}.", 'WARN')
-                        # flam3h_general_utils.flash_message(node, _MSG)
             
 
 
