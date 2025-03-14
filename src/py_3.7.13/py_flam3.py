@@ -4938,7 +4938,7 @@ class flam3h_iterator_utils
                 
                 if xml and inisvalidfile and inisvalidpreset and not clipboard:
                     
-                    # Get the now data
+                    # Build the apo data
                     preset_id: int = int(node.parm(IN_PRESETS).eval())
                     apo_data = in_flame_iter_data(node, xml, preset_id)
                     if apo_data.isvalidtree:
