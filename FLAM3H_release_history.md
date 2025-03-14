@@ -10,6 +10,26 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### <ins>From v1.7.12</ins> ###
+
+#### FLAM3H ####
+
+- **New**: Copy/paste of the Sensor and Render settings data now work also when a Flame preset has been loaded from the clipboard.
+- **New**: In case of hand made modifications to the loaded XML Flame preset file, some of the FLAM3H UI toggles will now also force an updated of the IN Flame stats infos.
+- **Fix**: Suppressed some flash messages firing on hip file load.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+#### FLAM3HUSD v0.1.48 - Beta ####
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+<br>
+<br>
+
+
 ### <ins>From v1.7.07</ins> ###
 
 #### FLAM3H ####

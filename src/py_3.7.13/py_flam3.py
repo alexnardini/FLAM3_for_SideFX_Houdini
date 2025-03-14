@@ -74,7 +74,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.7.07'
+FLAM3H_VERSION = '1.7.12'
 FLAM3H_VERSION_STATUS_BETA = " - Beta"
 FLAM3H_VERSION_STATUS_GOLD = " - Gold"
 
@@ -1388,6 +1388,8 @@ class flam3h_scripts
         # Remove any comment and user data from the node
         flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
         flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
+        # This is already destroyed inside: flam3h_iterator_utils(self.kwargs).flam3h_default()
+        # But I keep it for now in case a make some changes later on
         flam3h_iterator_utils.destroy_userData(node, FLAM3H_USER_DATA_XML_LAST)
         
         # OUT render curves reset and set
@@ -1396,7 +1398,7 @@ class flam3h_scripts
         # Clear menu caches
         # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
         # (ex. the user perform hand made modifications like renaming a Preset and such).
-        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
+        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True, False)
         
         # lock private parameters not being locked on creation by other definitions.
         self.flam3h_on_create_lock_parms(node)
@@ -2329,7 +2331,7 @@ class flam3h_general_utils
             * def flam3h_outsensor_toggle(self, prm_name: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
             * def iterators_count(self) -> None:
             * def util_viewport_bbox_frame(self) -> None:
-            * def in_copy_render_all_stats_msg(kwargs: dict, clipboard: bool=False, apo_data: Union[in_flame_iter_data, None]=None) -> None:
+            * def in_copy_render_all_stats_msg(kwargs: dict,  apo_data: Union[in_flame_iter_data, None]=None, clipboard: bool=False) -> None:
             * def in_copy_sensor_stats_msg(kwargs: dict) -> None:
             * def in_copy_render_stats_msg(kwargs: dict) -> None:
             * def menu_sensor_resolution_set(self, update=True) -> None:
@@ -3931,7 +3933,7 @@ class flam3h_iterator_utils
 * iterator_post_affine_scale(self) -> None:
 * iterator_FF_affine_scale(self) -> None:
 * iterator_FF_post_affine_scale(self) -> None:
-* destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool=False) -> None:
+* destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool=False, xml_last: bool=True) -> None:
 * refresh_iterator_vars_menu(self) -> None:
 * destroy_data_note(self) -> None:
 * note_FF(self) -> None:
@@ -4897,7 +4899,7 @@ class flam3h_iterator_utils
 
         
         
-    def destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool=False) -> None:
+    def destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool=False, xml_last: bool=True) -> None:
         """Force all presets menus to update.
         This is being added so we can force the presets menus to be rebuilt
         everywhere we need to help keep them up to date in case the user
@@ -4907,6 +4909,7 @@ class flam3h_iterator_utils
             (self):
             node(hou.SopNode): The FLAM3H node.
             f3h_all(bool): Perform this for all FLAM3H nodes in the scene.
+            xml_last(bool): Default to: True. Update the "XML_last_loaded" node user data and its In Flame stats.
             
         Returns:
             (None):
@@ -4924,6 +4927,39 @@ class flam3h_iterator_utils
             self.destroy_cachedUserData(node, 'in_presets_menu')
             self.destroy_cachedUserData(node, 'in_presets_menu_off')
             self.destroy_cachedUserData(node, 'out_presets_menu')
+            
+            if xml_last:
+                
+                # Updated the "XML_last_loaded" user data if there is a need to do so:
+                inisvalidfile = node.parm(IN_PVT_ISVALID_FILE).eval()
+                inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
+                clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+                xml = os.path.expandvars(node.parm(IN_PATH).eval())
+                
+                if xml and inisvalidfile and inisvalidpreset and not clipboard:
+                    
+                    preset_id: int = int(node.parm(IN_PRESETS).eval())
+
+                    # Backup the current data before attempting an update
+                    # old_data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+                    
+                    # Get the now data
+                    apo_data = in_flame_iter_data(node, xml, preset_id)
+                    if apo_data.isvalidtree:
+                        # Update/Store into the FLAM3H node data storage
+                        node.setUserData(FLAM3H_USER_DATA_XML_LAST, lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")) # type: ignore
+                        # Update flame stats
+                        node.setParms({MSG_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, clipboard)}) # type: ignore
+                        node.setParms({MSG_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
+                        node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
+                    
+                    else:
+                        # Fire messages
+                        _MSG = f"XML last loaded: Failed to update"
+                        print(f"{node.name()}: {_MSG}.")
+                        # flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}.", 'WARN')
+                        # flam3h_general_utils.flash_message(node, _MSG)
+            
 
 
     
@@ -7109,7 +7145,7 @@ class flam3h_iterator_utils
         # Clear menu cache
         self.destroy_cachedUserData(node, 'iter_sel')
         self.destroy_cachedUserData(node, 'edge_case_01')
-        self.destroy_all_menus_data(node)
+        self.destroy_all_menus_data(node, False, False)
         # Iterators reset
         in_flame_utils(self.kwargs).in_to_flam3h_reset_iterators_parms(node, 3)
         # update xaos
@@ -7133,6 +7169,9 @@ class flam3h_iterator_utils
         self.flam3h_paste_reset_hou_session_data()
         # BUILD XFVIZ
         flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
+        
+        # Destroy data
+        flam3h_iterator_utils.destroy_userData(node, FLAM3H_USER_DATA_XML_LAST)
         
         # Print if the node has its display flag ON
         if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
@@ -7497,6 +7536,9 @@ class flam3h_iterator_utils
             # init/clear copy/paste iterator's data and prm
             self.flam3h_paste_reset_hou_session_data()
             
+            # Destroy data
+            self.destroy_userData(node, FLAM3H_USER_DATA_XML_LAST)
+            
             # OUT render curves reset and set
             out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
             
@@ -7509,7 +7551,7 @@ class flam3h_iterator_utils
             
             # set xaos and updated presets menus every time an iterator is added or removed
             self.auto_set_xaos()
-            self.destroy_all_menus_data(node)
+            self.destroy_all_menus_data(node, False, False)
             
             # Clear status bar msg if needed
             if  _MSG_str in hou.ui.statusMessage()[0]: # type: ignore
@@ -8665,7 +8707,7 @@ class flam3h_palette_utils
                 # Force this data to be rebuilt - This need to be reworked as it is slowing things down on H20.5
                 # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
                 # (ex. the user perform hand made modifications like renaming a Preset and such).
-                flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+                flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, False, False)
                 
                 if _CHECK:
                     flam3h_general_utils.set_private_prm(node, CP_PVT_ISVALID_PRESET, 1)
@@ -11482,7 +11524,7 @@ class in_flame_utils
 * in_copy_sensor(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
 * in_copy_render(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
 * in_copy_render_cc_curves(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
-* in_copy_render_all_stats_msg(kwargs: dict, clipboard: bool=False, apo_data: Union[in_flame_iter_data, None]=None) -> None:
+* in_copy_render_all_stats_msg(kwargs: dict,  apo_data: Union[in_flame_iter_data, None]=None, clipboard: bool=False) -> None:
 * in_copy_sensor_stats_msg(kwargs: dict) -> None:
 * in_copy_render_stats_msg(kwargs: dict) -> None:
 * in_copy_cc_curves_stats_msg(kwargs: dict) -> None:
@@ -11500,7 +11542,7 @@ class in_flame_utils
                         preset_id: int, 
                         exclude_keys: tuple
                         ) -> None:
-* in_load_stats_msg(self, clipboard: bool, preset_id: int, apo_data: in_flame_iter_data) -> str:
+* in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool) -> str:
 * menu_in_presets_data(self) -> list:
 * menu_in_presets(self) -> list:
 * menu_in_presets_empty_data(self) -> list:
@@ -12839,42 +12881,37 @@ class in_flame_utils
     
     
     @staticmethod
-    def in_copy_render_all_stats_msg(kwargs: dict, clipboard: bool=False, apo_data: Union[in_flame_iter_data, None]=None) -> None:
+    def in_copy_render_all_stats_msg(kwargs: dict,  apo_data: Union[in_flame_iter_data, None]=None, clipboard: bool=False) -> None:
         """Copy the loaded IN Flame preset ALL properties into the OUT Flame render properties to be written out. 
 
         Args:
             kwargs(hou.SopNode): houdini kwargs.
-            clipboard(bool): True: load from clipboard. False: load from disk file.
-            apo_data(Union[in_flame_iter_data, None]): The XML Flame file data to get the loaded preset data from.
+            apo_data(Union[in_flame_iter_data, None]): Default to None. All the XML data from the loaded Flame preset.
+            clipboard(bool): True: load from clipboard. False: load from disk file ( load from the node stored data ).
             
         Returns:
             (None):
         """       
         node = kwargs['node']
-
-        if clipboard:
-            preset_id = 0
-            f3r = apo_data
+        
+        inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
+        # If the 'IF' is true mean we are loading a Flame preset from the clipboard in a clean FLAM3H node ( without any data stored in it yet )
+        if apo_data is not None and not inisvalidpreset and clipboard: f3r = apo_data
         else:
-            xml = os.path.expandvars(node.parm(IN_PATH).eval())
-            
-            # Get the correct menu parameter's preset idx
-            if node.parm(IN_PVT_ISVALID_PRESET).eval():
-                preset_id = int(node.parm(IN_PRESETS).eval())
-            else:
-                preset_id = int(node.parm(IN_PRESETS_OFF).eval())
-                
-            f3r = in_flame_iter_data(node, xml, preset_id)
-            
-        assert f3r is not None
-        if f3r.isvalidtree:
+            data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+            if data is not None: f3r = in_flame_iter_data(node, data) # ELSE load from the stored data instead
+            else: f3r = None
+        # We are checking only for the XML Flame preset validity
+        # becasue we want to copy the data when loading from the clipboard
+        # Hence we skip the checking of the toggles
+        if f3r is not None and f3r.isvalidtree:
             
             # sensor data
-            in_flame_utils.in_copy_sensor(node, f3r, preset_id)
+            in_flame_utils.in_copy_sensor(node, f3r, 0)
             # render data
-            in_flame_utils.in_copy_render(node, f3r, preset_id)
+            in_flame_utils.in_copy_render(node, f3r, 0)
             # render curves data
-            in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
+            in_flame_utils.in_copy_render_cc_curves(node, f3r, 0)
             
             # OUT render curves ui parm set
             out_flame_utils.out_render_curves_retrive_data(node)
@@ -12895,7 +12932,16 @@ class in_flame_utils
             flam3h_general_utils.flash_message(node, _MSG)
             
         else:
-            pass
+            # The actual toggle is needed here
+            clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+            if inisvalidpreset and not clipboard:
+                _MSG = f"IN: Data corrupted"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}.", 'WARN')
+                flam3h_general_utils.flash_message(node, _MSG)
+            elif inisvalidpreset and clipboard:
+                _MSG = f"IN Clipboard: Data corrupted"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}.", 'WARN')
+                flam3h_general_utils.flash_message(node, _MSG)
 
 
     @staticmethod
@@ -12910,30 +12956,40 @@ class in_flame_utils
         """
         node = kwargs['node']
         
-        inisvalidfile = node.parm(IN_PVT_ISVALID_FILE).eval()
         inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
         clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
-        
-        if inisvalidfile and inisvalidpreset and not clipboard:
-            
-            # Get the correct menu parameter's preset idx
-            preset_id = int(node.parm(IN_PRESETS).eval())
 
-            xml = node.parm(IN_PATH).eval()
-            f3r = in_flame_iter_data(node, xml, preset_id)
+        # Here we are checking those toggles
+        # because the a Flame preset has been loaded already and we want to make sure it is still valid
+        if inisvalidpreset or clipboard:
             
-            # sensor data
-            in_flame_utils.in_copy_sensor(node, f3r, preset_id)
+            data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+            if data is not None: f3r = in_flame_iter_data(node, data)
+            else: f3r = None
+            if f3r is not None and f3r.isvalidtree:
             
-            node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
-            
-            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
-                flam3h_general_utils(kwargs).util_set_clipping_viewers()
-                flam3h_general_utils(kwargs).util_set_front_viewer()
+                # sensor data
+                in_flame_utils.in_copy_sensor(node, f3r, 0)
                 
-            _MSG = f"IN SENSOR settings: COPIED"
-            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
-            flam3h_general_utils.flash_message(node, _MSG)
+                node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
+                
+                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                    flam3h_general_utils(kwargs).util_set_clipping_viewers()
+                    flam3h_general_utils(kwargs).util_set_front_viewer()
+                    
+                _MSG = f"IN SENSOR settings: COPIED"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                flam3h_general_utils.flash_message(node, _MSG)
+                
+            else:
+                if inisvalidpreset and not clipboard:
+                    _MSG = f"IN: Data corrupted"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}.", 'WARN')
+                    flam3h_general_utils.flash_message(node, _MSG)
+                elif inisvalidpreset and clipboard:
+                    _MSG = f"IN Clipboard: Data corrupted"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}.", 'WARN')
+                    flam3h_general_utils.flash_message(node, _MSG)
             
         else:
             _MSG = f"Load a valid IN Preset first"
@@ -12954,40 +13010,50 @@ class in_flame_utils
         """
         node = kwargs['node']
         
-        inisvalidfile = node.parm(IN_PVT_ISVALID_FILE).eval()
         inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
         clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
         
-        if inisvalidfile and inisvalidpreset and not clipboard:
+        # Here we are checking those toggles
+        # because the a Flame preset has been loaded already and we want to make sure it is still valid
+        if inisvalidpreset or clipboard:
             
-            # Get the correct menu parameter's preset idx
-            preset_id = int(node.parm(IN_PRESETS).eval())
-
-            xml = node.parm(IN_PATH).eval()
-            f3r = in_flame_iter_data(node, xml, preset_id)
+            data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+            if data is not None: f3r = in_flame_iter_data(node, data) # ELSE load from the stored data instead
+            else: f3r = None
+            if f3r is not None and f3r.isvalidtree:
                 
-            # render data
-            in_flame_utils.in_copy_render(node, f3r, preset_id)
-            # render curves data
-            in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
+                # render data
+                in_flame_utils.in_copy_render(node, f3r, 0)
+                # render curves data
+                in_flame_utils.in_copy_render_cc_curves(node, f3r, 0)
 
-            # OUT render curves ui parm set
-            out_flame_utils.out_render_curves_retrive_data(node)
-            # Check if the CC curves are at their default values or not and set the toggle
-            # I could have done this inside the above: in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
-            # but since this one is run also from a callback script, i'm doing the checks twice anyway
-            out_flame_utils.out_render_curves_compare_and_set_toggle(node)
-            
-            node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
-            
-            # This is not needed for just the RENDER properties, but it casue no harm, so...
-            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
-                flam3h_general_utils(kwargs).util_set_clipping_viewers()
-                flam3h_general_utils(kwargs).util_set_front_viewer()
+                # OUT render curves ui parm set
+                out_flame_utils.out_render_curves_retrive_data(node)
+                # Check if the CC curves are at their default values or not and set the toggle
+                # I could have done this inside the above: in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
+                # but since this one is run also from a callback script, i'm doing the checks twice anyway
+                out_flame_utils.out_render_curves_compare_and_set_toggle(node)
                 
-            _MSG = f"IN RENDER settings: COPIED"
-            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
-            flam3h_general_utils.flash_message(node, _MSG)
+                node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
+                
+                # This is not needed for just the RENDER properties, but it casue no harm, so...
+                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                    flam3h_general_utils(kwargs).util_set_clipping_viewers()
+                    flam3h_general_utils(kwargs).util_set_front_viewer()
+                    
+                _MSG = f"IN RENDER settings: COPIED"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                flam3h_general_utils.flash_message(node, _MSG)
+                
+            else:
+                if inisvalidpreset and not clipboard:
+                    _MSG = f"IN: Data corrupted"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}.", 'WARN')
+                    flam3h_general_utils.flash_message(node, _MSG)
+                elif inisvalidpreset and clipboard:
+                    _MSG = f"IN Clipboard: Data corrupted"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}.", 'WARN')
+                    flam3h_general_utils.flash_message(node, _MSG)
             
         else:
             _MSG = f"Load a valid IN Preset first"
@@ -13008,44 +13074,54 @@ class in_flame_utils
         """
         node = kwargs['node']
 
-        inisvalidfile = node.parm(IN_PVT_ISVALID_FILE).eval()
         inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
         clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
         
-        if inisvalidfile and inisvalidpreset and not clipboard:
+        # Here we are checking those toggles
+        # because the a Flame preset has been loaded already and we want to make sure it is still valid
+        if inisvalidpreset or clipboard:
             
-            # Get the correct menu parameter's preset idx
-            preset_id = int(node.parm(IN_PRESETS).eval())
-
-            xml = node.parm(IN_PATH).eval()
-            f3r = in_flame_iter_data(node, xml, preset_id)
+            data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+            if data is not None: f3r = in_flame_iter_data(node, data)
+            else: f3r = None
+            if f3r is not None and f3r.isvalidtree:
                 
-            # render curves data
-            in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
-            
-            cc_o: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval() # type: ignore
-            cc_r: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval() # type: ignore
-            cc_g: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval() # type: ignore
-            cc_b: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval() # type: ignore
-            if cc_o.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_r.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_g.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_b.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
-                node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
-                _MSG = f"IN CC Curves:"
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} the loaded IN Flame preset CC Curves are default values. COPY SKIPPED", 'IMP')
-                flam3h_general_utils.flash_message(node, f"{_MSG} Defaults. COPY SKIPPED")
+                # render curves data
+                in_flame_utils.in_copy_render_cc_curves(node, f3r, 0)
+                
+                cc_o: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval() # type: ignore
+                cc_r: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval() # type: ignore
+                cc_g: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval() # type: ignore
+                cc_b: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval() # type: ignore
+                if cc_o.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_r.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_g.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_b.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
+                    node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
+                    node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
+                    _MSG = f"IN CC Curves:"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} the loaded IN Flame preset CC Curves are default values. COPY SKIPPED", 'IMP')
+                    flam3h_general_utils.flash_message(node, f"{_MSG} Defaults. COPY SKIPPED")
+                else:
+                    # OUT render curves ui parm set
+                    out_flame_utils.out_render_curves_retrive_data(node)
+                    # Check if the CC curves are at their default values or not and set the toggle
+                    # I could have done this inside the above: in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
+                    # but since this one is run also from a callback script, i'm doing the checks twice anyway
+                    out_flame_utils.out_render_curves_compare_and_set_toggle(node)
+                        
+                        
+                    # menu_label = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, 0)
+                    _MSG = f"IN CC Curves: COPIED"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} from the IN Flame preset: {_xml_tree(node.userData(FLAM3H_USER_DATA_XML_LAST)).name[0]}", 'IMP')
+                    flam3h_general_utils.flash_message(node, _MSG)
+                    
             else:
-                # OUT render curves ui parm set
-                out_flame_utils.out_render_curves_retrive_data(node)
-                # Check if the CC curves are at their default values or not and set the toggle
-                # I could have done this inside the above: in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
-                # but since this one is run also from a callback script, i'm doing the checks twice anyway
-                out_flame_utils.out_render_curves_compare_and_set_toggle(node)
-                    
-                    
-                menu_label = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
-                _MSG = f"IN CC Curves: COPIED"
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} from the IN Flame preset: {menu_label}", 'IMP')
-                flam3h_general_utils.flash_message(node, _MSG)
+                if inisvalidpreset and not clipboard:
+                    _MSG = f"IN: Data corrupted"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}.", 'WARN')
+                    flam3h_general_utils.flash_message(node, _MSG)
+                elif inisvalidpreset and clipboard:
+                    _MSG = f"IN Clipboard: Data corrupted"
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}.", 'WARN')
+                    flam3h_general_utils.flash_message(node, _MSG)
             
         else:
             _MSG = f"Load a valid IN Preset first"
@@ -13457,14 +13533,14 @@ class in_flame_utils
 
 
 
-    def in_load_stats_msg(self, clipboard: bool, preset_id: int, apo_data: in_flame_iter_data) -> str:
+    def in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool) -> str:
         """Build a message with all the informations about the Flame preset we just loaded.
 
         Args:
             (self):
-            node(hou.SopNode): The current FLAM3H houdini node.
             preset_id(int): The loaded XML Flame preset
             apo_data(in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
+            clipboard(bool): Is the cuurently loaded Flame preset coming from the Clipboard? True or False.
 
         Returns:
             (str): A string to be used to set the IN Flame info data parameter message.
@@ -14143,12 +14219,12 @@ class in_flame_utils
         # This for when we are loading aq Flame preset in full
         if copy_only is False:
             # Update flame stats
-            node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(clipboard, preset_id, apo_data)}) # type: ignore
+            node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(preset_id, apo_data, clipboard)}) # type: ignore
             node.setParms({MSG_FLAMESENSOR: self.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
             node.setParms({MSG_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
             
             # if we are loading from the clipboard, always copy the render settings on load
-            if clipboard: self.in_copy_render_all_stats_msg(self.kwargs, clipboard, apo_data)
+            if clipboard: self.in_copy_render_all_stats_msg(self.kwargs, apo_data, clipboard)
             else:
                 # If not from clipboard
                 # Update SYS inpresets parameters
@@ -14157,12 +14233,12 @@ class in_flame_utils
                 
                 # if "copy render properties on Load" is checked
                 if node.parm(IN_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
-                    self.in_copy_render_all_stats_msg(self.kwargs, clipboard, apo_data)
+                    self.in_copy_render_all_stats_msg(self.kwargs, apo_data, clipboard)
                     
         # And this when we are loading a Flame preset from the Clipboard to only copy its Render properties
         else:
             # if we are loading from the clipboard (in this case we always are), copy all the Render Properties
-            if clipboard: self.in_copy_render_all_stats_msg(self.kwargs, clipboard, apo_data)
+            if clipboard: self.in_copy_render_all_stats_msg(self.kwargs, apo_data, clipboard)
             
                 
 
@@ -14503,6 +14579,8 @@ class in_flame_utils
             # If there are xforms/iterators
             if apo_data.xforms is not None:
                 
+                # Store into the FLAM3H node data storage
+                node.setUserData(FLAM3H_USER_DATA_XML_LAST, lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")) # type: ignore
                 # Transfer the data from the stored XML into FLAM3H
                 self.in_to_flam3h_resets(node, _FLAM3H_INIT_DATA)
                 self.in_to_flam3h_set_iterators(node, apo_data, _FLAM3H_INIT_DATA)
@@ -14518,7 +14596,7 @@ class in_flame_utils
                 flam3h_iterator_utils.destroy_cachedUserData(node, 'edge_case_01')
                 # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
                 # (ex. the user perform hand made modifications like renaming a Preset and such).
-                flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
+                flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, False, False)
                 
                 # F3C ( the if statement is for backward compatibility )
                 if apo_data.prefs_flam3h_f3c is not None: flam3h_general_utils.set_private_prm(node, PREFS_PVT_F3C, apo_data.prefs_flam3h_f3c)
@@ -14531,8 +14609,10 @@ class in_flame_utils
                 flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
                 # BUILD XFVIZ if needed
                 flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
-                # Store the loaded Flame preset into the FLAM3H node data storage
-                node.setUserData(FLAM3H_USER_DATA_XML_LAST, lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")) # type: ignore
+                
+                # As a backup plan. Most likely not needed by why not
+                data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+                if data is None: out_flame_utils(self.kwargs).out_userData_XML_last_loaded()
                 
             else:
                 if attempt_from_clipboard: _MSG = "Flame IN Clipboard: The loaded Flame preset have 0(Zero) xforms/iterators. SKIPPED"
