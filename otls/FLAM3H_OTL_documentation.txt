@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.7.12 - Gold
+#version: 1.7.22 - Gold
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.0.506 )"""
@@ -1791,7 +1791,7 @@ Reload preset with "F3H affine style" changes:
     
 Copy render properties on Load [Icon:DATATYPES/boolean]:
     #id: IN
-    OFF by default.
+    ON by default.
     
     When ON, It will automatically copy all the render properties (_SENSOR, RENDER and CC CURVES_) into the OUT render properties every time you load a Flame preset in.
 
@@ -1895,7 +1895,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.7.12" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.7.22" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -2106,6 +2106,13 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     NOTE:
         There are no reasons to turn this toggle OFF as it cause no harm, however if you would like to have the Flame preset saved without the F3H affine style XML keys at all, turn this OFF.
         
+Flame name inherit on load [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: OUT
+    OFF by default.<br /><br />
+    Cause the OUT Flame name parameter to automatically be set to the name of the loaded Flame preset.
+
+    It will work for Flame presets loaded from a disk file or from the Clipboard.
+
 Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
 
@@ -2126,7 +2133,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.7.12" ... >
+          <flame version="FLAM3H-WIN-1.7.22" ... >
               ...
         }}}
         
@@ -2135,7 +2142,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.7.12" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.7.22" ... >
               ...
         }}}
         

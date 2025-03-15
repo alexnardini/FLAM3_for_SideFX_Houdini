@@ -24,7 +24,7 @@ import hou
 
 
 FLAM3HUSD_VERSION = '0.1.48'
-FLAM3HUSD_VERSION_STATUS_BETA = " - Beta"
+FLAM3HUSD_VERSION_STATUS_BETA = "Beta"
 
 
 '''
@@ -1057,7 +1057,7 @@ class flam3husd_about_utils
         hou_version = flam3husd_general_utils.houdini_version()
         if hou_version >= 19: flam3h_cvex_version = f"CODE: vex H{str(hou_version)}.x.x"
         flam3h_python_version = f"py 3.7.13"
-        flam3h_houdini_version = f"VERSION: {FLAM3HUSD_VERSION}{FLAM3HUSD_VERSION_STATUS_BETA} :: (GPL)"
+        flam3h_houdini_version = f"VERSION: {FLAM3HUSD_VERSION} - {FLAM3HUSD_VERSION_STATUS_BETA} :: (GPL)"
         Implementation_years = f"2023/{year}"
         Implementation_build = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{Implementation_years}"
         

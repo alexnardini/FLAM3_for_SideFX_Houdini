@@ -10,6 +10,22 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### <ins>From v1.7.22</ins> ###
+
+- **New**: Added the OUT tab option toggle: "Flame name inherit on Load". Cause the OUT Flame name parameter to automatically be set to the name of the loaded flame preset. It is OFF by default.
+- **Fix**: Switching Flame files was triggering a message about the node user data updates if the new file loaded preset was the same name as the one currnetly loaded before switching.
+- **Fix**: When a valid Flame file was already loaded, loading an invalid Flame file right after was triggering a message about the node user data updates.
+- **Fix**: When resetting to the default Sierpiński triangle the OUT flame name's iteration number was not being updated.
+- **Fix**: When the iterators count is set to 0(Zero) the OUT flame name's iteration number was not being updated.
+- **Fix**: The IN tab option: "copy render properties on Load" is now ON by default.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+<br>
+<br>
+
+
 ### <ins>From v1.7.12</ins> ###
 
 #### FLAM3H ####

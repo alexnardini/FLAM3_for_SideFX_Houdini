@@ -12,7 +12,7 @@
 A simple utility node to make rendering FLAM3H fractal flames in Solaris for previews easy.<br />
 It offers the very fundamental functionalities to setup your fractal flames point cloud and start rendering with Karma within a few clicks.<br />
 
-_Currently, FLAM3HUSD rely entirely on Karma CPU_.
+Currently, FLAM3HUSD rely entirely on Karma CPU.
 
 _*This tool is under development and it may or may not change drastically in the future.*_<br />
 _*This version is only fully compatible with FLAM3H v1.6.97 or higher.*_

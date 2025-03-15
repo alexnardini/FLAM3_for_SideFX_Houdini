@@ -74,9 +74,9 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.7.12'
-FLAM3H_VERSION_STATUS_BETA = " - Beta"
-FLAM3H_VERSION_STATUS_GOLD = " - Gold"
+FLAM3H_VERSION = '1.7.22'
+FLAM3H_VERSION_STATUS_BETA = "Beta"
+FLAM3H_VERSION_STATUS_GOLD = "Gold"
 
 
 '''
@@ -239,6 +239,7 @@ OUT_AUTO_ADD_ITER_NUM = 'autoadditer'
 OUT_UPDATE_SENSOR = 'outsensorupdate'
 OUT_HSV_PALETTE_DO = 'outpalette'
 OUT_FLAM3H_AFFINE_STYLE = 'out_f3h_affine'
+OUT_IN_FLAME_NAME_AUTO_FILL = 'out_in_flame_name'
 OUT_USE_FRACTORIUM_PRM_NAMES = 'outfractoriumprm'
 OUT_PALETTE_FILE_EXT = '.json'
 OUT_FLAM3_FILE_EXT = '.flame'
@@ -1084,7 +1085,7 @@ class flam3h_scripts
                 sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
                 _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX nodes compile: DONE \nversion: {FLAM3H_VERSION}{FLAM3H_VERSION_STATUS_GOLD}"
+                _MSG_DONE = f"FLAM3H CVEX nodes compile: DONE \nversion: {FLAM3H_VERSION} - {FLAM3H_VERSION_STATUS_GOLD}"
             
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
@@ -4728,7 +4729,6 @@ class flam3h_iterator_utils
         * nodeinfo_Marked iterator -> f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_ITER}
         * nodeinfo_Marked FF -> f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_FF}
         * nodeinfo_XF VIZ -> f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}
-        
         * XML_last_loaded -> f"{FLAM3H_USER_DATA_XML_LAST}"
 
         Args:
@@ -4942,7 +4942,7 @@ class flam3h_iterator_utils
 
     def destroy_xml_last_loaded(self) -> None:
         """Force node user data "XML_last_loaded" to update.
-        It will update only if: inisvalidfile and inisvalidpreset and not clipboard
+        It will update only if: xml and xml_isFile and xml == xml_history and inisvalidfile and inisvalidpreset and not clipboard
 
         Args:
             (self):
@@ -4954,13 +4954,14 @@ class flam3h_iterator_utils
         node = self.node
         
         # Updated the "XML_last_loaded" user data if there is a need to do so:
-        inisvalidfile = node.parm(IN_PVT_ISVALID_FILE).eval()
-        inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
-        clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
-        xml = os.path.expandvars(node.parm(IN_PATH).eval())
-        
+        inisvalidfile: bool = node.parm(IN_PVT_ISVALID_FILE).eval()
+        inisvalidpreset: bool = node.parm(IN_PVT_ISVALID_PRESET).eval()
+        clipboard: bool = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+        xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
+        xml_isFile: bool = os.path.isfile(xml)
+        xml_history: str = node.cachedUserData('in_presets_filepath')
         # Only if a valid preset has been loaded from a disk file ( not clipboard )
-        if xml and inisvalidfile and inisvalidpreset and not clipboard:
+        if xml and xml_isFile and xml == xml_history and inisvalidfile and inisvalidpreset and not clipboard:
             
             # Build the apo data
             preset_id: int = int(node.parm(IN_PRESETS).eval())
@@ -4974,9 +4975,9 @@ class flam3h_iterator_utils
                     # Update user data
                     node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
                     # Update flame stats
-                    node.setParms({MSG_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, clipboard)}) # type: ignore
-                    node.setParms({MSG_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
-                    node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
+                    node.setParms({MSG_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, clipboard)})
+                    node.setParms({MSG_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data)})
+                    node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)})
                     
                     # Let the user know
                     _MSG = f"\"XML_last_loaded\" user data: Updated\n\tThe currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\n\thas been modified on disk. Reload the preset to update.\n\t-> Meanwhile, the IN flame preset infos have been updated."
@@ -5008,8 +5009,8 @@ class flam3h_iterator_utils
         """  
         node = self.node
         
-        node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
-        node.setParms({GLB_DENSITY_PRESETS: 1}) # type: ignore
+        node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY})
+        node.setParms({GLB_DENSITY_PRESETS: 1})
         
         if not self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval():
             
@@ -5542,7 +5543,7 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The pane under the cursor must be a valid Parameter Editor pane or floating panel.", 'WARN')
         
         # reset selection to null value
-        node.setParms({SYS_SELECT_ITERATOR: 0}) # type: ignore
+        node.setParms({SYS_SELECT_ITERATOR: 0})
         
         # Force select-iterator menu update in case an iterator is marked on this FLAM3H node
         self.prm_paste_sel_iter_sel_force_update(node)
@@ -5652,7 +5653,7 @@ class flam3h_iterator_utils
         if val_get is not None and ptcount != val_get:
             
             node.parm(GLB_DENSITY).deleteAllKeyframes()
-            node.setParms({GLB_DENSITY: val_get}) # type: ignore 
+            node.setParms({GLB_DENSITY: val_get})
             
             _MSG = f"{node.name()} -> SET Density: {vals_name.get(sel)}"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -7145,21 +7146,24 @@ class flam3h_iterator_utils
         n = flam3h_iterator_prm_names
 
         # FF note
-        node.setParms({f"{PRX_FF_PRM}{n.main_note}": "iterator_FF"}) # type: ignore
+        node.setParms({f"{PRX_FF_PRM}{n.main_note}": "iterator_FF"})
         # FF vars
         [node.setParms({f"{PRX_FF_PRM}{prm}": 1}) if prm==n.var_weight_1 
                     else node.setParms({f"{PRX_FF_PRM}{prm}": 0})
                         for prm in (n.prevar_type_1, n.prevar_weight_1, n.var_type_1, n.var_weight_1, n.var_type_2, n.var_weight_2, n.postvar_type_1, n.postvar_weight_1, n.postvar_type_2, n.postvar_weight_2)]
-        # FF affine
-        node.setParms({f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0))}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0))}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0))}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.preaffine_ang}": 0}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.postaffine_do}": 0}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0))}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0))}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0))}) # type: ignore
-        node.setParms({f"{PRX_FF_PRM}{n.postaffine_ang}": 0}) # type: ignore
+        # FF Affines
+        affines_dict: dict = {f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0)),
+                              f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0)),
+                              f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0)),
+                              f"{PRX_FF_PRM}{n.preaffine_ang}": 0,
+                              f"{PRX_FF_PRM}{n.postaffine_do}": 0,
+                              f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0)),
+                              f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0)),
+                              f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0)),
+                              f"{PRX_FF_PRM}{n.postaffine_ang}": 0}
+        # FF Affines Set
+        [node.setParms({key: value}) for key, value in affines_dict.items()]
+         
 
 
 
@@ -7195,6 +7199,8 @@ class flam3h_iterator_utils
         # Reset/Set density
         node.setParms({GLB_DENSITY_PRESETS: 1}) # type: ignore
         node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+        # Updated the OUT preset name if needed
+        out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
         # Sierpiński triangle settings
         self.sierpinski_settings(node)
         # OUT render curves reset and set
@@ -7212,7 +7218,7 @@ class flam3h_iterator_utils
             # Print to Houdini's status bar
             _MSG = f"{node.name()}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"Flame LOAD: Sierpiński triangle")
+            flam3h_general_utils.flash_message(node, f"Sierpiński triangle::10")
             
             
     def flam3h_reset_iterator(self) -> None:
@@ -7572,6 +7578,9 @@ class flam3h_iterator_utils
             
             # Destroy data
             self.destroy_userData(node, FLAM3H_USER_DATA_XML_LAST)
+            
+            # Updated the OUT flame name if any
+            out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
             
             # OUT render curves reset and set
             out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
@@ -9305,7 +9314,7 @@ class flam3h_about_utils
         hou_version = flam3h_general_utils.houdini_version()
         if hou_version >= 19: flam3h_cvex_version = f"CODE: cvex H{str(hou_version)}.x.x"
         flam3h_python_version = f"py 3.7.13"
-        flam3h_houdini_version = f"VERSION: {FLAM3H_VERSION}{FLAM3H_VERSION_STATUS_GOLD} :: (GPL)"
+        flam3h_houdini_version = f"VERSION: {FLAM3H_VERSION} - {FLAM3H_VERSION_STATUS_GOLD} :: (GPL)"
         Implementation_years = f"2020/{year}"
         Implementation_build = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{Implementation_years}"
         
@@ -13147,7 +13156,7 @@ class in_flame_utils
                         
                     # menu_label = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, 0)
                     _MSG = f"IN CC Curves: COPIED"
-                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} from the IN Flame preset: {_xml_tree(node.userData(FLAM3H_USER_DATA_XML_LAST)).name[0]}", 'IMP')
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} from the IN Flame preset: {out_flame_utils.out_remove_iter_num(f3r.name[0])}", 'IMP')
                     flam3h_general_utils.flash_message(node, _MSG)
                     
             else:
@@ -14628,7 +14637,7 @@ class in_flame_utils
                 self.in_to_flam3h_toggles_and_msg(node, apo_data, _FLAM3H_INIT_DATA)
                 # Updates
                 flam3h_iterator_utils(self.kwargs).auto_set_xaos()
-                out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
+                out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm(apo_data.name[preset_id])
                 flam3h_iterator_utils.destroy_cachedUserData(node, 'iter_sel')
                 flam3h_iterator_utils.destroy_cachedUserData(node, 'edge_case_01')
                 # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
@@ -14773,7 +14782,7 @@ class in_flame_utils
             node.setParms({IN_PRESETS_OFF: str(-1)})
             node.setParms({IN_ITER_NUM_ON_LOAD: 64})
             node.setParms({IN_USE_ITER_ON_LOAD: 0})
-            node.setParms({IN_COPY_RENDER_PROPERTIES_ON_LOAD: 0})
+            node.setParms({IN_COPY_RENDER_PROPERTIES_ON_LOAD: 1})
 
 
 
@@ -14867,7 +14876,8 @@ class out_flame_utils
 * menu_out_contents_presets(self) -> list:
 * out_auto_add_iter_data(self) -> tuple[int, str, int]:
 * out_auto_add_iter_num_to_prm(self) -> None:
-* out_auto_change_iter_num_to_prm(self) -> None:
+* out_auto_change_iter_num_to_prm(self, name: Union[str, None]=None) -> None:
+* out_flame_name_inherit_on_load(self) -> None:
 * out_flame_properties_build(self, f3r: out_flame_render_properties) -> dict:
 * out_flam3_compatibility_check_and_msg(self) -> bool:                                
 * out_populate_xform_vars_XML(self, 
@@ -16315,8 +16325,9 @@ class out_flame_utils
         """
         node = self.node
         node.setParms({OUT_HSV_PALETTE_DO: 0})
-        node.setParms({OUT_AUTO_ADD_ITER_NUM: 1})
+        node.setParms({OUT_FLAM3H_AFFINE_STYLE: 1})
         node.setParms({OUT_USE_FRACTORIUM_PRM_NAMES: 1})
+        node.setParms({OUT_AUTO_ADD_ITER_NUM: 1})
 
 
 
@@ -16501,31 +16512,71 @@ class out_flame_utils
 
 
     # Callback script
-    def out_auto_change_iter_num_to_prm(self) -> None:
+    def out_auto_change_iter_num_to_prm(self, name: Union[str, None]=None) -> None:
         """Change the iteration number string to the OUT Flame name when you change FLAM3H iterations.
         
         Args:
             (self):
+            name(Union[str, None]): Default to None (nothing happen). Handy to automatically set the out preset name when an IN preset name is loaded.
             
         Returns:
             (None):
         """      
         node = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
-        if autoadd:
-            flame_name_new = self.out_auto_change_iter_num(iter_num, flame_name, autoadd)
-            node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
+        in_flame_name_auto_file = node.parm(OUT_IN_FLAME_NAME_AUTO_FILL).eval()
+        if name is not None and in_flame_name_auto_file: flame_name = name
+        
+        if flame_name:
             
-            # Update "iter num on load" if "force iterations on Load" toggle is ON 
-            if node.parm(IN_USE_ITER_ON_LOAD).eval():
-                node.setParms({IN_ITER_NUM_ON_LOAD: iter_num})
-        else:
-            flame_name_new = self.out_remove_iter_num(flame_name)
-            node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
+            if autoadd:
+                flame_name_new = self.out_auto_change_iter_num(iter_num, flame_name, autoadd)
+                node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
+                
+                # Update "iter num on load" if "force iterations on Load" toggle is ON 
+                if node.parm(IN_USE_ITER_ON_LOAD).eval():
+                    node.setParms({IN_ITER_NUM_ON_LOAD: iter_num})
+            else:
+                flame_name_new = self.out_remove_iter_num(flame_name)
+                node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
+                
+            # Flash message if needed.
+            # I need to come back on this and see exactly when firing the flash message, for now is not bad.
+            if flame_name_new:
+                flam3h_general_utils.flash_message(node, f"{flame_name_new}")
+                
+                
+    # Callback script
+    def out_flame_name_inherit_on_load(self) -> None:
+        """When this option is toggled ON, cause the Flame name parameter to be set to the currently loaded Flame preset name.
+        
+        Args:
+            (self):
             
-        # Flash message if needed
-        if flame_name_new:
-            flam3h_general_utils.flash_message(node, f"{flame_name_new}")
+        Returns:
+            (None):
+        """  
+        if self.kwargs['parm'].eval():
+            
+            node = self.node
+            inisvalidfile: bool = node.parm(IN_PVT_ISVALID_FILE).eval()
+            inisvalidpreset: bool = node.parm(IN_PVT_ISVALID_PRESET).eval()
+            clipboard: bool = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+            xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
+            xml_isFile: bool = os.path.isfile(xml)
+            # Only if a valid preset has been loaded from a disk file ( not clipboard )
+            if xml and xml_isFile and inisvalidfile and inisvalidpreset and not clipboard:
+                # Build the apo data
+                preset_id: int = int(node.parm(IN_PRESETS).eval())
+                apo_data = in_flame_iter_data(node, xml, preset_id)
+                if apo_data.isvalidtree: node.setParms({OUT_FLAME_PRESET_NAME: apo_data.name[preset_id]}) #type: ignore
+            elif inisvalidpreset and clipboard:
+                data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+                if data is not None:
+                    apo_data = in_flame_iter_data(node, data, 0)
+                    if apo_data.isvalidtree: node.setParms({OUT_FLAME_PRESET_NAME: apo_data.name[0]}) #type: ignore
+                
+
 
 
     def out_flame_properties_build(self, f3r: out_flame_render_properties) -> dict:
