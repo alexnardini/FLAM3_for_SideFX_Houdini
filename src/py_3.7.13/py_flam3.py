@@ -3943,7 +3943,7 @@ class flam3h_iterator_utils
 * iterator_FF_affine_scale(self) -> None:
 * iterator_FF_post_affine_scale(self) -> None:
 * destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool=False) -> None:
-* destroy_xml_last_loaded(self, xml_last: bool=True) -> None:
+* destroy_xml_last_loaded(self) -> None:
 * refresh_iterator_vars_menu(self) -> None:
 * destroy_data_note(self) -> None:
 * note_FF(self) -> None:
@@ -4940,61 +4940,58 @@ class flam3h_iterator_utils
             
 
 
-    def destroy_xml_last_loaded(self, xml_last: bool=True) -> None:
+    def destroy_xml_last_loaded(self) -> None:
         """Force node user data "XML_last_loaded" to update.
         It will update only if: inisvalidfile and inisvalidpreset and not clipboard
 
         Args:
             (self):
-            xml_last(bool): Default to: True. Update the "XML_last_loaded" node user data and its In Flame stats. False: will not update
             
         Returns:
             (None):
         """  
+            
+        node = self.node
         
-        if xml_last:
+        # Updated the "XML_last_loaded" user data if there is a need to do so:
+        inisvalidfile = node.parm(IN_PVT_ISVALID_FILE).eval()
+        inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
+        clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+        xml = os.path.expandvars(node.parm(IN_PATH).eval())
+        
+        # Only if a valid preset has been loaded from a disk file ( not clipboard )
+        if xml and inisvalidfile and inisvalidpreset and not clipboard:
             
-            node = self.node
-            
-            # Updated the "XML_last_loaded" user data if there is a need to do so:
-            inisvalidfile = node.parm(IN_PVT_ISVALID_FILE).eval()
-            inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
-            clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
-            xml = os.path.expandvars(node.parm(IN_PATH).eval())
-            
-            # Only if a valid preset has been loaded from a disk file ( not clipboard )
-            if xml and inisvalidfile and inisvalidpreset and not clipboard:
+            # Build the apo data
+            preset_id: int = int(node.parm(IN_PRESETS).eval())
+            apo_data = in_flame_iter_data(node, xml, preset_id)
+            if apo_data.isvalidtree:
                 
-                # Build the apo data
-                preset_id: int = int(node.parm(IN_PRESETS).eval())
-                apo_data = in_flame_iter_data(node, xml, preset_id)
-                if apo_data.isvalidtree:
-                    
-                    old_data = node.userData(FLAM3H_USER_DATA_XML_LAST)
-                    now_data = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode") # type: ignore
-                    if old_data is not None and old_data != now_data:
-                    
-                        # Update user data
-                        node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
-                        # Update flame stats
-                        node.setParms({MSG_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, clipboard)}) # type: ignore
-                        node.setParms({MSG_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
-                        node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
-                        
-                        # Let the user know
-                        _MSG = f"\"XML_last_loaded\" user data: Updated\n\tThe currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\n\thas been modified on disk. Reload the preset to update.\n\t-> Meanwhile, the IN flame preset infos have been updated."
-                        print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
-                        
-                    else:
-                        if old_data is None:
-                            
-                            _MSG = f"\"XML_last_loaded\" user data: Corrupted"
-                            print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
+                old_data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+                now_data = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode") # type: ignore
+                if old_data is not None and old_data != now_data:
                 
+                    # Update user data
+                    node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
+                    # Update flame stats
+                    node.setParms({MSG_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, clipboard)}) # type: ignore
+                    node.setParms({MSG_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
+                    node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
+                    
+                    # Let the user know
+                    _MSG = f"\"XML_last_loaded\" user data: Updated\n\tThe currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\n\thas been modified on disk. Reload the preset to update.\n\t-> Meanwhile, the IN flame preset infos have been updated."
+                    print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
+                    
                 else:
-                    # Fire messages
-                    _MSG = f"\"XML_last_loaded\" user data: Failed"
-                    print(f"{node.name()}: {_MSG}.")
+                    if old_data is None:
+                        
+                        _MSG = f"\"XML_last_loaded\" user data: Corrupted"
+                        print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
+            
+            else:
+                # Fire messages
+                _MSG = f"\"XML_last_loaded\" user data: Failed"
+                print(f"{node.name()}: {_MSG}.")
 
 
 
