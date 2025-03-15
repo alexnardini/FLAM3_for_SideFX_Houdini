@@ -33,7 +33,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before the node is even created but invoked.
 
 ```python
-FLAM3H_VERSION = '1.7.12 - Gold'
+FLAM3H_VERSION = '1.7.22 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -815,10 +815,10 @@ return menu
 kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_presets_copy_menu_label_callback()
 ```
 # OUT Tab
-# parameter name:    `outpaletteplus`
+# parameter name:    `out_in_flame_name`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_palette_256_plus_check()
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_load()
 ```
 # OUT Tab
 # parameter name:    `autoadditer`
