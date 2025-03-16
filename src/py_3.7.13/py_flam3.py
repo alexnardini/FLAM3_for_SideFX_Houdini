@@ -7920,7 +7920,8 @@ class flam3h_palette_utils
         """
         try:
             with open(filepath, 'r') as r:
-                return list(json.load(r).keys())[0]
+                preset_name = list(json.load(r).keys())[0]
+            return preset_name
         except: return False
 
 
@@ -7942,27 +7943,29 @@ class flam3h_palette_utils
             
             preset = flam3h_palette_utils.isJSON_F3H_get_first_preset(filepath)
             if preset is not False:
+                
                 # If we made it this far, mean we loaded a valid JSON file,
                 # lets now check if the preset is actually a F3H Palette preset.
                 with open(filepath, 'r') as r:
                     data = json.load(r)[preset]
-                    # This is the moment of the truth ;)
-                    try: hex_values = data[CP_JSON_KEY_NAME_HEX]
-                    except:
-                        if msg:
-                            _MSG = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
-                            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                            flam3h_general_utils.flash_message(node, f"Palette LOAD: Not a valid FLAM3H JSON palette file")
-                        del data
-                        return True, False
                     
-                    # Validate the file path setting it
-                    node.setParms({parm_path_name: filepath}) #type: ignore
-                    sm = hou.ui.statusMessage() # type: ignore
-                    if sm[0] and msg:
-                        flam3h_general_utils.set_status_msg('', 'MSG')
+                # This is the moment of the truth ;)
+                try: hex_values = data[CP_JSON_KEY_NAME_HEX]
+                except:
+                    if msg:
+                        _MSG = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        flam3h_general_utils.flash_message(node, f"Palette LOAD: Not a valid FLAM3H JSON palette file")
                     del data
-                    return True, True
+                    return True, False
+                
+                # Validate the file path setting it
+                node.setParms({parm_path_name: filepath}) #type: ignore
+                sm = hou.ui.statusMessage() # type: ignore
+                if sm[0] and msg:
+                    flam3h_general_utils.set_status_msg('', 'MSG')
+                del data
+                return True, True
             else:
                 # The following is clearing up status messages it should have not
                 # flam3h_general_utils.set_status_msg('', 'MSG')
@@ -8010,8 +8013,7 @@ class flam3h_palette_utils
         Returns:
             (str): HEX color value
         """
-        vals = [flam3h_general_utils.clamp(255*x) for x in rgb]
-        hex = ''.join(['{:02X}'.format(int(round(x))) for x in vals])
+        hex = ''.join(['{:02X}'.format(int(round(x))) for x in [flam3h_general_utils.clamp(255*x) for x in rgb]])
         return hex
 
 
@@ -8551,13 +8553,16 @@ class flam3h_palette_utils
                         else:
                             # if the file exist and is a valid JSON file
                             if json_file and f3h_json_file:
+                                
                                 with open(out_path_checked,'r') as r:
                                     prevdata = json.load(r)
+                                    
+                                newdata = json_dict
+                                prevdata.update(newdata)
+                                data = json.dumps(prevdata, indent = 4)
                                 with open(out_path_checked, 'w') as w:
-                                    newdata = json_dict
-                                    prevdata.update(newdata)
-                                    data = json.dumps(prevdata,indent = 4)
                                     w.write(data)
+                                    
                             # Otherwise mean it is either not a F3H json file, empty or not exist,
                             # just create one with the current ramp in it
                             #
@@ -8569,6 +8574,7 @@ class flam3h_palette_utils
                                 if not os.path.isfile(out_path_checked):
                                     with open(out_path_checked,'w') as w:
                                         w.write(json_data)
+                                    # Mark as a new file
                                     _isNEW = True
 
                         # We do this again so we can read the newly created file if any 
@@ -8577,18 +8583,18 @@ class flam3h_palette_utils
                             # Set some parameters
                             with open(out_path_checked) as f:
                                 data = json.load(f)
-                                # Set all CP preset menus parameter index
-                                preset_last_idx = str(len(data.keys())-1)
-                                [prm.set(preset_last_idx) for prm in (node.parm(CP_PALETTE_PRESETS), node.parm(CP_PALETTE_PRESETS_OFF), node.parm(CP_SYS_PALETTE_PRESETS), node.parm(CP_SYS_PALETTE_PRESETS_OFF))]
-                                # Clearup the Palette name if any were given
-                                node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
-                                # Mark this as a valid file and as the currently loaded preset as it is the preset we just saved
-                                flam3h_general_utils.set_private_prm(node, CP_PVT_ISVALID_FILE, 1)
-                                flam3h_general_utils.set_private_prm(node, CP_PVT_ISVALID_PRESET, 1)
-                                # Make sure to update the tmp ramp with the just saved one
-                                self.palette_cp_to_tmp()
-                                del data
                                 
+                            # Set all CP preset menus parameter index
+                            [prm.set(str(len(data.keys())-1)) for prm in (node.parm(CP_PALETTE_PRESETS), node.parm(CP_PALETTE_PRESETS_OFF), node.parm(CP_SYS_PALETTE_PRESETS), node.parm(CP_SYS_PALETTE_PRESETS_OFF))]
+                            # Clearup the Palette name if any were given
+                            node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
+                            # Mark this as a valid file and as the currently loaded preset as it is the preset we just saved
+                            flam3h_general_utils.set_private_prm(node, CP_PVT_ISVALID_FILE, 1)
+                            flam3h_general_utils.set_private_prm(node, CP_PVT_ISVALID_PRESET, 1)
+                            # Make sure to update the tmp ramp with the just saved one
+                            self.palette_cp_to_tmp()
+                            del data
+                            
                             # Set the file path to the corrected one
                             node.setParms({CP_PALETTE_LIB_PATH: out_path_checked})
                             
@@ -8704,34 +8710,29 @@ class flam3h_palette_utils
                 # get ramps parm
                 rmp_src = node.parm(CP_RAMP_SRC_NAME)
                 rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
-                
                 # get current preset name and preset_id(index)
                 preset, preset_id = self.json_to_flam3h_get_preset_name_and_id(node)
                 
-                HEXs = []
-                hsv_vals = []
-                rgb_from_XML_PALETTE = []
-                # The following 'hsv_check' is for backward compatibility
-                hsv_check = False
-                
+                # 'hsv_check' is for backward compatibility
                 with open(filepath, 'r') as r:
-                    
                     data = json.load(r)[preset]
-                    hex_values = data[CP_JSON_KEY_NAME_HEX]
-                    try:
-                        [hsv_vals.append(float(x)) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
-                        hsv_check = True
-                    except: pass
-                    [HEXs.append(hex) for hex in wrap(hex_values, 6)]
                     
-                for hex in HEXs:
-                    x = self.hex_to_rgb(hex)
-                    rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
+                try:
+                    hsv_vals = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
+                    hsv_check = True
+                except:
+                    hsv_vals = []
+                    hsv_check = False
+                        
+                # Get usable color values
+                HEXs = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
+                RGBs = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs]
+                rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                del data
                 
                 # Initialize and SET new ramp first
                 _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
                 rmp_src.set(_RAMP) # Load the new palette colors
-                
                 # Make sure we update the HSV palette
                 rmp_hsv.set(_RAMP) # Load the new palette colors
                 self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals) # Set HSV values
@@ -8746,8 +8747,7 @@ class flam3h_palette_utils
                 keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, _COUNT, 0, False)
                 node.setParms({CP_RAMP_LOOKUP_SAMPLES: int(keys)}) # type: ignore
                 # Store selection into all preset menu just in case ;)
-                pidx = str(preset_id)
-                [prm.set(pidx) for prm in (node.parm(CP_SYS_PALETTE_PRESETS), node.parm(CP_SYS_PALETTE_PRESETS_OFF), node.parm(CP_PALETTE_PRESETS), node.parm(CP_PALETTE_PRESETS_OFF))]
+                [prm.set(str(preset_id)) for prm in (node.parm(CP_SYS_PALETTE_PRESETS), node.parm(CP_SYS_PALETTE_PRESETS_OFF), node.parm(CP_PALETTE_PRESETS), node.parm(CP_PALETTE_PRESETS_OFF))]
                 
                 # Force this data to be rebuilt - This need to be reworked as it is slowing things down on H20.5
                 # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
@@ -8852,22 +8852,22 @@ class flam3h_palette_utils
                 # If it is a valid json data
                 if data is not None:
                     
-                    try: preset = list(data.keys())[0]
+                    try:
+                        preset = list(data.keys())[0]
+                        del data
                     except: preset = None
                         
                     if preset is not None:
                         
                         f3h_palette_data = json.loads(palette)[preset]
-                        
-                        # Check if it is a valid FLAM3H JSON data. This is the moment of the truth ;)
                         try:
+                            # Check if it is a valid FLAM3H JSON data. This is the moment of the truth ;)
                             hex_values = f3h_palette_data[CP_JSON_KEY_NAME_HEX]
                             isJSON_F3H = True
                         except:
                             isJSON_F3H = False
                             _MSG = f"{node.name()}: PALETTE JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                            del data
                             
                         # If it is a valid FLAM3H Palette JSON data
                         if isJSON_F3H:
@@ -8876,23 +8876,21 @@ class flam3h_palette_utils
                             rmp_src = node.parm(CP_RAMP_SRC_NAME)
                             rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
 
-                            hsv_vals = []
-                            hsv_check = False
                             try:
-                                [hsv_vals.append(float(x)) for x in f3h_palette_data[CP_JSON_KEY_NAME_HSV].split(' ')]
+                                hsv_vals = [float(x) for x in f3h_palette_data[CP_JSON_KEY_NAME_HSV].split(' ')]
                                 hsv_check = True
-                            except: pass
+                            except:
+                                hsv_vals = []
+                                hsv_check = False
                             
-                            rgb_from_XML_PALETTE = []
+                            # Get usable color values
                             HEXs = [hex for hex in wrap(f3h_palette_data[CP_JSON_KEY_NAME_HEX], 6)]
-                            for hex in HEXs:
-                                x = self.hex_to_rgb(hex)
-                                rgb_from_XML_PALETTE.append((abs(x[0])/(255 + 0.0), abs(x[1])/(255 + 0.0), abs(x[2])/(255 + 0.0)))
+                            RGBs = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs]
+                            rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
                             
                             # Initialize and SET new ramp.
                             _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
                             rmp_src.set(_RAMP)
-                            
                             # Make sure we update the HSV palette
                             rmp_hsv.set(_RAMP) # Load the new palette colors
                             self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals) # Set HSV values
@@ -15296,7 +15294,7 @@ class out_flame_utils
         Returns:
             (str): A value without the floating zeros
         """
-        if float(val).is_integer(): # type: ignore - float.is_integer() is a valid method for a float
+        if float(val).is_integer():
             return str(int(float(val)))
         else:
             return str(round(float(val), ROUND_DECIMAL_COUNT))
