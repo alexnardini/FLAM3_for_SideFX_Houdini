@@ -4980,11 +4980,11 @@ class flam3h_iterator_utils
                     node.setParms({MSG_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, clipboard)})
                     node.setParms({MSG_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data)})
                     node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)})
-                    
-                    # Let the user know
-                    _MSG = f"\"XML_last_loaded\" user data: Updated\n\tThe currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\n\thas been modified on disk. Reload the preset to update.\n\t-> Meanwhile, the IN flame preset infos have been updated."
-                    print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
-                    
+
+                    _MSG_ALL = f"\"XML_last_loaded\" user data: Updated\n\nThe currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk. Reload the preset to update.\n\n-> Meanwhile,\nthe IN flame preset infos have been updated\nas well as its render properties infos."
+                    _MSG_UI = f"The currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk."
+                    hou.ui.displayMessage(_MSG_UI, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H: IN flame file modified", details=_MSG_ALL, details_label=None, details_expanded=False) # type: ignore
+                        
                 else:
                     if old_data is None:
                         
