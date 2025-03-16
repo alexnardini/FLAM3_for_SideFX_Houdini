@@ -15,7 +15,6 @@ They are all available in this github repository.</br>
 - **Fix**: When activating the OUT options "Flame name inherit on Load" toggle, if the current FLAM3H iterations number was different from the one stored into the loaded IN Preset name it was not updating it.
 - **Fix**: Improvements of the json palette presets loading into FLAM3H.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
-- **Updated HDA documentation.**
 
 
 <br>
