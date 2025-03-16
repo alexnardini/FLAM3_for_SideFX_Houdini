@@ -5001,7 +5001,6 @@ class flam3h_iterator_utils
 
 
 
-    
     def refresh_iterator_vars_menu(self) -> None:
         """Refresh the iterator (FLAME and FF tabs) menus
         to update to the new menu style mode.
@@ -5055,7 +5054,8 @@ class flam3h_iterator_utils
         # Change focus back to the FLAME's Tab
         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
         
-        
+
+
     def destroy_data_note(self) -> None:
         """Update mini-menu iterator selection when we modify this parameter.
         and provide a default name if no string in a FLAME tab iterator note parameter is left.
