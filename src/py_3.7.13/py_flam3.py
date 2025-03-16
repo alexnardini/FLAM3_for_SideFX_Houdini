@@ -16569,12 +16569,18 @@ class out_flame_utils
                 # Build the apo data
                 preset_id: int = int(node.parm(IN_PRESETS).eval())
                 apo_data = in_flame_iter_data(node, xml, preset_id)
-                if apo_data.isvalidtree: node.setParms({OUT_FLAME_PRESET_NAME: apo_data.name[preset_id]}) #type: ignore
+                if apo_data.isvalidtree:
+                    node.setParms({OUT_FLAME_PRESET_NAME: apo_data.name[preset_id]}) #type: ignore
+                    # Updated the Flame name iter num if exist and if needed
+                    self.out_auto_change_iter_num_to_prm()
             elif inisvalidpreset and clipboard:
                 data = node.userData(FLAM3H_USER_DATA_XML_LAST)
                 if data is not None:
                     apo_data = in_flame_iter_data(node, data, 0)
-                    if apo_data.isvalidtree: node.setParms({OUT_FLAME_PRESET_NAME: apo_data.name[0]}) #type: ignore
+                    if apo_data.isvalidtree:
+                        node.setParms({OUT_FLAME_PRESET_NAME: apo_data.name[0]}) #type: ignore
+                        # Updated the Flame name iter num if exist and if needed
+                        self.out_auto_change_iter_num_to_prm()
                 
 
 
