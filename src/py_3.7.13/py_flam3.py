@@ -74,7 +74,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.7.25'
+FLAM3H_VERSION = '1.7.27'
 FLAM3H_VERSION_STATUS_BETA = "Beta"
 FLAM3H_VERSION_STATUS_GOLD = "Gold"
 
@@ -11066,29 +11066,34 @@ class in_flame
             except: palette_attrib = None
 
             if palette_attrib is not None:
-                palette_hex = self.flame[idx].find(key).text
-                format = dict(palette_attrib).get(XML_PALETTE_FORMAT)
                 
-                _HEX = []
-                for line in palette_hex.splitlines():
-                    cleandoc = i_cleandoc(line)
-                    if(len(cleandoc)>1):
-                        [_HEX.append(hex) for hex in wrap(cleandoc, 6)]
+                # _HEX = []
+                # for line in palette_hex.splitlines():
+                #     cleandoc = i_cleandoc(line)
+                #     if(len(cleandoc)>1):
+                #         [_HEX.append(hex) for hex in wrap(cleandoc, 6)]
+                
+                palette_hex = self.flame[idx].find(key).text
                 try:
-                    rgb_from_XML_PALETTE = [(flam3h_palette_utils.hex_to_rgb(hex)[0]/(255 + 0.0), flam3h_palette_utils.hex_to_rgb(hex)[1]/(255 + 0.0), flam3h_palette_utils.hex_to_rgb(hex)[2]/(255 + 0.0)) for hex in _HEX]
+                    HEXs = [hex for line in palette_hex.splitlines() for hex in wrap(i_cleandoc(line), 6) if len(i_cleandoc(line))>1]
+                    RGBs = [list(map(abs, flam3h_palette_utils.hex_to_rgb(hex))) for hex in HEXs]
+                    _PALETTE = True
+                except:
+                    _PALETTE = False
+                    
+                if _PALETTE:
+                    rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                    format = dict(palette_attrib).get(XML_PALETTE_FORMAT)
                     ramp_keys_count = len(rgb_from_XML_PALETTE)
                     POSs = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
                     BASESs = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
-                    return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), (ramp_keys_count), str(format)
-                except:
-                    hou.pwd().setParms({MSG_DESCRIPTIVE_PRM: "Error: IN->PALETTE\nHEX values not valid."})
-                    if hou.isUIAvailable():
-                        ui_text = "Flame's Palette hex values not valid."
-                        palette_warning_msg = f"PALETTE Error:\nPossibly some out of bounds values in it.\n\nYou can fix this by assigning a brand new palette before saving it out again.\nYou can open this Flame in Fractorium and assign a brand new palette\nto it and save it out to re load it again inside FLAM3H."
-                        hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Palette Error", details=palette_warning_msg, details_label=None, details_expanded=True) # type: ignore
-                        return None
-                    else:
-                        return None
+                    return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), ramp_keys_count, str(format)
+                
+                else:
+                    _MSG = f"Error: CP PALETTE\nHEX values not valid."
+                    self.node.setParms({MSG_DESCRIPTIVE_PRM: _MSG}) # type: ignore
+                    return None
+
             else:
                 return None
         else:
@@ -11573,7 +11578,7 @@ class in_flame_utils
 * in_copy_sensor(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
 * in_copy_render(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
 * in_copy_render_cc_curves(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
-* in_copy_render_all_stats_msg(kwargs: dict,  apo_data: Union[in_flame_iter_data, None]=None, clipboard: bool=False) -> None:
+* in_copy_render_all_stats_msg(kwargs: dict,  apo_data: Union[in_flame_iter_data, None]=None, clipboard: bool=False, flash_message: bool=False) -> None:
 * in_copy_sensor_stats_msg(kwargs: dict) -> None:
 * in_copy_render_stats_msg(kwargs: dict) -> None:
 * in_copy_cc_curves_stats_msg(kwargs: dict) -> None:
@@ -12930,13 +12935,14 @@ class in_flame_utils
     
     
     @staticmethod
-    def in_copy_render_all_stats_msg(kwargs: dict,  apo_data: Union[in_flame_iter_data, None]=None, clipboard: bool=False) -> None:
+    def in_copy_render_all_stats_msg(kwargs: dict,  apo_data: Union[in_flame_iter_data, None]=None, clipboard: bool=False, flash_message: bool=False) -> None:
         """Copy the loaded IN Flame preset ALL properties into the OUT Flame render properties to be written out. 
 
         Args:
             kwargs(hou.SopNode): houdini kwargs.
             apo_data(Union[in_flame_iter_data, None]): Default to None. All the XML data from the loaded Flame preset.
             clipboard(bool): True: load from clipboard. False: load from disk file ( load from the node stored data ).
+            flash_message(bool): Default to False. If True it will fire a flash message.
             
         Returns:
             (None):
@@ -12978,7 +12984,7 @@ class in_flame_utils
             if clipboard: _MSG = f"IN Preset render properties from Clipboard: COPIED"
             else: _MSG = f"IN Preset render properties: COPIED"
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
-            flam3h_general_utils.flash_message(node, _MSG)
+            if flash_message: flam3h_general_utils.flash_message(node, _MSG)
             
         else:
             # The actual toggle is needed here
@@ -14340,6 +14346,7 @@ class in_flame_utils
             _MSG = f"{node.name()}: LOAD Flame preset: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
             
         flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+        flam3h_general_utils.flash_message(node, f"{preset_name}")
 
 
 

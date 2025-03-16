@@ -33,7 +33,9 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before the node is even created but invoked.
 
 ```python
-FLAM3H_VERSION = '1.7.25 - Gold'
+from datetime import datetime
+
+FLAM3H_VERSION = '1.7.27 - Gold'
 
 def flam3h_first_time() -> None:
     hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
@@ -45,6 +47,7 @@ def flam3h_sys_updated_mode() -> None:
     hou.session.FLAM3H_SYS_UPDATE_MODE = current
 
 def flam3h_compile_first_time_msg() -> None:
+    now = datetime.now().strftime("%b-%d-%Y_%H:%M:%S")
     try:
         hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
         first_instance_32bit = False
@@ -57,7 +60,7 @@ def flam3h_compile_first_time_msg() -> None:
         first_instance_64bit = True
 
     if first_instance_32bit:
-        _MSG_INFO = f"\nFLAM3H version: {FLAM3H_VERSION}\nThe CVEX nodes need to cook once to compile their definitions.\n\nDepending on your PC configuration it can take up to 1(one) minute.\nIt is a one time compile process.\n"
+        _MSG_INFO = f"\n-> {now}\nFLAM3H version: {FLAM3H_VERSION}\nThe CVEX nodes need to cook once to compile their definitions.\n\nDepending on your PC configuration it can take up to 1(one) minute.\nIt is a one time compile process.\n"
         print(_MSG_INFO)
         hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
         
@@ -754,13 +757,13 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle("pro
 # parameter name:    `cprendervals`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs)
+hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True)
 ```
 # IN Tab
 # parameter name:    `cprendervals_cb`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs)
+hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True)
 ```
 # IN Tab
 # parameter name:    `icon_in_infos_sensor`
@@ -875,7 +878,7 @@ return menu
 # parameter name:    `outcprendervals`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
+hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True)
 ```
 # OUT Tab
 # parameter name:    `outcenter`

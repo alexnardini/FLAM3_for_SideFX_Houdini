@@ -10,10 +10,13 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
-### <ins>From v1.7.25</ins> ###
+### <ins>From v1.7.27</ins> ###
 
 - **Fix**: When activating the OUT options "Flame name inherit on Load" toggle, if the current FLAM3H iterations number was different from the one stored into the loaded IN Preset name it was not updating it.
 - **Fix**: Improvements of the json palette presets loading into FLAM3H.
+- **Fix**: Improvements of the palette conversion from hex to rgb on Flame Load.
+- **Fix**: Suppressed a flash message about the Render properties being copied on Flame Load.
+- **Fix**: Suppressed a window messsage in case of invalid hex values from a loaded Flame preset palette data.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
