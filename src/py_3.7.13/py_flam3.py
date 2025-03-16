@@ -4972,7 +4972,8 @@ class flam3h_iterator_utils
                 
                 old_data = node.userData(FLAM3H_USER_DATA_XML_LAST)
                 now_data = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode") # type: ignore
-                if old_data is not None and old_data != now_data:
+                now_data_isvalid = _xml_tree(now_data).isvalidtree
+                if old_data is not None and old_data != now_data and now_data_isvalid:
                 
                     # Update user data
                     node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
@@ -4987,8 +4988,10 @@ class flam3h_iterator_utils
                         
                 else:
                     if old_data is None:
-                        
                         _MSG = f"\"XML_last_loaded\" user data: Corrupted"
+                        print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
+                    elif not now_data_isvalid:
+                        _MSG = f"\"XML loaded preset\" data: Corrupted"
                         print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
             
             else:
