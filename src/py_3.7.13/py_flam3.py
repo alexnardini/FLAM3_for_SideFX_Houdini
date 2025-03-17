@@ -14668,7 +14668,8 @@ class in_flame_utils
                 
                 # As a backup plan. Most likely not needed by why not
                 data = node.userData(FLAM3H_USER_DATA_XML_LAST)
-                if data is None: out_flame_utils(self.kwargs).out_userData_XML_last_loaded()
+                if data is None or not _xml_tree(data).isvalidtree:
+                    out_flame_utils(self.kwargs).out_userData_XML_last_loaded(FLAM3H_USER_DATA_XML_LAST, apo_data.name[preset_id])
                 
             else:
                 if attempt_from_clipboard: _MSG = "Flame IN Clipboard: The loaded Flame preset have 0(Zero) xforms/iterators. SKIPPED"
@@ -14898,7 +14899,7 @@ class out_flame_utils
                             MP_IDX: str, 
                             FUNC: Callable) -> list[str]:
 * out_build_XML(self, flame: lxmlET.Element) -> bool:
-* out_userData_XML_last_loaded(self, data_name: str=FLAM3H_USER_DATA_XML_LAST) -> None:
+* out_userData_XML_last_loaded(self, data_name: str=FLAM3H_USER_DATA_XML_LAST, flame_name: Union[str, None]=None) -> None:
 * out_new_XML(self, outpath: str) -> None:
 * out_new_XML_clipboard(self) -> None:
 * out_append_XML(self, apo_data: in_flame, out_path: str) -> None:
@@ -16918,18 +16919,18 @@ class out_flame_utils
             
             
             
-    def out_userData_XML_last_loaded(self, data_name: str=FLAM3H_USER_DATA_XML_LAST) -> None:
+    def out_userData_XML_last_loaded(self, data_name: str=FLAM3H_USER_DATA_XML_LAST, flame_name: Union[str, None]=None) -> None:
         """Store the loaded Flame preset into the FLAM3H node data storage.
+        This definition run a full save out preset(a snapshot of the curernt status of the FLAM3H parameters).
         
         This is being added to have some sort of history/backup some how.
         Will probably never be used but it is something more to have in any case.
-        This data is cleared every time a FLAM3H node is being created.
-        
-        It is now not used as I am storing the loaded flame directly from inside: def in_to_flam3h(self) -> None:
-        I leave this definition here as it is handy to save the flame out on the fly and store it as this fuction does already.
+        This data is cleared every time a FLAM3H node is being created, or when FLAM3H is being reset ot the default Sierpinsky triangle ot its iterator's count is set to 0(Zero).
 
         Args:
             (self):
+            data_name(str): Default to "FLAM3H_USER_DATA_XML_LAST". The name of the node user data to store the flame preset into.
+            flame_name(Union[str, None]): Default to None. If a flame name is provided it will use it, otherwise it will either use the one set into the OUT flame name parameter or if this last is empty it will generate one based on today'sdate and time.
             
         Returns:
             (None):
@@ -16937,12 +16938,26 @@ class out_flame_utils
         node = self.node
         
         root = lxmlET.Element(XML_FLAME_NAME) # type: ignore
-        
-        if self.out_build_XML(root): # This can probably be omitted as it is run right after we load a Flame preset.
-            self._out_pretty_print(root)
-            flame = lxmlET.tostring(root, encoding="unicode") # type: ignore
-            # Store the loaded Flame preset into the FLAM3H node data storage
-            node.setUserData(data_name, flame)
+        if flame_name is None:
+            if self.out_build_XML(root):
+                self._out_pretty_print(root)
+                flame = lxmlET.tostring(root, encoding="unicode") # type: ignore
+                # Store the loaded Flame preset into the FLAM3H node data storage
+                node.setUserData(data_name, flame)
+                
+        else:
+            # Lets check if the OUT flame name parameter has a name already set and store it.
+            out_flame_name = node.parm(OUT_FLAME_PRESET_NAME).eval()
+            # Let's use the passed flame_name instead
+            node.setParms({OUT_FLAME_PRESET_NAME: flame_name})
+            if self.out_build_XML(root):
+                self._out_pretty_print(root)
+                flame = lxmlET.tostring(root, encoding="unicode") # type: ignore
+                # Store the loaded Flame preset into the FLAM3H node data storage
+                node.setUserData(data_name, flame)
+            # Restore whatever flame name was there if any
+            if out_flame_name: node.setParms({OUT_FLAME_PRESET_NAME: out_flame_name})
+            
             
 
 
