@@ -11090,7 +11090,7 @@ class in_flame
                     return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), ramp_keys_count, str(format)
                 
                 else:
-                    _MSG = f"Error: CP PALETTE\nHEX values not valid."
+                    _MSG = f"ERROR: CP Palette\nHEX values not valid."
                     self.node.setParms({MSG_DESCRIPTIVE_PRM: _MSG}) # type: ignore
                     return None
 
@@ -12981,8 +12981,8 @@ class in_flame_utils
                 flam3h_general_utils(kwargs).util_set_clipping_viewers()
                 flam3h_general_utils(kwargs).util_set_front_viewer()
             
-            if clipboard: _MSG = f"IN Preset render properties from Clipboard: COPIED"
-            else: _MSG = f"IN Preset render properties: COPIED"
+            if clipboard: _MSG = f"IN ALL settings Clipboard: COPIED"
+            else: _MSG = f"IN ALL settings: COPIED"
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
             if flash_message: flam3h_general_utils.flash_message(node, _MSG)
             
@@ -14752,7 +14752,7 @@ class in_flame_utils
             
             # Transfer the data from the stored XML Render Properties from the Clipboard into FLAM3H               
             self.in_to_flam3h_stats_and_properties(node, apo_data, _FLAM3H_INIT_DATA, True)
-            flam3h_general_utils.flash_message(self.node, f"Render Properties Clipboard: COPIED")
+            flam3h_general_utils.flash_message(self.node, f"ALL settings Clipboard: COPIED")
             
         else:
             
