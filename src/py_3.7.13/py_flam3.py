@@ -14236,8 +14236,8 @@ class in_flame_utils
             _BASEs, _POSs, _COLORs = flam3h_palette_utils.build_ramp_palette_error()
             ramp_parm.set(hou.Ramp(_BASEs, _POSs, _COLORs))
             
-            if attempt_from_clipboard: _MSG = "\nFlame IN Clipboard: The loaded Flame preset do not have Palette data."
-            else: _MSG = "\nFlame IN: The loaded Flame preset do not have Palette data."
+            if attempt_from_clipboard: _MSG = "\nFlame IN Clipboard: The loaded Flame preset Palette data is not valid."
+            else: _MSG = "\nFlame IN: The loaded Flame preset Palette data is not valid."
             print(f"{node.name()}: {_MSG}")
             
             
