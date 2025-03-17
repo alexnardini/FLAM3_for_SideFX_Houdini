@@ -8728,11 +8728,15 @@ class flam3h_palette_utils
                 except:
                     hsv_vals = []
                     hsv_check = False
-                        
+                
                 # Get usable color values
                 HEXs = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
-                RGBs = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs]
-                rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                try:
+                    RGBs = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs]
+                    rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                except:
+                    rgb_from_XML_PALETTE = []
+                
                 del data
                 
                 # Initialize and SET new ramp first
@@ -8767,7 +8771,7 @@ class flam3h_palette_utils
                     flam3h_general_utils.flash_message(node, f"Palette LOADED")
                 else:
                     flam3h_general_utils.set_private_prm(node, CP_PVT_ISVALID_PRESET, 0)
-                    _MSG = f"{node.name()}: PALETTE -> ERROR on preset: \"{preset}\""
+                    _MSG = f"{node.name()}: PALETTE -> ERROR on preset: \"{preset}\". Invalid HEX values."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                     flam3h_general_utils.flash_message(node, f"Palette ERROR")
             
@@ -8864,10 +8868,10 @@ class flam3h_palette_utils
                         
                     if preset is not None:
                         
-                        f3h_palette_data = json.loads(palette)[preset]
+                        data = json.loads(palette)[preset]
                         try:
                             # Check if it is a valid FLAM3H JSON data. This is the moment of the truth ;)
-                            hex_values = f3h_palette_data[CP_JSON_KEY_NAME_HEX]
+                            hex_values = data[CP_JSON_KEY_NAME_HEX]
                             isJSON_F3H = True
                         except:
                             isJSON_F3H = False
@@ -8882,16 +8886,21 @@ class flam3h_palette_utils
                             rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
 
                             try:
-                                hsv_vals = [float(x) for x in f3h_palette_data[CP_JSON_KEY_NAME_HSV].split(' ')]
+                                hsv_vals = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
                                 hsv_check = True
                             except:
                                 hsv_vals = []
                                 hsv_check = False
                             
                             # Get usable color values
-                            HEXs = [hex for hex in wrap(f3h_palette_data[CP_JSON_KEY_NAME_HEX], 6)]
-                            RGBs = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs]
-                            rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                            HEXs = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
+                            try:
+                                RGBs = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs]
+                                rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                            except:
+                                rgb_from_XML_PALETTE = []
+                                
+                            del data
                             
                             # Initialize and SET new ramp.
                             _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
@@ -8918,7 +8927,7 @@ class flam3h_palette_utils
                                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                                 flam3h_general_utils.flash_message(node, f"Palette LOADED from the Clipboard")
                             else:
-                                _MSG = f"{node.name()}: PALETTE Clipboard -> ERROR on preset: \"{preset}\""
+                                _MSG = f"{node.name()}: PALETTE Clipboard -> ERROR on preset: \"{preset}\". Invalid HEX values."
                                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                                 flam3h_general_utils.flash_message(node, f"Palette ERROR from the Clipboard")
                             
@@ -11074,15 +11083,15 @@ class in_flame
                 #         [_HEX.append(hex) for hex in wrap(cleandoc, 6)]
                 
                 palette_hex = self.flame[idx].find(key).text
+                HEXs = [hex for line in palette_hex.splitlines() for hex in wrap(i_cleandoc(line), 6) if len(i_cleandoc(line))>1]
                 try:
-                    HEXs = [hex for line in palette_hex.splitlines() for hex in wrap(i_cleandoc(line), 6) if len(i_cleandoc(line))>1]
                     RGBs = [list(map(abs, flam3h_palette_utils.hex_to_rgb(hex))) for hex in HEXs]
+                    rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
                     _PALETTE = True
                 except:
                     _PALETTE = False
-                    
+                
                 if _PALETTE:
-                    rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
                     format = dict(palette_attrib).get(XML_PALETTE_FORMAT)
                     ramp_keys_count = len(rgb_from_XML_PALETTE)
                     POSs = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
