@@ -8732,7 +8732,7 @@ class flam3h_palette_utils
                 # Get usable color values
                 HEXs = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
                 try:
-                    RGBs = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs]
+                    RGBs = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
                     rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
                 except:
                     rgb_from_XML_PALETTE = []
@@ -8895,7 +8895,7 @@ class flam3h_palette_utils
                             # Get usable color values
                             HEXs = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
                             try:
-                                RGBs = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs]
+                                RGBs = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
                                 rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
                             except:
                                 rgb_from_XML_PALETTE = []
@@ -11085,7 +11085,7 @@ class in_flame
                 palette_hex = self.flame[idx].find(key).text
                 HEXs = [hex for line in palette_hex.splitlines() for hex in wrap(i_cleandoc(line), 6) if len(i_cleandoc(line))>1]
                 try:
-                    RGBs = [list(map(abs, flam3h_palette_utils.hex_to_rgb(hex))) for hex in HEXs]
+                    RGBs = [list(map(abs, flam3h_palette_utils.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
                     rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
                     _PALETTE = True
                 except:
@@ -11099,8 +11099,6 @@ class in_flame
                     return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), ramp_keys_count, str(format)
                 
                 else:
-                    _MSG = f"ERROR: CP Palette\nHEX values not valid."
-                    self.node.setParms({MSG_DESCRIPTIVE_PRM: _MSG}) # type: ignore
                     return None
 
             else:
