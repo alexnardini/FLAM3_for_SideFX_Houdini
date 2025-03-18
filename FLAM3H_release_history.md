@@ -10,6 +10,17 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### <ins>From v1.7.30</ins> ###
+
+- **Fix**: Added some parachutes if something goes wrong while loading the Palette data.
+- **Fix**: Removed an error message in the descriptive parameter if something goes wrong when loading the Palette data and used a print() to console instead, its cleaner.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+<br>
+<br>
+
+
 ### <ins>From v1.7.27</ins> ###
 
 - **Fix**: When activating the OUT options "Flame name inherit on Load" toggle, if the current FLAM3H iterations number was different from the one stored into the loaded IN Preset name it was not updating it.

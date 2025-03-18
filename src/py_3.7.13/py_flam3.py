@@ -74,7 +74,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.7.27'
+FLAM3H_VERSION = '1.7.30'
 FLAM3H_VERSION_STATUS_BETA = "Beta"
 FLAM3H_VERSION_STATUS_GOLD = "Gold"
 
@@ -14240,7 +14240,7 @@ class in_flame_utils
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             _BASEs, _POSs, _COLORs = flam3h_palette_utils.build_ramp_palette_error()
             ramp_parm.set(hou.Ramp(_BASEs, _POSs, _COLORs))
-            
+
             if attempt_from_clipboard: _MSG = "\nFlame IN Clipboard: The loaded Flame preset's Palette has invalid HEX values."
             else: _MSG = "\nFlame IN: The loaded Flame preset's Palette has invalid HEX values."
             print(f"{node.name()}: {_MSG}")
