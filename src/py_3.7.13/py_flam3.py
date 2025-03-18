@@ -13589,9 +13589,7 @@ class in_flame_utils
             
             # Set Affine ( PRE, POST and F3H_PRE, F3H_POST) for this iterator or FF
             self.in_set_affine(mode, node, prx, apo_data, n, mp_idx)
-            
-        _MSG = f"{node.name()}: Iterators and FF parameters SET -> Completed"
-        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+
 
 
 
@@ -14243,8 +14241,8 @@ class in_flame_utils
             _BASEs, _POSs, _COLORs = flam3h_palette_utils.build_ramp_palette_error()
             ramp_parm.set(hou.Ramp(_BASEs, _POSs, _COLORs))
             
-            if attempt_from_clipboard: _MSG = "\nFlame IN Clipboard: The loaded Flame preset Palette data is not valid."
-            else: _MSG = "\nFlame IN: The loaded Flame preset Palette data is not valid."
+            if attempt_from_clipboard: _MSG = "\nFlame IN Clipboard: The loaded Flame preset's Palette has invalid HEX values."
+            else: _MSG = "\nFlame IN: The loaded Flame preset's Palette has invalid HEX values."
             print(f"{node.name()}: {_MSG}")
             
             
