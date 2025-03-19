@@ -16960,8 +16960,8 @@ class out_flame_utils
                 flame = lxmlET.tostring(root, encoding="unicode") # type: ignore
                 # Store the loaded Flame preset into the FLAM3H node data storage
                 node.setUserData(data_name, flame)
-            # Restore whatever flame name was there if any
-            if out_flame_name: node.setParms({OUT_FLAME_PRESET_NAME: out_flame_name})
+            # Restore whatever flame name was there if any (even if it was empty)
+            node.setParms({OUT_FLAME_PRESET_NAME: out_flame_name})
             
             
 
