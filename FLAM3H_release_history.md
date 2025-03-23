@@ -10,7 +10,18 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
-### <ins>From v1.7.30</ins> ###
+### <ins>From v1.7.33</ins> ###
+
+- **Fix**: Removed two parameters from the FLAM3H UI IN tab renderer settings folder and now using only one controlled by the python's FLAM3H module.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+<br>
+<br>
+
+
+### [<ins>From v1.7.30</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.30) ###
 
 - **Fix**: Added some parachutes if something goes wrong while loading the Palette data.
 - **Fix**: Removed an error message in the descriptive parameter if something goes wrong when loading the Palette data and used a print() to console instead, its cleaner.
@@ -21,7 +32,7 @@ They are all available in this github repository.</br>
 <br>
 
 
-### <ins>From v1.7.27</ins> ###
+### [<ins>From v1.7.27</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.27) ###
 
 - **Fix**: When activating the OUT options "Flame name inherit on Load" toggle, if the current FLAM3H iterations number was different from the one stored into the loaded IN Preset name it was not updating it.
 - **Fix**: Improvements of the json palette presets loading into FLAM3H.
@@ -35,7 +46,7 @@ They are all available in this github repository.</br>
 <br>
 
 
-### <ins>From v1.7.22</ins> ###
+### [<ins>From v1.7.22</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.22) ###
 
 - **New**: Added the OUT tab option toggle: "Flame name inherit on Load". Cause the OUT Flame name parameter to automatically be set to the name of the loaded flame preset. It is OFF by default.
 - **Fix**: Switching Flame files was triggering a message about the node user data updates if the new file loaded preset was the same name as the one currnetly loaded before switching.
@@ -51,7 +62,7 @@ They are all available in this github repository.</br>
 <br>
 
 
-### <ins>From v1.7.12</ins> ###
+### [<ins>From v1.7.12</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.12) ###
 
 #### FLAM3H ####
 
@@ -71,7 +82,7 @@ They are all available in this github repository.</br>
 <br>
 
 
-### <ins>From v1.7.07</ins> ###
+### [<ins>From v1.7.07</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.07) ###
 
 #### FLAM3H ####
 
@@ -91,7 +102,7 @@ They are all available in this github repository.</br>
 <br>
 
 
-### <ins>From v1.7.04</ins> ###
+### [<ins>From v1.7.04</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.04) ###
 
 #### FLAM3H ####
 
@@ -111,7 +122,7 @@ They are all available in this github repository.</br>
 <br>
 
 
-### <ins>From v1.7.01</ins> ###
+### [<ins>From v1.7.01</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.01) ###
 
 - **Fix**: Fixed a rare Xaos bug on Flame load introduced with the preview version: [**v1.7.00**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.00) - It was sometime setting the first xaos value on the first iterator to '0'(Zero) when all Xaos values were supposed to be '1'(One).
 
@@ -120,7 +131,7 @@ They are all available in this github repository.</br>
 <br>
 
 
-### <ins>From v1.7.00</ins> ###
+### [<ins>From v1.7.00</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.00) ###
 
 #### FLAM3H ####
 
@@ -137,7 +148,7 @@ They are all available in this github repository.</br>
 <br>
 
 
-### <ins>From v1.6.97</ins> ###
+### [<ins>From v1.6.97</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.97) ###
 
 #### FLAM3H ####
 
@@ -160,7 +171,7 @@ They are all available in this github repository.</br>
 <br>
 
 
-### <ins>From v1.6.91</ins> ###
+### [<ins>From v1.6.91</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.91) ###
 
 _This update is all about FLAM3HUSD._
 
@@ -182,7 +193,7 @@ _This update is all about FLAM3HUSD._
 <br>
 
 
-### <ins>From v1.6.90</ins> ###
+### [<ins>From v1.6.90</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.90) ###
 
 #### FLAM3H ####
 
@@ -207,7 +218,7 @@ _This update is all about FLAM3HUSD._
 <br>
 
 
-### <ins>From v1.6.84</ins> ###
+### [<ins>From v1.6.84</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.84) ###
 
 #### FLAM3H ####
 
@@ -229,7 +240,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### <ins>From v1.6.82</ins> ###
+### [<ins>From v1.6.82</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.82) ###
 
 - **Fix**: _Motion Blur_ is now initialized directly within the main function making it ~30% faster to compute when active.
 
@@ -238,7 +249,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### <ins>From v1.6.81</ins> ###
+### [<ins>From v1.6.81</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.81) ###
 
 - **Fix**: Enumerated presets menus now start to count from **1**.
 
@@ -247,7 +258,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### <ins>From v1.6.80</ins> ###
+### [<ins>From v1.6.80</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.80) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -256,7 +267,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### <ins>From v1.6.78</ins> ###
+### [<ins>From v1.6.78</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.78) ###
 
 - **Fix**: New Dark mode method, it is more accurate and scale better to new modes like for example the DarkGrey mode introduced in H20.x. It now also print more targeted status bar messages.
 - **Updated HDA documentation.**
@@ -266,7 +277,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### <ins>From v1.6.77</ins> ###
+### [<ins>From v1.6.77</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.77) ###
 
 - **Fix**: Missing variations text message lines now ends with a comma(**,**) unless it is the last line in the message which will end with a dot(**.**).
 - **Fix**: Smaller compiled file size, almost 40kb saved.
@@ -276,7 +287,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### <ins>From v1.6.76</ins> ###
+### [<ins>From v1.6.76</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.76) ###
 
 - **Fix**: Xoas.h had a missing return statement even tho it was still able to correctly return the proper idx but for the sake of correctness it has been fixed.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -286,7 +297,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### <ins>From v1.6.75</ins> ###
+### [<ins>From v1.6.75</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.75) ###
 
 - **Fix**: Output path check messages now understand if they run from the IN or the OUT tab. Before was always from the OUT tab.
 - **Fix**: Loading a hip file with multiple FLAM3H nodes and a marked iterator was not recognizing the marked iterator as the other nodes init script was clearing out that data. It is now fixed.
@@ -298,7 +309,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### <ins>From v1.6.71</ins> ###
+### [<ins>From v1.6.71</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.71) ###
 
 - **New**: Viewport xforms handles VIZ geo is now pre-cooked every time a Flame preset is loaded.
 - **New**: Density menu entries now have xforms handles VIZ indicators to signal which mode is ON.
@@ -316,7 +327,7 @@ _This simple utility node got an upgrade._
 <br>
 
 
-### <ins>From v1.6.65</ins> ###
+### [<ins>From v1.6.65</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.65) ###
 
 _This release is a tentative: **Final** as of **H20.5.x**:_
 
@@ -328,7 +339,7 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 <br>
 
 
-### <ins>From v1.6.63</ins> ###
+### [<ins>From v1.6.63</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.63) ###
 
 - **New**: When the xforms handles VIZ mode is ON, the density presets menu entries will display a small red handle to indicate the density values the xforms handles VIZ mode will keep being active.
 - **Fix**: When in xforms handles VIZ mode, if the density value is raised above 5M(_millions_) points, the related UI icons will be disabled as well.
@@ -340,7 +351,7 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 <br>
 
 
-### <ins>From v1.6.60</ins> ###
+### [<ins>From v1.6.60</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.60) ###
 
 - **Fix**: First node instance creation time is now twice as fast.
 - **Fix**: The overall responsiveness of the tool while editing feel a bit faster.
@@ -354,7 +365,7 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 <br>
 
 
-### <ins>From v1.6.50</ins> ###
+### [<ins>From v1.6.50</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.50) ###
 
 - **New**: ~**5%** faster (_All iterators,FF and parametrics variations parameters data are now pre-computed_).
 - **New**: A new way of query parametric parameters values made the tool more responsive and a bit more interactive while editing.
@@ -382,7 +393,7 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 <br>
 
 
-### <ins>From v1.6.10</ins> ###
+### [<ins>From v1.6.10</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.10) ###
 
 _This is the last update of 2024, after a very long time of development and unit test (**years**) it is now considered in good shape ;D_
 
@@ -398,7 +409,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### <ins>From v1.6.09</ins> ###
+### [<ins>From v1.6.09</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.09) ###
 
 - **New**: New SYS tab "viewport handles VIZ" icon.
 - **Fix**: Improved a little the Global tab.
@@ -409,7 +420,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### <ins>From v1.6.06</ins> ###
+### [<ins>From v1.6.06</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.06) ###
 
 - **New**: Added viewport handles VIZ icons to the SYS Utils' tab; Much more handy!
 - **Updated HDA documentation.**
@@ -419,7 +430,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### <ins>From v1.6.05</ins> ###
+### [<ins>From v1.6.05</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.05) ###
 
 - **Fix**: Some xforms handles compiled cvex files size are now smaller(~40% smaller).
 - **Fix**: The xforms handles geo transformations are a bit faster.
@@ -430,7 +441,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### <ins>From v1.6.02</ins> ###
+### [<ins>From v1.6.02</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.02) ###
 
 - **Fix**: iterators viewport xforms handles geo transformations is now many, many times faster.
 
@@ -439,7 +450,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### <ins>From v1.6.01</ins> ###
+### [<ins>From v1.6.01</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.01) ###
 
 - **Fix**: viewport xforms handles knots now have a non-uniform scale, indipendent from each other allowing for a better scale computation during shear/stretching.
 
@@ -449,7 +460,7 @@ _This is the last update of 2024, after a very long time of development and unit
 <br>
 
 
-### <ins>From v1.6.00</ins> ###
+### [<ins>From v1.6.00</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.00) ###
 
 - **New**: Added the ability to preview the xforms handles in the viewport. You can toggle it ON or OFF in the preferences options under: general tab. These handles are not editable and serve only a VIZ purpose. They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator/FF of the fractal Flame. They are meant to be a VIZ of manipulators as found in other fractal flame editors out there. (_it is a work in progress_)
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -468,7 +479,7 @@ _Some of those small fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.98</ins> ###
+### [<ins>From v1.5.98</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.98) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -478,7 +489,7 @@ _Some of those small fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.97</ins> ###
+### [<ins>From v1.5.97</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.97) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -487,7 +498,7 @@ _Some of those small fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.96</ins> ###
+### [<ins>From v1.5.96</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.96) ###
 
 - **New**: Added ArchViz High Quality palette libraries.
 - **New**: Added Portraits High Quality palette library.
@@ -501,7 +512,7 @@ _Some of those small fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.95</ins> ###
+### [<ins>From v1.5.95</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.95) ###
 
 - **New**: Added 3(three) new High Quality palette libraries with one derived from Super Heros characters with 50s colors.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -518,7 +529,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.93</ins> ###
+### [<ins>From v1.5.93</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.93) ###
 
 - **New**: Added 2(two) new High Quality palette libraries.
 - **Fix**: CP and IN tab presets file path data initialization has been updated.
@@ -529,7 +540,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.90</ins> ###
+### [<ins>From v1.5.90</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.90) ###
 
 - **Fix**: Optimized density menu presets' bookmark icons (about half the file size) making the menu a bit faster to build when you click on it.
 - **Fix**: Density presets menu's bookmark icons are now right aligned giving more sense of scale/progression while reinforcing the feeling of a boundary between the menu labels.
@@ -542,7 +553,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.88</ins> ###
+### [<ins>From v1.5.88</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.88) ###
 
 - **New**: New global tab layout and its new density menu workflow; much lighter and pleasant to the eyes and takes up less UI space. You can still set a custom density value from inside the preferences tab.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -553,7 +564,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.85</ins> ###
+### [<ins>From v1.5.85</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.85) ###
 
 - **Fix**: Remap "pre_gaussian_blur" on Flame load is now fully automatic and its IN option's toggle has been removed.
 - **Updated HDA documentation.**
@@ -563,7 +574,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.84</ins> ###
+### [<ins>From v1.5.84</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.84) ###
 
 - **New**: The density presets menu entries now have new bookmark icons to identify the different ranges.
 - **Fix**: The CP palette lookup samples menu entries are now only from 256 to 1024 samples.
@@ -575,7 +586,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.82</ins> ###
+### [<ins>From v1.5.82</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.82) ###
 
 - **Fix**: Fixed a not defined index variable that casued an error when resetting an iterator to its defaults (bug introduced in one of the preview versions).
 
@@ -584,7 +595,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.81</ins> ###
+### [<ins>From v1.5.81</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.81) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -594,7 +605,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.80</ins> ###
+### [<ins>From v1.5.80</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.80) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -604,7 +615,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.78</ins> ###
+### [<ins>From v1.5.78</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.78) ###
 
 - **Fix**: improved copy/paste edge case handling. Now that case is being run once until it need to update again, having less impact on the UI performance.
 
@@ -613,7 +624,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.77</ins> ###
+### [<ins>From v1.5.77</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.77) ###
 
 - **New**: Allow to reload an hip file with marked iterator or FF and pick up from there.
 - **Fix**: Fixed a rare bug causing a wrong message in the copy/paste iterator mechanism.
@@ -624,7 +635,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.74</ins> ###
+### [<ins>From v1.5.74</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.74) ###
 
 - **Fix**: More Presets menus update/refresh sneaked into toggles and other places.
 - **Fix**: Grouped many toggle resets and wrapped all of them into list comprehensions.
@@ -636,7 +647,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.72</ins> ###
+### [<ins>From v1.5.72</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.72) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -646,7 +657,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.70</ins> ###
+### [<ins>From v1.5.70</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.70) ###
 
 - **Fix**: Forced the Preset menus to be updated and refreshed from few other places, like for example inside the reframe Viewport SYS icon definition.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -657,7 +668,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.68</ins> ###
+### [<ins>From v1.5.68</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.68) ###
 
 - **Fix**: Undos now work again. They work flawlessly in H20.5
 - **Updated HDA documentation.**
@@ -667,7 +678,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.66</ins> ###
+### [<ins>From v1.5.66</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.66) ###
 
 - **New**: The OUT Flame preset Palette 256+ option is now one and global inside the preferences tab. It will Enable/Disable this feature for the OUT Flame preset save option. Since this implementation has been crafted to be used in tandem with Fractorium, there are no reasons to toggle this option OFF as Fractorium can handle Flame presets with more than 256 color keys.
 - **New**: When the preferences **palette 256+** toggle is ON(it is by default) the text **[256+]** at the end of the SYS tab will appear, and when OFF it will disappear.
@@ -681,7 +692,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.64</ins> ###
+### [<ins>From v1.5.64</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.64) ###
 
 - **Fix**: During a Flame preset load it will now checks against multiple color correction curves data defaults.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -692,7 +703,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.62</ins> ###
+### [<ins>From v1.5.62</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.62) ###
 
 - **Updated/Corrected HDA documentation.**
 
@@ -701,7 +712,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.60</ins> ###
+### [<ins>From v1.5.60</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.60) ###
 
 - **New**: From the OUT render color correction curves folder, you can now copy only the cc curves from the loaded IN Flame preset.
 - **Fix**: The OUT color correction curves folder content is now properly setup internally for its default values and the folder name font won't be **bold** anymore when at default.
@@ -716,7 +727,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.56</ins> ###
+### [<ins>From v1.5.56</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.56) ###
 
 - **Fix**: def get_ramp_keys_count(...) will now return a minimun of 128 color keys on save (before it could have been 64 but in some cases it was not enough)
 - **Updated HDA documentation.**
@@ -726,7 +737,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.55</ins> ###
+### [<ins>From v1.5.55</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.55) ###
 
 - **Fix**: When loading hip files with older version of FLAM3H their color correction curves values were nulls resulting in a black image when saving the Flame out and load it in Fractorium and others. It will now set them to their default values on load if needed.
 - **Fix**: When saving out a palette with more than 256 color keys, will now always store the lookup sample value if greater than the number of the color keys, otherwise store the nearest lookup sample value that is greater than the number of color keys in the palette.
@@ -737,7 +748,7 @@ _Some of those fixes/improvements include_:
 <br>
 
 
-### <ins>From v1.5.54</ins> ###
+### [<ins>From v1.5.54</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.54) ###
 
 - **Fix**: Only the color correction curves different from their default values will be listed inside the IN infos render properties.
 - **Fix**: In infos CC detection was not using the preset_id index to compare color correction curves values.

@@ -74,7 +74,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.7.30'
+FLAM3H_VERSION = '1.7.33'
 FLAM3H_VERSION_STATUS_BETA = "Beta"
 FLAM3H_VERSION_STATUS_GOLD = "Gold"
 
@@ -298,9 +298,11 @@ FLAM3H_DATA_PRM_MPIDX = 'flam3h_data_mpidx'
 # Flame stats locked message string
 MSG_FLAMESTATS_LOCK = '-> LOCKED'
 # Flame stats message parameters
-MSG_FLAMESTATS = 'flamestats_msg'
-MSG_FLAMESENSOR = 'flamesensor_msg'
-MSG_FLAMERENDER = 'flamerender_msg'
+MSG_IN_SETTINGS_HEADING = 'flamerender_heading'
+MSG_IN_SETTINGS_HEADING_DEFAULT = 'IN flame preset renderer settings'
+MSG_IN_FLAMESTATS = 'flamestats_msg'
+MSG_IN_FLAMESENSOR = 'flamesensor_msg'
+MSG_IN_FLAMERENDER = 'flamerender_msg'
 MSG_DESCRIPTIVE_PRM = 'descriptive_msg'
 # Presets PRM and MSG
 MSG_PALETTE = 'palettemsg'
@@ -1772,10 +1774,10 @@ class flam3h_general_utils
         Returns:
             (None):
         """  
-        stats = node.parm(MSG_FLAMESTATS).eval()
+        stats = node.parm(MSG_IN_FLAMESTATS).eval()
         lines = stats.splitlines()
         if lines[0] == MSG_FLAMESTATS_LOCK: lines[0] = ''
-        node.setParms({MSG_FLAMESTATS: "\n".join(lines)})
+        node.setParms({MSG_IN_FLAMESTATS: "\n".join(lines)})
 
 
 
@@ -3247,7 +3249,7 @@ class flam3h_general_utils
                     
                 else:
                     [self.set_private_prm(node, prm_name, 0) for prm_name in (IN_PVT_ISVALID_FILE, IN_PVT_ISVALID_PRESET, IN_PVT_CLIPBOARD_TOGGLE)]
-                    [prm.set("") for prm in (node.parm(MSG_FLAMESTATS), node.parm(MSG_FLAMERENDER), node.parm(MSG_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM))]
+                    [prm.set("") for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM))]
                         
                 # If it is not a chaotica xml file do print out from here,
                 # other wise we are printing out from:
@@ -3289,7 +3291,7 @@ class flam3h_general_utils
             # If there is not a flame preset loaded from the clipboard
             if not clipboard:
                 [self.set_private_prm(node, prm_name, 0) for prm_name in (IN_PVT_ISVALID_FILE, IN_PVT_ISVALID_PRESET, IN_PVT_CLIPBOARD_TOGGLE)]
-                [prm.set("") for prm in (node.parm(MSG_FLAMESTATS), node.parm(MSG_FLAMERENDER), node.parm(MSG_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM))]
+                [prm.set("") for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM))]
                 
                 # We do not want to print if the file path parameter is empty
                 # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
@@ -4978,9 +4980,9 @@ class flam3h_iterator_utils
                     # Update user data
                     node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
                     # Update flame stats
-                    node.setParms({MSG_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, clipboard)})
-                    node.setParms({MSG_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data)})
-                    node.setParms({MSG_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)})
+                    node.setParms({MSG_IN_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, clipboard)})
+                    node.setParms({MSG_IN_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data)})
+                    node.setParms({MSG_IN_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)})
 
                     _MSG_ALL = f"\"XML_last_loaded\" user data: Updated\n\nThe currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk. Reload the preset to update.\n\n-> Meanwhile,\nthe IN flame preset infos have been updated\nas well as its render properties infos."
                     _MSG_UI = f"The currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk."
@@ -7590,6 +7592,9 @@ class flam3h_iterator_utils
             # OUT render curves reset and set
             out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
             
+            # Reset IN Folder settings heading
+            node.setParms({MSG_IN_SETTINGS_HEADING: ''}) # type: ignore
+            
             # Print to Houdini's status bar
             _MSG = f"{node.name()}: {_MSG_str}"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -9381,7 +9386,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         n = 5
         vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)]
         vars_txt = "".join( [", ".join(grp) + "." if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
-        vars_txt_MSG = f"They are also available as PRE and POST:\n\n{vars_txt}"
+        vars_txt_MSG = f"They are also available as PRE and POST.\n\nNumber of plugins/variations: {len(vars_sorted)}\n\n{vars_txt}"
         self.node.setParms({MSG_FLAM3H_PLUGINS: vars_txt_MSG})
         
         
@@ -12982,6 +12987,10 @@ class in_flame_utils
             # but since this one is run also from a callback script, i'm doing the checks twice anyway
             out_flame_utils.out_render_curves_compare_and_set_toggle(node)
             
+            # Set folder heading
+            if clipboard: node.setParms({MSG_IN_SETTINGS_HEADING: f"{MSG_IN_SETTINGS_HEADING_DEFAULT} {IN_CLIPBOARD_LABEL_MSG}"}) # type: ignore
+            else: node.setParms({MSG_IN_SETTINGS_HEADING: f"{MSG_IN_SETTINGS_HEADING_DEFAULT}"}) # type: ignore
+            
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
             
             if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
@@ -14279,9 +14288,9 @@ class in_flame_utils
         # This for when we are loading aq Flame preset in full
         if copy_only is False:
             # Update flame stats
-            node.setParms({MSG_FLAMESTATS: self.in_load_stats_msg(preset_id, apo_data, clipboard)}) # type: ignore
-            node.setParms({MSG_FLAMESENSOR: self.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
-            node.setParms({MSG_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
+            node.setParms({MSG_IN_FLAMESTATS: self.in_load_stats_msg(preset_id, apo_data, clipboard)}) # type: ignore
+            node.setParms({MSG_IN_FLAMESENSOR: self.in_load_sensor_stats_msg(preset_id, apo_data)}) # type: ignore
+            node.setParms({MSG_IN_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)}) # type: ignore
             
             # if we are loading from the clipboard, always copy the render settings on load
             if clipboard: self.in_copy_render_all_stats_msg(self.kwargs, apo_data, clipboard)
@@ -14723,7 +14732,7 @@ class in_flame_utils
                 else:
                     [flam3h_general_utils.set_private_prm(node, prm_name, 0) for prm_name in (IN_PVT_ISVALID_FILE, IN_PVT_ISVALID_PRESET, IN_PVT_CLIPBOARD_TOGGLE)]
                     # clear info msgs
-                    [prm.set("") for prm in (node.parm(MSG_FLAMESTATS), node.parm(MSG_FLAMERENDER), node.parm(MSG_DESCRIPTIVE_PRM))]
+                    [prm.set("") for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_DESCRIPTIVE_PRM))]
                     # If iterator's count is 0(Zero), change focus back to the IN's Tab
                     # And let the user know it should load a flame file first
                     if node.parm(FLAME_ITERATORS_COUNT).eval() == 0:
@@ -14786,13 +14795,13 @@ class in_flame_utils
             (None):
         """
         node = self.node
-
+        
         flam3h_general_utils.set_private_prm(node, IN_PVT_ISVALID_PRESET, 0)
         flam3h_general_utils.set_private_prm(node, IN_PVT_CLIPBOARD_TOGGLE, 0)
-        [prm.set("") for prm in (node.parm(MSG_FLAMESTATS), node.parm(MSG_FLAMERENDER), node.parm(MSG_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM))]
+        [prm.set("") for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM), node.parm(MSG_IN_SETTINGS_HEADING))]
         
         if mode:
-            # This more is not being used anymore but I leave it here just in case
+            # This is not being used anymore but I leave it here just in case
             node.setParms({IN_PATH: ""})
             node.setParms({IN_PRESETS: str(-1)})
             node.setParms({IN_PRESETS_OFF: str(-1)})
