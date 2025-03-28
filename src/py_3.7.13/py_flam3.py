@@ -8096,7 +8096,7 @@ class flam3h_palette_utils
                     # I do not remember why I am doing this else statement
                     # ...I leave it here for now as there must be a reason for this to exist ;)
                     #
-                    # I think it was becasue from inside the palette_cp(self) definition we are constantly checking
+                    # I think it was because from inside the palette_cp(self) definition we are constantly checking
                     # if the current number of color keys are greater than 256 and adjust the palette msg on the fly.
                     flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, palette_msg)
                 
@@ -14107,6 +14107,13 @@ class in_flame_utils
                                                                                             attempt_to_load_from_clipboard, 
                                                                                             chaos
                                                                                             )
+                                                                                            
+                                                                                            * xml ( Union[str, None] ): either a flame preset from a flame file or from the Clipboard.
+                                                                                            * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                                                            * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                                                            * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                                                            * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                                                            * chaos ( bool ): Is it a chaotica XML file type ? True or False.
 
         Returns:
             (None):
