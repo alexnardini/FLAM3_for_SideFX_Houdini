@@ -182,7 +182,7 @@ Reset FLAM3H Shader parms:
 
 @Author
 
-= _F stands for liFe ( made in Italy )_ =
+= [Largeicon:opdef:.?icon_F3H_iconSVG.svg] _stands for liFe ( made in Italy )_ =
     
 :box:
     #display: rounded gray
