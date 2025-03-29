@@ -205,7 +205,7 @@ class flam3husd_scripts
                         node.setParms({PREFS_VIEWPORT_DARK: 1})
                         flam3husd_general_utils(self.kwargs).colorSchemeDark(False)
                         
-                    # FLAM3H nodes viewport preferences options are already synced
+                    # FLAM3HUSD nodes viewport preferences options are already synced
                     # so we really need only one to know them all
                     break
         else:
