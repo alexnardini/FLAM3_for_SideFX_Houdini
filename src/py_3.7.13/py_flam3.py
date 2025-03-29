@@ -1261,9 +1261,10 @@ class flam3h_scripts
                     if f3h.parm(PREFS_VIEWPORT_DARK).eval():
                         node.setParms({PREFS_VIEWPORT_DARK: 1})
                         flam3h_general_utils(self.kwargs).colorSchemeDark(False)
-                        break
-                    else:
-                        continue
+                        
+                    # FLAM3H nodes viewport preferences options are already synced
+                    # so we really need only one to know them all
+                    break
         else:
             node.setParms({PREFS_VIEWPORT_DARK: 1})
             flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
