@@ -318,7 +318,7 @@ class flam3husd_scripts
         renderers: list = []
         for v in views:
             # Store only if it is a Lop viewer
-            if flam3husd_general_utils.util_is_context('Lop', v):
+            if flam3husd_general_utils.util_is_context('Lop', v) and not hou.hipFile.isLoadingHipFile(): # type: ignore
                 renderers.append(hou.SceneViewer.currentHydraRenderer(v))
                 
         if renderers:
