@@ -206,7 +206,7 @@ class flam3husd_scripts
                         flam3husd_general_utils(self.kwargs).colorSchemeDark(False)
                         break
                     else:
-                        break
+                        continue
         else:
             node.setParms({PREFS_VIEWPORT_DARK: 1})
             flam3husd_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore

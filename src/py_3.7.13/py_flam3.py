@@ -1263,7 +1263,7 @@ class flam3h_scripts
                         flam3h_general_utils(self.kwargs).colorSchemeDark(False)
                         break
                     else:
-                        break
+                        continue
         else:
             node.setParms({PREFS_VIEWPORT_DARK: 1})
             flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
