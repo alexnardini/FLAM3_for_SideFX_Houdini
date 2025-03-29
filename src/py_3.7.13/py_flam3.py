@@ -1545,7 +1545,7 @@ class flam3h_scripts
             # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
             # (ex. the user perform hand made modifications like renaming a Preset and such).
             flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
-            flam3h_iterator_utils(self.kwargs).destroy_xml_last_loaded()
+            flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
             
             # Clear any comment and user data from the node
             if flam3h_iterator_utils.exist_user_data(node):
@@ -1600,7 +1600,7 @@ class flam3h_scripts
             # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
             # (ex. the user perform hand made modifications like renaming a Preset and such).
             flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
-            flam3h_iterator_utils(self.kwargs).destroy_xml_last_loaded()
+            flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
             
             # If we are deleting a FLAM3H node in xforms handles VIZ mode
             # check if others FLAM3H node are in xfomrs handles VIZ mode as well
@@ -2219,7 +2219,7 @@ class flam3h_general_utils
         node = self.node
         # Clear menu caches
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
-        flam3h_iterator_utils(self.kwargs).destroy_xml_last_loaded()
+        flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         
         prm_menus: tuple = (node.parm(CP_PALETTE_PRESETS),
                             node.parm(CP_PALETTE_PRESETS_OFF),
@@ -3096,7 +3096,7 @@ class flam3h_general_utils
         # Clear menu cache
         if destroy_menus:
             flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
-            flam3h_iterator_utils(self.kwargs).destroy_xml_last_loaded()
+            flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         
         # Retrieve the filepath from the history (preview valid F3H json file path used)
         cp_presets_filepath_history = node.cachedUserData('cp_presets_filepath')
@@ -3214,7 +3214,7 @@ class flam3h_general_utils
         node = self.node
         # Clear menu caches
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
-        flam3h_iterator_utils(self.kwargs).destroy_xml_last_loaded()
+        flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         # Retrieve the filepath from the history (preview valid F3H json file path used)
         in_presets_filepath_history = node.cachedUserData('in_presets_filepath')
         
@@ -3320,7 +3320,7 @@ class flam3h_general_utils
         # Clear menu caches
         if destroy_menus:
             flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
-            flam3h_iterator_utils(self.kwargs).destroy_xml_last_loaded()
+            flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         # Retrieve the filepath from the history (preview valid F3H json file path used)
         out_presets_filepath_history = node.cachedUserData('out_presets_filepath')
         
@@ -3948,7 +3948,7 @@ class flam3h_iterator_utils
 * iterator_FF_affine_scale(self) -> None:
 * iterator_FF_post_affine_scale(self) -> None:
 * destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool=False) -> None:
-* destroy_xml_last_loaded(self) -> None:
+* update_xml_last_loaded(self) -> None:
 * refresh_iterator_vars_menu(self) -> None:
 * destroy_data_note(self) -> None:
 * note_FF(self) -> None:
@@ -4944,7 +4944,7 @@ class flam3h_iterator_utils
             
 
 
-    def destroy_xml_last_loaded(self) -> None:
+    def update_xml_last_loaded(self) -> None:
         """Force node user data "XML_last_loaded" to update.
         It will update only if: xml and xml_isFile and xml == xml_history and inisvalidfile and inisvalidpreset and not clipboard
 
@@ -7190,7 +7190,7 @@ class flam3h_iterator_utils
         self.destroy_cachedUserData(node, 'iter_sel')
         self.destroy_cachedUserData(node, 'edge_case_01')
         self.destroy_all_menus_data(node, False)
-        self.destroy_xml_last_loaded()
+        self.update_xml_last_loaded()
         # Iterators reset
         in_flame_utils(self.kwargs).in_to_flam3h_reset_iterators_parms(node, 3)
         # update xaos
@@ -7605,7 +7605,7 @@ class flam3h_iterator_utils
             # set xaos and updated presets menus every time an iterator is added or removed
             self.auto_set_xaos()
             self.destroy_all_menus_data(node, False)
-            self.destroy_xml_last_loaded()
+            self.update_xml_last_loaded()
             
             # Clear status bar msg if needed
             if  _MSG_str in hou.ui.statusMessage()[0]: # type: ignore
@@ -8497,7 +8497,7 @@ class flam3h_palette_utils
         node = self.node
         # Force this data to be rebuilt
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
-        flam3h_iterator_utils(self.kwargs).destroy_xml_last_loaded()
+        flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         
         # ALT - Copy palette to the clipboard
         if self.kwargs['alt']:
@@ -8767,7 +8767,7 @@ class flam3h_palette_utils
                 # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
                 # (ex. the user perform hand made modifications like renaming a Preset and such).
                 flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, False)
-                flam3h_iterator_utils(self.kwargs).destroy_xml_last_loaded()
+                flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
                 
                 if _CHECK:
                     flam3h_general_utils.set_private_prm(node, CP_PVT_ISVALID_PRESET, 1)
@@ -17080,7 +17080,7 @@ class out_flame_utils
         # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
         # (ex. the user perform hand made modifications like renaming a Preset and such).
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
-        flam3h_iterator_utils(self.kwargs).destroy_xml_last_loaded()
+        flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         
         # if there is at least one iterator
         iterators_num = node.parm(FLAME_ITERATORS_COUNT).eval()
