@@ -280,8 +280,6 @@ class flam3husd_scripts
             (None):
         """
         
-        # Set renderer
-        self.autoSetRenderer_on_create()
         # Set viewport preferences settings
         self.flam3husd_on_create_set_prefs_viewport()
         # Check if we are importing a valid FLAM3HUSD node
