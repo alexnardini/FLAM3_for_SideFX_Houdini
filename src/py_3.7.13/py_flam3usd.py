@@ -23,7 +23,7 @@ import hou
 #               Everything is then glued together inside Houdini.
 
 
-FLAM3HUSD_VERSION = '0.1.48'
+FLAM3HUSD_VERSION = '0.1.50'
 FLAM3HUSD_VERSION_STATUS_BETA = "Beta"
 
 

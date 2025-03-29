@@ -10,6 +10,21 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.7.35</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.35) ###
+
+#### FLAM3H ####
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+#### FLAM3HUSD v0.1.50 - Beta ####
+
+- **Fix**: Fixed a potential error on hip file load.
+
+
+<br>
+<br>
+
+
 ### [<ins>From v1.7.33</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.33) ###
 
 - **Fix**: Removed two parameters from the FLAM3H UI IN tab renderer settings folder and now using only one controlled by the python's FLAM3H module.
