@@ -1672,6 +1672,7 @@ class flam3h_general_utils
 * util_store_all_viewers_color_scheme_onCreate(self) -> None:
 
 @METHODS
+* reset_density(self) -> None:
 * menus_refresh_enum_prefs(self) -> None:
 * get_node_path(self, node_name: str) -> Union[str, None]:
 * util_set_clipping_viewers(self) -> None:
@@ -2198,6 +2199,22 @@ class flam3h_general_utils
     @property
     def bbox_reframe_path(self):
         return self._bbox_reframe_path
+    
+    
+    
+    def reset_density(self) -> None:
+        """Reset/set density to its default.
+
+        Args:
+            (self):
+
+        Returns:
+            (None):
+        """  
+        node = self.node
+        node.parm(GLB_DENSITY).deleteAllKeyframes()
+        node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY})
+        node.setParms({GLB_DENSITY_PRESETS: 1})
 
 
 
@@ -4808,6 +4825,7 @@ class flam3h_iterator_utils
         return self._node
     
     
+    
     def iterator_affine_scale(self) -> None:
         """Scale the affine X and Y of an amount.
         The default value is: 1 whitch mean 100% and so no scale.
@@ -5016,8 +5034,8 @@ class flam3h_iterator_utils
         """  
         node = self.node
         
-        node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY})
-        node.setParms({GLB_DENSITY_PRESETS: 1})
+        # Reset/Set density
+        flam3h_general_utils(self.kwargs).reset_density()
         
         if not self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval():
             
@@ -5723,9 +5741,8 @@ class flam3h_iterator_utils
         else:
             # Default 500k
             if ptcount != FLAM3H_DEFAULT_GLB_DENSITY:
-                node.parm(GLB_DENSITY).deleteAllKeyframes()
-                node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY})
-                node.setParms({GLB_DENSITY_PRESETS: 1}) # set this to update here anyway
+                # Reset/Set density
+                flam3h_general_utils(self.kwargs).reset_density()
                 _MSG = f"{node.name()} -> SET default density preset: 500K points"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             else:
@@ -7205,8 +7222,7 @@ class flam3h_iterator_utils
         out_flame_utils(self.kwargs).reset_OUT(1) # dnt clear the MSG_OUT if any
         flam3h_general_utils(self.kwargs).reset_PREFS()
         # Reset/Set density
-        node.setParms({GLB_DENSITY_PRESETS: 1}) # type: ignore
-        node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+        flam3h_general_utils(self.kwargs).reset_density()
         # Updated the OUT preset name if needed
         out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
         # Sierpiński triangle settings
@@ -7566,8 +7582,9 @@ class flam3h_iterator_utils
             [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
                 
             # GLOBAL
-            node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
-            node.setParms({GLB_DENSITY_PRESETS: 1}) # type: ignore
+            # Reset/Set density
+            flam3h_general_utils(self.kwargs).reset_density()
+            # Iterations
             node.setParms({GLB_ITERATIONS: FLAM3H_DEFAULT_GLB_ITERATIONS}) # type: ignore
             # FF vars
             self.reset_FF()
@@ -14678,9 +14695,8 @@ class in_flame_utils
                 
                 # F3C ( the if statement is for backward compatibility )
                 if apo_data.prefs_flam3h_f3c is not None: flam3h_general_utils.set_private_prm(node, PREFS_PVT_F3C, apo_data.prefs_flam3h_f3c)
-                # Set density back to default on load
-                node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
-                node.setParms({GLB_DENSITY_PRESETS: 1}) # type: ignore
+                # Reset/Set density
+                flam3h_general_utils(self.kwargs).reset_density()
                 
                 # XF VIZ SOLO OFF (but leave the xforms handles VIZ ON)
                 flam3h_general_utils.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 0)
