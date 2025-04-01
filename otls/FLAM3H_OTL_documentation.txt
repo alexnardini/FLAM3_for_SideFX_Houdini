@@ -149,7 +149,8 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 :box:
     #display: inverted teal
 
-    *GLOBAL*
+    *GLOBAL:* _Global parameters._
+
     Here, you will define the quality of the fractal Flame algorithm solution.
 
 iterations [Icon:TOP/xmlinput]:
