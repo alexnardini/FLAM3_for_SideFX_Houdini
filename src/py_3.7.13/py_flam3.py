@@ -2213,6 +2213,7 @@ class flam3h_general_utils
         """  
         node = self.node
         node.parm(GLB_DENSITY).deleteAllKeyframes()
+        node.parm(GLB_DENSITY_PRESETS).deleteAllKeyframes()
         node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY})
         node.setParms({GLB_DENSITY_PRESETS: 1})
 
@@ -3691,7 +3692,7 @@ class flam3h_general_utils
             
             
             
-            
+    
     def reset_SYS(self, density: int, iter: int, mode: int) -> None:
         """Reset the FLAM3H SYS Tab parameters.
         
@@ -4057,6 +4058,8 @@ class flam3h_iterator_utils
             (None):
         """
         density = node.parm(GLB_DENSITY).eval()
+        node.parm(GLB_DENSITY).deleteAllKeyframes()
+        node.parm(GLB_DENSITY_PRESETS).deleteAllKeyframes()
         density_values: dict = { 500000: 1, 1000000: 2, 2000000: 3, 5000000: 4, 15000000: 5, 25000000: 6, 50000000: 7, 100000000: 8, 150000000: 9, 250000000: 10, 500000000: 11, 750000000: 12, 1000000000: 13 }
         density_idx = density_values.get(density)
         if density_idx is not None:
@@ -5679,6 +5682,7 @@ class flam3h_iterator_utils
         if val_get is not None and ptcount != val_get:
             
             node.parm(GLB_DENSITY).deleteAllKeyframes()
+            node.parm(GLB_DENSITY_PRESETS).deleteAllKeyframes()
             node.setParms({GLB_DENSITY: val_get})
             
             _MSG = f"{node.name()} -> SET Density: {vals_name.get(sel)}"
@@ -5704,7 +5708,9 @@ class flam3h_iterator_utils
         
         if kwargs['shift']:
             if ptcount != 300000:
+                # Clear keyframes
                 node.parm(GLB_DENSITY).deleteAllKeyframes()
+                node.parm(GLB_DENSITY_PRESETS).deleteAllKeyframes()
                 node.setParms({GLB_DENSITY: 300000})
                 node.setParms({GLB_DENSITY_PRESETS: -1})
                 flam3h_general_utils.flash_message(node, 'Density: 300k')
@@ -5716,7 +5722,9 @@ class flam3h_iterator_utils
                 
         elif kwargs['ctrl']:
             if ptcount != 200000:
+                # Clear keyframes
                 node.parm(GLB_DENSITY).deleteAllKeyframes()
+                node.parm(GLB_DENSITY_PRESETS).deleteAllKeyframes()
                 node.setParms({GLB_DENSITY: 200000})
                 node.setParms({GLB_DENSITY_PRESETS: -1})
                 flam3h_general_utils.flash_message(node, 'Density: 200k')
@@ -5728,7 +5736,9 @@ class flam3h_iterator_utils
                 
         elif kwargs['alt']:
             if ptcount != 100000:
+                # Clear keyframes
                 node.parm(GLB_DENSITY).deleteAllKeyframes()
+                node.parm(GLB_DENSITY_PRESETS).deleteAllKeyframes()
                 node.setParms({GLB_DENSITY: 100000})
                 node.setParms({GLB_DENSITY_PRESETS: -1})
                 flam3h_general_utils.flash_message(node, 'Density: 100k')
