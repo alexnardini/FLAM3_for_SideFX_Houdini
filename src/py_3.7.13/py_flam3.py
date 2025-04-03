@@ -1815,7 +1815,7 @@ class flam3h_general_utils
         """Reset/set density to its default.
 
         Args:
-            (self):
+            (None):
 
         Returns:
             (None):
