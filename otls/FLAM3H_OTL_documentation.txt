@@ -2498,6 +2498,11 @@ Density :
     If the choosen value is not present in the global density menu entries,<br />
     the global density menu label will become empty to signal the use of a custom density value here.
 
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
+    - This is the only place where you are allowed to animate the density value.
+
+
+
 
 :box:
     #display: rounded white
