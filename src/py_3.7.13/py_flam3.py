@@ -16889,7 +16889,7 @@ class out_flame_utils
                 xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
                 xf.set(XML_XF_COLOR, f3d.xf_color[iter])
                 xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
-                xf.set(XML_XF_COLOR_SPEED, str((1.0-float(f3d.xf_symmetry[iter]))/2.0))
+                xf.set(XML_XF_COLOR_SPEED, f3d.xf_color_speed[iter])
                 if f3d.xf_pre_blur[iter]:
                     name_PRE_BLUR = XML_XF_PB
                     xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
@@ -17267,6 +17267,22 @@ class out_flame_utils
         """    
         val = [str(self.out_util_round_float(self.node.parm(f"{prm_name}_{iter+1}").eval())) for iter in range(self.iter_count)]
         return tuple(val)
+    
+    
+    def __out_xf_data_color_speed(self, prm_name: str=flam3h_iterator_prm_names.shader_speed) -> tuple:
+        """Prepare the xform/iterator color speed into a proper string to be written out.
+        This is specifically for Fractorium as it is the one using this conversion of values.
+
+        Args:
+            (self):
+            prm_name(str): Default to: flam3h_iterator_prm_names.shader_speed ( "clrspeed" ). The name of the FLAM3H parameter color speed to be prep into a string for writing out.
+
+        Returns:
+            (str): The FLAM3H parameter prepped into a string for writing out into the Flame preset file.
+        """    
+        val = [str(self.out_util_round_float((1.0-self.node.parm(f"{prm_name}_{iter+1}").eval())/2.0)) for iter in range(self.iter_count)]
+        return tuple(val)
+    
 
 
     def __out_xf_name(self) -> tuple:
@@ -17737,6 +17753,7 @@ class out_flame_xforms_data(out_flame_utils):
         self._xf_pre_blur = self._out_flame_utils__out_xf_pre_blur() # type: ignore
         self._xf_color = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_color) # type: ignore
         self._xf_symmetry = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_speed) # type: ignore
+        self._xf_color_speed = self._out_flame_utils__out_xf_data_color_speed() # type: ignore
         self._xf_opacity = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_alpha) # type: ignore
         self._xf_preaffine = self._out_flame_utils__out_xf_preaffine()[0] # type: ignore
         self._xf_f3h_preaffine = self._out_flame_utils__out_xf_preaffine()[1] # type: ignore
@@ -17786,6 +17803,10 @@ class out_flame_xforms_data(out_flame_utils):
     @property
     def xf_symmetry(self):
         return self._xf_symmetry
+    
+    @property
+    def xf_color_speed(self):
+        return self._xf_color_speed
     
     @property
     def xf_opacity(self):
