@@ -14952,6 +14952,7 @@ class out_flame_utils
 * __out_flame_data(self, prm_name: str='') -> str:
 * __out_flame_name(self, prm_name: Union[str, None]=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
 * __out_xf_data(self, prm_name: str) -> tuple:
+* __out_xf_data_color_speed(self, prm_name: str=flam3h_iterator_prm_names.shader_speed) -> tuple:
 * __out_xf_name(self) -> tuple:
 * __out_finalxf_name(self) -> str:
 * __out_xf_pre_blur(self) -> tuple:
