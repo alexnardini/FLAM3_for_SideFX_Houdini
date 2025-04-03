@@ -15621,7 +15621,6 @@ class out_flame_utils
                     if OUT_FLAM3_FILE_EXT == file_ext:
                         if out: _MSG = f"OUT: Select a valid OUT flame directory location."
                         else: _MSG = f"IN: Select a valid IN flame file path."
-                        print(f"{node.name()}.{_MSG}")
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
                 else:
                     # If the path string is empty we do not want to print out
@@ -15639,11 +15638,9 @@ class out_flame_utils
                     if OUT_FLAM3_FILE_EXT == file_ext:
                         if out: _MSG = f"OUT: Select a valid OUT flame directory location."
                         else: _MSG = f"IN: Select a valid IN flame file path."
-                        print(f"{node.name()}.{_MSG}")
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
                     elif OUT_PALETTE_FILE_EXT == file_ext:
                         _MSG = f"PALETTE: Select a valid OUT directory location."
-                        print(f"{node.name()}.{_MSG}")
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
                 else:
                     # If the path string is empty we do not want to print out
