@@ -1655,6 +1655,7 @@ class flam3h_general_utils
 * remove_locked_from_flame_stats(node) -> None:
 * houdini_version(digit: int=1) -> int:
 * clamp(x, val_max: Union[int, float]=255) -> float:
+* reset_density(node: hou.SopNode) -> None:
 * my_system() -> str:
 * set_status_msg(msg: str, type: str) -> None:
 * isLOCK(filepath: Union[str, bool]) -> bool:
@@ -1672,7 +1673,6 @@ class flam3h_general_utils
 * util_store_all_viewers_color_scheme_onCreate(self) -> None:
 
 @METHODS
-* reset_density(self) -> None:
 * menus_refresh_enum_prefs(self) -> None:
 * get_node_path(self, node_name: str) -> Union[str, None]:
 * util_set_clipping_viewers(self) -> None:
@@ -1807,6 +1807,25 @@ class flam3h_general_utils
             float: value clamped between Zero and 255.
         """
         return float(max(0, min(x, val_max)))
+
+
+
+    @staticmethod
+    def reset_density(node: hou.SopNode) -> None:
+        """Reset/set density to its default.
+
+        Args:
+            (self):
+
+        Returns:
+            (None):
+        """  
+        node.parm(GLB_DENSITY).deleteAllKeyframes()
+        node.parm(GLB_DENSITY_PRESETS).deleteAllKeyframes()
+        node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
+        node.setParms({GLB_DENSITY_PRESETS: 1}) # type: ignore
+
+
 
 
     @staticmethod
@@ -2199,23 +2218,6 @@ class flam3h_general_utils
     @property
     def bbox_reframe_path(self):
         return self._bbox_reframe_path
-    
-    
-    
-    def reset_density(self) -> None:
-        """Reset/set density to its default.
-
-        Args:
-            (self):
-
-        Returns:
-            (None):
-        """  
-        node = self.node
-        node.parm(GLB_DENSITY).deleteAllKeyframes()
-        node.parm(GLB_DENSITY_PRESETS).deleteAllKeyframes()
-        node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY})
-        node.setParms({GLB_DENSITY_PRESETS: 1})
 
 
 
@@ -5038,7 +5040,7 @@ class flam3h_iterator_utils
         node = self.node
         
         # Reset/Set density
-        flam3h_general_utils(self.kwargs).reset_density()
+        flam3h_general_utils.reset_density(node)
         
         if not self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval():
             
@@ -5747,7 +5749,7 @@ class flam3h_iterator_utils
             # Default 500k
             if glb_density != FLAM3H_DEFAULT_GLB_DENSITY:
                 # Reset/Set density
-                flam3h_general_utils(self.kwargs).reset_density()
+                flam3h_general_utils.reset_density(node)
                 _MSG = f"{node.name()} -> SET default density preset: 500K points"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             else:
@@ -7227,7 +7229,7 @@ class flam3h_iterator_utils
         out_flame_utils(self.kwargs).reset_OUT(1) # dnt clear the MSG_OUT if any
         flam3h_general_utils(self.kwargs).reset_PREFS()
         # Reset/Set density
-        flam3h_general_utils(self.kwargs).reset_density()
+        flam3h_general_utils.reset_density(node)
         # Updated the OUT preset name if needed
         out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
         # Sierpiński triangle settings
@@ -7588,7 +7590,7 @@ class flam3h_iterator_utils
                 
             # GLOBAL
             # Reset/Set density
-            flam3h_general_utils(self.kwargs).reset_density()
+            flam3h_general_utils.reset_density(node)
             # Iterations
             node.setParms({GLB_ITERATIONS: FLAM3H_DEFAULT_GLB_ITERATIONS}) # type: ignore
             # FF vars
@@ -14701,7 +14703,7 @@ class in_flame_utils
                 # F3C ( the if statement is for backward compatibility )
                 if apo_data.prefs_flam3h_f3c is not None: flam3h_general_utils.set_private_prm(node, PREFS_PVT_F3C, apo_data.prefs_flam3h_f3c)
                 # Reset/Set density
-                flam3h_general_utils(self.kwargs).reset_density()
+                flam3h_general_utils.reset_density(node)
                 
                 # XF VIZ SOLO OFF (but leave the xforms handles VIZ ON)
                 flam3h_general_utils.set_private_prm(node, PREFS_PVT_XF_VIZ_SOLO, 0)
