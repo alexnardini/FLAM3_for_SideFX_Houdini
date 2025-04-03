@@ -16967,7 +16967,7 @@ class out_flame_utils
         
         This is being added to have some sort of history/backup some how.
         Will probably never be used but it is something more to have in any case.
-        This data is cleared every time a FLAM3H node is being created, or when FLAM3H is being reset ot the default Sierpinsky triangle ot its iterator's count is set to 0(Zero).
+        This data is cleared every time a FLAM3H node is being created, or when FLAM3H is being reset to the default Sierpinsky triangle ot its iterator's count is set to 0(Zero).
 
         Args:
             (self):
