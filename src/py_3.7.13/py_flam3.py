@@ -13185,13 +13185,13 @@ class in_flame_utils
                 # render curves data
                 in_flame_utils.in_copy_render_cc_curves(node, f3r, 0)
                 
-                cc_o: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval() # type: ignore
-                cc_r: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval() # type: ignore
-                cc_g: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval() # type: ignore
-                cc_b: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval() # type: ignore
+                cc_o: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval()
+                cc_r: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval()
+                cc_g: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval()
+                cc_b: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval()
                 if cc_o.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_r.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_g.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_b.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                    node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'}) # type: ignore
-                    node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0}) # type: ignore
+                    node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults'})
+                    node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 0})
                     _MSG = f"IN CC Curves:"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} the loaded IN Flame preset CC Curves are default values. COPY SKIPPED", 'IMP')
                     flam3h_general_utils.flash_message(node, f"{_MSG} Defaults. COPY SKIPPED")
@@ -15048,6 +15048,7 @@ class out_flame_utils
         
         # Unlock, Set and Lock again
         [prm.lock(False) for prm in prm_ui.values()]
+        [prm.deleteAllKeyframes() for prm in prm_ui.values()]
         [prm_ui.get(key).set(prm_data.get(key).eval()) for key in prm_ui.keys()] # type: ignore
         [prm.lock(True) for prm in prm_ui.values()]
         
@@ -15085,18 +15086,18 @@ class out_flame_utils
         Returns:
             (bool): True or Flase
         """
-        cc_o: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval()).strip() # type: ignore
-        cc_r: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval()).strip() # type: ignore
-        cc_g: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval()).strip() # type: ignore
-        cc_b: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval()).strip() # type: ignore
+        cc_o: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval()).strip()
+        cc_r: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval()).strip()
+        cc_g: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval()).strip()
+        cc_b: str = str(node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval()).strip()
         if not mode:
             if cc_o in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_r in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_g in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_b in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: return True
             else: return False
         else:
-            cc_o_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_OVERALL).eval()).strip() # type: ignore
-            cc_r_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_RED).eval()).strip() # type: ignore
-            cc_g_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_GREEN).eval()).strip() # type: ignore
-            cc_b_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE).eval()).strip() # type: ignore
+            cc_o_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_OVERALL).eval()).strip()
+            cc_r_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_RED).eval()).strip()
+            cc_g_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_GREEN).eval()).strip()
+            cc_b_ui: str = str(node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE).eval()).strip()
             if cc_o != cc_o_ui or cc_r != cc_r_ui or cc_g != cc_g_ui or cc_b != cc_b_ui: return False
             else: return True
     
@@ -17270,18 +17271,17 @@ class out_flame_utils
         return tuple(val)
     
     
-    def __out_xf_data_color_speed(self, prm_name: str=flam3h_iterator_prm_names.shader_speed) -> tuple:
+    def __out_xf_data_color_speed(self) -> tuple:
         """Prepare the xform/iterator color speed into a proper string to be written out.
         This is specifically for Fractorium as it is the one using this conversion of values.
 
         Args:
             (self):
-            prm_name(str): Default to: flam3h_iterator_prm_names.shader_speed ( "clrspeed" ). The name of the FLAM3H parameter color speed to be prep into a string for writing out.
 
         Returns:
             (str): The FLAM3H parameter prepped into a string for writing out into the Flame preset file.
         """    
-        val = [str(self.out_util_round_float((1.0-self.node.parm(f"{prm_name}_{iter+1}").eval())/2.0)) for iter in range(self.iter_count)]
+        val = [str(self.out_util_round_float((1.0-self.node.parm(f"{flam3h_iterator_prm_names.shader_speed}_{iter+1}").eval())/2.0)) for iter in range(self.iter_count)]
         return tuple(val)
     
 
