@@ -10,6 +10,24 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.7.45</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.45) ###
+
+- **Fix**: Density parameter and its preset menu are now cleared from any keyframes every time they are set.
+- **Fix**: Removed prints to the console if an invalid file path is entered inside the CP, IN and OUT tabs as the menu presets message is more than enough and just more elegant by itself.
+- **Fix**: Density can now be animated only from the preferences tab density parameter.
+- **Fix**: When FLAM3H reset the color correction curves data/parameters it will now also delete their keyframes.
+- **Fix**: When FLAM3H reset the affine values (PRE or POST) it will now also delete their keyframes.
+- **Fix**: When FLAM3H copy data between the affine (from PRE to POST and viceversa) it will now also delete their keyframes before copying.
+- **Fix**: When copy/paste data between iterators/FF FLAM3H will now delete all keyframes before copying the values.
+- **Fix**: When swapping an iterator PRE variations it will now be able to swap also if they have keyframes and/or expressions.
+- **Fix**: When swapping the FF POST variations it will now be able to swap also if they have keyframes and/or expressions.
+- **Fix**: XML xf_color_speed's key is now officially a @property of: class out_flame_xforms_data(out_flame_utils):
+
+
+<br>
+<br>
+
+
 ### [<ins>From v1.7.35</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.35) ###
 
 #### FLAM3H ####
