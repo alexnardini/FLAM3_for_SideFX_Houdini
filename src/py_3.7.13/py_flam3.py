@@ -452,7 +452,8 @@ class flam3h_iterator_prm_names_collections(flam3h_iterator_prm_names):
         self._prm_FF_tuple: tuple = (self.preaffine_x, self.preaffine_y, self.preaffine_o, self.postaffine_x, self.postaffine_y, self.postaffine_o)
         self._prm_FF: tuple = (self.main_note, self.prevar_type_1, self.prevar_weight_1, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.postvar_type_1, self.postvar_weight_1, self.postvar_type_2, self.postvar_weight_2, self.preaffine_scale, self.preaffine_ang, self.postaffine_do, self.postaffine_scale, self.postaffine_ang)
         self._prm_FF_vars_all: tuple = (self.prevar_type_1, self.prevar_weight_1, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.postvar_type_1, self.postvar_weight_1, self.postvar_type_2, self.postvar_weight_2)
-        # Hard coded as this may be the only case with need those parameters
+        # Hard coded as this may be the only case with need those parameters.
+        # Those are the houdini parametric variations parameters base names.
         self._prm_parametrics_tuple: tuple = ("curlc", "ngon", "pdjw", "blob", "julian", "juliascope", "fan2", "rectangles", "pie", "disc2", "supershape", "supershapen", "flower", "conic", "parabola", "bent2xy", "cpow", "lazysusanxyz", "lazysusan", "modulusXYZ", "oscope", "popcorn2xyz", "separationxyz", "separationinsidexyz", "splitxyz", "splitsxyz", "stripes", "wedge", "wedgejulia", "wedgesph", "whorl", "waves2scalexyz", "waves2freqxyz", "auger", "mobiusre", "mobiusim", "curvexyzlenght", "curvexyzamp", "persp", "bwraps", "bwrapstwist", "polynomialpow", "polynomiallc", "polynomialsc", "cropltrb", "cropaz", "ptsym")
         self._prm_parametrics: tuple = ("rings2val", "radialblur", "bipolarshift", "cellsize", "escherbeta", "popcorn2c", "fluxspread")
         
