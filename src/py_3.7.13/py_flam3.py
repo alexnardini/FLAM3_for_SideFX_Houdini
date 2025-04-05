@@ -292,7 +292,7 @@ PREFS_PVT_XF_VIZ = 'vizhandles'
 PREFS_PVT_XF_VIZ_SOLO = 'vizhandles_solo'
 PREFS_PVT_XF_VIZ_SOLO_MP_IDX = 'vizhandles_solo_mpidx'
 PREFS_PVT_XF_FF_VIZ_SOLO = 'vizhandlesff_solo'
-# PRIVATE PREFS TMP PRM
+# PRIVATE PREFS TEMP PARMS
 PREFS_PVT_INT_0 = 'tmp_int_0'
 PREFS_PVT_INT_1 = 'tmp_int_1'
 PREFS_PVT_FLOAT_0 = 'tmp_float_0'
