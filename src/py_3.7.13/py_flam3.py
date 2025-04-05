@@ -83,7 +83,7 @@ FLAM3H_VERSION_STATUS_GOLD = "Gold"
 LIST OF CLASSES:
 
     flam3h_iterator_prm_names
-    flam3h_iterator_parametrics_prm_names_collection
+    flam3h_iterator_prm_names_collections
     flam3h_varsPRM
     flam3h_iterator
     flam3h_varsPRM_FF
@@ -427,7 +427,7 @@ class flam3h_iterator_prm_names:
     
     
     
-class flam3h_iterator_parametrics_prm_names_collection:
+class flam3h_iterator_prm_names_collections(flam3h_iterator_prm_names):
     '''
     Mostly, handy to have all those packed into one class.
     They are split into tuple parameters (vector, vector2, vector4...) and not (int, float, string..)
@@ -438,11 +438,64 @@ class flam3h_iterator_parametrics_prm_names_collection:
     If you add new parametric variations add their base parameter's names here accordingly (tuple or not tuple).
     
     '''
+    def __init__(self) -> None:
+        """
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        self._prm_iterator_tuple: tuple = (self.preaffine_x, self.preaffine_y, self.preaffine_o, self.postaffine_x, self.postaffine_y, self.postaffine_o)
+        self._prm_iterator: tuple = (self.main_note, self.main_weight, self.xaos, self.shader_color, self.shader_speed, self.shader_alpha, self.prevar_blur, self.prevar_weight_blur, self.prevar_type_1, self.prevar_weight_1, self.prevar_type_2, self.prevar_weight_2, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.var_type_3, self.var_weight_3, self.var_type_4, self.var_weight_4, self.postvar_type_1, self.postvar_weight_1, self.preaffine_scale, self.preaffine_ang, self.postaffine_do, self.postaffine_scale, self.postaffine_ang)
+        self._prm_iterator_vars_all: tuple = (self.prevar_blur, self.prevar_weight_blur, self.prevar_type_1, self.prevar_weight_1, self.prevar_type_2, self.prevar_weight_2, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.var_type_3, self.var_weight_3, self.var_type_4, self.var_weight_4, self.postvar_type_1, self.postvar_weight_1)
+        self._prm_FF_tuple: tuple = (self.preaffine_x, self.preaffine_y, self.preaffine_o, self.postaffine_x, self.postaffine_y, self.postaffine_o)
+        self._prm_FF: tuple =  (self.main_note, self.prevar_type_1, self.prevar_weight_1, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.postvar_type_1, self.postvar_weight_1, self.postvar_type_2, self.postvar_weight_2, self.preaffine_scale, self.preaffine_ang, self.postaffine_do, self.postaffine_scale, self.postaffine_ang)
+        self._prm_FF_vars_all: tuple = (self.prevar_type_1, self.prevar_weight_1, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.postvar_type_1, self.postvar_weight_1, self.postvar_type_2, self.postvar_weight_2)
+        # Hard coded as this may be the only case with need those parameters
+        self._prm_parametrics_tuple: tuple = ("curlc", "ngon", "pdjw", "blob", "julian", "juliascope", "fan2", "rectangles", "pie", "disc2", "supershape", "supershapen", "flower", "conic", "parabola", "bent2xy", "cpow", "lazysusanxyz", "lazysusan", "modulusXYZ", "oscope", "popcorn2xyz", "separationxyz", "separationinsidexyz", "splitxyz", "splitsxyz", "stripes", "wedge", "wedgejulia", "wedgesph", "whorl", "waves2scalexyz", "waves2freqxyz", "auger", "mobiusre", "mobiusim", "curvexyzlenght", "curvexyzamp", "persp", "bwraps", "bwrapstwist", "polynomialpow", "polynomiallc", "polynomialsc", "cropltrb", "cropaz", "ptsym")
+        self._prm_parametrics: tuple = ("rings2val", "radialblur", "bipolarshift", "cellsize", "escherbeta", "popcorn2c", "fluxspread")
+        
     
-    parametrics: tuple = ("rings2val", "radialblur", "bipolarshift", "cellsize", "escherbeta", "popcorn2c", "fluxspread")
-    parametrics_tuple: tuple = ("curlc", "ngon", "pdjw", "blob", "julian", "juliascope", "fan2", "rectangles", "pie", "disc2", "supershape", "supershapen", "flower", "conic", "parabola", "bent2xy", "cpow", "lazysusanxyz", "lazysusan", "modulusXYZ", "oscope", "popcorn2xyz", "separationxyz", "separationinsidexyz", "splitxyz", "splitsxyz", "stripes", "wedge", "wedgejulia", "wedgesph", "whorl", "waves2scalexyz", "waves2freqxyz", "auger", "mobiusre", "mobiusim", "curvexyzlenght", "curvexyzamp", "persp", "bwraps", "bwrapstwist", "polynomialpow", "polynomiallc", "polynomialsc", "cropltrb", "cropaz", "ptsym")
     
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
     
+    @property
+    def prm_iterator_tuple(self):
+        return self._prm_iterator_tuple
+    
+    @property
+    def prm_iterator(self):
+        return self._prm_iterator
+    
+    @property
+    def prm_iterator_vars_all(self):
+        return self._prm_iterator_vars_all
+    
+    @property
+    def prm_FF_tuple(self):
+        return self._prm_FF_tuple
+    
+    @property
+    def prm_FF(self):
+        return self._prm_FF
+    
+    @property
+    def prm_FF_vars_all(self):
+        return self._prm_FF_vars_all
+    
+    @property
+    def prm_parametrics_tuple(self):
+        return self._prm_parametrics_tuple
+    
+    @property
+    def prm_parametrics(self):
+        return self._prm_parametrics
+
+
+
 
 class flam3h_varsPRM:
     """
@@ -7388,21 +7441,18 @@ class flam3h_iterator_utils
         id = self.kwargs['script_multiparm_index']
         idx = str(id)
         
-        # iterator prm names
-        n = flam3h_iterator_prm_names
-        npc = flam3h_iterator_parametrics_prm_names_collection
-        
+        # prm names
+        n = flam3h_iterator_prm_names_collections()
+
         # Delete all keyframes
-        all_iterator_tuple: tuple = (n.preaffine_x, n.preaffine_y, n.preaffine_o, n.postaffine_x, n.postaffine_y, n.postaffine_o)
-        all_iterator: tuple = (n.main_note, n.main_weight, n.xaos, n.shader_color, n.shader_speed, n.shader_alpha, n.prevar_blur, n.prevar_weight_blur, n.prevar_type_1, n.prevar_weight_1, n.prevar_type_2, n.prevar_weight_2, n.var_type_1, n.var_weight_1, n.var_type_2, n.var_weight_2, n.var_type_3, n.var_weight_3, n.var_type_4, n.var_weight_4, n.postvar_type_1, n.postvar_weight_1, n.preaffine_scale, n.preaffine_ang, n.postaffine_do, n.postaffine_scale, n.postaffine_ang)
-        [node.parmTuple(f"{prm_name}_{idx}").deleteAllKeyframes() for prm_name in all_iterator_tuple]
-        [node.parm(f"{prm_name}_{idx}").deleteAllKeyframes() for prm_name in all_iterator]
+        [node.parmTuple(f"{prm_name}_{idx}").deleteAllKeyframes() for prm_name in n.prm_iterator_tuple]
+        [node.parm(f"{prm_name}_{idx}").deleteAllKeyframes() for prm_name in n.prm_iterator]
         # Delete all keyframes parametrics.
-        [node.parmTuple(f"{prm_name}_{idx}").deleteAllKeyframes() for prm_name in npc.parametrics_tuple]
-        [node.parm(f"{prm_name}_{idx}").deleteAllKeyframes() for prm_name in npc.parametrics]
+        [node.parmTuple(f"{prm_name}_{idx}").deleteAllKeyframes() for prm_name in n.prm_parametrics_tuple]
+        [node.parm(f"{prm_name}_{idx}").deleteAllKeyframes() for prm_name in n.prm_parametrics]
         # Revert to defaults
-        [node.parmTuple(f"{prm_name}_{idx}").revertToDefaults() for prm_name in npc.parametrics_tuple]
-        [node.parm(f"{prm_name}_{idx}").revertToDefaults() for prm_name in npc.parametrics]
+        [node.parmTuple(f"{prm_name}_{idx}").revertToDefaults() for prm_name in n.prm_parametrics_tuple]
+        [node.parm(f"{prm_name}_{idx}").revertToDefaults() for prm_name in n.prm_parametrics]
         
         # iter idx
         #
@@ -7419,21 +7469,25 @@ class flam3h_iterator_utils
         # iter vars
         [node.setParms({f"{prm}_{idx}": 1}) if prm==n.var_weight_1 
             else node.setParms({f"{prm}_{idx}": 0})
-                for prm in (n.prevar_blur, n.prevar_weight_blur, n.prevar_type_1, n.prevar_weight_1, n.prevar_type_2, n.prevar_weight_2, n.var_type_1, n.var_weight_1, n.var_type_2, n.var_weight_2, n.var_type_3, n.var_weight_3, n.var_type_4, n.var_weight_4, n.postvar_type_1, n.postvar_weight_1)]
-        # iter pre affine
-        node.setParms({f"{n.preaffine_x}_{idx}": AFFINE_DEFAULTS.get("affine_x")}) # type: ignore
-        node.setParms({f"{n.preaffine_y}_{idx}": AFFINE_DEFAULTS.get("affine_y")}) # type: ignore
-        node.setParms({f"{n.preaffine_o}_{idx}": AFFINE_DEFAULTS.get("affine_o")}) # type: ignore
-        node.setParms({f"{n.preaffine_ang}_{idx}": AFFINE_DEFAULTS.get("angle")}) # type: ignore
-        # iter post affine
-        node.setParms({f"{n.postaffine_do}_{idx}": 0}) # type: ignore
-        node.setParms({f"{n.postaffine_x}_{idx}": AFFINE_DEFAULTS.get("affine_x")}) # type: ignore
-        node.setParms({f"{n.postaffine_y}_{idx}": AFFINE_DEFAULTS.get("affine_y")}) # type: ignore
-        node.setParms({f"{n.postaffine_o}_{idx}": AFFINE_DEFAULTS.get("affine_o")}) # type: ignore
-        node.setParms({f"{n.postaffine_ang}_{idx}": AFFINE_DEFAULTS.get("angle")}) # type: ignore
+                for prm in n.prm_iterator_vars_all]
         
+        # Iterator Affines
+        affines_dict: dict = {f"{n.preaffine_x}_{idx}": AFFINE_DEFAULTS.get("affine_x"),
+                              f"{n.preaffine_y}_{idx}": AFFINE_DEFAULTS.get("affine_y"),
+                              f"{n.preaffine_o}_{idx}": AFFINE_DEFAULTS.get("affine_o"),
+                              f"{n.preaffine_ang}_{idx}": AFFINE_DEFAULTS.get("angle"),
+                              f"{n.postaffine_do}_{idx}": 0,
+                              f"{n.postaffine_x}_{idx}": AFFINE_DEFAULTS.get("affine_x"),
+                              f"{n.postaffine_y}_{idx}": AFFINE_DEFAULTS.get("affine_y"),
+                              f"{n.postaffine_o}_{idx}": AFFINE_DEFAULTS.get("affine_o"),
+                              f"{n.postaffine_ang}_{idx}": AFFINE_DEFAULTS.get("angle")
+                              }
         
-        
+        # Iterator Affines Set
+        [node.setParms({key: value}) for key, value in affines_dict.items()]
+    
+    
+    
     def flam3h_reset_FF(self) -> None:
         """Reset the FLAM3H FF Tab parameters.
         Include parametrics too (PRE, VAR and POST)
@@ -7446,41 +7500,40 @@ class flam3h_iterator_utils
         """
         node = self.node
 
-        n = flam3h_iterator_prm_names
-        npc = flam3h_iterator_parametrics_prm_names_collection
+        # prm names
+        n = flam3h_iterator_prm_names_collections()
         
         # Delete all keyframes
-        all_prm_affine: tuple = (n.preaffine_x, n.preaffine_y, n.preaffine_o, n.postaffine_x, n.postaffine_y, n.postaffine_o)
-        all_prm_names: tuple = (n.main_note, n.prevar_type_1, n.prevar_weight_1, n.var_type_1, n.var_weight_1, n.var_type_2, n.var_weight_2, n.postvar_type_1, n.postvar_weight_1, n.postvar_type_2, n.postvar_weight_2, n.preaffine_scale, n.preaffine_ang, n.postaffine_do, n.postaffine_scale, n.postaffine_ang)
-        [node.parmTuple(f"{PRX_FF_PRM}{prm_name}").deleteAllKeyframes() for prm_name in all_prm_affine]
-        [node.parm(f"{PRX_FF_PRM}{prm_name}").deleteAllKeyframes() for prm_name in all_prm_names]
+        [node.parmTuple(f"{PRX_FF_PRM}{prm_name}").deleteAllKeyframes() for prm_name in n.prm_FF_tuple]
+        [node.parm(f"{PRX_FF_PRM}{prm_name}").deleteAllKeyframes() for prm_name in n.prm_FF]
         # Delete all keyframes parametrics (PRE and POST)
-        [node.parmTuple(f"{PRX_FF_PRM}_{prm_name}").deleteAllKeyframes() for prm_name in npc.parametrics_tuple]
-        [node.parm(f"{PRX_FF_PRM}_{prm_name}").deleteAllKeyframes() for prm_name in npc.parametrics]
-        [node.parmTuple(f"{PRX_FF_PRM_POST}_{prm_name}").deleteAllKeyframes() for prm_name in npc.parametrics_tuple]
-        [node.parm(f"{PRX_FF_PRM_POST}_{prm_name}").deleteAllKeyframes() for prm_name in npc.parametrics]
+        [node.parmTuple(f"{PRX_FF_PRM}_{prm_name}").deleteAllKeyframes() for prm_name in n.prm_parametrics_tuple]
+        [node.parm(f"{PRX_FF_PRM}_{prm_name}").deleteAllKeyframes() for prm_name in n.prm_parametrics]
+        [node.parmTuple(f"{PRX_FF_PRM_POST}_{prm_name}").deleteAllKeyframes() for prm_name in n.prm_parametrics_tuple]
+        [node.parm(f"{PRX_FF_PRM_POST}_{prm_name}").deleteAllKeyframes() for prm_name in n.prm_parametrics]
         # Revert to defaults
-        [node.parmTuple(f"{PRX_FF_PRM}_{prm_name}").revertToDefaults() for prm_name in npc.parametrics_tuple]
-        [node.parm(f"{PRX_FF_PRM}_{prm_name}").revertToDefaults() for prm_name in npc.parametrics]
-        [node.parmTuple(f"{PRX_FF_PRM_POST}_{prm_name}").revertToDefaults() for prm_name in npc.parametrics_tuple]
-        [node.parm(f"{PRX_FF_PRM_POST}_{prm_name}").revertToDefaults() for prm_name in npc.parametrics]
+        [node.parmTuple(f"{PRX_FF_PRM}_{prm_name}").revertToDefaults() for prm_name in n.prm_parametrics_tuple]
+        [node.parm(f"{PRX_FF_PRM}_{prm_name}").revertToDefaults() for prm_name in n.prm_parametrics]
+        [node.parmTuple(f"{PRX_FF_PRM_POST}_{prm_name}").revertToDefaults() for prm_name in n.prm_parametrics_tuple]
+        [node.parm(f"{PRX_FF_PRM_POST}_{prm_name}").revertToDefaults() for prm_name in n.prm_parametrics]
 
         # FF note
         node.setParms({f"{PRX_FF_PRM}{n.main_note}": "iterator_FF"})
         # FF vars
         [node.setParms({f"{PRX_FF_PRM}{prm}": 1}) if prm==n.var_weight_1 
                     else node.setParms({f"{PRX_FF_PRM}{prm}": 0})
-                        for prm in (n.prevar_type_1, n.prevar_weight_1, n.var_type_1, n.var_weight_1, n.var_type_2, n.var_weight_2, n.postvar_type_1, n.postvar_weight_1, n.postvar_type_2, n.postvar_weight_2)]
+                        for prm in n.prm_FF_vars_all]
         # FF Affines
-        affines_dict: dict = {f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0)),
-                              f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0)),
-                              f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0)),
-                              f"{PRX_FF_PRM}{n.preaffine_ang}": 0,
+        affines_dict: dict = {f"{PRX_FF_PRM}{n.preaffine_x}": AFFINE_DEFAULTS.get("affine_x"),
+                              f"{PRX_FF_PRM}{n.preaffine_y}": AFFINE_DEFAULTS.get("affine_y"),
+                              f"{PRX_FF_PRM}{n.preaffine_o}": AFFINE_DEFAULTS.get("affine_o"),
+                              f"{PRX_FF_PRM}{n.preaffine_ang}": AFFINE_DEFAULTS.get("angle"),
                               f"{PRX_FF_PRM}{n.postaffine_do}": 0,
-                              f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0)),
-                              f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0)),
-                              f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0)),
-                              f"{PRX_FF_PRM}{n.postaffine_ang}": 0}
+                              f"{PRX_FF_PRM}{n.postaffine_x}": AFFINE_DEFAULTS.get("affine_x"),
+                              f"{PRX_FF_PRM}{n.postaffine_y}": AFFINE_DEFAULTS.get("affine_y"),
+                              f"{PRX_FF_PRM}{n.postaffine_o}": AFFINE_DEFAULTS.get("affine_o"),
+                              f"{PRX_FF_PRM}{n.postaffine_ang}": AFFINE_DEFAULTS.get("angle")
+                              }
         # FF Affines Set
         [node.setParms({key: value}) for key, value in affines_dict.items()]
         
