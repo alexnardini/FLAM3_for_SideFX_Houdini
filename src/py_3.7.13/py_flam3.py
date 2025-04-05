@@ -83,6 +83,7 @@ FLAM3H_VERSION_STATUS_GOLD = "Gold"
 LIST OF CLASSES:
 
     flam3h_iterator_prm_names
+    flam3h_iterator_parametrics_prm_names_collection
     flam3h_varsPRM
     flam3h_iterator
     flam3h_varsPRM_FF
@@ -423,6 +424,24 @@ class flam3h_iterator_prm_names:
     postaffine_y = 'py'
     postaffine_o = 'po'
     postaffine_ang = 'pang'
+    
+    
+    
+class flam3h_iterator_parametrics_prm_names_collection:
+    '''
+    Mostly, handy to have all those packed into one class.
+    They are split into tuple parameters (vector, vector2, vector4...) and not (int, float, string..)
+    
+    The parametric's parameter names for the FF(finalXform) are the same but with a string prefix: 'ff_' ( f"{PRX_FF_PRM}_{...}" )
+    The FF PRE and POST parametric parameter names are as well the same but with a string prefix: 'fp1_' ( f"{PRX_FF_PRM_POST}_{...}" )
+    
+    If you add new parametric variations add their base parameter's names here accordingly (tuple or not tuple).
+    
+    '''
+    
+    parametrics: tuple = ("rings2val", "radialblur", "bipolarshift", "cellsize", "escherbeta", "popcorn2c", "fluxspread")
+    parametrics_tuple: tuple = ("curlc", "ngon", "pdjw", "blob", "julian", "juliascope", "fan2", "rectangles", "pie", "disc2", "supershape", "supershapen", "flower", "conic", "parabola", "bent2xy", "cpow", "lazysusanxyz", "lazysusan", "modulusXYZ", "oscope", "popcorn2xyz", "separationxyz", "separationinsidexyz", "splitxyz", "splitsxyz", "stripes", "wedge", "wedgejulia", "wedgesph", "whorl", "waves2scalexyz", "waves2freqxyz", "auger", "mobiusre", "mobiusim", "curvexyzlenght", "curvexyzamp", "persp", "bwraps", "bwrapstwist", "polynomialpow", "polynomiallc", "polynomialsc", "cropltrb", "cropaz", "ptsym")
+    
     
 
 class flam3h_varsPRM:
@@ -4051,9 +4070,9 @@ class flam3h_iterator_utils
 * reset_postaffine_FF(self) -> None:
 * swap_iter_pre_vars(self) -> None:
 * swap_FF_post_vars(self) -> None:
-* reset_FF(self) -> None:
 * flam3h_default(self) -> None:
 * flam3h_reset_iterator(self) -> None:
+* flam3h_reset_FF(self) -> None:
 * auto_set_xaos(self) -> None:
 * iterators_count(self) -> None:
 * __iterator_keep_last_vactive(self) -> None:
@@ -6503,7 +6522,7 @@ class flam3h_iterator_utils
         # Adding ability to reset the FF to its default values. 
         if self.kwargs["ctrl"]:
             with hou.undos.group(f"FLAM3H FF RESET"): # type: ignore
-                self.reset_FF()
+                self.flam3h_reset_FF()
                 _MSG = f"{node.name()}: FF RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                 
@@ -7300,40 +7319,6 @@ class flam3h_iterator_utils
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
-    def reset_FF(self) -> None:
-        """Reset the FLAM3H FF Tab parameters.
-        
-        Args:
-            (self):
-            
-        Returns:
-            (None):
-        """
-        node = self.node
-
-        n = flam3h_iterator_prm_names
-
-        # FF note
-        node.setParms({f"{PRX_FF_PRM}{n.main_note}": "iterator_FF"})
-        # FF vars
-        [node.setParms({f"{PRX_FF_PRM}{prm}": 1}) if prm==n.var_weight_1 
-                    else node.setParms({f"{PRX_FF_PRM}{prm}": 0})
-                        for prm in (n.prevar_type_1, n.prevar_weight_1, n.var_type_1, n.var_weight_1, n.var_type_2, n.var_weight_2, n.postvar_type_1, n.postvar_weight_1, n.postvar_type_2, n.postvar_weight_2)]
-        # FF Affines
-        affines_dict: dict = {f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0)),
-                              f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0)),
-                              f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0)),
-                              f"{PRX_FF_PRM}{n.preaffine_ang}": 0,
-                              f"{PRX_FF_PRM}{n.postaffine_do}": 0,
-                              f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0)),
-                              f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0)),
-                              f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0)),
-                              f"{PRX_FF_PRM}{n.postaffine_ang}": 0}
-        # FF Affines Set
-        [node.setParms({key: value}) for key, value in affines_dict.items()]
-         
-
-
 
     def flam3h_default(self) -> None:
         """Default Flame preset and FLAM3H settings parameters vaules on creation.
@@ -7357,7 +7342,7 @@ class flam3h_iterator_utils
         # update xaos
         self.auto_set_xaos()
         # resets Tab contexts
-        self.reset_FF()
+        self.flam3h_reset_FF()
         flam3h_general_utils(self.kwargs).reset_SYS(1, FLAM3H_DEFAULT_GLB_ITERATIONS, 1)
         flam3h_palette_utils(self.kwargs).reset_CP()
         flam3h_general_utils(self.kwargs).reset_MB()
@@ -7388,8 +7373,10 @@ class flam3h_iterator_utils
             flam3h_general_utils.flash_message(node, f"Sierpiński triangle::10")
             
             
+    
     def flam3h_reset_iterator(self) -> None:
         """Reset selected iterator to its default parameter's values.
+        Include parametrics too.
         
         Args:
             (self):
@@ -7403,6 +7390,19 @@ class flam3h_iterator_utils
         
         # iterator prm names
         n = flam3h_iterator_prm_names
+        npc = flam3h_iterator_parametrics_prm_names_collection
+        
+        # Delete all keyframes
+        all_iterator_tuple: tuple = (n.preaffine_x, n.preaffine_y, n.preaffine_o, n.postaffine_x, n.postaffine_y, n.postaffine_o)
+        all_iterator: tuple = (n.main_note, n.main_weight, n.xaos, n.shader_color, n.shader_speed, n.shader_alpha, n.prevar_blur, n.prevar_weight_blur, n.prevar_type_1, n.prevar_weight_1, n.prevar_type_2, n.prevar_weight_2, n.var_type_1, n.var_weight_1, n.var_type_2, n.var_weight_2, n.var_type_3, n.var_weight_3, n.var_type_4, n.var_weight_4, n.postvar_type_1, n.postvar_weight_1, n.preaffine_scale, n.preaffine_ang, n.postaffine_do, n.postaffine_scale, n.postaffine_ang)
+        [node.parmTuple(f"{prm_name}_{idx}").deleteAllKeyframes() for prm_name in all_iterator_tuple]
+        [node.parm(f"{prm_name}_{idx}").deleteAllKeyframes() for prm_name in all_iterator]
+        # Delete all keyframes parametrics.
+        [node.parmTuple(f"{prm_name}_{idx}").deleteAllKeyframes() for prm_name in npc.parametrics_tuple]
+        [node.parm(f"{prm_name}_{idx}").deleteAllKeyframes() for prm_name in npc.parametrics]
+        # Revert to defaults
+        [node.parmTuple(f"{prm_name}_{idx}").revertToDefaults() for prm_name in npc.parametrics_tuple]
+        [node.parm(f"{prm_name}_{idx}").revertToDefaults() for prm_name in npc.parametrics]
         
         # iter idx
         #
@@ -7431,6 +7431,58 @@ class flam3h_iterator_utils
         node.setParms({f"{n.postaffine_y}_{idx}": AFFINE_DEFAULTS.get("affine_y")}) # type: ignore
         node.setParms({f"{n.postaffine_o}_{idx}": AFFINE_DEFAULTS.get("affine_o")}) # type: ignore
         node.setParms({f"{n.postaffine_ang}_{idx}": AFFINE_DEFAULTS.get("angle")}) # type: ignore
+        
+        
+        
+    def flam3h_reset_FF(self) -> None:
+        """Reset the FLAM3H FF Tab parameters.
+        Include parametrics too (PRE, VAR and POST)
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """
+        node = self.node
+
+        n = flam3h_iterator_prm_names
+        npc = flam3h_iterator_parametrics_prm_names_collection
+        
+        # Delete all keyframes
+        all_prm_affine: tuple = (n.preaffine_x, n.preaffine_y, n.preaffine_o, n.postaffine_x, n.postaffine_y, n.postaffine_o)
+        all_prm_names: tuple = (n.main_note, n.prevar_type_1, n.prevar_weight_1, n.var_type_1, n.var_weight_1, n.var_type_2, n.var_weight_2, n.postvar_type_1, n.postvar_weight_1, n.postvar_type_2, n.postvar_weight_2, n.preaffine_scale, n.preaffine_ang, n.postaffine_do, n.postaffine_scale, n.postaffine_ang)
+        [node.parmTuple(f"{PRX_FF_PRM}{prm_name}").deleteAllKeyframes() for prm_name in all_prm_affine]
+        [node.parm(f"{PRX_FF_PRM}{prm_name}").deleteAllKeyframes() for prm_name in all_prm_names]
+        # Delete all keyframes parametrics (PRE and POST)
+        [node.parmTuple(f"{PRX_FF_PRM}_{prm_name}").deleteAllKeyframes() for prm_name in npc.parametrics_tuple]
+        [node.parm(f"{PRX_FF_PRM}_{prm_name}").deleteAllKeyframes() for prm_name in npc.parametrics]
+        [node.parmTuple(f"{PRX_FF_PRM_POST}_{prm_name}").deleteAllKeyframes() for prm_name in npc.parametrics_tuple]
+        [node.parm(f"{PRX_FF_PRM_POST}_{prm_name}").deleteAllKeyframes() for prm_name in npc.parametrics]
+        # Revert to defaults
+        [node.parmTuple(f"{PRX_FF_PRM}_{prm_name}").revertToDefaults() for prm_name in npc.parametrics_tuple]
+        [node.parm(f"{PRX_FF_PRM}_{prm_name}").revertToDefaults() for prm_name in npc.parametrics]
+        [node.parmTuple(f"{PRX_FF_PRM_POST}_{prm_name}").revertToDefaults() for prm_name in npc.parametrics_tuple]
+        [node.parm(f"{PRX_FF_PRM_POST}_{prm_name}").revertToDefaults() for prm_name in npc.parametrics]
+
+        # FF note
+        node.setParms({f"{PRX_FF_PRM}{n.main_note}": "iterator_FF"})
+        # FF vars
+        [node.setParms({f"{PRX_FF_PRM}{prm}": 1}) if prm==n.var_weight_1 
+                    else node.setParms({f"{PRX_FF_PRM}{prm}": 0})
+                        for prm in (n.prevar_type_1, n.prevar_weight_1, n.var_type_1, n.var_weight_1, n.var_type_2, n.var_weight_2, n.postvar_type_1, n.postvar_weight_1, n.postvar_type_2, n.postvar_weight_2)]
+        # FF Affines
+        affines_dict: dict = {f"{PRX_FF_PRM}{n.preaffine_x}": hou.Vector2((1.0, 0.0)),
+                              f"{PRX_FF_PRM}{n.preaffine_y}": hou.Vector2((0.0, 1.0)),
+                              f"{PRX_FF_PRM}{n.preaffine_o}": hou.Vector2((0.0, 0.0)),
+                              f"{PRX_FF_PRM}{n.preaffine_ang}": 0,
+                              f"{PRX_FF_PRM}{n.postaffine_do}": 0,
+                              f"{PRX_FF_PRM}{n.postaffine_x}": hou.Vector2((1.0, 0.0)),
+                              f"{PRX_FF_PRM}{n.postaffine_y}": hou.Vector2((0.0, 1.0)),
+                              f"{PRX_FF_PRM}{n.postaffine_o}": hou.Vector2((0.0, 0.0)),
+                              f"{PRX_FF_PRM}{n.postaffine_ang}": 0}
+        # FF Affines Set
+        [node.setParms({key: value}) for key, value in affines_dict.items()]
         
 
 
@@ -7730,7 +7782,7 @@ class flam3h_iterator_utils
             # Iterations
             node.setParms({GLB_ITERATIONS: FLAM3H_DEFAULT_GLB_ITERATIONS}) # type: ignore
             # FF vars
-            self.reset_FF()
+            self.flam3h_reset_FF()
             # MB
             flam3h_general_utils(self.kwargs).reset_MB()
             # SYS, IN and PREFS
@@ -14334,12 +14386,12 @@ class in_flame_utils
         # FF
         ####################################################
         if apo_data.finalxform is not None:
-            flam3h_iterator_utils(self.kwargs).reset_FF()
+            flam3h_iterator_utils(self.kwargs).flam3h_reset_FF()
             flam3h_general_utils.private_prm_set(node, PREFS_PVT_DOFF, 1)
             # Set FF
             self.in_flam3h_set_iterators(1, node, apo_data, preset_id, XML_XF_KEY_EXCLUDE)
         else:
-            flam3h_iterator_utils(self.kwargs).reset_FF()
+            flam3h_iterator_utils(self.kwargs).flam3h_reset_FF()
             flam3h_general_utils.private_prm_set(node, PREFS_PVT_DOFF, 0)
 
 
