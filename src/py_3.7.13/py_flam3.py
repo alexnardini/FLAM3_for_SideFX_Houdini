@@ -4053,6 +4053,8 @@ class flam3h_iterator_utils
 * iterator_mpidx_mem_set(node, data: int) -> None:
 * paste_from_prm(prm_from: hou.Parm, prm_to: hou.Parm, pvt: bool=False) -> None:
 * paste_from_list(node: hou.SopNode, flam3node: Union[hou.SopNode, None], prm_list: tuple, id: str, id_from: str) -> None:
+* is_iterator_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, id: str, id_from: str, post: bool=False) -> bool:
+* is_FF_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, post: bool=False) -> bool:
 * paste_from_list_affine(node: hou.SopNode, prm_list_affine_to: tuple, prm_list_affine_from: tuple, id: str) -> None:
 * pastePRM_T_from_list(node: hou.SopNode, flam3node: Union[hou.SopNode, None], prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
 * paste_save_note(_note: str) -> str:
@@ -4567,8 +4569,74 @@ class flam3h_iterator_utils
             _MSG = f"{node.name()} -> The FLAM3H node you are trying to copy data from do not exist"
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             
+    
+    
+    @staticmethod
+    def is_iterator_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, id: str, id_from: str, post: bool=False) -> bool:
+        """To be used with the copy/paste methods. Check if an iterator Affine (PRE or POST) are at default values. 
+        If they are default values, it will turn the post affine toggle OFF for both this iterator (id) and the from iterator (id_from)
+        even if they are between two different FLAm3H nodes (node and from_FLAM3H_NODE)
+        
+        Args:
+            node(hou.SopNode): This FLAM3H node
+            flam3node(Union[hou.SopNode, None]): hou.SopNode to copy values from
+            prm_list_affine(tuple): parameters list to query. This expect either: flam3h_iterator.sec_preAffine or flam3h_iterator.sec_postAffine
+            id(str): current multiparamter index
+            id_from(str): multiparameter index to copy from
+            post(bool): Default to False. Is it a post affine ?  True for declaring it as post affine.
+            
+        Returns:
+            (bool): True if the affine are default values and False if they are not.
+        """   
+        if post: 
+            collect = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}").eval() if prm_list_affine[1:][idx][0] else node.parm(f"{prm_list_affine[1:][idx][0]}{id}").eval() for idx in range(len(prm_list_affine[1:]))]
+            if collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), (0.0,)]:
+                node.setParms({f"{prm_list_affine[0][0]}{id}": 0}) # type: ignore
+                from_FLAM3H_NODE.setParms({f"{prm_list_affine[0][0]}{id_from}": 0}) # type: ignore
+                return True
+            else:
+                return False
+
+        else:
+            collect = [node.parmTuple(f"{prm_list_affine[idx][0]}{id}").eval() if prm_list_affine[idx][0] else node.parm(f"{prm_list_affine[idx][0]}{id}").eval() for idx in range(len(prm_list_affine))]
+            if collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), (0.0,)]:
+                return True
+            else:
+                return False
             
             
+    @staticmethod
+    def is_FF_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, post: bool=False) -> bool:
+        """To be used with the copy/paste methods. Check if the FF Affine (PRE or POST) are at default values. 
+        If they are default values, it will turn the post affine toggle OFF for both this iterator (id) and the from iterator (id_from)
+        even if they are between two different FLAm3H nodes (node and from_FLAM3H_NODE)
+        
+        Args:
+            node(hou.SopNode): This FLAM3H node
+            flam3node(Union[hou.SopNode, None]): hou.SopNode to copy values from
+            prm_list_affine(tuple): parameters list to query. This expect either: flam3h_iterator_FF.sec_preAffine_FF or flam3h_iterator_FF.sec_postAffine_FF
+            post(bool): Default to False. Is it a post affine ?  True for declaring it as post affine.
+            
+        Returns:
+            (bool): True if the affine are default values and False if they are not.
+        """   
+        if post: 
+            collect = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}").eval() if prm_list_affine[1:][idx][0] else node.parm(f"{prm_list_affine[1:][idx][0]}").eval() for idx in range(len(prm_list_affine[1:]))]
+            if collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), (0.0,)]:
+                node.setParms({f"{prm_list_affine[0][0]}": 0}) # type: ignore
+                from_FLAM3H_NODE.setParms({f"{prm_list_affine[0][0]}": 0}) # type: ignore
+                return True
+            else:
+                return False
+
+        else:
+            collect = [node.parmTuple(f"{prm_list_affine[idx][0]}").eval() if prm_list_affine[idx][0] else node.parm(f"{prm_list_affine[idx][0]}").eval() for idx in range(len(prm_list_affine))]
+            if collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), (0.0,)]:
+                return True
+            else:
+                return False
+    
+    
             
     @staticmethod
     def paste_from_list_affine(node: hou.SopNode, prm_list_affine_to: tuple, prm_list_affine_from: tuple, id: str) -> None:
@@ -6685,7 +6753,8 @@ class flam3h_iterator_utils
             # set POST AFFINE
             elif paste_sel == 9:
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postAffine, idx, idx_from)
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, idx, idx_from)
+                if not self.is_iterator_affine_default(node, from_FLAM3H_NODE, flam3h_iterator.sec_postAffine, idx, idx_from, True):
+                    self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, idx, idx_from)
         
             node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}": 0})
             node.setParms({f"{flam3h_iterator_prm_names.main_selmem}_{idx}": paste_sel})
@@ -6863,7 +6932,8 @@ class flam3h_iterator_utils
             # set FF POST AFFINE
             elif ff_paste_sel == 6:
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postAffine_FF, "", "")
-                self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_POSTAFFINE, "", "")
+                if not self.is_FF_affine_default(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postAffine_FF, True):
+                    self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_POSTAFFINE, "", "")
 
             node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_prmpastesel}": 0})
                     
