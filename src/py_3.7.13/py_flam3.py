@@ -4575,7 +4575,7 @@ class flam3h_iterator_utils
     def is_iterator_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, id: str, id_from: str, post: bool=False) -> bool:
         """To be used with the copy/paste methods. Check if an iterator Affine (PRE or POST) are at default values. 
         If they are default values, it will turn the post affine toggle OFF for both this iterator (id) and the from iterator (id_from)
-        even if they are between two different FLAm3H nodes (node and from_FLAM3H_NODE)
+        even if they are between two different FLAM3H nodes (node and from_FLAM3H_NODE)
         
         Args:
             node(hou.SopNode): This FLAM3H node
@@ -4609,7 +4609,7 @@ class flam3h_iterator_utils
     def is_FF_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, post: bool=False) -> bool:
         """To be used with the copy/paste methods. Check if the FF Affine (PRE or POST) are at default values. 
         If they are default values, it will turn the post affine toggle OFF for both this iterator (id) and the from iterator (id_from)
-        even if they are between two different FLAm3H nodes (node and from_FLAM3H_NODE)
+        even if they are between two different FLAM3H nodes (node and from_FLAM3H_NODE)
         
         Args:
             node(hou.SopNode): This FLAM3H node
