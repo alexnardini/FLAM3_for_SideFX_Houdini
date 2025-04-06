@@ -1560,7 +1560,7 @@ class flam3h_scripts
         # CP and IN PRESETS filepaths (cache data)
         self.flam3h_presets_cache_filepath_on_load()
         
-        # Turn iterators post affine OFF if they are default values
+        # Turn iterators/FF post affine OFF if they are default values
         self.is_post_affine_default_on_loaded(node)
         
         if hou.hipFile.isLoadingHipFile(): #type: ignore
