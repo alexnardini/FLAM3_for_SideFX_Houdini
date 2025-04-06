@@ -4928,7 +4928,7 @@ class flam3h_iterator_utils
         iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iter_count:
             lambda_min_opacity = lambda: min([node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)])
-            if f3h_all: [flam3h_general_utils.private_prm_set(node, PREFS_PVT_RIP, 1) if lambda_min_opacity() == 0 else ... for f3h in node.type().instances()]
+            if f3h_all: [flam3h_general_utils.private_prm_set(f3h, PREFS_PVT_RIP, 1) if lambda_min_opacity() == 0 else ... for f3h in node.type().instances()]
             else:
                 if lambda_min_opacity() == 0: flam3h_general_utils.private_prm_set(node, PREFS_PVT_RIP, 1)
 
