@@ -950,6 +950,7 @@ class flam3h_scripts
 * flam3h_check_first_node_instance_msg_status_bar_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 * flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 * flam3h_set_first_instance_global_var(cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
+* is_post_affine_default_on_loaded(node: hou.SopNode) -> None:
 
 @METHODS
 * flam3h_on_create_set_prefs_viewport(self, default_value_pt: float=1, default_value_ww: float=3) -> None:
@@ -1115,6 +1116,34 @@ class flam3h_scripts
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
         elif cvex_precision == 64 and first_instance_64bit is True:
             hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+
+
+
+    @staticmethod
+    def is_post_affine_default_on_loaded(node: hou.SopNode) -> None:
+        """Turn iterators/FF post affine OFF if they are default values.
+
+        Args:
+            node(hou.SopNode): This FLAm3H node.
+            
+        Returns:
+            (None):
+        """  
+
+        # Iterators
+        iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
+        prm_list_post_affine: tuple = flam3h_iterator.sec_postAffine
+        keyframes = [[item for sublist in k for item in sublist] for k in [[[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id+1}")] if prm_list_post_affine[1:][idx][1] else [1 if len(node.parm(f"{prm_list_post_affine[1:][idx][0]}{id+1}").keyframes()) else 0] for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]]
+        collect: list = [[node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id+1}").eval() if prm_list_post_affine[1:][idx][0] else node.parm(f"{prm_list_post_affine[1:][idx][0]}{id+1}").eval() for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]
+        [node.setParms({f"{prm_list_post_affine[0][0]}{id+1}": 0}) if node.parm(f"{prm_list_post_affine[0][0]}{id+1}").eval() and 1 not in keyframes[id] and affine==[(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), (0.0,)] else ... for id, affine in enumerate(collect)] # type: ignore
+        
+        # FF
+        prm_list_post_affine_FF: tuple = flam3h_iterator_FF.sec_postAffine_FF
+        keyframes = [item for sublist in [[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}")] if prm_list_post_affine_FF[1:][idx][1] else [1 if len(node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_post_affine_FF[1:]))] for item in sublist]
+        collect = [node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() if prm_list_post_affine_FF[1:][idx][1] else node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() for idx in range(len(prm_list_post_affine_FF[1:]))]
+        if node.parm(f"{prm_list_post_affine_FF[0][0]}").eval() and 1 not in keyframes and collect==[(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]:
+            node.setParms({f"{prm_list_post_affine_FF[0][0]}": 0}) # type: ignore
+
 
 
     # CLASS: PROPERTIES
@@ -1530,6 +1559,9 @@ class flam3h_scripts
         
         # CP and IN PRESETS filepaths (cache data)
         self.flam3h_presets_cache_filepath_on_load()
+        
+        # Turn iterators post affine OFF if they are default values
+        self.is_post_affine_default_on_loaded(node)
         
         if hou.hipFile.isLoadingHipFile(): #type: ignore
             
@@ -4588,9 +4620,10 @@ class flam3h_iterator_utils
         Returns:
             (bool): True if the affine are default values and False if they are not.
         """   
-        if post: 
-            collect = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}").eval() if prm_list_affine[1:][idx][0] else node.parm(f"{prm_list_affine[1:][idx][0]}{id}").eval() for idx in range(len(prm_list_affine[1:]))]
-            if collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), (0.0,)]:
+        if post:
+            keyframes = [item for sublist in [[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}")] if prm_list_affine[1:][idx][1] else [1 if len(node.parm(f"{prm_list_affine[1:][idx][0]}{id}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
+            collect = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}").eval() if prm_list_affine[1:][idx][1] else node.parm(f"{prm_list_affine[1:][idx][0]}{id}").eval() for idx in range(len(prm_list_affine[1:]))]
+            if 1 not in keyframes and collect==[(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), (0.0,)]:
                 node.setParms({f"{prm_list_affine[0][0]}{id}": 0}) # type: ignore
                 from_FLAM3H_NODE.setParms({f"{prm_list_affine[0][0]}{id_from}": 0}) # type: ignore
                 return True
@@ -4620,9 +4653,10 @@ class flam3h_iterator_utils
         Returns:
             (bool): True if the affine are default values and False if they are not.
         """   
-        if post: 
-            collect = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}").eval() if prm_list_affine[1:][idx][0] else node.parm(f"{prm_list_affine[1:][idx][0]}").eval() for idx in range(len(prm_list_affine[1:]))]
-            if collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), (0.0,)]:
+        if post:
+            keyframes = [item for sublist in [[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}")] if prm_list_affine[1:][idx][1] else [1 if len(node.parm(f"{prm_list_affine[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
+            collect = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}").eval() if prm_list_affine[1:][idx][1] else node.parm(f"{prm_list_affine[1:][idx][0]}").eval() for idx in range(len(prm_list_affine[1:]))]
+            if 1 not in keyframes and collect==[(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]:
                 node.setParms({f"{prm_list_affine[0][0]}": 0}) # type: ignore
                 from_FLAM3H_NODE.setParms({f"{prm_list_affine[0][0]}": 0}) # type: ignore
                 return True
@@ -4631,7 +4665,7 @@ class flam3h_iterator_utils
 
         else:
             collect = [node.parmTuple(f"{prm_list_affine[idx][0]}").eval() if prm_list_affine[idx][0] else node.parm(f"{prm_list_affine[idx][0]}").eval() for idx in range(len(prm_list_affine))]
-            if collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), (0.0,)]:
+            if collect==[(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]:
                 return True
             else:
                 return False
@@ -6749,7 +6783,8 @@ class flam3h_iterator_utils
             # set PRE AFFINE
             elif paste_sel == 8:
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_preAffine, idx, idx_from)
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREAFFINE, idx, idx_from)
+                if not self.is_iterator_affine_default(node, from_FLAM3H_NODE, flam3h_iterator.sec_preAffine, idx, idx_from):
+                    self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREAFFINE, idx, idx_from)
             # set POST AFFINE
             elif paste_sel == 9:
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postAffine, idx, idx_from)
@@ -6928,7 +6963,8 @@ class flam3h_iterator_utils
             # set FF PRE AFFINE
             elif ff_paste_sel == 5:
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_preAffine_FF, "", "")
-                self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_PREAFFINE, "", "")
+                if not self.is_FF_affine_default(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_preAffine_FF):
+                    self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_PREAFFINE, "", "")
             # set FF POST AFFINE
             elif ff_paste_sel == 6:
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postAffine_FF, "", "")
