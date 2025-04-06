@@ -1134,7 +1134,7 @@ class flam3h_scripts
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         prm_list_post_affine: tuple = flam3h_iterator.sec_postAffine
         keyframes = [[item for sublist in k for item in sublist] for k in [[[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id+1}")] if prm_list_post_affine[1:][idx][1] else [1 if len(node.parm(f"{prm_list_post_affine[1:][idx][0]}{id+1}").keyframes()) else 0] for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]]
-        collect: list = [[node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id+1}").eval() if prm_list_post_affine[1:][idx][0] else node.parm(f"{prm_list_post_affine[1:][idx][0]}{id+1}").eval() for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]
+        collect: list = [[node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id+1}").eval() if prm_list_post_affine[1:][idx][1] else node.parm(f"{prm_list_post_affine[1:][idx][0]}{id+1}").eval() for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]
         [node.setParms({f"{prm_list_post_affine[0][0]}{id+1}": 0}) if node.parm(f"{prm_list_post_affine[0][0]}{id+1}").eval() and 1 not in keyframes[id] and affine==[(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), (0.0,)] else ... for id, affine in enumerate(collect)] # type: ignore
         
         # FF
@@ -4631,8 +4631,8 @@ class flam3h_iterator_utils
                 return False
 
         else:
-            collect = [node.parmTuple(f"{prm_list_affine[idx][0]}{id}").eval() if prm_list_affine[idx][0] else node.parm(f"{prm_list_affine[idx][0]}{id}").eval() for idx in range(len(prm_list_affine))]
-            if collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), (0.0,)]:
+            collect = [node.parmTuple(f"{prm_list_affine[idx][0]}{id}").eval() if prm_list_affine[idx][1] else node.parm(f"{prm_list_affine[idx][0]}{id}").eval() for idx in range(len(prm_list_affine))]
+            if collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]:
                 return True
             else:
                 return False
@@ -4664,8 +4664,9 @@ class flam3h_iterator_utils
                 return False
 
         else:
-            collect = [node.parmTuple(f"{prm_list_affine[idx][0]}").eval() if prm_list_affine[idx][0] else node.parm(f"{prm_list_affine[idx][0]}").eval() for idx in range(len(prm_list_affine))]
-            if collect==[(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]:
+            keyframes = [item for sublist in [[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}")] if prm_list_affine[1:][idx][1] else [1 if len(node.parm(f"{prm_list_affine[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
+            collect = [node.parmTuple(f"{prm_list_affine[idx][0]}").eval() if prm_list_affine[idx][1] else node.parm(f"{prm_list_affine[idx][0]}").eval() for idx in range(len(prm_list_affine))]
+            if 1 not in keyframes and collect==[(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]:
                 return True
             else:
                 return False
