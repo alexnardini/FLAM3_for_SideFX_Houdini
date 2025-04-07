@@ -894,9 +894,11 @@ Opacity [Icon:TOP/xmlinput]:
     This iterator's opacity.<br /><br />
     It will be fully opaque at opacity *`1`*(one) and completely transparent at opacity *`0`*(Zero). It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator's Weight.
     
-    TIP:
-        #display: orange
-        When an iterator's opacity is *`0`*(Zero), you can activate the SYS Tab *RIP* option to get rid of those points ( _since_ *opacity* == *`@pscale`* (*`@widths`* _in Solaris_ ) _you do not need them anymore_).
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - When an iterator's opacity is *`0`*(Zero), you can activate the SYS Tab *RIP* option to get rid of those points ( _since_ *opacity* == *`@pscale`* (*`@widths`* _in Solaris_ ) _you do not need them anymore_).
+    - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the SYS Tab *RIP* option will be automatically turned ON if any of the iterators have its Opacity value set to *`0`*(Zero).
+
 :box:
     #display: rounded white
 
@@ -1132,6 +1134,10 @@ POST affine [Icon:TOP/xmlinput]:
     #id: FLAME
 
     *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the post affine will be automatically turned OFF if they are default values to save on computation.
  
     
 :box:
@@ -1344,6 +1350,10 @@ FF: post affine [Icon:TOP/xmlinput]:
     #id: FF
     
     *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the post affine will be automatically turned OFF if they are default values to save on computation.
 
         
 :box:
