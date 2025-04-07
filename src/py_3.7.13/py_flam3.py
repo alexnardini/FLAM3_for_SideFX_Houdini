@@ -1121,7 +1121,7 @@ class flam3h_scripts
 
     @staticmethod
     def is_post_affine_default_on_loaded(node: hou.SopNode) -> None:
-        """Turn iterators/FF post affine OFF if they are default values.
+        """Turn iterators/FF post affine OFF if they are active and default values.
 
         Args:
             node(hou.SopNode): This FLAm3H node.
@@ -1552,16 +1552,19 @@ class flam3h_scripts
         Returns:
             (None):
         """
+        
         node = self.node
+        
         # Force updated of the mini-menu iterator selection
         flam3h_iterator_utils.destroy_cachedUserData(node, 'iter_sel')
         flam3h_iterator_utils.destroy_cachedUserData(node, 'edge_case_01')
-        
         # CP and IN PRESETS filepaths (cache data)
         self.flam3h_presets_cache_filepath_on_load()
-        
         # Turn iterators/FF post affine OFF if they are default values
         self.is_post_affine_default_on_loaded(node)
+        
+        # init xaos
+        flam3h_iterator_utils(self.kwargs).auto_set_xaos()
         
         if hou.hipFile.isLoadingHipFile(): #type: ignore
             
@@ -1581,8 +1584,6 @@ class flam3h_scripts
             flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
             # init OUT PRESETS
             flam3h_general_utils(self.kwargs).flam3h_init_presets_OUT_PRESETS()
-            # init xaos
-            flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             # init RIP: Remove Invalid Points
             flam3h_iterator_utils.flam3h_on_load_opacity_zero(node)
             
@@ -1649,8 +1650,6 @@ class flam3h_scripts
                 flam3h_general_utils.util_set_stashed_cam()
                 flam3h_general_utils(self.kwargs).flam3h_other_sensor_viz_off(node)
                 
-            # INIT XAOS - this probably is not needed but I leave it for now
-            flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             # Reset memory mpidx prm data
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
             # init RIP: Remove Invalid Points: ALL
@@ -4606,7 +4605,7 @@ class flam3h_iterator_utils
     @staticmethod
     def is_iterator_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, id: str, id_from: str, post: bool=False) -> bool:
         """To be used with the copy/paste methods. Check if an iterator Affine (PRE or POST) are at default values. 
-        If they are default values, it will turn the post affine toggle OFF for both this iterator (id) and the from iterator (id_from)
+        If they are default values and they are the post affine, it will turn the post affine toggle OFF for both this iterator (id) and the from iterator (id_from)
         even if they are between two different FLAM3H nodes (node and from_FLAM3H_NODE)
         
         Args:
@@ -4642,7 +4641,7 @@ class flam3h_iterator_utils
     @staticmethod
     def is_FF_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, post: bool=False) -> bool:
         """To be used with the copy/paste methods. Check if the FF Affine (PRE or POST) are at default values. 
-        If they are default values, it will turn the post affine toggle OFF for both this iterator (id) and the from iterator (id_from)
+        If they are default values and they are the post affine, it will turn the post affine toggle OFF for both this iterator (id) and the from iterator (id_from)
         even if they are between two different FLAM3H nodes (node and from_FLAM3H_NODE)
         
         Args:
