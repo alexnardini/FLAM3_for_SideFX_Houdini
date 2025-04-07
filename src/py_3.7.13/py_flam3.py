@@ -1868,7 +1868,6 @@ class flam3h_general_utils
         Args:
             node(hou.SopNode): this FLAM3H node.
             prm_name(str): the parameter name.
-            data(Union[str, int, float]): The value to set the parameter to.
             
         Returns:
             (None):
