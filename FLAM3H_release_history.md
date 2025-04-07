@@ -10,6 +10,19 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.7.51</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.51) ###
+
+- **New**: When copy/paste affine values between iterators/FLAM3H nodes, if they are at their defaults the post affine will be automatically turned OFF.
+- **New**: When copy/paste affine values between FF/FLAM3H nodes, if they are at their defaults the post affine will be automatically turned OFF.
+- **New**: FLAM3H will now check if the iterators/FF post affine are at their default values on hip file load and turn the post affine OFF if so.
+- **Updated HDA documentation.**
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.7.47</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.47) ###
 
 - **Fix**: When resetting an iterator to its defaults it will now properly reset all its parametric variation's parameters (PRE, VAR and POST).
