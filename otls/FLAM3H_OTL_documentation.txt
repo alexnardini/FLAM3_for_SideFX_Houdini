@@ -2495,26 +2495,6 @@ cvex precision modes (hidden) [Icon:BUTTONS/pane_menu]:
 
         Unless you notice some significant artifacts and you genuinely adore the fractal Flame you are working on, always use *`32-bit`* which is the default.
 
-:box:
-    #display: rounded white
-
-    == Prefs: density == (PREFSDENSITY)
-
-Density :
-    #id: prefs
-    Set a custom density value for the fractal Flame.<br />
-    
-    If the global tab's density menu entries do not have what you need<br />
-    you can set a custom density value using this parameter.
-
-    If the choosen value is not present in the global density menu entries,<br />
-    the global density menu label will become empty to signal the use of a custom density value here.
-
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
-    - This is the only place where you are allowed to animate the density value.
-
-
-
 
 :box:
     #display: rounded white
@@ -2533,6 +2513,24 @@ menu xaos modes [Icon:BUTTONS/pane_menu]:
     
     NOTE:
         Xaos FROM mode will internally be changed into xaos TO on save and reloaded as xaos TO when saving out Flame files.
+
+:box:
+    #display: rounded white
+
+    == Prefs: density == (PREFSDENSITY)
+
+Density :
+    #id: prefs
+    Set a custom density value for the fractal Flame.<br />
+    
+    If the global tab's density menu entries do not have what you need<br />
+    you can set a custom density value using this parameter.
+
+    If the choosen value is not present in the global density menu entries,<br />
+    the global density menu label will become empty to signal the use of a custom density value here.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
+    - This is the only place where you are allowed to animate the density value.
 
 :box:
     #display: rounded white
