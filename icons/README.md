@@ -76,6 +76,11 @@ It is an ongoing effort and they have been regularly updated and improved even t
 <p align="center">icon_optionCPSVG.svg</p>
 <p align="center">.</p>
 
+<p align="center">
+  <img width="160" height="160" src="./icon_optionDisabledSelIterSVG.svg" /></p>
+<p align="center">icon_optionDisabledSelIterSVG.svg</p>
+<p align="center">.</p>
+
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionDisabledSVG.svg" /></p>

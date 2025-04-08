@@ -278,7 +278,7 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?iconStarSwapRedCopyPasteZeroWSVG.svg] when an iterator is ACTIVE, *`0`*(Zero) Weight and Marked.
     - [Largeicon:opdef:.?iconStarSwapRedCopyPasteSVG.svg] when an iterator is ACTIVE and Marked.
     - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when an iterator is OFF/Disabled.
-    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieSVG.svg] when an iterator is OFF/Disabled and Marked.
+    - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when an iterator is OFF/Disabled and Marked.
 
     When an iterator shader's opacity is set to *`0`*(Zero),<br />
     its menu label will be prefixed with the message string: *`[ZERO opacity]`*<br />
