@@ -3920,6 +3920,7 @@ FLAM3H_ICON_COPY_PASTE_INFO = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarB
 FLAM3H_ICON_COPY_PASTE_INFO_ORANGE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteFFSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_FF_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieFFSVG.svg]'
+FLAM3H_ICON_COPY_PASTE_FF_ENTRIE_OFF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieFFOffSVG.svg]'
 # ICONS menu select/iterator
 FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIterSVG.svg]'
 
@@ -6115,8 +6116,7 @@ class flam3h_iterator_utils
                 else:
                     # Menu entrie sections bookmark icon
                     active = flam3node_FF.parm(PREFS_PVT_DOFF).eval()
-                    if active: _ICON = FLAM3H_ICON_COPY_PASTE_FF_ENTRIE
-                    else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
+                    _ICON = (FLAM3H_ICON_COPY_PASTE_FF_ENTRIE_OFF, FLAM3H_ICON_COPY_PASTE_FF_ENTRIE)[active]
                     
                     prm_selmem = node.parm(f"{PRX_FF_PRM}selmem")
                     if prm_selmem.eval() > 0:
@@ -6418,7 +6418,7 @@ class flam3h_iterator_utils
                 self.del_comment_and_user_data_iterator(node)
                 
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.flash_message(node, f"iterator UNMARKED")
+                flam3h_general_utils.flash_message(node, f"UNMARKED")
                 
             else:
                 if from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval() == -1:
@@ -6480,7 +6480,7 @@ class flam3h_iterator_utils
                 
                 _MSG = f"{self.node.name()}: iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-                flam3h_general_utils.flash_message(node, f"iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}") # type: ignore
+                flam3h_general_utils.flash_message(node, f"{str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}: MARKED") # type: ignore
                 
             else:
                 self.iterator_mpidx_mem_set(node, id)
@@ -6504,7 +6504,7 @@ class flam3h_iterator_utils
                 
             _MSG = f"{self.node.name()}: iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}") # type: ignore
+            flam3h_general_utils.flash_message(node, f"{str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}: MARKED") # type: ignore
 
 
     def prm_paste(self) -> None:

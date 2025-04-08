@@ -394,6 +394,12 @@ It is an ongoing effort and they have been regularly updated and improved even t
 
 
 <p align="center">
+  <img width="160" height="160" src="./iconStarSwapRedCopyPasteEntrieFFOffSVG.svg" /></p>
+<p align="center">iconStarSwapRedCopyPasteEntrieFFOffSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
   <img width="160" height="160" src="./iconStarSwapRedCopyPasteEntrieFFSVG.svg" /></p>
 <p align="center">iconStarSwapRedCopyPasteEntrieFFSVG.svg</p>
 <p align="center">.</p>

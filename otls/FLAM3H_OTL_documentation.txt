@@ -1227,7 +1227,7 @@ FF: copy/paste:
     The sections items in the mini-menu have a bookmark icon that change based on the marked FF status:
 
     - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieFFSVG.svg] when the marked FF is ACTIVE.
-    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteZeroWSVG.svg] when the marked FF is OFF/Disabled.
+    - [Largeicon:opdef:.?iconStarSwapRedCopyPasteEntrieFFOffSVG.svg] when the marked FF is OFF/Disabled.
     
     When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another FLAM3H node' FF.
     This way you can keep the FF marked while working and paste again its data somewhere else after making additional changes to its contents.
