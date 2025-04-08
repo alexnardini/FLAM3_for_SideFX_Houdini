@@ -3914,13 +3914,14 @@ class flam3h_general_utils
 
 # ICONS menu copy/paste bookmarks
 FLAM3H_ICON_COPY_PASTE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]'
-FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIterSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteZeroWSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_INFO = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_INFO_ORANGE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_FF = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteFFSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_FF_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieFFSVG.svg]'
+# ICONS menu select/iterator
+FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIterSVG.svg]'
 
 # ICONS menu vars and palette bookmarks
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
