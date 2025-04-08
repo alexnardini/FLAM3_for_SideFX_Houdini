@@ -3914,9 +3914,7 @@ class flam3h_general_utils
 
 # ICONS menu copy/paste bookmarks
 FLAM3H_ICON_COPY_PASTE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteSVG.svg]'
-
-
-FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIterSVG.svg]'
+FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIterSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteEntrieSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO = '![opdef:/alexnardini::Sop/FLAM3H?iconStarSwapRedCopyPasteZeroWSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_INFO = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]'
@@ -5679,7 +5677,7 @@ class flam3h_iterator_utils
                     else:
                         # check if it is marked for being copied
                         if node == from_FLAM3H_NODE and mp_id_from == idx:
-                            menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                            menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED}  {idx}:  {_OPACITY_MSG}{note[i]}")
                         else:
                             menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {idx}:  {_OPACITY_MSG}{note[i]}")
                             
