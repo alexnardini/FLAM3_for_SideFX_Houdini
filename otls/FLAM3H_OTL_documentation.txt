@@ -14,7 +14,7 @@
 
 
 == Welcome to FLAM3 for SideFX Houdini - aka: FLAM3H ==
-( _H19.x and H20.x only_ )
+( _From H19.x to H20.5.x only_ )
 
 [Icon:opdef:.?icon_optionStarBlueSVG.svg]  *A bit of history* _( from wikipedia )_:
 
