@@ -6047,7 +6047,8 @@ class flam3h_iterator_utils
                 active = from_FLAM3H_NODE.parm(f"vactive_{idx_from}").eval()
                 weight = from_FLAM3H_NODE.parm(f"iw_{idx_from}").eval()
                 if active and weight > 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE
-                else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
+                elif active and weight == 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
+                else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
                 
                 # Build menu
                 if node == from_FLAM3H_NODE and id==mp_id_from:
@@ -6115,7 +6116,7 @@ class flam3h_iterator_utils
                     # Menu entrie sections bookmark icon
                     active = flam3node_FF.parm(PREFS_PVT_DOFF).eval()
                     if active: _ICON = FLAM3H_ICON_COPY_PASTE_FF_ENTRIE
-                    else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
+                    else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
                     
                     prm_selmem = node.parm(f"{PRX_FF_PRM}selmem")
                     if prm_selmem.eval() > 0:
