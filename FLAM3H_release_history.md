@@ -10,6 +10,19 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.7.55</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.55) ###
+
+- **New**: New bookmark icon for the sys tab select iterator menu entrie for when an iterator is OFF and marked. Now in line with the others.
+- **New**: New copy/paste menu entries icons. Now when the marked iterator is OFF or when is zero weight uses the same icons as the sys tab select iterator menu's bookmark icons. Now in line with the others.
+- **New**: New FF menu copy/paste icon when the marked FF is OFF. Now in line with the others.
+- **Updated HDA documentation.**
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.7.51</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.51) ###
 
 - **New**: When copy/paste affine values between iterators/FLAM3H nodes, if they are at their defaults the post affine will be automatically turned OFF.
