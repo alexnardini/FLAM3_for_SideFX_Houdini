@@ -16994,6 +16994,8 @@ class out_flame_utils
 
     def out_flame_properties_build(self, f3r: out_flame_render_properties) -> dict:
         """Return a dictionary with all the flame properties to be written out.
+        
+        Any of those properties will not be included into the exported XML flame file if they are: False
 
         Args:
             (self):
