@@ -6055,12 +6055,12 @@ class flam3h_iterator_utils
                 if node == from_FLAM3H_NODE and id==mp_id_from:
                     menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED\n-> Select a different iterator number or a different FLAM3H node to paste its values.", 1,"" ]
                 elif node == from_FLAM3H_NODE:
-                    menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{_ICON}  {idx_from}", 3, f"{_ICON}  {idx_from}:  xaos:", 4, f"{_ICON}  {idx_from}:  shader", 5, f"{_ICON}  {idx_from}:  PRE", 6, f"{_ICON}  {idx_from}:  VAR", 7, f"{_ICON}  {idx_from}:  POST", 8, f"{_ICON}  {idx_from}:  pre affine", 9, f"{_ICON}  {idx_from}:  post affine", 10, "" ]
+                    path = f"{_ICON}  {idx_from}"
+                    menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
                 else:
                     assert from_FLAM3H_NODE is not None
-                    parent = f".../{from_FLAM3H_NODE.parent()}"
-                    flam3nodeIter = f"{from_FLAM3H_NODE.name()}.iter."
-                    menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}", 3, f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  xaos:", 4, f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  shader", 5, f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  PRE", 6, f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  VAR", 7, f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  POST", 8, f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  pre affine", 9, f"{_ICON}  {parent}/{flam3nodeIter}{idx_from}:  post affine", 10, "" ]
+                    path = f"{_ICON}  ../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
+                    menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
                 
                 return menu
             
@@ -6123,9 +6123,8 @@ class flam3h_iterator_utils
                         node.setParms({f"{PRX_FF_PRM}prmpastesel": 0})
                         prm_selmem.set(0)
                     
-                    parent = f".../{flam3node_FF.parent()}"
-                    flam3nodeFF = f"{flam3node_FF.name()}.FF"
-                    return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  All", 2, f"{_ICON}  {parent}/{flam3nodeFF}:  PRE", 3, f"{_ICON}  {parent}/{flam3nodeFF}:  VAR", 4, f"{_ICON}  {parent}/{flam3nodeFF}:  POST", 5, f"{_ICON}  {parent}/{flam3nodeFF}:  pre affine", 6, f"{_ICON}  {parent}/{flam3nodeFF}:  post affine", 7, "" ]
+                    path = f"{_ICON}  ../{flam3node_FF.parent()}/{flam3node_FF.name()}.FF"
+                    return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  All", 2, f"{path}:  PRE", 3, f"{path}:  VAR", 4, f"{path}:  POST", 5, f"{path}:  pre affine", 6, f"{path}:  post affine", 7, "" ]
         
         else:
             return MENU_FF_COPY_PASTE_EMPTY
