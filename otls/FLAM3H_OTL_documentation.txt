@@ -1440,8 +1440,9 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
     _Some of the menu labels posses a bookmark icon_:
 
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
-    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset.
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset, *`256`* samples.
+    - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] indicate a medium preset, *`512`* samples.
+    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset, *`1024`* samples.
     
     Lookup samples have no connection on the palette you design. Only a few color keys can be made;
     nevertheless, the palette will be internally sampled (_linearly spaced_) from *`0`*(Zero: _start_) to *`1`*(one: _end_) using this amount of samples.
