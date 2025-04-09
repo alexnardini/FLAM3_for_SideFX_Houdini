@@ -1839,40 +1839,42 @@ class flam3h_general_utils
 
 
     @staticmethod
-    def private_prm_set(node: hou.SopNode, prm_name: str, data: Union[str, int, float]) -> None:
+    def private_prm_set(node: hou.SopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
         """Set a parameter value while making sure to unlock and lock it right after.
         This is being introduced to add an extra level of security so to speak to certain parameters
         that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.
         
         Args:
             node(hou.SopNode): this FLAM3H node.
-            prm_name(str): the parameter name.
+            prm_name(Union[str, hou.Parm]): the parameter name or the parameter hou.Parm directly.
             data(Union[str, int, float]): The value to set the parameter to.
             
         Returns:
             (None):
         """ 
-        prm = node.parm(prm_name)
+        if isinstance(_prm, str): prm: hou.Parm = node.parm(_prm)
+        elif isinstance(_prm, hou.Parm): prm: hou.Parm = _prm
         prm.lock(False)
-        prm.set(data)
+        prm.set(data) # type: ignore
         prm.lock(True)
         
         
         
     @staticmethod
-    def private_prm_deleteAllKeyframes(node: hou.SopNode, prm_name: str) -> None:
+    def private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: Union[str, hou.Parm]) -> None:
         """Delete all parameter's keyframes while making sure to unlock and lock it right after.
         This is being introduced to add an extra level of security so to speak to certain parameters
         that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.
         
         Args:
             node(hou.SopNode): this FLAM3H node.
-            prm_name(str): the parameter name.
+            prm_name(Union[str, hou.Parm]):  the parameter name or the parameter hou.Parm directly.
             
         Returns:
             (None):
         """ 
-        prm = node.parm(prm_name)
+        if isinstance(_prm, str): prm: hou.Parm = node.parm(_prm)
+        elif isinstance(_prm, hou.Parm): prm: hou.Parm = _prm
         prm.lock(False)
         prm.deleteAllKeyframes()
         prm.lock(True)
@@ -2898,7 +2900,7 @@ class flam3h_general_utils
         self.menus_refresh_enum_prefs()
         
         if prm.eval():
-            flam3h_general_utils.private_prm_set(node, prm_name, 0)
+            flam3h_general_utils.private_prm_set(node, prm, 0)
             
             if f3h_xf_viz_others is False:
                 # Restore the viewport wire width prior to entering the xforms handles VIZ
@@ -2923,14 +2925,14 @@ class flam3h_general_utils
                 except: w = None
                 if w is not None: self.viewportWireWidth(w)
                 
-                flam3h_general_utils.private_prm_set(node, prm_name, 1)
+                flam3h_general_utils.private_prm_set(node, prm, 1)
                 
                 _MSG = f"ON"
                 self.set_status_msg(f"{node.name()}: {prm.name().upper()}: {_MSG}", 'IMP')
                 self.flash_message(node, f"XF VIZ: {_MSG}")
                 
             else:
-                flam3h_general_utils.private_prm_set(node, prm_name, 0)
+                flam3h_general_utils.private_prm_set(node, prm, 0)
                 _MSG = f"No Sop viewers available."
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the xforms handles VIZ to work.", 'WARN')
                 self.flash_message(node, f"{_MSG}")
@@ -3158,12 +3160,12 @@ class flam3h_general_utils
         self.menus_refresh_enum_prefs()
         
         if prm.eval():
-            self.private_prm_set(node, prm_name, 0)
+            self.private_prm_set(node, prm, 0)
             _MSG = f"{node.name()}: {prm.name().upper()}: OFF"
             self.set_status_msg(_MSG, 'MSG')
             
         else:
-            self.private_prm_set(node, prm_name, 1)
+            self.private_prm_set(node, prm, 1)
             _MSG = f"{node.name()}: {prm.name().upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
             
@@ -3188,13 +3190,13 @@ class flam3h_general_utils
         self.menus_refresh_enum_prefs()
         
         if prm.eval():
-            self.private_prm_set(node, prm_name, 0)
+            self.private_prm_set(node, prm, 0)
             self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
             _MSG = f"{node.name()}: {prm.name().upper()}: OFF"
             self.set_status_msg(_MSG, 'MSG')
             
         else:
-            self.private_prm_set(node, prm_name, 1)
+            self.private_prm_set(node, prm, 1)
             _MSG = f"{node.name()}: {prm.name().upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
             
@@ -6059,7 +6061,7 @@ class flam3h_iterator_utils
                     menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
                 else:
                     assert from_FLAM3H_NODE is not None
-                    path = f"{_ICON}  ../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
+                    path = f"{_ICON}  .../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
                     menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
                 
                 return menu
@@ -6123,7 +6125,7 @@ class flam3h_iterator_utils
                         node.setParms({f"{PRX_FF_PRM}prmpastesel": 0})
                         prm_selmem.set(0)
                     
-                    path = f"{_ICON}  ../{flam3node_FF.parent()}/{flam3node_FF.name()}.FF"
+                    path = f"{_ICON}  .../{flam3node_FF.parent()}/{flam3node_FF.name()}.FF"
                     return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  All", 2, f"{path}:  PRE", 3, f"{path}:  VAR", 4, f"{path}:  POST", 5, f"{path}:  pre affine", 6, f"{path}:  post affine", 7, "" ]
         
         else:
@@ -7374,10 +7376,10 @@ class flam3h_iterator_utils
             self.paste_from_prm(__pvT_prm[1], pvT_prm[0])
             
             # Clear tmp prms so in case of keyframes or expression they wont evaluate
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0].name())
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1].name())
-            flam3h_general_utils.private_prm_set(node, __pvT_prm[0].name(), 0)
-            flam3h_general_utils.private_prm_set(node, __pvT_prm[1].name(), 0)
+            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0])
+            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1])
+            flam3h_general_utils.private_prm_set(node, __pvT_prm[0], 0)
+            flam3h_general_utils.private_prm_set(node, __pvT_prm[1], 0)
             
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
@@ -7392,10 +7394,10 @@ class flam3h_iterator_utils
             self.paste_from_prm(__pvT_prm[1], pvT_prm[0])
             
             # Clear tmp prms so in case of keyframes or expression they wont evaluate
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0].name())
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1].name())
-            flam3h_general_utils.private_prm_set(node, __pvT_prm[0].name(), 0)
-            flam3h_general_utils.private_prm_set(node, __pvT_prm[1].name(), 0)
+            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0])
+            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1])
+            flam3h_general_utils.private_prm_set(node, __pvT_prm[0], 0)
+            flam3h_general_utils.private_prm_set(node, __pvT_prm[1], 0)
 
 
             # COPY WEIGHTS into tmp
@@ -7407,10 +7409,10 @@ class flam3h_iterator_utils
             self.paste_from_prm(__pvW_prm[1], pvW_prm[0])
             
             # Clear tmp prms so in case of keyframes or expression they wont evaluate
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[0].name())
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[1].name())
-            flam3h_general_utils.private_prm_set(node, __pvW_prm[0].name(), 0)
-            flam3h_general_utils.private_prm_set(node, __pvW_prm[1].name(), 0)
+            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[0])
+            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[1])
+            flam3h_general_utils.private_prm_set(node, __pvW_prm[0], 0)
+            flam3h_general_utils.private_prm_set(node, __pvW_prm[1], 0)
             
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                 
@@ -7450,8 +7452,8 @@ class flam3h_iterator_utils
             self.paste_from_prm(__pvT_prm[0], pvT_prm[1])
             self.paste_from_prm(__pvT_prm[1], pvT_prm[0])
             # Clear tmp prm so in case of keyframes or expression it doesnt evaluate
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0].name())
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1].name())
+            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0])
+            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1])
             
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
@@ -7465,8 +7467,8 @@ class flam3h_iterator_utils
             self.paste_from_prm(__pvT_prm[0], pvT_prm[1])
             self.paste_from_prm(__pvT_prm[1], pvT_prm[0])
             # Clear tmp prm so in case of keyframes or expression it doesnt evaluate
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0].name())
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1].name())
+            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0])
+            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1])
 
             # Copy weights into tmp
             self.paste_from_prm(pvW_prm[0], __pvW_prm[0], True)
@@ -7475,8 +7477,8 @@ class flam3h_iterator_utils
             self.paste_from_prm(__pvW_prm[0], pvW_prm[1])
             self.paste_from_prm(__pvW_prm[1], pvW_prm[0])
             # Clear tmp prm so in case of keyframes or expression it doesnt evaluate
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[0].name())
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[1].name())
+            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[0])
+            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[1])
             
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
