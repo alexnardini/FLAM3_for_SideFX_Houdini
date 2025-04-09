@@ -102,31 +102,41 @@ void _TFFAsensor()
         append(_points_tm_out, _points_tm[i] * (matrix(ident())*LIMIT) + frame_sensor_offset);
     }
     
-    int p1, p2, p3, p4, p1_o, p2_o, p3_o, p4_o;
+    int p1, p2, p3, p4, p1_o, p2_o, p3_o, p4_o, p1_l, p2_l, p3_l, p4_l;
     p1 = addpoint(0, _points_tm[0]);
     p2 = addpoint(0, _points_tm[1]);
     p3 = addpoint(0, _points_tm[2]);
     p4 = addpoint(0, _points_tm[3]);
-
     p1_o = addpoint(0, _points_tm_out[0]);
     p2_o = addpoint(0, _points_tm_out[1]);
     p3_o = addpoint(0, _points_tm_out[2]);
     p4_o = addpoint(0, _points_tm_out[3]);
+    p1_l = addpoint(0, _points_tm[0]);
+    p2_l = addpoint(0, _points_tm[1]);
+    p3_l = addpoint(0, _points_tm[2]);
+    p4_l = addpoint(0, _points_tm[3]);
     
     vector color_sensor = 0.05;
     int sensor_ptn[] = array(p1, p2, p3, p4, p1_o, p2_o, p3_o, p4_o);
     foreach(int pt; sensor_ptn){
         setpointattrib(0, "Cd", pt, color_sensor, "set");
     }
+    vector color_l = 1;
+    int l_ptn[] = array(p1_l, p2_l, p3_l, p4_l);
+    foreach(int pt; l_ptn){
+        setpointattrib(0, "Cd", pt, color_l, "set");
+    }
     int prim_1 = addprim(0, "poly", array(p1, p2, p2_o, p1_o, p1));
     int prim_2 = addprim(0, "poly", array(p2, p3, p3_o, p2_o, p2));
     int prim_3 = addprim(0, "poly", array(p3, p4, p4_o, p3_o, p3));
     int prim_4 = addprim(0, "poly", array(p4, p1, p1_o, p4_o, p4));
+    int prim_5 = addprim(0, "polyline", array(p1_l, p2_l, p3_l, p4_l, p1_l));
 
     setprimattrib(0, "P", prim_1, m4_flip, "mult");
     setprimattrib(0, "P", prim_2, m4_flip, "mult");
     setprimattrib(0, "P", prim_3, m4_flip, "mult");
     setprimattrib(0, "P", prim_4, m4_flip, "mult");
+    setprimattrib(0, "P", prim_5, m4_flip, "mult");
 
     // FLAM3H Flame points
     packedtransform(0, 0, invert(m4_first_no_scale) * m4_second * invert(m4_center_sensor) * m4_flip);

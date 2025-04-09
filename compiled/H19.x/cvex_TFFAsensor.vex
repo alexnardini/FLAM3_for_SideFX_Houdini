@@ -12,8 +12,9 @@ source_filename = "TFFAsensor"
 @5 = private constant [3 x i8] c"Cd\00"
 @6 = private constant [4 x i8] c"set\00"
 @7 = private constant [5 x i8] c"poly\00"
-@8 = private constant [2 x i8] c"P\00"
-@9 = private constant [5 x i8] c"mult\00"
+@8 = private constant [9 x i8] c"polyline\00"
+@9 = private constant [2 x i8] c"P\00"
+@10 = private constant [5 x i8] c"mult\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"sensorDATA@Z6sensorM4N3resUN6centerUN4zoomFN3rotF"(%sensor* %this) #0 {
@@ -211,42 +212,66 @@ end136:                                           ; preds = %cond132
   %return184 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return183)
   %return186 = call <3 x double> @"getcomp@V[VI"(<3 x double>* %_points_tm_out.0, i64 3)
   %return187 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return186)
-  %cast188 = call <3 x double> @"set@VF"(double 5.000000e-02)
-  %return197 = call i64* @"array@[I:IIIIIIII"(i64 %return166, i64 %return169, i64 %return172, i64 %return175, i64 %return178, i64 %return181, i64 %return184, i64 %return187)
-  %return199 = call i64 @"len@I[I"(i64* %return197)
-  br label %cond200
+  %return190 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return165)
+  %return193 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return168)
+  %return196 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return171)
+  %return199 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %return174)
+  %cast200 = call <3 x double> @"set@VF"(double 5.000000e-02)
+  %return209 = call i64* @"array@[I:IIIIIIII"(i64 %return166, i64 %return169, i64 %return172, i64 %return175, i64 %return178, i64 %return181, i64 %return184, i64 %return187)
+  %return211 = call i64 @"len@I[I"(i64* %return209)
+  br label %cond212
 
-cond200:                                          ; preds = %body201, %end136
-  %__impl_foreach_index.0 = phi i64 [ 0, %end136 ], [ %output214, %body201 ]
-  %return204 = call i64 @"lt@III"(i64 %__impl_foreach_index.0, i64 %return199)
-  %3 = icmp ne i64 %return204, 0
-  br i1 %3, label %body201, label %end205
+cond212:                                          ; preds = %body213, %end136
+  %__impl_foreach_index.0 = phi i64 [ 0, %end136 ], [ %output226, %body213 ]
+  %return216 = call i64 @"lt@III"(i64 %__impl_foreach_index.0, i64 %return211)
+  %3 = icmp ne i64 %return216, 0
+  br i1 %3, label %body213, label %end217
 
-body201:                                          ; preds = %cond200
-  %return209 = call i64 @"getcomp@I[II"(i64* %return197, i64 %__impl_foreach_index.0)
-  %return212 = call i64 @"setpointattrib@IISIVS"(i64 0, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @5, i64 0, i64 0), i64 %return209, <3 x double> %cast188, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @6, i64 0, i64 0))
-  %output214 = add i64 %__impl_foreach_index.0, 1
-  br label %cond200
+body213:                                          ; preds = %cond212
+  %return221 = call i64 @"getcomp@I[II"(i64* %return209, i64 %__impl_foreach_index.0)
+  %return224 = call i64 @"setpointattrib@IISIVS"(i64 0, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @5, i64 0, i64 0), i64 %return221, <3 x double> %cast200, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @6, i64 0, i64 0))
+  %output226 = add i64 %__impl_foreach_index.0, 1
+  br label %cond212
 
-end205:                                           ; preds = %cond200
-  %return220 = call i64* @"array@[I:IIIII"(i64 %return166, i64 %return169, i64 %return181, i64 %return178, i64 %return166)
-  %return221 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @7, i64 0, i64 0), i64* %return220)
-  %return227 = call i64* @"array@[I:IIIII"(i64 %return169, i64 %return172, i64 %return184, i64 %return181, i64 %return169)
-  %return228 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @7, i64 0, i64 0), i64* %return227)
-  %return234 = call i64* @"array@[I:IIIII"(i64 %return172, i64 %return175, i64 %return187, i64 %return184, i64 %return172)
-  %return235 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @7, i64 0, i64 0), i64* %return234)
-  %return241 = call i64* @"array@[I:IIIII"(i64 %return175, i64 %return166, i64 %return178, i64 %return187, i64 %return175)
-  %return242 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @7, i64 0, i64 0), i64* %return241)
-  %return245 = call i64 @"setprimattrib@IISI4S"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @8, i64 0, i64 0), i64 %return221, <16 x double> %return37, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @9, i64 0, i64 0))
-  %return248 = call i64 @"setprimattrib@IISI4S"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @8, i64 0, i64 0), i64 %return228, <16 x double> %return37, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @9, i64 0, i64 0))
-  %return251 = call i64 @"setprimattrib@IISI4S"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @8, i64 0, i64 0), i64 %return235, <16 x double> %return37, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @9, i64 0, i64 0))
-  %return254 = call i64 @"setprimattrib@IISI4S"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @8, i64 0, i64 0), i64 %return242, <16 x double> %return37, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @9, i64 0, i64 0))
-  %return256 = call <16 x double> @"invert@44"(<16 x double> %return20)
-  %output258 = call <16 x double> @"mul@44"(<16 x double> %return256, <16 x double> %return25)
-  %return260 = call <16 x double> @"invert@44"(<16 x double> %return130)
-  %output261 = call <16 x double> @"mul@44"(<16 x double> %output258, <16 x double> %return260)
-  %output263 = call <16 x double> @"mul@44"(<16 x double> %output261, <16 x double> %return37)
-  call void @"packedtransform@II4"(i64 0, i64 0, <16 x double> %output263)
+end217:                                           ; preds = %cond212
+  %return232 = call i64* @"array@[I:IIII"(i64 %return190, i64 %return193, i64 %return196, i64 %return199)
+  %return235 = call i64 @"len@I[I"(i64* %return232)
+  br label %cond236
+
+cond236:                                          ; preds = %body237, %end217
+  %__impl_foreach_index_1.0 = phi i64 [ 0, %end217 ], [ %output250, %body237 ]
+  %return240 = call i64 @"lt@III"(i64 %__impl_foreach_index_1.0, i64 %return235)
+  %4 = icmp ne i64 %return240, 0
+  br i1 %4, label %body237, label %end241
+
+body237:                                          ; preds = %cond236
+  %return245 = call i64 @"getcomp@I[II"(i64* %return232, i64 %__impl_foreach_index_1.0)
+  %return248 = call i64 @"setpointattrib@IISIVS"(i64 0, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @5, i64 0, i64 0), i64 %return245, <3 x double> %cast19, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @6, i64 0, i64 0))
+  %output250 = add i64 %__impl_foreach_index_1.0, 1
+  br label %cond236
+
+end241:                                           ; preds = %cond236
+  %return256 = call i64* @"array@[I:IIIII"(i64 %return166, i64 %return169, i64 %return181, i64 %return178, i64 %return166)
+  %return257 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @7, i64 0, i64 0), i64* %return256)
+  %return263 = call i64* @"array@[I:IIIII"(i64 %return169, i64 %return172, i64 %return184, i64 %return181, i64 %return169)
+  %return264 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @7, i64 0, i64 0), i64* %return263)
+  %return270 = call i64* @"array@[I:IIIII"(i64 %return172, i64 %return175, i64 %return187, i64 %return184, i64 %return172)
+  %return271 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @7, i64 0, i64 0), i64* %return270)
+  %return277 = call i64* @"array@[I:IIIII"(i64 %return175, i64 %return166, i64 %return178, i64 %return187, i64 %return175)
+  %return278 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @7, i64 0, i64 0), i64* %return277)
+  %return284 = call i64* @"array@[I:IIIII"(i64 %return190, i64 %return193, i64 %return196, i64 %return199, i64 %return190)
+  %return285 = call i64 @"addprim@IIS[I"(i64 0, i8* getelementptr inbounds ([9 x i8], [9 x i8]* @8, i64 0, i64 0), i64* %return284)
+  %return288 = call i64 @"setprimattrib@IISI4S"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @9, i64 0, i64 0), i64 %return257, <16 x double> %return37, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @10, i64 0, i64 0))
+  %return291 = call i64 @"setprimattrib@IISI4S"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @9, i64 0, i64 0), i64 %return264, <16 x double> %return37, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @10, i64 0, i64 0))
+  %return294 = call i64 @"setprimattrib@IISI4S"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @9, i64 0, i64 0), i64 %return271, <16 x double> %return37, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @10, i64 0, i64 0))
+  %return297 = call i64 @"setprimattrib@IISI4S"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @9, i64 0, i64 0), i64 %return278, <16 x double> %return37, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @10, i64 0, i64 0))
+  %return300 = call i64 @"setprimattrib@IISI4S"(i64 0, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @9, i64 0, i64 0), i64 %return285, <16 x double> %return37, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @10, i64 0, i64 0))
+  %return302 = call <16 x double> @"invert@44"(<16 x double> %return20)
+  %output304 = call <16 x double> @"mul@44"(<16 x double> %return302, <16 x double> %return25)
+  %return306 = call <16 x double> @"invert@44"(<16 x double> %return130)
+  %output307 = call <16 x double> @"mul@44"(<16 x double> %output304, <16 x double> %return306)
+  %output309 = call <16 x double> @"mul@44"(<16 x double> %output307, <16 x double> %return37)
+  call void @"packedtransform@II4"(i64 0, i64 0, <16 x double> %output309)
   ret void
 }
 
@@ -332,6 +357,9 @@ declare i64 @"getcomp@I[II"(i64*, i64) #1
 declare i64 @"setpointattrib@IISIVS"(i64, i8*, i64, <3 x double>, i8*) #2
 
 ; Function Attrs: nounwind readnone
+declare i64* @"array@[I:IIII"(i64, i64, i64, i64) #1
+
+; Function Attrs: nounwind readnone
 declare i64* @"array@[I:IIIII"(i64, i64, i64, i64, i64) #1
 
 ; Function Attrs: nounwind
@@ -365,7 +393,7 @@ attributes #2 = { nounwind }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"20.5.370"}
+!1 = !{!"20.5.487"}
 !2 = !{!"64"}
 
 ;_code_end
