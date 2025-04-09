@@ -124,8 +124,8 @@ void _TFFAsensor()
     foreach(int pt; sensor_ptn){
         setpointattrib(0, "Cd", pt, color_sensor, "set");
     }
-    vector color_l = 1;
-    if(xfviz) color_l = {1, 1, 0};
+    vector color_l = 0.25;
+    if(xfviz) color_l = {0.25, 0, 0};
     int l_ptn[] = array(p1_l, p2_l, p3_l, p4_l);
     foreach(int pt; l_ptn){
         setpointattrib(0, "Cd", pt, color_l, "set");

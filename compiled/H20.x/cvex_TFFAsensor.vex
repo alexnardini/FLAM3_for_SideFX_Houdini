@@ -249,8 +249,9 @@ body215:                                          ; preds = %cond214
   br label %cond214
 
 end219:                                           ; preds = %cond214
+  %cast229 = call <3 x double> @"set@VF"(double 2.500000e-01)
   %4 = icmp ne i64 %SENSOR2.fca.0.load, 0
-  %.cast229 = select i1 %4, <3 x double> <double 1.000000e+00, double 1.000000e+00, double 0.000000e+00>, <3 x double> %cast21
+  %.cast229 = select i1 %4, <3 x double> <double 2.500000e-01, double 0.000000e+00, double 0.000000e+00>, <3 x double> %cast229
   %return236 = call i64* @"array@[I:IIII"(i64 %return192, i64 %return195, i64 %return198, i64 %return201)
   %return239 = call i64 @"len@I[I"(i64* %return236)
   br label %cond240
