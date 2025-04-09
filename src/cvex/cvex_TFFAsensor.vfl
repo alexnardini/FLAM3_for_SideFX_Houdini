@@ -37,10 +37,12 @@
 
 
 struct sensor{
+    int xfviz;
     vector2 res, center;
     float zoom, rot;
 
     void sensorDATA(){
+        xfviz = chi("vizhandles");
         res = chu("outres");
         center = chu("outcenter");
         zoom = chf("outscale");
@@ -54,6 +56,7 @@ void _TFFAsensor()
     sensor SENSOR;
     SENSOR->sensorDATA();
 
+    int xfviz = SENSOR.xfviz;
     vector2 sensor_res = SENSOR.res;
     vector2 sensor_center = SENSOR.center;
     float sensor_zoom = SENSOR.zoom;
@@ -122,6 +125,7 @@ void _TFFAsensor()
         setpointattrib(0, "Cd", pt, color_sensor, "set");
     }
     vector color_l = 1;
+    if(xfviz) color_l = {1, 1, 0};
     int l_ptn[] = array(p1_l, p2_l, p3_l, p4_l);
     foreach(int pt; l_ptn){
         setpointattrib(0, "Cd", pt, color_l, "set");
