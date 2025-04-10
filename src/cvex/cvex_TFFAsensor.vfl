@@ -37,12 +37,18 @@
 
 
 struct sensor{
-    int xfviz;
+    int xfviz, xfviz_solo, xfviz_solo_ff;
     vector2 res, center;
     float zoom, rot;
 
     void sensorDATA(){
+
+        // xf viz checks
         xfviz = chi("vizhandles");
+        xfviz_solo = chi("vizhandles_solo");
+        xfviz_solo_ff = chi("vizhandlesff_solo");
+
+        // data
         res = chu("outres");
         center = chu("outcenter");
         zoom = chf("outscale");
@@ -56,7 +62,13 @@ void _TFFAsensor()
     sensor SENSOR;
     SENSOR->sensorDATA();
 
-    int xfviz = SENSOR.xfviz;
+    // xf viz checks
+    int xfviz, xfviz_solo, xfviz_solo_ff;
+    xfviz = SENSOR.xfviz;
+    xfviz_solo = SENSOR.xfviz_solo;
+    xfviz_solo_ff = SENSOR.xfviz_solo_ff;
+
+    // data
     vector2 sensor_res = SENSOR.res;
     vector2 sensor_center = SENSOR.center;
     float sensor_zoom = SENSOR.zoom;
@@ -119,28 +131,32 @@ void _TFFAsensor()
     p3_l = addpoint(0, _points_tm[2]);
     p4_l = addpoint(0, _points_tm[3]);
     
+    // Sensor
     vector color_sensor = 0.05;
     int sensor_ptn[] = array(p1, p2, p3, p4, p1_o, p2_o, p3_o, p4_o);
     foreach(int pt; sensor_ptn){
         setpointattrib(0, "Cd", pt, color_sensor, "set");
     }
-    vector color_l = 0.25;
-    if(xfviz) color_l = {0.25, 0, 0};
-    int l_ptn[] = array(p1_l, p2_l, p3_l, p4_l);
-    foreach(int pt; l_ptn){
-        setpointattrib(0, "Cd", pt, color_l, "set");
-    }
-    int prim_1 = addprim(0, "poly", array(p1, p2, p2_o, p1_o, p1));
-    int prim_2 = addprim(0, "poly", array(p2, p3, p3_o, p2_o, p2));
-    int prim_3 = addprim(0, "poly", array(p3, p4, p4_o, p3_o, p3));
-    int prim_4 = addprim(0, "poly", array(p4, p1, p1_o, p4_o, p4));
-    int prim_5 = addprim(0, "polyline", array(p1_l, p2_l, p3_l, p4_l, p1_l));
-
+    int prim_1, prim_2, prim_3, prim_4;
+    prim_1 = addprim(0, "poly", array(p1, p2, p2_o, p1_o, p1));
+    prim_2 = addprim(0, "poly", array(p2, p3, p3_o, p2_o, p2));
+    prim_3 = addprim(0, "poly", array(p3, p4, p4_o, p3_o, p3));
+    prim_4 = addprim(0, "poly", array(p4, p1, p1_o, p4_o, p4));
     setprimattrib(0, "P", prim_1, m4_flip, "mult");
     setprimattrib(0, "P", prim_2, m4_flip, "mult");
     setprimattrib(0, "P", prim_3, m4_flip, "mult");
     setprimattrib(0, "P", prim_4, m4_flip, "mult");
-    setprimattrib(0, "P", prim_5, m4_flip, "mult");
+
+    // Sensor outline (xfviz color sign)
+    vector color_l = 0.5;
+    if(xfviz && (xfviz_solo || xfviz_solo_ff)) color_l = {0.5, 0, 0}; 
+    else if(xfviz) color_l = {0.5, 0.3, 0};
+    int l_ptn[] = array(p1_l, p2_l, p3_l, p4_l);
+    foreach(int pt; l_ptn){
+        setpointattrib(0, "Cd", pt, color_l, "set");
+    }
+    int prim_l = addprim(0, "polyline", array(p1_l, p2_l, p3_l, p4_l, p1_l));
+    setprimattrib(0, "P", prim_l, m4_flip, "mult");
 
     // FLAM3H Flame points
     packedtransform(0, 0, invert(m4_first_no_scale) * m4_second * invert(m4_center_sensor) * m4_flip);
