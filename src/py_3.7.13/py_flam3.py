@@ -4540,20 +4540,13 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """   
-        if pvt:
-            prm_to.lock(False) 
-            prm_to.deleteAllKeyframes()
-            if len(prm_from.keyframes()):
-                [prm_to.setKeyframe(k) for k in prm_from.keyframes()]
-            else:
-                prm_to.set(prm_from.eval()) # type: ignore
-            prm_to.lock(True)
+        if pvt: prm_to.lock(False) 
+        prm_to.deleteAllKeyframes()
+        if len(prm_from.keyframes()):
+            [prm_to.setKeyframe(k) for k in prm_from.keyframes()]
         else:
-            prm_to.deleteAllKeyframes()
-            if len(prm_from.keyframes()):
-                [prm_to.setKeyframe(k) for k in prm_from.keyframes()]
-            else:
-                prm_to.set(prm_from.eval()) # type: ignore
+            prm_to.set(prm_from.eval()) # type: ignore
+        if pvt: prm_to.lock(True)
 
 
 
