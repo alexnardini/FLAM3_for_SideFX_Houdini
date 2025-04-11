@@ -2300,28 +2300,28 @@ update camera sensor [Icon:DATATYPES/boolean]:
     
 Quality [Icon:TOP/xmlinput]:
     #id: OUT
-    The render quality.<br /><br />
+    The renderer quality.<br /><br />
     Think of this as how many points are used inside Fractorium to render the final image.
     
 Brightness [Icon:TOP/xmlinput]:
     #id: OUT
-    The Flame render setting: brightness.
+    The Flame renderer setting: brightness.
     
 Gamma [Icon:TOP/xmlinput]:
     #id: OUT
-    The Flame render setting: gamma.
+    The Flame renderer setting: gamma.
     
 Highlight power [Icon:TOP/xmlinput]:
     #id: OUT
-    The Flame render setting: highlight power.
+    The Flame renderer setting: highlight power.
     
 Logscale K2 [Icon:TOP/xmlinput]:
     #id: OUT
-    The Flame render setting: Logscale K2.
+    The Flame renderer setting: Logscale K2.
     
 Vibrancy [Icon:TOP/xmlinput]:
     #id: OUT
-    The Flame render setting: vibrancy.
+    The Flame renderer setting: vibrancy.
 
 
 :box:
