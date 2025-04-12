@@ -1,3 +1,4 @@
+from __future__ import division
 from __future__ import annotations
 from platform import python_version
 from platform import system as platform_system
