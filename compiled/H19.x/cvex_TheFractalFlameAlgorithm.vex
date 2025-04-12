@@ -320,93 +320,69 @@ declare double @"cos@FF"(double) #0
 ; Function Attrs: alwaysinline nounwind
 define private void @"precalc_V_DISC2@VFF"(<3 x double>* %disc2_precalc, double* %rot, double* %twist) #1 {
 __llvm_entry:
+  %d1 = alloca double
+  %d2 = alloca double
   %0 = alloca double
-  %1 = alloca double
-  %2 = alloca double
-  %rot1 = load double, double* %rot
-  %output = fmul double %rot1, 0x400921FB4D12D84A
-  %tmp = load <3 x double>, <3 x double>* %disc2_precalc
-  %return = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp, double %output, i64 0)
-  %output3 = extractvalue { double, <3 x double> } %return, 1
-  store <3 x double> %output3, <3 x double>* %disc2_precalc
-  %twist4 = load double, double* %twist
-  store double %twist4, double* %0
-  call void @"sincos@FFF"(double* %0, double* %1, double* %2)
-  %arg = load double, double* %1
-  %tmp5 = load <3 x double>, <3 x double>* %disc2_precalc
-  %return6 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %tmp5, double %arg, i64 1)
-  %output8 = extractvalue { double, <3 x double> } %return6, 1
-  store <3 x double> %output8, <3 x double>* %disc2_precalc
-  %arg9 = load double, double* %2
-  %return11 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output8, double %arg9, i64 2)
-  %output13 = extractvalue { double, <3 x double> } %return11, 1
-  store <3 x double> %output13, <3 x double>* %disc2_precalc
-  %return15 = call double @"getcomp@FVI"(<3 x double> %output13, i64 2)
-  %output16 = fsub double %return15, 1.000000e+00
-  %return18 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output13, double %output16, i64 2)
-  %output20 = extractvalue { double, <3 x double> } %return18, 1
-  store <3 x double> %output20, <3 x double>* %disc2_precalc
-  %twist21 = load double, double* %twist
-  %return22 = fcmp ogt double %twist21, 0x401921FB4D12D84A
-  br i1 %return22, label %true, label %end
+  %disc2_precalc1 = load <3 x double>, <3 x double>* %disc2_precalc
+  %output = call { double, double, double } @"assign@FFFV"(<3 x double> %disc2_precalc1)
+  %output3 = extractvalue { double, double, double } %output, 1
+  %output4 = extractvalue { double, double, double } %output, 2
+  store double %output3, double* %d1
+  store double %output4, double* %d2
+  %rot5 = load double, double* %rot
+  %output6 = fmul double %rot5, 0x400921FB4D12D84A
+  %twist7 = load double, double* %twist
+  store double %twist7, double* %0
+  call void @"sincos@FFF"(double* %0, double* %d1, double* %d2)
+  %d28 = load double, double* %d2
+  %output9 = fsub double %d28, 1.000000e+00
+  store double %output9, double* %d2
+  %twist10 = load double, double* %twist
+  %return = fcmp ogt double %twist10, 0x401921FB4D12D84A
+  br i1 %return, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
-  %output25 = fadd double 1.000000e+00, %twist21
-  %output26 = fsub double %output25, 0x401921FB4D12D84A
-  %return28 = call double @"getcomp@FVI"(<3 x double> %output20, i64 2)
-  %output30 = fmul double %return28, %output26
-  %return32 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output20, double %output30, i64 2)
-  %output34 = extractvalue { double, <3 x double> } %return32, 1
-  store <3 x double> %output34, <3 x double>* %disc2_precalc
-  %return36 = call double @"getcomp@FVI"(<3 x double> %output34, i64 1)
-  %output38 = fmul double %return36, %output26
-  %return40 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output34, double %output38, i64 1)
-  %output42 = extractvalue { double, <3 x double> } %return40, 1
-  store <3 x double> %output42, <3 x double>* %disc2_precalc
+  %output13 = fadd double 1.000000e+00, %twist10
+  %output14 = fsub double %output13, 0x401921FB4D12D84A
+  %output17 = fmul double %output9, %output14
+  store double %output17, double* %d2
+  %d118 = load double, double* %d1
+  %output20 = fmul double %d118, %output14
+  store double %output20, double* %d1
   br label %end
 
 end:                                              ; preds = %true, %__llvm_entry
-  %twist43 = load double, double* %twist
-  %return44 = call i64 @"neg@II"(i64 2)
-  %cast = sitofp i64 %return44 to double
-  %output45 = fmul double %cast, 0x400921FB4D12D84A
-  %return46 = fcmp olt double %twist43, %output45
-  br i1 %return46, label %true48, label %end49
+  %twist21 = load double, double* %twist
+  %return22 = call i64 @"neg@II"(i64 2)
+  %cast = sitofp i64 %return22 to double
+  %output23 = fmul double %cast, 0x400921FB4D12D84A
+  %return24 = fcmp olt double %twist21, %output23
+  br i1 %return24, label %true26, label %end27
 
-true48:                                           ; preds = %end
-  %output51 = fadd double 1.000000e+00, %twist43
-  %output52 = fadd double %output51, 0x401921FB4D12D84A
-  %disc2_precalc53 = load <3 x double>, <3 x double>* %disc2_precalc
-  %return54 = call double @"getcomp@FVI"(<3 x double> %disc2_precalc53, i64 2)
-  %output56 = fmul double %return54, %output52
-  %return58 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %disc2_precalc53, double %output56, i64 2)
-  %output60 = extractvalue { double, <3 x double> } %return58, 1
-  store <3 x double> %output60, <3 x double>* %disc2_precalc
-  %return62 = call double @"getcomp@FVI"(<3 x double> %output60, i64 1)
-  %output64 = fmul double %return62, %output52
-  %return66 = call { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %output60, double %output64, i64 1)
-  %output68 = extractvalue { double, <3 x double> } %return66, 1
-  store <3 x double> %output68, <3 x double>* %disc2_precalc
-  br label %end49
+true26:                                           ; preds = %end
+  %output29 = fadd double 1.000000e+00, %twist21
+  %output30 = fadd double %output29, 0x401921FB4D12D84A
+  %d231 = load double, double* %d2
+  %output33 = fmul double %d231, %output30
+  store double %output33, double* %d2
+  %d134 = load double, double* %d1
+  %output36 = fmul double %d134, %output30
+  store double %output36, double* %d1
+  br label %end27
 
-end49:                                            ; preds = %true48, %end
+end27:                                            ; preds = %true26, %end
+  %d138 = load double, double* %d1
+  %d239 = load double, double* %d2
+  %return40 = call <3 x double> @"set@VFFF"(double %output6, double %d138, double %d239)
+  store <3 x double> %return40, <3 x double>* %disc2_precalc
   ret void
 }
 
-; Function Attrs: alwaysinline
-define private { double, <3 x double> } @"setcomp@FVFI"(<3 x double> %rw11, double %rw22, i64 %rw33) #3 {
-__llvm_entry:
-  %rw16 = call <3 x double> @"setcomp@VFI"(<3 x double> %rw11, double %rw22, i64 %rw33)
-  %mrv = insertvalue { double, <3 x double> } undef, double %rw22, 0
-  %mrv9 = insertvalue { double, <3 x double> } %mrv, <3 x double> %rw16, 1
-  ret { double, <3 x double> } %mrv9
-}
+; Function Attrs: nounwind
+declare { double, double, double } @"assign@FFFV"(<3 x double>) #2
 
 ; Function Attrs: nounwind readnone
-declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #0
-
-; Function Attrs: nounwind readnone
-declare double @"getcomp@FVI"(<3 x double>, i64) #0
+declare <3 x double> @"set@VFFF"(double, double, double) #0
 
 ; Function Attrs: alwaysinline
 define private { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %rw11, double %rw22, i64 %rw33) #3 {
@@ -420,8 +396,14 @@ __llvm_entry:
 ; Function Attrs: nounwind readnone
 declare <2 x double> @"setcomp@UFI"(<2 x double>, double, i64) #0
 
+; Function Attrs: nounwind readnone
+declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #0
+
 ; Function Attrs: nounwind
 declare double @"abs@FF"(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FVI"(<3 x double>, i64) #0
 
 ; Function Attrs: alwaysinline nounwind
 define private <2 x double> @"biunit@U"() #1 {
@@ -2400,9 +2382,6 @@ __llvm_entry:
   store <2 x double> %output45, <2 x double>* %p
   ret void
 }
-
-; Function Attrs: nounwind
-declare { double, double, double } @"assign@FFFV"(<3 x double>) #2
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_JULIAN@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %julian) #1 {

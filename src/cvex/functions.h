@@ -63,12 +63,15 @@ void precalc_V_DISC2(vector disc2_precalc; const float rot, twist){
     // disc2_precalc[idx][0] = timespi
     // disc2_precalc[idx][1] = sinadd
     // disc2_precalc[idx][2] = cosadd
-    float k;
-    disc2_precalc[0] = rot * M_PI;
-    sincos(twist, disc2_precalc[1], disc2_precalc[2]);
-    disc2_precalc[2] -= 1;
-    if(twist > ( 2*M_PI)){ k = (1 + twist - 2*M_PI); disc2_precalc[2]*=k; disc2_precalc[1]*=k; }
-    if(twist < (-2*M_PI)){ k = (1 + twist + 2*M_PI); disc2_precalc[2]*=k; disc2_precalc[1]*=k; }
+    float k, d0, d1, d2;
+    assign(d0, d1, d2, disc2_precalc);
+    
+    d0 = rot * M_PI;
+    sincos(twist, d1, d2);
+    d2 -= 1;
+    if(twist > ( 2*M_PI)){ k = (1 + twist - 2*M_PI); d2*=k; d1*=k; }
+    if(twist < (-2*M_PI)){ k = (1 + twist + 2*M_PI); d2*=k; d1*=k; }
+    disc2_precalc = set(d0, d1, d2);
 }
 
 void precalc_V_SUPERSHAPE(vector2 supershape_precalc; const float ss_m, ss_n_0){
