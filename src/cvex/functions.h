@@ -9,7 +9,7 @@
  /
  /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised October 2024
+ /  date:       October 2020, Last revised April 2025
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
@@ -59,12 +59,13 @@ float fmod(const float a, b){ return (a-floor(a/b)*b); }
 void sincos(const float a; float sa, ca){ sa=sin(a); ca=cos(a); }
 
 void precalc_V_DISC2(vector disc2_precalc; const float rot, twist){
+    // This is the only one to benefit from the precalc
+
     // PRECALC
-    // disc2_precalc[idx][0] = timespi
-    // disc2_precalc[idx][1] = sinadd
-    // disc2_precalc[idx][2] = cosadd
+    // disc2_precalc[idx][0] = timespi  (d0)
+    // disc2_precalc[idx][1] = sinadd   (d1)
+    // disc2_precalc[idx][2] = cosadd   (d2)
     float k, d0, d1, d2;
-    assign(d0, d1, d2, disc2_precalc);
     
     d0 = rot * M_PI;
     sincos(twist, d1, d2);
@@ -75,6 +76,8 @@ void precalc_V_DISC2(vector disc2_precalc; const float rot, twist){
 }
 
 void precalc_V_SUPERSHAPE(vector2 supershape_precalc; const float ss_m, ss_n_0){
+    // NOT USED as the precalc made it slower for some reasons
+
     // PRECALC
     // supershape_precalc[idx][0] = ss_pm_4
     // supershape_precalc[idx][1] = ss_pneg1_n1
@@ -83,6 +86,8 @@ void precalc_V_SUPERSHAPE(vector2 supershape_precalc; const float ss_m, ss_n_0){
 }
 
 void precalc_V_WEDGEJULIA(vector wedgejulia_precalc; const float power, angle, dist, count){
+    // NOT USED as the precalc made it slower for some reasons
+
     // PRECALC
     // wedgejulia_precalc[idx][0] = wedgeJulia_cf
     // wedgejulia_precalc[idx][1] = wedgeJulia_rN
@@ -93,6 +98,8 @@ void precalc_V_WEDGEJULIA(vector wedgejulia_precalc; const float power, angle, d
 }
 
 void precalc_V_PERSP(vector2 persp_precalc; const float angle, dist){
+    // NOT USED as the precalc made it slower for some reasons
+
     // PRECALC
     // persp_precalc[idx][0] = vsin
     // persp_precalc[idx][1] = vfsin
@@ -102,6 +109,8 @@ void precalc_V_PERSP(vector2 persp_precalc; const float angle, dist){
 }
 
 void precalc_V_BWRAPS(vector bwraps_precalc; const float cellsize, space, gain){
+    // NOT USED as the precalc made it slower for some reasons
+
     // PRECALC
     // bwraps_precalc[idx][0] = g2
     // bwraps_precalc[idx][1] = r2

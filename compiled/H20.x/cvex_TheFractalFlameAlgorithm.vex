@@ -323,63 +323,56 @@ __llvm_entry:
   %d1 = alloca double
   %d2 = alloca double
   %0 = alloca double
-  %disc2_precalc1 = load <3 x double>, <3 x double>* %disc2_precalc
-  %output = call { double, double, double } @"assign@FFFV"(<3 x double> %disc2_precalc1)
-  %output3 = extractvalue { double, double, double } %output, 1
-  %output4 = extractvalue { double, double, double } %output, 2
-  store double %output3, double* %d1
-  store double %output4, double* %d2
-  %rot5 = load double, double* %rot
-  %output6 = fmul double %rot5, 0x400921FB4D12D84A
-  %twist7 = load double, double* %twist
-  store double %twist7, double* %0
+  store double 0.000000e+00, double* %d1, !vex-initializer-store !3
+  store double 0.000000e+00, double* %d2, !vex-initializer-store !3
+  %rot1 = load double, double* %rot
+  %output = fmul double %rot1, 0x400921FB4D12D84A
+  %twist2 = load double, double* %twist
+  store double %twist2, double* %0
   call void @"sincos@FFF"(double* %0, double* %d1, double* %d2)
-  %d28 = load double, double* %d2
-  %output9 = fsub double %d28, 1.000000e+00
-  store double %output9, double* %d2
-  %twist10 = load double, double* %twist
-  %return = fcmp ogt double %twist10, 0x401921FB4D12D84A
+  %d23 = load double, double* %d2
+  %output4 = fsub double %d23, 1.000000e+00
+  store double %output4, double* %d2
+  %twist5 = load double, double* %twist
+  %return = fcmp ogt double %twist5, 0x401921FB4D12D84A
   br i1 %return, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
-  %output13 = fadd double 1.000000e+00, %twist10
-  %output14 = fsub double %output13, 0x401921FB4D12D84A
-  %output17 = fmul double %output9, %output14
-  store double %output17, double* %d2
-  %d118 = load double, double* %d1
-  %output20 = fmul double %d118, %output14
-  store double %output20, double* %d1
+  %output8 = fadd double 1.000000e+00, %twist5
+  %output9 = fsub double %output8, 0x401921FB4D12D84A
+  %output12 = fmul double %output4, %output9
+  store double %output12, double* %d2
+  %d113 = load double, double* %d1
+  %output15 = fmul double %d113, %output9
+  store double %output15, double* %d1
   br label %end
 
 end:                                              ; preds = %true, %__llvm_entry
-  %twist21 = load double, double* %twist
-  %return22 = call i64 @"neg@II"(i64 2)
-  %cast = sitofp i64 %return22 to double
-  %output23 = fmul double %cast, 0x400921FB4D12D84A
-  %return24 = fcmp olt double %twist21, %output23
-  br i1 %return24, label %true26, label %end27
+  %twist16 = load double, double* %twist
+  %return17 = call i64 @"neg@II"(i64 2)
+  %cast = sitofp i64 %return17 to double
+  %output18 = fmul double %cast, 0x400921FB4D12D84A
+  %return19 = fcmp olt double %twist16, %output18
+  br i1 %return19, label %true21, label %end22
 
-true26:                                           ; preds = %end
-  %output29 = fadd double 1.000000e+00, %twist21
-  %output30 = fadd double %output29, 0x401921FB4D12D84A
-  %d231 = load double, double* %d2
-  %output33 = fmul double %d231, %output30
-  store double %output33, double* %d2
-  %d134 = load double, double* %d1
-  %output36 = fmul double %d134, %output30
-  store double %output36, double* %d1
-  br label %end27
+true21:                                           ; preds = %end
+  %output24 = fadd double 1.000000e+00, %twist16
+  %output25 = fadd double %output24, 0x401921FB4D12D84A
+  %d226 = load double, double* %d2
+  %output28 = fmul double %d226, %output25
+  store double %output28, double* %d2
+  %d129 = load double, double* %d1
+  %output31 = fmul double %d129, %output25
+  store double %output31, double* %d1
+  br label %end22
 
-end27:                                            ; preds = %true26, %end
-  %d138 = load double, double* %d1
-  %d239 = load double, double* %d2
-  %return40 = call <3 x double> @"set@VFFF"(double %output6, double %d138, double %d239)
-  store <3 x double> %return40, <3 x double>* %disc2_precalc
+end22:                                            ; preds = %true21, %end
+  %d133 = load double, double* %d1
+  %d234 = load double, double* %d2
+  %return35 = call <3 x double> @"set@VFFF"(double %output, double %d133, double %d234)
+  store <3 x double> %return35, <3 x double>* %disc2_precalc
   ret void
 }
-
-; Function Attrs: nounwind
-declare { double, double, double } @"assign@FFFV"(<3 x double>) #2
 
 ; Function Attrs: nounwind readnone
 declare <3 x double> @"set@VFFF"(double, double, double) #0
@@ -2382,6 +2375,9 @@ __llvm_entry:
   store <2 x double> %output45, <2 x double>* %p
   ret void
 }
+
+; Function Attrs: nounwind
+declare { double, double, double } @"assign@FFFV"(<3 x double>) #2
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_JULIAN@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %julian) #1 {
