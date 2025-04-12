@@ -1889,7 +1889,7 @@ Copy/Paste preset properties:
 
 Copy/Paste SENSOR/RENDER settings:
     #id: IN
-    [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg]
+    [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
 
     When you click one of those icons, only the SENSOR or the RENDER and CC CURVES settings will be copied into the OUT render properties.
 
