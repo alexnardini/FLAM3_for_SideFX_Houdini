@@ -21,7 +21,7 @@ They are all available in this github repository.</br>
 - **Fix**: Renamed all the HDA's extra files geometry to be prefixed with: "**`geo_`**"
 - **Fix**: Renamed the main python module file to have the minimun python version to run with baked into the file name.
 - **Fix**: Updated python module creation to use the new main python module file name.
-- **Fix**: Final compiled file size: ~15kb smaller.
+- **Fix**: Final cvex compiled file size: ~15kb smaller.
 - **Updated HDA documentation.**
 
 
