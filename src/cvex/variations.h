@@ -373,6 +373,7 @@ void V_BLOB(vector2 p; const vector2 _p; const float w; const vector blob){
     vector2 precalc = _p / SQRT(_p);
     float low, high, wave, blob_coeff, rr, aa, bdiff;
     assign(low, high, wave, blob);
+
     float SQRT = SQRT(_p);
     rr = SQRT;
     aa = ATAN(_p);
@@ -386,6 +387,7 @@ void V_JULIAN(vector2 p; const vector2 _p; const float w; const vector2 julian){
     int t_rnd;
     float power, jdist, julian_rN, julian_cn, tmpr, rr, sina, cosa;
     assign(power, jdist, julian);
+
     julian_rN = power;
     julian_cn = jdist / power / 2.0;
     t_rnd = (int)trunc(julian_rN * nrandom('twister'));
@@ -400,6 +402,7 @@ void V_JULIASCOPE(vector2 p; const vector2 _p; const float w; const vector2 juli
     int t_rnd;
     float power, jdist, julian_rN, julian_cn, tmpr, rr, sina, cosa;
     assign(power, jdist, juliascope);
+
     julian_rN = power;
     julian_cn = jdist / power / 2.0;
     t_rnd = (int)trunc(julian_rN * nrandom('twister'));
@@ -459,6 +462,7 @@ void V_RADIALBLUR(vector2 p; const vector2 _p; const float w, angle){
 
     // precalc ( this probably better done inside the genome.h )
     sincos(angle * M_PI / 2, m_spin, m_zoom);
+
     // compute
     rndG = w * (nrandom('twister')+nrandom('twister')+nrandom('twister')+nrandom('twister') - 2.0);
     ra = SQRT(_p);
@@ -472,6 +476,7 @@ void V_RADIALBLUR(vector2 p; const vector2 _p; const float w, angle){
 void V_PIE(vector2 p; const float w; const vector pie){
     float slices, thickness, rotation, aa, rr, sa, ca, sl;
     assign(slices, thickness, rotation, pie);
+
     sl = (int)(nrandom('twister')*slices);
     aa = rotation + 2.0 * M_PI * (sl + nrandom("twister") * thickness) / slices;
     rr = w * nrandom('twister');
@@ -560,6 +565,7 @@ void V_DISC2(vector2 p; const vector2 _p; const float w; const vector2 disc2; co
     assign(_px, _py, _p);
     assign(rot, twist, disc2);
     assign(disc2_timespi, disc2_sinadd, disc2_cosadd, disc2_pc);
+
     // PRECALC done inside its detail wrangle core in the Houdini environment
     tt = disc2_timespi * (_px + _py);
     sincos(tt, sinr, cosr);
@@ -582,8 +588,10 @@ void V_DISC2_FF(vector2 p; const vector2 _p; const float w; const vector2 disc2)
     float rot, twist, a, b, c;
     vector precalc;
     assign(rot, twist, disc2);
+
     // precalc
     precalc_V_DISC2(precalc, rot, twist);
+
     // Execute var
     V_DISC2(p, _p, w, disc2, precalc);
 }
@@ -593,6 +601,7 @@ void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w; const vector ss; c
     assign(_px, _py, _p);
     assign(ss_m, ss_rnd, ss_holes, ss);
     assign(ss_nx, ss_ny, ss_nz, ss_n);
+
     // PRECALC
     ss_pm_4 = ss_m / 4.0;
     ss_pneg1_n1 = -1.0 / ss_nx;
@@ -634,6 +643,7 @@ void V_CONIC(vector2 p; const vector2 _p; const float w; const vector2 conic){
 void V_PARABOLA(vector2 p; const vector2 _p; const float w; const vector2 parabola){
     float height, width, rr, sr, cr;
     assign(height, width, parabola);
+
     rr = SQRT(_p);
     sincos(rr, sr, cr);
     p[0] = height * w * sr*sr * nrandom("twister");
@@ -749,6 +759,7 @@ void V_CELL(vector2 p; const vector2 _p; const float w, size){
 void V_CPOW(vector2 p; const vector2 _p; const float w; const vector cpow){
     float power, pow_r, pow_i, aa, lnr, va, vc, vd, ang, sa, ca, mm;
     assign(power, pow_r, pow_i, cpow);
+
     aa = ATANYX(_p);
     lnr = 0.5 * log(SUMSQ(_p));
     va = 2.0 * M_PI / power;
@@ -998,6 +1009,7 @@ void V_STRIPES(vector2 p; const vector2 _p; const float w; const vector2 stripes
 void V_WEDGE(vector2 p; const vector2 _p; const float w; const vector4 wedge){
     float swirl, angle, hole, count, r, a, c, m_CompFac;
     assign(swirl, angle, hole, count, wedge);
+
     m_CompFac = 1 - angle * count * M_1_PI * 0.5;
     r = SQRT(_p);
     a = ATANYX(_p) + swirl * r;
@@ -1011,6 +1023,7 @@ void V_WEDGE(vector2 p; const vector2 _p; const float w; const vector4 wedge){
 void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w; const vector4 wedgejulia){ 
     float power, angle, dist, count, wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, aa, cc, sa, ca;
     assign(power, angle, dist, count, wedgejulia);
+
     // PRECALC
     wedgeJulia_cf = 1.0 - angle * count * M_1_PI * 0.5;
     wedgeJulia_rN = abs(power);
@@ -1066,6 +1079,7 @@ void V_WEDGEJULIA_FF(vector2 p; const vector2 _p; const float w, power, angle, d
 void V_WEDGESPH(vector2 p; const vector2 _p; const float w; const vector4 wedgesph){
     float swirl, angle, hole, count, rr, aa, cc, comp_fac, sa, ca;
     assign(swirl, angle, hole, count, wedgesph);
+
     rr = 1.0/(SQRT(_p) + EPS);
     aa = ATANYX(_p) + swirl * rr;
     cc = floor( (count * aa + M_PI)*M_1_PI*0.5 );
@@ -1080,6 +1094,7 @@ void V_WEDGESPH(vector2 p; const vector2 _p; const float w; const vector4 wedges
 void V_WHORL(vector2 p; const vector2 _p; const float w; const vector2 whorl){
     float inside, outside, rr, aa, sa, ca;
     assign(inside, outside, whorl);
+
     rr = SQRT(_p);
     if(rr<w) aa = ATANYX(_p) + inside/(w-rr);
     else aa = ATANYX(_p) + outside/(w-rr);
@@ -1428,6 +1443,7 @@ void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w; const vector2 per
     float angle, dist, tt, vsin, vfcos, _px, _py;
     assign(_px, _py, _p);
     assign(angle, dist, persp);
+
     // PRECALC
     float ang = angle * M_PI / 2.0;
     vsin = sin(ang);
@@ -1442,6 +1458,7 @@ void V_BWRAPS(vector2 p; const vector2 _p; const float w; const vector bwraps; c
     float cellsize, space, gain, innertwist, outertwist, g2, r2, rfactor, max_bubble, Vx, Vy, Cx, Cy, Lx, Ly, rr, theta, ss, cc;
     assign(cellsize, space, gain, bwraps);
     assign(innertwist, outertwist, twist);
+
     // PRECALC
     float radius = 0.5 * (cellsize / (1.0 + space*space ));
     g2 = sqrt(gain) / cellsize + 1e-6;
@@ -1567,12 +1584,13 @@ void V_POLYNOMIAL(vector2 p; const vector2 _p; const float w; const vector2 pow,
     p[1] = yp * sgn(_py) + ly * _py + sy;
 }
 // 102 ( parametric )
-// const float left, top, right, bottom, area, zero(int) )
-// prm "zero" need to only be different from Zero to do its job ;)
+// ltrb -> const float left, top, right, bottom
+// az -> area, zero(int) - prm "zero" need to only be different from Zero to do its job ;)
 void V_CROP(vector2 p; const vector2 _p; const float w; const vector4 ltrb; const vector2 az;){
     float m_X0, m_Y0, m_X1, m_Y1, m_S, m_Z;
     assign(m_X0, m_Y0, m_X1, m_Y1, ltrb);
     assign(m_S, m_Z, az);
+
     // crop precalc
     float m_W, m_H, m_X0_, m_Y0_, m_X1_, m_Y1_;
     if (m_X0 < m_X1){
