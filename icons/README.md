@@ -328,116 +328,116 @@ It is an ongoing effort and they have been regularly updated and improved even t
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconGithub.svg" /></p>
-<p align="center">iconGithub.svg</p>
+  <img width="160" height="160" src="./icon_Github.svg" /></p>
+<p align="center">icon_Github.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconGithubWhiteSVG.svg" /></p>
-<p align="center">iconGithubWhiteSVG.svg</p>
+  <img width="160" height="160" src="./icon_GithubWhiteSVG.svg" /></p>
+<p align="center">icon_GithubWhiteSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconInstagramSVG.svg" /></p>
-<p align="center">iconInstagramSVG.svg</p>
+  <img width="160" height="160" src="./icon_InstagramSVG.svg" /></p>
+<p align="center">icon_InstagramSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconPrideSVG.svg" /></p>
-<p align="center">iconPrideSVG.svg (unused)</p>
+  <img width="160" height="160" src="./icon_PrideSVG.svg" /></p>
+<p align="center">icon_PrideSVG.svg (unused)</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconSierpinskyDefSVG.svg" /></p>
-<p align="center">iconSierpinskyDefSVG.svg</p>
+  <img width="160" height="160" src="./icon_SierpinskyDefSVG.svg" /></p>
+<p align="center">icon_SierpinskyDefSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapCyanSVG.svg" /></p>
-<p align="center">iconStarSwapCyanSVG.svg</p>
+  <img width="160" height="160" src="./icon_StarSwapCyanSVG.svg" /></p>
+<p align="center">icon_StarSwapCyanSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapCyanMidSVG.svg" /></p>
-<p align="center">iconStarSwapCyanMidSVG.svg (unused)</p>
+  <img width="160" height="160" src="./icon_StarSwapCyanMidSVG.svg" /></p>
+<p align="center">icon_StarSwapCyanMidSVG.svg (unused)</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapCyanSmallSVG.svg" /></p>
-<p align="center">iconStarSwapCyanSmallSVG.svg</p>
+  <img width="160" height="160" src="./icon_StarSwapCyanSmallSVG.svg" /></p>
+<p align="center">icon_StarSwapCyanSmallSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapCyanSmallXFVIZOFFSVG.svg" /></p>
-<p align="center">iconStarSwapCyanSmallXFVIZOFFSVG.svg</p>
+  <img width="160" height="160" src="./icon_StarSwapCyanSmallXFVIZOFFSVG.svg" /></p>
+<p align="center">icon_StarSwapCyanSmallXFVIZOFFSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapCyanSmallXFVIZSVG.svg" /></p>
-<p align="center">iconStarSwapCyanSmallXFVIZSVG.svg</p>
+  <img width="160" height="160" src="./icon_StarSwapCyanSmallXFVIZSVG.svg" /></p>
+<p align="center">icon_StarSwapCyanSmallXFVIZSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapCyanSmallXFVIZSOLOSVG.svg" /></p>
-<p align="center">iconStarSwapCyanSmallXFVIZSOLOSVG.svg</p>
+  <img width="160" height="160" src="./icon_StarSwapCyanSmallXFVIZSOLOSVG.svg" /></p>
+<p align="center">icon_StarSwapCyanSmallXFVIZSOLOSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapRedCopyPasteEntrieFFOffSVG.svg" /></p>
-<p align="center">iconStarSwapRedCopyPasteEntrieFFOffSVG.svg</p>
+  <img width="160" height="160" src="./icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg" /></p>
+<p align="center">icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapRedCopyPasteEntrieFFSVG.svg" /></p>
-<p align="center">iconStarSwapRedCopyPasteEntrieFFSVG.svg</p>
+  <img width="160" height="160" src="./icon_StarSwapRedCopyPasteEntrieFFSVG.svg" /></p>
+<p align="center">icon_StarSwapRedCopyPasteEntrieFFSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapRedCopyPasteEntrieSVG.svg" /></p>
-<p align="center">iconStarSwapRedCopyPasteEntrieSVG.svg</p>
+  <img width="160" height="160" src="./icon_StarSwapRedCopyPasteEntrieSVG.svg" /></p>
+<p align="center">icon_StarSwapRedCopyPasteEntrieSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapRedCopyPasteFFSVG.svg" /></p>
-<p align="center">iconStarSwapRedCopyPasteFFSVG.svg</p>
+  <img width="160" height="160" src="./icon_StarSwapRedCopyPasteFFSVG.svg" /></p>
+<p align="center">icon_StarSwapRedCopyPasteFFSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapRedCopyPasteInfosSVG.svg" /></p>
-<p align="center">iconStarSwapRedCopyPasteInfosSVG.svg</p>
+  <img width="160" height="160" src="./icon_StarSwapRedCopyPasteInfosSVG.svg" /></p>
+<p align="center">icon_StarSwapRedCopyPasteInfosSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapRedCopyPasteSVG.svg" /></p>
-<p align="center">iconStarSwapRedCopyPasteSVG.svg</p>
+  <img width="160" height="160" src="./icon_StarSwapRedCopyPasteSVG.svg" /></p>
+<p align="center">icon_StarSwapRedCopyPasteSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapRedCopyPasteZeroWSVG.svg" /></p>
-<p align="center">iconStarSwapRedCopyPasteZeroWSVG.svg</p>
+  <img width="160" height="160" src="./icon_StarSwapRedCopyPasteZeroWSVG.svg" /></p>
+<p align="center">icon_StarSwapRedCopyPasteZeroWSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconStarSwapRedSVG.svg" /></p>
-<p align="center">iconStarSwapRedSVG.svg</p>
+  <img width="160" height="160" src="./icon_StarSwapRedSVG.svg" /></p>
+<p align="center">icon_StarSwapRedSVG.svg</p>
 <p align="center">.</p>
 
 
@@ -448,18 +448,18 @@ It is an ongoing effort and they have been regularly updated and improved even t
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconWhiteStarSVG.svg" /></p>
-<p align="center">iconWhiteStarSVG.svg</p>
+  <img width="160" height="160" src="./icon_WhiteStarSVG.svg" /></p>
+<p align="center">icon_WhiteStarSVG.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconWhiteSVG_disabled.svg" /></p>
-<p align="center">iconWhiteSVG_disabled.svg</p>
+  <img width="160" height="160" src="./icon_WhiteSVG_disabled.svg" /></p>
+<p align="center">icon_WhiteSVG_disabled.svg</p>
 <p align="center">.</p>
 
 
 <p align="center">
-  <img width="160" height="160" src="./iconWhiteSVG.svg" /></p>
-<p align="center">iconWhiteSVG.svg</p>
+  <img width="160" height="160" src="./icon_WhiteSVG.svg" /></p>
+<p align="center">icon_WhiteSVG.svg</p>
 <p align="center">.</p>
