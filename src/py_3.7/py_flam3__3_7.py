@@ -1,4 +1,3 @@
-from __future__ import division
 from __future__ import annotations
 from platform import python_version
 from platform import system as platform_system
@@ -11,7 +10,6 @@ from textwrap import wrap
 from datetime import datetime
 from math import sin
 from math import cos
-from math import fsum
 from copy import copy
 from re import sub as re_sub
 from numpy import pad as np_pad
