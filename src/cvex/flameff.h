@@ -159,12 +159,12 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             // 27 CURL ( parametric )
             else if(T==27){
                 vector2 curl_c = chu(concat(prx, "curlc"));
-                V_CURL(p, _p, w, curl_c[0], curl_c[1]);
+                V_CURL(p, _p, w, curl_c);
                 return p; }
             // 28 NGON ( parametric )
             else if(T==28){
                 vector4 ngon = chp(concat(prx, "ngon"));
-                V_NGON(p, _p, w, ngon[0], ngon[1], ngon[2], ngon[3]);
+                V_NGON(p, _p, w, ngon);
                 return p; }
             // 29 PDJ ( parametric )
             else if(T==29){
@@ -174,17 +174,17 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             // 30 BLOB ( parametric )
             else if(T==30){
                 vector blob = chv(concat(prx, "blob"));
-                V_BLOB(p, _p, w, blob[0], blob[1], blob[2]);
+                V_BLOB(p, _p, w, blob);
                 return p; }
             // 31 JuliaN ( parametric )
             else if(T==31){
                 vector2 julian = chu(concat(prx, "julian"));
-                V_JULIAN(p, _p, w, julian[0], julian[1]);
+                V_JULIAN(p, _p, w, julian);
                 return p; }
             // 32 JuliaScope ( parametric )
             else if(T==32){
                 vector2 juliascope = chu(concat(prx, "juliascope"));
-                V_JULIASCOPE(p, _p, w, juliascope[0], juliascope[1]);
+                V_JULIASCOPE(p, _p, w, juliascope);
                 return p; }
             // 33 Gaussian
             else if(T==33){
@@ -217,7 +217,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             // 38 PIE ( parametric )
             else if(T==38){
                 vector pie = chv(concat(prx, "pie"));
-                V_PIE(p, w, pie[0], pie[1], pie[2]);
+                V_PIE(p, w, pie);
                 return p; }
             // 39 ARCH
             else if(T==39){
@@ -254,29 +254,29 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             // 47 DISC2 ( parametric )
             else if(T==47){
                 vector2 disc2 = chu(concat(prx, "disc2"));
-                V_DISC2_FF(p, _p, w, disc2[0], disc2[1]);
+                V_DISC2_FF(p, _p, w, disc2);
                 return p; }
             // 48 SUPERSHAPE ( parametric )
             else if(T==48){
                 vector ss, ss_n;
                 ss = chv(concat(prx, "supershape"));
                 ss_n = chv(concat(prx, "supershapen"));
-                V_SUPERSHAPE(p, _p, w, ss[0], ss[1], ss[2], ss_n);
+                V_SUPERSHAPE(p, _p, w, ss, ss_n);
                 return p; }
             // 49 FLOWER ( parametric )
             else if(T==49){
                 vector2 flower = chu(concat(prx, "flower"));
-                V_FLOWER(p, _p, w, flower[0], flower[1]);
+                V_FLOWER(p, _p, w, flower);
                 return p; }
             // 50 CONIC ( parametric )
             else if(T==50){
                 vector2 conic =  chu(concat(prx, "conic"));
-                V_CONIC(p, _p, w, conic[0], conic[1]);
+                V_CONIC(p, _p, w, conic);
                 return p; }
             // 51 PARABOLA ( parametric )
             else if(T==51){
                 vector2 parabola = chu(concat(prx, "parabola"));
-                V_PARABOLA(p, _p, w, parabola[0], parabola[1]);
+                V_PARABOLA(p, _p, w, parabola);
                 return p; }
         }
         else{
@@ -306,7 +306,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             // 57 CPOW ( parametric )
             else if(T==57){
                 vector cpow = chv(concat(prx, "cpow"));
-                V_CPOW(p, _p, w, cpow[0], cpow[1], cpow[2]);
+                V_CPOW(p, _p, w, cpow);
                 return p; }
             // 58 EDISC
             else if(T==58){
@@ -333,7 +333,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             else if(T==63){
                 vector lazysusan = chv(concat(prx, "lazysusan"));
                 vector2 lazysusanxyz = chu(concat(prx, "lazysusanxyz"));
-                V_LAZYSUSAN(p, _p, w, lazysusan[0], lazysusan[1], lazysusan[2], lazysusanxyz);
+                V_LAZYSUSAN(p, _p, w, lazysusan, lazysusanxyz);
                 return p; }
             // 64 LOONIE
             else if(T==64){
@@ -353,7 +353,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             // 67 OSCOPE ( parametric )
             else if(T==67){
                 vector4 oscope = chp(concat(prx, "oscope"));
-                V_OSCOPE(p, _p, w, oscope[0], oscope[1], oscope[2], oscope[3]);
+                V_OSCOPE(p, _p, w, oscope);
                 return p; }
             // 68 POLAR2
             else if(T==68){
@@ -393,27 +393,27 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             // 74 STRIPES ( parametric )
             else if(T==74){
                 vector2 stripes = chu(concat(prx, "stripes"));
-                V_STRIPES(p, _p, w, stripes[0], stripes[1]);
+                V_STRIPES(p, _p, w, stripes);
                 return p; }
             // 75 WEDGE ( parametric )
             else if(T==75){
                 vector4 wedge = chp(concat(prx, "wedge"));
-                V_WEDGE(p, _p, w, wedge[0], wedge[1], wedge[2], wedge[3]);
+                V_WEDGE(p, _p, w, wedge);
                 return p; }
             // 76 WEDGE JULIA ( parametric )
             else if(T==76){
                 vector4 wedgejulia = chp(concat(prx, "wedgejulia"));
-                V_WEDGEJULIA(p, _p, w, wedgejulia[0], wedgejulia[1], wedgejulia[2], wedgejulia[3]);
+                V_WEDGEJULIA(p, _p, w, wedgejulia);
                 return p; }
             // 77 WEDGE SPH ( parametric )
             else if(T==77){
                 vector4 wedgesph = chp(concat(prx, "wedgesph"));
-                V_WEDGESPH(p, _p, w, wedgesph[0], wedgesph[1], wedgesph[2], wedgesph[3]);
+                V_WEDGESPH(p, _p, w, wedgesph);
                 return p; }
             // 78 WHORL ( parametric )
             else if(T==78){
                 vector2 whorl = chu(concat(prx, "whorl"));
-                V_WHORL(p, _p, w, whorl[0], whorl[1]);
+                V_WHORL(p, _p, w, whorl);
                 return p; }
             // 79 WAVES2 ( parametric )
             else if(T==79){
@@ -483,7 +483,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             // 94 AUGER ( parametric )
             else if(T==94){
                 vector4 auger = chp(concat(prx, "auger"));
-                V_AUGER(p, _p, w, auger[0], auger[1], auger[2], auger[3]);
+                V_AUGER(p, _p, w, auger);
                 return p; }
             // 95 FLUX ( parametric )
             else if(T==95){
@@ -507,13 +507,13 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             // 98 PERSPECTIVE ( parametric )
             else if(T==98){
                 vector2 persp = chu(concat(prx, "persp"));
-                V_PERSPECTIVE(p, _p, w, persp[0], persp[1]);
+                V_PERSPECTIVE(p, _p, w, persp);
                 return p; }
             // 99 BWRAPS ( parametric )
             else if(T==99){
                 vector bwraps = chv(concat(prx, "bwraps"));
                 vector2 bwrapstwist = chu(concat(prx, "bwrapstwist"));
-                V_BWRAPS(p, _p, w, bwraps[0], bwraps[1], bwraps[2], bwrapstwist[0], bwrapstwist[1]);
+                V_BWRAPS(p, _p, w, bwraps, bwrapstwist);
                 return p; }
             // 100 HEMISPHERE
             else if(T==100){
@@ -531,7 +531,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             else if(T==102){
                 vector4 ltrb = chp(concat(prx, "cropltrb"));
                 vector2 az = chu(concat(prx, "cropaz"));
-                V_CROP(p, _p, w, ltrb[0], ltrb[1], ltrb[2], ltrb[3], az[0], az[1]);
+                V_CROP(p, _p, w, ltrb, az);
                 return p; }
             // 103 UNPOLAR
             else if(T==103){
@@ -544,7 +544,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
             // 105 POINT_SYMMETRY ( parametric )
             else if(T==105){
                 vector ptsym = chv(concat(prx, "ptsym"));
-                V_POINT_SYMMETRY(p, _p, w, ptsym[0], ptsym[1], ptsym[2]);
+                V_POINT_SYMMETRY(p, _p, w, ptsym);
                 return p; }
         }
     }

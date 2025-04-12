@@ -73,7 +73,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.7.60'
+FLAM3H_VERSION = '1.7.77'
 FLAM3H_VERSION_STATUS_BETA = "Beta"
 FLAM3H_VERSION_STATUS_GOLD = "Gold"
 
@@ -9152,7 +9152,7 @@ class flam3h_palette_utils
             else:
                 _MSG = f"{node.name()}: PALETTE -> Nothing to load"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
-                flam3h_general_utils.flash_message(node, f"PALETTE: Nothing to load")
+                flam3h_general_utils.flash_message(node, f"CP: Nothing to load")
 
 
 
@@ -9299,21 +9299,21 @@ class flam3h_palette_utils
                             if _CHECK:
                                 _MSG = f"{node.name()}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
                                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-                                flam3h_general_utils.flash_message(node, f"Palette LOADED from the Clipboard")
+                                flam3h_general_utils.flash_message(node, f"CP LOADED from the Clipboard")
                             else:
                                 _MSG = f"{node.name()}: PALETTE Clipboard -> ERROR on preset: \"{preset}\". Invalid HEX values."
                                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                                flam3h_general_utils.flash_message(node, f"Palette ERROR from the Clipboard")
+                                flam3h_general_utils.flash_message(node, f"CP ERROR from the Clipboard")
                             
                     else:
                         _MSG = f"{node.name()}: PALETTE Clipboard -> The data from the clipboard is not a valid JSON data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"Palette Clipboard: Nothing to load")
+                        flam3h_general_utils.flash_message(node, f"CP Clipboard: Nothing to load")
                         
                 else:
                     _MSG = f"{node.name()}: Palette Clipboard -> The data from the clipboard is not a valid JSON data."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                    flam3h_general_utils.flash_message(node, f"Palette Clipboard: Nothing to load")
+                    flam3h_general_utils.flash_message(node, f"CP Clipboard: Nothing to load")
 
             # LMB - Load the currently selected palette preset
             else: self.json_to_flam3h_ramp_SET_PRESET_DATA()
@@ -15078,7 +15078,7 @@ class in_flame_utils
 
             # If we are trying to load from the Clipboard
             elif attempt_from_clipboard:
-                _MSG = "Flame IN Clipboard: Nothing to load"
+                _MSG = "IN Clipboard: Nothing to load"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
                 flam3h_general_utils.flash_message(node, _MSG)
                 
@@ -15086,7 +15086,7 @@ class in_flame_utils
                 
                 # If we did try to load a chaotica XML style file
                 if chaos:
-                    _MSG = f"Flame IN: Chaotica XML not supported"
+                    _MSG = f"IN: Chaotica XML not supported"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
                     flam3h_general_utils.flash_message(node, _MSG)
                 
@@ -15099,7 +15099,7 @@ class in_flame_utils
                     
                     flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
                         
-                    _MSG = "Flame IN: Nothing to load"
+                    _MSG = "IN: Nothing to load"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
                     flam3h_general_utils.flash_message(node, _MSG)
                      
@@ -15111,9 +15111,9 @@ class in_flame_utils
                     # If iterator's count is 0(Zero), change focus back to the IN's Tab
                     # And let the user know it should load a flame file first
                     if node.parm(FLAME_ITERATORS_COUNT).eval() == 0:
-                        _MSG = "Flame IN: Load an IN flame file first"
+                        _MSG = "IN: Load an IN flame file first"
                         node.parmTuple(FLAM3H_ITERATORS_TAB).set((1,))
-                    else: _MSG = "Flame IN: Nothing to load"
+                    else: _MSG = "IN: Nothing to load"
 
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
                     flam3h_general_utils.flash_message(node, _MSG)
@@ -17533,7 +17533,7 @@ class out_flame_utils
             else:
                 _MSG = f"{node.name()}: SAVE Flame -> Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f"Flame OUT: Select a valid output file")
+                flam3h_general_utils.flash_message(node, f"OUT: Select a valid output file")
 
 
 

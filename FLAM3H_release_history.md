@@ -10,6 +10,26 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.7.77</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.77) ###
+
+- **New**: When entering the Camera Sensor Viz mode while in viewport xforms handles VIZ mode, the xforms handles will be hidden and the camera sensor frame outline will be of color Yellow if not in solo mode and of color Red if in solo mode.
+- **New**: Added a new intro image to the HDA Documentation.
+- **New**: Added a new illustration to the HDA Documentation for the Camera Sensor VIZ outline.
+- **New**: New icon for the copy/paste data for when the marked iterator is active.
+- **New**: New icon for the copy/paste data for when the marked FF is active.
+- **Fix**: Renamed all the HDA's extra files icons to be prefixed with: "**`icon_`**"
+- **Fix**: Renamed all the HDA's extra files geometry to be prefixed with: "**`geo_`**"
+- **Fix**: Renamed the main python module file to have the minimun python version to run with baked into the file name.
+- **Fix**: Updated python module creation to use the new main python module file name.
+- **Fix**: Final compiled file size: ~15kb smaller.
+- **Updated HDA documentation.**
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.7.60</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.60) ###
 
 - **New**: The camera sensor viz now have an outline.

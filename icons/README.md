@@ -376,6 +376,18 @@ It is an ongoing effort and they have been regularly updated and improved even t
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
+<p align="center">icon_StarSwapRedCopyPasteAffineSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_StarSwapRedCopyPasteAffineFFSVG.svg" /></p>
+<p align="center">icon_StarSwapRedCopyPasteAffineFFSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg" /></p>
 <p align="center">icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg</p>
 <p align="center">.</p>
