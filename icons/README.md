@@ -18,12 +18,6 @@ It is an ongoing effort and they have been regularly updated and improved even t
 
 
 <p align="center">
-  <img width="160" height="160" src="./FLAM3H_iconSVG.svg" /></p>
-<p align="center">FLAM3H_iconSVG.svg (unused)</p>
-<p align="center">.</p>
-
-
-<p align="center">
   <img width="160" height="160" src="./icon_bitbucketLogoSVG.svg" /></p>
 <p align="center">icon_bitbucketLogoSVG.svg</p>
 <p align="center">.</p>
@@ -32,12 +26,6 @@ It is an ongoing effort and they have been regularly updated and improved even t
 <p align="center">
   <img width="160" height="160" src="./icon_cvex_compileSVG.svg" /></p>
 <p align="center">icon_cvex_compileSVG.svg</p>
-<p align="center">.</p>
-
-
-<p align="center">
-  <img width="160" height="160" src="./icon_DocSVG.svg" /></p>
-<p align="center">icon_DocSVG.svg (unused)</p>
 <p align="center">.</p>
 
 
@@ -342,12 +330,6 @@ It is an ongoing effort and they have been regularly updated and improved even t
 <p align="center">
   <img width="160" height="160" src="./icon_InstagramSVG.svg" /></p>
 <p align="center">icon_InstagramSVG.svg</p>
-<p align="center">.</p>
-
-
-<p align="center">
-  <img width="160" height="160" src="./icon_PrideSVG.svg" /></p>
-<p align="center">icon_PrideSVG.svg (unused)</p>
 <p align="center">.</p>
 
 
