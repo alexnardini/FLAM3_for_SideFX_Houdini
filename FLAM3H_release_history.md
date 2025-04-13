@@ -10,6 +10,18 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.7.80</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.80) ###
+
+- **Fix**: CP palette save action button did not have the new icon name properly wired. (a regression from preview version)
+- **Fix**: Updated variation DISC2 precalc inside its HDA compiled parametric wrangle core.
+- **Fix**: Final cvex compiled file size: ~2kb smaller.
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.7.77</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.77) ###
 
 - **New**: When entering the Camera Sensor Viz mode while in viewport xforms handles VIZ mode, the xforms handles will be hidden and the camera sensor frame outline will be of color Yellow if not in solo mode and of color Red if in solo mode.
