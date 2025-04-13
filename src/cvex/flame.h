@@ -31,49 +31,49 @@
 /*
     Parametrics parms INPUTS list:
 
-    -16     CURL
-    -17     NGON
-    -18     PDJ
-    -19     BLOB
-    -20     JULIAN
-    -21     JULIASCOPE
-    -22     FAN2
-    -23     RINGS2
-    -24     RECTANGLES
-    -25     RADIALBLUR
-    -26     PIE
-    -27     DISC2
-    -28     SUPERSHAPE
-    -29     FLOWER
-    -30     CONIC
-    -31     PARABOLA
-    -32     BENT2
-    -33     BIPOLAR
-    -34     CELL
-    -35     CPOW
-    -36     ESCHER
-    -37     LAZYSUSAN
-    -38     MODULUS
-    -39     OSCOPE
-    -40     POPCORN2
-    -41     SEPARATION
-    -42     SPLIT
-    -43     SPLITS
-    -44     STRIPES
-    -45     WEDGE
-    -46     WEDGEJULIAN
-    -47     WEDGESPH
-    -48     WHORL
-    -49     WAVES2
-    -50     AUGER
-    -51     FLUX
-    -52     MOBIUS
-    -53     CURVE
-    -54     PERSPECTIVE
-    -55     BWRAPS
-    -56     POLYNOMIAL
-    -57     CROP
-    -58     POINT_SYMMETRY
+    -16     CURL            -> c1, c2
+    -17     NGON            -> pow, sides, corners, circle
+    -18     PDJ             -> wA, wB, wC, wD
+    -19     BLOB            -> low, high, wave
+    -20     JULIAN          -> power, distance
+    -21     JULIASCOPE      -> power, distance
+    -22     FAN2            -> x, y
+    -23     RINGS2          -> value
+    -24     RECTANGLES      -> x, y
+    -25     RADIALBLUR      -> angle
+    -26     PIE             -> slices, thickness, rotation
+    -27     DISC2           -> rot, twist, timespi, sinadd, cosadd
+    -28     SUPERSHAPE      -> m, rnd, holes, n1, n2, n3
+    -29     FLOWER          -> petals, holes
+    -30     CONIC           -> eccentricity, holes
+    -31     PARABOLA        -> height, width
+    -32     BENT2           -> x, y
+    -33     BIPOLAR         -> shift
+    -34     CELL            -> size
+    -35     CPOW            -> power, r, i
+    -36     ESCHER          -> beta
+    -37     LAZYSUSAN       -> x, y, spin, twist, space
+    -38     MODULUS         -> x, y
+    -39     OSCOPE          -> frequency, amplitude, damping, separation
+    -40     POPCORN2        -> x, y, c
+    -41     SEPARATION      -> x, y, inside_x, inside_y
+    -42     SPLIT           -> x, y
+    -43     SPLITS          -> x, y
+    -44     STRIPES         -> space, warp
+    -45     WEDGE           -> swirl, angle, hole, count
+    -46     WEDGEJULIAN     -> power, angle, dist, count
+    -47     WEDGESPH        -> swirl, angle, hole, count
+    -48     WHORL           -> inside, outside
+    -49     WAVES2          -> scale_x, scale_y, frequency_x,  frequency_y
+    -50     AUGER           -> frequency, scale, symmetry, weight
+    -51     FLUX            -> spread
+    -52     MOBIUS          -> reA, reB, reC, reD, imA, imB, imC, imD
+    -53     CURVE           -> lenght_x, lenght_y, amplitude_x, amplitude_y
+    -54     PERSPECTIVE     -> angle, distance
+    -55     BWRAPS          -> size, space, gain, in_twist, out_twist
+    -56     POLYNOMIAL      -> pow_x, pow_y, Lc_x, Lc_y, Sc_x, Sc_y
+    -57     CROP            -> left, top, right, bottom, area, zero
+    -58     POINT_SYMMETRY  -> order, center_x, center_y
 */
 
 
