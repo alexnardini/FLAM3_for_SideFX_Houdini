@@ -28,16 +28,34 @@
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
+struct MB{
+    int FPS, samples;
+    float shutter_speed;
+
+    void MBDATA(){
+
+        FPS           = chi('fps');
+        samples       = chi('mbsamples');
+        shutter_speed = chf('shutter');
+    }
+}
+
 void
 _TFFAmbcalc(float _bound_Time; float _bound_Tstep; float _bound_Tstep_mult)
 {   
+    // init
     int     samples, FPS, iter;
     float   t, t_f, shutter_speed, t_offset, 
             remap_iter_to_time, Tstep_mult, Tstep_mult_compensate;
-    FPS           = chi('fps');
-    samples       = chi('mbsamples');
-    shutter_speed = chf('shutter');
+
+    // data
+    MB mb;
+    mb->MBDATA();
+    FPS = mb.FPS;
+    samples = mb.samples;
+    shutter_speed = mb.shutter_speed;
     
+    // solve
     t = _bound_Time;
     t_f = 1/(float)FPS;
     t_offset = t_f * shutter_speed;
@@ -46,6 +64,7 @@ _TFFAmbcalc(float _bound_Time; float _bound_Tstep; float _bound_Tstep_mult)
     Tstep_mult = 1-abs(fit(iter, 1, samples, -0.9, 0.9));
     Tstep_mult_compensate = detail(2, "Tstep_mult_compensate");
     
+    // out
     _bound_Tstep = remap_iter_to_time;
     _bound_Tstep_mult = Tstep_mult * Tstep_mult_compensate;
 }

@@ -2,6 +2,8 @@
 ; ModuleID = 'TFFAmbcalc'
 source_filename = "TFFAmbcalc"
 
+%MB = type { i64, i64, double }
+
 @0 = private constant [4 x i8] c"fps\00"
 @1 = private constant [10 x i8] c"mbsamples\00"
 @2 = private constant [8 x i8] c"shutter\00"
@@ -15,30 +17,16 @@ source_filename = "TFFAmbcalc"
 @7 = private constant [11 x i8] c"Tstep_mult\00"
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAmbcalc@FFF"(double* %_bound_Time, double* %_bound_Tstep, double* %_bound_Tstep_mult) #0 {
+define private void @"MBDATA@Z2MBM3N3FPSIN7samplesIN13shutter_speedF"(%MB* %this) #0 {
 __llvm_entry:
   %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @0, i64 0, i64 0))
+  %tmp = load %MB, %MB* %this
+  %0 = insertvalue %MB %tmp, i64 %return, 0
   %return1 = call i64 @"chi@IS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @1, i64 0, i64 0))
-  %return2 = call double @"chf@FS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @2, i64 0, i64 0))
-  %_bound_Time3 = load double, double* %_bound_Time
-  %cast = sitofp i64 %return to double
-  %output = call double @"div@FF"(double 1.000000e+00, double %cast)
-  %output7 = fmul double %output, %return2
-  %return8 = call i64 @"detail@IIS"(i64 1, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @3, i64 0, i64 0))
-  %output9 = add i64 %return8, 1
-  %cast11 = sitofp i64 %output9 to double
-  %cast13 = sitofp i64 %return1 to double
-  %output16 = fsub double %_bound_Time3, %output7
-  %output19 = fadd double %_bound_Time3, %output7
-  %return20 = call double @"fit@FFFFFF"(double %cast11, double 1.000000e+00, double %cast13, double %output16, double %output19)
-  %return25 = call double @"neg@FF"(double 9.000000e-01)
-  %return26 = call double @"fit@FFFFFF"(double %cast11, double 1.000000e+00, double %cast13, double %return25, double 9.000000e-01)
-  %return27 = call double @"abs@FF"(double %return26)
-  %output28 = fsub double 1.000000e+00, %return27
-  %return29 = call double @"detail@FIS"(i64 2, i8* getelementptr inbounds ([22 x i8], [22 x i8]* @4, i64 0, i64 0))
-  store double %return20, double* %_bound_Tstep
-  %output33 = fmul double %output28, %return29
-  store double %output33, double* %_bound_Tstep_mult
+  %1 = insertvalue %MB %0, i64 %return1, 1
+  %return3 = call double @"chf@FS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @2, i64 0, i64 0))
+  %2 = insertvalue %MB %1, double %return3, 2
+  store %MB %2, %MB* %this
   ret void
 }
 
@@ -47,6 +35,73 @@ declare i64 @"chi@IS"(i8*) #1
 
 ; Function Attrs: nounwind readnone
 declare double @"chf@FS"(i8*) #1
+
+; Function Attrs: alwaysinline nounwind
+define private %MB @"MB@Z2MBM3N3FPSIN7samplesIN13shutter_speedFIIF"(i64* %FPS, i64* %samples, double* %shutter_speed) #0 {
+__llvm_entry:
+  %FPS1 = load i64, i64* %FPS
+  %0 = insertvalue %MB undef, i64 %FPS1, 0
+  %samples2 = load i64, i64* %samples
+  %1 = insertvalue %MB %0, i64 %samples2, 1
+  %shutter_speed4 = load double, double* %shutter_speed
+  %2 = insertvalue %MB %1, double %shutter_speed4, 2
+  ret %MB %2
+}
+
+; Function Attrs: alwaysinline nounwind
+define private %MB @"MB@Z2MBM3N3FPSIN7samplesIN13shutter_speedF"() #0 {
+__llvm_entry:
+  %0 = alloca i64
+  %1 = alloca double
+  %2 = alloca i64
+  store i64 0, i64* %2
+  store i64 0, i64* %0
+  store double 0.000000e+00, double* %1
+  %MB = call %MB @"MB@Z2MBM3N3FPSIN7samplesIN13shutter_speedFIIF"(i64* %2, i64* %0, double* %1)
+  ret %MB %MB
+}
+
+; Function Attrs: alwaysinline nounwind
+define private void @"_TFFAmbcalc@FFF"(double* %_bound_Time, double* %_bound_Tstep, double* %_bound_Tstep_mult) #0 {
+__llvm_entry:
+  %mb = alloca %MB
+  %mb1 = call %MB @"MB@Z2MBM3N3FPSIN7samplesIN13shutter_speedF"()
+  %mb1.fca.0.extract = extractvalue %MB %mb1, 0
+  %mb1.fca.0.gep = getelementptr inbounds %MB, %MB* %mb, i32 0, i32 0
+  store i64 %mb1.fca.0.extract, i64* %mb1.fca.0.gep
+  %mb1.fca.1.extract = extractvalue %MB %mb1, 1
+  %mb1.fca.1.gep = getelementptr inbounds %MB, %MB* %mb, i32 0, i32 1
+  store i64 %mb1.fca.1.extract, i64* %mb1.fca.1.gep
+  %mb1.fca.2.extract = extractvalue %MB %mb1, 2
+  %mb1.fca.2.gep = getelementptr inbounds %MB, %MB* %mb, i32 0, i32 2
+  store double %mb1.fca.2.extract, double* %mb1.fca.2.gep
+  call void @"MBDATA@Z2MBM3N3FPSIN7samplesIN13shutter_speedF"(%MB* %mb)
+  %mb2.fca.0.load = load i64, i64* %mb1.fca.0.gep
+  %mb2.fca.0.insert = insertvalue %MB undef, i64 %mb2.fca.0.load, 0
+  %mb2.fca.1.load = load i64, i64* %mb1.fca.1.gep
+  %mb2.fca.1.insert = insertvalue %MB %mb2.fca.0.insert, i64 %mb2.fca.1.load, 1
+  %mb2.fca.2.load = load double, double* %mb1.fca.2.gep
+  %_bound_Time8 = load double, double* %_bound_Time
+  %cast = sitofp i64 %mb2.fca.0.load to double
+  %output = call double @"div@FF"(double 1.000000e+00, double %cast)
+  %output12 = fmul double %output, %mb2.fca.2.load
+  %return = call i64 @"detail@IIS"(i64 1, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @3, i64 0, i64 0))
+  %output13 = add i64 %return, 1
+  %cast15 = sitofp i64 %output13 to double
+  %cast17 = sitofp i64 %mb2.fca.1.load to double
+  %output20 = fsub double %_bound_Time8, %output12
+  %output23 = fadd double %_bound_Time8, %output12
+  %return24 = call double @"fit@FFFFFF"(double %cast15, double 1.000000e+00, double %cast17, double %output20, double %output23)
+  %return29 = call double @"neg@FF"(double 9.000000e-01)
+  %return30 = call double @"fit@FFFFFF"(double %cast15, double 1.000000e+00, double %cast17, double %return29, double 9.000000e-01)
+  %return31 = call double @"abs@FF"(double %return30)
+  %output32 = fsub double 1.000000e+00, %return31
+  %return33 = call double @"detail@FIS"(i64 2, i8* getelementptr inbounds ([22 x i8], [22 x i8]* @4, i64 0, i64 0))
+  store double %return24, double* %_bound_Tstep
+  %output37 = fmul double %output32, %return33
+  store double %output37, double* %_bound_Tstep_mult
+  ret void
+}
 
 ; Function Attrs: nounwind readnone
 declare double @"div@FF"(double, double) #1
@@ -105,7 +160,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"20.5.370"}
+!1 = !{!"20.5.487"}
 !2 = !{!"64"}
 
 ;_code_end
