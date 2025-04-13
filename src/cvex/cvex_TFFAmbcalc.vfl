@@ -49,8 +49,7 @@ _TFFAmbcalc(float _bound_Time; float _bound_Tstep; float _bound_Tstep_mult)
             remap_iter_to_time, Tstep_mult, Tstep_mult_compensate;
 
     // data
-    MB mb;
-    mb->MBDATA();
+    MB mb; mb->MBDATA();
     FPS = mb.FPS;
     samples = mb.samples;
     shutter_speed = mb.shutter_speed;
