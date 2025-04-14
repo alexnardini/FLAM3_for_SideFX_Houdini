@@ -41,7 +41,7 @@ They are all available in this github repository.</br>
 - **New**: New icon for the copy/paste data for when the marked FF is active.
 - **Fix**: Renamed all the HDA's extra files icons to be prefixed with: "**`icon_`**"
 - **Fix**: Renamed all the HDA's extra files geometry to be prefixed with: "**`geo_`**"
-- **Fix**: Renamed the main python module file to have the minimun python version to run with baked into the file name.
+- **Fix**: Renamed the main python module file to have the minimum python version to run with baked into the file name.
 - **Fix**: Updated python module creation to use the new main python module file name.
 - **Fix**: Final cvex compiled file size: ~15kb smaller.
 - **Updated HDA documentation.**
