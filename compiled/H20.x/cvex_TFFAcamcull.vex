@@ -20,21 +20,21 @@ __llvm_entry:
   %return6 = call <3 x double> @"toNDC@VSV"(i8* %return3, <3 x double> %_bound_P1)
   %return7 = call double @"chf@FS"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @2, i64 0, i64 0))
   %output = fsub double 1.000000e+00, %return7
-  %return9 = call double @"getcomp@FVI"(<3 x double> %return6, i64 0)
-  %output11 = fsub double 0.000000e+00, %output
-  %return12 = fcmp olt double %return9, %output11
-  %return13 = zext i1 %return12 to i64
-  %output17 = fadd double 1.000000e+00, %output
-  %return18 = fcmp ogt double %return9, %output17
-  %return19 = zext i1 %return18 to i64
-  %return20 = call i64 @"or@III"(i64 %return13, i64 %return19)
-  %return22 = call double @"getcomp@FVI"(<3 x double> %return6, i64 1)
-  %return25 = fcmp olt double %return22, %output11
-  %return26 = zext i1 %return25 to i64
-  %return27 = call i64 @"or@III"(i64 %return20, i64 %return26)
-  %return32 = fcmp ogt double %return22, %output17
+  %output9 = fsub double 0.000000e+00, %output
+  %output11 = fadd double 1.000000e+00, %output
+  %return13 = call double @"getcomp@FVI"(<3 x double> %return6, i64 0)
+  %return15 = fcmp olt double %return13, %output9
+  %return16 = zext i1 %return15 to i64
+  %return20 = fcmp ogt double %return13, %output11
+  %return21 = zext i1 %return20 to i64
+  %return22 = call i64 @"or@III"(i64 %return16, i64 %return21)
+  %return24 = call double @"getcomp@FVI"(<3 x double> %return6, i64 1)
+  %return26 = fcmp olt double %return24, %output9
+  %return27 = zext i1 %return26 to i64
+  %return28 = call i64 @"or@III"(i64 %return22, i64 %return27)
+  %return32 = fcmp ogt double %return24, %output11
   %return33 = zext i1 %return32 to i64
-  %return34 = call i64 @"or@III"(i64 %return27, i64 %return33)
+  %return34 = call i64 @"or@III"(i64 %return28, i64 %return33)
   %0 = icmp ne i64 %return34, 0
   br i1 %0, label %true, label %end
 
@@ -106,7 +106,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"20.5.370"}
+!1 = !{!"20.5.487"}
 !2 = !{!"64"}
 
 ;_code_end

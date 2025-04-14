@@ -36,8 +36,10 @@ _TFFAcamcull(vector _bound_P; int _bound_ptnum)
     vector pos = _bound_P;
     string CAM  = relativepath(opfullpath("."), chs("fcam"));
     vector pn   = toNDC(CAM, pos);
-    float  amt  = 1-chf("cullamount");
-    if(pn[0] < (0 - amt) || pn[0] > (1 + amt) || pn[1] < (0 - amt) || pn[1] > (1 + amt))
+    float lim_x, lim_y, amt;
+    amt  = 1-chf("cullamount");
+    lim_x = 0-amt; lim_y = 1+amt;
+    if(pn[0]<lim_x || pn[0]>lim_y || pn[1]<lim_x || pn[1]>lim_y)
         removepoint(0, _bound_ptnum);
     
 }
