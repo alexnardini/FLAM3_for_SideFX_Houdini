@@ -31,6 +31,8 @@
 /*
     Parametrics parms INPUTS list:
 
+    INPUT   NAME            PARMS
+
     -16     CURL            -> c1, c2
     -17     NGON            -> pow, sides, corners, circle
     -18     PDJ             -> wA, wB, wC, wD
@@ -42,8 +44,8 @@
     -24     RECTANGLES      -> x, y
     -25     RADIALBLUR      -> angle
     -26     PIE             -> slices, thickness, rotation
-    -27     DISC2           -> rot, twist, timespi, sinadd, cosadd
-    -28     SUPERSHAPE      -> m, rnd, holes, n1, n2, n3
+    -27     DISC2           -> (rot, twist), (timespi, sinadd, cosadd)
+    -28     SUPERSHAPE      -> (m, rnd, holes), (n1, n2, n3)
     -29     FLOWER          -> petals, holes
     -30     CONIC           -> eccentricity, holes
     -31     PARABOLA        -> height, width
@@ -52,11 +54,11 @@
     -34     CELL            -> size
     -35     CPOW            -> power, r, i
     -36     ESCHER          -> beta
-    -37     LAZYSUSAN       -> x, y, spin, twist, space
+    -37     LAZYSUSAN       -> (spin, twist, space), (x, y)
     -38     MODULUS         -> x, y
     -39     OSCOPE          -> frequency, amplitude, damping, separation
     -40     POPCORN2        -> x, y, c
-    -41     SEPARATION      -> x, y, inside_x, inside_y
+    -41     SEPARATION      -> (x, y), (inside_x, inside_y)
     -42     SPLIT           -> x, y
     -43     SPLITS          -> x, y
     -44     STRIPES         -> space, warp
@@ -64,15 +66,15 @@
     -46     WEDGEJULIAN     -> power, angle, dist, count
     -47     WEDGESPH        -> swirl, angle, hole, count
     -48     WHORL           -> inside, outside
-    -49     WAVES2          -> scale_x, scale_y, frequency_x,  frequency_y
+    -49     WAVES2          -> (scale_x, scale_y), (frequency_x,  frequency_y)
     -50     AUGER           -> frequency, scale, symmetry, weight
     -51     FLUX            -> spread
-    -52     MOBIUS          -> reA, reB, reC, reD, imA, imB, imC, imD
-    -53     CURVE           -> lenght_x, lenght_y, amplitude_x, amplitude_y
+    -52     MOBIUS          -> (reA, reB, reC, reD), (imA, imB, imC, imD)
+    -53     CURVE           -> (lenght_x, lenght_y), (amplitude_x, amplitude_y)
     -54     PERSPECTIVE     -> angle, distance
-    -55     BWRAPS          -> size, space, gain, in_twist, out_twist
-    -56     POLYNOMIAL      -> pow_x, pow_y, Lc_x, Lc_y, Sc_x, Sc_y
-    -57     CROP            -> left, top, right, bottom, area, zero
+    -55     BWRAPS          -> (size, space, gain), (in_twist, out_twist)
+    -56     POLYNOMIAL      -> (pow_x, pow_y), (Lc_x, Lc_y), (Sc_x, Sc_y)
+    -57     CROP            -> (left, top, right, bottom), (area, zero)
     -58     POINT_SYMMETRY  -> order, center_x, center_y
 */
 

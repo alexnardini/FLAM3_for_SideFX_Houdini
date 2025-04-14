@@ -28,6 +28,56 @@
 */
 
 
+/*
+    Parametrics parms list:
+
+    NAME            PARMS
+
+    CURL            -> c1, c2
+    NGON            -> pow, sides, corners, circle
+    PDJ             -> wA, wB, wC, wD
+    BLOB            -> low, high, wave
+    JULIAN          -> power, distance
+    JULIASCOPE      -> power, distance
+    FAN2            -> x, y
+    RINGS2          -> value
+    RECTANGLES      -> x, y
+    RADIALBLUR      -> angle
+    PIE             -> slices, thickness, rotation
+    DISC2           -> (rot, twist), (timespi, sinadd, cosadd)
+    SUPERSHAPE      -> (m, rnd, holes), (n1, n2, n3)
+    FLOWER          -> petals, holes
+    CONIC           -> eccentricity, holes
+    PARABOLA        -> height, width
+    BENT2           -> x, y
+    BIPOLAR         -> shift
+    CELL            -> size
+    CPOW            -> power, r, i
+    ESCHER          -> beta
+    LAZYSUSAN       -> (spin, twist, space), (x, y)
+    MODULUS         -> x, y
+    OSCOPE          -> frequency, amplitude, damping, separation
+    POPCORN2        -> x, y, c
+    SEPARATION      -> (x, y), (inside_x, inside_y)
+    SPLIT           -> x, y
+    SPLITS          -> x, y
+    STRIPES         -> space, warp
+    WEDGE           -> swirl, angle, hole, count
+    WEDGEJULIAN     -> power, angle, dist, count
+    WEDGESPH        -> swirl, angle, hole, count
+    WHORL           -> inside, outside
+    WAVES2          -> (scale_x, scale_y), (frequency_x,  frequency_y)
+    AUGER           -> frequency, scale, symmetry, weight
+    FLUX            -> spread
+    MOBIUS          -> (reA, reB, reC, reD), (imA, imB, imC, imD)
+    CURVE           -> (lenght_x, lenght_y), (amplitude_x, amplitude_y)
+    PERSPECTIVE     -> angle, distance
+    BWRAPS          -> (size, space, gain), (in_twist, out_twist)
+    POLYNOMIAL      -> (pow_x, pow_y), (Lc_x, Lc_y), (Sc_x, Sc_y)
+    CROP            -> (left, top, right, bottom), (area, zero)
+    POINT_SYMMETRY  -> order, center_x, center_y
+*/
+
 
 
 // From Fractorium: flam3 comptibility (f3c). Check inside variations.h to see both versions of each.
