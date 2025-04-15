@@ -66,9 +66,8 @@ void sincos(const float a; float sa, ca){ sa=sin(a); ca=cos(a); }
 float log1p(float x){
     float xp1 = 1+x;
     return (xp1==1) ? x : x * log(xp1) / (xp1-1);
- }
-float Sqrt1pm1(float x)
-{
+}
+float Sqrt1pm1(float x){
     if (-0.0625 < x && x < 0.0625)
     {
         float num = 0;
