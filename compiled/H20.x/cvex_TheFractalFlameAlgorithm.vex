@@ -318,6 +318,88 @@ declare double @"sin@FF"(double) #0
 declare double @"cos@FF"(double) #0
 
 ; Function Attrs: alwaysinline nounwind
+define private double @"log1p@FF"(double* %x) #1 {
+__llvm_entry:
+  %x1 = load double, double* %x
+  %output = fadd double 1.000000e+00, %x1
+  %return = fcmp oeq double %output, 1.000000e+00
+  br i1 %return, label %true, label %false
+
+true:                                             ; preds = %__llvm_entry
+  br label %UnifiedReturnBlock
+
+false:                                            ; preds = %__llvm_entry
+  %return7 = call double @"log@FF"(double %output)
+  %output8 = fmul double %x1, %return7
+  %output10 = fsub double %output, 1.000000e+00
+  %output11 = call double @"div@FF"(double %output8, double %output10)
+  br label %UnifiedReturnBlock
+
+UnifiedReturnBlock:                               ; preds = %false, %true
+  %UnifiedRetVal = phi double [ %x1, %true ], [ %output11, %false ]
+  ret double %UnifiedRetVal
+}
+
+; Function Attrs: nounwind readnone
+declare double @"log@FF"(double) #0
+
+; Function Attrs: alwaysinline nounwind
+define private double @"Sqrt1pm1@FF"(double* %x) #1 {
+__llvm_entry:
+  %return = call double @"neg@FF"(double 6.250000e-02)
+  %x1 = load double, double* %x
+  %return2 = fcmp olt double %return, %x1
+  %return3 = zext i1 %return2 to i64
+  %return5 = fcmp olt double %x1, 6.250000e-02
+  %return6 = zext i1 %return5 to i64
+  %return7 = call i64 @"and@III"(i64 %return3, i64 %return6)
+  %0 = icmp ne i64 %return7, 0
+  br i1 %0, label %true, label %end
+
+true:                                             ; preds = %__llvm_entry
+  %output = call double @"div@FF"(double 1.000000e+00, double 3.200000e+01)
+  %output9 = fadd double 0.000000e+00, %output
+  %output11 = call double @"div@FF"(double 1.000000e+00, double 2.560000e+02)
+  %output12 = fadd double 0.000000e+00, %output11
+  %output15 = fmul double %output9, %x1
+  %output18 = fmul double %output12, %x1
+  %output20 = call double @"div@FF"(double 5.000000e+00, double 1.600000e+01)
+  %output21 = fadd double %output15, %output20
+  %output23 = call double @"div@FF"(double 5.000000e+00, double 3.200000e+01)
+  %output24 = fadd double %output18, %output23
+  %output27 = fmul double %output21, %x1
+  %output30 = fmul double %output24, %x1
+  %output32 = call double @"div@FF"(double 3.000000e+00, double 4.000000e+00)
+  %output33 = fadd double %output27, %output32
+  %output35 = call double @"div@FF"(double 1.500000e+01, double 1.600000e+01)
+  %output36 = fadd double %output30, %output35
+  %output39 = fmul double %output33, %x1
+  %output42 = fmul double %output36, %x1
+  %output44 = call double @"div@FF"(double 1.000000e+00, double 2.000000e+00)
+  %output45 = fadd double %output39, %output44
+  %output47 = call double @"div@FF"(double 7.000000e+00, double 4.000000e+00)
+  %output48 = fadd double %output42, %output47
+  %output51 = fmul double %output45, %x1
+  %output54 = fmul double %output48, %x1
+  %output56 = fadd double %output54, 1.000000e+00
+  %output59 = call double @"div@FF"(double %output51, double %output56)
+  br label %UnifiedReturnBlock
+
+end:                                              ; preds = %__llvm_entry
+  %output61 = fadd double 1.000000e+00, %x1
+  %return62 = call double @"sqrt@FF"(double %output61)
+  %output63 = fsub double %return62, 1.000000e+00
+  br label %UnifiedReturnBlock
+
+UnifiedReturnBlock:                               ; preds = %end, %true
+  %UnifiedRetVal = phi double [ %output59, %true ], [ %output63, %end ]
+  ret double %UnifiedRetVal
+}
+
+; Function Attrs: nounwind readnone
+declare i64 @"and@III"(i64, i64) #0
+
+; Function Attrs: alwaysinline nounwind
 define private void @"precalc_V_DISC2@VFF"(<3 x double>* %disc2_precalc, double* %rot, double* %twist) #1 {
 __llvm_entry:
   %d1 = alloca double
@@ -2288,9 +2370,6 @@ end42:                                            ; preds = %true41, %end
 ; Function Attrs: nounwind
 declare { double, double, double, double } @"assign@FFFFP"(<4 x double>) #2
 
-; Function Attrs: nounwind readnone
-declare i64 @"and@III"(i64, i64) #0
-
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_PDJ@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %pp) #1 {
 __llvm_entry:
@@ -3458,9 +3537,6 @@ true30:                                           ; preds = %false
   br label %end
 }
 
-; Function Attrs: nounwind readnone
-declare double @"log@FF"(double) #0
-
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_BOARDERS@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
 __llvm_entry:
@@ -3828,73 +3904,78 @@ declare double @"acos@FF"(double) #0
 define private void @"V_ELLIPTIC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
 __llvm_entry:
   %0 = alloca <2 x double>
+  %1 = alloca double
+  %2 = alloca double
+  %3 = alloca double
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
   %output2 = extractvalue { double, double } %output, 0
   %output3 = extractvalue { double, double } %output, 1
-  %_p4 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p4, <2 x double>* %0
+  %output5 = fmul double 2.000000e+00, %output2
+  %_p6 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p6, <2 x double>* %0
   %SUMSQ = call double @"SUMSQ@FU"(<2 x double>* %0)
-  %output5 = fadd double %SUMSQ, 1.000000e+00
-  %output7 = fmul double 2.000000e+00, %output2
-  %output10 = fadd double %output5, %output7
-  %return = call double @"sqrt@FF"(double %output10)
-  %output13 = fsub double %output5, %output7
-  %return14 = call double @"sqrt@FF"(double %output13)
-  %output15 = fadd double %return, %return14
-  %output16 = fmul double 5.000000e-01, %output15
-  %output19 = call double @"div@FF"(double %output2, double %output16)
-  %output22 = fmul double %output19, %output19
-  %output23 = fsub double 1.000000e+00, %output22
-  %output25 = fsub double %output16, 1.000000e+00
-  %w26 = load double, double* %w
-  %output27 = call double @"div@FF"(double %w26, double 0x3FF921FB4D12D84A)
-  %return29 = fcmp olt double %output23, 0.000000e+00
-  br i1 %return29, label %end, label %false
+  %output9 = fadd double %SUMSQ, %output5
+  %output12 = fsub double %SUMSQ, %output5
+  store double %output9, double* %1
+  %Sqrt1pm1 = call double @"Sqrt1pm1@FF"(double* %1)
+  store double %output12, double* %2
+  %Sqrt1pm115 = call double @"Sqrt1pm1@FF"(double* %2)
+  %output16 = fadd double %Sqrt1pm1, %Sqrt1pm115
+  %output17 = fmul double 5.000000e-01, %output16
+  %output20 = fadd double 1.000000e+00, %output17
+  %output21 = call double @"div@FF"(double %output2, double %output20)
+  %w23 = load double, double* %w
+  %output24 = call double @"div@FF"(double %w23, double 0x3FF921FB4D12D84A)
+  %return = fcmp olt double %output17, 0.000000e+00
+  br i1 %return, label %true, label %false
 
-false:                                            ; preds = %__llvm_entry
-  %return32 = call double @"sqrt@FF"(double %output23)
+true:                                             ; preds = %__llvm_entry
   br label %end
 
-end:                                              ; preds = %__llvm_entry, %false
-  %phi = phi double [ %return32, %false ], [ 0.000000e+00, %__llvm_entry ]
-  %return34 = fcmp olt double %output25, 0.000000e+00
-  br i1 %return34, label %end38, label %false37
+false:                                            ; preds = %__llvm_entry
+  %return28 = call double @"sqrt@FF"(double %output17)
+  br label %end
 
-false37:                                          ; preds = %end
-  %return40 = call double @"sqrt@FF"(double %output25)
-  br label %end38
+end:                                              ; preds = %false, %true
+  %ssx.0 = phi double [ 0.000000e+00, %true ], [ %return28, %false ]
+  %return31 = call i64 @"neg@II"(i64 1)
+  %cast = sitofp i64 %return31 to double
+  %return32 = call double @"clamp@FFFF"(double %output21, double %cast, double 1.000000e+00)
+  %return33 = call double @"asin@FF"(double %return32)
+  %output34 = fmul double %output24, %return33
+  %tmp = load <2 x double>, <2 x double>* %p
+  %return35 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp, double %output34, i64 0)
+  %output37 = extractvalue { double, <2 x double> } %return35, 1
+  store <2 x double> %output37, <2 x double>* %p
+  %return39 = fcmp ogt double %output3, 0.000000e+00
+  %output47 = fadd double %output17, %ssx.0
+  store double %output47, double* %3
+  %log1p = call double @"log1p@FF"(double* %3)
+  %output48 = fmul double %output24, %log1p
+  br i1 %return39, label %true41, label %false42
 
-end38:                                            ; preds = %end, %false37
-  %phi41 = phi double [ %return40, %false37 ], [ 0.000000e+00, %end ]
-  %return45 = call double @"atan2@FFF"(double %output19, double %phi)
-  %output46 = fmul double %output27, %return45
-  %tmp47 = load <2 x double>, <2 x double>* %p
-  %return48 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp47, double %output46, i64 0)
-  %output50 = extractvalue { double, <2 x double> } %return48, 1
-  store <2 x double> %output50, <2 x double>* %p
-  %return52 = fcmp ogt double %output3, 0.000000e+00
-  %output60 = fadd double %output16, %phi41
-  %return61 = call double @"log@FF"(double %output60)
-  br i1 %return52, label %true54, label %false55
+true41:                                           ; preds = %end
+  %tmp49 = load <2 x double>, <2 x double>* %p
+  %return50 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp49, double %output48, i64 1)
+  %output52 = extractvalue { double, <2 x double> } %return50, 1
+  store <2 x double> %output52, <2 x double>* %p
+  br label %end43
 
-true54:                                           ; preds = %end38
-  %output62 = fmul double %output27, %return61
-  br label %end56
+false42:                                          ; preds = %end
+  %return59 = call double @"neg@FF"(double %output48)
+  %tmp60 = load <2 x double>, <2 x double>* %p
+  %return61 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp60, double %return59, i64 1)
+  %output63 = extractvalue { double, <2 x double> } %return61, 1
+  store <2 x double> %output63, <2 x double>* %p
+  br label %end43
 
-false55:                                          ; preds = %end38
-  %return68 = call double @"neg@FF"(double %return61)
-  %output69 = fmul double %output27, %return68
-  br label %end56
-
-end56:                                            ; preds = %false55, %true54
-  %phi70 = phi double [ %output62, %true54 ], [ %output69, %false55 ]
-  %tmp71 = load <2 x double>, <2 x double>* %p
-  %return72 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp71, double %phi70, i64 1)
-  %output74 = extractvalue { double, <2 x double> } %return72, 1
-  store <2 x double> %output74, <2 x double>* %p
+end43:                                            ; preds = %false42, %true41
   ret void
 }
+
+; Function Attrs: nounwind readnone
+declare double @"asin@FF"(double) #0
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_NOISE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {

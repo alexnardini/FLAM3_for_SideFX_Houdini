@@ -58,6 +58,45 @@ float fmod(const float a, b){ return (a-floor(a/b)*b); }
 
 void sincos(const float a; float sa, ca){ sa=sin(a); ca=cos(a); }
 
+// An improved Elliptic version which helps with rounding errors.
+// Do not look like in Houdini this is fully converging to the right solution at 64bit but really close.
+// However even at 32bit is already much much better than the original FLAM3 version, so I keep this one.
+// Source: https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html
+//
+float log1p(float x){
+    float xp1 = 1+x;
+    if(xp1==1) return x;
+    else return x * log(xp1) / (xp1-1);
+ }
+float Sqrt1pm1(float x)
+{
+    if (-0.0625 < x && x < 0.0625)
+    {
+        float num = 0;
+        float den = 0;
+        num += 1.0 / 32;
+        den += 1.0 / 256;
+        num *= x;
+        den *= x;
+        num += 5.0 / 16;
+        den += 5.0 / 32;
+        num *= x;
+        den *= x;
+        num += 3.0 / 4;
+        den += 15.0 / 16;
+        num *= x;
+        den *= x;
+        num += 1.0 / 2;
+        den += 7.0 / 4;
+        num *= x;
+        den *= x;
+        den += 1;
+        return num / den;
+    }
+
+    return sqrt(1 + x) - 1;
+}
+
 void precalc_V_DISC2(vector disc2_precalc; const float rot, twist){
     // This is the only one to benefit from the precalc
 

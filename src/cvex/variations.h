@@ -793,7 +793,11 @@ void V_EDISC(vector2 p; const vector2 _p; const float w){
 }
 // 59
 void V_ELLIPTIC(vector2 p; const vector2 _p; const float w){
-    float tmp, x2, xmax, aa, bb, ssx, ww, _px, _py;
+
+    // FLAM3 version
+    //
+    /*
+    float tmp, xmax, aa, bb, ww, _px, _py;
     assign(_px, _py, _p);
 
     tmp = SUMSQ(_p) + 1.0;
@@ -807,6 +811,39 @@ void V_ELLIPTIC(vector2 p; const vector2 _p; const float w){
     ssx = (ssx<0) ? 0 : sqrt(ssx);
     p[0] = ww * atan2(aa,bb);
     p[1] = (_py > 0) ? ww*log(xmax+ssx) : ww * -log(xmax+ssx);
+    */
+
+
+    // An improved Elliptic version which helps with rounding errors.
+    // Do not look like in Houdini this is fully converging to the right solution at 64bit but really close.
+    // However even at 32bit is already much much better than the original FLAM3 version, so I keep this one.
+    // Source: https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html
+    //
+    float x2, sq, u, v, xmaxm1, a, ssx, weightDivPiDiv2, _px, _py;
+    assign(_px, _py, _p);
+
+    x2 = 2.0 * _px;
+    sq = SUMSQ(_p);
+    u = sq + x2;
+    v = sq - x2;
+    xmaxm1 = 0.5 * (Sqrt1pm1(u) + Sqrt1pm1(v));
+    a = _px / (1 + xmaxm1);
+    ssx = xmaxm1;
+    weightDivPiDiv2 = w / M_PI_2;
+    
+    if (ssx<0)
+      ssx = 0;
+    else
+      ssx = sqrt(ssx);
+  
+    p[0] = weightDivPiDiv2 * asin(clamp(a, -1, 1));
+  
+    if (_py > 0)
+      p[1] = weightDivPiDiv2 * log1p(xmaxm1 + ssx);
+    else
+      p[1] = -(weightDivPiDiv2 * log1p(xmaxm1 + ssx));
+
+
 }
 
 // 60
