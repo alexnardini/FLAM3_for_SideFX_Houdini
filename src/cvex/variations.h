@@ -815,7 +815,7 @@ void V_ELLIPTIC(vector2 p; const vector2 _p; const float w){
 
 
     // An improved Elliptic version which helps with rounding errors.
-    // Do not look like in Houdini this is fully converging to the right solution at 64bit but really close.
+    // Do not look like in Houdini this is fully converging to the right solution at 64bit but really close, probably becasue my log1p() function.
     // However even at 32bit is already much much better than the original FLAM3 version, so I keep this one.
     // Source: https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html
     //
