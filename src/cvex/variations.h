@@ -831,17 +831,10 @@ void V_ELLIPTIC(vector2 p; const vector2 _p; const float w){
     ssx = xmaxm1;
     weightDivPiDiv2 = w / M_PI_2;
     
-    if (ssx<0)
-      ssx = 0;
-    else
-      ssx = sqrt(ssx);
+    ssx = (ssx<0) ? 0 : sqrt(ssx);
   
     p[0] = weightDivPiDiv2 * asin(clamp(a, -1, 1));
-  
-    if (_py > 0)
-      p[1] = weightDivPiDiv2 * log1p(xmaxm1 + ssx);
-    else
-      p[1] = -(weightDivPiDiv2 * log1p(xmaxm1 + ssx));
+    p[1] = (_py > 0) ? weightDivPiDiv2 * log1p(xmaxm1 + ssx) : -(weightDivPiDiv2 * log1p(xmaxm1 + ssx));
 
 
 }

@@ -3925,17 +3925,14 @@ __llvm_entry:
   %w23 = load double, double* %w
   %output24 = call double @"div@FF"(double %w23, double 0x3FF921FB4D12D84A)
   %return = fcmp olt double %output17, 0.000000e+00
-  br i1 %return, label %true, label %false
-
-true:                                             ; preds = %__llvm_entry
-  br label %end
+  br i1 %return, label %end, label %false
 
 false:                                            ; preds = %__llvm_entry
   %return28 = call double @"sqrt@FF"(double %output17)
   br label %end
 
-end:                                              ; preds = %false, %true
-  %ssx.0 = phi double [ 0.000000e+00, %true ], [ %return28, %false ]
+end:                                              ; preds = %__llvm_entry, %false
+  %phi = phi double [ %return28, %false ], [ 0.000000e+00, %__llvm_entry ]
   %return31 = call i64 @"neg@II"(i64 1)
   %cast = sitofp i64 %return31 to double
   %return32 = call double @"clamp@FFFF"(double %output21, double %cast, double 1.000000e+00)
@@ -3946,28 +3943,22 @@ end:                                              ; preds = %false, %true
   %output37 = extractvalue { double, <2 x double> } %return35, 1
   store <2 x double> %output37, <2 x double>* %p
   %return39 = fcmp ogt double %output3, 0.000000e+00
-  %output47 = fadd double %output17, %ssx.0
+  %output47 = fadd double %output17, %phi
   store double %output47, double* %3
   %log1p = call double @"log1p@FF"(double* %3)
   %output48 = fmul double %output24, %log1p
-  br i1 %return39, label %true41, label %false42
-
-true41:                                           ; preds = %end
-  %tmp49 = load <2 x double>, <2 x double>* %p
-  %return50 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp49, double %output48, i64 1)
-  %output52 = extractvalue { double, <2 x double> } %return50, 1
-  store <2 x double> %output52, <2 x double>* %p
-  br label %end43
+  br i1 %return39, label %end43, label %false42
 
 false42:                                          ; preds = %end
-  %return59 = call double @"neg@FF"(double %output48)
-  %tmp60 = load <2 x double>, <2 x double>* %p
-  %return61 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp60, double %return59, i64 1)
-  %output63 = extractvalue { double, <2 x double> } %return61, 1
-  store <2 x double> %output63, <2 x double>* %p
+  %return55 = call double @"neg@FF"(double %output48)
   br label %end43
 
-end43:                                            ; preds = %false42, %true41
+end43:                                            ; preds = %end, %false42
+  %phi56 = phi double [ %return55, %false42 ], [ %output48, %end ]
+  %tmp57 = load <2 x double>, <2 x double>* %p
+  %return58 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp57, double %phi56, i64 1)
+  %output60 = extractvalue { double, <2 x double> } %return58, 1
+  store <2 x double> %output60, <2 x double>* %p
   ret void
 }
 
