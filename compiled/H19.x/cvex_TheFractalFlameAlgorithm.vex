@@ -323,21 +323,18 @@ __llvm_entry:
   %x1 = load double, double* %x
   %output = fadd double 1.000000e+00, %x1
   %return = fcmp oeq double %output, 1.000000e+00
-  br i1 %return, label %true, label %false
-
-true:                                             ; preds = %__llvm_entry
-  br label %UnifiedReturnBlock
+  br i1 %return, label %end, label %false
 
 false:                                            ; preds = %__llvm_entry
   %return7 = call double @"log@FF"(double %output)
   %output8 = fmul double %x1, %return7
   %output10 = fsub double %output, 1.000000e+00
   %output11 = call double @"div@FF"(double %output8, double %output10)
-  br label %UnifiedReturnBlock
+  br label %end
 
-UnifiedReturnBlock:                               ; preds = %false, %true
-  %UnifiedRetVal = phi double [ %x1, %true ], [ %output11, %false ]
-  ret double %UnifiedRetVal
+end:                                              ; preds = %__llvm_entry, %false
+  %phi = phi double [ %output11, %false ], [ %x1, %__llvm_entry ]
+  ret double %phi
 }
 
 ; Function Attrs: nounwind readnone
