@@ -835,8 +835,6 @@ void V_ELLIPTIC(vector2 p; const vector2 _p; const float w){
   
     p[0] = weightDivPiDiv2 * asin(clamp(a, -1, 1));
     p[1] = (_py > 0) ? weightDivPiDiv2 * log1p(xmaxm1 + ssx) : -(weightDivPiDiv2 * log1p(xmaxm1 + ssx));
-
-
 }
 
 // 60
