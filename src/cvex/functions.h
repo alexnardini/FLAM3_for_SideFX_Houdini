@@ -58,8 +58,8 @@ float fmod(const float a, b){ return (a-floor(a/b)*b); }
 
 void sincos(const float a; float sa, ca){ sa=sin(a); ca=cos(a); }
 
-// An improved Elliptic version which helps with rounding errors.
-// Even at 32bit is already much much better than the original FLAM3 version, so I keep this one.
+// An improved Elliptic version which helps with rounding errors. Give its best at 64bit(DP).
+// Even at 32bit(SP) is already much much better than the original FLAM3 version, so I keep this one.
 // Source: https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html
 //
 float log1p(float x){

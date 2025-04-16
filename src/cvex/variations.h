@@ -814,8 +814,8 @@ void V_ELLIPTIC(vector2 p; const vector2 _p; const float w){
     */
 
 
-    // An improved Elliptic version which helps with rounding errors.
-    // Even at 32bit is already much much better than the original FLAM3 version, so I keep this one.
+    // An improved Elliptic version which helps with rounding errors. Give its best at 64bit(DP).
+    // Even at 32bit(SP) is already much much better than the original FLAM3 version, so I keep this one.
     // Source: https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html
     //
     float x2, sq, u, v, xmaxm1, a, ssx, weightDivPiDiv2, _px, _py;
