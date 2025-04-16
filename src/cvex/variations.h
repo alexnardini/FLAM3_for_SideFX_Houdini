@@ -52,7 +52,7 @@ void V_SPHERICAL(vector2 p; const vector2 _p; const float w){
     float r2, _px, _py;
     assign(_px, _py, _p);
 
-    r2 = w / ( SUMSQ(_p) + EPS );
+    r2 = w / Zeps(SUMSQ(_p));
     p[0] = r2 * _px;
     p[1] = r2 * _py;
 }
@@ -74,7 +74,7 @@ void V_HORSESHOE(vector2 p; const vector2 _p; const float w){
     float rr, _px, _py;
     assign(_px, _py, _p);
 
-    rr = w / (SQRT(_p) + EPS);
+    rr = w / Zeps(SQRT(_p));
     p[0] = (_px - _py) * (_px + _py) * rr;
     p[1] = 2.0 * _px * _py * rr;
 }
@@ -113,7 +113,7 @@ void V_DISC(vector2 p; const vector2 _p; const float w){
 void V_SPIRAL(vector2 p; const vector2 _p; const float w){
     vector2 precalc = _p / SQRT(_p);
     float r, r1, sr, cr;
-    r = SQRT(_p) + EPS;
+    r = Zeps(SQRT(_p));
     r1 = w/r;
     sincos(r, sr, cr);
     p[0] = r1 * (precalc[1] + sr);
@@ -241,7 +241,7 @@ void V_COSINE(vector2 p; const vector2 _p; const float w){
 void V_RINGS(vector2 p; const vector2 _p; const float w, d){
     vector2 precalc = _p / SQRT(_p);
     float dx, rr;
-    dx = d*d + EPS;
+    dx = Zeps(d*d);
     rr = SQRT(_p);
     rr = w * (fmod(rr+dx, 2*dx) - dx + rr * (1 - dx));
     p[0] = rr * precalc[1];
@@ -250,7 +250,7 @@ void V_RINGS(vector2 p; const vector2 _p; const float w, d){
 // 22
 void V_FAN(vector2 p; const vector2 _p; const float w, c, f){
     float dx, dx2, dy, a, r, sa, ca;
-    dx = M_PI * (c*c + EPS);
+    dx = M_PI * Zeps(c*c);
     dy = f;
     dx2 = 0.5 * dx;
     a = ATAN(_p);
@@ -424,7 +424,7 @@ void V_GAUSSIAN_BLUR(vector2 p; const float w){
 void V_FAN2(vector2 p; const vector2 _p; const float w; const vector2 fan2){
     float dx, dx2, dy, aa, sa,ca,rr, tt;
     dy = fan2[1];
-    dx = M_PI * (fan2[0]*fan2[0] + EPS);
+    dx = M_PI * Zeps(fan2[0]*fan2[0]);
     dx2 = 0.5*dx;
     aa = ATAN(_p);
     rr = w * SQRT(_p);
@@ -511,7 +511,7 @@ void V_RAYS(vector2 p; const vector2 _p; const float w){
     assign(_px, _py, _p);
 
     ang = w * nrandom("twister") * M_PI;
-    rr = w / (SUMSQ(_p) + EPS);
+    rr = w / Zeps(SUMSQ(_p));
     tanrr = w * tan(ang) * rr;
     p[0] = tanrr * cos(_px);
     p[1] = tanrr * sin(_py);
@@ -555,7 +555,7 @@ void V_CROSS(vector2 p; const vector2 _p; const float w){
     assign(_px, _py, _p);
 
     ss = _px*_px - _py*_py;
-    rr = w * sqrt(1.0 / (ss*ss+EPS));
+    rr = w * sqrt(1.0 / Zeps(ss*ss));
     p[0] = _px*rr;
     p[1] = _py*rr;
 }
@@ -718,7 +718,7 @@ void V_BUTTERFLY(vector2 p; const vector2 _p; const float w){
 
     wx = w*1.3029400317411197908970256609023;
     y2 = _py*2.0;
-    rr = wx*sqrt(abs(_py*_px)/(EPS + _px*_px + y2*y2));
+    rr = wx*sqrt(abs(_py*_px)/(Zeps(_px*_px + y2*y2)));
     p[0] = rr * _px;
     p[1] = rr * y2;
 }
@@ -836,7 +836,6 @@ void V_ELLIPTIC(vector2 p; const vector2 _p; const float w){
     p[0] = weightDivPiDiv2 * asin(clamp(a, -1, 1));
     p[1] = (_py > 0) ? weightDivPiDiv2 * log1p(xmaxm1 + ssx) : -(weightDivPiDiv2 * log1p(xmaxm1 + ssx));
 }
-
 // 60
 void V_NOISE(vector2 p; const vector2 _p; const float w){
     float tmpr, sinr, cosr, rr, _px, _py;
@@ -983,7 +982,7 @@ void V_SCRY(vector2 p; const vector2 _p; const float w){
     assign(_px, _py, _p);
 
     tt = SUMSQ(_p);
-    rr = 1.0 / (SQRT(_p) * (tt + 1.0/(w+EPS)));
+    rr = 1.0 / (SQRT(_p) * (tt + 1.0/Zeps(w)));
     p[0] = _px * rr;
     p[1] = _py * rr;
 }
@@ -1108,7 +1107,7 @@ void V_WEDGESPH(vector2 p; const vector2 _p; const float w; const vector4 wedges
     float swirl, angle, hole, count, rr, aa, cc, comp_fac, sa, ca;
     assign(swirl, angle, hole, count, wedgesph);
 
-    rr = 1.0/(SQRT(_p) + EPS);
+    rr = 1.0/Zeps(SQRT(_p));
     aa = ATANYX(_p) + swirl * rr;
     cc = floor( (count * aa + M_PI)*M_1_PI*0.5 );
     comp_fac = 1 - angle*count*M_1_PI*0.5;
