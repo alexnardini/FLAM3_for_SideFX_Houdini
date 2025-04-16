@@ -2569,7 +2569,7 @@ class flam3h_general_utils
                                 view.frameBoundingBox(node_bbox.geometry().boundingBox())
 
                             if _SYS_FRAME_VIEW_SENSOR_prm:
-                                self.flash_message(node, f"Camera sensor REFRAMED")
+                                self.flash_message(node, f"sensor REFRAMED")
                                 
                             return True
 
@@ -2590,7 +2590,7 @@ class flam3h_general_utils
                                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                     
                                     if _SYS_FRAME_VIEW_SENSOR_prm:
-                                        self.flash_message(node, f"Camera sensor REFRAMED")
+                                        self.flash_message(node, f"sensor REFRAMED")
                                         
                                 return True
                             
@@ -2667,7 +2667,7 @@ class flam3h_general_utils
                                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
 
                                 if _SYS_FRAME_VIEW_SENSOR_prm:
-                                    self.flash_message(self.node, f"Camera sensor REFRAMED")
+                                    self.flash_message(self.node, f"sensor REFRAMED")
                                     
                         else:
                             if update_sensor or _SYS_FRAME_VIEW_SENSOR_prm:
@@ -2685,7 +2685,7 @@ class flam3h_general_utils
                                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                         
                                         if _SYS_FRAME_VIEW_SENSOR_prm:
-                                            self.flash_message(self.node, f"Camera sensor REFRAMED")
+                                            self.flash_message(self.node, f"sensor REFRAMED")
                                             
                     else:
                         # Count how many Lop viewports are present
@@ -3411,7 +3411,7 @@ class flam3h_general_utils
                 # other wise we are printing out from:
                 # class: _xml_tree(...) @staticmethod -> xmlfile_root_chk(...)
                 if not in_flame_utils.in_to_flam3h_is_CHAOS(xml):
-                    _MSG = "Flame IN -> Nothing to load"
+                    _MSG = "IN: Nothing to load"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                     flam3h_general_utils.flash_message(node, _MSG)
             else:
@@ -8093,7 +8093,7 @@ class flam3h_iterator_utils
             node.setParms({f"iw_{str(id)}": min_weight})
             _MSG = f"{node.name()}: iterator {str(id)}'s Weight reverted back to a value of: {min_weight} instead of Zero. There must always be at least one active iterator's weight above Zero."
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"iterator {str(id)} Weight -> back to being NON-ZERO")
+            flam3h_general_utils.flash_message(node, f"iterator {str(id)} Weight: back to being NON-ZERO")
             
             
             
@@ -8334,7 +8334,7 @@ class flam3h_palette_utils
                     if msg:
                         _MSG = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"Palette LOAD: Not a valid FLAM3H JSON palette file")
+                        flam3h_general_utils.flash_message(node, f"CP LOAD: Not a valid FLAM3H JSON palette file")
                     del data
                     return True, False
                 
@@ -8877,7 +8877,7 @@ class flam3h_palette_utils
             # Satus message
             _MSG = f"{node.name()}: SAVE Palette Clipboard. Palette copied to the clipboard -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"Palette SAVED to the Clipboard")
+            flam3h_general_utils.flash_message(node, f"CP SAVED to the Clipboard")
         
         # Save palette into a file
         else:
@@ -8927,7 +8927,7 @@ class flam3h_palette_utils
                             else:
                                 _MSG = f"{node.name()}: Palette JSON SAVE: Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                                flam3h_general_utils.flash_message(node, f"Palette SAVE: Not a valid FLAM3H JSON palette file")
+                                flam3h_general_utils.flash_message(node, f"CP SAVE: Not a valid FLAM3H JSON palette file")
                                 
                         else:
                             # if the file exist and is a valid JSON file
@@ -8999,19 +8999,19 @@ class flam3h_palette_utils
                             
                             if json_file:
                                 # If it is a legitimate JSON file
-                                _MSG = f"{node.name()}: Palette JSON SAVE -> Although the JSON file you loaded is legitimate, it does not contain any valid F3H Palette data."
+                                _MSG = f"{node.name()}: Palette JSON SAVE: Although the JSON file you loaded is legitimate, it does not contain any valid F3H Palette data."
                                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                                flam3h_general_utils.flash_message(node, f"Palette SAVE: Not a valid F3H JSON palette file")
+                                flam3h_general_utils.flash_message(node, f"CP SAVE: Not a valid F3H JSON palette file")
                             else:
                                 # If it is any other file
-                                _MSG = f"{node.name()}: Palette JSON SAVE -> CP file not a valid PALETTE F3H file."
+                                _MSG = f"{node.name()}: Palette JSON SAVE: CP file not a valid PALETTE F3H file."
                                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                                flam3h_general_utils.flash_message(node, f"Palette SAVE: Not a valid F3H JSON palette file")
+                                flam3h_general_utils.flash_message(node, f"CP SAVE: Not a valid F3H JSON palette file")
                         
             else:
-                _MSG = f"{node.name()}: SAVE Palette -> Select a valid output file or a valid filename to create first."
+                _MSG = f"{node.name()}: SAVE Palette: Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f"PALETTE: Select a valid output file")
+                flam3h_general_utils.flash_message(node, f"CP: Select a valid output file")
 
 
                 
@@ -9142,15 +9142,15 @@ class flam3h_palette_utils
                     flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 1)
                     _MSG = f"{node.name()}: LOAD Palette preset: \"{preset}\" -> Completed"
                     flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-                    flam3h_general_utils.flash_message(node, f"Palette LOADED")
+                    flam3h_general_utils.flash_message(node, f"CP LOADED")
                 else:
                     flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
-                    _MSG = f"{node.name()}: PALETTE -> ERROR on preset: \"{preset}\". Invalid HEX values."
+                    _MSG = f"{node.name()}: PALETTE: ERROR on preset: \"{preset}\". Invalid HEX values."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                    flam3h_general_utils.flash_message(node, f"Palette ERROR")
+                    flam3h_general_utils.flash_message(node, f"CP ERROR")
             
             else:
-                _MSG = f"{node.name()}: PALETTE -> Nothing to load"
+                _MSG = f"{node.name()}: PALETTE: Nothing to load"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.flash_message(node, f"CP: Nothing to load")
 
@@ -9297,21 +9297,21 @@ class flam3h_palette_utils
                             flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
                             
                             if _CHECK:
-                                _MSG = f"{node.name()}: PALETTE Clipboard -> LOAD Palette preset: \"{preset}\" -> Completed"
+                                _MSG = f"{node.name()}: PALETTE Clipboard: LOAD Palette preset: \"{preset}\" -> Completed"
                                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                                 flam3h_general_utils.flash_message(node, f"CP LOADED from the Clipboard")
                             else:
-                                _MSG = f"{node.name()}: PALETTE Clipboard -> ERROR on preset: \"{preset}\". Invalid HEX values."
+                                _MSG = f"{node.name()}: PALETTE Clipboard: ERROR on preset: \"{preset}\". Invalid HEX values."
                                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                                 flam3h_general_utils.flash_message(node, f"CP ERROR from the Clipboard")
                             
                     else:
-                        _MSG = f"{node.name()}: PALETTE Clipboard -> The data from the clipboard is not a valid JSON data."
+                        _MSG = f"{node.name()}: PALETTE Clipboard: The data from the clipboard is not a valid JSON data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         flam3h_general_utils.flash_message(node, f"CP Clipboard: Nothing to load")
                         
                 else:
-                    _MSG = f"{node.name()}: Palette Clipboard -> The data from the clipboard is not a valid JSON data."
+                    _MSG = f"{node.name()}: Palette Clipboard: The data from the clipboard is not a valid JSON data."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                     flam3h_general_utils.flash_message(node, f"CP Clipboard: Nothing to load")
 
@@ -9587,7 +9587,7 @@ class flam3h_palette_utils
         node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
         
         # Print out to Houdini's status bar
-        _MSG = f"CP Palette: RESET"
+        _MSG = f"CP: RESET"
         flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
         flam3h_general_utils.flash_message(node, _MSG)
         
@@ -10722,7 +10722,7 @@ class _xml_tree
                 else:
                     if XML_VALID_CHAOS_ROOT_TAG in root_tag:
                         # let us know
-                        _MSG = "Flame IN -> Chaotica XML not supported"
+                        _MSG = "IN: Chaotica XML not supported"
                         flam3h_general_utils.set_status_msg(f"{hou.pwd().name()}: {_MSG}", 'WARN')
                         flam3h_general_utils.flash_message(hou.pwd(), _MSG)
                     return None
@@ -14390,7 +14390,7 @@ class in_flame_utils
                 _MSG = f"{node.name()}: No valid flame preset to load from the Clipboard, copy a valid flame to the Clipboard first or load from a valid flame file instead."
             else:
                 if chaos:
-                    _MSG = f"Flame IN -> Chaotica XML not supported"
+                    _MSG = f"IN: Chaotica XML not supported"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                     flam3h_general_utils.flash_message(node, _MSG)
                 else:
@@ -15075,7 +15075,7 @@ class in_flame_utils
             
             # If we loaded a Chaotica XML style preset from the Clipboard 
             if self.in_to_flam3h_clipboard_is_CHAOS():
-                _MSG = "Flame IN Clipboard: Chaotica XML not supported"
+                _MSG = "IN Clipboard: Chaotica XML not supported"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
                 flam3h_general_utils.flash_message(node, _MSG)
 
@@ -16498,12 +16498,12 @@ class out_flame_utils
                     flame_name_new = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
                     node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new})
                     
-                    _MSG = f"{node.name()}: COPY Flame name -> {flame_name_new}"
+                    _MSG = f"{node.name()}: COPY Flame name: {flame_name_new}"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     flam3h_general_utils.flash_message(node, f"{flame_name_new}")
                     
                 else:
-                    _MSG = f"{node.name()}: COPY Flame name -> Select an existing preset name. There are no presets to copy the name from."
+                    _MSG = f"{node.name()}: COPY Flame name: Select an existing preset name. There are no presets to copy the name from."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             else:
                 _MSG = f"Load a valid OUT flame file first"
@@ -17376,7 +17376,7 @@ class out_flame_utils
             tree.write(outpath)
             
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
-            _MSG = f"{self.node.name()}: SAVE Flame: New -> Completed"
+            _MSG = f"{self.node.name()}: SAVE Flame New: Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED")
 
@@ -17401,7 +17401,7 @@ class out_flame_utils
             hou.ui.copyTextToClipboard(flame) # type: ignore
             
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
-            _MSG = f"{self.node.name()}: SAVE Flame: Clipboard -> Completed"
+            _MSG = f"{self.node.name()}: SAVE Flame Clipboard: Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED to the Clipboard")
 
@@ -17431,7 +17431,7 @@ class out_flame_utils
             tree.write(out_path)
             
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
-            _MSG = f"{self.node.name()}: SAVE Flame: Append -> Completed"
+            _MSG = f"{self.node.name()}: SAVE Flame Append: Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED: Append")
 
@@ -17534,7 +17534,7 @@ class out_flame_utils
                         flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS(False)
 
             else:
-                _MSG = f"{node.name()}: SAVE Flame -> Select a valid output file or a valid filename to create first."
+                _MSG = f"{node.name()}: SAVE Flame: Select a valid output file or a valid filename to create first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"OUT: Select a valid output file")
 
