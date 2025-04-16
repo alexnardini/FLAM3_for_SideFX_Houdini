@@ -59,8 +59,7 @@ float fmod(const float a, b){ return (a-floor(a/b)*b); }
 void sincos(const float a; float sa, ca){ sa=sin(a); ca=cos(a); }
 
 // An improved Elliptic version which helps with rounding errors.
-// Do not look like in Houdini this is fully converging to the right solution at 64bit but really close, probably becasue my log1p() function.
-// However even at 32bit is already much much better than the original FLAM3 version, so I keep this one.
+// Even at 32bit is already much much better than the original FLAM3 version, so I keep this one.
 // Source: https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html
 //
 float log1p(float x){
