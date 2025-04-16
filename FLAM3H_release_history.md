@@ -10,6 +10,16 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.7.84</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.84) ###
+
+- **Fix**: After fixing some more rounding errors in other variations, the new Elliptic implemented in v1.7.83 now produce the correct result at 64bit as in: [Improved Elliptic](https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html)
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.7.83</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.83) ###
 
 - **Fix**: Added an improved Elliptic version which helps with rounding errors.
