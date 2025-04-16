@@ -16991,7 +16991,7 @@ class out_flame_utils
         """Return a dictionary with all the flame properties to be written out.
         
         _NOTE:
-            Any of those properties will not be included into the exported XML flame file if they are: False
+            Any of these properties will not be included into the exported XML flame file if they are: False
 
         Args:
             (self):
