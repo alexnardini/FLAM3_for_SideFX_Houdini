@@ -9519,7 +9519,7 @@ class flam3h_palette_utils
         self.delete_ramp_all_keyframes(rmp_scr)
         self.delete_ramp_all_keyframes(rmp_hsv)
         # Messages
-        _MSG = f"CP Palette Keyframes: DELETED"
+        _MSG = f"CP Keyframes: DELETED"
         flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
         flam3h_general_utils.flash_message(node, _MSG)
 
@@ -16990,7 +16990,8 @@ class out_flame_utils
     def out_flame_properties_build(self, f3r: out_flame_render_properties) -> dict:
         """Return a dictionary with all the flame properties to be written out.
         
-        Any of those properties will not be included into the exported XML flame file if they are: False
+        _NOTE:
+            Any of those properties will not be included into the exported XML flame file if they are: False
 
         Args:
             (self):
