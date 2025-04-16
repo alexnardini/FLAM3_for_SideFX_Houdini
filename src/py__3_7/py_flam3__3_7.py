@@ -13332,9 +13332,9 @@ class in_flame_utils
         
         inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
         # If the 'IF' is true mean we are loading a Flame preset from the clipboard in a clean FLAM3H node ( without any data stored in it yet )
-        if apo_data is not None and not inisvalidpreset and clipboard: f3r = apo_data
+        # if apo_data is not None and not inisvalidpreset and clipboard: f3r = apo_data
         # Else if the data passed in is valid, it is most likely from the clipboard anyway
-        elif apo_data is not None and apo_data.isvalidtree: f3r = apo_data
+        if apo_data is not None and clipboard: f3r = apo_data
         else:
             # Otherwise just use the stored data
             data = node.userData(FLAM3H_USER_DATA_XML_LAST)
