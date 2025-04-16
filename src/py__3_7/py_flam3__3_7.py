@@ -6068,8 +6068,8 @@ class flam3h_iterator_utils
                         if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
                             menu = MENU_ITER_COPY_PASTE_REMOVED
                         elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
-                            parent = f".../{from_FLAM3H_NODE.parent()}"
-                            menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  REMOVED: The marked iterator has been removed from node: {parent}/{from_FLAM3H_NODE.name()}\n-> Mark an existing iterator instead.", 1, "" ]
+                            path = f".../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}"
+                            menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  REMOVED: The marked iterator has been removed from node: {path}\n-> Mark an existing iterator instead.", 1, "" ]
                         else:
                             menu = MENU_ITER_COPY_PASTE_EMPTY
                         return menu
