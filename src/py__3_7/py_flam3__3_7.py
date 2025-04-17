@@ -303,6 +303,8 @@ FLAM3H_DATA_PRM_MPIDX = 'flam3h_data_mpidx'
 # Flame stats locked message string
 MSG_FLAMESTATS_LOCK = '-> LOCKED'
 # Flame stats message parameters
+MSG_IN_STATS_HEADING = 'flamestats_heading'
+MSG_IN_STATS_HEADING_DEFAULT = 'IN flame preset infos'
 MSG_IN_SETTINGS_HEADING = 'flamerender_heading'
 MSG_IN_SETTINGS_HEADING_DEFAULT = 'IN flame preset renderer settings'
 MSG_IN_FLAMESTATS = 'flamestats_msg'
@@ -7962,6 +7964,7 @@ class flam3h_iterator_utils
             out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
             
             # Reset IN Folder settings heading
+            node.setParms({MSG_IN_STATS_HEADING: ''}) # type: ignore
             node.setParms({MSG_IN_SETTINGS_HEADING: ''}) # type: ignore
             
             # Print to Houdini's status bar
@@ -13360,8 +13363,12 @@ class in_flame_utils
             out_flame_utils.out_render_curves_compare_and_set_toggle(node)
             
             # Set folder heading
-            if clipboard: node.setParms({MSG_IN_SETTINGS_HEADING: f"{MSG_IN_SETTINGS_HEADING_DEFAULT} {IN_CLIPBOARD_LABEL_MSG}"}) # type: ignore
-            else: node.setParms({MSG_IN_SETTINGS_HEADING: f"{MSG_IN_SETTINGS_HEADING_DEFAULT}"}) # type: ignore
+            if clipboard:
+                node.setParms({MSG_IN_STATS_HEADING: f"{MSG_IN_STATS_HEADING_DEFAULT} {IN_CLIPBOARD_LABEL_MSG}"}) # type: ignore
+                node.setParms({MSG_IN_SETTINGS_HEADING: f"{MSG_IN_SETTINGS_HEADING_DEFAULT} {IN_CLIPBOARD_LABEL_MSG}"}) # type: ignore
+            else:
+                node.setParms({MSG_IN_STATS_HEADING: f"{MSG_IN_STATS_HEADING_DEFAULT}"}) # type: ignore
+                node.setParms({MSG_IN_SETTINGS_HEADING: f"{MSG_IN_SETTINGS_HEADING_DEFAULT}"}) # type: ignore
             
             node.setParms({OUT_RENDER_PROPERTIES_EDIT: 1}) # type: ignore
             
@@ -14021,9 +14028,7 @@ class in_flame_utils
         if ff_post_bool: ff_post_bool_msg = "YES"
             
         # build msgs
-        if clipboard: cb =  IN_CLIPBOARD_LABEL_MSG
-        else: cb = ''
-        sw = f"Software: {apo_data.sw_version[preset_id]} {cb}"
+        sw = f"Software: {apo_data.sw_version[preset_id]}"
         name = f"Name: {apo_data.name[preset_id]}"
         iter_count = f"Iterators count: {str(len(apo_data.xforms))}"
         post = f"Post affine: {post_bool_msg}"
@@ -15176,7 +15181,7 @@ class in_flame_utils
         
         flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
         flam3h_general_utils.private_prm_set(node, IN_PVT_CLIPBOARD_TOGGLE, 0)
-        [prm.set("") for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM), node.parm(MSG_IN_SETTINGS_HEADING))]
+        [prm.set("") for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM),  node.parm(MSG_IN_STATS_HEADING), node.parm(MSG_IN_SETTINGS_HEADING))]
         
         if mode:
             # This is not being used anymore but I leave it here just in case
