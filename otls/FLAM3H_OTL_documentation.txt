@@ -1856,9 +1856,23 @@ _Below some infos about some of the data included based on the loaded Flame pres
 :box:
     #display: rounded gray
 
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *IN infos*<br />
+    Every time you load a Flame preset either from a disk file or from the clipboard the IN infos tab will show you informations about the loaded preset.
+
+    _The infos are categorized as follow_:
+    
+    - Number of iterators used.
+    - If any of the iterators post affine is being used it will say: *`YES`*, otherwise: *`NO`*.
+    - If any of the iterators have its shader's opacity set to *`0`*(Zero) it will say: *`YES`*, otherwise: *`NO`*.
+    - If Xaos is being used it will say: *`YES`*, otherwise: *`NO`*.
+    - If the FF(finalXform) is being used it will say: *`YES`*, otherwise: *`NO`*.
+        - If the FF post affine is being used it will say: *`YES`*, otherwise: *`NO`*.
+
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *IN infos: tips*<br />
+
+    _Additionally_:
+
     - If the currenlty loaded Flame lib file is locked, the text *`-> LOCKED`* will appeat in the very first line at the top.
-    - Next and at the end of the *`Software`* info line, the text *`[CLIPBOARD]`* will appear when loading a Flame preset from the clipboard.
     - Next and at the end of the *`Palette count`* info line, the text *`[HSV]`* will appear if the loaded Flame preset is using HSV values different from defaults.
     - Below the *`Palette count`* info line, the text *`CC`* will appear if the loaded Flame preset use color correction curves values different from default.
     - Below the *`Palette count`* info line (_and next to the *`CC`* if present_), the text *`MB`* will appear if the loaded Flame preset use motion blur.
