@@ -73,7 +73,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.7.85'
+FLAM3H_VERSION = '1.7.88'
 FLAM3H_VERSION_STATUS_BETA = "Beta"
 FLAM3H_VERSION_STATUS_GOLD = "Gold"
 
@@ -13335,9 +13335,8 @@ class in_flame_utils
         
         inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
         
-        # If the 'IF' is true mean we are loading a Flame preset from the clipboard in a clean FLAM3H node ( without any data stored in it yet )
-        # if apo_data is not None and not inisvalidpreset and clipboard: f3r = apo_data
-        # Else if the data passed in is valid, it is most likely from the clipboard anyway
+        # If "clipboard" is True mean the incoming Flame preset from the Clipboard has been checked/validated already
+        # so no needs to double check here any more...just use it as is.
         if apo_data is not None and clipboard: f3r = apo_data
         else:
             # Otherwise just use the stored data
