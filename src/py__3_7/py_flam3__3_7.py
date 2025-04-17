@@ -13334,6 +13334,7 @@ class in_flame_utils
         node = kwargs['node']
         
         inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
+        
         # If the 'IF' is true mean we are loading a Flame preset from the clipboard in a clean FLAM3H node ( without any data stored in it yet )
         # if apo_data is not None and not inisvalidpreset and clipboard: f3r = apo_data
         # Else if the data passed in is valid, it is most likely from the clipboard anyway
@@ -13410,7 +13411,7 @@ class in_flame_utils
         clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
 
         # Here we are checking those toggles
-        # because the a Flame preset has been loaded already and we want to make sure it is still valid
+        # because when a Flame preset has been loaded already and we want to make sure it is still valid
         if inisvalidpreset or clipboard:
             
             data = node.userData(FLAM3H_USER_DATA_XML_LAST)
@@ -14669,7 +14670,7 @@ class in_flame_utils
         """ 
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
         
-        # This for when we are loading aq Flame preset in full
+        # This for when we are loading a Flame preset in full
         if copy_only is False:
             # Update flame stats
             node.setParms({MSG_IN_FLAMESTATS: self.in_load_stats_msg(preset_id, apo_data, clipboard)}) # type: ignore

@@ -1856,7 +1856,8 @@ _Below some infos about some of the data included based on the loaded Flame pres
 :box:
     #display: rounded gray
 
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *IN infos*<br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *IN infos: Tips*<br />
+    
     Every time you load a Flame preset either from a disk file or from the clipboard the IN infos tab will show you informations about the loaded preset.
 
     _The infos are categorized as follow_:
@@ -1866,9 +1867,7 @@ _Below some infos about some of the data included based on the loaded Flame pres
     - If any of the iterators have its shader's opacity set to *`0`*(Zero) it will say: *`YES`*, otherwise: *`NO`*.
     - If Xaos is being used it will say: *`YES`*, otherwise: *`NO`*.
     - If the FF(finalXform) is being used it will say: *`YES`*, otherwise: *`NO`*.
-        - If the FF post affine is being used it will say: *`YES`*, otherwise: *`NO`*.
-
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *IN infos: tips*<br />
+        - (_When the FF is ON_) If the FF post affine is being used it will say: *`YES`*, otherwise: *`NO`*.
 
     _Additionally_:
 
