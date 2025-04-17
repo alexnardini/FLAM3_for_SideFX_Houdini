@@ -16039,9 +16039,10 @@ class out_flame_utils
         for x in xaos:
             invert = x[::-1]
             trace = 0
-            for idx, item in enumerate(x):
-                if invert[idx-trace] == '1':
-                    invert.pop(idx-trace) # type: ignore
+            for idx in range(len(x)): # for idx, item in enumerate(x):
+                _idx = idx-trace
+                if invert[_idx] == '1':
+                    invert.pop(_idx) # type: ignore
                     trace = trace + 1
                 else:
                     break
@@ -17204,7 +17205,7 @@ class out_flame_utils
                         
                     for id, p in enumerate(out_prm):
                         if f3h_prm[id][-1]:
-                            for i, n in enumerate(p):
+                            for i in range(len(p)): # for i, n in enumerate(p):
                                 vals = node.parmTuple(f"{f3h_prm[id][0]}{MP_IDX}").eval()
                                 XFORM.set(FUNC(p[i]), self.out_util_round_float(vals[i]))
                         else:
