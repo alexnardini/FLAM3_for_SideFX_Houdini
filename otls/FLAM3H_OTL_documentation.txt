@@ -1934,7 +1934,7 @@ Copy/Paste SENSOR/RENDER preset settings:
 
     <br />
 
-    SENSOR [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
+    SENSOR [Icon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
 
     _Those settings are responsable for how the fractal Flame image is framed_:
 
@@ -1945,7 +1945,7 @@ Copy/Paste SENSOR/RENDER preset settings:
 
     <br />
 
-    RENDER [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
+    RENDER [Icon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
 
     _Those settings are responsable for the fractal Flame image quality_:
     
