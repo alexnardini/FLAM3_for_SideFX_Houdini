@@ -1844,11 +1844,11 @@ IN infos [Icon:DATATYPES/string]:
 
     Those infos include all the Missing variations if any are found in the currently loaded Flame preset.
 
-    All of the variations that Fractorium has but FLAM3H does not are known as: *`Missing variations`*.
+    All of the variations that Fractorium has but FLAM3H does not are known as: *`MISSING`*.
 
     FLAM3H was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he posses.
 
-    All of the variations that Fractorium lacks will be classified as: *`Unknown variations`*<br />
+    All of the variations that Fractorium lacks will be classified as: *`UNKNOWN`*<br />
     and they will be searched inside the XML key: *`plugins`* of the loaded Flame preset (_from file or from clipboard_).
 
 _Below some infos about some of the data included based on the loaded Flame preset settings_:
@@ -1860,25 +1860,37 @@ _Below some infos about some of the data included based on the loaded Flame pres
     
     Every time you load a Flame preset either from a disk file or from the clipboard the IN infos tab will show you informations about the loaded preset.
 
+    All the displayed informations are gathered from the XML of the loaded Flame preset.
+
     _The infos are categorized as follow_:
     
-    - *`Iterators count`*:<br />Number of iterators used.
-    - *`Post affine`*:<br />If any of the iterators post affine is being used it will say: *`YES`*, otherwise: *`NO`*.
-    - *`Opacity`*:<br />If any of the iterators have its shader's opacity set to *`0`*(Zero) it will say: *`YES`*, otherwise: *`NO`*.
+    - *`Software`*:<br />The software used to create/author the loaded Flame preset.
+    - *`Name`*:<br />The name of the loaded Flame preset.
+    - *`Palette count`*:<br />How many colors are in the palette of the loaded Flame preset and its color format.
+
+    <br />
+
+    - *`Iterators count`*:<br />Number of iterators/xforms used in the loaded Flame preset.
+    - *`Post affine`*:<br />If any of the iterators/xforms post affine is being used it will say: *`YES`*, otherwise: *`NO`*.
+    - *`Opacity`*:<br />If any of the iterators/xforms have its shader's opacity set to *`0`*(Zero) it will say: *`YES`*, otherwise: *`NO`*.
     - *`Xaos`*:<br />If Xaos is being used it will say: *`YES`*, otherwise: *`NO`*.
     - *`FF`*:<br />If the FF(finalXform) is being used it will say: *`YES`*, otherwise: *`NO`*.
         - *`FF Post affine`*:<br />(_When the FF is ON_) If the FF post affine is being used it will say: *`YES`*, otherwise: *`NO`*.
+
+    <br />
+
     - *`Variations used`*:<br />Number of unique variations being used and their names in alphatical order.
 
-    _When the loaded Flame preset use variations FLAM3H do not posses_:
+        _The following entries will appear when the loaded Flame preset use variations FLAM3H do not posses_:
 
-    - *`MISSING`*:<br />Variations names being used FLAM3H do not posses but Fractorium does. 
-    - *`UNKNOWN`*:<br />Variations names being used but neither FLAM3H or Fractorium posses. 
+    - *`MISSING`*:<br />Unique variations names being used FLAM3H do not posses but Fractorium does. 
+    - *`UNKNOWN`*:<br />Unique variations names being used but neither FLAM3H or Fractorium posses. 
 
+    <br />
 
     _Additionally_:
 
-    - If the currenlty loaded Flame lib file is locked, the text *`-> LOCKED`* will appeat in the very first line at the top.
+    - If the currenlty loaded Flame lib file is locked, the text *`-> LOCKED`* will appear in the very first line at the top.
     - Next and at the end of the *`Palette count`* info line, the text *`[HSV]`* will appear if the loaded Flame preset is using HSV values different from defaults.
     - Below the *`Palette count`* info line, the text *`CC`* will appear if the loaded Flame preset use color correction curves values different from default.
     - Below the *`Palette count`* info line (_and next to the *`CC`* if present_), the text *`MB`* will appear if the loaded Flame preset use motion blur.
@@ -1886,7 +1898,7 @@ _Below some infos about some of the data included based on the loaded Flame pres
 :box:
     #display: rounded white
 
-    == IN: Preset render properties == (INPRESETRND)
+    == IN: Preset renderer settings == (INPRESETRND)
     
 Render infos:
     #id: IN
@@ -1896,26 +1908,62 @@ Render infos:
 
     Some of the characteristics are unique to the Fractorium application, which has served as my point of reference.
     
-Copy/Paste preset properties:
+Copy/Paste ALL preset settings:
     #id: IN
     [Largeicon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg]
     
-    When you click this icon, all those render properties (_SENSOR, RENDER and CC CURVES settings_) will be copied and pasted into the render properties of the OUT tab.
+    When you click this icon, all those renderer settings (_SENSOR, RENDER and CC CURVES settings_) will be copied and pasted into the renderer settings of the OUT tab.
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
-    When loading a Flame preset from the clipboard, all its render properties will be automatically copied into the OUT render propperties on load.
+    When loading a Flame preset from the clipboard, all its renderer properties will be automatically copied into the OUT renderer settings on load.
         
 
-Copy/Paste SENSOR/RENDER settings:
+Copy/Paste SENSOR/RENDER preset settings:
     #id: IN
     [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
 
-    When you click one of those icons, only the SENSOR or the RENDER and CC CURVES settings will be copied into the OUT render properties.
+    When you click one of those icons, only the SENSOR or the RENDER and CC CURVES settings will be copied into the OUT renderer settings.
 
     _Under the RENDER settings in the COLOR CORRECTION section_:
     - Only the curves different from their default values will be listed.
+
+:box:
+    #display: rounded gray
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *SENSOR/RENDER settings: Infos*<br />
+
+    All the displayed informations are gathered from the XML of the loaded Flame preset.
+
+    _Below a break down of the renderer settings gathered from the loaded Flame preset_:
+
+    <br />
+
+    SENSOR [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
+
+    _These settings are responsable for how the fractal Flame image is framed_:
+
+    - *`Resolution`*:<br />The Sensor resolution in pixel (the output image resolution).
+    - *`Center`*:<br />The Sensor center, think of this as the camera look at point. 
+    - *`Rotate`*:<br />The Sensor rotation also known as: roll.
+    - *`Scale`*:<br />Size of the Sensor lens. the XML key: *`scale`* is a cheap way to achieve zoom.
+
+    <br />
+
+    RENDER [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
+
+    _These settings are responsable for the fractal Flame image quality_:
     
+    - *`Quality`*:<br />The Flame renderer quality. Think of this as how many points are used inside Fractorium to render the final image.
+    - *`Brightness`*:<br />The Flame renderer setting: brightness.
+    - *`Gamma`*:<br />The Flame renderer setting: gamma.
+    - *`Highlight power`*:<br />The Flame renderer setting: highlight power.
+    - *`Logscale K2`*:<br />The Flame renderer setting: Logscale K2.
+    - *`Vibrancy`*:<br />The Flame renderer setting: vibrancy.
+
+    <br />
+
+    - *`COLOR CORRECTION`*:<br />If any of the color correction curves have been used, they will be listed here if different from default values.
 
 
 :box:
@@ -2312,11 +2360,11 @@ Copy/Paste render properties:
     
 Center [Icon:TOP/xmlinput]:
     #id: OUT
-    Where the Flame is centered, think of this as the look at camera point.
+    The Sensor center, think of this as the camera look at point. 
     
 Rotate [Icon:TOP/xmlinput]:
     #id: OUT
-    The camera rotation.
+    The Sensor rotation, also know as: roll.
     
 Scale(lens) [Icon:TOP/xmlinput]:
     #id: OUT
@@ -2332,7 +2380,7 @@ update camera sensor [Icon:DATATYPES/boolean]:
 :box:
     #display: rounded white
 
-    == OUT: XML render settings == (OUTEDITRENSETTINGS)
+    == OUT: XML renderer settings == (OUTEDITRENSETTINGS)
     
     
 Quality [Icon:TOP/xmlinput]:
@@ -2364,7 +2412,7 @@ Vibrancy [Icon:TOP/xmlinput]:
 :box:
     #display: rounded white
 
-    == OUT: XML render color correction curves == (OUTEDITRENCCCURVES)
+    == OUT: XML renderer color correction curves == (OUTEDITRENCCCURVES)
 
     _This collapsible folder posses a header's toggle to signal when a color correction is Active(*ON*) or at its default values(*OFF*)._
 
