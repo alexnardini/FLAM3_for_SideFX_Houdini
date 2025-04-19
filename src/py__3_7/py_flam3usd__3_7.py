@@ -13,7 +13,7 @@ import hou
 #   Author:     Alessandro Nardini
 #   date:       September 2023, Last revised March 2025
 #
-#   Name:       PY_FLAM3USD "PYTHON"
+#   Name:       PY_FLAM3USD__3_7 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
 #
 #   Comment:    Simple utility node to quickly setup
 #               fractal flames point clouds in Solaris for previews.
@@ -100,6 +100,7 @@ class flam3husd_scripts
 
     """
 
+    __slots__ = ("_kwargs", "_node")
 
     def __init__(self, kwargs: dict) -> None:
         """
@@ -419,7 +420,8 @@ class flam3husd_general_utils
 
     """
 
-
+    __slots__ = ("_kwargs", "_node")
+    
     def __init__(self, kwargs: dict) -> None:
         """
         Args:
@@ -1007,6 +1009,8 @@ class flam3husd_about_utils
 * flam3husd_about_msg(self):
 
     """
+    
+    __slots__ = ("_kwargs", "_node")
     
     def __init__(self, kwargs: dict) -> None:
         """
