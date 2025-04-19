@@ -119,6 +119,20 @@ _`Arch` `Auger` `Bent` `Bent2` `Bipolar` `Blade` `Blob` `Blur` `Boarders` `Bubbl
 
 _They are 106, if you were wondering..._
 
+## User experience
+
+Using Houdini's vex/cvex language, this implementation initially concentrated only on the core algorithm. However, it gradually became apparent that a significant portion of the work needed to be focused on the user experience and how all the algorithm pieces are stitched together in a meaningful way for the user, making this part of the project the most difficult.
+
+Because FLAM3H was designed with fractal artists in mind, all internal automation that could be done to provide a seamless and pleasurable experience has been completed.
+
+FLAM3H prioritizes the user and their quality of life while using it, from completely automated xaos and iterators/xforms handling to a lovely, colorful, practical, and compact user interface.
+
+You can exchange data by just copying and pasting from the clipboard with third-party apps like Apophysis and Fractorium making the workflow as seamless and complete as possible.
+
+Python and the Houdini's HOM libraries have been used to achieve all of this.
+
+To finish all of this, FLAM3H features an incredibly detailed documentation that is designed to provide you with all the information you would need. This extend to tooltips for each parameter in the FLAM3H Houdini user interface.
+
 ## Considerations
 
 Given how expensive it is to compute fractal flames, it is not surprising that GPUs have performed wonders in this area as well.
