@@ -7533,20 +7533,20 @@ class flam3h_iterator_utils
         """
         
         node = self.node
-        id = self.kwargs['script_multiparm_index']
-        idx = str(id)
+        id: int = self.kwargs['script_multiparm_index']
+        idx: str = str(id)
         _MSG = f"{node.name()}.iterator.{idx} PRE variations -> SWAP"
         
         # Get prm names
-        pvT = flam3h_iterator().sec_prevarsT
-        pvW = flam3h_iterator().sec_prevarsW[1:]
+        pvT: tuple = flam3h_iterator().sec_prevarsT
+        pvW: tuple = flam3h_iterator().sec_prevarsW[1:]
         
         # Get prm
-        pvT_prm = (node.parm(f"{pvT[0]}{idx}"), node.parm(f"{pvT[1]}{idx}"))
-        pvW_prm = (node.parm(f"{pvW[0][0]}{idx}"), node.parm(f"{pvW[1][0]}{idx}"))
+        pvT_prm: tuple = (node.parm(f"{pvT[0]}{idx}"), node.parm(f"{pvT[1]}{idx}"))
+        pvW_prm: tuple = (node.parm(f"{pvW[0][0]}{idx}"), node.parm(f"{pvW[1][0]}{idx}"))
         # get tmp prm
-        __pvT_prm = (node.parm(PREFS_PVT_INT_0), node.parm(PREFS_PVT_INT_1))
-        __pvW_prm = (node.parm(PREFS_PVT_FLOAT_0), node.parm(PREFS_PVT_FLOAT_1))
+        __pvT_prm: tuple = (node.parm(PREFS_PVT_INT_0), node.parm(PREFS_PVT_INT_1))
+        __pvW_prm: tuple = (node.parm(PREFS_PVT_FLOAT_0), node.parm(PREFS_PVT_FLOAT_1))
         
         # Only types
         if self.kwargs["ctrl"]:
@@ -7615,15 +7615,15 @@ class flam3h_iterator_utils
         _MSG = f"{node.name()}: FF POST variations -> SWAP"
         
         # Get prm names
-        pvT = flam3h_iterator_FF().sec_postvarsT_FF
-        pvW = flam3h_iterator_FF().sec_postvarsW_FF
+        pvT: tuple = flam3h_iterator_FF().sec_postvarsT_FF
+        pvW: tuple = flam3h_iterator_FF().sec_postvarsW_FF
         
         # Get prm
-        pvT_prm = (node.parm(f"{pvT[0]}"), node.parm(f"{pvT[1]}"))
-        pvW_prm = (node.parm(f"{pvW[0][0]}"), node.parm(f"{pvW[1][0]}"))
+        pvT_prm: tuple = (node.parm(f"{pvT[0]}"), node.parm(f"{pvT[1]}"))
+        pvW_prm: tuple = (node.parm(f"{pvW[0][0]}"), node.parm(f"{pvW[1][0]}"))
         # get tmp prm
-        __pvT_prm = (node.parm(PREFS_PVT_INT_0), node.parm(PREFS_PVT_INT_1))
-        __pvW_prm = (node.parm(PREFS_PVT_FLOAT_0), node.parm(PREFS_PVT_FLOAT_1))
+        __pvT_prm: tuple = (node.parm(PREFS_PVT_INT_0), node.parm(PREFS_PVT_INT_1))
+        __pvW_prm: tuple = (node.parm(PREFS_PVT_FLOAT_0), node.parm(PREFS_PVT_FLOAT_1))
         
         # Only types
         if self.kwargs["ctrl"]:
@@ -16532,13 +16532,13 @@ class out_flame_utils
         if not mode:
             # Iterator
             f3h_iter = flam3h_iterator()
-            prm_sections_T = {'VAR': f3h_iter.sec_varsT, 'PRE': f3h_iter.sec_prevarsT, 'POST': f3h_iter.sec_postvarsT}
-            prm_sections_W = {'VAR': f3h_iter.sec_varsW, 'PRE': f3h_iter.sec_prevarsW[1:], 'POST': f3h_iter.sec_postvarsW}
+            prm_sections_T: dict = {'VAR': f3h_iter.sec_varsT, 'PRE': f3h_iter.sec_prevarsT, 'POST': f3h_iter.sec_postvarsT}
+            prm_sections_W: dict = {'VAR': f3h_iter.sec_varsW, 'PRE': f3h_iter.sec_prevarsW[1:], 'POST': f3h_iter.sec_postvarsW}
         else:
             # FF
             f3h_iter_FF = flam3h_iterator_FF()
-            prm_sections_T = {'VAR': f3h_iter_FF.sec_varsT_FF, 'PRE': f3h_iter_FF.sec_prevarsT_FF, 'POST': f3h_iter_FF.sec_postvarsT_FF}
-            prm_sections_W = {'VAR': f3h_iter_FF.sec_varsW_FF, 'PRE': f3h_iter_FF.sec_prevarsW_FF, 'POST': f3h_iter_FF.sec_postvarsW_FF}
+            prm_sections_T: dict = {'VAR': f3h_iter_FF.sec_varsT_FF, 'PRE': f3h_iter_FF.sec_prevarsT_FF, 'POST': f3h_iter_FF.sec_postvarsT_FF}
+            prm_sections_W: dict = {'VAR': f3h_iter_FF.sec_varsW_FF, 'PRE': f3h_iter_FF.sec_prevarsW_FF, 'POST': f3h_iter_FF.sec_postvarsW_FF}
         
         # Get correct parameter's names based on the desired var section and mode
         T_tuple = prm_sections_T.get(var_section)
