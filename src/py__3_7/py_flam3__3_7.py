@@ -37,7 +37,7 @@ import nodesearch
 #   Author:     Alessandro Nardini
 #   date:       January 2023, Last revised April 2025
 #
-#   Name:       PY_FLAM3 "PYTHON"
+#   Name:       PY_FLAM3__3_7 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
 #
 #   Comment:    Python classes and definitions for:
 #               - General UX
@@ -375,60 +375,83 @@ class flam3h_iterator_prm_names:
         please update inside the above mentioned definitions as well.
     
     '''
-    # ITERATOR
-    #
-    # Main
-    main_xf_viz = 'xfviz'
-    main_mpmem = 'mpmem' # auto set xaos: custom data
-    main_note = 'note'
-    main_prmpastesel = 'prmpastesel'
-    main_selmem = 'selmem' # custom data
-    main_vactive = 'vactive'
-    main_weight = 'iw'
-    # Xaos
-    xaos = 'xaos'
-    # Shader
-    shader_color = 'clr'
-    shader_speed = 'clrspeed'
-    shader_alpha = 'alpha'
-    # PRE 
-    prevar_blur = 'preblurtype' # this can be omitted as it is always zero
-    prevar_weight_blur = 'preblurweight'
-    prevar_type_1 = 'pre1type'
-    prevar_type_2 = 'pre2type'
-    prevar_weight_1 = 'pre1weight'
-    prevar_weight_2 = 'pre2weight'
-    # VAR
-    var_type_1 = 'v1type'
-    var_type_2 = 'v2type'
-    var_type_3 = 'v3type'
-    var_type_4 = 'v4type'
-    var_weight_1 = 'v1weight'
-    var_weight_2 = 'v2weight'
-    var_weight_3 = 'v3weight'
-    var_weight_4 = 'v4weight'
-    # POST
-    postvar_type_1 = 'p1type'
-    postvar_type_2 = 'p2type'
-    postvar_weight_1 = 'p1weight'
-    postvar_weight_2 = 'p2weight'
-    # pre affine
-    preaffine_scale = 'scl' # this do not really need to be stored/copied as it modify the pre affine only.
-    preaffine_x = 'x'
-    preaffine_y = 'y'
-    preaffine_o = 'o'
-    preaffine_ang = 'ang'
-    # post affine
-    postaffine_do = 'dopost'
-    postaffine_scale = 'pscl' # this do not really need to be stored/copied as it modify the post affine only.
-    postaffine_x = 'px'
-    postaffine_y = 'py'
-    postaffine_o = 'po'
-    postaffine_ang = 'pang'
+    
+    __slots__ = ("main_xf_viz", "main_mpmem", "main_note", "main_prmpastesel", "main_selmem", 
+                 "main_vactive", "main_weight", "xaos", 
+                 "shader_color", "shader_speed", "shader_alpha", 
+                 "prevar_blur", "prevar_weight_blur", "prevar_type_1", "prevar_type_2", "prevar_weight_1", "prevar_weight_2", 
+                 "var_type_1", "var_type_2", "var_type_3", "var_type_4", "var_weight_1", "var_weight_2", "var_weight_3", "var_weight_4", 
+                 "postvar_type_1", "postvar_type_2", "postvar_weight_1", "postvar_weight_2", 
+                 "preaffine_scale", "preaffine_x", "preaffine_y", "preaffine_o", "preaffine_ang", 
+                 "postaffine_do", "postaffine_scale", "postaffine_x", "postaffine_y", "postaffine_o", "postaffine_ang")
+    
+    def __init__(self) -> None:
+        """
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        # ITERATOR
+        #
+        # Main
+        self.main_xf_viz: str = 'xfviz'
+        self.main_mpmem: str = 'mpmem' # auto set xaos: custom data
+        self.main_note: str = 'note'
+        self.main_prmpastesel: str = 'prmpastesel'
+        self.main_selmem: str = 'selmem' # custom data
+        self.main_vactive: str = 'vactive'
+        self.main_weight: str = 'iw'
+        # Xaos
+        self.xaos: str = 'xaos'
+        # Shader
+        self.shader_color: str = 'clr'
+        self.shader_speed: str = 'clrspeed'
+        self.shader_alpha: str = 'alpha'
+        # PRE 
+        self.prevar_blur: str = 'preblurtype' # this can be omitted as it is always zero
+        self.prevar_weight_blur: str = 'preblurweight'
+        self.prevar_type_1: str = 'pre1type'
+        self.prevar_type_2: str = 'pre2type'
+        self.prevar_weight_1: str = 'pre1weight'
+        self.prevar_weight_2: str = 'pre2weight'
+        # VAR
+        self.var_type_1: str = 'v1type'
+        self.var_type_2: str = 'v2type'
+        self.var_type_3: str = 'v3type'
+        self.var_type_4: str = 'v4type'
+        self.var_weight_1: str = 'v1weight'
+        self.var_weight_2: str = 'v2weight'
+        self.var_weight_3: str = 'v3weight'
+        self.var_weight_4: str = 'v4weight'
+        # POST
+        self.postvar_type_1: str = 'p1type'
+        self.postvar_type_2: str = 'p2type'
+        self.postvar_weight_1: str = 'p1weight'
+        self.postvar_weight_2: str = 'p2weight'
+        # pre affine
+        self.preaffine_scale: str = 'scl' # this do not really need to be stored/copied as it modify the pre affine only.
+        self.preaffine_x: str = 'x'
+        self.preaffine_y: str = 'y'
+        self.preaffine_o: str = 'o'
+        self.preaffine_ang: str = 'ang'
+        # post affine
+        self.postaffine_do: str = 'dopost'
+        self.postaffine_scale: str = 'pscl' # this do not really need to be stored/copied as it modify the post affine only.
+        self.postaffine_x: str = 'px'
+        self.postaffine_y: str = 'py'
+        self.postaffine_o: str = 'po'
+        self.postaffine_ang: str = 'pang'
     
     
     
 class flam3h_iterator_prm_names_collections(flam3h_iterator_prm_names):
+    """
+    Args:
+        flam3h_iterator_prm_names ([class]): [inherit properties methods from the flam3h_iterator_prm_names class]
+    """    
+    
     '''
     Mostly, handy to have all those packed into one class.
     They are split into tuple parameters (vector, vector2, vector4...) and not (int, float, string..)
@@ -439,6 +462,9 @@ class flam3h_iterator_prm_names_collections(flam3h_iterator_prm_names):
     If you add new parametric variations add their base parameter's names here accordingly (tuple or not tuple).
     
     '''
+    
+    __slots__ = ("_prm_iterator_tuple", "_prm_iterator", "_prm_iterator_vars_all", "_prm_FF_tuple", "_prm_FF", "_prm_FF_vars_all", "_prm_parametrics_tuple", "_prm_parametrics")
+    
     def __init__(self) -> None:
         """
         Args:
@@ -447,6 +473,8 @@ class flam3h_iterator_prm_names_collections(flam3h_iterator_prm_names):
         Returns:
             (None):
         """  
+        super().__init__()
+        
         self._prm_iterator_tuple: tuple = (self.preaffine_x, self.preaffine_y, self.preaffine_o, self.postaffine_x, self.postaffine_y, self.postaffine_o)
         self._prm_iterator: tuple = (self.main_note, self.main_weight, self.xaos, self.shader_color, self.shader_speed, self.shader_alpha, self.prevar_blur, self.prevar_weight_blur, self.prevar_type_1, self.prevar_weight_1, self.prevar_type_2, self.prevar_weight_2, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.var_type_3, self.var_weight_3, self.var_type_4, self.var_weight_4, self.postvar_type_1, self.postvar_weight_1, self.preaffine_scale, self.preaffine_ang, self.postaffine_do, self.postaffine_scale, self.postaffine_ang)
         self._prm_iterator_vars_all: tuple = (self.prevar_blur, self.prevar_weight_blur, self.prevar_type_1, self.prevar_weight_1, self.prevar_type_2, self.prevar_weight_2, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.var_type_3, self.var_weight_3, self.var_type_4, self.var_weight_4, self.postvar_type_1, self.postvar_weight_1)
@@ -515,117 +543,126 @@ class flam3h_varsPRM
 * build_menu_vars_indexes(self) -> dict[int, int]:
 
     """ 
-
-    # Collect all variations and their parametric parameters properly ordered as per flame*.h files
-    # Those names are what it will appear inside each variation's menu.
-    varsPRM = ( ("Linear", 0), 
-                ("Sinusoidal", 0), 
-                ("Spherical", 0), 
-                ("Swirl", 0), 
-                ("Horseshoe", 0), 
-                ("Polar", 0), 
-                ("Handkerchief", 0), 
-                ("Heart", 0), 
-                ("Disc", 0), 
-                ("Spiral", 0), 
-                ("Hyperbolic", 0), 
-                ("Diamond", 0), 
-                ("Ex", 0), 
-                ("Julia", 0), 
-                ("Bent", 0), 
-                (f"Waves{DPT}", 0), 
-                ("Fisheye", 0), 
-                (f"Popcorn{DPT}", 0), 
-                ("Exponential", 0), 
-                ("Power", 0), 
-                ("Cosine", 0), 
-                (f"Rings{DPT}", 0), 
-                (f"Fan{DPT}", 0), 
-                ("Bubble", 0), 
-                ("Cylinder", 0), 
-                ("Eyefish", 0), 
-                ("Blur", 0), 
-                (f"Curl{PRM}", ("curlc_", 1), 1), 
-                (f"Ngon{PRM}", ("ngon_", 1), 1), 
-                (f"Pdj{PRM}", ("pdjw_", 1), 1), 
-                (f"Blob{PRM}", ("blob_", 1), 1), 
-                (f"JuliaN{PRM}", ("julian_", 1), 1), 
-                (f"Juliascope{PRM}", ("juliascope_", 1), 1), 
-                ("Gaussian_blur", 0), 
-                (f"Fan2{PRM}", ("fan2_", 1), 1), 
-                (f"Rings2{PRM}", ("rings2val_", 0), 1), 
-                (f"Rectangles{PRM}", ("rectangles_", 1), 1), 
-                (f"Radialblur{PRM}", ("radialblur_", 0), 1), 
-                (f"Pie{PRM}", ("pie_", 1), 1), 
-                ("Arch", 0), 
-                ("Tangent", 0), 
-                ("Square", 0), 
-                ("Rays", 0), 
-                ("Blade", 0), 
-                ("Secant2", 0), 
-                ("Twintrian", 0), 
-                ("Cross", 0), 
-                (f"Disc2{PRM}", ("disc2_", 1), 1), 
-                (f"Supershape{PRM}", ("supershape_", 1), ("supershapen_", 1), 1), 
-                (f"Flower{PRM}", ("flower_", 1), 1), 
-                (f"Conic{PRM}", ("conic_", 1), 1), 
-                (f"Parabola{PRM}", ("parabola_", 1), 1), 
-                (f"Bent2{PRM}", ("bent2xy_", 1), 1), 
-                (f"Bipolar{PRM}", ("bipolarshift_", 0), 1),
-                ("Boarders", 0),
-                ("Butterfly", 0), 
-                (f"Cell{PRM}", ("cellsize_", 0), 1), 
-                (f"Cpow{PRM}", ("cpow_", 1), 1), 
-                ("Edisc", 0), 
-                ("Elliptic", 0), 
-                ("Noise", 0), 
-                (f"Escher{PRM}", ("escherbeta_", 0), 1), 
-                ("Foci", 0), 
-                (f"Lazysusan{PRM}", ("lazysusanxyz_", 1), ("lazysusan_", 1), 1), 
-                ("Loonie", 0), 
-                ("Pre blur", 0), 
-                (f"Modulus{PRM}", ("modulusXYZ_", 1), 1), 
-                (f"Oscope{PRM}", ("oscope_", 1), 1), 
-                ("Polar2", 0), 
-                (f"Popcorn2{PRM}", ("popcorn2xyz_", 1), ("popcorn2c_", 0), 1), 
-                ("Scry", 0), 
-                (f"Separation{PRM}", ("separationxyz_", 1), ("separationinsidexyz_", 1), 1), 
-                (f"Split{PRM}", ("splitxyz_", 1), 1), 
-                (f"Splits{PRM}", ("splitsxyz_", 1), 1), 
-                (f"Stripes{PRM}", ("stripes_", 1), 1), 
-                (f"Wedge{PRM}", ("wedge_", 1), 1), 
-                (f"Wedgejulia{PRM}", ("wedgejulia_", 1), 1), 
-                (f"Wedgesph{PRM}", ("wedgesph_", 1), 1), 
-                (f"Whorl{PRM}", ("whorl_", 1), 1), 
-                (f"Waves2{PRM}", ("waves2scalexyz_", 1), ("waves2freqxyz_", 1), 1), 
-                ("Exp", 0), 
-                ("Log", 0), 
-                ("Sin", 0), 
-                ("Cos", 0), 
-                ("Tan", 0), 
-                ("Sec", 0), 
-                ("Csc", 0), 
-                ("Cot", 0), 
-                ("Sinh", 0), 
-                ("Cosh", 0), 
-                ("Tanh", 0), 
-                ("Sech", 0), 
-                ("Csch", 0), 
-                ("Coth", 0), 
-                (f"Auger{PRM}", ("auger_", 1), 1), 
-                (f"Flux{PRM}", ("fluxspread_", 0), 1), 
-                (f"Mobius{PRM}", ("mobiusre_", 1), ("mobiusim_", 1), 1),
-                (f"Curve{PRM}", ("curvexyzlenght_", 1), ("curvexyzamp_", 1), 1), 
-                (f"Perspective{PRM}", ("persp_", 1), 1), 
-                (f"Bwraps{PRM}", ("bwraps_", 1), ("bwrapstwist_", 1), 1), 
-                ("Hemisphere", 0), 
-                (f"Polynomial{PRM}", ("polynomialpow_", 1), ("polynomiallc_", 1), ("polynomialsc_", 1), 1),
-                (f"Crop{PRM}", ("cropltrb_", 1), ("cropaz_", 1), 1),
-                ("Unpolar", 0), 
-                ("Glynnia", 0),
-                (f"Pt_symmetry{PRM}", ("ptsym_", 1), 1)
-                )
+    __slots__ = ("varsPRM", )
     
+    def __init__(self) -> None:
+        """
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        # Collect all variations and their parametric parameters properly ordered as per flame*.h files
+        # Those names are what it will appear inside each variation's menu.
+        self.varsPRM: tuple = ( ("Linear", 0), 
+                                ("Sinusoidal", 0), 
+                                ("Spherical", 0), 
+                                ("Swirl", 0), 
+                                ("Horseshoe", 0), 
+                                ("Polar", 0), 
+                                ("Handkerchief", 0), 
+                                ("Heart", 0), 
+                                ("Disc", 0), 
+                                ("Spiral", 0), 
+                                ("Hyperbolic", 0), 
+                                ("Diamond", 0), 
+                                ("Ex", 0), 
+                                ("Julia", 0), 
+                                ("Bent", 0), 
+                                (f"Waves{DPT}", 0), 
+                                ("Fisheye", 0), 
+                                (f"Popcorn{DPT}", 0), 
+                                ("Exponential", 0), 
+                                ("Power", 0), 
+                                ("Cosine", 0), 
+                                (f"Rings{DPT}", 0), 
+                                (f"Fan{DPT}", 0), 
+                                ("Bubble", 0), 
+                                ("Cylinder", 0), 
+                                ("Eyefish", 0), 
+                                ("Blur", 0), 
+                                (f"Curl{PRM}", ("curlc_", 1), 1), 
+                                (f"Ngon{PRM}", ("ngon_", 1), 1), 
+                                (f"Pdj{PRM}", ("pdjw_", 1), 1), 
+                                (f"Blob{PRM}", ("blob_", 1), 1), 
+                                (f"JuliaN{PRM}", ("julian_", 1), 1), 
+                                (f"Juliascope{PRM}", ("juliascope_", 1), 1), 
+                                ("Gaussian_blur", 0), 
+                                (f"Fan2{PRM}", ("fan2_", 1), 1), 
+                                (f"Rings2{PRM}", ("rings2val_", 0), 1), 
+                                (f"Rectangles{PRM}", ("rectangles_", 1), 1), 
+                                (f"Radialblur{PRM}", ("radialblur_", 0), 1), 
+                                (f"Pie{PRM}", ("pie_", 1), 1), 
+                                ("Arch", 0), 
+                                ("Tangent", 0), 
+                                ("Square", 0), 
+                                ("Rays", 0), 
+                                ("Blade", 0), 
+                                ("Secant2", 0), 
+                                ("Twintrian", 0), 
+                                ("Cross", 0), 
+                                (f"Disc2{PRM}", ("disc2_", 1), 1), 
+                                (f"Supershape{PRM}", ("supershape_", 1), ("supershapen_", 1), 1), 
+                                (f"Flower{PRM}", ("flower_", 1), 1), 
+                                (f"Conic{PRM}", ("conic_", 1), 1), 
+                                (f"Parabola{PRM}", ("parabola_", 1), 1), 
+                                (f"Bent2{PRM}", ("bent2xy_", 1), 1), 
+                                (f"Bipolar{PRM}", ("bipolarshift_", 0), 1),
+                                ("Boarders", 0),
+                                ("Butterfly", 0), 
+                                (f"Cell{PRM}", ("cellsize_", 0), 1), 
+                                (f"Cpow{PRM}", ("cpow_", 1), 1), 
+                                ("Edisc", 0), 
+                                ("Elliptic", 0), 
+                                ("Noise", 0), 
+                                (f"Escher{PRM}", ("escherbeta_", 0), 1), 
+                                ("Foci", 0), 
+                                (f"Lazysusan{PRM}", ("lazysusanxyz_", 1), ("lazysusan_", 1), 1), 
+                                ("Loonie", 0), 
+                                ("Pre blur", 0), 
+                                (f"Modulus{PRM}", ("modulusXYZ_", 1), 1), 
+                                (f"Oscope{PRM}", ("oscope_", 1), 1), 
+                                ("Polar2", 0), 
+                                (f"Popcorn2{PRM}", ("popcorn2xyz_", 1), ("popcorn2c_", 0), 1), 
+                                ("Scry", 0), 
+                                (f"Separation{PRM}", ("separationxyz_", 1), ("separationinsidexyz_", 1), 1), 
+                                (f"Split{PRM}", ("splitxyz_", 1), 1), 
+                                (f"Splits{PRM}", ("splitsxyz_", 1), 1), 
+                                (f"Stripes{PRM}", ("stripes_", 1), 1), 
+                                (f"Wedge{PRM}", ("wedge_", 1), 1), 
+                                (f"Wedgejulia{PRM}", ("wedgejulia_", 1), 1), 
+                                (f"Wedgesph{PRM}", ("wedgesph_", 1), 1), 
+                                (f"Whorl{PRM}", ("whorl_", 1), 1), 
+                                (f"Waves2{PRM}", ("waves2scalexyz_", 1), ("waves2freqxyz_", 1), 1), 
+                                ("Exp", 0), 
+                                ("Log", 0), 
+                                ("Sin", 0), 
+                                ("Cos", 0), 
+                                ("Tan", 0), 
+                                ("Sec", 0), 
+                                ("Csc", 0), 
+                                ("Cot", 0), 
+                                ("Sinh", 0), 
+                                ("Cosh", 0), 
+                                ("Tanh", 0), 
+                                ("Sech", 0), 
+                                ("Csch", 0), 
+                                ("Coth", 0), 
+                                (f"Auger{PRM}", ("auger_", 1), 1), 
+                                (f"Flux{PRM}", ("fluxspread_", 0), 1), 
+                                (f"Mobius{PRM}", ("mobiusre_", 1), ("mobiusim_", 1), 1),
+                                (f"Curve{PRM}", ("curvexyzlenght_", 1), ("curvexyzamp_", 1), 1), 
+                                (f"Perspective{PRM}", ("persp_", 1), 1), 
+                                (f"Bwraps{PRM}", ("bwraps_", 1), ("bwrapstwist_", 1), 1), 
+                                ("Hemisphere", 0), 
+                                (f"Polynomial{PRM}", ("polynomialpow_", 1), ("polynomiallc_", 1), ("polynomialsc_", 1), 1),
+                                (f"Crop{PRM}", ("cropltrb_", 1), ("cropaz_", 1), 1),
+                                ("Unpolar", 0), 
+                                ("Glynnia", 0),
+                                (f"Pt_symmetry{PRM}", ("ptsym_", 1), 1)
+                                )
+            
     
     @staticmethod
     def __populate_keys_and_values(keys: list, values: list, item: Union[int, str], id: int) -> None:
@@ -737,31 +774,103 @@ class flam3h_varsPRM
 
 
 
-class flam3h_iterator:
+class flam3h_iterator(flam3h_iterator_prm_names):
+    """
+    Args:
+        flam3h_iterator_prm_names ([class]): [inherit properties methods from the flam3h_iterator_prm_names class]
+    """   
+    
+    __slots__ = ("_sec_main", "_sec_xaos", "_sec_shader", "_sec_prevarsT", "_sec_prevarsW", "_sec_varsT", "_sec_varsW", "_sec_postvarsT", "_sec_postvarsW", "_sec_preAffine", "_sec_postAffine", "_allT", "_allMisc")
 
-    n = flam3h_iterator_prm_names
+    def __init__(self) -> None:
+        """
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        super().__init__()
+        
+        # SECTIONS method lists
+        #
+        # (*T)Types have no signature and always to be used with: pastePRM_T_from_list() for now.
+        
+        # sec_main = ( (f"{n.main_vactive}_", 0), (f"{n.main_weight}_", 0) )
+        
+        self._sec_main: tuple = ( (f"{self.main_weight}_", 0), ) # When copy/paste the main section it will not copy the ON/OFF(vactive) iterator parameter anymore.
+        self._sec_xaos: tuple = ( (f"{self.xaos}_", 0), )
+        self._sec_shader: tuple = ( (f"{self.shader_color}_", 0), (f"{self.shader_speed}_", 0), (f"{self.shader_alpha}_", 0) )
+        self._sec_prevarsT: tuple = ( f"{self.prevar_type_1}_", f"{self.prevar_type_2}_" ) # preblur is omitted as it is always ZERO
+        self._sec_prevarsW: tuple = ( (f"{self.prevar_weight_blur}_", 0), (f"{self.prevar_weight_1}_", 0), (f"{self.prevar_weight_2}_", 0) )
+        self._sec_varsT: tuple = ( f"{self.var_type_1}_", f"{self.var_type_2}_", f"{self.var_type_3}_", f"{self.var_type_4}_" )
+        self._sec_varsW: tuple = ( (f"{self.var_weight_1}_", 0), (f"{self.var_weight_2}_", 0), (f"{self.var_weight_3}_", 0), (f"{self.var_weight_4}_", 0) )
+        self._sec_postvarsT: tuple = ( f"{self.postvar_type_1}_", )
+        self._sec_postvarsW: tuple = ( (f"{self.postvar_weight_1}_", 0), )
+        self._sec_preAffine: tuple = ( (f"{self.preaffine_x}_", 1), (f"{self.preaffine_y}_", 1), (f"{self.preaffine_o}_", 1), (f"{self.preaffine_ang}_", 0) )
+        self._sec_postAffine: tuple = ( (f"{self.postaffine_do}_", 0), (f"{self.postaffine_x}_", 1), (f"{self.postaffine_y}_", 1), (f"{self.postaffine_o}_", 1), (f"{self.postaffine_ang}_", 0) )
+        
+        # ALL method lists
+        self._allT: tuple = self._sec_prevarsT + self._sec_varsT + self._sec_postvarsT
+        self._allMisc: tuple = self._sec_main + self._sec_shader + self._sec_prevarsW + self._sec_varsW + self._sec_postvarsW + self._sec_preAffine + self._sec_postAffine
 
-    # SECTIONS method lists
-    #
-    # (*T)Types have no signature and always to be used with: pastePRM_T_from_list() for now.
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
     
-    # sec_main = ( (f"{n.main_vactive}_", 0), (f"{n.main_weight}_", 0) )
+    @property
+    def sec_main(self):
+        return self._sec_main
     
-    sec_main = ( (f"{n.main_weight}_", 0), ) # When copy/paste the main section it will not copy the ON/OFF(vactive) iterator parameter anymore.
-    sec_xaos = ( (f"{n.xaos}_", 0), )
-    sec_shader = ( (f"{n.shader_color}_", 0), (f"{n.shader_speed}_", 0), (f"{n.shader_alpha}_", 0) )
-    sec_prevarsT = ( f"{n.prevar_type_1}_", f"{n.prevar_type_2}_" ) # preblur is omitted as it is always ZERO
-    sec_prevarsW = ( (f"{n.prevar_weight_blur}_", 0), (f"{n.prevar_weight_1}_", 0), (f"{n.prevar_weight_2}_", 0) )
-    sec_varsT = ( f"{n.var_type_1}_", f"{n.var_type_2}_", f"{n.var_type_3}_", f"{n.var_type_4}_" )
-    sec_varsW = ( (f"{n.var_weight_1}_", 0), (f"{n.var_weight_2}_", 0), (f"{n.var_weight_3}_", 0), (f"{n.var_weight_4}_", 0) )
-    sec_postvarsT = ( f"{n.postvar_type_1}_", )
-    sec_postvarsW = ( (f"{n.postvar_weight_1}_", 0), )
-    sec_preAffine = ( (f"{n.preaffine_x}_", 1), (f"{n.preaffine_y}_", 1), (f"{n.preaffine_o}_", 1), (f"{n.preaffine_ang}_", 0) )
-    sec_postAffine = ( (f"{n.postaffine_do}_", 0), (f"{n.postaffine_x}_", 1), (f"{n.postaffine_y}_", 1), (f"{n.postaffine_o}_", 1), (f"{n.postaffine_ang}_", 0) )
+    @property
+    def sec_xaos(self):
+        return self._sec_xaos
     
-    # ALL method lists
-    allT = sec_prevarsT + sec_varsT + sec_postvarsT
-    allMisc = sec_main + sec_shader + sec_prevarsW + sec_varsW + sec_postvarsW + sec_preAffine + sec_postAffine
+    @property
+    def sec_shader(self):
+        return self._sec_shader
+    
+    @property
+    def sec_prevarsT(self):
+        return self._sec_prevarsT
+    
+    @property
+    def sec_prevarsW(self):
+        return self._sec_prevarsW
+    
+    @property
+    def sec_varsT(self):
+        return self._sec_varsT
+    
+    @property
+    def sec_varsW(self):
+        return self._sec_varsW
+    
+    @property
+    def sec_postvarsT(self):
+        return self._sec_postvarsT
+    
+    @property
+    def sec_postvarsW(self):
+        return self._sec_postvarsW
+    
+    @property
+    def sec_preAffine(self):
+        return self._sec_preAffine
+    
+    @property
+    def sec_postAffine(self):
+        return self._sec_postAffine
+    
+    @property
+    def allT(self):
+        return self._allT
+    
+    @property
+    def allMisc(self):
+        return self._allMisc
+
 
 
 class flam3h_varsPRM_FF(flam3h_varsPRM):
@@ -769,6 +878,9 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
     Args:
         flam3h_varsPRM ([class]): [inherit properties methods from the flam3h_varsPRM class]
     """    
+    
+    __slots__ = ("prx", )
+    
     def __init__(self, prx: str) -> None:
         """
         Args:
@@ -779,6 +891,9 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
         Returns:
             (None):
         """       
+        
+        super().__init__()
+        
         # The FF posses two sets of parameteric parameters; 
         # One for the VAR variations and one for the PRE and POST variations.
         # This prefix will help us pick either one or the other. 
@@ -788,144 +903,200 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
 
         px = self.prx
         vPRM = self.varsPRM
-        varsPRM_FF = (  vPRM[0], 
-                        vPRM[1], 
-                        vPRM[2], 
-                        vPRM[3], 
-                        vPRM[4], 
-                        vPRM[5], 
-                        vPRM[6], 
-                        vPRM[7], 
-                        vPRM[8], 
-                        vPRM[9], 
-                        vPRM[10], 
-                        vPRM[11], 
-                        vPRM[12], 
-                        vPRM[13], 
-                        vPRM[14], 
-                        vPRM[15], 
-                        vPRM[16], 
-                        vPRM[17], 
-                        vPRM[18], 
-                        vPRM[19], 
-                        vPRM[20], 
-                        vPRM[21], 
-                        vPRM[22], 
-                        vPRM[23], 
-                        vPRM[24], 
-                        vPRM[25], 
-                        vPRM[26], 
-                        (vPRM[27][0], (f"{px}_{vPRM[27][1][0][:-1]}", 1), 1), 
-                        (vPRM[28][0], (f"{px}_{vPRM[28][1][0][:-1]}", 1), 1), 
-                        (vPRM[29][0], (f"{px}_{vPRM[29][1][0][:-1]}", 1), 1), 
-                        (vPRM[30][0], (f"{px}_{vPRM[30][1][0][:-1]}", 1), 1), 
-                        (vPRM[31][0], (f"{px}_{vPRM[31][1][0][:-1]}", 1), 1), 
-                        (vPRM[32][0], (f"{px}_{vPRM[32][1][0][:-1]}", 1), 1), 
-                        (vPRM[33][0], 0), 
-                        (vPRM[34][0], (f"{px}_{vPRM[34][1][0][:-1]}", 1), 1), 
-                        (vPRM[35][0], (f"{px}_{vPRM[35][1][0][:-1]}", 0), 1), 
-                        (vPRM[36][0], (f"{px}_{vPRM[36][1][0][:-1]}", 1), 1), 
-                        (vPRM[37][0], (f"{px}_{vPRM[37][1][0][:-1]}", 1), 1), 
-                        (vPRM[38][0], (f"{px}_{vPRM[38][1][0][:-1]}", 1), 1), 
-                        (vPRM[39][0], 0), 
-                        (vPRM[40][0], 0), 
-                        (vPRM[41][0], 0), 
-                        (vPRM[42][0], 0), 
-                        (vPRM[43][0], 0), 
-                        (vPRM[44][0], 0), 
-                        (vPRM[45][0], 0), 
-                        (vPRM[46][0], 0), 
-                        (vPRM[47][0], (f"{px}_{vPRM[47][1][0][:-1]}", 1), 1), 
-                        (vPRM[48][0], (f"{px}_{vPRM[48][1][0][:-1]}", 1), (f"{px}_{vPRM[48][2][0][:-1]}", 1), 1), 
-                        (vPRM[49][0], (f"{px}_{vPRM[49][1][0][:-1]}", 1), 1), 
-                        (vPRM[50][0], (f"{px}_{vPRM[50][1][0][:-1]}", 1), 1), 
-                        (vPRM[51][0], (f"{px}_{vPRM[51][1][0][:-1]}", 1), 1), 
-                        (vPRM[52][0], (f"{px}_{vPRM[52][1][0][:-1]}", 1), 1), 
-                        (vPRM[53][0], (f"{px}_{vPRM[53][1][0][:-1]}", 0), 1),
-                        (vPRM[54][0], 0),
-                        (vPRM[55][0], 0), 
-                        (vPRM[56][0], (f"{px}_{vPRM[56][1][0][:-1]}", 0), 1), 
-                        (vPRM[57][0], (f"{px}_{vPRM[57][1][0][:-1]}", 1), 1), 
-                        (vPRM[58][0], 0), 
-                        (vPRM[59][0], 0), 
-                        (vPRM[60][0], 0), 
-                        (vPRM[61][0], (f"{px}_{vPRM[61][1][0][:-1]}", 0), 1), 
-                        (vPRM[62][0], 0), 
-                        (vPRM[63][0], (f"{px}_{vPRM[63][1][0][:-1]}", 1), (f"{px}_{vPRM[63][2][0][:-1]}", 1), 1), 
-                        (vPRM[64][0], 0), 
-                        (vPRM[65][0], 0), 
-                        (vPRM[66][0], (f"{px}_{vPRM[66][1][0][:-1]}", 1), 1), 
-                        (vPRM[67][0], (f"{px}_{vPRM[67][1][0][:-1]}", 1), 1), 
-                        (vPRM[68][0], 0), 
-                        (vPRM[69][0], (f"{px}_{vPRM[69][1][0][:-1]}", 1), (f"{px}_{vPRM[69][2][0][:-1]}", 0), 1), 
-                        (vPRM[70][0], 0), 
-                        (vPRM[71][0], (f"{px}_{vPRM[71][1][0][:-1]}", 1), (f"{px}_{vPRM[71][2][0][:-1]}", 1), 1), 
-                        (vPRM[72][0], (f"{px}_{vPRM[72][1][0][:-1]}", 1), 1), 
-                        (vPRM[73][0], (f"{px}_{vPRM[73][1][0][:-1]}", 1), 1), 
-                        (vPRM[74][0], (f"{px}_{vPRM[74][1][0][:-1]}", 1), 1), 
-                        (vPRM[75][0], (f"{px}_{vPRM[75][1][0][:-1]}", 1), 1), 
-                        (vPRM[76][0], (f"{px}_{vPRM[76][1][0][:-1]}", 1), 1), 
-                        (vPRM[77][0], (f"{px}_{vPRM[77][1][0][:-1]}", 1), 1), 
-                        (vPRM[78][0], (f"{px}_{vPRM[78][1][0][:-1]}", 1), 1), 
-                        (vPRM[79][0], (f"{px}_{vPRM[79][1][0][:-1]}", 1), (f"{px}_{vPRM[79][2][0][:-1]}", 1), 1), 
-                        (vPRM[80][0], 0), 
-                        (vPRM[81][0], 0), 
-                        (vPRM[82][0], 0), 
-                        (vPRM[83][0], 0), 
-                        (vPRM[84][0], 0), 
-                        (vPRM[85][0], 0), 
-                        (vPRM[86][0], 0), 
-                        (vPRM[87][0], 0), 
-                        (vPRM[88][0], 0), 
-                        (vPRM[89][0], 0), 
-                        (vPRM[90][0], 0), 
-                        (vPRM[91][0], 0), 
-                        (vPRM[92][0], 0), 
-                        (vPRM[93][0], 0), 
-                        (vPRM[94][0], (f"{px}_{vPRM[94][1][0][:-1]}", 1), 1), 
-                        (vPRM[95][0], (f"{px}_{vPRM[95][1][0][:-1]}", 0), 1), 
-                        (vPRM[96][0], (f"{px}_{vPRM[96][1][0][:-1]}", 1), (f"{px}_{vPRM[96][2][0][:-1]}", 1), 1),
-                        (vPRM[97][0], (f"{px}_{vPRM[97][1][0][:-1]}", 1), (f"{px}_{vPRM[97][2][0][:-1]}", 1), 1), 
-                        (vPRM[98][0], (f"{px}_{vPRM[98][1][0][:-1]}", 1), 1), 
-                        (vPRM[99][0], (f"{px}_{vPRM[99][1][0][:-1]}", 1), (f"{px}_{vPRM[99][2][0][:-1]}", 1), 1), 
-                        (vPRM[100][0], 0), 
-                        (vPRM[101][0], (f"{px}_{vPRM[101][1][0][:-1]}", 1), (f"{px}_{vPRM[101][2][0][:-1]}", 1), (f"{px}_{vPRM[101][3][0][:-1]}", 1), 1),
-                        (vPRM[102][0], (f"{px}_{vPRM[102][1][0][:-1]}", 1), (f"{px}_{vPRM[102][2][0][:-1]}", 1), 1), 
-                        (vPRM[103][0], 0),
-                        (vPRM[104][0], 0), 
-                        (vPRM[105][0], (f"{px}_{vPRM[105][1][0][:-1]}", 1), 1)
-                        )
+        varsPRM_FF: tuple = ( vPRM[0], 
+                              vPRM[1], 
+                              vPRM[2], 
+                              vPRM[3], 
+                              vPRM[4], 
+                              vPRM[5], 
+                              vPRM[6], 
+                              vPRM[7], 
+                              vPRM[8], 
+                              vPRM[9], 
+                              vPRM[10], 
+                              vPRM[11], 
+                              vPRM[12], 
+                              vPRM[13], 
+                              vPRM[14], 
+                              vPRM[15], 
+                              vPRM[16], 
+                              vPRM[17], 
+                              vPRM[18], 
+                              vPRM[19], 
+                              vPRM[20], 
+                              vPRM[21], 
+                              vPRM[22], 
+                              vPRM[23], 
+                              vPRM[24], 
+                              vPRM[25], 
+                              vPRM[26], 
+                              (vPRM[27][0], (f"{px}_{vPRM[27][1][0][:-1]}", 1), 1), 
+                              (vPRM[28][0], (f"{px}_{vPRM[28][1][0][:-1]}", 1), 1), 
+                              (vPRM[29][0], (f"{px}_{vPRM[29][1][0][:-1]}", 1), 1), 
+                              (vPRM[30][0], (f"{px}_{vPRM[30][1][0][:-1]}", 1), 1), 
+                              (vPRM[31][0], (f"{px}_{vPRM[31][1][0][:-1]}", 1), 1), 
+                              (vPRM[32][0], (f"{px}_{vPRM[32][1][0][:-1]}", 1), 1), 
+                              (vPRM[33][0], 0), 
+                              (vPRM[34][0], (f"{px}_{vPRM[34][1][0][:-1]}", 1), 1), 
+                              (vPRM[35][0], (f"{px}_{vPRM[35][1][0][:-1]}", 0), 1), 
+                              (vPRM[36][0], (f"{px}_{vPRM[36][1][0][:-1]}", 1), 1), 
+                              (vPRM[37][0], (f"{px}_{vPRM[37][1][0][:-1]}", 1), 1), 
+                              (vPRM[38][0], (f"{px}_{vPRM[38][1][0][:-1]}", 1), 1), 
+                              (vPRM[39][0], 0), 
+                              (vPRM[40][0], 0), 
+                              (vPRM[41][0], 0), 
+                              (vPRM[42][0], 0), 
+                              (vPRM[43][0], 0), 
+                              (vPRM[44][0], 0), 
+                              (vPRM[45][0], 0), 
+                              (vPRM[46][0], 0), 
+                              (vPRM[47][0], (f"{px}_{vPRM[47][1][0][:-1]}", 1), 1), 
+                              (vPRM[48][0], (f"{px}_{vPRM[48][1][0][:-1]}", 1), (f"{px}_{vPRM[48][2][0][:-1]}", 1), 1), 
+                              (vPRM[49][0], (f"{px}_{vPRM[49][1][0][:-1]}", 1), 1), 
+                              (vPRM[50][0], (f"{px}_{vPRM[50][1][0][:-1]}", 1), 1), 
+                              (vPRM[51][0], (f"{px}_{vPRM[51][1][0][:-1]}", 1), 1), 
+                              (vPRM[52][0], (f"{px}_{vPRM[52][1][0][:-1]}", 1), 1), 
+                              (vPRM[53][0], (f"{px}_{vPRM[53][1][0][:-1]}", 0), 1),
+                              (vPRM[54][0], 0),
+                              (vPRM[55][0], 0), 
+                              (vPRM[56][0], (f"{px}_{vPRM[56][1][0][:-1]}", 0), 1), 
+                              (vPRM[57][0], (f"{px}_{vPRM[57][1][0][:-1]}", 1), 1), 
+                              (vPRM[58][0], 0), 
+                              (vPRM[59][0], 0), 
+                              (vPRM[60][0], 0), 
+                              (vPRM[61][0], (f"{px}_{vPRM[61][1][0][:-1]}", 0), 1), 
+                              (vPRM[62][0], 0), 
+                              (vPRM[63][0], (f"{px}_{vPRM[63][1][0][:-1]}", 1), (f"{px}_{vPRM[63][2][0][:-1]}", 1), 1), 
+                              (vPRM[64][0], 0), 
+                              (vPRM[65][0], 0), 
+                              (vPRM[66][0], (f"{px}_{vPRM[66][1][0][:-1]}", 1), 1), 
+                              (vPRM[67][0], (f"{px}_{vPRM[67][1][0][:-1]}", 1), 1), 
+                              (vPRM[68][0], 0), 
+                              (vPRM[69][0], (f"{px}_{vPRM[69][1][0][:-1]}", 1), (f"{px}_{vPRM[69][2][0][:-1]}", 0), 1), 
+                              (vPRM[70][0], 0), 
+                              (vPRM[71][0], (f"{px}_{vPRM[71][1][0][:-1]}", 1), (f"{px}_{vPRM[71][2][0][:-1]}", 1), 1), 
+                              (vPRM[72][0], (f"{px}_{vPRM[72][1][0][:-1]}", 1), 1), 
+                              (vPRM[73][0], (f"{px}_{vPRM[73][1][0][:-1]}", 1), 1), 
+                              (vPRM[74][0], (f"{px}_{vPRM[74][1][0][:-1]}", 1), 1), 
+                              (vPRM[75][0], (f"{px}_{vPRM[75][1][0][:-1]}", 1), 1), 
+                              (vPRM[76][0], (f"{px}_{vPRM[76][1][0][:-1]}", 1), 1), 
+                              (vPRM[77][0], (f"{px}_{vPRM[77][1][0][:-1]}", 1), 1), 
+                              (vPRM[78][0], (f"{px}_{vPRM[78][1][0][:-1]}", 1), 1), 
+                              (vPRM[79][0], (f"{px}_{vPRM[79][1][0][:-1]}", 1), (f"{px}_{vPRM[79][2][0][:-1]}", 1), 1), 
+                              (vPRM[80][0], 0), 
+                              (vPRM[81][0], 0), 
+                              (vPRM[82][0], 0), 
+                              (vPRM[83][0], 0), 
+                              (vPRM[84][0], 0), 
+                              (vPRM[85][0], 0), 
+                              (vPRM[86][0], 0), 
+                              (vPRM[87][0], 0), 
+                              (vPRM[88][0], 0), 
+                              (vPRM[89][0], 0), 
+                              (vPRM[90][0], 0), 
+                              (vPRM[91][0], 0), 
+                              (vPRM[92][0], 0), 
+                              (vPRM[93][0], 0), 
+                              (vPRM[94][0], (f"{px}_{vPRM[94][1][0][:-1]}", 1), 1), 
+                              (vPRM[95][0], (f"{px}_{vPRM[95][1][0][:-1]}", 0), 1), 
+                              (vPRM[96][0], (f"{px}_{vPRM[96][1][0][:-1]}", 1), (f"{px}_{vPRM[96][2][0][:-1]}", 1), 1),
+                              (vPRM[97][0], (f"{px}_{vPRM[97][1][0][:-1]}", 1), (f"{px}_{vPRM[97][2][0][:-1]}", 1), 1), 
+                              (vPRM[98][0], (f"{px}_{vPRM[98][1][0][:-1]}", 1), 1), 
+                              (vPRM[99][0], (f"{px}_{vPRM[99][1][0][:-1]}", 1), (f"{px}_{vPRM[99][2][0][:-1]}", 1), 1), 
+                              (vPRM[100][0], 0), 
+                              (vPRM[101][0], (f"{px}_{vPRM[101][1][0][:-1]}", 1), (f"{px}_{vPRM[101][2][0][:-1]}", 1), (f"{px}_{vPRM[101][3][0][:-1]}", 1), 1),
+                              (vPRM[102][0], (f"{px}_{vPRM[102][1][0][:-1]}", 1), (f"{px}_{vPRM[102][2][0][:-1]}", 1), 1), 
+                              (vPRM[103][0], 0),
+                              (vPRM[104][0], 0), 
+                              (vPRM[105][0], (f"{px}_{vPRM[105][1][0][:-1]}", 1), 1)
+                              )
         
         return varsPRM_FF
 
 
-class flam3h_iterator_FF:
+class flam3h_iterator_FF(flam3h_iterator_prm_names):
+    """
+    Args:
+        flam3h_iterator_prm_names ([class]): [inherit properties methods from the flam3h_iterator_prm_names class]
+    """    
+    
     """
         Note that every parameters inside the FF have the same name as the iterator parameters 
         plus the string "ff" added at the beginning of their names. parametric variation's parameters have the string  "ff_" instead.
         If you create new parameters inside the FF, or change the parameters names inside the FLAM3H iterator,
         please be sure to follow the same nameing convetion so to keep the flam3h_varsPRM: class as the only source for their names.
     """
-    n = flam3h_iterator_prm_names
-
-    # SECTIONS method lists
-    #
-    # (*T)Types have no signature and always to be used with: pastePRM_T_from_list()
-    sec_prevarsT_FF = ( f"{PRX_FF_PRM}{n.prevar_type_1}", )
-    sec_prevarsW_FF = ( (f"{PRX_FF_PRM}{n.prevar_weight_1}", 0), )
-    sec_varsT_FF = ( f"{PRX_FF_PRM}{n.var_type_1}", f"{PRX_FF_PRM}{n.var_type_2}" )
-    sec_varsW_FF = ( (f"{PRX_FF_PRM}{n.var_weight_1}", 0), (f"{PRX_FF_PRM}{n.var_weight_2}", 0) )
-    sec_postvarsT_FF = ( f"{PRX_FF_PRM}{n.postvar_type_1}", f"{PRX_FF_PRM}{n.postvar_type_2}" )
-    sec_postvarsW_FF = ( (f"{PRX_FF_PRM}{n.postvar_weight_1}", 0), (f"{PRX_FF_PRM}{n.postvar_weight_2}", 0) )
-    sec_preAffine_FF = ( (f"{PRX_FF_PRM}{n.preaffine_x}", 1), (f"{PRX_FF_PRM}{n.preaffine_y}", 1), (f"{PRX_FF_PRM}{n.preaffine_o}", 1), (f"{PRX_FF_PRM}{n.preaffine_ang}", 0) )
-    sec_postAffine_FF = ( (f"{PRX_FF_PRM}{n.postaffine_do}", 0), (f"{PRX_FF_PRM}{n.postaffine_x}", 1), (f"{PRX_FF_PRM}{n.postaffine_y}", 1), (f"{PRX_FF_PRM}{n.postaffine_o}", 1), (f"{PRX_FF_PRM}{n.postaffine_ang}", 0) )
     
+    __slots__ = ("_sec_prevarsT_FF", "_sec_prevarsW_FF", "_sec_varsT_FF", "_sec_varsW_FF", "_sec_postvarsT_FF", "_sec_postvarsW_FF", "_sec_preAffine_FF", "_sec_postAffine_FF", "_allMisc_FF")
     
-    # ALL method lists
-    # allT_FF list is omitted here because FF PRE VARS, FF VARS and FF POST VARS have their own unique parametric parameters
-    # so I need to handle them one by one inside: def prm_paste_FF(kwargs).prm_paste_FF() and prm_paste_FF(kwargs).def prm_paste_sel_FF()
-    allMisc_FF = sec_varsW_FF + sec_prevarsW_FF + sec_postvarsW_FF + sec_preAffine_FF + sec_postAffine_FF
+    def __init__(self) -> None:
+        """
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        super().__init__()
+        
+        # SECTIONS method lists
+        #
+        # (*T)Types have no signature and always to be used with: pastePRM_T_from_list()
+        self._sec_prevarsT_FF: tuple = ( f"{PRX_FF_PRM}{self.prevar_type_1}", )
+        self._sec_prevarsW_FF: tuple = ( (f"{PRX_FF_PRM}{self.prevar_weight_1}", 0), )
+        self._sec_varsT_FF: tuple = ( f"{PRX_FF_PRM}{self.var_type_1}", f"{PRX_FF_PRM}{self.var_type_2}" )
+        self._sec_varsW_FF: tuple = ( (f"{PRX_FF_PRM}{self.var_weight_1}", 0), (f"{PRX_FF_PRM}{self.var_weight_2}", 0) )
+        self._sec_postvarsT_FF: tuple = ( f"{PRX_FF_PRM}{self.postvar_type_1}", f"{PRX_FF_PRM}{self.postvar_type_2}" )
+        self._sec_postvarsW_FF: tuple = ( (f"{PRX_FF_PRM}{self.postvar_weight_1}", 0), (f"{PRX_FF_PRM}{self.postvar_weight_2}", 0) )
+        self._sec_preAffine_FF: tuple = ( (f"{PRX_FF_PRM}{self.preaffine_x}", 1), (f"{PRX_FF_PRM}{self.preaffine_y}", 1), (f"{PRX_FF_PRM}{self.preaffine_o}", 1), (f"{PRX_FF_PRM}{self.preaffine_ang}", 0) )
+        self._sec_postAffine_FF: tuple = ( (f"{PRX_FF_PRM}{self.postaffine_do}", 0), (f"{PRX_FF_PRM}{self.postaffine_x}", 1), (f"{PRX_FF_PRM}{self.postaffine_y}", 1), (f"{PRX_FF_PRM}{self.postaffine_o}", 1), (f"{PRX_FF_PRM}{self.postaffine_ang}", 0) )
+        
+        # ALL method lists
+        # allT_FF list is omitted here because FF PRE VARS, FF VARS and FF POST VARS have their own unique parametric parameters
+        # so I need to handle them one by one inside: def prm_paste_FF(kwargs).prm_paste_FF() and prm_paste_FF(kwargs).def prm_paste_sel_FF()
+        self._allMisc_FF: tuple = self._sec_varsW_FF + self._sec_prevarsW_FF + self._sec_postvarsW_FF + self._sec_preAffine_FF + self._sec_postAffine_FF
 
+
+
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
+    
+    @property
+    def sec_prevarsT_FF(self):
+        return self._sec_prevarsT_FF
+    
+    @property
+    def sec_prevarsW_FF(self):
+        return self._sec_prevarsW_FF
+    
+    @property
+    def sec_varsT_FF(self):
+        return self._sec_varsT_FF
+    
+    @property
+    def sec_varsW_FF(self):
+        return self._sec_varsW_FF
+    
+    @property
+    def sec_postvarsT_FF(self):
+        return self._sec_postvarsT_FF
+    
+    @property
+    def sec_postvarsW_FF(self):
+        return self._sec_postvarsW_FF
+    
+    @property
+    def sec_preAffine_FF(self):
+        return self._sec_preAffine_FF
+    
+    @property
+    def sec_postAffine_FF(self):
+        return self._sec_postAffine_FF
+    
+    @property
+    def allMisc_FF(self):
+        return self._allMisc_FF
 
 
 
@@ -963,6 +1134,8 @@ class flam3h_scripts
 
     """    
     
+    __slots__ = ("_kwargs", "_node")
+    
     def __init__(self, kwargs: dict) -> None:
         """
         Args:
@@ -986,32 +1159,32 @@ class flam3h_scripts
         Returns:
             (None):
         """
-        prm_names = ( CP_PVT_ISVALID_FILE, 
-                      CP_PVT_ISVALID_PRESET, 
-                      IN_PVT_ISVALID_FILE, 
-                      IN_PVT_ISVALID_PRESET, 
-                      IN_PVT_CLIPBOARD_TOGGLE, 
-                      OUT_PVT_ISVALID_FILE, 
-                      PREFS_PVT_F3C, 
-                      PREFS_PVT_XAOS_AUTO_SPACE,
-                      PREFS_PVT_INT_0,
-                      PREFS_PVT_INT_1,
-                      PREFS_PVT_FLOAT_0,
-                      PREFS_PVT_FLOAT_1
-                    )
+        prm_names: tuple = (CP_PVT_ISVALID_FILE, 
+                            CP_PVT_ISVALID_PRESET, 
+                            IN_PVT_ISVALID_FILE, 
+                            IN_PVT_ISVALID_PRESET, 
+                            IN_PVT_CLIPBOARD_TOGGLE, 
+                            OUT_PVT_ISVALID_FILE, 
+                            PREFS_PVT_F3C, 
+                            PREFS_PVT_XAOS_AUTO_SPACE,
+                            PREFS_PVT_INT_0,
+                            PREFS_PVT_INT_1,
+                            PREFS_PVT_FLOAT_0,
+                            PREFS_PVT_FLOAT_1
+                            )
         
         [node.parm(prm_name).lock(True) for prm_name in prm_names]
         
         
         # The following are FLAM3H UI utility parameters
         # hence they do not have a global variable and only hard coded here.
-        disabler_prm_names = ("cpdisable",
-                              "hide_palette",
-                              "indisable",
-                              "outdisable",
-                              "prefsdisable",
-                              "aboutdisable"
-                            )
+        disabler_prm_names: tuple = ("cpdisable",
+                                     "hide_palette",
+                                     "indisable",
+                                     "outdisable",
+                                     "prefsdisable",
+                                     "aboutdisable"
+                                     )
         
         [node.parm(prm_name).lock(True) for prm_name in disabler_prm_names]
 
@@ -1133,13 +1306,13 @@ class flam3h_scripts
 
         # Iterators
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-        prm_list_post_affine: tuple = flam3h_iterator.sec_postAffine
+        prm_list_post_affine: tuple = flam3h_iterator().sec_postAffine
         keyframes: list = [[item for sublist in k for item in sublist] for k in [[[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id+1}")] if prm_list_post_affine[1:][idx][1] else [1 if len(node.parm(f"{prm_list_post_affine[1:][idx][0]}{id+1}").keyframes()) else 0] for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]]
         collect: list = [[node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id+1}").eval() if prm_list_post_affine[1:][idx][1] else node.parm(f"{prm_list_post_affine[1:][idx][0]}{id+1}").eval() for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]
         [node.setParms({f"{prm_list_post_affine[0][0]}{id+1}": 0}) if node.parm(f"{prm_list_post_affine[0][0]}{id+1}").eval() and 1 not in keyframes[id] and affine==[(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0] else ... for id, affine in enumerate(collect)] # type: ignore
         
         # FF
-        prm_list_post_affine_FF: tuple = flam3h_iterator_FF.sec_postAffine_FF
+        prm_list_post_affine_FF: tuple = flam3h_iterator_FF().sec_postAffine_FF
         keyframes: list = [item for sublist in [[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}")] if prm_list_post_affine_FF[1:][idx][1] else [1 if len(node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_post_affine_FF[1:]))] for item in sublist]
         collect: list = [node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() if prm_list_post_affine_FF[1:][idx][1] else node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() for idx in range(len(prm_list_post_affine_FF[1:]))]
         if node.parm(f"{prm_list_post_affine_FF[0][0]}").eval() and 1 not in keyframes and collect==[(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]:
@@ -1821,6 +1994,8 @@ class flam3h_general_utils
 * reset_MB(self) -> None:
 * reset_PREFS(self, mode: int=0) -> None:
     """    
+    
+    __slots__ = ("_kwargs", "_node", "_bbox_sensor_path", "_bbox_reframe_path")
     
     def __init__(self, kwargs: dict) -> None:
         """
@@ -2951,7 +3126,7 @@ class flam3h_general_utils
         """ 
         node = self.node
         iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
-        all_mp_xf_viz = [node.parm(f"{flam3h_iterator_prm_names.main_xf_viz}_{str(mp_idx+1)}").eval() for mp_idx in range(iter_num)]
+        all_mp_xf_viz = [node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx+1)}").eval() for mp_idx in range(iter_num)]
         if max(all_mp_xf_viz) == 1: return True
         else: return False
         
@@ -2976,7 +3151,7 @@ class flam3h_general_utils
         
         if prm.eval():
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
-            [node.setParms({f"{flam3h_iterator_prm_names.main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)]
+            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)]
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             
             _MSG = f"{node.name()}: {prm.name().upper()}: OFF"
@@ -3040,7 +3215,7 @@ class flam3h_general_utils
         iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         mp_idx: str = self.kwargs['script_multiparm_index']
-        prm_mp = node.parm(f"{flam3h_iterator_prm_names.main_xf_viz}_{mp_idx}")
+        prm_mp = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{mp_idx}")
         
         data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
         
@@ -3057,7 +3232,7 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: ALL")
             
         else:
-            [node.setParms({f"{flam3h_iterator_prm_names.main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)] # type: ignore
+            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)] # type: ignore
             prm_mp.set(1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, int(mp_idx))
@@ -3103,7 +3278,7 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: ALL")
             
         else:
-            [node.setParms({f"{flam3h_iterator_prm_names.main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)] # type: ignore
+            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)] # type: ignore
             self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
             node.setUserData(f"{data_name}", "FF")
@@ -4173,6 +4348,8 @@ class flam3h_iterator_utils
 * iterator_vactive_and_update(self) -> None:
     """    
     
+    __slots__ = ("_kwargs", "_node")
+    
     def __init__(self, kwargs: dict) -> None:
         """
         Args:
@@ -4225,7 +4402,7 @@ class flam3h_iterator_utils
             (None):
         """
         # iterator prm names
-        n = flam3h_iterator_prm_names
+        n = flam3h_iterator_prm_names()
 
         # iter 1
         #
@@ -4609,7 +4786,7 @@ class flam3h_iterator_utils
         Args:
             node(hou.SopNode): This FLAM3H node
             flam3node(Union[hou.SopNode, None]): hou.SopNode to copy values from
-            prm_list_affine(tuple): parameters list to query. This expect either: flam3h_iterator.sec_preAffine or flam3h_iterator.sec_postAffine
+            prm_list_affine(tuple): parameters list to query. This expect either: flam3h_iterator().sec_preAffine or flam3h_iterator().sec_postAffine
             id(str): current multiparamter index
             id_from(str): multiparameter index to copy from
             post(bool): Default to False. Is it a post affine ?  True for declaring it as post affine.
@@ -4645,7 +4822,7 @@ class flam3h_iterator_utils
         Args:
             node(hou.SopNode): This FLAM3H node
             flam3node(Union[hou.SopNode, None]): hou.SopNode to copy values from
-            prm_list_affine(tuple): parameters list to query. This expect either: flam3h_iterator_FF.sec_preAffine_FF or flam3h_iterator_FF.sec_postAffine_FF
+            prm_list_affine(tuple): parameters list to query. This expect either: flam3h_iterator_FF().sec_preAffine_FF or flam3h_iterator_FF().sec_postAffine_FF
             post(bool): Default to False. Is it a post affine ?  True for declaring it as post affine.
             
         Returns:
@@ -4788,7 +4965,7 @@ class flam3h_iterator_utils
             (None):
         """ 
         
-        n = flam3h_iterator_prm_names
+        n = flam3h_iterator_prm_names()
         node_name = str(flam3node)
         _current_note_FF = node.parm("ffnote").eval()
 
@@ -4924,7 +5101,7 @@ class flam3h_iterator_utils
         """  
         iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iter_count:
-            lambda_min_opacity = lambda: min([node.parm(f'{flam3h_iterator_prm_names.shader_alpha}_{idx+1}').eval() for idx in range(iter_count)])
+            lambda_min_opacity = lambda: min([node.parm(f'{flam3h_iterator_prm_names().shader_alpha}_{idx+1}').eval() for idx in range(iter_count)])
             if f3h_all: [flam3h_general_utils.private_prm_set(f3h, PREFS_PVT_RIP, 1) if lambda_min_opacity() == 0 else ... for f3h in node.type().instances()]
             else:
                 if lambda_min_opacity() == 0: flam3h_general_utils.private_prm_set(node, PREFS_PVT_RIP, 1)
@@ -5311,11 +5488,12 @@ class flam3h_iterator_utils
             self.destroy_cachedUserData(node, 'vars_menu_all_simple')
             
             # For some reasons the FF menus do not update so we force them to
-            prm_names = (f"{PRX_FF_PRM}{flam3h_iterator_prm_names.prevar_type_1}", 
-                         f"{PRX_FF_PRM}{flam3h_iterator_prm_names.var_type_1}",
-                         f"{PRX_FF_PRM}{flam3h_iterator_prm_names.var_type_2}",
-                         f"{PRX_FF_PRM}{flam3h_iterator_prm_names.postvar_type_1}",
-                         f"{PRX_FF_PRM}{flam3h_iterator_prm_names.postvar_type_2}")
+            n = flam3h_iterator_prm_names()
+            prm_names = (f"{PRX_FF_PRM}{n.prevar_type_1}", 
+                         f"{PRX_FF_PRM}{n.var_type_1}",
+                         f"{PRX_FF_PRM}{n.var_type_2}",
+                         f"{PRX_FF_PRM}{n.postvar_type_1}",
+                         f"{PRX_FF_PRM}{n.postvar_type_2}")
             [node.parm(name).pressButton() for name in prm_names]
             
             _MSG = "Iterator var menus: ICONS"
@@ -5461,7 +5639,7 @@ class flam3h_iterator_utils
             (tuple[int, str]): int: variation idx.    str: icon
         """
         idx = self.kwargs['script_multiparm_index']
-        prm_weight_name = f"{flam3h_iterator_prm_names.prevar_weight_blur}_{str(idx)}"
+        prm_weight_name = f"{flam3h_iterator_prm_names().prevar_weight_blur}_{str(idx)}"
 
         w = self.node.parm(prm_weight_name).eval()
 
@@ -5756,8 +5934,8 @@ class flam3h_iterator_utils
                 node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
                 
                 _MSG = f"iterator: {preset_id}"
-                active = node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{preset_id}").eval()
-                weight = node.parm(f"{flam3h_iterator_prm_names.main_weight}_{preset_id}").eval()
+                active = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
+                weight = node.parm(f"{flam3h_iterator_prm_names().main_weight}_{preset_id}").eval()
                 
                 if node == from_FLAM3H_NODE and mp_id_from == preset_id:
                     if active and weight>0: flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
@@ -5784,7 +5962,7 @@ class flam3h_iterator_utils
                         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
                         
                         _MSG = f"iterator: {preset_id}"
-                        active = node.parm(f"{flam3h_iterator_prm_names.main_vactive}_{preset_id}").eval()
+                        active = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
                         
                         if node == from_FLAM3H_NODE and mp_id_from == preset_id:
                             if active: flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
@@ -6344,8 +6522,8 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"This iterator is Marked")
             else:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allT, flam3h_varsPRM.varsPRM, idx, idx_from)
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.allMisc, idx, idx_from)
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator().allT, flam3h_varsPRM().varsPRM, idx, idx_from)
+                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator().allMisc, idx, idx_from)
                 self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_ALL, idx, idx_from)
 
         else:
@@ -6568,10 +6746,11 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"Select a different FLAM3H node's FF")
             else:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.allMisc_FF, "", "")
+                f3h_iter_FF = flam3h_iterator_FF()
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.allMisc_FF, "", "")
                 self.paste_set_note(node, from_FLAM3H_NODE, 1, SEC_ALL, "", "")
 
         else:
@@ -6740,57 +6919,62 @@ class flam3h_iterator_utils
             id = self.kwargs['script_multiparm_index']
             idx = str(id)
             idx_from = str(mp_id_from)
+            
+            # prm names
+            n = flam3h_iterator_prm_names()
 
             # Marked iterator node
             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
             
             # Get user selection of paste methods
-            paste_sel = node.parm(f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}").eval()
-            node.setParms({f"{flam3h_iterator_prm_names.main_selmem}_{idx}": paste_sel})
+            paste_sel = node.parm(f"{n.main_prmpastesel}_{idx}").eval()
+            node.setParms({f"{n.main_selmem}_{idx}": paste_sel})
 
+            f3h_iter = flam3h_iterator()
+            varsPRM = flam3h_varsPRM().varsPRM
             # set ALL
             if paste_sel == 1:
                 self.prm_paste_CTRL(id)
             # set MAIN
             elif paste_sel == 2:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_main, idx, idx_from)
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_main, idx, idx_from)
                 self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_MAIN, idx, idx_from)
             # set XML_XF_XAOS
             elif paste_sel == 3:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_xaos, idx, idx_from)
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_xaos, idx, idx_from)
                 self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_XAOS, idx, idx_from)
             # set SHADER 
             elif paste_sel == 4:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_shader, idx, idx_from)
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_shader, idx, idx_from)
                 self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_SHADER, idx, idx_from)
             # set PRE VARS
             elif paste_sel == 5:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_prevarsT, flam3h_varsPRM.varsPRM, idx, idx_from)
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_prevarsW, idx, idx_from)
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_prevarsT, varsPRM, idx, idx_from)
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_prevarsW, idx, idx_from)
                 self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREVARS, idx, idx_from)
             # set VARS
             elif paste_sel == 6:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_varsT, flam3h_varsPRM.varsPRM, idx, idx_from)
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_varsW, idx, idx_from)
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_varsT, varsPRM, idx, idx_from)
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_varsW, idx, idx_from)
                 self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_VARS, idx, idx_from)
             # set POST VARS
             elif paste_sel == 7:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postvarsT, flam3h_varsPRM.varsPRM, idx, idx_from)
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postvarsW, idx, idx_from)
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_postvarsT, varsPRM, idx, idx_from)
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_postvarsW, idx, idx_from)
                 self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTVARS, idx, idx_from)
             # set PRE AFFINE
             elif paste_sel == 8:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_preAffine, idx, idx_from)
-                if not self.is_iterator_affine_default(node, from_FLAM3H_NODE, flam3h_iterator.sec_preAffine, idx, idx_from):
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_preAffine, idx, idx_from)
+                if not self.is_iterator_affine_default(node, from_FLAM3H_NODE, f3h_iter.sec_preAffine, idx, idx_from):
                     self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_PREAFFINE, idx, idx_from)
             # set POST AFFINE
             elif paste_sel == 9:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator.sec_postAffine, idx, idx_from)
-                if not self.is_iterator_affine_default(node, from_FLAM3H_NODE, flam3h_iterator.sec_postAffine, idx, idx_from, True):
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_postAffine, idx, idx_from)
+                if not self.is_iterator_affine_default(node, from_FLAM3H_NODE, f3h_iter.sec_postAffine, idx, idx_from, True):
                     self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, idx, idx_from)
         
-            node.setParms({f"{flam3h_iterator_prm_names.main_prmpastesel}_{idx}": 0})
-            node.setParms({f"{flam3h_iterator_prm_names.main_selmem}_{idx}": paste_sel})
+            node.setParms({f"{n.main_prmpastesel}_{idx}": 0})
+            node.setParms({f"{n.main_selmem}_{idx}": paste_sel})
             
             # Force select-iterator menu update in case an iterator is marked on this FLAM3H node
             self.prm_paste_sel_iter_sel_force_update(node)
@@ -6815,17 +6999,18 @@ class flam3h_iterator_utils
         idx = str(id)
         kwargs = self.kwargs
         
+        f3h_iter = flam3h_iterator()
         if kwargs['shift']:
-            self.paste_from_list_affine(self.node, flam3h_iterator.sec_postAffine[1:-2], flam3h_iterator.sec_preAffine[:-2], idx)
+            self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[1:-2], f3h_iter.sec_preAffine[:-2], idx)
             _MSG = f"iterator.{id} - POST affine X and Y copied into the PRE affine."
         elif kwargs['ctrl']:
-            self.paste_from_list_affine(self.node, flam3h_iterator.sec_postAffine[3:-1], flam3h_iterator.sec_preAffine[2:-1], idx)
+            self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[3:-1], f3h_iter.sec_preAffine[2:-1], idx)
             _MSG = f"iterator.{id} - POST affine Offset copied into the PRE affine."
         elif kwargs['alt']:
-            self.paste_from_list_affine(self.node, flam3h_iterator.sec_postAffine[4:], flam3h_iterator.sec_preAffine[3:], idx)
+            self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[4:], f3h_iter.sec_preAffine[3:], idx)
             _MSG = f"iterator.{id} - POST affine Rotation angle copied into the PRE affine."
         else:
-            self.paste_from_list_affine(self.node, flam3h_iterator.sec_postAffine[1:], flam3h_iterator.sec_preAffine, idx)
+            self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[1:], f3h_iter.sec_preAffine, idx)
             _MSG = f"iterator.{id} - POST affine values copied into the PRE affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
@@ -6845,17 +7030,18 @@ class flam3h_iterator_utils
         idx = str(id)
         kwargs = self.kwargs
         
+        f3h_iter = flam3h_iterator()
         if kwargs['shift']:
-            self.paste_from_list_affine(self.node, flam3h_iterator.sec_preAffine[:-2], flam3h_iterator.sec_postAffine[1:-2], idx)
+            self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[:-2], f3h_iter.sec_postAffine[1:-2], idx)
             _MSG = f"iterator.{id} - PRE affine X and Y copied into the POST affine."
         elif kwargs['ctrl']:
-            self.paste_from_list_affine(self.node, flam3h_iterator.sec_preAffine[2:-1], flam3h_iterator.sec_postAffine[3:-1], idx)
+            self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[2:-1], f3h_iter.sec_postAffine[3:-1], idx)
             _MSG = f"iterator.{id} - PRE affine Offset copied into the POST affine."
         elif kwargs['alt']:
-            self.paste_from_list_affine(self.node, flam3h_iterator.sec_preAffine[3:], flam3h_iterator.sec_postAffine[4:], idx)
+            self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[3:], f3h_iter.sec_postAffine[4:], idx)
             _MSG = f"iterator.{id} - PRE affine Rotation angle copied into the POST affine."
         else:
-            self.paste_from_list_affine(self.node, flam3h_iterator.sec_preAffine, flam3h_iterator.sec_postAffine[1:], idx)
+            self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine, f3h_iter.sec_postAffine[1:], idx)
             _MSG = f"iterator.{id} - PRE affine values copied into the POST affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
@@ -6872,17 +7058,18 @@ class flam3h_iterator_utils
         """    
         kwargs = self.kwargs
         
+        f3h_iter_FF = flam3h_iterator_FF()
         if kwargs['shift']:
-            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_postAffine_FF[1:-2], flam3h_iterator_FF.sec_preAffine_FF[:-2], "")
+            self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[1:-2], f3h_iter_FF.sec_preAffine_FF[:-2], "")
             _MSG = f"iterator.{id} - FF POST affine X and Y copied into the FF PRE affine."
         elif kwargs['ctrl']:
-            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_postAffine_FF[3:-1], flam3h_iterator_FF.sec_preAffine_FF[2:-1], "")
+            self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[3:-1], f3h_iter_FF.sec_preAffine_FF[2:-1], "")
             _MSG = f"iterator.{id} - FF POST affine Offset copied into the FF PRE affine."
         elif kwargs['alt']:
-            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_postAffine_FF[4:], flam3h_iterator_FF.sec_preAffine_FF[3:], "")
+            self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[4:], f3h_iter_FF.sec_preAffine_FF[3:], "")
             _MSG = f"iterator.{id} - FF POST affine Rotation angle copied into the FF PRE affine."
         else:
-            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_postAffine_FF[1:], flam3h_iterator_FF.sec_preAffine_FF, "")
+            self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[1:], f3h_iter_FF.sec_preAffine_FF, "")
             _MSG = f"iterator.{id} - FF POST affine values copied into the FF PRE affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
@@ -6899,17 +7086,18 @@ class flam3h_iterator_utils
         """    
         kwargs = self.kwargs
         
+        f3h_iter_FF = flam3h_iterator_FF()
         if kwargs['shift']:
-            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_preAffine_FF[:-2], flam3h_iterator_FF.sec_postAffine_FF[1:-2], "")
+            self.paste_from_list_affine(self.node, f3h_iter_FF.sec_preAffine_FF[:-2], f3h_iter_FF.sec_postAffine_FF[1:-2], "")
             _MSG = f"iterator.{id} - FF PRE affine X and Y copied into the FF POST affine."
         elif kwargs['ctrl']:
-            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_preAffine_FF[2:-1], flam3h_iterator_FF.sec_postAffine_FF[3:-1], "")
+            self.paste_from_list_affine(self.node, f3h_iter_FF.sec_preAffine_FF[2:-1], f3h_iter_FF.sec_postAffine_FF[3:-1], "")
             _MSG = f"iterator.{id} - FF PRE affine Offset copied into the FF POST affine."
         elif kwargs['alt']:
-            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_preAffine_FF[3:], flam3h_iterator_FF.sec_postAffine_FF[4:], "")
+            self.paste_from_list_affine(self.node, f3h_iter_FF.sec_preAffine_FF[3:], f3h_iter_FF.sec_postAffine_FF[4:], "")
             _MSG = f"iterator.{id} - FF PRE affine Rotation angle copied into the FF POST affine."
         else:
-            self.paste_from_list_affine(self.node, flam3h_iterator_FF.sec_preAffine_FF, flam3h_iterator_FF.sec_postAffine_FF[1:], "")
+            self.paste_from_list_affine(self.node, f3h_iter_FF.sec_preAffine_FF, f3h_iter_FF.sec_postAffine_FF[1:], "")
             _MSG = f"iterator.{id} - FF PRE affine values copied into the FF POST affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
             
@@ -6937,39 +7125,40 @@ class flam3h_iterator_utils
             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
             
             # Get user selection of paste methods
-            ff_paste_sel = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_prmpastesel}").eval()
-            node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_selmem}": ff_paste_sel})
+            ff_paste_sel = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names().main_prmpastesel}").eval()
+            node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names().main_selmem}": ff_paste_sel})
             
+            f3h_iter_FF = flam3h_iterator_FF()
             # set FF ALL
             if ff_paste_sel == 1:
                 self.prm_paste_FF_CTRL()
             # set FF PRE VARS
             elif ff_paste_sel == 2:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_prevarsW_FF, "", "")
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_prevarsW_FF, "", "")
                 self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_PREVARS, "", "")
             # set FF VARS
             elif ff_paste_sel == 3:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_varsW_FF, "", "")
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_varsW_FF, "", "")
                 self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_VARS, "", "")
             # set FF POST VARS
             elif ff_paste_sel == 4:
-                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postvarsW_FF, "", "")
+                self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postvarsW_FF, "", "")
                 self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_POSTVARS, "", "")
             # set FF PRE AFFINE
             elif ff_paste_sel == 5:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_preAffine_FF, "", "")
-                if not self.is_FF_affine_default(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_preAffine_FF):
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_preAffine_FF, "", "")
+                if not self.is_FF_affine_default(node, from_FLAM3H_NODE, f3h_iter_FF.sec_preAffine_FF):
                     self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_PREAFFINE, "", "")
             # set FF POST AFFINE
             elif ff_paste_sel == 6:
-                self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postAffine_FF, "", "")
-                if not self.is_FF_affine_default(node, from_FLAM3H_NODE, flam3h_iterator_FF.sec_postAffine_FF, True):
+                self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postAffine_FF, "", "")
+                if not self.is_FF_affine_default(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postAffine_FF, True):
                     self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_POSTAFFINE, "", "")
 
-            node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names.main_prmpastesel}": 0})
+            node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names().main_prmpastesel}": 0})
                     
         else:
             _MSG = f"{node.name()} -> {MARK_FF_MSG_STATUS_BAR}"
@@ -7001,7 +7190,7 @@ class flam3h_iterator_utils
         xaos_new = f3d.out_xf_xaos_from(0)
         # update CachedUserData: flam3h_xaos_iterators_prev
         self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_new)
-        prm_xaos = flam3h_iterator_prm_names.xaos
+        prm_xaos = flam3h_iterator_prm_names().xaos
         [node.setParms({f"{prm_xaos}_{str(idx+1)}": div_xaos + div_weight.join(xaos_new[idx].split(" "))}) if xaos_new[idx] else node.setParms({f"{prm_xaos}_{str(idx+1)}": div_xaos}) for idx in range(f3d.iter_count)]
 
         # for idx in range(f3d.iter_count):
@@ -7031,7 +7220,7 @@ class flam3h_iterator_utils
             (None):
         """
         node = self.node
-        n = flam3h_iterator_prm_names
+        n = flam3h_iterator_prm_names()
         id = self.kwargs['script_multiparm_index']
         idx = str(id)
         check = True
@@ -7109,7 +7298,7 @@ class flam3h_iterator_utils
             (None):
         """
         node = self.node
-        n = flam3h_iterator_prm_names
+        n = flam3h_iterator_prm_names()
         id = self.kwargs['script_multiparm_index']
         idx = str(id)
         
@@ -7189,7 +7378,7 @@ class flam3h_iterator_utils
             (None):
         """
         node = self.node
-        n = flam3h_iterator_prm_names
+        n = flam3h_iterator_prm_names()
         check = True
         
         current = { "affine_x": node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_x}"), "affine_y": node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_y}"), "affine_o": node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_o}"), "angle": node.parm(f"{PRX_FF_PRM}{n.preaffine_ang}") }
@@ -7264,7 +7453,7 @@ class flam3h_iterator_utils
             (None):
         """
         node = self.node
-        n = flam3h_iterator_prm_names
+        n = flam3h_iterator_prm_names()
         
         if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
                 
@@ -7349,8 +7538,8 @@ class flam3h_iterator_utils
         _MSG = f"{node.name()}.iterator.{idx} PRE variations -> SWAP"
         
         # Get prm names
-        pvT = flam3h_iterator.sec_prevarsT
-        pvW = flam3h_iterator.sec_prevarsW[1:]
+        pvT = flam3h_iterator().sec_prevarsT
+        pvW = flam3h_iterator().sec_prevarsW[1:]
         
         # Get prm
         pvT_prm = (node.parm(f"{pvT[0]}{idx}"), node.parm(f"{pvT[1]}{idx}"))
@@ -7426,8 +7615,8 @@ class flam3h_iterator_utils
         _MSG = f"{node.name()}: FF POST variations -> SWAP"
         
         # Get prm names
-        pvT = flam3h_iterator_FF.sec_postvarsT_FF
-        pvW = flam3h_iterator_FF.sec_postvarsW_FF
+        pvT = flam3h_iterator_FF().sec_postvarsT_FF
+        pvW = flam3h_iterator_FF().sec_postvarsW_FF
         
         # Get prm
         pvT_prm = (node.parm(f"{pvT[0]}"), node.parm(f"{pvT[1]}"))
@@ -7685,7 +7874,7 @@ class flam3h_iterator_utils
         xaos_str_hou_get = []
         
         # get mpmem parms now
-        mp_mem_name = flam3h_iterator_prm_names.main_mpmem
+        mp_mem_name = flam3h_iterator_prm_names().main_mpmem
         [mpmem.append(int(node.parm(f"{mp_mem_name}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_count)]
         
         # get mpmem from CachedUserData
@@ -7696,7 +7885,7 @@ class flam3h_iterator_utils
             mpmem_hou_get = list(__mpmem_hou_get)
         
         # collect all xaos
-        val = out_flame_utils.out_xaos_collect(node, iter_count, flam3h_iterator_prm_names.xaos)
+        val = out_flame_utils.out_xaos_collect(node, iter_count, flam3h_iterator_prm_names().xaos)
         # fill missing weights if any
         fill_all_xaos = [np_pad(item, (0, iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
         
@@ -7892,7 +8081,7 @@ class flam3h_iterator_utils
             
         # set all multi parms xaos strings parms
         xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)])
-        prm_xaos = flam3h_iterator_prm_names.xaos
+        prm_xaos = flam3h_iterator_prm_names().xaos
         [node.parm(f"{prm_xaos}_{str(mp_idx+1)}").deleteAllKeyframes() for mp_idx in range(iter_count)]
         [node.setParms({f"{prm_xaos}_{str(mp_idx+1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)] # type: ignore
             
@@ -8186,6 +8375,8 @@ class flam3h_palette_utils
 * reset_CP(self, mode: int=0) -> None:
 * reset_CP_palette_action(self) -> None:
     """
+    
+    __slots__ = ("_kwargs", "_node", "_palette_plus_do")
     
     def __init__(self, kwargs: dict) -> None:
         """
@@ -9655,6 +9846,8 @@ class flam3h_about_utils
 * flam3h_web_run(self, key: str) -> None:
     """
     
+    __slots__ = ("_kwargs", "_node")
+    
     def __init__(self, kwargs: dict) -> None:
         """
         Args:
@@ -9774,6 +9967,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         
         node = self.node
         
+        # values
         _FLAM3HWEB_MSG = 'FLAM3H web'
         _FLAM3HGIT_MSG = 'FLAM3H github'
         _FLAM3HINSTA_MSG = 'FLAM3H instagram'
@@ -9783,15 +9977,20 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         _FRACTBITBUCKETGIT_MSG = 'Fractorium bitbucket'
         _FRACTWEB_MSG = 'Fractorium web'
         
-        node.setParms({MSG_FLAM3H_WEB: _FLAM3HWEB_MSG})
-        node.setParms({MSG_FLAM3H_GIT: _FLAM3HGIT_MSG})
-        node.setParms({MSG_FLAM3H_INSTA: _FLAM3HINSTA_MSG})
-        node.setParms({MSG_FLAM3H_YOUTUBE: _FLAM3HYOUTUBE_MSG})
-        node.setParms({MSG_FLAM3_PDF: _FLAM3PDF_MSG})
-        node.setParms({MSG_FLAM3_GIT: _FLAM3GIT_MSG})
-        node.setParms({MSG_FRACT_BITBUCKET: _FRACTBITBUCKETGIT_MSG})
-        node.setParms({MSG_FRACT_WEB: _FRACTWEB_MSG})
+        # {prm_name: vale, ...}
+        about_web: dict = { MSG_FLAM3H_WEB: _FLAM3HWEB_MSG,
+                            MSG_FLAM3H_GIT: _FLAM3HGIT_MSG,
+                            MSG_FLAM3H_INSTA: _FLAM3HINSTA_MSG,
+                            MSG_FLAM3H_YOUTUBE: _FLAM3HYOUTUBE_MSG,
+                            MSG_FLAM3_PDF: _FLAM3PDF_MSG,
+                            MSG_FLAM3_GIT: _FLAM3GIT_MSG,
+                            MSG_FRACT_BITBUCKET: _FRACTBITBUCKETGIT_MSG,
+                            MSG_FRACT_WEB: _FRACTWEB_MSG
+                            }
         
+        [node.setParms({key: value}) for key, value in about_web.items()]
+        
+
 
     def flam3h_about_web_homepage(self) -> None:
         """Open a web browser to the FLAM3H homepage.
@@ -9945,6 +10144,8 @@ class flam3h_ui_msg_utils
 * ui_OUT_presets_name_infos(self) -> None:
 * __ui_active_iterator_infos(self) -> None:
     """
+    
+    __slots__ = ("_kwargs", "_node")
     
     def __init__(self, kwargs: dict) -> None:
         """
@@ -10431,120 +10632,124 @@ class flam3h_varsPRM_APO:
     The (("variation_name") entrie, is not used here and only for reference.
     '''
     
-    varsPRM: tuple = (  ("linear", 0), 
-                        ("sinusoidal", 0), 
-                        ("spherical", 0), 
-                        ("swirl", 0), 
-                        ("horseshoe", 0), 
-                        ("polar", 0), 
-                        ("handkerchief", 0), 
-                        ("heart", 0), 
-                        ("disc", 0), 
-                        ("spiral", 0), 
-                        ("hyperbolic", 0), 
-                        ("diamond", 0), 
-                        ("ex", 0), 
-                        ("julia", 0), 
-                        ("bent", 0), 
-                        ("waves", 0), 
-                        ("fisheye", 0), 
-                        ("popcorn", 0), 
-                        ("exponential", 0), 
-                        ("power", 0), 
-                        ("cosine", 0), 
-                        ("rings", 0), 
-                        ("fan", 0), 
-                        ("bubble", 0), 
-                        ("cylinder", 0), 
-                        ("eyefish", 0), 
-                        ("blur", 0), 
-                        ("curl", ("curl_c1", "curl_c2"), 1), 
-                        ("ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
-                        ("pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
-                        ("blob", ("blob_low", "blob_high", "blob_waves"), 1), 
-                        ("juliaN", ("julian_power", "julian_dist"), 1), 
-                        ("juliascope", ("juliascope_power", "juliascope_dist"), 1), 
-                        ("gaussian_blur", 0), 
-                        ("fan2", ("fan2_x", "fan2_y"), 1), 
-                        ("rings2", ("rings2_val", ), 1), 
-                        ("rectangles", ("rectangles_x", "rectangles_y"), 1), 
-                        ("radial_blur", ("radial_blur_angle", ), 1), 
-                        ("pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
-                        ("arch", 0), 
-                        ("tangent", 0), 
-                        ("square", 0), 
-                        ("rays", 0), 
-                        ("blade", 0), 
-                        ("secant2", 0), 
-                        ("twintrian", 0), 
-                        ("cross", 0), 
-                        ("disc2", ("disc2_rot", "disc2_twist"), 1), 
-                        ("supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
-                        ("flower", ("flower_petals", "flower_holes"), 1), 
-                        ("conic", ("conic_eccentricity", "conic_holes"), 1), 
-                        ("parabola", ("parabola_height", "parabola_width"), 1), 
-                        ("bent2", ("bent2_x", "bent2_y"), 1), 
-                        ("bipolar", ("bipolar_shift", ), 1),
-                        ("boarders", 0),
-                        ("butterfly", 0), 
-                        ("cell", ("cell_size", ), 1), 
-                        ("cpow", ("cpow_power", "cpow_r", "cpow_i"), 1), 
-                        ("edisc", 0), 
-                        ("elliptic", 0), 
-                        ("noise", 0), 
-                        ("escher", ("escher_beta", ), 1), 
-                        ("foci", 0), 
-                        ("lazysusan", ("lazysusan_x", "lazysusan_y"), ("lazysusan_spin", "lazysusan_twist", "lazysusan_space"), 1), 
-                        ("loonie", 0), 
-                        ("pre blur", 0), 
-                        ("modulus", ("modulus_x", "modulus_y"), 1), 
-                        ("oscilloscope", ("oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation"), 1), 
-                        ("polar2", 0), 
-                        ("popcorn2", ("popcorn2_x", "popcorn2_y"), ("popcorn2_c", ), 1), 
-                        ("scry", 0), 
-                        ("separation", ("separation_x", "separation_y"), ("separation_xinside", "separation_yinside"), 1), 
-                        ("split", ("split_xsize", "split_ysize"), 1), 
-                        ("splits", ("splits_x", "splits_y"), 1), 
-                        ("stripes", ("stripes_space", "stripes_warp"), 1), 
-                        ("wedge", ("wedge_swirl", "wedge_angle", "wedge_hole", "wedge_count", ), 1), 
-                        ("wedge_julia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
-                        ("wedge_sph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
-                        ("whorl", ("whorl_inside", "whorl_outside"), 1), 
-                        ("waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
-                        ("exp", 0), 
-                        ("log", 0), 
-                        ("sin", 0), 
-                        ("cos", 0), 
-                        ("tan", 0), 
-                        ("sec", 0), 
-                        ("csc", 0), 
-                        ("cot", 0), 
-                        ("sinh", 0), 
-                        ("cosh", 0), 
-                        ("tanh", 0), 
-                        ("sech", 0), 
-                        ("csch", 0), 
-                        ("coth", 0), 
-                        ("auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
-                        ("flux", ("flux_spread", ), 1), 
-                        ("mobius", ("Re_A", "Re_B", "Re_C", "Re_D"), ("Im_A", "Im_B", "Im_C", "Im_D"), 1),
-                        ("curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
-                        ("persp", ("perspective_angle", "perspective_dist"), 1), 
-                        ("bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
-                        ("hemisphere", 0), 
-                        ("polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1),
-                        ("crop", ("crop_left", "crop_top", "crop_right", "crop_bottom"), ("crop_scatter_area", "crop_zero"), 1), 
-                        ("unpolar", 0), 
-                        ("glynnia", 0), 
-                        ("point_symmetry", ("point_symmetry_order", "point_symmetry_centre_x", "point_symmetry_centre_y"), 1)
-                    )
+    __slots__ = ("varsPRM", "varsPRM_FRACTORIUM_EXCEPTIONS")
+    
+    def __init__(self) -> None:
+        
+        self.varsPRM: tuple = ( ("linear", 0), 
+                                ("sinusoidal", 0), 
+                                ("spherical", 0), 
+                                ("swirl", 0), 
+                                ("horseshoe", 0), 
+                                ("polar", 0), 
+                                ("handkerchief", 0), 
+                                ("heart", 0), 
+                                ("disc", 0), 
+                                ("spiral", 0), 
+                                ("hyperbolic", 0), 
+                                ("diamond", 0), 
+                                ("ex", 0), 
+                                ("julia", 0), 
+                                ("bent", 0), 
+                                ("waves", 0), 
+                                ("fisheye", 0), 
+                                ("popcorn", 0), 
+                                ("exponential", 0), 
+                                ("power", 0), 
+                                ("cosine", 0), 
+                                ("rings", 0), 
+                                ("fan", 0), 
+                                ("bubble", 0), 
+                                ("cylinder", 0), 
+                                ("eyefish", 0), 
+                                ("blur", 0), 
+                                ("curl", ("curl_c1", "curl_c2"), 1), 
+                                ("ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
+                                ("pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
+                                ("blob", ("blob_low", "blob_high", "blob_waves"), 1), 
+                                ("juliaN", ("julian_power", "julian_dist"), 1), 
+                                ("juliascope", ("juliascope_power", "juliascope_dist"), 1), 
+                                ("gaussian_blur", 0), 
+                                ("fan2", ("fan2_x", "fan2_y"), 1), 
+                                ("rings2", ("rings2_val", ), 1), 
+                                ("rectangles", ("rectangles_x", "rectangles_y"), 1), 
+                                ("radial_blur", ("radial_blur_angle", ), 1), 
+                                ("pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
+                                ("arch", 0), 
+                                ("tangent", 0), 
+                                ("square", 0), 
+                                ("rays", 0), 
+                                ("blade", 0), 
+                                ("secant2", 0), 
+                                ("twintrian", 0), 
+                                ("cross", 0), 
+                                ("disc2", ("disc2_rot", "disc2_twist"), 1), 
+                                ("supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
+                                ("flower", ("flower_petals", "flower_holes"), 1), 
+                                ("conic", ("conic_eccentricity", "conic_holes"), 1), 
+                                ("parabola", ("parabola_height", "parabola_width"), 1), 
+                                ("bent2", ("bent2_x", "bent2_y"), 1), 
+                                ("bipolar", ("bipolar_shift", ), 1),
+                                ("boarders", 0),
+                                ("butterfly", 0), 
+                                ("cell", ("cell_size", ), 1), 
+                                ("cpow", ("cpow_power", "cpow_r", "cpow_i"), 1), 
+                                ("edisc", 0), 
+                                ("elliptic", 0), 
+                                ("noise", 0), 
+                                ("escher", ("escher_beta", ), 1), 
+                                ("foci", 0), 
+                                ("lazysusan", ("lazysusan_x", "lazysusan_y"), ("lazysusan_spin", "lazysusan_twist", "lazysusan_space"), 1), 
+                                ("loonie", 0), 
+                                ("pre blur", 0), 
+                                ("modulus", ("modulus_x", "modulus_y"), 1), 
+                                ("oscilloscope", ("oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation"), 1), 
+                                ("polar2", 0), 
+                                ("popcorn2", ("popcorn2_x", "popcorn2_y"), ("popcorn2_c", ), 1), 
+                                ("scry", 0), 
+                                ("separation", ("separation_x", "separation_y"), ("separation_xinside", "separation_yinside"), 1), 
+                                ("split", ("split_xsize", "split_ysize"), 1), 
+                                ("splits", ("splits_x", "splits_y"), 1), 
+                                ("stripes", ("stripes_space", "stripes_warp"), 1), 
+                                ("wedge", ("wedge_swirl", "wedge_angle", "wedge_hole", "wedge_count", ), 1), 
+                                ("wedge_julia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
+                                ("wedge_sph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
+                                ("whorl", ("whorl_inside", "whorl_outside"), 1), 
+                                ("waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
+                                ("exp", 0), 
+                                ("log", 0), 
+                                ("sin", 0), 
+                                ("cos", 0), 
+                                ("tan", 0), 
+                                ("sec", 0), 
+                                ("csc", 0), 
+                                ("cot", 0), 
+                                ("sinh", 0), 
+                                ("cosh", 0), 
+                                ("tanh", 0), 
+                                ("sech", 0), 
+                                ("csch", 0), 
+                                ("coth", 0), 
+                                ("auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
+                                ("flux", ("flux_spread", ), 1), 
+                                ("mobius", ("Re_A", "Re_B", "Re_C", "Re_D"), ("Im_A", "Im_B", "Im_C", "Im_D"), 1),
+                                ("curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
+                                ("persp", ("perspective_angle", "perspective_dist"), 1), 
+                                ("bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
+                                ("hemisphere", 0), 
+                                ("polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1),
+                                ("crop", ("crop_left", "crop_top", "crop_right", "crop_bottom"), ("crop_scatter_area", "crop_zero"), 1), 
+                                ("unpolar", 0), 
+                                ("glynnia", 0), 
+                                ("point_symmetry", ("point_symmetry_order", "point_symmetry_centre_x", "point_symmetry_centre_y"), 1)
+                            )
 
 
-    # EXCEPTIONS: so I dnt go into regex...
-    # Update this and def in_prm_name_exceptions() if you add/find more
-    varsPRM_FRACTORIUM_EXCEPTIONS: dict = { 67: ("oscilloscope", ("oscilloscope_frequency", "oscilloscope_amplitude", "oscilloscope_damping", "oscilloscope_separation"), 1),
-                                            96: ("Mobius", ("Mobius_Re_A", "Mobius_Re_B", "Mobius_Re_C", "Mobius_Re_D"), ("Mobius_Im_A", "Mobius_Im_B", "Mobius_Im_C", "Mobius_Im_D"), 1)
-                                        }
+        # EXCEPTIONS: so I dnt go into regex...
+        # Update this and def in_prm_name_exceptions() if you add/find more
+        self.varsPRM_FRACTORIUM_EXCEPTIONS: dict = {67: ("oscilloscope", ("oscilloscope_frequency", "oscilloscope_amplitude", "oscilloscope_damping", "oscilloscope_separation"), 1),
+                                                    96: ("Mobius", ("Mobius_Re_A", "Mobius_Re_B", "Mobius_Re_C", "Mobius_Re_D"), ("Mobius_Im_A", "Mobius_Im_B", "Mobius_Im_C", "Mobius_Im_D"), 1)
+                                                    }
 
 
 
@@ -10568,6 +10773,8 @@ class _xml
 * get_name(self, key=XML_XF_NAME) -> tuple
 
     """    
+    
+    __slots__ = ("_xml", "_tree")
     
     def __init__(self, xmlfile: str) -> None:
         """This Class is only to try to speedup the python menu UI evaulation.
@@ -10660,6 +10867,8 @@ class _xml_tree
 
 """
 
+    __slots__ = ("_xmlfile", "_xmlfile_data", "_xmlfile_data_clipboard", "_isvalidtree", "_tree", "_name", "_plugins", "_sw_version")
+    
     def __init__(self, xmlfile: str) -> None:
         """
         Args:
@@ -10948,6 +11157,11 @@ class in_flame
         _xml_tree ([class]): [inherit properties methods from the _xml_tree class]
     """  
 
+    __slots__ = ("_node", "_flame", "_flame_count", 
+                 "_out_size", "_out_center", "_out_rotate", "_out_scale", "_out_quality", "_out_brightness", "_out_gamma", "_out_highlight_power", "_out_logscale_k2", "_out_vibrancy", 
+                 "_out_curves", "_out_curve_overall", "_out_curve_red", "_out_curve_green", "_out_curve_blue", 
+                 "_flam3h_sys_rip", "_flam3h_hsv", "_flam3h_mb", "_flam3h_mb_samples", "_flam3h_mb_shutter", "_flam3h_cp_samples", "_flam3h_prefs_f3c")
+
     def __init__(self, node: hou.SopNode, xmlfile: str) -> None:
         """
         Args:
@@ -10956,6 +11170,7 @@ class in_flame
             xmlfile (str): xml *.flame v_type file to load
         """
         super().__init__(xmlfile)
+        
         self._node = node
         self._flame = self._xml_tree__get_flame() # type: ignore
         self._flame_count = self._xml_tree__get_flame_count(self._flame) # type: ignore
@@ -10986,6 +11201,8 @@ class in_flame
         self._flam3h_mb_shutter = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
         self._flam3h_cp_samples = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES) # type: ignore
         self._flam3h_prefs_f3c = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore
+        
+
 
 
     @staticmethod
@@ -11617,6 +11834,12 @@ class in_flame_iter_data(in_flame):
         in_flame ([class]): [inherit properties methods from the in_flame class]
     """  
     
+    __slots__ = ("_idx", "_xforms", "_xf_name", "_weight", "_pre_blur", "_xaos", 
+                 "_coefs", "_f3h_coefs", "_f3h_coefs_angle", "_post", "_f3h_post", "_f3h_post_angle", 
+                 "_finalxform", "_finalxform_coefs", "_finalxform_f3h_coefs", "_finalxform_f3h_coefs_angle", "_finalxform_post", "_finalxform_f3h_post", "_finalxform_f3h_post_angle", "_finalxform_name", 
+                 "_palette", "_color", "_color_speed", "_symmetry", "_opacity", 
+                 "_sys_flam3h_rip", "_cp_flam3h_hsv", "_mb_flam3h_mb_fps", "_mb_flam3h_mb_samples", "_mb_flam3h_mb_shutter", "_cp_flam3h_cp_samples", "_prefs_flam3h_f3c")
+    
     def __init__(self, node: hou.SopNode, xmlfile: str, idx: int=0) -> None:
         """
         Args:
@@ -11626,6 +11849,7 @@ class in_flame_iter_data(in_flame):
             idx (int, optional): flame idx out of all flames included in the loaded flame file]. Defaults to 0.
         """
         super().__init__(node, xmlfile)
+        
         self._idx = self._in_flame__is_valid_idx(idx) # type: ignore
         self._xforms = self._in_flame__get_xforms(self._idx, XML_XF) # type: ignore
         self._xf_name = self._in_flame__get_keyvalue(self._xforms, XML_XF_NAME) # type: ignore
@@ -12006,6 +12230,8 @@ class in_flame_utils
 * reset_IN(self, mode: int=0) -> None:
 
     """
+    
+    __slots__ = ("_kwargs", "_node")
     
     def __init__(self, kwargs: dict) -> None:
         """
@@ -12441,7 +12667,7 @@ class in_flame_utils
         if mode: pass
         else:
             if apo_data is not None:
-                n = flam3h_iterator_prm_names
+                n = flam3h_iterator_prm_names()
                 if prm_name not in [n.shader_alpha, n.main_weight]:
                     if apo_data[mp_idx]:
                         node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]}) # type: ignore
@@ -12464,7 +12690,7 @@ class in_flame_utils
             (tuple): If an exception is confirmed, return the parameter expected parameter's name.
         """
         if app.startswith(XML_APP_NAME_FRACTORIUM):
-            check = flam3h_varsPRM_APO.varsPRM_FRACTORIUM_EXCEPTIONS.get(v_type)
+            check = flam3h_varsPRM_APO().varsPRM_FRACTORIUM_EXCEPTIONS.get(v_type)
             if check is not None:
                 return check
             else:
@@ -12507,7 +12733,7 @@ class in_flame_utils
         Args:
             node(hou.SopNode): Current FLAM3H node
             mode(int): 0 for iterator. 1 for FF
-            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]
+            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO().varsPRM[v_type]
             xform(dict): current xform we are processing to the relative key names and values for the iterator
             mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
             v_type(int): the current variation type index
@@ -12559,12 +12785,12 @@ class in_flame_utils
             mode(int): 0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H node
             mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
-            t_idx(int): current variation number idx to use with: flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW
+            t_idx(int): current variation number idx to use with: flam3h_iterator().sec_varsT, flam3h_iterator().sec_varsW
             xform(dict): current xform we are processing to the relative key names and values for the iterator
             v_type(int): the current variation type index
             v_weight(float): the current variation weight
-            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]
-            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]
+            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM().varsPRM[v_type]
+            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO().varsPRM[v_type]
             
         Returns:
             (None):
@@ -12584,12 +12810,14 @@ class in_flame_utils
 
         mpidx = str(mp_idx+1)
         [node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) if mode else node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
+        
+        f3h_iter = flam3h_iterator()
         if mode:
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
+            node.setParms({f"{prx}{f3h_iter.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
+            node.setParms({f"{prx}{f3h_iter.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
         else:
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx]}{mpidx}": v_type}) # type: ignore
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0]}{mpidx}": v_weight}) # type: ignore
+            node.setParms({f"{prx}{f3h_iter.sec_varsT[t_idx]}{mpidx}": v_type}) # type: ignore
+            node.setParms({f"{prx}{f3h_iter.sec_varsW[t_idx][0]}{mpidx}": v_weight}) # type: ignore
             
             
     @staticmethod
@@ -12612,12 +12840,12 @@ class in_flame_utils
             mode(int): 0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H node
             mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
-            t_idx(int): current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW
+            t_idx(int): current variation number idx to use with: flam3h_iterator().sec_prevarsT, flam3h_iterator().sec_prevarsW
             xform(dict): current xform we are processing to the relative key names and values for the iterator
             v_type(int): the current variation type index
             v_weight(float): the current variation weight
-            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]
-            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]
+            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM().varsPRM[v_type]
+            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO().varsPRM[v_type]
             
         Returns:
             (None):
@@ -12638,8 +12866,8 @@ class in_flame_utils
         mpidx = str(mp_idx+1)
         [node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on pre variations with parametric so:
-        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsT[t_idx]}{mpidx}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsW[1:][t_idx][0]}{mpidx}": v_weight}) # type: ignore 
+        node.setParms({f"{prx}{flam3h_iterator().sec_prevarsT[t_idx]}{mpidx}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator().sec_prevarsW[1:][t_idx][0]}{mpidx}": v_weight}) # type: ignore 
 
 
     @staticmethod
@@ -12662,12 +12890,12 @@ class in_flame_utils
             mode(int): 0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H node
             mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
-            t_idx(int): current variation number idx to use with: flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW
+            t_idx(int): current variation number idx to use with: flam3h_iterator().sec_postvarsT, flam3h_iterator().sec_postvarsW
             xform(dict): current xform we are processing to the relative key names and values for the iterator
             v_type(int): the current variation type index
             v_weight(float): the current variation weight
-            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]
-            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]
+            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM().varsPRM[v_type]
+            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO().varsPRM[v_type]
             
         Returns:
             (None):
@@ -12688,8 +12916,8 @@ class in_flame_utils
         mpidx = str(mp_idx+1)
         [node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on post variation with parametric so:
-        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsT[t_idx]}{mpidx}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsW[t_idx][0]}{mpidx}": v_weight}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator().sec_postvarsT[t_idx]}{mpidx}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator().sec_postvarsW[t_idx][0]}{mpidx}": v_weight}) # type: ignore
     
     
     @staticmethod    
@@ -12708,12 +12936,12 @@ class in_flame_utils
         Args:
             app(str): What software were used to generate this flame preset
             node(hou.SopNode): Current FLAM3H houdini node
-            t_idx(int): current variation number idx to use with: flam3h_iterator.sec_prevarsT_FF, flam3h_iterator.sec_prevarsW_FF
+            t_idx(int): current variation number idx to use with: flam3h_iterator().sec_prevarsT_FF, flam3h_iterator().sec_prevarsW_FF
             xform(dict): current xform we are processing to the relative key names and values for the iterator
             v_type(int): the current variation type index
             v_weight(float): the current variation weight
-            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]
-            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]
+            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM().varsPRM[v_type]
+            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO().varsPRM[v_type]
             
         Returns:
             (None):
@@ -12731,8 +12959,8 @@ class in_flame_utils
             
         [node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on post variation with parametric so:
-        node.setParms({f"{flam3h_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
-        node.setParms({f"{flam3h_iterator_FF.sec_prevarsW_FF[t_idx][0]}": v_weight}) # type: ignore
+        node.setParms({f"{flam3h_iterator_FF().sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
+        node.setParms({f"{flam3h_iterator_FF().sec_prevarsW_FF[t_idx][0]}": v_weight}) # type: ignore
 
 
     @staticmethod
@@ -12751,12 +12979,12 @@ class in_flame_utils
         Args:
             app(str): What software were used to generate this flame preset
             node(hou.SopNode): Current FLAM3H node
-            t_idx(int): current variation number idx to use with: flam3h_iterator.sec_postvarsT_FF, flam3h_iterator.sec_postvarsW_FF
+            t_idx(int): current variation number idx to use with: flam3h_iterator().sec_postvarsT_FF, flam3h_iterator().sec_postvarsW_FF
             xform(dict): current xform we are processing to the relative key names and values for the iterator
             v_type(int): the current variation type index
             v_weight(float): the current variation weight
-            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM.varsPRM[v_type]
-            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO.varsPRM[v_type]
+            var_prm(tuple): tuple of FLAM3H node parameteric parameters names: flam3h_varsPRM().varsPRM[v_type]
+            apo_prm(tuple): tuple of APO variation parametric parameters names: flam3h_varsPRM_APO().varsPRM[v_type]
             
         Returns:
             (None):
@@ -12774,8 +13002,8 @@ class in_flame_utils
             
         [node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on post variation with parametric so:
-        node.setParms({f"{flam3h_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
-        node.setParms({f"{flam3h_iterator_FF.sec_postvarsW_FF[t_idx][0]}": v_weight}) # type: ignore
+        node.setParms({f"{flam3h_iterator_FF().sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
+        node.setParms({f"{flam3h_iterator_FF().sec_postvarsW_FF[t_idx][0]}": v_weight}) # type: ignore
 
 
     @staticmethod
@@ -12792,7 +13020,7 @@ class in_flame_utils
             mode(int): 0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H node
             mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
-            t_idx(int): Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW
+            t_idx(int): Current variation number idx to use with: flam3h_iterator().sec_prevarsT, flam3h_iterator().sec_prevarsW
             v_type(int): Current variation type index
             v_weight(float): Current variation weight
             
@@ -12800,14 +13028,14 @@ class in_flame_utils
             (None):
         """
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
-
+        f3h_iter = flam3h_iterator()
         if mode:
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
+            node.setParms({f"{prx}{f3h_iter.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
+            node.setParms({f"{prx}{f3h_iter.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
         else:
             idx = str(mp_idx+1)
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsT[t_idx]}{idx}": v_type}) # type: ignore
-            node.setParms({f"{prx}{flam3h_iterator.sec_varsW[t_idx][0]}{idx}":v_weight}) # type: ignore
+            node.setParms({f"{prx}{f3h_iter.sec_varsT[t_idx]}{idx}": v_type}) # type: ignore
+            node.setParms({f"{prx}{f3h_iter.sec_varsW[t_idx][0]}{idx}":v_weight}) # type: ignore
 
 
     @staticmethod
@@ -12824,7 +13052,7 @@ class in_flame_utils
             mode(int): 0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H node
             mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
-            t_idx(int): Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW
+            t_idx(int): Current variation number idx to use with: flam3h_iterator().sec_prevarsT, flam3h_iterator().sec_prevarsW
             v_type(int): Current variation type index
             v_weight(float): Current variation weight
             
@@ -12833,8 +13061,8 @@ class in_flame_utils
         """
         idx = str(mp_idx+1)
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
-        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsT[t_idx]}{idx}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3h_iterator.sec_prevarsW[1:][t_idx][0]}{idx}":v_weight}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator().sec_prevarsT[t_idx]}{idx}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator().sec_prevarsW[1:][t_idx][0]}{idx}":v_weight}) # type: ignore
 
 
     @staticmethod
@@ -12851,7 +13079,7 @@ class in_flame_utils
             mode(int): [0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H node
             mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
-            t_idx(int): Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW
+            t_idx(int): Current variation number idx to use with: flam3h_iterator().sec_prevarsT, flam3h_iterator().sec_prevarsW
             v_type(int): Current variation type index
             v_weight(float): Current variation weight
             
@@ -12860,8 +13088,8 @@ class in_flame_utils
         """
         idx = str(mp_idx+1)
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
-        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsT[t_idx]}{idx}": v_type}) # type: ignore
-        node.setParms({f"{prx}{flam3h_iterator.sec_postvarsW[t_idx][0]}{idx}":v_weight}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator().sec_postvarsT[t_idx]}{idx}": v_type}) # type: ignore
+        node.setParms({f"{prx}{flam3h_iterator().sec_postvarsW[t_idx][0]}{idx}":v_weight}) # type: ignore
 
 
     @staticmethod
@@ -12874,15 +13102,15 @@ class in_flame_utils
         
         Args:
             node(hou.SopNode): Current FLAM3H node
-            t_idx(int): Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW
+            t_idx(int): Current variation number idx to use with: flam3h_iterator().sec_prevarsT, flam3h_iterator().sec_prevarsW
             v_type(int): Current variation type index
             v_weight(float): Current variation weight
             
         Returns:
             (None):
         """
-        node.setParms({f"{flam3h_iterator_FF.sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
-        node.setParms({f"{flam3h_iterator_FF.sec_prevarsW_FF[t_idx][0]}":v_weight}) # type: ignore
+        node.setParms({f"{flam3h_iterator_FF().sec_prevarsT_FF[t_idx]}": v_type}) # type: ignore
+        node.setParms({f"{flam3h_iterator_FF().sec_prevarsW_FF[t_idx][0]}":v_weight}) # type: ignore
 
 
     @staticmethod
@@ -12895,15 +13123,15 @@ class in_flame_utils
         
         Args:
             node(hou.SopNode): Current FLAM3H node
-            t_idx(int): Current variation number idx to use with: flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW
+            t_idx(int): Current variation number idx to use with: flam3h_iterator().sec_prevarsT, flam3h_iterator().sec_prevarsW
             v_type(int): Current variation type index
             v_weight(float): Current variation weight
             
         Returns:
             (None):
         """
-        node.setParms({f"{flam3h_iterator_FF.sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
-        node.setParms({f"{flam3h_iterator_FF.sec_postvarsW_FF[t_idx][0]}":v_weight}) # type: ignore
+        node.setParms({f"{flam3h_iterator_FF().sec_postvarsT_FF[t_idx]}": v_type}) # type: ignore
+        node.setParms({f"{flam3h_iterator_FF().sec_postvarsW_FF[t_idx][0]}":v_weight}) # type: ignore
 
 
     @staticmethod
@@ -12927,7 +13155,7 @@ class in_flame_utils
         if mode: pass
         else:
             if pb_weights[mp_idx]:
-                node.setParms({f"{prx}{flam3h_iterator_prm_names.prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]}) # type: ignore
+                node.setParms({f"{prx}{flam3h_iterator_prm_names().prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]}) # type: ignore
 
 
     @staticmethod
@@ -13799,8 +14027,8 @@ class in_flame_utils
         assert vars_keys_post is not None
 
         app = apo_data.sw_version[preset_id]
-        var_prm: tuple = flam3h_varsPRM.varsPRM
-        apo_prm: tuple = flam3h_varsPRM_APO.varsPRM
+        var_prm: tuple = flam3h_varsPRM().varsPRM
+        apo_prm: tuple = flam3h_varsPRM_APO().varsPRM
         n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
         prx, prx_prm = self.in_util_flam3h_prx_mode(mode)
         
@@ -15304,7 +15532,7 @@ class out_flame_utils
 * __out_flame_data(self, prm_name: str='') -> str:
 * __out_flame_name(self, prm_name: Union[str, None]=OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
 * __out_xf_data(self, prm_name: str) -> tuple:
-* __out_xf_data_color_speed(self, prm_name: str=flam3h_iterator_prm_names.shader_speed) -> tuple:
+* __out_xf_data_color_speed(self, prm_name: str=flam3h_iterator_prm_names().shader_speed) -> tuple:
 * __out_xf_name(self) -> tuple:
 * __out_finalxf_name(self) -> str:
 * __out_xf_pre_blur(self) -> tuple:
@@ -15319,6 +15547,11 @@ class out_flame_utils
 * __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 * __out_flame_palette_lookup_samples(self) -> Union[str, bool]:
     """
+
+    __slots__ = ("_kwargs", "_node", 
+                 "_flam3h_iter_prm_names", "_flam3h_iter", "_flam3h_iter_FF", "_flam3h_do_FF", 
+                 "_iter_count", "_palette", "_palette_hsv_do", "_palette_plus_do", "_f3h_affine", "_xm", 
+                 "_flam3h_rip", "_flam3h_mb_do", "_flam3h_f3c", "_flam3h_cp_lookup_samples")
 
     def __init__(self, kwargs: dict) -> None:
         """
@@ -16249,8 +16482,9 @@ class out_flame_utils
             (Union[list[str], None]): List of used variations in this iterator/xform section
         """
         # Build var parameter's sections
-        prm_sections_T = {'VAR': flam3h_iterator.sec_varsT, 'PRE': flam3h_iterator.sec_prevarsT, 'POST': flam3h_iterator.sec_postvarsT}
-        prm_sections_W = {'VAR': flam3h_iterator.sec_varsW, 'PRE': flam3h_iterator.sec_prevarsW[1:], 'POST': flam3h_iterator.sec_postvarsW}
+        f3h_iter = flam3h_iterator()
+        prm_sections_T = {'VAR': f3h_iter.sec_varsT, 'PRE': f3h_iter.sec_prevarsT, 'POST': f3h_iter.sec_postvarsT}
+        prm_sections_W = {'VAR': f3h_iter.sec_varsW, 'PRE': f3h_iter.sec_prevarsW[1:], 'POST': f3h_iter.sec_postvarsW}
         
         # Get correct parameter's names based on the desired var section
         T_tuple = prm_sections_T.get(var_section)
@@ -16290,12 +16524,14 @@ class out_flame_utils
         # Build var parameter's sections
         if not mode:
             # Iterator
-            prm_sections_T = {'VAR': flam3h_iterator.sec_varsT, 'PRE': flam3h_iterator.sec_prevarsT, 'POST': flam3h_iterator.sec_postvarsT}
-            prm_sections_W = {'VAR': flam3h_iterator.sec_varsW, 'PRE': flam3h_iterator.sec_prevarsW[1:], 'POST': flam3h_iterator.sec_postvarsW}
+            f3h_iter = flam3h_iterator()
+            prm_sections_T = {'VAR': f3h_iter.sec_varsT, 'PRE': f3h_iter.sec_prevarsT, 'POST': f3h_iter.sec_postvarsT}
+            prm_sections_W = {'VAR': f3h_iter.sec_varsW, 'PRE': f3h_iter.sec_prevarsW[1:], 'POST': f3h_iter.sec_postvarsW}
         else:
             # FF
-            prm_sections_T = {'VAR': flam3h_iterator_FF.sec_varsT_FF, 'PRE': flam3h_iterator_FF.sec_prevarsT_FF, 'POST': flam3h_iterator_FF.sec_postvarsT_FF}
-            prm_sections_W = {'VAR': flam3h_iterator_FF.sec_varsW_FF, 'PRE': flam3h_iterator_FF.sec_prevarsW_FF, 'POST': flam3h_iterator_FF.sec_postvarsW_FF}
+            f3h_iter_FF = flam3h_iterator_FF()
+            prm_sections_T = {'VAR': f3h_iter_FF.sec_varsT_FF, 'PRE': f3h_iter_FF.sec_prevarsT_FF, 'POST': f3h_iter_FF.sec_postvarsT_FF}
+            prm_sections_W = {'VAR': f3h_iter_FF.sec_varsW_FF, 'PRE': f3h_iter_FF.sec_prevarsW_FF, 'POST': f3h_iter_FF.sec_postvarsW_FF}
         
         # Get correct parameter's names based on the desired var section and mode
         T_tuple = prm_sections_T.get(var_section)
@@ -17197,7 +17433,7 @@ class out_flame_utils
 
                     # If OUT Tab -> USE_FRACTORIUM_PRM_NAMES toggle is ON
                     # make sure to use the parametric variation's parameters names that Fractorium expect.
-                    apo_prm = flam3h_varsPRM_APO.varsPRM[v_type]
+                    apo_prm = flam3h_varsPRM_APO().varsPRM[v_type]
                     if node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).eval():
                         out_prm = in_flame_utils.in_prm_name_exceptions(v_type, XML_APP_NAME_FRACTORIUM, apo_prm)[1:-1]
                     else:
@@ -17263,9 +17499,10 @@ class out_flame_utils
                 if f3d.xf_xaos[iter]:
                     xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
                 xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
-                names_VARS.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_varsT, flam3h_iterator.sec_varsW, xf, mp_idx, in_flame_utils.in_util_make_NULL))
-                names_VARS_PRE.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_prevarsT, flam3h_iterator.sec_prevarsW[1:], xf, mp_idx, in_flame_utils.in_util_make_PRE))
-                names_VARS_POST.append(self.out_populate_xform_vars_XML(flam3h_varsPRM.varsPRM, flam3h_iterator.sec_postvarsT, flam3h_iterator.sec_postvarsW, xf, mp_idx, in_flame_utils.in_util_make_POST))
+                f3h_iter = flam3h_iterator()
+                names_VARS.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_varsT, f3h_iter.sec_varsW, xf, mp_idx, in_flame_utils.in_util_make_NULL))
+                names_VARS_PRE.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_prevarsT, f3h_iter.sec_prevarsW[1:], xf, mp_idx, in_flame_utils.in_util_make_PRE))
+                names_VARS_POST.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_postvarsT, f3h_iter.sec_postvarsW, xf, mp_idx, in_flame_utils.in_util_make_POST))
         
         # SET finalxform (FF)
         names_VARS_FF = []
@@ -17288,9 +17525,10 @@ class out_flame_utils
                 if f3d.f3h_affine and float(f3d.finalxf_f3h_postaffine_angle) != 0:
                     finalxf.set(XML_FLAM3H_POST_AFFINE, f3d.finalxf_f3h_postaffine)
                     finalxf.set(XML_FLAM3H_POST_AFFINE_ANGLE, f3d.finalxf_f3h_postaffine_angle)
-            names_VARS_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), flam3h_iterator_FF.sec_varsT_FF, flam3h_iterator_FF.sec_varsW_FF, finalxf, '', in_flame_utils.in_util_make_NULL)
-            names_VARS_PRE_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_prevarsT_FF, flam3h_iterator_FF.sec_prevarsW_FF, finalxf, '', in_flame_utils.in_util_make_PRE)
-            names_VARS_POST_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), flam3h_iterator_FF.sec_postvarsT_FF, flam3h_iterator_FF.sec_postvarsW_FF, finalxf, '', in_flame_utils.in_util_make_POST)
+            f3h_iter_FF = flam3h_iterator_FF()
+            names_VARS_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), f3h_iter_FF.sec_varsT_FF, f3h_iter_FF.sec_varsW_FF, finalxf, '', in_flame_utils.in_util_make_NULL)
+            names_VARS_PRE_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), f3h_iter_FF.sec_prevarsT_FF, f3h_iter_FF.sec_prevarsW_FF, finalxf, '', in_flame_utils.in_util_make_PRE)
+            names_VARS_POST_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), f3h_iter_FF.sec_postvarsT_FF, f3h_iter_FF.sec_postvarsW_FF, finalxf, '', in_flame_utils.in_util_make_POST)
         
         # SET palette
         palette = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
@@ -17637,7 +17875,7 @@ class out_flame_utils
         Returns:
             (str): The FLAM3H parameter prepped into a string for writing out into the Flame preset file.
         """    
-        val = [str(self.out_util_round_float((1.0-self.node.parm(f"{flam3h_iterator_prm_names.shader_speed}_{iter+1}").eval())/2.0)) for iter in range(self.iter_count)]
+        val = [str(self.out_util_round_float((1.0-self.node.parm(f"{flam3h_iterator_prm_names().shader_speed}_{iter+1}").eval())/2.0)) for iter in range(self.iter_count)]
         return tuple(val)
     
 
@@ -17932,6 +18170,10 @@ class out_flame_render_properties(out_flame_utils):
         out_flame_utils ([class]): [inherit properties methods from the out_flame_utils class]
     """  
 
+    __slots__ = ("_flame_name", "_flame_size", "_flame_center", "_flame_scale", "_flame_rotate", "_flame_quality", "_flame_brightness", "_flame_gamma", "_flame_k2", "_flame_vibrancy", "_flame_highlight", 
+                 "_flame_render_curves", "_flame_overall_curve", "_flame_red_curve", "_flame_green_curve", "_flame_blue_curve", 
+                 "_flam3h_sys_rip", "_flam3h_cp_hsv", "_flam3h_mb_fps", "_flam3h_mb_samples", "_flam3h_mb_shutter", "_flam3h_cp_samples", "_flam3h_prefs_f3c")
+
     def __init__(self, kwargs: dict) -> None:
         """
         Args:
@@ -17941,6 +18183,7 @@ class out_flame_render_properties(out_flame_utils):
             (None):
         """ 
         super().__init__(kwargs)
+        
         self._flame_name = self._out_flame_utils__out_flame_name() # type: ignore
         self._flame_size = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE)) # type: ignore
         self._flame_center = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER)) # type: ignore
@@ -18093,6 +18336,13 @@ class out_flame_xforms_data(out_flame_utils):
         out_flame_utils ([class]): [inherit properties methods from the out_flame_utils class]
     """  
     
+    __slots__ = ("_xf_name", "_xf_vactive", "_xf_weight", "_xf_xaos", 
+                 "_xf_color", "_xf_symmetry", "_xf_color_speed", "_xf_opacity", 
+                 "_xf_pre_blur", 
+                 "_xf_preaffine", "_xf_f3h_preaffine", "_xf_f3h_preaffine_angle", "_xf_postaffine", "_xf_f3h_postaffine", "_xf_f3h_postaffine_angle", 
+                 "_finalxf_name", "_finalxf_preaffine", "_finalxf_f3h_preaffine", "_finalxf_f3h_preaffine_angle", "_finalxf_postaffine", "_finalxf_f3h_postaffine", "_finalxf_f3h_postaffine_angle", 
+                 "_palette_hex", )
+    
     def __init__(self, kwargs: dict) -> None:
         """
         Args:
@@ -18102,23 +18352,27 @@ class out_flame_xforms_data(out_flame_utils):
             (None):
         """ 
         super().__init__(kwargs)
+        
         # FLAM3 data
         self._xf_name = self._out_flame_utils__out_xf_name() # type: ignore
         self._xf_vactive = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.main_vactive) # type: ignore
         self._xf_weight = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.main_weight) # type: ignore
         self._xf_xaos = self._out_flame_utils__out_xf_xaos() # type: ignore
-        self._xf_pre_blur = self._out_flame_utils__out_xf_pre_blur() # type: ignore
+        
         self._xf_color = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_color) # type: ignore
         self._xf_symmetry = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_speed) # type: ignore
         self._xf_color_speed = self._out_flame_utils__out_xf_data_color_speed() # type: ignore
         self._xf_opacity = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_alpha) # type: ignore
+        
+        self._xf_pre_blur = self._out_flame_utils__out_xf_pre_blur() # type: ignore
+        
         self._xf_preaffine = self._out_flame_utils__out_xf_preaffine()[0] # type: ignore
         self._xf_f3h_preaffine = self._out_flame_utils__out_xf_preaffine()[1] # type: ignore
         self._xf_f3h_preaffine_angle = self._out_flame_utils__out_xf_preaffine()[2] # type: ignore
         self._xf_postaffine = self._out_flame_utils__out_xf_postaffine()[0] # type: ignore
         self._xf_f3h_postaffine = self._out_flame_utils__out_xf_postaffine()[1] # type: ignore
         self._xf_f3h_postaffine_angle = self._out_flame_utils__out_xf_postaffine()[2] # type: ignore
-        self._palette_hex = self._out_flame_utils__out_palette_hex() # type: ignore
+        
         self._finalxf_name = self._out_flame_utils__out_finalxf_name() # type: ignore
         self._finalxf_preaffine = self._out_flame_utils__out_finalxf_preaffine()[0] # type: ignore
         self._finalxf_f3h_preaffine = self._out_flame_utils__out_finalxf_preaffine()[1] # type: ignore
@@ -18126,6 +18380,8 @@ class out_flame_xforms_data(out_flame_utils):
         self._finalxf_postaffine = self._out_flame_utils__out_finalxf_postaffine()[0] # type: ignore
         self._finalxf_f3h_postaffine = self._out_flame_utils__out_finalxf_postaffine()[1] # type: ignore
         self._finalxf_f3h_postaffine_angle = self._out_flame_utils__out_finalxf_postaffine()[2] # type: ignore
+        
+        self._palette_hex = self._out_flame_utils__out_palette_hex() # type: ignore
 
 
 
