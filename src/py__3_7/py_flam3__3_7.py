@@ -463,7 +463,8 @@ class flam3h_iterator_prm_names_collections(flam3h_iterator_prm_names):
     
     '''
     
-    __slots__ = ("_prm_iterator_tuple", "_prm_iterator", "_prm_iterator_vars_all", "_prm_FF_tuple", "_prm_FF", "_prm_FF_vars_all", "_prm_parametrics_tuple", "_prm_parametrics")
+    __slots__ = ("_prm_iterator_tuple", "_prm_iterator", "_prm_iterator_vars_all", "_prm_FF_tuple", "_prm_FF", "_prm_FF_vars_all", 
+                 "_prm_parametrics_tuple", "_prm_parametrics")
     
     def __init__(self) -> None:
         """
@@ -780,7 +781,8 @@ class flam3h_iterator(flam3h_iterator_prm_names):
         flam3h_iterator_prm_names ([class]): [inherit properties methods from the flam3h_iterator_prm_names class]
     """   
     
-    __slots__ = ("_sec_main", "_sec_xaos", "_sec_shader", "_sec_prevarsT", "_sec_prevarsW", "_sec_varsT", "_sec_varsW", "_sec_postvarsT", "_sec_postvarsW", "_sec_preAffine", "_sec_postAffine", "_allT", "_allMisc")
+    __slots__ = ("_sec_main", "_sec_xaos", "_sec_shader", "_sec_prevarsT", "_sec_prevarsW", "_sec_varsT", "_sec_varsW", "_sec_postvarsT", "_sec_postvarsW", "_sec_preAffine", "_sec_postAffine", 
+                 "_allT", "_allMisc")
 
     def __init__(self) -> None:
         """
@@ -1027,7 +1029,8 @@ class flam3h_iterator_FF(flam3h_iterator_prm_names):
         please be sure to follow the same nameing convetion so to keep the flam3h_varsPRM: class as the only source for their names.
     """
     
-    __slots__ = ("_sec_prevarsT_FF", "_sec_prevarsW_FF", "_sec_varsT_FF", "_sec_varsW_FF", "_sec_postvarsT_FF", "_sec_postvarsW_FF", "_sec_preAffine_FF", "_sec_postAffine_FF", "_allMisc_FF")
+    __slots__ = ("_sec_prevarsT_FF", "_sec_prevarsW_FF", "_sec_varsT_FF", "_sec_varsW_FF", "_sec_postvarsT_FF", "_sec_postvarsW_FF", "_sec_preAffine_FF", "_sec_postAffine_FF", 
+                 "_allMisc_FF")
     
     def __init__(self) -> None:
         """
