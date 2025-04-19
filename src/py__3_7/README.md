@@ -1,7 +1,9 @@
 
 # Python
-# File name:    `py_flam3.py`
+# File name:    `py_flam3__3_7.py`
 ### Description:
+( The ending filename digits represent the least python version needed to run this code )
+
 This is the main FLAM3H python file that define:
 
 ###               Python classes and definitions for:
@@ -18,6 +20,8 @@ This is the main FLAM3H python file that define:
 <br>
 
 # Python
-# File name:    `py_flam3usd.py`
+# File name:    `py_flam3usd__3_7.py`
 ### Description:
+( The ending filename digits represent the least python version needed to run this code )
+
 Simple utility node to quickly setup fractal flames point clouds in Solaris for previews.
