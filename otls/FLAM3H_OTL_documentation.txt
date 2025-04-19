@@ -1936,7 +1936,7 @@ Copy/Paste SENSOR/RENDER preset settings:
 
     SENSOR [Icon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
 
-    _Those settings are responsable for how the fractal Flame image is framed_:
+    _Those settings are responsable for how the fractal Flame is framed_:
 
     - *`Resolution`*:<br />The Sensor resolution in pixel (the output image resolution).
     - *`Center`*:<br />The Sensor center, think of this as the camera look at point. 
