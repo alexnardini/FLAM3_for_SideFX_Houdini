@@ -11856,12 +11856,14 @@ class in_flame_iter_data(in_flame):
         self._weight = self._in_flame__get_keyvalue(self._xforms, XML_XF_WEIGHT) # type: ignore
         self._pre_blur = self._in_flame__get_keyvalue(self._xforms, XML_XF_PB) # type: ignore
         self._xaos  = self._in_flame__get_xaos(self._xforms) # type: ignore
+        
         self._coefs = self._in_flame__get_affine(self._xforms, XML_PRE_AFFINE) # type: ignore
         self._f3h_coefs = self._in_flame__get_affine(self._xforms, XML_FLAM3H_PRE_AFFINE) # type: ignore
         self._f3h_coefs_angle = self._in_flame__get_keyvalue(self._xforms, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
         self._post  = self._in_flame__get_affine(self._xforms, XML_POST_AFFINE) # type: ignore
         self._f3h_post  = self._in_flame__get_affine(self._xforms, XML_FLAM3H_POST_AFFINE) # type: ignore
         self._f3h_post_angle = self._in_flame__get_keyvalue(self._xforms, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
+        
         self._finalxform = self._in_flame__get_xforms(self._idx, XML_FF) # type: ignore
         self._finalxform_coefs = self._in_flame__get_affine(self._finalxform, XML_PRE_AFFINE, 1) # type: ignore
         self._finalxform_f3h_coefs = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_PRE_AFFINE, 1) # type: ignore
@@ -11870,11 +11872,13 @@ class in_flame_iter_data(in_flame):
         self._finalxform_f3h_post = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_POST_AFFINE, 1) # type: ignore
         self._finalxform_f3h_post_angle = self._in_flame__get_keyvalue(self._finalxform, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
         self._finalxform_name = self._in_flame__get_keyvalue(self._finalxform, XML_XF_NAME) # type: ignore
+        
         self._palette = self._in_flame__get_palette(self._idx) # type: ignore
         self._color = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR) # type: ignore
         self._color_speed = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR_SPEED) # type: ignore
         self._symmetry = self._in_flame__get_keyvalue(self._xforms, XML_XF_SYMMETRY) # type: ignore
         self._opacity = self._in_flame__get_keyvalue(self._xforms, XML_XF_OPACITY) # type: ignore
+        
         # custom to FLAM3H only
         self._sys_flam3h_rip = self._in_flame__get_flam3h_toggle(self._flam3h_sys_rip[self._idx]) # type: ignore
         self._cp_flam3h_hsv = self._in_flame__get_palette_flam3h_hsv(self._idx) # type: ignore
@@ -15563,10 +15567,12 @@ class out_flame_utils
         """ 
         self._kwargs = kwargs
         self._node = kwargs['node']
+        
         self._flam3h_iter_prm_names = flam3h_iterator_prm_names()
         self._flam3h_iter = flam3h_iterator()
         self._flam3h_iter_FF = flam3h_iterator_FF()
         self._flam3h_do_FF = self._node.parm(PREFS_PVT_DOFF).eval()
+        
         self._iter_count = self._node.parm(FLAME_ITERATORS_COUNT).eval()
         self._palette: hou.Ramp = self._node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         self._palette_hsv_do = self._node.parm(OUT_HSV_PALETTE_DO).eval()
@@ -15577,6 +15583,7 @@ class out_flame_utils
             self._palette: hou.Ramp = self._node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
         self._f3h_affine: bool = self._node.parm(OUT_FLAM3H_AFFINE_STYLE).eval()
         self._xm = self._node.parm(PREFS_XAOS_MODE).eval()
+        
         # custom to FLAM3H only
         self._flam3h_rip = self._node.parm(PREFS_PVT_RIP).eval()
         self._flam3h_mb_do = self._node.parm(MB_DO).eval()
