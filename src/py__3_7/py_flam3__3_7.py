@@ -376,8 +376,8 @@ class flam3h_iterator_prm_names:
     
     '''
     
-    __slots__ = ("main_xf_viz", "main_mpmem", "main_note", "main_prmpastesel", "main_selmem", 
-                 "main_vactive", "main_weight", "xaos", 
+    __slots__ = ("main_xf_viz", "main_mpmem", "main_note", "main_prmpastesel", "main_selmem", "main_vactive", "main_weight", 
+                 "xaos", 
                  "shader_color", "shader_speed", "shader_alpha", 
                  "prevar_blur", "prevar_weight_blur", "prevar_type_1", "prevar_type_2", "prevar_weight_1", "prevar_weight_2", 
                  "var_type_1", "var_type_2", "var_type_3", "var_type_4", "var_weight_1", "var_weight_2", "var_weight_3", "var_weight_4", 
