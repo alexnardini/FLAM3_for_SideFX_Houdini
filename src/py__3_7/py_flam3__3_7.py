@@ -16858,11 +16858,11 @@ class out_flame_utils
         """
         node = self.node
         sel = int(node.parm(OUT_RENDER_PROPERTIES_RES_PRESETS_MENU).eval())
-        res = { -1: None, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), # 1 2 3 4
-                -1: None, 6: (640, 486), 7: (720, 486), 8: (768, 586), 9: (1024, 576), # 6 7 8 9
-                -1: None, 11: (4096, 3112), 12: (2048, 1556), 13: (3656, 2664), 14: (1828, 1332), 15: (3656, 3112), 16: (1828, 1556), 17: (3072, 2048), # 11 12 13 14 15 16 17
-                -1: None, 19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096),
-                -1: None } # 19 20 21 22 23
+        res: dict = {-1: None, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), # 1 2 3 4
+                     -1: None, 6: (640, 486), 7: (720, 486), 8: (768, 586), 9: (1024, 576), # 6 7 8 9
+                     -1: None, 11: (4096, 3112), 12: (2048, 1556), 13: (3656, 2664), 14: (1828, 1332), 15: (3656, 3112), 16: (1828, 1556), 17: (3072, 2048), # 11 12 13 14 15 16 17
+                     -1: None, 19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096),
+                     -1: None } # 19 20 21 22 23
  
         if res.get(sel) is not None:
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res.get(sel))}) # type: ignore
@@ -16891,10 +16891,10 @@ class out_flame_utils
         
         node = self.node
         
-        prms_out_sensor_data: dict = {  OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024)),    # tuple
-                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0)),  # tuple
-                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0,
-                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400 }
+        prms_out_sensor_data: dict = { OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024)),    # tuple
+                                       OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0)),  # tuple
+                                       OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0,
+                                       OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400 }
         
         # Clear and set
         [node.parmTuple(key).deleteAllKeyframes() if isinstance(node.parmTuple(key).eval(), tuple) else node.parm(key).deleteAllKeyframes() for key in prms_out_sensor_data.keys()]
