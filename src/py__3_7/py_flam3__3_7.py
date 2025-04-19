@@ -544,6 +544,7 @@ class flam3h_varsPRM
 * build_menu_vars_indexes(self) -> dict[int, int]:
 
     """ 
+    
     __slots__ = ("varsPRM", )
     
     def __init__(self) -> None:
@@ -2110,6 +2111,8 @@ class flam3h_general_utils
         """  
         return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
 
+
+
     @staticmethod  
     def clamp(x, val_max: Union[int, float]=255) -> float:
         """clamp a value to be between Zero and 255.
@@ -2595,7 +2598,7 @@ class flam3h_general_utils
         if search:
             return search[0].path()
         else:
-            _MSG = f"{self.node.name()} -> Camera sensor BBOX data node not found."
+            _MSG = f"{self.node.name()}: Camera sensor BBOX data node not found."
             self.set_status_msg(_MSG, 'WARN')
             return None
 
@@ -3435,7 +3438,7 @@ class flam3h_general_utils
             flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         
         # Retrieve the filepath from the history (preview valid F3H json file path used)
-        cp_presets_filepath_history = node.cachedUserData('cp_presets_filepath')
+        cp_presets_filepath_history: Union[str, None] = node.cachedUserData('cp_presets_filepath')
         
         prm = node.parm(CP_PALETTE_PRESETS)
         prm_off = node.parm(CP_PALETTE_PRESETS_OFF)
@@ -3552,7 +3555,7 @@ class flam3h_general_utils
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         # Retrieve the filepath from the history (preview valid F3H json file path used)
-        in_presets_filepath_history = node.cachedUserData('in_presets_filepath')
+        in_presets_filepath_history: Union[str, None] = node.cachedUserData('in_presets_filepath')
         
         is_valid = node.parm(IN_PVT_ISVALID_FILE).eval()
         clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
@@ -3658,7 +3661,7 @@ class flam3h_general_utils
             flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
             flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         # Retrieve the filepath from the history (preview valid F3H json file path used)
-        out_presets_filepath_history = node.cachedUserData('out_presets_filepath')
+        out_presets_filepath_history: Union[str, None] = node.cachedUserData('out_presets_filepath')
         
         is_valid = node.parm(OUT_PVT_ISVALID_FILE).eval()
         prm = node.parm(OUT_PRESETS)
@@ -5412,7 +5415,7 @@ class flam3h_iterator_utils
         clipboard: bool = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
         xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
         xml_isFile: bool = os.path.isfile(xml)
-        xml_history: str = node.cachedUserData('in_presets_filepath')
+        xml_history: Union[str, None] = node.cachedUserData('in_presets_filepath')
         # Only if a valid preset has been loaded from a disk file ( not clipboard )
         if xml and xml_isFile and xml == xml_history and inisvalidfile and inisvalidpreset and not clipboard:
             
@@ -5421,7 +5424,7 @@ class flam3h_iterator_utils
             apo_data = in_flame_iter_data(node, xml, preset_id)
             if apo_data.isvalidtree:
                 
-                old_data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+                old_data: Union[str, None] = node.userData(FLAM3H_USER_DATA_XML_LAST)
                 now_data = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode") # type: ignore
                 now_data_isvalid = _xml_tree(now_data).isvalidtree
                 if old_data is not None and old_data != now_data and now_data_isvalid:
@@ -5492,11 +5495,11 @@ class flam3h_iterator_utils
             
             # For some reasons the FF menus do not update so we force them to
             n = flam3h_iterator_prm_names()
-            prm_names = (f"{PRX_FF_PRM}{n.prevar_type_1}", 
-                         f"{PRX_FF_PRM}{n.var_type_1}",
-                         f"{PRX_FF_PRM}{n.var_type_2}",
-                         f"{PRX_FF_PRM}{n.postvar_type_1}",
-                         f"{PRX_FF_PRM}{n.postvar_type_2}")
+            prm_names: tuple = (f"{PRX_FF_PRM}{n.prevar_type_1}", 
+                                f"{PRX_FF_PRM}{n.var_type_1}",
+                                f"{PRX_FF_PRM}{n.var_type_2}",
+                                f"{PRX_FF_PRM}{n.postvar_type_1}",
+                                f"{PRX_FF_PRM}{n.postvar_type_2}")
             [node.parm(name).pressButton() for name in prm_names]
             
             _MSG = "Iterator var menus: ICONS"
@@ -6368,7 +6371,7 @@ class flam3h_iterator_utils
                             self.destroy_cachedUserData(node, 'iter_sel')
                         else:
                             # This is for an edge case so we dnt have marked iterators in multiple node's "select iterator" mini-menus
-                            data = node.cachedUserData('edge_case_01')
+                            data: Union[bool, None] = node.cachedUserData('edge_case_01')
                             if _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None and data is None: # type: ignore
                                 self.destroy_cachedUserData(node, 'iter_sel')
                                 # This so we dnt fall back into this case again and again.
@@ -9980,7 +9983,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         _FRACTBITBUCKETGIT_MSG = 'Fractorium bitbucket'
         _FRACTWEB_MSG = 'Fractorium web'
         
-        # {prm_name: vale, ...}
+        # {prm_name: value, ...}
         about_web: dict = { MSG_FLAM3H_WEB: _FLAM3HWEB_MSG,
                             MSG_FLAM3H_GIT: _FLAM3HGIT_MSG,
                             MSG_FLAM3H_INSTA: _FLAM3HINSTA_MSG,
@@ -11163,7 +11166,9 @@ class in_flame
     __slots__ = ("_node", "_flame", "_flame_count", 
                  "_out_size", "_out_center", "_out_rotate", "_out_scale", "_out_quality", "_out_brightness", "_out_gamma", "_out_highlight_power", "_out_logscale_k2", "_out_vibrancy", 
                  "_out_curves", "_out_curve_overall", "_out_curve_red", "_out_curve_green", "_out_curve_blue", 
-                 "_flam3h_sys_rip", "_flam3h_hsv", "_flam3h_mb", "_flam3h_mb_samples", "_flam3h_mb_shutter", "_flam3h_cp_samples", "_flam3h_prefs_f3c")
+                 "_flam3h_sys_rip", "_flam3h_hsv", 
+                 "_flam3h_mb", "_flam3h_mb_samples", "_flam3h_mb_shutter", "_flam3h_cp_samples", 
+                 "_flam3h_prefs_f3c")
 
     def __init__(self, node: hou.SopNode, xmlfile: str) -> None:
         """
@@ -11177,6 +11182,7 @@ class in_flame
         self._node = node
         self._flame = self._xml_tree__get_flame() # type: ignore
         self._flame_count = self._xml_tree__get_flame_count(self._flame) # type: ignore
+        
         # render properties
         self._out_size = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SIZE) # type: ignore
         self._out_center = self._xml_tree__get_name_list_str(OUT_XML_FLAME_CENTER) # type: ignore
@@ -11188,21 +11194,25 @@ class in_flame
         self._out_highlight_power = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER) # type: ignore
         self._out_logscale_k2 = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2) # type: ignore
         self._out_vibrancy = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY) # type: ignore
+        
         # render curves
         self._out_curves = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVES, OUT_XML_FLAME_RENDER_CURVES_DEFAULT) # type: ignore
         self._out_curve_overall = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_OVERALL, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
         self._out_curve_red = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_RED, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
         self._out_curve_green = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_GREEN, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
         self._out_curve_blue = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_BLUE, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        
         # custom to FLAM3H only
         self._flam3h_sys_rip = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_SYS_RIP) # type: ignore
         self._flam3h_hsv = self._xml_tree__get_name_list_str(OUT_XML_FLAM3H_HSV) # type: ignore
+        
         # just check any of the MB val and if exist mean there is MB data to be set.
         # this will act as bool and if true, it will hold our OUT_XML_FLMA3H_MB_FPS value ( as string )
         self._flam3h_mb = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS) # type: ignore
         self._flam3h_mb_samples = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
         self._flam3h_mb_shutter = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
         self._flam3h_cp_samples = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES) # type: ignore
+        
         self._flam3h_prefs_f3c = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore
         
 
@@ -13575,7 +13585,7 @@ class in_flame_utils
         if apo_data is not None and clipboard: f3r = apo_data
         else:
             # Otherwise just use the stored data
-            data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+            data: Union[str, None] = node.userData(FLAM3H_USER_DATA_XML_LAST)
             if data is not None: f3r = in_flame_iter_data(node, data) # ELSE load from the stored data instead
             else: f3r = None
         # We are checking only for the XML Flame preset validity
@@ -13648,7 +13658,7 @@ class in_flame_utils
         # because when a Flame preset has been loaded already and we want to make sure it is still valid
         if inisvalidpreset or clipboard:
             
-            data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+            data: Union[str, None] = node.userData(FLAM3H_USER_DATA_XML_LAST)
             if data is not None: f3r = in_flame_iter_data(node, data)
             else: f3r = None
             if f3r is not None and f3r.isvalidtree:
@@ -13702,7 +13712,7 @@ class in_flame_utils
         # because the a Flame preset has been loaded already and we want to make sure it is still valid
         if inisvalidpreset or clipboard:
             
-            data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+            data: Union[str, None] = node.userData(FLAM3H_USER_DATA_XML_LAST)
             if data is not None: f3r = in_flame_iter_data(node, data) # ELSE load from the stored data instead
             else: f3r = None
             if f3r is not None and f3r.isvalidtree:
@@ -13766,7 +13776,7 @@ class in_flame_utils
         # because the a Flame preset has been loaded already and we want to make sure it is still valid
         if inisvalidpreset or clipboard:
             
-            data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+            data: Union[str, None] = node.userData(FLAM3H_USER_DATA_XML_LAST)
             if data is not None: f3r = in_flame_iter_data(node, data)
             else: f3r = None
             if f3r is not None and f3r.isvalidtree:
@@ -15299,7 +15309,7 @@ class in_flame_utils
                 flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
                 
                 # As a backup plan. Most likely not needed by why not
-                data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+                data: Union[str, None] = node.userData(FLAM3H_USER_DATA_XML_LAST)
                 if data is None or not _xml_tree(data).isvalidtree:
                     out_flame_utils(self.kwargs).out_userData_XML_last_loaded(FLAM3H_USER_DATA_XML_LAST, apo_data.name[preset_id])
                 
@@ -16493,8 +16503,8 @@ class out_flame_utils
         """
         # Build var parameter's sections
         f3h_iter = flam3h_iterator()
-        prm_sections_T = {'VAR': f3h_iter.sec_varsT, 'PRE': f3h_iter.sec_prevarsT, 'POST': f3h_iter.sec_postvarsT}
-        prm_sections_W = {'VAR': f3h_iter.sec_varsW, 'PRE': f3h_iter.sec_prevarsW[1:], 'POST': f3h_iter.sec_postvarsW}
+        prm_sections_T: dict = {'VAR': f3h_iter.sec_varsT, 'PRE': f3h_iter.sec_prevarsT, 'POST': f3h_iter.sec_postvarsT}
+        prm_sections_W: dict = {'VAR': f3h_iter.sec_varsW, 'PRE': f3h_iter.sec_prevarsW[1:], 'POST': f3h_iter.sec_postvarsW}
         
         # Get correct parameter's names based on the desired var section
         T_tuple = prm_sections_T.get(var_section)
@@ -17228,7 +17238,7 @@ class out_flame_utils
                     # Updated the Flame name iter num if exist and if needed
                     self.out_auto_change_iter_num_to_prm()
             elif inisvalidpreset and clipboard:
-                data = node.userData(FLAM3H_USER_DATA_XML_LAST)
+                data: Union[str, None] = node.userData(FLAM3H_USER_DATA_XML_LAST)
                 if data is not None:
                     apo_data = in_flame_iter_data(node, data, 0)
                     if apo_data.isvalidtree:
