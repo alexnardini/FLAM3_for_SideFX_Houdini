@@ -121,17 +121,22 @@ _They are 106, if you were wondering..._
 
 ## User experience
 
-Using Houdini's vex/cvex language, this implementation initially concentrated only on the core algorithm. However, it gradually became apparent that a significant portion of the work needed to be focused on the user experience and how all the algorithm pieces are stitched together in a meaningful way for the user, making this part of the project the most difficult.
+Using Houdini's vex/cvex language, this implementation initially concentrated only on the core algorithm. However, it gradually became apparent that a significant portion of the work needed to be focused on the user experience and how all the algorithm pieces are stitched together in a meaningful way for the user, making this part of the project very time consuming.
 
-Because FLAM3H was designed with fractal artists in mind, all internal automation that could be done to provide a seamless and pleasurable experience has been completed.
+Because FLAM3H was designed with fractal artists in mind, many internal automation that could be done to provide a seamless and pleasurable experience has been completed.
 
-FLAM3H prioritizes the user and their quality of life while using it, from completely automated xaos and iterators/xforms handling to a lovely, colorful, practical, and compact user interface.
+FLAM3H prioritizes the user and their quality of life while using it, from completely automated xaos and iterators/xforms handling to a slick, practical, and compact user interface.
 
-You can exchange data by just copying and pasting from the clipboard with third-party apps like Apophysis and Fractorium making the workflow as seamless and complete as possible.
+The workflow is convenient and quick since data can be copied and pasted between iterators/xforms and between various FLAM3H nodes.
+Along with many other quality-of-life features inside the Houdini environment, third-party tools like Apophysis and Fractorium allow you to interchange data from and to FLAM3H simply by copying and pasting from the clipboard, making the process as smooth and comprehensive as possible.
+
+It fully support the *.flame file format for maximun compatibility.
 
 Python and the Houdini's HOM libraries have been used to achieve all of this.
 
-To finish all of this, FLAM3H features an incredibly detailed documentation that is designed to provide you with all the information you would need. This extend to tooltips for each parameter in the FLAM3H Houdini user interface.
+Any parameter that is available in FLAM3H can be animated using any of the Houdini procedural paradigms and toolkits. These include but not limited to animation curves, expressions, and procedurally produced data from anywhere in Houdini, such as DOP Simulations, Particles data, CHOPS, and many more.
+
+To finish, FLAM3H features a detailed documentation that is designed to provide you with all the information you would need. This also extend to generous tooltips for each parameter in the FLAM3H Houdini user interface.
 
 ## Considerations
 

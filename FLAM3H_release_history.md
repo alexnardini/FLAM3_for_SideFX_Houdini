@@ -10,6 +10,17 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.7.94</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.94) ###
+
+- **Python code improvements.**
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.7.90</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.90) ###
 
 - **Updated HDA documentation.**
