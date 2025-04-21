@@ -4963,6 +4963,9 @@ class flam3h_iterator_utils
     def paste_set_note(node: hou.SopNode, flam3node: Union[hou.SopNode, None], int_mode: int, str_section: str, id: str, id_from: str) -> None:
         """After a copy/paste, it will set the note parameter with a string indicating what has been pasted ( when copy/paste iterator's sections )
         
+        _NOTE:
+            This need an upgrade/improvements at some point.
+        
         Args:
             node (hou.SopNode): FLAM3H node to set
             flam3node(Union[hou.SopNode, None]): hou.SopNode to copy values from
