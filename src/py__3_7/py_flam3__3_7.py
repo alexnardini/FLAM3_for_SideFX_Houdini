@@ -2523,7 +2523,7 @@ class flam3h_general_utils
             if _EXIST:
                 # Check if it needs an update
                 if new != hou.session.H_CS_STASH_DICT: #type: ignore
-                    __old_to_update = hou.session.H_CS_STASH_DICT.copy() #type: ignore
+                    __old_to_update: dict[str, hou.viewportColorScheme] = hou.session.H_CS_STASH_DICT.copy() #type: ignore
                     for key, value in new.items():
                         if value != hou.viewportColorScheme.Dark: # type: ignore
                             __old_to_update[key] = value
