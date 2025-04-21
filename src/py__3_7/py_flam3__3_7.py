@@ -5843,25 +5843,17 @@ class flam3h_iterator_utils
                     _OPACITY_MSG = ""
                     if shader_opacity[i] == 0: _OPACITY_MSG = "[ZERO opacity] "
                     
+                    _ICON = 0
+                    if node == from_FLAM3H_NODE and mp_id_from == idx: _ICON = 1 # Marked
+                    
                     if active[i] and weight[i] > 0:
-                        # check if it is marked for being copied
-                        if node == from_FLAM3H_NODE and mp_id_from == idx:
-                            menu.append(f"{FLAM3H_ICON_COPY_PASTE}  {idx}:  {_OPACITY_MSG}{note[i]}")
-                        else:
-                            menu.append(f"{FLAM3H_ICON_STAR_FLAME_ITER_ACTV}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        menu.append(f"{(FLAM3H_ICON_STAR_FLAME_ITER_ACTV, FLAM3H_ICON_COPY_PASTE)[_ICON]}  {idx}:  {_OPACITY_MSG}{note[i]}")
                             
                     elif active[i] and weight[i] == 0:
-                        # check if it is marked for being copied
-                        if node == from_FLAM3H_NODE and mp_id_from == idx:
-                            menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO}  {idx}:  {_OPACITY_MSG}{note[i]}")
-                        else:
-                            menu.append(f"{FLAM3H_ICON_STAR_EMPTY_OPACITY}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        menu.append(f"{(FLAM3H_ICON_STAR_EMPTY_OPACITY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO)[_ICON]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+
                     else:
-                        # check if it is marked for being copied
-                        if node == from_FLAM3H_NODE and mp_id_from == idx:
-                            menu.append(f"{FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED}  {idx}:  {_OPACITY_MSG}{note[i]}")
-                        else:
-                            menu.append(f"{FLAM3H_ICON_STAR_EMPTY}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        menu.append(f"{(FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED)[_ICON]}  {idx}:  {_OPACITY_MSG}{note[i]}")
                             
             else:
                 menu = MENU_ZERO_ITERATORS
