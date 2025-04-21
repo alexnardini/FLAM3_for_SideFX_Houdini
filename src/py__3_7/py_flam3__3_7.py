@@ -11219,12 +11219,12 @@ class in_flame
     def xf_val_cleanup_split_str(val: str, default_val: str='0') -> str:
         """ Attempt to remove invalid characters from the passed value.
         This is specifically for the XML curves data.
-        It will split each knots value and check for invalid chars and if the result is a valid float. If not it will return a '0' string.
+        It will split each knots value and check for invalid chars and if the result is a valid float. If not it will return a '0' string by default.
         In the end it will re-join everything for output.
         
         Args:
             val(str): value from the xml
-            default_val(str): If something goesw wrong use this as the returned value.
+            default_val(str): Default to: '0'. If something goes wrong use this as the returned value.
 
         Returns:
             (str): value cleaned up from invalid characters
@@ -11251,7 +11251,7 @@ class in_flame
         
         Args:
             val(str): value from the xml
-            default_val(str): If something goes wrong use this as the returned value.
+            default_val(str): Default to: '0'. If something goes wrong use this as the returned value.
 
         Returns:
             (str): value cleaned up from invalid characters
@@ -11274,7 +11274,7 @@ class in_flame
         
         Args:
             affine(list): affine values from the xml
-            default_val(str): If something goes wrong use this as the returned value.
+            default_val(str): Default to: '0'. If something goes wrong use this as the returned value.
 
         Returns:
             (list): a list of affine values cleaned up from invalid characters
@@ -11300,7 +11300,7 @@ class in_flame
         
         Args:
             affine(list): affine values from the xml
-            default_val(str): If something goesw wrong use this as the returned value.
+            default_val(str): Default to: '0'. If something goesw wrong use this as the returned value.
 
         Returns:
             (str): a string of spaced joined affine values cleaned up from invalid characters
