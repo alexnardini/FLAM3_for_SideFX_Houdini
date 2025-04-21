@@ -9301,12 +9301,12 @@ class flam3h_palette_utils
                     hsv_check = False
                 
                 # Get usable color values
-                HEXs = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
+                HEXs: list = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
                 try:
-                    RGBs = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
-                    rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                    RGBs: list = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
+                    rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
                 except:
-                    rgb_from_XML_PALETTE = []
+                    rgb_from_XML_PALETTE: list = []
                 
                 del data
                 
@@ -9324,7 +9324,7 @@ class flam3h_palette_utils
                 
                 # Set palette lookup samples
                 # Note we are setting the function type to: Flame(0) so we always clamp at the minimun of 256 lookup samples
-                keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, _COUNT, 0, False)
+                keys: str = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, _COUNT, 0, False)
                 node.setParms({CP_RAMP_LOOKUP_SAMPLES: int(keys)}) # type: ignore
                 # Store selection into all preset menu just in case ;)
                 [prm.set(str(preset_id)) for prm in (node.parm(CP_SYS_PALETTE_PRESETS), node.parm(CP_SYS_PALETTE_PRESETS_OFF), node.parm(CP_PALETTE_PRESETS), node.parm(CP_PALETTE_PRESETS_OFF))]
@@ -9464,12 +9464,12 @@ class flam3h_palette_utils
                                 hsv_check = False
                             
                             # Get usable color values
-                            HEXs = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
+                            HEXs: list = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
                             try:
-                                RGBs = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
-                                rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                                RGBs: list = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
+                                rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
                             except:
-                                rgb_from_XML_PALETTE = []
+                                rgb_from_XML_PALETTE: list = []
                                 
                             del data
                             
@@ -9487,7 +9487,7 @@ class flam3h_palette_utils
                             
                             # Set palette lookup samples
                             # Note we are setting the function type to: Flame so we always clamp at the minimun of 256 lookup samples
-                            keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, _COUNT, 0, False)
+                            keys: str = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, _COUNT, 0, False)
                             node.setParms({CP_RAMP_LOOKUP_SAMPLES: int(keys)}) # type: ignore
                             
                             # Mark this as not a loaded preset since it is coming from the Clipboard
@@ -11687,10 +11687,10 @@ class in_flame
                 #         [_HEX.append(hex) for hex in wrap(cleandoc, 6)]
                 
                 palette_hex = self.flame[idx].find(key).text
-                HEXs = [hex for line in palette_hex.splitlines() for hex in wrap(i_cleandoc(line), 6) if len(i_cleandoc(line))>1]
+                HEXs: list = [hex for line in palette_hex.splitlines() for hex in wrap(i_cleandoc(line), 6) if len(i_cleandoc(line))>1]
                 try:
-                    RGBs = [list(map(abs, flam3h_palette_utils.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
-                    rgb_from_XML_PALETTE = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                    RGBs: list = [list(map(abs, flam3h_palette_utils.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
+                    rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
                     _PALETTE = True
                 except:
                     _PALETTE = False
@@ -11698,8 +11698,8 @@ class in_flame
                 if _PALETTE:
                     format = dict(palette_attrib).get(XML_PALETTE_FORMAT)
                     ramp_keys_count = len(rgb_from_XML_PALETTE)
-                    POSs = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
-                    BASESs = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
+                    POSs: list = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
+                    BASESs: list = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
                     return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), ramp_keys_count, str(format)
                 
                 else:
