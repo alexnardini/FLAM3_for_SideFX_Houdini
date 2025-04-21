@@ -7909,10 +7909,10 @@ class flam3h_iterator_utils
         # collect all xaos
         val = out_flame_utils.out_xaos_collect(node, iter_count, flam3h_iterator_prm_names().xaos)
         # fill missing weights if any
-        fill_all_xaos = [np_pad(item, (0, iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
+        fill_all_xaos: list = [np_pad(item, (0, iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
         
         # convert all xaos into array of strings
-        xaos_str = [[str(item) for item in xaos] for xaos in fill_all_xaos]
+        xaos_str: list = [[str(item) for item in xaos] for xaos in fill_all_xaos]
             
         # get xaos from CachedUserData
         __xaos_str_hou_get = self.auto_set_xaos_data_get_XAOS_PREV(node)
@@ -8106,11 +8106,11 @@ class flam3h_iterator_utils
         prm_xaos = flam3h_iterator_prm_names().xaos
         [node.parm(f"{prm_xaos}_{str(mp_idx+1)}").deleteAllKeyframes() for mp_idx in range(iter_count)]
         [node.setParms({f"{prm_xaos}_{str(mp_idx+1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)] # type: ignore
-            
+        
         # reset iterator's mpmem prm
         [node.setParms({f"{mp_mem_name}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_count)] # type: ignore
         # update flam3h_xaos_mpmem
-        __mpmem_hou = [int(node.parm(f"{mp_mem_name}_{str(mp_idx+1)}").eval()) for mp_idx in range(iter_count)]
+        __mpmem_hou: list = [int(node.parm(f"{mp_mem_name}_{str(mp_idx+1)}").eval()) for mp_idx in range(iter_count)]
         # export mpmem into CachedUserData
         self.auto_set_xaos_data_set_MP_MEM(node, __mpmem_hou)
         
