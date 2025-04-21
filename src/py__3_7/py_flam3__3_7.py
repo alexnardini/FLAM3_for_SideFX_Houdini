@@ -4126,6 +4126,10 @@ FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?
 FLAM3H_ICON_STAR_FLAME_ITER_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg]'
 # High tier menu entrie
 FLAM3H_ICON_STAR_HIGH_TIER = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]'
+# Menu select iterator - Prep icons (unmarked, marked)
+SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT: tuple = (FLAM3H_ICON_STAR_FLAME_ITER_ACTV, FLAM3H_ICON_COPY_PASTE)
+SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple = (FLAM3H_ICON_STAR_EMPTY_OPACITY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO)
+SEL_ITER_BOOKMARK_OFF: tuple = (FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED)
 
 # The following are pre built to speed up the generations of the menus.
 MENU_ZERO_ITERATORS = [0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  ZERO ITERATORS\n -> Please, create at least one iterator or load an IN flame file first.", 1, ""]
@@ -5199,8 +5203,8 @@ class flam3h_iterator_utils
             try: node.destroyUserData(data)
             except: pass
         else: node.destroyUserData(data)
-            
-            
+
+
 
     @staticmethod
     def menu_T_get_type_icon(w: float) -> str:
@@ -5831,11 +5835,6 @@ class flam3h_iterator_utils
                 # Store the most updated version of this data
                 node.setCachedUserData('iter_sel_id', mp_id_from)
                 
-                # Prep icons (unmarked, marked)
-                _BOOKMARK_ACTIVE_AND_WEIGHT: tuple = (FLAM3H_ICON_STAR_FLAME_ITER_ACTV, FLAM3H_ICON_COPY_PASTE)
-                _BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple = (FLAM3H_ICON_STAR_EMPTY_OPACITY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO)
-                _BOOKMARK_OFF: tuple = (FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED)
-                
                 # append an empty line to reset to after selection (Null value).
                 menu.append(0)
                 menu.append("")
@@ -5852,13 +5851,13 @@ class flam3h_iterator_utils
                     if node == from_FLAM3H_NODE and mp_id_from == idx: _ICON_IDX = 1 # Marked
                     
                     if active[i] and weight[i] > 0:
-                        menu.append(f"{_BOOKMARK_ACTIVE_AND_WEIGHT[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        menu.append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
                             
                     elif active[i] and weight[i] == 0:
-                        menu.append(f"{_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        menu.append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
 
                     else:
-                        menu.append(f"{_BOOKMARK_OFF[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        menu.append(f"{SEL_ITER_BOOKMARK_OFF[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
                             
             else:
                 menu = MENU_ZERO_ITERATORS
