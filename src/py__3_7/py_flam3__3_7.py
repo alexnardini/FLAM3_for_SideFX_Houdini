@@ -14051,12 +14051,12 @@ class in_flame_utils
         
         xforms, _MAX_VARS_MODE = self.in_get_xforms_data_and_flam3h_vars_limit(mode, apo_data)
         
-        vars_keys = self.in_get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
+        vars_keys: Union[list, None] = self.in_get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
         assert vars_keys is not None
-        vars_keys_pre_pgb = self.in_get_xforms_var_keys(xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-        vars_keys_pre = self.in_vars_keys_remove_pgb(vars_keys_pre_pgb, pgb_name)
+        vars_keys_pre_pgb: Union[list, None] = self.in_get_xforms_var_keys(xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        vars_keys_pre: Union[list, None] = self.in_vars_keys_remove_pgb(vars_keys_pre_pgb, pgb_name)
         assert vars_keys_pre is not None
-        vars_keys_post = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        vars_keys_post: Union[list, None] = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
         assert vars_keys_post is not None
 
         app = apo_data.sw_version[preset_id]
@@ -14068,8 +14068,8 @@ class in_flame_utils
         # Set variations ( iterator and FF )
         for mp_idx, xform in enumerate(xforms):
             
-            iterator_vars_skipped = []
-            FF_vars_skipped = []
+            iterator_vars_skipped: list = []
+            FF_vars_skipped: list = []
             
             # Collect iterator or FF vars in excess  
             if len(vars_keys[mp_idx]) > _MAX_VARS_MODE:
@@ -14078,7 +14078,7 @@ class in_flame_utils
             
             # in case of an iterator only the first 4. In case of an FF only the first 2
             for t_idx, key_name in enumerate(vars_keys[mp_idx][:_MAX_VARS_MODE]):
-                v_type = self.in_get_idx_by_key(key_name)
+                v_type: Union[int, None] = self.in_get_idx_by_key(key_name)
                 if v_type is not None:
                     v_weight = float(xform.get(key_name))
                     if apo_prm[v_type][-1]:
@@ -14115,7 +14115,7 @@ class in_flame_utils
                 # FF PRE vars ( only the first one in "vars_keys_pre[mp_idx]" will be kept )
                 if vars_keys_pre[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
-                        v_type = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        v_type: Union[int, None] = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w = float(xform.get(key_name))
                             v_weight = self.in_util_check_negative_weight(node, w, self.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
@@ -14139,7 +14139,7 @@ class in_flame_utils
                 # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
                 if vars_keys_post[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
-                        v_type = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        v_type: Union[int, None] = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w = float(xform.get(key_name))
                             v_weight = self.in_util_check_negative_weight(node, w, self.in_util_make_POST(var_prm[v_type][0])) # type: ignore
@@ -14174,7 +14174,7 @@ class in_flame_utils
                 if vars_keys_pre[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
                         
-                        v_type = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        v_type: Union[int, None] = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w = float(xform.get(key_name))
                             v_weight = self.in_util_check_negative_weight(node, w, self.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
@@ -14200,7 +14200,7 @@ class in_flame_utils
                 # POST vars in this iterator ( only the first one in "vars_keys_post[mp_idx]" will be kept )
                 if vars_keys_post[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
-                        v_type = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        v_type: Union[int, None] = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w = float(xform.get(key_name))
                             v_weight = self.in_util_check_negative_weight(node, w, self.in_util_make_POST(var_prm[v_type][0])) # type: ignore
