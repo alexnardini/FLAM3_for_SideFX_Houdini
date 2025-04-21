@@ -7869,12 +7869,12 @@ class flam3h_iterator_utils
         [prm.lock(False) for prm in (prm_mpidx, prm_xfviz, prm_xfviz_solo, prm_xfviz_solo_mp_idx)]
         
         # init indexes
-        idx_del_inbetween = None
-        idx_add_inbetween = None
+        idx_del_inbetween: Union[int, None] = None
+        idx_add_inbetween: Union[int, None] = None
         
-        mpmem = []
-        mpmem_hou_get = []
-        xaos_str_hou_get = []
+        mpmem: list = []
+        mpmem_hou_get: list = []
+        xaos_str_hou_get: list = []
         
         # get mpmem parms now
         mp_mem_name = flam3h_iterator_prm_names().main_mpmem
