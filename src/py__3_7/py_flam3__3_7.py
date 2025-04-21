@@ -3235,7 +3235,7 @@ class flam3h_general_utils
         node: hou.SopNode = self.node
         iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         
-        mp_idx: str = self.kwargs['script_multiparm_index']
+        mp_idx: int = self.kwargs['script_multiparm_index']
         prm_mp = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{mp_idx}")
         
         data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
@@ -3283,7 +3283,7 @@ class flam3h_general_utils
         node: hou.SopNode = self.node
         iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
         
-        # mp_idx: str = self.kwargs['script_multiparm_index']
+        # mp_idx = self.kwargs['script_multiparm_index']
         prm_mp = node.parm(PREFS_PVT_XF_FF_VIZ_SOLO)
         data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
         
@@ -5292,7 +5292,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        idx = self.kwargs['script_multiparm_index']
+        idx: int = self.kwargs['script_multiparm_index']
         scl: float = hou.parm(f"scl_{idx}").eval()
         x: tuple = hou.parmTuple(f"x_{idx}").eval()
         y: tuple = hou.parmTuple(f"y_{idx}").eval()
@@ -5321,7 +5321,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        idx = self.kwargs['script_multiparm_index']
+        idx: int = self.kwargs['script_multiparm_index']
         scl: float = hou.parm(f"pscl_{idx}").eval()
         x: tuple = hou.parmTuple(f"px_{idx}").eval()
         y: tuple = hou.parmTuple(f"py_{idx}").eval()
@@ -5544,7 +5544,7 @@ class flam3h_iterator_utils
         node = self.node
         self.destroy_cachedUserData(node, 'iter_sel')
         prm = self.kwargs['parm']
-        idx = self.kwargs['script_multiparm_index']
+        idx: int = self.kwargs['script_multiparm_index']
         if not prm.eval():
             prm.set(f"iterator_{idx}")
             
@@ -5573,8 +5573,8 @@ class flam3h_iterator_utils
             (tuple[int, float]): int: variation idx.    float: weight value
         """  
         _TYPE = self.kwargs['parm'].eval()
-        idx = self.kwargs['script_multiparm_index']
-        prm_weight_name = f"{str(self.kwargs['parm'].name()).split('type')[0]}weight_{str(idx)}"
+        idx: int = self.kwargs['script_multiparm_index']
+        prm_weight_name = f"{str(self.kwargs['parm'].name()).split('type')[0]}weight_{idx}"
         return _TYPE, self.node.parm(prm_weight_name).eval()
     
     
@@ -5664,8 +5664,8 @@ class flam3h_iterator_utils
         Returns:
             (tuple[int, str]): int: variation idx.    str: icon
         """
-        idx = self.kwargs['script_multiparm_index']
-        prm_weight_name = f"{flam3h_iterator_prm_names().prevar_weight_blur}_{str(idx)}"
+        idx: int = self.kwargs['script_multiparm_index']
+        prm_weight_name = f"{flam3h_iterator_prm_names().prevar_weight_blur}_{idx}"
 
         w = self.node.parm(prm_weight_name).eval()
 
@@ -6214,7 +6214,7 @@ class flam3h_iterator_utils
         menu=[]
         
         node = self.node
-        id = self.kwargs['script_multiparm_index']
+        id: int = self.kwargs['script_multiparm_index']
         idx = str(id)
         
         if self.exist_user_data(node):
@@ -6712,7 +6712,7 @@ class flam3h_iterator_utils
         # Clear menu cache
         self.destroy_cachedUserData(node, 'iter_sel')
         
-        id = self.kwargs['script_multiparm_index']
+        id: int = self.kwargs['script_multiparm_index']
         
         # This is to make sure the hou.session's data is at least initialized.
         self.flam3h_init_hou_session_iterator_data(node)
@@ -6934,7 +6934,7 @@ class flam3h_iterator_utils
         if mp_id_from is not None:
 
             # current iterator
-            id = self.kwargs['script_multiparm_index']
+            id: int = self.kwargs['script_multiparm_index']
             idx = str(id)
             idx_from = str(mp_id_from)
             
@@ -7013,7 +7013,7 @@ class flam3h_iterator_utils
             (None):
         """    
         # current iterator
-        id = self.kwargs['script_multiparm_index']
+        id: int = self.kwargs['script_multiparm_index']
         idx = str(id)
         kwargs = self.kwargs
         
@@ -7044,7 +7044,7 @@ class flam3h_iterator_utils
             (None):
         """    
         # current iterator
-        id = self.kwargs['script_multiparm_index']
+        id: int = self.kwargs['script_multiparm_index']
         idx = str(id)
         kwargs = self.kwargs
         
@@ -7239,7 +7239,7 @@ class flam3h_iterator_utils
         """
         node = self.node
         n = flam3h_iterator_prm_names()
-        id = self.kwargs['script_multiparm_index']
+        id: int = self.kwargs['script_multiparm_index']
         idx = str(id)
         check = True
         
@@ -7317,7 +7317,7 @@ class flam3h_iterator_utils
         """
         node = self.node
         n = flam3h_iterator_prm_names()
-        id = self.kwargs['script_multiparm_index']
+        id: int = self.kwargs['script_multiparm_index']
         idx = str(id)
         
         if node.parm(f"{n.postaffine_do}_{idx}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
@@ -7750,7 +7750,7 @@ class flam3h_iterator_utils
             (None):
         """
         node = self.node
-        id = self.kwargs['script_multiparm_index']
+        id: int = self.kwargs['script_multiparm_index']
         idx = str(id)
         
         # prm names
@@ -8233,7 +8233,7 @@ class flam3h_iterator_utils
 
         # If this va: list variable is empty, mean we switched the last active irterator to OFF so lets do something about it.
         if not va:
-            id = self.kwargs['script_multiparm_index']
+            id: int = self.kwargs['script_multiparm_index']
             node.setParms({f"vactive_{str(id)}": 1})
             _MSG = f"{node.name()}: iterator {str(id)} reverted back to being Active. There must always be at least one active iterator."
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -8258,7 +8258,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        id = self.kwargs['script_multiparm_index']
+        id: int = self.kwargs['script_multiparm_index']
         vactive_prm_name = f"vactive_{str(id)}"
         flam3h_general_utils(self.kwargs).flam3h_toggle(vactive_prm_name)
         self.__iterator_keep_last_vactive()
@@ -8299,7 +8299,7 @@ class flam3h_iterator_utils
         
         if len(W) == len(vactive_iters):
             min_weight = 0.00000001
-            id = self.kwargs['script_multiparm_index']
+            id: int = self.kwargs['script_multiparm_index']
             node.setParms({f"iw_{str(id)}": min_weight})
             _MSG = f"{node.name()}: iterator {str(id)}'s Weight reverted back to a value of: {min_weight} instead of Zero. There must always be at least one active iterator's weight above Zero."
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
