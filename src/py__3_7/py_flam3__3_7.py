@@ -5831,6 +5831,11 @@ class flam3h_iterator_utils
                 # Store the most updated version of this data
                 node.setCachedUserData('iter_sel_id', mp_id_from)
                 
+                # Prep icons (unmarked, marked)
+                _BOOKMARK_ACTIVE_AND_WEIGHT: tuple = (FLAM3H_ICON_STAR_FLAME_ITER_ACTV, FLAM3H_ICON_COPY_PASTE)
+                _BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple = (FLAM3H_ICON_STAR_EMPTY_OPACITY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO)
+                _BOOKMARK_OFF: tuple = (FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED)
+                
                 # append an empty line to reset to after selection (Null value).
                 menu.append(0)
                 menu.append("")
@@ -5843,17 +5848,17 @@ class flam3h_iterator_utils
                     _OPACITY_MSG = ""
                     if shader_opacity[i] == 0: _OPACITY_MSG = "[ZERO opacity] "
                     
-                    _ICON = 0
-                    if node == from_FLAM3H_NODE and mp_id_from == idx: _ICON = 1 # Marked
+                    _ICON_IDX = 0
+                    if node == from_FLAM3H_NODE and mp_id_from == idx: _ICON_IDX = 1 # Marked
                     
                     if active[i] and weight[i] > 0:
-                        menu.append(f"{(FLAM3H_ICON_STAR_FLAME_ITER_ACTV, FLAM3H_ICON_COPY_PASTE)[_ICON]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        menu.append(f"{_BOOKMARK_ACTIVE_AND_WEIGHT[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
                             
                     elif active[i] and weight[i] == 0:
-                        menu.append(f"{(FLAM3H_ICON_STAR_EMPTY_OPACITY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO)[_ICON]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        menu.append(f"{_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
 
                     else:
-                        menu.append(f"{(FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED)[_ICON]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        menu.append(f"{_BOOKMARK_OFF[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
                             
             else:
                 menu = MENU_ZERO_ITERATORS
