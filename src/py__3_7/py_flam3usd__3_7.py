@@ -625,24 +625,40 @@ class flam3husd_general_utils
             (None):  
         """  
         # Check if the required data exist already
-        try: hou.session.HUSD_CS_STASH_DICT # type: ignore
-        except: # if not, lets create it
-            views_scheme: list[hou.EnumValue]  = []
-            views_keys: list[str] = []
-            for v in flam3husd_general_utils.util_getSceneViewers():
-                
-                # Store only if it is a Lop viewer
-                if flam3husd_general_utils.util_is_context('Lop', v):
-                
-                    view = v.curViewport()
-                    settings = view.settings()
-                    _CS = settings.colorScheme()
-                    if _CS != hou.viewportColorScheme.Dark: # type: ignore
-                        views_scheme.append(_CS)
-                        views_keys.append(v.name())
+        try:
+            hou.session.HUSD_CS_STASH_DICT # type: ignore
+            _EXIST = True
+        except:
+            _EXIST = False
             
-            # Always store and update this data if we collected something
-            if views_scheme and views_keys: hou.session.HUSD_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
+        views_scheme: list[hou.EnumValue]  = []
+        views_keys: list[str] = []
+        for v in flam3husd_general_utils.util_getSceneViewers():
+            
+            # Store only if it is a Lop viewer
+            if flam3husd_general_utils.util_is_context('Lop', v):
+            
+                view = v.curViewport()
+                settings = view.settings()
+                _CS = settings.colorScheme()
+                if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                    views_scheme.append(_CS)
+                    views_keys.append(v.name())
+                    
+        # Always store and update this data if we collected something
+        if views_scheme and views_keys:
+            new: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # type: ignore
+            if _EXIST:
+                # Check if it needs an update
+                if new != hou.session.HUSD_CS_STASH_DICT: #type: ignore
+                    __old_to_update: dict[str, hou.viewportColorScheme] = hou.session.HUSD_CS_STASH_DICT.copy() #type: ignore
+                    for key, value in new.items():
+                        if value != hou.viewportColorScheme.Dark: # type: ignore
+                            __old_to_update[key] = value
+                    hou.session.HUSD_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = __old_to_update #type: ignore
+            else:
+                # otherwise create
+                hou.session.HUSD_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = new # type: ignore
 
 
 
