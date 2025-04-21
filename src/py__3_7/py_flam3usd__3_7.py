@@ -654,7 +654,7 @@ class flam3husd_general_utils
                     __old_to_update: dict[str, hou.viewportColorScheme] = hou.session.HUSD_CS_STASH_DICT.copy() #type: ignore
                     for key, value in new.items():
                         if value != hou.viewportColorScheme.Dark: # type: ignore
-                            __old_to_update[key] = value
+                            if key not in __old_to_update.keys(): __old_to_update[key] = value
                     hou.session.HUSD_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = __old_to_update #type: ignore
             else:
                 # otherwise create
