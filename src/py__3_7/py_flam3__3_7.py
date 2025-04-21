@@ -15985,7 +15985,7 @@ class out_flame_utils
         Returns:
             (bool): True if there are duplicates and False if not.
         """
-        result = []
+        result: list = []
         [result.append(x) for x in vars if x not in result]
         if(len(vars) != len(result)):
             return True
@@ -16004,10 +16004,10 @@ class out_flame_utils
         Returns:
             (list): duplicate variation's names per each iterator
         """
-        duplicate = []
+        duplicate: list = []
         for iterator in vars:
-            v = []
-            d = []
+            v: list = []
+            d: list = []
             for var in iterator:
                 if var not in v:
                     v.append(var)
@@ -16030,8 +16030,8 @@ class out_flame_utils
         Returns:
             (list): duplicate variation's names per each iterator
         """
-        v = []
-        d = []
+        v: list = []
+        d: list = []
         for var in vars:
             if var not in v:
                 v.append(var)
@@ -16285,7 +16285,7 @@ class out_flame_utils
         Returns:
            (list[list[str]]): an iterator Xaos cleaned up from the inactive iterator's values
         """
-        xaos_cleaned = []
+        xaos_cleaned: list = []
         for x in xaos:
             invert = x[::-1]
             trace = 0
@@ -16327,8 +16327,8 @@ class out_flame_utils
             (list[list[str]]): A list of xaos list[str] of values
         """   
 
-        val = []
-        val_prev = flam3h_iterator_utils.auto_set_xaos_data_get_XAOS_PREV(node)
+        val: list = []
+        val_prev: Union[list, None] = flam3h_iterator_utils.auto_set_xaos_data_get_XAOS_PREV(node)
         
         for iter in range(iter_count):
             
@@ -16415,7 +16415,7 @@ class out_flame_utils
         Returns:
             (list[list[str]]): return a list of list[str] with the NO-active iterators taken into consideration.
         """    
-        xaos_no_vactive = []
+        xaos_no_vactive: list = []
         for x in fill:
             collect = [str(item) for idx, item in enumerate(x) if node.parm(f"{prm}_{idx+1}").eval()]
             if collect:
@@ -16504,8 +16504,8 @@ class out_flame_utils
         prm_sections_W: dict = {'VAR': f3h_iter.sec_varsW, 'PRE': f3h_iter.sec_prevarsW[1:], 'POST': f3h_iter.sec_postvarsW}
         
         # Get correct parameter's names based on the desired var section
-        T_tuple = prm_sections_T.get(var_section)
-        W_tuple = prm_sections_W.get(var_section)
+        T_tuple: Union[tuple, None] = prm_sections_T.get(var_section)
+        W_tuple: Union[tuple, None] = prm_sections_W.get(var_section)
         
         if T_tuple is not None and W_tuple is not None:
             names = []
@@ -16551,8 +16551,8 @@ class out_flame_utils
             prm_sections_W: dict = {'VAR': f3h_iter_FF.sec_varsW_FF, 'PRE': f3h_iter_FF.sec_prevarsW_FF, 'POST': f3h_iter_FF.sec_postvarsW_FF}
         
         # Get correct parameter's names based on the desired var section and mode
-        T_tuple = prm_sections_T.get(var_section)
-        W_tuple = prm_sections_W.get(var_section)
+        T_tuple: Union[tuple, None] = prm_sections_T.get(var_section)
+        W_tuple: Union[tuple, None] = prm_sections_W.get(var_section)
         
         # Just double checking
         if T_tuple is not None and W_tuple is not None:
@@ -16564,7 +16564,7 @@ class out_flame_utils
                 if node.parm(PREFS_PVT_DOFF).eval():
                     
                     _MP_IDX = 'FF'
-                    names_collect_values = []
+                    names_collect_values: list = []
                     for idx, prm in enumerate(W_tuple):
                         prm_w = node.parm(f"{prm[0]}").eval()
                         if prm_w != 0:
@@ -16584,7 +16584,7 @@ class out_flame_utils
                 # iterators
                 for iter in range(node.parm(FLAME_ITERATORS_COUNT).eval()):
                     _MP_IDX = str(int(iter + 1))
-                    names_collect_values = []
+                    names_collect_values: list = []
                     for idx, prm in enumerate(W_tuple):
                         prm_w = node.parm(f"{prm[0]}{_MP_IDX}").eval()
                         if prm_w != 0:
@@ -16871,8 +16871,8 @@ class out_flame_utils
         res: dict = {-1: None, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), # 1 2 3 4
                      -1: None, 6: (640, 486), 7: (720, 486), 8: (768, 586), 9: (1024, 576), # 6 7 8 9
                      -1: None, 11: (4096, 3112), 12: (2048, 1556), 13: (3656, 2664), 14: (1828, 1332), 15: (3656, 3112), 16: (1828, 1556), 17: (3072, 2048), # 11 12 13 14 15 16 17
-                     -1: None, 19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096),
-                     -1: None } # 19 20 21 22 23
+                     -1: None, 19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096), # 19 20 21 22 23
+                     -1: None }
  
         if res.get(sel) is not None:
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res.get(sel))}) # type: ignore
@@ -17039,9 +17039,9 @@ class out_flame_utils
         Returns:
             (tuple): the xaos TO values to write out.
         """
-        val = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
-        fill = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
-        xaos_vactive = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
+        val: list = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
+        fill: list = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
+        xaos_vactive: list = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
 
 
@@ -17055,9 +17055,9 @@ class out_flame_utils
         Returns:
             (tuple): the xaos FROM values transposed into xaos TO values to write out.
         """
-        val = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
-        fill = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values=1) for item in val]
-        t = np_transpose(np_resize(fill, (self.iter_count, self.iter_count))).tolist()
+        val: list = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
+        fill: list = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values=1) for item in val]
+        t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count))).tolist()
         if mode:
             xaos_vactive = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
             return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
@@ -17319,7 +17319,7 @@ class out_flame_utils
         
         iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
         
-        iter_VAR_dup = {}
+        iter_VAR_dup: dict = {}
         if iter_VAR is not False:
             assert isinstance(iter_VAR, dict)
             for iter in range(iter_count):
@@ -17331,7 +17331,7 @@ class out_flame_utils
                         iter_VAR_dup[key] = dup
                         if bool_VARS is False: bool_VARS = True
                     
-        iter_PRE_dup = {}
+        iter_PRE_dup: dict = {}
         if iter_PRE is not False:
             assert isinstance(iter_PRE, dict)
             for iter in range(iter_count):
@@ -17346,9 +17346,9 @@ class out_flame_utils
         
         # FF: duplicates check
         #############################################################################
-        _FF_VAR_dup = {}
-        _FF_POST_dup = {}
-        key = 'FF'
+        _FF_VAR_dup: dict = {}
+        _FF_POST_dup: dict = {}
+        key: str = 'FF'
         if node.parm(PREFS_PVT_DOFF).eval():
             _FF_VAR: Union[dict[str, list[str]], bool]  = self.out_collect_var_section_names_dict(node, 1, 'VAR')
             _FF_POST: Union[dict[str, list[str]], bool] = self.out_collect_var_section_names_dict(node, 1, 'POST')
@@ -17487,10 +17487,10 @@ class out_flame_utils
         [flame.set(key, value) for key, value in self.out_flame_properties_build(f3r).items() if value is not False]
 
         # SET xforms
-        name_PRE_BLUR = ""
-        names_VARS = []
-        names_VARS_PRE = []
-        names_VARS_POST = []
+        name_PRE_BLUR: str = ""
+        names_VARS: list = []
+        names_VARS_PRE: list = []
+        names_VARS_POST: list = []
         for iter in range(f3d.iter_count):
             mp_idx = str(int(iter + 1))
             if int(f3d.xf_vactive[iter]):
@@ -17522,9 +17522,9 @@ class out_flame_utils
                 names_VARS_POST.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_postvarsT, f3h_iter.sec_postvarsW, xf, mp_idx, in_flame_utils.in_util_make_POST))
         
         # SET finalxform (FF)
-        names_VARS_FF = []
-        names_VARS_PRE_FF = []
-        names_VARS_POST_FF = []
+        names_VARS_FF: list = []
+        names_VARS_PRE_FF: list = []
+        names_VARS_POST_FF: list = []
         if f3d.flam3h_do_FF:
             finalxf = lxmlET.SubElement(flame, XML_FF) # type: ignore
             finalxf.tag = XML_FF
@@ -17555,9 +17555,9 @@ class out_flame_utils
         palette.text = f3d.palette_hex
 
         # SET unique used 'plugins' and 'new linear'
-        names_VARS_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], in_flame_utils.in_util_make_NULL)
-        names_VARS_PRE_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF]+list(map(lambda x: in_flame_utils.in_util_make_VAR([x]) if x else x, [name_PRE_BLUR])), in_flame_utils.in_util_make_PRE)
-        names_VARS_POST_flatten_unique = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
+        names_VARS_flatten_unique: list = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], in_flame_utils.in_util_make_NULL)
+        names_VARS_PRE_flatten_unique: list = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF]+list(map(lambda x: in_flame_utils.in_util_make_VAR([x]) if x else x, [name_PRE_BLUR])), in_flame_utils.in_util_make_PRE)
+        names_VARS_POST_flatten_unique: list = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
         flame.set(XML_FLAME_PLUGINS, i_cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
         flame.set(XML_FLAME_NEW_LINEAR, '1')
         
@@ -17959,15 +17959,15 @@ class out_flame_utils
         Returns:
             (tuple[tuple, tuple, tuple]): tuple[tuple[flam3_affine], tuple[F3H_affine], tuple[F3H Rotation angle]]. tuple of all the FLAM3H xforms/iterators pre_affine parameters prepped into strings for writing out into the Flame preset file.
         """   
-        val = []
-        f3h_val = []
-        f3h_angleDeg = []
+        val: list = []
+        f3h_val: list = []
+        f3h_angleDeg: list = []
         for iter in range(self.iter_count):
-            collect = [self.node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self.flam3h_iter.sec_preAffine[:-1]]
+            collect: list = [self.node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self.flam3h_iter.sec_preAffine[:-1]]
             angleDeg = self.node.parm(f"{self.flam3h_iter.sec_preAffine[-1][0]}{iter+1}").eval()
             f3h_angleDeg.append(str(round(angleDeg, ROUND_DECIMAL_COUNT)))
-            flatten = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
-            f3h_flatten = [item for sublist in collect for item in sublist]
+            flatten: list = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
+            f3h_flatten: list = [item for sublist in collect for item in sublist]
             val.append([str(x) for x in flatten])
             f3h_val.append([str(x) for x in f3h_flatten])
         return tuple([" ".join(x) for x in self.out_util_round_floats(val)]), tuple([" ".join(x) for x in self.out_util_round_floats(f3h_val)]), tuple(f3h_angleDeg)
@@ -17983,17 +17983,17 @@ class out_flame_utils
         Returns:
             (tuple[tuple, tuple, tuple]): tuple[tuple[str: flam3_affine], tuple[str: F3H_affine], tuple[str: F3H Rotation angle]]. tuple of all the FLAM3H xforms/iterators post_affine parameters prepped into strings for writing out into the Flame preset file.
         """   
-        val = []
-        f3h_val = []
-        f3h_angleDeg = []
+        val: list = []
+        f3h_val: list = []
+        f3h_angleDeg: list = []
         for iter in range(self.iter_count):
             if self.node.parm(f"{self.flam3h_iter_prm_names.postaffine_do}_{iter+1}").eval():
-                collect = [self.node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self.flam3h_iter.sec_postAffine[1:-1]]
+                collect: list = [self.node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self.flam3h_iter.sec_postAffine[1:-1]]
                 angleDeg = self.node.parm(f"{self.flam3h_iter.sec_postAffine[-1][0]}{iter+1}").eval()
                 if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                     f3h_angleDeg.append(str(round(angleDeg, ROUND_DECIMAL_COUNT)))
-                    flatten = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
-                    f3h_flatten = [item for sublist in collect for item in sublist]
+                    flatten: list = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
+                    f3h_flatten: list = [item for sublist in collect for item in sublist]
                     val.append([str(x) for x in flatten])
                     f3h_val.append([str(x) for x in f3h_flatten])
                 else:
@@ -18017,7 +18017,7 @@ class out_flame_utils
         Returns:
             (tuple[str, str, str]): tuple[str: flam3_affine, str: F3H_affine, str: F3H Rotation angle]. tuple of strings for all the FLAM3H FF/finalXform pre_affine parameters prepped into strings for writing out into the Flame preset file.
         """   
-        collect = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
+        collect: list = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
         angleDeg = self.node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
         f3h_angleDeg = str(angleDeg)
         f3h_affine = self.out_util_round_floats(collect)
@@ -18025,8 +18025,8 @@ class out_flame_utils
             affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
         else:
             affine = f3h_affine
-        flatten = [item for sublist in affine for item in sublist]
-        f3h_flatten = [item for sublist in f3h_affine for item in sublist]
+        flatten: list = [item for sublist in affine for item in sublist]
+        f3h_flatten: list = [item for sublist in f3h_affine for item in sublist]
         return " ".join(flatten), " ".join(f3h_flatten), f3h_angleDeg
     
     
@@ -18041,7 +18041,7 @@ class out_flame_utils
             (tuple[str, str, str]): tuple[str: flam3_affine, str: F3H_affine, str: F3H Rotation angle]. tuple of strings for all the FLAM3H FF/finalXform post_affine parameters prepped into strings for writing out into the Flame preset file.
         """  
         if self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.postaffine_do}").eval():
-            collect = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_postAffine_FF[1:-1]]
+            collect: list = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_postAffine_FF[1:-1]]
             angleDeg = self.node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
             if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                 f3h_angleDeg = str(angleDeg)
@@ -18050,8 +18050,8 @@ class out_flame_utils
                     affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
                 else:
                     affine = f3h_affine
-                flatten = [item for sublist in affine for item in sublist]
-                f3h_flatten = [item for sublist in f3h_affine for item in sublist]
+                flatten: list = [item for sublist in affine for item in sublist]
+                f3h_flatten: list = [item for sublist in f3h_affine for item in sublist]
                 return " ".join(flatten), " ".join(f3h_flatten), f3h_angleDeg
             else:
                 return '', '', ''
@@ -18069,11 +18069,11 @@ class out_flame_utils
             (str): The FLAM3H palette prepped into a string and converted into hex values.
         """  
         _PALETTE_KEYS_OUT = self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0)
-        POSs = list(iter_islice(iter_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
-        HEXs = [flam3h_palette_utils.rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
+        POSs: list = list(iter_islice(iter_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
+        HEXs: list = [flam3h_palette_utils.rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
         n = 8
-        hex_grp = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]
-        hex_join = [f"      {''.join(grp)}\n" for grp in hex_grp] # 6 times \s
+        hex_grp: list = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]
+        hex_join: list = [f"      {''.join(grp)}\n" for grp in hex_grp] # 6 times \s
         return f"\n{''.join(hex_join)}    " # 4 times \s
         
     
