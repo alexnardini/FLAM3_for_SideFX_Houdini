@@ -5091,11 +5091,9 @@ class flam3h_iterator_utils
             data_to_prm = ':'.join(data)
             # set
             flam3h_general_utils.private_prm_set(node, FLAM3H_DATA_PRM_XAOS_PREV, data_to_prm)
+            
         else:
-            collect = []
-            for xaos in data:
-                collect.append(' '.join(xaos))
-            data_to_prm = ':'.join(collect)
+            data_to_prm = ':'.join([' '.join(xaos) for xaos in data])
             # set
             flam3h_general_utils.private_prm_set(node, FLAM3H_DATA_PRM_XAOS_PREV, data_to_prm)
             
