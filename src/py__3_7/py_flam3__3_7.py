@@ -2518,15 +2518,15 @@ class flam3h_general_utils
                     views_keys.append(v.name())
         
         # Always store and update this data if we collected something
-        if views_scheme and views_keys: 
+        if views_scheme and views_keys:
+            new: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # type: ignore
             if _EXIST:
                 # Check if it needs an update
-                new: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # type: ignore
                 if new != hou.session.H_CS_STASH_DICT: #type: ignore
                     hou.session.H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = new #type: ignore
             else:
                 # otherwise create
-                hou.session.H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # type: ignore
+                hou.session.H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = new # type: ignore
 
 
 
