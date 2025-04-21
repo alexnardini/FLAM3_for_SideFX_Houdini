@@ -7128,35 +7128,35 @@ class flam3h_iterator_utils
             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
             
             # Get user selection of paste methods
-            ff_paste_sel = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names().main_prmpastesel}").eval()
-            node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names().main_selmem}": ff_paste_sel})
+            paste_sel_FF = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names().main_prmpastesel}").eval()
+            node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names().main_selmem}": paste_sel_FF})
             
             f3h_iter_FF = flam3h_iterator_FF()
             # set FF ALL
-            if ff_paste_sel == 1:
+            if paste_sel_FF == 1:
                 self.prm_paste_FF_CTRL()
             # set FF PRE VARS
-            elif ff_paste_sel == 2:
+            elif paste_sel_FF == 2:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
                 self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_prevarsW_FF, "", "")
                 self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_PREVARS, "", "")
             # set FF VARS
-            elif ff_paste_sel == 3:
+            elif paste_sel_FF == 3:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
                 self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_varsW_FF, "", "")
                 self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_VARS, "", "")
             # set FF POST VARS
-            elif ff_paste_sel == 4:
+            elif paste_sel_FF == 4:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
                 self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postvarsW_FF, "", "")
                 self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_POSTVARS, "", "")
             # set FF PRE AFFINE
-            elif ff_paste_sel == 5:
+            elif paste_sel_FF == 5:
                 self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_preAffine_FF, "", "")
                 if not self.is_FF_affine_default(node, from_FLAM3H_NODE, f3h_iter_FF.sec_preAffine_FF):
                     self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_PREAFFINE, "", "")
             # set FF POST AFFINE
-            elif ff_paste_sel == 6:
+            elif paste_sel_FF == 6:
                 self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postAffine_FF, "", "")
                 if not self.is_FF_affine_default(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postAffine_FF, True):
                     self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_POSTAFFINE, "", "")
