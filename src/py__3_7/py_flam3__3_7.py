@@ -2629,10 +2629,10 @@ class flam3h_general_utils
             (None):  
         """
         for view in self.util_getSceneViewers():
-            curView = view.curViewport()
+            curView: hou.GeometryViewport = view.curViewport()
             settings = curView.settings()
             settings.setHomeAutoAdjustsClip( hou.viewportHomeClipMode.Neither ) # type: ignore
-            settings.setClipPlanes( [0.001, 1000] )
+            settings.setClipPlanes( (0.001, 1000) )
             settings.homeAutoAdjustClip()
             settings.clipPlanes()
 
@@ -2852,7 +2852,7 @@ class flam3h_general_utils
                             view.changeType(hou.geometryViewportType.Front) # type: ignore
                         if update:
                             if self.bbox_sensor_path is not None:
-                                node_bbox = hou.node(self.bbox_sensor_path)
+                                node_bbox: hou.SopNode = hou.node(self.bbox_sensor_path)
                                 if hou.hipFile.isLoadingHipFile(): # type: ignore
                                     # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
                                     # but work on H20.0.590 and up, hence the try/except block
@@ -2870,7 +2870,7 @@ class flam3h_general_utils
                         else:
                             if update_sensor or _SYS_FRAME_VIEW_SENSOR_prm:
                                 if self.bbox_sensor_path is not None:
-                                    node_bbox = hou.node(self.bbox_sensor_path)
+                                    node_bbox: hou.SopNode = hou.node(self.bbox_sensor_path)
                                     if hou.hipFile.isLoadingHipFile(): # type: ignore
                                         # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
                                         # but work on H20.0.590 and up, hence the try/except block
@@ -2994,7 +2994,7 @@ class flam3h_general_utils
                 for v in viewports:
                     view: hou.GeometryViewport = v.curViewport()
                     if self.bbox_reframe_path is not None:
-                        node_bbox = hou.node(self.bbox_reframe_path)
+                        node_bbox: hou.SopNode = hou.node(self.bbox_reframe_path)
                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                         _MSG = f"Viewport REFRAMED"
                         self.flash_message(node, _MSG)
