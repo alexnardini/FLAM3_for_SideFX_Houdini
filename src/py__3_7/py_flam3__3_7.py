@@ -1486,7 +1486,7 @@ class flam3h_scripts
         """
         
         node = self.node
-        node_instances = self.node.type().instances()
+        node_instances: tuple = self.node.type().instances()
         
         # FLAM3H node and MultiParameter id for iterators
         # This is to make sure the hou.session's data is at least initialized.
@@ -1535,10 +1535,10 @@ class flam3h_scripts
         flam3h_general_utils.util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
         flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
         # Set other FLAM3H instances to dark if any
-        all_f3h = node.type().instances()
-        all_f3h_vpptsize = []
-        all_f3h_vptype = []
-        all_f3h_ww = []
+        all_f3h: tuple = node.type().instances()
+        all_f3h_vpptsize: list = []
+        all_f3h_vptype: list = []
+        all_f3h_ww: list = []
         
         if len(all_f3h) > 1:
 
@@ -1857,7 +1857,7 @@ class flam3h_scripts
             (None):
         """
         node = self.node
-        node_instances = node.type().instances()
+        node_instances: tuple = node.type().instances()
         
         if len(node_instances) == 1:
             
@@ -1954,7 +1954,7 @@ class flam3h_general_utils
 * util_open_file_explorer(filepath_name: str) -> None:
 * util_getSceneViewers() -> list:
 * util_getNetworkEditors() -> list:
-* util_is_context(context: str, viewport: hou.paneTabType) -> bool:
+* util_is_context(context: str, viewport: Union[hou.paneTabType, hou.SceneViewer]) -> bool:
 * util_is_context_available_viewer(context: str) -> bool:
 * util_is_context_available_network_editor(context: str) -> bool:
 * util_clear_stashed_cam_data() -> None:
@@ -2093,7 +2093,7 @@ class flam3h_general_utils
             (None):
         """  
         stats = node.parm(MSG_IN_FLAMESTATS).eval()
-        lines = stats.splitlines()
+        lines: list = stats.splitlines()
         if lines[0] == MSG_FLAMESTATS_LOCK: lines[0] = ''
         node.setParms({MSG_IN_FLAMESTATS: "\n".join(lines)})
 
@@ -2161,9 +2161,9 @@ class flam3h_general_utils
             * JAVA
             * UNKNW
         """
-        sys = platform_system()
-        sys_options = {'Windows': 'WIN', 'Linux': 'LNX', 'Darwin': 'MAC', 'Java': 'JAVA'}
-        mysys = sys_options.get(sys)
+        sys: str = platform_system()
+        sys_options: dict = {'Windows': 'WIN', 'Linux': 'LNX', 'Darwin': 'MAC', 'Java': 'JAVA'}
+        mysys: Union[str, None] = sys_options.get(sys)
         if mysys is not None: return mysys
         else: return 'UNKNW'
 
@@ -2236,7 +2236,7 @@ class flam3h_general_utils
         Returns:
             (list): [return a list of open scene viewers]
         """    
-        views = hou.ui.paneTabs() # type: ignore
+        views: tuple = hou.ui.paneTabs() # type: ignore
         return [v for v in views if isinstance(v, hou.SceneViewer)]
     
     
@@ -2250,14 +2250,14 @@ class flam3h_general_utils
         Returns:
             (list): [return a list of open scene viewers]
         """    
-        views = hou.ui.paneTabs() # type: ignore
+        views: tuple = hou.ui.paneTabs() # type: ignore
         return [v for v in views if isinstance(v, hou.NetworkEditor)]
     
     
     
     
     @staticmethod
-    def util_is_context(context: str, viewport: hou.paneTabType) -> bool:
+    def util_is_context(context: str, viewport: Union[hou.paneTabType, hou.SceneViewer]) -> bool:
         """Return if we are inside a context or not.
         
         Args:
@@ -2352,8 +2352,8 @@ class flam3h_general_utils
         Returns:
             (None):
         """
-        desktop = hou.ui.curDesktop() # type: ignore
-        viewport = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
+        desktop: hou.Desktop = hou.ui.curDesktop() # type: ignore
+        viewport: hou.SceneViewer = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
         
         try: _CAMS: Union[int, None] = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
         except: _CAMS: Union[int, None] = None
@@ -2362,7 +2362,7 @@ class flam3h_general_utils
             
             if viewport is not None and viewport.isCurrentTab() and flam3h_general_utils.util_is_context('Sop', viewport):
                 
-                view = viewport.curViewport()
+                view: hou.GeometryViewport = viewport.curViewport()
                 
                 try: _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
                 except: _CAM_STASHED: Union[hou.GeometryViewportCamera, None] = None
@@ -2397,8 +2397,8 @@ class flam3h_general_utils
                     # Restore only if it is a Sop viewer
                     if flam3h_general_utils.util_is_context('Sop', v):
                         
-                        view = v.curViewport()
-                        key = v.name()
+                        view: hou.GeometryViewport = v.curViewport()
+                        key: str = v.name()
                         _STASH: Union[hou.GeometryViewportCamera, None] = _STASH_DICT.get(key)
                         if _STASH is not None:
                             if _STASH.isPerspective():
@@ -2448,13 +2448,13 @@ class flam3h_general_utils
         
         if _STASH_DICT is not None:
             for v in flam3h_general_utils.util_getSceneViewers():
-                view = v.curViewport()
-                key = v.name()
+                view: hou.GeometryViewport = v.curViewport()
+                key: str = v.name()
                 # Since all the viewers inside this stashed dict are sure not to be a Lop viewer
                 # we do not need to check and we can just proceed.
                 _STASH: Union[float, None] = _STASH_DICT.get(key)
                 if _STASH is not None:
-                    settings = view.settings()
+                    settings: hou.GeometryViewportSettings = view.settings()
                     settings.wireWidth(_STASH)
 
 
@@ -2503,8 +2503,8 @@ class flam3h_general_utils
                 # Store only if it is a Sop viewer
                 if flam3h_general_utils.util_is_context('Sop', v):
                     
-                    view = v.curViewport()
-                    settings = view.settings()
+                    view: hou.GeometryViewport = v.curViewport()
+                    settings: hou.GeometryViewportSettings = view.settings()
                     _CS = settings.colorScheme()
                     if _CS != hou.viewportColorScheme.Dark: # type: ignore
                         views_scheme.append(_CS)
@@ -2644,7 +2644,7 @@ class flam3h_general_utils
             for v in self.util_getSceneViewers():
                 # Store only if it is a Sop viewer
                 if self.util_is_context('Sop', v):
-                    view = v.curViewport()
+                    view: hou.GeometryViewport = v.curViewport()
                     views_cam.append(view.defaultCamera().stash())
                     views_keys.append(v.name())
                     views_type.append(view.type())
@@ -2696,11 +2696,11 @@ class flam3h_general_utils
         node = self.node
         if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
             node = self.node
-            desktop = hou.ui.curDesktop() # type: ignore
-            viewport: hou.paneTabType.SceneViewer = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
+            desktop: hou.Desktop = hou.ui.curDesktop() # type: ignore
+            viewport: hou.SceneViewer = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
             
             # check if there are more than one viewport available
-            viewports = self.util_getSceneViewers()
+            viewports: list = self.util_getSceneViewers()
             
             # Get some data for down the line condition checks
             update_sensor = self.node.parm(OUT_UPDATE_SENSOR).eval()
@@ -2718,7 +2718,7 @@ class flam3h_general_utils
                 # Set only if it is a Sop viewer
                 if self.util_is_context('Sop', viewport):
                     
-                    view = viewport.curViewport()
+                    view: hou.GeometryViewport = viewport.curViewport()
                     
                     # Do this only once; when we enter the sensor viz
                     try: parm = self.kwargs['parm']
@@ -2832,7 +2832,7 @@ class flam3h_general_utils
                     # Set only if it is a Sop viewer
                     if self.util_is_context('Sop', v):
                         
-                        view = v.curViewport()
+                        view: hou.GeometryViewport = v.curViewport()
                         if view.type() != hou.geometryViewportType.Front: # type: ignore
                             view.changeType(hou.geometryViewportType.Front) # type: ignore
                         if update:
@@ -2925,8 +2925,8 @@ class flam3h_general_utils
                 # Store only if it is a Sop viewer
                 if self.util_is_context('Sop', v):
                     
-                    view = v.curViewport()
-                    settings = view.settings()
+                    view: hou.GeometryViewport = v.curViewport()
+                    settings: hou.GeometryViewportSettings = view.settings()
                     views_widths.append(settings.wireWidth())
                     views_keys.append(v.name())
             
@@ -2977,7 +2977,7 @@ class flam3h_general_utils
             if len(viewports):
                 self.util_set_clipping_viewers()
                 for v in viewports:
-                    view = v.curViewport()
+                    view: hou.GeometryViewport = v.curViewport()
                     if self.bbox_reframe_path is not None:
                         node_bbox = hou.node(self.bbox_reframe_path)
                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
@@ -3002,7 +3002,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """
-        all_f3h = node.type().instances()
+        all_f3h: tuple = node.type().instances()
         if len(all_f3h) > 1:
             for f3h in all_f3h:
                 if f3h != node:
@@ -3759,8 +3759,8 @@ class flam3h_general_utils
                 # Store only if it is a Sop viewer
                 if flam3h_general_utils.util_is_context('Sop', v):
                     
-                    view = v.curViewport()
-                    settings = view.settings()
+                    view: hou.GeometryViewport = v.curViewport()
+                    settings: hou.GeometryViewportSettings = view.settings()
                     _CS = settings.colorScheme()
                     if _CS != hou.viewportColorScheme.Dark: # type: ignore
                         views_scheme.append(_CS)
@@ -3876,7 +3876,7 @@ class flam3h_general_utils
             
         if update_others:
             # Update dark preference's option toggle on other FLAM3H nodes instances
-            all_f3h = self.node.type().instances()
+            all_f3h: tuple = self.node.type().instances()
             if len(all_f3h) > 1:
                 [f3h.setParms({PREFS_VIEWPORT_DARK: prm.eval()}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_DARK).eval() != prm.eval()]
         
@@ -3911,7 +3911,7 @@ class flam3h_general_utils
                     settings.particleDisplayType(Pixels)
                 
         # Update Point Display type preference's option toggle on other FLAM3H nodes instances
-        all_f3h = self.node.type().instances()
+        all_f3h: tuple = self.node.type().instances()
         if len(all_f3h) > 1:
             [f3h.parm(PREFS_VIEWPORT_PT_TYPE).deleteAllKeyframes() for f3h in node.type().instances()]
             [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
@@ -4482,7 +4482,7 @@ class flam3h_iterator_utils
         """   
         
         name = f"{FLAM3H_USER_DATA_PRX}_{data_name}"
-        data = node.userData(f"{name}")
+        data: Union[int, None] = node.userData(f"{name}")
         if data is not None:
             return data
         else:
@@ -5386,7 +5386,7 @@ class flam3h_iterator_utils
             (None):
         """  
         if f3h_all:
-            f3h_instances = node.type().instances()
+            f3h_instances: tuple = node.type().instances()
             [self.destroy_cachedUserData(f3h, 'cp_presets_menu') for f3h in f3h_instances]
             [self.destroy_cachedUserData(f3h, 'cp_presets_menu_off') for f3h in f3h_instances]
             [self.destroy_cachedUserData(f3h, 'in_presets_menu') for f3h in f3h_instances]
@@ -9799,8 +9799,8 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        func_list = {0: self.reset_CP_run_0, 1: self.reset_CP_run_1, 2: self.reset_CP_run_2, 3: self.reset_CP_run_3}
-        run = func_list.get(mode)
+        func_list: dict = {0: self.reset_CP_run_0, 1: self.reset_CP_run_1, 2: self.reset_CP_run_2, 3: self.reset_CP_run_3}
+        run: Union[Callable, None] = func_list.get(mode)
         if run is not None: run()
         else: flam3h_general_utils.set_status_msg(f"{self.node.name()}: reset_CP(...) python definition have nothing to run with the passed \"mode\" value: {mode}", 'WARN')
         
@@ -9894,50 +9894,50 @@ class flam3h_about_utils
             
         year = datetime.now().strftime("%Y")
         
-        flam3h_author = f"AUTHOR: F stands for liFe ( made in Italy )"
-        flam3h_cvex_version = f"CODE: cvex H19.x.x"
-        hou_version = flam3h_general_utils.houdini_version()
+        flam3h_author: str = f"AUTHOR: F stands for liFe ( made in Italy )"
+        flam3h_cvex_version: str = f"CODE: cvex H19.x.x"
+        hou_version : int = flam3h_general_utils.houdini_version()
         if hou_version >= 19: flam3h_cvex_version = f"CODE: cvex H{str(hou_version)}.x.x"
-        flam3h_python_version = f"py 3.7.13"
-        flam3h_houdini_version = f"VERSION: {FLAM3H_VERSION} - {FLAM3H_VERSION_STATUS_GOLD} :: (GPL)"
-        Implementation_years = f"2020/{year}"
-        Implementation_build = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{Implementation_years}"
+        flam3h_python_version: str = f"py 3.7.13"
+        flam3h_houdini_version: str = f"VERSION: {FLAM3H_VERSION} - {FLAM3H_VERSION_STATUS_GOLD} :: (GPL)"
+        Implementation_years: str = f"2020/{year}"
+        Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{Implementation_years}"
         
-        code_references = """CODE REFERENCES
+        code_references: str = """CODE REFERENCES
 Flam3 :: (GPL)
 Apophysis :: (GPL)
 Fractorium :: (GPL)"""
 
-        special_thanks = """SPECIAL THANKS
+        special_thanks: str = """SPECIAL THANKS
 Praveen Brijwal"""
 
-        example_flames = """EXAMPLE FLAMES
+        example_flames: str = """EXAMPLE FLAMES
 C-91, Gabor Timar, Golubaja, Pillemaster,
 Plangkye, Tatasz, Triptychaos, TyrantWave,
 Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         
-        h_version = '.'.join(str(x) for x in hou.applicationVersion())
-        Houdini_version = f"HOST\nSideFX Houdini {h_version}"
-        Python_version = f"Python: {python_version()}"
-        license_type = str(hou.licenseCategory()).split(".")[-1]
-        Houdini_license = f"License: {license_type}"
-        User = f"User: {hou.userName()}"
-        PC_name = f"Machine name: {hou.machineName()}"
-        Platform = f"Platform: {hou.applicationPlatformInfo()}"
+        h_version: str = '.'.join(str(x) for x in hou.applicationVersion())
+        Houdini_version: str = f"HOST\nSideFX Houdini {h_version}"
+        Python_version: str = f"Python: {python_version()}"
+        license_type: str = str(hou.licenseCategory()).split(".")[-1]
+        Houdini_license: str = f"License: {license_type}"
+        User: str = f"User: {hou.userName()}"
+        PC_name: str = f"Machine name: {hou.machineName()}"
+        Platform: str = f"Platform: {hou.applicationPlatformInfo()}"
         
-        build = (   Implementation_build, nnl,
-                    code_references, nnl,
-                    special_thanks, nnl,
-                    example_flames, nnl,
-                    Houdini_version, nl,
-                    Houdini_license, nl,
-                    Python_version, nl,
-                    User, nl,
-                    PC_name, nl,
-                    Platform
-                    )
+        build: tuple = (Implementation_build, nnl,
+                        code_references, nnl,
+                        special_thanks, nnl,
+                        example_flames, nnl,
+                        Houdini_version, nl,
+                        Houdini_license, nl,
+                        Python_version, nl,
+                        User, nl,
+                        PC_name, nl,
+                        Platform
+                        )
         
-        build_about_msg = "".join(build)
+        build_about_msg: str = "".join(build)
         self.node.setParms({MSG_FLAM3H_ABOUT: build_about_msg})
 
 
@@ -9950,11 +9950,11 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         Returns:
             (None):
         """    
-        vars_sorted = [var.capitalize() for var in sorted(VARS_FLAM3_DICT_IDX.keys()) if var not in ("linear3d", )]
-        n = 5
-        vars_sorted_grp = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)]
-        vars_txt = "".join( [", ".join(grp) + "." if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
-        vars_txt_MSG = f"They are also available as PRE and POST.\n\nNumber of plugins/variations: {len(vars_sorted)}\n\n{vars_txt}"
+        vars_sorted: list = [var.capitalize() for var in sorted(VARS_FLAM3_DICT_IDX.keys()) if var not in ("linear3d", )]
+        n: int = 5
+        vars_sorted_grp: list = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)]
+        vars_txt: str = "".join( [", ".join(grp) + "." if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
+        vars_txt_MSG: str = f"They are also available as PRE and POST.\n\nNumber of plugins/variations: {len(vars_sorted)}\n\n{vars_txt}"
         self.node.setParms({MSG_FLAM3H_PLUGINS: vars_txt_MSG})
         
         
@@ -9971,14 +9971,14 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         node = self.node
         
         # values
-        _FLAM3HWEB_MSG = 'FLAM3H web'
-        _FLAM3HGIT_MSG = 'FLAM3H github'
-        _FLAM3HINSTA_MSG = 'FLAM3H instagram'
-        _FLAM3HYOUTUBE_MSG = 'FLAM3H video tutorials'
-        _FLAM3PDF_MSG = 'The Fractal Flame Algorithm pdf'
-        _FLAM3GIT_MSG = 'The Fractal Flame Algorithm github'
-        _FRACTBITBUCKETGIT_MSG = 'Fractorium bitbucket'
-        _FRACTWEB_MSG = 'Fractorium web'
+        _FLAM3HWEB_MSG: str = 'FLAM3H web'
+        _FLAM3HGIT_MSG: str = 'FLAM3H github'
+        _FLAM3HINSTA_MSG: str = 'FLAM3H instagram'
+        _FLAM3HYOUTUBE_MSG: str = 'FLAM3H video tutorials'
+        _FLAM3PDF_MSG: str = 'The Fractal Flame Algorithm pdf'
+        _FLAM3GIT_MSG: str = 'The Fractal Flame Algorithm github'
+        _FRACTBITBUCKETGIT_MSG: str = 'Fractorium bitbucket'
+        _FRACTWEB_MSG: str = 'Fractorium web'
         
         # {prm_name: value, ...}
         about_web: dict = { MSG_FLAM3H_WEB: _FLAM3HWEB_MSG,
@@ -10119,7 +10119,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
                'fractweb': self.flam3h_about_web_fractorium,
                }
         
-        run = web.get(key)
+        run: Union[Callable, None] = web.get(key)
         if run is not None: run()
 
 
@@ -14270,12 +14270,12 @@ class in_flame_utils
         if ff_post_bool: ff_post_bool_msg = "YES"
             
         # build msgs
-        sw = f"Software: {apo_data.sw_version[preset_id]}"
-        name = f"Name: {apo_data.name[preset_id]}"
-        iter_count = f"Iterators count: {str(len(apo_data.xforms))}"
-        post = f"Post affine: {post_bool_msg}"
-        opacity = f"Opacity: {opacity_bool_msg}"
-        xaos = f"Xaos: {xaos_bool_msg}"
+        sw: str = f"Software: {apo_data.sw_version[preset_id]}"
+        name: str = f"Name: {apo_data.name[preset_id]}"
+        iter_count: str = f"Iterators count: {str(len(apo_data.xforms))}"
+        post: str = f"Post affine: {post_bool_msg}"
+        opacity: str = f"Opacity: {opacity_bool_msg}"
+        xaos: str = f"Xaos: {xaos_bool_msg}"
         
         # CC (Color correction curves)
         if str(apo_data.out_curve_overall[preset_id]).strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and str(apo_data.out_curve_red[preset_id]).strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and str(apo_data.out_curve_green[preset_id]).strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and str(apo_data.out_curve_blue[preset_id]).strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc = ''
@@ -14296,17 +14296,17 @@ class in_flame_utils
         else: palette_count_format = f"Palette not found."
         
         # ITERATOR COLLECT
-        vars_keys = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE) 
-        vars_keys_PRE_pgb = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
-        vars_keys_PRE = self.in_vars_keys_remove_pgb(vars_keys_PRE_pgb, pgb_name)
-        vars_keys_POST = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+        vars_keys: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE) 
+        vars_keys_PRE_pgb: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+        vars_keys_PRE: Union[list, None] = self.in_vars_keys_remove_pgb(vars_keys_PRE_pgb, pgb_name)
+        vars_keys_POST: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
 
         # FF COLLECT
         vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
         if ff_bool:
-            vars_keys_FF = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE)
-            vars_keys_PRE_FF = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
-            vars_keys_POST_FF = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+            vars_keys_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE)
+            vars_keys_PRE_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+            vars_keys_POST_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
             
         vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
         if pb_bool: vars_all += [["pre_blur"]]
@@ -14314,7 +14314,7 @@ class in_flame_utils
         
         n = 5
         vars_used_heading = "Variations used:"
-        result_grp = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
+        result_grp: list = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
         vars_used_msg = f"{vars_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
         
         # Build and set descriptive parameter msg
@@ -14323,38 +14323,38 @@ class in_flame_utils
                                                         # The apo_data.name[idx] is used for the descriptive parameter
                                                         # so to not print the icon path into the name.
                 
-        descriptive_prm = ( f"sw: {apo_data.sw_version[preset_id]}\n", f"{out_flame_utils.out_remove_iter_num(preset_name)}", )
+        descriptive_prm: tuple = ( f"sw: {apo_data.sw_version[preset_id]}\n", f"{out_flame_utils.out_remove_iter_num(preset_name)}", )
         node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
 
         # Build MISSING
-        vars_keys_from_fractorium = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, XML_XF_KEY_EXCLUDE)
-        vars_keys_from_fractorium_pre_pgb = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, XML_XF_KEY_EXCLUDE)
-        vars_keys_from_fractorium_pre = self.in_vars_keys_remove_pgb(vars_keys_from_fractorium_pre_pgb, pgb_name)
-        vars_keys_from_fractorium_post = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, XML_XF_KEY_EXCLUDE)
+        vars_keys_from_fractorium: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, XML_XF_KEY_EXCLUDE)
+        vars_keys_from_fractorium_pre_pgb: Union[list, None] = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, XML_XF_KEY_EXCLUDE)
+        vars_keys_from_fractorium_pre: Union[list, None] = self.in_vars_keys_remove_pgb(vars_keys_from_fractorium_pre_pgb, pgb_name)
+        vars_keys_from_fractorium_post: Union[list, None] = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, XML_XF_KEY_EXCLUDE)
         
         vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = []
         if ff_bool:
-            vars_keys_from_fractorium_FF = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, XML_XF_KEY_EXCLUDE)
-            vars_keys_from_fractorium_pre_FF = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, XML_XF_KEY_EXCLUDE)
-            vars_keys_from_fractorium_post_FF = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, XML_XF_KEY_EXCLUDE)
+            vars_keys_from_fractorium_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, XML_XF_KEY_EXCLUDE)
+            vars_keys_from_fractorium_pre_FF: Union[list, None] = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, XML_XF_KEY_EXCLUDE)
+            vars_keys_from_fractorium_post_FF: Union[list, None] = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, XML_XF_KEY_EXCLUDE)
         
-        vars_keys_from_fractorium_all = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
-        result_sorted_fractorium = self.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, self.in_util_make_NULL, True)
+        vars_keys_from_fractorium_all: list = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
+        result_sorted_fractorium: list = self.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, self.in_util_make_NULL, True)
         
         # Build MISSING: Compare, keep and build
-        vars_missing = [x for x in result_sorted_fractorium if x not in result_sorted]
-        result_grp_fractorium = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
+        vars_missing: list = [x for x in result_sorted_fractorium if x not in result_sorted]
+        result_grp_fractorium: list = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
         vars_missing_msg = ""
         if vars_missing: vars_missing_msg = f"{nnl}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
         
         # Build UNKNOWN
-        vars_unknown = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
+        vars_unknown: list = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
         if vars_unknown: vars_unknown_msg = f"{nnl}UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i+n] for i in range(0, len(vars_unknown), n)] )}"
         else: vars_unknown_msg = ''
         
         # Check if the loaded Flame file is locked.
         in_path = os.path.expandvars(node.parm(IN_PATH).eval())
-        in_path_checked = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
+        in_path_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
         if flam3h_general_utils.isLOCK(in_path_checked): flame_lib_locked = MSG_FLAMESTATS_LOCK
         else: flame_lib_locked = ''
         
@@ -14365,19 +14365,19 @@ class in_flame_utils
             else: node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}"})
         
         # build full stats msg
-        build = (   flame_lib_locked, nl,
-                    sw, nl,
-                    name, nnl,
-                    palette_count_format, nl,
-                    cc, mb,
-                    iter_count, nl,
-                    post, nl,
-                    opacity, nl,
-                    xaos, nl,
-                    ff_msg, nnl,
-                    vars_used_msg,
-                    vars_missing_msg,
-                    vars_unknown_msg )
+        build: tuple = (flame_lib_locked, nl,
+                        sw, nl,
+                        name, nnl,
+                        palette_count_format, nl,
+                        cc, mb,
+                        iter_count, nl,
+                        post, nl,
+                        opacity, nl,
+                        xaos, nl,
+                        ff_msg, nnl,
+                        vars_used_msg,
+                        vars_missing_msg,
+                        vars_unknown_msg )
         
         return "".join(build)
 
