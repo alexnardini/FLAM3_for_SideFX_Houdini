@@ -1571,7 +1571,7 @@ class flam3h_scripts
                 # Lets make sure we check for a viewer in the Sop context
                 if flam3h_general_utils.util_is_context('Sop', view):
                     
-                    settings = view.curViewport().settings()
+                    settings: hou.GeometryViewportSettings = view.curViewport().settings()
                     size = settings.particlePointSize()
                     
                     if size != default_value_pt:
@@ -1592,7 +1592,7 @@ class flam3h_scripts
         else:
             
             for view in flam3h_general_utils.util_getSceneViewers():
-                settings = view.curViewport().settings()
+                settings: hou.GeometryViewportSettings = view.curViewport().settings()
                 size = settings.wireWidth()
                 
                 if size != default_value_ww:
@@ -2487,31 +2487,46 @@ class flam3h_general_utils
         """Store dictionaries of viewers color schemes if needed on FLAM3H node creation
         This version do not check from which parameter run as we need it to run regardless.
         
+        It will check the currently stored color schemes data and update it if there is a need to do so.
+        
         Args:
-            (None):
+            node(hou.SopNode): This FLAM3H node
             
         Returns:
             (None):  
         """  
         # Check if the required data exist already
-        try: hou.session.H_CS_STASH_DICT # type: ignore
-        except: # if not, lets create it
-            views_scheme: list[hou.EnumValue]  = []
-            views_keys: list[str] = []
-            for v in flam3h_general_utils.util_getSceneViewers():
-                
-                # Store only if it is a Sop viewer
-                if flam3h_general_utils.util_is_context('Sop', v):
-                    
-                    view: hou.GeometryViewport = v.curViewport()
-                    settings: hou.GeometryViewportSettings = view.settings()
-                    _CS = settings.colorScheme()
-                    if _CS != hou.viewportColorScheme.Dark: # type: ignore
-                        views_scheme.append(_CS)
-                        views_keys.append(v.name())
+        try:
+            hou.session.H_CS_STASH_DICT # type: ignore
+            _EXIST = True
+        except:
+            _EXIST = False
             
-            # Always store and update this data if we collected something
-            if views_scheme and views_keys: hou.session.H_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
+        # build a new one
+        views_scheme: list[hou.viewportColorScheme]  = []
+        views_keys: list[str] = []
+        for v in flam3h_general_utils.util_getSceneViewers():
+            
+            # Store only if it is a Sop viewer
+            if flam3h_general_utils.util_is_context('Sop', v):
+                
+                view: hou.GeometryViewport = v.curViewport()
+                settings: hou.GeometryViewportSettings = view.settings()
+                _CS: hou.viewportColorScheme = settings.colorScheme()
+                if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                    views_scheme.append(_CS)
+                    views_keys.append(v.name())
+        
+        # Always store and update this data if we collected something
+        if views_scheme and views_keys: 
+            if _EXIST:
+                # Check if it needs an update
+                new: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # type: ignore
+                if new != hou.session.H_CS_STASH_DICT: #type: ignore
+                    hou.session.H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = new #type: ignore
+            else:
+                # otherwise create
+                hou.session.H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # type: ignore
 
 
 
@@ -3752,7 +3767,7 @@ class flam3h_general_utils
         _ENTER_PRM = None
         if parm is not None: _ENTER_PRM = parm.name()
         if _ENTER_PRM is not None and _ENTER_PRM == PREFS_VIEWPORT_DARK:
-            views_scheme: list[hou.EnumValue]  = []
+            views_scheme: list[hou.viewportColorScheme]  = []
             views_keys: list[str] = []
             for v in self.util_getSceneViewers():
                 
@@ -3761,13 +3776,13 @@ class flam3h_general_utils
                     
                     view: hou.GeometryViewport = v.curViewport()
                     settings: hou.GeometryViewportSettings = view.settings()
-                    _CS = settings.colorScheme()
+                    _CS: hou.viewportColorScheme = settings.colorScheme()
                     if _CS != hou.viewportColorScheme.Dark: # type: ignore
                         views_scheme.append(_CS)
                         views_keys.append(v.name())
             
             # Always store and update this data
-            hou.session.H_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
+            hou.session.H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # type: ignore
 
 
 
@@ -3803,8 +3818,8 @@ class flam3h_general_utils
                         
                         if sop_view is False: sop_view = True
                         
-                        settings = v.curViewport().settings()
-                        _CS = settings.colorScheme()
+                        settings: hou.GeometryViewportSettings = v.curViewport().settings()
+                        _CS: hou.viewportColorScheme = settings.colorScheme()
                         if _CS != hou.viewportColorScheme.Dark: # type: ignore
                             settings.setColorScheme(hou.viewportColorScheme.Dark) # type: ignore
                             dark = True
@@ -3840,8 +3855,8 @@ class flam3h_general_utils
                         key = v.name()
                         _STASH: Union[hou.EnumValue, None] = _STASH_DICT.get(key)
                         if _STASH is not None:
-                            settings = v.curViewport().settings()
-                            _CS = settings.colorScheme()
+                            settings: hou.GeometryViewportSettings = v.curViewport().settings()
+                            _CS: hou.viewportColorScheme = settings.colorScheme()
                             if _CS == hou.viewportColorScheme.Dark: # type: ignore
                                 settings.setColorScheme(_STASH)
                                 dark = True
@@ -3903,7 +3918,7 @@ class flam3h_general_utils
             # Set only if it is a Sop viewer
             if self.util_is_context('Sop', view):
             
-                settings = view.curViewport().settings()
+                settings: hou.GeometryViewportSettings = view.curViewport().settings()
                 if pttype == 0:
                     settings.particleDisplayType(Points)
                     self.viewportParticleSize()
@@ -3943,7 +3958,7 @@ class flam3h_general_utils
             # Set only if it is a Sop viewer
             if self.util_is_context('Sop', view):
             
-                settings = view.curViewport().settings()
+                settings: hou.GeometryViewportSettings = view.curViewport().settings()
                 settings.particleDisplayType(Points)
                 if reset_val is None:
                     settings.particlePointSize(ptsize)
@@ -3987,7 +4002,7 @@ class flam3h_general_utils
             # Set only if it is a Sop viewer
             if self.util_is_context('Sop', view):
                 
-                settings = view.curViewport().settings()
+                settings: hou.GeometryViewportSettings = view.curViewport().settings()
                 if reset_val is None:
                     settings.wireWidth(width)
                 else:
