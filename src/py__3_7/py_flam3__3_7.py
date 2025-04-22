@@ -5701,7 +5701,7 @@ class flam3h_iterator_utils
         """
         menu = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = (self.menu_T_data, self.menu_T_FF_data)[FF]()
-        var = MENU_VARS_INDEXES.get(_TYPE)
+        var: Union[int, None] = MENU_VARS_INDEXES.get(_TYPE)
         assert var is not None # I can assert this becasue I tested all of them myself ;)
         menu[var] = f"{_ICON} {menu[var][:13]}     " # 5 times \s
 
@@ -5726,7 +5726,7 @@ class flam3h_iterator_utils
         """
         menu = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = (self.menu_T_PP_data, self.menu_T_PP_FF_data)[FF]()
-        var = MENU_VARS_INDEXES.get(_TYPE)
+        var: Union[int, None] = MENU_VARS_INDEXES.get(_TYPE)
         assert var is not None # I can assert this becasue I tested all of them myself ;)
         menu[var] = f"{_ICON} {menu[var][:13]}     " # 5 times \s
             
@@ -12551,7 +12551,7 @@ class in_flame_utils
         Returns:
             (Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]): Based on how many element in the passed list return the proper type of data
         """
-        len_data = len(data)
+        len_data: int = len(data)
         if len_data == 1:
             return float(data[0])
         elif len_data == 2:
@@ -12619,8 +12619,8 @@ class in_flame_utils
             mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
         """
         idx = str(mp_idx+1)
-        pre_affine = (flam3h_prm_names.preaffine_x, flam3h_prm_names.preaffine_y, flam3h_prm_names.preaffine_o)
-        post_affine = (flam3h_prm_names.postaffine_x, flam3h_prm_names.postaffine_y, flam3h_prm_names.postaffine_o)
+        pre_affine: tuple = (flam3h_prm_names.preaffine_x, flam3h_prm_names.preaffine_y, flam3h_prm_names.preaffine_o)
+        post_affine: tuple = (flam3h_prm_names.postaffine_x, flam3h_prm_names.postaffine_y, flam3h_prm_names.postaffine_o)
         f3h_affine = node.parm(IN_FLAM3H_AFFINE_STYLE).eval()
         
         if mode:
@@ -12724,7 +12724,7 @@ class in_flame_utils
             (tuple): If an exception is confirmed, return the parameter expected parameter's name.
         """
         if app.startswith(XML_APP_NAME_FRACTORIUM):
-            check = flam3h_varsPRM_APO().varsPRM_FRACTORIUM_EXCEPTIONS.get(v_type)
+            check: Union[tuple, None] = flam3h_varsPRM_APO().varsPRM_FRACTORIUM_EXCEPTIONS.get(v_type)
             if check is not None:
                 return check
             else:
