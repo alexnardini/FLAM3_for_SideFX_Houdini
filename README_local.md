@@ -121,7 +121,7 @@ _They are 106, if you were wondering..._
 
 ## User experience
 
-Using Houdini's vex/cvex language, this implementation initially concentrated only on the core algorithm. However, it gradually became apparent that a significant portion of the work needed to be focused on the user experience and how all the algorithm pieces are stitched together in a meaningful way for the user, making this part of the project very time consuming.
+Using Houdini's cvex/vex language, this implementation initially concentrated only on the core algorithm. However, it gradually became apparent that a significant portion of the work needed to be focused on the user experience and how all the algorithm pieces are stitched together in a meaningful way for the user, making this part of the project very time consuming.
 
 Because FLAM3H was designed with fractal artists in mind, many internal automation that could be done to provide a seamless and pleasurable experience has been completed.
 
@@ -135,6 +135,8 @@ It fully support the *.flame file format for maximun compatibility.
 Python and the Houdini's HOM libraries have been used to achieve all of this.
 
 Any parameter that is available in FLAM3H can be animated using any of the Houdini procedural paradigms and toolkits. These include but not limited to animation curves, expressions, and procedurally produced data from anywhere in Houdini, such as DOP Simulations, Particles data, CHOPS, and many more.
+
+FLAM3H comes with a straightforward utility LOP node call **FLAM3HUSD** to makes it easier to move the fractal Flame point cloud into the USD context Solaris. This node allow to set up and render FLAM3H fractal Flames using Houdini's Karma renderer within a few clicks.
 
 To finish, FLAM3H features a detailed documentation that is designed to provide you with all the information you would need. This also extend to generous tooltips for each parameter in the FLAM3H Houdini user interface.
 

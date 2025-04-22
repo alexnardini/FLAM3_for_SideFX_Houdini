@@ -10,6 +10,23 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.7.98</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.98) ###
+
+#### FLAM3H ####
+
+- **Fix**: When in viewport Dark mode, adding new Sop viewers to the current Houdini desktop and creating a new FLAM3H node right after was not updating the available viewers data, loosing track of the old Sop viewers stashed Color Scheme and cam data. it is now fixed.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+#### FLAM3HUSD v0.1.52 - Beta ####
+
+- **Fix**: When in viewport Dark mode, adding new Lop viewers to the current Houdini desktop and creating a new FLAM3HUSD node right after was not updating the available viewers data, loosing track of the old Lop viewers stashed Color Scheme and cam  data. it is now fixed.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.7.94</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.94) ###
 
 - **Python code improvements.**

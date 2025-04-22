@@ -73,7 +73,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.7.94'
+FLAM3H_VERSION = '1.7.98'
 FLAM3H_VERSION_STATUS_BETA = "Beta"
 FLAM3H_VERSION_STATUS_GOLD = "Gold"
 
@@ -2505,6 +2505,7 @@ class flam3h_general_utils
         # build a new one
         views_scheme: list[hou.viewportColorScheme]  = []
         views_keys: list[str] = []
+        
         for v in flam3h_general_utils.util_getSceneViewers():
             
             # Store only if it is a Sop viewer
