@@ -262,7 +262,7 @@ Reset density:
     
     Tools available to enhance and speed up the workflow.
     
-    I keep changing and adding functionalities, it is still a work in progress, but thus far, this most recent configuration has been successful.
+    The content of this tab kept changing and evolving, but thus far, this most recent configuration has been the most successful.
 
 :box:
     #display: rounded white
@@ -509,6 +509,10 @@ frame viewport:
     Re-frame current viewport based on a centered bounding box.
     
     This is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.
+
+    _Additionally_:
+
+    it will set the viewports clipping planes to proper values every time is invoked.
 
     NOTE:
         When in camera sensor mode, the re-frame will be based on the Camera sensor bounding box instead.
@@ -3093,6 +3097,9 @@ _A list of all parametric variations and their parametric parameter's names._
     - With *`64gb`* of physical memory you will be able to render *`500M points`* without weight much on virtual memory.
     
     - With *`128gb`* of physical memory you will be able to render *`1 billion points`* without weight much on virtual memory.
+
+    You can take advantage of packed disk primitives to increase the number of points you can render.<br />
+    Please read the Mantra tips below for more infos on the concept and the why.
     
     TIP:
         #display: orange
