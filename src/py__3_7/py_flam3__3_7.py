@@ -1531,6 +1531,9 @@ class flam3h_scripts
         
         node = self.node
         
+        # viewers
+        viewers = flam3h_general_utils.util_getSceneViewers()
+        
         # Update dark history
         flam3h_general_utils.util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
         flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
@@ -1557,7 +1560,7 @@ class flam3h_scripts
         else:
             node.setParms({PREFS_VIEWPORT_DARK: 1})
             flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
-    
+        
         # If we collected some data, set
         if all_f3h_vpptsize:
             node.setParms({PREFS_VIEWPORT_PT_SIZE: all_f3h_vpptsize[0]})
@@ -1566,12 +1569,12 @@ class flam3h_scripts
         else:
             Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
             
-            for view in flam3h_general_utils.util_getSceneViewers():
+            for v in viewers:
                 
                 # Lets make sure we check for a viewer in the Sop context
-                if flam3h_general_utils.util_is_context('Sop', view):
+                if flam3h_general_utils.util_is_context('Sop', v):
                     
-                    settings: hou.GeometryViewportSettings = view.curViewport().settings()
+                    settings: hou.GeometryViewportSettings = v.curViewport().settings()
                     size = settings.particlePointSize()
                     
                     if size != default_value_pt:
@@ -1591,12 +1594,16 @@ class flam3h_scripts
             
         else:
             
-            for view in flam3h_general_utils.util_getSceneViewers():
-                settings: hou.GeometryViewportSettings = view.curViewport().settings()
-                size = settings.wireWidth()
+            for v in viewers:
                 
-                if size != default_value_ww:
-                    node.setParms({PREFS_VIEWPORT_WIRE_WIDTH: size})
+                # Lets make sure we check for a viewer in the Sop context
+                if flam3h_general_utils.util_is_context('Sop', v):
+                    
+                    settings: hou.GeometryViewportSettings = v.curViewport().settings()
+                    size = settings.wireWidth()
+                    
+                    if size != default_value_ww:
+                        node.setParms({PREFS_VIEWPORT_WIRE_WIDTH: size})
         
     
     
