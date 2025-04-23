@@ -13929,7 +13929,7 @@ class in_flame_utils
             # If a flame preset from a file is loaded
             if i == in_idx:
                 node.setCachedUserData('in_presets_menu_idx', str(i))
-                menu.append(labels[is_clipboard]) # 5 ending \s to be able to read the full label
+                menu.append(labels[is_clipboard])
                 
             else:
                 menu.append(f"{enum_label}:  {item}")
