@@ -2114,7 +2114,7 @@ class flam3h_general_utils
             digit(int): Default to 1: H_19, H_20. if set to 2: H_190, H_195, H_200, H_205, and so on.
 
         Returns:
-            (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 19.5, 20.5
+            (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
         """  
         return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
 
@@ -11054,8 +11054,8 @@ class _xml_tree
         """
         if self.isvalidtree:
             root = self.tree.getroot()
-            if key == XML_XF_NAME: return tuple( [str(name.get(key)).strip() if name.get(key) is not None else '[]' for name in root] )
-            else: return tuple( [str(name.get(key)).strip() if name.get(key) is not None else [] for name in root] )
+            if key == XML_XF_NAME: return tuple( [str(name.get(key)).strip() if name.get(key) is not None and len(name.get(key)) else '[]' for name in root] )
+            else: return tuple( [str(name.get(key)).strip() if name.get(key) is not None and len(name.get(key)) else [] for name in root] )
         else:
             return () 
         
