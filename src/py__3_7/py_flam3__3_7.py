@@ -14130,7 +14130,7 @@ class in_flame_utils
                         v_type: Union[int, None] = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w = float(xform.get(key_name))
-                            v_weight = self.in_util_check_negative_weight(node, w, self.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
+                            v_weight: float = self.in_util_check_negative_weight(node, w, self.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_PRE_FF(app, 
                                                             node, 
@@ -14189,7 +14189,7 @@ class in_flame_utils
                         v_type: Union[int, None] = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w = float(xform.get(key_name))
-                            v_weight = self.in_util_check_negative_weight(node, w, self.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
+                            v_weight: float = self.in_util_check_negative_weight(node, w, self.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_PRE(app, 
                                                          mode, 
@@ -14215,7 +14215,7 @@ class in_flame_utils
                         v_type: Union[int, None] = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w = float(xform.get(key_name))
-                            v_weight = self.in_util_check_negative_weight(node, w, self.in_util_make_POST(var_prm[v_type][0])) # type: ignore
+                            v_weight: float = self.in_util_check_negative_weight(node, w, self.in_util_make_POST(var_prm[v_type][0])) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_POST(app, 
                                                           mode, 
