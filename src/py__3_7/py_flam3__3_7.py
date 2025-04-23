@@ -11275,12 +11275,13 @@ class in_flame
 
 
     @staticmethod
-    def xf_val_cleanup_str(val: str, default_val: str='0') -> str:
+    def xf_val_cleanup_str(val: str, default_val: str='0', key_name: Union[str, None]=None) -> str:
         """ Attempt to remove invalid characters from the passed value.
         
         Args:
             val(str): value from the xml
             default_val(str): Default to: '0'. If something goes wrong use this as the returned value.
+            key_name(Union[str, None]): Default to None. If not None, it will print out the key_name. Specifically added for: in_flame_utils.in_v_parametric_var_collect(...) 
 
         Returns:
             (str): value cleaned up from invalid characters
@@ -11289,6 +11290,7 @@ class in_flame
             float(val)
             return val
         except ValueError:
+            if key_name is not None: print(f"XML KEY: \"{key_name}\" -> NOT A VALUE")
             clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
             new_val = ''.join(clean)
             try:
@@ -11561,8 +11563,7 @@ class in_flame
         """
         if  self.isvalidtree:
             xforms = [xf.attrib for xf in self.flame[idx].iter(key)]
-            if xforms:
-                xforms_lower = [dict( zip( [str(x).lower() for x in xf.keys()], xf.values() ) ) for xf in xforms]
+            if xforms: return tuple( [dict( zip( [str(x).lower() for x in xf.keys()], xf.values() ) ) for xf in xforms] )
                 
                 # xforms_lower = []
                 # for xf in xforms:
@@ -11570,12 +11571,9 @@ class in_flame
                 #     kv = zip(k, xf.values())
                 #     xforms_lower.append(dict(kv))
                 
-            else:
-                return None
+            else: return None
             
-            return tuple(xforms_lower)
-        else:
-            return None
+        else: return None
     
     
     def __get_xaos(self, xforms: Union[tuple, None], key: str=XML_XF_XAOS) -> Union[tuple, None]:
@@ -12234,6 +12232,7 @@ class in_flame_utils
 * in_copy_render_stats_msg(kwargs: dict) -> None:
 * in_copy_cc_curves_stats_msg(kwargs: dict) -> None:
 * in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
+* in_xml_key_val(xform: dict, key_name: str, default_val: float=0.01234567) -> float:
 * menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
 * menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
 * menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
@@ -12796,7 +12795,7 @@ class in_flame_utils
                 # If one of the FLAM3H parameter is not in the xform, skip it and set it to ZERO for now.
                 n = func(n)
                 if xform.get(n) is not None:
-                    var_prm_vals.append(float(in_flame.xf_val_cleanup_str(str(xform.get(n)))))
+                    var_prm_vals.append(float(in_flame.xf_val_cleanup_str(str(xform.get(n)), '0', n)))
                 else:
                     # If a variation parameter FLAM3H has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                     if n not in XML_XF_PRM_EXCEPTION:
@@ -13866,6 +13865,29 @@ class in_flame_utils
         return dict(map(lambda item: (item[0], func(item[1])), vars_dict.items()))
 
 
+    @staticmethod
+    def in_xml_key_val(xform: dict, key_name: str, default_val: float=0) -> float:
+        """Check for the queried XML key name value if it is an actual value.
+        if not will return a default value instead.
+
+        Args:
+            xform(dict): The current xform dictionary.
+            key_name(str):  The XMK key name to querie
+            default_val(float): If anything goes wrong, return this value instead
+            
+        Returns:
+            (float): Either the queried key name value or a default value.
+        """   
+        key_val: Union[str, None] = xform.get(key_name)
+        assert key_val is not None # I can assert this becasue the passed key_name has been collected already from an xform
+        try: return float(key_val)
+        except:
+            print(f"XML KEY: \"{key_name}\" -> NOT A VALUE")
+            return default_val
+
+
+
+
 
     @staticmethod
     def menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
@@ -14092,7 +14114,7 @@ class in_flame_utils
             for t_idx, key_name in enumerate(vars_keys[mp_idx][:_MAX_VARS_MODE]):
                 v_type: Union[int, None] = self.in_get_idx_by_key(key_name)
                 if v_type is not None:
-                    v_weight = float(xform.get(key_name))
+                    v_weight: float = self.in_xml_key_val(xform, key_name)
                     if apo_prm[v_type][-1]:
                         self.in_v_parametric(app, 
                                              mode, 
@@ -14129,7 +14151,7 @@ class in_flame_utils
                     for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
                         v_type: Union[int, None] = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
-                            w = float(xform.get(key_name))
+                            w: float = self.in_xml_key_val(xform, key_name)
                             v_weight: float = self.in_util_check_negative_weight(node, w, self.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_PRE_FF(app, 
@@ -14141,8 +14163,7 @@ class in_flame_utils
                                                             var_prm[v_type], 
                                                             apo_prm[v_type]
                                                             )
-                            else:
-                                self.in_v_generic_PRE_FF(node, t_idx, v_type, v_weight)
+                            else: self.in_v_generic_PRE_FF(node, t_idx, v_type, v_weight)
                          
                 # Collect FF POST vars in excess       
                 if len(vars_keys_post[mp_idx]) > MAX_FF_VARS_POST:
@@ -14153,7 +14174,7 @@ class in_flame_utils
                     for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
                         v_type: Union[int, None] = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
-                            w = float(xform.get(key_name))
+                            w: float = self.in_xml_key_val(xform, key_name)
                             v_weight = self.in_util_check_negative_weight(node, w, self.in_util_make_POST(var_prm[v_type][0])) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_POST_FF(app, 
@@ -14165,8 +14186,7 @@ class in_flame_utils
                                                              var_prm[v_type], 
                                                              apo_prm[v_type]
                                                              )
-                            else:
-                                self.in_v_generic_POST_FF(node, t_idx, v_type, v_weight)
+                            else: self.in_v_generic_POST_FF(node, t_idx, v_type, v_weight)
                 
                 # Print all skipped FF vars if any
                 if FF_vars_skipped:
@@ -14188,7 +14208,7 @@ class in_flame_utils
                         
                         v_type: Union[int, None] = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
-                            w = float(xform.get(key_name))
+                            w: float = self.in_xml_key_val(xform, key_name)
                             v_weight: float = self.in_util_check_negative_weight(node, w, self.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_PRE(app, 
@@ -14202,8 +14222,7 @@ class in_flame_utils
                                                          var_prm[v_type], 
                                                          apo_prm[v_type]
                                                          )
-                            else:
-                                self.in_v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
+                            else: self.in_v_generic_PRE(mode, node, mp_idx, t_idx, v_type, v_weight)
                 
                 # Collect iterator POST vars in excess
                 if len(vars_keys_post[mp_idx]) > MAX_ITER_VARS_POST:
@@ -14214,7 +14233,7 @@ class in_flame_utils
                     for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
                         v_type: Union[int, None] = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
-                            w = float(xform.get(key_name))
+                            w: float = self.in_xml_key_val(xform, key_name)
                             v_weight: float = self.in_util_check_negative_weight(node, w, self.in_util_make_POST(var_prm[v_type][0])) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_POST(app, 
@@ -14228,8 +14247,7 @@ class in_flame_utils
                                                           var_prm[v_type], 
                                                           apo_prm[v_type]
                                                           )
-                            else:
-                                self.in_v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
+                            else: self.in_v_generic_POST(mode, node, mp_idx, t_idx, v_type, v_weight)
                        
                 # Print all skipped iterators vars if any
                 if iterator_vars_skipped:
