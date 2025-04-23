@@ -13915,8 +13915,9 @@ class in_flame_utils
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             
-            labels: tuple = (f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ", # 5 ending \s to be able to read the full label
-                             f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {IN_CLIPBOARD_LABEL_MSG} {item}     ") # 5 ending \s to be able to read the full label
+            # 5 ending \s to be able to read the full label
+            labels: tuple = (f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ", 
+                             f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {IN_CLIPBOARD_LABEL_MSG} {item}     ")
             # ICON bookmarks
             #
             # If a flame preset from a file is loaded
@@ -13950,8 +13951,9 @@ class in_flame_utils
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             enum_label = str(i+1) # start count from 1
             
-            labels: tuple = (f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {enum_label}:  {item}     ", # 5 ending \s to be able to read the full label
-                             f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {enum_label}:  {IN_CLIPBOARD_LABEL_MSG} {item}     ") # 5 ending \s to be able to read the full label
+            # 5 ending \s to be able to read the full label
+            labels: tuple = (f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {enum_label}:  {item}     ", 
+                             f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {enum_label}:  {IN_CLIPBOARD_LABEL_MSG} {item}     ")
             # ICON bookmarks
             #
             # If a flame preset from a file is loaded
