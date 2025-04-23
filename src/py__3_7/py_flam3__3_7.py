@@ -13887,7 +13887,7 @@ class in_flame_utils
         key_val: Union[str, None] = xform.get(key_name)
         assert key_val is not None # I can assert this becasue the passed key_name has been collected already from an xform
         try: return float(key_val)
-        except:
+        except ValueError:
             print(f"IN XML KEY: {key_name} -> NOT A VALUE")
             return default_val
 
