@@ -11074,7 +11074,7 @@ class _xml_tree
         """      
         if self.isvalidtree:
             root = self.tree.getroot()
-            return tuple( [str(in_flame.xf_val_cleanup_str(name.get(key)).strip()) if name.get(key) is not None else _DEFAULT for name in root] )
+            return tuple( [str(in_flame.xf_val_cleanup_str(name.get(key), '0', key).strip()) if name.get(key) is not None else _DEFAULT for name in root] )
         else:
             return () 
         
@@ -11093,14 +11093,14 @@ class _xml_tree
         """      
         if self.isvalidtree:
             root = self.tree.getroot()
-            return tuple( [str(in_flame.xf_val_cleanup_split_str(name.get(key)).strip()) if name.get(key) is not None and name.get(key) != '' else _DEFAULT for name in root] )
+            return tuple( [str(in_flame.xf_val_cleanup_split_str(name.get(key), '0', key).strip()) if name.get(key) is not None and name.get(key) != '' else _DEFAULT for name in root] )
         else:
             return () 
         
         
     def __get_name_list_str(self, key: str) -> tuple:
         """Collect all Flame presets list values from the XML Flame file.
-        Some examples of values to use this definition with are: size, center, scale (all key name that hold multiple string values in it)
+        Some examples of values to use this definition with are: size, center (all key name that hold multiple string values in it)
 
         Args:
             (self):
@@ -11111,7 +11111,7 @@ class _xml_tree
         """
         if self.isvalidtree:
             root = self.tree.getroot()
-            return tuple( [str(in_flame.xf_list_cleanup_str(str(name.get(key)).strip().split())) if name.get(key) is not None else [] for name in root] )
+            return tuple( [str(in_flame.xf_list_cleanup_str(str(name.get(key)).strip().split(), '0', key)) if name.get(key) is not None else [] for name in root] )
         else:
             return () 
         
@@ -11167,10 +11167,10 @@ class in_flame(_xml_tree):
 class in_flame
 
 @STATICMETHODS
-* xf_val_cleanup_split_str(val: str, default_val: str='0') -> str:
+* xf_val_cleanup_split_str(val: str, default_val: str='0', key_name: Union[str, None]=None) -> str:
 * xf_val_cleanup_str(val: str, default_val: str='0', key_name: Union[str, None]=None) -> str:
-* xf_list_cleanup(affine: list, default_val: str='0') -> list:
-* xf_list_cleanup_str(affine: list, default_val: str='0') -> str:
+* xf_list_cleanup(affine: list, default_val: str='0', key_name: Union[str, None]=None) -> list:
+* xf_list_cleanup_str(affine: list, default_val: str='0', key_name: Union[str, None]=None) -> str:
 * affine_coupling(affine: list, key: str='', mp_idx: Union[int, None]=None, type: int=0) -> list:
 * check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
 
@@ -11213,7 +11213,7 @@ class in_flame
         self._out_size = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SIZE) # type: ignore
         self._out_center = self._xml_tree__get_name_list_str(OUT_XML_FLAME_CENTER) # type: ignore
         self._out_rotate = self._xml_tree__get_name_val_str(OUT_XML_FLAME_ROTATE) # type: ignore
-        self._out_scale = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SCALE) # type: ignore
+        self._out_scale = self._xml_tree__get_name_val_str(OUT_XML_FLAME_SCALE) # type: ignore
         self._out_quality = self._xml_tree__get_name_val_str(OUT_XML_FLAME_QUALITY) # type: ignore
         self._out_brightness = self._xml_tree__get_name_val_str(OUT_XML_FLAME_BRIGHTNESS) # type: ignore
         self._out_gamma = self._xml_tree__get_name_val_str(OUT_XML_FLAME_GAMMA) # type: ignore
@@ -11245,7 +11245,7 @@ class in_flame
 
 
     @staticmethod
-    def xf_val_cleanup_split_str(val: str, default_val: str='0') -> str:
+    def xf_val_cleanup_split_str(val: str, default_val: str='0', key_name: Union[str, None]=None) -> str:
         """ Attempt to remove invalid characters from the passed value.
         This is specifically for the XML curves data.
         It will split each knots value and check for invalid chars and if the result is a valid float. If not it will return a '0' string by default.
@@ -11254,17 +11254,19 @@ class in_flame
         Args:
             val(str): value from the xml
             default_val(str): Default to: '0'. If something goes wrong use this as the returned value.
+            key_name(Union[str, None]): Default to None. If not None, it will print out the key_name if not a value.
 
         Returns:
             (str): value cleaned up from invalid characters
         """  
         new = []
         knots = val.strip().split(' ')
-        for k in knots:
+        for idx, k in enumerate(knots):
             try:
                 float(k)
                 new.append(k)
             except ValueError:
+                if key_name is not None: print(f"IN XML KEY: {key_name}[{idx}] -> NOT A VALUE")
                 clean = [letter for letter in k if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val = ''.join(clean)
                 try:
@@ -11281,7 +11283,7 @@ class in_flame
         Args:
             val(str): value from the xml
             default_val(str): Default to: '0'. If something goes wrong use this as the returned value.
-            key_name(Union[str, None]): Default to None. If not None, it will print out the key_name. Specifically added for: in_flame_utils.in_v_parametric_var_collect(...) 
+            key_name(Union[str, None]): Default to None. If not None, it will print out the key_name if not a value. Specifically added for: in_flame_utils.in_v_parametric_var_collect(...)  but it ended up being used in other places as well.
 
         Returns:
             (str): value cleaned up from invalid characters
@@ -11290,7 +11292,7 @@ class in_flame
             float(val)
             return val
         except ValueError:
-            if key_name is not None: print(f"IN XML KEY: \"{key_name}\" -> NOT A VALUE")
+            if key_name is not None: print(f"IN XML KEY: {key_name} -> NOT A VALUE")
             clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
             new_val = ''.join(clean)
             try:
@@ -11300,22 +11302,24 @@ class in_flame
 
 
     @staticmethod
-    def xf_list_cleanup(affine: list, default_val: str='0') -> list:
+    def xf_list_cleanup(affine: list, default_val: str='0', key_name: Union[str, None]=None) -> list:
         """Attempt to remove invalid characters from the list values and return a list.
         
         Args:
             affine(list): affine values from the xml
             default_val(str): Default to: '0'. If something goes wrong use this as the returned value.
+            key_name(Union[str, None]): Default to None. If not None, it will print out the key_name if not a value.
 
         Returns:
             (list): a list of affine values cleaned up from invalid characters
         """  
         new = []
-        for val in affine:
+        for idx, val in enumerate(affine):
             try:
                 float(val)
                 new.append(val)
             except ValueError:
+                if key_name is not None: print(f"IN XML KEY: {key_name}[{idx}] -> NOT A VALUE")
                 clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val = ''.join(clean)
                 try:
@@ -11326,22 +11330,24 @@ class in_flame
     
     
     @staticmethod
-    def xf_list_cleanup_str(affine: list, default_val: str='0') -> str:
+    def xf_list_cleanup_str(affine: list, default_val: str='0', key_name: Union[str, None]=None) -> str:
         """ Attempt to remove invalid characters from the list values and return a spaced joined string of the list.
         
         Args:
             affine(list): affine values from the xml
             default_val(str): Default to: '0'. If something goesw wrong use this as the returned value.
+            key_name(Union[str, None]): Default to None. If not None, it will print out the key_name if not a value.
 
         Returns:
             (str): a string of spaced joined affine values cleaned up from invalid characters
         """  
         new = []
-        for val in affine:
+        for idx, val in enumerate(affine):
             try:
                 float(val)
                 new.append(val)
             except ValueError:
+                if key_name is not None: print(f"IN XML KEY: {key_name}[{idx}] -> NOT A VALUE")
                 clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val = ''.join(clean)
                 try:
@@ -11588,7 +11594,7 @@ class in_flame
         """
         if  self.isvalidtree and xforms is not None:
 
-            xaos = [f"xaos:{':'.join(self.xf_list_cleanup(str(xf.get(key)).split()))}" if xf.get(key) is not None else [] for xf in xforms]
+            xaos = [f"xaos:{':'.join(self.xf_list_cleanup(str(xf.get(key)).split(), '1', key))}" if xf.get(key) is not None else [] for xf in xforms]
             if not max(list(map(lambda x: len(x), xaos))): return None
             else: return tuple(xaos)
         
@@ -11608,7 +11614,7 @@ class in_flame
             (Union[tuple, None]): Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None
         """   
         if  self.isvalidtree and xforms is not None:
-            coefs = [tuple(self.affine_coupling([float(x) for x in self.xf_list_cleanup(str(xf.get(key)).split())], key, int(idx+1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
+            coefs = [tuple(self.affine_coupling([float(x) for x in self.xf_list_cleanup(str(xf.get(key)).split(), '0', key)], key, int(idx+1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
             if max(list(map(lambda x: len(x), coefs))): return tuple(coefs)
             else: return None
             
@@ -11643,7 +11649,7 @@ class in_flame
                     else:
                         if key in XML_XF_OPACITY: default_val = '1'
                         else: default_val = '0'
-                        keyvalues.append(float(self.xf_val_cleanup_str(xform.get(key), default_val)))
+                        keyvalues.append(float(self.xf_val_cleanup_str(xform.get(key), default_val, key)))
                         continue
                     
                 else:
@@ -11658,7 +11664,7 @@ class in_flame
                     pgb_val = xform.get(pgb_name)
                     if pgb_val is not None and vars_keys_pre is not None: # This double check because also other keys not related to "pre_blur" can fall into this block otherwise
                         if vars_keys_pre[idx] and pgb_name in vars_keys_pre[idx][0]:
-                            keyvalues.append(float(self.xf_val_cleanup_str(pgb_val)))
+                            keyvalues.append(float(self.xf_val_cleanup_str(pgb_val, '0', str(pgb_name))))
                         else:
                             keyvalues.append([])
 
@@ -13882,7 +13888,7 @@ class in_flame_utils
         assert key_val is not None # I can assert this becasue the passed key_name has been collected already from an xform
         try: return float(key_val)
         except:
-            print(f"IN XML KEY: \"{key_name}\" -> NOT A VALUE")
+            print(f"IN XML KEY: {key_name} -> NOT A VALUE")
             return default_val
 
 
