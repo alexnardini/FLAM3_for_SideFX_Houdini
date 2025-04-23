@@ -11290,7 +11290,7 @@ class in_flame
             float(val)
             return val
         except ValueError:
-            if key_name is not None: print(f"XML KEY: \"{key_name}\" -> NOT A VALUE")
+            if key_name is not None: print(f"IN XML KEY: \"{key_name}\" -> NOT A VALUE")
             clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
             new_val = ''.join(clean)
             try:
@@ -13882,7 +13882,7 @@ class in_flame_utils
         assert key_val is not None # I can assert this becasue the passed key_name has been collected already from an xform
         try: return float(key_val)
         except:
-            print(f"XML KEY: \"{key_name}\" -> NOT A VALUE")
+            print(f"IN XML KEY: \"{key_name}\" -> NOT A VALUE")
             return default_val
 
 
