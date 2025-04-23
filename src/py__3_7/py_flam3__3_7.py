@@ -11168,7 +11168,7 @@ class in_flame
 
 @STATICMETHODS
 * xf_val_cleanup_split_str(val: str, default_val: str='0') -> str:
-* xf_val_cleanup_str(val: str, default_val: str='0') -> str:
+* xf_val_cleanup_str(val: str, default_val: str='0', key_name: Union[str, None]=None) -> str:
 * xf_list_cleanup(affine: list, default_val: str='0') -> list:
 * xf_list_cleanup_str(affine: list, default_val: str='0') -> str:
 * affine_coupling(affine: list, key: str='', mp_idx: Union[int, None]=None, type: int=0) -> list:
@@ -12232,7 +12232,7 @@ class in_flame_utils
 * in_copy_render_stats_msg(kwargs: dict) -> None:
 * in_copy_cc_curves_stats_msg(kwargs: dict) -> None:
 * in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
-* in_xml_key_val(xform: dict, key_name: str, default_val: float=0.01234567) -> float:
+* in_xml_key_val(xform: dict, key_name: str, default_val: float=0) -> float:
 * menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
 * menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
 * menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
