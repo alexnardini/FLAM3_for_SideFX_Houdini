@@ -13868,7 +13868,7 @@ class in_flame_utils
 
 
     @staticmethod
-    def menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+    def menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
         """This is spcifically to be run inside a list comprehension.
 
         Args:
@@ -13876,6 +13876,8 @@ class in_flame_utils
             menu(list): the menu list to populate.
             i(int): The outer loop index/iteration.
             item(str): The outer loop item at index/iteration.
+            in_idx(int): The currently selected IN preset index.
+            is_clipboard(int): IN Clipboard toggle.
 
         Returns:
             (None):
@@ -13885,17 +13887,15 @@ class in_flame_utils
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             
-            in_idx: int = int(node.parm(IN_PRESETS).eval())
-            clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
             # ICON bookmarks
             #
             # If a flame preset from a file is loaded
-            if i == in_idx and not clipboard:
+            if i == in_idx and not is_clipboard:
                 node.setCachedUserData('in_presets_menu_idx', str(i))
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
                 
             # If a flame preset from the clipboard is loaded
-            elif i == in_idx and clipboard:
+            elif i == in_idx and is_clipboard:
                 node.setCachedUserData('in_presets_menu_idx', str(i))
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {IN_CLIPBOARD_LABEL_MSG} {item}     ") # 5 ending \s to be able to read the full label
                 
@@ -13905,7 +13905,7 @@ class in_flame_utils
             
             
     @staticmethod
-    def menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+    def menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
         """This is spcifically to be run inside a list comprehension.
 
         Args:
@@ -13913,6 +13913,8 @@ class in_flame_utils
             menu(list): the menu list to populate.
             i(int): The outer loop index/iteration.
             item(str): The outer loop item at index/iteration.
+            in_idx(int): The currently selected IN preset index.
+            is_clipboard(int): IN Clipboard toggle.
 
         Returns:
             (None):
@@ -13923,17 +13925,15 @@ class in_flame_utils
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             enum_label = str(i+1) # start count from 1
             
-            in_idx: int = int(node.parm(IN_PRESETS).eval())
-            clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
             # ICON bookmarks
             #
             # If a flame preset from a file is loaded
-            if i == in_idx and not clipboard:
+            if i == in_idx and not is_clipboard:
                 node.setCachedUserData('in_presets_menu_idx', str(i))
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {enum_label}:  {item}     ") # 5 ending \s to be able to read the full label
                 
             # If a flame preset from the clipboard is loaded
-            elif i == in_idx and clipboard:
+            elif i == in_idx and is_clipboard:
                 node.setCachedUserData('in_presets_menu_idx', str(i))
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {enum_label}:  {IN_CLIPBOARD_LABEL_MSG} {item}     ") # 5 ending \s to be able to read the full label
                 
@@ -14441,8 +14441,11 @@ class in_flame_utils
 
             if _xml_tree(xml).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and node.parm(IN_PVT_ISVALID_PRESET).eval():
                 
+                in_idx: int = int(node.parm(IN_PRESETS).eval())
+                is_clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+                
                 menu=[]
-                [self.menu_in_presets_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_in_presets_loop(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
+                [self.menu_in_presets_loop_enum(node, menu, i, item, in_idx, is_clipboard) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_in_presets_loop(node, menu, i, item, in_idx, is_clipboard) for i, item in enumerate(_xml(xml).get_name())]
                 node.setCachedUserData('in_presets_menu', menu)
                 return menu
             
