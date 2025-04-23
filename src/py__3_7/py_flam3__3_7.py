@@ -12234,8 +12234,8 @@ class in_flame_utils
 * in_copy_render_stats_msg(kwargs: dict) -> None:
 * in_copy_cc_curves_stats_msg(kwargs: dict) -> None:
 * in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
-* menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
-* menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+* menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
+* menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
 * menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
 * menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
 
