@@ -12594,7 +12594,7 @@ class in_flame_utils
             mode(int): 0 for iterator and 1 for FF
 
         Returns:
-            (tuple[str, str]): return parameter prefix based on mode: Iterator, FF, FF POST
+            (tuple[str, str]): return parameter prefixes based on mode: Iterator, FF, FF POST
         """
         prx = ""
         prx_prm = ""
