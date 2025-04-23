@@ -2641,6 +2641,8 @@ class flam3h_general_utils
             (None):  
         """
         for view in self.util_getSceneViewers():
+            # It is handy to set the clipping planes also on LOP viewers
+            # so there is no check to know if we are setting a SOP or LOP viewer
             curView: hou.GeometryViewport = view.curViewport()
             settings = curView.settings()
             settings.setHomeAutoAdjustsClip( hou.viewportHomeClipMode.Neither ) # type: ignore
@@ -5584,9 +5586,9 @@ class flam3h_iterator_utils
         Returns:
             (tuple[int, float]): int: variation idx.    float: weight value
         """  
-        _TYPE = self.kwargs['parm'].eval()
+        _TYPE: int = self.kwargs['parm'].eval()
         idx: int = self.kwargs['script_multiparm_index']
-        prm_weight_name = f"{str(self.kwargs['parm'].name()).split('type')[0]}weight_{idx}"
+        prm_weight_name: str = f"{str(self.kwargs['parm'].name()).split('type')[0]}weight_{idx}"
         return _TYPE, self.node.parm(prm_weight_name).eval()
     
     
@@ -5600,8 +5602,8 @@ class flam3h_iterator_utils
         Returns:
             (tuple[int, float]): int: variation idx.    float: weight value
         """  
-        _TYPE = self.kwargs['parm'].eval()
-        prm_weight_name = f"{ str(self.kwargs['parm'].name()).split('type')[0]}weight"
+        _TYPE: int = self.kwargs['parm'].eval()
+        prm_weight_name: str = f"{ str(self.kwargs['parm'].name()).split('type')[0]}weight"
         return _TYPE, self.node.parm(prm_weight_name).eval()
 
     
@@ -5677,9 +5679,9 @@ class flam3h_iterator_utils
             (tuple[int, str]): int: variation idx.    str: icon
         """
         idx: int = self.kwargs['script_multiparm_index']
-        prm_weight_name = f"{flam3h_iterator_prm_names().prevar_weight_blur}_{idx}"
+        prm_weight_name: str = f"{flam3h_iterator_prm_names().prevar_weight_blur}_{idx}"
 
-        w = self.node.parm(prm_weight_name).eval()
+        w: float = self.node.parm(prm_weight_name).eval()
 
         if w > 0:
             if w > 1:
@@ -5706,7 +5708,7 @@ class flam3h_iterator_utils
         Returns:
             (list): return menu list
         """
-        menu = copy(MENU_VARS_ALL_SIMPLE)
+        menu: list = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = (self.menu_T_data, self.menu_T_FF_data)[FF]()
         var: Union[int, None] = MENU_VARS_INDEXES.get(_TYPE)
         assert var is not None # I can assert this becasue I tested all of them myself ;)
@@ -5731,7 +5733,7 @@ class flam3h_iterator_utils
         Returns:
             (list): return menu list
         """
-        menu = copy(MENU_VARS_ALL_SIMPLE)
+        menu: list = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = (self.menu_T_PP_data, self.menu_T_PP_FF_data)[FF]()
         var: Union[int, None] = MENU_VARS_INDEXES.get(_TYPE)
         assert var is not None # I can assert this becasue I tested all of them myself ;)
@@ -5844,12 +5846,12 @@ class flam3h_iterator_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            menu = []
+            menu: list = []
 
-            iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+            iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             if iter_count:
                 
-                note = [node.parm(f'note_{idx+1}').eval() for idx in range(iter_count)]
+                note: list = [node.parm(f'note_{idx+1}').eval() for idx in range(iter_count)]
                 
                 active: list = [node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)]
                 weight: list = [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)]
@@ -5869,13 +5871,13 @@ class flam3h_iterator_utils
                 
                 for i in range(iter_count):
                     
-                    idx = i+1
+                    idx: int = i+1
                     menu.append(idx)
 
-                    _OPACITY_MSG = ""
+                    _OPACITY_MSG: str = ""
                     if shader_opacity[i] == 0: _OPACITY_MSG = "[ZERO opacity] "
                     
-                    _ICON_IDX = 0
+                    _ICON_IDX: int = 0
                     if node == from_FLAM3H_NODE and mp_id_from == idx: _ICON_IDX = 1 # Marked
                     
                     if active[i] and weight[i] > 0:
@@ -5909,14 +5911,14 @@ class flam3h_iterator_utils
             
             node = self.node
             
-            mem_id = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+            mem_id: int = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
             if node.cachedUserData('iter_sel_id') != mem_id and mem_id:
                 self.destroy_cachedUserData(node, 'iter_sel')
 
             # For undos: compare old data_* against current data_*
             # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
-            iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
-            data_awo_now = [[node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]]
+            iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
+            data_awo_now: list = [[node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]]
             [self.destroy_cachedUserData(node, 'iter_sel') if node.cachedUserData('iter_sel') is not None and data != data_awo_now[idx] else ... for idx, data in ((0, node.cachedUserData('iter_sel_a')), (1, node.cachedUserData('iter_sel_w')), (2, node.cachedUserData('iter_sel_o')))]
             
             menu: Union[list, None] = node.cachedUserData('iter_sel')
@@ -5941,7 +5943,7 @@ class flam3h_iterator_utils
             (None):
         """
         node = self.node
-        iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
 
         if iter_count:
             
@@ -6084,9 +6086,9 @@ class flam3h_iterator_utils
         Returns:
             (list): return menu list
         """
-        iterators = self.node.parm(FLAME_ITERATORS_COUNT).eval()
-        menu=[]
-        menuitems = ()
+        iterators: int = self.node.parm(FLAME_ITERATORS_COUNT).eval()
+        menu: list = []
+        menuitems: tuple = ()
         if iterators:
             menuitems = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", f"{FLAM3H_ICON_STAR_HIGH_TIER}500M", f"{FLAM3H_ICON_STAR_HIGH_TIER}750M", f"{FLAM3H_ICON_STAR_HIGH_TIER}1 Billion", "" )
         else:
@@ -6128,12 +6130,12 @@ class flam3h_iterator_utils
             (None):
         """       
         node = self.node
-        ptcount = node.parm(GLB_DENSITY).eval()
+        ptcount: int = node.parm(GLB_DENSITY).eval()
         sel = self.kwargs['parm'].evalAsInt()
-        vals = { 1: 500000, 2: 1000000, 3: 2000000, 4: 5000000, 5: 15000000, 6: 25000000, 7: 50000000, 8: 100000000, 9: 150000000, 10: 250000000, 11: 500000000, 12: 750000000, 13: 1000000000}
-        vals_name = { 1: "Default: 500K points", 2: "1 Millions points", 3: "2 Millions points", 4: "5 Millions points", 5: "15 Millions points", 6: "25 Millions points", 7: "50 Millions points", 8: "100 Millions points", 9: "150 Millions points", 10: "250 Millions points", 11: "500 Millions points", 12: "750 Millions points", 13: "1 Billions points"}
+        vals: dict = { 1: 500000, 2: 1000000, 3: 2000000, 4: 5000000, 5: 15000000, 6: 25000000, 7: 50000000, 8: 100000000, 9: 150000000, 10: 250000000, 11: 500000000, 12: 750000000, 13: 1000000000}
+        vals_name: dict = { 1: "Default: 500K points", 2: "1 Millions points", 3: "2 Millions points", 4: "5 Millions points", 5: "15 Millions points", 6: "25 Millions points", 7: "50 Millions points", 8: "100 Millions points", 9: "150 Millions points", 10: "250 Millions points", 11: "500 Millions points", 12: "750 Millions points", 13: "1 Billions points"}
         
-        val_get = vals.get(sel)
+        val_get: Union[int, None] = vals.get(sel)
         if val_get is not None and ptcount != val_get:
             
             node.parm(GLB_DENSITY).deleteAllKeyframes()
@@ -6159,7 +6161,7 @@ class flam3h_iterator_utils
         node = self.node
         kwargs = self.kwargs
         
-        glb_density = node.parm(GLB_DENSITY).eval()
+        glb_density: int = node.parm(GLB_DENSITY).eval()
         
         # Clear keyframes
         node.parm(GLB_DENSITY).deleteAllKeyframes()
@@ -6249,22 +6251,22 @@ class flam3h_iterator_utils
                     prm_selmem.set(0)
                     
                 # Menu entrie sections bookmark icon
-                active = from_FLAM3H_NODE.parm(f"vactive_{idx_from}").eval()
-                weight = from_FLAM3H_NODE.parm(f"iw_{idx_from}").eval()
+                active: int = from_FLAM3H_NODE.parm(f"vactive_{idx_from}").eval()
+                weight: float = from_FLAM3H_NODE.parm(f"iw_{idx_from}").eval()
                 if active and weight > 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE
                 elif active and weight == 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
                 else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
                 
                 # Build menu
                 if node == from_FLAM3H_NODE and id==mp_id_from:
-                    menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED\n-> Select a different iterator number or a different FLAM3H node to paste its values.", 1,"" ]
+                    menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED\n-> Select a different iterator number or a different FLAM3H node to paste its values.", 1,"" ]
                 elif node == from_FLAM3H_NODE:
-                    path = f"{_ICON}  {idx_from}"
-                    menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                    path: str = f"{_ICON}  {idx_from}"
+                    menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
                 else:
                     assert from_FLAM3H_NODE is not None
-                    path = f"{_ICON}  .../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
-                    menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                    path: str = f"{_ICON}  .../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
+                    menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
                 
                 return menu
             
@@ -6276,12 +6278,12 @@ class flam3h_iterator_utils
                         _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                         __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                         if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
-                            menu = MENU_ITER_COPY_PASTE_REMOVED
+                            menu: list = MENU_ITER_COPY_PASTE_REMOVED
                         elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
-                            path = f".../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}"
-                            menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  REMOVED: The marked iterator has been removed from node: {path}\n-> Mark an existing iterator instead.", 1, "" ]
+                            path: str = f".../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}"
+                            menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  REMOVED: The marked iterator has been removed from node: {path}\n-> Mark an existing iterator instead.", 1, "" ]
                         else:
-                            menu = MENU_ITER_COPY_PASTE_EMPTY
+                            menu: list = MENU_ITER_COPY_PASTE_EMPTY
                         return menu
                     
                     else: return MENU_ITER_COPY_PASTE_EMPTY
@@ -6319,15 +6321,15 @@ class flam3h_iterator_utils
                 if node == flam3node_FF: return MENU_FF_COPY_PASTE_SELECT
                 else:
                     # Menu entrie sections bookmark icon
-                    active = flam3node_FF.parm(PREFS_PVT_DOFF).eval()
-                    _ICON = (FLAM3H_ICON_COPY_PASTE_FF_ENTRIE_OFF, FLAM3H_ICON_COPY_PASTE_FF_ENTRIE)[active]
+                    active: int = flam3node_FF.parm(PREFS_PVT_DOFF).eval()
+                    _ICON: str = (FLAM3H_ICON_COPY_PASTE_FF_ENTRIE_OFF, FLAM3H_ICON_COPY_PASTE_FF_ENTRIE)[active]
                     
                     prm_selmem = node.parm(f"{PRX_FF_PRM}selmem")
                     if prm_selmem.eval() > 0:
                         node.setParms({f"{PRX_FF_PRM}prmpastesel": 0})
                         prm_selmem.set(0)
                     
-                    path = f"{_ICON}  .../{flam3node_FF.parent()}/{flam3node_FF.name()}.FF"
+                    path: str = f"{_ICON}  .../{flam3node_FF.parent()}/{flam3node_FF.name()}.FF"
                     return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  All", 2, f"{path}:  PRE", 3, f"{path}:  VAR", 4, f"{path}:  POST", 5, f"{path}:  pre affine", 6, f"{path}:  post affine", 7, "" ]
         
         else:
@@ -6356,8 +6358,8 @@ class flam3h_iterator_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            isDELETED = False
-            _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+            isDELETED: bool = False
+            _FLAM3H_DATA_PRM_MPIDX: int = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                 
             try:
                 from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore 
@@ -7875,11 +7877,11 @@ class flam3h_iterator_utils
         """
 
         node: hou.SopNode = self.node
-        iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         # AUTO DIV XAOS
-        autodiv = node.parm(PREFS_PVT_XAOS_AUTO_SPACE).eval()
-        div_xaos = 'xaos:'
-        div_weight = ':'
+        autodiv: int = node.parm(PREFS_PVT_XAOS_AUTO_SPACE).eval()
+        div_xaos: str = 'xaos:'
+        div_weight: str = ':'
         if autodiv:
             div_xaos = 'xaos :'
             div_weight = ' :'
@@ -7908,14 +7910,14 @@ class flam3h_iterator_utils
         [mpmem.append(int(node.parm(f"{mp_mem_name}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_count)]
         
         # get mpmem from CachedUserData
-        __mpmem_hou_get = self.auto_set_xaos_data_get_MP_MEM(node)
+        __mpmem_hou_get: Union[list, None] = self.auto_set_xaos_data_get_MP_MEM(node)
         if __mpmem_hou_get is None:
             mpmem_hou_get = mpmem
         else:
             mpmem_hou_get = list(__mpmem_hou_get)
         
         # collect all xaos
-        val = out_flame_utils.out_xaos_collect(node, iter_count, flam3h_iterator_prm_names().xaos)
+        val: list = out_flame_utils.out_xaos_collect(node, iter_count, flam3h_iterator_prm_names().xaos)
         # fill missing weights if any
         fill_all_xaos: list = [np_pad(item, (0, iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
         
@@ -7923,7 +7925,7 @@ class flam3h_iterator_utils
         xaos_str: list = [[str(item) for item in xaos] for xaos in fill_all_xaos]
             
         # get xaos from CachedUserData
-        __xaos_str_hou_get = self.auto_set_xaos_data_get_XAOS_PREV(node)
+        __xaos_str_hou_get: Union[list, None] = self.auto_set_xaos_data_get_XAOS_PREV(node)
         if __xaos_str_hou_get is None:
             xaos_str_hou_get = xaos_str
         else:
