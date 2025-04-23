@@ -13885,17 +13885,19 @@ class in_flame_utils
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             
+            in_idx: int = int(node.parm(IN_PRESETS).eval())
+            clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
             # ICON bookmarks
             #
             # If a flame preset from a file is loaded
-            if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
+            if i == in_idx and not clipboard:
                 node.setCachedUserData('in_presets_menu_idx', str(i))
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
                 
             # If a flame preset from the clipboard is loaded
-            elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
+            elif i == in_idx and clipboard:
                 node.setCachedUserData('in_presets_menu_idx', str(i))
-                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {item}     ") # 5 ending \s to be able to read the full label
+                menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {IN_CLIPBOARD_LABEL_MSG} {item}     ") # 5 ending \s to be able to read the full label
                 
             else:
                 menu.append(f"{item}")
@@ -13921,15 +13923,17 @@ class in_flame_utils
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             enum_label = str(i+1) # start count from 1
             
+            in_idx: int = int(node.parm(IN_PRESETS).eval())
+            clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
             # ICON bookmarks
             #
             # If a flame preset from a file is loaded
-            if i == int(node.parm(IN_PRESETS).eval()) and not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
+            if i == in_idx and not clipboard:
                 node.setCachedUserData('in_presets_menu_idx', str(i))
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {enum_label}:  {item}     ") # 5 ending \s to be able to read the full label
                 
             # If a flame preset from the clipboard is loaded
-            elif i == int(node.parm(IN_PRESETS).eval()) and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
+            elif i == in_idx and clipboard:
                 node.setCachedUserData('in_presets_menu_idx', str(i))
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_CB}  {enum_label}:  {IN_CLIPBOARD_LABEL_MSG} {item}     ") # 5 ending \s to be able to read the full label
                 
@@ -13956,10 +13960,12 @@ class in_flame_utils
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             
+            in_idx: int = int(node.parm(IN_PRESETS_OFF).eval())
+            clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
             # ICON bookmarks
             #
             # If a flame preset from a file is loaded
-            if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
+            if i == in_idx and not clipboard:
                 node.setCachedUserData('in_presets_menu_off_idx', str(i))
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
 
@@ -13987,10 +13993,12 @@ class in_flame_utils
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             enum_label = str(i+1) # start count from 1
             
+            in_idx: int = int(node.parm(IN_PRESETS_OFF).eval())
+            clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
             # ICON bookmarks
             #
             # If a flame preset from a file is loaded
-            if i == int(node.parm(IN_PRESETS_OFF).eval()) and not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
+            if i == in_idx and not clipboard:
                 node.setCachedUserData('in_presets_menu_off_idx', str(i))
                 menu.append(f"{FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY}  {enum_label}:  {item}     ") # 5 ending \s to be able to read the full label
 
