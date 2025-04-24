@@ -2020,8 +2020,8 @@ class flam3h_general_utils
         self._node = kwargs['node']
         # Why am I doing the following ? Because with time FLAM3H grew and evolved and I was tiered to keep updating an hard coded node path,
         # hence I added the following so I can always find the nodes even if I place them in different locations from time to time.
-        self._bbox_sensor_path = self.get_node_path(OUT_BBOX_NODE_NAME_SENSOR)
-        self._bbox_reframe_path = self.get_node_path(OUT_BBOX_NODE_NAME_REFRAME)
+        self._bbox_sensor_path: Union[str, None] = self.get_node_path(OUT_BBOX_NODE_NAME_SENSOR)
+        self._bbox_reframe_path: Union[str, None] = self.get_node_path(OUT_BBOX_NODE_NAME_REFRAME)
 
 
 
@@ -5444,9 +5444,9 @@ class flam3h_iterator_utils
         node = self.node
         
         # Updated the "XML_last_loaded" user data if there is a need to do so:
-        inisvalidfile: bool = node.parm(IN_PVT_ISVALID_FILE).eval()
-        inisvalidpreset: bool = node.parm(IN_PVT_ISVALID_PRESET).eval()
-        clipboard: bool = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+        inisvalidfile: int = node.parm(IN_PVT_ISVALID_FILE).eval()
+        inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
+        clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
         xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
         xml_isFile: bool = os.path.isfile(xml)
         xml_history: Union[str, None] = node.cachedUserData('in_presets_filepath')
@@ -5466,7 +5466,7 @@ class flam3h_iterator_utils
                     # Update user data
                     node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
                     # Update flame stats
-                    node.setParms({MSG_IN_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, clipboard)})
+                    node.setParms({MSG_IN_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard))})
                     node.setParms({MSG_IN_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data)})
                     node.setParms({MSG_IN_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)})
 
@@ -8420,7 +8420,7 @@ class flam3h_palette_utils
         """ 
         self._kwargs = kwargs
         self._node = kwargs['node']
-        self._palette_plus_do = self._node.parm(CP_PALETTE_256_PLUS).eval()
+        self._palette_plus_do: int = self._node.parm(CP_PALETTE_256_PLUS).eval()
         
         
     @staticmethod
@@ -15691,24 +15691,24 @@ class out_flame_utils
         self._flam3h_iter_prm_names = flam3h_iterator_prm_names()
         self._flam3h_iter = flam3h_iterator()
         self._flam3h_iter_FF = flam3h_iterator_FF()
-        self._flam3h_do_FF = self._node.parm(PREFS_PVT_DOFF).eval()
+        self._flam3h_do_FF: int = self._node.parm(PREFS_PVT_DOFF).eval()
         
-        self._iter_count = self._node.parm(FLAME_ITERATORS_COUNT).eval()
+        self._iter_count: int = self._node.parm(FLAME_ITERATORS_COUNT).eval()
         self._palette: hou.Ramp = self._node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
-        self._palette_hsv_do = self._node.parm(OUT_HSV_PALETTE_DO).eval()
-        self._palette_plus_do = self._node.parm(PREFS_PALETTE_256_PLUS).eval()
+        self._palette_hsv_do: int = self._node.parm(OUT_HSV_PALETTE_DO).eval()
+        self._palette_plus_do: int = self._node.parm(PREFS_PALETTE_256_PLUS).eval()
         if self._palette_hsv_do:
             # Update hsv ramp before storing it.
             flam3h_palette_utils(self.kwargs).palette_cp()
             self._palette: hou.Ramp = self._node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
-        self._f3h_affine: bool = self._node.parm(OUT_FLAM3H_AFFINE_STYLE).eval()
-        self._xm = self._node.parm(PREFS_XAOS_MODE).eval()
+        self._f3h_affine: int = self._node.parm(OUT_FLAM3H_AFFINE_STYLE).eval()
+        self._xm: int = self._node.parm(PREFS_XAOS_MODE).eval()
         
         # custom to FLAM3H only
-        self._flam3h_rip = self._node.parm(PREFS_PVT_RIP).eval()
-        self._flam3h_mb_do = self._node.parm(MB_DO).eval()
-        self._flam3h_f3c = self._node.parm(PREFS_PVT_F3C).eval()
-        self._flam3h_cp_lookup_samples = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).evalAsInt()
+        self._flam3h_rip: int = self._node.parm(PREFS_PVT_RIP).eval()
+        self._flam3h_mb_do: int = self._node.parm(MB_DO).eval()
+        self._flam3h_f3c: int = self._node.parm(PREFS_PVT_F3C).eval()
+        self._flam3h_cp_lookup_samples: int = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).evalAsInt()
         
     
     
@@ -17330,11 +17330,11 @@ class out_flame_utils
         if self.kwargs['parm'].eval():
             
             node = self.node
-            inisvalidfile: bool = node.parm(IN_PVT_ISVALID_FILE).eval()
-            inisvalidpreset: bool = node.parm(IN_PVT_ISVALID_PRESET).eval()
-            clipboard: bool = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+            inisvalidfile: int = node.parm(IN_PVT_ISVALID_FILE).eval()
+            inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
+            clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
             xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
-            xml_isFile: bool = os.path.isfile(xml)
+            xml_isFile: int = os.path.isfile(xml)
             # Only if a valid preset has been loaded from a disk file ( not clipboard )
             if xml and xml_isFile and inisvalidfile and inisvalidpreset and not clipboard:
                 # Build the apo data
