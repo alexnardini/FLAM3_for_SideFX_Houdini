@@ -10,6 +10,18 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.07</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.07) ###
+
+- **New**: Improved IN XML data correction.
+- **Fix**: when loading a Flame from the clipboard and while not using the enumerated menus, the prefix [CLIPBOARD] was not being added to the selected IN preset menu labels.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.8.00</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.00) ###
 
 - **New**: Added an info message to each of the FLAM3H HDA sub-network nodes and updated some parameter's tooltips.
