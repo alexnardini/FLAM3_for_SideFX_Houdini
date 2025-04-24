@@ -11372,8 +11372,7 @@ class in_flame
             (list): a list of hou.Vector2: ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) ready to be used to set affine parms, or an empty list if something is wrong
         """      
         affine_count = len(affine)
-        if affine_count == 6:
-            return [hou.Vector2((tuple(affine[i:i+2]))) for i in (0, 2, 4)]
+        if affine_count == 6: return [hou.Vector2((tuple(affine[i:i+2]))) for i in (0, 2, 4)]
         
         else:
             print(datetime.now().strftime('%b-%d-%Y %H:%M:%S'))
