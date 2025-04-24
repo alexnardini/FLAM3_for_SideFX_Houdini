@@ -10788,14 +10788,14 @@ class flam3h_varsPRM_APO:
 
 # This is used inside: __get_name_list_str(...)
 # to set what default single value should be used in case something goes wrong during the processed string value cleanup/correction
-XML_DEFAULT_VALS: dict = {OUT_XML_FLAM3H_HSV: '1', 
-                          OUT_XML_FLAME_SIZE: '1024'}
+XML_TO_F3H_DEFAULT_VALS: dict = {OUT_XML_FLAM3H_HSV: '1', 
+                                 OUT_XML_FLAME_SIZE: '1024'}
 
 # This is used inside: def xf_list_cleanup(...) and def xf_list_cleanup_str(...)
 # to gather a proper default list of values in case the one from the XML is empty.
-XML_LIST_DEFAULT_VALS: dict = {OUT_XML_FLAME_SIZE: '1024 1024', 
-                               OUT_XML_FLAME_CENTER: '0 0', 
-                               OUT_XML_FLAM3H_HSV: '1 1 1'}
+XML_TO_F3H_LIST_DEFAULT_VALS: dict = {OUT_XML_FLAME_SIZE: '1024 1024', 
+                                      OUT_XML_FLAME_CENTER: '0 0', 
+                                      OUT_XML_FLAM3H_HSV: '1 1 1'}
 
 
 
@@ -11129,7 +11129,7 @@ class _xml_tree
         """
         if self.isvalidtree:
             
-            _d: Union[str, None] = XML_DEFAULT_VALS.get(key)
+            _d: Union[str, None] = XML_TO_F3H_DEFAULT_VALS.get(key)
             if _d is not None: _default = _d
             else: _default = '0'
             
@@ -11346,7 +11346,7 @@ class in_flame
         """  
         new = []
         if not vals:
-            new_vals: Union[str, None] = XML_LIST_DEFAULT_VALS.get(key_name)
+            new_vals: Union[str, None] = XML_TO_F3H_LIST_DEFAULT_VALS.get(key_name)
             if new_vals is not None: vals = str(new_vals).split(' ')
         for idx, val in enumerate(vals):
             try:
@@ -11380,7 +11380,7 @@ class in_flame
         """  
         new = []
         if not vals:
-            new_vals: Union[str, None] = XML_LIST_DEFAULT_VALS.get(key_name)
+            new_vals: Union[str, None] = XML_TO_F3H_LIST_DEFAULT_VALS.get(key_name)
             if new_vals is not None: vals = str(new_vals).split(' ')
         for idx, val in enumerate(vals):
             try:
