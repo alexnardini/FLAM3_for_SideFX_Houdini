@@ -11259,7 +11259,7 @@ class in_flame
         
         # just check any of the MB val and if exist mean there is MB data to be set.
         # this will act as bool and if true, it will hold our OUT_XML_FLMA3H_MB_FPS value ( as string )
-        self._flam3h_mb: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS, '24') # type: ignore
+        self._flam3h_mb: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS) # type: ignore
         self._flam3h_mb_samples: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SAMPLES, '16') # type: ignore
         self._flam3h_mb_shutter: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER, '0.5') # type: ignore
         self._flam3h_cp_samples: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES, '256') # type: ignore
