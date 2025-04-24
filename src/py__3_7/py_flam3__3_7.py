@@ -11169,8 +11169,8 @@ class in_flame
 @STATICMETHODS
 * xf_val_cleanup_split_str(val: str, default_val: str='0', key_name: Union[str, None]=None) -> str:
 * xf_val_cleanup_str(val: str, default_val: str='0', key_name: Union[str, None]=None) -> str:
-* xf_list_cleanup(affine: list, default_val: str='0', key_name: Union[str, None]=None) -> list:
-* xf_list_cleanup_str(affine: list, default_val: str='0', key_name: Union[str, None]=None) -> str:
+* xf_list_cleanup(vals: list, default_val: str='0', key_name: Union[str, None]=None) -> list:
+* xf_list_cleanup_str(vals: list, default_val: str='0', key_name: Union[str, None]=None) -> str:
 * affine_coupling(affine: list, key: str='', mp_idx: Union[int, None]=None, type: int=0) -> list:
 * check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
 
@@ -11302,11 +11302,11 @@ class in_flame
 
 
     @staticmethod
-    def xf_list_cleanup(affine: list, default_val: str='0', key_name: Union[str, None]=None) -> list:
+    def xf_list_cleanup(vals: list, default_val: str='0', key_name: Union[str, None]=None) -> list:
         """Attempt to remove invalid characters from the list values and return a list.
         
         Args:
-            affine(list): affine values from the xml
+            vals(list): values from the xml
             default_val(str): Default to: '0'. If something goes wrong use this as the returned value.
             key_name(Union[str, None]): Default to None. If not None, it will print out the key_name if not a value.
 
@@ -11314,7 +11314,7 @@ class in_flame
             (list): a list of affine values cleaned up from invalid characters
         """  
         new = []
-        for idx, val in enumerate(affine):
+        for idx, val in enumerate(vals):
             try:
                 float(val)
                 new.append(val)
@@ -11330,11 +11330,11 @@ class in_flame
     
     
     @staticmethod
-    def xf_list_cleanup_str(affine: list, default_val: str='0', key_name: Union[str, None]=None) -> str:
+    def xf_list_cleanup_str(vals: list, default_val: str='0', key_name: Union[str, None]=None) -> str:
         """ Attempt to remove invalid characters from the list values and return a spaced joined string of the list.
         
         Args:
-            affine(list): affine values from the xml
+            vals(list): values from the xml
             default_val(str): Default to: '0'. If something goesw wrong use this as the returned value.
             key_name(Union[str, None]): Default to None. If not None, it will print out the key_name if not a value.
 
@@ -11342,7 +11342,7 @@ class in_flame
             (str): a string of spaced joined affine values cleaned up from invalid characters
         """  
         new = []
-        for idx, val in enumerate(affine):
+        for idx, val in enumerate(vals):
             try:
                 float(val)
                 new.append(val)
@@ -11363,7 +11363,7 @@ class in_flame
         It will also check the affine passed in and provide an alternative defaults affine values if not correct and print out messages to inform the user about different cases.
         
         Args:
-            affine(list): affine values from the xml
+            vals(list): values from the xml
             key(str): The type of affine to build: XML_PRE_AFFINE, XML_POST_AFFINE, XML_FLAM3H_PRE_AFFINE, XML_FLAM3H_POST_AFFINE
             mp_idx(Union[int, None]=None): [multi parameter index, for messaging purpose only]
             type(int): Is it an iterator or an FF ?
