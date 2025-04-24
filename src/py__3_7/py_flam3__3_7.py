@@ -13544,17 +13544,20 @@ class in_flame_utils
             (None):
         """  
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
-        except:
-            pass
+        except: # If missing set it to its default
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(1024), int(1024)))}) # type: ignore
+            
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split(" ")[0]), float(f3r.out_center[preset_id].split(" ")[1])))}) # type: ignore
-        except:
-            pass
+        except: # If missing set it to its default
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(0), float(0)))}) # type: ignore
+            
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): float(f3r.out_rotate[preset_id])}) # type: ignore
-        except:
-            pass
+        except: # If missing set it to its default
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): float(0)}) # type: ignore
+            
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): float(f3r.out_scale[preset_id])}) # type: ignore
-        except:
-            pass
+        except: # If missing set it to its default
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): float(400)}) # type: ignore
     
     
     
@@ -13572,23 +13575,28 @@ class in_flame_utils
             (None):
         """  
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])}) # type: ignore
-        except:
-            pass
+        except: # If missing set it to its default
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000}) # type: ignore
+            
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): float(f3r.out_brightness[preset_id])}) # type: ignore
-        except:
-            pass
+        except: # If missing set it to its default
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3.0}) # type: ignore
+            
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): float(f3r.out_gamma[preset_id])}) # type: ignore
-        except:
-            pass
+        except: # If missing set it to its default
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5}) # type: ignore
+            
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): float(f3r.out_highlight_power[preset_id])}) # type: ignore
-        except:
-            pass
+        except: # If missing set it to its default
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 5.0}) # type: ignore
+            
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): float(f3r._out_logscale_k2[preset_id])}) # type: ignore
-        except:
-            pass
+        except: # If missing set it to its default
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0.0}) # type: ignore
+            
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
-        except:
-            pass
+        except: # If missing set it to its default
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.3333}) # type: ignore
     
     
     
@@ -13610,32 +13618,36 @@ class in_flame_utils
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT}) # type: ignore
         else:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): f3r.out_curves[preset_id]}) # type: ignore
-            except:
-                pass
+            except: # If missing set it to its default
+                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT}) # type: ignore
+                
         if f3r.out_curve_overall[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
         else:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): f3r.out_curve_overall[preset_id]}) # type: ignore
-            except:
-                pass
+            except: # If missing set it to its default
+                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+                
         if f3r.out_curve_red[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
         else:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): f3r.out_curve_red[preset_id]}) # type: ignore
-            except:
-                pass
+            except: # If missing set it to its default
+                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+                
         if f3r.out_curve_green[preset_id] in  OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
         else:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): f3r.out_curve_green[preset_id]}) # type: ignore
-            except:
-                pass
+            except: # If missing set it to its default
+                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+                
         if f3r.out_curve_blue[preset_id] in  OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
         else:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): f3r.out_curve_blue[preset_id]}) # type: ignore
-            except:
-                pass
+            except: # If missing set it to its default
+                node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
     
     
     
