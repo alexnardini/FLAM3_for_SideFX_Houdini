@@ -9828,7 +9828,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        func_list: dict = {0: self.reset_CP_run_0, 1: self.reset_CP_run_1, 2: self.reset_CP_run_2, 3: self.reset_CP_run_3}
+        func_list: dict[int, Callable] = {0: self.reset_CP_run_0, 1: self.reset_CP_run_1, 2: self.reset_CP_run_2, 3: self.reset_CP_run_3}
         run: Union[Callable, None] = func_list.get(mode)
         if run is not None: run()
         else: flam3h_general_utils.set_status_msg(f"{self.node.name()}: reset_CP(...) python definition have nothing to run with the passed \"mode\" value: {mode}", 'WARN')
