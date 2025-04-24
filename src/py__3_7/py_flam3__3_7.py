@@ -11346,8 +11346,8 @@ class in_flame
         """  
         new = []
         if not vals:
-            new_vals: Union[str, None] = XML_TO_F3H_LIST_DEFAULT_VALS.get(key_name)
-            if new_vals is not None: vals = str(new_vals).split(' ')
+            _d: Union[str, None] = XML_TO_F3H_LIST_DEFAULT_VALS.get(key_name)
+            if _d is not None: vals = str(_d).split()
         for idx, val in enumerate(vals):
             try:
                 float(val)
