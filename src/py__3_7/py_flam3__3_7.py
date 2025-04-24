@@ -8939,7 +8939,7 @@ class flam3h_palette_utils
             node = self.node
             data: Union[list, None] = node.cachedUserData('cp_presets_menu')
             data_idx: Union[str, None] = node.cachedUserData('cp_presets_menu_idx')
-            preset_idx = node.parm(CP_PALETTE_PRESETS).eval()
+            preset_idx: str = node.parm(CP_PALETTE_PRESETS).eval()
             
             # Double check 
             json = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
@@ -9013,7 +9013,7 @@ class flam3h_palette_utils
             node = self.node
             data: Union[list, None] = node.cachedUserData('cp_presets_menu_off')
             data_idx: Union[str, None] = node.cachedUserData('cp_presets_menu_off_idx')
-            preset_idx = node.parm(CP_PALETTE_PRESETS_OFF).eval()
+            preset_idx: str = node.parm(CP_PALETTE_PRESETS_OFF).eval()
             
             # Double check 
             json = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
@@ -9306,10 +9306,10 @@ class flam3h_palette_utils
         """
         node = self.node
         
-        iterators_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iterators_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iterators_num:
             
-            filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+            filepath: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
             if self.isJSON_F3H_on_preset_load(node, filepath, False)[-1]:
                 
                 # get ramps parm
@@ -9323,7 +9323,7 @@ class flam3h_palette_utils
                     data = json.load(r)[preset]
                     
                 try:
-                    hsv_vals = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
+                    hsv_vals: list = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
                     hsv_check = True
                 except:
                     hsv_vals = []
@@ -9400,10 +9400,10 @@ class flam3h_palette_utils
         else:
             node = self.node
             if node.parm(CP_PVT_ISVALID_PRESET).eval():
-                preset_id = node.parm(CP_SYS_PALETTE_PRESETS).eval()
+                preset_id: str = node.parm(CP_SYS_PALETTE_PRESETS).eval()
                 node.setParms({CP_SYS_PALETTE_PRESETS_OFF: preset_id})
             else:
-                preset_id = node.parm(CP_SYS_PALETTE_PRESETS_OFF).eval()
+                preset_id: str = node.parm(CP_SYS_PALETTE_PRESETS_OFF).eval()
                 node.setParms({CP_SYS_PALETTE_PRESETS: preset_id})
                 
             node.setParms({CP_PALETTE_PRESETS: preset_id})
@@ -9429,9 +9429,9 @@ class flam3h_palette_utils
                 
             # SHIFT - If we are selecting a palette json file to load
             if self.kwargs['shift']:
-                filepath = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
-                filepath_expandvars = os.path.expandvars(filepath)
-                dir = os.path.dirname(filepath_expandvars)
+                filepath: str = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
+                filepath_expandvars: str = os.path.expandvars(filepath)
+                dir: str = os.path.dirname(filepath_expandvars)
                 if os.path.isdir(dir):
                     node.setParms({CP_PALETTE_LIB_PATH: filepath_expandvars})
                     # The following definition use the default arg's value so it can set the proper ramp message if needed.
@@ -9440,7 +9440,7 @@ class flam3h_palette_utils
             # CTRL - If we are just copying the preset name into the Palette name parameter
             elif self.kwargs['ctrl']:
                 
-                filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+                filepath: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
                 if self.isJSON_F3H_on_preset_load(node, filepath, False)[-1]:
                     
                     # get current preset name and preset_id(index)
@@ -9454,7 +9454,7 @@ class flam3h_palette_utils
             # ALT - If we are loading a palette from the clipboard
             elif self.kwargs['alt']:
                 
-                palette = hou.ui.getTextFromClipboard() # type: ignore
+                palette: str = hou.ui.getTextFromClipboard() # type: ignore
                 try: data = json.loads(palette)
                 except: data = None
                 
@@ -9486,7 +9486,7 @@ class flam3h_palette_utils
                             rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
 
                             try:
-                                hsv_vals = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
+                                hsv_vals: list = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
                                 hsv_check = True
                             except:
                                 hsv_vals = []
@@ -14541,7 +14541,7 @@ class in_flame_utils
             node = self.node
             data: Union[list, None] = node.cachedUserData('in_presets_menu')
             data_idx: Union[str, None] = node.cachedUserData('in_presets_menu_idx')
-            preset_idx = node.parm(IN_PRESETS).eval()
+            preset_idx: str = node.parm(IN_PRESETS).eval()
             
             # Double check 
             xml = os.path.expandvars(node.parm(IN_PATH).eval())
@@ -14625,7 +14625,7 @@ class in_flame_utils
             node = self.node
             data: Union[list, None] = node.cachedUserData('in_presets_menu_off')
             data_idx: Union[str, None] = node.cachedUserData('in_presets_menu_off_idx')
-            preset_idx = node.parm(IN_PRESETS_OFF).eval()
+            preset_idx: str = node.parm(IN_PRESETS_OFF).eval()
             
             # Double check 
             xml = os.path.expandvars(node.parm(IN_PATH).eval())
@@ -15263,11 +15263,11 @@ class in_flame_utils
         
         # Get the correct menu parameter's preset idx
         if node.parm(IN_PVT_ISVALID_PRESET).eval():
-            preset_id = node.parm(IN_PRESETS).eval()
+            preset_id: str = node.parm(IN_PRESETS).eval()
             # Update
             node.setParms({IN_PRESETS_OFF: preset_id}) # type: ignore
         else:
-            preset_id = node.parm(IN_PRESETS_OFF).eval()
+            preset_id: str = node.parm(IN_PRESETS_OFF).eval()
             # Update
             node.setParms({IN_PRESETS: preset_id}) # type: ignore
             
@@ -15350,11 +15350,11 @@ class in_flame_utils
 
         if xml and node.parm(IN_PVT_ISVALID_FILE).eval():
             if node.parm(IN_PVT_ISVALID_PRESET).eval():
-                preset_id = node.parm(IN_SYS_PRESETS).eval()
+                preset_id: str = node.parm(IN_SYS_PRESETS).eval()
                 # Update other PRESETS menu parameters
                 [prm.set(preset_id) for prm in (node.parm(IN_SYS_PRESETS_OFF), node.parm(IN_PRESETS), node.parm(IN_PRESETS_OFF))]
             else:
-                preset_id = node.parm(IN_SYS_PRESETS_OFF).eval()
+                preset_id: str = node.parm(IN_SYS_PRESETS_OFF).eval()
                 # Update other PRESETS menu parameters
                 [prm.set(preset_id) for prm in (node.parm(IN_SYS_PRESETS), node.parm(IN_PRESETS), node.parm(IN_PRESETS_OFF))]
         
@@ -16826,8 +16826,8 @@ class out_flame_utils
 
         if node.parm(OUT_PVT_ISVALID_FILE).eval():
             toggle_PREFS_ENUMERATE_MENU = node.parm(PREFS_ENUMERATE_MENU).eval()
-            preset_id = int(node.parm(OUT_PRESETS).eval())
-            menu_label = str(node.parm(OUT_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE)[-1].strip()
+            preset_id: int = int(node.parm(OUT_PRESETS).eval())
+            menu_label: str = str(node.parm(OUT_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE)[-1].strip()
 
             if toggle_PREFS_ENUMERATE_MENU:
                 # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
