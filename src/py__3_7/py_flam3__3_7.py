@@ -10797,6 +10797,7 @@ class flam3h_varsPRM_APO:
 ##########################################
 
 
+
 class _xml:
     """
 class _xml
@@ -11074,7 +11075,7 @@ class _xml_tree
         """      
         if self.isvalidtree:
             root = self.tree.getroot()
-            return tuple( [str(in_flame.xf_val_cleanup_str(name.get(key), '0', key).strip()) if name.get(key) is not None else _DEFAULT for name in root] )
+            return tuple( [str(in_flame.xf_val_cleanup_str(name.get(key), str(_DEFAULT), key).strip()) if name.get(key) is not None else _DEFAULT for name in root] )
         else:
             return () 
         
@@ -11110,8 +11111,15 @@ class _xml_tree
             (tuple): Return all values packed into a tuple.
         """
         if self.isvalidtree:
+            
+            # The following defaults are one off just for a few cases for now.
+            # If they grow maybe better to collect all of them in a global dictionary.
+            if key == OUT_XML_FLAM3H_HSV: _default = '1'
+            elif key == OUT_XML_FLAME_SIZE: _default = '1024'
+            else: _default = '0'
+            
             root = self.tree.getroot()
-            return tuple( [str(in_flame.xf_list_cleanup_str(str(name.get(key)).strip().split(), '0', key)) if name.get(key) is not None else [] for name in root] )
+            return tuple( [str(in_flame.xf_list_cleanup_str(str(name.get(key)).strip().split(), _default, key)) if name.get(key) is not None else [] for name in root] )
         else:
             return () 
         
@@ -11160,6 +11168,14 @@ class _xml_tree
 ##########################################
 ##########################################
 ##########################################
+
+
+# This is used inside: def xf_list_cleanup(...) and def xf_list_cleanup_str(...)
+# to gather a proper default list of values.
+XML_LIST_DEFAULT_VALS: dict = {OUT_XML_FLAME_SIZE: '1024 1024', 
+                               OUT_XML_FLAME_CENTER: '0 0', 
+                               OUT_XML_FLAM3H_HSV: '1 1 1'}
+
 
 
 class in_flame(_xml_tree):
@@ -11212,14 +11228,14 @@ class in_flame
         # render properties
         self._out_size = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SIZE) # type: ignore
         self._out_center = self._xml_tree__get_name_list_str(OUT_XML_FLAME_CENTER) # type: ignore
-        self._out_rotate = self._xml_tree__get_name_val_str(OUT_XML_FLAME_ROTATE) # type: ignore
-        self._out_scale = self._xml_tree__get_name_val_str(OUT_XML_FLAME_SCALE) # type: ignore
-        self._out_quality = self._xml_tree__get_name_val_str(OUT_XML_FLAME_QUALITY) # type: ignore
-        self._out_brightness = self._xml_tree__get_name_val_str(OUT_XML_FLAME_BRIGHTNESS) # type: ignore
-        self._out_gamma = self._xml_tree__get_name_val_str(OUT_XML_FLAME_GAMMA) # type: ignore
-        self._out_highlight_power = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER) # type: ignore
-        self._out_logscale_k2 = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2) # type: ignore
-        self._out_vibrancy = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY) # type: ignore
+        self._out_rotate = self._xml_tree__get_name_val_str(OUT_XML_FLAME_ROTATE, '0') # type: ignore
+        self._out_scale = self._xml_tree__get_name_val_str(OUT_XML_FLAME_SCALE, '0') # type: ignore
+        self._out_quality = self._xml_tree__get_name_val_str(OUT_XML_FLAME_QUALITY, '1000') # type: ignore
+        self._out_brightness = self._xml_tree__get_name_val_str(OUT_XML_FLAME_BRIGHTNESS, '3') # type: ignore
+        self._out_gamma = self._xml_tree__get_name_val_str(OUT_XML_FLAME_GAMMA, '2.5') # type: ignore
+        self._out_highlight_power = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER, '5') # type: ignore
+        self._out_logscale_k2 = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2, '0') # type: ignore
+        self._out_vibrancy = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY, '0.3333') # type: ignore
         
         # render curves
         self._out_curves = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVES, OUT_XML_FLAME_RENDER_CURVES_DEFAULT) # type: ignore
@@ -11234,12 +11250,12 @@ class in_flame
         
         # just check any of the MB val and if exist mean there is MB data to be set.
         # this will act as bool and if true, it will hold our OUT_XML_FLMA3H_MB_FPS value ( as string )
-        self._flam3h_mb = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS) # type: ignore
-        self._flam3h_mb_samples = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
-        self._flam3h_mb_shutter = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
-        self._flam3h_cp_samples = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES) # type: ignore
+        self._flam3h_mb = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS, '24') # type: ignore
+        self._flam3h_mb_samples = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SAMPLES, '16') # type: ignore
+        self._flam3h_mb_shutter = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER, '0.5') # type: ignore
+        self._flam3h_cp_samples = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES, '256') # type: ignore
         
-        self._flam3h_prefs_f3c = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore
+        self._flam3h_prefs_f3c = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C, '1') # type: ignore
         
 
 
@@ -11266,14 +11282,17 @@ class in_flame
                 float(k)
                 new.append(k)
             except ValueError:
-                if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
                 clean = [letter for letter in k if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val = ''.join(clean)
                 try:
                     float(new_val)
                     new.append(new_val)
-                except ValueError: new.append(default_val)
+                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
+                except ValueError:
+                    new.append(default_val)
+                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
         return ' '.join(new)
+
 
 
     @staticmethod
@@ -11292,13 +11311,16 @@ class in_flame
             float(val)
             return val
         except ValueError:
-            if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE\n")
             clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
             new_val = ''.join(clean)
             try:
                 float(new_val)
+                if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE (Corrected)\n")
                 return new_val
-            except ValueError: return default_val
+            except ValueError:
+                if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE\n")
+                return default_val
+
 
 
     @staticmethod
@@ -11314,19 +11336,25 @@ class in_flame
             (list): a list of affine values cleaned up from invalid characters
         """  
         new = []
+        if not vals:
+            new_vals: Union[str, None] = XML_LIST_DEFAULT_VALS.get(key_name)
+            if new_vals is not None: vals = str(new_vals).split(' ')
         for idx, val in enumerate(vals):
             try:
                 float(val)
                 new.append(val)
             except ValueError:
-                if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
                 clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val = ''.join(clean)
                 try:
                     float(new_val)
                     new.append(new_val)
-                except ValueError: new.append(default_val)
+                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
+                except ValueError:
+                    new.append(default_val)
+                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
         return new
+    
     
     
     @staticmethod
@@ -11342,19 +11370,25 @@ class in_flame
             (str): a string of spaced joined affine values cleaned up from invalid characters
         """  
         new = []
+        if not vals:
+            new_vals: Union[str, None] = XML_LIST_DEFAULT_VALS.get(key_name)
+            if new_vals is not None: vals = str(new_vals).split(' ')
         for idx, val in enumerate(vals):
             try:
                 float(val)
                 new.append(val)
             except ValueError:
-                if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
                 clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val = ''.join(clean)
                 try:
                     float(new_val)
                     new.append(new_val)
-                except ValueError: new.append(default_val)
+                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
+                except ValueError:
+                    new.append(default_val)
+                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
         return ' '.join(new)
+
 
 
     @staticmethod
