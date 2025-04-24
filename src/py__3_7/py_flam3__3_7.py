@@ -11222,40 +11222,40 @@ class in_flame
         super().__init__(xmlfile)
         
         self._node = node
-        self._flame = self._xml_tree__get_flame() # type: ignore
-        self._flame_count = self._xml_tree__get_flame_count(self._flame) # type: ignore
+        self._flame: Union[tuple, None] = self._xml_tree__get_flame() # type: ignore
+        self._flame_count: int = self._xml_tree__get_flame_count(self._flame) # type: ignore
         
         # render properties
-        self._out_size = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SIZE) # type: ignore
-        self._out_center = self._xml_tree__get_name_list_str(OUT_XML_FLAME_CENTER) # type: ignore
-        self._out_rotate = self._xml_tree__get_name_val_str(OUT_XML_FLAME_ROTATE, '0') # type: ignore
-        self._out_scale = self._xml_tree__get_name_val_str(OUT_XML_FLAME_SCALE, '0') # type: ignore
-        self._out_quality = self._xml_tree__get_name_val_str(OUT_XML_FLAME_QUALITY, '1000') # type: ignore
-        self._out_brightness = self._xml_tree__get_name_val_str(OUT_XML_FLAME_BRIGHTNESS, '3') # type: ignore
-        self._out_gamma = self._xml_tree__get_name_val_str(OUT_XML_FLAME_GAMMA, '2.5') # type: ignore
-        self._out_highlight_power = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER, '5') # type: ignore
-        self._out_logscale_k2 = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2, '0') # type: ignore
-        self._out_vibrancy = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY, '0.3333') # type: ignore
+        self._out_size: tuple = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SIZE) # type: ignore
+        self._out_center: tuple = self._xml_tree__get_name_list_str(OUT_XML_FLAME_CENTER) # type: ignore
+        self._out_rotate: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_ROTATE, '0') # type: ignore
+        self._out_scale: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_SCALE, '0') # type: ignore
+        self._out_quality: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_QUALITY, '1000') # type: ignore
+        self._out_brightness: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_BRIGHTNESS, '3') # type: ignore
+        self._out_gamma: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_GAMMA, '2.5') # type: ignore
+        self._out_highlight_power: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER, '5') # type: ignore
+        self._out_logscale_k2: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2, '0') # type: ignore
+        self._out_vibrancy: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY, '0.3333') # type: ignore
         
         # render curves
-        self._out_curves = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVES, OUT_XML_FLAME_RENDER_CURVES_DEFAULT) # type: ignore
-        self._out_curve_overall = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_OVERALL, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
-        self._out_curve_red = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_RED, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
-        self._out_curve_green = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_GREEN, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
-        self._out_curve_blue = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_BLUE, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curves: tuple = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVES, OUT_XML_FLAME_RENDER_CURVES_DEFAULT) # type: ignore
+        self._out_curve_overall: tuple = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_OVERALL, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curve_red: tuple = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_RED, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curve_green: tuple = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_GREEN, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curve_blue: tuple = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_BLUE, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
         
         # custom to FLAM3H only
-        self._flam3h_sys_rip = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_SYS_RIP) # type: ignore
-        self._flam3h_hsv = self._xml_tree__get_name_list_str(OUT_XML_FLAM3H_HSV) # type: ignore
+        self._flam3h_sys_rip: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_SYS_RIP) # type: ignore
+        self._flam3h_hsv: tuple = self._xml_tree__get_name_list_str(OUT_XML_FLAM3H_HSV) # type: ignore
         
         # just check any of the MB val and if exist mean there is MB data to be set.
         # this will act as bool and if true, it will hold our OUT_XML_FLMA3H_MB_FPS value ( as string )
-        self._flam3h_mb = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS, '24') # type: ignore
-        self._flam3h_mb_samples = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SAMPLES, '16') # type: ignore
-        self._flam3h_mb_shutter = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER, '0.5') # type: ignore
-        self._flam3h_cp_samples = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES, '256') # type: ignore
+        self._flam3h_mb: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS, '24') # type: ignore
+        self._flam3h_mb_samples: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SAMPLES, '16') # type: ignore
+        self._flam3h_mb_shutter: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER, '0.5') # type: ignore
+        self._flam3h_cp_samples: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES, '256') # type: ignore
         
-        self._flam3h_prefs_f3c = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C, '1') # type: ignore
+        self._flam3h_prefs_f3c: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C, '1') # type: ignore
         
 
 
@@ -11601,6 +11601,7 @@ class in_flame
             (tuple): a tuple of all xforms inside the selected flame or None
         """
         if  self.isvalidtree:
+            assert self.flame is not None
             xforms = [xf.attrib for xf in self.flame[idx].iter(key)]
             if xforms: return tuple( [dict( zip( [str(x).lower() for x in xf.keys()], xf.values() ) ) for xf in xforms] )
                 
@@ -11741,6 +11742,7 @@ class in_flame
         """     
            
         if  self.isvalidtree:
+            assert self.flame is not None
             try: palette_attrib = self.flame[idx].find(key).attrib
             except: palette_attrib = None
 
@@ -11926,43 +11928,43 @@ class in_flame_iter_data(in_flame):
         """
         super().__init__(node, xmlfile)
         
-        self._idx = self._in_flame__is_valid_idx(idx) # type: ignore
-        self._xforms = self._in_flame__get_xforms(self._idx, XML_XF) # type: ignore
-        self._xf_name = self._in_flame__get_keyvalue(self._xforms, XML_XF_NAME) # type: ignore
-        self._weight = self._in_flame__get_keyvalue(self._xforms, XML_XF_WEIGHT) # type: ignore
-        self._pre_blur = self._in_flame__get_keyvalue(self._xforms, XML_XF_PB) # type: ignore
-        self._xaos  = self._in_flame__get_xaos(self._xforms) # type: ignore
+        self._idx: int = self._in_flame__is_valid_idx(idx) # type: ignore
+        self._xforms: Union[tuple, None] = self._in_flame__get_xforms(self._idx, XML_XF) # type: ignore
+        self._xf_name: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_XF_NAME) # type: ignore
+        self._weight: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_XF_WEIGHT) # type: ignore
+        self._pre_blur: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_XF_PB) # type: ignore
+        self._xaos: Union[tuple, None]  = self._in_flame__get_xaos(self._xforms) # type: ignore
         
-        self._coefs = self._in_flame__get_affine(self._xforms, XML_PRE_AFFINE) # type: ignore
-        self._f3h_coefs = self._in_flame__get_affine(self._xforms, XML_FLAM3H_PRE_AFFINE) # type: ignore
-        self._f3h_coefs_angle = self._in_flame__get_keyvalue(self._xforms, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
-        self._post  = self._in_flame__get_affine(self._xforms, XML_POST_AFFINE) # type: ignore
-        self._f3h_post  = self._in_flame__get_affine(self._xforms, XML_FLAM3H_POST_AFFINE) # type: ignore
-        self._f3h_post_angle = self._in_flame__get_keyvalue(self._xforms, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
+        self._coefs: Union[tuple, None] = self._in_flame__get_affine(self._xforms, XML_PRE_AFFINE) # type: ignore
+        self._f3h_coefs: Union[tuple, None] = self._in_flame__get_affine(self._xforms, XML_FLAM3H_PRE_AFFINE) # type: ignore
+        self._f3h_coefs_angle: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
+        self._post: Union[tuple, None]  = self._in_flame__get_affine(self._xforms, XML_POST_AFFINE) # type: ignore
+        self._f3h_post: Union[tuple, None]  = self._in_flame__get_affine(self._xforms, XML_FLAM3H_POST_AFFINE) # type: ignore
+        self._f3h_post_angle: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
         
-        self._finalxform = self._in_flame__get_xforms(self._idx, XML_FF) # type: ignore
-        self._finalxform_coefs = self._in_flame__get_affine(self._finalxform, XML_PRE_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_coefs = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_PRE_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_coefs_angle = self._in_flame__get_keyvalue(self._finalxform, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
-        self._finalxform_post  = self._in_flame__get_affine(self._finalxform, XML_POST_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_post = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_POST_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_post_angle = self._in_flame__get_keyvalue(self._finalxform, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
-        self._finalxform_name = self._in_flame__get_keyvalue(self._finalxform, XML_XF_NAME) # type: ignore
+        self._finalxform: Union[tuple, None] = self._in_flame__get_xforms(self._idx, XML_FF) # type: ignore
+        self._finalxform_coefs: Union[tuple, None] = self._in_flame__get_affine(self._finalxform, XML_PRE_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_coefs: Union[tuple, None] = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_PRE_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_coefs_angle: Union[tuple, None] = self._in_flame__get_keyvalue(self._finalxform, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
+        self._finalxform_post: Union[tuple, None]  = self._in_flame__get_affine(self._finalxform, XML_POST_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_post: Union[tuple, None] = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_POST_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_post_angle: Union[tuple, None] = self._in_flame__get_keyvalue(self._finalxform, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
+        self._finalxform_name: Union[tuple, None] = self._in_flame__get_keyvalue(self._finalxform, XML_XF_NAME) # type: ignore
         
-        self._palette = self._in_flame__get_palette(self._idx) # type: ignore
-        self._color = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR) # type: ignore
-        self._color_speed = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR_SPEED) # type: ignore
-        self._symmetry = self._in_flame__get_keyvalue(self._xforms, XML_XF_SYMMETRY) # type: ignore
-        self._opacity = self._in_flame__get_keyvalue(self._xforms, XML_XF_OPACITY) # type: ignore
+        self._palette: Union[tuple[hou.Ramp, int, str], None] = self._in_flame__get_palette(self._idx) # type: ignore
+        self._color: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR) # type: ignore
+        self._color_speed: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR_SPEED) # type: ignore
+        self._symmetry: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_XF_SYMMETRY) # type: ignore
+        self._opacity: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_XF_OPACITY) # type: ignore
         
         # custom to FLAM3H only
-        self._sys_flam3h_rip = self._in_flame__get_flam3h_toggle(self._flam3h_sys_rip[self._idx]) # type: ignore
-        self._cp_flam3h_hsv = self._in_flame__get_palette_flam3h_hsv(self._idx) # type: ignore
-        self._mb_flam3h_mb_fps = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
-        self._mb_flam3h_mb_samples= self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
-        self._mb_flam3h_mb_shutter = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
-        self._cp_flam3h_cp_samples = self._in_flame__get_cp_flam3h_samples(self._idx, self.palette) # type: ignore
-        self._prefs_flam3h_f3c = self._in_flame__get_flam3h_toggle(self._flam3h_prefs_f3c[self._idx]) # type: ignore
+        self._sys_flam3h_rip: Union[int, None] = self._in_flame__get_flam3h_toggle(self._flam3h_sys_rip[self._idx]) # type: ignore
+        self._cp_flam3h_hsv: Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool] = self._in_flame__get_palette_flam3h_hsv(self._idx) # type: ignore
+        self._mb_flam3h_mb_fps: Union[int, float, bool, None] = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
+        self._mb_flam3h_mb_samples: Union[int, float, bool, None] = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
+        self._mb_flam3h_mb_shutter: Union[int, float, bool, None] = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
+        self._cp_flam3h_cp_samples: Union[int, bool] = self._in_flame__get_cp_flam3h_samples(self._idx, self.palette) # type: ignore
+        self._prefs_flam3h_f3c: Union[int, None] = self._in_flame__get_flam3h_toggle(self._flam3h_prefs_f3c[self._idx]) # type: ignore
 
 
 
@@ -13278,6 +13280,7 @@ class in_flame_utils
         else:
             _MAX_VARS = MAX_ITER_VARS
             xf = apo_data.xforms
+        assert xf is not None
         return xf, _MAX_VARS
 
 
@@ -14174,9 +14177,11 @@ class in_flame_utils
                     self.in_v_generic(mode, node, mp_idx, t_idx, 0, 0)
                     
             # Set pre blur if found
+            assert apo_data.pre_blur is not None
             self.in_v_pre_blur(mode, node, mp_idx, apo_data.pre_blur)
                     
             if mode:
+                assert apo_data.finalxform_name is not None
                 # Set finalxform name first if any
                 if apo_data.finalxform_name[0]:
                     node.setParms({f"{prx}{n.main_note}": apo_data.finalxform_name[0]}) # type: ignore
@@ -14336,12 +14341,14 @@ class in_flame_utils
         
         # checks
         pb_bool = opacity_bool = post_bool = xaos_bool = palette_bool = ff_bool = ff_post_bool = flam3h_mb_bool = False
-        for item in apo_data.pre_blur:
-            if item:
-                pb_bool = True
-                break
+        if apo_data.pre_blur is not None:
+            for item in apo_data.pre_blur:
+                if item:
+                    pb_bool = True
+                    break
         
-        if min(apo_data.opacity) == 0.0: opacity_bool = True
+        if apo_data.opacity is not None:
+            if min(apo_data.opacity) == 0.0: opacity_bool = True
         if apo_data.post is not None: post_bool = True
         if apo_data.xaos is not None: xaos_bool = True
         if apo_data.palette is not None: palette_bool = True
@@ -14361,6 +14368,7 @@ class in_flame_utils
         # build msgs
         sw: str = f"Software: {apo_data.sw_version[preset_id]}"
         name: str = f"Name: {apo_data.name[preset_id]}"
+        assert apo_data.xforms is not None
         iter_count: str = f"Iterators count: {str(len(apo_data.xforms))}"
         post: str = f"Post affine: {post_bool_msg}"
         opacity: str = f"Opacity: {opacity_bool_msg}"
@@ -14379,7 +14387,7 @@ class in_flame_utils
         if ff_bool: ff_msg = f"FF: YES\nFF Post affine: {ff_post_bool_msg}"
         else: ff_msg = f"FF: NO\n"
             
-        if palette_bool:
+        if palette_bool and apo_data.palette is not None:
             if apo_data.cp_flam3h_hsv is not False: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} {IN_HSV_LABEL_MSG}" # custom to FLAM3H only
             else: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
         else: palette_count_format = f"Palette not found."
@@ -14868,10 +14876,11 @@ class in_flame_utils
         # ITERATOR
         ####################################################
         # prepare iterators
+        assert apo_data.xforms is not None
         self.in_to_flam3h_reset_iterators_parms( node, len(apo_data.xforms) )
         
         # RIP: if there are ZERO opacities, always turn RIP toggle ON
-        if min(apo_data.opacity) == 0.0:
+        if apo_data.opacity is not None and min(apo_data.opacity) == 0.0:
             flam3h_general_utils.private_prm_set(node, PREFS_PVT_RIP, 1)
         else:
             # Otherwise set RIP toggle accordingly from the XML data if any
@@ -18293,34 +18302,34 @@ class out_flame_render_properties(out_flame_utils):
         """ 
         super().__init__(kwargs)
         
-        self._flame_name = self._out_flame_utils__out_flame_name() # type: ignore
-        self._flame_size = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE)) # type: ignore
-        self._flame_center = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER)) # type: ignore
-        self._flame_scale = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE)) # type: ignore
-        self._flame_rotate = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE)) # type: ignore
-        self._flame_quality = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY)) # type: ignore
-        self._flame_brightness = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS)) # type: ignore
-        self._flame_gamma = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA)) # type: ignore
-        self._flame_k2 = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2)) # type: ignore
-        self._flame_vibrancy = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY)) # type: ignore
-        self._flame_highlight = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER)) # type: ignore
+        self._flame_name: str = self._out_flame_utils__out_flame_name() # type: ignore
+        self._flame_size: str = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE)) # type: ignore
+        self._flame_center: str = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER)) # type: ignore
+        self._flame_scale: str = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE)) # type: ignore
+        self._flame_rotate: str = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE)) # type: ignore
+        self._flame_quality: str = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY)) # type: ignore
+        self._flame_brightness: str = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS)) # type: ignore
+        self._flame_gamma: str = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA)) # type: ignore
+        self._flame_k2: str = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2)) # type: ignore
+        self._flame_vibrancy: str = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY)) # type: ignore
+        self._flame_highlight: str = self._out_flame_utils__out_flame_data(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER)) # type: ignore
         
         # OUT render curves
         # We can directly get the data from the FLAM3H UI parameters since they have been checked on creation already.
-        self._flame_render_curves = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES)).eval()
-        self._flame_overall_curve = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval()
-        self._flame_red_curve = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval()
-        self._flame_green_curve = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval()
-        self._flame_blue_curve = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval()
+        self._flame_render_curves: str = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES)).eval()
+        self._flame_overall_curve: str = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)).eval()
+        self._flame_red_curve: str = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)).eval()
+        self._flame_green_curve: str = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval()
+        self._flame_blue_curve: str = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval()
         
         # custom to FLAM3H only
-        self._flam3h_sys_rip = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_rip) # type: ignore
-        self._flam3h_cp_hsv = self._out_flame_utils__out_flame_data_flam3h_hsv() # type: ignore
-        self._flam3h_mb_fps = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_FPS) # type: ignore
-        self._flam3h_mb_samples = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_SAMPLES) # type: ignore
-        self._flam3h_mb_shutter = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_SHUTTER) # type: ignore
-        self._flam3h_cp_samples = self._out_flame_utils__out_flame_palette_lookup_samples() # type: ignore
-        self._flam3h_prefs_f3c = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_f3c) # type: ignore
+        self._flam3h_sys_rip: str = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_rip) # type: ignore
+        self._flam3h_cp_hsv: Union[str, bool] = self._out_flame_utils__out_flame_data_flam3h_hsv() # type: ignore
+        self._flam3h_mb_fps: Union[str, bool] = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_FPS) # type: ignore
+        self._flam3h_mb_samples: Union[str, bool] = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_SAMPLES) # type: ignore
+        self._flam3h_mb_shutter: Union[str, bool] = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_SHUTTER) # type: ignore
+        self._flam3h_cp_samples: Union[str, bool] = self._out_flame_utils__out_flame_palette_lookup_samples() # type: ignore
+        self._flam3h_prefs_f3c: str = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_f3c) # type: ignore
         
 
 
@@ -18463,34 +18472,34 @@ class out_flame_xforms_data(out_flame_utils):
         super().__init__(kwargs)
         
         # FLAM3 data
-        self._xf_name = self._out_flame_utils__out_xf_name() # type: ignore
-        self._xf_vactive = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.main_vactive) # type: ignore
-        self._xf_weight = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.main_weight) # type: ignore
-        self._xf_xaos = self._out_flame_utils__out_xf_xaos() # type: ignore
+        self._xf_name: tuple = self._out_flame_utils__out_xf_name() # type: ignore
+        self._xf_vactive: tuple = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.main_vactive) # type: ignore
+        self._xf_weight: tuple = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.main_weight) # type: ignore
+        self._xf_xaos: tuple = self._out_flame_utils__out_xf_xaos() # type: ignore
         
-        self._xf_color = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_color) # type: ignore
-        self._xf_symmetry = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_speed) # type: ignore
-        self._xf_color_speed = self._out_flame_utils__out_xf_data_color_speed() # type: ignore
-        self._xf_opacity = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_alpha) # type: ignore
+        self._xf_color: tuple = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_color) # type: ignore
+        self._xf_symmetry: tuple = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_speed) # type: ignore
+        self._xf_color_speed: tuple = self._out_flame_utils__out_xf_data_color_speed() # type: ignore
+        self._xf_opacity: tuple = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_alpha) # type: ignore
         
-        self._xf_pre_blur = self._out_flame_utils__out_xf_pre_blur() # type: ignore
+        self._xf_pre_blur: tuple = self._out_flame_utils__out_xf_pre_blur() # type: ignore
         
-        self._xf_preaffine = self._out_flame_utils__out_xf_preaffine()[0] # type: ignore
-        self._xf_f3h_preaffine = self._out_flame_utils__out_xf_preaffine()[1] # type: ignore
-        self._xf_f3h_preaffine_angle = self._out_flame_utils__out_xf_preaffine()[2] # type: ignore
-        self._xf_postaffine = self._out_flame_utils__out_xf_postaffine()[0] # type: ignore
-        self._xf_f3h_postaffine = self._out_flame_utils__out_xf_postaffine()[1] # type: ignore
-        self._xf_f3h_postaffine_angle = self._out_flame_utils__out_xf_postaffine()[2] # type: ignore
+        self._xf_preaffine: tuple = self._out_flame_utils__out_xf_preaffine()[0] # type: ignore
+        self._xf_f3h_preaffine: tuple = self._out_flame_utils__out_xf_preaffine()[1] # type: ignore
+        self._xf_f3h_preaffine_angle: tuple = self._out_flame_utils__out_xf_preaffine()[2] # type: ignore
+        self._xf_postaffine: tuple = self._out_flame_utils__out_xf_postaffine()[0] # type: ignore
+        self._xf_f3h_postaffine: tuple = self._out_flame_utils__out_xf_postaffine()[1] # type: ignore
+        self._xf_f3h_postaffine_angle: tuple = self._out_flame_utils__out_xf_postaffine()[2] # type: ignore
         
-        self._finalxf_name = self._out_flame_utils__out_finalxf_name() # type: ignore
-        self._finalxf_preaffine = self._out_flame_utils__out_finalxf_preaffine()[0] # type: ignore
-        self._finalxf_f3h_preaffine = self._out_flame_utils__out_finalxf_preaffine()[1] # type: ignore
-        self._finalxf_f3h_preaffine_angle = self._out_flame_utils__out_finalxf_preaffine()[2] # type: ignore
-        self._finalxf_postaffine = self._out_flame_utils__out_finalxf_postaffine()[0] # type: ignore
-        self._finalxf_f3h_postaffine = self._out_flame_utils__out_finalxf_postaffine()[1] # type: ignore
-        self._finalxf_f3h_postaffine_angle = self._out_flame_utils__out_finalxf_postaffine()[2] # type: ignore
+        self._finalxf_name: str = self._out_flame_utils__out_finalxf_name() # type: ignore
+        self._finalxf_preaffine: str = self._out_flame_utils__out_finalxf_preaffine()[0] # type: ignore
+        self._finalxf_f3h_preaffine: str = self._out_flame_utils__out_finalxf_preaffine()[1] # type: ignore
+        self._finalxf_f3h_preaffine_angle: str = self._out_flame_utils__out_finalxf_preaffine()[2] # type: ignore
+        self._finalxf_postaffine: str = self._out_flame_utils__out_finalxf_postaffine()[0] # type: ignore
+        self._finalxf_f3h_postaffine: str = self._out_flame_utils__out_finalxf_postaffine()[1] # type: ignore
+        self._finalxf_f3h_postaffine_angle: str = self._out_flame_utils__out_finalxf_postaffine()[2] # type: ignore
         
-        self._palette_hex = self._out_flame_utils__out_palette_hex() # type: ignore
+        self._palette_hex: str = self._out_flame_utils__out_palette_hex() # type: ignore
 
 
 
