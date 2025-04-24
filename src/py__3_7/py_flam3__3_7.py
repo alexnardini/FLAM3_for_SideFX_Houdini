@@ -11266,7 +11266,7 @@ class in_flame
                 float(k)
                 new.append(k)
             except ValueError:
-                if key_name is not None: print(f"Warning: IN xml key: {key_name}[{idx}] -> NOT A VALUE")
+                if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
                 clean = [letter for letter in k if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val = ''.join(clean)
                 try:
@@ -11292,7 +11292,7 @@ class in_flame
             float(val)
             return val
         except ValueError:
-            if key_name is not None: print(f"Warning: IN xml key: {key_name} -> NOT A VALUE")
+            if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE\n")
             clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
             new_val = ''.join(clean)
             try:
@@ -11319,7 +11319,7 @@ class in_flame
                 float(val)
                 new.append(val)
             except ValueError:
-                if key_name is not None: print(f"Warning: IN xml key: {key_name}[{idx}] -> NOT A VALUE")
+                if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
                 clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val = ''.join(clean)
                 try:
@@ -11347,7 +11347,7 @@ class in_flame
                 float(val)
                 new.append(val)
             except ValueError:
-                if key_name is not None: print(f"Warning: IN xml key: {key_name}[{idx}] -> NOT A VALUE")
+                if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
                 clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val = ''.join(clean)
                 try:
@@ -13870,6 +13870,7 @@ class in_flame_utils
         return dict(map(lambda item: (item[0], func(item[1])), vars_dict.items()))
 
 
+
     @staticmethod
     def in_xml_key_val(xform: dict, key_name: str, default_val: float=0) -> float:
         """Check for the queried XML key name value if it is an actual value.
@@ -13887,10 +13888,8 @@ class in_flame_utils
         assert key_val is not None # I can assert this becasue the passed key_name has been collected already from an xform
         try: return float(key_val)
         except ValueError:
-            print(f"Warning: IN xml key: {key_name} -> NOT A VALUE")
+            print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE\n")
             return default_val
-
-
 
 
 
