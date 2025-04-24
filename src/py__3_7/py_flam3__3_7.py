@@ -73,7 +73,7 @@ import nodesearch
 #
 
 
-FLAM3H_VERSION = '1.8.07'
+FLAM3H_VERSION = '1.8.08'
 FLAM3H_VERSION_STATUS_BETA = "Beta"
 FLAM3H_VERSION_STATUS_GOLD = "Gold"
 
@@ -11254,17 +11254,17 @@ class in_flame
         self._out_curve_blue: tuple = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_BLUE, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
         
         # custom to FLAM3H only
-        self._flam3h_sys_rip: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_SYS_RIP, '0') # type: ignore
+        self._flam3h_sys_rip: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_SYS_RIP) # type: ignore # This xml key must be present to be set otherwise leave it untouched
         self._flam3h_hsv: tuple = self._xml_tree__get_name_list_str(OUT_XML_FLAM3H_HSV) # type: ignore
         
         # just check any of the MB val and if exist mean there is MB data to be set.
         # this will act as bool and if true, it will hold our OUT_XML_FLMA3H_MB_FPS value ( as string )
-        self._flam3h_mb: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS) # type: ignore
+        self._flam3h_mb: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS) # type: ignore # This xml key must be present to be set otherwise leave it untouched
         self._flam3h_mb_samples: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SAMPLES, '16') # type: ignore
         self._flam3h_mb_shutter: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER, '0.5') # type: ignore
         self._flam3h_cp_samples: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES, '256') # type: ignore
         
-        self._flam3h_prefs_f3c: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C, '1') # type: ignore
+        self._flam3h_prefs_f3c: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore # This xml key must be present to be set otherwise leave it untouched
         
 
 

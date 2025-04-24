@@ -10,6 +10,17 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.08</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.08) ###
+
+- **Fix**: RIP, F3C and Motion blur were being always activated and set to its default values on flame load even when the loaded Flame did not use them at all, it is now fixed. A regression from versions: [**v1.8.07**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.07)
+
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.8.07</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.07) ###
 
 - **New**: Improved IN XML data correction.
