@@ -1646,18 +1646,18 @@ class flam3h_scripts
         out_is_valid = node.parm(OUT_PVT_ISVALID_FILE).eval()
         
         if cp_is_valid:
-            cp_path = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
-            cp_path_checked = out_flame_utils.out_check_outpath(node,  cp_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
+            cp_path: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+            cp_path_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node,  cp_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
             if cp_path_checked is not False and os.path.isfile(cp_path_checked): node.setCachedUserData('cp_presets_filepath', cp_path_checked)
                 
         if in_is_valid:
-            xml = os.path.expandvars(node.parm(IN_PATH).eval())
-            xml_checked = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT, False, False)
+            xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
+            xml_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT, False, False)
             if xml_checked is not False and os.path.isfile(xml_checked): node.setCachedUserData('in_presets_filepath', xml_checked)
             
         if out_is_valid:
-            xml = os.path.expandvars(node.parm(OUT_PATH).eval())
-            xml_checked = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
+            xml: str = os.path.expandvars(node.parm(OUT_PATH).eval())
+            xml_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
             if xml_checked is not False and os.path.isfile(xml_checked): node.setCachedUserData('out_presets_filepath', xml_checked)
 
 
@@ -3160,7 +3160,7 @@ class flam3h_general_utils
             (None):  
         """ 
         node = self.node
-        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         all_mp_xf_viz: list = [node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx+1)}").eval() for mp_idx in range(iter_num)]
         if max(all_mp_xf_viz) == 1: return True
         else: return False
@@ -3178,7 +3178,7 @@ class flam3h_general_utils
             (None):  
         """
         node = self.node
-        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         prm = node.parm(PREFS_PVT_XF_VIZ_SOLO)
         
         # Refresh menu caches
@@ -3247,7 +3247,7 @@ class flam3h_general_utils
         # with hou.undos.disabler(): # type: ignore
         
         node: hou.SopNode = self.node
-        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         mp_idx: int = self.kwargs['script_multiparm_index']
         prm_mp = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{mp_idx}")
@@ -3295,7 +3295,7 @@ class flam3h_general_utils
         # with hou.undos.disabler(): # type: ignore
         
         node: hou.SopNode = self.node
-        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         # mp_idx = self.kwargs['script_multiparm_index']
         prm_mp = node.parm(PREFS_PVT_XF_FF_VIZ_SOLO)
@@ -3439,7 +3439,7 @@ class flam3h_general_utils
                 
                 
                 
-    def flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy_menus: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[bool, str, None]=None) -> None:
+    def flam3h_init_presets_CP_PRESETS(self, mode: int=1, destroy_menus: bool=True, json_file: Union[bool, None]=None, f3h_json_file: Union[bool, None]=None, json_path_checked: Union[str, bool, None]=None) -> None:
         """Initialize parameter's menu presets for the CP tab.
         
         Here I could use userData instead of a cachedUserData but can happen that between one houdini session
@@ -3473,7 +3473,7 @@ class flam3h_general_utils
         prm_off = node.parm(CP_PALETTE_PRESETS_OFF)
 
         if json_path_checked is None:
-            json_path = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+            json_path: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
             json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
         
         if cp_presets_filepath_history is not None and node.parm(CP_PVT_ISVALID_FILE).eval() and os.path.isfile(cp_presets_filepath_history) and cp_presets_filepath_history == json_path_checked:
@@ -3586,13 +3586,13 @@ class flam3h_general_utils
         # Retrieve the filepath from the history (preview valid F3H json file path used)
         in_presets_filepath_history: Union[str, None] = node.cachedUserData('in_presets_filepath')
         
-        is_valid = node.parm(IN_PVT_ISVALID_FILE).eval()
-        clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+        is_valid: int = node.parm(IN_PVT_ISVALID_FILE).eval()
+        clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
         prm = node.parm(IN_PRESETS)
         prm_off = node.parm(IN_PRESETS_OFF)
         
-        xml = os.path.expandvars(node.parm(IN_PATH).eval())
-        xml_checked = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT, False, False)
+        xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
+        xml_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT, False, False)
         
         if in_presets_filepath_history is not None and is_valid and os.path.isfile(in_presets_filepath_history) and in_presets_filepath_history == xml_checked:
             pass
@@ -3692,12 +3692,12 @@ class flam3h_general_utils
         # Retrieve the filepath from the history (preview valid F3H json file path used)
         out_presets_filepath_history: Union[str, None] = node.cachedUserData('out_presets_filepath')
         
-        is_valid = node.parm(OUT_PVT_ISVALID_FILE).eval()
+        is_valid: int = node.parm(OUT_PVT_ISVALID_FILE).eval()
         prm = node.parm(OUT_PRESETS)
         prm_sys = node.parm(OUT_SYS_PRESETS)
         
-        xml = os.path.expandvars(node.parm(OUT_PATH).eval())
-        xml_checked = out_flame_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
+        xml: str = os.path.expandvars(node.parm(OUT_PATH).eval())
+        xml_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node, xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
         
         if out_presets_filepath_history is not None and is_valid and os.path.isfile(out_presets_filepath_history) and out_presets_filepath_history == xml_checked:
             pass
@@ -3814,7 +3814,7 @@ class flam3h_general_utils
         """
         node = self.node
         prm = node.parm(PREFS_VIEWPORT_DARK)
-        views = self.util_getSceneViewers()
+        views: list = self.util_getSceneViewers()
         
         if views:
             if prm.eval():
@@ -3822,8 +3822,8 @@ class flam3h_general_utils
                 # if different than Dark
                 self.util_store_all_viewers_color_scheme()
                 
-                dark = False
-                sop_view = False
+                dark: bool = False
+                sop_view: bool = False
                 
                 for v in views:
                     
@@ -3866,7 +3866,7 @@ class flam3h_general_utils
                     for v in views:
                         # Here we are not checking if the viewer belong to Sop or Lop
                         # because the stashed dict has already the viewers filtered on creation inside: flam3h_general_utils.util_store_all_viewers_color_scheme()
-                        key = v.name()
+                        key: str = v.name()
                         _STASH: Union[hou.EnumValue, None] = _STASH_DICT.get(key)
                         if _STASH is not None:
                             settings: hou.GeometryViewportSettings = v.curViewport().settings()
@@ -3922,7 +3922,7 @@ class flam3h_general_utils
             (None):
         """
         node = self.node
-        pttype = node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt()
+        pttype: int = node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt()
 
         Points = hou.viewportParticleDisplay.Points # type: ignore
         Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
@@ -3965,7 +3965,7 @@ class flam3h_general_utils
         """
         node = self.node
         Points = hou.viewportParticleDisplay.Points # type: ignore
-        ptsize = node.parm(PREFS_VIEWPORT_PT_SIZE).evalAsFloat()
+        ptsize: float = node.parm(PREFS_VIEWPORT_PT_SIZE).evalAsFloat()
 
         for view in self.util_getSceneViewers():
             
@@ -4009,7 +4009,7 @@ class flam3h_general_utils
             (None):
         """
         node = self.node
-        width = node.parm(PREFS_VIEWPORT_WIRE_WIDTH).evalAsFloat()
+        width: float = node.parm(PREFS_VIEWPORT_WIRE_WIDTH).evalAsFloat()
 
         for view in self.util_getSceneViewers():
             
@@ -4418,11 +4418,11 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        density = node.parm(GLB_DENSITY).eval()
+        density: int = node.parm(GLB_DENSITY).eval()
         # node.parm(GLB_DENSITY).deleteAllKeyframes() # This is commented out for now to allow to anim the density only from here
         node.parm(GLB_DENSITY_PRESETS).deleteAllKeyframes()
         density_values: dict = { 500000: 1, 1000000: 2, 2000000: 3, 5000000: 4, 15000000: 5, 25000000: 6, 50000000: 7, 100000000: 8, 150000000: 9, 250000000: 10, 500000000: 11, 750000000: 12, 1000000000: 13 }
-        density_idx = density_values.get(density)
+        density_idx: Union[int, None] = density_values.get(density)
         if density_idx is not None:
             node.setParms({GLB_DENSITY_PRESETS: density_idx}) #type: ignore
         else:
@@ -4510,7 +4510,7 @@ class flam3h_iterator_utils
             (Union[int, bool]): Return the requested user data or False if it does not exist.
         """   
         
-        name = f"{FLAM3H_USER_DATA_PRX}_{data_name}"
+        name: str = f"{FLAM3H_USER_DATA_PRX}_{data_name}"
         data: Union[int, None] = node.userData(f"{name}")
         if data is not None:
             return data
@@ -4529,7 +4529,7 @@ class flam3h_iterator_utils
         Returns:
             (bool): Return True if the requested user data exist or False if it does not.
         """   
-        data_name = f"{FLAM3H_USER_DATA_PRX}_{data}"
+        data_name: str = f"{FLAM3H_USER_DATA_PRX}_{data}"
         if node.userData(f"{data_name}") is None:
             return False
         else:
@@ -4953,7 +4953,7 @@ class flam3h_iterator_utils
                 prm_to.deleteAllKeyframes()
                 flam3h_iterator_utils.paste_from_prm(prm_from, prm_to)
                 # Check if this var is a parametric or not
-                v_type = int(prm_from.eval())
+                v_type: int = int(prm_from.eval())
                 if(varsPRM[v_type][-1]):  
                     flam3h_iterator_utils.paste_from_list(node, flam3node, varsPRM[v_type][1:-1], id, id_from)
                     
@@ -5057,7 +5057,7 @@ class flam3h_iterator_utils
         Returns:
             (Union[list, None]): A valid data type of the same data retrieved to be used inside: auto_set_xaos()
         """
-        get_prm = node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).eval()
+        get_prm: str = node.parm(FLAM3H_DATA_PRM_XAOS_MP_MEM).eval()
         if get_prm:
             return [int(x) for x in get_prm.split(' ')]
         else:
@@ -5075,7 +5075,7 @@ class flam3h_iterator_utils
         Returns:
             (Union[list, None]): A valid data type of the same data retrieved to be used inside: auto_set_xaos()
         """
-        get_prm = node.parm(FLAM3H_DATA_PRM_XAOS_PREV).eval()
+        get_prm: str = node.parm(FLAM3H_DATA_PRM_XAOS_PREV).eval()
         if get_prm:
             return [x.split(' ') for x in get_prm.split(':')]
         else:
@@ -5098,7 +5098,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        data_to_prm = ' '.join([str(x) for x in data])
+        data_to_prm: str = ' '.join([str(x) for x in data])
         flam3h_general_utils.private_prm_set(node, FLAM3H_DATA_PRM_XAOS_MP_MEM, data_to_prm)
                 
 
@@ -5117,12 +5117,12 @@ class flam3h_iterator_utils
         """
         # to prm from: flam3_xaos_convert()
         if isinstance(data, tuple):
-            data_to_prm = ':'.join(data)
+            data_to_prm: str = ':'.join(data)
             # set
             flam3h_general_utils.private_prm_set(node, FLAM3H_DATA_PRM_XAOS_PREV, data_to_prm)
             
         else:
-            data_to_prm = ':'.join([' '.join(xaos) for xaos in data])
+            data_to_prm: str = ':'.join([' '.join(xaos) for xaos in data])
             # set
             flam3h_general_utils.private_prm_set(node, FLAM3H_DATA_PRM_XAOS_PREV, data_to_prm)
             
@@ -5139,9 +5139,9 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iter_count:
-            lambda_min_opacity = lambda: min([node.parm(f'{flam3h_iterator_prm_names().shader_alpha}_{idx+1}').eval() for idx in range(iter_count)])
+            lambda_min_opacity: Callable = lambda: min([node.parm(f'{flam3h_iterator_prm_names().shader_alpha}_{idx+1}').eval() for idx in range(iter_count)])
             if f3h_all: [flam3h_general_utils.private_prm_set(f3h, PREFS_PVT_RIP, 1) if lambda_min_opacity() == 0 else ... for f3h in node.type().instances()]
             else:
                 if lambda_min_opacity() == 0: flam3h_general_utils.private_prm_set(node, PREFS_PVT_RIP, 1)
@@ -8146,7 +8146,7 @@ class flam3h_iterator_utils
         # Clear menu cache
         self.destroy_cachedUserData(node, 'iter_sel')
         
-        iterators_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iterators_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         if not iterators_count:
             
@@ -8234,7 +8234,7 @@ class flam3h_iterator_utils
         # Clear menu cache
         self.destroy_cachedUserData(node, 'iter_sel')
         
-        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         # The following will collect the active iterator bool value if and only if the iterator is active and its weight is above zero.
         # What it is going to happen is that by the time we try to disable the last active iterator, it wont collect anything becasue
@@ -8301,7 +8301,7 @@ class flam3h_iterator_utils
         # Clear menu cache
         self.destroy_cachedUserData(node, 'iter_sel')
         
-        iter_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         W = [int(node.parm(f"iw_{str(mp_idx+1)}").eval()) 
             for mp_idx in range(iter_num) 
                 if node.parm(f"iw_{str(mp_idx+1)}").eval() == 0 
@@ -9107,7 +9107,7 @@ class flam3h_palette_utils
         
         # Save palette into a file
         else:
-            palettepath = node.parm(CP_PALETTE_LIB_PATH).eval()
+            palettepath: str = node.parm(CP_PALETTE_LIB_PATH).eval()
             out_path_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
 
             if out_path_checked is not False:
@@ -11254,7 +11254,7 @@ class in_flame
         self._out_curve_blue: tuple = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_BLUE, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
         
         # custom to FLAM3H only
-        self._flam3h_sys_rip: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_SYS_RIP) # type: ignore
+        self._flam3h_sys_rip: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_SYS_RIP, '0') # type: ignore
         self._flam3h_hsv: tuple = self._xml_tree__get_name_list_str(OUT_XML_FLAM3H_HSV) # type: ignore
         
         # just check any of the MB val and if exist mean there is MB data to be set.
@@ -14804,7 +14804,7 @@ class in_flame_utils
             (None):
         """
         # iterators
-        flam3h_iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+        flam3h_iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         if in_flame_iter_count > flam3h_iter_count:
             [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
@@ -17427,7 +17427,7 @@ class out_flame_utils
         iter_PRE: Union[dict[str, list[str]], bool] = self.out_collect_var_section_names_dict(node, 0, 'PRE')
         iter_VAR: Union[dict[str, list[str]], bool] = self.out_collect_var_section_names_dict(node, 0, 'VAR')
         
-        iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         iter_VAR_dup: dict = {}
         if iter_VAR is not False:
@@ -17827,7 +17827,7 @@ class out_flame_utils
         flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         
         # if there is at least one iterator
-        iterators_num = node.parm(FLAME_ITERATORS_COUNT).eval()
+        iterators_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iterators_num:
             
             kwargs = self.kwargs
