@@ -10909,8 +10909,8 @@ class _xml_tree
 
 @METHODS
 * get_name(self, key: str=XML_XF_NAME) -> tuple:
-* __get_name_val_str(self, key: str, _DEFAULT: Union[str, list]=[]) -> tuple:
-* __get_name_curve_val_str(self, key: str, _DEFAULT: Union[str, list]=[]) -> tuple:
+* __get_name_val_str(self, key: str, _DEFAULT: str) -> tuple:
+* __get_name_curve_val_str(self, key: str, _DEFAULT: str='0') -> tuple:
 * __get_name_list_str(self, key: str) -> tuple:
 * __get_flame(self, key: str=XML_FLAME_NAME) -> Union[tuple, None]:
 * __get_flame_count(self, flames: list) -> int:
@@ -11078,7 +11078,7 @@ class _xml_tree
             return () 
         
         
-    def __get_name_val_str(self, key: str, _DEFAULT: Union[str, list]=[]) -> tuple:
+    def __get_name_val_str(self, key: str, _DEFAULT: str='0') -> tuple:
         """Collect all Flame presets single value from the XML Flame file and return all of them packed into a tuple.
         It will also scan each string value for invalid characters and try to remove them returning a cleaned up string value.
 
@@ -11092,12 +11092,12 @@ class _xml_tree
         """      
         if self.isvalidtree:
             root = self.tree.getroot()
-            return tuple( [str(in_flame.xf_val_cleanup_str(name.get(key), str(_DEFAULT), key).strip()) if name.get(key) is not None else _DEFAULT for name in root] )
+            return tuple( [str(in_flame.xf_val_cleanup_str(name.get(key), _DEFAULT, key).strip()) if name.get(key) is not None else [] for name in root] )
         else:
             return () 
         
         
-    def __get_name_curve_val_str(self, key: str, _DEFAULT: Union[str, list]=[]) -> tuple:
+    def __get_name_curve_val_str(self, key: str, _DEFAULT: str='0') -> tuple:
         """Collect all Flame presets multi color correction curve values from the XML Flame file and return all of them packed into a tuple.
         It will also scan each string value for invalid characters and try to remove them returning a cleaned up string value.
 
@@ -11111,7 +11111,7 @@ class _xml_tree
         """      
         if self.isvalidtree:
             root = self.tree.getroot()
-            return tuple( [str(in_flame.xf_val_cleanup_split_str(name.get(key), '0', key).strip()) if name.get(key) is not None and name.get(key) != '' else _DEFAULT for name in root] )
+            return tuple( [str(in_flame.xf_val_cleanup_split_str(name.get(key), _DEFAULT, key).strip()) if name.get(key) is not None and name.get(key) != '' else [] for name in root] )
         else:
             return () 
         
