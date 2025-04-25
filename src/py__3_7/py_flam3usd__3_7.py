@@ -1084,8 +1084,7 @@ class flam3husd_about_utils
         if hou_version >= 19: flam3h_cvex_version = f"CODE: vex H{str(hou_version)}.x.x"
         flam3h_python_version = f"py 3.7.13"
         flam3h_houdini_version = f"VERSION: {__version__} - {__status__} :: ({__license__})"
-        Implementation_years: str = __copyright__
-        Implementation_build = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{Implementation_years}"
+        Implementation_build = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{__copyright__}"
         
         build = (Implementation_build, nl
                 )
