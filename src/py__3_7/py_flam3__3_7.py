@@ -1516,7 +1516,7 @@ class flam3h_scripts
         node = self.node
         
         # viewers
-        viewers = flam3h_general_utils.util_getSceneViewers()
+        viewers: list = flam3h_general_utils.util_getSceneViewers()
         
         # Update dark history
         flam3h_general_utils.util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
@@ -2791,10 +2791,10 @@ class flam3h_general_utils
         """ 
         if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
             
-            viewports = self.util_getSceneViewers()
+            viewports: list = self.util_getSceneViewers()
             if len(viewports):
                 
-                lop_viewports = []
+                lop_viewports: list = []
                 # Set them all without storing any stashed camera data 
                 self.util_set_clipping_viewers()
                 for v in viewports:
@@ -2940,7 +2940,7 @@ class flam3h_general_utils
             self.util_set_front_viewer()
         
         else:
-            viewports = self.util_getSceneViewers()
+            viewports: list = self.util_getSceneViewers()
             if len(viewports):
                 self.util_set_clipping_viewers()
                 for v in viewports:
