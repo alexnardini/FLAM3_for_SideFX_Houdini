@@ -58,7 +58,7 @@ from inspect import cleandoc as i_cleandoc
 #               - Tool's user experience
 #               - and more...
 #               
-#               Everything is then glued together inside Houdini.
+#               This code will be turned into a module from within Houdini.
 #
 #               _NOTE:
 #                   Some definitions run directly from inside the FLAM3H parameters.

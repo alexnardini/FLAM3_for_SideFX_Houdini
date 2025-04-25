@@ -29,7 +29,7 @@ from typing import Union
 #
 #               This is basic and its the start of something.
 #               
-#               Everything is then glued together inside Houdini.
+#               This code will be turned into a module from within Houdini.
 
 
 
