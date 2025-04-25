@@ -1,5 +1,14 @@
 from __future__ import division
 from __future__ import annotations
+
+__author__ = "F stands for liFe"
+__copyright__ = "Copyright 2021, F stands for liFe"
+
+__license__ = "GPL"
+__version__ = "1.8.08"
+__maintainer__ = "Alessandro nardini"
+__status__ = "Production"
+
 import os
 import json
 import colorsys
@@ -25,20 +34,6 @@ from numpy import transpose as np_transpose
 from numpy import searchsorted as np_searchsorted
 from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
-
-
-
-
-
-__author__ = "F stands for liFe"
-__copyright__ = "Copyright 2021, F stands for liFe"
-
-__license__ = "GPL"
-__version__ = "1.8.08"
-__maintainer__ = "Alessandro nardini"
-__status__ = "Production"
-
-
 
 
 
@@ -85,8 +80,6 @@ __status__ = "Production"
 #                   To distinguish class @staticmethods from the class @methods, the class @methods doc-string Args list always start with the argument: (self):
 #                   This make it easier to distinguish them when typing their name while checking their infos like for example in VSCode.
 #
-
-
 
 
 

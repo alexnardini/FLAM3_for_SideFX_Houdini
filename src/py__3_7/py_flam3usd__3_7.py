@@ -1,12 +1,3 @@
-import hou
-from platform import python_version
-from datetime import datetime
-from typing import Union
-
-
-
-
-
 __author__ = "F stands for liFe"
 __copyright__ = "Copyright 2023, F stands for liFe"
 
@@ -15,7 +6,10 @@ __version__ = "0.1.52"
 __maintainer__ = "Alessandro nardini"
 __status__ = "Prototype"
 
-
+import hou
+from platform import python_version
+from datetime import datetime
+from typing import Union
 
 
 
@@ -36,8 +30,6 @@ __status__ = "Prototype"
 #               This is basic and its the start of something.
 #               
 #               Everything is then glued together inside Houdini.
-
-
 
 
 
