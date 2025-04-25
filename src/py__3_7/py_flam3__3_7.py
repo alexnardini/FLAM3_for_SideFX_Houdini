@@ -555,7 +555,7 @@ class flam3h_varsPRM
 
     """ 
     
-    __slots__ = ("varsPRM", )
+    __slots__ = ("varsPRM",)
     
     def __init__(self) -> None:
         """
@@ -811,15 +811,15 @@ class flam3h_iterator(flam3h_iterator_prm_names):
         
         # sec_main = ( (f"{n.main_vactive}_", 0), (f"{n.main_weight}_", 0) )
         
-        self._sec_main: tuple = ( (f"{self.main_weight}_", 0), ) # When copy/paste the main section it will not copy the ON/OFF(vactive) iterator parameter anymore.
-        self._sec_xaos: tuple = ( (f"{self.xaos}_", 0), )
+        self._sec_main: tuple = ( (f"{self.main_weight}_", 0),) # When copy/paste the main section it will not copy the ON/OFF(vactive) iterator parameter anymore.
+        self._sec_xaos: tuple = ( (f"{self.xaos}_", 0),)
         self._sec_shader: tuple = ( (f"{self.shader_color}_", 0), (f"{self.shader_speed}_", 0), (f"{self.shader_alpha}_", 0) )
         self._sec_prevarsT: tuple = ( f"{self.prevar_type_1}_", f"{self.prevar_type_2}_" ) # preblur is omitted as it is always ZERO
         self._sec_prevarsW: tuple = ( (f"{self.prevar_weight_blur}_", 0), (f"{self.prevar_weight_1}_", 0), (f"{self.prevar_weight_2}_", 0) )
         self._sec_varsT: tuple = ( f"{self.var_type_1}_", f"{self.var_type_2}_", f"{self.var_type_3}_", f"{self.var_type_4}_" )
         self._sec_varsW: tuple = ( (f"{self.var_weight_1}_", 0), (f"{self.var_weight_2}_", 0), (f"{self.var_weight_3}_", 0), (f"{self.var_weight_4}_", 0) )
-        self._sec_postvarsT: tuple = ( f"{self.postvar_type_1}_", )
-        self._sec_postvarsW: tuple = ( (f"{self.postvar_weight_1}_", 0), )
+        self._sec_postvarsT: tuple = ( f"{self.postvar_type_1}_",)
+        self._sec_postvarsW: tuple = ( (f"{self.postvar_weight_1}_", 0),)
         self._sec_preAffine: tuple = ( (f"{self.preaffine_x}_", 1), (f"{self.preaffine_y}_", 1), (f"{self.preaffine_o}_", 1), (f"{self.preaffine_ang}_", 0) )
         self._sec_postAffine: tuple = ( (f"{self.postaffine_do}_", 0), (f"{self.postaffine_x}_", 1), (f"{self.postaffine_y}_", 1), (f"{self.postaffine_o}_", 1), (f"{self.postaffine_ang}_", 0) )
         
@@ -892,7 +892,7 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
         flam3h_varsPRM ([class]): [inherit properties methods from the flam3h_varsPRM class]
     """    
     
-    __slots__ = ("prx", )
+    __slots__ = ("prx",)
     
     def __init__(self, prx: str) -> None:
         """
@@ -1056,8 +1056,8 @@ class flam3h_iterator_FF(flam3h_iterator_prm_names):
         # SECTIONS method lists
         #
         # (*T)Types have no signature and always to be used with: pastePRM_T_from_list()
-        self._sec_prevarsT_FF: tuple = ( f"{PRX_FF_PRM}{self.prevar_type_1}", )
-        self._sec_prevarsW_FF: tuple = ( (f"{PRX_FF_PRM}{self.prevar_weight_1}", 0), )
+        self._sec_prevarsT_FF: tuple = ( f"{PRX_FF_PRM}{self.prevar_type_1}",)
+        self._sec_prevarsW_FF: tuple = ( (f"{PRX_FF_PRM}{self.prevar_weight_1}", 0),)
         self._sec_varsT_FF: tuple = ( f"{PRX_FF_PRM}{self.var_type_1}", f"{PRX_FF_PRM}{self.var_type_2}" )
         self._sec_varsW_FF: tuple = ( (f"{PRX_FF_PRM}{self.var_weight_1}", 0), (f"{PRX_FF_PRM}{self.var_weight_2}", 0) )
         self._sec_postvarsT_FF: tuple = ( f"{PRX_FF_PRM}{self.postvar_type_1}", f"{PRX_FF_PRM}{self.postvar_type_2}" )
@@ -1987,7 +1987,7 @@ class flam3h_general_utils
 * util_set_clipping_viewers(self) -> None:
 * util_store_all_viewers(self) -> None:
 * util_set_front_viewer(self, update: bool=True) -> bool:
-* util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool=True, ) -> bool:
+* util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool=True) -> bool:
 * util_store_all_viewers_xf_viz(self) -> None:
 * util_other_xf_viz(self) -> bool:
 * util_viewport_bbox_frame(self) -> None:
@@ -2844,7 +2844,7 @@ class flam3h_general_utils
 
 
 
-    def util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool=True, ) -> bool:
+    def util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool=True) -> bool:
         """This is a fall back if the: util_set_front_viewer(...) can not run succesfully.
         It will activate the Sensor Viz in all available viewports with the ability of storing and restoring a stashed camera for each.
 
@@ -9989,7 +9989,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         Returns:
             (None):
         """    
-        vars_sorted: list = [var.capitalize() for var in sorted(VARS_FLAM3_DICT_IDX.keys()) if var not in ("linear3d", )]
+        vars_sorted: list = [var.capitalize() for var in sorted(VARS_FLAM3_DICT_IDX.keys()) if var not in ("linear3d",)]
         n: int = 5
         vars_sorted_grp: list = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)]
         vars_txt: str = "".join( [", ".join(grp) + "." if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
@@ -10469,7 +10469,7 @@ XML_XF_KEY_EXCLUDE = ("weight", "color", "var_color", "symmetry", "color_speed",
 
 # This has been fixed and now radial_blur variation matches all the other apps
 # but I leave it here just in case other variation will need it.
-XML_XF_PRM_EXCEPTION = ("None", )
+XML_XF_PRM_EXCEPTION = ("None",)
 
 # REGEX_ALL = "(?s:.*?)"
 REGEX_PALETTE_LIB_LOCK = f"^(?:{FLAM3H_LIB_LOCK})"
@@ -10631,13 +10631,13 @@ VARS_FRACTORIUM_DICT: dict = {  "a": ("arch", "arcsech", "arcsech2", "arcsinh", 
                                 "h": ("handkerchief", "heart", "heat", "helicoid", "helix", "hemisphere", "henon", "hexaplay3d", "hexcrop", "hexes", "hexnix3d", "hex_modulus", "hex_rand", "hex_truchet", "ho", "hole", "horseshoe", "hyperbolic", "hypercrop", "hypershift", "hypershift2", "hypertile", "hypertile1", "hypertile2", "hypertile3d", "hypertile3d1", "hypertile3d2"),
                                 "i": ("idisc", "inkdrop", "interference2"),
                                 "j": ("jac_cn", "jac_dn", "jac_sn", "julia", "julia3d", "julia3dq", "julia3dz", "juliac", "julian", "julian2", "julian3dx", "julianab", "juliaq", "juliascope"), 
-                                "k": ("kaleidoscope", ),
+                                "k": ("kaleidoscope",),
                                 "l": ("lazyjess", "lazysusan", "lazy_travis", "lens", "line", "linear", "linear_t", "linear_t3d", "linear_xz", "linear_yz", "linear3d", "lissajous", "log", "log_db", "loq", "loonie", "loonie2", "loonie3", "loonie3d", "lozi"),
                                 "m": ("mask", "mcarpet", "mirror_x", "mirror_y", "mirror_z", "mobiq", "mobius", "mobius_strip", "mobiusn", "modulus", "modulusx", "modulusy", "murl", "murl2"),
                                 "n": ("nblur", "ngon", "noise", "npolar"),
                                 "o": ("octagon", "octapol", "ortho", "oscilloscope", "oscilloscope2", "ovoid", "ovoid3d"),
                                 "p": ("panorama1", "panorama2", "parabola", "pdj", "perspective", "petal", "phoenix_julia", "pie", "pie3d", "pixel_flow", "poincare", "poincare2", "poincare3d", "point_symmetry", "polar", "polar2", "polynomial", "popcorn", "popcorn2", "popcorn23d", "pow_block", "power", "pressure_wave", "projective", "prose3d", "psphere", "pulse"),
-                                "q": ("q_ode", ),
+                                "q": ("q_ode",),
                                 "r": ("radial_blur", "radial_gaussian", "rand_cubes", "rational3", "rays", "rays1", "rays2", "rays3", "rblur", "rectangles", "rings", "rings2", "ripple", "rippled", "rotate", "rotate_x", "rotate_y", "rotate_z", "roundspher", "roundspher3d"),
                                 "s": ("scry", "scry2", "scry3d", "sec", "secant2", "sech", "sechq", "secq", "separation", "shift", "shred_rad", "shred_lin", "sigmoid", "sin", "sineblur", "sinh", "sinhq", "sinq", "sintrange", "sinus_grid", "sinusoidal", "sinusoidal3d", "smartshape", "smartcrop", "spher", "sphereblur", "spherical", "spherical3d", "sphericaln", "spherivoid", "sphyp3d", "spiral", "spiral_wing", "spirograph", "split", "split_brdr", "splits", "splits3d", "square", "squares", "square3d", "squarize", "squirrel", "squish", "sschecks", "starblur", "starblur2", "stripes", "stwin", "super_shape", "super_shape3d","svf", "swirl", "swirl3", "swirl3r", "synth"),
                                 "t": ("tan", "tancos", "tangent", "tanh", "tanhq", "tanh_spiral", "tanq", "target", "target0", "target2", "taurus", "tile_hlp", "tile_log", "trade", "truchet", "truchet_fill", "truchet_hex_fill", "truchet_hex_crop", "truchet_glyph", "truchet_inv", "truchet_knot", "twintrian", "twoface"),
@@ -10645,7 +10645,7 @@ VARS_FRACTORIUM_DICT: dict = {  "a": ("arch", "arcsech", "arcsech2", "arcsinh", 
                                 "v": ("vibration", "vibration2", "vignette", "voron"),
                                 "w": ("w", "waffle", "waves", "waves2", "waves22", "waves23", "waves23d", "waves2b", "waves2_radial", "waves3", "waves4", "waves42", "wavesn", "wdisc", "wedge", "wedge_julia", "wedge_sph", "whorl"),
                                 "x": ("x", "xerf", "xheart", "xtrb"),
-                                "y": ("y", ),
+                                "y": ("y",),
                                 "z": ("z", "zblur", "zcone", "zscale","ztranslate")
                             }
 
@@ -10713,9 +10713,9 @@ class flam3h_varsPRM_APO:
                                 ("juliascope", ("juliascope_power", "juliascope_dist"), 1), 
                                 ("gaussian_blur", 0), 
                                 ("fan2", ("fan2_x", "fan2_y"), 1), 
-                                ("rings2", ("rings2_val", ), 1), 
+                                ("rings2", ("rings2_val",), 1), 
                                 ("rectangles", ("rectangles_x", "rectangles_y"), 1), 
-                                ("radial_blur", ("radial_blur_angle", ), 1), 
+                                ("radial_blur", ("radial_blur_angle",), 1), 
                                 ("pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
                                 ("arch", 0), 
                                 ("tangent", 0), 
@@ -10731,15 +10731,15 @@ class flam3h_varsPRM_APO:
                                 ("conic", ("conic_eccentricity", "conic_holes"), 1), 
                                 ("parabola", ("parabola_height", "parabola_width"), 1), 
                                 ("bent2", ("bent2_x", "bent2_y"), 1), 
-                                ("bipolar", ("bipolar_shift", ), 1),
+                                ("bipolar", ("bipolar_shift",), 1),
                                 ("boarders", 0),
                                 ("butterfly", 0), 
-                                ("cell", ("cell_size", ), 1), 
+                                ("cell", ("cell_size",), 1), 
                                 ("cpow", ("cpow_power", "cpow_r", "cpow_i"), 1), 
                                 ("edisc", 0), 
                                 ("elliptic", 0), 
                                 ("noise", 0), 
-                                ("escher", ("escher_beta", ), 1), 
+                                ("escher", ("escher_beta",), 1), 
                                 ("foci", 0), 
                                 ("lazysusan", ("lazysusan_x", "lazysusan_y"), ("lazysusan_spin", "lazysusan_twist", "lazysusan_space"), 1), 
                                 ("loonie", 0), 
@@ -10747,13 +10747,13 @@ class flam3h_varsPRM_APO:
                                 ("modulus", ("modulus_x", "modulus_y"), 1), 
                                 ("oscilloscope", ("oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation"), 1), 
                                 ("polar2", 0), 
-                                ("popcorn2", ("popcorn2_x", "popcorn2_y"), ("popcorn2_c", ), 1), 
+                                ("popcorn2", ("popcorn2_x", "popcorn2_y"), ("popcorn2_c",), 1), 
                                 ("scry", 0), 
                                 ("separation", ("separation_x", "separation_y"), ("separation_xinside", "separation_yinside"), 1), 
                                 ("split", ("split_xsize", "split_ysize"), 1), 
                                 ("splits", ("splits_x", "splits_y"), 1), 
                                 ("stripes", ("stripes_space", "stripes_warp"), 1), 
-                                ("wedge", ("wedge_swirl", "wedge_angle", "wedge_hole", "wedge_count", ), 1), 
+                                ("wedge", ("wedge_swirl", "wedge_angle", "wedge_hole", "wedge_count",), 1), 
                                 ("wedge_julia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
                                 ("wedge_sph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
                                 ("whorl", ("whorl_inside", "whorl_outside"), 1), 
@@ -10773,7 +10773,7 @@ class flam3h_varsPRM_APO:
                                 ("csch", 0), 
                                 ("coth", 0), 
                                 ("auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
-                                ("flux", ("flux_spread", ), 1), 
+                                ("flux", ("flux_spread",), 1), 
                                 ("mobius", ("Re_A", "Re_B", "Re_C", "Re_D"), ("Im_A", "Im_B", "Im_C", "Im_D"), 1),
                                 ("curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
                                 ("persp", ("perspective_angle", "perspective_dist"), 1), 
@@ -14451,7 +14451,7 @@ class in_flame_utils
                                                         # The apo_data.name[idx] is used for the descriptive parameter
                                                         # so to not print the icon path into the name.
                 
-        descriptive_prm: tuple = ( f"sw: {apo_data.sw_version[preset_id]}\n", f"{out_flame_utils.out_remove_iter_num(preset_name)}", )
+        descriptive_prm: tuple = ( f"sw: {apo_data.sw_version[preset_id]}\n", f"{out_flame_utils.out_remove_iter_num(preset_name)}",)
         node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
 
         # Build MISSING
@@ -16965,7 +16965,7 @@ class out_flame_utils
                             "", "Full Ap 4K", "Full Ap 2K", "Acad 4K", "Acad 2K", "Scope 4K", "Scope 2K", "Vista 2K", # 11 12 13 14 15 16 17
                             "", "256^2", "512^2", "1024^2", "2048^2", "4096^2", ""  ) # 19 20 21 22 23
         else:
-            menuitems = ( "", )
+            menuitems = ( "",)
             
         for i, item in enumerate(menuitems):
             menu.append(i)
@@ -18490,7 +18490,7 @@ class out_flame_xforms_data(out_flame_utils):
                  "_xf_pre_blur", 
                  "_xf_preaffine", "_xf_f3h_preaffine", "_xf_f3h_preaffine_angle", "_xf_postaffine", "_xf_f3h_postaffine", "_xf_f3h_postaffine_angle", 
                  "_finalxf_name", "_finalxf_preaffine", "_finalxf_f3h_preaffine", "_finalxf_f3h_preaffine_angle", "_finalxf_postaffine", "_finalxf_f3h_postaffine", "_finalxf_f3h_postaffine_angle", 
-                 "_palette_hex", )
+                 "_palette_hex",)
     
     def __init__(self, kwargs: dict) -> None:
         """
