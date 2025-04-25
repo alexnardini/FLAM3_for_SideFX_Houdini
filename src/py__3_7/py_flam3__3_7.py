@@ -118,7 +118,6 @@ LIST OF CLASSES:
 
 
 
-
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
 CHARACTERS_ALLOWED_XFORM_VAL = "0123456789.-e"
@@ -1319,9 +1318,9 @@ class flam3h_scripts
         # Iterators
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         prm_list_post_affine: tuple = flam3h_iterator().sec_postAffine
-        keyframes: list = [[item for sublist in k for item in sublist] for k in [[[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id+1}")] if prm_list_post_affine[1:][idx][1] else [1 if len(node.parm(f"{prm_list_post_affine[1:][idx][0]}{id+1}").keyframes()) else 0] for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]]
-        collect: list = [[node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id+1}").eval() if prm_list_post_affine[1:][idx][1] else node.parm(f"{prm_list_post_affine[1:][idx][0]}{id+1}").eval() for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]
-        [node.setParms({f"{prm_list_post_affine[0][0]}{id+1}": 0}) if node.parm(f"{prm_list_post_affine[0][0]}{id+1}").eval() and 1 not in keyframes[id] and affine==[(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0] else ... for id, affine in enumerate(collect)] # type: ignore
+        keyframes: list = [[item for sublist in k for item in sublist] for k in [[[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id + 1}")] if prm_list_post_affine[1:][idx][1] else [1 if len(node.parm(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").keyframes()) else 0] for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]]
+        collect: list = [[node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").eval() if prm_list_post_affine[1:][idx][1] else node.parm(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").eval() for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]
+        [node.setParms({f"{prm_list_post_affine[0][0]}{id + 1}": 0}) if node.parm(f"{prm_list_post_affine[0][0]}{id + 1}").eval() and 1 not in keyframes[id] and affine==[(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0] else ... for id, affine in enumerate(collect)] # type: ignore
         
         # FF
         prm_list_post_affine_FF: tuple = flam3h_iterator_FF().sec_postAffine_FF
@@ -3169,7 +3168,7 @@ class flam3h_general_utils
         """ 
         node = self.node
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-        all_mp_xf_viz: list = [node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx+1)}").eval() for mp_idx in range(iter_num)]
+        all_mp_xf_viz: list = [node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx + 1)}").eval() for mp_idx in range(iter_num)]
         if max(all_mp_xf_viz) == 1: return True
         else: return False
         
@@ -3194,7 +3193,7 @@ class flam3h_general_utils
         
         if prm.eval():
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
-            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)]
+            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx + 1)}": 0}) for mp_idx in range(iter_num)]
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             
             _MSG = f"{node.name()}: {prm.name().upper()}: OFF"
@@ -3275,7 +3274,7 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: ALL")
             
         else:
-            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)] # type: ignore
+            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx + 1)}": 0}) for mp_idx in range(iter_num)] # type: ignore
             prm_mp.set(1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, int(mp_idx))
@@ -3321,7 +3320,7 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: ALL")
             
         else:
-            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx+1)}": 0}) for mp_idx in range(iter_num)] # type: ignore
+            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx + 1)}": 0}) for mp_idx in range(iter_num)] # type: ignore
             self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
             node.setUserData(f"{data_name}", "FF")
@@ -4992,7 +4991,7 @@ class flam3h_iterator_utils
             else:
                 note = "(" + _note + ")" + " "
         else:
-            note = "(" + _note[_note.find("(")+1:_note.find(")")] + ")" + " "
+            note = "(" + _note[_note.find("(") + 1:_note.find(")")] + ")" + " "
         return note
 
 
@@ -5149,7 +5148,7 @@ class flam3h_iterator_utils
         """  
         iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iter_count:
-            lambda_min_opacity: Callable = lambda: min([node.parm(f'{flam3h_iterator_prm_names().shader_alpha}_{idx+1}').eval() for idx in range(iter_count)])
+            lambda_min_opacity: Callable = lambda: min([node.parm(f'{flam3h_iterator_prm_names().shader_alpha}_{idx + 1}').eval() for idx in range(iter_count)])
             if f3h_all: [flam3h_general_utils.private_prm_set(f3h, PREFS_PVT_RIP, 1) if lambda_min_opacity() == 0 else ... for f3h in node.type().instances()]
             else:
                 if lambda_min_opacity() == 0: flam3h_general_utils.private_prm_set(node, PREFS_PVT_RIP, 1)
@@ -5859,11 +5858,11 @@ class flam3h_iterator_utils
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             if iter_count:
                 
-                note: list = [node.parm(f'note_{idx+1}').eval() for idx in range(iter_count)]
+                note: list = [node.parm(f'note_{idx + 1}').eval() for idx in range(iter_count)]
                 
-                active: list = [node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)]
-                weight: list = [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)]
-                shader_opacity: list = [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]
+                active: list = [node.parm(f'vactive_{idx + 1}').eval() for idx in range(iter_count)]
+                weight: list = [node.parm(f'iw_{idx + 1}').eval() for idx in range(iter_count)]
+                shader_opacity: list = [node.parm(f'alpha_{idx + 1}').eval() for idx in range(iter_count)]
                 node.setCachedUserData('iter_sel_a', active)
                 node.setCachedUserData('iter_sel_w', weight)
                 node.setCachedUserData('iter_sel_o', shader_opacity)
@@ -5879,7 +5878,7 @@ class flam3h_iterator_utils
                 
                 for i in range(iter_count):
                     
-                    idx: int = i+1
+                    idx: int = i + 1
                     menu.append(idx)
 
                     _OPACITY_MSG: str = ""
@@ -5926,7 +5925,7 @@ class flam3h_iterator_utils
             # For undos: compare old data_* against current data_*
             # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-            data_awo_now: list = [[node.parm(f'vactive_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'iw_{idx+1}').eval() for idx in range(iter_count)], [node.parm(f'alpha_{idx+1}').eval() for idx in range(iter_count)]]
+            data_awo_now: list = [[node.parm(f'vactive_{idx + 1}').eval() for idx in range(iter_count)], [node.parm(f'iw_{idx + 1}').eval() for idx in range(iter_count)], [node.parm(f'alpha_{idx + 1}').eval() for idx in range(iter_count)]]
             [self.destroy_cachedUserData(node, 'iter_sel') if node.cachedUserData('iter_sel') is not None and data != data_awo_now[idx] else ... for idx, data in ((0, node.cachedUserData('iter_sel_a')), (1, node.cachedUserData('iter_sel_w')), (2, node.cachedUserData('iter_sel_o')))]
             
             menu: Union[list, None] = node.cachedUserData('iter_sel')
@@ -7231,15 +7230,15 @@ class flam3h_iterator_utils
         # update CachedUserData: flam3h_xaos_iterators_prev
         self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_new)
         prm_xaos = flam3h_iterator_prm_names().xaos
-        [node.setParms({f"{prm_xaos}_{str(idx+1)}": div_xaos + div_weight.join(xaos_new[idx].split(" "))}) if xaos_new[idx] else node.setParms({f"{prm_xaos}_{str(idx+1)}": div_xaos}) for idx in range(f3d.iter_count)]
+        [node.setParms({f"{prm_xaos}_{str(idx + 1)}": div_xaos + div_weight.join(xaos_new[idx].split(" "))}) if xaos_new[idx] else node.setParms({f"{prm_xaos}_{str(idx + 1)}": div_xaos}) for idx in range(f3d.iter_count)]
 
         # for idx in range(f3d.iter_count):
         #     if xaos_new[idx]:
         #         xs = div_xaos + div_weight.join(xaos_new[idx].split(" "))
-        #         node.setParms({f"{prm_xaos}_{str(idx+1)}": xs})
+        #         node.setParms({f"{prm_xaos}_{str(idx + 1)}": xs})
         #     else:
         #         # I dnt think this is needed anymore but i leave it here.
-        #         node.setParms({f"{prm_xaos}_{str(idx+1)}": div_xaos})
+        #         node.setParms({f"{prm_xaos}_{str(idx + 1)}": div_xaos})
 
         # Get preference xaos mode and print to Houdini's status bar
         if f3d.xm:
@@ -7915,7 +7914,7 @@ class flam3h_iterator_utils
         
         # get mpmem parms now
         mp_mem_name = flam3h_iterator_prm_names().main_mpmem
-        [mpmem.append(int(node.parm(f"{mp_mem_name}_{str(mp_idx+1)}").eval())) for mp_idx in range(iter_count)]
+        [mpmem.append(int(node.parm(f"{mp_mem_name}_{str(mp_idx + 1)}").eval())) for mp_idx in range(iter_count)]
         
         # get mpmem from CachedUserData
         __mpmem_hou_get: Union[list, None] = self.auto_set_xaos_data_get_MP_MEM(node)
@@ -7975,7 +7974,7 @@ class flam3h_iterator_utils
                 # If the node exist
                 if flam3h_node_mp_id is not None and node == flam3h_node:
                         
-                    if (idx_del_inbetween+1) == flam3h_node_mp_id: # just in case..
+                    if (idx_del_inbetween + 1) == flam3h_node_mp_id: # just in case..
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
                         # set
                         prm_mpidx.set(-1)
@@ -8028,7 +8027,7 @@ class flam3h_iterator_utils
                 # If the node exist and if it is the selected one
                 if flam3h_node_mp_id is not None and node == flam3h_node:
                         
-                    if (idx_del_inbetween+1) < flam3h_node_mp_id:
+                    if (idx_del_inbetween + 1) < flam3h_node_mp_id:
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id - 1 # type: ignore
                         # set
                         idx_new = prm_mpidx.eval() - 1
@@ -8036,7 +8035,7 @@ class flam3h_iterator_utils
                         self.del_comment_and_user_data_iterator(node)
                         self.set_comment_and_user_data_iterator(node, str(idx_new))
 
-                    elif (idx_del_inbetween+1) == flam3h_node_mp_id:
+                    elif (idx_del_inbetween + 1) == flam3h_node_mp_id:
                         
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
                         # set
@@ -8096,7 +8095,7 @@ class flam3h_iterator_utils
                 # If the node exist and if it is the selected one
                 if flam3h_node_mp_id is not None and node == flam3h_node:
                         
-                    if (idx_add_inbetween+1) <= flam3h_node_mp_id:
+                    if (idx_add_inbetween + 1) <= flam3h_node_mp_id:
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id + 1 # type: ignore
                         # set
                         idx_new = prm_mpidx.eval() + 1
@@ -8122,13 +8121,13 @@ class flam3h_iterator_utils
         # set all multi parms xaos strings parms
         xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)])
         prm_xaos = flam3h_iterator_prm_names().xaos
-        [node.parm(f"{prm_xaos}_{str(mp_idx+1)}").deleteAllKeyframes() for mp_idx in range(iter_count)]
-        [node.setParms({f"{prm_xaos}_{str(mp_idx+1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)] # type: ignore
+        [node.parm(f"{prm_xaos}_{str(mp_idx + 1)}").deleteAllKeyframes() for mp_idx in range(iter_count)]
+        [node.setParms({f"{prm_xaos}_{str(mp_idx + 1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)] # type: ignore
         
         # reset iterator's mpmem prm
-        [node.setParms({f"{mp_mem_name}_{str(mp_idx+1)}": str(mp_idx+1)}) for mp_idx in range(iter_count)] # type: ignore
+        [node.setParms({f"{mp_mem_name}_{str(mp_idx + 1)}": str(mp_idx + 1)}) for mp_idx in range(iter_count)] # type: ignore
         # update flam3h_xaos_mpmem
-        __mpmem_hou: list = [int(node.parm(f"{mp_mem_name}_{str(mp_idx+1)}").eval()) for mp_idx in range(iter_count)]
+        __mpmem_hou: list = [int(node.parm(f"{mp_mem_name}_{str(mp_idx + 1)}").eval()) for mp_idx in range(iter_count)]
         # export mpmem into CachedUserData
         self.auto_set_xaos_data_set_MP_MEM(node, __mpmem_hou)
         
@@ -8248,10 +8247,10 @@ class flam3h_iterator_utils
         # What it is going to happen is that by the time we try to disable the last active iterator, it wont collect anything becasue
         # by the time we click to disable the last iterator they will all be disabled for a moment, just right before we switch this last one back to being enabled.
         # Hence the case we are interested in is when the va: list variable is empty, thats how we know we tried to switch the last active iterator OFF.
-        va = [int(node.parm(f"vactive_{str(mp_idx+1)}").eval()) 
+        va = [int(node.parm(f"vactive_{str(mp_idx + 1)}").eval()) 
              for mp_idx in range(iter_num) 
-                if node.parm(f"vactive_{str(mp_idx+1)}").eval() 
-                and node.parm(f"iw_{str(mp_idx+1)}").eval() > 0]
+                if node.parm(f"vactive_{str(mp_idx + 1)}").eval() 
+                and node.parm(f"iw_{str(mp_idx + 1)}").eval() > 0]
 
         # If this va: list variable is empty, mean we switched the last active irterator to OFF so lets do something about it.
         if not va:
@@ -8310,14 +8309,14 @@ class flam3h_iterator_utils
         self.destroy_cachedUserData(node, 'iter_sel')
         
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-        W = [int(node.parm(f"iw_{str(mp_idx+1)}").eval()) 
+        W = [int(node.parm(f"iw_{str(mp_idx + 1)}").eval()) 
             for mp_idx in range(iter_num) 
-                if node.parm(f"iw_{str(mp_idx+1)}").eval() == 0 
-                and int(node.parm(f"vactive_{str(mp_idx+1)}").eval())]
+                if node.parm(f"iw_{str(mp_idx + 1)}").eval() == 0 
+                and int(node.parm(f"vactive_{str(mp_idx + 1)}").eval())]
         
-        vactive_iters = [int(node.parm(f"vactive_{str(mp_idx+1)}").eval()) 
+        vactive_iters = [int(node.parm(f"vactive_{str(mp_idx + 1)}").eval()) 
                         for mp_idx in range(iter_num) 
-                            if node.parm(f"vactive_{str(mp_idx+1)}").eval()]
+                            if node.parm(f"vactive_{str(mp_idx + 1)}").eval()]
         
         if len(W) == len(vactive_iters):
             min_weight = 0.00000001
@@ -8487,8 +8486,8 @@ class flam3h_palette_utils
             (None):
         """
         posList = ramp_parm.evalAsRamp().keys()
-        [hou.parm(f"{ramp_parm.path()}{str(i+1)}pos").deleteAllKeyframes() for i in range(0, len(posList))]
-        [hou.parmTuple(f"{ramp_parm.path()}{str(i+1)}c").deleteAllKeyframes() for i in range(0, len(posList))]
+        [hou.parm(f"{ramp_parm.path()}{str(i + 1)}pos").deleteAllKeyframes() for i in range(0, len(posList))]
+        [hou.parmTuple(f"{ramp_parm.path()}{str(i + 1)}c").deleteAllKeyframes() for i in range(0, len(posList))]
 
         
 
@@ -8640,7 +8639,7 @@ class flam3h_palette_utils
         Returns:
             (tuple): RGB color value
         """   
-        return tuple(int(hex[i:i+2], 16) for i in (0, 2, 4))
+        return tuple(int(hex[i:i + 2], 16) for i in (0, 2, 4))
     
     
     @staticmethod
@@ -8798,7 +8797,7 @@ class flam3h_palette_utils
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
-            enum_label = str(i+1) # start count from 1
+            enum_label = str(i + 1) # start count from 1
             
             # ICON tag
             if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
@@ -8853,7 +8852,7 @@ class flam3h_palette_utils
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
-            enum_label = str(i+1) # start count from 1
+            enum_label = str(i + 1) # start count from 1
             
             # ICON tag
             if i == int(node.parm(CP_PALETTE_PRESETS_OFF).eval()):
@@ -9625,7 +9624,7 @@ class flam3h_palette_utils
             
             # Apply color correction
             rmpsrc = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
-            rgb = [colorsys.hsv_to_rgb( item[0]+hsvprm_vals[0], item[1]*hsvprm_vals[1], item[2]*hsvprm_vals[2] ) for item in list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.values()))]
+            rgb = [colorsys.hsv_to_rgb( item[0] + hsvprm_vals[0], item[1] * hsvprm_vals[1], item[2] * hsvprm_vals[2] ) for item in list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.values()))]
             # Set the ramp
             rmphsv = node.parm(CP_RAMP_HSV_NAME)
             rmphsv.set(hou.Ramp(rmpsrc.basis(), rmpsrc.keys(), rgb))
@@ -9989,7 +9988,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """    
         vars_sorted: list = [var.capitalize() for var in sorted(VARS_FLAM3_DICT_IDX.keys()) if var not in ("linear3d",)]
         n: int = 5
-        vars_sorted_grp: list = [vars_sorted[i:i+n] for i in range(0, len(vars_sorted), n)]
+        vars_sorted_grp: list = [vars_sorted[i:i + n] for i in range(0, len(vars_sorted), n)]
         vars_txt: str = "".join( [", ".join(grp) + "." if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
         vars_txt_MSG: str = f"They are also available as PRE and POST.\n\nNumber of plugins/variations: {len(vars_sorted)}\n\n{vars_txt}"
         self.node.setParms({MSG_FLAM3H_PLUGINS: vars_txt_MSG})
@@ -11424,7 +11423,7 @@ class in_flame
             (list): a list of hou.Vector2: ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) ready to be used to set affine parms, or an empty list if something is wrong
         """      
         affine_count: int = len(affine)
-        if affine_count == 6: return [hou.Vector2((tuple(affine[i:i+2]))) for i in (0, 2, 4)]
+        if affine_count == 6: return [hou.Vector2((tuple(affine[i:i + 2]))) for i in (0, 2, 4)]
         
         else:
             print(datetime.now().strftime('%b-%d-%Y %H:%M:%S'))
@@ -11443,12 +11442,12 @@ class in_flame
                     if iter_type is not None: _MSG = f"\t{sel_key} on iterator {iter_type}, have no affine values. Expeted are: 6\n\t:Reverted back to default affine values."
                     else:_MSG = f"\t{sel_key} have {affine_count} values. Expeted are: 6\n\t:Reverted back to default affine values."
                     print(_MSG)
-                    return [hou.Vector2((tuple( AFFINE_IDENT[i:i+2] ))) for i in (0, 2, 4)]
+                    return [hou.Vector2((tuple( AFFINE_IDENT[i:i + 2] ))) for i in (0, 2, 4)]
                 else:
                     if iter_type is not None: _MSG = f"\t{sel_key} on iterator {iter_type}, have {affine_count} values. Expeted are: 6\n\t:Using 0.0(Zeros) for missing affine values."
                     else:_MSG = f"\t{sel_key} have {affine_count} values. Expeted are: 6\n\t:Using 0.0(Zeros) for missing affine values."
                     print(_MSG)
-                    return [hou.Vector2((tuple( np_pad(affine, (0, 6-min(6, affine_count)), 'constant', constant_values=0).tolist()[i:i+2] ))) for i in (0, 2, 4)]
+                    return [hou.Vector2((tuple( np_pad(affine, (0, 6-min(6, affine_count)), 'constant', constant_values=0).tolist()[i:i + 2] ))) for i in (0, 2, 4)]
             
             if sel_key is not None:
                 if iter_type is not None:
@@ -11666,7 +11665,7 @@ class in_flame
             (Union[tuple, None]): Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None
         """   
         if  self.isvalidtree and xforms is not None:
-            coefs = [tuple(self.affine_coupling([float(x) for x in self.xf_list_cleanup(str(xf.get(key)).split(), '0', key)], key, int(idx+1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
+            coefs = [tuple(self.affine_coupling([float(x) for x in self.xf_list_cleanup(str(xf.get(key)).split(), '0', key)], key, int(idx + 1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
             if max(list(map(lambda x: len(x), coefs))): return tuple(coefs)
             else: return None
             
@@ -12693,7 +12692,7 @@ class in_flame_utils
             flam3h_prm_names(flam3h_iterator_prm_names): Class of FLAM3H iterator parameter's names
             mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
         """
-        idx = str(mp_idx+1)
+        idx = str(mp_idx + 1)
         pre_affine: tuple = (flam3h_prm_names.preaffine_x, flam3h_prm_names.preaffine_y, flam3h_prm_names.preaffine_o)
         post_affine: tuple = (flam3h_prm_names.postaffine_x, flam3h_prm_names.postaffine_y, flam3h_prm_names.postaffine_o)
         f3h_affine = node.parm(IN_FLAM3H_AFFINE_STYLE).eval()
@@ -12710,7 +12709,7 @@ class in_flame_utils
                 else:
                     # If not present, we set all the pre affine values for this iterator to a value of: 0(Zero)
                     # Doing so it wont error out on load and it will act as a warning sign.
-                    [node.setParms({f"{prx}{pre_affine[id]}": [hou.Vector2((tuple( [0, 0, 0, 0, 0, 0][i:i+2] ))) for i in (0, 2, 4)][id]}) for id in range(3)] # type: ignore
+                    [node.setParms({f"{prx}{pre_affine[id]}": [hou.Vector2((tuple( [0, 0, 0, 0, 0, 0][i:i + 2] ))) for i in (0, 2, 4)][id]}) for id in range(3)] # type: ignore
                 
             if apo_data.finalxform_post is not None:
                 node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}": 1}) # type: ignore
@@ -12732,7 +12731,7 @@ class in_flame_utils
                 else:
                     # If not present, we set all the pre affine values for this iterator to a value of: 0(Zero)
                     # Doing so it wont error out on load and it will act as a warning sign.
-                    [node.setParms({f"{prx}{pre_affine[id]}_{idx}": [hou.Vector2((tuple( [0, 0, 0, 0, 0, 0][i:i+2] ))) for i in (0, 2, 4)][id]}) for id in range(3)] # type: ignore
+                    [node.setParms({f"{prx}{pre_affine[id]}_{idx}": [hou.Vector2((tuple( [0, 0, 0, 0, 0, 0][i:i + 2] ))) for i in (0, 2, 4)][id]}) for id in range(3)] # type: ignore
                 
             if apo_data.post is not None and apo_data.post[mp_idx]:
                 node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}_{idx}": 1}) # type: ignore
@@ -12779,9 +12778,9 @@ class in_flame_utils
                 n = flam3h_iterator_prm_names()
                 if prm_name not in [n.shader_alpha, n.main_weight]:
                     if apo_data[mp_idx]:
-                        node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]}) # type: ignore
+                        node.setParms({f"{prx}{prm_name}_{str(mp_idx + 1)}": apo_data[mp_idx]}) # type: ignore
                 else:
-                    node.setParms({f"{prx}{prm_name}_{str(mp_idx+1)}": apo_data[mp_idx]}) # type: ignore
+                    node.setParms({f"{prx}{prm_name}_{str(mp_idx + 1)}": apo_data[mp_idx]}) # type: ignore
            
            
     @staticmethod  
@@ -12852,7 +12851,7 @@ class in_flame_utils
             (Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]): Expected data type of the collected parametric variation's parameters values.
         """   
         
-        iter_type = f"Iterator.{mp_idx+1}"
+        iter_type = f"Iterator.{mp_idx + 1}"
         if mode: iter_type = 'FF'
 
         VAR: list = []
@@ -12917,7 +12916,7 @@ class in_flame_utils
                                                          v_type, 
                                                          in_flame_utils.in_util_make_NULL)
 
-        mpidx = str(mp_idx+1)
+        mpidx = str(mp_idx + 1)
         [node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) if mode else node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         
         f3h_iter = flam3h_iterator()
@@ -12972,7 +12971,7 @@ class in_flame_utils
                                                          v_type, 
                                                          in_flame_utils.in_util_make_PRE)
         
-        mpidx = str(mp_idx+1)
+        mpidx = str(mp_idx + 1)
         [node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on pre variations with parametric so:
         node.setParms({f"{prx}{flam3h_iterator().sec_prevarsT[t_idx]}{mpidx}": v_type}) # type: ignore
@@ -13022,7 +13021,7 @@ class in_flame_utils
                                                          v_type, 
                                                          in_flame_utils.in_util_make_POST)
         
-        mpidx = str(mp_idx+1)
+        mpidx = str(mp_idx + 1)
         [node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on post variation with parametric so:
         node.setParms({f"{prx}{flam3h_iterator().sec_postvarsT[t_idx]}{mpidx}": v_type}) # type: ignore
@@ -13142,7 +13141,7 @@ class in_flame_utils
             node.setParms({f"{prx}{f3h_iter.sec_varsT[t_idx][:-1]}": v_type}) # type: ignore
             node.setParms({f"{prx}{f3h_iter.sec_varsW[t_idx][0][:-1]}": v_weight}) # type: ignore
         else:
-            idx = str(mp_idx+1)
+            idx = str(mp_idx + 1)
             node.setParms({f"{prx}{f3h_iter.sec_varsT[t_idx]}{idx}": v_type}) # type: ignore
             node.setParms({f"{prx}{f3h_iter.sec_varsW[t_idx][0]}{idx}":v_weight}) # type: ignore
 
@@ -13168,7 +13167,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        idx = str(mp_idx+1)
+        idx = str(mp_idx + 1)
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
         node.setParms({f"{prx}{flam3h_iterator().sec_prevarsT[t_idx]}{idx}": v_type}) # type: ignore
         node.setParms({f"{prx}{flam3h_iterator().sec_prevarsW[1:][t_idx][0]}{idx}":v_weight}) # type: ignore
@@ -13195,7 +13194,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        idx = str(mp_idx+1)
+        idx = str(mp_idx + 1)
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
         node.setParms({f"{prx}{flam3h_iterator().sec_postvarsT[t_idx]}{idx}": v_type}) # type: ignore
         node.setParms({f"{prx}{flam3h_iterator().sec_postvarsW[t_idx][0]}{idx}":v_weight}) # type: ignore
@@ -13264,7 +13263,7 @@ class in_flame_utils
         if mode: pass
         else:
             if pb_weights[mp_idx]:
-                node.setParms({f"{prx}{flam3h_iterator_prm_names().prevar_weight_blur}_{str(mp_idx+1)}": pb_weights[mp_idx]}) # type: ignore
+                node.setParms({f"{prx}{flam3h_iterator_prm_names().prevar_weight_blur}_{str(mp_idx + 1)}": pb_weights[mp_idx]}) # type: ignore
 
 
     @staticmethod
@@ -14029,7 +14028,7 @@ class in_flame_utils
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
-            enum_label = str(i+1) # start count from 1
+            enum_label = str(i + 1) # start count from 1
             
             # 5 ending \s to be able to read the full label
             labels: tuple = (f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {enum_label}:  {item}     ", 
@@ -14095,7 +14094,7 @@ class in_flame_utils
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
-            enum_label = str(i+1) # start count from 1
+            enum_label = str(i + 1) # start count from 1
             
             in_idx: int = int(node.parm(IN_PRESETS_OFF).eval())
             clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
@@ -14341,11 +14340,11 @@ class in_flame_utils
                        
                 # Print all skipped iterators vars if any
                 if iterator_vars_skipped:
-                    build = f"WARNING: {self.node}.iterator.{mp_idx+1}\n\tThe following variations are in excess and skipped:{''.join(iterator_vars_skipped)}\n"
+                    build = f"WARNING: {self.node}.iterator.{mp_idx + 1}\n\tThe following variations are in excess and skipped:{''.join(iterator_vars_skipped)}\n"
                     print(build)
                                 
                 # Activate iterator
-                node.setParms({f"{n.main_vactive}_{str(mp_idx+1)}": 1}) # type: ignore
+                node.setParms({f"{n.main_vactive}_{str(mp_idx + 1)}": 1}) # type: ignore
                 # Set the rest of the iterator(FLAME or FF) parameters
                 apo_data_set: dict = {  n.main_note: apo_data.xf_name, 
                                         n.main_weight: apo_data.weight,
@@ -14456,7 +14455,7 @@ class in_flame_utils
         
         n = 5
         vars_used_heading = "Variations used:"
-        result_grp: list = [result_sorted[i:i+n] for i in range(0, len(result_sorted), n)]  
+        result_grp: list = [result_sorted[i:i + n] for i in range(0, len(result_sorted), n)]  
         vars_used_msg = f"{vars_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
         
         # Build and set descriptive parameter msg
@@ -14485,13 +14484,13 @@ class in_flame_utils
         
         # Build MISSING: Compare, keep and build
         vars_missing: list = [x for x in result_sorted_fractorium if x not in result_sorted]
-        result_grp_fractorium: list = [vars_missing[i:i+n] for i in range(0, len(vars_missing), n)]  
+        result_grp_fractorium: list = [vars_missing[i:i + n] for i in range(0, len(vars_missing), n)]  
         vars_missing_msg = ""
         if vars_missing: vars_missing_msg = f"{nnl}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
         
         # Build UNKNOWN
         vars_unknown: list = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
-        if vars_unknown: vars_unknown_msg = f"{nnl}UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i+n] for i in range(0, len(vars_unknown), n)] )}"
+        if vars_unknown: vars_unknown_msg = f"{nnl}UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i + n] for i in range(0, len(vars_unknown), n)] )}"
         else: vars_unknown_msg = ''
         
         # Check if the loaded Flame file is locked.
@@ -16479,7 +16478,7 @@ class out_flame_utils
         for iter in range(iter_count):
             
             # Get this iterator Xoas command string
-            iter_xaos: str = node.parm(f"{prm}_{iter+1}").eval()
+            iter_xaos: str = node.parm(f"{prm}_{iter + 1}").eval()
             
             # If the xaos string is not empty
             if iter_xaos:
@@ -16490,7 +16489,7 @@ class out_flame_utils
                 if strip[0].lower().replace(" ", "") == 'xaos':
                     
                     try:
-                        _xaos: list = strip[1:iter_count+1]
+                        _xaos: list = strip[1:iter_count + 1]
                         
                         if _xaos[0] and val_prev is not None and len(val_prev) == iter_count:
                             _xaos_strip = [str(float((in_flame.xf_val_cleanup_str(str(x), val_prev[iter][idx])))) if float(in_flame.xf_val_cleanup_str(str(x), val_prev[iter][idx])) >= 0 else '1' for idx, x in enumerate(_xaos)]
@@ -16563,7 +16562,7 @@ class out_flame_utils
         """    
         xaos_no_vactive: list = []
         for x in fill:
-            collect = [str(item) for idx, item in enumerate(x) if node.parm(f"{prm}_{idx+1}").eval()]
+            collect = [str(item) for idx, item in enumerate(x) if node.parm(f"{prm}_{idx + 1}").eval()]
             if collect:
                 xaos_no_vactive.append(collect)
             else:
@@ -16628,7 +16627,7 @@ class out_flame_utils
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
-            enum_label = str(i+1) # start count from 1
+            enum_label = str(i + 1) # start count from 1
             menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {enum_label}:  {item}     ")
         
     
@@ -17469,7 +17468,7 @@ class out_flame_utils
         if iter_VAR is not False:
             assert isinstance(iter_VAR, dict)
             for iter in range(iter_count):
-                key = str(iter+1)
+                key = str(iter + 1)
                 vars = iter_VAR.get(key)
                 if vars is not None:
                     dup = self.out_util_vars_duplicate(vars)
@@ -17481,7 +17480,7 @@ class out_flame_utils
         if iter_PRE is not False:
             assert isinstance(iter_PRE, dict)
             for iter in range(iter_count):
-                key = str(iter+1)
+                key = str(iter + 1)
                 vars = iter_PRE.get(key)
                 if vars is not None:
                     dup = self.out_util_vars_duplicate(vars)
@@ -17701,9 +17700,9 @@ class out_flame_utils
         palette.text = f3d.palette_hex
 
         # SET unique used 'plugins' and 'new linear'
-        names_VARS_flatten_unique: list = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS+[names_VARS_FF], in_flame_utils.in_util_make_NULL)
-        names_VARS_PRE_flatten_unique: list = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE+[names_VARS_PRE_FF]+list(map(lambda x: in_flame_utils.in_util_make_VAR([x]) if x else x, [name_PRE_BLUR])), in_flame_utils.in_util_make_PRE)
-        names_VARS_POST_flatten_unique: list = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST+[names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
+        names_VARS_flatten_unique: list = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS + [names_VARS_FF], in_flame_utils.in_util_make_NULL)
+        names_VARS_PRE_flatten_unique: list = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE + [names_VARS_PRE_FF] + list(map(lambda x: in_flame_utils.in_util_make_VAR([x]) if x else x, [name_PRE_BLUR])), in_flame_utils.in_util_make_PRE)
+        names_VARS_POST_flatten_unique: list = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST + [names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
         flame.set(XML_FLAME_PLUGINS, i_cleandoc(" ".join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
         flame.set(XML_FLAME_NEW_LINEAR, '1')
         
@@ -18024,7 +18023,7 @@ class out_flame_utils
         Returns:
             (str): The FLAM3H parameter prepped into a string for writing out into the Flame preset file.
         """    
-        val = [str(self.out_util_round_float(self.node.parm(f"{prm_name}_{iter+1}").eval())) for iter in range(self.iter_count)]
+        val = [str(self.out_util_round_float(self.node.parm(f"{prm_name}_{iter + 1}").eval())) for iter in range(self.iter_count)]
         return tuple(val)
     
     
@@ -18038,7 +18037,7 @@ class out_flame_utils
         Returns:
             (str): The FLAM3H parameter prepped into a string for writing out into the Flame preset file.
         """    
-        val = [str(self.out_util_round_float((1.0-self.node.parm(f"{flam3h_iterator_prm_names().shader_speed}_{iter+1}").eval())/2.0)) for iter in range(self.iter_count)]
+        val = [str(self.out_util_round_float((1.0-self.node.parm(f"{flam3h_iterator_prm_names().shader_speed}_{iter + 1}").eval())/2.0)) for iter in range(self.iter_count)]
         return tuple(val)
     
 
@@ -18052,7 +18051,7 @@ class out_flame_utils
         Returns:
             (tuple): tuple of all the FLAM3H names/notes prepped into strings for writing out into the Flame preset file.
         """    
-        val = [self.node.parm(f"{self.flam3h_iter_prm_names.main_note}_{iter+1}").eval() for iter in range(self._iter_count)]
+        val = [self.node.parm(f"{self.flam3h_iter_prm_names.main_note}_{iter + 1}").eval() for iter in range(self._iter_count)]
         return tuple(val)
     
     
@@ -18078,7 +18077,7 @@ class out_flame_utils
         Returns:
             (tuple): tuple of all the FLAM3H xforms/iterators pre_blur parameters prepped into strings for writing out into the Flame preset file.
         """   
-        val = [str( self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval() ) if self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter+1}").eval() > 0 else '' for iter in range(self.iter_count)]
+        val = [str( self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter + 1}").eval() ) if self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter + 1}").eval() > 0 else '' for iter in range(self.iter_count)]
         return tuple(val)
 
 
@@ -18109,8 +18108,8 @@ class out_flame_utils
         f3h_val: list = []
         f3h_angleDeg: list = []
         for iter in range(self.iter_count):
-            collect: list = [self.node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self.flam3h_iter.sec_preAffine[:-1]]
-            angleDeg = self.node.parm(f"{self.flam3h_iter.sec_preAffine[-1][0]}{iter+1}").eval()
+            collect: list = [self.node.parmTuple(f"{prm[0]}{iter + 1}").eval() for prm in self.flam3h_iter.sec_preAffine[:-1]]
+            angleDeg = self.node.parm(f"{self.flam3h_iter.sec_preAffine[-1][0]}{iter + 1}").eval()
             f3h_angleDeg.append(str(round(angleDeg, ROUND_DECIMAL_COUNT)))
             flatten: list = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
             f3h_flatten: list = [item for sublist in collect for item in sublist]
@@ -18133,9 +18132,9 @@ class out_flame_utils
         f3h_val: list = []
         f3h_angleDeg: list = []
         for iter in range(self.iter_count):
-            if self.node.parm(f"{self.flam3h_iter_prm_names.postaffine_do}_{iter+1}").eval():
-                collect: list = [self.node.parmTuple(f"{prm[0]}{iter+1}").eval() for prm in self.flam3h_iter.sec_postAffine[1:-1]]
-                angleDeg = self.node.parm(f"{self.flam3h_iter.sec_postAffine[-1][0]}{iter+1}").eval()
+            if self.node.parm(f"{self.flam3h_iter_prm_names.postaffine_do}_{iter + 1}").eval():
+                collect: list = [self.node.parmTuple(f"{prm[0]}{iter + 1}").eval() for prm in self.flam3h_iter.sec_postAffine[1:-1]]
+                angleDeg = self.node.parm(f"{self.flam3h_iter.sec_postAffine[-1][0]}{iter + 1}").eval()
                 if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                     f3h_angleDeg.append(str(round(angleDeg, ROUND_DECIMAL_COUNT)))
                     flatten: list = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
@@ -18218,7 +18217,7 @@ class out_flame_utils
         POSs: list = list(iter_islice(iter_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
         HEXs: list = [flam3h_palette_utils.rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
         n = 8
-        hex_grp: list = [HEXs[i:i+n] for i in range(0, len(HEXs), n)]
+        hex_grp: list = [HEXs[i:i + n] for i in range(0, len(HEXs), n)]
         hex_join: list = [f"      {''.join(grp)}\n" for grp in hex_grp] # 6 times \s
         return f"\n{''.join(hex_join)}    " # 4 times \s
         

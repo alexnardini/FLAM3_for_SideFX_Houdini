@@ -256,4 +256,4 @@ Reference D: [**PDF::The Fractal Flame Algorithm publication**](https://flam3.co
 
 ## Copyrights
 
-_All images and logos copyright © Alessandro Nardini 2021 and their other respective owners._
+_All images and logos copyright © F stands for liFe 2021 and their other respective owners._
