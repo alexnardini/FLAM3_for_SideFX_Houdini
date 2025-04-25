@@ -4966,7 +4966,6 @@ class flam3h_iterator_utils
                     
 
 
-
     @staticmethod
     def paste_save_note(_note: str) -> str:
         """When copy/paste parameter values between different multiparameter indexes,
@@ -4986,15 +4985,15 @@ class flam3h_iterator_utils
         search_FF = ".FF"
 
         if _note.find("(") or _note.find(")") == -1:
-            _note_split = _note.split(" ")
+            _note_split = _note.split()
             if len(_note_split) > 1 and (search_iter in _note_split[-1].rpartition(search_iter) or search_FF in _note_split[-1].rpartition(search_FF)):
-                note = "(" + " ".join(_note_split[0:-1]) + ")" + " "
+                note = f"({' '.join(_note_split[0:-1])}) "
             elif len(_note.split(".")) > 1 and ("iter" in _note.split(".") or "FF" in _note.split(".")):
                 note = ""
             else:
-                note = "(" + _note + ")" + " "
+                note = f"({_note}) "
         else:
-            note = "(" + _note[_note.find("(") + 1:_note.find(")")] + ")" + " "
+            note = f"({_note[_note.find('(') + 1:_note.find(')')]}) "
         return note
 
 
@@ -7233,11 +7232,11 @@ class flam3h_iterator_utils
         # update CachedUserData: flam3h_xaos_iterators_prev
         self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_new)
         prm_xaos = flam3h_iterator_prm_names().xaos
-        [node.setParms({f"{prm_xaos}_{str(idx + 1)}": div_xaos + div_weight.join(xaos_new[idx].split(" "))}) if xaos_new[idx] else node.setParms({f"{prm_xaos}_{str(idx + 1)}": div_xaos}) for idx in range(f3d.iter_count)]
+        [node.setParms({f"{prm_xaos}_{str(idx + 1)}": div_xaos + div_weight.join(xaos_new[idx].split())}) if xaos_new[idx] else node.setParms({f"{prm_xaos}_{str(idx + 1)}": div_xaos}) for idx in range(f3d.iter_count)]
 
         # for idx in range(f3d.iter_count):
         #     if xaos_new[idx]:
-        #         xs = div_xaos + div_weight.join(xaos_new[idx].split(" "))
+        #         xs = div_xaos + div_weight.join(xaos_new[idx].split())
         #         node.setParms({f"{prm_xaos}_{str(idx + 1)}": xs})
         #     else:
         #         # I dnt think this is needed anymore but i leave it here.
@@ -11811,7 +11810,7 @@ class in_flame
         if self.isvalidtree:
             palette_hsv_xml_list = self.flam3h_hsv[idx]
             if palette_hsv_xml_list:
-                palette_hsv_xml_s = str(palette_hsv_xml_list).split(" ")
+                palette_hsv_xml_s = str(palette_hsv_xml_list).split()
                 if len(palette_hsv_xml_s) != 3: palette_hsv_xml_s = np_pad(palette_hsv_xml_s, (0, 3-min(3, len(palette_hsv_xml_s))), 'constant', constant_values=1).tolist()
                 return in_flame_utils.in_util_typemaker(list(map(lambda x: float(x), palette_hsv_xml_s )))
             else:
@@ -12461,7 +12460,7 @@ class in_flame_utils
             (list): List of sorted uinknown variations if any
         """
         if apo_data.plugins[preset_id]:
-            plugins = [p.strip() for p in str(apo_data.plugins[preset_id]).split(" ") if p]
+            plugins = [p.strip() for p in str(apo_data.plugins[preset_id]).split() if p]
         else:
             plugins = ()
         
@@ -13565,11 +13564,11 @@ class in_flame_utils
         Returns:
             (None):
         """  
-        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split(" ")[0]), int(f3r.out_size[preset_id].split(" ")[1])))}) # type: ignore
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split()[0]), int(f3r.out_size[preset_id].split()[1])))}) # type: ignore
         except: # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(1024), int(1024)))}) # type: ignore
             
-        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split(" ")[0]), float(f3r.out_center[preset_id].split(" ")[1])))}) # type: ignore
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split()[0]), float(f3r.out_center[preset_id].split()[1])))}) # type: ignore
         except: # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(0), float(0)))}) # type: ignore
             
