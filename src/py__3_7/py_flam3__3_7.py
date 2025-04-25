@@ -2067,7 +2067,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """  
-        stats = node.parm(MSG_IN_FLAMESTATS).eval()
+        stats: str = node.parm(MSG_IN_FLAMESTATS).eval()
         lines: list = stats.splitlines()
         if lines[0] == MSG_FLAMESTATS_LOCK: lines[0] = ''
         node.setParms({MSG_IN_FLAMESTATS: "\n".join(lines)})
@@ -2667,7 +2667,7 @@ class flam3h_general_utils
         """     
         node = self.node
         if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
-            node = self.node
+            
             desktop: hou.Desktop = hou.ui.curDesktop() # type: ignore
             viewport: hou.SceneViewer = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
             
