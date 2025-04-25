@@ -1197,9 +1197,9 @@ class flam3h_scripts
             (None):
         """  
         if cvex_precision == 32:
-            hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
+            hou.session.FLAM3H_FIRST_INSTANCE_32BIT: bool = False # type: ignore
         elif cvex_precision == 64:
-            hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+            hou.session.FLAM3H_FIRST_INSTANCE_64BIT: bool = False # type: ignore
 
 
     @staticmethod
@@ -1282,9 +1282,9 @@ class flam3h_scripts
             (None):
         """  
         if cvex_precision == 32 and first_instance_32bit is True:
-            hou.session.FLAM3H_FIRST_INSTANCE_32BIT = False # type: ignore
+            hou.session.FLAM3H_FIRST_INSTANCE_32BIT: bool = False # type: ignore
         elif cvex_precision == 64 and first_instance_64bit is True:
-            hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
+            hou.session.FLAM3H_FIRST_INSTANCE_64BIT: bool = False # type: ignore
 
 
     @staticmethod
@@ -1346,23 +1346,23 @@ class flam3h_scripts
         
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
-            first_instance_32bit = False
-        except: first_instance_32bit = True
+            first_instance_32bit: bool = False
+        except: first_instance_32bit: bool = True
             
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
-            first_instance_64bit = False
-        except: first_instance_64bit = True
+            first_instance_64bit: bool = False
+        except: first_instance_64bit: bool = True
             
         node = self.node
-        cvex_precision = int( node.parm(PREFS_CVEX_PRECISION).eval() )
+        cvex_precision: int = int( node.parm(PREFS_CVEX_PRECISION).eval() )
                 
         if FIRST_TIME_MSG is True and ( first_instance_32bit is True or first_instance_64bit is True ): # type: ignore
             
             if cvex_precision == 32 and first_instance_32bit is True:
                 
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
-                sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+                sys_updated_mode: hou.EnumValue = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
                 _MSG_INFO = f"FLAM3H v{__version__}  first instance -> Compiling FLAM3H CVEX nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H CVEX nodes compile: DONE \nversion: {__version__} - {__status__}"
@@ -1376,7 +1376,7 @@ class flam3h_scripts
             elif cvex_precision == 64 and first_instance_64bit is True:
 
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
-                sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+                sys_updated_mode: hou.EnumValue = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
                 _MSG_INFO = f"FLAM3H v{__version__} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H CVEX 64-bit nodes compile: DONE\nversion: {__version__}"
@@ -1406,18 +1406,18 @@ class flam3h_scripts
         
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
-            first_instance_32bit = False
-        except: first_instance_32bit = True
+            first_instance_32bit: bool = False
+        except: first_instance_32bit: bool = True
             
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
-            first_instance_64bit = False
-        except: first_instance_64bit = True
+            first_instance_64bit: bool = False
+        except: first_instance_64bit: bool = True
                 
         if first_instance_32bit is True or first_instance_64bit is True: # type: ignore
 
             node = self.node
-            cvex_precision = int( node.parm(PREFS_CVEX_PRECISION).eval() )
+            cvex_precision: int = int( node.parm(PREFS_CVEX_PRECISION).eval() )
             
             sys_updated_mode = hou.updateModeSetting() # type: ignore
             hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
@@ -1429,7 +1429,7 @@ class flam3h_scripts
                 _MSG_INFO = f" FLAM3H v{__version__} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {__version__}"
             
-            density = node.parm(GLB_DENSITY).eval()
+            density: int = node.parm(GLB_DENSITY).eval()
             if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
                 node.setParms({GLB_DENSITY: 1})
@@ -1480,11 +1480,11 @@ class flam3h_scripts
         # If an iterator was copied from a node that has been deleted
         try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
         except:
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = None # type: ignore
             # If we deleted all FLAM3H nodes and we then create a new one,
             # Lets initialize back to himself.
             if len(node_instances) == 1:
-                hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
+                hou.session.FLAM3H_MARKED_ITERATOR_NODE: Union[hou.SopNode, None] = node # type: ignore
 
         # FLAM3H node for FF.
         # This is to make sure the hou.session's data is at least initialized.
@@ -1493,11 +1493,11 @@ class flam3h_scripts
         # If the FF was copied from a node that has been deleted
         try: hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
         except:
-            hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
+            hou.session.FLAM3H_MARKED_FF_CHECK: Union[int, None] = None # type: ignore
             # If we deleted all FLAM3H nodes and we then create a new one,
             # Lets initialize back to himself.
             if len(node_instances) == 1:
-                hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
+                hou.session.FLAM3H_MARKED_FF_NODE: Union[hou.SopNode, None] = node # type: ignore
 
 
     def flam3h_on_create_set_prefs_viewport(self, default_value_pt: float = 1, default_value_ww: float = 3) -> None:
@@ -1602,10 +1602,10 @@ class flam3h_scripts
             (None):
         """
         if flam3h_general_utils(self.kwargs).util_other_xf_viz() is False:
-            hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH = 3 # type: ignore
+            hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH: float = 3 # type: ignore
         else:
-            try: w = hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
-            except: hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH = 3 # type: ignore
+            try: hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
+            except: hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH: float = 3 # type: ignore
     
     
     def flam3h_presets_cache_filepath_on_load(self) -> None:
@@ -1850,14 +1850,14 @@ class flam3h_scripts
             except:
                 try:
                     if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None:  # type: ignore
-                        hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
+                        hou.session.FLAM3H_MARKED_ITERATOR_NODE: Union[hou.SopNode, None] = None # type: ignore
                 except: pass
                 
             try: hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
             except:
                 try:
                     if hou.session.FLAM3H_MARKED_FF_CHECK is not None:  # type: ignore
-                        hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
+                        hou.session.FLAM3H_MARKED_FF_NODE: Union[hou.SopNode, None] = None # type: ignore
                 except: pass
                 
             # Delete the Houdini update mode data if needed
@@ -1892,11 +1892,11 @@ class flam3h_scripts
                 flam3h_general_utils.util_clear_stashed_cam_data()
             
             if hou.session.FLAM3H_MARKED_FF_CHECK: # type: ignore
-                from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+                from_FLAM3H_NODE: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
                 
                 if node == from_FLAM3H_NODE and node_instances:
-                    hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
-                    hou.session.FLAM3H_MARKED_FF_NODE = node_instances[0] # type: ignore
+                    hou.session.FLAM3H_MARKED_FF_CHECK: Union[int, None] = None # type: ignore
+                    hou.session.FLAM3H_MARKED_FF_NODE: Union[hou.SopNode, None] = node_instances[0] # type: ignore
                     
                     _MSG = f"The FLAM3H node you just deleted had its FF marked for being copied. Please, mark a FF first to copy parameters from."
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
@@ -3067,7 +3067,7 @@ class flam3h_general_utils
                     self.util_store_all_viewers_xf_viz()
                     
                 # Retrieve the value we shoud be set to
-                try: w = hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
+                try: w: Union[float, None] = hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
                 except: w = None
                 if w is not None: self.viewportWireWidth(w)
                 
@@ -3939,7 +3939,7 @@ class flam3h_general_utils
                     prm.set(width)
             
         # Updated FLAM3H wire width custom value
-        hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH = width # type: ignore
+        hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH: float = width # type: ignore
         
         # Update wire width preference's option toggle on other FLAM3H nodes instances
         [f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).deleteAllKeyframes() for f3h in node.type().instances()]
@@ -4558,11 +4558,11 @@ class flam3h_iterator_utils
         # becasue FLAM3H node will create and initialize those on creation
         # but just in case this data is deleted somehow.
         try: hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
-        except: hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
+        except: hou.session.FLAM3H_MARKED_ITERATOR_NODE: Union[hou.SopNode, None] = node # type: ignore
         try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-        except: hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
+        except: hou.session.FLAM3H_MARKED_ITERATOR_NODE: Union[hou.SopNode, None] = None # type: ignore
         try: hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
-        except: hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+        except: hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = None # type: ignore
 
 
     @staticmethod
@@ -4580,11 +4580,11 @@ class flam3h_iterator_utils
         # becasue FLAM3H node will create and initialize those on creation
         # but just in case this data is deleted somehow.
         try: hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
-        except: hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
+        except: hou.session.FLAM3H_MARKED_FF_NODE: Union[hou.SopNode, None] = node # type: ignore
         try: hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
-        except: hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
+        except: hou.session.FLAM3H_MARKED_FF_NODE: Union[hou.SopNode, None] = None # type: ignore
         try: hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
-        except: hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
+        except: hou.session.FLAM3H_MARKED_FF_CHECK: Union[int, None] = None # type: ignore
         
         
     @staticmethod
@@ -4601,9 +4601,9 @@ class flam3h_iterator_utils
         
         # Iterator
         if flam3h_iterator_utils.exist_user_data(node):
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
+            hou.session.FLAM3H_MARKED_ITERATOR_NODE: Union[hou.SopNode, None] = node # type: ignore
             data = flam3h_iterator_utils.get_user_data(node)
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = data # type: ignore
+            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = data # type: ignore
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, int(data)) # type: ignore
         else:
             # If this node do not posses the copy/paste data, lets first check if the data and its node exist (other FLAM3H node)
@@ -4612,13 +4612,13 @@ class flam3h_iterator_utils
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
             except:
-                hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
-                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+                hou.session.FLAM3H_MARKED_ITERATOR_NODE: Union[hou.SopNode, None] = None # type: ignore
+                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = None # type: ignore
             
         # FF
         if flam3h_iterator_utils.exist_user_data(node, FLAM3H_USER_DATA_FF):
-            hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
-            hou.session.FLAM3H_MARKED_FF_CHECK = 1 # type: ignore
+            hou.session.FLAM3H_MARKED_FF_NODE: Union[hou.SopNode, None] = node # type: ignore
+            hou.session.FLAM3H_MARKED_FF_CHECK: Union[int, None] = 1 # type: ignore
         else:
             # If this node do not posses the copy/paste data, lets first check if the data and its node exist (other FLAM3H node)
             # before clearing it out
@@ -4626,8 +4626,8 @@ class flam3h_iterator_utils
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
                 hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
             except:
-                hou.session.FLAM3H_MARKED_FF_NODE = None # type: ignore
-                hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
+                hou.session.FLAM3H_MARKED_FF_NODE: Union[hou.SopNode, None] = None # type: ignore
+                hou.session.FLAM3H_MARKED_FF_CHECK: Union[int, None] = None # type: ignore
 
 
     @staticmethod
@@ -5837,8 +5837,8 @@ class flam3h_iterator_utils
                 node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
                 
                 _MSG = f"iterator: {preset_id}"
-                active = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
-                weight = node.parm(f"{flam3h_iterator_prm_names().main_weight}_{preset_id}").eval()
+                active: int = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
+                weight: float = node.parm(f"{flam3h_iterator_prm_names().main_weight}_{preset_id}").eval()
                 
                 if node == from_FLAM3H_NODE and mp_id_from == preset_id:
                     if active and weight>0: flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
@@ -5865,7 +5865,7 @@ class flam3h_iterator_utils
                         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
                         
                         _MSG = f"iterator: {preset_id}"
-                        active = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
+                        active: int = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
                         
                         if node == from_FLAM3H_NODE and mp_id_from == preset_id:
                             if active: flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
@@ -5920,12 +5920,12 @@ class flam3h_iterator_utils
         
         try:
             hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-            from_FLAM3HNODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+            from_FLAM3HNODE: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
         except:
             from_FLAM3HNODE = None
         
         if from_FLAM3HNODE is not None and node == from_FLAM3HNODE:  # type: ignore
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = None # type: ignore
             # Reset internal mpidx memory to a None value
             if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
                 self.iterator_mpidx_mem_set(node, 0)
@@ -5933,11 +5933,11 @@ class flam3h_iterator_utils
                 # This is needed on hip file load to allow: def flam3h_init_hou_session_restore_from_user_data(node: hou.SopNode) -> None:
                 # to rewire the FF copy/paste data properly on load, if any is present in the loaded FLAM3H nodes.
                 if not self.exist_user_data(node, FLAM3H_USER_DATA_FF):
-                    hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
-                    hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
+                    hou.session.FLAM3H_MARKED_FF_NODE: Union[hou.SopNode, None] = node # type: ignore
+                    hou.session.FLAM3H_MARKED_FF_CHECK: Union[int, None] = None # type: ignore
             else:
-                hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
-                hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
+                hou.session.FLAM3H_MARKED_FF_NODE: Union[hou.SopNode, None] = node # type: ignore
+                hou.session.FLAM3H_MARKED_FF_CHECK: Union[int, None] = None # type: ignore
             # Remove any comment and user data from the node
             self.del_comment_and_user_data_iterator(node)
             self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
@@ -5959,9 +5959,9 @@ class flam3h_iterator_utils
         menu: list = []
         menuitems: tuple = ()
         if iterators:
-            menuitems = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", f"{FLAM3H_ICON_STAR_HIGH_TIER}500M", f"{FLAM3H_ICON_STAR_HIGH_TIER}750M", f"{FLAM3H_ICON_STAR_HIGH_TIER}1 Billion", "" )
+            menuitems: tuple = ( "", "1M", "2M", "5M", "15M", "25M", "50M", "100M", "150M", "250M", f"{FLAM3H_ICON_STAR_HIGH_TIER}500M", f"{FLAM3H_ICON_STAR_HIGH_TIER}750M", f"{FLAM3H_ICON_STAR_HIGH_TIER}1 Billion", "" )
         else:
-            menuitems = ("Please, add at least one iterator", "")
+            menuitems: tuple = ("Please, add at least one iterator", "")
         for i, item in enumerate(menuitems):
             menu.append(i)
             menu.append(item)
@@ -6094,7 +6094,7 @@ class flam3h_iterator_utils
         
         node = self.node
         id: int = self.kwargs['script_multiparm_index']
-        idx = str(id)
+        idx: str = str(id)
         
         if self.exist_user_data(node):
             node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
@@ -6177,13 +6177,14 @@ class flam3h_iterator_utils
 
         if from_FLAM3H_NODE_FF_CHECK is not None:
 
-            flam3node_FF = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+            flam3node_FF: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
             
             # This undo's disabler is needed to make the undo work. They work best in H20.5
             with hou.undos.disabler(): # type: ignore
             
                 if node == flam3node_FF: return MENU_FF_COPY_PASTE_SELECT
                 else:
+                    assert isinstance(flam3node_FF, hou.SopNode)
                     # Menu entrie sections bookmark icon
                     active: int = flam3node_FF.parm(PREFS_PVT_DOFF).eval()
                     _ICON: str = (FLAM3H_ICON_COPY_PASTE_FF_ENTRIE_OFF, FLAM3H_ICON_COPY_PASTE_FF_ENTRIE)[active]
@@ -6225,7 +6226,7 @@ class flam3h_iterator_utils
             _FLAM3H_DATA_PRM_MPIDX: int = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                 
             try:
-                from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore 
+                from_FLAM3H_NODE: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore 
                 assert from_FLAM3H_NODE is not None
                 __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
             except:
@@ -6234,13 +6235,13 @@ class flam3h_iterator_utils
                 
             try:
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                mp_id_from: Union[int, None] = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
                 
                 if node == from_FLAM3H_NODE:
                     if _FLAM3H_DATA_PRM_MPIDX > 0:
                         if mp_id_from != _FLAM3H_DATA_PRM_MPIDX:
                             mp_id_from = _FLAM3H_DATA_PRM_MPIDX
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = mp_id_from # type: ignore
+                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = mp_id_from # type: ignore
                             self.del_comment_and_user_data_iterator(node)
                             self.set_comment_and_user_data_iterator(node, str(mp_id_from))
                             self.destroy_cachedUserData(node, 'iter_sel')
@@ -6253,7 +6254,7 @@ class flam3h_iterator_utils
                     if __FLAM3H_DATA_PRM_MPIDX > 0:
                         if mp_id_from != __FLAM3H_DATA_PRM_MPIDX:
                             mp_id_from = __FLAM3H_DATA_PRM_MPIDX
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = mp_id_from # type: ignore
+                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = mp_id_from # type: ignore
                             assert from_FLAM3H_NODE is not None
                             self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                             self.set_comment_and_user_data_iterator(from_FLAM3H_NODE, str(mp_id_from))
@@ -6277,7 +6278,7 @@ class flam3h_iterator_utils
                                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
                                 self.destroy_cachedUserData(node, 'iter_sel')
                                 # This so we dnt fall back into this case again and again.
-                                hou.session.FLAM3H_MARKED_ITERATOR_NODE = None # type: ignore
+                                hou.session.FLAM3H_MARKED_ITERATOR_NODE: Union[hou.SopNode, None] = None # type: ignore
                             except:
                                 pass
                             
@@ -6352,11 +6353,13 @@ class flam3h_iterator_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
-            from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
+            from_FLAM3H_NODE: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+            from_FLAM3H_NODE_FF_CHECK: Union[int, None] = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
             
             isDELETED = False
-            try: from_FLAM3H_NODE.type()
+            try:
+                assert isinstance(from_FLAM3H_NODE, hou.SopNode)
+                from_FLAM3H_NODE.type()
             except:
                 from_FLAM3H_NODE_FF_CHECK = None
                 from_FLAM3H_NODE = None
@@ -6407,8 +6410,8 @@ class flam3h_iterator_utils
                 
         if mp_id_from is not None:
             
-            idx = str(id)
-            idx_from = str(mp_id_from)
+            idx: str = str(id)
+            idx_from: str = str(mp_id_from)
             
             if node==from_FLAM3H_NODE and id==mp_id_from:
                 _MSG = f"{node.name()}: This iterator is marked: {idx_from} -> Select a different iterator number or a different FLAM3H node to paste its values."
@@ -6479,7 +6482,7 @@ class flam3h_iterator_utils
             
             if mp_id_from is not None:
                 _MSG = f"{node.name()}: iterator UNMARKED: {str(mp_id_from)}" # type: ignore
-                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = None # type: ignore
                 self.iterator_mpidx_mem_set(node, 0)
                 self.del_comment_and_user_data_iterator(node)
                 
@@ -6492,7 +6495,7 @@ class flam3h_iterator_utils
                 else:
                     _MSG = f"{node.name()}: {_MSG_UNMARKED} -> {str(id)}"
                     
-                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = None # type: ignore
                 self.iterator_mpidx_mem_set(node, 0)
                 self.del_comment_and_user_data_iterator(node)
                 
@@ -6538,8 +6541,8 @@ class flam3h_iterator_utils
         if node == hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
             
             if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX != id: # type: ignore
-                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = id # type: ignore
-                hou.session.FLAM3H_MARKED_ITERATOR_NODE = self.node # type: ignore
+                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = id # type: ignore
+                hou.session.FLAM3H_MARKED_ITERATOR_NODE: Union[hou.SopNode, None] = self.node # type: ignore
                 self.iterator_mpidx_mem_set(node, id)
                 self.del_comment_and_user_data_iterator(node)
                 self.set_comment_and_user_data_iterator(node, str(id))
@@ -6557,8 +6560,8 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                 
         else:
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = id # type: ignore
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE = self.node # type: ignore
+            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = id # type: ignore
+            hou.session.FLAM3H_MARKED_ITERATOR_NODE: Union[hou.SopNode, None] = self.node # type: ignore
             self.iterator_mpidx_mem_set(node, id)
             self.del_comment_and_user_data_iterator(node)
             self.set_comment_and_user_data_iterator(node, str(id))
@@ -6609,7 +6612,7 @@ class flam3h_iterator_utils
                 self.prm_paste_CTRL(id)
         
         else:
-            if self.exist_user_data(node) and int(self.get_user_data(node))==id and id==hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node==hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
+            if self.exist_user_data(node) and int(self.get_user_data(node)) == id and id == hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node == hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
                 with hou.undos.group(f"FLAM3H unmark iterator CLICK {id}"): # type: ignore
                     self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
                     self.prm_paste_SHIFT(id)
@@ -6674,8 +6677,8 @@ class flam3h_iterator_utils
             if node == from_FLAM3H_NODE:
                 assert from_FLAM3H_NODE is not None
                 _MSG = f"{node.name()}: FF UNMARKED: {from_FLAM3H_NODE.name()}.FF" # type: ignore
-                hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
-                hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
+                hou.session.FLAM3H_MARKED_FF_CHECK: Union[int, None] = None # type: ignore
+                hou.session.FLAM3H_MARKED_FF_NODE: Union[hou.SopNode, None] = node # type: ignore
                 
                 self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
                 
@@ -6720,8 +6723,8 @@ class flam3h_iterator_utils
                 
                 self.del_comment_and_user_data_iterator(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF)
                 
-            hou.session.FLAM3H_MARKED_FF_CHECK = 1 # type: ignore
-            hou.session.FLAM3H_MARKED_FF_NODE = self.node # type: ignore
+            hou.session.FLAM3H_MARKED_FF_CHECK: Union[int, None] = 1 # type: ignore
+            hou.session.FLAM3H_MARKED_FF_NODE: Union[hou.SopNode, None] = self.node # type: ignore
             
             self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
             self.set_comment_and_user_data_iterator(node, "Yes", FLAM3H_USER_DATA_FF)
@@ -6761,7 +6764,7 @@ class flam3h_iterator_utils
                 self.prm_paste_FF_CTRL()
         
         else:
-            if self.exist_user_data(node, FLAM3H_USER_DATA_FF) and hou.session.FLAM3H_MARKED_FF_CHECK is not None and node==hou.session.FLAM3H_MARKED_FF_NODE: # type: ignore
+            if self.exist_user_data(node, FLAM3H_USER_DATA_FF) and hou.session.FLAM3H_MARKED_FF_CHECK is not None and node == hou.session.FLAM3H_MARKED_FF_NODE: # type: ignore
                 with hou.undos.group(f"FLAM3H unmark FF CLICK"): # type: ignore
                     self.prm_paste_FF_SHIFT()
             else:
@@ -6801,7 +6804,7 @@ class flam3h_iterator_utils
         node = self.node
         
         # Marked iterator ( not needed but just in case lets "try" so to speak )
-        try: mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+        try: mp_id_from: Union[int, None] = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
         except: mp_id_from = None
 
         if mp_id_from is not None:
@@ -6815,10 +6818,11 @@ class flam3h_iterator_utils
             n = flam3h_iterator_prm_names()
 
             # Marked iterator node
-            from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+            from_FLAM3H_NODE: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+            assert isinstance(from_FLAM3H_NODE, hou.SopNode)
             
             # Get user selection of paste methods
-            paste_sel = node.parm(f"{n.main_prmpastesel}_{idx}").eval()
+            paste_sel: int = node.parm(f"{n.main_prmpastesel}_{idx}").eval()
             node.setParms({f"{n.main_selmem}_{idx}": paste_sel})
 
             f3h_iter = flam3h_iterator()
@@ -7002,16 +7006,17 @@ class flam3h_iterator_utils
         node = self.node
 
         # Marked FF check ( not needed but just in case lets "try" so to speak )
-        try: from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
+        try: from_FLAM3H_NODE_FF_CHECK: Union[int, None] = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
         except: from_FLAM3H_NODE_FF_CHECK = None
             
         if from_FLAM3H_NODE_FF_CHECK is not None:
             
             # Marked FF node
-            from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+            from_FLAM3H_NODE: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+            assert isinstance(from_FLAM3H_NODE, hou.SopNode)
             
             # Get user selection of paste methods
-            paste_sel_FF = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names().main_prmpastesel}").eval()
+            paste_sel_FF: int = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names().main_prmpastesel}").eval()
             node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names().main_selmem}": paste_sel_FF})
             
             f3h_iter_FF = flam3h_iterator_FF()
@@ -7063,9 +7068,9 @@ class flam3h_iterator_utils
             (None):
         """
         node = self.node
-        autodiv = node.parm(PREFS_PVT_XAOS_AUTO_SPACE).eval()
-        div_xaos = 'xaos:'
-        div_weight = ':'
+        autodiv: int = node.parm(PREFS_PVT_XAOS_AUTO_SPACE).eval()
+        div_xaos: str = 'xaos:'
+        div_weight: str = ':'
         if autodiv:
             div_xaos = 'xaos :'
             div_weight = ' :'
@@ -7110,7 +7115,7 @@ class flam3h_iterator_utils
         idx = str(id)
         check = True
         
-        current = { "affine_x": node.parmTuple(f"{n.preaffine_x}_{idx}"), "affine_y": node.parmTuple(f"{n.preaffine_y}_{idx}"), "affine_o": node.parmTuple(f"{n.preaffine_o}_{idx}"), "angle": node.parm(f"{n.preaffine_ang}_{idx}") }
+        current: dict = { "affine_x": node.parmTuple(f"{n.preaffine_x}_{idx}"), "affine_y": node.parmTuple(f"{n.preaffine_y}_{idx}"), "affine_o": node.parmTuple(f"{n.preaffine_o}_{idx}"), "angle": node.parm(f"{n.preaffine_ang}_{idx}") }
         
         if self.kwargs["shift"]:
             current["affine_x"].deleteAllKeyframes()
@@ -7188,8 +7193,8 @@ class flam3h_iterator_utils
         
         if node.parm(f"{n.postaffine_do}_{idx}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
                 
-            check = True
-            current = { "affine_x": node.parmTuple(f"{n.postaffine_x}_{idx}"), "affine_y": node.parmTuple(f"{n.postaffine_y}_{idx}"), "affine_o": node.parmTuple(f"{n.postaffine_o}_{idx}"), "angle": node.parm(f"{n.postaffine_ang}_{idx}") }
+            check: bool = True
+            current: dict = { "affine_x": node.parmTuple(f"{n.postaffine_x}_{idx}"), "affine_y": node.parmTuple(f"{n.postaffine_y}_{idx}"), "affine_o": node.parmTuple(f"{n.postaffine_o}_{idx}"), "angle": node.parm(f"{n.postaffine_ang}_{idx}") }
             
             if self.kwargs["shift"]:
                 current["affine_x"].deleteAllKeyframes()
@@ -7263,9 +7268,9 @@ class flam3h_iterator_utils
         """
         node = self.node
         n = flam3h_iterator_prm_names()
-        check = True
+        check: bool = True
         
-        current = { "affine_x": node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_x}"), "affine_y": node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_y}"), "affine_o": node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_o}"), "angle": node.parm(f"{PRX_FF_PRM}{n.preaffine_ang}") }
+        current: dict = { "affine_x": node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_x}"), "affine_y": node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_y}"), "affine_o": node.parmTuple(f"{PRX_FF_PRM}{n.preaffine_o}"), "angle": node.parm(f"{PRX_FF_PRM}{n.preaffine_ang}") }
 
         if self.kwargs["shift"]:
             current["affine_x"].deleteAllKeyframes()
@@ -7341,8 +7346,8 @@ class flam3h_iterator_utils
         
         if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
                 
-            check = True
-            current = { "affine_x": node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_x}"), "affine_y": node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_y}"), "affine_o": node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_o}"), "angle": node.parm(f"{PRX_FF_PRM}{n.postaffine_ang}") }
+            check: bool = True
+            current: dict = { "affine_x": node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_x}"), "affine_y": node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_y}"), "affine_o": node.parmTuple(f"{PRX_FF_PRM}{n.postaffine_o}"), "angle": node.parm(f"{PRX_FF_PRM}{n.postaffine_ang}") }
             
             if self.kwargs["shift"]:
                 current["affine_x"].deleteAllKeyframes()
@@ -7613,7 +7618,7 @@ class flam3h_iterator_utils
         """
         node = self.node
         id: int = self.kwargs['script_multiparm_index']
-        idx = str(id)
+        idx: str = str(id)
         
         # prm names
         n = flam3h_iterator_prm_names_collections()
@@ -7799,13 +7804,13 @@ class flam3h_iterator_utils
             
             # NEED TO DOUBLE CHECK HERE
             # Update copy/paste iterator's index if there is a need to do so
-            flam3h_node_mp_id = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+            flam3h_node_mp_id: Union[int, None] = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
             
             if flam3h_node_mp_id is not None:
                 # Check if the node still exist
                 try:
                     hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                    flam3h_node = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                    flam3h_node: Union[hou.SopNode, Node] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                 except:
                     flam3h_node_mp_id = None
                     flam3h_node = None
@@ -7814,7 +7819,7 @@ class flam3h_iterator_utils
                 if flam3h_node_mp_id is not None and node == flam3h_node:
                         
                     if (idx_del_inbetween + 1) == flam3h_node_mp_id: # just in case..
-                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = None # type: ignore
                         # set
                         prm_mpidx.set(-1)
                         self.del_comment_and_user_data_iterator(node)
@@ -7828,7 +7833,7 @@ class flam3h_iterator_utils
             # XF VIZ
             if prm_xfviz.eval() and prm_xfviz_solo.eval():
                 
-                xf_viz_mp_idx = prm_xfviz_solo_mp_idx.eval()
+                xf_viz_mp_idx: int = prm_xfviz_solo_mp_idx.eval()
                 if (idx_del_inbetween + 1) == xf_viz_mp_idx:
                     prm_xfviz_solo.set(0)
                     self.destroy_userData(node, f"{data_name}")
@@ -7842,7 +7847,7 @@ class flam3h_iterator_utils
             # Clear menu cache
             self.destroy_cachedUserData(node, 'iter_sel')
 
-            xaos_str = xaos_str_hou_get
+            xaos_str: list = xaos_str_hou_get
             del xaos_str[idx_del_inbetween]
             for x in xaos_str:
                 del x[idx_del_inbetween]
@@ -7851,12 +7856,12 @@ class flam3h_iterator_utils
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
             
             # Update copy/paste iterator's index if there is a need to do so
-            flam3h_node_mp_id = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+            flam3h_node_mp_id: Union[int, None] = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
             if flam3h_node_mp_id is not None:
                 # Check if the node still exist
                 try:
                     hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                    flam3h_node = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                    flam3h_node: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                 except:
                     flam3h_node_mp_id = None
                     flam3h_node = None
@@ -7865,16 +7870,16 @@ class flam3h_iterator_utils
                 if flam3h_node_mp_id is not None and node == flam3h_node:
                         
                     if (idx_del_inbetween + 1) < flam3h_node_mp_id:
-                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id - 1 # type: ignore
+                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = flam3h_node_mp_id - 1 # type: ignore
                         # set
-                        idx_new = prm_mpidx.eval() - 1
+                        idx_new: int = prm_mpidx.eval() - 1
                         prm_mpidx.set(idx_new)
                         self.del_comment_and_user_data_iterator(node)
                         self.set_comment_and_user_data_iterator(node, str(idx_new))
 
                     elif (idx_del_inbetween + 1) == flam3h_node_mp_id:
                         
-                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = None # type: ignore
                         # set
                         prm_mpidx.set(-1)
                         self.del_comment_and_user_data_iterator(node)
@@ -7888,7 +7893,7 @@ class flam3h_iterator_utils
             # XF VIZ
             if prm_xfviz.eval() and prm_xfviz_solo.eval():
                 
-                xf_viz_mp_idx = prm_xfviz_solo_mp_idx.eval()
+                xf_viz_mp_idx: int = prm_xfviz_solo_mp_idx.eval()
                 if (idx_del_inbetween + 1) < xf_viz_mp_idx:
                     prm_xfviz_solo_mp_idx.set(xf_viz_mp_idx - 1)
                     node.setUserData(f"{data_name}", str(xf_viz_mp_idx - 1))
@@ -7916,13 +7921,13 @@ class flam3h_iterator_utils
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
             
             # Update copy/paste iterator's index if there is a need to do so
-            flam3h_node_mp_id = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+            flam3h_node_mp_id: Union[int, None] = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
             
             if flam3h_node_mp_id is not None:
                 # Check if the node still exist
                 try:
                     hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                    flam3h_node = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                    flam3h_node: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                 except:
                     flam3h_node_mp_id = None
                     flam3h_node = None
@@ -7931,7 +7936,7 @@ class flam3h_iterator_utils
                 if flam3h_node_mp_id is not None and node == flam3h_node:
                         
                     if (idx_add_inbetween + 1) <= flam3h_node_mp_id:
-                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = flam3h_node_mp_id + 1 # type: ignore
+                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = flam3h_node_mp_id + 1 # type: ignore
                         # set
                         idx_new = prm_mpidx.eval() + 1
                         prm_mpidx.set(idx_new)
@@ -8114,7 +8119,7 @@ class flam3h_iterator_utils
             (None):
         """
         id: int = self.kwargs['script_multiparm_index']
-        vactive_prm_name = f"vactive_{str(id)}"
+        vactive_prm_name: str = f"vactive_{str(id)}"
         flam3h_general_utils(self.kwargs).flam3h_toggle(vactive_prm_name)
         self.__iterator_keep_last_vactive()
 
@@ -8153,7 +8158,7 @@ class flam3h_iterator_utils
                             if node.parm(f"vactive_{str(mp_idx + 1)}").eval()]
         
         if len(W) == len(vactive_iters):
-            min_weight = 0.00000001
+            min_weight: float = 0.00000001
             id: int = self.kwargs['script_multiparm_index']
             node.setParms({f"iw_{str(id)}": min_weight})
             _MSG = f"{node.name()}: iterator {str(id)}'s Weight reverted back to a value of: {min_weight} instead of Zero. There must always be at least one active iterator's weight above Zero."
@@ -8268,9 +8273,9 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        cp_def_bases = [hou.rampBasis.Linear] * 4 # type: ignore
-        cp_def_keys = [0.0, 0.25, 0.5, 0.75, 1.0]
-        cp_def_values = [(0.2, 0.05, 1), (0.1, 0.85 , 1), (0.05, 1, 0.1), (0.95, 1, 0.1), (1, 0.05, 0.05)]
+        cp_def_bases: list = [hou.rampBasis.Linear] * 4 # type: ignore
+        cp_def_keys: list = [0.0, 0.25, 0.5, 0.75, 1.0]
+        cp_def_values: list[tuple] = [(0.2, 0.05, 1), (0.1, 0.85 , 1), (0.05, 1, 0.1), (0.95, 1, 0.1), (1, 0.05, 0.05)]
         ramp_parm.set(hou.Ramp(cp_def_bases, cp_def_keys, cp_def_values)) # type: ignore
         
         
@@ -8284,9 +8289,9 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        cp_tmp_bases = [hou.rampBasis.Linear] * 2  # type: ignore
-        cp_tmp_keys = [0.0, 1.0]
-        cp_tmp_values = [(0.9989989989989989987654, 0, 0), (0.9989989989989989987654, 0 , 0)]
+        cp_tmp_bases: list = [hou.rampBasis.Linear] * 2  # type: ignore
+        cp_tmp_keys: list = [0.0, 1.0]
+        cp_tmp_values: list[tuple] = [(0.9989989989989989987654, 0, 0), (0.9989989989989989987654, 0 , 0)]
         ramp_tmp_parm.set(hou.Ramp(cp_tmp_bases, cp_tmp_keys, cp_tmp_values)) # type: ignore
         
         
@@ -8313,7 +8318,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        posList = ramp_parm.evalAsRamp().keys()
+        posList: KeysView = ramp_parm.evalAsRamp().keys()
         [hou.parm(f"{ramp_parm.path()}{str(i + 1)}pos").deleteAllKeyframes() for i in range(0, len(posList))]
         [hou.parmTuple(f"{ramp_parm.path()}{str(i + 1)}c").deleteAllKeyframes() for i in range(0, len(posList))]
 
@@ -8333,7 +8338,7 @@ class flam3h_palette_utils
         Returns:
             (str): a palette colors/keys count string preset.
         """
-        keys_count = len(ramp.keys())
+        keys_count: int = len(ramp.keys())
         if keys_count <= 128:
             return PALETTE_COUNT_128
         elif keys_count <= 256:
@@ -8358,7 +8363,7 @@ class flam3h_palette_utils
         """
         try:
             with open(filepath, 'r') as r:
-                preset_name = list(json.load(r).keys())[0]
+                preset_name: str = list(json.load(r).keys())[0]
             return preset_name
         except: return False
 
@@ -8378,13 +8383,13 @@ class flam3h_palette_utils
         """      
         if filepath is not False:
             
-            preset = flam3h_palette_utils.isJSON_F3H_get_first_preset(filepath)
+            preset: Union[str, bool] = flam3h_palette_utils.isJSON_F3H_get_first_preset(filepath)
             if preset is not False:
                 
                 # If we made it this far, mean we loaded a valid JSON file,
                 # lets now check if the preset is actually a F3H Palette preset.
                 with open(filepath, 'r') as r:
-                    data = json.load(r)[preset]
+                    data: dict = json.load(r)[preset]
                     
                 # This is the moment of the truth ;)
                 try: hex_values = data[CP_JSON_KEY_NAME_HEX]
@@ -8449,7 +8454,7 @@ class flam3h_palette_utils
         Returns:
             (str): HEX color value
         """
-        hex = ''.join(['{:02X}'.format(int(round(x))) for x in [flam3h_general_utils.clamp(255*x) for x in rgb]])
+        hex: str = ''.join(['{:02X}'.format(int(round(x))) for x in [flam3h_general_utils.clamp(255*x) for x in rgb]])
         return hex
 
 
@@ -8477,7 +8482,7 @@ class flam3h_palette_utils
         Returns:
             (Union[int, float]): the closest value in the array that is bigger than the value passed in. Can be either an integer or a float
         """   
-        idx = np_searchsorted(array, value, side="left")
+        idx: int = np_searchsorted(array, value, side="left")
         return array[idx]
     
     
@@ -8540,7 +8545,7 @@ class flam3h_palette_utils
             (None):
         """  
         
-        palette_msg = node.parm(MSG_PALETTE).eval()
+        palette_msg: str = node.parm(MSG_PALETTE).eval()
         if PALETTE_PLUS_MSG in palette_msg:
             node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {_MSG.strip()}"}) # type: ignore
         else:
@@ -8560,10 +8565,10 @@ class flam3h_palette_utils
         
         # get current preset name
         if node.parm(CP_PVT_ISVALID_PRESET).eval():
-            preset_id = int(node.parm(CP_PALETTE_PRESETS).eval())
+            preset_id: int = int(node.parm(CP_PALETTE_PRESETS).eval())
             menu_label: str = str(node.parm(CP_PALETTE_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD)[-1].strip()
         else:
-            preset_id = int(node.parm(CP_PALETTE_PRESETS_OFF).eval())
+            preset_id: int = int(node.parm(CP_PALETTE_PRESETS_OFF).eval())
             menu_label: str = str(node.parm(CP_PALETTE_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY)[-1].strip()
         
         # Remove the enumeration menu index string from the preset name.
@@ -8617,7 +8622,7 @@ class flam3h_palette_utils
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
-            enum_label = str(i + 1) # start count from 1
+            enum_label: str = str(i + 1) # start count from 1
             
             # ICON tag
             if i == int(node.parm(CP_PALETTE_PRESETS).eval()):
@@ -8707,8 +8712,8 @@ class flam3h_palette_utils
             (None):
         """
         node = self.node
-        preset_name = node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()
-        preset_name_checked = out_flame_utils.out_auto_add_iter_num(0, preset_name, 1, False)
+        preset_name: str = node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()
+        preset_name_checked: str = out_flame_utils.out_auto_add_iter_num(0, preset_name, 1, False)
         node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset_name_checked})
 
 
@@ -8726,20 +8731,20 @@ class flam3h_palette_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            filepath = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+            filepath: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
             
             if os.path.exists(filepath) and node.parm(CP_PVT_ISVALID_FILE).eval() and self.node.parm(CP_PVT_ISVALID_PRESET).eval():
                     
                 with open(filepath) as f:
                     menuitems = json.load(f).keys()
                     
-                menu=[]
+                menu: list = []
                 [self.menu_cp_presets_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_cp_presets_loop(node, menu, i, item) for i, item in enumerate(menuitems)]
                 node.setCachedUserData('cp_presets_menu', menu)
                 return menu
             
             flam3h_iterator_utils.destroy_cachedUserData(node, 'cp_presets_menu')
-            head_tail = os.path.split(filepath)
+            head_tail: tuple = os.path.split(filepath)
             if filepath and os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
                 return MENU_PRESETS_SAVEONE
             elif filepath and not os.path.isfile(filepath):
@@ -8800,20 +8805,20 @@ class flam3h_palette_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            filepath = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).eval())
+            filepath: str = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).eval())
 
             if self.isJSON_F3H(node, filepath, False)[-1] and node.parm(CP_PVT_ISVALID_FILE).eval() and not node.parm(CP_PVT_ISVALID_PRESET).eval():
                     
                 with open(filepath) as f:
                     menuitems = json.load(f).keys()
                     
-                menu=[]
+                menu: list = []
                 [self.menu_cp_presets_empty_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_cp_presets_empty_loop(node, menu, i, item) for i, item in enumerate(menuitems)]
                 node.setCachedUserData('cp_presets_menu_off', menu)
                 return menu
                 
             flam3h_iterator_utils.destroy_cachedUserData(node, 'cp_presets_menu_off')
-            head_tail = os.path.split(filepath)
+            head_tail: tuple = os.path.split(filepath)
             if filepath and os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
                 return MENU_PRESETS_SAVEONE
             if filepath and not os.path.isfile(filepath):
@@ -8875,7 +8880,7 @@ class flam3h_palette_utils
         # Update HSV ramp before getting it
         self.palette_cp()
 
-        hsv_vals = []
+        hsv_vals: Union[list, str] = []
         hsv_vals_prm = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
         if node.parm(CP_RAMP_SAVE_HSV).eval():
             palette = node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
@@ -8883,15 +8888,15 @@ class flam3h_palette_utils
         else:
             palette =  node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
             
-        keys_count = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(palette.keys()), 1, False)
-        POSs = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
-        HEXs = [self.rgb_to_hex(palette.lookup(p)) for p in POSs]
+        keys_count: str = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(palette.keys()), 1, False)
+        POSs: list = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
+        HEXs: list = [self.rgb_to_hex(palette.lookup(p)) for p in POSs]
         
         if hsv_vals_prm[0] == hsv_vals_prm[1] == hsv_vals_prm[2] == 1:
-            json_dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs),  } }
+            json_dict: dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs),  } }
         else:
             hsv_vals = ' '.join([str(x) for x in hsv_vals_prm])
-            json_dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs), CP_JSON_KEY_NAME_HSV: hsv_vals} }
+            json_dict: dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs), CP_JSON_KEY_NAME_HSV: hsv_vals} }
             
         # OUTPUT DATA
         return json_dict, json.dumps(json_dict, indent=4)
@@ -8918,6 +8923,7 @@ class flam3h_palette_utils
         
         # ALT - Copy palette to the clipboard
         if self.kwargs['alt']:
+            
             json_dict, json_data = self.flam3h_ramp_save_JSON_DATA()
             hou.ui.copyTextToClipboard(json_data) # type: ignore
             # Clear up palette preset name if any
@@ -8954,7 +8960,7 @@ class flam3h_palette_utils
                         flam3h_general_utils.set_status_msg('', 'MSG')
                         
                     else:
-                        _isNEW = False
+                        _isNEW: bool = False
                         # F3H palette json file checks
                         json_file, f3h_json_file = self.isJSON_F3H(node, out_path_checked, False)
                         
@@ -8984,9 +8990,10 @@ class flam3h_palette_utils
                                 with open(out_path_checked,'r') as r:
                                     prevdata = json.load(r)
                                     
-                                newdata = json_dict
+                                newdata: dict = json_dict
                                 prevdata.update(newdata)
-                                data = json.dumps(prevdata, indent = 4)
+                                data: Union[dict, str] = json.dumps(prevdata, indent = 4)
+                                assert isinstance(data, str)
                                 with open(out_path_checked, 'w') as w:
                                     w.write(data)
                                     
@@ -9007,11 +9014,13 @@ class flam3h_palette_utils
                         # We do this again so we can read the newly created file if any 
                         json_file, f3h_json_file = self.isJSON_F3H(node, out_path_checked, False)
                         if json_file and f3h_json_file:
+                            
                             # Set some parameters
                             with open(out_path_checked) as f:
-                                data = json.load(f)
-                                
+                                data: Union[dict, str] = json.load(f)
+                            
                             # Set all CP preset menus parameter index
+                            assert isinstance(data, dict)
                             [prm.set(str(len(data.keys())-1)) for prm in (node.parm(CP_PALETTE_PRESETS), node.parm(CP_PALETTE_PRESETS_OFF), node.parm(CP_SYS_PALETTE_PRESETS), node.parm(CP_SYS_PALETTE_PRESETS_OFF))]
                             # Clearup the Palette name if any were given
                             node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
@@ -9077,8 +9086,8 @@ class flam3h_palette_utils
         if rgb_from_XML_PALETTE:
             
             try:
-                POSs = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
-                BASEs = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
+                POSs: list = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
+                BASEs: list = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
             except:
                 # If something goes wrong...set one RED key only
                 BASEs, POSs, rgb_from_XML_PALETTE = self.build_ramp_palette_error()
@@ -9139,14 +9148,14 @@ class flam3h_palette_utils
                 
                 # 'hsv_check' is for backward compatibility
                 with open(filepath, 'r') as r:
-                    data = json.load(r)[preset]
+                    data: dict = json.load(r)[preset]
                     
                 try:
                     hsv_vals: list = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
-                    hsv_check = True
+                    hsv_check: bool = True
                 except:
-                    hsv_vals = []
-                    hsv_check = False
+                    hsv_vals: list = []
+                    hsv_check: bool = False
                 
                 # Get usable color values
                 HEXs: list = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
@@ -9273,31 +9282,35 @@ class flam3h_palette_utils
             elif self.kwargs['alt']:
                 
                 palette: str = hou.ui.getTextFromClipboard() # type: ignore
-                try: data = json.loads(palette)
-                except: data = None
+                try:
+                    data: Union[dict, None] = json.loads(palette)
+                except:
+                    data: Union[dict, None] = None
                 
                 # If it is a valid json data
                 if data is not None:
                     
                     try:
-                        preset = list(data.keys())[0]
+                        preset: Union[str, None] = list(data.keys())[0]
                         del data
-                    except: preset = None
+                    except: preset: Union[str, None] = None
                         
                     if preset is not None:
                         
-                        data = json.loads(palette)[preset]
+                        data: Union[dict, None] = json.loads(palette)[preset]
                         try:
+                            assert data is not None
                             # Check if it is a valid FLAM3H JSON data. This is the moment of the truth ;)
-                            hex_values = data[CP_JSON_KEY_NAME_HEX]
-                            isJSON_F3H = True
+                            hex_values: str = data[CP_JSON_KEY_NAME_HEX]
+                            isJSON_F3H: bool = True
                         except:
-                            isJSON_F3H = False
+                            isJSON_F3H: bool = False
                             _MSG = f"{node.name()}: PALETTE JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                             
                         # If it is a valid FLAM3H Palette JSON data
                         if isJSON_F3H:
+                            assert data is not None
                             
                             # get ramps parm
                             rmp_src = node.parm(CP_RAMP_SRC_NAME)
@@ -9305,10 +9318,10 @@ class flam3h_palette_utils
 
                             try:
                                 hsv_vals: list = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
-                                hsv_check = True
+                                hsv_check: bool = True
                             except:
-                                hsv_vals = []
-                                hsv_check = False
+                                hsv_vals: list = []
+                                hsv_check: bool = False
                             
                             # Get usable color values
                             HEXs: list = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
@@ -14553,22 +14566,22 @@ class in_flame_utils
         flam3h_iterator_utils.flam3h_init_hou_session_ff_data(node)
         
         # Reset iterator user data if needed
-        from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+        from_FLAM3H_NODE: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
         if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
             if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE):
                 flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
-                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = None # type: ignore
+                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = None # type: ignore
         
         # Reset mp idx flam3h mem parameter
         if node.parm(FLAM3H_DATA_PRM_MPIDX).eval() != 0:
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
         
         # Reset FF user data if needed
-        from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+        from_FLAM3H_NODE: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
         if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
             if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF):
                 flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF)
-                hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
+                hou.session.FLAM3H_MARKED_FF_CHECK: Union[int, None] = None # type: ignore
 
 
     def in_to_flam3h_reset_iterators_parms(self, node: hou.SopNode, in_flame_iter_count: int) -> None:

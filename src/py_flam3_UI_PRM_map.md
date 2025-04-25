@@ -38,26 +38,26 @@ from datetime import datetime
 FLAM3H_VERSION = '1.8.10 - Production'
 
 def flam3h_first_time() -> None:
-    hou_version = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
+    hou_version: int = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
     if hou_version < 19:
         hou.ui.displayMessage("Sorry, you need Houdini 19 or higher to run FLAM3H", buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
 
 def flam3h_sys_updated_mode() -> None:
-    current = hou.updateModeSetting()
-    hou.session.FLAM3H_SYS_UPDATE_MODE = current
+    current: hou.EnumValue = hou.updateModeSetting()
+    hou.session.FLAM3H_SYS_UPDATE_MODE: hou.EnumValue = current
 
 def flam3h_compile_first_time_msg() -> None:
-    now = datetime.now().strftime("%b-%d-%Y_%H:%M:%S")
+    now: str = datetime.now().strftime("%b-%d-%Y_%H:%M:%S")
     try:
         hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
-        first_instance_32bit = False
+        first_instance_32bit: bool = False
     except:
-        first_instance_32bit = True
+        first_instance_32bit: bool = True
     try:
         hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
-        first_instance_64bit = False
+        first_instance_64bit: bool = False
     except:
-        first_instance_64bit = True
+        first_instance_64bit: bool = True
 
     if first_instance_32bit:
         _MSG_INFO = f"\n-> {now}\nFLAM3H version: {FLAM3H_VERSION}\nThe CVEX nodes need to cook once to compile their definitions.\n\nDepending on your PC configuration it can take up to 1(one) minute.\nIt is a one time compile process.\n"
@@ -66,10 +66,11 @@ def flam3h_compile_first_time_msg() -> None:
         
     # we skip 64bit check for now as FLAM3H should always be at 32bit to start with.
 
-
 flam3h_first_time()
 flam3h_sys_updated_mode()
 flam3h_compile_first_time_msg()
+
+
 ```
 
 Inside: **OTL**->**type_properties**->**Scripts**->**OnCreated**:
