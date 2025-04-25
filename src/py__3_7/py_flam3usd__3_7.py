@@ -12,7 +12,6 @@ from datetime import datetime
 from typing import Union
 
 
-
 #   Tested on:  PYTHON v3.7.13  (H19)
 #               PYTHON v3.9.10  (H19.5)
 #               PYTHON v3.10.10 (H20)
@@ -30,7 +29,6 @@ from typing import Union
 #               This is basic and its the start of something.
 #               
 #               This code will be turned into a module from within Houdini.
-
 
 
 '''
@@ -63,7 +61,6 @@ PREFS_KARMA_F3H_SHADER_VALUE = 'f3h_hsv_v'
 PREFS_PVT_FLAM3HUSD_DATA_DISABLED = 'disabled'
 PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID = 'f3h_valid'
 PREFS_PVT_FLAM3HUSD_DATA_H190 = 'h_19_0'
-
 
 # Messages
 MSG_FLAM3HUSDABOUT = 'flam3husdabout_msg'
@@ -120,10 +117,6 @@ class flam3husd_scripts
         self._node = kwargs['node']
 
 
-
-
-
-
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -135,7 +128,6 @@ class flam3husd_scripts
     @property
     def node(self):
         return self._node
-
 
 
     def flam3husd_is_valid_flam3h_node(self) -> None:
@@ -158,9 +150,6 @@ class flam3husd_scripts
             flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
         
 
-    
-    
-    
     def flam3husd_h190_check(self) -> None:
         """Karma CPU has a bug in Houdini version 19.0.x and it crashes if it find a null primitive.
         Since the xform handls viz may generate one, this is used to hide the UI Karma handles import tab.
@@ -177,7 +166,6 @@ class flam3husd_scripts
             flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 1)
         else:
             flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 0)
-    
     
     
     def flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float = 1) -> None:
@@ -247,8 +235,6 @@ class flam3husd_scripts
                     node.setParms({PREFS_VIEWPORT_PT_SIZE: default_value_pt})
 
 
-
-
     def flam3husd_on_create(self) -> None:
         """Initialize FLAM3HUSD node on creation and all the data it need to run.
         
@@ -276,7 +262,6 @@ class flam3husd_scripts
         self.node.parm(PREFS_PVT_FLAM3HUSD_DATA_DISABLED).lock(True)
         
         
-        
     def flam3husd_on_loaded(self) -> None:
         """Initialize FLAM3HUSD node on creation and all the data it need to run.
         For now the same as the on_create script, will see later on how this will evolve.
@@ -300,8 +285,6 @@ class flam3husd_scripts
         # Lock utility parameters
         self.node.parm(PREFS_PVT_FLAM3HUSD_DATA_DISABLED).lock(True)
         
-
-
 
     def autoSetRenderer_on_create(self) -> None:
         """This need more work to make it smarter...its a start
@@ -362,9 +345,7 @@ class flam3husd_scripts
                             
                         else: pass
                         
-                        
-                        
-    # Wip
+    
     def flam3husd_on_deleted(self) -> None:
         """Cleanup the data on deletion.
         
@@ -382,12 +363,6 @@ class flam3husd_scripts
             # Delete the Houdini update mode data if needed
             try: del hou.session.HUSD_CS_STASH_DICT # type: ignore
             except: pass
-
-
-
-
-
-
 
 
 # FLAM3HUSD GENERAL UTILS start here
@@ -455,8 +430,6 @@ class flam3husd_general_utils
         return var_name
 
 
-
-
     @staticmethod
     def set_private_prm(node: hou.SopNode, prm_name: str, data: Union[str, int, float]) -> None:
         """Set a parameter value while making sure to unlock and lock it right after.
@@ -477,7 +450,6 @@ class flam3husd_general_utils
         prm.lock(True)
 
 
-
     @staticmethod
     def karma_hydra_renderer_name() -> str:
         """Return the internal hydra renderer name for Karma.
@@ -491,7 +463,6 @@ class flam3husd_general_utils
         karma_name = 'Karma CPU'
         if flam3husd_general_utils.houdini_version() < 20: karma_name = 'Karma'
         return karma_name
-
 
 
     @staticmethod
@@ -512,8 +483,6 @@ class flam3husd_general_utils
         return _RND_idx
 
 
-
-
     @staticmethod
     def houdini_version(digit: int=1) -> int:
         """Retrieve the major Houdini version number currently in use.
@@ -525,7 +494,6 @@ class flam3husd_general_utils
             (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
         """ 
         return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
-
 
 
     @staticmethod
@@ -540,7 +508,6 @@ class flam3husd_general_utils
         """    
         views = hou.ui.paneTabs() # type: ignore
         return [v for v in views if isinstance(v, hou.SceneViewer)]
-    
     
     
     @staticmethod
@@ -559,7 +526,6 @@ class flam3husd_general_utils
         context_now: hou.NodeTypeCategory = hou.ui.findPaneTab(viewport.name()).pwd().childTypeCategory() # type: ignore
         if str(context_now.name()).lower() == context.lower(): return True
         else: return False
-
 
 
     @staticmethod
@@ -599,8 +565,6 @@ class flam3husd_general_utils
             [ne.flashMessage(img, msg, timer) for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]] # type: ignore
 
         
-        
-        
     @staticmethod
     def set_status_msg(msg: str, type: str) -> None:
         """Print a message to the Houdini's status bar if the UI is available.
@@ -617,7 +581,6 @@ class flam3husd_general_utils
             st = { 'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning }  # type: ignore
             hou.ui.setStatusMessage(msg, st.get(type)) # type: ignore
         
-
 
     @staticmethod
     def util_store_all_viewers_color_scheme_onCreate() -> None:
@@ -667,11 +630,6 @@ class flam3husd_general_utils
                 hou.session.HUSD_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = new # type: ignore
 
 
-
-
-
-
-
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -683,8 +641,6 @@ class flam3husd_general_utils
     @property
     def node(self):
         return self._node
-
-
 
 
     def util_store_all_viewers_color_scheme(self) -> None:
@@ -718,8 +674,6 @@ class flam3husd_general_utils
             
             # Always store and update this data
             hou.session.HUSD_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
-
-
 
 
     def colorSchemeDark(self, update_others: bool = True) -> None:
@@ -778,7 +732,6 @@ class flam3husd_general_utils
                         self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer to either set to Dark or restore.", 'WARN')
                         self.flash_message(f"{_MSG}")
                     
-                    
             else:
                 
                 try: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = hou.session.HUSD_CS_STASH_DICT # type: ignore
@@ -833,8 +786,6 @@ class flam3husd_general_utils
                 [f3h.setParms({PREFS_VIEWPORT_DARK: prm.eval()}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_DARK).eval() != prm.eval()]
 
 
-
-
     def viewportParticleDisplay(self) -> None:
         """Switch viewport particle display mode
         between Pixel and Points.
@@ -872,9 +823,7 @@ class flam3husd_general_utils
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
             self.flash_message(f"{_MSG}")
 
-            
-            
-            
+    
     def viewportParticleSize(self, reset_val: Union[float, None] = None, prm_name_size: str = PREFS_VIEWPORT_PT_SIZE) -> None:
         """When the viewport particle display type is set to Point
         this will change their viewport size.
@@ -918,8 +867,6 @@ class flam3husd_general_utils
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
             self.flash_message(f"{_MSG}")
             
-
-
 
     def setHydraRenderer(self) -> None:
         """Set the selected hydre renderer in the availables Lop viewers.
@@ -969,8 +916,6 @@ class flam3husd_general_utils
             self.flash_message(f"{_MSG}")
                         
                     
-                    
-                    
     def reset_flam3h_shader(self) -> None:
         """Reset the OUT Render settings parameters tab.
         
@@ -992,7 +937,6 @@ class flam3husd_general_utils
         [node.setParms({key: value}) for key, value in prms_f3h_shader_data.items()]
         
         
-        
     def flam3husd_display_help(self) -> None:
         """Open the Houdini help browser to display the FLAM3HUSD node documentation.
 
@@ -1003,12 +947,6 @@ class flam3husd_general_utils
             (None):
         """
         hou.ui.displayNodeHelp(self.node.type()) # type: ignore
-
-
-
-
-
-
 
 
 # FLAM3HUSD ABOUT start here
@@ -1046,8 +984,6 @@ class flam3husd_about_utils
         self._node = kwargs['node']
 
 
-
-
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -1059,8 +995,6 @@ class flam3husd_about_utils
     @property
     def node(self):
         return self._node
-
-
 
 
     def flam3husd_about_msg(self):

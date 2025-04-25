@@ -36,7 +36,6 @@ from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 
 
-
 #   Tested on:  PYTHON v3.7.13  (H19)
 #               PYTHON v3.9.10  (H19.5)
 #               PYTHON v3.10.10 (H20)
@@ -82,7 +81,6 @@ from inspect import cleandoc as i_cleandoc
 #
 
 
-
 '''
 LIST OF CLASSES:
 
@@ -115,7 +113,6 @@ LIST OF CLASSES:
         - Global variables are all upper cases. Every upper case variable's name created inside any definition always start with an underscore (_)
 
 '''
-
 
 
 CHARACTERS_ALLOWED = "_-().:"
@@ -345,7 +342,6 @@ CP_JSON_KEY_NAME_HSV = 'f3h_hsv'
 FLAM3H_FLASH_MESSAGE_TIMER: float = 2
 
 
-
 class flam3h_iterator_prm_names:
 
     '''
@@ -449,7 +445,6 @@ class flam3h_iterator_prm_names:
         self.postaffine_ang: str = 'pang'
     
     
-    
 class flam3h_iterator_prm_names_collections(flam3h_iterator_prm_names):
     """
     Args:
@@ -492,7 +487,6 @@ class flam3h_iterator_prm_names_collections(flam3h_iterator_prm_names):
         self._prm_parametrics: tuple = ("rings2val", "radialblur", "bipolarshift", "cellsize", "escherbeta", "popcorn2c", "fluxspread")
         
     
-    
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -528,8 +522,6 @@ class flam3h_iterator_prm_names_collections(flam3h_iterator_prm_names):
     @property
     def prm_parametrics(self):
         return self._prm_parametrics
-
-
 
 
 class flam3h_varsPRM:
@@ -779,7 +771,6 @@ class flam3h_varsPRM
         return dict(zip(keys, values))
 
 
-
 class flam3h_iterator(flam3h_iterator_prm_names):
     """
     Args:
@@ -877,7 +868,6 @@ class flam3h_iterator(flam3h_iterator_prm_names):
     @property
     def allMisc(self):
         return self._allMisc
-
 
 
 class flam3h_varsPRM_FF(flam3h_varsPRM):
@@ -1065,7 +1055,6 @@ class flam3h_iterator_FF(flam3h_iterator_prm_names):
         self._allMisc_FF: tuple = self._sec_varsW_FF + self._sec_prevarsW_FF + self._sec_postvarsW_FF + self._sec_preAffine_FF + self._sec_postAffine_FF
 
 
-
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -1105,8 +1094,6 @@ class flam3h_iterator_FF(flam3h_iterator_prm_names):
     @property
     def allMisc_FF(self):
         return self._allMisc_FF
-
-
 
 
 # FLAM3H SCRIPTS start here
@@ -1159,7 +1146,6 @@ class flam3h_scripts
         self._node = kwargs['node']
 
 
-
     @staticmethod
     def flam3h_on_create_lock_parms(node: hou.SopNode) -> None:
         """lock private parameters not being locked on creation by other definitions.
@@ -1198,8 +1184,6 @@ class flam3h_scripts
                                      )
         
         [node.parm(prm_name).lock(True) for prm_name in disabler_prm_names]
-
-
 
 
     @staticmethod
@@ -1303,7 +1287,6 @@ class flam3h_scripts
             hou.session.FLAM3H_FIRST_INSTANCE_64BIT = False # type: ignore
 
 
-
     @staticmethod
     def is_post_affine_default_on_loaded(node: hou.SopNode) -> None:
         """Turn iterators/FF post affine OFF if they are active and default values.
@@ -1330,7 +1313,6 @@ class flam3h_scripts
             node.setParms({f"{prm_list_post_affine_FF[0][0]}": 0}) # type: ignore
 
 
-
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -1342,8 +1324,6 @@ class flam3h_scripts
     @property
     def node(self):
         return self._node
-
-
 
 
     def flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG: bool = True) -> None:
@@ -1413,7 +1393,6 @@ class flam3h_scripts
             self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
 
 
-
     def flam3h_check_first_node_instance_prefs_cvex_precision_msg(self) -> None:
         """When changing CVEX precison modes in the preference's tab,
         this definition will let the user node of the compilie time if a mode is selected for the first time in the current houdini's session.
@@ -1481,7 +1460,6 @@ class flam3h_scripts
                 flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
 
 
-
     def flam3h_on_create_set_houdini_session_data(self) -> None:
         """Initialize the necessary data for the copy/paste iterator and FF methods on creation.
         
@@ -1520,7 +1498,6 @@ class flam3h_scripts
             # Lets initialize back to himself.
             if len(node_instances) == 1:
                 hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
-
 
 
     def flam3h_on_create_set_prefs_viewport(self, default_value_pt: float = 1, default_value_ww: float = 3) -> None:
@@ -1611,7 +1588,6 @@ class flam3h_scripts
                     
                     if size != default_value_ww:
                         node.setParms({PREFS_VIEWPORT_WIRE_WIDTH: size})
-        
     
     
     def flam3h_on_create_init_viewportWireWidth(self) -> None:
@@ -1630,7 +1606,6 @@ class flam3h_scripts
         else:
             try: w = hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
             except: hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH = 3 # type: ignore
-    
     
     
     def flam3h_presets_cache_filepath_on_load(self) -> None:
@@ -1668,8 +1643,6 @@ class flam3h_scripts
             if xml_checked is not False and os.path.isfile(xml_checked): node.setCachedUserData('out_presets_filepath', xml_checked)
 
 
-
- 
     def flam3h_on_create(self) -> None:
         """Initialize FLAM3H node on creation and all the data it need to run.
         
@@ -1713,7 +1686,6 @@ class flam3h_scripts
         self.flam3h_on_create_lock_parms(node)
 
 
-
     # def flam3h_on_loaded_set_density_menu(self) -> None:
     #     """This is for backward compatibility when the point count parameter was still exposed.
     #     It will set the density presets menu to the closest point count value
@@ -1732,7 +1704,6 @@ class flam3h_scripts
     #     density_new = min(density_values.keys(), key=lambda x:abs(x-density))
     #     node.setParms({GLB_DENSITY_PRESETS: density_values.get(density_new)})
     #     node.setParms({GLB_DENSITY: density_new})
-
 
 
     def flam3h_on_loaded(self) -> None:
@@ -1860,7 +1831,6 @@ class flam3h_scripts
                 flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
 
 
-    # Wip
     def flam3h_on_deleted(self) -> None:
         """Cleanup the data on deletion.
         
@@ -1931,12 +1901,6 @@ class flam3h_scripts
                     _MSG = f"The FLAM3H node you just deleted had its FF marked for being copied. Please, mark a FF first to copy parameters from."
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
                     flam3h_general_utils.flash_message(node, f"FF marked node: DELETED")
-
-
-
-
-
-
 
 
 # FLAM3H GENERAL UTILS start here
@@ -2031,7 +1995,6 @@ class flam3h_general_utils
         self._bbox_reframe_path: Union[str, None] = self.get_node_path(OUT_BBOX_NODE_NAME_REFRAME)
 
 
-
     @staticmethod
     def private_prm_set(node: hou.SopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
         """Set a parameter value while making sure to unlock and lock it right after.
@@ -2051,7 +2014,6 @@ class flam3h_general_utils
         prm.lock(False)
         prm.set(data) # type: ignore
         prm.lock(True)
-        
         
         
     @staticmethod
@@ -2074,7 +2036,6 @@ class flam3h_general_utils
         prm.lock(True)
 
 
-
     @staticmethod
     def flash_message(node: hou.SopNode, msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None] = None) -> None:
         """Cause a message to appear on the top left of the network editor.
@@ -2092,7 +2053,6 @@ class flam3h_general_utils
         if hou.isUIAvailable() and node.parm(PREFS_FLASH_MSG).eval():
             [ne.flashMessage(img, msg, timer) for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]] # type: ignore
         
-
 
     @staticmethod
     def remove_locked_from_flame_stats(node) -> None:
@@ -2112,7 +2072,6 @@ class flam3h_general_utils
         node.setParms({MSG_IN_FLAMESTATS: "\n".join(lines)})
 
 
-
     @staticmethod
     def houdini_version(digit: int=1) -> int:
         """Retrieve the major Houdini version number currently in use.
@@ -2124,7 +2083,6 @@ class flam3h_general_utils
             (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
         """  
         return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
-
 
 
     @staticmethod  
@@ -2141,7 +2099,6 @@ class flam3h_general_utils
         return float(max(0, min(x, val_max)))
 
 
-
     @staticmethod
     def reset_density(node: hou.SopNode) -> None:
         """Reset/set density to its default.
@@ -2156,8 +2113,6 @@ class flam3h_general_utils
         node.parm(GLB_DENSITY_PRESETS).deleteAllKeyframes()
         node.setParms({GLB_DENSITY: FLAM3H_DEFAULT_GLB_DENSITY}) # type: ignore
         node.setParms({GLB_DENSITY_PRESETS: 1}) # type: ignore
-
-
 
 
     @staticmethod
@@ -2239,7 +2194,6 @@ class flam3h_general_utils
                 hou.ui.showInFileBrowser(dir) # type: ignore
 
 
-
     @staticmethod
     def util_getSceneViewers() -> list:
         """Return a list of viewer currently open in this Houdini session.
@@ -2268,8 +2222,6 @@ class flam3h_general_utils
         return [v for v in views if isinstance(v, hou.NetworkEditor)]
     
     
-    
-    
     @staticmethod
     def util_is_context(context: str, viewport: Union[hou.paneTabType, hou.SceneViewer]) -> bool:
         """Return if we are inside a context or not.
@@ -2286,7 +2238,6 @@ class flam3h_general_utils
         context_now: hou.NodeTypeCategory = hou.ui.findPaneTab(viewport.name()).pwd().childTypeCategory() # type: ignore
         if str(context_now.name()).lower() == context.lower(): return True
         else: return False
-
 
 
     @staticmethod
@@ -2309,7 +2260,6 @@ class flam3h_general_utils
         return available
     
     
-    
     @staticmethod
     def util_is_context_available_network_editor(context: str) -> bool:
         """Return if there are network editors that belong to a desired context.
@@ -2329,8 +2279,6 @@ class flam3h_general_utils
                 break
         return available
     
-
-
 
     @staticmethod
     def util_clear_stashed_cam_data() -> None:
@@ -2352,7 +2300,6 @@ class flam3h_general_utils
         except: pass
         try: del hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
         except: pass
-
 
 
     @staticmethod
@@ -2428,7 +2375,6 @@ class flam3h_general_utils
                                     view_obj.setTranslation(_STASH.translation())
         
                                 
-    
     @staticmethod
     def util_clear_xf_viz_stashed_wire_width_data() -> None:
         """Clear the stored stashed cam/cams data.
@@ -2441,7 +2387,6 @@ class flam3h_general_utils
         """
         try: del hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT # type: ignore
         except: pass
-    
     
     
     @staticmethod
@@ -2470,8 +2415,6 @@ class flam3h_general_utils
                 if _STASH is not None:
                     settings: hou.GeometryViewportSettings = view.settings()
                     settings.wireWidth(_STASH)
-
-
 
 
     @staticmethod
@@ -2548,9 +2491,6 @@ class flam3h_general_utils
                 hou.session.H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = new # type: ignore
 
 
-
-
-
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -2570,7 +2510,6 @@ class flam3h_general_utils
     @property
     def bbox_reframe_path(self):
         return self._bbox_reframe_path
-
 
 
     def menus_refresh_enum_prefs(self) -> None:
@@ -2610,7 +2549,6 @@ class flam3h_general_utils
         [prm.set(prm.eval()) for prm in prm_menus]
 
 
-
     def get_node_path(self, node_name: str) -> Union[str, None]:
         """Find the full path of the bbox data null node
         inside the current FLAM3H node.
@@ -2637,7 +2575,6 @@ class flam3h_general_utils
             return None
 
 
-
     def util_set_clipping_viewers(self) -> None:
         """Set current viewport camera clipping near/far planes
         
@@ -2656,7 +2593,6 @@ class flam3h_general_utils
             settings.setClipPlanes( (0.001, 1000) )
             settings.homeAutoAdjustClip()
             settings.clipPlanes()
-
 
 
     def util_store_all_viewers(self) -> None:
@@ -2694,7 +2630,6 @@ class flam3h_general_utils
             try: hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
             except: hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT: dict[str, hou.geometryViewportType] = dict(zip(views_keys, views_type)) # type: ignore
             
-
 
     def util_set_front_viewer(self, update: bool = True) -> bool:
         """Set front view when entering the camera sensor mode.
@@ -2840,7 +2775,6 @@ class flam3h_general_utils
         return False
 
 
-
     def util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool = True) -> bool:
         """This is a fall back if the: util_set_front_viewer(...) can not run succesfully.
         It will activate the Sensor Viz in all available viewports with the ability of storing and restoring a stashed camera for each.
@@ -2939,7 +2873,6 @@ class flam3h_general_utils
         return False
     
     
-    
     def util_store_all_viewers_xf_viz(self) -> None:
         """Store dictionaries of viewers cameras and their wire width value
         
@@ -2972,7 +2905,6 @@ class flam3h_general_utils
             except: hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT: dict[str, float] = dict(zip(views_keys, views_widths)) # type: ignore
             
     
-    
     def util_other_xf_viz(self) -> bool:
         """Check if there are other FLAM3H nodes with the xforms handles VIZ ON.
         
@@ -2985,7 +2917,6 @@ class flam3h_general_utils
         node = self.node
         if [1 for f3h in node.type().instances() if f3h != node and f3h.parm(PREFS_PVT_XF_VIZ).eval()]: return True
         else: return False
-
 
 
     def util_viewport_bbox_frame(self) -> None:
@@ -3026,7 +2957,6 @@ class flam3h_general_utils
                 self.flash_message(node, f"Sensor Viz: {_MSG}")
 
 
-
     def flam3h_other_sensor_viz_off(self, node: hou.SopNode) -> None:
         """When activating the Camera sensor viz, check if there is another FLAM3H in camera sensor mode
         and turn it Off if so. this way we guarantee there can be only one FLAM3H node in Camera sensor viz mode at any given time.
@@ -3049,7 +2979,6 @@ class flam3h_general_utils
                         self.util_set_stashed_cam()
                         self.util_clear_stashed_cam_data()
                         break
-
 
 
     def flam3h_outsensor_toggle(self, prm_name: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
@@ -3097,7 +3026,6 @@ class flam3h_general_utils
                 _MSG = f"This node display flag is OFF. Please use a FLAM3H node that is currently displayed to enter the Camera sensor viz."
                 self.set_status_msg(f"{node.name()}: {prm.name().upper()} -> {_MSG}", 'WARN')
                 self.flash_message(node, f"{_MSG[:30]}")
-
 
 
     def flam3h_xf_viz_toggle(self, prm_name: str = PREFS_PVT_XF_VIZ) -> None:
@@ -3156,7 +3084,6 @@ class flam3h_general_utils
                 self.flash_message(node, f"{_MSG}")
                 
     
-    
     def flam3h_all_mp_xf_viz_check(self) -> bool:
         """Check if any multiparameter have its xf_viz ON.
 
@@ -3171,7 +3098,6 @@ class flam3h_general_utils
         all_mp_xf_viz: list = [node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx + 1)}").eval() for mp_idx in range(iter_num)]
         if max(all_mp_xf_viz) == 1: return True
         else: return False
-        
         
         
     def flam3h_toggle_sys_xf_viz_solo(self) -> None:
@@ -3206,7 +3132,6 @@ class flam3h_general_utils
             self.set_status_msg(_MSG, 'IMP')
             
             
-            
     def flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
         """When in xform VIZ SOLO mode, this will turn it off and go back to viz them all.
         Specifically built for the SYS -> "xfvizff_on_solo" icon parameter.
@@ -3235,8 +3160,6 @@ class flam3h_general_utils
             
             _MSG = f"{node.name()}: {prm_FF.name().upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
-                
-                
                 
                 
     def flam3h_toggle_mp_xf_viz(self) -> None:
@@ -3286,7 +3209,6 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: {mp_idx}")
             
             
-            
     def flam3h_toggle_xf_ff_viz(self) -> None:
         """If a toggle is OFF it will switch ON, and viceversa.
         Specifically built for the XF FF VIZ icons.
@@ -3330,8 +3252,6 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: FF")
                 
             
-            
-            
     def flam3h_toggle(self, prm_name: str) -> None:
         """If a toggle is OFF it will switch ON, and viceversa.
 
@@ -3357,7 +3277,6 @@ class flam3h_general_utils
             prm.set(1)
             _MSG = f"{node.name()}: {prm.name().upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
-            
             
             
     def flam3h_toggle_private(self, prm_name: str) -> None:
@@ -3386,7 +3305,6 @@ class flam3h_general_utils
             self.private_prm_set(node, prm, 1)
             _MSG = f"{node.name()}: {prm.name().upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
-            
             
             
     def flam3h_toggle_private_FF(self, prm_name: str = PREFS_PVT_DOFF) -> None:
@@ -3419,8 +3337,6 @@ class flam3h_general_utils
             self.set_status_msg(_MSG, 'IMP')
             
 
-
-
     def flam3h_toggle_off(self, prm_name: str) -> None:
         """If a toggle is ON it will switch it OFF.
 
@@ -3443,7 +3359,6 @@ class flam3h_general_utils
             if prm == OUT_RENDER_PROPERTIES_SENSOR:
                 self.util_set_stashed_cam()
                 self.util_clear_stashed_cam_data()
-                
                 
                 
     def flam3h_init_presets_CP_PRESETS(self, mode: int = 1, destroy_menus: bool = True, json_file: Union[bool, None] = None, f3h_json_file: Union[bool, None] = None, json_path_checked: Union[str, bool, None] = None) -> None:
@@ -3571,7 +3486,6 @@ class flam3h_general_utils
                 self.set_status_msg('', 'MSG')
 
 
-
     def flam3h_init_presets_IN_PRESETS(self, mode: int = 1) -> None:
         """Initialize parameter's menu presets for the IN tab.
         
@@ -3678,7 +3592,6 @@ class flam3h_general_utils
                 self.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
 
 
-
     def flam3h_init_presets_OUT_PRESETS(self, destroy_menus: bool = True) -> None:
         """Initialize parameter's menu presets for the OUT tab.
         
@@ -3758,7 +3671,6 @@ class flam3h_general_utils
             #     print(f'{node.name()}.OUT: please select a valid file location.')
 
 
-
     def flam3h_display_help(self) -> None:
         """Open the Houdini help browser to display the FLAM3H node documentation.
 
@@ -3769,8 +3681,6 @@ class flam3h_general_utils
             (None):
         """
         hou.ui.displayNodeHelp(self.node.type()) # type: ignore
-
-
 
 
     def util_store_all_viewers_color_scheme(self) -> None:
@@ -3804,7 +3714,6 @@ class flam3h_general_utils
             
             # Always store and update this data
             hou.session.H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # type: ignore
-
 
 
     def colorSchemeDark(self, update_others: bool = True) -> None:
@@ -3909,7 +3818,6 @@ class flam3h_general_utils
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer to either set to Dark or restore.", 'WARN')
                 self.flash_message(node, f"{_MSG}")
             
-            
         if update_others:
             # Update dark preference's option toggle on other FLAM3H nodes instances
             all_f3h: tuple = self.node.type().instances()
@@ -3917,7 +3825,6 @@ class flam3h_general_utils
                 [f3h.setParms({PREFS_VIEWPORT_DARK: prm.eval()}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_DARK).eval() != prm.eval()]
         
 
-    
     def viewportParticleDisplay(self) -> None:
         """Switch viewport particle display mode
         between Pixel and Points.
@@ -4001,8 +3908,6 @@ class flam3h_general_utils
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for this option to work.", 'WARN')
             self.flash_message(node, f"{_MSG}")
             
-            
-            
 
     def viewportWireWidth(self, reset_val: Union[float, None] = None) -> None:
         """When the viewport handle VIZ is ON
@@ -4045,8 +3950,6 @@ class flam3h_general_utils
             _MSG = f"No Sop viewers available."
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for this option to work.", 'WARN')
             self.flash_message(node, f"{_MSG}")
-            
-            
             
     
     def reset_SYS(self, density: int, iter: int, mode: int) -> None:
@@ -4092,7 +3995,6 @@ class flam3h_general_utils
         [node.setParms({key: value}) for key, value in _MB.items()]
 
 
-
     def reset_PREFS(self, mode: int = 0) -> None:
         """Reset the FLAM3H PREFS Tab parameters.
 
@@ -4117,9 +4019,6 @@ class flam3h_general_utils
         
         if mode:
             self.private_prm_set(node, PREFS_PVT_F3C, 1)
-
-
-
 
 
 # FLAM3H ITERATOR start here
@@ -4408,7 +4307,6 @@ class flam3h_iterator_utils
         self._node = kwargs['node']
 
 
-
     @staticmethod
     def flam3h_on_loaded_set_density_menu(node: hou.SopNode) -> None:
         """This is for backward compatibility when the point count parameter was still exposed.
@@ -4434,7 +4332,6 @@ class flam3h_iterator_utils
             node.setParms({GLB_DENSITY_PRESETS: density_idx}) #type: ignore
         else:
              node.setParms({GLB_DENSITY_PRESETS: -1}) #type: ignore
-
 
 
     @staticmethod
@@ -4733,7 +4630,6 @@ class flam3h_iterator_utils
                 hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
 
 
-
     @staticmethod
     def iterator_mpidx_mem_set(node, data: int) -> None:
         """Work as an history space to store the marked iterator info in it.
@@ -4749,7 +4645,6 @@ class flam3h_iterator_utils
             (None):
         """   
         flam3h_general_utils.private_prm_set(node, FLAM3H_DATA_PRM_MPIDX, data)
-
 
 
     @staticmethod
@@ -4771,8 +4666,6 @@ class flam3h_iterator_utils
         else:
             prm_to.set(prm_from.eval()) # type: ignore
         if pvt: prm_to.lock(True)
-
-
 
 
     @staticmethod
@@ -4821,7 +4714,6 @@ class flam3h_iterator_utils
             _MSG = f"{node.name()} -> The FLAM3H node you are trying to copy data from do not exist"
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             
-    
     
     @staticmethod
     def is_iterator_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, id: str, id_from: str, post: bool = False) -> bool:
@@ -4893,7 +4785,6 @@ class flam3h_iterator_utils
                 return False
     
     
-            
     @staticmethod
     def paste_from_list_affine(node: hou.SopNode, prm_list_affine_to: tuple, prm_list_affine_from: tuple, id: str) -> None:
         """Paste value from the post affine into the pre affine and viceversa ( just swap  )
@@ -4933,8 +4824,7 @@ class flam3h_iterator_utils
                 else:
                     prm_to.set(prm_from.eval())
                     
-                    
-                    
+                     
     @staticmethod
     def pastePRM_T_from_list(node: hou.SopNode, flam3node: Union[hou.SopNode, None], prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
         """Paste variation parameter values
@@ -4964,7 +4854,6 @@ class flam3h_iterator_utils
                 if(varsPRM[v_type][-1]):  
                     flam3h_iterator_utils.paste_from_list(node, flam3node, varsPRM[v_type][1:-1], id, id_from)
                     
-
 
     @staticmethod
     def paste_save_note(_note: str) -> str:
@@ -5091,7 +4980,6 @@ class flam3h_iterator_utils
             return None
         
 
-
     @staticmethod
     def auto_set_xaos_data_set_MP_MEM(node: hou.SopNode, data: Union[list, tuple]) -> None:
         """Set the data_name data into FLAM3H data parameters.
@@ -5110,7 +4998,6 @@ class flam3h_iterator_utils
         data_to_prm: str = ' '.join([str(x) for x in data])
         flam3h_general_utils.private_prm_set(node, FLAM3H_DATA_PRM_XAOS_MP_MEM, data_to_prm)
                 
-
 
     @staticmethod
     def auto_set_xaos_data_set_XAOS_PREV(node: hou.SopNode, data: Union[list, tuple]) -> None:
@@ -5136,7 +5023,6 @@ class flam3h_iterator_utils
             flam3h_general_utils.private_prm_set(node, FLAM3H_DATA_PRM_XAOS_PREV, data_to_prm)
             
             
-            
     @staticmethod
     def flam3h_on_load_opacity_zero(node: hou.SopNode, f3h_all: bool = False) -> None:
         """Check each iterator's shader opacity and if any of them is 0(Zero) activate the Remove Invalid Option(RIP)
@@ -5154,7 +5040,6 @@ class flam3h_iterator_utils
             if f3h_all: [flam3h_general_utils.private_prm_set(f3h, PREFS_PVT_RIP, 1) if lambda_min_opacity() == 0 else ... for f3h in node.type().instances()]
             else:
                 if lambda_min_opacity() == 0: flam3h_general_utils.private_prm_set(node, PREFS_PVT_RIP, 1)
-
 
 
     @staticmethod
@@ -5199,7 +5084,6 @@ class flam3h_iterator_utils
         else: node.destroyCachedUserData(data)
         
         
-    
     @staticmethod
     def destroy_cachedUserData_all_f3h(node, data_name: str) -> None:
         """Destroy cached user data an all FLAM3H node in the current Houdini session.
@@ -5217,7 +5101,6 @@ class flam3h_iterator_utils
             if data is not None: flam3h_iterator_utils.destroy_cachedUserData(f3h, data_name)
             
             
-    
     @staticmethod
     def destroy_userData(node, data: str, must_exist: bool = False) -> None:
         """Destroy user data.
@@ -5242,7 +5125,6 @@ class flam3h_iterator_utils
             try: node.destroyUserData(data)
             except: pass
         else: node.destroyUserData(data)
-
 
 
     @staticmethod
@@ -5287,7 +5169,6 @@ class flam3h_iterator_utils
         return FLAM3H_ICON_STAR_EMPTY_OPACITY
 
 
-
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -5299,7 +5180,6 @@ class flam3h_iterator_utils
     @property
     def node(self):
         return self._node
-    
     
     
     def iterator_affine_scale(self) -> None:
@@ -5407,7 +5287,6 @@ class flam3h_iterator_utils
         self.node.setParms({"ffpscl": 1})
 
         
-        
     def destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool = False) -> None:
         """Force all presets menus to update.
         This is being added so we can force the presets menus to be rebuilt
@@ -5437,7 +5316,6 @@ class flam3h_iterator_utils
             self.destroy_cachedUserData(node, 'in_presets_menu_off')
             self.destroy_cachedUserData(node, 'out_presets_menu')
             
-
 
     def update_xml_last_loaded(self) -> None:
         """Force node user data "XML_last_loaded" to update.
@@ -5497,7 +5375,6 @@ class flam3h_iterator_utils
                 print(f"{node.name()}: {_MSG}.")
 
 
-
     def refresh_iterator_vars_menu(self) -> None:
         """Refresh the iterator (FLAME and FF tabs) menus
         to update to the new menu style mode.
@@ -5553,7 +5430,6 @@ class flam3h_iterator_utils
         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
         
 
-
     def destroy_data_note(self) -> None:
         """Update mini-menu iterator selection when we modify this parameter.
         and provide a default name if no string in a FLAME tab iterator note parameter is left.
@@ -5601,7 +5477,6 @@ class flam3h_iterator_utils
         return _TYPE, self.node.parm(prm_weight_name).eval()
     
     
-    
     def menu_T_FF_get_var_data(self) -> tuple[int, float]:
         """Get this FF menu variation type idx and its weight value.
         
@@ -5615,7 +5490,6 @@ class flam3h_iterator_utils
         prm_weight_name: str = f"{ str(self.kwargs['parm'].name()).split('type')[0]}weight"
         return _TYPE, self.node.parm(prm_weight_name).eval()
 
-    
     
     def menu_T_data(self) -> tuple[int, str]:
         """Rerturn the selected variation index and the correct bookmark icon to use
@@ -5631,7 +5505,6 @@ class flam3h_iterator_utils
         return _TYPE, self.menu_T_get_type_icon(w)
 
 
-    
     def menu_T_PP_data(self) -> tuple[int, str]:
         """Rerturn the selected variation index and the correct bookmark icon to use
         based on its weight value.
@@ -5644,7 +5517,6 @@ class flam3h_iterator_utils
         """
         _TYPE, w = self.menu_T_get_var_data()
         return _TYPE, self.menu_T_PP_get_type_icon(w)
-    
     
     
     def menu_T_FF_data(self) -> tuple[int, str]:
@@ -5661,7 +5533,6 @@ class flam3h_iterator_utils
         return _TYPE, self.menu_T_get_type_icon(w)
     
     
-    
     def menu_T_PP_FF_data(self) -> tuple[int, str]:
         """Rerturn the selected FF variation index and the correct bookmark icon to use
         based on its weight value.
@@ -5674,7 +5545,6 @@ class flam3h_iterator_utils
         """
         _TYPE, w = self.menu_T_FF_get_var_data()
         return _TYPE, self.menu_T_PP_get_type_icon(w)
-    
     
     
     def menu_T_pb_data(self) -> str:
@@ -5701,7 +5571,6 @@ class flam3h_iterator_utils
         return FLAM3H_ICON_STAR_EMPTY_OPACITY
     
     
-    
     def menu_T_ICON(self, FF: bool = False) -> list:
         """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
         Differentiate iterators and FF
@@ -5726,7 +5595,6 @@ class flam3h_iterator_utils
         return menu
 
 
-
     def menu_T_PP_ICON(self, FF: bool = False) -> list:
         """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
         Differentiate iterators and FF
@@ -5749,7 +5617,6 @@ class flam3h_iterator_utils
         menu[var] = f"{_ICON} {menu[var][:13]}     " # 5 times \s
             
         return menu
-    
     
     
     def menu_T_simple(self, FF: bool = False) -> list:
@@ -5794,7 +5661,6 @@ class flam3h_iterator_utils
             return (self.menu_T_simple, self.menu_T_ICON)[_ICONS_TOGGLE](FF)
 
     
-    
     def menu_T_PP(self, FF: bool = False) -> list:
         """Populate variation names parameter menu list.
         Differentiate iterators and FF
@@ -5822,7 +5688,6 @@ class flam3h_iterator_utils
             return (self.menu_T_simple, self.menu_T_PP_ICON)[_ICONS_TOGGLE](FF)
     
     
-    
     def menu_T_pb(self) -> list:
         """Populate variation name parameter menu list for Pre blur variation
         
@@ -5839,7 +5704,6 @@ class flam3h_iterator_utils
         """
         _ICON = self.menu_T_pb_data()
         return [ 0,  f"{_ICON} Pre blur                   "] # 19 times \s
-
 
 
     def menu_select_iterator_data(self) -> list:
@@ -5905,7 +5769,6 @@ class flam3h_iterator_utils
             return menu
     
     
-    
     def menu_select_iterator(self) -> list:
         """Cache or rebuild the menu on demand.
 
@@ -5936,7 +5799,6 @@ class flam3h_iterator_utils
             else:
                 return self.menu_select_iterator_data()
         
-    
     
     def prm_select_iterator(self) -> None:
         """Change multi-parameter index focus based on the selected iterator number from: def menu_select_iterator(self) -> list:
@@ -6044,7 +5906,6 @@ class flam3h_iterator_utils
         self.prm_paste_sel_iter_sel_force_update(node)
     
     
-    
     def flam3h_paste_reset_hou_session_data(self, hipLoad: bool = False) -> None:
         """init/clear copy/paste iterator's data and prm
         
@@ -6082,7 +5943,6 @@ class flam3h_iterator_utils
             self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
             
             
-
     def __menu_global_density(self) -> list:
         """ NOT USED ANYMORE
         
@@ -6109,7 +5969,6 @@ class flam3h_iterator_utils
         return menu
     
     
-    
     def menu_global_density(self) -> list:
         """Return a pre built static menu data.
         It will use a different menu if the user is in xfomrs handles VIZ mode(ON or SOLO).
@@ -6126,7 +5985,6 @@ class flam3h_iterator_utils
             if node.parm(PREFS_PVT_XF_VIZ_SOLO).eval() or node.parm(PREFS_PVT_XF_FF_VIZ_SOLO).eval(): return MENU_DENSITY_XFVIZ_ON_SOLO
             else: return MENU_DENSITY_XFVIZ_ON
         else: return MENU_DENSITY_XFVIZ_OFF
-    
     
     
     def menu_global_density_set(self) -> None:
@@ -6155,8 +6013,6 @@ class flam3h_iterator_utils
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
-
-    # Set menu_density() Menu
     def menu_global_density_set_default(self) -> None:
         """Revert density parameter to its default value.
         Additionally give the ability to also set lower tier density presets: 300k, 200k, 100k.
@@ -6298,7 +6154,6 @@ class flam3h_iterator_utils
                     else: return MENU_ITER_COPY_PASTE_EMPTY
 
     
-    
     def menu_copypaste_FF(self) -> list:
         """
         Build copy/paste FF parameter menu entries and eventually update its data if needed.
@@ -6343,7 +6198,6 @@ class flam3h_iterator_utils
         
         else:
             return MENU_FF_COPY_PASTE_EMPTY
-        
         
         
     def prm_paste_update_for_undo(self, node: hou.SopNode) -> tuple[Union[hou.SopNode, None], Union[int, None], bool]:
@@ -6477,7 +6331,6 @@ class flam3h_iterator_utils
             return from_FLAM3H_NODE, mp_id_from, isDELETED
 
 
-
     def prm_paste_update_for_undo_ff(self, node: hou.SopNode) -> tuple[Union[hou.SopNode, None], Union[int, None], bool]:
         """Updated data for copy/paste iterator's methods in case of Undos.
         It will make sure that the houdini.session data about the iterator index
@@ -6536,7 +6389,6 @@ class flam3h_iterator_utils
                         from_FLAM3H_NODE_FF_CHECK = None
                         
             return from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED
-
 
 
     def prm_paste_CTRL(self, id: int) -> None:
@@ -6917,7 +6769,6 @@ class flam3h_iterator_utils
                     self.prm_paste_FF_CLICK()
 
 
-
     def prm_paste_sel_iter_sel_force_update(self, node: hou.SopNode) -> None:
         """Force select-iterator menu update in case an iterator is marked on this FLAM3H node.
         This is being added to deal with a mismatch during undos.
@@ -6935,7 +6786,6 @@ class flam3h_iterator_utils
                 self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
         except:
             pass
-
 
 
     def prm_paste_sel(self) -> None:
@@ -7025,7 +6875,6 @@ class flam3h_iterator_utils
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             
 
-
     def prm_paste_sel_pre_affine(self) -> None:
         """Copy/Paste POST affine inside the PRE affine.
         
@@ -7054,7 +6903,6 @@ class flam3h_iterator_utils
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[1:], f3h_iter.sec_preAffine, idx)
             _MSG = f"iterator.{id} - POST affine values copied into the PRE affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
-        
         
         
     def prm_paste_sel_post_affine(self) -> None:
@@ -7087,7 +6935,6 @@ class flam3h_iterator_utils
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
-        
     def prm_paste_sel_pre_affine_FF(self) -> None:
         """Paste only either the FF POST affine.
         
@@ -7113,7 +6960,6 @@ class flam3h_iterator_utils
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[1:], f3h_iter_FF.sec_preAffine_FF, "")
             _MSG = f"iterator.{id} - FF POST affine values copied into the FF PRE affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
-        
         
         
     def prm_paste_sel_post_affine_FF(self) -> None:
@@ -7143,7 +6989,6 @@ class flam3h_iterator_utils
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
             
             
-
     def prm_paste_sel_FF(self) -> None:
         """Paste only sections of a FF.
         
@@ -7250,7 +7095,6 @@ class flam3h_iterator_utils
         flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
-
     def reset_preaffine(self) -> None:
         """Reset an iterator pre affine values to their defaults.
         
@@ -7328,7 +7172,6 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
-        
     def reset_postaffine(self) -> None:
         """Reset an iterator post affine values to their defaults.
         
@@ -7562,7 +7405,6 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
-
     def swap_iter_pre_vars(self) -> None:
         """Swap the selected iterator PRE vars order or swap only their names.
         
@@ -7641,7 +7483,6 @@ class flam3h_iterator_utils
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                 
                 
-                
     def swap_FF_post_vars(self) -> None:
         """Swap the FF iterator POST vars order or swap only their names.
         
@@ -7707,7 +7548,6 @@ class flam3h_iterator_utils
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
-
     def flam3h_default(self) -> None:
         """Default Flame preset and FLAM3H settings parameters vaules on creation.
         This is used to reset back FLAM3H node entire parameter template.
@@ -7761,7 +7601,6 @@ class flam3h_iterator_utils
             flam3h_general_utils.flash_message(node, f"Sierpiński triangle::10")
             
             
-    
     def flam3h_reset_iterator(self) -> None:
         """Reset selected iterator to its default parameter's values.
         Include parametrics too.
@@ -7822,7 +7661,6 @@ class flam3h_iterator_utils
         [node.setParms({key: value}) for key, value in affines_dict.items()]
     
     
-    
     def flam3h_reset_FF(self) -> None:
         """Reset the FLAM3H FF Tab parameters.
         Include parametrics too (PRE, VAR and POST)
@@ -7872,7 +7710,6 @@ class flam3h_iterator_utils
         # FF Affines Set
         [node.setParms({key: value}) for key, value in affines_dict.items()]
         
-
 
     def auto_set_xaos(self) -> None:
         """Set iterator's xaos values every time an iterator is added or removed.
@@ -7999,8 +7836,6 @@ class flam3h_iterator_utils
                     _MSG = f"{node.name()}: The iterator you just removed had its XF VIZ: ON. Reverted to display the xforms handles VIZ all together."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                     
-
-        
         # DEL
         elif idx_del_inbetween is not None and idx_del_inbetween < iter_count:
             
@@ -8062,8 +7897,6 @@ class flam3h_iterator_utils
                     self.destroy_userData(node, f"{data_name}")
                     _MSG = f"{node.name()}: The iterator you just removed had its XF VIZ: ON. Reverted to display the xforms handles VIZ all together."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-
-                    
 
         # otherwise ADD
         # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
@@ -8135,7 +7968,6 @@ class flam3h_iterator_utils
         
         # lock
         [prm.lock(True) for prm in (prm_mpidx, prm_xfviz, prm_xfviz_solo, prm_xfviz_solo_mp_idx)]
-
 
 
     def iterators_count(self) -> None:
@@ -8329,7 +8161,6 @@ class flam3h_iterator_utils
             flam3h_general_utils.flash_message(node, f"iterator {str(id)} Weight: back to being NON-ZERO")
             
             
-            
     def iterator_vactive_and_update(self) -> None:
         """Force menu updates and toggle ON/OFF if the correct parameter is being used.
         
@@ -8348,11 +8179,6 @@ class flam3h_iterator_utils
             id: int = self.kwargs['script_multiparm_index']
             vactive_prm_name: str = f"vactive_{str(id)}"
             flam3h_general_utils(self.kwargs).flam3h_toggle(vactive_prm_name)
-
-
-
-
-
 
 
 # FLAM3H PALETTE start here
@@ -8492,7 +8318,6 @@ class flam3h_palette_utils
         [hou.parmTuple(f"{ramp_parm.path()}{str(i + 1)}c").deleteAllKeyframes() for i in range(0, len(posList))]
 
         
-
     @staticmethod 
     def get_ramp_keys_count(ramp: hou.Ramp) -> str:
         """Based on how many color keys are present in the provided ramp,
@@ -8521,7 +8346,6 @@ class flam3h_palette_utils
             return PALETTE_COUNT_256
         
         
-        
     @staticmethod
     def isJSON_F3H_get_first_preset(filepath: Union[str, bool]) -> Union[str, bool]:
         """Try to get the first palette preset of a JSON FLAM3H palette file.
@@ -8537,7 +8361,6 @@ class flam3h_palette_utils
                 preset_name = list(json.load(r).keys())[0]
             return preset_name
         except: return False
-
 
 
     @staticmethod
@@ -8614,7 +8437,6 @@ class flam3h_palette_utils
         else:
             flam3h_general_utils.set_status_msg('', 'MSG')
             return False, False
-        
         
         
     @staticmethod
@@ -8705,7 +8527,6 @@ class flam3h_palette_utils
                     flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, palette_msg)
                 
     
-    
     @staticmethod 
     def json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
         """Check is the plaette plus str "[256+]" is displayed already and add a custom string message(_MSG) to it.
@@ -8724,7 +8545,6 @@ class flam3h_palette_utils
             node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {_MSG.strip()}"}) # type: ignore
         else:
             node.setParms({MSG_PALETTE: f"{_MSG}"}) # type: ignore
-
 
 
     @staticmethod
@@ -8754,7 +8574,6 @@ class flam3h_palette_utils
         else: return menu_label, preset_id
         
             
-            
     @staticmethod
     def menu_cp_presets_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
         """This is spcifically to be run inside a list comprehension.
@@ -8779,7 +8598,6 @@ class flam3h_palette_utils
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
             else:
                 menu.append(f"{item}")
-            
             
             
     @staticmethod
@@ -8809,7 +8627,6 @@ class flam3h_palette_utils
                 menu.append(f"{enum_label}:  {item}")
             
             
-            
     @staticmethod
     def menu_cp_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
         """This is spcifically to be run inside a list comprehension.
@@ -8834,7 +8651,6 @@ class flam3h_palette_utils
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
             else:
                 menu.append(f"{item}")
-            
             
             
     @staticmethod
@@ -8862,7 +8678,6 @@ class flam3h_palette_utils
                 menu.append(f"{FLAM3H_ICON_STAR_PALETTE_LOAD_EMPTY}  {enum_label}:  {item}     ") # 5 ending \s to be able to read the full label
             else:
                 menu.append(f"{enum_label}:  {item}")
-
 
 
     # CLASS: PROPERTIES
@@ -9042,7 +8857,6 @@ class flam3h_palette_utils
                 return self.menu_cp_presets_empty_data()
 
 
-
     def flam3h_ramp_save_JSON_DATA(self) -> tuple[dict, str]:
         """Build palette data to save out into a *.json file
 
@@ -9081,7 +8895,6 @@ class flam3h_palette_utils
             
         # OUTPUT DATA
         return json_dict, json.dumps(json_dict, indent=4)
-
 
 
     def flam3h_ramp_save(self) -> None:
@@ -9249,7 +9062,6 @@ class flam3h_palette_utils
                 flam3h_general_utils.flash_message(node, f"CP: Select a valid output file")
 
 
-                
     def json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list) -> tuple[hou.Ramp, int, bool]:
         """It will check the passed list of colors for validity and build a Houdini ramp parameter's values from it.
         If not valid, or only one coclor is included, it will output one RED color and mark this palette as an Error.
@@ -9281,7 +9093,6 @@ class flam3h_palette_utils
         return hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE), len(POSs), _CHECK
 
 
-
     def json_to_flam3h_ramp_set_HSV(self, node, hsv_check: bool, hsv_vals: list) -> None:
         """Set the HSV values to either the one comeing from the loaded palette preset or to default values.
 
@@ -9301,7 +9112,6 @@ class flam3h_palette_utils
             else:
                 # This is for backward compatibility ( when the hsv data wasn't being exported yet )
                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
-
 
 
     def json_to_flam3h_ramp_SET_PRESET_DATA(self) -> None:
@@ -9388,7 +9198,6 @@ class flam3h_palette_utils
                 _MSG = f"{node.name()}: PALETTE: Nothing to load"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.flash_message(node, f"CP: Nothing to load")
-
 
 
     def json_to_flam3h_ramp_sys(self, use_kwargs: bool = True) -> None:
@@ -9559,7 +9368,6 @@ class flam3h_palette_utils
         else: self.json_to_flam3h_ramp_SET_PRESET_DATA()
 
 
-
     def palette_cp(self, palette_plus_msg: bool = False) -> None:
         """Force the HSV palette colors/keys to match the source palette colors/keys.
         
@@ -9610,7 +9418,6 @@ class flam3h_palette_utils
         rmptmp.set(rmpsrc)
 
 
-
     def palette_hsv(self) -> None:
         """Apply a HSV to the paltte colors/keys.
         
@@ -9632,7 +9439,6 @@ class flam3h_palette_utils
             rmphsv.set(hou.Ramp(rmpsrc.basis(), rmpsrc.keys(), rgb))
 
 
-
     def palette_lock(self) -> None:
         """Lock the HSV palette color/keys from being modified.
         This is also used to updated the palette HSV to keep it up to date with the source palette.
@@ -9648,7 +9454,6 @@ class flam3h_palette_utils
         # becasue it get call also from other Houdini parameter's callback scripts.
         # Need to come back and make changes...
         self.palette_hsv()
-
 
 
     def reset_CP_LOCK_MSG(self) -> None:
@@ -9672,7 +9477,6 @@ class flam3h_palette_utils
             node.setParms({MSG_PALETTE: ''})
 
 
-
     def reset_CP_TMP(self) -> None:
         """Reset the TEMP palette to its defaults.
 
@@ -9687,7 +9491,6 @@ class flam3h_palette_utils
         self.delete_ramp_all_keyframes(ramp_tmp_parm)
         # Build TMP ramp
         self.build_ramp_palette_temp(ramp_tmp_parm)
-        
         
         
     def reset_CP_options(self) -> None:
@@ -9736,7 +9539,6 @@ class flam3h_palette_utils
         flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
         
         
-        
     def reset_CP_run_1(self) -> None:
         """Delete all ramps keyframes (Palette and HSV Palette)
 
@@ -9758,7 +9560,6 @@ class flam3h_palette_utils
         flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
         flam3h_general_utils.flash_message(node, _MSG)
 
-        
         
     def reset_CP_run_2(self) -> None:
         """Reset the CP tab HSV values to their defaults.
@@ -9856,9 +9657,6 @@ class flam3h_palette_utils
         else: self.reset_CP(3)
 
 
-
-
-
 # FLAM3H ABOUT start here
 ##########################################
 ##########################################
@@ -9901,7 +9699,6 @@ class flam3h_about_utils
         self._node = kwargs['node']
         
 
-
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -9914,8 +9711,6 @@ class flam3h_about_utils
     def node(self):
         return self._node
         
-
-
 
     def flam3h_about_msg(self) -> None:
         """Build and set the FLAM3H about message.
@@ -10031,7 +9826,6 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         [node.setParms({key: value}) for key, value in about_web.items()]
         
 
-
     def flam3h_about_web_homepage(self) -> None:
         """Open a web browser to the FLAM3H homepage.
         
@@ -10069,7 +9863,8 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         """  
         page = "https://www.instagram.com/alexnardini/"
         www_open(page)
-        
+    
+    
     def flam3h_about_web_youtube(self) -> None:
         """Open a web browser to the FLAM3H youtube video tutorials.
         
@@ -10160,10 +9955,6 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         if run is not None: run()
 
 
-
-
-
-
 # FLAM3H UI MESSAGES start here
 ##########################################
 ##########################################
@@ -10199,8 +9990,6 @@ class flam3h_ui_msg_utils
         self._node = kwargs['node']
 
 
-
-
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -10213,8 +10002,6 @@ class flam3h_ui_msg_utils
     def node(self):
         return self._node
         
-
-
 
     def ui_xaos_infos(self) -> None:
         """Open a message window with informations/tips about setting Xaos.
@@ -10319,7 +10106,6 @@ and change the flame → “name” key afterwards.
             hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Presets name infos", details=None, details_label=None, details_expanded=False) # type: ignore
 
 
-    
     def __ui_active_iterator_infos(self) -> None:
         """ NOT USED ANYMORE:
         Open a message window with informations/tips turning iterators ON or OFF and their consequences.
@@ -10338,12 +10124,6 @@ In case you still want to include the inactive iterator into the file,
 set its Weight to 0(Zero) instead."""
         if hou.isUIAvailable():
             hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="FLAM3H: Active iterator infos", details=None, details_label=None, details_expanded=False) # type: ignore
-
-
-
-
-
-
 
 
 # LOAD XML FLAME FILES start here
@@ -10648,7 +10428,6 @@ VARS_FRACTORIUM_DICT: dict = {  "a": ("arch", "arcsech", "arcsech2", "arcsinh", 
                             }
 
 
-
 class flam3h_varsPRM_APO:
     
     '''
@@ -10792,22 +10571,17 @@ class flam3h_varsPRM_APO:
                                                     }
 
 
-
-
 # This is used inside: __get_name_list_str(...)
 # to set what default single value should be used in case something goes wrong during the processed string value cleanup/correction
 XML_TO_F3H_DEFAULT_VALS: dict = {OUT_XML_FLAM3H_HSV: '1', 
                                  OUT_XML_FLAME_SIZE: '1024'}
+
 
 # This is used inside: def xf_list_cleanup(...) and def xf_list_cleanup_str(...)
 # to gather a proper default list of values in case the one from the XML is empty.
 XML_TO_F3H_LIST_DEFAULT_VALS: dict = {OUT_XML_FLAME_SIZE: '1024 1024', 
                                       OUT_XML_FLAME_CENTER: '0 0', 
                                       OUT_XML_FLAM3H_HSV: '1 1 1'}
-
-
-
-
 
 
 # FLAM3H XML TREE start here
@@ -10819,8 +10593,6 @@ XML_TO_F3H_LIST_DEFAULT_VALS: dict = {OUT_XML_FLAME_SIZE: '1024 1024',
 ##########################################
 ##########################################
 ##########################################
-
-            
 
 
 class _xml:
@@ -10853,7 +10625,6 @@ class _xml
         """     
         self._xml = xmlfile
         self._tree = lxmlET.parse(xmlfile) # type: ignore
-
 
 
     # CLASS: PROPERTIES
@@ -10905,8 +10676,6 @@ class _xml
                 return ()
 
 
-
-
 class _xml_tree:
     """
 class _xml_tree
@@ -10951,7 +10720,6 @@ class _xml_tree
         self._name = self.get_name()
         self._plugins = self.get_name(XML_FLAME_PLUGINS)
         self._sw_version = self.get_name(XML_FLAME_VERSION) # type: ignore
-
 
 
     @staticmethod
@@ -11006,7 +10774,6 @@ class _xml_tree
         except: return None
 
 
-
     @staticmethod
     def xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
         """When loading a Flame files, this definition will check their data
@@ -11035,7 +10802,10 @@ class _xml_tree
         except: return False
 
 
-
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
+    
     @property
     def xmlfile(self):
         return self._xmlfile
@@ -11063,8 +10833,6 @@ class _xml_tree
     @property
     def sw_version(self):
         return self._sw_version
-    
-    
     
 
     # This not private as its cheaper to have it evaluate from this parent class.
@@ -11179,9 +10947,6 @@ class _xml_tree
         return 0
 
 
-
-
-
 # FLAM3H IN FLAME start here
 ##########################################
 ##########################################
@@ -11191,8 +10956,6 @@ class _xml_tree
 ##########################################
 ##########################################
 ##########################################
-
-
 
 
 class in_flame(_xml_tree):
@@ -11276,8 +11039,6 @@ class in_flame
         self._flam3h_prefs_f3c: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore # This xml key must be present to be set otherwise leave it untouched
         
 
-
-
     @staticmethod
     def xf_val_cleanup_split_str(val: str, default_val: str = '0', key_name: Union[str, None] = None) -> str:
         """ Attempt to remove invalid characters from the passed value.
@@ -11312,7 +11073,6 @@ class in_flame
         return ' '.join(new)
 
 
-
     @staticmethod
     def xf_val_cleanup_str(val: str, default_val: str = '0', key_name: Union[str, None] = None) -> str:
         """ Attempt to remove invalid characters from the passed value.
@@ -11338,7 +11098,6 @@ class in_flame
             except ValueError:
                 if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE\n")
                 return default_val
-
 
 
     @staticmethod
@@ -11374,7 +11133,6 @@ class in_flame
         return new
     
     
-    
     @staticmethod
     def xf_list_cleanup_str(vals: list, default_val: str = '0', key_name: Union[str, None] = None) -> str:
         """ Attempt to remove invalid characters from the list values and return a spaced joined string of the list.
@@ -11406,7 +11164,6 @@ class in_flame
                     new.append(default_val)
                     if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
         return ' '.join(new)
-
 
 
     @staticmethod
@@ -11459,7 +11216,6 @@ class in_flame
                     print(_MSG)
                     
             return []
-    
     
     
     @staticmethod
@@ -11590,8 +11346,6 @@ class in_flame
     def flame3h_sys_rip(self):
         return self._flam3h_sys_rip
     
-
-
 
     def __is_valid_idx(self, idx: int) -> int:
         """Make sure the fractal flame's idx passed in will always be valid and never out of range.
@@ -11917,10 +11671,6 @@ class in_flame
             return None
 
 
-
-
-
-
 # FLAM3H IN FLAME ITER DATA start here
 ##########################################
 ##########################################
@@ -11991,8 +11741,6 @@ class in_flame_iter_data(in_flame):
         self._mb_flam3h_mb_shutter: Union[int, float, bool, None] = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
         self._cp_flam3h_cp_samples: Union[int, bool] = self._in_flame__get_cp_flam3h_samples(self._idx, self.palette) # type: ignore
         self._prefs_flam3h_f3c: Union[int, None] = self._in_flame__get_flam3h_toggle(self._flam3h_prefs_f3c[self._idx]) # type: ignore
-
-
 
 
     # CLASS: PROPERTIES
@@ -12130,10 +11878,6 @@ class in_flame_iter_data(in_flame):
         return self._sys_flam3h_rip
     
     
-    
-
-
-
 # FLAM3H IN FLAME UTILS start here
 ##########################################
 ##########################################
@@ -12527,7 +12271,6 @@ class in_flame_utils
             return False
 
 
-
     @staticmethod
     def in_get_xforms_var_keys( xforms: Union[tuple, None], 
                                 vars: Union[str, list[str], tuple[str], dict[str, int], dict[str, tuple], KeysView, None], 
@@ -12555,7 +12298,6 @@ class in_flame_utils
             return None
         
         
-        
     @staticmethod
     def in_vars_keys_remove_pgb(vars: Union[list, None], pgb_name: str) -> Union[list, None]:
         """Remove "pre_gaussian_blur" variation if it is the first one in the list as we are remapping it to "pre_blur" on load.
@@ -12572,7 +12314,6 @@ class in_flame_utils
         else:
             return None
     
-        
         
     @staticmethod
     def in_util_removeprefix(var_name: str, prefix: str) -> str:
@@ -12741,7 +12482,6 @@ class in_flame_utils
                     node.setParms({f"{prx}{flam3h_prm_names.postaffine_ang}_{idx}": apo_data.f3h_post_angle[mp_idx]}) # type: ignore
                 else:
                     [node.setParms({f"{prx}{post_affine[id]}_{idx}": apo_data.post[mp_idx][id]}) for id in range(3)] # type: ignore
-
 
 
     @staticmethod
@@ -13489,7 +13229,6 @@ class in_flame_utils
         build_render_stats_msg = "".join(build)
         return build_render_stats_msg
 
-
     
     @staticmethod
     def in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
@@ -13581,8 +13320,6 @@ class in_flame_utils
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): float(400)}) # type: ignore
     
     
-    
-    
     @staticmethod
     def in_copy_render(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
         """Copy the loaded IN Flame preset render XML data into the FLAM3H OUT render data.
@@ -13618,7 +13355,6 @@ class in_flame_utils
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
         except: # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(0.3333)}) # type: ignore
-    
     
     
     @staticmethod
@@ -13669,7 +13405,6 @@ class in_flame_utils
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): f3r.out_curve_blue[preset_id]}) # type: ignore
             except: # If missing set it to its default
                 node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
-    
     
     
     @staticmethod
@@ -13801,7 +13536,6 @@ class in_flame_utils
             flam3h_general_utils.flash_message(node, _MSG)
         
 
-
     @staticmethod
     def in_copy_render_stats_msg(kwargs: dict) -> None:
         """Copy the loaded IN Flame preset RENDER properties into the OUT Flame render properties to be written out. 
@@ -13863,7 +13597,6 @@ class in_flame_utils
             _MSG = f"Load a valid IN Preset first"
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
             flam3h_general_utils.flash_message(node, _MSG)
-            
             
             
     @staticmethod
@@ -13933,7 +13666,6 @@ class in_flame_utils
             flam3h_general_utils.flash_message(node, _MSG)
 
 
-        
     @staticmethod
     def in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
         """Convert a dictionary of variation names into either PRE, VAR or POST variations names in one go.
@@ -13947,7 +13679,6 @@ class in_flame_utils
             (dict): A new dictionary equal to the one passed in but with all variation names converted based on the passed Callable func.
         """   
         return dict(map(lambda item: (item[0], func(item[1])), vars_dict.items()))
-
 
 
     @staticmethod
@@ -13972,7 +13703,6 @@ class in_flame_utils
             return default_val
         else:
             return float(key_val)
-
 
 
     @staticmethod
@@ -14007,7 +13737,6 @@ class in_flame_utils
                 
             else:
                 menu.append(f"{item}")
-            
             
             
     @staticmethod
@@ -14045,7 +13774,6 @@ class in_flame_utils
                 menu.append(f"{enum_label}:  {item}")
             
             
-            
     @staticmethod
     def menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
         """This is spcifically to be run inside a list comprehension.
@@ -14075,7 +13803,6 @@ class in_flame_utils
 
             else:
                 menu.append(f"{item}")
-            
             
             
     @staticmethod
@@ -14108,7 +13835,6 @@ class in_flame_utils
 
             else:
                 menu.append(f"{enum_label}:  {item}")
-
 
 
     # CLASS: PROPERTIES
@@ -14360,8 +14086,6 @@ class in_flame_utils
             self.in_set_affine(mode, node, prx, apo_data, n, mp_idx)
 
 
-
-
     def in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool) -> str:
         """Build a message with all the informations about the Flame preset we just loaded.
 
@@ -14560,7 +14284,6 @@ class in_flame_utils
             else:
                 return MENU_PRESETS_EMPTY
 
-
             
     def menu_in_presets(self) -> list:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
@@ -14644,7 +14367,6 @@ class in_flame_utils
                 else:
                     return MENU_ZERO_ITERATORS
 
-            
             
     def menu_in_presets_empty(self) -> list:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
@@ -14741,7 +14463,6 @@ class in_flame_utils
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             
 
-
     def in_to_flam3h_toggle_f3h_affine(self) -> None:
         """When loading a flame preset that use F3H affine style, this function will reload it
         and switch the "F3H affine style" toggle ON/OFF on the fly.
@@ -14790,7 +14511,6 @@ class in_flame_utils
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             
 
-
     def in_to_flam3h_reset_user_data(self) -> None:
         """Every time we load a flame preset, this definition will reset all FLAM3H data
         so not to clash or cause conflict with the new data generated by the new loaded flame preset.
@@ -14826,7 +14546,6 @@ class in_flame_utils
                 hou.session.FLAM3H_MARKED_FF_CHECK = None # type: ignore
 
 
-
     def in_to_flam3h_reset_iterators_parms(self, node: hou.SopNode, in_flame_iter_count: int) -> None:
         """Prior to this, I was setting the iterator's count to zero and then back to the requested count to reset all their values.
         It was not the fastest solution and this is actually making it more performant overall.
@@ -14855,7 +14574,6 @@ class in_flame_utils
             node.setParms({FLAME_ITERATORS_COUNT: in_flame_iter_count}) # type: ignore
             [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
             [p.revertToDefaults() for p in node.parms() if p.isMultiParmInstance()]
-
 
 
     def in_to_flam3h_resets(self, node: hou.SopNode, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool]) -> None:
@@ -14888,7 +14606,6 @@ class in_flame_utils
         flam3h_general_utils(self.kwargs).reset_SYS(1, iter_on_load, 0)
         flam3h_general_utils(self.kwargs).reset_MB()
         flam3h_general_utils(self.kwargs).reset_PREFS()
-
 
 
     def in_to_flam3h_set_iterators(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool]) -> None:
@@ -14947,7 +14664,6 @@ class in_flame_utils
             flam3h_general_utils.private_prm_set(node, PREFS_PVT_DOFF, 0)
 
 
-
     def in_to_flam3h_set_motion_blur(self, node: hou.SopNode, apo_data: in_flame_iter_data) -> None:
         """Set the Motion Blur data into FLAM3H from the loaded XML Flame preset.
         
@@ -14967,7 +14683,6 @@ class in_flame_utils
         else:
             flam3h_general_utils(self.kwargs).reset_MB()
             
-
 
     def in_to_flam3h_set_palette(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool]) -> None:
         """Set the Palette data into FLAM3H from the loaded XML Flame preset.
@@ -15027,7 +14742,6 @@ class in_flame_utils
             print(f"{node.name()}: {_MSG}")
             
             
-
     def in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool], copy_only: bool = False) -> None:
         """Set all the loaded Flame preset stats/infos and copy its render properties if needed into the OUT tab.
         
@@ -15081,8 +14795,6 @@ class in_flame_utils
             # if we are loading from the clipboard (in this case we always are), copy all the Render Properties
             if clipboard: self.in_copy_render_all_stats_msg(self.kwargs, apo_data, clipboard)
             
-                
-
 
     def in_to_flam3h_toggles_and_msg(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool]) -> None:
         """Set all the toggles about file and preset validity.
@@ -15135,7 +14847,6 @@ class in_flame_utils
         flam3h_general_utils.flash_message(node, f"{preset_name}")
 
 
-
     def in_to_flam3h_init_data_ALT(self) -> tuple[Union[str, None], bool, int, str, bool, bool]:
         """Load a flame preset from the clipboard.
         This definition will be used inside: 
@@ -15177,7 +14888,6 @@ class in_flame_utils
                     return None, False, 0, '', True, False
         else:
             return None, False, 0, '', True, False
-
 
 
     def in_to_flam3h_init_data_SHIFT(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool, bool]:
@@ -15237,7 +14947,6 @@ class in_flame_utils
             return None, False, 0, '', False, False
         
         
-        
     def in_to_flam3h_init_data_CTRL(self) -> tuple[Union[str, None], bool, int, str, bool, bool]:
         """Load nothing with as the kwargs['ctrl'] is not mapped to anything else yet so this is a place holder.
         This definition will be used inside: 
@@ -15265,7 +14974,6 @@ class in_flame_utils
                                                                     * chaos ( bool ): Is it a chaotica XML file type ? True or False.
     """
         return None, False, 0, '', False, False
-    
     
     
     def in_to_flam3h_init_data_LMB(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool, bool]:
@@ -15308,7 +15016,6 @@ class in_flame_utils
             node.setParms({IN_PRESETS: preset_id}) # type: ignore
             
         return xml, False, int(preset_id), '', False, False
-
 
 
     def in_to_flam3h_init_data(self, node: hou.SopNode) -> tuple[Union[str, None], bool, int, str, bool, bool]:
@@ -15365,7 +15072,6 @@ class in_flame_utils
             return self.in_to_flam3h_init_data_LMB(node)
 
 
-
     '''
         The following function is just a shortcut to set and load
         a new preset from the IN Tab IN_PRESETS parameter,
@@ -15395,6 +15101,7 @@ class in_flame_utils
                 [prm.set(preset_id) for prm in (node.parm(IN_SYS_PRESETS), node.parm(IN_PRESETS), node.parm(IN_PRESETS_OFF))]
         
             self.in_to_flam3h()
+
 
     '''
         The following is the actual load preset/flame function to be used.
@@ -15515,7 +15222,6 @@ class in_flame_utils
                     flam3h_general_utils.flash_message(node, _MSG)
                     
                     
-                    
     def in_to_flam3h_render_properties_only(self) -> None:
         """Load a Flame preset render properties into FLAM3H.
         This will set all FLAM3H node parameters based on values from the loaded XML Flame preset.
@@ -15554,7 +15260,6 @@ class in_flame_utils
                 flam3h_general_utils.flash_message(node, _MSG)
 
 
-
     def reset_IN(self, mode: int = 0) -> None:
         """Reset the FLAM3H IN Tab parameters.
 
@@ -15581,11 +15286,6 @@ class in_flame_utils
             node.setParms({IN_COPY_RENDER_PROPERTIES_ON_LOAD: 1})
 
 
-
-
-
-
-
 # CONVERT FRACTORIUM's VAR DICT start here
 ##########################################
 ##########################################
@@ -15598,12 +15298,6 @@ class in_flame_utils
 # Turn Fractorium variation names dictionary into PRE and POST variation names dictionary
 VARS_FRACTORIUM_DICT_PRE: dict  = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_PRE)
 VARS_FRACTORIUM_DICT_POST: dict = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_POST)
-
-
-
-
-
-
 
 
 # SAVE XML FILES start here
@@ -15747,7 +15441,6 @@ class out_flame_utils
         self._flam3h_cp_lookup_samples: int = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).evalAsInt()
         
     
-    
     @staticmethod
     def out_render_curves_set_data_defaults(node: hou.SopNode) -> None:
         """Set the defaults values into the color correction curves data parameters.
@@ -15764,7 +15457,6 @@ class out_flame_utils
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
         node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
-        
         
         
     @staticmethod
@@ -15801,7 +15493,6 @@ class out_flame_utils
         [prm.lock(True) for prm in prm_ui.values()]
         
         
-    
     @staticmethod
     def out_render_curves_set_and_retrieve_defaults(node: hou.SopNode) -> None:
         """Set the defaults values into the color correction curves data parameters
@@ -15869,7 +15560,6 @@ class out_flame_utils
             node.setParms({OUT_TOGGLE_CC_DEFAULTS_MSG: 1}) # type: ignore
     
     
-    
     @staticmethod
     def out_render_curves_set_defaults_on_load(node: hou.SopNode):
         """This is for backward compatibility when loading hip files with older version of FLAM3H nodes.
@@ -15911,7 +15601,6 @@ class out_flame_utils
         [prm.lock(False) for prm in prm_ui.values()]
         [prm_ui.get(key).set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT) if len(prm_data.get(key).eval())==1 else ... for key in prm_data.keys()] # type: ignore
         [prm.lock(True) for prm in prm_ui.values()]
-    
     
     
     @staticmethod
@@ -15997,7 +15686,6 @@ class out_flame_utils
         else:
             return name
 
-    
     
     @staticmethod 
     def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
@@ -16138,7 +15826,6 @@ class out_flame_utils
         return False
     
     
-    # not used
     @staticmethod
     def __out_util_iterators_vars_duplicate(vars: list) -> list:
         """ NOT USED ANYMORE
@@ -16165,7 +15852,6 @@ class out_flame_utils
         return in_flame_utils.in_util_vars_flatten_unique_sorted(duplicate, in_flame_utils.in_util_make_NULL)
     
     
-    
     @staticmethod
     def out_util_vars_duplicate(vars: list) -> list:
         """Collect duplicate variation's names in an iterator.
@@ -16188,7 +15874,6 @@ class out_flame_utils
         return d
     
 
-    
     @staticmethod
     def out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
         """Used in conjuction with: def out_check_outpath()
@@ -16212,7 +15897,6 @@ class out_flame_utils
         build_f_s_cleaned.append(''.join(letter for letter in file_name if letter.isalnum() or letter in CHARACTERS_ALLOWED))
         # the file_ext start with a dot so its added as last
         return "/".join(build_f_s_cleaned) + file_ext
-    
     
     
     @staticmethod
@@ -16256,10 +15940,8 @@ class out_flame_utils
                     else:
                         _MSG = 'Palette: Save to create this file'
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}: {file_new}", 'IMP')
-                    
-    
-    
-    
+
+
     @staticmethod
     def out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, out: bool = True, auto_name: bool = True) -> Union[str, bool]:
         """Check for the validity of the provided output file path and correct it if needed.
@@ -16591,7 +16273,6 @@ class out_flame_utils
                 current.tail = '\n' + ('  ' * (depth - 1))
                 
                 
-                
     @staticmethod
     def menu_out_presets_loop(menu: list, i: int, item: str) -> None:
         """This is spcifically to be run inside a list comprehension.
@@ -16610,8 +16291,7 @@ class out_flame_utils
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
             menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {item}     ")
 
-            
-            
+
     @staticmethod
     def menu_out_presets_loop_enum(menu: list, i: int, item: str) -> None:
         """This is spcifically to be run inside a list comprehension.
@@ -16632,7 +16312,6 @@ class out_flame_utils
             menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {enum_label}:  {item}     ")
         
     
-
     @staticmethod
     def out_collect_var_section_names(node: hou.SopNode, var_section: str = "VAR") -> Union[list[str], None]:
         """Collect all the variation's names inside any of the available iterator's sections (PRE, VAR, POST)
@@ -16667,8 +16346,7 @@ class out_flame_utils
         else:
             return None
         
-        
-        
+    
     @staticmethod
     def out_collect_var_section_names_dict(node: hou.SopNode, mode: int = False, var_section = "VAR") -> Union[dict[str, list[str]], bool]:
         """Collect all the variation's names inside any of the available sections (PRE, VAR, POST)
@@ -16747,8 +16425,6 @@ class out_flame_utils
             return False
 
 
-
-
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -16820,7 +16496,6 @@ class out_flame_utils
         return self._flam3h_cp_lookup_samples
 
 
-
     def out_palette_256_plus_check(self) -> None:
         """When activating the PREFS option: palette 256+ toggle,
         let the user knows if the current palette posses enough colors and give some infos
@@ -16846,7 +16521,6 @@ class out_flame_utils
             _MSG = f"OUT palette 256+: OFF"
             flam3h_general_utils.flash_message(node, _MSG)
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
-
 
 
     def out_presets_get_selected_menu_label(self) -> Union[str, None]:
@@ -16916,7 +16590,6 @@ class out_flame_utils
                 flam3h_general_utils.flash_message(node, f"{_MSG}")
                 
                 
-
     def out_palette_keys_count(self, palette_plus: int, keys: int, type: int, _MSG = True) -> str:
         """This is used to find the number of colors we want to export when saving out a Flame file.
         We need to always export as many colors to include the current color keys count in the palette based on a predefined set of value:
@@ -17034,7 +16707,6 @@ class out_flame_utils
         node.setParms({OUT_RENDER_PROPERTIES_RES_PRESETS_MENU: "0"}) # type: ignore
 
 
-        
     def reset_OUT_sensor(self) -> None:
         """Reset the OUT Camera sensor settings parameters tab.
         
@@ -17055,7 +16727,6 @@ class out_flame_utils
         # Clear and set
         [node.parmTuple(key).deleteAllKeyframes() if isinstance(node.parmTuple(key).eval(), tuple) else node.parm(key).deleteAllKeyframes() for key in prms_out_sensor_data.keys()]
         [node.setParms({key: value}) for key, value in prms_out_sensor_data.items()]
-
 
         
     def reset_OUT_render(self) -> None:
@@ -17079,7 +16750,6 @@ class out_flame_utils
         # Clear and set
         [node.parm(key).deleteAllKeyframes() for key in prms_out_render_data.keys()]
         [node.setParms({key: value}) for key, value in prms_out_render_data.items()]
-
 
 
     def reset_OUT_kwargs(self) -> None:
@@ -17120,7 +16790,6 @@ class out_flame_utils
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
 
 
-
     def reset_OUT_options(self) -> None:
         """Reset the OUT save options tab parameters.
         
@@ -17135,7 +16804,6 @@ class out_flame_utils
         node.setParms({OUT_FLAM3H_AFFINE_STYLE: 1})
         node.setParms({OUT_USE_FRACTORIUM_PRM_NAMES: 1})
         node.setParms({OUT_AUTO_ADD_ITER_NUM: 1})
-
 
 
     def reset_OUT(self, mode: int=0) -> None:
@@ -17175,7 +16843,6 @@ class out_flame_utils
             node.setParms({OUT_FLAME_PRESET_NAME: ""})
 
 
-
     def out_xf_xaos_to(self) -> tuple:
         """Export in a tuple[str] the xaos TO values to write out
         
@@ -17189,7 +16856,6 @@ class out_flame_utils
         fill: list = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
         xaos_vactive: list = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
-
 
 
     def out_xf_xaos_from(self, mode: int=0) -> tuple:
@@ -17248,7 +16914,6 @@ class out_flame_utils
                     return MENU_PRESETS_EMPTY
         
         
-        
     def menu_out_contents_presets(self) -> list:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
 
@@ -17281,7 +16946,6 @@ class out_flame_utils
                 return self.menu_out_contents_presets_data()
 
     
-    
     def out_auto_add_iter_data(self) -> tuple[int, str, int]:
         """Collect data needed by:
         
@@ -17302,7 +16966,6 @@ class out_flame_utils
         return iter_num, flame_name, autoadd
 
 
-    # Callback script
     def out_auto_add_iter_num_to_prm(self) -> None:
         """Add the iteration number string to the OUT Flame name after you type one name string in.
         
@@ -17318,7 +16981,6 @@ class out_flame_utils
         node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
 
-    # Callback script
     def out_auto_change_iter_num_to_prm(self, name: Union[str, None]=None) -> None:
         """Change the iteration number string to the OUT Flame name when you change FLAM3H iterations.
         
@@ -17353,7 +17015,6 @@ class out_flame_utils
                 flam3h_general_utils.flash_message(node, f"{flame_name_new}")
                 
                 
-    # Callback script
     def out_flame_name_inherit_on_load(self) -> None:
         """When this option is toggled ON, cause the Flame name parameter to be set to the currently loaded Flame preset name.
         
@@ -17389,8 +17050,6 @@ class out_flame_utils
                         # Updated the Flame name iter num if exist and if needed
                         self.out_auto_change_iter_num_to_prm()
                 
-
-
 
     def out_flame_properties_build(self, f3r: out_flame_render_properties) -> dict:
         """Return a dictionary with all the flame properties to be written out.
@@ -17559,7 +17218,6 @@ class out_flame_utils
             return True
         
         
-
     def out_populate_xform_vars_XML(self, 
                                     varsPRM: tuple, 
                                     TYPES_tuple: tuple, 
@@ -17612,7 +17270,6 @@ class out_flame_utils
                             XFORM.set(FUNC(p[0]), self.out_util_round_float(val))
                             
         return names
-
 
 
     def out_build_XML(self, flame: lxmlET.Element) -> bool: # type: ignore
@@ -17719,7 +17376,6 @@ class out_flame_utils
         return self.out_flam3_compatibility_check_and_msg()
             
             
-            
     def out_userData_XML_last_loaded(self, data_name: str = FLAM3H_USER_DATA_XML_LAST, flame_name: Union[str, None] = None) -> None:
         """Store the loaded Flame preset into the FLAM3H node data storage.
         This definition run a full save out preset(a snapshot of the curernt status of the FLAM3H parameters).
@@ -17760,8 +17416,6 @@ class out_flame_utils
             node.setParms({OUT_FLAME_PRESET_NAME: out_flame_name})
             
             
-
-
     def out_new_XML(self, outpath: str) -> None:
         """Write out a new XML flame file with only the current FLAM3H flame preset.
 
@@ -17789,7 +17443,6 @@ class out_flame_utils
             flam3h_general_utils.flash_message(node, f"Flame SAVED")
 
 
-
     def out_new_XML_clipboard(self) -> None:
         """Write out a new XML flame file with only the current FLAM3H flame preset into the clipboard.
 
@@ -17812,7 +17465,6 @@ class out_flame_utils
             _MSG = f"{self.node.name()}: SAVE Flame Clipboard: Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED to the Clipboard")
-
 
 
     def out_append_XML(self, apo_data: in_flame, out_path: str) -> None:
@@ -17842,7 +17494,6 @@ class out_flame_utils
             _MSG = f"{self.node.name()}: SAVE Flame Append: Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED: Append")
-
 
 
     def out_XML(self) -> None:
@@ -17947,8 +17598,6 @@ class out_flame_utils
                 flam3h_general_utils.flash_message(node, f"OUT: Select a valid output file")
 
 
-
-
     '''
     The following definitions will prep all the data into proper strings to be then written into the XML flame/xform data keys/entries.
     The name of each is self explanatory of the data they will prep and two different classes will be used to hold all this data:
@@ -18041,7 +17690,6 @@ class out_flame_utils
         val = [str(self.out_util_round_float((1.0-self.node.parm(f"{flam3h_iterator_prm_names().shader_speed}_{iter + 1}").eval())/2.0)) for iter in range(self.iter_count)]
         return tuple(val)
     
-
 
     def __out_xf_name(self) -> tuple:
         """Prepare each xform/iterator names/notes parameters for writing out.
@@ -18316,9 +17964,6 @@ class out_flame_utils
                 return str(self.flam3h_cp_lookup_samples)
 
 
-
-
-
 # OUT FLAME RENDER PROPERTIES start here
 ##########################################
 ##########################################
@@ -18379,7 +18024,6 @@ class out_flame_render_properties(out_flame_utils):
         self._flam3h_cp_samples: Union[str, bool] = self._out_flame_utils__out_flame_palette_lookup_samples() # type: ignore
         self._flam3h_prefs_f3c: str = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_f3c) # type: ignore
         
-
 
     # CLASS: PROPERTIES
     ##########################################
@@ -18482,9 +18126,6 @@ class out_flame_render_properties(out_flame_utils):
         return self._flam3h_prefs_f3c
 
 
-
-
-
 # OUT FLAME XFORMS DATA start here
 ##########################################
 ##########################################
@@ -18548,7 +18189,6 @@ class out_flame_xforms_data(out_flame_utils):
         self._finalxf_f3h_postaffine_angle: str = self._out_flame_utils__out_finalxf_postaffine()[2] # type: ignore
         
         self._palette_hex: str = self._out_flame_utils__out_palette_hex() # type: ignore
-
 
 
     # CLASS: PROPERTIES
