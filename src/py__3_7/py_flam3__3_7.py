@@ -6141,7 +6141,7 @@ class flam3h_iterator_utils
         """       
         node = self.node
         ptcount: int = node.parm(GLB_DENSITY).eval()
-        sel = self.kwargs['parm'].evalAsInt()
+        sel: int = self.kwargs['parm'].evalAsInt()
         vals: dict = { 1: 500000, 2: 1000000, 3: 2000000, 4: 5000000, 5: 15000000, 6: 25000000, 7: 50000000, 8: 100000000, 9: 150000000, 10: 250000000, 11: 500000000, 12: 750000000, 13: 1000000000}
         vals_name: dict = { 1: "Default: 500K points", 2: "1 Millions points", 3: "2 Millions points", 4: "5 Millions points", 5: "15 Millions points", 6: "25 Millions points", 7: "50 Millions points", 8: "100 Millions points", 9: "150 Millions points", 10: "250 Millions points", 11: "500 Millions points", 12: "750 Millions points", 13: "1 Billions points"}
         
@@ -6169,7 +6169,7 @@ class flam3h_iterator_utils
             (None):
         """
         node = self.node
-        kwargs = self.kwargs
+        kwargs: dict = self.kwargs
         
         glb_density: int = node.parm(GLB_DENSITY).eval()
         
@@ -7039,7 +7039,7 @@ class flam3h_iterator_utils
         # current iterator
         id: int = self.kwargs['script_multiparm_index']
         idx = str(id)
-        kwargs = self.kwargs
+        kwargs: dict = self.kwargs
         
         f3h_iter = flam3h_iterator()
         if kwargs['shift']:
@@ -7070,7 +7070,7 @@ class flam3h_iterator_utils
         # current iterator
         id: int = self.kwargs['script_multiparm_index']
         idx = str(id)
-        kwargs = self.kwargs
+        kwargs: dict = self.kwargs
         
         f3h_iter = flam3h_iterator()
         if kwargs['shift']:
@@ -7098,7 +7098,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """    
-        kwargs = self.kwargs
+        kwargs: dict = self.kwargs
         
         f3h_iter_FF = flam3h_iterator_FF()
         if kwargs['shift']:
@@ -7126,7 +7126,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """    
-        kwargs = self.kwargs
+        kwargs: dict = self.kwargs
         
         f3h_iter_FF = flam3h_iterator_FF()
         if kwargs['shift']:
@@ -14121,7 +14121,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        kwargs = self.kwargs
+        kwargs: dict = self.kwargs
         if kwargs["ctrl"]:
             self.in_copy_render_stats_msg(kwargs)
         else:
@@ -16875,7 +16875,7 @@ class out_flame_utils
         """
         
         node = self.node
-        kwargs = self.kwargs
+        kwargs: dict = self.kwargs
         
         if kwargs['ctrl']:
             flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
@@ -17079,7 +17079,7 @@ class out_flame_utils
             (None):
         """
         
-        kwargs = self.kwargs
+        kwargs: dict = self.kwargs
             
         if kwargs['shift']:
             # Reset only the Camera Sensor
@@ -17852,7 +17852,7 @@ class out_flame_utils
         iterators_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iterators_num:
             
-            kwargs = self.kwargs
+            kwargs: dict = self.kwargs
             
             out_path = os.path.expandvars(node.parm(OUT_PATH).eval())
             out_path_checked: Union[str, bool] = self.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
