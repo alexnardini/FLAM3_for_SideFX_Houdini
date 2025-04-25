@@ -83,11 +83,6 @@ from inspect import cleandoc as i_cleandoc
 
 
 
-FLAM3H_VERSION = __version__
-FLAM3H_VERSION_STATUS_BETA = "Beta"
-FLAM3H_VERSION_STATUS_GOLD = "Gold"
-
-
 '''
 LIST OF CLASSES:
 
@@ -1390,8 +1385,8 @@ class flam3h_scripts
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
                 sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
-                _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX nodes compile: DONE \nversion: {FLAM3H_VERSION} - {FLAM3H_VERSION_STATUS_GOLD}"
+                _MSG_INFO = f"FLAM3H v{__version__}  first instance -> Compiling FLAM3H CVEX nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
+                _MSG_DONE = f"FLAM3H CVEX nodes compile: DONE \nversion: {__version__} - {__status__}"
             
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
@@ -1404,8 +1399,8 @@ class flam3h_scripts
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
                 sys_updated_mode = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
-                _MSG_INFO = f"FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX 64-bit nodes compile: DONE\nversion: {FLAM3H_VERSION}"
+                _MSG_INFO = f"FLAM3H v{__version__} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
+                _MSG_DONE = f"FLAM3H CVEX 64-bit nodes compile: DONE\nversion: {__version__}"
                 
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
@@ -1450,11 +1445,11 @@ class flam3h_scripts
             hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
             
             if cvex_precision == 32:
-                _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX node compile: DONE \nversion: {FLAM3H_VERSION}"
+                _MSG_INFO = f" FLAM3H v{__version__}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
+                _MSG_DONE = f"FLAM3H CVEX node compile: DONE \nversion: {__version__}"
             else:
-                _MSG_INFO = f" FLAM3H v{FLAM3H_VERSION} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {FLAM3H_VERSION}"
+                _MSG_INFO = f" FLAM3H v{__version__} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
+                _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {__version__}"
             
             density = node.parm(GLB_DENSITY).eval()
             if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
@@ -9941,7 +9936,7 @@ class flam3h_about_utils
         hou_version : int = flam3h_general_utils.houdini_version()
         if hou_version >= 19: flam3h_cvex_version = f"CODE: cvex H{str(hou_version)}.x.x"
         flam3h_python_version: str = f"py 3.7.13"
-        flam3h_houdini_version: str = f"VERSION: {FLAM3H_VERSION} - {FLAM3H_VERSION_STATUS_GOLD} :: ({__license__})"
+        flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_years: str = __copyright__
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{Implementation_years}"
         
@@ -17415,7 +17410,7 @@ class out_flame_utils
         if self.node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).eval(): _XML_APP_NAME = f"{XML_APP_NAME_FRACTORIUM}-{XML_APP_NAME_FLAM3H}"
         else: _XML_APP_NAME = XML_APP_NAME_FLAM3H
         
-        return {OUT_XML_VERSION: f'{_XML_APP_NAME}-{flam3h_general_utils.my_system()}-{FLAM3H_VERSION}',
+        return {OUT_XML_VERSION: f'{_XML_APP_NAME}-{flam3h_general_utils.my_system()}-{__version__}',
                 XML_XF_NAME: f3r.flame_name,
                 OUT_XML_FLAM3H_SYS_RIP: f3r.flam3h_sys_rip, # custom to FLAM3H only
                 OUT_XML_FLAM3H_HSV: f3r.flam3h_cp_hsv, # custom to FLAM3H only
