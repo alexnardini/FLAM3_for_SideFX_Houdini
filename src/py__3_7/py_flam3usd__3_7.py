@@ -103,7 +103,7 @@ class flam3husd_scripts
 @METHODS
 * flam3husd_is_valid_flam3h_node(self) -> None:
 * flam3husd_h190_check(self) -> None:
-* flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float=1) -> None:
+* flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float = 1) -> None:
 * flam3husd_on_create(self) -> None:
 * autoSetRenderer_on_create(self) -> None:
 * flam3h_on_deleted(self) -> None:
@@ -184,7 +184,7 @@ class flam3husd_scripts
     
     
     
-    def flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float=1) -> None:
+    def flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float = 1) -> None:
         """Initialize the necessary data for the viewport display preference's option on creation.
         This need some work as it is a little rough, I'll be back to this at some point. Good enough for now.
         
@@ -412,18 +412,18 @@ class flam3husd_general_utils
 * in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
 * set_private_prm(node: hou.SopNode, prm_name: str, data: Union[str, int, float]) -> None:
 * karma_hydra_renderer_name() -> str:
-* houdini_version(digit: int=1) -> int:
+* houdini_version(digit: int = 1) -> int:
 * util_getSceneViewers() -> list:
 * util_is_context(context: str, viewport: hou.paneTabType) -> bool:
 * util_is_context_available_viewer(context: str) -> bool:
-* flash_message(msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None) -> None:
+* flash_message(msg: Union[str, None], timer: float = FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None] = None) -> None:
 * set_status_msg(msg: str, type: str) -> None:
 
 @METHODS
 * util_store_all_viewers_color_scheme(self) -> None:
-* colorSchemeDark(self, update_others: bool=True) -> None:
+* colorSchemeDark(self, update_others: bool = True) -> None:
 * viewportParticleDisplay(self) -> None:
-* viewportParticleSize(self, reset_val: Union[float, None]=None, prm_name_size: str=PREFS_VIEWPORT_PT_SIZE) -> None:
+* viewportParticleSize(self, reset_val: Union[float, None] = None, prm_name_size: str = PREFS_VIEWPORT_PT_SIZE) -> None:
 * setHydraRenderer(self) -> None:
 * reset_flam3h_shader(self) -> None:
 * flam3husd_display_help(self) -> None:
@@ -587,7 +587,7 @@ class flam3husd_general_utils
         
     
     @staticmethod
-    def flash_message(msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None]=None) -> None:
+    def flash_message(msg: Union[str, None], timer: float = FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None] = None) -> None:
         """Cause a message to appear on the top left of the network editor.
         This will work either in Sop and Lop context as it is handy to get those messages either ways. 
 
@@ -726,7 +726,7 @@ class flam3husd_general_utils
 
 
 
-    def colorSchemeDark(self, update_others: bool=True) -> None:
+    def colorSchemeDark(self, update_others: bool = True) -> None:
         """Change viewport color scheme to dark
         and remember the current color scheme so to switch back to it when unchecked.
         If the viewport color scheme is already dark, checking this option will do nothing. 
@@ -879,7 +879,7 @@ class flam3husd_general_utils
             
             
             
-    def viewportParticleSize(self, reset_val: Union[float, None]=None, prm_name_size: str=PREFS_VIEWPORT_PT_SIZE) -> None:
+    def viewportParticleSize(self, reset_val: Union[float, None] = None, prm_name_size: str = PREFS_VIEWPORT_PT_SIZE) -> None:
         """When the viewport particle display type is set to Point
         this will change their viewport size.
         
