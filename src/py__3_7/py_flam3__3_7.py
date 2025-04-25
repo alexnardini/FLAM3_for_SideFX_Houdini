@@ -11840,8 +11840,12 @@ class in_flame
             # self._flam3h_mb[idx] can also be an empty list, hence the double check
             if mb_do is not None and mb_do:
                 if key == OUT_XML_FLMA3H_MB_FPS:
-                    try: return int(mb_do)
-                    except: return False
+                    try:
+                        int(mb_do)
+                    except:
+                        return False
+                    else:
+                        return int(mb_do)
                 elif key == OUT_XML_FLMA3H_MB_SAMPLES:
                     return int(self.flam3h_mb_samples[idx])
                 elif key == OUT_XML_FLMA3H_MB_SHUTTER:
@@ -11902,8 +11906,12 @@ class in_flame
             # f3c = self._flam3h_prefs_f3c[idx]
             # self._flam3h_prefs_f3c[idx] can also be an empty list, hence the double check
             if toggle is not None and toggle:
-                try: return int(toggle)
-                except: return None
+                try:
+                    int(toggle)
+                except:
+                    return None
+                else:
+                    return int(toggle)
             else:
                 return None
         else:
@@ -13315,8 +13323,12 @@ class in_flame_utils
         """
         splt = list(menu_label.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV))
         if len([item for item in splt if item]) > 1:
-            try: return int(splt[-1])
-            except: return None
+            try:
+                int(splt[-1])
+            except:
+                return None
+            else:
+                return int(splt[-1])
         else:
             return None
 
@@ -13954,10 +13966,13 @@ class in_flame_utils
         """   
         key_val: Union[str, None] = xform.get(key_name)
         assert key_val is not None # I can assert this becasue the passed key_name has been collected already from an xform
-        try: return float(key_val)
+        try:
+            float(key_val)
         except ValueError:
             print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE\n")
             return default_val
+        else:
+            return float(key_val)
 
 
 
@@ -18251,10 +18266,13 @@ class out_flame_utils
             (str): The FLAM3H motion blur single val parameter prepped into a string.
         """  
         if self.flam3h_mb_do:
-            try: return self.out_util_round_float(self.node.parm(prm_name).eval())
+            try:
+                self.out_util_round_float(self.node.parm(prm_name).eval())
             except:
                 print(f"{self.node.name()}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H val parameter name.")
                 return False
+            else:
+                return self.out_util_round_float(self.node.parm(prm_name).eval())
         else:
             return False
         
