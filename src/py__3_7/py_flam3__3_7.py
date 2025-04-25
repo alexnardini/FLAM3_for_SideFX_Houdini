@@ -1,5 +1,11 @@
 from __future__ import division
 from __future__ import annotations
+import os
+import json
+import colorsys
+import lxml.etree as lxmlET
+import hou
+import nodesearch
 from platform import python_version
 from platform import system as platform_system
 from typing import Union
@@ -19,12 +25,20 @@ from numpy import transpose as np_transpose
 from numpy import searchsorted as np_searchsorted
 from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
-import lxml.etree as lxmlET
-import os
-import json
-import colorsys
-import hou
-import nodesearch
+
+
+
+
+
+__author__ = "F stands for liFe"
+__copyright__ = "Copyright 2021, F stands for liFe"
+
+__license__ = "GPL"
+__version__ = "1.8.08"
+__maintainer__ = "Alessandro nardini"
+__status__ = "Production"
+
+
 
 
 
@@ -71,6 +85,9 @@ import nodesearch
 #                   To distinguish class @staticmethods from the class @methods, the class @methods doc-string Args list always start with the argument: (self):
 #                   This make it easier to distinguish them when typing their name while checking their infos like for example in VSCode.
 #
+
+
+
 
 
 FLAM3H_VERSION = '1.8.08'
@@ -9921,7 +9938,7 @@ class flam3h_about_utils
         nl = "\n"
         nnl = "\n\n"
             
-        year = datetime.now().strftime("%Y")
+        # year = datetime.now().strftime("%Y")
         
         flam3h_author: str = f"AUTHOR: F stands for liFe ( made in Italy )"
         flam3h_cvex_version: str = f"CODE: cvex H19.x.x"
@@ -9929,7 +9946,7 @@ class flam3h_about_utils
         if hou_version >= 19: flam3h_cvex_version = f"CODE: cvex H{str(hou_version)}.x.x"
         flam3h_python_version: str = f"py 3.7.13"
         flam3h_houdini_version: str = f"VERSION: {FLAM3H_VERSION} - {FLAM3H_VERSION_STATUS_GOLD} :: (GPL)"
-        Implementation_years: str = f"2020/{year}"
+        Implementation_years: str = f"Copyright 2021, F stands for Life"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{Implementation_years}"
         
         code_references: str = """CODE REFERENCES

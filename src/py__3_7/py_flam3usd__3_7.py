@@ -1,7 +1,22 @@
+import hou
 from platform import python_version
 from datetime import datetime
 from typing import Union
-import hou
+
+
+
+
+
+__author__ = "F stands for liFe"
+__copyright__ = "Copyright 2023, F stands for liFe"
+
+__license__ = "GPL"
+__version__ = "0.1.52"
+__maintainer__ = "Alessandro nardini"
+__status__ = "Prototype"
+
+
+
 
 
 #   Tested on:  PYTHON v3.7.13  (H19)
@@ -21,6 +36,9 @@ import hou
 #               This is basic and its the start of something.
 #               
 #               Everything is then glued together inside Houdini.
+
+
+
 
 
 FLAM3HUSD_VERSION = '0.1.52'
@@ -1070,14 +1088,15 @@ class flam3husd_about_utils
         nl = "\n"
         nnl = "\n\n"
         
-        year = datetime.now().strftime("%Y")
+        # year = datetime.now().strftime("%Y")
+        
         flam3h_author = f"AUTHOR: F stands for liFe ( made in Italy )"
         flam3h_cvex_version = f"CODE: vex H19.x.x"
         hou_version = flam3husd_general_utils.houdini_version()
         if hou_version >= 19: flam3h_cvex_version = f"CODE: vex H{str(hou_version)}.x.x"
         flam3h_python_version = f"py 3.7.13"
         flam3h_houdini_version = f"VERSION: {FLAM3HUSD_VERSION} - {FLAM3HUSD_VERSION_STATUS_BETA} :: (GPL)"
-        Implementation_years = f"2023/{year}"
+        Implementation_years: str = f"Copyright 2023, F stands for Life"
         Implementation_build = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{Implementation_years}"
         
         build = (Implementation_build, nl
