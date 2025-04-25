@@ -10702,9 +10702,9 @@ class _xml_tree
             (self):
             xmlfile (str): xmlfile (str): [xml *.flame file v_type to load]
         """
-        self._xmlfile = xmlfile
-        self._xmlfile_data = self.xmlfile_root_chk(self._xmlfile)
-        self._xmlfile_data_clipboard = self.xmlfile_root_chk(self._xmlfile, True)
+        self._xmlfile: str = xmlfile
+        self._xmlfile_data: Union[str, None] = self.xmlfile_root_chk(self._xmlfile)
+        self._xmlfile_data_clipboard: Union[str, None] = self.xmlfile_root_chk(self._xmlfile, True)
         self._isvalidtree = self.xmlfile_isvalidtree_chk(self._xmlfile)
         if self._xmlfile_data_clipboard is not None:
             self._tree = lxmlET.ElementTree(lxmlET.fromstring(self._xmlfile_data_clipboard)) # type: ignore
@@ -10717,9 +10717,9 @@ class _xml_tree
                 self._tree = lxmlET.parse(xmlfile) # type: ignore
                 
         # This not private as its cheaper to have it evaluate from this parent class.
-        self._name = self.get_name()
-        self._plugins = self.get_name(XML_FLAME_PLUGINS)
-        self._sw_version = self.get_name(XML_FLAME_VERSION) # type: ignore
+        self._name: tuple = self.get_name()
+        self._plugins: tuple = self.get_name(XML_FLAME_PLUGINS)
+        self._sw_version: tuple = self.get_name(XML_FLAME_VERSION) # type: ignore
 
 
     @staticmethod
