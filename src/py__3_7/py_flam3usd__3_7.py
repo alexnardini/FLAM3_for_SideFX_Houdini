@@ -1,4 +1,4 @@
-__author__ = "F stands for liFe"
+__author__ = "F stands for liFe ( made in Italy )"
 __copyright__ = "Copyright 2023, F stands for liFe"
 
 __license__ = "GPL"
@@ -33,7 +33,7 @@ from typing import Union
 
 
 
-FLAM3HUSD_VERSION = '0.1.52'
+FLAM3HUSD_VERSION = __version__
 FLAM3HUSD_VERSION_STATUS_BETA = "Beta"
 
 
@@ -1082,13 +1082,13 @@ class flam3husd_about_utils
         
         # year = datetime.now().strftime("%Y")
         
-        flam3h_author = f"AUTHOR: F stands for liFe ( made in Italy )"
+        flam3h_author = f"AUTHOR: {__author__}"
         flam3h_cvex_version = f"CODE: vex H19.x.x"
         hou_version = flam3husd_general_utils.houdini_version()
         if hou_version >= 19: flam3h_cvex_version = f"CODE: vex H{str(hou_version)}.x.x"
         flam3h_python_version = f"py 3.7.13"
-        flam3h_houdini_version = f"VERSION: {FLAM3HUSD_VERSION} - {FLAM3HUSD_VERSION_STATUS_BETA} :: (GPL)"
-        Implementation_years: str = f"Copyright 2023, F stands for Life"
+        flam3h_houdini_version = f"VERSION: {FLAM3HUSD_VERSION} - {FLAM3HUSD_VERSION_STATUS_BETA} :: ({__license__})"
+        Implementation_years: str = __copyright__
         Implementation_build = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{Implementation_years}"
         
         build = (Implementation_build, nl

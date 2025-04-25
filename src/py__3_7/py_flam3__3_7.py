@@ -1,7 +1,7 @@
 from __future__ import division
 from __future__ import annotations
 
-__author__ = "F stands for liFe"
+__author__ = "F stands for liFe ( made in Italy )"
 __copyright__ = "Copyright 2021, F stands for liFe"
 
 __license__ = "GPL"
@@ -83,7 +83,7 @@ from inspect import cleandoc as i_cleandoc
 
 
 
-FLAM3H_VERSION = '1.8.08'
+FLAM3H_VERSION = __version__
 FLAM3H_VERSION_STATUS_BETA = "Beta"
 FLAM3H_VERSION_STATUS_GOLD = "Gold"
 
@@ -9936,13 +9936,13 @@ class flam3h_about_utils
             
         # year = datetime.now().strftime("%Y")
         
-        flam3h_author: str = f"AUTHOR: F stands for liFe ( made in Italy )"
+        flam3h_author: str = f"AUTHOR: {__author__}"
         flam3h_cvex_version: str = f"CODE: cvex H19.x.x"
         hou_version : int = flam3h_general_utils.houdini_version()
         if hou_version >= 19: flam3h_cvex_version = f"CODE: cvex H{str(hou_version)}.x.x"
         flam3h_python_version: str = f"py 3.7.13"
-        flam3h_houdini_version: str = f"VERSION: {FLAM3H_VERSION} - {FLAM3H_VERSION_STATUS_GOLD} :: (GPL)"
-        Implementation_years: str = f"Copyright 2021, F stands for Life"
+        flam3h_houdini_version: str = f"VERSION: {FLAM3H_VERSION} - {FLAM3H_VERSION_STATUS_GOLD} :: ({__license__})"
+        Implementation_years: str = __copyright__
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{Implementation_years}"
         
         code_references: str = """CODE REFERENCES
