@@ -4972,6 +4972,9 @@ class flam3h_iterator_utils
         """When copy/paste parameter values between different multiparameter indexes,
         this will save the current note and place it into parenthesis as a form of backup.
         
+        _NOTE:
+            This need an upgrade/improvements at some point.
+        
         Args:
             _note(str): current note in the parameter
 
