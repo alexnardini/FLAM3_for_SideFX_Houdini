@@ -11087,17 +11087,19 @@ class in_flame
         """  
         try:
             float(val)
-            return val
         except ValueError:
             clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
             new_val = ''.join(clean)
             try:
                 float(new_val)
                 if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE (Corrected)\n")
-                return new_val
             except ValueError:
                 if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE\n")
                 return default_val
+            else:
+                return new_val
+        else:
+            return val
 
 
     @staticmethod
@@ -13714,8 +13716,16 @@ class in_flame_utils
         try:
             float(key_val)
         except ValueError:
-            print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE\n")
-            return default_val
+            clean = [letter for letter in key_val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+            new_val = ''.join(clean)
+            try:
+                float(new_val)
+                if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE (Corrected)\n")
+            except ValueError:
+                if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE\n")
+                return default_val
+            else:
+                return float(new_val)
         else:
             return float(key_val)
 
