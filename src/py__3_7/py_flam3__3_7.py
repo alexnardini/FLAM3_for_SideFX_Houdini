@@ -14186,17 +14186,17 @@ class in_flame_utils
         
         # MB (Motion blur)
         if flam3h_mb_bool:
-            if cc: mb = f", MB{nnl}" # not that elegant, but...
-            else: mb = f"MB{nnl}"
-        else: mb = nnl
+            if cc: mb: str = f", MB{nnl}" # not that elegant, but...
+            else: mb: str = f"MB{nnl}"
+        else: mb: str = nnl
             
-        if ff_bool: ff_msg = f"FF: YES\nFF Post affine: {ff_post_bool_msg}"
-        else: ff_msg = f"FF: NO\n"
+        if ff_bool: ff_msg: str = f"FF: YES\nFF Post affine: {ff_post_bool_msg}"
+        else: ff_msg: str = f"FF: NO\n"
             
         if palette_bool and apo_data.palette is not None:
             if apo_data.cp_flam3h_hsv is not False: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} {IN_HSV_LABEL_MSG}" # custom to FLAM3H only
-            else: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
-        else: palette_count_format = f"Palette not found."
+            else: palette_count_format: str = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
+        else: palette_count_format: str = f"Palette not found."
         
         # ITERATOR COLLECT
         vars_keys: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE) 
@@ -14216,15 +14216,15 @@ class in_flame_utils
         result_sorted = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL, True) # type: ignore
         
         n: int = 5
-        vars_used_heading = "Variations used:"
+        vars_used_heading: str = "Variations used:"
         result_grp: list = [result_sorted[i:i + n] for i in range(0, len(result_sorted), n)]  
-        vars_used_msg = f"{vars_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
+        vars_used_msg: str = f"{vars_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
         
         # Build and set descriptive parameter msg
-        if clipboard: preset_name = apo_data.name[0]
-        else: preset_name = apo_data.name[preset_id]    # Get the correct menu parameter's preset menu label
-                                                        # The apo_data.name[idx] is used for the descriptive parameter
-                                                        # so to not print the icon path into the name.
+        if clipboard: preset_name: str = apo_data.name[0]
+        else: preset_name: str = apo_data.name[preset_id]   # Get the correct menu parameter's preset menu label
+                                                            # The apo_data.name[idx] is used for the descriptive parameter
+                                                            # so to not print the icon path into the name.
                 
         descriptive_prm: tuple = ( f"sw: {apo_data.sw_version[preset_id]}\n", f"{out_flame_utils.out_remove_iter_num(preset_name)}",)
         node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
@@ -14247,13 +14247,13 @@ class in_flame_utils
         # Build MISSING: Compare, keep and build
         vars_missing: list = [x for x in result_sorted_fractorium if x not in result_sorted]
         result_grp_fractorium: list = [vars_missing[i:i + n] for i in range(0, len(vars_missing), n)]  
-        vars_missing_msg = ""
+        vars_missing_msg: str = ""
         if vars_missing: vars_missing_msg = f"{nnl}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
         
         # Build UNKNOWN
         vars_unknown: list = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
-        if vars_unknown: vars_unknown_msg = f"{nnl}UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i + n] for i in range(0, len(vars_unknown), n)] )}"
-        else: vars_unknown_msg = ''
+        if vars_unknown: vars_unknown_msg: str = f"{nnl}UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i + n] for i in range(0, len(vars_unknown), n)] )}"
+        else: vars_unknown_msg: str = ''
         
         # Check if the loaded Flame file is locked.
         in_path: str = os.path.expandvars(node.parm(IN_PATH).eval())
