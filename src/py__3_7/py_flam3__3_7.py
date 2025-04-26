@@ -8484,7 +8484,7 @@ class flam3h_palette_utils
         Returns:
             (Union[int, float]): the closest value in the array that is bigger than the value passed in. Can be either an integer or a float
         """   
-        idx: int = np_searchsorted(array, value, side="left")
+        idx: int = np_searchsorted(array, value, side="left").tolist()
         return array[idx]
     
     
