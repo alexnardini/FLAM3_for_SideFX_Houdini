@@ -4191,7 +4191,8 @@ MENU_VARS_INDEXES: dict[int, int] = {   0: 1,
                                         75: 203, 
                                         76: 205, 
                                         77: 207, 
-                                        78: 209 }
+                                        78: 209
+                                        }
 
 class flam3h_iterator_utils:
     """
@@ -10249,7 +10250,7 @@ OUT_XML_RENDER_HOUDINI_DICT: dict[str, str] = { XML_XF_NAME: OUT_FLAME_PRESET_NA
                                                 OUT_XML_FLAME_RENDER_CURVE_RED: 'outcurvered',
                                                 OUT_XML_FLAME_RENDER_CURVE_GREEN: 'outcurvegreen',
                                                 OUT_XML_FLAME_RENDER_CURVE_BLUE: 'outcurveblue'
-                                            }
+                                                }
 
 # For now we force to assume a valid flame's XML file must have this tree.root name.
 XML_VALID_FLAMES_ROOT_TAG = 'flames'
@@ -10400,7 +10401,7 @@ VARS_FLAM3_DICT_IDX: dict[str, int] = { "linear": 0,
                                         "unpolar": 103,
                                         "glynnia": 104, 
                                         "point_symmetry": 105
-                                    }
+                                        }
 
 # This dictionary for a faster look up table, Fractorium has so many variations!
 # We are using this to check for missing variations coming from the loaded flame file
@@ -10439,7 +10440,7 @@ VARS_FRACTORIUM_DICT: dict[str, tuple] = {  "a": ("arch", "arcsech", "arcsech2",
                                             "x": ("x", "xerf", "xheart", "xtrb"),
                                             "y": ("y",),
                                             "z": ("z", "zblur", "zcone", "zscale","ztranslate")
-                                        }
+                                            }
 
 
 class flam3h_varsPRM_APO:
@@ -10588,14 +10589,16 @@ class flam3h_varsPRM_APO:
 # This is used inside: __get_name_list_str(...)
 # to set what default single value should be used in case something goes wrong during the processed string value cleanup/correction
 XML_TO_F3H_DEFAULT_VALS: dict[str, str] = { OUT_XML_FLAM3H_HSV: '1', 
-                                            OUT_XML_FLAME_SIZE: '1024'}
+                                            OUT_XML_FLAME_SIZE: '1024'
+                                            }
 
 
 # This is used inside: def xf_list_cleanup(...) and def xf_list_cleanup_str(...)
 # to gather a proper default list of values in case the one from the XML is empty.
 XML_TO_F3H_LIST_DEFAULT_VALS: dict[str, str] = {OUT_XML_FLAME_SIZE: '1024 1024', 
                                                 OUT_XML_FLAME_CENTER: '0 0', 
-                                                OUT_XML_FLAM3H_HSV: '1 1 1'}
+                                                OUT_XML_FLAM3H_HSV: '1 1 1'
+                                                }
 
 
 # FLAM3H XML TREE start here
@@ -14116,7 +14119,7 @@ class in_flame_utils
                                                                 n.shader_color: apo_data.color,
                                                                 n.shader_speed: apo_data.symmetry,
                                                                 n.shader_alpha: apo_data.opacity
-                                                            }
+                                                                }
                 [self.in_set_data(mode, node, prx, value, key, mp_idx) for key, value in apo_data_set.items()]
             
             # Set Affine ( PRE, POST and F3H_PRE, F3H_POST) for this iterator or FF
@@ -15513,7 +15516,7 @@ class out_flame_utils
                                             'prm_curve_red': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)), # type: ignore
                                             'prm_curve_green': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)), # type: ignore
                                             'prm_curve_blue': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)), # type: ignore
-                                        }
+                                            }
         
         # render curves parms
         prm_ui: dict[str, hou.parm()] = {   'prm_curves': node.parm(OUT_RENDER_PROPERTIES_CURVES), # type: ignore
@@ -15521,7 +15524,7 @@ class out_flame_utils
                                             'prm_curve_red': node.parm(OUT_RENDER_PROPERTIES_CURVE_RED), # type: ignore
                                             'prm_curve_green': node.parm(OUT_RENDER_PROPERTIES_CURVE_GREEN), # type: ignore
                                             'prm_curve_blue': node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE) # type: ignore
-                                        }
+                                            }
         
         # Unlock, Set and Lock again
         [prm.lock(False) for prm in prm_ui.values()]
@@ -15614,7 +15617,7 @@ class out_flame_utils
                                             'prm_curve_red': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)), # type: ignore
                                             'prm_curve_green': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)), # type: ignore
                                             'prm_curve_blue': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)), # type: ignore
-                                        }
+                                            }
         
         # render curves parms
         prm_curves_ui: hou.Parm = node.parm(OUT_RENDER_PROPERTIES_CURVES) # type: ignore
@@ -15622,7 +15625,7 @@ class out_flame_utils
                                             'prm_curve_red': node.parm(OUT_RENDER_PROPERTIES_CURVE_RED), # type: ignore
                                             'prm_curve_green': node.parm(OUT_RENDER_PROPERTIES_CURVE_GREEN), # type: ignore
                                             'prm_curve_blue': node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE) # type: ignore
-                                        }
+                                            }
         
         # Set the prm data defaults first
         prm_curves_ui.lock(False)
@@ -16761,7 +16764,8 @@ class out_flame_utils
         prms_out_sensor_data: dict[Union[str, None], Union[hou.Vector2, float]] = { OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024)),    # tuple
                                                                                     OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0)),  # tuple
                                                                                     OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0,
-                                                                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400 }
+                                                                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400
+                                                                                    }
         
         # Clear and set
         [node.parmTuple(key).deleteAllKeyframes() if isinstance(node.parmTuple(key).eval(), tuple) else node.parm(key).deleteAllKeyframes() for key in prms_out_sensor_data.keys()]
@@ -16784,7 +16788,8 @@ class out_flame_utils
                                                                             OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5,
                                                                             OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 5,
                                                                             OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0,
-                                                                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.3333 }
+                                                                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.3333
+                                                                            }
         
         # Clear and set
         [node.parm(key).deleteAllKeyframes() for key in prms_out_render_data.keys()]
@@ -17416,7 +17421,8 @@ class out_flame_utils
                                 OUT_XML_FLAME_RENDER_CURVE_OVERALL: f3r.flame_overall_curve,
                                 OUT_XML_FLAME_RENDER_CURVE_RED: f3r.flame_red_curve,
                                 OUT_XML_FLAME_RENDER_CURVE_GREEN: f3r.flame_green_curve,
-                                OUT_XML_FLAME_RENDER_CURVE_BLUE: f3r.flame_blue_curve}
+                                OUT_XML_FLAME_RENDER_CURVE_BLUE: f3r.flame_blue_curve
+                                }
         [flame.set(key, value) for key, value in cc.items()]
         
         # return if this flame is a valid 'flam3'
