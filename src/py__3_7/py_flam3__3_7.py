@@ -13452,7 +13452,7 @@ class in_flame_utils
         """       
         node = kwargs['node']
         
-        inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
+        inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
         
         # If "clipboard" is True mean the incoming Flame preset from the Clipboard has been checked/validated already
         # so no needs to double check here any more...just use it as is.
@@ -13525,8 +13525,8 @@ class in_flame_utils
         """
         node = kwargs['node']
         
-        inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
-        clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+        inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
+        clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
 
         # Here we are checking those toggles
         # because when a Flame preset has been loaded already and we want to make sure it is still valid
@@ -13578,8 +13578,8 @@ class in_flame_utils
         """
         node = kwargs['node']
         
-        inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
-        clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+        inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
+        clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
         
         # Here we are checking those toggles
         # because the a Flame preset has been loaded already and we want to make sure it is still valid
@@ -13641,8 +13641,8 @@ class in_flame_utils
         """
         node = kwargs['node']
 
-        inisvalidpreset = node.parm(IN_PVT_ISVALID_PRESET).eval()
-        clipboard = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+        inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
+        clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
         
         # Here we are checking those toggles
         # because the a Flame preset has been loaded already and we want to make sure it is still valid
