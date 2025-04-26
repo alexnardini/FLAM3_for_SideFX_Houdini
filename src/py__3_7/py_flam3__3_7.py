@@ -13177,15 +13177,15 @@ class in_flame_utils
         Returns:
             (int): The iteration number to set. If none is found, use the default value of 64 to load this Flame preset.
         """
-        iter_on_load = node.parm(IN_ITER_NUM_ON_LOAD).eval()
-        use_iter_on_load = node.parm(IN_USE_ITER_ON_LOAD).eval()
+        iter_on_load: int = node.parm(IN_ITER_NUM_ON_LOAD).eval()
+        use_iter_on_load: int = node.parm(IN_USE_ITER_ON_LOAD).eval()
         
         if clipboard: preset_name = flame_name_clipboard
         else:
             # Get the correct menu parameter's preset menu label
-            preset_name = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
+            preset_name: str = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, preset_id)
         
-        iter_on_load_preset = in_flame_utils.in_get_preset_name_iternum(preset_name)
+        iter_on_load_preset: Union[int, None] = in_flame_utils.in_get_preset_name_iternum(preset_name)
         if iter_on_load_preset is not None:
             # override iterations from the Flame preset name
             if use_iter_on_load and node.parm(IN_OVERRIDE_ITER_FLAME_NAME).eval():
@@ -13219,29 +13219,29 @@ class in_flame_utils
         
         na = 'n/a'
         
-        size = f'Resolution: {na}'
+        size: str = f'Resolution: {na}'
         if apo_data.out_size[preset_id]:
             size = f"Resolution: {apo_data.out_size[preset_id]}"
             
-        center = f'Center: {na}'
+        center: str = f'Center: {na}'
         if apo_data.out_center[preset_id]:
             center = f"Center: {apo_data.out_center[preset_id]}"
             
-        rotate = f'Rotate: {na}'
+        rotate: str = f'Rotate: {na}'
         if apo_data.out_rotate[preset_id]:
             rotate = f"Rotate: {apo_data.out_rotate[preset_id]}"
 
-        scale = f'Scale: {na}'
+        scale: str = f'Scale: {na}'
         if apo_data.out_scale[preset_id]:
             scale = f"Scale: {apo_data.out_scale[preset_id]}"
         
-        build = (size, nl,
-                 center, nl,
-                 rotate, nl,
-                 scale, nl,
-                 )
+        build: tuple = (size, nl,
+                        center, nl,
+                        rotate, nl,
+                        scale, nl,
+                        )
         
-        build_render_stats_msg = "".join(build)
+        build_render_stats_msg: str = "".join(build)
         return build_render_stats_msg
 
     
@@ -13261,27 +13261,27 @@ class in_flame_utils
         nnl = "\n\n"
         na = 'n/a'
         
-        quality = f'Quality: {na}'
+        quality: str = f'Quality: {na}'
         if apo_data.out_quality[preset_id]:
             quality = f"Quality: {apo_data.out_quality[preset_id]}"
 
-        brightness = f'Brightness: {na}'
+        brightness: str = f'Brightness: {na}'
         if apo_data.out_brightness[preset_id]:
             brightness = f"Brightness: {apo_data.out_brightness[preset_id]}"
             
-        gamma = f'Gamma: {na}'
+        gamma: str = f'Gamma: {na}'
         if apo_data.out_gamma[preset_id]:
             gamma = f"Gamma: {apo_data.out_gamma[preset_id]}"
             
-        highlight = f'Highlight power: {na}'
+        highlight: str = f'Highlight power: {na}'
         if apo_data.out_highlight_power[preset_id]:
             highlight = f"Highlight power: {apo_data.out_highlight_power[preset_id]}"
             
-        _K2 = f'Logscale K2: {na}'
+        _K2: str = f'Logscale K2: {na}'
         if apo_data._out_logscale_k2[preset_id]:
             _K2 = f"Logscale K2: {apo_data._out_logscale_k2[preset_id]}"
             
-        vibrancy = f'Vibrancy: {na}'
+        vibrancy: str = f'Vibrancy: {na}'
         if apo_data.out_vibrancy[preset_id]:
             vibrancy = f"Vibrancy: {apo_data.out_vibrancy[preset_id]}"
         
@@ -13293,16 +13293,16 @@ class in_flame_utils
         if not cc_curves: cc = f"COLOR CORRECTION: Default (OFF)\nThe loaded preset CC Curves are default values."
         else: cc = f"COLOR CORRECTION:\n{', '.join(cc_curves)}"
         
-        build = (quality, nl,
-                 brightness, nl,
-                 gamma, nl,
-                 highlight, nl,
-                 _K2, nl,
-                 vibrancy, nnl,
-                 cc
-                 )
+        build: tuple = (quality, nl,
+                        brightness, nl,
+                        gamma, nl,
+                        highlight, nl,
+                        _K2, nl,
+                        vibrancy, nnl,
+                        cc
+                        )
         
-        build_render_stats_msg = "".join(build)
+        build_render_stats_msg: str = "".join(build)
         return build_render_stats_msg
     
     
@@ -14043,7 +14043,7 @@ class in_flame_utils
                 
                 # Print all skipped FF vars if any
                 if FF_vars_skipped:
-                    build = f"WARNING: {self.node}.FF\n\tThe following variations are in excess and skipped:{''.join(FF_vars_skipped)}\n"
+                    build: str = f"WARNING: {self.node}.FF\n\tThe following variations are in excess and skipped:{''.join(FF_vars_skipped)}\n"
                     print(build)
                 
             else:
@@ -14104,7 +14104,7 @@ class in_flame_utils
                        
                 # Print all skipped iterators vars if any
                 if iterator_vars_skipped:
-                    build = f"WARNING: {self.node}.iterator.{mp_idx + 1}\n\tThe following variations are in excess and skipped:{''.join(iterator_vars_skipped)}\n"
+                    build: str = f"WARNING: {self.node}.iterator.{mp_idx + 1}\n\tThe following variations are in excess and skipped:{''.join(iterator_vars_skipped)}\n"
                     print(build)
                                 
                 # Activate iterator
