@@ -1938,6 +1938,8 @@ Copy/Paste SENSOR/RENDER preset settings:
 
     _All the displayed informations are gathered from the XML of the loaded Flame preset_.
 
+    _If any of these keys are not present in the loaded Flame preset XML data, default values will be used instead and the missing data will be reported as: *`n/a`* ( not available )_
+
     <br />
 
     SENSOR [Icon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
@@ -1964,7 +1966,7 @@ Copy/Paste SENSOR/RENDER preset settings:
 
     <br />
 
-    - *`COLOR CORRECTION`*:<br />If any of the color correction curves have been used, they will be listed here if different from default values.
+    - *`COLOR CORRECTION`*:<br />If any of the color correction curves have been used, they will be listed here if different from default values.<br /><br />If the loaded Flame preset XML data do not have color correction curves XML keys in it, default values (_no color correction_) will be used instead.
 
 
 :box:
