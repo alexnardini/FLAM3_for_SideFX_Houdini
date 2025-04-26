@@ -2675,7 +2675,7 @@ class flam3h_general_utils
             viewports: list = self.util_getSceneViewers()
             
             # Get some data for down the line condition checks
-            update_sensor = self.node.parm(OUT_UPDATE_SENSOR).eval()
+            update_sensor: int = self.node.parm(OUT_UPDATE_SENSOR).eval()
             _SYS_FRAME_VIEW_SENSOR_prm = False
             try:
                 if self.kwargs['parm'].name() == SYS_FRAME_VIEW_SENSOR:
@@ -2764,7 +2764,7 @@ class flam3h_general_utils
                     
             else:
                 self.util_store_all_viewers()
-                if self.util_set_front_viewer_all(node, update_sensor, _SYS_FRAME_VIEW_SENSOR_prm, update):
+                if self.util_set_front_viewer_all(node, bool(update_sensor), _SYS_FRAME_VIEW_SENSOR_prm, update):
                     return True
                 else:
                     # Or just exit the Sensor Viz mode
@@ -13235,7 +13235,6 @@ class in_flame_utils
         if apo_data.out_scale[preset_id]:
             scale = f"Scale: {apo_data.out_scale[preset_id]}"
         
-        
         build = (size, nl,
                  center, nl,
                  rotate, nl,
@@ -13674,8 +13673,7 @@ class in_flame_utils
                     # I could have done this inside the above: in_flame_utils.in_copy_render_cc_curves(node, f3r, preset_id)
                     # but since this one is run also from a callback script, i'm doing the checks twice anyway
                     out_flame_utils.out_render_curves_compare_and_set_toggle(node)
-                        
-                        
+                    
                     # menu_label = in_flame_utils.in_presets_in_isvalid_file_menu_label(node, 0)
                     _MSG = f"IN CC Curves: COPIED"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} from the IN Flame preset: {out_flame_utils.out_remove_iter_num(f3r.name[0])}", 'IMP')
@@ -14217,7 +14215,7 @@ class in_flame_utils
         if pb_bool: vars_all += [["pre_blur"]]
         result_sorted = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL, True) # type: ignore
         
-        n = 5
+        n: int = 5
         vars_used_heading = "Variations used:"
         result_grp: list = [result_sorted[i:i + n] for i in range(0, len(result_sorted), n)]  
         vars_used_msg = f"{vars_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
