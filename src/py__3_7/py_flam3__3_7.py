@@ -3839,8 +3839,8 @@ class flam3h_general_utils
         node = self.node
         pttype: int = node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt()
 
-        Points = hou.viewportParticleDisplay.Points # type: ignore
-        Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
+        Points: hou.EnumValue = hou.viewportParticleDisplay.Points # type: ignore
+        Pixels: hou.EnumValue = hou.viewportParticleDisplay.Pixels # type: ignore
 
         for view in self.util_getSceneViewers():
             
