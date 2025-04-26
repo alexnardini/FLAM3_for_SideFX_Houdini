@@ -17171,7 +17171,7 @@ class out_flame_utils
                 vars: Union[list[str], None] = iter_VAR.get(key)
                 if vars is not None:
                     dup: Union[list, str] = self.out_util_vars_duplicate(vars)
-                    assert isinstance(dup, str)
+                    assert isinstance(dup, list)
                     if dup:
                         iter_VAR_dup[key] = dup
                         if bool_VARS is False: bool_VARS: bool = True
@@ -17184,7 +17184,7 @@ class out_flame_utils
                 vars: Union[list[str], None] = iter_PRE.get(key)
                 if vars is not None:
                     dup: Union[list, str] = self.out_util_vars_duplicate(vars)
-                    assert isinstance(dup, str)
+                    assert isinstance(dup, list)
                     if dup:
                         iter_PRE_dup[key] = dup
                         if bool_VARS_PRE is False: bool_VARS_PRE: bool = True
