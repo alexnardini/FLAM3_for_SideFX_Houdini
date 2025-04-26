@@ -495,7 +495,9 @@ loaddef:
     
     Load/reset to default Sierpiński triangle preset.
 
-    Additionally, when loading the default Sierpiński triangle from this icon, it will also reset the FLAM3H UI and options toggles to their defaults including the OUT render properties (_SENSOR, RENDER and CC CURVES settings_).
+    _Additionally_:
+    
+    when loading the default Sierpiński triangle from this icon, it will also reset the FLAM3H UI and options toggles to their defaults including the OUT render properties (_SENSOR, RENDER and CC CURVES settings_).
 
 :box:
     #display: rounded white
