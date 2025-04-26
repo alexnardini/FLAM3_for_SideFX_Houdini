@@ -10,6 +10,18 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.12</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.12) ###
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.8.10</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.10) ###
 
 - **New**: If they are missing from the loaded XML data on Flame load, set the OUT renderer settings to its defaults.
