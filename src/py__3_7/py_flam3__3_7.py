@@ -13115,10 +13115,10 @@ class in_flame_utils
         Returns:
             (list[str]): Return a flattened list of unique and sorted items without duplicates.
         """
-        flatten = [item for sublist in VARS_list for item in sublist]
-        result = []
+        flatten: list = [item for sublist in VARS_list for item in sublist]
+        result: list = []
         [result.append(x) for x in flatten if x not in result]
-        sort = sorted(result, key=lambda var: var)
+        sort: list = sorted(result, key=lambda var: var)
         if not capitalize:
             return [str(func(x)) for x in sort if x]
         else:
@@ -13139,24 +13139,24 @@ class in_flame_utils
             (str): The selected menu preset menu label string
         """
 
-        toggle_PREFS_ENUMERATE_MENU = node.parm(PREFS_ENUMERATE_MENU).eval()
+        toggle_PREFS_ENUMERATE_MENU: int = node.parm(PREFS_ENUMERATE_MENU).eval()
         
         if node.parm(IN_PVT_ISVALID_PRESET).eval():
             
             if node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
-                menu_label = str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_CB)[-1].strip()
+                menu_label: str = str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_CB)[-1].strip()
                 # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
                 # and there are only the leading white spaces left from the menu enumaration index number string to remove.
                 if toggle_PREFS_ENUMERATE_MENU: return ':'.join(str(menu_label).split(':')[1:]).lstrip()
                 else: return menu_label
             else:
-                menu_label = str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD)[-1].strip()
+                menu_label: str = str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD)[-1].strip()
                 # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
                 # and there are only the leading white spaces left from the menu enumaration index number string to remove.
                 if toggle_PREFS_ENUMERATE_MENU: return ':'.join(str(menu_label).split(':')[1:]).lstrip()
                 else: return menu_label
         else:
-            menu_label = str(node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY)[-1].strip()
+            menu_label: str = str(node.parm(IN_PRESETS_OFF).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY)[-1].strip()
             # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
             # and there are only the leading white spaces left from the menu enumaration index number string to remove.
             if toggle_PREFS_ENUMERATE_MENU: return ':'.join(str(menu_label).split(':')[1:]).lstrip()
@@ -13533,8 +13533,8 @@ class in_flame_utils
         if inisvalidpreset or clipboard:
             
             data: Union[str, None] = node.userData(FLAM3H_USER_DATA_XML_LAST)
-            if data is not None: f3r = in_flame_iter_data(node, data)
-            else: f3r = None
+            if data is not None: f3r: Union[in_flame_iter_data, None] = in_flame_iter_data(node, data)
+            else: f3r: Union[in_flame_iter_data, None] = None
             if f3r is not None and f3r.isvalidtree:
             
                 # sensor data
@@ -13586,8 +13586,8 @@ class in_flame_utils
         if inisvalidpreset or clipboard:
             
             data: Union[str, None] = node.userData(FLAM3H_USER_DATA_XML_LAST)
-            if data is not None: f3r = in_flame_iter_data(node, data) # ELSE load from the stored data instead
-            else: f3r = None
+            if data is not None: f3r: Union[in_flame_iter_data, None] = in_flame_iter_data(node, data) # ELSE load from the stored data instead
+            else: f3r: Union[in_flame_iter_data, None] = None
             if f3r is not None and f3r.isvalidtree:
                 
                 # render data
@@ -13649,8 +13649,8 @@ class in_flame_utils
         if inisvalidpreset or clipboard:
             
             data: Union[str, None] = node.userData(FLAM3H_USER_DATA_XML_LAST)
-            if data is not None: f3r = in_flame_iter_data(node, data)
-            else: f3r = None
+            if data is not None: f3r: Union[in_flame_iter_data, None] = in_flame_iter_data(node, data)
+            else: f3r: Union[in_flame_iter_data, None] = None
             if f3r is not None and f3r.isvalidtree:
                 
                 # render curves data
