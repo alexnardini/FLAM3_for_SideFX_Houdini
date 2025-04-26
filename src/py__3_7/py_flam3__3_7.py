@@ -16155,7 +16155,7 @@ class out_flame_utils
         xaos_cleaned: list = []
         for x in xaos:
             invert = x[::-1]
-            trace = 0
+            trace: int = 0
             for idx in range(len(x)): # for idx, item in enumerate(x):
                 _idx: int = idx-trace
                 if invert[_idx] == '1':
@@ -16242,7 +16242,7 @@ class out_flame_utils
                         
                 else:
 
-                    isNUM = False
+                    isNUM: bool = False
                     iter_xaos_clean: str = in_flame.xf_val_cleanup_str(iter_xaos, '@') # default_val here is set to an invalid char to make it fail on purpose if needed
                     
                     try:
@@ -16372,7 +16372,7 @@ class out_flame_utils
         W_tuple: Union[tuple, None] = prm_sections_W.get(var_section)
         
         if T_tuple is not None and W_tuple is not None:
-            names = []
+            names: list = []
             for iter in range(node.parm(FLAME_ITERATORS_COUNT).eval()):
                 _MP_IDX = str(int(iter + 1))
                 for idx, prm in enumerate(W_tuple):
@@ -16429,7 +16429,7 @@ class out_flame_utils
                     _MP_IDX = 'FF'
                     names_collect_values: list = []
                     for idx, prm in enumerate(W_tuple):
-                        prm_w = node.parm(f"{prm[0]}").eval()
+                        prm_w: float = node.parm(f"{prm[0]}").eval()
                         if prm_w != 0:
                             v_type: int = node.parm(f"{T_tuple[idx]}").eval()
                             var_name: str = in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type)
@@ -16547,7 +16547,7 @@ class out_flame_utils
         """
         node = self.node
         prm_prefs_256_plus = self.kwargs['parm']
-        rmp_src = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
+        rmp_src: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         if prm_prefs_256_plus.eval():
             if len(rmp_src.keys()) <= 256:
                 _MSG = f"PALETTE 256+ ACTIVE but the CP palette do not have more than 256 color keys."
@@ -16581,9 +16581,9 @@ class out_flame_utils
             if toggle_PREFS_ENUMERATE_MENU:
                 # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
                 # and there are only the leading white spaces left from the menu enumaration index number string to remove.
-                flame_name = ':'.join(str(menu_label).split(':')[1:]).lstrip()
+                flame_name: str = ':'.join(str(menu_label).split(':')[1:]).lstrip()
             else:
-                flame_name = menu_label
+                flame_name: str = menu_label
                 
             return flame_name
         
@@ -16608,12 +16608,12 @@ class out_flame_utils
             flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
         else:
             if node.parm(OUT_PVT_ISVALID_FILE).eval():
-                menu_label = self.out_presets_get_selected_menu_label()
+                menu_label: Union[str, None] = self.out_presets_get_selected_menu_label()
                 if menu_label is not None:
-                    flame_name = self.out_remove_iter_num(menu_label)
+                    flame_name: str = self.out_remove_iter_num(menu_label)
                     iter_num = node.parm(GLB_ITERATIONS).eval()
-                    autoadd = node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
-                    flame_name_new = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+                    autoadd: int = node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
+                    flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
                     node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new})
                     
                     _MSG = f"{node.name()}: COPY Flame name: {flame_name_new}"
@@ -16683,8 +16683,8 @@ class out_flame_utils
         """
 
         outedit = self.node.parm(OUT_RENDER_PROPERTIES_EDIT).eval()
-        menu=[]
-        menuitems = ()
+        menu: list = []
+        menuitems: tuple = ()
         if outedit:
             menuitems = (   "", "640x480", "HDTV 720", "HDTV 1080", "HDTV 2160 (4K)", # 1 2 3 4
                             "", "NTSC", "NTSC D1", "PAL", "PAL 16:9 (1 to 1)", # 6 7 8 9
@@ -16725,7 +16725,7 @@ class out_flame_utils
             (None):
         """
         node = self.node
-        sel = int(node.parm(OUT_RENDER_PROPERTIES_RES_PRESETS_MENU).eval())
+        sel: int = int(node.parm(OUT_RENDER_PROPERTIES_RES_PRESETS_MENU).eval())
         res: dict = {-1: None, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), # 1 2 3 4
                      -1: None, 6: (640, 486), 7: (720, 486), 8: (768, 586), 9: (1024, 576), # 6 7 8 9
                      -1: None, 11: (4096, 3112), 12: (2048, 1556), 13: (3656, 2664), 14: (1828, 1332), 15: (3656, 3112), 16: (1828, 1556), 17: (3072, 2048), # 11 12 13 14 15 16 17
@@ -16738,7 +16738,7 @@ class out_flame_utils
             if update:
                 flam3h_general_utils(self.kwargs).util_set_front_viewer()
             else:
-                update_sensor = node.parm(OUT_UPDATE_SENSOR).eval()
+                update_sensor: int = node.parm(OUT_UPDATE_SENSOR).eval()
                 if update_sensor:
                     flam3h_general_utils(self.kwargs).util_set_front_viewer()
         
@@ -16910,7 +16910,7 @@ class out_flame_utils
         fill: list = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values=1) for item in val]
         t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count))).tolist()
         if mode:
-            xaos_vactive = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
+            xaos_vactive: list = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
             return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
         else:
             return tuple([" ".join(x) for x in self.out_util_round_floats(t)])
@@ -16944,7 +16944,7 @@ class out_flame_utils
             
             else:
                 flam3h_iterator_utils.destroy_cachedUserData(node, 'out_presets_menu')
-                head_tail = os.path.split(xml)
+                head_tail: tuple = os.path.split(xml)
                 if xml and os.path.isdir(head_tail[0]) and not os.path.isfile(xml):
                     return MENU_PRESETS_SAVEONE
                 elif xml and not os.path.isfile(xml):
@@ -16999,9 +16999,9 @@ class out_flame_utils
             (tuple[int, str, int]): A tuple with the needed data
         """
         node = self.node
-        iter_num = node.parm(GLB_ITERATIONS).eval()
-        flame_name = str(node.parm(OUT_FLAME_PRESET_NAME).eval()).strip()
-        autoadd = node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
+        iter_num: int = node.parm(GLB_ITERATIONS).eval()
+        flame_name: str = str(node.parm(OUT_FLAME_PRESET_NAME).eval()).strip()
+        autoadd: int = node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
         return iter_num, flame_name, autoadd
 
 
@@ -17016,7 +17016,7 @@ class out_flame_utils
         """
         node = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
-        flame_name_new = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+        flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
         node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
 
 
@@ -17032,20 +17032,20 @@ class out_flame_utils
         """      
         node = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
-        in_flame_name_auto_file = node.parm(OUT_IN_FLAME_NAME_AUTO_FILL).eval()
+        in_flame_name_auto_file: int = node.parm(OUT_IN_FLAME_NAME_AUTO_FILL).eval()
         if name is not None and in_flame_name_auto_file: flame_name = name
         
         if flame_name:
             
             if autoadd:
-                flame_name_new = self.out_auto_change_iter_num(iter_num, flame_name, autoadd)
+                flame_name_new: str = self.out_auto_change_iter_num(iter_num, flame_name, autoadd)
                 node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
                 
                 # Update "iter num on load" if "force iterations on Load" toggle is ON 
                 if node.parm(IN_USE_ITER_ON_LOAD).eval():
                     node.setParms({IN_ITER_NUM_ON_LOAD: iter_num})
             else:
-                flame_name_new = self.out_remove_iter_num(flame_name)
+                flame_name_new: str = self.out_remove_iter_num(flame_name)
                 node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
                 
             # Flash message if needed.
@@ -17167,25 +17167,27 @@ class out_flame_utils
         if iter_VAR is not False:
             assert isinstance(iter_VAR, dict)
             for iter in range(iter_count):
-                key = str(iter + 1)
-                vars = iter_VAR.get(key)
+                key: str = str(iter + 1)
+                vars: Union[list[str], None] = iter_VAR.get(key)
                 if vars is not None:
-                    dup = self.out_util_vars_duplicate(vars)
+                    dup: Union[list, str] = self.out_util_vars_duplicate(vars)
+                    assert isinstance(dup, str)
                     if dup:
                         iter_VAR_dup[key] = dup
-                        if bool_VARS is False: bool_VARS = True
+                        if bool_VARS is False: bool_VARS: bool = True
                     
         iter_PRE_dup: dict = {}
         if iter_PRE is not False:
             assert isinstance(iter_PRE, dict)
             for iter in range(iter_count):
-                key = str(iter + 1)
-                vars = iter_PRE.get(key)
+                key: str = str(iter + 1)
+                vars: Union[list[str], None] = iter_PRE.get(key)
                 if vars is not None:
-                    dup = self.out_util_vars_duplicate(vars)
+                    dup: Union[list, str] = self.out_util_vars_duplicate(vars)
+                    assert isinstance(dup, str)
                     if dup:
                         iter_PRE_dup[key] = dup
-                        if bool_VARS_PRE is False: bool_VARS_PRE = True
+                        if bool_VARS_PRE is False: bool_VARS_PRE: bool = True
         
         
         # FF: duplicates check
@@ -17198,40 +17200,46 @@ class out_flame_utils
             _FF_POST: Union[dict[str, list[str]], bool] = self.out_collect_var_section_names_dict(node, 1, 'POST')
             if _FF_VAR is not False:
                 assert isinstance(_FF_VAR, dict)
-                vars = _FF_VAR.get(key)
+                vars: Union[list[str], None] = _FF_VAR.get(key)
                 if vars is not None:
-                    dup = self.out_util_vars_duplicate(vars)
+                    dup: Union[list, str] = self.out_util_vars_duplicate(vars)
+                    assert isinstance(dup, list)
                     if dup:
                         _FF_VAR_dup[key] = dup
-                        bool_VARS_FF = True
+                        bool_VARS_FF: bool = True
                     
             if _FF_POST is not False:
                 assert isinstance(_FF_POST, dict)
-                vars = _FF_POST.get(key)
+                vars: Union[list[str], None] = _FF_POST.get(key)
                 if vars is not None:
-                    dup = self.out_util_vars_duplicate(vars)
+                    dup: Union[list, str] = self.out_util_vars_duplicate(vars)
+                    assert isinstance(dup, list)
                     if dup:
                         _FF_POST_dup[key] = dup
-                        bool_VARS_POST_FF = True
+                        bool_VARS_POST_FF: bool = True
         
         if bool_VARS_PRE or bool_VARS or bool_VARS_POST or bool_VARS_PRE_FF or bool_VARS_FF or bool_VARS_POST_FF:
             
             _MSG_PRE = _MSG_VAR = ''
             if bool_VARS_PRE:
                 dup = ''.join(f"\titerator.{key}\n\t\t{str(', '.join(val))}\n" for key, val in iter_PRE_dup.items())
+                assert isinstance(dup, str)
                 _MSG_PRE = f"\nPRE\n{dup}"
             
             if bool_VARS:
                 dup = ''.join(f"\titerator.{key}\n\t\t{str(', '.join(val))}\n" for key, val in iter_VAR_dup.items())
+                assert isinstance(dup, str)
                 _MSG_VAR = f"\nVAR\n{dup}"
                 
             _MSG_FF_VAR = _MSG_FF_POST = ''
             if bool_VARS_FF:
                 dup = ''.join(f"{str(', '.join(val))}\n" for val in _FF_VAR_dup.values())
+                assert isinstance(dup, str)
                 _MSG_FF_VAR = f"\nFF VAR\n\t{dup}"
             
             if bool_VARS_POST_FF:
                 dup = ''.join(f"{str(', '.join(val))}\n" for val in _FF_POST_dup.values())
+                assert isinstance(dup, str)
                 _MSG_FF_POST = f"\nFF POST\n\t{dup}"
                 
             _MSG_INTRO = f"You are using the same variation multiple times\ninside the following iterators/FF types (PRE, VAR, POST):\n"
@@ -17279,33 +17287,33 @@ class out_flame_utils
             (list[str]): List of used variation in this iterator/xform
         """
         node = self.node
-        names = []
+        names: list = []
         for idx, prm in enumerate(WEIGHTS_tuple):
-            prm_w = node.parm(f"{prm[0]}{MP_IDX}").eval()
+            prm_w: float = node.parm(f"{prm[0]}{MP_IDX}").eval()
             if prm_w != 0:
-                v_type = node.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
-                v_name = in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type)
+                v_type: int = node.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
+                v_name: str = in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type)
                 names.append(v_name)
                 XFORM.set(FUNC(v_name), self.out_util_round_float(prm_w))
-                vars_prm = varsPRM[v_type]
+                vars_prm: tuple = varsPRM[v_type]
                 if vars_prm[-1]:
-                    f3h_prm = varsPRM[v_type][1:-1]
+                    f3h_prm: tuple = varsPRM[v_type][1:-1]
 
                     # If OUT Tab -> USE_FRACTORIUM_PRM_NAMES toggle is ON
                     # make sure to use the parametric variation's parameters names that Fractorium expect.
-                    apo_prm = flam3h_varsPRM_APO().varsPRM[v_type]
+                    apo_prm: tuple = flam3h_varsPRM_APO().varsPRM[v_type]
                     if node.parm(OUT_USE_FRACTORIUM_PRM_NAMES).eval():
-                        out_prm = in_flame_utils.in_prm_name_exceptions(v_type, XML_APP_NAME_FRACTORIUM, apo_prm)[1:-1]
+                        out_prm: tuple = in_flame_utils.in_prm_name_exceptions(v_type, XML_APP_NAME_FRACTORIUM, apo_prm)[1:-1]
                     else:
-                        out_prm = apo_prm[1:-1]
+                        out_prm: tuple = apo_prm[1:-1]
                         
                     for id, p in enumerate(out_prm):
                         if f3h_prm[id][-1]:
                             for i in range(len(p)): # for i, n in enumerate(p):
-                                vals = node.parmTuple(f"{f3h_prm[id][0]}{MP_IDX}").eval()
+                                vals: tuple = node.parmTuple(f"{f3h_prm[id][0]}{MP_IDX}").eval()
                                 XFORM.set(FUNC(p[i]), self.out_util_round_float(vals[i]))
                         else:
-                            val = node.parm(f"{f3h_prm[id][0]}{MP_IDX}").eval()
+                            val: float = node.parm(f"{f3h_prm[id][0]}{MP_IDX}").eval()
                             XFORM.set(FUNC(p[0]), self.out_util_round_float(val))
                             
         return names
@@ -17443,7 +17451,7 @@ class out_flame_utils
                 
         else:
             # Lets check if the OUT flame name parameter has a name already set and store it.
-            out_flame_name = node.parm(OUT_FLAME_PRESET_NAME).eval()
+            out_flame_name: str = node.parm(OUT_FLAME_PRESET_NAME).eval()
             # Let's use the passed flame_name instead
             node.setParms({OUT_FLAME_PRESET_NAME: flame_name})
             if self.out_build_XML(root):
@@ -17558,7 +17566,7 @@ class out_flame_utils
             
             kwargs: dict = self.kwargs
             
-            out_path = os.path.expandvars(node.parm(OUT_PATH).eval())
+            out_path: str = os.path.expandvars(node.parm(OUT_PATH).eval())
             out_path_checked: Union[str, bool] = self.out_check_outpath(node, out_path, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
             
             # Write to the clipboard
@@ -17591,7 +17599,7 @@ class out_flame_utils
                     else:
                         
                         node.setParms({OUT_PATH: out_path_checked})
-                        exist = os.path.exists(out_path_checked)
+                        exist: bool = os.path.exists(out_path_checked)
                         apo_data = in_flame(self.node, out_path_checked)
                         _CHK = True
                         
@@ -17662,7 +17670,7 @@ class out_flame_utils
             (str): The FLAM3H parameter prepped into a string for writing out into the Flame preset file.
         """    
         if prm_name:
-            prm_type = False
+            prm_type: bool = False
             try:
                 prm = self.node.parmTuple(prm_name)
                 prm_type = True
@@ -17691,14 +17699,14 @@ class out_flame_utils
         Returns:
             (str): The FLAM3H parameter prepped into a string for writing out into the Flame preset file.
         """    
-        flame_name = self.node.parm(prm_name).eval()
-        autoadd = self.node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
+        flame_name: str = self.node.parm(prm_name).eval()
+        autoadd: int = self.node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
         
         if not flame_name:
             return self.out_flame_default_name(self.node, autoadd)
         else:
             # otherwise get that name and use it
-            iter_num = self.node.parm(GLB_ITERATIONS).eval()
+            iter_num: int = self.node.parm(GLB_ITERATIONS).eval()
             return self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
         
         
@@ -17712,7 +17720,7 @@ class out_flame_utils
         Returns:
             (str): The FLAM3H parameter prepped into a string for writing out into the Flame preset file.
         """    
-        val = [str(self.out_util_round_float(self.node.parm(f"{prm_name}_{iter + 1}").eval())) for iter in range(self.iter_count)]
+        val: list = [str(self.out_util_round_float(self.node.parm(f"{prm_name}_{iter + 1}").eval())) for iter in range(self.iter_count)]
         return tuple(val)
     
     
@@ -17726,7 +17734,7 @@ class out_flame_utils
         Returns:
             (str): The FLAM3H parameter prepped into a string for writing out into the Flame preset file.
         """    
-        val = [str(self.out_util_round_float((1.0-self.node.parm(f"{flam3h_iterator_prm_names().shader_speed}_{iter + 1}").eval())/2.0)) for iter in range(self.iter_count)]
+        val: list = [str(self.out_util_round_float((1.0-self.node.parm(f"{flam3h_iterator_prm_names().shader_speed}_{iter + 1}").eval())/2.0)) for iter in range(self.iter_count)]
         return tuple(val)
     
 
@@ -17739,7 +17747,7 @@ class out_flame_utils
         Returns:
             (tuple): tuple of all the FLAM3H names/notes prepped into strings for writing out into the Flame preset file.
         """    
-        val = [self.node.parm(f"{self.flam3h_iter_prm_names.main_note}_{iter + 1}").eval() for iter in range(self._iter_count)]
+        val: list = [self.node.parm(f"{self.flam3h_iter_prm_names.main_note}_{iter + 1}").eval() for iter in range(self._iter_count)]
         return tuple(val)
     
     
@@ -17752,7 +17760,7 @@ class out_flame_utils
         Returns:
             (str): The FLAM3H FF name/note prepped into strings for writing out into the Flame preset file.
         """    
-        FF_name = self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.main_note}").eval()
+        FF_name: str = self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.main_note}").eval()
         return FF_name
 
     
@@ -17765,7 +17773,7 @@ class out_flame_utils
         Returns:
             (tuple): tuple of all the FLAM3H xforms/iterators pre_blur parameters prepped into strings for writing out into the Flame preset file.
         """   
-        val = [str( self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter + 1}").eval() ) if self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter + 1}").eval() > 0 else '' for iter in range(self.iter_count)]
+        val: list = [str( self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter + 1}").eval() ) if self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter + 1}").eval() > 0 else '' for iter in range(self.iter_count)]
         return tuple(val)
 
 
@@ -17797,7 +17805,7 @@ class out_flame_utils
         f3h_angleDeg: list = []
         for iter in range(self.iter_count):
             collect: list = [self.node.parmTuple(f"{prm[0]}{iter + 1}").eval() for prm in self.flam3h_iter.sec_preAffine[:-1]]
-            angleDeg = self.node.parm(f"{self.flam3h_iter.sec_preAffine[-1][0]}{iter + 1}").eval()
+            angleDeg: float = self.node.parm(f"{self.flam3h_iter.sec_preAffine[-1][0]}{iter + 1}").eval()
             f3h_angleDeg.append(str(round(angleDeg, ROUND_DECIMAL_COUNT)))
             flatten: list = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
             f3h_flatten: list = [item for sublist in collect for item in sublist]
@@ -17822,7 +17830,7 @@ class out_flame_utils
         for iter in range(self.iter_count):
             if self.node.parm(f"{self.flam3h_iter_prm_names.postaffine_do}_{iter + 1}").eval():
                 collect: list = [self.node.parmTuple(f"{prm[0]}{iter + 1}").eval() for prm in self.flam3h_iter.sec_postAffine[1:-1]]
-                angleDeg = self.node.parm(f"{self.flam3h_iter.sec_postAffine[-1][0]}{iter + 1}").eval()
+                angleDeg: float = self.node.parm(f"{self.flam3h_iter.sec_postAffine[-1][0]}{iter + 1}").eval()
                 if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                     f3h_angleDeg.append(str(round(angleDeg, ROUND_DECIMAL_COUNT)))
                     flatten: list = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
@@ -17851,13 +17859,13 @@ class out_flame_utils
             (tuple[str, str, str]): tuple[str: flam3_affine, str: F3H_affine, str: F3H Rotation angle]. tuple of strings for all the FLAM3H FF/finalXform pre_affine parameters prepped into strings for writing out into the Flame preset file.
         """   
         collect: list = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
-        angleDeg = self.node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
-        f3h_angleDeg = str(angleDeg)
-        f3h_affine = self.out_util_round_floats(collect)
+        angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
+        f3h_angleDeg: str = str(angleDeg)
+        f3h_affine: Union[list[str], list[list[str]], tuple[str]] = self.out_util_round_floats(collect)
         if angleDeg != 0.0:
-            affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+            affine: Union[list[str], list[list[str]], tuple[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
         else:
-            affine = f3h_affine
+            affine: Union[list[str], list[list[str]], tuple[str]] = f3h_affine
         flatten: list = [item for sublist in affine for item in sublist]
         f3h_flatten: list = [item for sublist in f3h_affine for item in sublist]
         return " ".join(flatten), " ".join(f3h_flatten), f3h_angleDeg
@@ -17875,14 +17883,14 @@ class out_flame_utils
         """  
         if self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.postaffine_do}").eval():
             collect: list = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_postAffine_FF[1:-1]]
-            angleDeg = self.node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
+            angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
             if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
-                f3h_angleDeg = str(angleDeg)
-                f3h_affine = self.out_util_round_floats(collect)
+                f3h_angleDeg: str = str(angleDeg)
+                f3h_affine: Union[list[str], list[list[str]], tuple[str]] = self.out_util_round_floats(collect)
                 if angleDeg != 0.0:
-                    affine = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+                    affine: Union[list[str], list[list[str]], tuple[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
                 else:
-                    affine = f3h_affine
+                    affine: Union[list[str], list[list[str]], tuple[str]] = f3h_affine
                 flatten: list = [item for sublist in affine for item in sublist]
                 f3h_flatten: list = [item for sublist in f3h_affine for item in sublist]
                 return " ".join(flatten), " ".join(f3h_flatten), f3h_angleDeg
@@ -17904,7 +17912,7 @@ class out_flame_utils
         _PALETTE_KEYS_OUT = self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0)
         POSs: list = list(iter_islice(iter_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
         HEXs: list = [flam3h_palette_utils.rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
-        n = 8
+        n: int = 8
         hex_grp: list = [HEXs[i:i + n] for i in range(0, len(HEXs), n)]
         hex_join: list = [f"      {''.join(grp)}\n" for grp in hex_grp] # 6 times \s
         return f"\n{''.join(hex_join)}    " # 4 times \s
@@ -17929,7 +17937,7 @@ class out_flame_utils
                 return False
             else:
                 # Here we go ahead since we know the prm CP_RAMP_HSV_VAL_NAME is a tuple
-                prm = self.node.parmTuple(prm_name).eval()
+                prm: tuple = self.node.parmTuple(prm_name).eval()
                 # If the HSV values are at their defaults, do not export them into the XML file
                 if prm[0] == prm[1] == prm[2] == 1:
                     return False
@@ -17990,7 +17998,7 @@ class out_flame_utils
             (str): The FLAM3H lookup samples for this Flame prepped into a string.
         """  
         if self.palette_plus_do:
-            keys = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)
+            keys: str = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)
             if self.flam3h_cp_lookup_samples > int(keys): keys = str(self.flam3h_cp_lookup_samples)
             if int(keys) == 256:
                 return False
