@@ -725,9 +725,9 @@ class flam3h_varsPRM
             (list): return an enumerated variations menu list with "linear" being the first one for convenience
         """
 
-        vars_no_lin = list(enumerate(self.vars_all()))[1:]
+        vars_no_lin: list = list(enumerate(self.vars_all()))[1:]
         vars_no_lin.remove((65, 'Pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
-        vars_sorted = sorted(vars_no_lin, key=lambda var: var[1])
+        vars_sorted: list = sorted(vars_no_lin, key=lambda var: var[1])
         return list(enumerate(['Linear'])) + vars_sorted
     
     
@@ -752,7 +752,7 @@ class flam3h_varsPRM
         Returns:
             (list): return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data
         """  
-        linear = []
+        linear: list = []
         [self.__populate_linear_list(linear, item, id) for id, item in self.menu_vars_all()]
         return linear
     
@@ -766,8 +766,8 @@ class flam3h_varsPRM
         Returns:
             (dict): a dictionary for the variation indexes used by the menu_T_ICONS definitions
         """   
-        keys = []
-        values = []
+        keys: list = []
+        values: list = []
         [self.__populate_keys_and_values(keys, values, item, id) for id, item in enumerate(self.build_menu_vars_all_linear())]
         return dict(zip(keys, values))
 
@@ -1143,7 +1143,7 @@ class flam3h_scripts
         Returns:
             (None):
         """  
-        self._kwargs = kwargs
+        self._kwargs: dict = kwargs
         self._node = kwargs['node']
 
 
@@ -1988,7 +1988,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """ 
-        self._kwargs = kwargs
+        self._kwargs: dict = kwargs
         self._node = kwargs['node']
         # Why am I doing the following ? Because with time FLAM3H grew and evolved and I was tiered to keep updating an hard coded node path,
         # hence I added the following so I can always find the nodes even if I place them in different locations from time to time.
@@ -4304,7 +4304,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """ 
-        self._kwargs = kwargs
+        self._kwargs: dict = kwargs
         self._node = kwargs['node']
 
 
@@ -7727,8 +7727,8 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-
-        node: hou.SopNode = self.node
+        
+        node = self.node
         iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         # AUTO DIV XAOS
         autodiv: int = node.parm(PREFS_PVT_XAOS_AUTO_SPACE).eval()
@@ -7811,7 +7811,7 @@ class flam3h_iterator_utils
                 # Check if the node still exist
                 try:
                     hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                    flam3h_node: Union[hou.SopNode, Node] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                    flam3h_node: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                 except:
                     flam3h_node_mp_id = None
                     flam3h_node = None
@@ -8259,7 +8259,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """ 
-        self._kwargs = kwargs
+        self._kwargs: dict = kwargs
         self._node = kwargs['node']
         self._palette_plus_do: int = self._node.parm(CP_PALETTE_256_PLUS).eval()
         
@@ -9709,7 +9709,7 @@ class flam3h_about_utils
         Returns:
             (None):
         """ 
-        self._kwargs = kwargs
+        self._kwargs: dict = kwargs
         self._node = kwargs['node']
         
 
@@ -10000,7 +10000,7 @@ class flam3h_ui_msg_utils
         Returns:
             (None):
         """ 
-        self._kwargs = kwargs
+        self._kwargs: dict = kwargs
         self._node = kwargs['node']
 
 
@@ -12110,7 +12110,7 @@ class in_flame_utils
         Returns:
             (None):
         """ 
-        self._kwargs = kwargs
+        self._kwargs: dict = kwargs
         self._node = kwargs['node']
         
         
@@ -15452,7 +15452,7 @@ class out_flame_utils
         Returns:
             (None):
         """ 
-        self._kwargs = kwargs
+        self._kwargs: dict = kwargs
         self._node = kwargs['node']
         
         self._flam3h_iter_prm_names = flam3h_iterator_prm_names()
@@ -15689,7 +15689,7 @@ class out_flame_utils
                     rp = name_new.split(splt)
                     rp[:] = [item for item in rp if item]
             
-            is_int = True
+            is_int: bool = True
             try:
                 # if the name is a number, I want to still add the iteration num to it
                 # and not evaluate this as integer, even if it is an integer.
@@ -15697,7 +15697,8 @@ class out_flame_utils
                     int(rp[-1].strip())
                 else:
                     is_int: bool = False
-            except: is_int = False
+            except:
+                is_int: bool = False
                 
             if is_int is False:
                 rp_clean: list = [''.join(letter for letter in item.strip() if letter.isalnum() or letter in CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
