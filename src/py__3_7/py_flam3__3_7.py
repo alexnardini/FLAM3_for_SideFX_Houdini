@@ -6091,7 +6091,7 @@ class flam3h_iterator_utils
         Returns:
             (list): return menu list
         """    
-        menu=[]
+        menu: list= []
         
         node = self.node
         id: int = self.kwargs['script_multiparm_index']
@@ -14312,7 +14312,7 @@ class in_flame_utils
                 in_idx: int = int(node.parm(IN_PRESETS).eval())
                 is_clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
                 
-                menu=[]
+                menu: list = []
                 [self.menu_in_presets_loop_enum(node, menu, i, item, in_idx, is_clipboard) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_in_presets_loop(node, menu, i, item, in_idx, is_clipboard) for i, item in enumerate(_xml(xml).get_name())]
                 node.setCachedUserData('in_presets_menu', menu)
                 return menu
