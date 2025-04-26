@@ -141,7 +141,7 @@ FLAM3H_USER_DATA_XML_LAST = 'XML_last_loaded'
 FLAM3H_ITERATORS_TAB = "f_flam3h"
 
 # Default affine values
-AFFINE_DEFAULTS: dict = {"affine_x": hou.Vector2((1.0, 0.0)), "affine_y": hou.Vector2((0.0, 1.0)), "affine_o": hou.Vector2((0.0, 0.0)), "angle": float(0.0)} # X, Y, O, ANGLE
+AFFINE_DEFAULTS: dict[str, Union[hou.Vector2, float]] = {"affine_x": hou.Vector2((1.0, 0.0)), "affine_y": hou.Vector2((0.0, 1.0)), "affine_o": hou.Vector2((0.0, 0.0)), "angle": float(0.0)} # X, Y, O, ANGLE
 AFFINE_IDENT: list = [1.0, 0.0, 0.0, 1.0, 0.0, 0.0]
 
 # FF parametric parameter's prefixes
@@ -2132,7 +2132,7 @@ class flam3h_general_utils
             * UNKNW
         """
         sys: str = platform_system()
-        sys_options: dict = {'Windows': 'WIN', 'Linux': 'LNX', 'Darwin': 'MAC', 'Java': 'JAVA'}
+        sys_options: dict[str, str] = {'Windows': 'WIN', 'Linux': 'LNX', 'Darwin': 'MAC', 'Java': 'JAVA'}
         mysys: Union[str, None] = sys_options.get(sys)
         if mysys is not None: return mysys
         else: return 'UNKNW'
@@ -4087,111 +4087,111 @@ MENU_ITER_COPY_PASTE_REMOVED: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_
 MENU_FF_COPY_PASTE_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg]  Please, mark the FF first.', 0, '']
 MENU_FF_COPY_PASTE_SELECT: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED\n-> Select a different FLAM3H node to paste those FF values.', 1, '']
 
-MENU_VARS_INDEXES: dict = { 0: 1, 
-                            39: 3, 
-                            94: 5, 
-                            14: 7, 
-                            52: 9, 
-                            53: 11, 
-                            43: 13, 
-                            30: 15, 
-                            26: 17, 
-                            54: 19, 
-                            23: 21, 
-                            55: 23, 
-                            99: 25, 
-                            56: 27, 
-                            50: 29, 
-                            83: 31, 
-                            89: 33, 
-                            20: 35, 
-                            87: 37, 
-                            93: 39, 
-                            57: 41, 
-                            102: 43, 
-                            46: 45, 
-                            86: 47, 
-                            92: 49, 
-                            27: 51, 
-                            97: 53, 
-                            24: 55, 
-                            11: 57, 
-                            8: 59, 
-                            47: 61, 
-                            58: 63, 
-                            59: 65, 
-                            61: 67, 
-                            12: 69, 
-                            80: 71, 
-                            18: 73, 
-                            25: 75, 
-                            22: 77, 
-                            34: 79, 
-                            16: 81, 
-                            49: 83, 
-                            95: 85, 
-                            62: 87, 
-                            33: 89, 
-                            104: 91, 
-                            6: 93, 
-                            7: 95, 
-                            100: 97, 
-                            4: 99, 
-                            10: 101, 
-                            13: 103, 
-                            31: 105, 
-                            32: 107, 
-                            63: 109, 
-                            81: 111, 
-                            64: 113, 
-                            96: 115, 
-                            66: 117, 
-                            28: 119, 
-                            60: 121, 
-                            67: 123, 
-                            51: 125, 
-                            29: 127, 
-                            98: 129, 
-                            38: 131, 
-                            5: 133, 
-                            68: 135, 
-                            101: 137, 
-                            17: 139, 
-                            69: 141, 
-                            19: 143, 
-                            105: 145, 
-                            37: 147, 
-                            42: 149, 
-                            36: 151, 
-                            21: 153, 
-                            35: 155, 
-                            70: 157, 
-                            85: 159, 
-                            44: 161, 
-                            91: 163, 
-                            71: 165, 
-                            82: 167, 
-                            88: 169, 
-                            1: 171, 
-                            2: 173, 
-                            9: 175, 
-                            72: 177, 
-                            73: 179, 
-                            41: 181, 
-                            74: 183, 
-                            48: 185, 
-                            3: 187, 
-                            84: 189, 
-                            40: 191, 
-                            90: 193, 
-                            45: 195, 
-                            103: 197, 
-                            15: 199, 
-                            79: 201, 
-                            75: 203, 
-                            76: 205, 
-                            77: 207, 
-                            78: 209 }
+MENU_VARS_INDEXES: dict[int, int] = {   0: 1, 
+                                        39: 3, 
+                                        94: 5, 
+                                        14: 7, 
+                                        52: 9, 
+                                        53: 11, 
+                                        43: 13, 
+                                        30: 15, 
+                                        26: 17, 
+                                        54: 19, 
+                                        23: 21, 
+                                        55: 23, 
+                                        99: 25, 
+                                        56: 27, 
+                                        50: 29, 
+                                        83: 31, 
+                                        89: 33, 
+                                        20: 35, 
+                                        87: 37, 
+                                        93: 39, 
+                                        57: 41, 
+                                        102: 43, 
+                                        46: 45, 
+                                        86: 47, 
+                                        92: 49, 
+                                        27: 51, 
+                                        97: 53, 
+                                        24: 55, 
+                                        11: 57, 
+                                        8: 59, 
+                                        47: 61, 
+                                        58: 63, 
+                                        59: 65, 
+                                        61: 67, 
+                                        12: 69, 
+                                        80: 71, 
+                                        18: 73, 
+                                        25: 75, 
+                                        22: 77, 
+                                        34: 79, 
+                                        16: 81, 
+                                        49: 83, 
+                                        95: 85, 
+                                        62: 87, 
+                                        33: 89, 
+                                        104: 91, 
+                                        6: 93, 
+                                        7: 95, 
+                                        100: 97, 
+                                        4: 99, 
+                                        10: 101, 
+                                        13: 103, 
+                                        31: 105, 
+                                        32: 107, 
+                                        63: 109, 
+                                        81: 111, 
+                                        64: 113, 
+                                        96: 115, 
+                                        66: 117, 
+                                        28: 119, 
+                                        60: 121, 
+                                        67: 123, 
+                                        51: 125, 
+                                        29: 127, 
+                                        98: 129, 
+                                        38: 131, 
+                                        5: 133, 
+                                        68: 135, 
+                                        101: 137, 
+                                        17: 139, 
+                                        69: 141, 
+                                        19: 143, 
+                                        105: 145, 
+                                        37: 147, 
+                                        42: 149, 
+                                        36: 151, 
+                                        21: 153, 
+                                        35: 155, 
+                                        70: 157, 
+                                        85: 159, 
+                                        44: 161, 
+                                        91: 163, 
+                                        71: 165, 
+                                        82: 167, 
+                                        88: 169, 
+                                        1: 171, 
+                                        2: 173, 
+                                        9: 175, 
+                                        72: 177, 
+                                        73: 179, 
+                                        41: 181, 
+                                        74: 183, 
+                                        48: 185, 
+                                        3: 187, 
+                                        84: 189, 
+                                        40: 191, 
+                                        90: 193, 
+                                        45: 195, 
+                                        103: 197, 
+                                        15: 199, 
+                                        79: 201, 
+                                        75: 203, 
+                                        76: 205, 
+                                        77: 207, 
+                                        78: 209 }
 
 class flam3h_iterator_utils:
     """
@@ -4327,7 +4327,7 @@ class flam3h_iterator_utils
         density: int = node.parm(GLB_DENSITY).eval()
         # node.parm(GLB_DENSITY).deleteAllKeyframes() # This is commented out for now to allow to anim the density only from here
         node.parm(GLB_DENSITY_PRESETS).deleteAllKeyframes()
-        density_values: dict = { 500000: 1, 1000000: 2, 2000000: 3, 5000000: 4, 15000000: 5, 25000000: 6, 50000000: 7, 100000000: 8, 150000000: 9, 250000000: 10, 500000000: 11, 750000000: 12, 1000000000: 13 }
+        density_values: dict[int, int] = { 500000: 1, 1000000: 2, 2000000: 3, 5000000: 4, 15000000: 5, 25000000: 6, 50000000: 7, 100000000: 8, 150000000: 9, 250000000: 10, 500000000: 11, 750000000: 12, 1000000000: 13 }
         density_idx: Union[int, None] = density_values.get(density)
         if density_idx is not None:
             node.setParms({GLB_DENSITY_PRESETS: density_idx}) #type: ignore
@@ -6000,8 +6000,8 @@ class flam3h_iterator_utils
         node = self.node
         ptcount: int = node.parm(GLB_DENSITY).eval()
         sel: int = self.kwargs['parm'].evalAsInt()
-        vals: dict = { 1: 500000, 2: 1000000, 3: 2000000, 4: 5000000, 5: 15000000, 6: 25000000, 7: 50000000, 8: 100000000, 9: 150000000, 10: 250000000, 11: 500000000, 12: 750000000, 13: 1000000000}
-        vals_name: dict = { 1: "Default: 500K points", 2: "1 Millions points", 3: "2 Millions points", 4: "5 Millions points", 5: "15 Millions points", 6: "25 Millions points", 7: "50 Millions points", 8: "100 Millions points", 9: "150 Millions points", 10: "250 Millions points", 11: "500 Millions points", 12: "750 Millions points", 13: "1 Billions points"}
+        vals: dict[int, int] = { 1: 500000, 2: 1000000, 3: 2000000, 4: 5000000, 5: 15000000, 6: 25000000, 7: 50000000, 8: 100000000, 9: 150000000, 10: 250000000, 11: 500000000, 12: 750000000, 13: 1000000000}
+        vals_name: dict[int, str] = { 1: "Default: 500K points", 2: "1 Millions points", 3: "2 Millions points", 4: "5 Millions points", 5: "15 Millions points", 6: "25 Millions points", 7: "50 Millions points", 8: "100 Millions points", 9: "150 Millions points", 10: "250 Millions points", 11: "500 Millions points", 12: "750 Millions points", 13: "1 Billions points"}
         
         val_get: Union[int, None] = vals.get(sel)
         if val_get is not None and ptcount != val_get:
@@ -7652,16 +7652,16 @@ class flam3h_iterator_utils
                 for prm in n.prm_iterator_vars_all]
         
         # Iterator Affines
-        affines_dict: dict = {f"{n.preaffine_x}_{idx}": AFFINE_DEFAULTS.get("affine_x"),
-                              f"{n.preaffine_y}_{idx}": AFFINE_DEFAULTS.get("affine_y"),
-                              f"{n.preaffine_o}_{idx}": AFFINE_DEFAULTS.get("affine_o"),
-                              f"{n.preaffine_ang}_{idx}": AFFINE_DEFAULTS.get("angle"),
-                              f"{n.postaffine_do}_{idx}": 0,
-                              f"{n.postaffine_x}_{idx}": AFFINE_DEFAULTS.get("affine_x"),
-                              f"{n.postaffine_y}_{idx}": AFFINE_DEFAULTS.get("affine_y"),
-                              f"{n.postaffine_o}_{idx}": AFFINE_DEFAULTS.get("affine_o"),
-                              f"{n.postaffine_ang}_{idx}": AFFINE_DEFAULTS.get("angle")
-                              }
+        affines_dict: dict[str, Union[hou.Vector2, float, None]] = {f"{n.preaffine_x}_{idx}": AFFINE_DEFAULTS.get("affine_x"),
+                                                                    f"{n.preaffine_y}_{idx}": AFFINE_DEFAULTS.get("affine_y"),
+                                                                    f"{n.preaffine_o}_{idx}": AFFINE_DEFAULTS.get("affine_o"),
+                                                                    f"{n.preaffine_ang}_{idx}": AFFINE_DEFAULTS.get("angle"),
+                                                                    f"{n.postaffine_do}_{idx}": 0,
+                                                                    f"{n.postaffine_x}_{idx}": AFFINE_DEFAULTS.get("affine_x"),
+                                                                    f"{n.postaffine_y}_{idx}": AFFINE_DEFAULTS.get("affine_y"),
+                                                                    f"{n.postaffine_o}_{idx}": AFFINE_DEFAULTS.get("affine_o"),
+                                                                    f"{n.postaffine_ang}_{idx}": AFFINE_DEFAULTS.get("angle")
+                                                                    }
         
         # Iterator Affines Set
         [node.setParms({key: value}) for key, value in affines_dict.items()]
@@ -7703,16 +7703,16 @@ class flam3h_iterator_utils
                     else node.setParms({f"{PRX_FF_PRM}{prm}": 0})
                         for prm in n.prm_FF_vars_all]
         # FF Affines
-        affines_dict: dict = {f"{PRX_FF_PRM}{n.preaffine_x}": AFFINE_DEFAULTS.get("affine_x"),
-                              f"{PRX_FF_PRM}{n.preaffine_y}": AFFINE_DEFAULTS.get("affine_y"),
-                              f"{PRX_FF_PRM}{n.preaffine_o}": AFFINE_DEFAULTS.get("affine_o"),
-                              f"{PRX_FF_PRM}{n.preaffine_ang}": AFFINE_DEFAULTS.get("angle"),
-                              f"{PRX_FF_PRM}{n.postaffine_do}": 0,
-                              f"{PRX_FF_PRM}{n.postaffine_x}": AFFINE_DEFAULTS.get("affine_x"),
-                              f"{PRX_FF_PRM}{n.postaffine_y}": AFFINE_DEFAULTS.get("affine_y"),
-                              f"{PRX_FF_PRM}{n.postaffine_o}": AFFINE_DEFAULTS.get("affine_o"),
-                              f"{PRX_FF_PRM}{n.postaffine_ang}": AFFINE_DEFAULTS.get("angle")
-                              }
+        affines_dict: dict[str, Union[hou.Vector2, float, None]] = {f"{PRX_FF_PRM}{n.preaffine_x}": AFFINE_DEFAULTS.get("affine_x"),
+                                                                    f"{PRX_FF_PRM}{n.preaffine_y}": AFFINE_DEFAULTS.get("affine_y"),
+                                                                    f"{PRX_FF_PRM}{n.preaffine_o}": AFFINE_DEFAULTS.get("affine_o"),
+                                                                    f"{PRX_FF_PRM}{n.preaffine_ang}": AFFINE_DEFAULTS.get("angle"),
+                                                                    f"{PRX_FF_PRM}{n.postaffine_do}": 0,
+                                                                    f"{PRX_FF_PRM}{n.postaffine_x}": AFFINE_DEFAULTS.get("affine_x"),
+                                                                    f"{PRX_FF_PRM}{n.postaffine_y}": AFFINE_DEFAULTS.get("affine_y"),
+                                                                    f"{PRX_FF_PRM}{n.postaffine_o}": AFFINE_DEFAULTS.get("affine_o"),
+                                                                    f"{PRX_FF_PRM}{n.postaffine_ang}": AFFINE_DEFAULTS.get("angle")
+                                                                    }
         # FF Affines Set
         [node.setParms({key: value}) for key, value in affines_dict.items()]
         
@@ -8894,10 +8894,10 @@ class flam3h_palette_utils
         HEXs: list = [self.rgb_to_hex(palette.lookup(p)) for p in POSs]
         
         if hsv_vals_prm[0] == hsv_vals_prm[1] == hsv_vals_prm[2] == 1:
-            json_dict: dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs),  } }
+            json_dict: dict[str, dict[str, str]] = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs),  } }
         else:
             hsv_vals = ' '.join([str(x) for x in hsv_vals_prm])
-            json_dict: dict = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs), CP_JSON_KEY_NAME_HSV: hsv_vals} }
+            json_dict: dict[str, dict[str, str]] = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs), CP_JSON_KEY_NAME_HSV: hsv_vals} }
             
         # OUTPUT DATA
         return json_dict, json.dumps(json_dict, indent=4)
@@ -9827,15 +9827,15 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         _FRACTWEB_MSG: str = 'Fractorium web'
         
         # {prm_name: value, ...}
-        about_web: dict = { MSG_FLAM3H_WEB: _FLAM3HWEB_MSG,
-                            MSG_FLAM3H_GIT: _FLAM3HGIT_MSG,
-                            MSG_FLAM3H_INSTA: _FLAM3HINSTA_MSG,
-                            MSG_FLAM3H_YOUTUBE: _FLAM3HYOUTUBE_MSG,
-                            MSG_FLAM3_PDF: _FLAM3PDF_MSG,
-                            MSG_FLAM3_GIT: _FLAM3GIT_MSG,
-                            MSG_FRACT_BITBUCKET: _FRACTBITBUCKETGIT_MSG,
-                            MSG_FRACT_WEB: _FRACTWEB_MSG
-                            }
+        about_web: dict[str, str] = {   MSG_FLAM3H_WEB: _FLAM3HWEB_MSG,
+                                        MSG_FLAM3H_GIT: _FLAM3HGIT_MSG,
+                                        MSG_FLAM3H_INSTA: _FLAM3HINSTA_MSG,
+                                        MSG_FLAM3H_YOUTUBE: _FLAM3HYOUTUBE_MSG,
+                                        MSG_FLAM3_PDF: _FLAM3PDF_MSG,
+                                        MSG_FLAM3_GIT: _FLAM3GIT_MSG,
+                                        MSG_FRACT_BITBUCKET: _FRACTBITBUCKETGIT_MSG,
+                                        MSG_FRACT_WEB: _FRACTWEB_MSG
+                                        }
         
         [node.setParms({key: value}) for key, value in about_web.items()]
         
@@ -9849,7 +9849,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         Returns:
             (None):
         """
-        page = "https://www.alexnardini.net/"
+        page: str = "https://www.alexnardini.net/"
         www_open(page)
         
 
@@ -9862,7 +9862,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         Returns:
             (None):
         """  
-        page = "https://github.com/alexnardini/FLAM3_for_SideFX_Houdini"
+        page: str = "https://github.com/alexnardini/FLAM3_for_SideFX_Houdini"
         www_open(page)
         
 
@@ -9875,7 +9875,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         Returns:
             (None):
         """  
-        page = "https://www.instagram.com/alexnardini/"
+        page: str = "https://www.instagram.com/alexnardini/"
         www_open(page)
     
     
@@ -9888,7 +9888,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         Returns:
             (None):
         """  
-        page = "https://www.youtube.com/@alexnardiniITALY/videos"
+        page: str = "https://www.youtube.com/@alexnardiniITALY/videos"
         www_open(page)
 
 
@@ -9901,7 +9901,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         Returns:
             (None):
         """  
-        page = "https://flam3.com/flame_draves.pdf"
+        page: str = "https://flam3.com/flame_draves.pdf"
         www_open(page)
         
 
@@ -9914,7 +9914,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         Returns:
             (None):
         """  
-        page = "https://github.com/scottdraves/flam3"
+        page: str = "https://github.com/scottdraves/flam3"
         www_open(page)
         
         
@@ -9927,7 +9927,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         Returns:
             (None):
         """  
-        page = "https://bitbucket.org/mfeemster/fractorium/src/master/"
+        page: str = "https://bitbucket.org/mfeemster/fractorium/src/master/"
         www_open(page)
         
         
@@ -9940,7 +9940,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         Returns:
             (None):
         """  
-        page = "http://fractorium.com/"
+        page: str = "http://fractorium.com/"
         www_open(page)
         
         
@@ -9955,15 +9955,15 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
             (None):
         """
         
-        web = {'web': self.flam3h_about_web_homepage,
-               'git': self.flam3h_about_web_github,
-               'insta': self.flam3h_about_web_instagram,
-               'youtube': self.flam3h_about_web_youtube,
-               'paper': self.flam3h_about_web_flam3_paper,
-               'flam3git': self.flam3h_about_web_flam3_github,
-               'bitbucket': self.flam3h_about_web_bitbucket,
-               'fractweb': self.flam3h_about_web_fractorium,
-               }
+        web: dict[str, Callable] = {'web': self.flam3h_about_web_homepage,
+                                    'git': self.flam3h_about_web_github,
+                                    'insta': self.flam3h_about_web_instagram,
+                                    'youtube': self.flam3h_about_web_youtube,
+                                    'paper': self.flam3h_about_web_flam3_paper,
+                                    'flam3git': self.flam3h_about_web_flam3_github,
+                                    'bitbucket': self.flam3h_about_web_bitbucket,
+                                    'fractweb': self.flam3h_about_web_fractorium,
+                                    }
         
         run: Union[Callable, None] = web.get(key)
         if run is not None: run()
@@ -10233,23 +10233,23 @@ OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: tuple = (OUT_XML_FLAME_RENDER_CURVE_DEFA
 # XML OUT render key data prm names HOUDINI
 # for now make sense to expose those, I may add more in the future if needed
 # Note that those are the FLAM3H UI parameter's names for the OUT Render properties tab.
-OUT_XML_RENDER_HOUDINI_DICT: dict = {   XML_XF_NAME: OUT_FLAME_PRESET_NAME,
-                                        OUT_XML_FLAME_SIZE: 'outres',
-                                        OUT_XML_FLAME_CENTER: 'outcenter',
-                                        OUT_XML_FLAME_ROTATE: 'outrotate',
-                                        OUT_XML_FLAME_SCALE: 'outscale',
-                                        OUT_XML_FLAME_QUALITY: 'outquality',
-                                        OUT_XML_FLAME_BRIGHTNESS: 'outbrightness',
-                                        OUT_XML_FLAME_GAMMA: 'outgamma',
-                                        OUT_XML_FLAME_POWER: 'outhighlight',
-                                        OUT_XML_FLAME_K2: 'outk2',
-                                        OUT_XML_FLAME_VIBRANCY: 'outvibrancy',
-                                        OUT_XML_FLAME_RENDER_CURVES: 'outcurves',
-                                        OUT_XML_FLAME_RENDER_CURVE_OVERALL: 'outcurveoverall',
-                                        OUT_XML_FLAME_RENDER_CURVE_RED: 'outcurvered',
-                                        OUT_XML_FLAME_RENDER_CURVE_GREEN: 'outcurvegreen',
-                                        OUT_XML_FLAME_RENDER_CURVE_BLUE: 'outcurveblue'
-                                    }
+OUT_XML_RENDER_HOUDINI_DICT: dict[str, str] = { XML_XF_NAME: OUT_FLAME_PRESET_NAME,
+                                                OUT_XML_FLAME_SIZE: 'outres',
+                                                OUT_XML_FLAME_CENTER: 'outcenter',
+                                                OUT_XML_FLAME_ROTATE: 'outrotate',
+                                                OUT_XML_FLAME_SCALE: 'outscale',
+                                                OUT_XML_FLAME_QUALITY: 'outquality',
+                                                OUT_XML_FLAME_BRIGHTNESS: 'outbrightness',
+                                                OUT_XML_FLAME_GAMMA: 'outgamma',
+                                                OUT_XML_FLAME_POWER: 'outhighlight',
+                                                OUT_XML_FLAME_K2: 'outk2',
+                                                OUT_XML_FLAME_VIBRANCY: 'outvibrancy',
+                                                OUT_XML_FLAME_RENDER_CURVES: 'outcurves',
+                                                OUT_XML_FLAME_RENDER_CURVE_OVERALL: 'outcurveoverall',
+                                                OUT_XML_FLAME_RENDER_CURVE_RED: 'outcurvered',
+                                                OUT_XML_FLAME_RENDER_CURVE_GREEN: 'outcurvegreen',
+                                                OUT_XML_FLAME_RENDER_CURVE_BLUE: 'outcurveblue'
+                                            }
 
 # For now we force to assume a valid flame's XML file must have this tree.root name.
 XML_VALID_FLAMES_ROOT_TAG = 'flames'
@@ -10293,114 +10293,114 @@ XML_APP_NAME_FRACTORIUM = 'EMBER'
 # _NOTE:
 #       Variation name "linear3d" has been added to this dict as it is often used in old Flames and we are remapping it to "linear" on load.
 
-VARS_FLAM3_DICT_IDX: dict = {   "linear": 0, 
-                                "linear3d": 0, 
-                                "sinusoidal": 1,
-                                "spherical": 2,
-                                "swirl": 3,
-                                "horseshoe": 4,
-                                "polar": 5,
-                                "handkerchief": 6,
-                                "heart": 7,
-                                "disc": 8,
-                                "spiral": 9,
-                                "hyperbolic": 10,
-                                "diamond": 11,
-                                "ex": 12,
-                                "julia": 13,
-                                "bent": 14,
-                                "waves": 15,
-                                "fisheye": 16,
-                                "popcorn": 17,
-                                "exponential": 18,
-                                "power": 19,
-                                "cosine": 20,
-                                "rings": 21,
-                                "fan": 22,
-                                "bubble": 23,
-                                "cylinder": 24,
-                                "eyefish": 25,
-                                "blur": 26,
-                                "curl": 27,
-                                "ngon": 28,
-                                "pdj": 29,
-                                "blob": 30,
-                                "julian": 31,
-                                "juliascope": 32,
-                                "gaussian_blur": 33,
-                                "fan2": 34,
-                                "rings2": 35,
-                                "rectangles": 36,
-                                "radial_blur": 37,
-                                "pie": 38,
-                                "arch": 39,
-                                "tangent": 40,
-                                "square": 41,
-                                "rays": 42,
-                                "blade": 43,
-                                "secant2": 44,
-                                "twintrian": 45,
-                                "cross": 46,
-                                "disc2": 47,
-                                "super_shape": 48,
-                                "flower": 49,
-                                "conic": 50,
-                                "parabola": 51,
-                                "bent2": 52,
-                                "bipolar": 53,
-                                "boarders": 54,
-                                "butterfly": 55,
-                                "cell": 56,
-                                "cpow": 57,
-                                "edisc": 58,
-                                "elliptic": 59,
-                                "noise": 60,
-                                "escher": 61,
-                                "foci": 62,
-                                "lazysusan": 63,
-                                "loonie": 64,
-                                "pre_blur": 65,
-                                "modulus": 66,
-                                "oscilloscope": 67,
-                                "polar2": 68,
-                                "popcorn2": 69,
-                                "scry": 70,
-                                "separation": 71,
-                                "split": 72,
-                                "splits": 73,
-                                "stripes": 74,
-                                "wedge": 75,
-                                "wedge_julia": 76,
-                                "wedge_sph": 77,
-                                "whorl": 78,
-                                "waves2": 79,
-                                "exp": 80,
-                                "log": 81,
-                                "sin": 82,
-                                "cos": 83,
-                                "tan": 84,
-                                "sec": 85,
-                                "csc": 86,
-                                "cot": 87,
-                                "sinh": 88,
-                                "cosh": 89,
-                                "tanh": 90,
-                                "sech": 91,
-                                "csch": 92,
-                                "coth": 93,
-                                "auger": 94,
-                                "flux": 95,
-                                "mobius": 96,
-                                "curve": 97,
-                                "perspective": 98,
-                                "bwraps": 99,
-                                "hemisphere": 100,
-                                "polynomial": 101,
-                                "crop": 102,
-                                "unpolar": 103,
-                                "glynnia": 104, 
-                                "point_symmetry": 105
-                            }
+VARS_FLAM3_DICT_IDX: dict[str, int] = { "linear": 0, 
+                                        "linear3d": 0, 
+                                        "sinusoidal": 1,
+                                        "spherical": 2,
+                                        "swirl": 3,
+                                        "horseshoe": 4,
+                                        "polar": 5,
+                                        "handkerchief": 6,
+                                        "heart": 7,
+                                        "disc": 8,
+                                        "spiral": 9,
+                                        "hyperbolic": 10,
+                                        "diamond": 11,
+                                        "ex": 12,
+                                        "julia": 13,
+                                        "bent": 14,
+                                        "waves": 15,
+                                        "fisheye": 16,
+                                        "popcorn": 17,
+                                        "exponential": 18,
+                                        "power": 19,
+                                        "cosine": 20,
+                                        "rings": 21,
+                                        "fan": 22,
+                                        "bubble": 23,
+                                        "cylinder": 24,
+                                        "eyefish": 25,
+                                        "blur": 26,
+                                        "curl": 27,
+                                        "ngon": 28,
+                                        "pdj": 29,
+                                        "blob": 30,
+                                        "julian": 31,
+                                        "juliascope": 32,
+                                        "gaussian_blur": 33,
+                                        "fan2": 34,
+                                        "rings2": 35,
+                                        "rectangles": 36,
+                                        "radial_blur": 37,
+                                        "pie": 38,
+                                        "arch": 39,
+                                        "tangent": 40,
+                                        "square": 41,
+                                        "rays": 42,
+                                        "blade": 43,
+                                        "secant2": 44,
+                                        "twintrian": 45,
+                                        "cross": 46,
+                                        "disc2": 47,
+                                        "super_shape": 48,
+                                        "flower": 49,
+                                        "conic": 50,
+                                        "parabola": 51,
+                                        "bent2": 52,
+                                        "bipolar": 53,
+                                        "boarders": 54,
+                                        "butterfly": 55,
+                                        "cell": 56,
+                                        "cpow": 57,
+                                        "edisc": 58,
+                                        "elliptic": 59,
+                                        "noise": 60,
+                                        "escher": 61,
+                                        "foci": 62,
+                                        "lazysusan": 63,
+                                        "loonie": 64,
+                                        "pre_blur": 65,
+                                        "modulus": 66,
+                                        "oscilloscope": 67,
+                                        "polar2": 68,
+                                        "popcorn2": 69,
+                                        "scry": 70,
+                                        "separation": 71,
+                                        "split": 72,
+                                        "splits": 73,
+                                        "stripes": 74,
+                                        "wedge": 75,
+                                        "wedge_julia": 76,
+                                        "wedge_sph": 77,
+                                        "whorl": 78,
+                                        "waves2": 79,
+                                        "exp": 80,
+                                        "log": 81,
+                                        "sin": 82,
+                                        "cos": 83,
+                                        "tan": 84,
+                                        "sec": 85,
+                                        "csc": 86,
+                                        "cot": 87,
+                                        "sinh": 88,
+                                        "cosh": 89,
+                                        "tanh": 90,
+                                        "sech": 91,
+                                        "csch": 92,
+                                        "coth": 93,
+                                        "auger": 94,
+                                        "flux": 95,
+                                        "mobius": 96,
+                                        "curve": 97,
+                                        "perspective": 98,
+                                        "bwraps": 99,
+                                        "hemisphere": 100,
+                                        "polynomial": 101,
+                                        "crop": 102,
+                                        "unpolar": 103,
+                                        "glynnia": 104, 
+                                        "point_symmetry": 105
+                                    }
 
 # This dictionary for a faster look up table, Fractorium has so many variations!
 # We are using this to check for missing variations coming from the loaded flame file
@@ -10413,33 +10413,33 @@ VARS_FLAM3_DICT_IDX: dict = {   "linear": 0,
 #
 # If you want an Unknown variation to be recognized by FLAM3H, add it here inside the corresponding dictionary letter entrie based on its name.
 
-VARS_FRACTORIUM_DICT: dict = {  "a": ("arch", "arcsech", "arcsech2", "arcsinh", "arctanh", "asteria", "auger"),
-                                "b": ( "barycentroid", "bcircle", "bcollide", "bent", "bent2", "bipolar", "bisplit", "blade", "blade3d", "blob", "blob2", "blob3d", "block", "blocky", "blur", "blur_circle", "blur_heart", "blur_linear", "blur_pixelize", "blur_square", "blur_zoom", "blur3d", "bmod", "boarders", "boarders2", "bswirl", "btransform", "bubble", "bubble2", "bubblet3d", "butterfly", "bwraps", "bwraps_rand"),
-                                "c": ( "cardioid", "cell", "checks", "circleblur", "circlecrop", "circlecrop2", "circlelinear", "circlerand", "circlesplit", "circletrans1", "circlize", "circlize2", "circus", "collideoscope", "concentric", "conic", "cos", "cos_wrap", "cosh", "coshq", "cosine", "cosq", "cot", "coth", "coth_spiral", "cothq", "cotq", "cpow", "cpow2", "cpow3", "crackle", "crackle2", "crescents", "crob", "crop", "cropn", "cross", "csc", "csch", "cschq", "cscq", "cubic3d", "cubic_lattice3d", "curl", "curl3d", "curl_sp", "curvature", "curve", "cylinder", "cylinder2"),
-                                "d": ("delta_a", "depth", "depth_blur", "depth_blur2", "depth_gaussian", "depth_gaussian2", "depth_ngon", "depth_ngon2", "depth_sine", "depth_sine2", "diamond", "disc", "disc2", "disc3d", "dragonfire", "dust","d_spherical"),
-                                "e": ("eclipse", "ecollide", "edisc", "ejulia", "elliptic", "emod", "emotion", "ennepers", "epispiral", "epush", "erf", "erotate", "escale", "escher", "estiq", "eswirl", "ex", "excinis", "exp", "exp2", "expo", "exponential", "extrude", "eyefish"),
-                                "f": ("falloff", "falloff2", "falloff3", "fan", "fan2", "farblur", "fdisc", "fibonacci", "fibonacci2", "fisheye", "flatten", "flip_circle", "flip_x", "flip_y", "flower", "flower_db", "flux", "foci", "foci3d", "foci_p", "fourth", "funnel"),
-                                "g": ("gamma", "gaussian", "gaussian_blur", "gdoffs", "glynnia", "glynnia2", "glynnsim1", "glynnsim2", "glynnsim3", "glynnsim4", "glynnsim5", "gnarly", "gridout"),
-                                "h": ("handkerchief", "heart", "heat", "helicoid", "helix", "hemisphere", "henon", "hexaplay3d", "hexcrop", "hexes", "hexnix3d", "hex_modulus", "hex_rand", "hex_truchet", "ho", "hole", "horseshoe", "hyperbolic", "hypercrop", "hypershift", "hypershift2", "hypertile", "hypertile1", "hypertile2", "hypertile3d", "hypertile3d1", "hypertile3d2"),
-                                "i": ("idisc", "inkdrop", "interference2"),
-                                "j": ("jac_cn", "jac_dn", "jac_sn", "julia", "julia3d", "julia3dq", "julia3dz", "juliac", "julian", "julian2", "julian3dx", "julianab", "juliaq", "juliascope"), 
-                                "k": ("kaleidoscope",),
-                                "l": ("lazyjess", "lazysusan", "lazy_travis", "lens", "line", "linear", "linear_t", "linear_t3d", "linear_xz", "linear_yz", "linear3d", "lissajous", "log", "log_db", "loq", "loonie", "loonie2", "loonie3", "loonie3d", "lozi"),
-                                "m": ("mask", "mcarpet", "mirror_x", "mirror_y", "mirror_z", "mobiq", "mobius", "mobius_strip", "mobiusn", "modulus", "modulusx", "modulusy", "murl", "murl2"),
-                                "n": ("nblur", "ngon", "noise", "npolar"),
-                                "o": ("octagon", "octapol", "ortho", "oscilloscope", "oscilloscope2", "ovoid", "ovoid3d"),
-                                "p": ("panorama1", "panorama2", "parabola", "pdj", "perspective", "petal", "phoenix_julia", "pie", "pie3d", "pixel_flow", "poincare", "poincare2", "poincare3d", "point_symmetry", "polar", "polar2", "polynomial", "popcorn", "popcorn2", "popcorn23d", "pow_block", "power", "pressure_wave", "projective", "prose3d", "psphere", "pulse"),
-                                "q": ("q_ode",),
-                                "r": ("radial_blur", "radial_gaussian", "rand_cubes", "rational3", "rays", "rays1", "rays2", "rays3", "rblur", "rectangles", "rings", "rings2", "ripple", "rippled", "rotate", "rotate_x", "rotate_y", "rotate_z", "roundspher", "roundspher3d"),
-                                "s": ("scry", "scry2", "scry3d", "sec", "secant2", "sech", "sechq", "secq", "separation", "shift", "shred_rad", "shred_lin", "sigmoid", "sin", "sineblur", "sinh", "sinhq", "sinq", "sintrange", "sinus_grid", "sinusoidal", "sinusoidal3d", "smartshape", "smartcrop", "spher", "sphereblur", "spherical", "spherical3d", "sphericaln", "spherivoid", "sphyp3d", "spiral", "spiral_wing", "spirograph", "split", "split_brdr", "splits", "splits3d", "square", "squares", "square3d", "squarize", "squirrel", "squish", "sschecks", "starblur", "starblur2", "stripes", "stwin", "super_shape", "super_shape3d","svf", "swirl", "swirl3", "swirl3r", "synth"),
-                                "t": ("tan", "tancos", "tangent", "tanh", "tanhq", "tanh_spiral", "tanq", "target", "target0", "target2", "taurus", "tile_hlp", "tile_log", "trade", "truchet", "truchet_fill", "truchet_hex_fill", "truchet_hex_crop", "truchet_glyph", "truchet_inv", "truchet_knot", "twintrian", "twoface"),
-                                "u": ("unicorngaloshen", "unpolar"),
-                                "v": ("vibration", "vibration2", "vignette", "voron"),
-                                "w": ("w", "waffle", "waves", "waves2", "waves22", "waves23", "waves23d", "waves2b", "waves2_radial", "waves3", "waves4", "waves42", "wavesn", "wdisc", "wedge", "wedge_julia", "wedge_sph", "whorl"),
-                                "x": ("x", "xerf", "xheart", "xtrb"),
-                                "y": ("y",),
-                                "z": ("z", "zblur", "zcone", "zscale","ztranslate")
-                            }
+VARS_FRACTORIUM_DICT: dict[str, tuple] = {  "a": ("arch", "arcsech", "arcsech2", "arcsinh", "arctanh", "asteria", "auger"),
+                                            "b": ( "barycentroid", "bcircle", "bcollide", "bent", "bent2", "bipolar", "bisplit", "blade", "blade3d", "blob", "blob2", "blob3d", "block", "blocky", "blur", "blur_circle", "blur_heart", "blur_linear", "blur_pixelize", "blur_square", "blur_zoom", "blur3d", "bmod", "boarders", "boarders2", "bswirl", "btransform", "bubble", "bubble2", "bubblet3d", "butterfly", "bwraps", "bwraps_rand"),
+                                            "c": ( "cardioid", "cell", "checks", "circleblur", "circlecrop", "circlecrop2", "circlelinear", "circlerand", "circlesplit", "circletrans1", "circlize", "circlize2", "circus", "collideoscope", "concentric", "conic", "cos", "cos_wrap", "cosh", "coshq", "cosine", "cosq", "cot", "coth", "coth_spiral", "cothq", "cotq", "cpow", "cpow2", "cpow3", "crackle", "crackle2", "crescents", "crob", "crop", "cropn", "cross", "csc", "csch", "cschq", "cscq", "cubic3d", "cubic_lattice3d", "curl", "curl3d", "curl_sp", "curvature", "curve", "cylinder", "cylinder2"),
+                                            "d": ("delta_a", "depth", "depth_blur", "depth_blur2", "depth_gaussian", "depth_gaussian2", "depth_ngon", "depth_ngon2", "depth_sine", "depth_sine2", "diamond", "disc", "disc2", "disc3d", "dragonfire", "dust","d_spherical"),
+                                            "e": ("eclipse", "ecollide", "edisc", "ejulia", "elliptic", "emod", "emotion", "ennepers", "epispiral", "epush", "erf", "erotate", "escale", "escher", "estiq", "eswirl", "ex", "excinis", "exp", "exp2", "expo", "exponential", "extrude", "eyefish"),
+                                            "f": ("falloff", "falloff2", "falloff3", "fan", "fan2", "farblur", "fdisc", "fibonacci", "fibonacci2", "fisheye", "flatten", "flip_circle", "flip_x", "flip_y", "flower", "flower_db", "flux", "foci", "foci3d", "foci_p", "fourth", "funnel"),
+                                            "g": ("gamma", "gaussian", "gaussian_blur", "gdoffs", "glynnia", "glynnia2", "glynnsim1", "glynnsim2", "glynnsim3", "glynnsim4", "glynnsim5", "gnarly", "gridout"),
+                                            "h": ("handkerchief", "heart", "heat", "helicoid", "helix", "hemisphere", "henon", "hexaplay3d", "hexcrop", "hexes", "hexnix3d", "hex_modulus", "hex_rand", "hex_truchet", "ho", "hole", "horseshoe", "hyperbolic", "hypercrop", "hypershift", "hypershift2", "hypertile", "hypertile1", "hypertile2", "hypertile3d", "hypertile3d1", "hypertile3d2"),
+                                            "i": ("idisc", "inkdrop", "interference2"),
+                                            "j": ("jac_cn", "jac_dn", "jac_sn", "julia", "julia3d", "julia3dq", "julia3dz", "juliac", "julian", "julian2", "julian3dx", "julianab", "juliaq", "juliascope"), 
+                                            "k": ("kaleidoscope",),
+                                            "l": ("lazyjess", "lazysusan", "lazy_travis", "lens", "line", "linear", "linear_t", "linear_t3d", "linear_xz", "linear_yz", "linear3d", "lissajous", "log", "log_db", "loq", "loonie", "loonie2", "loonie3", "loonie3d", "lozi"),
+                                            "m": ("mask", "mcarpet", "mirror_x", "mirror_y", "mirror_z", "mobiq", "mobius", "mobius_strip", "mobiusn", "modulus", "modulusx", "modulusy", "murl", "murl2"),
+                                            "n": ("nblur", "ngon", "noise", "npolar"),
+                                            "o": ("octagon", "octapol", "ortho", "oscilloscope", "oscilloscope2", "ovoid", "ovoid3d"),
+                                            "p": ("panorama1", "panorama2", "parabola", "pdj", "perspective", "petal", "phoenix_julia", "pie", "pie3d", "pixel_flow", "poincare", "poincare2", "poincare3d", "point_symmetry", "polar", "polar2", "polynomial", "popcorn", "popcorn2", "popcorn23d", "pow_block", "power", "pressure_wave", "projective", "prose3d", "psphere", "pulse"),
+                                            "q": ("q_ode",),
+                                            "r": ("radial_blur", "radial_gaussian", "rand_cubes", "rational3", "rays", "rays1", "rays2", "rays3", "rblur", "rectangles", "rings", "rings2", "ripple", "rippled", "rotate", "rotate_x", "rotate_y", "rotate_z", "roundspher", "roundspher3d"),
+                                            "s": ("scry", "scry2", "scry3d", "sec", "secant2", "sech", "sechq", "secq", "separation", "shift", "shred_rad", "shred_lin", "sigmoid", "sin", "sineblur", "sinh", "sinhq", "sinq", "sintrange", "sinus_grid", "sinusoidal", "sinusoidal3d", "smartshape", "smartcrop", "spher", "sphereblur", "spherical", "spherical3d", "sphericaln", "spherivoid", "sphyp3d", "spiral", "spiral_wing", "spirograph", "split", "split_brdr", "splits", "splits3d", "square", "squares", "square3d", "squarize", "squirrel", "squish", "sschecks", "starblur", "starblur2", "stripes", "stwin", "super_shape", "super_shape3d","svf", "swirl", "swirl3", "swirl3r", "synth"),
+                                            "t": ("tan", "tancos", "tangent", "tanh", "tanhq", "tanh_spiral", "tanq", "target", "target0", "target2", "taurus", "tile_hlp", "tile_log", "trade", "truchet", "truchet_fill", "truchet_hex_fill", "truchet_hex_crop", "truchet_glyph", "truchet_inv", "truchet_knot", "twintrian", "twoface"),
+                                            "u": ("unicorngaloshen", "unpolar"),
+                                            "v": ("vibration", "vibration2", "vignette", "voron"),
+                                            "w": ("w", "waffle", "waves", "waves2", "waves22", "waves23", "waves23d", "waves2b", "waves2_radial", "waves3", "waves4", "waves42", "wavesn", "wdisc", "wedge", "wedge_julia", "wedge_sph", "whorl"),
+                                            "x": ("x", "xerf", "xheart", "xtrb"),
+                                            "y": ("y",),
+                                            "z": ("z", "zblur", "zcone", "zscale","ztranslate")
+                                        }
 
 
 class flam3h_varsPRM_APO:
@@ -10580,22 +10580,22 @@ class flam3h_varsPRM_APO:
 
         # EXCEPTIONS: so I dnt go into regex...
         # Update this and def in_prm_name_exceptions() if you add/find more
-        self.varsPRM_FRACTORIUM_EXCEPTIONS: dict = {67: ("oscilloscope", ("oscilloscope_frequency", "oscilloscope_amplitude", "oscilloscope_damping", "oscilloscope_separation"), 1),
-                                                    96: ("Mobius", ("Mobius_Re_A", "Mobius_Re_B", "Mobius_Re_C", "Mobius_Re_D"), ("Mobius_Im_A", "Mobius_Im_B", "Mobius_Im_C", "Mobius_Im_D"), 1)
-                                                    }
+        self.varsPRM_FRACTORIUM_EXCEPTIONS: dict[int, tuple] = {67: ("oscilloscope", ("oscilloscope_frequency", "oscilloscope_amplitude", "oscilloscope_damping", "oscilloscope_separation"), 1),
+                                                                96: ("Mobius", ("Mobius_Re_A", "Mobius_Re_B", "Mobius_Re_C", "Mobius_Re_D"), ("Mobius_Im_A", "Mobius_Im_B", "Mobius_Im_C", "Mobius_Im_D"), 1)
+                                                                }
 
 
 # This is used inside: __get_name_list_str(...)
 # to set what default single value should be used in case something goes wrong during the processed string value cleanup/correction
-XML_TO_F3H_DEFAULT_VALS: dict = {OUT_XML_FLAM3H_HSV: '1', 
-                                 OUT_XML_FLAME_SIZE: '1024'}
+XML_TO_F3H_DEFAULT_VALS: dict[str, str] = { OUT_XML_FLAM3H_HSV: '1', 
+                                            OUT_XML_FLAME_SIZE: '1024'}
 
 
 # This is used inside: def xf_list_cleanup(...) and def xf_list_cleanup_str(...)
 # to gather a proper default list of values in case the one from the XML is empty.
-XML_TO_F3H_LIST_DEFAULT_VALS: dict = {OUT_XML_FLAME_SIZE: '1024 1024', 
-                                      OUT_XML_FLAME_CENTER: '0 0', 
-                                      OUT_XML_FLAM3H_HSV: '1 1 1'}
+XML_TO_F3H_LIST_DEFAULT_VALS: dict[str, str] = {OUT_XML_FLAME_SIZE: '1024 1024', 
+                                                OUT_XML_FLAME_CENTER: '0 0', 
+                                                OUT_XML_FLAM3H_HSV: '1 1 1'}
 
 
 # FLAM3H XML TREE start here
@@ -11129,7 +11129,7 @@ class in_flame
             (list): a list of affine values cleaned up from invalid characters
         """  
         new = []
-        if not vals:
+        if not vals and key_name is not None:
             _d: Union[str, None] = XML_TO_F3H_LIST_DEFAULT_VALS.get(key_name)
             if _d is not None: vals = str(_d).split()
         for idx, val in enumerate(vals):
@@ -11162,7 +11162,7 @@ class in_flame
             (str): a string of spaced joined affine values cleaned up from invalid characters
         """  
         new = []
-        if not vals:
+        if not vals and key_name is not None:
             new_vals: Union[str, None] = XML_TO_F3H_LIST_DEFAULT_VALS.get(key_name)
             if new_vals is not None: vals = str(new_vals).split(' ')
         for idx, val in enumerate(vals):
@@ -11202,7 +11202,7 @@ class in_flame
         else:
             print(datetime.now().strftime('%b-%d-%Y %H:%M:%S'))
             
-            sel: dict = {XML_PRE_AFFINE: f"Pre affine", XML_POST_AFFINE: f"Post affine", XML_FLAM3H_PRE_AFFINE: f"F3H Pre affine", XML_FLAM3H_POST_AFFINE: f"F3H Post affine"}
+            sel: dict[str, str] = {XML_PRE_AFFINE: f"Pre affine", XML_POST_AFFINE: f"Post affine", XML_FLAM3H_PRE_AFFINE: f"F3H Pre affine", XML_FLAM3H_POST_AFFINE: f"F3H Post affine"}
             sel_key: Union[str, None] = sel.get(key)
             
             # Is it an iterator or an FF or None ?
@@ -11940,12 +11940,12 @@ class in_flame_utils
               mp_idx: int
               ) -> None:
 * in_set_data(mode: int, 
-            node: hou.SopNode, 
-            prx: str, 
-            apo_data: list, 
-            prm_name: str, 
-            mp_idx: int
-            ) -> None:
+              node: hou.SopNode, 
+              prx: str, 
+              apo_data: Union[tuple, list, None], 
+              prm_name: str, 
+              mp_idx: int
+              ) -> None:
 * in_prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
 * in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
 * in_v_parametric_var_collect(node: hou.SopNode, 
@@ -12504,7 +12504,7 @@ class in_flame_utils
     def in_set_data(mode: int, 
                     node: hou.SopNode, 
                     prx: str, 
-                    apo_data: list, 
+                    apo_data: Union[tuple, list, None], 
                     prm_name: str, 
                     mp_idx: int
                     ) -> None:
@@ -14110,13 +14110,13 @@ class in_flame_utils
                 # Activate iterator
                 node.setParms({f"{n.main_vactive}_{str(mp_idx + 1)}": 1}) # type: ignore
                 # Set the rest of the iterator(FLAME or FF) parameters
-                apo_data_set: dict = {  n.main_note: apo_data.xf_name, 
-                                        n.main_weight: apo_data.weight,
-                                        n.xaos: apo_data.xaos,
-                                        n.shader_color: apo_data.color,
-                                        n.shader_speed: apo_data.symmetry,
-                                        n.shader_alpha: apo_data.opacity
-                                    }
+                apo_data_set: dict[str, Union[tuple, None]] = { n.main_note: apo_data.xf_name, 
+                                                                n.main_weight: apo_data.weight,
+                                                                n.xaos: apo_data.xaos,
+                                                                n.shader_color: apo_data.color,
+                                                                n.shader_speed: apo_data.symmetry,
+                                                                n.shader_alpha: apo_data.opacity
+                                                            }
                 [self.in_set_data(mode, node, prx, value, key, mp_idx) for key, value in apo_data_set.items()]
             
             # Set Affine ( PRE, POST and F3H_PRE, F3H_POST) for this iterator or FF
@@ -15333,8 +15333,8 @@ class in_flame_utils
 ##########################################
 ##########################################
 # Turn Fractorium variation names dictionary into PRE and POST variation names dictionary
-VARS_FRACTORIUM_DICT_PRE: dict  = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_PRE)
-VARS_FRACTORIUM_DICT_POST: dict = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_POST)
+VARS_FRACTORIUM_DICT_PRE: dict[str, tuple]  = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_PRE)
+VARS_FRACTORIUM_DICT_POST: dict[str, tuple] = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_POST)
 
 
 # SAVE XML FILES start here
@@ -16363,8 +16363,8 @@ class out_flame_utils
         """
         # Build var parameter's sections
         f3h_iter = flam3h_iterator()
-        prm_sections_T: dict = {'VAR': f3h_iter.sec_varsT, 'PRE': f3h_iter.sec_prevarsT, 'POST': f3h_iter.sec_postvarsT}
-        prm_sections_W: dict = {'VAR': f3h_iter.sec_varsW, 'PRE': f3h_iter.sec_prevarsW[1:], 'POST': f3h_iter.sec_postvarsW}
+        prm_sections_T: dict[str, tuple] = {'VAR': f3h_iter.sec_varsT, 'PRE': f3h_iter.sec_prevarsT, 'POST': f3h_iter.sec_postvarsT}
+        prm_sections_W: dict[str, tuple] = {'VAR': f3h_iter.sec_varsW, 'PRE': f3h_iter.sec_prevarsW[1:], 'POST': f3h_iter.sec_postvarsW}
         
         # Get correct parameter's names based on the desired var section
         T_tuple: Union[tuple, None] = prm_sections_T.get(var_section)
@@ -16404,13 +16404,13 @@ class out_flame_utils
         if not mode:
             # Iterator
             f3h_iter = flam3h_iterator()
-            prm_sections_T: dict = {'VAR': f3h_iter.sec_varsT, 'PRE': f3h_iter.sec_prevarsT, 'POST': f3h_iter.sec_postvarsT}
-            prm_sections_W: dict = {'VAR': f3h_iter.sec_varsW, 'PRE': f3h_iter.sec_prevarsW[1:], 'POST': f3h_iter.sec_postvarsW}
+            prm_sections_T: dict[str, tuple] = {'VAR': f3h_iter.sec_varsT, 'PRE': f3h_iter.sec_prevarsT, 'POST': f3h_iter.sec_postvarsT}
+            prm_sections_W: dict[str, tuple] = {'VAR': f3h_iter.sec_varsW, 'PRE': f3h_iter.sec_prevarsW[1:], 'POST': f3h_iter.sec_postvarsW}
         else:
             # FF
             f3h_iter_FF = flam3h_iterator_FF()
-            prm_sections_T: dict = {'VAR': f3h_iter_FF.sec_varsT_FF, 'PRE': f3h_iter_FF.sec_prevarsT_FF, 'POST': f3h_iter_FF.sec_postvarsT_FF}
-            prm_sections_W: dict = {'VAR': f3h_iter_FF.sec_varsW_FF, 'PRE': f3h_iter_FF.sec_prevarsW_FF, 'POST': f3h_iter_FF.sec_postvarsW_FF}
+            prm_sections_T: dict[str, tuple] = {'VAR': f3h_iter_FF.sec_varsT_FF, 'PRE': f3h_iter_FF.sec_prevarsT_FF, 'POST': f3h_iter_FF.sec_postvarsT_FF}
+            prm_sections_W: dict[str, tuple] = {'VAR': f3h_iter_FF.sec_varsW_FF, 'PRE': f3h_iter_FF.sec_prevarsW_FF, 'POST': f3h_iter_FF.sec_postvarsW_FF}
         
         # Get correct parameter's names based on the desired var section and mode
         T_tuple: Union[tuple, None] = prm_sections_T.get(var_section)
@@ -16419,7 +16419,7 @@ class out_flame_utils
         # Just double checking
         if T_tuple is not None and W_tuple is not None:
 
-            names_idx: dict = {}
+            names_idx: dict[str, list[str]] = {}
             
             if mode:
                 # FF
@@ -16725,11 +16725,12 @@ class out_flame_utils
         """
         node = self.node
         sel: int = int(node.parm(OUT_RENDER_PROPERTIES_RES_PRESETS_MENU).eval())
-        res: dict = {-1: None, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), # 1 2 3 4
-                     -1: None, 6: (640, 486), 7: (720, 486), 8: (768, 586), 9: (1024, 576), # 6 7 8 9
-                     -1: None, 11: (4096, 3112), 12: (2048, 1556), 13: (3656, 2664), 14: (1828, 1332), 15: (3656, 3112), 16: (1828, 1556), 17: (3072, 2048), # 11 12 13 14 15 16 17
-                     -1: None, 19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096), # 19 20 21 22 23
-                     -1: None }
+        res: dict[int, Union[tuple, None]] = {  -1: None, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), # 1 2 3 4
+                                                -1: None, 6: (640, 486), 7: (720, 486), 8: (768, 586), 9: (1024, 576), # 6 7 8 9
+                                                -1: None, 11: (4096, 3112), 12: (2048, 1556), 13: (3656, 2664), 14: (1828, 1332), 15: (3656, 3112), 16: (1828, 1556), 17: (3072, 2048), # 11 12 13 14 15 16 17
+                                                -1: None, 19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096), # 19 20 21 22 23
+                                                -1: None 
+                                                }
  
         if res.get(sel) is not None:
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res.get(sel))}) # type: ignore
@@ -16757,10 +16758,10 @@ class out_flame_utils
         
         node = self.node
         
-        prms_out_sensor_data: dict = { OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024)),    # tuple
-                                       OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0)),  # tuple
-                                       OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0,
-                                       OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400 }
+        prms_out_sensor_data: dict[Union[str, None], Union[hou.Vector2, float]] = { OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024)),    # tuple
+                                                                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0)),  # tuple
+                                                                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0,
+                                                                                    OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400 }
         
         # Clear and set
         [node.parmTuple(key).deleteAllKeyframes() if isinstance(node.parmTuple(key).eval(), tuple) else node.parm(key).deleteAllKeyframes() for key in prms_out_sensor_data.keys()]
@@ -16778,12 +16779,12 @@ class out_flame_utils
         """
         node = self.node
         
-        prms_out_render_data: dict = {  OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000,
-                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3,
-                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5,
-                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 5,
-                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0,
-                                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.3333 }
+        prms_out_render_data: dict[Union[str, None], Union[int, float]] = { OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000,
+                                                                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3,
+                                                                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5,
+                                                                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 5,
+                                                                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): 0,
+                                                                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): 0.3333 }
         
         # Clear and set
         [node.parm(key).deleteAllKeyframes() for key in prms_out_render_data.keys()]
@@ -17162,7 +17163,7 @@ class out_flame_utils
         
         iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         
-        iter_VAR_dup: dict = {}
+        iter_VAR_dup: dict[str, Union[list, str]] = {}
         if iter_VAR is not False:
             assert isinstance(iter_VAR, dict)
             for iter in range(iter_count):
@@ -17175,7 +17176,7 @@ class out_flame_utils
                         iter_VAR_dup[key] = dup
                         if bool_VARS is False: bool_VARS: bool = True
                     
-        iter_PRE_dup: dict = {}
+        iter_PRE_dup: dict[str, Union[list, str]] = {}
         if iter_PRE is not False:
             assert isinstance(iter_PRE, dict)
             for iter in range(iter_count):
@@ -17191,8 +17192,8 @@ class out_flame_utils
         
         # FF: duplicates check
         #############################################################################
-        _FF_VAR_dup: dict = {}
-        _FF_POST_dup: dict = {}
+        _FF_VAR_dup: dict[str, Union[list, str]] = {}
+        _FF_POST_dup: dict[str, Union[list, str]] = {}
         key: str = 'FF'
         if node.parm(PREFS_PVT_DOFF).eval():
             _FF_VAR: Union[dict[str, list[str]], bool]  = self.out_collect_var_section_names_dict(node, 1, 'VAR')
@@ -17411,11 +17412,11 @@ class out_flame_utils
         flame.set(XML_FLAME_NEW_LINEAR, '1')
         
         # SET CC Curves
-        cc: dict = {OUT_XML_FLAME_RENDER_CURVES: f3r.flame_render_curves,
-                    OUT_XML_FLAME_RENDER_CURVE_OVERALL: f3r.flame_overall_curve,
-                    OUT_XML_FLAME_RENDER_CURVE_RED: f3r.flame_red_curve,
-                    OUT_XML_FLAME_RENDER_CURVE_GREEN: f3r.flame_green_curve,
-                    OUT_XML_FLAME_RENDER_CURVE_BLUE: f3r.flame_blue_curve}
+        cc: dict[str, str] = {  OUT_XML_FLAME_RENDER_CURVES: f3r.flame_render_curves,
+                                OUT_XML_FLAME_RENDER_CURVE_OVERALL: f3r.flame_overall_curve,
+                                OUT_XML_FLAME_RENDER_CURVE_RED: f3r.flame_red_curve,
+                                OUT_XML_FLAME_RENDER_CURVE_GREEN: f3r.flame_green_curve,
+                                OUT_XML_FLAME_RENDER_CURVE_BLUE: f3r.flame_blue_curve}
         [flame.set(key, value) for key, value in cc.items()]
         
         # return if this flame is a valid 'flam3'
