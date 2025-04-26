@@ -4454,9 +4454,9 @@ class flam3h_iterator_utils
             (None):
         """   
         
-        data_name = f"{FLAM3H_USER_DATA_PRX}_{data}"
-        data_iter_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_ITER}"
-        data_FF_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_FF}"
+        data_name: str = f"{FLAM3H_USER_DATA_PRX}_{data}"
+        data_iter_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_ITER}"
+        data_FF_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_FF}"
         
         if data_name == data_iter_name:
             
@@ -4503,9 +4503,9 @@ class flam3h_iterator_utils
             (None):
         """   
         
-        data_name = f"{FLAM3H_USER_DATA_PRX}_{data}"
-        data_iter_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_ITER}"
-        data_FF_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_FF}"
+        data_name: str = f"{FLAM3H_USER_DATA_PRX}_{data}"
+        data_iter_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_ITER}"
+        data_FF_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_FF}"
         
         if data_name == data_iter_name:
             if node.userData(f"{data_FF_name}") is None:
@@ -4871,19 +4871,19 @@ class flam3h_iterator_utils
             (str): simple new note append
         """
 
-        search_iter = "iter."
-        search_FF = ".FF"
+        search_iter: str = "iter."
+        search_FF: str = ".FF"
 
         if _note.find("(") or _note.find(")") == -1:
-            _note_split = _note.split()
+            _note_split: list = _note.split()
             if len(_note_split) > 1 and (search_iter in _note_split[-1].rpartition(search_iter) or search_FF in _note_split[-1].rpartition(search_FF)):
-                note = f"({' '.join(_note_split[0:-1])}) "
+                note: str = f"({' '.join(_note_split[0:-1])}) "
             elif len(_note.split(".")) > 1 and ("iter" in _note.split(".") or "FF" in _note.split(".")):
-                note = ""
+                note: str = ""
             else:
-                note = f"({_note}) "
+                note: str = f"({_note}) "
         else:
-            note = f"({_note[_note.find('(') + 1:_note.find(')')]}) "
+            note: str = f"({_note[_note.find('(') + 1:_note.find(')')]}) "
         return note
 
 
@@ -4908,7 +4908,7 @@ class flam3h_iterator_utils
         
         n = flam3h_iterator_prm_names()
         node_name = str(flam3node)
-        _current_note_FF = node.parm("ffnote").eval()
+        _current_note_FF: str = node.parm("ffnote").eval()
 
         if int_mode == 0:
             _current_note = node.parm(f"note_{id}").eval()
