@@ -12610,7 +12610,7 @@ class in_flame_utils
             (Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4]): Expected data type of the collected parametric variation's parameters values.
         """   
         
-        iter_type = f"Iterator.{mp_idx + 1}"
+        iter_type: str = f"Iterator.{mp_idx + 1}"
         if mode: iter_type = 'FF'
 
         VAR: list = []
@@ -12618,7 +12618,7 @@ class in_flame_utils
             var_prm_vals: list = []
             for n in [x.lower() for x in names]:
                 # If one of the FLAM3H parameter is not in the xform, skip it and set it to ZERO for now.
-                n = func(n)
+                n: str = func(n)
                 if xform.get(n) is not None:
                     var_prm_vals.append(float(in_flame.xf_val_cleanup_str(str(xform.get(n)), '0', n)))
                 else:
@@ -12675,7 +12675,7 @@ class in_flame_utils
                                                          v_type, 
                                                          in_flame_utils.in_util_make_NULL)
 
-        mpidx = str(mp_idx + 1)
+        mpidx: str = str(mp_idx + 1)
         [node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) if mode else node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         
         f3h_iter = flam3h_iterator()
@@ -12730,7 +12730,7 @@ class in_flame_utils
                                                          v_type, 
                                                          in_flame_utils.in_util_make_PRE)
         
-        mpidx = str(mp_idx + 1)
+        mpidx: str = str(mp_idx + 1)
         [node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on pre variations with parametric so:
         node.setParms({f"{prx}{flam3h_iterator().sec_prevarsT[t_idx]}{mpidx}": v_type}) # type: ignore
@@ -12780,7 +12780,7 @@ class in_flame_utils
                                                          v_type, 
                                                          in_flame_utils.in_util_make_POST)
         
-        mpidx = str(mp_idx + 1)
+        mpidx: str = str(mp_idx + 1)
         [node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on post variation with parametric so:
         node.setParms({f"{prx}{flam3h_iterator().sec_postvarsT[t_idx]}{mpidx}": v_type}) # type: ignore
@@ -12926,7 +12926,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        idx = str(mp_idx + 1)
+        idx: str = str(mp_idx + 1)
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
         node.setParms({f"{prx}{flam3h_iterator().sec_prevarsT[t_idx]}{idx}": v_type}) # type: ignore
         node.setParms({f"{prx}{flam3h_iterator().sec_prevarsW[1:][t_idx][0]}{idx}":v_weight}) # type: ignore
@@ -12953,7 +12953,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        idx = str(mp_idx + 1)
+        idx: str = str(mp_idx + 1)
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
         node.setParms({f"{prx}{flam3h_iterator().sec_postvarsT[t_idx]}{idx}": v_type}) # type: ignore
         node.setParms({f"{prx}{flam3h_iterator().sec_postvarsW[t_idx][0]}{idx}":v_weight}) # type: ignore
