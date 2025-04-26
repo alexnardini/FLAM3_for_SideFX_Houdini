@@ -16376,7 +16376,7 @@ class out_flame_utils
         if T_tuple is not None and W_tuple is not None:
             names: list = []
             for iter in range(node.parm(FLAME_ITERATORS_COUNT).eval()):
-                _MP_IDX = str(int(iter + 1))
+                _MP_IDX: str = str(int(iter + 1))
                 for idx, prm in enumerate(W_tuple):
                     prm_w: float = node.parm(f"{prm[0]}{_MP_IDX}").eval()
                     if prm_w != 0:
@@ -16613,7 +16613,7 @@ class out_flame_utils
                 menu_label: Union[str, None] = self.out_presets_get_selected_menu_label()
                 if menu_label is not None:
                     flame_name: str = self.out_remove_iter_num(menu_label)
-                    iter_num = node.parm(GLB_ITERATIONS).eval()
+                    iter_num: int = node.parm(GLB_ITERATIONS).eval()
                     autoadd: int = node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
                     flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
                     node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new})
@@ -16688,12 +16688,12 @@ class out_flame_utils
         menu: list = []
         menuitems: tuple = ()
         if outedit:
-            menuitems = (   "", "640x480", "HDTV 720", "HDTV 1080", "HDTV 2160 (4K)", # 1 2 3 4
-                            "", "NTSC", "NTSC D1", "PAL", "PAL 16:9 (1 to 1)", # 6 7 8 9
-                            "", "Full Ap 4K", "Full Ap 2K", "Acad 4K", "Acad 2K", "Scope 4K", "Scope 2K", "Vista 2K", # 11 12 13 14 15 16 17
-                            "", "256^2", "512^2", "1024^2", "2048^2", "4096^2", ""  ) # 19 20 21 22 23
+            menuitems: tuple = ("", "640x480", "HDTV 720", "HDTV 1080", "HDTV 2160 (4K)", # 1 2 3 4
+                                "", "NTSC", "NTSC D1", "PAL", "PAL 16:9 (1 to 1)", # 6 7 8 9
+                                "", "Full Ap 4K", "Full Ap 2K", "Acad 4K", "Acad 2K", "Scope 4K", "Scope 2K", "Vista 2K", # 11 12 13 14 15 16 17
+                                "", "256^2", "512^2", "1024^2", "2048^2", "4096^2", ""  ) # 19 20 21 22 23
         else:
-            menuitems = ( "",)
+            menuitems: tuple = ( "",)
             
         for i, item in enumerate(menuitems):
             menu.append(i)
@@ -17589,8 +17589,8 @@ class out_flame_utils
                 else:
 
                     if flam3h_general_utils.isLOCK(out_path_checked):
-                        ui_text = f"This Flame library is Locked."
-                        ALL_msg = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
+                        ui_text: str = f"This Flame library is Locked."
+                        ALL_msg: str = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
                         _MSG = "FLAME library file -> is LOCKED"
                         # Print to Houdini's status bar
                         flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
@@ -18005,7 +18005,7 @@ class out_flame_utils
         """  
         if self.palette_plus_do:
             keys: str = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)
-            if self.flam3h_cp_lookup_samples > int(keys): keys = str(self.flam3h_cp_lookup_samples)
+            if self.flam3h_cp_lookup_samples > int(keys): keys: str = str(self.flam3h_cp_lookup_samples)
             if int(keys) == 256:
                 return False
             else:
