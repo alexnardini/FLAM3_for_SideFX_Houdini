@@ -9736,8 +9736,8 @@ class flam3h_about_utils
             (None):
         """    
         
-        nl = "\n"
-        nnl = "\n\n"
+        nl: str = "\n"
+        nnl: str = "\n\n"
             
         # year = datetime.now().strftime("%Y")
         
@@ -13216,10 +13216,10 @@ class in_flame_utils
             (str): A string to be used to set the IN Render properties data parameter message.
         """
         # spacers
-        nl = "\n"
-        nnl = "\n\n"
+        nl: str = "\n"
+        nnl: str = "\n\n"
         
-        na = 'n/a'
+        na: str = 'n/a'
         
         size: str = f'Resolution: {na}'
         if apo_data.out_size[preset_id]:
@@ -13259,9 +13259,9 @@ class in_flame_utils
             (str): A string to be used to set the IN Render properties data parameter message.
         """
         # spacers
-        nl = "\n"
-        nnl = "\n\n"
-        na = 'n/a'
+        nl: str = "\n"
+        nnl: str = "\n\n"
+        na: str = 'n/a'
         
         quality: str = f'Quality: {na}'
         if apo_data.out_quality[preset_id]:
@@ -13951,7 +13951,7 @@ class in_flame_utils
         vars_keys_post: Union[list, None] = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
         assert vars_keys_post is not None
 
-        app = apo_data.sw_version[preset_id]
+        app: str = apo_data.sw_version[preset_id]
         var_prm: tuple = flam3h_varsPRM().varsPRM
         apo_prm: tuple = flam3h_varsPRM_APO().varsPRM
         n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
@@ -14145,8 +14145,8 @@ class in_flame_utils
          
         node = self.node  
         # spacers
-        nl = "\n"
-        nnl = "\n\n"
+        nl: str = "\n"
+        nnl: str = "\n\n"
         
         # I could hard-code the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
         pgb_name = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
