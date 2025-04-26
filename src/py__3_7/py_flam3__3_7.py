@@ -2711,7 +2711,7 @@ class flam3h_general_utils
                         
                     if update:
                         if self.bbox_sensor_path is not None:
-                            node_bbox = hou.node(self.bbox_sensor_path)
+                            node_bbox: hou.SopNode = hou.node(self.bbox_sensor_path)
                             if hou.hipFile.isLoadingHipFile(): # type: ignore
                                 # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
                                 # but work on H20.0.590 and up, hence the try/except block
@@ -2732,7 +2732,7 @@ class flam3h_general_utils
                         # update_sensor = self.node.parm(OUT_UPDATE_SENSOR).eval()
                         if update_sensor or _SYS_FRAME_VIEW_SENSOR_prm:
                             if self.bbox_sensor_path is not None:
-                                node_bbox = hou.node(self.bbox_sensor_path)
+                                node_bbox: hou.SopNode = hou.node(self.bbox_sensor_path)
                                 if hou.hipFile.isLoadingHipFile(): # type: ignore
                                     # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
                                     # but work on H20.0.590 and up, hence the try/except block
@@ -8088,10 +8088,10 @@ class flam3h_iterator_utils
         # What it is going to happen is that by the time we try to disable the last active iterator, it wont collect anything becasue
         # by the time we click to disable the last iterator they will all be disabled for a moment, just right before we switch this last one back to being enabled.
         # Hence the case we are interested in is when the va: list variable is empty, thats how we know we tried to switch the last active iterator OFF.
-        va = [int(node.parm(f"vactive_{str(mp_idx + 1)}").eval()) 
-             for mp_idx in range(iter_num) 
-                if node.parm(f"vactive_{str(mp_idx + 1)}").eval() 
-                and node.parm(f"iw_{str(mp_idx + 1)}").eval() > 0]
+        va: list = [int(node.parm(f"vactive_{str(mp_idx + 1)}").eval()) 
+                    for mp_idx in range(iter_num) 
+                        if node.parm(f"vactive_{str(mp_idx + 1)}").eval() 
+                        and node.parm(f"iw_{str(mp_idx + 1)}").eval() > 0]
 
         # If this va: list variable is empty, mean we switched the last active irterator to OFF so lets do something about it.
         if not va:
@@ -8150,16 +8150,16 @@ class flam3h_iterator_utils
         self.destroy_cachedUserData(node, 'iter_sel')
         
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-        W = [int(node.parm(f"iw_{str(mp_idx + 1)}").eval()) 
-            for mp_idx in range(iter_num) 
-                if node.parm(f"iw_{str(mp_idx + 1)}").eval() == 0 
-                and int(node.parm(f"vactive_{str(mp_idx + 1)}").eval())]
+        _W: list = [int(node.parm(f"iw_{str(mp_idx + 1)}").eval()) 
+                    for mp_idx in range(iter_num) 
+                        if node.parm(f"iw_{str(mp_idx + 1)}").eval() == 0 
+                        and int(node.parm(f"vactive_{str(mp_idx + 1)}").eval())]
         
-        vactive_iters = [int(node.parm(f"vactive_{str(mp_idx + 1)}").eval()) 
-                        for mp_idx in range(iter_num) 
-                            if node.parm(f"vactive_{str(mp_idx + 1)}").eval()]
+        vactive_iters: list = [int(node.parm(f"vactive_{str(mp_idx + 1)}").eval()) 
+                                for mp_idx in range(iter_num) 
+                                    if node.parm(f"vactive_{str(mp_idx + 1)}").eval()]
         
-        if len(W) == len(vactive_iters):
+        if len(_W) == len(vactive_iters):
             min_weight: float = 0.00000001
             id: int = self.kwargs['script_multiparm_index']
             node.setParms({f"iw_{str(id)}": min_weight})
@@ -8405,7 +8405,7 @@ class flam3h_palette_utils
                 
                 # Validate the file path setting it
                 node.setParms({parm_path_name: filepath}) #type: ignore
-                sm = hou.ui.statusMessage() # type: ignore
+                sm: tuple = hou.ui.statusMessage() # type: ignore
                 if sm[0] and msg:
                     flam3h_general_utils.set_status_msg('', 'MSG')
                 del data
@@ -8875,20 +8875,19 @@ class flam3h_palette_utils
         """
         node = self.node
         # get user's preset name or build an automated one
-        presetname = str(node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()).strip()
+        presetname: str = str(node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()).strip()
         if not presetname:
-            presetname = datetime.now().strftime("Palette_%b-%d-%Y_%H%M%S")
+            presetname: str = datetime.now().strftime("Palette_%b-%d-%Y_%H%M%S")
 
         # Update HSV ramp before getting it
         self.palette_cp()
 
-        hsv_vals: Union[list, str] = []
-        hsv_vals_prm = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
+        hsv_vals_prm: tuple = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
         if node.parm(CP_RAMP_SAVE_HSV).eval():
-            palette = node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
-            hsv_vals_prm = [1.0, 1.0, 1.0]
+            palette: hou.Ramp = node.parm(CP_RAMP_HSV_NAME).evalAsRamp()
+            hsv_vals_prm = (1.0, 1.0, 1.0)
         else:
-            palette =  node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
+            palette: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
             
         keys_count: str = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(palette.keys()), 1, False)
         POSs: list = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
@@ -8897,7 +8896,7 @@ class flam3h_palette_utils
         if hsv_vals_prm[0] == hsv_vals_prm[1] == hsv_vals_prm[2] == 1:
             json_dict: dict[str, dict[str, str]] = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs),  } }
         else:
-            hsv_vals = ' '.join([str(x) for x in hsv_vals_prm])
+            hsv_vals: str = ' '.join([str(x) for x in hsv_vals_prm])
             json_dict: dict[str, dict[str, str]] = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs), CP_JSON_KEY_NAME_HSV: hsv_vals} }
             
         # OUTPUT DATA
@@ -9084,7 +9083,7 @@ class flam3h_palette_utils
         Returns:
             (tuple[hou.Ramp, int, bool]): Return a tuple containing: a houdini Ramp parameter, number of keys and True or False if the operation succeded or not. If False, it will build an error Ramp instead.
         """  
-        _CHECK = True
+        _CHECK: bool = True
         if rgb_from_XML_PALETTE:
             
             try:
@@ -9116,7 +9115,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        keep_hsv = node.parm(CP_RAMP_HSV_KEEP_ON_LOAD).eval()
+        keep_hsv: int = node.parm(CP_RAMP_HSV_KEEP_ON_LOAD).eval()
         if not keep_hsv:
             if hsv_check:
                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3(hsv_vals)})
@@ -9394,7 +9393,7 @@ class flam3h_palette_utils
             (None):
         """    
         node = self.node
-        rmpsrc = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
+        rmpsrc: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         rmphsv = node.parm(CP_RAMP_HSV_NAME)
         rmphsv.set(rmpsrc)
         # Apply HSV if any
@@ -9405,7 +9404,7 @@ class flam3h_palette_utils
         self.palette_hsv()
         
         if node.parm(CP_PVT_ISVALID_FILE).eval():
-            rmptmp = node.parm(CP_RAMP_TMP_NAME).evalAsRamp()
+            rmptmp: hou.Ramp = node.parm(CP_RAMP_TMP_NAME).evalAsRamp()
             if rmpsrc.keys() != rmptmp.keys() or rmpsrc.values() != rmptmp.values():
                 # Mark this as not a loaded palette preset
                 flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
@@ -9428,7 +9427,7 @@ class flam3h_palette_utils
             (None):
         """    
         node = self.node
-        rmpsrc = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
+        rmpsrc: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         rmptmp = node.parm(CP_RAMP_TMP_NAME)
         rmptmp.set(rmpsrc)
 
@@ -9443,15 +9442,15 @@ class flam3h_palette_utils
             (None):
         """  
         node = self.node
-        hsvprm_vals = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
+        hsvprm_vals: tuple = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
         if hsvprm_vals[0] != 1 or hsvprm_vals[1] != 1 or hsvprm_vals[2] != 1:
             
             # Apply color correction
-            rmpsrc = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
-            rgb = [colorsys.hsv_to_rgb( item[0] + hsvprm_vals[0], item[1] * hsvprm_vals[1], item[2] * hsvprm_vals[2] ) for item in list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.values()))]
+            rmpsrc: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
+            _RGBs: list = [colorsys.hsv_to_rgb( item[0] + hsvprm_vals[0], item[1] * hsvprm_vals[1], item[2] * hsvprm_vals[2] ) for item in list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.values()))]
             # Set the ramp
             rmphsv = node.parm(CP_RAMP_HSV_NAME)
-            rmphsv.set(hou.Ramp(rmpsrc.basis(), rmpsrc.keys(), rgb))
+            rmphsv.set(hou.Ramp(rmpsrc.basis(), rmpsrc.keys(), _RGBs))
 
 
     def palette_lock(self) -> None:
@@ -9484,7 +9483,7 @@ class flam3h_palette_utils
             (None):
         """
         node = self.node
-        filepath = node.parm(CP_PALETTE_LIB_PATH).eval()
+        filepath: str = node.parm(CP_PALETTE_LIB_PATH).eval()
         if self.isJSON_F3H(node, filepath, False)[0]:
             if flam3h_general_utils.isLOCK(filepath) is False:
                 node.setParms({MSG_PALETTE: ''})
@@ -11556,7 +11555,7 @@ class in_flame
                 
                 if _PALETTE:
                     format = dict(palette_attrib).get(XML_PALETTE_FORMAT)
-                    ramp_keys_count = len(rgb_from_XML_PALETTE)
+                    ramp_keys_count: int = len(rgb_from_XML_PALETTE)
                     POSs: list = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
                     BASESs: list = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
                     return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), ramp_keys_count, str(format)
@@ -11584,7 +11583,7 @@ class in_flame
             palette_hsv_xml_list = self.flam3h_hsv[idx]
             if palette_hsv_xml_list:
                 palette_hsv_xml_s = str(palette_hsv_xml_list).split()
-                if len(palette_hsv_xml_s) != 3: palette_hsv_xml_s = np_pad(palette_hsv_xml_s, (0, 3-min(3, len(palette_hsv_xml_s))), 'constant', constant_values=1).tolist()
+                if len(palette_hsv_xml_s) != 3: palette_hsv_xml_s: list = np_pad(palette_hsv_xml_s, (0, 3-min(3, len(palette_hsv_xml_s))), 'constant', constant_values=1).tolist()
                 return in_flame_utils.in_util_typemaker(list(map(lambda x: float(x), palette_hsv_xml_s )))
             else:
                 return False
@@ -13057,8 +13056,8 @@ class in_flame_utils
         Returns:
             (tuple[tuple, int]): Return a tuple containing either the iterator's xforms or the FF xform and max variation limit allowed.
         """
-        xf = ()
-        _MAX_VARS = 0
+        xf: Union[tuple, None] = None
+        _MAX_VARS: int = 0
         if mode:
             _MAX_VARS = MAX_FF_VARS
             xf = apo_data.finalxform
@@ -13079,7 +13078,7 @@ class in_flame_utils
         Returns:
             (Union[int, None]): The iteration number or none.
         """
-        splt = list(menu_label.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV))
+        splt: tuple = menu_label.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV)
         if len([item for item in splt if item]) > 1:
             try:
                 int(splt[-1])
@@ -13102,7 +13101,7 @@ class in_flame_utils
         Returns:
             (str): The final message without the extra empty line at the end.
         """     
-        vars = [", ".join(grp) + ",\n" if id < len(groups)-1 else ", ".join(grp) + "." for id, grp in enumerate(groups)]   
+        vars: list = [", ".join(grp) + ",\n" if id < len(groups)-1 else ", ".join(grp) + "." for id, grp in enumerate(groups)]   
         return ''.join(vars)
 
 
@@ -13405,6 +13404,7 @@ class in_flame_utils
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): f3r.out_curves[preset_id]}) # type: ignore
             except: # If missing set it to its default
                 node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT}) # type: ignore
+                # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVES} -> NOT FOUND, default value used.\n")
                 
         if f3r.out_curve_overall[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
@@ -13413,6 +13413,7 @@ class in_flame_utils
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): f3r.out_curve_overall[preset_id]}) # type: ignore
             except: # If missing set it to its default
                 node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+                # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVE_OVERALL} -> NOT FOUND, default value used.\n")
                 
         if f3r.out_curve_red[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
@@ -13421,6 +13422,7 @@ class in_flame_utils
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): f3r.out_curve_red[preset_id]}) # type: ignore
             except: # If missing set it to its default
                 node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+                # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVE_RED} -> NOT FOUND, default value used.\n")
                 
         if f3r.out_curve_green[preset_id] in  OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
@@ -13429,6 +13431,7 @@ class in_flame_utils
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): f3r.out_curve_green[preset_id]}) # type: ignore
             except: # If missing set it to its default
                 node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+                # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVE_GREEN} -> NOT FOUND, default value used.\n")
                 
         if f3r.out_curve_blue[preset_id] in  OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
@@ -13437,6 +13440,7 @@ class in_flame_utils
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): f3r.out_curve_blue[preset_id]}) # type: ignore
             except: # If missing set it to its default
                 node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
+                # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVE_BLUE} -> NOT FOUND, default value used.\n")
     
     
