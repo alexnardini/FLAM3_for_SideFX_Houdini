@@ -1560,7 +1560,7 @@ class flam3h_scripts
                 if flam3h_general_utils.util_is_context('Sop', v):
                     
                     settings: hou.GeometryViewportSettings = v.curViewport().settings()
-                    size = settings.particlePointSize()
+                    size: float = settings.particlePointSize()
                     
                     if size != default_value_pt:
                         node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
@@ -1585,7 +1585,7 @@ class flam3h_scripts
                 if flam3h_general_utils.util_is_context('Sop', v):
                     
                     settings: hou.GeometryViewportSettings = v.curViewport().settings()
-                    size = settings.wireWidth()
+                    size: float = settings.wireWidth()
                     
                     if size != default_value_ww:
                         node.setParms({PREFS_VIEWPORT_WIRE_WIDTH: size})
@@ -2013,7 +2013,7 @@ class flam3h_general_utils
         if isinstance(_prm, str): prm: hou.Parm = node.parm(_prm)
         elif isinstance(_prm, hou.Parm): prm: hou.Parm = _prm
         prm.lock(False)
-        prm.set(data) # type: ignore
+        prm.set(data) # type: ignore # the set method for the hou.Parm exist but it is not recognized
         prm.lock(True)
         
         
@@ -2456,9 +2456,9 @@ class flam3h_general_utils
         # Check if the required data exist already
         try:
             hou.session.H_CS_STASH_DICT # type: ignore
-            _EXIST = True
+            _EXIST: bool = True
         except:
-            _EXIST = False
+            _EXIST: bool = False
             
         # build a new one
         views_scheme: list[hou.viewportColorScheme]  = []
