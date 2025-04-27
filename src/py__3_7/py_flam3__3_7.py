@@ -14142,7 +14142,7 @@ class in_flame_utils
         Returns:
             (str): A string to be used to set the IN Flame info data parameter message.
         """     
-         
+        
         node = self.node  
         # spacers
         nl: str = "\n"
@@ -14169,15 +14169,14 @@ class in_flame_utils
         if apo_data.finalxform_post is not None: ff_post_bool = True
         # custom to FLAM3H only
         if apo_data.mb_flam3h_fps is not False: flam3h_mb_bool = True
-            
+        
         # checks msgs
         opacity_bool_msg = post_bool_msg = xaos_bool_msg = ff_post_bool_msg = "NO"
-        
         if opacity_bool: opacity_bool_msg = "YES"
         if post_bool: post_bool_msg = "YES"
         if xaos_bool: xaos_bool_msg = "YES"
         if ff_post_bool: ff_post_bool_msg = "YES"
-            
+        
         # build msgs
         sw: str = f"Software: {apo_data.sw_version[preset_id]}"
         name: str = f"Name: {apo_data.name[preset_id]}"
@@ -14188,15 +14187,20 @@ class in_flame_utils
         xaos: str = f"Xaos: {xaos_bool_msg}"
         
         # CC - build data
-        cc_overall: str = apo_data.out_curve_overall[preset_id]
+        cc_overall: Union[str, list] = apo_data.out_curve_overall[preset_id]
         if not apo_data.out_curve_overall[preset_id]: cc_overall = OUT_XML_FLAME_RENDER_CURVE_DEFAULT
-        cc_red: str = apo_data.out_curve_red[preset_id]
+        cc_red: Union[str, list] = apo_data.out_curve_red[preset_id]
         if not apo_data.out_curve_red[preset_id]: cc_red = OUT_XML_FLAME_RENDER_CURVE_DEFAULT
-        cc_green: str = apo_data.out_curve_green[preset_id]
+        cc_green: Union[str, list] = apo_data.out_curve_green[preset_id]
         if not apo_data.out_curve_green[preset_id]: cc_green = OUT_XML_FLAME_RENDER_CURVE_DEFAULT
-        cc_blue: str = apo_data.out_curve_blue[preset_id]
+        cc_blue: Union[str, list] = apo_data.out_curve_blue[preset_id]
         if not apo_data.out_curve_green[preset_id]: cc_blue = OUT_XML_FLAME_RENDER_CURVE_DEFAULT
-        # CC - check
+        # CC - check - The following are now guarantee to be: str
+        assert isinstance(cc_overall, str)
+        assert isinstance(cc_red, str)
+        assert isinstance(cc_green, str)
+        assert isinstance(cc_blue, str)
+        # Compare
         if cc_overall.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_red.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_green.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_blue.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc = ''
         else: cc = 'CC'
         
@@ -14205,10 +14209,10 @@ class in_flame_utils
             if cc: mb: str = f", MB{nnl}" # not that elegant, but...
             else: mb: str = f"MB{nnl}"
         else: mb: str = nnl
-            
+        
         if ff_bool: ff_msg: str = f"FF: YES\nFF Post affine: {ff_post_bool_msg}"
         else: ff_msg: str = f"FF: NO\n"
-            
+        
         if palette_bool and apo_data.palette is not None:
             if apo_data.cp_flam3h_hsv is not False: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} {IN_HSV_LABEL_MSG}" # custom to FLAM3H only
             else: palette_count_format: str = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
@@ -14226,10 +14230,10 @@ class in_flame_utils
             vars_keys_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE)
             vars_keys_PRE_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
             vars_keys_POST_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
-            
+        
         vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
         if pb_bool: vars_all += [["pre_blur"]]
-        result_sorted = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL, True) # type: ignore
+        result_sorted: list = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL, True) # type: ignore
         
         n: int = 5
         vars_used_heading: str = "Variations used:"
@@ -14241,7 +14245,7 @@ class in_flame_utils
         else: preset_name: str = apo_data.name[preset_id]   # Get the correct menu parameter's preset menu label
                                                             # The apo_data.name[idx] is used for the descriptive parameter
                                                             # so to not print the icon path into the name.
-                
+        
         descriptive_prm: tuple = ( f"sw: {apo_data.sw_version[preset_id]}\n", f"{out_flame_utils.out_remove_iter_num(preset_name)}",)
         node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
 
