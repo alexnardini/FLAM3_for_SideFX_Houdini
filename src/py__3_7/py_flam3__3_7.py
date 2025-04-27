@@ -2151,7 +2151,7 @@ class flam3h_general_utils
         """
 
         if hou.isUIAvailable():
-            st = { 'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning }  # type: ignore
+            st: dict[str, hou.EnumValue] = { 'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning }  # type: ignore
             hou.ui.setStatusMessage(msg, st.get(type)) # type: ignore
 
 
@@ -12452,7 +12452,7 @@ class in_flame_utils
             flam3h_prm_names(flam3h_iterator_prm_names): Class of FLAM3H iterator parameter's names
             mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
         """
-        idx = str(mp_idx + 1)
+        idx: str = str(mp_idx + 1)
         pre_affine: tuple = (flam3h_prm_names.preaffine_x, flam3h_prm_names.preaffine_y, flam3h_prm_names.preaffine_o)
         post_affine: tuple = (flam3h_prm_names.postaffine_x, flam3h_prm_names.postaffine_y, flam3h_prm_names.postaffine_o)
         f3h_affine = node.parm(IN_FLAM3H_AFFINE_STYLE).eval()
@@ -12578,7 +12578,7 @@ class in_flame_utils
         Returns:
             (str): The variation string name.
         """       
-        var_name = list(mydict.keys())[list(mydict.values()).index(idx)] 
+        var_name: str = list(mydict.keys())[list(mydict.values()).index(idx)] 
         return var_name
     
     
@@ -12667,13 +12667,13 @@ class in_flame_utils
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
 
-        VAR = in_flame_utils.in_v_parametric_var_collect(node, 
-                                                         mode, 
-                                                         apo_prm, 
-                                                         xform, 
-                                                         mp_idx, 
-                                                         v_type, 
-                                                         in_flame_utils.in_util_make_NULL)
+        VAR: Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4] = in_flame_utils.in_v_parametric_var_collect(node, 
+                                                                                                                    mode, 
+                                                                                                                    apo_prm, 
+                                                                                                                    xform, 
+                                                                                                                    mp_idx, 
+                                                                                                                    v_type, 
+                                                                                                                    in_flame_utils.in_util_make_NULL)
 
         mpidx: str = str(mp_idx + 1)
         [node.setParms({f"{prx_prm}{prm[0][:-1]}": VAR[idx]}) if mode else node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
@@ -12722,13 +12722,13 @@ class in_flame_utils
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
         
-        VAR = in_flame_utils.in_v_parametric_var_collect(node, 
-                                                         mode, 
-                                                         apo_prm, 
-                                                         xform, 
-                                                         mp_idx, 
-                                                         v_type, 
-                                                         in_flame_utils.in_util_make_PRE)
+        VAR: Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4] = in_flame_utils.in_v_parametric_var_collect(node, 
+                                                                                                                    mode, 
+                                                                                                                    apo_prm, 
+                                                                                                                    xform, 
+                                                                                                                    mp_idx, 
+                                                                                                                    v_type, 
+                                                                                                                    in_flame_utils.in_util_make_PRE)
         
         mpidx: str = str(mp_idx + 1)
         [node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
@@ -12772,13 +12772,13 @@ class in_flame_utils
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
 
-        VAR = in_flame_utils.in_v_parametric_var_collect(node, 
-                                                         mode, 
-                                                         apo_prm, 
-                                                         xform, 
-                                                         mp_idx, 
-                                                         v_type, 
-                                                         in_flame_utils.in_util_make_POST)
+        VAR: Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4] = in_flame_utils.in_v_parametric_var_collect(node, 
+                                                                                                                    mode, 
+                                                                                                                    apo_prm, 
+                                                                                                                    xform, 
+                                                                                                                    mp_idx, 
+                                                                                                                    v_type, 
+                                                                                                                    in_flame_utils.in_util_make_POST)
         
         mpidx: str = str(mp_idx + 1)
         [node.setParms({f"{prx_prm}{prm[0]}{mpidx}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
@@ -12816,13 +12816,13 @@ class in_flame_utils
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
 
-        VAR = in_flame_utils.in_v_parametric_var_collect(node, 
-                                                         0, 
-                                                         apo_prm, 
-                                                         xform, 
-                                                         0, 
-                                                         v_type, 
-                                                         in_flame_utils.in_util_make_PRE)
+        VAR: Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4] = in_flame_utils.in_v_parametric_var_collect(node, 
+                                                                                                                    0, 
+                                                                                                                    apo_prm, 
+                                                                                                                    xform, 
+                                                                                                                    0, 
+                                                                                                                    v_type, 
+                                                                                                                    in_flame_utils.in_util_make_PRE)
             
         [node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on post variation with parametric so:
@@ -12859,13 +12859,13 @@ class in_flame_utils
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
 
-        VAR = in_flame_utils.in_v_parametric_var_collect(node, 
-                                                         0, 
-                                                         apo_prm, 
-                                                         xform, 
-                                                         0, 
-                                                         v_type, 
-                                                         in_flame_utils.in_util_make_POST)
+        VAR: Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4] = in_flame_utils.in_v_parametric_var_collect(node, 
+                                                                                                                    0, 
+                                                                                                                    apo_prm, 
+                                                                                                                    xform, 
+                                                                                                                    0, 
+                                                                                                                    v_type, 
+                                                                                                                    in_flame_utils.in_util_make_POST)
             
         [node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": VAR[idx]}) for idx, prm in enumerate(var_prm[1:-1])] # type: ignore
         # Only on post variation with parametric so:
@@ -13802,7 +13802,7 @@ class in_flame_utils
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
-            enum_label = str(i + 1) # start count from 1
+            enum_label: str = str(i + 1) # start count from 1
             
             # 5 ending \s to be able to read the full label
             labels: tuple = (f"{FLAM3H_ICON_STAR_FLAME_LOAD}  {enum_label}:  {item}     ", 
@@ -13866,7 +13866,7 @@ class in_flame_utils
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
-            enum_label = str(i + 1) # start count from 1
+            enum_label: str = str(i + 1) # start count from 1
             
             in_idx: int = int(node.parm(IN_PRESETS_OFF).eval())
             clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
@@ -13938,7 +13938,7 @@ class in_flame_utils
         # timenow = datetime.now().strftime('%b-%d-%Y %H:%M:%S')
         
         # I could hard-code the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
-        pgb_name = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
+        pgb_name: Union[str, list[str], None] = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
         assert isinstance(pgb_name, str)
         
         xforms, _MAX_VARS_MODE = self.in_get_xforms_data_and_flam3h_vars_limit(mode, apo_data)
@@ -14149,7 +14149,7 @@ class in_flame_utils
         nnl: str = "\n\n"
         
         # I could hard-code the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
-        pgb_name = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
+        pgb_name: Union[str, list[str], None] = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
         assert isinstance(pgb_name, str)
         
         # checks
@@ -14404,7 +14404,7 @@ class in_flame_utils
 
             if _xml_tree(xml).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and not node.parm(IN_PVT_ISVALID_PRESET).eval():
                     
-                menu = []
+                menu: list = []
                 [self.menu_in_presets_empty_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_in_presets_empty_loop(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
                 node.setCachedUserData('in_presets_menu_off', menu)
                 return menu
@@ -14471,7 +14471,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        iter_on_load = self.node.parm(IN_ITER_NUM_ON_LOAD).eval()
+        iter_on_load: int = self.node.parm(IN_ITER_NUM_ON_LOAD).eval()
         self.node.setParms({GLB_ITERATIONS: iter_on_load})
         # update Flame preset name if any
         out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
@@ -14661,7 +14661,7 @@ class in_flame_utils
         """
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
         
-        iter_on_load = in_flame_utils.in_set_iter_on_load(node, preset_id, clipboard, flame_name_clipboard)
+        iter_on_load: int = in_flame_utils.in_set_iter_on_load(node, preset_id, clipboard, flame_name_clipboard)
         flam3h_general_utils(self.kwargs).reset_SYS(1, iter_on_load, 0)
         flam3h_general_utils(self.kwargs).reset_MB()
         flam3h_general_utils(self.kwargs).reset_PREFS()

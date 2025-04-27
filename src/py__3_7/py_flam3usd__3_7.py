@@ -578,7 +578,7 @@ class flam3husd_general_utils
         """
 
         if hou.isUIAvailable():
-            st = { 'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning }  # type: ignore
+            st: dict[str, hou.EnumValue] = { 'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning }  # type: ignore
             hou.ui.setStatusMessage(msg, st.get(type)) # type: ignore
         
 
@@ -735,13 +735,13 @@ class flam3husd_general_utils
                 
                 try: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = hou.session.HUSD_CS_STASH_DICT # type: ignore
                 except: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = None
-                    
+                
                 dark = False
                 if _STASH_DICT is not None:
                     for v in views:
                         # Here we are not checking if the viewer belong to Sop or Lop
                         # because the stashed dict has already the viewers filtered on creation inside: flam3husd_general_utils.util_store_all_viewers_color_scheme()
-                        key = v.name()
+                        key: str = v.name()
                         _STASH: Union[hou.EnumValue, None] = _STASH_DICT.get(key)
                         if _STASH is not None:
                             settings: hou.GeometryViewportSettings = v.curViewport().settings()
