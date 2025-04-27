@@ -11581,8 +11581,7 @@ class in_flame
         """   
         if self.isvalidtree:
             palette_hsv_xml_list: Union[str, list] = self.flam3h_hsv[idx]
-            if not isinstance(palette_hsv_xml_list, list):
-                assert isinstance(palette_hsv_xml_list, str)
+            if isinstance(palette_hsv_xml_list, str):
                 palette_hsv_xml_s: list = palette_hsv_xml_list.split()
                 if len(palette_hsv_xml_s) != 3: palette_hsv_xml_s: list = np_pad(palette_hsv_xml_s, (0, 3-min(3, len(palette_hsv_xml_s))), 'constant', constant_values=1).tolist()
                 return in_flame_utils.in_util_typemaker(list(map(lambda x: float(x), palette_hsv_xml_s )))
@@ -11609,8 +11608,7 @@ class in_flame
         """   
         if self.isvalidtree:
             mb_do: Union[str, list] = self.flam3h_mb[idx]
-            if not isinstance(mb_do, list):
-                assert isinstance(mb_do, str)
+            if isinstance(mb_do, str):
                 if key == OUT_XML_FLMA3H_MB_FPS:
                     try:
                         int(mb_do)
@@ -11653,8 +11651,7 @@ class in_flame
         """   
         if self.isvalidtree:
             cp_samples_key: Union[str, list] = self.flam3h_cp_samples[idx]
-            if not isinstance(cp_samples_key, list):
-                assert isinstance(cp_samples_key, str)
+            if isinstance(cp_samples_key, str):
                 samples: int = int(cp_samples_key)
                 if samples in PALETTE_OUT_MENU_OPTIONS_PLUS: # just make sure the lookup samples count is one of the valid options.
                     return samples
@@ -11766,9 +11763,9 @@ class in_flame_iter_data(in_flame):
         # custom to FLAM3H only
         self._sys_flam3h_rip: Union[int, None] = self._in_flame__get_flam3h_toggle(self._flam3h_sys_rip[self._idx]) # type: ignore
         self._cp_flam3h_hsv: Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool] = self._in_flame__get_palette_flam3h_hsv(self._idx) # type: ignore
-        self._mb_flam3h_mb_fps: Union[int, float, bool, None] = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
-        self._mb_flam3h_mb_samples: Union[int, float, bool, None] = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
-        self._mb_flam3h_mb_shutter: Union[int, float, bool, None] = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
+        self._mb_flam3h_mb_fps: Union[int, float, bool] = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
+        self._mb_flam3h_mb_samples: Union[int, float, bool] = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
+        self._mb_flam3h_mb_shutter: Union[int, float, bool] = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
         self._cp_flam3h_cp_samples: Union[int, bool] = self._in_flame__get_cp_flam3h_samples(self._idx, self.palette) # type: ignore
         self._prefs_flam3h_f3c: Union[int, None] = self._in_flame__get_flam3h_toggle(self._flam3h_prefs_f3c[self._idx]) # type: ignore
 
