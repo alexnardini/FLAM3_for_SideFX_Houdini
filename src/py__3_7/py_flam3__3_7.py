@@ -6110,7 +6110,7 @@ class flam3h_iterator_utils
             if mp_id_from is not None:
                 assert from_FLAM3H_NODE is not None
                 
-                idx_from = str(mp_id_from)
+                idx_from: str = str(mp_id_from)
                 
                 prm_selmem = node.parm(f"selmem_{idx}")
                 if prm_selmem.eval() > 0:
@@ -14487,10 +14487,10 @@ class in_flame_utils
             (None):
         """
         node = self.node
-        useiteronload = node.parm(IN_USE_ITER_ON_LOAD).eval()
+        useiteronload: int = node.parm(IN_USE_ITER_ON_LOAD).eval()
         if useiteronload:
-            iternumonload = node.parm(IN_ITER_NUM_ON_LOAD).eval()
-            iter = node.parm(GLB_ITERATIONS).eval()
+            iternumonload: int = node.parm(IN_ITER_NUM_ON_LOAD).eval()
+            iter: int = node.parm(GLB_ITERATIONS).eval()
             if iternumonload == iter:
                 pass
             elif iternumonload > iter:
@@ -14938,7 +14938,7 @@ class in_flame_utils
         if tree is not None:
             assert xml is not None
             if tuple([f for f in tree.getroot().iter(XML_FLAME_NAME)]):
-                flame_name_clipboard = _xml_tree(xml).name[0]
+                flame_name_clipboard: str = _xml_tree(xml).name[0]
                 return xml, True, 0, flame_name_clipboard, True, False
             else:
                 if self.in_to_flam3h_is_CHAOS(xml):
@@ -16595,7 +16595,7 @@ class out_flame_utils
         node = self.node
 
         if node.parm(OUT_PVT_ISVALID_FILE).eval():
-            toggle_PREFS_ENUMERATE_MENU = node.parm(PREFS_ENUMERATE_MENU).eval()
+            toggle_PREFS_ENUMERATE_MENU: int = node.parm(PREFS_ENUMERATE_MENU).eval()
             preset_id: int = int(node.parm(OUT_PRESETS).eval())
             menu_label: str = str(node.parm(OUT_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE)[-1].strip()
 
