@@ -12,7 +12,7 @@ They are all available in this github repository.</br>
 
 ### [<ins>From v1.8.12</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.12) ###
 
-- **New**: Motion blur XML keys are now checked and corrected if needed on Flame load.
+- **New**: Motion blur XML keys are now checked and corrected if needed on Flame load. 
 
 
 

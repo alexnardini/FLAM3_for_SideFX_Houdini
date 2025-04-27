@@ -10,7 +10,7 @@
 
 
 :box:
-    #display: rounded white
+    #display: rounded white 
 
 
 == Welcome to FLAM3 for SideFX Houdini - aka: FLAM3H ==

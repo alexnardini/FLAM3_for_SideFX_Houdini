@@ -78,7 +78,7 @@ from inspect import cleandoc as i_cleandoc
 #
 #               DOC-STRINGS
 #                   To distinguish class @staticmethods from the class @methods, the class @methods doc-string Args list always start with the argument: (self):
-#                   This make it easier to distinguish them when typing their name while checking their infos like for example in VSCode.
+#                   This make it easier to distinguish them when typing their name while checking their infos like for example in VSCode. 
 #
 
 
