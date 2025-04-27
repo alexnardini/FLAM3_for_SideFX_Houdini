@@ -16917,7 +16917,7 @@ class out_flame_utils
         """
         val: list = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
         fill: list = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values=1) for item in val]
-        t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count))).tolist()
+        t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count)).tolist()).tolist()
         if mode:
             xaos_vactive: list = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
             return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
