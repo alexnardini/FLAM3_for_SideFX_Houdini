@@ -5,7 +5,7 @@ __author__ = "F stands for liFe ( made in Italy )"
 __copyright__ = "Copyright 2021, F stands for liFe"
 
 __license__ = "GPL"
-__version__ = "1.8.12"
+__version__ = "1.8.13"
 __maintainer__ = "Alessandro nardini"
 __status__ = "Production"
 
@@ -14889,7 +14889,7 @@ class in_flame_utils
             flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 1)
             flam3h_general_utils.private_prm_set(node, IN_PVT_CLIPBOARD_TOGGLE, 1)
             
-            preset_name = flame_name_clipboard
+            preset_name: str = flame_name_clipboard
             _MSG: str = f"{node.name()}: LOAD Flame preset from Clipboard: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
         else:
             # Otherwise mean the preset is coming from a file,
@@ -14899,7 +14899,7 @@ class in_flame_utils
             flam3h_general_utils.private_prm_set(node, IN_PVT_CLIPBOARD_TOGGLE, 0)
             
             # Get the correct menu parameter's preset menu label
-            preset_name = apo_data.name[preset_id] 
+            preset_name: str = apo_data.name[preset_id]
             _MSG: str = f"{node.name()}: LOAD Flame preset: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
             
         flam3h_general_utils.set_status_msg(_MSG, 'IMP')

@@ -10,6 +10,23 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.13</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.13) ###
+
+#### FLAM3H ####
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+#### FLAM3HUSD v0.1.53 - Prototype ####
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.8.12</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.12) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
