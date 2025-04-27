@@ -14201,8 +14201,10 @@ class in_flame_utils
         assert isinstance(cc_green, str)
         assert isinstance(cc_blue, str)
         # Compare
-        if cc_overall.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_red.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_green.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_blue.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc = ''
-        else: cc = 'CC'
+        if cc_overall.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_red.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_green.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_blue.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
+            cc: str = ''
+        else:
+            cc: str = 'CC'
         
         # MB (Motion blur)
         if flam3h_mb_bool:
@@ -14223,7 +14225,7 @@ class in_flame_utils
         vars_keys_PRE_pgb: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
         vars_keys_PRE: Union[list, None] = self.in_vars_keys_remove_pgb(vars_keys_PRE_pgb, pgb_name)
         vars_keys_POST: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
-
+        
         # FF COLLECT
         vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
         if ff_bool:
