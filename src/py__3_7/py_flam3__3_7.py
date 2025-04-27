@@ -11392,7 +11392,7 @@ class in_flame
         """
         if  self.isvalidtree:
             assert self.flame is not None
-            xforms = [xf.attrib for xf in self.flame[idx].iter(key)]
+            xforms: list = [xf.attrib for xf in self.flame[idx].iter(key)]
             if xforms: return tuple( [dict( zip( [str(x).lower() for x in xf.keys()], xf.values() ) ) for xf in xforms] )
                 
                 # xforms_lower = []
@@ -11418,7 +11418,7 @@ class in_flame
         """
         if  self.isvalidtree and xforms is not None:
 
-            xaos = [f"xaos:{':'.join(self.xf_list_cleanup(str(xf.get(key)).split(), '1', key))}" if xf.get(key) is not None else [] for xf in xforms]
+            xaos: list = [f"xaos:{':'.join(self.xf_list_cleanup(str(xf.get(key)).split(), '1', key))}" if xf.get(key) is not None else [] for xf in xforms]
             if not max(list(map(lambda x: len(x), xaos))): return None
             else: return tuple(xaos)
         
@@ -11438,7 +11438,7 @@ class in_flame
             (Union[tuple, None]): Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None
         """   
         if  self.isvalidtree and xforms is not None:
-            coefs = [tuple(self.affine_coupling([float(x) for x in self.xf_list_cleanup(str(xf.get(key)).split(), '0', key)], key, int(idx + 1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
+            coefs: list = [tuple(self.affine_coupling([float(x) for x in self.xf_list_cleanup(str(xf.get(key)).split(), '0', key)], key, int(idx + 1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
             if max(list(map(lambda x: len(x), coefs))): return tuple(coefs)
             else: return None
             
@@ -11493,7 +11493,7 @@ class in_flame
                             keyvalues.append([])
 
                         continue
-                        
+                    
                     # Flame files created with Apophysis versions older than 7x ( or much older as the test file I have is from v2.06c )
                     # seem not to include those keys if not used or left at default values.
                     # We set them here so we can use them inside FLAM3H on load.
@@ -11531,10 +11531,10 @@ class in_flame
             (Union[tuple[hou.Ramp, int, str], None]): return a tu-ple with an already made hou.Ramp, number of keys, format or None if something went wrong.
         """     
            
-        if  self.isvalidtree:
+        if self.isvalidtree:
             assert self.flame is not None
-            try: palette_attrib = self.flame[idx].find(key).attrib
-            except: palette_attrib = None
+            try: palette_attrib: Union[dict, None] = self.flame[idx].find(key).attrib
+            except: palette_attrib: Union[dict, None] = None
 
             if palette_attrib is not None:
                 
@@ -11544,17 +11544,17 @@ class in_flame
                 #     if(len(cleandoc) > 1):
                 #         [_HEX.append(hex) for hex in wrap(cleandoc, 6)]
                 
-                palette_hex = self.flame[idx].find(key).text
+                palette_hex: str = self.flame[idx].find(key).text
                 HEXs: list = [hex for line in palette_hex.splitlines() for hex in wrap(i_cleandoc(line), 6) if len(i_cleandoc(line)) > 1]
                 try:
                     RGBs: list = [list(map(abs, flam3h_palette_utils.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
                     rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
-                    _PALETTE = True
+                    _PALETTE: bool = True
                 except:
-                    _PALETTE = False
+                    _PALETTE: bool = False
                 
                 if _PALETTE:
-                    format = dict(palette_attrib).get(XML_PALETTE_FORMAT)
+                    format: Union[str, None] = dict(palette_attrib).get(XML_PALETTE_FORMAT)
                     ramp_keys_count: int = len(rgb_from_XML_PALETTE)
                     POSs: list = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
                     BASESs: list = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
@@ -11580,9 +11580,10 @@ class in_flame
             (Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]): [a hou.Vector type of HSV vals or False] Since we know the HSV is made out of 3 floats, it will always rreturn a: hou.Vector3
         """   
         if self.isvalidtree:
-            palette_hsv_xml_list = self.flam3h_hsv[idx]
-            if palette_hsv_xml_list:
-                palette_hsv_xml_s = str(palette_hsv_xml_list).split()
+            palette_hsv_xml_list: Union[str, list] = self.flam3h_hsv[idx]
+            if not isinstance(palette_hsv_xml_list, list):
+                assert isinstance(palette_hsv_xml_list, str)
+                palette_hsv_xml_s: list = palette_hsv_xml_list.split()
                 if len(palette_hsv_xml_s) != 3: palette_hsv_xml_s: list = np_pad(palette_hsv_xml_s, (0, 3-min(3, len(palette_hsv_xml_s))), 'constant', constant_values=1).tolist()
                 return in_flame_utils.in_util_typemaker(list(map(lambda x: float(x), palette_hsv_xml_s )))
             else:
@@ -11607,9 +11608,9 @@ class in_flame
             (Union[int, float, bool, None]): FLAM3H motion blur parameter's values.
         """   
         if self.isvalidtree:
-            mb_do = self.flam3h_mb[idx]
-            # self._flam3h_mb[idx] can also be an empty list, hence the double check
-            if mb_do is not None and mb_do:
+            mb_do: Union[str, list] = self.flam3h_mb[idx]
+            if not isinstance(mb_do, list):
+                assert isinstance(mb_do, str)
                 if key == OUT_XML_FLMA3H_MB_FPS:
                     try:
                         int(mb_do)
@@ -11618,9 +11619,19 @@ class in_flame
                     else:
                         return int(mb_do)
                 elif key == OUT_XML_FLMA3H_MB_SAMPLES:
-                    return int(self.flam3h_mb_samples[idx])
+                    mp_samples: Union[str, list] = self.flam3h_mb_samples[idx]
+                    if isinstance(mp_samples, list):
+                        print(f"Warning:\nIN xml key: {OUT_XML_FLMA3H_MB_SAMPLES} -> NOT FOUND, default value used.\n")
+                        return 16 # default
+                    else:
+                        return int(mp_samples)
                 elif key == OUT_XML_FLMA3H_MB_SHUTTER:
-                    return float(self.flam3h_mb_shutter[idx])
+                    mb_shutter: Union[str, list] = self.flam3h_mb_shutter[idx]
+                    if isinstance(mb_shutter, list):
+                        print(f"Warning:\nIN xml key: {OUT_XML_FLMA3H_MB_SHUTTER} -> NOT FOUND, default value used.\n")
+                        return 0.5 # default
+                    else:
+                        return float(mb_shutter)
                 else:
                     return False
             else:
@@ -11641,9 +11652,10 @@ class in_flame
             (Union[int, bool]): FLAM3H palette lookup samples parameter values.
         """   
         if self.isvalidtree:
-            cp_samples_key = self.flam3h_cp_samples[idx]
-            if cp_samples_key:
-                samples = int(cp_samples_key)
+            cp_samples_key: Union[str, list] = self.flam3h_cp_samples[idx]
+            if not isinstance(cp_samples_key, list):
+                assert isinstance(cp_samples_key, str)
+                samples: int = int(cp_samples_key)
                 if samples in PALETTE_OUT_MENU_OPTIONS_PLUS: # just make sure the lookup samples count is one of the valid options.
                     return samples
                 else:
