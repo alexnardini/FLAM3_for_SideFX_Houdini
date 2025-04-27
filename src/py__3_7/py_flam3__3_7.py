@@ -14187,8 +14187,17 @@ class in_flame_utils
         opacity: str = f"Opacity: {opacity_bool_msg}"
         xaos: str = f"Xaos: {xaos_bool_msg}"
         
-        # CC (Color correction curves)
-        if str(apo_data.out_curve_overall[preset_id]).strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and str(apo_data.out_curve_red[preset_id]).strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and str(apo_data.out_curve_green[preset_id]).strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and str(apo_data.out_curve_blue[preset_id]).strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc = ''
+        # CC - build data
+        cc_overall: str = apo_data.out_curve_overall[preset_id]
+        if not apo_data.out_curve_overall[preset_id]: cc_overall = OUT_XML_FLAME_RENDER_CURVE_DEFAULT
+        cc_red: str = apo_data.out_curve_red[preset_id]
+        if not apo_data.out_curve_red[preset_id]: cc_red = OUT_XML_FLAME_RENDER_CURVE_DEFAULT
+        cc_green: str = apo_data.out_curve_green[preset_id]
+        if not apo_data.out_curve_green[preset_id]: cc_green = OUT_XML_FLAME_RENDER_CURVE_DEFAULT
+        cc_blue: str = apo_data.out_curve_blue[preset_id]
+        if not apo_data.out_curve_green[preset_id]: cc_blue = OUT_XML_FLAME_RENDER_CURVE_DEFAULT
+        # CC - check
+        if cc_overall.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_red.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_green.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_blue.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc = ''
         else: cc = 'CC'
         
         # MB (Motion blur)
