@@ -1565,7 +1565,7 @@ class flam3h_scripts
                     if size != default_value_pt:
                         node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
                         
-                    type = settings.particleDisplayType()
+                    type: hou.EnumValue = settings.particleDisplayType()
                     if type == Pixels:
                         node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
                         
@@ -3879,7 +3879,7 @@ class flam3h_general_utils
             (None):
         """
         node = self.node
-        Points = hou.viewportParticleDisplay.Points # type: ignore
+        Points: hou.EnumValue = hou.viewportParticleDisplay.Points # type: ignore
         ptsize: float = node.parm(PREFS_VIEWPORT_PT_SIZE).evalAsFloat()
 
         for view in self.util_getSceneViewers():
