@@ -11592,7 +11592,7 @@ class in_flame
     
     
     # custom to FLAM3H only
-    def __get_mb_flam3h_mb(self, idx: int, key: str = '') -> Union[int, float, bool, None]:
+    def __get_mb_flam3h_mb(self, idx: int, key: str = '') -> Union[int, float, bool]:
         """
         Args:
             (self):
@@ -11620,14 +11620,14 @@ class in_flame
                     mp_samples: Union[str, list] = self.flam3h_mb_samples[idx]
                     if isinstance(mp_samples, list):
                         print(f"Warning:\nIN xml key: {OUT_XML_FLMA3H_MB_SAMPLES} -> NOT FOUND, default value used.\n")
-                        return 16 # default
+                        return int(16) # default
                     else:
                         return int(mp_samples)
                 elif key == OUT_XML_FLMA3H_MB_SHUTTER:
                     mb_shutter: Union[str, list] = self.flam3h_mb_shutter[idx]
                     if isinstance(mb_shutter, list):
                         print(f"Warning:\nIN xml key: {OUT_XML_FLMA3H_MB_SHUTTER} -> NOT FOUND, default value used.\n")
-                        return 0.5 # default
+                        return float(0.5) # default
                     else:
                         return float(mb_shutter)
                 else:
