@@ -426,7 +426,7 @@ class flam3husd_general_utils
         Returns:
             (str): The key string.
         """       
-        var_name: list = list(mydict.keys())[list(mydict.values()).index(idx)] 
+        var_name: str = list(mydict.keys())[list(mydict.values()).index(idx)] 
         return var_name
 
 
