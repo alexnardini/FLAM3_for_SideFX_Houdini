@@ -13952,14 +13952,17 @@ class in_flame_utils
         
         xforms, _MAX_VARS_MODE = self.in_get_xforms_data_and_flam3h_vars_limit(mode, apo_data)
         
-        vars_keys: Union[list, None] = self.in_get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), exclude_keys)
-        assert vars_keys is not None
-        vars_keys_pre_pgb: Union[list, None] = self.in_get_xforms_var_keys(xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
+        __EXCLUDE__: tuple = copy(XML_XF_KEY_EXCLUDE)
+        vars_keys: Union[list, None] = self.in_get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), __EXCLUDE__)
+        if vars_keys is not None: __EXCLUDE__ += tuple([item for sublist in vars_keys for item in sublist])
+        assert vars_keys is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
+        vars_keys_pre_pgb: Union[list, None] = self.in_get_xforms_var_keys(xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
         vars_keys_pre: Union[list, None] = self.in_vars_keys_remove_pgb(vars_keys_pre_pgb, pgb_name)
-        assert vars_keys_pre is not None
-        vars_keys_post: Union[list, None] = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), exclude_keys)
-        assert vars_keys_post is not None
-
+        if vars_keys_pre is not None: __EXCLUDE__ += tuple([item for sublist in vars_keys_pre for item in sublist])
+        assert vars_keys_pre is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
+        vars_keys_post: Union[list, None] = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
+        assert vars_keys_post is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
+        
         app: str = apo_data.sw_version[preset_id]
         var_prm: tuple = flam3h_varsPRM().varsPRM
         apo_prm: tuple = flam3h_varsPRM_APO().varsPRM
@@ -14137,7 +14140,7 @@ class in_flame_utils
             
             # Set Affine ( PRE, POST and F3H_PRE, F3H_POST) for this iterator or FF
             self.in_set_affine(mode, node, prx, apo_data, n, mp_idx)
-
+            
 
     def in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool) -> str:
         """Build a message with all the informations about the Flame preset we just loaded.
@@ -14204,7 +14207,7 @@ class in_flame_utils
         if not apo_data.out_curve_green[preset_id]: cc_green = OUT_XML_FLAME_RENDER_CURVE_DEFAULT
         cc_blue: Union[str, list] = apo_data.out_curve_blue[preset_id]
         if not apo_data.out_curve_green[preset_id]: cc_blue = OUT_XML_FLAME_RENDER_CURVE_DEFAULT
-        # CC - check - The following are now guarantee to be: str
+        # CC - check - The following are now guarantee to be of type: str
         assert isinstance(cc_overall, str)
         assert isinstance(cc_red, str)
         assert isinstance(cc_green, str)
@@ -14325,7 +14328,7 @@ class in_flame_utils
                         vars_used_msg,
                         vars_missing_msg,
                         vars_unknown_msg )
-        
+
         return "".join(build)
 
 
