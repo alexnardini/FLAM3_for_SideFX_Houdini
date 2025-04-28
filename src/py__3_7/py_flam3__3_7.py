@@ -5,8 +5,8 @@ __author__ = "F stands for liFe ( made in Italy )"
 __copyright__ = "Copyright 2021, F stands for liFe"
 
 __license__ = "GPL"
-__version__ = "1.8.14"
-__maintainer__ = "Alessandro nardini"
+__version__ = "1.8.15"
+__maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
 import os

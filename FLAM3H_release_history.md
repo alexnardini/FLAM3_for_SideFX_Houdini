@@ -10,6 +10,17 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.15</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.15) ###
+
+- **New**: Improved variation's XML key names searches. 
+
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.8.14</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.14) ###
 
 - **New**: Motion blur XML keys are now checked and corrected if needed on Flame load. 

@@ -35,7 +35,7 @@ Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before th
 ```python
 from datetime import datetime
 
-FLAM3H_VERSION = '1.8.14 - Production'
+FLAM3H_VERSION = '1.8.15 - Production'
 
 def flam3h_first_time() -> None:
     hou_version: int = int(''.join(str(x) for x in hou.applicationVersion()[:1]))

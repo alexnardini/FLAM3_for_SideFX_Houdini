@@ -3,7 +3,7 @@ __copyright__ = "Copyright 2023, F stands for liFe"
 
 __license__ = "GPL"
 __version__ = "0.1.53"
-__maintainer__ = "Alessandro nardini"
+__maintainer__ = "Alessandro Nardini"
 __status__ = "Prototype"
 
 import hou
