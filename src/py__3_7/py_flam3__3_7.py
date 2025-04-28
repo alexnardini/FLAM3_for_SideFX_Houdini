@@ -14292,8 +14292,8 @@ class in_flame_utils
         # Build MISSING: Compare, keep and build
         vars_missing: list = [x for x in result_sorted_fractorium if x not in result_sorted]
         result_grp_fractorium: list = [vars_missing[i:i + n] for i in range(0, len(vars_missing), n)]  
-        vars_missing_msg: str = ""
         if vars_missing: vars_missing_msg = f"{nnl}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
+        else: vars_missing_msg: str = ""
         
         # Build UNKNOWN
         vars_unknown: list = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
