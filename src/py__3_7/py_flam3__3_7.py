@@ -14230,17 +14230,23 @@ class in_flame_utils
         else: palette_count_format: str = f"Palette not found."
         
         # ITERATOR COLLECT
-        vars_keys: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE) 
-        vars_keys_PRE_pgb: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+        __EXCLUDE__: tuple = copy(XML_XF_KEY_EXCLUDE)
+        vars_keys: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), __EXCLUDE__)
+        if vars_keys is not None: __EXCLUDE__ += tuple([item for sublist in vars_keys for item in sublist])
+        vars_keys_PRE_pgb: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
         vars_keys_PRE: Union[list, None] = self.in_vars_keys_remove_pgb(vars_keys_PRE_pgb, pgb_name)
-        vars_keys_POST: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+        if vars_keys_PRE is not None: __EXCLUDE__ += tuple([item for sublist in vars_keys_PRE for item in sublist])
+        vars_keys_POST: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
         
         # FF COLLECT
         vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
         if ff_bool:
-            vars_keys_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), XML_XF_KEY_EXCLUDE)
-            vars_keys_PRE_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
-            vars_keys_POST_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+            __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
+            vars_keys_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), __EXCLUDE__)
+            if vars_keys_FF is not None: __EXCLUDE__ += tuple([item for sublist in vars_keys_FF for item in sublist])
+            vars_keys_PRE_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
+            if vars_keys_PRE_FF is not None: __EXCLUDE__ += tuple([item for sublist in vars_keys_PRE_FF for item in sublist])
+            vars_keys_POST_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
         
         vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
         if pb_bool: vars_all += [["pre_blur"]]
@@ -14259,18 +14265,25 @@ class in_flame_utils
         
         descriptive_prm: tuple = ( f"sw: {apo_data.sw_version[preset_id]}\n", f"{out_flame_utils.out_remove_iter_num(preset_name)}",)
         node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
-
-        # Build MISSING
-        vars_keys_from_fractorium: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, XML_XF_KEY_EXCLUDE)
-        vars_keys_from_fractorium_pre_pgb: Union[list, None] = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, XML_XF_KEY_EXCLUDE)
-        vars_keys_from_fractorium_pre: Union[list, None] = self.in_vars_keys_remove_pgb(vars_keys_from_fractorium_pre_pgb, pgb_name)
-        vars_keys_from_fractorium_post: Union[list, None] = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, XML_XF_KEY_EXCLUDE)
         
+        # Build ITERATOR MISSING
+        __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
+        vars_keys_from_fractorium: Union[list, None] = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, __EXCLUDE__)
+        if vars_keys_from_fractorium is not None: __EXCLUDE__ += tuple([item for sublist in vars_keys_from_fractorium for item in sublist])
+        vars_keys_from_fractorium_pre_pgb: Union[list, None] = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
+        vars_keys_from_fractorium_pre: Union[list, None] = self.in_vars_keys_remove_pgb(vars_keys_from_fractorium_pre_pgb, pgb_name)
+        if vars_keys_from_fractorium_pre is not None: __EXCLUDE__ += tuple([item for sublist in vars_keys_from_fractorium_pre for item in sublist])
+        vars_keys_from_fractorium_post: Union[list, None] = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
+        
+        # BUILD FF MISSING
         vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = []
         if ff_bool:
-            vars_keys_from_fractorium_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, XML_XF_KEY_EXCLUDE)
-            vars_keys_from_fractorium_pre_FF: Union[list, None] = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, XML_XF_KEY_EXCLUDE)
-            vars_keys_from_fractorium_post_FF: Union[list, None] = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, XML_XF_KEY_EXCLUDE)
+            __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
+            vars_keys_from_fractorium_FF: Union[list, None] = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, __EXCLUDE__)
+            if vars_keys_from_fractorium_FF is not None: __EXCLUDE__ += tuple([item for sublist in vars_keys_from_fractorium_FF for item in sublist])
+            vars_keys_from_fractorium_pre_FF: Union[list, None] = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
+            if vars_keys_from_fractorium_pre_FF is not None: __EXCLUDE__ += tuple([item for sublist in vars_keys_from_fractorium_pre_FF for item in sublist])
+            vars_keys_from_fractorium_post_FF: Union[list, None] = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
         
         vars_keys_from_fractorium_all: list = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
         result_sorted_fractorium: list = self.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, self.in_util_make_NULL, True)
