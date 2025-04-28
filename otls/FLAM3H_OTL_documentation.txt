@@ -774,8 +774,7 @@ copy/paste:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - When an iterator is marked for being copied, a node note with the marked iterator number is being displayed in the network editor.<br />
     - When copy/paste post affines, they will be automatically turned OFF if they are default values to save on computation.
-    
-    - Additionally,<br />a custom user data is added to the FLAM3H node with the iterator number being marked; the data name is: *`Marked iterator`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being marked.
+    - A custom user data is added to the FLAM3H node with the iterator number being marked; the data name is: *`Marked iterator`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being marked.
     
 Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: FLAME
@@ -1267,8 +1266,7 @@ FF: copy/paste:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - When the FF is marked for being copied, a node note with the text "*FF*" is being displayed in the network editor.<br />
     - When copy/paste post affines, they will be automatically turned OFF if they are default values to save on computation.
-    
-    - Additionally,<br />a custom user data is added to the FLAM3H node signaling the FF being marked; the data name is: *`Marked FF`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out if the FF is being marked.
+    - A custom user data is added to the FLAM3H node signaling the FF being marked; the data name is: *`Marked FF`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out if the FF is being marked.
     
     
 :box:
