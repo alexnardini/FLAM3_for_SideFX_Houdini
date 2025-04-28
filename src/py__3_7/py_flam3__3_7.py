@@ -12078,12 +12078,11 @@ class in_flame_utils
 
 @METHODS
 * in_flam3h_set_iterators(self, 
-                        mode: int, 
-                        node: hou.SopNode, 
-                        apo_data: in_flame_iter_data, 
-                        preset_id: int, 
-                        exclude_keys: tuple
-                        ) -> None:
+                          mode: int, 
+                          node: hou.SopNode, 
+                          apo_data: in_flame_iter_data, 
+                          preset_id: int, 
+                          ) -> None:
 * in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool) -> str:
 * menu_in_presets_data(self) -> list:
 * menu_in_presets(self) -> list:
@@ -13926,7 +13925,6 @@ class in_flame_utils
                                 node: hou.SopNode, 
                                 apo_data: in_flame_iter_data, 
                                 preset_id: int, 
-                                exclude_keys: tuple
                                 ) -> None:
         """Set the FLAM3H iterators/FF parameters based on collected XML data from the flame file loaded.
         
@@ -14734,7 +14732,7 @@ class in_flame_utils
                 flam3h_general_utils.private_prm_set(node, PREFS_PVT_DOFF, apo_data.sys_flam3h_rip)
 
         # Set iterators
-        self.in_flam3h_set_iterators(0, node, apo_data, preset_id, XML_XF_KEY_EXCLUDE)
+        self.in_flam3h_set_iterators(0, node, apo_data, preset_id)
         
         # FF
         ####################################################
@@ -14742,7 +14740,7 @@ class in_flame_utils
             flam3h_iterator_utils(self.kwargs).flam3h_reset_FF()
             flam3h_general_utils.private_prm_set(node, PREFS_PVT_DOFF, 1)
             # Set FF
-            self.in_flam3h_set_iterators(1, node, apo_data, preset_id, XML_XF_KEY_EXCLUDE)
+            self.in_flam3h_set_iterators(1, node, apo_data, preset_id)
         else:
             flam3h_iterator_utils(self.kwargs).flam3h_reset_FF()
             flam3h_general_utils.private_prm_set(node, PREFS_PVT_DOFF, 0)
