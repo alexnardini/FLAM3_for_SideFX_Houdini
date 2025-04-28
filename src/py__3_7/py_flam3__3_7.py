@@ -8738,7 +8738,7 @@ class flam3h_palette_utils
             if os.path.exists(filepath) and node.parm(CP_PVT_ISVALID_FILE).eval() and self.node.parm(CP_PVT_ISVALID_PRESET).eval():
                     
                 with open(filepath) as f:
-                    menuitems = json.load(f).keys()
+                    menuitems: KeysView = json.load(f).keys()
                     
                 menu: list = []
                 [self.menu_cp_presets_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_cp_presets_loop(node, menu, i, item) for i, item in enumerate(menuitems)]
@@ -8812,7 +8812,7 @@ class flam3h_palette_utils
             if self.isJSON_F3H(node, filepath, False)[-1] and node.parm(CP_PVT_ISVALID_FILE).eval() and not node.parm(CP_PVT_ISVALID_PRESET).eval():
                     
                 with open(filepath) as f:
-                    menuitems = json.load(f).keys()
+                    menuitems: KeysView = json.load(f).keys()
                     
                 menu: list = []
                 [self.menu_cp_presets_empty_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_cp_presets_empty_loop(node, menu, i, item) for i, item in enumerate(menuitems)]
@@ -9586,7 +9586,7 @@ class flam3h_palette_utils
         """
         node = self.node
         hsv_prm = node.parmTuple(CP_RAMP_HSV_VAL_NAME)
-        _hsv = hsv_prm.eval()
+        _hsv: tuple = hsv_prm.eval()
         if _hsv[0] == _hsv[1] == _hsv[2] == 1:
             hsv_prm.deleteAllKeyframes()
             _MSG: str = f"CP HSV: already at its default values."
@@ -11077,8 +11077,8 @@ class in_flame
                 float(k)
                 new.append(k)
             except ValueError:
-                clean = [letter for letter in k if letter in CHARACTERS_ALLOWED_XFORM_VAL]
-                new_val = ''.join(clean)
+                clean: list = [letter for letter in k if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+                new_val: str = ''.join(clean)
                 try:
                     float(new_val)
                     new.append(new_val)
@@ -11104,8 +11104,8 @@ class in_flame
         try:
             float(val)
         except ValueError:
-            clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
-            new_val = ''.join(clean)
+            clean: list = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+            new_val: str = ''.join(clean)
             try:
                 float(new_val)
                 if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE (Corrected)\n")
@@ -11139,8 +11139,8 @@ class in_flame
                 float(val)
                 new.append(val)
             except ValueError:
-                clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
-                new_val = ''.join(clean)
+                clean: list = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+                new_val: str = ''.join(clean)
                 try:
                     float(new_val)
                     new.append(new_val)
@@ -11172,7 +11172,7 @@ class in_flame
                 float(val)
                 new.append(val)
             except ValueError:
-                clean = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+                clean: list = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val = ''.join(clean)
                 try:
                     float(new_val)
@@ -11209,9 +11209,9 @@ class in_flame
             
             # Is it an iterator or an FF or None ?
             if mp_idx is not None:
-                if type == 0: iter_type = mp_idx
-                elif type == 1: iter_type = 'FF'
-                else: iter_type = None
+                if type == 0: iter_type: Union[int, str, None] = mp_idx
+                elif type == 1: iter_type: Union[int, str, None] = 'FF'
+                else: iter_type: Union[int, str, None] = None
             
             if key in [XML_PRE_AFFINE, XML_POST_AFFINE]:
                 if affine_count == 0:
@@ -11485,7 +11485,7 @@ class in_flame
                     
                     # I could hard-code the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
                     pgb_name = in_flame_utils.in_util_make_PRE(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
-                    pgb_val = xform.get(pgb_name)
+                    pgb_val: Union[str, None] = xform.get(pgb_name)
                     if pgb_val is not None and vars_keys_pre is not None: # This double check because also other keys not related to "pre_blur" can fall into this block otherwise
                         if vars_keys_pre[idx] and pgb_name in vars_keys_pre[idx][0]:
                             keyvalues.append(float(self.xf_val_cleanup_str(pgb_val, '0', str(pgb_name))))
@@ -12168,7 +12168,7 @@ class in_flame_utils
             else:
                 return name
         elif type(name) is list or tuple:
-            _names = [re_sub(REGEX_PRE, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
+            _names: list = [re_sub(REGEX_PRE, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
             if not _names:
                 _names = [re_sub(REGEX_POST, '', x) for x in name if x.startswith(V_PRX_POST) is True]
             if not _names:
@@ -12230,19 +12230,19 @@ class in_flame_utils
             (list): List of sorted uinknown variations if any
         """
         if apo_data.plugins[preset_id]:
-            plugins = [p.strip() for p in str(apo_data.plugins[preset_id]).split() if p]
+            plugins: list = [p.strip() for p in str(apo_data.plugins[preset_id]).split() if p]
         else:
-            plugins = ()
+            plugins: list = []
         
         unknown = []
         if plugins:
             for var in plugins:
                 if str(var).startswith(V_PRX_PRE):
-                    name = str(in_flame_utils.in_util_make_VAR(var)).lower()
+                    name: str = str(in_flame_utils.in_util_make_VAR(var)).lower()
                     if name not in VARS_FRACTORIUM_DICT[name[0]]:
                         unknown.append(var.capitalize())
                 elif str(var).startswith(V_PRX_POST):
-                    name = str(in_flame_utils.in_util_make_VAR(var)).lower()
+                    name: str = str(in_flame_utils.in_util_make_VAR(var)).lower()
                     if name not in VARS_FRACTORIUM_DICT[name[0]]:
                         unknown.append(var.capitalize())
                 else:
@@ -12430,8 +12430,8 @@ class in_flame_utils
         Returns:
             (tuple[str, str]): return parameter prefixes based on mode: Iterator, FF, FF POST
         """
-        prx = ""
-        prx_prm = ""
+        prx: str = ""
+        prx_prm: str = ""
         if mode == 1:
             prx = PRX_FF_PRM
             prx_prm = f"{PRX_FF_PRM}_"
@@ -12463,7 +12463,7 @@ class in_flame_utils
         idx: str = str(mp_idx + 1)
         pre_affine: tuple = (flam3h_prm_names.preaffine_x, flam3h_prm_names.preaffine_y, flam3h_prm_names.preaffine_o)
         post_affine: tuple = (flam3h_prm_names.postaffine_x, flam3h_prm_names.postaffine_y, flam3h_prm_names.postaffine_o)
-        f3h_affine = node.parm(IN_FLAM3H_AFFINE_STYLE).eval()
+        f3h_affine: int = node.parm(IN_FLAM3H_AFFINE_STYLE).eval()
         
         if mode:
             
@@ -13744,7 +13744,7 @@ class in_flame_utils
             float(key_val)
         except ValueError:
             clean = [letter for letter in key_val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
-            new_val = ''.join(clean)
+            new_val: str = ''.join(clean)
             try:
                 float(new_val)
                 if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE (Corrected)\n")
@@ -14045,7 +14045,7 @@ class in_flame_utils
                         v_type: Union[int, None] = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w: float = self.in_xml_key_val(xform, key_name)
-                            v_weight = self.in_util_check_negative_weight(node, w, self.in_util_make_POST(var_prm[v_type][0])) # type: ignore
+                            v_weight: float = self.in_util_check_negative_weight(node, w, self.in_util_make_POST(var_prm[v_type][0])) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_POST_FF(app, 
                                                              node, 
