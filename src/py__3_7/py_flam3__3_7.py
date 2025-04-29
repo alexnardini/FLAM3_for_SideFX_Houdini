@@ -10721,7 +10721,7 @@ class _xml_tree
         self._xmlfile: str = xmlfile
         self._xmlfile_data: Union[str, None] = self.xmlfile_root_chk(self._xmlfile)
         self._xmlfile_data_clipboard: Union[str, None] = self.xmlfile_root_chk(self._xmlfile, True)
-        self._isvalidtree = self.xmlfile_isvalidtree_chk(self._xmlfile)
+        self._isvalidtree: bool = self.xmlfile_isvalidtree_chk(self._xmlfile)
         if self._xmlfile_data_clipboard is not None:
             self._tree = lxmlET.ElementTree(lxmlET.fromstring(self._xmlfile_data_clipboard)) # type: ignore
             self._isvalidtree = True
