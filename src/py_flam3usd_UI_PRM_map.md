@@ -20,7 +20,11 @@
 
 
 
-The file **`py_flam3usd.py`** is loaded inside the **Extra Files** section. Renamed as **`py_flam3usd`** (no extension).
+The file **`py_flam3usd__(least_needed_python version).py`** are loaded inside the **Extra Files** section. Renamed as **`py_flam3usd__(least_needed_python version)`** (no extension).
+
+For example the file for python 3.11 is renamed<br>
+from: **py_flam3usd__3_11.py**<br>
+to: **py_flam3usd__3_11**
 
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**:
 the **`flam3usd`** module is created out of the **`py_flam3usd`** file from inside the **Extra Files** section.
@@ -59,7 +63,7 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_loade
 ```
 
 Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted**:
-When deleting a FLAM3H node.
+When deleting a FLAM3HUSD node.
 ```python
 kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_deleted()
 ```

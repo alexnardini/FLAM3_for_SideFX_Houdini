@@ -20,7 +20,11 @@
 
 
 
-The file **`py_flam3.py`** is loaded inside the **Extra Files** section. Renamed as **`py_flam3`** (no extension).
+The file **`py_flam3__(least_needed_python version).py`** are loaded inside the **Extra Files** section. Renamed as **`py_flam3__(least_needed_python version)`** (no extension).
+
+For example the file for python 3.11 is renamed<br>
+from: **py_flam3__3_11.py**<br>
+to: **py_flam3__3_11**
 
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**:
 the **`flam3`** module is created out of the **`py_flam3`** file from inside the **Extra Files** section.
