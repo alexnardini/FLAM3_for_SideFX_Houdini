@@ -9751,7 +9751,7 @@ class flam3h_about_utils
         flam3h_cvex_version: str = f"CODE: cvex H19.x.x"
         hou_version : int = flam3h_general_utils.houdini_version()
         if hou_version >= 19: flam3h_cvex_version = f"CODE: cvex H{str(hou_version)}.x.x"
-        flam3h_python_version: str = f"py 3.7.13"
+        flam3h_python_version: str = f"py 3.11.7"
         flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{__copyright__}"
         
