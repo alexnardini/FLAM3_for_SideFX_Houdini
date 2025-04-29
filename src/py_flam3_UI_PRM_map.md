@@ -27,7 +27,23 @@ the **`flam3`** module is created out of the **`py_flam3`** file from inside the
 
 ```python
 import toolutils
-flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], "py_flam3")
+
+def houdini_version(digit: int=1) -> int:
+    """Retrieve the major Houdini version number currently in use.
+
+    Args:
+        digit(int): Default to 1: 19, 20. if set to 2: 190, 195, 200, 205, and so on.
+
+    Returns:
+        (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
+    """ 
+    return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
+    
+h: int = houdini_version(2)
+if h < 205: __module__: str = "py_flam3__3_7"
+else: __module__: str = "py_flam3__3_11"
+ 
+flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
 ```
 
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before the node is even created but invoked.

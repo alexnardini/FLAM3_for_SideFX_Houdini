@@ -36,10 +36,7 @@ from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 
 
-#   Tested on:  PYTHON v3.7.13  (H19)
-#               PYTHON v3.9.10  (H19.5)
-#               PYTHON v3.10.10 (H20)
-#               PYTHON v3.11.7  (H20.5)
+#   Tested on:  PYTHON v3.11.7  (H20.5)
 #
 #   Title:      FLAM3H. SideFX Houdini FLAM3: PYTHON
 #   Author:     Alessandro Nardini
