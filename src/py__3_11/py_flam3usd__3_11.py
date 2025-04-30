@@ -15,9 +15,9 @@ from datetime import datetime
 #
 #   Title:      SideFX Houdini FLAM3HUSD
 #   Author:     Alessandro Nardini
-#   date:       September 2023, Last revised March 2025
+#   date:       April 2025, Last revised April 2025 (cloned from: py_flam3usd__3_7.py)
 #
-#   Name:       PY_FLAM3USD__3_7 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
+#   Name:       PY_FLAM3USD__3_11 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
 #
 #   Comment:    Simple utility node to quickly setup
 #               fractal flames point clouds in Solaris for previews.

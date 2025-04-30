@@ -3,7 +3,7 @@
 ```python
 #   Title:      FLAM3H. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
 #   Author:     Alessandro Nardini
-#   date:       April 2023, Last revised November 2024
+#   date:       April 2023, Last revised April 2025
 #
 #   Name:       PY_FLAM3_UI_PRM_MAP
 #
