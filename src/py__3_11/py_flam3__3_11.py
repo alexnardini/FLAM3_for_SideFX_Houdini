@@ -14678,20 +14678,20 @@ class in_flame_utils
         Args:
             (self):
             node(hou.SopNode): FLAM3H node to load the flame file/preset into.
-            _FLAM3H_INIT_DATA(TA_F3H_Init): tuple( xml, 
-                                                             clipboard, 
-                                                             preset_id, 
-                                                             clipboard_flame_name, 
-                                                             attempt_to_load_from_clipboard, 
-                                                             chaos
-                                                             )
-                                                            
-                                                             * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
-                                                             * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                                             * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                                             * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                                             * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                                             * chaos ( bool ): Is it a chaotica XML file type ? True or False.
+            _FLAM3H_INIT_DATA(TA_F3H_Init): tuple(  xml, 
+                                                    clipboard, 
+                                                    preset_id, 
+                                                    clipboard_flame_name, 
+                                                    attempt_to_load_from_clipboard, 
+                                                    chaos
+                                                    )
+                                                
+                                                    * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
+                                                    * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                    * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                    * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                    * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                    * chaos ( bool ): Is it a chaotica XML file type ? True or False.
 
         Returns:
             (None):
@@ -14711,20 +14711,20 @@ class in_flame_utils
             (self):
             node(hou.SopNode): FLAM3H node to load the flame file/preset into.
             apo_data(in_flame_iter_data): All the XML data from the loaded Flame preset.
-            _FLAM3H_INIT_DATA(TA_F3H_Init): tuple(xml, 
-                                                            clipboard, 
-                                                            preset_id, 
-                                                            clipboard_flame_name, 
-                                                            attempt_to_load_from_clipboard, 
-                                                            chaos
-                                                            )
-                                                            
-                                                            * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
-                                                            * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                                            * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                                            * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                                            * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                                            * chaos ( bool ): Is it a chaotica XML file type ? True or False.
+            _FLAM3H_INIT_DATA(TA_F3H_Init): tuple(  xml, 
+                                                    clipboard, 
+                                                    preset_id, 
+                                                    clipboard_flame_name, 
+                                                    attempt_to_load_from_clipboard, 
+                                                    chaos
+                                                    )
+                                                    
+                                                    * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
+                                                    * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                    * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                    * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                    * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                    * chaos ( bool ): Is it a chaotica XML file type ? True or False.
 
         Returns:
             (None):
@@ -14787,20 +14787,20 @@ class in_flame_utils
             (self):
             node(hou.SopNode): FLAM3H node to load the flame file/preset into.
             apo_data(in_flame_iter_data): All the XML data from the loaded Flame preset.
-            _FLAM3H_INIT_DATA(TA_F3H_Init): tuple(xml, 
-                                                            clipboard, 
-                                                            preset_id, 
-                                                            clipboard_flame_name, 
-                                                            attempt_to_load_from_clipboard, 
-                                                            chaos
-                                                            )
+            _FLAM3H_INIT_DATA(TA_F3H_Init): tuple(  xml, 
+                                                    clipboard, 
+                                                    preset_id, 
+                                                    clipboard_flame_name, 
+                                                    attempt_to_load_from_clipboard, 
+                                                    chaos
+                                                    )
 
-                                                            * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
-                                                            * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                                            * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                                            * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                                            * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                                            * chaos ( bool ): Is it a chaotica XML file type ? True or False.
+                                                    * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
+                                                    * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                    * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                    * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                    * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                    * chaos ( bool ): Is it a chaotica XML file type ? True or False.
 
         Returns:
             (None):
@@ -14845,20 +14845,20 @@ class in_flame_utils
             (self):
             node(hou.SopNode): FLAM3H node to load the flame file/preset into.
             apo_data(in_flame_iter_data): All the XML data from the loaded Flame preset.
-            _FLAM3H_INIT_DATA(TA_F3H_Init): tuple( xml, 
-                                                            clipboard, 
-                                                            preset_id, 
-                                                            clipboard_flame_name, 
-                                                            attempt_to_load_from_clipboard, 
-                                                            chaos
-                                                            )
-                                                            
-                                                            * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
-                                                            * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                                            * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                                            * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                                            * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                                            * chaos ( bool ): Is it a chaotica XML file type ? True or False.
+            _FLAM3H_INIT_DATA(TA_F3H_Init): tuple(  xml, 
+                                                    clipboard, 
+                                                    preset_id, 
+                                                    clipboard_flame_name, 
+                                                    attempt_to_load_from_clipboard, 
+                                                    chaos
+                                                    )
+                                                    
+                                                    * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
+                                                    * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                    * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                    * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                    * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                    * chaos ( bool ): Is it a chaotica XML file type ? True or False.
                                                                                                 
             copy_only (bool): This is used to distinguish a Flame preset coming in from the Clipboard only for the Render Properties copy/paste. Default to: False
 
@@ -14899,20 +14899,20 @@ class in_flame_utils
             (self):
             node(hou.SopNode): FLAM3H node to load the flame file/preset into.
             apo_data(in_flame_iter_data): All the XML data from the loaded Flame preset.
-            _FLAM3H_INIT_DATA(TA_F3H_Init): tuple(xml, 
-                                                            clipboard, 
-                                                            preset_id, 
-                                                            clipboard_flame_name, 
-                                                            attempt_to_load_from_clipboard, 
-                                                            chaos
-                                                            )
-                                                            
-                                                            * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
-                                                            * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                                            * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                                            * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                                            * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                                            * chaos ( bool ): Is it a chaotica XML file type ? True or False.
+            _FLAM3H_INIT_DATA(TA_F3H_Init): tuple(  xml, 
+                                                    clipboard, 
+                                                    preset_id, 
+                                                    clipboard_flame_name, 
+                                                    attempt_to_load_from_clipboard, 
+                                                    chaos
+                                                    )
+                                                    
+                                                    * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
+                                                    * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                                    * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                                    * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                                    * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                                    * chaos ( bool ): Is it a chaotica XML file type ? True or False.
 
         Returns:
             (None):
@@ -14954,20 +14954,20 @@ class in_flame_utils
             (self):
 
         Returns:
-            (TA_F3H_Init): tuple( xml, 
-                                            clipboard, 
-                                            preset_id, 
-                                            clipboard_flame_name, 
-                                            attempt_to_load_from_clipboard, 
-                                            chaos
-                                            )
+            (TA_F3H_Init): tuple(xml, 
+                                 clipboard, 
+                                 preset_id, 
+                                 clipboard_flame_name, 
+                                 attempt_to_load_from_clipboard, 
+                                 chaos
+                                 )
 
-                                            * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
-                                            * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                            * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                            * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                            * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                            * chaos ( bool ): Is it a chaotica XML file type ? True or False.
+                                 * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
+                                 * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                 * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                 * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                 * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                 * chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """     
         xml: str = hou.ui.getTextFromClipboard() # type: ignore
         try: tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
@@ -14999,19 +14999,19 @@ class in_flame_utils
 
         Returns:
             (TA_F3H_Init): tuple(xml, 
-                                     clipboard, 
-                                     preset_id, 
-                                     clipboard_flame_name, 
-                                     attempt_to_load_from_clipboard, 
-                                     chaos
-                                     )
+                                 clipboard, 
+                                 preset_id, 
+                                 clipboard_flame_name, 
+                                 attempt_to_load_from_clipboard, 
+                                 chaos
+                                 )
 
-                                     * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
-                                     * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                     * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                     * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                     * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                     * chaos ( bool ): Is it a chaotica XML file type ? True or False.
+                                 * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
+                                 * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                 * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                 * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                 * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                 * chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """
         
         flameFile = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
@@ -15054,20 +15054,20 @@ class in_flame_utils
             (self):
 
         Returns:
-            (TA_F3H_Init): tuple(  xml, 
-                                     clipboard, 
-                                     preset_id, 
-                                     clipboard_flame_name, 
-                                     attempt_to_load_from_clipboard, 
-                                     chaos
-                                     )
+            (TA_F3H_Init): tuple(xml, 
+                                 clipboard, 
+                                 preset_id, 
+                                 clipboard_flame_name, 
+                                 attempt_to_load_from_clipboard, 
+                                 chaos
+                                 )
 
-                                     * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
-                                     * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                     * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                     * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                     * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                     * chaos ( bool ): Is it a chaotica XML file type ? True or False.
+                                 * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
+                                 * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                 * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                 * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                 * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                 * chaos ( bool ): Is it a chaotica XML file type ? True or False.
     """
         return None, False, 0, '', False, False
     
@@ -15085,19 +15085,19 @@ class in_flame_utils
 
         Returns:
             (TA_F3H_Init): tuple(xml, 
-                                     clipboard, 
-                                     preset_id, 
-                                     clipboard_flame_name, 
-                                     attempt_to_load_from_clipboard, 
-                                     chaos
-                                     )
+                                 clipboard, 
+                                 preset_id, 
+                                 clipboard_flame_name, 
+                                 attempt_to_load_from_clipboard, 
+                                 chaos
+                                 )
 
-                                     * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
-                                     * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                     * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                     * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                     * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                     * chaos ( bool ): Is it a chaotica XML file type ? True or False.
+                                 * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
+                                 * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                 * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                 * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                 * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                 * chaos ( bool ): Is it a chaotica XML file type ? True or False.
     """
         xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
         
@@ -15123,20 +15123,20 @@ class in_flame_utils
             node(hou.SopNode): FLAM3H node to load the flame file/preset into.
 
         Returns:
-            (TA_F3H_Init): tuple(  xml, 
-                                     clipboard, 
-                                     preset_id, 
-                                     clipboard_flame_name, 
-                                     attempt_to_load_from_clipboard, 
-                                     chaos
-                                     )
+            (TA_F3H_Init): tuple(xml, 
+                                 clipboard, 
+                                 preset_id, 
+                                 clipboard_flame_name, 
+                                 attempt_to_load_from_clipboard, 
+                                 chaos
+                                 )
 
-                                     * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
-                                     * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
-                                     * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
-                                     * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
-                                     * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
-                                     * chaos ( bool ): Is it a chaotica XML file type ? True or False.
+                                 * xml ( str | None ): either a flame preset from a flame file or from the Clipboard.
+                                 * clipboard ( bool ): did we get a valid flame preset from the clipboard ? True or False.
+                                 * preset_id ( int ): flame preset index. From clipboard will always be ZERO.
+                                 * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
+                                 * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
+                                 * chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """ 
         # The following try/except block is in place to avoid a 'KeyError' when
         # loading a flame preset from the menu parameter entries instead of clicking the Action Button's icon.
