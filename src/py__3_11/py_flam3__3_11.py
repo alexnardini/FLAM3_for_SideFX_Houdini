@@ -20,6 +20,7 @@ from platform import python_version
 from platform import system as platform_system
 from typing import Callable
 from typing import KeysView
+from typing import TypeVar
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import TypeAlias
@@ -113,6 +114,8 @@ from inspect import cleandoc as i_cleandoc
 
 '''
 
+
+T = TypeVar('T')
 
 TA_TypeVarCollection: TypeAlias = str | list | tuple | KeysView
 TA_XformVarKeys: TypeAlias = str | list[str] | tuple[str] | dict[str, int] | dict[str, tuple] | KeysView | None
@@ -12185,14 +12188,14 @@ class in_flame_utils
     
     
     @staticmethod
-    def in_util_make_NULL(name: TA_TypeVarCollection) -> TA_TypeVarCollection:
+    def in_util_make_NULL(name: T) -> T:
         """This definition is used as a place holder.
 
         Args:
-            name(TA_TypeVarCollection): name or names to convert.
+            name(T): name or names to convert.
 
         Returns:
-            (TA_TypeVarCollection): The untouched name's value passed in as argument.
+            (T): The untouched name's value passed in as argument.
         """       
         return name
 
