@@ -12415,16 +12415,19 @@ class in_flame_utils
             (TA_TypeMaker): Based on how many element in the passed list return the proper type of data
         """
         len_data: int = len(data)
-        if len_data == 1:
-            return float(data[0])
-        elif len_data == 2:
-            return hou.Vector2((data))
-        elif len_data == 3:
-            return hou.Vector3((data))
-        elif len_data == 4:
-            return hou.Vector4((data))
-        else:
-            return data
+        
+        match len_data:
+            
+            case 1:
+                return float(data[0])
+            case 2:
+                return hou.Vector2((data))
+            case 3:
+                return hou.Vector3((data))
+            case 4:
+                return hou.Vector4((data))
+            case _:
+                return data
         
         
     @staticmethod  
@@ -12451,14 +12454,21 @@ class in_flame_utils
         Returns:
             (tuple[str, str]): return parameter prefixes based on mode: Iterator, FF, FF POST
         """
-        prx: str = ""
-        prx_prm: str = ""
-        if mode == 1:
-            prx = PRX_FF_PRM
-            prx_prm = f"{PRX_FF_PRM}_"
-        if mode == 2:
-            prx = PRX_FF_PRM
-            prx_prm = f"{PRX_FF_PRM_POST}_"
+        
+        match mode:
+            
+            case 1: # FF
+                prx = PRX_FF_PRM
+                prx_prm = f"{PRX_FF_PRM}_"
+                
+            case 2: # FF PRE/POST
+                prx = PRX_FF_PRM
+                prx_prm = f"{PRX_FF_PRM_POST}_"
+                
+            case _: # Iterator
+                prx: str = ""
+                prx_prm: str = ""
+                
         return prx, prx_prm
     
     
