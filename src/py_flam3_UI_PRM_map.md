@@ -110,8 +110,8 @@ def flam3h_compile_first_time_msg() -> None:
     now: str = datetime.now().strftime("%b-%d-%Y_%H:%M:%S")
     
     h: int = houdini_version(2)
-    if h < 205: __module__: str = "Python module: 3.7"
-    else: __module__: str = "Python module: 3.11"
+    if h < 205: __module__: str = "3.7"
+    else: __module__: str = "3.11"
     
     try:
         hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
@@ -125,7 +125,7 @@ def flam3h_compile_first_time_msg() -> None:
         first_instance_64bit: bool = True
 
     if first_instance_32bit:
-        _MSG_INFO = f"\n-> {now}\n\nFLAM3H version: {__version__} - {__module__}\nThe CVEX nodes need to cook once to compile their definitions.\n\nDepending on your PC configuration it can take up to 1(one) minute.\nIt is a one time compile process.\n"
+        _MSG_INFO = f"\n-> {now}\n\nFLAM3H version: {__version__} - F3H Python module: {__module__}\nThe CVEX nodes need to cook once to compile their definitions.\n\nDepending on your PC configuration it can take up to 1(one) minute.\nIt is a one time compile process.\n"
         print(_MSG_INFO)
         hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
         
