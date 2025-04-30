@@ -905,8 +905,8 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
 
     def varsPRM_FF(self) -> tuple:
 
-        px = self.prx
-        vPRM = self.varsPRM
+        px: str = self.prx
+        vPRM: tuple = self.varsPRM
         varsPRM_FF: tuple = ( vPRM[0], 
                               vPRM[1], 
                               vPRM[2], 
@@ -1366,13 +1366,17 @@ class flam3h_scripts
                 
         if FIRST_TIME_MSG is True and ( first_instance_32bit is True or first_instance_64bit is True ): # type: ignore
             
+            h: int = flam3h_general_utils.houdini_version(2)
+            if h < 205: __module__: str = "3.7"
+            else: __module__: str = "3.11"
+            
             if cvex_precision == 32 and first_instance_32bit is True:
                 
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
                 sys_updated_mode: hou.EnumValue = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
                 _MSG_INFO = f"FLAM3H v{__version__}  first instance -> Compiling FLAM3H CVEX nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX nodes compile: DONE \nversion: {__version__} - {__status__}"
+                _MSG_DONE = f"FLAM3H CVEX nodes compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module__}"
             
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
@@ -1386,7 +1390,7 @@ class flam3h_scripts
                 sys_updated_mode: hou.EnumValue = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 
                 _MSG_INFO = f"FLAM3H v{__version__} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX 64-bit nodes compile: DONE\nversion: {__version__}"
+                _MSG_DONE = f"FLAM3H CVEX 64-bit nodes compile: DONE\nversion: {__version__} - {__status__}\nF3H Python module: {__module__}"
                 
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
@@ -1422,6 +1426,10 @@ class flam3h_scripts
         except: first_instance_64bit: bool = True
                 
         if first_instance_32bit is True or first_instance_64bit is True: # type: ignore
+            
+            h: int = flam3h_general_utils.houdini_version(2)
+            if h < 205: __module__: str = "3.7"
+            else: __module__: str = "3.11"
 
             node = self.node
             cvex_precision: int = int( node.parm(PREFS_CVEX_PRECISION).eval() )
@@ -1431,10 +1439,10 @@ class flam3h_scripts
             
             if cvex_precision == 32:
                 _MSG_INFO = f" FLAM3H v{__version__}  first instance -> Compiling FLAM3H CVEX node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX node compile: DONE \nversion: {__version__}"
+                _MSG_DONE = f"FLAM3H CVEX node compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module__}"
             else:
                 _MSG_INFO = f" FLAM3H v{__version__} 64-bit  first instance -> Compiling FLAM3H CVEX 64-bit node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {__version__}"
+                _MSG_DONE = f"FLAM3H CVEX 64-bit node compile: DONE\nversion: {__version__} - {__status__}\nF3H Python module: {__module__}"
             
             density: int = node.parm(GLB_DENSITY).eval()
             if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
