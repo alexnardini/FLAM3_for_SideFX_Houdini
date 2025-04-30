@@ -10,6 +10,24 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.20</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.20) ###
+
+_This is a migration release to a newer python version, for now to: python **3.11** as of: **Houdini 20.5.x**._<br>
+_No much changes yet but it is a start and it will be the way forward._
+
+- **New**: Started migrating to a newer python version, for now to: **python 3.11** (as of **Houdini 20.5** which is the latest available).
+- **New**: FLAM3H will now use the appropriate python module version based on the Houdini version being run. 
+- **New**: The new updated python module is for **python version 3.11** and it will be used only when run within **Houdini 20.5.x**. 
+- **New**: All the older Houdini versions up until **Houdini 19.x.x** will use the FLAM3H python module for **python version 3.7**.
+- **New**: On first node instance creation, FLAM3H will print informations about the python module version being used.
+
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.8.15</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.15) ###
 
 - **New**: Improved variation's XML key names searches. 
