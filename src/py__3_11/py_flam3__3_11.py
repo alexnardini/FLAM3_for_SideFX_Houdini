@@ -685,8 +685,10 @@ class flam3h_varsPRM
         """
         try:
             int(item)
+        except:
+            values.append(id)
+        else:
             keys.append(item)
-        except: values.append(id)
             
             
     @staticmethod
@@ -1353,13 +1355,17 @@ class flam3h_scripts
         
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
+        except:
+            first_instance_32bit: bool = True
+        else:
             first_instance_32bit: bool = False
-        except: first_instance_32bit: bool = True
             
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
+        except:
+            first_instance_64bit: bool = True
+        else:
             first_instance_64bit: bool = False
-        except: first_instance_64bit: bool = True
             
         node = self.node
         cvex_precision: int = int( node.parm(PREFS_CVEX_PRECISION).eval() )
@@ -1417,13 +1423,17 @@ class flam3h_scripts
         
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
+        except:
+            first_instance_32bit: bool = True
+        else:
             first_instance_32bit: bool = False
-        except: first_instance_32bit: bool = True
             
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
+        except:
+            first_instance_64bit: bool = True
+        else:
             first_instance_64bit: bool = False
-        except: first_instance_64bit: bool = True
                 
         if first_instance_32bit is True or first_instance_64bit is True: # type: ignore
             
@@ -2470,9 +2480,10 @@ class flam3h_general_utils
         # Check if the required data exist already
         try:
             hou.session.H_CS_STASH_DICT # type: ignore
-            _EXIST: bool = True
         except:
             _EXIST: bool = False
+        else:
+            _EXIST: bool = True
             
         # build a new one
         views_scheme: list[hou.viewportColorScheme]  = []
@@ -5843,9 +5854,10 @@ class flam3h_iterator_utils
             try:
                 # We first try to set them all with this
                 hou.ui.setMultiParmTabInEditors(prm, preset_id-1) # type: ignore
-                _CHECK = True
             except:
                 _CHECK = False
+            else:
+                _CHECK = True
 
             if _CHECK:
                 
@@ -5936,9 +5948,10 @@ class flam3h_iterator_utils
         
         try:
             hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-            from_FLAM3HNODE: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
         except:
             from_FLAM3HNODE = None
+        else:
+            from_FLAM3HNODE: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
         
         if from_FLAM3HNODE is not None and node == from_FLAM3HNODE:  # type: ignore
             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
@@ -6292,11 +6305,12 @@ class flam3h_iterator_utils
                         elif _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is None: # type: ignore
                             try:
                                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                            except:
+                                pass
+                            else:
                                 self.destroy_cachedUserData(node, 'iter_sel')
                                 # This so we dnt fall back into this case again and again.
                                 hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
-                            except:
-                                pass
                             
             except:
                 mp_id_from = None
@@ -7833,10 +7847,11 @@ class flam3h_iterator_utils
                 # Check if the node still exist
                 try:
                     hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                    flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                 except:
                     flam3h_node_mp_id = None
                     flam3h_node = None
+                else:
+                    flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                     
                 # If the node exist
                 if flam3h_node_mp_id is not None and node == flam3h_node:
@@ -7884,10 +7899,11 @@ class flam3h_iterator_utils
                 # Check if the node still exist
                 try:
                     hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                    flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                 except:
                     flam3h_node_mp_id = None
                     flam3h_node = None
+                else:
+                    flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                     
                 # If the node exist and if it is the selected one
                 if flam3h_node_mp_id is not None and node == flam3h_node:
@@ -7950,10 +7966,11 @@ class flam3h_iterator_utils
                 # Check if the node still exist
                 try:
                     hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                    flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                 except:
                     flam3h_node_mp_id = None
                     flam3h_node = None
+                else:
+                    flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                     
                 # If the node exist and if it is the selected one
                 if flam3h_node_mp_id is not None and node == flam3h_node:
@@ -11096,17 +11113,19 @@ class in_flame
         for idx, k in enumerate(knots):
             try:
                 float(k)
-                new.append(k)
             except ValueError:
                 clean: list = [letter for letter in k if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val: str = ''.join(clean)
                 try:
                     float(new_val)
-                    new.append(new_val)
-                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
                 except ValueError:
                     new.append(default_val)
                     if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
+                else:
+                    new.append(new_val)
+                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
+            else:
+                new.append(k)
         return ' '.join(new)
 
 
@@ -11129,11 +11148,11 @@ class in_flame
             new_val: str = ''.join(clean)
             try:
                 float(new_val)
-                if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE (Corrected)\n")
             except ValueError:
                 if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE\n")
                 return default_val
             else:
+                if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE (Corrected)\n")
                 return new_val
         else:
             return val
@@ -11158,17 +11177,20 @@ class in_flame
         for idx, val in enumerate(vals):
             try:
                 float(val)
-                new.append(val)
             except ValueError:
                 clean: list = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val: str = ''.join(clean)
                 try:
                     float(new_val)
-                    new.append(new_val)
-                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
                 except ValueError:
                     new.append(default_val)
                     if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
+                else:
+                    new.append(new_val)
+                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
+            else:
+                new.append(val)
+                
         return new
     
     
@@ -11191,17 +11213,20 @@ class in_flame
         for idx, val in enumerate(vals):
             try:
                 float(val)
-                new.append(val)
             except ValueError:
                 clean: list = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val = ''.join(clean)
                 try:
                     float(new_val)
-                    new.append(new_val)
-                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
                 except ValueError:
                     new.append(default_val)
                     if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
+                else:
+                    new.append(new_val)
+                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
+            else:
+                new.append(val)
+                    
         return ' '.join(new)
 
 
@@ -11569,10 +11594,11 @@ class in_flame
                 HEXs: list = [hex for line in palette_hex.splitlines() for hex in wrap(i_cleandoc(line), 6) if len(i_cleandoc(line)) > 1]
                 try:
                     RGBs: list = [list(map(abs, flam3h_palette_utils.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
-                    rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
-                    _PALETTE: bool = True
                 except:
                     _PALETTE: bool = False
+                else:
+                    rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                    _PALETTE: bool = True
                 
                 if _PALETTE:
                     format: str | None = dict(palette_attrib).get(XML_PALETTE_FORMAT)
@@ -12508,6 +12534,7 @@ class in_flame_utils
                 else:
                     # If not present, we set all the pre affine values for this iterator to a value of: 0(Zero)
                     # Doing so it wont error out on load and it will act as a warning sign.
+                    print(f"Warning:\nIN xml key: {XML_PRE_AFFINE} (FF) -> NOT FOUND, zero values used.\n")
                     [node.setParms({f"{prx}{pre_affine[id]}": [hou.Vector2((tuple( [0, 0, 0, 0, 0, 0][i:i + 2] ))) for i in (0, 2, 4)][id]}) for id in range(3)] # type: ignore
                 
             if apo_data.finalxform_post is not None:
@@ -12524,12 +12551,13 @@ class in_flame_utils
                 [node.setParms({f"{prx}{pre_affine[id]}_{idx}": apo_data.f3h_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
                 node.setParms({f"{prx}{flam3h_prm_names.preaffine_ang}_{idx}": apo_data.f3h_coefs_angle[mp_idx]}) # type: ignore
             else:
-                if apo_data.coefs is not None and apo_data.coefs[mp_idx] is not None:
+                if apo_data.coefs is not None and apo_data.coefs[mp_idx]:
                     # The affine XML key: "coefs" must always be present in the XML file.
                     [node.setParms({f"{prx}{pre_affine[id]}_{idx}": apo_data.coefs[mp_idx][id]}) for id in range(3)] # type: ignore
                 else:
                     # If not present, we set all the pre affine values for this iterator to a value of: 0(Zero)
                     # Doing so it wont error out on load and it will act as a warning sign.
+                    print(f"Warning:\nIN xml key: {XML_PRE_AFFINE} (iter.{mp_idx+1}) -> NOT FOUND, zero values used.\n")
                     [node.setParms({f"{prx}{pre_affine[id]}_{idx}": [hou.Vector2((tuple( [0, 0, 0, 0, 0, 0][i:i + 2] ))) for i in (0, 2, 4)][id]}) for id in range(3)] # type: ignore
                 
             if apo_data.post is not None and apo_data.post[mp_idx]:
@@ -13778,11 +13806,11 @@ class in_flame_utils
             new_val: str = ''.join(clean)
             try:
                 float(new_val)
-                if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE (Corrected)\n")
             except ValueError:
                 if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE\n")
                 return default_val
             else:
+                if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE (Corrected)\n")
                 return float(new_val)
         else:
             return float(key_val)
@@ -15160,8 +15188,10 @@ class in_flame_utils
         
         try:
             self.kwargs['alt']
+        except:
+            _K: bool = False
+        else:
             _K: bool = True
-        except: _K: bool = False
 
         # if kwargs
         if _K:
