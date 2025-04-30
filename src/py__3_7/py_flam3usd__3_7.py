@@ -12,35 +12,35 @@ from datetime import datetime
 from typing import Union
 
 
-#   Tested on:  PYTHON v3.7.13  (H19)
-#               PYTHON v3.9.10  (H19.5)
-#               PYTHON v3.10.10 (H20)
-#               PYTHON v3.11.7  (H20.5)
-#
-#   Title:      SideFX Houdini FLAM3HUSD
-#   Author:     Alessandro Nardini
-#   date:       September 2023, Last revised March 2025
-#
-#   Name:       PY_FLAM3USD__3_7 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
-#
-#   Comment:    Simple utility node to quickly setup
-#               fractal flames point clouds in Solaris for previews.
-#
-#               This is basic and its the start of something.
-#               
-#               This code will be turned into a module from within Houdini.
-
-
 '''
-LIST OF CLASSES:
+    Tested on:  PYTHON v3.7.13  (H19)
+                PYTHON v3.9.10  (H19.5)
+                PYTHON v3.10.10 (H20)
+                PYTHON v3.11.7  (H20.5)
 
-    flam3husd_scripts
-    flam3husd_general_utils
-    flam3husd_about_utils
-    
-    _NOTE:
-        - Class @properties are always defined inbetween the @staticmethods and the class methods.
-        - Global variables are all upper cases. Every upper case variable's name created inside any definition always start with an underscore (_)
+    Title:      SideFX Houdini FLAM3HUSD
+    Author:     Alessandro Nardini
+    date:       September 2023, Last revised March 2025
+
+    Name:       PY_FLAM3USD__3_7 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
+
+    Comment:    Simple utility node to quickly setup
+                fractal flames point clouds in Solaris for previews.
+
+                This is basic and its the start of something.
+                
+                This code will be turned into a module from within Houdini.
+
+
+    LIST OF CLASSES:
+
+        flam3husd_scripts
+        flam3husd_general_utils
+        flam3husd_about_utils
+        
+        _NOTE:
+            - Class @properties are always defined inbetween the @staticmethods and the class methods.
+            - Global variables are all upper cases. Every upper case variable's name created inside any definition always start with an underscore (_)
 
 '''
 

@@ -37,81 +37,80 @@ from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 
 
-#   Tested on:  PYTHON v3.7.13  (H19)
-#               PYTHON v3.9.10  (H19.5)
-#               PYTHON v3.10.10 (H20)
-#               PYTHON v3.11.7  (H20.5)
-#
-#   Title:      FLAM3H. SideFX Houdini FLAM3: PYTHON
-#   Author:     Alessandro Nardini
-#   date:       January 2023, Last revised April 2025
-#
-#   Name:       PY_FLAM3__3_7 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
-#
-#   Comment:    Python classes and definitions for:
-#               - General UX
-#               - Menus builder
-#               - Copy/Paste iterator's data
-#               - Load/Save flame files
-#               - Load/Save palettes
-#               - Fully automated UX Xaos
-#               - Tool's user experience
-#               - and more...
-#               
-#               This code will be turned into a module from within Houdini.
-#
-#               _NOTE:
-#                   Some definitions run directly from inside the FLAM3H parameters.
-#                   Please check the file: ../py_flam3_UI_PRM_map.py
-#                   to see if any of the definition you are curious about is being used inside any of the FLAM3H parameters directly.
-#                   The file include a list/map of all the definitions used directly inside FLAM3H and categorized as:
-#                       
-#                       - callback script
-#                       - menu script
-#                       - action button script
-#
-#               INTERACTIVE Section:
-#                   The interactive python side for this tool is not done;
-#                   If you select a FLAM3H node and press the "enter" key over a viewer nothing will happen.
-#                   It is something nice to try to implement at some point but as of now, it is not a deal breaker at all
-#                   and the current implementation of the UX is far more than enough to enjoy the fractal art workflow.
-#
-#               DOC-STRINGS
-#                   To distinguish class @staticmethods from the class @methods, the class @methods doc-string Args list always start with the argument: (self):
-#                   This make it easier to distinguish them when typing their name while checking their infos like for example in VSCode. 
-#
-
-
 '''
-LIST OF CLASSES:
+    Tested on:  PYTHON v3.7.13  (H19)
+                PYTHON v3.9.10  (H19.5)
+                PYTHON v3.10.10 (H20)
+                PYTHON v3.11.7  (H20.5)
 
-    flam3h_iterator_prm_names
-    flam3h_iterator_prm_names_collections
-    flam3h_varsPRM
-    flam3h_iterator
-    flam3h_varsPRM_FF
-    flam3h_iterator_FF
-    flam3h_scripts
-    flam3h_general_utils
-    flam3h_iterator_utils
-    flam3h_palette_utils
-    flam3h_about_utils
-    flam3h_ui_msg_utils
+    Title:      FLAM3H. SideFX Houdini FLAM3: PYTHON
+    Author:     Alessandro Nardini
+    date:       January 2023, Last revised April 2025 (cloned from: py_flam3__3_7.py)
 
-    flam3h_varsPRM_APO
-    _xml
-    _xml_tree
-    in_flame(_xml_tree)
-    in_flame_iter_data(in_flame)
-    in_flame_utils
+    Name:       PY_FLAM3__3_7 "PYTHON"
 
-    out_flame_utils
-    out_flame_render_properties(out_flame_utils)
-    out_flame_xforms_data(out_flame_utils)
+    Comment:    Python classes and definitions for:
+                - General UX
+                - Menus builder
+                - Copy/Paste iterator's data
+                - Load/Save flame files
+                - Load/Save palettes
+                - Fully automated UX Xaos
+                - Tool's user experience
+                - and more...
+                
+                This code will be turned into a module from within Houdini.
 
-    _NOTE:
-        - Class @properties are always defined inbetween the @staticmethods and the class methods.
-        - Global variables are all upper cases. Every upper case variable's name created inside any definition always start with an underscore (_)
+                _NOTE:
+                    Some definitions run directly from inside the FLAM3H parameters.
+                    Please check the file: ../py_flam3_UI_PRM_map.py
+                    to see if any of the definition you are curious about is being used inside any of the FLAM3H parameters directly.
+                    The file include a list/map of all the definitions used directly inside FLAM3H and categorized as:
+                        
+                        - callback script
+                        - menu script
+                        - action button script
+
+                INTERACTIVE Section:
+                    The interactive python side for this tool is not done;
+                    If you select a FLAM3H node and press the "enter" key over a viewer nothing will happen.
+                    It is something nice to try to implement at some point but as of now, it is not a deal breaker at all
+                    and the current implementation of the UX is far more than enough to enjoy the fractal art workflow.
+
+                DOC-STRINGS
+                    To distinguish class @staticmethods from the class @methods, the class @methods doc-string Args list always start with the argument: (self):
+                    This make it easier to distinguish them when typing their name while checking their infos like for example in VSCode. 
+
+
+                LIST OF CLASSES:
+
+                    flam3h_iterator_prm_names
+                    flam3h_iterator_prm_names_collections
+                    flam3h_varsPRM
+                    flam3h_iterator
+                    flam3h_varsPRM_FF
+                    flam3h_iterator_FF
+                    flam3h_scripts
+                    flam3h_general_utils
+                    flam3h_iterator_utils
+                    flam3h_palette_utils
+                    flam3h_about_utils
+                    flam3h_ui_msg_utils
+
+                    flam3h_varsPRM_APO
+                    _xml
+                    _xml_tree
+                    in_flame(_xml_tree)
+                    in_flame_iter_data(in_flame)
+                    in_flame_utils
+
+                    out_flame_utils
+                    out_flame_render_properties(out_flame_utils)
+                    out_flame_xforms_data(out_flame_utils)
+
+                    _NOTE:
+                        - Class @properties are always defined inbetween the @staticmethods and the class methods.
+                        - Global variables are all upper cases. Every upper case variable's name created inside any definition always start with an underscore (_)
 
 '''
 
