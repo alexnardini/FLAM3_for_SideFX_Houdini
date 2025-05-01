@@ -3346,7 +3346,12 @@ class flam3h_general_utils
         
         if prm.eval():
             self.private_prm_set(node, prm, 0)
-            self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
+            
+            if node.parm(PREFS_PVT_XF_FF_VIZ_SOLO).eval():
+                self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
+                data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
+                flam3h_iterator_utils.destroy_userData(node, f"{data_name}")
+                
             _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: OFF"
             self.set_status_msg(_MSG, 'MSG')
             
