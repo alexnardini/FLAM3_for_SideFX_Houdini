@@ -32,6 +32,7 @@ from math import sin
 from math import cos
 from copy import copy
 from re import sub as re_sub
+from re import search as re_search
 from numpy import pad as np_pad
 from numpy import resize as np_resize
 from numpy import transpose as np_transpose
@@ -4232,6 +4233,7 @@ class flam3h_iterator_utils:
 class flam3h_iterator_utils
 
 @STATICMETHODS
+* flam3h_iterator_is_default_name(name: str) -> bool:
 * flam3h_on_loaded_set_density_menu(node: hou.SopNode) -> None:
 * sierpinski_settings(node: hou.SopNode) -> None:
 * get_user_data(node: hou.SopNode, data_name: str = FLAM3H_USER_DATA_ITER) -> int | bool:
@@ -4340,6 +4342,21 @@ class flam3h_iterator_utils
         """ 
         self._kwargs: dict = kwargs
         self._node = kwargs['node']
+        
+        
+    @staticmethod
+    def flam3h_iterator_is_default_name(name: str) -> bool:
+        """Check if an iterator name is a default name or not.
+        
+        Args:
+            name(str): current iterator name to check
+        
+        Returns:
+            (bool): True if the iterator name is a default name and False if not.
+        """
+        x = re_search("^[^\d\s()]+(?: [^\d\s()]+)*[\d]+", name)
+        if x is not None and x.group() == name: return True
+        else: return False
 
 
     @staticmethod
@@ -8018,6 +8035,10 @@ class flam3h_iterator_utils
         __mpmem_hou: list = [int(node.parm(f"{mp_mem_name}_{str(mp_idx + 1)}").eval()) for mp_idx in range(iter_count)]
         # export mpmem into CachedUserData
         self.auto_set_xaos_data_set_MP_MEM(node, __mpmem_hou)
+        
+        # Update iterator's names if there is a need ( If they have a default name )
+        mp_note_name: str = flam3h_iterator_prm_names().main_note
+        [node.setParms({f"{mp_note_name}_{str(mp_idx + 1)}": f"iterator_{mp_idx + 1}"}) for mp_idx in range(iter_count) if self.flam3h_iterator_is_default_name(node.parm(f"{mp_note_name}_{str(mp_idx + 1)}").eval())] # type: ignore
         
         # lock
         [prm.lock(True) for prm in (prm_mpidx, prm_xfviz, prm_xfviz_solo, prm_xfviz_solo_mp_idx)]
