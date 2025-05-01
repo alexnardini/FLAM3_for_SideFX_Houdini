@@ -8019,7 +8019,7 @@ class flam3h_iterator_utils
         
         # Update iterator's names if there is a need ( If they have a default name )
         mp_note_name: str = flam3h_iterator_prm_names().main_note
-        [node.setParms({f"{mp_note_name}_{str(mp_idx + 1)}": f"iterator_{mp_idx + 1}"}) for mp_idx in range(iter_count) if self.flam3h_iterator_is_default_name(node.parm(f"{mp_note_name}_{str(mp_idx + 1)}").eval())] # type: ignore
+        [node.setParms({f"{mp_note_name}_{str(mp_idx + 1)}": f"iterator_{mp_idx + 1}"}) for mp_idx in range(iter_count) if self.flam3h_iterator_is_default_name(str(node.parm(f"{mp_note_name}_{str(mp_idx + 1)}").eval()).strip())] # type: ignore
         
         # lock
         [prm.lock(True) for prm in (prm_mpidx, prm_xfviz, prm_xfviz_solo, prm_xfviz_solo_mp_idx)]
@@ -15495,6 +15495,7 @@ class out_flame_utils
 * menu_out_presets_loop_enum(menu: list, i: int, item: str) -> None:
 * out_collect_var_section_names(node: hou.SopNode, var_section: str = "VAR") -> Union[list[str], None]:
 * out_collect_var_section_names_dict(node: hou.SopNode, mode: int = False, var_section = "VAR") -> Union[dict[str, list[str]], bool]:
+* out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple:
 
 @METHODS
 * out_palette_256_plus_check(self) -> None:
@@ -16572,6 +16573,38 @@ class out_flame_utils
                 else: return names_idx
         else:
             return False
+        
+        
+    @staticmethod
+    def out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple:
+        """Build the XML Flame iterator's names to account for inactive ierators if any.
+        If all are active or if an iterator has a custom name nothing will be changed.
+
+        Args:
+            (self):
+            f3d(out_flame_xforms_data): Class to pull the data from.
+
+        Returns:
+            (bool): A tuple of either the corrected names or the untouched ones.
+        """
+        
+        new_names: list = []
+        if '0' in f3d.xf_vactive:
+            iter_idx = 1
+            for mp_idx in range(f3d.iter_count):
+                if int(f3d.xf_vactive[mp_idx]):
+                    if flam3h_iterator_utils.flam3h_iterator_is_default_name(f3d.xf_name[mp_idx].strip()):
+                        new_names.append(f"iterator_{iter_idx}")
+                        iter_idx = iter_idx + 1
+                    else:
+                        new_names.append(f3d.xf_name[mp_idx].strip())
+                else:
+                    new_names.append('OFF')
+                    
+            return tuple(new_names)
+        
+        else:
+            return f3d.xf_name
 
 
     # CLASS: PROPERTIES
@@ -17454,12 +17487,13 @@ class out_flame_utils
         names_VARS: list = []
         names_VARS_PRE: list = []
         names_VARS_POST: list = []
+        xml_xf_names: tuple = self.out_buil_xf_names(f3d)
         for iter in range(f3d.iter_count):
             mp_idx = str(int(iter + 1))
             if int(f3d.xf_vactive[iter]):
                 xf = lxmlET.SubElement(flame, XML_XF) # type: ignore
                 xf.tag = XML_XF
-                xf.set(XML_XF_NAME, f3d.xf_name[iter])
+                xf.set(XML_XF_NAME, xml_xf_names[iter])
                 xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
                 xf.set(XML_XF_COLOR, f3d.xf_color[iter])
                 xf.set(XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
