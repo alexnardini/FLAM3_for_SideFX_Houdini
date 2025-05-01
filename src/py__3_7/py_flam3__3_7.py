@@ -16593,11 +16593,11 @@ class out_flame_utils
             iter_idx = 1
             for mp_idx in range(f3d.iter_count):
                 if int(f3d.xf_vactive[mp_idx]):
-                    if flam3h_iterator_utils.flam3h_iterator_is_default_name(f3d.xf_name[mp_idx].strip()):
+                    if flam3h_iterator_utils.flam3h_iterator_is_default_name(f3d.xf_name[mp_idx]):
                         new_names.append(f"iterator_{iter_idx}")
                         iter_idx = iter_idx + 1
                     else:
-                        new_names.append(f3d.xf_name[mp_idx].strip())
+                        new_names.append(f3d.xf_name[mp_idx])
                 else:
                     new_names.append('OFF')
                     
@@ -17895,7 +17895,7 @@ class out_flame_utils
         Returns:
             (tuple): tuple of all the FLAM3H names/notes prepped into strings for writing out into the Flame preset file.
         """    
-        val: list = [self.node.parm(f"{self.flam3h_iter_prm_names.main_note}_{iter + 1}").eval() for iter in range(self._iter_count)]
+        val: list = [str(self.node.parm(f"{self.flam3h_iter_prm_names.main_note}_{iter + 1}").eval()).strip() for iter in range(self._iter_count)]
         return tuple(val)
     
     
