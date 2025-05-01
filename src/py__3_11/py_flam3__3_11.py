@@ -5,7 +5,7 @@ __author__ = "F stands for liFe ( made in Italy )"
 __copyright__ = "Copyright 2021, F stands for liFe"
 
 __license__ = "GPL"
-__version__ = "1.8.20"
+__version__ = "1.8.22"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
@@ -7797,7 +7797,7 @@ class flam3h_iterator_utils
         xaos_str_hou_get: list = []
         
         # get mpmem parms now
-        mp_mem_name = flam3h_iterator_prm_names().main_mpmem
+        mp_mem_name: str = flam3h_iterator_prm_names().main_mpmem
         [mpmem.append(int(node.parm(f"{mp_mem_name}_{str(mp_idx + 1)}").eval())) for mp_idx in range(iter_count)]
         
         # get mpmem from CachedUserData
@@ -7823,8 +7823,8 @@ class flam3h_iterator_utils
             xaos_str_hou_get = list(__xaos_str_hou_get)
             
         # DEL: INBETWEEN get index: try
-        s_current = set(mpmem)
-        s_history = set(mpmem_hou_get)
+        s_current: set = set(mpmem)
+        s_history: set = set(mpmem_hou_get)
         _idx = list(set(s_history - s_current))
         if _idx: idx_del_inbetween = int(_idx[0]) - 1
         # ADD: INBETWEEN get index : try
@@ -7981,7 +7981,7 @@ class flam3h_iterator_utils
                     if (idx_add_inbetween + 1) <= flam3h_node_mp_id:
                         hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = flam3h_node_mp_id + 1 # type: ignore
                         # set
-                        idx_new = prm_mpidx.eval() + 1
+                        idx_new: int = prm_mpidx.eval() + 1
                         prm_mpidx.set(idx_new)
                         self.del_comment_and_user_data_iterator(node)
                         self.set_comment_and_user_data_iterator(node, str(idx_new))
@@ -8002,10 +8002,10 @@ class flam3h_iterator_utils
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
             
         # set all multi parms xaos strings parms
-        xaos_str_round_floats = tuple([div_weight.join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)])
-        prm_xaos = flam3h_iterator_prm_names().xaos
-        [node.parm(f"{prm_xaos}_{str(mp_idx + 1)}").deleteAllKeyframes() for mp_idx in range(iter_count)]
-        [node.setParms({f"{prm_xaos}_{str(mp_idx + 1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)] # type: ignore
+        xaos_str_round_floats: list = [div_weight.join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)]
+        prm_xaos_name: str = flam3h_iterator_prm_names().xaos
+        [node.parm(f"{prm_xaos_name}_{str(mp_idx + 1)}").deleteAllKeyframes() for mp_idx in range(iter_count)]
+        [node.setParms({f"{prm_xaos_name}_{str(mp_idx + 1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)] # type: ignore
         
         # reset iterator's mpmem prm
         [node.setParms({f"{mp_mem_name}_{str(mp_idx + 1)}": str(mp_idx + 1)}) for mp_idx in range(iter_count)] # type: ignore
