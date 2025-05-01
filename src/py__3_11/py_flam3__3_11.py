@@ -14194,13 +14194,13 @@ class in_flame_utils
                 # Activate iterator
                 node.setParms({f"{n.main_vactive}_{str(mp_idx + 1)}": 1}) # type: ignore
                 # Set the rest of the iterator(FLAME or FF) parameters
-                apo_data_set: dict[str, tuple | None] = { n.main_note: apo_data.xf_name, 
-                                                                n.main_weight: apo_data.weight,
-                                                                n.xaos: apo_data.xaos,
-                                                                n.shader_color: apo_data.color,
-                                                                n.shader_speed: apo_data.symmetry,
-                                                                n.shader_alpha: apo_data.opacity
-                                                                }
+                apo_data_set: dict[str, tuple | None] = {n.main_note: apo_data.xf_name, 
+                                                         n.main_weight: apo_data.weight,
+                                                         n.xaos: apo_data.xaos,
+                                                         n.shader_color: apo_data.color,
+                                                         n.shader_speed: apo_data.symmetry,
+                                                         n.shader_alpha: apo_data.opacity
+                                                         }
                 [self.in_set_data(mode, node, prx, value, key, mp_idx) for key, value in apo_data_set.items()]
             
             # Set Affine ( PRE, POST and F3H_PRE, F3H_POST) for this iterator or FF
