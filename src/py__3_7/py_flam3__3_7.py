@@ -678,8 +678,10 @@ class flam3h_varsPRM
         """
         try:
             int(item)
+        except:
+            values.append(id)
+        else:
             keys.append(item)
-        except: values.append(id)
             
             
     @staticmethod
@@ -1346,13 +1348,17 @@ class flam3h_scripts
         
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
+        except:
+            first_instance_32bit: bool = True
+        else:
             first_instance_32bit: bool = False
-        except: first_instance_32bit: bool = True
             
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
+        except:
+            first_instance_64bit: bool = True
+        else:
             first_instance_64bit: bool = False
-        except: first_instance_64bit: bool = True
             
         node = self.node
         cvex_precision: int = int( node.parm(PREFS_CVEX_PRECISION).eval() )
@@ -1410,13 +1416,17 @@ class flam3h_scripts
         
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
+        except:
+            first_instance_32bit: bool = True
+        else:
             first_instance_32bit: bool = False
-        except: first_instance_32bit: bool = True
             
         try:
             hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
+        except:
+            first_instance_64bit: bool = True
+        else:
             first_instance_64bit: bool = False
-        except: first_instance_64bit: bool = True
                 
         if first_instance_32bit is True or first_instance_64bit is True: # type: ignore
             
@@ -2463,9 +2473,10 @@ class flam3h_general_utils
         # Check if the required data exist already
         try:
             hou.session.H_CS_STASH_DICT # type: ignore
-            _EXIST: bool = True
         except:
             _EXIST: bool = False
+        else:
+            _EXIST: bool = True
             
         # build a new one
         views_scheme: list[hou.viewportColorScheme]  = []
@@ -3032,7 +3043,7 @@ class flam3h_general_utils
                 # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
                 prm.set(0)
                 _MSG: str = f"This node display flag is OFF. Please use a FLAM3H node that is currently displayed to enter the Camera sensor viz."
-                self.set_status_msg(f"{node.name()}: {prm.name().upper()} -> {_MSG}", 'WARN')
+                self.set_status_msg(f"{node.name()}: {str(prm.name()).upper()} -> {_MSG}", 'WARN')
                 self.flash_message(node, f"{_MSG[:30]}")
 
 
@@ -3063,7 +3074,7 @@ class flam3h_general_utils
                 self.util_clear_xf_viz_stashed_wire_width_data()
                 
             _MSG: str = f"OFF"
-            self.set_status_msg(f"{node.name()}: {prm.name().upper()}: {_MSG}", 'MSG')
+            self.set_status_msg(f"{node.name()}: {str(prm.name()).upper()}: {_MSG}", 'MSG')
             self.flash_message(node, f"XF VIZ: {_MSG}")
             
         else:
@@ -3082,7 +3093,7 @@ class flam3h_general_utils
                 flam3h_general_utils.private_prm_set(node, prm, 1)
                 
                 _MSG: str = f"ON"
-                self.set_status_msg(f"{node.name()}: {prm.name().upper()}: {_MSG}", 'IMP')
+                self.set_status_msg(f"{node.name()}: {str(prm.name()).upper()}: {_MSG}", 'IMP')
                 self.flash_message(node, f"XF VIZ: {_MSG}")
                 
             else:
@@ -3130,13 +3141,13 @@ class flam3h_general_utils
             [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx + 1)}": 0}) for mp_idx in range(iter_num)]
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             
-            _MSG: str = f"{node.name()}: {prm.name().upper()}: OFF"
+            _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: OFF"
             self.set_status_msg(_MSG, 'MSG')
             self.flash_message(node, f"XF VIZ: ALL")
             
         else:
             
-            _MSG: str = f"{node.name()}: {prm.name().upper()}: ON"
+            _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
             
             
@@ -3160,13 +3171,13 @@ class flam3h_general_utils
             self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             
-            _MSG: str = f"{node.name()}: {prm_FF.name().upper()}: OFF"
+            _MSG: str = f"{node.name()}: {str(prm_FF.name()).upper()}: OFF"
             self.set_status_msg(_MSG, 'MSG')
             self.flash_message(node, f"XF VIZ: ALL")
             
         else:
             
-            _MSG: str = f"{node.name()}: {prm_FF.name().upper()}: ON"
+            _MSG: str = f"{node.name()}: {str(prm_FF.name()).upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
                 
                 
@@ -3212,7 +3223,7 @@ class flam3h_general_utils
             self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
             node.setUserData(f"{data_name}", mp_idx)
                 
-            _MSG: str = f"{node.name()}: {prm_mp.name().upper()}: ON"
+            _MSG: str = f"{node.name()}: {str(prm_mp.name()).upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
             self.flash_message(node, f"XF VIZ: {mp_idx}")
             
@@ -3255,7 +3266,7 @@ class flam3h_general_utils
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
             node.setUserData(f"{data_name}", "FF")
                 
-            _MSG: str = f"{node.name()}: {prm_mp.name().upper()}: ON"
+            _MSG: str = f"{node.name()}: {str(prm_mp.name()).upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
             self.flash_message(node, f"XF VIZ: FF")
                 
@@ -3278,12 +3289,12 @@ class flam3h_general_utils
         
         if prm.eval():
             prm.set(0)
-            _MSG: str = f"{node.name()}: {prm.name().upper()}: OFF"
+            _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: OFF"
             self.set_status_msg(_MSG, 'MSG')
             
         else:
             prm.set(1)
-            _MSG: str = f"{node.name()}: {prm.name().upper()}: ON"
+            _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
             
             
@@ -3306,12 +3317,12 @@ class flam3h_general_utils
         
         if prm.eval():
             self.private_prm_set(node, prm, 0)
-            _MSG: str = f"{node.name()}: {prm.name().upper()}: OFF"
+            _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: OFF"
             self.set_status_msg(_MSG, 'MSG')
             
         else:
             self.private_prm_set(node, prm, 1)
-            _MSG: str = f"{node.name()}: {prm.name().upper()}: ON"
+            _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
             
             
@@ -3336,12 +3347,12 @@ class flam3h_general_utils
         if prm.eval():
             self.private_prm_set(node, prm, 0)
             self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
-            _MSG: str = f"{node.name()}: {prm.name().upper()}: OFF"
+            _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: OFF"
             self.set_status_msg(_MSG, 'MSG')
             
         else:
             self.private_prm_set(node, prm, 1)
-            _MSG: str = f"{node.name()}: {prm.name().upper()}: ON"
+            _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
             
 
@@ -5373,15 +5384,15 @@ class flam3h_iterator_utils
                 else:
                     if old_data is None:
                         _MSG: str = f"\"XML_last_loaded\" user data: Corrupted"
-                        print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
+                        print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}\n")
                     elif not now_data_isvalid:
                         _MSG: str = f"\"XML loaded preset\" data: Corrupted"
-                        print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}")
+                        print(f"\n-> {datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\n{node.name()}: {_MSG}\n")
             
             else:
                 # Fire messages
                 _MSG: str = f"\"XML_last_loaded\" user data: Failed"
-                print(f"{node.name()}: {_MSG}.")
+                print(f"{node.name()}: {_MSG}\n")
 
 
     def refresh_iterator_vars_menu(self) -> None:
@@ -5836,9 +5847,10 @@ class flam3h_iterator_utils
             try:
                 # We first try to set them all with this
                 hou.ui.setMultiParmTabInEditors(prm, preset_id-1) # type: ignore
-                _CHECK = True
             except:
                 _CHECK = False
+            else:
+                _CHECK = True
 
             if _CHECK:
                 
@@ -7819,10 +7831,11 @@ class flam3h_iterator_utils
                 # Check if the node still exist
                 try:
                     hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                    flam3h_node: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                 except:
                     flam3h_node_mp_id = None
                     flam3h_node = None
+                else:
+                    flam3h_node: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                     
                 # If the node exist
                 if flam3h_node_mp_id is not None and node == flam3h_node:
@@ -7870,10 +7883,11 @@ class flam3h_iterator_utils
                 # Check if the node still exist
                 try:
                     hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                    flam3h_node: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                 except:
                     flam3h_node_mp_id = None
                     flam3h_node = None
+                else:
+                    flam3h_node: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                     
                 # If the node exist and if it is the selected one
                 if flam3h_node_mp_id is not None and node == flam3h_node:
@@ -7936,10 +7950,11 @@ class flam3h_iterator_utils
                 # Check if the node still exist
                 try:
                     hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                    flam3h_node: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                 except:
                     flam3h_node_mp_id = None
                     flam3h_node = None
+                else:
+                    flam3h_node: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                     
                 # If the node exist and if it is the selected one
                 if flam3h_node_mp_id is not None and node == flam3h_node:
@@ -8356,7 +8371,7 @@ class flam3h_palette_utils
             # This message when the CP options: palette 256+ toggle is OFF
             _MSG: str = f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.'
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            print(_MSG)
+            print(f"{_MSG}\n")
             return PALETTE_COUNT_256
         
         
@@ -9168,10 +9183,11 @@ class flam3h_palette_utils
                 # Get usable color values
                 HEXs: list = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
                 try:
-                    RGBs: list = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
-                    rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                    RGBs: list = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs]
                 except:
                     rgb_from_XML_PALETTE: list = []
+                else:
+                    rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
                 
                 del data
                 
@@ -9310,11 +9326,12 @@ class flam3h_palette_utils
                             assert data is not None
                             # Check if it is a valid FLAM3H JSON data. This is the moment of the truth ;)
                             hex_values: str = data[CP_JSON_KEY_NAME_HEX]
-                            isJSON_F3H: bool = True
                         except:
                             isJSON_F3H: bool = False
                             _MSG: str = f"{node.name()}: PALETTE JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        else:
+                            isJSON_F3H: bool = True
                             
                         # If it is a valid FLAM3H Palette JSON data
                         if isJSON_F3H:
@@ -9326,18 +9343,20 @@ class flam3h_palette_utils
 
                             try:
                                 hsv_vals: list = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
-                                hsv_check: bool = True
                             except:
                                 hsv_vals: list = []
                                 hsv_check: bool = False
+                            else:
+                                hsv_check: bool = True
                             
                             # Get usable color values
                             HEXs: list = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
                             try:
-                                RGBs: list = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
-                                rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                                RGBs: list = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs]
                             except:
                                 rgb_from_XML_PALETTE: list = []
+                            else:
+                                rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
                                 
                             del data
                             
@@ -9790,8 +9809,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
                         Platform
                         )
         
-        build_about_msg: str = "".join(build)
-        self.node.setParms({MSG_FLAM3H_ABOUT: build_about_msg})
+        self.node.setParms({MSG_FLAM3H_ABOUT: "".join(build)})
 
 
     def flam3h_about_plugins_msg(self) -> None:
@@ -10204,6 +10222,7 @@ OUT_XML_FLAM3H_PREFS_F3C = 'flam3h_f3c'
 # OUT XML render key data names
 OUT_XML_VERSION = 'version'
 OUT_XML_FLAME_SIZE = 'size'
+OUT_XML_FLAME_RESOLUTION = 'resolution' # This is not used by the Flame format but only a one off for the IN Infos Flame stats UI
 OUT_XML_FLAME_CENTER = 'center'
 OUT_XML_FLAME_ROTATE = 'rotate'
 OUT_XML_FLAME_SCALE = 'scale'
@@ -10694,7 +10713,7 @@ class _xml
                 return ()
             except:
                 _MSG: str = ("\nFLAM3H -> warning: Could not evaluate the current hou.SopNode. Class _xml(...).get_name(...)\n")
-                print(_MSG)
+                print(f"{_MSG}\n")
                 flam3h_general_utils.set_status_msg(f"{_MSG}", 'WARN')
                 return ()
 
@@ -11082,17 +11101,20 @@ class in_flame
         for idx, k in enumerate(knots):
             try:
                 float(k)
-                new.append(k)
             except ValueError:
                 clean: list = [letter for letter in k if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val: str = ''.join(clean)
                 try:
                     float(new_val)
-                    new.append(new_val)
-                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
                 except ValueError:
                     new.append(default_val)
                     if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
+                else:
+                    new.append(new_val)
+                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
+            else:
+                new.append(k)
+                
         return ' '.join(new)
 
 
@@ -11115,11 +11137,11 @@ class in_flame
             new_val: str = ''.join(clean)
             try:
                 float(new_val)
-                if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE (Corrected)\n")
             except ValueError:
                 if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE\n")
                 return default_val
             else:
+                if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE (Corrected)\n")
                 return new_val
         else:
             return val
@@ -11144,17 +11166,20 @@ class in_flame
         for idx, val in enumerate(vals):
             try:
                 float(val)
-                new.append(val)
             except ValueError:
                 clean: list = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val: str = ''.join(clean)
                 try:
                     float(new_val)
-                    new.append(new_val)
-                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
                 except ValueError:
                     new.append(default_val)
                     if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
+                else:
+                    new.append(new_val)
+                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
+            else:
+                new.append(val)
+                
         return new
     
     
@@ -11177,17 +11202,20 @@ class in_flame
         for idx, val in enumerate(vals):
             try:
                 float(val)
-                new.append(val)
             except ValueError:
                 clean: list = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val = ''.join(clean)
                 try:
                     float(new_val)
-                    new.append(new_val)
-                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
                 except ValueError:
                     new.append(default_val)
                     if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
+                else:
+                    new.append(new_val)
+                    if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
+            else:
+                new.append(val)
+                    
         return ' '.join(new)
 
 
@@ -11224,21 +11252,21 @@ class in_flame
                 if affine_count == 0:
                     if iter_type is not None: _MSG: str = f"\t{sel_key} on iterator {iter_type}, have no affine values. Expeted are: 6\n\t:Reverted back to default affine values."
                     else:_MSG: str = f"\t{sel_key} have {affine_count} values. Expeted are: 6\n\t:Reverted back to default affine values."
-                    print(_MSG)
+                    print(f"{_MSG}\n")
                     return [hou.Vector2((tuple( AFFINE_IDENT[i:i + 2] ))) for i in (0, 2, 4)]
                 else:
                     if iter_type is not None: _MSG: str = f"\t{sel_key} on iterator {iter_type}, have {affine_count} values. Expeted are: 6\n\t:Using 0.0(Zeros) for missing affine values."
                     else:_MSG: str = f"\t{sel_key} have {affine_count} values. Expeted are: 6\n\t:Using 0.0(Zeros) for missing affine values."
-                    print(_MSG)
+                    print(f"{_MSG}\n")
                     return [hou.Vector2((tuple( np_pad(affine, (0, 6-min(6, affine_count)), 'constant', constant_values=0).tolist()[i:i + 2] ))) for i in (0, 2, 4)]
             
             if sel_key is not None:
                 if iter_type is not None:
                     _MSG: str = f"\t{sel_key} on iterator {iter_type}, have {affine_count} values. Expeted are: 6\n\t:Skipped"
-                    print(_MSG)
+                    print(f"{_MSG}\n")
                 else:
                     _MSG: str = f"\t{sel_key} have {affine_count} values. Expeted are: 6\n\t:Skipped"
-                    print(_MSG)
+                    print(f"{_MSG}\n")
                     
             return []
     
@@ -11259,7 +11287,7 @@ class in_flame
             # it is not necessary anymore to revert the value to a non-zero value anymore, but I leave the message here for the user to know anyway.
             # min_weight = 0.00000001
             # keyvalues[0] = min_weight
-            _MSG: str = f"{node.name()}:\nThe loaded Flame preset have all iterators Weight set to: 0.0(Zero).\n"
+            _MSG: str = f"Warning:\n{node.name()}:\nThe loaded Flame preset have all iterators Weight set to: 0.0(Zero).\n"
             print(f"{_MSG}")
     
     
@@ -11554,11 +11582,12 @@ class in_flame
                 palette_hex: str = self.flame[idx].find(key).text
                 HEXs: list = [hex for line in palette_hex.splitlines() for hex in wrap(i_cleandoc(line), 6) if len(i_cleandoc(line)) > 1]
                 try:
-                    RGBs: list = [list(map(abs, flam3h_palette_utils.hex_to_rgb(hex))) for hex in HEXs] # This is the one to fail if wrong hex/chars
-                    rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
-                    _PALETTE: bool = True
+                    RGBs: list = [list(map(abs, flam3h_palette_utils.hex_to_rgb(hex))) for hex in HEXs]
                 except:
                     _PALETTE: bool = False
+                else:
+                    rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                    _PALETTE: bool = True
                 
                 if _PALETTE:
                     format: Union[str, None] = dict(palette_attrib).get(XML_PALETTE_FORMAT)
@@ -12642,7 +12671,7 @@ class in_flame_utils
                     # If a variation parameter FLAM3H has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                     if n not in XML_XF_PRM_EXCEPTION:
                         var_prm_vals.append(float(0))
-                        print(f"{node.name()}: PARAMETER NOT FOUND: {iter_type}: variation: \"{func(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type))}\": parameter: \"{func(n)}\"")
+                        print(f"Warning:\n{node.name()}: PARAMETER NOT FOUND: {iter_type}\n-> Variation: {func(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type))}\n-> Missing parameter: {func(n)}\n")
                         
             VAR.append(in_flame_utils.in_util_typemaker(var_prm_vals))
 
@@ -13056,7 +13085,7 @@ class in_flame_utils
             (float): If the passed in weight value is negative, return its absolute value. Only for PRE and POST variations.
         """
         if w < 0:
-            print(f"{node.name()} warning:\n{v_type_name.upper()} variation weight value: {w}\nNegative weight not allowed in PRE or POST vars.\nUsing its absolute value instead: {abs(w)}\n")
+            print(f"Warning:\n{node.name()}: {v_type_name.upper()} variation weight value: {w}\nNegative weight not allowed in PRE or POST vars.\nUsing its absolute value instead: {abs(w)}\n")
             return abs(w)
         else: return w
 
@@ -13238,21 +13267,21 @@ class in_flame_utils
         
         na: str = 'n/a'
         
-        size: str = f'Resolution: {na}'
+        size: str = f"{OUT_XML_FLAME_RESOLUTION.capitalize()}: {na}"
         if apo_data.out_size[preset_id]:
-            size = f"Resolution: {apo_data.out_size[preset_id]}"
+            size = f"{OUT_XML_FLAME_RESOLUTION.capitalize()}: {apo_data.out_size[preset_id]}"
             
-        center: str = f'Center: {na}'
+        center: str = f"{OUT_XML_FLAME_CENTER.capitalize()}: {na}"
         if apo_data.out_center[preset_id]:
-            center = f"Center: {apo_data.out_center[preset_id]}"
+            center = f"{OUT_XML_FLAME_CENTER.capitalize()}: {apo_data.out_center[preset_id]}"
             
-        rotate: str = f'Rotate: {na}'
+        rotate: str = f"{OUT_XML_FLAME_ROTATE.capitalize()}: {na}"
         if apo_data.out_rotate[preset_id]:
-            rotate = f"Rotate: {apo_data.out_rotate[preset_id]}"
+            rotate = f"{OUT_XML_FLAME_ROTATE.capitalize()}: {apo_data.out_rotate[preset_id]}"
 
-        scale: str = f'Scale: {na}'
+        scale: str = f"{OUT_XML_FLAME_SCALE.capitalize()}: {na}"
         if apo_data.out_scale[preset_id]:
-            scale = f"Scale: {apo_data.out_scale[preset_id]}"
+            scale = f"{OUT_XML_FLAME_SCALE.capitalize()}: {apo_data.out_scale[preset_id]}"
         
         build: tuple = (size, nl,
                         center, nl,
@@ -13260,8 +13289,7 @@ class in_flame_utils
                         scale, nl,
                         )
         
-        build_render_stats_msg: str = "".join(build)
-        return build_render_stats_msg
+        return "".join(build)
 
     
     @staticmethod
@@ -13280,29 +13308,29 @@ class in_flame_utils
         nnl: str = "\n\n"
         na: str = 'n/a'
         
-        quality: str = f'Quality: {na}'
+        quality: str = f"{OUT_XML_FLAME_QUALITY.capitalize()}: {na}"
         if apo_data.out_quality[preset_id]:
-            quality = f"Quality: {apo_data.out_quality[preset_id]}"
+            quality = f"{OUT_XML_FLAME_QUALITY.capitalize()}: {apo_data.out_quality[preset_id]}"
 
-        brightness: str = f'Brightness: {na}'
+        brightness: str = f"{OUT_XML_FLAME_BRIGHTNESS.capitalize()}: {na}"
         if apo_data.out_brightness[preset_id]:
-            brightness = f"Brightness: {apo_data.out_brightness[preset_id]}"
+            brightness = f"{OUT_XML_FLAME_BRIGHTNESS.capitalize()}: {apo_data.out_brightness[preset_id]}"
             
-        gamma: str = f'Gamma: {na}'
+        gamma: str = f"{OUT_XML_FLAME_GAMMA.capitalize()}: {na}"
         if apo_data.out_gamma[preset_id]:
-            gamma = f"Gamma: {apo_data.out_gamma[preset_id]}"
+            gamma = f"{OUT_XML_FLAME_GAMMA.capitalize()}: {apo_data.out_gamma[preset_id]}"
             
-        highlight: str = f'Highlight power: {na}'
+        highlight: str = f"{' '.join(OUT_XML_FLAME_POWER.split('_')).capitalize()}: {na}"
         if apo_data.out_highlight_power[preset_id]:
-            highlight = f"Highlight power: {apo_data.out_highlight_power[preset_id]}"
+            highlight = f"{' '.join(OUT_XML_FLAME_POWER.split('_')).capitalize()}: {apo_data.out_highlight_power[preset_id]}"
             
-        _K2: str = f'Logscale K2: {na}'
+        log_k2: str = f"{' '.join(OUT_XML_FLAME_K2.split('_')).capitalize()}: {na}"
         if apo_data._out_logscale_k2[preset_id]:
-            _K2 = f"Logscale K2: {apo_data._out_logscale_k2[preset_id]}"
+            log_k2 = f"{' '.join(OUT_XML_FLAME_K2.split('_')).capitalize()}: {apo_data._out_logscale_k2[preset_id]}"
             
-        vibrancy: str = f'Vibrancy: {na}'
+        vibrancy: str = f"{OUT_XML_FLAME_VIBRANCY.capitalize()}: {na}"
         if apo_data.out_vibrancy[preset_id]:
-            vibrancy = f"Vibrancy: {apo_data.out_vibrancy[preset_id]}"
+            vibrancy = f"{OUT_XML_FLAME_VIBRANCY.capitalize()}: {apo_data.out_vibrancy[preset_id]}"
         
         cc_curves = []
         if apo_data.out_curve_overall[preset_id] and apo_data.out_curve_overall[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Overall')
@@ -13316,13 +13344,12 @@ class in_flame_utils
                         brightness, nl,
                         gamma, nl,
                         highlight, nl,
-                        _K2, nl,
+                        log_k2, nl,
                         vibrancy, nnl,
                         cc
                         )
         
-        build_render_stats_msg: str = "".join(build)
-        return build_render_stats_msg
+        return "".join(build)
     
     
     @staticmethod
@@ -13756,11 +13783,11 @@ class in_flame_utils
             new_val: str = ''.join(clean)
             try:
                 float(new_val)
-                if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE (Corrected)\n")
             except ValueError:
                 if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE\n")
                 return default_val
             else:
+                if key_name is not None: print(f"Warning:\nIN xml key: {key_name} -> NOT A VALUE (Corrected)\n")
                 return float(new_val)
         else:
             return float(key_val)
@@ -14008,6 +14035,8 @@ class in_flame_utils
                         self.in_v_generic(mode, node, mp_idx, t_idx, v_type, v_weight)
                 else:
                     # if this variation is not found, set it to Linear and its weight to ZERO
+                    # Note that if the missing variation will is int the first slot inside any of the available types (PRE, VAR or POST)
+                    # it will be set to its respective default value becasue the multi param parameters are reverted baco to their defaults on Flame load.
                     self.in_v_generic(mode, node, mp_idx, t_idx, 0, 0)
                     
             # Set pre blur if found
@@ -14069,7 +14098,7 @@ class in_flame_utils
                 
                 # Print all skipped FF vars if any
                 if FF_vars_skipped:
-                    build: str = f"WARNING: {self.node}.FF\n\tThe following variations are in excess and skipped:{''.join(FF_vars_skipped)}\n"
+                    build: str = f"Warning:\n{self.node}.FF\n\tThe following variations are in excess and skipped:{''.join(FF_vars_skipped)}\n"
                     print(build)
                 
             else:
@@ -14130,7 +14159,7 @@ class in_flame_utils
                        
                 # Print all skipped iterators vars if any
                 if iterator_vars_skipped:
-                    build: str = f"WARNING: {self.node}.iterator.{mp_idx + 1}\n\tThe following variations are in excess and skipped:{''.join(iterator_vars_skipped)}\n"
+                    build: str = f"Warning:\n{self.node}.iterator.{mp_idx + 1}\n\tThe following variations are in excess and skipped:{''.join(iterator_vars_skipped)}\n"
                     print(build)
                                 
                 # Activate iterator
@@ -14830,7 +14859,7 @@ class in_flame_utils
 
             if attempt_from_clipboard: _MSG: str = "\nFlame IN Clipboard: The loaded Flame preset's Palette has invalid HEX values."
             else: _MSG: str = "\nFlame IN: The loaded Flame preset's Palette has invalid HEX values."
-            print(f"{node.name()}: {_MSG}")
+            print(f"Warning:\n{node.name()}: {_MSG}\n")
             
             
     def in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool], copy_only: bool = False) -> None:
@@ -15138,8 +15167,10 @@ class in_flame_utils
         
         try:
             self.kwargs['alt']
+        except:
+            _K: bool = False
+        else:
             _K: bool = True
-        except: _K: bool = False
 
         # if kwargs
         if _K:
@@ -16009,7 +16040,7 @@ class out_flame_utils
         if OUT_FLAM3_FILE_EXT == file_ext:
             if os.path.isfile(infile) and os.path.exists(infile):
                 _MSG: str = f"OUT: You selected an OUT file that is not a {prx} file type."
-                print(f"{node.name()}.{_MSG}")
+                print(f"{node.name()}.{_MSG}\n")
                 flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
             else:
                 if os.path.isdir(os.path.split(file_new)[0]) and not os.path.exists(file_new):
@@ -16022,7 +16053,7 @@ class out_flame_utils
         elif OUT_PALETTE_FILE_EXT == file_ext:
             if os.path.isfile(infile) and os.path.exists(infile):
                 _MSG: str = f"Palette: You selected an OUT file that is not a {prx} file type."
-                print(f"{node.name()}.{_MSG}")
+                print(f"{node.name()}.{_MSG}\n")
                 flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
             else:
                 if os.path.isdir(os.path.split(file_new)[0]) and not os.path.exists(file_new):
@@ -16713,7 +16744,7 @@ class out_flame_utils
             else:
                 # Otherwise clamp to 1024 color keys
                 if _MSG:
-                    print(f"{self.node.name()}: the palette exceed the allowed amount of color keys and it has been clamped at: 1024")
+                    print(f"Warning:\n{self.node.name()}: the palette exceed the allowed amount of color keys and it has been clamped at: 1024\n")
                 return PALETTE_COUNT_1024
         else:
             # Otherwise always export the Flame with 256 color palette
@@ -17740,7 +17771,7 @@ class out_flame_utils
                 else:
                     return self.out_util_round_float(self.node.parm(prm_name).eval())
         else:
-            print(f"{self.node.name()}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H parameter name.")
+            print(f"Warning:\n{self.node.name()}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H parameter name.\n")
             return ''
 
 
@@ -18001,7 +18032,7 @@ class out_flame_utils
                 else:
                     return ' '.join([self.out_util_round_float(x) for x in prm])
         else:
-            print(f"{self.node.name()}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H ramp hsv parameter name.")
+            print(f"Warning:\n{self.node.name()}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H ramp hsv parameter name.\n")
             return False
         
         
@@ -18020,7 +18051,7 @@ class out_flame_utils
             try:
                 self.out_util_round_float(self.node.parm(prm_name).eval())
             except:
-                print(f"{self.node.name()}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H val parameter name.")
+                print(f"Warning:\n{self.node.name()}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H val parameter name.\n")
                 return False
             else:
                 return self.out_util_round_float(self.node.parm(prm_name).eval())
