@@ -15593,20 +15593,20 @@ class out_flame_utils
             (None):
         """
         # render curves data
-        prm_data: dict[str, hou.parm()] = { 'prm_curves': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES)), # type: ignore
-                                            'prm_curve_overall': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)), # type: ignore
-                                            'prm_curve_red': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)), # type: ignore
-                                            'prm_curve_green': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)), # type: ignore
-                                            'prm_curve_blue': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)), # type: ignore
-                                            }
+        prm_data: dict[str, hou.Parm] = {'prm_curves': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES)), # type: ignore
+                                         'prm_curve_overall': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)), # type: ignore
+                                         'prm_curve_red': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)), # type: ignore
+                                         'prm_curve_green': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)), # type: ignore
+                                         'prm_curve_blue': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)), # type: ignore
+                                         }
         
         # render curves parms
-        prm_ui: dict[str, hou.parm()] = {   'prm_curves': node.parm(OUT_RENDER_PROPERTIES_CURVES), # type: ignore
-                                            'prm_curve_overall': node.parm(OUT_RENDER_PROPERTIES_CURVE_OVERALL), # type: ignore
-                                            'prm_curve_red': node.parm(OUT_RENDER_PROPERTIES_CURVE_RED), # type: ignore
-                                            'prm_curve_green': node.parm(OUT_RENDER_PROPERTIES_CURVE_GREEN), # type: ignore
-                                            'prm_curve_blue': node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE) # type: ignore
-                                            }
+        prm_ui: dict[str, hou.Parm] = { 'prm_curves': node.parm(OUT_RENDER_PROPERTIES_CURVES), # type: ignore
+                                        'prm_curve_overall': node.parm(OUT_RENDER_PROPERTIES_CURVE_OVERALL), # type: ignore
+                                        'prm_curve_red': node.parm(OUT_RENDER_PROPERTIES_CURVE_RED), # type: ignore
+                                        'prm_curve_green': node.parm(OUT_RENDER_PROPERTIES_CURVE_GREEN), # type: ignore
+                                        'prm_curve_blue': node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE) # type: ignore
+                                        }
         
         # Unlock, Set and Lock again
         [prm.lock(False) for prm in prm_ui.values()]
@@ -15695,19 +15695,19 @@ class out_flame_utils
         """
         # render curves data
         prm_curves_data: hou.Parm = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES))
-        prm_data: dict[str, hou.parm()] = { 'prm_curve_overall': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)), # type: ignore
-                                            'prm_curve_red': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)), # type: ignore
-                                            'prm_curve_green': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)), # type: ignore
-                                            'prm_curve_blue': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)), # type: ignore
-                                            }
+        prm_data: dict[str, hou.Parm] = {'prm_curve_overall': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL)), # type: ignore
+                                         'prm_curve_red': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED)), # type: ignore
+                                         'prm_curve_green': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)), # type: ignore
+                                         'prm_curve_blue': node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)), # type: ignore
+                                         }
         
         # render curves parms
         prm_curves_ui: hou.Parm = node.parm(OUT_RENDER_PROPERTIES_CURVES) # type: ignore
-        prm_ui: dict[str, hou.parm()] = {   'prm_curve_overall': node.parm(OUT_RENDER_PROPERTIES_CURVE_OVERALL), # type: ignore
-                                            'prm_curve_red': node.parm(OUT_RENDER_PROPERTIES_CURVE_RED), # type: ignore
-                                            'prm_curve_green': node.parm(OUT_RENDER_PROPERTIES_CURVE_GREEN), # type: ignore
-                                            'prm_curve_blue': node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE) # type: ignore
-                                            }
+        prm_ui: dict[str, hou.Parm] = { 'prm_curve_overall': node.parm(OUT_RENDER_PROPERTIES_CURVE_OVERALL), # type: ignore
+                                        'prm_curve_red': node.parm(OUT_RENDER_PROPERTIES_CURVE_RED), # type: ignore
+                                        'prm_curve_green': node.parm(OUT_RENDER_PROPERTIES_CURVE_GREEN), # type: ignore
+                                        'prm_curve_blue': node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE) # type: ignore
+                                        }
         
         # Set the prm data defaults first
         prm_curves_ui.lock(False)
