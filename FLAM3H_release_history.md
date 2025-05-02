@@ -10,6 +10,19 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.25</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.25) ###
+
+- **New**: Iterator's names are now automatically set when they are at their default name, otherwise they will be kept as is.
+- **New**: When saving Flames out with disabled iterators, FLAM3H will discard them and rename the active one based of their new multi parameter index if they have a default iterator name.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.8.22</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.22) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
