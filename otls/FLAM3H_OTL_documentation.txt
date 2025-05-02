@@ -734,6 +734,11 @@ note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     A name for this iterator.
 
     _If no name is provided (ex: empty string) a default one will be automatically set_.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - An iterator default name is composed as: *`iterator_`* followed by its multi parameter index number, as in: *`iterator_7`*
+    - Every time you add or remove an iterator, FLAM3H will rename the remaining one if they have a default name to match their new index.
+    - When saving a Flame out with inactive iterators, FLAM3H will discard the inactive one and rename the others if the have a default name to match their new index.
     
     NOTE:
         The text you write here will be stored with the Flame file and also shown inside Apophysis and Fractorium as the iterator's name.

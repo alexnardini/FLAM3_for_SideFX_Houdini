@@ -4223,7 +4223,7 @@ class flam3h_iterator_utils:
 class flam3h_iterator_utils
 
 @STATICMETHODS
-* flam3h_iterator_is_default_name(name: str) -> bool:
+* flam3h_iterator_is_default_name(name: str, regex: str = "^[^\d\s()]+(?: [^\d\s()]+)*[\d]+") -> bool:
 * flam3h_on_loaded_set_density_menu(node: hou.SopNode) -> None:
 * sierpinski_settings(node: hou.SopNode) -> None:
 * get_user_data(node: hou.SopNode, data_name: str = FLAM3H_USER_DATA_ITER) -> Union[int, bool]:
@@ -4335,18 +4335,18 @@ class flam3h_iterator_utils
 
 
     @staticmethod
-    def flam3h_iterator_is_default_name(name: str) -> bool:
+    def flam3h_iterator_is_default_name(name: str, regex: str = "^[^\d\s()]+(?: [^\d\s()]+)*[\d]+") -> bool:
         """Check if an iterator name is a default name or not.
         
         Args:
-            name(str): current iterator name to check
+            name(str): current iterator name to check.
+            regex(str): The regex expresion to use to. Default to one build for the current iterators default name.
         
         Returns:
             (bool): True if the iterator name is a default name and False if not.
         """
-        x = re_search("^[^\d\s()]+(?: [^\d\s()]+)*[\d]+", name)
-        if x is not None and x.group() == name: return True
-        else: return False
+        x = re_search(regex, name)
+        return True if x is not None and x.group() == name else False
 
 
     @staticmethod
@@ -16604,7 +16604,7 @@ class out_flame_utils
             return tuple(new_names)
         
         else:
-            return f3d.xf_name
+            return tuple( [f"iterator_{mp_idx + 1}" if flam3h_iterator_utils.flam3h_iterator_is_default_name(f3d.xf_name[mp_idx]) else f3d.xf_name[mp_idx] for mp_idx in range(f3d.iter_count)] ) # type: ignore
 
 
     # CLASS: PROPERTIES
