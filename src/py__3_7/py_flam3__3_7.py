@@ -11612,10 +11612,10 @@ class in_flame
                 except:
                     _PALETTE: bool = False
                 else:
-                    rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
                     _PALETTE: bool = True
                 
                 if _PALETTE:
+                    rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
                     format: Union[str, None] = dict(palette_attrib).get(XML_PALETTE_FORMAT)
                     ramp_keys_count: int = len(rgb_from_XML_PALETTE)
                     POSs: list = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
