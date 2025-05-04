@@ -9448,7 +9448,7 @@ class flam3h_palette_utils
                         flam3h_general_utils.flash_message(node, f"CP ERROR from the Clipboard")
                     
             else:
-                _MSG: str = f"{node.name()}: PALETTE Clipboard: The data from the clipboard is not a valid F3H JSON data."
+                _MSG: str = f"{node.name()}: PALETTE Clipboard: The data from the clipboard is not a valid F3H Palette data (JSON or XML)."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"CP Clipboard: Nothing to load")
                 
@@ -9462,7 +9462,7 @@ class flam3h_palette_utils
                 apo_data = in_flame_iter_data(node, xml, preset_id)
                 in_flame_utils(self.kwargs).in_to_flam3h_set_palette(node, apo_data, _FLAM3H_INIT_DATA)
             else:
-                _MSG: str = f"{node.name()}: Palette Clipboard: The data from the clipboard is not a valid F3H Palette data."
+                _MSG: str = f"{node.name()}: Palette Clipboard: The data from the clipboard is not a valid F3H Palette data (JSON or XML)."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"CP Clipboard: Nothing to load")
                          
