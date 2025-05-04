@@ -14903,7 +14903,7 @@ class in_flame_utils
                                                                                             * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
                                                                                             * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
                                                                                             * chaos ( bool ): Is it a chaotica XML file type ? True or False.
-            flashmessage(bool): Default to False. if True, it will fire a flash message instead of a print message to the console. To be used when loading Palette data from the clipboard from a Flame preset.
+            flashmessage(bool): Default to False. if True, it will fire a flash and status message instead of a print message to the console. To be used when loading Palette data from the clipboard from a Flame preset.
 
         Returns:
             (None):
