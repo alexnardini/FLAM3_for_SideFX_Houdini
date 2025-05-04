@@ -9440,9 +9440,18 @@ class flam3h_palette_utils
                         flam3h_general_utils.flash_message(node, f"CP Clipboard: Nothing to load")
                         
                 else:
-                    _MSG: str = f"{node.name()}: Palette Clipboard: The data from the clipboard is not a valid JSON data."
-                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                    flam3h_general_utils.flash_message(node, f"CP Clipboard: Nothing to load")
+                    # Check if a full Flame preset is stored into the clipboard instead
+                    # and if so load its palette in.
+                    _FLAM3H_INIT_DATA: tuple = in_flame_utils(self.kwargs).in_to_flam3h_init_data(node)
+                    xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
+
+                    if xml is not None and clipboard:
+                        apo_data = in_flame_iter_data(node, xml, preset_id)
+                        in_flame_utils(self.kwargs).in_to_flam3h_set_palette(node, apo_data, _FLAM3H_INIT_DATA)
+                    else:
+                        _MSG: str = f"{node.name()}: Palette Clipboard: The data from the clipboard is not a valid JSON data."
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        flam3h_general_utils.flash_message(node, f"CP Clipboard: Nothing to load")
 
             # LMB - Load the currently selected palette preset
             else: self.json_to_flam3h_ramp_SET_PRESET_DATA()
