@@ -13410,7 +13410,7 @@ class in_flame_utils
         if apo_data.out_vibrancy[preset_id]:
             vibrancy = f"{OUT_XML_FLAME_VIBRANCY.capitalize()}: {apo_data.out_vibrancy[preset_id]}"
         
-        cc_curves = []
+        cc_curves: list = []
         if apo_data.out_curve_overall[preset_id] and apo_data.out_curve_overall[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Overall')
         if apo_data.out_curve_red[preset_id] and apo_data.out_curve_red[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Red')
         if apo_data.out_curve_green[preset_id] and apo_data.out_curve_green[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Green')
