@@ -8281,7 +8281,7 @@ class flam3h_palette_utils
 * flam3h_ramp_save(self) -> None:
 * json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list) -> tuple[hou.Ramp, int, bool]:
 * json_to_flam3h_ramp_set_HSV(self, node, hsv_check: bool, hsv_vals: list) -> None:
-* json_to_flam3h_ramp_SET_PRESET_DATA(self) -> None:
+* json_to_flam3h_ramp_SET_PRESET_DATA(self, node: hou.SopNode) -> None:
 * json_to_flam3h_ramp_sys(self, use_kwargs: bool = True) -> None:
 * json_to_flam3h_ramp_SHIFT(self, node: hou.SopNode) -> None:
 * json_to_flam3h_ramp_CTRL(self, node: hou.SopNode) -> None:
@@ -9175,16 +9175,16 @@ class flam3h_palette_utils
                 node.setParms({CP_RAMP_HSV_VAL_NAME: hou.Vector3((1, 1, 1))})
 
 
-    def json_to_flam3h_ramp_SET_PRESET_DATA(self) -> None:
+    def json_to_flam3h_ramp_SET_PRESET_DATA(self, node: hou.SopNode) -> None:
         """From the loaded palette preset data finally set the palette.
 
         Args:
             (self):
+            node(hou.SopNode): This FLAM3H node.
             
         Returns:
             (None):
         """
-        node = self.node
         
         iterators_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iterators_num:
@@ -9477,13 +9477,13 @@ class flam3h_palette_utils
 
             # LMB - Load the currently selected palette preset
             else:
-                self.json_to_flam3h_ramp_SET_PRESET_DATA()
+                self.json_to_flam3h_ramp_SET_PRESET_DATA(node)
 
         # NO KWARGS - LMB - Load the currently selected palette preset
         #
         # This is used from the preset menus parameter, since kwargs are not available from here.
         else:
-            self.json_to_flam3h_ramp_SET_PRESET_DATA()
+            self.json_to_flam3h_ramp_SET_PRESET_DATA(node)
 
 
     def palette_cp(self, palette_plus_msg: bool = False) -> None:
