@@ -10,6 +10,19 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.28</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.28) ###
+
+- **New**: You can now paste only the palette data from a Flame preset stored into the clipboard.
+- **New**: When all iterators are inactive or 0(_Zero_) Weight, FLAM3H wont generate any points.
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
 ### [<ins>From v1.8.25</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.25) ###
 
 - **New**: Iterator's names are now automatically set when they are at their default name, otherwise they will be kept as is.
