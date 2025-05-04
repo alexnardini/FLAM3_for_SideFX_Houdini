@@ -8302,6 +8302,9 @@ class flam3h_palette_utils
 * json_to_flam3h_ramp_set_HSV(self, node, hsv_check: bool, hsv_vals: list) -> None:
 * json_to_flam3h_ramp_SET_PRESET_DATA(self) -> None:
 * json_to_flam3h_ramp_sys(self, use_kwargs: bool = True) -> None:
+* jso_to_flam3h_ramp_SHIFT(self, node: hou.SopNode) -> None:
+* json_to_flam3h_ramp_CTRL(self, node: hou.SopNode) -> None:
+* json_to_flam3h_ramp_ALT(self, node: hou.SopNode) -> None:
 * json_to_flam3h_ramp(self, use_kwargs: bool = True) -> None:
 * palette_cp(self, palette_plus_msg: bool = False) -> None:
 * palette_cp_to_tmp(self) -> None:
@@ -9307,6 +9310,162 @@ class flam3h_palette_utils
             self.json_to_flam3h_ramp(use_kwargs)
 
 
+    def jso_to_flam3h_ramp_SHIFT(self, node: hou.SopNode) -> None:
+        """When kwargs['shift'] -> Open a file chooser to select palette json file to load.
+
+        Args:
+            (self):
+            node(hou.SopNode): This FLAM3H node.
+        
+        Returns:
+            (None):
+        """
+        filepath: str = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
+        filepath_expandvars: str = os.path.expandvars(filepath)
+        dir: str = os.path.dirname(filepath_expandvars)
+        if os.path.isdir(dir):
+            node.setParms({CP_PALETTE_LIB_PATH: filepath_expandvars}) # type: ignore
+            # The following definition use the default arg's value so it can set the proper ramp message if needed.
+            flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS()
+
+            
+    def json_to_flam3h_ramp_CTRL(self, node: hou.SopNode) -> None:
+        """When kwargs['ctrl'] -> Copy the preset name into the Palette name parameter.
+
+        Args:
+            (self):
+            node(hou.SopNode): This FLAM3H node.
+        
+        Returns:
+            (None):
+        """
+        
+        filepath: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+        if self.isJSON_F3H_on_preset_load(node, filepath, False)[-1]:
+            
+            # get current preset name and preset_id(index)
+            preset, preset_id = self.json_to_flam3h_get_preset_name_and_id(node)
+            # SET the Palette name to the preset name
+            if preset:
+                node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset}) # type: ignore
+                flam3h_general_utils.flash_message(node, preset)
+            
+            
+    def json_to_flam3h_ramp_ALT(self, node: hou.SopNode) -> None:
+        """When kwargs['alt'] -> Load palette data from the clipboard.
+
+        Args:
+            (self):
+            node(hou.SopNode): This FLAM3H node.
+        
+        Returns:
+            (None):
+        """
+        
+        palette: str = hou.ui.getTextFromClipboard() # type: ignore
+        try:
+            data: dict | None = json.loads(palette)
+        except:
+            data: dict | None = None
+        
+        # If it is a valid json data
+        if data is not None:
+            
+            try:
+                preset: str | None = list(data.keys())[0]
+                del data
+            except: preset: str | None = None
+                
+            if preset is not None:
+                
+                data: dict | None = json.loads(palette)[preset]
+                try:
+                    assert data is not None
+                    # Check if it is a valid FLAM3H JSON data. This is the moment of the truth ;)
+                    hex_values: str = data[CP_JSON_KEY_NAME_HEX]
+                except:
+                    isJSON_F3H: bool = False
+                    _MSG: str = f"{node.name()}: PALETTE JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                else:
+                    isJSON_F3H: bool = True
+                    
+                # If it is a valid FLAM3H Palette JSON data
+                if isJSON_F3H:
+                    assert data is not None
+                    
+                    # get ramps parm
+                    rmp_src = node.parm(CP_RAMP_SRC_NAME)
+                    rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
+
+                    try:
+                        hsv_vals: list = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
+                    except:
+                        hsv_vals: list = []
+                        hsv_check: bool = False
+                    else:
+                        hsv_check: bool = True
+                    
+                    # Get usable color values
+                    HEXs: list = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
+                    try:
+                        RGBs: list = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs]
+                    except:
+                        rgb_from_XML_PALETTE: list = []
+                    else:
+                        rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                        
+                    del data
+                    
+                    # Initialize and SET new ramp.
+                    _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
+                    rmp_src.set(_RAMP)
+                    # Make sure we update the HSV palette
+                    rmp_hsv.set(_RAMP) # Load the new palette colors
+                    self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals) # Set HSV values
+                    self.palette_hsv()# Apply HSV values if any
+                    # Update palette tmp
+                    self.reset_CP_TMP()
+                    # Update/Set palette MSG
+                    flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, HEXs)
+                    
+                    # Set palette lookup samples
+                    # Note we are setting the function type to: Flame so we always clamp at the minimun of 256 lookup samples
+                    keys: str = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, _COUNT, 0, False)
+                    node.setParms({CP_RAMP_LOOKUP_SAMPLES: int(keys)}) # type: ignore
+                    
+                    # Mark this as not a loaded preset since it is coming from the Clipboard
+                    flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
+                    
+                    if _CHECK:
+                        _MSG: str = f"{node.name()}: PALETTE Clipboard: LOAD Palette preset: \"{preset}\" -> Completed"
+                        flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                        flam3h_general_utils.flash_message(node, f"CP LOADED from the Clipboard")
+                    else:
+                        _MSG: str = f"{node.name()}: PALETTE Clipboard: ERROR on preset: \"{preset}\". Invalid HEX values."
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        flam3h_general_utils.flash_message(node, f"CP ERROR from the Clipboard")
+                    
+            else:
+                _MSG: str = f"{node.name()}: PALETTE Clipboard: The data from the clipboard is not a valid F3H JSON data."
+                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                flam3h_general_utils.flash_message(node, f"CP Clipboard: Nothing to load")
+                
+        else:
+            # Check if a full Flame preset is stored into the clipboard instead
+            # and if so load its palette in.
+            _FLAM3H_INIT_DATA: tuple = in_flame_utils(self.kwargs).in_to_flam3h_init_data(node)
+            xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
+
+            if xml is not None and clipboard:
+                apo_data = in_flame_iter_data(node, xml, preset_id)
+                in_flame_utils(self.kwargs).in_to_flam3h_set_palette(node, apo_data, _FLAM3H_INIT_DATA)
+            else:
+                _MSG: str = f"{node.name()}: Palette Clipboard: The data from the clipboard is not a valid F3H Palette data."
+                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                flam3h_general_utils.flash_message(node, f"CP Clipboard: Nothing to load")
+                         
+
     def json_to_flam3h_ramp(self, use_kwargs: bool = True) -> None:
         """Load the selected palette preset from the provided json file
         
@@ -9325,141 +9484,25 @@ class flam3h_palette_utils
                 
             # SHIFT - If we are selecting a palette json file to load
             if self.kwargs['shift']:
-                filepath: str = hou.ui.selectFile(start_directory=None, title="FLAM3H: Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
-                filepath_expandvars: str = os.path.expandvars(filepath)
-                dir: str = os.path.dirname(filepath_expandvars)
-                if os.path.isdir(dir):
-                    node.setParms({CP_PALETTE_LIB_PATH: filepath_expandvars})
-                    # The following definition use the default arg's value so it can set the proper ramp message if needed.
-                    flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS()
-                
+                self.jso_to_flam3h_ramp_SHIFT(node)
+
             # CTRL - If we are just copying the preset name into the Palette name parameter
             elif self.kwargs['ctrl']:
-                
-                filepath: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
-                if self.isJSON_F3H_on_preset_load(node, filepath, False)[-1]:
-                    
-                    # get current preset name and preset_id(index)
-                    preset, preset_id = self.json_to_flam3h_get_preset_name_and_id(node)
-                    # SET the Palette name to the preset name
-                    if preset:
-                        node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset})
-                        flam3h_general_utils.flash_message(node, preset)
-                        
+                self.json_to_flam3h_ramp_CTRL(node)
                 
             # ALT - If we are loading a palette from the clipboard
             elif self.kwargs['alt']:
-                
-                palette: str = hou.ui.getTextFromClipboard() # type: ignore
-                try:
-                    data: dict | None = json.loads(palette)
-                except:
-                    data: dict | None = None
-                
-                # If it is a valid json data
-                if data is not None:
-                    
-                    try:
-                        preset: str | None = list(data.keys())[0]
-                        del data
-                    except: preset: str | None = None
-                        
-                    if preset is not None:
-                        
-                        data: dict | None = json.loads(palette)[preset]
-                        try:
-                            assert data is not None
-                            # Check if it is a valid FLAM3H JSON data. This is the moment of the truth ;)
-                            hex_values: str = data[CP_JSON_KEY_NAME_HEX]
-                        except:
-                            isJSON_F3H: bool = False
-                            _MSG: str = f"{node.name()}: PALETTE JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H Palette data."
-                            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        else:
-                            isJSON_F3H: bool = True
-                            
-                        # If it is a valid FLAM3H Palette JSON data
-                        if isJSON_F3H:
-                            assert data is not None
-                            
-                            # get ramps parm
-                            rmp_src = node.parm(CP_RAMP_SRC_NAME)
-                            rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
-
-                            try:
-                                hsv_vals: list = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
-                            except:
-                                hsv_vals: list = []
-                                hsv_check: bool = False
-                            else:
-                                hsv_check: bool = True
-                            
-                            # Get usable color values
-                            HEXs: list = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
-                            try:
-                                RGBs: list = [list(map(abs, self.hex_to_rgb(hex))) for hex in HEXs]
-                            except:
-                                rgb_from_XML_PALETTE: list = []
-                            else:
-                                rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
-                                
-                            del data
-                            
-                            # Initialize and SET new ramp.
-                            _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
-                            rmp_src.set(_RAMP)
-                            # Make sure we update the HSV palette
-                            rmp_hsv.set(_RAMP) # Load the new palette colors
-                            self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals) # Set HSV values
-                            self.palette_hsv()# Apply HSV values if any
-                            # Update palette tmp
-                            self.reset_CP_TMP()
-                            # Update/Set palette MSG
-                            flam3h_palette_utils.json_to_flam3h_palette_plus_MSG(node, HEXs)
-                            
-                            # Set palette lookup samples
-                            # Note we are setting the function type to: Flame so we always clamp at the minimun of 256 lookup samples
-                            keys: str = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, _COUNT, 0, False)
-                            node.setParms({CP_RAMP_LOOKUP_SAMPLES: int(keys)}) # type: ignore
-                            
-                            # Mark this as not a loaded preset since it is coming from the Clipboard
-                            flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
-                            
-                            if _CHECK:
-                                _MSG: str = f"{node.name()}: PALETTE Clipboard: LOAD Palette preset: \"{preset}\" -> Completed"
-                                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-                                flam3h_general_utils.flash_message(node, f"CP LOADED from the Clipboard")
-                            else:
-                                _MSG: str = f"{node.name()}: PALETTE Clipboard: ERROR on preset: \"{preset}\". Invalid HEX values."
-                                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                                flam3h_general_utils.flash_message(node, f"CP ERROR from the Clipboard")
-                            
-                    else:
-                        _MSG: str = f"{node.name()}: PALETTE Clipboard: The data from the clipboard is not a valid F3H JSON data."
-                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"CP Clipboard: Nothing to load")
-                        
-                else:
-                    # Check if a full Flame preset is stored into the clipboard instead
-                    # and if so load its palette in.
-                    _FLAM3H_INIT_DATA: tuple = in_flame_utils(self.kwargs).in_to_flam3h_init_data(node)
-                    xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
-
-                    if xml is not None and clipboard:
-                        apo_data = in_flame_iter_data(node, xml, preset_id)
-                        in_flame_utils(self.kwargs).in_to_flam3h_set_palette(node, apo_data, _FLAM3H_INIT_DATA)
-                    else:
-                        _MSG: str = f"{node.name()}: Palette Clipboard: The data from the clipboard is not a valid F3H Palette data."
-                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"CP Clipboard: Nothing to load")
+                self.json_to_flam3h_ramp_ALT(node)
 
             # LMB - Load the currently selected palette preset
-            else: self.json_to_flam3h_ramp_SET_PRESET_DATA()
+            else:
+                self.json_to_flam3h_ramp_SET_PRESET_DATA()
 
         # NO KWARGS - LMB - Load the currently selected palette preset
         #
         # This is used from the preset menus parameter, since kwargs are not available from here.
-        else: self.json_to_flam3h_ramp_SET_PRESET_DATA()
+        else:
+            self.json_to_flam3h_ramp_SET_PRESET_DATA()
 
 
     def palette_cp(self, palette_plus_msg: bool = False) -> None:
