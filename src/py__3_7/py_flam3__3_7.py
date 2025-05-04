@@ -8283,7 +8283,7 @@ class flam3h_palette_utils
 * json_to_flam3h_ramp_set_HSV(self, node, hsv_check: bool, hsv_vals: list) -> None:
 * json_to_flam3h_ramp_SET_PRESET_DATA(self) -> None:
 * json_to_flam3h_ramp_sys(self, use_kwargs: bool = True) -> None:
-* jso_to_flam3h_ramp_SHIFT(self, node: hou.SopNode) -> None:
+* json_to_flam3h_ramp_SHIFT(self, node: hou.SopNode) -> None:
 * json_to_flam3h_ramp_CTRL(self, node: hou.SopNode) -> None:
 * json_to_flam3h_ramp_ALT(self, node: hou.SopNode) -> None:
 * json_to_flam3h_ramp(self, use_kwargs: bool = True) -> None:
@@ -9291,7 +9291,7 @@ class flam3h_palette_utils
             self.json_to_flam3h_ramp(use_kwargs)
             
             
-    def jso_to_flam3h_ramp_SHIFT(self, node: hou.SopNode) -> None:
+    def json_to_flam3h_ramp_SHIFT(self, node: hou.SopNode) -> None:
         """When kwargs['shift'] -> Open a file chooser to select palette json file to load.
 
         Args:
@@ -9465,7 +9465,7 @@ class flam3h_palette_utils
                 
             # SHIFT - If we are selecting a palette json file to load
             if self.kwargs['shift']:
-                self.jso_to_flam3h_ramp_SHIFT(node)
+                self.json_to_flam3h_ramp_SHIFT(node)
 
             # CTRL - If we are just copying the preset name into the Palette name parameter
             elif self.kwargs['ctrl']:
