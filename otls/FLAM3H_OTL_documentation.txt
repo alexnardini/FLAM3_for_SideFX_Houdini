@@ -563,7 +563,7 @@ CP Preset reload:
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
-    - ((ALT)) + ((LMB)) Load a palette from the clipboard.
+    - ((ALT)) + ((LMB)) Load a palette from the clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the clipboard, it will extract only the XML palette data and load it into the FLAM3H palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H.
     
 :box:
     #display: rounded white
@@ -1542,7 +1542,7 @@ Save Palette:
         - _If the selected file already contains some palettes, it will append the current one_.
     - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current palette.
-    - ((ALT)) + ((LMB)) to save the current palette into the clipboard.
+    - ((ALT)) + ((LMB)) to save the current palette into the clipboard as a JSON data.
 
     - If the selected file is not a valid Palette JSON file type, nothing will happen.
     
@@ -1596,7 +1596,7 @@ Reload preset:
     - ((LMB)) Reload the selected CP palette preset.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
     - ((CTRL)) + ((LMB)) to copy the selected preset name into the *`palette name`* parameter.
-    - ((ALT)) + ((LMB)) Load a palette from the clipboard.
+    - ((ALT)) + ((LMB)) Load a palette from the clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the clipboard, it will extract only the XML palette data and load it into the FLAM3H palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H.
 
 
 :box:
