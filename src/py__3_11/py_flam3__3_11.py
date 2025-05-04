@@ -9460,7 +9460,7 @@ class flam3h_palette_utils
 
             if xml is not None and clipboard:
                 apo_data = in_flame_iter_data(node, xml, preset_id)
-                in_flame_utils(self.kwargs).in_to_flam3h_set_palette(node, apo_data, _FLAM3H_INIT_DATA)
+                in_flame_utils(self.kwargs).in_to_flam3h_set_palette(node, apo_data, _FLAM3H_INIT_DATA, True)
             else:
                 _MSG: str = f"{node.name()}: Palette Clipboard: The data from the clipboard is not a valid F3H Palette data (JSON or XML)."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -14912,7 +14912,7 @@ class in_flame_utils
             flam3h_general_utils(self.kwargs).reset_MB()
             
 
-    def in_to_flam3h_set_palette(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: TA_F3H_Init) -> None:
+    def in_to_flam3h_set_palette(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: TA_F3H_Init, flashmessage: bool = False) -> None:
         """Set the Palette data into FLAM3H from the loaded XML Flame preset.
         
         Args:
@@ -14933,6 +14933,7 @@ class in_flame_utils
                                                     * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
                                                     * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
                                                     * chaos ( bool ): Is it a chaotica XML file type ? True or False.
+            flashmessage(bool): Default to False. if True, it will fire a flash message instead of a print message to the console. To be used when loading Palette data from the clipboard from a Flame preset.
 
         Returns:
             (None):
@@ -14964,10 +14965,17 @@ class in_flame_utils
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
             _BASEs, _POSs, _COLORs = flam3h_palette_utils.build_ramp_palette_error()
             ramp_parm.set(hou.Ramp(_BASEs, _POSs, _COLORs))
-
-            if attempt_from_clipboard: _MSG: str = "\nFlame IN Clipboard: The loaded Flame preset's Palette has invalid HEX values."
-            else: _MSG: str = "\nFlame IN: The loaded Flame preset's Palette has invalid HEX values."
-            print(f"Warning:\n{node.name()}: {_MSG}\n")
+            
+            if flashmessage:
+                _MSG = f"CP ERROR from the Clipboard"
+                flam3h_general_utils.flash_message(node, _MSG)
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}. The loaded Palette data has invalid HEX values.", "WARN")
+            else:
+                if attempt_from_clipboard: _MSG: str = "\nFlame IN Clipboard: The loaded Flame preset's Palette has invalid HEX values."
+                else: _MSG: str = "\nFlame IN: The loaded Flame preset's Palette has invalid HEX values."
+                # A print() is being used here becasue otherwise
+                # it will be cleared out by other status bar messages down the line when loading a Flame preset
+                print(f"Warning:\n{node.name()}: {_MSG}\n")
             
             
     def in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: TA_F3H_Init, copy_only: bool = False) -> None:
