@@ -28,6 +28,8 @@
 #pragma opmininputs 1
 #pragma opmaxinputs 1
 
+#include <functions.h>
+
 
 
 
@@ -44,7 +46,7 @@ _TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
         // append(IW, 1e-08); // This is now done inside the Houdini environment
         // append(sIDX, '1'); // This is now done inside the Houdini environment
         if(inum) warning("\nAll iterators are inactive or their Weight set to: 0(Zero)\nOne iterator's Weight internally set to: 1e-08");
-        else warning("\nZERO ITERATORS");
+        else warning("\nZERO ITERATORS\nPlease, create at least one iterator or Load an IN flame file first.");
     }
     
     // XAOS

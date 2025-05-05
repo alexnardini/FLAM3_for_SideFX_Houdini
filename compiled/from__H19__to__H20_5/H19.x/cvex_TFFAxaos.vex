@@ -9,7 +9,7 @@ source_filename = "TFFAxaos"
 @4 = private constant [0 x i8*] zeroinitializer
 @5 = private constant [5 x i8] c"sIDX\00"
 @6 = private constant [107 x i8] c"\0AAll iterators are inactive or their Weight set to: 0(Zero)\0AOne iterator's Weight internally set to: 1e-08\00"
-@7 = private constant [16 x i8] c"\0AZERO ITERATORS\00"
+@7 = private constant [85 x i8] c"\0AZERO ITERATORS\0APlease, create at least one iterator or Load an IN flame file first.\00"
 @8 = private constant [1 x i8] zeroinitializer
 @9 = private constant [6 x i8] c"xaos_\00"
 @10 = private constant [2 x i8] c":\00"
@@ -63,16 +63,25 @@ declare double @"sin@FF"(double) #0
 declare double @"cos@FF"(double) #0
 
 ; Function Attrs: nounwind readnone
-declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #0
+declare double @"log@FF"(double) #0
 
 ; Function Attrs: nounwind readnone
-declare double @"getcomp@FVI"(<3 x double>, i64) #0
+declare i64 @"and@III"(i64, i64) #0
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VFFF"(double, double, double) #0
 
 ; Function Attrs: nounwind readnone
 declare <2 x double> @"setcomp@UFI"(<2 x double>, double, i64) #0
 
+; Function Attrs: nounwind readnone
+declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #0
+
 ; Function Attrs: nounwind
 declare double @"abs@FF"(double) #1
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FVI"(<3 x double>, i64) #0
 
 ; Function Attrs: nounwind
 declare double @"nrandom@F:S"(i8*) #1
@@ -184,7 +193,7 @@ true13:                                           ; preds = %true
   br label %end
 
 false:                                            ; preds = %true
-  call void @"warning@S"(i8* getelementptr inbounds ([16 x i8], [16 x i8]* @7, i64 0, i64 0))
+  call void @"warning@S"(i8* getelementptr inbounds ([85 x i8], [85 x i8]* @7, i64 0, i64 0))
   br label %end
 
 cond:                                             ; preds = %end222, %end
@@ -527,9 +536,6 @@ declare i64 @"eq@III"(i64, i64) #0
 ; Function Attrs: nounwind readnone
 declare double @"getcomp@F[FI"(double*, i64) #0
 
-; Function Attrs: nounwind readnone
-declare i64 @"and@III"(i64, i64) #0
-
 ; Function Attrs: nounwind
 declare void @"warning@S"(i8*) #1
 
@@ -659,7 +665,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"20.5.445"}
+!1 = !{!"20.5.487"}
 !2 = !{!"64"}
 !3 = !{!""}
 
