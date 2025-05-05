@@ -260,13 +260,16 @@ OUT_RENDER_PROPERTIES_CURVE_BLUE = 'outcurveblueval'
 # OUT SYSTEM PRIVATE
 OUT_PVT_ISVALID_FILE = 'outisvalidfile'
 
+# NODE NAMES
 # Those Null node names are hard coded here and represent the nodes name's prefix.
 # If you change those Null node names inside the FLAM3H houdini HDA network, update those global variables as well.
 # If not, the camera sensor mode wont be able to properly frame itself in the current viewport.
-OUT_BBOX_NODE_NAME_SENSOR = 'OUT_bbox_sensor'
-OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe'
+OUT_BBOX_NODE_NAME_SENSOR = 'OUT_bbox_sensor' # prefix
+OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe' # prefix
 # PREFS XF VIZ NODE NAME TO COOK
 PREFS_XFVIZ_NODE_NAME = 'XFVIZ_GL'
+# XAOS
+TFFA_XAOS = '_TFFAxaos'
 
 PREFS_PALETTE_256_PLUS = 'paletteplus'
 PREFS_FLASH_MSG = 'flashmsg'
@@ -8083,6 +8086,9 @@ class flam3h_iterator_utils
             # Reset IN Folder settings heading
             node.setParms({MSG_IN_STATS_HEADING: ''}) # type: ignore
             node.setParms({MSG_IN_SETTINGS_HEADING: ''}) # type: ignore
+            
+            # Force this node to cook to get a warning message show up upstream.
+            hou.node(flam3h_general_utils(self.kwargs).get_node_path(TFFA_XAOS)).cook(force=True)
             
             # Print to Houdini's status bar
             _MSG: str = f"{node.name()}: {_MSG_str}"

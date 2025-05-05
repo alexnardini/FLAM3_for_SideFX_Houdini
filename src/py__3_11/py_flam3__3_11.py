@@ -270,13 +270,16 @@ OUT_RENDER_PROPERTIES_CURVE_BLUE = 'outcurveblueval'
 # OUT SYSTEM PRIVATE
 OUT_PVT_ISVALID_FILE = 'outisvalidfile'
 
+# NODE NAMES
 # Those Null node names are hard coded here and represent the nodes name's prefix.
 # If you change those Null node names inside the FLAM3H houdini HDA network, update those global variables as well.
 # If not, the camera sensor mode wont be able to properly frame itself in the current viewport.
-OUT_BBOX_NODE_NAME_SENSOR = 'OUT_bbox_sensor'
-OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe'
+OUT_BBOX_NODE_NAME_SENSOR = 'OUT_bbox_sensor' # prefix
+OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe' # prefix
 # PREFS XF VIZ NODE NAME TO COOK
 PREFS_XFVIZ_NODE_NAME = 'XFVIZ_GL'
+# XAOS
+TFFA_XAOS = '_TFFAxaos'
 
 PREFS_PALETTE_256_PLUS = 'paletteplus'
 PREFS_FLASH_MSG = 'flashmsg'
@@ -8103,6 +8106,9 @@ class flam3h_iterator_utils
             node.setParms({MSG_IN_STATS_HEADING: ''}) # type: ignore
             node.setParms({MSG_IN_SETTINGS_HEADING: ''}) # type: ignore
             
+            # Force this node to cook to get a warning message show up upstream.
+            hou.node(flam3h_general_utils(self.kwargs).get_node_path(TFFA_XAOS)).cook(force=True)
+            
             # Print to Houdini's status bar
             _MSG: str = f"{node.name()}: {_MSG_str}"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -15187,7 +15193,7 @@ class in_flame_utils
         
         
     def in_to_flam3h_init_data_CTRL(self) -> TA_F3H_Init:
-        """Load nothing with as the kwargs['ctrl'] is not mapped to anything else yet so this is a place holder.
+        """Load nothing, as the kwargs['ctrl'] is not mapped to anything yet so this is a place holder.
         This definition will be used inside: 
         * def in_to_flam3h_init_data(self, node: hou.SopNode) -> TA_F3H_Init:
         
@@ -15259,7 +15265,7 @@ class in_flame_utils
 
     def in_to_flam3h_init_data(self, node: hou.SopNode) -> TA_F3H_Init:
         """Check if we are able to load a flame from a selected file or to parse a flame from the clipboard
-        and provide some output data to work with if any of those cases is true.
+        and provide some output data to work with if any of those cases are true.
         
         Args:
             (self):
@@ -15975,7 +15981,7 @@ class out_flame_utils
         
     @staticmethod 
     def out_remove_iter_num(flame_name: str) -> str:
-        """Remove the iterations number from the Flame name if any
+        """Remove the iterations number from the Flame name if any.
 
         Args:
             flame_name(str): The Flame name to check
@@ -16025,7 +16031,7 @@ class out_flame_utils
     
     @staticmethod
     def out_util_round_float(val: float) -> str:
-        """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' )
+        """remove floating Zeros if it is an integer value ( ex: from '1.0' to '1' )
 
         Args:
             val(float): The value to remove the floating zeros from
@@ -16041,7 +16047,7 @@ class out_flame_utils
         
     @staticmethod
     def out_util_round_floats(val_list: list[list[str]] | tuple[list]) -> list[str] | list[list[str]] | tuple[str]:
-        """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values 
+        """remove floating Zeros if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values 
 
         Args:
             val_list(list[list[str]] | tuple[list]): A collection of values to rounds
@@ -16479,8 +16485,8 @@ class out_flame_utils
         """Check for any NO-active iterators and account for those.
 
         Args:
-            node(hou.SopNode): FLAM3H node
-            fill(list[np.array]): List of [np.array] representing all xaos weights.
+            node(hou.SopNode): FLAM3H node.
+            fill(list): List representing all xaos weights.
             prm(str): iterator vactive parameter.
 
         Returns:
@@ -16518,7 +16524,7 @@ class out_flame_utils
                 
     @staticmethod
     def menu_out_presets_loop(menu: list, i: int, item: str) -> None:
-        """This is spcifically to be run inside a list comprehension.
+        """This is specifically to be run inside a list comprehension.
 
         Args:
             menu(list): the menu list to populate.
@@ -16537,7 +16543,7 @@ class out_flame_utils
 
     @staticmethod
     def menu_out_presets_loop_enum(menu: list, i: int, item: str) -> None:
-        """This is spcifically to be run inside a list comprehension.
+        """This is specifically to be run inside a list comprehension.
 
         Args:
             menu(list): the menu list to populate.
@@ -16773,7 +16779,7 @@ class out_flame_utils
 
     def out_palette_256_plus_check(self) -> None:
         """When activating the PREFS option: palette 256+ toggle,
-        let the user knows if the current palette posses enough colors and give some infos
+        let the user knows if the current palette posses enough colors and give some infos.
 
         Args:
             (self):
@@ -17122,7 +17128,7 @@ class out_flame_utils
 
 
     def out_xf_xaos_to(self) -> tuple:
-        """Export in a tuple[str] the xaos TO values to write out
+        """Export in a tuple[str] the xaos TO values to write out.
         
         Args:
             (self):
@@ -17137,7 +17143,7 @@ class out_flame_utils
 
 
     def out_xf_xaos_from(self, mode: int=0) -> tuple:
-        """Export in a tuple[str] the xaos FROM values to write out
+        """Export in a tuple[str] the xaos FROM values to write out.
         
         Args:
             mode(int): mode=1 is for writing out flame file while the default mode=0 is for converting between xaos modes only
@@ -17245,7 +17251,7 @@ class out_flame_utils
 
 
     def out_auto_add_iter_num_to_prm(self) -> None:
-        """Add the iteration number string to the OUT Flame name after you type one name string in.
+        """Add the iteration number string to the OUT Flame name after you type a name string in.
         
         Args:
             (self):
@@ -17670,7 +17676,7 @@ class out_flame_utils
         
         This is being added to have some sort of history/backup some how.
         Will probably never be used but it is something more to have in any case.
-        This data is cleared every time a FLAM3H node is being created, or when FLAM3H is being reset to the default Sierpinsky triangle ot its iterator's count is set to 0(Zero).
+        This data is cleared every time a FLAM3H node is being created, or when FLAM3H is being reset to the default Sierpinsky triangle or its iterator's count is set to 0(Zero).
 
         Args:
             (self):
@@ -17901,7 +17907,7 @@ class out_flame_utils
     
     def __out_flame_data(self, prm_name: str = '') -> str:
         """Prepare the OUT render data FLAM3H parameters into proper strings to be written out.
-        This will deal with tuple value (flame_size, flame_center, etc) as well with float values (flame_qiality, flame_rotate, etc).
+        This will deal with tuple value (flame_size, flame_center, etc) as well with float values (flame_quality, flame_rotate, etc).
 
         Args:
             (self):
@@ -17929,7 +17935,7 @@ class out_flame_utils
 
 
     def __out_flame_name(self, prm_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
-        """Prepare the Flame name string for the XML Flame name key
+        """Prepare the Flame name string for the XML Flame name key.
         It will either use an automated one if no Flame name is provided or use the one provided by the user.
         It will also auto add the iterations number to the string name if requested ("add iterations to Flame name" toggle ON)
 
@@ -17993,7 +17999,7 @@ class out_flame_utils
     
     
     def __out_finalxf_name(self) -> str:
-        """Prepare the FF xform/iterator name/note parameter for writing out.
+        """Prepare the FF/finalXform name/note parameter for writing out.
 
         Args:
             (self):
@@ -18033,7 +18039,7 @@ class out_flame_utils
 
     def __out_xf_preaffine(self) -> tuple[tuple, tuple, tuple]:
         """Prepare each xform/iterator pre_affine parameters for writing out.
-        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will pre the Rotation angle parameter as well.
+        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will prep the Rotation angle parameter as well.
 
         Args:
             (self):
@@ -18057,7 +18063,7 @@ class out_flame_utils
     
     def __out_xf_postaffine(self) -> tuple[tuple, tuple, tuple]:
         """Prepare each xform/iterator post_affine parameters for writing out.
-        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will pre the Rotation angle parameter as well.
+        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will prep the Rotation angle parameter as well.
 
         Args:
             (self):
@@ -18091,7 +18097,7 @@ class out_flame_utils
 
     def __out_finalxf_preaffine(self) -> tuple[str, str, str]:
         """Prepare each FF/finalXform pre_affine parameters for writing out.
-        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will pre the Rotation angle parameter as well.
+        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will prep the Rotation angle parameter as well.
 
         Args:
             (self):
@@ -18114,7 +18120,7 @@ class out_flame_utils
     
     def __out_finalxf_postaffine(self) -> tuple[str, str, str]:
         """Prepare each FF/finalXform post_affine parameters for writing out.
-        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will pre the Rotation angle parameter as well.
+        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will prep the Rotation angle parameter as well.
 
         Args:
             (self):
