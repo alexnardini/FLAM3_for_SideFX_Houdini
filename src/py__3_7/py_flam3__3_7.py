@@ -34,7 +34,6 @@ from numpy import pad as np_pad
 from numpy import resize as np_resize
 from numpy import transpose as np_transpose
 from numpy import searchsorted as np_searchsorted
-from numpy import array as np_array
 from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 
@@ -4223,8 +4222,6 @@ MENU_VARS_INDEXES: dict[int, int] = {   0: 1,
                                         77: 207, 
                                         78: 209
                                         }                                                                   
-# MENU_VARS_INDEXES_NP_dtype = dict(names = ['key', 'data'] , formats = ['i4', 'i4'])
-# MENU_VARS_INDEXES_NP = np_array(list(MENU_VARS_INDEXES.items()), dtype = MENU_VARS_INDEXES_NP_dtype) # type: ignore
 
 
 class flam3h_iterator_utils:
@@ -5641,7 +5638,6 @@ class flam3h_iterator_utils
         _TYPE, _ICON = (self.menu_T_data, self.menu_T_FF_data)[FF]()
         var: Union[int, None] = MENU_VARS_INDEXES.get(_TYPE)
         assert var is not None # I can assert this becasue I tested all of them myself ;)
-        # var = MENU_VARS_INDEXES_NP[_TYPE]['data']
         menu[var] = f"{_ICON} {menu[var][:13]}     " # 5 times \s
 
         return menu
@@ -5666,7 +5662,6 @@ class flam3h_iterator_utils
         _TYPE, _ICON = (self.menu_T_PP_data, self.menu_T_PP_FF_data)[FF]()
         var: Union[int, None] = MENU_VARS_INDEXES.get(_TYPE)
         assert var is not None # I can assert this becasue I tested all of them myself ;)
-        # var = MENU_VARS_INDEXES_NP[_TYPE]['data']
         menu[var] = f"{_ICON} {menu[var][:13]}     " # 5 times \s
             
         return menu
