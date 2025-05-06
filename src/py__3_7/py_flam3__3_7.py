@@ -34,6 +34,7 @@ from numpy import pad as np_pad
 from numpy import resize as np_resize
 from numpy import transpose as np_transpose
 from numpy import searchsorted as np_searchsorted
+from numpy import array as np_array
 from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 
@@ -4115,6 +4116,7 @@ MENU_ITER_COPY_PASTE_DELETED_MARKED: list = [ 0, "![opdef:/alexnardini::Sop/FLAM
 MENU_FF_COPY_PASTE_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg]  Please, mark the FF first.', 0, '']
 MENU_FF_COPY_PASTE_SELECT: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED\n-> Select a different FLAM3H node to paste those FF values.', 1, '']
 
+# flam3h_varsPRM().build_menu_vars_indexes() for: MENU_VARS_ALL_SIMPLE
 MENU_VARS_INDEXES: dict[int, int] = {   0: 1, 
                                         39: 3, 
                                         94: 5, 
@@ -4220,7 +4222,10 @@ MENU_VARS_INDEXES: dict[int, int] = {   0: 1,
                                         76: 205, 
                                         77: 207, 
                                         78: 209
-                                        }
+                                        }                                                                   
+# MENU_VARS_INDEXES_NP_dtype = dict(names = ['key', 'data'] , formats = ['i4', 'i4'])
+# MENU_VARS_INDEXES_NP = np_array(list(MENU_VARS_INDEXES.items()), dtype = MENU_VARS_INDEXES_NP_dtype) # type: ignore
+
 
 class flam3h_iterator_utils:
     """
@@ -5636,6 +5641,7 @@ class flam3h_iterator_utils
         _TYPE, _ICON = (self.menu_T_data, self.menu_T_FF_data)[FF]()
         var: Union[int, None] = MENU_VARS_INDEXES.get(_TYPE)
         assert var is not None # I can assert this becasue I tested all of them myself ;)
+        # var = MENU_VARS_INDEXES_NP[_TYPE]['data']
         menu[var] = f"{_ICON} {menu[var][:13]}     " # 5 times \s
 
         return menu
@@ -5660,6 +5666,7 @@ class flam3h_iterator_utils
         _TYPE, _ICON = (self.menu_T_PP_data, self.menu_T_PP_FF_data)[FF]()
         var: Union[int, None] = MENU_VARS_INDEXES.get(_TYPE)
         assert var is not None # I can assert this becasue I tested all of them myself ;)
+        # var = MENU_VARS_INDEXES_NP[_TYPE]['data']
         menu[var] = f"{_ICON} {menu[var][:13]}     " # 5 times \s
             
         return menu
@@ -10516,6 +10523,7 @@ VARS_FLAM3_DICT_IDX: dict[str, int] = { "linear": 0,
                                         "point_symmetry": 105
                                         }
 
+
 # This dictionary for a faster look up table, Fractorium has so many variations!
 # We are using this to check for missing variations coming from the loaded flame file
 # as Fractorium seem to have them all ;) and it is the app I am now comparing against for this data.
@@ -10701,7 +10709,12 @@ class flam3h_varsPRM_APO:
 
 # This is used inside: __get_name_list_str(...)
 # to set what default single value should be used in case something goes wrong during the processed string value cleanup/correction
-XML_TO_F3H_DEFAULT_VALS: dict[str, str] = { OUT_XML_FLAM3H_HSV: '1', 
+XML_TO_F3H_DEFAULT_VALS: dict[str, str] = { XML_XF_WEIGHT: '0.5', 
+                                            XML_XF_COLOR: '0', 
+                                            XML_XF_COLOR_SPEED: '0', 
+                                            XML_XF_SYMMETRY: '0', 
+                                            XML_XF_OPACITY: '1', 
+                                            OUT_XML_FLAM3H_HSV: '1', 
                                             OUT_XML_FLAME_SIZE: '1024'
                                             }
 
@@ -11617,19 +11630,14 @@ class in_flame
 
                         continue
                     
-                    # Flame files created with Apophysis versions older than 7x ( or much older as the test file I have is from v2.06c )
-                    # seem not to include those keys if not used or left at default values.
-                    # We set them here so we can use them inside FLAM3H on load.
-                    elif key in XML_XF_OPACITY:
-                        keyvalues.append(float(1))
-                        continue
-                    
-                    elif key in XML_XF_SYMMETRY:
-                        keyvalues.append(float(0))
-                        continue
-                    
                     else:
-                        keyvalues.append([])
+                        default_val: Union[str, None] = XML_TO_F3H_DEFAULT_VALS.get(key)
+                        if default_val is not None:
+                            keyvalues.append(float(default_val))
+                            print(f"Warning: iterator.{idx+1}\nIN xml key: {key} -> NOT FOUND, default value used.\n")
+                        else:
+                            keyvalues.append([])
+                            
                         continue
             
             # CHECKS
