@@ -12199,7 +12199,7 @@ class in_flame_utils
               mp_idx: int, 
               pb_weights: tuple
               ) -> None:
-* in_util_check_negative_weight(node: hou.SopNode, w: float, v_type_name: str) -> float:
+* in_util_check_negative_weight(node: hou.SopNode, w: float, v_type: int, mode: int, mp_idx: int, func: Callable) -> float:
 * in_get_xforms_data_and_flam3h_vars_limit(mode: int, apo_data: in_flame_iter_data) -> tuple[tuple, int]:
 * in_get_preset_name_iternum(menu_label: str) -> int | None:
 * in_util_join_vars_grp(groups: list) -> str:
@@ -12633,7 +12633,7 @@ class in_flame_utils
                 else:
                     # If not present, we set all the pre affine values for this iterator to a value of: 0(Zero)
                     # Doing so it wont error out on load and it will act as a warning sign.
-                    print(f"Warning:\nIN xml key: {XML_PRE_AFFINE} (FF) -> NOT FOUND, zero values used.\n")
+                    print(f"Warning: iterator.FF\nIN xml key: {XML_PRE_AFFINE} -> NOT FOUND, zero values used.\n")
                     [node.setParms({f"{prx}{pre_affine[id]}": [hou.Vector2((tuple( [0, 0, 0, 0, 0, 0][i:i + 2] ))) for i in (0, 2, 4)][id]}) for id in range(3)] # type: ignore
                 
             if apo_data.finalxform_post is not None:
@@ -12776,7 +12776,7 @@ class in_flame_utils
             (TA_TypeMaker): Expected data type of the collected parametric variation's parameters values.
         """   
         
-        iter_type: str = f"Iterator.{mp_idx + 1}"
+        iter_type: str = f"{mp_idx + 1}"
         if mode: iter_type = 'FF'
 
         VAR: list = []
@@ -12791,7 +12791,7 @@ class in_flame_utils
                     # If a variation parameter FLAM3H has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
                     if n not in XML_XF_PRM_EXCEPTION:
                         var_prm_vals.append(float(0))
-                        print(f"Warning:\n{node.name()}: PARAMETER NOT FOUND: {iter_type}\n-> Variation: {func(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type))}\n-> Missing parameter: {func(n)}\n")
+                        print(f"Warning: iterator.{iter_type}\n{node.name()}: PARAMETER NOT FOUND\n-> Variation: {func(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type))}\n-> Missing parameter: {n}\n")
                         
             VAR.append(in_flame_utils.in_util_typemaker(var_prm_vals))
 
@@ -12983,7 +12983,7 @@ class in_flame_utils
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
 
         VAR: TA_TypeMaker = in_flame_utils.in_v_parametric_var_collect( node, 
-                                                                        0, 
+                                                                        1, 
                                                                         apo_prm, 
                                                                         xform, 
                                                                         0, 
@@ -13026,7 +13026,7 @@ class in_flame_utils
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
 
         VAR: TA_TypeMaker = in_flame_utils.in_v_parametric_var_collect( node, 
-                                                                        0, 
+                                                                        1, 
                                                                         apo_prm, 
                                                                         xform, 
                                                                         0, 
@@ -13192,7 +13192,7 @@ class in_flame_utils
 
 
     @staticmethod
-    def in_util_check_negative_weight(node: hou.SopNode, w: float, v_type_name: str) -> float:
+    def in_util_check_negative_weight(node: hou.SopNode, w: float, v_type: int, mode: int, mp_idx: int, func: Callable) -> float:
         """FLAM3H do not allow negative variation's weights for the PRE and POST variations.
         This function will turn a negative weight into its absoulute value instead.
 
@@ -13200,12 +13200,17 @@ class in_flame_utils
             node(hou.SopNode): FLAM3H node
             w(float): The variation weight to check.
             v_type_name(str): The name of the variation to print out if it turn out to have its weight with a negative value.
-
+            mode(int): 0 for iterator. 1 for FF
+            mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
+            func(Callable): function to change variation name between var, pre_var and post_var
+            
         Returns:
             (float): If the passed in weight value is negative, return its absolute value. Only for PRE and POST variations.
         """
         if w < 0:
-            print(f"Warning:\n{node.name()}: {v_type_name.upper()} variation weight value: {w}\nNegative weight not allowed in PRE or POST vars.\nUsing its absolute value instead: {abs(w)}\n")
+            iter_type: str = f"{mp_idx + 1}"
+            if mode: iter_type = 'FF'
+            print(f"Warning: iterator.{iter_type}\n{node.name()}: NEGATIVE VALUE not allowed in PRE or POST\n-> Variation: {func(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type))}: {w}\n-> Using its absolute value instead: {abs(w)}\n")
             return abs(w)
         else: return w
 
@@ -14180,7 +14185,7 @@ class in_flame_utils
                         v_type: int | None = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w: float = self.in_xml_key_val(xform, key_name)
-                            v_weight: float = self.in_util_check_negative_weight(node, w, self.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
+                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_PRE) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_PRE_FF(app, 
                                                             node, 
@@ -14203,7 +14208,7 @@ class in_flame_utils
                         v_type: int | None = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w: float = self.in_xml_key_val(xform, key_name)
-                            v_weight: float = self.in_util_check_negative_weight(node, w, self.in_util_make_POST(var_prm[v_type][0])) # type: ignore
+                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_POST) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_POST_FF(app, 
                                                              node, 
@@ -14237,7 +14242,7 @@ class in_flame_utils
                         v_type: int | None = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w: float = self.in_xml_key_val(xform, key_name)
-                            v_weight: float = self.in_util_check_negative_weight(node, w, self.in_util_make_PRE(var_prm[v_type][0])) # type: ignore
+                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_PRE) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_PRE(app, 
                                                          mode, 
@@ -14262,7 +14267,7 @@ class in_flame_utils
                         v_type: int | None = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w: float = self.in_xml_key_val(xform, key_name)
-                            v_weight: float = self.in_util_check_negative_weight(node, w, self.in_util_make_POST(var_prm[v_type][0])) # type: ignore
+                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_POST) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_POST(app, 
                                                           mode, 
