@@ -12656,7 +12656,7 @@ class in_flame_utils
                 else:
                     # If not present, we set all the pre affine values for this iterator to a value of: 0(Zero)
                     # Doing so it wont error out on load and it will act as a warning sign.
-                    print(f"Warning:\nIN xml key: {XML_PRE_AFFINE} (iter.{mp_idx+1}) -> NOT FOUND, zero values used.\n")
+                    print(f"Warning: iterator.{mp_idx+1}\nIN xml key: {XML_PRE_AFFINE} -> NOT FOUND, zero values used.\n")
                     [node.setParms({f"{prx}{pre_affine[id]}_{idx}": [hou.Vector2((tuple( [0, 0, 0, 0, 0, 0][i:i + 2] ))) for i in (0, 2, 4)][id]}) for id in range(3)] # type: ignore
                 
             if apo_data.post is not None and apo_data.post[mp_idx]:
