@@ -5,7 +5,7 @@ __author__ = "F stands for liFe ( made in Italy )"
 __copyright__ = "Copyright 2021, F stands for liFe"
 
 __license__ = "GPL"
-__version__ = "1.8.30"
+__version__ = "1.8.31"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
@@ -11623,7 +11623,7 @@ class in_flame
                     else:
                         if key in XML_XF_OPACITY: default_val = '1'
                         else: default_val = '0'
-                        if msg: keyvalues.append(float(self.xf_val_cleanup_str(xform.get(key), default_val, key)))
+                        keyvalues.append(float(self.xf_val_cleanup_str(xform.get(key), default_val, key)))
                         continue
                     
                 else:
@@ -11648,7 +11648,7 @@ class in_flame
                         default_val: str | None = XML_TO_F3H_DEFAULT_VALS.get(key)
                         if default_val is not None:
                             keyvalues.append(float(default_val))
-                            print(f"Warning: iterator.{idx+1}\nIN xml key: {key} -> NOT FOUND, default value used.\n")
+                            if msg: print(f"Warning: iterator.{idx+1}\nIN xml key: {key} -> NOT FOUND, default value used.\n")
                         else:
                             keyvalues.append([])
                             
