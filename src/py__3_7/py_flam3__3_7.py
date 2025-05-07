@@ -11113,7 +11113,7 @@ class in_flame
 * __get_xforms(self, idx: int, key: str) -> Union[tuple, None]:
 * __get_xaos(self, xforms: Union[tuple, None], key: str = XML_XF_XAOS) -> Union[tuple, None]:
 * __get_affine(self, xforms: Union[tuple, None], key: str, type: int = 0) -> Union[tuple, None]:
-* __get_keyvalue(self, xforms: Union[tuple, None], key: str) -> Union[tuple, None]:
+* __get_keyvalue(self, xforms: Union[tuple, None], key: str, msg: bool = True) -> Union[tuple, None]:
 * __get_palette(self, idx: int, key: str = XML_PALETTE) -> Union[tuple[hou.Ramp, int, str], None]:
 * __get_palette_flam3h_hsv(self, idx: int) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]:
 * __get_mb_flam3h_mb(self, idx: int, key: str = '') -> Union[int, float, bool, None]:
@@ -11577,7 +11577,7 @@ class in_flame
             return None
 
 
-    def __get_keyvalue(self, xforms: Union[tuple, None], key: str) -> Union[tuple, None]:
+    def __get_keyvalue(self, xforms: Union[tuple, None], key: str, msg: bool = True) -> Union[tuple, None]:
         """
         Args:
             (self):
@@ -11629,7 +11629,7 @@ class in_flame
                         default_val: Union[str, None] = XML_TO_F3H_DEFAULT_VALS.get(key)
                         if default_val is not None:
                             keyvalues.append(float(default_val))
-                            print(f"Warning: iterator.{idx+1}\nIN xml key: {key} -> NOT FOUND, default value used.\n")
+                            if msg: print(f"Warning: iterator.{idx+1}\nIN xml key: {key} -> NOT FOUND, default value used.\n")
                         else:
                             keyvalues.append([])
                             
@@ -11883,7 +11883,7 @@ class in_flame_iter_data(in_flame):
         
         self._palette: Union[tuple[hou.Ramp, int, str], None] = self._in_flame__get_palette(self._idx) # type: ignore
         self._color: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR) # type: ignore
-        self._color_speed: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR_SPEED) # type: ignore
+        self._color_speed: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR_SPEED, False) # type: ignore # Color speed is only used by Fractorium so we silent its warning message when missing
         self._symmetry: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_XF_SYMMETRY) # type: ignore
         self._opacity: Union[tuple, None] = self._in_flame__get_keyvalue(self._xforms, XML_XF_OPACITY) # type: ignore
         

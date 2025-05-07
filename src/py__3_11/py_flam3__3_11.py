@@ -11132,7 +11132,7 @@ class in_flame
 * __get_xforms(self, idx: int, key: str) -> tuple | None:
 * __get_xaos(self, xforms: tuple | None, key: str = XML_XF_XAOS) -> tuple | None:
 * __get_affine(self, xforms: tuple | None, key: str, type: int = 0) -> tuple | None:
-* __get_keyvalue(self, xforms: tuple | None, key: str) -> tuple | None:
+* __get_keyvalue(self, xforms: tuple | None, key: str, msg: bool = True) -> tuple | None:
 * __get_palette(self, idx: int, key: str = XML_PALETTE) -> tuple[hou.Ramp, int, str] | None:
 * __get_palette_flam3h_hsv(self, idx: int) -> TA_TypeMaker | bool:
 * __get_mb_flam3h_mb(self, idx: int, key: str = '') -> int | float | bool | None:
@@ -11596,7 +11596,7 @@ class in_flame
             return None
 
 
-    def __get_keyvalue(self, xforms: tuple | None, key: str) -> tuple | None:
+    def __get_keyvalue(self, xforms: tuple | None, key: str, msg: bool = True) -> tuple | None:
         """
         Args:
             (self):
@@ -11623,7 +11623,7 @@ class in_flame
                     else:
                         if key in XML_XF_OPACITY: default_val = '1'
                         else: default_val = '0'
-                        keyvalues.append(float(self.xf_val_cleanup_str(xform.get(key), default_val, key)))
+                        if msg: keyvalues.append(float(self.xf_val_cleanup_str(xform.get(key), default_val, key)))
                         continue
                     
                 else:
@@ -11902,7 +11902,7 @@ class in_flame_iter_data(in_flame):
         
         self._palette: tuple[hou.Ramp, int, str] | None = self._in_flame__get_palette(self._idx) # type: ignore
         self._color: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR) # type: ignore
-        self._color_speed: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR_SPEED) # type: ignore
+        self._color_speed: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR_SPEED, False) # type: ignore # Color speed is only used by Fractorium so we silent its warning message when missing
         self._symmetry: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_XF_SYMMETRY) # type: ignore
         self._opacity: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_XF_OPACITY) # type: ignore
         
