@@ -11063,8 +11063,8 @@ class _xml_tree
         if self.isvalidtree:
             
             _d: str | None = XML_TO_F3H_DEFAULT_VALS.get(key)
-            if _d is not None: _default = _d
-            else: _default = '0'
+            if _d is not None: _default: str = _d
+            else: _default: str = '0'
             
             root = self.tree.getroot()
             return tuple( [str(in_flame.xf_list_cleanup_str(str(name.get(key)).strip().split(), _default, key)) if name.get(key) is not None else [] for name in root] )
