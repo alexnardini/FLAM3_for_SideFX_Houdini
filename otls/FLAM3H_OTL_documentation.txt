@@ -702,8 +702,6 @@ number of iterators [Icon:TOP/xmlinput]:
     
     Every iterator acts as a container for functions, the algorithm will mix or shuffle them based on your logic.
 
-    When the number of iterators is set to *`0`*(Zero), it will also reset the FLAM3H UI to its defaults including the OUT render properties (_SENSOR, RENDER and CC CURVES settings_).
-
     _The following control icons are provided_:
 
     - [Largeicon:BUTTONS/add] to add a new iterator at the end of the existing set of iterators.
