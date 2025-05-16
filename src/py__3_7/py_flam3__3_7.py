@@ -2,7 +2,7 @@ from __future__ import division
 from __future__ import annotations
 
 __author__ = "F stands for liFe ( made in Italy )"
-__copyright__ = "Copyright 2021, F stands for liFe"
+__copyright__ = "Copyright 2021, © F stands for liFe"
 
 __license__ = "GPL"
 __version__ = "1.8.33"

@@ -1,5 +1,5 @@
 __author__ = "F stands for liFe ( made in Italy )"
-__copyright__ = "Copyright 2023, F stands for liFe"
+__copyright__ = "Copyright 2023, © F stands for liFe"
 
 __license__ = "GPL"
 __version__ = "0.1.58"
