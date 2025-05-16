@@ -1088,9 +1088,9 @@ copy post affine values:
     _Usage_:
     
     - ((LMB)) to copy all affine values: *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
-    - ((SHIFT)) + ((LMB)) to copy only the affine X and Y values.
-    - ((CTRL)) + ((LMB)) to copy only the affine O value.
-    - ((ALT)) + ((LMB)) to copy only the affine Rotation angle value.
+    - ((SHIFT)) + ((LMB)) to copy only the affine *`X`* and *`Y`* values.
+    - ((CTRL)) + ((LMB)) to copy only the affine *`O`* value.
+    - ((ALT)) + ((LMB)) to copy only the affine *`Rotation angle`* value.
 
 
 affine [Icon:TOP/xmlinput]:
