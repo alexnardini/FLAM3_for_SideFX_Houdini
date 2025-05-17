@@ -1133,7 +1133,7 @@ class flam3h_scripts
 * flam3h_check_first_node_instance_msg_status_bar_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 * flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 * flam3h_set_first_instance_global_var(cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
-* is_post_affine_default_on_loaded(node: hou.SopNode) -> None:
+* is_post_affine_default_on_load(node: hou.SopNode) -> None:
 
 @METHODS
 * flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG: bool = True) -> None:
@@ -1304,7 +1304,7 @@ class flam3h_scripts
 
 
     @staticmethod
-    def is_post_affine_default_on_loaded(node: hou.SopNode) -> None:
+    def is_post_affine_default_on_load(node: hou.SopNode) -> None:
         """Turn iterators/FF post affine OFF if they are active and default values.
 
         Args:
@@ -1756,7 +1756,7 @@ class flam3h_scripts
         # CP and IN PRESETS filepaths (cache data)
         self.flam3h_presets_cache_filepath_on_load()
         # Turn iterators/FF post affine OFF if they are default values
-        self.is_post_affine_default_on_loaded(node)
+        self.is_post_affine_default_on_load(node)
         
         # init xaos
         flam3h_iterator_utils(self.kwargs).auto_set_xaos()
