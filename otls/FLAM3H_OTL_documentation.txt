@@ -1144,9 +1144,9 @@ affine reset:
     _Usage_:
     
     - ((LMB)) to reset all affine values.
-    - ((SHIFT)) + ((LMB)) to reset only the affine X and Y values.
-    - ((CTRL)) + ((LMB)) to reset only the affine O value.
-    - ((ALT)) + ((LMB)) to reset only the affine Rotation angle value.
+    - ((SHIFT)) + ((LMB)) to reset only the affine *`X`* and *`Y`* values.
+    - ((CTRL)) + ((LMB)) to reset only the affine *`O`* value.
+    - ((ALT)) + ((LMB)) to reset only the affine *`Rotation angle`* value.
 
 
 :box:
