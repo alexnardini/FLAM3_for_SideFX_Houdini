@@ -11690,7 +11690,8 @@ class in_flame
                 #         [_HEX.append(hex) for hex in wrap(cleandoc, 6)]
                 
                 palette_hex: str = self.flame[idx].find(key).text
-                HEXs: list = [hex for line in palette_hex.splitlines() for hex in wrap(i_cleandoc(line), 6) if len(i_cleandoc(line)) > 1]
+                all_lines: list[str] = [line.replace(" ", "") for line in palette_hex.splitlines()]
+                HEXs: list = [hex for line in all_lines for hex in wrap(i_cleandoc(line), 6) if len(i_cleandoc(line)) > 1]
                 try:
                     RGBs: list = [list(map(abs, flam3h_palette_utils.hex_to_rgb(hex))) for hex in HEXs]
                 except:
