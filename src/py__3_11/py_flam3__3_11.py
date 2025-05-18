@@ -7735,16 +7735,16 @@ class flam3h_iterator_utils
                 for prm in n.prm_iterator_vars_all]
         
         # Iterator Affines
-        affines_dict: dict[str, hou.Vector2 | float | None] = {f"{n.preaffine_x}_{idx}": AFFINE_DEFAULT_DICT.get("affine_x"),
-                                                                    f"{n.preaffine_y}_{idx}": AFFINE_DEFAULT_DICT.get("affine_y"),
-                                                                    f"{n.preaffine_o}_{idx}": AFFINE_DEFAULT_DICT.get("affine_o"),
-                                                                    f"{n.preaffine_ang}_{idx}": AFFINE_DEFAULT_DICT.get("angle"),
-                                                                    f"{n.postaffine_do}_{idx}": 0,
-                                                                    f"{n.postaffine_x}_{idx}": AFFINE_DEFAULT_DICT.get("affine_x"),
-                                                                    f"{n.postaffine_y}_{idx}": AFFINE_DEFAULT_DICT.get("affine_y"),
-                                                                    f"{n.postaffine_o}_{idx}": AFFINE_DEFAULT_DICT.get("affine_o"),
-                                                                    f"{n.postaffine_ang}_{idx}": AFFINE_DEFAULT_DICT.get("angle")
-                                                                    }
+        affines_dict: dict[str, hou.Vector2 | float | None] = { f"{n.preaffine_x}_{idx}": AFFINE_DEFAULT_DICT.get("affine_x"),
+                                                                f"{n.preaffine_y}_{idx}": AFFINE_DEFAULT_DICT.get("affine_y"),
+                                                                f"{n.preaffine_o}_{idx}": AFFINE_DEFAULT_DICT.get("affine_o"),
+                                                                f"{n.preaffine_ang}_{idx}": AFFINE_DEFAULT_DICT.get("angle"),
+                                                                f"{n.postaffine_do}_{idx}": 0,
+                                                                f"{n.postaffine_x}_{idx}": AFFINE_DEFAULT_DICT.get("affine_x"),
+                                                                f"{n.postaffine_y}_{idx}": AFFINE_DEFAULT_DICT.get("affine_y"),
+                                                                f"{n.postaffine_o}_{idx}": AFFINE_DEFAULT_DICT.get("affine_o"),
+                                                                f"{n.postaffine_ang}_{idx}": AFFINE_DEFAULT_DICT.get("angle")
+                                                                }
         
         # Iterator Affines Set
         [node.setParms({key: value}) for key, value in affines_dict.items()]
@@ -7786,16 +7786,16 @@ class flam3h_iterator_utils
                     else node.setParms({f"{PRX_FF_PRM}{prm}": 0})
                         for prm in n.prm_FF_vars_all]
         # FF Affines
-        affines_dict: dict[str, hou.Vector2 | float | None] = {f"{PRX_FF_PRM}{n.preaffine_x}": AFFINE_DEFAULT_DICT.get("affine_x"),
-                                                                    f"{PRX_FF_PRM}{n.preaffine_y}": AFFINE_DEFAULT_DICT.get("affine_y"),
-                                                                    f"{PRX_FF_PRM}{n.preaffine_o}": AFFINE_DEFAULT_DICT.get("affine_o"),
-                                                                    f"{PRX_FF_PRM}{n.preaffine_ang}": AFFINE_DEFAULT_DICT.get("angle"),
-                                                                    f"{PRX_FF_PRM}{n.postaffine_do}": 0,
-                                                                    f"{PRX_FF_PRM}{n.postaffine_x}": AFFINE_DEFAULT_DICT.get("affine_x"),
-                                                                    f"{PRX_FF_PRM}{n.postaffine_y}": AFFINE_DEFAULT_DICT.get("affine_y"),
-                                                                    f"{PRX_FF_PRM}{n.postaffine_o}": AFFINE_DEFAULT_DICT.get("affine_o"),
-                                                                    f"{PRX_FF_PRM}{n.postaffine_ang}": AFFINE_DEFAULT_DICT.get("angle")
-                                                                    }
+        affines_dict: dict[str, hou.Vector2 | float | None] = { f"{PRX_FF_PRM}{n.preaffine_x}": AFFINE_DEFAULT_DICT.get("affine_x"),
+                                                                f"{PRX_FF_PRM}{n.preaffine_y}": AFFINE_DEFAULT_DICT.get("affine_y"),
+                                                                f"{PRX_FF_PRM}{n.preaffine_o}": AFFINE_DEFAULT_DICT.get("affine_o"),
+                                                                f"{PRX_FF_PRM}{n.preaffine_ang}": AFFINE_DEFAULT_DICT.get("angle"),
+                                                                f"{PRX_FF_PRM}{n.postaffine_do}": 0,
+                                                                f"{PRX_FF_PRM}{n.postaffine_x}": AFFINE_DEFAULT_DICT.get("affine_x"),
+                                                                f"{PRX_FF_PRM}{n.postaffine_y}": AFFINE_DEFAULT_DICT.get("affine_y"),
+                                                                f"{PRX_FF_PRM}{n.postaffine_o}": AFFINE_DEFAULT_DICT.get("affine_o"),
+                                                                f"{PRX_FF_PRM}{n.postaffine_ang}": AFFINE_DEFAULT_DICT.get("angle")
+                                                                }
         # FF Affines Set
         [node.setParms({key: value}) for key, value in affines_dict.items()]
         
