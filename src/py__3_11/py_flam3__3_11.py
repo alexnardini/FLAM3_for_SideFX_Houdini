@@ -153,6 +153,7 @@ FLAM3H_ITERATORS_TAB = "f_flam3h"
 # Default affine values
 AFFINE_DEFAULTS: dict[str, hou.Vector2 | float] = {"affine_x": hou.Vector2((1.0, 0.0)), "affine_y": hou.Vector2((0.0, 1.0)), "affine_o": hou.Vector2((0.0, 0.0)), "angle": float(0.0)} # X, Y, O, ANGLE
 AFFINE_IDENT: list = [1.0, 0.0, 0.0, 1.0, 0.0, 0.0]
+AFFINE_DEFAULT_VALS: list = [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]
 
 # FF parametric parameter's prefixes
 # FF posses two sets of parametric variations parameters, one for the VAR named "VARS" and one for the PRE and POST, named "PP: VARS"
@@ -1319,13 +1320,13 @@ class flam3h_scripts
         prm_list_post_affine: tuple = flam3h_iterator().sec_postAffine
         keyframes: list = [[item for sublist in k for item in sublist] for k in [[[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id + 1}")] if prm_list_post_affine[1:][idx][1] else [1 if len(node.parm(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").keyframes()) else 0] for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]]
         collect: list = [[node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").eval() if prm_list_post_affine[1:][idx][1] else node.parm(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").eval() for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]
-        [node.setParms({f"{prm_list_post_affine[0][0]}{id + 1}": 0}) if node.parm(f"{prm_list_post_affine[0][0]}{id + 1}").eval() and 1 not in keyframes[id] and affine == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0] else ... for id, affine in enumerate(collect)] # type: ignore
+        [node.setParms({f"{prm_list_post_affine[0][0]}{id + 1}": 0}) if node.parm(f"{prm_list_post_affine[0][0]}{id + 1}").eval() and 1 not in keyframes[id] and affine == AFFINE_DEFAULT_VALS else ... for id, affine in enumerate(collect)] # type: ignore
         
         # FF
         prm_list_post_affine_FF: tuple = flam3h_iterator_FF().sec_postAffine_FF
         keyframes: list = [item for sublist in [[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}")] if prm_list_post_affine_FF[1:][idx][1] else [1 if len(node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_post_affine_FF[1:]))] for item in sublist]
         collect: list = [node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() if prm_list_post_affine_FF[1:][idx][1] else node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() for idx in range(len(prm_list_post_affine_FF[1:]))]
-        if node.parm(f"{prm_list_post_affine_FF[0][0]}").eval() and 1 not in keyframes and collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]:
+        if node.parm(f"{prm_list_post_affine_FF[0][0]}").eval() and 1 not in keyframes and collect == AFFINE_DEFAULT_VALS:
             node.setParms({f"{prm_list_post_affine_FF[0][0]}": 0}) # type: ignore
 
 
@@ -4795,7 +4796,7 @@ class flam3h_iterator_utils
         if post:
             keyframes: list = [item for sublist in [[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}")] if prm_list_affine[1:][idx][1] else [1 if len(node.parm(f"{prm_list_affine[1:][idx][0]}{id}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
             collect: list = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}").eval() if prm_list_affine[1:][idx][1] else node.parm(f"{prm_list_affine[1:][idx][0]}{id}").eval() for idx in range(len(prm_list_affine[1:]))]
-            if 1 not in keyframes and collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]:
+            if 1 not in keyframes and collect == AFFINE_DEFAULT_VALS:
                 node.setParms({f"{prm_list_affine[0][0]}{id}": 0}) # type: ignore
                 from_FLAM3H_NODE.setParms({f"{prm_list_affine[0][0]}{id_from}": 0}) # type: ignore
                 return True
@@ -4805,7 +4806,7 @@ class flam3h_iterator_utils
         else:
             keyframes: list = [item for sublist in [[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[idx][0]}{id}")] if prm_list_affine[idx][1] else [1 if len(node.parm(f"{prm_list_affine[idx][0]}{id}").keyframes()) else 0] for idx in range(len(prm_list_affine))] for item in sublist]
             collect: list = [node.parmTuple(f"{prm_list_affine[idx][0]}{id}").eval() if prm_list_affine[idx][1] else node.parm(f"{prm_list_affine[idx][0]}{id}").eval() for idx in range(len(prm_list_affine))]
-            if 1 not in keyframes and collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]:
+            if 1 not in keyframes and collect == AFFINE_DEFAULT_VALS:
                 return True
             else:
                 return False
@@ -4829,7 +4830,7 @@ class flam3h_iterator_utils
         if post:
             keyframes: list = [item for sublist in [[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}")] if prm_list_affine[1:][idx][1] else [1 if len(node.parm(f"{prm_list_affine[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
             collect: list = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}").eval() if prm_list_affine[1:][idx][1] else node.parm(f"{prm_list_affine[1:][idx][0]}").eval() for idx in range(len(prm_list_affine[1:]))]
-            if 1 not in keyframes and collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]:
+            if 1 not in keyframes and collect == AFFINE_DEFAULT_VALS:
                 node.setParms({f"{prm_list_affine[0][0]}": 0}) # type: ignore
                 from_FLAM3H_NODE.setParms({f"{prm_list_affine[0][0]}": 0}) # type: ignore
                 return True
@@ -4839,7 +4840,7 @@ class flam3h_iterator_utils
         else:
             keyframes: list = [item for sublist in [[1 if len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}")] if prm_list_affine[1:][idx][1] else [1 if len(node.parm(f"{prm_list_affine[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
             collect: list = [node.parmTuple(f"{prm_list_affine[idx][0]}").eval() if prm_list_affine[idx][1] else node.parm(f"{prm_list_affine[idx][0]}").eval() for idx in range(len(prm_list_affine))]
-            if 1 not in keyframes and collect == [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]:
+            if 1 not in keyframes and collect == AFFINE_DEFAULT_VALS:
                 return True
             else:
                 return False
