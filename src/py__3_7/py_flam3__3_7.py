@@ -8840,7 +8840,7 @@ class flam3h_palette_utils
         Returns:
             (list): return menu
         """
-        # self.node.updateParmStates() 
+        if not hou.isUIAvailable(): self.node.updateParmStates()
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
         else:
@@ -8918,7 +8918,7 @@ class flam3h_palette_utils
         Returns:
             (list): return menu
         """
-        # self.node.updateParmStates() 
+        if not hou.isUIAvailable(): self.node.updateParmStates()
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
         else:
@@ -14535,7 +14535,7 @@ class in_flame_utils
         Returns:
             (list): Return a menu
         """
-        # self.node.updateParmStates() 
+        if not hou.isUIAvailable(): self.node.updateParmStates()
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
         else:
@@ -14622,7 +14622,7 @@ class in_flame_utils
         Returns:
             (list): Return a menu
         """
-        # self.node.updateParmStates() 
+        if not hou.isUIAvailable(): self.node.updateParmStates()
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
         else:
