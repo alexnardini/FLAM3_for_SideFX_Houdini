@@ -5714,7 +5714,7 @@ class flam3h_iterator_utils
         """
         node = self.node
         
-        # This data get created inside: menu_T_simple(self, FF=False) -> list:
+        # This data get created inside: menu_T_simple(self, FF: bool = False) -> list:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
         data: Union[list, None] = node.cachedUserData('vars_menu_all_simple')
         if data is not None:
@@ -5741,7 +5741,7 @@ class flam3h_iterator_utils
             (list): return menu list
         """
         node = self.node
-        # This data get created inside: menu_T_simple(self, FF=False) -> list:
+        # This data get created inside: menu_T_simple(self, FF: bool = False) -> list:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
         data: Union[list, None] = node.cachedUserData('vars_menu_all_simple')
         if data is not None:
