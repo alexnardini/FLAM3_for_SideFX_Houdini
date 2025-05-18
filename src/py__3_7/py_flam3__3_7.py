@@ -4257,6 +4257,7 @@ class flam3h_iterator_utils
 * destroy_cachedUserData(node, data: str, must_exist: bool = False) -> None:
 * destroy_cachedUserData_all_f3h(node, data_name: str) -> None:
 * destroy_userData(node, data: str, must_exist: bool = False) -> None:
+* force_menu_var_update_FF(node: hou.SopNode) -> None:
 * menu_T_get_type_icon(w: float) -> str:
 * menu_T_PP_get_type_icon(w: float) -> str:
 
@@ -5174,6 +5175,25 @@ class flam3h_iterator_utils
             try: node.destroyUserData(data)
             except: pass
         else: node.destroyUserData(data)
+        
+    
+    @staticmethod
+    def force_menu_var_update_FF(node: hou.SopNode) -> None:
+        """Refresh/Force the iterator FF variation's menus to update.
+
+        Args:
+            (node): the FLAM3H node
+            
+        Returns:
+            (None):
+        """  
+        n = flam3h_iterator_prm_names()
+        prm_names: tuple = (f"{PRX_FF_PRM}{n.prevar_type_1}", 
+                            f"{PRX_FF_PRM}{n.var_type_1}",
+                            f"{PRX_FF_PRM}{n.var_type_2}",
+                            f"{PRX_FF_PRM}{n.postvar_type_1}",
+                            f"{PRX_FF_PRM}{n.postvar_type_2}")
+        [node.parm(name).pressButton() for name in prm_names]   
 
 
     @staticmethod
@@ -5421,8 +5441,8 @@ class flam3h_iterator_utils
             else:
                 # Fire messages
                 _MSG: str = f"\"XML_last_loaded\" user data: Failed"
-                print(f"{node.name()}: {_MSG}\n")
-
+                print(f"{node.name()}: {_MSG}\n")         
+    
 
     def refresh_iterator_vars_menu(self) -> None:
         """Refresh the iterator (FLAME and FF tabs) menus
@@ -5463,13 +5483,7 @@ class flam3h_iterator_utils
             self.destroy_cachedUserData(node, 'vars_menu_all_simple')
             
             # For some reasons the FF menus do not update so we force them to
-            n = flam3h_iterator_prm_names()
-            prm_names: tuple = (f"{PRX_FF_PRM}{n.prevar_type_1}", 
-                                f"{PRX_FF_PRM}{n.var_type_1}",
-                                f"{PRX_FF_PRM}{n.var_type_2}",
-                                f"{PRX_FF_PRM}{n.postvar_type_1}",
-                                f"{PRX_FF_PRM}{n.postvar_type_2}")
-            [node.parm(name).pressButton() for name in prm_names]
+            self.force_menu_var_update_FF(node)
             
             _MSG: str = "Iterator var menus: ICONS"
             flam3h_general_utils.flash_message(node, f"{_MSG}")
