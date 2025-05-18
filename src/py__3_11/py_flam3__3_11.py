@@ -5730,7 +5730,7 @@ class flam3h_iterator_utils
         if data is not None:
             return data
         else:
-            _ICONS_TOGGLE = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+            _ICONS_TOGGLE: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
             return (self.menu_T_simple, self.menu_T_ICON)[_ICONS_TOGGLE](FF)
 
     
@@ -5757,7 +5757,7 @@ class flam3h_iterator_utils
         if data is not None:
             return data
         else:
-            _ICONS_TOGGLE = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+            _ICONS_TOGGLE: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
             return (self.menu_T_simple, self.menu_T_PP_ICON)[_ICONS_TOGGLE](FF)
     
     
