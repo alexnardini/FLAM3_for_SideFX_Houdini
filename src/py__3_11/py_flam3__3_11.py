@@ -5,7 +5,7 @@ __author__ = "F stands for liFe ( made in Italy )"
 __copyright__ = "Copyright 2021, © F stands for liFe"
 
 __license__ = "GPL"
-__version__ = "1.8.33"
+__version__ = "1.8.35"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
