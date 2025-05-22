@@ -1699,7 +1699,6 @@ _More small things:_
 <br>
 
 
-### <ins>From v1.3.96</ins> ###
 ### [<ins>From v1.3.96</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.96) ###
 
 - **Fix**: When the IN tab's "force iterations on load" toggle was ON, changing the iterations number was not updating the IN tab "iterations on Load" value. It is now fixed.
