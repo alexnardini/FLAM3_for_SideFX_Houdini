@@ -4105,7 +4105,7 @@ MENU_DENSITY_XFVIZ_ON: list = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon
 MENU_DENSITY_XFVIZ_ON_SOLO: list = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSOLOSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
 # This is now handled from inside Houdini # MENU_DENSITY_OFF: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]...', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]1 Billion']
 MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
-MENU_PRESETS_EMPTY_HIDDEN: list = [-1, '  Empty     ']
+MENU_PRESETS_EMPTY_HIDDEN: list = [-1, '']
 MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
 MENU_ZERO_ITERATORS_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
 MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  Invalid file path     ']
@@ -6155,68 +6155,73 @@ class flam3h_iterator_utils
         Returns:
             (list): return menu list
         """    
-        menu: list= []
         
-        node = self.node
-        id: int = self.kwargs['script_multiparm_index']
-        idx: str = str(id)
+        if self.node.parmTuple(FLAM3H_ITERATORS_TAB).eval() != (0,):
+            return MENU_PRESETS_EMPTY_HIDDEN
         
-        if self.exist_user_data(node):
-            node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
-        
-        # Update data for copy/paste iterator's methods in case of Undos.
-        from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
-        
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
-        with hou.undos.disabler(): # type: ignore
+        else:
+            menu: list= []
             
-            if mp_id_from is not None:
-                assert from_FLAM3H_NODE is not None
+            node = self.node
+            id: int = self.kwargs['script_multiparm_index']
+            idx: str = str(id)
+            
+            if self.exist_user_data(node):
+                node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+            
+            # Update data for copy/paste iterator's methods in case of Undos.
+            from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
+            
+            # This undo's disabler is needed to make the undo work. They work best in H20.5
+            with hou.undos.disabler(): # type: ignore
                 
-                idx_from: str = str(mp_id_from)
-                
-                prm_selmem = node.parm(f"selmem_{idx}")
-                if prm_selmem.eval() > 0:
-                    node.setParms({f"prmpastesel_{idx}": 0})
-                    prm_selmem.set(0)
-                    
-                # Menu entrie sections bookmark icon
-                active: int = from_FLAM3H_NODE.parm(f"vactive_{idx_from}").eval()
-                weight: float = from_FLAM3H_NODE.parm(f"iw_{idx_from}").eval()
-                if active and weight > 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE
-                elif active and weight == 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
-                else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
-                
-                # Build menu
-                if node == from_FLAM3H_NODE and id == mp_id_from:
-                    menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED\n-> Select a different iterator number or a different FLAM3H node to paste its values.", 1,"" ]
-                elif node == from_FLAM3H_NODE:
-                    path: str = f"{_ICON}  {idx_from}"
-                    menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
-                else:
+                if mp_id_from is not None:
                     assert from_FLAM3H_NODE is not None
-                    path: str = f"{_ICON}  .../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
-                    menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
-                
-                return menu
-            
-            else:
-                if isDELETED: return MENU_ITER_COPY_PASTE_DELETED_MARKED
-                else:
-                    if from_FLAM3H_NODE is not None:
-                        assert from_FLAM3H_NODE is not None
-                        _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
-                        __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
-                        if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
-                            menu: list = MENU_ITER_COPY_PASTE_REMOVED
-                        elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
-                            path: str = f".../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}"
-                            menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  REMOVED: The marked iterator has been removed from node: {path}\n-> Mark an existing iterator instead.", 1, "" ]
-                        else:
-                            menu: list = MENU_ITER_COPY_PASTE_EMPTY
-                        return menu
                     
-                    else: return MENU_ITER_COPY_PASTE_EMPTY
+                    idx_from: str = str(mp_id_from)
+                    
+                    prm_selmem = node.parm(f"selmem_{idx}")
+                    if prm_selmem.eval() > 0:
+                        node.setParms({f"prmpastesel_{idx}": 0})
+                        prm_selmem.set(0)
+                        
+                    # Menu entrie sections bookmark icon
+                    active: int = from_FLAM3H_NODE.parm(f"vactive_{idx_from}").eval()
+                    weight: float = from_FLAM3H_NODE.parm(f"iw_{idx_from}").eval()
+                    if active and weight > 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE
+                    elif active and weight == 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
+                    else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
+                    
+                    # Build menu
+                    if node == from_FLAM3H_NODE and id == mp_id_from:
+                        menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED\n-> Select a different iterator number or a different FLAM3H node to paste its values.", 1,"" ]
+                    elif node == from_FLAM3H_NODE:
+                        path: str = f"{_ICON}  {idx_from}"
+                        menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                    else:
+                        assert from_FLAM3H_NODE is not None
+                        path: str = f"{_ICON}  .../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
+                        menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                    
+                    return menu
+                
+                else:
+                    if isDELETED: return MENU_ITER_COPY_PASTE_DELETED_MARKED
+                    else:
+                        if from_FLAM3H_NODE is not None:
+                            assert from_FLAM3H_NODE is not None
+                            _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+                            __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+                            if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
+                                menu: list = MENU_ITER_COPY_PASTE_REMOVED
+                            elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
+                                path: str = f".../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}"
+                                menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  REMOVED: The marked iterator has been removed from node: {path}\n-> Mark an existing iterator instead.", 1, "" ]
+                            else:
+                                menu: list = MENU_ITER_COPY_PASTE_EMPTY
+                            return menu
+                        
+                        else: return MENU_ITER_COPY_PASTE_EMPTY
 
     
     def menu_copypaste_FF(self) -> list:
@@ -6232,38 +6237,43 @@ class flam3h_iterator_utils
         Returns:
             (list): return menu list
         """    
-        node = self.node
         
-        # This is to make sure the hou.session's data is at least initialized.
-        self.flam3h_init_hou_session_ff_data(node)
+        if self.node.parmTuple(FLAM3H_ITERATORS_TAB).eval() != (1,):
+            return MENU_PRESETS_EMPTY_HIDDEN
         
-        # Update data for FF copy/paste iterator's methods in case of Undos.
-        from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
-
-        if from_FLAM3H_NODE_FF_CHECK is not None:
-
-            flam3node_FF: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+        else:
+            node = self.node
+            
+            # This is to make sure the hou.session's data is at least initialized.
+            self.flam3h_init_hou_session_ff_data(node)
+            
+            # Update data for FF copy/paste iterator's methods in case of Undos.
+            from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
             
             # This undo's disabler is needed to make the undo work. They work best in H20.5
             with hou.undos.disabler(): # type: ignore
-            
-                if node == flam3node_FF: return MENU_FF_COPY_PASTE_SELECT
+
+                if from_FLAM3H_NODE_FF_CHECK is not None:
+
+                    flam3node_FF: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+                    
+                    if node == flam3node_FF: return MENU_FF_COPY_PASTE_SELECT
+                    else:
+                        assert isinstance(flam3node_FF, hou.SopNode)
+                        # Menu entrie sections bookmark icon
+                        active: int = flam3node_FF.parm(PREFS_PVT_DOFF).eval()
+                        _ICON: str = (FLAM3H_ICON_COPY_PASTE_FF_ENTRIE_OFF, FLAM3H_ICON_COPY_PASTE_FF_ENTRIE)[active]
+                        
+                        prm_selmem = node.parm(f"{PRX_FF_PRM}selmem")
+                        if prm_selmem.eval() > 0:
+                            node.setParms({f"{PRX_FF_PRM}prmpastesel": 0})
+                            prm_selmem.set(0)
+                        
+                        path: str = f"{_ICON}  .../{flam3node_FF.parent()}/{flam3node_FF.name()}.FF"
+                        return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  All", 2, f"{path}:  PRE", 3, f"{path}:  VAR", 4, f"{path}:  POST", 5, f"{path}:  pre affine", 6, f"{path}:  post affine", 7, "" ]
+                
                 else:
-                    assert isinstance(flam3node_FF, hou.SopNode)
-                    # Menu entrie sections bookmark icon
-                    active: int = flam3node_FF.parm(PREFS_PVT_DOFF).eval()
-                    _ICON: str = (FLAM3H_ICON_COPY_PASTE_FF_ENTRIE_OFF, FLAM3H_ICON_COPY_PASTE_FF_ENTRIE)[active]
-                    
-                    prm_selmem = node.parm(f"{PRX_FF_PRM}selmem")
-                    if prm_selmem.eval() > 0:
-                        node.setParms({f"{PRX_FF_PRM}prmpastesel": 0})
-                        prm_selmem.set(0)
-                    
-                    path: str = f"{_ICON}  .../{flam3node_FF.parent()}/{flam3node_FF.name()}.FF"
-                    return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  All", 2, f"{path}:  PRE", 3, f"{path}:  VAR", 4, f"{path}:  POST", 5, f"{path}:  pre affine", 6, f"{path}:  post affine", 7, "" ]
-        
-        else:
-            return MENU_FF_COPY_PASTE_EMPTY
+                    return MENU_FF_COPY_PASTE_EMPTY
         
         
     def prm_paste_update_for_undo(self, node: hou.SopNode) -> tuple[Union[hou.SopNode, None], Union[int, None], bool]:
@@ -8840,7 +8850,7 @@ class flam3h_palette_utils
         Returns:
             (list): return menu
         """
-        if not hou.isUIAvailable(): self.node.updateParmStates()
+        if hou.isUIAvailable() is False: self.node.updateParmStates()
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
         else:
@@ -8918,7 +8928,7 @@ class flam3h_palette_utils
         Returns:
             (list): return menu
         """
-        if not hou.isUIAvailable(): self.node.updateParmStates()
+        if hou.isUIAvailable() is False: self.node.updateParmStates()
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
         else:
@@ -14535,7 +14545,7 @@ class in_flame_utils
         Returns:
             (list): Return a menu
         """
-        if not hou.isUIAvailable(): self.node.updateParmStates()
+        if hou.isUIAvailable() is False: self.node.updateParmStates()
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
         else:
@@ -14622,7 +14632,7 @@ class in_flame_utils
         Returns:
             (list): Return a menu
         """
-        if not hou.isUIAvailable(): self.node.updateParmStates()
+        if hou.isUIAvailable() is False: self.node.updateParmStates()
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
         else:
