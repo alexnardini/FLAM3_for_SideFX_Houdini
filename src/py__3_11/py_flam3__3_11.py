@@ -6171,20 +6171,21 @@ class flam3h_iterator_utils
             return MENU_PRESETS_EMPTY_HIDDEN
         
         else:
-            menu: list= []
-            
-            node = self.node
-            id: int = self.kwargs['script_multiparm_index']
-            idx: str = str(id)
-            
-            if self.exist_user_data(node):
-                node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
-            
-            # Update data for copy/paste iterator's methods in case of Undos.
-            from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
             
             # This undo's disabler is needed to make the undo work. They work best in H20.5
             with hou.undos.disabler(): # type: ignore
+                
+                menu: list= []
+                
+                node = self.node
+                id: int = self.kwargs['script_multiparm_index']
+                idx: str = str(id)
+                
+                if self.exist_user_data(node):
+                    node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
+                
+                # Update data for copy/paste iterator's methods in case of Undos.
+                from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
                 
                 if mp_id_from is not None:
                     assert from_FLAM3H_NODE is not None
@@ -6253,16 +6254,15 @@ class flam3h_iterator_utils
             return MENU_PRESETS_EMPTY_HIDDEN
         
         else:
-            node = self.node
-            
-            # This is to make sure the hou.session's data is at least initialized.
-            self.flam3h_init_hou_session_ff_data(node)
-            
-            # Update data for FF copy/paste iterator's methods in case of Undos.
-            from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
-            
+
             # This undo's disabler is needed to make the undo work. They work best in H20.5
             with hou.undos.disabler(): # type: ignore
+                
+                node = self.node
+                # This is to make sure the hou.session's data is at least initialized.
+                self.flam3h_init_hou_session_ff_data(node)
+                # Update data for FF copy/paste iterator's methods in case of Undos.
+                from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
 
                 if from_FLAM3H_NODE_FF_CHECK is not None:
 
