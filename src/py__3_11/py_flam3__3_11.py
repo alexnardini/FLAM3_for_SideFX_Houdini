@@ -14942,13 +14942,11 @@ class in_flame_utils
         
         # FF
         ####################################################
+        flam3h_iterator_utils(self.kwargs).flam3h_reset_FF()
         if apo_data.finalxform is not None:
-            flam3h_iterator_utils(self.kwargs).flam3h_reset_FF()
             flam3h_general_utils.private_prm_set(node, PREFS_PVT_DOFF, 1)
-            # Set FF
             self.in_flam3h_set_iterators(1, node, apo_data, preset_id)
         else:
-            flam3h_iterator_utils(self.kwargs).flam3h_reset_FF()
             flam3h_general_utils.private_prm_set(node, PREFS_PVT_DOFF, 0)
 
 
