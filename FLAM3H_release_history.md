@@ -10,6 +10,18 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.36</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.36) ###
+
+- Copy/Paste data menus are now fully evaluated only when their tab is visible improving the UI performance a little.
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.35</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.35) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
