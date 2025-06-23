@@ -13426,20 +13426,24 @@ class in_flame_utils
         na: str = 'n/a'
         
         size: str = f"{OUT_XML_FLAME_RESOLUTION.capitalize()}: {na}"
-        if apo_data.out_size[preset_id]:
-            size = f"{OUT_XML_FLAME_RESOLUTION.capitalize()}: {apo_data.out_size[preset_id]}"
+        size_val = apo_data.out_size[preset_id]
+        if size_val:
+            size = f"{OUT_XML_FLAME_RESOLUTION.capitalize()}: {size_val}"
             
         center: str = f"{OUT_XML_FLAME_CENTER.capitalize()}: {na}"
-        if apo_data.out_center[preset_id]:
-            center = f"{OUT_XML_FLAME_CENTER.capitalize()}: {apo_data.out_center[preset_id]}"
+        center_val = apo_data.out_center[preset_id]
+        if center_val:
+            center = f"{OUT_XML_FLAME_CENTER.capitalize()}: {center_val}"
             
         rotate: str = f"{OUT_XML_FLAME_ROTATE.capitalize()}: {na}"
-        if apo_data.out_rotate[preset_id]:
-            rotate = f"{OUT_XML_FLAME_ROTATE.capitalize()}: {apo_data.out_rotate[preset_id]}"
+        rotate_val = apo_data.out_rotate[preset_id]
+        if rotate_val:
+            rotate = f"{OUT_XML_FLAME_ROTATE.capitalize()}: {rotate_val}"
 
         scale: str = f"{OUT_XML_FLAME_SCALE.capitalize()}: {na}"
-        if apo_data.out_scale[preset_id]:
-            scale = f"{OUT_XML_FLAME_SCALE.capitalize()}: {apo_data.out_scale[preset_id]}"
+        scale_val = apo_data.out_scale[preset_id]
+        if scale_val:
+            scale = f"{OUT_XML_FLAME_SCALE.capitalize()}: {scale_val}"
         
         build: tuple = (size, nl,
                         center, nl,
@@ -13467,28 +13471,34 @@ class in_flame_utils
         na: str = 'n/a'
         
         quality: str = f"{OUT_XML_FLAME_QUALITY.capitalize()}: {na}"
-        if apo_data.out_quality[preset_id]:
-            quality = f"{OUT_XML_FLAME_QUALITY.capitalize()}: {apo_data.out_quality[preset_id]}"
+        quality_val = apo_data.out_quality[preset_id]
+        if quality_val:
+            quality = f"{OUT_XML_FLAME_QUALITY.capitalize()}: {quality_val}"
 
         brightness: str = f"{OUT_XML_FLAME_BRIGHTNESS.capitalize()}: {na}"
-        if apo_data.out_brightness[preset_id]:
-            brightness = f"{OUT_XML_FLAME_BRIGHTNESS.capitalize()}: {apo_data.out_brightness[preset_id]}"
+        brightness_val = apo_data.out_brightness[preset_id]
+        if brightness_val:
+            brightness = f"{OUT_XML_FLAME_BRIGHTNESS.capitalize()}: {brightness_val}"
             
         gamma: str = f"{OUT_XML_FLAME_GAMMA.capitalize()}: {na}"
-        if apo_data.out_gamma[preset_id]:
-            gamma = f"{OUT_XML_FLAME_GAMMA.capitalize()}: {apo_data.out_gamma[preset_id]}"
+        gamma_val = apo_data.out_gamma[preset_id]
+        if gamma_val:
+            gamma = f"{OUT_XML_FLAME_GAMMA.capitalize()}: {gamma_val}"
             
         highlight: str = f"{' '.join(OUT_XML_FLAME_POWER.split('_')).capitalize()}: {na}"
-        if apo_data.out_highlight_power[preset_id]:
-            highlight = f"{' '.join(OUT_XML_FLAME_POWER.split('_')).capitalize()}: {apo_data.out_highlight_power[preset_id]}"
+        highlight_val = apo_data.out_highlight_power[preset_id]
+        if highlight_val:
+            highlight = f"{' '.join(OUT_XML_FLAME_POWER.split('_')).capitalize()}: {highlight_val}"
             
         log_k2: str = f"{' '.join(OUT_XML_FLAME_K2.split('_')).capitalize()}: {na}"
-        if apo_data.out_logscale_k2[preset_id]:
-            log_k2 = f"{' '.join(OUT_XML_FLAME_K2.split('_')).capitalize()}: {apo_data.out_logscale_k2[preset_id]}"
+        log_k2_val = apo_data.out_logscale_k2[preset_id]
+        if log_k2_val:
+            log_k2 = f"{' '.join(OUT_XML_FLAME_K2.split('_')).capitalize()}: {log_k2_val}"
             
         vibrancy: str = f"{OUT_XML_FLAME_VIBRANCY.capitalize()}: {na}"
-        if apo_data.out_vibrancy[preset_id]:
-            vibrancy = f"{OUT_XML_FLAME_VIBRANCY.capitalize()}: {apo_data.out_vibrancy[preset_id]}"
+        vibrancy_val = apo_data.out_vibrancy[preset_id]
+        if vibrancy_val:
+            vibrancy = f"{OUT_XML_FLAME_VIBRANCY.capitalize()}: {vibrancy_val}"
         
         cc_curves: list = []
         if apo_data.out_curve_overall[preset_id] and apo_data.out_curve_overall[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Overall')
