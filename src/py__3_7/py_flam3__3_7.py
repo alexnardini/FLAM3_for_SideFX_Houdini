@@ -5367,7 +5367,6 @@ class flam3h_iterator_utils
             (self):
             node(hou.SopNode): The FLAM3H node.
             f3h_all(bool): Perform this for all FLAM3H nodes in the scene.
-            xml_last(bool): Default to: True. Update the "XML_last_loaded" node user data and its In Flame stats.
             
         Returns:
             (None):
@@ -11469,6 +11468,10 @@ class in_flame
         return self._out_highlight_power
     
     @property
+    def out_logscale_k2(self):
+        return self._out_logscale_k2
+    
+    @property
     def out_vibrancy(self):
         return self._out_vibrancy
     
@@ -13451,8 +13454,8 @@ class in_flame_utils
             highlight = f"{' '.join(OUT_XML_FLAME_POWER.split('_')).capitalize()}: {apo_data.out_highlight_power[preset_id]}"
             
         log_k2: str = f"{' '.join(OUT_XML_FLAME_K2.split('_')).capitalize()}: {na}"
-        if apo_data._out_logscale_k2[preset_id]:
-            log_k2 = f"{' '.join(OUT_XML_FLAME_K2.split('_')).capitalize()}: {apo_data._out_logscale_k2[preset_id]}"
+        if apo_data.out_logscale_k2[preset_id]:
+            log_k2 = f"{' '.join(OUT_XML_FLAME_K2.split('_')).capitalize()}: {apo_data.out_logscale_k2[preset_id]}"
             
         vibrancy: str = f"{OUT_XML_FLAME_VIBRANCY.capitalize()}: {na}"
         if apo_data.out_vibrancy[preset_id]:
