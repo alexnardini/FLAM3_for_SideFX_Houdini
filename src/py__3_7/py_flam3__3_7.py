@@ -7839,7 +7839,7 @@ class flam3h_iterator_utils
         # collect all xaos
         val: list = out_flame_utils.out_xaos_collect(node, iter_count, flam3h_iterator_prm_names().xaos)
         # fill missing weights if any
-        fill_all_xaos: list = [np_pad(item, (0, iter_count-len(item)), 'constant', constant_values = 1).tolist() for item in val]
+        fill_all_xaos: list = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
         
         # convert all xaos into array of strings
         xaos_str: list = [[str(item) for item in xaos] for xaos in fill_all_xaos]
@@ -7857,7 +7857,7 @@ class flam3h_iterator_utils
         _idx = list(set(s_history - s_current))
         if _idx: idx_del_inbetween = int(_idx[0]) - 1
         # ADD: INBETWEEN get index : try
-        for mp in range(iter_count-1):
+        for mp in range(iter_count - 1):
             if mpmem[mp] == mpmem[mp + 1]:
                 idx_add_inbetween = mp
                 break
@@ -17185,7 +17185,7 @@ class out_flame_utils
             (tuple): the xaos TO values to write out.
         """
         val: list = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
-        fill: list = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values = 1).tolist() for item in val]
+        fill: list = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
         xaos_vactive: list = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
 
@@ -17200,7 +17200,7 @@ class out_flame_utils
             (tuple): the xaos FROM values transposed into xaos TO values to write out.
         """
         val: list = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
-        fill: list = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values = 1) for item in val]
+        fill: list = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1) for item in val]
         t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count)).tolist()).tolist()
         if mode:
             xaos_vactive: list = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
