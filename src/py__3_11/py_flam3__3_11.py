@@ -7858,7 +7858,7 @@ class flam3h_iterator_utils
         # collect all xaos
         val: list = out_flame_utils.out_xaos_collect(node, iter_count, flam3h_iterator_prm_names().xaos)
         # fill missing weights if any
-        fill_all_xaos: list = [np_pad(item, (0, iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
+        fill_all_xaos: list = [np_pad(item, (0, iter_count-len(item)), 'constant', constant_values = 1).tolist() for item in val]
         
         # convert all xaos into array of strings
         xaos_str: list = [[str(item) for item in xaos] for xaos in fill_all_xaos]
@@ -11401,7 +11401,7 @@ class in_flame
                     if iter_type is not None: _MSG: str = f"\t{sel_key} on iterator {iter_type}, have {affine_count} values. Expeted are: 6\n\t:Using 0.0(Zeros) for missing affine values."
                     else:_MSG: str = f"\t{sel_key} have {affine_count} values. Expeted are: 6\n\t:Using 0.0(Zeros) for missing affine values."
                     print(f"{_MSG}\n")
-                    return [hou.Vector2((tuple( np_pad(affine, (0, 6-min(6, affine_count)), 'constant', constant_values=0).tolist()[i:i + 2] ))) for i in (0, 2, 4)]
+                    return [hou.Vector2((tuple( np_pad(affine, (0, 6-min(6, affine_count)), 'constant', constant_values = 0).tolist()[i:i + 2] ))) for i in (0, 2, 4)]
             
             if sel_key is not None:
                 if iter_type is not None:
@@ -11762,7 +11762,7 @@ class in_flame
             palette_hsv_xml_list: str | list = self.flam3h_hsv[idx]
             if isinstance(palette_hsv_xml_list, str):
                 palette_hsv_xml_s: list = palette_hsv_xml_list.split()
-                if len(palette_hsv_xml_s) != 3: palette_hsv_xml_s: list = np_pad(palette_hsv_xml_s, (0, 3-min(3, len(palette_hsv_xml_s))), 'constant', constant_values=1).tolist()
+                if len(palette_hsv_xml_s) != 3: palette_hsv_xml_s: list = np_pad(palette_hsv_xml_s, (0, 3-min(3, len(palette_hsv_xml_s))), 'constant', constant_values = 1).tolist()
                 return in_flame_utils.in_util_typemaker(list(map(lambda x: float(x), palette_hsv_xml_s )))
             else:
                 return False
@@ -17214,7 +17214,7 @@ class out_flame_utils
             (tuple): the xaos TO values to write out.
         """
         val: list = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
-        fill: list = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values=1).tolist() for item in val]
+        fill: list = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values = 1).tolist() for item in val]
         xaos_vactive: list = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
         return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
 
@@ -17229,7 +17229,7 @@ class out_flame_utils
             (tuple): the xaos FROM values transposed into xaos TO values to write out.
         """
         val: list = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
-        fill: list = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values=1) for item in val]
+        fill: list = [np_pad(item, (0,self.iter_count-len(item)), 'constant', constant_values = 1) for item in val]
         t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count)).tolist()).tolist()
         if mode:
             xaos_vactive: list = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
