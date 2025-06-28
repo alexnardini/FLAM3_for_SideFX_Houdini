@@ -6253,7 +6253,7 @@ class flam3h_iterator_utils
                     
                     if node == flam3node_FF: return MENU_FF_COPY_PASTE_SELECT
                     else:
-                        assert isinstance(flam3node_FF, hou.SopNode)
+                        assert flam3node_FF is not None
                         # Menu entrie sections bookmark icon
                         active: int = flam3node_FF.parm(PREFS_PVT_DOFF).eval()
                         _ICON: str = (FLAM3H_ICON_COPY_PASTE_FF_ENTRIE_OFF, FLAM3H_ICON_COPY_PASTE_FF_ENTRIE)[active]
@@ -6427,7 +6427,7 @@ class flam3h_iterator_utils
             
             isDELETED = False
             try:
-                assert isinstance(from_FLAM3H_NODE, hou.SopNode)
+                assert from_FLAM3H_NODE is not None
                 from_FLAM3H_NODE.type()
             except:
                 from_FLAM3H_NODE_FF_CHECK = None
