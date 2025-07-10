@@ -2758,5 +2758,8 @@ _Will update once H20 release._
 - Fixed POST affine and faster first node instance creation time
 
 
+<br>
+<br>
 
-_ ...plus many more from when I first started and this project was not on GitHub yet._
+
+..._plus many more from when I first started and this project was not on GitHub yet._
