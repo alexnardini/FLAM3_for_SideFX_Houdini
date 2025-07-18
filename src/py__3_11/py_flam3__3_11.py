@@ -5866,7 +5866,7 @@ class flam3h_iterator_utils
             # For undos: compare old data_* against current data_*
             # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-            data_now: tuple =(  [node.parm(f'note_{idx + 1}').eval() for idx in range(iter_count)], 
+            data_now: tuple = ( [node.parm(f'note_{idx + 1}').eval() for idx in range(iter_count)], 
                                 [node.parm(f'vactive_{idx + 1}').eval() for idx in range(iter_count)], 
                                 [node.parm(f'iw_{idx + 1}').eval() for idx in range(iter_count)], 
                                 [node.parm(f'alpha_{idx + 1}').eval() for idx in range(iter_count)]
