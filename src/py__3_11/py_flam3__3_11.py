@@ -5112,6 +5112,7 @@ class flam3h_iterator_utils
         So far the cached user data names being used are:
         
         * iter_sel
+        * iter_sel_n
         * iter_sel_a
         * iter_sel_w
         * iter_sel_o
@@ -5779,11 +5780,16 @@ class flam3h_iterator_utils
         return [ 0,  f"{_ICON} Pre blur                   "] # 19 times \s
 
 
-    def menu_select_iterator_data(self) -> list:
+    def menu_select_iterator_data(self, data_now: tuple) -> list:
         """Build a menu of iterators using their states as bookmark icon
 
         Args:
             (self):
+            data_now(tuple): the required data collected into a tuple, each entrie is a list (as many elements as the iterators count inside each list):
+                * note (iterators names)
+                * active (iterators active)
+                * weight (iterators Weights)
+                * shader_opacity (iterators shader's opacity)
 
         Returns:
             (list): return menu list
@@ -5797,12 +5803,8 @@ class flam3h_iterator_utils
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             if iter_count:
                 
-                note: list = [node.parm(f'note_{idx + 1}').eval() for idx in range(iter_count)]
+                note, active, weight, shader_opacity = data_now
                 node.setCachedUserData('iter_sel_n', note)
-                
-                active: list = [node.parm(f'vactive_{idx + 1}').eval() for idx in range(iter_count)]
-                weight: list = [node.parm(f'iw_{idx + 1}').eval() for idx in range(iter_count)]
-                shader_opacity: list = [node.parm(f'alpha_{idx + 1}').eval() for idx in range(iter_count)]
                 node.setCachedUserData('iter_sel_a', active)
                 node.setCachedUserData('iter_sel_w', weight)
                 node.setCachedUserData('iter_sel_o', shader_opacity)
@@ -5864,14 +5866,18 @@ class flam3h_iterator_utils
             # For undos: compare old data_* against current data_*
             # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-            data_nawo_now: list = [[node.parm(f'note_{idx + 1}').eval() for idx in range(iter_count)], [node.parm(f'vactive_{idx + 1}').eval() for idx in range(iter_count)], [node.parm(f'iw_{idx + 1}').eval() for idx in range(iter_count)], [node.parm(f'alpha_{idx + 1}').eval() for idx in range(iter_count)]]
+            data_nawo_now: tuple =( [node.parm(f'note_{idx + 1}').eval() for idx in range(iter_count)], 
+                                    [node.parm(f'vactive_{idx + 1}').eval() for idx in range(iter_count)], 
+                                    [node.parm(f'iw_{idx + 1}').eval() for idx in range(iter_count)], 
+                                    [node.parm(f'alpha_{idx + 1}').eval() for idx in range(iter_count)]
+                                    )
             [self.destroy_cachedUserData(node, 'iter_sel') if node.cachedUserData('iter_sel') is not None and data != data_nawo_now[idx] else ... for idx, data in ((0, node.cachedUserData('iter_sel_n')), (1, node.cachedUserData('iter_sel_a')), (2, node.cachedUserData('iter_sel_w')), (3, node.cachedUserData('iter_sel_o')))]
             
             menu: list | None = node.cachedUserData('iter_sel')
             if menu is not None:
                 return menu
             else:
-                return self.menu_select_iterator_data()
+                return self.menu_select_iterator_data(data_nawo_now)
         
     
     def prm_select_iterator(self) -> None:
