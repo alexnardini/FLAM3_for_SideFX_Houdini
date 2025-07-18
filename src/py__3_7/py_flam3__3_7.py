@@ -5793,6 +5793,7 @@ class flam3h_iterator_utils
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             if iter_count:
                 
+                # Each one is a list as "data_now" is a tuple of lists
                 note, active, weight, shader_opacity = data_now
                 node.setCachedUserData('iter_sel_n', note)
                 node.setCachedUserData('iter_sel_a', active)
