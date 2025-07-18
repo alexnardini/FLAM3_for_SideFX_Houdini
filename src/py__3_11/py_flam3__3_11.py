@@ -382,6 +382,7 @@ class flam3h_iterator_prm_names:
         * flam3h_iterator_utils.iterator_post_affine_scale(self) -> None:
         * flam3h_iterator_utils.iterator_FF_affine_scale(self) -> None:
         * flam3h_iterator_utils.iterator_FF_post_affine_scale(self) -> None:
+        * flam3h_iterator_utils.menu_select_iterator(self) -> list:
         .
         are not using this class
         but have Houdini parameter's names hard coded inside in an attempt to try to speed up a tiny, tiny bit.
@@ -5867,11 +5868,7 @@ class flam3h_iterator_utils
             # For undos: compare old data_* against current data_*
             # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-            data_now: tuple = ( [node.parm(f'note_{idx + 1}').eval() for idx in range(iter_count)], 
-                                [node.parm(f'vactive_{idx + 1}').eval() for idx in range(iter_count)], 
-                                [node.parm(f'iw_{idx + 1}').eval() for idx in range(iter_count)], 
-                                [node.parm(f'alpha_{idx + 1}').eval() for idx in range(iter_count)]
-                                )
+            data_now: tuple = tuple([[node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha')])
             data_cached: tuple = (  (0, node.cachedUserData('iter_sel_n')), 
                                     (1, node.cachedUserData('iter_sel_a')), 
                                     (2, node.cachedUserData('iter_sel_w')), 
