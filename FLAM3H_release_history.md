@@ -10,6 +10,18 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.38</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.36) ###
+
+- **Fix**: Changing an iterator's name and then Undoing to the preview name was not updating the SYS tab select iterator menu entries list, it is now fixed.
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.36</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.36) ###
 
 - Copy/Paste data menus are now fully evaluated only when their tab is visible improving the UI performance a little.
@@ -2762,4 +2774,4 @@ _Will update once H20 release._
 <br>
 
 
-..._plus many more from when I first started and this project was not on GitHub yet._
+..._plus many more from when I first started and this project was not on GitHub yet_.

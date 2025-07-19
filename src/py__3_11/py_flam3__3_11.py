@@ -4,8 +4,9 @@ from __future__ import annotations
 __author__ = "F stands for liFe ( made in Italy )"
 __copyright__ = "Copyright 2021, © F stands for liFe"
 
+__py_version__ = "3.11.7"
 __license__ = "GPL"
-__version__ = "1.8.36"
+__version__ = "1.8.38"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
@@ -46,7 +47,7 @@ from inspect import cleandoc as i_cleandoc
 
     Title:      FLAM3H. SideFX Houdini FLAM3: PYTHON
     Author:     Alessandro Nardini
-    date:       April 2025, Last revised April 2025 (cloned from: py_flam3__3_7.py)
+    date:       April 2025, Last revised July 2025 (cloned from: py_flam3__3_7.py)
 
     Name:       PY_FLAM3__3_11 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
 
@@ -4295,7 +4296,7 @@ class flam3h_iterator_utils
 * menu_T_simple(self, FF: bool = False) -> list:
 * menu_T(self, FF: bool = False) -> list:
 * menu_T_pb(self) -> list:
-* menu_select_iterator_data(self) -> list:
+* menu_select_iterator_data(self, data_now: tuple) -> list:
 * menu_select_iterator(self) -> list:
 * prm_select_iterator(self) -> None:
 * flam3h_paste_reset_hou_session_data(self, hipLoad: bool = False) -> None:
@@ -5786,11 +5787,11 @@ class flam3h_iterator_utils
 
         Args:
             (self):
-            data_now(tuple): the required data collected into a tuple, each entrie is a list (as many elements as the iterators count inside each list):
-                * note (iterators names)
-                * active (iterators active)
-                * weight (iterators Weights)
-                * shader_opacity (iterators shader's opacity)
+            data_now(tuple): the required data collected into a tuple, each entrie is a list (as many elements as the iterators count inside each list). The order matter:
+                * 0: note (iterators names)
+                * 1: active (iterators active)
+                * 2: weight (iterators Weights)
+                * 3: shader_opacity (iterators shader's opacity)
 
         Returns:
             (list): return menu list
@@ -5806,10 +5807,8 @@ class flam3h_iterator_utils
                 
                 # Each one is a list as "data_now" is a tuple of lists
                 note, active, weight, shader_opacity = data_now
-                node.setCachedUserData('iter_sel_n', note)
-                node.setCachedUserData('iter_sel_a', active)
-                node.setCachedUserData('iter_sel_w', weight)
-                node.setCachedUserData('iter_sel_o', shader_opacity)
+                data_now_names = ('iter_sel_n', 'iter_sel_a', 'iter_sel_w', 'iter_sel_o') # The order matter
+                [node.setCachedUserData(data_now_names[idx], data) for idx, data in enumerate(data_now)]
                 
                 # This definition probably can be made more light-weight for this particular case
                 from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
@@ -9919,7 +9918,7 @@ class flam3h_about_utils
         flam3h_cvex_version: str = f"CODE: cvex H19.x.x"
         hou_version : int = flam3h_general_utils.houdini_version()
         if hou_version >= 19: flam3h_cvex_version = f"CODE: cvex H{str(hou_version)}.x.x"
-        flam3h_python_version: str = f"py 3.11.7"
+        flam3h_python_version: str = f"py {__py_version__}"
         flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{__copyright__}"
         
@@ -17453,7 +17452,7 @@ class out_flame_utils
                 OUT_XML_FLAME_CENTER: f3r.flame_center,
                 OUT_XML_FLAME_SCALE: f3r.flame_scale,
                 OUT_XML_FLAME_ROTATE: f3r.flame_rotate,
-                OUT_XML_FLAME_BG: '0 0 0',
+                OUT_XML_FLAME_BG: '0 0 0', # This probably will be made available to the end user at some point, eventually. For now always a black background.
                 OUT_XML_FLAME_SUPERSAMPLE: '2',
                 OUT_XML_FLAME_FILTER: '0.5',
                 OUT_XML_FLAME_QUALITY: f3r.flame_quality,
