@@ -6,7 +6,7 @@ __copyright__ = "Copyright 2021, © F stands for liFe"
 
 __py_version__ = "3.7.13"
 __license__ = "GPL"
-__version__ = "1.8.38"
+__version__ = "1.8.39"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
@@ -10219,7 +10219,7 @@ If you type a negative number, it will be reset to a value of: 1"""
 
         if self.kwargs["ctrl"]:
             if hou.isUIAvailable():
-                hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severit = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H: XAOS usage infos", details = None, details_label = None, details_expanded = False) # type: ignore
+                hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H: XAOS usage infos", details = None, details_label = None, details_expanded = False) # type: ignore
 
         else:
             # current node

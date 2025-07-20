@@ -10,6 +10,18 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.39</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.39) ###
+
+- **Fix**: The Xaos Ui display info message had a typo in one of its keyword arguments causing an error when trying to display it.
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.38</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.38) ###
 
 - **Fix**: Changing an iterator's name and then Undoing to the preview name was not updating the SYS tab select iterator menu entries list, it is now fixed.
