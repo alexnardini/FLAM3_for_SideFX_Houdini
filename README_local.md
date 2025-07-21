@@ -240,13 +240,15 @@ Please be sure to check out their gallery:
 
 ## References
 
-Reference A: [**Github::FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
+Reference A: [**Github :: FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
 
-Reference B: [**Github::Fractorium from Matt Feemster**](https://bitbucket.org/mfeemster/fractorium/src/master/)
+Reference B: [**Github :: Fractorium from Matt Feemster**](https://bitbucket.org/mfeemster/fractorium/src/master/)
 
-Reference C: [**Github::Apophysis 7x**](https://github.com/xyrus02/apophysis-7x)
+Reference C: [**Github :: Apophysis 7x**](https://github.com/xyrus02/apophysis-7x)
 
-Reference D: [**PDF::The Fractal Flame Algorithm publication**](https://flam3.com/flame_draves.pdf)
+Reference D: [**PDF :: The Fractal Flame Algorithm publication**](https://flam3.com/flame_draves.pdf)
+
+Reference E: [**WEB :: A more accurate Elliptic variation from Claude Heiland-Allen**](https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html)
 
 
 ## Example videos
