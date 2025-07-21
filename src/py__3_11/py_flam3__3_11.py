@@ -16620,7 +16620,7 @@ class out_flame_utils
         Returns:
             (None):
         """  
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. They work best in H20.5 (probably not needed anymore)
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
@@ -16639,7 +16639,7 @@ class out_flame_utils
         Returns:
             (None):
         """  
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. They work best in H20.5 (probably not needed anymore)
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
@@ -17228,7 +17228,7 @@ class out_flame_utils
         return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
 
 
-    def out_xf_xaos_from(self, mode: int=0) -> tuple:
+    def out_xf_xaos_from(self, mode: int = 0) -> tuple:
         """Export in a tuple[str] the xaos FROM values to write out.
         
         Args:
