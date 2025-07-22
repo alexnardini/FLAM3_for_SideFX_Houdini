@@ -1045,7 +1045,7 @@ w [Icon:TOP/xmlinput]:
     TIP:
         #display: orange
         
-        In order to lower the cost of the computation, it is preferable to set a variation weight to zero rather than retaining it at extremely low values if their impact is negligible.
+        In order to lower the cost of the computation, it is preferable to set a variation weight to *`0`*(Zero) rather than retaining it at extremely low values if their impact is negligible.
         The variation will be fully disregarded at zero.
 
 :box:
@@ -1058,7 +1058,7 @@ post [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     Enable post affine.
 
 
-affine Scale:
+pre affine Scale:
     #id: FLAME
 
     Scale the affine values (*`X`* _and_ *`Y`*) by an amount, with a value of *`1`* (_100%_ -> _no scale_) being the default.
@@ -1093,7 +1093,7 @@ copy post affine values:
     - ((ALT)) + ((LMB)) to copy only the affine *`Rotation angle`* value.
 
 
-affine [Icon:TOP/xmlinput]:
+pre affine [Icon:TOP/xmlinput]:
     #id: FLAME
 
     Affine transformation's coefficients for the current iterator (_xform_).
@@ -1128,14 +1128,14 @@ affine [Icon:TOP/xmlinput]:
     NOTE:
         The resulting affine coefficients after the rotation parameter is applied are not updated in the UI but passed directly internally to the algorithm.
 
-affine Rot [Icon:TOP/xmlinput]:
+pre affine Rot [Icon:TOP/xmlinput]:
     #id: FLAME
     Rotate affine in angle degrees.<br />The rotation will take the values of *`X`*, *`Y`*, *`O`* and apply a rotation.
     
     NOTE:
         The resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.
 
-affine reset:
+pre affine reset:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
