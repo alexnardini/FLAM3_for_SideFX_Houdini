@@ -2008,7 +2008,7 @@ class flam3h_general_utils
 * viewportParticleSize(self, reset_val: float | None = None) -> None:
 * viewportWireWidth(self, reset_val: float | None = None) -> None:
 * reset_SYS(self, density: int, iter: int, mode: int) -> None:
-* reset_MB(self) -> None:
+* reset_MB(self, all: bool = True) -> None:
 * reset_PREFS(self, mode: int = 0) -> None:
     """    
     
@@ -4018,22 +4018,25 @@ class flam3h_general_utils
         self.private_prm_set(node, PREFS_PVT_RIP, 0)
         
 
-    def reset_MB(self) -> None:
+    def reset_MB(self, all: bool = True) -> None:
         """Reset the FLAM3H MB Tab parameters.
         
         Args:
             (self):
+            all(bool): Default to True. It will reset all parameters. If False, it will not reset the ON/OFF and VIZ toggles.
             
         Returns:
             (None):
         """
         node = self.node
-        _MB: dict[str, int | float] = {MB_DO: 0,
-                                             MB_FPS: 24,
-                                             MB_SAMPLES: 16,
-                                             MB_SHUTTER: 0.5,
-                                             MB_VIZ: 0}
-        [node.setParms({key: value}) for key, value in _MB.items()]
+        _MB: dict[str, int | float] = { MB_DO: 0,
+                                        MB_FPS: 24,
+                                        MB_SAMPLES: 16,
+                                        MB_SHUTTER: 0.5,
+                                        MB_VIZ: 0}
+        
+        if all: [node.setParms({key: value}) for key, value in _MB.items()]
+        else: [node.setParms({key: value}) if key in (MB_FPS, MB_SAMPLES, MB_SHUTTER) else ... for key, value in _MB.items()]
 
 
     def reset_PREFS(self, mode: int = 0) -> None:

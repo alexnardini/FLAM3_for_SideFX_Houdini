@@ -748,6 +748,25 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 <br>
 <br>
 
+_Flame fractal moton blur._<br>
+_When animating your fractal Flame, turning this on will compute a proper temporal motion blur._
+
+# MB Tab
+# parameter name:    `domb`
+### Action Button script
+```python
+kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).reset_MB(False)
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 _Load *.flame files created with Apophysis, Fractorium and others.<br>
 A *.flame file is an XML-formatted type of file._
 
