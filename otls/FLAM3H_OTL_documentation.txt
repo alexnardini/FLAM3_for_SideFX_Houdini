@@ -201,7 +201,7 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     Will allow you to select a density value quickly from some presets.
 
     Density here stand for: _*number of points to use*_.<br />
-    For high-quality fractals, start from *`20M`*(_millions_) up to *`500M`*(_millions_) and more, depending on the type of fractal Flame you end up with.<br />
+    For high-quality fractals, start from *`25M`*(_millions_) up to *`500M`*(_millions_) and more, depending on the type of fractal Flame you end up with.<br />
 
     As a general rule, the more, the better.<br />
     Must strike a balance between processing speed and quality.
