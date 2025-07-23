@@ -1429,13 +1429,14 @@ HSV [Icon:TOP/xmlinput]:
     
     Hue/Saturation/Value of the palette's colors.
     
-    HSV values are exported into the XML on Flame save when used.
+    HSV values are exported into the palette preset on save <br />
+    and also into the XML on Flame save when they are used.
 
 HSV reset:
     #id: PALETTE
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
-    Reset the HSV to their default values.
+    - ((LMB)) to reset the HSV to their default values.
 
 HSV keep values on Load [Icon:DATATYPES/boolean]:
     #id: PALETTE
