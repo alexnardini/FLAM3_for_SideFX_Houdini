@@ -1076,7 +1076,7 @@ pre affine Scale:
 
     _Additionally_:
 
-    The parameter's slider ranges are between *`0.975`* and *`1.025`* to allow for precise and versy small value changes when dragged left or right.
+    The parameter's slider ranges are between *`0.975`* and *`1.025`* to allow for precise and very small value changes when dragged left or right.
 
 
 copy post affine values:
