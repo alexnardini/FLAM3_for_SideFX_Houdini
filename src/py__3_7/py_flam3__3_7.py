@@ -7844,10 +7844,12 @@ class flam3h_iterator_utils
         prm_xfviz = node.parm(PREFS_PVT_XF_VIZ)
         prm_xfviz_solo = node.parm(PREFS_PVT_XF_VIZ_SOLO)
         prm_xfviz_solo_mp_idx = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
+        _PVT_PARMS: tuple = (prm_mpidx, prm_xfviz, prm_xfviz_solo, prm_xfviz_solo_mp_idx)
+        # XF VIZ data name
         data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
         
         # unlock
-        [prm.lock(False) for prm in (prm_mpidx, prm_xfviz, prm_xfviz_solo, prm_xfviz_solo_mp_idx)]
+        [prm.lock(False) for prm in _PVT_PARMS]
         
         # init indexes
         idx_del_inbetween: Union[int, None] = None
@@ -8080,7 +8082,7 @@ class flam3h_iterator_utils
         [node.setParms({f"{mp_note_name}_{str(mp_idx + 1)}": f"iterator_{mp_idx + 1}"}) for mp_idx in range(iter_count) if self.flam3h_iterator_is_default_name(str(node.parm(f"{mp_note_name}_{str(mp_idx + 1)}").eval()).strip())] # type: ignore
         
         # lock
-        [prm.lock(True) for prm in (prm_mpidx, prm_xfviz, prm_xfviz_solo, prm_xfviz_solo_mp_idx)]
+        [prm.lock(True) for prm in _PVT_PARMS]
 
 
     def iterators_count(self) -> None:
