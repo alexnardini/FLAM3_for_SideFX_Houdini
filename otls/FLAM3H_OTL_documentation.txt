@@ -236,7 +236,7 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     
 Reset density:
     #id: Global
-    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
     ((LMB)) to reset density to its default: *`500k`*(_thousands_)<br />
     This is what should be used while editing fractal Flames most of the time.
