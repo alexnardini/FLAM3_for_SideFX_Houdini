@@ -1424,6 +1424,19 @@ FF: PP VARS Tab [Icon:TOP/xmlinput]:
     
     == CP: Palette ramps == (CPRAMPS)
     
+HSV [Icon:TOP/xmlinput]:
+    #id: PALETTE
+    
+    Hue/Saturation/Value of the palette's colors.
+    
+    HSV values are exported into the XML on Flame save when used.
+
+HSV reset:
+    #id: PALETTE
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    Reset the HSV to their default values.
+
 HSV keep values on Load [Icon:DATATYPES/boolean]:
     #id: PALETTE
     OFF by default.
@@ -1431,19 +1444,6 @@ HSV keep values on Load [Icon:DATATYPES/boolean]:
     When loading a palette, FLAM3H will either set the HSV values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.
     
     Check this option to keep the current HSV values unchanged after loading a palette preset.
-    
-HSV [Icon:TOP/xmlinput]:
-    #id: PALETTE
-    
-    Hue/Saturation/Value of the palette's colors.
-    
-    HSV values are exported into the XML on Flame save when used.
-    
-HSV reset:
-    #id: PALETTE
-    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
-    
-    Reset the HSV to their default values.
 
 HSV palette [Icon:DATATYPES/ramp]:
     #id: PALETTE
@@ -1629,6 +1629,12 @@ on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boole
         
         If you animate any of the available parameters using expressions,
         remember to always use *`@Time`* and not *`$F`* so the tool will be able to interpolate through time properly.
+
+MB reset:
+    #id: MB
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    - ((LMB)) to reset the Motion Blur parameters to their default values.
 
 :box:
     #display: rounded white
