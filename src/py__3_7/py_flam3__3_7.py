@@ -16881,7 +16881,7 @@ class out_flame_utils
         else:
             _MSG: str = f"OUT palette 256+: OFF"
             flam3h_general_utils.flash_message(node, _MSG)
-            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} - The number of palette color keys are <= 256: ({len(rmp_src.keys())})", 'MSG')
 
 
     def out_presets_get_selected_menu_label(self) -> Union[str, None]:
