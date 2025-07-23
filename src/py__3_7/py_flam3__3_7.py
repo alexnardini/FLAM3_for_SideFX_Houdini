@@ -4024,9 +4024,28 @@ class flam3h_general_utils
                                              MB_SAMPLES: 16,
                                              MB_SHUTTER: 0.5,
                                              MB_VIZ: 0}
+        
+        [node.parm(key).deleteAllKeyframes() for key in _MB.keys()]
              
-        if all: [node.setParms({key: value}) for key, value in _MB.items()]
-        else: [node.setParms({key: value}) if key in (MB_FPS, MB_SAMPLES, MB_SHUTTER) else ... for key, value in _MB.items()]
+        if all:
+            [node.setParms({key: value}) for key, value in _MB.items()]
+            
+        else:
+            prm_fps: int = node.parm(MB_FPS).eval()
+            prm_samples: int = node.parm(MB_SAMPLES).eval()
+            prm_shutter: float = node.parm(MB_SHUTTER).eval()
+            
+            if prm_fps == 24 and prm_samples == 16 and prm_shutter == 0.5:
+                _MSG: str = f"MB: already at its default values."
+                self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                self.flash_message(node, _MSG)
+                
+            else:
+                [node.setParms({key: value}) if key not in (MB_DO, MB_VIZ) else ... for key, value in _MB.items()]
+                
+                _MSG: str = f"MB: RESET"
+                self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                self.flash_message(node, _MSG)
 
 
     def reset_PREFS(self, mode: int = 0) -> None:
