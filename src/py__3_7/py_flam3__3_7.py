@@ -4010,6 +4010,7 @@ class flam3h_general_utils
 
     def reset_MB(self, all: bool = True) -> None:
         """Reset the FLAM3H MB Tab parameters.
+        It will also clear/delete any keyframes for each parameters.
         
         Args:
             (self):
