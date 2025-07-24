@@ -10,6 +10,19 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.40</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.40) ###
+
+- **New**: Added action script button to reset the Motion Blur parms to their default values.
+- **Updated HDA documentation and some parameters tooltips.**
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.39</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.39) ###
 
 - **Fix**: The Xaos Ui display info message had a typo in one of its keyword arguments causing an error when trying to display it.

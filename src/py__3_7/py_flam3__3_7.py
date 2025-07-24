@@ -6,7 +6,7 @@ __copyright__ = "Copyright 2021, © F stands for liFe"
 
 __py_version__ = "3.7.13"
 __license__ = "GPL"
-__version__ = "1.8.39"
+__version__ = "1.8.40"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
@@ -4425,7 +4425,7 @@ class flam3h_iterator_utils
         
         # Iterator parms names
         prm_names: tuple = (n.shader_color, n.shader_speed, n.prevar_type_1, n.prevar_type_2, n.var_type_1, n.var_type_2, n.var_type_3, n.var_type_4, n.postvar_type_1, n.preaffine_x, n.preaffine_y, n.preaffine_o) # iterator params names
-        # Iterators parms values
+        # Iterators parms values ( as many entries as: prm_names: tuple )
         prm_vals_1: tuple = (0, -0.5, 0, 0, 0, 0, 0, 0, 0, hou.Vector2((0.5, 0.0)), hou.Vector2((0.0, 0.5)), hou.Vector2((0.0, 0.51225))) # iterator 1
         prm_vals_2: tuple = (0.5, -0.5, 0, 0, 0, 0, 0, 0, 0, hou.Vector2((0.5, 0.0)), hou.Vector2((0.0, 0.5)), hou.Vector2((-0.29575, 0.0))) # iterator 2
         prm_vals_3: tuple = (1, -0.5, 0, 0, 0, 0, 0, 0, 0, hou.Vector2((0.5, 0.0)), hou.Vector2((0.0, 0.5)), hou.Vector2((0.29575, 0.0))) # iterator 3
