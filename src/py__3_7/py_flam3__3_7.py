@@ -2974,7 +2974,7 @@ class flam3h_general_utils
                     if self.bbox_reframe_path is not None:
                         node_bbox: hou.SopNode = hou.node(self.bbox_reframe_path)
                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
-                        _MSG: str = f"Viewport REFRAMED"
+                        _MSG: str = f"viewport REFRAMED"
                         self.flash_message(node, _MSG)
                         self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
             else:
