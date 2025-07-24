@@ -4422,60 +4422,17 @@ class flam3h_iterator_utils
         """
         # iterator prm names
         n = flam3h_iterator_prm_names()
-
-        # iter 1
-        #
-        # shader
-        node.setParms({f"{n.shader_color}_1": 0}) # type: ignore
-        node.setParms({f"{n.shader_speed}_1": -0.5}) # type: ignore
-        # vars
-        node.setParms({f"{n.prevar_type_1}_1": 0}) # type: ignore
-        node.setParms({f"{n.prevar_type_2}_1": 0}) # type: ignore
-        node.setParms({f"{n.var_type_1}_1": 0}) # type: ignore
-        node.setParms({f"{n.var_type_2}_1": 0}) # type: ignore
-        node.setParms({f"{n.var_type_3}_1": 0}) # type: ignore
-        node.setParms({f"{n.var_type_4}_1": 0}) # type: ignore
-        node.setParms({f"{n.postvar_type_1}_1": 0}) # type: ignore
-        # pre affine
-        node.setParms({f"{n.preaffine_x}_1": hou.Vector2((0.5, 0.0))}) # type: ignore
-        node.setParms({f"{n.preaffine_y}_1": hou.Vector2((0.0, 0.5))}) # type: ignore
-        node.setParms({f"{n.preaffine_o}_1": hou.Vector2((0.0, 0.51225))}) # type: ignore
-
-        # iter 2
-        #
-        # shader
-        node.setParms({f"{n.shader_color}_2": 0.5}) # type: ignore
-        node.setParms({f"{n.shader_speed}_2": -0.5}) # type: ignore
-        # vars
-        node.setParms({f"{n.prevar_type_1}_2": 0}) # type: ignore
-        node.setParms({f"{n.prevar_type_2}_2": 0}) # type: ignore
-        node.setParms({f"{n.var_type_1}_2": 0}) # type: ignore
-        node.setParms({f"{n.var_type_2}_2": 0}) # type: ignore
-        node.setParms({f"{n.var_type_3}_2": 0}) # type: ignore
-        node.setParms({f"{n.var_type_4}_2": 0}) # type: ignore
-        node.setParms({f"{n.postvar_type_1}_2": 0}) # type: ignore
-        # pre affine
-        node.setParms({f"{n.preaffine_x}_2": hou.Vector2((0.5, 0.0))}) # type: ignore
-        node.setParms({f"{n.preaffine_y}_2": hou.Vector2((0.0, 0.5))}) # type: ignore
-        node.setParms({f"{n.preaffine_o}_2": hou.Vector2((-0.29575, 0.0))}) # type: ignore
-
-        # iter 3
-        #
-        # shader
-        node.setParms({f"{n.shader_color}_3": 1.0}) # type: ignore
-        node.setParms({f"{n.shader_speed}_3": -0.5}) # type: ignore
-        # vars
-        node.setParms({f"{n.prevar_type_1}_3": 0}) # type: ignore
-        node.setParms({f"{n.prevar_type_2}_3": 0}) # type: ignore
-        node.setParms({f"{n.var_type_1}_3": 0}) # type: ignore
-        node.setParms({f"{n.var_type_2}_3": 0}) # type: ignore
-        node.setParms({f"{n.var_type_3}_3": 0}) # type: ignore
-        node.setParms({f"{n.var_type_4}_3": 0}) # type: ignore
-        node.setParms({f"{n.postvar_type_1}_3": 0}) # type: ignore
-        # pre affine
-        node.setParms({f"{n.preaffine_x}_3": hou.Vector2((0.5, 0.0))}) # type: ignore
-        node.setParms({f"{n.preaffine_y}_3": hou.Vector2((0.0, 0.5))}) # type: ignore
-        node.setParms({f"{n.preaffine_o}_3": hou.Vector2((0.29575, 0.0))}) # type: ignore
+        
+        # Iterator parms names
+        prm_names: tuple = (n.shader_color, n.shader_speed, n.prevar_type_1, n.prevar_type_2, n.var_type_1, n.var_type_2, n.var_type_3, n.var_type_4, n.postvar_type_1, n.preaffine_x, n.preaffine_y, n.preaffine_o) # iterator params names
+        # Iterators parms values
+        prm_vals_1: tuple = (0, -0.5, 0, 0, 0, 0, 0, 0, 0, hou.Vector2((0.5, 0.0)), hou.Vector2((0.0, 0.5)), hou.Vector2((0.0, 0.51225))) # iterator 1
+        prm_vals_2: tuple = (0.5, -0.5, 0, 0, 0, 0, 0, 0, 0, hou.Vector2((0.5, 0.0)), hou.Vector2((0.0, 0.5)), hou.Vector2((-0.29575, 0.0))) # iterator 2
+        prm_vals_3: tuple = (1, -0.5, 0, 0, 0, 0, 0, 0, 0, hou.Vector2((0.5, 0.0)), hou.Vector2((0.0, 0.5)), hou.Vector2((0.29575, 0.0))) # iterator 3
+        # Collect all iterators parms values
+        prm_vals_all: tuple = (prm_vals_1, prm_vals_2, prm_vals_3)
+        # Set
+        [[node.setParms({f"{name}_{iter_idx + 1}": iter_vals[idx]}) for idx, name in enumerate(prm_names)] for iter_idx, iter_vals in enumerate(prm_vals_all)] # type: ignore
 
 
     @staticmethod
