@@ -16904,7 +16904,7 @@ class out_flame_utils
         if prm_prefs_256_plus.eval():
             if len(rmp_src.keys()) <= 256:
                 _MSG: str = f"PALETTE 256+ ACTIVE but the CP palette do not have more than 256 color keys."
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The Flame will be saved with a Palette sampled at 256 color keys, which is the standard for fractal flames.", 'IMP')
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The Flame will be saved with a Palette sampled at 256 color keys ({len(rmp_src.keys())}), which is the standard for fractal flames.", 'IMP')
             else:
                 _MSG: str = f"OUT palette 256+: ON"
                 flam3h_general_utils.flash_message(node, _MSG)

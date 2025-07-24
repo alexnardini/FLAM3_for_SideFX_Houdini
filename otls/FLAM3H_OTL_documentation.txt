@@ -431,7 +431,7 @@ TAG [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg] when TAG is OFF.
     - [Largeicon:opdef:.?icon_TagOBlueSVG.svg] when TAG is ON.
     
-    Enable/disable vieport TAG infos.
+    Enable/disable viewport TAG infos.
     
     TAG allow you to review your fractal Flame construction infos in one compact viewport string. 
     Below you find a list of data names and their meaning starting from the left to the right of the above TAG reference image.
