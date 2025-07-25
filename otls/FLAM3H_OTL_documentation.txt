@@ -1424,10 +1424,10 @@ FF: PP VARS Tab [Icon:TOP/xmlinput]:
     
     == CP: Palette ramps == (CPRAMPS)
     
-HSV [Icon:TOP/xmlinput]:
+HSV values [Icon:TOP/xmlinput]:
     #id: PALETTE
     
-    Hue/Saturation/Value of the palette's colors.
+    Hue, Saturation and Value of the palette's colors.
     
     HSV values are exported into the palette preset on save <br />
     and also into the XML on Flame save when they are used.
@@ -1632,14 +1632,13 @@ on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boole
     _Motion blur, or temporal anti-aliasing, is not so easy to do correctly_.<br />
     _Supersampling can be achieved by varying the parameters over time while running the chaos game_. <br /><br />
     That is, if *`5M`*(_millions_) samples are used to draw the frame at time t, to instead use *`1M`* samples at time t-0.5, *`1M`* samples at t-0.25, *`1M`* at t, *`1M`* at t+0.25 and *`1M`* at t+0.5, all the while accumulating into the same buffer.
-    
-    <br />
+
+    _It may be possible that in the future a directional motion blur mode will be added to FLAM3H, but for now there is no need to do so_.<br />
 
     TIP:
         #display: orange
 
-        - If you animate any of the available parameters using expressions, remember to always use *`@Time`* and not *`$F`* so the tool will be able to interpolate through time properly.
-        - It may be possible that in the future a directional motion blur mode will be added to FLAM3H, but for now there is no need to do so.    
+        - If you animate any of the available parameters using expressions, remember to always use *`@Time`* and not *`$F`* so the tool will be able to interpolate through time properly.   
         - Motion blur values are exported into the XML on Flame save when turned *`On`*.
 
 MB reset:
