@@ -3397,7 +3397,7 @@ class flam3h_general_utils
             prm.set(0)
             # If the passed toggle's name argument is the camera sensor: 'outsensor'
             # restore the viewport prior to entering the Camera sensor mode and clearup all related data
-            if prm == OUT_RENDER_PROPERTIES_SENSOR:
+            if prm_name == OUT_RENDER_PROPERTIES_SENSOR:
                 self.util_set_stashed_cam()
                 self.util_clear_stashed_cam_data()
                 
