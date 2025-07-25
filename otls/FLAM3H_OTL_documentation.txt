@@ -2238,7 +2238,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     <br /><br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*<br /><br />
-    _This is only useful if you use *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations and want to load the Flame inside Fractorium as it uses different parametric paramters' names for these_.
+    _This is only useful if you use *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations and want to load the Flame inside Fractorium as it uses different parametric parameters' names for these_.
 
     _Check this toggle OFF when saving out a Flame if you would like to load the saved Flame inside Apophysis and it is using the *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations_.
 
