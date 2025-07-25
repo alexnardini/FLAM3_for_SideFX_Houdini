@@ -16413,7 +16413,7 @@ class out_flame_utils
             invert = x[::-1]
             trace: int = 0
             for idx in range(len(x)): # for idx, item in enumerate(x):
-                _idx: int = idx-trace
+                _idx: int = idx - trace
                 if invert[_idx] == '1':
                     invert.pop(_idx) # type: ignore
                     trace = trace + 1
@@ -16838,8 +16838,8 @@ class out_flame_utils
         rmp_src: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         if prm_prefs_256_plus.eval():
             if len(rmp_src.keys()) <= 256:
-                _MSG: str = f"PALETTE 256+ ACTIVE but the CP palette do not have more than 256 color keys."
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The Flame will be saved with a Palette sampled at 256 color keys ({len(rmp_src.keys())}), which is the standard for fractal flames.", 'IMP')
+                _MSG: str = f"PALETTE 256+ ACTIVE but the CP palette do not have more than 256 color keys ({len(rmp_src.keys())})."
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} The Flame will be saved with a Palette sampled at 256 color keys, which is the standard for fractal flames.", 'IMP')
             else:
                 _MSG: str = f"OUT palette 256+: ON"
                 flam3h_general_utils.flash_message(node, _MSG)
