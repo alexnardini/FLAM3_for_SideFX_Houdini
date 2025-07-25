@@ -2555,7 +2555,14 @@ class flam3h_general_utils
         * def util_set_front_viewer(self, update: bool = True) -> bool:
         * def util_viewport_bbox_frame(self) -> None:
         * def flam3h_outsensor_toggle(self, prm_name: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
+        * def flam3h_xf_viz_toggle(self, prm_name: str = PREFS_PVT_XF_VIZ) -> None:
+        * def flam3h_toggle_sys_xf_viz_solo(self) -> None:
+        * def flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
+        * def flam3h_toggle_mp_xf_viz(self) -> None:
+        * def flam3h_toggle_xf_ff_viz(self) -> None:
         * def flam3h_toggle(self, prm_name: str) -> None:
+        * def flam3h_toggle_private(self, prm_name: str) -> None:
+        * def flam3h_toggle_private_FF(self, prm_name: str = PREFS_PVT_DOFF) -> None:
         * def flam3h_toggle_off(self, prm_name: str) -> None:
                                                             
         Args:
