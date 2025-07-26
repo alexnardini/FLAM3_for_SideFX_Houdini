@@ -1452,9 +1452,10 @@ HSV palette [Icon:DATATYPES/ramp]:
     
     When changing the HSV values from their defaults, this palette will preview the output of the final color corrected colors.
 
-    _The palette parameter come with the following tool icon_:
+    _The palette parameter come with the following tool icon_: <br />
 
-    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] to updated the HSV color correction in case it was not already.
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] <br />
+    - ((LMB)) to updated the HSV color correction in case it was not already.
     
 menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: PALETTE
@@ -1645,7 +1646,7 @@ MB reset:
     #id: MB
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
-    - ((LMB)) to reset the motion blur parameters to their default values.
+    - ((LMB)) to reset the motion blur settings to their default values.
 
 :box:
     #display: rounded white
@@ -1857,7 +1858,7 @@ Reload preset with "Copy render properties on Load" changes:
     #id: prefs
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
-    Clicking this icon will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
+    - ((LMB)) to switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
 
     
 :box:
