@@ -3,7 +3,7 @@
 ```python
 #   Title:      FLAM3H. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
 #   Author:     Alessandro Nardini
-#   date:       April 2023, Last revised April 2025
+#   date:       April 2023, Last revised July 2025
 #
 #   Name:       PY_FLAM3_UI_PRM_MAP
 #
@@ -55,7 +55,7 @@ Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before th
 ```python
 from datetime import datetime
 
-__version__ = '1.8.40 - Production'
+__version__ = '1.8.42 - Production'
 
 def houdini_version(digit: int = 1) -> int:
     """Retrieve the major Houdini version number currently in use.

@@ -10,6 +10,20 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.42</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.42) ###
+
+- **Fix**: When in camera sensor mode, toggling off the "edit render properties" toggle was not restoring the viewport settings prior to entering the camera sensor mode, it is now fixed.
+- **Recompiled all cvex code using the latest stable Houdini version: vcc compiler: v20.5.654**
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.40</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.40) ###
 
 - **New**: Added action script button to reset the Motion Blur parms to their default values.
