@@ -10,6 +10,8 @@
  /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
  /  date:       October 2020, Last revised December 2024
+ /  License:    GPL
+ /  Copyright:  2021, © F stands for liFe ( made in Italy )
  /
  /  info:       Based on the original: "The Fractal Flame Algorithm"
  /  Authors:    Scott Draves, Erik Reckase
