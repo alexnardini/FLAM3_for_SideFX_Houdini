@@ -1240,7 +1240,7 @@ class flam3h_scripts
                 flam3h_scripts.set_first_instance_global_var(cvex_precision)
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
                 # Print to the Houdini console
-                print(f"\nFLAM3H CVEX nodes compile: DONE\n")
+                print(f"\n-> FLAM3H CVEX nodes compile: DONE\n")
                 
             flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
         else:

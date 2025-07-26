@@ -1154,7 +1154,7 @@ pre affine reset:
 
     == Iterator: Post Affine == (FLAMEITERPOSTAFFINE)
         
-POST affine [Icon:TOP/xmlinput]:
+post affine [Icon:TOP/xmlinput]:
     #id: FLAME
 
     *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
@@ -1677,7 +1677,6 @@ viz mb [Icon:DATATYPES/boolean]:
     NOTE:
         When rendering, keep in mind to turn this off to avoid superimposing a darker color.
         
-
 
 
 
