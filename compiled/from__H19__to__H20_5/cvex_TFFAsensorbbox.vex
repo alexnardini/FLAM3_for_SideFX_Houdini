@@ -1,16 +1,11 @@
-;_name	TFFAsensorInfo
-; ModuleID = 'TFFAsensorInfo'
-source_filename = "TFFAsensorInfo"
+;_name	TFFAsensorbbox
+; ModuleID = 'TFFAsensorbbox'
+source_filename = "TFFAsensorbbox"
 
 %sensor_info = type { i64, double, <2 x double> }
 
-@0 = private constant [5 x i8] c"mode\00"
-@1 = private constant [19 x i8] c"flam3h_sensor_zoom\00"
-@2 = private constant [18 x i8] c"flam3h_sensor_res\00"
-@P = external global <3 x double>
-@Cd = external global <3 x double>
-@3 = private constant [2 x i8] c"P\00"
-@4 = private constant [3 x i8] c"Cd\00"
+@0 = private constant [19 x i8] c"flam3h_sensor_zoom\00"
+@1 = private constant [18 x i8] c"flam3h_sensor_res\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private double @"res_weight@FFFF"(double* %x, double* %y, double* %w) #0 {
@@ -60,16 +55,25 @@ declare double @"sin@FF"(double) #1
 declare double @"cos@FF"(double) #1
 
 ; Function Attrs: nounwind readnone
-declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #1
+declare double @"log@FF"(double) #1
 
 ; Function Attrs: nounwind readnone
-declare double @"getcomp@FVI"(<3 x double>, i64) #1
+declare i64 @"and@III"(i64, i64) #1
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VFFF"(double, double, double) #1
 
 ; Function Attrs: nounwind readnone
 declare <2 x double> @"setcomp@UFI"(<2 x double>, double, i64) #1
 
+; Function Attrs: nounwind readnone
+declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #1
+
 ; Function Attrs: nounwind
 declare double @"abs@FF"(double) #2
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FVI"(<3 x double>, i64) #1
 
 ; Function Attrs: nounwind
 declare double @"nrandom@F:S"(i8*) #2
@@ -84,10 +88,10 @@ declare i64 @"isfinite@IF"(double) #1
 declare i64 @"not@II"(i64) #1
 
 ; Function Attrs: nounwind readnone
-declare i64 @"or@III"(i64, i64) #1
+declare i64 @"isnan@IF"(double) #1
 
 ; Function Attrs: nounwind readnone
-declare i64 @"isnan@IF"(double) #1
+declare i64 @"or@III"(i64, i64) #1
 
 ; Function Attrs: nounwind
 declare double @"length@FU"(<2 x double>) #2
@@ -110,19 +114,14 @@ declare i8** @"append@[SS"(i8**, i8*) #2
 ; Function Attrs: alwaysinline nounwind
 define private void @"sensor_info_DATA@Z11sensor_infoM3N4modeIN4zoomFN3resU"(%sensor_info* %this) #0 {
 __llvm_entry:
-  %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @0, i64 0, i64 0))
+  %return = call double @"chf@FS"(i8* getelementptr inbounds ([19 x i8], [19 x i8]* @0, i64 0, i64 0))
   %tmp = load %sensor_info, %sensor_info* %this
-  %0 = insertvalue %sensor_info %tmp, i64 %return, 0
-  %return1 = call double @"chf@FS"(i8* getelementptr inbounds ([19 x i8], [19 x i8]* @1, i64 0, i64 0))
-  %1 = insertvalue %sensor_info %0, double %return1, 1
-  %return3 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @2, i64 0, i64 0))
-  %2 = insertvalue %sensor_info %1, <2 x double> %return3, 2
-  store %sensor_info %2, %sensor_info* %this
+  %0 = insertvalue %sensor_info %tmp, double %return, 1
+  %return1 = call <2 x double> @"chu@US"(i8* getelementptr inbounds ([18 x i8], [18 x i8]* @1, i64 0, i64 0))
+  %1 = insertvalue %sensor_info %0, <2 x double> %return1, 2
+  store %sensor_info %1, %sensor_info* %this
   ret void
 }
-
-; Function Attrs: nounwind readnone
-declare i64 @"chi@IS"(i8*) #1
 
 ; Function Attrs: nounwind readnone
 declare double @"chf@FS"(i8*) #1
@@ -156,7 +155,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAsensorInfo@VV"(<3 x double>* %_bound_P, <3 x double>* %_bound_Cd) #0 {
+define private void @_TFFAsensorbbox() #0 {
 __llvm_entry:
   %INFO = alloca %sensor_info
   %0 = alloca double
@@ -179,53 +178,61 @@ __llvm_entry:
   %INFO2.fca.1.insert = insertvalue %sensor_info %INFO2.fca.0.insert, double %INFO2.fca.1.load, 1
   %INFO2.fca.2.load = load <2 x double>, <2 x double>* %INFO1.fca.2.gep
   %return = call double @"getcomp@FUI"(<2 x double> %INFO2.fca.2.load, i64 0)
-  %return8 = call double @"getcomp@FUI"(<2 x double> %INFO2.fca.2.load, i64 1)
-  %3 = icmp ne i64 %INFO2.fca.0.load, 0
-  br i1 %3, label %true, label %false
+  %return6 = call double @"getcomp@FUI"(<2 x double> %INFO2.fca.2.load, i64 1)
+  br label %cond
 
-true:                                             ; preds = %__llvm_entry
+cond:                                             ; preds = %end11, %__llvm_entry
+  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output56, %end11 ]
+  %return8 = call i64 @"lt@III"(i64 %i.0, i64 2)
+  %3 = icmp ne i64 %return8, 0
+  br i1 %3, label %body, label %end
+
+body:                                             ; preds = %cond
+  %return10 = call i64 @"not@II"(i64 %i.0)
+  %4 = icmp ne i64 %return10, 0
+  br i1 %4, label %true, label %false
+
+end:                                              ; preds = %cond
+  ret void
+
+true:                                             ; preds = %body
   %output = call double @"div@FF"(double %return, double 2.000000e+00)
-  %output12 = call double @"div@FF"(double %return8, double 2.000000e+00)
-  %return13 = call double @"neg@FF"(double %output12)
-  %return14 = call <3 x double> @"set@VFFF"(double %output, double %return13, double 0.000000e+00)
-  br label %end
+  %output14 = call double @"div@FF"(double %return6, double 2.000000e+00)
+  %return15 = call double @"neg@FF"(double %output14)
+  %return16 = call <3 x double> @"set@VFFF"(double %output, double %return15, double 0.000000e+00)
+  br label %end11
 
-false:                                            ; preds = %__llvm_entry
-  %cast = call <3 x double> @"set@VI"(i64 2)
-  store <3 x double> %cast, <3 x double>* %_bound_Cd
-  %output16 = call double @"div@FF"(double %return, double 2.000000e+00)
-  %return17 = call double @"neg@FF"(double %output16)
-  %output19 = call double @"div@FF"(double %return8, double 2.000000e+00)
-  %return20 = call <3 x double> @"set@VFFF"(double %return17, double %output19, double 0.000000e+00)
-  br label %end
+false:                                            ; preds = %body
+  %output18 = call double @"div@FF"(double %return, double 2.000000e+00)
+  %return19 = call double @"neg@FF"(double %output18)
+  %output21 = call double @"div@FF"(double %return6, double 2.000000e+00)
+  %return22 = call <3 x double> @"set@VFFF"(double %return19, double %output21, double 0.000000e+00)
+  br label %end11
 
-end:                                              ; preds = %false, %true
-  %pos_info.0 = phi <3 x double> [ %return14, %true ], [ %return20, %false ]
-  %myp_offset.0 = phi <3 x double> [ <double -1.000000e+00, double -8.000000e-01, double 1.000000e+00>, %true ], [ <double 0.000000e+00, double 5.000000e-02, double 1.000000e-01>, %false ]
+end11:                                            ; preds = %false, %true
+  %pos_info.0 = phi <3 x double> [ %return16, %true ], [ %return22, %false ]
+  %myp_offset.0 = phi <3 x double> [ <double 0.000000e+00, double -8.000000e-01, double 1.000000e+00>, %true ], [ <double 0.000000e+00, double 3.500000e-01, double 1.000000e-01>, %false ]
   %sw.0 = phi double [ 6.000000e+01, %true ], [ 5.000000e+02, %false ]
-  %_bound_P21 = load <3 x double>, <3 x double>* %_bound_P
-  %output24 = call <3 x double> @"add@VV"(<3 x double> %_bound_P21, <3 x double> %myp_offset.0)
+  %cast = call <3 x double> @"set@VI"(i64 0)
+  %output25 = call <3 x double> @"add@VV"(<3 x double> %cast, <3 x double> %myp_offset.0)
   store double %return, double* %0
-  store double %return8, double* %1
+  store double %return6, double* %1
   store double 5.000000e-01, double* %2
   %res_weight = call double @"res_weight@FFFF"(double* %0, double* %1, double* %2)
-  %output29 = call double @"div@FF"(double 1.000000e+00, double %INFO2.fca.1.load)
-  %output32 = fmul double %output29, %sw.0
-  %cast33 = call <3 x double> @"set@VI"(i64 0)
-  %cast36 = call <3 x double> @"set@VF"(double %output29)
-  %return37 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast33, <3 x double> %cast33, <3 x double> %cast36)
-  %output42 = fmul double %output32, %res_weight
-  %cast43 = call <3 x double> @"set@VF"(double %output42)
-  %return44 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast33, <3 x double> %cast33, <3 x double> %cast43)
-  %output47 = call <3 x double> @"mul@V4"(<3 x double> %output24, <16 x double> %return44)
-  %output50 = call <3 x double> @"mul@V4"(<3 x double> %pos_info.0, <16 x double> %return37)
-  %output51 = call <3 x double> @"add@VV"(<3 x double> %output47, <3 x double> %output50)
-  store <3 x double> %output51, <3 x double>* %_bound_P
-  ret void
+  %output30 = call double @"div@FF"(double 1.000000e+00, double %INFO2.fca.1.load)
+  %output33 = fmul double %output30, %sw.0
+  %cast37 = call <3 x double> @"set@VF"(double %output30)
+  %return38 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast37)
+  %output43 = fmul double %output33, %res_weight
+  %cast44 = call <3 x double> @"set@VF"(double %output43)
+  %return45 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast44)
+  %output48 = call <3 x double> @"mul@V4"(<3 x double> %output25, <16 x double> %return45)
+  %output51 = call <3 x double> @"mul@V4"(<3 x double> %pos_info.0, <16 x double> %return38)
+  %output52 = call <3 x double> @"add@VV"(<3 x double> %output48, <3 x double> %output51)
+  %return54 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %output52)
+  %output56 = add i64 %i.0, 1
+  br label %cond
 }
-
-; Function Attrs: nounwind readnone
-declare <3 x double> @"set@VFFF"(double, double, double) #1
 
 ; Function Attrs: nounwind readnone
 declare <3 x double> @"set@VI"(i64) #1
@@ -243,41 +250,31 @@ declare <16 x double> @"maketransform@4IIVVV"(i64, i64, <3 x double>, <3 x doubl
 declare <3 x double> @"mul@V4"(<3 x double>, <16 x double>) #2
 
 ; Function Attrs: nounwind
-define void @TFFAsensorInfo(<3 x double> %P, <3 x double> %Cd) #2 {
+declare i64 @"addpoint@IIV"(i64, <3 x double>) #2
+
+; Function Attrs: nounwind
+define void @TFFAsensorbbox() #2 {
 __llvm_entry:
-  %"<Cd>" = alloca <3 x double>
-  %"<P>" = alloca <3 x double>
-  store <3 x double> %P, <3 x double>* %"<P>"
-  store <3 x double> %Cd, <3 x double>* %"<Cd>"
-  call void @"_TFFAsensorInfo@VV"(<3 x double>* %"<P>", <3 x double>* %"<Cd>")
-  %evalue = load <3 x double>, <3 x double>* %"<P>"
-  %gvalue = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @3, i64 0, i64 0), <3 x double> %evalue) #3
-  %evalue1 = load <3 x double>, <3 x double>* %"<Cd>"
-  %gvalue2 = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @4, i64 0, i64 0), <3 x double> %evalue1) #3
-  store <3 x double> %gvalue, <3 x double>* @P
-  store <3 x double> %gvalue2, <3 x double>* @Cd
+  call void @_TFFAsensorbbox()
   ret void
 }
 
-declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
-
 define void @__shader_default_arguments() {
 __llvm_entry:
-  call void @TFFAsensorInfo(<3 x double> zeroinitializer, <3 x double> <double 2.000000e+00, double 2.000000e+00, double 2.000000e+00>)
+  call void @TFFAsensorbbox()
   ret void
 }
 
 attributes #0 = { alwaysinline nounwind }
 attributes #1 = { nounwind readnone }
 attributes #2 = { nounwind }
-attributes #3 = { nounwind readonly }
 
 !context = !{!0}
 !version = !{!1}
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"20.0.625"}
+!1 = !{!"20.5.654"}
 !2 = !{!"64"}
 
 ;_code_end

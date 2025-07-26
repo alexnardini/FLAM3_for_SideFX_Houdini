@@ -6,7 +6,7 @@
 #version: 1.8.40 - Production
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
-( vcc compiler: v20.0.506 )"""
+( vcc compiler: v20.5.654 )"""
 
 
 :box:
