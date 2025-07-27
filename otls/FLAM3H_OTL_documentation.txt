@@ -451,7 +451,7 @@ TAG [Icon:DATATYPES/boolean]:
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Iterator/xform infos*:<br />
     * The *`iterator's number`* will be inside round brackets.
-    * *`pre_blur`* will be indicated witn an asterisk "*`*`*" in front of the iterator' number.
+    * *`pre_blur`* will be indicated with an asterisk "*`*`*" in front of the iterator' number.
     * *`Iterator variations`* are all lowercase (_all types: PRE, VAR and POST_).
     * *`FF variations`* are all UPPER CASE (_all types: PRE, VAR and POST_).
     * *`PRE variations`* will be inside square brackets at the beginning of each iterator, or FF.
