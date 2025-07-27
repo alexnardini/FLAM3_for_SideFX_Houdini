@@ -21,7 +21,7 @@ from typing import Union
 
     Title:      SideFX Houdini FLAM3HUSD
     Author:     Alessandro Nardini
-    date:       September 2023, Last revised March 2025
+    date:       September 2023, Last revised July 2025
 
     Name:       PY_FLAM3USD__3_7 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
 
