@@ -1,6 +1,7 @@
 __author__ = "F stands for liFe ( made in Italy )"
 __copyright__ = "Copyright 2023, © F stands for liFe"
 
+__py_version__ = "3.11.7"
 __license__ = "GPL"
 __version__ = "0.1.58"
 __maintainer__ = "Alessandro Nardini"
@@ -1015,7 +1016,7 @@ class flam3husd_about_utils
         flam3h_cvex_version: str = f"CODE: vex H19.x.x"
         hou_version: int = flam3husd_general_utils.houdini_version()
         if hou_version >= 19: flam3h_cvex_version = f"CODE: vex H{str(hou_version)}.x.x"
-        flam3h_python_version: str = f"py 3.11.7"
+        flam3h_python_version: str = f"py {__py_version__}"
         flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{__copyright__}"
         
