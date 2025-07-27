@@ -3442,29 +3442,30 @@ __llvm_entry:
 define private void @"V_BENT2@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %bent2) #1 {
 __llvm_entry:
   %bent21 = load <2 x double>, <2 x double>* %bent2
-  %return = call double @"getcomp@FUI"(<2 x double> %bent21, i64 0)
-  %return3 = call double @"getcomp@FUI"(<2 x double> %bent21, i64 1)
+  %output = call { double, double } @"assign@FFU"(<2 x double> %bent21)
+  %output2 = extractvalue { double, double } %output, 0
+  %output3 = extractvalue { double, double } %output, 1
   %_p4 = load <2 x double>, <2 x double>* %_p
-  %return5 = call double @"getcomp@FUI"(<2 x double> %_p4, i64 0)
-  %return7 = call double @"getcomp@FUI"(<2 x double> %_p4, i64 1)
-  %return9 = fcmp olt double %return5, 0.000000e+00
-  br i1 %return9, label %true, label %end
+  %return = call double @"getcomp@FUI"(<2 x double> %_p4, i64 0)
+  %return6 = call double @"getcomp@FUI"(<2 x double> %_p4, i64 1)
+  %return8 = fcmp olt double %return, 0.000000e+00
+  br i1 %return8, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
-  %output = fmul double %return5, %return
+  %output12 = fmul double %return, %output2
   br label %end
 
 end:                                              ; preds = %true, %__llvm_entry
-  %nx.0 = phi double [ %output, %true ], [ %return5, %__llvm_entry ]
-  %return14 = fcmp olt double %return7, 0.000000e+00
+  %nx.0 = phi double [ %output12, %true ], [ %return, %__llvm_entry ]
+  %return14 = fcmp olt double %return6, 0.000000e+00
   br i1 %return14, label %true16, label %end17
 
 true16:                                           ; preds = %end
-  %output20 = fmul double %return7, %return3
+  %output20 = fmul double %return6, %output3
   br label %end17
 
 end17:                                            ; preds = %true16, %end
-  %ny.0 = phi double [ %output20, %true16 ], [ %return7, %end ]
+  %ny.0 = phi double [ %output20, %true16 ], [ %return6, %end ]
   %w21 = load double, double* %w
   %output23 = fmul double %w21, %nx.0
   %tmp = load <2 x double>, <2 x double>* %p

@@ -653,7 +653,8 @@ void V_PARABOLA(vector2 p; const vector2 _p; const float w; const vector2 parabo
 }
 // 52 ( parametric )
 void V_BENT2(vector2 p; const vector2 _p; const float w; const vector2 bent2){
-    float nx, ny, b2x, b2y; b2x=bent2[0];b2y=bent2[1];
+    float nx, ny, b2x, b2y;
+    assign(b2x, b2y, bent2);
     nx = _p[0]; ny = _p[1];
     if(nx < 0.0)
         nx = nx * b2x;
