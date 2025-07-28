@@ -2004,6 +2004,10 @@ Copy/Paste SENSOR/RENDER preset settings:
     The Flame file format does not support animations, but only static frames, so to speak.
     If you animated your fractal Flame, save the hip file from Houdini instead.
     
+:box:
+    #display: rounded white
+
+    == OUT: Anatomy of a XML flame file format == (OUTXMLFORMAT)
 
 _The following is an example of what the Sierpiński triangle preset looks like once saved :_
     
@@ -2091,6 +2095,12 @@ _Under the flame preset XML key lives all its data: iterators/xforms data and it
 <br />
 <br />
     
+
+:box:
+    #display: rounded white
+
+    == OUT == (OUT)
+
 TIP:
     #display: orange
     _FLAM3H allows you to save your flames in the standard *.flame file format_
@@ -2108,11 +2118,6 @@ TIP:
     _the result in the standard Flame file format._
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*Save the hip file instead in those cases*._
-
-:box:
-    #display: rounded white
-
-    == OUT == (OUTF)
     
 OUT flame ( *.flame type ) [Icon:DATATYPES/string]:
     #id: OUT
