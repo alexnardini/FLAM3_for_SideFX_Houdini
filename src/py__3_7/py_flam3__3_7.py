@@ -6,7 +6,7 @@ __copyright__ = "Copyright 2021, © F stands for liFe"
 
 __py_version__ = "3.7.13"
 __license__ = "GPL"
-__version__ = "1.8.42"
+__version__ = "1.8.44"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
