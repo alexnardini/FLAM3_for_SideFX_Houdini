@@ -9256,7 +9256,7 @@ __llvm_entry:
 declare { i64, double, double } @"sample_cdf@[FFIFF"(double*, double) #0
 
 ; Function Attrs: alwaysinline nounwind
-define private <2 x double> @"FLAME@UIIIUUUUF"(i64* %idx, i64* %T, i64* %f3c, <2 x double>* %pos, <2 x double>* %x, <2 x double>* %y, <2 x double>* %o, double* %w) #1 {
+define private <2 x double> @"FLAME@UIIIUUUF"(i64* %idx, i64* %T, i64* %f3c, <2 x double>* %pos, <2 x double>* %y, <2 x double>* %o, double* %w) #1 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca double
@@ -11263,7 +11263,7 @@ declare <3 x double>* @"detail@[VIS"(i64, i8*) #2
 declare <3 x double> @"getcomp@V[VI"(<3 x double>*, i64) #0
 
 ; Function Attrs: alwaysinline nounwind
-define private <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %prx, i64* %T, i64* %f3c, <2 x double>* %pos, <2 x double>* %x, <2 x double>* %y, <2 x double>* %o, double* %w) #1 {
+define private <2 x double> @"FLAMEFF@USIIUUUF"(i8** %prx, i64* %T, i64* %f3c, <2 x double>* %pos, <2 x double>* %y, <2 x double>* %o, double* %w) #1 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca double
@@ -13226,63 +13226,63 @@ __llvm_entry:
   %10 = alloca <2 x double>
   %11 = alloca <2 x double>
   %12 = alloca <2 x double>
-  %13 = alloca <2 x double>
-  %14 = alloca double
+  %13 = alloca double
+  %14 = alloca i64
   %15 = alloca i64
   %16 = alloca i64
-  %17 = alloca i64
+  %17 = alloca <2 x double>
   %18 = alloca <2 x double>
   %19 = alloca <2 x double>
-  %20 = alloca <2 x double>
-  %21 = alloca <2 x double>
-  %22 = alloca double
+  %20 = alloca double
+  %21 = alloca i64
+  %22 = alloca i64
   %23 = alloca i64
-  %24 = alloca i64
-  %25 = alloca i64
+  %24 = alloca <2 x double>
+  %25 = alloca <2 x double>
   %26 = alloca <2 x double>
-  %27 = alloca <2 x double>
-  %28 = alloca <2 x double>
-  %29 = alloca <2 x double>
-  %30 = alloca double
-  %31 = alloca i64
-  %32 = alloca i64
-  %33 = alloca i64
-  %34 = alloca <2 x double>
-  %35 = alloca <2 x double>
-  %36 = alloca <2 x double>
-  %37 = alloca <2 x double>
-  %38 = alloca double
-  %39 = alloca i64
-  %40 = alloca i64
-  %41 = alloca i64
-  %42 = alloca <2 x double>
-  %43 = alloca <2 x double>
-  %44 = alloca <2 x double>
+  %27 = alloca double
+  %28 = alloca i64
+  %29 = alloca i64
+  %30 = alloca i64
+  %31 = alloca <2 x double>
+  %32 = alloca <2 x double>
+  %33 = alloca <2 x double>
+  %34 = alloca double
+  %35 = alloca i64
+  %36 = alloca i64
+  %37 = alloca i64
+  %38 = alloca <2 x double>
+  %39 = alloca <2 x double>
+  %40 = alloca <2 x double>
+  %41 = alloca double
+  %42 = alloca i64
+  %43 = alloca i64
+  %44 = alloca i64
   %45 = alloca <2 x double>
-  %46 = alloca double
-  %47 = alloca i64
-  %48 = alloca i64
+  %46 = alloca <2 x double>
+  %47 = alloca <2 x double>
+  %48 = alloca double
   %49 = alloca i64
-  %50 = alloca <2 x double>
-  %51 = alloca <2 x double>
+  %50 = alloca i64
+  %51 = alloca i64
   %52 = alloca <2 x double>
   %53 = alloca <2 x double>
-  %54 = alloca double
-  %55 = alloca i64
-  %56 = alloca i64
-  %57 = alloca i64
+  %54 = alloca <2 x double>
+  %55 = alloca double
+  %56 = alloca <2 x double>
+  %57 = alloca <2 x double>
   %58 = alloca <2 x double>
   %59 = alloca <2 x double>
   %60 = alloca <2 x double>
   %61 = alloca <2 x double>
-  %62 = alloca double
+  %62 = alloca i64
   %63 = alloca <2 x double>
-  %64 = alloca <2 x double>
-  %65 = alloca <2 x double>
-  %66 = alloca <2 x double>
-  %67 = alloca <2 x double>
+  %64 = alloca double
+  %65 = alloca i8*
+  %66 = alloca i64
+  %67 = alloca i64
   %68 = alloca <2 x double>
-  %69 = alloca i64
+  %69 = alloca <2 x double>
   %70 = alloca <2 x double>
   %71 = alloca double
   %72 = alloca i8*
@@ -13291,43 +13291,31 @@ __llvm_entry:
   %75 = alloca <2 x double>
   %76 = alloca <2 x double>
   %77 = alloca <2 x double>
-  %78 = alloca <2 x double>
-  %79 = alloca double
-  %80 = alloca i8*
+  %78 = alloca double
+  %79 = alloca i8*
+  %80 = alloca i64
   %81 = alloca i64
-  %82 = alloca i64
+  %82 = alloca <2 x double>
   %83 = alloca <2 x double>
   %84 = alloca <2 x double>
-  %85 = alloca <2 x double>
-  %86 = alloca <2 x double>
-  %87 = alloca double
-  %88 = alloca i8*
-  %89 = alloca i64
-  %90 = alloca i64
+  %85 = alloca double
+  %86 = alloca i8*
+  %87 = alloca i64
+  %88 = alloca i64
+  %89 = alloca <2 x double>
+  %90 = alloca <2 x double>
   %91 = alloca <2 x double>
-  %92 = alloca <2 x double>
-  %93 = alloca <2 x double>
-  %94 = alloca <2 x double>
-  %95 = alloca double
-  %96 = alloca i8*
-  %97 = alloca i64
-  %98 = alloca i64
-  %99 = alloca <2 x double>
+  %92 = alloca double
+  %93 = alloca i8*
+  %94 = alloca i64
+  %95 = alloca i64
+  %96 = alloca <2 x double>
+  %97 = alloca <2 x double>
+  %98 = alloca <2 x double>
+  %99 = alloca double
   %100 = alloca <2 x double>
   %101 = alloca <2 x double>
   %102 = alloca <2 x double>
-  %103 = alloca double
-  %104 = alloca i8*
-  %105 = alloca i64
-  %106 = alloca i64
-  %107 = alloca <2 x double>
-  %108 = alloca <2 x double>
-  %109 = alloca <2 x double>
-  %110 = alloca <2 x double>
-  %111 = alloca double
-  %112 = alloca <2 x double>
-  %113 = alloca <2 x double>
-  %114 = alloca <2 x double>
   store <2 x double> zeroinitializer, <2 x double>* %tmp, !vex-initializer-store !3
   store <2 x double> zeroinitializer, <2 x double>* %mem, !vex-initializer-store !3
   %GEMSYSGLB1 = call %gemSYSGLB @"gemSYSGLB@Z9gemSYSGLBM5N2FFIN3RIPIN2MBIN3F3CIN4ITERI"()
@@ -13571,8 +13559,8 @@ __llvm_entry:
   store double %GEMFFVP81.fca.3.extract, double* %GEMFFVP81.fca.3.gep
   %biunit = call <2 x double> @"biunit@U"()
   store <2 x double> %biunit, <2 x double>* %mem
-  %115 = icmp ne i64 %GEMSYS13.fca.1.load, 0
-  br i1 %115, label %true, label %end
+  %103 = icmp ne i64 %GEMSYS13.fca.1.load, 0
+  br i1 %103, label %true, label %end
 
 true:                                             ; preds = %__llvm_entry
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
@@ -13589,15 +13577,15 @@ cond:                                             ; preds = %end263, %end
   %i.0 = phi i64 [ 0, %end ], [ %output280, %end263 ]
   %idx.1 = phi i64 [ %idx.0, %end ], [ %phi, %end263 ]
   %return87 = call i64 @"lt@III"(i64 %i.0, i64 %GEMSYSGLB2.fca.4.load)
-  %116 = icmp ne i64 %return87, 0
-  br i1 %116, label %body, label %end88
+  %104 = icmp ne i64 %return87, 0
+  br i1 %104, label %body, label %end88
 
 body:                                             ; preds = %cond
-  br i1 %115, label %true90, label %false
+  br i1 %103, label %true90, label %false
 
 end88:                                            ; preds = %cond
-  %117 = icmp ne i64 %GEMSYSGLB2.fca.0.load, 0
-  br i1 %117, label %true282, label %end283
+  %105 = icmp ne i64 %GEMSYSGLB2.fca.0.load, 0
+  br i1 %105, label %true282, label %end283
 
 true90:                                           ; preds = %body
   store i64 %idx.1, i64* %0
@@ -13651,10 +13639,10 @@ true152:                                          ; preds = %end147
   store i64 %GEMSYSGLB2.fca.3.load, i64* %9
   %mem159 = load <2 x double>, <2 x double>* %mem
   store <2 x double> %mem159, <2 x double>* %10
-  store <2 x double> %return103, <2 x double>* %12
-  store <2 x double> %return106, <2 x double>* %13
-  store double %return112, double* %14
-  %FLAME = call <2 x double> @"FLAME@UIIIUUUUF"(i64* %7, i64* %8, i64* %9, <2 x double>* %10, <2 x double>* %11, <2 x double>* %12, <2 x double>* %13, double* %14)
+  store <2 x double> %return103, <2 x double>* %11
+  store <2 x double> %return106, <2 x double>* %12
+  store double %return112, double* %13
+  %FLAME = call <2 x double> @"FLAME@UIIIUUUF"(i64* %7, i64* %8, i64* %9, <2 x double>* %10, <2 x double>* %11, <2 x double>* %12, double* %13)
   store <2 x double> %FLAME, <2 x double>* %mem
   br label %end153
 
@@ -13663,16 +13651,16 @@ end153:                                           ; preds = %true152, %end147
   br i1 %return164, label %true166, label %end167
 
 true166:                                          ; preds = %end153
-  store i64 %phi, i64* %15
+  store i64 %phi, i64* %14
   %return171 = call i64 @"getcomp@I[II"(i64* %GEMPV45.fca.1.load, i64 %phi)
-  store i64 %return171, i64* %16
-  store i64 %GEMSYSGLB2.fca.3.load, i64* %17
+  store i64 %return171, i64* %15
+  store i64 %GEMSYSGLB2.fca.3.load, i64* %16
   %mem173 = load <2 x double>, <2 x double>* %mem
-  store <2 x double> %mem173, <2 x double>* %18
-  store <2 x double> %return103, <2 x double>* %20
-  store <2 x double> %return106, <2 x double>* %21
-  store double %return115, double* %22
-  %FLAME177 = call <2 x double> @"FLAME@UIIIUUUUF"(i64* %15, i64* %16, i64* %17, <2 x double>* %18, <2 x double>* %19, <2 x double>* %20, <2 x double>* %21, double* %22)
+  store <2 x double> %mem173, <2 x double>* %17
+  store <2 x double> %return103, <2 x double>* %18
+  store <2 x double> %return106, <2 x double>* %19
+  store double %return115, double* %20
+  %FLAME177 = call <2 x double> @"FLAME@UIIIUUUF"(i64* %14, i64* %15, i64* %16, <2 x double>* %17, <2 x double>* %18, <2 x double>* %19, double* %20)
   store <2 x double> %FLAME177, <2 x double>* %mem
   br label %end167
 
@@ -13683,16 +13671,16 @@ end167:                                           ; preds = %true166, %end153
   br i1 %return180, label %true182, label %end183
 
 true182:                                          ; preds = %end167
-  store i64 %phi, i64* %23
+  store i64 %phi, i64* %21
   %return188 = call i64 @"getcomp@I[II"(i64* %GEMV56.fca.0.load, i64 %phi)
-  store i64 %return188, i64* %24
-  store i64 %GEMSYSGLB2.fca.3.load, i64* %25
+  store i64 %return188, i64* %22
+  store i64 %GEMSYSGLB2.fca.3.load, i64* %23
   %mem190 = load <2 x double>, <2 x double>* %mem
-  store <2 x double> %mem190, <2 x double>* %26
-  store <2 x double> %return103, <2 x double>* %28
-  store <2 x double> %return106, <2 x double>* %29
-  store double %return118, double* %30
-  %FLAME194 = call <2 x double> @"FLAME@UIIIUUUUF"(i64* %23, i64* %24, i64* %25, <2 x double>* %26, <2 x double>* %27, <2 x double>* %28, <2 x double>* %29, double* %30)
+  store <2 x double> %mem190, <2 x double>* %24
+  store <2 x double> %return103, <2 x double>* %25
+  store <2 x double> %return106, <2 x double>* %26
+  store double %return118, double* %27
+  %FLAME194 = call <2 x double> @"FLAME@UIIIUUUF"(i64* %21, i64* %22, i64* %23, <2 x double>* %24, <2 x double>* %25, <2 x double>* %26, double* %27)
   %output = call <2 x double> @"add@UU"(<2 x double> %cast178, <2 x double> %FLAME194)
   store <2 x double> %output, <2 x double>* %tmp
   br label %end183
@@ -13703,16 +13691,16 @@ end183:                                           ; preds = %true182, %end167
 
 true198:                                          ; preds = %end183
   %tmp200 = load <2 x double>, <2 x double>* %tmp
-  store i64 %phi, i64* %31
+  store i64 %phi, i64* %28
   %return204 = call i64 @"getcomp@I[II"(i64* %GEMV56.fca.1.load, i64 %phi)
-  store i64 %return204, i64* %32
-  store i64 %GEMSYSGLB2.fca.3.load, i64* %33
+  store i64 %return204, i64* %29
+  store i64 %GEMSYSGLB2.fca.3.load, i64* %30
   %mem206 = load <2 x double>, <2 x double>* %mem
-  store <2 x double> %mem206, <2 x double>* %34
-  store <2 x double> %return103, <2 x double>* %36
-  store <2 x double> %return106, <2 x double>* %37
-  store double %return121, double* %38
-  %FLAME210 = call <2 x double> @"FLAME@UIIIUUUUF"(i64* %31, i64* %32, i64* %33, <2 x double>* %34, <2 x double>* %35, <2 x double>* %36, <2 x double>* %37, double* %38)
+  store <2 x double> %mem206, <2 x double>* %31
+  store <2 x double> %return103, <2 x double>* %32
+  store <2 x double> %return106, <2 x double>* %33
+  store double %return121, double* %34
+  %FLAME210 = call <2 x double> @"FLAME@UIIIUUUF"(i64* %28, i64* %29, i64* %30, <2 x double>* %31, <2 x double>* %32, <2 x double>* %33, double* %34)
   %output211 = call <2 x double> @"add@UU"(<2 x double> %tmp200, <2 x double> %FLAME210)
   store <2 x double> %output211, <2 x double>* %tmp
   br label %end199
@@ -13723,16 +13711,16 @@ end199:                                           ; preds = %true198, %end183
 
 true215:                                          ; preds = %end199
   %tmp217 = load <2 x double>, <2 x double>* %tmp
-  store i64 %phi, i64* %39
+  store i64 %phi, i64* %35
   %return221 = call i64 @"getcomp@I[II"(i64* %GEMV56.fca.2.load, i64 %phi)
-  store i64 %return221, i64* %40
-  store i64 %GEMSYSGLB2.fca.3.load, i64* %41
+  store i64 %return221, i64* %36
+  store i64 %GEMSYSGLB2.fca.3.load, i64* %37
   %mem223 = load <2 x double>, <2 x double>* %mem
-  store <2 x double> %mem223, <2 x double>* %42
-  store <2 x double> %return103, <2 x double>* %44
-  store <2 x double> %return106, <2 x double>* %45
-  store double %return124, double* %46
-  %FLAME227 = call <2 x double> @"FLAME@UIIIUUUUF"(i64* %39, i64* %40, i64* %41, <2 x double>* %42, <2 x double>* %43, <2 x double>* %44, <2 x double>* %45, double* %46)
+  store <2 x double> %mem223, <2 x double>* %38
+  store <2 x double> %return103, <2 x double>* %39
+  store <2 x double> %return106, <2 x double>* %40
+  store double %return124, double* %41
+  %FLAME227 = call <2 x double> @"FLAME@UIIIUUUF"(i64* %35, i64* %36, i64* %37, <2 x double>* %38, <2 x double>* %39, <2 x double>* %40, double* %41)
   %output228 = call <2 x double> @"add@UU"(<2 x double> %tmp217, <2 x double> %FLAME227)
   store <2 x double> %output228, <2 x double>* %tmp
   br label %end216
@@ -13743,16 +13731,16 @@ end216:                                           ; preds = %true215, %end199
 
 true232:                                          ; preds = %end216
   %tmp234 = load <2 x double>, <2 x double>* %tmp
-  store i64 %phi, i64* %47
+  store i64 %phi, i64* %42
   %return238 = call i64 @"getcomp@I[II"(i64* %GEMV56.fca.3.load, i64 %phi)
-  store i64 %return238, i64* %48
-  store i64 %GEMSYSGLB2.fca.3.load, i64* %49
+  store i64 %return238, i64* %43
+  store i64 %GEMSYSGLB2.fca.3.load, i64* %44
   %mem240 = load <2 x double>, <2 x double>* %mem
-  store <2 x double> %mem240, <2 x double>* %50
-  store <2 x double> %return103, <2 x double>* %52
-  store <2 x double> %return106, <2 x double>* %53
-  store double %return127, double* %54
-  %FLAME244 = call <2 x double> @"FLAME@UIIIUUUUF"(i64* %47, i64* %48, i64* %49, <2 x double>* %50, <2 x double>* %51, <2 x double>* %52, <2 x double>* %53, double* %54)
+  store <2 x double> %mem240, <2 x double>* %45
+  store <2 x double> %return103, <2 x double>* %46
+  store <2 x double> %return106, <2 x double>* %47
+  store double %return127, double* %48
+  %FLAME244 = call <2 x double> @"FLAME@UIIIUUUF"(i64* %42, i64* %43, i64* %44, <2 x double>* %45, <2 x double>* %46, <2 x double>* %47, double* %48)
   %output245 = call <2 x double> @"add@UU"(<2 x double> %tmp234, <2 x double> %FLAME244)
   store <2 x double> %output245, <2 x double>* %tmp
   br label %end233
@@ -13762,31 +13750,31 @@ end233:                                           ; preds = %true232, %end216
   br i1 %return247, label %true249, label %end250
 
 true249:                                          ; preds = %end233
-  store i64 %phi, i64* %55
+  store i64 %phi, i64* %49
   %return254 = call i64 @"getcomp@I[II"(i64* %GEMVP73.fca.1.load, i64 %phi)
-  store i64 %return254, i64* %56
-  store i64 %GEMSYSGLB2.fca.3.load, i64* %57
+  store i64 %return254, i64* %50
+  store i64 %GEMSYSGLB2.fca.3.load, i64* %51
   %tmp256 = load <2 x double>, <2 x double>* %tmp
-  store <2 x double> %tmp256, <2 x double>* %58
-  store <2 x double> %return103, <2 x double>* %60
-  store <2 x double> %return106, <2 x double>* %61
-  store double %return130, double* %62
-  %FLAME260 = call <2 x double> @"FLAME@UIIIUUUUF"(i64* %55, i64* %56, i64* %57, <2 x double>* %58, <2 x double>* %59, <2 x double>* %60, <2 x double>* %61, double* %62)
+  store <2 x double> %tmp256, <2 x double>* %52
+  store <2 x double> %return103, <2 x double>* %53
+  store <2 x double> %return106, <2 x double>* %54
+  store double %return130, double* %55
+  %FLAME260 = call <2 x double> @"FLAME@UIIIUUUF"(i64* %49, i64* %50, i64* %51, <2 x double>* %52, <2 x double>* %53, <2 x double>* %54, double* %55)
   store <2 x double> %FLAME260, <2 x double>* %tmp
   br label %end250
 
 end250:                                           ; preds = %true249, %end233
-  %118 = icmp ne i64 %return133, 0
-  br i1 %118, label %true262, label %end263
+  %106 = icmp ne i64 %return133, 0
+  br i1 %106, label %true262, label %end263
 
 true262:                                          ; preds = %end250
   %return266 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEMAP36.fca.1.load, i64 %phi)
-  store <2 x double> %return266, <2 x double>* %63
+  store <2 x double> %return266, <2 x double>* %56
   %return269 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEMAP36.fca.2.load, i64 %phi)
-  store <2 x double> %return269, <2 x double>* %64
+  store <2 x double> %return269, <2 x double>* %57
   %return272 = call <2 x double> @"getcomp@U[UI"(<2 x double>* %GEMAP36.fca.3.load, i64 %phi)
-  store <2 x double> %return272, <2 x double>* %65
-  call void @"affine@UUUU"(<2 x double>* %tmp, <2 x double>* %63, <2 x double>* %64, <2 x double>* %65)
+  store <2 x double> %return272, <2 x double>* %58
+  call void @"affine@UUUU"(<2 x double>* %tmp, <2 x double>* %56, <2 x double>* %57, <2 x double>* %58)
   br label %end263
 
 end263:                                           ; preds = %true262, %end250
@@ -13832,33 +13820,33 @@ true282:                                          ; preds = %end88
   %GEMFFVP310.fca.2.load = load double, double* %GEMFFVP81.fca.2.gep
   %GEMFFVP310.fca.2.insert = insertvalue %gemFFVP %GEMFFVP310.fca.1.insert, double %GEMFFVP310.fca.2.load, 2
   %GEMFFVP310.fca.3.load = load double, double* %GEMFFVP81.fca.3.gep
-  store <2 x double> %GEMFFPA284.fca.0.load, <2 x double>* %66
-  store <2 x double> %GEMFFPA284.fca.1.load, <2 x double>* %67
-  store <2 x double> %GEMFFPA284.fca.2.load, <2 x double>* %68
-  call void @"affine@UUUU"(<2 x double>* %mem, <2 x double>* %66, <2 x double>* %67, <2 x double>* %68)
+  store <2 x double> %GEMFFPA284.fca.0.load, <2 x double>* %59
+  store <2 x double> %GEMFFPA284.fca.1.load, <2 x double>* %60
+  store <2 x double> %GEMFFPA284.fca.2.load, <2 x double>* %61
+  call void @"affine@UUUU"(<2 x double>* %mem, <2 x double>* %59, <2 x double>* %60, <2 x double>* %61)
   %return322 = fcmp ogt double %GEMFFPV298.fca.1.load, 0.000000e+00
   br i1 %return322, label %true324, label %end325
 
 end283:                                           ; preds = %end387, %end88
   %return394 = call double @"getcomp@F[FI"(double* %GEMSHD22.fca.2.load, i64 %idx.1)
-  store i64 %GEMSYSGLB2.fca.1.load, i64* %69
+  store i64 %GEMSYSGLB2.fca.1.load, i64* %62
   %mem396 = load <2 x double>, <2 x double>* %mem
-  store <2 x double> %mem396, <2 x double>* %70
-  store double %return394, double* %71
-  %chkPT = call i64 @"chkPT@IIUF"(i64* %69, <2 x double>* %70, double* %71)
-  %119 = icmp ne i64 %chkPT, 0
-  br i1 %119, label %true398, label %false399
+  store <2 x double> %mem396, <2 x double>* %63
+  store double %return394, double* %64
+  %chkPT = call i64 @"chkPT@IIUF"(i64* %62, <2 x double>* %63, double* %64)
+  %107 = icmp ne i64 %chkPT, 0
+  br i1 %107, label %true398, label %false399
 
 true324:                                          ; preds = %true282
-  store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @138, i64 0, i64 0), i8** %72
-  store i64 %GEMFFPV298.fca.0.load, i64* %73
-  store i64 %GEMSYSGLB2.fca.3.load, i64* %74
+  store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @138, i64 0, i64 0), i8** %65
+  store i64 %GEMFFPV298.fca.0.load, i64* %66
+  store i64 %GEMSYSGLB2.fca.3.load, i64* %67
   %mem328 = load <2 x double>, <2 x double>* %mem
-  store <2 x double> %mem328, <2 x double>* %75
-  store <2 x double> %GEMFFPA284.fca.1.load, <2 x double>* %77
-  store <2 x double> %GEMFFPA284.fca.2.load, <2 x double>* %78
-  store double %GEMFFPV298.fca.1.load, double* %79
-  %FLAMEFF = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %72, i64* %73, i64* %74, <2 x double>* %75, <2 x double>* %76, <2 x double>* %77, <2 x double>* %78, double* %79)
+  store <2 x double> %mem328, <2 x double>* %68
+  store <2 x double> %GEMFFPA284.fca.1.load, <2 x double>* %69
+  store <2 x double> %GEMFFPA284.fca.2.load, <2 x double>* %70
+  store double %GEMFFPV298.fca.1.load, double* %71
+  %FLAMEFF = call <2 x double> @"FLAMEFF@USIIUUUF"(i8** %65, i64* %66, i64* %67, <2 x double>* %68, <2 x double>* %69, <2 x double>* %70, double* %71)
   store <2 x double> %FLAMEFF, <2 x double>* %mem
   br label %end325
 
@@ -13869,15 +13857,15 @@ end325:                                           ; preds = %true324, %true282
   br i1 %return334, label %true336, label %end337
 
 true336:                                          ; preds = %end325
-  store i8* getelementptr inbounds ([7 x i8], [7 x i8]* @139, i64 0, i64 0), i8** %80
-  store i64 %GEMFFV302.fca.0.load, i64* %81
-  store i64 %GEMSYSGLB2.fca.3.load, i64* %82
+  store i8* getelementptr inbounds ([7 x i8], [7 x i8]* @139, i64 0, i64 0), i8** %72
+  store i64 %GEMFFV302.fca.0.load, i64* %73
+  store i64 %GEMSYSGLB2.fca.3.load, i64* %74
   %mem341 = load <2 x double>, <2 x double>* %mem
-  store <2 x double> %mem341, <2 x double>* %83
-  store <2 x double> %GEMFFPA284.fca.1.load, <2 x double>* %85
-  store <2 x double> %GEMFFPA284.fca.2.load, <2 x double>* %86
-  store double %GEMFFV302.fca.2.load, double* %87
-  %FLAMEFF345 = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %80, i64* %81, i64* %82, <2 x double>* %83, <2 x double>* %84, <2 x double>* %85, <2 x double>* %86, double* %87)
+  store <2 x double> %mem341, <2 x double>* %75
+  store <2 x double> %GEMFFPA284.fca.1.load, <2 x double>* %76
+  store <2 x double> %GEMFFPA284.fca.2.load, <2 x double>* %77
+  store double %GEMFFV302.fca.2.load, double* %78
+  %FLAMEFF345 = call <2 x double> @"FLAMEFF@USIIUUUF"(i8** %72, i64* %73, i64* %74, <2 x double>* %75, <2 x double>* %76, <2 x double>* %77, double* %78)
   %output346 = call <2 x double> @"add@UU"(<2 x double> %cast332, <2 x double> %FLAMEFF345)
   store <2 x double> %output346, <2 x double>* %tmp
   br label %end337
@@ -13888,15 +13876,15 @@ end337:                                           ; preds = %true336, %end325
 
 true350:                                          ; preds = %end337
   %tmp352 = load <2 x double>, <2 x double>* %tmp
-  store i8* getelementptr inbounds ([7 x i8], [7 x i8]* @139, i64 0, i64 0), i8** %88
-  store i64 %GEMFFV302.fca.1.load, i64* %89
-  store i64 %GEMSYSGLB2.fca.3.load, i64* %90
+  store i8* getelementptr inbounds ([7 x i8], [7 x i8]* @139, i64 0, i64 0), i8** %79
+  store i64 %GEMFFV302.fca.1.load, i64* %80
+  store i64 %GEMSYSGLB2.fca.3.load, i64* %81
   %mem355 = load <2 x double>, <2 x double>* %mem
-  store <2 x double> %mem355, <2 x double>* %91
-  store <2 x double> %GEMFFPA284.fca.1.load, <2 x double>* %93
-  store <2 x double> %GEMFFPA284.fca.2.load, <2 x double>* %94
-  store double %GEMFFV302.fca.3.load, double* %95
-  %FLAMEFF359 = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %88, i64* %89, i64* %90, <2 x double>* %91, <2 x double>* %92, <2 x double>* %93, <2 x double>* %94, double* %95)
+  store <2 x double> %mem355, <2 x double>* %82
+  store <2 x double> %GEMFFPA284.fca.1.load, <2 x double>* %83
+  store <2 x double> %GEMFFPA284.fca.2.load, <2 x double>* %84
+  store double %GEMFFV302.fca.3.load, double* %85
+  %FLAMEFF359 = call <2 x double> @"FLAMEFF@USIIUUUF"(i8** %79, i64* %80, i64* %81, <2 x double>* %82, <2 x double>* %83, <2 x double>* %84, double* %85)
   %output360 = call <2 x double> @"add@UU"(<2 x double> %tmp352, <2 x double> %FLAMEFF359)
   store <2 x double> %output360, <2 x double>* %tmp
   br label %end351
@@ -13906,15 +13894,15 @@ end351:                                           ; preds = %true350, %end337
   br i1 %return362, label %true364, label %end365
 
 true364:                                          ; preds = %end351
-  store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @138, i64 0, i64 0), i8** %96
-  store i64 %GEMFFVP310.fca.0.load, i64* %97
-  store i64 %GEMSYSGLB2.fca.3.load, i64* %98
+  store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @138, i64 0, i64 0), i8** %86
+  store i64 %GEMFFVP310.fca.0.load, i64* %87
+  store i64 %GEMSYSGLB2.fca.3.load, i64* %88
   %tmp368 = load <2 x double>, <2 x double>* %tmp
-  store <2 x double> %tmp368, <2 x double>* %99
-  store <2 x double> %GEMFFPA284.fca.1.load, <2 x double>* %101
-  store <2 x double> %GEMFFPA284.fca.2.load, <2 x double>* %102
-  store double %GEMFFVP310.fca.2.load, double* %103
-  %FLAMEFF372 = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %96, i64* %97, i64* %98, <2 x double>* %99, <2 x double>* %100, <2 x double>* %101, <2 x double>* %102, double* %103)
+  store <2 x double> %tmp368, <2 x double>* %89
+  store <2 x double> %GEMFFPA284.fca.1.load, <2 x double>* %90
+  store <2 x double> %GEMFFPA284.fca.2.load, <2 x double>* %91
+  store double %GEMFFVP310.fca.2.load, double* %92
+  %FLAMEFF372 = call <2 x double> @"FLAMEFF@USIIUUUF"(i8** %86, i64* %87, i64* %88, <2 x double>* %89, <2 x double>* %90, <2 x double>* %91, double* %92)
   store <2 x double> %FLAMEFF372, <2 x double>* %tmp
   br label %end365
 
@@ -13923,27 +13911,27 @@ end365:                                           ; preds = %true364, %end351
   br i1 %return374, label %true376, label %end377
 
 true376:                                          ; preds = %end365
-  store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @138, i64 0, i64 0), i8** %104
-  store i64 %GEMFFVP310.fca.1.load, i64* %105
-  store i64 %GEMSYSGLB2.fca.3.load, i64* %106
+  store i8* getelementptr inbounds ([8 x i8], [8 x i8]* @138, i64 0, i64 0), i8** %93
+  store i64 %GEMFFVP310.fca.1.load, i64* %94
+  store i64 %GEMSYSGLB2.fca.3.load, i64* %95
   %tmp380 = load <2 x double>, <2 x double>* %tmp
-  store <2 x double> %tmp380, <2 x double>* %107
-  store <2 x double> %GEMFFPA284.fca.1.load, <2 x double>* %109
-  store <2 x double> %GEMFFPA284.fca.2.load, <2 x double>* %110
-  store double %GEMFFVP310.fca.3.load, double* %111
-  %FLAMEFF384 = call <2 x double> @"FLAMEFF@USIIUUUUF"(i8** %104, i64* %105, i64* %106, <2 x double>* %107, <2 x double>* %108, <2 x double>* %109, <2 x double>* %110, double* %111)
+  store <2 x double> %tmp380, <2 x double>* %96
+  store <2 x double> %GEMFFPA284.fca.1.load, <2 x double>* %97
+  store <2 x double> %GEMFFPA284.fca.2.load, <2 x double>* %98
+  store double %GEMFFVP310.fca.3.load, double* %99
+  %FLAMEFF384 = call <2 x double> @"FLAMEFF@USIIUUUF"(i8** %93, i64* %94, i64* %95, <2 x double>* %96, <2 x double>* %97, <2 x double>* %98, double* %99)
   store <2 x double> %FLAMEFF384, <2 x double>* %tmp
   br label %end377
 
 end377:                                           ; preds = %true376, %end365
-  %120 = icmp ne i64 %GEMFFAP290.fca.0.load, 0
-  br i1 %120, label %true386, label %end387
+  %108 = icmp ne i64 %GEMFFAP290.fca.0.load, 0
+  br i1 %108, label %true386, label %end387
 
 true386:                                          ; preds = %end377
-  store <2 x double> %GEMFFAP290.fca.1.load, <2 x double>* %112
-  store <2 x double> %GEMFFAP290.fca.2.load, <2 x double>* %113
-  store <2 x double> %GEMFFAP290.fca.3.load, <2 x double>* %114
-  call void @"affine@UUUU"(<2 x double>* %tmp, <2 x double>* %112, <2 x double>* %113, <2 x double>* %114)
+  store <2 x double> %GEMFFAP290.fca.1.load, <2 x double>* %100
+  store <2 x double> %GEMFFAP290.fca.2.load, <2 x double>* %101
+  store <2 x double> %GEMFFAP290.fca.3.load, <2 x double>* %102
+  call void @"affine@UUUU"(<2 x double>* %tmp, <2 x double>* %100, <2 x double>* %101, <2 x double>* %102)
   br label %end387
 
 end387:                                           ; preds = %true386, %end377
@@ -13958,8 +13946,8 @@ true398:                                          ; preds = %end283
 
 false399:                                         ; preds = %end283
   %output405 = fmul double 1.000000e-03, %return394
-  %121 = icmp ne i64 %GEMSYSGLB2.fca.2.load, 0
-  br i1 %121, label %true407, label %end408
+  %109 = icmp ne i64 %GEMSYSGLB2.fca.2.load, 0
+  br i1 %109, label %true407, label %end408
 
 end400:                                           ; preds = %end408, %true398
   ret void

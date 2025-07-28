@@ -118,16 +118,16 @@ void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha, _bo
         affine(mem, _x, _y, _o);
         // PRE
         if(_pbw >0) V_PREBLUR(mem, _pbw);
-        if(_p1w >0) mem  = FLAME(idx, p1t[idx], F3C, mem, _x, _y, _o, _p1w);
-        if(_p2w >0) mem  = FLAME(idx, p2t[idx], F3C, mem, _x, _y, _o, _p2w);
+        if(_p1w >0) mem  = FLAME(idx, p1t[idx], F3C, mem, _y, _o, _p1w);
+        if(_p2w >0) mem  = FLAME(idx, p2t[idx], F3C, mem, _y, _o, _p2w);
         // VAR
         tmp=0;
-        if(_v1w!=0) tmp += FLAME(idx, v1t[idx], F3C, mem, _x, _y, _o, _v1w);
-        if(_v2w!=0) tmp += FLAME(idx, v2t[idx], F3C, mem, _x, _y, _o, _v2w);
-        if(_v3w!=0) tmp += FLAME(idx, v3t[idx], F3C, mem, _x, _y, _o, _v3w);
-        if(_v4w!=0) tmp += FLAME(idx, v4t[idx], F3C, mem, _x, _y, _o, _v4w);
+        if(_v1w!=0) tmp += FLAME(idx, v1t[idx], F3C, mem, _y, _o, _v1w);
+        if(_v2w!=0) tmp += FLAME(idx, v2t[idx], F3C, mem, _y, _o, _v2w);
+        if(_v3w!=0) tmp += FLAME(idx, v3t[idx], F3C, mem, _y, _o, _v3w);
+        if(_v4w!=0) tmp += FLAME(idx, v4t[idx], F3C, mem, _y, _o, _v4w);
         // POST
-        if(_P1w >0) tmp  = FLAME(idx, P1t[idx], F3C, tmp, _x, _y, _o, _P1w);
+        if(_P1w >0) tmp  = FLAME(idx, P1t[idx], F3C, tmp, _y, _o, _P1w);
         // post affine
         if(_PPL) affine(tmp, px[idx], py[idx], po[idx]);
         // clr
@@ -159,14 +159,14 @@ void _FLAM3(int _bound_ptnum; float _bound_pscale, _bound_clr, _bound_Alpha, _bo
         // FF pre affine
         affine(mem, fx, fy, fo);
         // FF PRE
-        if(fp1w >0) mem  = FLAMEFF(FP, fp1t, F3C, mem, fx, fy, fo, fp1w);
+        if(fp1w >0) mem  = FLAMEFF(FP, fp1t, F3C, mem, fy, fo, fp1w);
         // FF VAR
         tmp=0;
-        if(fv1w!=0) tmp += FLAMEFF(FL, fv1t, F3C, mem, fx, fy, fo, fv1w);
-        if(fv2w!=0) tmp += FLAMEFF(FL, fv2t, F3C, mem, fx, fy, fo, fv2w);
+        if(fv1w!=0) tmp += FLAMEFF(FL, fv1t, F3C, mem, fy, fo, fv1w);
+        if(fv2w!=0) tmp += FLAMEFF(FL, fv2t, F3C, mem, fy, fo, fv2w);
         // FF POST
-        if(fP1w >0) tmp  = FLAMEFF(FP, fP1t, F3C, tmp, fx, fy, fo, fP1w);
-        if(fP2w >0) tmp  = FLAMEFF(FP, fP2t, F3C, tmp, fx, fy, fo, fP2w);
+        if(fP1w >0) tmp  = FLAMEFF(FP, fP1t, F3C, tmp, fy, fo, fP1w);
+        if(fP2w >0) tmp  = FLAMEFF(FP, fP2t, F3C, tmp, fy, fo, fP2w);
         // FF post affine
         if(PFF) affine(tmp, pfx, pfy, pfo);
         // FF out

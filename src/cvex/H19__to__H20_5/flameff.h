@@ -88,7 +88,7 @@
 // are different in flam3/Apophysis versus Chaotica.
 //      Checked:    use the Apophysis behavior.
 //      Unchecked:  use the Chaotica behavior.
-vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; const float w){
+vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, y, o; const float w){
 
     //  p = out position
     // _p = incoming position
@@ -160,7 +160,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 return p; }
             // *15 Waves ( dependent )
             else if(T==15){
-                V_WAVES(p, _p, w, y[0], o[0], y[1], o[1]);
+                V_WAVES(p, _p, w, /*B*/y[0], /*C*/o[0], /*E*/y[1], /*F*/o[1]);
                 return p; }
             // 16 Fisheye
             else if(T==16){
@@ -168,7 +168,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 return p; }
             // *17 Popcorn ( dependent )
             else if(T==17){
-                V_POPCORN(p, _p, w, o[0], o[1]);
+                V_POPCORN(p, _p, w, /*C*/o[0], /*F*/o[1]);
                 return p; }
         }
         else{
@@ -186,11 +186,11 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, x, y, o; 
                 return p; }
             // *21 RINGS ( dependent )
             else if(T==21){
-                V_RINGS(p, _p, w, o[0]);
+                V_RINGS(p, _p, w, /*C*/o[0]);
                 return p; }
             // *22 FAN ( dependent )
             else if(T==22){
-                V_FAN(p, _p, w, o[0], o[1]);
+                V_FAN(p, _p, w, /*C*/o[0], /*F*/o[1]);
                 return p; }
             // 23 BUBBLE
             else if(T==23){
