@@ -1178,7 +1178,7 @@ TIP:
         
 VARS Tab [Icon:TOP/xmlinput]:
     #id: FLAME
-    If a parametric variation is selected, its parameters will populate this Tab.
+    If a *`VAR`* parametric variation is selected, its parameters will populate this Tab.
     
 
 
@@ -1394,7 +1394,7 @@ FF: post affine [Icon:TOP/xmlinput]:
 
 FF: VARS Tab [Icon:TOP/xmlinput]:
     #id: FF
-    If a parametric variation is selected, its parameters will populate this Tab.
+    If a *`VAR`* parametric variation is selected, its parameters will populate this Tab.
     
 FF: PP VARS Tab [Icon:TOP/xmlinput]:
     #id: FF
