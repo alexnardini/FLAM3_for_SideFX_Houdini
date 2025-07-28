@@ -9557,6 +9557,8 @@ class flam3h_palette_utils
         node = self.node
         rmpsrc: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         rmphsv = node.parm(CP_RAMP_HSV_NAME)
+        # Clear and re-set
+        # self.delete_ramp_all_keyframes(rmphsv) # this get a little expensive to run every time and since the *.flame format do not support animations we can avoid it.
         rmphsv.set(rmpsrc)
         # Apply HSV if any
         #
