@@ -4,6 +4,8 @@
 #   Title:      FLAM3H. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
 #   Author:     Alessandro Nardini
 #   date:       April 2023, Last revised July 2025
+#   License:    GPL
+#   Copyright:  2021, © F stands for liFe ( made in Italy )
 #
 #   Name:       PY_FLAM3_UI_PRM_MAP
 #
