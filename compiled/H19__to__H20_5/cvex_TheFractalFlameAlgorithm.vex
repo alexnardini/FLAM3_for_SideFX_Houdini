@@ -505,22 +505,21 @@ __llvm_entry:
 
 true:                                             ; preds = %__llvm_entry
   %vec2 = load <2 x double>, <2 x double>* %vec
-  %return = call double @"getcomp@FUI"(<2 x double> %vec2, i64 0)
-  %return4 = call double @"getcomp@FUI"(<2 x double> %vec2, i64 1)
-  %output = fadd double %return, %return4
-  %return6 = call i64 @"isfinite@IF"(double %output)
-  %return7 = call i64 @"not@II"(i64 %return6)
-  %return9 = call i64 @"isnan@IF"(double %output)
-  %return10 = call i64 @"or@III"(i64 %return7, i64 %return9)
-  %return12 = call double @"length@FU"(<2 x double> %vec2)
-  %return13 = fcmp ogt double %return12, 1.000000e+03
-  %return14 = zext i1 %return13 to i64
-  %return15 = call i64 @"or@III"(i64 %return10, i64 %return14)
-  %alpha16 = load double, double* %alpha
-  %return17 = fcmp oeq double %alpha16, 0.000000e+00
-  %return18 = zext i1 %return17 to i64
-  %return19 = call i64 @"or@III"(i64 %return15, i64 %return18)
-  %1 = icmp ne i64 %return19, 0
+  %return = call double @"sum@FU"(<2 x double> %vec2)
+  %return4 = call i64 @"isfinite@IF"(double %return)
+  %return5 = call i64 @"not@II"(i64 %return4)
+  %return7 = call i64 @"isnan@IF"(double %return)
+  %return8 = call i64 @"or@III"(i64 %return5, i64 %return7)
+  %vec9 = load <2 x double>, <2 x double>* %vec
+  %return10 = call double @"length@FU"(<2 x double> %vec9)
+  %return11 = fcmp ogt double %return10, 1.000000e+03
+  %return12 = zext i1 %return11 to i64
+  %return13 = call i64 @"or@III"(i64 %return8, i64 %return12)
+  %alpha14 = load double, double* %alpha
+  %return15 = fcmp oeq double %alpha14, 0.000000e+00
+  %return16 = zext i1 %return15 to i64
+  %return17 = call i64 @"or@III"(i64 %return13, i64 %return16)
+  %1 = icmp ne i64 %return17, 0
   %. = select i1 %1, i64 1, i64 0
   br label %end
 
@@ -528,6 +527,9 @@ end:                                              ; preds = %true, %__llvm_entry
   %merge = phi i64 [ 0, %__llvm_entry ], [ %., %true ]
   ret i64 %merge
 }
+
+; Function Attrs: nounwind
+declare double @"sum@FU"(<2 x double>) #2
 
 ; Function Attrs: nounwind readnone
 declare i64 @"isfinite@IF"(double) #0

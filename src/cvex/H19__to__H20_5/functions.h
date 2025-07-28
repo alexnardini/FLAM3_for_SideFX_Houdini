@@ -164,7 +164,7 @@ void precalc_V_BWRAPS(vector bwraps_precalc; const float cellsize, space, gain){
 vector2 biunit(){ return set(2*nrandom('twister')-1, 2*nrandom('twister')-1); }
 
 int chkPT(const int ACTIVE; const vector2 vec; const float alpha){
-    if(ACTIVE){ float val=vec[0]+vec[1]; if( !isfinite(val) || isnan(val) || length(vec)>LIMIT || alpha==0 ) return 1; }
+    if(ACTIVE){ float val=sum(vec); if( !isfinite(val) || isnan(val) || length(vec)>LIMIT || alpha==0 ) return 1; }
     return 0;
 }
 
