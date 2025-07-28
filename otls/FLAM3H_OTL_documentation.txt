@@ -2052,7 +2052,7 @@ _The following is an example of what the Sierpiński triangle preset looks like 
 </flames>
 }}}
 
-_The first line is the main flame preset XML root. Under this root can live many different flame presets_:
+_The first line is the main flames preset XML root. Under this root can live many different flame presets_:
 
 {{{
 #!xml
@@ -2082,7 +2082,7 @@ _Under the flame preset XML key lives all its data: iterators/xforms data and it
     <xform .../>
     <xform .../>
     <palette ...>
-      ...
+      330DFF...
     </palette>
   </flame>
 </flames>
