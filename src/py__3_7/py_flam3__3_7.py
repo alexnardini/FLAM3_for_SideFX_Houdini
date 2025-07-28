@@ -12616,7 +12616,7 @@ class in_flame_utils
             mode(int): 0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H node
             prx(str): parameter name prefix
-            apo_data(in_flame_iter_data): Apophysis XML data collection from: class[in_flame_iter_data]
+            apo_data(in_flame_iter_data): Apophysis XML data collection from: class in_flame_iter_data(in_flame)
             flam3h_prm_names(flam3h_iterator_prm_names): Class of FLAM3H iterator parameter's names
             mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
         """
@@ -12694,7 +12694,7 @@ class in_flame_utils
             mode(int): 0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H node
             prx(str): parameter name prefix
-            apo_data(in_flame_iter_data): Apophysis XML data collection from: class[in_flame_iter_data
+            apo_data(in_flame_iter_data): Apophysis XML data collection from: class in_flame_iter_data(in_flame)
             prm_name(str): parameter name for the current data we want to set
             mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
         
@@ -13226,7 +13226,7 @@ class in_flame_utils
 
         Args:
             mode(int): iterator or FF
-            apo_data(in_flame_iter_data): Flames data from the flame file loaded in: class: in_flame_iter_data()
+            apo_data(in_flame_iter_data): Flames data from the flame file loaded in: class in_flame_iter_data(in_flame)
 
         Returns:
             (tuple[tuple, int]): Return a tuple containing either the iterator's xforms or the FF xform and max variation limit allowed.
@@ -14103,13 +14103,13 @@ class in_flame_utils
                                 ) -> None:
         """Set the FLAM3H iterators/FF parameters based on collected XML data from the flame file loaded.
         
-    The collection of XML data happen inside: class: in_flame_iter_data()
+    The collection of XML data happen inside: class in_flame_iter_data(in_flame)
 
         Args:
             (self):
             mode(int): iterator or FF
             node(hou.SopNode): FLAM3H node
-            apo_data(in_flame_iter_data): Flames data from the flame file loaded in: class: in_flame_iter_data()
+            apo_data(in_flame_iter_data): Flames data from the flame file loaded in: class in_flame_iter_data(in_flame)
             preset_id(int): the flame preset we are loading out of all the presets included in the flame file
             exclude_keys(tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
             
