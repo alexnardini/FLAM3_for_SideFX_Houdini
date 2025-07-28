@@ -5,7 +5,7 @@
 #   Author:     Alessandro Nardini
 #   date:       March 2025, Last revised April 2025
 #   License:    GPL
-#   Copyright:  2021, © F stands for liFe ( made in Italy )
+#   Copyright:  2023, © F stands for liFe ( made in Italy )
 #
 #   Name:       PY_FLAM3USD_UI_PRM_MAP
 #
