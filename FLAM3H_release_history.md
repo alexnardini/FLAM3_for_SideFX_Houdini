@@ -10,11 +10,12 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
-### [<ins>From v1.8.44</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.44) ###
+### [<ins>From v1.8.45</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.45) ###
 
 _This release complete a very, very long polyshing period of all that was done in FLAM3H up to todays date_.
 
 - **New**: Added a new chapter to the OUT Tab documentation: `Anatomy of a XML flame file format`.
+- **Fix**: Affine scale parameter now clear/delete its keyframes everytime is evaluated. It can not be animated.
 - **Fix**: Final cvex compiled file size: ~1kb smaller.
 - **Updated HDA documentation.**
 
