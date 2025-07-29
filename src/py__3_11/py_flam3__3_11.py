@@ -5266,8 +5266,7 @@ class flam3h_iterator_utils
             (None):
         """  
         idx: int = self.kwargs['script_multiparm_index']
-        
-        scl_prm = hou.parm(f"scl_{idx}")
+        scl_prm = self.kwargs['parm']
         scl_prm.deleteAllKeyframes()
         
         scl: float = scl_prm.eval()
@@ -5297,8 +5296,7 @@ class flam3h_iterator_utils
             (None):
         """  
         idx: int = self.kwargs['script_multiparm_index']
-        
-        scl_prm = hou.parm(f"pscl_{idx}")
+        scl_prm = self.kwargs['parm']
         scl_prm.deleteAllKeyframes()
         
         scl: float = scl_prm.eval()
@@ -5324,7 +5322,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        scl_prm = hou.parm("ffscl")
+        scl_prm = self.kwargs['parm']
         scl_prm.deleteAllKeyframes()
         
         scl: float = scl_prm.eval()
@@ -5350,7 +5348,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        scl_prm = hou.parm("ffpscl")
+        scl_prm = self.kwargs['parm']
         scl_prm.deleteAllKeyframes()
         
         scl: float = scl_prm.eval()
