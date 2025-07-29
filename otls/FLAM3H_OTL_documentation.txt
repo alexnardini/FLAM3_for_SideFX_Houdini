@@ -3004,13 +3004,13 @@ _Dependent variation's affine coefficients:_
     _A dependent variation behaves similarly to a parametric variation, but uses some of the affine coefficients to determine its behavior rather than additional parameters._
     _The dependent variations and the affine coefficients they employ are listed below_:<br /><br />
     
-    - [Smallicon:BUTTONS/show_parms] *_Waves_*: `O[0] X[1]   Y[1] O[1]`
+    - [Smallicon:BUTTONS/show_parms] *_Waves_*: `Y[0] O[0]   Y[1] O[1]` (*`B`*, *`C`*, *`E`*, *`F`*)
     
-    - [Smallicon:BUTTONS/show_parms] *_Popcorn_*: `O[0]  O[1]`
+    - [Smallicon:BUTTONS/show_parms] *_Popcorn_*: `O[0]  O[1]` (*`C`*, *`F`*)
     
-    - [Smallicon:BUTTONS/show_parms] *_Rings_*: `O[0]`
+    - [Smallicon:BUTTONS/show_parms] *_Rings_*: `O[0]` (*`C`*)
     
-    - [Smallicon:BUTTONS/show_parms] *_Fan_*: `O[0]`
+    - [Smallicon:BUTTONS/show_parms] *_Fan_*: `O[0] O[1]` (*`C`*, *`F`*)
 
 
 
