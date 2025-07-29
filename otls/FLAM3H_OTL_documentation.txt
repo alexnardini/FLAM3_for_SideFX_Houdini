@@ -1078,6 +1078,9 @@ pre affine Scale:
 
     The parameter's slider ranges are between *`0.975`* and *`1.025`* to allow for precise and very small value changes when dragged left or right.
 
+    NOTE:
+        This parameter can not be animated. 
+
 
 copy post affine values:
     #id: FLAME

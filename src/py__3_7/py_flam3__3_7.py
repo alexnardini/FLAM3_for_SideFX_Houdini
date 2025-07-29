@@ -5256,16 +5256,18 @@ class flam3h_iterator_utils
             (None):
         """  
         idx: int = self.kwargs['script_multiparm_index']
-        scl: float = hou.parm(f"scl_{idx}").eval()
+        
+        scl_prm = hou.parm(f"scl_{idx}")
+        scl_prm.deleteAllKeyframes()
+        
+        scl: float = scl_prm.eval()
         x: tuple = hou.parmTuple(f"x_{idx}").eval()
         y: tuple = hou.parmTuple(f"y_{idx}").eval()
-        m2 = hou.Matrix2((x, y))
-        m2_scl = hou.Matrix2(((scl, 0), (0, scl)))
-        m2_new: tuple = (m2 * m2_scl).asTupleOfTuples()
+        m2_new: tuple = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
         self.node.setParms({f"x_{idx}": hou.Vector2((m2_new[0]))})
         self.node.setParms({f"y_{idx}": hou.Vector2((m2_new[1]))})
         # Reset to no-scale value (1 being 100%)
-        self.node.setParms({f"scl_{idx}": 1})
+        scl_prm.set(1)
         
         
     def iterator_post_affine_scale(self) -> None:
@@ -5285,16 +5287,18 @@ class flam3h_iterator_utils
             (None):
         """  
         idx: int = self.kwargs['script_multiparm_index']
-        scl: float = hou.parm(f"pscl_{idx}").eval()
+        
+        scl_prm = hou.parm(f"pscl_{idx}")
+        scl_prm.deleteAllKeyframes()
+        
+        scl: float = scl_prm.eval()
         x: tuple = hou.parmTuple(f"px_{idx}").eval()
         y: tuple = hou.parmTuple(f"py_{idx}").eval()
-        m2 = hou.Matrix2((x, y))
-        m2_scl = hou.Matrix2(((scl, 0), (0, scl)))
-        m2_new: tuple = (m2 * m2_scl).asTupleOfTuples()
+        m2_new: tuple = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
         self.node.setParms({f"px_{idx}": hou.Vector2((m2_new[0]))})
         self.node.setParms({f"py_{idx}": hou.Vector2((m2_new[1]))})
         # Reset to no-scale value (1 being 100%)
-        self.node.setParms({f"pscl_{idx}": 1})
+        scl_prm.set(1)
         
         
     def iterator_FF_affine_scale(self) -> None:
@@ -5310,16 +5314,17 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        scl: float = hou.parm("ffscl").eval()
+        scl_prm = hou.parm("ffscl")
+        scl_prm.deleteAllKeyframes()
+        
+        scl: float = scl_prm.eval()
         x: tuple = hou.parmTuple("ffx").eval()
         y: tuple = hou.parmTuple("ffy").eval()
-        m2 = hou.Matrix2((x, y))
-        m2_scl = hou.Matrix2(((scl, 0), (0, scl)))
-        m2_new: tuple = (m2 * m2_scl).asTupleOfTuples()
+        m2_new: tuple = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
         self.node.setParms({"ffx": hou.Vector2((m2_new[0]))})
         self.node.setParms({"ffy": hou.Vector2((m2_new[1]))})
         # Reset to no-scale value (1 being 100%)
-        self.node.setParms({"ffscl": 1})
+        scl_prm.set(1)
         
         
     def iterator_FF_post_affine_scale(self) -> None:
@@ -5335,16 +5340,17 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        scl: float = hou.parm("ffpscl").eval()
+        scl_prm = hou.parm("ffpscl")
+        scl_prm.deleteAllKeyframes()
+        
+        scl: float = scl_prm.eval()
         x: tuple = hou.parmTuple("ffpx").eval()
         y: tuple = hou.parmTuple("ffpy").eval()
-        m2 = hou.Matrix2((x, y))
-        m2_scl = hou.Matrix2(((scl, 0), (0, scl)))
-        m2_new: tuple = (m2 * m2_scl).asTupleOfTuples()
+        m2_new: tuple = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
         self.node.setParms({"ffpx": hou.Vector2((m2_new[0]))})
         self.node.setParms({"ffpy": hou.Vector2((m2_new[1]))})
         # Reset to no-scale value (1 being 100%)
-        self.node.setParms({"ffpscl": 1})
+        scl_prm.set(1)
 
         
     def destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool = False) -> None:
