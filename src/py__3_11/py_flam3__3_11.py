@@ -8054,7 +8054,7 @@ class flam3h_iterator_utils
         # set all multi parms xaos strings parms
         xaos_str_round_floats: list = [div_weight.join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)]
         prm_xaos_name: str = flam3h_iterator_prm_names().xaos
-        [node.parm(f"{prm_xaos_name}_{str(mp_idx + 1)}").deleteAllKeyframes() for mp_idx in range(iter_count)]
+        [node.parm(f"{prm_xaos_name}_{str(mp_idx + 1)}").deleteAllKeyframes() for mp_idx in range(iter_count)] # This parameter can not be animated
         [node.setParms({f"{prm_xaos_name}_{str(mp_idx + 1)}": (div_xaos + xaos)}) for mp_idx, xaos in enumerate(xaos_str_round_floats)] # type: ignore
         
         # reset iterator's mpmem prm
