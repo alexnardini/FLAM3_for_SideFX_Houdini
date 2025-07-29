@@ -337,7 +337,7 @@ n = None
 # parameter name:    `sys_palettepresets_off`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False)
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Menu Script
 ```python
@@ -352,7 +352,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 # parameter name:    `sys_palettepresets`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False)
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Menu Script
 ```python
@@ -367,7 +367,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 # parameter name:    `sys_inpresets_disabled`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_sys()
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_sys(), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Menu Script
 ```python
@@ -382,7 +382,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 # parameter name:    `sys_inpresets`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_sys()
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_sys(), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Menu Script
 ```python
@@ -714,7 +714,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).flam3h_ramp_save()
 # parameter name:    `palettepresets_off`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False)
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Menu Script
 ```python
@@ -729,7 +729,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 # parameter name:    `palettepresets`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False)
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Menu Script
 ```python
@@ -782,7 +782,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_IN_
 # parameter name:    `inpresets_disabled`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h(), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Menu Script
 ```python
@@ -797,7 +797,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 # parameter name:    `inpresets`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h(), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Menu Script
 ```python
