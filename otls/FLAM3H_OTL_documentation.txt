@@ -871,7 +871,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     TIP:
         #display: orange
     
-        - XAOS is off by default, and FLAM3H will activate it automatically only when needed. _eg: when one of its weights is set to a value different from: *`1`*(one)_.
+        - XAOS is off by default, and FLAM3H will activate it automatically only when needed. _e.g. when one of its weights is set to a value different from: *`1`*(one)_.
         - When saving out Flame files, xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
         
     NOTE:
@@ -1127,9 +1127,6 @@ pre affine [Icon:TOP/xmlinput]:
     # Use *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ for everything (_translation, rotation and scale/shear_).
     
     # Use the rotation parameter in combination with the scale parameter and the *`X`*.`xy` and *`Y`*.`xy` for tweaks on shear and *`O`*._`xy`_ for translation.
-    
-    NOTE:
-        The resulting affine coefficients after the rotation parameter is applied are not updated in the UI but passed directly internally to the algorithm.
 
 pre affine Rot [Icon:TOP/xmlinput]:
     #id: FLAME
