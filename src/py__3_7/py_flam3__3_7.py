@@ -5256,7 +5256,7 @@ class flam3h_iterator_utils
             (None):
         """  
         idx: int = self.kwargs['script_multiparm_index']
-        scl_prm = self.kwargs['parm']
+        scl_prm: hou.Parm = self.kwargs['parm']
         scl_prm.deleteAllKeyframes()
         
         scl: float = scl_prm.eval()
@@ -5266,7 +5266,7 @@ class flam3h_iterator_utils
         self.node.setParms({f"x_{idx}": hou.Vector2((m2_new[0]))})
         self.node.setParms({f"y_{idx}": hou.Vector2((m2_new[1]))})
         # Reset to no-scale value (1 being 100%)
-        scl_prm.set(1)
+        scl_prm.set(1) # type: ignore
         
         
     def iterator_post_affine_scale(self) -> None:
@@ -5286,7 +5286,7 @@ class flam3h_iterator_utils
             (None):
         """  
         idx: int = self.kwargs['script_multiparm_index']
-        scl_prm = self.kwargs['parm']
+        scl_prm: hou.Parm = self.kwargs['parm']
         scl_prm.deleteAllKeyframes()
         
         scl: float = scl_prm.eval()
@@ -5296,7 +5296,7 @@ class flam3h_iterator_utils
         self.node.setParms({f"px_{idx}": hou.Vector2((m2_new[0]))})
         self.node.setParms({f"py_{idx}": hou.Vector2((m2_new[1]))})
         # Reset to no-scale value (1 being 100%)
-        scl_prm.set(1)
+        scl_prm.set(1) # type: ignore
         
         
     def iterator_FF_affine_scale(self) -> None:
@@ -5312,7 +5312,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        scl_prm = self.kwargs['parm']
+        scl_prm: hou.Parm = self.kwargs['parm']
         scl_prm.deleteAllKeyframes()
         
         scl: float = scl_prm.eval()
@@ -5322,7 +5322,7 @@ class flam3h_iterator_utils
         self.node.setParms({"ffx": hou.Vector2((m2_new[0]))})
         self.node.setParms({"ffy": hou.Vector2((m2_new[1]))})
         # Reset to no-scale value (1 being 100%)
-        scl_prm.set(1)
+        scl_prm.set(1) # type: ignore
         
         
     def iterator_FF_post_affine_scale(self) -> None:
@@ -5338,7 +5338,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        scl_prm = self.kwargs['parm']
+        scl_prm: hou.Parm = self.kwargs['parm']
         scl_prm.deleteAllKeyframes()
         
         scl: float = scl_prm.eval()
@@ -5348,7 +5348,7 @@ class flam3h_iterator_utils
         self.node.setParms({"ffpx": hou.Vector2((m2_new[0]))})
         self.node.setParms({"ffpy": hou.Vector2((m2_new[1]))})
         # Reset to no-scale value (1 being 100%)
-        scl_prm.set(1)
+        scl_prm.set(1) # type: ignore
 
         
     def destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool = False) -> None:
