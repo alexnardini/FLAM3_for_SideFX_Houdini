@@ -1076,7 +1076,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_
 # parameter name:    `xm`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert()
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert(), kwargs['parm'].deleteAllKeyframes()
 ```
 # prefs Tab
 # parameter name:    `vex_precision`
@@ -1094,7 +1094,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
 # parameter name:    `setdark`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).colorSchemeDark()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes()
 ```
 # prefs Tab
 # parameter name:    `vpww`
@@ -1110,7 +1110,7 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(
 # parameter name:    `vptype`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay(), kwargs['parm'].deleteAllKeyframes()
 ```
 # prefs Tab
 # parameter name:    `vpptsize`
