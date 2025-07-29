@@ -401,6 +401,10 @@ n = None
 ```
 # SYS Tab
 # parameter name:    `sys_outpresets`
+### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
 ### Menu Script
 ```python
 menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
@@ -893,6 +897,10 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 ```
 # OUT Tab
 # parameter name:    `outpresets`
+### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
 ### Menu Script
 ```python
 menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
