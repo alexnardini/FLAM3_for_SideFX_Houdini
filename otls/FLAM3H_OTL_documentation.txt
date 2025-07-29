@@ -871,11 +871,11 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     TIP:
         #display: orange
     
-        XAOS is off by default, and FLAM3H will activate it automatically
-        only when needed. ex: when one of its weights is set to a value different from: *`1`*(one).
+        - XAOS is off by default, and FLAM3H will activate it automatically only when needed. _eg: when one of its weights is set to a value different from: *`1`*(one)_.
+        - When saving out Flame files, xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
         
     NOTE:
-        When saving out Flame files, xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
+        - This parameter can not be animated.
         
 auto space xaos weights / xaos information tips [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/boolean]:
     #id: FLAME

@@ -5257,7 +5257,7 @@ class flam3h_iterator_utils
         """  
         idx: int = self.kwargs['script_multiparm_index']
         scl_prm: hou.Parm = self.kwargs['parm']
-        scl_prm.deleteAllKeyframes()
+        scl_prm.deleteAllKeyframes() # This parameter can not be animated
         
         scl: float = scl_prm.eval()
         x: tuple = hou.parmTuple(f"x_{idx}").eval()
@@ -5287,7 +5287,7 @@ class flam3h_iterator_utils
         """  
         idx: int = self.kwargs['script_multiparm_index']
         scl_prm: hou.Parm = self.kwargs['parm']
-        scl_prm.deleteAllKeyframes()
+        scl_prm.deleteAllKeyframes() # This parameter can not be animated
         
         scl: float = scl_prm.eval()
         x: tuple = hou.parmTuple(f"px_{idx}").eval()
@@ -5313,7 +5313,7 @@ class flam3h_iterator_utils
             (None):
         """  
         scl_prm: hou.Parm = self.kwargs['parm']
-        scl_prm.deleteAllKeyframes()
+        scl_prm.deleteAllKeyframes() # This parameter can not be animated
         
         scl: float = scl_prm.eval()
         x: tuple = hou.parmTuple("ffx").eval()
@@ -5339,7 +5339,7 @@ class flam3h_iterator_utils
             (None):
         """  
         scl_prm: hou.Parm = self.kwargs['parm']
-        scl_prm.deleteAllKeyframes()
+        scl_prm.deleteAllKeyframes() # This parameter can not be animated
         
         scl: float = scl_prm.eval()
         x: tuple = hou.parmTuple("ffpx").eval()
