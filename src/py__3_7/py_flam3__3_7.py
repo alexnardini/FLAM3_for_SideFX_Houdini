@@ -6264,7 +6264,7 @@ class flam3h_iterator_utils
                             prm_selmem.set(0)
                         
                         path: str = f"{_ICON}  .../{flam3node_FF.parent()}/{flam3node_FF.name()}.FF"
-                        return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  All", 2, f"{path}:  PRE", 3, f"{path}:  VAR", 4, f"{path}:  POST", 5, f"{path}:  pre affine", 6, f"{path}:  post affine", 7, "" ]
+                        return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  ... All", 2, f"{path}:  PRE", 3, f"{path}:  VAR", 4, f"{path}:  POST", 5, f"{path}:  pre affine", 6, f"{path}:  post affine", 7, "" ]
                 
                 else:
                     return MENU_FF_COPY_PASTE_EMPTY
