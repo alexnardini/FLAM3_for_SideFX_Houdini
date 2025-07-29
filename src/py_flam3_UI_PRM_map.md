@@ -469,7 +469,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_u
 # parameter name:    `prmpastesel_#`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel()
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel(), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Menu Script
 ```python
@@ -594,7 +594,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).note_FF(), kwargs['par
 # parameter name:    `ffprmpastesel`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_FF()
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Menu Script
 ```python
@@ -1064,13 +1064,13 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_m
 # parameter name:    `enumeratemenu`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs(), kwargs['parm'].deleteAllKeyframes()
 ```
 # prefs Tab
 # parameter name:    `itericons`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_menu()
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_menu(), kwargs['parm'].deleteAllKeyframes()
 ```
 # prefs Tab
 # parameter name:    `xm`
