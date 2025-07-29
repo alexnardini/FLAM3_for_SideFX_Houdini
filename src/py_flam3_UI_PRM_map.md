@@ -704,7 +704,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_
 # parameter name:    `palettename`
 ### Callbac Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).cp_preset_name_set()
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).cp_preset_name_set(), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Action Button script
 ```python
@@ -885,7 +885,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT
 # parameter name:    `outname`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_add_iter_num_to_prm()
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_add_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Action Button script
 ```python
