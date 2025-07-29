@@ -433,7 +433,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 # parameter name:    `note_#`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).destroy_data_note()
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).destroy_data_note(), kwargs['parm'].deleteAllKeyframes()
 ```
 # FLAME Tab
 # parameter name:    `doiter_disabled_#`
@@ -588,7 +588,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz
 # parameter name:    `ffnote`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).note_FF()
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).note_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
 # FF Tab
 # parameter name:    `ffprmpastesel`
