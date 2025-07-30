@@ -697,10 +697,19 @@ palette 256+ ON [Icon:TOP/xmlinput]:
 number of iterators [Icon:TOP/xmlinput]:
     #id: FLAME
     
-    Number of xforms/iterators to use.<br /><br />
-    This is equivalent to the number of triangle handles you have inside the popular fractal Flame editors out there.
+    Number of iterators/xforms to use.<br />
     
-    Every iterator acts as a container for functions, the algorithm will mix or shuffle them based on your logic.
+    Every iterator/xform acts as a container for functions (_variations_), the algorithm will mix or shuffle iterators/xforms based on your logic.
+    <br /><br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
+
+    Xforms have the most effect over the look of the final output image. Discussing every possible technique for using them is beyond the scope of this project. For such information, you should follow the numerous Apophysis tutorials that are available on Deviant Art and elsewhere. This article is limited to some basic performance considerations when using xforms.
+
+    The number of xforms does not affect performance because only one is chosen to be applied on each iteration. Choosing a random xform among 5 takes the same amount of time as choosing among 50. However, the number of variations in each xform does affect performance.
+
+    Adding a post affine transform to an xform will also affect performance since it’s an additional affine that must be applied each time the xform is selected. Applying an affine is very simple so the performance impact shouldn’t be too noticeable.
+    <br /><br />
 
     _The following control icons are provided_:
 
