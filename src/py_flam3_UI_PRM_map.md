@@ -109,7 +109,7 @@ def flam3h_compile_first_time_msg() -> None:
     Returns:
         (None):
     """ 
-    now: str = datetime.now().strftime("%b-%d-%Y_%H:%M:%S")
+    now: str = datetime.now().strftime("%b-%d-%Y %H:%M:%S")
     
     h: int = houdini_version(2)
     if h < 205: __module__: str = "3.7"
