@@ -10,6 +10,20 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.47</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.47) ###
+
+- **New**: The OUT Tab file contents menu will now print a quick info recap of the flame preset being selected to the status bar and as a flash message. Infos like: iterators/xforms count, if it is using a finalXform(FF), palette colors count and its HSV values if used.
+- **Fix**: Some parameters (mostly icon buttons) should not be allowed to be animated/keyframed as they are mainly a frontend interface to control their backend toggle. It is now fixed.
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.45</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.45) ###
 
 _This release complete a very, very long polyshing period of all that was done in FLAM3H up to todays date_.

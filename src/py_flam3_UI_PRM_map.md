@@ -57,7 +57,7 @@ Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before th
 ```python
 from datetime import datetime
 
-__version__ = '1.8.45 - Production'
+__version__ = '1.8.47 - Production'
 
 def houdini_version(digit: int = 1) -> int:
     """Retrieve the major Houdini version number currently in use.
