@@ -1946,7 +1946,7 @@ class flam3h_general_utils
 @STATICMETHODS
 * private_prm_set(node: hou.SopNode, prm_name: str, data: Union[str, int, float]) -> None:
 * private_prm_deleteAllKeyframes(node: hou.SopNode, prm_name: str) -> None:
-* flash_message(node: hou.SopNode, msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None] = None) -> None:
+* flash_message(node: hou.SopNode, msg: Union[str, None], timer: float = FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None] = None) -> None:
 * remove_locked_from_flame_stats(node) -> None:
 * houdini_version(digit: int=1) -> int:
 * clamp(x, val_max: Union[int, float] = 255) -> float:
@@ -2062,14 +2062,14 @@ class flam3h_general_utils
 
 
     @staticmethod
-    def flash_message(node: hou.SopNode, msg: Union[str, None], timer: float=FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None] = None) -> None:
+    def flash_message(node: hou.SopNode, msg: Union[str, None], timer: float = FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None] = None) -> None:
         """Cause a message to appear on the top left of the network editor.
         This will work either in Sop and Lop context as it is handy to get those messages either ways. 
 
         Args:
             node(hou.SopNode): the current FLAM3H node.
             msg(Union[str, None]): The string message to print or None.
-            timer(float): Default to: FLAM3H_FLASH_MESSAGE_TIMER. How long the printed message stay before it fade away.
+            timer(float): Default to: FLAM3H_FLASH_MESSAGE_TIMER (2 sec). How long the printed message stay before it fade away.
             img(Union[str, None]): Default to none. specifies an icon or image file that should be displayed along with the text specified in the msg argument.
 
         Returns:
@@ -11741,7 +11741,7 @@ class in_flame
             idx(int): flame idx out of all flames included in the loaded flame file
 
         Returns:
-            (Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]): [a hou.Vector type of HSV vals or False] Since we know the HSV is made out of 3 floats, it will always rreturn a: hou.Vector3
+            (Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]): [a hou.Vector type of HSV vals or False] Since we know the HSV is made out of 3 floats, it will always return a: hou.Vector3
         """   
         if self.isvalidtree:
             palette_hsv_xml_list: Union[str, list] = self.flam3h_hsv[idx]
@@ -15649,6 +15649,8 @@ class out_flame_utils
 * out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple:
 
 @METHODS
+* out_to_flam3h_init_data(self, node: hou.SopNode, tab: str = 'OUT') -> tuple[Union[str, None], int]:
+* out_to_flam3h(self, tab: str = 'OUT') -> None:
 * out_palette_256_plus_check(self) -> None:
 * out_presets_get_selected_menu_label(self) -> Union[str, None]:
 * out_presets_copy_menu_label_callback(self) -> None:
@@ -16827,7 +16829,89 @@ class out_flame_utils
     @property
     def flam3h_cp_lookup_samples(self):
         return self._flam3h_cp_lookup_samples
+    
+    
+    def out_to_flam3h_init_data(self, node: hou.SopNode, tab: str = 'OUT') -> tuple[Union[str, None], int]:
+        """Load a flame preset and gather some data.
 
+        Args:
+            (self):
+            node(hou.SopNode): FLAM3H node to load the flame file/preset into.
+            tab(str): Default to "OUT" (for the OUT tab). Set it to "SYS" for the sys tab out preset menu to be evaluated.
+
+        Returns:
+            (tuple[Union[str, None], int]):  tuple( xml, 
+                                                    preset_id, 
+                                                    )
+
+                                                    * xml: either a flame preset from a flame file or from the Clipboard.
+                                                    * preset_id: flame preset index. From clipboard will always be ZERO.
+    """
+        xml: str = os.path.expandvars(node.parm(OUT_PATH).eval())
+        
+        # Get the correct menu parameter's preset idx
+        if node.parm(OUT_PVT_ISVALID_FILE).eval():
+            if tab.upper() == 'OUT': preset_id: str = node.parm(OUT_PRESETS).eval()
+            elif tab.upper() == 'SYS': preset_id: str = node.parm(OUT_SYS_PRESETS).eval()
+            else: preset_id = '0'
+
+            return xml, int(preset_id)
+        
+        else: return None, 0
+        
+        
+    def out_to_flam3h(self, tab: str = 'OUT') -> None:
+        """Load a Flame preset to then print its compact infos into the status bar and flash message for purely informational purpose.
+        
+        This is done so instead of having just a list of the Flames included into the file as a menu, we can also gather a bit of infos quickly every time we select a menu entrie.
+        
+        The infos are:
+        * Flame preset name.
+        * Number of iterators/xforms.
+        * Is it using a finalXform(FF) ?
+        * How many colors in the palette. If something goes wrong it will report: -1 .
+        * Is the palette using the HSV values as a color correction ?
+        * The HSV values being used.
+        
+        Args:
+            (self):
+            tab(str): Default to "OUT" (for the OUT tab). Set it to "SYS" for the sys tab out preset menu to be evaluated.
+            
+        Returns:
+            (None):
+        """
+        node = self.node
+        
+        _FLAM3H_INIT_DATA: tuple = self.out_to_flam3h_init_data(node, tab)
+        xml, preset_id = _FLAM3H_INIT_DATA
+
+        if xml is not None and _xml_tree(xml).isvalidtree:
+
+            # IN flame preset data
+            apo_data = in_flame_iter_data(node, xml, preset_id)
+            # If there are xforms/iterators
+            if apo_data.xforms is not None:
+                
+                name: str = apo_data.name[preset_id]
+                n_xf: int = len(apo_data.xforms)
+                if apo_data.finalxform is not None: FF: str = "Yes"
+                else: FF: str = "No"
+                palette: int = -1
+                hsv: str = ''
+                hsv_val: str = ''
+                if apo_data.palette is not None:
+                    try: palette = apo_data.palette[1]
+                    except: palette = len(apo_data.palette[0].keys())
+                    if apo_data.cp_flam3h_hsv is not False:
+                        hsv = ", HSV"
+                        assert isinstance(apo_data.cp_flam3h_hsv, hou.Vector3)
+                        hsv_val = f": {apo_data.cp_flam3h_hsv[0]}, {apo_data.cp_flam3h_hsv[1]}, {apo_data.cp_flam3h_hsv[2]}"
+                
+                # Display infos
+                _MSG: str = f"XF: {n_xf}, FF: {FF}, Palette: {palette}{hsv}"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: Name: {name}  ->  {_MSG}{hsv_val}", 'MSG')
+                flam3h_general_utils.flash_message(node, _MSG)
+                
 
     def out_palette_256_plus_check(self) -> None:
         """When activating the PREFS option: palette 256+ toggle,

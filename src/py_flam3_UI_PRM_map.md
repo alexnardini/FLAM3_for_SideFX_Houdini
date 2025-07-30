@@ -409,7 +409,7 @@ n = None
 # parameter name:    `sys_outpresets`
 ### Callback Script
 ```python
-kwargs['parm'].deleteAllKeyframes()
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_to_flam3h('SYS'), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Menu Script
 ```python
@@ -911,7 +911,7 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 # parameter name:    `outpresets`
 ### Callback Script
 ```python
-kwargs['parm'].deleteAllKeyframes()
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_to_flam3h(), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Menu Script
 ```python
