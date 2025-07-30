@@ -310,6 +310,12 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
 ```
 # SYS Tab
+# parameter name:    `tagsize`
+### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+# SYS Tab
 # parameter name:    `loaddef`
 ### Callback Script
 ```python
