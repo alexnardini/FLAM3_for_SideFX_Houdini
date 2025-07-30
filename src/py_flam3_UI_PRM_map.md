@@ -972,7 +972,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 # parameter name:    `outrespresets`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).menu_sensor_resolution_set(False)
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).menu_sensor_resolution_set(False), kwargs['parm'].deleteAllKeyframes()
 ```
 ### Menu Script
 ```python
@@ -983,7 +983,7 @@ return menu
 # parameter name:    `outcprendervals`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True)
+hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()
 ```
 # OUT Tab
 # parameter name:    `outcenter`
