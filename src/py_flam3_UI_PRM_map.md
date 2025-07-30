@@ -846,13 +846,13 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle("pro
 # parameter name:    `cprendervals`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True)
+hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()
 ```
 # IN Tab
 # parameter name:    `cprendervals_cb`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True)
+hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()
 ```
 # IN Tab
 # parameter name:    `icon_in_infos_sensor`
