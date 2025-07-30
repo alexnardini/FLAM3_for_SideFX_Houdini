@@ -689,6 +689,12 @@ hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_lock()
 kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp()
 ```
 # CP Tab
+# parameter name:    `cp_lookupsamples`
+### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+# CP Tab
 # parameter name:    `palette`
 ### Callback Script
 ```python
