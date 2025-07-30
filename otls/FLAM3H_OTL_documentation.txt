@@ -284,10 +284,10 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
 
     _The bookmark icon will display the status of each iterator_:
 
-    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] when an iterator is ACTIVE.
-    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when an iterator is ACTIVE and *`0`*(Zero) Weight.
-    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when an iterator is ACTIVE, *`0`*(Zero) Weight and Marked.
-    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg] when an iterator is ACTIVE and Marked.
+    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] when an iterator is *`On`*/Active.
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when an iterator is *`On`*/Active and *`0`*(Zero) Weight.
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when an iterator is *`On`*/Active, *`0`*(Zero) Weight and Marked.
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg] when an iterator is *`On`*/Active and Marked.
     - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when an iterator is *`Off`*/Disabled.
     - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when an iterator is *`Off`*/Disabled and Marked.
 
@@ -755,9 +755,8 @@ note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FLAME
     A name for this iterator.
 
-    _If no name is provided (ex: empty string) a default one will be automatically set_.
-
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - If no name is provided (e.g. empty string) a default name will be automatically set.
     - An iterator default name is composed as: *`iterator_`* followed by its multi parameter index number, as in: *`iterator_7`*
     - Every time you add or remove an iterator, FLAM3H will rename the remaining one if they have a default name to match their new index.
     - When saving a Flame out with inactive iterators, FLAM3H will discard the inactive one and rename the others to match their new index if they have a default name.
@@ -780,7 +779,7 @@ copy/paste:
     Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder an iterator posses.<br />
     The sections items in the mini-menu have a bookmark icon that change based on the marked iterator status:
 
-    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is ACTIVE.
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is *`On`*/Active..
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is *`0`*(Zero) Weight.
     - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when the marked iterator is *`Off`*/Disabled.
 
@@ -1047,7 +1046,7 @@ menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     TIP:
         #display: orange
     
-        Laying down a new FLAM3H node and activating the Final Flame transform with the default Sierpiński triangle (*FF*) will allow you to experiment with the variations and see what happens.
+        Laying down a new FLAM3H node and activating the Final Flame transform (*FF*) with the default Sierpiński triangle will allow you to experiment with the variations and see what happens.
         Don't forget to play around with the affine coefficients a bit to see what you can obtain.
 
 menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
@@ -1064,7 +1063,7 @@ w [Icon:TOP/xmlinput]:
     #id: FLAME
     The weight of the selected variation. *`0`*(Zero) will be inactive, and *`1`*(one) will be 100%.
     Can be set higher than *`1`*(one) and negative too.
-    * If more than one variation is active, remember that, as a general rule, it is suggested (_not mandatory_) to have the sum of all weights equal to *`1`*(one).
+    * If more than one variation are active, remember that, as a general rule, it is suggested (_not mandatory_) to have the sum of all weights equal to *`1`*(one).
     
     TIP:
         #display: orange
@@ -1202,7 +1201,7 @@ TIP:
         
 VARS Tab [Icon:TOP/xmlinput]:
     #id: FLAME
-    If a *`VAR`* parametric variation is selected, its parameters will populate this Tab.
+    If a *`PRE`*, *`VAR`* or *`POST`* parametric variation is selected, its parameters will populate this Tab.
     
 
 
@@ -1273,7 +1272,7 @@ FF: copy/paste:
     Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder the FF iterator posses.<br />
     The sections items in the mini-menu have a bookmark icon that change based on the marked FF status:
 
-    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFSVG.svg] when the marked FF is ACTIVE.
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFSVG.svg] when the marked FF is *`On`*/Active.
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg] when the marked FF is *`Off`*/Disabled.
     
     When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another FLAM3H node' FF.
@@ -2427,7 +2426,7 @@ Vibrancy [Icon:TOP/xmlinput]:
 
     == OUT: XML renderer color correction curves == (OUTEDITRENCCCURVES)
 
-    _This collapsible folder posses a header's toggle to signal when a color correction is Active(*`On`*) or at its default values(*`Off`*)._
+    _This collapsible folder posses a header's toggle to signal when a color correction is *`On`*/Active or at its default values(*`Off`*)._
 
 Reset curves:
     #id: OUT
