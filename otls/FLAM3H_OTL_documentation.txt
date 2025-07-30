@@ -288,8 +288,8 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when an iterator is ACTIVE and *`0`*(Zero) Weight.
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when an iterator is ACTIVE, *`0`*(Zero) Weight and Marked.
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg] when an iterator is ACTIVE and Marked.
-    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when an iterator is OFF/Disabled.
-    - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when an iterator is OFF/Disabled and Marked.
+    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when an iterator is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when an iterator is *`Off`*/Disabled and Marked.
 
     When an iterator shader's opacity is set to *`0`*(Zero),<br />
     its menu label will be prefixed with the message string: *`[ZERO opacity]`*<br />
@@ -310,8 +310,8 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
 FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
     
-    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
-    - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is ON.
+    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*.
+    - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*.
     
     Enable and disable [finalXform|#FF] transform/iterator.
     
@@ -319,8 +319,8 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
     
-    - [Largeicon:opdef:.?icon_optionRIPDisabledSVG.svg] when RIP is OFF.
-    - [Largeicon:opdef:.?icon_optionRIPEnabledSVG.svg] when RIP is ON.
+    - [Largeicon:opdef:.?icon_optionRIPDisabledSVG.svg] when RIP is *`Off`*.
+    - [Largeicon:opdef:.?icon_optionRIPEnabledSVG.svg] when RIP is *`On`*.
     
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
@@ -351,23 +351,25 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 :box:
     #display: rounded white
     
-    == SYS: Viewport xforms VIZ == (SYSXFVIZ)
+    == SYS: xforms handles VIZ == (SYSXFVIZ)
 
     When reviewing and editing your fractal Flame, the viewport xforms handles provide excellent visual feedback. 
     They will assist you in modifying each iterator (_or FF_) and rapidly help you comprehend the currently existing setup.
 
 
-Viewport xforms VIZ [Icon:DATATYPES/boolean]:
+xforms handles VIZ [Icon:DATATYPES/boolean]:
     #id: SYS
-    OFF by default.<br />
+    *`Off`* by default.<br />
 
-    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] vieport xforms VIZ is OFF.
-    - [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg] vieport xforms VIZ is ON.
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] vieport xforms VIZ is *`Off`*.
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg] vieport xforms VIZ is *`On`*.
     - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] one of the iteratos/xforms is in SOLO mode.
     - [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg] the FF is in SOLO mode.
 
-    The xforms handles will be shown in the viewport when it is turned ON.<br />
-    Since they are designed to contribute as little as possible to the calculation, you may really leave them turned on at all times, until rendering is required.
+    The xforms handles will be shown in the viewport when it is turned *`On`*.<br />
+    Xform handles are a visual representation of the affine (PRE or POST) values.<br />
+    
+    Since they are designed to contribute as little as possible to the calculation, you may really leave them turned *`On`* at all times, until rendering is required.
 
     In the preferences' tab under *`prefs viewport`* you can set the thickness of the xforms handles curves using the parameter: *`wire width`*.
 
@@ -415,7 +417,7 @@ Viewport xforms VIZ [Icon:DATATYPES/boolean]:
 
 
     :warning:
-        Turn this OFF when rendering.
+        Turn this *`Off`* when rendering.
         
 
 :box:
@@ -428,8 +430,8 @@ _The above tag reference's image shows a Flame with 1(one) iterator and the FF(f
 TAG [Icon:DATATYPES/boolean]:
     #id: SYS
     
-    - [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg] when TAG is OFF.
-    - [Largeicon:opdef:.?icon_TagOBlueSVG.svg] when TAG is ON.
+    - [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg] when TAG is *`Off`*.
+    - [Largeicon:opdef:.?icon_TagOBlueSVG.svg] when TAG is *`On`*.
     
     Enable/disable viewport TAG infos.
     
@@ -443,9 +445,9 @@ TAG [Icon:DATATYPES/boolean]:
     * *`Xaos`* when active will be next inside square brackets. Read the xaos documentation to know more about it.
         - *`Xaos TO`* will be: *`[Xt]`*
         - *`Xaos FROM`* wil be: *`[fX]`*
-    * *`RIP`* (_remove invalid points_) when the SYS option "Remove Invalid Points" is ON.
-    * *`F3C`* (_flam3 compatibility_) when the  SYS option "flam3 compatibility" is ON.
-    * *`MB`* (_Motion Blur_) when ON will be next.
+    * *`RIP`* (_remove invalid points_) when the SYS option "Remove Invalid Points" is *`On`*.
+    * *`F3C`* (_flam3 compatibility_) when the  SYS option "flam3 compatibility" is *`On`*.
+    * *`MB`* (_Motion Blur_) when *`On`* will be next.
 
     <br />
 
@@ -465,8 +467,8 @@ TAG [Icon:DATATYPES/boolean]:
         When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
         Once clicked, it will exit the mode and back to being the default Tag blue icon:
         
-        - [Largeicon:opdef:.?icon_TagORedSVG.svg] when the OUT Camera sensor viz mode is ON and update sensor option is ON.
-        - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when the OUT Camera sensor viz mode is ON and update sensor option is OFF.
+        - [Largeicon:opdef:.?icon_TagORedSVG.svg] when the OUT Camera sensor viz mode is *`On`* and update sensor option is *`On`*.
+        - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when the OUT Camera sensor viz mode is *`On`* and update sensor option is *`Off`*.
 
         _Additionally only in the viewport Tag_:
         - [Largeicon:opdef:.?icon_TagOSVG.svg] when iterator's count is *`0`*(Zero) and when Xaos is active but you cross the 20 iterators limit.
@@ -669,7 +671,7 @@ OUT Save:
 palette 256+ ON [Icon:TOP/xmlinput]:
     #id: SYS
     *`[256+]`*<br /><br />
-    when the *PREFS options* tab toggle *`palette 256+`* is ON, this text in the SYS tab will signal it and when OFF it will disappear.
+    when the *PREFS options* tab toggle *`palette 256+`* is *`On`*, this text in the SYS tab will signal it and when *`Off`* it will disappear.
 
 
 :box:
@@ -767,7 +769,7 @@ copy/paste:
 
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is ACTIVE.
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is *`0`*(Zero) Weight.
-    - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when the marked iterator is OFF/Disabled.
+    - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when the marked iterator is *`Off`*/Disabled.
 
     When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
@@ -785,14 +787,14 @@ copy/paste:
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - When an iterator is marked for being copied, a node note with the marked iterator number is being displayed in the network editor.<br />
-    - When copy/paste post affines, they will be automatically turned OFF if they are default values to save on computation.
+    - When copy/paste post affines, they will be automatically turned *`Off`* if they are default values to save on computation.
     - A custom user data is added to the FLAM3H node with the iterator number being marked; the data name is: *`Marked iterator`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being marked.
     
 Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: FLAME
     
-    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] This iterator is OFF.
-    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] This iterator is ON.
+    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] This iterator is *`Off`*.
+    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] This iterator is *`On`*.
     
     Enable/Disable this iterator.
     
@@ -805,7 +807,7 @@ Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 xform VIZ [Icon:DATATYPES/boolean]:
     #id: FLAME
 
-    When the SYS -> viewport xforms handles VIZ is ON this icon will become available.
+    When the SYS -> viewport xforms handles VIZ is *`On`* this icon will become available.
 
     [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg]
     - ((LMB)) to enter into SOLO mode and display only this iterator xform handle VIZ in the viewport.
@@ -865,10 +867,10 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How to set xaos in FLAM3H*
         
     - To set XAOS for a Flame with *`4`*(four) iterators, use the "*`xaos:`*" keyword followed by each iterator's Weight values separated by a colon: *`xaos:`* *1:2:3:4*.
-    - When the auto space xaos weights option is ON ( it is by default ), the xaos keyword will look like this: "*`xaos :`*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work, as in: " *`xaos:`* ".
+    - When the auto space xaos weights option is *`On`* ( it is by default ), the xaos keyword will look like this: "*`xaos :`*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work, as in: " *`xaos:`* ".
     - If no set or when using a short descriptive note, FLAM3H will assume all XAOS values are *`1`*(one), the equivalent of: *`xaos:`* *1:1:1:1*
     - If you set only *iterator 1* and *iterator 2*, FLAM3H will always fill in the rest with a value of *`1`*(one). As an example: *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
-    - When turning iterators ON and OFF and removing or adding them, FLAM3H will internally remove and reformat XAOS values to account for missing iterators. It is fully automatic.
+    - When turning iterators *`On`* and *`Off`* and removing or adding them, FLAM3H will internally remove and reformat XAOS values to account for missing iterators. It is fully automatic.
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Xaos command options*
     
@@ -880,7 +882,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     TIP:
         #display: orange
     
-        - XAOS is off by default, and FLAM3H will activate it automatically only when needed. _e.g. when one of its weights is set to a value different from: *`1`*(one)_.
+        - XAOS is *`Off`* by default, and FLAM3H will activate it automatically only when needed. _e.g. when one of its weights is set to a value different from: *`1`*(one)_.
         - When saving out Flame files, xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
         
     NOTE:
@@ -930,7 +932,7 @@ Opacity [Icon:TOP/xmlinput]:
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - When an iterator's opacity is *`0`*(Zero), you can activate the SYS Tab *RIP* option to get rid of those points ( _since_ *opacity* == *`@pscale`* (*`@widths`* _in Solaris_ ) _you do not need them anymore_).
-    - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the SYS Tab *RIP* option will be automatically turned ON if any of the iterators have its Opacity value set to *`0`*(Zero).
+    - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the SYS Tab *RIP* option will be automatically turned *`On`* if any of the iterators have its Opacity value set to *`0`*(Zero).
 
 :box:
     #display: rounded white
@@ -960,7 +962,7 @@ Opacity [Icon:TOP/xmlinput]:
         
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Variations bookmark icons*
 
-        When the preference's option: " *iterator menus bookmark icons* " toggle is ON will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
+        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`* will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
         
         - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
         - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
@@ -1170,7 +1172,7 @@ post affine [Icon:TOP/xmlinput]:
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the post affine will be automatically turned OFF if they are default values to save on computation.
+    - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the post affine will be automatically turned *`Off`* if they are default values to save on computation.
  
     
 :box:
@@ -1215,15 +1217,15 @@ VARS Tab [Icon:TOP/xmlinput]:
 FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: FF
     
-    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is OFF.
-    - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is ON.
+    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*.
+    - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*.
     
     Enable and disable [finalXform|#FF] transform/iterator.
 
 FF xform VIZ [Icon:DATATYPES/boolean]:
     #id: FF
 
-    When the SYS -> viewport xforms handles VIZ is ON this icon will become available.
+    When the SYS -> viewport xforms handles VIZ is *`On`* this icon will become available.
 
     [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg]
     - ((LMB)) to enter into SOLO mode and display only the FF xform handle VIZ in the viewport.
@@ -1259,7 +1261,7 @@ FF: copy/paste:
     The sections items in the mini-menu have a bookmark icon that change based on the marked FF status:
 
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFSVG.svg] when the marked FF is ACTIVE.
-    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg] when the marked FF is OFF/Disabled.
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg] when the marked FF is *`Off`*/Disabled.
     
     When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another FLAM3H node' FF.
     This way you can keep the FF marked while working and paste again its data somewhere else after making additional changes to its contents.
@@ -1277,7 +1279,7 @@ FF: copy/paste:
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - When the FF is marked for being copied, a node note with the text "*FF*" is being displayed in the network editor.<br />
-    - When copy/paste post affines, they will be automatically turned OFF if they are default values to save on computation.
+    - When copy/paste post affines, they will be automatically turned *`Off`* if they are default values to save on computation.
     - A custom user data is added to the FLAM3H node signaling the FF being marked; the data name is: *`Marked FF`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out if the FF is being marked.
     
     
@@ -1291,7 +1293,7 @@ FF: copy/paste:
 
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Variations bookmark icons*
         
-        When the preference's option: " *iterator menus bookmark icons* " toggle is ON will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
+        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`* will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
         
         - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
         - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
@@ -1385,7 +1387,7 @@ FF: post affine [Icon:TOP/xmlinput]:
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the post affine will be automatically turned OFF if they are default values to save on computation.
+    - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the post affine will be automatically turned *`Off`* if they are default values to save on computation.
 
         
 :box:
@@ -1449,7 +1451,7 @@ HSV reset:
 
 HSV keep values on Load [Icon:DATATYPES/boolean]:
     #id: PALETTE
-    OFF by default.
+    *`Off`* by default.
     
     When loading a palette, FLAM3H will either set the HSV values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.
     
@@ -1489,7 +1491,7 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     NOTE:
         - Saving out a Flame into a file, will also save the palette lookup samples value so that you can restore it once you load the Flame back into FLAM3H.
         - If you are loading a Flame file preset from another software or from older versions of FLAM3H without the lookup samples XML key in the file, the default value of *`256`* will be used instead.
-        - Saving a Flame out will always save the palette with *`256`* color's keys. If you created a palette with more than *`256`* colors, for example with *`1024`* color keys and sample it with *`1024`* samples to take into account all the subtle color changes, turn ON the *PREFS options* tab toggle -> *`palette 256+`*.
+        - Saving a Flame out will always save the palette with *`256`* color's keys. If you created a palette with more than *`256`* colors, for example with *`1024`* color keys and sample it with *`1024`* samples to take into account all the subtle color changes, turn *`On`* the *PREFS options* tab toggle -> *`palette 256+`*.
     
 palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     #id: PALETTE
@@ -1565,7 +1567,7 @@ Save Palette:
     NOTE:
         - The maximun color a palette can have when saving it is *`1024`*.
         - When saving out a palette file, it will try to downsample the usual *`256`* color count standard.
-        - When saving out Flame files from the OUT tab, it will always sample and save the palette as a *`256`*-color palette standard, unless you turn ON the *PREFS options* tab toggle -> *`palette 256+`*.
+        - When saving out Flame files from the OUT tab, it will always sample and save the palette as a *`256`*-color palette standard, unless you turn *`On`* the *PREFS options* tab toggle -> *`palette 256+`*.
     
 Palette name [Icon:DATATYPES/string]:
     #id: PALETTE
@@ -1685,7 +1687,7 @@ viz mb [Icon:DATATYPES/boolean]:
     (_Set the viewport background to black for better viewing_)
     
     NOTE:
-        When rendering, keep in mind to turn this off to avoid superimposing a darker color.
+        When rendering, keep in mind to turn this *`Off`* to avoid superimposing a darker color.
         
 
 
@@ -1778,7 +1780,7 @@ Iterations on Load:
     
     TIP:
         #display: orange
-        If *add iterations to Flame name* OUT Tab option is *OFF*:
+        If *add iterations to Flame name* OUT Tab option is *`Off`*:
     
         The iteration number you want your fractal Flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
 
@@ -1798,7 +1800,7 @@ Force iterations on Load [Icon:DATATYPES/boolean]:
 
     If the iterations number is baked into the Flame preset name, it will override this setting.
 
-    Turn ON "override iterations from Flame name" to override the iterations number baked into the Flame preset name.
+    Turn *`On`* "override iterations from Flame name" to override the iterations number baked into the Flame preset name.
 
 Override iterations from Flame name [Icon:DATATYPES/boolean]:
     #id: IN
@@ -1832,12 +1834,12 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
     *Y*: *`0.707107`*, *`0.707107`* <br />
     *O*: *`0`*, *`0`* 
 
-    When this option is ON (_it is ON by default_) and both version are present into the Flame preset you are trying to load, it will load the preset using the F3H version, when OFF it will use the standard version.
+    When this option is *`On`* (_it is by default_) and both version are present into the Flame preset you are trying to load, it will load the preset using the F3H version, when *`Off`* it will use the standard version.
 
     NOTE:
         *You need to reload the current Flame preset for this change to take place*.
 
-        F3H affine style format are only available when you save a Flame preset out from FLAM3H using the OUT tab's option "F3H affine style" whitch is ON by default.
+        F3H affine style format are only available when you save a Flame preset out from FLAM3H using the OUT tab's option "F3H affine style" whitch is *`On`* by default.
 
         The only affine available will be the standard affine style when loading Flame files created with third-party applications like Apophysis or Fractorium.
 
@@ -1848,15 +1850,15 @@ Reload preset with "F3H affine style" changes:
 
     _Usage_:
     
-    - ((LMB)) will switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
+    - ((LMB)) will switch *`On`*/*`Off`* this toggle and reload the currenlty selected IN preset right after using the new settings.
     - ((ALT)) + ((LMB)) to perform the same operation as above but loading a Flame from the Clipboard instead.
 
     
 Copy render properties on Load [Icon:DATATYPES/boolean]:
     #id: IN
-    ON by default.
+    *`On`* by default.
     
-    When ON, It will automatically copy all the render properties (_SENSOR, RENDER and CC CURVES_) into the OUT render properties every time you load a Flame preset in.
+    It will automatically copy all the render properties (_SENSOR, RENDER and CC CURVES_) into the OUT render properties every time you load a Flame preset in.
 
     All the render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
     
@@ -1867,7 +1869,7 @@ Reload preset with "Copy render properties on Load" changes:
     #id: prefs
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
-    - ((LMB)) to switch ON/OFF this toggle and reload the currenlty selected IN preset right after using the new settings.
+    - ((LMB)) to switch *`On`*/*`Off`* this toggle and reload the currenlty selected IN preset right after using the new settings.
 
     
 :box:
@@ -2079,7 +2081,7 @@ Save Flame:
         
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*:
     
-        - When saving out Flame files, if you created a palette with more than *`256`* colors, for example with *`1024`* color keys and want to save them all to keep all the subtle color changes, turn ON the *PREFS options* tab toggle -> *`palette 256+`*. 
+        - When saving out Flame files, if you created a palette with more than *`256`* colors, for example with *`1024`* color keys and want to save them all to keep all the subtle color changes, turn *`On`* the *PREFS options* tab toggle -> *`palette 256+`*. 
         
     NOTE:
         Keep in mind that you can not utilize a variation more than once in any of the available variation's types. 
@@ -2098,7 +2100,7 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     
     TIP:
         #display: orange
-        If *add iterations to Flame name* is *OFF*:
+        If *add iterations to Flame name* is *`Off`*:
     
         The iteration number you want your fractal Flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
 
@@ -2146,7 +2148,8 @@ Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_
       
 palette HSV (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
-    OFF by default, as FLAM3H will save the HSV values into the XML file and set those once you load it back.
+    *`Off`* by default<br />
+    as FLAM3H will save the HSV values into the XML file and set those once you load it back.
 
     If enabled, all color adjustments you may have made to the Flame's palette will be preserved saving the HSV ramp instead.
 
@@ -2177,14 +2180,14 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     *Y*: *`0.707107`*, *`0.707107`* <br />
     *O*: *`0`*, *`0`* 
 
-    When this option is ON (_it is ON by default_), both versions of the affine will be saved into the Flame file so that we can choose to use either one or the other on load using the IN tab option: "F3H affine style".
+    When this option is *`On`* (_it is by default_), both versions of the affine will be saved into the Flame file so that we can choose to use either one or the other on load using the IN tab option: "F3H affine style".
 
     NOTE:
-        There are no reasons to turn this toggle OFF as it cause no harm, however if you would like to have the Flame preset saved without the F3H affine style XML keys at all, turn this OFF.
+        There are no reasons to turn this toggle *`Off`* as it cause no harm, however if you would like to have the Flame preset saved without the F3H affine style XML keys at all, turn this *`Off`*.
         
 Flame name inherit on load [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
-    OFF by default.<br /><br />
+    *`Off`* by default.<br /><br />
     Cause the OUT Flame name parameter<br />
     to automatically be set to the name of the loaded IN flame preset.<br />
     <br />
@@ -2193,19 +2196,19 @@ Flame name inherit on load [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
 
-    ON by default.<br /><br />
+    *`On`* by default.<br /><br />
     To export the parameter names for parametric variations to the one that Fractorium uses.
     <br /><br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*<br /><br />
     _This is only useful if you use *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations and want to load the Flame inside Fractorium as it uses different parametric parameters' names for these_.
 
-    _Check this toggle OFF when saving out a Flame if you would like to load the saved Flame inside Apophysis and it is using the *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations_.
+    _Check this toggle *`Off`* when saving out a Flame if you would like to load the saved Flame inside Apophysis and it is using the *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations_.
 
     :dev:
     :disclosure:Technical note
     
-        _When saving a Flame out with this option on, the xml appliction key will change from_:
+        _When saving a Flame out with this option *`On`*, the xml appliction key will change from_:
         
         {{{
         #!xml
@@ -2229,14 +2232,14 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
 Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
-    ON by default.<br />
+    *`On`* by default.<br />
     
     It will automatically append the iteration number to the Flame name you enter.
     It will also autocorrect the Flame name string based on internally defined rules.
     
     TIP:
         #display: orange
-        When on, and once you type in a Flame name, changing the iteration number will update the Flame name too.
+        When *`On`*, and once you type in a Flame name, changing the iteration number will update the Flame name too.
 
 :box:
     #display: rounded white
@@ -2281,9 +2284,9 @@ Render properties utils:
 Camera sensor VIZ [Icon:DATATYPES/boolean]:
     #id: OUT
     
-    - [Largeicon:opdef:.?icon_TagORedSVG_disabled.svg] when Sensor Viz is OFF.
-    - [Largeicon:opdef:.?icon_TagORedSVG.svg] when Sensor Viz is ON and update sensor option is ON.
-    - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when Sensor Viz is ON and update sensor option is OFF.
+    - [Largeicon:opdef:.?icon_TagORedSVG_disabled.svg] when Sensor Viz is *`Off`*.
+    - [Largeicon:opdef:.?icon_TagORedSVG.svg] when Sensor Viz is *`On`* and update sensor option is *`On`*.
+    - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when Sensor Viz is *`On`* and update sensor option is *`Off`*.
     
     Activate FLAM3H Camera sensor visualization.
     
@@ -2307,9 +2310,9 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
     - _When entering the Camera Sensor Viz mode while in viewport xforms handles VIZ mode, the xforms handles will be hidden and the camera sensor frame outline will be of color Yellow if not in solo mode and of color Red if in solo mode, like in the below illustration_.
     
         _Illustration from left to right_:<br />
-        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is OFF. The sensor outline is of color White_.
-        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is ON. The sensor outline is of color Yellow_.
-        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is ON and in SOLO mode (iterator or FF). The sensor outline is of color Red_.
+        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is *`Off`*. The sensor outline is of color White_.
+        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is *`On`*. The sensor outline is of color Yellow_.
+        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is *`On`* and in SOLO mode (iterator or FF). The sensor outline is of color Red_.
 
     <br />
     [Image:opdef:.?FLAM3H_DOC_camera_sensor_outline.svg]
@@ -2355,9 +2358,9 @@ Scale(lens) [Icon:TOP/xmlinput]:
     
 update camera sensor [Icon:DATATYPES/boolean]:
     #id: OUT
-    ON by default.<br />
+    *`On`* by default.<br />
     
-    Every change to the sensor parameters will update the sensor viewport viz. Turn this OFF to disable any sensor viewport's updates.
+    Every change to the sensor parameters will update the sensor viewport viz. Turn this *`Off`* to disable any sensor viewport's updates.
     
     
 :box:
@@ -2397,14 +2400,14 @@ Vibrancy [Icon:TOP/xmlinput]:
 
     == OUT: XML renderer color correction curves == (OUTEDITRENCCCURVES)
 
-    _This collapsible folder posses a header's toggle to signal when a color correction is Active(*ON*) or at its default values(*OFF*)._
+    _This collapsible folder posses a header's toggle to signal when a color correction is Active(*`On`*) or at its default values(*`Off`*)._
 
 Reset curves:
     #id: OUT
-    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when the color correction is OFF (_Default values_).
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when the color correction is *`Off`* (_Default values_).
     - ((LMB)) to copy all the color correction curves data from the currently loaded IN Flame preset. If the loaded IN Flame preset have its color correction curves data at default values, the copy will be skipped.
     
-    [Largeicon:opdef:.?icon_optionStarRedSVG.svg] when the color correction is ON (_Active_).
+    [Largeicon:opdef:.?icon_optionStarRedSVG.svg] when the color correction is *`On`* (_Active_).
     - ((LMB)) to Reset all the render color correction curves data to their defaults (_no color correction_).
 
 
@@ -2417,10 +2420,10 @@ Reset curves:
 
     When you load a Flame preset, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render settings.
 
-    The IN Tab option: *copy render properties on Load* is ON by default,<br />
+    The IN Tab option: *copy render properties on Load* is *`On`* by default,<br />
     This mean everytime you load a flame preset in, the color correction curves data will automatically be stored inside here.
 
-    When the IN Tab option: *copy render properties on Load* is OFF,<br />
+    When the IN Tab option: *copy render properties on Load* is *`Off`*,<br />
     you will have to manually click the copy render properties button [Icon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg] so that it won't modify settings you have been working on up until you loaded a Flame preset in.
 
     - When a Flame is loaded from the clipboard, the color correction curves data will automatically be stored inside here.
@@ -2591,10 +2594,10 @@ _When you save a flame preset to the Clipboard, it will be rootless (not under a
 
 palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: PALETOUTTE
-    ON by default.
+    *`On`* by default.
 
     *`[256+]`*<br />
-    when this preferences option toggle is ON (_it is ON by default_), this text in the SYS tab will signal it and when OFF it will disappear.
+    when this preferences option toggle is *`On`* (_it is by default_), this text in the SYS tab will signal it and when *`Off`* it will disappear.
     
     It will allow the OUT Flame to be saved with more than *`256`* color keys assuming you created a palette with this many colors, otherwise it will always save the Flame preset using *`256`* color keys.
     
@@ -2617,12 +2620,12 @@ palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         Apophysis v7.x will error out if you try to load a Flame with more than *`256`* colors.<br /><br />
         If you created a palette with more than *`256`* color keys<br />
         and want to save the Flame preset to be loaded inside Apophysis,<br />
-        turn this toggle OFF before saving the Flame preset out<br />
+        turn this toggle *`Off`* before saving the Flame preset out<br />
         so it will sample the palette with *`256`* samples and save the Flame preset with *`256`* color keys.
 
 flash messages (network editor) [Icon:DATATYPES/boolean]:
     #id: prefs
-    ON by default.<br />
+    *`On`* by default.<br />
 
     Causes a message to appear briefly in the upper left corner of the network editor, then fade away.
     
@@ -2635,22 +2638,23 @@ flash messages (network editor) [Icon:DATATYPES/boolean]:
 
 Enumerate presets menus [Icon:DATATYPES/boolean]:
     #id: prefs
-    ON by default.<br /><br />
+    *`On`* by default.<br /><br />
     Causes the presets menus inside the CP, IN and OUT tab to be enumerated.<br />
     This make it easy to remember a particular preset you liked while trying out others inside the loaded library file.
     
-    Turn this OFF to only display the raw preset names.
+    Turn this *`Off`* to only display the raw preset names.
 
 
 Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
     #id: prefs
-    OFF by default to speedup the UI as it is now using a pre built menu data.
+    *`Off`* by default<br />
+    to speedup the UI as it is now using a pre built menu data.
     
-    When you turn this toggle ON causes the variation menus inside each iterator to have a bookmark icon (_FLAME and FF tabs_)
+    When you turn this toggle *`On`* causes the variation menus inside each iterator to have a bookmark icon (_FLAME and FF tabs_)
     
     This mode will change each variation's menu based of the value of their weight hence it will take a hit on the UI performance.
     
-    When you turn this toggle back OFF, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default *`500k`*(_thousands_) points as a way to reduce the waiting time.
+    When you turn this toggle back *`Off`*, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default *`500k`*(_thousands_) points as a way to reduce the waiting time.
 
 :box:
     #display: round white
@@ -2718,7 +2722,7 @@ camera handle [Icon:DATATYPES/boolean]:
     
     
     :warning:
-        Turn this OFF when rendering.
+        Turn this *`Off`* when rendering.
 
     
 camera cull [Icon:DATATYPES/boolean]:
@@ -2779,7 +2783,7 @@ Size default:
 
 Wire width:
     #id: prefs
-    When the SYS -> "xforms handles VIZ" is ON, this parameter will set the wire curves thickness for the viewport display. A value of *`3`*(three) is generally good.
+    When the SYS -> "xforms handles VIZ" is *`On`*, this parameter will set the wire curves thickness for the viewport display. A value of *`3`*(three) is generally good.
 
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.
@@ -3212,7 +3216,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] Karma/Mantra tips:
         #id: Karma/Mantra tips
     
-    - When rendering with Karma, remember to turn on the "_Simplified lighting_"/"_Disable lighting_" option to be sure to render the points with their full color values.
+    - When rendering with Karma, remember to turn *`On`* the "_Simplified lighting_"/"_Disable lighting_" option to be sure to render the points with their full color values.
     
     - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
     
