@@ -16894,8 +16894,8 @@ class out_flame_utils
                 
                 name: str = apo_data.name[preset_id]
                 n_xf: int = len(apo_data.xforms)
-                if apo_data.finalxform is not None: FF: str = "Yes"
-                else: FF: str = "No"
+                if apo_data.finalxform is not None: FF: str = 'Yes'
+                else: FF: str = 'No'
                 palette: int = -1
                 hsv: str = ''
                 hsv_val: str = ''
@@ -16903,7 +16903,7 @@ class out_flame_utils
                     try: palette = apo_data.palette[1]
                     except: palette = len(apo_data.palette[0].keys())
                     if apo_data.cp_flam3h_hsv is not False:
-                        hsv = ", HSV"
+                        hsv = ', HSV'
                         assert isinstance(apo_data.cp_flam3h_hsv, hou.Vector3)
                         hsv_val = f": {apo_data.cp_flam3h_hsv[0]}, {apo_data.cp_flam3h_hsv[1]}, {apo_data.cp_flam3h_hsv[2]}"
                 

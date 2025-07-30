@@ -16923,8 +16923,8 @@ class out_flame_utils
                 
                 name: str = apo_data.name[preset_id]
                 n_xf: int = len(apo_data.xforms)
-                if apo_data.finalxform is not None: FF: str = "Yes"
-                else: FF: str = "No"
+                if apo_data.finalxform is not None: FF: str = 'Yes'
+                else: FF: str = 'No'
                 palette: int = -1
                 hsv: str = ''
                 hsv_val: str = ''
