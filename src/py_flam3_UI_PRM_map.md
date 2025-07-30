@@ -714,7 +714,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(3)
 # parameter name:    `palettefile`
 ### Callbac Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PRESETS()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PRESETS(), kwargs['parm'].deleteAllKeyframes()
 ```
 # CP Tab
 # parameter name:    `palettename`
@@ -792,7 +792,7 @@ A *.flame file is an XML-formatted type of file._
 # parameter name:    `inpath`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_IN_PRESETS()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_IN_PRESETS(), kwargs['parm'].deleteAllKeyframes()
 ```
 # IN Tab
 # parameter name:    `inpresets_disabled`
@@ -895,7 +895,7 @@ The Flame file format does not support animations, but only static frames, so to
 # parameter name:    `outpath`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS(), kwargs['parm'].deleteAllKeyframes()
 ```
 # OUT Tab
 # parameter name:    `outname`
