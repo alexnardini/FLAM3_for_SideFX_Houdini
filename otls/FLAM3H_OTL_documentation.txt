@@ -625,11 +625,24 @@ IN Preset reload:
     
 mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
     #id: SYS
-    This menu is simply provided as information only.
+    This menu is only for informational purposes.
 
-    If there are any Flames in the chosen output file, they will be displayed.
-    This menu will refresh once you add a new Flame to it.
-    It will always be set to the last Flame’s name you saved.
+    If there are any Flames in the chosen output file, they will be displayed. 
+    This menu will refresh once you add a new Flame to it. 
+    It will always be set to the last Flame name you saved.
+
+    It will also print quick informations (_in the status bar and as a flash message in the node network_) about the Flame preset when one is selected.
+    
+    Quick infos are:
+    - *`Name`*: selected Flame preset name ( _only in the status bar_ )
+    - *`XF`*: Number of iterators/xforms being used
+    - *`FF`*: is the finalXform(FF) being used ? *`Yes`* or *`No`*
+    - *`Palette`*: number of colors in the palette
+    - *`HSV`*: the palette HSV values if used ( _only in the status bar_ )
+
+    <br />
+    
+    _The menu labels posses a bookmark icon_:
 
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file, each Flame in the file will be marked with this icon.
@@ -2114,10 +2127,24 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     
 menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     #id: OUT
-    This menu is simply provided as information.<br /><br />
-    If there are any Flames in the chosen output file, they will be displayed.
-    This menu will refresh once you add a new Flame to it.
-    It will always be set to the last Flame’s name you saved.
+    This menu is only for informational purposes.
+
+    If there are any Flames in the chosen output file, they will be displayed. 
+    This menu will refresh once you add a new Flame to it. 
+    It will always be set to the last Flame name you saved.
+
+    It will also print quick informations (_in the status bar and as a flash message in the node network_) about the Flame preset when one is selected.
+    
+    Quick infos are:
+    - *`Name`*: selected Flame preset name ( _only in the status bar_ )
+    - *`XF`*: number of iterators/xforms being used
+    - *`FF`*: is the finalXform(FF) being used ? *`Yes`* or *`No`*
+    - *`Palette`*: number of colors in the palette
+    - *`HSV`*: the palette HSV values if used ( _only in the status bar_ )
+
+    <br />
+
+    _The menu labels posses a bookmark icon_:
 
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file. Each Flame preset in the file will be marked with this icon.
