@@ -16923,8 +16923,8 @@ class out_flame_utils
                 
                 name: str = apo_data.name[preset_id]
                 n_xf: int = len(apo_data.xforms)
-                if apo_data.finalxform is not None: FF: str = 'Yes'
-                else: FF: str = 'No'
+                if apo_data.finalxform is not None: _FF: str = 'Yes'
+                else: _FF: str = 'No'
                 palette: int = -1
                 hsv: str = ''
                 hsv_val: str = ''
@@ -16937,7 +16937,7 @@ class out_flame_utils
                         hsv_val = f": {apo_data.cp_flam3h_hsv[0]}, {apo_data.cp_flam3h_hsv[1]}, {apo_data.cp_flam3h_hsv[2]}"
                 
                 # Display infos
-                _MSG: str = f"XF: {n_xf}, FF: {FF}, Palette: {palette}{hsv}"
+                _MSG: str = f"XF: {n_xf}, FF: {_FF}, Palette: {palette}{hsv}"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: Name: {name}  ->  {_MSG}{hsv_val}", 'MSG')
                 flam3h_general_utils.flash_message(node, _MSG)
 
