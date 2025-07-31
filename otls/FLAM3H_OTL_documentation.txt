@@ -1124,7 +1124,8 @@ pre affine [Icon:TOP/xmlinput]:
 
     Affine transformation's coefficients for the current iterator (_xform_).
     
-    NOTE:
+    TIP:
+        #display: orange
         A linear transformation cannot be used to translate a set of points. 
         
         To translate a set of points, we need to use an *_affine transformation_*. 
@@ -1137,6 +1138,7 @@ pre affine [Icon:TOP/xmlinput]:
         By applying an _affine transformation_ to an image on the screen, we can do everything a linear transformation can do, 
         and also have the ability to move the image up or down and left or right.
 
+    <br />
     Each iterator(_xform_) has an affine transform that is always applied on every iteration.
     This is known as the pre affine becasue it is applied before the variations. There is also an optional affine applied after the variations known as the post affine.
 
@@ -1179,6 +1181,12 @@ pre affine reset:
         
 post affine [Icon:TOP/xmlinput]:
     #id: FLAME
+
+    The term "post-affine" would be used to emphasize the sequential application of an affine transformation within a larger pipeline of operations.
+
+    For example, if you first apply a perspective transformation to an image and then apply an affine transformation to correct for a slight remaining distortion or to further refine the image, you might refer to the latter as a "post-affine transformation" to distinguish its place in the sequence. 
+
+    In the context of fractal Flames, the "post-affine transformation" will be the very last to be applied to the incoming point/sample.
 
     *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
 
@@ -1390,12 +1398,12 @@ FF: w [Icon:TOP/xmlinput]:
 FF: pre affine [Icon:TOP/xmlinput]:
     #id: FF
 
-    *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
+    *See the above iterator(_xform_) [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
 
 FF: post affine [Icon:TOP/xmlinput]:
     #id: FF
     
-    *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
+    *See the above iterator(_xform_) [post affine|#FLAMEITERPOSTAFFINE] description for more informations.*
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
@@ -1662,7 +1670,7 @@ on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boole
     TIP:
         #display: orange
 
-        - If you animate any of the available parameters using expressions, remember to always use *`@Time`* and not *`$F`* so the tool will be able to interpolate through time properly.   
+        - If you animate any of the available parameters using expressions, remember to always use *`@Time`* and not *`$F`* so FLAM3H will be able to interpolate through time properly.   
         - Motion blur values are exported into the XML on Flame save when turned *`On`*.
 
 MB reset:
@@ -1686,8 +1694,7 @@ Samples [Icon:TOP/xmlinput]:
     #id: MB
     Motion blur samples.
 
-    Higher values increase the quality and produce a smoother blur.<br />
-    Higher values also increase the resource intensity of the effect.
+    Higher values increase the quality and produce a smoother blur.
     
 Shutter time [Icon:TOP/xmlinput]:
     #id: MB
