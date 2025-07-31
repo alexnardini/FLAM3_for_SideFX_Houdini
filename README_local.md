@@ -125,7 +125,7 @@ Using Houdini's cvex/vex language, this implementation initially concentrated on
 
 Because FLAM3H was designed with fractal artists in mind, many internal automation that could be done to provide a seamless and pleasurable experience has been completed.
 
-FLAM3H prioritizes the user and their quality of life while using it, from completely automated xaos and iterators/xforms handling to a slick, practical, and compact user interface.
+FLAM3H prioritizes the user and their quality of life while using it, from completely automated Xaos and iterators/xforms handling to a slick, practical, and compact user interface.
 
 The workflow is convenient and quick since data can be copied and pasted between iterators/xforms and between various FLAM3H nodes.
 Along with many other quality-of-life features inside the Houdini environment, third-party tools like Apophysis and Fractorium allow you to interchange data from and to FLAM3H simply by copying and pasting from the clipboard, making the process as smooth and comprehensive as possible.
