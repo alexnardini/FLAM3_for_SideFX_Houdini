@@ -1693,10 +1693,14 @@ shutter offset [Icon:TOP/xmlinput]:
 
     == MB: Viz == (MBVIZ)
     
-viz mb [Icon:DATATYPES/boolean]:
+Viz mb [Icon:DATATYPES/boolean]:
     #id: MB
+    *`Off`* by default.
+
     Visualize motion blur using color.<br />
     (_Set the viewport background to black for better viewing_)
+
+    Causes every motion blur sample/pass to get darker outward from the center to simulate the fading away due to motion/camera shutter speed. It will modify the *`@Cd`* point attribute.
     
     NOTE:
         When rendering, keep in mind to turn this *`Off`* to avoid superimposing a darker color.
@@ -1783,7 +1787,7 @@ Reload:
 :box:
     #display: rounded white
 
-    == IN: prefs == (INPREFS)
+    == IN: Prefs == (INPREFS)
     
 Iterations on Load:
     #id: IN
@@ -1821,7 +1825,7 @@ Override iterations from Flame name [Icon:DATATYPES/boolean]:
 :box:
     #display: rounded white
 
-    == IN: options == (INOPTIONS)
+    == IN: Options == (INOPTIONS)
     
 F3H affine style (IN) [Icon:DATATYPES/boolean]:
     #id: IN
@@ -1887,7 +1891,7 @@ Reload preset with "Copy renderer settings on Load" changes:
 :box:
     #display: rounded white
 
-    == IN: infos == (INPRESETINFOS)
+    == IN: Infos == (INPRESETINFOS)
     
 IN infos [Icon:DATATYPES/string]:
     #id: IN
@@ -1946,7 +1950,7 @@ IN infos [Icon:DATATYPES/string]:
 :box:
     #display: rounded white
 
-    == IN: render properties == (INPRESETRND)
+    == IN: Render properties == (INPRESETRND)
     
 Render infos:
     #id: IN
@@ -2170,7 +2174,7 @@ Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_
 :box:
     #display: rounded white
 
-    == OUT: options == (OUTOPTIONS)
+    == OUT: Options == (OUTOPTIONS)
       
 palette HSV (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
@@ -2270,7 +2274,7 @@ Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 :box:
     #display: rounded white
 
-    == OUT: edit render properties == (OUTEDIT)
+    == OUT: Edit render properties == (OUTEDIT)
 
     
 Edit render properties [Icon:DATATYPES/boolean]:
