@@ -1412,7 +1412,7 @@ FF: post affine [Icon:TOP/xmlinput]:
     *See the above iterator(_xform_) [post affine|#FLAMEITERPOSTAFFINE] description for more informations.*
 
     <br />
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
     - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the post affine will be automatically turned *`Off`* if they are default values to save on computation.
 
         
@@ -1999,7 +1999,7 @@ Copy/Paste SENSOR/RENDER preset settings:
 
     <br />
 
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *SENSOR/RENDER settings: Infos*<br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *SENSOR/RENDER settings: Tips*<br />
 
     _All the displayed informations are gathered from the XML of the loaded Flame preset_.
 
@@ -2115,7 +2115,7 @@ Save Flame:
         - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
         - If nothing is selected (_ex: OUT file empty or invalid_), nothing will happen.
         
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*:
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*:
     
         - When saving out Flame files, if you created a palette with more than *`256`* colors, for example with *`1024`* color keys and want to save them all to keep all the subtle color changes, turn *`On`* the *PREFS options* tab toggle -> *`palette 256+`*. 
         
@@ -2616,7 +2616,7 @@ _Under the flame preset XML key lives all its data: iterators/xforms data and it
 
 <br />
 
-[Icon:opdef:.?icon_optionStarBlueSVG.svg] _*Tip*_:
+[Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*:
 
 _When you save a flame preset to the Clipboard, it will be rootless (not under a *`flames`* XML root key). This is a convention adopted by all the other third-party applications. However FLAM3H can load in flame presets with and without a root._ 
 
@@ -3272,7 +3272,7 @@ _A list of all parametric variations and their parametric parameter's names._
     
 :box:
     #display: rounded gray
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Tips:
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Tip:
         #id: Point value accumulation tips
 
     It will be crucial to experiment with the CP Ramp HSV values, notably the "*S*" (_Saturation_) and, most crucially, the "*V*" (_Value_).
