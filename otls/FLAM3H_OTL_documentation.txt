@@ -363,7 +363,7 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
 
     - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] vieport xforms VIZ is *`Off`*.
     - [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg] vieport xforms VIZ is *`On`*.
-    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] one of the iteratos/xforms is in SOLO mode.
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] one of the iterators/xforms is in SOLO mode.
     - [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg] the FF is in SOLO mode.
 
     The xforms handles will be shown in the viewport when it is turned *`On`*.<br />
