@@ -1676,17 +1676,24 @@ MB reset:
 
     == MB: Settings == (MBSETTINGS)
 
-fps [Icon:TOP/xmlinput]:
+FPS [Icon:TOP/xmlinput]:
     #id: MB
     Desired Frames per second.
+
+    Frames per second (FPS) significantly impacts the appearance of motion blur in video, with lower frame rates like 24 or 30 FPS naturally exhibiting more motion blur.
     
-samples [Icon:TOP/xmlinput]:
+Samples [Icon:TOP/xmlinput]:
     #id: MB
     Motion blur samples.
+
+    Higher values increase the quality and produce a smoother blur.<br />
+    Higher values also increase the resource intensity of the effect.
     
-shutter offset [Icon:TOP/xmlinput]:
+Shutter time [Icon:TOP/xmlinput]:
     #id: MB
     Shutter time.
+
+    Bigger shutter time creating more blur and smaller shutter time freezing motion. 
 
 :box:
     #display: rounded white
