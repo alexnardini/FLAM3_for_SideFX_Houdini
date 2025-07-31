@@ -15457,6 +15457,11 @@ class in_flame_utils
                 # BUILD XFVIZ if needed
                 flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
                 
+                # Disable post affine if they are at default values (iterators and FF)
+                # This should not be needed because the post affine are not added to the XML flame preset when at default values
+                # But just in case some third-party app will include them anyway.
+                flam3h_scripts(self.kwargs).is_post_affine_default_on_load(node)
+                
                 # As a backup plan. Most likely not needed by why not
                 data: Union[str, None] = node.userData(FLAM3H_USER_DATA_XML_LAST)
                 if data is None or not _xml_tree(data).isvalidtree:
