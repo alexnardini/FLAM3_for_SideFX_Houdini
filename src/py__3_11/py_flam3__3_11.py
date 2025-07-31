@@ -6275,7 +6275,7 @@ class flam3h_iterator_utils
                             prm_selmem.set(0)
                         
                         path: str = f"{_ICON}  .../{flam3node_FF.parent()}/{flam3node_FF.name()}.FF"
-                        return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  ... All", 2, f"{path}:  PRE", 3, f"{path}:  VAR", 4, f"{path}:  POST", 5, f"{path}:  pre affine", 6, f"{path}:  post affine", 7, "" ]
+                        return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  ... FF: All", 2, f"{path}:  PRE", 3, f"{path}:  VAR", 4, f"{path}:  POST", 5, f"{path}:  pre affine", 6, f"{path}:  post affine", 7, "" ]
                 
                 else:
                     return MENU_FF_COPY_PASTE_EMPTY
@@ -14984,7 +14984,7 @@ class in_flame_utils
         # Disable post affine if they are at default values (iterators and FF)
         # This should not be needed because the post affine are not added to the XML flame preset when at default values
         # But just in case some third-party app will include them anyway.
-        if apo_data.post is not None and apo_data.post[preset_id] or apo_data.finalxform_post is not None: flam3h_scripts(self.kwargs).is_post_affine_default_on_load(node)
+        if apo_data.post is not None or apo_data.finalxform_post is not None: flam3h_scripts(self.kwargs).is_post_affine_default_on_load(node)
 
 
     def in_to_flam3h_set_motion_blur(self, node: hou.SopNode, apo_data: in_flame_iter_data) -> None:
