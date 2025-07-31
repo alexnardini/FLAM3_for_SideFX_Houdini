@@ -186,7 +186,7 @@ iterations [Icon:TOP/xmlinput]:
 
     TIP:
         #display: orange
-        When: *add iterations to Flame name* toggle is *`On`* inside the OUT Tab,
+        When: " *add iterations to Flame name* " toggle is *`On`* inside the OUT Tab,
         changing the iteration's parameter will update the Flame name, if any have been typed.
 
 
@@ -445,8 +445,8 @@ TAG [Icon:DATATYPES/boolean]:
     * *`Xaos`* when active will be next inside square brackets. Read the xaos documentation to know more about it.
         - *`Xaos TO`* will be: *`[Xt]`*
         - *`Xaos FROM`* wil be: *`[fX]`*
-    * *`RIP`* (_remove invalid points_) when the SYS option "Remove Invalid Points" is *`On`*.
-    * *`F3C`* (_flam3 compatibility_) when the  SYS option "flam3 compatibility" is *`On`*.
+    * *`RIP`* when the SYS option "Remove Invalid Points(*RIP*)" is *`On`*.
+    * *`F3C`* when the  SYS option "Flam3 Compatibility(*F3C*)" is *`On`*.
     * *`MB`* (_Motion Blur_) when *`On`* will be next.
 
     <br />
