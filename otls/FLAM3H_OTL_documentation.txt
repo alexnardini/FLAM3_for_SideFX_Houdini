@@ -1071,15 +1071,21 @@ w [Icon:TOP/xmlinput]:
         In order to lower the cost of the computation, it is preferable to set a variation weight to *`0`*(Zero) rather than retaining it at extremely low values if their impact is negligible.
         The variation will be fully disregarded at zero.
 
+
+:box:
+    #display: rounded white
+
+    == Iterator: Enable Post Affine== (FLAMEITERENABLEPOST)
+
+post affine [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: FLAME
+    Enable post affine transformation.
+
+
 :box:
     #display: rounded white
 
     == Iterator: Pre Affine== (FLAMEITERPREAFFINE)
-    
-post [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
-    #id: FLAME
-    Enable post affine.
-
 
 pre affine Scale:
     #id: FLAME
@@ -1191,7 +1197,7 @@ post affine [Icon:TOP/xmlinput]:
     *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
 
     <br />
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
     - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the post affine will be automatically turned *`Off`* if they are default values to save on computation.
  
     
