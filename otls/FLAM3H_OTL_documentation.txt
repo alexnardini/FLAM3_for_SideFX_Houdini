@@ -640,14 +640,15 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
     This menu will refresh once you add a new Flame to it. 
     It will always be set to the last Flame name you saved.
 
-    It will also print quick informations (_in the status bar and as a flash message in the node network_) about the Flame preset when one is selected.
+    It will also print quick informations (_in the status bar and as a flash message in the network editor_) about the Flame preset when one is selected.
     
-    Quick infos are:
+    _Quick infos are_:
     - *`Name`*: selected Flame preset name ( _only in the status bar_ )
-    - *`XF`*: Number of iterators/xforms being used
+    - *`XF`*: number of iterators/xforms being used
     - *`FF`*: is the finalXform(FF) being used ? *`Yes`* or *`No`*
     - *`Palette`*: number of colors in the palette
-    - *`HSV`*: the palette HSV values if used ( _only in the status bar_ )
+    - *`HSV`*: the palette uses HSV color correction
+    - *`HSV values`* ( _only in the status bar_ )
 
     <br />
     
@@ -2189,7 +2190,7 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     This menu will refresh once you add a new Flame to it. 
     It will always be set to the last Flame name you saved.
 
-    It will also print quick informations (_in the status bar and as a flash message in the node network_) about the Flame preset when one is selected.
+    It will also print quick informations (_in the status bar and as a flash message in the network editor_) about the Flame preset when one is selected.
     
     _Quick infos are_:
     - *`Name`*: selected Flame preset name ( _only in the status bar_ )
@@ -2266,7 +2267,7 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     When this option is *`On`* (_it is by default_), both versions of the affine will be saved into the Flame file so that we can choose to use either one or the other on load using the IN tab option: "F3H affine style".
     <br /><br />
-    
+
     NOTE:
         There are no reasons to turn this toggle *`Off`* as it cause no harm, however if you would like to have the Flame preset saved without the F3H affine style XML keys at all, turn this *`Off`*.
         
