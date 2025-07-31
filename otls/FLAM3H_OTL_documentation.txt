@@ -186,7 +186,7 @@ iterations [Icon:TOP/xmlinput]:
 
     TIP:
         #display: orange
-        When: *add iterations to Flame name* toggle is ON inside the OUT Tab,
+        When: *add iterations to Flame name* toggle is *`On`* inside the OUT Tab,
         changing the iteration's parameter will update the Flame name, if any have been typed.
 
 
@@ -324,13 +324,13 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
-    - After the algorithm transforms the points, it is possible for some of those points to shoot to infinity. Turn this ON to get rid of those points.
+    - After the algorithm transforms the points, it is possible for some of those points to shoot to infinity. Turn this *`On`* to get rid of those points.
     - When an iterator's opacity is *`0`*(Zero), you can activate this SYS Tab's *RIP* option to get rid of those points ( _since_ *opacity* = *`@pscale`* (*`@widths`* _in Solaris_ ) _you do not need them anymore_).
-    - If rendering a Flame seems unusually slow, it's probably because certain points wind up being really far from the zero world. Those points will be eliminated if this option is turned ON.
+    - If rendering a Flame seems unusually slow, it's probably because certain points wind up being really far from the zero world. Those points will be eliminated if this option is turned *`On`*.
 
     TIP:
         #display: orange
-        When loading hip files FLAM3H will check if any of the iterators have their shader opacity set to *`0`*(Zero) and if so, it will switch this toggle ON.<br />
+        When loading hip files FLAM3H will check if any of the iterators have their shader opacity set to *`0`*(Zero) and if so, it will switch this toggle *`On`*.<br />
 
         
 F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
