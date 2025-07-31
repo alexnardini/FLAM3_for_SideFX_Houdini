@@ -14980,6 +14980,11 @@ class in_flame_utils
             self.in_flam3h_set_iterators(1, node, apo_data, preset_id)
         else:
             flam3h_general_utils.private_prm_set(node, PREFS_PVT_DOFF, 0)
+        
+        # Disable post affine if they are at default values (iterators and FF)
+        # This should not be needed because the post affine are not added to the XML flame preset when at default values
+        # But just in case some third-party app will include them anyway.
+        if apo_data.post is not None and apo_data.post[preset_id]: flam3h_scripts(self.kwargs).is_post_affine_default_on_load(node)
 
 
     def in_to_flam3h_set_motion_blur(self, node: hou.SopNode, apo_data: in_flame_iter_data) -> None:
@@ -15485,11 +15490,6 @@ class in_flame_utils
                 flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
                 # BUILD XFVIZ if needed
                 flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
-                
-                # Disable post affine if they are at default values (iterators and FF)
-                # This should not be needed because the post affine are not added to the XML flame preset when at default values
-                # But just in case some third-party app will include them anyway.
-                flam3h_scripts(self.kwargs).is_post_affine_default_on_load(node)
                 
                 # As a backup plan. Most likely not needed by why not
                 data: str | None = node.userData(FLAM3H_USER_DATA_XML_LAST)
