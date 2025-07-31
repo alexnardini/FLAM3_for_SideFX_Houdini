@@ -1946,7 +1946,7 @@ IN infos [Icon:DATATYPES/string]:
 :box:
     #display: rounded white
 
-    == IN: renderer settings == (INPRESETRND)
+    == IN: render properties == (INPRESETRND)
     
 Render infos:
     #id: IN
@@ -1960,18 +1960,18 @@ Copy/Paste ALL preset settings:
     #id: IN
     [Largeicon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg]
     
-    When you click this icon, all those renderer settings (_SENSOR, RENDER and CC CURVES settings_) will be copied and pasted into the renderer settings of the OUT tab.
+    When you click this icon, all those render properties (_SENSOR, RENDER and CC CURVES settings_) will be copied and pasted into the render properties of the OUT tab.
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
-    When loading a Flame preset from the clipboard, all its renderer properties will be automatically copied into the OUT renderer settings on load.
+    When loading a Flame preset from the clipboard, all its renderer properties will be automatically copied into the OUT render properties on load.
         
 
 Copy/Paste SENSOR/RENDER preset settings:
     #id: IN
     [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
 
-    When you click one of those icons, only the SENSOR or only the RENDER and CC CURVES settings will be copied into the OUT renderer settings.
+    When you click one of those icons, only the SENSOR or only the RENDER and CC CURVES settings will be copied into the OUT render properties.
 
     <br />
 
@@ -2270,7 +2270,7 @@ Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 :box:
     #display: rounded white
 
-    == OUT: Edit render properties == (OUTEDIT)
+    == OUT: edit render properties == (OUTEDIT)
 
     
 Edit render properties [Icon:DATATYPES/boolean]:
@@ -2284,7 +2284,7 @@ Edit render properties [Icon:DATATYPES/boolean]:
     Some of the properties are specific to Fractorium applications, which has been my point of reference.
     
     They will control how the saved fractal Flame will render inside other applications like Fractorium and Apophysis.
-    They are their renderer settings, and they will be exported into the XML file.
+    They are their render properties, and they will be exported into the XML file.
         
     
 Render properties utils:
@@ -2444,13 +2444,13 @@ Reset curves:
     FLAM3H is able to load in the color correction curves data coming from Fractorium.<br />
     These color correction curves data can not be edited. The data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H so to keep and preserve the original color correction data intact.
 
-    When you load a Flame preset, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render settings.
+    When you load a Flame preset, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render properties.
 
-    The IN Tab option: *copy renderer settings on Load* is *`On`* by default,<br />
+    The IN Tab option: *copy render properties on Load* is *`On`* by default,<br />
     This mean everytime you load a flame preset in, the color correction curves data will automatically be stored inside here.
 
-    When the IN Tab option: *copy renderer settings on Load* is *`Off`*,<br />
-    you will have to manually click the copy renderer settings button [Icon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg] so that it won't modify settings you have been working on up until you loaded a Flame preset in.
+    When the IN Tab option: *copy render properties on Load* is *`Off`*,<br />
+    you will have to manually click the copy render properties button [Icon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg] so that it won't modify settings you have been working on up until you loaded a Flame preset in.
 
     - When a Flame is loaded from the clipboard, the color correction curves data will automatically be stored inside here.
     - If a Flame preset do not posses any color correction curves data, default values (_no color correction_) will be used instead.
@@ -2718,7 +2718,7 @@ menu xaos modes [Icon:BUTTONS/pane_menu]:
 :box:
     #display: rounded white
 
-    == Prefs: density == (PREFSDENSITY)
+    == Prefs: Density == (PREFSDENSITY)
 
 Density :
     #id: prefs
