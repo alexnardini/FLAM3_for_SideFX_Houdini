@@ -6,7 +6,7 @@ __copyright__ = "Copyright 2021, © F stands for liFe"
 
 __py_version__ = "3.11.7"
 __license__ = "GPL"
-__version__ = "1.8.47"
+__version__ = "1.8.50"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
@@ -11378,7 +11378,7 @@ class in_flame
             type(int): Is it an iterator or an FF ?
 
         Returns:
-            (list): a list of hou.Vector2: ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) ready to be used to set affine parms, or an empty list if something is wrong
+            (list): a list of hou.Vector2: ((X.x(A), X.y(D)), (Y.x(B), Y.y(E)), (O.x(C), O.y(F))) ready to be used to set affine parms, or an empty list if something is wrong
         """      
         affine_count: int = len(affine)
         if affine_count == 6: return [hou.Vector2((tuple(affine[i:i + 2]))) for i in (0, 2, 4)]
@@ -11621,7 +11621,7 @@ class in_flame
             type(int): Only used by the self.affine_coupling(...) definition. It is either an iterator: 0 or an FF: 1
 
         Returns:
-            (tuple | None): Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) or None
+            (tuple | None): Either a list of list of tuples ((X.x(A), X.y(D)), (Y.x(B), Y.y(E)), (O.x(C), O.y(F))) or None
         """   
         if  self.isvalidtree and xforms is not None:
             coefs: list = [tuple(self.affine_coupling([float(x) for x in self.xf_list_cleanup(str(xf.get(key)).split(), '0', key)], key, int(idx + 1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
