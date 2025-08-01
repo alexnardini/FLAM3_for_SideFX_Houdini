@@ -643,11 +643,11 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
     It will also print quick informations (_in the status bar and as a flash message in the network editor_) about the Flame preset when one is selected.
     
     _Quick infos are_:
-    - *`Name`*: selected Flame preset name ( _only in the status bar_ )
+    - *`Flame preset name`*: selected Flame preset name ( _only in the status bar_ )
     - *`XF`*: number of iterators/xforms being used
     - *`FF`*: when finalXform(FF) is being used
     - *`Palette`*: number of colors in the palette
-    - *`HSV`*: the palette uses HSV color correction
+    - *`HSV`*: when HSV color correction is being used
     - *`HSV values`* ( _only in the status bar_ )
 
     <br />
@@ -2193,11 +2193,11 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     It will also print quick informations (_in the status bar and as a flash message in the network editor_) about the Flame preset when one is selected.
     
     _Quick infos are_:
-    - *`Name`*: selected Flame preset name ( _only in the status bar_ )
+    - *`Flame preset name`*: selected Flame preset name ( _only in the status bar_ )
     - *`XF`*: number of iterators/xforms being used
     - *`FF`*: when finalXform(FF) is being used
     - *`Palette`*: number of colors in the palette
-    - *`HSV`*: the palette uses HSV color correction
+    - *`HSV`*: when HSV color correction is being used
     - *`HSV values`* ( _only in the status bar_ )
 
     <br />
