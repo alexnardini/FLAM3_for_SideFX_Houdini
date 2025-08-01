@@ -2223,8 +2223,12 @@ Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_
     _Usage_:
     
     - ((LMB)) to copy the selected OUT preset name into the Flame name string field.
+
+    _Additionally_:
+
+    - ((SHIFT)) + ((LMB)) to print quick informations message about the selected Flame preset.
     
-    - ((CTRL)) + ((LMB)) to show the Flame name informations and tips.
+    - ((CTRL)) + ((LMB)) to display the Flame name informations and tips.
 
 :box:
     #display: rounded white

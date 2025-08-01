@@ -17012,6 +17012,10 @@ class out_flame_utils
     def out_presets_copy_menu_label_callback(self) -> None:
         """Get the currently selected OUT preset menu label string and copy it into the OUT Flame name string field.
         
+        Additionally:
+        - [SHIFT+LMB] to display quick informations message about the selected Flame preset
+        - [CTRL+LMB] to display informations about the Flame preset name 
+        
         Args:
             (self):
             
@@ -17022,8 +17026,12 @@ class out_flame_utils
         node = self.node
         kwargs: dict = self.kwargs
         
-        if kwargs['ctrl']:
+        if kwargs['shift']:
+            out_flame_utils(kwargs).out_to_flam3h()
+            
+        elif kwargs['ctrl']:
             flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
+            
         else:
             if node.parm(OUT_PVT_ISVALID_FILE).eval():
                 menu_label: str | None = self.out_presets_get_selected_menu_label()
