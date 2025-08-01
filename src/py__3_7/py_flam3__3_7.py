@@ -16875,7 +16875,7 @@ class out_flame_utils
         * Number of iterators/xforms.
         * Is it using a finalXform(FF) ?
         * How many colors in the palette. If something goes wrong it will report: -1 .
-        * Is the palette using the HSV values as a color correction ?
+        * Is the palette using the HSV color correction ?
         * The HSV values being used.
         
         Args:
