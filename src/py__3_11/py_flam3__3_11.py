@@ -16932,8 +16932,7 @@ class out_flame_utils
                 n_xf: int = len(apo_data.xforms)
                 build.append(f"XF: {n_xf}")
                 if apo_data.finalxform is not None: 
-                    _FF: str = 'FF'
-                    build.append(_FF)
+                    build.append('FF')
                 
                 palette: int = -1
                 if apo_data.palette is not None:
