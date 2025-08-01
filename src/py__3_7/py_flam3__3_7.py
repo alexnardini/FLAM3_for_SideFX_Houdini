@@ -16894,12 +16894,13 @@ class out_flame_utils
 
             # IN flame preset data
             apo_data = in_flame_iter_data(node, xml, preset_id)
+            name: str = apo_data.name[preset_id]
+            
             # If there are xforms/iterators
             if apo_data.xforms is not None:
                 
                 build: list = []
                 build_flash: list = []
-                name: str = apo_data.name[preset_id]
                 n_xf: int = len(apo_data.xforms)
                 build.append(f"XF: {n_xf}")
                 if apo_data.finalxform is not None: 
@@ -16920,12 +16921,12 @@ class out_flame_utils
                 # Build and Display infos
                 _MSG: str = ', '.join(build)
                 _MSG_FLASH: str = ', '.join(build_flash)
-                flam3h_general_utils.set_status_msg(f"{node.name()}: Name: {name}  ->  {_MSG}", 'MSG')
+                flam3h_general_utils.set_status_msg(f"Name: {name}  ->  {_MSG}", 'MSG')
                 flam3h_general_utils.flash_message(node, _MSG_FLASH)
                 
             else:
                 _MSG: str = f"ZERO xforms"
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
+                flam3h_general_utils.set_status_msg(f"Name: {name}  ->  {_MSG}", 'WARN')
                 flam3h_general_utils.flash_message(node, f"{_MSG}")
                 
         else:
