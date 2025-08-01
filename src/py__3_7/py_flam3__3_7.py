@@ -16923,6 +16923,16 @@ class out_flame_utils
                 flam3h_general_utils.set_status_msg(f"{node.name()}: Name: {name}  ->  {_MSG}", 'MSG')
                 flam3h_general_utils.flash_message(node, _MSG_FLASH)
                 
+            else:
+                _MSG: str = f"ZERO xforms"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
+                flam3h_general_utils.flash_message(node, f"{_MSG}")
+                
+        else:
+            _MSG: str = f"Load a valid OUT flame file first"
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
+            flam3h_general_utils.flash_message(node, f"{_MSG}")
+                
 
     def out_palette_256_plus_check(self) -> None:
         """When activating the PREFS option: palette 256+ toggle,
