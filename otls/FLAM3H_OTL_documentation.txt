@@ -645,7 +645,7 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
     _Quick infos are_:
     - *`Name`*: selected Flame preset name ( _only in the status bar_ )
     - *`XF`*: number of iterators/xforms being used
-    - *`FF`*: is the finalXform(FF) being used ? *`Yes`* or *`No`*
+    - *`FF`*: when finalXform(FF) is being used
     - *`Palette`*: number of colors in the palette
     - *`HSV`*: the palette uses HSV color correction
     - *`HSV values`* ( _only in the status bar_ )
@@ -2195,7 +2195,7 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     _Quick infos are_:
     - *`Name`*: selected Flame preset name ( _only in the status bar_ )
     - *`XF`*: number of iterators/xforms being used
-    - *`FF`*: is the finalXform(FF) being used ? *`Yes`* or *`No`*
+    - *`FF`*: when finalXform(FF) is being used
     - *`Palette`*: number of colors in the palette
     - *`HSV`*: the palette uses HSV color correction
     - *`HSV values`* ( _only in the status bar_ )

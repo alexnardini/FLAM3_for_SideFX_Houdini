@@ -16926,25 +16926,32 @@ class out_flame_utils
             # If there are xforms/iterators
             if apo_data.xforms is not None:
                 
+                build: list = []
+                build_flash: list = []
                 name: str = apo_data.name[preset_id]
                 n_xf: int = len(apo_data.xforms)
-                if apo_data.finalxform is not None: _FF: str = 'Yes'
-                else: _FF: str = 'No'
+                build.append(f"XF: {n_xf}")
+                if apo_data.finalxform is not None: 
+                    _FF: str = 'FF'
+                    build.append(_FF)
+                
                 palette: int = -1
-                hsv: str = ''
-                hsv_val: str = ''
                 if apo_data.palette is not None:
                     try: palette = apo_data.palette[1]
                     except: palette = len(apo_data.palette[0].keys())
+                    build.append(f"Palette: {str(palette)}")
+                    build_flash = build.copy()
                     if apo_data.cp_flam3h_hsv is not False:
-                        hsv = ', HSV'
+                        build_flash.append('HSV')
                         assert isinstance(apo_data.cp_flam3h_hsv, hou.Vector3)
-                        hsv_val = f": {apo_data.cp_flam3h_hsv[0]}, {apo_data.cp_flam3h_hsv[1]}, {apo_data.cp_flam3h_hsv[2]}"
+                        hsv_val: str = f"{apo_data.cp_flam3h_hsv[0]}, {apo_data.cp_flam3h_hsv[1]}, {apo_data.cp_flam3h_hsv[2]}"
+                        build.append(f"HSV: {hsv_val}")
                 
-                # Display infos
-                _MSG: str = f"XF: {n_xf}, FF: {_FF}, Palette: {palette}{hsv}"
-                flam3h_general_utils.set_status_msg(f"{node.name()}: Name: {name}  ->  {_MSG}{hsv_val}", 'MSG')
-                flam3h_general_utils.flash_message(node, _MSG)
+                # Build and Display infos
+                _MSG: str = ', '.join(build)
+                _MSG_FLASH: str = ', '.join(build_flash)
+                flam3h_general_utils.set_status_msg(f"{node.name()}: Name: {name}  ->  {_MSG}", 'MSG')
+                flam3h_general_utils.flash_message(node, _MSG_FLASH)
 
 
     def out_palette_256_plus_check(self) -> None:
