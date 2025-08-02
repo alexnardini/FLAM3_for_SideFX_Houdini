@@ -15472,6 +15472,8 @@ class in_flame_utils
                 if attempt_from_clipboard: _MSG: str = "Flame IN Clipboard: The loaded Flame preset have 0(Zero) xforms/iterators. SKIPPED"
                 else: _MSG: str = "Flame IN: The loaded Flame preset have 0(Zero) xforms/iterators. SKIPPED"
                 flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
+                _MSG: str = f"ZERO xforms"
+                flam3h_general_utils.flash_message(node, f"{_MSG}")
             
         else:
             
