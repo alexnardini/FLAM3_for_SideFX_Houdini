@@ -10,6 +10,19 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.52</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.52) ###
+
+- **New**: The OUT Tab file contents menu action button is now also able to save the currently selected OUT Flame preset into the Clipboard.
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.50</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.50) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**

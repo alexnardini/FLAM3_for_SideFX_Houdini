@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H
-#version: 1.8.50 - Production
+#version: 1.8.52 - Production
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.5.654 )"""
@@ -846,19 +846,16 @@ Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         In case you still want to include the inactive iterator in the file, set its Weight to zero instead.
     
     
-xform VIZ [Icon:DATATYPES/boolean]:
+xform VIZ SOLO [Icon:DATATYPES/boolean]:
     #id: FLAME
     *`Off`* by default.
 
-    <br />
-
     When the SYS -> viewport xforms handles VIZ is *`On`* this icon will become available.
 
-    [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg]
-    - ((LMB)) to enter into SOLO mode and display only this iterator xform handle VIZ in the viewport.
+    <br />
 
-    [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]
-    - ((LMB)) to exit the SOLO mode and revert back to display all xforms handles VIZ together.<br /><br />
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] to enter into SOLO mode and display only this iterator xform handle VIZ in the viewport.
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] to exit the SOLO mode and revert back to display all xforms handles VIZ together.<br /><br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
     - Every time you activate the xform handle VIZ SOLO mode for an iterator, a custom user data is added to the FLAM3H node with the iterator number being in SOLO mode; the data name is: *`XF VIZ`*.<br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being displayed (_in case you do not remember or when many iterators have been created_).
@@ -1319,15 +1316,12 @@ FF xform VIZ [Icon:DATATYPES/boolean]:
     #id: FF
     *`Off`* by default.
 
-    <br />
-
     When the SYS -> viewport xforms handles VIZ is *`On`*/Active this icon will become available.
 
-    [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg]
-    - ((LMB)) to enter into SOLO mode and display only the FF xform handle VIZ in the viewport.
+    <br />
 
-    [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg]
-    - ((LMB)) to exit the SOLO mode and revert back to display all xforms handles VIZ together.<br /><br />
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] to enter into SOLO mode and display only the FF xform handle VIZ in the viewport.
+    - [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg] to exit the SOLO mode and revert back to display all xforms handles VIZ together.<br /><br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
     - The viewport handles will be automatically disabled if the FLAM3H density value is raised above *`5M`*(_millions_) points.
@@ -2365,7 +2359,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.8.50" ... >
+          <flame version="FLAM3H-WIN-1.8.52" ... >
               ...
         }}}
         
@@ -2374,7 +2368,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.8.50" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.8.52" ... >
               ...
         }}}
         
@@ -2644,7 +2638,7 @@ _The following is an example of what the default Sierpiński triangle preset loo
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.50" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.52" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -2700,7 +2694,7 @@ _In this case we only have *`1`*(one) flame preset named: *Sierpiński triangle:
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.50" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.52" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     ...
   </flame>
 </flames>
@@ -2711,7 +2705,7 @@ _Under the flame preset XML key lives all its data: iterators/xforms data and it
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.50" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.52" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>
