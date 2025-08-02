@@ -15432,8 +15432,9 @@ class in_flame_utils
             # If there are xforms/iterators
             if apo_data.xforms is not None:
                 
+                assert apo_data.flame is not None
                 # Store into the FLAM3H node data storage
-                node.setUserData(FLAM3H_USER_DATA_XML_LAST, lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")) # type: ignore
+                node.setUserData(FLAM3H_USER_DATA_XML_LAST, lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode"))
                 # Transfer the data from the stored XML into FLAM3H
                 self.in_to_flam3h_resets(node, _FLAM3H_INIT_DATA)
                 self.in_to_flam3h_set_iterators(node, apo_data, _FLAM3H_INIT_DATA)
@@ -15687,7 +15688,7 @@ class out_flame_utils
 * out_build_XML(self, flame: lxmlET.Element) -> bool:
 * out_userData_XML_last_loaded(self, data_name: str = FLAM3H_USER_DATA_XML_LAST, flame_name: Union[str, None] = None) -> None:
 * out_new_XML(self, outpath: str) -> None:
-* out_new_XML_clipboard(self) -> None:
+* out_preset_XML_clipboard(self) -> None:
 * out_append_XML(self, apo_data: in_flame, out_path: str) -> None:
 * out_XML(self) -> None:
 * __out_flame_data(self, prm_name: str = '') -> str:
@@ -16995,8 +16996,9 @@ class out_flame_utils
         """Get the currently selected OUT preset menu label string and copy it into the OUT Flame name string field.
         
         Additionally:
-        - [SHIFT+LMB] to display quick informations message about the selected Flame preset
+        - [SHIFT+LMB] to display quick informations message about the selected OUT Flame preset
         - [CTRL+LMB] to display informations about the Flame name tips
+        - [ALT+LMB] to copy the selected OUT Flame preset into the Clipboard.
         
         
         Args:
@@ -17014,6 +17016,9 @@ class out_flame_utils
             
         elif kwargs['ctrl']:
             flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
+            
+        elif kwargs['alt']:
+            self.out_preset_XML_clipboard()
             
         else:
             if node.parm(OUT_PVT_ISVALID_FILE).eval():
@@ -17926,6 +17931,49 @@ class out_flame_utils
             _MSG: str = f"{self.node.name()}: SAVE Flame Clipboard: Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED to the Clipboard")
+            
+            
+    def out_preset_XML_clipboard(self) -> None:
+        """Copy the OUT tab selected flame preset into the clipboard.
+
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """ 
+        
+        node = self.node
+        
+        _FLAM3H_INIT_DATA: tuple = self.out_to_flam3h_init_data(node)
+        xml, preset_id = _FLAM3H_INIT_DATA
+
+        if xml is not None and _xml_tree(xml).isvalidtree:
+
+            # OUT flame preset data
+            apo_data = in_flame_iter_data(node, xml, preset_id)
+            name: str = apo_data.name[preset_id]
+            
+            # If there are xforms/iterators
+            if apo_data.xforms is not None:
+                
+                assert apo_data.flame is not None
+                flame = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")
+                hou.ui.copyTextToClipboard(flame) # type: ignore
+                
+                _MSG: str = f"{self.node.name()}: SAVE Flame Clipboard: Completed"
+                flam3h_general_utils.set_status_msg(f"{_MSG} -> {name}", 'IMP')
+                flam3h_general_utils.flash_message(node, f"Flame SAVED to the Clipboard")
+                
+            else:
+                _MSG: str = f"ZERO xforms"
+                flam3h_general_utils.set_status_msg(f"Name: {name}  ->  {_MSG} - SAVE SKIPPED", 'WARN')
+                flam3h_general_utils.flash_message(node, f"{_MSG}")
+                
+        else:
+            _MSG: str = f"Load a valid OUT flame file first"
+            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
+            flam3h_general_utils.flash_message(node, f"{_MSG}")
 
 
     def out_append_XML(self, apo_data: in_flame, out_path: str) -> None:

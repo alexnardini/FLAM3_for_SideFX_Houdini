@@ -2222,13 +2222,13 @@ Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_
 
     _Usage_:
     
-    - ((LMB)) to copy the selected OUT preset name into the Flame name string field.
+    - ((LMB)) to copy the currently selected OUT Flame preset' name into the OUT Flame name parameter string field.
 
     _Additionally_:
 
-    - ((SHIFT)) + ((LMB)) to print quick informations message about the selected Flame preset.
-    
+    - ((SHIFT)) + ((LMB)) to print quick informations about the selected OUT Flame preset.
     - ((CTRL)) + ((LMB)) to display the Flame name informations and tips.
+    - ((ALT)) + ((LMB)) to copy the selected OUT Flame preset into the Clipboard.
 
 :box:
     #display: rounded white
@@ -2237,7 +2237,8 @@ Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_
       
 palette HSV (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
-    *`Off`* by default<br />
+    *`Off`* by default.
+
     as FLAM3H will save the HSV values into the XML file and set those once you load it back.
 
     If enabled, all color adjustments you may have made to the Flame's palette will be preserved saving the HSV ramp instead.
@@ -2248,6 +2249,8 @@ palette HSV (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     
 F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
+    *`On`* by default.
+
     Save the Flame out with also the F3H affine style format.
     
     F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded back into FLAM3H.
@@ -2277,7 +2280,8 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         
 Flame name inherit on load [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
-    *`Off`* by default.<br /><br />
+    *`Off`* by default.
+
     Cause the OUT Flame name parameter<br />
     to automatically be set to the name of the loaded IN flame preset.<br />
     <br />
@@ -2285,8 +2289,8 @@ Flame name inherit on load [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
 Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
+    *`On`* by default.
 
-    *`On`* by default.<br /><br />
     To export the parameter names for parametric variations to the one that Fractorium uses.
     <br /><br />
 
@@ -2322,7 +2326,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
 Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
-    *`On`* by default.<br />
+    *`On`* by default.
     
     It will automatically append the iteration number to the Flame name you enter.
     It will also autocorrect the Flame name string based on internally defined rules.
@@ -2340,6 +2344,8 @@ Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     
 Edit render properties [Icon:DATATYPES/boolean]:
     #id: OUT
+    *`Off`* by default.
+
     Allow the editing of the render properties for the host application you will load the saved Flame file into.
 
     Fractorium is the suggested one, followed by Apophysis.
@@ -2730,7 +2736,8 @@ flash messages (network editor) [Icon:DATATYPES/boolean]:
 
 Enumerate presets menus [Icon:DATATYPES/boolean]:
     #id: prefs
-    *`On`* by default.<br /><br />
+    *`On`* by default.
+
     Causes the presets menus inside the CP, IN and OUT tab to be enumerated.<br />
     This make it easy to remember a particular preset you liked while trying out others inside the loaded library file.
     
@@ -2739,7 +2746,8 @@ Enumerate presets menus [Icon:DATATYPES/boolean]:
 
 Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
     #id: prefs
-    *`Off`* by default<br />
+    *`Off`* by default.
+
     to speedup the UI as it is now using a pre built menu data.
     
     When you turn this toggle *`On`* causes the variation menus inside each iterator to have a bookmark icon (_FLAME and FF tabs_)
@@ -2808,6 +2816,8 @@ Density :
             
 camera handle [Icon:DATATYPES/boolean]:
     #id: prefs
+    *`Off`* by default.
+    
     Display the viewport camera handle to help frame/center your fractal Flame.<br /><br />
     On the left, you will have the FLAM3H node name, and on the right, the selected camera name.
     <br /><br />
@@ -2822,6 +2832,8 @@ camera handle [Icon:DATATYPES/boolean]:
     
 camera cull [Icon:DATATYPES/boolean]:
     #id: prefs
+    *`Off`* by default.
+
     Enable culling based on camera view.
     
 cam:
