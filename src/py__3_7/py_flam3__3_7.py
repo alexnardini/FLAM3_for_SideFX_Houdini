@@ -15658,7 +15658,7 @@ class out_flame_utils
 
 @METHODS
 * out_to_flam3h_init_data(self, node: hou.SopNode, tab: str = 'OUT') -> tuple[Union[str, None], int]:
-* out_to_flam3h(self, tab: str = 'OUT') -> None:
+* out_to_flam3h_quick(self, tab: str = 'OUT') -> None:
 * out_palette_256_plus_check(self) -> None:
 * out_presets_get_selected_menu_label(self) -> Union[str, None]:
 * out_presets_copy_menu_label_callback(self) -> None:
@@ -16868,7 +16868,7 @@ class out_flame_utils
         else: return None, 0
         
         
-    def out_to_flam3h(self, tab: str = 'OUT') -> None:
+    def out_to_flam3h_quick(self, tab: str = 'OUT') -> None:
         """Load a Flame preset to then print its compact infos into the status bar and flash message for purely informational purpose.
         
         This is done so instead of having just a list of the Flames included into the file as a menu, we can also gather a bit of infos quickly every time we select a menu entrie.
@@ -17014,7 +17014,7 @@ class out_flame_utils
         kwargs: dict = self.kwargs
         
         if kwargs['shift']:
-            out_flame_utils(kwargs).out_to_flam3h()
+            out_flame_utils(kwargs).out_to_flam3h_quick()
             
         elif kwargs['ctrl']:
             flam3h_ui_msg_utils(kwargs).ui_OUT_presets_name_infos()
