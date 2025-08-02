@@ -572,7 +572,7 @@ CP Preset reload:
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
-    - ((ALT)) + ((LMB)) Load a palette from the clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the clipboard, it will extract only the XML palette data and load it into the FLAM3H palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H.
+    - ((ALT)) + ((LMB)) to load a palette from the clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the clipboard, it will extract only the XML palette data and load it into the FLAM3H palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H.
     
 :box:
     #display: rounded white
@@ -680,7 +680,7 @@ OUT Save:
     _Usage_:
 
     - ((LMB)) to save this Flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
-    - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
+    - ((SHIFT)) + ((LMB)) to open the file explorer to the file location.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((ALT)) + ((LMB)) to copy this Flame into the clipboard.
 
@@ -1044,8 +1044,8 @@ swap PRE vars:
 
     _Usage_:
     
-    - ((LMB)) swap the order of the *`PRE`* Variations and their weights. 
-    - ((CTRL)) + ((LMB)) swap only the variation names.
+    - ((LMB)) to swap the order of the *`PRE`* Variations and their weights. 
+    - ((CTRL)) + ((LMB)) to swap only the variation names.
     
     
 menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
@@ -1399,8 +1399,8 @@ swap FF POST vars:
 
     _Usage_:
     
-    - ((LMB)) swap the order of the *`POST`* Variations and their weights. 
-    - ((CTRL)) + ((LMB)) swap only the variation names.
+    - ((LMB)) to swap the order of the *`POST`* Variations and their weights. 
+    - ((CTRL)) + ((LMB)) to swap only the variation names.
 
     
 FF: w [Icon:TOP/xmlinput]:
@@ -1602,7 +1602,7 @@ Save Palette:
     - ((LMB)) to save the current palette into the selected OUT file.
         - _If the selected file does not exist, it will be created_.
         - _If the selected file already contains some palettes, it will append the current one_.
-    - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
+    - ((SHIFT)) + ((LMB)) to open the file explorer to the file location.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current palette.
     - ((ALT)) + ((LMB)) to save the current palette into the clipboard as a JSON data.
 
@@ -1925,7 +1925,7 @@ Reload preset with "F3H affine style" changes:
 
     _Usage_:
     
-    - ((LMB)) will switch *`On`*/*`Off`* this toggle and reload the currenlty selected IN preset right after using the new settings.
+    - ((LMB)) to switch *`On`*/*`Off`* this toggle and reload the currenlty selected IN preset right after using the new settings.
     - ((ALT)) + ((LMB)) to perform the same operation as above but loading a Flame from the Clipboard instead.
 
     
@@ -2139,7 +2139,7 @@ Save Flame:
     _Usage_:
     
     - ((LMB)) to save this Flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
-    - ((SHIFT)) + ((LMB)) will open the file explorer to the file location.
+    - ((SHIFT)) + ((LMB)) to open the file explorer to the file location.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((ALT)) + ((LMB)) to copy this Flame into the clipboard.
 
