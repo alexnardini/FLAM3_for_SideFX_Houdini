@@ -766,7 +766,7 @@ note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     A name for this iterator.
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    - If no name is provided (e.g. empty string) a default name will be automatically set.
+    - If no name is provided (_e.g. empty string_) a default name will be automatically set.
     - An iterator default name is composed as: *`iterator_`* followed by its multi parameter index number, as in: *`iterator_7`*
     - Every time you add or remove an iterator, FLAM3H will rename the remaining one if they have a default name to match their new index.
     - When saving a Flame out with inactive iterators, FLAM3H will discard the inactive one and rename the others to match their new index if they have a default name.
@@ -790,8 +790,8 @@ copy/paste:
     Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder an iterator posses.<br />
     The sections items in the mini-menu have a bookmark icon that change based on the marked iterator status:
 
-    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is *`On`*/Active..
-    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is *`0`*(Zero) Weight.
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is *`On`*/Active.
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is *`On`*/Active and *`0`*(Zero) Weight.
     - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when the marked iterator is *`Off`*/Disabled.
 
     When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
@@ -907,7 +907,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     TIP:
         #display: orange
     
-        - XAOS is *`Off`* by default, and FLAM3H will activate it automatically only when needed. _e.g. when one of its weights is set to a value different from: *`1`*(one)_.
+        - XAOS is *`Off`* by default, and FLAM3H will activate it automatically only when needed (_e.g. when one of its weights is set to a value different from: *`1`*(one))_.
         - When saving out Flame files, xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
         
     NOTE:
@@ -1086,7 +1086,8 @@ w [Icon:TOP/xmlinput]:
         #display: orange
         
         In order to lower the cost of the computation, it is preferable to set a variation weight to *`0`*(Zero) rather than retaining it at extremely low values if their impact is negligible.
-        The variation will be fully disregarded at zero.
+        
+        The variation will be fully disregarded when its weight is *`0`*(Zero).
 
 
 :box:
@@ -1414,7 +1415,7 @@ FF: w [Icon:TOP/xmlinput]:
         #display: orange
         In order to lower the cost of the computation, it is preferable to set a variation weight to zero rather than retaining it at extremely low values if their impact is negligible.
 
-        The variation will be fully disregarded at zero.
+        The variation will be fully disregarded when its weight is *`0`*(Zero).
 
 
 :box:
@@ -1548,7 +1549,7 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
 
     _The palette parameter come with the following tool icons_:
 
-    - [Largeicon:BUTTONS/ramp_flip_y] to invert the palette's color values (ex. Black will become White).
+    - [Largeicon:BUTTONS/ramp_flip_y] to invert the palette's color values (_e.g. Black will become White_).
     - [Largeicon:BUTTONS/ramp_flip_x] to flip the palette's colors horizontally.
     - [Largeicon:BUTTONS/gear] mini-menu [Icon:BUTTONS/pane_menu] to select some of the Houdini's default ramp presets.
 
@@ -1842,8 +1843,6 @@ Reload:
     
 Iterations on Load:
     #id: IN
-    *`Off`* by default.
-
     Set a number of iterations to use every time you load a Flame from a *.flame file.
     This will override the internal default value of 64 iterations.
     <br /><br />
@@ -1876,6 +1875,8 @@ Force iterations on Load [Icon:DATATYPES/boolean]:
 
 Override iterations from Flame name [Icon:DATATYPES/boolean]:
     #id: IN
+    *`Off`* by default.
+
     It will override the iterations number baked into the Flame preset name if any.
     
 :box:
