@@ -16912,7 +16912,9 @@ class out_flame_utils
                 palette: int = -1
                 if apo_data.palette is not None:
                     try: palette = apo_data.palette[1]
-                    except: palette = len(apo_data.palette[0].keys())
+                    except:
+                        try: palette = len(apo_data.palette[0].keys())
+                        except: pass
                     build.append(f"Palette: {str(palette)}")
                     build_flash = build.copy()
                     if apo_data.cp_flam3h_hsv is not False:
