@@ -416,6 +416,7 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
     - To exclusively output the xforms handles, a second output has been introduced to the FLAM3H node.
     Since they are not baked into the point cloud, you may safely render the fractal flame while switching between SOP and LOP, which makes it useful for viz purposes.
     
+    <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
     - Xforms handles viz are context aware, and you will be able to activate them only if a Sop viewer is available.
     <br /><br />
@@ -1147,7 +1148,7 @@ copy post affine values:
 pre affine [Icon:TOP/xmlinput]:
     #id: FLAME
 
-    Affine transformation's coefficients for the current iterator (_xform_).
+    Affine transformation's coefficients for the current iterator(_xform_).
     <br /><br />
 
     TIP:
@@ -2423,7 +2424,7 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
     <br />
     [Image:opdef:.?FLAM3H_DOC_camera_sensor_outline.svg]
 
-    <br />
+    <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
     - Camera sensor viz is context aware, and you will be able to activate it only if a Sop viewer is available.
 
@@ -2864,6 +2865,7 @@ Dark [Icon:DATATYPES/boolean]:
     If unchecked, it will remember the color scheme for every viewport and fall back on it.<br />
     Checking this box has no effect if the color scheme in a viewport is already dark.
 
+    <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.
     
@@ -2883,6 +2885,7 @@ menu type [Icon:BUTTONS/pane_menu]:
         
         A restart of Houdini is required for this change to take effect.
 
+    <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.
 
@@ -2890,6 +2893,7 @@ Size:
     #id: prefs
     When viewport particle display is set to Points, this will control their size in the viewport.
 
+    <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.
 
@@ -2902,6 +2906,7 @@ Wire width:
     #id: prefs
     When the SYS -> "xforms handles VIZ" is *`On`*, this parameter will set the wire curves thickness for the viewport display. A value of *`3`*(three) is generally good.
 
+    <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.
 
