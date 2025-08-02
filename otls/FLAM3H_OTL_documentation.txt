@@ -311,18 +311,24 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
 
 FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
+    *`Off`* by default.
+
+    <br />
     
-    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*.
-    - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*.
+    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*/Active.
     
     Enable and disable [finalXform|#FF] transform/iterator.
     
     
 RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
+    *`Off`* by default.
+
+    <br />
     
-    - [Largeicon:opdef:.?icon_optionRIPDisabledSVG.svg] when RIP is *`Off`*.
-    - [Largeicon:opdef:.?icon_optionRIPEnabledSVG.svg] when RIP is *`On`*.
+    - [Largeicon:opdef:.?icon_optionRIPDisabledSVG.svg] when RIP is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_optionRIPEnabledSVG.svg] when RIP is *`On`*/Active.
     
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
@@ -338,6 +344,9 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         
 F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
+    *`On`* by default.
+
+    <br />
 
     Flam3 compatibility.
 
@@ -363,10 +372,12 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
 xforms handles VIZ [Icon:DATATYPES/boolean]:
     #id: SYS
-    *`Off`* by default.<br />
+    *`Off`* by default.
+    
+    <br />
 
-    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] vieport xforms VIZ is *`Off`*.
-    - [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg] vieport xforms VIZ is *`On`*.
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] vieport xforms VIZ is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg] vieport xforms VIZ is *`On`*/Active.
     - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] one of the iterators/xforms is in SOLO mode.
     - [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg] the FF is in SOLO mode.
 
@@ -434,9 +445,12 @@ _The above tag reference's image shows a Flame with 1(one) iterator and the FF(f
 
 TAG [Icon:DATATYPES/boolean]:
     #id: SYS
+    *`Off`* by default.
+
+    <br />
     
-    - [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg] when TAG is *`Off`*.
-    - [Largeicon:opdef:.?icon_TagOBlueSVG.svg] when TAG is *`On`*.
+    - [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg] when TAG is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_TagOBlueSVG.svg] when TAG is *`On`*/Active.
     
     Enable/disable viewport TAG infos.
     
@@ -473,8 +487,8 @@ TAG [Icon:DATATYPES/boolean]:
         When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
         Once clicked, it will exit the mode and back to being the default Tag blue icon:
         
-        - [Largeicon:opdef:.?icon_TagORedSVG.svg] when the OUT Camera sensor viz mode is *`On`* and update sensor option is *`On`*.
-        - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when the OUT Camera sensor viz mode is *`On`* and update sensor option is *`Off`*.
+        - [Largeicon:opdef:.?icon_TagORedSVG.svg] when the OUT Camera sensor viz mode is *`On`*/Active and update sensor option is *`On`*/Active.
+        - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when the OUT Camera sensor viz mode is *`On`*/Active and update sensor option is *`Off`*/Disabled.
 
         _Additionally only in the viewport Tag_:
         - [Largeicon:opdef:.?icon_TagOSVG.svg] when iterator's count is *`0`*(Zero) and when Xaos is active but you cross the 20 iterators limit.
@@ -696,7 +710,7 @@ OUT Save:
 palette 256+ ON [Icon:TOP/xmlinput]:
     #id: SYS
     *`[256+]`*<br /><br />
-    when the *PREFS options* tab toggle *`palette 256+`* is *`On`*, this text in the SYS tab will signal it and when *`Off`* it will disappear.
+    when the *PREFS options* tab toggle *`palette 256+`* is *`On`*/Active, this text in the SYS tab will signal it and when *`Off`*/Disabled it will disappear.
 
 
 :box:
@@ -816,9 +830,12 @@ copy/paste:
     
 Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: FLAME
+    *`Off`* by default.
+
+    <br />
     
-    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] This iterator is *`Off`*.
-    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] This iterator is *`On`*.
+    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] This iterator is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] This iterator is *`On`*/Active.
     
     Enable/Disable this iterator.
     <br /><br />
@@ -831,6 +848,9 @@ Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     
 xform VIZ [Icon:DATATYPES/boolean]:
     #id: FLAME
+    *`Off`* by default.
+
+    <br />
 
     When the SYS -> viewport xforms handles VIZ is *`On`* this icon will become available.
 
@@ -892,7 +912,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How to set xaos in FLAM3H*
         
     - To set XAOS for a Flame with *`4`*(four) iterators, use the "*`xaos:`*" keyword followed by each iterator's Weight values separated by a colon: *`xaos:`* *1:2:3:4*.
-    - When the auto space xaos weights option is *`On`* ( it is by default ), the xaos keyword will look like this: "*`xaos :`*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work, as in: " *`xaos:`* ".
+    - When the auto space xaos weights option is *`On`*/Active ( it is by default ), the xaos keyword will look like this: "*`xaos :`*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work, as in: " *`xaos:`* ".
     - If no set or when using a short descriptive note, FLAM3H will assume all XAOS values are *`1`*(one), the equivalent of: *`xaos:`* *1:1:1:1*
     - If you set only *iterator 1* and *iterator 2*, FLAM3H will always fill in the rest with a value of *`1`*(one). As an example: *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
     - When turning iterators *`On`* and *`Off`* and removing or adding them, FLAM3H will internally remove and reformat XAOS values to account for missing iterators. It is fully automatic.
@@ -908,7 +928,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     TIP:
         #display: orange
     
-        - XAOS is *`Off`* by default, and FLAM3H will activate it automatically only when needed (_e.g. when one of its weights is set to a value different from: *`1`*(one))_.
+        - XAOS is *`Off`*/Disabled by default, and FLAM3H will activate it automatically only when needed (_e.g. when one of its weights is set to a value different from: *`1`*(one))_.
         - When saving out Flame files, xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
         
     NOTE:
@@ -922,7 +942,7 @@ auto space xaos weights / xaos information tips [Icon:opdef:.?icon_optionStarBlu
 
     _Usage_:
     
-    - ((LMB)) will space the xaos weights for easy read and count (_ON/OFF_)
+    - ((LMB)) will space the xaos weights for easy read and count (_*`On`*/*`Off`*_)
     
     - ((CTRL)) + ((LMB)) to show Xaos information and tips.
     
@@ -989,7 +1009,7 @@ Opacity [Icon:TOP/xmlinput]:
         
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Variations bookmark icons*
 
-        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`* will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
+        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`*/Active will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
         
         - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
         - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
@@ -1157,19 +1177,41 @@ pre affine [Icon:TOP/xmlinput]:
         
         To translate a set of points, we need to use an *_affine transformation_*. 
 
-        An _affine transformation_ multiplies a vector by a matrix, just as in a linear transformation, 
+        An affine transformation multiplies a vector by a matrix, just as in a linear transformation, 
         and then adds a vector to the result ( the *`O`*._`xy`_ component ). 
 
         This added *`vector2`* carries out the translation. 
 
-        By applying an _affine transformation_ to an image on the screen, we can do everything a linear transformation can do, 
+        By applying an affine transformation to an image on the screen, we can do everything a linear transformation can do, 
         and also have the ability to move the image up or down and left or right.
 
     <br />
+
+    A 2D affine transformation is just a fancy way of saying:
+    - "_Take some points in 2D space and move, rotate, flip, stretch, or shear them, while keeping stright lines straight_."
+
+    It's like applying a mathematical "filter" that changes the position and orientation of things, but *doesn't bend or curve them*.
+
+    Fractal Flames are created using an Iterated Funtion System (*IFS*). This mean:
+    - You have a set of funtions.
+    - You repeatedly apply one of them to a point.
+    - Over time, the points create a fractal pattern.
+
+    Each funtion in the IFS usually has two parts:
+    # An affine transformation (linear part + translation).
+    # A non-linear variation (curvy distortions, like Swirl, Spherical, Horseshoe)
+
+    *Why is it important?*
+    - The affine transform determine *where in the plane* the next variation happens.
+    - It define the *basic skeleton* of the fractal.
+    - If you only used non linear variations without affine transforms, everything would cluster around the origin. You'd loose structure.
+
+    <br />
+
     Each iterator(_xform_) has an affine transform that is always applied on every iteration.
     This is known as the pre affine becasue it is applied before the variations. There is also an optional affine applied after the variations known as the post affine.
 
-    For speed purpose, only the very basic parameters of the affine are provided, plus a rotation parameter to make life a little easier. Below a basic guideline on how to use the affine parameters:
+    For speed purpose, only the very basic parameters of the affine are provided, plus a Scale and Rotation parameters to make life easier. Below a basic guideline on how to use the affine parameters:
 
     - With *`X`*._`xy`_ and *`Y`*._`xy`_ you will apply rotation and scale/shear while with *`O`*._`xy`_ you will apply translation/offset.
     - They compose a 2x3 matrix ( *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ ).
@@ -1178,7 +1220,7 @@ pre affine [Icon:TOP/xmlinput]:
     There are two ways you can use the affine:
     # Use *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ for everything (_translation, rotation and scale/shear_).
     
-    # Use the rotation parameter in combination with the scale parameter and the *`X`*.`xy` and *`Y`*.`xy` for tweaks on shear and *`O`*._`xy`_ for translation.
+    # Use the Rotation parameter in combination with the Scale parameter and the *`X`*.`xy` and *`Y`*.`xy` for tweaks on shear and *`O`*._`xy`_ for translation.
 
 pre affine Rot [Icon:TOP/xmlinput]:
     #id: FLAME
@@ -1264,16 +1306,22 @@ VARS Tab [Icon:TOP/xmlinput]:
     
 FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: FF
+    *`Off`* by default.
+
+    <br />
     
-    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*.
-    - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*.
+    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*/Active.
     
     Enable and disable [finalXform|#FF] transform/iterator.
 
 FF xform VIZ [Icon:DATATYPES/boolean]:
     #id: FF
+    *`Off`* by default.
 
-    When the SYS -> viewport xforms handles VIZ is *`On`* this icon will become available.
+    <br />
+
+    When the SYS -> viewport xforms handles VIZ is *`On`*/Active this icon will become available.
 
     [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg]
     - ((LMB)) to enter into SOLO mode and display only the FF xform handle VIZ in the viewport.
@@ -1342,7 +1390,7 @@ FF: copy/paste:
 
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Variations bookmark icons*
         
-        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`* will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
+        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`*/Active will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
         
         - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
         - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
@@ -1468,7 +1516,7 @@ FF: PP VARS Tab [Icon:TOP/xmlinput]:
 :box:
     #display: rounded white
 
-== CP: Color palette parameters == (CP)
+== CP: Palette parameters == (CP)
     
 ~~~
 :box:
@@ -1850,7 +1898,7 @@ Iterations on Load:
 
     TIP:
         #display: orange
-        If *add iterations to Flame name* OUT Tab option is *`Off`*:
+        If *add iterations to Flame name* OUT Tab option is *`Off`*/Disabled:
     
         The iteration number you want your fractal Flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
 
@@ -1910,13 +1958,13 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
     *Y*: *`0.707107`*, *`0.707107`* <br />
     *O*: *`0`*, *`0`* 
 
-    When this option is *`On`* (_it is by default_) and both version are present into the Flame preset you are trying to load, it will load the preset using the F3H version, when *`Off`* it will use the standard version.
+    When this option is *`On`*/Active (_it is by default_) and both version are present into the Flame preset you are trying to load, it will load the preset using the F3H version, when *`Off`* it will use the standard version.
     <br /><br />
 
     NOTE:
         *You need to reload the current Flame preset for this change to take place*.
 
-        F3H affine style format are only available when you save a Flame preset out from FLAM3H using the OUT tab's option "F3H affine style" whitch is *`On`* by default.
+        F3H affine style format are only available when you save a Flame preset out from FLAM3H using the OUT tab's option "F3H affine style" whitch is *`On`*/Active by default.
 
         The only affine available will be the standard affine style when loading Flame files created with third-party applications like Apophysis or Fractorium.
 
@@ -2180,7 +2228,7 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
     TIP:
         #display: orange
-        If "*add iterations to Flame name*" option is *`Off`*:
+        If "*add iterations to Flame name*" option is *`Off`*/Disabled:
     
         The iteration number you want your fractal Flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
 
@@ -2282,7 +2330,7 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     *Y*: *`0.707107`*, *`0.707107`* <br />
     *O*: *`0`*, *`0`* 
 
-    When this option is *`On`* (_it is by default_), both versions of the affine will be saved into the Flame file so that we can choose to use either one or the other on load using the IN tab option: "F3H affine style".
+    When this option is *`On`*/Active (_it is by default_), both versions of the affine will be saved into the Flame file so that we can choose to use either one or the other on load using the IN tab option: "F3H affine style".
     <br /><br />
 
     NOTE:
@@ -2312,7 +2360,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     :dev:
     :disclosure:Technical note
     
-        _When saving a Flame out with this option *`On`*, the xml appliction key will change from_:
+        _When saving a Flame out with this option *`On`*/Active, the xml appliction key will change from_:
         
         {{{
         #!xml
@@ -2344,7 +2392,7 @@ Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     TIP:
         #display: orange
-        When *`On`*, and once you type in a Flame name, changing the iteration number will update the Flame name too.
+        When *`On`*/Active, and once you type in a Flame name, changing the iteration number will update the Flame name too.
 
 :box:
     #display: rounded white
@@ -2390,11 +2438,14 @@ Render properties utils:
     
 Camera sensor VIZ [Icon:DATATYPES/boolean]:
     #id: OUT
+    *`Off`* by default.<br /><br />
+
+    - [Largeicon:opdef:.?icon_TagORedSVG_disabled.svg] when Sensor Viz is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_TagORedSVG.svg] when Sensor Viz is *`On`*/Active and update sensor option is *`On`*/Active.
+    - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when Sensor Viz is *`On`*/Active and update sensor option is *`Off`*/Disabled.
     
-    - [Largeicon:opdef:.?icon_TagORedSVG_disabled.svg] when Sensor Viz is *`Off`*.
-    - [Largeicon:opdef:.?icon_TagORedSVG.svg] when Sensor Viz is *`On`* and update sensor option is *`On`*.
-    - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when Sensor Viz is *`On`* and update sensor option is *`Off`*.
-    
+    <br />
+
     Activate FLAM3H Camera sensor visualization.
     
     All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal Flames when they are saved from FLAM3H.
@@ -2417,9 +2468,9 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
     - _When entering the Camera Sensor Viz mode while in viewport xforms handles VIZ mode, the xforms handles will be hidden and the camera sensor frame outline will be of color Yellow if not in solo mode and of color Red if in solo mode, like in the below illustration_.
     
         _Illustration from left to right_:<br />
-        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is *`Off`*. The sensor outline is of color White_.
-        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is *`On`*. The sensor outline is of color Yellow_.
-        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is *`On`* and in SOLO mode (iterator or FF). The sensor outline is of color Red_.
+        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is *`Off`*/Disabled. The sensor outline is of color White_.
+        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is *`On`*/Active. The sensor outline is of color Yellow_.
+        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is *`On`*/Active and in SOLO mode (iterator or FF). The sensor outline is of color Red_.
 
     <br />
     [Image:opdef:.?FLAM3H_DOC_camera_sensor_outline.svg]
@@ -2511,10 +2562,10 @@ Vibrancy [Icon:TOP/xmlinput]:
 
 Reset curves:
     #id: OUT
-    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when the color correction is *`Off`* (_Default values_).
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when the color correction is *`Off`*/Disabled (_Default values_).
     - ((LMB)) to copy all the color correction curves data from the currently loaded IN Flame preset. If the loaded IN Flame preset have its color correction curves data at default values, the copy will be skipped.
     
-    [Largeicon:opdef:.?icon_optionStarRedSVG.svg] when the color correction is *`On`* (_Active_).
+    [Largeicon:opdef:.?icon_optionStarRedSVG.svg] when the color correction is *`On`*/Active (_Active_).
     - ((LMB)) to Reset all the render color correction curves data to their defaults (_no color correction_).
 
 
@@ -2527,10 +2578,10 @@ Reset curves:
 
     When you load a Flame preset, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render properties.
 
-    The IN Tab option: *copy render properties on Load* is *`On`* by default,<br />
+    The IN Tab option: *copy render properties on Load* is *`On`*/Active by default,<br />
     This mean everytime you load a flame preset in, the color correction curves data will automatically be stored inside here.
 
-    When the IN Tab option: *copy render properties on Load* is *`Off`*,<br />
+    When the IN Tab option: *copy render properties on Load* is *`Off`*/Disabled,<br />
     you will have to manually click the copy render properties button [Icon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg] so that it won't modify settings you have been working on up until you loaded a Flame preset in.
 
     - When a Flame is loaded from the clipboard, the color correction curves data will automatically be stored inside here.
@@ -2704,7 +2755,7 @@ palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     *`On`* by default.
 
     *`[256+]`*<br />
-    when this preferences option toggle is *`On`* (_it is by default_), this text in the SYS tab will signal it and when *`Off`* it will disappear.
+    when this preferences option toggle is *`On`*/Active (_it is by default_), this text in the SYS tab will signal it and when *`Off`*/Disabled it will disappear.
     
     It will allow the OUT Flame to be saved with more than *`256`* color keys assuming you created a palette with this many colors, otherwise it will always save the Flame preset using *`256`* color keys.
     
@@ -2861,6 +2912,8 @@ amount:
     
 Dark [Icon:DATATYPES/boolean]:
     #id: prefs
+    *`Off`* by default.
+
     If it isn't already, change the viewport's color scheme to dark.<br /><br />
     If unchecked, it will remember the color scheme for every viewport and fall back on it.<br />
     Checking this box has no effect if the color scheme in a viewport is already dark.
@@ -2904,7 +2957,7 @@ Size default:
 
 Wire width:
     #id: prefs
-    When the SYS -> "xforms handles VIZ" is *`On`*, this parameter will set the wire curves thickness for the viewport display. A value of *`3`*(three) is generally good.
+    When the SYS -> "xforms handles VIZ" is *`On`*/Active, this parameter will set the wire curves thickness for the viewport display. A value of *`3`*(three) is generally good.
 
     <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
