@@ -15657,7 +15657,7 @@ class out_flame_utils
 * out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple:
 
 @METHODS
-* out_to_flam3h_init_data(self, node: hou.SopNode, tab: str = 'OUT') -> tuple[Union[str, None], int]:
+* out_to_flam3h_init_data_quick(self, node: hou.SopNode, tab: str = 'OUT') -> tuple[Union[str, None], int]:
 * out_to_flam3h_quick(self, tab: str = 'OUT') -> None:
 * out_palette_256_plus_check(self) -> None:
 * out_presets_get_selected_menu_label(self) -> Union[str, None]:
@@ -16839,7 +16839,7 @@ class out_flame_utils
         return self._flam3h_cp_lookup_samples
     
     
-    def out_to_flam3h_init_data(self, node: hou.SopNode, tab: str = 'OUT') -> tuple[Union[str, None], int]:
+    def out_to_flam3h_init_data_quick(self, node: hou.SopNode, tab: str = 'OUT') -> tuple[Union[str, None], int]:
         """Load a flame preset and gather some data.
 
         Args:
@@ -16890,7 +16890,7 @@ class out_flame_utils
         """
         node = self.node
         
-        _FLAM3H_INIT_DATA: tuple = self.out_to_flam3h_init_data(node, tab)
+        _FLAM3H_INIT_DATA: tuple = self.out_to_flam3h_init_data_quick(node, tab)
         xml, preset_id = _FLAM3H_INIT_DATA
 
         if xml is not None and _xml_tree(xml).isvalidtree:
@@ -17949,7 +17949,7 @@ class out_flame_utils
         
         node = self.node
         
-        _FLAM3H_INIT_DATA: tuple = self.out_to_flam3h_init_data(node)
+        _FLAM3H_INIT_DATA: tuple = self.out_to_flam3h_init_data_quick(node)
         xml, preset_id = _FLAM3H_INIT_DATA
 
         if xml is not None and _xml_tree(xml).isvalidtree:
