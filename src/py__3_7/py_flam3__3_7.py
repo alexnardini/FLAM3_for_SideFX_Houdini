@@ -3467,7 +3467,7 @@ class flam3h_general_utils
                     if self.isLOCK(json_path_checked):
                         flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, MSG_PALETTE_MSG)
                         # Lets print to the status bar as well
-                        _MSG: str = f"Palette: {MSG_PALETTE_MSG}"
+                        _MSG: str = f"CP: {MSG_PALETTE_MSG}"
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {json_path_checked}", 'WARN')
                     else:
                         flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
@@ -3493,7 +3493,7 @@ class flam3h_general_utils
                         if self.isLOCK(json_path_checked):
                             flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, MSG_PALETTE_MSG)
                             # Lets print to the status bar as well
-                            _MSG: str = f"Palette: {MSG_PALETTE_MSG}"
+                            _MSG: str = f"CP: {MSG_PALETTE_MSG}"
                             flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {json_path_checked}", 'WARN')
                         else:
                             flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
@@ -9291,12 +9291,12 @@ class flam3h_palette_utils
                     flam3h_general_utils.flash_message(node, f"CP LOADED")
                 else:
                     flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
-                    _MSG: str = f"{node.name()}: PALETTE: ERROR on preset: \"{preset}\". Invalid HEX values."
+                    _MSG: str = f"{node.name()}: CP: ERROR on preset: \"{preset}\". Invalid HEX values."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                     flam3h_general_utils.flash_message(node, f"CP ERROR")
             
             else:
-                _MSG: str = f"{node.name()}: PALETTE: Nothing to load"
+                _MSG: str = f"{node.name()}: CP: Nothing to load"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.flash_message(node, f"CP: Nothing to load")
 
@@ -15489,7 +15489,7 @@ class in_flame_utils
             # If we are trying to load from the Clipboard
             elif attempt_from_clipboard:
                 _MSG: str = "IN Clipboard: Nothing to load"
-                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                 flam3h_general_utils.flash_message(node, _MSG)
                 
             else:
@@ -15510,7 +15510,7 @@ class in_flame_utils
                     flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
                         
                     _MSG: str = "IN: Nothing to load"
-                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                     flam3h_general_utils.flash_message(node, _MSG)
                      
                 # Anything else   
@@ -15525,7 +15525,7 @@ class in_flame_utils
                         node.parmTuple(FLAM3H_ITERATORS_TAB).set((1,))
                     else: _MSG: str = "IN: Nothing to load"
 
-                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                     flam3h_general_utils.flash_message(node, _MSG)
                     
                     
@@ -16240,16 +16240,16 @@ class out_flame_utils
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}: {file_new}", 'IMP')
         elif OUT_PALETTE_FILE_EXT == file_ext:
             if os.path.isfile(infile) and os.path.exists(infile):
-                _MSG: str = f"Palette: You selected an OUT file that is not a {prx} file type."
+                _MSG: str = f"CP: You selected an OUT file that is not a {prx} file type."
                 print(f"{node.name()}.{_MSG}\n")
                 flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
             else:
                 if os.path.isdir(os.path.split(file_new)[0]) and not os.path.exists(file_new):
                     if flam3h_general_utils.isLOCK(os.path.split(file_new)[1]):
-                        _MSG: str = 'Palette: Flame lib file: LOCKED'
+                        _MSG: str = 'CP: Flame lib file: LOCKED'
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}: {file_new}", 'IMP')
                     else:
-                        _MSG: str = 'Palette: Save to create this file'
+                        _MSG: str = 'CP: Save to create this file'
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}: {file_new}", 'IMP')
 
 
@@ -16383,7 +16383,7 @@ class out_flame_utils
                         else: _MSG: str = f"IN: Select a valid IN flame file path."
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
                     elif OUT_PALETTE_FILE_EXT == file_ext:
-                        _MSG: str = f"PALETTE: Select a valid OUT directory location."
+                        _MSG: str = f"CP: Select a valid OUT directory location."
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
                 else:
                     # If the path string is empty we do not want to print out
