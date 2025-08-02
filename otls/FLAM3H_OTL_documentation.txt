@@ -1685,6 +1685,8 @@ _This functionality is included to complete the implementation as presented in t
 
 on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: MB
+    *`Off`* by default.
+
     Enable motion blur.
 
     Since nowadays the effect of motion blur is achieved most of the time as a separate post process step (_e.g. inside a compositing application_) 
@@ -1840,6 +1842,8 @@ Reload:
     
 Iterations on Load:
     #id: IN
+    *`Off`* by default.
+
     Set a number of iterations to use every time you load a Flame from a *.flame file.
     This will override the internal default value of 64 iterations.
     <br /><br />
@@ -1861,6 +1865,8 @@ Iterations on Load:
     
 Force iterations on Load [Icon:DATATYPES/boolean]:
     #id: IN
+    *`Off`* by default.
+
     When flame files are loaded, FLAM3H immediately sets the iteration number to *`64`*, which seems like a reasonable count to resolve the majority of them rather effectively.
     However, if you need to act quickly, you can use this number to override the iterations set on load.
 
@@ -1879,6 +1885,8 @@ Override iterations from Flame name [Icon:DATATYPES/boolean]:
     
 F3H affine style (IN) [Icon:DATATYPES/boolean]:
     #id: IN
+    *`On`* by default.
+
     To be used when loading Flame presets that posses F3H affine style format in it.
     
     If no F3H affine style are found nothing will happen and FLAM3H will load the Flame preset using the standard affine style instead.
@@ -2830,7 +2838,7 @@ camera handle [Icon:DATATYPES/boolean]:
         Turn this *`Off`* when rendering.
 
     
-camera cull [Icon:DATATYPES/boolean]:
+Camera cull [Icon:DATATYPES/boolean]:
     #id: prefs
     *`Off`* by default.
 
