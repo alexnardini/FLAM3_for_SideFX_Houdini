@@ -1834,8 +1834,8 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
     
     - The Flames contained in the file must use the same variations included inside FLAM3H. 
     - A maximum of 3(three) *`PRE`* ( *`pre_blur`* plus 2(two) of your choise ), 4(four) *`VAR`* and 1(one) *`POST`* variations for each iterator are allowed. 
-    ( for a total of 8(eight) vars per iterator ). If it finds more on load, it will just discard the extra one.
-    - For FF ( FinalXForm ) you have 1(one) *`PRE`*, 2(two) *`VAR`* and 2(two) *`POST`* available. If it finds more on load, it will just discard the extra one.
+    ( for a total of 8(eight) variations each iterator ). If it finds more on load, the excess ones will be discarded.
+    - For FF ( FinalXForm ) you have 1(one) *`PRE`*, 2(two) *`VAR`* and 2(two) *`POST`* variations available. If it finds more on load, the excess ones will be discarded.
     
 menu IN file contents [Icon:BUTTONS/pane_menu]:
     #id: IN
