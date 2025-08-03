@@ -2,7 +2,7 @@
 #type: node
 #context: sop
 #namespace: alexnardini
-#internal: FLAM3H
+#internal: FLAM3H™
 #version: 1.8.52 - Production
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
@@ -13,7 +13,7 @@
     #display: rounded white 
 
 
-== Welcome to FLAM3 for SideFX Houdini - aka: FLAM3H ==
+== Welcome to FLAM3 for SideFX Houdini - aka: FLAM3H™ ==
 ( _From H19.x to H20.5.x only_ )
 
 [Icon:opdef:.?icon_optionStarBlueSVG.svg]  *A bit of history* _( from wikipedia )_:
@@ -41,9 +41,9 @@ I didn't know much about the subject at the time, but as I began experimenting w
 Undoubtedly, it required some time to comprehend everything completely, but as I was also learning how to create fractal art, It slowly shaped into the proper form.
 
 Specifically built to work in tandem with [Fractorium|http://fractorium.com],<br /> 
-FLAM3H attempts to absorb as much informations as possible about its capabilities and incorporates all it can into its own toolkit.
+FLAM3H™ attempts to absorb as much informations as possible about its capabilities and incorporates all it can into its own toolkit.
 
-These days, FLAM3H has all the features found in other third-party programs, plus a bunch more exclusive to this implementation.
+These days, FLAM3H™ has all the features found in other third-party programs, plus a bunch more exclusive to this implementation.
 
 Additionally, when combined with Houdini's procedural paradigm and toolsets, fractal Flames reach previously unheard-of levels of possibilities.
 
@@ -68,9 +68,9 @@ _This is akin to a person's genome, or DNA._<br />
 _Together, all of these variables contribute to the interesting nature of the fractal Flame discipline,_<br />
 _with its seemingly endless possibilities, effects, and patterns._
 
-[Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H, what is it ?*
+[Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H™, what is it ?*
 
-FLAM3H, as the name suggests, is the implementation of _the fractal Flame algorithm_ inside SideFX Houdini.<br />
+FLAM3H™, as the name suggests, is the implementation of _the fractal Flame algorithm_ inside SideFX Houdini.<br />
 There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
 
 Fractal art is not easy at all.<br />
@@ -79,7 +79,7 @@ For this reason, it is suggested that you possess prior experience with this art
 There is a very large, kind, and talented community out there that you can tap into and gather lots of information from to learn how to do fractal art.
 
 Generally speaking and based on my own learning experiences,<br />
-FLAM3H can complete every tutorial you can find for any of the existing fractal Flame editors out there.<br />
+FLAM3H™ can complete every tutorial you can find for any of the existing fractal Flame editors out there.<br />
 The majority of tutorials you can find are for Apophysis, the first program to use the algorithm with a graphical user interface. It rose to prominence as the most widely used fractal Flame editor and will always occupy a special place in the fractal art history.
 
 _Here a few at hand_:
@@ -96,7 +96,7 @@ _*[DevianArt - Apophysis tutorial: Hemispherical|https://www.deviantart.com/c-91
 
 
 A considerable amount of effort has been allocated to ensure that,<br />
-assuming that the same variations are utilized within FLAM3H and that they remain within its limitations, a one-to-one match result is consistently obtained.
+assuming that the same variations are utilized within FLAM3H™ and that they remain within its limitations, a one-to-one match result is consistently obtained.
 
 Being inside Houdini has its advantages,<br />
 just think of the possibilities of utilizing his procedural paradigm and tool sets to animate your fractal Flames. It also makes it very easy to build a pipeline around this tool using Houdini’s Python HOM libraries.
@@ -140,7 +140,7 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 :platform:Linux
 
 
-@parameters FLAM3H Tabs parameters
+@parameters FLAM3H™ Tabs parameters
 
     
 == GLOBAL == (GLOBAL)
@@ -173,7 +173,7 @@ iterations [Icon:TOP/xmlinput]:
     - You do not need many iterations to get some good fractal Flames going, between *`10`* and *`24`* is usually more than you need while keeping execution speed acceptable.
     - If you increase the iterator Weight, use xaos to build containers, or use some kind of variation, you will require a higher number to resolve and show you the proper result.
     
-    Almost all the fractal Flames showcased inside FLAM3H's Instagram account
+    Almost all the fractal Flames showcased inside FLAM3H™'s Instagram account
     use a maximum of *`64`* iterations, with a few exceptions reaching *`96`* and, in rare cases, *`128`*/*`256`* and more.
     
     Some flames require a truly high number of iterations to resolve properly.
@@ -270,7 +270,7 @@ Reset density:
     
     == SYS: Utils == (SYSUTILS)
     
-FLAM3H documentation:
+FLAM3H™ documentation:
     #id: SYS
     [Largeicon:opdef:.?icon_F_docStarSVG.svg]
     
@@ -339,7 +339,7 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     TIP:
         #display: orange
-        When loading hip files FLAM3H will check if any of the iterators have their shader opacity set to *`0`*(Zero) and if so, it will switch this toggle *`On`*.<br />
+        When loading hip files FLAM3H™ will check if any of the iterators have their shader opacity set to *`0`*(Zero) and if so, it will switch this toggle *`On`*.<br />
 
         
 F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
@@ -388,7 +388,7 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
 
     In the preferences' tab under *`prefs viewport`* you can set the thickness of the xforms handles curves using the parameter: *`wire width`*.
 
-    Since *`wire width`* parameter is setting a global attribute linked to every viewer in the active Houdini session, FLAM3H will save this information when this mode is activated and restore it when the mode is terminated, provided that no other FLAM3H node in the scene has this mode enabled. If not, it will maintain the current settings.
+    Since *`wire width`* parameter is setting a global attribute linked to every viewer in the active Houdini session, FLAM3H™ will save this information when this mode is activated and restore it when the mode is terminated, provided that no other FLAM3H™ node in the scene has this mode enabled. If not, it will maintain the current settings.
 
     Once this mode is active,<br />
     from each iterator's tab you will be able to display an iterator of your choice in SOLO mode (_display only the viewport xform handle for the selected iterator, and nothing else_).
@@ -405,17 +405,17 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
 
     - When an iterator(_or FF_) POST affine is active, its xform' handle will turn dashed and an extra knot created to represent its POST affine' pivot/offset (_like in the red dashed handle in the above illustration_).
 
-    - The viewport handles will be automatically disabled if the FLAM3H density value is raised above *`5M`*(_millions_) points.
+    - The viewport handles will be automatically disabled if the FLAM3H™ density value is raised above *`5M`*(_millions_) points.
 
-    - The viewport handles will be automatically disabled when FLAM3H is in camera sensor VIZ mode.
+    - The viewport handles will be automatically disabled when FLAM3H™ is in camera sensor VIZ mode.
 
-    - The viewport handles will be automatically disabled when FLAM3H is run from whithin the Solaris/Lop context.
+    - The viewport handles will be automatically disabled when FLAM3H™ is run from whithin the Solaris/Lop context.
 
-    - The FLAM3H node posses a dive-in location to only display the xforms handles without the FLAM3H points.<br />
+    - The FLAM3H™ node posses a dive-in location to only display the xforms handles without the FLAM3H™ points.<br />
 
-        - double ((LMB)) on the FLAM3H node to dive-in, or:
+        - double ((LMB)) on the FLAM3H™ node to dive-in, or:
 
-        _With the FLAM3H node selected_:
+        _With the FLAM3H™ node selected_:
         - press the key: ((i)) to dive-in
 
         _Once you are in_:
@@ -424,7 +424,7 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
         Those shortcut keys work when the mouse cursor is over the network editor as well over the viewport (_and over the parameters pane too_).
         To dive-in is useful to identify them visually as sometime it can be difficult to spot them when the fractal Flame is present.
 
-    - To exclusively output the xforms handles, a second output has been introduced to the FLAM3H node.
+    - To exclusively output the xforms handles, a second output has been introduced to the FLAM3H™ node.
     Since they are not baked into the point cloud, you may safely render the fractal flame while switching between SOP and LOP, which makes it useful for viz purposes.
     
     <br /><br />
@@ -519,7 +519,7 @@ loaddef:
 
     _Additionally_:
     
-    when loading the default Sierpiński triangle from this icon, it will also reset the FLAM3H UI and options toggles to their defaults including the OUT render properties (_SENSOR, RENDER and CC CURVES settings_).
+    when loading the default Sierpiński triangle from this icon, it will also reset the FLAM3H™ UI and options toggles to their defaults including the OUT render properties (_SENSOR, RENDER and CC CURVES settings_).
 
 :box:
     #display: rounded white
@@ -587,7 +587,7 @@ CP Preset reload:
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
-    - ((ALT)) + ((LMB)) to load a palette from the clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the clipboard, it will extract only the XML palette data and load it into the FLAM3H palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H.
+    - ((ALT)) + ((LMB)) to load a palette from the clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the clipboard, it will extract only the XML palette data and load it into the FLAM3H™ palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H™.
     
 :box:
     #display: rounded white
@@ -640,7 +640,7 @@ IN Preset reload:
     TIP:
         #display: orange
         - Loading a Flame from the clipboard is useful when going back and forth with a third-party application like for example: Fractorium.
-        - In Fractorium, you can alter the Flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
+        - In Fractorium, you can alter the Flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H™ to see the changes.
     
 :box:
     #display: rounded white
@@ -783,8 +783,8 @@ note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - If no name is provided (_e.g. empty string_) a default name will be automatically set.
     - An iterator default name is composed as: *`iterator_`* followed by its multi parameter index number, as in: *`iterator_7`*
-    - Every time you add or remove an iterator, FLAM3H will rename the remaining one if they have a default name to match their new index.
-    - When saving a Flame out with inactive iterators, FLAM3H will discard the inactive one and rename the others to match their new index if they have a default name.
+    - Every time you add or remove an iterator, FLAM3H™ will rename the remaining one if they have a default name to match their new index.
+    - When saving a Flame out with inactive iterators, FLAM3H™ will discard the inactive one and rename the others to match their new index if they have a default name.
     <br /><br />
 
     NOTE:
@@ -796,7 +796,7 @@ copy/paste:
 
     All the necessary methods for copy/paste iterator's data are contained in this icon.
     
-    Using this icon, you can mark an iterator for copying, and then transfer the data from the marked iterator into another iterator number, even if it's within a different FLAM3H node.
+    Using this icon, you can mark an iterator for copying, and then transfer the data from the marked iterator into another iterator number, even if it's within a different FLAM3H™ node.
 
     When you paste the data, it wil copy everything from the marked iterator but not Xaos.
     
@@ -809,13 +809,13 @@ copy/paste:
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is *`On`*/Active and *`0`*(Zero) Weight.
     - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when the marked iterator is *`Off`*/Disabled.
 
-    When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another iterator either on the same FLAM3H node or on a different one.
+    When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another iterator either on the same FLAM3H™ node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
 
     _Usage_:
     
     - ((LMB)) to mark this iterator for being copied. If already marked, it will unmark it.
-    - ((SHIFT)) + ((LMB)) to unmark this FLAM3H node marked iterator for being copied.
+    - ((SHIFT)) + ((LMB)) to unmark this FLAM3H™ node marked iterator for being copied.
     - ((ALT)) + ((LMB)) to copy the values from the marked iterator into this iterator.
     
     _Additionally_:
@@ -826,7 +826,7 @@ copy/paste:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - When an iterator is marked for being copied, a node note with the marked iterator number is being displayed in the network editor.<br />
     - When copy/paste post affines, they will be automatically turned *`Off`* if they are default values to save on computation.
-    - A custom user data is added to the FLAM3H node with the iterator number being marked; the data name is: *`Marked iterator`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being marked.
+    - A custom user data is added to the FLAM3H™ node with the iterator number being marked; the data name is: *`Marked iterator`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being marked.
     
 Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: FLAME
@@ -858,11 +858,11 @@ xform VIZ SOLO [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] to exit the SOLO mode and revert back to display all xforms handles VIZ together.<br /><br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
-    - Every time you activate the xform handle VIZ SOLO mode for an iterator, a custom user data is added to the FLAM3H node with the iterator number being in SOLO mode; the data name is: *`XF VIZ`*.<br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being displayed (_in case you do not remember or when many iterators have been created_).
+    - Every time you activate the xform handle VIZ SOLO mode for an iterator, a custom user data is added to the FLAM3H™ node with the iterator number being in SOLO mode; the data name is: *`XF VIZ`*.<br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being displayed (_in case you do not remember or when many iterators have been created_).
     - The FF(_finalxform_) viewport handle will always be displayed if Active (_it will always be of color grey/white_).
-    - The viewport handles will be automatically disabled if the FLAM3H density value is raised above *`5M`*(_millions_) points.
-    - The viewport handles will be automatically disabled when FLAM3H is in camera sensor VIZ mode.
-    - The viewport handles will be automatically disabled when FLAM3H is run from whithin the Solaris/Lop context.
+    - The viewport handles will be automatically disabled if the FLAM3H™ density value is raised above *`5M`*(_millions_) points.
+    - The viewport handles will be automatically disabled when FLAM3H™ is in camera sensor VIZ mode.
+    - The viewport handles will be automatically disabled when FLAM3H™ is run from whithin the Solaris/Lop context.
     
 W [Icon:TOP/xmlinput]:
     #id: FLAME
@@ -906,17 +906,17 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     - When in *`xaos FROM`* mode, you will think: *from* wich iterator am I allowed to receive points before I execute them myself?
     - Note that the same concept applies also to the iterator itself, this means the question will be: can I execute a point after I already executed it myself? (_like the yellow iterator with the_ *`Curl`* _variation in the above diagram/image._)
     
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How to set xaos in FLAM3H*
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How to set xaos in FLAM3H™*
         
     - To set XAOS for a Flame with *`4`*(four) iterators, use the "*`xaos:`*" keyword followed by each iterator's Weight values separated by a colon: *`xaos:`* *1:2:3:4*.
     - When the auto space xaos weights option is *`On`*/Active ( it is by default ), the xaos keyword will look like this: "*`xaos :`*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work, as in: " *`xaos:`* ".
-    - If no set or when using a short descriptive note, FLAM3H will assume all XAOS values are *`1`*(one), the equivalent of: *`xaos:`* *1:1:1:1*
-    - If you set only *iterator 1* and *iterator 2*, FLAM3H will always fill in the rest with a value of *`1`*(one). As an example: *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
-    - When turning iterators *`On`* and *`Off`* and removing or adding them, FLAM3H will internally remove and reformat XAOS values to account for missing iterators. It is fully automatic.
+    - If no set or when using a short descriptive note, FLAM3H™ will assume all XAOS values are *`1`*(one), the equivalent of: *`xaos:`* *1:1:1:1*
+    - If you set only *iterator 1* and *iterator 2*, FLAM3H™ will always fill in the rest with a value of *`1`*(one). As an example: *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
+    - When turning iterators *`On`* and *`Off`* and removing or adding them, FLAM3H™ will internally remove and reformat XAOS values to account for missing iterators. It is fully automatic.
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Xaos command options*
     
-    - If you type a non-numeric character in any of the xaos's weights, FLAM3H will undo to what you had before.
+    - If you type a non-numeric character in any of the xaos's weights, FLAM3H™ will undo to what you had before.
     - If you dnt use the "*`xaos:`*" keywork at the beginning of the string, the entire xaos string will be reset to all weights with value: *`1`*(one)
     - If you just type a number, the entire xaos string will be reset to all weights set to that number.
     - If you type a negative number, it will be reset to a value of:  *`1`*(one)
@@ -925,7 +925,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     TIP:
         #display: orange
     
-        - XAOS is *`Off`*/Disabled by default, and FLAM3H will activate it automatically only when needed (_e.g. when one of its weights is set to a value different from: *`1`*(one))_.
+        - XAOS is *`Off`*/Disabled by default, and FLAM3H™ will activate it automatically only when needed (_e.g. when one of its weights is set to a value different from: *`1`*(one))_.
         - When saving out Flame files, xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
         
     NOTE:
@@ -976,7 +976,7 @@ Opacity [Icon:TOP/xmlinput]:
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - When an iterator's opacity is *`0`*(Zero), you can activate the SYS Tab *RIP* option to get rid of those points ( _since_ *opacity* == *`@pscale`* (*`@widths`* _in Solaris_ ) _you do not need them anymore_).
-    - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the SYS Tab *RIP* option will be automatically turned *`On`* if any of the iterators have its Opacity value set to *`0`*(Zero).
+    - When loading hip files with FLAM3H™ nodes in it or when cloning FLAM3H™ nodes,<br />the SYS Tab *RIP* option will be automatically turned *`On`* if any of the iterators have its Opacity value set to *`0`*(Zero).
 
 :box:
     #display: rounded white
@@ -1039,7 +1039,7 @@ menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
     TIP:
         #display: orange
-        When authoring your Flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3H
+        When authoring your Flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3H™
         remeber that the variation *`pre_gaussian_blur`* will be remapped to *`pre_blur`* on Flame load by default if it is the first one in the list of applied pre_variations.
 
     
@@ -1080,7 +1080,7 @@ menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     TIP:
         #display: orange
     
-        Laying down a new FLAM3H node and activating the Final Flame transform (*FF*) with the default Sierpiński triangle will allow you to experiment with the variations and see what happens.
+        Laying down a new FLAM3H™ node and activating the Final Flame transform (*FF*) with the default Sierpiński triangle will allow you to experiment with the variations and see what happens.
         Don't forget to play around with the affine coefficients a bit to see what you can obtain.
 
 menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
@@ -1259,7 +1259,7 @@ post affine [Icon:TOP/xmlinput]:
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
-    - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the post affine will be automatically turned *`Off`* if they are default values to save on computation.
+    - When loading hip files with FLAM3H™ nodes in it or when cloning FLAM3H™ nodes,<br />the post affine will be automatically turned *`Off`* if they are default values to save on computation.
  
     
 :box:
@@ -1324,9 +1324,9 @@ FF xform VIZ [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg] to exit the SOLO mode and revert back to display all xforms handles VIZ together.<br /><br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
-    - The viewport handles will be automatically disabled if the FLAM3H density value is raised above *`5M`*(_millions_) points.
-    - The viewport handles will be automatically disabled when FLAM3H is in camera sensor VIZ mode.
-    - The viewport handles will be automatically disabled when FLAM3H is run from whithin the Solaris/Lop context.
+    - The viewport handles will be automatically disabled if the FLAM3H™ density value is raised above *`5M`*(_millions_) points.
+    - The viewport handles will be automatically disabled when FLAM3H™ is in camera sensor VIZ mode.
+    - The viewport handles will be automatically disabled when FLAM3H™ is run from whithin the Solaris/Lop context.
         
 FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FF
@@ -1344,7 +1344,7 @@ FF: copy/paste:
 
     All the necessary methods for copy/paste FF's data are contained in this icon.
     
-    This icon allows you to mark a FLAM3H node's FF for being copied, and then copy the data from the marked FF into a separate FLAM3H node.
+    This icon allows you to mark a FLAM3H™ node's FF for being copied, and then copy the data from the marked FF into a separate FLAM3H™ node.
 
     Once the FF has been marked, you can use the mini-menu [Icon:BUTTONS/pane_menu] next to the icon to copy individual sections from the marked FF.
     
@@ -1354,14 +1354,14 @@ FF: copy/paste:
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFSVG.svg] when the marked FF is *`On`*/Active.
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg] when the marked FF is *`Off`*/Disabled.
     
-    When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another FLAM3H node' FF.
+    When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another FLAM3H™ node' FF.
     This way you can keep the FF marked while working and paste again its data somewhere else after making additional changes to its contents.
 
     _Usage_:
     
     - ((LMB)) to mark this FF for being copied. If already marked, it will unmark it.
     - ((SHIFT)) + ((LMB)) to unmark this FF for being copied.
-    - ((ALT)) + ((LMB)) to copy the values from the marked FLAM3H node's FF into this FLAM3H node's FF.
+    - ((ALT)) + ((LMB)) to copy the values from the marked FLAM3H™ node's FF into this FLAM3H™ node's FF.
     
     _Additionally_:
     
@@ -1371,7 +1371,7 @@ FF: copy/paste:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - When the FF is marked for being copied, a node note with the text "*FF*" is being displayed in the network editor.<br />
     - When copy/paste post affines, they will be automatically turned *`Off`* if they are default values to save on computation.
-    - A custom user data is added to the FLAM3H node signaling the FF being marked; the data name is: *`Marked FF`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out if the FF is being marked.
+    - A custom user data is added to the FLAM3H™ node signaling the FF being marked; the data name is: *`Marked FF`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out if the FF is being marked.
     
     
 :box:
@@ -1479,7 +1479,7 @@ FF: post affine [Icon:TOP/xmlinput]:
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
-    - When loading hip files with FLAM3H nodes in it or when cloning FLAM3H nodes,<br />the post affine will be automatically turned *`Off`* if they are default values to save on computation.
+    - When loading hip files with FLAM3H™ nodes in it or when cloning FLAM3H™ nodes,<br />the post affine will be automatically turned *`Off`* if they are default values to save on computation.
 
         
 :box:
@@ -1545,7 +1545,7 @@ HSV keep values on Load [Icon:DATATYPES/boolean]:
     #id: PALETTE
     *`Off`* by default.
     
-    When loading a palette, FLAM3H will either set the HSV values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.
+    When loading a palette, FLAM3H™ will either set the HSV values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.
     
     Check this option to keep the current HSV values unchanged after loading a palette preset.
 
@@ -1582,8 +1582,8 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     <br /><br />
 
     NOTE:
-        - Saving out a Flame into a file, will also save the palette lookup samples value so that you can restore it once you load the Flame back into FLAM3H.
-        - If you are loading a Flame file preset from another software or from older versions of FLAM3H without the lookup samples XML key in the file, the default value of *`256`* will be used instead.
+        - Saving out a Flame into a file, will also save the palette lookup samples value so that you can restore it once you load the Flame back into FLAM3H™.
+        - If you are loading a Flame file preset from another software or from older versions of FLAM3H™ without the lookup samples XML key in the file, the default value of *`256`* will be used instead.
         - Saving a Flame out will always save the palette with *`256`* color's keys. If you created a palette with more than *`256`* colors, for example with *`1024`* color keys and sample it with *`1024`* samples to take into account all the subtle color changes, turn *`On`* the *PREFS options* tab toggle -> *`palette 256+`*.
     
 palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
@@ -1703,7 +1703,7 @@ Reload preset:
     - ((LMB)) Reload the selected CP palette preset.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
     - ((CTRL)) + ((LMB)) to copy the selected preset name into the *`palette name`* parameter.
-    - ((ALT)) + ((LMB)) Load a palette from the clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the clipboard, it will extract only the XML palette data and load it into the FLAM3H palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H.
+    - ((ALT)) + ((LMB)) Load a palette from the clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the clipboard, it will extract only the XML palette data and load it into the FLAM3H™ palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H™.
 
 
 :box:
@@ -1743,13 +1743,13 @@ on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boole
     _Supersampling can be achieved by varying the parameters over time while running the chaos game_. <br /><br />
     That is, if *`5M`*(_millions_) samples are used to draw the frame at time t, to instead use *`1M`* samples at time t-0.5, *`1M`* samples at t-0.25, *`1M`* at t, *`1M`* at t+0.25 and *`1M`* at t+0.5, all the while accumulating into the same buffer.
 
-    _It may be possible that in the future a directional motion blur mode will be added to FLAM3H, but for now there is no need to do so_.<br />
+    _It may be possible that in the future a directional motion blur mode will be added to FLAM3H™, but for now there is no need to do so_.<br />
     <br /><br />
 
     TIP:
         #display: orange
 
-        - If you animate any of the available parameters using expressions, remember to always use *`@Time`* and not *`$F`* so FLAM3H will be able to interpolate through time properly.   
+        - If you animate any of the available parameters using expressions, remember to always use *`@Time`* and not *`$F`* so FLAM3H™ will be able to interpolate through time properly.   
         - Motion blur values are exported into the XML on Flame save when turned *`On`*.
 
 MB reset:
@@ -1826,13 +1826,13 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
     
     [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
 
-    Load *.flame files. They can come from FLAM3H or also authored with Apophysis, Fractorium and other flam3-compatible applications.
+    Load *.flame files. They can come from FLAM3H™ or also authored with Apophysis, Fractorium and other flam3-compatible applications.
 
     The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     
     _The only restrictions are_:
     
-    - The Flames contained in the file must use the same variations included inside FLAM3H. 
+    - The Flames contained in the file must use the same variations included inside FLAM3H™. 
     - A maximum of 3(three) *`PRE`* ( *`pre_blur`* plus 2(two) of your choise ), 4(four) *`VAR`* and 1(one) *`POST`* variations for each iterator are allowed. 
     ( for a total of 8(eight) variations each iterator ). If it finds more on load, the excess ones will be discarded.
     - For FF ( FinalXForm ) you have 1(one) *`PRE`*, 2(two) *`VAR`* and 2(two) *`POST`* variations available. If it finds more on load, the excess ones will be discarded.
@@ -1877,7 +1877,7 @@ Reload:
     TIP:
         #display: orange
         - Loading a Flame from the clipboard is useful when going back and forth with a third-party application like for example: Fractorium.
-        - In Fractorium, you can alter the Flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H to see the changes.
+        - In Fractorium, you can alter the Flame, copy it into the clipboard, and then load it from the clipboard inside FLAM3H™ to see the changes.
 
 :box:
     #display: rounded white
@@ -1894,7 +1894,7 @@ Iterations on Load:
         #display: orange
         If *add iterations to Flame name* OUT Tab option is *`Off`*/Disabled:
     
-        The iteration number you want your fractal Flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
+        The iteration number you want your fractal Flame to use when you load it back into FLAM3H™ can be baked into the preset name you choose for it.
 
         For instance, the Flame preset "_*My_Awesome_GrandJulia*_" will be loaded with *`64`* iterations by default.
 
@@ -1909,7 +1909,7 @@ Force iterations on Load [Icon:DATATYPES/boolean]:
     #id: IN
     *`Off`* by default.
 
-    When flame files are loaded, FLAM3H immediately sets the iteration number to *`64`*, which seems like a reasonable count to resolve the majority of them rather effectively.
+    When flame files are loaded, FLAM3H™ immediately sets the iteration number to *`64`*, which seems like a reasonable count to resolve the majority of them rather effectively.
     However, if you need to act quickly, you can use this number to override the iterations set on load.
 
     If the iterations number is baked into the Flame preset name, it will override this setting.
@@ -1933,7 +1933,7 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
 
     To be used when loading Flame presets that posses F3H affine style format in it.
     
-    If no F3H affine style are found nothing will happen and FLAM3H will load the Flame preset using the standard affine style instead.
+    If no F3H affine style are found nothing will happen and FLAM3H™ will load the Flame preset using the standard affine style instead.
     
     F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded.
     
@@ -1958,7 +1958,7 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
     NOTE:
         *You need to reload the current Flame preset for this change to take place*.
 
-        F3H affine style format are only available when you save a Flame preset out from FLAM3H using the OUT tab's option "F3H affine style" whitch is *`On`*/Active by default.
+        F3H affine style format are only available when you save a Flame preset out from FLAM3H™ using the OUT tab's option "F3H affine style" whitch is *`On`*/Active by default.
 
         The only affine available will be the standard affine style when loading Flame files created with third-party applications like Apophysis or Fractorium.
 
@@ -2003,9 +2003,9 @@ IN infos [Icon:DATATYPES/string]:
 
     Those infos include all the Missing variations if any are found in the currently loaded Flame preset.
 
-    All of the variations that Fractorium has but FLAM3H does not are known as: *`MISSING`*.
+    All of the variations that Fractorium has but FLAM3H™ does not are known as: *`MISSING`*.
 
-    FLAM3H was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he posses.
+    FLAM3H™ was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he posses.
 
     All of the variations that Fractorium lacks will be classified as: *`UNKNOWN`*<br />
     and they will be searched inside the XML key: *`plugins`* of the loaded Flame preset (_from file or from clipboard_).
@@ -2037,10 +2037,10 @@ IN infos [Icon:DATATYPES/string]:
 
     - *`Variations used`*:<br />Number of unique variations being used and their names in alphatical order.
 
-        _The following entries will appear when the loaded Flame preset use variations FLAM3H do not posses_:
+        _The following entries will appear when the loaded Flame preset use variations FLAM3H™ do not posses_:
 
-    - *`MISSING`*:<br />Unique variations names being used FLAM3H do not posses but Fractorium does. 
-    - *`UNKNOWN`*:<br />Unique variations names being used but neither FLAM3H or Fractorium posses. 
+    - *`MISSING`*:<br />Unique variations names being used FLAM3H™ do not posses but Fractorium does. 
+    - *`UNKNOWN`*:<br />Unique variations names being used but neither FLAM3H™ or Fractorium posses. 
 
     <br />
 
@@ -2130,7 +2130,7 @@ Copy/Paste SENSOR/RENDER preset settings:
     *OUT: Save* _*.flame file type to be loaded back inside Apophysis, Fractorium and others._
  
     Inside here, you can export your fractal Flame into an XML format. (_standard *.flame file format_)
-    and reload it inside FLAM3H or inside Apophysis, Fractorium and others.
+    and reload it inside FLAM3H™ or inside Apophysis, Fractorium and others.
     
     The Flame file format does not support animations, but only static frames, so to speak.
     If you animated your fractal Flame, save the hip file from Houdini instead.
@@ -2171,7 +2171,7 @@ OUT flame ( *.flame type ) [Icon:DATATYPES/string]:
 
     TIP:
         #display: orange
-        When you have finished creating a FLAM3H library, you can rename the file to begin with "*`F3H_LOCK`*" to prevent any future alterations.
+        When you have finished creating a FLAM3H™ library, you can rename the file to begin with "*`F3H_LOCK`*" to prevent any future alterations.
 
         You can rename a lib file, for instance, called "_*my_grandJulia.flame*_" to "*`F3H_LOCK`*_*_my_grandJulia.flame*_" to keep it secure.
         
@@ -2224,7 +2224,7 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
         #display: orange
         If "*add iterations to Flame name*" option is *`Off`*/Disabled:
     
-        The iteration number you want your fractal Flame to use when you load it back into FLAM3H can be baked into the preset name you choose for it.
+        The iteration number you want your fractal Flame to use when you load it back into FLAM3H™ can be baked into the preset name you choose for it.
 
         For instance, the Flame preset "_*My_Awesome_GrandJulia*_" will be loaded with 64 iterations by default.
 
@@ -2291,7 +2291,7 @@ palette HSV (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
     *`Off`* by default.
 
-    as FLAM3H will save the HSV values into the XML file and set those once you load it back.
+    as FLAM3H™ will save the HSV values into the XML file and set those once you load it back.
 
     If enabled, all color adjustments you may have made to the Flame's palette will be preserved saving the HSV ramp instead.
 
@@ -2305,9 +2305,9 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     Save the Flame out with also the F3H affine style format.
     
-    F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded back into FLAM3H.
+    F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded back into FLAM3H™.
     
-    When saving an iterator out into a Flame file whitch uses the Rotation angle paramter, FLAM3H will transform the affine values by it before saving them out so that it is possible to load the saved Flame inside other applications.
+    When saving an iterator out into a Flame file whitch uses the Rotation angle paramter, FLAM3H™ will transform the affine values by it before saving them out so that it is possible to load the saved Flame inside other applications.
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *F3H affine style*<br />
     _Below is an example iterator at its default values rotated by 45 degrees inside FLAM3H_:
@@ -2372,9 +2372,9 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
               ...
         }}}
         
-        _Note the "*`EMBER`*" prefix added to the FLAM3H version name_.
+        _Note the "*`EMBER`*" prefix added to the FLAM3H™ version name_.
         
-        _This way once we load it back FLAM3H will remap those parameteric variations parameter's names to the proper one_.
+        _This way once we load it back FLAM3H™ will remap those parameteric variations parameter's names to the proper one_.
 
 Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
@@ -2422,7 +2422,7 @@ Render properties utils:
 
     _Additionally_:
 
-    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard (_SENSOR, RENDER and CC CURVES setttings_). This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the clipboard into FLAM3H without the need to load the copied Flame preset fully, but just to updated the Render Properties.
+    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard (_SENSOR, RENDER and CC CURVES setttings_). This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the clipboard into FLAM3H™ without the need to load the copied Flame preset fully, but just to updated the Render Properties.
     
     
 :box:
@@ -2440,25 +2440,25 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
     
     <br />
 
-    Activate FLAM3H Camera sensor visualization.
+    Activate FLAM3H™ Camera sensor visualization.
     
-    All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal Flames when they are saved from FLAM3H.
+    All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal Flames when they are saved from FLAM3H™.
 
     A portion of the render parameters deal with the camera and how the fractal Flame you just saved is framed.
 
-    The FLAM3H camera sensor will precisely display the image framing.
+    The FLAM3H™ camera sensor will precisely display the image framing.
 
     _This is meant to be used only when you intend to load the saved fractal Flame into third-party programs and you desire to setup the fractal Flame image framing in Houdini first. Below a screenshot as an example:_
 
-    _*[FLAM3H to Apophysis, camera sensor framing|https://github-production-user-asset-6210df.s3.amazonaws.com/42110232/281850238-27f1d534-f6a7-4519-990d-373f3290cc5b.jpg]*_
+    _*[FLAM3H™ to Apophysis, camera sensor framing|https://github-production-user-asset-6210df.s3.amazonaws.com/42110232/281850238-27f1d534-f6a7-4519-990d-373f3290cc5b.jpg]*_
 
-    _*[FLAM3H to Fractorium, camera sensor framing|https://github.com/user-attachments/assets/53624d53-4eed-4889-9e14-61e9222d17e6]*_
+    _*[FLAM3H™ to Fractorium, camera sensor framing|https://github.com/user-attachments/assets/53624d53-4eed-4889-9e14-61e9222d17e6]*_
 
-    When multiple FLAM3H node are present in the scene, FLAM3H ensures that, upon entering the Camera Sensor viz mode, there will only ever be one active Camera Sensor viz mode at any given time. This keeps the current viewport from jumping when concurrently stashed viewports are restored and saved at the same time.
+    When multiple FLAM3H™ node are present in the scene, FLAM3H™ ensures that, upon entering the Camera Sensor viz mode, there will only ever be one active Camera Sensor viz mode at any given time. This keeps the current viewport from jumping when concurrently stashed viewports are restored and saved at the same time.
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - _When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab_.
-    - _When entering the Camera Sensor Viz mode, FLAM3H will store all the available viewports data prior to entering the mode and restore them all on exit_.
+    - _When entering the Camera Sensor Viz mode, FLAM3H™ will store all the available viewports data prior to entering the mode and restore them all on exit_.
     - _When entering the Camera Sensor Viz mode while in viewport xforms handles VIZ mode, the xforms handles will be hidden and the camera sensor frame outline will be of color Yellow if not in solo mode and of color Red if in solo mode, like in the below illustration_.
     
         _Illustration from left to right_:<br />
@@ -2567,8 +2567,8 @@ Reset curves:
     #display: rounded gray
 
     [Icon:TOP/xmlinput] [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/string] *Color correction curves*<br /><br />
-    FLAM3H is able to load in the color correction curves data coming from Fractorium.<br />
-    These color correction curves data can not be edited. The data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H so to keep and preserve the original color correction data intact.
+    FLAM3H™ is able to load in the color correction curves data coming from Fractorium.<br />
+    These color correction curves data can not be edited. The data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H™ so to keep and preserve the original color correction data intact.
 
     When you load a Flame preset, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render properties.
 
@@ -2599,11 +2599,11 @@ _Below a list of Fractorium  color correction curves XML keys being used:_
 :box:
     #display: rounded white
 
-    == OUT: XML FLAM3H custom keys == (OUTF3HXMLKEYS)
+    == OUT: XML FLAM3H™ custom keys == (OUTF3HXMLKEYS)
     
-    _FLAM3H may add some unique XML keys to save settings from its own UI toolbox when saving a Flame out to a file. These keys will be read and those settings restored after FLAM3H has loaded back the saved Flame._
+    _FLAM3H may add some unique XML keys to save settings from its own UI toolbox when saving a Flame out to a file. These keys will be read and those settings restored after FLAM3H™ has loaded back the saved Flame._
     
-    _Below a list of FLAM3H custom XML keys that are currently implemented:_
+    _Below a list of FLAM3H™ custom XML keys that are currently implemented:_
 
     :box:
         #display: rounded gray
@@ -2720,7 +2720,7 @@ _Under the flame preset XML key lives all its data: iterators/xforms data and it
 
 [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*:
 
-_When you save a Flame preset to the Clipboard, it will be rootless (not under a *`flames`* XML root key). This is a convention adopted by all the other third-party applications. However FLAM3H can load a single Flame presets with and without a root. If more than 1(one) Flame preset exist in a file, they must be grouped under the same root._ 
+_When you save a Flame preset to the Clipboard, it will be rootless (not under a *`flames`* XML root key). This is a convention adopted by all the other third-party applications. However FLAM3H™ can load a single Flame presets with and without a root. If more than 1(one) Flame preset exist in a file, they must be grouped under the same root._ 
 
 <br />
 <br />
@@ -2809,7 +2809,7 @@ Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
     
     This mode will change each variation's menu based of the value of their weight hence it will take a hit on the UI performance.
     
-    When you turn this toggle back *`Off`*, Houdini will save the current FLAM3H definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default *`500k`*(_thousands_) points as a way to reduce the waiting time.
+    When you turn this toggle back *`Off`*, Houdini will save the current FLAM3H™ definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default *`500k`*(_thousands_) points as a way to reduce the waiting time.
 
 :box:
     #display: round white
@@ -2874,7 +2874,7 @@ camera handle [Icon:DATATYPES/boolean]:
     *`Off`* by default.
     
     Display the viewport camera handle to help frame/center your fractal Flame.<br /><br />
-    On the left, you will have the FLAM3H node name, and on the right, the selected camera name.
+    On the left, you will have the FLAM3H™ node name, and on the right, the selected camera name.
     <br /><br />
 
     NOTE:
@@ -2971,41 +2971,41 @@ Wire width default:
 :box:
     #display: inverted teal
 
-    *About.* _Here you will find information about FLAM3H._
+    *About.* _Here you will find information about FLAM3H™._
 
 About:
     #id: about
-    Display informations about FLAM3H.<br /><br />
+    Display informations about FLAM3H™.<br /><br />
     Author, code languages used, version number, code references and much more can be found inside here.
 
 Plugins:
     #id: about
-    List of plugins/variations shipped with FLAM3H.
+    List of plugins/variations shipped with FLAM3H™.
     
 Web links:
     #id: about
     A list of useful web links to check out.<br /><br /><br />
 
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H web links*<br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H™ web links*<br />
     _The following are web links related to FLAM3H_.<br /><br />
     
     [Largeicon:opdef:.?iconSVG.svg] 
     
-    - ((LMB)) to open a web browser to the FLAM3H website.
+    - ((LMB)) to open a web browser to the FLAM3H™ website.
     
      
     [Largeicon:opdef:.?icon_GithubBlackSVG.svg] 
     
-    - ((LMB)) to open a web browser to the FLAM3H github repository.
+    - ((LMB)) to open a web browser to the FLAM3H™ github repository.
      
      
     [Largeicon:opdef:.?icon_InstagramSVG.svg] 
     
-    - ((LMB)) to open a web browser to the FLAM3H instagram account. 
+    - ((LMB)) to open a web browser to the FLAM3H™ instagram account. 
 
     [Largeicon:opdef:.?icon_youtube_red_play.svg] 
     
-    - ((LMB)) to open a web browser to the FLAM3H youtube video tutorials.<br /><br /><br />
+    - ((LMB)) to open a web browser to the FLAM3H™ youtube video tutorials.<br /><br /><br />
      
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Web links*<br />
@@ -3053,7 +3053,7 @@ Web links:
     
     == Variations: Full list == (VARDLIST)
 
-_A list of all variations included with FLAM3H:_
+_A list of all variations included with FLAM3H™:_
 
 :box:
     #display: rounded gray
@@ -3330,7 +3330,7 @@ _A list of all parametric variations and their parametric parameter's names._
 :box:
     #display: inverted pink
 
-    *FLAM3H Rendering tips*. _A few small tips to render your fractal Flame images._
+    *FLAM3H™ Rendering tips*. _A few small tips to render your fractal Flame images._
 
 
 == Rendering: Workflow tips == (RENDWFTIPS)
@@ -3341,7 +3341,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] Workflow tips:
         #id: rendering
     
-    You can keep the FLAM3H node live without the need to bake the processed point cloud while rendering
+    You can keep the FLAM3H™ node live without the need to bake the processed point cloud while rendering
     and just change density values to go from low/quick renders to high/slow render times. Adjust the point size *`@pscale`* ( _in Solaris:_ *`@widths`* ) accordingly.
 
     When using Karma renderer:
@@ -3358,9 +3358,9 @@ _A list of all parametric variations and their parametric parameter's names._
         #display: orange
         When using Mantra, you can take advantage of _delayed loads_ to greatly increase the amount of points you can render, in which case you must bake those points out in a *`*.bgeo.sc`* files first.
         
-        A non-deterministic random number generator was used to construct FLAM3H, and it lies at the heart of the algorithm.
-        As a result, the points produced by FLAM3H nodes will always be in a little bit of a different location every time it cook.
-        This is perfect for cloning FLAM3H nodes and layering them into a single fractal Flame to improve the quality of the final result.
+        A non-deterministic random number generator was used to construct FLAM3H™, and it lies at the heart of the algorithm.
+        As a result, the points produced by FLAM3H™ nodes will always be in a little bit of a different location every time it cook.
+        This is perfect for cloning FLAM3H™ nodes and layering them into a single fractal Flame to improve the quality of the final result.
 
 
 == Rendering: Point size == (RENDPSTIPS)
@@ -3371,9 +3371,9 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] Point size:
         #id: rendering
     
-    For simplicity, FLAM3H sets all *`@pscale`* to a value of *`0.001`*.
+    For simplicity, FLAM3H™ sets all *`@pscale`* to a value of *`0.001`*.
     Any necessary adjustments can be made using a wrangle or the upstream geometry node point size multiplier.
-    It's important to keep in mind that *`@pscale`* will become *`@widths`* when importing FLAM3H into Stage/Solaris.
+    It's important to keep in mind that *`@pscale`* will become *`@widths`* when importing FLAM3H™ into Stage/Solaris.
     
     As a general rule, the more points, the smaller the *`@pscale`* or *`@widths`* values need to be.
 
@@ -3463,10 +3463,10 @@ _A list of all parametric variations and their parametric parameter's names._
 :box:
     #display: inverted pink
 
-    *FLAM3H Cvex*: _How to Compile and update_.
+    *FLAM3H™ Cvex*: _How to Compile and update_.
     
     In this section,<br /> 
-    you will find information on how to compile and then update FLAM3H Cvex code in case you'd like to modify/extend its core functionalities.
+    you will find information on how to compile and then update FLAM3H™ Cvex code in case you'd like to modify/extend its core functionalities.
 
     For example,<br />
     you may want to add more variations to its current arsenal of already implemented variations ( _currently there are *106* implemented_ ).
@@ -3502,16 +3502,16 @@ _A list of all parametric variations and their parametric parameter's names._
     - *-c* to specify a Houdini context, in this case the context is: *cvex*
     - *-o* to specify an output filename ( *.vex* _extension_ )
     
-    The FLAM3H source files are already named as expected.
+    The FLAM3H™ source files are already named as expected.
     
-    - For FLAM3H, the output file name must be the same as the input source file name<br />
+    - For FLAM3H™, the output file name must be the same as the input source file name<br />
     ( _only the file extension will be different, of course_ ).
     
         - Source -> _"cvex_TheFractalFlameAlgorithm.*vfl*"_
     
         - Output -> _"cvex_TheFractalFlameAlgorithm.*vex*"_
     
-== Cvex: How to update FLAM3H node == (UPDATE)
+== Cvex: How to update FLAM3H™ node == (UPDATE)
     
 :box:
     #display: rounded gray
@@ -3519,23 +3519,23 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] Reload CVEX:
         #id: CVEX
     
-    Inside the FLAM3H node, you will find many wrangle core nodes running a compiled Cvex file.
+    Inside the FLAM3H™ node, you will find many wrangle core nodes running a compiled Cvex file.
     
     If you end up updating the Cvex code yourself by extending it: 
     
     # Update the sourceFile.*vfl* with all the changes/additions you desire, and follow the above steps on *How to: Compile CVEX*.
-    # Once you are ready, remove the old compiled Cvex file from: *FLAM3H*->*Type properties*->*extra files*.
-    # Locate the new compiled Cvex file and load it back inside *FLAM3H*->*Type properties*->*extra files* section.
+    # Once you are ready, remove the old compiled Cvex file from: *FLAM3H™*->*Type properties*->*extra files*.
+    # Locate the new compiled Cvex file and load it back inside *FLAM3H™*->*Type properties*->*extra files* section.
     # Before you click: *Add file*, remove the extension from the filename inside the "*Section name*"
         - ex: From: _*cvex_TheFractalFlameAlgorithm.vex*_ To: _*cvex_TheFractalFlameAlgorithm*_
     # Click *Apply* or *Accept* to confirm your changes.
-    # Go inside the FLAM3H node and on any of the *`wrangle core`* nodes, click the:
+    # Go inside the FLAM3H™ node and on any of the *`wrangle core`* nodes, click the:
         
         * *`Reload CVEX`* icon: [Largeicon:opdef:.?icon_cvex_compileSVG.svg]
     
     You just need to click it once, and it will reload all the compiled Cvex code files included, the Wrangle Core node you click the icon from is not important.
     
-    Once clicked and as soon as FLAM3H cook again, it will Re-Compile all FLAM3H CVEX nodes. Depending on your PC configuration it can take up to 1 minute. It is a one time compile process.
+    Once clicked and as soon as FLAM3H™ cook again, it will Re-Compile all FLAM3H™ CVEX nodes. Depending on your PC configuration it can take up to 1 minute. It is a one time compile process.
 
 
 
@@ -3548,9 +3548,9 @@ _A list of all parametric variations and their parametric parameter's names._
 :box:
     #display: inverted pink
 
-    *FLAM3H: Limitations*.
+    *FLAM3H™: Limitations*.
     
-    The following are limitations to keep in mind when authoring your flames in Fractorium or Apophysis to be loaded inside FLAM3H.
+    The following are limitations to keep in mind when authoring your flames in Fractorium or Apophysis to be loaded inside FLAM3H™.
     All of those restrictions are in place to maintain performance within the CVEX language restrictions.
 
 == Limitations: Iterator's count ==
@@ -3561,7 +3561,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] Iterator's count:
         #id: Limitations
     
-    FLAM3H allows you to create as many iterators as you wish; however, When using XAOS, you are only permitted to create a maximum of *`20`* iterators.
+    FLAM3H™ allows you to create as many iterators as you wish; however, When using XAOS, you are only permitted to create a maximum of *`20`* iterators.
     
     _This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*_
 
@@ -3579,7 +3579,7 @@ _A list of all parametric variations and their parametric parameter's names._
     <br /><br />
 
     NOTE:
-        The weight of the *`PRE`* variations can not be negative in FLAM3H.
+        The weight of the *`PRE`* variations can not be negative in FLAM3H™.
 
 :box:
     #display: rounded gray
@@ -3599,7 +3599,7 @@ _A list of all parametric variations and their parametric parameter's names._
     <br /><br />
 
     NOTE:
-        The weight of the *`POST`* variation can not be negative in FLAM3H.
+        The weight of the *`POST`* variation can not be negative in FLAM3H™.
     
 :box:
     #display: rounded gray
@@ -3625,7 +3625,7 @@ _A list of all parametric variations and their parametric parameter's names._
     <br /><br />
 
     NOTE:
-        The weight of the FF *`PRE`* variations can not be negative in FLAM3H.
+        The weight of the FF *`PRE`* variations can not be negative in FLAM3H™.
 
     
 :box:
@@ -3647,7 +3647,7 @@ _A list of all parametric variations and their parametric parameter's names._
     <br /><br />
 
     NOTE:
-        The weight of the FF *`POST`* variation can not be negative in FLAM3H.
+        The weight of the FF *`POST`* variation can not be negative in FLAM3H™.
        
 :box:
     #display: rounded gray
@@ -3679,7 +3679,7 @@ _A list of all parametric variations and their parametric parameter's names._
         - Color Speed -> *`0`*(Zero) ( _this is the most important_ )
         - Direct Color -> *`1`*(one)
         
-        _This way, you won't add a color to the Flame that FLAM3H won't be able to match._
+        _This way, you won't add a color to the Flame that FLAM3H™ won't be able to match._
 
         
 :box:
