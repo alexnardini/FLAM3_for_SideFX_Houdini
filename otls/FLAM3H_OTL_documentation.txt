@@ -2455,16 +2455,17 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
     _*[FLAM3H™ to Fractorium, camera sensor framing|https://github.com/user-attachments/assets/53624d53-4eed-4889-9e14-61e9222d17e6]*_
 
     When multiple FLAM3H™ node are present in the scene, FLAM3H™ ensures that, upon entering the Camera Sensor viz mode, there will only ever be one active Camera Sensor viz mode at any given time. This keeps the current viewport from jumping when concurrently stashed viewports are restored and saved at the same time.
-
+    <br /><br />
+    
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    - _When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab_.
-    - _When entering the Camera Sensor Viz mode, FLAM3H™ will store all the available viewports data prior to entering the mode and restore them all on exit_.
-    - _When entering the Camera Sensor Viz mode while in viewport xforms handles VIZ mode, the xforms handles will be hidden and the camera sensor frame outline will be of color Yellow if not in solo mode and of color Red if in solo mode, like in the below illustration_.
+    - When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
+    - When entering the Camera Sensor Viz mode, FLAM3H™ will store all the available viewports data prior to entering the mode and restore them all on exit.
+    - When entering the Camera Sensor Viz mode while in viewport xforms handles VIZ mode, the xforms handles will be hidden and the camera sensor frame outline will be of color Yellow if not in solo mode and of color Red if in solo mode, like in the below illustration.
     
         _Illustration from left to right_:<br />
-        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is *`Off`*/Disabled. The sensor outline is of color White_.
-        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is *`On`*/Active. The sensor outline is of color Yellow_.
-        # _Entering the camera sensor VIZ mode while the xforms handles VIZ is *`On`*/Active and in SOLO mode (iterator or FF). The sensor outline is of color Red_.
+        # Entering the camera sensor VIZ mode while the xforms handles VIZ is *`Off`*/Disabled. The sensor outline is of color White.
+        # Entering the camera sensor VIZ mode while the xforms handles VIZ is *`On`*/Active. The sensor outline is of color Yellow.
+        # Entering the camera sensor VIZ mode while the xforms handles VIZ is *`On`*/Active and in SOLO mode (iterator or FF). The sensor outline is of color Red.
 
     <br />
     [Image:opdef:.?FLAM3H_DOC_camera_sensor_outline.svg]
