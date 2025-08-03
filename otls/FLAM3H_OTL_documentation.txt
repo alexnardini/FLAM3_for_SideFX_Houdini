@@ -1195,8 +1195,8 @@ pre affine [Icon:TOP/xmlinput]:
     - Over time, the points create a fractal pattern.
 
     Each funtion in the IFS usually has two parts:
-    # An affine transformation (linear part + translation).
-    # A non-linear variation (curvy distortions, like Swirl, Spherical, Horseshoe)
+    # An affine transformation (_linear part + translation_).
+    # A non-linear variation (_curvy distortions, like Swirl, Spherical, Horseshoe_)
 
     *Why is it important?*
     - The affine transform determine *where in the plane* the next variation happens.
@@ -2448,31 +2448,29 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
 
     *In FLAM3H™ the camera sensor will precisely display the image framing*.
 
-    In the context of fractal flames, the camera sensor is not a physical sensor like in real cameras; it’s a virtual construct used to map the mathematically generated points onto a 2D image grid. Essentially, it’s the projection and sampling system for the rendering process.
+    The Camera Sensor in fractal Flames defines the virtual plane where the fractal is projected after all transformations have been applied. It acts as the final stage of the rendering pipeline, determining what portion of the fractal world is visible and how it is mapped to the output image.
     
-    _Fractal flames generate points in continuous 2D space (from iterated transformations). To create an image_:
-    - These points need to be projected into image coordinates.
-    - Then they must be accumulated in a buffer that represents the “sensor” (like a pixel array).
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Purpose*:
+    - Captures the result of the accumulated iterated function system (IFS) transformations.
+    - Controls the field of view (FOV), zoom, and translation of the fractal within the frame.
+    - Provides the coordinate mapping from the continuous fractal space to the discrete pixel grid of the output image.
 
-    _So, the camera sensor refers to_:
-    - The image buffer (e.g., width × height pixels).
-    - The mapping logic from fractal coordinate space to pixel coordinates.
-    - The filtering/supersampling applied to achieve smooth density and color blending.
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Parameters*:
+    - *Resolution* (_or Aspect Ratio_): Ensures correct mapping between the fractal space and the final image resolution.
+    - *Center*: Offsets the camera in fractal space (_panning_).
+    - *Scale* (_or Zoom_): Defines the magnification level of the fractal region.
+    - *Rotation*: Rotates the sensor plane relative to the fractal axes.
+    - *FOV* (_optional_): For perspective-like effects when implemented (common in 3D variants).
 
-    _Key Components_:
-    - *Field of View (FOV) & Zoom*: Defines how much of the fractal coordinate space is mapped to the image. Similar to focal length in real cameras.
-    - *Aspect Ratio & Resolution*: Sensor width/height determines how the fractal is framed.
-    - *Projection*: Typically orthographic for fractal flames. Some engines add perspective transforms as post-process effects.
-    - *Tone Mapping*: Sensor stores log-density and color histograms for each pixel. Final image uses logarithmic tone mapping to reveal both bright and faint regions.
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How It Works in Context*:
+    - After iterating and applying variations to generate points, these points exist in an infinite continuous space.
+    - The Camera Sensor samples this space through its viewport parameters (_zoom, position, rotation_).
+    - Points falling within this viewport are projected onto the sensor plane and rasterized into pixel coordinates.
 
-    _Why This Matters_:
-
-    *The “camera sensor” concept affects*:
-    - Image sharpness (supersampling vs. naive point mapping).
-    - Dynamic range (logarithmic accumulation avoids blown-out highlights).
-    - Zoom and navigation in fractal space.
-
-    Without this system, Flames would either look noisy or fail to reveal the subtle details that make them beautiful.
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Notes*:
+    - Unlike a physical camera sensor, this element is abstract and primarily mathematical.
+    - Changing the sensor settings does not affect fractal generation logic—it only modifies how you see it.
+    - Essential for framing compositions, zoom animations, and creating depth in fractal Flames.
     <br /><br />
 
     _This is meant to be used only when you intend to load the saved fractal Flame into third-party programs and you desire to setup the fractal Flame image framing in Houdini first. Below a screenshot as an example:_
