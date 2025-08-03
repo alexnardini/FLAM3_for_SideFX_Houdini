@@ -3549,7 +3549,7 @@ _A list of all parametric variations and their parametric parameter's names._
 :box:
     #display: inverted pink
 
-    *FLAM3H™: Limitations*.
+    *FLAM3H™ Limitations*.
     
     The following are limitations to keep in mind when authoring your flames in Fractorium or Apophysis to be loaded inside FLAM3H™.
     All of those restrictions are in place to maintain performance within the CVEX language restrictions.
