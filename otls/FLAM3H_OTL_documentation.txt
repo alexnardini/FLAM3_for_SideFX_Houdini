@@ -1022,12 +1022,12 @@ Opacity [Icon:TOP/xmlinput]:
     TIP:
         #display: orange
 
-        _Each iterator allows up to 8(eight) variations ( *`pre blur`,* 2(two) *`PRE`,* 4(four) *`VAR`*  and 1(one) *`POST`* ) to be used._
+        _Each iterator allows up to *`8`*(eight) variations ( *`pre blur`,* *`2`*(two) *`PRE`,* *`4`*(four) *`VAR`*  and *`1`*(one) *`POST`* ) to be used._
         
         _Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric._
         
         _When using parametric variations, their parameters in the VARS Tab will be shared between all of them._
-        _This means that if you use 2(two) *`PRE Mobius`,* 4(four) *`VAR Mobius`* and 1(one) *`POST Mobius`*, they will all share the same *`re:abcd`* and *`im:abcd`* parameters._
+        _This means that if you use *`2`*(two) *`PRE Mobius`,* *`4`*(four) *`VAR Mobius`* and *`1`*(one) *`POST Mobius`*, they will all share the same *`re:abcd`* and *`im:abcd`* parameters._
      
 menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
@@ -1049,7 +1049,7 @@ menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
     These are applyed before the *`VAR`* variations. It is the very first transformation when used.
 
-    There are 2(two) *`PRE`* variations available. The order to whitch you apply them matter.
+    There are *`2`*(two) *`PRE`* variations available. The order to whitch you apply them matter.
     
     For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
 
@@ -1070,7 +1070,7 @@ menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
     Variations for the selected iterator.
 
-    There are 4(four) *`VAR`* variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
+    There are *`4`*(four) *`VAR`* variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
 
     - If you have a *`Linear`* variation in *slot 1*, and you add a *`Spherical`* variation in *slot 2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in *slot 1*, and so on for the other available slots.<br />
     - If you do the opposite, a *`Spherical`* variation in *slot 1* and a *`Linear`* in *slot 2*, the result will be identical assuming both retain the same weight values.
@@ -1087,7 +1087,7 @@ menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
     *`POST`* Variation for the selected iterator.
     
-    For speed purpose only 1(one) *`POST`* variation is allowed at the moment.
+    For speed purpose only *`1`*(one) *`POST`* variation is allowed at the moment.
 
     This is applyed after the variations. It is the very last transformation.
 
@@ -1185,7 +1185,7 @@ pre affine [Icon:TOP/xmlinput]:
     <br />
 
     A 2D affine transformation is just a fancy way of saying:
-    - "_Take some points in 2D space and move, rotate, flip, stretch, or shear them, while keeping stright lines straight_."
+    - "_Take some points in 2D space and move, rotate, flip, stretch, or shear them, while keeping straight lines straight_."
 
     It's like applying a mathematical "filter" that changes the position and orientation of things, but *doesn't bend or curve them*.
 
@@ -1400,7 +1400,7 @@ FF: copy/paste:
     TIP:
         #display: orange
         
-        _FF iterator allow up to 5(five) variations: 1(one) *`PRE`*, 2(two) *`VAR`* and 2(two) *`POST`* to be used._
+        _FF iterator allow up to *`5`*(five) variations: *`1`*(one) *`PRE`*, *`2`*(two) *`VAR`* and *`2`*(two) *`POST`* to be used._
         
         _Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric._
     
@@ -1417,7 +1417,7 @@ menu FF VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FF
     Variations for the FF iterator.
 
-    There are 2(two) *`VAR`* variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
+    There are *`2`*(two) *`VAR`* variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
 
     - If you have a *`Linear`* variation in *slot 1*, and you add a *`Spherical`* variation in *slot 2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in *slot 1*, and so on for the other available slots.<br />
     - If you do the opposite, a *`Spherical`* variation in *slot 1* and a *`Linear`* in *slot 2*, the result will be identical assuming both retain the same weight values.
@@ -1428,7 +1428,7 @@ menu FF POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FF
     *`POST`* Variations for the FF iterator.
 
-    There are 2(two) *`POST`* variations available. The order to whitch you apply them matter.
+    There are *`2`*(two) *`POST`* variations available. The order to whitch you apply them matter.
 
     For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
     
@@ -2446,7 +2446,34 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
 
     A portion of the render parameters deal with the camera and how the fractal Flame you just saved is framed.
 
-    The FLAM3H™ camera sensor will precisely display the image framing.
+    *In FLAM3H™ the camera sensor will precisely display the image framing*.
+
+    In the context of fractal flames, the camera sensor is not a physical sensor like in real cameras; it’s a virtual construct used to map the mathematically generated points onto a 2D image grid. Essentially, it’s the projection and sampling system for the rendering process.
+    
+    _Fractal flames generate points in continuous 2D space (from iterated transformations). To create an image_:
+    - These points need to be projected into image coordinates.
+    - Then they must be accumulated in a buffer that represents the “sensor” (like a pixel array).
+
+    _So, the camera sensor refers to_:
+    - The image buffer (e.g., width × height pixels).
+    - The mapping logic from fractal coordinate space to pixel coordinates.
+    - The filtering/supersampling applied to achieve smooth density and color blending.
+
+    _Key Components_:
+    - *Field of View (FOV) & Zoom*: Defines how much of the fractal coordinate space is mapped to the image. Similar to focal length in real cameras.
+    - *Aspect Ratio & Resolution*: Sensor width/height determines how the fractal is framed.
+    - *Projection*: Typically orthographic for fractal flames. Some engines add perspective transforms as post-process effects.
+    - *Tone Mapping*: Sensor stores log-density and color histograms for each pixel. Final image uses logarithmic tone mapping to reveal both bright and faint regions.
+
+    _Why This Matters_:
+
+    *The “camera sensor” concept affects*:
+    - Image sharpness (supersampling vs. naive point mapping).
+    - Dynamic range (logarithmic accumulation avoids blown-out highlights).
+    - Zoom and navigation in fractal space.
+
+    Without this system, Flames would either look noisy or fail to reveal the subtle details that make them beautiful.
+    <br /><br />
 
     _This is meant to be used only when you intend to load the saved fractal Flame into third-party programs and you desire to setup the fractal Flame image framing in Houdini first. Below a screenshot as an example:_
 
@@ -3574,9 +3601,9 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] PRE variations:
         #id: Limitations
     
-    Every iterator is capable of 3(three) *`PRE`* variations, with one ( _the first one to always be executed_ ) being: *`pre_blur`*, followed by the other two.
+    Every iterator is capable of *`3`*(three) *`PRE`* variations, with one ( _the first one to always be executed_ ) being: *`pre_blur`*, followed by the other two.
     
-    It is really *`pre_blur`* + 2(two) variations of your choice.
+    It is really *`pre_blur`* + *`2`*(two) variations of your choice.
     <br /><br />
 
     NOTE:
@@ -3588,7 +3615,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] VAR variations:
         #id: Limitations
     
-    Every iterator is capable of 4(four) variations.
+    Every iterator is capable of *`4`*(four) variations.
     
 :box:
     #display: rounded gray
@@ -3596,7 +3623,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] POST variations:
         #id: Limitations
     
-    Every iterator is capable of 1(one) *`POST`* variation.
+    Every iterator is capable of *`1`*(one) *`POST`* variation.
     <br /><br />
 
     NOTE:
@@ -3609,7 +3636,7 @@ _A list of all parametric variations and their parametric parameter's names._
         #id: Limitations
     
     Each iterator has only one set of parametric variation parameters shared within the *`PRE`*, *`VAR`* and *`POST`* variations.
-    This means if you use 2(two) *`PRE Mobius`*, 4(four) *`Mobius`* and 1(one) *`POST Mobius`*, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
+    This means if you use *`2`*(two) *`PRE Mobius`*, *`4`*(four) *`Mobius`* and *`1`*(one) *`POST Mobius`*, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
     
     
     
@@ -3622,7 +3649,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF PRE variations:
         #id: Limitations
     
-    FF iterator is capable of 1(one) *`PRE`* variation.
+    FF iterator is capable of *`1`*(one) *`PRE`* variation.
     <br /><br />
 
     NOTE:
@@ -3635,7 +3662,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF VAR variations:
         #id: Limitations
     
-    FF iterator is capable of 2(two) *`VAR`* variations.
+    FF iterator is capable of *`2`*(two) *`VAR`* variations.
     
     
 :box:
@@ -3644,7 +3671,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF POST variations:
         #id: Limitations
     
-    FF iterator is capable of 2(two) *`POST`* variations.
+    FF iterator is capable of *`2`*(two) *`POST`* variations.
     <br /><br />
 
     NOTE:
@@ -3660,8 +3687,8 @@ _A list of all parametric variations and their parametric parameter's names._
     One is shared with *`VAR`* variations.
     The second is shared within the *`PRE`* and *`POST`* variations.
     
-    # If you use 2(two) *`Mobius`* in the FF *`VAR`* section, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( FF: VARS Tab ).
-    # If you use 1(one) *`PRE Mobius`* and 2(two) *`POST_Mobius`* they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( FF: PP VARS Tab ).
+    # If you use *`2`*(two) *`Mobius`* in the FF *`VAR`* section, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( FF: VARS Tab ).
+    # If you use *`1`*(one) *`PRE Mobius`* and *`2`*(two) *`POST_Mobius`* they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( FF: PP VARS Tab ).
     
 == Limitations: FF Shader ==
 
