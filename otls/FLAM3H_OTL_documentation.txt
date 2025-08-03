@@ -142,6 +142,14 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 
 @parameters FLAM3H™ Tabs parameters
 
+== Before you start == (BEFORESTART)
+
+_Fractal Flame editors use an orthogonal type of view_.<br />
+_If you'd like to get the real fractal Flame editor vibe, set the viewport to_: *Front* (_or press the key "3" while the cursor is on any viewport_). _Once you have done that, you can also go to the preferences tab and set the viewport color to: *Dark* (if not already)_.
+
+_Best would be to use one of the Desktop files provided (*HD* or *4K*) as they set everything up for you. Hope you enjoy!_.
+
+
     
 == GLOBAL == (GLOBAL)
     
@@ -2447,6 +2455,7 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
     A portion of the render parameters deal with the camera and how the fractal Flame you just saved is framed.
 
     *In FLAM3H™ the camera sensor will precisely display the image framing*.
+    <br /><br />
 
     The Camera Sensor in fractal Flames defines the virtual plane where the fractal is projected after all transformations have been applied. It acts as the final stage of the rendering pipeline, determining what portion of the fractal world is visible and how it is mapped to the output image.
     
@@ -2460,7 +2469,7 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
     - *Center*: Offsets the camera in fractal space (_panning_).
     - *Scale* (_or Zoom_): Defines the magnification level of the fractal region.
     - *Rotation*: Rotates the sensor plane relative to the fractal axes.
-    - *FOV* (_optional_): For perspective-like effects when implemented (common in 3D variants).
+    - *FOV* (_optional_): For perspective like effects when implemented (common in 3D variants).
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How It Works in Context*:
     - After iterating and applying variations to generate points, these points exist in an infinite continuous space.
@@ -2469,7 +2478,7 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Notes*:
     - Unlike a physical camera sensor, this element is abstract and primarily mathematical.
-    - Changing the sensor settings does not affect fractal generation logic—it only modifies how you see it.
+    - Changing the sensor settings does not affect fractal generation logic; it only modifies how you see it.
     - Essential for framing compositions, zoom animations, and creating depth in fractal Flames.
     <br /><br />
 
@@ -2744,7 +2753,7 @@ _Under the flame preset XML key lives all its data: iterators/xforms data and it
 
 <br />
 
-[Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*:
+[Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*
 
 _When you save a Flame preset to the Clipboard, it will be rootless (not under a *`flames`* XML root key). This is a convention adopted by all the other third-party applications. However FLAM3H™ can load a single Flame presets with and without a root. If more than 1(one) Flame preset exist in a file, they must be grouped under the same root._ 
 
