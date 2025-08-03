@@ -740,7 +740,7 @@ number of iterators [Icon:TOP/xmlinput]:
     
     Number of iterators/xforms to use.<br />
     
-    Every iterator/xform acts as a container for functions (_variations_), the algorithm will mix or shuffle iterators/xforms based on your logic.
+    Every iterator/xform acts as a container for functions, the algorithm will mix or shuffle iterators/xforms based on your logic.
     <br /><br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
