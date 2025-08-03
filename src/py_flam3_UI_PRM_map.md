@@ -1,7 +1,7 @@
 
 
 ```python
-#   Title:      FLAM3H. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
+#   Title:      FLAM3H™. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
 #   Author:     Alessandro Nardini
 #   date:       April 2023, Last revised July 2025
 #   License:    GPL
@@ -82,11 +82,11 @@ def flam3h_first_time() -> None:
     """ 
     hou_version: int = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
     if hou_version < 19:
-        hou.ui.displayMessage("Sorry, you need Houdini 19 or higher to run FLAM3H", buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
+        hou.ui.displayMessage("Sorry, you need Houdini 19 or higher to run FLAM3H™", buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
 
 def flam3h_sys_updated_mode() -> None:
     """Store the current houdini Update mode status into the hou.session
-    so FLAM3H can pick it up from inside the currently used python module.
+    so FLAM3H™ can pick it up from inside the currently used python module.
 
     Args:
         ():
@@ -98,9 +98,9 @@ def flam3h_sys_updated_mode() -> None:
     hou.session.FLAM3H_SYS_UPDATE_MODE: hou.EnumValue = current
 
 def flam3h_compile_first_time_msg() -> None:
-    """On first time FLAM3H node instance creation:
+    """On first time FLAM3H™ node instance creation:
 
-    - Store the current FLAM3H precision mode into the hou.session so FLAM3H can pick it up from inside the currently used python module.
+    - Store the current FLAM3H™ precision mode into the hou.session so FLAM3H™ can pick it up from inside the currently used python module.
     - Additionally build a message to print into the console.
 
     Args:
@@ -127,11 +127,11 @@ def flam3h_compile_first_time_msg() -> None:
         first_instance_64bit: bool = True
 
     if first_instance_32bit:
-        _MSG_INFO = f"\n-> {now}\n\nFLAM3H version: {__version__} - F3H Python module: {__module__}\n\nThe CVEX nodes need to cook once to compile their definitions.\nDepending on your PC configuration it can take up to 1(one) minute.\nIt is a one time compile process.\n"
+        _MSG_INFO = f"\n-> {now}\n\nFLAM3H™ version: {__version__} - F3H Python module: {__module__}\n\nThe CVEX nodes need to cook once to compile their definitions.\nDepending on your PC configuration it can take up to 1(one) minute.\nIt is a one time compile process.\n"
         print(_MSG_INFO)
         hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
         
-    # we skip 64bit check for now as FLAM3H should always be at 32bit to start with.
+    # we skip 64bit check for now as FLAM3H™ should always be at 32bit to start with.
 
 flam3h_first_time()
 flam3h_sys_updated_mode()
@@ -145,13 +145,13 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_create()
 ```
 
 Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded**:
-When loading a hip file with a FLAM3H node in it do some checks.
+When loading a hip file with a FLAM3H™ node in it do some checks.
 ```python
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_loaded()
 ```
 
 Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted**:
-When deleting a FLAM3H node.
+When deleting a FLAM3H™ node.
 ```python
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_deleted()
 ```
@@ -888,7 +888,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
 <br>
 <br>
 
-_Inside here, you can export your fractal Flame into an XML format ( standard *.flame file format ) and reload it inside FLAM3H or inside Apophysis, Fractorium and others.<br>
+_Inside here, you can export your fractal Flame into an XML format ( standard *.flame file format ) and reload it inside FLAM3H™ or inside Apophysis, Fractorium and others.<br>
 The Flame file format does not support animations, but only static frames, so to speak. If you animated your fractal Flame, save the hip file from Houdini instead._
 
 # OUT Tab
