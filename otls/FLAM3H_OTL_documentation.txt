@@ -983,7 +983,7 @@ Opacity [Icon:TOP/xmlinput]:
     
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    - When an iterator's opacity is *`0`*(Zero), you can activate the SYS Tab *RIP* option to get rid of those points ( _since_ *opacity* == *`@pscale`* (*`@widths`* _in Solaris_ ) _you do not need them anymore_).
+    - When an iterator's opacity is *`0`*(Zero), you can activate the SYS Tab *RIP* option to get rid of those points ( _since_ *opacity* == *`@pscale`* (*`@widths`* _in Solaris_ ) _you don't need them anymore_).
     - When loading hip files with FLAM3H™ nodes in it or when cloning FLAM3H™ nodes,<br />the SYS Tab *RIP* option will be automatically turned *`On`* if any of the iterators have its Opacity value set to *`0`*(Zero).
 
 :box:
