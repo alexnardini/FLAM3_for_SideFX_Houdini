@@ -1246,7 +1246,7 @@ class flam3h_scripts
             # If there are not any Sop viewer lets cook it since this is the first node instance of FLAM3H™
             if flam3h_general_utils.util_is_context_available_viewer('Sop') is False: node.cook(force=True)
             
-            if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™: CVEX 32bit compile", details = None, details_label = None, details_expanded = False) == 0: # type: ignore
+            if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ CVEX 32bit compile", details = None, details_label = None, details_expanded = False) == 0: # type: ignore
                 flam3h_scripts.set_first_instance_global_var(cvex_precision)
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
                 # Print to the Houdini console
@@ -1470,7 +1470,7 @@ class flam3h_scripts
                 node.setParms({GLB_DENSITY: 1})
                 node.cook(force=True)
                 if hou.isUIAvailable():
-                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™: CVEX 64bit compile", details = None, details_label = None, details_expanded = False) == 0: # type: ignore
+                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ CVEX 64bit compile", details = None, details_label = None, details_expanded = False) == 0: # type: ignore
                         # node.cook(force=True)
                         self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
 
@@ -5432,7 +5432,7 @@ class flam3h_iterator_utils
 
                     _MSG_ALL = f"\"XML_last_loaded\" user data: Updated\n\nThe currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk. Reload the preset to update.\n\n-> Meanwhile,\nthe IN flame preset infos have been updated\nas well as its render properties infos."
                     _MSG_UI = f"The currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk."
-                    hou.ui.displayMessage(_MSG_UI, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™: IN flame file modified", details = _MSG_ALL, details_label = None, details_expanded = False) # type: ignore
+                    hou.ui.displayMessage(_MSG_UI, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ IN flame file modified", details = _MSG_ALL, details_label = None, details_expanded = False) # type: ignore
                         
                 else:
                     if old_data is None:
@@ -5957,7 +5957,7 @@ class flam3h_iterator_utils
                         #
                         if hou.isUIAvailable():
                             _MSG: str = "This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the \"p\" key.\nPlease, open a Parameter Editor in its own pane tab or floating panel for this feature to work."
-                            hou.ui.displayMessage(_MSG, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™: Select Iterator mini-menu", details = None, details_label = None, details_expanded = False) # type: ignore
+                            hou.ui.displayMessage(_MSG, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ Select Iterator mini-menu", details = None, details_label = None, details_expanded = False) # type: ignore
                         
                         _MSG: str = "Selection do not work over Network Editors"
                         flam3h_general_utils.flash_message(node, f"{_MSG}")
@@ -9064,7 +9064,7 @@ class flam3h_palette_utils
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         flam3h_general_utils.flash_message(node, f"This Palette file is LOCKED")
                         if hou.isUIAvailable():
-                            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™: Palette Lock", details = ALL_msg, details_label = None, details_expanded = False) # type: ignore
+                            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ Palette Lock", details = ALL_msg, details_label = None, details_expanded = False) # type: ignore
                         
                         # Clear up status bar msg
                         flam3h_general_utils.set_status_msg('', 'MSG')
@@ -9360,7 +9360,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        filepath: str = hou.ui.selectFile(start_directory=None, title="FLAM3H™: Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
+        filepath: str = hou.ui.selectFile(start_directory=None, title="FLAM3H™ Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
         filepath_expandvars: str = os.path.expandvars(filepath)
         dir: str = os.path.dirname(filepath_expandvars)
         if os.path.isdir(dir):
@@ -10234,7 +10234,7 @@ If you type a negative number, it will be reset to a value of: 1"""
 
         if self.kwargs["ctrl"]:
             if hou.isUIAvailable():
-                hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™: XAOS usage infos", details = None, details_label = None, details_expanded = False) # type: ignore
+                hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ XAOS usage infos", details = None, details_label = None, details_expanded = False) # type: ignore
 
         else:
             # current node
@@ -10284,7 +10284,7 @@ and change the flame → “name” key afterwards.
     
 """
         if hou.isUIAvailable():
-            hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™: Presets name infos", details = None, details_label = None, details_expanded = False) # type: ignore
+            hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ Presets name infos", details = None, details_label = None, details_expanded = False) # type: ignore
 
 
     def __ui_active_iterator_infos(self) -> None:
@@ -10304,7 +10304,7 @@ it wont be included when saving the Flame out into a flame file.
 In case you still want to include the inactive iterator into the file,
 set its Weight to 0(Zero) instead."""
         if hou.isUIAvailable():
-            hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™: Active iterator infos", details = None, details_label = None, details_expanded = False) # type: ignore
+            hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ Active iterator infos", details = None, details_label = None, details_expanded = False) # type: ignore
 
 
 # LOAD XML FLAME FILES start here
@@ -15249,7 +15249,7 @@ class in_flame_utils
                                  * chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """
         
-        flameFile = hou.ui.selectFile(start_directory=None, title="FLAM3H™: Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
+        flameFile = hou.ui.selectFile(start_directory=None, title="FLAM3H™ Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
         flameFile_expandvars: str = os.path.expandvars(flameFile)
         
         dir: str = os.path.dirname(flameFile_expandvars)
@@ -17706,7 +17706,7 @@ class out_flame_utils
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             if hou.isUIAvailable():
                 _MSG_UI = "Duplicates variations of the same type not allowed.\nShow Details to learn more."
-                hou.ui.displayMessage(_MSG_UI, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™: Compatibility", details = _MSG_ALL, details_label = None, details_expanded = False) # type: ignore
+                hou.ui.displayMessage(_MSG_UI, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ Compatibility", details = _MSG_ALL, details_label = None, details_expanded = False) # type: ignore
             flam3h_general_utils.set_status_msg('', 'MSG')
             return False
         
@@ -18086,7 +18086,7 @@ class out_flame_utils
                         
                         # Pop up message window
                         if hou.isUIAvailable():
-                            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™: Lib Lock", details = ALL_msg, details_label = None, details_expanded = False) # type: ignore
+                            hou.ui.displayMessage(ui_text, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ Lib Lock", details = ALL_msg, details_label = None, details_expanded = False) # type: ignore
                         # Clear up Houdini's status bar msg
                         flam3h_general_utils.set_status_msg('', 'MSG')
                         
