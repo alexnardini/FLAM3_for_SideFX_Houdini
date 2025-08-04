@@ -147,7 +147,7 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 _Fractal Flame editors in third-party apps uses an orthogonal type of view_.<br />
 _If you'd like to get close to a fractal Flame editor vibe, set the viewport to_: *Front* (_or press the key "3" while the cursor is on any viewport_). _Once you have done that, you can also go to the FLAM3H™ preferences tab and set the viewport color to: *Dark* (if not already)_.
 
-_Best would be to use one of the Desktop files provided (*HD* or *4K*) as they set everything up for you. Hope you enjoy_.
+_Best would be to use one of the Desktop files provided (HD or 4K) as they set everything up for you. Hope you enjoy_.
 
 
     
