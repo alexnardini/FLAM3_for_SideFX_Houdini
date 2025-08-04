@@ -144,10 +144,10 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 
 == Before you start == (BEFORESTART)
 
-_Fractal Flame editors in third-party apps uses an orthogonal type of view_.<br />
-_If you'd like to get close to a fractal Flame editor vibe, set the viewport to_: *Front* (_or press the key "3" while the cursor is on any viewport_). _Once you have done that, you can also go to the FLAM3H™ preferences tab and set the viewport color to: *Dark* (if not already)_.
+_Third-party applications use an orthogonal type of view for their editors_.<br />
+_If you'd like to get close to a fractal Flame editor vibe, set the viewport to_: *Front* (_or press the key ((3)) while the cursor is on any viewport_). _Once you have done that, you can also go to the FLAM3H™ preferences' tab and set the viewport color to: *Dark* (if not already)_.
 
-_Best would be to use one of the Desktop files provided (HD or 4K) as they set everything up for you. Hope you enjoy_.
+_Best would be to use one of the Desktop files provided (HD or 4K) as they set everything up for you_.
 
 
     
@@ -186,7 +186,8 @@ iterations [Icon:TOP/xmlinput]:
     
     Some flames require a truly high number of iterations to resolve properly.
     
-    However, you can create some beautiful fractal Flames with just a few iterations. Below are some examples:
+    However,<br />
+    you can create some beautiful fractal Flames with just a few iterations. Below are some examples:
     
     _*[Knot clusters: 6 iterations|https://github-production-user-asset-6210df.s3.amazonaws.com/42110232/270743580-f3c891ed-21c6-474e-89fa-62020149d821.jpg]*_
     
@@ -225,7 +226,8 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     When using a custom density value from inside the preferences density tab,<br />
     if the choosen value is not present in this global menu entries, this menu label will become empty to signal the use of a custom density value.
 
-    _Additionally, some of the bookmark icons will signal the density values the xforms handles VIZ mode will keep being active, like the following_:
+    _Additionally,_<br />
+    _some of the bookmark icons will signal the density values the xforms handles VIZ mode will keep being active, like the following_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteXFVIZOFFSVG.svg] 
     - [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]
@@ -240,7 +242,8 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSOLOSVG.svg]
     - [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]
 
-    Beyound those bookmark icons, the xforms handles VIZ mode will be automatically disabled.
+    Beyound those bookmark icons,<br />
+    the xforms handles VIZ mode will be automatically disabled.
 
     
 Reset density:
@@ -304,7 +307,8 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     its menu label will be prefixed with the message string: *`[ZERO opacity]`*<br />
     This is handy also when you load or build a Flame that uses containers so to easily spot the intermediary iterators used in the construction.
 
-    _Additionally, when there are *`0`*(Zero) iterators, an info message is displayed instead_:
+    _Additionally,_<br />
+    _when there are *`0`*(Zero) iterators, an info message is displayed instead_:
 
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when there are zero iterators.
     <br /><br />
@@ -766,7 +770,8 @@ number of iterators [Icon:TOP/xmlinput]:
     - [Largeicon:BUTTONS/minus] to reduce the number of iterators by *`1`*(one). It will remove one from the end.
     - *CLEAR* button -> to remove all the iterators in one go.
 
-    _Additionaly, each iterator posses the following control icons_:
+    _Additionally,_<br />
+    _each iterator posses the following control icons_:
 
     - [Largeicon:BUTTONS/multi_remove] to remove the selected iterator.
     - [Largeicon:BUTTONS/multi_insertbefore] to insert a new iterator before the selected iterator.
@@ -2186,7 +2191,7 @@ TIP:
     - _*`1`*(one) *`Mobius`* in the *`VAR`*_
     - _*`1`*(one) *`Mobius`* in the *`POST`*_
     
-    _FLAM3H™, by design, will allow you to be more flexible with your Flame construction choises and allow_
+    _FLAM3H™ by design, will allow you to be more flexible with your Flame construction choises and allow_
     _you to bend this rule, enabling the use of the same variation multiple times within the same section (Chaotica style), but you won't be able to save out_
     _the result in the standard Flame file format._
 
