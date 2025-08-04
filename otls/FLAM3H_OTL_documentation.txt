@@ -3511,12 +3511,12 @@ _A list of all parametric variations and their parametric parameter's names._
 :box:
     #display: rounded white
 
-@CVEX
+@Cvex
 
 :box:
     #display: inverted pink
 
-    *FLAM3H™ CVEX*. _How to Compile and update_.
+    *FLAM3H™ Cvex*. _How to Compile and update_.
     
     In this section,<br /> 
     you will find information on how to compile and then update FLAM3H™ Cvex code in case you'd like to modify/extend its core functionalities.
@@ -3532,13 +3532,13 @@ _A list of all parametric variations and their parametric parameter's names._
     Be as conservative as you can if you want to add anything.
 
 
-== CVEX: How to compile == (COMPILE)
+== Cvex: How to compile == (COMPILE)
     
 :box:
     #display: rounded gray
     
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Compile CVEX:
-        #id: CVEX
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Compile Cvex:
+        #id: Cvex
     
     _SideFX made this part very easy_:
     
@@ -3564,19 +3564,19 @@ _A list of all parametric variations and their parametric parameter's names._
     
         - Output -> _"cvex_TheFractalFlameAlgorithm.*vex*"_
     
-== CVEX: How to update FLAM3H™ node == (UPDATE)
+== Cvex: How to update FLAM3H™ node == (UPDATE)
     
 :box:
     #display: rounded gray
     
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Reload CVEX:
-        #id: CVEX
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Reload Cvex:
+        #id: Cvex
     
     Inside the FLAM3H™ node, you will find many wrangle core nodes running a compiled Cvex file.
     
     If you end up updating the Cvex code yourself by extending it: 
     
-    # Update the sourceFile.*vfl* with all the changes/additions you desire, and follow the above steps on *How to: Compile CVEX*.
+    # Update the sourceFile.*vfl* with all the changes/additions you desire, and follow the above steps on *How to: Compile Cvex*.
     # Once you are ready, remove the old compiled Cvex file from: *FLAM3H™*->*Type properties*->*extra files*.
     # Locate the new compiled Cvex file and load it back inside *FLAM3H™*->*Type properties*->*extra files* section.
     # Before you click: *Add file*, remove the extension from the filename inside the "*Section name*"
@@ -3584,11 +3584,11 @@ _A list of all parametric variations and their parametric parameter's names._
     # Click *Apply* or *Accept* to confirm your changes.
     # Go inside the FLAM3H™ node and on any of the *`wrangle core`* nodes, click the:
         
-        * *`Reload CVEX`* icon: [Largeicon:opdef:.?icon_cvex_compileSVG.svg]
+        * *`Reload Cvex icon`*: [Largeicon:opdef:.?icon_cvex_compileSVG.svg]
     
     You just need to click it once, and it will reload all the compiled Cvex code files included, the Wrangle Core node you click the icon from is not important.
     
-    Once clicked and as soon as FLAM3H™ cook again, it will Re-Compile all FLAM3H™ CVEX nodes. Depending on your PC configuration it can take up to 1 minute. It is a one time compile process.
+    Once clicked and as soon as FLAM3H™ cook again, it will Re-Compile all FLAM3H™ Cvex nodes. Depending on your PC configuration it can take up to 1 minute. It is a one time compile process.
 
 
 
@@ -3604,7 +3604,7 @@ _A list of all parametric variations and their parametric parameter's names._
     *FLAM3H™ Limitations*.
     
     The following are limitations to keep in mind when authoring your flames in Fractorium or Apophysis to be loaded inside FLAM3H™.
-    All of those restrictions are in place to maintain performance within the CVEX language restrictions.
+    All of those restrictions are in place to maintain performance within the Cvex language restrictions.
 
 == Limitations: Iterator's count ==
     
