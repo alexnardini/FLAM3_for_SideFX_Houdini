@@ -147,7 +147,7 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 _Fractal Flame editors in third-party apps uses an orthogonal type of view_.<br />
 _If you'd like to get close to a fractal Flame editor vibe, set the viewport to_: *Front* (_or press the key "3" while the cursor is on any viewport_). _Once you have done that, you can also go to the FLAM3H™ preferences tab and set the viewport color to: *Dark* (if not already)_.
 
-_Best would be to use one of the Desktop files provided (*HD* or *4K*) as they set everything up for you. Hope you enjoy!_.
+_Best would be to use one of the Desktop files provided (*HD* or *4K*) as they set everything up for you. Hope you enjoy_.
 
 
     
@@ -1757,7 +1757,6 @@ on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boole
 
     Since nowadays the effect of motion blur is achieved most of the time as a separate post process step (_e.g. inside a compositing application_) 
     this implementation adopted the use of a centered motion blur just for completeness, as explained in the official paper.<br /><br />
-    Below an extract for reference.
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From the fractal Flame algorithm official paper*:
 
@@ -1765,7 +1764,7 @@ on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boole
     _Supersampling can be achieved by varying the parameters over time while running the chaos game_. <br /><br />
     That is, if *`5M`*(_millions_) samples are used to draw the frame at time t, to instead use *`1M`* samples at time t-0.5, *`1M`* samples at t-0.25, *`1M`* at t, *`1M`* at t+0.25 and *`1M`* at t+0.5, all the while accumulating into the same buffer.
 
-    _It may be possible that in the future a directional motion blur mode will be added to FLAM3H™, but for now there is no need to do so_.<br />
+    _It may be possible that in the future a directional motion blur mode will be added to FLAM3H™, but for now there is no need to do so_.
     <br /><br />
 
     TIP:
@@ -2179,8 +2178,13 @@ TIP:
     
     _Not using multiple instances of the same variation in any of the accessible sections (*`PRE`*, *`VAR`*, or *`POST`*) is the most crucial thing to keep in mind._
     
-    _For instance, you cannot utilize 2(two) Mobius variations inside an iterator's *`PRE`* or *`VAR`* sections._
-    _But you can use 1(one) *`Mobius`* in the *`PRE`* vars, 1(one) *`Mobius`* in the *`VAR`*, and 1(one) *`Mobius`* in the *`POST`*._
+    _For instance,_<br />
+    _you cannot utilize *`2`*(two) *`Mobius`* variations inside an iterator's *`PRE`* or *`VAR`* sections._
+
+    _But you can use_:
+    - _*`1`*(one) *`Mobius`* in the *`PRE`*_
+    - _*`1`*(one) *`Mobius`* in the *`VAR`*_
+    - _*`1`*(one) *`Mobius`* in the *`POST`*_
     
     _FLAM3H™, by design, will allow you to be more flexible with your Flame construction choises and allow_
     _you to bend this rule, enabling the use of the same variation multiple times within the same section (Chaotica style), but you won't be able to save out_
@@ -3507,12 +3511,12 @@ _A list of all parametric variations and their parametric parameter's names._
 :box:
     #display: rounded white
 
-@Cvex
+@CVEX
 
 :box:
     #display: inverted pink
 
-    *FLAM3H™ Cvex*. _How to Compile and update_.
+    *FLAM3H™ CVEX*. _How to Compile and update_.
     
     In this section,<br /> 
     you will find information on how to compile and then update FLAM3H™ Cvex code in case you'd like to modify/extend its core functionalities.
@@ -3528,7 +3532,7 @@ _A list of all parametric variations and their parametric parameter's names._
     Be as conservative as you can if you want to add anything.
 
 
-== Cvex: How to compile == (COMPILE)
+== CVEX: How to compile == (COMPILE)
     
 :box:
     #display: rounded gray
@@ -3560,7 +3564,7 @@ _A list of all parametric variations and their parametric parameter's names._
     
         - Output -> _"cvex_TheFractalFlameAlgorithm.*vex*"_
     
-== Cvex: How to update FLAM3H™ node == (UPDATE)
+== CVEX: How to update FLAM3H™ node == (UPDATE)
     
 :box:
     #display: rounded gray
