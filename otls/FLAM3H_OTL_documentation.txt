@@ -1419,7 +1419,10 @@ FF: copy/paste:
     TIP:
         #display: orange
         
-        _FF iterator allow up to *`5`*(five) variations: *`1`*(one) *`PRE`*, *`2`*(two) *`VAR`* and *`2`*(two) *`POST`* to be used._
+        _FF iterator allow up to *`5`*(five) variations_:
+        - *`1`*(one) *`PRE`*
+        - *`2`*(two) *`VAR`*
+        - *`2`*(two) *`POST`*
         
         _Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric._
     
