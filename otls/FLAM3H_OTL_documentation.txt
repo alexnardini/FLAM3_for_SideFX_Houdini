@@ -916,11 +916,11 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How to set xaos in FLAM3H™*
         
-    - To set XAOS for a Flame with *`4`*(four) iterators, use the "*`xaos:`*" keyword followed by each iterator's Weight values separated by a colon: *`xaos:`* *1:2:3:4*.
+    - To set Xaos for a Flame with *`4`*(four) iterators, use the "*`xaos:`*" keyword followed by each iterator's Weight values separated by a colon: *`xaos:`* *1:2:3:4*.
     - When the auto space xaos weights option is *`On`*/Active ( it is by default ), the xaos keyword will look like this: "*`xaos :`*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work, as in: " *`xaos:`* ".
-    - If no set or when using a short descriptive note, FLAM3H™ will assume all XAOS values are *`1`*(one), the equivalent of: *`xaos:`* *1:1:1:1*
+    - If no set or when using a short descriptive note, FLAM3H™ will assume all Xaos values are *`1`*(one), the equivalent of: *`xaos:`* *1:1:1:1*
     - If you set only *iterator 1* and *iterator 2*, FLAM3H™ will always fill in the rest with a value of *`1`*(one). As an example: *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
-    - When turning iterators *`On`* and *`Off`* and removing or adding them, FLAM3H™ will internally remove and reformat XAOS values to account for missing iterators. It is fully automatic.
+    - When turning iterators *`On`* and *`Off`* and removing or adding them, FLAM3H™ will internally remove and reformat Xaos values to account for missing iterators. It is fully automatic.
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Xaos command options*
     
@@ -933,7 +933,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     TIP:
         #display: orange
     
-        - XAOS is *`Off`*/Disabled by default, and FLAM3H™ will activate it automatically only when needed (_e.g. when one of its weights is set to a value different from: *`1`*(one))_.
+        - Xaos is *`Off`*/Disabled by default, and FLAM3H™ will activate it automatically only when needed (_e.g. when one of its weights is set to a value different from: *`1`*(one))_.
         - When saving out Flame files, xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
         
     NOTE:
@@ -1859,11 +1859,11 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
         - *`4`*(four) *`VAR`*
         - *`1`*(one) *`POST`* 
         - For a total of *`8`*(eight) variations each iterator. If it finds more on load, the excess ones will be discarded.
-    - For FF ( FinalXForm ) you have:
+    - For FF (_finalXform_) you have:
         - *`1`*(one) *`PRE`*
         - *`2`*(two) *`VAR`*
         - *`2`*(two) *`POST`*
-        - If it finds more on load, the excess ones will be discarded.
+        - For a total of *`5`*(five) variations for the finalXform(FF). If it finds more on load, the excess ones will be discarded.
     
 menu IN file contents [Icon:BUTTONS/pane_menu]:
     #id: IN
@@ -3557,7 +3557,7 @@ _A list of all parametric variations and their parametric parameter's names._
     
     The FLAM3H™ source files are already named as expected.
     
-    - For FLAM3H™, the output file name must be the same as the input source file name<br />
+    - The output file name must be the same as the input source file name<br />
     ( _only the file extension will be different, of course_ ).
     
         - Source -> _"cvex_TheFractalFlameAlgorithm.*vfl*"_
@@ -3586,9 +3586,11 @@ _A list of all parametric variations and their parametric parameter's names._
         
         * *`Reload Cvex icon`*: [Largeicon:opdef:.?icon_cvex_compileSVG.svg]
     
-    You just need to click it once, and it will reload all the compiled Cvex code files included, the Wrangle Core node you click the icon from is not important.
+    You just need to click it once,<br />
+    and it will reload all the compiled Cvex code files included, the Wrangle Core node you click the icon from is not important.
     
-    Once clicked and as soon as FLAM3H™ cook again, it will Re-Compile all FLAM3H™ Cvex nodes. Depending on your PC configuration it can take up to 1 minute. It is a one time compile process.
+    Once clicked and as soon as FLAM3H™ cook again,<br />
+    it will Re-Compile all FLAM3H™ Cvex nodes. Depending on your PC configuration it can take up to *`1`*(one) minute. It is a one time compile process.
 
 
 
@@ -3614,9 +3616,10 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] Iterator's count:
         #id: Limitations
     
-    FLAM3H™ allows you to create as many iterators as you wish; however, When using XAOS, you are only permitted to create a maximum of *`20`* iterators.
+    FLAM3H™ allows you to create as many iterators as you wish.<br />
+    However, when using Xaos you are only permitted to create a maximum of *`20`* iterators.
     
-    _This is a workaround to make XAOS work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*_
+    _This is a workaround to make Xaos work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*_
 
 == Limitations: Iterator's PRE, VAR and POST variations ==
 
@@ -3734,7 +3737,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF Shader:
         #id: Limitations
     
-    This finalxform ( FF ) does not possess any color parameters in this implementation ( _Chaotica style_ ).
+    This finalxform(FF) does not possess any color parameters in this implementation ( _Chaotica style_ ).
     <br /><br />
 
     NOTE:

@@ -7163,9 +7163,9 @@ class flam3h_iterator_utils
 
         # Get preference xaos mode and print to Houdini's status bar
         if f3d.xm:
-            _MSG: str = f"{node.name()}: XAOS Mode: FROM"
+            _MSG: str = f"{node.name()}: Xaos mode: FROM"
         else:
-            _MSG: str = f"{node.name()}: XAOS Mode: TO"
+            _MSG: str = f"{node.name()}: Xaos mode: TO"
         flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
 
@@ -10182,18 +10182,18 @@ however below are some general rules on how it work:
 
 XAOS USAGE:
 
-To set XAOS for a flame with 4 iterators,
+To set Xaos for a flame with 4 iterators,
 use the " xaos: " keyword followed by each iterator weights values separated by a colon:
 \" xaos:1:2:3:4 \" ( xaos keyword can be uppercase too if you prefer. )
 
 If no set,
-FLAM3H™ will assume all XAOS values are 1.0, the equivalent of: \" xaos:1:1:1:1 \"
+FLAM3H™ will assume all Xaos values are 1.0, the equivalent of: \" xaos:1:1:1:1 \"
 
 If you set only iterator 1 and iterator 2,
 FLAM3H™ will always fill in the rest with a value of 1.0. \" xaos:0:0 \" will be interpreted as \" xaos:0:0:1:1 \"
 
 When turning iterators ON and OFF and removing or adding them,
-FLAM3H™ will internally remove and reformat XAOS values
+FLAM3H™ will internally remove and reformat Xaos values
 to account for missing iterators. In short, it is fully automatic.
 
 
@@ -10214,7 +10214,7 @@ If you type a negative number, it will be reset to a value of: 1"""
 
         if self.kwargs["ctrl"]:
             if hou.isUIAvailable():
-                hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ XAOS usage infos", details = None, details_label = None, details_expanded = False) # type: ignore
+                hou.ui.displayMessage(ALL_msg, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ Xoas usage infos", details = None, details_label = None, details_expanded = False) # type: ignore
 
         else:
             # current node
