@@ -144,8 +144,8 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 
 == Before you start == (BEFORESTART)
 
-_Fractal Flame editors use an orthogonal type of view_.<br />
-_If you'd like to get the real fractal Flame editor vibe, set the viewport to_: *Front* (_or press the key "3" while the cursor is on any viewport_). _Once you have done that, you can also go to the preferences tab and set the viewport color to: *Dark* (if not already)_.
+_Fractal Flame editors in third-party apps uses an orthogonal type of view_.<br />
+_If you'd like to get close to a fractal Flame editor vibe, set the viewport to_: *Front* (_or press the key "3" while the cursor is on any viewport_). _Once you have done that, you can also go to the FLAM3H™ preferences tab and set the viewport color to: *Dark* (if not already)_.
 
 _Best would be to use one of the Desktop files provided (*HD* or *4K*) as they set everything up for you. Hope you enjoy!_.
 
@@ -1030,12 +1030,23 @@ Opacity [Icon:TOP/xmlinput]:
     TIP:
         #display: orange
 
-        _Each iterator allows up to *`8`*(eight) variations ( *`pre blur`,* *`2`*(two) *`PRE`,* *`4`*(four) *`VAR`*  and *`1`*(one) *`POST`* ) to be used._
+        _Each iterator allows up to *`8`*(eight) variations_:
+            
+        - *`pre blur`* plus *`2`*(two) *`PRE`*
+        - *`4`*(four) *`VAR`*
+        - *`1`*(one) *`POST`*
         
         _Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric._
         
         _When using parametric variations, their parameters in the VARS Tab will be shared between all of them._
-        _This means that if you use *`2`*(two) *`PRE Mobius`,* *`4`*(four) *`VAR Mobius`* and *`1`*(one) *`POST Mobius`*, they will all share the same *`re:abcd`* and *`im:abcd`* parameters._
+
+        _This means that if you use_:
+            
+        - *`2`*(two) *`PRE Mobius`*
+        - *`4`*(four) *`VAR Mobius`*
+        - *`1`*(one) *`POST Mobius`*
+        
+        _they will all share the same *`re:abcd`* and *`im:abcd`* parameters._
      
 menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
@@ -1841,9 +1852,16 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
     _The only restrictions are_:
     
     - The Flames contained in the file must use the same variations included inside FLAM3H™. 
-    - A maximum of 3(three) *`PRE`* ( *`pre_blur`* plus 2(two) of your choise ), 4(four) *`VAR`* and 1(one) *`POST`* variations for each iterator are allowed. 
-    ( for a total of 8(eight) variations each iterator ). If it finds more on load, the excess ones will be discarded.
-    - For FF ( FinalXForm ) you have 1(one) *`PRE`*, 2(two) *`VAR`* and 2(two) *`POST`* variations available. If it finds more on load, the excess ones will be discarded.
+    - A maximum of:
+        - *`3`*(three) *`PRE`* ( _*`pre_blur`* plus *`2`*(two) of your choise_ )
+        - *`4`*(four) *`VAR`*
+        - *`1`*(one) *`POST`* 
+        - For a total of *`8`*(eight) variations each iterator. If it finds more on load, the excess ones will be discarded.
+    - For FF ( FinalXForm ) you have:
+        - *`1`*(one) *`PRE`*
+        - *`2`*(two) *`VAR`*
+        - *`2`*(two) *`POST`*
+        - If it finds more on load, the excess ones will be discarded.
     
 menu IN file contents [Icon:BUTTONS/pane_menu]:
     #id: IN
@@ -2151,7 +2169,7 @@ Copy/Paste SENSOR/RENDER preset settings:
 
 TIP:
     #display: orange
-    _FLAM3H allows you to save your flames in the standard *.flame file format_
+    _FLAM3H™ allows you to save your flames in the standard *.flame file format_
     _so that you can load them back inside any other applications like Fractorium, Apophysis and others._
     
     _You must abide by some rules imposed by the original Flame file format._
@@ -2161,7 +2179,7 @@ TIP:
     _For instance, you cannot utilize 2(two) Mobius variations inside an iterator's *`PRE`* or *`VAR`* sections._
     _But you can use 1(one) *`Mobius`* in the *`PRE`* vars, 1(one) *`Mobius`* in the *`VAR`*, and 1(one) *`Mobius`* in the *`POST`*._
     
-    _FLAM3H, by design, will allow you to be more flexible with your Flame construction choises and allow_
+    _FLAM3H™, by design, will allow you to be more flexible with your Flame construction choises and allow_
     _you to bend this rule, enabling the use of the same variation multiple times within the same section (Chaotica style), but you won't be able to save out_
     _the result in the standard Flame file format._
 
@@ -2460,16 +2478,9 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
     The Camera Sensor in fractal Flames defines the virtual plane where the fractal is projected after all transformations have been applied. It acts as the final stage of the rendering pipeline, determining what portion of the fractal world is visible and how it is mapped to the output image.
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Purpose*:
-    - Captures the result of the accumulated iterated function system (IFS) transformations.
-    - Controls the field of view (FOV), zoom, and translation of the fractal within the frame.
+    - Captures the result of the accumulated iterated function system (_IFS_) transformations.
+    - Controls the field of view (_FOV_), zoom, and translation of the fractal within the frame.
     - Provides the coordinate mapping from the continuous fractal space to the discrete pixel grid of the output image.
-
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Parameters*:
-    - *Resolution* (_or Aspect Ratio_): Ensures correct mapping between the fractal space and the final image resolution.
-    - *Center*: Offsets the camera in fractal space (_panning_).
-    - *Scale* (_or Zoom_): Defines the magnification level of the fractal region.
-    - *Rotation*: Rotates the sensor plane relative to the fractal axes.
-    - *FOV* (_optional_): For perspective like effects when implemented (common in 3D variants).
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How It Works in Context*:
     - After iterating and applying variations to generate points, these points exist in an infinite continuous space.
@@ -2533,7 +2544,7 @@ Copy/Paste render properties:
     
 Center [Icon:TOP/xmlinput]:
     #id: OUT
-    The Sensor center, think of this as the camera look at point. 
+    The Sensor center, offsets the camera in fractal space (_panning_).
     
 Rotate [Icon:TOP/xmlinput]:
     #id: OUT
@@ -2636,7 +2647,7 @@ _Below a list of Fractorium  color correction curves XML keys being used:_
 
     == OUT: XML FLAM3H™ custom keys == (OUTF3HXMLKEYS)
     
-    _FLAM3H may add some unique XML keys to save settings from its own UI toolbox when saving a Flame out to a file. These keys will be read and those settings restored after FLAM3H™ has loaded back the saved Flame._
+    _FLAM3H™ may add some unique XML keys to save settings from its own UI toolbox when saving a Flame out to a file. These keys will be read and those settings restored after FLAM3H™ has loaded back the saved Flame._
     
     _Below a list of FLAM3H™ custom XML keys that are currently implemented:_
 
@@ -3078,7 +3089,7 @@ Web links:
 :box:
     #display: inverted seafoam
 
-    *Variations information.* _Here you will find information about the available variations/plugins currently implemented._
+    *FLAM3H™ Variations information.* _Here you will find information about the available variations/plugins currently implemented._
 
 
 
@@ -3498,7 +3509,7 @@ _A list of all parametric variations and their parametric parameter's names._
 :box:
     #display: inverted pink
 
-    *FLAM3H™ Cvex*: _How to Compile and update_.
+    *FLAM3H™ Cvex*. _How to Compile and update_.
     
     In this section,<br /> 
     you will find information on how to compile and then update FLAM3H™ Cvex code in case you'd like to modify/extend its core functionalities.
@@ -3608,7 +3619,8 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] PRE variations:
         #id: Limitations
     
-    Every iterator is capable of *`3`*(three) *`PRE`* variations, with one ( _the first one to always be executed_ ) being: *`pre_blur`*, followed by the other two.
+    Every iterator is capable of *`3`*(three) *`PRE`* variations,<br />
+    with one ( _the first one to always be executed_ ) being: *`pre_blur`*, followed by the other two.
     
     It is really *`pre_blur`* + *`2`*(two) variations of your choice.
     <br /><br />
@@ -3643,7 +3655,13 @@ _A list of all parametric variations and their parametric parameter's names._
         #id: Limitations
     
     Each iterator has only one set of parametric variation parameters shared within the *`PRE`*, *`VAR`* and *`POST`* variations.
-    This means if you use *`2`*(two) *`PRE Mobius`*, *`4`*(four) *`Mobius`* and *`1`*(one) *`POST Mobius`*, they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
+
+    _This means if you use_:
+    - *`2`*(two) *`PRE Mobius`*
+    - *`4`*(four) *`Mobius`*
+    - *`1`*(one) *`POST Mobius`*
+
+    they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
     
     
     
@@ -3694,8 +3712,12 @@ _A list of all parametric variations and their parametric parameter's names._
     One is shared with *`VAR`* variations.
     The second is shared within the *`PRE`* and *`POST`* variations.
     
-    # If you use *`2`*(two) *`Mobius`* in the FF *`VAR`* section, they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( FF: VARS Tab ).
-    # If you use *`1`*(one) *`PRE Mobius`* and *`2`*(two) *`POST_Mobius`* they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( FF: PP VARS Tab ).
+    # If you use *`2`*(two) *`Mobius`* in the FF *`VAR`* section<br />they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( _FF: VARS Tab_ ).
+    # If you use:
+        - *`1`*(one) *`PRE Mobius`*
+        - *`2`*(two) *`POST_Mobius`*
+        
+        they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( _FF: PP VARS Tab_ ).
     
 == Limitations: FF Shader ==
 
