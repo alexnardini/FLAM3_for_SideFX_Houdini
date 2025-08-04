@@ -1,4 +1,4 @@
-# FLAM3H indie
+# FLAM3H™ indie
 
 
 <p align="center">
@@ -9,6 +9,20 @@
 Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
+
+### [<ins>From v1.8.55</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.55) ###
+
+- **Fix**: The HDA documentation now goes more in-depth on some of the topics that are important for the editing and understanding of fractal Flames.
+- **Fix**: Improved some tooltips and their formatting layout.
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
 
 ### [<ins>From v1.8.52</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.52) ###
 
@@ -52,7 +66,7 @@ They are all available in this github repository.</br>
 
 ### [<ins>From v1.8.45</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.45) ###
 
-_This release complete a very, very long polyshing period of all that was done in FLAM3H up to todays date_.
+_This release complete a very, very long polyshing period of all that was done in FLAM3H™ up to todays date_.
 
 - **New**: Added a new chapter to the OUT Tab documentation: `Anatomy of a XML flame file format`.
 - **Fix**: Affine scale parameter now clear/delete its keyframes everytime is evaluated. It can not be animated.
@@ -180,7 +194,7 @@ _This release complete a very, very long polyshing period of all that was done i
 ### [<ins>From v1.8.28</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.28) ###
 
 - **New**: You can now paste only the palette data from a Flame preset stored into the clipboard.
-- **New**: When all iterators are inactive or 0(_Zero_) Weight, FLAM3H wont generate any points.
+- **New**: When all iterators are inactive or 0(_Zero_) Weight, FLAM3H™ wont generate any points.
 - **Updated HDA documentation.**
 
 
@@ -193,7 +207,7 @@ _This release complete a very, very long polyshing period of all that was done i
 ### [<ins>From v1.8.25</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.25) ###
 
 - **New**: Iterator's names are now automatically set when they are at their default name, otherwise they will be kept as is.
-- **New**: When saving Flames out with disabled iterators, FLAM3H will discard them and rename the active one based of their new multi parameter index if they have a default iterator name.
+- **New**: When saving Flames out with disabled iterators, FLAM3H™ will discard them and rename the active one based of their new multi parameter index if they have a default iterator name.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
@@ -220,10 +234,10 @@ _This is a migration release to a newer python version, for now to: python **3.1
 _No much changes yet but it is a start and it will be the way forward._
 
 - **New**: Started migrating to a newer python version, for now to: **python 3.11** (as of **Houdini 20.5** which is the latest available).
-- **New**: FLAM3H will now use the appropriate python module version based on the Houdini version being run. 
+- **New**: FLAM3H™ will now use the appropriate python module version based on the Houdini version being run. 
 - **New**: The new updated python module is for **python version 3.11** and it will be used only when run within **Houdini 20.5.x**. 
-- **New**: All the older Houdini versions up until **Houdini 19.x.x** will use the FLAM3H python module for **python version 3.7**.
-- **New**: On first node instance creation, FLAM3H will print informations about the python module version being used.
+- **New**: All the older Houdini versions up until **Houdini 19.x.x** will use the FLAM3H™ python module for **python version 3.7**.
+- **New**: On first node instance creation, FLAM3H™ will print informations about the python module version being used.
 
 
 
@@ -257,7 +271,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>From v1.8.13</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.13) ###
 
-#### FLAM3H ####
+#### FLAM3H™ ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -321,7 +335,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>From v1.8.00</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.00) ###
 
-- **New**: Added an info message to each of the FLAM3H HDA sub-network nodes and updated some parameter's tooltips.
+- **New**: Added an info message to each of the FLAM3H™ HDA sub-network nodes and updated some parameter's tooltips.
 - **Updated HDA documentation.**
 
 
@@ -332,9 +346,9 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>From v1.7.98</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.98) ###
 
-#### FLAM3H ####
+#### FLAM3H™ ####
 
-- **Fix**: When in viewport Dark mode, adding new Sop viewers to the current Houdini desktop and creating a new FLAM3H node right after was not updating the available viewers data, loosing track of the old Sop viewers stashed Color Scheme and cam data. it is now fixed.
+- **Fix**: When in viewport Dark mode, adding new Sop viewers to the current Houdini desktop and creating a new FLAM3H™ node right after was not updating the available viewers data, loosing track of the old Sop viewers stashed Color Scheme and cam data. it is now fixed.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 #### FLAM3HUSD v0.1.52 - Beta ####
@@ -370,7 +384,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>From v1.7.88</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.88) ###
 
-- **Fix**: IN infos stats heading parameter is now controlled by the FLAM3H python module.
+- **Fix**: IN infos stats heading parameter is now controlled by the FLAM3H™ python module.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
@@ -480,9 +494,9 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>From v1.7.51</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.51) ###
 
-- **New**: When copy/paste affine values between iterators/FLAM3H nodes, if they are at their defaults the post affine will be automatically turned OFF.
-- **New**: When copy/paste affine values between FF/FLAM3H nodes, if they are at their defaults the post affine will be automatically turned OFF.
-- **New**: FLAM3H will now check if the iterators/FF post affine are at their default values on hip file load and turn the post affine OFF if so.
+- **New**: When copy/paste affine values between iterators/FLAM3H™ nodes, if they are at their defaults the post affine will be automatically turned OFF.
+- **New**: When copy/paste affine values between FF/FLAM3H™ nodes, if they are at their defaults the post affine will be automatically turned OFF.
+- **New**: FLAM3H™ will now check if the iterators/FF post affine are at their default values on hip file load and turn the post affine OFF if so.
 - **Updated HDA documentation.**
 
 
@@ -507,10 +521,10 @@ _No much changes yet but it is a start and it will be the way forward._
 - **Fix**: Density parameter and its preset menu are now cleared from any keyframes every time they are set.
 - **Fix**: Removed prints to the console if an invalid file path is entered inside the CP, IN and OUT tabs as the menu presets message is more than enough and just more elegant by itself.
 - **Fix**: Density can now be animated only from the preferences tab density parameter.
-- **Fix**: When FLAM3H reset the color correction curves data/parameters it will now also delete their keyframes.
-- **Fix**: When FLAM3H reset the affine values (PRE or POST) it will now also delete their keyframes.
-- **Fix**: When FLAM3H copy data between the affine (from PRE to POST and viceversa) it will now also delete their keyframes before copying.
-- **Fix**: When copy/paste data between iterators/FF FLAM3H will now delete all keyframes before copying the values.
+- **Fix**: When FLAM3H™ reset the color correction curves data/parameters it will now also delete their keyframes.
+- **Fix**: When FLAM3H™ reset the affine values (PRE or POST) it will now also delete their keyframes.
+- **Fix**: When FLAM3H™ copy data between the affine (from PRE to POST and viceversa) it will now also delete their keyframes before copying.
+- **Fix**: When copy/paste data between iterators/FF FLAM3H™ will now delete all keyframes before copying the values.
 - **Fix**: When swapping an iterator PRE variations it will now be able to swap also if they have keyframes and/or expressions.
 - **Fix**: When swapping the FF POST variations it will now be able to swap also if they have keyframes and/or expressions.
 - **Fix**: XML xf_color_speed's key is now officially a @property of: class out_flame_xforms_data(out_flame_utils):
@@ -522,7 +536,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>From v1.7.35</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.35) ###
 
-#### FLAM3H ####
+#### FLAM3H™ ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -537,7 +551,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>From v1.7.33</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.33) ###
 
-- **Fix**: Removed two parameters from the FLAM3H UI IN tab renderer settings folder and now using only one controlled by the python's FLAM3H module.
+- **Fix**: Removed two parameters from the FLAM3H™ UI IN tab renderer settings folder and now using only one controlled by the python's FLAM3H™ module.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
@@ -559,7 +573,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>From v1.7.27</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.27) ###
 
-- **Fix**: When activating the OUT options "Flame name inherit on Load" toggle, if the current FLAM3H iterations number was different from the one stored into the loaded IN Preset name it was not updating it.
+- **Fix**: When activating the OUT options "Flame name inherit on Load" toggle, if the current FLAM3H™ iterations number was different from the one stored into the loaded IN Preset name it was not updating it.
 - **Fix**: Improvements of the json palette presets loading into FLAM3H.
 - **Fix**: Improvements of the palette conversion from hex to rgb on Flame Load.
 - **Fix**: Suppressed a flash message about the Render properties being copied on Flame Load.
@@ -589,10 +603,10 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>From v1.7.12</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.12) ###
 
-#### FLAM3H ####
+#### FLAM3H™ ####
 
 - **New**: Copy/paste of the Sensor and Render settings data now work also when a Flame preset has been loaded from the clipboard.
-- **New**: In case of hand made modifications to the loaded XML Flame preset file, some of the FLAM3H UI toggles will now also force an updated of the IN Flame stats infos.
+- **New**: In case of hand made modifications to the loaded XML Flame preset file, some of the FLAM3H™ UI toggles will now also force an updated of the IN Flame stats infos.
 - **Fix**: Suppressed some flash messages firing on hip file load.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -609,7 +623,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>From v1.7.07</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.07) ###
 
-#### FLAM3H ####
+#### FLAM3H™ ####
 
 - **Fix**: Reinforced context aware options and messages.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -629,7 +643,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>From v1.7.04</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.04) ###
 
-#### FLAM3H ####
+#### FLAM3H™ ####
 
 - **Fix**: Better messages for contex aware functionalities.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -658,7 +672,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>From v1.7.00</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.7.00) ###
 
-#### FLAM3H ####
+#### FLAM3H™ ####
 
 - **New**: Xaos command string: typo checking, auto-corrections and undos. Retrieve from history can now retrieve single and multiple entries instead of the entire Xaos string for the selected iterator.
 - **New**: Xaos command string: you can now type a single floating point value to fill all entries with it (before you could only type integers).
@@ -675,7 +689,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>From v1.6.97</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.97) ###
 
-#### FLAM3H ####
+#### FLAM3H™ ####
 
 - **Fix**: Post affine xform handle viz offset segment is now properly cast as: **polyline** instead of **poly**.
 - **Fix**: Post affine xform handle viz offset segment is now properly positioned in the same plane as the main handle.
@@ -687,7 +701,7 @@ _No much changes yet but it is a start and it will be the way forward._
 #### FLAM3HUSD v0.1.35 ####
 
 - **New**: With Houdini versions higher than 19.0.x you can now import and render the xforms handles viz using Karma.
-- **New**: Addded checking for the validity of the imported FLAM3H node.
+- **New**: Addded checking for the validity of the imported FLAM3H™ node.
 - **Fix**: Reinforced viewers context checks.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -702,10 +716,10 @@ _This update is all about FLAM3HUSD._
 
 #### FLAM3HUSD v0.1.25 ####
 
-- **New**: Added validity check for the imported FLAM3H node.
+- **New**: Added validity check for the imported FLAM3H™ node.
 - **New**: Added action button to reset the Widths parameter to its default value.
 - **New**: Added action button to reset houdini GL viewport point size parameter to its default value.
-- **New**: Added action button to reset FLAM3H shader parameters to their default values.
+- **New**: Added action button to reset FLAM3H™ shader parameters to their default values.
 - **New**: Added action button to reset Karma pixel samples parameter to its default value.
 - **New**: Added: **py_flam3usd_UI_PRM_map.md** mark down file to this repository.
 - **Fix**: Improved USD hierarchy build.
@@ -720,7 +734,7 @@ _This update is all about FLAM3HUSD._
 
 ### [<ins>From v1.6.90</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.90) ###
 
-#### FLAM3H ####
+#### FLAM3H™ ####
 
 - **New**: Camera Sensor viz and xforms handles viz now check each available viewer's type before performing any operations. If any of the viewers is in **Lop** context it will be ignored.
 - **Fix**: Xforms handles viz wire settings will now only affect viewers belonging to the **Sop** context. 
@@ -731,7 +745,7 @@ _This update is all about FLAM3HUSD._
 
 #### FLAM3HUSD v0.1.15 ####
 
-- **Fix**: Python code has been structured the same as the big brother FLAM3H so to facilitate future updates.
+- **Fix**: Python code has been structured the same as the big brother FLAM3H™ so to facilitate future updates.
 - **Fix**: Viewport preferences point type will now only affect viewers belonging to the **Lop** context. 
 - **Fix**: Viewport preferences point size will now only affect viewers belonging to the **Lop** context. 
 - **Fix**: Dark mode will now only affect viewers belonging to the **Lop** context. 
@@ -745,9 +759,9 @@ _This update is all about FLAM3HUSD._
 
 ### [<ins>From v1.6.84</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.84) ###
 
-#### FLAM3H ####
+#### FLAM3H™ ####
 
-- **New**: FLAM3H will now check if the user is in Solaris/LOP context or not prior to activate the Camera Sensor mode.
+- **New**: FLAM3H™ will now check if the user is in Solaris/LOP context or not prior to activate the Camera Sensor mode.
 - **Fix**: Motion blur viz was not working. (a regression from preview version: v1.6.82)
 - **Updated HDA documentation.**
 
@@ -755,7 +769,7 @@ _This update is all about FLAM3HUSD._
 
 _This simple utility node got an upgrade._
 
-- **New**: New import location from within the selected FLAM3H node. This will prevent the xform handles viz and the camera sensor bbox geometries to show up in Solaris/Lop.
+- **New**: New import location from within the selected FLAM3H™ node. This will prevent the xform handles viz and the camera sensor bbox geometries to show up in Solaris/Lop.
 - **New**: New materialX shader for Karma CPU. Simple and will allow to perform Gamma and HSV corrections on the fly.
 - **Fix**: Revisited UI a little.
 - **Updated HDA documentation.**
@@ -825,7 +839,7 @@ _This simple utility node got an upgrade._
 ### [<ins>From v1.6.75</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.75) ###
 
 - **Fix**: Output path check messages now understand if they run from the IN or the OUT tab. Before was always from the OUT tab.
-- **Fix**: Loading a hip file with multiple FLAM3H nodes and a marked iterator was not recognizing the marked iterator as the other nodes init script was clearing out that data. It is now fixed.
+- **Fix**: Loading a hip file with multiple FLAM3H™ nodes and a marked iterator was not recognizing the marked iterator as the other nodes init script was clearing out that data. It is now fixed.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
@@ -838,10 +852,10 @@ _This simple utility node got an upgrade._
 
 - **New**: Viewport xforms handles VIZ geo is now pre-cooked every time a Flame preset is loaded.
 - **New**: Density menu entries now have xforms handles VIZ indicators to signal which mode is ON.
-- **Fix**: Fixed camera sensor toggle not being properly call when cloning a FLAM3H node. (_a regression from preview versions_)
+- **Fix**: Fixed camera sensor toggle not being properly call when cloning a FLAM3H™ node. (_a regression from preview versions_)
 - **Fix**: Corrected back-up "OUT_PATH" menu cache variable's name.
 - **Fix**: OUT menu presets was not properly updating when saving a Flame out.
-- **Fix**: Cloning a FLAM3H node with Zero iterators was erroring out in checking the opacities. It is now fixed.
+- **Fix**: Cloning a FLAM3H™ node with Zero iterators was erroring out in checking the opacities. It is now fixed.
 - **Fix**: Fixed a rare case where the XML color correction curves can be an empty key.
 - **Fix**: Tool responsiveness and first node instance creation time are a tiny bit better.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -880,7 +894,7 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 
 - **Fix**: First node instance creation time is now twice as fast.
 - **Fix**: The overall responsiveness of the tool while editing feel a bit faster.
-- **Fix**: Fixed FLAM3H warning messages' node not being updated in the preview version/release.
+- **Fix**: Fixed FLAM3H™ warning messages' node not being updated in the preview version/release.
 - **Fix**: Viewport xforms handles VIZ are a bit faster.
 - **Fix**: Viewport TAG is a bit faster.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -901,12 +915,12 @@ _This release is a tentative: **Final** as of **H20.5.x**:_
 - **New**: Added the viewport' preferences tab option: **wire width** to control the curve thickness of the viewport xforms handles VIZ.
 - **New**: When an iterator(_or FF_) POST affine is activated, an extra knot in the viewport handle VIZ is created to represent its post affine' pivot/offset.
 - **New**: Viewport xforms handles VIZ will be visible up to a density value of 5M(millions) max and they will be hidden beyound that.
-- **New**: When entering the viewport handles VIZ mode, FLAM3H will now store all viewport wire widths data and restore everything upon exiting the mode assuming no other FLAM3H node in the scene has the mode ON.
+- **New**: When entering the viewport handles VIZ mode, FLAM3H™ will now store all viewport wire widths data and restore everything upon exiting the mode assuming no other FLAM3H™ node in the scene has the mode ON.
 - **New**: Added the ability to copy/paste sections of an affine between PRE and POST affine and viceversa, for example only the **X** and **Y** or only the **O** or only the **Rot** value.
 - **Fix**: The viewport xforms handle knot geometry had an overlapping primitive. it is now fixed.
-- **Fix**: FLAM3H now handle some of the checks to a new one-off cvex node instead of querying the incoming FLAM3H point cloud.
-- **Fix**: If more than 20 iterators are created while Xaos is active(_current limit with Xaos_), FLAM3H now won't generate any points.
-- **Fix**: Loading a hip file with a FLAM3H node from a fresh houdini session was causing a python's **AttributeError** when attempting to reset to the default Sierpinski triangle. It is now fixed.
+- **Fix**: FLAM3H™ now handle some of the checks to a new one-off cvex node instead of querying the incoming FLAM3H™ point cloud.
+- **Fix**: If more than 20 iterators are created while Xaos is active(_current limit with Xaos_), FLAM3H™ now won't generate any points.
+- **Fix**: Loading a hip file with a FLAM3H™ node from a fresh houdini session was causing a python's **AttributeError** when attempting to reset to the default Sierpinski triangle. It is now fixed.
 - **Fix**: Fixed viewport TAG not being able to read and display some data.
 - **Fix**: Re-built viewport TAG using pre-stored data. It is now many times faster.
 - **Fix**: Fixed FF variations: "BLOB" and "SUPERSHAPE" having their arguments in the wrong order inside: "flameff.h" file.
@@ -924,7 +938,7 @@ _This is the last update of 2024, after a very long time of development and unit
 
 - **New**: Global tab -> Density menu action button icon can now set also lower tier presets: 300k, 200k, 100k points.
 - **Fix**: Compiled "cvex_TheFractalFlameAlgorithm.vex" file size is now ~14kb smaller.
-- **Fix**: Fixed a very, very small difference in the MODULUS variation between FLAM3H and the official one.
+- **Fix**: Fixed a very, very small difference in the MODULUS variation between FLAM3H™ and the official one.
 - **Fix**: It can be slightly faster, depend on how the processed Flame is constructed. 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -993,9 +1007,9 @@ _This is the last update of 2024, after a very long time of development and unit
 
 _Some of those small fixes/improvements include_:
 
-- **Fix**: When an iterator Xaos string is invalid, the FLAM3H compile block node warning message was reporting the wrong iterator number. It is now fixed.
-- **Fix**: When a negative value was left inside an iterator Xaos string, the FLAM3H compile block node warning message was reporting the wrong iterator number. It is now fixed.
-- **Fix**: When there are ZERO iterators, the FLAM3H compile block node warning message will now properly state: ZERO iterator and not the iterator number 1 warning message like before.
+- **Fix**: When an iterator Xaos string is invalid, the FLAM3H™ compile block node warning message was reporting the wrong iterator number. It is now fixed.
+- **Fix**: When a negative value was left inside an iterator Xaos string, the FLAM3H™ compile block node warning message was reporting the wrong iterator number. It is now fixed.
+- **Fix**: When there are ZERO iterators, the FLAM3H™ compile block node warning message will now properly state: ZERO iterator and not the iterator number 1 warning message like before.
 - **Fix**: Corrected some python definition doc-strings. - (_an ongoing effort_).
 - **Fix**: Improved and updated some parameter's tooltips. 
 
@@ -1153,7 +1167,7 @@ _Some of those fixes/improvements include_:
 
 - **New**: Allow to reload an hip file with marked iterator or FF and pick up from there.
 - **Fix**: Fixed a rare bug causing a wrong message in the copy/paste iterator mechanism.
-- **Fix**: Fixed edge case so we don't have marked iterators in multiple FLAM3H node's "select iterator" mini-menus.
+- **Fix**: Fixed edge case so we don't have marked iterators in multiple FLAM3H™ node's "select iterator" mini-menus.
 
 
 <br>
@@ -1242,7 +1256,7 @@ _Some of those fixes/improvements include_:
 - **New**: From the OUT render color correction curves folder, you can now copy only the cc curves from the loaded IN Flame preset.
 - **Fix**: The OUT color correction curves folder content is now properly setup internally for its default values and the folder name font won't be **bold** anymore when at default.
 - **Fix**: The OUT color correction curves folder tip icon's parameters (Blue stars) now have proper labels that show up when the mouse is hovered over.
-- **Fix**: When loading Flame presets in, FLAM3H now make better decisions about what palette lookup sample value to choose.
+- **Fix**: When loading Flame presets in, FLAM3H™ now make better decisions about what palette lookup sample value to choose.
 - **Fix**: The affine's Scale parameter ranges are now between 0.975 and 1.025 to allow for more precise and small value changes when modified using the slider.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -1264,7 +1278,7 @@ _Some of those fixes/improvements include_:
 
 ### [<ins>From v1.5.55</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.55) ###
 
-- **Fix**: When loading hip files with older version of FLAM3H their color correction curves values were nulls resulting in a black image when saving the Flame out and load it in Fractorium and others. It will now set them to their default values on load if needed.
+- **Fix**: When loading hip files with older version of FLAM3H™ their color correction curves values were nulls resulting in a black image when saving the Flame out and load it in Fractorium and others. It will now set them to their default values on load if needed.
 - **Fix**: When saving out a palette with more than 256 color keys, will now always store the lookup sample value if greater than the number of the color keys, otherwise store the nearest lookup sample value that is greater than the number of color keys in the palette.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -1315,7 +1329,7 @@ _Some of those fixes/improvements include_:
 
 ### [<ins>From v1.5.52</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.52) ###
 
-- **New**: FLAM3H can now handle Fractorium color correction curves when the flame preset you are loading have it. If not, default values (no color correction) will be used instead. When saving the flame out from FLAM3H, the stored color correction curves will be saved back into the flame preset file so that the original color correction done in Fractorium won't be lost anymore.
+- **New**: FLAM3H™ can now handle Fractorium color correction curves when the flame preset you are loading have it. If not, default values (no color correction) will be used instead. When saving the flame out from FLAM3H, the stored color correction curves will be saved back into the flame preset file so that the original color correction done in Fractorium won't be lost anymore.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
@@ -1337,8 +1351,8 @@ _Some of those fixes/improvements include_:
 ### [<ins>From v1.5.45</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.45) ###
 
 - **New**: Added menu label for when an IN flame from the clipboard is loaded but an invalid file path is being entered in the IN file path parameter.
-- **New**: When activating the OUT option: palette 256+ toggle FLAM3H will let the user knows if the current palette posses enough colors and give some infos.
-- **New**: When adding more than 256 color keys to the palette, if the OUT options toggle: palette 256+ is ON, FLAM3H will let the user know. Same when from more than 256 color keys we go back to 256 or less.
+- **New**: When activating the OUT option: palette 256+ toggle FLAM3H™ will let the user knows if the current palette posses enough colors and give some infos.
+- **New**: When adding more than 256 color keys to the palette, if the OUT options toggle: palette 256+ is ON, FLAM3H™ will let the user know. Same when from more than 256 color keys we go back to 256 or less.
 - **Updated HDA documentation.**
 
 
@@ -1399,7 +1413,7 @@ _Some of those fixes/improvements include_:
 
 ### [<ins>From v1.5.33</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.33) ###
 
-- **New**: You can now copy only the Render Properties of a Flame preset from the Clipboard. This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the clipboard into FLAM3H without the need to load the copied Flame preset fully, but just to updated the Render Properties.
+- **New**: You can now copy only the Render Properties of a Flame preset from the Clipboard. This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the clipboard into FLAM3H™ without the need to load the copied Flame preset fully, but just to updated the Render Properties.
 - **New**: Now you can create presets files with their LOCK state in the file name even if they do not exist yet on dirve and the LOCK will be active only after you save the first preset in it. (May that be from the CP or OUT tabs)
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -1433,7 +1447,7 @@ _Some of those fixes/improvements include_:
 
 - **Fix**: Fixed wrangle cores: "Reload CVEX" button's tooltips.
 - **Fix**: Fixed a missing backslash in the generation of the output paths from the CP and OUT tabs. (introduced in one of the preview updates)
-- **Fix**: Fixed issues with loading invalid Palette or Flame files that causes FLAM3H to error our or even overwrite an invalid file without consent when Saving out a preset. (introduced in one of the preview updates)
+- **Fix**: Fixed issues with loading invalid Palette or Flame files that causes FLAM3H™ to error our or even overwrite an invalid file without consent when Saving out a preset. (introduced in one of the preview updates)
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
@@ -1508,7 +1522,7 @@ _Some of those fixes/improvements include_:
 
 ### [<ins>From v1.5.05</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.05) ###
 
-- **New**: When loading hip files with FLAM3H nodes inside, it will now check their iterator's opacity and if any is 0(Zero) it will turn the Remove Invalid Point(RIP) toggle ON.
+- **New**: When loading hip files with FLAM3H™ nodes inside, it will now check their iterator's opacity and if any is 0(Zero) it will turn the Remove Invalid Point(RIP) toggle ON.
 - **Fix**: The OUT tab sensor resolutions presets menu is now pre-built.
 - **Fix**: Updated: [../src/py/py_flam3_UI_PRM_map.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/py/py_flam3_UI_PRM_map.md)
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -1530,7 +1544,7 @@ _Some of those fixes/improvements include_:
 
 ### [<ins>From v1.5.00</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.5.00) ###
 
-- **New**: When entering the Sensor Viz mode, FLAM3H will now store all viewers data and restore them all on exit to their preview state.
+- **New**: When entering the Sensor Viz mode, FLAM3H™ will now store all viewers data and restore them all on exit to their preview state.
 - **New**: Added status bar messages when copy/paste affine values between pre and post affine within the same iterator and/or FF.
 - **New**: The preferences xaos and viewport display menus now have a bookmark icon to mark the default option.
 - **New**: Added new icon for the FF tab copy/paste FF data.
@@ -1554,7 +1568,7 @@ _Some of those fixes/improvements include_:
 ### [<ins>From v1.4.95</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.95) ###
 
 - **New**: Added an affine Scale parameter to the PRE and POST affine tabs for iterator and FF (FLAME and FF tabs). This was long overdue.
-- **Fix**: When entering the Sensor Viz mode, FLAM3H will now check if at least one Viewport is available and if there is more than one, it will handle them all (to be continued...).
+- **Fix**: When entering the Sensor Viz mode, FLAM3H™ will now check if at least one Viewport is available and if there is more than one, it will handle them all (to be continued...).
 - **Updated HDA documentation.**
 
 
@@ -1679,8 +1693,8 @@ _Updated py_flam3 version number_:
 
 ### [<ins>From v1.4.48</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.48) ###
 
-- **Fix**: When deleting a FLAM3H node with its FF marked for being copied, it willl now clear that data and ask to mark the FF again instead of warning you about the node being deleted.
-- **Fix**: When deleting a FLAM3H node with its FF marked for being copied, it will now print to the status bar and fire a flash message as well.
+- **Fix**: When deleting a FLAM3H™ node with its FF marked for being copied, it willl now clear that data and ask to mark the FF again instead of warning you about the node being deleted.
+- **Fix**: When deleting a FLAM3H™ node with its FF marked for being copied, it will now print to the status bar and fire a flash message as well.
 - **Fix**: Wrong tooltip for the youtube video tutorial web link.
 - **Fix**: improved the open web browser mechanism.
 
@@ -1752,7 +1766,7 @@ _More small things:_
 
 ### [<ins>From v1.4.23</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.23) ###
 
-- **Fix**: When marking an iterator for being copied, that data was destroyed once the user created a new FLAM3H node right after. It is now fixed.
+- **Fix**: When marking an iterator for being copied, that data was destroyed once the user created a new FLAM3H™ node right after. It is now fixed.
 - **Fix**: Updated def flam3h_paste_reset_hou_session_data(self) -> None:
 - **Updated HDA documentation.**
 
@@ -1811,7 +1825,7 @@ _More small things:_
 - **New**: The OUT file contents action script button is now a multi-purpose button.
 - **New**: You can now copy an existing preset Flame name from the selected OUT file into the Flame name string field. 
 - **Fix**: OUT tab option "auto add iter num to Flame name" will remove the iter num from the Flame name when toggled OFF.
-- **Fix**: FLAM3H node is now created with the "xaos div" preferences option set to: ON.
+- **Fix**: FLAM3H™ node is now created with the "xaos div" preferences option set to: ON.
 - **Updated HDA documentation.**
 
 
@@ -1859,7 +1873,7 @@ _More small things:_
 - **New**: added a new camera sensor's screenshot examples for the app Fractorium to the documentation.
 - **Fix**: improved some parameter's tool tips.
 - **Fix**: corrected some python classes @property declaration's names and usage.
-- **Fix**: a marked iterator in one of the FLAM3H nodes caused an error in the mini-menu Select iterator parameter when reloading the same hip file from a fresh Houdini session. It is fixed now.
+- **Fix**: a marked iterator in one of the FLAM3H™ nodes caused an error in the mini-menu Select iterator parameter when reloading the same hip file from a fresh Houdini session. It is fixed now.
 - **Fix**: the mini-menu Select Iterator parameter was not able to catch up after multiple undos of marked iterators. It is now fixed.
 - **Updated HDA documentation.**
 
@@ -1932,7 +1946,7 @@ _More small things:_
 
 - **New**: Added a button in each affine's tab to copy and paste from/to the pre or post affine values in the same iterator.
 - **New**: Added a button in each FF affine's tab to copy and paste from/to the FF pre or FF post affine values.
-- **Fix**: Updated the about box FLAM3H website's icon to match the one used in the website homepage.
+- **Fix**: Updated the about box FLAM3H™ website's icon to match the one used in the website homepage.
 - **Fix**: The iterator active buttons have been swapped with a geometry data prm's action button to save one parameter.
 - **Fix**: Fixed a few typo in some of the UI folder names.
 - **Updated HDA documentation.**
@@ -1969,7 +1983,7 @@ _More small things:_
 
 - **New**: Added reset action script button the the preferences tab viewport particle size parameter.
 - **New**: Flash messages are now printed into multiple network editors instead of only inside the main one.
-- **Fix**: The about FLAM3H tab is now set to be initially open instead of closed/collapsed.
+- **Fix**: The about FLAM3H™ tab is now set to be initially open instead of closed/collapsed.
 - **Python code cleanup.**
 - **Updated HDA documentation.**
 
@@ -2009,7 +2023,7 @@ _More small things:_
 - **New**: Added the option to reset an FF iterator to its default values.
 - **New**: New FF iterator disabled icon.
 - **Fix**: When using the IN remap pre_gaussian_blur action button while a flame preset from the clipboard was already loaded, the status bar msg was printing alos the bookmark icon path. it is now fixed.
-- **Fix**: When loading a json file that is not a FLAM3H valid palette file, it will now prevent you to save a palette so to not override its content
+- **Fix**: When loading a json file that is not a FLAM3H™ valid palette file, it will now prevent you to save a palette so to not override its content
 - **Fix**: When create a new palette file, saving a palette was not updating the menu entries, it is now fixed.
 - **Fix**: Cleaned up CP tab.
 - **Python code cleanup.**
@@ -2057,8 +2071,8 @@ _More small things:_
 - **Fix**: Fixed a bug that prevented loading flames from the clipboard if a valid flame file wasnt loaded already. (introduced in some of the preview updates)
 - **Fix**: The TFFAsensor CVEX node is now independent and do not need a transform node anymore to complete the sensor orientation.
 - **Fix**: The reframe viewport bounding box is now compiled as a native CVEX node.
-- **Fix**: When creating a new FLAM3H node while something else has the displayflag ON, it wont send a load default message to the flash message anymore.
-- **Fix**: Instead of importing the whole Numpy module, FLAM3H is now importing only the needed methods.
+- **Fix**: When creating a new FLAM3H™ node while something else has the displayflag ON, it wont send a load default message to the flash message anymore.
+- **Fix**: Instead of importing the whole Numpy module, FLAM3H™ is now importing only the needed methods.
 - **Fix**: Better copy/paste menu labels messages format.
 - **Fix**: Improved action buttons tooltips.
 - **Fix**: Improved sensor's bbox build method.
@@ -2074,8 +2088,8 @@ _More small things:_
 - **Python code cleanup.**
 - **Updated HDA documentation.**
 
-### FLAM3H USD</ins> ###
-- **New**: The HDA node has a new icon that make more sense and in line with the FLAM3H HDA icons library.
+### FLAM3H™ USD</ins> ###
+- **New**: The HDA node has a new icon that make more sense and in line with the FLAM3H™ HDA icons library.
 - **Updated HDA documentation.**
 
 
@@ -2103,8 +2117,8 @@ _More small things:_
 - **Improved Python code.**
 - **Updated HDA documentation.**
 
-### FLAM3H USD</ins> ###
-- **Fix**: improved a the python code of this basic HDA for quickly rendering FLAM3H Flames in Solaris.
+### FLAM3H™ USD</ins> ###
+- **Fix**: improved a the python code of this basic HDA for quickly rendering FLAM3H™ Flames in Solaris.
 
 
 <br>
@@ -2146,14 +2160,14 @@ _More small things:_
 - **New**: The IN presets menu parameter now posses a bookmark icon next to the currently selected flame preset label. The bookmark icon will change once the flame preset is being loaded.
 - **New**: The CP presets menu parameter now posses a bookmark icon next to the currently selected palette preset label. The bookmark icon will change once the palette preset is being loaded.
 - **New**: The iterator and FF copy/paste mini menu labels now have an icon.
-- **New**: When copy/paste iterator or FF data between different FLAM3H nodes the menu labels now show the source FLAM3H node parent name.
+- **New**: When copy/paste iterator or FF data between different FLAM3H™ nodes the menu labels now show the source FLAM3H™ node parent name.
 - **New**: Added a visual feedback to recognize if the user made any modification to the currently loaded palette preset and if so the bookmark icon will change.
 - **New**: The SYS CP preset icon and the CP Tab preset icon are now multipurpose and change their icon based on their state.
-- **Fix**: When loading a hip file with a FLAM3H node in Camera Sesnor mode and its display flag ON, it will restore the proper Camera Sensor viewport on load. However seem to silently fail on Houdini versions prior to H20.0.590.
+- **Fix**: When loading a hip file with a FLAM3H™ node in Camera Sesnor mode and its display flag ON, it will restore the proper Camera Sensor viewport on load. However seem to silently fail on Houdini versions prior to H20.0.590.
 - **Fix**: When loading a palette preset from the clipboard, the SYS CP menu presets was reverting back to a value of 0 instead of keeping the last loaded preset index. It is fixed now.
 - **Fix**: When in camera sensor mode, clicking frame sensor view SYS tab icon was not properly restoring the front viewport type if needed. It is fixed now.
 - **Fix**: Fixed SYS CP menu preset OFF state not being updated on hip file load.
-- **Fix**: When cloning a FLAM3H node with Camera Sensor mode ON, the new node will now be created with the mode OFF.
+- **Fix**: When cloning a FLAM3H™ node with Camera Sensor mode ON, the new node will now be created with the mode OFF.
 - **Fix**: Improved CP palette preset name string checking.
 - **Fix**: Improved some tooltip and better formatted their text.
 - **Updated HDA documentation.**
@@ -2231,10 +2245,10 @@ _More small things:_
 ### [<ins>From v1.1.80</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.80) ###
 
 - **New**: The viewport TAG infos now display if a flame is using the preference's option flam3 compatibility (F3C) toggle.
-- **New**: If a negative value or a non digit character is left inside the xaos string ( ex: after an Undo action ), FLAM3H will rise appropriate warnings.
-- **Fix**: All the FLAM3H custom UI parameter's data is now properly grouped into their own preference's tab folder.
-- **Fix**: Negative xaos values are not allowed anymore. If a negative xaos value is entered, FLAM3H will reset it to a value of 1.0.
-- **Fix**: the viewport TAG infos now use the incoming SYS array attribute to determine the active FLAM3H options.
+- **New**: If a negative value or a non digit character is left inside the xaos string ( ex: after an Undo action ), FLAM3H™ will rise appropriate warnings.
+- **Fix**: All the FLAM3H™ custom UI parameter's data is now properly grouped into their own preference's tab folder.
+- **Fix**: Negative xaos values are not allowed anymore. If a negative xaos value is entered, FLAM3H™ will reset it to a value of 1.0.
+- **Fix**: the viewport TAG infos now use the incoming SYS array attribute to determine the active FLAM3H™ options.
 - **Improved Python code.**: Camera sensor viz mode methods and its boundig box data now rely only on the data node name.
 - **Improved Python code.**: Python type hints and its houdini node class types are now properly casted.
 - **Improved Python code.**: numpy arrays are now directly converted into lists. 
@@ -2247,7 +2261,7 @@ _More small things:_
 
 ### [<ins>From v1.1.70</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.70) ###
 
-- **New**: When entering the Camera Sensor viz mode, FLAM3H will now guarantee there will only be one Camera sensor viz mode active at any given time. This is to prevent concurrent stashed cameras to be restored and saved at the same time causing a jump in the current viewport.
+- **New**: When entering the Camera Sensor viz mode, FLAM3H™ will now guarantee there will only be one Camera sensor viz mode active at any given time. This is to prevent concurrent stashed cameras to be restored and saved at the same time causing a jump in the current viewport.
 - **Fix**: All the Houdini's status bar message are now execute if the Houdini's UI is available.
 - **Fix**: All the display message windows are now displayed if the Houdini's UI is available.
 - **Fix**: Removed tkinter import module and used legacy hou.ui module clipboard methods instead.
@@ -2278,12 +2292,12 @@ _More small things:_
 
 ### [<ins>From v1.1.55</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.55) ###
 
-- **New**: Ability to copy/paste flames from/to the clipboard. This is great when exchanging flames between different third-party application, FLAM3H and vice-versa.
+- **New**: Ability to copy/paste flames from/to the clipboard. This is great when exchanging flames between different third-party application, FLAM3H™ and vice-versa.
 - **New**: When loading a flame from the clipboard, its render properties will be automatically copied into the OUT tab render properties. This is done so not to loose those properties in case we copy another flame into the clipboard right after.
 - **New**: Now you can load flame files without a valid _flames_ root tag as when you copy them to the clipboard from Apophysis or Fractorium.
 - **New**: Added copy IN flame preset render properties button also to the OUT render properties tab as it is handy to also have it there.
 - **Fix**: Loading flame files is now a bit faster.
-- **Fix**: FLAM3H is now smarter about what's the content of the *.flame file you load is and will perform additional validity checks to be a bit more robust so to speak.
+- **Fix**: FLAM3H™ is now smarter about what's the content of the *.flame file you load is and will perform additional validity checks to be a bit more robust so to speak.
 - **Fix**: Tag size presets are now working for the error messages too.
 - **Fix**: OUT save option's tab is now of type: collapsible.
 - **Fix**: The OUT Camera sensor Brightness, Scale and Rotate values are now properly cast as float instead of int.
@@ -2299,14 +2313,14 @@ _More small things:_
 
 - **New**: Recompiled everything using the latest H20.x vcc compiler. I could not spot any differences but for peace of mind.
 - **New**: When in OUT Camera sensor mode, the SYS tab Tag icon will now turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
-- **New**: Added FLAM3H info messages to the Camera sensor mode: Zero iterators message and Xaos crossing the number of iterators allowed message.
+- **New**: Added FLAM3H™ info messages to the Camera sensor mode: Zero iterators message and Xaos crossing the number of iterators allowed message.
 - **New**: Added check for first node instance creation for the CVEX 64bit compile version.
 - **New**: the HDA node now live inside its own tab menu call: FLAM3H.
 - **Fix**: When in OUT Camera sensor mode, turning "edit render properties" toggle OFF will now properly restore the viewport you had prior to entering the Camera sensor mode.
 - **Fix**: The OUT Camera sensor parameters are now capable to be set with values higher than their defaults limits.
 - **Fix**: Fixed a bug that caused the copy/paste iterator and FF menus to display a deleted marked node message when loading a new hipe file.
 - **Fix**: Improved Global density and OUT sensor resolution menu parameters pyhton methods.
-- **Fix**: Improved FLAM3H on creation 32bit or 64bit CVEX compile checking methods.
+- **Fix**: Improved FLAM3H™ on creation 32bit or 64bit CVEX compile checking methods.
 - **Fix**: Fixed a bug that prevented to copy/paste an iterator's Weight and Active toggle value before copying something else first.
 - **Fix**: Updated documentation and its vcc compiler version tag number.
 
@@ -2318,14 +2332,14 @@ _More small things:_
 ### [<ins>From v1.1.33</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.33) ###
 
 - **New**: Tested and working on the latest version of Houdini: H20
-- **New**: New OUT Tab Render properties Camera sensor viz. All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved out from FLAM3H. A portion of the render parameters deal with the camera and how the fractal flame you just saved is framed. The FLAM3H camera sensor will precisely display the image framing.
-- **New**: New copy/paste iterators and FF methods. It now also use FLAM3H node user data to better keep track of the marking actions.
+- **New**: New OUT Tab Render properties Camera sensor viz. All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved out from FLAM3H. A portion of the render parameters deal with the camera and how the fractal flame you just saved is framed. The FLAM3H™ camera sensor will precisely display the image framing.
+- **New**: New copy/paste iterators and FF methods. It now also use FLAM3H™ node user data to better keep track of the marking actions.
 - **New**: Added visual node's note when marking iterators and FF. This seemed like a simple feature to add but ended up requiring to add/change a big portion of the code.
 - **New**: The Out Render properties tab has been split into two tabs: "_OUT Camera sensor_" and "_OUT Render settings_".
 - **New**: The OUT Render properties reset button is now a muti-funtional button to reset different sections of the OUT Render properties.
 - **New**: Affine values can now be reset in full, or only the different components using a combination of SHIFT, CTRL, ALT keys when clicking the reset button icon.
 - **New**: Added SYS Tab viewport tag button icon that change based of the Tag being ON or OFF.
-- **New**: Renamed FLAM3H hou.session data. Now this data have more proper names. If you are sourcing this new HDA version from an already running Houdini session, it may require you to restart Houdini fresh before or it may cause some clashes.
+- **New**: Renamed FLAM3H™ hou.session data. Now this data have more proper names. If you are sourcing this new HDA version from an already running Houdini session, it may require you to restart Houdini fresh before or it may cause some clashes.
 - **Fix**: Fixed a bug that caused to mess up some of the hou.session data needed for the copy/paste iterators methods when marking an iterator and then loading a flame file right after.
 - **Fix**: Updated and improved documentation.
 - **Fix**: Improved python code.
@@ -2338,7 +2352,7 @@ _More small things:_
 ### [<ins>From v1.1.23</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.23) ###
 
 - **New**: Xaos command string now allow you to type a number and the xaos will be generated with all weights set to that number.
-- **Fix**: In some cases, deleting the very last iterator could messup the FLAM3H multiparameter index data.
+- **Fix**: In some cases, deleting the very last iterator could messup the FLAM3H™ multiparameter index data.
 - **Fix**: Fixed an error message when saving flames out even tho they were correctly saved.
 - **Fix**: Small python code improvements.
 
@@ -2354,20 +2368,20 @@ _This update improves upon nearly everything, focusing mostly on the  workflow a
 - **New**: Added F3C preference option ( flam3 compatibility ) to the XML ( IN/OUT ).
 - **New**: Added RIP sys option ( Remove Invalid Points ) to the XML ( IN/OUT ).
 - **New**: Palette are now saved with their HSV values if used.
-- **New**: If you type a non numeric character in any of the xaos string weights, FLAM3H will Undo to what you had before instead of resetting all weights to a value of 1.0.
+- **New**: If you type a non numeric character in any of the xaos string weights, FLAM3H™ will Undo to what you had before instead of resetting all weights to a value of 1.0.
 - **New**: Now is possible to swap the order of an iterator PRE variations or the order of the FF POST variations with one click.
 - **New**: All Flame presets lib files now use the HSV values on load to be more vibrant in the viewport without modifying their original palette. Use the new Flame library presets files shipped with this release.
 - **New**: If an OUT Flame name has been given, loading a new flame preset will update the Flame name iteration number string on Load if “_auto add iter num to Flame name_” option is ON.
-- **New**: FLAM3H will now prevent you to deactivate all iterators. It will always keep the last one Active if it come to that. Houdini was crashing when all iterators were being deactivated.
-- **New**: FLAM3H will now prevent you to set all iterators Weights to Zero. It will always keep the last iterator weight above Zero if it come to that. Houdini was crashing when all iterator’s weights were set to Zero.
+- **New**: FLAM3H™ will now prevent you to deactivate all iterators. It will always keep the last one Active if it come to that. Houdini was crashing when all iterators were being deactivated.
+- **New**: FLAM3H™ will now prevent you to set all iterators Weights to Zero. It will always keep the last iterator weight above Zero if it come to that. Houdini was crashing when all iterator’s weights were set to Zero.
 - **New**: Added CVEX node compile status bar messages on first time node creation.
-- **New**: Added FLAM3H documentation icon to the SYS tab.
-- **New**: FLAM3H now print to the Houdini’s status bar instead of the console for most of its messages. Much more elegant.
+- **New**: Added FLAM3H™ documentation icon to the SYS tab.
+- **New**: FLAM3H™ now print to the Houdini’s status bar instead of the console for most of its messages. Much more elegant.
 - **New**: When iterators count is Zero the SYS Palette and SYS OUT icons will dim down.
 - **New**: Added About Tab to the documentation topics.
 - **New**: Added list of parametric variations and their parameter's names relative to their Houdini parameters to the OTL documentation for reference.
-- **New**: "PALETTE JSON file load" is now a bit smarter about what JSON file you load in, and it check if it is a valid FLAM3H palette file. Due to this, preview palette libraries wont work anymore, sorry. Use the new palette libraries shipped with this release or rename the old json file presets keys yourself according to the new format.
-- **New**: FLAM3H is a bit smarter when you create its node, automatically configuring its viewport display settings based on other FLAM3H node's settings already in the scene.
+- **New**: "PALETTE JSON file load" is now a bit smarter about what JSON file you load in, and it check if it is a valid FLAM3H™ palette file. Due to this, preview palette libraries wont work anymore, sorry. Use the new palette libraries shipped with this release or rename the old json file presets keys yourself according to the new format.
+- **New**: FLAM3H™ is a bit smarter when you create its node, automatically configuring its viewport display settings based on other FLAM3H™ node's settings already in the scene.
 - **New**: Fixed a rare bug that prevented to properly add the iteration number string to the Flame name when "auto add iter num to Flame name" OUT Tab's option was ON.
 - **New**: Now "auto set xaos" is handling and updating the copy/paste iterator's data as well. Becasue of this, it became the only available mode ( you can not turn it OFF anymore as there are no longer need to do it. The toggle has been hidden from the UI.)
 - **New**: Added new icons.
@@ -2401,9 +2415,9 @@ _Will update once H20 release._
 - **New**: Added documentation sub topics. Much more clear and easier to find what you are looking for.
 - **New**: Re written most of the documentation in a much more clear and elegant form.
 - **New**: Added a new node icon to reflect the new logo design.
-- **New**: Included a very first release of FLAM3HUSD OTL. A simple **lop** node to make it easier to render FLAM3H fractal flames in Solaris for previews. It offers the very fundamental functionalities to setup your fractal flame point cloud to start rendering with Karma within a few clicks.
+- **New**: Included a very first release of FLAM3HUSD OTL. A simple **lop** node to make it easier to render FLAM3H™ fractal flames in Solaris for previews. It offers the very fundamental functionalities to setup your fractal flame point cloud to start rendering with Karma within a few clicks.
 - **New**: Added a houdini desktop config file. This is the Houdini UI layout that worked best while doing fractal art with FLAM3H.
-- **Fix**: Python: FLAM3H xaos history data is now protected so to speak.
+- **Fix**: Python: FLAM3H™ xaos history data is now protected so to speak.
 
 
 <br>
@@ -2412,22 +2426,22 @@ _Will update once H20 release._
 
 ### [<ins>From v1.0.25</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.0.25) ###
 
-- **New**: FLAM3H OTL documentation: Added a much, much more comprehensive documentation.
-- **New**: FLAM3H OTL documentation: Added new banner image.
-- **New**: FLAM3H OTL documentation: Added new help card icon.
-- **New**: FLAM3H OTL documentation: Added "intro" section.
-- **New**: FLAM3H OTL documentation: Added "rendering tips" section.
-- **New**: FLAM3H OTL documentation: Added "cvex how to" section.
-- **New**: FLAM3H OTL documentation: Added "author" section.
-- **New**: FLAM3H OTL documentation: Added a new colored Xaos paths diagram/image.
-- **New**: FLAM3H OTL documentation: Added weblinks to an handful of Apophysis tutorials to follow as a starter.
-- **New**: FLAM3H node: Added "Reload Cvex" icon button to each wrangleCore node.
-- **New**: FLAM3H Github: Added "icons" folder to the Github repository.
-- **New**: FLAM3H Github: Added updated images to the main README.md file/page.
+- **New**: FLAM3H™ OTL documentation: Added a much, much more comprehensive documentation.
+- **New**: FLAM3H™ OTL documentation: Added new banner image.
+- **New**: FLAM3H™ OTL documentation: Added new help card icon.
+- **New**: FLAM3H™ OTL documentation: Added "intro" section.
+- **New**: FLAM3H™ OTL documentation: Added "rendering tips" section.
+- **New**: FLAM3H™ OTL documentation: Added "cvex how to" section.
+- **New**: FLAM3H™ OTL documentation: Added "author" section.
+- **New**: FLAM3H™ OTL documentation: Added a new colored Xaos paths diagram/image.
+- **New**: FLAM3H™ OTL documentation: Added weblinks to an handful of Apophysis tutorials to follow as a starter.
+- **New**: FLAM3H™ node: Added "Reload Cvex" icon button to each wrangleCore node.
+- **New**: FLAM3H™ Github: Added "icons" folder to the Github repository.
+- **New**: FLAM3H™ Github: Added updated images to the main README.md file/page.
 
-- **Fix**: FLAM3H OTL documentation: Fixed some typos.
-- **Fix**: FLAM3H XML custom data: Motion blur shutter time value now export properly into the XML.
-- **Fix**: FLAM3H XML custom data: Improved "flam3h motion blur" XML key's names.
+- **Fix**: FLAM3H™ OTL documentation: Fixed some typos.
+- **Fix**: FLAM3H™ XML custom data: Motion blur shutter time value now export properly into the XML.
+- **Fix**: FLAM3H™ XML custom data: Improved "flam3h motion blur" XML key's names.
 
 
 <br>
@@ -2475,7 +2489,7 @@ _Will update once H20 release._
 - Fixed: When iterator's count is ZERO the density value will now reset back to default (500k).
 - Fixed: When iterator's count is ZERO, the node descriptive message will now clear up.
 - Fixed: When selecting a non valid file location in the IN flame file parameter the infos and IN render properties Tabs will now hide.
-- Fixed: Loading an hip file with a FLAM3H node in it with a JSON, IN or OUT file path no longer valid will now properly hide unnecessary Tabs and print out messages accordingly.
+- Fixed: Loading an hip file with a FLAM3H™ node in it with a JSON, IN or OUT file path no longer valid will now properly hide unnecessary Tabs and print out messages accordingly.
 - Fixed: Palette and IN presets now kept when loading back a hip file with those menus set.
 - Fixed: Force update about tab on load to pick up changes made on the moment.
 - Fixed: Little IN Tab UI redesign.
