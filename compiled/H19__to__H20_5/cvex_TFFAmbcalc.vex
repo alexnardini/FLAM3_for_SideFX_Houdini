@@ -9,12 +9,10 @@ source_filename = "TFFAmbcalc"
 @2 = private constant [8 x i8] c"shutter\00"
 @3 = private constant [10 x i8] c"iteration\00"
 @4 = private constant [22 x i8] c"Tstep_mult_compensate\00"
-@Time = external global double
 @Tstep = external global double
 @Tstep_mult = external global double
-@5 = private constant [5 x i8] c"Time\00"
-@6 = private constant [6 x i8] c"Tstep\00"
-@7 = private constant [11 x i8] c"Tstep_mult\00"
+@5 = private constant [6 x i8] c"Tstep\00"
+@6 = private constant [11 x i8] c"Tstep_mult\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"MBDATA@Z2MBM3N3FPSIN7samplesIN13shutter_speedF"(%MB* %this) #0 {
@@ -131,14 +129,12 @@ __llvm_entry:
   store double %Tstep_mult, double* %"<Tstep_mult>"
   store double %Time, double* %0
   call void @"_TFFAmbcalc@FFF"(double* %0, double* %"<Tstep>", double* %"<Tstep_mult>")
-  %gvalue = call double @"_export@FSF"(i8* getelementptr inbounds ([5 x i8], [5 x i8]* @5, i64 0, i64 0), double %Time) #3
-  %evalue2 = load double, double* %"<Tstep>"
-  %gvalue3 = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @6, i64 0, i64 0), double %evalue2) #3
-  %evalue4 = load double, double* %"<Tstep_mult>"
-  %gvalue5 = call double @"_export@FSF"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @7, i64 0, i64 0), double %evalue4) #3
-  store double %gvalue, double* @Time
-  store double %gvalue3, double* @Tstep
-  store double %gvalue5, double* @Tstep_mult
+  %evalue = load double, double* %"<Tstep>"
+  %gvalue = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @5, i64 0, i64 0), double %evalue) #3
+  %evalue2 = load double, double* %"<Tstep_mult>"
+  %gvalue3 = call double @"_export@FSF"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @6, i64 0, i64 0), double %evalue2) #3
+  store double %gvalue, double* @Tstep
+  store double %gvalue3, double* @Tstep_mult
   ret void
 }
 

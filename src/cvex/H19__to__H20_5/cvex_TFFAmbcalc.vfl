@@ -43,7 +43,7 @@ struct MB{
 }
 
 void
-_TFFAmbcalc(float _bound_Time; float _bound_Tstep; float _bound_Tstep_mult)
+_TFFAmbcalc(const float _bound_Time; float _bound_Tstep; float _bound_Tstep_mult)
 {   
     // init
     int     samples, FPS, iter;
@@ -71,7 +71,7 @@ _TFFAmbcalc(float _bound_Time; float _bound_Tstep; float _bound_Tstep_mult)
 }
 
 cvex
-TFFAmbcalc( export float Time = 0;
+TFFAmbcalc( float Time = 0;
 	        export float Tstep = 0;
 	        export float Tstep_mult = 0)
 {
