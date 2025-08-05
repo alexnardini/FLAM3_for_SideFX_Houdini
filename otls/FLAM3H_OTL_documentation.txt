@@ -3582,8 +3582,8 @@ _A list of all parametric variations and their parametric parameter's names._
     If you end up updating the Cvex code yourself by extending it: 
     
     # Update the sourceFile.*vfl* with all the changes/additions you desire, and follow the above steps on *How to: Compile Cvex*.
-    # Once you are ready, remove the old compiled Cvex file from: *FLAM3H(tm) *->*Type properties*->*extra files*.
-    # Locate the new compiled Cvex file and load it back inside *FLAM3H(tm) *->*Type properties*->*extra files* section.
+    # Once you are ready, remove the old compiled Cvex file from: *FLAM3H(tm) *-> *Type properties* -> *extra files*.
+    # Locate the new compiled Cvex file and load it back inside *FLAM3H(tm) * -> *Type properties* -> *extra files*.
     # Before you click: *Add file*, remove the extension from the filename inside the "*Section name*"
         - ex: From: _*cvex_TheFractalFlameAlgorithm.vex*_ To: _*cvex_TheFractalFlameAlgorithm*_
     # Click *Apply* or *Accept* to confirm your changes.
