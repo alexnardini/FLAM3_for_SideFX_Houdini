@@ -318,7 +318,7 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
         The menu entries are populated using each iterator's note.
     
     NOTE:
-        Selecting an iterator using the Parameter Dialog over the network editor wont work. You must place the Parameter Editor in its on pane or floating pane tab for this feature to work.
+        Selecting an iterator using the Parameter Dialog over the network editor wont work. You must place the Parameter Editor in its own pane or floating pane tab for this feature to work.
 
 
 FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
