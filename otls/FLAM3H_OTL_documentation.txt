@@ -919,7 +919,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     - When in *`xaos FROM`* mode, you will think: *from* wich iterator am I allowed to receive points before I execute them myself?
     - Note that the same concept applies also to the iterator itself, this means the question will be: can I execute a point after I already executed it myself? (_like the yellow iterator with the_ *`Curl`* _variation in the above diagram/image._)
     
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How to set xaos in FLAM3H(tm)*
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How to set xaos in FLAM3H(tm) *
         
     - To set Xaos for a Flame with *`4`*(four) iterators, use the "*`xaos:`*" keyword followed by each iterator's Weight values separated by a colon: *`xaos:`* *1:2:3:4*.
     - When the auto space xaos weights option is *`On`*/Active ( it is by default ), the xaos keyword will look like this: "*`xaos :`*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work, as in: " *`xaos:`* ".
@@ -3582,8 +3582,8 @@ _A list of all parametric variations and their parametric parameter's names._
     If you end up updating the Cvex code yourself by extending it: 
     
     # Update the sourceFile.*vfl* with all the changes/additions you desire, and follow the above steps on *How to: Compile Cvex*.
-    # Once you are ready, remove the old compiled Cvex file from: *FLAM3H(tm)*->*Type properties*->*extra files*.
-    # Locate the new compiled Cvex file and load it back inside *FLAM3H(tm)*->*Type properties*->*extra files* section.
+    # Once you are ready, remove the old compiled Cvex file from: *FLAM3H(tm) *->*Type properties*->*extra files*.
+    # Locate the new compiled Cvex file and load it back inside *FLAM3H(tm) *->*Type properties*->*extra files* section.
     # Before you click: *Add file*, remove the extension from the filename inside the "*Section name*"
         - ex: From: _*cvex_TheFractalFlameAlgorithm.vex*_ To: _*cvex_TheFractalFlameAlgorithm*_
     # Click *Apply* or *Accept* to confirm your changes.
