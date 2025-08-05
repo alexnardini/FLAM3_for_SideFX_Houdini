@@ -411,7 +411,7 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
     _They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator(or FF) of the fractal Flame_.
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    - Depending on its multi-parameter index number, each accessible iterator will produce an xform handle with a color, but the FF(_finalxform_) will always be grey/white and shown on top of the others to make it easy to identify when it is active.
+    - Depending on its multi-parameter index number, each accessible iterator will produce an xform handle with a color, but the FF(_finalXform_) will always be grey/white and shown on top of the others to make it easy to identify when it is active.
 
     - The *`RED`* and *`GREEN`* central axes represent respectively the *`X`* and *`Y`* axis as a frame of reference. Their triangular form will make it easier to see the scale in one or both dimensions.
 
@@ -453,7 +453,7 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
     
     == SYS: Tag == (SYSTAG)
 [Image:opdef:.?FLAM3H_DOC_tag.svg]
-_The above tag reference's image shows a Flame with 1(one) iterator and the FF(finalxform) active._
+_The above tag reference's image shows a Flame with 1(one) iterator and the FF(finalXform) active._
 
 TAG [Icon:DATATYPES/boolean]:
     #id: SYS
@@ -734,7 +734,7 @@ palette 256+ ON [Icon:TOP/xmlinput]:
 :box:
     #display: inverted teal
 
-    *FLAME:* _Flame xforms/iterators._
+    *FLAME:* _iterators/xforms._
     
     This is where you'll spend the majority of your time, along with the *FF* Tab.
     
@@ -872,7 +872,7 @@ xform VIZ SOLO [Icon:DATATYPES/boolean]:
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
     - Every time you activate the xform handle VIZ SOLO mode for an iterator, a custom user data is added to the FLAM3H(tm) node with the iterator number being in SOLO mode; the data name is: *`XF VIZ`*.<br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being displayed (_in case you do not remember or when many iterators have been created_).
-    - The FF(_finalxform_) viewport handle will always be displayed if Active (_it will always be of color grey/white_).
+    - The FF(_finalXform_) viewport handle will always be displayed if Active (_it will always be of color grey/white_).
     - The viewport handles will be automatically disabled if the FLAM3H(tm) density value is raised above *`5M`*(_millions_) points.
     - The viewport handles will be automatically disabled when FLAM3H(tm) is in camera sensor VIZ mode.
     - The viewport handles will be automatically disabled when FLAM3H(tm) is run from whithin the Solaris/Lop context.
@@ -1360,7 +1360,7 @@ FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     <br /><br />
 
     NOTE:
-        The text you write here will be stored with the Flame file and will also appear inside Apophysis and Fractorium as the name of the finalxform iterator.
+        The text you write here will be stored with the Flame file and will also appear inside Apophysis and Fractorium as the name of the finalXform iterator.
     
 FF: copy/paste:
     #id: FF
@@ -2872,7 +2872,7 @@ Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
 :box:
     #display: round white
     
-    == Prefs: CVEX (hidden)== (PREFSCVEX)
+    == Prefs: Cvex (hidden)== (PREFSCVEX)
 
 cvex precision modes (hidden) [Icon:BUTTONS/pane_menu]:
     #id: prefs
@@ -3742,11 +3742,11 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF Shader:
         #id: Limitations
     
-    This finalxform(FF) does not possess any color parameters in this implementation ( _Chaotica style_ ).
+    This finalXform(FF) does not possess any color parameters in this implementation ( _Chaotica style_ ).
     <br /><br />
 
     NOTE:
-        _When saving a Flame out from Fractorium/Apophysis with a finalxform remember to set the Final xform color to:_
+        _When saving a Flame out from Fractorium/Apophysis with a finalXform remember to set the Final xform color to:_
         - Color -> *`0`*(Zero)
         - Color Speed -> *`0`*(Zero) ( _this is the most important_ )
         - Direct Color -> *`1`*(one)
