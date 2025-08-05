@@ -33,7 +33,7 @@
 
 
 void
-_TFFAcamcull(const vector _bound_P; int _bound_ptnum)
+_TFFAcamcull(vector _bound_P; int _bound_ptnum)
 {
     vector pos = _bound_P;
     string CAM  = relativepath(opfullpath("."), chs("fcam"));
@@ -47,7 +47,7 @@ _TFFAcamcull(const vector _bound_P; int _bound_ptnum)
 }
 
 cvex
-TFFAcamcull(vector P = 0;
+TFFAcamcull(export vector P = 0;
             export int ptnum = 0)
 {
     _TFFAcamcull(P, ptnum);

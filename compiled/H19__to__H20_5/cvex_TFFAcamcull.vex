@@ -5,8 +5,10 @@ source_filename = "TFFAcamcull"
 @0 = private constant [2 x i8] c".\00"
 @1 = private constant [5 x i8] c"fcam\00"
 @2 = private constant [11 x i8] c"cullamount\00"
+@P = external global <3 x double>
 @ptnum = external global i64
-@3 = private constant [6 x i8] c"ptnum\00"
+@3 = private constant [2 x i8] c"P\00"
+@4 = private constant [6 x i8] c"ptnum\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"_TFFAcamcull@VI"(<3 x double>* %_bound_P, i64* %_bound_ptnum) #0 {
@@ -77,10 +79,14 @@ __llvm_entry:
   store <3 x double> %P, <3 x double>* %0
   store i64 %ptnum, i64* %1
   call void @"_TFFAcamcull@VI"(<3 x double>* %0, i64* %1)
-  %gvalue = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @3, i64 0, i64 0), i64 %ptnum) #3
-  store i64 %gvalue, i64* @ptnum
+  %gvalue = call <3 x double> @"_export@VSV"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @3, i64 0, i64 0), <3 x double> %P) #3
+  %gvalue4 = call i64 @"_export@ISI"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @4, i64 0, i64 0), i64 %ptnum) #3
+  store <3 x double> %gvalue, <3 x double>* @P
+  store i64 %gvalue4, i64* @ptnum
   ret void
 }
+
+declare <3 x double> @"_export@VSV"(i8*, <3 x double>)
 
 declare i64 @"_export@ISI"(i8*, i64)
 
