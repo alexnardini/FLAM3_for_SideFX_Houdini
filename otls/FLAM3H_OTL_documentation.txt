@@ -144,7 +144,7 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 
 == Before you start == (BEFORESTART)
 
-_Third-party applications use an orthogonal type of view for their editors_.<br />
+_Third-party applications use an orthogonal type of viewer in their editors_.<br />
 _If you'd like to get close to a fractal Flame editor vibe, set the viewport to_: *Front* (_or press the key ((3)) while the cursor is on any viewport_). _Once you have done that, you can also go to the FLAM3H(tm) preferences' tab and set the viewport color to: *Dark* (if not already)_.
 
 _Best would be to use one of the Desktop files provided (HD or 4K) as they set everything up for you_.
@@ -3000,8 +3000,10 @@ Dark [Icon:DATATYPES/boolean]:
     #id: prefs
     *`Off`* by default.
 
-    If it isn't already, change the viewport's color scheme to dark.<br /><br />
-    If unchecked, it will remember the color scheme for every viewport and fall back on it.<br />
+    If it isn't already, change the viewport's color scheme to dark.
+    
+    If unchecked,<br />
+    it will remember the color scheme for every viewport and fall back on it.<br />
     Checking this box has no effect if the color scheme in a viewport is already dark.
 
     <br /><br />
@@ -3019,7 +3021,7 @@ menu type [Icon:BUTTONS/pane_menu]:
 
     TIP:
         #display: orange
-        At the moment of this writing, if you are using H20.5 and up<br />
+        At the moment of this writing, if you are using H20.5<br />
         it is suggested to go to: *`Edit`*->*`Preferences`*->*`3Dviewport`* and set the Renderer to *`OpenGL`* as it is much much faster with higher points count in the viewport.<br />
         
         A restart of Houdini is required for this change to take effect.
@@ -3709,7 +3711,7 @@ _A list of all parametric variations and their parametric parameter's names._
 
     _This means if you use_:
     - *`2`*(two) *`PRE Mobius`*
-    - *`4`*(four) *`Mobius`*
+    - *`4`*(four) *`VAR Mobius`*
     - *`1`*(one) *`POST Mobius`*
 
     they will all share the same *`re:abcd`* and *`im:abcd`* parameters.
