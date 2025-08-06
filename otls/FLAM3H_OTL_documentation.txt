@@ -793,8 +793,9 @@ note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FLAME
     A name for this iterator.
 
+    _If no name is provided (e.g. empty string) a default one will be automatically set_.
+
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    - If no name is provided (_e.g. empty string_) a default name will be automatically set.
     - An iterator default name is composed as: *`iterator_`* followed by its multi parameter index number, as in: *`iterator_7`*
     - Every time you add or remove an iterator, FLAM3H(tm) will rename the remaining one if they have a default name to match their new index.
     - When saving a Flame out with inactive iterators, FLAM3H(tm) will discard the inactive one and rename the others to match their new index if they have a default name.
@@ -1374,9 +1375,9 @@ FF xform VIZ [Icon:DATATYPES/boolean]:
         
 FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FF
-    A name for this FF iterator.
+    A name for this finalXform(_FF_) iterator.
 
-    _If no name is provided (_e.g. empty string_) a default one will be automatically set_.
+    _If no name is provided (e.g. empty string) a default one will be automatically set_.
     <br /><br />
 
     NOTE:
