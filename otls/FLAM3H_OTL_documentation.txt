@@ -184,7 +184,7 @@ iterations [Icon:TOP/xmlinput]:
     Almost all the fractal Flames showcased inside FLAM3H(tm) Instagram account
     use a maximum of *`64`* iterations, with a few exceptions reaching *`96`* and, in rare cases, *`128`*/*`256`* and more.
     
-    Some flames require a truly high number of iterations to resolve properly.
+    Some Flames require a truly high number of iterations to resolve properly.
     
     However,<br />
     you can create some beautiful fractal Flames with just a few iterations. Below are some examples:
@@ -437,7 +437,7 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
         To dive-in is useful to identify them visually as sometime it can be difficult to spot them when the fractal Flame is present.
 
     - To exclusively output the xforms handles, a second output has been introduced to the FLAM3H(tm) node.
-    Since they are not baked into the point cloud, you may safely render the fractal flame while switching between SOP and LOP, which makes it useful for viz purposes.
+    Since they are not baked into the point cloud, you may safely render the fractal Flame while switching between SOP and LOP, which makes it useful for viz purposes.
     
     <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
@@ -698,7 +698,7 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
     NOTE:
         Saving Flames from this icon, will always use a default name that uses the current date and time.
 
-        In case you'd like to give your flames a proper name, you can do so from inside the OUT Tab.
+        In case you'd like to give your Flames a proper name, you can do so from inside the OUT Tab.
     
 OUT Save:
     #id: SYS
@@ -1243,7 +1243,7 @@ pre affine [Icon:TOP/xmlinput]:
     # An affine transformation (_linear part + translation_).
     # A non-linear variation (_curvy distortions, like Swirl, Spherical, Horseshoe_)
 
-    *Why is it important?*
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Why is it important ?*
     - The affine transform determine *where in the plane* the next variation happens.
     - It define the *basic skeleton* of the fractal.
     - If you only used non linear variations without affine transforms, everything would cluster around the origin. You'd loose structure.
@@ -1707,7 +1707,7 @@ Save Palette:
     
     - If you select a location and a filename without an extension, it will automatically add the _*.json*_ extension to them.
     - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
-    - If nothing is selected (_ex: JSON file empty or invalid_), nothing will happen.
+    - If nothing is selected (_e.g. JSON file empty or invalid_), nothing will happen.
     - If you'd like to overwrite an existing palette preset, give the current preset the same exact name as the preset you'd like to overwrite and save it.
     <br /><br />
 
@@ -1753,7 +1753,7 @@ Reload preset:
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
-    - ((CTRL)) + ((LMB)) to copy the selected preset name into the *`palette name`* parameter.
+    - ((CTRL)) + ((LMB)) to copy the selected preset name into the *`palette name`* string parameter.
     - ((ALT)) + ((LMB)) Load a palette from the clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the clipboard, it will extract only the XML palette data and load it into the FLAM3H(tm) palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H(tm).
 
 
@@ -1969,7 +1969,7 @@ Force iterations on Load [Icon:DATATYPES/boolean]:
     #id: IN
     *`Off`* by default.
 
-    When flame files are loaded,<br />
+    When Flame files are loaded,<br />
     FLAM3H(tm) immediately sets the iteration number to *`64`*, which seems like a reasonable count to resolve the majority of them rather effectively.
     
     However,<br />
@@ -2207,7 +2207,7 @@ Copy/Paste SENSOR/RENDER preset settings:
 
 TIP:
     #display: orange
-    _FLAM3H(tm) allows you to save your flames in the standard *.flame file format_
+    _FLAM3H(tm) allows you to save your Flames in the standard *.flame file format_
     _so that you can load them back inside any other applications like Fractorium, Apophysis and others._
     
     _You must abide by some rules imposed by the original Flame file format._
@@ -2268,7 +2268,7 @@ Save Flame:
     
     - If you select a location and a filename without an extension, it will automatically add the _*.flame*_ extension to them.
     - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
-    - If nothing is selected (_ex: OUT file empty or invalid_), nothing will happen.
+    - If nothing is selected (_e.g. OUT file empty or invalid_), nothing will happen.
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*:
 
@@ -2343,7 +2343,7 @@ Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_
 
     Copy the selected OUT preset name into the Flame name string field.
 
-    This is handy if you are saving variations of the same flame and you want to quickly get the same Flame name to save instead of typing it every time.
+    This is handy if you are saving variations of the same Flame and you want to quickly get the same Flame name to save instead of typing it every time.
 
     _Usage_:
     
@@ -2666,7 +2666,7 @@ Reset curves:
     When you load a Flame preset, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render properties.
 
     The IN Tab option: *copy render properties on Load* is *`On`*/Active by default,<br />
-    This mean everytime you load a flame preset in, the color correction curves data will automatically be stored inside here.
+    This mean everytime you load a Flame preset in, the color correction curves data will automatically be stored inside here.
 
     When the IN Tab option: *copy render properties on Load* is *`Off`*/Disabled,<br />
     you will have to manually click the copy render properties button [Icon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg] so that it won't modify settings you have been working on up until you loaded a Flame preset in.
@@ -3618,18 +3618,18 @@ _A list of all parametric variations and their parametric parameter's names._
     
     If you end up updating the Cvex code yourself by extending it: 
     
-    # Update the sourceFile.*vfl* with all the changes/additions you desire, and follow the above steps on *How to: Compile Cvex*.
+    # Update the sourceFile.*vfl* with all the changes/additions you desire, and follow the above steps on *Cvex: How to compile*.
     # Once you are ready, remove the old compiled Cvex file from: *FLAM3H(tm) *-> *Type properties* -> *extra files*.
     # Locate the new compiled Cvex file and load it back inside *FLAM3H(tm) * -> *Type properties* -> *extra files*.
     # Before you click: *Add file*, remove the extension from the filename inside the "*Section name*"
-        - ex: From: _*cvex_TheFractalFlameAlgorithm.vex*_ To: _*cvex_TheFractalFlameAlgorithm*_
+        - e.g. From: _*cvex_TheFractalFlameAlgorithm.vex*_ To: _*cvex_TheFractalFlameAlgorithm*_
     # Click *Apply* or *Accept* to confirm your changes.
     # Go inside the FLAM3H(tm) node and on any of the *`wrangle core`* nodes, click the:
         
         * *`Reload Cvex icon`*: [Largeicon:opdef:.?icon_cvex_compileSVG.svg]
     
     You just need to click it once,<br />
-    and it will reload all the compiled Cvex code files included, the Wrangle Core node you click the icon from is not important.
+    and it will reload all the compiled Cvex code files included, the wrangle core node you click the icon from is not important.
     
     Once clicked and as soon as FLAM3H(tm) cook again,<br />
     it will Re-Compile all FLAM3H(tm) Cvex nodes. Depending on your PC configuration it can take up to *`1`*(one) minute. It is a one time compile process.
@@ -3647,7 +3647,7 @@ _A list of all parametric variations and their parametric parameter's names._
 
     *FLAM3H(tm) Limitations*.
     
-    The following are limitations to keep in mind when authoring your flames in Fractorium or Apophysis to be loaded inside FLAM3H(tm).
+    The following are limitations to keep in mind when authoring your Flames in Fractorium or Apophysis to be loaded inside FLAM3H(tm).
     All of those restrictions are in place to maintain performance within the Cvex language restrictions.
 
 == Limitations: Iterator's count ==
