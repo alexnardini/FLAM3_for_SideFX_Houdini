@@ -1071,7 +1071,7 @@ menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
     *`PRE`* variations for the selected iterator.
 
-    These are applyed before the *`VAR`* variations. It is the very first transformation when used.
+    These are applyed before the *`VAR`* variations.
 
     There are *`2`*(two) *`PRE`* variations available. The order to whitch you apply them matter.
     
@@ -1110,10 +1110,10 @@ menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
     *`POST`* Variation for the selected iterator.
+
+    This is applyed after the *`VAR`* variations.
     
     For speed purpose only *`1`*(one) *`POST`* variation is allowed at the moment.
-
-    This is applyed after the variations. It is the very last transformation.
 
     * When using parametric variations, their parameters will populate the *VARS* Tab.
         
@@ -1603,7 +1603,8 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     
     The amount of linearly spaced color keys in a typical fractal Flame is equivalent to *`256`*, which is the default.
     
-    However, if you create a palette with more than *`256`* color keys you might eventually want to use an higher amount of samples to be sure to catch all the subtle color variations of the palette.
+    However,<br />
+    if you create a palette with more than *`256`* color keys you might eventually want to use an higher amount of samples to be sure to catch all the subtle color variations of the palette.
     
     In general, *`256`* lookup samples will always be good.
     <br /><br />
@@ -1860,7 +1861,7 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
     
     - The Flames contained in the file must use the same variations included inside FLAM3H(tm). 
     - A maximum of:
-        - *`3`*(three) *`PRE`* ( _*`pre_blur`* plus *`2`*(two) of your choise_ )
+        - *`pre blur`* plus *`2`*(two) *`PRE`*
         - *`4`*(four) *`VAR`*
         - *`1`*(one) *`POST`* 
         - For a total of *`8`*(eight) variations each iterator. If it finds more on load, the excess ones will be discarded.
@@ -1920,19 +1921,19 @@ Reload:
 Iterations on Load:
     #id: IN
     Set a number of iterations to use every time you load a Flame from a *.flame file.
-    This will override the internal default value of 64 iterations.
+
+    This will override the internal default value of *`64`* iterations.
     <br /><br />
 
     TIP:
         #display: orange
-        If *add iterations to Flame name* OUT Tab option is *`Off`*/Disabled:
+        If "add iterations to Flame name" OUT Tab option is *`Off`*/Disabled:
     
         The iteration number you want your fractal Flame to use when you load it back into FLAM3H(tm) can be baked into the preset name you choose for it.
 
         For instance, the Flame preset "_*My_Awesome_GrandJulia*_" will be loaded with *`64`* iterations by default.
 
-        However, all settings will be overridden if you add the iteration number to the preset name after a double colon, as in "_*My_Awesome_GrandJulia*_*`::16`*".
-        and load it with an iteration count of *`16`*.
+        However, all settings will be overridden if you add the iteration number to the preset name after a double colon, as in "_*My_Awesome_GrandJulia*_*`::16`*" and load it with an iteration count of *`16`*.
         
         Therefore, do some tests before saving it, and choose the ideal iteration number to incorporate into the preset name.
         
@@ -1942,18 +1943,22 @@ Force iterations on Load [Icon:DATATYPES/boolean]:
     #id: IN
     *`Off`* by default.
 
-    When flame files are loaded, FLAM3H(tm) immediately sets the iteration number to *`64`*, which seems like a reasonable count to resolve the majority of them rather effectively.
-    However, if you need to act quickly, you can use this number to override the iterations set on load.
+    When flame files are loaded,<br />
+    FLAM3H(tm) immediately sets the iteration number to *`64`*, which seems like a reasonable count to resolve the majority of them rather effectively.
+    
+    However,<br />
+    if you need to act quickly, you can use this number to override the iterations set on load.
 
     If the iterations number is baked into the Flame preset name, it will override this setting.
 
-    Turn *`On`* "override iterations from Flame name" to override the iterations number baked into the Flame preset name.
+    Turn *`On`* "override iterations from Flame name" toggle to override the iterations number baked into the Flame preset name.
 
 Override iterations from Flame name [Icon:DATATYPES/boolean]:
     #id: IN
     *`Off`* by default.
 
-    It will override the iterations number baked into the Flame preset name if any.
+    When "Iterations on Load" is *`On`*/Active,<br />
+    it will override the iterations number baked into the Flame preset name if any and use the one set with the "Iterations on Load" parameter.
     
 :box:
     #display: rounded white
@@ -2266,9 +2271,11 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
         For instance, the Flame preset "_*My_Awesome_GrandJulia*_" will be loaded with 64 iterations by default.
 
-        However, if the iteration number is added to the preset name after a double colon, as in "_*My_Awesome_GrandJulia*_*`::16`*," it will override all settings and load the preset with *`16`* as the iteration numbers.
+        However,<br />
+        if the iteration number is added to the preset name after a double colon, as in "_*My_Awesome_GrandJulia*_*`::16`*," it will override all settings and load the preset with *`16`* as the iteration numbers.
         
-        Therefore, do some tests before saving it, and choose the ideal iteration number to incorporate into the preset name.
+        Therefore,<br />
+        do some tests before saving it, and choose the ideal iteration number to incorporate into the preset name.
         
         If you like, you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
     
@@ -2617,7 +2624,7 @@ Reset curves:
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when the color correction is *`Off`*/Disabled (_Default values_).
     - ((LMB)) to copy all the color correction curves data from the currently loaded IN Flame preset. If the loaded IN Flame preset have its color correction curves data at default values, the copy will be skipped.
     
-    [Largeicon:opdef:.?icon_optionStarRedSVG.svg] when the color correction is *`On`*/Active (_Active_).
+    [Largeicon:opdef:.?icon_optionStarRedSVG.svg] when the color correction is *`On`*/Active.
     - ((LMB)) to Reset all the render color correction curves data to their defaults (_no color correction_).
 
 
@@ -3444,7 +3451,7 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] Karma/Mantra tips:
         #id: Karma/Mantra tips
     
-    - When rendering with Karma, remember to turn *`On`* the "_Simplified lighting_"/"_Disable lighting_" option to be sure to render the points with their full color values.
+    - When rendering with Karma, remember to turn *`On`* the "_Simplified lighting_"/"_Disable lighting_" option' toggle to be sure to render the points with their full color values.
     
     - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
     
@@ -3622,7 +3629,9 @@ _A list of all parametric variations and their parametric parameter's names._
         #id: Limitations
     
     FLAM3H(tm) allows you to create as many iterators as you wish.<br />
-    However, when using Xaos you are only permitted to create a maximum of *`20`* iterators.
+
+    However,<br />
+    when using Xaos you are only permitted to create a maximum of *`20`* iterators.
     
     _This is a workaround to make Xaos work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*_
 
@@ -3637,7 +3646,7 @@ _A list of all parametric variations and their parametric parameter's names._
     Every iterator is capable of *`3`*(three) *`PRE`* variations,<br />
     with one ( _the first one to always be executed_ ) being: *`pre_blur`*, followed by the other two.
     
-    It is really *`pre_blur`* + *`2`*(two) variations of your choice.
+    It is really *`pre_blur`* plus *`2`*(two) *`PRE`* variations of your choice.
     <br /><br />
 
     NOTE:
