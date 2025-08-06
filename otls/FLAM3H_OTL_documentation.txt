@@ -1646,7 +1646,9 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
 JSON file. [Icon:DATATYPES/string]:
     #id: PALETTE
     
-    [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
+    [Largeicon:BUTTONS/chooser_file]
+
+    - ((LMB)) to open a floating file chooser.
 
     Load an already-created json palette library file or choose the path and name of a new one to create.
 
@@ -1851,7 +1853,9 @@ Viz mb [Icon:DATATYPES/boolean]:
 IN flame ( *.flame type ) [Icon:DATATYPES/string]:
     #id: IN
     
-    [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
+    [Largeicon:BUTTONS/chooser_file]
+
+    - ((LMB)) to open a floating file chooser.
 
     Load *.flame files. They can come from FLAM3H(tm) or also authored with Apophysis, Fractorium and other flam3-compatible applications.
 
@@ -1873,7 +1877,8 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
     
 menu IN file contents [Icon:BUTTONS/pane_menu]:
     #id: IN
-    Every *.flame file can contain multiple Flames.<br />
+    Every *.flame file can contain multiple Flames.
+
     As many entries as there are Flames in the file you are loading will be added to this preset menu.
     Each entry will display the Flame's name.
     
@@ -2205,7 +2210,9 @@ TIP:
 OUT flame ( *.flame type ) [Icon:DATATYPES/string]:
     #id: OUT
     
-    [Largeicon:BUTTONS/chooser_file] to open a floating file chooser.
+    [Largeicon:BUTTONS/chooser_file]
+
+        - ((LMB)) to open a floating file chooser.
 
     Select a file name to save your Flame into. If the selected file does not exist, it will be created.
 
