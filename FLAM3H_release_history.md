@@ -10,6 +10,19 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.57</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.57) ###
+
+- **Fix**: Loading hip files with FLAM3H™ nodes in it from a fresh Houdini session did not initialize the xform handles viz viewport wire width value. it is now fixed.
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.55</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.55) ###
 
 - **Fix**: The HDA documentation now goes more in-depth on some of the topics that are important for the editing and understanding of fractal Flames.
