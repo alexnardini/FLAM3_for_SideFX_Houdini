@@ -1775,6 +1775,8 @@ class flam3h_scripts
             
             # Update FLAM3H™ viewport preferences
             self.flam3h_on_create_set_prefs_viewport()
+            # Init FLAM3H™ xform handles viz viewport' wire width
+            self.flam3h_on_create_init_viewportWireWidth()
             
             # init CP PRESETS: mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
             flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS(0)
