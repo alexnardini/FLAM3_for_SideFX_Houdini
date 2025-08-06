@@ -882,6 +882,26 @@ W [Icon:TOP/xmlinput]:
     The Weight of this iterator.<br />
     
     Calculate the likelihood that this iterator will be selected during the Chaos game. You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator Weight is higher than the others.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*
+
+    An iterator(_aka: xform or transform_) is one of the rules that moves points around in a fractal Flame. Every time the algorithm runs an iteration, it randomly picks one iterator to apply to the point.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *What does the Weight do ?*
+
+    The Weight controls the probability that an iterator will be chosen.
+    - Higher Weight → higher chance of being picked
+    - Lower Weight → lower chance
+    - Weight = 0 → never picked
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Why is this important ?*
+
+    The probability of picking an iterator decides how often its pattern appears in the final image:
+    - A big Weight means that iterator dominates the fractal.
+    - A small Weight means it only adds subtle details.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *In short*
+    - Weights = the lottery tickets each iterator gets in the chaos game.<br />More tickets = more chances to be picked.
     
 :box:
     #display: rounded white
