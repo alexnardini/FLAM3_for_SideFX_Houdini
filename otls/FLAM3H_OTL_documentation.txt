@@ -1376,7 +1376,7 @@ FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FF
     A name for this FF iterator.
 
-    _If no name is provided (ex: empty string) a default one will be automatically set_.
+    _If no name is provided (_e.g. empty string_) a default one will be automatically set_.
     <br /><br />
 
     NOTE:
@@ -3081,7 +3081,7 @@ Web links:
     A list of useful web links to check out.<br /><br /><br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) web links*<br />
-    _The following are web links related to FLAM3H_.<br /><br />
+    _The following are web links related to FLAM3H(tm). _<br /><br />
     
     [Largeicon:opdef:.?iconSVG.svg] 
     
