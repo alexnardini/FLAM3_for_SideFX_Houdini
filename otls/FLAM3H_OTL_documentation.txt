@@ -181,7 +181,7 @@ iterations [Icon:TOP/xmlinput]:
     - You do not need many iterations to get some good fractal Flames going, between *`10`* and *`24`* is usually more than you need while keeping execution speed acceptable.
     - If you increase the iterator Weight, use xaos to build containers, or use some kind of variation, you will require a higher number to resolve and show you the proper result.
     
-    Almost all the fractal Flames showcased inside FLAM3H(tm)'s Instagram account
+    Almost all the fractal Flames showcased inside FLAM3H(tm) Instagram account
     use a maximum of *`64`* iterations, with a few exceptions reaching *`96`* and, in rare cases, *`128`*/*`256`* and more.
     
     Some flames require a truly high number of iterations to resolve properly.
