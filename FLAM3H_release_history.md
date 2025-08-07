@@ -13,6 +13,7 @@ They are all available in this github repository.</br>
 ### [<ins>From v1.8.57</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.57) ###
 
 - **Fix**: Loading hip files with FLAM3H™ nodes in it from a fresh Houdini session did not initialize the xform handles viz viewport wire width value. it is now fixed.
+- **Fix**: copy/paste iterator menu's all entrie from another FLAM3H™ node now has the parents dots in its label also in H20.5.
 - **Updated HDA documentation.**
 
 
