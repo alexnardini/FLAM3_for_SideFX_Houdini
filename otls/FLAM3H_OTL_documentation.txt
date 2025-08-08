@@ -1718,7 +1718,7 @@ Save Palette:
     
 Palette name [Icon:DATATYPES/string]:
     #id: PALETTE
-    Write a name to give to the selected palette when saving it.
+    Write a name to give to the selected palette when saving it.<br /><br />
     If no name is provided, an automated name composed of today's date and current time will be used instead.
     
 :box:
