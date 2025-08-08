@@ -1719,7 +1719,7 @@ Save Palette:
 Palette name [Icon:DATATYPES/string]:
     #id: PALETTE
     Write a name to give to the selected palette when saving it.<br /><br />
-    If no name is provided, an automated name composed of today's date and current time will be used instead.
+    _If no name is provided (e.g. empty string) an automated name composed of today's date and current time will be used instead_.
     
 :box:
     #display: rounded white
@@ -2288,7 +2288,7 @@ Save Flame:
 Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: OUT
     Write a name to give to the selected Flame when saving it out.<br /><br />
-    If no name is provided, an automated name composed of today's date and current time will be used instead.
+    _If no name is provided (e.g. empty string) an automated name composed of today's date and current time will be used instead_.
     <br /><br />
 
     TIP:
@@ -2599,7 +2599,8 @@ Rotate [Icon:TOP/xmlinput]:
     
 Scale(lens) [Icon:TOP/xmlinput]:
     #id: OUT
-    Size of the lens. Because the quality won't be raised once loaded into third-party programs such as Fractorium or Apophysis, you will need to manually alter it from within the host program, making this XML key an affordable way to achieve zoom.
+    Lens size.<br /><br />
+    This XML key is an inexpensive method of achieving zoom since you will have to manually change the quality from within the host software because it won't be improved once loaded into third-party apps like Fractorium or Apophysis.
     
 update camera sensor [Icon:DATATYPES/boolean]:
     #id: OUT
