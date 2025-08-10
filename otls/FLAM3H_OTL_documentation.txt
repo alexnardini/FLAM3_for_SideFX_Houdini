@@ -356,9 +356,7 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         
 F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
-    *`On`* by default.
-
-    <br />
+    *`On`* by default.<br /><br />
 
     Flam3 compatibility.
 
@@ -2595,7 +2593,7 @@ Center [Icon:TOP/xmlinput]:
     
 Rotate [Icon:TOP/xmlinput]:
     #id: OUT
-    The Sensor rotation, also know as: roll.
+    The Sensor rotation (_also known as: roll_).
     
 Scale(lens) [Icon:TOP/xmlinput]:
     #id: OUT
@@ -2623,22 +2621,36 @@ Quality [Icon:TOP/xmlinput]:
 Brightness [Icon:TOP/xmlinput]:
     #id: OUT
     The Flame renderer setting: brightness.
+
+    Brightness in an image is simply how light or dark the image appears overall.
+
+    It’s the average amount of light (_luminance_) the image contains, usually measured from pure black (_no light_) to pure white (_maximum light_). Increasing brightness makes all pixels lighter; decreasing it makes them darker.
     
 Gamma [Icon:TOP/xmlinput]:
     #id: OUT
     The Flame renderer setting: gamma.
+
+    Gamma bends the curve, making midtones lighter or darker without heavily changing pure black or pure white.
+
+    Human vision isn’t linear, so gamma correction helps images look “right” to our eyes. If brightness is like turning a dimmer switch, gamma is more like adjusting the contrast in the middle of the range.
     
 Highlight power [Icon:TOP/xmlinput]:
     #id: OUT
     The Flame renderer setting: highlight power.
+
+    Highlights power controls how strongly the brightest parts of an image are adjusted, usually in a non-linear way. It only targets the upper end of the tonal range, leaving shadows and midtones mostly untouched.
     
 Logscale K2 [Icon:TOP/xmlinput]:
     #id: OUT
     The Flame renderer setting: Logscale K2.
+
+    Logscale usually means the values are being mapped using a logarithmic scale instead of a linear one.
     
 Vibrancy [Icon:TOP/xmlinput]:
     #id: OUT
     The Flame renderer setting: vibrancy.
+
+    Vibrancy is a color adjustment that boosts the intensity of muted colors while leaving already vivid colors (_and skin tones_) mostly untouched.
 
 
 :box:
