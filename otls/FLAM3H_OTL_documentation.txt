@@ -2615,42 +2615,39 @@ update camera sensor [Icon:DATATYPES/boolean]:
     
 Quality [Icon:TOP/xmlinput]:
     #id: OUT
-    The renderer quality.<br /><br />
+    _The Flame renderer setting: quality_.
+
     Think of this as how many points are used inside Fractorium to render the final image.
     
 Brightness [Icon:TOP/xmlinput]:
     #id: OUT
-    The Flame renderer setting: brightness.
+    _The Flame renderer setting: brightness_.
 
-    Brightness in an image is simply how light or dark the image appears overall.
-
-    It’s the average amount of light (_luminance_) the image contains, usually measured from pure black (_no light_) to pure white (_maximum light_). Increasing brightness makes all pixels lighter; decreasing it makes them darker.
+    Controls the overall lightness or darkness of the image. Increasing brightness shifts all pixels toward white; decreasing shifts them toward black. This adjustment affects the entire tonal range evenly.
     
 Gamma [Icon:TOP/xmlinput]:
     #id: OUT
-    The Flame renderer setting: gamma.
+    _The Flame renderer setting: gamma_.
 
-    Gamma bends the curve, making midtones lighter or darker without heavily changing pure black or pure white.
-
-    Human vision isn’t linear, so gamma correction helps images look “right” to our eyes. If brightness is like turning a dimmer switch, gamma is more like adjusting the contrast in the middle of the range.
+    Adjusts the distribution of midtones without significantly altering pure black or pure white. Higher gamma brightens midtones; lower gamma darkens them. Often used for display correction and tonal fine tuning.
     
 Highlight power [Icon:TOP/xmlinput]:
     #id: OUT
-    The Flame renderer setting: highlight power.
+    _The Flame renderer setting: highlight power_.
 
-    Highlights power controls how strongly the brightest parts of an image are adjusted, usually in a non-linear way. It only targets the upper end of the tonal range, leaving shadows and midtones mostly untouched.
+    Controls the strength of adjustments applied to the brightest areas of the image. Higher values make highlights more pronounced; lower values soften them, helping retain detail in bright regions.
     
 Logscale K2 [Icon:TOP/xmlinput]:
     #id: OUT
-    The Flame renderer setting: Logscale K2.
+    _The Flame renderer setting: Logscale K2_.
 
-    Logscale usually means the values are being mapped using a logarithmic scale instead of a linear one.
+    Applies a logarithmic remapping to pixel values. The k2 parameter controls the curve’s steepness, affecting how midrange values are compressed or expanded. Useful for tone mapping or handling high dynamic range data.
     
 Vibrancy [Icon:TOP/xmlinput]:
     #id: OUT
-    The Flame renderer setting: vibrancy.
+    _The Flame renderer setting: vibrancy_.
 
-    Vibrancy is a color adjustment that boosts the intensity of muted colors while leaving already vivid colors (_and skin tones_) mostly untouched.
+    Enhances the intensity of muted colors while leaving already vivid colors and skin tones largely unaffected. Provides a more natural color boost than global saturation.
 
 
 :box:
