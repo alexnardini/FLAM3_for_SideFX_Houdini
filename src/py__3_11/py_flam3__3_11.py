@@ -16771,6 +16771,8 @@ class out_flame_utils
     def out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple:
         """Build the XML Flame iterator's names to account for inactive ierators if any.
         If all are active or if an iterator has a custom name nothing will be changed.
+        
+        The iterator's name *.strip() is probably not needed as they are stripped already during the XML data collection but why not.
 
         Args:
             (self):
@@ -18224,8 +18226,6 @@ class out_flame_utils
     def __out_xf_data_color_speed(self) -> tuple:
         """Prepare the xform/iterator color speed into a proper string to be written out.
         This is specifically for Fractorium as it is the one using this conversion of values.
-        
-        The iterator's name *.strip() is probably not needed as they are stripped already during the XML data collection but why not.
 
         Args:
             (self):
