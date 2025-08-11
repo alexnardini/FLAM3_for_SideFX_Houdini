@@ -16787,9 +16787,11 @@ class out_flame_utils
                 if int(f3d.xf_vactive[mp_idx]):
                     if flam3h_iterator_utils.flam3h_iterator_is_default_name(f3d.xf_name[mp_idx]):
                         new_names.append(f"iterator_{iter_idx}")
-                        iter_idx = iter_idx + 1
                     else:
                         new_names.append(f3d.xf_name[mp_idx])
+                        
+                    iter_idx = iter_idx + 1
+                    
                 else:
                     new_names.append('OFF')
                     
