@@ -16797,7 +16797,7 @@ class out_flame_utils
             return tuple(new_names)
         
         else:
-            return tuple( [f"iterator_{mp_idx + 1}" if flam3h_iterator_utils.flam3h_iterator_is_default_name(f3d.xf_name[mp_idx]) or not str(f3d.xf_name[mp_idx]) == 0 else f3d.xf_name[mp_idx] for mp_idx in range(f3d.iter_count)] ) # type: ignore
+            return tuple( [f"iterator_{mp_idx + 1}" if flam3h_iterator_utils.flam3h_iterator_is_default_name(f3d.xf_name[mp_idx]) or not str(f3d.xf_name[mp_idx]) else f3d.xf_name[mp_idx] for mp_idx in range(f3d.iter_count)] ) # type: ignore
 
 
     # CLASS: PROPERTIES
