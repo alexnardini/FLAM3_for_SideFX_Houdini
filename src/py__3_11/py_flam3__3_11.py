@@ -4398,8 +4398,9 @@ class flam3h_iterator_utils
         Returns:
             (bool): True if the iterator name is a default name and False if not.
         """
-        x = re_search(regex, name.strip())
-        return True if x is not None and x.group() == name.strip() else False
+        name_strip: str = name.strip()
+        x = re_search(regex, name_strip)
+        return True if x is not None and x.group() == name_strip else False
 
 
     @staticmethod
@@ -5531,6 +5532,8 @@ class flam3h_iterator_utils
         prm = self.kwargs['parm']
         if not prm.eval():
             prm.set(f"iterator_FF")
+        else:
+            prm.set(str(prm.eval()).strip())
             
         
     def menu_T_get_var_data(self) -> tuple[int, float]:
