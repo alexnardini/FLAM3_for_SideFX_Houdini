@@ -16779,13 +16779,12 @@ class out_flame_utils
         Returns:
             (bool): A tuple of either the corrected names or the untouched ones.
         """
-        
         new_names: list = []
         if '0' in f3d.xf_vactive:
             iter_idx = 1
             for mp_idx in range(f3d.iter_count):
                 if int(f3d.xf_vactive[mp_idx]):
-                    if flam3h_iterator_utils.flam3h_iterator_is_default_name(f3d.xf_name[mp_idx]):
+                    if flam3h_iterator_utils.flam3h_iterator_is_default_name(f3d.xf_name[mp_idx]) or not str(f3d.xf_name[mp_idx]):
                         new_names.append(f"iterator_{iter_idx}")
                     else:
                         new_names.append(f3d.xf_name[mp_idx])
@@ -16794,11 +16793,11 @@ class out_flame_utils
                     
                 else:
                     new_names.append('OFF')
-                    
+
             return tuple(new_names)
         
         else:
-            return tuple( [f"iterator_{mp_idx + 1}" if flam3h_iterator_utils.flam3h_iterator_is_default_name(f3d.xf_name[mp_idx]) else f3d.xf_name[mp_idx] for mp_idx in range(f3d.iter_count)] ) # type: ignore
+            return tuple( [f"iterator_{mp_idx + 1}" if flam3h_iterator_utils.flam3h_iterator_is_default_name(f3d.xf_name[mp_idx]) or not str(f3d.xf_name[mp_idx]) == 0 else f3d.xf_name[mp_idx] for mp_idx in range(f3d.iter_count)] ) # type: ignore
 
 
     # CLASS: PROPERTIES
