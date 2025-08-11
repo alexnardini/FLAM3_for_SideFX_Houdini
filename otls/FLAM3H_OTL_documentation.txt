@@ -3476,8 +3476,8 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] Point size:
         #id: rendering
     
-    For simplicity, FLAM3H(tm) sets all *`@pscale`* to a value of *`0.001`*.
-    Any necessary adjustments can be made using a wrangle or the upstream geometry node point size multiplier.
+    For simplicity, FLAM3H(tm) sets all *`@pscale`* to a value of *`0.001`*.<br />
+    Any necessary adjustments can be made using a wrangle or the upstream geometry node point size multiplier. 
     It's important to keep in mind that *`@pscale`* will become *`@widths`* when importing FLAM3H(tm) into Stage/Solaris.
     
     As a general rule, the more points, the smaller the *`@pscale`* or *`@widths`* values need to be.
