@@ -16742,6 +16742,8 @@ class out_flame_utils
     def out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple:
         """Build the XML Flame iterator's names to account for inactive ierators if any.
         If all are active or if an iterator has a custom name nothing will be changed.
+        
+        The iterator's name *.strip() is probably not needed as they are stripped already during the XML data collection but why not.
 
         Args:
             (self):
