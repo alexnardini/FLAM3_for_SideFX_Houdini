@@ -2532,6 +2532,7 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
 
     The Camera Sensor in fractal Flames defines the virtual plane where the fractal is projected after all transformations have been applied. It acts as the final stage of the rendering pipeline, determining what portion of the fractal world is visible and how it is mapped to the output image.
     
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Purpose*:
     - Captures the result of the accumulated iterated function system (_IFS_) transformations.
     - Controls the field of view (_FOV_), zoom, and translation of the fractal within the frame.
