@@ -1700,7 +1700,9 @@ Save Palette:
     - ((ALT)) + ((LMB)) to save the current palette into the clipboard as a JSON data.
 
     - If the selected file is not a valid Palette JSON file type, nothing will happen.
-    
+
+    <br />
+
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Once you click save*:
     
     - If you select a location and a filename without an extension, it will automatically add the _*.json*_ extension to them.
@@ -1845,7 +1847,8 @@ Viz mb [Icon:DATATYPES/boolean]:
     <br /><br />
 
     NOTE:
-        When rendering, keep in mind to turn this *`Off`* to avoid superimposing a darker color.
+        When rendering,<br />
+        keep in mind to turn this *`Off`* to avoid superimposing a darker color.
         
 
 
@@ -1999,6 +2002,7 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
     
     F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded.
     
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *F3H affine style*<br />
     _Below is an example iterator at its default values rotated by 45 degrees inside FLAM3H_:
 
@@ -2007,6 +2011,7 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
     *O*: *`0`*, *`0`* <br />
     *Rot*: *`45`* 
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *standard affine style*<br />
     _And below is the same iterator affine values transformed by the rotation parameter when saved out into a Flame file. This version is used by other applications on load_:
 
@@ -2014,6 +2019,7 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
     *Y*: *`0.707107`*, *`0.707107`* <br />
     *O*: *`0`*, *`0`* 
 
+    <br />
     When this option is *`On`*/Active (_it is by default_) and both version are present into the Flame preset you are trying to load, it will load the preset using the F3H version, when *`Off`* it will use the standard version.
     <br /><br />
 
@@ -2334,6 +2340,7 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+    <br /><br />
 
 Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_optionStarBlueSVG.svg]:
     #id: FLAME
@@ -2380,6 +2387,7 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     
     When saving an iterator out into a Flame file whitch uses the Rotation angle paramter, FLAM3H(tm) will transform the affine values by it before saving them out so that it is possible to load the saved Flame inside other applications.
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *F3H affine style*<br />
     _Below is an example iterator at its default values rotated by 45 degrees inside FLAM3H_:
 
@@ -2388,6 +2396,7 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     *O*: *`0`*, *`0`* <br />
     *Rot*: *`45`* 
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *standard affine style*<br />
     _And below is the same iterator affine values transformed by the rotation parameter when saved out into a Flame file. This version is used by other applications on load_:
 
@@ -2395,6 +2404,7 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     *Y*: *`0.707107`*, *`0.707107`* <br />
     *O*: *`0`*, *`0`* 
 
+    <br />
     When this option is *`On`*/Active (_it is by default_), both versions of the affine will be saved into the Flame file so that we can choose to use either one or the other on load using the IN tab option: "F3H affine style".
     <br /><br />
 
@@ -2611,6 +2621,8 @@ update camera sensor [Icon:DATATYPES/boolean]:
     #display: rounded white
 
     == OUT: XML renderer settings == (OUTEDITRENSETTINGS)
+
+    _Those settings will control how third-party applications will render the fractal Flame you are saving_.
     
     
 Quality [Icon:TOP/xmlinput]:
