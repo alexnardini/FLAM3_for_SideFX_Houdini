@@ -18264,8 +18264,9 @@ class out_flame_utils
         Returns:
             (str): The FLAM3H™ FF name/note prepped into strings for writing out into the Flame preset file.
         """    
-        FF_name: str = self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.main_note}").eval()
-        return FF_name
+        FF_name: str = self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.main_note}").eval().strip()
+        if not FF_name: return "iterator_FF"
+        else: return FF_name
 
     
     def __out_xf_pre_blur(self) -> tuple:
