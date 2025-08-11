@@ -5515,6 +5515,8 @@ class flam3h_iterator_utils
         idx: int = self.kwargs['script_multiparm_index']
         if not prm.eval():
             prm.set(f"iterator_{idx}")
+        else:
+            prm.set(str(prm.eval()).strip())
             
             
     def note_FF(self) -> None:
