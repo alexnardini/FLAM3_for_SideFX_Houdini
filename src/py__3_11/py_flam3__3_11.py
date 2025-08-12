@@ -6,7 +6,7 @@ __copyright__ = "Copyright 2021, © F stands for liFe"
 
 __py_version__ = "3.11.7"
 __license__ = "GPL"
-__version__ = "1.8.57"
+__version__ = "1.8.60"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
@@ -11660,12 +11660,15 @@ class in_flame
                 if xform.get(key) is not None:
 
                     if key in XML_XF_NAME:
-                        keyvalues.append(xform.get(key))
+                        keyvalues.append(str(xform.get(key)).strip())
                         continue
                     
                     else:
-                        if key in XML_XF_OPACITY: default_val = '1'
-                        else: default_val = '0'
+                        if key in XML_XF_OPACITY:
+                            default_val: str | None = XML_TO_F3H_DEFAULT_VALS.get(XML_XF_OPACITY) # This way I keep this dict for all default values purposes
+                            if default_val is None: default_val = '0'
+                        else: default_val: str | None = '0'
+                        assert default_val is not None
                         keyvalues.append(float(self.xf_val_cleanup_str(xform.get(key), default_val, key)))
                         continue
                     

@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H(tm)
-#version: 1.8.57 - Production
+#version: 1.8.60 - Production
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.5.654 )"""
@@ -68,7 +68,8 @@ _This is akin to a person's genome, or DNA._<br />
 _Together, all of these variables contribute to the interesting nature of the fractal Flame discipline,_<br />
 _with its seemingly endless possibilities, effects, and patterns._
 
-[Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm), what is it ?*
+<br />
+[Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) - what is it ?*
 
 FLAM3H(tm), as the name suggests, is the implementation of _the fractal Flame algorithm_ inside SideFX Houdini.<br />
 There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
@@ -303,6 +304,7 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when an iterator is *`Off`*/Disabled.
     - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when an iterator is *`Off`*/Disabled and Marked.
 
+    <br />
     When an iterator shader's opacity is set to *`0`*(Zero),<br />
     its menu label will be prefixed with the message string: *`[ZERO opacity]`*<br />
     This is handy also when you load or build a Flame that uses containers so to easily spot the intermediary iterators used in the construction.
@@ -408,6 +410,7 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
     _These handles are not editable, but only for visualization purpose_.<br />
     _They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator(or FF) of the fractal Flame_.
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - Depending on its multi-parameter index number, each accessible iterator will produce an xform handle with a color, but the FF(_finalXform_) will always be grey/white and shown on top of the others to make it easy to identify when it is active.
 
@@ -793,6 +796,7 @@ note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
     _If no name is provided (e.g. empty string) a default one will be automatically set_.
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - An iterator default name is composed as: *`iterator_`* followed by its multi parameter index number, as in: *`iterator_7`*
     - Every time you add or remove an iterator, FLAM3H(tm) will rename the remaining one if they have a default name to match their new index.
@@ -821,6 +825,7 @@ copy/paste:
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is *`On`*/Active and *`0`*(Zero) Weight.
     - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when the marked iterator is *`Off`*/Disabled.
 
+    <br />
     When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another iterator either on the same FLAM3H(tm) node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
 
@@ -882,10 +887,12 @@ W [Icon:TOP/xmlinput]:
     
     Calculate the likelihood that this iterator will be selected during the Chaos game. You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator Weight is higher than the others.
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*
 
     An iterator(_aka: xform or transform_) is one of the rules that moves points around in a fractal Flame. Every time the algorithm runs an iteration, it randomly picks one iterator to apply to the point.
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *What does the Weight do ?*
 
     The Weight controls the probability that an iterator will be chosen.
@@ -893,12 +900,14 @@ W [Icon:TOP/xmlinput]:
     - Lower Weight → lower chance
     - Weight = 0 → never picked
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Why is this important ?*
 
     The probability of picking an iterator decides how often its pattern appears in the final image:
     - A big Weight means that iterator dominates the fractal.
     - A small Weight means it only adds subtle details.
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *In short*
     - Weights = the lottery tickets each iterator gets in the chaos game.<br />More tickets = more chances to be picked.
     
@@ -938,6 +947,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     - When in *`xaos FROM`* mode, you will think: *from* wich iterator am I allowed to receive points before I execute them myself?
     - Note that the same concept applies also to the iterator itself, this means the question will be: can I execute a point after I already executed it myself? (_like the yellow iterator with the_ *`Curl`* _variation in the above diagram/image._)
     
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How to set xaos in FLAM3H(tm) *
         
     - To set Xaos for a Flame with *`4`*(four) iterators, use the "*`xaos:`*" keyword followed by each iterator's Weight values separated by a colon: *`xaos:`* *1:2:3:4*.
@@ -946,6 +956,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     - If you set only *iterator 1* and *iterator 2*, FLAM3H(tm) will always fill in the rest with a value of *`1`*(one). As an example: *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
     - When turning iterators *`On`* and *`Off`* and removing or adding them, FLAM3H(tm) will internally remove and reformat Xaos values to account for missing iterators. It is fully automatic.
     
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Xaos command options*
     
     - If you type a non-numeric character in any of the xaos's weights, FLAM3H(tm) will undo to what you had before.
@@ -962,6 +973,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
         
     NOTE:
         - This parameter can not be animated.
+    <br /><br />
         
 auto space xaos weights / xaos information tips [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/boolean]:
     #id: FLAME
@@ -1160,6 +1172,8 @@ post affine [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: FLAME
     Enable post affine transformation.
 
+    *See the below iterator(_xform_) [post affine|#FLAMEITERPOSTAFFINE] description for more informations.*
+
 
 :box:
     #display: rounded white
@@ -1241,6 +1255,7 @@ pre affine [Icon:TOP/xmlinput]:
     # An affine transformation (_linear part + translation_).
     # A non-linear variation (_curvy distortions, like Swirl, Spherical, Horseshoe_)
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Why is it important ?*
     - The affine transform determine *where in the plane* the next variation happens.
     - It define the *basic skeleton* of the fractal.
@@ -1264,7 +1279,7 @@ pre affine [Icon:TOP/xmlinput]:
 
 pre affine Rot [Icon:TOP/xmlinput]:
     #id: FLAME
-    Rotate affine in angle degrees.<br />The rotation will take the values of *`X`*, *`Y`*, *`O`* and apply a rotation.
+    Rotate affine in angle degrees.<br />The rotation will take the values of *`X`*, *`Y`*, *`O`* and apply a rotation.<br />(_With *`O`* being the pivot_).
     <br /><br />
 
     NOTE:
@@ -1397,6 +1412,7 @@ FF: copy/paste:
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFSVG.svg] when the marked FF is *`On`*/Active.
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg] when the marked FF is *`Off`*/Disabled.
     
+    <br />
     When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another FLAM3H(tm) node' FF.
     This way you can keep the FF marked while working and paste again its data somewhere else after making additional changes to its contents.
 
@@ -1617,6 +1633,7 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] indicate a medium preset, *`512`* samples.
     - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset, *`1024`* samples.
     
+    <br />
     Lookup samples have no connection on the palette you design. Only a few color keys can be made;
     nevertheless, the palette will be internally sampled (_linearly spaced_) from *`0`*(Zero: _start_) to *`1`*(one: _end_) using this amount of samples.
     
@@ -1669,7 +1686,8 @@ JSON file. [Icon:DATATYPES/string]:
 
     - ((LMB)) to open a floating file chooser.
 
-    Load an already-created json palette library file or choose the path and name of a new one to create.
+    <br />
+    Load an already-created FLAM3H™ json palette library file or choose the path and name of a new one to create.
 
     The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     <br /><br />
@@ -1883,6 +1901,7 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
 
     The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     
+    <br />
     _The only restrictions are_:
     
     - The Flames contained in the file must use the same variations included inside FLAM3H(tm). 
@@ -2274,8 +2293,8 @@ Save Flame:
     - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
     - If nothing is selected (_e.g. OUT file empty or invalid_), nothing will happen.
     
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*:
-
     - When saving out Flame files, if you created a palette with more than *`256`* colors, for example with *`1024`* color keys and want to save them all to keep all the subtle color changes, turn *`On`* the *PREFS options* tab toggle -> *`palette 256+`*. 
     <br /><br />
 
@@ -2440,7 +2459,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.8.57" ... >
+          <flame version="FLAM3H-WIN-1.8.60" ... >
               ...
         }}}
         
@@ -2449,7 +2468,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.8.57" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.8.60" ... >
               ...
         }}}
         
@@ -2538,11 +2557,13 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
     - Controls the field of view (_FOV_), zoom, and translation of the fractal within the frame.
     - Provides the coordinate mapping from the continuous fractal space to the discrete pixel grid of the output image.
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How It Works in Context*:
     - After iterating and applying variations to generate points, these points exist in an infinite continuous space.
     - The Camera Sensor samples this space through its viewport parameters (_zoom, position, rotation_).
     - Points falling within this viewport are projected onto the sensor plane and rasterized into pixel coordinates.
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Notes*:
     - Unlike a physical camera sensor, this element is abstract and primarily mathematical.
     - Changing the sensor settings does not affect fractal generation logic; it only modifies how you see it.
@@ -2754,7 +2775,7 @@ _The following is an example of what the default Sierpiński triangle preset loo
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.57" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.60" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -2810,7 +2831,7 @@ _In this case we only have *`1`*(one) flame preset named: *Sierpiński triangle:
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.57" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.60" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     ...
   </flame>
 </flames>
@@ -2821,7 +2842,7 @@ _Under the flame preset XML key lives all its data: iterators/xforms data and it
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.57" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.60" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>
@@ -3177,7 +3198,7 @@ _A list of all variations included with FLAM3H(tm):_
     #display: rounded gray
     
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*<br /> 
-    _Note that all the following are also available as PRE_ _and/or POST_ _variations._<br /><br />
+    _Note that all the following are also available as PRE_ _and/or POST_ _variations (*`106`*)._<br /><br />
 
     *Arch*, 
     *Auger*, 
@@ -3374,9 +3395,9 @@ _A list of all parametric variations and their parametric parameter's names._
     
     - [Smallicon:BUTTONS/show_parms] *Lazysusan*       ->      _`Spin`*,* `Twist`*,* `Space`_
     
-    - [Smallicon:BUTTONS/show_parms] *Mobius*          ->      _`Re A`*,* `Re B`*,* `Re C`*,* `Re D`_
+    - [Smallicon:BUTTONS/show_parms] *Mobius*          ->      _`ReA`*,* `ReB`*,* `ReC`*,* `ReD`_   ->  _Real_
     
-    - [Smallicon:BUTTONS/show_parms] *Mobius*          ->      _`Im A`*,* `Im B`*,* `Im C`*,* `Im D`_
+    - [Smallicon:BUTTONS/show_parms] *Mobius*          ->      _`ImA`*,* `ImB`*,* `ImC`*,* `ImD`_   ->  _Imaginary_
     
     - [Smallicon:BUTTONS/show_parms] *Modulus*         ->      _`X`*,* `Y`_
     
@@ -3386,7 +3407,7 @@ _A list of all parametric variations and their parametric parameter's names._
     
     - [Smallicon:BUTTONS/show_parms] *Parabola*        ->      _`Height`*,* `Width`_
     
-    - [Smallicon:BUTTONS/show_parms] *Pdj*             ->      _`w A`*,* `w B`*,* `w C`*,* `w D`_
+    - [Smallicon:BUTTONS/show_parms] *Pdj*             ->      _`wA`*,* `wB`*,* `wC`*,* `wD`_
     
     - [Smallicon:BUTTONS/show_parms] *Perspective*     ->      _`Angle`*,* `Distance`_
     
