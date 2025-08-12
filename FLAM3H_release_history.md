@@ -12,8 +12,6 @@ They are all available in this github repository.</br>
 
 ### [<ins>From v1.8.60</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.60) ###
 
-- **Fix**: 
-- **Fix**: 
 - **Fix**: When saving flames with empty iterator FF name (only in a rare case in H19.x), the iterator FF name was not being built properly. it is now fixed.
 - **Fix**: When saving flames with empty iterator's names (only in a rare case in H19.x), the iterator names were not being built properly. it is now fixed.
 - **Fix**: When saving flames with inactive iterators while some with a name different from their default name, the iterator number was not being counted properly. it is now fixed.
