@@ -10,11 +10,11 @@
   <img width="160" height="160" src="./img/LOGO_F_github.svg" />
 </p>
 
-**[FLAM3H website](https://www.alexnardini.net/flame-home/)**
+**[FLAM3H™ website](https://www.alexnardini.net/flame-home/)**
 
-**[FLAM3H tutorials](https://www.youtube.com/@alexnardiniITALY/videos)**
+**[FLAM3H™ tutorials](https://www.youtube.com/@alexnardiniITALY/videos)**
 
-**[FLAM3H instagram](https://www.instagram.com/alexnardini/)**
+**[FLAM3H™ instagram](https://www.instagram.com/alexnardini/)**
 
 ### Premise
 
@@ -28,7 +28,7 @@ It was important, so I could shape and steer this tool in the right direction.
 
 ### Description
 
-`FLAM3H node OTL documentation.`
+`FLAM3H™ node OTL documentation.`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_OTL_documentation_H19.jpg)
 
 CVEX has been used to implement the algorithm in its entirety.
@@ -125,7 +125,7 @@ Using Houdini's cvex/vex language, this implementation initially concentrated on
 
 Because FLAM3H™ was designed with fractal artists in mind, many internal automation that could be done to provide a seamless and pleasurable experience has been completed.
 
-FLAM3H prioritizes the user and their quality of life while using it, from completely automated Xaos and iterators/xforms handling to a slick, practical, and compact user interface.
+FLAM3H™ prioritizes the user and their quality of life while using it, from completely automated Xaos and iterators/xforms handling to a slick, practical, and compact user interface.
 
 The workflow is convenient and quick since data can be copied and pasted between iterators/xforms and between various FLAM3H™ nodes.
 Along with many other quality-of-life features inside the Houdini environment, third-party tools like Apophysis and Fractorium allow you to interchange data from and to FLAM3H™ simply by copying and pasting from the clipboard, making the process as smooth and comprehensive as possible.
@@ -136,7 +136,7 @@ Python and the Houdini's HOM libraries have been used to achieve all of this.
 
 Any parameter that is available in FLAM3H™ can be animated using any of the Houdini procedural paradigms and toolkits. These include but not limited to animation curves, expressions, and procedurally produced data from anywhere in Houdini, such as DOP Simulations, Particles data, CHOPS, and many more.
 
-FLAM3H comes with a straightforward utility LOP node call **FLAM3HUSD** to makes it easier to move the fractal Flame point cloud into the USD context Solaris. This node allow to set up and render FLAM3H™ fractal Flames using Houdini's Karma renderer within a few clicks.
+FLAM3H™ comes with a straightforward utility LOP node call **FLAM3HUSD** to makes it easier to move the fractal Flame point cloud into the USD context Solaris. This node allow to set up and render FLAM3H™ fractal Flames using Houdini's Karma renderer within a few clicks.
 
 To finish, FLAM3H™ features a detailed documentation that is designed to provide you with all the information you would need. This also extend to generous tooltips for each parameter in the FLAM3H™ Houdini user interface.
 
