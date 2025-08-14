@@ -30,7 +30,7 @@
 
 _Github of the original "The Fractal Flame Algorithm": [FLAM3|https://github.com/scottdraves/flam3]_
 
-_Github repository I used a lot as reference: "Fractorium" from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]_
+_Bitbucket repository I used a lot as reference from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]_
 
 
 [Icon:opdef:.?icon_optionStarBlueSVG.svg]  *Preface*:
@@ -1247,7 +1247,7 @@ pre affine [Icon:TOP/xmlinput]:
     It's like applying a mathematical "filter" that changes the position and orientation of things, but *doesn't bend or curve them*.
 
     Fractal Flames are created using an Iterated Funtion System (*IFS*). This mean:
-    - You have a set of funtions.
+    - You have a set of functions.
     - You repeatedly apply one of them to a point.
     - Over time, the points create a fractal pattern.
 
@@ -1615,7 +1615,7 @@ HSV palette [Icon:DATATYPES/ramp]:
     #id: PALETTE
     *It is meant for preview only and you can not edit this palette*.
     
-    When changing the HSV values from their defaults, this palette will preview the output of the final color corrected colors.
+    When changing the HSV values from their defaults, this palette will preview the output of the final color corrected palette.
 
     _The palette parameter come with the following tool icon_: <br />
 

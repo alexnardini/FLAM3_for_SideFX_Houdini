@@ -242,9 +242,9 @@ Please be sure to check out their gallery:
 
 Reference A: [**Github :: FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
 
-Reference B: [**Github :: Fractorium from Matt Feemster**](https://bitbucket.org/mfeemster/fractorium/src/master/)
+Reference B: [**Bitbucket :: Fractorium from Matt Feemster**](https://bitbucket.org/mfeemster/fractorium/src/master/)
 
-Reference C: [**Github :: Apophysis 7x**](https://github.com/xyrus02/apophysis-7x)
+Reference C: [**Github :: Apophysis 7x from Georg Kiehne**](https://github.com/xyrus02/apophysis-7x)
 
 Reference D: [**PDF :: The Fractal Flame Algorithm publication**](https://flam3.com/flame_draves.pdf)
 
