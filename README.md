@@ -3,7 +3,7 @@
 
 `The above fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer.`
 
-## FLAM3 for SideFX Houdini v1.x ( aka: FLAM3H )
+## FLAM3 for SideFX Houdini v1.x ( aka: FLAM3H™ )
 **_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
 
 <p align="center">
@@ -86,18 +86,18 @@ All the render settings required by third-party programs such as Apophysis and F
 
 A portion of the render parameters deal with the camera and how the fractal Flame you just saved is framed.
 
-The FLAM3H camera sensor will precisely display the image framing.
+The FLAM3H™ camera sensor will precisely display the image framing.
 
 Once framed, you can save the Flame and be sure it will be framed the same in other applications like Apophysis, Fractorium and others.
 
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_01.jpg)
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_02.jpg)
-`Camera sensor: FLAM3H to Fractorium`
+`Camera sensor: FLAM3H™ to Fractorium`
 
 ## Load Flames files authored with Apophysis, Fractorium, etc.
 
-Following are some images showing FLAM3H rendering some of the Fractorium's example flame files.
-Some have been modified to fit within FLAM3H's available variations. The screenshots show
+Following are some images showing FLAM3H™ rendering some of the Fractorium's example flame files.
+Some have been modified to fit within FLAM3H™ available variations. The screenshots show
 Houdini Karma interactive on the left, and Fractorium with the same flame file on the right.
 
 `Chocolate Scaffold in Too Many Dimensions by plangkye. Source: Fractorium`
@@ -123,22 +123,22 @@ _They are 106, if you were wondering..._
 
 Using Houdini's cvex/vex language, this implementation initially concentrated only on the core algorithm. However, it gradually became apparent that a significant portion of the work needed to be focused on the user experience and how all the algorithm pieces are stitched together in a meaningful way for the user, making this part of the project very time consuming.
 
-Because FLAM3H was designed with fractal artists in mind, many internal automation that could be done to provide a seamless and pleasurable experience has been completed.
+Because FLAM3H™ was designed with fractal artists in mind, many internal automation that could be done to provide a seamless and pleasurable experience has been completed.
 
 FLAM3H prioritizes the user and their quality of life while using it, from completely automated Xaos and iterators/xforms handling to a slick, practical, and compact user interface.
 
-The workflow is convenient and quick since data can be copied and pasted between iterators/xforms and between various FLAM3H nodes.
-Along with many other quality-of-life features inside the Houdini environment, third-party tools like Apophysis and Fractorium allow you to interchange data from and to FLAM3H simply by copying and pasting from the clipboard, making the process as smooth and comprehensive as possible.
+The workflow is convenient and quick since data can be copied and pasted between iterators/xforms and between various FLAM3H™ nodes.
+Along with many other quality-of-life features inside the Houdini environment, third-party tools like Apophysis and Fractorium allow you to interchange data from and to FLAM3H™ simply by copying and pasting from the clipboard, making the process as smooth and comprehensive as possible.
 
 It fully support the *.flame file format for maximun compatibility.
 
 Python and the Houdini's HOM libraries have been used to achieve all of this.
 
-Any parameter that is available in FLAM3H can be animated using any of the Houdini procedural paradigms and toolkits. These include but not limited to animation curves, expressions, and procedurally produced data from anywhere in Houdini, such as DOP Simulations, Particles data, CHOPS, and many more.
+Any parameter that is available in FLAM3H™ can be animated using any of the Houdini procedural paradigms and toolkits. These include but not limited to animation curves, expressions, and procedurally produced data from anywhere in Houdini, such as DOP Simulations, Particles data, CHOPS, and many more.
 
-FLAM3H comes with a straightforward utility LOP node call **FLAM3HUSD** to makes it easier to move the fractal Flame point cloud into the USD context Solaris. This node allow to set up and render FLAM3H fractal Flames using Houdini's Karma renderer within a few clicks.
+FLAM3H comes with a straightforward utility LOP node call **FLAM3HUSD** to makes it easier to move the fractal Flame point cloud into the USD context Solaris. This node allow to set up and render FLAM3H™ fractal Flames using Houdini's Karma renderer within a few clicks.
 
-To finish, FLAM3H features a detailed documentation that is designed to provide you with all the information you would need. This also extend to generous tooltips for each parameter in the FLAM3H Houdini user interface.
+To finish, FLAM3H™ features a detailed documentation that is designed to provide you with all the information you would need. This also extend to generous tooltips for each parameter in the FLAM3H™ Houdini user interface.
 
 ## Considerations
 
@@ -150,7 +150,7 @@ Karma and the built-in Nvidia Optix denoiser make a fantastic combination for re
 
 As far as I know, there are no switch/case constructors or other types of pointer functions in the CVEX language. I connected hundreds of "if"/"else if" statements to arrive at the chosen variation. Despite my best efforts to partition them, this section ended up becoming somewhat of a bottleneck for the entire implementation.
 
-Python run single threaded here, now that this tool has lots of python code running or when many iterators are created, Houdini's FLAM3H user interface becames slow.
+Python run single threaded here, now that this tool has lots of python code running or when many iterators are created, Houdini's FLAM3H™ user interface becames slow.
 I made some effort to make it better, and from [v1.4.75](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.4.75) I was finally able to start improving the UI performance a fair bit.
 
 All the python automations that are currently in place are really "nice to have" features that improve the workflow by a lot.
@@ -172,14 +172,14 @@ Some require thousands of iterations to show you the proper results; some of the
 
 ### Lets start with this gnarl preset:
 
-Iterations needed in FLAM3H to resolve: **1280**
+Iterations needed in FLAM3H™ to resolve: **1280**
 
 `ieddaka gnarl. Author: zuek`
 ![Chaotica to FLAM3HOUDINI 00](./img/ChaoticaToFLAM3HOUDINI_00.jpg)
 
 ### The next two are a bit more speedy:
 
-Iterations needed in FLAM3H to resolve: **512**
+Iterations needed in FLAM3H™ to resolve: **512**
 ( potentially a bit less are needed for those but just in case. )
 
 `blue modulus. Author: tatasz`
@@ -190,21 +190,21 @@ Iterations needed in FLAM3H to resolve: **512**
 
 ### This one is quick and beautiful:
 
-Iterations needed in FLAM3H to resolve: **64**
+Iterations needed in FLAM3H™ to resolve: **64**
 
 `majestic. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 03](./img/ChaoticaToFLAM3HOUDINI_03.jpg)
 
 ### And the last one:
 
-Iterations needed in FLAM3H to resolve: **32**
+Iterations needed in FLAM3H™ to resolve: **32**
 
 `blurry splits. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 04](./img/ChaoticaToFLAM3HOUDINI_04.jpg)
 
-The following is another preset Chaotica software ship with I truly loved ported inside FLAM3H and rendered with Karma renderer.
+The following is another preset Chaotica software ship with I truly loved ported inside FLAM3H™ and rendered with Karma renderer.
 
-Iterations needed in FLAM3H to resolve: **64**
+Iterations needed in FLAM3H™ to resolve: **64**
 
 `Golden Dragon - Author: meckie`
 ![goldenDragon_RENDER_2K_portrait](https://user-images.githubusercontent.com/42110232/237032379-56571708-d00a-4b93-ab2b-ea773700dce5.jpg)
@@ -214,7 +214,7 @@ especially when relying heavily on containers and such.
 
 However, from all my tests, between 10 and 96 iterations will get you covered for almost all your needs. And don't forget, you can create some beautiful fractal flames with just six iterations. Here is one I did:
 
-Iterations needed in FLAM3H to resolve: **6**
+Iterations needed in FLAM3H™ to resolve: **6**
 
 `Knot clusters - Author: Alessandro Nardini`
 ![Chaotica to FLAM3HOUDINI 04](./img/FLAM3H_knotCluster_HQ_iter_6.jpg)

@@ -74,7 +74,7 @@ _with its seemingly endless possibilities, effects, and patterns._
 FLAM3H(tm), as the name suggests, is the implementation of _the fractal Flame algorithm_ inside SideFX Houdini.<br />
 There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
 
-Fractal art is not easy at all.<br />
+Fractal art is not easy at all in the beginning.<br />
 For this reason, it is suggested that you possess prior experience with this art form, may that be with Apophysis, Fractorium or really any other fractal Flame editor out there. This implementation was influenced by Apophysis, particularly in the fast/quick workflow design, but it has been biased in its underlying code toward Fractorium.
 
 There is a very large, kind, and talented community out there that you can tap into and gather lots of information from to learn how to do fractal art.
@@ -2060,7 +2060,7 @@ Reload preset with "F3H affine style" changes:
     - ((ALT)) + ((LMB)) to perform the same operation as above but loading a Flame from the Clipboard instead.
 
     
-Copy renderer settings on Load [Icon:DATATYPES/boolean]:
+Copy render properties on Load [Icon:DATATYPES/boolean]:
     #id: IN
     *`On`* by default.
     
