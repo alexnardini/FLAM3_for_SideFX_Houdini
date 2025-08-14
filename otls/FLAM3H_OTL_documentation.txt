@@ -1068,7 +1068,7 @@ Opacity [Icon:TOP/xmlinput]:
 
         _Each iterator allows up to *`8`*(eight) variations_:
             
-        - *`pre blur`* plus *`2`*(two) *`PRE`*
+        - *`Pre_blur`* plus *`2`*(two) *`PRE`*
         - *`4`*(four) *`VAR`*
         - *`1`*(one) *`POST`*
         
@@ -1906,7 +1906,7 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
     
     - The Flames contained in the file must use the same variations included inside FLAM3H(tm). 
     - A maximum of:
-        - *`pre blur`* plus *`2`*(two) *`PRE`*
+        - *`Pre_blur`* plus *`2`*(two) *`PRE`*
         - *`4`*(four) *`VAR`*
         - *`1`*(one) *`POST`* 
         - For a total of *`8`*(eight) variations each iterator. If it finds more on load, the excess ones will be discarded.

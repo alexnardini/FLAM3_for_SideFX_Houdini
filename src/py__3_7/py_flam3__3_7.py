@@ -82,6 +82,25 @@ from inspect import cleandoc as i_cleandoc
                 DOC-STRINGS
                     To distinguish class @staticmethods from the class @methods, the class @methods doc-string Args list always start with the argument: (self):
                     This make it easier to distinguish them when typing their name while checking their infos like for example in VSCode. 
+                    
+                    
+                GLOBALS -> hou.session.*
+
+                    hou.session.FLAM3H_FIRST_INSTANCE_32BIT
+                    hou.session.FLAM3H_FIRST_INSTANCE_64BIT
+                    hou.session.FLAM3H_SYS_UPDATE_MODE
+                    hou.session.FLAM3H_MARKED_ITERATOR_NODE
+                    hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX
+                    hou.session.FLAM3H_MARKED_FF_NODE
+                    hou.session.FLAM3H_MARKED_FF_CHECK
+                    hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH
+                    hou.session.FLAM3H_SENSOR_CAM_STASH
+                    hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE
+                    hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT
+                    hou.session.FLAM3H_SENSOR_CAM_STASH_DICT
+                    hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT
+                    hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT
+                    hou.session.H_CS_STASH_DICT
 
 
                 LIST OF CLASSES:
