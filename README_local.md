@@ -64,8 +64,8 @@ Karma interactive rendering in the Houdini's viewport:
 
 **Highly inspired by Apophysis software and its workflow design.**
 
-Many Apophysis fractal flames are available for download on the web, and you can load them inside FLAM3H.
-Or you can use Apophysis or Fractorium to author your flames first and load them back into FLAM3H. But also the other way around, create your flames in Houdini and render them inside other applications. You've got choices.
+Many Apophysis fractal flames are available for download on the web, and you can load them inside FLAM3H™.
+Or you can use Apophysis or Fractorium to author your flames first and load them back into FLAM3H™. But also the other way around, create your flames in Houdini and render them inside other applications. You've got choices.
 
 **Download Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
 
@@ -82,7 +82,7 @@ Imagine the possibilities using Houdini procedural paradigm and toolsets to cont
 
 ## Camera sensor
 
-All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H.
+All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H™.
 
 A portion of the render parameters deal with the camera and how the fractal Flame you just saved is framed.
 
@@ -166,7 +166,7 @@ Some use less, and some use a bit more. A few exceptions went above 128 and up t
 
 Some flames need truly an high number of iterations to be resolved correctly.
 
-Listed below are presets from Chaotica software that were converted to FLAM3H. They were chosen because some of them are very expensive to solve and because they make use of variations I've already implemented.
+Listed below are presets from Chaotica software that were converted to FLAM3H™. They were chosen because some of them are very expensive to solve and because they make use of variations I've already implemented.
 
 Some require thousands of iterations to show you the proper results; some of them require hundreds, and some others are really quick.
 
