@@ -2857,7 +2857,7 @@ _Under the flame preset XML key lives all its data: iterators/xforms data and it
 
 [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*
 
-_When you save a Flame preset to the Clipboard, it will be rootless (not under a *`flames`* XML root key). This is a convention adopted by all the other third-party applications. However FLAM3H(tm) can load a single Flame presets with and without a root. If more than 1(one) Flame preset exist in a file, they must be grouped under the same root._ 
+_When you save a Flame preset to the Clipboard, it will be rootless (not under a *`flames`* XML root key). This is a convention adopted by all the other third-party applications. However FLAM3H(tm) can load a single Flame preset with and without a root. If more than 1(one) Flame preset exist in a file, they must be grouped under the same root._ 
 
 <br />
 <br />
