@@ -18516,7 +18516,7 @@ class out_flame_utils
     def __out_flame_palette_lookup_samples(self) -> str | bool:
         """Prepare the FLAM3H™ lookup samples to be written out into the Flame preset file.
         It will check if palette 256+ is active and if so if the number of palette color keys are enough to use higher samples or not.
-        IF plaette 256+ toggle is off, it will check if the user is using a lookup sample value different from default and store it if so.
+        If plaette 256+ toggle is off, it will check if the user is using a lookup sample value different from default and store it if so.
         
         Args:
             (self):
