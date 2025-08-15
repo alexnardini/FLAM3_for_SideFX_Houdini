@@ -3494,7 +3494,7 @@ class flam3h_general_utils
                     prm_off.set('0')
                     # Mark this as not a loaded preset
                     self.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
-                    # check if the selected palette file is locked
+                    # check if the selected FLAM3H™ palette file is locked
                     if self.isLOCK(json_path_checked):
                         flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, MSG_PALETTE_MSG)
                         # Lets print to the status bar as well
@@ -3520,7 +3520,7 @@ class flam3h_general_utils
                         prm_off.set('0')
                         # Mark this as not a loaded preset
                         self.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
-                        # check if the selected palette file is locked
+                        # check if the selected FLAM3H™ palette file is locked
                         if self.isLOCK(json_path_checked):
                             flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, MSG_PALETTE_MSG)
                             # Lets print to the status bar as well
@@ -8099,7 +8099,7 @@ class flam3h_iterator_utils
 
 
     def iterators_count(self) -> None:
-        """Every time an iterator is added or remove
+        """Every time an iterator is added or removed
         this will run and execute based on iterator's number: Zero or more then Zero.
 
         Args:
@@ -8188,7 +8188,7 @@ class flam3h_iterator_utils
                 it is not necessary anymore to revert the last iterator to being active anymore.
         
         While it is possible to delete all iterators,
-        we must always have at least one active iterator, if at least one iterator is present and its weight above Zero.
+        we must always have at least one active iterator, if at least one iterator is present and its Weight above Zero.
         This will prevent the last active iterator to being disabled.
         
         _NOTE:
@@ -8235,7 +8235,7 @@ class flam3h_iterator_utils
         It will prevent the lasct active iterator to be turned OFF.
         
         _NOTE:
-            The parameters names is hard coded here to try to speed up even if a tiny bit.
+            The parameters names are hard coded here to try to speed up even if a tiny bit.
             If class flam3h_iterator_prm_names: is updated, need to be updated here too.
             
         Args:
@@ -8260,7 +8260,7 @@ class flam3h_iterator_utils
         This will prevent to set the last active iterator's Weight to be Zero.
         
         _NOTE:
-            The parameters names is hard coded here to try to speed up even if a tiny bit.
+            The parameters names are hard coded here to try to speed up even if a tiny bit.
             If class flam3h_iterator_prm_names: is updated, need to be updated here too.
             
         Args:
@@ -8526,7 +8526,7 @@ class flam3h_palette_utils
                     if msg:
                         _MSG: str = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H™ Palette data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f"CP LOAD: Not a valid FLAM3H™ JSON palette file")
+                        flam3h_general_utils.flash_message(node, f"CP LOAD: Not a valid palette file")
                     del data
                     return True, False
                 
@@ -8664,7 +8664,7 @@ class flam3h_palette_utils
     @staticmethod 
     def json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
         """Check is the plaette plus str "[256+]" is displayed already and add a custom string message(_MSG) to it.
-        This is used inside: flam3h_init_presets_CP_PRESETS(self, mode=1) and its run everytime we load a palette file while the presets menu is being initialized.
+        This is used inside: flam3h_init_presets_CP_PRESETS(self, mode=1) and its run everytime we load a FLAM3H™ palette file while the presets menu is being initialized.
         
         Args:
             node(hou.SopNode): The current FLAM3H™ node.
@@ -9117,7 +9117,7 @@ class flam3h_palette_utils
                             else:
                                 _MSG: str = f"{node.name()}: Palette JSON SAVE: Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H™ Palette data."
                                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                                flam3h_general_utils.flash_message(node, f"CP SAVE: Not a valid FLAM3H™ JSON palette file")
+                                flam3h_general_utils.flash_message(node, f"CP SAVE: Not a valid palette file")
                                 
                         else:
                             # if the file exist and is a valid JSON file
@@ -9192,14 +9192,14 @@ class flam3h_palette_utils
                             
                             if json_file:
                                 # If it is a legitimate JSON file
-                                _MSG: str = f"{node.name()}: Palette JSON SAVE: Although the JSON file you loaded is legitimate, it does not contain any valid F3H Palette data."
+                                _MSG: str = f"{node.name()}: Palette JSON SAVE: Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H™ JSON Palette data."
                                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                                flam3h_general_utils.flash_message(node, f"CP SAVE: Not a valid F3H JSON palette file")
+                                flam3h_general_utils.flash_message(node, f"CP SAVE: Not a valid palette file")
                             else:
                                 # If it is any other file
-                                _MSG: str = f"{node.name()}: Palette JSON SAVE: CP file not a valid PALETTE F3H file."
+                                _MSG: str = f"{node.name()}: Palette JSON SAVE: CP file not a valid FLAM3H™ JSON PALETTE file."
                                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                                flam3h_general_utils.flash_message(node, f"CP SAVE: Not a valid F3H JSON palette file")
+                                flam3h_general_utils.flash_message(node, f"CP SAVE: Not a valid palette file")
                         
             else:
                 _MSG: str = f"{node.name()}: SAVE Palette: Select a valid output file or a valid filename to create first."
@@ -16276,7 +16276,7 @@ class out_flame_utils
             node(hou.SopNode): This FLAM3H™ node.
             infile(str): THe file path to check.
             file_new(str): The new generated file full path
-            file_ext(str): Provide an extension to tell this function if it is a Flame file or a palette file. 
+            file_ext(str): Provide an extension to tell this function if it is a Flame file or a FLAM3H™ palette file. 
             prx(str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame' (AUTO_NAME_CP: str or AUTO_NAME_OUT: str)
 
         Returns:
@@ -16321,7 +16321,7 @@ class out_flame_utils
         Args:
             node(hou.SopNode): Current FLAM3H™ node.
             infile(str): THe file path to check.
-            file_ext(str): Provide an extension to tell this function if it is a Flame file or a palette file. 
+            file_ext(str): Provide an extension to tell this function if it is a Flame file or a FLAM3H™ palette file. 
             prx(str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame' (AUTO_NAME_CP: str or AUTO_NAME_OUT: str)
             out(int): Default to True. Which Flame tab are we running this from? False for IN tab, True for OUT tab.
             auto_name(bool): Default to: True. When checking the output path you some time do not want to generate a filename and extension, like for example inside the IN file string parameter.
