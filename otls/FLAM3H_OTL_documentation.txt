@@ -291,7 +291,7 @@ FLAM3H(tm) documentation:
 mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     #id: SYS
 
-    A quick shortcut mini-menu to quickly change focus to a desired multi-parameter's tab number.
+    A quick shortcut mini-menu to quickly change focus to a desired multi-parameter's tab number. The menu entries are populated using each iterator’s note/name.
 
     This is handy when many iterators are created for the fractal Flame you are working on.
 
@@ -314,13 +314,9 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
 
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when there are zero iterators.
     <br /><br />
-
-    TIP:
-        #display: orange
-        The menu entries are populated using each iterator's note.
     
     NOTE:
-        Selecting an iterator using the Parameter Dialog over the network editor wont work. You must place the Parameter Editor in its own pane or floating pane tab for this feature to work.
+        This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the ((p)) key. Please, open a Parameter Editor in its own pane tab or floating panel for this feature to work.
 
 
 FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
@@ -585,9 +581,8 @@ mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
 
     TIP:
         #display: orange
-        To populate this menu, load a palette *.json file first inside the CP Tab,
-        
-        or ((SHIFT)) + ((LMB)) the icon to open a file dialog window to load a palette *.json file.
+        To populate this menu, load a FLAM3H™ palette *.json file first inside the CP Tab,<br />
+        or ((SHIFT)) + ((LMB)) the icon to open a floating file chooser.
         
     
 CP Preset reload:
@@ -628,9 +623,8 @@ mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
 
     TIP:
         #display: orange
-        To populate this menu, load a valid *.flame file first inside the IN Tab,
-        
-        or ((SHIFT)) + ((LMB)) the icon to open a file dialog window to load a *.flame file.
+        To populate this menu, load a valid *.flame file first inside the IN Tab,<br />
+        or ((SHIFT)) + ((LMB)) the icon to open a floating file chooser.
     
 IN Preset reload:
     #id: SYS
@@ -804,7 +798,7 @@ note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     <br /><br />
 
     NOTE:
-        The text you write here will be stored with the Flame file and also shown inside Apophysis and Fractorium as the iterator's name.
+        The text you write here will be stored with the Flame file and also shown inside third-party applications like Apophysis and Fractorium as the iterator's name.
     
 copy/paste:
     #id: FLAME
@@ -1095,7 +1089,7 @@ menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     TIP:
         #display: orange
         When authoring your Flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3H(tm)
-        remeber that the variation *`pre_gaussian_blur`* will be remapped to *`pre_blur`* on Flame load by default if it is the first one in the list of applied pre_variations.
+        remeber that the variation *`pre_gaussian_blur`* will be remapped to *`pre_blur`* on Flame load by default if it is the first one in the list of applied *`PRE`* variations.
 
     
 menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
