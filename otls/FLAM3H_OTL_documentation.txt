@@ -1874,8 +1874,10 @@ Viz mb [Icon:DATATYPES/boolean]:
 :box:
     #display: inverted teal
 
-    *IN: Load* _*.flame file created with Apophysis, Fractorium and others._
+    *IN*: _Load *.flame files created with Apophysis, Fractorium, FLAM3H(tm) and others._
     
+    The IN tab allows users to import and manage pre-existing fractal Flame files into FLAM3H(tm). This feature is essential for reloading saved Flames, exploring shared Flame designs, or modifying existing structures. It is a native Flame fractal file format containing transformation parameters, gradients, and rendering settings.
+
     A *.flame file is an XML-formatted type of file.
 
 
@@ -2208,13 +2210,12 @@ Copy/Paste SENSOR/RENDER preset settings:
 :box:
     #display: inverted teal
 
-    *OUT: Save* _*.flame file type to be loaded back inside Apophysis, Fractorium and others._
+    *OUT*: _Save *.flame file type to be loaded back inside Apophysis, Fractorium, FLAM3H(tm) and others._
  
-    Inside here, you can export your fractal Flame into an XML format. (_standard *.flame file format_)
-    and reload it inside FLAM3H(tm) or inside Apophysis, Fractorium and others.
+    The OUT tab provides options to export your current fractal Flame work, preserving all necessary data for future editing, sharing or rendering. It ensures your creative progress is safely stored in standard format compatible with other Flame tools and rendering engines. It is a native Flame fractal file format containing transformation parameters, gradients, and rendering settings.
     
-    The Flame file format does not support animations, but only static frames, so to speak.
-    If you animated your fractal Flame, save the hip file from Houdini instead.
+    A *.flame file is an XML-formatted type of file.<br />
+    The Flame file format does not support animations, but only static frames, so to speak. If you animated your fractal Flame, save the hip file from Houdini instead.
     
 
 :box:
@@ -3104,7 +3105,7 @@ Wire width default:
 :box:
     #display: inverted teal
 
-    *About.* _Here you will find information about FLAM3H(tm)._
+    *About.* _Here you will find informations about FLAM3H(tm)._
 
 About:
     #id: about
