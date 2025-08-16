@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H(tm)
-#version: 1.8.60 - Production
+#version: 1.8.61 - Production
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.5.654 )"""
@@ -197,7 +197,7 @@ iterations [Icon:TOP/xmlinput]:
 
     TIP:
         #display: orange
-        When: " *add iterations to Flame name* " toggle is *`On`* inside the OUT Tab,
+        When: " *add iterations to Flame name* " toggle is *`On`* inside the OUT tab,
         changing the iteration's parameter will update the Flame name, if any have been typed.
 
 
@@ -343,7 +343,7 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
     - After the algorithm transforms the points, it is possible for some of those points to shoot to infinity. Turn this *`On`* to get rid of those points.
-    - When an iterator's opacity is *`0`*(Zero), you can activate this SYS Tab's *RIP* option to get rid of those points ( _since_ *opacity* = *`@pscale`* (*`@widths`* _in Solaris_ ) _you do not need them anymore_).
+    - When an iterator's opacity is *`0`*(Zero), you can activate this SYS tab's *RIP* option to get rid of those points ( _since_ *opacity* = *`@pscale`* (*`@widths`* _in Solaris_ ) _you do not need them anymore_).
     - If rendering a Flame seems unusually slow, it's probably because certain points wind up being really far from the zero world. Those points will be eliminated if this option is turned *`On`*.
     <br /><br />
 
@@ -562,8 +562,8 @@ frame viewport:
     
 mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
     #id: SYS
-    Select a preset from the [CP Tab|#CP] JSON file that is currently open and load it.<br /><br />
-    This is being introduced since it is convenient to switch palette without constantly entering the CP Tab.
+    Select a preset from the [CP tab|#CP] JSON file that is currently open and load it.<br /><br />
+    This is being introduced since it is convenient to switch palette without constantly entering the CP tab.
     
     _The selected menu entrie posses a bookmark icon based on its state_:
     
@@ -581,7 +581,7 @@ mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
 
     TIP:
         #display: orange
-        To populate this menu, load a FLAM3H™ palette *.json file first inside the CP Tab,<br />
+        To populate this menu, load a FLAM3H™ palette *.json file first inside the CP tab,<br />
         or ((SHIFT)) + ((LMB)) the icon to open a floating file chooser.
         
     
@@ -604,8 +604,8 @@ CP Preset reload:
     
 mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
     #id: SYS
-    Select a preset from the [IN Tab|#INF] Flame file that is presently open and load it.<br /><br />
-    This is being introduced since it is convenient to switch Flame presets without constantly entering the IN Tab.
+    Select a preset from the [IN tab|#INF] Flame file that is presently open and load it.<br /><br />
+    This is being introduced since it is convenient to switch Flame presets without constantly entering the IN tab.
     
     _The selected menu entrie posses a bookmark icon based on its state_:
     
@@ -623,7 +623,7 @@ mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
 
     TIP:
         #display: orange
-        To populate this menu, load a valid *.flame file first inside the IN Tab,<br />
+        To populate this menu, load a valid *.flame file first inside the IN tab,<br />
         or ((SHIFT)) + ((LMB)) the icon to open a floating file chooser.
     
 IN Preset reload:
@@ -687,13 +687,13 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
 
     TIP:
         #display: orange
-        To populate this menu, load a valid *.flame file first inside the OUT Tab.
+        To populate this menu, load a valid *.flame file first inside the OUT tab.
         
         
     NOTE:
         Saving Flames from this icon, will always use a default name that uses the current date and time.
 
-        In case you'd like to give your Flames a proper name, you can do so from inside the OUT Tab.
+        In case you'd like to give your Flames a proper name, you can do so from inside the OUT tab.
     
 OUT Save:
     #id: SYS
@@ -731,7 +731,7 @@ palette 256+ ON [Icon:TOP/xmlinput]:
 
     *FLAME:* _iterators/xforms._
     
-    This is where you'll spend the majority of your time, along with the *FF* Tab.
+    This is where you'll spend the majority of your time, along with the *FF* tab.
     
     Here you will create your fractal Flame logic.
     Since every parameter has the same name inside, if you have ever used Apophysis, Fractorium, or other fractal Flame editors, you will almost immediately feel at home.
@@ -1013,8 +1013,8 @@ Opacity [Icon:TOP/xmlinput]:
     
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    - When an iterator's opacity is *`0`*(Zero), you can activate the SYS Tab *RIP* option to get rid of those points ( _since_ *opacity* == *`@pscale`* (*`@widths`* _in Solaris_ ) _you don't need them anymore_).
-    - When loading hip files with FLAM3H(tm) nodes in it or when cloning FLAM3H(tm) nodes,<br />the SYS Tab *RIP* option will be automatically turned *`On`* if any of the iterators have its Opacity value set to *`0`*(Zero).
+    - When an iterator's opacity is *`0`*(Zero), you can activate the SYS tab *RIP* option to get rid of those points ( _since_ *opacity* == *`@pscale`* (*`@widths`* _in Solaris_ ) _you don't need them anymore_).
+    - When loading hip files with FLAM3H(tm) nodes in it or when cloning FLAM3H(tm) nodes,<br />the SYS tab *RIP* option will be automatically turned *`On`* if any of the iterators have its Opacity value set to *`0`*(Zero).
 
 :box:
     #display: rounded white
@@ -1068,7 +1068,7 @@ Opacity [Icon:TOP/xmlinput]:
         
         _Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric._
         
-        _When using parametric variations, their parameters in the VARS Tab will be shared between all of them._
+        _When using parametric variations, their parameters in the VARS tab will be shared between all of them._
 
         _This means that if you use_:
             
@@ -1102,7 +1102,7 @@ menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     
     For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
 
-    * When using parametric variations, their parameters will populate the *VARS* Tab.
+    * When using parametric variations, their parameters will populate the *VARS* tab.
 
     
 swap PRE vars:
@@ -1123,7 +1123,7 @@ menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
     - If you have a *`Linear`* variation in *slot 1*, and you add a *`Spherical`* variation in *slot 2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in *slot 1*, and so on for the other available slots.<br />
     - If you do the opposite, a *`Spherical`* variation in *slot 1* and a *`Linear`* in *slot 2*, the result will be identical assuming both retain the same weight values.
-    * When using parametric variations, their parameters will populate the *VARS* Tab.
+    * When using parametric variations, their parameters will populate the *VARS* tab.
     <br /><br />
 
     TIP:
@@ -1140,7 +1140,7 @@ menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     
     For speed purpose only *`1`*(one) *`POST`* variation is allowed at the moment.
 
-    * When using parametric variations, their parameters will populate the *VARS* Tab.
+    * When using parametric variations, their parameters will populate the *VARS* tab.
         
 w [Icon:TOP/xmlinput]:
     #id: FLAME
@@ -1326,9 +1326,9 @@ TIP:
     _Nevertheless, some parameters only include the initial letters of the parameter they relate to in their names since they encapsulate more than one parametric parameter._
     _A tooltip containing the full names of the appropriate parameters will appear when the mouse is hovered over the parameter's label._
         
-VARS Tab [Icon:TOP/xmlinput]:
+VARS tab [Icon:TOP/xmlinput]:
     #id: FLAME
-    If a *`PRE`*, *`VAR`* or *`POST`* parametric variation is selected, its parameters will populate this Tab.
+    If a *`PRE`*, *`VAR`* or *`POST`* parametric variation is selected, its parameters will populate this tab.
     
 
 
@@ -1345,7 +1345,7 @@ VARS Tab [Icon:TOP/xmlinput]:
     *FF:* _Final Flame transform._
     
     Iterators like Final Flame (FF) or finalXform function like camera lenses.
-    It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.
+    It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME tab and applying further modifications to that result.
 
 
 :box:
@@ -1466,7 +1466,7 @@ menu FF PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     
     This is applyed before the *`VAR`* variations. It is the very first transformation when used.
     
-    * When using a parametric variation, its parameters will populate the *FF: PP VARS* Tab.
+    * When using a parametric variation, its parameters will populate the *FF: PP VARS* tab.
     
     
 menu FF VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
@@ -1478,7 +1478,7 @@ menu FF VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     - If you have a *`Linear`* variation in *slot 1*, and you add a *`Spherical`* variation in *slot 2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in *slot 1*, and so on for the other available slots.<br />
     - If you do the opposite, a *`Spherical`* variation in *slot 1* and a *`Linear`* in *slot 2*, the result will be identical assuming both retain the same weight values.
     
-    * When using parametric variations, their parameters will populate the *FF: VARS* Tab.
+    * When using parametric variations, their parameters will populate the *FF: VARS* tab.
 
 menu FF POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FF
@@ -1490,7 +1490,7 @@ menu FF POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     
     These are applyed after the *`VAR`* variations. They are the very last transformation.
 
-    * When using parametric variations, their parameters will populate the *FF: PP VARS* Tab.
+    * When using parametric variations, their parameters will populate the *FF: PP VARS* tab.
     
 
 swap FF POST vars:
@@ -1551,13 +1551,13 @@ FF: post affine [Icon:TOP/xmlinput]:
         _A tooltip containing the names of the appropriate parameters will appear when the mouse is hovered over the name._
     
 
-FF: VARS Tab [Icon:TOP/xmlinput]:
+FF: VARS tab [Icon:TOP/xmlinput]:
     #id: FF
-    If a *`VAR`* parametric variation is selected, its parameters will populate this Tab.
+    If a *`VAR`* parametric variation is selected, its parameters will populate this tab.
     
-FF: PP VARS Tab [Icon:TOP/xmlinput]:
+FF: PP VARS tab [Icon:TOP/xmlinput]:
     #id: FF
-    If a *`PRE`* or *`POST`* parametric variation is selected, its parameters will populate this Tab.
+    If a *`PRE`* or *`POST`* parametric variation is selected, its parameters will populate this tab.
     
 
 
@@ -1969,7 +1969,7 @@ Iterations on Load:
 
     TIP:
         #display: orange
-        If "add iterations to Flame name" OUT Tab option is *`Off`*/Disabled:
+        If "add iterations to Flame name" OUT tab option is *`Off`*/Disabled:
     
         The iteration number you want your fractal Flame to use when you load it back into FLAM3H(tm) can be baked into the preset name you choose for it.
 
@@ -2454,7 +2454,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.8.60" ... >
+          <flame version="FLAM3H-WIN-1.8.61" ... >
               ...
         }}}
         
@@ -2463,7 +2463,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.8.60" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.8.61" ... >
               ...
         }}}
         
@@ -2704,10 +2704,10 @@ Reset curves:
 
     When you load a Flame preset, if it was authored in Fractorium you will be able to import its color correction curves data when you copy its render properties.
 
-    The IN Tab option: *copy render properties on Load* is *`On`*/Active by default,<br />
+    The IN tab option: *copy render properties on Load* is *`On`*/Active by default,<br />
     This mean everytime you load a Flame preset in, the color correction curves data will automatically be stored inside here.
 
-    When the IN Tab option: *copy render properties on Load* is *`Off`*/Disabled,<br />
+    When the IN tab option: *copy render properties on Load* is *`Off`*/Disabled,<br />
     you will have to manually click the copy render properties button [Icon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg] so that it won't modify settings you have been working on up until you loaded a Flame preset in.
 
     - When a Flame is loaded from the clipboard, the color correction curves data will automatically be stored inside here.
@@ -2770,7 +2770,7 @@ _The following is an example of what the default Sierpiński triangle preset loo
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.60" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.61" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -2826,7 +2826,7 @@ _In this case we only have *`1`*(one) flame preset named: *Sierpiński triangle:
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.60" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.61" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     ...
   </flame>
 </flames>
@@ -2837,7 +2837,7 @@ _Under the flame preset XML key lives all its data: iterators/xforms data and it
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.60" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.61" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>
