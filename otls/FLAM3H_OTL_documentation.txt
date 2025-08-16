@@ -2868,7 +2868,9 @@ _When you save a Flame preset to the Clipboard, it will be rootless (not under a
 :box:
     #display: inverted teal
 
-    *prefs:* _Tool's preferences._
+    *prefs:* _FLAM3H(tm) preferences._
+
+    The Preferences tab allows users to customize global settings for FLAM3H(tm), enabling a more tailored and efficient creative workflow. These preferences affect how the software behaves and appears but do not directly impact the visual characteristics of individual fractal Flames.
     
 :box:
     #display: rounded white
