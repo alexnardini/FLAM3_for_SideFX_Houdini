@@ -3795,7 +3795,7 @@ _A list of all parametric variations and their parametric parameter's names._
     <br /><br />
 
     NOTE:
-        The weight of the FF *`POST`* variation can not be negative in FLAM3H(tm).
+        The weight of the FF *`POST`* variations can not be negative in FLAM3H(tm).
        
 :box:
     #display: rounded gray
