@@ -524,7 +524,7 @@ loaddef:
     #id: SYS
     [Largeicon:opdef:.?icon_SierpinskyDefSVG.svg]
     
-    Load/reset to default Sierpiński triangle preset.
+    Load/reset to the default [Sierpiński triangle|Wp:Sierpiński_triangle] preset.
 
     _Additionally_:
     
@@ -879,7 +879,7 @@ W [Icon:TOP/xmlinput]:
     #id: FLAME
     The Weight of this iterator.<br />
     
-    Calculate the likelihood that this iterator will be selected during the Chaos game. You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator Weight is higher than the others.
+    Calculate the likelihood that this iterator will be selected during the [Chaos game|Wp:Chaos_game]. You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator Weight is higher than the others.
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*
@@ -1223,7 +1223,7 @@ pre affine [Icon:TOP/xmlinput]:
         #display: orange
         A linear transformation cannot be used to translate a set of points. 
         
-        To translate a set of points, we need to use an *_affine transformation_*. 
+        To translate a set of points, we need to use an [Affine transformations|Wp:Affine_transformation]. 
 
         An affine transformation multiplies a vector by a matrix, just as in a linear transformation, 
         and then adds a vector to the result ( the *`O`*._`xy`_ component ). 
