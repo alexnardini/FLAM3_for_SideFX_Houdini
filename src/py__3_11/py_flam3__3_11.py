@@ -5480,6 +5480,8 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
+        self.update_xml_last_loaded()
+        
         node = self.node
         
         # Reset/Set density
@@ -7192,6 +7194,8 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
+        self.update_xml_last_loaded()
+        
         node = self.node
         autodiv: int = node.parm(PREFS_PVT_XAOS_AUTO_SPACE).eval()
         div_xaos: str = 'xaos:'
@@ -9558,6 +9562,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
+        flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         
         node = self.node
         
