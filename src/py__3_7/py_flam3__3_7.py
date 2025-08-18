@@ -6986,6 +6986,8 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """    
+        self.update_xml_last_loaded()
+        
         # current iterator
         id: int = self.kwargs['script_multiparm_index']
         idx = str(id)
@@ -7016,6 +7018,8 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """    
+        self.update_xml_last_loaded()
+        
         # current iterator
         id: int = self.kwargs['script_multiparm_index']
         idx = str(id)
@@ -7046,6 +7050,8 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """    
+        self.update_xml_last_loaded()
+        
         kwargs: dict = self.kwargs
         
         f3h_iter_FF = flam3h_iterator_FF()
@@ -7073,6 +7079,8 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """    
+        self.update_xml_last_loaded()
+        
         kwargs: dict = self.kwargs
         
         f3h_iter_FF = flam3h_iterator_FF()
@@ -7519,6 +7527,8 @@ class flam3h_iterator_utils
         """
         
         node = self.node
+        self.update_xml_last_loaded()
+        
         id: int = self.kwargs['script_multiparm_index']
         idx: str = str(id)
         _MSG: str = f"{node.name()}.iterator.{idx} PRE variations -> SWAP"
