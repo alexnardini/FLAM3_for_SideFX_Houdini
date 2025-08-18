@@ -5439,8 +5439,8 @@ class flam3h_iterator_utils
                     node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
                     # Update flame stats
                     node.setParms({MSG_IN_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True)})
-                    node.setParms({MSG_IN_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data)})
-                    node.setParms({MSG_IN_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)})
+                    node.setParms({MSG_IN_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data, True)})
+                    node.setParms({MSG_IN_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data, True)})
 
                     _MSG_ALL = f"\"XML_last_loaded\" user data: Updated\n\nThe currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk. Reload the preset to update.\n\n-> Meanwhile,\nthe IN flame preset infos have been updated\nas well as its render properties infos."
                     _MSG_UI = f"The currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk."
@@ -12253,8 +12253,8 @@ class in_flame_utils
 * in_util_vars_flatten_unique_sorted(VARS_list: Union[list[str], list[list[str]]], func: Callable, capitalize: bool = False) -> list[str]:
 * in_presets_in_isvalid_file_menu_label(node: hou.SopNode, preset_id: int) -> str:
 * in_set_iter_on_load(node: hou.SopNode, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
-* in_load_sensor_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
-* in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
+* in_load_sensor_stats_msg(preset_id: int, apo_data: in_flame_iter_data, XML_last_update: bool = False) -> str:
+* in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data, XML_last_update: bool = False) -> str:
 * in_copy_sensor(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
 * in_copy_render(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
 * in_copy_render_cc_curves(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
@@ -13413,21 +13413,24 @@ class in_flame_utils
 
 
     @staticmethod
-    def in_load_sensor_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
+    def in_load_sensor_stats_msg(preset_id: int, apo_data: in_flame_iter_data, XML_last_update: bool = False) -> str:
         """Collect and write a summuary of the loaded IN Flame file preset render properties.
 
         Args:
             preset_id(int): The loaded XML Flame preset id to gather the data from.
             apo_data(in_flame_iter_data): The XML Flame file data
+            XML_last_update(bool): Default to False. If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™ will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
 
         Returns:
             (str): A string to be used to set the IN Render properties data parameter message.
         """
         # spacers
         nl: str = "\n"
-        nnl: str = "\n\n"
-        
         na: str = 'n/a'
+        
+        # If the XML Flame preset is modified on disk while it is currently loaded inside FLAM3H™ an asterisk(*) will be added to each IN infos line as an indicator.
+        XML_updated: str = ''
+        if XML_last_update: XML_updated = '*'
         
         size: str = f"{OUT_XML_FLAME_RESOLUTION.capitalize()}: {na}"
         size_val = apo_data.out_size[preset_id]
@@ -13449,22 +13452,23 @@ class in_flame_utils
         if scale_val:
             scale = f"{OUT_XML_FLAME_SCALE.capitalize()}: {scale_val}"
         
-        build: tuple = (size, nl,
-                        center, nl,
-                        rotate, nl,
-                        scale, nl,
+        build: tuple = (XML_updated, size, nl,
+                        XML_updated, center, nl,
+                        XML_updated, rotate, nl,
+                        XML_updated, scale, nl,
                         )
         
         return "".join(build)
 
     
     @staticmethod
-    def in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data) -> str:
+    def in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data, XML_last_update: bool = False) -> str:
         """Collect and write a summuary of the loaded IN Flame file preset render properties.
 
         Args:
             preset_id(int): The loaded XML Flame preset id to gather the data from.
             apo_data(in_flame_iter_data): The XML Flame file data
+            XML_last_update(bool): Default to False. If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™ will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
 
         Returns:
             (str): A string to be used to set the IN Render properties data parameter message.
@@ -13473,6 +13477,10 @@ class in_flame_utils
         nl: str = "\n"
         nnl: str = "\n\n"
         na: str = 'n/a'
+        
+        # If the XML Flame preset is modified on disk while it is currently loaded inside FLAM3H™ an asterisk(*) will be added to each IN infos line as an indicator.
+        XML_updated: str = ''
+        if XML_last_update: XML_updated = '*'
         
         quality: str = f"{OUT_XML_FLAME_QUALITY.capitalize()}: {na}"
         quality_val = apo_data.out_quality[preset_id]
@@ -13509,15 +13517,15 @@ class in_flame_utils
         if apo_data.out_curve_red[preset_id] and apo_data.out_curve_red[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Red')
         if apo_data.out_curve_green[preset_id] and apo_data.out_curve_green[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Green')
         if apo_data.out_curve_blue[preset_id] and apo_data.out_curve_blue[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Blue')
-        if not cc_curves: cc = f"COLOR CORRECTION: Default (OFF)\nThe loaded preset CC Curves are default values."
-        else: cc = f"COLOR CORRECTION:\n{', '.join(cc_curves)}"
+        if not cc_curves: cc = f"{XML_updated}COLOR CORRECTION: Default (OFF)\nThe loaded preset CC Curves are default values."
+        else: cc = f"{XML_updated}COLOR CORRECTION:\n{', '.join(cc_curves)}"
         
-        build: tuple = (quality, nl,
-                        brightness, nl,
-                        gamma, nl,
-                        highlight, nl,
-                        log_k2, nl,
-                        vibrancy, nnl,
+        build: tuple = (XML_updated, quality, nl,
+                        XML_updated, brightness, nl,
+                        XML_updated, gamma, nl,
+                        XML_updated, highlight, nl,
+                        XML_updated, log_k2, nl,
+                        XML_updated, vibrancy, nnl,
                         cc
                         )
         
