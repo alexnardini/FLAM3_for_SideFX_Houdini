@@ -63,7 +63,7 @@ _A huge special thanks and lots of gratitude toward my family who kept up with m
 _Individuals and fractal Flames are alike_.<br />
 _Each one has its own personality, having gone through their own unique set of events that have helped shape who they are today._<br /><br />
 _Consider the various formulas that make up fractal Flames as different brushes or life event brushes._<br />
-_Each of these events can be identified by their patterns of [self-similarity|Wp:Self-similarity]; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole._<br /><br />
+_Each of these events can be identified by their patterns of [self-similarity|https://en.wikipedia.org/wiki/Self-similarity]; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole._<br /><br />
 _This is akin to a person's genome, or DNA._<br />
 _Together, all of these variables contribute to the interesting nature of the fractal Flame discipline,_<br />
 _with its seemingly endless possibilities, effects, and patterns._
@@ -1130,7 +1130,7 @@ menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
         #display: orange
     
         Laying down a new FLAM3H(tm) node and activating the finalXform (*FF*) with the default Sierpiński triangle will allow you to experiment with the variations inside the FF tab and see what happens while using the Sierpiński triangle coming from the FLAME tab as a base playground.
-        Don't forget to play around with the affine coefficients a bit to see what you can obtain.
+        Don't forget to play around with the pre-affine coefficients a bit to see what you can obtain.
 
 menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
@@ -1853,7 +1853,7 @@ Viz mb [Icon:DATATYPES/boolean]:
     *`Off`* by default.
 
     Visualize motion blur using color.<br />
-    (_Set the viewport background to black for better viewing_)
+    (_Set the viewport background to Dark for better viewing_)
 
     Causes every motion blur sample/pass to get darker outward from the center to simulate the fading away due to motion/camera shutter speed. It will modify the *`@Cd`* point attribute.
     <br /><br />
