@@ -6682,6 +6682,7 @@ class flam3h_iterator_utils
         """    
         
         node = self.node
+        self.update_xml_last_loaded()
         # Clear menu cache
         self.destroy_cachedUserData(node, 'iter_sel')
         
@@ -6727,6 +6728,8 @@ class flam3h_iterator_utils
             (None):
         """    
         node = self.node
+        self.update_xml_last_loaded()
+        
         # Update data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
             
@@ -10237,6 +10240,7 @@ the entire xaos string will be reset to all weights set to that number.
 If you type a negative number, it will be reset to a value of: 1"""
         
         node = self.node
+        flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
 
         if self.kwargs["ctrl"]:
             if hou.isUIAvailable():
