@@ -35,9 +35,9 @@ _Bitbucket repository I used a lot as reference from Matt Feemster: [FRACTORIUM|
 
 [Icon:opdef:.?icon_optionStarBlueSVG.svg]  *Preface*:
 
-The inception of this implementation dates back to 2020, during COVID-19. 
+The inception of this implementation dates back to 2020, during [COVID-19|Wp:COVID-19]. 
 At first, it was just a straightforward point wrangle exercise to experiment with some of the formulas from the fractal Flame algorithm.
-I didn't know much about the subject at the time, but as I began experimenting with some of the free and open-source fractal Flame editors like Apophysis and Fractorium, I grew to love the field and gradually persuaded myself that I could port the entire algorithm and functionalities using Houdini out of the box.
+I didn't know much about the subject at the time, but as I began experimenting with some of the free and [open-source|Wp:Open_source] fractal Flame editors like Apophysis and Fractorium, I grew to love the field and gradually persuaded myself that I could port the entire algorithm and functionalities using Houdini out of the box.
 Undoubtedly, it required some time to comprehend everything completely, but as I was also learning how to create fractal art, It slowly shaped into the proper form.
 
 Specifically built to work in tandem with [Fractorium|http://fractorium.com],<br /> 
@@ -63,7 +63,7 @@ _A huge special thanks and lots of gratitude toward my family who kept up with m
 _Individuals and fractal Flames are alike_.<br />
 _Each one has its own personality, having gone through their own unique set of events that have helped shape who they are today._<br /><br />
 _Consider the various formulas that make up fractal Flames as different brushes or life event brushes._<br />
-_Each of these events can be identified by their patterns of self-similarity; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole._<br /><br />
+_Each of these events can be identified by their patterns of [self-similarity|Wp:Self-similarity]; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole._<br /><br />
 _This is akin to a person's genome, or DNA._<br />
 _Together, all of these variables contribute to the interesting nature of the fractal Flame discipline,_<br />
 _with its seemingly endless possibilities, effects, and patterns._
@@ -169,7 +169,7 @@ _Best would be to use one of the Desktop files provided (HD or 4K) as they set e
 
 iterations [Icon:TOP/xmlinput]:
     #id: GLOBAL
-    Number of iterations to use.
+    Number of [iterations|Wp:Iteration] to use.
     
     You must experiment with the number of iterations and always go as low as possible to save on execution time.
     You went too low when the fractal Flame start to turn *_blocky_*, which happens when it crosses its own minimum.
@@ -745,9 +745,9 @@ palette 256+ ON [Icon:TOP/xmlinput]:
 number of iterators [Icon:TOP/xmlinput]:
     #id: FLAME
     
-    Number of iterators/xforms to use.<br />
+    Number of iterators (_aka: xforms or transforms_) to use.<br />
     
-    Every iterator/xform acts as a container for functions, the algorithm will mix or shuffle iterators/xforms based on your logic.
+    Every iterator acts as a container for functions, the algorithm will mix or shuffle iterators based on your logic.
     <br /><br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
@@ -1083,7 +1083,7 @@ menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     Enable pre_blur variation.
     
     *`Pre_blur`* variation in this implementation is hard-coded inside the chaos game to be as fast as it can possibly be.
-    It will always be the first pre-variation the algorithm runs.
+    It will always be the first *`PRE`* variation the algorithm runs.
     <br /><br />
 
     TIP:
@@ -1129,7 +1129,7 @@ menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     TIP:
         #display: orange
     
-        Laying down a new FLAM3H(tm) node and activating the Final Flame transform (*FF*) with the default Sierpiński triangle will allow you to experiment with the variations and see what happens.
+        Laying down a new FLAM3H(tm) node and activating the finalXform (*FF*) with the default Sierpiński triangle will allow you to experiment with the variations inside the FF tab and see what happens while using the Sierpiński triangle coming from the FLAME tab as a base playground.
         Don't forget to play around with the affine coefficients a bit to see what you can obtain.
 
 menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
@@ -1216,7 +1216,7 @@ copy post affine values:
 pre affine [Icon:TOP/xmlinput]:
     #id: FLAME
 
-    Affine transformation's coefficients for the current iterator(_xform_).
+    Affine transformation coefficients for the current iterator(_xform_).
     <br /><br />
 
     TIP:
@@ -1273,7 +1273,7 @@ pre affine [Icon:TOP/xmlinput]:
 
 pre affine Rot [Icon:TOP/xmlinput]:
     #id: FLAME
-    Rotate affine in angle degrees.<br />The rotation will take the values of *`X`*, *`Y`*, *`O`* and apply a rotation.<br />(_With *`O`* being the pivot_).
+    Rotate affine values in angle degrees.<br />The rotation will take the values of *`X`*, *`Y`*, *`O`* and apply a rotation.<br />(_With *`O`* being the pivot_).
     <br /><br />
 
     NOTE:
@@ -1342,7 +1342,7 @@ VARS tab [Icon:TOP/xmlinput]:
 :box:
     #display: inverted teal
 
-    *FF:* _Final Flame transform._
+    *FF:* _Final Flame transform (finalXform)._
     
     Iterators like Final Flame (FF) or finalXform function like camera lenses.
     It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME tab and applying further modifications to that result.
@@ -1588,7 +1588,7 @@ HSV values [Icon:TOP/xmlinput]:
     
     Hue, Saturation and Value of the palette's colors.
     
-    HSV values are exported into the palette preset on save <br />
+    [HSV|Wp:HSL_and_HSV] values are exported into the palette preset on save <br />
     and also into the XML on Flame save when they are used.
 
 HSV reset:
@@ -1646,7 +1646,7 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     
 palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     #id: PALETTE
-    The actual color palette being used by the Flame you are working on.
+    The actual [color palette|Wp:Palette_(computing)] being used by the Flame you are working on.
 
     _The palette parameter come with the following tool icons_:
 
@@ -1794,7 +1794,7 @@ on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boole
     #id: MB
     *`Off`* by default.
 
-    Enable motion blur.
+    Enable [motion blur|Wp:Motion_blur_(media)].
 
     Since nowadays the effect of motion blur is achieved most of the time as a separate post process step (_e.g. inside a compositing application_) 
     this implementation adopted the use of a centered motion blur just for completeness, as explained in the official paper.<br /><br />
