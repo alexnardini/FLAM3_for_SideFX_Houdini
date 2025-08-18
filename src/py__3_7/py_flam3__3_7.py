@@ -7677,7 +7677,7 @@ class flam3h_iterator_utils
         self.destroy_cachedUserData(node, 'iter_sel')
         self.destroy_cachedUserData(node, 'edge_case_01')
         self.destroy_all_menus_data(node, False)
-        self.update_xml_last_loaded()
+        # self.update_xml_last_loaded() # This is not needed really as we are resetting to defaults
         # Iterators reset
         in_flame_utils(self.kwargs).in_to_flam3h_reset_iterators_parms(node, 3)
         # update xaos
@@ -9045,11 +9045,11 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
+        flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         
         node = self.node
         # Force this data to be rebuilt
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
-        flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         
         # ALT - Copy palette to the clipboard
         if self.kwargs['alt']:
@@ -13695,6 +13695,8 @@ class in_flame_utils
         Returns:
             (None):
         """       
+        flam3h_iterator_utils(kwargs).update_xml_last_loaded()
+        
         node = kwargs['node']
         
         inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
@@ -13768,6 +13770,8 @@ class in_flame_utils
         Returns:
             (None):
         """
+        flam3h_iterator_utils(kwargs).update_xml_last_loaded()
+        
         node = kwargs['node']
         
         inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
@@ -13821,6 +13825,8 @@ class in_flame_utils
         Returns:
             (None):
         """
+        flam3h_iterator_utils(kwargs).update_xml_last_loaded()
+        
         node = kwargs['node']
         
         inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
@@ -17281,6 +17287,7 @@ class out_flame_utils
         Returns:
             (None):
         """
+        flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         
         kwargs: dict = self.kwargs
             
