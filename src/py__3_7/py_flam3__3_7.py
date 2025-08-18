@@ -5438,7 +5438,7 @@ class flam3h_iterator_utils
                     # Update user data
                     node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
                     # Update flame stats
-                    node.setParms({MSG_IN_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard))})
+                    node.setParms({MSG_IN_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True)})
                     node.setParms({MSG_IN_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data)})
                     node.setParms({MSG_IN_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data)})
 
@@ -12276,7 +12276,7 @@ class in_flame_utils
                           apo_data: in_flame_iter_data, 
                           preset_id: int, 
                           ) -> None:
-* in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool) -> str:
+* in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool, XML_last_update: bool = False) -> str:
 * menu_in_presets_data(self) -> list:
 * menu_in_presets(self) -> list:
 * menu_in_presets_empty_data(self) -> list:
@@ -14354,7 +14354,7 @@ class in_flame_utils
             self.in_set_affine(mode, node, prx, apo_data, n, mp_idx)
             
 
-    def in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool) -> str:
+    def in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool, XML_last_update: bool = False) -> str:
         """Build a message with all the informations about the Flame preset we just loaded.
 
         Args:
@@ -14362,6 +14362,7 @@ class in_flame_utils
             preset_id(int): The loaded XML Flame preset
             apo_data(in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
             clipboard(bool): Is the cuurently loaded Flame preset coming from the Clipboard? True or False.
+            XML_last_update(bool): Default to False. If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™ will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
 
         Returns:
             (str): A string to be used to set the IN Flame info data parameter message.
@@ -14371,6 +14372,10 @@ class in_flame_utils
         # spacers
         nl: str = "\n"
         nnl: str = "\n\n"
+        
+        # If the XML Flame preset is modified on disk while it is currently loaded inside FLAM3H™ an asterisk(*) will be added to each IN infos line as an indicator.
+        XML_updated: str = ''
+        if XML_last_update: XML_updated = '*'
         
         # I could hard-code the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
         pgb_name: Union[str, list[str], None] = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
@@ -14428,16 +14433,16 @@ class in_flame_utils
         if cc_overall.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_red.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_green.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_blue.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
             cc: str = ''
         else:
-            cc: str = 'CC'
+            cc: str = f"{XML_updated}CC"
         
         # MB (Motion blur)
         if flam3h_mb_bool:
-            if cc: mb: str = f", MB{nnl}" # not that elegant, but...
-            else: mb: str = f"MB{nnl}"
+            if cc: mb: str = f", {XML_updated}MB{nnl}" # not that elegant, but...
+            else: mb: str = f"{XML_updated}MB{nnl}"
         else: mb: str = nnl
         
-        if ff_bool: ff_msg: str = f"FF: YES\nFF Post affine: {ff_post_bool_msg}"
-        else: ff_msg: str = f"FF: NO\n"
+        if ff_bool: ff_msg: str = f"{XML_updated}FF: YES\n{XML_updated}FF Post affine: {ff_post_bool_msg}"
+        else: ff_msg: str = f"{XML_updated}FF: NO\n"
         
         if palette_bool and apo_data.palette is not None:
             if apo_data.cp_flam3h_hsv is not False: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} {IN_HSV_LABEL_MSG}" # custom to FLAM3H™ only
@@ -14478,7 +14483,7 @@ class in_flame_utils
         n: int = 5
         vars_used_heading: str = "Variations used:"
         result_grp: list = [result_sorted[i:i + n] for i in range(0, len(result_sorted), n)]  
-        vars_used_msg: str = f"{vars_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
+        vars_used_msg: str = f"{XML_updated}{vars_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
         
         # Build and set descriptive parameter msg
         if clipboard: preset_name: str = apo_data.name[0]
@@ -14486,7 +14491,7 @@ class in_flame_utils
                                                             # The apo_data.name[idx] is used for the descriptive parameter
                                                             # so to not print the icon path into the name.
         
-        descriptive_prm: tuple = ( f"sw: {apo_data.sw_version[preset_id]}\n", f"{out_flame_utils.out_remove_iter_num(preset_name)}",)
+        descriptive_prm: tuple = ( f"{XML_updated}sw: {apo_data.sw_version[preset_id]}\n", f"{XML_updated}{out_flame_utils.out_remove_iter_num(preset_name)}",)
         node.setParms({MSG_DESCRIPTIVE_PRM: "".join(descriptive_prm)}) # type: ignore
         
         # Build ITERATOR MISSING
@@ -14522,12 +14527,12 @@ class in_flame_utils
         # Build MISSING: Compare, keep and build
         vars_missing: list = [x for x in result_sorted_fractorium if x not in result_sorted]
         result_grp_fractorium: list = [vars_missing[i:i + n] for i in range(0, len(vars_missing), n)]  
-        if vars_missing: vars_missing_msg = f"{nnl}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
+        if vars_missing: vars_missing_msg = f"{nnl}{XML_updated}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
         else: vars_missing_msg: str = ""
         
         # Build UNKNOWN
         vars_unknown: list = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
-        if vars_unknown: vars_unknown_msg: str = f"{nnl}UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i + n] for i in range(0, len(vars_unknown), n)] )}"
+        if vars_unknown: vars_unknown_msg: str = f"{nnl}{XML_updated}UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i + n] for i in range(0, len(vars_unknown), n)] )}"
         else: vars_unknown_msg: str = ''
         
         # Check if the loaded Flame file is locked.
@@ -14544,14 +14549,14 @@ class in_flame_utils
         
         # build full stats msg
         build: tuple = (flame_lib_locked, nl,
-                        sw, nl,
-                        name, nnl,
-                        palette_count_format, nl,
+                        XML_updated, sw, nl,
+                        XML_updated, name, nnl,
+                        XML_updated, palette_count_format, nl,
                         cc, mb,
-                        iter_count, nl,
-                        post, nl,
-                        opacity, nl,
-                        xaos, nl,
+                        XML_updated, iter_count, nl,
+                        XML_updated, post, nl,
+                        XML_updated, opacity, nl,
+                        XML_updated, xaos, nl,
                         ff_msg, nnl,
                         vars_used_msg,
                         vars_missing_msg,
