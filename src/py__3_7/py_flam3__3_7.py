@@ -13700,7 +13700,6 @@ class in_flame_utils
         Returns:
             (None):
         """       
-        flam3h_iterator_utils(kwargs).update_xml_last_loaded()
         
         node = kwargs['node']
         
@@ -13710,6 +13709,8 @@ class in_flame_utils
         # so no needs to double check here any more...just use it as is.
         if apo_data is not None and clipboard: f3r = apo_data
         else:
+            # Check and update
+            flam3h_iterator_utils(kwargs).update_xml_last_loaded()
             # Otherwise just use the stored data
             data: Union[str, None] = node.userData(FLAM3H_USER_DATA_XML_LAST)
             if data is not None: f3r = in_flame_iter_data(node, data) # ELSE load from the stored data instead
