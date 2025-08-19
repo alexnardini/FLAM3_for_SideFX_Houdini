@@ -2565,6 +2565,7 @@ class flam3h_general_utils
         """Refresh and force presets menus names to update
         after the preference's option "enumerate presets menu" has been toggled ON or OFF
         and also from inside other places, following a list:
+        
         * def util_set_front_viewer(self, update: bool = True) -> bool:
         * def util_viewport_bbox_frame(self) -> None:
         * def flam3h_outsensor_toggle(self, prm_name: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
@@ -5416,33 +5417,33 @@ class flam3h_iterator_utils
         
         Below is a list:
 
-            - flam3h_scripts.flam3h_on_loaded(self) -> None:
-            - flam3h_scripts.flam3h_on_deleted(self) -> None:
-            - flam3h_general_utils.menus_refresh_enum_prefs(self) -> None:
-            - flam3h_general_utils.flam3h_init_presets_CP_PRESETS(self, mode: int = 1, destroy_menus: bool = True, json_file: Union[bool, None] = None, f3h_json_file: Union[bool, None] = None, json_path_checked: Union[str, bool, None] = None) -> None:
-            - flam3h_general_utils.flam3h_init_presets_IN_PRESETS(self, mode: int = 1) -> None:
-            - flam3h_general_utils.flam3h_init_presets_OUT_PRESETS(self, destroy_menus: bool = True) -> None:
-            - flam3h_iterator_utils.refresh_iterator_vars_menu(self) -> None:
-            - flam3h_iterator_utils.menu_global_density_set(self) -> None:
-            - flam3h_iterator_utils.menu_global_density_set_default(self) -> None:
-            - flam3h_iterator_utils.prm_paste(self) -> None:
-            - flam3h_iterator_utils.prm_paste_FF_CTRL(self) -> None:
-            - flam3h_iterator_utils.prm_paste_sel_pre_affine(self) -> None:
-            - flam3h_iterator_utils.prm_paste_sel_post_affine(self) -> None:
-            - flam3h_iterator_utils.prm_paste_sel_pre_affine_FF(self) -> None:
-            - flam3h_iterator_utils.prm_paste_sel_post_affine_FF(self) -> None:
-            - flam3h_iterator_utils.flam3h_xaos_convert(self) -> None:
-            - flam3h_iterator_utils.swap_iter_pre_vars(self) -> None:
-            - flam3h_iterator_utils.iterators_count(self) -> None:
-            - flam3h_palette_utils.flam3h_ramp_save(self) -> None:
-            - flam3h_palette_utils.json_to_flam3h_ramp_SET_PRESET_DATA(self, node: hou.SopNode) -> None:
-            - flam3h_palette_utils.json_to_flam3h_ramp(self, use_kwargs: bool = True) -> None:
-            - flam3h_ui_msg_utils.ui_xaos_infos(self) -> None:
-            - in_flame_utils.in_copy_render_all_stats_msg(kwargs: dict,  apo_data: Union[in_flame_iter_data, None] = None, clipboard: bool = False, flash_message: bool = False) -> None:
-            - in_flame_utils.in_copy_sensor_stats_msg(kwargs: dict) -> None:
-            - in_flame_utils.in_copy_render_stats_msg(kwargs: dict) -> None:
-            - out_flame_utils.reset_OUT_kwargs(self) -> None:
-            - out_flame_utils.out_XML(self) -> None:
+        * flam3h_scripts.flam3h_on_loaded(self) -> None:
+        * flam3h_scripts.flam3h_on_deleted(self) -> None:
+        * flam3h_general_utils.menus_refresh_enum_prefs(self) -> None:
+        * flam3h_general_utils.flam3h_init_presets_CP_PRESETS(self, mode: int = 1, destroy_menus: bool = True, json_file: Union[bool, None] = None, f3h_json_file: Union[bool, None] = None, json_path_checked: Union[str, bool, None] = None) -> None:
+        * flam3h_general_utils.flam3h_init_presets_IN_PRESETS(self, mode: int = 1) -> None:
+        * flam3h_general_utils.flam3h_init_presets_OUT_PRESETS(self, destroy_menus: bool = True) -> None:
+        * flam3h_iterator_utils.refresh_iterator_vars_menu(self) -> None:
+        * flam3h_iterator_utils.menu_global_density_set(self) -> None:
+        * flam3h_iterator_utils.menu_global_density_set_default(self) -> None:
+        * flam3h_iterator_utils.prm_paste(self) -> None:
+        * flam3h_iterator_utils.prm_paste_FF_CTRL(self) -> None:
+        * flam3h_iterator_utils.prm_paste_sel_pre_affine(self) -> None:
+        * flam3h_iterator_utils.prm_paste_sel_post_affine(self) -> None:
+        * flam3h_iterator_utils.prm_paste_sel_pre_affine_FF(self) -> None:
+        * flam3h_iterator_utils.prm_paste_sel_post_affine_FF(self) -> None:
+        * flam3h_iterator_utils.flam3h_xaos_convert(self) -> None:
+        * flam3h_iterator_utils.swap_iter_pre_vars(self) -> None:
+        * flam3h_iterator_utils.iterators_count(self) -> None:
+        * flam3h_palette_utils.flam3h_ramp_save(self) -> None:
+        * flam3h_palette_utils.json_to_flam3h_ramp_SET_PRESET_DATA(self, node: hou.SopNode) -> None:
+        * flam3h_palette_utils.json_to_flam3h_ramp(self, use_kwargs: bool = True) -> None:
+        * flam3h_ui_msg_utils.ui_xaos_infos(self) -> None:
+        * in_flame_utils.in_copy_render_all_stats_msg(kwargs: dict,  apo_data: Union[in_flame_iter_data, None] = None, clipboard: bool = False, flash_message: bool = False) -> None:
+        * in_flame_utils.in_copy_sensor_stats_msg(kwargs: dict) -> None:
+        * in_flame_utils.in_copy_render_stats_msg(kwargs: dict) -> None:
+        * out_flame_utils.reset_OUT_kwargs(self) -> None:
+        * out_flame_utils.out_XML(self) -> None:
         
         Args:
             (self):
