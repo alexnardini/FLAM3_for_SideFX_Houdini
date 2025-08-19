@@ -5429,7 +5429,7 @@ class flam3h_iterator_utils
             - flam3h_scripts.flam3h_on_loaded(self) -> None:
             - flam3h_scripts.flam3h_on_deleted(self) -> None:
             - flam3h_general_utils.menus_refresh_enum_prefs(self) -> None:
-            - flam3h_general_utils.flam3h_init_presets_CP_PRESETS(self, mode: int = 1, destroy_menus: bool = True, json_file: Union[bool, None] = None, f3h_json_file: Union[bool, None] = None, json_path_checked: Union[str, bool, None] = None) -> None:
+            - flam3h_general_utils.flam3h_init_presets_CP_PRESETS(self, mode: int = 1, destroy_menus: bool = True, json_file: bool | None = None, f3h_json_file: bool | None = None, json_path_checked: str | bool | None = None) -> None:
             - flam3h_general_utils.flam3h_init_presets_IN_PRESETS(self, mode: int = 1) -> None:
             - flam3h_general_utils.flam3h_init_presets_OUT_PRESETS(self, destroy_menus: bool = True) -> None:
             - flam3h_iterator_utils.refresh_iterator_vars_menu(self) -> None:
@@ -5448,7 +5448,7 @@ class flam3h_iterator_utils
             - flam3h_palette_utils.json_to_flam3h_ramp_SET_PRESET_DATA(self, node: hou.SopNode) -> None:
             - flam3h_palette_utils.json_to_flam3h_ramp(self, use_kwargs: bool = True) -> None:
             - flam3h_ui_msg_utils.ui_xaos_infos(self) -> None:
-            - in_flame_utils.in_copy_render_all_stats_msg(kwargs: dict,  apo_data: Union[in_flame_iter_data, None] = None, clipboard: bool = False, flash_message: bool = False) -> None:
+            - in_flame_utils.in_copy_render_all_stats_msg(kwargs: dict,  apo_data: in_flame_iter_data | None = None, clipboard: bool = False, flash_message: bool = False) -> None:
             - in_flame_utils.in_copy_sensor_stats_msg(kwargs: dict) -> None:
             - in_flame_utils.in_copy_render_stats_msg(kwargs: dict) -> None:
             - out_flame_utils.reset_OUT_kwargs(self) -> None:
