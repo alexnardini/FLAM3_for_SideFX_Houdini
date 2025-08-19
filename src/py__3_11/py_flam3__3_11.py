@@ -5425,7 +5425,7 @@ class flam3h_iterator_utils
         This definition is being run in several places to try to catch a change sooner than later.
         
         Below is a list:
-        
+            
             - flam3h_scripts.flam3h_on_loaded(self) -> None:
             - flam3h_scripts.flam3h_on_deleted(self) -> None:
             - flam3h_general_utils.menus_refresh_enum_prefs(self) -> None:
@@ -5433,6 +5433,7 @@ class flam3h_iterator_utils
             - flam3h_general_utils.flam3h_init_presets_IN_PRESETS(self, mode: int = 1) -> None:
             - flam3h_general_utils.flam3h_init_presets_OUT_PRESETS(self, destroy_menus: bool = True) -> None:
             - flam3h_iterator_utils.refresh_iterator_vars_menu(self) -> None:
+            - flam3h_iterator_utils.menu_global_density_set(self) -> None:
             - flam3h_iterator_utils.prm_paste(self) -> None:
             - flam3h_iterator_utils.prm_paste_FF_CTRL(self) -> None:
             - flam3h_iterator_utils.prm_paste_sel_pre_affine(self) -> None:
@@ -6136,6 +6137,9 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """       
+        # Check and Update this data
+        self.update_xml_last_loaded()
+        
         node = self.node
         ptcount: int = node.parm(GLB_DENSITY).eval()
         sel: int = self.kwargs['parm'].evalAsInt()
