@@ -5508,9 +5508,6 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        # Check and Update this data
-        self.update_xml_last_loaded()
-        
         node = self.node
         
         # Reset/Set density
@@ -5548,6 +5545,8 @@ class flam3h_iterator_utils
             
         # Change focus back to the FLAME's Tab
         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
+        # Check and Update this data
+        self.update_xml_last_loaded()
         
 
     def destroy_data_note(self) -> None:
