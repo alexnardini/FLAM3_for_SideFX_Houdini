@@ -1681,7 +1681,7 @@ JSON file. [Icon:DATATYPES/string]:
     - ((LMB)) to open a floating file chooser.
 
     <br />
-    Load an already-created FLAM3H™ json palette library file or choose the path and name of a new one to create.
+    Load an already-created FLAM3H™ [JSON|Wp:JSON] palette library file or choose the path and name of a new one to create.
 
     The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     <br /><br />
@@ -1701,6 +1701,8 @@ Save Palette:
     #id: PALETTE
     
     [Largeicon:opdef:.?icon_WhiteStarSVG.svg]
+
+    Save and/or append the current palette into the selected JSON file.
 
     _Usage_:
     
@@ -1893,6 +1895,7 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
 
     - ((LMB)) to open a floating file chooser.
 
+    <br />
     Load *.flame files. They can come from FLAM3H(tm) or also authored with Apophysis, Fractorium and other flam3-compatible applications.
 
     The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
@@ -2251,9 +2254,10 @@ OUT flame ( *.flame type ) [Icon:DATATYPES/string]:
     
     [Largeicon:BUTTONS/chooser_file]
 
-        - ((LMB)) to open a floating file chooser.
+    - ((LMB)) to open a floating file chooser.
 
-    Select a file name to save your Flame into. If the selected file does not exist, it will be created.
+    <br />
+    Select a file to save your Flame into. If the selected file does not exist, it will be created.
 
     The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     <br /><br />
@@ -3126,43 +3130,37 @@ Web links:
     _The following are web links related to FLAM3H(tm). _<br /><br />
     
     [Largeicon:opdef:.?iconSVG.svg] 
-    
     - ((LMB)) to open a web browser to the FLAM3H(tm) website.
     
-     
+    <br />
     [Largeicon:opdef:.?icon_GithubBlackSVG.svg] 
-    
     - ((LMB)) to open a web browser to the FLAM3H(tm) github repository.
      
-     
+    <br />
     [Largeicon:opdef:.?icon_InstagramSVG.svg] 
-    
     - ((LMB)) to open a web browser to the FLAM3H(tm) instagram account. 
 
+    <br />
     [Largeicon:opdef:.?icon_youtube_red_play.svg] 
-    
     - ((LMB)) to open a web browser to the FLAM3H(tm) youtube video tutorials.<br /><br /><br />
      
-    
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Web links*<br />
     _The following are web links about the original the fractal Flame algorithm and related implementations_.<br /><br />
 
     [Largeicon:opdef:.?icon_WhiteSVG.svg] 
-    
     - ((LMB)) to open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) publication's PDF. 
      
-     
+    <br />
     [Largeicon:opdef:.?icon_GithubWhiteSVG.svg] 
-    
     - ((LMB)) to open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) github repository. 
 
-
+    <br />
     [Largeicon:opdef:.?icon_bitbucketLogoSVG.svg] 
-    
     - ((LMB)) to open a web browser to the Fractorium Bitbucket repository.
 
+    <br />
     [Largeicon:opdef:.?icon_FractoriumWebSVG.svg] 
-    
     - ((LMB)) to open a web browser to the Fractorium website.
     
     
