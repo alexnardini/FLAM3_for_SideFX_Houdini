@@ -63,7 +63,7 @@ _A huge special thanks and lots of gratitude toward my family who kept up with m
 _Individuals and fractal Flames are alike_.<br />
 _Each one has its own personality, having gone through their own unique set of events that have helped shape who they are today._<br /><br />
 _Consider the various formulas that make up fractal Flames as different brushes or life event brushes._<br />
-_Each of these events can be identified by their patterns of [self-similarity|https://en.wikipedia.org/wiki/Self-similarity]; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole._<br /><br />
+_Each of these events can be identified by their patterns of *[self-similarity|https://en.wikipedia.org/wiki/Self-similarity]*; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole._<br /><br />
 _This is akin to a person's genome, or DNA._<br />
 _Together, all of these variables contribute to the interesting nature of the fractal Flame discipline,_<br />
 _with its seemingly endless possibilities, effects, and patterns._
@@ -71,7 +71,7 @@ _with its seemingly endless possibilities, effects, and patterns._
 <br />
 [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) - what is it ?*
 
-FLAM3H(tm), as the name suggests, is the implementation of _the fractal Flame algorithm_ inside SideFX Houdini.<br />
+FLAM3H(tm) as the name suggests, is the implementation of "the fractal Flame algorithm" inside SideFX Houdini.<br />
 There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
 
 Fractal art is not easy at all in the beginning.<br />
@@ -182,7 +182,7 @@ iterations [Icon:TOP/xmlinput]:
     - You do not need many iterations to get some good fractal Flames going, between *`10`* and *`24`* is usually more than you need while keeping execution speed acceptable.
     - If you increase the iterator Weight, use xaos to build containers, or use some kind of variation, you will require a higher number to resolve and show you the proper result.
     
-    Almost all the fractal Flames showcased inside FLAM3H(tm) Instagram account
+    Almost all the fractal Flame images showcased inside FLAM3H(tm) Instagram account and website
     use a maximum of *`64`* iterations, with a few exceptions reaching *`96`* and, in rare cases, *`128`*/*`256`* and more.
     
     Some Flames require a truly high number of iterations to resolve properly.
@@ -198,7 +198,7 @@ iterations [Icon:TOP/xmlinput]:
     TIP:
         #display: orange
         When: " *add iterations to Flame name* " toggle is *`On`* inside the OUT tab,
-        changing the iteration's parameter will update the Flame name, if any have been typed.
+        changing the iterations' parameter will update the Flame name, if any have been typed.
 
 
 :box:
@@ -254,6 +254,7 @@ Reset density:
     ((LMB)) to reset density to its default: *`500k`*(_thousands_)<br />
     This is what should be used while editing fractal Flames most of the time.
 
+    <br />
     _Following are lower tier density presets you can set if you desire:_
 
     - ((SHIFT)) + ((LMB)) set density to: *`300k`*(_thousands_)
@@ -328,7 +329,7 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*/Disabled.
     - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*/Active.
     
-    Enable and disable [finalXform|#FF] transform/iterator.
+    Enable and disable [finalXform|#FF](_FF_).
     
     
 RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
@@ -469,7 +470,7 @@ TAG [Icon:DATATYPES/boolean]:
     <br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *System infos*:<br />
-    * The *`Iteration number`* will be the very first number inside square brackets.
+    * The *`Iterations number`* will be the very first number inside square brackets.
     * *`Xaos`* when active will be next inside square brackets. Read the xaos documentation to know more about it.
         - *`Xaos TO`* will be: *`[Xt]`*
         - *`Xaos FROM`* wil be: *`[fX]`*
@@ -563,7 +564,7 @@ frame viewport:
 mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
     #id: SYS
     Select a preset from the [CP tab|#CP] JSON file that is currently open and load it.<br /><br />
-    This is being introduced since it is convenient to switch palette without constantly entering the CP tab.
+    This is being introduced since it is convenient to switch palette preset without constantly entering the CP tab.
     
     _The selected menu entrie posses a bookmark icon based on its state_:
     
@@ -667,7 +668,7 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
     _Quick infos are_:
     - *`Flame preset name`* ( _only in the status bar_ )
     - *`XF`*: number of iterators/xforms being used
-    - *`FF`*: when finalXform(FF) is being used
+    - *`FF`*: when finalXform(_FF_) is being used
     - *`Palette`*: number of colors in the palette
     - *`HSV`*: when HSV color correction is being used
     - *`HSV values`* ( _only in the status bar_ )
@@ -854,7 +855,7 @@ Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     TIP:
         #display: orange
         If an iterator is disabled, it won't be included when saving the Flame out into a Flame file.
-        In case you still want to include the inactive iterator in the file, set its Weight to zero instead.
+        In case you still want to include the inactive iterator in the file, set its Weight to *`0`*(Zero) instead.
     
     
 xform VIZ SOLO [Icon:DATATYPES/boolean]:
@@ -884,7 +885,7 @@ W [Icon:TOP/xmlinput]:
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*
 
-    An iterator(_aka: xform or transform_) is one of the rules that moves points around in a fractal Flame. Every time the algorithm runs an iteration, it randomly picks one iterator to apply to the point.
+    An iterator (_aka: xform or transform_) is one of the rules that moves points around in a fractal Flame. Every time the algorithm runs an iteration, it randomly picks one iterator to apply to the point.
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *What does the Weight do ?*
@@ -977,11 +978,11 @@ auto space xaos weights / xaos information tips [Icon:opdef:.?icon_optionStarBlu
 
     _Usage_:
     
-    - ((LMB)) will space the xaos weights for easy read and count (_*`On`*/*`Off`*_)
+    - ((LMB)) will space the Xaos weights for easy edit, read and count (_*`On`*/*`Off`*_)
     
     - ((CTRL)) + ((LMB)) to show Xaos information and tips.
     
-    You can also click this icon to force xaos to update in case any invalid characters are left by mistake inside the iterator xaos string.
+    You can also click this icon to force Xaos to update in case any invalid characters are left by mistake inside the iterator xaos string.
     <br /><br />
 
     TIP:
@@ -1344,7 +1345,7 @@ VARS tab [Icon:TOP/xmlinput]:
 
     *FF:* _Final Flame transform (finalXform)._
     
-    Iterators like Final Flame (FF) or finalXform function like camera lenses.
+    Iterators like Final Flame (_FF_) or finalXform function like camera lenses.
     It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME tab and applying further modifications to that result.
 
 
@@ -1388,7 +1389,7 @@ FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     <br /><br />
 
     NOTE:
-        The text you write here will be stored with the Flame file and will also appear inside Apophysis and Fractorium as the name of the finalXform iterator.
+        The text you write here will be stored with the Flame file and will also appear inside Apophysis and Fractorium as the name of the finalXform(_FF_) iterator.
     
 FF: copy/paste:
     #id: FF
@@ -1673,7 +1674,7 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     
     == CP: Load/Save file == (CPLOAD)
     
-JSON file. [Icon:DATATYPES/string]:
+JSON file [Icon:DATATYPES/string]:
     #id: PALETTE
     
     [Largeicon:BUTTONS/chooser_file]
@@ -1681,7 +1682,9 @@ JSON file. [Icon:DATATYPES/string]:
     - ((LMB)) to open a floating file chooser.
 
     <br />
-    Load an already-created FLAM3H™ [JSON|Wp:JSON] palette library file or choose the path and name of a new one to create.
+    Load an already-created FLAM3H™ palette library file or choose the path and name of a new one to create.
+
+    A FLAM3H™ palette library file is a [JSON|Wp:JSON] type of file.
 
     The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     <br /><br />
@@ -1719,7 +1722,7 @@ Save Palette:
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Once you click save*:
     
-    - If you select a location and a filename without an extension, it will automatically add the _*.json*_ extension to them.
+    - If you select a location and a filename without an extension, it will automatically add the _*.json*_ extension to it.
     - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
     - If nothing is selected (_e.g. JSON file empty or invalid_), nothing will happen.
     - If you'd like to overwrite an existing palette preset, give the current preset the same exact name as the preset you'd like to overwrite and save it.
@@ -1913,7 +1916,7 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
         - *`1`*(one) *`PRE`*
         - *`2`*(two) *`VAR`*
         - *`2`*(two) *`POST`*
-        - For a total of *`5`*(five) variations for the finalXform(FF). If it finds more on load, the excess ones will be discarded.
+        - For a total of *`5`*(five) variations for the finalXform(_FF_). If it finds more on load, the excess ones will be discarded.
     
 menu IN file contents [Icon:BUTTONS/pane_menu]:
     #id: IN
@@ -1974,22 +1977,23 @@ Iterations on Load:
         #display: orange
         If "add iterations to Flame name" OUT tab option is *`Off`*/Disabled:
     
-        The iteration number you want your fractal Flame to use when you load it back into FLAM3H(tm) can be baked into the preset name you choose for it.
+        The iterations number you want your fractal Flame to use when you load it back into FLAM3H(tm) can be baked into the preset name you choose for it.
 
         For instance, the Flame preset "_*My_Awesome_GrandJulia*_" will be loaded with *`64`* iterations by default.
 
-        However, all settings will be overridden if you add the iteration number to the preset name after a double colon, as in "_*My_Awesome_GrandJulia*_*`::16`*" and load it with an iteration count of *`16`*.
+        However, all settings will be overridden if you add the iterations number to the preset name after a double colon (*`::`*), as in "_*My_Awesome_GrandJulia*_*`::16`*" and load it with an iterations count of *`16`*.
         
-        Therefore, do some tests before saving it, and choose the ideal iteration number to incorporate into the preset name.
+        Therefore, do some tests before saving it, and choose the ideal iterations number to incorporate into the preset name.
         
-        If you like, you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
+        If you like,<br />
+        you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
     
 Force iterations on Load [Icon:DATATYPES/boolean]:
     #id: IN
     *`Off`* by default.
 
     When Flame files are loaded,<br />
-    FLAM3H(tm) immediately sets the iteration number to *`64`*, which seems like a reasonable count to resolve the majority of them rather effectively.
+    FLAM3H(tm) immediately sets the iterations number to *`64`*, which seems like a reasonable amount to resolve the majority of them rather effectively.
     
     However,<br />
     if you need to act quickly, you can use this number to override the iterations set on load.
@@ -2257,7 +2261,10 @@ OUT flame ( *.flame type ) [Icon:DATATYPES/string]:
     - ((LMB)) to open a floating file chooser.
 
     <br />
-    Select a file to save your Flame into. If the selected file does not exist, it will be created.
+    Select a file to save your Flame into.<br />
+    If the selected file does not exist, it will be created.
+
+    A *.flame file is an [XML|Wp:XML] formatted type of file.
 
     The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
     <br /><br />
@@ -2303,9 +2310,9 @@ Save Flame:
         While this is doable within the tool, it is not compatible with the FLAM3 file format as it requires that a variation be used only once per type ( _types:_ *`PRE`*, *`VAR`*, *`POST`* )
         or you won't be able to save the same result.
 
-        Save the hip file instead.
-        
         This is true also for applications like Apophysis and Fractorium as they obey the same rule.
+
+        Save the hip file instead.
     
 Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: OUT
@@ -2317,17 +2324,18 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
         #display: orange
         If "*add iterations to Flame name*" option is *`Off`*/Disabled:
     
-        The iteration number you want your fractal Flame to use when you load it back into FLAM3H(tm) can be baked into the preset name you choose for it.
+        The iterations number you want your fractal Flame to use when you load it back into FLAM3H(tm) can be baked into the preset name you choose for it.
 
         For instance, the Flame preset "_*My_Awesome_GrandJulia*_" will be loaded with 64 iterations by default.
 
         However,<br />
-        if the iteration number is added to the preset name after a double colon, as in "_*My_Awesome_GrandJulia*_*`::16`*," it will override all settings and load the preset with *`16`* as the iteration numbers.
+        if the iterations number is added to the preset name after a double colon (*`::`*), as in "_*My_Awesome_GrandJulia*_*`::16`*," it will override all settings and load the preset with *`16`* as the iterations numbers.
         
         Therefore,<br />
-        do some tests before saving it, and choose the ideal iteration number to incorporate into the preset name.
+        do some tests before saving it, and choose the ideal iterations number to incorporate into the preset name.
         
-        If you like, you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
+        If you like,<br />
+        you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
     
 menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     #id: OUT
@@ -2342,7 +2350,7 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     _Quick infos are_:
     - *`Flame preset name`* ( _only in the status bar_ )
     - *`XF`*: number of iterators/xforms being used
-    - *`FF`*: when finalXform(FF) is being used
+    - *`FF`*: when finalXform(_FF_) is being used
     - *`Palette`*: number of colors in the palette
     - *`HSV`*: when HSV color correction is being used
     - *`HSV values`* ( _only in the status bar_ )
@@ -2479,13 +2487,13 @@ Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
     *`On`* by default.
     
-    It will automatically append the iteration number to the Flame name you enter.
+    It will automatically append the iterations number to the Flame name you enter.
     It will also autocorrect the Flame name string based on internally defined rules.
     <br /><br />
 
     TIP:
         #display: orange
-        When *`On`*/Active, and once you type in a Flame name, changing the iteration number will update the Flame name too.
+        When *`On`*/Active, and once you type in a Flame name, changing the iterations number will update the Flame name too.
 
 :box:
     #display: rounded white
@@ -2993,11 +3001,11 @@ Density :
     #id: prefs
     Set a custom density value for the fractal Flame.<br />
     
-    If the global tab's density menu entries do not have what you need<br />
+    If the global -> density menu entries do not have what you need<br />
     you can set a custom density value using this parameter.
 
-    If the choosen value is not present in the global density menu entries,<br />
-    the global density menu label will become empty to signal the use of a custom density value here.
+    If the choosen value is not present in the global -> density menu entries,<br />
+    the global -> density menu label will become empty to signal the use of a custom density value here.
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
     - This is the only place where you are allowed to animate the density value.
@@ -3820,11 +3828,11 @@ _A list of all parametric variations and their parametric parameter's names._
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF Shader:
         #id: Limitations
     
-    This finalXform(FF) does not possess any color parameters in this implementation ( _Chaotica style_ ).
+    This finalXform(_FF_) does not possess any color parameters in this implementation ( _Chaotica style_ ).
     <br /><br />
 
     NOTE:
-        _When saving a Flame out from Fractorium/Apophysis with a finalXform remember to set the Final xform color to:_
+        _When saving a Flame out from Fractorium/Apophysis with a finalXform(_FF_) remember to set the finalXform color to:_
         - Color -> *`0`*(Zero)
         - Color Speed -> *`0`*(Zero) ( _this is the most important_ )
         - Direct Color -> *`1`*(one)
