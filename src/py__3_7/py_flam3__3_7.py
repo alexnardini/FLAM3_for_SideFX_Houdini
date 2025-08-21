@@ -93,13 +93,13 @@ from inspect import cleandoc as i_cleandoc
                     hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX
                     hou.session.FLAM3H_MARKED_FF_NODE
                     hou.session.FLAM3H_MARKED_FF_CHECK
-                    hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH
                     hou.session.FLAM3H_SENSOR_CAM_STASH
                     hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE
                     hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT
                     hou.session.FLAM3H_SENSOR_CAM_STASH_DICT
                     hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT
                     hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT
+                    hou.session.H_VIEWPORT_WIRE_WIDTH
                     hou.session.H_CS_STASH_DICT
 
 
@@ -1646,10 +1646,10 @@ class flam3h_scripts
             (None):
         """
         if flam3h_general_utils(self.kwargs).util_other_xf_viz() is False:
-            hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH: float = 3 # type: ignore
+            hou.session.H_VIEWPORT_WIRE_WIDTH: float = 3 # type: ignore
         else:
-            try: hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
-            except: hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH: float = 3 # type: ignore
+            try: hou.session.H_VIEWPORT_WIRE_WIDTH # type: ignore
+            except: hou.session.H_VIEWPORT_WIRE_WIDTH: float = 3 # type: ignore
     
     
     def flam3h_presets_cache_filepath_on_load(self) -> None:
@@ -3125,7 +3125,7 @@ class flam3h_general_utils
                     self.util_store_all_viewers_xf_viz()
                     
                 # Retrieve the value we shoud be set to
-                try: w: Union[float, None] = hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH # type: ignore
+                try: w: Union[float, None] = hou.session.H_VIEWPORT_WIRE_WIDTH # type: ignore
                 except: w = None
                 if w is not None: self.viewportWireWidth(w)
                 
@@ -4005,7 +4005,7 @@ class flam3h_general_utils
                     prm.set(width)
             
         # Updated FLAM3H™ wire width custom value
-        hou.session.FLAM3H_VIEWPORT_WIRE_WIDTH: float = width # type: ignore
+        hou.session.H_VIEWPORT_WIRE_WIDTH: float = width # type: ignore
         
         # Update wire width preference's option toggle on other FLAM3H™ nodes instances
         [f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).deleteAllKeyframes() for f3h in node.type().instances()]
