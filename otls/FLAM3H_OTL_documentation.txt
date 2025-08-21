@@ -1092,7 +1092,7 @@ menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
         When authoring your Flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3H(tm)
         remeber that the variation *`pre_gaussian_blur`* will be remapped to *`pre_blur`* on Flame load by default if it is the first one in the list of applied *`PRE`* variations.
 
-    
+
 menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
     *`PRE`* variations for the selected iterator.
@@ -1104,6 +1104,19 @@ menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
 
     * When using parametric variations, their parameters will populate the *VARS* tab.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
+
+    When applying an iterator (_aka: xform or transform_) to an input point, variations are traditionally applied in between the pre affine and post affine transforms.
+
+    As the algorithm evolved over time, users realized it would be useful to be able to apply one or more variations in between the output of the pre affine transform and the application of the first *`VAR`* variation. These are known as *`PRE`* variations. They differ from regular *`VAR`* variations in that their outputs are usually assigned rather than summed. This has the effect of making an adjustment to the point before it’s used as inputs to all of the regular *`VAR`* variations.
+
+    If multiple *`PRE`* variations are used, their outputs are not summed, they are assigned. It is for this reason that order matters for them.
+
+    In practice,<br />
+    *`PRE`* and *`POST`* variations are used to achieve a specific effect and are therefore most useful when only one of each is used. Multiple *`PRE`* and *`POST`* variations rarely produce desirable or controllable effects.
+    <br /><br />
 
     
 swap PRE vars:
