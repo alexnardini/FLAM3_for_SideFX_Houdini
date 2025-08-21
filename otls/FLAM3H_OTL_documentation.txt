@@ -1077,7 +1077,7 @@ Opacity [Icon:TOP/xmlinput]:
         - *`4`*(four) *`VAR Mobius`*
         - *`1`*(one) *`POST Mobius`*
         
-        _they will all share the same *`re:abcd`* and *`im:abcd`* parameters (_FLAME: VARS tab_)._
+        _they will all share the same *`re:abcd`* and *`im:abcd`* parameters (FLAME: VARS tab)._
      
 menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FLAME
