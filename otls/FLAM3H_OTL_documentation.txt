@@ -324,6 +324,7 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     NOTE:
         This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the ((p)) key. Please, open a Parameter Editor in its own pane tab or floating panel for this feature to work.
 
+    <br />
 
 FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
