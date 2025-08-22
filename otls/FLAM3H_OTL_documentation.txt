@@ -224,6 +224,7 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionEnabledMidSVG.svg] presets from *`25`* to *`250`* millions.
     - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] presets from *`500`* millions to *`1 Billion`*.
 
+    <br />
     When using a custom density value from inside the preferences density tab,<br />
     if the choosen value is not present in this global menu entries, this menu label will become empty to signal the use of a custom density value.
 
@@ -245,6 +246,8 @@ menu density presets [Icon:BUTTONS/pane_menu]:
 
     Beyound those bookmark icons,<br />
     the xforms handles VIZ mode will be automatically disabled.
+
+    <br />
 
     
 Reset density:
@@ -289,6 +292,8 @@ FLAM3H(tm) documentation:
     
     Display this documentation.
 
+    <br />
+
 mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     #id: SYS
 
@@ -330,6 +335,8 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*/Active.
     
     Enable and disable [finalXform|#FF](_FF_).
+
+    <br />
     
     
 RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
@@ -584,6 +591,8 @@ mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
         #display: orange
         To populate this menu, load a FLAM3H™ palette *.json file first inside the CP tab,<br />
         or ((SHIFT)) + ((LMB)) the icon to open a floating file chooser.
+
+    <br />
         
     
 CP Preset reload:
@@ -626,6 +635,8 @@ mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
         #display: orange
         To populate this menu, load a valid *.flame file first inside the IN tab,<br />
         or ((SHIFT)) + ((LMB)) the icon to open a floating file chooser.
+
+    <br />
     
 IN Preset reload:
     #id: SYS
@@ -695,6 +706,8 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
         Saving Flames from this icon, will always use a default name that uses the current date and time.
 
         In case you'd like to give your Flames a proper name, you can do so from inside the OUT tab.
+
+    <br />
     
 OUT Save:
     #id: SYS
@@ -800,6 +813,8 @@ note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
     NOTE:
         The text you write here will be stored with the Flame file and also shown inside third-party applications like Apophysis and Fractorium as the iterator's name.
+
+    <br />
     
 copy/paste:
     #id: FLAME
@@ -968,7 +983,8 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
         
     NOTE:
         - This parameter can not be animated.
-    <br /><br />
+
+    <br />
         
 auto space xaos weights / xaos information tips [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/boolean]:
     #id: FLAME
@@ -1116,7 +1132,8 @@ menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
     In practice,<br />
     *`PRE`* and *`POST`* variations are used to achieve a specific effect and are therefore most useful when only one of each is used. Multiple *`PRE`* and *`POST`* variations rarely produce desirable or controllable effects.
-    <br /><br />
+    
+    <br />
 
     
 swap PRE vars:
@@ -1210,7 +1227,9 @@ pre affine Scale:
     <br /><br />
 
     NOTE:
-        This parameter can not be animated. 
+        This parameter can not be animated.
+
+    <br />
 
 
 copy post affine values:
@@ -1292,6 +1311,8 @@ pre affine Rot [Icon:TOP/xmlinput]:
 
     NOTE:
         The resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.
+
+    <br />
 
 pre affine reset:
     #id: FLAME
@@ -1378,6 +1399,8 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     
     Enable and disable [finalXform|#FF](_FF_).
 
+    <br />
+
 FF xform VIZ [Icon:DATATYPES/boolean]:
     #id: FF
     *`Off`* by default.
@@ -1403,6 +1426,8 @@ FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
     NOTE:
         The text you write here will be stored with the Flame file and will also appear inside Apophysis and Fractorium as the name of the finalXform(_FF_) iterator.
+
+    <br />
     
 FF: copy/paste:
     #id: FF
@@ -1505,6 +1530,8 @@ menu FF POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     These are applyed after the *`VAR`* variations. They are the very last transformation.
 
     * When using parametric variations, their parameters will populate the *FF: PP VARS* tab.
+
+    <br />
     
 
 swap FF POST vars:
@@ -1605,6 +1632,8 @@ HSV values [Icon:TOP/xmlinput]:
     [HSV|Wp:HSL_and_HSV] values are exported into the palette preset on save <br />
     and also into the XML on Flame save when they are used.
 
+    <br />
+
 HSV reset:
     #id: PALETTE
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
@@ -1658,6 +1687,8 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
         - If you are loading a Flame file preset from another software or from older versions of FLAM3H(tm) without the lookup samples XML key in the file, the default value of *`256`* will be used instead.
         - Saving a Flame out will always save the palette with *`256`* color's keys. If you created a palette with more than *`256`* colors, for example with *`1024`* color keys and sample it with *`1024`* samples to take into account all the subtle color changes, turn *`On`* the *PREFS options* tab toggle -> *`palette 256+`*.
     
+    <br />
+
 palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     #id: PALETTE
     The actual [color palette|Wp:Palette_(computing)] being used by the Flame you are working on.
@@ -1746,6 +1777,8 @@ Save Palette:
         - When saving out a palette file, it will try to downsample the usual *`256`* color count standard.
         - When saving out Flame files from the OUT tab, it will always sample and save the palette as a *`256`*-color palette standard, unless you turn *`On`* the *PREFS options* tab toggle -> *`palette 256+`*.
     
+    <br />
+
 Palette name [Icon:DATATYPES/string]:
     #id: PALETTE
     Write a name to give to the selected palette when saving it.<br /><br />
@@ -1772,6 +1805,8 @@ menu CP file contents [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
     
     If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
+
+    <br />
     
 Reload preset:
     #id: PALETTE
@@ -1831,6 +1866,8 @@ on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boole
 
         - If you animate any of the available parameters using expressions, remember to always use *`@Time`* and not *`$F`* so FLAM3H(tm) will be able to interpolate through time properly.   
         - Motion blur values are exported into the XML on Flame save when turned *`On`*.
+
+    <br />
 
 MB reset:
     #id: MB
@@ -1951,6 +1988,8 @@ menu IN file contents [Icon:BUTTONS/pane_menu]:
 
     When a Flame preset has been loaded from the clipboard, the menu labels will be prefixed with: *`[CLIPBOARD]`*
 
+    <br />
+
 Reload:
     #id: IN
 
@@ -2000,6 +2039,8 @@ Iterations on Load:
         
         If you like,<br />
         you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
+
+    <br />
     
 Force iterations on Load [Icon:DATATYPES/boolean]:
     #id: IN
@@ -2014,6 +2055,8 @@ Force iterations on Load [Icon:DATATYPES/boolean]:
     If the iterations number is baked into the Flame preset name, it will override this setting.
 
     Turn *`On`* "override iterations from Flame name" toggle to override the iterations number baked into the Flame preset name.
+
+    <br />
 
 Override iterations from Flame name [Icon:DATATYPES/boolean]:
     #id: IN
@@ -2065,6 +2108,8 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
 
         The only affine available will be the standard affine style when loading Flame files created with third-party applications like Apophysis or Fractorium.
 
+    <br />
+
 
 Reload preset with "F3H affine style" changes:
     #id: IN
@@ -2087,6 +2132,8 @@ Copy render properties on Load [Icon:DATATYPES/boolean]:
 
     NOTE:
         *You need to reload the current Flame preset for this change to take place*.
+
+    <br />
         
 Reload preset with "Copy renderer settings on Load" changes:
     #id: prefs
@@ -2166,6 +2213,8 @@ Render infos:
     These characteristics are unique to the renderer of the program from which the loaded Flame was created or saved.
 
     Some of the characteristics are unique to the Fractorium application, which has served as my point of reference.
+
+    <br />
     
 Copy/Paste ALL preset settings:
     #id: IN
@@ -2176,6 +2225,8 @@ Copy/Paste ALL preset settings:
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
     When loading a Flame preset from the clipboard, all its renderer properties will be automatically copied into the OUT render properties on load.
+
+    <br />
         
 
 Copy/Paste SENSOR/RENDER preset settings:
@@ -2287,6 +2338,8 @@ OUT flame ( *.flame type ) [Icon:DATATYPES/string]:
         When you have finished creating a FLAM3H(tm) library, you can rename the file to begin with "*`F3H_LOCK`*" to prevent any future alterations.
 
         You can rename a lib file, for instance, called "_*my_grandJulia.flame*_" to "*`F3H_LOCK`*_*_my_grandJulia.flame*_" to keep it secure.
+
+    <br />
         
     
 Save Flame:
@@ -2326,6 +2379,8 @@ Save Flame:
         This is true also for applications like Apophysis and Fractorium as they obey the same rule.
 
         Save the hip file instead.
+
+    <br />
     
 Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: OUT
@@ -2349,6 +2404,8 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
         
         If you like,<br />
         you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
+
+    <br />
     
 menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     #id: OUT
@@ -2379,7 +2436,8 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
-    <br /><br />
+
+    <br />
 
 Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_optionStarBlueSVG.svg]:
     #id: FLAME
@@ -2416,6 +2474,8 @@ palette HSV (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     This option will clamp the palette colors on save to *`0`*-*`255`* and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
     
+    <br />
+
 F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
     *`On`* by default.
@@ -2449,6 +2509,8 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     NOTE:
         There are no reasons to turn this toggle *`Off`* as it cause no harm, however if you would like to have the Flame preset saved without the F3H affine style XML keys at all, turn this *`Off`*.
+
+    <br />
         
 Flame name inherit on load [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
@@ -2458,6 +2520,8 @@ Flame name inherit on load [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     to automatically be set to the name of the loaded IN flame preset.<br />
     <br />
     It will work for Flame presets loaded from a disk file or from the Clipboard.
+
+    <br />
 
 Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
@@ -2496,6 +2560,8 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         
         _This way once we load it back FLAM3H(tm) will remap those parameteric variations parameter's names to the proper one_.
 
+    <br />
+
 Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: OUT
     *`On`* by default.
@@ -2528,6 +2594,8 @@ Edit render properties [Icon:DATATYPES/boolean]:
     
     They will control how the saved fractal Flame will render inside other applications like Fractorium and Apophysis.
     They are their render properties, and they will be exported into the XML file.
+
+    <br />
         
     
 Render properties utils:
@@ -2626,6 +2694,8 @@ mini-menu Resolution presets [Icon:BUTTONS/pane_menu]:
     #id: OUT
     Select a resolution out of some pre made presets.
 
+    <br />
+
     
 Copy/Paste render properties:
     #id: OUT
@@ -2638,19 +2708,27 @@ Copy/Paste render properties:
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
     All the render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
+
+    <br />
     
 Center [Icon:TOP/xmlinput]:
     #id: OUT
     The Sensor center, offsets the camera in fractal space (_panning_).
+
+    <br />
     
 Rotate [Icon:TOP/xmlinput]:
     #id: OUT
     The Sensor rotation (_also known as: roll_).
+
+    <br />
     
 Scale(lens) [Icon:TOP/xmlinput]:
     #id: OUT
     Lens size.<br /><br />
     This XML key is an inexpensive method of achieving zoom since you will have to manually change the quality from within the host software because it won't be improved once loaded into third-party apps like Fractorium or Apophysis.
+
+    <br />
     
 update camera sensor [Icon:DATATYPES/boolean]:
     #id: OUT
@@ -2672,30 +2750,40 @@ Quality [Icon:TOP/xmlinput]:
     _The Flame renderer setting: quality_.
 
     Think of this as how many points are used inside Fractorium to render the final image.
+
+    <br />
     
 Brightness [Icon:TOP/xmlinput]:
     #id: OUT
     _The Flame renderer setting: brightness_.
 
     Controls the overall lightness or darkness of the image. Increasing brightness shifts all pixels toward white; decreasing shifts them toward black. This adjustment affects the entire tonal range evenly.
+
+    <br />
     
 Gamma [Icon:TOP/xmlinput]:
     #id: OUT
     _The Flame renderer setting: gamma_.
 
     Adjusts the distribution of midtones without significantly altering pure black or pure white. Higher gamma brightens midtones; lower gamma darkens them. Often used for display correction and tonal fine tuning.
+
+    <br />
     
 Highlight power [Icon:TOP/xmlinput]:
     #id: OUT
     _The Flame renderer setting: highlight power_.
 
     Controls the strength of adjustments applied to the brightest areas of the image. Higher values make highlights more pronounced; lower values soften them, helping retain detail in bright regions.
+
+    <br />
     
 Logscale K2 [Icon:TOP/xmlinput]:
     #id: OUT
     _The Flame renderer setting: Logscale K2_.
 
     Applies a logarithmic remapping to pixel values. The k2 parameter controls the curve’s steepness, affecting how midrange values are compressed or expanded. Useful for tone mapping or handling high dynamic range data.
+
+    <br />
     
 Vibrancy [Icon:TOP/xmlinput]:
     #id: OUT
@@ -2935,6 +3023,8 @@ palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         turn this toggle *`Off`* before saving the Flame preset out<br />
         so it will sample the palette with *`256`* samples and save the Flame preset with *`256`* color keys.
 
+    <br />
+
 flash messages (network editor) [Icon:DATATYPES/boolean]:
     #id: prefs
     *`On`* by default.<br />
@@ -2957,6 +3047,7 @@ Enumerate presets menus [Icon:DATATYPES/boolean]:
     
     Turn this *`Off`* to only display the raw preset names.
 
+    <br />
 
 Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
     #id: prefs
@@ -3043,6 +3134,7 @@ camera handle [Icon:DATATYPES/boolean]:
     :warning:
         Turn this *`Off`* when rendering.
 
+    <br />
     
 Camera cull [Icon:DATATYPES/boolean]:
     #id: prefs
@@ -3105,6 +3197,8 @@ Size:
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.
 
+    <br />
+
 Size default:
     #id: prefs
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
@@ -3117,6 +3211,8 @@ Wire width:
     <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.
+
+    <br />
 
 Wire width default:
     #id: prefs
