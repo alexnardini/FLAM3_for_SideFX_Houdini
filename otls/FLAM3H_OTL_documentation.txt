@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H(tm)
-#version: 1.8.63 - Production
+#version: 1.8.64 - Production
 
 """The Fractal Flame Algorithm: "FLAM3". Create fractal art in Houdini. 
 ( vcc compiler: v20.5.654 )"""
@@ -303,7 +303,7 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
 
     _The bookmark icon will display the status of each iterator_:
 
-    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] when an iterator is *`On`*/Active.
+    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] when an iterator is *`On`*/Active (_Default_).
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when an iterator is *`On`*/Active and *`0`*(Zero) Weight.
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when an iterator is *`On`*/Active, *`0`*(Zero) Weight and Marked.
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg] when an iterator is *`On`*/Active and Marked.
@@ -332,7 +332,7 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     <br />
     
-    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*/Disabled (_Default_).
     - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*/Active.
     
     Enable and disable [finalXform|#FF](_FF_).
@@ -346,7 +346,7 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     <br />
     
-    - [Largeicon:opdef:.?icon_optionRIPDisabledSVG.svg] when RIP is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_optionRIPDisabledSVG.svg] when RIP is *`Off`*/Disabled (_Default_).
     - [Largeicon:opdef:.?icon_optionRIPEnabledSVG.svg] when RIP is *`On`*/Active.
     
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
@@ -367,9 +367,10 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     Flam3 compatibility.
 
-    The behavior of the *`Cos`*, *`Cosh`*, *`Cot`*, *`Coth`*, *`Csc`*, *`Csch`*, *`Sec`*, *`Sech`*, *`Sin`*, *`Sinh`*, *`Tan`* and *`Tanh`* variations are different in flam3/Apophysis versus Chaotica.
+    The behavior of the *`Cos`*, *`Cosh`*, *`Cot`*, *`Coth`*, *`Csc`*, *`Csch`*, *`Sec`*, *`Sech`*, *`Sin`*, *`Sinh`*, *`Tan`* and *`Tanh`* variations are different in Flam3/Apophysis versus Chaotica. Those variations are also referred to as: *trigonometric variations*.
     
-    - [Largeicon:opdef:.?icon_optionF3CEnabledSVG.svg] *Checked*: use the Apophysis behavior.
+    <br />
+    - [Largeicon:opdef:.?icon_optionF3CEnabledSVG.svg] *Checked*: use the Flam3/Apophysis behavior (_Default_).
     - [Largeicon:opdef:.?icon_optionF3CDisabledSVG.svg] *Unchecked*: use the Chaotica behavior.
     <br /><br />
 
@@ -393,7 +394,7 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
     
     <br />
 
-    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] vieport xforms VIZ is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] vieport xforms VIZ is *`Off`*/Disabled (_Default_).
     - [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg] vieport xforms VIZ is *`On`*/Active.
     - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] one of the iterators/xforms is in SOLO mode.
     - [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg] the FF is in SOLO mode.
@@ -467,7 +468,7 @@ TAG [Icon:DATATYPES/boolean]:
 
     <br />
     
-    - [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg] when TAG is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg] when TAG is *`Off`*/Disabled (_Default_).
     - [Largeicon:opdef:.?icon_TagOBlueSVG.svg] when TAG is *`On`*/Active.
     
     Enable/disable viewport TAG infos.
@@ -517,7 +518,7 @@ mini-menu TAG size [Icon:BUTTONS/pane_menu]:
 
     _The menu labels posses a bookmark icon_:
 
-    - [Largeicon:opdef:.?icon_TagOBlueMenuSmallSVG.svg] for a small tag size.
+    - [Largeicon:opdef:.?icon_TagOBlueMenuSmallSVG.svg] for a small tag size (_Default_).
     - [Largeicon:opdef:.?icon_TagOBlueMenuMidSVG.svg] for a Medium tag size.
     - [Largeicon:opdef:.?icon_TagOBlueMenuBigSVG.svg] for a BIG tag size.
 
@@ -537,7 +538,8 @@ loaddef:
 
     _Additionally_:
     
-    when loading the default Sierpiński triangle from this icon, it will also reset the FLAM3H(tm) UI and options toggles to their defaults including the OUT render properties (_SENSOR, RENDER and CC CURVES settings_).
+    when loading the default Sierpiński triangle from this icon,<br />
+    it will also reset the FLAM3H(tm) UI and options toggles to their defaults including the OUT render properties (_[Icon:TOP/xmlinput] SENSOR, RENDER and CC CURVES settings_).
 
 :box:
     #display: rounded white
@@ -585,7 +587,7 @@ mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
     
-    If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
+    If after loading a preset you make any modification to the loaded palette, the menu label bookmark icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
     <br /><br />
 
     TIP:
@@ -629,7 +631,7 @@ mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
 
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
 
-    When a Flame preset has been loaded from the clipboard, the menu labels will be prefixed with: *`[CLIPBOARD]`*
+    When a Flame preset has been loaded from the clipboard, the selected menu preset label will be prefixed with: *`[CLIPBOARD]`*
     <br /><br />
 
     TIP:
@@ -732,7 +734,7 @@ OUT Save:
 palette 256+ ON [Icon:TOP/xmlinput]:
     #id: SYS
     *`[256+]`*<br /><br />
-    when the *PREFS options* tab toggle *`palette 256+`* is *`On`*/Active, this text in the SYS tab will signal it and when *`Off`*/Disabled it will disappear.
+    When the Prefs tab general toggle *`palette 256+`* is *`On`*/Active, this text in the SYS tab will signal it and when *`Off`*/Disabled it will disappear.
 
 
 :box:
@@ -763,8 +765,8 @@ number of iterators [Icon:TOP/xmlinput]:
     Number of iterators (_aka: xforms or transforms_) to use.<br />
     
     Every iterator acts as a container for functions, the algorithm will mix or shuffle iterators based on your logic.
-    <br /><br />
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
 
     Xforms have the most effect over the look of the final output image. Discussing every possible technique for using them is beyond the scope of this project. For such information, you should follow the numerous Apophysis tutorials that are available on Deviant Art and elsewhere. This article is limited to some basic performance considerations when using xforms.
@@ -863,7 +865,7 @@ Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     <br />
     
     - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] This iterator is *`Off`*/Disabled.
-    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] This iterator is *`On`*/Active.
+    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] This iterator is *`On`*/Active (_Default_).
     
     Enable/Disable this iterator.
     <br /><br />
@@ -882,7 +884,7 @@ xform VIZ SOLO [Icon:DATATYPES/boolean]:
 
     <br />
 
-    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] to enter into SOLO mode and display only this iterator xform handle VIZ in the viewport.
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] to enter into SOLO mode and display only this iterator xform handle VIZ in the viewport (_Default_).
     - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] to exit the SOLO mode and revert back to display all xforms handles VIZ together.<br /><br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
@@ -1084,7 +1086,7 @@ Opacity [Icon:TOP/xmlinput]:
         - *`4`*(four) *`VAR`*
         - *`1`*(one) *`POST`*
         
-        _Variation names that end with an asterisk(*) are dependent, while those that end with three dots(...) are parametric._
+        _Variation names that end with an asterisk(*`*`*) are dependent, while those that end with three dots(*`...`*) are parametric._
         
         _When using parametric variations, their parameters in the VARS tab will be shared between all of them._
 
@@ -1111,7 +1113,7 @@ menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
 
 menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
-    #id: FLAME
+    #id: FLAMEPRE
     *`PRE`* variations for the selected iterator.
 
     These are applyed before the *`VAR`* variations.
@@ -1173,6 +1175,10 @@ menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     For speed purpose only *`1`*(one) *`POST`* variation is allowed at the moment.
 
     * When using parametric variations, their parameters will populate the *VARS* tab.
+
+    *See the iterator(_xform_) [menu PRE|#FLAMEPRE] description for more informations.*
+
+    <br />
         
 w [Icon:TOP/xmlinput]:
     #id: FLAME
@@ -1198,7 +1204,7 @@ post affine [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: FLAME
     Enable post affine transformation.
 
-    *See the below iterator(_xform_) [post affine|#FLAMEITERPOSTAFFINE] description for more informations.*
+    *See the iterator(_xform_) [post affine|#FLAMEITERPOSTAFFINE] description for more informations.*
 
 
 :box:
@@ -1343,7 +1349,7 @@ post affine [Icon:TOP/xmlinput]:
 
     In the context of fractal Flames, the "post-affine transformation" will be the very last to be applied to the incoming point/sample.
 
-    *See the above [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
+    *See the iterator(_xform_) [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
@@ -1395,7 +1401,7 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     <br />
     
-    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*/Disabled (_Default_).
     - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*/Active.
     
     Enable and disable [finalXform|#FF](_FF_).
@@ -1410,7 +1416,7 @@ FF xform VIZ [Icon:DATATYPES/boolean]:
 
     <br />
 
-    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] to enter into SOLO mode and display only the FF xform handle VIZ in the viewport.
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] to enter into SOLO mode and display only the FF xform handle VIZ in the viewport (_Default_).
     - [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg] to exit the SOLO mode and revert back to display all xforms handles VIZ together.<br /><br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
@@ -1507,6 +1513,10 @@ menu FF PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     This is applyed before the *`VAR`* variations. It is the very first transformation when used.
     
     * When using a parametric variation, its parameters will populate the *FF: PP VARS* tab.
+
+    *See the iterator(_xform_) [menu PRE|#FLAMEPRE] description for more informations.*
+
+    <br />
     
     
 menu FF VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
@@ -1531,6 +1541,8 @@ menu FF POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     These are applyed after the *`VAR`* variations. They are the very last transformation.
 
     * When using parametric variations, their parameters will populate the *FF: PP VARS* tab.
+
+    *See the iterator(_xform_) [menu PRE|#FLAMEPRE] description for more informations.*
 
     <br />
     
@@ -1568,12 +1580,12 @@ FF: w [Icon:TOP/xmlinput]:
 FF: pre affine [Icon:TOP/xmlinput]:
     #id: FF
 
-    *See the above iterator(_xform_) [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
+    *See the iterator(_xform_) [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
 
 FF: post affine [Icon:TOP/xmlinput]:
     #id: FF
     
-    *See the above iterator(_xform_) [post affine|#FLAMEITERPOSTAFFINE] description for more informations.*
+    *See the iterator(_xform_) [post affine|#FLAMEITERPOSTAFFINE] description for more informations.*
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
@@ -1648,6 +1660,8 @@ HSV keep values on Load [Icon:DATATYPES/boolean]:
     When loading a palette, FLAM3H(tm) will either set the HSV values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.
     
     Check this option to keep the current HSV values unchanged after loading a palette preset.
+
+    <br />
 
 HSV palette [Icon:DATATYPES/ramp]:
     #id: PALETTE
@@ -1782,7 +1796,8 @@ Save Palette:
 
 Palette name [Icon:DATATYPES/string]:
     #id: PALETTE
-    Write a name to give to the selected palette when saving it.<br /><br />
+    Write a name to give to the selected palette when saving it.
+
     _If no name is provided (e.g. empty string) an automated name composed of today's date and current time will be used instead_.
     
 :box:
@@ -1987,7 +2002,7 @@ menu IN file contents [Icon:BUTTONS/pane_menu]:
     
     - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
 
-    When a Flame preset has been loaded from the clipboard, the menu labels will be prefixed with: *`[CLIPBOARD]`*
+    When a Flame preset has been loaded from the clipboard, the selected menu preset label will be prefixed with: *`[CLIPBOARD]`*
 
     <br />
 
@@ -2126,7 +2141,7 @@ Copy render properties on Load [Icon:DATATYPES/boolean]:
     #id: IN
     *`On`* by default.
     
-    It will automatically copy all the render properties (_SENSOR, RENDER and CC CURVES_) into the OUT render properties every time you load a Flame preset in.
+    It will automatically copy all the render properties (_[Icon:TOP/xmlinput] SENSOR, RENDER and CC CURVES_) into the OUT render properties every time you load a Flame preset in.
 
     All the render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load.
     <br /><br />
@@ -2159,7 +2174,7 @@ IN infos [Icon:DATATYPES/string]:
     FLAM3H(tm) was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he posses.
 
     All of the variations that Fractorium lacks will be classified as: *`UNKNOWN`*<br />
-    and they will be searched inside the XML key: *`plugins`* of the loaded Flame preset (_from file or from clipboard_).
+    and they will be searched inside the XML key: [Icon:TOP/xmlinput] *`plugins`* of the loaded Flame preset (_from file or from clipboard_).
 
     <br />
 
@@ -2168,6 +2183,8 @@ IN infos [Icon:DATATYPES/string]:
     Every time you load a Flame preset either from a disk file or from the clipboard the IN infos tab will show you informations about the loaded preset.
 
     All the displayed informations are gathered from the XML of the loaded Flame preset.
+
+    The majority of FLAM3H(tm) user interface features, mostly buttons, have hidden techniques that assist in identifying whether a loaded Flame preset from a disk file has been altered. When it's happening, the IN infos will be updated and each of the following entries will be prefixed with an asterisk (*`*`*). You will need to reload the current preset if you desire to fully update.
 
     _The infos are categorized as follow_:
     
@@ -2221,7 +2238,7 @@ Copy/Paste ALL preset settings:
     #id: IN
     [Largeicon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg]
     
-    When you click this icon, all those render properties (_SENSOR, RENDER and CC CURVES settings_) will be copied and pasted into the render properties of the OUT tab.
+    When you click this icon, all those render properties (_[Icon:TOP/xmlinput] SENSOR, RENDER and CC CURVES settings_) will be copied and pasted into the render properties of the OUT tab.
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
@@ -2234,7 +2251,7 @@ Copy/Paste SENSOR/RENDER preset settings:
     #id: IN
     [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
 
-    When you click one of those icons, only the SENSOR or only the RENDER and CC CURVES settings will be copied into the OUT render properties.
+    When you click one of those icons, only the [Icon:TOP/xmlinput] SENSOR or only the [Icon:TOP/xmlinput] RENDER and CC CURVES settings will be copied into the OUT render properties.
 
     <br />
 
@@ -2253,7 +2270,7 @@ Copy/Paste SENSOR/RENDER preset settings:
     - *`Resolution`*:<br />The Sensor resolution in pixel (the output image resolution).
     - *`Center`*:<br />The Sensor center, think of this as the camera look at point. 
     - *`Rotate`*:<br />The Sensor rotation also known as: roll.
-    - *`Scale`*:<br />Size of the Sensor lens. the XML key: *`scale`* is an affordable way to achieve zoom.
+    - *`Scale`*:<br />Size of the Sensor lens. the XML key: [Icon:TOP/xmlinput] *`scale`* is an affordable way to achieve zoom.
 
     <br />
 
@@ -2385,7 +2402,8 @@ Save Flame:
     
 Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: OUT
-    Write a name to give to the selected Flame when saving it out.<br /><br />
+    Write a name to give to the selected Flame when saving it out.
+
     _If no name is provided (e.g. empty string) an automated name composed of today's date and current time will be used instead_.
     <br /><br />
 
@@ -2544,7 +2562,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.8.63" ... >
+          <flame version="FLAM3H-WIN-1.8.64" ... >
               ...
         }}}
         
@@ -2553,7 +2571,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.8.63" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.8.64" ... >
               ...
         }}}
         
@@ -2611,7 +2629,7 @@ Render properties utils:
 
     _Additionally_:
 
-    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard (_SENSOR, RENDER and CC CURVES setttings_). This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the clipboard into FLAM3H(tm) without the need to load the copied Flame preset fully, but just to updated the Render Properties.
+    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard (_[Icon:TOP/xmlinput] SENSOR, RENDER and CC CURVES setttings_). This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the clipboard into FLAM3H(tm) without the need to load the copied Flame preset fully, but just to updated the Render Properties.
     
     
 :box:
@@ -2623,7 +2641,7 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
     #id: OUT
     *`Off`* by default.<br /><br />
 
-    - [Largeicon:opdef:.?icon_TagORedSVG_disabled.svg] when Sensor Viz is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_TagORedSVG_disabled.svg] when Sensor Viz is *`Off`*/Disabled (_Default_).
     - [Largeicon:opdef:.?icon_TagORedSVG.svg] when Sensor Viz is *`On`*/Active and update sensor option is *`On`*/Active.
     - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when Sensor Viz is *`On`*/Active and update sensor option is *`Off`*/Disabled.
     
@@ -2688,12 +2706,12 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
 
 Resolution [Icon:TOP/xmlinput]:
     #id: OUT
-    The image resolution.
+    The sensor resolution: [Icon:TOP/xmlinput] *`size`*
     
     
 mini-menu Resolution presets [Icon:BUTTONS/pane_menu]:
     #id: OUT
-    Select a resolution out of some pre made presets.
+    Select a sensor resolution from a list of presets.
 
     <br />
 
@@ -2702,9 +2720,10 @@ Copy/Paste render properties:
     #id: OUT
     [Largeicon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg]
     
+    <br />
     When you load a Flame file in the IN tab or from the Clipboard, this icon will become available.
     
-    When you click this icon, the currently loaded IN Flame preset render properties will be copied and pasted here (_SENSOR, RENDER and CC CURVES settings_).
+    When you click this icon, the currently loaded IN Flame preset render properties will be copied and pasted here (_[Icon:TOP/xmlinput] SENSOR, RENDER and CC CURVES settings_).
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
@@ -2714,20 +2733,36 @@ Copy/Paste render properties:
     
 Center [Icon:TOP/xmlinput]:
     #id: OUT
-    The Sensor center, offsets the camera in fractal space (_panning_).
+    The sensor [Icon:TOP/xmlinput] *`center`*
+    
+    Offsets the camera in fractal space (_panning_).
 
     <br />
     
 Rotate [Icon:TOP/xmlinput]:
     #id: OUT
-    The Sensor rotation (_also known as: roll_).
+    The Sensor rotation: [Icon:TOP/xmlinput] *`rotate`* (_also known as: roll_).
 
     <br />
     
 Scale(lens) [Icon:TOP/xmlinput]:
     #id: OUT
-    Lens size.<br /><br />
-    This XML key is an inexpensive method of achieving zoom since you will have to manually change the quality from within the host software because it won't be improved once loaded into third-party apps like Fractorium or Apophysis.
+    The sensor lens size: [Icon:TOP/xmlinput] *`scale`*
+
+    This XML key is an inexpensive method of achieving *`zoom`* since you will have to manually change the *`quality`* from within the host software because it won't be improved once loaded into third-party apps like Fractorium or Apophysis.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
+
+    When fractal Flames are zoomed in, they will degrade in appearance and become more speckled/noisy.
+
+    *`Scale`* zooms the image without a corresponding increase in *`quality`*. For images with a small *`scale`* value, or a *`quality`* value that is already large, this shouldn’t increase the noise by much. However, for the inverse situation, you might need to increase the quality a bit to compensate for the increased scale.
+
+    *`Zoom`* does what *`scale`* does, however it greatly increases the *`quality`* to compensate.
+
+    In most cases, using *`zoom`* is overkill and will result in very lengthy renders. You might have a low value for *`quality`*, but after *`zoom`* increases it behind the scenes, the final *`quality`* used will be quite large.
+    
+    It is for this reason that only *`scale`* is provided in FLAM3H(tm).
 
     <br />
     
@@ -2748,7 +2783,7 @@ update camera sensor [Icon:DATATYPES/boolean]:
     
 Quality [Icon:TOP/xmlinput]:
     #id: OUT
-    _The Flame renderer setting: quality_.
+    _The Flame renderer setting: [Icon:TOP/xmlinput] *`quality`*_
 
     Think of this as how many points are used inside Fractorium to render the final image.
 
@@ -2756,7 +2791,7 @@ Quality [Icon:TOP/xmlinput]:
     
 Brightness [Icon:TOP/xmlinput]:
     #id: OUT
-    _The Flame renderer setting: brightness_.
+    _The Flame renderer setting: [Icon:TOP/xmlinput] *`brightness`*_
 
     Controls the overall lightness or darkness of the image. Increasing brightness shifts all pixels toward white; decreasing shifts them toward black. This adjustment affects the entire tonal range evenly.
 
@@ -2764,7 +2799,7 @@ Brightness [Icon:TOP/xmlinput]:
     
 Gamma [Icon:TOP/xmlinput]:
     #id: OUT
-    _The Flame renderer setting: gamma_.
+    _The Flame renderer setting: [Icon:TOP/xmlinput] *`gamma`*_
 
     Adjusts the distribution of midtones without significantly altering pure black or pure white. Higher gamma brightens midtones; lower gamma darkens them. Often used for display correction and tonal fine tuning.
 
@@ -2772,7 +2807,7 @@ Gamma [Icon:TOP/xmlinput]:
     
 Highlight power [Icon:TOP/xmlinput]:
     #id: OUT
-    _The Flame renderer setting: highlight power_.
+    _The Flame renderer setting: [Icon:TOP/xmlinput] *`highlight_power`*_
 
     Controls the strength of adjustments applied to the brightest areas of the image. Higher values make highlights more pronounced; lower values soften them, helping retain detail in bright regions.
 
@@ -2780,7 +2815,7 @@ Highlight power [Icon:TOP/xmlinput]:
     
 Logscale K2 [Icon:TOP/xmlinput]:
     #id: OUT
-    _The Flame renderer setting: Logscale K2_.
+    _The Flame renderer setting: [Icon:TOP/xmlinput] *`logscale_k2`*_
 
     Applies a logarithmic remapping to pixel values. The k2 parameter controls the curve’s steepness, affecting how midrange values are compressed or expanded. Useful for tone mapping or handling high dynamic range data.
 
@@ -2788,7 +2823,7 @@ Logscale K2 [Icon:TOP/xmlinput]:
     
 Vibrancy [Icon:TOP/xmlinput]:
     #id: OUT
-    _The Flame renderer setting: vibrancy_.
+    _The Flame renderer setting: [Icon:TOP/xmlinput] *`vibrancy`*_
 
     Enhances the intensity of muted colors while leaving already vivid colors and skin tones largely unaffected. Provides a more natural color boost than global saturation.
 
@@ -2884,7 +2919,7 @@ _The following is an example of what the default Sierpiński triangle preset loo
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.63" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.64" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -2926,7 +2961,7 @@ _The following is an example of what the default Sierpiński triangle preset loo
 </flames>
 }}}
 
-_The first line is the main flames preset XML root. Under this root can live many different flame presets_:
+_The first line is the main [Icon:TOP/xmlinput] *`flames`* preset XML root. Under this root can live many different flame presets_:
 
 {{{
 #!xml
@@ -2940,18 +2975,18 @@ _In this case we only have *`1`*(one) flame preset named: *Sierpiński triangle:
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.63" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.64" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     ...
   </flame>
 </flames>
 }}}
 
-_Under the flame preset XML key lives all its data: iterators/xforms data and its palette data_.
+_Under the [Icon:TOP/xmlinput] *`flame`* preset XML key lives all its data: [Icon:TOP/xmlinput] *`xform`* data and its [Icon:TOP/xmlinput] *`palette`* data_.
 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.63" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.64" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>
@@ -2966,7 +3001,7 @@ _Under the flame preset XML key lives all its data: iterators/xforms data and it
 
 [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*
 
-_When you save a Flame preset to the Clipboard, it will be rootless (not under a *`flames`* XML root key). This is a convention adopted by all the other third-party applications. However FLAM3H(tm) can load a single Flame preset with and without a root. If more than 1(one) Flame preset exist in a file, they must be grouped under the same root._ 
+_When you save a Flame preset to the Clipboard, it will be rootless (not under a [Icon:TOP/xmlinput] *`flames`* XML root key). This is a convention adopted by all the other third-party applications. However FLAM3H(tm) can load a single Flame preset with and without a root. If more than 1(one) Flame preset exist in a file, they must be grouped under the same root._ 
 
 <br />
 <br />
@@ -3053,8 +3088,6 @@ Enumerate presets menus [Icon:DATATYPES/boolean]:
 Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
     #id: prefs
     *`Off`* by default.
-
-    to speedup the UI as it is now using a pre built menu data.
     
     When you turn this toggle *`On`* causes the variation menus inside each iterator to have a bookmark icon (_FLAME and FF tabs_)
     
@@ -3120,7 +3153,7 @@ Density :
 
     == Prefs: Camera == (PREFSCAM)
             
-camera handle [Icon:DATATYPES/boolean]:
+Camera handle [Icon:DATATYPES/boolean]:
     #id: prefs
     *`Off`* by default.
     
@@ -3184,11 +3217,11 @@ menu type [Icon:BUTTONS/pane_menu]:
         At the moment of this writing, if you are using H20.5<br />
         it is suggested to go to: *`Edit`*->*`Preferences`*->*`3Dviewport`* and set the Renderer to *`OpenGL`* as it is much much faster with higher points count in the viewport.<br />
         
-        A restart of Houdini is required for this change to take effect.
+        A restart of Houdini is required for this change to take place.
 
     <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
-    - This option is context aware, and it will function only if a Sop viewer is available.
+    - This option is context aware, and it will function only if a Sop viewer is available.<br />
 
 Size:
     #id: prefs
@@ -3196,9 +3229,7 @@ Size:
 
     <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
-    - This option is context aware, and it will function only if a Sop viewer is available.
-
-    <br />
+    - This option is context aware, and it will function only if a Sop viewer is available.<br />
 
 Size default:
     #id: prefs
@@ -3211,9 +3242,7 @@ Wire width:
 
     <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
-    - This option is context aware, and it will function only if a Sop viewer is available.
-
-    <br />
+    - This option is context aware, and it will function only if a Sop viewer is available.<br />
 
 Wire width default:
     #id: prefs
@@ -3305,7 +3334,7 @@ Web links:
     
     == Variations: Full list == (VARDLIST)
 
-_A list of all variations included with FLAM3H(tm) (*`106`*)_
+_A list of all variations included with FLAM3H(tm) ([Icon:TOP/xmlinput] *`106`*)_
 
 :box:
     #display: rounded gray
@@ -3438,13 +3467,13 @@ _Dependent variation's affine coefficients_
     _A dependent variation behaves similarly to a parametric variation, but uses some of the affine coefficients to determine its behavior rather than additional parameters._
     _The dependent variations and the affine coefficients they employ are listed below_:<br /><br />
     
-    - [Smallicon:BUTTONS/show_parms] *_Waves_*: `Y[0] O[0]   Y[1] O[1]` (*`B`*, *`C`*, *`E`*, *`F`*)
+    # [Icon:TOP/xmlinput] *_Waves_*: `Y[0] O[0]   Y[1] O[1]` (*`B`*, *`C`*, *`E`*, *`F`*)
     
-    - [Smallicon:BUTTONS/show_parms] *_Popcorn_*: `O[0]  O[1]` (*`C`*, *`F`*)
+    # [Icon:TOP/xmlinput] *_Popcorn_*: `O[0]  O[1]` (*`C`*, *`F`*)
     
-    - [Smallicon:BUTTONS/show_parms] *_Rings_*: `O[0]` (*`C`*)
+    # [Icon:TOP/xmlinput] *_Rings_*: `O[0]` (*`C`*)
     
-    - [Smallicon:BUTTONS/show_parms] *_Fan_*: `O[0] O[1]` (*`C`*, *`F`*)
+    # [Icon:TOP/xmlinput] *_Fan_*: `O[0] O[1]` (*`C`*, *`F`*)
 
 
 
@@ -3462,113 +3491,91 @@ _A list of all parametric variations and their parametric parameter's names_
     _Repeated variations names indicate distinct Houdini parameters._<br />
     _For example *`Mobius`* variation has two: *`Re ABCD`* and *`Im ABCD`*. They are two distinct *`vector4`* parameters._<br /><br />
     
-    - [Smallicon:BUTTONS/show_parms] *Auger*           ->      _`Frequency`*,* `Scale`*,* `Symmetry`*,* `Weight`_
+    # [Icon:TOP/xmlinput] *Auger*           ->      _`Frequency`*,* `Scale`*,* `Symmetry`*,* `Weight`_
     
-    - [Smallicon:BUTTONS/show_parms] *Bent2*           ->      _`X`*,* `Y`_
+    # [Icon:TOP/xmlinput] *Bent2*           ->      _`X`*,* `Y`_
     
-    - [Smallicon:BUTTONS/show_parms] *Bipolar*         ->      _`Shift`_
+    # [Icon:TOP/xmlinput] *Bipolar*         ->      _`Shift`_
     
-    - [Smallicon:BUTTONS/show_parms] *Blob*            ->      _`Low`*,* `High`*,* `Waves`_
+    # [Icon:TOP/xmlinput] *Blob*            ->      _`Low`*,* `High`*,* `Waves`_
     
-    - [Smallicon:BUTTONS/show_parms] *Bwraps*          ->      _`Size`*,* `Space`*,* `Gain`_
+    # [Icon:TOP/xmlinput] *Bwraps*          ->      _`Size`*,* `Space`*,* `Gain`_<br />[Icon:TOP/xmlinput] *Bwraps*          ->      _`In twist`*,* `Out twist`_
     
-    - [Smallicon:BUTTONS/show_parms] *Bwraps*          ->      _`In twist`*,* `Out twist`_
+    # [Icon:TOP/xmlinput] *Cell*            ->      _`Size`_
     
-    - [Smallicon:BUTTONS/show_parms] *Cell*            ->      _`Size`_
+    # [Icon:TOP/xmlinput] *Conic*           ->      _`Eccentricity`*,* `Holes`_
     
-    - [Smallicon:BUTTONS/show_parms] *Conic*           ->      _`Eccentricity`*,* `Holes`_
+    # [Icon:TOP/xmlinput] *Cpow*            ->      _`Pow`*,* `r`*,* `i`_
     
-    - [Smallicon:BUTTONS/show_parms] *Cpow*            ->      _`Pow`*,* `r`*,* `i`_
+    # [Icon:TOP/xmlinput] *Crop*            ->      _`Left`*,* `Top`*,* `Right`*,* `Bottom`_<br />[Icon:TOP/xmlinput] *Crop*            ->      _`Area`*,* `Zero`_
     
-    - [Smallicon:BUTTONS/show_parms] *Crop*            ->      _`Left`*,* `Top`*,* `Right`*,* `Bottom`_
+    # [Icon:TOP/xmlinput] *Curl*            ->      _`C1`*,* `C2`_
     
-    - [Smallicon:BUTTONS/show_parms] *Crop*            ->      _`Area`*,* `Zero`_
+    # [Icon:TOP/xmlinput] *Curve*           ->      _`Lenght X`*,* `Lenght Y`_<br />[Icon:TOP/xmlinput] *Curve*           ->      _`Amplitude X`*,* `Amplitude Y`_
     
-    - [Smallicon:BUTTONS/show_parms] *Curl*            ->      _`C1`*,* `C2`_
+    # [Icon:TOP/xmlinput] *Disc2*           ->      _`Rotation`*,* `Twist`_
     
-    - [Smallicon:BUTTONS/show_parms] *Curve*           ->      _`Lenght X`*,* `Lenght Y`_
+    # [Icon:TOP/xmlinput] *Escher*          ->      _`Beta`_
     
-    - [Smallicon:BUTTONS/show_parms] *Curve*           ->      _`Amplitude X`*,* `Amplitude Y`_
+    # [Icon:TOP/xmlinput] *Fan2*            ->      _`X`*,* `Y`_
     
-    - [Smallicon:BUTTONS/show_parms] *Disc2*           ->      _`Rotation`*,* `Twist`_
+    # [Icon:TOP/xmlinput] *Flower*          ->      _`Petals`*,* `Holes`_
     
-    - [Smallicon:BUTTONS/show_parms] *Escher*          ->      _`Beta`_
+    # [Icon:TOP/xmlinput] *Flux*            ->      _`Spread`_
     
-    - [Smallicon:BUTTONS/show_parms] *Fan2*            ->      _`X`*,* `Y`_
+    # [Icon:TOP/xmlinput] *JuliaN*          ->      _`Power`*,* `Distance`_
     
-    - [Smallicon:BUTTONS/show_parms] *Flower*          ->      _`Petals`*,* `Holes`_
+    # [Icon:TOP/xmlinput] *JuliaScope*      ->      _`Power`*,* `Distance`_
     
-    - [Smallicon:BUTTONS/show_parms] *Flux*            ->      _`Spread`_
+    # [Icon:TOP/xmlinput] *Lazysusan*       ->      _`X`*,* `Y`_<br />[Icon:TOP/xmlinput] *Lazysusan*       ->      _`Spin`*,* `Twist`*,* `Space`_
     
-    - [Smallicon:BUTTONS/show_parms] *JuliaN*          ->      _`Power`*,* `Distance`_
+    # [Icon:TOP/xmlinput] *Mobius*          ->      _`ReA`*,* `ReB`*,* `ReC`*,* `ReD`_   ->  _Real_<br />[Icon:TOP/xmlinput] *Mobius*          ->      _`ImA`*,* `ImB`*,* `ImC`*,* `ImD`_   ->  _Imaginary_
     
-    - [Smallicon:BUTTONS/show_parms] *JuliaScope*      ->      _`Power`*,* `Distance`_
+    # [Icon:TOP/xmlinput] *Modulus*         ->      _`X`*,* `Y`_
     
-    - [Smallicon:BUTTONS/show_parms] *Lazysusan*       ->      _`X`*,* `Y`_
+    # [Icon:TOP/xmlinput] *Ngon*            ->      _`Power`*,* `Side`*,* `Corners`*,* `Circle`_
     
-    - [Smallicon:BUTTONS/show_parms] *Lazysusan*       ->      _`Spin`*,* `Twist`*,* `Space`_
+    # [Icon:TOP/xmlinput] *Oscope*          ->      _`Frequency`*,* `Amplitude`*,* `Damping`*,* `Separation`_
     
-    - [Smallicon:BUTTONS/show_parms] *Mobius*          ->      _`ReA`*,* `ReB`*,* `ReC`*,* `ReD`_   ->  _Real_
+    # [Icon:TOP/xmlinput] *Parabola*        ->      _`Height`*,* `Width`_
     
-    - [Smallicon:BUTTONS/show_parms] *Mobius*          ->      _`ImA`*,* `ImB`*,* `ImC`*,* `ImD`_   ->  _Imaginary_
+    # [Icon:TOP/xmlinput] *Pdj*             ->      _`wA`*,* `wB`*,* `wC`*,* `wD`_
     
-    - [Smallicon:BUTTONS/show_parms] *Modulus*         ->      _`X`*,* `Y`_
+    # [Icon:TOP/xmlinput] *Perspective*     ->      _`Angle`*,* `Distance`_
     
-    - [Smallicon:BUTTONS/show_parms] *Ngon*            ->      _`Power`*,* `Side`*,* `Corners`*,* `Circle`_
+    # [Icon:TOP/xmlinput] *Pie*             ->      _`Slice`*,* `Thickness`*,* `Rotation`_
     
-    - [Smallicon:BUTTONS/show_parms] *Oscope*          ->      _`Frequency`*,* `Amplitude`*,* `Damping`*,* `Separation`_
+    # [Icon:TOP/xmlinput] *Polynomial*      ->      _`Pow X`*,* `Pow Y`_<br />[Icon:TOP/xmlinput] *Polynomial*      ->      _`Lc X`*,* `Lc Y`_<br />[Icon:TOP/xmlinput] *Polynomial*      ->      _`Sc X`*,* `Sc Y`_
     
-    - [Smallicon:BUTTONS/show_parms] *Parabola*        ->      _`Height`*,* `Width`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Pdj*             ->      _`wA`*,* `wB`*,* `wC`*,* `wD`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Perspective*     ->      _`Angle`*,* `Distance`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Pie*             ->      _`Slice`*,* `Thickness`*,* `Rotation`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Polynomial*      ->      _`Pow X`*,* `Pow Y`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Polynomial*      ->      _`Lc X`*,* `Lc Y`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Polynomial*      ->      _`Sc X`*,* `Sc Y`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Point Symmetry*  ->      _`Order`*,* `Center X`*,* `Center Y`_
+    # [Icon:TOP/xmlinput] *Point Symmetry*  ->      _`Order`*,* `Center X`*,* `Center Y`_
 
-    - [Smallicon:BUTTONS/show_parms] *Popcorn2*        ->      _`X`*,* `Y`_
+    # [Icon:TOP/xmlinput] *Popcorn2*        ->      _`X`*,* `Y`_<br />[Icon:TOP/xmlinput] *Popcorn2*        ->      _`C`_
 
-    - [Smallicon:BUTTONS/show_parms] *Popcorn2*        ->      _`C`_
+    # [Icon:TOP/xmlinput] *Radial Blur*     ->      _`Angle`_
+    
+    # [Icon:TOP/xmlinput] *Rectangles*      ->      _`X`*,* `Y`_
+    
+    # [Icon:TOP/xmlinput] *Rings2*          ->      _`Val`_
+    
+    # [Icon:TOP/xmlinput] *Separation*      ->      _`X`*,* `Y`_<br />[Icon:TOP/xmlinput] *Separation*      ->      _`Inside X`*,* `Inside Y`_
+    
+    # [Icon:TOP/xmlinput] *Split*           ->      _`X`*,* `Y`_
+    
+    # [Icon:TOP/xmlinput] *Splits*          ->      _`X`*,* `Y`_
 
-    - [Smallicon:BUTTONS/show_parms] *Radial Blur*     ->      _`Angle`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Rectangles*      ->      _`X`*,* `Y`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Rings2*          ->      _`Val`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Separation*      ->      _`X`*,* `Y`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Separation*      ->      _`Inside X`*,* `Inside Y`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Split*           ->      _`X`*,* `Y`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Splits*          ->      _`X`*,* `Y`_
+    # [Icon:TOP/xmlinput] *Stripes*         ->      _`Space`*,* `Warp`_
 
-    - [Smallicon:BUTTONS/show_parms] *Stripes*         ->      _`Space`*,* `Warp`_
-
-    - [Smallicon:BUTTONS/show_parms] *Supershape*      ->      _`M`*,* `Rnd`*,* `Holes`_
-
-    - [Smallicon:BUTTONS/show_parms] *Supershape*      ->      _`N1`*,* `N2`*,* `N3`_
+    # [Icon:TOP/xmlinput] *Supershape*      ->      _`M`*,* `Rnd`*,* `Holes`_<br />[Icon:TOP/xmlinput] *Supershape*      ->      _`N1`*,* `N2`*,* `N3`_
     
-    - [Smallicon:BUTTONS/show_parms] *Waves2*          ->      _`Scale X`*,* `Scale Y`_
+    # [Icon:TOP/xmlinput] *Waves2*          ->      _`Scale X`*,* `Scale Y`_<br />[Icon:TOP/xmlinput] *Waves2*          ->      _`Frequency X`*,* `Frequency Y`_
     
-    - [Smallicon:BUTTONS/show_parms] *Waves2*          ->      _`Frequency X`*,* `Frequency Y`_
+    # [Icon:TOP/xmlinput] *Wedge*           ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
     
-    - [Smallicon:BUTTONS/show_parms] *Wedge*           ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
+    # [Icon:TOP/xmlinput] *WedgeJulia*      ->      _`Power`*,* `Angle`*,* `Distance`*,* `Count`_
     
-    - [Smallicon:BUTTONS/show_parms] *WedgeJulia*      ->      _`Power`*,* `Angle`*,* `Distance`*,* `Count`_
+    # [Icon:TOP/xmlinput] *WedgeSph*        ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
     
-    - [Smallicon:BUTTONS/show_parms] *WedgeSph*        ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
-    
-    - [Smallicon:BUTTONS/show_parms] *Whorl*           ->      _`In`*,* `Out`_
+    # [Icon:TOP/xmlinput] *Whorl*           ->      _`In`*,* `Out`_
 
 
 :box:
@@ -3647,7 +3654,7 @@ _A list of all parametric variations and their parametric parameter's names_
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] Tip:
         #id: Point value accumulation tips
 
-    It will be crucial to experiment with the CP Ramp HSV values, notably the "*S*" (_Saturation_) and, most crucially, the "*V*" (_Value_).
+    It will be crucial to experiment with the CP HSV values, notably the "*S*" (_Saturation_) and, most crucially, the "*V*" (_Value_).
     The more dense portions of the Flame will get brighter if the Value in HSV is increased from the default value of *`1`*(one), bringing the appearance of the Flame closer to that of a typical fractal Flame.
 
     <br />
@@ -3807,7 +3814,7 @@ _A list of all parametric variations and their parametric parameter's names_
     The following are limitations to keep in mind when authoring your Flames in Fractorium or Apophysis to be loaded inside FLAM3H(tm).
     All of those restrictions are in place to maintain performance within the Cvex language restrictions.
 
-== Limitations: Iterator's count ==
+== Limitations: Iterators count ==
     
 :box:
     #display: rounded gray
@@ -3822,7 +3829,7 @@ _A list of all parametric variations and their parametric parameter's names_
     
     _This is a workaround to make Xaos work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*_
 
-== Limitations: Iterator's PRE, VAR and POST variations ==
+== Limitations: Iterators PRE, VAR and POST variations ==
 
 :box:
     #display: rounded gray
@@ -3876,7 +3883,7 @@ _A list of all parametric variations and their parametric parameter's names_
     
     
     
-== Limitations: FF's PRE, VAR and POST variations ==
+== Limitations: FF(finalXform) PRE, VAR and POST variations ==
 
     
 :box:
@@ -3930,7 +3937,7 @@ _A list of all parametric variations and their parametric parameter's names_
         
         they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( _FF: PP VARS Tab_ ).
     
-== Limitations: FF Shader ==
+== Limitations: FF(finalXform) Shader ==
 
 :box:
     #display: rounded gray
