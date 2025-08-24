@@ -35,7 +35,7 @@ _Bitbucket repository I used a lot as reference from Matt Feemster: [FRACTORIUM|
 
 [Icon:opdef:.?icon_optionStarBlueSVG.svg]  *Preface*:
 
-The inception of this implementation dates back to 2020, during [COVID-19|Wp:COVID-19]. 
+The inception of this [implementation|Wp:Implementation] dates back to 2020, during [COVID-19|Wp:COVID-19]. 
 At first, it was just a straightforward point wrangle exercise to experiment with some of the formulas from the fractal Flame algorithm.
 I didn't know much about the subject at the time, but as I began experimenting with some of the free and [open-source|Wp:Open_source] fractal Flame editors like Apophysis and Fractorium, I grew to love the field and gradually persuaded myself that I could port the entire algorithm and functionalities using Houdini out of the box.
 Undoubtedly, it required some time to comprehend everything completely, but as I was also learning how to create fractal art, It slowly shaped into the proper form.
@@ -81,7 +81,7 @@ There is a very large, kind, and talented community out there that you can tap i
 
 Generally speaking and based on my own learning experiences,<br />
 FLAM3H(tm) can complete every tutorial you can find for any of the existing fractal Flame editors out there.<br />
-The majority of tutorials you can find are for Apophysis, the first program to use the algorithm with a graphical user interface. It rose to prominence as the most widely used fractal Flame editor and will always occupy a special place in the fractal art history.
+The majority of tutorials you can find are for Apophysis, the first program to use the algorithm with a [graphical user interface|Wp:Graphical_user_interface]. It rose to prominence as the most widely used fractal Flame editor and will always occupy a special place in the fractal art history.
 
 _Here a few at hand_:
 
@@ -145,8 +145,8 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 
 == Before you start == (BEFORESTART)
 
-_Third-party applications use an orthogonal type of viewer in their editors_.<br />
-_If you'd like to get close to a fractal Flame editor vibe, set the viewport to_: *Front* (_or press the key ((3)) while the cursor is on any viewport_). _Once you have done that, you can also go to the FLAM3H(tm) preferences' tab and set the viewport color to: *Dark* (if not already)_.
+_Third-party applications use an_ [orthogonal|Wp:Orthographic_projection] _type of viewer in their editors_.<br />
+_If you'd like to get close to a fractal Flame editor vibe, set the_ [viewport|Wp:Viewport] _to_: *Front* (_or press the key ((3)) while the cursor is on any viewport_). _Once you have done that, you can also go to the FLAM3H(tm) preferences' tab and set the viewport color to: *Dark* (if not already)_.
 
 _Best would be to use one of the Desktop files provided (HD or 4K) as they set everything up for you_.
 
