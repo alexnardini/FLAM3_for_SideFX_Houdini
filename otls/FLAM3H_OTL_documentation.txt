@@ -367,7 +367,7 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     Flam3 compatibility.
 
-    The behavior of the *`Cos`*, *`Cosh`*, *`Cot`*, *`Coth`*, *`Csc`*, *`Csch`*, *`Sec`*, *`Sech`*, *`Sin`*, *`Sinh`*, *`Tan`* and *`Tanh`* variations are different in Flam3/Apophysis versus Chaotica. Those variations are also referred to as: *trigonometric variations*.
+    The behavior of the *`Cos`*, *`Cosh`*, *`Cot`*, *`Coth`*, *`Csc`*, *`Csch`*, *`Sec`*, *`Sech`*, *`Sin`*, *`Sinh`*, *`Tan`* and *`Tanh`* variations are different in Flam3/Apophysis versus Chaotica. These variations are also referred to as: *trigonometric variations*.
     
     <br />
     - [Largeicon:opdef:.?icon_optionF3CEnabledSVG.svg] *Checked*: use the Flam3/Apophysis behavior (_Default_).
@@ -3044,7 +3044,7 @@ palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     - Anything below *`256`* color keys, it will always sample and save the Flame using a palette with *`256`* colors.
     - Anything above *`256`* color keys and below/equal *`512`*, it will use *`512`* colors/samples on save.
     - Anything above *`512`* color keys and below/equal *`1024`*, it will use *`1024`* colors/samples on save.
-    - Anything above *`1024`* color keys they will be clamped at *`1024`* colors.
+    - Anything above *`1024`* color keys they will be clamped and sampled at *`1024`* colors.
     <br /><br />
 
     TIP:
@@ -3225,7 +3225,7 @@ menu type [Icon:BUTTONS/pane_menu]:
 
 Size:
     #id: prefs
-    When viewport particle display is set to Points, this will control their size in the viewport.
+    When viewport particle display is set to *`points`*, this parameter will control their size in the viewport.
 
     <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
@@ -3933,7 +3933,7 @@ _A list of all parametric variations and their parametric parameter's names_
     # If you use *`2`*(two) *`Mobius`* in the FF *`VAR`* section<br />they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( _FF: VARS Tab_ ).
     # If you use:
         - *`1`*(one) *`PRE Mobius`*
-        - *`2`*(two) *`POST_Mobius`*
+        - *`2`*(two) *`POST Mobius`*
         
         they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( _FF: PP VARS Tab_ ).
     
