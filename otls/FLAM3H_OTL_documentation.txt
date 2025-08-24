@@ -335,10 +335,9 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*/Disabled (_Default_).
     - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*/Active.
     
-    Enable or disable the [finalXform|#FF](_FF_).<br />
-    This is being introduced since it is convenient to switch the finalXform(_FF_) *`On`* or *`Off`* without constantly entering the FF tab.
+    Enable or disable the [finalXform|#FF](_FF_).
 
-    The finalXform(_FF_), when *`On`*/Active, is always applied to each point after the Chaos game has finished its iterations loop, much like a post-process effect, even though all of the iterators (_aka: xforms or transformations_) are chosen randomly for each iteration inside the Chaos game based on their Weights and respective xaos.
+    This is being introduced since it is convenient to switch the finalXform(_FF_) *`On`* or *`Off`* without constantly entering the FF tab.
 
     <br />
     
@@ -1420,7 +1419,7 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*/Disabled (_Default_).
     - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*/Active.
     
-    Enable or disable the [finalXform|#FF](_FF_).
+    Enable or disable the finalXform(_FF_).
 
     The finalXform(_FF_), when *`On`*/Active, is always applied to each point after the Chaos game has finished its iterations loop, much like a post-process effect, even though all of the iterators (_aka: xforms or transformations_) are chosen randomly for each iteration inside the Chaos game based on their Weights and respective xaos.
 
@@ -1522,7 +1521,7 @@ FF: copy/paste:
         - *`2`*(two) *`VAR`*
         - *`2`*(two) *`POST`*
         
-        _Variation's name that end with an asterisk(*) are dependent while if they end with 3 dots(...) are parametric._
+        _Variation's name that end with an asterisk(*`*`*) are dependent while if they end with 3 dots(*`...`*) are parametric._
     
 menu FF PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: FF
