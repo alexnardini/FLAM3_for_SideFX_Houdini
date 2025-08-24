@@ -335,7 +335,10 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*/Disabled (_Default_).
     - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*/Active.
     
-    Enable and disable [finalXform|#FF](_FF_).
+    Enable or disable the [finalXform|#FF](_FF_).<br />
+    This is being introduced since it is convenient to switch the finalXform(_FF_) *`On`* or *`Off`* without constantly entering the FF tab.
+
+    The finalXform(_FF_), when *`On`*/Active, is always applied to each point after the Chaos game has finished its iterations loop, much like a post-process effect, even though all of the iterators (_aka: xforms or transformations_) are chosen randomly for each iteration inside the Chaos game based on their Weights and respective xaos.
 
     <br />
     
@@ -352,8 +355,8 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
 
     - After the algorithm transforms the points, it is possible for some of those points to shoot to infinity. Turn this *`On`* to get rid of those points.
-    - When an iterator's opacity is *`0`*(Zero), you can activate this SYS tab's *RIP* option to get rid of those points ( _since_ *opacity* = *`@pscale`* (*`@widths`* _in Solaris_ ) _you do not need them anymore_).
-    - If rendering a Flame seems unusually slow, it's probably because certain points wind up being really far from the zero world. Those points will be eliminated if this option is turned *`On`*.
+    - When an iterator's opacity is *`0`*(Zero), you can turn this option *`On`* to get rid of those points since *opacity* == *`@pscale`* ( *`@widths`* _in Solaris_ ) you do not need them anymore.
+    - If rendering a Flame seems unusually slow, it's probably because certain points wind up being really far from the Zero world. Those points will be eliminated if this option is turned *`On`*.
     <br /><br />
 
     TIP:
@@ -1417,7 +1420,9 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*/Disabled (_Default_).
     - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*/Active.
     
-    Enable and disable [finalXform|#FF](_FF_).
+    Enable or disable the [finalXform|#FF](_FF_).
+
+    The finalXform(_FF_), when *`On`*/Active, is always applied to each point after the Chaos game has finished its iterations loop, much like a post-process effect, even though all of the iterators (_aka: xforms or transformations_) are chosen randomly for each iteration inside the Chaos game based on their Weights and respective xaos.
 
     <br />
 
