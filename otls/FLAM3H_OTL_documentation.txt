@@ -363,16 +363,29 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         
 F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
-    *`On`* by default.<br /><br />
+    *`On`* by default.
 
-    Flam3 compatibility.
-
-    The behavior of the *`Cos`*, *`Cosh`*, *`Cot`*, *`Coth`*, *`Csc`*, *`Csch`*, *`Sec`*, *`Sech`*, *`Sin`*, *`Sinh`*, *`Tan`* and *`Tanh`* variations are different in Flam3/Apophysis versus Chaotica. These variations are also referred to as: *trigonometric variations*.
-    
     <br />
+
     - [Largeicon:opdef:.?icon_optionF3CEnabledSVG.svg] *Checked*: use the Flam3/Apophysis behavior (_Default_).
     - [Largeicon:opdef:.?icon_optionF3CDisabledSVG.svg] *Unchecked*: use the Chaotica behavior.
     <br /><br />
+
+    Flam3 compatibility.
+
+    The behavior of the *`Cos`*, *`Cosh`*, *`Cot`*, *`Coth`*, *`Csc`*, *`Csch`*, *`Sec`*, *`Sech`*, *`Sin`*, *`Sinh`*, *`Tan`* and *`Tanh`* variations are different in Flam3/Apophysis versus Chaotica.
+    
+    These variations are also referred to as: *trigonometric variations*.<br />
+
+    In a fractal Flame,<br />
+    each point's position is updated by applying a variation (_a mathemathical transform_). Trigonometric variations are simply those based on the standard trigonometric functions (_and their hyperbolic counterparts_).
+
+    _For example_:
+    - *`Cos`* */* *`Cosh`* *variations*: apply cosine or hyperbolic cosine functions.
+    - *`Tan`* */* *`Tanh`* *variations*: apply tangent or hyperbolic tangent functions.
+    - *`Sec`* */* *`Sech`* *variations*: apply secant or hyperbolic secant functions.
+
+    <br />
 
     TIP:
         #display: orange
