@@ -1978,7 +1978,8 @@ class flam3h_general_utils
 
 @STATICMETHODS
 * private_prm_set(node: hou.SopNode, prm_name: str, data: str | int | float) -> None:
-* private_prm_deleteAllKeyframes(node: hou.SopNode, prm_name: str) -> None:
+* private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm) -> None:
+* select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> None | str:
 * flash_message(node: hou.SopNode, msg: str | None, timer: float = FLAM3H_FLASH_MESSAGE_TIMER, img: str | None = None) -> None:
 * remove_locked_from_flame_stats(node) -> None:
 * houdini_version(digit: int=1) -> int:
@@ -2092,6 +2093,30 @@ class flam3h_general_utils
         prm.lock(False)
         prm.deleteAllKeyframes()
         prm.lock(True)
+        
+        
+    @staticmethod
+    def select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> None | str:
+        """Return the filepath string for either the CP or IN filepath parameter if any, otherwise return None if empty or invalid.
+        If an invalid filepath is present, it will try to extrapolate out the parent directory first and check for its validity, otherwise return: None
+        
+        Args:
+            node(hou.SopNode): this FLAM3H™ node.
+            type(str): Default to: IN_PATH . the parameter name for either the CP or IN filepath (respectively: CP_PALETTE_LIB_PATH or IN_PATH).
+            
+        Returns:
+            (None):
+        """ 
+        # Get start directory if one is already set in the CP oir IN tabs filepath parameter (e.g. a Palette or a Flame file is already being loaded)
+        CP_filepath: str = os.path.expandvars(node.parm(type).eval())
+        if os.path.isfile(CP_filepath):
+            CP_filepath_dir: None | str = os.path.split(CP_filepath)[0]
+        else:
+            _dir: str = os.path.split(CP_filepath)[0]
+            if os.path.isdir(_dir): CP_filepath_dir = _dir
+            else: CP_filepath_dir: None | str = None
+            
+        return CP_filepath_dir
 
 
     @staticmethod
@@ -9470,7 +9495,10 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        filepath: str = hou.ui.selectFile(start_directory=None, title="FLAM3H™ Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
+        # Get start directory if one is already set in the CP file path (e.g. a Palette file is already being loaded)
+        _DIR: None | str = flam3h_general_utils.select_file_start_dir(node, CP_PALETTE_LIB_PATH)
+        # Open a floating file chooser
+        filepath: str = hou.ui.selectFile(start_directory=_DIR, title="FLAM3H™ Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
         filepath_expandvars: str = os.path.expandvars(filepath)
         dir: str = os.path.dirname(filepath_expandvars)
         if os.path.isdir(dir):
@@ -15390,7 +15418,10 @@ class in_flame_utils
                                  * chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """
         
-        flameFile = hou.ui.selectFile(start_directory=None, title="FLAM3H™ Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
+        # Get start directory if one is already set in the IN file path (e.g. a Flame file is already being loaded)
+        _DIR: None | str = flam3h_general_utils.select_file_start_dir(node)
+        # Open a floating file chooser
+        flameFile = hou.ui.selectFile(start_directory=_DIR, title="FLAM3H™ Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
         flameFile_expandvars: str = os.path.expandvars(flameFile)
         
         dir: str = os.path.dirname(flameFile_expandvars)
