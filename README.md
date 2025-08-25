@@ -42,17 +42,17 @@ Part of the work is done inside the HDA in the Houdini environment
 like attribute binding, UI building, parameter creations, their visibility conditions, the final compile and much more.
 
 Python has been used to enhance the user experience and add functionalities like:
-copy/paste iterator data, load/save palette's libraries, load/save flame's file format, responses/automations to user actions, and much more.
+copy/paste iterator data, load/save palette's libraries, load/save Flame's file format, responses/automations to user actions, and much more.
 
-FLAM3 for SideFX Houdini generates a live point cloud of the fractal flame being worked on, which is the actual render.
+FLAM3 for SideFX Houdini generates a live point cloud of the fractal Flame being worked on, which is the actual render.
 From there to the final image, it is left to the users ( aka points rendering ).
 With Houdini integrated Karma renderer, you will be able to render the generated fractal flames in nearly real time.
 
 ### Karma render Note:
 
-Karma viewport renders do not use any density estimator, or log density display ( a form of tone mapping ) that is instead present in other applications. It does brighten up the high-density areas instead ( more points, more bright ) while using the raw color coming from the palette the flame is currently using.
+Karma viewport renders do not use any density estimator, or log density display ( a form of tone mapping ) that is instead present in other applications. It does brighten up the high-density areas instead ( more points, more bright ) while using the raw color coming from the palette the Flame is currently using.
 
-A custom shader could, in theory, implement a log density display and some form of density estimator. However, the beauty of outputting fractal flame images in a 16bit or 32bit exr format will give joy when color correcting them, something we, in VFX, take for granted.
+A custom shader could, in theory, implement a log density display and some form of density estimator. However, the beauty of outputting fractal Flame images in a 16bit or 32bit exr format will give joy when color correcting them, something we, in VFX, take for granted.
 
 Karma interactive rendering in the Houdini's viewport:
 
@@ -96,9 +96,9 @@ Once framed, you can save the Flame and be sure it will be framed the same in ot
 
 ## Load Flames files authored with Apophysis, Fractorium, etc.
 
-Following are some images showing FLAM3H™ rendering some of the Fractorium's example flame files.
+Following are some images showing FLAM3H™ rendering some of the Fractorium's example Flame files.
 Some have been modified to fit within FLAM3H™ available variations. The screenshots show
-Houdini Karma interactive on the left, and Fractorium with the same flame file on the right.
+Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right.
 
 `Chocolate Scaffold in Too Many Dimensions by plangkye. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 01](./img/FractoriumToFLAM3HOUDINI_03.jpg)
@@ -146,7 +146,7 @@ Given how expensive it is to compute fractal flames, it is not surprising that G
 
 The main benefits of being inside Houdini are numerous. Consider the options available to you while animating those flames with Houdini's procedural approach and toolsets. Additionally, the Python HOM libraries for Houdini can be used to build a pipeline around this tool.
 
-Karma and the built-in Nvidia Optix denoiser make a fantastic combination for rendering fractal flame images.
+Karma and the built-in Nvidia Optix denoiser make a fantastic combination for rendering fractal Flame images.
 
 As far as I know, there are no switch/case constructors or other types of pointer functions in the CVEX language. I connected hundreds of "if"/"else if" statements to arrive at the chosen variation. Despite my best efforts to partition them, this section ended up becoming somewhat of a bottleneck for the entire implementation.
 
@@ -161,7 +161,7 @@ Also, I used 128+ iterators in all of my stress tests.
 In reality, though, I've never used more than 20 iterators in any of the fractal flames I've created thus far, nearly all of them used less than 10.
 
 
-Almost all fractal flame images on my website and instagram use an average of 64 iterations max,
+Almost all fractal Flame images on my website and instagram use an average of 64 iterations max,
 Some use less, and some use a bit more. A few exceptions went above 128 and up to 256/512. 
 
 Some flames need truly an high number of iterations to be resolved correctly.
@@ -224,9 +224,9 @@ Every aspect of this algorithm, once understood, looks simple on the surface, bu
 
 It is time to park this project for a little bit, but I really, really loved the long journey on this topic, and I will now forever love fractal flames as a whole, they are awesome  ( and addictive )!
 
-## Example flame files.
+## Example Flame files.
 
-Some of the example flame files I'm using as a proof of correctness and shipped with this implementation were created or authored by some incredible fractal artists using a variety of open source and free apps like Apophysis and Fractorium among the most popular.
+Some of the example Flame files I'm using as a proof of correctness and shipped with this implementation were created or authored by some incredible fractal artists using a variety of open source and free apps like Apophysis and Fractorium among the most popular.
 
 Please be sure to check out their gallery:
 
