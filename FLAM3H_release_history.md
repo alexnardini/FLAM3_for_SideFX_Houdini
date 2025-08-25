@@ -10,6 +10,20 @@ Below is a list of all the releases and the updates that went into these.</br>
 They are all available in this github repository.</br>
 </br>
 
+### [<ins>From v1.8.66</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.66) ###
+
+- **New**: Added FLAM3H™ documentation license chapter.
+- **New**: When opening a file chooser with [SHIFT+LMB] from either the CP or IN tabs, it will now start at the currently loaded file directory location if any.
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.64</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.64) ###
 
 - **Updated HDA documentation.**
