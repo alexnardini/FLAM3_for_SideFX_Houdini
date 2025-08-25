@@ -37,7 +37,7 @@ _Bitbucket repository I used a lot as reference from Matt Feemster: [FRACTORIUM|
 
 The inception of this [implementation|Wp:Implementation] dates back to 2020, during [COVID-19|Wp:COVID-19]. 
 At first, it was just a straightforward point wrangle exercise to experiment with some of the formulas from the fractal Flame algorithm.
-I didn't know much about the subject at the time, but as I began experimenting with some of the free and [open-source|Wp:Open_source] fractal Flame editors like Apophysis and Fractorium, I grew to love the field and gradually persuaded myself that I could port the entire algorithm and functionalities using Houdini out of the box.
+I didn't know much about the subject at the time, but as I began experimenting with some of the free and [open-source|Wp:Open_source] fractal Flame editors like Apophysis and Fractorium, I grew to love the field and gradually persuaded myself that I could port the entire [algorithm|Wp:Algorithm] and functionalities using Houdini out of the box.
 Undoubtedly, it required some time to comprehend everything completely, but as I was also learning how to create fractal art, It slowly shaped into the proper form.
 
 Specifically built to work in tandem with [Fractorium|http://fractorium.com],<br /> 
@@ -45,7 +45,7 @@ FLAM3H(tm) attempts to absorb as much informations as possible about its capabil
 
 These days, FLAM3H(tm) has all the features found in other third-party programs, plus a bunch more exclusive to this implementation.
 
-Additionally, when combined with Houdini's procedural paradigm and toolsets, fractal Flames reach previously unheard-of levels of possibilities.
+Additionally, when combined with Houdini's [procedural|Wp:Procedural_generation] paradigm and toolsets, fractal Flames reach previously unheard-of levels of possibilities.
 
 _Worlds - author: Alessandro Nardini_
 [Image:opdef:.?FLAM3H_DOC_intro.jpg]
@@ -380,7 +380,7 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     These variations are also referred to as: *trigonometric variations*.<br />
 
     In a fractal Flame,<br />
-    each point's position is updated by applying a variation (_a mathemathical transform_). Trigonometric variations are simply those based on the standard trigonometric functions (_and their hyperbolic counterparts_).
+    each point's position is updated by applying a variation (_a mathemathical transform_). Trigonometric variations are simply those based on the standard [trigonometric functions|Wp:Trigonometric_functions] (_and their_ [hyperbolic|Wp:Hyperbolic_functions] _counterparts_).
 
     _For example_:
     - *`Cos`* */* *`Cosh`* *variations*: apply cosine or hyperbolic cosine functions.
@@ -968,7 +968,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     
     Xaos TO and xaos FROM are at their core each other's reflections. This means they are the same data, but one is the transpose of the other.
     
-    A matrix transpose is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite points of view.
+    A [matrix transpose|Wp:Transpose] is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite points of view.
     
     _Looking from an iterator's point of view_:
     - When in *`xaos TO`* mode, you will think: *to* wich iterator am I allowed to send the points I just executed?
@@ -3018,7 +3018,7 @@ _Under the [Icon:TOP/xmlinput] *`flame`* preset XML key lives all its data: [Ico
 
 [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*
 
-_When you save a Flame preset to the Clipboard, it will be rootless (not under a [Icon:TOP/xmlinput] *`flames`* XML root key). This is a convention adopted by all the other third-party applications. However FLAM3H(tm) can load a single Flame preset with and without a root. If more than 1(one) Flame preset exist in a file, they must be grouped under the same root._ 
+_When you save a Flame preset to the Clipboard, it will be rootless (not under a [Icon:TOP/xmlinput] *`flames`* XML root key). This is a convention adopted by all the other third-party applications. However FLAM3H(tm) can load a single Flame preset with and without a root. If more than *`1`*(one) Flame preset exist in a file, they must be grouped under the same root._ 
 
 <br />
 <br />
@@ -3972,6 +3972,21 @@ _A list of all parametric variations and their parametric parameter's names_
         - Direct Color -> *`1`*(one)
         
         _This way, you won't add a color to the Flame that FLAM3H(tm) won't be able to match._
+
+
+:box:
+    #display: rounded white
+
+@Licenses
+
+:box:
+    #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *License notice*<br /><br />
+    - This documentation is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).<br />
+    _See the file LICENSE.docs in the repository for details_.
+
+    - The software described in this documentation is licensed separately under the GNU General Public License, version 3 (GPL-3.0).<br />
+    _See the LICENSE file in the repository for details_.
 
         
 :box:
