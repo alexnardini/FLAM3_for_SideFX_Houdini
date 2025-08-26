@@ -3,20 +3,20 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.1.58 - Prototype
+#version: 0.1.59 - Prototype
 
-"""Simple utility node to quickly render FLAM3H fractal flames in Solaris."""
+"""Simple utility node to quickly render FLAM3H(tm) fractal flames in Solaris."""
 
 == Welcome to FLAM3HUSD for SideFX Houdini ==
 ( _From H19.x to H20.5.x only_ )
 
-A simple utility node to make rendering FLAM3H fractal flames in Solaris for previews easy.<br />
+A simple utility node to make rendering FLAM3H(tm) fractal flames in Solaris for previews easy.<br />
 It offers the very fundamental functionalities to setup your fractal Flames point cloud and start rendering with Karma within a few clicks.<br />
 
 Currently, FLAM3HUSD rely entirely on Karma CPU.
 
 _*This tool is a prototype and it may or may not change in the future.*_<br />
-_*This version is only fully compatible with FLAM3H v1.6.97 or higher.*_
+_*This version is only fully compatible with FLAM3H(tm) v1.6.97 or higher.*_
 
 
 @Badges
@@ -67,14 +67,14 @@ FLAM3HUSD documentation:
     Display this documentation.
 
 
-FLAM3H SOP path [Icon:DATATYPES/string]:
+FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
     #id: IMPORT
-    Path to the FLAM3H node to be imported inside Solaris.
-    A default path is already provided to import the default first FLAM3H node name. Change this as needed.
+    Path to the FLAM3H(tm) node to be imported inside Solaris.
+    A default path is already provided to import the default first FLAM3H(tm) node name. Change this as needed.
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    - Once a valid FLAM3H node has been imported, FLAM3HUSD will take care of bulding a useful Scene Graph Tree.
-    - When multiple FLAM3HUSD are created, the imported FLAM3H data will all be grouped under a common root named: FLAM3H.
+    - Once a valid FLAM3H(tm) node has been imported, FLAM3HUSD will take care of bulding a useful Scene Graph Tree.
+    - When multiple FLAM3HUSD are created, the imported FLAM3H(tm) data will all be grouped under a common root named: *`FLAM3H`*
     
     
 == Prefs == (PREFS)
@@ -171,15 +171,15 @@ denoiser [Icon:BUTTONS/pane_menu]:
     #id: PREFS
     Options to choose from the available Karma denoisers.
 
-use FLAM3H Shader [Icon:DATATYPES/boolean]:
+use FLAM3H(tm) Shader [Icon:DATATYPES/boolean]:
     #id: PREFS
     Use a MaterialX Shader that will allow to change Gamma and HSV values on the fly.
 
-Reset FLAM3H Shader parms:
+Reset FLAM3H(tm) Shader parms:
     #id: PREFS
     [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
     
-    - ((LMB)) to reset the FLAM3H Shader to its default values.
+    - ((LMB)) to reset the FLAM3H(tm) Shader to its default values.
 
 :box:
     #display: rounded white
