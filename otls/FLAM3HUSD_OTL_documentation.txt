@@ -181,6 +181,43 @@ Reset FLAM3H Shader parms:
     
     - ((LMB)) to reset the FLAM3H Shader to its default values.
 
+:box:
+    #display: rounded white
+
+@License
+
+:box:
+    #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Notice*<br /><br />
+    - This documentation is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).<br />
+    _See the file LICENSE.docs in the repository for details_.
+
+    - The software described in this documentation is licensed separately under the GNU General Public License, version 3 (GPL-3.0).<br />
+
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Software (GPL-3.0)*
+
+        All source code and Houdini-related source materials are licensed under the<br />
+        *GNU General Public License v3.0* (LICENSE).<br />
+
+        _For this project, “source code” includes not only conventional files but also Houdini-specific assets in their editable form, such as_:
+        - Digital Assets (_.otl, .hda, .hdalc, .hdanc_)
+        - Node networks and sub-networks
+        - Custom node definitions and parameter interfaces
+        - CVEX, VEX, VOP or OpenCL code
+        - Shelf tools, scripts, and presets
+        - Any related configuration or scene files that represent the tool in its preferred form for making modifications
+
+        _These are all considered part of the “preferred form of the work for making modifications” under the GPL and must be shared under the same terms_.
+
+        _See the LICENSE file in the repository for details_.
+
+        
+:box:
+    #display: rounded white
+    
+:box:
+    #display: rounded white
+
 @Author
 
 = [Largeicon:opdef:.?icon_F3H_iconSVG.svg] _stands for liFe ( made in Italy )_ =
