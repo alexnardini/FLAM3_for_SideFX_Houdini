@@ -3,6 +3,20 @@
 
 `The above fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer.`
 
+## License
+
+- Software: [GNU GPL v3.0](LICENSE)
+- Documentation: [CC BY-SA 4.0](LICENSE.docs)
+
+This repository contains two kinds of works:
+
+1. Software source code, licensed under the GNU General Public License, version 3 (GPL-3.0).
+   See below for the full license text.
+
+2. Documentation, licensed separately under the Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).
+   See the file LICENSE.docs for details.
+
+
 ## FLAM3 for SideFX Houdini v1.x ( aka: FLAM3H™ )
 **_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
 
