@@ -3686,10 +3686,10 @@ _A list of all parametric variations and their parametric parameter's names_
 
     [Image:opdef:.?FLAM3H_DOC_pixels_grid.svg]
 
-    The above illustration shows a grid of [pixels|Wp:Pixel],<br />
+    The above illustration shows a grid of pixels,<br />
     with the one we'll utilize in this example being the one that is marked in red.<br />
 
-    A pixel is really the lowest size that may exist in a picture in 2D applications; nothing can fit inside of one.
+    A [pixel|Wp:Pixel] is really the lowest size that may exist in a picture in 2D applications; nothing can fit inside of one.
 
     In Houdini (_or any other 3D application_), a pixel is the smallest unit of measurement in the final output image.<br />
     However, during rendering, it can be thought of as a tiny window to the 3D virtual world we are processing;<br />
