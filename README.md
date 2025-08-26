@@ -53,7 +53,7 @@ copy/paste iterator data, load/save palette's libraries, load/save Flame's file 
 
 FLAM3 for SideFX Houdini generates a live point cloud of the fractal Flame being worked on, which is the actual render.
 From there to the final image, it is left to the users ( aka points rendering ).
-With Houdini integrated Karma renderer, you will be able to render the generated fractal flames in nearly real time.
+With Houdini integrated Karma renderer, you will be able to render the generated fractal Flames in nearly real time.
 
 ### Karma render Note:
 
@@ -71,8 +71,8 @@ Karma interactive rendering in the Houdini's viewport:
 
 **Highly inspired by Apophysis software and its workflow design.**
 
-Many Apophysis fractal flames are available for download on the web, and you can load them inside FLAM3H™.
-Or you can use Apophysis or Fractorium to author your flames first and load them back into FLAM3H™. But also the other way around, create your flames in Houdini and render them inside other applications. You've got choices.
+Many Apophysis fractal Flames are available for download on the web, and you can load them inside FLAM3H™.
+Or you can use Apophysis or Fractorium to author your Flames first and load them back into FLAM3H™. But also the other way around, create your Flames in Houdini and render them inside other applications. You've got choices.
 
 **Download Apophysis 7x here**: [**Apophysis 7x download**](https://sourceforge.net/projects/apophysis7x/)
 
@@ -89,7 +89,7 @@ Imagine the possibilities using Houdini procedural paradigm and toolsets to cont
 
 ## Camera sensor
 
-All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H™.
+All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal Flames when they are saved from FLAM3H™.
 
 A portion of the render parameters deal with the camera and how the fractal Flame you just saved is framed.
 
@@ -149,9 +149,9 @@ To finish, FLAM3H™ features a detailed documentation that is designed to provi
 
 ## Considerations
 
-Given how expensive it is to compute fractal flames, it is not surprising that GPUs have performed wonders in this area as well.
+Given how expensive it is to compute fractal Flames, it is not surprising that GPUs have performed wonders in this area as well.
 
-The main benefits of being inside Houdini are numerous. Consider the options available to you while animating those flames with Houdini's procedural approach and toolsets. Additionally, the Python HOM libraries for Houdini can be used to build a pipeline around this tool.
+The main benefits of being inside Houdini are numerous. Consider the options available to you while animating those Flames with Houdini's procedural approach and toolsets. Additionally, the Python HOM libraries for Houdini can be used to build a pipeline around this tool.
 
 Karma and the built-in Nvidia Optix denoiser make a fantastic combination for rendering fractal Flame images.
 
@@ -165,13 +165,13 @@ There is also a big chunk of python code that deal with making the UI pretty and
 A computer processor with strong single-threaded performance would be very helpful here.
 
 Also, I used 128+ iterators in all of my stress tests.
-In reality, though, I've never used more than 20 iterators in any of the fractal flames I've created thus far, nearly all of them used less than 10.
+In reality, though, I've never used more than 20 iterators in any of the fractal Flames I've created thus far, nearly all of them used less than 10.
 
 
 Almost all fractal Flame images on my website and instagram use an average of 64 iterations max,
 Some use less, and some use a bit more. A few exceptions went above 128 and up to 256/512. 
 
-Some flames need truly an high number of iterations to be resolved correctly.
+Some Flames need truly an high number of iterations to be resolved correctly.
 
 Listed below are presets from Chaotica software that were converted to FLAM3H™. They were chosen because some of them are very expensive to solve and because they make use of variations I've already implemented.
 
@@ -219,7 +219,7 @@ Iterations needed in FLAM3H™ to resolve: **64**
 You'll find other scenarios where your iterations number will need to rise up,
 especially when relying heavily on containers and such.
 
-However, from all my tests, between 10 and 96 iterations will get you covered for almost all your needs. And don't forget, you can create some beautiful fractal flames with just six iterations. Here is one I did:
+However, from all my tests, between 10 and 96 iterations will get you covered for almost all your needs. And don't forget, you can create some beautiful fractal Flames with just six iterations. Here is one I did:
 
 Iterations needed in FLAM3H™ to resolve: **6**
 
@@ -229,7 +229,7 @@ Iterations needed in FLAM3H™ to resolve: **6**
 I could add a lot more functionalities, but this project consumed me for a very long time.
 Every aspect of this algorithm, once understood, looks simple on the surface, but they all present challenges on their own. It has been quite a crazy ride to pack everything into this implementation.
 
-It is time to park this project for a little bit, but I really, really loved the long journey on this topic, and I will now forever love fractal flames as a whole, they are awesome  ( and addictive )!
+It is time to park this project for a little bit, but I really, really loved the long journey on this topic, and I will now forever love fractal Flames as a whole, they are awesome  ( and addictive )!
 
 ## Example Flame files.
 
