@@ -1416,7 +1416,7 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     
     Enable or disable the finalXform(_FF_).
 
-    The finalXform(_FF_), when *`On`*/Active, is always applied to each point after the Chaos game has finished its iterations loop, much like a post-process effect, even though all of the iterators (_aka: xforms or transformations_) are chosen randomly for each iteration inside the Chaos game based on their Weights and respective xaos.
+    The finalXform(_FF_), when *`On`*/Active, is always applied to each point after the Chaos game has finished its iterations loop, much like a post-process effect, even though all of the iterators (_aka: xforms or transforms_) are chosen randomly for each iteration inside the Chaos game based on their Weights and respective xaos.
 
     <br />
 
