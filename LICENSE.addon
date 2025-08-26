@@ -1,0 +1,22 @@
+Additional Licensing Notice
+===========================
+
+This repository contains software licensed under the GNU General Public
+License, version 3 (GPL-3.0). For the purposes of this repository, the term
+“source code” (as used in the GPL) includes not only conventional source
+files, but also all Houdini-related source materials that define the functionality of the tool.
+This includes, but is not limited to:
+
+- Digital Assets (.otl, .hda, .hdalc, .hdanc)
+- Node networks and sub-networks
+- Custom node definitions and parameter interfaces
+- Houdini CVEX, VEX, VOP or OpenCL code
+- Shelf tools, scripts, and presets
+- Any related configuration or scene files that represent the tool in its
+  preferred form for making modifications
+
+All of the above are considered part of the “source code” and are therefore
+covered by the GNU General Public License v3.0.
+
+---
+See the LICENSE file in the repository for details

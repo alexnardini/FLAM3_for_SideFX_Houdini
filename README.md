@@ -3,13 +3,6 @@
 - Software: [GNU GPL v3.0](LICENSE)
 - Documentation: [CC BY-SA 4.0](LICENSE.docs)
 
-This repository contains two kinds of works:
-
-1. Software source code, licensed under the GNU General Public License, version 3 (GPL-3.0).
-
-2. Documentation, licensed separately under the Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).
-   See the file LICENSE.docs for details.
-
 
 # The Fractal Flame Algorithm
 ![FLAM3 Intro image](./img/GITHUB_intro_img.jpg)
