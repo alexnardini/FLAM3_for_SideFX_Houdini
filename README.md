@@ -1,8 +1,3 @@
-# The Fractal Flame Algorithm
-![FLAM3 Intro image](./img/GITHUB_intro_img.jpg)
-
-`The above fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer.`
-
 ## License
 
 - Software: [GNU GPL v3.0](LICENSE)
@@ -14,6 +9,12 @@ This repository contains two kinds of works:
 
 2. Documentation, licensed separately under the Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).
    See the file LICENSE.docs for details.
+
+
+# The Fractal Flame Algorithm
+![FLAM3 Intro image](./img/GITHUB_intro_img.jpg)
+
+`The above fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer.`
 
 
 ## FLAM3 for SideFX Houdini v1.x ( aka: FLAM3H™ )
