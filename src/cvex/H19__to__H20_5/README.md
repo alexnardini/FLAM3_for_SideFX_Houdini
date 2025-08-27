@@ -19,7 +19,7 @@ It is only working if the camera type is Perspective and not Orthogonal.
 # CVEX Source
 # File name:    `cvex_TFFAcompensate.vfl`
 ### Description:
-When using FLAM3H in Motion Blur mode, it will compensate the `@pscale` values
+When using FLAM3H™ in Motion Blur mode, it will compensate the `@pscale` values
 so not to loose to much of the body presence due to the layering method being used
 to form the final point cloud.
 
@@ -66,7 +66,7 @@ DISMISSED. This is not being used anymore and it is part of the old legacy code 
 # CVEX Source
 # File name:    `cvex_TFFAsensor.vfl`
 ### Description:
-All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H. A portion of the render parameters deal with the camera and how the fractal flame you just saved is framed. The FLAM3H camera sensor will precisely display the image framing.
+All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H™. A portion of the render parameters deal with the camera and how the fractal flame you just saved is framed. The FLAM3H™ camera sensor will precisely display the image framing.
 
 <br>
 <br>
@@ -92,7 +92,7 @@ so they will scale proportionally with the Sensor resolution.
 # File name:    `cvex_TFFAuicollect.vfl`
 ### Description:
 UI FLAM3 viewport TAG infos collection.
-Build a string to use as a TAG composed of all the current FLAM3H iterators and FF informations
+Build a string to use as a TAG composed of all the current FLAM3H™ iterators and FF informations
 like variations used, and many system infos.
 
 <br>
