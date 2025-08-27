@@ -4,7 +4,7 @@
 ### Description:
 ( The ending filename digits represent the least python version needed to run this code )
 
-This is the main FLAM3H python file that define:
+This is the main FLAM3H™ python file that define:
 
 ###               Python classes and definitions for:
 ###               - General UX
