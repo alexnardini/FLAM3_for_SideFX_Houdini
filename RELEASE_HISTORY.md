@@ -13,7 +13,7 @@ _The following Houdini versions are fully supported._
 </br>
 
 ## Release history
-Below is a list of all the FLAM3H™ releases and the updates that went into each.</br>
+Below is a list of all the FLAM3H™ (_and_ **FLAM3HUSD**) releases and the updates that went into each.</br>
 They are all available in this Github repository.
 
 </br>
