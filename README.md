@@ -3,7 +3,7 @@
 - Software: [GNU GPL v3.0](LICENSE)
 - Documentation: [CC BY-SA 4.0](LICENSE.docs)
 
-## Hodini versions
+## Houdini versions
 _The following Houdini versions are fully functional, tested and supported._
 - from **H19** to **H20.5**
 
