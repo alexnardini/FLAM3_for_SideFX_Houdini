@@ -2,13 +2,43 @@
 
 
 <p align="center">
-  <img width="160" height="160" src="https://github.com/alexnardini/FLAM3/blob/main/img/LOGO_F_github.svg" />
+  <img width="160" height="160" src="./img/LOGO_F_github.svg" />
 </p>
 
-# Release history #
-Below is a list of all the releases and the updates that went into these.</br>
-They are all available in this github repository.</br>
+## Houdini versions
+_The following Houdini versions are fully supported._
+- From **H19** to **H20.5** only.
+
 </br>
+</br>
+
+## Release history
+Below is a list of all the FLAM3H™ releases and the updates that went into each.</br>
+They are all available in this Github repository.
+
+</br>
+</br>
+
+### [<ins>From v1.8.67</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.67) ###
+
+_Renamed some files in this Github repository and updated some additional licenses informations_.
+
+#### FLAM3H™ ####
+
+- **Updated HDA documentation.**
+
+#### FLAM3HUSD v0.1.59 - Prototype ####
+
+- **New**: Added FLAM3H™ documentation license chapter to match the one added inside FLAM3H™.
+- **Updated HDA documentation and some parameters tooltips.**
+
+
+
+<br>
+<br>
+
+
+
 
 ### [<ins>From v1.8.66</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.66) ###
 

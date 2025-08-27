@@ -3,6 +3,12 @@
 - Software: [GNU GPL v3.0](LICENSE)
 - Documentation: [CC BY-SA 4.0](LICENSE.docs)
 
+## Hodini versions
+_The following Houdini versions are fully functional, tested and supported._
+- from **H19** to **H20.5**
+
+<br/>
+<br/>
 
 # The Fractal Flame Algorithm
 ![FLAM3 Intro image](./img/GITHUB_intro_img.jpg)
@@ -10,7 +16,7 @@
 `The above fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer.`
 
 
-## FLAM3 for SideFX Houdini v1.x ( aka: FLAM3H™ )
+## FLAM3 for SideFX Houdini - aka: FLAM3H™
 **_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
 
 <p align="center">
