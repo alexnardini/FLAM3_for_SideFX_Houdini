@@ -29,7 +29,7 @@ _Renamed some files in this Github repository and updated some additional licens
 
 #### FLAM3HUSD v0.1.59 - Prototype ####
 
-- **New**: Added FLAM3H™ documentation license chapter to match the one added inside FLAM3H™.
+- **New**: Added documentation license chapter to match the one added inside FLAM3H™.
 - **Updated HDA documentation and some parameters tooltips.**
 
 
