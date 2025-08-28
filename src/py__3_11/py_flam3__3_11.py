@@ -1980,6 +1980,7 @@ class flam3h_general_utils
 * private_prm_set(node: hou.SopNode, prm_name: str, data: str | int | float) -> None:
 * private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm) -> None:
 * select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> None | str:
+* select_file_start_dir_OUT(node: hou.SopNode) -> None | str:
 * flash_message(node: hou.SopNode, msg: str | None, timer: float = FLAM3H_FLASH_MESSAGE_TIMER, img: str | None = None) -> None:
 * remove_locked_from_flame_stats(node) -> None:
 * houdini_version(digit: int=1) -> int:
@@ -2117,6 +2118,29 @@ class flam3h_general_utils
             else: CP_filepath_dir: None | str = None
             
         return CP_filepath_dir
+    
+    
+    @staticmethod
+    def select_file_start_dir_OUT(node: hou.SopNode) -> None | str:
+        """Return the filepath string for OUT filepath parameter if any, otherwise return None if empty or invalid.
+        If an invalid filepath is present, it will try to extrapolate out the parent directory first and check for its validity, otherwise return: None
+        
+        Args:
+            node(hou.SopNode): this FLAM3H™ node.
+            
+        Returns:
+            (None):
+        """ 
+        # Get start directory if one is already set in the CP oir IN tabs filepath parameter (e.g. a Palette or a Flame file is already being loaded)
+        OUT_filepath: str = os.path.expandvars(node.parm(OUT_PATH).eval())
+        if os.path.isfile(OUT_filepath):
+            OUT_filepath_dir: None | str = os.path.split(OUT_filepath)[0]
+        else:
+            _dir: str = os.path.split(OUT_filepath)[0]
+            if os.path.isdir(_dir): OUT_filepath_dir = _dir
+            else: OUT_filepath_dir: None | str = None
+            
+        return OUT_filepath_dir
 
 
     @staticmethod
@@ -9498,7 +9522,7 @@ class flam3h_palette_utils
         # Get start directory if one is already set in the CP file path (e.g. a Palette file is already being loaded)
         _START_DIR: None | str = flam3h_general_utils.select_file_start_dir(node, CP_PALETTE_LIB_PATH)
         # Open a floating file chooser
-        filepath: str = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
+        filepath: str = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.ReadAndWrite, width=0, height=0)  # type: ignore
         filepath_expandvars: str = os.path.expandvars(filepath)
         dir: str = os.path.dirname(filepath_expandvars)
         if os.path.isdir(dir):
@@ -18312,9 +18336,22 @@ class out_flame_utils
                         flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS(False)
 
             else:
-                _MSG: str = f"{node.name()}: SAVE Flame: Select a valid output file or a valid filename to create first."
-                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f"OUT: Select a valid output file")
+                # If there is NOT a valid dir or filepath already, open a file chooser to pick or define one
+                _START_DIR: None | str = flam3h_general_utils.select_file_start_dir_OUT(node)
+                # Open a floating file chooser
+                filepath: str = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Save a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Write, width=0, height=0)  # type: ignore
+                filepath_expandvars: str = os.path.expandvars(filepath)
+                dir: str = os.path.dirname(filepath_expandvars)
+                if os.path.isdir(dir):
+                    node.setParms({OUT_PATH: filepath_expandvars}) # type: ignore
+                    # The following definition use the default arg's
+                    flam3h_general_utils(self.kwargs).flam3h_init_presets_OUT_PRESETS()
+                
+                else:
+                    # This will probably never evaluate now that a file chooser has been added, but just in case.
+                    _MSG: str = f"{node.name()}: SAVE Flame: Select a valid output file or a valid filename to create first."
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                    flam3h_general_utils.flash_message(node, f"OUT: Select a valid output file")
 
 
     '''

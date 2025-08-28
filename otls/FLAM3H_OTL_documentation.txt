@@ -9,7 +9,7 @@
 ( vcc compiler: v20.5.654 )"""
 
 == Welcome to FLAM3 for SideFX Houdini - aka: FLAM3H(tm) ==
-( _From H19.x to H20.5.x only_ )
+( _From H19 to H20.5 only_ )
 
 [Icon:opdef:.?icon_optionStarBlueSVG.svg]  *A bit of history* _( from wikipedia )_:
 
@@ -729,7 +729,7 @@ OUT Save:
     _Usage_:
 
     - ((LMB)) to save this Flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
-    - ((SHIFT)) + ((LMB)) to open the file explorer to the file location.
+    - ((SHIFT)) + ((LMB)) if not a valid filepath is present already it will open a file chooser, otherwise it will open the file explorer to the file location.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((ALT)) + ((LMB)) to copy this Flame into the Clipboard.
 
