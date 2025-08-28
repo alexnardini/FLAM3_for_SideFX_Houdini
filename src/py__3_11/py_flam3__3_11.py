@@ -10128,8 +10128,8 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         _FLAM3HGIT_MSG: str = 'FLAM3H™ github'
         _FLAM3HINSTA_MSG: str = 'FLAM3H™ instagram'
         _FLAM3HYOUTUBE_MSG: str = 'FLAM3H™ youtube tutorials'
-        _FLAM3PDF_MSG: str = 'The Fractal Flame Algorithm pdf'
-        _FLAM3GIT_MSG: str = 'The Fractal Flame Algorithm github'
+        _FLAM3PDF_MSG: str = 'The Fractal Flame Algorithm(FLAM3) pdf'
+        _FLAM3GIT_MSG: str = 'The Fractal Flame Algorithm(FLAM3) github'
         _FRACTBITBUCKETGIT_MSG: str = 'Fractorium bitbucket'
         _FRACTWEB_MSG: str = 'Fractorium web'
         

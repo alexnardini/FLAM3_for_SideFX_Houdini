@@ -1753,7 +1753,7 @@ JSON file [Icon:DATATYPES/string]:
     - ((LMB)) to open a floating file chooser.
 
     <br />
-    Load an already-created FLAM3H™ palette library file or choose the path and name of a new one to create.
+    Load an already-created FLAM3H™ palette library file or choose the path and name of an existing or new one to create.
 
     A FLAM3H™ palette library file is a [JSON|Wp:JSON] type of file.
 
