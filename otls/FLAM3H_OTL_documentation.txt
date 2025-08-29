@@ -1027,6 +1027,17 @@ auto space xaos weights / xaos information tips [Icon:opdef:.?icon_optionStarBlu
 
     == Iterator: Shader == (FLAMEITERSHADER)
 
+    ~~~
+    :box:
+        #display: rounded gray
+
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*
+
+        It may occur that the coloration you see when loading Flame presets differs from that found in Fractorium or Apophysis.<br />
+        This is because extra iterations are required to correctly spread the colors, even when the fractal Flame forms match.
+
+        _Increase the number of iterations until the coloration matches the ones found in Apophysis, Fractorium, and others_.
+
 Location [Icon:TOP/xmlinput]:
     #id: FLAME
     The color location in the ramp *{0:1}*.
