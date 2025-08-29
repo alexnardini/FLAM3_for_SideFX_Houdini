@@ -3849,7 +3849,10 @@ _A list of all parametric variations and their parametric parameter's names_
     However,<br />
     when using xaos you are only permitted to create a maximum of *`20`* iterators.
     
-    _This is a workaround to make xaos work due to a Houdini bug: *Bug ID# 124486*, *SideFX Support Ticket SESI #128304*_
+    _This is a workaround to make xaos work due to a Houdini bug_:
+
+    *`Bug ID# 124486`*<br />
+    SideFX Support Ticket: *`SESI# 128304`*
 
 == Limitations: Iterators PRE, VAR and POST variations ==
 
@@ -3983,21 +3986,25 @@ _A list of all parametric variations and their parametric parameter's names_
 :box:
     #display: rounded gray
 
-    Since the release of SideFX Houdini 21,<br />
-    the multiparameter functionalities have been extended but unfortunately, at the moment of this writing, they do NOT provide any methods to detect when they are executed by the user (_they do not trigger the multiparameter callback script anymore_).<br />
-    
-    As a result,<br />
-    creating new iterators inbetween or reordering them (_the new functionalities_)<br />
-    result in FLAM3H™ not being able to keep track and set xaos correctly.
+    Although the multiparameter features have been expanded since SideFX released Houdini 21,<br />
+    as of this writing, they do not offer any ways to identify when the user is executing them<br />
+    (_they no longer cause the multiparameter callback script to run_).
 
-    A bug report has bee submitted to SideFX and,<br />
-    may this get resolved, a FLAM3H™ update for H21 or higher will be provided.
+
+    Because of this,<br />
+    FLAM3H™ is unable to record and set xaos appropriately when new iterators are created or rearranged (_the new features_).
+
+    SideFX has received a Bug report, and if it is fixed,<br />
+    a FLAM3H™ update for H21 or later will be made available.
 
     Until then,<br />
-    the latest funtional, tested and supported Houdini version is: H20.5
+    H20.5 is the most recent functional, tested, and supported version.
 
     <br />
-    _For referernce: *`bug #149091`*_
+    _For reference_:
+
+    *`Bug ID# 149091`*<br />
+    SideFX Support Ticket: *`SESI# 169253`*
 
 
 
