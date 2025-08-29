@@ -660,7 +660,7 @@ IN Preset reload:
     _Usage_:
     
     - ((LMB)) If there is a selected IN preset, it will reload it.
-    - ((SHIFT)) + ((LMB)) to open a floating file chooser.
+    - ((SHIFT)) + ((LMB)) the icon to open a floating file chooser.
     - ((ALT)) + ((LMB)) to paste a Flame from the Clipboard.
 
     _Additionally_:
@@ -1794,7 +1794,7 @@ Save Palette:
     - ((LMB)) to save the current palette into the selected OUT file.
         - _If the selected file does not exist, it will be created_.
         - _If the selected file already contains some palettes, it will append the current one_.
-    - ((SHIFT)) + ((LMB)) to open the file explorer to the file location.
+    - ((SHIFT)) + ((LMB)) if not a valid filepath is present already it will open a file chooser, otherwise it will open the file explorer to the file location.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current palette.
     - ((ALT)) + ((LMB)) to save the current palette into the Clipboard as a JSON data.
 
@@ -2390,7 +2390,7 @@ Save Flame:
     _Usage_:
     
     - ((LMB)) to save this Flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
-    - ((SHIFT)) + ((LMB)) to open the file explorer to the file location.
+    - ((SHIFT)) + ((LMB)) if not a valid filepath is present already it will open a file chooser, otherwise it will open the file explorer to the file location.
     - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
     - ((ALT)) + ((LMB)) to copy this Flame into the Clipboard.
 
@@ -3834,7 +3834,8 @@ _A list of all parametric variations and their parametric parameter's names_
     *FLAM3H(tm) Limitations*.
     
     The following are limitations to keep in mind when authoring your Flames in Fractorium or Apophysis to be loaded inside FLAM3H(tm).
-    All of those restrictions are in place to maintain performance within the Cvex language restrictions.
+    Some of those restrictions are in place to maintain performance within the Cvex language restrictions.<br />
+    Some other are caused by Houdini bugs, in those cases a reference to the bug submission is provided.
 
 == Limitations: Iterators count ==
     
@@ -3847,12 +3848,21 @@ _A list of all parametric variations and their parametric parameter's names_
     FLAM3H(tm) allows you to create as many iterators as you wish.<br />
 
     However,<br />
-    when using xaos you are only permitted to create a maximum of *`20`* iterators.
-    
-    _This is a workaround to make xaos work due to a Houdini bug_:
+    when using xaos you are only permitted to create a maximum of *`20`* iterators.<br />
+    This is a workaround to make xaos work due to a Houdini bug.
 
-    *`Bug ID# 124486`*<br />
-    SideFX Support Ticket: *`SESI# 128304`*
+    <br />
+    _For reference_:
+
+    *`10/10/2022`* -> _*Submitted*_<br />
+    - Houdini version: _19.0.720_<br />
+    - Description: _Issue with the_ `sample_cdf()` _function when the CDF is varying over the VEX processor array_.<br />
+    - Bug ID# *`124486`*<br />
+    - SideFX Support Ticket: *`SESI# 128304`*
+
+    <br />
+    *`08/28/2025`* -> _*Fixed* - not implemented yet in FLAM3H(tm) _<br />
+    - Houdini version: _21.0.457_
 
 == Limitations: Iterators PRE, VAR and POST variations ==
 
@@ -3985,6 +3995,7 @@ _A list of all parametric variations and their parametric parameter's names_
 
 :box:
     #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *New multiparameter features*<br /><br />
 
     Although the multiparameter features have been expanded since SideFX released Houdini 21,<br />
     as of this writing, they do not offer any ways to identify when the user is executing them<br />
@@ -3992,19 +4003,28 @@ _A list of all parametric variations and their parametric parameter's names_
 
 
     Because of this,<br />
-    FLAM3H™ is unable to record and set xaos appropriately when new iterators are created or rearranged (_the new features_).
+    FLAM3H™ is unable to record and set xaos automatically when new iterators are created or rearranged (_the new features_).<br />
+    This is a blocker and work can not be continued to fully port it to H21 and up.
 
     SideFX has received a Bug report, and if it is fixed,<br />
     a FLAM3H™ update for H21 or later will be made available.
 
     Until then,<br />
-    H20.5 is the most recent functional, tested, and supported version.
+    The most recent functional, tested, and supported version is for: H20.5
 
     <br />
     _For reference_:
 
-    *`Bug ID# 149091`*<br />
-    SideFX Support Ticket: *`SESI# 169253`*
+    *`08/26/2025`* -> _*Submitted*_<br />
+    - Houdini version: _21.0.440_<br />
+    - Description: _Multiparameter new functionalities do not trigger the multiparameter callback script_.<br />
+    - Bug ID# *`149091`*<br />
+    - SideFX Support Ticket: *`SESI# 169253`*
+
+    <br />
+    Status:<br />
+    * _*`Wating for a fix`*_.
+        #glyph: fa-spinner fa-spin
 
 
 

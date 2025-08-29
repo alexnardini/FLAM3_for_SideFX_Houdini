@@ -26,7 +26,7 @@ They are all available in this Github repository.
 ### [<ins>From v1.8.68</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.68) ###
 
 - **New**: Added a H21 note inside the HDA Documentaion->Limitations' chapter.
-- **New**: OUT save action button: [SHIFT+LMB] it will now open a file chooser if not a valid filepath is present already, otherwise it will open the file explorer to the file location as before.
+- **New**: CP and OUT tabs save action button: [SHIFT+LMB] will now open a file chooser if not a valid filepath is present already, otherwise it will open the file explorer to the file location.
 - **Updated HDA documentation.**
 
 

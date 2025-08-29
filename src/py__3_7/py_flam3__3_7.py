@@ -214,7 +214,7 @@ SYS_XF_VIZ_ON = 'xfviz_on'
 SYS_TAG_SIZE = 'tagsize'
 SYS_FRAME_VIEW_SENSOR = 'frameviewsensor'
 FLAME_ITERATORS_COUNT = 'flamefunc'
-CP_PALETTE_LIB_PATH = 'palettefile'
+CP_PATH = 'palettefile'
 CP_PALETTE_OUT_PRESET_NAME = 'palettename'
 CP_PALETTE_PRESETS = 'palettepresets'
 CP_PALETTE_PRESETS_OFF = 'palettepresets_off'
@@ -1672,7 +1672,7 @@ class flam3h_scripts
         out_is_valid: int = node.parm(OUT_PVT_ISVALID_FILE).eval()
         
         if cp_is_valid:
-            cp_path: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+            cp_path: str = os.path.expandvars(node.parm(CP_PATH).eval())
             cp_path_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node,  cp_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
             if cp_path_checked is not False and os.path.isfile(cp_path_checked): node.setCachedUserData('cp_presets_filepath', cp_path_checked)
                 
@@ -1970,7 +1970,6 @@ class flam3h_general_utils
 * private_prm_set(node: hou.SopNode, prm_name: str, data: Union[str, int, float]) -> None:
 * private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: Union[str, hou.Parm]) -> None:
 * select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> Union[None, str]:
-* select_file_start_dir_OUT(node: hou.SopNode) -> Union[None, str]:
 * flash_message(node: hou.SopNode, msg: Union[str, None], timer: float = FLAM3H_FLASH_MESSAGE_TIMER, img: Union[str, None] = None) -> None:
 * remove_locked_from_flame_stats(node) -> None:
 * houdini_version(digit: int=1) -> int:
@@ -2088,49 +2087,26 @@ class flam3h_general_utils
         
     @staticmethod
     def select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> Union[None, str]:
-        """Return the filepath string for either the CP or IN filepath parameter if any, otherwise return None if empty or invalid.
+        """Return the filepath string for either the CP, IN or OUT filepath parameter if any, otherwise return None if empty or invalid.
         If an invalid filepath is present, it will try to extrapolate out the parent directory first and check for its validity, otherwise return: None
         
         Args:
             node(hou.SopNode): this FLAM3H™ node.
-            type(str): Default to: IN_PATH . the parameter name for either the CP or IN filepath (respectively: CP_PALETTE_LIB_PATH or IN_PATH).
+            type(str): Default to: IN_PATH . the parameter name for either the CP or IN filepath (respectively: CP_PATH, IN_PATH or OUT_PATH).
             
         Returns:
             (None):
         """ 
         # Get start directory if one is already set in the CP oir IN tabs filepath parameter (e.g. a Palette or a Flame file is already being loaded)
-        CP_filepath: str = os.path.expandvars(node.parm(type).eval())
-        if os.path.isfile(CP_filepath):
-            CP_filepath_dir: Union[None, str] = os.path.split(CP_filepath)[0]
+        filepath: str = os.path.expandvars(node.parm(type).eval())
+        if os.path.isfile(filepath):
+            filepath_dir: Union[None, str] = os.path.split(filepath)[0]
         else:
-            _dir: str = os.path.split(CP_filepath)[0]
-            if os.path.isdir(_dir): CP_filepath_dir = _dir
-            else: CP_filepath_dir: Union[None, str] = None
+            _dir: str = os.path.split(filepath)[0]
+            if os.path.isdir(_dir): filepath_dir = _dir
+            else: filepath_dir: Union[None, str] = None
             
-        return CP_filepath_dir
-    
-    
-    @staticmethod
-    def select_file_start_dir_OUT(node: hou.SopNode) -> Union[None, str]:
-        """Return the filepath string for either the CP or IN filepath parameter if any, otherwise return None if empty or invalid.
-        If an invalid filepath is present, it will try to extrapolate out the parent directory first and check for its validity, otherwise return: None
-        
-        Args:
-            node(hou.SopNode): this FLAM3H™ node.
-            
-        Returns:
-            (None):
-        """ 
-        # Get start directory if one is already set in the CP oir IN tabs filepath parameter (e.g. a Palette or a Flame file is already being loaded)
-        OUT_filepath: str = os.path.expandvars(node.parm(OUT_PATH).eval())
-        if os.path.isfile(OUT_filepath):
-            OUT_filepath_dir: Union[None, str] = os.path.split(OUT_filepath)[0]
-        else:
-            _dir: str = os.path.split(OUT_filepath)[0]
-            if os.path.isdir(_dir): OUT_filepath_dir = _dir
-            else: OUT_filepath_dir: Union[None, str] = None
-            
-        return OUT_filepath_dir
+        return filepath_dir
 
 
     @staticmethod
@@ -3508,7 +3484,7 @@ class flam3h_general_utils
         prm_off = node.parm(CP_PALETTE_PRESETS_OFF)
 
         if json_path_checked is None:
-            json_path: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+            json_path: str = os.path.expandvars(node.parm(CP_PATH).eval())
             json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
         
         if cp_presets_filepath_history is not None and node.parm(CP_PVT_ISVALID_FILE).eval() and os.path.isfile(cp_presets_filepath_history) and cp_presets_filepath_history == json_path_checked:
@@ -3521,7 +3497,7 @@ class flam3h_general_utils
             assert isinstance(json_path_checked, str)
             
             # Set the CP filepath parameter to this checked and corrected filepath
-            node.setParms({CP_PALETTE_LIB_PATH: json_path_checked})
+            node.setParms({CP_PATH: json_path_checked})
             
             # Here we are checking the file path in the file path parameter field if asked to do so(args: "json_file" and "f3h_json_file" are None)
             if json_file is None and f3h_json_file is None: json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path)
@@ -8448,8 +8424,8 @@ class flam3h_palette_utils
 * delete_ramp_all_keyframes(ramp_parm: hou.Parm) -> None:
 * get_ramp_keys_count(ramp: hou.Ramp) -> str:
 * isJSON_F3H_get_first_preset(filepath: Union[str, bool]) -> Union[str, bool]:
-* isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg: bool = True, parm_path_name: str = CP_PALETTE_LIB_PATH) -> tuple[bool, bool]:
-* isJSON_F3H_on_preset_load(node: hou.SopNode, filepath: Union[str, bool],  msg: bool = True, parm_path_name: str = CP_PALETTE_LIB_PATH) -> tuple[bool, bool]:
+* isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg: bool = True, parm_path_name: str = CP_PATH) -> tuple[bool, bool]:
+* isJSON_F3H_on_preset_load(node: hou.SopNode, filepath: Union[str, bool],  msg: bool = True, parm_path_name: str = CP_PATH) -> tuple[bool, bool]:
 * rgb_to_hex(rgb: tuple) -> str:
 * hex_to_rgb(hex: str) -> tuple:
 * find_nearest_idx(array: Union[list, tuple], value: Union[int, float]) -> Union[int, float]:
@@ -8612,14 +8588,14 @@ class flam3h_palette_utils
 
 
     @staticmethod
-    def isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg: bool = True, parm_path_name: str = CP_PALETTE_LIB_PATH) -> tuple[bool, bool]:
+    def isJSON_F3H(node: hou.SopNode, filepath: Union[str, bool],  msg: bool = True, parm_path_name: str = CP_PATH) -> tuple[bool, bool]:
         """Check if the loaded palette lib file is a valid FLAM3H™ palette json file.
 
         Args:
             node(hou.SopNode): current FLAM3H™ node
             filepath(Union[str, bool]): Palette lib full file path.
             msg(bool): Default to True, print out messages to the Houdini's status bar. Set it to False to not print out messages.
-            parm_path_name(str): Default to global: CP_PALETTE_LIB_PATH. The actual Houdini's palette file parameter name.
+            parm_path_name(str): Default to global: CP_PATH. The actual Houdini's palette file parameter name.
 
         Returns:
             (bool): True if valid. False if not valid.
@@ -8662,14 +8638,14 @@ class flam3h_palette_utils
         
         
     @staticmethod
-    def isJSON_F3H_on_preset_load(node: hou.SopNode, filepath: Union[str, bool],  msg: bool = True, parm_path_name: str = CP_PALETTE_LIB_PATH) -> tuple[bool, bool]:
+    def isJSON_F3H_on_preset_load(node: hou.SopNode, filepath: Union[str, bool],  msg: bool = True, parm_path_name: str = CP_PATH) -> tuple[bool, bool]:
         """This the same as: def isJSON_F3H(...) but wit a few condition to try to speedup things a little.
 
         Args:
             node(hou.SopNode): current FLAM3H™ node
             filepath(Union[str, bool]): Palette lib full file path.
             msg(bool): Default to True, print out messages to the Houdini's status bar. Set it to False to not print out messages.
-            parm_path_name(str): Default to global: CP_PALETTE_LIB_PATH. The actual Houdini's palette file parameter name.
+            parm_path_name(str): Default to global: CP_PATH. The actual Houdini's palette file parameter name.
 
         Returns:
             (tuple[bool, bool]): True if valid. False if not valid.
@@ -8974,7 +8950,7 @@ class flam3h_palette_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            filepath: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+            filepath: str = os.path.expandvars(node.parm(CP_PATH).eval())
             
             if os.path.exists(filepath) and node.parm(CP_PVT_ISVALID_FILE).eval() and self.node.parm(CP_PVT_ISVALID_PRESET).eval():
                     
@@ -9018,7 +8994,7 @@ class flam3h_palette_utils
                 preset_idx: str = node.parm(CP_PALETTE_PRESETS).eval()
                 
                 # Double check 
-                json: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+                json: str = os.path.expandvars(node.parm(CP_PATH).eval())
                 is_valid: bool = os.path.isfile(json)
                 if json and not is_valid:
                     flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_FILE, 0)
@@ -9052,7 +9028,7 @@ class flam3h_palette_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            filepath: str = os.path.expandvars(self.node.parm(CP_PALETTE_LIB_PATH).eval())
+            filepath: str = os.path.expandvars(self.node.parm(CP_PATH).eval())
 
             if self.isJSON_F3H(node, filepath, False)[-1] and node.parm(CP_PVT_ISVALID_FILE).eval() and not node.parm(CP_PVT_ISVALID_PRESET).eval():
                     
@@ -9096,7 +9072,7 @@ class flam3h_palette_utils
                 preset_idx: str = node.parm(CP_PALETTE_PRESETS_OFF).eval()
                 
                 # Double check 
-                json: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+                json: str = os.path.expandvars(node.parm(CP_PATH).eval())
                 is_valid: bool = os.path.isfile(json)
                 if json and not is_valid:
                     flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_FILE, 0)
@@ -9185,7 +9161,7 @@ class flam3h_palette_utils
         
         # Save palette into a file
         else:
-            palettepath: str = node.parm(CP_PALETTE_LIB_PATH).eval()
+            palettepath: str = node.parm(CP_PATH).eval()
             out_path_checked: Union[str, bool] = out_flame_utils.out_check_outpath(node, palettepath, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
 
             if out_path_checked is not False:
@@ -9282,7 +9258,7 @@ class flam3h_palette_utils
                             del data
                             
                             # Set the file path to the corrected one
-                            node.setParms({CP_PALETTE_LIB_PATH: out_path_checked})
+                            node.setParms({CP_PATH: out_path_checked})
                             
                             # Something odd in how the messages are running, need to investigate why
                             _MSG: str = f"Palette SAVED"
@@ -9316,9 +9292,29 @@ class flam3h_palette_utils
                                 flam3h_general_utils.flash_message(node, f"CP SAVE: Not a valid palette file")
                         
             else:
-                _MSG: str = f"{node.name()}: SAVE Palette: Select a valid output file or a valid filename to create first."
-                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f"CP: Select a valid output file")
+                
+                if self.kwargs['shift']:
+                    # If there is NOT a valid dir or filepath already, open a file chooser to pick or define one
+                    _START_DIR: Union[None, str] = flam3h_general_utils.select_file_start_dir(node, CP_PATH)
+                    # Open a floating file chooser
+                    filepath: str = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Save a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.ReadAndWrite, width=0, height=0)  # type: ignore
+                    filepath_expandvars: str = os.path.expandvars(filepath)
+                    dir: str = os.path.dirname(filepath_expandvars)
+                    if os.path.isdir(dir):
+                        node.setParms({OUT_PATH: filepath_expandvars}) # type: ignore
+                        # The following definition use the default arg's
+                        flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS()
+                    
+                    else:
+                        # This will probably never evaluate now that a file chooser has been added, but just in case.
+                        _MSG: str = f"{node.name()}: SAVE Palette: Select a valid output file or a valid filename to create first."
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        flam3h_general_utils.flash_message(node, f"CP: Select a valid output file")
+                        
+                else:
+                    _MSG: str = f"{node.name()}: SAVE Palette: Select a valid output file or a valid filename to create first."
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                    flam3h_general_utils.flash_message(node, f"CP: Select a valid output file")
 
 
     def json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list) -> tuple[hou.Ramp, int, bool]:
@@ -9387,7 +9383,7 @@ class flam3h_palette_utils
         iterators_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iterators_num:
             
-            filepath: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+            filepath: str = os.path.expandvars(node.parm(CP_PATH).eval())
             if self.isJSON_F3H_on_preset_load(node, filepath, False)[-1]:
                 
                 # get ramps parm
@@ -9501,13 +9497,13 @@ class flam3h_palette_utils
             (None):
         """
         # Get start directory if one is already set in the CP file path (e.g. a Palette file is already being loaded)
-        _START_DIR: Union[None, str] = flam3h_general_utils.select_file_start_dir(node, CP_PALETTE_LIB_PATH)
+        _START_DIR: Union[None, str] = flam3h_general_utils.select_file_start_dir(node, CP_PATH)
         # Open a floating file chooser
         filepath: str = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Load/Save a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.ReadAndWrite, width=0, height=0)  # type: ignore
         filepath_expandvars: str = os.path.expandvars(filepath)
         dir: str = os.path.dirname(filepath_expandvars)
         if os.path.isdir(dir):
-            node.setParms({CP_PALETTE_LIB_PATH: filepath_expandvars}) # type: ignore
+            node.setParms({CP_PATH: filepath_expandvars}) # type: ignore
             # The following definition use the default arg's value so it can set the proper ramp message if needed.
             flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS()
 
@@ -9523,7 +9519,7 @@ class flam3h_palette_utils
             (None):
         """
         
-        filepath: str = os.path.expandvars(node.parm(CP_PALETTE_LIB_PATH).eval())
+        filepath: str = os.path.expandvars(node.parm(CP_PATH).eval())
         if self.isJSON_F3H_on_preset_load(node, filepath, False)[-1]:
             
             # get current preset name and preset_id(index)
@@ -9796,7 +9792,7 @@ class flam3h_palette_utils
             (None):
         """
         node = self.node
-        filepath: str = node.parm(CP_PALETTE_LIB_PATH).eval()
+        filepath: str = node.parm(CP_PATH).eval()
         if self.isJSON_F3H(node, filepath, False)[0]:
             if flam3h_general_utils.isLOCK(filepath) is False:
                 node.setParms({MSG_PALETTE: ''})
@@ -18310,19 +18306,26 @@ class out_flame_utils
                         flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS(False)
 
             else:
-                # If there is NOT a valid dir or filepath already, open a file chooser to pick or define one
-                _START_DIR: Union[None, str] = flam3h_general_utils.select_file_start_dir_OUT(node)
-                # Open a floating file chooser
-                filepath: str = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Save a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Write, width=0, height=0)  # type: ignore
-                filepath_expandvars: str = os.path.expandvars(filepath)
-                dir: str = os.path.dirname(filepath_expandvars)
-                if os.path.isdir(dir):
-                    node.setParms({OUT_PATH: filepath_expandvars}) # type: ignore
-                    # The following definition use the default arg's
-                    flam3h_general_utils(self.kwargs).flam3h_init_presets_OUT_PRESETS()
-            
+                
+                if kwargs['shift']:
+                    # If there is NOT a valid dir or filepath already, open a file chooser to pick or define one
+                    _START_DIR: Union[None, str] = flam3h_general_utils.select_file_start_dir(node, OUT_PATH)
+                    # Open a floating file chooser
+                    filepath: str = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Save a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Write, width=0, height=0)  # type: ignore
+                    filepath_expandvars: str = os.path.expandvars(filepath)
+                    dir: str = os.path.dirname(filepath_expandvars)
+                    if os.path.isdir(dir):
+                        node.setParms({OUT_PATH: filepath_expandvars}) # type: ignore
+                        # The following definition use the default arg's
+                        flam3h_general_utils(self.kwargs).flam3h_init_presets_OUT_PRESETS()
+                
+                    else:
+                        # This will probably never evaluate now that a file chooser has been added, but just in case.
+                        _MSG: str = f"{node.name()}: SAVE Flame: Select a valid output file or a valid filename to create first."
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        flam3h_general_utils.flash_message(node, f"OUT: Select a valid output file")
+                        
                 else:
-                    # This will probably never evaluate now that a file chooser has been added, but just in case.
                     _MSG: str = f"{node.name()}: SAVE Flame: Select a valid output file or a valid filename to create first."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                     flam3h_general_utils.flash_message(node, f"OUT: Select a valid output file")
