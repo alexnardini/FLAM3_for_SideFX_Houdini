@@ -3973,16 +3973,20 @@ _A list of all parametric variations and their parametric parameter's names_
     #display: rounded gray
 
     Since the release of SideFX Houdini 21,<br />
-    the multiparameter functionalities have been extended but unfortunately, at the moment of this writing, they do NOT provide any methods to detect when they are executed by the user (_they do not trigger the multiparameter callback script_).<br />
+    the multiparameter functionalities have been extended but unfortunately, at the moment of this writing, they do NOT provide any methods to detect when they are executed by the user (_they do not trigger the multiparameter callback script anymore_).<br />
     
     As a result,<br />
     creating new iterators inbetween or reordering them (_the new functionalities_)<br />
     result in FLAM3H™ not being able to keep track and set xaos correctly.
 
-    A bug report has bee submitted to SideFX and, may this get resolved, a FLAM3H™ update fo H21 or higher will be provided.
+    A bug report has bee submitted to SideFX and,<br />
+    may this get resolved, a FLAM3H™ update for H21 or higher will be provided.
 
     Until then,<br />
     the latest funtional, tested and supported Houdini version is: H20.5
+
+    <br />
+    _For referernce: *`bug #149091`*_
 
 
 
