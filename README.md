@@ -1,10 +1,9 @@
 ## License
-
 - Software: [GNU GPL v3.0](LICENSE)
 - Documentation: [CC BY-SA 4.0](LICENSE.docs)
 
 ## Houdini versions
-_The following Houdini versions are fully functional, tested and supported._
+_The following are Houdini versions where FLAM3H™ is fully functional, tested and supported._
 - from **H19** to **H20.5**
 
 <br/>

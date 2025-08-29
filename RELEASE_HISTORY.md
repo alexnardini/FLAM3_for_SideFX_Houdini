@@ -5,9 +5,13 @@
   <img width="160" height="160" src="./img/LOGO_F_github.svg" />
 </p>
 
+## License
+- Software: [GNU GPL v3.0](LICENSE)
+- Documentation: [CC BY-SA 4.0](LICENSE.docs)
+
 ## Houdini versions
-_The following Houdini versions are fully supported._
-- From **H19** to **H20.5** only.
+_The following are Houdini versions where FLAM3H™ is fully functional, tested and supported._
+- From **H19** to **H20.5**
 
 </br>
 </br>
@@ -21,6 +25,7 @@ They are all available in this Github repository.
 
 ### [<ins>From v1.8.68</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.68) ###
 
+- **New**: Added a H21 note inside the HDA Documentaion->Limitations' chapter.
 - **New**: OUT save action button: [SHIFT+LMB] it will now open a file chooser if not a valid filepath is present already, otherwise it will open the file explorer to the file location as before.
 - **Updated HDA documentation.**
 
