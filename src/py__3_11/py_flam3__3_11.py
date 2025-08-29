@@ -9522,7 +9522,7 @@ class flam3h_palette_utils
         # Get start directory if one is already set in the CP file path (e.g. a Palette file is already being loaded)
         _START_DIR: None | str = flam3h_general_utils.select_file_start_dir(node, CP_PALETTE_LIB_PATH)
         # Open a floating file chooser
-        filepath: str = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Load a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.ReadAndWrite, width=0, height=0)  # type: ignore
+        filepath: str = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Load/Save a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.ReadAndWrite, width=0, height=0)  # type: ignore
         filepath_expandvars: str = os.path.expandvars(filepath)
         dir: str = os.path.dirname(filepath_expandvars)
         if os.path.isdir(dir):
