@@ -150,7 +150,7 @@ Any parameter that is available in FLAM3H™ can be animated using any of the Ho
 
 FLAM3H™ comes with a straightforward utility LOP node call **FLAM3HUSD** to makes it easier to move the fractal Flame point cloud into the USD context Solaris. This node allow to set up and render FLAM3H™ fractal Flames using Houdini's Karma renderer within a few clicks.
 
-To finish, FLAM3H™ features a detailed documentation that is designed to provide you with all the information you would need. This also extend to generous tooltips for each parameter in the FLAM3H™ Houdini user interface.
+To finish, FLAM3H™ features a detailed documentation that is designed to provide you with all the informations you would need. This also extend to generous tooltips for each parameter in the FLAM3H™ Houdini user interface.
 
 ## Considerations
 
