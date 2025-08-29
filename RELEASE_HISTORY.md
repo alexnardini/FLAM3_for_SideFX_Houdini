@@ -19,6 +19,19 @@ They are all available in this Github repository.
 </br>
 </br>
 
+### [<ins>From v1.8.68</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.68) ###
+
+- **New**: OUT save action button: [SHIFT+LMB] it will now open a file chooser if not a valid filepath is present already, otherwise it will open the file explorer to the file location as before.
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.67</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.67) ###
 
 _Renamed some files in this Github repository and updated some additional licenses informations_.
