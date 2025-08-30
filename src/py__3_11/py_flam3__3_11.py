@@ -43,7 +43,7 @@ from inspect import cleandoc as i_cleandoc
 
 
 '''
-    Tested on:  PYTHON v3.11.7  (H20.5)
+    Tested on:  PYTHON v3.11.7  (H20.5, H21)
 
     Title:      FLAM3H™. SideFX Houdini FLAM3: PYTHON
     Author:     Alessandro Nardini
