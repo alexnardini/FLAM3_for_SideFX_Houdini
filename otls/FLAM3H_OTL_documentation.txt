@@ -3834,7 +3834,7 @@ _A list of all parametric variations and their parametric parameter's names_
     *FLAM3H(tm) Limitations*.
     
     The following are limitations to keep in mind when authoring your Flames in Fractorium or Apophysis to be loaded inside FLAM3H(tm).
-    Some of those restrictions are in place to maintain performance within the Cvex language restrictions.<br />
+    Some of these limitations are in place to maintain performance within the Cvex language restrictions.<br />
     Some other are caused by Houdini bugs, in those cases a reference to the bug submission is provided.
 
 == Limitations: Iterators count ==
