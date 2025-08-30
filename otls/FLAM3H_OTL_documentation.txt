@@ -3854,15 +3854,15 @@ _A list of all parametric variations and their parametric parameter's names_
     <br />
     _For reference_:
 
-    *`10/10/2022`* -> _*Submitted*_<br />
+    [Icon:BUTTONS/list_delete_reversed] *`10/10/2022`* -> _*Submitted*_<br />
     - Houdini version: _19.0.720_<br />
     - Description: _Issue with the_ `sample_cdf()` _function when the CDF is varying over the VEX processor array_.<br />
     - Bug ID# *`124486`*<br />
     - SideFX Support Ticket: *`SESI# 128304`*
 
     <br />
-    *`08/28/2025`* -> _*Fixed* - not implemented yet in FLAM3H(tm) _<br />
-    - Houdini version: _21.0.457_
+    [Icon:BUTTONS/list_add_reversed] *`08/28/2025`* -> _*Fixed*_<br />
+    - Houdini version: _21.0.457 - not implemented yet in FLAM3H(tm) _
 
 == Limitations: Iterators PRE, VAR and POST variations ==
 
@@ -4015,7 +4015,7 @@ _A list of all parametric variations and their parametric parameter's names_
     <br />
     _For reference_:
 
-    *`08/26/2025`* -> _*Submitted*_<br />
+    [Icon:BUTTONS/list_delete_reversed] *`08/26/2025`* -> _*Submitted*_<br />
     - Houdini version: _21.0.440_<br />
     - Description: _Multiparameter new functionalities do not trigger the multiparameter callback script_.<br />
     - Bug ID# *`149091`*<br />
