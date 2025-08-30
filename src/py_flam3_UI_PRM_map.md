@@ -440,6 +440,18 @@ Here you will create your fractal Flame logic.<br>Since every parameter has the 
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 ```
 # FLAME Tab
+# parameter name:    `mp_add_#` -> _only from H21 up_
+### Action Button script
+```python
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).add_iterator()
+```
+# FLAME Tab
+# parameter name:    `mp_del_#` -> _only from H21 up_
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).del_iterator()
+```
+# FLAME Tab
 # parameter name:    `note_#`
 ### Callback Script
 ```python

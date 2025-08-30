@@ -8203,6 +8203,43 @@ class flam3h_iterator_utils
         
         # lock
         [prm.lock(True) for prm in _PVT_PARMS]
+        
+        
+    def add_iterator(self) -> None:
+        """FOR H21 AND UP ONLY.
+        Add a new iterator before or after the current one.
+
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """
+        mp_idx: str = self.kwargs['script_multiparm_index']
+        mp_prm: hou.Parm = self.node.parm(FLAME_ITERATORS_COUNT)
+        if self.kwargs["ctrl"]:
+            mp_prm.insertMultiParmInstance(int(mp_idx))
+        else:
+            mp_prm.insertMultiParmInstance(int(mp_idx) - 1)
+        # Update xaos
+        self.auto_set_xaos()
+        
+        
+    def del_iterator(self) -> None:
+        """FOR H21 AND UP ONLY.
+        Remove the selected iterator.
+
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """
+        mp_idx: str = self.kwargs['script_multiparm_index']
+        mp_prm: hou.Parm = self.node.parm(FLAME_ITERATORS_COUNT)
+        mp_prm.removeMultiParmInstance(int(mp_idx) - 1)
+        # Update xaos
+        self.auto_set_xaos()
 
 
     def iterators_count(self) -> None:
