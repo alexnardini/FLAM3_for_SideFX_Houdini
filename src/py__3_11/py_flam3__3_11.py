@@ -4417,6 +4417,8 @@ class flam3h_iterator_utils
 * flam3h_reset_iterator(self) -> None:
 * flam3h_reset_FF(self) -> None:
 * auto_set_xaos(self) -> None:
+* add_iterator(self) -> None:
+* del_iterator(self) -> None:
 * iterators_count(self) -> None:
 * __iterator_keep_last_vactive(self) -> None:
 * __iterator_keep_last_vactive_STAR(self) -> None:
