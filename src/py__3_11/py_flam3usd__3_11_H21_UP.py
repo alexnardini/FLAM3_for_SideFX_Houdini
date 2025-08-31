@@ -15,7 +15,7 @@ from datetime import datetime
 '''
     Tested on:  PYTHON v3.11.7  (H20.5)
 
-    Title:      SideFX Houdini FLAM3HUSD
+    Title:      SideFX Houdini FLAM3HUSD H21 UP
     Author:     Alessandro Nardini
     date:       April 2025, Last revised July 2025 (cloned from: py_flam3usd__3_7.py)
 
