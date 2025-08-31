@@ -1,6 +1,7 @@
 
 # Python
 # File name:    `py_flam3__3_7.py`
+### Houdini versions: H19 to H20
 ### Description:
 ( The ending filename digits represent the least python version needed to run this code )
 
@@ -21,6 +22,7 @@ This is the main FLAM3H™ python file that define:
 
 # Python
 # File name:    `py_flam3usd__3_7.py`
+### Houdini versions: H19 to H20
 ### Description:
 ( The ending filename digits represent the least python version needed to run this code )
 
