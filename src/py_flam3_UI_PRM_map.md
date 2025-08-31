@@ -39,6 +39,11 @@ __module__: str = "py_flam3__3_11_H21_UP"
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
 ```
 
+
+</br>
+</br>
+
+
 # Houdini version:  `H19 to H20.5`
 ```python
 import toolutils
@@ -181,6 +186,11 @@ if flam3h_first_time():
 else:
     flam3h_not_compatible_first_time_msg()
 ```
+
+
+</br>
+</br>
+
 
 # Houdini version:  `H19 to H20.5`
 ```python
