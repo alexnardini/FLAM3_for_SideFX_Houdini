@@ -34,21 +34,7 @@ the **`flam3`** module is created out of the **`py_flam3`** file from inside the
 ```python
 import toolutils
 
-def houdini_version(digit: int=1) -> int:
-    """Retrieve the major Houdini version number currently in use.
-
-    Args:
-        digit(int): Default to 1: 19, 20. if set to 2: 190, 195, 200, 205, and so on.
-
-    Returns:
-        (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
-    """ 
-    return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
-    
-h: int = houdini_version(2)
-if h < 205: __module__: str = "py_flam3__3_7"
-else: __module__: str = "py_flam3__3_11"
- 
+__module__: str = "py_flam3__3_11_H21_UP"
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
 ```
 
@@ -81,8 +67,8 @@ def flam3h_first_time() -> None:
         (None):
     """ 
     hou_version: int = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
-    if hou_version < 19:
-        hou.ui.displayMessage("Sorry, you need Houdini 19 or higher to run FLAM3H™", buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
+    if hou_version < 21:
+        hou.ui.displayMessage("Sorry, you need Houdini 21 or higher to run FLAM3H™", buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
 
 def flam3h_sys_updated_mode() -> None:
     """Store the current houdini Update mode status into the hou.session
@@ -111,9 +97,8 @@ def flam3h_compile_first_time_msg() -> None:
     """ 
     now: str = datetime.now().strftime("%b-%d-%Y %H:%M:%S")
     
-    h: int = houdini_version(2)
-    if h < 205: __module__: str = "3.7"
-    else: __module__: str = "3.11"
+    h: int = houdini_version()
+    __module__: str = "3.11"
     
     try:
         hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
@@ -438,6 +423,18 @@ Here you will create your fractal Flame logic.<br>Since every parameter has the 
 ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
+```
+# FLAME Tab
+# parameter name:    `mp_add_#` -> _only from H21 up_
+### Action Button script
+```python
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).add_iterator()
+```
+# FLAME Tab
+# parameter name:    `mp_del_#` -> _only from H21 up_
+### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).del_iterator()
 ```
 # FLAME Tab
 # parameter name:    `note_#`

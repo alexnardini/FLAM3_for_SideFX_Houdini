@@ -805,7 +805,7 @@ number of iterators [Icon:TOP/xmlinput]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From H21 and up*
 
     At the moment of this writing,<br />
-    inserting new iterators using the new H21 multiparameter menu displayed when ((RMB)) over any multiparameter's label wont update their xaos string.<br />
+    inserting new iterators using the new H21 multiparameter menu displayed when ((RMB)) over a multiparameter's label wont update their xaos string.<br />
     
     Use the following custom buttons instead:
 
@@ -4026,7 +4026,7 @@ _A list of all parametric variations and their parametric parameter's names_
     SideFX has received a Bug report, and if it is fixed,<br />
     a FLAM3H™ update for H21 or later will be made available.
 
-    Meanwhile,<br />
+    Meanwhile and specifically for H21 and up,<br />
     two custom buttons have been added to the FLAM3H™ UI to add and remove iterators while computing xaos correctly:
 
     [Icon:BUTTONS/list_add] _to add new iterators_:<br />
