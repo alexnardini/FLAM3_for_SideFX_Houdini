@@ -5913,7 +5913,7 @@ class flam3h_iterator_utils
             (list): return menu list
         """
         _ICON = self.menu_T_pb_data()
-        return [ 0,  f"{_ICON} Pre blur                       "] # 23 times \s instead of 19 times as in preview Houdini versions
+        return [ 0,  f"{_ICON} Pre blur                       "] # 23 times \s instead of 26 times as in from H19 to H20.5
 
 
     def menu_select_iterator_data(self, data_now: tuple) -> list:
