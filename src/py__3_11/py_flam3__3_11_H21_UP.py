@@ -43,11 +43,11 @@ from inspect import cleandoc as i_cleandoc
 
 
 '''
-    Tested on:  PYTHON v3.11.7  (H20.5, H21)
+    Tested on:  PYTHON v3.11.7  (H21)
 
     Title:      FLAM3H™ H21 UP. SideFX Houdini FLAM3: PYTHON
     Author:     Alessandro Nardini
-    date:       April 2025, Last revised August 2025 (cloned from: py_flam3__3_7.py)
+    date:       August 2025, Last revised August 2025 (cloned from: py_flam3__3_11.py)
 
     Name:       PY_FLAM3__3_11 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
 
