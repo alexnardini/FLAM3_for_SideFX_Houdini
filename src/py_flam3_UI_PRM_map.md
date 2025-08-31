@@ -79,7 +79,7 @@ __version__ = '1.8.70 - Production'
 
 # We are keeping the: py_flam3__3_7 module only for the following reason:
 # 
-# This is is solely to detect if FLAM3H OTL for H21
+# This is solely to detect if FLAM3H OTL for H21
 # has been loaded inside a Houdini version minor than H20.5.
 # Thx to this we can disable the functionalities since it is not a match.
 try: hou.session.F3H_H_VERSION_H21
@@ -198,9 +198,9 @@ from datetime import datetime
 
 __version__ = '1.8.70 - Production'
 
-# This is is solely to detect if a FLAM3H OTL for H21
+# This is solely to detect if a FLAM3H OTL for H21
 # has been loaded inside this Houdini session if its version is minor than H20.5.
-# If so, we are cxlearing it out.
+# If so, we are clearing it out.
 try: hou.session.F3H_H_VERSION_H21
 except: pass
 else: del hou.session.F3H_H_VERSION_H21
