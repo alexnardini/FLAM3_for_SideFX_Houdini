@@ -19,7 +19,7 @@ from datetime import datetime
     Author:     Alessandro Nardini
     date:       August 2025, Last revised August 2025 (cloned from: py_flam3usd__3_11.py)
 
-    Name:       PY_FLAM3USD__3_11 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
+    Name:       PY_FLAM3USD__3_11_H21_UP "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
 
     Comment:    Simple utility node to quickly setup
                 fractal flames point clouds in Solaris for previews.

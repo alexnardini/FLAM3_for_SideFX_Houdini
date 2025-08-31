@@ -23,6 +23,25 @@ They are all available in this Github repository.
 </br>
 </br>
 
+### [<ins>From v1.8.70</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.70) ###
+
+#### FLAM3H™ ####
+
+- **New**: Added FLAM3H™ for **H21** (_From H21.0.457 and up only_).
+- **New**: **H21**: New iterators' control icon to add or delete iterators while still updating their xaos string correctly.
+- **Fix**: CP Save action button -> [SHIFT+LMB] file chooser had the wrong default file extension to start with, it is now fxed.
+- **Fix**: 
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.68</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.68) ###
 
 - **New**: Added a H21 note inside the HDA Documentaion->Limitations' chapter.

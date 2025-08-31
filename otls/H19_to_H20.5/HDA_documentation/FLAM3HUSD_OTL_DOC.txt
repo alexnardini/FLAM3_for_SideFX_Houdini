@@ -1,0 +1,233 @@
+#icon: opdef:.?iconSVG.svg
+#type: node
+#context: lop
+#namespace: FLAM3HUSD
+#internal: FLAM3HUSD
+#version: 0.1.59 - Prototype
+
+"""Simple utility node to quickly render FLAM3H(tm) fractal flames in Solaris."""
+
+== Welcome to FLAM3HUSD for SideFX Houdini ==
+( _From H19.x to H20.5.x only_ )
+
+A simple utility node to make rendering FLAM3H(tm) fractal flames in Solaris for previews easy.<br />
+It offers the very fundamental functionalities to setup your fractal Flames point cloud and start rendering with Karma within a few clicks.<br />
+
+Currently, FLAM3HUSD rely entirely on Karma CPU.
+
+_*This tool is a prototype and it may or may not change in the future.*_<br />
+_*This version is only fully compatible with FLAM3H(tm) v1.6.97 or higher.*_
+
+
+@Badges
+
+This documentation adopt the use of badges to signal some parameter's types and their scope.
+
+_Below a list of the currently adopted badges and their meaning_:
+
+- [Icon:BUTTONS/pane_menu] it is either a menu or a mini-menu.
+
+- [Icon:DATATYPES/boolean] it is a toggle.
+
+- [Icon:DATATYPES/string] it is a string.
+
+- [Icon:opdef:.?icon_optionStarBlueSVG.svg] it is a tip/information.
+
+_Note that some parameters may use one or more of those badges_.
+
+
+@Platforms
+
+:platform:Windows
+    This HDA and all its Python code is being extensively tested on Windows.
+
+    
+_The following platforms should function flawlessly, though I didn't get a chance to test every feature, so some may not function as intended._
+    
+:platform:Mac
+
+:platform:Linux
+
+
+@parameters FLAM3HUSD Tabs parameters
+
+    
+== FLAM3HUSD import == (IMPORT)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *FLAM3HUSD import*
+
+FLAM3HUSD documentation:
+    #id: IMPORT
+    [Largeicon:opdef:.?icon_F_docStarSVG.svg]
+    
+    Display this documentation.
+
+
+FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
+    #id: IMPORT
+    Path to the FLAM3H(tm) node to be imported inside Solaris.
+    A default path is already provided to import the default first FLAM3H(tm) node name. Change this as needed.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - Once a valid FLAM3H(tm) node has been imported, FLAM3HUSD will take care of bulding a useful Scene Graph Tree.
+    - When multiple FLAM3HUSD are created, the imported FLAM3H(tm) data will all be grouped under a common root named: *`FLAM3H`*
+    
+    
+== Prefs == (PREFS)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *FLAM3HUSD preferences*
+    
+:box:
+    #display: rounded white
+    
+    == Viewport == (OPTIONS)
+    
+dark [Icon:DATATYPES/boolean]:
+    #id: PREFS
+    If it isn't already, change the viewport's color scheme to dark.
+    If unchecked, it will remember the color scheme for every viewport and fall back on it.
+    Checking this box has no effect if the color scheme in a viewport is already dark.
+
+    [Icon:NETWORKS/lop] *Context aware*<br />
+    - This option is context aware, and it will function only if a Lop viewer is available.
+    
+renderer [Icon:BUTTONS/pane_menu]:
+    #id: PREFS
+    Select from a variety of Hydra renderers.
+
+    [Icon:NETWORKS/lop] *Context aware*<br />
+    - This option is context aware, and it will function only if a Lop viewer is available.
+
+force renderer:
+    #id: PREFS
+    [Largeicon:opdef:.?icon_rendererMenuSVG.svg]
+    
+    - ((LMB)) to force all Lop viewers to be set to the selected renderer.
+    
+:box:
+    #display: rounded white
+    
+    == Renderer: GL == (OPTIONSGL)
+    
+display [Icon:BUTTONS/pane_menu]:
+    #id: PREFS
+    Either points or pixels should be selected for the viewport particle display mode.
+
+    _Some of the menu labels posses a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
+
+    [Icon:NETWORKS/lop] *Context aware*<br />
+    - This option is context aware, and it will function only if a Lop viewer is available.
+    
+size:
+    #id: PREFS
+    The setting for viewport particle display Points. Define how big the particles appear in the viewport.
+
+    [Icon:NETWORKS/lop] *Context aware*<br />
+    - This option is context aware, and it will function only if a Lop viewer is available.
+
+Reset size:
+    #id: PREFS
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    - ((LMB)) to reset the point size to a default of *`1`*(one).
+    
+:box:
+    #display: rounded white
+    
+    == Renderer: Karma CPU == (OPTIONSKARMA)
+    
+points widths:
+    #id: PREFS
+    The point attribute *`@pscale`* will become *`@widths`* when importing FLAM3H into Stage/Solaris.
+    This option, which is a multiplier, enables rapid adjustments while Karma is rendering interactively.
+
+Reset widths:
+    #id: PREFS
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    - ((LMB)) to reset the point size to a default of *`1`*(one).
+
+pixel samples:
+    #id: PREFS
+    Set the Karma renderer pixel samples.
+
+Reset pixel samples:
+    #id: PREFS
+    [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
+    
+    - ((LMB)) to reset the pixel samples to a default of *`128`*.
+    
+denoiser [Icon:BUTTONS/pane_menu]:
+    #id: PREFS
+    Options to choose from the available Karma denoisers.
+
+use FLAM3H(tm) Shader [Icon:DATATYPES/boolean]:
+    #id: PREFS
+    Use a MaterialX Shader that will allow to change Gamma and HSV values on the fly.
+
+Reset FLAM3H(tm) Shader parms:
+    #id: PREFS
+    [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
+    
+    - ((LMB)) to reset the FLAM3H(tm) Shader to its default values.
+
+:box:
+    #display: rounded white
+
+@License
+
+:box:
+    #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Notice*<br /><br />
+    - This documentation is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).<br />
+    _See the file LICENSE.docs in the repository for details_.
+
+    - The software described in this documentation is licensed separately under the GNU General Public License, version 3 (GPL-3.0).<br />
+
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Software (GPL-3.0)*
+
+        All source code and Houdini-related source materials are licensed under the<br />
+        *GNU General Public License v3.0* (LICENSE).<br />
+
+        _For this project, “source code” includes not only conventional files but also Houdini-specific assets in their editable form, such as_:
+        - Digital Assets (_.otl, .hda, .hdalc, .hdanc_)
+        - Node networks and sub-networks
+        - Custom node definitions and parameter interfaces
+        - CVEX, VEX, VOP or OpenCL code
+        - Shelf tools, scripts, and presets
+        - Any related configuration or scene files that represent the tool in its preferred form for making modifications
+
+        _These are all considered part of the “preferred form of the work for making modifications” under the GPL and must be shared under the same terms_.
+
+        _See the LICENSE file in the repository for details_.
+
+        
+:box:
+    #display: rounded white
+    
+:box:
+    #display: rounded white
+
+@Author
+
+= [Largeicon:opdef:.?icon_F3H_iconSVG.svg] _stands for liFe ( made in Italy )_ =
+    
+:box:
+    #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Mini bio*<br /><br />
+    _Alessandro Nardini is an Italian artist and developer who's spent most of his career serving the entertainment industry._
+    _He served many different branches of the entertainment industry's post-production,_
+    _spanning feature films, games, TV/commercials, episodic series and streaming._
+    
+
+    

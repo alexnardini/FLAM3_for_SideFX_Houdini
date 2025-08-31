@@ -6,7 +6,7 @@ __copyright__ = "Copyright 2021, © F stands for liFe"
 
 __py_version__ = "3.11.7"
 __license__ = "GPL"
-__version__ = "1.8.68"
+__version__ = "1.8.70"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
@@ -47,9 +47,9 @@ from inspect import cleandoc as i_cleandoc
 
     Title:      FLAM3H™ H21 UP. SideFX Houdini FLAM3: PYTHON
     Author:     Alessandro Nardini
-    date:       August 2025, Last revised August 2025 (cloned from: py_flam3__3_11.py)
+    date:       August 2025, Last revised September 2025 (cloned from: py_flam3__3_11.py)
 
-    Name:       PY_FLAM3__3_11 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
+    Name:       PY_FLAM3__3_11_H21_UP "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
 
     Comment:    Python classes and definitions for:
                 - General UX
@@ -1150,6 +1150,7 @@ class flam3h_scripts:
 class flam3h_scripts
 
 @STATICMETHODS
+* flam3h_compatible() -> bool:
 * flam3h_on_create_lock_parms(node: hou.SopNode) -> None:
 * set_first_instance_global_var(cvex_precision: int) -> None:
 * flam3h_check_first_node_instance_msg_status_bar_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
@@ -1182,6 +1183,24 @@ class flam3h_scripts
         """  
         self._kwargs: dict = kwargs
         self._node = kwargs['node']
+        
+        
+    @staticmethod
+    def flam3h_compatible() -> bool:
+        """Tell if this FLAM3H™ version is compatible with this Houdini version
+
+        Args:
+            ():
+
+        Returns:
+            (bool): True if compatible otherwise False.
+        """ 
+        hou_version: int = flam3h_general_utils.houdini_version(2)
+        if hou_version < 210:
+            hou.ui.displayMessage("Sorry, you need H21.0.457 and up to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+            return False
+        else:
+            return True
 
 
     @staticmethod
@@ -1218,6 +1237,7 @@ class flam3h_scripts
                                      "indisable",
                                      "outdisable",
                                      "prefsdisable",
+                                     "h_valid",
                                      "aboutdisable"
                                      )
         
@@ -1706,38 +1726,45 @@ class flam3h_scripts
         Returns:
             (None):
         """
-        node = self.node
-        node.setColor(hou.Color((0.9,0.9,0.9)))
-        
-        flam3h_iterator_utils(self.kwargs).flam3h_default()
-        self.flam3h_check_first_node_instance_msg()
-        
-        # Set about tab infos
-        flam3h_about_utils(self.kwargs).flam3h_about_msg()
-        flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
-        flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
-        
-        self.flam3h_on_create_set_houdini_session_data()
-        self.flam3h_on_create_set_prefs_viewport()
-        self.flam3h_on_create_init_viewportWireWidth()
-        
-        # Remove any comment and user data from the node
-        flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
-        flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
-        # This is already destroyed inside: flam3h_iterator_utils(self.kwargs).flam3h_default()
-        # But I keep it for now in case a make some changes later on
-        flam3h_iterator_utils.destroy_userData(node, FLAM3H_USER_DATA_XML_LAST)
-        
-        # OUT render curves reset and set
-        out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
-        
-        # Clear menu caches
-        # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
-        # (ex. the user perform hand made modifications like renaming a Preset and such).
-        flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
-        
-        # lock private parameters not being locked on creation by other definitions.
-        self.flam3h_on_create_lock_parms(node)
+        if self.flam3h_compatible():
+            
+            node = self.node
+            node.setColor(hou.Color((0.9,0.9,0.9)))
+            
+            flam3h_iterator_utils(self.kwargs).flam3h_default()
+            self.flam3h_check_first_node_instance_msg()
+            
+            # Set about tab infos
+            flam3h_about_utils(self.kwargs).flam3h_about_msg()
+            flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
+            flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
+            
+            self.flam3h_on_create_set_houdini_session_data()
+            self.flam3h_on_create_set_prefs_viewport()
+            self.flam3h_on_create_init_viewportWireWidth()
+            
+            # Remove any comment and user data from the node
+            flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
+            flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
+            # This is already destroyed inside: flam3h_iterator_utils(self.kwargs).flam3h_default()
+            # But I keep it for now in case a make some changes later on
+            flam3h_iterator_utils.destroy_userData(node, FLAM3H_USER_DATA_XML_LAST)
+            
+            # OUT render curves reset and set
+            out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
+            
+            # Clear menu caches
+            # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
+            # (ex. the user perform hand made modifications like renaming a Preset and such).
+            flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
+            
+            # lock private parameters not being locked on creation by other definitions.
+            self.flam3h_on_create_lock_parms(node)
+            
+        else:
+            flam3h_general_utils.private_prm_set(self.node, 'h_valid', 0)
+            _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21.0.457 and up to run this FLAM3H™ version"
+            hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
 
 
     # def flam3h_on_loaded_set_density_menu(self) -> None:
@@ -1770,122 +1797,128 @@ class flam3h_scripts
             (None):
         """
         
-        node = self.node
-        
-        # Force updated of the mini-menu iterator selection
-        flam3h_iterator_utils.destroy_cachedUserData(node, 'iter_sel')
-        flam3h_iterator_utils.destroy_cachedUserData(node, 'edge_case_01')
-        # CP and IN PRESETS filepaths (cache data)
-        self.flam3h_presets_cache_filepath_on_load()
-        # Turn iterators/FF post affine OFF if they are default values
-        self.is_post_affine_default_on_load(node)
-        
-        # init xaos
-        flam3h_iterator_utils(self.kwargs).auto_set_xaos()
-        
-        if hou.hipFile.isLoadingHipFile(): #type: ignore
+        if self.flam3h_compatible():
             
-            # set density menu
-            flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(node)
+            node = self.node
             
-            # This is important so loading a hip file with a FLAM3H™ node inside
-            # it wont block the houdini session until user input.
-            self.flam3h_check_first_node_instance_msg(False)
+            # Force updated of the mini-menu iterator selection
+            flam3h_iterator_utils.destroy_cachedUserData(node, 'iter_sel')
+            flam3h_iterator_utils.destroy_cachedUserData(node, 'edge_case_01')
+            # CP and IN PRESETS filepaths (cache data)
+            self.flam3h_presets_cache_filepath_on_load()
+            # Turn iterators/FF post affine OFF if they are default values
+            self.is_post_affine_default_on_load(node)
             
-            # Update FLAM3H™ viewport preferences
-            self.flam3h_on_create_set_prefs_viewport()
-            # Init FLAM3H™ xform handles viz viewport' wire width
-            self.flam3h_on_create_init_viewportWireWidth()
+            # init xaos
+            flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             
-            # init CP PRESETS: mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-            flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS(0)
-            # init IN PRESETS: mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
-            flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
-            # init OUT PRESETS
-            flam3h_general_utils(self.kwargs).flam3h_init_presets_OUT_PRESETS()
-            # init RIP: Remove Invalid Points
-            flam3h_iterator_utils.flam3h_on_load_opacity_zero(node)
-            
-            # Set color correction curves to their defaults if there is need to do it (ex: hip files with older version of FLAM3H™)
-            out_flame_utils.out_render_curves_set_defaults_on_load(node)
-            
-            # update about tab just in case
-            flam3h_about_utils(self.kwargs).flam3h_about_msg()
-            flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
-            flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
-            
-            # CAMERA SENSOR
-            #
-            # If a FLAM3H™ node is in camera sensor mode and its display flag ON, update the viewport to actually be in camera sensor mode.
-            # This work with multiple FLAM3H™ node becasue there can only be one FLAM3H™ node in camera sensor mode at any given time.
-            if node.isGenericFlagSet(hou.nodeFlag.Display) and node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval(): # type: ignore
-                flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
-                flam3h_general_utils(self.kwargs).util_set_front_viewer()
-            else:
-                # Otherwise just turn the camera sensor mode OFF.
-                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
-                    node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
-                    # Clear stashed cams data
-                    flam3h_general_utils.util_clear_stashed_cam_data()
-            
-            # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
-            # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
-            # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside:
-            # 
-            #   - in_flame_utils(self.kwargs).in_to_flam3h()
-            #   - in_flame_utils(self.kwargs).in_to_flam3h_sys()
-            #
-            node.setParms({IN_PRESETS: node.parm(IN_SYS_PRESETS).eval()})
-            node.setParms({IN_PRESETS_OFF: node.parm(IN_SYS_PRESETS_OFF).eval()})
-            
-            
-            # Same goes for the palette preset entrie, and some time goes also out of range
-            # so we store the selection first inside a mem menu parameter on Load inside:
-            #
-            #   - flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_SET_PRESET_DATA()
-            #   - flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_sys()
-            #
-            # and on Save inside:
-            #
-            #   - flam3h_palette_utils(self.kwargs).flam3h_ramp_save()
-            #
-            node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()})
-            node.setParms({CP_PALETTE_PRESETS_OFF: node.parm(CP_SYS_PALETTE_PRESETS_OFF).eval()})
-            
-            # init/clear copy/paste iterator's data and prm
-            # This was causing some issues and got updated.
-            flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data(True)
-            # If in the loaded hip file there are data stored into the nodes, lets set the copy/paste data from them.
-            # This will allow to re-load an hip file with marked iterator or FF and pick up from there, which is nice.
-            flam3h_iterator_utils.flam3h_init_hou_session_restore_from_user_data(node)
-            
-        else:
-            # CAMERA SENSOR
-            # If camera sensor is ON
-            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
-                # lets turn it OFF.
-                node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
-                # Restore anc clear stashed cams data
-                flam3h_general_utils.util_set_stashed_cam()
-                flam3h_general_utils(self.kwargs).flam3h_other_sensor_viz_off(node)
+            if hou.hipFile.isLoadingHipFile(): #type: ignore
                 
-            # Reset memory mpidx prm data
-            flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
-            # init RIP: Remove Invalid Points: ALL
-            flam3h_iterator_utils.flam3h_on_load_opacity_zero(node, True)
-            
-            # Clear menu caches
-            # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
-            # (ex. the user perform hand made modifications like renaming a Preset and such).
-            flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
-            # Check and Update this data
-            flam3h_iterator_utils(self.kwargs).update_xml_last_loaded(False)
-            
-            # Clear any comment and user data from the node
-            if flam3h_iterator_utils.exist_user_data(node):
-                flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
-            if flam3h_iterator_utils.exist_user_data(node, FLAM3H_USER_DATA_FF):
-                flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
+                # set density menu
+                flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(node)
+                
+                # This is important so loading a hip file with a FLAM3H™ node inside
+                # it wont block the houdini session until user input.
+                self.flam3h_check_first_node_instance_msg(False)
+                
+                # Update FLAM3H™ viewport preferences
+                self.flam3h_on_create_set_prefs_viewport()
+                # Init FLAM3H™ xform handles viz viewport' wire width
+                self.flam3h_on_create_init_viewportWireWidth()
+                
+                # init CP PRESETS: mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
+                flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS(0)
+                # init IN PRESETS: mode (int): ZERO: To be used to prevent to load a preset when loading back a hip file.
+                flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
+                # init OUT PRESETS
+                flam3h_general_utils(self.kwargs).flam3h_init_presets_OUT_PRESETS()
+                # init RIP: Remove Invalid Points
+                flam3h_iterator_utils.flam3h_on_load_opacity_zero(node)
+                
+                # Set color correction curves to their defaults if there is need to do it (ex: hip files with older version of FLAM3H™)
+                out_flame_utils.out_render_curves_set_defaults_on_load(node)
+                
+                # update about tab just in case
+                flam3h_about_utils(self.kwargs).flam3h_about_msg()
+                flam3h_about_utils(self.kwargs).flam3h_about_plugins_msg()
+                flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
+                
+                # CAMERA SENSOR
+                #
+                # If a FLAM3H™ node is in camera sensor mode and its display flag ON, update the viewport to actually be in camera sensor mode.
+                # This work with multiple FLAM3H™ node becasue there can only be one FLAM3H™ node in camera sensor mode at any given time.
+                if node.isGenericFlagSet(hou.nodeFlag.Display) and node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval(): # type: ignore
+                    flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
+                    flam3h_general_utils(self.kwargs).util_set_front_viewer()
+                else:
+                    # Otherwise just turn the camera sensor mode OFF.
+                    if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                        node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                        # Clear stashed cams data
+                        flam3h_general_utils.util_clear_stashed_cam_data()
+                
+                # The following is a workaround to keep the correct preset inside the IN Tab when the hip file was saved
+                # as it always get reset to ZERO on load for some reason. The preset inside the SYS Tab is correct after load.
+                # Need to investigate why. the IN_SYS_PRESETS menu parameter is set inside:
+                # 
+                #   - in_flame_utils(self.kwargs).in_to_flam3h()
+                #   - in_flame_utils(self.kwargs).in_to_flam3h_sys()
+                #
+                node.setParms({IN_PRESETS: node.parm(IN_SYS_PRESETS).eval()})
+                node.setParms({IN_PRESETS_OFF: node.parm(IN_SYS_PRESETS_OFF).eval()})
+                
+                
+                # Same goes for the palette preset entrie, and some time goes also out of range
+                # so we store the selection first inside a mem menu parameter on Load inside:
+                #
+                #   - flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_SET_PRESET_DATA()
+                #   - flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_sys()
+                #
+                # and on Save inside:
+                #
+                #   - flam3h_palette_utils(self.kwargs).flam3h_ramp_save()
+                #
+                node.setParms({CP_PALETTE_PRESETS: node.parm(CP_SYS_PALETTE_PRESETS).eval()})
+                node.setParms({CP_PALETTE_PRESETS_OFF: node.parm(CP_SYS_PALETTE_PRESETS_OFF).eval()})
+                
+                # init/clear copy/paste iterator's data and prm
+                # This was causing some issues and got updated.
+                flam3h_iterator_utils(self.kwargs).flam3h_paste_reset_hou_session_data(True)
+                # If in the loaded hip file there are data stored into the nodes, lets set the copy/paste data from them.
+                # This will allow to re-load an hip file with marked iterator or FF and pick up from there, which is nice.
+                flam3h_iterator_utils.flam3h_init_hou_session_restore_from_user_data(node)
+                
+            else:
+                # CAMERA SENSOR
+                # If camera sensor is ON
+                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                    # lets turn it OFF.
+                    node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
+                    # Restore anc clear stashed cams data
+                    flam3h_general_utils.util_set_stashed_cam()
+                    flam3h_general_utils(self.kwargs).flam3h_other_sensor_viz_off(node)
+                    
+                # Reset memory mpidx prm data
+                flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
+                # init RIP: Remove Invalid Points: ALL
+                flam3h_iterator_utils.flam3h_on_load_opacity_zero(node, True)
+                
+                # Clear menu caches
+                # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
+                # (ex. the user perform hand made modifications like renaming a Preset and such).
+                flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
+                # Check and Update this data
+                flam3h_iterator_utils(self.kwargs).update_xml_last_loaded(False)
+                
+                # Clear any comment and user data from the node
+                if flam3h_iterator_utils.exist_user_data(node):
+                    flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
+                if flam3h_iterator_utils.exist_user_data(node, FLAM3H_USER_DATA_FF):
+                    flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
+        else:
+            flam3h_general_utils.private_prm_set(self.node, 'h_valid', 0)
+            _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21.0.457 and up to run this FLAM3H™ version"
+            hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
 
 
     def flam3h_on_deleted(self) -> None:
@@ -1897,68 +1930,75 @@ class flam3h_scripts
         Returns:
             (None):
         """
-        node = self.node
-        node_instances: tuple = node.type().instances()
-        
-        if len(node_instances) == 1:
+        if self.flam3h_compatible():
             
-            # Init the Copy/Paste data to defaults
-            try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-            except:
-                try:
-                    if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None:  # type: ignore
-                        hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
+            node = self.node
+            node_instances: tuple = node.type().instances()
+            
+            if len(node_instances) == 1:
+                
+                # Init the Copy/Paste data to defaults
+                try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                except:
+                    try:
+                        if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None:  # type: ignore
+                            hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
+                    except: pass
+                    
+                try: hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
+                except:
+                    try:
+                        if hou.session.FLAM3H_MARKED_FF_CHECK is not None:  # type: ignore
+                            hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
+                    except: pass
+                    
+                # Delete the Houdini update mode data if needed
+                try: del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
                 except: pass
                 
-            try: hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
-            except:
-                try:
-                    if hou.session.FLAM3H_MARKED_FF_CHECK is not None:  # type: ignore
-                        hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
-                except: pass
-                
-            # Delete the Houdini update mode data if needed
-            try: del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
-            except: pass
-            
-            # Restore and delete the xforms handles VIZ data if needed
-            flam3h_general_utils.util_xf_viz_set_stashed_wire_width()
-            flam3h_general_utils.util_clear_xf_viz_stashed_wire_width_data()
-            
-            # Delete all data related to the Camera sensor viz
-            flam3h_general_utils.util_clear_stashed_cam_data()
-            
-        else:
-            # Clear menu caches
-            # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
-            # (ex. the user perform hand made modifications like renaming a Preset and such).
-            flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
-            # Check and Update this data
-            flam3h_iterator_utils(self.kwargs).update_xml_last_loaded(False)
-            
-            # If we are deleting a FLAM3H™ node in xforms handles VIZ mode
-            # check if others FLAM3H™ node are in xfomrs handles VIZ mode as well
-            # and if not, restore the H viewports wire widths data
-            if flam3h_general_utils(self.kwargs).util_other_xf_viz() is False:
+                # Restore and delete the xforms handles VIZ data if needed
                 flam3h_general_utils.util_xf_viz_set_stashed_wire_width()
                 flam3h_general_utils.util_clear_xf_viz_stashed_wire_width_data()
-            
-            # If we are deleting a FLAM3H™ node in camera Sensor Viz mode,
-            # restore the viewers to their preview states and clear all the stashed cams data
-            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
-                flam3h_general_utils.util_set_stashed_cam()
-                flam3h_general_utils.util_clear_stashed_cam_data()
-            
-            if hou.session.FLAM3H_MARKED_FF_CHECK: # type: ignore
-                from_FLAM3H_NODE: TA_MNode = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
                 
-                if node == from_FLAM3H_NODE and node_instances:
-                    hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
-                    hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = node_instances[0] # type: ignore
+                # Delete all data related to the Camera sensor viz
+                flam3h_general_utils.util_clear_stashed_cam_data()
+                
+            else:
+                # Clear menu caches
+                # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
+                # (ex. the user perform hand made modifications like renaming a Preset and such).
+                flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
+                # Check and Update this data
+                flam3h_iterator_utils(self.kwargs).update_xml_last_loaded(False)
+                
+                # If we are deleting a FLAM3H™ node in xforms handles VIZ mode
+                # check if others FLAM3H™ node are in xfomrs handles VIZ mode as well
+                # and if not, restore the H viewports wire widths data
+                if flam3h_general_utils(self.kwargs).util_other_xf_viz() is False:
+                    flam3h_general_utils.util_xf_viz_set_stashed_wire_width()
+                    flam3h_general_utils.util_clear_xf_viz_stashed_wire_width_data()
+                
+                # If we are deleting a FLAM3H™ node in camera Sensor Viz mode,
+                # restore the viewers to their preview states and clear all the stashed cams data
+                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                    flam3h_general_utils.util_set_stashed_cam()
+                    flam3h_general_utils.util_clear_stashed_cam_data()
+                
+                if hou.session.FLAM3H_MARKED_FF_CHECK: # type: ignore
+                    from_FLAM3H_NODE: TA_MNode = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
                     
-                    _MSG: str = f"The FLAM3H™ node you just deleted had its FF marked for being copied. Please, mark a FF first to copy parameters from."
-                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
-                    flam3h_general_utils.flash_message(node, f"FF marked node: DELETED")
+                    if node == from_FLAM3H_NODE and node_instances:
+                        hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
+                        hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = node_instances[0] # type: ignore
+                        
+                        _MSG: str = f"The FLAM3H™ node you just deleted had its FF marked for being copied. Please, mark a FF first to copy parameters from."
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                        flam3h_general_utils.flash_message(node, f"FF marked node: DELETED")
+                        
+        else:
+            flam3h_general_utils.private_prm_set(self.node, 'h_valid', 0)
+            _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21.0.457 and up to run this FLAM3H™ version"
+            hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
 
 
 # FLAM3H™ GENERAL UTILS start here
@@ -4418,7 +4458,6 @@ class flam3h_iterator_utils
 * flam3h_reset_FF(self) -> None:
 * auto_set_xaos(self) -> None:
 * add_iterator(self) -> None:
-* del_iterator(self) -> None:
 * iterators_count(self) -> None:
 * __iterator_keep_last_vactive(self) -> None:
 * __iterator_keep_last_vactive_STAR(self) -> None:
@@ -5874,7 +5913,7 @@ class flam3h_iterator_utils
             (list): return menu list
         """
         _ICON = self.menu_T_pb_data()
-        return [ 0,  f"{_ICON} Pre blur                   "] # 19 times \s
+        return [ 0,  f"{_ICON} Pre blur                "] # 16 times \s instead of 19 times as in preview Houdini versions
 
 
     def menu_select_iterator_data(self, data_now: tuple) -> list:
@@ -8201,7 +8240,10 @@ class flam3h_iterator_utils
         
     def add_iterator(self) -> None:
         """FOR H21 AND UP ONLY.
-        Add a new iterator before or after the current one.
+        
+        - [LMB ] Add a new iterator before
+        - [SHIFT+LMB] Add a new iterator after.
+        - [CTRL+LMB] Delete iterator 
 
         Args:
             (self):
@@ -8211,28 +8253,20 @@ class flam3h_iterator_utils
         """
         mp_idx: str = self.kwargs['script_multiparm_index']
         mp_prm: hou.Parm = self.node.parm(FLAME_ITERATORS_COUNT)
-        if self.kwargs["ctrl"]:
+        
+        # insert instance after
+        if self.kwargs["shift"]:
             mp_prm.insertMultiParmInstance(int(mp_idx))
+        
+        # delete instance
+        elif self.kwargs['ctrl']:
+            mp_prm.removeMultiParmInstance(int(mp_idx) - 1)
+            
+        # insert instance before
         else:
             mp_prm.insertMultiParmInstance(int(mp_idx) - 1)
-        # Update xaos
-        self.auto_set_xaos()
-        
-        
-    def del_iterator(self) -> None:
-        """FOR H21 AND UP ONLY.
-        Remove the selected iterator.
-
-        Args:
-            (self):
             
-        Returns:
-            (None):
-        """
-        mp_idx: str = self.kwargs['script_multiparm_index']
-        mp_prm: hou.Parm = self.node.parm(FLAME_ITERATORS_COUNT)
-        mp_prm.removeMultiParmInstance(int(mp_idx) - 1)
-        # Update xaos
+        # Update xaos string
         self.auto_set_xaos()
 
 

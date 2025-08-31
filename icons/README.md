@@ -3,6 +3,8 @@
 Following is the full icon set that have been crafted and included into FLAM3H™ for easy find and review.<br>
 It is an ongoing effort and they have been regularly updated and improved even tho this last set seem to be working well with different Houdini UI scales and color schemes.
 
+They are already embedded inside the HDA and available in this repository for easy edit and review.
+
 Note: _The project logo and icon set are NOT covered by CC BY-SA 4.0_.</br>
 _They remain Copyright of (c) 2021 F stands for liFe (and their other respective owners), and may not be redistributed without permission_.
 
@@ -23,6 +25,11 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 <p align="center">FLAM3H_DOC_tag.svg</p>
 <p align="center">.</p>
 
+
+<p align="center">
+  <img width="160" height="160" src="./icon_AddDelIteratorSVG.svg" /></p>
+<p align="center">icon_AddDelIteratorSVG.svg (H21 and up only)</p>
+<p align="center">.</p>
 
 <p align="center">
   <img width="160" height="160" src="./icon_bitbucketLogoSVG.svg" /></p>

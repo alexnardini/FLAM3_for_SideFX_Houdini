@@ -31,6 +31,15 @@ to: **py_flam3__3_11**
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**:
 the **`flam3`** module is created out of the **`py_flam3`** file from inside the **Extra Files** section.
 
+# Houdini version:  `H21 and up`
+```python
+import toolutils
+
+__module__: str = "py_flam3__3_11_H21_UP"
+flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
+```
+
+# Houdini version:  `H19 to H20.5`
 ```python
 import toolutils
 
@@ -52,12 +61,25 @@ else: __module__: str = "py_flam3__3_11"
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
 ```
 
+</br>
+</br>
+
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before the node is even created but invoked.
 
+# Houdini version:  `H21 and up`
 ```python
 from datetime import datetime
 
-__version__ = '1.8.68 - Production'
+__version__ = '1.8.70 - Production'
+
+# We are keeping the: py_flam3__3_7 module only for the following reason:
+# 
+# This is is solely to detect if FLAM3H OTL for H21
+# has been loaded inside a Houdini version minor than H20.5.
+# Thx to this we can disable the functionalities since it is not a match.
+try: hou.session.F3H_H_VERSION_H21
+except: hou.session.F3H_H_VERSION_H21: bool = True
+else: pass
 
 def houdini_version(digit: int = 1) -> int:
     """Retrieve the major Houdini version number currently in use.
@@ -70,7 +92,7 @@ def houdini_version(digit: int = 1) -> int:
     """ 
     return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
 
-def flam3h_first_time() -> None:
+def flam3h_first_time() -> bool:
     """If the version of Houdini running is smaller than version 19 
     will pop up a message to let the user know.
 
@@ -80,9 +102,126 @@ def flam3h_first_time() -> None:
     Returns:
         (None):
     """ 
-    hou_version: int = int(''.join(str(x) for x in hou.applicationVersion()[:1]))
-    if hou_version < 19:
-        hou.ui.displayMessage("Sorry, you need Houdini 19 or higher to run FLAM3H™", buttons=("Got it, thank you",), severity=hou.severityType.Message, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
+    hou_version: int = houdini_version(2)
+    if hou_version < 210:
+        hou.ui.displayMessage("Sorry, you need H21.0.457 and up to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
+        return False
+    else:
+        return True
+
+def flam3h_sys_updated_mode() -> None:
+    """Store the current houdini Update mode status into the hou.session
+    so FLAM3H™ can pick it up from inside the currently used python module.
+
+    Args:
+        ():
+
+    Returns:
+        (None):
+    """ 
+    current: hou.EnumValue = hou.updateModeSetting()
+    hou.session.FLAM3H_SYS_UPDATE_MODE: hou.EnumValue = current
+
+def flam3h_compile_first_time_msg() -> None:
+    """On first time FLAM3H™ node instance creation:
+
+    - Store the current FLAM3H™ precision mode into the hou.session so FLAM3H™ can pick it up from inside the currently used python module.
+    - Additionally build a message to print into the console.
+
+    Args:
+        ():
+
+    Returns:
+        (None):
+    """ 
+    now: str = datetime.now().strftime("%b-%d-%Y %H:%M:%S")
+    
+    h: int = houdini_version()
+    __module__: str = "3.11"
+    
+    try:
+        hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
+        first_instance_32bit: bool = False
+    except:
+        first_instance_32bit: bool = True
+    try:
+        hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
+        first_instance_64bit: bool = False
+    except:
+        first_instance_64bit: bool = True
+
+    if first_instance_32bit:
+        _MSG_INFO = f"\n-> {now}\n\nFLAM3H™ version: {__version__} - F3H Python module: {__module__}\n\nThe CVEX nodes need to cook once to compile their definitions.\nDepending on your PC configuration it can take up to 1(one) minute.\nIt is a one time compile process.\n"
+        print(_MSG_INFO)
+        hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
+        
+    # we skip 64bit check for now as FLAM3H™ should always be at 32bit to start with.
+
+def flam3h_not_compatible_first_time_msg() -> None:
+    """On first time FLAM3H™ node instance creation:
+
+    - Run messages if not compatible with this Houdini version
+
+    Args:
+        ():
+
+    Returns:
+        (None):
+    """ 
+    now: str = datetime.now().strftime("%b-%d-%Y %H:%M:%S")
+    
+    _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need H21.0.457 and up to run this FLAM3H™ version"
+    print(_MSG_INFO)
+    _MSG_INFO_SB = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21.0.457 and up to run this FLAM3H™ version"
+    hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
+
+if flam3h_first_time():
+    flam3h_sys_updated_mode()
+    flam3h_compile_first_time_msg()
+else:
+    flam3h_not_compatible_first_time_msg()
+```
+
+# Houdini version:  `H19 to H20.5`
+```python
+from datetime import datetime
+
+__version__ = '1.8.70 - Production'
+
+# This is is solely to detect if a FLAM3H OTL for H21
+# has been loaded inside this Houdini session if its version is minor than H20.5.
+# If so, we are cxlearing it out.
+try: hou.session.F3H_H_VERSION_H21
+except: pass
+else: del hou.session.F3H_H_VERSION_H21
+
+def houdini_version(digit: int = 1) -> int:
+    """Retrieve the major Houdini version number currently in use.
+
+    Args:
+        digit(int): Default to 1: 19, 20. if set to 2: 190, 195, 200, 205, 210, and so on.
+
+    Returns:
+        (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
+    """ 
+    return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
+
+def flam3h_first_time() -> bool:
+    """If the version of Houdini running is smaller than version 19 
+    will pop up a message to let the user know.
+
+    Args:
+        ():
+
+    Returns:
+        (None):
+    """ 
+    hou_version: int = houdini_version(2)
+    if hou_version < 190 or hou_version > 205:
+        hou.ui.displayMessage("Sorry, you need from H19 to H20.5 to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
+        return False
+    else:
+        return True
 
 def flam3h_sys_updated_mode() -> None:
     """Store the current houdini Update mode status into the hou.session
@@ -133,9 +272,29 @@ def flam3h_compile_first_time_msg() -> None:
         
     # we skip 64bit check for now as FLAM3H™ should always be at 32bit to start with.
 
-flam3h_first_time()
-flam3h_sys_updated_mode()
-flam3h_compile_first_time_msg()
+def flam3h_not_compatible_first_time_msg() -> None:
+    """On first time FLAM3H™ node instance creation:
+
+    - Run messages if not compatible with this Houdini version
+
+    Args:
+        ():
+
+    Returns:
+        (None):
+    """ 
+    now: str = datetime.now().strftime("%b-%d-%Y %H:%M:%S")
+    
+    _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need from H19 to H20.5 to run this FLAM3H™ version"
+    print(_MSG_INFO)
+    _MSG_INFO_SB = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need from H19 to H20.5 to run this FLAM3H™ version"
+    hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
+
+if flam3h_first_time():
+    flam3h_sys_updated_mode()
+    flam3h_compile_first_time_msg()
+else:
+    flam3h_not_compatible_first_time_msg()
 ```
 
 Inside: **OTL**->**type_properties**->**Scripts**->**OnCreated**:
@@ -438,6 +597,12 @@ Here you will create your fractal Flame logic.<br>Since every parameter has the 
 ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
+```
+# FLAME Tab
+# parameter name:    `mp_add_#` -> _only from H21 up_
+### Action Button script
+```python
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).add_iterator()
 ```
 # FLAME Tab
 # parameter name:    `note_#`

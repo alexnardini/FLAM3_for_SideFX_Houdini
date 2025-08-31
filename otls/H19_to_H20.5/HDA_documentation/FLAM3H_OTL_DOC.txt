@@ -1,0 +1,4088 @@
+#icon: opdef:.?FLAM3H_DOC_icon.svg
+#type: node
+#context: sop
+#namespace: alexnardini
+#internal: FLAM3H(tm)
+#version: 1.8.70 - Production
+
+"""The Fractal Flame Algorithm: FLAM3 - Create fractal art in Houdini 
+( vcc compiler: v20.5.654 )"""
+
+== Welcome to FLAM3 for SideFX Houdini - aka: FLAM3H(tm) ==
+( _From H19 to H20.5 only_ )
+
+[Icon:opdef:.?icon_optionStarBlueSVG.svg]  *A bit of history* _( from wikipedia )_:
+
+[Scott Draves|Wp:Scott_Draves]
+[The Fractal Flame Algorithm|Wp:Fractal_Flame]
+[Electric Sheep|Wp:Electric_Sheep]
+[IFS|Wp:Iterated_function_system]
+[Fractal Art|Wp:Fractal_art]
+[Apophysis|Wp:Apophysis_(software)]
+
+
+[Icon:opdef:.?icon_optionStarBlueSVG.svg]  *Main source code references*:
+
+_Github of the original "The Fractal Flame Algorithm": [FLAM3|https://github.com/scottdraves/flam3]_
+
+_Bitbucket repository I used a lot as reference from Matt Feemster: [FRACTORIUM|https://bitbucket.org/mfeemster/fractorium/src/master/]_
+
+
+[Icon:opdef:.?icon_optionStarBlueSVG.svg]  *Preface*:
+
+The inception of this [implementation|Wp:Implementation] dates back to 2020, during [COVID-19|Wp:COVID-19]. 
+At first, it was just a straightforward point wrangle exercise to experiment with some of the formulas from the fractal Flame algorithm.
+I didn't know much about the subject at the time, but as I began experimenting with some of the free and [open-source|Wp:Open_source] fractal Flame editors like Apophysis and Fractorium, I grew to love the field and gradually persuaded myself that I could port the entire [algorithm|Wp:Algorithm] and functionalities using Houdini out of the box.
+Undoubtedly, it required some time to comprehend everything completely, but as I was also learning how to create fractal art, It slowly shaped into the proper form.
+
+Specifically built to work in tandem with [Fractorium|http://fractorium.com],<br /> 
+FLAM3H(tm) attempts to absorb as much informations as possible about its capabilities and incorporates all it can into its own toolkit.
+
+These days, FLAM3H(tm) has all the features found in other third-party programs, plus a bunch more exclusive to this implementation.
+
+Additionally, when combined with Houdini's [procedural|Wp:Procedural_generation] paradigm and toolsets, fractal Flames reach previously unheard-of levels of possibilities.
+
+_Worlds - author: Alessandro Nardini_
+[Image:opdef:.?FLAM3H_DOC_intro.jpg]
+_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
+
+:box:
+    #display: rounded white
+
+
+
+@intro
+
+[Largeicon:opdef:.?iconSVG.svg]
+
+_Individuals and fractal Flames are alike_.<br />
+_Each one has its own personality, having gone through their own unique set of events that have helped shape who they are today._<br /><br />
+_Consider the various formulas that make up fractal Flames as different brushes or life event brushes._<br />
+_Each of these events can be identified by their patterns of_ [self-similarity|Wp:Self-similarity] _; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole._<br /><br />
+_This is akin to a person's genome, or DNA._<br />
+_Together, all of these variables contribute to the interesting nature of the fractal Flame discipline,_<br />
+_with its seemingly endless possibilities, effects, and patterns._
+
+<br />
+[Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) - what is it ?*
+
+FLAM3H(tm) as the name suggests, is the implementation of "the fractal Flame algorithm" inside SideFX Houdini.<br />
+There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
+
+Fractal art is not easy at all in the beginning.<br />
+For this reason, it is suggested that you possess prior experience with this art form, may that be with Apophysis, Fractorium or really any other fractal Flame editor out there. This implementation was influenced by Apophysis, particularly in the fast/quick workflow design, but it has been biased in its underlying code toward Fractorium.
+
+There is a very large, kind, and talented community out there that you can tap into and gather lots of information from to learn how to do fractal art.
+
+Generally speaking and based on my own learning experiences,<br />
+FLAM3H(tm) can complete every tutorial you can find for any of the existing fractal Flame editors out there.<br />
+The majority of tutorials you can find are for Apophysis, the first program to use the algorithm with a [graphical user interface|Wp:Graphical_user_interface]. It rose to prominence as the most widely used fractal Flame editor and will always occupy a special place in the fractal art history.
+
+_Here a few at hand_:
+
+_*[DevianArt - Apophysis tutorial: Splits Elliptic|https://www.deviantart.com/satania/art/Tutorial-Splits-elliptic-150422119]*_
+
+_*[DevianArt - Apophysis tutorial: Spherical bubbles|https://www.deviantart.com/fiery-fire/art/Apo-Tuto-Spherical-Bubbles-127911026]*_
+
+_*[DevianArt - Apophysis tutorial: Bipolar shapes|https://www.deviantart.com/satania/art/Tutorial-Bipolar-Shapes-213391274]*_
+
+_*[DevianArt - Apophysis tutorial: Double wedge|https://www.deviantart.com/teundenouden/art/Double-Wedge-Tutorial-810709969]*_
+
+_*[DevianArt - Apophysis tutorial: Hemispherical|https://www.deviantart.com/c-91/art/Hemispherical-Apophysis-Tutorial-663954258]*_
+
+
+A considerable amount of effort has been allocated to ensure that,<br />
+assuming that the same variations are utilized within FLAM3H(tm) and that they remain within its limitations, a one-to-one match result is consistently obtained.
+
+Being inside Houdini has its advantages,<br />
+just think of the possibilities of utilizing his procedural paradigm and tool sets to animate your fractal Flames. It also makes it very easy to build a [pipeline|Wp:Pipeline_(computing)] around this tool using Houdini’s Python HOM libraries.
+
+
+
+@Badges
+
+This documentation adopt the use of badges to signal some parameter's types and their scope.
+
+_Below a list of the currently adopted badges and their meaning_:
+
+- [Icon:BUTTONS/pane_menu] it is either a menu or a mini-menu.
+
+- [Icon:DATATYPES/boolean] it is a toggle.
+
+- [Icon:DATATYPES/ramp] it is a ramp.
+
+- [Icon:TOP/xmlinput] the data this parameter represent or enable will be stored into the XML flame file on save.
+
+- [Icon:DATATYPES/string] it is a string.
+
+- [Icon:NETVIEW/time_dependent_badge] it is time dependant.
+
+- [Icon:opdef:.?icon_optionStarBlueSVG.svg] it is a tip/information.
+
+_Note that some parameters may use one or more of those badges_.
+
+
+
+@Platforms
+
+:platform:Windows
+    This HDA and all its Python code has been extensively tested on Windows.
+
+    
+_The following platforms should function flawlessly, though I didn't get a chance to test every feature, so some may not function as intended._
+    
+:platform:Mac
+
+:platform:Linux
+
+
+@parameters FLAM3H(tm) Tabs parameters
+
+== Before you start == (BEFORESTART)
+
+_Third-party applications use an_ [orthogonal|Wp:Orthographic_projection] _type of viewer in their editors_.<br />
+_If you'd like to get close to a fractal Flame editor vibe, set the_ [viewport|Wp:Viewport] _to_: *Front* (_or press the key ((3)) while the cursor is on any viewport_). _Once you have done that, you can also go to the FLAM3H(tm) preferences' tab and set the viewport color to: *Dark* (if not already)_.
+
+_Best would be to use one of the Desktop files provided (HD or 4K) as they set everything up for you_.
+
+
+    
+== GLOBAL == (GLOBAL)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *GLOBAL:* _Global parameters._
+
+    Here, you will define the quality of the fractal Flame algorithm solution.
+
+:box:
+    #display: rounded white
+    
+    == GLOBAL: Iterations == (GLBITERATIONS)
+
+iterations [Icon:TOP/xmlinput]:
+    #id: GLOBAL
+    Number of [iterations|Wp:Iteration] to use.
+    
+    You must experiment with the number of iterations and always go as low as possible to save on execution time.
+    You went too low when the fractal Flame start to turn *_blocky_*, which happens when it crosses its own minimum.
+    
+    It is advised that occasionally you bump up this number a little to see if there is anything you are overlooking.
+    For instance, certain Flames can seem completely different with higher number of iterations.
+    
+    _Generally speaking, for many fratcal Flames shapes_:
+    
+    - You do not need many iterations to get some good fractal Flames going, between *`10`* and *`24`* is usually more than you need while keeping execution speed acceptable.
+    - If you increase the iterator Weight, use xaos to build containers, or use some kind of variation, you will require a higher number to resolve and show you the proper result.
+    
+    Almost all the fractal Flame images showcased inside FLAM3H(tm) Instagram account and website
+    use a maximum of *`64`* iterations, with a few exceptions reaching *`96`* and, in rare cases, *`128`*/*`256`* and more.
+    
+    Some Flames require a truly high number of iterations to resolve properly.
+    
+    However,<br />
+    you can create some beautiful fractal Flames with just a few iterations. Below are some examples:
+    
+    _*[Knot clusters: 6 iterations|https://github-production-user-asset-6210df.s3.amazonaws.com/42110232/270743580-f3c891ed-21c6-474e-89fa-62020149d821.jpg]*_
+    
+    _*[Dancing stars: 12 iterations|https://github-production-user-asset-6210df.s3.amazonaws.com/42110232/270014121-b68b27d9-ebb7-4580-ad5f-9d114f2585f7.jpg]*_
+    <br /><br />
+
+    TIP:
+        #display: orange
+        When: " *add iterations to Flame name* " toggle is *`On`* inside the OUT tab,
+        changing the iterations' parameter will update the Flame name, if any have been typed.
+
+
+:box:
+    #display: rounded white
+    
+    == GLOBAL: Density presets == (GLBDENSITY)
+
+    
+menu density presets [Icon:BUTTONS/pane_menu]:
+    #id: GLOBAL
+    Will allow you to select a density value quickly from some presets.
+
+    Density here stand for: _*number of points to use*_.<br />
+    For high-quality fractals, start from *`25M`*(_millions_) up to *`500M`*(_millions_) and more, depending on the type of fractal Flame you end up with.<br />
+
+    As a general rule, the more, the better.<br />
+    Must strike a balance between processing speed and quality.
+
+    _The menu labels posses a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] default preset of *`500k`*(_thousands_). This is what should be used while editing fractal Flames most of the time.
+    - [Largeicon:opdef:.?icon_StarSwapCyanSmallSVG.svg] presets from *`1`* to *`15`* millions.
+    - [Largeicon:opdef:.?icon_optionEnabledMidSVG.svg] presets from *`25`* to *`250`* millions.
+    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] presets from *`500`* millions to *`1 Billion`*.
+
+    <br />
+    When using a custom density value from inside the preferences density tab,<br />
+    if the choosen value is not present in this global menu entries, this menu label will become empty to signal the use of a custom density value.
+
+    _Additionally,_<br />
+    _some of the bookmark icons will signal the density values the xforms handles VIZ mode will keep being active, like the following_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteXFVIZOFFSVG.svg] 
+    - [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]
+
+    _or when the xforms handles VIZ mode is ON_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSVG.svg]
+    - [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZSVG.svg]
+
+    _or when the xforms handles VIZ is in SOLO mode_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSOLOSVG.svg]
+    - [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]
+
+    Beyound those bookmark icons,<br />
+    the xforms handles VIZ mode will be automatically disabled.
+
+    <br />
+
+    
+Reset density:
+    #id: Global
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    ((LMB)) to reset density to its default: *`500k`*(_thousands_)<br />
+    This is what should be used while editing fractal Flames most of the time.
+
+    <br />
+    _Following are lower tier density presets you can set if you desire:_
+
+    - ((SHIFT)) + ((LMB)) set density to: *`300k`*(_thousands_)
+    - ((CTRL)) + ((LMB)) set density to: *`200k`*(_thousands_)
+    - ((ALT)) + ((LMB)) set density to: *`100k`*(_thousands_)
+        
+        
+
+:box:
+    #display: rounded white
+
+== SYS: System options and utils == (SYS)
+
+~~~
+:box:
+    #display: inverted teal
+
+    *SYS:* _System utilities._
+    
+    Tools available to enhance and speed up the workflow.
+    
+    The content of this tab kept changing and evolving, but thus far, this most recent configuration has been the most successful.
+
+:box:
+    #display: rounded white
+    
+    == SYS: Utils == (SYSUTILS)
+    
+FLAM3H(tm) documentation:
+    #id: SYS
+    [Largeicon:opdef:.?icon_F_docStarSVG.svg]
+    
+    Display this documentation.
+
+    <br />
+
+mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
+    #id: SYS
+
+    A quick shortcut mini-menu to quickly change focus to a desired multi-parameter's tab number. The menu entries are populated using each iterator’s note/name.
+
+    This feature is useful when creating many iterators for the fractal Flame you are working on and to quickly review their state.
+
+    _The bookmark icon will display the status of each iterator_:
+
+    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] when an iterator is *`On`*/Active (_Default_).
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when an iterator is *`On`*/Active and *`0`*(Zero) Weight.
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when an iterator is *`On`*/Active, *`0`*(Zero) Weight and Marked.
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg] when an iterator is *`On`*/Active and Marked.
+    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when an iterator is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when an iterator is *`Off`*/Disabled and Marked.
+
+    <br />
+    When an iterator shader's opacity is set to *`0`*(Zero),<br />
+    its menu label will be prefixed with the message string: *`[ZERO opacity]`*<br />
+    This is handy also when you load or build a Flame that uses containers so to easily spot the intermediary iterators used in the construction.
+
+    _Additionally,_<br />
+    _when there are *`0`*(Zero) iterators, an info message is displayed instead_:
+
+    - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when there are zero iterators.
+    <br /><br />
+    
+    NOTE:
+        This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the ((p)) key. Please, open a Parameter Editor in its own pane tab or floating panel for this feature to work.
+
+    <br />
+
+FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: SYS
+    *`Off`* by default.
+
+    <br />
+    
+    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*/Disabled (_Default_).
+    - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*/Active.
+    
+    Enable or disable the [finalXform|#FF](_FF_).
+
+    This is being introduced since it is convenient to switch the finalXform(_FF_) *`On`* or *`Off`* without constantly entering the FF tab.
+
+    <br />
+    
+    
+RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: SYS
+    *`Off`* by default.
+
+    <br />
+    
+    - [Largeicon:opdef:.?icon_optionRIPDisabledSVG.svg] when RIP is *`Off`*/Disabled (_Default_).
+    - [Largeicon:opdef:.?icon_optionRIPEnabledSVG.svg] when RIP is *`On`*/Active.
+    
+    Remove invalid points. *INF*, *NAN*, *Zero Opacity* and *out-of-bounds* points.
+
+    - After the algorithm transforms the points, it is possible for some of those points to shoot to infinity. Turn this *`On`* to get rid of those points.
+    - When an iterator's opacity is *`0`*(Zero), you can turn this option *`On`* to get rid of those points since *opacity* == *`@pscale`* ( *`@widths`* _in Solaris_ ) you do not need them anymore.
+    - If rendering a Flame seems unusually slow, it's probably because certain points wind up being really far from the Zero world. Those points will be eliminated if this option is turned *`On`*.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        When loading hip files FLAM3H(tm) will check if any of the iterators have their shader opacity set to *`0`*(Zero) and if so, it will switch this toggle *`On`*.<br />
+
+        
+F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: SYS
+    *`On`* by default.
+
+    <br />
+
+    - [Largeicon:opdef:.?icon_optionF3CEnabledSVG.svg] *Checked*: use the Flam3/Apophysis behavior (_Default_).
+    - [Largeicon:opdef:.?icon_optionF3CDisabledSVG.svg] *Unchecked*: use the Chaotica behavior.
+    <br /><br />
+
+    Flam3 compatibility.
+
+    The behavior of the *`Cos`*, *`Cosh`*, *`Cot`*, *`Coth`*, *`Csc`*, *`Csch`*, *`Sec`*, *`Sech`*, *`Sin`*, *`Sinh`*, *`Tan`* and *`Tanh`* variations are different in Flam3/Apophysis versus Chaotica.
+    
+    These variations are also referred to as: *trigonometric variations*.<br />
+
+    In a fractal Flame,<br />
+    each point's position is updated by applying a variation (_a mathemathical transform_). Trigonometric variations are simply those based on the standard [trigonometric functions|Wp:Trigonometric_functions] (_and their_ [hyperbolic|Wp:Hyperbolic_functions] _counterparts_).
+
+    _For example_:
+    - *`Cos`* */* *`Cosh`* *variations*: apply cosine or hyperbolic cosine functions.
+    - *`Tan`* */* *`Tanh`* *variations*: apply tangent or hyperbolic tangent functions.
+    - *`Sec`* */* *`Sech`* *variations*: apply secant or hyperbolic secant functions.
+
+    <br />
+
+    TIP:
+        #display: orange
+        In Fractorium you can go to "Options" to find the exact same checkbox.
+
+
+:box:
+    #display: rounded white
+    
+    == SYS: xforms handles VIZ == (SYSXFVIZ)
+
+    When reviewing and editing your fractal Flame, the viewport xforms handles provide excellent visual feedback. 
+    They will assist you in modifying each iterator (_or FF_) and rapidly help you comprehend the currently existing setup.
+
+
+xforms handles VIZ [Icon:DATATYPES/boolean]:
+    #id: SYS
+    *`Off`* by default.
+    
+    <br />
+
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] vieport xforms VIZ is *`Off`*/Disabled (_Default_).
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg] vieport xforms VIZ is *`On`*/Active.
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] one of the iterators/xforms is in SOLO mode.
+    - [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg] the FF is in SOLO mode.
+
+    The xforms handles will be shown in the viewport when it is turned *`On`*.<br />
+    Xform handles are a visual representation of the affine (PRE or POST) values.<br />
+    
+    Since they are designed to contribute as little as possible to the calculation, you may really leave them turned *`On`* at all times, until rendering is required.
+
+    In the preferences' tab under *`prefs viewport`* you can set the thickness of the xforms handles curves using the parameter: *`wire width`*.
+
+    Since *`wire width`* parameter is setting a global attribute linked to every viewer in the active Houdini session, FLAM3H(tm) will save this information when this mode is activated and restore it when the mode is terminated, provided that no other FLAM3H(tm) node in the scene has this mode enabled. If not, it will maintain the current settings.
+
+    Once this mode is active,<br />
+    from each iterator's tab you will be able to display an iterator of your choice in SOLO mode (_display only the viewport xform handle for the selected iterator, and nothing else_).
+
+    [Image:opdef:.?FLAM3H_DOC_xforms_handles.svg]
+    
+    _These handles are not editable, but only for visualization purpose_.<br />
+    _They will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator(or FF) of the fractal Flame_.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - Depending on its multi-parameter index number, each accessible iterator will produce an xform handle with a color, but the FF(_finalXform_) will always be grey/white and shown on top of the others to make it easy to identify when it is active.
+
+    - The *`RED`* and *`GREEN`* central axes represent respectively the *`X`* and *`Y`* axis as a frame of reference. Their triangular form will make it easier to see the scale in one or both dimensions.
+
+    - When an iterator(_or FF_) POST affine is active, its xform' handle will turn dashed and an extra knot created to represent its POST affine' pivot/offset (_like in the red dashed handle in the above illustration_).
+
+    - The viewport handles will be automatically disabled if the FLAM3H(tm) density value is raised above *`5M`*(_millions_) points.
+
+    - The viewport handles will be automatically disabled when FLAM3H(tm) is in camera sensor VIZ mode.
+
+    - The viewport handles will be automatically disabled when FLAM3H(tm) is run from whithin the Solaris/Lop context.
+
+    - The FLAM3H(tm) node posses a dive-in location to only display the xforms handles without the FLAM3H(tm) points.<br />
+
+        - double ((LMB)) on the FLAM3H(tm) node to dive-in, or:
+
+        _With the FLAM3H(tm) node selected_:
+        - press the key: ((i)) to dive-in
+
+        _Once you are in_:
+        - press the key: ((u)) to dive-out
+    
+        Those shortcut keys work when the mouse cursor is over the network editor as well over the viewport (_and over the parameters pane too_).
+        To dive-in is useful to identify them visually as sometime it can be difficult to spot them when the fractal Flame is present.
+
+    - To exclusively output the xforms handles, a second output has been introduced to the FLAM3H(tm) node.
+    Since they are not baked into the point cloud, you may safely render the fractal Flame while switching between SOP and LOP, which makes it useful for viz purposes.
+    
+    <br /><br />
+    [Icon:NETWORKS/sop] *Context aware*<br />
+    - Xforms handles viz are context aware, and you will be able to activate them only if a Sop viewer is available.
+    <br /><br />
+
+    :warning:
+        Turn this *`Off`* when rendering.
+        
+
+:box:
+    #display: rounded white
+    
+    == SYS: Tag == (SYSTAG)
+[Image:opdef:.?FLAM3H_DOC_tag.svg]
+_The above tag reference's image shows a Flame with 1(one) iterator and the FF(finalXform) active._
+
+TAG [Icon:DATATYPES/boolean]:
+    #id: SYS
+    *`Off`* by default.
+
+    <br />
+    
+    - [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg] when TAG is *`Off`*/Disabled (_Default_).
+    - [Largeicon:opdef:.?icon_TagOBlueSVG.svg] when TAG is *`On`*/Active.
+    
+    Enable/disable viewport TAG infos.
+    
+    TAG allow you to review your fractal Flame construction infos in one compact viewport string. 
+    Below you find a list of data names and their meaning starting from the left to the right of the above TAG reference image.
+    
+    <br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *System infos*:<br />
+    * The *`Iterations number`* will be the very first number inside square brackets.
+    * *`Xaos`* when active will be next inside square brackets. Read the xaos documentation to know more about it.
+        - *`Xaos TO`* will be: *`[Xt]`*
+        - *`Xaos FROM`* wil be: *`[fX]`*
+    * *`RIP`* when the SYS option "Remove Invalid Points(*RIP*)" is *`On`*.
+    * *`F3C`* when the  SYS option "Flam3 Compatibility(*F3C*)" is *`On`*.
+    * *`MB`* (_Motion Blur_) when *`On`* will be next.
+
+    <br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Iterator/xform infos*:<br />
+    * The *`iterator's number`* will be inside round brackets.
+    * *`pre_blur`* will be indicated with an asterisk "*`*`*" in front of the iterator' number.
+    * *`Iterator variations`* are all lowercase (_all types: PRE, VAR and POST_).
+    * *`FF variations`* are all UPPER CASE (_all types: PRE, VAR and POST_).
+    * *`PRE variations`* will be inside square brackets at the beginning of each iterator, or FF.
+    * *`POST variations`* will be inside square brackets at the end of each iterator, or FF
+    * The *`iterator's Weight`* value will be the very last in each iterator.
+    * The colons "*`:`*" indicate how many variation slots are still available; 4(four) in case of an iterator *`VAR`* section, plus a last colon "*`:`*" as a separator from the iterator's Weight.
+    * If an iterator is disabled or *`0`*(Zero) Weight, it won't be included into the TAG infos.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
+        Once clicked, it will exit the mode and back to being the default Tag blue icon:
+        
+        - [Largeicon:opdef:.?icon_TagORedSVG.svg] when the OUT Camera sensor viz mode is *`On`*/Active and update sensor option is *`On`*/Active.
+        - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when the OUT Camera sensor viz mode is *`On`*/Active and update sensor option is *`Off`*/Disabled.
+
+        _Additionally only in the viewport Tag_:
+        - [Largeicon:opdef:.?icon_TagOSVG.svg] when iterator's count is *`0`*(Zero) and when xaos is active but you cross the 20 iterators limit.
+         
+mini-menu TAG size [Icon:BUTTONS/pane_menu]:
+    #id: SYS
+    Set different viewport TAG sizes.
+
+    _The menu labels posses a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_TagOBlueMenuSmallSVG.svg] for a small tag size (_Default_).
+    - [Largeicon:opdef:.?icon_TagOBlueMenuMidSVG.svg] for a Medium tag size.
+    - [Largeicon:opdef:.?icon_TagOBlueMenuBigSVG.svg] for a BIG tag size.
+
+    The above bookmark icons will also appear in the viewport Tag.
+    
+    
+:box:
+    #display: rounded white
+    
+    == SYS: Sierpiński triangle == (SYSDEFAULT)
+    
+loaddef:
+    #id: SYS
+    [Largeicon:opdef:.?icon_SierpinskyDefSVG.svg]
+    
+    Load/reset to the default [Sierpiński triangle|Wp:Sierpiński_triangle] preset.
+
+    _Additionally_:
+    
+    when loading the default Sierpiński triangle from this icon,<br />
+    it will also reset the FLAM3H(tm) UI and options toggles to their defaults including the OUT render properties (_[Icon:TOP/xmlinput] SENSOR, RENDER and CC CURVES settings_).
+
+:box:
+    #display: rounded white
+    
+    == SYS: Frame current viewport == (SYSDEFAULT)
+    
+frame viewport:
+    #id: SYS
+    [Largeicon:opdef:.?icon_FrameBlueSVG.svg]
+    
+    Re-frame current viewport based on a centered bounding box.
+    
+    This is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.
+
+    _Additionally_:
+
+    it will set the viewports [clipping planes|Wp:Clipping_(computer_graphics)] to proper values every time is invoked.
+    <br /><br />
+
+    NOTE:
+        When in camera sensor mode, the re-frame will be based on the Camera sensor bounding box instead.
+        
+        The icon will change into a red version of itself: 
+        
+        [Largeicon:opdef:.?icon_FrameRedSVG.svg]
+
+:box:
+    #display: rounded white
+    
+    == SYS: CP color palette == (SYSCP)
+    
+mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
+    #id: SYS
+    Select a preset from the [CP tab|#CP] JSON file that is currently open and load it.<br /><br />
+    This is being introduced since it is convenient to switch palette preset without constantly entering the CP tab.
+    
+    _The selected menu entrie posses a bookmark icon based on its state_:
+    
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
+    - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
+    - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
+
+    _Additionally_:
+
+    - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
+    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+    
+    If after loading a preset you make any modification to the loaded palette, the menu label bookmark icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        To populate this menu, load a FLAM3H™ palette *.json file first inside the CP tab,<br />
+        or ((SHIFT)) + ((LMB)) the icon to open a floating file chooser.
+
+    <br />
+        
+    
+CP Preset reload:
+    #id: SYS
+    
+    - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when no Palette preset has been loaded.
+    - [Largeicon:opdef:.?icon_optionCPSVG.svg] when you load a Palette preset.
+    
+    _Usage_:
+    
+    - ((LMB)) Reload the selected CP palette preset.
+    - ((SHIFT)) + ((LMB)) to open a floating file chooser.
+    - ((ALT)) + ((LMB)) to load a palette from the Clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the Clipboard, it will extract only the XML palette data and load it into the FLAM3H(tm) palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H(tm).
+    
+:box:
+    #display: rounded white
+    
+    == SYS: IN Flame presets == (SYSIN)
+    
+mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
+    #id: SYS
+    Select a preset from the [IN tab|#INF] Flame file that is presently open and load it.<br /><br />
+    This is being introduced since it is convenient to switch Flame presets without constantly entering the IN tab.
+    
+    _The selected menu entrie posses a bookmark icon based on its state_:
+    
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
+    - [Largeicon:opdef:.?icon_WhiteSVG_disabled.svg] when the selected preset name is not loaded.
+    - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
+    
+    _Additionally_:
+
+    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+
+    When a Flame preset has been loaded from the Clipboard, the selected menu preset label will be prefixed with: *`[CLIPBOARD]`*
+    <br /><br />
+
+    TIP:
+        #display: orange
+        To populate this menu, load a valid *.flame file first inside the IN tab,<br />
+        or ((SHIFT)) + ((LMB)) the icon to open a floating file chooser.
+
+    <br />
+    
+IN Preset reload:
+    #id: SYS
+    
+    - [Largeicon:opdef:.?icon_WhiteSVG_disabled.svg] when no Flame preset has been loaded.
+    - [Largeicon:opdef:.?icon_WhiteSVG.svg] when you load a Flame preset. This indicate that a Flame preset IN: infos are visible inside.
+
+    _Usage_:
+    
+    - ((LMB)) If there is a selected IN preset, it will reload it.
+    - ((SHIFT)) + ((LMB)) the icon to open a floating file chooser.
+    - ((ALT)) + ((LMB)) to paste a Flame from the Clipboard.
+
+    _Additionally_:
+
+    - When loading a Flame preset from the Clipboard, its render properties will be automatically copied into the OUT render propperties on load and the IN: infos will stay visible until a reset or a new Flame preset is loaded.
+    - If a Flame preset contain more variations than the allowed number in any of the available types (*`PRE`*, *`VAR`*, *`POST`*) inside an iterator or FF, the variations in excess will be skipped and printed to the console.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        - Loading a Flame from the Clipboard is useful when going back and forth with a third-party application like for example: Fractorium.
+        - In Fractorium, you can alter the Flame, copy it into the Clipboard, and then load it from the Clipboard inside FLAM3H(tm) to see the changes.
+    
+:box:
+    #display: rounded white
+    
+    == SYS: OUT Flame presets == (SYSOUT)
+    
+mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
+    #id: SYS
+    This menu is only for informational purposes.
+
+    If there are any Flames in the chosen output file, they will be displayed. 
+    This menu will refresh once you add a new Flame to it. 
+    It will always be set to the last Flame name you saved.
+
+    It will also print quick informations (_in the status bar and as a flash message in the network editor_) about the Flame preset when one is selected.
+    
+    _Quick infos are_:
+    - *`Flame preset name`* ( _only in the status bar_ )
+    - *`XF`*: number of iterators/xforms being used
+    - *`FF`*: when finalXform(_FF_) is being used
+    - *`Palette`*: number of colors in the palette
+    - *`HSV`*: when HSV color correction is being used
+    - *`HSV values`* ( _only in the status bar_ )
+
+    <br />
+    
+    _The menu labels posses a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
+    - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file, each Flame in the file will be marked with this icon.
+
+    _Additionally_:
+
+    - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
+    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        To populate this menu, load a valid *.flame file first inside the OUT tab.
+        
+        
+    NOTE:
+        Saving Flames from this icon, will always use a default name that uses the current date and time.
+
+        In case you'd like to give your Flames a proper name, you can do so from inside the OUT tab.
+
+    <br />
+    
+OUT Save:
+    #id: SYS
+    [Largeicon:opdef:.?icon_WhiteStarSVG.svg]
+    
+    _Usage_:
+
+    - ((LMB)) to save this Flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
+    - ((SHIFT)) + ((LMB)) if not a valid filepath is present already it will open a file chooser, otherwise it will open the file explorer to the file location.
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
+    - ((ALT)) + ((LMB)) to copy this Flame into the Clipboard.
+
+    - _If the selected file does not exist, it will be created_.
+    - _If the selected file is not a valid Flame file type, nothing will happen_.
+    
+:box:
+    #display: rounded white
+    
+    == SYS: PREFS Palette 256+ == (SYS256+)
+
+palette 256+ ON [Icon:TOP/xmlinput]:
+    #id: SYS
+    *`[256+]`*<br /><br />
+    When the Prefs tab general toggle *`palette 256+`* is *`On`*/Active, this text in the SYS tab will signal it and when *`Off`*/Disabled it will disappear.
+
+
+:box:
+    #display: rounded white
+
+== FLAME: Iterator parameters == (FLAME)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *FLAME:* _iterators/xforms._
+    
+    This is where you'll spend the majority of your time, along with the *FF* tab.
+    
+    Here you will create your fractal Flame logic.
+    Since the parameters share the same names, anyone who has used Apophysis, Fractorium, or other fractal Flame editors will feel immediately at home.
+    The logic you will operate with will be the same.
+    
+:box:
+    #display: rounded white
+    
+    == Number of iterators ( Add/Remove ) ==
+    
+number of iterators [Icon:TOP/xmlinput]:
+    #id: FLAME
+    
+    Number of iterators (_aka: xforms or transforms_) to use.<br />
+    
+    Every iterator acts as a container for functions, the algorithm will mix or shuffle iterators based on your logic.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
+
+    Xforms have the most effect over the look of the final output image. Discussing every possible technique for using them is beyond the scope of this project. For such information, you should follow the numerous Apophysis tutorials that are available on Deviant Art and elsewhere. This article is limited to some basic performance considerations when using xforms.
+
+    The number of xforms does not affect performance because only one is chosen to be applied on each iteration. Choosing a random xform among 5 takes the same amount of time as choosing among 50. However, the number of variations in each xform does affect performance.
+
+    Adding a post affine transform to an xform will also affect performance since it’s an additional affine that must be applied each time the xform is selected. Applying an affine is very simple so the performance impact shouldn’t be too noticeable.
+    <br /><br />
+
+    _The following control icons are provided_:
+
+    - [Largeicon:BUTTONS/add] to add a new iterator at the end of the existing set of iterators.
+    - [Largeicon:BUTTONS/minus] to reduce the number of iterators by *`1`*(one). It will remove one from the end.
+    - *CLEAR* button -> to remove all the iterators in one go.
+
+    <br /><br />
+    _Additionally,_<br />
+    _each iterator posses the following control icons_:
+
+    - [Largeicon:BUTTONS/multi_insertbefore] to insert a new iterator before the selected iterator.
+    - [Largeicon:BUTTONS/multi_remove] to remove the selected iterator.
+
+    NOTE:
+        The order of the iterators does not matter at all.
+
+        Based on each iterator's Weight and combined with their xaos settings, the algorithm will select and execute them based on your logic.
+
+        For this reason, it is suggested to create them one after the other, sequentially.
+    
+:box:
+    #display: rounded white
+    
+    == Iterator == (FLAMEITER)
+
+note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
+    #id: FLAME
+    A name for this iterator.
+
+    _If no name is provided (e.g. empty string) a default one will be automatically set_.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - An iterator default name is composed as: *`iterator_`* followed by its multi parameter index number, as in: *`iterator_7`*
+    - Every time you add or remove an iterator, FLAM3H(tm) will rename the remaining one if they have a default name to match their new index.
+    - When saving a Flame out with inactive iterators, FLAM3H(tm) will discard the inactive one and rename the others to match their new index if they have a default name.
+    <br /><br />
+
+    NOTE:
+        The text you write here will be stored with the Flame file and also shown inside third-party applications like Apophysis and Fractorium as the iterator's name.
+
+    <br />
+    
+copy/paste:
+    #id: FLAME
+    [Largeicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg]
+
+    All the necessary methods for copy/paste iterator's data are contained in this icon.
+    
+    Using this icon, you can mark an iterator for copying, and then transfer the data from the marked iterator into another iterator number, even if it's within a different FLAM3H(tm) node.
+
+    When you paste the data, it wil copy everything from the marked iterator but not xaos.
+    
+    Once an iterator has been marked, you can use the mini-menu [Icon:BUTTONS/pane_menu] next to the icon to copy individual sections from the marked iterator, including xaos.
+    
+    Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder an iterator posses.<br />
+    The sections items in the mini-menu have a bookmark icon that change based on the marked iterator status:
+
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is *`On`*/Active.
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when the marked iterator is *`On`*/Active and *`0`*(Zero) Weight.
+    - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when the marked iterator is *`Off`*/Disabled.
+
+    <br />
+    When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another iterator either on the same FLAM3H(tm) node or on a different one.
+    This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
+
+    _Usage_:
+    
+    - ((LMB)) to mark this iterator for being copied. If already marked, it will unmark it.
+    - ((SHIFT)) + ((LMB)) to unmark this FLAM3H(tm) node marked iterator for being copied.
+    - ((ALT)) + ((LMB)) to copy the values from the marked iterator into this iterator.
+    
+    _Additionally_:
+    
+    - ((CTRL)) + ((LMB)) to reset this iterator to its default values.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - When an iterator is marked for being copied, a node note with the marked iterator number is being displayed in the network editor.<br />
+    - When copy/paste post affines, they will be automatically turned *`Off`* if they are default values to save on computation.
+    - A custom user data is added to the FLAM3H(tm) node with the iterator number being marked; the data name is: *`Marked iterator`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being marked.
+    
+Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: FLAME
+    *`Off`* by default.
+
+    <br />
+    
+    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] This iterator is *`Off`*/Disabled.
+    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] This iterator is *`On`*/Active (_Default_).
+    
+    Enable/Disable this iterator.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        If an iterator is disabled, it won't be included when saving the Flame out into a Flame file.
+        In case you still want to include the inactive iterator in the file, set its Weight to *`0`*(Zero) instead.
+    
+    
+xform VIZ SOLO [Icon:DATATYPES/boolean]:
+    #id: FLAME
+    *`Off`* by default.
+
+    When the SYS -> viewport xforms handles VIZ is *`On`* this icon will become available.
+
+    <br />
+
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] to enter into SOLO mode and display only this iterator xform handle VIZ in the viewport (_Default_).
+    - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] to exit the SOLO mode and revert back to display all xforms handles VIZ together.<br /><br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
+    - Every time you activate the xform handle VIZ SOLO mode for an iterator, a custom user data is added to the FLAM3H(tm) node with the iterator number being in SOLO mode; the data name is: *`XF VIZ`*.<br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being displayed (_in case you do not remember or when many iterators have been created_).
+    - The FF(_finalXform_) viewport handle will always be displayed if Active (_it will always be of color grey/white_).
+    - The viewport handles will be automatically disabled if the FLAM3H(tm) density value is raised above *`5M`*(_millions_) points.
+    - The viewport handles will be automatically disabled when FLAM3H(tm) is in camera sensor VIZ mode.
+    - The viewport handles will be automatically disabled when FLAM3H(tm) is run from whithin the Solaris/Lop context.
+    
+W [Icon:TOP/xmlinput]:
+    #id: FLAME
+    The Weight of this iterator.<br />
+    
+    Calculate the likelihood that this iterator will be selected during the [Chaos game|Wp:Chaos_game]. You may require more iterations to correctly resolve the shapes of the fractal Flame you are working on if an iterator Weight is higher than the others.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*
+
+    An iterator (_aka: xform or transform_) is one of the rules that moves points around in a fractal Flame. Every time the algorithm runs an iteration, it randomly picks one iterator to apply to the point.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *What does the Weight do ?*
+
+    The Weight controls the [probability|Wp:Probability] that an iterator will be chosen.
+    - Higher Weight → higher chance of being picked
+    - Lower Weight → lower chance
+    - Weight = *`0`*(Zero) → never picked
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Why is this important ?*
+
+    The probability of picking an iterator decides how often its pattern appears in the final image:
+    - A big Weight means that iterator dominates the fractal.
+    - A small Weight means it only adds subtle details.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *In short*
+    - Weights = the lottery tickets each iterator gets in the Chaos game.<br />More tickets = more chances to be picked.
+    
+:box:
+    #display: rounded white
+
+    == Iterator: Xaos == (FLAMEITERXAOS)
+    
+xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
+    #id: FLAME
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
+    
+    _What is xaos ?_
+    
+    Xaos provides more fine-grained control over the selection of xforms on each iteration.
+    It is expressed as a probability modifier for each xform in relation to every other xform.
+
+    The default state is for all elements to have a value of *`1`*(one), which means that xaos is not used.
+    When any element is changed to something other than *`1`*(one), xaos is in effect.
+
+    Xaos specifies how likely a xform is to be chosen based on the previous xform that was chosen.
+    Alternatively, this can also be expressed as the probability modifier of the next chosen xform based on the currently chosen one.
+    These two methods of stating xaos are known as “from” and “to”.
+    
+    [Image:opdef:.?FLAM3H_DOC_xaos_pathsSVG.svg]
+    _The above image shows five iterators with one variation each and how they are connected to each other through a hypothetical xaos setting._
+    
+    The default mode is xaos TO. You can change it to use xaos FROM mode instead in the preferences tab.
+    
+    Xaos TO and xaos FROM are at their core each other's reflections. This means they are the same data, but one is the transpose of the other.
+    
+    A [matrix transpose|Wp:Transpose] is a matrix flipped along its diagonal. Think of it as looking at the same matrix from 2 opposite points of view.
+    
+    _Looking from an iterator's point of view_:
+    - When in *`xaos TO`* mode, you will think: *to* wich iterator am I allowed to send the points I just executed?
+    - When in *`xaos FROM`* mode, you will think: *from* wich iterator am I allowed to receive points before I execute them myself?
+    - Note that the same concept applies also to the iterator itself, this means the question will be: can I execute a point after I already executed it myself? (_like the yellow iterator with the_ *`Curl`* _variation in the above diagram/image._)
+    
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How to set xaos in FLAM3H(tm) *
+        
+    - To set xaos for a Flame with *`4`*(four) iterators, use the "*`xaos:`*" keyword followed by each iterator's Weight values separated by a colon: *`xaos:`* *1:2:3:4*.
+    - When the auto space xaos weights option is *`On`*/Active ( it is by default ), the xaos keyword will look like this: "*`xaos :`*". The important information here is that you always need a colon "*:*" after the word "*xaos*" to make it work, as in: " *`xaos:`* ".
+    - If no set or when using a short descriptive note, FLAM3H(tm) will assume all xaos values are *`1`*(one), the equivalent of: *`xaos:`* *1:1:1:1*
+    - If you set only *iterator 1* and *iterator 2*, FLAM3H(tm) will always fill in the rest with a value of *`1`*(one). As an example: *`xaos:`* *0:0* will be interpreted as *`xaos:`* *0:0:1:1*
+    - When turning iterators *`On`* and *`Off`* and removing or adding them, FLAM3H(tm) will internally remove and reformat xaos values to account for missing iterators. It is fully automatic.
+    
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Xaos command options*
+    
+    - If you type a non-numeric character in any of the xaos's weights, FLAM3H(tm) will undo to what you had before.
+    - If you dnt use the "*`xaos:`*" keywork at the beginning of the string, the entire xaos string will be reset to all weights with value: *`1`*(one)
+    - If you just type a number, the entire xaos string will be reset to all weights set to that number.
+    - If you type a negative number, it will be reset to a value of:  *`1`*(one)
+    <br /><br />
+
+    TIP:
+        #display: orange
+    
+        - Xaos is *`Off`*/Disabled by default, and FLAM3H(tm) will activate it automatically only when needed (_e.g. when one of its weights is set to a value different from: *`1`*(one))_.
+        - When saving out Flame files, xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
+        
+    NOTE:
+        - This parameter can not be animated.
+
+    <br />
+        
+auto space xaos weights / xaos information tips [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/boolean]:
+    #id: FLAME
+    [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
+    
+    Activate/Deactivate auto space xaos weights option.
+
+    _Usage_:
+    
+    - ((LMB)) will space the xaos weights for easy edit, read and count (_*`On`*/*`Off`*_)
+    
+    - ((CTRL)) + ((LMB)) to show xaos information and tips.
+    
+    You can also click this icon to force xaos to update in case any invalid characters are left by mistake inside the iterator xaos string.
+    <br /><br />
+
+    TIP:
+        #display: orange
+
+        - ((mouse_wheel)) 
+            
+            Once you activate the auto space xaos weights option, you can click inbetween each xaos weight value and scroll the mouse wheel up or down to increase or decrease that value.
+
+ 
+:box:
+    #display: rounded white
+
+    == Iterator: Shader == (FLAMEITERSHADER)
+
+    ~~~
+    :box:
+        #display: rounded gray
+
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*
+
+        It may occur that the coloration you see when loading Flame presets differs from that found in Fractorium or Apophysis.<br />
+        This is because extra iterations are required to correctly spread the colors, even when the fractal Flame forms match.
+
+        _Increase the number of iterations until the coloration matches the ones found in Apophysis, Fractorium, and others_.
+
+Location [Icon:TOP/xmlinput]:
+    #id: FLAME
+    The color location in the ramp *{0:1}*.
+    
+Speed [Icon:TOP/xmlinput]:
+    #id: FLAME
+    Speed of color blending between iterations.<br /><br />
+    Values above *`0`*(Zero) attract the selected color while values below *`0`*(Zero) will repel it.
+    
+Opacity [Icon:TOP/xmlinput]:
+    #id: FLAME
+    This iterator's opacity.<br /><br />
+    It will be fully opaque at opacity *`1`*(one) and completely transparent at opacity *`0`*(Zero). It can also be used to adjust the prominence of different portions of your fractal Flame, independent of the iterator's Weight.
+    
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - When an iterator's opacity is *`0`*(Zero), you can activate the SYS tab *RIP* option to get rid of those points ( _since_ *opacity* == *`@pscale`* (*`@widths`* _in Solaris_ ) _you don't need them anymore_).
+    - When loading hip files with FLAM3H(tm) nodes in it or when cloning FLAM3H(tm) nodes,<br />the SYS tab *RIP* option will be automatically turned *`On`* if any of the iterators have its Opacity value set to *`0`*(Zero).
+
+:box:
+    #display: rounded white
+
+    == Iterator: Variations == (FLAMEITERVARS)
+
+    ~~~
+    :box:
+        #display: rounded gray
+
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
+
+        While traditional iterated function systems used only linear affine transforms for each iterator/xform application, flam3 extended this design by adding the ability to use almost any mathematical calculation as well. Flam3 dubbed these new math functions as “variations” which is a catch-all name for an arbitrary math function.
+
+        Variations have a great affect on performance so it’s important to use them sparingly. The reason is that when an iterator/xform is selected to be applied, every variation within it must be applied as well. Do not add numerous variations that have little to no affect on the final output image. Instead, only use ones which you can verify have an effect you desire.
+
+        Since variations can be just about anything, they behave in many different ways.
+
+        At a bare minimum, all variations have a weight and most of them use it. You can examine the effect of the weight [parameter|Wp:Parameter_(computer_programming)] by adjusting it and seeing how it affects the final output image.
+
+        In addition to weight, most variations have additional parameters that can be adjusted.
+
+        Most use the outputs of the pre affine transforms as input points which are then modified via various calculations. However, some do not use the pre affine points at all. For these, you will notice that dragging the pre affine transforms around has no effect on the final output image.
+            
+    :box:
+        #display: rounded gray
+        
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Variations bookmark icons*
+
+        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`*/Active will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
+        
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
+        - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
+        - [Largeicon:opdef:.?icon_StarSwapRedSVG.svg] when its weight is above *`1`*(one).
+        - [Largeicon:opdef:.?icon_StarSwapCyanSVG.svg] when its weight is below *`0`*(Zero).
+        
+        _PRE and POST bookmark icons:_
+        
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
+        - [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
+        - [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above *`1`*(one).
+    
+    TIP:
+        #display: orange
+
+        _Each iterator allows up to *`8`*(eight) variations_:
+            
+        - *`Pre_blur`* plus *`2`*(two) *`PRE`*
+        - *`4`*(four) *`VAR`*
+        - *`1`*(one) *`POST`*
+        
+        _Variation names that end with an asterisk(*`*`*) are dependent, while those that end with three dots(*`...`*) are parametric._
+        
+        _When using parametric variations, their parameters in the VARS tab will be shared between all of them._
+
+        _This means that if you use_:
+            
+        - *`2`*(two) *`PRE Mobius`*
+        - *`4`*(four) *`VAR Mobius`*
+        - *`1`*(one) *`POST Mobius`*
+        
+        _they will all share the same *`re:abcd`* and *`im:abcd`* parameters (FLAME: VARS tab)._
+     
+menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
+    #id: FLAME
+    Enable pre_blur variation.
+    
+    *`Pre_blur`* variation in this implementation is hard-coded inside the Chaos game to be as fast as it can possibly be.
+    It will always be the first *`PRE`* variation the algorithm runs.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        When authoring your Flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3H(tm)
+        remeber that the variation *`pre_gaussian_blur`* will be remapped to *`pre_blur`* on Flame load by default if it is the first one in the list of applied *`PRE`* variations.
+
+
+menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
+    #id: FLAMEPRE
+    *`PRE`* variations for the selected iterator.
+
+    These are applyed before the *`VAR`* variations.
+
+    There are *`2`*(two) *`PRE`* variations available. The order to whitch you apply them matter.
+    
+    For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
+
+    * When using parametric variations, their parameters will populate the *VARS* tab.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
+
+    When applying an iterator (_aka: xform or transform_) to an input point, variations are traditionally applied in between the pre affine and post affine transforms.
+
+    As the algorithm evolved over time, users realized it would be useful to be able to apply one or more variations in between the output of the pre affine transform and the application of the first *`VAR`* variation. These are known as *`PRE`* variations. They differ from regular *`VAR`* variations in that their outputs are usually assigned rather than summed. This has the effect of making an adjustment to the point before it’s used as inputs to all of the regular *`VAR`* variations.
+
+    If multiple *`PRE`* variations are used, their outputs are not summed, they are assigned. It is for this reason that order matters for them.
+
+    In practice,<br />
+    *`PRE`* and *`POST`* variations are used to achieve a specific effect and are therefore most useful when only one of each is used. Multiple *`PRE`* and *`POST`* variations rarely produce desirable or controllable effects.
+    
+    <br />
+
+    
+swap PRE vars:
+    #id: FLAME
+    [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+
+    _Usage_:
+    
+    - ((LMB)) to swap the order of the *`PRE`* Variations and their weights. 
+    - ((CTRL)) + ((LMB)) to swap only the variation names.
+    
+    
+menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
+    #id: FLAME
+    Variations for the selected iterator.
+
+    There are *`4`*(four) *`VAR`* variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
+
+    - If you have a *`Linear`* variation in *slot 1*, and you add a *`Spherical`* variation in *slot 2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in *slot 1*, and so on for the other available slots.<br />
+    - If you do the opposite, a *`Spherical`* variation in *slot 1* and a *`Linear`* in *slot 2*, the result will be identical assuming both retain the same weight values.
+    * When using parametric variations, their parameters will populate the *VARS* tab.
+    <br /><br />
+
+    TIP:
+        #display: orange
+    
+        Laying down a new FLAM3H(tm) node and activating the finalXform (*FF*) with the default Sierpiński triangle will allow you to experiment with the variations inside the FF tab and see what happens while using the Sierpiński triangle coming from the FLAME tab as a base playground.
+        Don't forget to play around with the pre-affine coefficients a bit to see what you can obtain.
+
+menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
+    #id: FLAME
+    *`POST`* Variation for the selected iterator.
+
+    This is applyed after the *`VAR`* variations.
+    
+    For speed purpose only *`1`*(one) *`POST`* variation is allowed at the moment.
+
+    * When using parametric variations, their parameters will populate the *VARS* tab.
+
+    *See the iterator(_xform_) [menu PRE|#FLAMEPRE] description for more informations.*
+
+    <br />
+        
+w [Icon:TOP/xmlinput]:
+    #id: FLAME
+    The weight of the selected variation. *`0`*(Zero) will be inactive, and *`1`*(one) will be 100%.
+    Can be set higher than *`1`*(one) and negative too.
+    * If more than one variation are active, remember that, as a general rule, it is suggested (_not mandatory_) to have the sum of all weights equal to *`1`*(one).
+    <br /><br />
+
+    TIP:
+        #display: orange
+        
+        In order to lower the cost of the computation, it is preferable to set a variation weight to *`0`*(Zero) rather than retaining it at extremely low values if their impact is negligible.
+        
+        The variation will be fully disregarded when its weight is *`0`*(Zero).
+
+
+:box:
+    #display: rounded white
+
+    == Iterator: Enable Post Affine== (FLAMEITERENABLEPOST)
+
+post affine [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: FLAME
+    Enable post affine transformation.
+
+    *See the iterator(_xform_) [post affine|#FLAMEITERPOSTAFFINE] description for more informations.*
+
+
+:box:
+    #display: rounded white
+
+    == Iterator: Pre Affine== (FLAMEITERPREAFFINE)
+
+pre affine Scale:
+    #id: FLAME
+
+    Scale the affine values (*`X`* _and_ *`Y`*) by an amount, with a value of *`1`* (_100%_ -> _no scale_) being the default.
+
+    _The are two ways to use this parameter_.
+    # Input a value directly into the numeric field. For example if you type: *`1.2`* it will scale the affine up by 20%.
+    # ((LMB)) into the numeric field and use the ((mouse_wheel)) to increment the scale up and down.
+
+    Every time you either input a value, drag the slider or use the ((mouse_wheel)), the Scale value will reset back to the default value of: *`1`* (100% -> no scale)
+
+    _When using the_ ((mouse_wheel)):
+    - ((mouse_wheel)) will scale the value by an increment of: `+/-` *`0.1`*
+    - ((SHIFT)) + ((mouse_wheel)) will scale the value by an increment of: `+/-` *`0.01`*
+    - ((CTRL)) + ((mouse_wheel)) will scale the value by an increment of: `+/-` *`1`*
+
+    _Additionally_:
+
+    The parameter's slider ranges are between *`0.975`* and *`1.025`* to allow for precise and very small value changes when dragged left or right.
+    <br /><br />
+
+    NOTE:
+        This parameter can not be animated.
+
+    <br />
+
+
+copy post affine values:
+    #id: FLAME
+    [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
+     
+    Copy the values from the POST Affine.<br />
+
+    _Usage_:
+    
+    - ((LMB)) to copy all affine values: *`X`*, *`Y`*, *`O`* and *`Rot`* parameter's values.
+    - ((SHIFT)) + ((LMB)) to copy only the affine *`X`* and *`Y`* values.
+    - ((CTRL)) + ((LMB)) to copy only the affine *`O`* value.
+    - ((ALT)) + ((LMB)) to copy only the affine *`Rotation angle`* value.
+
+
+pre affine [Icon:TOP/xmlinput]:
+    #id: FLAME
+
+    Affine transformation coefficients for the current iterator(_xform_).
+    <br /><br />
+
+    TIP:
+        #display: orange
+        A linear transformation cannot be used to translate a set of points. 
+        
+        To translate a set of points, we need to use an [Affine transformations|Wp:Affine_transformation]. 
+
+        An affine transformation multiplies a vector by a matrix, just as in a linear transformation, 
+        and then adds a vector to the result ( the *`O`*._`xy`_ component ). 
+
+        This added *`vector2`* carries out the translation. 
+
+        By applying an affine transformation to an image on the screen, we can do everything a linear transformation can do, 
+        and also have the ability to move the image up or down and left or right.
+
+    <br />
+
+    A 2D affine transformation is just a fancy way of saying:
+    - "_Take some points in 2D space and move, rotate, flip, stretch, or shear them, while keeping straight lines straight_."
+
+    It's like applying a mathematical "filter" that changes the position and orientation of things, but *doesn't bend or curve them*.
+
+    Fractal Flames are created using an Iterated Funtion System (*IFS*). This mean:
+    - You have a set of functions.
+    - You repeatedly apply one of them to a point.
+    - Over time, the points create a fractal pattern.
+
+    Each funtion in the IFS usually has two parts:
+    # An affine transformation (_linear part + translation_).
+    # A non-linear variation (_curvy distortions, like Swirl, Spherical, Horseshoe_)
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Why is it important ?*
+    - The affine transform determine *where in the plane* the next variation happens.
+    - It define the *basic skeleton* of the fractal.
+    - If you only used non linear variations without affine transforms, everything would cluster around the origin. You'd loose structure.
+
+    <br />
+
+    Each iterator(_xform_) has an affine transform that is always applied on every iteration.
+    This is known as the pre affine becasue it is applied before the variations. There is also an optional affine applied after the variations known as the post affine.
+
+    For speed purpose, only the very basic parameters of the affine are provided, plus a Scale and Rotation parameters to make life easier. Below a basic guideline on how to use the affine parameters:
+
+    - With *`X`*._`xy`_ and *`Y`*._`xy`_ you will apply rotation and scale/shear while with *`O`*._`xy`_ you will apply translation/offset.
+    - They compose a 2x3 matrix ( *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ ).
+    - The rotation parameter will take the values of *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ and rotate them ( *`O`*._`xy`_ _being the pivot_).
+    
+    There are two ways you can use the affine:
+    # Use *`X`*._`xy`_, *`Y`*._`xy`_, *`O`*._`xy`_ for everything (_translation, rotation and scale/shear_).
+    
+    # Use the Rotation parameter in combination with the Scale parameter and the *`X`*.`xy` and *`Y`*.`xy` for tweaks on shear and *`O`*._`xy`_ for translation.
+
+pre affine Rot [Icon:TOP/xmlinput]:
+    #id: FLAME
+    Rotate affine values in angle degrees.<br />The rotation will take the values of *`X`*, *`Y`*, *`O`* and apply a rotation.<br />(_With *`O`* being the pivot_).
+    <br /><br />
+
+    NOTE:
+        The resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.
+
+    <br />
+
+pre affine reset:
+    #id: FLAME
+    [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+    
+    Reset this iterator's pre affine to their default values.
+
+    _Usage_:
+    
+    - ((LMB)) to reset all affine values.
+    - ((SHIFT)) + ((LMB)) to reset only the affine *`X`* and *`Y`* values.
+    - ((CTRL)) + ((LMB)) to reset only the affine *`O`* value.
+    - ((ALT)) + ((LMB)) to reset only the affine *`Rotation angle`* value.
+
+
+:box:
+    #display: rounded white
+
+    == Iterator: Post Affine == (FLAMEITERPOSTAFFINE)
+        
+post affine [Icon:TOP/xmlinput]:
+    #id: FLAME
+
+    The term "post-affine" would be used to emphasize the sequential application of an affine transformation within a larger pipeline of operations.
+
+    For example, if you first apply a perspective transformation to an image and then apply an affine transformation to correct for a slight remaining distortion or to further refine the image, you might refer to the latter as a "post-affine transformation" to distinguish its place in the sequence. 
+
+    In the context of fractal Flames, the "post-affine transformation" will be the very last to be applied to the incoming point/sample.
+
+    *See the iterator(_xform_) [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
+    - When loading hip files with FLAM3H(tm) nodes in it or when cloning FLAM3H(tm) nodes,<br />the post affine will be automatically turned *`Off`* if they are default values to save on computation.
+ 
+    
+:box:
+    #display: rounded white
+
+    == Iterator: Parametric's VARS == (FLAMEITERPRMVARS)
+    
+TIP:
+    #display: orange
+    _What parameter you will control is indicated by the name of the parametric parameter;_
+    
+    _Nevertheless, some parameters only include the initial letters of the parameter they relate to in their names since they encapsulate more than one parametric parameter._
+    _A tooltip containing the full names of the appropriate parameters will appear when the mouse is hovered over the parameter's label._
+        
+VARS tab [Icon:TOP/xmlinput]:
+    #id: FLAME
+    If a *`PRE`*, *`VAR`* or *`POST`* parametric variation is selected, its parameters will populate this tab.
+    
+
+
+
+:box:
+    #display: rounded white
+
+== FF: Final xform parameters == (FF)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *FF:* _Final Flame transform (finalXform)._
+    
+    Iterators like Final Flame (_FF_) or finalXform function like camera lenses.
+    It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME tab and applying further modifications to that result.
+
+
+:box:
+    #display: rounded white
+
+    == FF == (FFMAIN)
+    
+FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: FF
+    *`Off`* by default.
+
+    <br />
+    
+    - [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg] when FF is *`Off`*/Disabled (_Default_).
+    - [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg] when FF is *`On`*/Active.
+    
+    Enable or disable the finalXform(_FF_).
+
+    The finalXform(_FF_), when *`On`*/Active, is always applied to each point after the Chaos game has finished its iterations loop, much like a post-process effect, even though all of the iterators (_aka: xforms or transforms_) are chosen randomly for each iteration inside the Chaos game based on their Weights and respective xaos.
+
+    <br />
+
+FF xform VIZ [Icon:DATATYPES/boolean]:
+    #id: FF
+    *`Off`* by default.
+
+    When the SYS -> viewport xforms handles VIZ is *`On`*/Active this icon will become available.
+
+    <br />
+
+    - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] to enter into SOLO mode and display only the FF xform handle VIZ in the viewport (_Default_).
+    - [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg] to exit the SOLO mode and revert back to display all xforms handles VIZ together.<br /><br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
+    - The viewport handles will be automatically disabled if the FLAM3H(tm) density value is raised above *`5M`*(_millions_) points.
+    - The viewport handles will be automatically disabled when FLAM3H(tm) is in camera sensor VIZ mode.
+    - The viewport handles will be automatically disabled when FLAM3H(tm) is run from whithin the Solaris/Lop context.
+        
+FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
+    #id: FF
+    A name for this finalXform(_FF_) iterator.
+
+    _If no name is provided (e.g. empty string) a default one will be automatically set_.
+    <br /><br />
+
+    NOTE:
+        The text you write here will be stored with the Flame file and will also appear inside Apophysis and Fractorium as the name of the finalXform(_FF_) iterator.
+
+    <br />
+    
+FF: copy/paste:
+    #id: FF
+    [Largeicon:opdef:.?icon_StarSwapRedCopyPasteFFSVG.svg]
+
+    All the necessary methods for copy/paste FF's data are contained in this icon.
+    
+    This icon allows you to mark a FLAM3H(tm) node's FF for being copied, and then copy the data from the marked FF into a separate FLAM3H(tm) node.
+
+    Once the FF has been marked, you can use the mini-menu [Icon:BUTTONS/pane_menu] next to the icon to copy individual sections from the marked FF.
+    
+    Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder the FF iterator posses.<br />
+    The sections items in the mini-menu have a bookmark icon that change based on the marked FF status:
+
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFSVG.svg] when the marked FF is *`On`*/Active.
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg] when the marked FF is *`Off`*/Disabled.
+    
+    <br />
+    When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another FLAM3H(tm) node' FF.
+    This way you can keep the FF marked while working and paste again its data somewhere else after making additional changes to its contents.
+
+    _Usage_:
+    
+    - ((LMB)) to mark this FF for being copied. If already marked, it will unmark it.
+    - ((SHIFT)) + ((LMB)) to unmark this FF for being copied.
+    - ((ALT)) + ((LMB)) to copy the values from the marked FLAM3H(tm) node's FF into this FLAM3H(tm) node's FF.
+    
+    _Additionally_:
+    
+    - ((CTRL)) + ((LMB)) to reset this FF to its default values.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - When the FF is marked for being copied, a node note with the text "*FF*" is being displayed in the network editor.<br />
+    - When copy/paste post affines, they will be automatically turned *`Off`* if they are default values to save on computation.
+    - A custom user data is added to the FLAM3H(tm) node signaling the FF being marked; the data name is: *`Marked FF`*.<br /><br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out if the FF is being marked.
+    
+    
+:box:
+    #display: rounded white
+
+    == FF: Variations == (FFVARS)
+    
+    :box:
+        #display: rounded gray
+
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Variations bookmark icons*
+        
+        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`*/Active will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
+        
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
+        - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
+        - [Largeicon:opdef:.?icon_StarSwapRedSVG.svg] when its weight is above *`1`*(one).
+        - [Largeicon:opdef:.?icon_StarSwapCyanSVG.svg] when its weight is below *`0`*(Zero).
+
+        Pre and Post types:
+        
+        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
+        - [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
+        - [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above *`1`*(one).
+    
+    TIP:
+        #display: orange
+        
+        _FF iterator allow up to *`5`*(five) variations_:
+        - *`1`*(one) *`PRE`*
+        - *`2`*(two) *`VAR`*
+        - *`2`*(two) *`POST`*
+        
+        _Variation's name that end with an asterisk(*`*`*) are dependent while if they end with 3 dots(*`...`*) are parametric._
+    
+menu FF PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
+    #id: FF
+    *`PRE`* variation for the FF iterator.
+    
+    This is applyed before the *`VAR`* variations. It is the very first transformation when used.
+    
+    * When using a parametric variation, its parameters will populate the *FF: PP VARS* tab.
+
+    *See the iterator(_xform_) [menu PRE|#FLAMEPRE] description for more informations.*
+
+    <br />
+    
+    
+menu FF VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
+    #id: FF
+    Variations for the FF iterator.
+
+    There are *`2`*(two) *`VAR`* variations available. The order to whitch you apply them do not matter as they are additive/cumulative.
+
+    - If you have a *`Linear`* variation in *slot 1*, and you add a *`Spherical`* variation in *slot 2*, the *`Spherical`* variation will add its effect(proportional to its weight) to the result coming from the *`Linear`* variation in *slot 1*, and so on for the other available slots.<br />
+    - If you do the opposite, a *`Spherical`* variation in *slot 1* and a *`Linear`* in *slot 2*, the result will be identical assuming both retain the same weight values.
+    
+    * When using parametric variations, their parameters will populate the *FF: VARS* tab.
+
+menu FF POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
+    #id: FF
+    *`POST`* Variations for the FF iterator.
+
+    There are *`2`*(two) *`POST`* variations available. The order to whitch you apply them matter.
+
+    For example, if you apply a *`Pie`* first and then *`Spherical`*, the outcomes will differ from the other way around.
+    
+    These are applyed after the *`VAR`* variations. They are the very last transformation.
+
+    * When using parametric variations, their parameters will populate the *FF: PP VARS* tab.
+
+    *See the iterator(_xform_) [menu PRE|#FLAMEPRE] description for more informations.*
+
+    <br />
+    
+
+swap FF POST vars:
+    #id: FLAME
+    [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+
+    _Usage_:
+    
+    - ((LMB)) to swap the order of the *`POST`* Variations and their weights. 
+    - ((CTRL)) + ((LMB)) to swap only the variation names.
+
+    
+FF: w [Icon:TOP/xmlinput]:
+    #id: FF
+    The weight of the selected variation. *`0`*(Zero) will be inactive, *`1`*(one) will be 100%.
+
+    Can be set higher than *`1`*(one) and negative too.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        In order to lower the cost of the computation, it is preferable to set a variation weight to zero rather than retaining it at extremely low values if their impact is negligible.
+
+        The variation will be fully disregarded when its weight is *`0`*(Zero).
+
+
+:box:
+    #display: rounded white
+
+    == FF: Affine == (FFPREAFFINE)
+        
+    
+FF: pre affine [Icon:TOP/xmlinput]:
+    #id: FF
+
+    *See the iterator(_xform_) [pre affine|#FLAMEITERPREAFFINE] description for more informations.*
+
+FF: post affine [Icon:TOP/xmlinput]:
+    #id: FF
+    
+    *See the iterator(_xform_) [post affine|#FLAMEITERPOSTAFFINE] description for more informations.*
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
+    - When loading hip files with FLAM3H(tm) nodes in it or when cloning FLAM3H(tm) nodes,<br />the post affine will be automatically turned *`Off`* if they are default values to save on computation.
+
+        
+:box:
+    #display: rounded white
+
+    == FF: Parametric's VARS == (FFPRMVARS)
+    
+    TIP:
+        #display: orange
+        _What parameter you will control is indicated by the name of the parametric parameter;_
+        
+        _Nevertheless, some parameters only include the initial letter of the parameter they relate to in their name since they encapsulate more than one parametric parameter._
+        _A tooltip containing the names of the appropriate parameters will appear when the mouse is hovered over the name._
+    
+
+FF: VARS tab [Icon:TOP/xmlinput]:
+    #id: FF
+    If a *`VAR`* parametric variation is selected, its parameters will populate this tab.
+    
+FF: PP VARS tab [Icon:TOP/xmlinput]:
+    #id: FF
+    If a *`PRE`* or *`POST`* parametric variation is selected, its parameters will populate this tab.
+    
+
+
+
+
+:box:
+    #display: rounded white
+
+== CP: Palette parameters == (CP)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *CP:* _Flame fractal color palette._
+    
+    The palette colors used in a successful fractal Flame are crucial.
+
+    In addition to playing with the shader parameters for each iterator, fractal Flames can be transformed into something truly unique by trying out various color schemes.
+   
+:box:
+    #display: rounded white
+    
+    == CP: Palette ramps == (CPRAMPS)
+    
+HSV values [Icon:TOP/xmlinput]:
+    #id: PALETTE
+    
+    Hue, Saturation and Value of the palette's colors.
+    
+    [HSV|Wp:HSL_and_HSV] values are exported into the palette preset on save <br />
+    and also into the XML on Flame save when they are used.
+
+    <br />
+
+HSV reset:
+    #id: PALETTE
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    - ((LMB)) to reset the HSV to their default values.
+
+HSV keep values on Load [Icon:DATATYPES/boolean]:
+    #id: PALETTE
+    *`Off`* by default.
+    
+    When loading a palette, FLAM3H(tm) will either set the HSV values to the one stored into the loaded palette preset, or reset them to their defaults otherwise.
+    
+    Check this option to keep the current HSV values unchanged after loading a palette preset.
+
+    <br />
+
+HSV palette [Icon:DATATYPES/ramp]:
+    #id: PALETTE
+    *It is meant for preview only and you can not edit this palette*.
+    
+    When changing the HSV values from their defaults, this palette will preview the output of the final color corrected palette.
+
+    _The palette parameter come with the following tool icon_: <br />
+
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] <br />
+    - ((LMB)) to updated the HSV color correction in case it was not already.
+    
+menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
+    #id: PALETTE
+    
+    The amount of lookup samples to use to sample this palette.
+
+    _Some of the menu labels posses a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset, *`256`* samples.
+    - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] indicate a medium preset, *`512`* samples.
+    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset, *`1024`* samples.
+    
+    <br />
+    Lookup samples have no connection on the palette you design. Only a few color keys can be made;
+    nevertheless, the palette will be internally sampled (_linearly spaced_) from *`0`*(Zero: _start_) to *`1`*(one: _end_) using this amount of samples.
+    
+    The amount of linearly spaced color keys in a typical fractal Flame is equivalent to *`256`*, which is the default.
+    
+    However,<br />
+    if you create a palette with more than *`256`* color keys you might eventually want to use an higher amount of samples to be sure to catch all the subtle color variations of the palette.
+    
+    In general, *`256`* lookup samples will always be good.
+    <br /><br />
+
+    NOTE:
+        - Saving out a Flame into a file, will also save the palette lookup samples value so that you can restore it once you load the Flame back into FLAM3H(tm).
+        - If you are loading a Flame file preset from another software or from older versions of FLAM3H(tm) without the lookup samples XML key in the file, the default value of *`256`* will be used instead.
+        - Saving a Flame out will always save the palette with *`256`* color's keys. If you created a palette with more than *`256`* colors, for example with *`1024`* color keys and sample it with *`1024`* samples to take into account all the subtle color changes, turn *`On`* the *PREFS options* tab toggle -> *`palette 256+`*.
+    
+    <br />
+
+palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
+    #id: PALETTE
+    The actual [color palette|Wp:Palette_(computing)] being used by the Flame you are working on.
+
+    _The palette parameter come with the following tool icons_:
+
+    - [Largeicon:BUTTONS/ramp_flip_y] to invert the palette's color values (_e.g. Black will become White_).
+    - [Largeicon:BUTTONS/ramp_flip_x] to flip the palette's colors horizontally.
+    - [Largeicon:BUTTONS/gear] mini-menu [Icon:BUTTONS/pane_menu] to select some of the Houdini's default ramp presets.
+
+    _Additionally_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+
+    _Usage_:
+
+    - ((LMB)) to Reset the palette to its default values. This has also the important property to remove and clear all keyframes/expressions if any in this Palette and/or in the HSV Palette as well.
+    - ((CTRL)) + ((LMB)) to only remove and clear all keyframes/expressions if any in this Palette and/or in the HSV Palette as well, keeping them both untouched.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        When you are adding more than *`256`* colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
+    
+:box:
+    #display: rounded white
+    
+    == CP: Load/Save file == (CPLOAD)
+    
+JSON file [Icon:DATATYPES/string]:
+    #id: PALETTE
+    
+    [Largeicon:BUTTONS/chooser_file]
+
+    - ((LMB)) to open a floating file chooser.
+
+    <br />
+    Load an already-created FLAM3H™ palette library file or choose the path and name of an existing or new one to create.
+
+    A FLAM3H™ palette library file is a [JSON|Wp:JSON] type of file.
+
+    The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        Once you are happy with a palette library you built, you can rename the file to start with: "*`F3H_LOCK`*"
+        to prevent any further modifications to it. For example, if you have a lib file called "_*my_rainbows_colors.json*_"
+        you can rename it to: "*`F3H_LOCK`*_*_my_rainbows_colors.json*_" to keep it safe.
+    
+:box:
+    #display: rounded white
+    
+    == CP: Save == (CPSAVE)
+        
+Save Palette:
+    #id: PALETTE
+    
+    [Largeicon:opdef:.?icon_WhiteStarSVG.svg]
+
+    Save and/or append the current palette into the selected JSON file.
+
+    _Usage_:
+    
+    - ((LMB)) to save the current palette into the selected OUT file.
+        - _If the selected file does not exist, it will be created_.
+        - _If the selected file already contains some palettes, it will append the current one_.
+    - ((SHIFT)) + ((LMB)) if not a valid filepath is present already it will open a file chooser, otherwise it will open the file explorer to the file location.
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only the current palette.
+    - ((ALT)) + ((LMB)) to save the current palette into the Clipboard as a JSON data.
+
+    - If the selected file is not a valid Palette JSON file type, nothing will happen.
+
+    <br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Once you click save*:
+    
+    - If you select a location and a filename without an extension, it will automatically add the _*.json*_ extension to it.
+    - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
+    - If nothing is selected (_e.g. JSON file empty or invalid_), nothing will happen.
+    - If you'd like to overwrite an existing palette preset, give the current preset the same exact name as the preset you'd like to overwrite and save it.
+    <br /><br />
+
+    NOTE:
+        - The maximun color a palette can have when saving it is *`1024`*.
+        - When saving out a palette file, it will try to downsample the usual *`256`* color count standard.
+        - When saving out Flame files from the OUT tab, it will always sample and save the palette as a *`256`*-color palette standard, unless you turn *`On`* the *PREFS options* tab toggle -> *`palette 256+`*.
+    
+    <br />
+
+Palette name [Icon:DATATYPES/string]:
+    #id: PALETTE
+    Write a name to give to the selected palette when saving it.
+
+    _If no name is provided (e.g. empty string) an automated name composed of today's date and current time will be used instead_.
+    
+:box:
+    #display: rounded white
+    
+    == CP: Presets == (CPPRESETS)
+        
+menu CP file contents [Icon:BUTTONS/pane_menu]:
+    #id: PALETTE
+    When you load a json palette file, use this menu to display all the palettes included in the loaded file and select one to load.
+    
+    _The selected menu entrie posses a bookmark icon based on its state_:
+    
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
+    - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
+    - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
+
+    _Additionally_:
+    
+    - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
+    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+    
+    If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
+
+    <br />
+    
+Reload preset:
+    #id: PALETTE
+
+    - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
+    - [Largeicon:opdef:.?icon_optionCPSVG.svg] when the selected preset name is loaded.
+    
+    _Usage_:
+    
+    - ((LMB)) Reload the selected CP palette preset.
+    - ((SHIFT)) + ((LMB)) to open a floating file chooser.
+    - ((CTRL)) + ((LMB)) to copy the selected preset name into the *`palette name`* string parameter.
+    - ((ALT)) + ((LMB)) Load a palette from the Clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the Clipboard, it will extract only the XML palette data and load it into the FLAM3H(tm) palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H(tm).
+
+
+:box:
+    #display: rounded white
+
+== MB: Motion blur parameters == (MB)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *MB:* _Flame fractal moton blur._
+    
+    When animating your fractal Flame, turning this on will compute a proper temporal motion blur (_centered_).
+
+_This functionality is included to complete the implementation as presented in the original FLAM3 paper_.
+    
+
+:box:
+    #display: rounded white
+
+    == MB == (MBPRM)
+
+on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: MB
+    *`Off`* by default.
+
+    Enable [motion blur|Wp:Motion_blur_(media)].
+
+    Since nowadays the effect of motion blur is achieved most of the time as a separate post process step (_e.g. inside a_ [compositing|Wp:Digital_compositing] _application_) 
+    this implementation adopted the use of a centered motion blur just for completeness, as explained in the official paper.<br /><br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From the fractal Flame algorithm official paper*:
+
+    _Motion blur, or temporal anti-aliasing, is not so easy to do correctly_.<br />
+    _Supersampling can be achieved by varying the parameters over time while running the Chaos game_. <br /><br />
+    That is, if *`5M`*(_millions_) samples are used to draw the frame at time t, to instead use *`1M`* samples at time t-0.5, *`1M`* samples at t-0.25, *`1M`* at t, *`1M`* at t+0.25 and *`1M`* at t+0.5, all the while accumulating into the same buffer.
+
+    _It may be possible that in the future a directional motion blur mode will be added to FLAM3H(tm), but for now there is no need to do so_.
+    <br /><br />
+
+    TIP:
+        #display: orange
+
+        - If you animate any of the available parameters using expressions, remember to always use *`@Time`* and not *`$F`* so FLAM3H(tm) will be able to interpolate through time properly.   
+        - Motion blur values are exported into the XML on Flame save when turned *`On`*.
+
+    <br />
+
+MB reset:
+    #id: MB
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    - ((LMB)) to reset the motion blur settings to their default values.
+
+:box:
+    #display: rounded white
+
+    == MB: Settings == (MBSETTINGS)
+
+FPS [Icon:TOP/xmlinput]:
+    #id: MB
+    Desired Frames per second.
+
+    Frames per second (FPS) significantly impacts the appearance of motion blur in video, with lower frame rates like 24 or 30 FPS naturally exhibiting more motion blur.
+    
+Samples [Icon:TOP/xmlinput]:
+    #id: MB
+    Motion blur samples.
+
+    Higher values increase the quality and produce a smoother blur.
+    
+Shutter time [Icon:TOP/xmlinput]:
+    #id: MB
+    Shutter time.
+
+    Bigger shutter time creating more blur and smaller shutter time freezing motion. 
+
+:box:
+    #display: rounded white
+
+    == MB: Viz == (MBVIZ)
+    
+Viz mb [Icon:DATATYPES/boolean]:
+    #id: MB
+    *`Off`* by default.
+
+    Visualize motion blur using color.<br />
+    (_Set the viewport background to Dark for better viewing_)
+
+    Causes every motion blur sample/pass to get darker outward from the center to simulate the fading away due to motion/camera shutter speed. It will modify the *`@Cd`* point attribute.
+    <br /><br />
+
+    NOTE:
+        When rendering,<br />
+        keep in mind to turn this *`Off`* to avoid superimposing a darker color.
+        
+
+
+
+:box:
+    #display: rounded white
+
+== IN: Input parameters == (IN)
+            
+~~~
+:box:
+    #display: inverted teal
+
+    *IN*: _Load *.flame files created with Apophysis, Fractorium, FLAM3H(tm) and others._
+    
+    The IN tab allows users to import and manage pre-existing fractal Flame files into FLAM3H(tm). This feature is essential for reloading saved Flames, exploring shared Flame designs, or modifying existing structures. It is a native Flame fractal file format containing transformation parameters, gradients, and rendering settings.
+
+    A *.flame file is an XML-formatted type of file.
+
+
+:box:
+    #display: rounded white
+
+    == IN == (INF)
+
+IN flame ( *.flame type ) [Icon:DATATYPES/string]:
+    #id: IN
+    
+    [Largeicon:BUTTONS/chooser_file]
+
+    - ((LMB)) to open a floating file chooser.
+
+    <br />
+    Load *.flame files. They can come from FLAM3H(tm) or also authored with Apophysis, Fractorium and other flam3-compatible applications.
+
+    The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
+    
+    <br />
+    _The only restrictions are_:
+    
+    - The Flames contained in the file must use the same variations included inside FLAM3H(tm). 
+    - A maximum of:
+        - *`Pre_blur`* plus *`2`*(two) *`PRE`*
+        - *`4`*(four) *`VAR`*
+        - *`1`*(one) *`POST`* 
+        - For a total of *`8`*(eight) variations each iterator. If it finds more on load, the excess ones will be discarded.
+    - For FF (_finalXform_) you have:
+        - *`1`*(one) *`PRE`*
+        - *`2`*(two) *`VAR`*
+        - *`2`*(two) *`POST`*
+        - For a total of *`5`*(five) variations for the finalXform(_FF_). If it finds more on load, the excess ones will be discarded.
+    
+menu IN file contents [Icon:BUTTONS/pane_menu]:
+    #id: IN
+    Every *.flame file can contain multiple Flames.
+
+    As many entries as there are Flames in the file you are loading will be added to this preset menu.
+    Each entry will display the Flame's name.
+    
+    _The selected menu entrie posses a bookmark icon based on its state_:
+    
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
+    - [Largeicon:opdef:.?icon_WhiteSVG_disabled.svg] when the selected preset name is not loaded.
+    - [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg] when the selected preset name is loaded.
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when a Flame preset is loaded from the Clipboard.
+
+    _Additionally_:
+    
+    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+
+    When a Flame preset has been loaded from the Clipboard, the selected menu preset label will be prefixed with: *`[CLIPBOARD]`*
+
+    <br />
+
+Reload:
+    #id: IN
+
+    - [Largeicon:opdef:.?icon_WhiteSVG_disabled.svg] when no Flame preset has been loaded.
+    - [Largeicon:opdef:.?icon_WhiteSVG.svg] when you load a Flame preset. This indicate that a Flame preset IN: infos are visible inside.
+    
+    _Usage_:
+    
+    - ((LMB)) If there is a selected IN preset, it will reload it.
+    - ((SHIFT)) + ((LMB)) to open a floating file chooser.
+    - ((ALT)) + ((LMB)) to paste a Flame from the Clipboard.
+
+    _Additionally_:
+
+    - When loading a Flame preset from the Clipboard, its render properties will be automatically copied into the OUT render propperties on load and the IN: infos will stay visible until a reset or a new Flame preset is loaded.
+    - If a Flame preset contain more variations than the allowed number in any of the available types (*`PRE`*, *`VAR`*, *`POST`*) inside an iterator or FF, the variations in excess will be skipped and printed to the console.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        - Loading a Flame from the Clipboard is useful when going back and forth with a third-party application like for example: Fractorium.
+        - In Fractorium, you can alter the Flame, copy it into the Clipboard, and then load it from the Clipboard inside FLAM3H(tm) to see the changes.
+
+:box:
+    #display: rounded white
+
+    == IN: Prefs == (INPREFS)
+    
+Iterations on Load:
+    #id: IN
+    Set a number of iterations to use every time you load a Flame from a *.flame file.
+
+    This will override the internal default value of *`64`* iterations.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        If "add iterations to Flame name" OUT tab option is *`Off`*/Disabled:
+    
+        The iterations number you want your fractal Flame to use when you load it back into FLAM3H(tm) can be baked into the preset name you choose for it.
+
+        For instance, the Flame preset "_*My_Awesome_GrandJulia*_" will be loaded with *`64`* iterations by default.
+
+        However, all settings will be overridden if you add the iterations number to the preset name after a double colon (*`::`*), as in "_*My_Awesome_GrandJulia*_*`::16`*" and load it with an iterations count of *`16`*.
+        
+        Therefore, do some tests before saving it, and choose the ideal iterations number to incorporate into the preset name.
+        
+        If you like,<br />
+        you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
+
+    <br />
+    
+Force iterations on Load [Icon:DATATYPES/boolean]:
+    #id: IN
+    *`Off`* by default.
+
+    When Flame files are loaded,<br />
+    FLAM3H(tm) immediately sets the iterations number to *`64`*, which seems like a reasonable amount to resolve the majority of them rather effectively.
+    
+    However,<br />
+    if you need to act quickly, you can use this number to override the iterations set on load.
+
+    If the iterations number is baked into the Flame preset name, it will override this setting.
+
+    Turn *`On`* "override iterations from Flame name" toggle to override the iterations number baked into the Flame preset name.
+
+    <br />
+
+Override iterations from Flame name [Icon:DATATYPES/boolean]:
+    #id: IN
+    *`Off`* by default.
+
+    When "Iterations on Load" is *`On`*/Active,<br />
+    it will override the iterations number baked into the Flame preset name if any and use the one set with the "Iterations on Load" parameter.
+    
+:box:
+    #display: rounded white
+
+    == IN: Options == (INOPTIONS)
+    
+F3H affine style (IN) [Icon:DATATYPES/boolean]:
+    #id: IN
+    *`On`* by default.
+
+    To be used when loading Flame presets that posses F3H affine style format in it.
+    
+    If no F3H affine style are found nothing will happen and FLAM3H(tm) will load the Flame preset using the standard affine style instead.
+    
+    F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded.
+    
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *F3H affine style*<br />
+    _Below is an example iterator at its default values rotated by 45 degrees inside FLAM3H_:
+
+    *X*: *`1`*, *`0`* <br />
+    *Y*: *`0`*, *`1`* <br />
+    *O*: *`0`*, *`0`* <br />
+    *Rot*: *`45`* 
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *standard affine style*<br />
+    _And below is the same iterator affine values transformed by the rotation parameter when saved out into a Flame file. This version is used by other applications on load_:
+
+    *X*: *`0.707107`*, *`-0.707107`* <br />
+    *Y*: *`0.707107`*, *`0.707107`* <br />
+    *O*: *`0`*, *`0`* 
+
+    <br />
+    When this option is *`On`*/Active (_it is by default_) and both version are present into the Flame preset you are trying to load, it will load the preset using the F3H version, when *`Off`* it will use the standard version.
+    <br /><br />
+
+    NOTE:
+        *You need to reload the current Flame preset for this change to take place*.
+
+        F3H affine style format are only available when you save a Flame preset out from FLAM3H(tm) using the OUT tab's option "F3H affine style" whitch is *`On`*/Active by default.
+
+        The only affine available will be the standard affine style when loading Flame files created with third-party applications like Apophysis or Fractorium.
+
+    <br />
+
+
+Reload preset with "F3H affine style" changes:
+    #id: IN
+    [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+
+    _Usage_:
+    
+    - ((LMB)) to switch *`On`*/*`Off`* this toggle and reload the currenlty selected IN preset right after using the new settings.
+    - ((ALT)) + ((LMB)) to perform the same operation as above but loading a Flame from the Clipboard instead.
+
+    
+Copy render properties on Load [Icon:DATATYPES/boolean]:
+    #id: IN
+    *`On`* by default.
+    
+    It will automatically copy all the render properties (_[Icon:TOP/xmlinput] SENSOR, RENDER and CC CURVES_) into the OUT render properties every time you load a Flame preset in.
+
+    All the render properties of a Flame preset loaded from the Clipboard will be automatically copied into the OUT render properties on load.
+    <br /><br />
+
+    NOTE:
+        *You need to reload the current Flame preset for this change to take place*.
+
+    <br />
+        
+Reload preset with "Copy renderer settings on Load" changes:
+    #id: prefs
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    
+    - ((LMB)) to switch *`On`*/*`Off`* this toggle and reload the currenlty selected IN preset right after using the new settings.
+
+    
+:box:
+    #display: rounded white
+
+    == IN: Infos == (INPRESETINFOS)
+    
+IN infos [Icon:DATATYPES/string]:
+    #id: IN
+    Display informations about the loaded Flame preset.
+
+    Those infos include all the Missing variations if any are found in the currently loaded Flame preset.
+
+    All of the variations that Fractorium has but FLAM3H(tm) does not are known as: *`MISSING`*.
+
+    FLAM3H(tm) was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he posses.
+
+    All of the variations that Fractorium lacks will be classified as: *`UNKNOWN`*<br />
+    and they will be searched inside the XML key: [Icon:TOP/xmlinput] *`plugins`* of the loaded Flame preset (_from file or from Clipboard_).
+
+    <br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *IN infos: Tips*<br />
+    
+    Every time you load a Flame preset either from a disk file or from the Clipboard the IN infos tab will show you informations about the loaded preset.
+
+    All the displayed informations are gathered from the XML of the loaded Flame preset.
+
+    The majority of FLAM3H(tm) user interface features, mostly buttons, have hidden techniques that assist in identifying whether a loaded Flame preset from a disk file has been altered. When it's happening, the IN infos will be updated and each of the following entries will be prefixed with an asterisk (*`*`*). You will need to reload the current preset if you desire to fully update.
+
+    _The infos are categorized as follow_:
+    
+    - *`Software`*:<br />The software used to create/author the loaded Flame preset.
+    - *`Name`*:<br />The name of the loaded Flame preset.
+    - *`Palette count`*:<br />How many colors are in the palette of the loaded Flame preset and its color format.
+
+    <br />
+
+    - *`Iterators count`*:<br />Number of iterators/xforms used in the loaded Flame preset.
+    - *`Post affine`*:<br />If any of the iterators/xforms post affine is being used it will say: *`YES`*, otherwise: *`NO`*.
+    - *`Opacity`*:<br />If any of the iterators/xforms have its shader's opacity set to *`0`*(Zero) it will say: *`YES`*, otherwise: *`NO`*.
+    - *`Xaos`*:<br />If xaos is being used it will say: *`YES`*, otherwise: *`NO`*.
+    - *`FF`*:<br />If the FF(finalXform) is being used it will say: *`YES`*, otherwise: *`NO`*.
+        - *`FF Post affine`*:<br />(_When the FF is ON_) If the FF post affine is being used it will say: *`YES`*, otherwise: *`NO`*.
+
+    <br />
+
+    - *`Variations used`*:<br />Number of unique variations being used and their names in alphatical order.
+
+        _The following entries will appear when the loaded Flame preset use variations FLAM3H(tm) do not posses_:
+
+    - *`MISSING`*:<br />Unique variations names being used FLAM3H(tm) do not posses but Fractorium does. 
+    - *`UNKNOWN`*:<br />Unique variations names being used but neither FLAM3H(tm) or Fractorium posses. 
+
+    <br />
+
+    _Additionally_:
+
+    - If the currenlty loaded Flame lib file is locked, the text *`-> LOCKED`* will appear in the very first line at the top.
+    - Next and at the end of the *`Palette count`* info line, the text *`[HSV]`* will appear if the loaded Flame preset is using HSV values different from defaults.
+    - Below the *`Palette count`* info line, the text *`CC`* will appear if the loaded Flame preset use color correction curves values different from default.
+    - Below the *`Palette count`* info line (_and next to the *`CC`* if present_), the text *`MB`* will appear if the loaded Flame preset use motion blur.
+    
+:box:
+    #display: rounded white
+
+    == IN: Render properties == (INPRESETRND)
+    
+Render infos:
+    #id: IN
+    Give details on the render settings for the loaded Flame preset.
+
+    These characteristics are unique to the renderer of the program from which the loaded Flame was created or saved.
+
+    Some of the characteristics are unique to the Fractorium application, which has served as my point of reference.
+
+    <br />
+    
+Copy/Paste ALL preset settings:
+    #id: IN
+    [Largeicon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg]
+    
+    When you click this icon, all those render properties (_[Icon:TOP/xmlinput] SENSOR, RENDER and CC CURVES settings_) will be copied and pasted into the render properties of the OUT tab.
+
+    When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
+
+    When loading a Flame preset from the Clipboard, all its renderer properties will be automatically copied into the OUT render properties on load.
+
+    <br />
+        
+
+Copy/Paste SENSOR/RENDER preset settings:
+    #id: IN
+    [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
+
+    When you click one of those icons, only the [Icon:TOP/xmlinput] SENSOR or only the [Icon:TOP/xmlinput] RENDER and CC CURVES settings will be copied into the OUT render properties.
+
+    <br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *SENSOR/RENDER settings: Tips*<br />
+
+    _All the displayed informations are gathered from the XML of the loaded Flame preset_.
+
+    _If any of these keys are not present in the loaded Flame preset XML data, default values will be used instead and the missing data will be reported as: *`n/a`* ( not available )_
+
+    <br />
+
+    SENSOR [Icon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
+
+    _Those settings are responsable for how the fractal Flame is framed_:
+
+    - *`Resolution`*:<br />The Sensor resolution in pixel (the output image resolution).
+    - *`Center`*:<br />The Sensor center, think of this as the camera look at point. 
+    - *`Rotate`*:<br />The Sensor rotation also known as: roll.
+    - *`Scale`*:<br />Size of the Sensor lens. the XML key: [Icon:TOP/xmlinput] *`scale`* is an affordable way to achieve zoom.
+
+    <br />
+
+    RENDER [Icon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
+
+    _Those settings are responsable for the fractal Flame image quality_:
+    
+    - *`Quality`*:<br />The Flame renderer quality. Think of this as how many points are used inside Fractorium to render the final image.
+    - *`Brightness`*:<br />The Flame renderer setting: brightness.
+    - *`Gamma`*:<br />The Flame renderer setting: gamma.
+    - *`Highlight power`*:<br />The Flame renderer setting: highlight power.
+    - *`Logscale K2`*:<br />The Flame renderer setting: Logscale K2.
+    - *`Vibrancy`*:<br />The Flame renderer setting: vibrancy.
+
+    <br />
+
+    - *`COLOR CORRECTION`*:<br />If any of the color correction curves have been used, they will be listed here if different from default values.<br /><br />If the loaded Flame preset XML data do not have color correction curves XML keys in it, default values (_no color correction_) will be used instead.
+
+
+:box:
+    #display: rounded white
+
+== OUT: Output parameters == (OUT)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *OUT*: _Save *.flame file type to be loaded back inside Apophysis, Fractorium, FLAM3H(tm) and others._
+ 
+    The OUT tab provides options to export your current fractal Flame work, preserving all necessary data for future editing, sharing or rendering. It ensures your creative progress is safely stored in standard format compatible with other Flame tools and rendering engines. It is a native Flame fractal file format containing transformation parameters, gradients, and rendering settings.
+    
+    A *.flame file is an XML-formatted type of file.<br />
+    The Flame file format does not support animations, but only static frames, so to speak. If you animated your fractal Flame, save the hip file from Houdini instead.
+    
+
+:box:
+    #display: rounded white
+
+    == OUT == (OUT)
+
+TIP:
+    #display: orange
+    _FLAM3H(tm) allows you to save your Flames in the standard *.flame file format_
+    _so that you can load them back inside any other applications like Fractorium, Apophysis and others._
+    
+    _You must abide by some rules imposed by the original Flame file format._
+    
+    _Not using multiple instances of the same variation in any of the accessible sections (*`PRE`*, *`VAR`*, or *`POST`*) is the most crucial thing to keep in mind._
+    
+    _For instance,_<br />
+    _you cannot utilize *`2`*(two) *`Mobius`* variations inside an iterator's *`PRE`* or *`VAR`* sections._
+
+    _But you can use_:
+    - _*`1`*(one) *`Mobius`* in the *`PRE`*_
+    - _*`1`*(one) *`Mobius`* in the *`VAR`*_
+    - _*`1`*(one) *`Mobius`* in the *`POST`*_
+    
+    _FLAM3H(tm) by design, will allow you to be more flexible with your Flame construction choises and allow_
+    _you to bend this rule, enabling the use of the same variation multiple times within the same section (Chaotica style), but you won't be able to save out_
+    _the result in the standard Flame file format._
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*Save the hip file instead in those cases*._
+    
+OUT flame ( *.flame type ) [Icon:DATATYPES/string]:
+    #id: OUT
+    
+    [Largeicon:BUTTONS/chooser_file]
+
+    - ((LMB)) to open a floating file chooser.
+
+    <br />
+    Select a file to save your Flame into.<br />
+    If the selected file does not exist, it will be created.
+
+    A *.flame file is an [XML|Wp:XML] formatted type of file.
+
+    The mini-menu [Icon:BUTTONS/pane_menu] next to the file field, will display an history of files previously loaded.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        When you have finished creating a FLAM3H(tm) library, you can rename the file to begin with "*`F3H_LOCK`*" to prevent any future alterations.
+
+        You can rename a lib file, for instance, called "_*my_grandJulia.flame*_" to "*`F3H_LOCK`*_*_my_grandJulia.flame*_" to keep it secure.
+
+    <br />
+        
+    
+Save Flame:
+    #id: OUT
+    [Largeicon:opdef:.?icon_WhiteStarSVG.svg]
+
+    _Usage_:
+    
+    - ((LMB)) to save this Flame inside the selected OUT file, if any. If the selected file exists and already contains some Flames in it, it will append the current one.
+    - ((SHIFT)) + ((LMB)) if not a valid filepath is present already it will open a file chooser, otherwise it will open the file explorer to the file location.
+    - ((CTRL)) + ((LMB)) to erase the content of the file and overwrite it with only this Flame.
+    - ((ALT)) + ((LMB)) to copy this Flame into the Clipboard.
+
+    _Additionally_:
+
+    - If the selected file does not exist, it will be created.
+    - If the selected file is not a valid Flame file type, nothing will happen.
+    
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Once you click save*:
+    
+    - If you select a location and a filename without an extension, it will automatically add the _*.flame*_ extension to them.
+    - If you do not provide a file name at all, it will generate one for you based on today's date and current time, assuming you have a valid location selected.
+    - If nothing is selected (_e.g. OUT file empty or invalid_), nothing will happen.
+    
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*:
+    - When saving out Flame files, if you created a palette with more than *`256`* colors, for example with *`1024`* color keys and want to save them all to keep all the subtle color changes, turn *`On`* the *PREFS options* tab toggle -> *`palette 256+`*. 
+    <br /><br />
+
+    NOTE:
+        Keep in mind that you can not utilize a variation more than once in any of the available variation's types. 
+
+        While this is doable within the tool, it is not compatible with the FLAM3 file format as it requires that a variation be used only once per type ( _types:_ *`PRE`*, *`VAR`*, *`POST`* )
+        or you won't be able to save the same result.
+
+        This is true also for applications like Apophysis and Fractorium as they obey the same rule.
+
+        Save the hip file instead.
+
+    <br />
+    
+Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
+    #id: OUT
+    Write a name to give to the selected Flame when saving it out.
+
+    _If no name is provided (e.g. empty string) an automated name composed of today's date and current time will be used instead_.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        If "*add iterations to Flame name*" option is *`Off`*/Disabled:
+    
+        The iterations number you want your fractal Flame to use when you load it back into FLAM3H(tm) can be baked into the preset name you choose for it.
+
+        For instance, the Flame preset "_*My_Awesome_GrandJulia*_" will be loaded with 64 iterations by default.
+
+        However,<br />
+        if the iterations number is added to the preset name after a double colon (*`::`*), as in "_*My_Awesome_GrandJulia*_*`::16`*," it will override all settings and load the preset with *`16`* as the iterations numbers.
+        
+        Therefore,<br />
+        do some tests before saving it, and choose the ideal iterations number to incorporate into the preset name.
+        
+        If you like,<br />
+        you can manually edit the created XML/Flame file and change the *flame-> "name"* key afterwards.
+
+    <br />
+    
+menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
+    #id: OUT
+    This menu is only for informational purposes.
+
+    If there are any Flames in the chosen output file, they will be displayed. 
+    This menu will refresh once you add a new Flame to it. 
+    It will always be set to the last Flame name you saved.
+
+    It will also print quick informations (_in the status bar and as a flash message in the network editor_) about the Flame preset when one is selected.
+    
+    _Quick infos are_:
+    - *`Flame preset name`* ( _only in the status bar_ )
+    - *`XF`*: number of iterators/xforms being used
+    - *`FF`*: when finalXform(_FF_) is being used
+    - *`Palette`*: number of colors in the palette
+    - *`HSV`*: when HSV color correction is being used
+    - *`HSV values`* ( _only in the status bar_ )
+
+    <br />
+
+    _The menu labels posses a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
+    - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file. Each Flame preset in the file will be marked with this icon.
+
+    _Additionally_:
+    
+    - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
+    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+
+    <br />
+
+Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_optionStarBlueSVG.svg]:
+    #id: FLAME
+    [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
+
+    Copy the selected OUT preset name into the Flame name string field.
+
+    This is handy if you are saving variations of the same Flame and you want to quickly get the same Flame name to save instead of typing it every time.
+
+    _Usage_:
+    
+    - ((LMB)) to copy the currently selected OUT Flame preset' name into the OUT Flame name parameter string field.
+
+    _Additionally_:
+
+    - ((SHIFT)) + ((LMB)) to print quick informations about the selected OUT Flame preset.
+    - ((CTRL)) + ((LMB)) to display the Flame name informations and tips.
+    - ((ALT)) + ((LMB)) to copy the selected OUT Flame preset into the Clipboard.
+
+:box:
+    #display: rounded white
+
+    == OUT: Options == (OUTOPTIONS)
+      
+palette HSV (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: OUT
+    *`Off`* by default.
+
+    as FLAM3H(tm) will save the HSV values into the XML file and set those once you load it back.
+
+    If enabled, all color adjustments you may have made to the Flame's palette will be preserved saving the HSV ramp instead.
+
+    It is helpful if you want to maintain the color-corrected palette when you load the saved Flame into a different program, such as Fractorium or Apophysis.
+
+    This option will clamp the palette colors on save to *`0`*-*`255`* and you should use this only when you want to export the desired colors to be loaded inside Fratorium or Apophysis or other fractal Flame editors out there.
+    
+    <br />
+
+F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: OUT
+    *`On`* by default.
+
+    Save the Flame out with also the F3H affine style format.
+    
+    F3H affine style format are useful when you rotate iterators using the Rot angle parameter and you still want to reload the Flame using the Rotation value instead of the affine transformed by that Rotation whitch can lead to values that are hard to edit once loaded back into FLAM3H(tm).
+    
+    When saving an iterator out into a Flame file whitch uses the Rotation angle paramter, FLAM3H(tm) will transform the affine values by it before saving them out so that it is possible to load the saved Flame inside other applications.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *F3H affine style*<br />
+    _Below is an example iterator at its default values rotated by 45 degrees inside FLAM3H_:
+
+    *X*: *`1`*, *`0`* <br />
+    *Y*: *`0`*, *`1`* <br />
+    *O*: *`0`*, *`0`* <br />
+    *Rot*: *`45`* 
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *standard affine style*<br />
+    _And below is the same iterator affine values transformed by the rotation parameter when saved out into a Flame file. This version is used by other applications on load_:
+
+    *X*: *`0.707107`*, *`-0.707107`* <br />
+    *Y*: *`0.707107`*, *`0.707107`* <br />
+    *O*: *`0`*, *`0`* 
+
+    <br />
+    When this option is *`On`*/Active (_it is by default_), both versions of the affine will be saved into the Flame file so that we can choose to use either one or the other on load using the IN tab option: "F3H affine style".
+    <br /><br />
+
+    NOTE:
+        There are no reasons to turn this toggle *`Off`* as it cause no harm, however if you would like to have the Flame preset saved without the F3H affine style XML keys at all, turn this *`Off`*.
+
+    <br />
+        
+Flame name inherit on load [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: OUT
+    *`Off`* by default.
+
+    Cause the OUT Flame name parameter<br />
+    to automatically be set to the name of the loaded IN flame preset.<br />
+    <br />
+    It will work for Flame presets loaded from a disk file or from the Clipboard.
+
+    <br />
+
+Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: OUT
+    *`On`* by default.
+
+    To export the parameter names for parametric variations to the one that Fractorium uses.
+    <br /><br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*<br /><br />
+    _This is only useful if you use *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations and want to load the Flame inside Fractorium as it uses different parametric parameters' names for these_.
+
+    _Check this toggle *`Off`* when saving out a Flame if you would like to load the saved Flame inside Apophysis and it is using the *`Mobius`* and/or *`Oscilloscope`* ( *`oscope`* ) parametric variations_.
+
+    :dev:
+    :disclosure:Technical note
+    
+        _When saving a Flame out with this option *`On`*/Active, the xml appliction key will change from_:
+        
+        {{{
+        #!xml
+        <flames>
+          <flame version="FLAM3H-WIN-1.8.70" ... >
+              ...
+        }}}
+        
+        to:
+        
+        {{{
+        #!xml
+        <flames>
+          <flame version="EMBER-FLAM3H-WIN-1.8.70" ... >
+              ...
+        }}}
+        
+        _Note the "*`EMBER`*" prefix added to the FLAM3H(tm) version name_.
+        
+        _This way once we load it back FLAM3H(tm) will remap those parameteric variations parameter's names to the proper one_.
+
+    <br />
+
+Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: OUT
+    *`On`* by default.
+    
+    It will automatically append the iterations number to the Flame name you enter.
+    It will also autocorrect the Flame name string based on internally defined rules.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        When *`On`*/Active, and once you type in a Flame name, changing the iterations number will update the Flame name too.
+
+:box:
+    #display: rounded white
+
+    == OUT: Edit render properties == (OUTEDIT)
+
+    
+Edit render properties [Icon:DATATYPES/boolean]:
+    #id: OUT
+    *`Off`* by default.
+
+    Allow the editing of the render properties for the host application you will load the saved Flame preset file into.
+
+    Fractorium is the suggested one, followed by Apophysis and others.
+    
+    Those settings will control how the saved fractal Flame will render inside other third-party applications.
+    They are their render properties, and they will be exported into the XML file.
+
+    <br />
+        
+    
+Render properties utils:
+    #id: OUT
+    [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+
+    _Usage_:
+    
+    - ((LMB)) to reset all OUT render properties.
+    - ((SHIFT)) + ((LMB)) to reset only the OUT Camera sensor properties.
+    - ((CTRL)) + ((LMB)) to reset only the OUT Render settings properties.
+
+    _Additionally_:
+
+    - ((ALT)) + ((LMB)) to copy all the render properties of a Flame preset from the Clipboard (_[Icon:TOP/xmlinput] SENSOR, RENDER and CC CURVES setttings_). This is being added because it is handy to tweak the render settings let say in Fractorium and just copy and paste them from the Clipboard into FLAM3H(tm) without the need to load the copied Flame preset fully, but just to updated the Render Properties.
+    
+    
+:box:
+    #display: rounded white
+
+    == OUT: XML sensor settings == (OUTEDITCAMSENSOR)
+    
+Camera sensor VIZ [Icon:DATATYPES/boolean]:
+    #id: OUT
+    *`Off`* by default.<br /><br />
+
+    - [Largeicon:opdef:.?icon_TagORedSVG_disabled.svg] when Sensor Viz is *`Off`*/Disabled (_Default_).
+    - [Largeicon:opdef:.?icon_TagORedSVG.svg] when Sensor Viz is *`On`*/Active and update sensor option is *`On`*/Active.
+    - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when Sensor Viz is *`On`*/Active and update sensor option is *`Off`*/Disabled.
+    
+    <br />
+
+    Activate FLAM3H(tm) Camera sensor visualization.
+    
+    All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal Flames when they are saved from FLAM3H(tm).
+
+    A portion of the render parameters deal with the camera and how the fractal Flame you just saved is [framed|Wp:Composition_(visual_arts)].
+
+    *In FLAM3H(tm) the camera sensor will precisely display the image framing*.
+    <br /><br />
+
+    The Camera Sensor in fractal Flames defines the virtual plane where the fractal is projected after all transformations have been applied. It acts as the final stage of the rendering pipeline, determining what portion of the fractal world is visible and how it is mapped to the output image.
+    
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Purpose*:
+    - Captures the result of the accumulated iterated function system (_IFS_) transformations.
+    - Controls the field of view (_FOV_), zoom, and translation of the fractal within the frame.
+    - Provides the coordinate mapping from the continuous fractal space to the discrete pixel grid of the output image.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *How It Works in Context*:
+    - After iterating and applying variations to generate points, these points exist in an infinite continuous space.
+    - The Camera Sensor samples this space through its viewport parameters (_zoom, position, rotation_).
+    - Points falling within this viewport are projected onto the sensor plane and rasterized into pixel coordinates.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Notes*:
+    - Unlike a physical camera sensor, this element is abstract and primarily mathematical.
+    - Changing the sensor settings does not affect fractal generation logic; it only modifies how you see it.
+    - Essential for framing compositions, zoom animations, and creating depth in fractal Flames.
+    <br /><br />
+
+    _This is meant to be used only when you intend to load the saved fractal Flame into third-party programs and you desire to setup the fractal Flame image framing in Houdini first. Below a screenshot as an example:_
+
+    _*[FLAM3H(tm) to Apophysis, camera sensor framing|https://github-production-user-asset-6210df.s3.amazonaws.com/42110232/281850238-27f1d534-f6a7-4519-990d-373f3290cc5b.jpg]*_
+
+    _*[FLAM3H(tm) to Fractorium, camera sensor framing|https://github.com/user-attachments/assets/53624d53-4eed-4889-9e14-61e9222d17e6]*_
+
+    When multiple FLAM3H(tm) node are present in the scene, FLAM3H(tm) ensures that, upon entering the Camera Sensor viz mode, there will only ever be one active Camera Sensor viz mode at any given time. This keeps the current viewport from jumping when concurrently stashed viewports are restored and saved at the same time.
+    <br /><br />
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
+    - When entering the Camera Sensor Viz mode, FLAM3H(tm) will store all the available viewports data prior to entering the mode and restore them all on exit.
+    - When entering the Camera Sensor Viz mode while in viewport xforms handles VIZ mode, the xforms handles will be hidden and the camera sensor frame outline will be of color Yellow if not in solo mode and of color Red if in solo mode, like in the below illustration.
+    
+        _Illustration from left to right_:<br />
+        # Entering the camera sensor VIZ mode while the xforms handles VIZ is *`Off`*/Disabled. The sensor outline is of color White.
+        # Entering the camera sensor VIZ mode while the xforms handles VIZ is *`On`*/Active. The sensor outline is of color Yellow.
+        # Entering the camera sensor VIZ mode while the xforms handles VIZ is *`On`*/Active and in SOLO mode (iterator or FF). The sensor outline is of color Red.
+
+    <br />
+    [Image:opdef:.?FLAM3H_DOC_camera_sensor_outline.svg]
+
+    <br /><br />
+    [Icon:NETWORKS/sop] *Context aware*<br />
+    - Camera sensor viz is context aware, and you will be able to activate it only if a Sop viewer is available.
+
+
+Resolution [Icon:TOP/xmlinput]:
+    #id: OUT
+    The sensor resolution: [Icon:TOP/xmlinput] *`size`*
+    
+    
+mini-menu Resolution presets [Icon:BUTTONS/pane_menu]:
+    #id: OUT
+    Select a sensor resolution from a list of presets.
+
+    <br />
+
+    
+Copy/Paste render properties:
+    #id: OUT
+    [Largeicon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg]
+    
+    <br />
+    When you load a Flame file in the IN tab or from the Clipboard, this icon will become available.
+    
+    When you click this icon, the currently loaded IN Flame preset render properties will be copied and pasted here (_[Icon:TOP/xmlinput] SENSOR, RENDER and CC CURVES settings_).
+
+    When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
+
+    All the render properties of a Flame preset loaded from the Clipboard will be automatically copied into the OUT render properties on load.
+
+    <br />
+    
+Center [Icon:TOP/xmlinput]:
+    #id: OUT
+    The sensor [Icon:TOP/xmlinput] *`center`*
+    
+    Offsets the camera in fractal space (_panning_).
+
+    <br />
+    
+Rotate [Icon:TOP/xmlinput]:
+    #id: OUT
+    The Sensor rotation: [Icon:TOP/xmlinput] *`rotate`* (_also known as: roll_).
+
+    <br />
+    
+Scale(lens) [Icon:TOP/xmlinput]:
+    #id: OUT
+    The sensor lens size: [Icon:TOP/xmlinput] *`scale`*
+
+    This XML key is an inexpensive method of achieving *`zoom`* since you will have to manually change the *`quality`* from within the host software because it won't be improved once loaded into third-party apps like Fractorium or Apophysis.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
+
+    When fractal Flames are zoomed in, they will degrade in appearance and become more speckled/noisy.
+
+    *`Scale`* zooms the image without a corresponding increase in *`quality`*. For images with a small *`scale`* value, or a *`quality`* value that is already large, this shouldn’t increase the noise by much. However, for the inverse situation, you might need to increase the quality a bit to compensate for the increased scale.
+
+    *`Zoom`* does what *`scale`* does, however it greatly increases the *`quality`* to compensate.
+
+    In most cases, using *`zoom`* is overkill and will result in very lengthy renders. You might have a low value for *`quality`*, but after *`zoom`* increases it behind the scenes, the final *`quality`* used will be quite large.
+    
+    <br />
+    _It is for this reason that only [Icon:TOP/xmlinput] *`scale`* is provided in FLAM3H(tm)._
+
+    <br />
+    
+update camera sensor [Icon:DATATYPES/boolean]:
+    #id: OUT
+    *`On`* by default.<br />
+    
+    Every change to the sensor parameters will update the sensor viewport viz. Turn this *`Off`* to disable any sensor viewport's updates.
+    
+    
+:box:
+    #display: rounded white
+
+    == OUT: XML renderer settings == (OUTEDITRENSETTINGS)
+
+    _Those settings will control how third-party applications will render the fractal Flame you are saving_.
+    
+    
+Quality [Icon:TOP/xmlinput]:
+    #id: OUT
+    _The Flame renderer setting: [Icon:TOP/xmlinput] *`quality`*_
+
+    Think of this as how many points are used inside Fractorium to render the final image.
+
+    <br />
+    
+Brightness [Icon:TOP/xmlinput]:
+    #id: OUT
+    _The Flame renderer setting: [Icon:TOP/xmlinput] *`brightness`*_
+
+    Controls the overall lightness or darkness of the image. Increasing brightness shifts all pixels toward white; decreasing shifts them toward black. This adjustment affects the entire tonal range evenly.
+
+    <br />
+    
+Gamma [Icon:TOP/xmlinput]:
+    #id: OUT
+    _The Flame renderer setting: [Icon:TOP/xmlinput] *`gamma`*_
+
+    Adjusts the distribution of midtones without significantly altering pure black or pure white. Higher gamma brightens midtones; lower gamma darkens them. Often used for display correction and tonal fine tuning.
+
+    <br />
+    
+Highlight power [Icon:TOP/xmlinput]:
+    #id: OUT
+    _The Flame renderer setting: [Icon:TOP/xmlinput] *`highlight_power`*_
+
+    Controls the strength of adjustments applied to the brightest areas of the image. Higher values make highlights more pronounced; lower values soften them, helping retain detail in bright regions.
+
+    <br />
+    
+Logscale K2 [Icon:TOP/xmlinput]:
+    #id: OUT
+    _The Flame renderer setting: [Icon:TOP/xmlinput] *`logscale_k2`*_
+
+    Applies a logarithmic remapping to pixel values. The k2 parameter controls the curve’s steepness, affecting how midrange values are compressed or expanded. Useful for tone mapping or handling high dynamic range data.
+
+    <br />
+    
+Vibrancy [Icon:TOP/xmlinput]:
+    #id: OUT
+    _The Flame renderer setting: [Icon:TOP/xmlinput] *`vibrancy`*_
+
+    Enhances the intensity of muted colors while leaving already vivid colors and skin tones largely unaffected. Provides a more natural color boost than global saturation.
+
+
+:box:
+    #display: rounded white
+
+    == OUT: XML renderer color correction curves == (OUTEDITRENCCCURVES)
+
+    _This collapsible folder posses a header's toggle to signal when a color correction is *`On`*/Active or at its default values(*`Off`*)._
+
+Reset curves:
+    #id: OUT
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] when the color correction is *`Off`*/Disabled (_Default values_).
+    - ((LMB)) to copy all the color correction curves data from the currently loaded IN Flame preset. If the loaded IN Flame preset have its color correction curves data at default values, the copy will be skipped.
+    
+    [Largeicon:opdef:.?icon_optionStarRedSVG.svg] when the color correction is *`On`*/Active.
+    - ((LMB)) to Reset all the render color correction curves data to their defaults (_no color correction_).
+
+
+:box:
+    #display: rounded gray
+
+    [Icon:TOP/xmlinput] [Icon:DATATYPES/string] [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Color correction curves*<br /><br />
+    FLAM3H(tm) is able to load in the color correction curves data coming from Fractorium.<br />
+    These color correction curves data can not be edited. The data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H(tm) so to keep and preserve the original color correction data intact.
+
+    _When you load a Flame preset, you will be able to import the color correction curve data, if any_.
+
+    - When the IN tab option: "*copy render properties on Load*" is *`On`*/Active (_Default_):<br />
+    Everytime you load a Flame preset in, the color correction curves data will automatically be stored inside here.
+
+    - When the IN tab option: "*copy render properties on Load*" is *`Off`*/Disabled:<br />
+    You need to manually click the copy render properties button [Icon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg] so that it won't modify settings you have been working on up until you loaded a Flame preset in.
+
+    <br />
+
+    _Additionally_:<br />
+    - When a Flame is loaded from the Clipboard, the color correction curves data will automatically be stored inside here.
+    - If a Flame preset do not posses any color correction curves data, default values (_no color correction_) will be used instead.
+
+_Below a list of Fractorium  color correction curves XML keys being used:_
+
+:box:
+    #display: rounded gray
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*Fractorium CC*_<br /> 
+    _color correction curves_:
+
+    - [Icon:TOP/xmlinput] *`curves`* -> _Store all curves data_
+    - [Icon:TOP/xmlinput] *`overall_curve`* -> _Store the Overall curve data (Luminance)_
+    - [Icon:TOP/xmlinput] *`red_curve`* -> _Store the Red curve data_
+    - [Icon:TOP/xmlinput] *`green_curve`* -> _Store the Green curve data_
+    - [Icon:TOP/xmlinput] *`blue_curve`* -> _Store the Blue curve data_
+
+
+:box:
+    #display: rounded white
+
+    == OUT: XML FLAM3H(tm) custom keys == (OUTF3HXMLKEYS)
+    
+    _FLAM3H(tm) may add some unique XML keys to save settings from its own UI toolbox when saving a Flame out to a file. These keys will be read and those settings restored after FLAM3H(tm) has loaded back the saved Flame._
+    
+    _Below a list of FLAM3H(tm) custom XML keys that are currently implemented:_
+
+    :box:
+        #display: rounded gray
+    
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*General*_<br /> 
+        _flame system option_:
+
+        - [Icon:TOP/xmlinput] *`flam3h_rip`* -> _Remove invalid points_
+        - [Icon:TOP/xmlinput] *`flam3h_f3c`* -> _Flam3 compatibility_
+        - [Icon:TOP/xmlinput] *`flam3h_hsv`* -> _Palette HSV values_
+        - [Icon:TOP/xmlinput] *`flam3h_mb_fps`* -> _Motion blur frames per second_
+        - [Icon:TOP/xmlinput] *`flam3h_mb_samples`* -> _Motion blur samples_
+        - [Icon:TOP/xmlinput] *`flam3h_mb_shutter`* -> _Motion blur shutter speed_
+        - [Icon:TOP/xmlinput] *`flam3h_cp_samples`* -> _Palette lookup samples_
+
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] _*xforms*_<br /> 
+        _only exported when the Rotation angle parameter is different from *`0`*(Zero) and the OUT tab option: "F3H affine style" toggle is ON_:
+
+        - [Icon:TOP/xmlinput] *`f3h_coefs`* -> _F3H pre affine style values_
+        - [Icon:TOP/xmlinput] *`f3h_coefs_angle`* -> _F3H pre affine style angle value_
+        - [Icon:TOP/xmlinput] *`f3h_post`* -> _F3H post affine style values_
+        - [Icon:TOP/xmlinput] *`f3h_post_angle`* -> _F3H post affine style angle value_
+
+
+:box:
+    #display: rounded white
+
+    == OUT: Anatomy of a XML flame file format == (OUTXMLFORMAT)
+
+_The following is an example of what the default Sierpiński triangle preset looks like once saved :_
+    
+{{{
+#!xml
+<flames>
+  <flame version="FLAM3H-WIN-1.8.70" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+    <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
+    <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
+    <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
+    <palette count="256" format="RGB">
+      330DFF3310FF3213FF3216FF311AFF311DFF3120FF3023FF
+      3026FF2F2AFF2F2DFF2F30FF2E33FF2E36FF2D3AFF2D3DFF
+      2D40FF2C43FF2C46FF2B4AFF2B4DFF2B50FF2A53FF2A56FF
+      295AFF295DFF2960FF2863FF2866FF276AFF276DFF2770FF
+      2673FF2676FF257AFF257DFF2580FF2483FF2486FF238AFF
+      238DFF2390FF2293FF2296FF219AFF219DFF21A0FF20A3FF
+      20A6FF1FAAFF1FADFF1FB0FF1EB3FF1EB6FF1DBAFF1DBDFF
+      1DC0FF1CC3FF1CC6FF1BCAFF1BCDFF1BD0FF1AD3FF1AD6FF
+      19D9FE19DAFB19DAF719DBF319DBF018DCEC18DDE918DDE5
+      18DEE118DEDE17DFDA17E0D717E0D317E1CF17E1CC16E2C8
+      16E2C516E3C116E4BD16E4BA15E5B615E5B315E6AF15E7AB
+      15E7A814E8A414E8A114E99D14EA9914EA9613EB9213EB8F
+      13EC8B13ED8713ED8412EE8012EF7D12EF7912F07512F072
+      11F16E11F26B11F26711F36311F36010F45C10F45910F555
+      10F65110F64E0FF74A0FF8470FF8430FF93F0FF93C0EFA38
+      0EFB350EFB310EFC2D0EFC2A0DFD260DFE230DFE1F0DFF1B
+      0FFF1A12FF1A16FF1A19FF1A1DFF1A21FF1A24FF1A28FF1A
+      2BFF1A2FFF1A33FF1A36FF1A3AFF1A3DFF1A41FF1A45FF1A
+      48FF1A4CFF1A4FFF1A53FF1A57FF1A5AFF1A5EFF1A61FF1A
+      65FF1A69FF1A6CFF1A70FF1A73FF1A77FF1A7BFF1A7EFF1A
+      82FF1A85FF1A89FF1A8DFF1A90FF1A94FF1A97FF1A9BFF1A
+      9FFF1AA2FF1AA6FF1AA9FF1AADFF1AB1FF1AB4FF1AB8FF1A
+      BBFF1ABFFF1AC3FF1AC6FF1ACAFF1ACDFF1AD1FF1AD5FF1A
+      D8FF1ADCFF1ADFFF1AE3FF1AE7FF1AEAFF1AEEFF1AF1FF1A
+      F2FC19F3F819F3F519F3F119F3ED19F3E918F4E518F4E218
+      F4DE18F4DA18F4D617F5D217F5CF17F5CB17F5C717F5C316
+      F6BF16F6BC16F6B816F6B416F6B015F7AC15F7A915F7A515
+      F7A115F79D14F89914F89614F89214F88E14F88A13F98613
+      F98313F97F13F97B13F97712FA7312FA7012FA6C12FA6812
+      FA6411FB6011FB5D11FB5911FB5511FB5110FC4D10FC4A10
+      FC4610FC4210FC3E0FFD3A0FFD370FFD330FFD2F0FFD2B0E
+      FE270EFE240EFE200EFE1C0EFE180DFF140DFF110DFF0D0D
+    </palette>
+  </flame>
+</flames>
+}}}
+
+_The first line is the main [Icon:TOP/xmlinput] *`flames`* preset XML root. Under this root can live many different flame presets_:
+
+{{{
+#!xml
+<flames>
+  ...
+</flames>
+}}}
+
+_In this case we only have *`1`*(one) flame preset named: *Sierpiński triangle::10*. This XML line contain also all the renderer properties of the flame preset_:
+
+{{{
+#!xml
+<flames>
+  <flame version="FLAM3H-WIN-1.8.70" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+    ...
+  </flame>
+</flames>
+}}}
+
+_Under the [Icon:TOP/xmlinput] *`flame`* preset XML key lives all its data: [Icon:TOP/xmlinput] *`xform`* data and its [Icon:TOP/xmlinput] *`palette`* data_.
+
+{{{
+#!xml
+<flames>
+  <flame version="FLAM3H-WIN-1.8.70" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+    <xform .../>
+    <xform .../>
+    <xform .../>
+    <palette ...>
+      330DFF...
+    </palette>
+  </flame>
+</flames>
+}}}
+
+<br />
+
+[Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*
+
+_When you save a Flame preset to the Clipboard, it will be rootless (not under a [Icon:TOP/xmlinput] *`flames`* XML root key). This is a convention adopted by all the other third-party applications. However FLAM3H(tm) can load a single Flame preset with and without a root. If more than *`1`*(one) Flame preset exist in a file, they must be grouped under the same root._ 
+
+<br />
+<br />
+
+
+
+:box:
+    #display: rounded white
+
+== Preferences == (PREFS)
+    
+~~~
+:box:
+    #display: inverted teal
+
+    *prefs:* _FLAM3H(tm) preferences._
+
+    The Preferences tab allows users to customize global settings for FLAM3H(tm), enabling a more tailored and efficient creative workflow. These preferences affect how the software behaves and appears but do not directly impact the visual characteristics of individual fractal Flames.
+    
+:box:
+    #display: rounded white
+
+    == Prefs: General == (PREFSGENERAL)
+
+
+palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: PALETOUTTE
+    *`On`* by default.
+
+    *`[256+]`*<br />
+    when this preferences option toggle is *`On`*/Active (_it is by default_), this text in the SYS tab will signal it and when *`Off`*/Disabled it will disappear.
+    
+    It will allow the OUT Flame to be saved with more than *`256`* color keys assuming you created a palette with this many colors, otherwise it will always save the Flame preset using *`256`* color keys.
+    
+    If the palette color keys are less than *`256`*, it will always sample the palette at *`256`* when saving out the Flame preset.<br />
+    The maximun Palette color keys you can use are *`1024`*, if you create a Palette with more, it will be clamped and sampled at *`1024`*.
+
+    _It will use a banding system to determine how many colors/samples to use_:
+    
+    - Anything below *`256`* color keys, it will always sample and save the Flame using a palette with *`256`* colors.
+    - Anything above *`256`* color keys and below/equal *`512`*, it will use *`512`* colors/samples on save.
+    - Anything above *`512`* color keys and below/equal *`1024`*, it will use *`1024`* colors/samples on save.
+    - Anything above *`1024`* color keys they will be clamped and sampled at *`1024`* colors.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        - Fractorium will work properly when loading a Flame with more than *`256`* colors.
+        - When you are adding more than *`256`* colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
+
+    :warning:
+        Apophysis v7.x will error out if you try to load a Flame with more than *`256`* colors.<br /><br />
+        If you created a palette with more than *`256`* color keys<br />
+        and want to save the Flame preset to be loaded inside Apophysis,<br />
+        turn this toggle *`Off`* before saving the Flame preset out<br />
+        so it will sample the palette with *`256`* samples and save the Flame preset with *`256`* color keys.
+
+    <br />
+
+flash messages (network editor) [Icon:DATATYPES/boolean]:
+    #id: prefs
+    *`On`* by default.<br />
+
+    Causes a message to appear briefly in the upper left corner of the network editor, then fade away.
+    
+    Copy/Paste iterators and FF data uses flash messages, as well as some other features.
+
+:box:
+    #display: round white
+    
+    == Prefs: UI == (PREFSUI)
+
+Enumerate presets menus [Icon:DATATYPES/boolean]:
+    #id: prefs
+    *`On`* by default.
+
+    Causes the presets menus inside the CP, IN and OUT tab to be enumerated.<br />
+    This make it easy to remember a particular preset you liked while trying out others inside the loaded library file.
+    
+    Turn this *`Off`* to only display the raw preset names.
+
+    <br />
+
+Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
+    #id: prefs
+    *`Off`* by default.
+    
+    When you turn this toggle *`On`* causes the variation menus inside each iterator to have a bookmark icon (_FLAME and FF tabs_)
+    
+    This mode will change each variation's menu based of the value of their weight hence it will take a hit on the UI performance.
+    
+    When you turn this toggle back *`Off`*, Houdini will save the current FLAM3H(tm) definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default *`500k`*(_thousands_) points as a way to reduce the waiting time.
+
+:box:
+    #display: round white
+    
+    == Prefs: Cvex (hidden)== (PREFSCVEX)
+
+cvex precision modes (hidden) [Icon:BUTTONS/pane_menu]:
+    #id: prefs
+    Switch between the default Single Precision ( [32-bit|Wp:32-bit_computing] ) or Double Precision ( [64-bit|Wp:64-bit_computing] ).
+    <br /><br />
+
+    :warning:
+        Double precision *`64-bits`* will be really slow. I'm saying it again: "really slow".
+
+        Unless you notice some significant artifacts and you genuinely adore the fractal Flame you are working on, always use *`32-bit`* which is the default.
+
+
+:box:
+    #display: rounded white
+
+    == Prefs: Xaos == (PREFSXAOS)
+        
+menu xaos modes [Icon:BUTTONS/pane_menu]:
+    #id: prefs
+    Select to use xaos in either *xaos TO* or *xaos FROM* mode.
+    
+    - Switching between xaos modes will convert the xaos: string values inside each iterator so that you can see how the new weights adjusted to fit the new mode.
+
+    _Some of the menu labels posses a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
+    <br /><br />
+
+    NOTE:
+        Xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO when saving out Flame files.
+
+:box:
+    #display: rounded white
+
+    == Prefs: Density == (PREFSDENSITY)
+
+Density :
+    #id: prefs
+    Set a custom density value for the fractal Flame.<br />
+    
+    If the global -> density menu entries do not have what you need<br />
+    you can set a custom density value using this parameter.
+
+    If the choosen value is not present in the global -> density menu entries,<br />
+    the global -> density menu label will become empty to signal the use of a custom density value here.
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
+    - This is the only place where you are allowed to animate the density value.
+
+:box:
+    #display: rounded white
+
+    == Prefs: Camera == (PREFSCAM)
+            
+Camera handle [Icon:DATATYPES/boolean]:
+    #id: prefs
+    *`Off`* by default.
+    
+    Display the viewport camera handle to help frame/center your fractal Flame.<br /><br />
+    On the left, you will have the FLAM3H(tm) node name, and on the right, the selected camera name.
+    <br /><br />
+
+    NOTE:
+        The handles are properly scaled and visible only when looking through a perspective type of camera, not when looking through an orthogonal type of camera.
+    
+    
+    :warning:
+        Turn this *`Off`* when rendering.
+
+    <br />
+    
+Camera cull [Icon:DATATYPES/boolean]:
+    #id: prefs
+    *`Off`* by default.
+
+    Enable [culling|Wp:Viewing_frustum] based on camera view.
+    
+cam:
+    #id: prefs
+    Pick a camera to use for either the handle or the culling.
+    
+amount:
+    #id: prefs
+    Culling amount.
+    
+:box:
+    #display: rounded white
+
+    == Prefs: Viewport == (PREFSVIEW)
+    
+Dark [Icon:DATATYPES/boolean]:
+    #id: prefs
+    *`Off`* by default.
+
+    If it isn't already, change the viewport's color scheme to dark.
+    
+    If unchecked,<br />
+    it will remember the color scheme for every viewport and fall back on it.<br />
+    Checking this box has no effect if the color scheme in a viewport is already dark.
+
+    <br /><br />
+    [Icon:NETWORKS/sop] *Context aware*<br />
+    - This option is context aware, and it will function only if a Sop viewer is available.
+    
+menu type [Icon:BUTTONS/pane_menu]:
+    #id: prefs
+    Set the viewport particle display mode to either *`points`* or *`pixels`*.
+
+    _Some of the menu labels posses a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
+    <br /><br />
+
+    NOTE:
+        At the moment of this writing, if you are using H20.5<br />
+        it is suggested to go to: *`Edit`*->*`Preferences`*->*`3Dviewport`* and set the Renderer to *`OpenGL`* as it is much much faster with higher points count in the viewport.<br />
+        
+        A restart of Houdini is required for this change to take place.
+
+    <br /><br />
+    [Icon:NETWORKS/sop] *Context aware*<br />
+    - This option is context aware, and it will function only if a Sop viewer is available.<br />
+
+Size:
+    #id: prefs
+    When viewport particle display is set to *`points`*, this parameter will control their size in the viewport.
+
+    <br /><br />
+    [Icon:NETWORKS/sop] *Context aware*<br />
+    - This option is context aware, and it will function only if a Sop viewer is available.<br />
+
+Size default:
+    #id: prefs
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    - ((LMB)) to reset the point size to a default of *`1`*(one).
+
+Wire width:
+    #id: prefs
+    When the SYS -> "xforms handles VIZ" is *`On`*/Active, this parameter will set the wire curves thickness for the viewport display. A value of *`3`*(three) is generally good.
+
+    <br /><br />
+    [Icon:NETWORKS/sop] *Context aware*<br />
+    - This option is context aware, and it will function only if a Sop viewer is available.<br />
+
+Wire width default:
+    #id: prefs
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    - ((LMB)) to reset the wire width to a default of *`3`*(three).
+        
+:box:
+    #display: rounded white
+
+== About == (ABOUT)
+
+~~~
+:box:
+    #display: inverted teal
+
+    *About.* _Here you will find informations about FLAM3H(tm)._
+
+About:
+    #id: about
+    Display informations about FLAM3H(tm).<br /><br />
+    Author, code languages used, version number, code references and much more can be found inside here.
+
+Plugins:
+    #id: about
+    List of plugins/variations shipped with FLAM3H(tm).
+    
+Web links:
+    #id: about
+    A list of useful web links to check out.<br /><br /><br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) web links*<br />
+    _The following are web links related to FLAM3H(tm). _<br /><br />
+    
+    [Largeicon:opdef:.?iconSVG.svg] 
+    - ((LMB)) to open a web browser to the FLAM3H(tm) website.
+    
+    <br />
+    [Largeicon:opdef:.?icon_GithubBlackSVG.svg] 
+    - ((LMB)) to open a web browser to the FLAM3H(tm) github repository.
+     
+    <br />
+    [Largeicon:opdef:.?icon_InstagramSVG.svg] 
+    - ((LMB)) to open a web browser to the FLAM3H(tm) instagram account. 
+
+    <br />
+    [Largeicon:opdef:.?icon_youtube_red_play.svg] 
+    - ((LMB)) to open a web browser to the FLAM3H(tm) youtube video tutorials.<br /><br /><br />
+     
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Web links*<br />
+    _The following are web links about the original the fractal Flame algorithm and related implementations_.<br /><br />
+
+    [Largeicon:opdef:.?icon_WhiteSVG.svg] 
+    - ((LMB)) to open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) publication's PDF. 
+     
+    <br />
+    [Largeicon:opdef:.?icon_GithubWhiteSVG.svg] 
+    - ((LMB)) to open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) github repository. 
+
+    <br />
+    [Largeicon:opdef:.?icon_bitbucketLogoSVG.svg] 
+    - ((LMB)) to open a web browser to the Fractorium Bitbucket repository.
+
+    <br />
+    [Largeicon:opdef:.?icon_FractoriumWebSVG.svg] 
+    - ((LMB)) to open a web browser to the Fractorium website.
+    
+    
+    
+
+
+
+    
+:box:
+    #display: rounded white
+
+@variations Variations infos
+
+:box:
+    #display: inverted seafoam
+
+    *FLAM3H(tm) Variations information.* _Here you will find information about the available variations/plugins currently implemented._
+
+
+
+
+:box:
+    #display: rounded white
+    
+    == Variations: Full list == (VARDLIST)
+
+_A list of all variations included with FLAM3H(tm) ([Icon:TOP/xmlinput] *`106`*)_
+
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*<br /> 
+    _Note that all the following are also available as PRE_ _and/or POST_ _variations._<br /><br />
+
+    *Arch*, 
+    *Auger*, 
+    *Bent*, 
+    *Bent2*, 
+    *Bipolar*, 
+    *Blade*, 
+    *Blob*, 
+    *Blur*, 
+    *Boarders*, 
+    *Bubble*, 
+    *Butterfly*, 
+    *Bwraps*, 
+    *Cell*, 
+    *Conic*, 
+    *Cos*, 
+    *Cosh*, 
+    *Cosine*, 
+    *Cot*, 
+    *Coth*, 
+    *Cpow*, 
+    *Crop*, 
+    *Cross*, 
+    *Csc*, 
+    *Csch*, 
+    *Curl*, 
+    *Curve*, 
+    *Cylinder*, 
+    *Diamond*, 
+    *Disc*, 
+    *Disc2*, 
+    *Edisc*, 
+    *Elliptic*, 
+    *Escher*, 
+    *Ex*, 
+    *Exp*, 
+    *Exponential*, 
+    *Eyefish*, 
+    *Fan*, 
+    *Fan2*, 
+    *Fisheye*, 
+    *Flower*, 
+    *Flux*, 
+    *Foci*, 
+    *Gaussian_blur*, 
+    *Glynnia*, 
+    *Handkerchief*, 
+    *Heart*, 
+    *Hemisphere*, 
+    *Horseshoe*, 
+    *Hyperbolic*, 
+    *Julia*, 
+    *JuliaN*, 
+    *Juliascope*, 
+    *Lazysusan*, 
+    *Linear*, 
+    *Log*, 
+    *Loonie*, 
+    *Mobius*, 
+    *Modulus*, 
+    *Ngon*, 
+    *Noise*, 
+    *Oscope*, 
+    *Parabola*, 
+    *Pdj*, 
+    *Perspective*, 
+    *Pie*, 
+    *Point_symmetry*, 
+    *Polar*, 
+    *Polar2*, 
+    *Polynomial*, 
+    *Popcorn*, 
+    *Popcorn2*, 
+    *Power*, 
+    *Pre_blur*, 
+    *Radialblur*, 
+    *Rays*, 
+    *Rectangles*, 
+    *Rings*, 
+    *Rings2*, 
+    *Scry*, 
+    *Sec*, 
+    *Secant2*, 
+    *Sech*, 
+    *Separation*, 
+    *Sin*, 
+    *Sinh*, 
+    *Sinusoidal*, 
+    *Spherical*, 
+    *Spiral*, 
+    *Split*, 
+    *Splits*, 
+    *Square*, 
+    *Stripes*, 
+    *Supershape*, 
+    *Swirl*, 
+    *Tan*, 
+    *Tangent*, 
+    *Tanh*, 
+    *Twintrian*, 
+    *Unpolar*, 
+    *Waves*, 
+    *Waves2*, 
+    *Wedge*, 
+    *Wedgejulia*, 
+    *Wedgesph*, 
+    *Whorl*.
+
+
+
+
+:box:
+    #display: rounded white
+    
+    == Variations: Dependent == (VARDEPENDENT)
+
+    
+_Dependent variation's affine coefficients_
+
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*<br />  
+    _A dependent variation behaves similarly to a parametric variation, but uses some of the affine coefficients to determine its behavior rather than additional parameters._
+    _The dependent variations and the affine coefficients they employ are listed below_:<br /><br />
+    
+    # [Icon:TOP/xmlinput] *_Waves_*: `Y[0] O[0]   Y[1] O[1]` (*`B`*, *`C`*, *`E`*, *`F`*)
+    
+    # [Icon:TOP/xmlinput] *_Popcorn_*: `O[0]  O[1]` (*`C`*, *`F`*)
+    
+    # [Icon:TOP/xmlinput] *_Rings_*: `O[0]` (*`C`*)
+    
+    # [Icon:TOP/xmlinput] *_Fan_*: `O[0] O[1]` (*`C`*, *`F`*)
+
+
+
+:box:
+    #display: rounded white
+    
+    == Variations: Parametrics == (VARPRM)
+
+_A list of all parametric variations and their parametric parameter's names_
+
+:box:
+    #display: rounded gray
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Info*<br /> 
+    _Repeated variations names indicate distinct Houdini parameters._<br />
+    _For example *`Mobius`* variation has two: *`Re ABCD`* and *`Im ABCD`*. They are two distinct *`vector4`* parameters._<br /><br />
+    
+    # [Icon:TOP/xmlinput] *Auger*           ->      _`Frequency`*,* `Scale`*,* `Symmetry`*,* `Weight`_
+    
+    # [Icon:TOP/xmlinput] *Bent2*           ->      _`X`*,* `Y`_
+    
+    # [Icon:TOP/xmlinput] *Bipolar*         ->      _`Shift`_
+    
+    # [Icon:TOP/xmlinput] *Blob*            ->      _`Low`*,* `High`*,* `Waves`_
+    
+    # [Icon:TOP/xmlinput] *Bwraps*          ->      _`Size`*,* `Space`*,* `Gain`_<br />[Icon:TOP/xmlinput] *Bwraps*          ->      _`In twist`*,* `Out twist`_
+    
+    # [Icon:TOP/xmlinput] *Cell*            ->      _`Size`_
+    
+    # [Icon:TOP/xmlinput] *Conic*           ->      _`Eccentricity`*,* `Holes`_
+    
+    # [Icon:TOP/xmlinput] *Cpow*            ->      _`Pow`*,* `r`*,* `i`_
+    
+    # [Icon:TOP/xmlinput] *Crop*            ->      _`Left`*,* `Top`*,* `Right`*,* `Bottom`_<br />[Icon:TOP/xmlinput] *Crop*            ->      _`Area`*,* `Zero`_
+    
+    # [Icon:TOP/xmlinput] *Curl*            ->      _`C1`*,* `C2`_
+    
+    # [Icon:TOP/xmlinput] *Curve*           ->      _`Lenght X`*,* `Lenght Y`_<br />[Icon:TOP/xmlinput] *Curve*           ->      _`Amplitude X`*,* `Amplitude Y`_
+    
+    # [Icon:TOP/xmlinput] *Disc2*           ->      _`Rotation`*,* `Twist`_
+    
+    # [Icon:TOP/xmlinput] *Escher*          ->      _`Beta`_
+    
+    # [Icon:TOP/xmlinput] *Fan2*            ->      _`X`*,* `Y`_
+    
+    # [Icon:TOP/xmlinput] *Flower*          ->      _`Petals`*,* `Holes`_
+    
+    # [Icon:TOP/xmlinput] *Flux*            ->      _`Spread`_
+    
+    # [Icon:TOP/xmlinput] *JuliaN*          ->      _`Power`*,* `Distance`_
+    
+    # [Icon:TOP/xmlinput] *JuliaScope*      ->      _`Power`*,* `Distance`_
+    
+    # [Icon:TOP/xmlinput] *Lazysusan*       ->      _`X`*,* `Y`_<br />[Icon:TOP/xmlinput] *Lazysusan*       ->      _`Spin`*,* `Twist`*,* `Space`_
+    
+    # [Icon:TOP/xmlinput] *Mobius*          ->      _`ReA`*,* `ReB`*,* `ReC`*,* `ReD`_   ->  _Real_<br />[Icon:TOP/xmlinput] *Mobius*          ->      _`ImA`*,* `ImB`*,* `ImC`*,* `ImD`_   ->  _Imaginary_
+    
+    # [Icon:TOP/xmlinput] *Modulus*         ->      _`X`*,* `Y`_
+    
+    # [Icon:TOP/xmlinput] *Ngon*            ->      _`Power`*,* `Side`*,* `Corners`*,* `Circle`_
+    
+    # [Icon:TOP/xmlinput] *Oscope*          ->      _`Frequency`*,* `Amplitude`*,* `Damping`*,* `Separation`_
+    
+    # [Icon:TOP/xmlinput] *Parabola*        ->      _`Height`*,* `Width`_
+    
+    # [Icon:TOP/xmlinput] *Pdj*             ->      _`wA`*,* `wB`*,* `wC`*,* `wD`_
+    
+    # [Icon:TOP/xmlinput] *Perspective*     ->      _`Angle`*,* `Distance`_
+    
+    # [Icon:TOP/xmlinput] *Pie*             ->      _`Slice`*,* `Thickness`*,* `Rotation`_
+    
+    # [Icon:TOP/xmlinput] *Polynomial*      ->      _`Pow X`*,* `Pow Y`_<br />[Icon:TOP/xmlinput] *Polynomial*      ->      _`Lc X`*,* `Lc Y`_<br />[Icon:TOP/xmlinput] *Polynomial*      ->      _`Sc X`*,* `Sc Y`_
+    
+    # [Icon:TOP/xmlinput] *Point Symmetry*  ->      _`Order`*,* `Center X`*,* `Center Y`_
+
+    # [Icon:TOP/xmlinput] *Popcorn2*        ->      _`X`*,* `Y`_<br />[Icon:TOP/xmlinput] *Popcorn2*        ->      _`C`_
+
+    # [Icon:TOP/xmlinput] *Radial Blur*     ->      _`Angle`_
+    
+    # [Icon:TOP/xmlinput] *Rectangles*      ->      _`X`*,* `Y`_
+    
+    # [Icon:TOP/xmlinput] *Rings2*          ->      _`Val`_
+    
+    # [Icon:TOP/xmlinput] *Separation*      ->      _`X`*,* `Y`_<br />[Icon:TOP/xmlinput] *Separation*      ->      _`Inside X`*,* `Inside Y`_
+    
+    # [Icon:TOP/xmlinput] *Split*           ->      _`X`*,* `Y`_
+    
+    # [Icon:TOP/xmlinput] *Splits*          ->      _`X`*,* `Y`_
+
+    # [Icon:TOP/xmlinput] *Stripes*         ->      _`Space`*,* `Warp`_
+
+    # [Icon:TOP/xmlinput] *Supershape*      ->      _`M`*,* `Rnd`*,* `Holes`_<br />[Icon:TOP/xmlinput] *Supershape*      ->      _`N1`*,* `N2`*,* `N3`_
+    
+    # [Icon:TOP/xmlinput] *Waves2*          ->      _`Scale X`*,* `Scale Y`_<br />[Icon:TOP/xmlinput] *Waves2*          ->      _`Frequency X`*,* `Frequency Y`_
+    
+    # [Icon:TOP/xmlinput] *Wedge*           ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
+    
+    # [Icon:TOP/xmlinput] *WedgeJulia*      ->      _`Power`*,* `Angle`*,* `Distance`*,* `Count`_
+    
+    # [Icon:TOP/xmlinput] *WedgeSph*        ->      _`Swirl`*,* `Angle`*,* `Hole`*,* `Count`_
+    
+    # [Icon:TOP/xmlinput] *Whorl*           ->      _`In`*,* `Out`_
+
+
+:box:
+    #display: rounded white
+
+
+
+
+@rendering Rendering tips
+
+:box:
+    #display: inverted pink
+
+    *FLAM3H(tm) Rendering tips*. _A few small tips to render your fractal Flame images._
+
+
+== Rendering: Workflow tips == (RENDWFTIPS)
+    
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Workflow tips:
+        #id: rendering
+    
+    You can keep the FLAM3H(tm) node live without the need to bake the processed point cloud while rendering
+    and just change density values to go from low/quick renders to high/slow render times. Adjust the point size *`@pscale`* ( _in Solaris:_ *`@widths`* ) accordingly.
+
+    When using Karma renderer:
+
+    - With *`64gb`* of physical memory you will be able to render *`500M points`* without weight much on virtual memory.
+    
+    - With *`128gb`* of physical memory you will be able to render *`1 billion points`* without weight much on virtual memory.
+
+    You can take advantage of packed disk primitives to increase the number of points you can render.<br />
+    Please read the Mantra tips below for more infos on the concept and the why.
+    <br /><br />
+
+    TIP:
+        #display: orange
+        When using Mantra, you can take advantage of _delayed loads_ to greatly increase the amount of points you can render, in which case you must bake those points out in a *`*.bgeo.sc`* files first.
+        
+        A non-deterministic random number generator was used to construct FLAM3H(tm), and it lies at the heart of the algorithm.
+        As a result, the points produced by FLAM3H(tm) nodes will always be in a little bit of a different location every time it cook.
+        This is perfect for cloning FLAM3H(tm) nodes and layering them into a single fractal Flame to improve the quality of the final result.
+
+
+== Rendering: Point size == (RENDPSTIPS)
+    
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Point size:
+        #id: rendering
+    
+    For simplicity, FLAM3H(tm) sets all *`@pscale`* to a value of *`0.001`*.<br />
+    Any necessary adjustments can be made using a wrangle or the upstream geometry node point size multiplier. 
+    It's important to keep in mind that *`@pscale`* will become *`@widths`* when importing FLAM3H(tm) into Stage/Solaris.
+    
+    As a general rule, the more points, the smaller the *`@pscale`* or *`@widths`* values need to be.
+
+
+== Rendering: Helpful settings == (RENDHSTIPS)
+    
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Karma/Mantra tips:
+        #id: Karma/Mantra tips
+    
+    - When rendering with Karma, remember to turn *`On`* the "_Simplified lighting_"/"_Disable lighting_" option' toggle to be sure to render the points with their full color values.
+    
+    - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
+    
+:box:
+    #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Tip:
+        #id: Point value accumulation tips
+
+    It will be crucial to experiment with the CP HSV values, notably the "*S*" (_Saturation_) and, most crucially, the "*V*" (_Value_).
+    The more dense portions of the Flame will get brighter if the Value in HSV is increased from the default value of *`1`*(one), bringing the appearance of the Flame closer to that of a typical fractal Flame.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Points color values accumulation tips*:<br />
+    
+    - _The following is valid for the time being and it will be subject to change sometime in the future._<br />
+    - _Each pixel color sample that follow is indicative for reference._
+
+    Since this implementation was crafted within Houdini,<br />
+    it chose to employ an alternative strategy to accumulate point color values while utilizing some of Houdini's technology rather than adhering to the same procedure as the original `Flam3` *`C`* source code.<br />
+    (_building a_ [buffer|Wp:Data_buffer] _with the_ [histogram|Wp:Histogram], _or summation/accumulation, of every point in every pixel_).
+
+    We will do something similar—not exactly the same, but close.<br />
+
+    Rather than doing it ourselves,<br />
+    we will allow Houdini and the selected renderer do it for us in some way, and it will happen at [render|Wp:Rendering_(computer_graphics)] time.<br />
+
+    To illustrate the idea and approach taken, consider the following illustration:
+
+    [Image:opdef:.?FLAM3H_DOC_pixels_grid.svg]
+
+    The above illustration shows a grid of pixels,<br />
+    with the one we'll utilize in this example being the one that is marked in red.<br />
+
+    A [pixel|Wp:Pixel] is really the lowest size that may exist in a picture in 2D applications; nothing can fit inside of one.
+
+    In Houdini (_or any other 3D application_), a pixel is the smallest unit of measurement in the final output image.<br />
+    However, during rendering, it can be thought of as a tiny window to the 3D virtual world we are processing;<br />
+    as a result, a pixel can be interpreted as a small domain with an area, through which we can see a tiny portion of that 3D virtual world.
+
+    The fractal Flame points have an attribute call: *`@pscale`* which define the real dimension of each point inside this world:
+
+    [Image:opdef:.?FLAM3H_DOC_point_dimension.svg]
+
+    Now lets set the "*V*" (_Value_) in the HSV paramater to *`4`*(_four_) and lets zoom into the highlighted pixel.<br />
+
+    We can now see some points of the fractal Flame we are rendering, as illustrated in the following picture:
+
+    [Image:opdef:.?FLAM3H_DOC_pixel_view.svg]
+
+    Those points, in relation to the area of the pixel/window, have a certain percentage of coverage.<br />
+    In this example, the final color of that pixel will be somewhere in the ball park of *`~80%`* red and *`~20%`* green 
+    and its final value, assuming the empty space have a value of *`0`*(_Zero_) will be in the ball park of *`~0.8`* or similar.
+
+    However,<br />
+    if more and more points happen to be visible through that pixel/window like in the following picture:
+
+    [Image:opdef:.?FLAM3H_DOC_pixel_fill.svg]
+
+    the final color of that pixel will now be in the ball park of *`~5%`* red and *`~95%`* green and its value in the ball park of *`~3.8`*, hence simulating a point values accumulation algorithm at no extra cost on our end.<br />
+    Setting the "*V*" (_Value_) in the HSV paramater at the beginning to *`4`*(_four_) it was like instructing the renderer about the final max value the image will have at any given pixel if it come to that.
+
+    That's why it is important to play with the "*V*" (_Value_) in the HSV paramater and the points *`@pscale`* value.
+
+    Using the output image *`Alpha`* channel as mask to brightnen further the more dense areas of the fractal will be the cherry on top of the cake.
+
+
+
+
+:box:
+    #display: rounded white
+
+@Cvex
+
+:box:
+    #display: inverted pink
+
+    *FLAM3H(tm) Cvex*. _How to Compile and update_.
+    
+    In this section,<br /> 
+    you will find information on how to compile and then update FLAM3H(tm) Cvex code in case you'd like to modify/extend its core functionalities.
+
+    For example,<br />
+    you may want to add more variations to its current arsenal of already implemented variations ( _currently there are *106* implemented_ ).
+    
+    Extending the Cvex code base,<br /> 
+    most likely require you to update/extend the Python code base as well, since both go hand in hand with many of the core algorithm functionalities.
+
+    In order to improve speed, the Cvex code base has been scaled down to its bare minimum;<br />
+    this results in the least amount of code required to implement the entire algorithm.<br /> 
+    Be as conservative as you can if you want to add anything.
+
+
+== Cvex: How to compile == (COMPILE)
+    
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Compile Cvex:
+        #id: Cvex
+    
+    _SideFX made this part very easy_:
+    
+    # Open a Houdini 19 or higher, Command line Tools shell
+    # Navigate into the directory where the cvex source files are located
+    # To compile any of the available cvex source files, run this command:
+    
+        {{{
+        #!vex
+        vcc -c cvex sourceFile.vfl -o outputFile.vex
+        }}}
+    
+    - *vcc* is the name of the Houdini's cvex/vex compiler
+    - *-c* to specify a Houdini context, in this case the context is: *cvex*
+    - *-o* to specify an output filename ( *.vex* _extension_ )
+    
+    The FLAM3H(tm) source files are already named as expected.
+    
+    - The output file name must be the same as the input source file name<br />
+    ( _only the file extension will be different, of course_ ).
+    
+        - Source -> _"cvex_TheFractalFlameAlgorithm.*vfl*"_
+    
+        - Output -> _"cvex_TheFractalFlameAlgorithm.*vex*"_
+    
+== Cvex: How to update FLAM3H(tm) node == (UPDATE)
+    
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Reload Cvex:
+        #id: Cvex
+    
+    Inside the FLAM3H(tm) node, you will find many wrangle core nodes running a compiled Cvex file.
+    
+    If you end up updating the Cvex code yourself by extending it: 
+    
+    # Update the sourceFile.*vfl* with all the changes/additions you desire, and follow the above steps on *Cvex: How to compile*.
+    # Once you are ready, remove the old compiled Cvex file from: *FLAM3H(tm) *-> *Type properties* -> *extra files*.
+    # Locate the new compiled Cvex file and load it back inside *FLAM3H(tm) * -> *Type properties* -> *extra files*.
+    # Before you click: *Add file*, remove the extension from the filename inside the "*Section name*"
+        - e.g. From: _*cvex_TheFractalFlameAlgorithm.vex*_ To: _*cvex_TheFractalFlameAlgorithm*_
+    # Click *Apply* or *Accept* to confirm your changes.
+    # Go inside the FLAM3H(tm) node and on any of the *`wrangle core`* nodes, click the:
+        
+        * *`Reload Cvex icon`*: [Largeicon:opdef:.?icon_cvex_compileSVG.svg]
+    
+    You just need to click it once,<br />
+    and it will reload all the compiled Cvex code files included, the wrangle core node you click the icon from is not important.
+    
+    Once clicked and as soon as FLAM3H(tm) cook again,<br />
+    it will Re-Compile all FLAM3H(tm) Cvex nodes. Depending on your PC configuration it can take up to *`1`*(one) minute. It is a one time compile process.
+
+
+
+
+:box:
+    #display: rounded white
+
+@Limitations
+
+:box:
+    #display: inverted pink
+
+    *FLAM3H(tm) Limitations*.
+    
+    The following are limitations to keep in mind when authoring your Flames in Fractorium or Apophysis to be loaded inside FLAM3H(tm).
+    Some of these limitations are in place to maintain performance within the Cvex language restrictions.<br />
+    Some other are caused by Houdini bugs, in those cases a reference to the bug submission is provided.
+
+== Limitations: Iterators count ==
+    
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Iterator's count:
+        #id: Limitations
+    
+    FLAM3H(tm) allows you to create as many iterators as you wish.<br />
+
+    However,<br />
+    when using xaos you are only permitted to create a maximum of *`20`* iterators.<br />
+    This is a workaround to make xaos work due to a Houdini bug.
+
+    <br />
+    _For reference_:
+
+    *`10/10/2022`* -> _*Submitted*_<br />
+    - Houdini version: _19.0.720_<br />
+    - Description: _Issue with the_ `sample_cdf()` _function when the CDF is varying over the VEX processor array_.<br />
+    - Bug ID# *`124486`*<br />
+    - SideFX Support Ticket: *`SESI# 128304`*
+
+    <br />
+    *`08/28/2025`* -> _*Fixed*_<br />
+    - Houdini version: _21.0.457 - not implemented yet in FLAM3H(tm) _
+
+== Limitations: Iterators PRE, VAR and POST variations ==
+
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] PRE variations:
+        #id: Limitations
+    
+    Every iterator is capable of *`3`*(three) *`PRE`* variations,<br />
+    with one ( _the first one to always be executed_ ) being: *`pre_blur`*, followed by the other two.
+    
+    It is really *`pre_blur`* plus *`2`*(two) *`PRE`* variations of your choice.
+    <br /><br />
+
+    NOTE:
+        The weight of the *`PRE`* variations can not be negative in FLAM3H(tm).
+
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] VAR variations:
+        #id: Limitations
+    
+    Every iterator is capable of *`4`*(four) variations.
+    
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] POST variations:
+        #id: Limitations
+    
+    Every iterator is capable of *`1`*(one) *`POST`* variation.
+    <br /><br />
+
+    NOTE:
+        The weight of the *`POST`* variation can not be negative in FLAM3H(tm).
+    
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Parametric variation parameters:
+        #id: Limitations
+    
+    Each iterator has only one set of parametric variation parameters shared within the *`PRE`*, *`VAR`* and *`POST`* variations.
+
+    _This means if you use_:
+    - *`2`*(two) *`PRE Mobius`*
+    - *`4`*(four) *`VAR Mobius`*
+    - *`1`*(one) *`POST Mobius`*
+
+    they will all share the same *`re:abcd`* and *`im:abcd`* parameters (_FLAME: VARS tab_).
+    
+    
+    
+== Limitations: FF(finalXform) PRE, VAR and POST variations ==
+
+    
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF PRE variations:
+        #id: Limitations
+    
+    FF iterator is capable of *`1`*(one) *`PRE`* variation.
+    <br /><br />
+
+    NOTE:
+        The weight of the FF *`PRE`* variations can not be negative in FLAM3H(tm).
+
+    
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF VAR variations:
+        #id: Limitations
+    
+    FF iterator is capable of *`2`*(two) *`VAR`* variations.
+    
+    
+:box:
+    #display: rounded gray
+    
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF POST variations:
+        #id: Limitations
+    
+    FF iterator is capable of *`2`*(two) *`POST`* variations.
+    <br /><br />
+
+    NOTE:
+        The weight of the FF *`POST`* variations can not be negative in FLAM3H(tm).
+       
+:box:
+    #display: rounded gray
+        
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF Parametric variation parameters:
+        #id: Limitations
+    
+    FF iterator has two sets of parametric variation parameters.
+    One is shared with *`VAR`* variations.
+    The second is shared within the *`PRE`* and *`POST`* variations.
+    
+    # If you use *`2`*(two) *`Mobius`* in the FF *`VAR`* section<br />they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set one ( _FF: VARS Tab_ ).
+    # If you use:
+        - *`1`*(one) *`PRE Mobius`*
+        - *`2`*(two) *`POST Mobius`*
+        
+        they will all share the same *`re:abcd`* and *`im:abcd`* parameters from set two ( _FF: PP VARS Tab_ ).
+    
+== Limitations: FF(finalXform) Shader ==
+
+:box:
+    #display: rounded gray
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] FF Shader:
+        #id: Limitations
+    
+    This finalXform(_FF_) does not possess any color parameters in this implementation ( _Chaotica style_ ).
+    <br /><br />
+
+    NOTE:
+        _When saving a Flame out from Fractorium/Apophysis with a finalXform(FF) remember to set the finalXform color to:_
+        - Color -> *`0`*(Zero)
+        - Color Speed -> *`0`*(Zero) ( _this is the most important_ )
+        - Direct Color -> *`1`*(one)
+        
+        _This way, you won't add a color to the Flame that FLAM3H(tm) won't be able to match._
+
+== Limitations: H21 and up ==
+
+:box:
+    #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *New multiparameter features*<br /><br />
+
+    Although the multiparameter features have been expanded since SideFX released Houdini 21,<br />
+    as of this writing, they do not offer any ways to identify when the user is executing them<br />
+    (_they no longer cause the multiparameter callback script to run_).
+
+    Because of this,<br />
+    FLAM3H™ is unable to record and update their xaos string automatically<br />
+    when new iterators are created or rearranged (_the new features_).<br />
+
+    SideFX has received a Bug report, and if it is fixed,<br />
+    a FLAM3H™ update for H21 or later will be made available.
+
+    Meanwhile and only in H21 and up,<br />
+    a control icon have been added to the FLAM3H™ UI<br />
+    to add/remove iterators while still updating their xaos string:
+
+    [Largeicon:opdef:.?icon_AddDelIteratorSVG.svg]<br />
+
+    _Usage_:
+    - ((LMB)) to insert an iterator before.
+    - ((SHIFT)) + ((LMB)) to insert an iterator after.
+
+    _Additionally_:
+    - ((CTRL)) + ((LMB)) to delete this iterator.
+
+    Rearranging iterators wont update their xaos string.<br />
+    (_You should not do that in FLAM3H™_).
+
+    <br />
+    _For reference_:
+
+    *`08/26/2025`* -> _*Submitted*_<br />
+    - Houdini version: _21.0.440_<br />
+    - Description: _Multiparameter new functionalities do not trigger the multiparameter callback script_.<br />
+    - Bug ID# *`149091`*<br />
+    - SideFX Support Ticket: *`SESI# 169253`*
+
+    <br />
+    Status:<br />
+    * _*`Wating for a fix`*_
+        #glyph: fa-spinner fa-spin
+
+
+:box:
+    #display: rounded white
+
+@License
+
+:box:
+    #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Notice*<br /><br />
+    - This documentation is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0).<br />
+    _See the file LICENSE.docs in the repository for details_.
+
+    - The software described in this documentation is licensed separately under the GNU General Public License, version 3 (GPL-3.0).<br />
+
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Software (GPL-3.0)*
+
+        All source code and Houdini-related source materials are licensed under the<br />
+        *GNU General Public License v3.0* (LICENSE).<br />
+
+        _For this project, “source code” includes not only conventional files but also Houdini-specific assets in their editable form, such as_:
+        - Digital Assets (_.otl, .hda, .hdalc, .hdanc_)
+        - Node networks and sub-networks
+        - Custom node definitions and parameter interfaces
+        - CVEX, VEX, VOP or OpenCL code
+        - Shelf tools, scripts, and presets
+        - Any related configuration or scene files that represent the tool in its preferred form for making modifications
+
+        _These are all considered part of the “preferred form of the work for making modifications” under the GPL and must be shared under the same terms_.
+
+        _See the LICENSE file in the repository for details_.
+
+        
+:box:
+    #display: rounded white
+    
+:box:
+    #display: rounded white
+
+@Author
+
+= [Largeicon:opdef:.?iconSVG.svg] _stands for liFe ( made in Italy )_ =
+    
+:box:
+    #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Mini bio*<br /><br />
+    _Alessandro Nardini is an Italian artist and developer who's spent most of his career serving the entertainment industry._
+    _He served many different branches of the entertainment industry's post-production,_
+    _spanning feature films, games, TV/commercials, episodic series and streaming._
