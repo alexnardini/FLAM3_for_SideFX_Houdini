@@ -1725,9 +1725,10 @@ class flam3h_scripts
         Returns:
             (None):
         """
+        node = self.node
+        
         if self.flam3h_compatible():
             
-            node = self.node
             node.setColor(hou.Color((0.9,0.9,0.9)))
             
             flam3h_iterator_utils(self.kwargs).flam3h_default()
@@ -1767,10 +1768,18 @@ class flam3h_scripts
             _H21: bool = False
             try: _H21 = hou.session.F3H_H_VERSION_H21 # type: ignore # This is set inside the FLAM3H™ H21 HDA PreFirstCreate module
             except: pass
-            if _H21: _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need H21.0.457 and up to run this FLAM3H™ version"
-            else: _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need from H19 to H20.5 to run this FLAM3H™ version"
+            if _H21: 
+                _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need H21.0.457 and up to run this FLAM3H™ version"
+                # Set only once (on creation)
+                _MSG_DESCRIPTIVE_MSG = f"FLAM3H™ v{__version__}\nYou need H21.0.457 and up"
+            else: 
+                _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need from H19 to H20.5 to run this FLAM3H™ version"
+                # Set only once (on creation)
+                _MSG_DESCRIPTIVE_MSG = f"FLAM3H™ v{__version__}\nYou need from H19 to H20.5"
             
-            hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore                                    
+            hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
+            # Set only once (on creation)
+            node.setParms({MSG_DESCRIPTIVE_PRM: _MSG_DESCRIPTIVE_MSG}) # type: ignore
 
 
     # def flam3h_on_loaded_set_density_menu(self) -> None:
@@ -1802,9 +1811,9 @@ class flam3h_scripts
         Returns:
             (None):
         """
+        node = self.node
+        
         if self.flam3h_compatible():
-            
-            node = self.node
             
             # Force updated of the mini-menu iterator selection
             flam3h_iterator_utils.destroy_cachedUserData(node, 'iter_sel')
@@ -1927,8 +1936,8 @@ class flam3h_scripts
             _H21: bool = False
             try: _H21 = hou.session.F3H_H_VERSION_H21 # type: ignore # This is set inside the FLAM3H™ H21 HDA PreFirstCreate module
             except: pass
-            if _H21: _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need H21.0.457 and up to run this FLAM3H™ version"
-            else: _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need from H19 to H20.5 to run this FLAM3H™ version"
+            if _H21: _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need H21.0.457 and up to run this FLAM3H™ version"
+            else: _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need from H19 to H20.5 to run this FLAM3H™ version"
             
             hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore 
 
@@ -1941,9 +1950,10 @@ class flam3h_scripts
         Returns:
             (None):
         """
+        node = self.node
+        
         if self.flam3h_compatible():
             
-            node = self.node
             node_instances: tuple = node.type().instances()
             
             if len(node_instances) == 1:
@@ -2012,8 +2022,8 @@ class flam3h_scripts
             _H21: bool = False
             try: _H21 = hou.session.F3H_H_VERSION_H21 # type: ignore # This is set inside the FLAM3H™ H21 HDA PreFirstCreate module
             except: pass
-            if _H21: _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need H21.0.457 and up to run this FLAM3H™ version"
-            else: _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need from H19 to H20.5 to run this FLAM3H™ version"
+            if _H21: _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need H21.0.457 and up to run this FLAM3H™ version"
+            else: _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need from H19 to H20.5 to run this FLAM3H™ version"
             
             hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore 
 
@@ -7391,11 +7401,11 @@ class flam3h_iterator_utils
                     current["affine_x"].set(AFFINE_DEFAULT_DICT.get("affine_x"))
                     current["affine_y"].set(AFFINE_DEFAULT_DICT.get("affine_y"))
                     # Print to Houdini's status bar
-                    _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine X, Y -> RESET"
+                    _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine X and Y -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine X, Y -> already at their default values."
+                _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine X and Y -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["ctrl"]:
@@ -7469,11 +7479,11 @@ class flam3h_iterator_utils
                         current["affine_x"].set(AFFINE_DEFAULT_DICT.get("affine_x"))
                         current["affine_y"].set(AFFINE_DEFAULT_DICT.get("affine_y"))
                         # Print to Houdini's status bar
-                        _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine X, Y -> RESET"
+                        _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine X and Y -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
                 if check:
-                    _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine X, Y -> already at their default values."
+                    _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine X and Y -> already at their default values."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
             elif self.kwargs["ctrl"]:
@@ -7545,11 +7555,11 @@ class flam3h_iterator_utils
                     current["affine_x"].set(AFFINE_DEFAULT_DICT.get("affine_x"))
                     current["affine_y"].set(AFFINE_DEFAULT_DICT.get("affine_y"))
                     # Print to Houdini's status bar
-                    _MSG: str = f"{node.name()}: FF PRE Affine X, Y -> RESET"
+                    _MSG: str = f"{node.name()}: FF PRE Affine X and Y -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG: str = f"{node.name()}: FF PRE Affine X, Y -> already at their default values."
+                _MSG: str = f"{node.name()}: FF PRE Affine X and Y -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         elif self.kwargs["ctrl"]:
@@ -7622,11 +7632,11 @@ class flam3h_iterator_utils
                         current["affine_x"].set(AFFINE_DEFAULT_DICT.get("affine_x"))
                         current["affine_y"].set(AFFINE_DEFAULT_DICT.get("affine_y"))
                         # Print to Houdini's status bar
-                        _MSG: str = f"{node.name()}: FF POST Affine X, Y -> RESET"
+                        _MSG: str = f"{node.name()}: FF POST Affine X and Y -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
                 if check:
-                    _MSG: str = f"{node.name()}: FF POST Affine X, Y -> already at their default values."
+                    _MSG: str = f"{node.name()}: FF POST Affine X and Y -> already at their default values."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
             elif self.kwargs["ctrl"]:
