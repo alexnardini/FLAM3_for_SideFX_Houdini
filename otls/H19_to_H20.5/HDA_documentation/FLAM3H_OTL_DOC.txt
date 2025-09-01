@@ -827,7 +827,7 @@ note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     <br /><br />
 
     NOTE:
-        The text you write here will be stored with the Flame file and also shown inside third-party applications like Apophysis and Fractorium as the iterator's name.
+        The text you write here will be stored with the Flame preset file on Save and also shown inside third-party applications like Apophysis and Fractorium as the iterator's name.
 
     <br />
     
