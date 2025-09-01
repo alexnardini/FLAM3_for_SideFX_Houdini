@@ -1207,31 +1207,31 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_set_and_retrieve_d
 # parameter name:    `outcurvesval`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node']), kwargs['parm'].deleteAllKeyframes()
+hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
 # OUT Tab
 # parameter name:    `outcurveoverallval`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node']), kwargs['parm'].deleteAllKeyframes()
+hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
 # OUT Tab
 # parameter name:    `outcurveredval`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node']), kwargs['parm'].deleteAllKeyframes()
+hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
 # OUT Tab
 # parameter name:    `outcurvegreenval`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node']), kwargs['parm'].deleteAllKeyframes()
+hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
 # OUT Tab
 # parameter name:    `outcurveblueval`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node']), kwargs['parm'].deleteAllKeyframes()
+hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
 
 <br>
