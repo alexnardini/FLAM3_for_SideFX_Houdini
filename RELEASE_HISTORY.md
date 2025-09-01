@@ -27,7 +27,7 @@ They are all available in this Github repository.
 </br>
 </br>
 
-### [<ins>From v1.8.70</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.70) ###
+### [<ins>From v1.8.75</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.75) ###
 
 #### FLAM3H™ ####
 
