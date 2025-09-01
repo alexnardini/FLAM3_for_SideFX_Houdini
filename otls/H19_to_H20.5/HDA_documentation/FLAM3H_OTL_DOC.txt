@@ -4015,8 +4015,8 @@ _A list of all parametric variations and their parametric parameter's names_
     [Largeicon:opdef:.?icon_AddDelIteratorSVG.svg]<br />
 
     _Usage_:
-    - ((LMB)) to insert an iterator before.
-    - ((SHIFT)) + ((LMB)) to insert an iterator after.
+    - ((LMB)) to insert an iterator Before.
+    - ((SHIFT)) + ((LMB)) to insert an iterator After.
 
     _Additionally_:
     - ((CTRL)) + ((LMB)) to delete this iterator.
