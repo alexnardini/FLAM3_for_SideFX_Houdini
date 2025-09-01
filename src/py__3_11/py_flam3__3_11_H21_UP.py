@@ -6347,7 +6347,7 @@ class flam3h_iterator_utils
                 else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
                 
                 # Build menu
-                if node == from_FLAM3H_NODE and idx == mp_id_from:
+                if node == from_FLAM3H_NODE and int(idx) == mp_id_from:
                     menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED\n-> Select a different iterator number or a different FLAM3H™ node to paste its values.", 1,"" ]
                 elif node == from_FLAM3H_NODE:
                     path: str = f"{_ICON}  {idx_from}"
@@ -6822,36 +6822,36 @@ class flam3h_iterator_utils
         # Clear menu cache
         self.destroy_cachedUserData(node, 'iter_sel')
         
-        id: str = self.kwargs['script_multiparm_index']
+        idx: str = self.kwargs['script_multiparm_index']
         
         # This is to make sure the hou.session's data is at least initialized.
         self.flam3h_init_hou_session_iterator_data(node)
         
         # Adding ability to reset the current iterator to its default values. 
         if self.kwargs["ctrl"]:
-            with hou.undos.group(f"FLAM3H™ reset iterator {id}"): # type: ignore
+            with hou.undos.group(f"FLAM3H™ reset iterator {idx}"): # type: ignore
                 self.flam3h_reset_iterator()
-                _MSG: str = f"{node.name()}: Iterator {id} -> RESET"
+                _MSG: str = f"{node.name()}: Iterator {idx} -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["shift"]:
-            with hou.undos.group(f"FLAM3H™ unmark iterator SHIFT {id}"): # type: ignore
+            with hou.undos.group(f"FLAM3H™ unmark iterator SHIFT {idx}"): # type: ignore
                 self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
-                self.prm_paste_SHIFT(int(id))
+                self.prm_paste_SHIFT(int(idx))
                      
         elif self.kwargs["alt"]:
-            with hou.undos.group(f"FLAM3H™ paste iterator data CTRL {id}"): # type: ignore
-                self.prm_paste_CTRL(int(id))
+            with hou.undos.group(f"FLAM3H™ paste iterator data CTRL {idx}"): # type: ignore
+                self.prm_paste_CTRL(int(idx))
         
         else:
-            if self.exist_user_data(node) and int(self.get_user_data(node)) == id and id == hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node == hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
-                with hou.undos.group(f"FLAM3H™ unmark iterator CLICK {id}"): # type: ignore
+            if self.exist_user_data(node) and int(self.get_user_data(node)) == idx and idx == hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node == hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
+                with hou.undos.group(f"FLAM3H™ unmark iterator CLICK {idx}"): # type: ignore
                     self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
-                    self.prm_paste_SHIFT(int(id))
+                    self.prm_paste_SHIFT(int(idx))
             else:
-                with hou.undos.group(f"FLAM3H™ mark iterator CLICK {id}"): # type: ignore
+                with hou.undos.group(f"FLAM3H™ mark iterator CLICK {idx}"): # type: ignore
                     self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
-                    self.prm_paste_CLICK(int(id))
+                    self.prm_paste_CLICK(int(idx))
     
     
     def prm_paste_FF_CTRL(self) -> None:
@@ -7137,16 +7137,16 @@ class flam3h_iterator_utils
         f3h_iter = flam3h_iterator()
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[1:-2], f3h_iter.sec_preAffine[:-2], idx)
-            _MSG: str = f"iterator.{id} - POST affine X and Y copied into the PRE affine."
+            _MSG: str = f"iterator.{idx} - POST affine X and Y copied into the PRE affine."
         elif kwargs['ctrl']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[3:-1], f3h_iter.sec_preAffine[2:-1], idx)
-            _MSG: str = f"iterator.{id} - POST affine Offset copied into the PRE affine."
+            _MSG: str = f"iterator.{idx} - POST affine Offset copied into the PRE affine."
         elif kwargs['alt']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[4:], f3h_iter.sec_preAffine[3:], idx)
-            _MSG: str = f"iterator.{id} - POST affine Rotation angle copied into the PRE affine."
+            _MSG: str = f"iterator.{idx} - POST affine Rotation angle copied into the PRE affine."
         else:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[1:], f3h_iter.sec_preAffine, idx)
-            _MSG: str = f"iterator.{id} - POST affine values copied into the PRE affine."
+            _MSG: str = f"iterator.{idx} - POST affine values copied into the PRE affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
@@ -7169,16 +7169,16 @@ class flam3h_iterator_utils
         f3h_iter = flam3h_iterator()
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[:-2], f3h_iter.sec_postAffine[1:-2], idx)
-            _MSG: str = f"iterator.{id} - PRE affine X and Y copied into the POST affine."
+            _MSG: str = f"iterator.{idx} - PRE affine X and Y copied into the POST affine."
         elif kwargs['ctrl']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[2:-1], f3h_iter.sec_postAffine[3:-1], idx)
-            _MSG: str = f"iterator.{id} - PRE affine Offset copied into the POST affine."
+            _MSG: str = f"iterator.{idx} - PRE affine Offset copied into the POST affine."
         elif kwargs['alt']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[3:], f3h_iter.sec_postAffine[4:], idx)
-            _MSG: str = f"iterator.{id} - PRE affine Rotation angle copied into the POST affine."
+            _MSG: str = f"iterator.{idx} - PRE affine Rotation angle copied into the POST affine."
         else:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine, f3h_iter.sec_postAffine[1:], idx)
-            _MSG: str = f"iterator.{id} - PRE affine values copied into the POST affine."
+            _MSG: str = f"iterator.{idx} - PRE affine values copied into the POST affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
@@ -8392,11 +8392,11 @@ class flam3h_iterator_utils
 
         # If this va: list variable is empty, mean we switched the last active irterator to OFF so lets do something about it.
         if not va:
-            id: str = self.kwargs['script_multiparm_index']
-            node.setParms({f"vactive_{id}": 1})
-            _MSG: str = f"{node.name()}: iterator {str(id)} reverted back to being Active. There must always be at least one active iterator."
+            idx: str = self.kwargs['script_multiparm_index']
+            node.setParms({f"vactive_{idx}": 1})
+            _MSG: str = f"{node.name()}: iterator {idx} reverted back to being Active. There must always be at least one active iterator."
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"iterator {str(id)} -> back to being Active")
+            flam3h_general_utils.flash_message(node, f"iterator {idx} -> back to being Active")
 
 
     def __iterator_keep_last_vactive_STAR(self) -> None:
@@ -8417,8 +8417,8 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        id: str = self.kwargs['script_multiparm_index']
-        vactive_prm_name: str = f"vactive_{id}"
+        idx: str = self.kwargs['script_multiparm_index']
+        vactive_prm_name: str = f"vactive_{idx}"
         flam3h_general_utils(self.kwargs).flam3h_toggle(vactive_prm_name)
         self.__iterator_keep_last_vactive()
 
@@ -8458,9 +8458,9 @@ class flam3h_iterator_utils
         
         if len(_W) == len(vactive_iters):
             min_weight: float = 0.00000001
-            id: str = self.kwargs['script_multiparm_index']
-            node.setParms({f"iw_{id}": min_weight})
-            _MSG: str = f"{node.name()}: iterator {id}'s Weight reverted back to a value of: {min_weight} instead of Zero. There must always be at least one active iterator's weight above Zero."
+            idx: str = self.kwargs['script_multiparm_index']
+            node.setParms({f"iw_{idx}": min_weight})
+            _MSG: str = f"{node.name()}: iterator {idx}'s Weight reverted back to a value of: {min_weight} instead of Zero. There must always be at least one active iterator's weight above Zero."
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"iterator {str(id)} Weight: back to being NON-ZERO")
             
@@ -8480,8 +8480,8 @@ class flam3h_iterator_utils
         
         # Do toggle ON/OFF if the correct parameter is being used
         if 'doiter_' in self.kwargs['parm'].name():
-            id: str = self.kwargs['script_multiparm_index']
-            vactive_prm_name: str = f"vactive_{id}"
+            idx: str = self.kwargs['script_multiparm_index']
+            vactive_prm_name: str = f"vactive_{idx}"
             flam3h_general_utils(self.kwargs).flam3h_toggle(vactive_prm_name)
 
 
