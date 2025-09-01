@@ -3,6 +3,7 @@
 - Documentation: [CC BY-SA 4.0](LICENSE.docs)
 
 ## Platforms
+_One code base, multiple platforms._
 - **Win**, **Mac**, **Linux**
 
 ## Houdini versions
