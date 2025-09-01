@@ -2085,7 +2085,7 @@ class flam3h_general_utils
 * flam3h_toggle_sys_xf_viz_solo(self) -> None:
 * flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
 * flam3h_toggle_mp_xf_viz(self) -> None:
-* flam3h_toggle_mp_xf_viz_sel_iter(self, mp_idx: int) -> None:
+* flam3h_toggle_mp_xf_viz_solo_follow(self, mp_idx: int) -> None:
 * flam3h_toggle_xf_ff_viz(self) -> None:
 * flam3h_toggle(self, prm_name: str) -> None:
 * flam3h_toggle_private(self, prm_name: str) -> None:
@@ -3371,12 +3371,14 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: {mp_idx}")
             
             
-    def flam3h_toggle_mp_xf_viz_sel_iter(self, mp_idx: int) -> None:
+    def flam3h_toggle_mp_xf_viz_solo_follow(self, mp_idx: int) -> None:
         """When one of the iterators in in SOLO mode,
         changing the iterators focus using the select iterator mini menu
         will change olso the SOLO focus as well, keeping any selected iterator in SOLO modo while switching.
         
-
+        This is used inside:
+        - def prm_select_iterator(self) -> None:
+        
         Args:
             (self):
             mp_idx(int): The multiparameter index of the selected iterator  
@@ -3392,18 +3394,21 @@ class flam3h_general_utils
         # If any of the iterators is in SOLO mode
         if _SOLO and _SOLO_FOLLOW:
             
-            iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             prm_mp = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{mp_idx}")
-            data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
             
-            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) for mp_id in range(iter_num)] # type: ignore
-            prm_mp.set(1)
-            # Update data accordingly
-            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, mp_idx)
-            node.setUserData(f"{data_name}", str(mp_idx))
-            # message
-            _MSG: str = f"{node.name()}: {str(prm_mp.name()).upper()}: ON"
-            self.set_status_msg(_MSG, 'IMP')
+            if not prm_mp.eval():
+                
+                iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
+                data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
+                
+                [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) for mp_id in range(iter_num)] # type: ignore
+                prm_mp.set(1)
+                # Update data accordingly
+                self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, mp_idx)
+                node.setUserData(f"{data_name}", str(mp_idx))
+                # message
+                _MSG: str = f"{node.name()}: {str(prm_mp.name()).upper()}: ON"
+                self.set_status_msg(_MSG, 'IMP')
             
             
     def flam3h_toggle_xf_ff_viz(self) -> None:
@@ -4482,6 +4487,7 @@ class flam3h_iterator_utils
 * menu_T_PP_ICON(self, FF: bool = False) -> list:
 * menu_T_simple(self, FF: bool = False) -> list:
 * menu_T(self, FF: bool = False) -> list:
+* menu_T_PP(self, FF: bool = False) -> list:
 * menu_T_pb(self) -> list:
 * menu_select_iterator_data(self, data_now: tuple) -> list:
 * menu_select_iterator(self) -> list:
@@ -6116,7 +6122,7 @@ class flam3h_iterator_utils
                 # Change focus back to the FLAME's Tab
                 node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
                 # If any of the iterators is in SOLO mode, change accordeingly to the selection
-                flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_sel_iter(preset_id)
+                flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_solo_follow(preset_id)
                 
                 _MSG: str = f"iterator: {preset_id}"
                 active: int = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
@@ -6146,7 +6152,7 @@ class flam3h_iterator_utils
                         # Change focus back to the FLAME's Tab
                         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
                         # If any of the iterators is in SOLO mode, change accordeingly to the selection
-                        flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_sel_iter(preset_id)
+                        flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_solo_follow(preset_id)
                         
                         _MSG: str = f"iterator: {preset_id}"
                         active: int = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
