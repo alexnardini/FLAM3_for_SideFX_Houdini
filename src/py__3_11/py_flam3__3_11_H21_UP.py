@@ -6321,8 +6321,7 @@ class flam3h_iterator_utils
             menu: list= []
             
             node = self.node
-            id: str = self.kwargs['script_multiparm_index']
-            idx: str = str(id)
+            idx: str = self.kwargs['script_multiparm_index']
             
             if self.exist_user_data(node):
                 node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
@@ -6348,7 +6347,7 @@ class flam3h_iterator_utils
                 else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
                 
                 # Build menu
-                if node == from_FLAM3H_NODE and id == mp_id_from:
+                if node == from_FLAM3H_NODE and idx == mp_id_from:
                     menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED\n-> Select a different iterator number or a different FLAM3H™ node to paste its values.", 1,"" ]
                 elif node == from_FLAM3H_NODE:
                     path: str = f"{_ICON}  {idx_from}"

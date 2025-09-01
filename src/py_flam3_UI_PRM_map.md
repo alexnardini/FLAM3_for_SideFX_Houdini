@@ -77,15 +77,6 @@ from datetime import datetime
 
 __version__ = '1.8.70 - Production'
 
-# We are keeping the: py_flam3__3_7 module only for the following reason:
-# 
-# This is solely to detect if FLAM3H OTL for H21
-# has been loaded inside a Houdini version minor than H20.5.
-# Thx to this we can disable the functionalities since it is not a match.
-try: hou.session.F3H_H_VERSION_H21
-except: hou.session.F3H_H_VERSION_H21: bool = True
-else: pass
-
 def houdini_version(digit: int = 1) -> int:
     """Retrieve the major Houdini version number currently in use.
 
@@ -96,6 +87,16 @@ def houdini_version(digit: int = 1) -> int:
         (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
     """ 
     return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
+
+# We are keeping the: py_flam3__3_7 module only for the following reason:
+# 
+# This is solely to detect if FLAM3H OTL for H21
+# has been loaded inside a Houdini version minor than H20.5.
+# Thx to this we can disable the functionalities since it is not a match.
+if houdini_version(2) < 205:
+    try: hou.session.F3H_H_VERSION_H21
+    except: hou.session.F3H_H_VERSION_H21: bool = True
+    else: pass
 
 def flam3h_first_time() -> bool:
     """If the version of Houdini running is smaller than version 19 
