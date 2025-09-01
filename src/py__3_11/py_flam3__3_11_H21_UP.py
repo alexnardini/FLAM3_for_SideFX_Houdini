@@ -6701,6 +6701,7 @@ class flam3h_iterator_utils
             (None):
         """   
         node = self.node
+        idx: str = str(id)
         # Update data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
 
@@ -6720,9 +6721,9 @@ class flam3h_iterator_utils
                 
             else:
                 if from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval() == -1:
-                    _MSG: str = f"{node.name()}: {_MSG_UNMARKED}:  {str(id)}   Unmarked removed iterator -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
+                    _MSG: str = f"{node.name()}: {_MSG_UNMARKED}:  {idx}   Unmarked removed iterator -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
                 else:
-                    _MSG: str = f"{node.name()}: {_MSG_UNMARKED} -> {str(id)}"
+                    _MSG: str = f"{node.name()}: {_MSG_UNMARKED} -> {idx}"
                     
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
                 self.iterator_mpidx_mem_set(node, 0)
@@ -6760,6 +6761,7 @@ class flam3h_iterator_utils
             (None):
         """
         node = self.node
+        idx: str = str(id)
         # Update data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
                 
@@ -6774,7 +6776,7 @@ class flam3h_iterator_utils
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = self.node # type: ignore
                 self.iterator_mpidx_mem_set(node, id)
                 self.del_comment_and_user_data_iterator(node)
-                self.set_comment_and_user_data_iterator(node, str(id))
+                self.set_comment_and_user_data_iterator(node, idx)
                 
                 _MSG: str = f"{self.node.name()}: iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -6783,7 +6785,7 @@ class flam3h_iterator_utils
             else:
                 self.iterator_mpidx_mem_set(node, id)
                 self.del_comment_and_user_data_iterator(node)
-                self.set_comment_and_user_data_iterator(node, str(id))
+                self.set_comment_and_user_data_iterator(node, idx)
                 
                 _MSG: str = f"{self.node.name()}: This iterator is already Marked." # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -6793,7 +6795,7 @@ class flam3h_iterator_utils
             hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = self.node # type: ignore
             self.iterator_mpidx_mem_set(node, id)
             self.del_comment_and_user_data_iterator(node)
-            self.set_comment_and_user_data_iterator(node, str(id))
+            self.set_comment_and_user_data_iterator(node, idx)
             
             # Reset the other node mp_idx data
             if from_FLAM3H_NODE is not None:
@@ -7140,13 +7142,13 @@ class flam3h_iterator_utils
             _MSG: str = f"iterator.{idx} - POST affine X and Y copied into the PRE affine."
         elif kwargs['ctrl']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[3:-1], f3h_iter.sec_preAffine[2:-1], idx)
-            _MSG: str = f"iterator.{idx} - POST affine Offset copied into the PRE affine."
+            _MSG: str = f"iterator.{idx} - POST affine OFFSET copied into the PRE affine."
         elif kwargs['alt']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[4:], f3h_iter.sec_preAffine[3:], idx)
-            _MSG: str = f"iterator.{idx} - POST affine Rotation angle copied into the PRE affine."
+            _MSG: str = f"iterator.{idx} - POST affine ROT angle copied into the PRE affine."
         else:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[1:], f3h_iter.sec_preAffine, idx)
-            _MSG: str = f"iterator.{idx} - POST affine values copied into the PRE affine."
+            _MSG: str = f"iterator.{idx} - POST affine ALL values copied into the PRE affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
@@ -7172,13 +7174,13 @@ class flam3h_iterator_utils
             _MSG: str = f"iterator.{idx} - PRE affine X and Y copied into the POST affine."
         elif kwargs['ctrl']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[2:-1], f3h_iter.sec_postAffine[3:-1], idx)
-            _MSG: str = f"iterator.{idx} - PRE affine Offset copied into the POST affine."
+            _MSG: str = f"iterator.{idx} - PRE affine OFFSET copied into the POST affine."
         elif kwargs['alt']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[3:], f3h_iter.sec_postAffine[4:], idx)
-            _MSG: str = f"iterator.{idx} - PRE affine Rotation angle copied into the POST affine."
+            _MSG: str = f"iterator.{idx} - PRE affine ROT angle copied into the POST affine."
         else:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine, f3h_iter.sec_postAffine[1:], idx)
-            _MSG: str = f"iterator.{idx} - PRE affine values copied into the POST affine."
+            _MSG: str = f"iterator.{idx} - PRE affine ALL values copied into the POST affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
@@ -7199,16 +7201,16 @@ class flam3h_iterator_utils
         f3h_iter_FF = flam3h_iterator_FF()
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[1:-2], f3h_iter_FF.sec_preAffine_FF[:-2], "")
-            _MSG: str = f"iterator.{id} - FF POST affine X and Y copied into the FF PRE affine."
+            _MSG: str = f"FF POST affine X and Y copied into the FF PRE affine."
         elif kwargs['ctrl']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[3:-1], f3h_iter_FF.sec_preAffine_FF[2:-1], "")
-            _MSG: str = f"iterator.{id} - FF POST affine Offset copied into the FF PRE affine."
+            _MSG: str = f"FF POST affine OFFSET copied into the FF PRE affine."
         elif kwargs['alt']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[4:], f3h_iter_FF.sec_preAffine_FF[3:], "")
-            _MSG: str = f"iterator.{id} - FF POST affine Rotation angle copied into the FF PRE affine."
+            _MSG: str = f"FF POST affine ROT angle copied into the FF PRE affine."
         else:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[1:], f3h_iter_FF.sec_preAffine_FF, "")
-            _MSG: str = f"iterator.{id} - FF POST affine values copied into the FF PRE affine."
+            _MSG: str = f"FF POST affine ALL values copied into the FF PRE affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
@@ -7229,16 +7231,16 @@ class flam3h_iterator_utils
         f3h_iter_FF = flam3h_iterator_FF()
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_preAffine_FF[:-2], f3h_iter_FF.sec_postAffine_FF[1:-2], "")
-            _MSG: str = f"iterator.{id} - FF PRE affine X and Y copied into the FF POST affine."
+            _MSG: str = f"FF PRE affine X and Y copied into the FF POST affine."
         elif kwargs['ctrl']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_preAffine_FF[2:-1], f3h_iter_FF.sec_postAffine_FF[3:-1], "")
-            _MSG: str = f"iterator.{id} - FF PRE affine Offset copied into the FF POST affine."
+            _MSG: str = f"FF PRE affine OFFSET copied into the FF POST affine."
         elif kwargs['alt']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_preAffine_FF[3:], f3h_iter_FF.sec_postAffine_FF[4:], "")
-            _MSG: str = f"iterator.{id} - FF PRE affine Rotation angle copied into the FF POST affine."
+            _MSG: str = f"FF PRE affine ROT angle copied into the FF POST affine."
         else:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_preAffine_FF, f3h_iter_FF.sec_postAffine_FF[1:], "")
-            _MSG: str = f"iterator.{id} - FF PRE affine values copied into the FF POST affine."
+            _MSG: str = f"FF PRE affine values ALL copied into the FF POST affine."
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
             
             
@@ -7563,7 +7565,7 @@ class flam3h_iterator_utils
                 _MSG: str = f"{node.name()}: FF PRE Affine Rotation Angle -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG: str = f"{node.name()}: Iterator.{str(id)} FF PRE Affine Rotation Angle -> already at its default value."
+                _MSG: str = f"{node.name()}: FF PRE Affine Rotation Angle -> already at its default value."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         else:
@@ -8462,7 +8464,7 @@ class flam3h_iterator_utils
             node.setParms({f"iw_{idx}": min_weight})
             _MSG: str = f"{node.name()}: iterator {idx}'s Weight reverted back to a value of: {min_weight} instead of Zero. There must always be at least one active iterator's weight above Zero."
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"iterator {str(id)} Weight: back to being NON-ZERO")
+            flam3h_general_utils.flash_message(node, f"iterator {idx} Weight: back to being NON-ZERO")
             
             
     def iterator_vactive_and_update(self) -> None:
