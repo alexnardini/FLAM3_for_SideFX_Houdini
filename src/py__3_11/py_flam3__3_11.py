@@ -6320,7 +6320,8 @@ class flam3h_iterator_utils
             menu: list= []
             
             node = self.node
-            idx: str = self.kwargs['script_multiparm_index']
+            id: str = self.kwargs['script_multiparm_index']
+            idx: str = str(id)
             
             if self.exist_user_data(node):
                 node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
