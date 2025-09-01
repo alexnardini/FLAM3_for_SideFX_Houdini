@@ -2063,7 +2063,7 @@ class flam3h_general_utils
 * flam3h_toggle_sys_xf_viz_solo(self) -> None:
 * flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
 * flam3h_toggle_mp_xf_viz(self) -> None:
-* flam3h_toggle_mp_xf_viz_sel_iter(self, mp_idx: int) -> None:
+* flam3h_toggle_mp_xf_viz_solo_follow(self, mp_idx: int) -> None:
 * flam3h_toggle_xf_ff_viz(self) -> None:
 * flam3h_toggle(self, prm_name: str) -> None:
 * flam3h_toggle_private(self, prm_name: str) -> None:
@@ -3349,11 +3349,13 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: {mp_idx}")
             
             
-    def flam3h_toggle_mp_xf_viz_sel_iter(self, mp_idx: int) -> None:
+    def flam3h_toggle_mp_xf_viz_solo_follow(self, mp_idx: int) -> None:
         """When one of the iterators in in SOLO mode,
         changing the iterators focus using the select iterator mini menu
         will change olso the SOLO focus as well, keeping any selected iterator in SOLO modo while switching.
         
+        This is used inside:
+        - def prm_select_iterator(self) -> None:
 
         Args:
             (self):
@@ -3370,18 +3372,21 @@ class flam3h_general_utils
         # If any of the iterators is in SOLO mode
         if _SOLO and _SOLO_FOLLOW:
             
-            iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             prm_mp = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{mp_idx}")
-            data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
             
-            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) for mp_id in range(iter_num)] # type: ignore
-            prm_mp.set(1)
-            # Update data accordingly
-            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, mp_idx)
-            node.setUserData(f"{data_name}", str(mp_idx))
-            # message
-            _MSG: str = f"{node.name()}: {str(prm_mp.name()).upper()}: ON"
-            self.set_status_msg(_MSG, 'IMP')
+            if not prm_mp.eval():
+                
+                iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
+                data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
+                
+                [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) for mp_id in range(iter_num)] # type: ignore
+                prm_mp.set(1)
+                # Update data accordingly
+                self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, mp_idx)
+                node.setUserData(f"{data_name}", str(mp_idx))
+                # message
+                _MSG: str = f"{node.name()}: {str(prm_mp.name()).upper()}: ON"
+                self.set_status_msg(_MSG, 'IMP')
             
             
     def flam3h_toggle_xf_ff_viz(self) -> None:
@@ -4460,6 +4465,7 @@ class flam3h_iterator_utils
 * menu_T_PP_ICON(self, FF: bool = False) -> list:
 * menu_T_simple(self, FF: bool = False) -> list:
 * menu_T(self, FF: bool = False) -> list:
+* menu_T_PP(self, FF: bool = False) -> list:
 * menu_T_pb(self) -> list:
 * menu_select_iterator_data(self, data_now: tuple) -> list:
 * menu_select_iterator(self) -> list:
@@ -4500,6 +4506,8 @@ class flam3h_iterator_utils
 * flam3h_reset_FF(self) -> None:
 * auto_set_xaos(self) -> None:
 * add_iterator(self) -> None:
+* iterators_count_zero(self, node: hou.SopNode) -> None:
+* iterators_count_not_zero(self, node: hou.SopNode) -> None:
 * iterators_count(self) -> None:
 * __iterator_keep_last_vactive(self) -> None:
 * __iterator_keep_last_vactive_STAR(self) -> None:
@@ -5552,7 +5560,7 @@ class flam3h_iterator_utils
         * def prm_paste_sel_post_affine_FF(self) -> None:
         * def flam3h_xaos_convert(self) -> None:
         * def swap_iter_pre_vars(self) -> None:
-        * def iterators_count(self) -> None:
+        * def iterators_count_not_zero(self, node: hou.SopNode) -> None:
         * def flam3h_ramp_save(self) -> None:
         * def json_to_flam3h_ramp_SET_PRESET_DATA(self, node: hou.SopNode) -> None:
         * def json_to_flam3h_ramp(self, use_kwargs: bool = True) -> None:
@@ -6095,7 +6103,7 @@ class flam3h_iterator_utils
                 # Change focus back to the FLAME's Tab
                 node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
                 # If any of the iterators is in SOLO mode, change accordeingly to the selection
-                flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_sel_iter(preset_id)
+                flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_solo_follow(preset_id)
                 
                 _MSG: str = f"iterator: {preset_id}"
                 active: int = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
@@ -6125,7 +6133,7 @@ class flam3h_iterator_utils
                         # Change focus back to the FLAME's Tab
                         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
                         # If any of the iterators is in SOLO mode, change accordeingly to the selection
-                        flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_sel_iter(preset_id)
+                        flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_solo_follow(preset_id)
                         
                         _MSG: str = f"iterator: {preset_id}"
                         active: int = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
@@ -8299,27 +8307,146 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
+        node = self.node
         mp_idx: str = self.kwargs['script_multiparm_index']
+        # iterators count
         mp_prm: hou.Parm = self.node.parm(FLAME_ITERATORS_COUNT)
         
-        # insert instance after
+        # Clear menu cache
+        self.destroy_cachedUserData(node, 'iter_sel')
+        
+        # INSERT AFTER
         if self.kwargs["shift"]:
             mp_prm.insertMultiParmInstance(int(mp_idx))
         
-        # delete instance
+        # DELETE THIS INSTANCE
         elif self.kwargs['ctrl']:
             mp_prm.removeMultiParmInstance(int(mp_idx) - 1)
-            
-        # insert instance before
+
+            # If we are left with ZERO iterators
+            if not mp_prm.eval():
+                
+                # Do all it's needed in this case
+                self.iterators_count_zero(node)
+        
+        # INSERT BEFORE
         else:
             mp_prm.insertMultiParmInstance(int(mp_idx) - 1)
+        
+        # If there are any iterators left
+        if mp_prm.eval():
             
-        # Update xaos string
+            # Do all it's needed in this case
+            self.iterators_count_not_zero(node)
+            
+        # This is probably not needed but I leave it here for now
+        #
+        # If OUT Camera sensor viz mode is ON.
+        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+            # We can avoid to set the clipping planes as they are already set
+            flam3h_general_utils(self.kwargs).util_set_front_viewer()
+
+
+    def iterators_count_zero(self, node: hou.SopNode) -> None:
+        """When the iterators' count is ZERO.
+        It will do all it's needed in this case.
+        
+        It is meant to be run inside an IF statement that is checking if there are ZERO iterators left.
+        
+        To be used specifically inside:
+        - def iterators_count(self) -> None:
+        - def add_iterator(self) -> None:
+
+        Args:
+            (self):
+            node(hou.SopNode): this FLAM3H™ node
+            
+        Returns:
+            (None):
+        """
+        self.destroy_cachedUserData(node, 'edge_case_01')
+        
+        # delete channel references
+        [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
+            
+        # GLOBAL
+        # Reset/Set density
+        flam3h_general_utils.reset_density(node)
+        # Iterations
+        node.setParms({GLB_ITERATIONS: FLAM3H_DEFAULT_GLB_ITERATIONS}) # type: ignore
+        # FF vars
+        self.flam3h_reset_FF()
+        # MB
+        flam3h_general_utils(self.kwargs).reset_MB()
+        # SYS, IN and PREFS
+        [prm.set(0) for prm in (node.parm(PREFS_CAMERA_HANDLE), node.parm(PREFS_CAMERA_CULL))]
+        [flam3h_general_utils.private_prm_set(node, prm_name, 0) for prm_name in (IN_PVT_ISVALID_PRESET, IN_PVT_CLIPBOARD_TOGGLE)]
+        [flam3h_general_utils.private_prm_set(node, prm_name, 0) for prm_name in (PREFS_PVT_DOFF, PREFS_PVT_RIP, PREFS_PVT_XF_VIZ_SOLO, PREFS_PVT_XF_FF_VIZ_SOLO)]
+        flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
+        # descriptive message parameter
+        node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
+        
+        # init/clear copy/paste iterator's data and prm
+        self.flam3h_paste_reset_hou_session_data()
+        
+        # Destroy data
+        self.destroy_userData(node, FLAM3H_USER_DATA_XML_LAST)
+        
+        # Updated the OUT flame name if any
+        out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
+        
+        # OUT render curves reset and set
+        out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
+        
+        # Reset IN Folder settings heading
+        node.setParms({MSG_IN_STATS_HEADING: ''}) # type: ignore
+        node.setParms({MSG_IN_SETTINGS_HEADING: ''}) # type: ignore
+        
+        # Force this node to cook to get a warning message show up upstream.
+        hou.node(flam3h_general_utils(self.kwargs).get_node_path(TFFA_XAOS)).cook(force=True)
+        
+        # Print to Houdini's status bar
+        _MSG_str = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file"
+        _MSG: str = f"{node.name()}: {_MSG_str}"
+        flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+        flam3h_general_utils.flash_message(node, f"Iterators count ZERO")
+        
+        
+    def iterators_count_not_zero(self, node: hou.SopNode) -> None:
+        """When the iterators' count is NOT Zero.
+        It will do all it's needed in this case.
+        
+        It is meant to be run inside an IF statement that is checking if there are any iterators left.
+        
+        To be used specifically inside:
+        - def iterators_count(self) -> None:
+        - def add_iterator(self) -> None:
+
+        Args:
+            (self):
+            node(hou.SopNode): this FLAM3H™ node
+            
+        Returns:
+            (None):
+        """
+        # set xaos and updated presets menus every time an iterator is added or removed
         self.auto_set_xaos()
+        self.destroy_all_menus_data(node, False)
+        # Check and Update this data
+        self.update_xml_last_loaded(False)
+        
+        # Clear status bar msg if needed
+        _MSG_str = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file"
+        if  _MSG_str in hou.ui.statusMessage()[0]: # type: ignore
+            flam3h_general_utils.set_status_msg('', 'MSG')
+            
+
 
 
     def iterators_count(self) -> None:
-        """Every time an iterator is added or removed
+        """This is used as a callback script.
+        
+        Every time an iterator is added or removed
         this will run and execute based on iterator's number: Zero or more then Zero.
 
         Args:
@@ -8329,8 +8456,6 @@ class flam3h_iterator_utils
             (None):
         """
 
-        _MSG_str = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file"
-
         node = self.node
         # Clear menu cache
         self.destroy_cachedUserData(node, 'iter_sel')
@@ -8339,64 +8464,16 @@ class flam3h_iterator_utils
         
         if not iterators_count:
             
-            self.destroy_cachedUserData(node, 'edge_case_01')
-            
-            # delete channel references
-            [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
-                
-            # GLOBAL
-            # Reset/Set density
-            flam3h_general_utils.reset_density(node)
-            # Iterations
-            node.setParms({GLB_ITERATIONS: FLAM3H_DEFAULT_GLB_ITERATIONS}) # type: ignore
-            # FF vars
-            self.flam3h_reset_FF()
-            # MB
-            flam3h_general_utils(self.kwargs).reset_MB()
-            # SYS, IN and PREFS
-            [prm.set(0) for prm in (node.parm(PREFS_CAMERA_HANDLE), node.parm(PREFS_CAMERA_CULL))]
-            [flam3h_general_utils.private_prm_set(node, prm_name, 0) for prm_name in (IN_PVT_ISVALID_PRESET, IN_PVT_CLIPBOARD_TOGGLE)]
-            [flam3h_general_utils.private_prm_set(node, prm_name, 0) for prm_name in (PREFS_PVT_DOFF, PREFS_PVT_RIP, PREFS_PVT_XF_VIZ_SOLO, PREFS_PVT_XF_FF_VIZ_SOLO)]
-            flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
-            # descriptive message parameter
-            node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore
-            
-            # init/clear copy/paste iterator's data and prm
-            self.flam3h_paste_reset_hou_session_data()
-            
-            # Destroy data
-            self.destroy_userData(node, FLAM3H_USER_DATA_XML_LAST)
-            
-            # Updated the OUT flame name if any
-            out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
-            
-            # OUT render curves reset and set
-            out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
-            
-            # Reset IN Folder settings heading
-            node.setParms({MSG_IN_STATS_HEADING: ''}) # type: ignore
-            node.setParms({MSG_IN_SETTINGS_HEADING: ''}) # type: ignore
-            
-            # Force this node to cook to get a warning message show up upstream.
-            hou.node(flam3h_general_utils(self.kwargs).get_node_path(TFFA_XAOS)).cook(force=True)
-            
-            # Print to Houdini's status bar
-            _MSG: str = f"{node.name()}: {_MSG_str}"
-            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"Iterators count ZERO")
+            # Do all it's needed in this case
+            self.iterators_count_zero(node)
             
         else:
             
-            # set xaos and updated presets menus every time an iterator is added or removed
-            self.auto_set_xaos()
-            self.destroy_all_menus_data(node, False)
-            # Check and Update this data
-            self.update_xml_last_loaded(False)
-            
-            # Clear status bar msg if needed
-            if  _MSG_str in hou.ui.statusMessage()[0]: # type: ignore
-                flam3h_general_utils.set_status_msg('', 'MSG')
-                
+            # Do all it's needed in this case
+            self.iterators_count_not_zero(node)
+
+        # This is probably not needed but I leave it here for now
+        #
         # If OUT Camera sensor viz mode is ON.
         if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
             # We can avoid to set the clipping planes as they are already set

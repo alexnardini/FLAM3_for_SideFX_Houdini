@@ -794,6 +794,11 @@ number of iterators [Icon:TOP/xmlinput]:
     - [Largeicon:BUTTONS/minus] to reduce the number of iterators by *`1`*(one). It will remove one from the end.
     - *CLEAR* button -> to remove all the iterators in one go.
 
+    Adding and Deleting iterators from here will also update all the FLAM3H(tm) internal data accordingly.
+    
+    This is what you *must* use to Add and Delete iterators<br />
+    along with the [Add and Delete Control Icon|#FLAMEADDDEL] below ([Icon:opdef:.?icon_AddDelIteratorSVG.svg]).
+
     <br />
 
     NOTE:
@@ -810,12 +815,15 @@ number of iterators [Icon:TOP/xmlinput]:
     == Iterator == (FLAMEITER)
 
 Add/Del iterators [Icon:TOP/xmlinput]:
-    #id: FLAME
+    #id: FLAMEADDDEL
 
     Each iterator posses the following control icon:
 
     <br />
     [Largeicon:opdef:.?icon_AddDelIteratorSVG.svg]<br />
+
+    From this icon you will be able to Add and Delete iterators while updating all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.<br />
+    This is what you *must* use to Add and Delete iterators.
 
     _Usage_:
     - ((LMB)) to insert an iterator Before.
@@ -827,12 +835,12 @@ Add/Del iterators [Icon:TOP/xmlinput]:
     <br />
     At the moment of this writing,<br />
     inserting new iterators using the new H21 multiparameter menu<br />
-    displayed when ((RMB)) over a multiparameter's label wont update their xaos string.<br />
+    displayed when ((RMB)) over a multiparameter's label wont update the FLAM3H(tm) internal data and each iterators' xaos string accordingly.<br />
     
     Use this control icon instead ([Icon:opdef:.?icon_AddDelIteratorSVG.svg]).
 
-    Rearranging iterators wont update their xaos string either.<br />
-    (_You should not do that in FLAM3H™_).
+    Rearranging iterators wont update their xaos string either<br />
+    and you should not do that in FLAM3H™.
 
     <br />
 
