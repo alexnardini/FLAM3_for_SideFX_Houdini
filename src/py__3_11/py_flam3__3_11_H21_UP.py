@@ -48,6 +48,7 @@ from inspect import cleandoc as i_cleandoc
     Title:      FLAM3H™ H21 UP. SideFX Houdini FLAM3: PYTHON
     Author:     Alessandro Nardini
     date:       August 2025, Last revised September 2025 (cloned from: py_flam3__3_11.py)
+                Source file start date: January 2023
 
     Name:       PY_FLAM3__3_11_H21_UP "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
 
