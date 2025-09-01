@@ -296,6 +296,8 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
 
     This feature is useful when creating many iterators for the fractal Flame you are working on and to quickly review their state.
 
+    When any iterator has its xform handle in SOLO mode already, it causes the iterator that is picked from this mini-menu to be automatically configured to be in SOLO mode. This enables you to swiftly go over each one automatically.
+
     _The bookmark icon will display the status of each iterator_:
 
     - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] when an iterator is *`On`*/Active (_Default_).
@@ -3081,6 +3083,20 @@ palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         and want to save the Flame preset to be loaded inside Apophysis,<br />
         turn this toggle *`Off`* before saving the Flame preset out<br />
         so it will sample the palette with *`256`* samples and save the Flame preset with *`256`* color keys.
+
+    <br />
+
+SOLO Follow [Icon:DATATYPES/boolean]:
+    #id: PALETOUTTE
+    *`On`* by default.
+
+    When any iterator has its xform handle in SOLO mode already,<br />
+    it causes the iterator that is picked from the SYS tab's select iterator mini-menu to be automatically configured to be in SOLO mode.
+    
+    This enables you to swiftly go over each one automatically.
+
+    To prevent the selected iterator from being in SOLO mode while being selected,<br />
+    turn this *`Off`*.
 
     <br />
 

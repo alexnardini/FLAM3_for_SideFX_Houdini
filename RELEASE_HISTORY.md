@@ -10,6 +10,7 @@
 - Documentation: [CC BY-SA 4.0](LICENSE.docs)
 
 ## Platforms
+_One code base, multiple platforms._
 - **Win**, **Mac**, **Linux**
 
 ## Houdini versions
@@ -31,10 +32,11 @@ They are all available in this Github repository.
 
 #### FLAM3H™ ####
 
-- **New**: Added FLAM3H™ for **H21** (_From H21.0.457 and up only_).
-- **New**: **H21**: New iterators' control icon to add or delete iterators while still updating their xaos string correctly.
+- **New H21 ONLY**: Added FLAM3H™ for **H21** (_From H21.0.457 and up only_).
+- **New H21 ONLY**: New iterators' control icon to add or delete iterators while still updating their xaos string correctly.
+- **New**: When an iterator is in SOLO mode, changing the iterator focus using the SYS tab' select iterator mini menu will also set the selected iterator to be in SOLO mode, allowing you to easily review them one by one automatically.
 - **Fix**: CP Save action button -> [SHIFT+LMB] file chooser had the wrong default file extension to start with, it is now fxed.
-- **Fix**: 
+- **Fix**: Improved some status bar messages about copying PRE or POST affine values nad resetting them.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
