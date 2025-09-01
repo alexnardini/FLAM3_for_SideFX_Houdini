@@ -2,13 +2,18 @@
 - Software: [GNU GPL v3.0](LICENSE)
 - Documentation: [CC BY-SA 4.0](LICENSE.docs)
 
+## Platforms
+- **Win**, **Mac**, **Linux**
+
 ## Houdini versions
 _The following are Houdini versions where FLAM3H™ is fully functional, tested and supported._
 - **H19** to **H20.5**
 - **H21** - _from H21.0.457 and up only_
 
+
 <br/>
 <br/>
+
 
 # The Fractal Flame Algorithm
 ![FLAM3 Intro image](./img/GITHUB_intro_img.jpg)
@@ -25,7 +30,7 @@ _The following are Houdini versions where FLAM3H™ is fully functional, tested 
 
 **[FLAM3H™ website](https://www.alexnardini.net/flame-home/)**
 
-**[FLAM3H™ tutorials](https://www.youtube.com/@alexnardiniITALY/videos)**
+**[FLAM3H™ youtube](https://www.youtube.com/@alexnardiniITALY/videos)**
 
 **[FLAM3H™ instagram](https://www.instagram.com/alexnardini/)**
 

@@ -9,15 +9,19 @@
 - Software: [GNU GPL v3.0](LICENSE)
 - Documentation: [CC BY-SA 4.0](LICENSE.docs)
 
+## Platforms
+- **Win**, **Mac**, **Linux**
+
 ## Houdini versions
 _The following are Houdini versions where FLAM3H™ is fully functional, tested and supported._
-- From **H19** to **H20.5**
+- **H19** to **H20.5**
+- **H21** - _from H21.0.457 and up only_
 
 </br>
 </br>
 
 ## Release history
-Below is a list of all the FLAM3H™ (_and_ **FLAM3HUSD**) releases and the updates that went into each.</br>
+Below is a list of all the **FLAM3H™** (_and_ **FLAM3HUSD**) releases and the updates that went into each.</br>
 They are all available in this Github repository.
 
 </br>
