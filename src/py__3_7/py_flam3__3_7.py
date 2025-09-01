@@ -7403,10 +7403,10 @@ class flam3h_iterator_utils
                 check = False
                 current["affine_o"].set(AFFINE_DEFAULT_DICT.get("affine_o"))
                 # Print to Houdini's status bar
-                _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine O -> RESET"
+                _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine OFFSET -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine O -> already at its default values."
+                _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine OFFSET -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["alt"]:
@@ -7415,10 +7415,10 @@ class flam3h_iterator_utils
                 check = False
                 current["angle"].set(AFFINE_DEFAULT_DICT.get("angle"))
                 # Print to Houdini's status bar
-                _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine Rotation Angle -> RESET"
+                _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine ROT Angle -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine Rotation Angle -> already at its default values."
+                _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine ROT Angle -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         else:
@@ -7432,11 +7432,11 @@ class flam3h_iterator_utils
                     current["affine_o"].set(AFFINE_DEFAULT_DICT.get("affine_o"))
                     current["angle"].set(AFFINE_DEFAULT_DICT.get("angle"))
                     # Print to Houdini's status bar
-                    _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine -> RESET"
+                    _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine ALL -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine -> already at their default values."
+                _MSG: str = f"{node.name()}: Iterator.{idx} PRE Affine ALL -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
@@ -7481,10 +7481,10 @@ class flam3h_iterator_utils
                     check = False
                     current["affine_o"].set(AFFINE_DEFAULT_DICT.get("affine_o"))
                     # Print to Houdini's status bar
-                    _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine O -> RESET"
+                    _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine OFFSET -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 if check:
-                    _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine O -> already at its default values."
+                    _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine OFFSET -> already at its default values."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
             elif self.kwargs["alt"]:
@@ -7494,10 +7494,10 @@ class flam3h_iterator_utils
                     # post affine
                     current["angle"].set(AFFINE_DEFAULT_DICT.get("angle"))
                     # Print to Houdini's status bar
-                    _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine Rotation Angle -> RESET"
+                    _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine ROT Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 if check:
-                    _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine Rotation Angle -> already at its default value."
+                    _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine ROT Angle -> already at its default value."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             else:
@@ -7511,11 +7511,11 @@ class flam3h_iterator_utils
                         current["affine_o"].set(AFFINE_DEFAULT_DICT.get("affine_o"))
                         current["angle"].set(AFFINE_DEFAULT_DICT.get("angle"))
                         # Print to Houdini's status bar
-                        _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine -> RESET"
+                        _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine ALL -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
                 if check:
-                    _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine -> already at their default values."
+                    _MSG: str = f"{node.name()}: Iterator.{idx} POST Affine ALL -> already at their default values."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
         
@@ -7557,10 +7557,10 @@ class flam3h_iterator_utils
                 check = False
                 current["affine_o"].set(AFFINE_DEFAULT_DICT.get("affine_o"))
                 # Print to Houdini's status bar
-                _MSG: str = f"{node.name()}: FF PRE Affine O -> RESET"
+                _MSG: str = f"{node.name()}: FF PRE Affine OFFSET -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG: str = f"{node.name()}: FF PRE Affine O -> already at its default values."
+                _MSG: str = f"{node.name()}: FF PRE Affine OFFSET -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["alt"]:
@@ -7569,10 +7569,10 @@ class flam3h_iterator_utils
                 check = False
                 current["angle"].set(AFFINE_DEFAULT_DICT.get("angle"))
                 # Print to Houdini's status bar
-                _MSG: str = f"{node.name()}: FF PRE Affine Rotation Angle -> RESET"
+                _MSG: str = f"{node.name()}: FF PRE Affine ROT Angle -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG: str = f"{node.name()}: FF PRE Affine Rotation Angle -> already at its default value."
+                _MSG: str = f"{node.name()}: FF PRE Affine ROT Angle -> already at its default value."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         else:
@@ -7586,11 +7586,11 @@ class flam3h_iterator_utils
                     current["affine_o"].set(AFFINE_DEFAULT_DICT.get("affine_o"))
                     current["angle"].set(AFFINE_DEFAULT_DICT.get("angle"))
                     # Print to Houdini's status bar
-                    _MSG: str = f"{node.name()}: FF PRE Affine -> RESET"
+                    _MSG: str = f"{node.name()}: FF PRE Affine ALL -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG: str = f"{node.name()}: FF PRE Affine -> already at their default values."
+                _MSG: str = f"{node.name()}: FF PRE Affine ALL -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
@@ -7634,10 +7634,10 @@ class flam3h_iterator_utils
                     check = False
                     current["affine_o"].set(AFFINE_DEFAULT_DICT.get("affine_o"))
                     # Print to Houdini's status bar
-                    _MSG: str = f"{node.name()}: FF POST Affine O -> RESET"
+                    _MSG: str = f"{node.name()}: FF POST Affine OFFSET -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 if check:
-                    _MSG: str = f"{node.name()}: FF POST Affine O -> already at their default values."
+                    _MSG: str = f"{node.name()}: FF POST Affine OFFSET -> already at their default values."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             elif self.kwargs["alt"]:
@@ -7647,10 +7647,10 @@ class flam3h_iterator_utils
                     # post affine
                     current["angle"].set(AFFINE_DEFAULT_DICT.get("angle"))
                     # Print to Houdini's status bar
-                    _MSG: str = f"{node.name()}: FF POST Affine Rotation Angle -> RESET"
+                    _MSG: str = f"{node.name()}: FF POST Affine ROT Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 if check:
-                    _MSG: str = f"{node.name()}: FF POST Affine Rotation Angle -> already at their default value."
+                    _MSG: str = f"{node.name()}: FF POST Affine ROT Angle -> already at their default value."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
             else:
@@ -7664,11 +7664,11 @@ class flam3h_iterator_utils
                         current["affine_o"].set(AFFINE_DEFAULT_DICT.get("affine_o"))
                         current["angle"].set(AFFINE_DEFAULT_DICT.get("angle"))
                         # Print to Houdini's status bar
-                        _MSG: str = f"{node.name()}: FF POST Affine -> RESET"
+                        _MSG: str = f"{node.name()}: FF POST Affine ALL -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
                 if check:
-                    _MSG: str = f"{node.name()}: FF POST Affine -> already at their default values."
+                    _MSG: str = f"{node.name()}: FF POST Affine ALL -> already at their default values."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
