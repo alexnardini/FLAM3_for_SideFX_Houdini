@@ -1188,7 +1188,8 @@ class flam3h_scripts
         """ 
         hou_version: int = flam3h_general_utils.houdini_version(2)
         if hou_version < 190 or hou_version > 205:
-            hou.ui.displayMessage("Sorry, You need from H19 to H20.5 to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+            if hou.isUIAvailable():
+                hou.ui.displayMessage("Sorry, You need from H19 to H20.5 to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
             return False
         else:
             # This is is solely to detect if FLAM3H™ OTL for H21
@@ -1197,7 +1198,8 @@ class flam3h_scripts
             try: _H21 = hou.session.F3H_H_VERSION_H21 # type: ignore # This is set inside the FLAM3H™ H21 HDA PreFirstCreate module
             except: pass
             if _H21:
-                hou.ui.displayMessage("Sorry, you need H21.0.457 and up to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+                if hou.isUIAvailable():
+                    hou.ui.displayMessage("Sorry, you need H21.0.457 and up to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
                 return False
             # Otherwise it is a valid FLAM3H™ version for this Houdini version
             return True

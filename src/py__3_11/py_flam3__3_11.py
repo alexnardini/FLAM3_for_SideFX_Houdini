@@ -1199,7 +1199,8 @@ class flam3h_scripts
         """ 
         hou_version: int = flam3h_general_utils.houdini_version(2)
         if hou_version < 190 or hou_version > 205:
-            hou.ui.displayMessage("Sorry, You need from H19 to H20.5 to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+            if hou.isUIAvailable():
+                hou.ui.displayMessage("Sorry, You need from H19 to H20.5 to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
             return False
         else:
             return True
