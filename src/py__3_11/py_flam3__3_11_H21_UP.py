@@ -8318,10 +8318,16 @@ class flam3h_iterator_utils
         
         # INSERT AFTER
         if self.kwargs["shift"]:
+            
             mp_prm.insertMultiParmInstance(int(mp_idx))
+            
+            # Change multiparameter focus to the newly created iterator
+            try: hou.ui.setMultiParmTabInEditors(mp_prm, int(mp_idx)) # type: ignore
+            except: pass # Most likely not a parameter editor in its own pane tab
         
         # DELETE THIS INSTANCE
         elif self.kwargs['ctrl']:
+            
             mp_prm.removeMultiParmInstance(int(mp_idx) - 1)
 
             # If we are left with ZERO iterators
@@ -8332,6 +8338,7 @@ class flam3h_iterator_utils
         
         # INSERT BEFORE
         else:
+            
             mp_prm.insertMultiParmInstance(int(mp_idx) - 1)
         
         # If there are any iterators left
