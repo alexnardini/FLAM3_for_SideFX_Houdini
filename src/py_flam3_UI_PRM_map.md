@@ -780,7 +780,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).note_FF(), kwargs['par
 # parameter name:    `ffprmpastesel`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_FF(), kwargs['parm'].deleteAllKeyframes()
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_FF()
 ```
 ### Menu Script
 ```python

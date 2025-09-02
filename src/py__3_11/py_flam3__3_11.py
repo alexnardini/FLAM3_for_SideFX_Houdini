@@ -7163,7 +7163,6 @@ class flam3h_iterator_utils
                     if not self.is_iterator_affine_default(node, from_FLAM3H_NODE, f3h_iter.sec_postAffine, idx, idx_from, True):
                         self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, idx, idx_from)
                         
-        
             node.setParms({f"{n.main_prmpastesel}_{idx}": 0})
             node.setParms({f"{n.main_selmem}_{idx}": paste_sel})
             
@@ -7178,6 +7177,8 @@ class flam3h_iterator_utils
         iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         prm_name: str = n.main_prmpastesel
         [node.parm(f"{prm_name}_{str(mp_idx + 1)}").deleteAllKeyframes() for mp_idx in range(iter_count) if len(node.parm(f"{prm_name}_{str(mp_idx + 1)}").keyframes())]
+        if node != from_FLAM3H_NODE and from_FLAM3H_NODE is not None:
+            [from_FLAM3H_NODE.parm(f"{prm_name}_{str(mp_idx + 1)}").deleteAllKeyframes() for mp_idx in range(iter_count) if len(from_FLAM3H_NODE.parm(f"{prm_name}_{str(mp_idx + 1)}").keyframes())]
             
 
     def prm_paste_sel_pre_affine(self) -> None:
@@ -7315,6 +7316,8 @@ class flam3h_iterator_utils
         """    
         
         node = self.node
+        
+        n = flam3h_iterator_prm_names()
 
         # Marked FF check ( not needed but just in case lets "try" so to speak )
         try: from_FLAM3H_NODE_FF_CHECK: TA_M = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
@@ -7327,8 +7330,8 @@ class flam3h_iterator_utils
             assert isinstance(from_FLAM3H_NODE, hou.SopNode)
             
             # Get user selection of paste methods
-            paste_sel_FF: int = node.parm(f"{PRX_FF_PRM}{flam3h_iterator_prm_names().main_prmpastesel}").eval()
-            node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names().main_selmem}": paste_sel_FF})
+            paste_sel_FF: int = node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").eval()
+            node.setParms({f"{PRX_FF_PRM}{n.main_selmem}": paste_sel_FF})
             
             f3h_iter_FF = flam3h_iterator_FF()
             
@@ -7363,7 +7366,12 @@ class flam3h_iterator_utils
                     if not self.is_FF_affine_default(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postAffine_FF, True):
                         self.paste_set_note(node, from_FLAM3H_NODE, 2, SEC_POSTAFFINE, "", "")
 
-            node.setParms({f"{PRX_FF_PRM}{flam3h_iterator_prm_names().main_prmpastesel}": 0})
+            node.setParms({f"{PRX_FF_PRM}{n.main_prmpastesel}": 0})
+            
+            # Delete all keyframes from the copy/paste menu parameter
+            node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").deleteAllKeyframes()
+            if from_FLAM3H_NODE is not None:
+                from_FLAM3H_NODE.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").deleteAllKeyframes()
                     
         else:
             _MSG: str = f"{node.name()} -> {MARK_FF_MSG_STATUS_BAR}"
