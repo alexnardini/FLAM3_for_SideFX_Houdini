@@ -655,7 +655,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_u
 # parameter name:    `prmpastesel_#`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel(), kwargs['parm'].deleteAllKeyframes()
+hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel()
 ```
 ### Menu Script
 ```python

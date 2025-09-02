@@ -7174,6 +7174,11 @@ class flam3h_iterator_utils
             _MSG: str = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             
+        # Delete keyframes from all iterators copy/paste menus
+        iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
+        prm_name: str = n.main_prmpastesel
+        [node.parm(f"{prm_name}_{str(mp_idx + 1)}").deleteAllKeyframes() for mp_idx in range(iter_count) if len(node.parm(f"{prm_name}_{str(mp_idx + 1)}").keyframes())]
+            
 
     def prm_paste_sel_pre_affine(self) -> None:
         """Copy/Paste POST affine inside the PRE affine.

@@ -35,10 +35,19 @@ They are all available in this Github repository.
 - **New H21 ONLY**: Added FLAM3H™ for **H21** (_From H21.0.457 and up only_).
 - **New H21 ONLY**: New iterators' control icon to add or delete iterators while still updating their xaos string correctly.
 - **New**: When an iterator is in SOLO mode, changing the iterator focus using the SYS tab' select iterator mini menu will also set the selected iterator to be in SOLO mode, allowing you to easily review them one by one automatically.
+- **New**: The whole user interface will now be disabled and zero points will be generated when a FLAM3H OTL is installed in the incorrect Houdini version. The user will also get an error message informing them of the appropriate Houdini version to use.
 - **Fix**: CP Save action button -> [SHIFT+LMB] file chooser had the wrong default file extension to start with, it is now fxed.
-- **Fix**: Improved some status bar messages about copying PRE or POST affine values nad resetting them.
+- **Fix**: Improved some status bar messages about copying PRE or POST affine values and when resetting them.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
+
+</br>
+</br>
+
+_Some of the small fixes/improvements include_:
+
+- **Fix H21 ONLY**: The variations menus had varying lengths based on the selected variation's name, it is now of a fixed length as it used to be in preview versions of Houdini.
+- **Fix H21 ONLY**: Variation "**_Pt_symmetry_**" has been renamed to: "**_Point sym_**".
 
 
 
