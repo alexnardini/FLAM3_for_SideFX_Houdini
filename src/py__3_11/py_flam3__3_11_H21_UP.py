@@ -8441,8 +8441,6 @@ class flam3h_iterator_utils
             flam3h_general_utils.set_status_msg('', 'MSG')
             
 
-
-
     def iterators_count(self) -> None:
         """This is used as a callback script.
         
