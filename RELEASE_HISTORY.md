@@ -47,7 +47,8 @@ They are all available in this Github repository.
 _Some of the small fixes/improvements include_:
 
 - **Fix H21 ONLY**: The variations menus had varying lengths based on the selected variation's name, it is now of a fixed length as it used to be in preview versions of Houdini.
-- **Fix H21 ONLY**: Variation "**_Pt_symmetry_**" has been renamed to: "**_Point sym_**".
+- Copy/paste menus (_iterators and FF_) now delete their keyframes every time they are executed (_they should not be allowed to be animated_).
+- Variation "**_Pt_symmetry_**" has been renamed to: "**_Point sym_**".
 
 
 
