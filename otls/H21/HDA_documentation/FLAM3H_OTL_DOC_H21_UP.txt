@@ -9,7 +9,7 @@
 ( vcc compiler: v20.5.654 )"""
 
 == Welcome to FLAM3 for SideFX Houdini - aka: FLAM3H(tm) ==
-( _From H21.0.457 and up only_ )
+( _From H21 and up only_ )
 
 [Icon:opdef:.?icon_optionStarBlueSVG.svg]  *A bit of history* _( from wikipedia )_:
 

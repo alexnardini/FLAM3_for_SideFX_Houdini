@@ -1199,7 +1199,7 @@ class flam3h_scripts
             except: pass
             if _H21:
                 if hou.isUIAvailable():
-                    hou.ui.displayMessage("Sorry, you need H21.0.457 and up to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+                    hou.ui.displayMessage("Sorry, you need H21 and up to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
                 return False
             # Otherwise it is a valid FLAM3H™ version for this Houdini version
             return True
@@ -1772,9 +1772,9 @@ class flam3h_scripts
             try: _H21 = hou.session.F3H_H_VERSION_H21 # type: ignore # This is set inside the FLAM3H™ H21 HDA PreFirstCreate module
             except: pass
             if _H21: 
-                _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need H21.0.457 and up to run this FLAM3H™ version"
+                _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need H21 and up to run this FLAM3H™ version"
                 # Set only once (on creation)
-                _MSG_DESCRIPTIVE_MSG = f"FLAM3H™ v{__version__}\nYou need H21.0.457 and up"
+                _MSG_DESCRIPTIVE_MSG = f"FLAM3H™ v{__version__}\nYou need H21 and up"
             else: 
                 _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need from H19 to H20.5 to run this FLAM3H™ version"
                 # Set only once (on creation)
@@ -1939,7 +1939,7 @@ class flam3h_scripts
             _H21: bool = False
             try: _H21 = hou.session.F3H_H_VERSION_H21 # type: ignore # This is set inside the FLAM3H™ H21 HDA PreFirstCreate module
             except: pass
-            if _H21: _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need H21.0.457 and up to run this FLAM3H™ version"
+            if _H21: _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need H21 and up to run this FLAM3H™ version"
             else: _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need from H19 to H20.5 to run this FLAM3H™ version"
             
             hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore 
@@ -2025,7 +2025,7 @@ class flam3h_scripts
             _H21: bool = False
             try: _H21 = hou.session.F3H_H_VERSION_H21 # type: ignore # This is set inside the FLAM3H™ H21 HDA PreFirstCreate module
             except: pass
-            if _H21: _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need H21.0.457 and up to run this FLAM3H™ version"
+            if _H21: _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need H21 and up to run this FLAM3H™ version"
             else: _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need from H19 to H20.5 to run this FLAM3H™ version"
             
             hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore 

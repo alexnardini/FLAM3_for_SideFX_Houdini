@@ -108,9 +108,9 @@ def flam3h_first_time() -> bool:
     Returns:
         (None):
     """ 
-    hou_version: int = houdini_version(2)
-    if hou_version < 210:
-        hou.ui.displayMessage("Sorry, you need H21.0.457 and up to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
+    hou_version: int = houdini_version()
+    if hou_version < 21:
+        hou.ui.displayMessage("Sorry, you need H21 and up to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
         return False
     else:
         return True
@@ -176,9 +176,9 @@ def flam3h_not_compatible_first_time_msg() -> None:
     """ 
     now: str = datetime.now().strftime("%b-%d-%Y %H:%M:%S")
     
-    _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need H21.0.457 and up to run this FLAM3H™ version"
+    _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need H21 and up to run this FLAM3H™ version"
     print(_MSG_INFO)
-    _MSG_INFO_SB = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21.0.457 and up to run this FLAM3H™ version"
+    _MSG_INFO_SB = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21 and up to run this FLAM3H™ version"
     hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
 
 if flam3h_first_time():

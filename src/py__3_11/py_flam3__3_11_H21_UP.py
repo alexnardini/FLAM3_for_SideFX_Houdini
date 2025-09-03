@@ -1197,10 +1197,10 @@ class flam3h_scripts
         Returns:
             (bool): True if compatible otherwise False.
         """ 
-        hou_version: int = flam3h_general_utils.houdini_version(2)
-        if hou_version < 210:
+        hou_version: int = flam3h_general_utils.houdini_version()
+        if hou_version < 21:
             if hou.isUIAvailable():
-                hou.ui.displayMessage("Sorry, you need H21.0.457 and up to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+                hou.ui.displayMessage("Sorry, you need H21 and up to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
             return False
         else:
             return True
@@ -1767,10 +1767,10 @@ class flam3h_scripts
             
         else:
             flam3h_general_utils.private_prm_set(self.node, 'h_valid', 0)
-            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21.0.457 and up to run this FLAM3H™ version"
+            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21 and up to run this FLAM3H™ version"
             hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
             # Set only once (on creation)
-            _MSG_DESCRIPTIVE_MSG = f"FLAM3H™ v{__version__}\nYou need H21.0.457 and up"
+            _MSG_DESCRIPTIVE_MSG = f"FLAM3H™ v{__version__}\nYou need H21 and up"
             node.setParms({MSG_DESCRIPTIVE_PRM: _MSG_DESCRIPTIVE_MSG}) # type: ignore
 
 
@@ -1923,7 +1923,7 @@ class flam3h_scripts
                     flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
         else:
             flam3h_general_utils.private_prm_set(self.node, 'h_valid', 0)
-            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21.0.457 and up to run this FLAM3H™ version"
+            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21 and up to run this FLAM3H™ version"
             hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
 
 
@@ -2004,7 +2004,7 @@ class flam3h_scripts
                         
         else:
             flam3h_general_utils.private_prm_set(self.node, 'h_valid', 0)
-            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21.0.457 and up to run this FLAM3H™ version"
+            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21 and up to run this FLAM3H™ version"
             hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
 
 
