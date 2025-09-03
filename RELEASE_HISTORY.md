@@ -32,7 +32,7 @@ They are all available in this Github repository.
 
 #### FLAM3H™ ####
 
-- **New H21 ONLY**: Added FLAM3H™ for **H21** (_From H21.0.457 and up only_).
+- **New H21 ONLY**: Added FLAM3H™ for **H21** (_initial release_).
 - **New H21 ONLY**: New iterators' control icon to add or delete iterators while still updating their xaos string correctly.
 - **New**: When an iterator is in SOLO mode, changing the iterator focus using the SYS tab' select iterator mini menu will also set the selected iterator to be in SOLO mode, allowing you to easily review them one by one automatically.
 - **New**: The whole user interface will now be disabled and zero points will be generated when a FLAM3H OTL is installed in the incorrect Houdini version. The user will also get an error message informing them of the appropriate Houdini version to use.
