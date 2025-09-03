@@ -16,7 +16,7 @@ _One code base, multiple platforms._
 ## Houdini versions
 _The following are Houdini versions where FLAM3H™ is fully functional, tested and supported._
 - **H19** to **H20.5**
-- **H21** - _from H21.0.457 and up only_
+- **H21**
 
 </br>
 </br>
