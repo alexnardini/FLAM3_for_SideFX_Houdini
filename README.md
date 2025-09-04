@@ -48,7 +48,7 @@ It was important, so I could shape and steer this tool in the right direction.
 ### Description
 
 `FLAM3H™ node OTL documentation.`
-![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_OTL_documentation_H19.jpg)
+![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_OTL_documentation.jpg)
 
 CVEX has been used to implement the algorithm in its entirety.
 Although it's not a real-time thing, it will be a lot of fun if you have a powerful CPU (two powerful CPUs are even better).
