@@ -28,6 +28,19 @@ They are all available in this Github repository.
 </br>
 </br>
 
+### [<ins>From v1.8.77</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.77) ###
+
+- **New H21 ONLY**: Added FLAM3H™ and FLAM3HUSD descriptive infos to the new H21 node info window. 
+- **Fix**: Improved handling of incompatible Houdini versions.
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.75</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.75) ###
 
 #### FLAM3H™ ####

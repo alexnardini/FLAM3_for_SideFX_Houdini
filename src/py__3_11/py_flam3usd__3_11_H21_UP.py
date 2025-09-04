@@ -3,7 +3,7 @@ __copyright__ = "Copyright 2023, © F stands for liFe"
 
 __py_version__ = "3.11.7"
 __license__ = "GPL"
-__version__ = "0.1.59"
+__version__ = "0.1.60"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Prototype"
 
