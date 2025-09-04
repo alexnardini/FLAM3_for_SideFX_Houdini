@@ -161,15 +161,17 @@ FLAM3H_DEFAULT_IN_ITERATIONS_ON_LOAD: int = 64
 FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV = '::'
 
 # Node user data (nodeinfo)
-FLAM3H_USER_DATA_PRX = "nodeinfo"
-FLAM3H_USER_DATA_ITER = "Marked iterator"
-FLAM3H_USER_DATA_FF = "Marked FF"
-FLAM3H_USER_DATA_XF_VIZ = "XF VIZ"
+FLAM3H_USER_DATA_PRX = 'nodeinfo'
+FLAM3H_USER_DATA_ITER = 'Marked iterator'
+FLAM3H_USER_DATA_FF = 'Marked FF'
+FLAM3H_USER_DATA_XF_VIZ = 'XF VIZ'
 # Node user data
 FLAM3H_USER_DATA_XML_LAST = 'XML_last_loaded'
 
-# Main tab in the UI
-FLAM3H_ITERATORS_TAB = "f_flam3h"
+# Houdini is a valid version toggle
+FLAM3H_H_VALID = 'h_valid'
+# Main FLAME tab in the UI
+FLAM3H_ITERATORS_TAB = 'f_flam3h'
 
 # Default affine values
 AFFINE_DEFAULT_DICT: dict[str, hou.Vector2 | float] = {"affine_x": hou.Vector2((1.0, 0.0)), "affine_y": hou.Vector2((0.0, 1.0)), "affine_o": hou.Vector2((0.0, 0.0)), "angle": float(0.0)} # X, Y, O, ANGLE
@@ -215,16 +217,28 @@ PALETTE_FORMAT = 'RGB'
 AUTO_NAME_CP = 'Palette'
 AUTO_NAME_OUT = 'Flame'
 
-# Parameters at hand
+# NODE NAMES
+# Those node names are hard coded here.
+# If you change those node names inside the FLAM3H™ houdini HDA network, update those global variables as well.
+# If not, some functionalities will stop working.
+NODE_NAME_OUT_BBOX_SENSOR = 'OUT_bbox_sensor' # prefix
+NODE_NAME_OUT_BBOX_REFRAME = 'OUT_bbox_reframe' # prefix
+NODE_NAME_PREFS_XFVIZ = 'XFVIZ_GL'
+NODE_NAME_TFFA_XAOS = '_TFFAxaos'
+
+# GLB tab: Parameters at hand
 GLB_DENSITY = 'ptcount'
 GLB_DENSITY_PRESETS = 'ptcount_presets'
 GLB_ITERATIONS = 'iter'
+# SYS tab: Parameters at hand
 SYS_SELECT_ITERATOR = 'iterlist'
 SYS_XF_VIZ_OFF = 'xfviz_off'
 SYS_XF_VIZ_ON = 'xfviz_on'
 SYS_TAG_SIZE = 'tagsize'
 SYS_FRAME_VIEW_SENSOR = 'frameviewsensor'
+# MULTI PARAMETER
 FLAME_ITERATORS_COUNT = 'flamefunc'
+# CP tab: Parameters at hand
 CP_PATH = 'palettefile'
 CP_PALETTE_OUT_PRESET_NAME = 'palettename'
 CP_PALETTE_PRESETS = 'palettepresets'
@@ -239,15 +253,16 @@ CP_PALETTE_256_PLUS = 'cppaletteplus'
 CP_RAMP_SAVE_HSV = 'savehsv'
 CP_RAMP_HSV_KEEP_ON_LOAD = 'keephsv'
 CP_RAMP_HSV_VAL_NAME = 'hsv'
-# CP SYSTEM PRIVATE
+# CP tab: SYSTEM PRIVATE
 CP_PVT_ISVALID_FILE = 'cpisvalidfile'
 CP_PVT_ISVALID_PRESET = 'cpisvalidpreset'
-
+# MB tab: Parameters at hand
 MB_DO = 'domb'
 MB_FPS = 'fps'
 MB_SAMPLES = 'mbsamples'
 MB_SHUTTER = 'shutter'
 MB_VIZ = 'vizmb'
+# IN tab: Parameters at hand
 IN_CLIPBOARD_LABEL_MSG = '[CLIPBOARD]'
 IN_HSV_LABEL_MSG = '[HSV]'
 IN_PATH = 'inpath'
@@ -264,7 +279,7 @@ IN_COPY_RENDER_PROPERTIES_ON_LOAD = 'propertiescp'
 IN_PVT_ISVALID_FILE = 'inisvalidfile'
 IN_PVT_ISVALID_PRESET = 'inisvalidpreset'
 IN_PVT_CLIPBOARD_TOGGLE = 'inclipboard'
-
+# OUT tab: Parameters at hand
 OUT_PATH = 'outpath'
 OUT_PRESETS = 'outpresets'
 OUT_SYS_PRESETS = 'sys_outpresets'
@@ -281,7 +296,7 @@ OUT_RENDER_PROPERTIES_EDIT = 'outedit'
 OUT_RENDER_PROPERTIES_SENSOR = 'outsensor'
 OUT_RENDER_PROPERTIES_SENSOR_ENTER = 'out_sensorviz_disabled'
 OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
-# Curves
+# OUT tab: Curves
 OUT_TOGGLE_CC_DEFAULTS_MSG = 'outccdefault'
 OUT_LABEL_CC_DEFAULTS_MSG = 'label_outccdefault'
 OUT_RENDER_PROPERTIES_CURVES = 'outcurvesval'
@@ -289,20 +304,9 @@ OUT_RENDER_PROPERTIES_CURVE_OVERALL = 'outcurveoverallval'
 OUT_RENDER_PROPERTIES_CURVE_RED = 'outcurveredval'
 OUT_RENDER_PROPERTIES_CURVE_GREEN = 'outcurvegreenval'
 OUT_RENDER_PROPERTIES_CURVE_BLUE = 'outcurveblueval'
-# OUT SYSTEM PRIVATE
+# OUT tab: SYSTEM PRIVATE
 OUT_PVT_ISVALID_FILE = 'outisvalidfile'
-
-# NODE NAMES
-# Those Null node names are hard coded here and represent the nodes name's prefix.
-# If you change those Null node names inside the FLAM3H™ houdini HDA network, update those global variables as well.
-# If not, the camera sensor mode wont be able to properly frame itself in the current viewport.
-OUT_BBOX_NODE_NAME_SENSOR = 'OUT_bbox_sensor' # prefix
-OUT_BBOX_NODE_NAME_REFRAME = 'OUT_bbox_reframe' # prefix
-# PREFS XF VIZ NODE NAME TO COOK
-PREFS_XFVIZ_NODE_NAME = 'XFVIZ_GL'
-# XAOS
-TFFA_XAOS = '_TFFAxaos'
-
+# PREFS tab: Parameters at hand
 PREFS_PALETTE_256_PLUS = 'paletteplus'
 PREFS_SOLO_FOLLOW = 'solo_follow'
 PREFS_FLASH_MSG = 'flashmsg'
@@ -1227,7 +1231,8 @@ class flam3h_scripts
                             PREFS_PVT_INT_0,
                             PREFS_PVT_INT_1,
                             PREFS_PVT_FLOAT_0,
-                            PREFS_PVT_FLOAT_1
+                            PREFS_PVT_FLOAT_1,
+                            FLAM3H_H_VALID
                             )
         
         [node.parm(prm_name).lock(True) for prm_name in prm_names]
@@ -1240,7 +1245,6 @@ class flam3h_scripts
                                      "indisable",
                                      "outdisable",
                                      "prefsdisable",
-                                     "h_valid",
                                      "aboutdisable"
                                      )
         
@@ -1766,10 +1770,16 @@ class flam3h_scripts
             self.flam3h_on_create_lock_parms(node)
             
         else:
-            flam3h_general_utils.private_prm_set(self.node, 'h_valid', 0)
+            flam3h_general_utils.private_prm_set(self.node, FLAM3H_H_VALID, 0)
             _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21 and up to run this FLAM3H™ version"
             hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
             # Set only once (on creation)
+            node.setParms({FLAME_ITERATORS_COUNT: 0})
+            flam3h_iterator_utils(self.kwargs).iterators_count_zero(node)
+            _MSG_ABOUT = "This FLAM3H™ version need H21 and up to work."
+            node.setParms({MSG_FLAM3H_ABOUT: _MSG_ABOUT})
+            node.setParms({MSG_FLAM3H_PLUGINS: _MSG_ABOUT})
+            flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
             _MSG_DESCRIPTIVE_MSG = f"FLAM3H™ v{__version__}\nYou need H21 and up"
             node.setParms({MSG_DESCRIPTIVE_PRM: _MSG_DESCRIPTIVE_MSG}) # type: ignore
 
@@ -1819,6 +1829,12 @@ class flam3h_scripts
             flam3h_iterator_utils(self.kwargs).auto_set_xaos()
             
             if hou.hipFile.isLoadingHipFile(): #type: ignore
+                
+                # This is done in case the user saved a hip file with FLAM3H nodes in it
+                # while using an incompatible version of Houdini so that we can restore it to functional again.
+                h_valid_prm: hou.Parm = node.parm(FLAM3H_H_VALID)
+                if not h_valid_prm.eval():
+                    flam3h_general_utils.private_prm_set(self.node, FLAM3H_H_VALID, 1)
                 
                 # set density menu
                 flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(node)
@@ -1922,9 +1938,14 @@ class flam3h_scripts
                 if flam3h_iterator_utils.exist_user_data(node, FLAM3H_USER_DATA_FF):
                     flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
         else:
-            flam3h_general_utils.private_prm_set(self.node, 'h_valid', 0)
+            flam3h_general_utils.private_prm_set(self.node, FLAM3H_H_VALID, 0)
             _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21 and up to run this FLAM3H™ version"
             hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
+            # Set only once (on creation)
+            _MSG_ABOUT = "This FLAM3H™ version need H21 and up to work."
+            node.setParms({MSG_FLAM3H_ABOUT: _MSG_ABOUT})
+            node.setParms({MSG_FLAM3H_PLUGINS: _MSG_ABOUT})
+            flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
 
 
     def flam3h_on_deleted(self) -> None:
@@ -2003,7 +2024,6 @@ class flam3h_scripts
                         flam3h_general_utils.flash_message(node, f"FF marked node: DELETED")
                         
         else:
-            flam3h_general_utils.private_prm_set(self.node, 'h_valid', 0)
             _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21 and up to run this FLAM3H™ version"
             hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
 
@@ -2098,8 +2118,8 @@ class flam3h_general_utils
         self._node = kwargs['node']
         # Why am I doing the following ? Because with time FLAM3H™ grew and evolved and I was tiered to keep updating an hard coded node path,
         # hence I added the following so I can always find the nodes even if I place them in different locations from time to time.
-        self._bbox_sensor_path: str | None = self.get_node_path(OUT_BBOX_NODE_NAME_SENSOR)
-        self._bbox_reframe_path: str | None = self.get_node_path(OUT_BBOX_NODE_NAME_REFRAME)
+        self._bbox_sensor_path: str | None = self.get_node_path(NODE_NAME_OUT_BBOX_SENSOR)
+        self._bbox_reframe_path: str | None = self.get_node_path(NODE_NAME_OUT_BBOX_REFRAME)
 
 
     @staticmethod
@@ -2564,7 +2584,7 @@ class flam3h_general_utils
         """   
         if not node.parm(PREFS_PVT_XF_VIZ).eval():
             # BUILD XFVIZ
-            try: hou.node(flam3h_general_utils(kwargs).get_node_path(PREFS_XFVIZ_NODE_NAME)).cook(force=True)
+            try: hou.node(flam3h_general_utils(kwargs).get_node_path(NODE_NAME_PREFS_XFVIZ)).cook(force=True)
             except: 
                 flam3h_general_utils.set_status_msg(f"{node.name()}: XF VIZ node not found.", 'WARN')
                 pass
@@ -2696,8 +2716,8 @@ class flam3h_general_utils
         
         The Null node names prefixes to search are stored inside the global variables:
         
-        * OUT_BBOX_NODE_NAME_SENSOR
-        * OUT_BBOX_NODE_NAME_REFRAME
+        * NODE_NAME_OUT_BBOX_SENSOR
+        * NODE_NAME_OUT_BBOX_REFRAME
 
         Args:
             (self):
@@ -8318,7 +8338,7 @@ class flam3h_iterator_utils
         node.setParms({MSG_IN_SETTINGS_HEADING: ''}) # type: ignore
         
         # Force this node to cook to get a warning message show up upstream.
-        hou.node(flam3h_general_utils(self.kwargs).get_node_path(TFFA_XAOS)).cook(force=True)
+        hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
         
         # Print to Houdini's status bar
         _MSG_str = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file"
