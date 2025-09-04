@@ -1943,6 +1943,8 @@ class flam3h_scripts
             _MSG_INFO = f"ERROR -> FLAM3H™ v{__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need from H19 to H20.5 to run this FLAM3H™ version"
             hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
             # Set only once (on creation)
+            # Note we are not setting neither the iterators count to Zero and the HDA descriptive parameter
+            # so not to modify the existing settings.
             _MSG_ABOUT = "This FLAM3H™ version need from H19 to H20.5 to work."
             node.setParms({MSG_FLAM3H_ABOUT: _MSG_ABOUT})
             node.setParms({MSG_FLAM3H_PLUGINS: _MSG_ABOUT})
