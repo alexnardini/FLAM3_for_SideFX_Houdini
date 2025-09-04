@@ -48,7 +48,10 @@ _TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
         // append(IW, 1e-08); // This is now done inside the Houdini environment
         // append(sIDX, '1'); // This is now done inside the Houdini environment
         if(inum) warning("\nAll iterators are inactive or their Weight set to: 0(Zero)\nOne iterator's Weight internally set to: 1e-08");
-        else warning("\nZERO ITERATORS\nPlease, create at least one iterator or Load an IN flame file first.");
+        else{
+            if(chi("h_valid")) warning("\nZERO ITERATORS\nPlease, create at least one iterator or Load an IN flame file first.");
+            else error("\nERROR H VERSION\nThis FLAM3H™ version is not compatible with this Houdini version.\n\nPlease,\ncheck the repository and grab the correct FLAM3H™ HDA for this Houdini version.");
+        }
     }
     
     // XAOS

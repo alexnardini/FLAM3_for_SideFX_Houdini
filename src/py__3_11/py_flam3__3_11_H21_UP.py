@@ -8340,7 +8340,9 @@ class flam3h_iterator_utils
         node.setParms({MSG_IN_SETTINGS_HEADING: ''}) # type: ignore
         
         # Force this node to cook to get a warning message show up upstream.
-        hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
+        # It failed on me once, hence the try except block
+        try: hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
+        except: pass
         
         # Print to Houdini's status bar
         _MSG_str = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file"
