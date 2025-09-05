@@ -8302,6 +8302,8 @@ class flam3h_iterator_utils
         
         # Force this node to cook to get a warning message show up upstream.
         # It failed on me once, hence the try except block
+        # Probably becasue I am now raising an error from the xaos cvex code and when it does
+        # it is not allowed to cook ? Need to investigate...
         try: hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
         except: pass
         
