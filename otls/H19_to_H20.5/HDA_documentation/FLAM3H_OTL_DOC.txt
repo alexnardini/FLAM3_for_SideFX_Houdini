@@ -146,7 +146,7 @@ _If you'd like to get close to a fractal Flame editor vibe, set the_ [viewport|W
 _Best would be to use one of the Desktop files provided (HD or 4K) as they set everything up for you_.
 
 _At the moment of this writing (up to H21)_:<br />
-_It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`* and set the Renderer to [OpenGL|Wp:OpenGL] as it provide a better points visualization in the viewport when millions of them are displayed and/or their viewport point size is smaller than *`1`*(one). Changing the viewer renderer will require a restart of Houdini_.
+_It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`* and set the Renderer to_ [OpenGL|Wp:OpenGL] _as it provide a better points visualization in the viewport when millions of them are displayed and/or their viewport point size is smaller than *`1`*(one). Changing the viewer renderer will require a restart of Houdini_.
 
 
     
