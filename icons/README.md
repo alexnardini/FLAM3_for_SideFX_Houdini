@@ -21,15 +21,10 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 
 
 <p align="center">
-  <img width="160" height="160" src="./FLAM3H_DOC_tag.svg" /></p>
-<p align="center">FLAM3H_DOC_tag.svg</p>
-<p align="center">.</p>
-
-
-<p align="center">
   <img width="160" height="160" src="./icon_AddDelIteratorSVG.svg" /></p>
 <p align="center">icon_AddDelIteratorSVG.svg (H21 and up only)</p>
 <p align="center">.</p>
+
 
 <p align="center">
   <img width="160" height="160" src="./icon_bitbucketLogoSVG.svg" /></p>
