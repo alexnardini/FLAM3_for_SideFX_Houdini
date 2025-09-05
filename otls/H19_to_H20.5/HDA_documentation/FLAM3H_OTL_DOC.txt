@@ -126,7 +126,7 @@ _Note that some parameters may use one or more of those badges_.
 @Platforms
 
 :platform:Windows
-    This HDA and all its Python code has been extensively tested on Windows.
+    This HDA and all its Python code have been extensively tested on Windows.
 
     
 _The following platforms should function flawlessly, though I didn't get a chance to test every feature, so some may not function as intended._
