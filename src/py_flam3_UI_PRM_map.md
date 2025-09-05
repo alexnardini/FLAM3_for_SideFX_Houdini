@@ -75,7 +75,7 @@ Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before th
 ```python
 from datetime import datetime
 
-__version__ = '1.8.77 - Production'
+__version__ = '1.8.79 - Production'
 
 def houdini_version(digit: int = 1) -> int:
     """Retrieve the major Houdini version number currently in use.
@@ -197,7 +197,7 @@ else:
 ```python
 from datetime import datetime
 
-__version__ = '1.8.77 - Production'
+__version__ = '1.8.79 - Production'
 
 # This is solely to detect if a FLAM3H OTL for H21
 # has been loaded inside this Houdini session if its version is minor than H20.5.

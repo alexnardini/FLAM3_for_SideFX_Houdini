@@ -28,6 +28,19 @@ They are all available in this Github repository.
 </br>
 </br>
 
+### [<ins>From v1.8.79</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.79) ###
+
+- **Fix**: When a FLAM3H™ HDA is installed inside an incompatible Houdini version its node will now properly trigger an error message instead of a non related warning message.
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.77</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.77) ###
 
 - **New H21 ONLY**: Added FLAM3H™ and FLAM3HUSD descriptive infos to the new H21 node info window. 
