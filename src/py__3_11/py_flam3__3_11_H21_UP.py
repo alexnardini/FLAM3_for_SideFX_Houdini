@@ -2,13 +2,16 @@ from __future__ import division
 from __future__ import annotations
 
 __author__ = "F stands for liFe ( made in Italy )"
-__copyright__ = "Copyright 2021, © F stands for liFe"
+__copyright__ = "© 2021 F stands for liFe"
 
 __py_version__ = "3.11.7"
 __license__ = "GPL"
-__version__ = "1.8.79"
+__version__ = "1.8.80"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
+
+# this must match: "__h_versions__" -> set inside the PreFirstCreate module in each FLAM3H™ HDA
+__this_h_versions__: tuple = (210,)
 
 import os
 import json
@@ -46,7 +49,7 @@ from inspect import cleandoc as i_cleandoc
     Tested on:  PYTHON v3.11.7  (H21)
 
     Title:      FLAM3H™ H21 UP. SideFX Houdini FLAM3: PYTHON
-    Author:     Alessandro Nardini
+    Author:     F stands for liFe ( made in Italy )
     date:       August 2025, Last revised September 2025 (cloned from: py_flam3__3_11.py)
                 Source file start date: January 2023
 
@@ -1156,7 +1159,8 @@ class flam3h_scripts:
 class flam3h_scripts
 
 @STATICMETHODS
-* flam3h_compatible() -> bool:
+* flam3h_h_versions_build_data(__h_versions__: tuple, last_index: bool = False) -> str:
+* flam3h_compatible(kwargs: dict | None = None) -> bool:
 * flam3h_on_create_lock_parms(node: hou.SopNode) -> None:
 * set_first_instance_global_var(cvex_precision: int) -> None:
 * flam3h_check_first_node_instance_msg_status_bar_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
@@ -1192,7 +1196,27 @@ class flam3h_scripts
         
         
     @staticmethod
-    def flam3h_compatible() -> bool:
+    def flam3h_h_versions_build_data(__h_versions__: tuple, last_index: bool = False) -> str:
+        """Get the houdini version number from the gloabl: __h_versions__
+
+        Args:
+            __h_versions__(tuple): a tuple containing all the compatible Houdini versions. This is stored into the hou.session from inside the PreFirstCreate module. 
+            last_index(bool): Default to False as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H HDA version run on multiple Houdinin versions
+
+        Returns:
+            (None):
+        """ 
+        if len(__h_versions__) > 1:
+            if last_index: num_str: str = str(__h_versions__[-1])
+            else: num_str: str = str(__h_versions__[0])
+        elif __h_versions__:
+            num_str: str = str(__h_versions__[0])
+
+        return f"{num_str[:2]}.{num_str[-1]}"
+
+
+    @staticmethod
+    def flam3h_compatible(kwargs: dict | None = None) -> bool:
         """Tell if this FLAM3H™ version is compatible with this Houdini version
 
         Args:
@@ -1201,13 +1225,46 @@ class flam3h_scripts
         Returns:
             (bool): True if compatible otherwise False.
         """ 
-        hou_version: int = flam3h_general_utils.houdini_version()
-        if hou_version < 21:
+        hou_version: int = flam3h_general_utils.houdini_version(2)
+        
+        # This condition may change with future Houdini version higher than H21.0 and will include a max version eventually.
+        if hou_version < __this_h_versions__[0]:
+            
             if hou.isUIAvailable():
-                hou.ui.displayMessage("Sorry, you need H21 and up to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+                
+                if len(__this_h_versions__) > 1:
+                    _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__this_h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__this_h_versions__, True)}"
+                else:
+                    _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(__this_h_versions__)} and up"
+                    
+                hou.ui.displayMessage(f"Sorry, You need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+            
+            if kwargs is not None:
+                # Just in case I will need to do something
+                ...
+            
             return False
+        
         else:
-            return True
+            __h_versions__: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside the FLAM3H™ HDA PreFirstCreate module
+            
+            if hou_version in __h_versions__:
+                return True
+            
+            else:
+                if hou.isUIAvailable():
+                    if len(__h_versions__) > 1:
+                        _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__, True)}"
+                    else:
+                        _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} and up"
+                        
+                    hou.ui.displayMessage(f"Sorry, you need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+                
+                if kwargs is not None:
+                    # Just in case I will need to do something
+                    ...
+                    
+                return False
 
 
     @staticmethod
@@ -1771,16 +1828,25 @@ class flam3h_scripts
             
         else:
             flam3h_general_utils.private_prm_set(self.node, FLAM3H_H_VALID, 0)
-            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21 and up to run this FLAM3H™ version"
+
+            __h_versions__: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside the FLAM3H™ HDA PreFirstCreate module
+            if len(__h_versions__) > 1:
+                _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__, True)}"
+            else:
+                _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} and up"
+                
+            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
+            # Set only once (on creation)
+            _MSG_ABOUT = f"This FLAM3H™ version need {_MSG_H_VERSIONS} to work."
+            _MSG_DESCRIPTIVE_MSG = f"FLAM3H™ v{__version__}\nYou need {_MSG_H_VERSIONS}"
+            
             hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
             # Set only once (on creation)
             node.setParms({FLAME_ITERATORS_COUNT: 0})
-            flam3h_iterator_utils(self.kwargs).iterators_count_zero(node)
-            _MSG_ABOUT = "This FLAM3H™ version need H21 and up to work."
+            flam3h_iterator_utils(self.kwargs).iterators_count_zero(node, False)
             node.setParms({MSG_FLAM3H_ABOUT: _MSG_ABOUT})
             node.setParms({MSG_FLAM3H_PLUGINS: _MSG_ABOUT})
             flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
-            _MSG_DESCRIPTIVE_MSG = f"FLAM3H™ v{__version__}\nYou need H21 and up"
             node.setParms({MSG_DESCRIPTIVE_PRM: _MSG_DESCRIPTIVE_MSG}) # type: ignore
 
 
@@ -1939,15 +2005,19 @@ class flam3h_scripts
                     flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
         else:
             flam3h_general_utils.private_prm_set(self.node, FLAM3H_H_VALID, 0)
-            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21 and up to run this FLAM3H™ version"
-            hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
-            # Set only once (on creation)
-            # Note we are not setting neither the iterators count to Zero and the HDA descriptive parameter
-            # so not to modify the existing settings.
-            _MSG_ABOUT = "This FLAM3H™ version need H21 and up to work."
+            __h_versions__: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside the FLAM3H™ HDA PreFirstCreate module
+            
+            if len(__h_versions__) > 1:
+                _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__, True)}"
+            else:
+                _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} and up"
+
+            _MSG_ABOUT = f"This FLAM3H™ version need {_MSG_H_VERSIONS} to work."
+            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
             node.setParms({MSG_FLAM3H_ABOUT: _MSG_ABOUT})
             node.setParms({MSG_FLAM3H_PLUGINS: _MSG_ABOUT})
             flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
+            hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
 
 
     def flam3h_on_deleted(self) -> None:
@@ -2026,8 +2096,14 @@ class flam3h_scripts
                         flam3h_general_utils.flash_message(node, f"FF marked node: DELETED")
                         
         else:
-            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21 and up to run this FLAM3H™ version"
-            hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
+            __h_versions__: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside the FLAM3H™ HDA PreFirstCreate module
+            if len(__h_versions__) > 1:
+                _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__, True)}"
+            else:
+                _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} and up"
+                
+            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
+            hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore 
 
 
 # FLAM3H™ GENERAL UTILS start here
@@ -4423,7 +4499,7 @@ class flam3h_iterator_utils
 * flam3h_reset_FF(self) -> None:
 * auto_set_xaos(self) -> None:
 * add_iterator(self) -> None:
-* iterators_count_zero(self, node: hou.SopNode) -> None:
+* iterators_count_zero(self, node: hou.SopNode, do_msg: bool = True) -> None:
 * iterators_count_not_zero(self, node: hou.SopNode) -> None:
 * iterators_count(self) -> None:
 * __iterator_keep_last_vactive(self) -> None:
@@ -8284,7 +8360,7 @@ class flam3h_iterator_utils
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
 
 
-    def iterators_count_zero(self, node: hou.SopNode) -> None:
+    def iterators_count_zero(self, node: hou.SopNode, do_msg: bool = True) -> None:
         """When the iterators' count is ZERO.
         It will do all it's needed in this case.
         
@@ -8297,6 +8373,7 @@ class flam3h_iterator_utils
         Args:
             (self):
             node(hou.SopNode): this FLAM3H™ node
+            do_msg(bool): Default to True. If False it will not print a message to the status bar and not fire a flash message either.
             
         Returns:
             (None):
@@ -8346,11 +8423,12 @@ class flam3h_iterator_utils
         try: hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
         except: pass
         
-        # Print to Houdini's status bar
-        _MSG_str = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file"
-        _MSG: str = f"{node.name()}: {_MSG_str}"
-        flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-        flam3h_general_utils.flash_message(node, f"Iterators count ZERO")
+        if do_msg:
+            # Print to Houdini's status bar
+            _MSG_str = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file"
+            _MSG: str = f"{node.name()}: {_MSG_str}"
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+            flam3h_general_utils.flash_message(node, f"Iterators count ZERO")
         
         
     def iterators_count_not_zero(self, node: hou.SopNode) -> None:

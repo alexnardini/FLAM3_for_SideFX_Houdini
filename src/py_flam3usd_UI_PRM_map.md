@@ -31,6 +31,11 @@ First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**:
 the **`flam3usd`** module is created out of the **`py_flam3usd`** file from inside the **Extra Files** section.
 
 ```python
+#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2023 F stands for liFe
+
 import toolutils
 
 def houdini_version(digit: int=1) -> int:
@@ -54,18 +59,33 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 Inside: **OTL**->**type_properties**->**Scripts**->**OnCreated**:
 initialize what the tool need when you create its node in the network editor.
 ```python
+#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2023 F stands for liFe
+
 kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_create()
 ```
 
 Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded**:
 When loading a hip file with a FLAM3HUSD node in it do some checks.
 ```python
+#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2023 F stands for liFe
+
 kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_loaded()
 ```
 
 Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted**:
 When deleting a FLAM3HUSD node.
 ```python
+#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2023 F stands for liFe
+
 kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_deleted()
 ```
 

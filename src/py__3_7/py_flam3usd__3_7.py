@@ -1,5 +1,5 @@
 __author__ = "F stands for liFe ( made in Italy )"
-__copyright__ = "Copyright 2023, © F stands for liFe"
+__copyright__ = "© 2023 F stands for liFe"
 
 __py_version__ = "3.7.13"
 __license__ = "GPL"
@@ -20,7 +20,7 @@ from typing import Union
                 PYTHON v3.11.7  (H20.5)
 
     Title:      SideFX Houdini FLAM3HUSD
-    Author:     Alessandro Nardini
+    Author:     F stands for liFe ( made in Italy )
     date:       September 2023, Last revised July 2025
 
     Name:       PY_FLAM3USD__3_7 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )

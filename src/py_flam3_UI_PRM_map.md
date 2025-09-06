@@ -2,10 +2,10 @@
 
 ```python
 #   Title:      FLAM3H™. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
-#   Author:     Alessandro Nardini
+#   Author:     F stands for liFe ( made in Italy )
 #   date:       April 2023, Last revised July 2025
 #   License:    GPL
-#   Copyright:  2021, © F stands for liFe ( made in Italy )
+#   Copyright:  (c) 2021 F stands for liFe
 #
 #   Name:       PY_FLAM3_UI_PRM_MAP
 #
@@ -46,6 +46,11 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
 
 # Houdini version:  `H19 to H20.5`
 ```python
+#   Title:      FLAM3H™. SideFX Houdini FLAM3
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2021 F stands for liFe
+
 import toolutils
 
 def houdini_version(digit: int=1) -> int:
@@ -73,9 +78,35 @@ Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before th
 
 # Houdini version:  `H21 and up`
 ```python
+#   Title:      FLAM3H™. SideFX Houdini FLAM3
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2021 F stands for liFe
+
 from datetime import datetime
 
-__version__ = '1.8.79 - Production'
+__version__ = '1.8.80 - Production'
+__h_versions__: tuple = (210,)
+
+
+def flam3h_h_versions_build_data(last_index: bool = False) -> str:
+    """Get the houdini version number from the gloabl: __h_versions__
+
+    Args:
+        last_index(bool): Default to False as it will return the first in the tuple. If True, it will return the last in the tuple.
+        This is done because some FLAM3H HDA version run on multiple Houdinin versions
+
+    Returns:
+        (None):
+    """ 
+    if len(__h_versions__) > 1:
+        if last_index: num_str: str = str(__h_versions__[-1])
+        else: num_str: str = str(__h_versions__[0])
+    elif __h_versions__:
+        num_str: str = str(__h_versions__[0])
+
+    return f"{num_str[:2]}.{num_str[-1]}"
+
 
 def houdini_version(digit: int = 1) -> int:
     """Retrieve the major Houdini version number currently in use.
@@ -88,15 +119,6 @@ def houdini_version(digit: int = 1) -> int:
     """ 
     return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
 
-# We are keeping the: py_flam3__3_7 module only for the following reason:
-# 
-# This is solely to detect if FLAM3H OTL for H21
-# has been loaded inside a Houdini version minor than H20.5.
-# Thx to this we can disable the functionalities since it is not a match.
-if houdini_version(2) < 205:
-    try: hou.session.F3H_H_VERSION_H21
-    except: hou.session.F3H_H_VERSION_H21: bool = True
-    else: pass
 
 def flam3h_first_time() -> bool:
     """If the version of Houdini running is smaller than version 19 
@@ -108,12 +130,21 @@ def flam3h_first_time() -> bool:
     Returns:
         (None):
     """ 
-    hou_version: int = houdini_version()
-    if hou_version < 21:
-        hou.ui.displayMessage("Sorry, you need H21 and up to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
+    
+    if len(__h_versions__) > 1:
+        _MSG_H_VERSIONS = f"from H{flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_h_versions_build_data(__h_versions__, True)}"
+    else:
+        _MSG_H_VERSIONS = f"H{flam3h_h_versions_build_data(__h_versions__)} and up"
+
+    hou_version: int = houdini_version(2)
+
+    if hou_version < __h_versions__[0]:
+        hou.ui.displayMessage(f"Sorry, you need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False)
         return False
+
     else:
         return True
+
 
 def flam3h_sys_updated_mode() -> None:
     """Store the current houdini Update mode status into the hou.session
@@ -127,6 +158,7 @@ def flam3h_sys_updated_mode() -> None:
     """ 
     current: hou.EnumValue = hou.updateModeSetting()
     hou.session.FLAM3H_SYS_UPDATE_MODE: hou.EnumValue = current
+
 
 def flam3h_compile_first_time_msg() -> None:
     """On first time FLAM3H™ node instance creation:
@@ -142,7 +174,6 @@ def flam3h_compile_first_time_msg() -> None:
     """ 
     now: str = datetime.now().strftime("%b-%d-%Y %H:%M:%S")
     
-    h: int = houdini_version()
     __module__: str = "3.11"
     
     try:
@@ -163,6 +194,7 @@ def flam3h_compile_first_time_msg() -> None:
         
     # we skip 64bit check for now as FLAM3H™ should always be at 32bit to start with.
 
+
 def flam3h_not_compatible_first_time_msg() -> None:
     """On first time FLAM3H™ node instance creation:
 
@@ -174,12 +206,18 @@ def flam3h_not_compatible_first_time_msg() -> None:
     Returns:
         (None):
     """ 
-    now: str = datetime.now().strftime("%b-%d-%Y %H:%M:%S")
-    
-    _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need H21 and up to run this FLAM3H™ version"
+    if len(__h_versions__) > 1:
+        _MSG_H_VERSIONS = f"from H{flam3h_h_versions_build_data()} to H{flam3h_h_versions_build_data(True)}"
+    elif __h_versions__:
+        _MSG_H_VERSIONS = f"H{flam3h_h_versions_build_data()} and up"
+
+    _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
     print(_MSG_INFO)
-    _MSG_INFO_SB = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need H21 and up to run this FLAM3H™ version"
+    _MSG_INFO_SB = f"-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
     hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
+
+# always store the hou.session.H_VERSIONS
+hou.session.H_VERSIONS: tuple = __h_versions__
 
 if flam3h_first_time():
     flam3h_sys_updated_mode()
@@ -195,16 +233,34 @@ else:
 
 # Houdini version:  `H19 to H20.5`
 ```python
+#   Title:      FLAM3H™. SideFX Houdini FLAM3
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2021 F stands for liFe
+
 from datetime import datetime
 
-__version__ = '1.8.79 - Production'
+__version__ = '1.8.80 - Production'
+__h_versions__: tuple = (190, 195, 200, 205)
 
-# This is solely to detect if a FLAM3H OTL for H21
-# has been loaded inside this Houdini session if its version is minor than H20.5.
-# If so, we are clearing it out.
-try: hou.session.F3H_H_VERSION_H21
-except: pass
-else: del hou.session.F3H_H_VERSION_H21
+def flam3h_h_versions_build_data(last_index: bool = False) -> str:
+    """Get the houdini version number from the gloabl: __h_versions__
+
+    Args:
+        last_index(bool): Default to False as it will return the first in the tuple. If True, it will return the last in the tuple.
+        This is done because some FLAM3H HDA version run on multiple Houdinin versions
+
+    Returns:
+        (None):
+    """ 
+    if len(__h_versions__) > 1:
+        if last_index: num_str: str = str(__h_versions__[-1])
+        else: num_str: str = str(__h_versions__[0])
+    elif __h_versions__:
+        num_str: str = str(__h_versions__[0])
+
+    return f"{num_str[:2]}.{num_str[-1]}"
+
 
 def houdini_version(digit: int = 1) -> int:
     """Retrieve the major Houdini version number currently in use.
@@ -217,6 +273,7 @@ def houdini_version(digit: int = 1) -> int:
     """ 
     return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
 
+
 def flam3h_first_time() -> bool:
     """If the version of Houdini running is smaller than version 19 
     will pop up a message to let the user know.
@@ -227,12 +284,21 @@ def flam3h_first_time() -> bool:
     Returns:
         (None):
     """ 
+    
+    if len(__h_versions__) > 1:
+        _MSG_H_VERSIONS = f"from H{flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_h_versions_build_data(True)}"
+    else:
+        _MSG_H_VERSIONS = f"H{flam3h_h_versions_build_data(__h_versions__)} and up"
+
     hou_version: int = houdini_version(2)
-    if hou_version < 190 or hou_version > 205:
-        hou.ui.displayMessage("Sorry, you need from H19 to H20.5 to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="Houdini version check", details=None, details_label=None, details_expanded=False)
+
+    if hou_version < __h_versions__[0] or hou_version > __h_versions__[-1]:
+        hou.ui.displayMessage(f"Sorry, you need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False)
         return False
+
     else:
         return True
+
 
 def flam3h_sys_updated_mode() -> None:
     """Store the current houdini Update mode status into the hou.session
@@ -246,6 +312,7 @@ def flam3h_sys_updated_mode() -> None:
     """ 
     current: hou.EnumValue = hou.updateModeSetting()
     hou.session.FLAM3H_SYS_UPDATE_MODE: hou.EnumValue = current
+
 
 def flam3h_compile_first_time_msg() -> None:
     """On first time FLAM3H™ node instance creation:
@@ -283,6 +350,7 @@ def flam3h_compile_first_time_msg() -> None:
         
     # we skip 64bit check for now as FLAM3H™ should always be at 32bit to start with.
 
+
 def flam3h_not_compatible_first_time_msg() -> None:
     """On first time FLAM3H™ node instance creation:
 
@@ -294,12 +362,18 @@ def flam3h_not_compatible_first_time_msg() -> None:
     Returns:
         (None):
     """ 
-    now: str = datetime.now().strftime("%b-%d-%Y %H:%M:%S")
-    
-    _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need from H19 to H20.5 to run this FLAM3H™ version"
+    if len(__h_versions__) > 1:
+        _MSG_H_VERSIONS = f"from H{flam3h_h_versions_build_data()} to H{flam3h_h_versions_build_data(True)}"
+    elif __h_versions__:
+        _MSG_H_VERSIONS = f"H{flam3h_h_versions_build_data()} and up"
+
+    _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
     print(_MSG_INFO)
-    _MSG_INFO_SB = f"\n-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need from H19 to H20.5 to run this FLAM3H™ version"
+    _MSG_INFO_SB = f"-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
     hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
+
+# always store the hou.session.H_VERSIONS
+hou.session.H_VERSIONS: tuple = __h_versions__
 
 if flam3h_first_time():
     flam3h_sys_updated_mode()
@@ -311,18 +385,33 @@ else:
 Inside: **OTL**->**type_properties**->**Scripts**->**OnCreated**:
 initialize what the tool need when you create its node in the network editor.
 ```python
+#   Title:      FLAM3H™. SideFX Houdini FLAM3
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2021 F stands for liFe
+
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_create()
 ```
 
 Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded**:
 When loading a hip file with a FLAM3H™ node in it do some checks.
 ```python
+#   Title:      FLAM3H™. SideFX Houdini FLAM3
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2021 F stands for liFe
+
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_loaded()
 ```
 
 Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted**:
 When deleting a FLAM3H™ node.
 ```python
+#   Title:      FLAM3H™. SideFX Houdini FLAM3
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2021 F stands for liFe
+
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_deleted()
 ```
 

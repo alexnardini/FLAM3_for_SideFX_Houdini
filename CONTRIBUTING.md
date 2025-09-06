@@ -3,8 +3,8 @@
 By contributing to this repository, you agree that:
 
 - **Software contributions** (source code, scripts, build files, etc.)</br>
-will be licensed under the [GNU General Public License v3.0](LICENSE).</br>
-_See also_: [GNU General Public License v3.0 Addon](LICENSE.addon).
+will be licensed under the [GNU General Public License v3.0 (GPL v3.0)](LICENSE).</br>
+_See also_: [GPL v3.0 Addon](LICENSE.addon).
 
 - **Documentation contributions** (text, images, diagrams, examples, tutorials, etc.)</br>
 will be licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).</br>
