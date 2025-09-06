@@ -3,7 +3,7 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.1.60 - Prototype
+#version: 0.1.61 - Prototype
 
 """Simple utility node to quickly render FLAM3H(tm) fractal flames in Solaris."""
 
