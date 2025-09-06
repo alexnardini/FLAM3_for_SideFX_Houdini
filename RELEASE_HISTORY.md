@@ -32,6 +32,10 @@ They are all available in this Github repository.
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
+#### FLAM3HUSD v0.1.61 - Prototype ####
+
+- **Fix**: Updated karma render settings as the denoiser was not working in H21.
+
 
 
 <br>
