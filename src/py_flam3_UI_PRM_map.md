@@ -132,9 +132,9 @@ def flam3h_first_time() -> bool:
     """ 
     
     if len(__h_versions__) > 1:
-        _MSG_H_VERSIONS = f"from H{flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_h_versions_build_data(__h_versions__, True)}"
+        _MSG_H_VERSIONS = f"from H{flam3h_h_versions_build_data()} to H{flam3h_h_versions_build_data(True)}"
     else:
-        _MSG_H_VERSIONS = f"H{flam3h_h_versions_build_data(__h_versions__)} and up"
+        _MSG_H_VERSIONS = f"H{flam3h_h_versions_build_data()} and up"
 
     hou_version: int = houdini_version(2)
 
@@ -217,6 +217,8 @@ def flam3h_not_compatible_first_time_msg() -> None:
     hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
 
 # always store the hou.session.H_VERSIONS
+try: del hou.session.H_VERSIONS
+except: pass
 hou.session.H_VERSIONS: tuple = __h_versions__
 
 if flam3h_first_time():
@@ -286,9 +288,9 @@ def flam3h_first_time() -> bool:
     """ 
     
     if len(__h_versions__) > 1:
-        _MSG_H_VERSIONS = f"from H{flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_h_versions_build_data(True)}"
+        _MSG_H_VERSIONS = f"from H{flam3h_h_versions_build_data()} to H{flam3h_h_versions_build_data(True)}"
     else:
-        _MSG_H_VERSIONS = f"H{flam3h_h_versions_build_data(__h_versions__)} and up"
+        _MSG_H_VERSIONS = f"H{flam3h_h_versions_build_data()} and up"
 
     hou_version: int = houdini_version(2)
 
@@ -373,6 +375,8 @@ def flam3h_not_compatible_first_time_msg() -> None:
     hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
 
 # always store the hou.session.H_VERSIONS
+try: del hou.session.H_VERSIONS
+except: pass
 hou.session.H_VERSIONS: tuple = __h_versions__
 
 if flam3h_first_time():
