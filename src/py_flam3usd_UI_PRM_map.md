@@ -30,6 +30,25 @@ to: **py_flam3usd__3_11**
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**:
 the **`flam3usd`** module is created out of the **`py_flam3usd`** file from inside the **Extra Files** section.
 
+# Houdini version `H21 and up`
+```python
+#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2023 F stands for liFe
+
+import toolutils
+
+__module__: str = "py_flam3usd__3_11_H21_UP"
+flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __module__)
+```
+
+
+</br>
+</br>
+
+
+# Houdini version `H19 to H20.5`
 ```python
 #   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
 #   Author:     F stands for liFe ( made in Italy )
