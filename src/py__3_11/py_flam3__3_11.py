@@ -2116,69 +2116,67 @@ class flam3h_scripts
         """
         node = self.node
         
-        if self.flam3h_compatible():
+        node_instances: tuple = node.type().instances()
+        
+        if len(node_instances) == 1:
             
-            node_instances: tuple = node.type().instances()
-            
-            if len(node_instances) == 1:
-                
-                # Init the Copy/Paste data to defaults
-                try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                except:
-                    try:
-                        if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None:  # type: ignore
-                            hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
-                    except: pass
-                    
-                try: hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
-                except:
-                    try:
-                        if hou.session.FLAM3H_MARKED_FF_CHECK is not None:  # type: ignore
-                            hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
-                    except: pass
-                    
-                # Delete the Houdini update mode data if needed
-                try: del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+            # Init the Copy/Paste data to defaults
+            try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+            except:
+                try:
+                    if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None:  # type: ignore
+                        hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
                 except: pass
                 
-                # Restore and delete the xforms handles VIZ data if needed
+            try: hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
+            except:
+                try:
+                    if hou.session.FLAM3H_MARKED_FF_CHECK is not None:  # type: ignore
+                        hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
+                except: pass
+                
+            # Delete the Houdini update mode data if needed
+            try: del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+            except: pass
+            
+            # Restore and delete the xforms handles VIZ data if needed
+            flam3h_general_utils.util_xf_viz_set_stashed_wire_width()
+            flam3h_general_utils.util_clear_xf_viz_stashed_wire_width_data()
+            
+            # Delete all data related to the Camera sensor viz
+            flam3h_general_utils.util_clear_stashed_cam_data()
+            
+        else:
+            # Clear menu caches
+            # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
+            # (ex. the user perform hand made modifications like renaming a Preset and such).
+            flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
+            # Check and Update this data
+            flam3h_iterator_utils(self.kwargs).update_xml_last_loaded(False)
+            
+            # If we are deleting a FLAM3H™ node in xforms handles VIZ mode
+            # check if others FLAM3H™ node are in xfomrs handles VIZ mode as well
+            # and if not, restore the H viewports wire widths data
+            if flam3h_general_utils(self.kwargs).util_other_xf_viz() is False:
                 flam3h_general_utils.util_xf_viz_set_stashed_wire_width()
                 flam3h_general_utils.util_clear_xf_viz_stashed_wire_width_data()
-                
-                # Delete all data related to the Camera sensor viz
+            
+            # If we are deleting a FLAM3H™ node in camera Sensor Viz mode,
+            # restore the viewers to their preview states and clear all the stashed cams data
+            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                flam3h_general_utils.util_set_stashed_cam()
                 flam3h_general_utils.util_clear_stashed_cam_data()
+            
+            if hou.session.FLAM3H_MARKED_FF_CHECK: # type: ignore
+                from_FLAM3H_NODE: TA_MNode = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
                 
-            else:
-                # Clear menu caches
-                # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
-                # (ex. the user perform hand made modifications like renaming a Preset and such).
-                flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, True)
-                # Check and Update this data
-                flam3h_iterator_utils(self.kwargs).update_xml_last_loaded(False)
-                
-                # If we are deleting a FLAM3H™ node in xforms handles VIZ mode
-                # check if others FLAM3H™ node are in xfomrs handles VIZ mode as well
-                # and if not, restore the H viewports wire widths data
-                if flam3h_general_utils(self.kwargs).util_other_xf_viz() is False:
-                    flam3h_general_utils.util_xf_viz_set_stashed_wire_width()
-                    flam3h_general_utils.util_clear_xf_viz_stashed_wire_width_data()
-                
-                # If we are deleting a FLAM3H™ node in camera Sensor Viz mode,
-                # restore the viewers to their preview states and clear all the stashed cams data
-                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
-                    flam3h_general_utils.util_set_stashed_cam()
-                    flam3h_general_utils.util_clear_stashed_cam_data()
-                
-                if hou.session.FLAM3H_MARKED_FF_CHECK: # type: ignore
-                    from_FLAM3H_NODE: TA_MNode = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+                if node == from_FLAM3H_NODE and node_instances:
+                    hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
+                    hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = node_instances[0] # type: ignore
                     
-                    if node == from_FLAM3H_NODE and node_instances:
-                        hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
-                        hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = node_instances[0] # type: ignore
-                        
-                        _MSG: str = f"The FLAM3H™ node you just deleted had its FF marked for being copied. Please, mark a FF first to copy parameters from."
-                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
-                        flam3h_general_utils.flash_message(node, f"FF marked node: DELETED")
+                    _MSG: str = f"The FLAM3H™ node you just deleted had its FF marked for being copied. Please, mark a FF first to copy parameters from."
+                    flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                    flam3h_general_utils.flash_message(node, f"FF marked node: DELETED")
             
 
 # FLAM3H™ GENERAL UTILS start here
