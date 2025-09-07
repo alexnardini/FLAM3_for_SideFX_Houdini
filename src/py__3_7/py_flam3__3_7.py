@@ -2082,7 +2082,7 @@ class flam3h_scripts
                     flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
                     
         else:
-            self.flam3h_on_create_compatible_false(False, False)
+            self.flam3h_on_loaded_compatible_false()
             
 
     def flam3h_on_deleted(self) -> None:
