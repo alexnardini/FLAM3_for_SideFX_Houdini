@@ -28,6 +28,18 @@ They are all available in this Github repository.
 </br>
 </br>
 
+### [<ins>From v1.8.81</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.81) ###
+
+- **Fix**: Improved incompatible Houdini versions checks mechanism.
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.80</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.80) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**

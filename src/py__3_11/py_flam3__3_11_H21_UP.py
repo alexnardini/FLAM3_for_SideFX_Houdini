@@ -1178,6 +1178,7 @@ class flam3h_scripts
 * flam3h_on_create_compatible_false(self, iterators_count_zero: bool = True, descriptive_prm: bool = True) -> None:
 * flam3h_on_create(self) -> None:
 * flam3h_on_loaded_compatible_false(self) -> None:
+* flam3h_on_loaded_compatible_true(self) -> None:
 * flam3h_on_loaded(self) -> None:
 * flam3h_on_deleted(self) -> None:
 
@@ -1943,6 +1944,28 @@ class flam3h_scripts
         else:
             self.flam3h_on_create_compatible_false(False, False)
             
+            
+    def flam3h_on_loaded_compatible_true(self) -> None:
+        """If we are loading hip files with FLAM3H nodes in it that were prviewsly initialized with an incompatible version of Houdini,
+        restore their default settings if their iterators count is set to Zero, otherwise leave them as they are to not modify exixting settings.
+        
+        _NOTE:
+            This may be extended in the future, depending on needs.
+        
+        To be used inside:
+        * def flam3h_on_loaded(self) -> None:
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """
+        node = self.node
+        iter_count_prm: hou.Parm = node.parm(FLAME_ITERATORS_COUNT)
+        # Only if the iterators count is Zero
+        if not iter_count_prm.eval(): flam3h_iterator_utils(self.kwargs).flam3h_default()
+            
 
     def flam3h_on_loaded(self) -> None:
         """Initialize FLAM3H™ node on hip file load and all the data it need to run.
@@ -1974,7 +1997,8 @@ class flam3h_scripts
                 # while using an incompatible version of Houdini so that we can restore it to functional again.
                 h_valid_prm: hou.Parm = node.parm(FLAM3H_PVT_H_VALID)
                 if not h_valid_prm.eval():
-                    flam3h_general_utils.private_prm_set(self.node, FLAM3H_PVT_H_VALID, 1)
+                    flam3h_general_utils.private_prm_set(self.node, h_valid_prm, 1)
+                    self.flam3h_on_loaded_compatible_true()
                 
                 # set density menu
                 flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(node)
@@ -2079,7 +2103,6 @@ class flam3h_scripts
                     flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
         
         else:
-            
             self.flam3h_on_loaded_compatible_false()
 
 
@@ -2157,17 +2180,6 @@ class flam3h_scripts
                         _MSG: str = f"The FLAM3H™ node you just deleted had its FF marked for being copied. Please, mark a FF first to copy parameters from."
                         flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
                         flam3h_general_utils.flash_message(node, f"FF marked node: DELETED")
-                        
-        else:
-            __h_versions__: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside the FLAM3H™ HDA PreFirstCreate module
-            if len(__h_versions__) > 1:
-                _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__, True)}"
-            else:
-                _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} and up"
-                
-            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
-            
-            if hou.isUIAvailable(): hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore 
 
 
 # FLAM3H™ GENERAL UTILS start here
