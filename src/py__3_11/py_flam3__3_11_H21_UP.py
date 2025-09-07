@@ -1816,6 +1816,17 @@ class flam3h_scripts
         node.setParms({MSG_FLAM3H_PLUGINS: _MSG_ABOUT})
         flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
         
+        # Force to display the error message even when the display flag is Off on creation
+        #
+        # Force this node to cook to get a warning message show up upstream.
+        # It failed on me once, hence the try except block
+        # Probably becasue I am now raising an error from the xaos cvex code and when it does
+        # it is not allowed to cook ? Need to investigate...
+        try: hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
+        except: pass
+        # Force to update
+        node.cook(force=True)
+        
         if iterators_count_zero:
             node.setParms({FLAME_ITERATORS_COUNT: 0})
             flam3h_iterator_utils(self.kwargs).iterators_count_zero(node, False)
