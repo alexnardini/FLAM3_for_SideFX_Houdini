@@ -1826,13 +1826,18 @@ class flam3h_scripts
         # Force to update
         node.cook(force=True)
         
+        # We do not always want to set the iterators count to Zero
+        # likely only on creation, not on hip file load
         if iterators_count_zero:
             node.setParms({FLAME_ITERATORS_COUNT: 0})
             flam3h_iterator_utils(self.kwargs).iterators_count_zero(node, False)
         
+        # We do not always want to set the descriptive parameter
+        # likely only on creation, not on hip file load
         if descriptive_prm:
             node.setParms({MSG_DESCRIPTIVE_PRM: _MSG_DESCRIPTIVE_MSG}) # type: ignore
             
+        # ERROR in the status bar
         if hou.isUIAvailable(): hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
         
         '''
