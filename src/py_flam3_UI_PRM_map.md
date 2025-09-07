@@ -85,7 +85,7 @@ Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before th
 
 from datetime import datetime
 
-__version__ = '1.8.80 - Production'
+__version__ = '1.8.81 - Production'
 __h_versions__: tuple = (210,)
 
 
@@ -242,7 +242,7 @@ else:
 
 from datetime import datetime
 
-__version__ = '1.8.80 - Production'
+__version__ = '1.8.81 - Production'
 __h_versions__: tuple = (190, 195, 200, 205)
 
 def flam3h_h_versions_build_data(last_index: bool = False) -> str:

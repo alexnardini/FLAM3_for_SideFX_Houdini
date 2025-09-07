@@ -6,7 +6,7 @@ __copyright__ = "© 2021 F stands for liFe"
 
 __py_version__ = "3.11.7"
 __license__ = "GPL"
-__version__ = "1.8.80"
+__version__ = "1.8.81"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
@@ -172,7 +172,7 @@ FLAM3H_USER_DATA_XF_VIZ = 'XF VIZ'
 FLAM3H_USER_DATA_XML_LAST = 'XML_last_loaded'
 
 # Houdini is a valid version toggle
-FLAM3H_H_VALID = 'h_valid'
+FLAM3H_PVT_H_VALID = 'h_valid'
 # Main FLAME tab in the UI
 FLAM3H_ITERATORS_TAB = 'f_flam3h'
 
@@ -1175,7 +1175,9 @@ class flam3h_scripts
 * flam3h_on_create_set_prefs_viewport(self, default_value_pt: float = 1, default_value_ww: float = 3) -> None:
 * flam3h_on_create_init_viewportWireWidth(self) -> None:
 * flam3h_presets_cache_filepath_on_load(self) -> None:
+* flam3h_on_create_compatible_false(self, iterators_count_zero: bool = True, descriptive_prm: bool = True) -> None:
 * flam3h_on_create(self) -> None:
+* flam3h_on_loaded_compatible_false(self) -> None:
 * flam3h_on_loaded(self) -> None:
 * flam3h_on_deleted(self) -> None:
 
@@ -1289,7 +1291,7 @@ class flam3h_scripts
                             PREFS_PVT_INT_1,
                             PREFS_PVT_FLOAT_0,
                             PREFS_PVT_FLOAT_1,
-                            FLAM3H_H_VALID
+                            FLAM3H_PVT_H_VALID
                             )
         
         [node.parm(prm_name).lock(True) for prm_name in prm_names]
@@ -1781,6 +1783,62 @@ class flam3h_scripts
             if xml_checked is not False and os.path.isfile(xml_checked): node.setCachedUserData('out_presets_filepath', xml_checked)
 
 
+    def flam3h_on_create_compatible_false(self, iterators_count_zero: bool = True, descriptive_prm: bool = True) -> None:
+        """When FLAM3H™ is loaded into an incompatible Houdini version this code is run on creation.
+        
+        _NOTE:
+            This will need to be expanded at some point in time, for now it is enough to catch the versions and show the incompatibility for simple cases.
+        
+        Args:
+            (self):
+            iterators_count_zero(bool): Default to True. Set the iterators count to Zero. Set it to False to not set.
+            descriptive_prm(bool): Default to True. Set the node descriptive parameter. Set it to False to not set.
+            
+        Returns:
+            (None):
+        """
+        node = self.node
+        
+        flam3h_general_utils.private_prm_set(self.node, FLAM3H_PVT_H_VALID, 0)
+        __h_versions__: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside the FLAM3H™ HDA PreFirstCreate module
+        
+        if len(__h_versions__) > 1:
+            _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__, True)}"
+        else:
+            _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} and up"
+            
+        _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
+        _MSG_ABOUT = f"This FLAM3H™ version need {_MSG_H_VERSIONS} to work."
+        _MSG_DESCRIPTIVE_MSG = f"FLAM3H™ v{__version__}\nYou need {_MSG_H_VERSIONS}"
+        
+        # Set prper messages in the about tabs
+        node.setParms({MSG_FLAM3H_ABOUT: _MSG_ABOUT})
+        node.setParms({MSG_FLAM3H_PLUGINS: _MSG_ABOUT})
+        flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
+        
+        if iterators_count_zero:
+            node.setParms({FLAME_ITERATORS_COUNT: 0})
+            flam3h_iterator_utils(self.kwargs).iterators_count_zero(node, False)
+        
+        if descriptive_prm:
+            node.setParms({MSG_DESCRIPTIVE_PRM: _MSG_DESCRIPTIVE_MSG}) # type: ignore
+            
+        if hou.isUIAvailable(): hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
+        
+        '''
+        f3h_instances: tuple = node.type().instances()
+        for f3h in f3h_instances:
+            if f3h != node:
+                flam3h_general_utils.private_prm_set(f3h, FLAM3H_PVT_H_VALID, 1)
+                # Restore about tab infos
+                f3h_kwargs: dict = copy(self.kwargs)
+                f3h_kwargs['node'] = f3h
+                flam3h_about_utils(f3h_kwargs).flam3h_about_msg()
+                flam3h_about_utils(f3h_kwargs).flam3h_about_plugins_msg()
+                flam3h_about_utils(f3h_kwargs).flam3h_about_web_msg()
+        '''
+
+
     def flam3h_on_create(self) -> None:
         """Initialize FLAM3H™ node on creation and all the data it need to run.
         
@@ -1827,27 +1885,7 @@ class flam3h_scripts
             self.flam3h_on_create_lock_parms(node)
             
         else:
-            flam3h_general_utils.private_prm_set(self.node, FLAM3H_H_VALID, 0)
-
-            __h_versions__: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside the FLAM3H™ HDA PreFirstCreate module
-            if len(__h_versions__) > 1:
-                _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__, True)}"
-            else:
-                _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} and up"
-                
-            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
-            # Set only once (on creation)
-            _MSG_ABOUT = f"This FLAM3H™ version need {_MSG_H_VERSIONS} to work."
-            _MSG_DESCRIPTIVE_MSG = f"FLAM3H™ v{__version__}\nYou need {_MSG_H_VERSIONS}"
-            
-            hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
-            # Set only once (on creation)
-            node.setParms({FLAME_ITERATORS_COUNT: 0})
-            flam3h_iterator_utils(self.kwargs).iterators_count_zero(node, False)
-            node.setParms({MSG_FLAM3H_ABOUT: _MSG_ABOUT})
-            node.setParms({MSG_FLAM3H_PLUGINS: _MSG_ABOUT})
-            flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
-            node.setParms({MSG_DESCRIPTIVE_PRM: _MSG_DESCRIPTIVE_MSG}) # type: ignore
+            self.flam3h_on_create_compatible_false()
 
 
     # def flam3h_on_loaded_set_density_menu(self) -> None:
@@ -1869,6 +1907,26 @@ class flam3h_scripts
     #     node.setParms({GLB_DENSITY_PRESETS: density_values.get(density_new)})
     #     node.setParms({GLB_DENSITY: density_new})
 
+
+    def flam3h_on_loaded_compatible_false(self) -> None:
+        """When FLAM3H™ is loaded into an incompatible Houdini version on hip file load and on node copy/clone this code is run.
+        
+        _NOTE:
+            This will need to be expanded at some point in time, for now it is enough to catch the versions and show the incompatibility for simple cases.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """
+        
+        # For now we set both cases the same
+        if hou.hipFile.isLoadingHipFile(): #type: ignore
+            self.flam3h_on_create_compatible_false(False, False)
+        else:
+            self.flam3h_on_create_compatible_false(False, False)
+            
 
     def flam3h_on_loaded(self) -> None:
         """Initialize FLAM3H™ node on hip file load and all the data it need to run.
@@ -1898,9 +1956,9 @@ class flam3h_scripts
                 
                 # This is done in case the user saved a hip file with FLAM3H nodes in it
                 # while using an incompatible version of Houdini so that we can restore it to functional again.
-                h_valid_prm: hou.Parm = node.parm(FLAM3H_H_VALID)
+                h_valid_prm: hou.Parm = node.parm(FLAM3H_PVT_H_VALID)
                 if not h_valid_prm.eval():
-                    flam3h_general_utils.private_prm_set(self.node, FLAM3H_H_VALID, 1)
+                    flam3h_general_utils.private_prm_set(self.node, FLAM3H_PVT_H_VALID, 1)
                 
                 # set density menu
                 flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(node)
@@ -2003,21 +2061,10 @@ class flam3h_scripts
                     flam3h_iterator_utils.del_comment_and_user_data_iterator(node)
                 if flam3h_iterator_utils.exist_user_data(node, FLAM3H_USER_DATA_FF):
                     flam3h_iterator_utils.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
+        
         else:
-            flam3h_general_utils.private_prm_set(self.node, FLAM3H_H_VALID, 0)
-            __h_versions__: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside the FLAM3H™ HDA PreFirstCreate module
             
-            if len(__h_versions__) > 1:
-                _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__, True)}"
-            else:
-                _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} and up"
-
-            _MSG_ABOUT = f"This FLAM3H™ version need {_MSG_H_VERSIONS} to work."
-            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
-            node.setParms({MSG_FLAM3H_ABOUT: _MSG_ABOUT})
-            node.setParms({MSG_FLAM3H_PLUGINS: _MSG_ABOUT})
-            flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
-            hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
+            self.flam3h_on_loaded_compatible_false()
 
 
     def flam3h_on_deleted(self) -> None:
@@ -2103,7 +2150,8 @@ class flam3h_scripts
                 _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} and up"
                 
             _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
-            hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore 
+            
+            if hou.isUIAvailable(): hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore 
 
 
 # FLAM3H™ GENERAL UTILS start here
