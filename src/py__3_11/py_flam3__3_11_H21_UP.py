@@ -12,7 +12,7 @@ __status__ = "Production"
 
 # The following are min and max version where FLAM3H™ can run.
 # The max version is always most likely the latest Houdini version released by SideFX
-# unless I stop development in which case you just need to update "__h_version_max__" yourself ( along with the "__h_versions_dict__" dictionary, of course! )
+# unless I stop development in which case you just need to update "__h_version_max__" yourself.
 __h_version_min__: int = 190
 __h_version_max__: int = 210
 
