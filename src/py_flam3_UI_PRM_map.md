@@ -33,9 +33,28 @@ the **`flam3`** module is created out of the **`py_flam3`** file from inside the
 
 # Houdini version:  `H21 and up`
 ```python
+#   Title:      FLAM3H™. SideFX Houdini FLAM3
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2021 F stands for liFe
+
 import toolutils
 
-__module__: str = "py_flam3__3_11_H21_UP"
+def houdini_version(digit: int=1) -> int:
+    """Retrieve the major Houdini version number currently in use.
+
+    Args:
+        digit(int): Default to 1: 19, 20. if set to 2: 190, 195, 200, 205, and so on.
+
+    Returns:
+        (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
+    """ 
+    return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
+    
+h: int = houdini_version(2)
+if h < 205: __module__: str = "py_flam3__3_7"
+else: __module__: str = "py_flam3__3_11_H21_UP"
+
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
 ```
 
@@ -85,7 +104,7 @@ Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**: Before th
 
 from datetime import datetime
 
-__version__ = '1.8.81 - Production'
+__version__ = '1.8.82 - Production'
 __h_versions__: tuple = (210,)
 
 
@@ -174,7 +193,9 @@ def flam3h_compile_first_time_msg() -> None:
     """ 
     now: str = datetime.now().strftime("%b-%d-%Y %H:%M:%S")
     
-    __module__: str = "3.11"
+    h: int = houdini_version(2)
+    if h < 205: __module__: str = "3.7"
+    else: __module__: str = "3.11"
     
     try:
         hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
@@ -242,7 +263,7 @@ else:
 
 from datetime import datetime
 
-__version__ = '1.8.81 - Production'
+__version__ = '1.8.82 - Production'
 __h_versions__: tuple = (190, 195, 200, 205)
 
 def flam3h_h_versions_build_data(last_index: bool = False) -> str:

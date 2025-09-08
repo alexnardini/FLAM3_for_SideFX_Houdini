@@ -6,12 +6,15 @@ __copyright__ = "© 2021 F stands for liFe"
 
 __py_version__ = "3.11.7"
 __license__ = "GPL"
-__version__ = "1.8.81"
+__version__ = "1.8.82"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
-# this must match: "__h_versions__" -> set inside the PreFirstCreate module in each FLAM3H™ HDA
-__this_h_versions__: tuple = (210,)
+# The following are min and max version where FLAM3H™ can run.
+# The max version is always most likely the latest Houdini version released by SideFX
+# unless I stop development in which case you just need to update "__h_version_max__" yourself ( along with the "__h_versions_dict__" dictionary, of course! )
+__h_version_min__: int = 190
+__h_version_max__: int = 210
 
 import os
 import json
@@ -1159,7 +1162,8 @@ class flam3h_scripts:
 class flam3h_scripts
 
 @STATICMETHODS
-* flam3h_h_versions_build_data(__h_versions__: tuple, last_index: bool = False) -> str:
+* flam3h_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
+* flam3h_compatible_h_versions_msg(this_h_versions: tuple) -> None:
 * flam3h_compatible(kwargs: dict | None = None) -> bool:
 * flam3h_on_create_lock_parms(node: hou.SopNode) -> None:
 * set_first_instance_global_var(cvex_precision: int) -> None:
@@ -1199,23 +1203,58 @@ class flam3h_scripts
         
         
     @staticmethod
-    def flam3h_h_versions_build_data(__h_versions__: tuple, last_index: bool = False) -> str:
+    def flam3h_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
         """Get the houdini version number from the gloabl: __h_versions__
 
         Args:
-            __h_versions__(tuple): a tuple containing all the compatible Houdini versions. This is stored into the hou.session from inside the PreFirstCreate module. 
-            last_index(bool): Default to False as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H HDA version run on multiple Houdinin versions
+            __h_versions__(tuple | int): a tuple containing all the compatible Houdini versions. This is stored into the hou.session from inside the PreFirstCreate module. 
+            last_index(bool): Default to False as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H™ HDA version run on multiple Houdinin versions.
+            or it can be a 3 digits int
 
         Returns:
             (None):
         """ 
-        if len(__h_versions__) > 1:
-            if last_index: num_str: str = str(__h_versions__[-1])
-            else: num_str: str = str(__h_versions__[0])
-        elif __h_versions__:
-            num_str: str = str(__h_versions__[0])
+        if isinstance(__h_versions__, tuple):
+            if len(__h_versions__) > 1:
+                if last_index: num_str: str = str(__h_versions__[-1])
+                else: num_str: str = str(__h_versions__[0])
+            elif __h_versions__:
+                num_str: str = str(__h_versions__[0])
 
-        return f"{num_str[:2]}.{num_str[-1]}"
+            return f"{num_str[:2]}.{num_str[-1]}"
+        
+        elif isinstance(__h_versions__, int):
+            if len(str(__h_versions__)) == 3:
+                return f"{str(__h_versions__)[:2]}.{str(__h_versions__)[-1]}"
+            elif len(str(__h_versions__)) == 2:
+                return f"**{str(__h_versions__)}**"
+            else:
+                return f"**N/A**"
+            
+        else:
+            return f"**N/A**"
+
+
+    @staticmethod
+    def flam3h_compatible_h_versions_msg(this_h_versions: tuple) -> None:
+        """Build and fire a message letting the user know the Houdini version/s needed to run the installed FLAM3H™ HDA version.
+
+        Args:
+            this_h_versions(tuple): a tuple containing all the Houdini version number from: def flam3h_general_utils.houdini_version(2)
+            to build a proper message from to use inside a hou.ui.dusplayMessage(...)
+
+        Returns:
+            (None):
+        """ 
+        
+        if hou.isUIAvailable():
+            
+            if len(this_h_versions) > 1:
+                _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)}"
+            else:
+                _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} and up"
+                
+            hou.ui.displayMessage(f"Sorry, You need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
 
 
     @staticmethod
@@ -1228,19 +1267,20 @@ class flam3h_scripts
         Returns:
             (bool): True if compatible otherwise False.
         """ 
-        hou_version: int = flam3h_general_utils.houdini_version(2)
-        
-        # This condition may change with future Houdini version higher than H21.0 and will include a max version eventually.
-        if hou_version < __this_h_versions__[0]:
+        h_version: int = flam3h_general_utils.houdini_version(2)
+        this_h_versions: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside each FLAM3H™ HDA PreFirstCreate module
             
-            if hou.isUIAvailable():
-                
-                if len(__this_h_versions__) > 1:
-                    _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__this_h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__this_h_versions__, True)}"
-                else:
-                    _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(__this_h_versions__)} and up"
-                    
-                hou.ui.displayMessage(f"Sorry, You need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+        # Only for the latest FLAM3H™ on the latest Houdini version (and its latest python module version), otherwise the full range is checked.
+        #
+        # We never know what will happen with the next major release of Houdini
+        # but we allow it to run regardless for now.
+        # the files: "py_flam3__3_11.py" and "py_flam3__3_7.py" checks the full available range in the tuple:
+        # e.g.
+        # if h_version < this_h_versions[0] or h_version > this_h_versions[-1]:
+        #   ... 
+        if h_version < this_h_versions[0]:
+            
+            flam3h_scripts.flam3h_compatible_h_versions_msg(this_h_versions)
             
             if kwargs is not None:
                 # Just in case I will need to do something
@@ -1249,19 +1289,25 @@ class flam3h_scripts
             return False
         
         else:
-            __h_versions__: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside the FLAM3H™ HDA PreFirstCreate module
             
-            if hou_version in __h_versions__:
+            # If it is a mtach
+            if h_version in this_h_versions:
+                return True
+            
+            # We never know what will happen with the next major release of Houdini
+            # but we allow it to run regardless for now.
+            # If the current Houdini version is newer than the latest version supported by FLAM3H™
+            # we allow it to run anyway letting the user know that something can go wrong.
+            elif h_version > __h_version_max__:
+                
+                if hou.isUIAvailable():
+                    _MSG_H_VERSIONS = f"This Houdini version is: H{flam3h_scripts.flam3h_h_versions_build_data(h_version)}\nThe latest Houdini version supported by FLAM3H™ is: H{flam3h_scripts.flam3h_h_versions_build_data(__h_version_max__)}\nSome functionality may not work as intended or not work at all."
+                    hou.ui.displayMessage(_MSG_H_VERSIONS, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
                 return True
             
             else:
-                if hou.isUIAvailable():
-                    if len(__h_versions__) > 1:
-                        _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__, True)}"
-                    else:
-                        _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} and up"
-                        
-                    hou.ui.displayMessage(f"Sorry, you need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+                
+                flam3h_scripts.flam3h_compatible_h_versions_msg(this_h_versions)
                 
                 if kwargs is not None:
                     # Just in case I will need to do something
@@ -1417,7 +1463,7 @@ class flam3h_scripts
         """Turn iterators/FF post affine OFF if they are active and default values.
 
         Args:
-            node(hou.SopNode): This FLAm3H node.
+            node(hou.SopNode): This FLAM3H™ node.
             
         Returns:
             (None):
@@ -1946,7 +1992,7 @@ class flam3h_scripts
             
             
     def flam3h_on_loaded_compatible_true(self) -> None:
-        """If we are loading hip files with FLAM3H nodes in it that were prviewsly initialized with an incompatible version of Houdini,
+        """If we are loading hip files with FLAM3H™ nodes in it that were prviewsly initialized with an incompatible version of Houdini,
         restore their default settings if their iterators count is set to Zero, otherwise leave them as they are to not modify exixting settings.
         
         _NOTE:
@@ -1993,7 +2039,7 @@ class flam3h_scripts
             
             if hou.hipFile.isLoadingHipFile(): #type: ignore
                 
-                # This is done in case the user saved a hip file with FLAM3H nodes in it
+                # This is done in case the user saved a hip file with FLAM3H™ nodes in it
                 # while using an incompatible version of Houdini so that we can restore it to functional again.
                 h_valid_prm: hou.Parm = node.parm(FLAM3H_PVT_H_VALID)
                 if not h_valid_prm.eval():
@@ -15323,7 +15369,7 @@ class in_flame_utils
                 flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
         
-        # Reset mp idx flam3h mem parameter
+        # Reset mp idx FLAM3H™ mem parameter
         if node.parm(FLAM3H_DATA_PRM_MPIDX).eval() != 0:
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
         

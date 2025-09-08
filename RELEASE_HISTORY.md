@@ -28,6 +28,19 @@ They are all available in this Github repository.
 </br>
 </br>
 
+### [<ins>From v1.8.82</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.82) ###
+
+- **Fix**: When loading hip files with FLAM3H™ nodes inside an incompatible Houdini version it will now display a proper error tag geo and message in the viewport (before it was happening only on node creation).
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
+
 ### [<ins>From v1.8.81</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.81) ###
 
 - **Fix**: Improved incompatible Houdini versions checks mechanism.
