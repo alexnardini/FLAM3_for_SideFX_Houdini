@@ -1152,7 +1152,7 @@ class flam3h_scripts:
 class flam3h_scripts
 
 @STATICMETHODS
-* flam3h_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
+* flam3h_h_versions_build_data(__h_versions__: Union[tuple, int], last_index: bool = False) -> str:
 * flam3h_compatible_h_versions_msg(this_h_versions: tuple) -> None:
 * flam3h_compatible(kwargs: dict | None = None) -> bool:
 * flam3h_on_create_lock_parms(node: hou.SopNode) -> None:
@@ -1193,7 +1193,7 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
+    def flam3h_h_versions_build_data(__h_versions__: Union[tuple, int], last_index: bool = False) -> str:
         """Get the houdini version number from the gloabl: __h_versions__
 
         Args:
