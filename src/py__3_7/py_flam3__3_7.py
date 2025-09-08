@@ -1154,7 +1154,7 @@ class flam3h_scripts
 @STATICMETHODS
 * flam3h_h_versions_build_data(__h_versions__: Union[tuple, int], last_index: bool = False) -> str:
 * flam3h_compatible_h_versions_msg(this_h_versions: tuple) -> None:
-* flam3h_compatible(kwargs: dict | None = None) -> bool:
+* flam3h_compatible(kwargs: Union[dict, None] = None) -> bool:
 * flam3h_on_create_lock_parms(node: hou.SopNode) -> None:
 * set_first_instance_global_var(cvex_precision: int) -> None:
 * flam3h_check_first_node_instance_msg_status_bar_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
@@ -1197,7 +1197,7 @@ class flam3h_scripts
         """Get the houdini version number from the gloabl: __h_versions__
 
         Args:
-            __h_versions__(tuple | int): a tuple containing all the compatible Houdini versions. This is stored into the hou.session from inside the PreFirstCreate module. 
+            __h_versions__(Union[tuple, int]): a tuple containing all the compatible Houdini versions. This is stored into the hou.session from inside the PreFirstCreate module. 
             last_index(bool): Default to False as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H™ HDA version run on multiple Houdinin versions.
             or it can be a 3 digits int
 
@@ -1248,7 +1248,7 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_compatible(kwargs: dict | None = None) -> bool:
+    def flam3h_compatible(kwargs: Union[dict, None] = None) -> bool:
         """Tell if this FLAM3H™ version is compatible with this Houdini version
 
         Args:
