@@ -1,3 +1,8 @@
+#   Title:      FLAM3H™ Custom node info
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2021 F stands for liFe
+
 import hou
 
 # Get some HDA infos from the HDA module
