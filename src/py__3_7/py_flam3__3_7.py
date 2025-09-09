@@ -1248,22 +1248,23 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_compatible(kwargs: Union[dict, None] = None) -> bool:
+    def flam3h_compatible(kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
         """Tell if this FLAM3H™ version is compatible with this Houdini version
 
         Args:
-            ():
+            kwargs(Union[dict, None]: Default to None. When needed, this must be the class' self.kwargs
+            msg(bool): Default to True. When False it will not run the hou display messages.
 
         Returns:
             (bool): True if compatible otherwise False.
         """ 
         h_version: int = flam3h_general_utils.houdini_version(2)
         this_h_versions: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside each FLAM3H™ HDA PreFirstCreate module
-            
+        
         # checks the full available range in the tuple
         if h_version < this_h_versions[0] or h_version > this_h_versions[-1]:
             
-            flam3h_scripts.flam3h_compatible_h_versions_msg(this_h_versions)
+            if msg: flam3h_scripts.flam3h_compatible_h_versions_msg(this_h_versions)
             
             if kwargs is not None:
                 # Just in case I will need to do something
@@ -1283,14 +1284,14 @@ class flam3h_scripts
             # we allow it to run anyway letting the user know that something can go wrong.
             elif h_version > __h_version_max__:
                 
-                if hou.isUIAvailable():
+                if msg and hou.isUIAvailable():
                     _MSG_H_VERSIONS = f"This Houdini version is: H{flam3h_scripts.flam3h_h_versions_build_data(h_version)}\nThe latest Houdini version supported by FLAM3H™ is: H{flam3h_scripts.flam3h_h_versions_build_data(__h_version_max__)}\nSome functionality may not work as intended or not work at all."
                     hou.ui.displayMessage(_MSG_H_VERSIONS, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
                 return True
             
             else:
                 
-                flam3h_scripts.flam3h_compatible_h_versions_msg(this_h_versions)
+                if msg: flam3h_scripts.flam3h_compatible_h_versions_msg(this_h_versions)
                 
                 if kwargs is not None:
                     # Just in case I will need to do something
