@@ -634,7 +634,7 @@ class flam3h_varsPRM
                                 (f"Blob{PRM}", ("blob_", 1), 1), 
                                 (f"JuliaN{PRM}", ("julian_", 1), 1), 
                                 (f"Juliascope{PRM}", ("juliascope_", 1), 1), 
-                                ("Gaussian_blur", 0), 
+                                ("Gaussian blur", 0), 
                                 (f"Fan2{PRM}", ("fan2_", 1), 1), 
                                 (f"Rings2{PRM}", ("rings2val_", 0), 1), 
                                 (f"Rectangles{PRM}", ("rectangles_", 1), 1), 
