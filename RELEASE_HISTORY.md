@@ -28,6 +28,26 @@ They are all available in this Github repository.
 </br>
 </br>
 
+### [<ins>From v1.8.85</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.85) ###
+
+- **New H21 ONLY**: Recompiled FLAM3H™ with the latest production buid vcc compiler: 21.0.440.
+- **New H21 ONLY**: Updated H21 custom_node_info to include the HDA version. (FLAM3H™ and FLAM3HUSD)
+- **Fix**: Moved the HDA infos data inside the PythonModule and they are now called from inside the PreFirstCreate module for a cleaner implementation ( and easier to update in the future ).
+
+#### H21 FLAM3HUSD v0.1.62 - Prototype ####
+
+- **New H21 ONLY**: Updated custom_node_info to include the HDA version.
+- - **Fix**: Moved the HDA infos data inside the PythonModule and they are now called from inside the PreFirstCreate module for a cleaner implementation ( and easier to update in the future ).
+
+
+
+<br>
+<br>
+
+
+
+
+
 ### [<ins>From v1.8.82</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.82) ###
 
 - **Fix**: When loading hip files with FLAM3H™ nodes inside an incompatible Houdini version it will now display a proper error tag geo and message in the viewport (before it was happening only on node creation).

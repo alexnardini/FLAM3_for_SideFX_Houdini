@@ -10,18 +10,17 @@ __version__ = "1.8.85"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
-# The following are min and max version where FLAM3H™ can run.
-# The max version is always most likely the latest Houdini version released by SideFX
-# unless I stop development in which case you just need to update "__h_version_max__" yourself.
-__h_version_min__: int = 190
-__h_version_max__: int = 210
-
 import os
 import json
 import colorsys
 import lxml.etree as lxmlET
 import hou
 import nodesearch
+
+FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
+nodetype = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
+__h_version_min__ = nodetype.hdaModule().__h_version_min__
+__h_version_max__ = nodetype.hdaModule().__h_version_max__
 
 from platform import python_version
 from platform import system as platform_system
@@ -141,7 +140,6 @@ from inspect import cleandoc as i_cleandoc
                         - Global variables are all upper cases. Every upper case variable's name created inside any definition always start with an underscore (_)
 
 '''
-
 
 T = TypeVar('T')
 
@@ -1269,7 +1267,7 @@ class flam3h_scripts
             (bool): True if compatible otherwise False.
         """ 
         h_version: int = flam3h_general_utils.houdini_version(2)
-        this_h_versions: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside each FLAM3H™ HDA PreFirstCreate module (imported from the: hdamodule() )
+        this_h_versions: tuple = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
         
         # Only for the latest FLAM3H™ on the latest Houdini version (and its latest python module version), otherwise the full range is checked.
         #
@@ -1848,7 +1846,7 @@ class flam3h_scripts
         node = self.node
         
         flam3h_general_utils.private_prm_set(self.node, FLAM3H_PVT_H_VALID, 0)
-        __h_versions__: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside each FLAM3H™ HDA PreFirstCreate module (imported from the: hdamodule() )
+        __h_versions__: tuple = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
         
         if len(__h_versions__) > 1:
             _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__, True)}"

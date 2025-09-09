@@ -43,6 +43,11 @@ import toolutils
 # Set some HDA infos
 __version__ = '1.8.85 - Production'
 __h_versions__: tuple = (210,)
+# The following are min and max Houdini version where FLAM3H™ can run.
+# The max version is always most likely the latest Houdini version released by SideFX
+# unless I stop development in which case you just need to update "__h_version_max__" yourself.
+__h_version_min__: int = 190
+__h_version_max__: int = 210
 
 def houdini_version(digit: int=1) -> int:
     """Retrieve the major Houdini version number currently in use.
@@ -79,6 +84,11 @@ import toolutils
 # Set some HDA infos
 __version__ = '1.8.85 - Production'
 __h_versions__: tuple = (190, 195, 200, 205)
+# The following are min and max Houdini version where FLAM3H™ can run.
+# The max version is always most likely the latest Houdini version released by SideFX
+# unless I stop development in which case you just need to update "__h_version_max__" yourself.
+__h_version_min__: int = 190
+__h_version_max__: int = 210
 
 def houdini_version(digit: int=1) -> int:
     """Retrieve the major Houdini version number currently in use.
@@ -235,10 +245,6 @@ def flam3h_not_compatible_first_time_msg() -> None:
     _MSG_INFO_SB = f"-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
     hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
 
-# always store the hou.session.H_VERSIONS
-try: del hou.session.H_VERSIONS
-except: pass
-hou.session.H_VERSIONS: tuple = __h_versions__
 
 if flam3h_first_time():
     flam3h_sys_updated_mode()
