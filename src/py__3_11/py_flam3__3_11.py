@@ -6,12 +6,13 @@ __copyright__ = "© 2021 F stands for liFe"
 
 __py_version__ = "3.11.7"
 __license__ = "GPL"
-__version__ = "1.8.85"
 __maintainer__ = "Alessandro Nardini"
 
 import hou
+
 FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
 nodetype = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
+__version__ = nodetype.hdaModule().__version__
 __status__ = nodetype.hdaModule().__status__
 __h_version_min__ = nodetype.hdaModule().__h_version_min__
 __h_version_max__ = nodetype.hdaModule().__h_version_max__

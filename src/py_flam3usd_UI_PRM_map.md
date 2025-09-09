@@ -40,7 +40,8 @@ the **`flam3usd`** module is created out of the **`py_flam3usd`** file from insi
 import toolutils
 
 # Set some HDA infos
-__version__ = '0.1.62 - Prototype'
+__version__ = "0.1.62"
+__status__ = "Prototype"
 
 __module__: str = "py_flam3usd__3_11_H21_UP"
 flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __module__)
@@ -61,7 +62,8 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 import toolutils
 
 # Set some HDA infos
-__version__ = '0.1.59 - Prototype'
+__version__ = "0.1.59"
+__status__ = "Prototype"
 
 def houdini_version(digit: int=1) -> int:
     """Retrieve the major Houdini version number currently in use.

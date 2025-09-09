@@ -9,8 +9,10 @@ from hou import nodeType as hou_nodeType
 FLAM3HUSD_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Lop/FLAM3HUSD'
 nodetype = hou_nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
+__status__  = nodetype.hdaModule().__status__
 
+# Build custom node info
 addLabeledText("Description", "Render FLAM3H™ fractal Flames in Solaris using Karma")
 addLabeledText("Copyright", "© 2023 F stands for liFe (made in Italy)")
-addLabeledText("Version", __version__)
+addLabeledText("Version", f"{__version__} - {__status__}")
 addLabeledText("Lic", "GPL v3.0")

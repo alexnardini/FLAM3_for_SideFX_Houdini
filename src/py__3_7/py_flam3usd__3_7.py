@@ -3,11 +3,15 @@ __copyright__ = "© 2023 F stands for liFe"
 
 __py_version__ = "3.7.13"
 __license__ = "GPL"
-__version__ = "0.1.59"
 __maintainer__ = "Alessandro Nardini"
-__status__ = "Prototype"
 
 import hou
+
+FLAM3HUSD_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Lop/FLAM3HUSD'
+nodetype = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY)
+__version__ = nodetype.hdaModule().__version__
+__status__ = nodetype.hdaModule().__status__
+
 from platform import python_version
 from datetime import datetime
 from typing import Union
@@ -1014,10 +1018,9 @@ class flam3husd_about_utils
         # year = datetime.now().strftime("%Y")
         
         flam3h_author: str = f"AUTHOR: {__author__}"
-        flam3h_cvex_version: str = f"CODE: vex H19.x.x"
-        hou_version: int = flam3husd_general_utils.houdini_version()
-        if hou_version >= 19: flam3h_cvex_version = f"CODE: vex H{str(hou_version)}.x.x"
-        flam3h_python_version: str = f"py {__py_version__}"
+        hou_version: int = flam3husd_general_utils.houdini_version(2)
+        flam3h_cvex_version = f"CODE: vex H{str(hou_version)[:2]}.{str(hou_version)[2]}"
+        flam3h_python_version: str = f"Python {__py_version__}"
         flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{__copyright__}"
         

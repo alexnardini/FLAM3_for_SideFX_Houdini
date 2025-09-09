@@ -41,8 +41,8 @@ the **`flam3`** module is created out of the **`py_flam3`** file from inside the
 import toolutils
 
 # Set some HDA infos
-__status__ = "Production"
-__version__ = f"1.8.85 - {__status__}"
+__version__ = "1.8.85"
+__status__  = "Production"
 __h_versions__: tuple = (210,)
 # The following are min and max Houdini version where FLAM3H™ can run.
 # The max version is always most likely the latest Houdini version released by SideFX
@@ -83,8 +83,8 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
 import toolutils
 
 # Set some HDA infos
-__status__ = "Production"
-__version__ = f"1.8.85 - {__status__}"
+__version__ = "1.8.85"
+__status__  = "Production"
 __h_versions__: tuple = (190, 195, 200, 205)
 # The following are min and max Houdini version where FLAM3H™ can run.
 # The max version is always most likely the latest Houdini version released by SideFX
@@ -127,6 +127,7 @@ from datetime import datetime
 FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
 nodetype = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
+__status__ = nodetype.hdaModule().__status__
 __h_versions__ = nodetype.hdaModule().__h_versions__
 
 
@@ -219,7 +220,7 @@ def flam3h_compile_first_time_msg() -> None:
         first_instance_64bit: bool = True
 
     if first_instance_32bit:
-        _MSG_INFO = f"\n-> {now}\n\nFLAM3H™ version: {__version__} - F3H Python module: {__module_version__}\n\nThe CVEX nodes need to cook once to compile their definitions.\nDepending on your PC configuration it can take up to 1(one) minute.\nIt is a one time compile process.\n"
+        _MSG_INFO = f"\n-> {now}\n\nFLAM3H™ version: {__version__} - {__status__} - F3H Python module: {__module_version__}\n\nThe CVEX nodes need to cook once to compile their definitions.\nDepending on your PC configuration it can take up to 1(one) minute.\nIt is a one time compile process.\n"
         print(_MSG_INFO)
         hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
         
@@ -242,9 +243,9 @@ def flam3h_not_compatible_first_time_msg() -> None:
     elif __h_versions__:
         _MSG_H_VERSIONS = f"H{flam3h_h_versions_build_data()} and up"
 
-    _MSG_INFO = f"\n-> FLAM3H™ version: {__version__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
+    _MSG_INFO = f"\n-> FLAM3H™ version: {__version__} - {__status__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
     print(_MSG_INFO)
-    _MSG_INFO_SB = f"-> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. You need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
+    _MSG_INFO_SB = f"-> FLAM3H™ version: {__version__} - {__status__}. This Houdini version is not compatible with this FLAM3H™ version. You need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
     hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
 
 
