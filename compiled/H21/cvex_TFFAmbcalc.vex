@@ -1,0 +1,162 @@
+;_name	TFFAmbcalc
+; ModuleID = 'TFFAmbcalc'
+source_filename = "TFFAmbcalc"
+
+%MB = type { i64, i64, double }
+
+@0 = private constant [4 x i8] c"fps\00"
+@1 = private constant [10 x i8] c"mbsamples\00"
+@2 = private constant [8 x i8] c"shutter\00"
+@3 = private constant [10 x i8] c"iteration\00"
+@4 = private constant [22 x i8] c"Tstep_mult_compensate\00"
+@Tstep = external global double
+@Tstep_mult = external global double
+@5 = private constant [6 x i8] c"Tstep\00"
+@6 = private constant [11 x i8] c"Tstep_mult\00"
+
+; Function Attrs: alwaysinline nounwind
+define private void @"MBDATA@Z2MBM3N3FPSIN7samplesIN13shutter_speedF"(%MB* %this) #0 {
+__llvm_entry:
+  %return = call i64 @"chi@IS"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @0, i64 0, i64 0))
+  %tmp = load %MB, %MB* %this
+  %0 = insertvalue %MB %tmp, i64 %return, 0
+  %return1 = call i64 @"chi@IS"(i8* getelementptr inbounds ([10 x i8], [10 x i8]* @1, i64 0, i64 0))
+  %1 = insertvalue %MB %0, i64 %return1, 1
+  %return3 = call double @"chf@FS"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @2, i64 0, i64 0))
+  %2 = insertvalue %MB %1, double %return3, 2
+  store %MB %2, %MB* %this
+  ret void
+}
+
+; Function Attrs: nounwind readnone
+declare i64 @"chi@IS"(i8*) #1
+
+; Function Attrs: nounwind readnone
+declare double @"chf@FS"(i8*) #1
+
+; Function Attrs: alwaysinline nounwind
+define private %MB @"MB@Z2MBM3N3FPSIN7samplesIN13shutter_speedFIIF"(i64* %FPS, i64* %samples, double* %shutter_speed) #0 {
+__llvm_entry:
+  %FPS1 = load i64, i64* %FPS
+  %0 = insertvalue %MB undef, i64 %FPS1, 0
+  %samples2 = load i64, i64* %samples
+  %1 = insertvalue %MB %0, i64 %samples2, 1
+  %shutter_speed4 = load double, double* %shutter_speed
+  %2 = insertvalue %MB %1, double %shutter_speed4, 2
+  ret %MB %2
+}
+
+; Function Attrs: alwaysinline nounwind
+define private %MB @"MB@Z2MBM3N3FPSIN7samplesIN13shutter_speedF"() #0 {
+__llvm_entry:
+  %0 = alloca i64
+  %1 = alloca double
+  %2 = alloca i64
+  store i64 0, i64* %2
+  store i64 0, i64* %0
+  store double 0.000000e+00, double* %1
+  %MB = call %MB @"MB@Z2MBM3N3FPSIN7samplesIN13shutter_speedFIIF"(i64* %2, i64* %0, double* %1)
+  ret %MB %MB
+}
+
+; Function Attrs: alwaysinline nounwind
+define private void @"_TFFAmbcalc@FFF"(double* %_bound_Time, double* %_bound_Tstep, double* %_bound_Tstep_mult) #0 {
+__llvm_entry:
+  %mb = alloca %MB
+  %mb1 = call %MB @"MB@Z2MBM3N3FPSIN7samplesIN13shutter_speedF"()
+  %mb1.fca.0.extract = extractvalue %MB %mb1, 0
+  %mb1.fca.0.gep = getelementptr inbounds %MB, %MB* %mb, i32 0, i32 0
+  store i64 %mb1.fca.0.extract, i64* %mb1.fca.0.gep
+  %mb1.fca.1.extract = extractvalue %MB %mb1, 1
+  %mb1.fca.1.gep = getelementptr inbounds %MB, %MB* %mb, i32 0, i32 1
+  store i64 %mb1.fca.1.extract, i64* %mb1.fca.1.gep
+  %mb1.fca.2.extract = extractvalue %MB %mb1, 2
+  %mb1.fca.2.gep = getelementptr inbounds %MB, %MB* %mb, i32 0, i32 2
+  store double %mb1.fca.2.extract, double* %mb1.fca.2.gep
+  call void @"MBDATA@Z2MBM3N3FPSIN7samplesIN13shutter_speedF"(%MB* %mb)
+  %mb2.fca.0.load = load i64, i64* %mb1.fca.0.gep
+  %mb2.fca.0.insert = insertvalue %MB undef, i64 %mb2.fca.0.load, 0
+  %mb2.fca.1.load = load i64, i64* %mb1.fca.1.gep
+  %mb2.fca.1.insert = insertvalue %MB %mb2.fca.0.insert, i64 %mb2.fca.1.load, 1
+  %mb2.fca.2.load = load double, double* %mb1.fca.2.gep
+  %_bound_Time8 = load double, double* %_bound_Time
+  %cast = sitofp i64 %mb2.fca.0.load to double
+  %output = call double @"div@FF"(double 1.000000e+00, double %cast)
+  %output12 = fmul double %output, %mb2.fca.2.load
+  %return = call i64 @"detail@IIS"(i64 1, i8* getelementptr inbounds ([10 x i8], [10 x i8]* @3, i64 0, i64 0))
+  %output13 = add i64 %return, 1
+  %cast15 = sitofp i64 %output13 to double
+  %cast17 = sitofp i64 %mb2.fca.1.load to double
+  %output20 = fsub double %_bound_Time8, %output12
+  %output23 = fadd double %_bound_Time8, %output12
+  %return24 = call double @"fit@FFFFFF"(double %cast15, double 1.000000e+00, double %cast17, double %output20, double %output23)
+  %return29 = call double @"neg@FF"(double 9.000000e-01)
+  %return30 = call double @"fit@FFFFFF"(double %cast15, double 1.000000e+00, double %cast17, double %return29, double 9.000000e-01)
+  %return31 = call double @"abs@FF"(double %return30)
+  %output32 = fsub double 1.000000e+00, %return31
+  %return33 = call double @"detail@FIS"(i64 2, i8* getelementptr inbounds ([22 x i8], [22 x i8]* @4, i64 0, i64 0))
+  store double %return24, double* %_bound_Tstep
+  %output37 = fmul double %output32, %return33
+  store double %output37, double* %_bound_Tstep_mult
+  ret void
+}
+
+; Function Attrs: nounwind readnone
+declare double @"div@FF"(double, double) #1
+
+; Function Attrs: nounwind
+declare i64 @"detail@IIS"(i64, i8*) #2
+
+; Function Attrs: nounwind
+declare double @"fit@FFFFFF"(double, double, double, double, double) #2
+
+; Function Attrs: nounwind readnone
+declare double @"neg@FF"(double) #1
+
+; Function Attrs: nounwind
+declare double @"abs@FF"(double) #2
+
+; Function Attrs: nounwind
+declare double @"detail@FIS"(i64, i8*) #2
+
+; Function Attrs: nounwind
+define void @TFFAmbcalc(double %Time, double %Tstep, double %Tstep_mult) #2 {
+__llvm_entry:
+  %"<Tstep>" = alloca double
+  %"<Tstep_mult>" = alloca double
+  %0 = alloca double
+  store double %Tstep, double* %"<Tstep>"
+  store double %Tstep_mult, double* %"<Tstep_mult>"
+  store double %Time, double* %0
+  call void @"_TFFAmbcalc@FFF"(double* %0, double* %"<Tstep>", double* %"<Tstep_mult>")
+  %evalue = load double, double* %"<Tstep>"
+  %gvalue = call double @"_export@FSF"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @5, i64 0, i64 0), double %evalue) #3
+  %evalue2 = load double, double* %"<Tstep_mult>"
+  %gvalue3 = call double @"_export@FSF"(i8* getelementptr inbounds ([11 x i8], [11 x i8]* @6, i64 0, i64 0), double %evalue2) #3
+  store double %gvalue, double* @Tstep
+  store double %gvalue3, double* @Tstep_mult
+  ret void
+}
+
+declare double @"_export@FSF"(i8*, double)
+
+define void @__shader_default_arguments() {
+__llvm_entry:
+  call void @TFFAmbcalc(double 0.000000e+00, double 0.000000e+00, double 0.000000e+00)
+  ret void
+}
+
+attributes #0 = { alwaysinline nounwind }
+attributes #1 = { nounwind readnone }
+attributes #2 = { nounwind }
+attributes #3 = { nounwind readonly }
+
+!context = !{!0}
+!version = !{!1}
+!precision = !{!2}
+
+!0 = !{!"cvex"}
+!1 = !{!"21.0.440"}
+!2 = !{!"64"}
+
+;_code_end

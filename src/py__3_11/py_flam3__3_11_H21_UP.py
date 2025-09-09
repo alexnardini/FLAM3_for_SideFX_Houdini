@@ -6,7 +6,7 @@ __copyright__ = "© 2021 F stands for liFe"
 
 __py_version__ = "3.11.7"
 __license__ = "GPL"
-__version__ = "1.8.82"
+__version__ = "1.8.85"
 __maintainer__ = "Alessandro Nardini"
 __status__ = "Production"
 
@@ -1269,7 +1269,7 @@ class flam3h_scripts
             (bool): True if compatible otherwise False.
         """ 
         h_version: int = flam3h_general_utils.houdini_version(2)
-        this_h_versions: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside each FLAM3H™ HDA PreFirstCreate module
+        this_h_versions: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside each FLAM3H™ HDA PreFirstCreate module (imported from the: hdamodule() )
         
         # Only for the latest FLAM3H™ on the latest Houdini version (and its latest python module version), otherwise the full range is checked.
         #
@@ -1848,7 +1848,7 @@ class flam3h_scripts
         node = self.node
         
         flam3h_general_utils.private_prm_set(self.node, FLAM3H_PVT_H_VALID, 0)
-        __h_versions__: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside the FLAM3H™ HDA PreFirstCreate module
+        __h_versions__: tuple = hou.session.H_VERSIONS # type: ignore # This is set inside each FLAM3H™ HDA PreFirstCreate module (imported from the: hdamodule() )
         
         if len(__h_versions__) > 1:
             _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__, True)}"

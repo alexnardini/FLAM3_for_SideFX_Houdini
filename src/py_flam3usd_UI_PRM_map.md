@@ -30,7 +30,7 @@ to: **py_flam3usd__3_11**
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**:
 the **`flam3usd`** module is created out of the **`py_flam3usd`** file from inside the **Extra Files** section.
 
-# Houdini version `H21 and up`
+# PythonModule Houdini version `H21 and up`
 ```python
 #   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
 #   Author:     F stands for liFe ( made in Italy )
@@ -38,6 +38,9 @@ the **`flam3usd`** module is created out of the **`py_flam3usd`** file from insi
 #   Copyright:  (c) 2023 F stands for liFe
 
 import toolutils
+
+# Set some HDA infos
+__version__ = '0.1.62 - Prototype'
 
 __module__: str = "py_flam3usd__3_11_H21_UP"
 flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __module__)
@@ -48,7 +51,7 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 </br>
 
 
-# Houdini version `H19 to H20.5`
+# PythonModule Houdini version `H19 to H20.5`
 ```python
 #   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
 #   Author:     F stands for liFe ( made in Italy )
@@ -56,6 +59,9 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 #   Copyright:  (c) 2023 F stands for liFe
 
 import toolutils
+
+# Set some HDA infos
+__version__ = '0.1.59 - Prototype'
 
 def houdini_version(digit: int=1) -> int:
     """Retrieve the major Houdini version number currently in use.
