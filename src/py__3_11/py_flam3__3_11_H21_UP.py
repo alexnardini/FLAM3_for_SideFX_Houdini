@@ -10401,10 +10401,10 @@ class flam3h_about_utils
         flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{__copyright__}"
         
-        code_references: str = """CODE REFERENCES
-Flam3 :: (GPL)
-Apophysis :: (GPL)
-Fractorium :: (GPL)"""
+        code_references: str = f"""CODE REFERENCES
+Flam3 :: ({__license__})
+Apophysis :: ({__license__})
+Fractorium :: ({__license__})"""
 
         special_thanks: str = """SPECIAL THANKS
 Praveen Brijwal"""
