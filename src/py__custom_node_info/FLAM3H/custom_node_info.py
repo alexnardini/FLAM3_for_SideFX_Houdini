@@ -12,7 +12,7 @@ __version__ = nodetype.hdaModule().__version__
 
 # Build custom node info
 addLabeledText("Description", "The Fractal Flame Algorithm: FLAM3 - Create fractal art in Houdini")
-addLabeledText("Version", __version__)
 addLabeledText("Copyright", "© 2021 F stands for liFe (made in Italy)")
-addLabeledText("License", "GPL")
+addLabeledText("Version", __version__)
+addLabeledText("Lic", "GPL v3.0")
 

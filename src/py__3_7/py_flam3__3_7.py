@@ -8,19 +8,19 @@ __py_version__ = "3.7.13"
 __license__ = "GPL"
 __version__ = "1.8.85"
 __maintainer__ = "Alessandro Nardini"
-__status__ = "Production"
+
+import hou
+FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
+nodetype = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
+__status__ = nodetype.hdaModule().__status__
+__h_version_min__ = nodetype.hdaModule().__h_version_min__
+__h_version_max__ = nodetype.hdaModule().__h_version_max__
 
 import os
 import json
 import colorsys
 import lxml.etree as lxmlET
-import hou
 import nodesearch
-
-FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
-nodetype = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
-__h_version_min__ = nodetype.hdaModule().__h_version_min__
-__h_version_max__ = nodetype.hdaModule().__h_version_max__
 
 from platform import python_version
 from platform import system as platform_system
@@ -10306,14 +10306,12 @@ class flam3h_about_utils
         
         nl: str = "\n"
         nnl: str = "\n\n"
-            
+        
         # year = datetime.now().strftime("%Y")
         
         flam3h_author: str = f"AUTHOR: {__author__}"
-        flam3h_cvex_version: str = f"CODE: cvex H19.x.x"
-        hou_version : int = flam3h_general_utils.houdini_version()
-        if hou_version >= 19: flam3h_cvex_version = f"CODE: cvex H{str(hou_version)}.x.x"
-        flam3h_python_version: str = f"py {__py_version__}"
+        flam3h_cvex_version: str = f"CODE: cvex H{flam3h_scripts.flam3h_h_versions_build_data(nodetype.hdaModule().__h_versions__, True)}"
+        flam3h_python_version: str = f"Python {__py_version__}"
         flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{__copyright__}"
         

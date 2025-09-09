@@ -11,6 +11,6 @@ nodetype = hou_nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
 
 addLabeledText("Description", "Render FLAM3H™ fractal Flames in Solaris using Karma")
-addLabeledText("Version", __version__)
 addLabeledText("Copyright", "© 2023 F stands for liFe (made in Italy)")
-addLabeledText("License", "GPL")
+addLabeledText("Version", __version__)
+addLabeledText("Lic", "GPL v3.0")
