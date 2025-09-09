@@ -32,12 +32,14 @@ They are all available in this Github repository.
 
 - **New H21 ONLY**: Recompiled FLAM3H™ with the latest production buid vcc compiler: 21.0.440.
 - **New H21 ONLY**: Updated H21 custom_node_info to include the HDA version. (FLAM3H™ and FLAM3HUSD)
-- **Fix**: Moved the HDA infos data inside the PythonModule and they are now called from inside the PreFirstCreate module for a cleaner implementation ( and easier to update in the future ).
+- **Fix**: Every HDA infos is now pulled from the HDA PythonModule section from everywhere (_custom node info included_), much more elegant.
+- **Fix**: Better formatted custom node infos.
 
 #### H21 FLAM3HUSD v0.1.62 - Prototype ####
 
 - **New H21 ONLY**: Updated custom_node_info to include the HDA version.
-- **Fix**: Moved the HDA infos data inside the PythonModule and they are now called from inside the PreFirstCreate module for a cleaner implementation ( and easier to update in the future ).
+- **Fix**: Every HDA infos is now pulled from the HDA PythonModule section from everywhere (_custom node info included_), much more elegant.
+- **Fix**: Better formatted custom node infos.
 
 
 
