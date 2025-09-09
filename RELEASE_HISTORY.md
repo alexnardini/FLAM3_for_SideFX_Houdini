@@ -37,7 +37,7 @@ They are all available in this Github repository.
 #### H21 FLAM3HUSD v0.1.62 - Prototype ####
 
 - **New H21 ONLY**: Updated custom_node_info to include the HDA version.
-- - **Fix**: Moved the HDA infos data inside the PythonModule and they are now called from inside the PreFirstCreate module for a cleaner implementation ( and easier to update in the future ).
+- **Fix**: Moved the HDA infos data inside the PythonModule and they are now called from inside the PreFirstCreate module for a cleaner implementation ( and easier to update in the future ).
 
 
 
