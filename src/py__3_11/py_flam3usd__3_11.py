@@ -73,7 +73,7 @@ FLAM3H_FLASH_MESSAGE_TIMER: float = 2 # Note that for this FLAM3HUSD OTL the fla
 # plus this one
 FLAM3H_TO_FLAM3HUSD_NODE_PATH = '/TAGS/OUT_TO_FLAM3HUSD'
 
-# FLAM3H
+# FLAM3H™
 FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
 
 
@@ -132,7 +132,7 @@ class flam3husd_scripts
 
 
     def flam3husd_is_valid_flam3h_node(self) -> None:
-        """Check if the imported FLAM3H node is valid or not
+        """Check if the imported FLAM3H™ node is valid or not
         
         Args:
             (self): 
