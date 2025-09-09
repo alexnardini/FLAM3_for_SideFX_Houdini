@@ -3,11 +3,11 @@
 #   License:    GPL
 #   Copyright:  (c) 2023 F stands for liFe
 
-import hou
+from hou import nodeType as hou_nodeType
 
 # Get some HDA infos from the HDA module
 FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Lop/FLAM3HUSD'
-nodetype = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
+nodetype = hou_nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
 
 addLabeledText("Description", "Render FLAM3H™ fractal Flames in Solaris using Karma")
