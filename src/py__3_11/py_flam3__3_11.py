@@ -5,7 +5,7 @@ __author__ = "F stands for liFe ( made in Italy )"
 __copyright__ = "© 2021 F stands for liFe"
 
 __py_version__ = "3.11.7"
-__license__ = "GPL"
+__license__ = "GPL v3.0"
 __maintainer__ = "Alessandro Nardini"
 
 import hou
