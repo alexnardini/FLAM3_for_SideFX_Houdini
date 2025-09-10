@@ -1751,3 +1751,194 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 ```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+_Inside here, you can export your fractal Flame into an XML format ( standard *.flame file format ) and reload it inside FLAM3H™ or inside Apophysis, Fractorium and others.<br>
+The Flame file format does not support animations, but only static frames, so to speak. If you animated your fractal Flame, save the hip file from Houdini instead._
+
+# OUT Tab
+# parameter name:    `outname`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_WhiteStarSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg
+```
+
+</br>
+</br>
+
+# OUT Tab
+# parameter name:    `outpresets`
+### Menu icons
+This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
+```python
+menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
+return menu
+```
+Menu entries icon:</br>
+_The following are icons being used on demand based on the menu python script needs._
+<p align="left"><img width="48" height="48" src="../icons/icon_optionFlameOUTEntrieSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameOUTEntrieSVG.svg]'
+```
+
+</br>
+</br>
+
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueKwargsSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueKwargsSVG.svg
+```
+
+</br>
+</br>
+
+# OUT Tab
+# parameter name:    `outedit`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
+```
+
+</br>
+</br>
+
+# OUT Tab
+# parameter name:    `out_sensorviz_disabled`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_TagORedSVG_disabled.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG_disabled.svg
+```
+
+</br>
+</br>
+
+# OUT Tab
+# parameter name:    `out_sensorviz`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_TagORedSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG.svg
+```
+
+</br>
+</br>
+
+# OUT Tab
+# parameter name:    `out_sensorviz_off`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_TagORedOffSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_TagORedOffSVG.svg
+```
+
+</br>
+</br>
+
+# OUT Tab
+# parameter name:    `outcprendervals`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteInfosSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg
+```
+
+</br>
+</br>
+
+# OUT Tab
+# parameter name:    `icon_f3h_cc_defaults_copy`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
+```
+
+</br>
+</br>
+
+# OUT Tab
+# parameter name:    `icon_f3h_cc_modified_reset`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarRedSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg
+```
+
+</br>
+</br>
+
+# OUT Tab
+# parameter name:    `icon_f3h_cc_curves` (_hidden_), `icon_f3h_cc_overall`, `icon_f3h_cc_red`, `icon_f3h_cc_green`, `icon_f3h_cc_blue`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+_The Preferences tab allows users to customize global settings for FLAM3H™,</br>
+enabling a more tailored and efficient creative workflow._</br>
+_These preferences affect how the software behaves and appears but do not directly impact the visual characteristics of individual fractal Flames._
+
+# PREFS Tab
+# parameter name:    `xm`
+### Menu icons
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+Token: 0
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]xaos TO             
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `vptype`
+### Menu icons
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+Token: 0
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]Points                     
+```
+
+
+
+
