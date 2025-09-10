@@ -36,7 +36,7 @@ They are all available in this Github repository.
 
 #### H21 FLAM3HUSD v0.1.63 - Prototype ####
 
-- **New**: Created Markdown [src/FLAM3HUSD__UI_ICON_map.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/FLAM3H__UI_ICON_map.md) file. It is a map of each UI parameter with an icon and include all the used icon's information.
+- **New**: Created Markdown [src/FLAM3HUSD__UI_ICON_map.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/FLAM3HUSD__UI_ICON_map.md) file. It is a map of each UI parameter with an icon and include all the used icon's information.
 - **Small fixes.**
 
 
