@@ -28,6 +28,26 @@ They are all available in this Github repository.
 </br>
 </br>
 
+### [<ins>From v1.8.86</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.86) ###
+
+- **New**: Created Markdown [src/FLAM3H__UI_ICON_map.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/FLAM3H__UI_ICON_map.md) file. It is a map of each UI parameter with an icon and include all the used icon's information.
+- **New**: [icons/README.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/README.md) now has strings for each icon to help use them within different places inside Houdini.
+- **Small fixes.**
+
+#### H21 FLAM3HUSD v0.1.63 - Prototype ####
+
+- **New**: Created Markdown [src/FLAM3HUSD__UI_ICON_map.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/FLAM3H__UI_ICON_map.md) file. It is a map of each UI parameter with an icon and include all the used icon's information.
+- **Small fixes.**
+
+
+
+<br>
+<br>
+
+
+
+
+
 ### [<ins>From v1.8.85</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.85) ###
 
 - **New H21 ONLY**: Recompiled FLAM3H™ with the latest production buid vcc compiler: 21.0.440.
