@@ -9,7 +9,7 @@
 #
 #   Name:       FLAM3H__UI_ICON_MAP
 #
-#   Comment:    List of all UI ICON wired with a parameter
+#   Comment:    List of all UI ICONS associated with a parameter
 #               and the command string they are called from and from where.
 #
 #               THIS IS ONLY INFORMATIVE AND FOR EASY FIND INSTEAD OF
@@ -993,7 +993,7 @@ _The following are icons being used on demand based on the menu python script ne
 ### Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_pb()
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP()
 return menu
 ```
 Menu entries icon:</br>
@@ -1030,7 +1030,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 </br>
 
 # FLAME Tab
-# parameter name:    `pre1type_#`, `pre2type_#` and `p1type_#`
+# parameter name:    `v1type_#`, `v2type_#`, `v3type_#`, `v4type_#`
 ### Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
@@ -1122,9 +1122,234 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 _Iterators like Final Flame (FF) or finalXform function like camera lenses.<br>
 It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result._
 
+# FF Tab
+# parameter name:    `doff_disabled`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionFFDisabledSVG.svg" /></p>
 
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg
+```
 
+</br>
+</br>
 
+# FF Tab
+# parameter name:    `doff_enabled`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionFFEnabledSVG.svg" /></p>
 
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg
+```
+
+</br>
+</br>
+
+# FF Tab
+# parameter name:    `xfvizff_off`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesDisabledSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg
+```
+
+</br>
+</br>
+
+# FF Tab
+# parameter name:    `xfvizff_on`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_ffHandlesEnabledSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledSVG.svg
+```
+
+</br>
+</br>
+
+# FF Tab
+# parameter name:    `ffprmpastesel`
+### Menu icons
+This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
+```python
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_copypaste_FF()
+return menu
+```
+Menu entries icon:</br>
+_The following are icons being used on demand based on the menu python script needs._
+<p align="left"><img width="48" height="48" src="../icons/icon_StarSwapRedCopyPasteFFSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg]'
+```
+<p align="left"><img width="48" height="48" src="../icons/icon_StarSwapRedCopyPasteEntrieFFSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieFFSVG.svg]'
+```
+<p align="left"><img width="48" height="48" src="../icons/icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg]'
+```
+
+</br>
+</br>
+
+The pre-built icons menu python lists being used:
+
+</br>
+</br>
+
+<p align="left"><img width="48" height="48" src="../icons/icon_StarSwapRedCopyPasteFFSVG.svg" /></p>
+
+```python
+MENU_FF_COPY_PASTE_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg]  Please, mark the FF first.', 0, '']
+```
+
+</br>
+</br>
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarBlueSVG.svg" /></p>
+
+```python
+MENU_FF_COPY_PASTE_SELECT: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED\n-> Select a different FLAM3H™ node to paste those FF values.', 1, '']
+```
+
+</br>
+</br>
+
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteFFSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg
+```
+
+</br>
+</br>
+
+# FF Tab
+# parameter name:    `ffpre1type` and `ffp1type`, `ffp2type`
+### Menu icons
+This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
+```python
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP(True)
+return menu
+```
+Menu entries icon:</br>
+_The following are icons being used on demand based on the menu python script needs._
+<p align="left"><img width="48" height="48" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]'
+```
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhitePBSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBSVG.svg]'
+```
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhitePBHSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBHSVG.svg]'
+```
+
+</br>
+</br>
+
+# FF Tab
+# parameter name:    `ffv1type`, `ffv2type`
+### Menu icons
+This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
+```python
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T(True)
+return menu
+```
+Menu entries icon:</br>
+_The following are icons being used on demand based on the menu python script needs._
+<p align="left"><img width="48" height="48" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]'
+```
+<p align="left"><img width="48" height="48" src="../icons/icon_optionEnabledSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg]'
+```
+<p align="left"><img width="48" height="48" src="../icons/icon_StarSwapRedSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedSVG.svg]'
+```
+<p align="left"><img width="48" height="48" src="../icons/icon_StarSwapCyanSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSVG.svg]'
+```
+
+</br>
+</br>
+
+# FF Tab
+# parameter name:    `ffp2weight`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
+```
+
+</br>
+</br>
+
+# FF Tab
+# parameter name:    `ffscl`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineFFSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineFFSVG.svg
+```
+
+</br>
+</br>
+
+# FF Tab
+# parameter name:    `ffang`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
+```
+
+</br>
+</br>
+
+# FF Tab
+# parameter name:    `ffpscl`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineFFSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineFFSVG.svg
+```
+
+</br>
+</br>
+
+# FF Tab
+# parameter name:    `ffpang`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
+```
 
 
