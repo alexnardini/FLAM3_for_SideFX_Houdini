@@ -44,8 +44,13 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 ### Menu icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
+Token: 0
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]
+```
+Token: 1
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]1 Billion
 ```
 
 </br>
@@ -210,12 +215,12 @@ SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT: tuple = (FLAM3H_ICON_STAR_FLAME_ITER_ACTV, 
 ```python
 SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple = (FLAM3H_ICON_STAR_EMPTY_OPACITY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO)
 ```
+FLAM3H_ICON_STAR_EMPTY_OPACITY
 ```python
-# FLAM3H_ICON_STAR_EMPTY_OPACITY
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]'
 ```
+FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
 ```python
-# FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
 '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroWSVG.svg]'
 ```
 
@@ -229,12 +234,12 @@ SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple = (FLAM3H_ICON_STAR_EMPTY_OPACIT
 ```python
 SEL_ITER_BOOKMARK_OFF: tuple = (FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED)
 ```
+FLAM3H_ICON_STAR_EMPTY
 ```python
-# FLAM3H_ICON_STAR_EMPTY
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 ```
+FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
 ```python
-# FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIterSVG.svg]'
 ```
 
@@ -758,9 +763,6 @@ _The following are icons being used on demand based on the menu python script ne
 opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
 ```
 
-
-
-
 </br>
 </br>
 
@@ -872,10 +874,6 @@ The pre-built icons menu python lists being used:
 MENU_ITER_COPY_PASTE_DELETED_MARKED: list = [ 0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", 1, "" ]
 ```
 
-</br>
-</br>
-
-<p align="left"><img width="48" height="48" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
 
 ```python
 MENU_ITER_COPY_PASTE_REMOVED: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.', 1, '']
@@ -952,7 +950,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg
 </br>
 
 # FLAME Tab
-# parameter name:    `xfviz_on_#`
+# parameter name:    `xaos_#`
 ### Action icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueKwargsSVG.svg" /></p>
 
