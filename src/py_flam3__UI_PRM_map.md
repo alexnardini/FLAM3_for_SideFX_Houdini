@@ -39,7 +39,7 @@ the **`flam3`** module is created out of the **`py_flam3`** file from inside the
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.8.85"
+__version__ = "1.8.86"
 __status__  = "Production"
 __h_versions__: tuple = (210,)
 # The following are min and max Houdini version where FLAM3H™ can run.
@@ -81,7 +81,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.8.85"
+__version__ = "1.8.86"
 __status__  = "Production"
 __h_versions__: tuple = (190, 195, 200, 205)
 # The following are min and max Houdini version where FLAM3H™ can run.
