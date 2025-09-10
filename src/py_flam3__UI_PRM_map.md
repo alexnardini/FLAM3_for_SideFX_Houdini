@@ -3,11 +3,11 @@
 ```python
 #   Title:      FLAM3H™. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       April 2023, Last revised July 2025
+#   date:       April 2023, Last revised September 2025
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
 #
-#   Name:       PY_FLAM3_UI_PRM_MAP
+#   Name:       PY_FLAM3__UI_PRM_MAP
 #
 #   Comment:    List of all UI parameters wired with a python definition
 #               and the command string they actually run and from where.
@@ -660,6 +660,13 @@ return menu
 ### Menu Script
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP()
+return menu
+```
+# FLAME Tab
+# parameter name:    `pre2weight_#`
+### Action Button script
+```python
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_iter_pre_vars()
 return menu
 ```
 # FLAME Tab
