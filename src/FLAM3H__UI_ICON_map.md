@@ -23,6 +23,7 @@
 
 
 _Parameters to define the quality of the fractal Flame algorithm solution._
+
 # GLOBAL Tab
 # parameter name:    `icon_iter_off`
 ### Button icon
@@ -151,6 +152,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 _Tools available to enhance and speed up the workflow.<br>
 I keep changing and adding functionalities, it is still a work in progress, but thus far, this most recent configuration has been successful._
+
 # SYS Tab
 # parameter name:    `sys_help`
 ### Button icon
@@ -902,7 +904,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg
 </br>
 </br>
 
-# GLOBAL Tab
+# FLAME Tab
 # parameter name:    `doiter_disabled_#`
 ### Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledSVG.svg" /></p>
@@ -914,7 +916,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg
 </br>
 </br>
 
-# GLOBAL Tab
+# FLAME Tab
 # parameter name:    `doiter_#`
 ### Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarYellowOrangeSVG.svg" /></p>
@@ -926,7 +928,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg
 </br>
 </br>
 
-# GLOBAL Tab
+# FLAME Tab
 # parameter name:    `xfviz_off_#`
 ### Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesDisabledSVG.svg" /></p>
@@ -938,7 +940,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg
 </br>
 </br>
 
-# GLOBAL Tab
+# FLAME Tab
 # parameter name:    `xfviz_on_#`
 ### Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesEnabledMPIDXSVG.svg" /></p>
@@ -950,7 +952,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg
 </br>
 </br>
 
-# GLOBAL Tab
+# FLAME Tab
 # parameter name:    `xfviz_on_#`
 ### Action icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueKwargsSVG.svg" /></p>
@@ -1061,7 +1063,7 @@ _The following are icons being used on demand based on the menu python script ne
 </br>
 </br>
 
-# GLOBAL Tab
+# FLAME Tab
 # parameter name:    `scl_#`
 ### Action icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
@@ -1073,7 +1075,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 </br>
 </br>
 
-# GLOBAL Tab
+# FLAME Tab
 # parameter name:    `ang_#`
 ### Action icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
@@ -1082,13 +1084,10 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 ```
 
-
-
-
 </br>
 </br>
 
-# GLOBAL Tab
+# FLAME Tab
 # parameter name:    `pscl_#`
 ### Action icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
@@ -1100,7 +1099,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 </br>
 </br>
 
-# GLOBAL Tab
+# FLAME Tab
 # parameter name:    `pang_#`
 ### Action icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
@@ -1109,6 +1108,19 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 ```
 
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+_Iterators like Final Flame (FF) or finalXform function like camera lenses.<br>
+It allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result._
 
 
 
