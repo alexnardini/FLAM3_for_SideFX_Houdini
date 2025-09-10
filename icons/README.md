@@ -281,6 +281,11 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 <p align="center">icon_TagOBlueSVG.svg</p>
 <p align="center">.</p>
 
+<p align="center">
+  <img width="160" height="160" src="./icon_TagORedOffSVG.svg" /></p>
+<p align="center">icon_TagORedOffSVG.svg</p>
+<p align="center">.</p>
+
 
 <p align="center">
   <img width="160" height="160" src="./icon_TagORedSVG_disabled.svg" /></p>
