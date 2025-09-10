@@ -751,6 +751,12 @@ _The following are icons being used on demand based on the menu python script ne
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameINEntrieSVG.svg]'
 ```
 
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]'
+```
+
 </br>
 </br>
 
