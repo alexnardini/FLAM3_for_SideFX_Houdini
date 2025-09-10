@@ -28,7 +28,7 @@ _Parameters to define the quality of the fractal Flame algorithm solution._
 ### Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
-```python
+```
 opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 ```
 
@@ -1958,7 +1958,7 @@ Token: 0
 _Here you will find informations about FLAM3H™._
 
 # ABOUT Tab
-# parameter name:    `icon_about_error` (_hidden_)
+# parameter name:    `icon_about_error`
 ### Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
 
@@ -1982,7 +1982,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 </br>
 
 # ABOUT Tab
-# parameter name:    `icon_about_plugins_error` (_hidden_)
+# parameter name:    `icon_about_plugins_error`
 ### Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
 
