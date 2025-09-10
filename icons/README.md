@@ -53,6 +53,12 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_FractoriumWebSVG.svg" /></p>
+<p align="center">icon_FractoriumWebSVG.svg</p>
+<p align="center">.</p>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_FrameBlueSVG.svg" /></p>
 <p align="center">icon_FrameBlueSVG.svg</p>
 <p align="center">.</p>
@@ -332,8 +338,8 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 
 
 <p align="center">
-  <img width="160" height="160" src="./icon_Github.svg" /></p>
-<p align="center">icon_Github.svg</p>
+  <img width="160" height="160" src="./icon_GithubBlackSVG.svg" /></p>
+<p align="center">icon_GithubBlackSVG.svg</p>
 <p align="center">.</p>
 
 

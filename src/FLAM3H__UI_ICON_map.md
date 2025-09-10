@@ -1563,8 +1563,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 <br>
 <br>
 
-_Load *.flame files created with Apophysis, Fractorium and others.<br>
-A *.flame file is an XML-formatted type of file._
+
+_The IN tab allows users to import and manage pre-existing fractal Flame files into FLAM3H™._</br>
+_This feature is essential for reloading saved Flames,_</br>
+_exploring shared Flame designs, or modifying existing structures._</br>
+_It is a native Flame fractal file format containing transformation parameters, gradients, and rendering settings._
 
 # IN Tab
 # parameter name:    `inpresets_disabled`
@@ -1763,8 +1766,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 <br>
 <br>
 
-_Inside here, you can export your fractal Flame into an XML format ( standard *.flame file format ) and reload it inside FLAM3H™ or inside Apophysis, Fractorium and others.<br>
-The Flame file format does not support animations, but only static frames, so to speak. If you animated your fractal Flame, save the hip file from Houdini instead._
+_The OUT tab provides options to export your current fractal Flame work,_</br>
+_preserving all necessary data for future editing, sharing or rendering._</br>
+_It ensures your creative progress is safely stored in standard format_</br>
+_compatible with other Flame tools and rendering engines._</br>
+_It is a native Flame fractal file format containing transformation parameters, gradients, and rendering settings._
 
 # OUT Tab
 # parameter name:    `outname`
@@ -1939,6 +1945,182 @@ Token: 0
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]Points                     
 ```
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
+_Here you will find informations about FLAM3H™._
+
+# ABOUT Tab
+# parameter name:    `icon_about_error` (_hidden_)
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg
+```
+
+</br>
+</br>
+
+# ABOUT Tab
+# parameter name:    `icon_about`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
+```
+
+</br>
+</br>
+
+# ABOUT Tab
+# parameter name:    `icon_about_plugins_error` (_hidden_)
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg
+```
+
+</br>
+</br>
+
+# ABOUT Tab
+# parameter name:    `icon_about_plugins`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
+```
+
+</br>
+</br>
+
+# ABOUT Tab
+# parameter name:    `icon_f3h_links`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
+```
+
+</br>
+</br>
+
+# ABOUT Tab
+# parameter name:    `flam3homepage`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/iconSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?iconSVG.svg
+```
+
+</br>
+</br>
+
+# ABOUT Tab
+# parameter name:    `flam3github`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_GithubBlackSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlackSVG.svg
+```
+
+</br>
+</br>
+
+# ABOUT Tab
+# parameter name:    `flam3insta`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_InstagramSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_InstagramSVG.svg
+```
+
+</br>
+</br>
+
+# ABOUT Tab
+# parameter name:    `flam3youtube`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_youtube_red_play.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_youtube_red_play.svg
+```
+
+</br>
+</br>
+
+# ABOUT Tab
+# parameter name:    `icon_f3_links`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
+```
+
+</br>
+</br>
+
+# ABOUT Tab
+# parameter name:    `tffa_pdf`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_WhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
+```
+
+</br>
+</br>
+
+# ABOUT Tab
+# parameter name:    `tffa_flam3github`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_GithubWhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_GithubWhiteSVG.svg
+```
+
+</br>
+</br>
+
+# ABOUT Tab
+# parameter name:    `fract_bit`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_bitbucketLogoSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_bitbucketLogoSVG.svg
+```
+
+</br>
+</br>
+
+# ABOUT Tab
+# parameter name:    `fract_web`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_FractoriumWebSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_FractoriumWebSVG.svg
+```
 

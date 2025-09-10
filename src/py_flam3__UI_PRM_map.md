@@ -943,8 +943,10 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).reset_MB(False)
 <br>
 <br>
 
-_Load *.flame files created with Apophysis, Fractorium and others.<br>
-A *.flame file is an XML-formatted type of file._
+_The IN tab allows users to import and manage pre-existing fractal Flame files into FLAM3H™._</br>
+_This feature is essential for reloading saved Flames,_</br>
+_exploring shared Flame designs, or modifying existing structures._</br>
+_It is a native Flame fractal file format containing transformation parameters, gradients, and rendering settings._
 
 # IN Tab
 # parameter name:    `inpath`
@@ -1046,8 +1048,11 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
 <br>
 <br>
 
-_Inside here, you can export your fractal Flame into an XML format ( standard *.flame file format ) and reload it inside FLAM3H™ or inside Apophysis, Fractorium and others.<br>
-The Flame file format does not support animations, but only static frames, so to speak. If you animated your fractal Flame, save the hip file from Houdini instead._
+_The OUT tab provides options to export your current fractal Flame work,_</br>
+_preserving all necessary data for future editing, sharing or rendering._</br>
+_It ensures your creative progress is safely stored in standard format_</br>
+_compatible with other Flame tools and rendering engines._</br>
+_It is a native Flame fractal file format containing transformation parameters, gradients, and rendering settings._
 
 # OUT Tab
 # parameter name:    `outpath`
@@ -1226,8 +1231,10 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwarg
 <br>
 
 
-_The Preferences tab allows users to customize global settings for FLAM3H™, enabling a more tailored and efficient creative workflow._</br>
-_These preferences affect how the software behaves and appears but do not directly impact the visual characteristics of individual fractal Flames._
+_The Preferences tab allows users to customize global settings for FLAM3H™,_</br>
+_enabling a more tailored and efficient creative workflow._</br>
+_These preferences affect how the software behaves and appears_</br>
+_but do not directly impact the visual characteristics of individual fractal Flames._
 
 # prefs Tab
 # parameter name:    `prefspaletteplus`
@@ -1313,6 +1320,7 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSi
 <br>
 <br>
 
+_Here you will find informations about FLAM3H™._
 
 # about Tab
 # parameter name:    `flam3homepage`
