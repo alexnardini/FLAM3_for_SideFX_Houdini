@@ -4,7 +4,7 @@
 #   Title:      FLAM3H™. SideFX Houdini FLAM3: UI ICON MAP
 #   Author:     F stands for liFe ( made in Italy )
 #   date:       September 2025, Last revised September 2025
-#   License:    GPL
+#   License:    GPL, CC BY-SA 4.0
 #   Copyright:  (c) 2021 F stands for liFe
 #
 #   Name:       FLAM3H__UI_ICON_MAP
@@ -15,7 +15,8 @@
 #               THIS IS ONLY INFORMATIVE AND FOR EASY FIND INSTEAD OF
 #               NAVIGATING THE PARAMETERS INSIDE THE OTL TYPE PROPERTIES WINDOW.
 ```
-
+**Note**: _The project logo and the icon set are NOT covered by the **CC BY-SA 4.0** license_.</br>
+_They remain Copyright of (c) 2021 F stands for liFe (and their other respective owners), and may not be redistributed without permission_.
 
 <br>
 <br>
@@ -692,21 +693,9 @@ MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionS
 MENU_ZERO_ITERATORS_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
 ```
 
-</br>
-</br>
-
-<p align="left"><img width="48" height="48" src="../icons/icon_optionStarOrangeSVG.svg" />
-</p>
-
 ```python
 MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  Invalid file path     ']
 ```
-
-</br>
-</br>
-
-<p align="left"><img width="48" height="48" src="../icons/icon_optionStarOrangeSVG.svg" />
-</p>
 
 ```python
 MENU_PRESETS_INVALID_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  [CLIPBOARD] Invalid file path     ']
@@ -1576,3 +1565,189 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 _Load *.flame files created with Apophysis, Fractorium and others.<br>
 A *.flame file is an XML-formatted type of file._
+
+# IN Tab
+# parameter name:    `inpresets_disabled`
+### Menu icons
+This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
+```python
+menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets_empty()
+return menu
+```
+Menu entries icon:</br>
+_The following are icons being used on demand based on the menu python script needs._
+<p align="left"><img width="48" height="48" src="../icons/icon_WhiteSVG_disabled.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG_disabled.svg]'
+```
+
+</br>
+</br>
+
+The pre-built icons menu python lists being used:
+
+</br>
+</br>
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionDisabledZeroIterSVG.svg" />
+</p>
+
+```python
+MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+```
+
+</br>
+</br>
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarBlueSVG.svg" />
+</p>
+
+```python
+MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
+```
+
+</br>
+</br>
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarOrangeSVG.svg" />
+</p>
+
+```python
+MENU_ZERO_ITERATORS_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
+```
+
+```python
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  Invalid file path     ']
+```
+
+```python
+MENU_PRESETS_INVALID_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  [CLIPBOARD] Invalid file path     ']
+```
+
+</br>
+</br>
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" />
+</p>
+
+```python
+MENU_IN_PRESETS_EMPTY_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  [CLIPBOARD]     ']
+```
+
+</br>
+</br>
+
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_WhiteSVG_disabled.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG_disabled.svg
+```
+
+</br>
+</br>
+
+# IN Tab
+# parameter name:    `inpresets`
+### Menu icons
+This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
+```python
+menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets()
+return menu
+```
+Menu entries icon:</br>
+_The following are icons being used on demand based on the menu python script needs._
+<p align="left"><img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameINEntrieSVG.svg]'
+```
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]'
+```
+
+</br>
+</br>
+
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_WhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
+```
+
+</br>
+</br>
+
+# IN Tab
+# parameter name:    `in_f3h_affine`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
+```
+
+</br>
+</br>
+
+# IN Tab
+# parameter name:    `propertiescp`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
+```
+
+</br>
+</br>
+
+# IN Tab
+# parameter name:    `icon_in_infos`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
+```
+
+</br>
+</br>
+
+# IN Tab
+# parameter name:    `cprendervals`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteInfosSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg
+```
+
+</br>
+</br>
+
+# IN Tab
+# parameter name:    `icon_in_infos_sensor`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
+```
+
+</br>
+</br>
+
+# IN Tab
+# parameter name:    `icon_in_infos_render`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
+```
