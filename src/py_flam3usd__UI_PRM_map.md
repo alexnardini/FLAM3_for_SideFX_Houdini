@@ -1,5 +1,3 @@
-
-
 ```python
 #   Title:      FLAM3HUSD. SideFX Houdini FLAM3USD: PYTHON MAP PRM Definitions
 #   Author:     Alessandro Nardini

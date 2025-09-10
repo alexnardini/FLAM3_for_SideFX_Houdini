@@ -1,5 +1,3 @@
-
-
 ```python
 #   Title:      FLAM3H™. SideFX Houdini FLAM3: UI ICON MAP
 #   Author:     F stands for liFe ( made in Italy )
