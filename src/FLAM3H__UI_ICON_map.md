@@ -480,18 +480,18 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg
 ### Menu icons
 <p align="left"><img width="48" height="48" src="../icons/icon_TagOBlueMenuSmallSVG.svg" /></p>
 
-```python
-'![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuSmallSVG.svg] sml'
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuSmallSVG.svg] sml
 ```
 <p align="left"><img width="48" height="48" src="../icons/icon_TagOBlueMenuMidSVG.svg" /></p>
 
-```python
-'![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuMidSVG.svg] Mid'
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuMidSVG.svg] Mid
 ```
 <p align="left"><img width="48" height="48" src="../icons/icon_TagOBlueMenuBigSVG.svg" /></p>
 
-```python
-'![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuBigSVG.svg] BIG'
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuBigSVG.svg] BIG
 ```
 
 </br>
