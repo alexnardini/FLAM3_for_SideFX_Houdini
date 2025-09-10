@@ -9,7 +9,7 @@
 #
 #   Name:       FLAM3H__UI_ICON_MAP
 #
-#   Comment:    List of all UI ICONS associated with a parameter
+#   Comment:    List of all UI parameters with ICONS associated with
 #               and the command string they are called from and from where.
 #
 #               THIS IS ONLY INFORMATIVE AND FOR EASY FIND INSTEAD OF
