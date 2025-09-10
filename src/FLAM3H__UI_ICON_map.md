@@ -1531,3 +1531,42 @@ _The following are icons being used on demand based on the menu python script ne
 opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg
 ```
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+_Flame fractal moton blur._<br>
+_When animating your fractal Flame, turning this on will compute a proper temporal motion blur._
+
+</br>
+</br>
+
+# MB Tab
+# parameter name:    `domb`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
+```
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+_Load *.flame files created with Apophysis, Fractorium and others.<br>
+A *.flame file is an XML-formatted type of file._
