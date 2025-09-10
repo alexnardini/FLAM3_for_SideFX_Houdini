@@ -478,20 +478,20 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg
 # SYS Tab
 # parameter name:    `tagsize`
 ### Menu icons
-<p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueMenuSmallSVG.svg" /></p>
+<p align="left"><img width="48" height="48" src="../icons/icon_TagOBlueMenuSmallSVG.svg" /></p>
 
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuSmallSVG.svg] sml'
 ```
-![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuSmallSVG.svg] sml
-```
-<p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueMenuMidSVG.svg" /></p>
+<p align="left"><img width="48" height="48" src="../icons/icon_TagOBlueMenuMidSVG.svg" /></p>
 
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuMidSVG.svg] Mid'
 ```
-![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuMidSVG.svg] Mid
-```
-<p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueMenuBigSVG.svg" /></p>
+<p align="left"><img width="48" height="48" src="../icons/icon_TagOBlueMenuBigSVG.svg" /></p>
 
-```
-![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuBigSVG.svg] BIG
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuBigSVG.svg] BIG'
 ```
 
 </br>
