@@ -1226,6 +1226,9 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwarg
 <br>
 
 
+_The Preferences tab allows users to customize global settings for FLAM3H™, enabling a more tailored and efficient creative workflow._</br>
+_These preferences affect how the software behaves and appears but do not directly impact the visual characteristics of individual fractal Flames._
+
 # prefs Tab
 # parameter name:    `prefspaletteplus`
 ### Callback Script
