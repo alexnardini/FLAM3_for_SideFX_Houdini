@@ -196,12 +196,12 @@ The pre-built icons menu python lists being used:
 ```python
 SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT: tuple = (FLAM3H_ICON_STAR_FLAME_ITER_ACTV, FLAM3H_ICON_COPY_PASTE)
 ```
+FLAM3H_ICON_STAR_FLAME_ITER_ACTV
 ```python
-# FLAM3H_ICON_STAR_FLAME_ITER_ACTV
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg]'
 ```
+FLAM3H_ICON_COPY_PASTE
 ```python
-# FLAM3H_ICON_COPY_PASTE
 '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg]'
 ```
 
