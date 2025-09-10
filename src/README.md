@@ -19,7 +19,7 @@ List of all **FLAM3HUSD** UI parameters with ICONS associated with and the comma
 <br>
 
 # Markdown
-# File name:    `py_flam3_UI_PRM_map.md`
+# File name:    `py_flam3__UI_PRM_map.md`
 ### Houdini versions: H19 to H21
 ### Description:
 THIS IS ONLY INFORMATIVE.</br>
@@ -29,7 +29,7 @@ List of all **FLAM3H™** UI parameters wired with a python definition and the c
 <br>
 
 # Markdown
-# File name:    `py_flam3usd_UI_PRM_map.md`
+# File name:    `py_flam3usd__UI_PRM_map.md`
 ### Houdini versions: H19 to H21
 ### Description:
 THIS IS ONLY INFORMATIVE.</br>
