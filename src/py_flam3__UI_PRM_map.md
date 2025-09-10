@@ -770,14 +770,21 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_FF()
 # parameter name:    `ffpre1type` and `ffp1type`, `ffp2type`
 ### Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T_PP(True)
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP(True)
 return menu
 ```
 # FF Tab
 # parameter name:    `ffv1type`, `ffv2type`
 ### Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils.menu_T(True)
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T(True)
+return menu
+```
+# FF Tab
+# parameter name:    `ffp2weight`
+### Action Button script
+```python
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_FF_post_vars()
 return menu
 ```
 # FF Tab
