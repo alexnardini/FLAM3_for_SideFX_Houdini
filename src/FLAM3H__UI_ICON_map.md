@@ -47,7 +47,7 @@ return menu
 </br>
 </br>
 
-The pre-built icons menu list being used:
+The pre-built icons menu python lists being used:
 
 </br>
 </br>
@@ -150,7 +150,7 @@ return menu
 </br>
 </br>
 
-The pre-built icons menu list being used:
+The pre-built icons menu python lists being used:
 
 </br>
 </br>
@@ -163,9 +163,11 @@ The pre-built icons menu list being used:
 SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT: tuple = (FLAM3H_ICON_STAR_FLAME_ITER_ACTV, FLAM3H_ICON_COPY_PASTE)
 ```
 ```python
+# FLAM3H_ICON_STAR_FLAME_ITER_ACTV
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg]'
 ```
 ```python
+# FLAM3H_ICON_COPY_PASTE
 '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg]'
 ```
 
@@ -180,9 +182,11 @@ SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT: tuple = (FLAM3H_ICON_STAR_FLAME_ITER_ACTV, 
 SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple = (FLAM3H_ICON_STAR_EMPTY_OPACITY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO)
 ```
 ```python
+# FLAM3H_ICON_STAR_EMPTY_OPACITY
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]'
 ```
 ```python
+# FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
 '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroWSVG.svg]'
 ```
 
@@ -197,9 +201,11 @@ SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple = (FLAM3H_ICON_STAR_EMPTY_OPACIT
 SEL_ITER_BOOKMARK_OFF: tuple = (FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED)
 ```
 ```python
+# FLAM3H_ICON_STAR_EMPTY
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 ```
 ```python
+# FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIterSVG.svg]'
 ```
 
@@ -521,7 +527,8 @@ This menu icon set is built on demand from the py_flam3__x_x.py HDA python modul
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
 return menu
 ```
-Selected preset icon:
+Menu entries icon:</br>
+_The following are icon/icons being used on demand based on the functionality status._
 <p align="left"><img width="64" height="64" src="../icons/icon_optionPRIDEDisabledSVG.svg" /></p>
 
 ```python
@@ -531,7 +538,7 @@ Selected preset icon:
 </br>
 </br>
 
-The pre-built icons menu list being used:
+The pre-built icons menu python lists being used:
 
 </br>
 </br>
@@ -584,7 +591,8 @@ This menu icon set is built on demand from the py_flam3__x_x.py HDA python modul
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()
 return menu
 ```
-Selected preset icon:
+Menu entries icon:</br>
+_The following are icon/icons being used on demand based on the functionality status._
 <p align="left"><img width="64" height="64" src="../icons/icon_optionCPSVG.svg" /></p>
 
 ```python
@@ -613,7 +621,8 @@ This menu icon set is built on demand from the py_flam3__x_x.py HDA python modul
 menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets_empty()
 return menu
 ```
-Selected preset icon:
+Menu entries icon:</br>
+_The following are icon/icons being used on demand based on the functionality status._
 <p align="left"><img width="64" height="64" src="../icons/icon_WhiteSVG_disabled.svg" /></p>
 
 ```python
@@ -623,7 +632,7 @@ Selected preset icon:
 </br>
 </br>
 
-The pre-built icons menu list being used:
+The pre-built icons menu python lists being used:
 
 </br>
 </br>
@@ -706,7 +715,8 @@ This menu icon set is built on demand from the py_flam3__x_x.py HDA python modul
 menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets()
 return menu
 ```
-Selected preset icon:
+Menu entries icon:</br>
+_The following are icon/icons being used on demand based on the functionality status._
 <p align="left"><img width="64" height="64" src="../icons/icon_optionFlameINEntrieSVG.svg" /></p>
 
 ```python
@@ -750,7 +760,8 @@ This menu icon set is built on demand from the py_flam3__x_x.py HDA python modul
 menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
 return menu
 ```
-Presets icon:
+Menu entries icon:</br>
+_The following are icon/icons being used on demand based on the functionality status._
 <p align="left"><img width="64" height="64" src="../icons/icon_optionFlameOUTEntrieSVG.svg" /></p>
 
 ```python
@@ -780,7 +791,89 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg
 
 _This is where you’ll spend the majority of your time, along with the FF Tab.<br>
 Here you will create your fractal Flame logic.<br>Since every parameter has the same name inside, if you have ever used Apophysis, Fractorium, or other fractal Flame editors, you will almost immediately feel at home. The logic you will operate with will be the same._
+# FLAME Tab
+# parameter name:    `mp_add_#`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_AddDelIteratorSVG.svg" /></p>
 
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_AddDelIteratorSVG.svg
+```
+
+</br>
+</br>
+
+# FLAME Tab
+# parameter name:    `prmpastesel_#`
+### Menu icons
+This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
+```python
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_copypaste()
+return menu
+```
+Menu entries icon:</br>
+_The following are icon/icons being used on demand based on the functionality status._
+<p align="left"><img width="64" height="64" src="../icons/icon_StarSwapRedCopyPasteSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg]'
+```
+<p align="left"><img width="64" height="64" src="../icons/icon_StarSwapRedCopyPasteEntrieSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieSVG.svg]'
+```
+<p align="left"><img width="64" height="64" src="../icons/icon_StarSwapRedCopyPasteZeroWSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroWSVG.svg]'
+```
+<p align="left"><img width="64" height="64" src="../icons/icon_optionStarBlueSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]'
+```
+</br>
+</br>
+
+The pre-built icons menu python lists being used:
+
+</br>
+</br>
+
+<p align="left"><img width="64" height="64" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
+
+```python
+MENU_ITER_COPY_PASTE_DELETED_MARKED: list = [ 0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", 1, "" ]
+```
+
+</br>
+</br>
+
+<p align="left"><img width="64" height="64" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
+
+```python
+MENU_ITER_COPY_PASTE_REMOVED: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.', 1, '']
+```
+
+</br>
+</br>
+
+<p align="left"><img width="64" height="64" src="../icons/icon_StarSwapRedCopyPasteSVG.svg" /></p>
+
+```python
+MENU_ITER_COPY_PASTE_EMPTY: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg]  Please, mark an iterator first.', 1, '']
+```
+
+</br>
+</br>
+
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg
+```
 
 
 
