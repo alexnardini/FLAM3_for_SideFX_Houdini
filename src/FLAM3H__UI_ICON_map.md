@@ -479,16 +479,19 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg
 # parameter name:    `tagsize`
 ### Menu icons
 <p align="left"><img width="48" height="48" src="../icons/icon_TagOBlueMenuSmallSVG.svg" /></p>
+Token: 0
 
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuSmallSVG.svg] sml
 ```
 <p align="left"><img width="48" height="48" src="../icons/icon_TagOBlueMenuMidSVG.svg" /></p>
+Token: 1
 
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuMidSVG.svg] Mid
 ```
 <p align="left"><img width="48" height="48" src="../icons/icon_TagOBlueMenuBigSVG.svg" /></p>
+Token: 2
 
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuBigSVG.svg] BIG
@@ -624,7 +627,6 @@ _The following are icons being used on demand based on the menu python script ne
 ```python
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
 ```
-
 
 </br>
 </br>
@@ -1352,4 +1354,180 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineFFSVG.svg
 opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 ```
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+_The palette colors used in a successful fractal Flame are crucial.<br>
+In addition to playing with the shader parameters for each iterator, fractal Flames can be transformed into something truly unique by trying out various color schemes._
+
+# CP Tab
+# parameter name:    `hsv`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
+```
+
+</br>
+</br>
+
+# CP Tab
+# parameter name:    `palettehsv`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
+```
+
+</br>
+</br>
+
+# CP Tab
+# parameter name:    `cp_lookupsamples`
+### Menu icons
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+Token: 256
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]256
+```
+<p align="left"><img width="48" height="48" src="../icons/icon_optionEnabledSVG.svg" /></p>
+Token: 512
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg]512
+```
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarRedHighSVG.svg" /></p>
+Token: 1024
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1024     
+```
+
+</br>
+</br>
+
+# CP Tab
+# parameter name:    `palette`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
+```
+
+</br>
+</br>
+
+# CP Tab
+# parameter name:    `palettename`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_WhiteStarSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg
+```
+
+</br>
+</br>
+
+# CP Tab
+# parameter name:    `palettepresets_off`
+### Menu icons
+This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
+```python
+menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
+return menu
+```
+Menu entries icon:</br>
+_The following are icons being used on demand based on the menu python script needs._
+<p align="left"><img width="48" height="48" src="../icons/icon_optionPRIDEDisabledSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg]'
+```
+
+</br>
+</br>
+
+The pre-built icons menu python lists being used:
+
+</br>
+</br>
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionDisabledZeroIterSVG.svg" />
+</p>
+
+```python
+MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+```
+
+</br>
+</br>
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarBlueSVG.svg" />
+</p>
+
+```python
+MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
+```
+
+</br>
+</br>
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarOrangeSVG.svg" />
+</p>
+
+```python
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  Invalid file path     ']
+```
+
+</br>
+</br>
+
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionPRIDEDisabledSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg
+```
+
+</br>
+</br>
+
+# CP Tab
+# parameter name:    `palettepresets`
+### Menu icons
+This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
+```python
+menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()
+return menu
+```
+Menu entries icon:</br>
+_The following are icons being used on demand based on the menu python script needs._
+<p align="left"><img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /></p>
+
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg]'
+```
+
+</br>
+</br>
+
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionCPSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg
+```
 
