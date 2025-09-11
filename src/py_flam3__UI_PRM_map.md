@@ -930,7 +930,7 @@ hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp(True)
 ```
 ### Action Button script
 ```python
-kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(3)
+kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP_palette_action()
 ```
 # CP Tab
 # parameter name:    `palettefile`
