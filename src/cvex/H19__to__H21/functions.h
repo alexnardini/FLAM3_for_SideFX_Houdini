@@ -188,5 +188,15 @@ void XAOS_transpose_s(const string XAOS[]; string T[]; const int size){
     }
 }
 
+// This was more for testing ( it is correct afterall )
+int f3h_sample_cdf(const float CDF[]; float u_rand){
+
+    u_rand *= CDF[-1];
+    foreach(int idx; float f; CDF){
+        if(f>u_rand) return idx;
+    }
+    return 0; // simply as this will never evaluate, it's needed to fill all the code paths.
+}
+
 
 #endif
