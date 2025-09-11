@@ -17,7 +17,7 @@
 <br>
 <br>
 
-The file **`py_flam3__x_x.py`** are loaded inside the **Extra Files** section. Renamed as **`py_flam3__x_x`** (no extension).
+The need **`py_flam3__x_x.py`** files are loaded inside the **Extra Files** section. Renamed as **`py_flam3__x_x`** (no extension).
 
 For example the file for python 3.11 is renamed<br>
 from: **py_flam3__3_11.py**<br>
@@ -1746,7 +1746,7 @@ _enabling a more tailored and efficient creative workflow._</br>
 _These preferences affect how the software behaves and appears_</br>
 _but do not directly impact the visual characteristics of individual fractal Flames._
 
-# prefs Tab
+# PREFS Tab
 # parameter name:    `paletteplus`
 ## type: `toggle`
 ### Callback Script
@@ -1757,7 +1757,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_palette_256_plus_check()
 </br>
 </br>
 
-# prefs Tab
+# PREFS Tab
 # parameter name:    `enumeratemenu`
 ## type: `toggle`
 ### Callback Script
@@ -1768,7 +1768,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_pref
 </br>
 </br>
 
-# prefs Tab
+# PREFS Tab
 # parameter name:    `itericons`
 ## type: `toggle`
 ### Callback Script
@@ -1779,7 +1779,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_
 </br>
 </br>
 
-# prefs Tab
+# PREFS Tab
 # parameter name:    `vex_precision`
 ## type: `string`
 ### Callback Script
@@ -1790,7 +1790,7 @@ hou.pwd().hdaModule().flam3.flam3h_scripts(kwargs).flam3h_check_first_node_insta
 </br>
 </br>
 
-# prefs Tab
+# PREFS Tab
 # parameter name:    `xm`
 ## type: `ordered menu`
 ### Callback Script
@@ -1801,7 +1801,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert(),
 </br>
 </br>
 
-# prefs Tab
+# PREFS Tab
 # parameter name:    `ptcount`
 ## type: `integer`
 ### Callback Script
@@ -1812,7 +1812,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_m
 </br>
 </br>
 
-# prefs Tab
+# PREFS Tab
 # parameter name:    `setdark`
 ## type: `toggle`
 ### Callback Script
@@ -1823,7 +1823,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwar
 </br>
 </br>
 
-# prefs Tab
+# PREFS Tab
 # parameter name:    `vptype`
 ## type: `ordered menu`
 ### Callback Script
@@ -1834,7 +1834,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay
 </br>
 </br>
 
-# prefs Tab
+# PREFS Tab
 # parameter name:    `vpptsize`
 ## type: `float`
 ### Callback Script
@@ -1849,7 +1849,7 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSi
 </br>
 </br>
 
-# prefs Tab
+# PREFS Tab
 # parameter name:    `vpww`
 ## type: `float`
 ### Caqlback Script
@@ -1872,7 +1872,7 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(
 
 _Here you will find informations about FLAM3H™._
 
-# about Tab
+# ABOUT Tab
 # parameter name:    `flam3homepage`
 ## type: `geometry data`
 ### Action Button script
@@ -1883,7 +1883,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('web'
 </br>
 </br>
 
-# about Tab
+# ABOUT Tab
 # parameter name:    `flam3github`
 ## type: `geometry data`
 ### Action Button script
@@ -1894,7 +1894,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('git'
 </br>
 </br>
 
-# about Tab
+# ABOUT Tab
 # parameter name:    `flam3insta`
 ## type: `geometry data`
 ### Action Button script
@@ -1905,7 +1905,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('inst
 </br>
 </br>
 
-# about Tab
+# ABOUT Tab
 # parameter name:    `flam3youtube`
 ## type: `geometry data`
 ### Action Button script
@@ -1916,7 +1916,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('yout
 </br>
 </br>
 
-# about Tab
+# ABOUT Tab
 # parameter name:    `tffa_pdf`
 ## type: `geometry data`
 ### Action Button script
@@ -1927,7 +1927,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('pape
 </br>
 </br>
 
-# about Tab
+# ABOUT Tab
 # parameter name:    `tffa_flam3github`
 ## type: `geometry data`
 ### Action Button script
@@ -1938,7 +1938,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('flam
 </br>
 </br>
 
-# about Tab
+# ABOUT Tab
 # parameter name:    `fract_bit`
 ## type: `geometry data`
 ### Action Button script
@@ -1949,7 +1949,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('bitb
 </br>
 </br>
 
-# about Tab
+# ABOUT Tab
 # parameter name:    `fract_web`
 ## type: `geometry data`
 ### Action Button script
