@@ -41,7 +41,7 @@
 
 
 // =================
-// From H21 up
+// From H21.0.457 up
 // =================
 
 int f3h_sample_cdf(const float CDF[]; float u_rand){
