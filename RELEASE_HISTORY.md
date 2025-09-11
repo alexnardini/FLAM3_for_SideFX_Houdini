@@ -28,6 +28,22 @@ They are all available in this Github repository.
 </br>
 </br>
 
+### [<ins>From v1.8.88</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.88) ###
+
+- **Fix H21 ONLY**: Improved xaos iterators' selection.
+- **Fix**: Updated and corrected: [src/py_flam3__UI_PARM_map.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/py_flam3__UI_PARM_map.md)
+- **Fix**: Improved readability of the UI_PARM_map source files to make it a little easier to go through and find what you are looking for (FLAM3H™ and FLAM3HUSD).
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
 ### [<ins>From v1.8.86</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.86) ###
 
 - **New**: Created Markdown [src/FLAM3H__UI_ICON_map.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/FLAM3H__UI_ICON_map.md) file. It is a map of each UI parameter with an icon and include all the used icon's information.
