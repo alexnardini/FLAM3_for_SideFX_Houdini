@@ -774,14 +774,14 @@ It allows for a great deal of creative experimentation by taking the combined re
 ## type: `button`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("doff"), kwargs['parm'].deleteAllKeyframes()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
 # FF Tab
 # parameter name:    `doff_enabled`
 ## type: `button`
 ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("doff"), kwargs['parm'].deleteAllKeyframes()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
 # FF Tab
 # parameter name:    `xfvizff_off`
@@ -842,7 +842,6 @@ return menu
 ### Action Button script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_FF_post_vars()
-return menu
 ```
 # FF Tab
 # parameter name:    `ffscl`
@@ -853,7 +852,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_FF_affine_sca
 ```
 ### Action Button script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pre_affine_FF()
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pre_affine_FF()
 ```
 # FF Tab
 # parameter name:    `ffang`
@@ -871,7 +870,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_FF_post_affin
 ```
 ### Action Button script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_affine_FF()
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_post_affine_FF()
 ```
 # FF Tab
 # parameter name:    `ffpang`
