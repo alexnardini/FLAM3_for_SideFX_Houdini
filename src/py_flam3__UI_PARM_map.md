@@ -17,7 +17,7 @@
 <br>
 <br>
 
-The file **`py_flam3__(least_needed_python version).py`** are loaded inside the **Extra Files** section. Renamed as **`py_flam3__(least_needed_python version)`** (no extension).
+The file **`py_flam3__x_x.py`** are loaded inside the **Extra Files** section. Renamed as **`py_flam3__x_x`** (no extension).
 
 For example the file for python 3.11 is renamed<br>
 from: **py_flam3__3_11.py**<br>
