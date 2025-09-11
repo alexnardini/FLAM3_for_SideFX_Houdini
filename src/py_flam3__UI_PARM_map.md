@@ -40,7 +40,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.8.86"
+__version__ = "1.8.88"
 __status__  = "Production"
 __h_versions__: tuple = (210,)
 # The following are min and max Houdini version where FLAM3H™ can run.
@@ -84,7 +84,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.8.86"
+__version__ = "1.8.88"
 __status__  = "Production"
 __h_versions__: tuple = (190, 195, 200, 205)
 # The following are min and max Houdini version where FLAM3H™ can run.
