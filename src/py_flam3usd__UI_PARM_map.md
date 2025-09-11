@@ -28,7 +28,7 @@ to: **py_flam3usd__3_11**
 </br>
 
 # PythonModule Houdini version `H21 and up`
-The **`flam3usd`** module is created out of the **`py_flam3usd`** file from inside the **Extra Files** section.</br>
+The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
 ```python
@@ -52,7 +52,7 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 </br>
 
 # PythonModule Houdini version `H19 to H20.5`
-The **`flam3usd`** module is created out of the **`py_flam3usd`** file from inside the **Extra Files** section.</br>
+The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
 ```python
@@ -144,7 +144,7 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_delet
 </br>
 </br>
 
-_Preferences parameters._
+_Here you will play with the main settings of FLAM3HUSD._
 
 # Prefs Tab
 # parameter name:    `sys_help`
