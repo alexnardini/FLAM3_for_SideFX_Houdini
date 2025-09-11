@@ -4054,7 +4054,7 @@ _A list of all parametric variations and their parametric parameter's names_
     - SideFX Support Ticket: *`SESI# 169253`*
 
     <br />
-    *`10/09/2025`* -> _*Fixed*_<br />
+    *`09/10/2025`* -> _*Fixed*_<br />
     - Houdini version: _21.0.470_
 
 
