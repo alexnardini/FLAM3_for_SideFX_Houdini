@@ -4086,9 +4086,8 @@ _A list of all parametric variations and their parametric parameter's names_
     - SideFX Support Ticket: *`SESI# 169253`*
 
     <br />
-    Status:<br />
-    * _*`Wating for a fix`*_
-        #glyph: fa-spinner fa-spin
+    *`10/09/2025`* -> _*Fixed*_<br />
+    - Houdini version: _21.0.470 - not implemented yet in FLAM3H(tm) _
 
 
 
