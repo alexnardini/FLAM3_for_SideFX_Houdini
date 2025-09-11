@@ -2,10 +2,11 @@
 #define __flamepp_h__
 
 /*  
- /  Tested on:  Houdini 19.x
+ /  Tested on:  Houdini 19.0
  /              Houdini 19.5
- /              Houdini 20.x
+ /              Houdini 20.0
  /              Houdini 20.5
+ /              Houdini 21.0
  /
  /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
