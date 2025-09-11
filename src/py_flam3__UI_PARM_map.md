@@ -260,7 +260,6 @@ else:
     flam3h_not_compatible_first_time_msg()
 ```
 
-
 </br>
 </br>
 </br>
@@ -1569,7 +1568,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle
 </br>
 
 # OUT Tab
-'parameter name:    `out_sensorviz_off`
+# parameter name:    `out_sensorviz_off`
 ## type: `button`
 ### Callback Script
 ```python
