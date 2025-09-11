@@ -803,6 +803,9 @@ number of iterators [Icon:TOP/xmlinput]:
     This is what you *must* use to Add and Delete iterators<br />
     along with the [Add and Delete Control Icon|#FLAMEADDDEL] below ([Icon:opdef:.?icon_AddDelIteratorSVG.svg]).
 
+    Rearranging iterators wont update their xaos strings.<br />
+    ( _You should not do that in FLAM3H™_ ).
+
     <br />
 
     NOTE:
@@ -837,14 +840,8 @@ Add/Del iterators [Icon:TOP/xmlinput]:
     - ((CTRL)) + ((LMB)) to delete this iterator.
 
     <br />
-    At the moment of this writing,<br />
-    inserting new iterators using the new H21 multiparameter menu<br />
-    displayed when ((RMB)) over a multiparameter's label wont update the FLAM3H(tm) internal data and each iterators' xaos string accordingly.<br />
-    
-    Use this control icon instead ([Icon:opdef:.?icon_AddDelIteratorSVG.svg]).
-
-    Rearranging iterators wont update their xaos string either<br />
-    and you should not do that in FLAM3H™.
+    Rearranging iterators wont update their xaos strings.<br />
+    ( _You should not do that in FLAM3H™_ ).
 
     <br />
 
@@ -4049,47 +4046,8 @@ _A list of all parametric variations and their parametric parameter's names_
     #display: rounded gray
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *New multiparameter features*<br /><br />
 
-    Although the multiparameter features have been expanded since SideFX released Houdini 21,<br />
-    as of this writing, they do not offer any ways to identify when the user is executing them<br />
-    (_they no longer cause the multiparameter callback script to run_).
-
-    Because of this,<br />
-    FLAM3H™ is unable to record and update their xaos string automatically<br />
-    when new iterators are created or rearranged (_the new features_).<br />
-
-    SideFX has received a Bug report, and if it is fixed,<br />
-    a FLAM3H™ update for H21 or later will be made available.
-
-    Meanwhile and only in H21 and up,<br />
-    a control icon have been added to the FLAM3H™ UI<br />
-    to add/remove iterators while still updating their xaos string:
-
-    [Largeicon:opdef:.?icon_AddDelIteratorSVG.svg]<br />
-
-    _Usage_:
-    - ((LMB)) to insert an iterator Before.
-    - ((SHIFT)) + ((LMB)) to insert an iterator After.
-
-    _Additionally_:
-    - ((CTRL)) + ((LMB)) to delete this iterator.
-
-    Rearranging iterators wont update their xaos string.<br />
-    (_You should not do that in FLAM3H™_).
-
-    <br />
-    _For reference_:
-
-    *`08/26/2025`* -> _*Submitted*_<br />
-    - Houdini version: _21.0.440_<br />
-    - Description: _Multiparameter new functionalities do not trigger the multiparameter callback script_.<br />
-    - Bug ID# *`149091`*<br />
-    - SideFX Support Ticket: *`SESI# 169253`*
-
-    <br />
-    *`09/10/2025`* -> _*Fixed*_<br />
-    - Houdini version: _21.0.470_
-
-
+    Rearranging iterators wont update their xaos strings.<br />
+    ( _You should not do that in FLAM3H™_ ).
 
 
 :box:
