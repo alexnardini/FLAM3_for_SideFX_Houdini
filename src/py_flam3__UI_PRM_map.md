@@ -1376,10 +1376,6 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_m
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes()
 ```
-### Action Button script
-```python
-kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(1.0)
-```
 # prefs Tab
 # parameter name:    `vptype`
 ## type: `ordered menu`
@@ -1401,9 +1397,11 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSi
 # prefs Tab
 # parameter name:    `vpww`
 ## type: `float`
-### Callback Script
-```python
+### Caqlback Script
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth()
+### Action Button script
+```python
+kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(3.0)
 ```
 
 <br>
