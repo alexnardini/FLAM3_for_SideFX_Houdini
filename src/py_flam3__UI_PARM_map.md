@@ -1211,7 +1211,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP_palette_a
 # CP Tab
 # parameter name:    `palettefile`
 ## parameter type: `file`
-- ### Callbac Script
+- ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PRESETS(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1222,7 +1222,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_
 # CP Tab
 # parameter name:    `palettename`
 ## parameter type: `string`
-- ### Callbac Script
+- ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).cp_preset_name_set(), kwargs['parm'].deleteAllKeyframes()
 ```
