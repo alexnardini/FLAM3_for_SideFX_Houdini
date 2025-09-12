@@ -27,7 +27,7 @@ to: **py_flam3__3_11**
 </br>
 </br>
 
-# PythonModule Houdini versions:  `H21 and up`
+# PythonModule - Houdini versions:  `H21 and up`
 The **`flam3`** module is created out of the **`py_flam3__x_x`** file located inside the **Extra Files** section.</br>
 Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
@@ -71,7 +71,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
 </br>
 </br>
 
-# PythonModule Houdini versions:  `H19 to H20.5`
+# PythonModule - Houdini versions:  `H19 to H20.5`
 The **`flam3`** module is created out of the **`py_flam3__x_x`** file located inside the **Extra Files** section.</br>
 Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
