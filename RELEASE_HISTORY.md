@@ -31,7 +31,8 @@ They are all available in this Github repository.
 ### [<ins>From v1.8.88</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.88) ###
 
 - **Fix**: Updated and corrected: [src/py_flam3__UI_PARM_map.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/py_flam3__UI_PARM_map.md)
-- **Fix**: Improved readability of the UI_PARM_map source files to make it a little easier to go through and find what you are looking for (FLAM3H™ and FLAM3HUSD).
+- **Fix**: Improved readability of the **UI_PARM_map** source files to make it a little easier to go through and find what you are looking for (FLAM3H™ and FLAM3HUSD).
+- **Fix**: Improved readability of all source files **README.md** file.
 - **Updated HDA documentation.**
 
 

@@ -326,7 +326,7 @@ _Parameters to define the quality of the fractal Flame algorithm solution._
 
 # GLOBAL Tab
 # parameter name:    `iter`
-## type: `integer`
+## parameter type: `integer`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
@@ -337,7 +337,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_
 
 # GLOBAL Tab
 # parameter name:    `ptcount_presets`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density_set()
@@ -357,7 +357,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_densi
 
 # GLOBAL Tab
 # parameter name:    `ptcount_presets_off`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Action Button Script
 ```python
 n = None
@@ -379,7 +379,7 @@ I keep changing and adding functionalities, it is still a work in progress, but 
 
 # SYS Tab
 # parameter name:    `sys_help`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_display_help(), kwargs['parm'].deleteAllKeyframes()
@@ -390,7 +390,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_display_help(), 
 
 # SYS Tab
 # parameter name:    `iterlist`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_select_iterator(), kwargs['parm'].deleteAllKeyframes()
@@ -406,7 +406,7 @@ return menu
 
 # SYS Tab
 # parameter name:    `doff_sysdisabled`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
@@ -417,7 +417,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_F
 
 # SYS Tab
 # parameter name:    `doff_sysenabled`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
@@ -428,7 +428,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_F
 
 # SYS Tab
 # parameter name:    `rip_disabled`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("rip"), kwargs['parm'].deleteAllKeyframes()
@@ -439,7 +439,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 
 # SYS Tab
 # parameter name:    `rip_enabled`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("rip"), kwargs['parm'].deleteAllKeyframes()
@@ -450,7 +450,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 
 # SYS Tab
 # parameter name:    `f3c_chaotica`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("f3c"), kwargs['parm'].deleteAllKeyframes()
@@ -461,7 +461,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 
 # SYS Tab
 # parameter name:    `f3c_apophysis`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("f3c"), kwargs['parm'].deleteAllKeyframes()
@@ -472,7 +472,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 
 # SYS Tab
 # parameter name:    `xfviz_off`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(), kwargs['parm'].deleteAllKeyframes()
@@ -483,7 +483,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(),
 
 # SYS Tab
 # parameter name:    `xfviz_on`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(), kwargs['parm'].deleteAllKeyframes()
@@ -494,7 +494,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(),
 
 # SYS Tab
 # parameter name:    `xfviz_on_solo`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_viz_solo(), kwargs['parm'].deleteAllKeyframes()
@@ -505,7 +505,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_vi
 
 # SYS Tab
 # parameter name:    `xfvizff_on_solo`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_ff_viz_solo(), kwargs['parm'].deleteAllKeyframes()
@@ -516,7 +516,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_ff
 
 # SYS Tab
 # parameter name:    `sys_out_sensorviz`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
@@ -527,7 +527,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle
 
 # SYS Tab
 # parameter name:    `sys_out_sensorviz_off`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
@@ -538,7 +538,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle
 
 # SYS Tab
 # parameter name:    `sys_tag_off`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
@@ -549,7 +549,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 
 # SYS Tab
 # parameter name:    `sys_tag`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
@@ -560,7 +560,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 
 # SYS Tab
 # parameter name:    `tagsize`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
@@ -571,7 +571,7 @@ kwargs['parm'].deleteAllKeyframes()
 
 # SYS Tab
 # parameter name:    `loaddef`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
@@ -582,7 +582,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
 
 # SYS Tab
 # parameter name:    `frameview`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_frame(), kwargs['parm'].deleteAllKeyframes()
@@ -593,7 +593,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_fram
 
 # SYS Tab
 # parameter name:    `frameviewsensor`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False), kwargs['parm'].deleteAllKeyframes()
@@ -604,7 +604,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 # SYS Tab
 # parameter name:    `sys_palettepresets_disabled`
-## type: `string`
+## parameter type: `string`
 - ### Action Button Script
 ```python
 n = None
@@ -615,7 +615,7 @@ n = None
 
 # SYS Tab
 # parameter name:    `sys_palettepresets_off`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False), kwargs['parm'].deleteAllKeyframes()
@@ -635,7 +635,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 
 # SYS Tab
 # parameter name:    `sys_palettepresets`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False), kwargs['parm'].deleteAllKeyframes()
@@ -655,7 +655,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 
 # SYS Tab
 # parameter name:    `sys_inpresets_disabled`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_sys(), kwargs['parm'].deleteAllKeyframes()
@@ -675,7 +675,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 
 # SYS Tab
 # parameter name:    `sys_inpresets`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_sys(), kwargs['parm'].deleteAllKeyframes()
@@ -695,7 +695,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 
 # SYS Tab
 # parameter name:    `sys_outpresets_disabled`
-## type: `string`
+## parameter type: `string`
 - ### Action Button Script
 ```python
 n = None
@@ -706,7 +706,7 @@ n = None
 
 # SYS Tab
 # parameter name:    `sys_outpresets`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_to_flam3h_quick('SYS'), kwargs['parm'].deleteAllKeyframes()
@@ -737,7 +737,7 @@ Here you will create your fractal Flame logic.<br>Since every parameter has the 
 
 # FLAME Tab
 # parameter name:    `flamefunc`
-## type: `multiparm block (tabs)`
+## parameter type: `multiparm block (tabs)`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
@@ -748,7 +748,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 
 # FLAME Tab
 # parameter name:    `mp_add_#` -> _only from H21 up_
-## type: `geometry data`
+## parameter type: `geometry data`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).add_iterator()
@@ -759,7 +759,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).add_iterator()
 
 # FLAME Tab
 # parameter name:    `note_#`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).destroy_data_note(), kwargs['parm'].deleteAllKeyframes()
@@ -770,7 +770,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).destroy_data_note(), k
 
 # FLAME Tab
 # parameter name:    `prmpastesel_#`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel()
@@ -790,7 +790,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste()
 
 # FLAME Tab
 # parameter name:    `doiter_disabled_#`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()
@@ -801,7 +801,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_u
 
 # FLAME Tab
 # parameter name:    `doiter_#`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()
@@ -812,7 +812,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_u
 
 # FLAME Tab
 # parameter name:    `xfviz_off_#`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz(), kwargs['parm'].deleteAllKeyframes()
@@ -823,7 +823,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz
 
 # FLAME Tab
 # parameter name:    `xfviz_on_#`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz(), kwargs['parm'].deleteAllKeyframes()
@@ -834,7 +834,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz
 
 # FLAME Tab
 # parameter name:    `iw_#`
-## type: `float`
+## parameter type: `float`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update()
@@ -845,7 +845,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_u
 
 # FLAME Tab
 # parameter name:    `xaos_#`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
@@ -860,7 +860,7 @@ kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_xaos_infos()
 
 # FLAME Tab
 # parameter name:    `alpha_#`
-## type: `float`
+## parameter type: `float`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils.destroy_cachedUserData(kwargs['node'], 'iter_sel')
@@ -871,7 +871,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils.destroy_cachedUserData(kwargs[
 
 # FLAME Tab
 # parameter name:    `preblurtype_#`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Menu Script
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_pb()
@@ -883,7 +883,7 @@ return menu
 
 # FLAME Tab
 # parameter name:    `pre1type_#`, `pre2type_#` and `p1type_#`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Menu Script
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP()
@@ -895,7 +895,7 @@ return menu
 
 # FLAME Tab
 # parameter name:    `pre2weight_#`
-## type: `float`
+## parameter type: `float`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_iter_pre_vars()
@@ -906,7 +906,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_iter_pre_var
 
 # FLAME Tab
 # parameter name:    `v1type_#`, `v2type_#`, `v3type_#`, `v4type_#`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Menu Script
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T()
@@ -918,7 +918,7 @@ return menu
 
 # FLAME Tab
 # parameter name:    `scl_#`
-## type: `float`
+## parameter type: `float`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_affine_scale()
@@ -933,7 +933,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pre
 
 # FLAME Tab
 # parameter name:    `ang_#`
-## type: `float`
+## parameter type: `float`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine()
@@ -944,7 +944,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine()
 
 # FLAME Tab
 # parameter name:    `pscl_#`
-## type: `float`
+## parameter type: `float`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_post_affine_scale()
@@ -959,7 +959,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pos
 
 # FLAME Tab
 # parameter name:    `pang_#`
-## type: `float`
+## parameter type: `float`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine()
@@ -981,7 +981,7 @@ It allows for a great deal of creative experimentation by taking the combined re
 
 # FF Tab
 # parameter name:    `doff_disabled`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
@@ -992,7 +992,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_F
 
 # FF Tab
 # parameter name:    `doff_enabled`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
@@ -1003,7 +1003,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_F
 
 # FF Tab
 # parameter name:    `xfvizff_off`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz(), kwargs['parm'].deleteAllKeyframes()
@@ -1014,7 +1014,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz
 
 # FF Tab
 # parameter name:    `xfvizff_on`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz(), kwargs['parm'].deleteAllKeyframes()
@@ -1025,7 +1025,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz
 
 # FF Tab
 # parameter name:    `ffnote`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).note_FF(), kwargs['parm'].deleteAllKeyframes()
@@ -1036,7 +1036,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).note_FF(), kwargs['par
 
 # FF Tab
 # parameter name:    `ffprmpastesel`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_FF()
@@ -1056,7 +1056,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_FF()
 
 # FF Tab
 # parameter name:    `ffpre1type` and `ffp1type`, `ffp2type`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Menu Script
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP(True)
@@ -1068,7 +1068,7 @@ return menu
 
 # FF Tab
 # parameter name:    `ffv1type`, `ffv2type`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Menu Script
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T(True)
@@ -1080,7 +1080,7 @@ return menu
 
 # FF Tab
 # parameter name:    `ffp2weight`
-## type: `float`
+## parameter type: `float`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_FF_post_vars()
@@ -1091,7 +1091,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_FF_post_vars
 
 # FF Tab
 # parameter name:    `ffscl`
-## type: `float`
+## parameter type: `float`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_FF_affine_scale()
@@ -1106,7 +1106,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pre
 
 # FF Tab
 # parameter name:    `ffang`
-## type: `float`
+## parameter type: `float`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine_FF()
@@ -1117,7 +1117,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine_F
 
 # FF Tab
 # parameter name:    `ffpscl`
-## type: `float`
+## parameter type: `float`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_FF_post_affine_scale()
@@ -1132,7 +1132,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pos
 
 # FF Tab
 # parameter name:    `ffpang`
-## type: `float`
+## parameter type: `float`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_postaffine_FF()
@@ -1154,7 +1154,7 @@ In addition to playing with the shader parameters for each iterator, fractal Fla
 
 # CP Tab
 # parameter name:    `hsv`
-## type: `float vector 3`
+## parameter type: `float vector 3`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_hsv()
@@ -1169,7 +1169,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(2)
 
 # CP Tab
 # parameter name:    `palettehsv`
-## type: `ramp type color RGB`
+## parameter type: `ramp type color RGB`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_lock()
@@ -1184,7 +1184,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp()
 
 # CP Tab
 # parameter name:    `cp_lookupsamples`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
@@ -1195,7 +1195,7 @@ kwargs['parm'].deleteAllKeyframes()
 
 # CP Tab
 # parameter name:    `palette`
-## type: `ramp type color RGB`
+## parameter type: `ramp type color RGB`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp(True)
@@ -1210,7 +1210,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP_palette_a
 
 # CP Tab
 # parameter name:    `palettefile`
-## type: `file`
+## parameter type: `file`
 ### Callbac Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PRESETS(), kwargs['parm'].deleteAllKeyframes()
@@ -1221,7 +1221,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_
 
 # CP Tab
 # parameter name:    `palettename`
-## type: `string`
+## parameter type: `string`
 ### Callbac Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).cp_preset_name_set(), kwargs['parm'].deleteAllKeyframes()
@@ -1236,7 +1236,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).flam3h_ramp_save()
 
 # CP Tab
 # parameter name:    `palettepresets_off`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False), kwargs['parm'].deleteAllKeyframes()
@@ -1256,7 +1256,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 
 # CP Tab
 # parameter name:    `palettepresets`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False), kwargs['parm'].deleteAllKeyframes()
@@ -1287,7 +1287,7 @@ _When animating your fractal Flame, turning this on will compute a proper tempor
 
 # MB Tab
 # parameter name:    `domb`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).reset_MB(False)
@@ -1311,7 +1311,7 @@ _It is a native Flame fractal file format containing transformation parameters, 
 
 # IN Tab
 # parameter name:    `inpath`
-## type: `file`
+## parameter type: `file`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_IN_PRESETS(), kwargs['parm'].deleteAllKeyframes()
@@ -1322,7 +1322,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_IN_
 
 # IN Tab
 # parameter name:    `inpresets_disabled`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h(), kwargs['parm'].deleteAllKeyframes()
@@ -1342,7 +1342,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 
 # IN Tab
 # parameter name:    `inpresets`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h(), kwargs['parm'].deleteAllKeyframes()
@@ -1362,7 +1362,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 
 # IN Tab
 # parameter name:    `iternumonload`
-## type: `integer`
+## parameter type: `integer`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).set_iter_on_load_callback()
@@ -1373,7 +1373,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).set_iter_on_load_callback()
 
 # IN Tab
 # parameter name:    `useiteronload`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
@@ -1384,7 +1384,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
 
 # IN Tab
 # parameter name:    `oritername`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
@@ -1395,7 +1395,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
 
 # IN Tab
 # parameter name:    `in_f3h_affine`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_f3h_affine()
@@ -1406,7 +1406,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_f3h_
 
 # IN Tab
 # parameter name:    `propertiescp`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle("propertiescp")
@@ -1417,7 +1417,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle("pro
 
 # IN Tab
 # parameter name:    `cprendervals`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()
@@ -1428,7 +1428,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, 
 
 # IN Tab
 # parameter name:    `icon_in_infos_sensor`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_sensor_stats_msg(kwargs)
@@ -1439,7 +1439,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_sensor_stats_msg(kwargs)
 
 # IN Tab
 # parameter name:    `icon_in_infos_render`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
@@ -1464,7 +1464,7 @@ _It is a native Flame fractal file format containing transformation parameters, 
 
 # OUT Tab
 # parameter name:    `outpath`
-## type: `file`
+## parameter type: `file`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS(), kwargs['parm'].deleteAllKeyframes()
@@ -1475,7 +1475,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT
 
 # OUT Tab
 # parameter name:    `outname`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_add_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()
@@ -1490,7 +1490,7 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 
 # OUT Tab
 # parameter name:    `outpresets`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_to_flam3h_quick(), kwargs['parm'].deleteAllKeyframes()
@@ -1510,7 +1510,7 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_presets_copy_menu_l
 
 # OUT Tab
 # parameter name:    `out_in_flame_name`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_load()
@@ -1521,7 +1521,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_lo
 
 # OUT Tab
 # parameter name:    `autoadditer`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
@@ -1532,7 +1532,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_
 
 # OUT Tab
 # parameter name:    `outedit`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_off("outsensor"), kwargs['parm'].deleteAllKeyframes()
@@ -1547,7 +1547,7 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).reset_OUT_kwargs()
 
 # OUT Tab
 # parameter name:    `out_sensorviz_disabled`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
@@ -1558,7 +1558,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle
 
 # OUT Tab
 # parameter name:    `out_sensorviz`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
@@ -1569,7 +1569,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle
 
 # OUT Tab
 # parameter name:    `out_sensorviz_off`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
@@ -1580,7 +1580,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle
 
 # OUT Tab
 # parameter name:    `outres`
-## type: `integer vector 2`
+## parameter type: `integer vector 2`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
@@ -1591,7 +1591,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 # OUT Tab
 # parameter name:    `outrespresets`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).menu_sensor_resolution_set(False), kwargs['parm'].deleteAllKeyframes()
@@ -1607,7 +1607,7 @@ return menu
 
 # OUT Tab
 # parameter name:    `outcprendervals`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()
@@ -1618,7 +1618,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, 
 
 # OUT Tab
 # parameter name:    `outcenter`
-## type: `float vector 2`
+## parameter type: `float vector 2`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
@@ -1629,7 +1629,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 # OUT Tab
 # parameter name:    `outrotate`
-## type: `float`
+## parameter type: `float`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
@@ -1640,7 +1640,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 # OUT Tab
 # parameter name:    `outscale`
-## type: `float`
+## parameter type: `float`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
@@ -1651,7 +1651,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 # OUT Tab
 # parameter name:    `outsensorupdate`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False), kwargs['parm'].deleteAllKeyframes()
@@ -1662,7 +1662,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 # OUT Tab
 # parameter name:    `outccdefault`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_compare_and_set_toggle(kwargs['node']), kwargs['parm'].deleteAllKeyframes()
@@ -1673,14 +1673,14 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_compare_and_set_to
 
 # OUT Tab
 # parameter name:    `icon_f3h_cc_defaults_copy`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_cc_curves_stats_msg(kwargs), kwargs['parm'].deleteAllKeyframes()
 ```
 # OUT Tab
 # parameter name:    `icon_f3h_cc_modified_reset`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_set_and_retrieve_defaults(kwargs['node']), kwargs['parm'].deleteAllKeyframes()
@@ -1691,7 +1691,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_set_and_retrieve_d
 
 # OUT Tab
 # parameter name:    `outcurveoverallval`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
@@ -1702,7 +1702,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwarg
 
 # OUT Tab
 # parameter name:    `outcurveredval`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
@@ -1713,7 +1713,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwarg
 
 # OUT Tab
 # parameter name:    `outcurvegreenval`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
@@ -1724,7 +1724,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwarg
 
 # OUT Tab
 # parameter name:    `outcurveblueval`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
@@ -1748,7 +1748,7 @@ _but do not directly impact the visual characteristics of individual fractal Fla
 
 # PREFS Tab
 # parameter name:    `paletteplus`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_palette_256_plus_check()
@@ -1759,7 +1759,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_palette_256_plus_check()
 
 # PREFS Tab
 # parameter name:    `enumeratemenu`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs(), kwargs['parm'].deleteAllKeyframes()
@@ -1770,7 +1770,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_pref
 
 # PREFS Tab
 # parameter name:    `itericons`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_menu(), kwargs['parm'].deleteAllKeyframes()
@@ -1781,7 +1781,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_
 
 # PREFS Tab
 # parameter name:    `vex_precision`
-## type: `string`
+## parameter type: `string`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_scripts(kwargs).flam3h_check_first_node_instance_prefs_cvex_precision_msg()
@@ -1792,7 +1792,7 @@ hou.pwd().hdaModule().flam3.flam3h_scripts(kwargs).flam3h_check_first_node_insta
 
 # PREFS Tab
 # parameter name:    `xm`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert(), kwargs['parm'].deleteAllKeyframes()
@@ -1803,7 +1803,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert(),
 
 # PREFS Tab
 # parameter name:    `ptcount`
-## type: `integer`
+## parameter type: `integer`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(kwargs['node'])
@@ -1814,7 +1814,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_m
 
 # PREFS Tab
 # parameter name:    `setdark`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes()
@@ -1825,7 +1825,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwar
 
 # PREFS Tab
 # parameter name:    `vptype`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay(), kwargs['parm'].deleteAllKeyframes()
@@ -1836,7 +1836,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay
 
 # PREFS Tab
 # parameter name:    `vpptsize`
-## type: `float`
+## parameter type: `float`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize()
@@ -1851,7 +1851,7 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSi
 
 # PREFS Tab
 # parameter name:    `vpww`
-## type: `float`
+## parameter type: `float`
 ### Caqlback Script
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth()
 - ### Action Button Script
@@ -1874,7 +1874,7 @@ _Here you will find informations about FLAM3H™._
 
 # ABOUT Tab
 # parameter name:    `flam3homepage`
-## type: `geometry data`
+## parameter type: `geometry data`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('web')
@@ -1885,7 +1885,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('web'
 
 # ABOUT Tab
 # parameter name:    `flam3github`
-## type: `geometry data`
+## parameter type: `geometry data`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('git')
@@ -1896,7 +1896,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('git'
 
 # ABOUT Tab
 # parameter name:    `flam3insta`
-## type: `geometry data`
+## parameter type: `geometry data`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('insta')
@@ -1907,7 +1907,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('inst
 
 # ABOUT Tab
 # parameter name:    `flam3youtube`
-## type: `geometry data`
+## parameter type: `geometry data`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('youtube')
@@ -1918,7 +1918,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('yout
 
 # ABOUT Tab
 # parameter name:    `tffa_pdf`
-## type: `geometry data`
+## parameter type: `geometry data`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('paper')
@@ -1929,7 +1929,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('pape
 
 # ABOUT Tab
 # parameter name:    `tffa_flam3github`
-## type: `geometry data`
+## parameter type: `geometry data`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('flam3git')
@@ -1940,7 +1940,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('flam
 
 # ABOUT Tab
 # parameter name:    `fract_bit`
-## type: `geometry data`
+## parameter type: `geometry data`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('bitbucket')
@@ -1951,7 +1951,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('bitb
 
 # ABOUT Tab
 # parameter name:    `fract_web`
-## type: `geometry data`
+## parameter type: `geometry data`
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('fractweb')

@@ -798,10 +798,11 @@ number of iterators [Icon:TOP/xmlinput]:
     - [Largeicon:BUTTONS/minus] to reduce the number of iterators by *`1`*(one). It will remove one from the end.
     - *CLEAR* button -> to remove all the iterators in one go.
 
-    Adding and Deleting iterators from here will also update all the FLAM3H(tm) internal data accordingly.
+    Adding and Deleting iterators from here will also update all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.
     
-    This is what you *must* use to Add and Delete iterators<br />
-    along with the [Add and Delete Control Icon|#FLAMEADDDEL] below ([Icon:opdef:.?icon_AddDelIteratorSVG.svg]).
+    <br />
+    Adding and/or removing iterators<br />
+    using the native menu displayed when you ((RMB)) on any multi parameter tab label wont work in Houdini versions prior to: *`21.0.470`*
 
     Rearranging iterators wont update their xaos strings.<br />
     ( _You should not do that in FLAM3H™_ ).
@@ -830,7 +831,6 @@ Add/Del iterators [Icon:TOP/xmlinput]:
     [Largeicon:opdef:.?icon_AddDelIteratorSVG.svg]<br />
 
     From this icon you will be able to Add and Delete iterators while updating all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.<br />
-    This is what you *must* use to Add and Delete iterators.
 
     _Usage_:
     - ((LMB)) to insert an iterator Before.
@@ -840,6 +840,9 @@ Add/Del iterators [Icon:TOP/xmlinput]:
     - ((CTRL)) + ((LMB)) to delete this iterator.
 
     <br />
+    Adding and/or removing iterators<br />
+    using the native menu displayed when you ((RMB)) on any multi parameter tab label wont work in Houdini versions prior to: *`21.0.470`*
+
     Rearranging iterators wont update their xaos strings.<br />
     ( _You should not do that in FLAM3H™_ ).
 
@@ -4045,6 +4048,9 @@ _A list of all parametric variations and their parametric parameter's names_
 :box:
     #display: rounded gray
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *New multiparameter features*<br /><br />
+
+    Adding and/or removing iterators<br />
+    using the native menu displayed when you ((RMB)) on any multi parameter tab label wont work in Houdini versions prior to: *`21.0.470`*
 
     Rearranging iterators wont update their xaos strings.<br />
     ( _You should not do that in FLAM3H™_ ).

@@ -27,7 +27,7 @@ to: **py_flam3usd__3_11**
 </br>
 </br>
 
-# PythonModule - Houdini version `H21 and up`
+# PythonModule - Houdini version: `H21 and up`
 The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
@@ -51,7 +51,7 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 </br>
 </br>
 
-# PythonModule - Houdini version `H19 to H20.5`
+# PythonModule - Houdini version: `H19 to H20.5`
 The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
@@ -148,7 +148,7 @@ _Here you will play with the main settings of FLAM3HUSD._
 
 # Prefs Tab
 # parameter name:    `sys_help`
-## type: `button`
+## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display_help()
@@ -159,7 +159,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display
 
 # Prefs Tab
 # parameter name:    `flam3hpath`
-## type: `operator path`
+## parameter type: `operator path`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_is_valid_flam3h_node()
@@ -170,7 +170,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_is_valid_flam
 
 # Prefs Tab
 # parameter name:    `setdark`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark()
@@ -181,7 +181,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark()
 
 # Prefs Tab
 # parameter name:    `rndtype`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer()
@@ -197,7 +197,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRend
 
 # Prefs Tab
 # parameter name:    `vptype`
-## type: `ordered menu`
+## parameter type: `ordered menu`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleDisplay()
@@ -208,7 +208,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleD
 
 # Prefs Tab
 # parameter name:    `vpptsize`
-## type: `float`
+## parameter type: `float`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize()
@@ -223,7 +223,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportPart
 
 # Prefs Tab
 # parameter name:    `widths`
-## type: `float`
+## parameter type: `float`
 - ### Action Button script
 ```python
 kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(1.0, 'widths')
@@ -234,7 +234,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportPart
 
 # Prefs Tab
 # parameter name:    `pxsamples`
-## type: `integer`
+## parameter type: `integer`
 - ### Action Button script
 ```python
 kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(128, 'pxsamples')
@@ -245,7 +245,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportPart
 
 # Prefs Tab
 # parameter name:    `use_f3h_shader`
-## type: `toggle`
+## parameter type: `toggle`
 - ### Action Button script
 ```python
 kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).reset_flam3h_shader()
