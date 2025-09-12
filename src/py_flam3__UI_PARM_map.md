@@ -347,7 +347,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density_se
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density()
 return menu
 ```
-### Action Script
+- ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density_set_default()
 ```
@@ -358,7 +358,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_densi
 # GLOBAL Tab
 # parameter name:    `ptcount_presets_off`
 ## type: `ordered menu`
-### Action Script
+- ### Action Button Script
 ```python
 n = None
 ```
