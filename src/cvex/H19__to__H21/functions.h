@@ -195,7 +195,7 @@ int f3h_sample_cdf(const float CDF[]; float u_rand){
     foreach(int idx; float f; CDF){
         if(f>u_rand) return idx;
     }
-    return 0; // simply as this will never evaluate, it's needed to fill all the code paths.
+    return 0; // simply, as this will never evaluate. It's only needed to fill all the possible code paths.
 }
 
 
