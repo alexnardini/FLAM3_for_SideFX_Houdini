@@ -1853,7 +1853,9 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSi
 # parameter name:    `vpww`
 ## parameter type: `float`
 - ### Callback Script
+```python
 hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth()
+```
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(3.0)
