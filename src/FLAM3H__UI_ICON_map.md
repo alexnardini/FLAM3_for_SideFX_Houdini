@@ -33,7 +33,7 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 <br>
 <br>
 
-# FLAM3H™ -> "UI_ICON_map" file
+# FLAM3H™ -> UI_ICON_map
 - ### Contents
     - _List of all the UI parameters with ICONS associated with and the command string they are called from and from where_.
 

@@ -30,7 +30,7 @@
 <br>
 <br>
 
-# FLAM3HUSD -> "UI_PARM_map" file
+# FLAM3HUSD -> UI_PARM_map
 - ### Contents
     - _Collection of all the python modules run by the tool inside the HDA Type properties -> Script tab_.
     - _List of all the UI parameters wired with a python definition and the command string they actually run and from where_.
