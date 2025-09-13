@@ -50,7 +50,7 @@ to: **py_flam3__3_11**
 </br>
 </br>
 
-# PythonModule - Houdini version:  `H21 and up`
+# PythonModule - Houdini version:  `H21 UP`
 The **`flam3`** module is created out of the **`py_flam3__x_x`** file located inside the **Extra Files** section.</br>
 Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
