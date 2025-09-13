@@ -8201,7 +8201,55 @@ class flam3h_iterator_utils
         s_current: set = set(mpmem)
         s_history: set = set(mpmem_hou_get)
         _idx = list(set(s_history - s_current))
-        if _idx: idx_del_inbetween = int(_idx[0]) - 1
+        
+        # We added or removed more than one iterator in one go
+        if len(_idx) > 1:
+            
+            # Keep idx_del_inbetween and idx_add_inbetween as: None
+            _idx = []
+            
+            # if we removed more than one iterator in one go
+            if (len(s_history) > len(s_current)):
+                
+                # Clear menu cache
+                self.destroy_cachedUserData(node, 'iter_sel')
+
+                # update CachedUserData: flam3h_xaos_iterators_prev
+                self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
+                
+                # NEED TO DOUBLE CHECK HERE
+                # Update copy/paste iterator's index if there is a need to do so
+                flam3h_node_mp_id: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                
+                if flam3h_node_mp_id is not None:
+                    # Check if the node still exist
+                    try:
+                        hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                    except:
+                        flam3h_node_mp_id = None
+                        flam3h_node = None
+                    else:
+                        flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                        
+                    # If the node exist
+                    if flam3h_node_mp_id is not None and node == flam3h_node:
+                            
+                        # did we have a marked iterator inside the group we just removed ?
+                        if flam3h_node_mp_id > len(s_current):
+                            
+                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+                            # set
+                            prm_mpidx.set(-1)
+                            self.del_comment_and_user_data_iterator(node)
+                            # Let us know
+                            _MSG: str = f"{node.name()}: One of the iterators you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
+                            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                            
+                        else:
+                            pass
+        
+        # We added or removed one iterator
+        elif _idx: idx_del_inbetween = int(_idx[0]) - 1
         # ADD: INBETWEEN get index : try
         for mp in range(iter_count - 1):
             if mpmem[mp] == mpmem[mp + 1]:

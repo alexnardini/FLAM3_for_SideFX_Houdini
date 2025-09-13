@@ -28,6 +28,21 @@ They are all available in this Github repository.
 </br>
 </br>
 
+
+
+### [<ins>From v1.8.89</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.89) ###
+
+- **Fix**: FLAM3H™ was unable to restore its data when removing multiple iterators in one go while one of them being marked, throwing a python error ( _e.g. setting the iterators count from 6 to 3 while iterator 5 was marked_ ). It is now fixed.
+
+
+
+<br>
+<br>
+
+
+
+
+
 ### [<ins>From v1.8.88</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.88) ###
 
 - **Fix**: Updated and corrected: [src/py_flam3__UI_PARM_map.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/py_flam3__UI_PARM_map.md)

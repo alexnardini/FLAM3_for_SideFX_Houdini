@@ -18,12 +18,12 @@
 
 #### Quick links
 
-- Go to the **FLAM3H™**: [**UI_ICON_map**](FLAM3H__UI_ICON_map.md) file.
+- Go to the **FLAM3H™** [**UI_ICON_map**](FLAM3H__UI_ICON_map.md) file.
 
 </br>
 
-- Go to the **FLAM3HUSD**: [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md) file.
-- Go to the **FLAM3HUSD**: [**UI_PARM_map**](py_flam3usd__UI_PARM_map.md) file.
+- Go to the **FLAM3HUSD** [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md) file.
+- Go to the **FLAM3HUSD** [**UI_PARM_map**](py_flam3usd__UI_PARM_map.md) file.
 
 <br>
 <br>
@@ -63,7 +63,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.8.88"
+__version__ = "1.8.89"
 __status__  = "Production"
 __h_versions__: tuple = (210,)
 # The following are min and max Houdini version where FLAM3H™ can run.
@@ -107,7 +107,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.8.88"
+__version__ = "1.8.89"
 __status__  = "Production"
 __h_versions__: tuple = (190, 195, 200, 205)
 # The following are min and max Houdini version where FLAM3H™ can run.

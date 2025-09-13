@@ -21,12 +21,12 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 
 #### Quick links
 
-- Go to the **FLAM3HUSD**: [**UI_PARM_map**](py_flam3usd__UI_PARM_map.md) file.
+- Go to the **FLAM3HUSD** [**UI_PARM_map**](py_flam3usd__UI_PARM_map.md) file.
 
 </br>
 
-- Go to the **FLAM3H™**: [**UI_ICON_map**](FLAM3H__UI_ICON_map.md) file.
-- Go to the **FLAM3H™**: [**UI_PARM_map**](py_flam3__UI_PARM_map.md) file.
+- Go to the **FLAM3H™** [**UI_ICON_map**](FLAM3H__UI_ICON_map.md) file.
+- Go to the **FLAM3H™** [**UI_PARM_map**](py_flam3__UI_PARM_map.md) file.
 <br>
 <br>
 <br>
