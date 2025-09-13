@@ -8219,7 +8219,16 @@ class flam3h_iterator_utils
         s_history: set = set(mpmem_hou_get)
         _idx = list(set(s_history - s_current))
         
-        # We added or removed more than one iterator in one go
+        # We added or removed one iterator
+        if _idx: idx_del_inbetween = int(_idx[0]) - 1
+        # ADD: INBETWEEN get index : try
+        for mp in range(iter_count - 1):
+            if mpmem[mp] == mpmem[mp + 1]:
+                idx_add_inbetween = mp
+                break
+        
+        # We added or removed multiple iterators in one go.
+        # e.g. setting the iterators count from 6 to 3
         if len(_idx) > 1:
             
             # Keep idx_del_inbetween and idx_add_inbetween as: None
@@ -8264,17 +8273,9 @@ class flam3h_iterator_utils
                             
                         else:
                             pass
-        
-        # We added or removed one iterator
-        elif _idx: idx_del_inbetween = int(_idx[0]) - 1
-        # ADD: INBETWEEN get index : try
-        for mp in range(iter_count - 1):
-            if mpmem[mp] == mpmem[mp + 1]:
-                idx_add_inbetween = mp
-                break
-        
+                        
         # DEL -> ONLY LAST ITERATOR
-        if idx_del_inbetween is not None and idx_del_inbetween == iter_count:
+        elif idx_del_inbetween is not None and idx_del_inbetween == iter_count:
             
             # Clear menu cache
             self.destroy_cachedUserData(node, 'iter_sel')
