@@ -7,13 +7,36 @@
 #
 #   Name:       PY_FLAM3USD__UI_PRM_MAP
 #
-#   Comment:    List of all UI parameters wired with a python definition
+#   Comment:    List of all the UI parameters wired with a python definition
 #               and the command string they actually run and from where.
 #
 #               THIS IS ONLY INFORMATIVE AND FOR EASY FIND INSTEAD OF
 #               NAVIGATING THE PARAMETERS INSIDE THE OTL TYPE PROPERTIES WINDOW.
 ```
+</br>
+</br>
 
+#### Quick links
+
+- Go to the **FLAM3HUSD**: [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md) file.
+
+</br>
+
+- Go to the **FLAM3H™**: [**UI_ICON_map**](FLAM3H__UI_ICON_map.md) file.
+- Go to the **FLAM3H™**: [**UI_PARM_map**](py_flam3__UI_PARM_map.md) file.
+
+<br>
+<br>
+<br>
+<br>
+
+# FLAM3HUSD -> "UI_PARM_map" file
+- ### Contents
+    - _Collection of all the python modules run by the tool inside the HDA Type properties -> Script tab_.
+    - _List of all the UI parameters wired with a python definition and the command string they actually run and from where_.
+
+<br>
+<br>
 <br>
 <br>
 
