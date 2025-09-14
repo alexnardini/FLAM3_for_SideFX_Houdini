@@ -6485,7 +6485,7 @@ class flam3h_iterator_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu: list= []
+            menu: list = []
             
             node = self.node
             idx: str = self.kwargs['script_multiparm_index']
@@ -6507,24 +6507,26 @@ class flam3h_iterator_utils
                     prm_selmem.set(0)
                     
                 # Menu entrie sections bookmark icon
-                active: int = from_FLAM3H_NODE.parm(f"vactive_{idx_from}").eval()
-                weight: float = from_FLAM3H_NODE.parm(f"iw_{idx_from}").eval()
-                if active and weight > 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE
-                elif active and weight == 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
-                else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
-                
-                # Build menu
-                if node == from_FLAM3H_NODE and int(idx) == mp_id_from:
-                    menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED\n-> Select a different iterator number or a different FLAM3H™ node to paste its values.", 1,"" ]
-                elif node == from_FLAM3H_NODE:
-                    path: str = f"{_ICON}  {idx_from}"
-                    menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                try: active: int = from_FLAM3H_NODE.parm(f"vactive_{idx_from}").eval()
+                except: return [0, ""]
                 else:
-                    assert from_FLAM3H_NODE is not None
-                    path: str = f"{_ICON}  .../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
-                    menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  ... {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                    weight: float = from_FLAM3H_NODE.parm(f"iw_{idx_from}").eval()
+                    if active and weight > 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE
+                    elif active and weight == 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
+                    else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
                 
-                return menu
+                    # Build menu
+                    if node == from_FLAM3H_NODE and int(idx) == mp_id_from:
+                        menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {idx}: MARKED\n-> Select a different iterator number or a different FLAM3H™ node to paste its values.", 1,"" ]
+                    elif node == from_FLAM3H_NODE:
+                        path: str = f"{_ICON}  {idx_from}"
+                        menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                    else:
+                        assert from_FLAM3H_NODE is not None
+                        path: str = f"{_ICON}  .../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
+                        menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  ... {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                    
+                    return menu
             
             else:
                 if isDELETED: return MENU_ITER_COPY_PASTE_DELETED_MARKED
@@ -8223,25 +8225,19 @@ class flam3h_iterator_utils
         # DEL: INBETWEEN get index: try
         s_current: set = set(mpmem)
         s_history: set = set(mpmem_hou_get)
-        _idx = list(set(s_history - s_current))
+        _idx: list = list(set(s_history - s_current))
         
-        # We added or removed one iterator
-        if _idx: idx_del_inbetween = int(_idx[0]) - 1
-        # ADD: INBETWEEN get index : try
-        for mp in range(iter_count - 1):
-            if mpmem[mp] == mpmem[mp + 1]:
-                idx_add_inbetween = mp
-                break
-            
-        # We added or removed multiple iterators in one go.
+        _XAOS_UPDATE: bool = False
+        
+        # If we added or removed multiple iterators in one go.
         # e.g. setting the iterators count from 6 to 3
         if len(_idx) > 1:
             
-            # Keep idx_del_inbetween and idx_add_inbetween as: None
-            _idx = []
-            
-            # if we removed more than one iterator in one go
+            # if we removed
             if (len(s_history) > len(s_current)):
+                
+                _ITER_DEL: bool = False
+                _XF_VIZ_DEL: bool = False
                 
                 # Clear menu cache
                 self.destroy_cachedUserData(node, 'iter_sel')
@@ -8274,180 +8270,210 @@ class flam3h_iterator_utils
                             prm_mpidx.set(-1)
                             self.del_comment_and_user_data_iterator(node)
                             # Let us know
-                            _MSG: str = f"{node.name()}: One of the iterators you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
+                            _ITER_DEL = True
+                        
+                # XF VIZ
+                if prm_xfviz.eval() and prm_xfviz_solo.eval():
+                    
+                    xf_viz_mp_idx: int = prm_xfviz_solo_mp_idx.eval()
+                    if xf_viz_mp_idx  > len(s_current):
+                        _XF_VIZ_DEL = True
+                        prm_xfviz_solo.set(0)
+                        self.destroy_userData(node, f"{data_name}")
+                        # Let us know
+                        _XF_VIZ_DEL = True
+
+                if _ITER_DEL and _XF_VIZ_DEL:
+                    _MSG: str = f"{node.name()}: One of the iterators you just removed was marked for being copied and one had its XF VIZ: ON. Reverted to display all the xforms handles VIZ together. -> {MARK_ITER_MSG_STATUS_BAR}"
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                elif _ITER_DEL:
+                     _MSG: str = f"{node.name()}: One of the iterators you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
+                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                elif _XF_VIZ_DEL:
+                    _MSG: str = f"{node.name()}: One of the iterators you just removed had its XF VIZ: ON. Reverted to display all the xforms handles VIZ together."
+                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                else:
+                    pass
+        
+        else:
+            # We added or removed one iterator
+            if _idx: idx_del_inbetween = int(_idx[0]) - 1
+            # ADD: INBETWEEN get index : try
+            for mp in range(iter_count - 1):
+                if mpmem[mp] == mpmem[mp + 1]:
+                    idx_add_inbetween = mp
+                    break
+            
+            # Check if Xaos need an update
+            if idx_del_inbetween is not None or idx_add_inbetween is not None: _XAOS_UPDATE = True
+        
+        # If Xaos need to be updated
+        if _XAOS_UPDATE:
+            
+            # DEL -> ONLY LAST ITERATOR
+            if idx_del_inbetween is not None and idx_del_inbetween == iter_count:
+                
+                # Clear menu cache
+                self.destroy_cachedUserData(node, 'iter_sel')
+
+                # update CachedUserData: flam3h_xaos_iterators_prev
+                self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
+                
+                # NEED TO DOUBLE CHECK HERE
+                # Update copy/paste iterator's index if there is a need to do so
+                flam3h_node_mp_id: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                
+                if flam3h_node_mp_id is not None:
+                    # Check if the node still exist
+                    try:
+                        hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                    except:
+                        flam3h_node_mp_id = None
+                        flam3h_node = None
+                    else:
+                        flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                        
+                    # If the node exist
+                    if flam3h_node_mp_id is not None and node == flam3h_node:
+                            
+                        if (idx_del_inbetween + 1) == flam3h_node_mp_id: # just in case..
+                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+                            # set
+                            prm_mpidx.set(-1)
+                            self.del_comment_and_user_data_iterator(node)
+                            # Let us know
+                            _MSG: str = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
+                            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        
+                # XF VIZ
+                if prm_xfviz.eval() and prm_xfviz_solo.eval():
+                    
+                    xf_viz_mp_idx: int = prm_xfviz_solo_mp_idx.eval()
+                    if (idx_del_inbetween + 1) == xf_viz_mp_idx:
+                        prm_xfviz_solo.set(0)
+                        self.destroy_userData(node, f"{data_name}")
+                        
+                        _MSG: str = f"{node.name()}: One of the iterators you just removed had its XF VIZ: ON. Reverted to display all the xforms handles VIZ together."
+                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        
+            # DEL
+            elif idx_del_inbetween is not None and idx_del_inbetween < iter_count:
+                
+                # Clear menu cache
+                self.destroy_cachedUserData(node, 'iter_sel')
+
+                xaos_str: list = xaos_str_hou_get
+                del xaos_str[idx_del_inbetween]
+                for x in xaos_str:
+                    del x[idx_del_inbetween]
+
+                # update CachedUserData: flam3h_xaos_iterators_prev
+                self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
+                
+                # Update copy/paste iterator's index if there is a need to do so
+                flam3h_node_mp_id: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                
+                if flam3h_node_mp_id is not None:
+                    # Check if the node still exist
+                    try:
+                        hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                    except:
+                        flam3h_node_mp_id = None
+                        flam3h_node = None
+                    else:
+                        flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                        
+                    # If the node exist and if it is the selected one
+                    if flam3h_node_mp_id is not None and node == flam3h_node:
+                            
+                        if (idx_del_inbetween + 1) < flam3h_node_mp_id:
+                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = flam3h_node_mp_id - 1 # type: ignore
+                            # set
+                            idx_new: int = prm_mpidx.eval() - 1
+                            prm_mpidx.set(idx_new)
+                            self.del_comment_and_user_data_iterator(node)
+                            self.set_comment_and_user_data_iterator(node, str(idx_new))
+
+                        elif (idx_del_inbetween + 1) == flam3h_node_mp_id:
+                            
+                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+                            # set
+                            prm_mpidx.set(-1)
+                            self.del_comment_and_user_data_iterator(node)
+                            # Let us know
+                            _MSG: str = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                             
                         else:
                             pass
-        
-        # DEL -> ONLY LAST ITERATOR
-        elif idx_del_inbetween is not None and idx_del_inbetween == iter_count:
-            
-            # Clear menu cache
-            self.destroy_cachedUserData(node, 'iter_sel')
-
-            # update CachedUserData: flam3h_xaos_iterators_prev
-            self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
-            
-            # NEED TO DOUBLE CHECK HERE
-            # Update copy/paste iterator's index if there is a need to do so
-            flam3h_node_mp_id: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
-            
-            if flam3h_node_mp_id is not None:
-                # Check if the node still exist
-                try:
-                    hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                except:
-                    flam3h_node_mp_id = None
-                    flam3h_node = None
-                else:
-                    flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
-                    
-                # If the node exist
-                if flam3h_node_mp_id is not None and node == flam3h_node:
                         
-                    if (idx_del_inbetween + 1) == flam3h_node_mp_id: # just in case..
-                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
-                        # set
-                        prm_mpidx.set(-1)
-                        self.del_comment_and_user_data_iterator(node)
-                        # Let us know
-                        _MSG: str = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
+                # XF VIZ
+                if prm_xfviz.eval() and prm_xfviz_solo.eval():
+                    
+                    xf_viz_mp_idx: int = prm_xfviz_solo_mp_idx.eval()
+                    if (idx_del_inbetween + 1) < xf_viz_mp_idx:
+                        prm_xfviz_solo_mp_idx.set(xf_viz_mp_idx - 1)
+                        node.setUserData(f"{data_name}", str(xf_viz_mp_idx - 1))
+                    elif (idx_del_inbetween + 1) == xf_viz_mp_idx:
+                        prm_xfviz_solo.set(0)
+                        self.destroy_userData(node, f"{data_name}")
+                        _MSG: str = f"{node.name()}: One of the iterators you just removed had its XF VIZ: ON. Reverted to display all the xforms handles VIZ together."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        
-                    else:
-                        pass
-                    
-            # XF VIZ
-            if prm_xfviz.eval() and prm_xfviz_solo.eval():
+
+            # otherwise ADD
+            # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
+            elif idx_add_inbetween is not None:
                 
-                xf_viz_mp_idx: int = prm_xfviz_solo_mp_idx.eval()
-                if (idx_del_inbetween + 1) == xf_viz_mp_idx:
-                    prm_xfviz_solo.set(0)
-                    self.destroy_userData(node, f"{data_name}")
-                    
-                    _MSG: str = f"{node.name()}: The iterator you just removed had its XF VIZ: ON. Reverted to display the xforms handles VIZ all together."
-                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                    
-        # DEL
-        elif idx_del_inbetween is not None and idx_del_inbetween < iter_count:
-            
-            # Clear menu cache
-            self.destroy_cachedUserData(node, 'iter_sel')
+                # Clear menu cache
+                self.destroy_cachedUserData(node, 'iter_sel')
 
-            xaos_str: list = xaos_str_hou_get
-            del xaos_str[idx_del_inbetween]
-            for x in xaos_str:
-                del x[idx_del_inbetween]
-
-            # update CachedUserData: flam3h_xaos_iterators_prev
-            self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
-            
-            # Update copy/paste iterator's index if there is a need to do so
-            flam3h_node_mp_id: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
-            if flam3h_node_mp_id is not None:
-                # Check if the node still exist
-                try:
-                    hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                except:
-                    flam3h_node_mp_id = None
-                    flam3h_node = None
-                else:
-                    flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
-                    
-                # If the node exist and if it is the selected one
-                if flam3h_node_mp_id is not None and node == flam3h_node:
+                for xidx, x in enumerate(xaos_str):
+                    if xidx != idx_add_inbetween:
+                        x.insert(idx_add_inbetween, '1.0')
+                        # x already had the new iterator weight added to the end of it
+                        # so lets remove the last element as it is not longer needed
+                        del x[-1]
                         
-                    if (idx_del_inbetween + 1) < flam3h_node_mp_id:
-                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = flam3h_node_mp_id - 1 # type: ignore
-                        # set
-                        idx_new: int = prm_mpidx.eval() - 1
-                        prm_mpidx.set(idx_new)
-                        self.del_comment_and_user_data_iterator(node)
-                        self.set_comment_and_user_data_iterator(node, str(idx_new))
-
-                    elif (idx_del_inbetween + 1) == flam3h_node_mp_id:
-                        
-                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
-                        # set
-                        prm_mpidx.set(-1)
-                        self.del_comment_and_user_data_iterator(node)
-                        # Let us know
-                        _MSG: str = f"{node.name()}: The iterator you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
-                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        
-                    else:
-                        pass
-                    
-            # XF VIZ
-            if prm_xfviz.eval() and prm_xfviz_solo.eval():
+                # update CachedUserData: flam3h_xaos_iterators_prev
+                self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
                 
-                xf_viz_mp_idx: int = prm_xfviz_solo_mp_idx.eval()
-                if (idx_del_inbetween + 1) < xf_viz_mp_idx:
-                    prm_xfviz_solo_mp_idx.set(xf_viz_mp_idx - 1)
-                    node.setUserData(f"{data_name}", str(xf_viz_mp_idx - 1))
-                elif (idx_del_inbetween + 1) == xf_viz_mp_idx:
-                    prm_xfviz_solo.set(0)
-                    self.destroy_userData(node, f"{data_name}")
-                    _MSG: str = f"{node.name()}: The iterator you just removed had its XF VIZ: ON. Reverted to display the xforms handles VIZ all together."
-                    flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-
-        # otherwise ADD
-        # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
-        elif idx_add_inbetween is not None:
-            
-            # Clear menu cache
-            self.destroy_cachedUserData(node, 'iter_sel')
-
-            for xidx, x in enumerate(xaos_str):
-                if xidx != idx_add_inbetween:
-                    x.insert(idx_add_inbetween, '1.0')
-                    # x already had the new iterator weight added to the end of it
-                    # so lets remove the last element as it is not longer needed
-                    del x[-1]
-                    
-            # update CachedUserData: flam3h_xaos_iterators_prev
-            self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
-            
-            # Update copy/paste iterator's index if there is a need to do so
-            flam3h_node_mp_id: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
-            
-            if flam3h_node_mp_id is not None:
-                # Check if the node still exist
-                try:
-                    hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                except:
-                    flam3h_node_mp_id = None
-                    flam3h_node = None
-                else:
-                    flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
-                    
-                # If the node exist and if it is the selected one
-                if flam3h_node_mp_id is not None and node == flam3h_node:
-                        
-                    if (idx_add_inbetween + 1) <= flam3h_node_mp_id:
-                        hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = flam3h_node_mp_id + 1 # type: ignore
-                        # set
-                        idx_new: int = prm_mpidx.eval() + 1
-                        prm_mpidx.set(idx_new)
-                        self.del_comment_and_user_data_iterator(node)
-                        self.set_comment_and_user_data_iterator(node, str(idx_new))
-                        
-                    else:
-                        pass
-                    
-            # XF VIZ
-            if prm_xfviz.eval() and prm_xfviz_solo.eval():
+                # Update copy/paste iterator's index if there is a need to do so
+                flam3h_node_mp_id: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
                 
-                xf_viz_mp_idx = prm_xfviz_solo_mp_idx.eval()
-                if (idx_add_inbetween + 1) <= xf_viz_mp_idx:
-                    prm_xfviz_solo_mp_idx.set(xf_viz_mp_idx + 1)
-                    node.setUserData(f"{data_name}", str(xf_viz_mp_idx + 1))
+                if flam3h_node_mp_id is not None:
+                    # Check if the node still exist
+                    try:
+                        hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                    except:
+                        flam3h_node_mp_id = None
+                        flam3h_node = None
+                    else:
+                        flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                        
+                    # If the node exist and if it is the selected one
+                    if flam3h_node_mp_id is not None and node == flam3h_node:
+                            
+                        if (idx_add_inbetween + 1) <= flam3h_node_mp_id:
+                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = flam3h_node_mp_id + 1 # type: ignore
+                            # set
+                            idx_new: int = prm_mpidx.eval() + 1
+                            prm_mpidx.set(idx_new)
+                            self.del_comment_and_user_data_iterator(node)
+                            self.set_comment_and_user_data_iterator(node, str(idx_new))
+                        
+                # XF VIZ
+                if prm_xfviz.eval() and prm_xfviz_solo.eval():
+                    
+                    xf_viz_mp_idx = prm_xfviz_solo_mp_idx.eval()
+                    if (idx_add_inbetween + 1) <= xf_viz_mp_idx:
+                        prm_xfviz_solo_mp_idx.set(xf_viz_mp_idx + 1)
+                        node.setUserData(f"{data_name}", str(xf_viz_mp_idx + 1))
         
+        # Otherwise just update the xaos history
         else:
             # update CachedUserData: flam3h_xaos_iterators_prev
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
-            
+        
         # set all multi parms xaos strings parms
         xaos_str_round_floats: list = [div_weight.join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)]
         prm_xaos_name: str = flam3h_iterator_prm_names().xaos
