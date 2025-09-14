@@ -18,12 +18,12 @@
 
 #### Quick links
 
-- Go to the **FLAM3H™** [**UI_ICON_map**](FLAM3H__UI_ICON_map.md) file.
+- **FLAM3H™** [**UI_ICON_map**](FLAM3H__UI_ICON_map.md)
 
 </br>
 
-- Go to the **FLAM3HUSD** [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md) file.
-- Go to the **FLAM3HUSD** [**UI_PARM_map**](py_flam3usd__UI_PARM_map.md) file.
+- **FLAM3HUSD** [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md)
+- **FLAM3HUSD** [**UI_PARM_map**](py_flam3usd__UI_PARM_map.md)
 
 <br>
 <br>
