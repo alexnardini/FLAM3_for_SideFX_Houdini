@@ -5,7 +5,7 @@
 #   License:    GPL
 #   Copyright:  2023, © F stands for liFe ( made in Italy )
 #
-#   Name:       PY_FLAM3USD__UI_PRM_MAP
+#   Name:       PY_FLAM3USD__UI_PARM_MAP
 #
 #   Comment:    List of all the UI parameters wired with a python definition
 #               and the command string they actually run and from where.
