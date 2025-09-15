@@ -32,6 +32,8 @@ They are all available in this Github repository.
 
 ### [<ins>From v1.8.89</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.89) ###
 
+_This is a re-release of the same version but with some minor updates that were not included in the first attempt._
+
 - **Fix**: FLAM3H™ was unable to restore its data when removing multiple iterators in one go while one of them being marked or xform handles viz was On or both, throwing a python error ( _e.g. setting the iterators count from 6 to 3 while iterator 5 was marked_ ). It is now fixed.
 
 
