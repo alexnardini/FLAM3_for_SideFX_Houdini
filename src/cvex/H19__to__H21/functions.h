@@ -10,7 +10,7 @@
  /
  /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised April 2025
+ /  date:       October 2020, Last revised September 2025
  /  License:    GPL
  /  Copyright:  2021, © F stands for liFe ( made in Italy )
  /
