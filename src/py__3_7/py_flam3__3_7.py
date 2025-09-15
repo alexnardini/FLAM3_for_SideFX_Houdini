@@ -8214,6 +8214,7 @@ class flam3h_iterator_utils
                 # Clear menu cache
                 self.destroy_cachedUserData(node, 'iter_sel')
 
+                # update the xaos history
                 # update CachedUserData: flam3h_xaos_iterators_prev
                 self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
                 
@@ -8289,6 +8290,7 @@ class flam3h_iterator_utils
                 # Clear menu cache
                 self.destroy_cachedUserData(node, 'iter_sel')
 
+                # update the xaos history
                 # update CachedUserData: flam3h_xaos_iterators_prev
                 self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
                 
@@ -8343,6 +8345,7 @@ class flam3h_iterator_utils
                 for x in xaos_str:
                     del x[idx_del_inbetween]
 
+                # update the xaos history
                 # update CachedUserData: flam3h_xaos_iterators_prev
                 self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
                 
@@ -8409,6 +8412,7 @@ class flam3h_iterator_utils
                         # so lets remove the last element as it is not longer needed
                         del x[-1]
                         
+                # update the xaos history
                 # update CachedUserData: flam3h_xaos_iterators_prev
                 self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
                 
