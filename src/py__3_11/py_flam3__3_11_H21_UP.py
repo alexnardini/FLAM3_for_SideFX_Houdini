@@ -5633,19 +5633,15 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
+        
+        # Names of the cachedUserData
+        data_names: tuple = ('cp_presets_menu', 'cp_presets_menu_off', 'in_presets_menu', 'in_presets_menu_off', 'out_presets_menu')
+        
         if f3h_all:
             f3h_instances: tuple = node.type().instances()
-            [self.destroy_cachedUserData(f3h, 'cp_presets_menu') for f3h in f3h_instances]
-            [self.destroy_cachedUserData(f3h, 'cp_presets_menu_off') for f3h in f3h_instances]
-            [self.destroy_cachedUserData(f3h, 'in_presets_menu') for f3h in f3h_instances]
-            [self.destroy_cachedUserData(f3h, 'in_presets_menu_off') for f3h in f3h_instances]
-            [self.destroy_cachedUserData(f3h, 'out_presets_menu') for f3h in f3h_instances]
+            [[self.destroy_cachedUserData(f3h, name) for name in data_names] for f3h in f3h_instances]
         else:
-            self.destroy_cachedUserData(node, 'cp_presets_menu')
-            self.destroy_cachedUserData(node, 'cp_presets_menu_off')
-            self.destroy_cachedUserData(node, 'in_presets_menu')
-            self.destroy_cachedUserData(node, 'in_presets_menu_off')
-            self.destroy_cachedUserData(node, 'out_presets_menu')
+            [self.destroy_cachedUserData(node, name) for name in data_names]
             
 
     def update_xml_last_loaded(self, menu_update: bool = True) -> None:
