@@ -8218,7 +8218,7 @@ class flam3h_iterator_utils
         else:
             xaos_str_hou_get = list(__xaos_str_hou_get)
             
-        # DEL: INBETWEEN get index: try
+        # Check if the our current set of iterators is different from the history
         s_current: set = set(mpmem)
         s_history: set = set(mpmem_hou_get)
         _idx: list = list(set(s_history - s_current))
@@ -8226,7 +8226,7 @@ class flam3h_iterator_utils
         _XAOS_UPDATE: bool = False
         
         # If we added or removed multiple iterators in one go.
-        # e.g. setting the iterators count from 6 to 3
+        # e.g. setting the iterators count from 6 to 3 (what we are interested in, but the other way around is also a possibility)
         if len(_idx) > 1:
             
             # if we removed
@@ -8273,28 +8273,29 @@ class flam3h_iterator_utils
                     
                     xf_viz_mp_idx: int = prm_xfviz_solo_mp_idx.eval()
                     if xf_viz_mp_idx  > len(s_current):
-                        _XF_VIZ_DEL = True
                         prm_xfviz_solo.set(0)
                         self.destroy_userData(node, f"{data_name}")
                         # Let us know
                         _XF_VIZ_DEL = True
 
                 if _ITER_DEL and _XF_VIZ_DEL:
-                    _MSG: str = f"{node.name()}: One of the iterators you just removed was marked for being copied and one had its XF VIZ: ON. Reverted to display all the xforms handles VIZ together. -> {MARK_ITER_MSG_STATUS_BAR}"
+                    _MSG: str = f"{node.name()}: One of the iterators you just removed was marked for being copied and one had its XF VIZ in SOLO mode. Reverted to display all the xforms handles VIZ together. -> {MARK_ITER_MSG_STATUS_BAR}"
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 elif _ITER_DEL:
                      _MSG: str = f"{node.name()}: One of the iterators you just removed was marked for being copied -> {MARK_ITER_MSG_STATUS_BAR}"
                      flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 elif _XF_VIZ_DEL:
-                    _MSG: str = f"{node.name()}: One of the iterators you just removed had its XF VIZ: ON. Reverted to display all the xforms handles VIZ together."
+                    _MSG: str = f"{node.name()}: One of the iterators you just removed had its XF VIZ in SOLO mode. Reverted to display all the xforms handles VIZ together."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 else:
                     pass
         
         else:
             # We added or removed one iterator
+            #
+            # DEL: INBETWEEN get index: try
             if _idx: idx_del_inbetween = int(_idx[0]) - 1
-            # ADD: INBETWEEN get index : try
+            # ADD: INBETWEEN get index: try
             for mp in range(iter_count - 1):
                 if mpmem[mp] == mpmem[mp + 1]:
                     idx_add_inbetween = mp
