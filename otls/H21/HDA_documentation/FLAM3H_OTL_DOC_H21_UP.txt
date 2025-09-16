@@ -935,6 +935,10 @@ xform VIZ SOLO [Icon:DATATYPES/boolean]:
     - [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg] to enter into SOLO mode and display only this iterator xform handle VIZ in the viewport (_Default_).
     - [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg] to exit the SOLO mode and revert back to display all xforms handles VIZ together.<br /><br />
 
+    When any iterator has its xform handle in SOLO mode already ([Icon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]),<br />
+    it causes the iterator that is picked from the SYS tab's select iterator mini-menu to be automatically configured to be in SOLO mode.
+
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br /> 
     - Every time you activate the xform handle VIZ SOLO mode for an iterator, a custom user data is added to the FLAM3H(tm) node with the iterator number being in SOLO mode; the data name is: *`XF VIZ`*.<br />This is handy because you can review the user data from the node *`info window`* ( ((MMB)) _on the node_ ) and quickly find out which one is being displayed (_in case you do not remember or when many iterators have been created_).
     - The FF(_finalXform_) viewport handle will always be displayed if Active (_it will always be of color grey/white_).
