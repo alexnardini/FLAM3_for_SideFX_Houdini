@@ -47,7 +47,7 @@ It was important, so I could shape and steer this tool in the right direction.
 
 ### Description
 
-`FLAM3H™ node OTL documentation.`
+`FLAM3H™ node OTL documentation inside the latest Houdini version.`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_OTL_documentation.jpg)
 
 CVEX has been used to implement the algorithm in its entirety.

@@ -8205,7 +8205,7 @@ class flam3h_iterator_utils
         # e.g. setting the iterators count from 6 to 3 (what we are interested in, but the other way around is also a possibility)
         if len(_idx) > 1:
             
-            # if we removed more than one iterator in one go
+            # if we removed
             if (len(s_history) > len(s_current)):
                 
                 _ITER_DEL: bool = False
@@ -8218,22 +8218,21 @@ class flam3h_iterator_utils
                 # update CachedUserData: flam3h_xaos_iterators_prev
                 self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
                 
-                # NEED TO DOUBLE CHECK HERE
                 # Update copy/paste iterator's index if there is a need to do so
-                flam3h_node_mp_id: Union[int, None] = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                try: flam3h_node_mp_id: Union[int, None] = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                except: flam3h_node_mp_id: Union[int, None] = None
                 
                 if flam3h_node_mp_id is not None:
                     # Check if the node still exist
                     try:
                         hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
                     except:
-                        flam3h_node_mp_id = None
-                        flam3h_node = None
+                        flam3h_node: Union[hou.SopNode, None] = None
                     else:
                         flam3h_node: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                         
                     # If the node exist
-                    if flam3h_node_mp_id is not None and node == flam3h_node:
+                    if node == flam3h_node:
                             
                         # did we have a marked iterator inside the group we just removed ?
                         if flam3h_node_mp_id > len(s_current):
@@ -8294,22 +8293,21 @@ class flam3h_iterator_utils
                 # update CachedUserData: flam3h_xaos_iterators_prev
                 self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
                 
-                # NEED TO DOUBLE CHECK HERE
                 # Update copy/paste iterator's index if there is a need to do so
-                flam3h_node_mp_id: Union[int, None] = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                try: flam3h_node_mp_id: Union[int, None] = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                except: flam3h_node_mp_id: Union[int, None] = None
                 
                 if flam3h_node_mp_id is not None:
                     # Check if the node still exist
                     try:
                         hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
                     except:
-                        flam3h_node_mp_id = None
-                        flam3h_node = None
+                        flam3h_node: Union[hou.SopNode, None] = None
                     else:
                         flam3h_node: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                         
                     # If the node exist
-                    if flam3h_node_mp_id is not None and node == flam3h_node:
+                    if node == flam3h_node:
                             
                         if (idx_del_inbetween + 1) == flam3h_node_mp_id: # just in case..
                             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = None # type: ignore
@@ -8330,8 +8328,8 @@ class flam3h_iterator_utils
                     if (idx_del_inbetween + 1) == xf_viz_mp_idx:
                         prm_xfviz_solo.set(0)
                         self.destroy_userData(node, f"{data_name}")
-                        
-                        _MSG: str = f"{node.name()}: The iterator you just removed had its XF VIZ: ON. Reverted to display the xforms handles VIZ all together."
+                        # Let us know
+                        _MSG: str = f"{node.name()}: The iterators you just removed had its XF VIZ in SOLO mode. Reverted to display all the xforms handles VIZ together."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         
             # DEL
@@ -8350,19 +8348,20 @@ class flam3h_iterator_utils
                 self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
                 
                 # Update copy/paste iterator's index if there is a need to do so
-                flam3h_node_mp_id: Union[int, None] = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                try: flam3h_node_mp_id: Union[int, None] = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                except: flam3h_node_mp_id: Union[int, None] = None
+                
                 if flam3h_node_mp_id is not None:
                     # Check if the node still exist
                     try:
                         hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
                     except:
-                        flam3h_node_mp_id = None
-                        flam3h_node = None
+                        flam3h_node: Union[hou.SopNode, None] = None
                     else:
                         flam3h_node: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                         
                     # If the node exist and if it is the selected one
-                    if flam3h_node_mp_id is not None and node == flam3h_node:
+                    if node == flam3h_node:
                             
                         if (idx_del_inbetween + 1) < flam3h_node_mp_id:
                             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = flam3h_node_mp_id - 1 # type: ignore
@@ -8395,7 +8394,8 @@ class flam3h_iterator_utils
                     elif (idx_del_inbetween + 1) == xf_viz_mp_idx:
                         prm_xfviz_solo.set(0)
                         self.destroy_userData(node, f"{data_name}")
-                        _MSG: str = f"{node.name()}: The iterator you just removed had its XF VIZ: ON. Reverted to display the xforms handles VIZ all together."
+                        # Let us know
+                        _MSG: str = f"{node.name()}: The iterators you just removed had its XF VIZ in SOLO mode. Reverted to display all the xforms handles VIZ together."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
 
             # otherwise ADD
@@ -8417,20 +8417,20 @@ class flam3h_iterator_utils
                 self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
                 
                 # Update copy/paste iterator's index if there is a need to do so
-                flam3h_node_mp_id: Union[int, None] = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                try: flam3h_node_mp_id: Union[int, None] = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                except: flam3h_node_mp_id: Union[int, None] = None
                 
                 if flam3h_node_mp_id is not None:
                     # Check if the node still exist
                     try:
                         hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
                     except:
-                        flam3h_node_mp_id = None
-                        flam3h_node = None
+                        flam3h_node: Union[hou.SopNode, None] = None
                     else:
                         flam3h_node: Union[hou.SopNode, None] = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
                         
                     # If the node exist and if it is the selected one
-                    if flam3h_node_mp_id is not None and node == flam3h_node:
+                    if node == flam3h_node:
                             
                         if (idx_add_inbetween + 1) <= flam3h_node_mp_id:
                             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: Union[int, None] = flam3h_node_mp_id + 1 # type: ignore

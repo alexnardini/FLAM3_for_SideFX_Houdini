@@ -30,6 +30,20 @@ They are all available in this Github repository.
 
 
 
+### [<ins>From v1.8.90</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.90) ###
+
+- **Fix**: Improved auto set xaos procedure.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
+
+
 ### [<ins>From v1.8.89</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.89) ###
 
 _This is a re-release of the same version but with some minor updates that were not included in the first attempt._
