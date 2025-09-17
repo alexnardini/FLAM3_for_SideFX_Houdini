@@ -9977,11 +9977,16 @@ class flam3h_palette_utils
             xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
 
             if xml is not None and clipboard:
+                
                 apo_data = in_flame_iter_data(node, xml, preset_id)
-                in_flame_utils(self.kwargs).in_to_flam3h_set_palette(node, apo_data, _FLAM3H_INIT_DATA, True)
-                _MSG: str = f"{node.name()}: PALETTE Clipboard: LOAD Palette data from Flame preset: \"{_FLAM3H_INIT_DATA[3]}\" -> Completed"
-                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-                flam3h_general_utils.flash_message(node, f"CP LOADED from the Clipboard")
+                _VALID_PALETTE: bool = in_flame_utils(self.kwargs).in_to_flam3h_set_palette(node, apo_data, _FLAM3H_INIT_DATA, True)
+                
+                # If not an error (otherwise the ERROR messages are fired from the above definition)
+                if _VALID_PALETTE:
+                    _MSG: str = f"{node.name()}: PALETTE Clipboard: LOAD Palette data from Flame preset: \"{_FLAM3H_INIT_DATA[3]}\" -> Completed"
+                    flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                    flam3h_general_utils.flash_message(node, f"CP LOADED from the Clipboard")
+                    
             else:
                 _MSG: str = f"{node.name()}: Palette Clipboard: The data from the clipboard is not a valid F3H Palette data (JSON or XML)."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -15507,7 +15512,7 @@ class in_flame_utils
             flam3h_general_utils(self.kwargs).reset_MB()
             
 
-    def in_to_flam3h_set_palette(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool], flashmessage: bool = False) -> None:
+    def in_to_flam3h_set_palette(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool], flashmessage: bool = False) -> bool:
         """Set the Palette data into FLAM3H™ from the loaded XML Flame preset.
         
         Args:
@@ -15531,7 +15536,7 @@ class in_flame_utils
             flashmessage(bool): Default to False. if True, it will fire a flash and status message instead of a print message to the console. To be used when loading Palette data from the clipboard from a Flame preset.
 
         Returns:
-            (None):
+            (bool): True if all goes well. False if the loaded palette fail, most likely due to wrong HEX values in it.
         """ 
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
         
@@ -15555,6 +15560,7 @@ class in_flame_utils
             flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
             # reset tmp ramp palette
             flam3h_palette_utils(self.kwargs).reset_CP_TMP()
+            return True
             
         else:
             ramp_parm = node.parm(CP_RAMP_SRC_NAME)
@@ -15571,6 +15577,8 @@ class in_flame_utils
                 # A print() is being used here becasue otherwise
                 # it will be cleared out by other status bar messages down the line when loading a Flame preset
                 print(f"Warning:\n{node.name()}: {_MSG}\n")
+                
+            return False
             
             
     def in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool], copy_only: bool = False) -> None:
