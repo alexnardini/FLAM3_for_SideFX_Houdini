@@ -9948,6 +9948,10 @@ class flam3h_palette_utils
             if preset:
                 node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset}) # type: ignore
                 flam3h_general_utils.flash_message(node, preset)
+        else:
+            _MSG: str = f"{node.name()}: CP: Nothing to load"
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.flash_message(node, f"CP: Nothing to load")
             
             
     def json_to_flam3h_ramp_ALT(self, node: hou.SopNode) -> None:

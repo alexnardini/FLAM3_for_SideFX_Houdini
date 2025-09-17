@@ -624,8 +624,14 @@ CP Preset reload:
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
+    - ((CTRL)) + ((LMB)) to copy the selected preset name into the *`palette name`* string parameter.
     - ((ALT)) + ((LMB)) to load a palette from the Clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the Clipboard, it will extract only the XML palette data and load it into the FLAM3H(tm) palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H(tm).
     
+    <br />
+    _Additionally_:
+
+    - If the palette data possess invalid hex values, only one red color key will be created to signal it.
+
 :box:
     #display: rounded white
     
@@ -1868,8 +1874,12 @@ Reload preset:
     - ((LMB)) Reload the selected CP palette preset.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
     - ((CTRL)) + ((LMB)) to copy the selected preset name into the *`palette name`* string parameter.
-    - ((ALT)) + ((LMB)) Load a palette from the Clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the Clipboard, it will extract only the XML palette data and load it into the FLAM3H(tm) palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H(tm).
+    - ((ALT)) + ((LMB)) to load a palette from the Clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the Clipboard, it will extract only the XML palette data and load it into the FLAM3H(tm) palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H(tm).
 
+    <br />
+    _Additionally_:
+    
+    - If the palette data possess invalid hex values, only one red color key will be created to signal it.
 
 :box:
     #display: rounded white

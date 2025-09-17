@@ -215,7 +215,7 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     As a general rule, the more, the better.<br />
     Must strike a balance between processing speed and quality.
 
-    _The menu labels posses a bookmark icon_:
+    _The menu labels possess a bookmark icon_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] default preset of *`500k`*(_thousands_). This is what should be used while editing fractal Flames most of the time.
     - [Largeicon:opdef:.?icon_StarSwapCyanSmallSVG.svg] presets from *`1`* to *`15`* millions.
@@ -446,7 +446,7 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
 
     - The viewport handles will be automatically disabled when FLAM3H(tm) is run from whithin the Solaris/Lop context.
 
-    - The FLAM3H(tm) node posses a dive-in location to only display the xforms handles without the FLAM3H(tm) points.<br />
+    - The FLAM3H(tm) node possess a dive-in location to only display the xforms handles without the FLAM3H(tm) points.<br />
 
         - double ((LMB)) on the FLAM3H(tm) node to dive-in, or:
 
@@ -532,7 +532,7 @@ mini-menu TAG size [Icon:BUTTONS/pane_menu]:
     #id: SYS
     Set different viewport TAG sizes.
 
-    _The menu labels posses a bookmark icon_:
+    _The menu labels possess a bookmark icon_:
 
     - [Largeicon:opdef:.?icon_TagOBlueMenuSmallSVG.svg] for a small tag size (_Default_).
     - [Largeicon:opdef:.?icon_TagOBlueMenuMidSVG.svg] for a Medium tag size.
@@ -592,7 +592,7 @@ mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
     Select a preset from the [CP tab|#CP] JSON file that is currently open and load it.<br /><br />
     This is being introduced since it is convenient to switch palette preset without constantly entering the CP tab.
     
-    _The selected menu entrie posses a bookmark icon based on its state_:
+    _The selected menu entrie possess a bookmark icon based on its state_:
     
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
@@ -624,8 +624,14 @@ CP Preset reload:
     
     - ((LMB)) Reload the selected CP palette preset.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
+    - ((CTRL)) + ((LMB)) to copy the selected preset name into the *`palette name`* string parameter.
     - ((ALT)) + ((LMB)) to load a palette from the Clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the Clipboard, it will extract only the XML palette data and load it into the FLAM3H(tm) palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H(tm).
     
+    <br />
+    _Additionally_:
+
+    - If the palette data possess invalid hex values, only one red color key will be created to signal it.
+
 :box:
     #display: rounded white
     
@@ -636,7 +642,7 @@ mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
     Select a preset from the [IN tab|#INF] Flame file that is presently open and load it.<br /><br />
     This is being introduced since it is convenient to switch Flame presets without constantly entering the IN tab.
     
-    _The selected menu entrie posses a bookmark icon based on its state_:
+    _The selected menu entrie possess a bookmark icon based on its state_:
     
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_WhiteSVG_disabled.svg] when the selected preset name is not loaded.
@@ -705,7 +711,7 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
 
     <br />
     
-    _The menu labels posses a bookmark icon_:
+    _The menu labels possess a bookmark icon_:
 
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file, each Flame in the file will be marked with this icon.
@@ -825,7 +831,7 @@ number of iterators [Icon:TOP/xmlinput]:
 Add/Del iterators [Icon:TOP/xmlinput]:
     #id: FLAMEADDDEL
 
-    Each iterator posses the following control icon:
+    Each iterator possess the following control icon:
 
     <br />
     [Largeicon:opdef:.?icon_AddDelIteratorSVG.svg]<br />
@@ -879,7 +885,7 @@ copy/paste:
     
     Once an iterator has been marked, you can use the mini-menu [Icon:BUTTONS/pane_menu] next to the icon to copy individual sections from the marked iterator, including xaos.
     
-    Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder an iterator posses.<br />
+    Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder an iterator possess.<br />
     The sections items in the mini-menu have a bookmark icon that change based on the marked iterator status:
 
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is *`On`*/Active.
@@ -1127,7 +1133,7 @@ Opacity [Icon:TOP/xmlinput]:
         
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Variations bookmark icons*
 
-        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`*/Active will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
+        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`*/Active will cause the selected variation name in each of their menu parameter to possess a bookmark icon next to its label to display their state:
         
         - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
         - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
@@ -1511,7 +1517,7 @@ FF: copy/paste:
 
     Once the FF has been marked, you can use the mini-menu [Icon:BUTTONS/pane_menu] next to the icon to copy individual sections from the marked FF.
     
-    Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder the FF iterator posses.<br />
+    Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder the FF iterator possess.<br />
     The sections items in the mini-menu have a bookmark icon that change based on the marked FF status:
 
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFSVG.svg] when the marked FF is *`On`*/Active.
@@ -1548,7 +1554,7 @@ FF: copy/paste:
 
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Variations bookmark icons*
         
-        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`*/Active will cause the selected variation name in each of their menu parameter to posses a bookmark icon next to its label to display their state:
+        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`*/Active will cause the selected variation name in each of their menu parameter to possess a bookmark icon next to its label to display their state:
         
         - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
         - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
@@ -1744,7 +1750,7 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     
     The amount of lookup samples to use to sample this palette.
 
-    _Some of the menu labels posses a bookmark icon_:
+    _Some of the menu labels possess a bookmark icon_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset, *`256`* samples.
     - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] indicate a medium preset, *`512`* samples.
@@ -1874,7 +1880,7 @@ menu CP file contents [Icon:BUTTONS/pane_menu]:
     #id: PALETTE
     When you load a json palette file, use this menu to display all the palettes included in the loaded file and select one to load.
     
-    _The selected menu entrie posses a bookmark icon based on its state_:
+    _The selected menu entrie possess a bookmark icon based on its state_:
     
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
@@ -1900,8 +1906,12 @@ Reload preset:
     - ((LMB)) Reload the selected CP palette preset.
     - ((SHIFT)) + ((LMB)) to open a floating file chooser.
     - ((CTRL)) + ((LMB)) to copy the selected preset name into the *`palette name`* string parameter.
-    - ((ALT)) + ((LMB)) Load a palette from the Clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the Clipboard, it will extract only the XML palette data and load it into the FLAM3H(tm) palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H(tm).
+    - ((ALT)) + ((LMB)) to load a palette from the Clipboard.<br />Palette data can be loaded from data stored as a JSON format, or from data stored as a full Flame preset (_XML_).<br /><br />When a Flame preset is stored into the Clipboard, it will extract only the XML palette data and load it into the FLAM3H(tm) palette.<br /><br />It is handy when you are working inside Fractorium or Apophysis and you only want to export a Flame palette into FLAM3H(tm).
 
+    <br />
+    _Additionally_:
+    
+    - If the palette data possess invalid hex values, only one red color key will be created to signal it.
 
 :box:
     #display: rounded white
@@ -2056,7 +2066,7 @@ menu IN file contents [Icon:BUTTONS/pane_menu]:
     As many entries as there are Flames in the file you are loading will be added to this preset menu.
     Each entry will display the Flame's name.
     
-    _The selected menu entrie posses a bookmark icon based on its state_:
+    _The selected menu entrie possess a bookmark icon based on its state_:
     
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_WhiteSVG_disabled.svg] when the selected preset name is not loaded.
@@ -2155,7 +2165,7 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
     #id: IN
     *`On`* by default.
 
-    To be used when loading Flame presets that posses F3H affine style format in it.
+    To be used when loading Flame presets that possess F3H affine style format in it.
     
     If no F3H affine style are found nothing will happen and FLAM3H(tm) will load the Flame preset using the standard affine style instead.
     
@@ -2236,7 +2246,7 @@ IN infos [Icon:DATATYPES/string]:
 
     All of the variations that Fractorium has but FLAM3H(tm) does not are known as: *`MISSING`*.
 
-    FLAM3H(tm) was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he posses.
+    FLAM3H(tm) was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he possess.
 
     All of the variations that Fractorium lacks will be classified as: *`UNKNOWN`*<br />
     and they will be searched inside the XML key: [Icon:TOP/xmlinput] *`plugins`* of the loaded Flame preset (_from file or from Clipboard_).
@@ -2272,8 +2282,8 @@ IN infos [Icon:DATATYPES/string]:
 
         _The following entries will appear when the loaded Flame preset use variations FLAM3H(tm) do not posses_:
 
-    - *`MISSING`*:<br />Unique variations names being used FLAM3H(tm) do not posses but Fractorium does. 
-    - *`UNKNOWN`*:<br />Unique variations names being used but neither FLAM3H(tm) or Fractorium posses. 
+    - *`MISSING`*:<br />Unique variations names being used FLAM3H(tm) do not possess but Fractorium does. 
+    - *`UNKNOWN`*:<br />Unique variations names being used but neither FLAM3H(tm) or Fractorium possess. 
 
     <br />
 
@@ -2511,7 +2521,7 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
 
     <br />
 
-    _The menu labels posses a bookmark icon_:
+    _The menu labels possess a bookmark icon_:
 
     - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] When no file has been provided.
     - [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg] When loading a valid Flame file. Each Flame preset in the file will be marked with this icon.
@@ -2895,7 +2905,7 @@ Vibrancy [Icon:TOP/xmlinput]:
 
     == OUT: XML renderer color correction curves == (OUTEDITRENCCCURVES)
 
-    _This collapsible folder posses a header's toggle to signal when a color correction is *`On`*/Active or at its default values(*`Off`*)._
+    _This collapsible folder possess a header's toggle to signal when a color correction is *`On`*/Active or at its default values(*`Off`*)._
 
 Reset curves:
     #id: OUT
@@ -2925,7 +2935,7 @@ Reset curves:
 
     _Additionally_:<br />
     - When a Flame is loaded from the Clipboard, the color correction curves data will automatically be stored inside here.
-    - If a Flame preset do not posses any color correction curves data, default values (_no color correction_) will be used instead.
+    - If a Flame preset do not possess any color correction curves data, default values (_no color correction_) will be used instead.
 
 _Below a list of Fractorium  color correction curves XML keys being used:_
 
@@ -3201,7 +3211,7 @@ menu xaos modes [Icon:BUTTONS/pane_menu]:
     
     - Switching between xaos modes will convert the xaos: string values inside each iterator so that you can see how the new weights adjusted to fit the new mode.
 
-    _Some of the menu labels posses a bookmark icon_:
+    _Some of the menu labels possess a bookmark icon_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
     <br /><br />
@@ -3286,7 +3296,7 @@ menu type [Icon:BUTTONS/pane_menu]:
     #id: prefs
     Set the viewport particle display mode to either *`points`* or *`pixels`*.
 
-    _Some of the menu labels posses a bookmark icon_:
+    _Some of the menu labels possess a bookmark icon_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
     <br /><br />
