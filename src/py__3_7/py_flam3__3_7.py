@@ -9983,10 +9983,8 @@ class flam3h_palette_utils
             if xml is not None and clipboard:
                 
                 apo_data = in_flame_iter_data(node, xml, preset_id)
-                _VALID_PALETTE: bool = in_flame_utils(self.kwargs).in_to_flam3h_set_palette(node, apo_data, _FLAM3H_INIT_DATA, True)
-                
+                if in_flame_utils(self.kwargs).in_to_flam3h_set_palette(node, apo_data, _FLAM3H_INIT_DATA, True):
                 # If not an error (otherwise the ERROR messages are fired from the above definition)
-                if _VALID_PALETTE:
                     _MSG: str = f"{node.name()}: PALETTE Clipboard: LOAD Palette data from Flame preset: \"{_FLAM3H_INIT_DATA[3]}\" -> Completed"
                     flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                     flam3h_general_utils.flash_message(node, f"CP LOADED from the Clipboard")
