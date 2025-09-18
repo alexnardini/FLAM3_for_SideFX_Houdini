@@ -12779,7 +12779,7 @@ class in_flame_utils
 * in_to_flam3h_toggle_f3h_affine(self) -> None:
 * in_to_flam3h_reset_user_data(self) -> None:
 * in_to_flam3h_reset_iterators_parms(self, node: hou.SopNode, in_flame_iter_count: int) -> None:
-* in_to_flam3h_resets(self, node: hou.SopNode, _FLAM3H_INIT_DATA: str | None, bool, int, str, bool, bool) -> None:
+* in_to_flam3h_resets(self, node: hou.SopNode, _FLAM3H_INIT_DATA: TA_F3H_Init) -> None:
 * in_to_flam3h_set_iterators(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: TA_F3H_Init) -> None:
 * in_to_flam3h_set_motion_blur(self, node: hou.SopNode, apo_data: in_flame_iter_data) -> None:
 * in_to_flam3h_set_palette(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: TA_F3H_Init, flashmessage: bool = False) -> bool:
