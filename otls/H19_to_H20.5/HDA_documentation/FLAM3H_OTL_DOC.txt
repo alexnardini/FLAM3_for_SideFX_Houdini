@@ -630,7 +630,7 @@ CP Preset reload:
     <br />
     _Additionally_:
 
-    - When loading a palette preset (_from a file or from the Clipboard_),<br />if the palette data possess any invalid hex values, only one red color key will be created to signal it.<br />_This is valid for either a palette JSON data or XML Flame preset palette data_.
+    - When loading a palette preset (_from a file or from Clipboard_),<br />if the palette data possess any invalid hex values, only one red color key will be created to signal it.<br /><br />This is valid for either a palette JSON data (_from a file or from Clipboard_)<br />or a XML Flame preset palette data (_only from Clipboard_).
 
 :box:
     #display: rounded white
@@ -1879,7 +1879,7 @@ Reload preset:
     <br />
     _Additionally_:
     
-    - When loading a palette preset (_from a file or from the Clipboard_),<br />if the palette data possess any invalid hex values, only one red color key will be created to signal it.<br />_This is valid for either a palette JSON data or XML Flame preset palette data_.
+    - When loading a palette preset (_from a file or from Clipboard_),<br />if the palette data possess any invalid hex values, only one red color key will be created to signal it.<br /><br />This is valid for either a palette JSON data (_from a file or from Clipboard_)<br />or a XML Flame preset palette data (_only from Clipboard_).
 
 :box:
     #display: rounded white
