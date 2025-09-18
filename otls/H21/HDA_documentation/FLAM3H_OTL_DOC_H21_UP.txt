@@ -630,7 +630,7 @@ CP Preset reload:
     <br />
     _Additionally_:
 
-    - If the palette data possess invalid hex values, only one red color key will be created to signal it.
+    - When loading a palette preset (_from a file or from the Clipboard_),<br />if the palette data possess any invalid hex values, only one red color key will be created to signal it.<br />_This is valid for either a palette JSON data or XML Flame preset palette data_.
 
 :box:
     #display: rounded white
@@ -1911,7 +1911,7 @@ Reload preset:
     <br />
     _Additionally_:
     
-    - If the palette data possess invalid hex values, only one red color key will be created to signal it.
+    - When loading a palette preset (_from a file or from the Clipboard_),<br />if the palette data possess any invalid hex values, only one red color key will be created to signal it.<br />_This is valid for either a palette JSON data or XML Flame preset palette data_.
 
 :box:
     #display: rounded white
@@ -4092,7 +4092,7 @@ _A list of all parametric variations and their parametric parameter's names_
         - Digital Assets (_.otl, .hda, .hdalc, .hdanc_)
         - Node networks and sub-networks
         - Custom node definitions and parameter interfaces
-        - CVEX, VEX, VOP or OpenCL code
+        - Houdini CVEX, VEX, VOP or OpenCL code
         - Shelf tools, scripts, and presets
         - Any related configuration or scene files that represent the tool in its preferred form for making modifications
 
