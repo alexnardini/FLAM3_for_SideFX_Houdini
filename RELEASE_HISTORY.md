@@ -32,6 +32,8 @@ They are all available in this Github repository.
 
 ### [<ins>From v1.8.92</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.92) ###
 
+_This is a re-release of the same version but with some minor updates that were not included in the first attempt._
+
 - **Fix**: Loading a palette from a XML Flame preset from the Clipboard was not printing the error meesages in case the palette was not valid (wrong hex values). it is now fixed.
 - **Fix**: Copying a CP palette preset name into the **palette name** string parameter without a valid palette library loaded first was not informing the user with any messages, and only silently pass. it is now fixed.
 - **Updated HDA documentation.**
