@@ -63,14 +63,18 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.8.92"
+__version__ = "1.8.94"
 __status__  = "Production"
 __h_versions__: tuple = (210,)
 # The following are min and max Houdini version where FLAM3H™ can run.
 # The max version is always most likely the latest Houdini version released by SideFX
-# unless I stop development in which case you just need to update "__h_version_max__" yourself.
+# unless it is a closed range due to moving into newer Houdini and FLAM3H™ versions.
+#
+# The ranges can be open or close inside this definition:
+# - (py_flam3 3.11 and 3.11 H21 UP)  def flam3h_compatible(kwargs: dict | None = None, msg: bool = True) -> bool:
+# - (py_flam3 3.7)  def flam3h_compatible(kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
 __h_version_min__: int = 190
-__h_version_max__: int = 210
+__h_version_max__: int = __h_versions__[-1]
 
 def houdini_version(digit: int=1) -> int:
     """Retrieve the major Houdini version number currently in use.
@@ -107,14 +111,18 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.8.92"
+__version__ = "1.8.94"
 __status__  = "Production"
 __h_versions__: tuple = (190, 195, 200, 205)
 # The following are min and max Houdini version where FLAM3H™ can run.
 # The max version is always most likely the latest Houdini version released by SideFX
-# unless I stop development in which case you just need to update "__h_version_max__" yourself.
+# unless it is a closed range due to moving into newer Houdini and FLAM3H™ versions.
+#
+# The ranges can be open or close inside this definition:
+# - (py_flam3 3.11 and 3.11 H21 UP)  def flam3h_compatible(kwargs: dict | None = None, msg: bool = True) -> bool:
+# - (py_flam3 3.7)  def flam3h_compatible(kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
 __h_version_min__: int = 190
-__h_version_max__: int = 210
+__h_version_max__: int = __h_versions__[-1]
 
 def houdini_version(digit: int=1) -> int:
     """Retrieve the major Houdini version number currently in use.

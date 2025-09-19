@@ -1164,7 +1164,9 @@ class flam3h_scripts
 @STATICMETHODS
 * flam3h_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
 * flam3h_compatible_h_versions_msg(this_h_versions: tuple) -> None:
-* flam3h_compatible(kwargs: dict | None = None) -> bool:
+* flam3h_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
+* flam3h_compatible_range_close(kwargs: dict | None = None, msg: bool = True) -> bool:
+* flam3h_compatible_range_open(kwargs: dict | None = None, msg: bool = True) -> bool:
 * flam3h_on_create_lock_parms(node: hou.SopNode) -> None:
 * set_first_instance_global_var(cvex_precision: int) -> None:
 * flam3h_check_first_node_instance_msg_status_bar_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
@@ -1258,9 +1260,56 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_compatible(kwargs: dict | None = None, msg: bool = True) -> bool:
-        """Tell if this FLAM3H™ version is compatible with this Houdini version
+    def flam3h_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
+        """This is to be run inside:
+        
+        * def flam3h_compatible_range_close(kwargs: dict | None = None, msg: bool = True) -> bool:
+        * def flam3h_compatible_range_open(kwargs: dict | None = None, msg: bool = True) -> bool:
+        
+        It is for when FLAM3H™ is allowed to run inside the current Houdini version.
+        
+        Args:
+            h_version(int): This Houdini version.
+            this_h_versions(tuple): The allowed Houdini versions this FLAM3H™ can run with.
+            kwargs(dict | None): Default to None. When needed, this must be the class' self.kwargs. In the case of this definition, it will be passed in from the containing definition args.
+            msg(bool): Default to True. When False it will not run the hou display messages.
 
+        Returns:
+            (bool): True if compatible otherwise False.
+        """ 
+        
+        # If it is a match
+        if h_version in this_h_versions:
+            return True
+        
+        # We never know what will happen with the next major release of Houdini
+        # but we allow it to run regardless for now.
+        # If the current Houdini version is newer than the latest version supported by FLAM3H™
+        # we allow it to run anyway letting the user know that something can go wrong.
+        elif h_version > __h_version_max__:
+            
+            if msg and hou.isUIAvailable():
+                _MSG_H_VERSIONS = f"This Houdini version is: H{flam3h_scripts.flam3h_h_versions_build_data(h_version)}\nThe latest Houdini version supported by FLAM3H™ is: H{flam3h_scripts.flam3h_h_versions_build_data(__h_version_max__)}\nSome functionality may not work as intended or not work at all."
+                hou.ui.displayMessage(_MSG_H_VERSIONS, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+            return True
+        
+        else:
+            
+            if msg: flam3h_scripts.flam3h_compatible_h_versions_msg(this_h_versions)
+            
+            if kwargs is not None:
+                # Just in case I will need to do something
+                ...
+                
+            return False
+
+
+    @staticmethod
+    def flam3h_compatible_range_close(kwargs: dict | None = None, msg: bool = True) -> bool:
+        """Tell if this FLAM3H™ version is compatible with this Houdini version
+        
+        * range_close -> mean FLAM3H™ will run only on Houdini versions included inside: nodetype.hdaModule().__h_versions__
+        
         Args:
             kwargs(dict | None): Default to None. When needed, this must be the class' self.kwargs
             msg(bool): Default to True. When False it will not run the hou display messages.
@@ -1283,31 +1332,48 @@ class flam3h_scripts
             return False
         
         else:
+            # This will probably never evaluate with the range close, but just in case.
+            return flam3h_scripts.flam3h_compatible(h_version, this_h_versions, kwargs, msg)
+
+
+    @staticmethod
+    def flam3h_compatible_range_open(kwargs: dict | None = None, msg: bool = True) -> bool:
+        """Tell if this FLAM3H™ version is compatible with this Houdini version
+        
+        * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside: nodetype.hdaModule().__h_versions__ before being properly fine tuned.
+
+        Args:
+            kwargs(dict | None): Default to None. When needed, this must be the class' self.kwargs
+            msg(bool): Default to True. When False it will not run the hou display messages.
+
+        Returns:
+            (bool): True if compatible otherwise False.
+        """ 
+        h_version: int = flam3h_general_utils.houdini_version(2)
+        this_h_versions: tuple = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
+        
+        # Only for the latest FLAM3H™ on the latest Houdini version (and its latest python module version), otherwise the full range is checked.
+        #
+        # We never know what will happen with the next major release of Houdini
+        # but we allow it to run regardless for now.
+        # the files: "py_flam3__3_11.py" and "py_flam3__3_7.py" checks the full available range in the tuple:
+        # e.g.
+        # if h_version < this_h_versions[0] or h_version > this_h_versions[-1]:
+        #   ... 
+        # Most likely the range will be closed again once SideFX update the vcc compiler and LLVM.
+        if h_version < this_h_versions[0]:
             
-            # If it is a mtach
-            if h_version in this_h_versions:
-                return True
+            if msg: flam3h_scripts.flam3h_compatible_h_versions_msg(this_h_versions)
             
-            # We never know what will happen with the next major release of Houdini
-            # but we allow it to run regardless for now.
-            # If the current Houdini version is newer than the latest version supported by FLAM3H™
-            # we allow it to run anyway letting the user know that something can go wrong.
-            elif h_version > __h_version_max__:
-                
-                if msg and hou.isUIAvailable():
-                    _MSG_H_VERSIONS = f"This Houdini version is: H{flam3h_scripts.flam3h_h_versions_build_data(h_version)}\nThe latest Houdini version supported by FLAM3H™ is: H{flam3h_scripts.flam3h_h_versions_build_data(__h_version_max__)}\nSome functionality may not work as intended or not work at all."
-                    hou.ui.displayMessage(_MSG_H_VERSIONS, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
-                return True
+            if kwargs is not None:
+                # Just in case I will need to do something
+                ...
             
-            else:
-                
-                if msg: flam3h_scripts.flam3h_compatible_h_versions_msg(this_h_versions)
-                
-                if kwargs is not None:
-                    # Just in case I will need to do something
-                    ...
-                    
-                return False
+            return False
+        
+        else:
+            
+            return flam3h_scripts.flam3h_compatible(h_version, this_h_versions, kwargs, msg)
 
 
     @staticmethod
@@ -1335,7 +1401,7 @@ class flam3h_scripts
                             FLAM3H_PVT_H_VALID
                             )
         
-        [node.parm(prm_name).lock(True) for prm_name in prm_names]
+        [node.parm(prm_name).lock(True) for prm_name in prm_names if not node.parm(prm_name).isLocked()]
         
         
         # The following are FLAM3H™ UI utility parameters
@@ -1348,7 +1414,7 @@ class flam3h_scripts
                                      "aboutdisable"
                                      )
         
-        [node.parm(prm_name).lock(True) for prm_name in disabler_prm_names]
+        [node.parm(prm_name).lock(True) for prm_name in disabler_prm_names if not node.parm(prm_name).isLocked()]
 
 
     @staticmethod
@@ -1907,7 +1973,7 @@ class flam3h_scripts
         """
         node = self.node
         
-        if self.flam3h_compatible():
+        if self.flam3h_compatible_range_close():
             
             node.setColor(hou.Color((0.9,0.9,0.9)))
             
@@ -1989,6 +2055,10 @@ class flam3h_scripts
         """If we are loading hip files with FLAM3H™ nodes in it that were prviewsly initialized with an incompatible version of Houdini,
         restore their default settings if their iterators count is set to Zero, otherwise leave them as they are to not modify exixting settings.
         
+        This definition must run inside a:
+        * if hou.hipFile.isLoadingHipFile():
+            ....
+        
         _NOTE:
             This may be extended in the future, depending on needs.
         
@@ -2002,9 +2072,23 @@ class flam3h_scripts
             (None):
         """
         node = self.node
-        iter_count_prm: hou.Parm = node.parm(FLAME_ITERATORS_COUNT)
-        # Only if the iterators count is Zero
-        if not iter_count_prm.eval(): flam3h_iterator_utils(self.kwargs).flam3h_default()
+        
+        # This is done in case the user saved a hip file with FLAM3H™ nodes in it
+        # while using an incompatible version of Houdini so that we can restore it to functional again.
+        h_valid_prm: hou.Parm = node.parm(FLAM3H_PVT_H_VALID)
+        if not h_valid_prm.eval():
+            flam3h_general_utils.private_prm_set(self.node, h_valid_prm, 1)
+            
+            # Only if the iterators count is Zero
+            # This mean that this FLAM3H™ node was created inside an unsopported Houdini version
+            iter_count_prm: hou.Parm = node.parm(FLAME_ITERATORS_COUNT)
+            if not iter_count_prm.eval():
+                flam3h_iterator_utils(self.kwargs).flam3h_default()
+            
+                # lock private parameters not being locked on creation by other definitions.
+                # The Private parameters are unlocked becasue this definition will only run
+                # if the FLAM3H™ node was previewsly created and saved in an unsopported Houdini version so we need to re-lock them.
+                self.flam3h_on_create_lock_parms(node)
         
 
     def flam3h_on_loaded(self) -> None:
@@ -2018,7 +2102,7 @@ class flam3h_scripts
         """
         node = self.node
         
-        if self.flam3h_compatible():
+        if self.flam3h_compatible_range_close():
                         
             # Force updated of the mini-menu iterator selection
             flam3h_iterator_utils.destroy_cachedUserData(node, 'iter_sel')
@@ -2033,12 +2117,8 @@ class flam3h_scripts
             
             if hou.hipFile.isLoadingHipFile(): #type: ignore
                 
-                # This is done in case the user saved a hip file with FLAM3H™ nodes in it
-                # while using an incompatible version of Houdini so that we can restore it to functional again.
-                h_valid_prm: hou.Parm = node.parm(FLAM3H_PVT_H_VALID)
-                if not h_valid_prm.eval():
-                    flam3h_general_utils.private_prm_set(self.node, h_valid_prm, 1)
-                    self.flam3h_on_loaded_compatible_true()
+                # Restore if it is needed
+                self.flam3h_on_loaded_compatible_true()
                 
                 # set density menu
                 flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(node)
@@ -7507,7 +7587,7 @@ class flam3h_iterator_utils
         f3d = out_flame_utils(self.kwargs)
         # Convert xaos
         xaos_new = f3d.out_xf_xaos_from(0)
-        # update CachedUserData: flam3h_xaos_iterators_prev
+        # update parameterUserData: flam3h_xaos_iterators_prev
         self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_new)
         prm_xaos = flam3h_iterator_prm_names().xaos
         [node.setParms({f"{prm_xaos}_{str(idx + 1)}": div_xaos + div_weight.join(xaos_new[idx].split())}) if xaos_new[idx] else node.setParms({f"{prm_xaos}_{str(idx + 1)}": div_xaos}) for idx in range(f3d.iter_count)]
@@ -8232,7 +8312,7 @@ class flam3h_iterator_utils
                 self.destroy_cachedUserData(node, 'iter_sel')
 
                 # update the xaos history
-                # update CachedUserData: flam3h_xaos_iterators_prev
+                # update parameterUserData: flam3h_xaos_iterators_prev
                 self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
                 
                 # Update copy/paste iterator's index if there is a need to do so
@@ -8307,7 +8387,7 @@ class flam3h_iterator_utils
                 self.destroy_cachedUserData(node, 'iter_sel')
 
                 # update the xaos history
-                # update CachedUserData: flam3h_xaos_iterators_prev
+                # update parameterUserData: flam3h_xaos_iterators_prev
                 self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
                 
                 # Update copy/paste iterator's index if there is a need to do so
@@ -8358,7 +8438,7 @@ class flam3h_iterator_utils
                     del x[idx_del_inbetween]
 
                 # update the xaos history
-                # update CachedUserData: flam3h_xaos_iterators_prev
+                # update parameterUserData: flam3h_xaos_iterators_prev
                 self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
                 
                 # Update copy/paste iterator's index if there is a need to do so
@@ -8427,7 +8507,7 @@ class flam3h_iterator_utils
                         del x[-1]
                         
                 # update the xaos history
-                # update CachedUserData: flam3h_xaos_iterators_prev
+                # update parameterUserData: flam3h_xaos_iterators_prev
                 self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
                 
                 # Update copy/paste iterator's index if there is a need to do so
@@ -8464,7 +8544,7 @@ class flam3h_iterator_utils
         
         # Otherwise just update the xaos history
         else:
-            # update CachedUserData: flam3h_xaos_iterators_prev
+            # update parameterUserData: flam3h_xaos_iterators_prev
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
         
         # set all multi parms xaos strings parms
