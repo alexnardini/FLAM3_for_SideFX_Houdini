@@ -4032,9 +4032,9 @@ _A list of all parametric variations and their parametric parameter's names_
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *New multiparameter features*<br /><br />
 
     Adding and/or removing iterators<br />
-    using the native menu displayed when you ((RMB)) on any multi parameter tab label wont work in Houdini versions prior to: *`21.0.470`*
+    using the native menu displayed when you ((RMB)) on any multi parameter tab label wont work in Houdini versions prior to: *`21.0.470`* and the iterators xaos strings wont be updated. 
 
-    Rearranging iterators wont update their xaos strings.<br />
+    Rearranging iterators wont update their xaos strings either.<br />
     ( _You should not do that in FLAM3H™_ ).
 
 
