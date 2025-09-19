@@ -853,7 +853,7 @@ copy/paste:
     
     Once an iterator has been marked, you can use the mini-menu [Icon:BUTTONS/pane_menu] next to the icon to copy individual sections from the marked iterator, including xaos.
     
-    Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder an iterator posses.<br />
+    Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder an iterator possess.<br />
     The sections items in the mini-menu have a bookmark icon that change based on the marked iterator status:
 
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is *`On`*/Active.
@@ -1485,7 +1485,7 @@ FF: copy/paste:
 
     Once the FF has been marked, you can use the mini-menu [Icon:BUTTONS/pane_menu] next to the icon to copy individual sections from the marked FF.
     
-    Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder the FF iterator posses.<br />
+    Every item in the mini-menu [Icon:BUTTONS/pane_menu] is named exactly like every folder the FF iterator possess.<br />
     The sections items in the mini-menu have a bookmark icon that change based on the marked FF status:
 
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFSVG.svg] when the marked FF is *`On`*/Active.
@@ -2214,7 +2214,7 @@ IN infos [Icon:DATATYPES/string]:
 
     All of the variations that Fractorium has but FLAM3H(tm) does not are known as: *`MISSING`*.
 
-    FLAM3H(tm) was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he posses.
+    FLAM3H(tm) was designed to work in tandem with Fractorium, and it makes an effort to learn as much as it can about everything that Fractorium is capable of, in this case, about all the variations he possess.
 
     All of the variations that Fractorium lacks will be classified as: *`UNKNOWN`*<br />
     and they will be searched inside the XML key: [Icon:TOP/xmlinput] *`plugins`* of the loaded Flame preset (_from file or from Clipboard_).
@@ -2251,7 +2251,7 @@ IN infos [Icon:DATATYPES/string]:
         _The following entries will appear when the loaded Flame preset use variations FLAM3H(tm) do not posses_:
 
     - *`MISSING`*:<br />Unique variations names being used FLAM3H(tm) do not posses but Fractorium does. 
-    - *`UNKNOWN`*:<br />Unique variations names being used but neither FLAM3H(tm) or Fractorium posses. 
+    - *`UNKNOWN`*:<br />Unique variations names being used but neither FLAM3H(tm) or Fractorium possess. 
 
     <br />
 
