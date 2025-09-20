@@ -14,8 +14,9 @@ FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
 nodetype = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
 __status__ = nodetype.hdaModule().__status__
-__h_version_min__ = nodetype.hdaModule().__h_version_min__
-__h_version_max__ = nodetype.hdaModule().__h_version_max__
+__range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
+__h_version_min__: int = nodetype.hdaModule().__h_version_min__
+__h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
 import os
 import json
@@ -1175,6 +1176,7 @@ class flam3h_scripts
 * is_post_affine_default_on_load(node: hou.SopNode) -> None:
 
 @METHODS
+* flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
 * flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG: bool = True) -> None:
 * flam3h_check_first_node_instance_prefs_cvex_precision_msg(self) -> None:
 * flam3h_on_create_set_houdini_session_data(self) -> None:
@@ -1305,14 +1307,14 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_compatible_range_close(kwargs: dict | None = None, msg: bool = True) -> bool:
+    def flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
         """Tell if this FLAM3H™ version is compatible with this Houdini version
         
         * range_close -> mean FLAM3H™ will run only on Houdini versions included inside: nodetype.hdaModule().__h_versions__
         
         Args:
-            kwargs(dict | None): Default to None. When needed, this must be the class' self.kwargs
-            msg(bool): Default to True. When False it will not run the hou display messages.
+            kwargs(dict | None): When needed, this must be the class' self.kwargs, or None
+            msg(bool): When False it will not run the hou display messages.
 
         Returns:
             (bool): True if compatible otherwise False.
@@ -1337,14 +1339,14 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_compatible_range_open(kwargs: dict | None = None, msg: bool = True) -> bool:
+    def flam3h_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
         """Tell if this FLAM3H™ version is compatible with this Houdini version
         
         * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside: nodetype.hdaModule().__h_versions__ before being properly fine tuned.
 
         Args:
-            kwargs(dict | None): Default to None. When needed, this must be the class' self.kwargs
-            msg(bool): Default to True. When False it will not run the hou display messages.
+            kwargs(dict | None): When needed, this must be the class' self.kwargs, or None
+            msg(bool): When False it will not run the hou display messages.
 
         Returns:
             (bool): True if compatible otherwise False.
@@ -1555,6 +1557,26 @@ class flam3h_scripts
     @property
     def node(self):
         return self._node
+    
+    
+    def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
+        """Check FLAM3H™ compatibility based on the type of range(of Houdini versions)
+        
+        * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside: nodetype.hdaModule().__h_versions__ before being properly fine tuned.
+        * range_close -> mean FLAM3H™ will run only on Houdini versions included inside: nodetype.hdaModule().__h_versions__
+
+        Args:
+            range_type(bool): True for closed range. False for open range. This is set inside the HDA's -> Type Properties -> Scripts -> PythonModule
+            kwargs(dict | None): Default to None. When needed, this must be the class' self.kwargs
+            msg(bool): Default to True. When False it will not run the hou display messages.
+
+        Returns:
+            (bool): True if compatible otherwise False.
+        """ 
+        if range_type:
+            return self.flam3h_compatible_range_close(kwargs, msg)
+        else:
+            return self.flam3h_compatible_range_open(kwargs, msg)
 
 
     def flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG: bool = True) -> None:
@@ -1973,7 +1995,7 @@ class flam3h_scripts
         """
         node = self.node
         
-        if self.flam3h_compatible_range_close():
+        if self.flam3h_compatible_type(__range_type__):
             
             node.setColor(hou.Color((0.9,0.9,0.9)))
             
@@ -2102,7 +2124,7 @@ class flam3h_scripts
         """
         node = self.node
         
-        if self.flam3h_compatible_range_close():
+        if self.flam3h_compatible_type(__range_type__):
                         
             # Force updated of the mini-menu iterator selection
             flam3h_iterator_utils.destroy_cachedUserData(node, 'iter_sel')

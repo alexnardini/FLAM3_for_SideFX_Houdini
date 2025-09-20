@@ -66,13 +66,15 @@ import toolutils
 __version__ = "1.8.94"
 __status__  = "Production"
 __h_versions__: tuple = (210,)
+__range_type__: bool = False # True for closed range. False for open range
+
 # The following are min and max Houdini version where FLAM3H™ can run.
 # The max version is always most likely the latest Houdini version released by SideFX
 # unless it is a closed range due to moving into newer Houdini and FLAM3H™ versions.
 #
 # The ranges can be open or close inside this definition:
-# - (py_flam3 3.11 and 3.11 H21 UP)  def flam3h_compatible(kwargs: dict | None = None, msg: bool = True) -> bool:
-# - (py_flam3 3.7)  def flam3h_compatible(kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
+# - (py_flam3__3_11) -> def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
+# - (py_flam3__3_7)  -> def flam3h_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
 __h_version_min__: int = 190
 __h_version_max__: int = __h_versions__[-1]
 
@@ -114,13 +116,15 @@ import toolutils
 __version__ = "1.8.94"
 __status__  = "Production"
 __h_versions__: tuple = (190, 195, 200, 205)
+__range_type__: bool = True # True for closed range. False for open range
+
 # The following are min and max Houdini version where FLAM3H™ can run.
 # The max version is always most likely the latest Houdini version released by SideFX
 # unless it is a closed range due to moving into newer Houdini and FLAM3H™ versions.
 #
 # The ranges can be open or close inside this definition:
-# - (py_flam3 3.11 and 3.11 H21 UP)  def flam3h_compatible(kwargs: dict | None = None, msg: bool = True) -> bool:
-# - (py_flam3 3.7)  def flam3h_compatible(kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
+# - (py_flam3__3_11) -> def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
+# - (py_flam3__3_7)  -> def flam3h_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
 __h_version_min__: int = 190
 __h_version_max__: int = __h_versions__[-1]
 
