@@ -1233,8 +1233,8 @@ class flam3h_scripts
         """Build and fire a message letting the user know the Houdini version/s needed to run the installed FLAM3H™ HDA version.
 
         Args:
-            this_h_versions(tuple): a tuple containing all the Houdini version number from: def flam3h_general_utils.houdini_version(2)
-            to build a proper message from to use inside a hou.ui.dusplayMessage(...)
+            this_h_versions(tuple): a tuple containing all the Houdini version numbers. This is coming from the HDA's PythonModule: __h_versions__
+            msg(bool): Default to True. When False it will not execute the: hou.ui.displayMessage
 
         Returns:
             (str): Only the part of the message string with the allowed Houdini versions, to be used to compose the final message.
