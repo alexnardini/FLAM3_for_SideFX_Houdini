@@ -110,6 +110,52 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
 
+import toolutils
+
+# Set some HDA infos
+__version__ = "1.8.94"
+__status__  = "Production"
+__h_versions__: tuple = (190, 195, 200, 205)
+__range_type__: bool = True # True for closed range. False for open range
+
+# The following are min and max Houdini version where FLAM3H™ can run.
+# The max version is always most likely the latest Houdini version released by SideFX
+# unless I stop development in which case you just need to update "__h_version_max__" yourself.
+__h_version_min__: int = 190
+__h_version_max__: int = 210
+
+def houdini_version(digit: int=1) -> int:
+    """Retrieve the major Houdini version number currently in use.
+
+    Args:
+        digit(int): Default to 1: 19, 20. if set to 2: 190, 195, 200, 205, and so on.
+
+    Returns:
+        (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
+    """ 
+    return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
+    
+h: int = houdini_version(2)
+if h < 205: __module__: str = "py_flam3__3_7"
+else: __module__: str = "py_flam3__3_11"
+
+flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
+```
+
+</br>
+</br>
+</br>
+
+# PreFirstCreate
+Before the node is even created but invoked.</br>
+Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**
+
+```python
+#   Title:      FLAM3H™. SideFX Houdini FLAM3
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2021 F stands for liFe
+
 from datetime import datetime
 
 # Get some HDA infos from the HDA module
