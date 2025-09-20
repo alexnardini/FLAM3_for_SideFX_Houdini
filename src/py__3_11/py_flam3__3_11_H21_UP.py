@@ -9,20 +9,12 @@ __license__ = "GPL v3.0"
 __maintainer__ = "Alessandro Nardini"
 
 import hou
-
-FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
-nodetype = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
-__version__ = nodetype.hdaModule().__version__
-__status__ = nodetype.hdaModule().__status__
-__range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
-__h_version_min__: int = nodetype.hdaModule().__h_version_min__
-__h_version_max__: int = nodetype.hdaModule().__h_version_max__
+import nodesearch
 
 import os
 import json
 import colorsys
 import lxml.etree as lxmlET
-import nodesearch
 
 from platform import python_version
 from platform import system as platform_system
@@ -47,6 +39,14 @@ from numpy import transpose as np_transpose
 from numpy import searchsorted as np_searchsorted
 from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
+
+FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
+nodetype = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
+__version__ = nodetype.hdaModule().__version__
+__status__ = nodetype.hdaModule().__status__
+__range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
+__h_version_min__: int = nodetype.hdaModule().__h_version_min__
+__h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
 
 '''

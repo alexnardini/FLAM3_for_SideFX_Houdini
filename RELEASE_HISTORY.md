@@ -30,9 +30,21 @@ They are all available in this Github repository.
 
 
 
-### [<ins>From v1.8.94</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.94) ###
+### [<ins>From v1.8.95</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.95) ###
 
-_This is a re-release of the same version but with some minor updates that were not included in the first attempt._
+- **Fix**: Improved FLAM3H™ compatibility mechanism to be dependent only from the HDA's PythonModule data, much more elegant and easier to update and make changes in the future.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+### [<ins>From v1.8.94</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.94) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -50,7 +62,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 _This is a re-release of the same version but with some minor updates that were not included in the first attempt._
 
-- **Fix**: Loading a palette from a XML Flame preset from the Clipboard was not printing the error meesages in case the palette was not valid (wrong hex values). it is now fixed.
+- **Fix**: Loading a palette from a XML Flame preset from the Clipboard was not printing the error messages in case the palette was not valid (wrong hex values). it is now fixed.
 - **Fix**: Copying a CP palette preset name into the **palette name** string parameter without a valid palette library loaded first was not informing the user with any messages, and only silently pass. it is now fixed.
 - **Updated HDA documentation.**
 
