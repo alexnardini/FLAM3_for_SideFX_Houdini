@@ -110,56 +110,6 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
 
-import toolutils
-
-# Set some HDA infos
-__version__ = "1.8.94"
-__status__  = "Production"
-__h_versions__: tuple = (190, 195, 200, 205)
-__range_type__: bool = True # True for closed range. False for open range
-
-# The following are min and max Houdini version where FLAM3H™ can run.
-# The max version is always most likely the latest Houdini version released by SideFX
-# unless it is a closed range due to moving into newer Houdini and FLAM3H™ versions.
-#
-# The ranges can be open or close inside this definition:
-# - (py_flam3__3_11) -> def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
-# - (py_flam3__3_7)  -> def flam3h_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
-__h_version_min__: int = 190
-__h_version_max__: int = __h_versions__[-1]
-
-def houdini_version(digit: int=1) -> int:
-    """Retrieve the major Houdini version number currently in use.
-
-    Args:
-        digit(int): Default to 1: 19, 20. if set to 2: 190, 195, 200, 205, and so on.
-
-    Returns:
-        (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
-    """ 
-    return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
-    
-h: int = houdini_version(2)
-if h < 205: __module__: str = "py_flam3__3_7"
-else: __module__: str = "py_flam3__3_11"
-
-flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
-```
-
-</br>
-</br>
-</br>
-
-# PreFirstCreate
-Before the node is even created but invoked.</br>
-Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**
-
-```python
-#   Title:      FLAM3H™. SideFX Houdini FLAM3
-#   Author:     F stands for liFe ( made in Italy )
-#   License:    GPL
-#   Copyright:  (c) 2021 F stands for liFe
-
 from datetime import datetime
 
 # Get some HDA infos from the HDA module
@@ -167,50 +117,38 @@ FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
 nodetype = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
 __status__ = nodetype.hdaModule().__status__
-__h_versions__ = nodetype.hdaModule().__h_versions__
-
-
-def flam3h_h_versions_build_data(last_index: bool = False) -> str:
-    """Get the houdini version number from the gloabl: __h_versions__
-
-    Args:
-        last_index(bool): Default to False as it will return the first in the tuple. If True, it will return the last in the tuple.
-        This is done because some FLAM3H HDA version run on multiple Houdinin versions
-
-    Returns:
-        (None):
-    """ 
-    if len(__h_versions__) > 1:
-        if last_index: num_str: str = str(__h_versions__[-1])
-        else: num_str: str = str(__h_versions__[0])
-    elif __h_versions__:
-        num_str: str = str(__h_versions__[0])
-
-    return f"{num_str[:2]}.{num_str[-1]}"
+__h_versions__: tuple = nodetype.hdaModule().__h_versions__
+__range_type__: bool = nodetype.hdaModule().__range_type__
+__h_version_min__: int = nodetype.hdaModule().__h_version_min__
 
 
 def flam3h_first_time() -> bool:
-    """If the version of Houdini running is smaller than version 19 
-    will pop up a message to let the user know.
+    """If the version of Houdini running is not allowed for this FLAM3H™ HDA version (different cases)
+    will return False, otherwise will return True.
 
     Args:
         ():
 
     Returns:
-        (None):
+        (bool): True if compatible and False if not.
     """ 
-    
-    if len(__h_versions__) > 1:
-        _MSG_H_VERSIONS = f"from H{flam3h_h_versions_build_data()} to H{flam3h_h_versions_build_data(True)}"
-    else:
-        _MSG_H_VERSIONS = f"H{flam3h_h_versions_build_data()} and up"
-
     hou_version: int = nodetype.hdaModule().houdini_version(2)
 
-    if hou_version < __h_versions__[0]:
-        hou.ui.displayMessage(f"Sorry, you need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False)
+    if hou_version < __h_version_min__:
         return False
-
+    
+    elif __range_type__ is True:
+        if hou_version < __h_versions__[0] or hou_version > __h_versions__[-1]:
+            return False
+        else:
+            return True
+        
+    elif __range_type__ is False:
+        if hou_version < __h_versions__[0]:
+            return False
+        else:
+            return True
+        
     else:
         return True
 
@@ -269,7 +207,10 @@ def flam3h_compile_first_time_msg() -> None:
 def flam3h_not_compatible_first_time_msg() -> None:
     """On first time FLAM3H™ node instance creation:
 
-    - Run messages if not compatible with this Houdini version
+    Run messages if not compatible with this Houdini version.
+    
+    Compatibility is checked inside:
+    * def flam3h_first_time() -> bool:
 
     Args:
         ():
@@ -277,15 +218,21 @@ def flam3h_not_compatible_first_time_msg() -> None:
     Returns:
         (None):
     """ 
-    if len(__h_versions__) > 1:
-        _MSG_H_VERSIONS = f"from H{flam3h_h_versions_build_data()} to H{flam3h_h_versions_build_data(True)}"
-    elif __h_versions__:
-        _MSG_H_VERSIONS = f"H{flam3h_h_versions_build_data()} and up"
-
+    
+    _MSG_H_VERSIONS = nodetype.hdaModule().flam3.flam3h_scripts.flam3h_compatible_h_versions_msg(__h_versions__, False)
     _MSG_INFO = f"\n-> FLAM3H™ version: {__version__} - {__status__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
-    print(_MSG_INFO)
-    _MSG_INFO_SB = f"-> FLAM3H™ version: {__version__} - {__status__}. This Houdini version is not compatible with this FLAM3H™ version. You need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
-    hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
+            
+    if hou.isUIAvailable():
+
+        print(_MSG_INFO)
+
+        _MSG_INFO_SB = f"-> FLAM3H™ version: {__version__} - {__status__}. This Houdini version is not compatible with this FLAM3H™ version. You need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
+        hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
+
+        hou.ui.displayMessage(f"Sorry, you need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False)
+
+    else:
+        print(_MSG_INFO)
 
 
 if flam3h_first_time():

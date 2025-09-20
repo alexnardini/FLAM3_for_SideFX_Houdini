@@ -1164,7 +1164,7 @@ class flam3h_scripts
 
 @STATICMETHODS
 * flam3h_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
-* flam3h_compatible_h_versions_msg(this_h_versions: tuple) -> None:
+* flam3h_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
 * flam3h_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
 * flam3h_compatible_range_close(kwargs: dict | None = None, msg: bool = True) -> bool:
 * flam3h_compatible_range_open(kwargs: dict | None = None, msg: bool = True) -> bool:
@@ -1240,7 +1240,7 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_compatible_h_versions_msg(this_h_versions: tuple) -> None:
+    def flam3h_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
         """Build and fire a message letting the user know the Houdini version/s needed to run the installed FLAM3H™ HDA version.
 
         Args:
@@ -1248,17 +1248,23 @@ class flam3h_scripts
             to build a proper message from to use inside a hou.ui.dusplayMessage(...)
 
         Returns:
-            (None):
+            (str): Only the part of the message string with the allowed Houdini versions, to be used to compose the final message.
         """ 
-        
-        if hou.isUIAvailable():
-            
-            if len(this_h_versions) > 1:
+        if len(this_h_versions) > 1:
+            if __range_type__ is True:
                 _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)}"
             else:
+                _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)} and up"
+        else:
+            if __range_type__ is True:
+                _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)}"
+            else:
                 _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} and up"
-                
+    
+        if msg and hou.isUIAvailable():
             hou.ui.displayMessage(f"Sorry, You need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+
+        return _MSG_H_VERSIONS
 
 
     @staticmethod
@@ -1931,10 +1937,7 @@ class flam3h_scripts
         flam3h_general_utils.private_prm_set(self.node, FLAM3H_PVT_H_VALID, 0)
         __h_versions__: tuple = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
         
-        if len(__h_versions__) > 1:
-            _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} to H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__, True)}"
-        else:
-            _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(__h_versions__)} and up"
+        _MSG_H_VERSIONS = flam3h_scripts.flam3h_compatible_h_versions_msg(__h_versions__, False)
             
         _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
         _MSG_ABOUT = f"This FLAM3H™ version need {_MSG_H_VERSIONS} to work."
