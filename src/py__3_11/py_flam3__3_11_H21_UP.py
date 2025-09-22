@@ -3456,7 +3456,9 @@ class flam3h_general_utils
         self.menus_refresh_enum_prefs()
         
         if prm.eval():
+            
             prm.set(0)
+            
             # Restore the viewport prior to entering the Camera sensor mode
             self.util_set_stashed_cam()
             self.util_clear_stashed_cam_data()
@@ -3466,23 +3468,39 @@ class flam3h_general_utils
             self.flash_message(node, _MSG)
             
         else:
-            prm.set(1)
-            # If the current FLAM3H™ node is displayed ( its displayFlag is On )
-            if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
-                # Check if any other FLAM3H™ node is in Camera Sensor viz mode
-                self.flam3h_other_sensor_viz_off(node)
-                # Set this FLAM3H™ node to enter the camera sensor viz mode
-                self.util_set_clipping_viewers()
-                if self.util_set_front_viewer():
-                    _MSG: str = f"Sensor viz: ON"
-                    self.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
-                    self.flash_message(node, _MSG)
+            
+            # When in Lop context and only one viewers is present in the current Desktop and an active Karma render viewer,
+            # This will prevent Karma to restart if we are trying to activate the camera sensor viz.
+            # However, if we have a mix of SOP and LOP viewers, we still need to go and check them one by one inside: self.util_set_front_viewer()
+            # and if an active Karma viewer is present it will be re-started during the process as of now.
+            if self.util_is_context_available_viewer('Sop'):
+                
+                prm.set(1)
+                
+                # If the current FLAM3H™ node is displayed ( its displayFlag is On )
+                if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
+                    # Check if any other FLAM3H™ node is in Camera Sensor viz mode
+                    self.flam3h_other_sensor_viz_off(node)
+                    # Set this FLAM3H™ node to enter the camera sensor viz mode
+                    self.util_set_clipping_viewers()
+                    if self.util_set_front_viewer():
+                        _MSG: str = f"Sensor viz: ON"
+                        self.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
+                        self.flash_message(node, _MSG)
+                        
+                else:
+                    # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
+                    prm.set(0)
+                    _MSG: str = f"This node display flag is OFF. Please use a FLAM3H™ node that is currently displayed to enter the Camera sensor viz."
+                    self.set_status_msg(f"{node.name()}: {str(prm.name()).upper()} -> {_MSG}", 'WARN')
+                    self.flash_message(node, f"{_MSG[:30]}")
+            
             else:
-                # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
-                prm.set(0)
-                _MSG: str = f"This node display flag is OFF. Please use a FLAM3H™ node that is currently displayed to enter the Camera sensor viz."
-                self.set_status_msg(f"{node.name()}: {str(prm.name()).upper()} -> {_MSG}", 'WARN')
-                self.flash_message(node, f"{_MSG[:30]}")
+                
+                # Fire messages
+                _MSG: str = f"No Sop viewers available."
+                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Camera Sensor to work.", 'WARN')
+                self.flash_message(node, f"{_MSG}")
 
 
     def flam3h_xf_viz_toggle(self, prm_name: str = PREFS_PVT_XF_VIZ) -> None:
