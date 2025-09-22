@@ -2760,7 +2760,7 @@ Copy/Paste render properties:
     [Largeicon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg]
     
     <br />
-    When you load a Flame file in the IN tab or from the Clipboard, this icon will become available.
+    When you load a Flame preset from a file or from the Clipboard, this icon will become available.
     
     When you click this icon, the currently loaded IN Flame preset render properties will be copied and pasted here (_[Icon:TOP/xmlinput] SENSOR, RENDER and CC CURVES settings_).
 
