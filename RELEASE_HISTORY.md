@@ -30,6 +30,20 @@ They are all available in this Github repository.
 
 
 
+### [<ins>From v1.8.96</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.96) ###
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>From v1.8.95</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.95) ###
 
 - **Fix**: Improved FLAM3H™ compatibility mechanism to be dependent only from the HDA's PythonModule data, much more elegant and easier to update and make changes in the future.

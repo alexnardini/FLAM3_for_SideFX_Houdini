@@ -3149,8 +3149,8 @@ class flam3h_general_utils
                     view: hou.GeometryViewport = viewport.curViewport()
                     
                     # Do this only once; when we enter the sensor viz
-                    try: parm = self.kwargs['parm']
-                    except: parm = None
+                    try: parm: hou.Parm | None = self.kwargs['parm']
+                    except: parm: hou.Parm | None = None
                     _ENTER_PRM = None
                     if parm is not None: _ENTER_PRM = parm.name()
                     if _ENTER_PRM is not None and _ENTER_PRM == OUT_RENDER_PROPERTIES_SENSOR_ENTER:
@@ -3543,7 +3543,7 @@ class flam3h_general_utils
                     
                 # Retrieve the value we shoud be set to
                 try: w: float | None = hou.session.H_VIEWPORT_WIRE_WIDTH # type: ignore
-                except: w = None
+                except: w: float | None = None
                 if w is not None: self.viewportWireWidth(w)
                 
                 flam3h_general_utils.private_prm_set(node, prm, 1)
@@ -4216,8 +4216,8 @@ class flam3h_general_utils
             (None):  
         """  
         # Do this only if the parameter toggle is: PREFS_VIEWPORT_DARK
-        try: parm = self.kwargs['parm']
-        except: parm = None
+        try: parm: hou.Parm | None = self.kwargs['parm']
+        except: parm: hou.Parm | None = None
         _ENTER_PRM = None
         if parm is not None: _ENTER_PRM = parm.name()
         if _ENTER_PRM is not None and _ENTER_PRM == PREFS_VIEWPORT_DARK:
@@ -7324,7 +7324,7 @@ class flam3h_iterator_utils
         
         # Marked iterator ( not needed but just in case lets "try" so to speak )
         try: mp_id_from: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
-        except: mp_id_from = None
+        except: mp_id_from: TA_M = None
 
         if mp_id_from is not None:
 
@@ -7547,7 +7547,7 @@ class flam3h_iterator_utils
 
         # Marked FF check ( not needed but just in case lets "try" so to speak )
         try: from_FLAM3H_NODE_FF_CHECK: TA_M = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
-        except: from_FLAM3H_NODE_FF_CHECK = None
+        except: from_FLAM3H_NODE_FF_CHECK: TA_M = None
             
         if from_FLAM3H_NODE_FF_CHECK is not None:
             
@@ -12475,11 +12475,10 @@ class in_flame
             if isinstance(mb_do, str):
                 if key == OUT_XML_FLMA3H_MB_FPS:
                     try:
-                        int(mb_do)
+                        return int(mb_do)
                     except:
                         return False
-                    else:
-                        return int(mb_do)
+
                 elif key == OUT_XML_FLMA3H_MB_SAMPLES:
                     mp_samples: str | list = self.flam3h_mb_samples[idx]
                     if isinstance(mp_samples, list):
@@ -12487,6 +12486,7 @@ class in_flame
                         return int(16) # default
                     else:
                         return int(mp_samples)
+                    
                 elif key == OUT_XML_FLMA3H_MB_SHUTTER:
                     mb_shutter: str | list = self.flam3h_mb_shutter[idx]
                     if isinstance(mb_shutter, list):
@@ -12551,11 +12551,10 @@ class in_flame
             # self._flam3h_prefs_f3c[idx] can also be an empty list, hence the double check
             if toggle is not None and toggle:
                 try:
-                    int(toggle)
+                    return int(toggle)
                 except:
                     return None
-                else:
-                    return int(toggle)
+
             else:
                 return None
         else:
@@ -13970,11 +13969,10 @@ class in_flame_utils
         splt: tuple = menu_label.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV)
         if len([item for item in splt if item]) > 1:
             try:
-                int(splt[-1])
+                return int(splt[-1])
             except:
                 return None
-            else:
-                return int(splt[-1])
+            
         else:
             return None
 
@@ -15913,8 +15911,8 @@ class in_flame_utils
                                  * chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """     
         xml: str = hou.ui.getTextFromClipboard() # type: ignore
-        try: tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
-        except: tree = None
+        try: tree: lxmlET.ElementTree | None = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+        except: tree: lxmlET.ElementTree | None = None
         if tree is not None:
             assert xml is not None
             if tuple([f for f in tree.getroot().iter(XML_FLAME_NAME)]):
@@ -18900,21 +18898,43 @@ class out_flame_utils
         Returns:
             (str): The FLAM3H™ parameter prepped into a string for writing out into the Flame preset file.
         """    
+        
+        node = self.node
         if prm_name:
-            prm_type: bool = False
+            
+            _VALID_PRM: bool = False
             try:
-                prm = self.node.parmTuple(prm_name)
-                prm_type = True
-            except: prm = self.node.parm(prm_name)
-            if prm_type:
-                return ' '.join([str(self.out_util_round_float(x.eval())) for x in prm])
-            else:
-                if type(prm) is not str:
-                    return str(self.node.parm(prm_name).eval())
+                prm: hou.Parm | hou.ParmTuple = node.parmTuple(prm_name)
+                _VALID_PRM = True
+            except:
+                try:
+                    prm: hou.Parm | hou.ParmTuple = node.parm(prm_name)
+                    _VALID_PRM = True
+                except:
+                    pass
+            
+            if _VALID_PRM:
+                
+                if isinstance(prm, hou.ParmTuple):
+                    try:
+                        return ' '.join([str(self.out_util_round_float(float(val))) for val in prm.eval()])
+                    except:
+                        print(f"Warning:\n{node.name()}: parameter tuple name: \"{prm_name}\" not a valid value or string value tuple.\n")
+                        return ''
+                
                 else:
-                    return self.out_util_round_float(self.node.parm(prm_name).eval())
+                    try:
+                        return self.out_util_round_float(float(prm.eval()))
+                    except:
+                        print(f"Warning:\n{node.name()}: parameter name: \"{prm_name}\" not a valid value or string value.\n")
+                        return ''
+                
+            else:
+                print(f"Warning:\n{node.name()}: Please pass in a valid FLAM3H™ parameter name.\n")
+                return ''
+                
         else:
-            print(f"Warning:\n{self.node.name()}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H™ parameter name.\n")
+            print(f"Warning:\n{node.name()}: Please pass in a valid FLAM3H™ parameter name and not an empty string.\n")
             return ''
 
 
@@ -19193,12 +19213,11 @@ class out_flame_utils
         """  
         if self.flam3h_mb_do:
             try:
-                self.out_util_round_float(self.node.parm(prm_name).eval())
+                return self.out_util_round_float(float(self.node.parm(prm_name).eval()))
             except:
-                print(f"Warning:\n{self.node.name()}: parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H™ val parameter name.\n")
+                print(f"Warning:\n{self.node.name()}: Motion Blur parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H™ Motion Blur val parameter name.\n")
                 return False
-            else:
-                return self.out_util_round_float(self.node.parm(prm_name).eval())
+            
         else:
             return False
         
