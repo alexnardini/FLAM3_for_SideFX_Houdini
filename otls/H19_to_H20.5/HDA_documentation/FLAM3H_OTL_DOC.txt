@@ -3716,6 +3716,17 @@ _A list of all parametric variations and their parametric parameter's names_
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Points color values accumulation tips*:<br />
     
+    If you are using Houdini *`19.5`* and up,
+
+    the *FLAM3HUSD* companion HDA for the Solaris context (_Lop_) will use a custom shader<br />
+    that perfectly emulate what the original `Flam3` algorithm does, matching the visual color value accumulation quality<br />
+    of all the other implementations and in some cases surpassing it.
+
+    <br />
+
+    If you are using Houdini *`19.0`* or Mantra or other renderer other then Karma,<br />
+    keep reading below:
+
     - _The following is valid for the time being and it will be subject to change sometime in the future._<br />
     - _Each pixel color sample that follow is indicative for reference._
 
