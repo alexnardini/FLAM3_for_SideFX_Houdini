@@ -76,6 +76,8 @@ _"build a buffer with the histogram or summation/accumulation of every point in 
 This custom shader will match the visual quality of the fractal Flames rendered with Apophysis, Fractorium and others.
 A menu with some tone mapping presets has been added as well to the FLAM3HUSD HDA Shader's tab.
 
+Kudos to SideFX, again, for the awesome **unlit** materialX node, making all of the above possible!
+
 Prior to this:<br/>
 Karma viewport renders did not use any density estimator, or log density display ( _a form of tone mapping_ ) that is instead present in other applications. It did brighten up the high-density areas instead ( _more points, more bright_ ) while using the raw color coming from the palette the Flame is currently using.
 
