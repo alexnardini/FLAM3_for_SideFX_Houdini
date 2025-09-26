@@ -25,9 +25,9 @@ _The following are Houdini versions where FLAM3H™ is fully functional, tested 
 Below is a list of all the **FLAM3H™** (_and_ **FLAM3HUSD**) releases and the updates that went into each.</br>
 They are all available in this Github repository.
 
-</br>
-</br>
 
+</br>
+</br>
 
 
 ### [<ins>From v1.8.98</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98) ###
@@ -37,7 +37,7 @@ They are all available in this Github repository.
 
 #### FLAM3HUSD v0.1.70 - Prototype ####
 
-- **New**: Added a new MaterialX shader capable of proper point color values accumulation to match what third-party render engines implement as: _build a buffer with the histogram or summation/accumulation of every point in every pixel_.
+- **New**: Added a new MaterialX shader capable of proper point color values accumulation to match what third-party render engines implement as: _build a buffer with the histogram or summation/accumulation of every point in every pixel_ (_**Only available from Houdini 19.5 and up**_).
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
