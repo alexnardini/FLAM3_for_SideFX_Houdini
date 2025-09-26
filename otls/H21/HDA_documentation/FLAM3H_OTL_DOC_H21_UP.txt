@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H(tm)
-#version: 1.8.96 - Production
+#version: 1.8.98 - Production
 
 """The Fractal Flame Algorithm: FLAM3 - Create fractal art in Houdini 
 ( vcc compiler: v21.0.440 )"""
@@ -2637,7 +2637,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.8.96" ... >
+          <flame version="FLAM3H-WIN-1.8.98" ... >
               ...
         }}}
         
@@ -2646,7 +2646,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.8.96" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.8.98" ... >
               ...
         }}}
         
@@ -2994,7 +2994,7 @@ _The following is an example of what the default Sierpiński triangle preset loo
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.96" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.98" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.51225" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 -0.29575 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0.29575 0" opacity="1" linear="1"/>
@@ -3050,7 +3050,7 @@ _In this case we only have *`1`*(one) flame preset named: *Sierpiński triangle:
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.96" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.98" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     ...
   </flame>
 </flames>
@@ -3061,7 +3061,7 @@ _Under the [Icon:TOP/xmlinput] *`flame`* preset XML key lives all its data: [Ico
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.8.96" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.8.98" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>
@@ -3674,20 +3674,44 @@ _A list of all parametric variations and their parametric parameter's names_
 
 @rendering Rendering tips
 
+~~~
 :box:
     #display: inverted pink
 
-    *FLAM3H(tm) Rendering tips*. _A few small tips to render your fractal Flame images._
-
-
-== Rendering: Workflow tips == (RENDWFTIPS)
+    *RENDERING*: _Helpful settings and tips_.
     
+    Following are tips and tricks to help you get the most out of the generated fractal Flames point cloud when rendering them.
+
+    When using the companion *FLAM3HUSD* HDA you will have all the necessary settings to match the visual quality of third-party applications without compromises.
+
+:box:
+    #display: rounded white
+    
+    == Rendering: Point size == (RENDHSTIPSPOINTESIZE)
+
 :box:
     #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*
+        #id: POINTSIZE
     
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Workflow tips:
-        #id: rendering
+    For simplicity, FLAM3H(tm) sets all *`@pscale`* to a value of *`0.001`*.<br />
+    Any necessary adjustments can be made using a wrangle or the upstream geometry node point size multiplier. 
+    It's important to keep in mind that *`@pscale`* will become *`@widths`* when importing FLAM3H(tm) into Stage/Solaris.
     
+    As a general rule, the more points, the smaller the *`@pscale`* or *`@widths`* values need to be.
+
+
+
+:box:
+    #display: rounded white
+    
+    == Rendering: Workflow tips == (RENDWFTIPS)
+
+:box:
+    #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*
+        #id: RENDWFTIPS
+
     You can keep the FLAM3H(tm) node live without the need to bake the processed point cloud while rendering
     and just change density values to go from low/quick renders to high/slow render times. Adjust the point size *`@pscale`* ( _in Solaris:_ *`@widths`* ) accordingly.
 
@@ -3709,56 +3733,61 @@ _A list of all parametric variations and their parametric parameter's names_
         As a result, the points produced by FLAM3H(tm) nodes will always be in a little bit of a different location every time it cook.
         This is perfect for cloning FLAM3H(tm) nodes and layering them into a single fractal Flame to improve the quality of the final result.
 
-
-== Rendering: Point size == (RENDPSTIPS)
+:box:
+    #display: rounded white
     
+    == Rendering: FLAM3H(tm) CP HSV tips == (RENDHSTIPCPHSV)
+
 :box:
     #display: rounded gray
-    
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Point size:
-        #id: rendering
-    
-    For simplicity, FLAM3H(tm) sets all *`@pscale`* to a value of *`0.001`*.<br />
-    Any necessary adjustments can be made using a wrangle or the upstream geometry node point size multiplier. 
-    It's important to keep in mind that *`@pscale`* will become *`@widths`* when importing FLAM3H(tm) into Stage/Solaris.
-    
-    As a general rule, the more points, the smaller the *`@pscale`* or *`@widths`* values need to be.
-
-
-== Rendering: Helpful settings == (RENDHSTIPS)
-    
-:box:
-    #display: rounded gray
-    
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Karma/Mantra tips:
-        #id: Karma/Mantra tips
-    
-    - When rendering with Karma, remember to turn *`On`* the "_Simplified lighting_"/"_Disable lighting_" option' toggle to be sure to render the points with their full color values.
-    
-    - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
-    
-:box:
-    #display: rounded gray
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Tip:
-        #id: Point value accumulation tips
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*
+        #id: CPHSV
 
     It will be crucial to experiment with the CP HSV values, notably the "*S*" (_Saturation_) and, most crucially, the "*V*" (_Value_).
     The more dense portions of the Flame will get brighter if the Value in HSV is increased from the default value of *`1`*(one), bringing the appearance of the Flame closer to that of a typical fractal Flame.
 
-    <br />
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Points color values accumulation tips*:<br />
 
+:box:
+    #display: rounded white
+    
+    == Rendering: Karma and Mantra tips == (RENDHSTIPSKARMAMANTRA)
+
+
+:box:
+    #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*
+        #id: KARMAMANTRA
+    
+    - When rendering with Karma, remember to turn *`On`* the "_Simplified lighting_"/"_Disable lighting_" option' toggle on the Karma render node to be sure to render the points with their full color values, unless you are using the *FLAM3HUSD* companion HDA in which case it will take care of everything.
+    
+    - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
+
+
+:box:
+    #display: rounded white
+    
+    == Rendering: Point color value accumulation tips == (RENDHSTIPSPOINTVALACCUM)
+
+:box:
+    #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *H19.5 and up*
+        #id: ACCUMULATION
+    
     If you are using Houdini *`19.5`* and up,
 
     the *FLAM3HUSD* companion HDA for the Solaris context (_Lop_) will use a custom shader<br />
-    that perfectly emulate what the original `Flam3` algorithm does, matching the visual color value accumulation quality<br />
-    of all the other implementations and in some cases surpassing it.
+    that perfectly emulate what the original `Flam3` algorithm does, matching the visual color value accumulation quality of all the other implementations.
 
     <br />
 
+:box:
+    #display: rounded gray
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *H19.0*
+        #id: ACCUMULATION
+
     If you are using Houdini *`19.0`* or Mantra or other renderer other then Karma,<br />
     keep reading below:
-    
+
     - _The following is valid for the time being and it will be subject to change sometime in the future._<br />
     - _Each pixel color sample that follow is indicative for reference._
 

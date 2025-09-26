@@ -63,10 +63,24 @@ First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "0.1.63"
+__version__ = "0.1.70"
 __status__ = "Prototype"
 
-__module__: str = "py_flam3usd__3_11_H21_UP"
+def houdini_version(digit: int=1) -> int:
+    """Retrieve the major Houdini version number currently in use.
+
+    Args:
+        digit(int): Default to 1: 19, 20. if set to 2: 190, 195, 200, 205, and so on.
+
+    Returns:
+        (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
+    """ 
+    return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
+    
+h: int = houdini_version(2)
+if h < 205: __module__: str = "py_flam3usd__3_7"
+else: __module__: str = "py_flam3usd__3_11_H21_UP"
+
 flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __module__)
 ```
 
@@ -87,7 +101,7 @@ First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "0.1.60"
+__version__ = "0.1.70"
 __status__ = "Prototype"
 
 def houdini_version(digit: int=1) -> int:

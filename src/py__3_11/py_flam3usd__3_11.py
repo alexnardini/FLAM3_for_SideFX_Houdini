@@ -57,6 +57,8 @@ PREFS_KARMA_F3H_SHADER_GAMMA = 'f3h_gamma'
 PREFS_KARMA_F3H_SHADER_HUE = 'f3h_hsv_h'
 PREFS_KARMA_F3H_SHADER_SATURATION = 'f3h_hsv_s'
 PREFS_KARMA_F3H_SHADER_VALUE = 'f3h_hsv_v'
+PREFS_KARMA_F3H_SHADER_EMISSION = 'f3h_emission'
+PREFS_KARMA_F3H_SHADER_TRANSMISSION = 'f3h_transmission'
 
 # DATA
 PREFS_PVT_FLAM3HUSD_DATA_DISABLED = 'disabled'
@@ -740,16 +742,18 @@ class flam3husd_general_utils
                 dark = False
                 if _STASH_DICT is not None:
                     for v in views:
-                        # Here we are not checking if the viewer belong to Sop or Lop
-                        # because the stashed dict has already the viewers filtered on creation inside: flam3husd_general_utils.util_store_all_viewers_color_scheme()
-                        key: str = v.name()
-                        _STASH: hou.EnumValue | None = _STASH_DICT.get(key)
-                        if _STASH is not None:
-                            settings: hou.GeometryViewportSettings = v.curViewport().settings()
-                            _CS: hou.EnumValue = settings.colorScheme()
-                            if _CS == hou.viewportColorScheme.Dark: # type: ignore
-                                settings.setColorScheme(_STASH)
-                                dark = True
+                        
+                        # Only if it is a Sop viewer
+                        if self.util_is_context('Lop', v):
+
+                            key: str = v.name()
+                            _STASH: hou.EnumValue | None = _STASH_DICT.get(key)
+                            if _STASH is not None:
+                                settings: hou.GeometryViewportSettings = v.curViewport().settings()
+                                _CS: hou.EnumValue = settings.colorScheme()
+                                if _CS == hou.viewportColorScheme.Dark: # type: ignore
+                                    settings.setColorScheme(_STASH)
+                                    dark = True
                                 
                 if dark:
                     _MSG: str = f"Dark: OFF"
@@ -761,8 +765,9 @@ class flam3husd_general_utils
                     try:
                         
                         if hou.session.HUSD_CS_STASH_DICT: # type: ignore
+                            prm.set(1)
                             _MSG: str = f"No viewer in Dark mode"
-                            self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewer are set to Dark.", 'MSG')
+                            self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers are set to Dark or there are not Lop viewers available to restore.", 'MSG')
                         else:
                             _MSG: str = f"Nothing to restore"
                             self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers has been switched to Dark. They probably were already in Dark mode.", 'MSG')
@@ -930,10 +935,12 @@ class flam3husd_general_utils
         """
         node = self.node
         
-        prms_f3h_shader_data: dict[str, float] = {  PREFS_KARMA_F3H_SHADER_GAMMA: 2.2,
+        prms_f3h_shader_data: dict[str, float] = {  PREFS_KARMA_F3H_SHADER_GAMMA: 1,
                                                     PREFS_KARMA_F3H_SHADER_HUE: 1,
                                                     PREFS_KARMA_F3H_SHADER_SATURATION: 1,
-                                                    PREFS_KARMA_F3H_SHADER_VALUE: 1
+                                                    PREFS_KARMA_F3H_SHADER_VALUE: 1,
+                                                    PREFS_KARMA_F3H_SHADER_EMISSION: 1,
+                                                    PREFS_KARMA_F3H_SHADER_TRANSMISSION: 0
                                                     }
         
         # Clear and set

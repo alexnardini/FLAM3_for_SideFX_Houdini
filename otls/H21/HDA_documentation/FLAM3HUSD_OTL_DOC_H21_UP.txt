@@ -3,12 +3,12 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.1.63 - Prototype
+#version: 0.1.70 - Prototype
 
 """Simple utility node to quickly render FLAM3H(tm) fractal flames in Solaris."""
 
 == Welcome to FLAM3HUSD for SideFX Houdini ==
-( _From H19.x to H20.5.x only_ )
+( _From H21 and up only_ )
 
 A simple utility node to make rendering FLAM3H(tm) fractal flames in Solaris for previews easy.<br />
 It offers the very fundamental functionalities to setup your fractal Flames point cloud and start rendering with Karma within a few clicks.<br />
@@ -66,12 +66,14 @@ FLAM3HUSD documentation:
     
     Display this documentation.
 
+    <br />
 
 FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
     #id: IMPORT
-    Path to the FLAM3H(tm) node to be imported inside Solaris.
+    Path to the FLAM3H(tm) node to be imported inside Solaris.<br />
     A default path is already provided to import the default first FLAM3H(tm) node name. Change this as needed.
 
+    <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - Once a valid FLAM3H(tm) node has been imported, FLAM3HUSD will take care of bulding a useful Scene Graph Tree.
     - When multiple FLAM3HUSD are created, the imported FLAM3H(tm) data will all be grouped under a common root named: *`FLAM3H`*
@@ -93,18 +95,26 @@ FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
 dark [Icon:DATATYPES/boolean]:
     #id: PREFS
     If it isn't already, change the viewport's color scheme to dark.
-    If unchecked, it will remember the color scheme for every viewport and fall back on it.
+
+    If unchecked,<br />
+    it will remember the color scheme for every viewport and fall back on it.
     Checking this box has no effect if the color scheme in a viewport is already dark.
 
+    <br />
     [Icon:NETWORKS/lop] *Context aware*<br />
     - This option is context aware, and it will function only if a Lop viewer is available.
+
+    <br />
     
 renderer [Icon:BUTTONS/pane_menu]:
     #id: PREFS
     Select from a variety of Hydra renderers.
 
+    <br />
     [Icon:NETWORKS/lop] *Context aware*<br />
     - This option is context aware, and it will function only if a Lop viewer is available.
+
+    <br />
 
 force renderer:
     #id: PREFS
@@ -121,19 +131,26 @@ display [Icon:BUTTONS/pane_menu]:
     #id: PREFS
     Either points or pixels should be selected for the viewport particle display mode.
 
+    <br />
     _Some of the menu labels posses a bookmark icon_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
 
+    <br />
     [Icon:NETWORKS/lop] *Context aware*<br />
     - This option is context aware, and it will function only if a Lop viewer is available.
+
+    <br />
     
 size:
     #id: PREFS
     The setting for viewport particle display Points. Define how big the particles appear in the viewport.
 
+    <br />
     [Icon:NETWORKS/lop] *Context aware*<br />
     - This option is context aware, and it will function only if a Lop viewer is available.
+
+    <br />
 
 Reset size:
     #id: PREFS
@@ -151,35 +168,85 @@ points widths:
     The point attribute *`@pscale`* will become *`@widths`* when importing FLAM3H into Stage/Solaris.
     This option, which is a multiplier, enables rapid adjustments while Karma is rendering interactively.
 
+    When the FLAM3H(tm) shader is in use, increasing this value will increase the additive effect if the *`Emission`* and *`Transmission`* Shader parameters are being used.
+
+    <br />
+
 Reset widths:
     #id: PREFS
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
     - ((LMB)) to reset the point size to a default of *`1`*(one).
 
+    <br />
+
 pixel samples:
     #id: PREFS
     Set the Karma renderer pixel samples.
+
+    <br />
 
 Reset pixel samples:
     #id: PREFS
     [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
     
     - ((LMB)) to reset the pixel samples to a default of *`128`*.
+
+    <br />
     
 denoiser [Icon:BUTTONS/pane_menu]:
     #id: PREFS
     Options to choose from the available Karma denoisers.
 
+
+:box:
+    #display: rounded white
+    
+    == Renderer: FLAM3H(tm) Shader == (OPTIONSF3HSHADER)
+
 use FLAM3H(tm) Shader [Icon:DATATYPES/boolean]:
     #id: PREFS
-    Use a MaterialX Shader that will allow to change Gamma and HSV values on the fly.
+    Use the FLAM3H(tm) custom MaterialX Shader.
+
+    This shader allow you to perform color correction operations<br />
+    and fine tune the point color values accumulation settings (_only from H19.5 and up_) on the fly.
+
+    <br />
 
 Reset FLAM3H(tm) Shader parms:
     #id: PREFS
     [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
     
     - ((LMB)) to reset the FLAM3H(tm) Shader to its default values.
+
+    <br />
+
+Shader parameters:
+    #id: PREFS
+    Inside here you have various shader parameters at your disposal:
+
+    - *`Gamma`*: Adjust the Gamma of the incoming points' color.
+    - *`H`*: Adjust the Hue of the incoming points' color.
+    - *`S`*: Adjust the Saturation of the incoming points' color.
+    - *`V`*: Adjust the Value/intensity of the incoming points' color.
+
+    The following are parameters to fine-tune the point color values accumulation<br />
+    to match what third-party render engines implement as: _build a buffer with the histogram or summation/accumulation of every point in every pixel_.
+    
+    - *`Emission`*: Adjust the FLAM3H™ Shader emission.<br />Control how strong the light emitted by the fractal Flame points is.<br />Higher values increase the additive effect,<br />lower values decrease it until a value of *`0`*(Zero) which result in a full black color.
+    - *`Transmission`*: Adjust the FLAM3H™ Shader transmission.<br />Control how the emission is transmitted across the fractal Flame points.<br /><br />You should increase this value to get a correct point color values accumulation effects, with a value of *`1`*(One) being the suggested one.<br /><br />When this value is higher than *`0`*(Zero) cause the resulting rendered image to loose its Alpha channel but the visual benefits are far greater.
+
+    <br />
+    
+    NOTE:
+        _*`Emission`* and *`Transmission`* parameters_<br />
+        _are available only from Houdini 19.5 and up_.
+
+        _Those parameters are responsable for a proper point color values accumulation and they are crucial for a correct fractal Flame look with the Karma renderer_.
+
+        _They will mimic what third-party render engines implement as_:<br />
+        _*build a buffer with the histogram or summation/accumulation of every point in every pixel*_.
+
 
 :box:
     #display: rounded white
@@ -203,7 +270,7 @@ Reset FLAM3H(tm) Shader parms:
         - Digital Assets (_.otl, .hda, .hdalc, .hdanc_)
         - Node networks and sub-networks
         - Custom node definitions and parameter interfaces
-        - CVEX, VEX, VOP or OpenCL code
+        - Houdini CVEX, VEX, VOP or OpenCL code
         - Shelf tools, scripts, and presets
         - Any related configuration or scene files that represent the tool in its preferred form for making modifications
 
