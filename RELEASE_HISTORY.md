@@ -38,6 +38,7 @@ They are all available in this Github repository.
 #### FLAM3HUSD v0.1.70 - Prototype ####
 
 - **New**: Added a new MaterialX shader capable of proper point color values accumulation to match what third-party render engines implement as: _build a buffer with the histogram or summation/accumulation of every point in every pixel_ (_**Only available from Houdini 19.5 and up**_).
+- **New**: Added the re-frame viewport button icon to the SYS tab.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
