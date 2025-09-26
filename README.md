@@ -69,13 +69,15 @@ With Houdini integrated Karma renderer, you will be able to render the generated
 
 ### Karma render Note:
 
-Karma viewport renders do not use any density estimator, or log density display ( a form of tone mapping ) that is instead present in other applications. It does brighten up the high-density areas instead ( more points, more bright ) while using the raw color coming from the palette the Flame is currently using.
-
 For FLAM3H™ [<ins>v1.8.98</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98),<br/>
 a new custom materialX Shader has been introduced to the FLAM3HUSD [<ins>v0.1.70</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98) companion HDA to allow proper points color values accumulation. It will perfectly mimic what third-party implementations refer to as:<br/>
 _"build a buffer with the histogram or summation/accumulation of every point in every pixel"_.
 
 This custom shader will match the visual quality of the fractal Flames rendered with Apophysis, Fractorium and others.
+A menu with some tone mapping presets has been added as well to the FLAM3HUSD HDA Shader's tab.
+
+Prior to this:<br/>
+Karma viewport renders do not use any density estimator, or log density display ( _a form of tone mapping_ ) that is instead present in other applications. It does brighten up the high-density areas instead ( _more points, more bright_ ) while using the raw color coming from the palette the Flame is currently using.
 
 
 <br/>
