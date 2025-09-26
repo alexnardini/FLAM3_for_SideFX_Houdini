@@ -84,6 +84,8 @@ Karma viewport renders did not use any density estimator, or log density display
 <br/>
 Karma interactive rendering in the Houdini's viewport:
 
+<br/>
+
 `Worlds - Author: Alessandro Nardini`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_Karma_H19.jpg)
 
