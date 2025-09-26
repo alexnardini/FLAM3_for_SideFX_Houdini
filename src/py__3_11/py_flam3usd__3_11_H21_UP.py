@@ -6,13 +6,13 @@ __license__ = "GPL v3.0"
 __maintainer__ = "Alessandro Nardini"
 
 import hou
+import nodesearch
 
 FLAM3HUSD_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Lop/FLAM3HUSD'
 nodetype = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
 __status__ = nodetype.hdaModule().__status__
 
-import hou
 from platform import python_version
 from datetime import datetime
 
@@ -46,6 +46,9 @@ from datetime import datetime
 
 '''
 
+
+# NODE NAMES
+NODE_NAME_OUT_BBOX_REFRAME = 'OUT_bbox_reframe' # prefix
 
 PREFS_FLAM3H_PATH = 'flam3hpath'
 PREFS_FLAM3H_WIDTHS = 'widths'
@@ -395,6 +398,9 @@ class flam3husd_general_utils
 * set_status_msg(msg: str, type: str) -> None:
 
 @METHODS
+* util_set_clipping_viewers(self) -> None:
+* get_node_path(self, node_name: str) -> str | None:
+* util_viewport_bbox_frame(self) -> None:
 * util_store_all_viewers_color_scheme(self) -> None:
 * colorSchemeDark(self, update_others: bool = True) -> None:
 * viewportParticleDisplay(self) -> None:
@@ -405,7 +411,7 @@ class flam3husd_general_utils
 
     """
 
-    __slots__ = ("_kwargs", "_node")
+    __slots__ = ("_kwargs", "_node", "_bbox_reframe_path")
     
     def __init__(self, kwargs: dict) -> None:
         """
@@ -417,6 +423,7 @@ class flam3husd_general_utils
         """ 
         self._kwargs: dict = kwargs
         self._node = kwargs['node']
+        self._bbox_reframe_path: str | None = self.get_node_path(NODE_NAME_OUT_BBOX_REFRAME)
 
 
     @staticmethod
@@ -513,7 +520,7 @@ class flam3husd_general_utils
         views: tuple = hou.ui.paneTabs() # type: ignore
         return [v for v in views if isinstance(v, hou.SceneViewer)]
     
-    
+
     @staticmethod
     def util_is_context(context: str, viewport: hou.paneTabType) -> bool:
         """Return if we are inside a context or not.
@@ -644,6 +651,101 @@ class flam3husd_general_utils
     @property
     def node(self):
         return self._node
+    
+    @property
+    def bbox_reframe_path(self):
+        return self._bbox_reframe_path
+    
+    
+    def util_set_clipping_viewers(self) -> None:
+        """Set current viewport camera clipping near/far planes
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):  
+        """
+        for view in self.util_getSceneViewers():
+            
+            # Only if it is a Lop viewer
+            if self.util_is_context('Lop', view):
+                
+                curView: hou.GeometryViewport = view.curViewport()
+                settings = curView.settings()
+                settings.setHomeAutoAdjustsClip( hou.viewportHomeClipMode.Neither ) # type: ignore
+                settings.setClipPlanes( (0.001, 1000) )
+                settings.homeAutoAdjustClip()
+                settings.clipPlanes()
+    
+    
+    def get_node_path(self, node_name: str) -> str | None:
+        """Find the full path of the bbox data null node
+        inside the current FLAM3H™ node.
+        
+        The Null node names prefixes to search are stored inside the global variables:
+        
+        * NODE_NAME_OUT_BBOX_SENSOR
+        * NODE_NAME_OUT_BBOX_REFRAME
+
+        Args:
+            (self):
+            node_name(str): The node name to search for
+            
+        Returns:
+           ( str | None): The full path string to the bbox null data node used by the Camera sensor mode or the Re-frame mode.
+        """     
+        matcher = nodesearch.Name(node_name, exact=True)
+        search = matcher.nodes(self.kwargs['node'], recursive=True)
+        if search:
+            return search[0].path()
+        else:
+            _MSG: str = f"{self.node.name()}: Camera sensor BBOX data node not found."
+            self.set_status_msg(_MSG, 'WARN')
+            return None
+        
+        
+    def util_viewport_bbox_frame(self) -> None:
+        """Re-frame the current viewport based on camera sensor node's bounding box.
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):  
+        """  
+        node = self.node
+        
+        viewports: list = self.util_getSceneViewers()
+        num_viewers: int = len(viewports)
+        num_viewers_lop: int = 0
+        if num_viewers:
+            self.util_set_clipping_viewers()
+            
+            for v in viewports:
+                
+                # Only if it is a Lop viewer
+                if self.util_is_context('Lop', v):
+                    
+                    num_viewers_lop = num_viewers_lop + 1
+                    
+                    view: hou.GeometryViewport = v.curViewport()
+                    if self.bbox_reframe_path is not None:
+                        node_bbox: hou.SopNode = hou.node(self.bbox_reframe_path)
+                        view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                        _MSG: str = f"viewport REFRAMED"
+                        self.flash_message(_MSG)
+                        self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                        
+            if num_viewers_lop == 0:
+                _MSG: str = f"No LOP viewers available."
+                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one LOP viewer for the reframe to work.", 'IMP')
+                self.flash_message(f"{_MSG}")
+                    
+        else:
+            _MSG: str = f"No viewports in the current Houdini Desktop."
+            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport for the reframe to work.", 'IMP')
+            self.flash_message(f"{_MSG}")
 
 
     def util_store_all_viewers_color_scheme(self) -> None:

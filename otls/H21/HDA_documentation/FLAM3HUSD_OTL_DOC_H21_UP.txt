@@ -68,6 +68,18 @@ FLAM3HUSD documentation:
 
     <br />
 
+frame viewport:
+    #id: SYS
+    [Largeicon:opdef:.?icon_FrameBlueSVG.svg]
+    
+    Re-frame current viewport based on a centered bounding box.
+    
+    This is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.
+
+    <br />
+    [Icon:NETWORKS/lop] *Context aware*<br />
+    - This option is context aware, and it will function only if a Lop viewer is available.
+
 FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
     #id: IMPORT
     Path to the FLAM3H(tm) node to be imported inside Solaris.<br />
@@ -234,7 +246,7 @@ Shader parameters:
     to match what third-party render engines implement as: _build a buffer with the histogram or summation/accumulation of every point in every pixel_.
     
     - *`Emission`*: Adjust the FLAM3H™ Shader emission.<br />Control how strong the light emitted by the fractal Flame points is.<br />Higher values increase the additive effect,<br />lower values decrease it until a value of *`0`*(Zero) which result in a full black color.
-    - *`Transmission`*: Adjust the FLAM3H™ Shader transmission.<br />Control how the emission is transmitted across the fractal Flame points.<br /><br />You should increase this value to get a correct point color values accumulation effects, with a value of *`1`*(One) being the suggested one.<br /><br />When this value is higher than *`0`*(Zero) cause the resulting rendered image to loose its Alpha channel but the visual benefits are far greater.
+    - *`Transmission`*: Adjust the FLAM3H™ Shader transmission.<br />Control how the emission is transmitted across the fractal Flame points.<br /><br />You should increase this value to get a correct point color values accumulation effects, with a value of *`1`*(one) being the suggested one.<br /><br />When this value is higher than *`0`*(Zero) cause the resulting rendered image to loose its Alpha channel but the visual benefits are far greater.
 
     <br />
     
