@@ -36,7 +36,7 @@ They are all available in this Github repository.
 
 #### FLAM3HUSD v0.1.80 - Prototype ####
 
-_**Emission** parameter is available only from FLAM3HUSD HDA versions for Houdini 19.5 and up_.<br/>
+_**Emission** parameter is available only from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
 _**Transmission** and **Tone map** parameters are available only from FLAM3HUSD HDA versions for Houdini 20.5 and up_.
 
 - **New H21 ONLY**: FLAM3H™ **points widths** and Handles VIZ **curves widths** are now controlled by the new **width_scale** parameter introduced in **H21** (_instead of directly modify the geometry with a wrangle node_).
