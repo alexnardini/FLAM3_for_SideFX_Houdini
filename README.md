@@ -74,11 +74,9 @@ a new custom materialX Shader has been introduced to the FLAM3HUSD [<ins>v0.1.70
 _"build a buffer with the histogram or summation/accumulation of every point in every pixel"_.
 
 This custom shader will match the visual quality of the fractal Flames rendered with Apophysis, Fractorium and others.
-It give its best from H20.5 and up.
+Only available with FLAM3HUSD HDA versions for Houdini H20.5 and up.
 
 Kudos to SideFX, for the **unlit** materialX node, making all of the above possible.
-
-A menu with tone mapping presets has been added to the FLAM3HUSD HDA Shader's tab as well.
 
 Prior to this:<br/>
 Karma viewport renders did not use any density estimator, or log density display ( _a form of tone mapping_ ) that is instead present in other applications. It did brighten up the high-density areas instead ( _more points, more bright_ ) while using the raw color values coming from the palette the Flame is currently using.

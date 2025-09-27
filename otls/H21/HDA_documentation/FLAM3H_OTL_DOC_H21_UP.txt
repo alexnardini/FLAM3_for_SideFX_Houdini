@@ -3770,10 +3770,10 @@ _A list of all parametric variations and their parametric parameter's names_
 
 :box:
     #display: rounded gray
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *H19.5 and up*
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *H20.5 and up*
         #id: ACCUMULATION
     
-    If you are using Houdini *`19.5`* and up,
+    If you are using Houdini *`20.5`* and up,
 
     the *FLAM3HUSD* companion HDA for the Solaris context (_Lop_) will use a custom shader<br />
     that perfectly emulate what the original `Flam3` algorithm does, matching the visual color value accumulation quality of all the other implementations.
@@ -3782,10 +3782,10 @@ _A list of all parametric variations and their parametric parameter's names_
 
 :box:
     #display: rounded gray
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *H19.0*
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *from H19.0 to H20.0*
         #id: ACCUMULATION
 
-    If you are using Houdini *`19.0`* or Mantra or a renderer other then Karma,<br />
+    If you are using Houdini from *`19.0`* to *`20.0`* or Mantra or a renderer other then Karma,<br />
     keep reading below:
 
     - _The following is valid for the time being and it will be subject to change sometime in the future._<br />

@@ -299,15 +299,9 @@ Shader parameters:
     <br />
     
     NOTE:
-        Some parameters are fully functional from different Houdini versions.<br />
-        Below a summuary:
+        _*`Emission`* parameter is available only from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
 
-        _*`Emission`*, and *`Transmission`* parameters_<br />
-        _are available only from Houdini 19.5 and up_.
-
-        _*`Transmission`* parameter give its best from H20.5 and up_.
-
-        _*`Tone map`* parameter is available only from Houdini 20.5 and up_.
+        _*`Transmission`* and *`Tone map`* parameters are available only from FLAM3HUSD HDA versions for Houdini 20.5 and up_.
 
         _*`Emission`* and *`Transmission`* are responsable for a proper point color values accumulation and they are crucial for a correct fractal Flame look with the Karma renderer_.<br />
 
