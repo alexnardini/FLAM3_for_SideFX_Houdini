@@ -36,10 +36,54 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 - ### Contents
     - _List of all the UI parameters with ICONS associated with and the command string they are called from and from where_.
 
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+_FLAM3HUSD system utilities._
+
+# SYS Tab
+# parameter name:    `sys_help`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_F_docStarSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_F_docStarSVG.svg
+```
+
 <br>
 <br>
-<br>
-<br>
+
+
+# SYS Tab
+# parameter name:    `sys_reframe`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_FrameBlueSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_FrameBlueSVG.svg
+```
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
 
 _Here you will play with the main settings of FLAM3HUSD._
 
@@ -82,6 +126,18 @@ Token: 0
 
 # PREFS Tab
 # parameter name:    `vpptsize`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `widths`
 ### Action icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
 

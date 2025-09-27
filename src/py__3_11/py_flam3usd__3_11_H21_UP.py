@@ -843,12 +843,15 @@ class flam3husd_general_utils
                 except: _STASH_DICT: dict[str, hou.EnumValue] | None = None
                 
                 dark = False
+                lop_viewers: bool = False
                 if _STASH_DICT is not None:
                     for v in views:
                         
                         # Only if it is a Sop viewer
                         if self.util_is_context('Lop', v):
 
+                            if lop_viewers is False: lop_viewers = True
+                            
                             key: str = v.name()
                             _STASH: hou.EnumValue | None = _STASH_DICT.get(key)
                             if _STASH is not None:
@@ -868,9 +871,12 @@ class flam3husd_general_utils
                     try:
                         
                         if hou.session.HUSD_CS_STASH_DICT: # type: ignore
-                            prm.set(1)
                             _MSG: str = f"No viewer in Dark mode"
-                            self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers are set to Dark or there are not Lop viewers available to restore.", 'MSG')
+                            if lop_viewers is False:
+                                prm.set(1)
+                                self.set_status_msg(f"{node.name()}: {_MSG}. There are not Lop viewers available to restore.", 'MSG')
+                            else:
+                                self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers are set to Dark.", 'MSG')
                         else:
                             _MSG: str = f"Nothing to restore"
                             self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers has been switched to Dark. They probably were already in Dark mode.", 'MSG')

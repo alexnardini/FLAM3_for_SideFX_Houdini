@@ -181,20 +181,36 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_delet
 </br>
 </br>
 
-_Here you will play with the main settings of FLAM3HUSD._
+_FLAM3HUSD system utilities._
 
-# Prefs Tab
+
+
+
+# SYS Tab
 # parameter name:    `sys_help`
 ## parameter type: `button`
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display_help()
 ```
+</br>
+</br>
+
+_Here you will play with the main settings of FLAM3HUSD._
+
+# SYS Tab
+# parameter name:    `sys_reframe`
+## parameter type: `button`
+- ### Callback Script
+```python
+hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_viewport_bbox_frame()
+```
+
 
 </br>
 </br>
 
-# Prefs Tab
+# SYS Tab
 # parameter name:    `flam3hpath`
 ## parameter type: `operator path`
 - ### Callback Script
@@ -204,8 +220,18 @@ hou.pwd().hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_is_valid_flam
 
 </br>
 </br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
 
-# Prefs Tab
+_Here you will play with the main settings of FLAM3HUSD._
+
+# PREFS Tab
 # parameter name:    `setdark`
 ## parameter type: `toggle`
 - ### Callback Script
@@ -216,7 +242,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark()
 </br>
 </br>
 
-# Prefs Tab
+# PREFS Tab
 # parameter name:    `rndtype`
 ## parameter type: `ordered menu`
 - ### Callback Script
@@ -232,7 +258,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRend
 </br>
 </br>
 
-# Prefs Tab
+# PREFS Tab
 # parameter name:    `vptype`
 ## parameter type: `ordered menu`
 - ### Callback Script
@@ -243,7 +269,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleD
 </br>
 </br>
 
-# Prefs Tab
+# PREFS Tab
 # parameter name:    `vpptsize`
 ## parameter type: `float`
 - ### Callback Script
@@ -258,7 +284,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportPart
 </br>
 </br>
 
-# Prefs Tab
+# PREFS Tab
 # parameter name:    `widths`
 ## parameter type: `float`
 - ### Action Button script
@@ -269,7 +295,19 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportPart
 </br>
 </br>
 
-# Prefs Tab
+# PREFS Tab
+# parameter name:    `widths_xf_viz`
+## parameter type: `float`
+- ### Action Button script
+```python
+kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(2.0, 'widths_xf_viz')
+```
+
+
+</br>
+</br>
+
+# PREFS Tab
 # parameter name:    `pxsamples`
 ## parameter type: `integer`
 - ### Action Button script
@@ -280,11 +318,10 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportPart
 </br>
 </br>
 
-# Prefs Tab
+# PREFS Tab
 # parameter name:    `use_f3h_shader`
 ## parameter type: `toggle`
 - ### Action Button script
 ```python
 kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).reset_flam3h_shader()
-
 ```

@@ -30,6 +30,32 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>From v1.8.99</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.99) ###
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+#### FLAM3HUSD v0.1.80 - Prototype ####
+
+_The new FLAM3HUSD Shader' **Emission** parameter give its best from H20.5 and up_.
+
+- **New H21 ONLY**: FLAM3H™ **points widths** and Handles VIZ **curves widths** are now controlled by the new **width_scale** parameter introduced in **H21** (_instead of modify the geometry directly with a wrangle node_).
+- **New**: Ability to change the imported xforms handles VIZ curves widths. 
+- **Fix**: Xforms handles VIZ SOP import node now uses a point instancer method.
+- **Fix**: Changing the handles widths parameter now affect also the post affine curves segments.
+- **Fix**: The xforms handles curves are now defined as flat ribbons, avoiding visual intersections with the handles knots when scaled up.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>From v1.8.98</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
