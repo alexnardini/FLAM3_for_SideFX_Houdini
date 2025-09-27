@@ -74,7 +74,7 @@ a new custom materialX Shader has been introduced to the FLAM3HUSD [<ins>v0.1.70
 _"build a buffer with the histogram or summation/accumulation of every point in every pixel"_.
 
 This custom shader will match the visual quality of the fractal Flames rendered with Apophysis, Fractorium and others.
-Only available with FLAM3HUSD HDA versions for Houdini H20.5 and up.
+Fully available only with FLAM3HUSD HDA versions for Houdini H20.5 and up.
 
 Kudos to SideFX, for the **unlit** materialX node, making all of the above possible.
 
