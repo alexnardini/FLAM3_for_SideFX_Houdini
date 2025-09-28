@@ -70,7 +70,7 @@ With Houdini integrated Karma renderer, you will be able to render the generated
 ### Karma render Note:
 
 From FLAM3H™ [<ins>v1.8.98</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98),<br/>
-a new custom materialX Shader has been introduced to the FLAM3HUSD [<ins>v0.1.70</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98) companion HDA to allow proper points color values accumulation. It will perfectly mimic what third-party implementations refer to as:<br/>
+a new custom materialX Shader has been introduced to the FLAM3HUSD HDA to allow proper points color values accumulation. It will perfectly mimic what third-party implementations refer to as:<br/>
 _"build a buffer with the histogram or summation/accumulation of every point in every pixel"_.
 
 This custom shader will match the visual quality of the fractal Flames rendered with Apophysis, Fractorium and others.
