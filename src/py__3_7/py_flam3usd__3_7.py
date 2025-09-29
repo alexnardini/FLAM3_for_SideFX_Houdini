@@ -111,7 +111,8 @@ class flam3husd_scripts:
 class flam3husd_scripts
 
 @STATICMETHODS
-* flam3husd_on_create_lock_parms(node: hou.SopNode) -> None:
+* flam3husd_on_create_load_first_instance(node: hou.LopNode) -> None:
+* flam3husd_on_create_lock_parms(node: hou.LopNode) -> None:
 * flam3husd_h_versions_build_data(__h_versions__: Union[tuple, int], last_index: bool = False) -> str:
 * flam3husd_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
 * flam3husd_compatible(h_version: int, this_h_versions: tuple, kwargs: Union[dict, None], msg: bool) -> bool:
@@ -144,11 +145,37 @@ class flam3husd_scripts
         
         
     @staticmethod
-    def flam3husd_on_create_lock_parms(node: hou.SopNode) -> None:
+    def flam3husd_on_create_load_first_instance(node: hou.LopNode, msg: bool = True) -> bool:
+        """Set the FLAM3H™ node path to the first instance if any ar found to be imported into FLAM3HUSD.
+        
+        Args:
+            node(hou.LopNode): This FLAM3HUSD node
+            msg(bool): Default to True. When False it will not print messages (Status bar and Flash messages)
+            
+        Returns:
+            (bool): True if an instance is found and False if not.
+        """
+        f3h_all_instances: list = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY).instances()
+        if f3h_all_instances:
+            node.setParms({PREFS_FLAM3H_PATH: f3h_all_instances[0].path()}) # type: ignore
+            if msg:
+                _MSG = f"First FLAM3H™ instance imported"
+                flam3husd_general_utils.flash_message(_MSG)
+                flam3husd_general_utils.set_status_msg(_MSG, 'IMP')
+            return True
+        
+        else:
+            if msg:
+                ...
+            return False
+        
+        
+    @staticmethod
+    def flam3husd_on_create_lock_parms(node: hou.LopNode) -> None:
         """lock private parameters not being locked on creation by other definitions.
         
         Args:
-            node(hou.SopNode): This FLAM3HUSD node
+            node(hou.LopNode): This FLAM3HUSD node
             
         Returns:
             (None):
@@ -417,14 +444,14 @@ class flam3husd_scripts
         try:
             type: hou.SopNodeType = f3h_to_f3husd_node.type()
         except:
-            flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
         else:
             if hou.node(f3h_path).type().nameWithCategory() == FLAM3H_NODE_TYPE_NAME_CATEGORY and type.name() == 'null':
                 if hou.node(f3h_path).parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
-                    flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
-                else: flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                else: flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                 
-            else: flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+            else: flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
         
 
     def flam3husd_h190_check(self) -> None:
@@ -440,9 +467,9 @@ class flam3husd_scripts
 
         node: hou.LopNode = self.node
         if flam3husd_general_utils.houdini_version(2) == 190:
-            flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 1)
+            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 1)
         else:
-            flam3husd_general_utils.set_private_prm(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 0)
+            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 0)
     
     
     def flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float = 1) -> None:
@@ -554,24 +581,27 @@ class flam3husd_scripts
         Returns:
             (None):
         """
+        node = self.node
         # Set initial node color
-        self.node.setColor(hou.Color((0.165,0.165,0.165)))
+        node.setColor(hou.Color((0.165,0.165,0.165)))
         
         if self.flam3husd_compatible_type(__range_type__):
             
+            # Load FLAM3H node first instance if any
+            self.flam3husd_on_create_load_first_instance(node)
+            # Check if we are importing a valid FLAM3HUSD node
+            self.flam3husd_is_valid_flam3h_node()
             # Set renderer
             self.autoSetRenderer_on_create()
             # Set viewport preferences settings
             self.flam3husd_on_create_set_prefs_viewport()
-            # Check if we are importing a valid FLAM3HUSD node
-            self.flam3husd_is_valid_flam3h_node()
             # Check H version and set
             self.flam3husd_h190_check()
             # Set about box
             flam3husd_about_utils(self.kwargs).flam3husd_about_msg()
         
             # Lock data parameters
-            self.flam3husd_on_create_lock_parms(self.node)
+            self.flam3husd_on_create_lock_parms(node)
             
         else:
             self.flam3husd_on_create_compatible_false()
@@ -759,9 +789,8 @@ class flam3husd_general_utils:
 class flam3husd_general_utils
 
 @STATICMETHODS
-* private_prm_set(node: hou.SopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
+* private_prm_set(node: hou.LopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
 * in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
-* set_private_prm(node: hou.SopNode, prm_name: str, data: Union[str, int, float]) -> None:
 * karma_hydra_renderer_name() -> str:
 * houdini_version(digit: int = 1) -> int:
 * util_getSceneViewers() -> list:
@@ -800,13 +829,13 @@ class flam3husd_general_utils
 
 
     @staticmethod
-    def private_prm_set(node: hou.SopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
+    def private_prm_set(node: hou.LopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
         """Set a parameter value while making sure to unlock and lock it right after.
         This is being introduced to add an extra level of security so to speak to certain parameters
         that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.
         
         Args:
-            node(hou.SopNode): this FLAM3HUSD node.
+            node(hou.LopNode): this FLAM3HUSD node.
             prm_name(Union[str, hou.Parm]): the parameter name or the parameter hou.Parm directly.
             data(Union[str, int, float]): The value to set the parameter to.
             
@@ -833,26 +862,6 @@ class flam3husd_general_utils
         """       
         var_name: str = list(mydict.keys())[list(mydict.values()).index(idx)] 
         return var_name
-
-
-    @staticmethod
-    def set_private_prm(node: hou.LopNode, prm_name: str, data: Union[str, int, float]) -> None:
-        """Set a parameter value while making sure to unlock and lock it right after.
-        This is being introduced to add an extra level of security so to speak to certain parameters
-        that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.
-        
-        Args:
-            node(hou.SopNode): this FLAM3HUSD node.
-            prm_name(str): the parameter name.
-            data(Union[str, int, float]): The value to set the parameter to.
-            
-        Returns:
-            (None):
-        """ 
-        prm = node.parm(prm_name)
-        prm.lock(False)
-        prm.set(data)
-        prm.lock(True)
 
 
     @staticmethod

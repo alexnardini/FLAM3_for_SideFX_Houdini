@@ -54,6 +54,39 @@ opdef:/alexnardini::Sop/FLAM3H?FLAM3H_DOC_icon.svg
 
 
 <p align="center">
+  <img width="160" height="160" src="./FLAM3HUSD_DOC_icon.svg" /></p>
+<b><p align="center">FLAM3HUSD_DOC_icon.svg</p></b>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?FLAM3HUSD_DOC_icon.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?FLAM3HUSD_DOC_icon.svg] Label
+```
+<b>Doc icon</b>
+
+```
+[Icon:opdef:.?FLAM3HUSD_DOC_icon.svg]
+```
+<b>Doc icon Small</b>
+
+```
+[Smallicon:opdef:.?FLAM3HUSD_DOC_icon.svg]
+```
+<b>Doc icon Large</b>
+
+```
+[Largeicon:opdef:.?FLAM3HUSD_DOC_icon.svg]
+```
+<p align="center">...</p></br/></br/></br/></br/></br/></br/></br/></br/>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_AddDelIteratorSVG.svg" /></p>
 <b><p align="center">icon_AddDelIteratorSVG.svg (H21 and up only)</p></b>
 

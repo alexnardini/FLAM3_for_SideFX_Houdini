@@ -1,9 +1,9 @@
-#icon: opdef:.?iconSVG.svg
+#icon: opdef:.?FLAM3HUSD_DOC_icon.svg
 #type: node
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.1.80 - Prototype
+#version: 0.2.00 - Prototype
 
 """Simple utility node to quickly render FLAM3H(tm) fractal flames in Solaris."""
 
@@ -265,7 +265,7 @@ Use Shader [Icon:DATATYPES/boolean]:
     Use the FLAM3H(tm) custom MaterialX Shader.
 
     This shader allow you to perform color correction operations<br />
-    and fine tune the point color values accumulation settings (_only from H19.5 and up_) on the fly.
+    and fine tune the point color values accumulation settings (_only from H20.5 and up_) on the fly.
 
     <br />
 

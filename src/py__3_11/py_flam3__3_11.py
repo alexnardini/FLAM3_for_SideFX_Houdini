@@ -3266,12 +3266,15 @@ class flam3h_general_utils
             if len(viewports):
                 
                 lop_viewports: list = []
+                sop_viewers: bool = False
                 # Set them all without storing any stashed camera data 
                 self.util_set_clipping_viewers()
                 for v in viewports:
                     
                     # Set only if it is a Sop viewer
                     if self.util_is_context('Sop', v):
+                        
+                        if sop_viewers is False: sop_viewers = True
                         
                         view: hou.GeometryViewport = v.curViewport()
                         if view.type() != hou.geometryViewportType.Front: # type: ignore
@@ -3289,9 +3292,6 @@ class flam3h_general_utils
                                         return False
                                 else:
                                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
-
-                                if _SYS_FRAME_VIEW_SENSOR_prm:
-                                    self.flash_message(self.node, f"sensor REFRAMED")
                                     
                         else:
                             if update_sensor or _SYS_FRAME_VIEW_SENSOR_prm:
@@ -3307,13 +3307,12 @@ class flam3h_general_utils
                                             return False
                                     else:
                                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
-                                        
-                                        if _SYS_FRAME_VIEW_SENSOR_prm:
-                                            self.flash_message(self.node, f"sensor REFRAMED")
                                             
                     else:
                         # Count how many Lop viewports are present
                         lop_viewports.append(True)
+                        
+                if sop_viewers and _SYS_FRAME_VIEW_SENSOR_prm: self.flash_message(self.node, f"sensor REFRAMED")
                         
                 # If all the viewports are Lop viewports
                 if len(lop_viewports) == len(viewports):
