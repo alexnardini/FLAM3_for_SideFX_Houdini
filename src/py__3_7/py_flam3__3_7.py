@@ -1285,10 +1285,23 @@ class flam3h_scripts
         # we allow it to run anyway letting the user know that something can go wrong.
         elif h_version > __h_version_max__:
             
-            if msg and hou.isUIAvailable():
-                _MSG_H_VERSIONS = f"This Houdini version is: H{flam3h_scripts.flam3h_h_versions_build_data(h_version)}\nThe latest Houdini version supported by FLAM3H™ is: H{flam3h_scripts.flam3h_h_versions_build_data(__h_version_max__)}\nSome functionality may not work as intended or not work at all."
-                hou.ui.displayMessage(_MSG_H_VERSIONS, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
-            return True
+            try:
+                _H_VERSION_ALLOWED: bool =  hou.session.F3H_H_VERSION_ALLOWED # type: ignore
+            except:
+                _H_VERSION_ALLOWED: bool = False
+            
+            if _H_VERSION_ALLOWED is False:
+            
+                if msg and hou.isUIAvailable():
+                    _MSG_H_VERSIONS = f"This Houdini version is: H{flam3h_scripts.flam3h_h_versions_build_data(h_version)}\nThe latest Houdini version supported by FLAM3H™ is: H{flam3h_scripts.flam3h_h_versions_build_data(__h_version_max__)}\nSome functionality may not work as intended or not work at all."
+                    hou.ui.displayMessage(_MSG_H_VERSIONS, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+                    # Do not show me this Display Message window again when creating succesive instances of this HDA
+                    hou.session.F3H_H_VERSION_ALLOWED = True # type: ignore
+                    
+                return True
+            
+            else:
+                return True
         
         else:
             
