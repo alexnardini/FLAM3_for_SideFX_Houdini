@@ -3398,16 +3398,26 @@ class flam3h_general_utils
         
         else:
             viewports: list = self.util_getSceneViewers()
-            if len(viewports):
+            num_viewers: int = len(viewports)
+            if num_viewers:
                 self.util_set_clipping_viewers()
                 for v in viewports:
+                    
                     view: hou.GeometryViewport = v.curViewport()
                     if self.bbox_reframe_path is not None:
                         node_bbox: hou.SopNode = hou.node(self.bbox_reframe_path)
                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
-                        _MSG: str = f"viewport REFRAMED"
-                        self.flash_message(node, _MSG)
-                        self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                        
+                if num_viewers == 1:
+                    _MSG: str = f"viewport REFRAMED"
+                    self.flash_message(node, _MSG)
+                    self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    
+                else:
+                    _MSG: str = f"viewports REFRAMED"
+                    self.flash_message(node, _MSG)
+                    self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    
             else:
                 _MSG: str = f"No viewports in the current Houdini Desktop."
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewport for the reframe to work.", 'IMP')
@@ -4262,22 +4272,22 @@ class flam3h_general_utils
                 self.util_store_all_viewers_color_scheme()
                 
                 dark: bool = False
-                sop_view: bool = False
+                sop_viewers: bool = False
                 
                 for v in views:
                     
                     # Set only if it is a Sop viewer
                     if flam3h_general_utils.util_is_context('Sop', v):
                         
-                        if sop_view is False: sop_view = True
+                        if sop_viewers is False: sop_viewers = True
                         
                         settings: hou.GeometryViewportSettings = v.curViewport().settings()
                         _CS: hou.viewportColorScheme = settings.colorScheme()
                         if _CS != hou.viewportColorScheme.Dark: # type: ignore
                             settings.setColorScheme(hou.viewportColorScheme.Dark) # type: ignore
-                            dark = True
+                            if dark is False: dark = True
                 
-                if sop_view:
+                if sop_viewers:
                     
                     if dark:   
                         _MSG: str = f"Dark: ON"
@@ -4317,7 +4327,7 @@ class flam3h_general_utils
                                 _CS: hou.viewportColorScheme = settings.colorScheme()
                                 if _CS == hou.viewportColorScheme.Dark: # type: ignore
                                     settings.setColorScheme(_STASH)
-                                    dark = True
+                                    if dark is False: dark = True
                                 
                 if dark:
                     _MSG: str = f"Dark: OFF"

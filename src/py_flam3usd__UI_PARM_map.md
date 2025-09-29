@@ -63,8 +63,20 @@ First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "0.1.70"
+__version__ = "0.1.80"
 __status__ = "Prototype"
+__h_versions__: tuple = (210,)
+__range_type__: bool = False # True for closed range. False for open range
+
+# The following are min and max Houdini version where FLAM3HUSD can run.
+# The max version is always most likely the latest Houdini version released by SideFX
+# unless it is a closed range due to moving into newer Houdini and FLAM3HUSD versions.
+#
+# The ranges can be open or close inside this definition:
+# - (py_flam3usd__3_11_H21_UP) -> def flam3husd_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
+# - (py_flam3usd__3_7)  -> def flam3husd_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
+__h_version_min__: int = 190
+__h_version_max__: int = __h_versions__[-1]
 
 def houdini_version(digit: int=1) -> int:
     """Retrieve the major Houdini version number currently in use.
@@ -88,7 +100,7 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 </br>
 </br>
 
-# PythonModule - Houdini version: `H19 to H20.5`
+# PythonModule - Houdini version: `H20.5`
 The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
@@ -101,8 +113,20 @@ First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "0.1.70"
+__version__ = "0.1.80"
 __status__ = "Prototype"
+__h_versions__: tuple = (205,)
+__range_type__: bool = True # True for closed range. False for open range
+
+# The following are min and max Houdini version where FLAM3HUSD can run.
+# The max version is always most likely the latest Houdini version released by SideFX
+# unless it is a closed range due to moving into newer Houdini and FLAM3HUSD versions.
+#
+# The ranges can be open or close inside this definition:
+# - (py_flam3usd__3_11) -> def flam3husd_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
+# - (py_flam3usd__3_7)  -> def flam3husd_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
+__h_version_min__: int = 190
+__h_version_max__: int = __h_versions__[-1]
 
 def houdini_version(digit: int=1) -> int:
     """Retrieve the major Houdini version number currently in use.
@@ -120,6 +144,148 @@ if h < 205: __module__: str = "py_flam3usd__3_7"
 else: __module__: str = "py_flam3usd__3_11"
 
 flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __module__)
+```
+
+</br>
+</br>
+</br>
+
+# PythonModule - Houdini version: `H19 to H20`
+The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>
+First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
+
+```python
+#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2023 F stands for liFe
+
+import toolutils
+
+# Set some HDA infos
+__version__ = "0.1.80"
+__status__ = "Prototype"
+__h_versions__: tuple = (190, 195, 200)
+__range_type__: bool = True # True for closed range. False for open range
+
+# The following are min and max Houdini version where FLAM3HUSD can run.
+# The max version is always most likely the latest Houdini version released by SideFX
+# unless it is a closed range due to moving into newer Houdini and FLAM3HUSD versions.
+#
+# The ranges can be open or close inside this definition:
+# - (py_flam3usd__3_11) -> def flam3husd_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
+# - (py_flam3usd__3_7)  -> def flam3husd_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
+__h_version_min__: int = 190
+__h_version_max__: int = __h_versions__[-1]
+
+def houdini_version(digit: int=1) -> int:
+    """Retrieve the major Houdini version number currently in use.
+
+    Args:
+        digit(int): Default to 1: 19, 20. if set to 2: 190, 195, 200, 205, and so on.
+
+    Returns:
+        (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
+    """ 
+    return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
+    
+h: int = houdini_version(2)
+if h < 205: __module__: str = "py_flam3usd__3_7"
+else: __module__: str = "py_flam3usd__3_11"
+
+flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __module__)
+```
+
+</br>
+</br>
+</br>
+
+# PreFirstCreate
+Before the node is even created but invoked.</br>
+Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**
+
+```python
+#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2023 F stands for liFe
+
+from datetime import datetime
+
+# Get some HDA infos from the HDA module
+FLAM3HUSD_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Lop/FLAM3HUSD'
+nodetype = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY)
+__version__ = nodetype.hdaModule().__version__
+__status__ = nodetype.hdaModule().__status__
+__h_versions__: tuple = nodetype.hdaModule().__h_versions__
+__range_type__: bool = nodetype.hdaModule().__range_type__
+__h_version_min__: int = nodetype.hdaModule().__h_version_min__
+
+
+def flam3husd_first_time() -> bool:
+    """If the version of Houdini running is not allowed for this FLAM3HUSD HDA version (different cases)
+    will return False, otherwise will return True.
+
+    Args:
+        ():
+
+    Returns:
+        (bool): True if compatible and False if not.
+    """ 
+    hou_version: int = nodetype.hdaModule().houdini_version(2)
+
+    if hou_version < __h_version_min__:
+        return False
+    
+    elif __range_type__ is True:
+        if hou_version < __h_versions__[0] or hou_version > __h_versions__[-1]:
+            return False
+        else:
+            return True
+        
+    elif __range_type__ is False:
+        if hou_version < __h_versions__[0]:
+            return False
+        else:
+            return True
+        
+    else:
+        return True
+
+
+def flam3husd_not_compatible_first_time_msg() -> None:
+    """On first time FLAM3HUSD node instance creation:
+
+    Run messages if not compatible with this Houdini version.
+    
+    Compatibility is checked inside:
+    * def flam3h_first_time() -> bool:
+
+    Args:
+        ():
+
+    Returns:
+        (None):
+    """ 
+    
+    _MSG_H_VERSIONS = nodetype.hdaModule().flam3usd.flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__, False)
+    _MSG_INFO = f"\n-> FLAM3HUSD version: {__version__} - {__status__}\n\nThis Houdini version is not compatible with this FLAM3HUSD version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3HUSD version"
+            
+    if hou.isUIAvailable():
+
+        print(_MSG_INFO)
+
+        _MSG_INFO_SB = f"-> FLAM3HUSD version: {__version__} - {__status__}. This Houdini version is not compatible with this FLAM3HUSD version. You need {_MSG_H_VERSIONS} to run this FLAM3HUSD version"
+        hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
+
+        hou.ui.displayMessage(f"Sorry, you need {_MSG_H_VERSIONS} to run this FLAM3HUSD version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3HUSD Houdini version check", details=None, details_label=None, details_expanded=False)
+
+    else:
+        print(_MSG_INFO)
+
+
+if not flam3husd_first_time():
+    flam3husd_not_compatible_first_time_msg()
 ```
 
 </br>

@@ -56,8 +56,6 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 _Third-party applications use an_ [orthogonal|Wp:Orthographic_projection] _type of viewer in their editors_.<br />
 _If you'd like to get close to a fractal Flame editor vibe, set the_ [viewport|Wp:Viewport] _to_: *Front* (_or press the key ((3)) while the cursor is on any viewport_). _Once you have done that, you can also go to the FLAM3HUSD preferences' tab and set the viewport color to: *Dark* (if not already)_.
 
-_Best would be to use one of the Desktop files provided (HD or 4K) as they set everything up for you_.
-
 _At the moment of this writing (up to H21)_:<br />
 _It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`* and set the Renderer to_ [OpenGL|Wp:OpenGL] _as it provide a better points visualization in the viewport when millions of them are displayed and/or their viewport point size is smaller than *`1`*(one). Changing the viewer renderer will require a restart of Houdini_.
 
@@ -81,11 +79,16 @@ FLAM3HUSD documentation:
 
 frame viewport:
     #id: SYS
-    [Largeicon:opdef:.?icon_FrameBlueSVG.svg]
+    [Largeicon:opdef:.?icon_FrameRedSVG.svg]
     
-    Re-frame current viewport based on a centered bounding box.
+    Re-frame current viewports based on a centered bounding box<br />
+    and set all of them to type: *`Front`* (_for undistorted fractal Flames rendering_)
     
     This is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.
+
+    _Additionally_:
+
+    It will set the viewports clipping planes to proper values every time is invoked.
 
     <br />
     [Icon:NETWORKS/lop] *Context aware*<br />
@@ -255,7 +258,7 @@ Denoiser [Icon:BUTTONS/pane_menu]:
     
     == Renderer: FLAM3H(tm) Shader == (OPTIONSF3HSHADER)
 
-Use FLAM3H(tm) Shader [Icon:DATATYPES/boolean]:
+Use Shader [Icon:DATATYPES/boolean]:
     #id: PREFS
     *`Off`* by default.
     
@@ -266,7 +269,7 @@ Use FLAM3H(tm) Shader [Icon:DATATYPES/boolean]:
 
     <br />
 
-Reset FLAM3H(tm) Shader parms:
+Reset Shader parms:
     #id: PREFS
     [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
     
@@ -299,9 +302,9 @@ Shader parameters:
     <br />
     
     NOTE:
-        _*`Emission`* parameter is available only from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
+        _*`Emission`* parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
 
-        _*`Transmission`* and *`Tone map`* parameters are available only from FLAM3HUSD HDA versions for Houdini 20.5 and up_.
+        _*`Transmission`* and *`Tone map`* parameters are available only<br />from FLAM3HUSD HDA versions for Houdini 20.5 and up_.
 
         _*`Emission`* and *`Transmission`* are responsable for a proper point color values accumulation and they are crucial for a correct fractal Flame look with the Karma renderer_.<br />
 

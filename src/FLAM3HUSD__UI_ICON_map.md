@@ -67,7 +67,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_F_docStarSVG.svg
 # SYS Tab
 # parameter name:    `sys_reframe`
 ### Button icon
-<p align="left"><img width="80" height="80" src="../icons/icon_FrameBlueSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_FrameRedSVG.svg" /></p>
 
 ```
 opdef:/alexnardini::Lop/FLAM3HUSD?icon_FrameBlueSVG.svg
@@ -88,7 +88,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_FrameBlueSVG.svg
 _Here you will play with the main settings of FLAM3HUSD._
 
 # PREFS Tab
-# parameter name:    `tip`
+# parameter name:    `icon_tip`
 ### Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
