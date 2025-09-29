@@ -75,7 +75,10 @@ PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID = 'f3h_valid'
 PREFS_PVT_FLAM3HUSD_DATA_H190 = 'h_19_0'
 
 # Messages
-MSG_FLAM3HUSDABOUT = 'flam3husdabout_msg'
+MSG_F3HUSD_ABOUT = 'msg_f3husd_about'
+# Message errors
+MSG_F3HUSD_ERROR = 'msg_f3husd_error'
+MSG_F3HUSD_ABOUT_ERROR = 'msg_f3husd_about_error'
 
 # Flash messages timer
 FLAM3HUSD_FLASH_MESSAGE_TIMER: float = 2 # Note that for this FLAM3HUSD OTL the flash messages only run in netowrk editors belonging to the Lop context.
@@ -531,35 +534,12 @@ class flam3husd_scripts
         _MSG_H_VERSIONS = flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__, False)
 
         _MSG_INFO = f"ERROR -> FLAM3HUSD version: {__version__}. This Houdini version is not compatible with this FLAM3HUSD version. you need {_MSG_H_VERSIONS} to run this FLAM3HUSD version"
-        # _MSG_ABOUT = f"This FLAM3HUSD version need {_MSG_H_VERSIONS} to work."
+        _MSG_ABOUT = f"This FLAM3HUSD version need {_MSG_H_VERSIONS} to work."
         # _MSG_DESCRIPTIVE_MSG = f"FLAM3HUSD v{__version__}\nYou need {_MSG_H_VERSIONS}"
         
         # Set proper messages in the about tabs
-        # node.setParms({MSG_FLAM3H_ABOUT: _MSG_ABOUT})
-        # node.setParms({MSG_FLAM3H_PLUGINS: _MSG_ABOUT})
-        # flam3h_about_utils(self.kwargs).flam3h_about_web_msg()
-        
-        # Force to display the error message even when the display flag is Off on creation
-        #
-        # Force this node to cook to get a warning message show up upstream.
-        # It failed on me once, hence the try except block
-        # Probably becasue I am now raising an error from the xaos cvex code and when it does
-        # it is not allowed to cook ? Need to investigate...
-        # try: hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
-        # except: pass
-        # # Force to update
-        # node.cook(force=True)
-        
-        # We do not always want to set the iterators count to Zero
-        # likely only on creation, not on hip file load
-        # if iterators_count_zero:
-        #     node.setParms({FLAME_ITERATORS_COUNT: 0})
-        #     flam3h_iterator_utils(self.kwargs).iterators_count_zero(node, False)
-        
-        # We do not always want to set the descriptive parameter
-        # likely only on creation, not on hip file load
-        # if descriptive_prm:
-        #     node.setParms({MSG_DESCRIPTIVE_PRM: _MSG_DESCRIPTIVE_MSG}) # type: ignore
+        node.setParms({MSG_F3HUSD_ERROR: _MSG_ABOUT})
+        node.setParms({MSG_F3HUSD_ABOUT_ERROR: _MSG_ABOUT})
             
         # ERROR in the status bar
         if hou.isUIAvailable(): hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
@@ -574,10 +554,11 @@ class flam3husd_scripts
         Returns:
             (None):
         """
+        
+        # Set initial node color
+        self.node.setColor(hou.Color((0.165,0.165,0.165)))
+        
         if self.flam3husd_compatible_type(__range_type__):
-            
-            # Set initial node color
-            self.node.setColor(hou.Color((0.165,0.165,0.165)))
             
             # Set renderer
             self.autoSetRenderer_on_create()
@@ -644,6 +625,10 @@ class flam3husd_scripts
         h_valid_prm: hou.Parm = node.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID)
         if not h_valid_prm.eval():
             flam3husd_general_utils.private_prm_set(self.node, h_valid_prm, 1)
+            
+            # Clear messages just in case
+            node.setParms({MSG_F3HUSD_ERROR: ''})
+            node.setParms({MSG_F3HUSD_ABOUT_ERROR: ''})
             
             # Lock data parameters
             self.flam3husd_on_create_lock_parms(node)
@@ -1562,5 +1547,5 @@ class flam3husd_about_utils
         
         build_about_msg: str = "".join(build)
 
-        self.node.setParms({MSG_FLAM3HUSDABOUT: build_about_msg})
+        self.node.setParms({MSG_F3HUSD_ABOUT: build_about_msg})
 
