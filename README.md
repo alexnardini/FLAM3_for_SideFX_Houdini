@@ -29,7 +29,7 @@ _The following are Houdini versions where FLAM3H™ is fully functional, tested 
   <img width="160" height="160" src="./img/LOGO_F_github.svg" />
 </p>
 
-**[FLAM3H™ website](https://www.alexnardini.net/flame-home/)**
+**[FLAM3H™ website](https://www.alexnardini.net)**
 
 **[FLAM3H™ youtube](https://www.youtube.com/@alexnardiniITALY/videos)**
 
