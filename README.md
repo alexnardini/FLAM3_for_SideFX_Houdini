@@ -78,7 +78,7 @@ Fully available only with FLAM3HUSD HDA versions for Houdini H20.5 and up.
 
 <br/>
 <br/>
-Karma interactive rendering in the Houdini's viewport:
+Karma interactive viewport rendering:
 
 <br/>
 
