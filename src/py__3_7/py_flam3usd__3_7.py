@@ -61,8 +61,11 @@ NODE_NAME_OUT_BBOX_REFRAME = 'OUT_bbox_reframe' # prefix
 PREFS_FLAM3H_PATH = 'flam3hpath'
 PREFS_FLAM3H_WIDTHS = 'widths'
 PREFS_VIEWPORT_RENDERER = 'rndtype'
+PREFS_VIEWPORT_RENDERER_MEM = 'rndtype_mem'
 PREFS_VIEWPORT_PT_TYPE = 'vptype'
+PREFS_VIEWPORT_PT_TYPE_MEM = 'vptype_mem'
 PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
+PREFS_VIEWPORT_PT_SIZE_MEM = 'vpptsize_mem'
 PREFS_VIEWPORT_DARK = 'setdark'
 PREFS_KARMA_PIXEL_SAMPLES = 'pxsamples'
 PREFS_KARMA_F3H_SHADER_GAMMA = 'f3h_gamma'
@@ -77,6 +80,7 @@ PREFS_PVT_FLAM3HUSD_DATA_DISABLED = 'disabled'
 PREFS_PVT_FLAM3HUSD_DATA_H_VALID = 'h_valid' # The same paramater name as in FLAM3H™
 PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID = 'f3h_valid'
 PREFS_PVT_FLAM3HUSD_DATA_H190 = 'h_19_0'
+PREFS_PVT_FLAM3HUSD_DATA_H205_UP = 'h_20_5_up'
 
 # Messages
 MSG_F3HUSD_ABOUT = 'msg_f3husd_about'
@@ -122,7 +126,7 @@ class flam3husd_scripts
 @METHODS
 * flam3husd_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
 * flam3husd_is_valid_flam3h_node(self) -> None:
-* flam3husd_h190_check(self) -> None:
+* flam3husd_h_version_check(self) -> None:
 * flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float = 1) -> None:
 * flam3husd_on_create(self) -> None:
 * autoSetRenderer_on_create(self) -> None:
@@ -180,10 +184,14 @@ class flam3husd_scripts
         Returns:
             (None):
         """
-        prm_names: tuple = (PREFS_PVT_FLAM3HUSD_DATA_DISABLED, 
+        prm_names: tuple = (PREFS_VIEWPORT_RENDERER_MEM,
+                            PREFS_VIEWPORT_PT_SIZE_MEM,
+                            PREFS_VIEWPORT_PT_TYPE_MEM,
+                            PREFS_PVT_FLAM3HUSD_DATA_DISABLED, 
                             PREFS_PVT_FLAM3HUSD_DATA_H_VALID, 
                             PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 
-                            PREFS_PVT_FLAM3HUSD_DATA_H190
+                            PREFS_PVT_FLAM3HUSD_DATA_H190,
+                            PREFS_PVT_FLAM3HUSD_DATA_H205_UP
                             )
         
         [node.parm(prm_name).lock(True) for prm_name in prm_names if not node.parm(prm_name).isLocked()]
@@ -454,9 +462,12 @@ class flam3husd_scripts
             else: flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
         
 
-    def flam3husd_h190_check(self) -> None:
+    def flam3husd_h_version_check(self) -> None:
         """Karma CPU has a bug in Houdini version 19.0.x and it crashes if it find a null primitive.
         Since the xform handls viz may generate one, this is used to hide the UI Karma handles import tab.
+        
+        We also want the shader with the unlit material x node to be partially usable in some versions
+        and fully usable in some others.
         
         Args:
             (self): 
@@ -466,10 +477,18 @@ class flam3husd_scripts
         """  
 
         node: hou.LopNode = self.node
+        
+        # Houdini 19.0
         if flam3husd_general_utils.houdini_version(2) == 190:
             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 1)
         else:
             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 0)
+            
+        # Houdini 20.5 UP
+        if flam3husd_general_utils.houdini_version(2) >= 205:
+            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H205_UP, 1)
+        else:
+            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H205_UP, 0)
     
     
     def flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float = 1) -> None:
@@ -490,17 +509,17 @@ class flam3husd_scripts
         flam3husd_general_utils.util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
         flam3husd_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
         # Set other FLAM3HUSD instances to dark if any
-        all_f3h: tuple = node.type().instances()
+        all_f3husd: tuple = node.type().instances()
         all_f3h_vpptsize: list = []
         all_f3h_vptype: list = []
         
-        if len(all_f3h) > 1:
+        if len(all_f3husd) > 1:
 
-            for f3h in all_f3h:
-                if f3h != node:
-                    all_f3h_vpptsize.append(f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval())
-                    all_f3h_vptype.append(f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval())
-                    if f3h.parm(PREFS_VIEWPORT_DARK).eval():
+            for f3husd in all_f3husd:
+                if f3husd != node:
+                    all_f3h_vpptsize.append(f3husd.parm(PREFS_VIEWPORT_PT_SIZE).eval())
+                    all_f3h_vptype.append(f3husd.parm(PREFS_VIEWPORT_PT_TYPE).eval())
+                    if f3husd.parm(PREFS_VIEWPORT_DARK).eval():
                         node.setParms({PREFS_VIEWPORT_DARK: 1})
                         flam3husd_general_utils(self.kwargs).colorSchemeDark(False)
                         
@@ -513,8 +532,12 @@ class flam3husd_scripts
     
         # If we collected some data, set
         if all_f3h_vpptsize:
+            
             node.setParms({PREFS_VIEWPORT_PT_SIZE: all_f3h_vpptsize[0]})
             node.setParms({PREFS_VIEWPORT_PT_TYPE: all_f3h_vptype[0]})
+            # Updated memory
+            flam3husd_general_utils.private_prm_set(node, PREFS_VIEWPORT_PT_SIZE_MEM, all_f3h_vpptsize[0])
+            flam3husd_general_utils.private_prm_set(node, PREFS_VIEWPORT_PT_TYPE_MEM, all_f3h_vptype[0])
             
         else:
             Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
@@ -529,14 +552,20 @@ class flam3husd_scripts
                     
                     if size != default_value_pt:
                         node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
+                        # Updated memory
+                        flam3husd_general_utils.private_prm_set(node, PREFS_VIEWPORT_PT_SIZE_MEM, size)
                         
                     type: hou.EnumValue = settings.particleDisplayType()
                     if type == Pixels:
                         node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
+                        # Updated memory
+                        flam3husd_general_utils.private_prm_set(node, PREFS_VIEWPORT_PT_TYPE_MEM, 1)
                         
                 else:
                     # FLAM3HUSD shoud use its parameter default value in this case, but just to be sure
                     node.setParms({PREFS_VIEWPORT_PT_SIZE: default_value_pt})
+                    # Updated memory
+                    flam3husd_general_utils.private_prm_set(node, PREFS_VIEWPORT_PT_SIZE_MEM, default_value_pt)
 
 
     def flam3husd_on_create_compatible_false(self) -> None:
@@ -596,7 +625,7 @@ class flam3husd_scripts
             # Set viewport preferences settings
             self.flam3husd_on_create_set_prefs_viewport()
             # Check H version and set
-            self.flam3husd_h190_check()
+            self.flam3husd_h_version_check()
             # Set about box
             flam3husd_about_utils(self.kwargs).flam3husd_about_msg()
         
@@ -684,7 +713,7 @@ class flam3husd_scripts
             # Check if we are importing a valid FLAM3HUSD node
             self.flam3husd_is_valid_flam3h_node()
             # Check H version and set
-            self.flam3husd_h190_check()
+            self.flam3husd_h_version_check()
             # Set about box
             flam3husd_about_utils(self.kwargs).flam3husd_about_msg()
             
@@ -714,45 +743,64 @@ class flam3husd_scripts
         
         views = flam3husd_general_utils.util_getSceneViewers()
         renderers: list = []
+        
         for v in views:
             # Store only if it is a Lop viewer
             if flam3husd_general_utils.util_is_context('Lop', v) and not hou.hipFile.isLoadingHipFile(): # type: ignore
                 renderers.append(hou.SceneViewer.currentHydraRenderer(v))
-                
+
         if renderers:
             
             _RND: Union[str, None] = None
             for r in renderers:
+                
                 # Karma has the priority
                 _karma_name: str = flam3husd_general_utils.karma_hydra_renderer_name()
                 if _karma_name in r:
                     _RND = _karma_name
                     break
+                
                 elif "Houdini" in r: 
                     _RND = 'Houdini GL'
                     break
+                
                 else:
                     pass
             
             if _RND is not None:
                 
-                instances: tuple = node.type().instances()
+                rnd_idx: Union[int, None] = flam3husd_general_utils.flam3husd_hydra_renderers_dict().get(_RND)
+                lop_viewers: bool = False
                 
-                if len(instances)>1:
+                for v in views:
                     
-                    for v in views:
-                        # Set only if it is a Lop viewer
-                        if flam3husd_general_utils.util_is_context('Lop', v):
+                    # Set only if it is a Lop viewer
+                    if flam3husd_general_utils.util_is_context('Lop', v):
                         
-                            # Sync FLAM3HUSD nodes
-                            for n in instances:
-                                if n != node:
-                                    idx: int = n.parm(PREFS_VIEWPORT_RENDERER).eval()
-                                    node.setParms({PREFS_VIEWPORT_RENDERER: idx}) # type: ignore
-                                    flam3husd_general_utils.flash_message(flam3husd_general_utils.in_get_dict_key_from_value(flam3husd_general_utils.flam3husd_hydra_renderers_dict(), idx))
-                                    break
+                        if lop_viewers is False: lop_viewers = True
+                        
+                        if rnd_idx is not None:
                             
-                        else: pass
+                            node.setParms({PREFS_VIEWPORT_RENDERER: rnd_idx}) # type: ignore
+                            flam3husd_general_utils.private_prm_set(node, PREFS_VIEWPORT_RENDERER_MEM, rnd_idx)
+                            hou.SceneViewer.setHydraRenderer(v, _RND)
+
+                            instances: tuple = node.type().instances()
+                            if len(instances) > 1:
+                                
+                                # Sync FLAM3HUSD nodes
+                                for n in instances:
+                                    
+                                    if n != node:
+                                        
+                                        n.setParms({PREFS_VIEWPORT_RENDERER: rnd_idx}) # type: ignore
+                                        flam3husd_general_utils.private_prm_set(n, PREFS_VIEWPORT_RENDERER_MEM, rnd_idx)
+                        
+                    else:
+                        pass
+                    
+                if lop_viewers and rnd_idx is not None:
+                    flam3husd_general_utils.flash_message(flam3husd_general_utils.in_get_dict_key_from_value(flam3husd_general_utils.flam3husd_hydra_renderers_dict(), rnd_idx))
                         
     
     def flam3husd_on_deleted(self) -> None:
@@ -790,6 +838,7 @@ class flam3husd_general_utils
 
 @STATICMETHODS
 * private_prm_set(node: hou.LopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
+* private_prm_deleteAllKeyframes(node: hou.LopNode, _prm: Union[str, hou.Parm]) -> None:
 * in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
 * karma_hydra_renderer_name() -> str:
 * houdini_version(digit: int = 1) -> int:
@@ -847,6 +896,24 @@ class flam3husd_general_utils
         prm.lock(False)
         prm.set(data) # type: ignore # the set method for the hou.Parm exist but it is not recognized
         prm.lock(True)
+        
+        
+    @staticmethod
+    def private_prm_deleteAllKeyframes(node: hou.LopNode, _prm: Union[str, hou.Parm]) -> None:
+        """Delete all keyframes in a private parameter (locked).
+        
+        Args:
+            node(hou.LopNode): this FLAM3HUSD node.
+            prm_name(Union[sts, hou.Parm]): the parameter name or the parameter hou.Parm directly.
+            
+        Returns:
+            (None):
+        """ 
+        if isinstance(_prm, str): prm: hou.Parm = node.parm(_prm)
+        elif isinstance(_prm, hou.Parm): prm: hou.Parm = _prm
+        prm.lock(False)
+        prm.deleteAllKeyframes()
+        prm.lock(True)
 
 
     @staticmethod
@@ -875,7 +942,7 @@ class flam3husd_general_utils
             (str): [Return the internal hydra renderer name for Karma.]
         """    
         karma_name: str = 'Karma CPU'
-        if flam3husd_general_utils.houdini_version() < 20: karma_name = 'Karma'
+        if flam3husd_general_utils.houdini_version(2) < 200: karma_name = 'Karma'
         return karma_name
 
 
@@ -1324,28 +1391,47 @@ class flam3husd_general_utils
             (None):
         """
         node = self.node
+        
         pttype: int = node.parm(PREFS_VIEWPORT_PT_TYPE).eval()
+        pttype_mem: int = node.parm(PREFS_VIEWPORT_PT_TYPE_MEM).eval()
+        
         Points: hou.EnumValue = hou.viewportParticleDisplay.Points # type: ignore
         Pixels: hou.EnumValue = hou.viewportParticleDisplay.Pixels # type: ignore
+
+        lop_viewers: bool = False
 
         for view in self.util_getSceneViewers():
             
             # Set only if it is a Lop viewer
             if self.util_is_context('Lop', view):
                 
+                if lop_viewers is False: lop_viewers = True
+                
                 settings: hou.GeometryViewportSettings = view.curViewport().settings()
+
                 if pttype == 0:
                     settings.particleDisplayType(Points)
+                    self.private_prm_set(node, PREFS_VIEWPORT_PT_TYPE_MEM, pttype)
+                    
                 elif pttype == 1:
                     settings.particleDisplayType(Pixels)
-                
+                    self.private_prm_set(node, PREFS_VIEWPORT_PT_TYPE_MEM, pttype)
+                        
         # Sync FLAM3HUSD nodes
-        all_f3h: tuple = node.type().instances()
-        if len(all_f3h) > 1:
-            [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
+        all_f3husd: tuple = node.type().instances()
+                        
+        # Delete all keyframes
+        [f3husd.parm(PREFS_VIEWPORT_PT_TYPE).deleteAllKeyframes() for f3husd in all_f3husd]
+        # Delete all keyframes on memory parms
+        [self.private_prm_deleteAllKeyframes(f3husd, PREFS_VIEWPORT_PT_TYPE_MEM) for f3husd in all_f3husd]
+              
+        if lop_viewers:  
+            [f3husd.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3husd in all_f3husd if f3husd != node if f3husd.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
+            [self.private_prm_set(f3husd, PREFS_VIEWPORT_PT_TYPE_MEM, pttype) for f3husd in all_f3husd if f3husd != node if f3husd.parm(PREFS_VIEWPORT_PT_TYPE_MEM).eval() != pttype]
+    
+        else:
+            [f3husd.setParms({PREFS_VIEWPORT_PT_TYPE: pttype_mem}) for f3husd in all_f3husd if pttype != pttype_mem]
             
-        # This here for now because I still need to update the instances
-        if self.util_is_context_available_viewer('Lop') is False:
             _MSG = f"No Lop viewers available."
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
             self.flash_message(f"{_MSG}")
@@ -1364,35 +1450,60 @@ class flam3husd_general_utils
             (None):
         """
         node = self.node
+        
         Points: hou.EnumValue = hou.viewportParticleDisplay.Points # type: ignore
         ptsize: float = node.parm(prm_name_size).eval()
+        ptsize_mem: float = node.parm(PREFS_VIEWPORT_PT_SIZE_MEM).eval()
+        
+        lop_viewers: bool = False
 
         for view in self.util_getSceneViewers():
             
             # Set only if it is a Lop viewer
             if self.util_is_context('Lop', view):
             
+                if lop_viewers is False: lop_viewers = True
+            
                 settings: hou.GeometryViewportSettings = view.curViewport().settings()
                 settings.particleDisplayType(Points)
                 if reset_val is None:
-                    if prm_name_size == PREFS_VIEWPORT_PT_SIZE: settings.particlePointSize(ptsize)
+                    if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
+                        settings.particlePointSize(ptsize)
+                        self.private_prm_set(node, PREFS_VIEWPORT_PT_SIZE_MEM, ptsize)
+                        
                 else:
                     ptsize: float = float(reset_val)
-                    if prm_name_size == PREFS_VIEWPORT_PT_SIZE: settings.particlePointSize(ptsize)
-                    prm = node.parm(self.kwargs['parmtuple'].name())
+                    if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
+                        settings.particlePointSize(ptsize)
+                        
+                    prm = node.parm(prm_name_size)
                     prm.deleteAllKeyframes()
                     prm.set(ptsize)
+                    if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
+                        self.private_prm_set(node, PREFS_VIEWPORT_PT_SIZE_MEM, ptsize)
+        
+        if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
             
-        # Update Point Size preference's option toggle on other FLAM3HUSD nodes instances
-        if prm_name_size == PREFS_VIEWPORT_PT_SIZE and node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
-            [f3h.parm(prm_name_size).deleteAllKeyframes() for f3h in node.type().instances()]
-            [f3h.setParms({prm_name_size: ptsize}) for f3h in node.type().instances() if f3h.parm(prm_name_size).eval() != ptsize]
+            # Sync FLAM3HUSD nodes
+            all_f3husd: tuple = node.type().instances()
             
-        # This here for now because I still need to update the instances
-        if self.util_is_context_available_viewer('Lop') is False:
-            _MSG: str = f"No Lop viewers available."
-            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
-            self.flash_message(f"{_MSG}")
+            # Delete all keyframes
+            [f3husd.parm(prm_name_size).deleteAllKeyframes() for f3husd in all_f3husd]
+            # Delete all keyframes on memory parms
+            [self.private_prm_deleteAllKeyframes(f3husd, PREFS_VIEWPORT_PT_SIZE_MEM) for f3husd in all_f3husd]
+            
+            # Update Point Size preference's option toggle on other FLAM3HUSD nodes instances
+            if prm_name_size == PREFS_VIEWPORT_PT_SIZE and node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
+                
+                if lop_viewers:
+                    [f3husd.setParms({prm_name_size: ptsize}) for f3husd in node.type().instances() if f3husd.parm(prm_name_size).eval() != ptsize]
+                    [self.private_prm_set(f3husd, PREFS_VIEWPORT_PT_SIZE_MEM, ptsize) for f3husd in node.type().instances() if f3husd.parm(PREFS_VIEWPORT_PT_SIZE_MEM).eval() != ptsize]
+                else:
+                    [f3husd.setParms({prm_name_size: ptsize_mem}) for f3husd in node.type().instances() if f3husd.parm(prm_name_size).eval() != ptsize_mem]
+                
+                    _MSG: str = f"No Lop viewers available."
+                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
+                    self.flash_message(f"{_MSG}")
             
 
     def setHydraRenderer(self) -> None:
@@ -1405,7 +1516,9 @@ class flam3husd_general_utils
             (None):  
         """  
         node = self.node
-        rndtype: int = node.parm("rndtype").eval()
+        rndtype: int = node.parm(PREFS_VIEWPORT_RENDERER).eval()
+        rndtype_mem: hou.Parm = node.parm(PREFS_VIEWPORT_RENDERER_MEM)
+        lop_viewers: bool = False
         
         for view in self.util_getSceneViewers():
             
@@ -1416,28 +1529,32 @@ class flam3husd_general_utils
                 # But H19 did throw me an error in some cases so I leave it here for now
                 if isinstance(view, hou.SceneViewer):
                     
+                    if lop_viewers is False: lop_viewers = True
+                    
                     if rndtype == 0:
-                        _RND: str = 'Houdini GL'
+                        _RND: str = self.in_get_dict_key_from_value(self.flam3husd_hydra_renderers_dict(), rndtype)
                         hou.SceneViewer.setHydraRenderer(view, _RND)
+                        self.private_prm_set(node, PREFS_VIEWPORT_RENDERER_MEM, rndtype)
                         self.flash_message(_RND)
                         
-                    elif rndtype == 1:
-                        _RND: str = self.karma_hydra_renderer_name()
+                    if rndtype == 1:
+                        _RND: str = self.in_get_dict_key_from_value(self.flam3husd_hydra_renderers_dict(), rndtype)
                         hou.SceneViewer.setHydraRenderer(view, _RND)
+                        self.private_prm_set(node, PREFS_VIEWPORT_RENDERER_MEM, rndtype)
                         self.flash_message(_RND)
                         
-                    '''
-                    elif rndtype == 3:
-                        hou.SceneViewer.setHydraRenderer(view, 'Storm')
-                    '''
+                    else:
+                        lop_viewers = False
                     
                 else: pass
                 
-        # Sync FLAM3HUSD nodes
-        [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
+        if lop_viewers:
+            # Sync FLAM3HUSD nodes
+            [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
+            [self.private_prm_set(node, PREFS_VIEWPORT_RENDERER_MEM, rndtype) for n in node.type().instances() if n != node]
+        else:
+            node.setParms({PREFS_VIEWPORT_RENDERER: rndtype_mem.eval()})
         
-        # This here for now because I still need to update the instances
-        if self.util_is_context_available_viewer('Lop') is False:
             _MSG = f"No Lop viewers available."
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
             self.flash_message(f"{_MSG}")
