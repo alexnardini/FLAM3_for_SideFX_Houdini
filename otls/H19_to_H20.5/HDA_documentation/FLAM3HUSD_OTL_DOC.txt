@@ -103,6 +103,12 @@ FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - Once a valid FLAM3H(tm) node has been imported, FLAM3HUSD will take care of bulding a useful Scene Graph Tree.
     - When multiple FLAM3HUSD are created, the imported FLAM3H(tm) data will all be grouped under a common root named: *`FLAM3H`*
+
+    <br />
+    _Additionally_:<br />
+    
+    - If there are several FLAM3H(tm) nodes, it will always import the one that hasn't been imported by the other FLAM3HUSD nodes when you create a new instance of the FLAM3HUSD node.
+    - If the current FLAM3HUSD nodes have already imported all of the exisiting FLAM3H(tm) nodes, nothing will be imported on creation, leaving the field blank.
     
     
 == Prefs == (PREFS)
