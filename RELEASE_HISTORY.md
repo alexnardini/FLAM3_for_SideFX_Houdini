@@ -36,7 +36,7 @@ They are all available in this Github repository.
 
 #### FLAM3HUSD v0.2.00 - Prototype ####
 
-- **New**: Added Houdini version's compatibility checks.
+- **New**: Added Houdini versions' compatibility checks.
 - **New**: Added Geometry messages.
 - **Fix**: On creation it will load in the first FLAM3H™ node instance if it find one, otherwise it will leave the node path to import empty.
 - **Fix**: Improved some parameters tooltips.
