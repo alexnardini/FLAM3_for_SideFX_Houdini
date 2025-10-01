@@ -212,7 +212,7 @@ Import FLAM3H(tm) Handles [Icon:DATATYPES/boolean]:
     #id: PREFS
     *`Off`* by default.
 
-    Import the FLAM3H™ xforms handles VIZ.
+    Import the FLAM3H(tm) xforms handles VIZ.
 
     To be rendered together with the fractal Flame.<br />
     Sometime you may want to render the handles purely for debug.
@@ -221,7 +221,7 @@ Import FLAM3H(tm) Handles [Icon:DATATYPES/boolean]:
 
 Handles widths:
     #id: PREFS
-    Adjust the thickness of the FLAM3H xforms handles VIZ.<br />
+    Adjust the thickness of the FLAM3H(tm) xforms handles VIZ.<br />
     This option, which is a multiplier, enables rapid adjustments while Karma is rendering interactively.
 
     <br />
@@ -291,8 +291,8 @@ Shader parameters:
 
     The point *`widths`* parameter amplify or weaken this effect and you should find a good balance based on each Flame and its points count.
     
-    - *`Emission`*:<br />Adjust the FLAM3H™ Shader emission.<br />Control how strong the light emitted by the fractal Flame points is.<br />Higher values increase the additive effect,<br />lower values decrease it until a value of *`0`*(Zero) which result in a full black color.
-    - *`Transmission`*:<br />Adjust the FLAM3H™ Shader transmission.<br />Control how the emission is transmitted across the fractal Flame points.<br /><br />You should increase this value to get a correct point color values accumulation effects, with a value of *`1`*(one) being the suggested one and keep the *`Emission`* parameter' value at *`1`*(one) to start with.<br /><br />When this value is higher than *`0`*(Zero) cause the resulting rendered image to loose its Alpha channel but the visual benefits are far greater.
+    - *`Emission`*:<br />Adjust the FLAM3H(tm) Shader emission.<br />Control how strong the light emitted by the fractal Flame points is.<br />Higher values increase the additive effect,<br />lower values decrease it until a value of *`0`*(Zero) which result in a full black color.
+    - *`Transmission`*:<br />Adjust the FLAM3H(tm) Shader transmission.<br />Control how the emission is transmitted across the fractal Flame points.<br /><br />You should increase this value to get a correct point color values accumulation effects, with a value of *`1`*(one) being the suggested one and keep the *`Emission`* parameter' value at *`1`*(one) to start with.<br /><br />When this value is higher than *`0`*(Zero) cause the resulting rendered image to loose its Alpha channel but the visual benefits are far greater.
 
     <br />
     _Additionally_:
