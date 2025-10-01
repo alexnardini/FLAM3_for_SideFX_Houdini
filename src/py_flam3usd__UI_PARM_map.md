@@ -413,7 +413,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark()
 ## parameter type: `ordered menu`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer()
+hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### Action Button script
 ```python
@@ -429,7 +429,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRend
 ## parameter type: `ordered menu`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleDisplay()
+hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleDisplay(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -479,6 +479,18 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportPart
 - ### Action Button script
 ```python
 kwargs['node'].hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(128, 'pxsamples')
+```
+
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `denoiser`
+## parameter type: `string`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
