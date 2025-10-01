@@ -748,15 +748,14 @@ class flam3husd_scripts
         """
         if self.flam3husd_compatible_type(__range_type__):
             
+            # Check H version and set
+            self.flam3husd_h_version_check()
             # Restore if it is needed
             self.flam3husd_on_loaded_compatible_true()
-            
             # Set viewport preferences settings
             self.flam3husd_on_create_set_prefs_viewport()
             # Check if we are importing a valid FLAM3HUSD node
             self.flam3husd_is_valid_flam3h_node()
-            # Check H version and set
-            self.flam3husd_h_version_check()
             # Set about box
             flam3husd_about_utils(self.kwargs).flam3husd_about_msg()
             
