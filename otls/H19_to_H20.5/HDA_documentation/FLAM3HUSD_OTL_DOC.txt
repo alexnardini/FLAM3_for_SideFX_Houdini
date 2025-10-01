@@ -109,6 +109,7 @@ FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
     
     - If there are several FLAM3H(tm) nodes, it will always import the one that hasn't been imported by the other FLAM3HUSD nodes when you create a new instance of the FLAM3HUSD node.
     - If the current FLAM3HUSD nodes have already imported all of the exisiting FLAM3H(tm) nodes, nothing will be imported on creation, leaving the field blank.
+    - On creation, any of the FLAM3H(tm) nodes with density values higher than 50M(_millions_) will be skipped, leaving the field blank. The user can select to import them manually right after the FLAM3HUSD node has been created.
     
     
 == Prefs == (PREFS)
