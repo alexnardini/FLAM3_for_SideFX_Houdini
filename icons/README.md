@@ -1,4 +1,7 @@
 ### FLAM3H™ (and FLAM3HUSD) icon set ###
+- #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
+
+</br>
 
 Following is the full icon set that have been crafted and included with FLAM3H™ (and FLAM3HUSD) for easy find and review.<br>
 It is an ongoing effort and they have been regularly updated and improved even tho this last set seem to be working well with different Houdini UI scales and color schemes.
@@ -12,6 +15,7 @@ They are already embedded inside each HDA and available in this repository for e
 
 **Note**: _The project logo and this icon set are NOT covered by the **CC BY-SA 4.0** license_.</br>
 _They remain Copyright of (c) 2021 F stands for liFe (and their other respective owners), and may not be redistributed without permission_.
+
 
 </br>
 </br>
