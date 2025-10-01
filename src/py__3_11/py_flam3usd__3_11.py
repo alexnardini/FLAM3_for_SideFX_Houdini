@@ -150,7 +150,12 @@ class flam3husd_scripts
         
     @staticmethod
     def flam3husd_on_create_load_first_instance(node: hou.LopNode, msg: bool = True) -> bool:
-        """Set the FLAM3H™ node path to the first instance if any ar found to be imported into FLAM3HUSD.
+        """Set the FLAM3H™ node path to the first instance if any are found to be imported into FLAM3HUSD.
+        
+        If multiple FLAM3HUSD nodes and more than one FLAM3H™ nodes are already present,
+        always import the FLAM3H™ node that has not been imported yet; If all FLAM3H™ nodes are imported, it will import nothing.
+        
+        It will NOT automatically import FLAM3H™ nodes with more than _F3H_DENSITY_LIMIT point count. The users will need to import them by theirself.
         
         Args:
             node(hou.LopNode): This FLAM3HUSD node
@@ -159,18 +164,57 @@ class flam3husd_scripts
         Returns:
             (bool): True if an instance is found and False if not.
         """
+        
         f3h_all_instances: list = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY).instances()
         if f3h_all_instances:
-            node.setParms({PREFS_FLAM3H_PATH: f3h_all_instances[0].path()}) # type: ignore
-            if msg:
-                _MSG = f"First FLAM3H™ instance imported"
-                flam3husd_general_utils.flash_message(_MSG)
-                flam3husd_general_utils.set_status_msg(_MSG, 'IMP')
-            return True
+            
+            _F3H_DENSITY_LIMIT = 15000000
+            
+            f3husd_all_instances: list = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY).instances()
+            
+            # If we already have some FLAM3HUSD nodes and more than one FLAM3H™ nodes
+            if len(f3husd_all_instances) > 1 and len(f3h_all_instances) > 1:
+                
+                f3husd_all_instances_paths: list = [f3husd.parm(PREFS_FLAM3H_PATH).eval() for f3husd in f3husd_all_instances if node != f3husd]
+                
+                for f3h in f3h_all_instances:
+                    
+                    if f3h.path() in f3husd_all_instances_paths:
+                        pass
+                    
+                    else:
+                        # If the point count of the FLAM3H™ node we want to import is not greater than _F3H_DENSITY_LIMIT
+                        if f3h.parm('ptcount').eval() <= _F3H_DENSITY_LIMIT:
+                            node.setParms({PREFS_FLAM3H_PATH: f3h.path()}) # type: ignore
+                            
+                            if msg:
+                                ...
+                                
+                            return True
+                        
+                        else:
+                            return False
+                        
+                return False
+                
+            else: # If we are creating the very first FLAM3HUSD instance, always import the very first FLAM3H™ node
+                
+                # If the point count of the FLAM3H™ node we want to import is not greater than _F3H_DENSITY_LIMIT
+                if f3h_all_instances[0].parm('ptcount').eval() <= _F3H_DENSITY_LIMIT:
+                    node.setParms({PREFS_FLAM3H_PATH: f3h_all_instances[0].path()}) # type: ignore
+                    
+                    if msg:
+                        ...
+                        
+                    return True
+                
+                else:
+                    return False
         
-        else:
+        else: # If there are not FLAM3H™ nodes
             if msg:
                 ...
+                
             return False
         
         
@@ -616,6 +660,8 @@ class flam3husd_scripts
         
         if self.flam3husd_compatible_type(__range_type__):
             
+            # Check H version and set
+            self.flam3husd_h_version_check()
             # Load FLAM3H node first instance if any
             self.flam3husd_on_create_load_first_instance(node)
             # Check if we are importing a valid FLAM3HUSD node
@@ -624,8 +670,6 @@ class flam3husd_scripts
             self.autoSetRenderer_on_create()
             # Set viewport preferences settings
             self.flam3husd_on_create_set_prefs_viewport()
-            # Check H version and set
-            self.flam3husd_h_version_check()
             # Set about box
             flam3husd_about_utils(self.kwargs).flam3husd_about_msg()
             
