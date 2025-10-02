@@ -40,9 +40,9 @@ _A restart of Houdini maybe needed for the new changes to correctly pickup_.
 
 #### FLAM3HUSD v0.2.10 - Prototype ####
 
-- **New**: If there are several FLAM3H(tm) nodes, it will always import the one that hasn't been imported by the other FLAM3HUSD nodes when you create a new instance of the FLAM3HUSD node.
-- **New**: If the current FLAM3HUSD nodes have already imported all of the exisiting FLAM3H(tm) nodes, nothing will be imported on creation, leaving the field blank.
-- **New**: On creation, any of the FLAM3H(tm) nodes with density values higher than 50M(_millions_) will be skipped, leaving the field blank. The user can select to import them manually right after the FLAM3HUSD node has been created. 
+- **New**: If there are several FLAM3H™ nodes, it will always import the one that hasn't been imported by the other FLAM3HUSD nodes when you create a new instance of the FLAM3HUSD node.
+- **New**: If the current FLAM3HUSD nodes have already imported all of the exisiting FLAM3H™ nodes, nothing will be imported on creation, leaving the field blank.
+- **New**: On creation, any of the FLAM3H™ nodes with density values higher than 50M(_millions_) will be skipped, leaving the field blank. The user can select to import them manually right after the FLAM3HUSD node has been created. 
 - **New**: When no Lop viewers are available, it will prevent the user to change any of the preferences viewports settings if Houdini GL mode is being used.
 - **Fix**: Improved the python code for many of the existing definitions.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
