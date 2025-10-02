@@ -1411,12 +1411,17 @@ class flam3husd_general_utils
                     try:
                         
                         if hou.session.HUSD_CS_STASH_DICT: # type: ignore
-                            _MSG: str = f"No viewer in Dark mode"
+                            
                             if lop_viewers is False:
                                 prm.set(1)
-                                self.set_status_msg(f"{node.name()}: {_MSG}. There are not Lop viewers available to restore.", 'MSG')
+                                self.set_status_msg(f"{node.name()}: There are not Lop viewers available to restore.", 'WARN')
+                                _MSG_FLASH: str = f"No Lop viewers available."
+                                self.flash_message(f"{_MSG_FLASH}")
+                                
                             else:
+                                _MSG: str = f"No viewer in Dark mode"
                                 self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers are set to Dark.", 'MSG')
+                                
                         else:
                             _MSG: str = f"Nothing to restore"
                             self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers has been switched to Dark. They probably were already in Dark mode.", 'MSG')
