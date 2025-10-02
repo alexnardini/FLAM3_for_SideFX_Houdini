@@ -3,7 +3,7 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.2.00 - Prototype
+#version: 0.2.10 - Prototype
 
 """Simple utility node to quickly render FLAM3H(tm) fractal Flames in Solaris."""
 
@@ -135,7 +135,7 @@ Dark [Icon:DATATYPES/boolean]:
     it will remember the color scheme for every viewport and fall back on it.
     Checking this box has no effect if the color scheme in a viewport is already dark.
 
-    <br />
+    <br /><br />
     [Icon:NETWORKS/lop] *Context aware*<br />
     - This option is context aware, and it will function only if a Lop viewer is available.
 
@@ -145,7 +145,7 @@ Renderer [Icon:BUTTONS/pane_menu]:
     #id: PREFS
     Select from a variety of Hydra renderers.
 
-    <br />
+    <br /><br />
     [Icon:NETWORKS/lop] *Context aware*<br />
     - This option is context aware, and it will function only if a Lop viewer is available.
 
@@ -156,6 +156,10 @@ Force renderer:
     [Largeicon:opdef:.?icon_rendererMenuSVG.svg]
     
     - ((LMB)) to force all Lop viewers to be set to the selected renderer.
+
+    <br /><br />
+    [Icon:NETWORKS/lop] *Context aware*<br />
+    - This option is context aware, and it will function only if a Lop viewer is available.
     
 :box:
     #display: rounded white
@@ -171,7 +175,7 @@ Display [Icon:BUTTONS/pane_menu]:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the default preset.
 
-    <br />
+    <br /><br />
     [Icon:NETWORKS/lop] *Context aware*<br />
     - This option is context aware, and it will function only if a Lop viewer is available.
 
@@ -181,7 +185,7 @@ Size:
     #id: PREFS
     The setting for viewport particle display Points. Define how big the particles appear in the viewport.
 
-    <br />
+    <br /><br />
     [Icon:NETWORKS/lop] *Context aware*<br />
     - This option is context aware, and it will function only if a Lop viewer is available.
 
@@ -192,6 +196,10 @@ Reset size:
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
     - ((LMB)) to reset the viewport point size to a default of *`1`*(one).
+
+    <br /><br />
+    [Icon:NETWORKS/lop] *Context aware*<br />
+    - This option is context aware, and it will function only if a Lop viewer is available.
     
 :box:
     #display: rounded white

@@ -109,6 +109,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                     hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT
                     hou.session.H_VIEWPORT_WIRE_WIDTH
                     hou.session.H_CS_STASH_DICT
+                    hou.session.F3H_H_VERSION_ALLOWED
 
 
                 LIST OF CLASSES:
@@ -330,6 +331,10 @@ PREFS_PVT_XF_VIZ = 'vizhandles'
 PREFS_PVT_XF_VIZ_SOLO = 'vizhandles_solo'
 PREFS_PVT_XF_VIZ_SOLO_MP_IDX = 'vizhandles_solo_mpidx'
 PREFS_PVT_XF_FF_VIZ_SOLO = 'vizhandlesff_solo'
+# PRIVATE PREFS SYSTEM MEM
+PREFS_PVT_VIEWPORT_PT_SIZE_MEM = 'vpptsize_mem'
+PREFS_PVT_VIEWPORT_PT_TYPE_MEM = 'vptype_mem'
+PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM = 'vpww_mem'
 # PRIVATE PREFS TEMP PARMS
 PREFS_PVT_INT_0 = 'tmp_int_0'
 PREFS_PVT_INT_1 = 'tmp_int_1'
@@ -1408,7 +1413,10 @@ class flam3h_scripts
                             PREFS_PVT_INT_1,
                             PREFS_PVT_FLOAT_0,
                             PREFS_PVT_FLOAT_1,
-                            FLAM3H_PVT_H_VALID
+                            FLAM3H_PVT_H_VALID,
+                            PREFS_PVT_VIEWPORT_PT_SIZE_MEM,
+                            PREFS_PVT_VIEWPORT_PT_TYPE_MEM,
+                            PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM
                             )
         
         [node.parm(prm_name).lock(True) for prm_name in prm_names if not node.parm(prm_name).isLocked()]
@@ -1826,6 +1834,9 @@ class flam3h_scripts
         if all_f3h_vpptsize:
             node.setParms({PREFS_VIEWPORT_PT_SIZE: all_f3h_vpptsize[0]})
             node.setParms({PREFS_VIEWPORT_PT_TYPE: all_f3h_vptype[0]})
+            # Updated memory
+            flam3h_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, all_f3h_vpptsize[0])
+            flam3h_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, all_f3h_vptype[0])
             
         else:
             Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
@@ -1833,38 +1844,48 @@ class flam3h_scripts
             for v in viewers:
                 
                 # Lets make sure we check for a viewer in the Sop context
-                if flam3h_general_utils.util_is_context('Sop', v):
+                if flam3h_general_utils.util_is_context('Sop', v) or flam3h_general_utils.util_is_context('Object', v):
                     
                     settings: hou.GeometryViewportSettings = v.curViewport().settings()
                     size: float = settings.particlePointSize()
                     
                     if size != default_value_pt:
                         node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
+                        # Updated memory
+                        flam3h_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, size)
                         
                     type: hou.EnumValue = settings.particleDisplayType()
                     if type == Pixels:
                         node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
+                        # Updated memory
+                        flam3h_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, 1)
                         
                 else:
                     # FLAM3H™ shoud use its parameter default value in this case, but just to be sure
                     node.setParms({PREFS_VIEWPORT_PT_SIZE: default_value_pt})
+                    # Updated memory
+                    flam3h_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, default_value_pt)
                     
         # If we collected some data, set
         if all_f3h_ww:
             node.setParms({PREFS_VIEWPORT_WIRE_WIDTH: all_f3h_ww[0]})
+            # Updated memory
+            flam3h_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM, all_f3h_ww[0])
             
         else:
             
             for v in viewers:
                 
                 # Lets make sure we check for a viewer in the Sop context
-                if flam3h_general_utils.util_is_context('Sop', v):
+                if flam3h_general_utils.util_is_context('Sop', v) or flam3h_general_utils.util_is_context('Object', v):
                     
                     settings: hou.GeometryViewportSettings = v.curViewport().settings()
                     size: float = settings.wireWidth()
                     
                     if size != default_value_ww:
                         node.setParms({PREFS_VIEWPORT_WIRE_WIDTH: size})
+                        # Updated memory
+                        flam3h_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM, size)
     
     
     def flam3h_on_create_init_viewportWireWidth(self) -> None:
@@ -2396,7 +2417,7 @@ class flam3h_general_utils
 * util_store_all_viewers_color_scheme(self) -> None:
 * colorSchemeDark(self, update_others: bool = True) -> None:
 * viewportParticleDisplay(self) -> None:
-* viewportParticleSize(self, reset_val: Union[float, None] = None) -> None:
+* viewportParticleSize(self, reset_val: Union[float, None] = None, prm_name_size: str = PREFS_VIEWPORT_PT_SIZE) -> None:
 * viewportWireWidth(self, reset_val: Union[float, None] = None) -> None:
 * reset_SYS(self, density: int, iter: int, mode: int) -> None:
 * reset_MB(self, all: bool = True) -> None:
@@ -2771,7 +2792,7 @@ class flam3h_general_utils
         
         if _CAMS is None:
             
-            if viewport is not None and viewport.isCurrentTab() and flam3h_general_utils.util_is_context('Sop', viewport):
+            if viewport is not None and viewport.isCurrentTab() and (flam3h_general_utils.util_is_context('Sop', viewport) or flam3h_general_utils.util_is_context('Object', viewport)):
                 
                 view: hou.GeometryViewport = viewport.curViewport()
                 
@@ -2806,7 +2827,7 @@ class flam3h_general_utils
                 for v in flam3h_general_utils.util_getSceneViewers():
                     
                     # Restore only if it is a Sop viewer
-                    if flam3h_general_utils.util_is_context('Sop', v):
+                    if flam3h_general_utils.util_is_context('Sop', v) or flam3h_general_utils.util_is_context('Object', v):
                         
                         view: hou.GeometryViewport = v.curViewport()
                         key: str = v.name()
@@ -2917,7 +2938,7 @@ class flam3h_general_utils
         for v in flam3h_general_utils.util_getSceneViewers():
             
             # Store only if it is a Sop viewer
-            if flam3h_general_utils.util_is_context('Sop', v):
+            if flam3h_general_utils.util_is_context('Sop', v) or flam3h_general_utils.util_is_context('Object', v):
                 
                 view: hou.GeometryViewport = v.curViewport()
                 settings: hou.GeometryViewportSettings = view.settings()
@@ -3075,7 +3096,7 @@ class flam3h_general_utils
             views_type: list[hou.geometryViewportType] = []
             for v in self.util_getSceneViewers():
                 # Store only if it is a Sop viewer
-                if self.util_is_context('Sop', v):
+                if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
                     view: hou.GeometryViewport = v.curViewport()
                     views_cam.append(view.defaultCamera().stash())
                     views_keys.append(v.name())
@@ -3147,7 +3168,7 @@ class flam3h_general_utils
             if viewport is not None and len(viewports) == 1 and viewport.isCurrentTab():
                 
                 # Set only if it is a Sop viewer
-                if self.util_is_context('Sop', viewport):
+                if self.util_is_context('Sop', viewport) or self.util_is_context('Object', viewport):
                     
                     view: hou.GeometryViewport = viewport.curViewport()
                     
@@ -3255,15 +3276,15 @@ class flam3h_general_utils
             if len(viewports):
                 
                 lop_viewports: list = []
-                sop_viewers: bool = False
+                allowed_viewers: bool = False
                 # Set them all without storing any stashed camera data 
                 self.util_set_clipping_viewers()
                 for v in viewports:
                     
                     # Set only if it is a Sop viewer
-                    if self.util_is_context('Sop', v):
+                    if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
                         
-                        if sop_viewers is False: sop_viewers = True
+                        if allowed_viewers is False: allowed_viewers = True
                         
                         view: hou.GeometryViewport = v.curViewport()
                         if view.type() != hou.geometryViewportType.Front: # type: ignore
@@ -3301,7 +3322,7 @@ class flam3h_general_utils
                         # Count how many Lop viewports are present
                         lop_viewports.append(True)
                         
-                if sop_viewers and _SYS_FRAME_VIEW_SENSOR_prm: self.flash_message(self.node, f"sensor REFRAMED")
+                if allowed_viewers and _SYS_FRAME_VIEW_SENSOR_prm: self.flash_message(self.node, f"sensor REFRAMED")
                         
                 # If all the viewports are Lop viewports
                 if len(lop_viewports) == len(viewports):
@@ -3351,7 +3372,7 @@ class flam3h_general_utils
             views_keys: list[str] = []
             for v in self.util_getSceneViewers():
                 # Store only if it is a Sop viewer
-                if self.util_is_context('Sop', v):
+                if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
                     
                     view: hou.GeometryViewport = v.curViewport()
                     settings: hou.GeometryViewportSettings = view.settings()
@@ -3532,17 +3553,27 @@ class flam3h_general_utils
         self.menus_refresh_enum_prefs()
         
         if prm.eval():
-            flam3h_general_utils.private_prm_set(node, prm, 0)
             
-            if f3h_xf_viz_others is False:
-                # Restore the viewport wire width prior to entering the xforms handles VIZ
-                # only if there not other FLAM3H™ node in xforms handles VIZ mode.
-                self.util_xf_viz_set_stashed_wire_width()
-                self.util_clear_xf_viz_stashed_wire_width_data()
+            # There must be at least one viewport
+            if self.util_is_context_available_viewer('Sop') or self.util_is_context_available_viewer('Object'):
                 
-            _MSG: str = f"OFF"
-            self.set_status_msg(f"{node.name()}: {str(prm.name()).upper()}: {_MSG}", 'MSG')
-            self.flash_message(node, f"XF VIZ: {_MSG}")
+                flam3h_general_utils.private_prm_set(node, prm, 0)
+                
+                if f3h_xf_viz_others is False:
+                    # Restore the viewport wire width prior to entering the xforms handles VIZ
+                    # only if there not other FLAM3H™ node in xforms handles VIZ mode.
+                    self.util_xf_viz_set_stashed_wire_width()
+                    self.util_clear_xf_viz_stashed_wire_width_data()
+                    
+                _MSG: str = f"OFF"
+                self.set_status_msg(f"{node.name()}: {str(prm.name()).upper()}: {_MSG}", 'MSG')
+                self.flash_message(node, f"XF VIZ: {_MSG}")
+                
+            else:
+                flam3h_general_utils.private_prm_set(node, prm, 1)
+                _MSG: str = f"No Sop viewers available."
+                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the xforms handles VIZ to work.", 'WARN')
+                self.flash_message(node, f"{_MSG}")
             
         else:
             
@@ -3828,9 +3859,26 @@ class flam3h_general_utils
             self.set_status_msg(_MSG, 'MSG')
             
         else:
-            self.private_prm_set(node, prm, 1)
-            _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: ON"
-            self.set_status_msg(_MSG, 'IMP')
+            # This is a one off only for the TAG
+            if prm_name == PREFS_PVT_TAG:
+                
+                if self.util_is_context_available_viewer('Sop') or self.util_is_context_available_viewer('Object'):
+                    
+                    self.private_prm_set(node, prm, 1)
+                    _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: ON"
+                    self.set_status_msg(_MSG, 'IMP')
+                
+                else:
+                    
+                    self.private_prm_set(node, prm, 0)
+                    _MSG: str = f"No Sop viewers available."
+                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the xforms handles VIZ to work.", 'WARN')
+                    self.flash_message(node, f"{_MSG}")
+                
+            else:
+                self.private_prm_set(node, prm, 1)
+                _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: ON"
+                self.set_status_msg(_MSG, 'IMP')
             
             
     def flam3h_toggle_private_FF(self, prm_name: str = PREFS_PVT_DOFF) -> None:
@@ -4237,7 +4285,7 @@ class flam3h_general_utils
             for v in self.util_getSceneViewers():
                 
                 # Store only if it is a Sop viewer
-                if flam3h_general_utils.util_is_context('Sop', v):
+                if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
                     
                     view: hou.GeometryViewport = v.curViewport()
                     settings: hou.GeometryViewportSettings = view.settings()
@@ -4273,14 +4321,14 @@ class flam3h_general_utils
                 self.util_store_all_viewers_color_scheme()
                 
                 dark: bool = False
-                sop_viewers: bool = False
+                allowed_viewers: bool = False
                 
                 for v in views:
                     
                     # Set only if it is a Sop viewer
-                    if flam3h_general_utils.util_is_context('Sop', v):
+                    if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
                         
-                        if sop_viewers is False: sop_viewers = True
+                        if allowed_viewers is False: allowed_viewers = True
                         
                         settings: hou.GeometryViewportSettings = v.curViewport().settings()
                         _CS: hou.viewportColorScheme = settings.colorScheme()
@@ -4288,7 +4336,7 @@ class flam3h_general_utils
                             settings.setColorScheme(hou.viewportColorScheme.Dark) # type: ignore
                             if dark is False: dark = True
                 
-                if sop_viewers:
+                if allowed_viewers:
                     
                     if dark:   
                         _MSG: str = f"Dark: ON"
@@ -4312,14 +4360,14 @@ class flam3h_general_utils
                 except: _STASH_DICT: Union[dict[str, hou.EnumValue], None] = None
                     
                 dark = False
-                sop_viewers: bool = False
+                allowed_viewers: bool = False
                 if _STASH_DICT is not None:
                     for v in views:
                         
                         # Only if it is a Sop viewer
-                        if flam3h_general_utils.util_is_context('Sop', v):
+                        if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
                             
-                            if sop_viewers is False: sop_viewers = True
+                            if allowed_viewers is False: allowed_viewers = True
                             
                             key: str = v.name()
                             _STASH: Union[hou.EnumValue, None] = _STASH_DICT.get(key)
@@ -4341,9 +4389,11 @@ class flam3h_general_utils
                         
                         if hou.session.H_CS_STASH_DICT: # type: ignore
                             _MSG: str = f"No viewer in Dark mode"
-                            if sop_viewers is False:
+                            if allowed_viewers is False:
                                 prm.set(1)
-                                self.set_status_msg(f"{node.name()}: {_MSG}. There are not Sop viewers available to restore.", 'MSG')
+                                self.set_status_msg(f"{node.name()}: There are not Sop viewers available to restore.", 'MSG')
+                                _MSG_FLASH: str = f"No Sop viewers available."
+                                self.flash_message(node, f"{_MSG_FLASH}")
                             else:
                                 self.set_status_msg(f"{node.name()}: {_MSG}. None of the current viewers are set to Dark.", 'MSG')
                         else:
@@ -4379,77 +4429,125 @@ class flam3h_general_utils
             (None):
         """
         node = self.node
-        pttype: int = node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt()
-
+        
+        pttype: int = node.parm(PREFS_VIEWPORT_PT_TYPE).eval()
+        pttype_mem: int = node.parm(PREFS_PVT_VIEWPORT_PT_TYPE_MEM).eval()
+        
         Points: hou.EnumValue = hou.viewportParticleDisplay.Points # type: ignore
         Pixels: hou.EnumValue = hou.viewportParticleDisplay.Pixels # type: ignore
 
+        allowed_viewers: bool = False
+
         for view in self.util_getSceneViewers():
             
-            # Set only if it is a Sop viewer
-            if self.util_is_context('Sop', view):
-            
+            # Set only if it is a Lop viewer
+            if self.util_is_context('Sop', view) or self.util_is_context('Object', view):
+                
+                if allowed_viewers is False: allowed_viewers = True
+                
                 settings: hou.GeometryViewportSettings = view.curViewport().settings()
+
                 if pttype == 0:
                     settings.particleDisplayType(Points)
-                    self.viewportParticleSize()
+                    # update memory
+                    self.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype)
+                    
                 elif pttype == 1:
                     settings.particleDisplayType(Pixels)
-                
-        # Update Point Display type preference's option toggle on other FLAM3H™ nodes instances
-        all_f3h: tuple = self.node.type().instances()
-        if len(all_f3h) > 1:
-            [f3h.parm(PREFS_VIEWPORT_PT_TYPE).deleteAllKeyframes() for f3h in node.type().instances()]
+                    # update memory
+                    self.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype)
+                    
+                else:
+                    pass # For now, will see if in the future new option will be added.
+                        
+        # Sync FLAM3HUSD nodes
+        all_f3h: tuple = node.type().instances()
+        
+        # Delete all keyframes
+        [f3h.parm(PREFS_VIEWPORT_PT_TYPE).deleteAllKeyframes() for f3h in all_f3h]
+        # Delete all keyframes on memory parms
+        [self.private_prm_deleteAllKeyframes(f3h, PREFS_PVT_VIEWPORT_PT_TYPE_MEM) for f3h in all_f3h]
+              
+        if allowed_viewers:
             [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
+            [self.private_prm_set(f3h, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_PVT_VIEWPORT_PT_TYPE_MEM).eval() != pttype]
+    
+        else:
+            [f3h.setParms({PREFS_VIEWPORT_PT_TYPE: pttype_mem}) for f3h in all_f3h if pttype != pttype_mem]
             
-        # This here for now because I still need to update the instances
-        if self.util_is_context_available_viewer('Sop') is False:
-            _MSG: str = f"No Sop viewers available."
+            _MSG = f"No Sop viewers available."
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for this option to work.", 'WARN')
             self.flash_message(node, f"{_MSG}")
     
     
-    def viewportParticleSize(self, reset_val: Union[float, None] = None) -> None:
+    def viewportParticleSize(self, reset_val: Union[float, None] = None, prm_name_size: str = PREFS_VIEWPORT_PT_SIZE) -> None:
         """When the viewport particle display type is set to Point
         this will change their viewport size.
         
         Args:
             (self):
             reset_val (Union[float, None]): Default to None. Can be either "None" or a float value. If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
+            prm_name_size(str): Default to: PREFS_VIEWPORT_PT_SIZE. The name of the parameter to set.
             
         Returns:
             (None):
         """
         node = self.node
+        
         Points: hou.EnumValue = hou.viewportParticleDisplay.Points # type: ignore
-        ptsize: float = node.parm(PREFS_VIEWPORT_PT_SIZE).evalAsFloat()
+        ptsize: float = node.parm(prm_name_size).eval()
+        ptsize_mem: float = node.parm(PREFS_PVT_VIEWPORT_PT_SIZE_MEM).eval()
+        
+        allowed_viewers: bool = False
 
         for view in self.util_getSceneViewers():
             
-            # Set only if it is a Sop viewer
-            if self.util_is_context('Sop', view):
+            # Set only if it is a Lop viewer
+            if self.util_is_context('Sop', view) or self.util_is_context('Object', view):
+            
+                if allowed_viewers is False: allowed_viewers = True
             
                 settings: hou.GeometryViewportSettings = view.curViewport().settings()
                 settings.particleDisplayType(Points)
                 if reset_val is None:
-                    settings.particlePointSize(ptsize)
+                    if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
+                        settings.particlePointSize(ptsize)
+                        # update memory
+                        self.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize)
+                        
                 else:
-                    ptsize = float(reset_val)
-                    settings.particlePointSize(ptsize)
-                    prm = node.parm(self.kwargs['parmtuple'].name())
+                    ptsize: float = float(reset_val)
+                    if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
+                        settings.particlePointSize(ptsize)
+                        
+                    prm = node.parm(prm_name_size)
                     prm.deleteAllKeyframes()
                     prm.set(ptsize)
+                    if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
+                        self.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize)
+        
+        if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
             
-        # Update Point Size preference's option toggle on other FLAM3H™ nodes instances
-        if node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
-            [f3h.parm(PREFS_VIEWPORT_PT_SIZE).deleteAllKeyframes() for f3h in node.type().instances()]
-            [f3h.setParms({PREFS_VIEWPORT_PT_SIZE: ptsize}) for f3h in node.type().instances() if f3h.parm(PREFS_VIEWPORT_PT_SIZE).eval() != ptsize]
-
-        # This here for now because I still need to update the instances
-        if self.util_is_context_available_viewer('Sop') is False:
-            _MSG: str = f"No Sop viewers available."
-            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for this option to work.", 'WARN')
-            self.flash_message(node, f"{_MSG}")
+            # Sync FLAM3HUSD nodes
+            all_f3h: tuple = node.type().instances()
+            
+            # Delete all keyframes
+            [f3h.parm(prm_name_size).deleteAllKeyframes() for f3h in all_f3h]
+            # Delete all keyframes on memory parms
+            [self.private_prm_deleteAllKeyframes(f3husd, PREFS_PVT_VIEWPORT_PT_SIZE_MEM) for f3husd in all_f3h]
+            
+            # Update Point Size preference's option toggle on other FLAM3HUSD nodes instances
+            if prm_name_size == PREFS_VIEWPORT_PT_SIZE and node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
+                
+                if allowed_viewers:
+                    [f3h.setParms({prm_name_size: ptsize}) for f3h in node.type().instances() if f3h.parm(prm_name_size).eval() != ptsize]
+                    [self.private_prm_set(f3h, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize) for f3h in all_f3h if f3h.parm(PREFS_PVT_VIEWPORT_PT_SIZE_MEM).eval() != ptsize]
+                else:
+                    [f3h.setParms({prm_name_size: ptsize_mem}) for f3h in all_f3h if f3h.parm(prm_name_size).eval() != ptsize_mem]
+                
+                    _MSG: str = f"No Sop viewers available."
+                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for this option to work.", 'WARN')
+                    self.flash_message(node, f"{_MSG}")
             
 
     def viewportWireWidth(self, reset_val: Union[float, None] = None) -> None:
@@ -4465,31 +4563,51 @@ class flam3h_general_utils
         """
         node = self.node
         width: float = node.parm(PREFS_VIEWPORT_WIRE_WIDTH).evalAsFloat()
+        width_mem: float = node.parm(PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM).eval()
 
+        allowed_viewers: bool = False
         for view in self.util_getSceneViewers():
             
             # Set only if it is a Sop viewer
-            if self.util_is_context('Sop', view):
+            if self.util_is_context('Sop', view) or self.util_is_context('Object', view):
+                
+                if allowed_viewers is False: allowed_viewers = True
                 
                 settings: hou.GeometryViewportSettings = view.curViewport().settings()
                 if reset_val is None:
                     settings.wireWidth(width)
+                    # update memory
+                    self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM)
+                    self.private_prm_set(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM, width)
+                    
                 else:
                     width = float(reset_val)
                     settings.wireWidth(width)
                     prm = node.parm(PREFS_VIEWPORT_WIRE_WIDTH)
                     prm.deleteAllKeyframes()
                     prm.set(width)
+                    # update memory
+                    self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM)
+                    self.private_prm_set(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM, width)
             
-        # Updated FLAM3H™ wire width custom value
-        hou.session.H_VIEWPORT_WIRE_WIDTH: float = width # type: ignore
-        
-        # Update wire width preference's option toggle on other FLAM3H™ nodes instances
-        [f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).deleteAllKeyframes() for f3h in node.type().instances()]
-        [f3h.setParms({PREFS_VIEWPORT_WIRE_WIDTH: width}) for f3h in node.type().instances() if f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).eval() != width]
-    
-        # This here for now because I still need to update the instances
-        if self.util_is_context_available_viewer('Sop') is False:
+        # Sync FLAM3HUSD nodes
+        all_f3h: tuple = node.type().instances()
+            
+        if allowed_viewers:
+            
+            # Updated FLAM3H™ wire width custom value
+            hou.session.H_VIEWPORT_WIRE_WIDTH: float = width # type: ignore
+            
+            # Update wire width preference's option toggle on other FLAM3H™ nodes instances
+            [f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).deleteAllKeyframes() for f3h in all_f3h]
+            [f3h.setParms({PREFS_VIEWPORT_WIRE_WIDTH: width}) for f3h in all_f3h if f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).eval() != width]
+            # update memory
+            [self.private_prm_deleteAllKeyframes(f3h, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM) for f3h in all_f3h]
+            [self.private_prm_set(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM, width) for f3h in all_f3h if f3h.parm(PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM).eval() != width]
+
+        else:
+            [f3h.setParms({PREFS_VIEWPORT_WIRE_WIDTH: width_mem}) for f3h in all_f3h if f3h.parm(PREFS_VIEWPORT_WIRE_WIDTH).eval() != width_mem]
+            
             _MSG: str = f"No Sop viewers available."
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for this option to work.", 'WARN')
             self.flash_message(node, f"{_MSG}")

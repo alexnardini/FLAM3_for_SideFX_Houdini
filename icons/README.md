@@ -9,7 +9,7 @@ It is an ongoing effort and they have been regularly updated and improved even t
 They are already embedded inside each HDA and available in this repository for easy edit and review.
 
 **Below each icon's image**,</br>
-**you can find strings to use to call the desired icon within different places inside Houdini**.
+**you can find strings to use to call the desired icon within different places inside Houdini as long as the desired icon exist inside the extra files section of the asset**.
 
 </br>
 

@@ -30,6 +30,34 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v1.9.04 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.04) ###
+
+_A restart of Houdini maybe needed for the new changes to correctly pickup_.
+
+- **New**: When no Sop or Object viewers are available, it will prevent the user to change any of the preferences viewports settings.
+- **Fix**: Some of the toggles were not working when the viewers were in the Object context, it is now fixed.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+#### FLAM3HUSD v0.2.10 - Prototype ####
+
+- **New**: If there are several FLAM3H(tm) nodes, it will always import the one that hasn't been imported by the other FLAM3HUSD nodes when you create a new instance of the FLAM3HUSD node.
+- **New**: If the current FLAM3HUSD nodes have already imported all of the exisiting FLAM3H(tm) nodes, nothing will be imported on creation, leaving the field blank.
+- **New**: On creation, any of the FLAM3H(tm) nodes with density values higher than 50M(_millions_) will be skipped, leaving the field blank. The user can select to import them manually right after the FLAM3HUSD node has been created. 
+- **New**: When no Lop viewers are available, it will prevent the user to change any of the preferences viewports settings if Houdini GL mode is being used.
+- **Fix**: Improved the python code for many of the existing definitions.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.00) ###
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**

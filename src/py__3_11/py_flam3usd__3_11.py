@@ -801,11 +801,13 @@ class flam3husd_scripts
                 
                 # Karma has the priority
                 _karma_name: str = flam3husd_general_utils.karma_hydra_renderer_name()
-                if _karma_name in r:
+                # Just in case lets compare everything as str.lower()
+                if _karma_name.lower() in str(r).lower():
                     _RND = _karma_name
                     break
                 
-                elif "Houdini" in r: 
+                # Just in case lets compare everything as str.lower()
+                elif "houdini" in str(r).lower(): 
                     _RND = 'Houdini GL'
                     break
                 
@@ -1464,6 +1466,9 @@ class flam3husd_general_utils
                         settings.particleDisplayType(Pixels)
                         self.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype)
                         
+                    case _:
+                        pass # For now, will see if in the future new option will be added.
+                        
         # Sync FLAM3HUSD nodes
         all_f3husd: tuple = node.type().instances()
                         
@@ -1516,6 +1521,8 @@ class flam3husd_general_utils
                 if reset_val is None:
                     if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
                         settings.particlePointSize(ptsize)
+                        # update memory
+                        self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM)
                         self.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize)
                         
                 else:
@@ -1527,6 +1534,8 @@ class flam3husd_general_utils
                     prm.deleteAllKeyframes()
                     prm.set(ptsize)
                     if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
+                        # update memory
+                        self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM)
                         self.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize)
         
         if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
@@ -1593,7 +1602,7 @@ class flam3husd_general_utils
                             self.flash_message(_RND)
                             
                         case _:
-                            lop_viewers = False
+                            lop_viewers = False # For now, will see if in the future new option will be added.
                     
                 else: pass
                 
