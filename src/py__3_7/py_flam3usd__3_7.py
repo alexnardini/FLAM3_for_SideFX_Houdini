@@ -59,8 +59,8 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 NODE_NAME_OUT_BBOX_REFRAME = 'OUT_bbox_reframe' # prefix
 
 # PRM
-PREFS_FLAM3H_PATH = 'flam3hpath'
-PREFS_FLAM3H_WIDTHS = 'widths'
+PREFS_F3H_PATH = 'flam3hpath'
+PREFS_F3H_WIDTHS = 'widths'
 PREFS_VIEWPORT_RENDERER = 'rndtype'
 PREFS_VIEWPORT_PT_TYPE = 'vptype'
 PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
@@ -90,12 +90,13 @@ MSG_F3HUSD_ABOUT = 'msg_f3husd_about'
 MSG_F3HUSD_ERROR = 'msg_f3husd_error'
 MSG_F3HUSD_ABOUT_ERROR = 'msg_f3husd_about_error'
 
-# The full path will be the string inside the parameter: PREFS_FLAM3H_PATH
+# FLAM3H™ - The full path will be the string inside the parameter: PREFS_F3H_PATH
 # plus this one
-FLAM3H_TO_FLAM3HUSD_NODE_PATH = '/TAGS/OUT_TO_FLAM3HUSD'
+F3H_TO_FLAM3HUSD_NODE_PATH = '/TAGS/OUT_TO_FLAM3HUSD'
 
 # FLAM3H™
-FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
+F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
+F3H_GLB_DENSITY = 'ptcount'
 
 # FLAM3H™ import density limit on creation
 F3H_IMPORT_DENSITY_LIMIT: int = 50000000 # 50M(millions)
@@ -170,7 +171,7 @@ class flam3husd_scripts
             (bool): True if an instance is found and False if not.
         """
         
-        f3h_all_instances: list = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY).instances()
+        f3h_all_instances: list = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
         if f3h_all_instances:
             
             f3husd_all_instances: list = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY).instances()
@@ -178,7 +179,7 @@ class flam3husd_scripts
             # If we already have some FLAM3HUSD nodes and more than one FLAM3H™ nodes
             if len(f3husd_all_instances) > 1 and len(f3h_all_instances) > 1:
                 
-                f3husd_all_instances_paths: list = [f3husd.parm(PREFS_FLAM3H_PATH).eval() for f3husd in f3husd_all_instances if node != f3husd]
+                f3husd_all_instances_paths: list = [f3husd.parm(PREFS_F3H_PATH).eval() for f3husd in f3husd_all_instances if node != f3husd]
                 
                 for f3h in f3h_all_instances:
                     
@@ -187,8 +188,8 @@ class flam3husd_scripts
                     
                     else:
                         # If the point count of the FLAM3H™ node we want to import is not greater than F3H_IMPORT_DENSITY_LIMIT
-                        if f3h.parm('ptcount').eval() <= F3H_IMPORT_DENSITY_LIMIT:
-                            node.setParms({PREFS_FLAM3H_PATH: f3h.path()}) # type: ignore
+                        if f3h.parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
+                            node.setParms({PREFS_F3H_PATH: f3h.path()}) # type: ignore
                             
                             if msg:
                                 ...
@@ -203,8 +204,8 @@ class flam3husd_scripts
             else: # If we are creating the very first FLAM3HUSD instance, always import the very first FLAM3H™ node
                 
                 # If the point count of the FLAM3H™ node we want to import is not greater than F3H_IMPORT_DENSITY_LIMIT
-                if f3h_all_instances[0].parm('ptcount').eval() <= F3H_IMPORT_DENSITY_LIMIT:
-                    node.setParms({PREFS_FLAM3H_PATH: f3h_all_instances[0].path()}) # type: ignore
+                if f3h_all_instances[0].parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
+                    node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
                     
                     if msg:
                         ...
@@ -493,15 +494,15 @@ class flam3husd_scripts
             (None): 
         """  
         node: hou.LopNode = self.node
-        f3h_path: str = node.parm(PREFS_FLAM3H_PATH).eval()
+        f3h_path: str = node.parm(PREFS_F3H_PATH).eval()
         
-        f3h_to_f3husd_node: hou.SopNode = hou.node(f"{f3h_path}{FLAM3H_TO_FLAM3HUSD_NODE_PATH}")
+        f3h_to_f3husd_node: hou.SopNode = hou.node(f"{f3h_path}{F3H_TO_FLAM3HUSD_NODE_PATH}")
         try:
             type: hou.SopNodeType = f3h_to_f3husd_node.type()
         except:
             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
         else:
-            if hou.node(f3h_path).type().nameWithCategory() == FLAM3H_NODE_TYPE_NAME_CATEGORY and type.name() == 'null':
+            if hou.node(f3h_path).type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY and type.name() == 'null':
                 if hou.node(f3h_path).parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
                     flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                 else: flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
@@ -1100,7 +1101,13 @@ class flam3husd_general_utils
 
         Args:
             msg(str): The message string to print
-            type(str): The type of severity message to use, Possible choises are: MSG ( message ), IMP ( important message ), WARN ( warning ).
+            type(str): The type of severity message to use, Possible choises are:
+            
+            * MSG ( message )
+            * IMP ( important message )
+            * WARN ( warning )
+            
+            If type is mispelled, it will fall back to: hou.severityType.Message
             
         Returns:
             (None):
@@ -1108,7 +1115,13 @@ class flam3husd_general_utils
 
         if hou.isUIAvailable():
             st: dict[str, hou.EnumValue] = { 'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning }  # type: ignore
-            hou.ui.setStatusMessage(msg, st.get(type)) # type: ignore
+            severityType: Union[hou.EnumValue, None] = st.get(type)
+            if severityType is not None:
+                hou.ui.setStatusMessage(msg, st.get(type)) # type: ignore
+            else:
+                # If the selected severity type is not found, use the default severity type: hou.severityType.Message
+                # This mostly not to make it error out if the user make a typo or such.
+                hou.ui.setStatusMessage(msg, hou.severityType.Message) # type: ignore
         
 
     @staticmethod
@@ -1203,7 +1216,6 @@ class flam3husd_general_utils
         
         The Null node names prefixes to search are stored inside the global variables:
         
-        * NODE_NAME_OUT_BBOX_SENSOR
         * NODE_NAME_OUT_BBOX_REFRAME
 
         Args:

@@ -2614,7 +2614,13 @@ class flam3h_general_utils
 
         Args:
             msg(str): The message string to print
-            type(str): The type of severity message to use, Possible choises are: MSG ( message ), IMP ( important message ), WARN ( warning ).
+            type(str): The type of severity message to use, Possible choises are:
+            
+            * MSG ( message )
+            * IMP ( important message )
+            * WARN ( warning )
+            
+            If type is mispelled, it will fall back to: hou.severityType.Message
             
         Returns:
             (None):
@@ -2622,7 +2628,13 @@ class flam3h_general_utils
 
         if hou.isUIAvailable():
             st: dict[str, hou.EnumValue] = { 'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning }  # type: ignore
-            hou.ui.setStatusMessage(msg, st.get(type)) # type: ignore
+            severityType: Union[hou.EnumValue, None] = st.get(type)
+            if severityType is not None:
+                hou.ui.setStatusMessage(msg, st.get(type)) # type: ignore
+            else:
+                # If the selected severity type is not found, use the default severity type: hou.severityType.Message
+                # This mostly not to make it error out if the user make a typo or such.
+                hou.ui.setStatusMessage(msg, hou.severityType.Message) # type: ignore
 
 
     @staticmethod
@@ -2699,6 +2711,7 @@ class flam3h_general_utils
         
         Args:
             context(str): The context we want to check if we are currently in. Options so far are: 
+                * Object: str
                 * Sop: str
                 * Lop: str
             viewport(hou.paneTabType): Any of the available pane tab types, in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer
@@ -2717,6 +2730,7 @@ class flam3h_general_utils
         
         Args:
             context(str): The context we want to check if we are currently in. Options so far are: 
+                * Object: str
                 * Sop: str
                 * Lop: str
             
