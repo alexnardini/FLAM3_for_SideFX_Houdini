@@ -164,7 +164,7 @@ Force renderer:
 :box:
     #display: rounded white
     
-    == Renderer: GL == (OPTIONSGL)
+    == Renderer: Houdini == (OPTIONSGL)
     
 Display [Icon:BUTTONS/pane_menu]:
     #id: PREFS
