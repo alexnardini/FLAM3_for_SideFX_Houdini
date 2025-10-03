@@ -121,7 +121,7 @@ class flam3husd_scripts:
 class flam3husd_scripts
 
 @STATICMETHODS
-* flam3husd_on_create_load_first_instance(node: hou.LopNode) -> None:
+* flam3husd_on_create_load_first_instance(node: hou.LopNode, msg: bool = True, limit: bool = True) -> bool:
 * flam3husd_on_create_lock_parms(node: hou.LopNode) -> None:
 * flam3husd_h_versions_build_data(__h_versions__: Union[tuple, int], last_index: bool = False) -> str:
 * flam3husd_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
@@ -155,7 +155,7 @@ class flam3husd_scripts
         
         
     @staticmethod
-    def flam3husd_on_create_load_first_instance(node: hou.LopNode, msg: bool = True) -> bool:
+    def flam3husd_on_create_load_first_instance(node: hou.LopNode, msg: bool = True, limit: bool = True) -> bool:
         """Set the FLAM3H™ node path to the first instance if any are found to be imported into FLAM3HUSD.
         
         If multiple FLAM3HUSD nodes and more than one FLAM3H™ nodes are already present,
@@ -166,30 +166,60 @@ class flam3husd_scripts
         Args:
             node(hou.LopNode): This FLAM3HUSD node
             msg(bool): Default to True. When False it will not print messages (Status bar and Flash messages)
+            limit(bool): Default to True. If False, it will not import FLAM3H™ node with a points count higher than 50M(millions).
             
         Returns:
             (bool): True if an instance is found and False if not.
         """
         
-        f3h_all_instances: list = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
-        if f3h_all_instances:
+        # If it is a valid Houdini version
+        if node.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
             
-            f3husd_all_instances: list = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY).instances()
-            
-            # If we already have some FLAM3HUSD nodes and more than one FLAM3H™ nodes
-            if len(f3husd_all_instances) > 1 and len(f3h_all_instances) > 1:
+            f3h_all_instances: list = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
+            if f3h_all_instances:
                 
-                f3husd_all_instances_paths: list = [f3husd.parm(PREFS_F3H_PATH).eval() for f3husd in f3husd_all_instances if node != f3husd]
+                f3husd_all_instances: list = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY).instances()
                 
-                for f3h in f3h_all_instances:
+                # If we already have some FLAM3HUSD nodes and more than one FLAM3H™ nodes
+                if len(f3husd_all_instances) > 1 and len(f3h_all_instances) > 1:
                     
-                    if f3h.path() in f3husd_all_instances_paths:
-                        pass
+                    f3husd_all_instances_paths: list = [f3husd.parm(PREFS_F3H_PATH).eval() for f3husd in f3husd_all_instances if node != f3husd]
                     
-                    else:
-                        # If the point count of the FLAM3H™ node we want to import is not greater than F3H_IMPORT_DENSITY_LIMIT
-                        if f3h.parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
-                            node.setParms({PREFS_F3H_PATH: f3h.path()}) # type: ignore
+                    for f3h in f3h_all_instances:
+                        
+                        if f3h.path() in f3husd_all_instances_paths:
+                            pass
+                        
+                        else:
+                            # If the point count of the FLAM3H™ node we want to import is not greater than F3H_IMPORT_DENSITY_LIMIT
+                            if limit:
+                                if f3h.parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
+                                    node.setParms({PREFS_F3H_PATH: f3h.path()}) # type: ignore
+                                    if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                                        flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                    
+                                    if msg:
+                                        ...
+                                        
+                                    return True
+                                
+                                else:
+                                    return False
+                                
+                            else:
+                                node.setParms({PREFS_F3H_PATH: f3h.path()}) # type: ignore
+                                return True
+                            
+                    return False
+                    
+                else: # If we are creating the very first FLAM3HUSD instance, always import the very first FLAM3H™ node
+                    
+                    # If the point count of the FLAM3H™ node we want to import is not greater than F3H_IMPORT_DENSITY_LIMIT
+                    if limit:
+                        if f3h_all_instances[0].parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
+                            node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
+                            if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                             
                             if msg:
                                 ...
@@ -198,27 +228,19 @@ class flam3husd_scripts
                         
                         else:
                             return False
-                        
-                return False
-                
-            else: # If we are creating the very first FLAM3HUSD instance, always import the very first FLAM3H™ node
-                
-                # If the point count of the FLAM3H™ node we want to import is not greater than F3H_IMPORT_DENSITY_LIMIT
-                if f3h_all_instances[0].parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
-                    node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
+                    else:
+                        node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
+                        if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                        return True
+            
+            else: # If there are not FLAM3H™ nodes
+                if msg:
+                    ...
                     
-                    if msg:
-                        ...
-                        
-                    return True
-                
-                else:
-                    return False
-        
-        else: # If there are not FLAM3H™ nodes
-            if msg:
-                ...
-                
+                return False
+            
+        else:
             return False
         
         
@@ -898,6 +920,7 @@ class flam3husd_general_utils
 * set_status_msg(msg: str, type: str) -> None:
 
 @METHODS
+* util_flam3h_node_cycle_import(self) -> None:
 * util_set_clipping_viewers(self) -> None:
 * get_node_path(self, node_name: str) -> Union[str, None]:
 * util_viewport_bbox_frame(self) -> None:
@@ -1186,6 +1209,71 @@ class flam3husd_general_utils
     @property
     def bbox_reframe_path(self):
         return self._bbox_reframe_path
+    
+    
+    def util_flam3h_node_cycle_import(self) -> None:
+        """import and cycle through the available FLAM3H™ nodes one by one.
+        You can [LMB] and import the next one or [SHIFT+LMB] to import the preview one.
+        
+        When you reach the end while using the [LMB], it will start again from the start (index 0(Zero)).
+        When you reach the first while [SHIFT+LMB], it will start again from the end (last available index)
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):  
+        """
+        
+        node = self.node
+        # If it is a valid Houdini version
+        if node.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
+            
+            f3h_all_instances: list = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
+            if f3h_all_instances:
+                
+                f3h_all_instances_paths: list = [f3h.path() for f3h in f3h_all_instances]
+                    
+                # If we have multiple FLAM3H™ node instances
+                if len(f3h_all_instances) > 1:
+                    
+                    # If a valid FLAM3H™ is already imported
+                    if node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                    
+                        current_import: str = node.parm(PREFS_F3H_PATH).eval()
+                        current_index: int = f3h_all_instances_paths.index(current_import)
+                        
+                        # Import preview
+                        if self.kwargs['shift']:
+                            try:
+                                node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index - 1]})
+                            except:
+                                node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[-1]})
+                                
+                            if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                                self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                            
+                        # Import next
+                        else:
+                            try:
+                                node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index + 1]})
+                            except:
+                                node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                                
+                            if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                                self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                        
+                    # Otherwise load one that has not being imported yet to start with        
+                    else:
+                        flam3husd_scripts.flam3husd_on_create_load_first_instance(node, False, False)
+                        if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                            self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+            
+                # If we have one FLAM3H™ node instance
+                else:
+                    node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]}) # type: ignore
+                    if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                        self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
     
     
     def util_set_clipping_viewers(self) -> None:
@@ -1743,4 +1831,3 @@ class flam3husd_about_utils
         build_about_msg: str = "".join(build)
 
         self.node.setParms({MSG_F3HUSD_ABOUT: build_about_msg})
-
