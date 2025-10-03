@@ -166,7 +166,7 @@ class flam3husd_scripts
         Args:
             node(hou.LopNode): This FLAM3HUSD node
             msg(bool): Default to True. When False it will not print messages (Status bar and Flash messages)
-            limit(bool): Default to True. If False, it will not import FLAM3H™ node with a points count higher than 50M(millions).
+            limit(bool): Default to True. If False, it will not import FLAM3H™ node with a points count higher than 50M(millions) (F3H_IMPORT_DENSITY_LIMIT).
             
         Returns:
             (bool): True if an instance is found and False if not.
