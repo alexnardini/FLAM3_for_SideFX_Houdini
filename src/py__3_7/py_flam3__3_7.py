@@ -8223,6 +8223,8 @@ class flam3h_iterator_utils
             # Clear tmp prm so in case of keyframes or expression it doesnt evaluate
             flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0])
             flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1])
+            flam3h_general_utils.private_prm_set(node, __pvT_prm[0], 0)
+            flam3h_general_utils.private_prm_set(node, __pvT_prm[1], 0)
             
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
@@ -8238,6 +8240,8 @@ class flam3h_iterator_utils
             # Clear tmp prm so in case of keyframes or expression it doesnt evaluate
             flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0])
             flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1])
+            flam3h_general_utils.private_prm_set(node, __pvT_prm[0], 0)
+            flam3h_general_utils.private_prm_set(node, __pvT_prm[1], 0)
 
             # Copy weights into tmp
             self.paste_from_prm(pvW_prm[0], __pvW_prm[0], True)
@@ -8248,6 +8252,8 @@ class flam3h_iterator_utils
             # Clear tmp prm so in case of keyframes or expression it doesnt evaluate
             flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[0])
             flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[1])
+            flam3h_general_utils.private_prm_set(node, __pvW_prm[0], 0)
+            flam3h_general_utils.private_prm_set(node, __pvW_prm[1], 0)
             
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
