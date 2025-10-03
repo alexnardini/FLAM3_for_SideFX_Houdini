@@ -141,7 +141,7 @@ Dark [Icon:DATATYPES/boolean]:
 
     <br />
     
-Renderer [Icon:BUTTONS/pane_menu]:
+menu Renderer [Icon:BUTTONS/pane_menu]:
     #id: PREFS
     Select from a variety of Hydra renderers.
 
@@ -155,6 +155,7 @@ Force renderer:
     #id: PREFS
     [Largeicon:opdef:.?icon_rendererMenuSVG.svg]
     
+    _Usage_:
     - ((LMB)) to force all Lop viewers to be set to the selected renderer.
 
     <br /><br />
@@ -166,7 +167,7 @@ Force renderer:
     
     == Renderer: Houdini == (OPTIONSGL)
     
-Display [Icon:BUTTONS/pane_menu]:
+menu Display [Icon:BUTTONS/pane_menu]:
     #id: PREFS
     Either points or pixels should be selected for the viewport particle display mode.
 
@@ -195,6 +196,7 @@ Reset size:
     #id: PREFS
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
+    _Usage_:
     - ((LMB)) to reset the viewport point size to a default of *`1`*(one).
 
     <br /><br />
@@ -219,6 +221,7 @@ Reset points widths:
     #id: PREFS
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
+    _Usage_:
     - ((LMB)) to reset the point widths to a default of *`1`*(one).
 
     <br />
@@ -234,6 +237,11 @@ Import FLAM3H(tm) Handles [Icon:DATATYPES/boolean]:
 
     <br />
 
+    NOTE:
+        - _This parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
+        
+    <br />
+
 Handles widths:
     #id: PREFS
     Adjust the thickness of the FLAM3H(tm) xforms handles VIZ.<br />
@@ -241,11 +249,22 @@ Handles widths:
 
     <br />
 
+    NOTE:
+        - _This parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
+
+    <br />
+
 Reset handles widths:
     #id: PREFS
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
-    - ((LMB)) to reset the handles widths to a default of *`2`*(two).
+    _Usage_:
+    - ((LMB)) to reset the handles curves widths to a default of *`2`*(two).
+
+    <br />
+
+    NOTE:
+        - _This parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
 
     <br />
 
@@ -259,11 +278,12 @@ Reset pixel samples:
     #id: PREFS
     [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
     
+    _Usage_:
     - ((LMB)) to reset the pixel samples to a default of *`128`*.
 
     <br />
     
-Denoiser [Icon:BUTTONS/pane_menu]:
+menu Denoiser [Icon:BUTTONS/pane_menu]:
     #id: PREFS
     Options to choose from the available Karma denoisers.
 
@@ -271,7 +291,7 @@ Denoiser [Icon:BUTTONS/pane_menu]:
 :box:
     #display: rounded white
     
-    == Renderer: FLAM3H(tm) Shader == (OPTIONSF3HSHADER)
+    == Renderer: Karma FLAM3H(tm) Shader == (OPTIONSF3HSHADER)
 
 Use Shader [Icon:DATATYPES/boolean]:
     #id: PREFS
@@ -288,6 +308,7 @@ Reset Shader parms:
     #id: PREFS
     [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
     
+    _Usage_:
     - ((LMB)) to reset the FLAM3H(tm) Shader to its default values.
 
     <br />
@@ -296,35 +317,56 @@ Shader parameters:
     #id: PREFS
     Inside here you have various shader parameters at your disposal:
 
-    - *`Gamma`*:<br />Adjust the Gamma of the incoming points' color.
-    - *`H`*:<br />Adjust the Hue of the incoming points' color.
-    - *`S`*:<br />Adjust the Saturation of the incoming points' color.
-    - *`V`*:<br />Adjust the Value/intensity of the incoming points' color.
+    <br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Color Corrections*<br />
+
+    The following are parameters to color correct the incoming FLAM3H(tm) points color values.
+
+    - *`Gamma`*<br />Adjust the Gamma of the incoming points' color.
+    - *`H`*<br />Adjust the Hue of the incoming points' color.
+    - *`S`*<br />Adjust the Saturation of the incoming points' color.
+    - *`V`*<br />Adjust the Value/intensity of the incoming points' color.
+
+    <br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Accumulation / Histogram*<br />
 
     The following are parameters to fine-tune the point color values accumulation<br />
     to match what third-party render engines implement as: _build a buffer with the histogram or summation/accumulation of every point in every pixel_.
 
     The point *`widths`* parameter amplify or weaken this effect and you should find a good balance based on each Flame and its points count.
     
-    - *`Emission`*:<br />Adjust the FLAM3H(tm) Shader emission.<br />Control how strong the light emitted by the fractal Flame points is.<br />Higher values increase the additive effect,<br />lower values decrease it until a value of *`0`*(Zero) which result in a full black color.
-    - *`Transmission`*:<br />Adjust the FLAM3H(tm) Shader transmission.<br />Control how the emission is transmitted across the fractal Flame points.<br /><br />You should increase this value to get a correct point color values accumulation effects, with a value of *`1`*(one) being the suggested one and keep the *`Emission`* parameter' value at *`1`*(one) to start with.<br /><br />When this value is higher than *`0`*(Zero) cause the resulting rendered image to loose its Alpha channel but the visual benefits are far greater.
-
-    <br />
-    _Additionally_:
-
-    - *`Tone map`* [Icon:BUTTONS/pane_menu]:<br />Choose a tone map preset to apply to the rendered image.
+    - *`Emission`*<br />Adjust the FLAM3H(tm) Shader emission.<br />Control how strong the light emitted by the fractal Flame points is.<br />Higher values increase the additive effect,<br />lower values decrease it until a value of *`0`*(Zero) which result in a full black color.
+    - *`Transmission`*<br />Adjust the FLAM3H(tm) Shader transmission.<br />Control how the emission is transmitted across the fractal Flame points.<br /><br />You should increase this value to get a correct point color values accumulation effects, with a value of *`1`*(one) being the suggested one and keep the *`Emission`* parameter' value at *`1`*(one) to start with.<br /><br />When this value is higher than *`0`*(Zero) cause the resulting rendered image to loose its Alpha channel but the visual benefits are far greater.
 
     <br />
     
     NOTE:
-        _*`Emission`* parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
+        - _*`Emission`* parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
 
-        _*`Transmission`* and *`Tone map`* parameters are available only<br />from FLAM3HUSD HDA versions for Houdini 20.5 and up_.
+        - _*`Transmission`* parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 20.5 and up_.
 
         _*`Emission`* and *`Transmission`* are responsable for a proper point color values accumulation and they are crucial for a correct fractal Flame look with the Karma renderer_.<br />
 
         _They will match what third-party render engines implement as_:<br />
         _*build a buffer with the histogram or summation/accumulation of every point in every pixel*_.
+
+:box:
+    #display: rounded white
+    
+    == Renderer: Karma Tone map == (OPTIONSTONEMAP)
+
+menu Tone map [Icon:BUTTONS/pane_menu]:
+    #id: PREFS
+    This is a parameter menu with some tone mapping presets to apply to the interactive viewport rendering image.
+
+    <br />
+
+    NOTE:
+        - _*`Tone map`* parameter menu is available only<br />from FLAM3HUSD HDA versions for Houdini 20.5 and up_.
+
+
 
 :box:
     #display: rounded white
