@@ -3,7 +3,7 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.2.10 - Prototype
+#version: 0.2.22 - Prototype
 
 """Simple utility node to quickly render FLAM3H(tm) fractal Flames in Solaris."""
 
@@ -12,6 +12,8 @@
 
 A simple utility node to make rendering FLAM3H(tm) fractal Flames in Solaris for previews easy.<br />
 It offers the very fundamental functionalities to setup your fractal Flames point cloud and start rendering with Karma within a few clicks.<br />
+
+It has been designed to be user-friendly, simple, and intuitive.
 
 Currently, FLAM3HUSD rely entirely on Karma CPU.
 
@@ -61,13 +63,13 @@ _It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`*
 
 
     
-== FLAM3HUSD import == (IMPORT)
+== FLAM3HUSD system == (IMPORT)
     
 ~~~
 :box:
     #display: inverted teal
 
-    *FLAM3HUSD import*
+    *FLAM3HUSD systemp and import option*
 
 FLAM3HUSD documentation:
     #id: IMPORT
@@ -110,6 +112,25 @@ FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
     - If there are several FLAM3H(tm) nodes, it will always import the one that hasn't been imported by the other FLAM3HUSD nodes when you create a new instance of the FLAM3HUSD node.
     - If the current FLAM3HUSD nodes have already imported all of the exisiting FLAM3H(tm) nodes, nothing will be imported on creation, leaving the field blank.
     - On creation, any of the FLAM3H(tm) nodes with density values higher than 50M(_millions_) will be skipped, leaving the field blank. The user can select to import them manually right after the FLAM3HUSD node has been created.
+
+    <br />
+    
+FLAM3H(tm) Next/Prev [Icon:DATATYPES/string]:
+    #id: F3HNEXTPREV
+    [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg]
+
+    Import and cycle through the available FLAM3H™ nodes instances.
+
+    This is usefull when multiple FLAM3H™ nodes instances exist in the current Houdini session and you want to easily cycle between all of them one by one.
+
+    _Usage_:
+    - ((LMB)) to import a FLAM3H™ node or to import the *`next`* FLAM3H™ node instance. When you reach the last instance it will start again from the start (index *`0`*(Zero)).
+    - ((SHIFT)) + ((LMB)) to import a FLAM3H™ node or to import the *`preview`* FLAM3H™ node instance. When you reach the first instance, it will start again from the end (last available index)
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
+    - When multiple FLAM3HUSD nodes exist already, ((LMB)) this icon without a valid import yet will import the FLAM3H™ node instance that has not been imported already by the others, otherwise it will import the first one to start with.
+    - Importing FLAM3H™ node instances from this icon will not check if the imported FLAM3H™ node density value is set to more than *`50M`*(millions). It will import all density values regardless.
     
     
 == Prefs == (PREFS)
@@ -144,6 +165,10 @@ Dark [Icon:DATATYPES/boolean]:
 menu Renderer [Icon:BUTTONS/pane_menu]:
     #id: PREFS
     Select from a variety of Hydra renderers.
+
+    At the moment the choices are:
+    - *`Houdini`*<br />this can be either *`OpenGL`* or *`Vulkan`* depending on your Houdini preferences settings.
+    - *`Karma CPU`* 
 
     <br /><br />
     [Icon:NETWORKS/lop] *Context aware*<br />
@@ -357,7 +382,7 @@ Shader parameters:
     
     == Renderer: Karma Tone map == (OPTIONSTONEMAP)
 
-menu Tone map [Icon:BUTTONS/pane_menu]:
+menu Presets [Icon:BUTTONS/pane_menu]:
     #id: PREFS
     This is a parameter menu with some tone mapping presets to apply to the interactive viewport rendering image.
 

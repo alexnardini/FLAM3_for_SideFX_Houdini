@@ -51,6 +51,31 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 
 _FLAM3HUSD system utilities._
 
+
+# SYS Tab
+# parameter name:    `icon_error`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarOrangeSVG.svg
+```
+
+<br>
+<br>
+
+# SYS Tab
+# parameter name:    `icon_tip`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg
+```
+
+<br>
+<br>
+
 # SYS Tab
 # parameter name:    `sys_help`
 ### Button icon
@@ -63,7 +88,6 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_F_docStarSVG.svg
 <br>
 <br>
 
-
 # SYS Tab
 # parameter name:    `sys_reframe`
 ### Button icon
@@ -71,6 +95,18 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_F_docStarSVG.svg
 
 ```
 opdef:/alexnardini::Lop/FLAM3HUSD?icon_FrameBlueSVG.svg
+```
+
+<br>
+<br>
+
+# SYS Tab
+# parameter name:    `flam3hpath`
+### Action icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionFlameINEntrieSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionFlameINEntrieSVG.svg
 ```
 
 </br>
@@ -182,6 +218,18 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg
 
 
 _Here you will find informations about FLAM3HUSD._
+
+# ABOUT Tab
+# parameter name:    `icon_about_error`
+### Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarOrangeSVG.svg
+```
+
+</br>
+</br>
 
 # ABOUT Tab
 # parameter name:    `icon_about`

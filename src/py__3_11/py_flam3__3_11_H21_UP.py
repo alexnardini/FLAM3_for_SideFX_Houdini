@@ -3076,8 +3076,10 @@ class flam3h_general_utils
         if search:
             return search[0].path()
         else:
-            _MSG: str = f"{self.node.name()}: Camera sensor BBOX data node not found."
-            self.set_status_msg(_MSG, 'WARN')
+            # Disabling this because it is annoying it never find it on creation, need to investigate
+            
+            # _MSG: str = f"{self.node.name()}: Camera sensor BBOX data node not found."
+            # self.set_status_msg(_MSG, 'WARN')
             return None
 
 
@@ -4342,6 +4344,7 @@ class flam3h_general_utils
         
         if views:
             if prm.eval():
+                
                 # Store all viewers current color schemes
                 # if different than Dark
                 self.util_store_all_viewers_color_scheme()
@@ -4364,7 +4367,7 @@ class flam3h_general_utils
                 
                 if allowed_viewers:
                     
-                    if dark:   
+                    if dark:
                         _MSG: str = f"Dark: ON"
                         self.flash_message(node, _MSG)
                         self.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')

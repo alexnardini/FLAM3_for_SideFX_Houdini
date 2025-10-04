@@ -30,9 +30,39 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v1.9.05 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.05) ###
+
+#### FLAM3H™ ####
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+#### FLAM3HUSD v0.2.22 - Prototype ####
+
+- **New**: Added an Action button to the import FLAM3H™ node path parameter to import and cycle through all of the exisiting FLAM3H™ node instances one by one. You can move forward or backward through the exisiting instances.
+- **New**: Added validity checks of the imported FLAM3H™ node to all of the UI parameters.
+- **New**: Added validity checks of the imported FLAM3H™ node for all FLAM3HUSD node instances with an imported FLAM3H™ node path during hip file load and during cloning or deleting them, to always be up to date.
+- **Fix**: Improved FLAM3HUSD validity checks python definitions.
+- **Fix**: in FLAM3HUSD HDA version for H19, the handles and the message geomtries did not have a proper materialX shader applied, it is now fixed.
+- **Fix**: Tone map presets menu parameter now lives in its own UI tab/folder.
+- **Fix**: When the imported FLAM3H™ node was not valid, FLAM3USD was still displaying its point cloud even tho the UI was disabled, same for the imported FLAM3H™ node handles VIZ, it is now fixed.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.04 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.04) ###
 
 _A restart of Houdini maybe needed for the new changes to correctly pickup_.
+
+#### FLAM3H™ ####
 
 - **New**: When no Sop or Object viewers are available, it will prevent the user to change any of the preferences viewports settings.
 - **Fix**: Some of the toggles were not working when the viewers were in the Object context, it is now fixed.
@@ -60,6 +90,8 @@ _A restart of Houdini maybe needed for the new changes to correctly pickup_.
 
 ### [<ins>v1.9.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.00) ###
 
+#### FLAM3H™ ####
+
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 #### FLAM3HUSD v0.2.00 - Prototype ####
@@ -82,6 +114,8 @@ _A restart of Houdini maybe needed for the new changes to correctly pickup_.
 
 
 ### [<ins>v1.8.99 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.99) ###
+
+#### FLAM3H™ ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -109,6 +143,8 @@ _**Transmission** and **Tone map** parameters are available only from FLAM3HUSD 
 
 
 ### [<ins>v1.8.98 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98) ###
+
+#### FLAM3H™ ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -238,6 +274,8 @@ _This is a re-release of the same version but with some minor updates that were 
 
 ### [<ins>v1.8.86 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.86) ###
 
+#### FLAM3H™ ####
+
 - **New**: Created Markdown [src/FLAM3H__UI_ICON_map.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/FLAM3H__UI_ICON_map.md) file. It is a map of each UI parameter with an icon and include all the used icon's information.
 - **New**: Updated Markdown [icons/README.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/README.md). It now include a set of strings for each icon to help load them within different places inside Houdini.
 - **Small fixes.**
@@ -257,6 +295,8 @@ _This is a re-release of the same version but with some minor updates that were 
 
 
 ### [<ins>v1.8.85 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.85) ###
+
+#### FLAM3H™ ####
 
 - **New H21 ONLY**: Recompiled FLAM3H™ with the latest production buid vcc compiler: 21.0.440.
 - **New H21 ONLY**: Updated H21 custom_node_info to include the HDA version. (FLAM3H™ and FLAM3HUSD)
@@ -304,6 +344,8 @@ _This is a re-release of the same version but with some minor updates that were 
 
 
 ### [<ins>v1.8.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.80) ###
+
+#### FLAM3H™ ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -2535,6 +2577,8 @@ _More small things:_
 
 ### [<ins>v1.3.07 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.3.07) ###
 
+#### FLAM3H™ ####
+
 - **New**: Sensor bbox node is now compiled as a native CVEX node.
 - **New**: About Tab folders title headers now have an icon to start with (purely cosmetic).
 - **New**: When no flame file is loaded and we load a flame from the clipboard, the menu labe will now say: "Clipboard".
@@ -2569,7 +2613,8 @@ _More small things:_
 - **Python code cleanup.**
 - **Updated HDA documentation.**
 
-### FLAM3H™ USD</ins> ###
+#### FLAM3HUSD v0.2.10 - Prototype ####
+
 - **New**: The HDA node has a new icon that make more sense and in line with the FLAM3H™ HDA icons library.
 - **Updated HDA documentation.**
 
@@ -2579,6 +2624,8 @@ _More small things:_
 
 
 ### [<ins>v1.2.75 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.2.75) ###
+
+#### FLAM3H™ ####
 
 - **New**: Camera sensor infos are now turned into their own CVEX native node, much cleaner.
 - **New**: Camera sensor TAG logos transformations are now turned into their own CVEX native nodes. 
@@ -2598,7 +2645,7 @@ _More small things:_
 - **Improved Python code.**
 - **Updated HDA documentation.**
 
-### FLAM3H™ USD</ins> ###
+### FLAM3H™ USD ###
 - **Fix**: improved a the python code of this basic HDA for quickly rendering FLAM3H™ Flames in Solaris.
 
 

@@ -3077,8 +3077,10 @@ class flam3h_general_utils
         if search:
             return search[0].path()
         else:
-            _MSG: str = f"{self.node.name()}: Camera sensor BBOX data node not found."
-            self.set_status_msg(_MSG, 'WARN')
+            # Disabling this because it is annoying it never find it on creation, need to investigate
+            
+            # _MSG: str = f"{self.node.name()}: Camera sensor BBOX data node not found."
+            # self.set_status_msg(_MSG, 'WARN')
             return None
 
 

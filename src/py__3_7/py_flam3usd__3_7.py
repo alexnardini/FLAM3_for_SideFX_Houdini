@@ -90,6 +90,9 @@ MSG_F3HUSD_ABOUT = 'msg_f3husd_about'
 MSG_F3HUSD_ERROR = 'msg_f3husd_error'
 MSG_F3HUSD_ABOUT_ERROR = 'msg_f3husd_about_error'
 
+# FLASH MSG TIMER
+FLAM3HUSD_FLASH_MESSAGE_TIMER: float = 2 # Note that for this FLAM3HUSD OTL the flash messages only run in netowrk editors belonging to the Lop context.
+
 # FLAM3H™ - The full path will be the string inside the parameter: PREFS_F3H_PATH
 # plus this one
 F3H_TO_FLAM3HUSD_NODE_PATH = '/TAGS/OUT_TO_FLAM3HUSD'
@@ -100,9 +103,6 @@ F3H_GLB_DENSITY = 'ptcount'
 
 # FLAM3H™ import density limit on creation
 F3H_IMPORT_DENSITY_LIMIT: int = 50000000 # 50M(millions)
-
-# FLASH MSG TIMER
-FLAM3HUSD_FLASH_MESSAGE_TIMER: float = 2 # Note that for this FLAM3HUSD OTL the flash messages only run in netowrk editors belonging to the Lop context.
 
 
 # FLAM3HUSD SCRIPTS start here
@@ -131,7 +131,7 @@ class flam3husd_scripts
 
 @METHODS
 * flam3husd_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
-* flam3husd_is_valid_flam3h_node(self) -> None:
+* flam3husd_is_valid_flam3h_node(self, _node: Union[hou.LopNode, None] = None) -> None:
 * flam3husd_h_version_check(self) -> None:
 * flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float = 1) -> None:
 * flam3husd_on_create(self) -> None:
@@ -174,7 +174,7 @@ class flam3husd_scripts
         
         # If it is a valid Houdini version
         if node.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
-            
+                
             f3h_all_instances: list = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
             if f3h_all_instances:
                 
@@ -204,12 +204,14 @@ class flam3husd_scripts
                                     return True
                                 
                                 else:
+                                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                                     return False
                                 
                             else:
                                 node.setParms({PREFS_F3H_PATH: f3h.path()}) # type: ignore
                                 return True
                             
+                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                     return False
                     
                 else: # If we are creating the very first FLAM3HUSD instance, always import the very first FLAM3H™ node
@@ -227,6 +229,7 @@ class flam3husd_scripts
                             return True
                         
                         else:
+                            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                             return False
                     else:
                         node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
@@ -238,9 +241,11 @@ class flam3husd_scripts
                 if msg:
                     ...
                     
+                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                 return False
             
         else:
+            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
             return False
         
         
@@ -506,16 +511,19 @@ class flam3husd_scripts
             return self.flam3husd_compatible_range_open(kwargs, msg)
 
 
-    def flam3husd_is_valid_flam3h_node(self) -> None:
-        """Check if the imported FLAM3HUSD node is valid or not
+    def flam3husd_is_valid_flam3h_node(self, _node: Union[hou.LopNode, None] = None) -> None:
+        """Check if the imported FLAM3H™ node is valid or not
         
         Args:
             (self): 
+            _node(Union[hou.LopNode, None]): Default to None and use the self.node. Otherwise it will use the provided Lop node instead.
             
         Returns:
             (None): 
         """  
-        node: hou.LopNode = self.node
+        if _node is None: node: hou.LopNode = self.node
+        else: node = _node
+            
         f3h_path: str = node.parm(PREFS_F3H_PATH).eval()
         
         f3h_to_f3husd_node: hou.SopNode = hou.node(f"{f3h_path}{F3H_TO_FLAM3HUSD_NODE_PATH}")
@@ -684,13 +692,16 @@ class flam3husd_scripts
         # Set initial node color
         node.setColor(hou.Color((0.165,0.165,0.165)))
         
+        # Check H version and set
+        self.flam3husd_h_version_check()
+        # Check if we are importing a valid FLAM3H™ node on all the of other FLAM3HUSD node instances
+        [self.flam3husd_is_valid_flam3h_node(f3husd) for f3husd in self.node.type().instances() if f3husd != node]
+        
         if self.flam3husd_compatible_type(__range_type__):
             
-            # Check H version and set
-            self.flam3husd_h_version_check()
             # Load FLAM3H node first instance if any
             self.flam3husd_on_create_load_first_instance(node)
-            # Check if we are importing a valid FLAM3HUSD node
+            # Check if we are importing a valid FLAM3H™ node
             self.flam3husd_is_valid_flam3h_node()
             # Set renderer
             self.autoSetRenderer_on_create()
@@ -703,6 +714,7 @@ class flam3husd_scripts
             self.flam3husd_on_create_lock_parms(node)
             
         else:
+            # Do the incompatibility things
             self.flam3husd_on_create_compatible_false()
             
             
@@ -773,16 +785,22 @@ class flam3husd_scripts
             (None):
         """
         
+        # Check H version and set
+        self.flam3husd_h_version_check()
+            
         if self.flam3husd_compatible_type(__range_type__):
             
-            # Check H version and set
-            self.flam3husd_h_version_check()
             # Restore if it is needed
             self.flam3husd_on_loaded_compatible_true()
             # Set viewport preferences settings
             self.flam3husd_on_create_set_prefs_viewport()
-            # Check if we are importing a valid FLAM3HUSD node
+            
+            # Check if we are importing a valid FLAM3H™ node
             self.flam3husd_is_valid_flam3h_node()
+            # When cloning FLAM3HUSD nodes, check if other FLAM3HUSD nodes still have a valid FLAM3H™ node imported and disable them if not.
+            if not hou.hipFile.isLoadingHipFile(): #type: ignore
+                [self.flam3husd_is_valid_flam3h_node(f3husd) for f3husd in self.node.type().instances() if f3husd != self.node]
+                
             # Set about box
             flam3husd_about_utils(self.kwargs).flam3husd_about_msg()
             
@@ -885,6 +903,7 @@ class flam3husd_scripts
         """
         node = self.node
         node_instances: tuple = node.type().instances()
+        [self.flam3husd_is_valid_flam3h_node(f3husd) for f3husd in node_instances if f3husd != self.node]
         
         if len(node_instances) == 1:
             
@@ -908,6 +927,8 @@ class flam3husd_general_utils:
 class flam3husd_general_utils
 
 @STATICMETHODS
+* util_flam3h_node_exist_all(node: hou.LopNode) -> None:
+* util_flam3h_node_exist_self(node: hou.LopNode) -> bool:
 * private_prm_set(node: hou.LopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
 * private_prm_deleteAllKeyframes(node: hou.LopNode, _prm: Union[str, hou.Parm]) -> None:
 * in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
@@ -920,6 +941,7 @@ class flam3husd_general_utils
 * set_status_msg(msg: str, type: str) -> None:
 
 @METHODS
+* util_flam3h_node_exist(self, f3husd_all: bool = False) -> None:
 * util_flam3h_node_cycle_import(self) -> None:
 * util_set_clipping_viewers(self) -> None:
 * get_node_path(self, node_name: str) -> Union[str, None]:
@@ -947,6 +969,64 @@ class flam3husd_general_utils
         self._kwargs: dict = kwargs
         self._node = kwargs['node']
         self._bbox_reframe_path: Union[str, None] = self.get_node_path(NODE_NAME_OUT_BBOX_REFRAME)
+        
+        
+    @staticmethod
+    def util_flam3h_node_exist_self(node: hou.LopNode) -> bool:
+        """Check if the currently imported node path point to a valid FLAM3H™ node.
+        
+        Args:
+            node(hou.LopNode): this FLAM3HUSD node.
+            
+        Returns:
+            (bool): True if the imported FLAM3H™ node exist and False if it does not.
+        """ 
+        current_import: str = node.parm(PREFS_F3H_PATH).eval()
+        try:
+            f3h: hou.SopNode | None = hou.node(current_import)
+        except:
+            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+            return False
+        else:
+            if f3h is not None:
+                if f3h.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
+                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                    return True
+                else:
+                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                    return False
+            else:
+                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                return False
+            
+            
+    @staticmethod
+    def util_flam3h_node_exist_all(node: hou.LopNode) -> None:
+        """Check if the currently imported node path point to a valid FLAM3H™ node
+        for all FLAM3HUSD node instances.
+        
+        Args:
+            node(hou.LopNode): this FLAM3HUSD node to use for its node instances collection.
+            
+        Returns:
+            (None):
+        """ 
+        
+        for f3husd in node.type().instances():
+            
+            current_import: str = f3husd.parm(PREFS_F3H_PATH).eval()
+            try:
+                f3h: hou.SopNode | None = hou.node(current_import)
+            except:
+                flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+            else:
+                if f3h is not None:
+                    if f3h.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
+                        flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                    else:
+                        flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                else:
+                    flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
 
 
     @staticmethod
@@ -1211,6 +1291,23 @@ class flam3husd_general_utils
         return self._bbox_reframe_path
     
     
+    def util_flam3h_node_exist(self, f3husd_all: bool = False) -> None:
+        """Check if the currently imported node path point to a valid FLAM3H™ node.
+        
+        Option to check self or all self node instances instead is provided.
+        
+        Args:
+            (self):
+            f3husd_all(bool): Default to False. If set to True it will run for all FLAM3HUSD node instances instead.
+            
+        Returns:
+            (None):
+        """ 
+        node = self.node
+        if f3husd_all: self.util_flam3h_node_exist_all(node)
+        else: self.util_flam3h_node_exist_self(node)
+    
+    
     def util_flam3h_node_cycle_import(self) -> None:
         """import and cycle through the available FLAM3H™ nodes one by one.
         You can [LMB] and import the next one or [SHIFT+LMB] to import the preview one.
@@ -1233,47 +1330,92 @@ class flam3husd_general_utils
             if f3h_all_instances:
                 
                 f3h_all_instances_paths: list = [f3h.path() for f3h in f3h_all_instances]
-                    
+                current_import: str = node.parm(PREFS_F3H_PATH).eval()
+                
                 # If we have multiple FLAM3H™ node instances
                 if len(f3h_all_instances) > 1:
-                    
+                        
                     # If a valid FLAM3H™ is already imported
                     if node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                     
-                        current_import: str = node.parm(PREFS_F3H_PATH).eval()
-                        current_index: int = f3h_all_instances_paths.index(current_import)
-                        
-                        # Import preview
-                        if self.kwargs['shift']:
-                            try:
-                                node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index - 1]})
-                            except:
-                                node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[-1]})
-                                
+                        try:
+                            hou.node(current_import).type()
+                        except:
+                            # Otherwise load one that has not being imported yet to start with 
+                            flam3husd_scripts.flam3husd_on_create_load_first_instance(node, False, False)
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
-                            
-                        # Import next
-                        else:
-                            try:
-                                node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index + 1]})
-                            except:
+                                # IF it could not find a new one to import
+                                # import the first one
                                 node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
-                                
+                                self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                        else:
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                 self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
-                        
-                    # Otherwise load one that has not being imported yet to start with        
+                                
+                            else:
+                                
+                                current_index: int = f3h_all_instances_paths.index(current_import)
+                                
+                                # Import preview
+                                if self.kwargs['shift']:
+                                    try:
+                                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index - 1]})
+                                    except:
+                                        # start over
+                                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[-1]})
+                                        
+                                    if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                                        self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                    
+                                # Import next
+                                else:
+                                    try:
+                                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index + 1]})
+                                    except:
+                                        # start over
+                                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                                        
+                                    if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                                        self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                
                     else:
-                        flam3husd_scripts.flam3husd_on_create_load_first_instance(node, False, False)
-                        if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                            self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                        
+                        try:
+                            hou.node(current_import).type()
+                        except:
+                            # Otherwise load one that has not being imported yet to start with
+                            flam3husd_scripts.flam3husd_on_create_load_first_instance(node, False, False)
+                            if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                                # IF it could not find a new one to import
+                                # import the first one
+                                node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                                self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                        else:
+                            if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                                self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                
             
                 # If we have one FLAM3H™ node instance
                 else:
-                    node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]}) # type: ignore
-                    if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                        self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                    # current_import: str = node.parm(PREFS_F3H_PATH).eval()
+                    try:
+                        hou.node(current_import).type()
+                    except:
+                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                        if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                            self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                    else:
+                        # Just in case
+                        if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                            self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                    
+            else:
+                self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                
+            # As last,
+            # Check if the imported FLAM3H™ node is really a valid one or not
+            if node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                flam3husd_scripts(self.kwargs).flam3husd_is_valid_flam3h_node()
     
     
     def util_set_clipping_viewers(self) -> None:
