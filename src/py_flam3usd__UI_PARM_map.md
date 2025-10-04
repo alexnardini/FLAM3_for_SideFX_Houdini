@@ -387,7 +387,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_is_valid_flam
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_cycle_import()
-node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(node, True)
+node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 
 ```
 
@@ -426,7 +426,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer(
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer()
-node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(node, True)
+node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
 </br>
@@ -454,7 +454,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleS
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(1.0)
-node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(node, True)
+node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
 </br>
@@ -471,7 +471,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(1.0, 'widths')
-node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(node, True)
+node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
 </br>
@@ -499,7 +499,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(2.0, 'widths_xf_viz')
-node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(node, True)
+node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
 </br>
@@ -516,7 +516,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(128, 'pxsamples')
-node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(node, True)
+node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
 </br>
@@ -544,7 +544,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).reset_flam3h_shader()
-node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(node, True)
+node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
 # PREFS Tab
