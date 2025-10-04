@@ -38,13 +38,13 @@ They are all available in this Github repository.
 
 #### FLAM3HUSD v0.2.22 - Prototype ####
 
-- **New**: Added an Action button to the import FLAM3H™ node path parameter to import and cycle through all of the exisiting FLAM3H™ node instances one by one. You can move forward or backward through the exisiting instances.
+- **New**: Added an Action button to the import FLAM3H™ node path parameter to import and cycle through all of the existing FLAM3H™ node instances one by one. You can move forward or backward through the existing instances.
 - **New**: Added validity checks of the imported FLAM3H™ node to all of the UI parameters.
 - **New**: Added validity checks of the imported FLAM3H™ node for all FLAM3HUSD node instances with an imported FLAM3H™ node path during hip file load and during cloning or deleting them, to always be up to date.
 - **Fix**: Improved FLAM3HUSD validity checks python definitions.
-- **Fix**: in FLAM3HUSD HDA version for H19, the handles and the message geomtries did not have a proper materialX shader applied, it is now fixed.
+- **Fix**: in FLAM3HUSD HDA version for H19, the handles and the message geometries did not have a proper materialX shader applied, it is now fixed.
 - **Fix**: Tone map presets menu parameter now lives in its own UI tab/folder.
-- **Fix**: When the imported FLAM3H™ node was not valid, FLAM3USD was still displaying its point cloud even tho the UI was disabled, same for the imported FLAM3H™ node handles VIZ, it is now fixed.
+- **Fix**: When the imported FLAM3H™ node was not valid, FLAM3USD was still displaying its point cloud even tho the UI was disabled, it is now fixed.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
