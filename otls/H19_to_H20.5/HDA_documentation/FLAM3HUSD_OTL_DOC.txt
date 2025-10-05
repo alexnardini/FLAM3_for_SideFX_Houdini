@@ -29,6 +29,8 @@ _Below a list of the currently adopted badges and their meaning_:
 
 - [Icon:BUTTONS/pane_menu] it is either a menu or a mini-menu.
 
+- [Icon:opdef:.?icon_actionButtonSVG.svg] it is an Action button.
+
 - [Icon:DATATYPES/boolean] it is a toggle.
 
 - [Icon:DATATYPES/string] it is a string.
@@ -115,7 +117,7 @@ FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
 
     <br />
     
-FLAM3H(tm) Next/Prev:
+FLAM3H(tm) Next/Prev [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: F3HNEXTPREV
     [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg]
 
@@ -176,7 +178,7 @@ menu Renderer [Icon:BUTTONS/pane_menu]:
 
     <br />
 
-Force renderer:
+Force renderer [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: PREFS
     [Largeicon:opdef:.?icon_rendererMenuSVG.svg]
     
@@ -217,7 +219,7 @@ Size:
 
     <br />
 
-Reset size:
+Reset size [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: PREFS
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
@@ -242,7 +244,7 @@ Points widths:
 
     <br />
 
-Reset points widths:
+Reset points widths [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: PREFS
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
@@ -279,7 +281,7 @@ Handles widths:
 
     <br />
 
-Reset handles widths:
+Reset handles widths [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: PREFS
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
@@ -299,7 +301,7 @@ Pixel samples:
 
     <br />
 
-Reset pixel samples:
+Reset pixel samples [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: PREFS
     [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
     
@@ -329,7 +331,7 @@ Use Shader [Icon:DATATYPES/boolean]:
 
     <br />
 
-Reset Shader parms:
+Reset Shader parms [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: PREFS
     [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
     

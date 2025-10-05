@@ -107,6 +107,8 @@ _Below a list of the currently adopted badges and their meaning_:
 
 - [Icon:BUTTONS/pane_menu] it is either a menu or a mini-menu.
 
+- [Icon:opdef:.?icon_actionButtonSVG.svg] it is an Action button.
+
 - [Icon:DATATYPES/boolean] it is a toggle.
 
 - [Icon:DATATYPES/ramp] it is a ramp.
@@ -248,7 +250,7 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     <br />
 
     
-Reset density:
+Reset density [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: Global
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
@@ -620,7 +622,7 @@ mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
     <br />
         
     
-CP Preset reload:
+CP Preset reload [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: SYS
     
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when no Palette preset has been loaded.
@@ -669,7 +671,7 @@ mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
 
     <br />
     
-IN Preset reload:
+IN Preset reload [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: SYS
     
     - [Largeicon:opdef:.?icon_WhiteSVG_disabled.svg] when no Flame preset has been loaded.
@@ -740,7 +742,7 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
 
     <br />
     
-OUT Save:
+OUT Save [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: SYS
     [Largeicon:opdef:.?icon_WhiteStarSVG.svg]
     
@@ -847,7 +849,7 @@ note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
     <br />
     
-copy/paste:
+copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: FLAME
     [Largeicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg]
 
@@ -1021,7 +1023,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
     <br />
         
-auto space xaos weights / xaos information tips [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/boolean]:
+auto space xaos weights / xaos information tips [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/boolean] [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
     
@@ -1182,7 +1184,7 @@ menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     <br />
 
     
-swap PRE vars:
+swap PRE vars [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
 
@@ -1282,7 +1284,7 @@ pre affine Scale:
     <br />
 
 
-copy post affine values:
+copy post affine values [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: FLAME
     [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
      
@@ -1364,7 +1366,7 @@ pre affine Rot [Icon:TOP/xmlinput]:
 
     <br />
 
-pre affine reset:
+pre affine reset [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
     
@@ -1481,7 +1483,7 @@ FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
     <br />
     
-FF: copy/paste:
+FF: copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: FF
     [Largeicon:opdef:.?icon_StarSwapRedCopyPasteFFSVG.svg]
 
@@ -1592,7 +1594,7 @@ menu FF POST [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     <br />
     
 
-swap FF POST vars:
+swap FF POST vars [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
 
@@ -1692,7 +1694,7 @@ HSV values [Icon:TOP/xmlinput]:
 
     <br />
 
-HSV reset:
+HSV reset [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: PALETTE
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
@@ -1714,7 +1716,7 @@ HSV palette [Icon:DATATYPES/ramp]:
     
     When changing the HSV values from their defaults, this palette will preview the output of the final color corrected palette.
 
-    _The palette parameter come with the following tool icon_: <br />
+    _The palette parameter come with the following tool icon_ ([Smallicon:opdef:.?icon_actionButtonSVG.svg]): <br />
 
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] <br />
     - ((LMB)) to updated the HSV color correction in case it was not already.
@@ -1759,7 +1761,7 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     - [Largeicon:BUTTONS/ramp_flip_x] to flip the palette's colors horizontally.
     - [Largeicon:BUTTONS/gear] mini-menu [Icon:BUTTONS/pane_menu] to select some of the Houdini's default ramp presets.
 
-    _Additionally_:
+    _Additionally_ ([Smallicon:opdef:.?icon_actionButtonSVG.svg]):
 
     - [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
 
@@ -1804,7 +1806,7 @@ JSON file [Icon:DATATYPES/string]:
     
     == CP: Save == (CPSAVE)
         
-Save Palette:
+Save Palette [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: PALETTE
     
     [Largeicon:opdef:.?icon_WhiteStarSVG.svg]
@@ -1869,7 +1871,7 @@ menu CP file contents [Icon:BUTTONS/pane_menu]:
 
     <br />
     
-Reload preset:
+Reload preset [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: PALETTE
 
     - [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] when the selected preset name is not loaded.
@@ -1934,7 +1936,7 @@ on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boole
 
     <br />
 
-MB reset:
+MB reset [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: MB
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
@@ -2055,7 +2057,7 @@ menu IN file contents [Icon:BUTTONS/pane_menu]:
 
     <br />
 
-Reload:
+Reload [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: IN
 
     - [Largeicon:opdef:.?icon_WhiteSVG_disabled.svg] when no Flame preset has been loaded.
@@ -2176,7 +2178,7 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
     <br />
 
 
-Reload preset with "F3H affine style" changes:
+Reload preset with "F3H affine style" changes [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: IN
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
 
@@ -2200,7 +2202,7 @@ Copy render properties on Load [Icon:DATATYPES/boolean]:
 
     <br />
         
-Reload preset with "Copy renderer settings on Load" changes:
+Reload preset with "Copy renderer settings on Load" changes [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: prefs
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
@@ -2409,7 +2411,7 @@ OUT flame ( *.flame type ) [Icon:DATATYPES/string]:
     <br />
         
     
-Save Flame:
+Save Flame [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: OUT
     [Largeicon:opdef:.?icon_WhiteStarSVG.svg]
 
@@ -2507,7 +2509,7 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
 
     <br />
 
-Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_optionStarBlueSVG.svg]:
+Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
 
@@ -2662,7 +2664,7 @@ Edit render properties [Icon:DATATYPES/boolean]:
     <br />
         
     
-Render properties utils:
+Render properties utils [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: OUT
     [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
 
@@ -3293,7 +3295,7 @@ Size:
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.<br />
 
-Size default:
+Size default [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: prefs
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     - ((LMB)) to reset the point size to a default of *`1`*(one).
@@ -3310,7 +3312,7 @@ Wire width:
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.<br />
 
-Wire width default:
+Wire width default [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: prefs
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     - ((LMB)) to reset the wire width to a default of *`3`*(three).
@@ -3339,7 +3341,7 @@ Plugins:
     #id: about
     List of plugins/variations shipped with FLAM3H(tm).
     
-Web links:
+Web links [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: about
     A list of useful web links to check out.<br /><br /><br />
 
