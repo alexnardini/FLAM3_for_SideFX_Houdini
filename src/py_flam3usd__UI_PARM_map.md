@@ -448,7 +448,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleD
 ## parameter type: `float`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
+hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize()
 ```
 - ### Action Button script
 ```python
@@ -463,10 +463,6 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 # PREFS Tab
 # parameter name:    `widths`
 ## parameter type: `float`
-- ### Callback Script
-```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
-```
 - ### Action Button script
 ```python
 node = kwargs['node']
@@ -491,10 +487,6 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_
 # PREFS Tab
 # parameter name:    `widths_xf_viz`
 ## parameter type: `float`
-- ### Callback Script
-```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
-```
 - ### Action Button script
 ```python
 node = kwargs['node']
@@ -508,10 +500,6 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 # PREFS Tab
 # parameter name:    `pxsamples`
 ## parameter type: `integer`
-- ### Callback Script
-```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
-```
 - ### Action Button script
 ```python
 node = kwargs['node']
@@ -545,81 +533,6 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).reset_flam3h_shader()
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
-```
-
-# PREFS Tab
-# parameter name:    `f3h_gamma`
-## parameter type: `float`
-- ### Callback Script
-```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
-```
-
-</br>
-</br>
-
-# PREFS Tab
-# parameter name:    `f3h_f3h_hsv_hamma`
-## parameter type: `float`
-- ### Callback Script
-```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
-```
-
-</br>
-</br>
-
-# PREFS Tab
-# parameter name:    `f3h_hsv_h`
-## parameter type: `float`
-- ### Callback Script
-```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
-```
-
-
-</br>
-</br>
-
-# PREFS Tab
-# parameter name:    `f3h_hsv_s`
-## parameter type: `float`
-- ### Callback Script
-```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
-```
-
-</br>
-</br>
-
-# PREFS Tab
-# parameter name:    `f3h_hsv_v`
-## parameter type: `float`
-- ### Callback Script
-```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
-```
-
-</br>
-</br>
-
-# PREFS Tab
-# parameter name:    `f3h_emission`
-## parameter type: `float`
-- ### Callback Script
-```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
-```
-
-</br>
-</br>
-
-# PREFS Tab
-# parameter name:    `f3h_transmission`
-## parameter type: `float`
-- ### Callback Script
-```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
 </br>
