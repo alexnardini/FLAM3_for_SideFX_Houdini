@@ -126,13 +126,13 @@ FLAM3H(tm) Next/Prev [Icon:opdef:.?icon_actionButtonSVG.svg]:
     This is usefull when multiple FLAM3H™ nodes instances exist in the current Houdini session and you want to easily cycle between all of them one by one.
 
     _Usage_:
-    - ((LMB)) to import a FLAM3H™ node or to import the *`next`* FLAM3H™ node instance. When you reach the last instance it will start again from the start (index *`0`*(Zero)).
-    - ((SHIFT)) + ((LMB)) to import a FLAM3H™ node or to import the *`preview`* FLAM3H™ node instance. When you reach the first instance, it will start again from the end (last available index)
+    - ((LMB)) to import a FLAM3H™ node or to import the *`next`* FLAM3H™ node instance. When you reach the last instance it will start again from the start (_index_ *`0`*_(Zero)_).
+    - ((SHIFT)) + ((LMB)) to import a FLAM3H™ node or to import the *`preview`* FLAM3H™ node instance. When you reach the first instance, it will start again from the end (_last available index_).
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - When multiple FLAM3HUSD nodes exist already, ((LMB)) this icon without a valid import yet will import the FLAM3H™ node instance that has not been imported already by the others, otherwise it will import the first one to start with.
-    - Importing FLAM3H™ node instances from this icon will not check if the imported FLAM3H™ node density value is set to more than *`50M`*(millions). It will import all density values regardless.
+    - Importing FLAM3H™ node instances from this icon will not check if the imported FLAM3H™ node density value is set to more than *`50M`*(_millions_). It will import all density values regardless.
     
     
 == Prefs == (PREFS)
