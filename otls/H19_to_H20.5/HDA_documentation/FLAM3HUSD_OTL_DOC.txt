@@ -115,7 +115,7 @@ FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
 
     <br />
     
-FLAM3H(tm) Next/Prev [Icon:DATATYPES/string]:
+FLAM3H(tm) Next/Prev:
     #id: F3HNEXTPREV
     [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg]
 
