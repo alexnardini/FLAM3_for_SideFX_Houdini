@@ -2478,9 +2478,10 @@ class flam3h_general_utils
         """ 
         if isinstance(_prm, str): prm: hou.Parm = node.parm(_prm)
         elif isinstance(_prm, hou.Parm): prm: hou.Parm = _prm
-        prm.lock(False)
-        prm.deleteAllKeyframes()
-        prm.lock(True)
+        if len(prm.keyframes()):
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            prm.lock(True)
         
         
     @staticmethod

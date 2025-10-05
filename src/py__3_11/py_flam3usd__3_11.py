@@ -1065,9 +1065,10 @@ class flam3husd_general_utils
         """ 
         if isinstance(_prm, str): prm: hou.Parm = node.parm(_prm)
         elif isinstance(_prm, hou.Parm): prm: hou.Parm = _prm
-        prm.lock(False)
-        prm.deleteAllKeyframes()
-        prm.lock(True)
+        if len(prm.keyframes()):
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            prm.lock(True)
 
 
     @staticmethod
@@ -1710,10 +1711,14 @@ class flam3husd_general_utils
                     
                     case 0:
                         settings.particleDisplayType(Points)
+                        # update memory
+                        self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM)
                         self.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype)
                         
                     case 1:
                         settings.particleDisplayType(Pixels)
+                        # update memory
+                        self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM)
                         self.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype)
                         
                     case _:
@@ -1842,13 +1847,19 @@ class flam3husd_general_utils
                         case 0:
                             _RND: str = self.in_get_dict_key_from_value(self.flam3husd_hydra_renderers_dict(), rndtype)
                             hou.SceneViewer.setHydraRenderer(view, _RND)
+                            # update memory
+                            self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_RENDERER_MEM)
                             self.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype)
+                            # fire message
                             self.flash_message(_RND)
                             
                         case 1:
                             _RND: str = self.in_get_dict_key_from_value(self.flam3husd_hydra_renderers_dict(), rndtype)
                             hou.SceneViewer.setHydraRenderer(view, _RND)
+                            # update memory
+                            self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_RENDERER_MEM)
                             self.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype)
+                            # fire message
                             self.flash_message(_RND)
                             
                         case _:
@@ -1857,8 +1868,11 @@ class flam3husd_general_utils
                 else: pass
                 
         if lop_viewers:
-            # Sync FLAM3HUSD nodes
+            # Sync FLAM3HUSD node instances
             [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
+            # update memory
+            # Sync FLAM3HUSD node instances memory
+            [self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_RENDERER_MEM) for n in node.type().instances() if n != node]
             [self.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype) for n in node.type().instances() if n != node]
         else:
             node.setParms({PREFS_VIEWPORT_RENDERER: rndtype_mem.eval()})
