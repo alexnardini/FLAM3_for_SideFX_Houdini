@@ -11,12 +11,10 @@ They are already embedded inside each HDA and available in this repository for e
 **Below each icon's image**,</br>
 **you can find strings to use to call the desired icon within different places inside Houdini as long as the desired icon exist inside the extra files section of the asset**.</br>
 
-
-
 **Each path is composed as follow:**</br>
 `opdef` `:/` `__namespace__` `::` `__context__` `/` `__asset_name__` `?` `__icon_file_name__`
 
-**In this document all icons'** `__asset_name__` **is set to** `FLAM3H`</br>
+**In this document all icons'** `__asset_name__` **are set to** `FLAM3H`</br>
 **Change it as needed**.
 
 </br>
