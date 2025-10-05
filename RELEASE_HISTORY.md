@@ -32,6 +32,8 @@ They are all available in this Github repository.
 
 ### [<ins>v1.9.05 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.05) ###
 
+_This is a re-release of the same version with some minor fixes/improvements that did not make it in the first attempt_.
+
 #### FLAM3H™ ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -39,7 +41,7 @@ They are all available in this Github repository.
 #### FLAM3HUSD v0.2.22 - Prototype ####
 
 - **New**: Added an Action button to the import FLAM3H™ node path parameter to import and cycle through all of the existing FLAM3H™ node instances one by one. You can move forward or backward through the existing instances.
-- **New**: Added validity checks of the imported FLAM3H™ node to all of the UI parameters.
+- **New**: Added validity checks of the imported FLAM3H™ node to some of the UI parameters (toggles, menus and action buttons but not the main params sliders as it was slowing things down).
 - **New**: Added validity checks of the imported FLAM3H™ node for all FLAM3HUSD node instances with an imported FLAM3H™ node path during hip file load and during cloning or deleting them, to always be up to date.
 - **Fix**: Improved FLAM3HUSD validity checks python definitions.
 - **Fix**: in FLAM3HUSD HDA version for H19, the handles and the message geometries did not have a proper materialX shader applied, it is now fixed.
