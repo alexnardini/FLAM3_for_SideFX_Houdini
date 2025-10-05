@@ -1748,7 +1748,7 @@ HSV palette [Icon:DATATYPES/ramp]:
     
     When changing the HSV values from their defaults, this palette will preview the output of the final color corrected palette.
 
-    _The palette parameter come with the following tool icon_ ([Smallicon:opdef:.?icon_actionButtonSVG.svg]): <br />
+    _The palette parameter come with the following Action button_ ([Smallicon:opdef:.?icon_actionButtonSVG.svg]): <br />
 
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] <br />
     - ((LMB)) to updated the HSV color correction in case it was not already.
