@@ -2456,11 +2456,13 @@ class flam3h_general_utils
         Returns:
             (None):
         """ 
-        if isinstance(_prm, str): prm: hou.Parm = node.parm(_prm)
-        elif isinstance(_prm, hou.Parm): prm: hou.Parm = _prm
-        prm.lock(False)
-        prm.set(data) # type: ignore # the set method for the hou.Parm exist but it is not recognized
-        prm.lock(True)
+        if isinstance(_prm, str): prm: Union[hou.Parm, None] = node.parm(_prm)
+        elif isinstance(_prm, hou.Parm): prm: Union[hou.Parm, None] = _prm
+        else: prm: Union[hou.Parm, None] = None
+        if prm is not None:
+            prm.lock(False)
+            prm.set(data) # type: ignore # the set method for the hou.Parm exist but it is not recognized
+            prm.lock(True)
         
         
     @staticmethod
@@ -2476,9 +2478,10 @@ class flam3h_general_utils
         Returns:
             (None):
         """ 
-        if isinstance(_prm, str): prm: hou.Parm = node.parm(_prm)
-        elif isinstance(_prm, hou.Parm): prm: hou.Parm = _prm
-        if len(prm.keyframes()):
+        if isinstance(_prm, str): prm: Union[hou.Parm, None] = node.parm(_prm)
+        elif isinstance(_prm, hou.Parm): prm: Union[hou.Parm, None] = _prm
+        else: prm: Union[hou.Parm, None] = None
+        if prm is not None and len(prm.keyframes()):
             prm.lock(False)
             prm.deleteAllKeyframes()
             prm.lock(True)
