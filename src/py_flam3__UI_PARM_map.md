@@ -25,6 +25,10 @@
 - **FLAM3HUSD** [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md)
 - **FLAM3HUSD** [**UI_PARM_map**](py_flam3usd__UI_PARM_map.md)
 
+</br>
+
+- [**FULL ICON set**](../icons/README.md)
+
 <br>
 <br>
 <br>
