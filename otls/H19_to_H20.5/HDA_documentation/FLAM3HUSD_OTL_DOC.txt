@@ -3,7 +3,7 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.2.22 - Prototype
+#version: 0.2.23 - Prototype
 
 """Simple utility node to quickly render FLAM3H(tm) fractal Flames in Solaris."""
 
@@ -169,7 +169,7 @@ menu Renderer [Icon:BUTTONS/pane_menu]:
     Select from a variety of Hydra renderers.
 
     At the moment the choices are:
-    - *`Houdini`*<br />this can be either *`OpenGL`* or *`Vulkan`* depending on your Houdini preferences settings.
+    - *`Houdini`*<br />this can be either *`OpenGL`* or *`Vulkan`* depending on your Houdini version and preferences settings.
     - *`Karma CPU`* 
 
     <br /><br />

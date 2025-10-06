@@ -988,7 +988,7 @@ class flam3husd_general_utils
             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
             return False
         else:
-            if f3h is not None:
+            if f3h is not None: # I dnt think  this is needed
                 if f3h.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
                     flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                     return True
@@ -1020,7 +1020,7 @@ class flam3husd_general_utils
             except:
                 flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
             else:
-                if f3h is not None:
+                if f3h is not None: # I dnt think  this is needed
                     if f3h.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
                         flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                     else:
