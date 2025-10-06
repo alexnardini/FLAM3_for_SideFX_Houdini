@@ -16,6 +16,7 @@ They are already embedded inside each HDA and available in this repository for e
 
 **In this document:**</br>
 - **all icons'** `__namespace__` **are set to:** `alexnardini`</br>
+- **all icons'** `__context__` **are set to:** `Sop`</br>
 - **all icons'** `__asset_name__` **are set to:** `FLAM3H`</br>
 
 **Change those as needed, unless it is a relative path like the DOC icon paths**.
