@@ -14,8 +14,11 @@ They are already embedded inside each HDA and available in this repository for e
 **Each path is composed as follow:**</br>
 `opdef` `:/` `__namespace__` `::` `__context__` `/` `__asset_name__` `?` `__icon_file_name__`
 
-**In this document all icons'** `__asset_name__` **are set to:** `FLAM3H`</br>
-**Change it as needed, unless it is a relative path like the DOC icon paths**.
+**In this document:***</br>
+- **all icons'** `__namespace__` **are set to:** `alexnardini`</br>
+- **all icons'** `__asset_name__` **are set to:** `FLAM3H`</br>
+
+**Change those as needed, unless it is a relative path like the DOC icon paths**.
 
 </br>
 
