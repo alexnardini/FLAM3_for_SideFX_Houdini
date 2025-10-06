@@ -30,7 +30,7 @@ They are all available in this Github repository.
 </br>
 
 
-### [<ins>v1.9.06 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.05) ###
+### [<ins>v1.9.06 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.06) ###
 
 #### FLAM3H™ ####
 
