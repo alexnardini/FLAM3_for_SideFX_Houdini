@@ -190,7 +190,19 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg
 </br>
 
 # PREFS Tab
-# parameter name:    `pxsamples`
+# parameter name:    `pxsamples_cpu`
+### Action Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_rendererKarmaPropertiesSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `pxsamples_xpu` _only from H21.0 UP_
 ### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_rendererKarmaPropertiesSVG.svg" /></p>
 
