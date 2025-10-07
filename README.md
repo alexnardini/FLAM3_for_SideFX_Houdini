@@ -44,6 +44,36 @@ A big commitment I needed to honor was to learn how to do fractal art.
 Building a fractal art tool without knowing what a fractal artist needs and feels while doing it is kind of meaningless. And thus, while creating this tool, I engaged in so much fractal art with it that I unavoidably developed a love for the field.
 It was important, so I could shape and steer this tool in the right direction.
 
+### Why inside Houdini ?
+
+_Beside being a long time user myself_...</br>
+_Following are just few of the advantages of being a Houdini resident_:
+
+- Through this implementation, fractal Flames are now a real thing within a formal, procedural application, 
+with all of its data accessible and available for any kind of modification.
+
+- They now exist in a new format that describes them in ways that were previously impossible, 
+rather than being a rasterized 2D image.
+
+- They can connect to any kind of input and spread that information throughout the generation process, 
+opening up countless possibilities for creative and experimental endeavors.
+
+- They are divided into various entities by a hierarchy when inside the USD context. 
+Point cloud, render properties, handles, shaders, and so on. 
+These entities are all transferable, changeable, and accessible.
+
+- They become part of a larger ecosystem and benefit from all of its features, 
+including proceduralism, data handling, animations tools, shading networks, and access to high-end renderers, just to name a few.
+
+- Fractal Flames can be computed on a single machine or expand in scope 
+by sending them to larger render farms.
+
+- If version control and review systems are in place, 
+they can be fed into a pipeline like any other piece of data.
+
+- Without having to go through the hassle of setting up a C/C++ compiler for every platform and Houdini version, something that is typically handled by a senior software engineer, technical directors (and technical artists) may view and modify the source code.
+
+- The tool can be modified in-place without affecting the running environment, enabling anyone to add and change its data and toolkits while monitoring the results in real time and ensuring that the updated version will function properly on all platforms that Houdini is running on.
 
 ### Description
 
@@ -63,7 +93,7 @@ like attribute binding, UI building, parameter creations, their visibility condi
 Python has been used to enhance the user experience and add functionalities like:
 copy/paste iterator data, load/save palette's libraries, load/save Flame's file format, responses/automations to user actions, and much more.
 
-FLAM3 for SideFX Houdini generates a live point cloud of the fractal Flame being worked on, which is the actual render.
+FLAM3H™ generates a live point cloud of the fractal Flame being worked on, which is the actual render.
 From there to the final image, it is left to the users ( aka points rendering ).
 With Houdini integrated Karma renderer, you will be able to render the generated fractal Flames in nearly real time.
 
@@ -104,7 +134,7 @@ Imagine the possibilities using Houdini procedural paradigm and toolsets to cont
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_02_H19.jpg)
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_04_H19.jpg)
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H19.jpg)
-`FLAM3 for Houdini generate a live point cloud of the fractal Flame being worked on.`
+`FLAM3H™ generate a live point cloud of the fractal Flame being worked on.`
 
 ## Camera sensor
 
