@@ -3892,7 +3892,7 @@ class flam3h_general_utils
                     
                     self.private_prm_set(node, prm, 0)
                     _MSG: str = f"No Sop viewers available."
-                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the xforms handles VIZ to work.", 'WARN')
+                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Tag to work.", 'WARN')
                     self.flash_message(node, f"{_MSG}")
                 
             else:

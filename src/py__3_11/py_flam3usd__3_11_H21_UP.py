@@ -92,6 +92,7 @@ FLAM3HUSD_FLASH_MESSAGE_TIMER: float = 2 # Note that for this FLAM3HUSD OTL the 
 # FLAM3H™ - The full path will be the string inside the parameter: PREFS_F3H_PATH
 # plus this one
 F3H_TO_FLAM3HUSD_NODE_PATH = '/TAGS/OUT_TO_FLAM3HUSD'
+F3H_TO_FLAM3HUSD_NODE_TYPE_CATEGORY = 'null'
 
 # FLAM3H™
 F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
@@ -532,7 +533,7 @@ class flam3husd_scripts
         except:
             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
         else:
-            if hou.node(f3h_path).type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY and type.name() == 'null':
+            if hou.node(f3h_path).type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY and type.name() == F3H_TO_FLAM3HUSD_NODE_TYPE_CATEGORY:
                 if hou.node(f3h_path).parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
                     flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                 else: flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
@@ -842,17 +843,32 @@ class flam3husd_scripts
             for r in renderers:
                 
                 # Karma has the priority
-                _karma_name: str = flam3husd_general_utils.karma_hydra_renderer_name()
+                _karma_xpu_name: str = flam3husd_general_utils.karma_xpu_hydra_renderer_name()
+                _karma_cpu_name: str = flam3husd_general_utils.karma_cpu_hydra_renderer_name()
+                _houdini_name: str = 'Houdini'
+                
+                # XPU
+                #
                 # Just in case lets compare everything as str.lower()
-                if _karma_name.lower() in str(r).lower():
-                    _RND = _karma_name
+                if _karma_xpu_name.lower() in str(r).lower():
+                    _RND = _karma_xpu_name
                     break
                 
+                # CPU
+                #
                 # Just in case lets compare everything as str.lower()
-                elif "houdini" in str(r).lower(): 
+                elif _karma_cpu_name.lower() in str(r).lower():
+                    _RND = _karma_cpu_name
+                    break
+                
+                # GL/VK
+                #
+                # Just in case lets compare everything as str.lower()
+                elif _houdini_name.lower() in str(r).lower(): 
                     _RND = 'Houdini GL'
                     break
                 
+                # anything else
                 else:
                     pass
             
@@ -932,7 +948,8 @@ class flam3husd_general_utils
 * private_prm_set(node: hou.LopNode, _prm: str | hou.Parm, data: str | int | float) -> None:
 * private_prm_deleteAllKeyframes(node: hou.LopNode, _prm: str | hou.Parm) -> None:
 * in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
-* karma_hydra_renderer_name() -> str:
+* karma_cpu_hydra_renderer_name() -> str:
+* karma_xpu_hydra_renderer_name() -> str:
 * houdini_version(digit: int = 1) -> int:
 * util_getSceneViewers() -> list:
 * util_is_context(context: str, viewport: hou.paneTabType) -> bool:
@@ -1011,22 +1028,7 @@ class flam3husd_general_utils
         Returns:
             (None):
         """ 
-        
-        for f3husd in node.type().instances():
-            
-            current_import: str = f3husd.parm(PREFS_F3H_PATH).eval()
-            try:
-                f3h: hou.SopNode | None = hou.node(current_import)
-            except:
-                flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
-            else:
-                if f3h is not None: # I dnt think  this is needed
-                    if f3h.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
-                        flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
-                    else:
-                        flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
-                else:
-                    flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+        [flam3husd_general_utils.util_flam3h_node_exist_self(f3husd) for f3husd in node.type().instances()]
         
         
     @staticmethod
@@ -1088,7 +1090,7 @@ class flam3husd_general_utils
 
 
     @staticmethod
-    def karma_hydra_renderer_name() -> str:
+    def karma_cpu_hydra_renderer_name() -> str:
         """Return the internal hydra renderer name for Karma.
         
         Args:
@@ -1098,6 +1100,21 @@ class flam3husd_general_utils
             (str): [Return the internal hydra renderer name for Karma.]
         """    
         karma_name: str = 'Karma CPU'
+        if flam3husd_general_utils.houdini_version(2) < 200: karma_name = 'Karma'
+        return karma_name
+    
+    
+    @staticmethod
+    def karma_xpu_hydra_renderer_name() -> str:
+        """Return the internal hydra renderer name for Karma.
+        
+        Args:
+            (None):
+            
+        Returns:
+            (str): [Return the internal hydra renderer name for Karma.]
+        """    
+        karma_name: str = 'Karma XPU'
         if flam3husd_general_utils.houdini_version(2) < 200: karma_name = 'Karma'
         return karma_name
 
@@ -1114,7 +1131,8 @@ class flam3husd_general_utils
             (str): [Return the internal hydra renderer name for Karma.]
         """    
         _RND_idx: dict[str, int] = {'Houdini GL': 0,
-                                    flam3husd_general_utils.karma_hydra_renderer_name(): 1
+                                    flam3husd_general_utils.karma_cpu_hydra_renderer_name(): 1,
+                                    flam3husd_general_utils.karma_xpu_hydra_renderer_name(): 2
                                     }
         
         return _RND_idx
@@ -1501,20 +1519,22 @@ class flam3husd_general_utils
                         node_bbox: hou.SopNode = hou.node(self.bbox_reframe_path)
                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                         
-            if num_viewers_lop == 0:
-                _MSG: str = f"No LOP viewers available."
-                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one LOP viewer for the reframe to work.", 'IMP')
-                self.flash_message(f"{_MSG}")
-
-            elif num_viewers_lop == 1:
-                _MSG: str = f"viewport REFRAMED (Front)"
-                self.flash_message(_MSG)
-                self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+            match num_viewers_lop:
                 
-            else:
-                _MSG: str = f"viewports REFRAMED (Front)"
-                self.flash_message(_MSG)
-                self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                case 0:
+                    _MSG: str = f"No LOP viewers available."
+                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one LOP viewer for the reframe to work.", 'IMP')
+                    self.flash_message(f"{_MSG}")
+
+                case 1:
+                    _MSG: str = f"viewport REFRAMED (Front)"
+                    self.flash_message(_MSG)
+                    self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    
+                case _:
+                    _MSG: str = f"viewports REFRAMED (Front)"
+                    self.flash_message(_MSG)
+                    self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                     
         else:
             _MSG: str = f"No viewports in the current Houdini Desktop."
@@ -1845,26 +1865,17 @@ class flam3husd_general_utils
                     
                     match rndtype:
                     
-                        case 0:
+                        case 0 | 1 | 2:
                             _RND: str = self.in_get_dict_key_from_value(self.flam3husd_hydra_renderers_dict(), rndtype)
                             hou.SceneViewer.setHydraRenderer(view, _RND)
                             # update memory
                             self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_RENDERER_MEM)
                             self.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype)
-                            # fire messahe
-                            self.flash_message(_RND)
-                            
-                        case 1:
-                            _RND: str = self.in_get_dict_key_from_value(self.flam3husd_hydra_renderers_dict(), rndtype)
-                            hou.SceneViewer.setHydraRenderer(view, _RND)
-                            # update memory
-                            self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_RENDERER_MEM)
-                            self.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype)
-                            # fire messahe
+                            # fire message
                             self.flash_message(_RND)
                             
                         case _:
-                            lop_viewers = False # For now, will see if in the future new option will be added.
+                            lop_viewers = False # For now, will see if in the future new options will be added.
                     
                 else: pass
                 

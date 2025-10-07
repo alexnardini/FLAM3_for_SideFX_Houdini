@@ -67,7 +67,7 @@ First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "0.2.23"
+__version__ = "0.2.28"
 __status__ = "Prototype"
 __h_versions__: tuple = (210,)
 __range_type__: bool = False # True for closed range. False for open range
@@ -117,7 +117,7 @@ First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "0.2.23"
+__version__ = "0.2.28"
 __status__ = "Prototype"
 __h_versions__: tuple = (205,)
 __range_type__: bool = True # True for closed range. False for open range
@@ -167,7 +167,7 @@ First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "0.2.23"
+__version__ = "0.2.28"
 __status__ = "Prototype"
 __h_versions__: tuple = (190, 195, 200)
 __range_type__: bool = True # True for closed range. False for open range
@@ -502,12 +502,25 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 
 # PREFS Tab
-# parameter name:    `pxsamples`
+# parameter name:    `pxsamples_cpu`
 ## parameter type: `integer`
 - ### Action Button script
 ```python
 node = kwargs['node']
-node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(128, 'pxsamples')
+node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(128, 'pxsamples_cpu')
+node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `pxsamples_xpu` _only from H21.0 UP_
+## parameter type: `integer`
+- ### Action Button script
+```python
+node = kwargs['node']
+node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(512, 'pxsamples_xpu')
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 

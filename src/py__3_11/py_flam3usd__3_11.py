@@ -1013,22 +1013,7 @@ class flam3husd_general_utils
         Returns:
             (None):
         """ 
-        
-        for f3husd in node.type().instances():
-            
-            current_import: str = f3husd.parm(PREFS_F3H_PATH).eval()
-            try:
-                f3h: hou.SopNode | None = hou.node(current_import)
-            except:
-                flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
-            else:
-                if f3h is not None:
-                    if f3h.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
-                        flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
-                    else:
-                        flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
-                else:
-                    flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+        [flam3husd_general_utils.util_flam3h_node_exist_self(f3husd) for f3husd in node.type().instances()]
         
         
     @staticmethod
@@ -1503,20 +1488,22 @@ class flam3husd_general_utils
                         node_bbox: hou.SopNode = hou.node(self.bbox_reframe_path)
                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                         
-            if num_viewers_lop == 0:
-                _MSG: str = f"No LOP viewers available."
-                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one LOP viewer for the reframe to work.", 'IMP')
-                self.flash_message(f"{_MSG}")
-
-            elif num_viewers_lop == 1:
-                _MSG: str = f"viewport REFRAMED (Front)"
-                self.flash_message(_MSG)
-                self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+            match num_viewers_lop:
                 
-            else:
-                _MSG: str = f"viewports REFRAMED (Front)"
-                self.flash_message(_MSG)
-                self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                case 0:
+                    _MSG: str = f"No LOP viewers available."
+                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one LOP viewer for the reframe to work.", 'IMP')
+                    self.flash_message(f"{_MSG}")
+
+                case 1:
+                    _MSG: str = f"viewport REFRAMED (Front)"
+                    self.flash_message(_MSG)
+                    self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    
+                case _:
+                    _MSG: str = f"viewports REFRAMED (Front)"
+                    self.flash_message(_MSG)
+                    self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                     
         else:
             _MSG: str = f"No viewports in the current Houdini Desktop."
@@ -1847,16 +1834,7 @@ class flam3husd_general_utils
                     
                     match rndtype:
                     
-                        case 0:
-                            _RND: str = self.in_get_dict_key_from_value(self.flam3husd_hydra_renderers_dict(), rndtype)
-                            hou.SceneViewer.setHydraRenderer(view, _RND)
-                            # update memory
-                            self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_RENDERER_MEM)
-                            self.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype)
-                            # fire message
-                            self.flash_message(_RND)
-                            
-                        case 1:
+                        case 0 | 1:
                             _RND: str = self.in_get_dict_key_from_value(self.flam3husd_hydra_renderers_dict(), rndtype)
                             hou.SceneViewer.setHydraRenderer(view, _RND)
                             # update memory
@@ -1866,7 +1844,7 @@ class flam3husd_general_utils
                             self.flash_message(_RND)
                             
                         case _:
-                            lop_viewers = False # For now, will see if in the future new option will be added.
+                            lop_viewers = False # For now, will see if in the future new options will be added.
                     
                 else: pass
                 

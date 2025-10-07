@@ -3,7 +3,7 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.2.23 - Prototype
+#version: 0.2.28 - Prototype
 
 """Simple utility node to quickly render FLAM3H(tm) fractal Flames in Solaris."""
 
@@ -15,7 +15,8 @@ It offers the very fundamental functionalities to setup your fractal Flames poin
 
 It has been designed to be user-friendly, simple, and intuitive.
 
-Currently, FLAM3HUSD rely entirely on Karma CPU.
+At the moment, FLAM3HUSD relies solely on Karma CPU for the majority of its operations and features.<br />
+Karma XPU support was initially only included in FLAM3HUSD HDA versions for H21 and later, and it was simply included for completeness.
 
 _*This tool is a prototype and it may or may not change in the future.*_<br />
 _*This version is only fully compatible with FLAM3H(tm) v1.6.97 or higher.*_
@@ -295,9 +296,9 @@ Reset handles widths [Icon:opdef:.?icon_actionButtonSVG.svg]:
 
     <br />
 
-Pixel samples:
+CPU samples:
     #id: PREFS
-    Set the Karma renderer pixel samples.
+    Set the Karma CPU renderer pixel samples.
 
     <br />
 

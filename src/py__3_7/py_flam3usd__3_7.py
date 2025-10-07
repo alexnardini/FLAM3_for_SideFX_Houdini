@@ -96,6 +96,7 @@ FLAM3HUSD_FLASH_MESSAGE_TIMER: float = 2 # Note that for this FLAM3HUSD OTL the 
 # FLAM3H™ - The full path will be the string inside the parameter: PREFS_F3H_PATH
 # plus this one
 F3H_TO_FLAM3HUSD_NODE_PATH = '/TAGS/OUT_TO_FLAM3HUSD'
+F3H_TO_FLAM3HUSD_NODE_TYPE_CATEGORY = 'null'
 
 # FLAM3H™
 F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
@@ -532,7 +533,7 @@ class flam3husd_scripts
         except:
             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
         else:
-            if hou.node(f3h_path).type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY and type.name() == 'null':
+            if hou.node(f3h_path).type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY and type.name() == F3H_TO_FLAM3HUSD_NODE_TYPE_CATEGORY:
                 if hou.node(f3h_path).parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
                     flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                 else: flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
@@ -1011,22 +1012,7 @@ class flam3husd_general_utils
         Returns:
             (None):
         """ 
-        
-        for f3husd in node.type().instances():
-            
-            current_import: str = f3husd.parm(PREFS_F3H_PATH).eval()
-            try:
-                f3h: hou.SopNode | None = hou.node(current_import)
-            except:
-                flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
-            else:
-                if f3h is not None:
-                    if f3h.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
-                        flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
-                    else:
-                        flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
-                else:
-                    flam3husd_general_utils.private_prm_set(f3husd, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+        [flam3husd_general_utils.util_flam3h_node_exist_self(f3husd) for f3husd in node.type().instances()]
 
 
     @staticmethod
@@ -1841,16 +1827,7 @@ class flam3husd_general_utils
                     
                     if lop_viewers is False: lop_viewers = True
                     
-                    if rndtype == 0:
-                        _RND: str = self.in_get_dict_key_from_value(self.flam3husd_hydra_renderers_dict(), rndtype)
-                        hou.SceneViewer.setHydraRenderer(view, _RND)
-                        # update memory
-                        self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_RENDERER_MEM)
-                        self.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype)
-                        # fire message
-                        self.flash_message(_RND)
-                        
-                    elif rndtype == 1:
+                    if rndtype == 0 or rndtype == 1:
                         _RND: str = self.in_get_dict_key_from_value(self.flam3husd_hydra_renderers_dict(), rndtype)
                         hou.SceneViewer.setHydraRenderer(view, _RND)
                         # update memory
@@ -1860,7 +1837,7 @@ class flam3husd_general_utils
                         self.flash_message(_RND)
                         
                     else:
-                        lop_viewers = False # For now, will see if in the future new option will be added.
+                        lop_viewers = False # For now, will see if in the future new options will be added.
                     
                 else: pass
                 

@@ -67,7 +67,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.06"
+__version__ = "1.9.07"
 __status__  = "Production"
 __h_versions__: tuple = (210,)
 __range_type__: bool = False # True for closed range. False for open range
@@ -117,7 +117,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.06"
+__version__ = "1.9.07"
 __status__  = "Production"
 __h_versions__: tuple = (190, 195, 200, 205)
 __range_type__: bool = True # True for closed range. False for open range
@@ -783,7 +783,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 </br>
 
 # FLAME Tab
-# parameter name:    `mp_add_#` -> _only from H21 UP_
+# parameter name:    `mp_add_#` -> _only from H21.0 UP_
 ## parameter type: `geometry data`
 - ### Action Button Script
 ```python

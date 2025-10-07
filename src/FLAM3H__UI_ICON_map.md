@@ -161,7 +161,7 @@ MENU_DENSITY_XFVIZ_ON_SOLO: list = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H
 </br>
 </br>
 
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
 
 ```
@@ -567,7 +567,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FrameRedSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_palettepresets_disabled`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -631,7 +631,7 @@ MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionS
 </br>
 </br>
 
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionPRIDEDisabledSVG.svg" /></p>
 
 ```
@@ -660,7 +660,7 @@ _The following are icons being used on demand based on the menu python script ne
 </br>
 </br>
 
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionCPSVG.svg" /></p>
 
 ```
@@ -742,7 +742,7 @@ MENU_IN_PRESETS_EMPTY_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_opt
 </br>
 </br>
 
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_WhiteSVG_disabled.svg" /></p>
 
 ```
@@ -777,7 +777,7 @@ _The following are icons being used on demand based on the menu python script ne
 </br>
 </br>
 
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_WhiteSVG.svg" /></p>
 
 ```
@@ -790,7 +790,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_outpresets_disabled`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -819,7 +819,7 @@ _The following are icons being used on demand based on the menu python script ne
 </br>
 </br>
 
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_WhiteStarSVG.svg" /></p>
 
 ```
@@ -841,7 +841,7 @@ _This is where you’ll spend the majority of your time, along with the FF Tab.<
 Here you will create your fractal Flame logic.<br>Since every parameter has the same name inside, if you have ever used Apophysis, Fractorium, or other fractal Flame editors, you will almost immediately feel at home. The logic you will operate with will be the same._
 # FLAME Tab
 # parameter name:    `mp_add_#` -> _only from H21 up_
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_AddDelIteratorSVG.svg" /></p>
 
 ```
@@ -912,7 +912,7 @@ MENU_ITER_COPY_PASTE_EMPTY: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_St
 </br>
 </br>
 
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteSVG.svg" /></p>
 
 ```
@@ -972,7 +972,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg
 
 # FLAME Tab
 # parameter name:    `xaos_#`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueKwargsSVG.svg" /></p>
 
 ```
@@ -1037,7 +1037,7 @@ _The following are icons being used on demand based on the menu python script ne
 
 # FLAME Tab
 # parameter name:    `pre2weight_#`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
 
 ```
@@ -1083,7 +1083,7 @@ _The following are icons being used on demand based on the menu python script ne
 
 # FLAME Tab
 # parameter name:    `scl_#`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
 
 ```
@@ -1095,7 +1095,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 
 # FLAME Tab
 # parameter name:    `ang_#`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
 
 ```
@@ -1107,7 +1107,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 # FLAME Tab
 # parameter name:    `pscl_#`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
 
 ```
@@ -1119,7 +1119,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 
 # FLAME Tab
 # parameter name:    `pang_#`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
 
 ```
@@ -1240,7 +1240,7 @@ MENU_FF_COPY_PASTE_SELECT: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_opt
 </br>
 </br>
 
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteFFSVG.svg" /></p>
 
 ```
@@ -1315,7 +1315,7 @@ _The following are icons being used on demand based on the menu python script ne
 
 # FF Tab
 # parameter name:    `ffp2weight`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
 
 ```
@@ -1327,7 +1327,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 # FF Tab
 # parameter name:    `ffscl`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineFFSVG.svg" /></p>
 
 ```
@@ -1339,7 +1339,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineFFSVG.svg
 
 # FF Tab
 # parameter name:    `ffang`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
 
 ```
@@ -1351,7 +1351,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 # FF Tab
 # parameter name:    `ffpscl`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineFFSVG.svg" /></p>
 
 ```
@@ -1363,7 +1363,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineFFSVG.svg
 
 # FF Tab
 # parameter name:    `ffpang`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
 
 ```
@@ -1386,7 +1386,7 @@ In addition to playing with the shader parameters for each iterator, fractal Fla
 
 # CP Tab
 # parameter name:    `hsv`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
 
 ```
@@ -1398,7 +1398,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 # CP Tab
 # parameter name:    `palettehsv`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
 
 ```
@@ -1435,7 +1435,7 @@ Token: 1024
 
 # CP Tab
 # parameter name:    `palette`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
 
 ```
@@ -1447,7 +1447,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 # CP Tab
 # parameter name:    `palettename`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_WhiteStarSVG.svg" /></p>
 
 ```
@@ -1511,7 +1511,7 @@ MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionS
 </br>
 </br>
 
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionPRIDEDisabledSVG.svg" /></p>
 
 ```
@@ -1540,7 +1540,7 @@ _The following are icons being used on demand based on the menu python script ne
 </br>
 </br>
 
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionCPSVG.svg" /></p>
 
 ```
@@ -1566,7 +1566,7 @@ _When animating your fractal Flame, turning this on will compute a proper tempor
 
 # MB Tab
 # parameter name:    `domb`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
 
 ```
@@ -1662,7 +1662,7 @@ MENU_IN_PRESETS_EMPTY_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_opt
 </br>
 </br>
 
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_WhiteSVG_disabled.svg" /></p>
 
 ```
@@ -1697,7 +1697,7 @@ _The following are icons being used on demand based on the menu python script ne
 </br>
 </br>
 
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_WhiteSVG.svg" /></p>
 
 ```
@@ -1709,7 +1709,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
 
 # IN Tab
 # parameter name:    `in_f3h_affine`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
 
 ```
@@ -1721,7 +1721,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 # IN Tab
 # parameter name:    `propertiescp`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
 
 ```
@@ -1795,7 +1795,7 @@ _It is a native Flame fractal file format containing transformation parameters, 
 
 # OUT Tab
 # parameter name:    `outname`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_WhiteStarSVG.svg" /></p>
 
 ```
@@ -1824,7 +1824,7 @@ _The following are icons being used on demand based on the menu python script ne
 </br>
 </br>
 
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueKwargsSVG.svg" /></p>
 
 ```
@@ -1836,7 +1836,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueKwargsSVG.svg
 
 # OUT Tab
 # parameter name:    `outedit`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
 
 ```
@@ -2042,7 +2042,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # ABOUT Tab
 # parameter name:    `flam3homepage`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/iconSVG.svg" /></p>
 
 ```
@@ -2054,7 +2054,7 @@ opdef:/alexnardini::Sop/FLAM3H?iconSVG.svg
 
 # ABOUT Tab
 # parameter name:    `flam3github`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_GithubBlackSVG.svg" /></p>
 
 ```
@@ -2066,7 +2066,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlackSVG.svg
 
 # ABOUT Tab
 # parameter name:    `flam3insta`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_InstagramSVG.svg" /></p>
 
 ```
@@ -2078,7 +2078,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_InstagramSVG.svg
 
 # ABOUT Tab
 # parameter name:    `flam3youtube`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_youtube_red_play.svg" /></p>
 
 ```
@@ -2102,7 +2102,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # ABOUT Tab
 # parameter name:    `tffa_pdf`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_WhiteSVG.svg" /></p>
 
 ```
@@ -2114,7 +2114,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
 
 # ABOUT Tab
 # parameter name:    `tffa_flam3github`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_GithubWhiteSVG.svg" /></p>
 
 ```
@@ -2126,7 +2126,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubWhiteSVG.svg
 
 # ABOUT Tab
 # parameter name:    `fract_bit`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_bitbucketLogoSVG.svg" /></p>
 
 ```
@@ -2138,7 +2138,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_bitbucketLogoSVG.svg
 
 # ABOUT Tab
 # parameter name:    `fract_web`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_FractoriumWebSVG.svg" /></p>
 
 ```

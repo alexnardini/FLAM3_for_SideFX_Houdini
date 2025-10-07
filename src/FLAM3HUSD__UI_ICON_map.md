@@ -107,7 +107,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_FrameBlueSVG.svg
 
 # SYS Tab
 # parameter name:    `flam3hpath`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFlameINEntrieSVG.svg" /></p>
 
 ```
@@ -142,7 +142,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg
 
 # PREFS Tab
 # parameter name:    `rndtype`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_rendererMenuSVG.svg" /></p>
 
 ```
@@ -167,7 +167,7 @@ Token: 0
 
 # PREFS Tab
 # parameter name:    `vpptsize`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
 
 ```
@@ -179,7 +179,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg
 
 # PREFS Tab
 # parameter name:    `widths`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
 
 ```
@@ -191,7 +191,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg
 
 # PREFS Tab
 # parameter name:    `pxsamples`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_rendererKarmaPropertiesSVG.svg" /></p>
 
 ```
@@ -203,7 +203,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg
 
 # PREFS Tab
 # parameter name:    `use_f3h_shader`
-### Action icon
+### Action Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_rendererKarmaPropertiesSVG.svg" /></p>
 
 ```

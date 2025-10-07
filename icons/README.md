@@ -62,17 +62,17 @@ opdef:/alexnardini::Sop/FLAM3H?FLAM3H_DOC_icon.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?FLAM3H_DOC_icon.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?FLAM3H_DOC_icon.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?FLAM3H_DOC_icon.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?FLAM3H_DOC_icon.svg]
@@ -96,17 +96,17 @@ opdef:/alexnardini::Sop/FLAM3H?FLAM3HUSD_DOC_icon.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?FLAM3HUSD_DOC_icon.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?FLAM3HUSD_DOC_icon.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?FLAM3HUSD_DOC_icon.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?FLAM3HUSD_DOC_icon.svg]
@@ -130,17 +130,17 @@ opdef:/alexnardini::Sop/FLAM3H?FLAM3HUSD_DOC_icon.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?FLAM3HUSD_DOC_icon.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?FLAM3HUSD_DOC_icon.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?FLAM3HUSD_DOC_icon.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?FLAM3HUSD_DOC_icon.svg]
@@ -164,17 +164,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_AddDelIteratorSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_AddDelIteratorSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_AddDelIteratorSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_AddDelIteratorSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_AddDelIteratorSVG.svg]
@@ -198,17 +198,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_bitbucketLogoSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_bitbucketLogoSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_bitbucketLogoSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_bitbucketLogoSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_bitbucketLogoSVG.svg]
@@ -232,17 +232,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_cvex_compileSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_cvex_compileSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_cvex_compileSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_cvex_compileSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_cvex_compileSVG.svg]
@@ -266,17 +266,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_F_docStarSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_F_docStarSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_F_docStarSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_F_docStarSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_F_docStarSVG.svg]
@@ -300,17 +300,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_ffHandlesEnabledSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_ffHandlesEnabledSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg]
@@ -334,17 +334,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FractoriumWebSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_FractoriumWebSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_FractoriumWebSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_FractoriumWebSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_FractoriumWebSVG.svg]
@@ -368,17 +368,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_FrameBlueSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_FrameBlueSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_FrameBlueSVG.svg]
@@ -402,17 +402,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FrameRedSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_FrameRedSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_FrameRedSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_FrameRedSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_FrameRedSVG.svg]
@@ -436,17 +436,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_geo_reloadSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_geo_reloadSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_geo_reloadSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_geo_reloadSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_geo_reloadSVG.svg]
@@ -470,17 +470,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionCPSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionCPSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionCPSVG.svg]
@@ -503,17 +503,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIterSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIterSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionDisabledSelIterSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionDisabledSelIterSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg]
@@ -537,17 +537,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionDisabledSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionDisabledSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionDisabledSVG.svg]
@@ -571,17 +571,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionDisabledZeroIterSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionDisabledZeroIterSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg]
@@ -605,17 +605,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionEnabledSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionEnabledSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionEnabledSVG.svg]
@@ -638,17 +638,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionEnabledMidSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionEnabledMidSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionEnabledMidSVG.svg]
@@ -672,17 +672,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CDisabledSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CDisabledSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionF3CDisabledSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionF3CDisabledSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionF3CDisabledSVG.svg]
@@ -706,17 +706,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CEnabledSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CEnabledSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionF3CEnabledSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionF3CEnabledSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionF3CEnabledSVG.svg]
@@ -740,17 +740,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionFFDisabledSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionFFDisabledSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg]
@@ -774,17 +774,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionFFEnabledSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionFFEnabledSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg]
@@ -808,17 +808,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameINEntrieSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameINEntrieSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionFlameINEntrieSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionFlameINEntrieSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg]
@@ -842,17 +842,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameOUTEntrieSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameOUTEntrieSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionFlameOUTEntrieSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg]
@@ -876,17 +876,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionPRIDEDisabledSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg]
@@ -910,17 +910,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPDisabledSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPDisabledSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionRIPDisabledSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionRIPDisabledSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionRIPDisabledSVG.svg]
@@ -944,17 +944,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPEnabledSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPEnabledSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionRIPEnabledSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionRIPEnabledSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionRIPEnabledSVG.svg]
@@ -978,17 +978,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueKwargsSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueKwargsSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
@@ -1012,17 +1012,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarBlueSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarBlueSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarBlueSVG.svg]
@@ -1046,17 +1046,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarOrangeSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarOrangeSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg]
@@ -1080,17 +1080,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarRedHighSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarRedHighSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg]
@@ -1114,17 +1114,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarRedSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarRedSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarRedSVG.svg]
@@ -1148,17 +1148,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
@@ -1182,17 +1182,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBHSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBHSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarWhitePBHSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarWhitePBHSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg]
@@ -1216,17 +1216,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarWhitePBSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarWhitePBSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg]
@@ -1250,17 +1250,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarWhiteSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarWhiteSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
@@ -1284,17 +1284,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZOFFSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZOFFSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarWhiteXFVIZOFFSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarWhiteXFVIZOFFSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarWhiteXFVIZOFFSVG.svg]
@@ -1318,17 +1318,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarWhiteXFVIZSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarWhiteXFVIZSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSVG.svg]
@@ -1352,17 +1352,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSOLOSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSOLOSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarWhiteXFVIZSOLOSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarWhiteXFVIZSOLOSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSOLOSVG.svg]
@@ -1386,17 +1386,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarYellowOrangeSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarYellowOrangeSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg]
@@ -1420,17 +1420,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_optionStarYellowSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_optionStarYellowSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_optionStarYellowSVG.svg]
@@ -1454,17 +1454,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_rendererKarmaPropertiesSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_rendererKarmaPropertiesSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
@@ -1488,17 +1488,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_rendererMenuSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_rendererMenuSVG.svg]
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_rendererMenuSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_rendererMenuSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_rendererMenuSVG.svg]
@@ -1522,17 +1522,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuBigSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuBigSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_TagOBlueMenuBigSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_TagOBlueMenuBigSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_TagOBlueMenuBigSVG.svg]
@@ -1556,17 +1556,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuMidSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuMidSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_TagOBlueMenuMidSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_TagOBlueMenuMidSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_TagOBlueMenuMidSVG.svg]
@@ -1590,17 +1590,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuSmallSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuSmallSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_TagOBlueMenuSmallSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_TagOBlueMenuSmallSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_TagOBlueMenuSmallSVG.svg]
@@ -1624,17 +1624,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG_disabled.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG_disabled.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_TagOBlueSVG_disabled.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_TagOBlueSVG_disabled.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg]
@@ -1658,17 +1658,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_TagOBlueSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_TagOBlueSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_TagOBlueSVG.svg]
@@ -1691,17 +1691,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedOffSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_TagORedOffSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_TagORedOffSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_TagORedOffSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_TagORedOffSVG.svg]
@@ -1725,17 +1725,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG_disabled.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG_disabled.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_TagORedSVG_disabled.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_TagORedSVG_disabled.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_TagORedSVG_disabled.svg]
@@ -1759,17 +1759,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_TagORedSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_TagORedSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_TagORedSVG.svg]
@@ -1793,17 +1793,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_TagOSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_TagOSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_TagOSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_TagOSVG.svg]
@@ -1827,17 +1827,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_xfHandlesDisabledSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_xfHandlesDisabledSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg]
@@ -1861,17 +1861,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_xfHandlesEnabledSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_xfHandlesEnabledSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg]
@@ -1895,17 +1895,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]
@@ -1929,17 +1929,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_youtube_red_play.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_youtube_red_play.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_youtube_red_play.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_youtube_red_play.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_youtube_red_play.svg]
@@ -1963,17 +1963,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlackSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlackSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_GithubBlackSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_GithubBlackSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_GithubBlackSVG.svg]
@@ -1997,17 +1997,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubWhiteSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_GithubWhiteSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_GithubWhiteSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_GithubWhiteSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_GithubWhiteSVG.svg]
@@ -2031,17 +2031,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_InstagramSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_InstagramSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_InstagramSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_InstagramSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_InstagramSVG.svg]
@@ -2065,17 +2065,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_SierpinskyDefSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_SierpinskyDefSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_SierpinskyDefSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_SierpinskyDefSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_SierpinskyDefSVG.svg]
@@ -2099,17 +2099,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapCyanSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapCyanSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapCyanSVG.svg]
@@ -2133,17 +2133,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanMidSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanMidSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapCyanMidSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapCyanMidSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapCyanMidSVG.svg]
@@ -2167,17 +2167,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapCyanSmallSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapCyanSmallSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapCyanSmallSVG.svg]
@@ -2201,17 +2201,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]
@@ -2235,17 +2235,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapCyanSmallXFVIZSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapCyanSmallXFVIZSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZSVG.svg]
@@ -2269,17 +2269,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]
@@ -2303,17 +2303,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
@@ -2337,17 +2337,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineFFSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineFFSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapRedCopyPasteAffineFFSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapRedCopyPasteAffineFFSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineFFSVG.svg]
@@ -2371,17 +2371,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg]
@@ -2405,17 +2405,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieFFSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieFFSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFSVG.svg]
@@ -2439,17 +2439,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg]
@@ -2473,17 +2473,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapRedCopyPasteFFSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapRedCopyPasteFFSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteFFSVG.svg]
@@ -2507,17 +2507,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg]
@@ -2541,17 +2541,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg]
@@ -2575,17 +2575,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroWSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroWSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg]
@@ -2609,17 +2609,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_StarSwapRedSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_StarSwapRedSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedSVG.svg]
@@ -2643,17 +2643,17 @@ opdef:/alexnardini::Sop/FLAM3H?iconSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?iconSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?iconSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?iconSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?iconSVG.svg]
@@ -2677,17 +2677,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_WhiteStarSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_WhiteStarSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_WhiteStarSVG.svg]
@@ -2711,17 +2711,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG_disabled.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG_disabled.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_WhiteSVG_disabled.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_WhiteSVG_disabled.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_WhiteSVG_disabled.svg]
@@ -2745,17 +2745,17 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg] Label
 ```
-<b>Doc icon</b>
+<b>DOC icon</b>
 
 ```
 [Icon:opdef:.?icon_WhiteSVG.svg]
 ```
-<b>Doc icon Small</b>
+<b>DOC icon Small</b>
 
 ```
 [Smallicon:opdef:.?icon_WhiteSVG.svg]
 ```
-<b>Doc icon Large</b>
+<b>DOC icon Large</b>
 
 ```
 [Largeicon:opdef:.?icon_WhiteSVG.svg]

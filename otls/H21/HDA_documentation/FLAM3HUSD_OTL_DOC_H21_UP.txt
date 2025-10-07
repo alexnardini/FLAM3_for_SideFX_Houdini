@@ -3,7 +3,7 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.2.23 - Prototype
+#version: 0.2.28 - Prototype
 
 """Simple utility node to quickly render FLAM3H(tm) fractal Flames in Solaris."""
 
@@ -15,7 +15,8 @@ It offers the very fundamental functionalities to setup your fractal Flames poin
 
 It has been designed to be user-friendly, simple, and intuitive.
 
-Currently, FLAM3HUSD rely entirely on Karma CPU.
+At the moment, FLAM3HUSD relies solely on Karma CPU for the majority of its operations and features.<br />
+Karma XPU support was initially only included in FLAM3HUSD HDA versions for H21.0 and later, and it was simply included for completeness.
 
 _*This tool is a prototype and it may or may not change in the future.*_<br />
 _*This version is only fully compatible with FLAM3H(tm) v1.6.97 or higher.*_
@@ -169,8 +170,13 @@ menu Renderer [Icon:BUTTONS/pane_menu]:
     Select from a variety of Hydra renderers.
 
     At the moment the choices are:
-    - *`Houdini`*<br />this can be either *`OpenGL`* or *`Vulkan`* depending on your Houdini version and preferences settings.
-    - *`Karma CPU`* 
+    - *`Houdini`*<br />This can be either `OpenGL` or `Vulkan` depending on your Houdini version and its 3D Viewports' preferences settings.
+    - *`Karma CPU`*<br />When rendering fractal Flames, especially with a very high point count, this is the recommended option. It is also the only option capable of rendering the FLAM3H(tm) xforms handle viz geometries correctly.
+    - *`Karma XPU`*<br />This is provided for completeness; when rendering interactively, you may receive a faster feedback. Mostly for previews and as a way to keep the CPU load focused on the processing of the fractal Flames while fine tuning parameters.
+
+    <br />
+
+    _Note that with *`Karma XPU`*_<br />_you may not be able to render as many points as with *`Karma CPU`* due to the limited GPU RAM available along with other limitations_.
 
     <br /><br />
     [Icon:NETWORKS/lop] *Context aware*<br />
@@ -233,7 +239,7 @@ Reset size [Icon:opdef:.?icon_actionButtonSVG.svg]:
 :box:
     #display: rounded white
     
-    == Renderer: Karma CPU == (OPTIONSKARMA)
+    == Renderer: Karma == (OPTIONSKARMA)
     
 Points widths:
     #id: PREFS
@@ -266,6 +272,7 @@ Import FLAM3H(tm) Handles [Icon:DATATYPES/boolean]:
 
     NOTE:
         - _This parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
+        - _Only available when using *`Karma CPU`*_.
         
     <br />
 
@@ -278,6 +285,7 @@ Handles widths:
 
     NOTE:
         - _This parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
+        - _Only available when using *`Karma CPU`*_.
 
     <br />
 
@@ -292,12 +300,22 @@ Reset handles widths [Icon:opdef:.?icon_actionButtonSVG.svg]:
 
     NOTE:
         - _This parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
+        - _Only available when using *`Karma CPU`*_.
 
     <br />
 
-Pixel samples:
+CPU/XPU samples:
     #id: PREFS
     Set the Karma renderer pixel samples.
+
+    To be independent of one other, `Karma CPU` and `Karma XPU` each have their own pixel samples parameter.
+    - `Karma CPU` have: *`CPU samples`* parameter.
+    - `Karma XPU` have: *`XPU samples`* parameter.
+
+    <br />
+
+    NOTE:
+        - _*`XPU samples`* parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 21.0 and up_.
 
     <br />
 
@@ -306,7 +324,12 @@ Reset pixel samples [Icon:opdef:.?icon_actionButtonSVG.svg]:
     [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
     
     _Usage_:
-    - ((LMB)) to reset the pixel samples to a default of *`128`*.
+    - ((LMB)) to reset the pixel samples to a default of *`128`* for `CPU samples` and *`512`* for `XPU samples`.
+
+    <br />
+
+    NOTE:
+        - _*`XPU samples`* parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 21.0 and up_.
 
     <br />
     
