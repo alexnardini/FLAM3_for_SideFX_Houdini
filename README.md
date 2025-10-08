@@ -131,7 +131,6 @@ Or you can use Apophysis or Fractorium to author your Flames first and load them
 
 Imagine the possibilities using Houdini procedural paradigm and toolsets to control all aspects of your Flame.
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_01_H19.jpg)
-![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_02_H19.jpg)
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_04_H19.jpg)
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H19.jpg)
 `FLAM3H™ generate a live point cloud of the fractal Flame being worked on.`
@@ -153,8 +152,8 @@ Once framed, you can save the Flame and be sure it will be framed the same in ot
 ## Load Flames files authored with Apophysis, Fractorium, etc.
 
 Following are some images showing FLAM3H™ rendering some of the Fractorium's example Flame files.
-Some have been modified to fit within FLAM3H™ available variations. The screenshots show
-Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right.
+Some have been modified to fit within the available variations. The screenshots show
+FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right.
 
 `Chocolate Scaffold in Too Many Dimensions by plangkye. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 01](./img/FractoriumToFLAM3HOUDINI_03.jpg)
@@ -225,6 +224,11 @@ Some Flames need truly an high number of iterations to be resolved correctly.
 Listed below are presets from Chaotica software that were converted to FLAM3H™. They were chosen because some of them are very expensive to solve and because they make use of variations I've already implemented.
 
 Some require thousands of iterations to show you the proper results; some of them require hundreds, and some others are really quick.
+
+</br>
+</br>
+
+The screenshots show FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right.
 
 ### Lets start with this gnarl preset:
 
