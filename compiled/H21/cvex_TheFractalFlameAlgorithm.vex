@@ -170,11 +170,8 @@ source_filename = "FLAM3"
 @145 = private constant [3 x i8] c"mb\00"
 @146 = private constant [2 x i8] c"P\00"
 
-; Function Attrs: nounwind readnone
-declare double @"div@FF"(double, double) #0
-
 ; Function Attrs: alwaysinline nounwind
-define private double @"ATAN@FU"(<2 x double>* %p) #1 {
+define private double @"ATAN@FU"(<2 x double>* %p) #0 {
 __llvm_entry:
   %p1 = load <2 x double>, <2 x double>* %p
   %return = call double @"getcomp@FUI"(<2 x double> %p1, i64 0)
@@ -184,13 +181,13 @@ __llvm_entry:
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"getcomp@FUI"(<2 x double>, i64) #0
+declare double @"getcomp@FUI"(<2 x double>, i64) #1
 
 ; Function Attrs: nounwind readnone
-declare double @"atan2@FFF"(double, double) #0
+declare double @"atan2@FFF"(double, double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private double @"ATANYX@FU"(<2 x double>* %p) #1 {
+define private double @"ATANYX@FU"(<2 x double>* %p) #0 {
 __llvm_entry:
   %p1 = load <2 x double>, <2 x double>* %p
   %return = call double @"getcomp@FUI"(<2 x double> %p1, i64 1)
@@ -200,7 +197,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private double @"SUMSQ@FU"(<2 x double>* %p) #1 {
+define private double @"SUMSQ@FU"(<2 x double>* %p) #0 {
 __llvm_entry:
   %p1 = load <2 x double>, <2 x double>* %p
   %return = call double @"getcomp@FUI"(<2 x double> %p1, i64 0)
@@ -212,7 +209,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private double @"SQRT@FU"(<2 x double>* %p) #1 {
+define private double @"SQRT@FU"(<2 x double>* %p) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %p1 = load <2 x double>, <2 x double>* %p
@@ -223,10 +220,10 @@ __llvm_entry:
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"sqrt@FF"(double) #0
+declare double @"sqrt@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private double @"SafeTan@FF"(double* %x) #1 {
+define private double @"SafeTan@FF"(double* %x) #0 {
 __llvm_entry:
   %x1 = load double, double* %x
   %return = call double @"neg@FF"(double 8.388607e+06)
@@ -236,16 +233,16 @@ __llvm_entry:
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"neg@FF"(double) #0
+declare double @"neg@FF"(double) #1
 
 ; Function Attrs: nounwind
 declare double @"clamp@FFFF"(double, double, double) #2
 
 ; Function Attrs: nounwind readnone
-declare double @"tan@FF"(double) #0
+declare double @"tan@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private double @"Zeps@FF"(double* %x) #1 {
+define private double @"Zeps@FF"(double* %x) #0 {
 __llvm_entry:
   %x1 = load double, double* %x
   %return = fcmp oeq double %x1, 0.000000e+00
@@ -260,7 +257,7 @@ end:                                              ; preds = %__llvm_entry, %fals
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private double @"sgn@FF"(double* %n) #1 {
+define private double @"sgn@FF"(double* %n) #0 {
 __llvm_entry:
   %n1 = load double, double* %n
   %return = fcmp olt double %n1, 0.000000e+00
@@ -282,10 +279,10 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: nounwind readnone
-declare i64 @"neg@II"(i64) #0
+declare i64 @"neg@II"(i64) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private double @"fmod@FFF"(double* %a, double* %b) #1 {
+define private double @"fmod@FFF"(double* %a, double* %b) #0 {
 __llvm_entry:
   %a1 = load double, double* %a
   %b3 = load double, double* %b
@@ -297,10 +294,13 @@ __llvm_entry:
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"floor@FF"(double) #0
+declare double @"div@FF"(double, double) #1
+
+; Function Attrs: nounwind readnone
+declare double @"floor@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"sincos@FFF"(double* %a, double* %sa, double* %ca) #1 {
+define private void @"sincos@FFF"(double* %a, double* %sa, double* %ca) #0 {
 __llvm_entry:
   %a1 = load double, double* %a
   %return = call double @"sin@FF"(double %a1)
@@ -312,13 +312,13 @@ __llvm_entry:
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"sin@FF"(double) #0
+declare double @"sin@FF"(double) #1
 
 ; Function Attrs: nounwind readnone
-declare double @"cos@FF"(double) #0
+declare double @"cos@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private double @"log1p@FF"(double* %x) #1 {
+define private double @"log1p@FF"(double* %x) #0 {
 __llvm_entry:
   %x1 = load double, double* %x
   %output = fadd double 1.000000e+00, %x1
@@ -338,10 +338,10 @@ end:                                              ; preds = %__llvm_entry, %fals
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"log@FF"(double) #0
+declare double @"log@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private double @"Sqrt1pm1@FF"(double* %x) #1 {
+define private double @"Sqrt1pm1@FF"(double* %x) #0 {
 __llvm_entry:
   %return = call double @"neg@FF"(double 6.250000e-02)
   %x1 = load double, double* %x
@@ -394,10 +394,10 @@ UnifiedReturnBlock:                               ; preds = %end, %true
 }
 
 ; Function Attrs: nounwind readnone
-declare i64 @"and@III"(i64, i64) #0
+declare i64 @"and@III"(i64, i64) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"precalc_V_DISC2@VFF"(<3 x double>* %disc2_precalc, double* %rot, double* %twist) #1 {
+define private void @"precalc_V_DISC2@VFF"(<3 x double>* %disc2_precalc, double* %rot, double* %twist) #0 {
 __llvm_entry:
   %d1 = alloca double
   %d2 = alloca double
@@ -454,31 +454,10 @@ end22:                                            ; preds = %true21, %end
 }
 
 ; Function Attrs: nounwind readnone
-declare <3 x double> @"set@VFFF"(double, double, double) #0
-
-; Function Attrs: alwaysinline
-define private { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %rw11, double %rw22, i64 %rw33) #3 {
-__llvm_entry:
-  %rw16 = call <2 x double> @"setcomp@UFI"(<2 x double> %rw11, double %rw22, i64 %rw33)
-  %mrv = insertvalue { double, <2 x double> } undef, double %rw22, 0
-  %mrv9 = insertvalue { double, <2 x double> } %mrv, <2 x double> %rw16, 1
-  ret { double, <2 x double> } %mrv9
-}
-
-; Function Attrs: nounwind readnone
-declare <2 x double> @"setcomp@UFI"(<2 x double>, double, i64) #0
-
-; Function Attrs: nounwind readnone
-declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #0
-
-; Function Attrs: nounwind
-declare double @"abs@FF"(double) #2
-
-; Function Attrs: nounwind readnone
-declare double @"getcomp@FVI"(<3 x double>, i64) #0
+declare <3 x double> @"set@VFFF"(double, double, double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private <2 x double> @"biunit@U"() #1 {
+define private <2 x double> @"biunit@U"() #0 {
 __llvm_entry:
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
   %output = fmul double 2.000000e+00, %return
@@ -494,10 +473,10 @@ __llvm_entry:
 declare double @"nrandom@F:S"(i8*) #2
 
 ; Function Attrs: nounwind readnone
-declare <2 x double> @"set@UFF"(double, double) #0
+declare <2 x double> @"set@UFF"(double, double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private i64 @"chkPT@IIUF"(i64* %ACTIVE, <2 x double>* %vec, double* %alpha) #1 {
+define private i64 @"chkPT@IIUF"(i64* %ACTIVE, <2 x double>* %vec, double* %alpha) #0 {
 __llvm_entry:
   %ACTIVE1 = load i64, i64* %ACTIVE
   %0 = icmp ne i64 %ACTIVE1, 0
@@ -532,22 +511,22 @@ end:                                              ; preds = %true, %__llvm_entry
 declare double @"sum@FU"(<2 x double>) #2
 
 ; Function Attrs: nounwind readnone
-declare i64 @"isfinite@IF"(double) #0
+declare i64 @"isfinite@IF"(double) #1
 
 ; Function Attrs: nounwind readnone
-declare i64 @"not@II"(i64) #0
+declare i64 @"not@II"(i64) #1
 
 ; Function Attrs: nounwind readnone
-declare i64 @"isnan@IF"(double) #0
+declare i64 @"isnan@IF"(double) #1
 
 ; Function Attrs: nounwind readnone
-declare i64 @"or@III"(i64, i64) #0
+declare i64 @"or@III"(i64, i64) #1
 
 ; Function Attrs: nounwind
 declare double @"length@FU"(<2 x double>) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"affine@UUUU"(<2 x double>* %p, <2 x double>* %x, <2 x double>* %y, <2 x double>* %o) #1 {
+define private void @"affine@UUUU"(<2 x double>* %p, <2 x double>* %x, <2 x double>* %y, <2 x double>* %o) #0 {
 __llvm_entry:
   %x1 = load <2 x double>, <2 x double>* %x
   %return = call double @"getcomp@FUI"(<2 x double> %x1, i64 0)
@@ -574,29 +553,8 @@ __llvm_entry:
   ret void
 }
 
-; Function Attrs: nounwind
-declare <4 x double> @"set@2UU"(<2 x double>, <2 x double>) #2
-
-; Function Attrs: nounwind readnone
-declare <4 x double> @"rotate@2F"(<4 x double>, double) #0
-
-; Function Attrs: nounwind readnone
-declare i64 @"lt@III"(i64, i64) #0
-
-; Function Attrs: nounwind readnone
-declare i8* @"getcomp@S[SI"(i8**, i64) #0
-
-; Function Attrs: nounwind
-declare i8** @"append@[SS"(i8**, i8*) #2
-
-; Function Attrs: nounwind readnone
-declare double @"getcomp@F[FI"(double*, i64) #0
-
-; Function Attrs: nounwind readnone
-declare i64 @"len@I[F"(double*) #0
-
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemSYSGLBBuild@Z9gemSYSGLBM5N2FFIN3RIPIN2MBIN3F3CIN4ITERI"(%gemSYSGLB* %this) #1 {
+define private void @"gemSYSGLBBuild@Z9gemSYSGLBM5N2FFIN3RIPIN2MBIN3F3CIN4ITERI"(%gemSYSGLB* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 1)
   %return1 = call i64 @"detail@IIS"(i64 %return, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @1, i64 0, i64 0))
@@ -626,7 +584,7 @@ __llvm_entry:
 declare i64 @"detail@IIS"(i64, i8*) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemSYSGLB @"gemSYSGLB@Z9gemSYSGLBM5N2FFIN3RIPIN2MBIN3F3CIN4ITERIIIIII"(i64* %FF, i64* %RIP, i64* %MB, i64* %F3C, i64* %ITER) #1 {
+define private %gemSYSGLB @"gemSYSGLB@Z9gemSYSGLBM5N2FFIN3RIPIN2MBIN3F3CIN4ITERIIIIII"(i64* %FF, i64* %RIP, i64* %MB, i64* %F3C, i64* %ITER) #0 {
 __llvm_entry:
   %FF1 = load i64, i64* %FF
   %0 = insertvalue %gemSYSGLB undef, i64 %FF1, 0
@@ -642,7 +600,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemSYSGLB @"gemSYSGLB@Z9gemSYSGLBM5N2FFIN3RIPIN2MBIN3F3CIN4ITERI"() #1 {
+define private %gemSYSGLB @"gemSYSGLB@Z9gemSYSGLBM5N2FFIN3RIPIN2MBIN3F3CIN4ITERI"() #0 {
 __llvm_entry:
   %0 = alloca i64
   %1 = alloca i64
@@ -659,7 +617,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemSYSBuild@Z6gemSYSM4N3RESIN2XSIN2IW[FN3XST[F"(%gemSYS* %this) #1 {
+define private void @"gemSYSBuild@Z6gemSYSM4N3RESIN2XSIN2IW[FN3XST[F"(%gemSYS* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 2)
   %return1 = call i64 @"detail@IIS"(i64 %return, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @6, i64 0, i64 0))
@@ -686,7 +644,7 @@ __llvm_entry:
 declare double* @"detail@[FIS"(i64, i8*) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemSYS @"gemSYS@Z6gemSYSM4N3RESIN2XSIN2IW[FN3XST[FII[F[F"(i64* %RES, i64* %XS, double** %IW, double** %XST) #1 {
+define private %gemSYS @"gemSYS@Z6gemSYSM4N3RESIN2XSIN2IW[FN3XST[FII[F[F"(i64* %RES, i64* %XS, double** %IW, double** %XST) #0 {
 __llvm_entry:
   %RES1 = load i64, i64* %RES
   %0 = insertvalue %gemSYS undef, i64 %RES1, 0
@@ -700,7 +658,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemSYS @"gemSYS@Z6gemSYSM4N3RESIN2XSIN2IW[FN3XST[F"() #1 {
+define private %gemSYS @"gemSYS@Z6gemSYSM4N3RESIN2XSIN2IW[FN3XST[F"() #0 {
 __llvm_entry:
   %0 = alloca i64
   %1 = alloca double*
@@ -715,7 +673,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemSHDBuild@Z6gemSHDM3N3CLR[FN2OM[FN1A[F"(%gemSHD* %this) #1 {
+define private void @"gemSHDBuild@Z6gemSHDM3N3CLR[FN2OM[FN1A[F"(%gemSHD* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 4)
   %return1 = call double* @"detail@[FIS"(i64 %return, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @11, i64 0, i64 0))
@@ -734,7 +692,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemSHD @"gemSHD@Z6gemSHDM3N3CLR[FN2OM[FN1A[F[F[F[F"(double** %CLR, double** %OM, double** %A) #1 {
+define private %gemSHD @"gemSHD@Z6gemSHDM3N3CLR[FN2OM[FN1A[F[F[F[F"(double** %CLR, double** %OM, double** %A) #0 {
 __llvm_entry:
   %CLR1 = load double*, double** %CLR
   %0 = insertvalue %gemSHD undef, double* %CLR1, 0
@@ -746,7 +704,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemSHD @"gemSHD@Z6gemSHDM3N3CLR[FN2OM[FN1A[F"() #1 {
+define private %gemSHD @"gemSHD@Z6gemSHDM3N3CLR[FN2OM[FN1A[F"() #0 {
 __llvm_entry:
   %0 = alloca double*
   %1 = alloca double*
@@ -759,7 +717,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemPVBuild@Z5gemPVM5N3p1t[IN3p2t[IN3pbw[FN3p1w[FN3p2w[F"(%gemPV* %this) #1 {
+define private void @"gemPVBuild@Z5gemPVM5N3p1t[IN3p2t[IN3pbw[FN3p1w[FN3p2w[F"(%gemPV* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 5)
   %return1 = call i64* @"detail@[IIS"(i64 %return, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @14, i64 0, i64 0))
@@ -789,7 +747,7 @@ __llvm_entry:
 declare i64* @"detail@[IIS"(i64, i8*) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemPV @"gemPV@Z5gemPVM5N3p1t[IN3p2t[IN3pbw[FN3p1w[FN3p2w[F[I[I[F[F[F"(i64** %p1t, i64** %p2t, double** %pbw, double** %p1w, double** %p2w) #1 {
+define private %gemPV @"gemPV@Z5gemPVM5N3p1t[IN3p2t[IN3pbw[FN3p1w[FN3p2w[F[I[I[F[F[F"(i64** %p1t, i64** %p2t, double** %pbw, double** %p1w, double** %p2w) #0 {
 __llvm_entry:
   %p1t1 = load i64*, i64** %p1t
   %0 = insertvalue %gemPV undef, i64* %p1t1, 0
@@ -805,7 +763,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemPV @"gemPV@Z5gemPVM5N3p1t[IN3p2t[IN3pbw[FN3p1w[FN3p2w[F"() #1 {
+define private %gemPV @"gemPV@Z5gemPVM5N3p1t[IN3p2t[IN3pbw[FN3p1w[FN3p2w[F"() #0 {
 __llvm_entry:
   %0 = alloca i64*
   %1 = alloca double*
@@ -822,7 +780,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemVBuild@Z4gemVM8N3v1t[IN3v2t[IN3v3t[IN3v4t[IN3v1w[FN3v2w[FN3v3w[FN3v4w[F"(%gemV* %this) #1 {
+define private void @"gemVBuild@Z4gemVM8N3v1t[IN3v2t[IN3v3t[IN3v4t[IN3v1w[FN3v2w[FN3v3w[FN3v4w[F"(%gemV* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 6)
   %return1 = call i64* @"detail@[IIS"(i64 %return, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @20, i64 0, i64 0))
@@ -861,7 +819,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemV @"gemV@Z4gemVM8N3v1t[IN3v2t[IN3v3t[IN3v4t[IN3v1w[FN3v2w[FN3v3w[FN3v4w[F[I[I[I[I[F[F[F[F"(i64** %v1t, i64** %v2t, i64** %v3t, i64** %v4t, double** %v1w, double** %v2w, double** %v3w, double** %v4w) #1 {
+define private %gemV @"gemV@Z4gemVM8N3v1t[IN3v2t[IN3v3t[IN3v4t[IN3v1w[FN3v2w[FN3v3w[FN3v4w[F[I[I[I[I[F[F[F[F"(i64** %v1t, i64** %v2t, i64** %v3t, i64** %v4t, double** %v1w, double** %v2w, double** %v3w, double** %v4w) #0 {
 __llvm_entry:
   %v1t1 = load i64*, i64** %v1t
   %0 = insertvalue %gemV undef, i64* %v1t1, 0
@@ -883,7 +841,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemV @"gemV@Z4gemVM8N3v1t[IN3v2t[IN3v3t[IN3v4t[IN3v1w[FN3v2w[FN3v3w[FN3v4w[F"() #1 {
+define private %gemV @"gemV@Z4gemVM8N3v1t[IN3v2t[IN3v3t[IN3v4t[IN3v1w[FN3v2w[FN3v3w[FN3v4w[F"() #0 {
 __llvm_entry:
   %0 = alloca i64*
   %1 = alloca i64*
@@ -906,7 +864,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemVPBuild@Z5gemVPM3N3PPL[IN3P1t[IN3P1w[F"(%gemVP* %this) #1 {
+define private void @"gemVPBuild@Z5gemVPM3N3PPL[IN3P1t[IN3P1w[F"(%gemVP* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 7)
   %return1 = call i64* @"detail@[IIS"(i64 %return, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @28, i64 0, i64 0))
@@ -921,7 +879,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemVP @"gemVP@Z5gemVPM3N3PPL[IN3P1t[IN3P1w[F[I[I[F"(i64** %PPL, i64** %P1t, double** %P1w) #1 {
+define private %gemVP @"gemVP@Z5gemVPM3N3PPL[IN3P1t[IN3P1w[F[I[I[F"(i64** %PPL, i64** %P1t, double** %P1w) #0 {
 __llvm_entry:
   %PPL1 = load i64*, i64** %PPL
   %0 = insertvalue %gemVP undef, i64* %PPL1, 0
@@ -933,7 +891,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemVP @"gemVP@Z5gemVPM3N3PPL[IN3P1t[IN3P1w[F"() #1 {
+define private %gemVP @"gemVP@Z5gemVPM3N3PPL[IN3P1t[IN3P1w[F"() #0 {
 __llvm_entry:
   %0 = alloca i64*
   %1 = alloca double*
@@ -946,7 +904,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemPABuild@Z5gemPAM3N1x[UN1y[UN1o[U"(%gemPA* %this) #1 {
+define private void @"gemPABuild@Z5gemPAM3N1x[UN1y[UN1o[U"(%gemPA* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 8)
   %return1 = call <2 x double>* @"detail@[UIS"(i64 %return, i8* getelementptr inbounds ([2 x i8], [2 x i8]* @30, i64 0, i64 0))
@@ -968,7 +926,7 @@ __llvm_entry:
 declare <2 x double>* @"detail@[UIS"(i64, i8*) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemPA @"gemPA@Z5gemPAM3N1x[UN1y[UN1o[U[U[U[U"(<2 x double>** %x, <2 x double>** %y, <2 x double>** %o) #1 {
+define private %gemPA @"gemPA@Z5gemPAM3N1x[UN1y[UN1o[U[U[U[U"(<2 x double>** %x, <2 x double>** %y, <2 x double>** %o) #0 {
 __llvm_entry:
   %x1 = load <2 x double>*, <2 x double>** %x
   %0 = insertvalue %gemPA undef, <2 x double>* %x1, 0
@@ -980,7 +938,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemPA @"gemPA@Z5gemPAM3N1x[UN1y[UN1o[U"() #1 {
+define private %gemPA @"gemPA@Z5gemPAM3N1x[UN1y[UN1o[U"() #0 {
 __llvm_entry:
   %0 = alloca <2 x double>*
   %1 = alloca <2 x double>*
@@ -993,7 +951,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemAPBuild@Z5gemAPM4N3PPL[IN2px[UN2py[UN2po[U"(%gemAP* %this) #1 {
+define private void @"gemAPBuild@Z5gemAPM4N3PPL[IN2px[UN2py[UN2po[U"(%gemAP* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 9)
   %return1 = call i64* @"detail@[IIS"(i64 %return, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @34, i64 0, i64 0))
@@ -1016,7 +974,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemAP @"gemAP@Z5gemAPM4N3PPL[IN2px[UN2py[UN2po[U[I[U[U[U"(i64** %PPL, <2 x double>** %px, <2 x double>** %py, <2 x double>** %po) #1 {
+define private %gemAP @"gemAP@Z5gemAPM4N3PPL[IN2px[UN2py[UN2po[U[I[U[U[U"(i64** %PPL, <2 x double>** %px, <2 x double>** %py, <2 x double>** %po) #0 {
 __llvm_entry:
   %PPL1 = load i64*, i64** %PPL
   %0 = insertvalue %gemAP undef, i64* %PPL1, 0
@@ -1030,7 +988,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemAP @"gemAP@Z5gemAPM4N3PPL[IN2px[UN2py[UN2po[U"() #1 {
+define private %gemAP @"gemAP@Z5gemAPM4N3PPL[IN2px[UN2py[UN2po[U"() #0 {
 __llvm_entry:
   %0 = alloca <2 x double>*
   %1 = alloca <2 x double>*
@@ -1045,7 +1003,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemFFPVBuild@Z7gemFFPVM2N4fp1tIN4fp1wF"(%gemFFPV* %this) #1 {
+define private void @"gemFFPVBuild@Z7gemFFPVM2N4fp1tIN4fp1wF"(%gemFFPV* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 10)
   %return1 = call i64 @"detail@IIS"(i64 %return, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @38, i64 0, i64 0))
@@ -1063,7 +1021,7 @@ __llvm_entry:
 declare double @"detail@FIS"(i64, i8*) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemFFPV @"gemFFPV@Z7gemFFPVM2N4fp1tIN4fp1wFIF"(i64* %fp1t, double* %fp1w) #1 {
+define private %gemFFPV @"gemFFPV@Z7gemFFPVM2N4fp1tIN4fp1wFIF"(i64* %fp1t, double* %fp1w) #0 {
 __llvm_entry:
   %fp1t1 = load i64, i64* %fp1t
   %0 = insertvalue %gemFFPV undef, i64 %fp1t1, 0
@@ -1073,7 +1031,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemFFPV @"gemFFPV@Z7gemFFPVM2N4fp1tIN4fp1wF"() #1 {
+define private %gemFFPV @"gemFFPV@Z7gemFFPVM2N4fp1tIN4fp1wF"() #0 {
 __llvm_entry:
   %0 = alloca double
   %1 = alloca i64
@@ -1084,7 +1042,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemFFVBuild@Z6gemFFVM4N4fv1tIN4fv2tIN4fv1wFN4fv2wF"(%gemFFV* %this) #1 {
+define private void @"gemFFVBuild@Z6gemFFVM4N4fv1tIN4fv2tIN4fv1wFN4fv2wF"(%gemFFV* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 11)
   %return1 = call i64 @"detail@IIS"(i64 %return, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @40, i64 0, i64 0))
@@ -1107,7 +1065,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemFFV @"gemFFV@Z6gemFFVM4N4fv1tIN4fv2tIN4fv1wFN4fv2wFIIFF"(i64* %fv1t, i64* %fv2t, double* %fv1w, double* %fv2w) #1 {
+define private %gemFFV @"gemFFV@Z6gemFFVM4N4fv1tIN4fv2tIN4fv1wFN4fv2wFIIFF"(i64* %fv1t, i64* %fv2t, double* %fv1w, double* %fv2w) #0 {
 __llvm_entry:
   %fv1t1 = load i64, i64* %fv1t
   %0 = insertvalue %gemFFV undef, i64 %fv1t1, 0
@@ -1121,7 +1079,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemFFV @"gemFFV@Z6gemFFVM4N4fv1tIN4fv2tIN4fv1wFN4fv2wF"() #1 {
+define private %gemFFV @"gemFFV@Z6gemFFVM4N4fv1tIN4fv2tIN4fv1wFN4fv2wF"() #0 {
 __llvm_entry:
   %0 = alloca i64
   %1 = alloca double
@@ -1136,7 +1094,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemFFVPBuild@Z7gemFFVPM4N4fP1tIN4fP2tIN4fP1wFN4fP2wF"(%gemFFVP* %this) #1 {
+define private void @"gemFFVPBuild@Z7gemFFVPM4N4fP1tIN4fP2tIN4fP1wFN4fP2wF"(%gemFFVP* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 12)
   %return1 = call i64 @"detail@IIS"(i64 %return, i8* getelementptr inbounds ([5 x i8], [5 x i8]* @44, i64 0, i64 0))
@@ -1159,7 +1117,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemFFVP @"gemFFVP@Z7gemFFVPM4N4fP1tIN4fP2tIN4fP1wFN4fP2wFIIFF"(i64* %fP1t, i64* %fP2t, double* %fP1w, double* %fP2w) #1 {
+define private %gemFFVP @"gemFFVP@Z7gemFFVPM4N4fP1tIN4fP2tIN4fP1wFN4fP2wFIIFF"(i64* %fP1t, i64* %fP2t, double* %fP1w, double* %fP2w) #0 {
 __llvm_entry:
   %fP1t1 = load i64, i64* %fP1t
   %0 = insertvalue %gemFFVP undef, i64 %fP1t1, 0
@@ -1173,7 +1131,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemFFVP @"gemFFVP@Z7gemFFVPM4N4fP1tIN4fP2tIN4fP1wFN4fP2wF"() #1 {
+define private %gemFFVP @"gemFFVP@Z7gemFFVPM4N4fP1tIN4fP2tIN4fP1wFN4fP2wF"() #0 {
 __llvm_entry:
   %0 = alloca i64
   %1 = alloca double
@@ -1188,7 +1146,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemFFPABuild@Z7gemFFPAM3N2fxUN2fyUN2foU"(%gemFFPA* %this) #1 {
+define private void @"gemFFPABuild@Z7gemFFPAM3N2fxUN2fyUN2foU"(%gemFFPA* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 13)
   %return1 = call <2 x double> @"detail@UIS"(i64 %return, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @48, i64 0, i64 0))
@@ -1210,7 +1168,7 @@ __llvm_entry:
 declare <2 x double> @"detail@UIS"(i64, i8*) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemFFPA @"gemFFPA@Z7gemFFPAM3N2fxUN2fyUN2foUUUU"(<2 x double>* %fx, <2 x double>* %fy, <2 x double>* %fo) #1 {
+define private %gemFFPA @"gemFFPA@Z7gemFFPAM3N2fxUN2fyUN2foUUUU"(<2 x double>* %fx, <2 x double>* %fy, <2 x double>* %fo) #0 {
 __llvm_entry:
   %fx1 = load <2 x double>, <2 x double>* %fx
   %0 = insertvalue %gemFFPA undef, <2 x double> %fx1, 0
@@ -1222,7 +1180,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemFFPA @"gemFFPA@Z7gemFFPAM3N2fxUN2fyUN2foU"() #1 {
+define private %gemFFPA @"gemFFPA@Z7gemFFPAM3N2fxUN2fyUN2foU"() #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -1235,7 +1193,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemFFAPBuild@Z7gemFFAPM4N3PFFIN3pfxUN3pfyUN3pfoU"(%gemFFAP* %this) #1 {
+define private void @"gemFFAPBuild@Z7gemFFAPM4N3PFFIN3pfxUN3pfyUN3pfoU"(%gemFFAP* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 14)
   %return1 = call i64 @"detail@IIS"(i64 %return, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @51, i64 0, i64 0))
@@ -1258,7 +1216,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemFFAP @"gemFFAP@Z7gemFFAPM4N3PFFIN3pfxUN3pfyUN3pfoUIUUU"(i64* %PFF, <2 x double>* %pfx, <2 x double>* %pfy, <2 x double>* %pfo) #1 {
+define private %gemFFAP @"gemFFAP@Z7gemFFAPM4N3PFFIN3pfxUN3pfyUN3pfoUIUUU"(i64* %PFF, <2 x double>* %pfx, <2 x double>* %pfy, <2 x double>* %pfo) #0 {
 __llvm_entry:
   %PFF1 = load i64, i64* %PFF
   %0 = insertvalue %gemFFAP undef, i64 %PFF1, 0
@@ -1272,7 +1230,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemFFAP @"gemFFAP@Z7gemFFAPM4N3PFFIN3pfxUN3pfyUN3pfoU"() #1 {
+define private %gemFFAP @"gemFFAP@Z7gemFFAPM4N3PFFIN3pfxUN3pfyUN3pfoU"() #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -1286,56 +1244,8 @@ __llvm_entry:
   ret %gemFFAP %gemFFAP
 }
 
-; Function Attrs: nounwind
-declare i64 @"max@I[I"(i64*) #2
-
-; Function Attrs: nounwind readnone
-declare i64 @"gt@III"(i64, i64) #0
-
-; Function Attrs: nounwind readnone
-declare i64 @"getcomp@I[II"(i64*, i64) #0
-
-; Function Attrs: nounwind
-declare i64 @"find@I[FF"(double*, double) #2
-
-; Function Attrs: nounwind readnone
-declare i64 @"ge@III"(i64, i64) #0
-
-; Function Attrs: nounwind readnone
-declare i64 @"eq@III"(i64, i64) #0
-
-; Function Attrs: nounwind readnone
-declare i8* @"concat@SSS"(i8*, i8*) #0
-
-; Function Attrs: nounwind readnone
-declare <2 x double> @"chu@US"(i8*) #0
-
-; Function Attrs: nounwind readnone
-declare { <2 x double>, <2 x double>* } @"setcomp@U[UUI"(<2 x double>*, <2 x double>, i64) #0
-
-; Function Attrs: nounwind readnone
-declare <4 x double> @"chp@PS"(i8*) #0
-
-; Function Attrs: nounwind readnone
-declare { <4 x double>, <4 x double>* } @"setcomp@P[PPI"(<4 x double>*, <4 x double>, i64) #0
-
-; Function Attrs: nounwind readnone
-declare <3 x double> @"chv@VS"(i8*) #0
-
-; Function Attrs: nounwind readnone
-declare { <3 x double>, <3 x double>* } @"setcomp@V[VVI"(<3 x double>*, <3 x double>, i64) #0
-
-; Function Attrs: nounwind readnone
-declare double @"chf@FS"(i8*) #0
-
-; Function Attrs: nounwind readnone
-declare { double, double* } @"setcomp@F[FFI"(double*, double, i64) #0
-
-; Function Attrs: nounwind readnone
-declare <2 x double> @"getcomp@U[UI"(<2 x double>*, i64) #0
-
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SINUSOIDAL@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_SINUSOIDAL@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -1360,8 +1270,20 @@ __llvm_entry:
 ; Function Attrs: nounwind
 declare { double, double } @"assign@FFU"(<2 x double>) #2
 
+; Function Attrs: alwaysinline
+define private { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %rw11, double %rw22, i64 %rw33) #3 {
+__llvm_entry:
+  %rw16 = call <2 x double> @"setcomp@UFI"(<2 x double> %rw11, double %rw22, i64 %rw33)
+  %mrv = insertvalue { double, <2 x double> } undef, double %rw22, 0
+  %mrv9 = insertvalue { double, <2 x double> } %mrv, <2 x double> %rw16, 1
+  ret { double, <2 x double> } %mrv9
+}
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"setcomp@UFI"(<2 x double>, double, i64) #1
+
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SPHERICAL@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_SPHERICAL@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca double
   %1 = alloca <2 x double>
@@ -1389,7 +1311,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SWIRL@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_SWIRL@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
@@ -1422,7 +1344,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_HORSESHOE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_HORSESHOE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca double
   %1 = alloca <2 x double>
@@ -1455,7 +1377,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_POLAR@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_POLAR@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -1482,7 +1404,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_HANDKERCHIEF@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_HANDKERCHIEF@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -1526,7 +1448,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_HEART@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_HEART@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -1559,7 +1481,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_DISC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_DISC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sr = alloca double
   %cr = alloca double
@@ -1598,7 +1520,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SPIRAL@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_SPIRAL@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %sr = alloca double
@@ -1641,13 +1563,13 @@ __llvm_entry:
 }
 
 ; Function Attrs: nounwind readnone
-declare <2 x double> @"set@UF"(double) #0
+declare <2 x double> @"set@UF"(double) #1
 
 ; Function Attrs: nounwind readnone
-declare <2 x double> @"div@UU"(<2 x double>, <2 x double>) #0
+declare <2 x double> @"div@UU"(<2 x double>, <2 x double>) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_HIPERBOLIC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_HIPERBOLIC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca double
@@ -1681,7 +1603,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_DIAMOND@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_DIAMOND@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -1713,7 +1635,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_EX@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_EX@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -1750,7 +1672,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_JULIA@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_JULIA@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -1796,7 +1718,7 @@ end:                                              ; preds = %true, %__llvm_entry
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_BENT@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_BENT@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -1835,7 +1757,7 @@ end14:                                            ; preds = %true13, %end
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_WAVES@UUFFFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %b, double* %c, double* %e, double* %f) #1 {
+define private void @"V_WAVES@UUFFFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %b, double* %c, double* %e, double* %f) #0 {
 __llvm_entry:
   %0 = alloca double
   %1 = alloca double
@@ -1878,7 +1800,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_FISHEYE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_FISHEYE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
@@ -1905,7 +1827,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_POPCORN@UUFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %c, double* %f) #1 {
+define private void @"V_POPCORN@UUFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %c, double* %f) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -1938,7 +1860,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_EXPONENTIAL@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_EXPONENTIAL@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sdy = alloca double
   %cdy = alloca double
@@ -1971,10 +1893,10 @@ __llvm_entry:
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"exp@FF"(double) #0
+declare double @"exp@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_POWER@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_POWER@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -2004,10 +1926,10 @@ __llvm_entry:
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"pow@FFF"(double, double) #0
+declare double @"pow@FFF"(double, double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COSINE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_COSINE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -2043,13 +1965,13 @@ __llvm_entry:
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"cosh@FF"(double) #0
+declare double @"cosh@FF"(double) #1
 
 ; Function Attrs: nounwind readnone
-declare double @"sinh@FF"(double) #0
+declare double @"sinh@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_RINGS@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %d) #1 {
+define private void @"V_RINGS@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %d) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca double
@@ -2094,7 +2016,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_FAN@UUFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %c, double* %f) #1 {
+define private void @"V_FAN@UUFFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %c, double* %f) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -2152,7 +2074,7 @@ end:                                              ; preds = %__llvm_entry, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_BUBBLE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_BUBBLE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
@@ -2179,7 +2101,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_CYLINDER@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_CYLINDER@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -2201,7 +2123,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_EYEFISH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_EYEFISH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
@@ -2228,7 +2150,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_BLUR@UF"(<2 x double>* %p, double* %w) #1 {
+define private void @"V_BLUR@UF"(<2 x double>* %p, double* %w) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
@@ -2258,7 +2180,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_CURL@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %c) #1 {
+define private void @"V_CURL@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %c) #0 {
 __llvm_entry:
   %0 = alloca double
   %_p1 = load <2 x double>, <2 x double>* %_p
@@ -2307,7 +2229,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_NGON@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %ngon) #1 {
+define private void @"V_NGON@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %ngon) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -2383,7 +2305,7 @@ end42:                                            ; preds = %true41, %end
 declare { double, double, double, double } @"assign@FFFFP"(<4 x double>) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_PDJ@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %pp) #1 {
+define private void @"V_PDJ@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %pp) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -2420,7 +2342,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_BLOB@UUFV"(<2 x double>* %p, <2 x double>* %_p, double* %w, <3 x double>* %blob) #1 {
+define private void @"V_BLOB@UUFV"(<2 x double>* %p, <2 x double>* %_p, double* %w, <3 x double>* %blob) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -2471,7 +2393,7 @@ __llvm_entry:
 declare { double, double, double } @"assign@FFFV"(<3 x double>) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_JULIAN@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %julian) #1 {
+define private void @"V_JULIAN@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %julian) #0 {
 __llvm_entry:
   %sina = alloca double
   %cosa = alloca double
@@ -2520,10 +2442,10 @@ __llvm_entry:
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"trunc@FF"(double) #0
+declare double @"trunc@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_JULIASCOPE@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %juliascope) #1 {
+define private void @"V_JULIASCOPE@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %juliascope) #0 {
 __llvm_entry:
   %sina = alloca double
   %cosa = alloca double
@@ -2586,8 +2508,11 @@ end:                                              ; preds = %false, %true
   ret void
 }
 
+; Function Attrs: nounwind readnone
+declare i64 @"eq@III"(i64, i64) #1
+
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_GAUSSIAN_BLUR@UF"(<2 x double>* %p, double* %w) #1 {
+define private void @"V_GAUSSIAN_BLUR@UF"(<2 x double>* %p, double* %w) #0 {
 __llvm_entry:
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
   %output = fmul double %return, 2.000000e+00
@@ -2617,7 +2542,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_FAN2@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %fan2) #1 {
+define private void @"V_FAN2@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %fan2) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -2670,7 +2595,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_RINGS2@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %rings2val) #1 {
+define private void @"V_RINGS2@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %rings2val) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -2715,7 +2640,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_RECTANGLES@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %rect) #1 {
+define private void @"V_RECTANGLES@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %rect) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -2792,7 +2717,7 @@ end37:                                            ; preds = %false36, %true35
 declare i64 @"floor@IF"(double) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_RADIALBLUR@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %angle) #1 {
+define private void @"V_RADIALBLUR@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %angle) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -2858,7 +2783,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_PIE@UFV"(<2 x double>* %p, double* %w, <3 x double>* %pie) #1 {
+define private void @"V_PIE@UFV"(<2 x double>* %p, double* %w, <3 x double>* %pie) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -2900,7 +2825,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_ARCH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_ARCH@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
@@ -2933,7 +2858,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_TANGENT@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_TANGENT@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -2958,7 +2883,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SQUARE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_SQUARE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %w1 = load double, double* %w
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
@@ -2980,7 +2905,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_RAYS@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_RAYS@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca double
   %1 = alloca <2 x double>
@@ -3018,7 +2943,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_BLADE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_BLADE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
@@ -3061,7 +2986,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SECANT2@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_SECANT2@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
@@ -3092,7 +3017,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_TWINTRIAN@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_TWINTRIAN@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
@@ -3150,10 +3075,10 @@ end:                                              ; preds = %true, %__llvm_entry
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"log10@FF"(double) #0
+declare double @"log10@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_CROSS@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_CROSS@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca double
   %_p1 = load <2 x double>, <2 x double>* %_p
@@ -3183,7 +3108,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_DISC2@UUFUV"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %disc2, <3 x double>* %disc2_pc) #1 {
+define private void @"V_DISC2@UUFUV"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %disc2, <3 x double>* %disc2_pc) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
@@ -3229,7 +3154,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_DISC2_FF@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %disc2) #1 {
+define private void @"V_DISC2_FF@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %disc2) #0 {
 __llvm_entry:
   %precalc = alloca <3 x double>
   %0 = alloca double
@@ -3259,7 +3184,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SUPERSHAPE@UUFVV"(<2 x double>* %p, <2 x double>* %_p, double* %w, <3 x double>* %ss, <3 x double>* %ss_n) #1 {
+define private void @"V_SUPERSHAPE@UUFVV"(<2 x double>* %p, <2 x double>* %_p, double* %w, <3 x double>* %ss, <3 x double>* %ss_n) #0 {
 __llvm_entry:
   %st = alloca double
   %ct = alloca double
@@ -3325,8 +3250,11 @@ __llvm_entry:
   ret void
 }
 
+; Function Attrs: nounwind
+declare double @"abs@FF"(double) #2
+
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_FLOWER@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %flower) #1 {
+define private void @"V_FLOWER@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %flower) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -3365,7 +3293,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_CONIC@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %conic) #1 {
+define private void @"V_CONIC@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %conic) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
@@ -3402,7 +3330,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_PARABOLA@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %parabola) #1 {
+define private void @"V_PARABOLA@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %parabola) #0 {
 __llvm_entry:
   %sr = alloca double
   %cr = alloca double
@@ -3444,7 +3372,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_BENT2@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %bent2) #1 {
+define private void @"V_BENT2@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %bent2) #0 {
 __llvm_entry:
   %bent21 = load <2 x double>, <2 x double>* %bent2
   %output = call { double, double } @"assign@FFU"(<2 x double> %bent21)
@@ -3486,7 +3414,7 @@ end17:                                            ; preds = %true16, %end
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_BIPOLAR@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %shift) #1 {
+define private void @"V_BIPOLAR@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %shift) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca double
@@ -3557,7 +3485,7 @@ true30:                                           ; preds = %false
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_BOARDERS@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_BOARDERS@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -3686,10 +3614,10 @@ false102:                                         ; preds = %false38
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"rint@FF"(double) #0
+declare double @"rint@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_BUTTERFLY@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_BUTTERFLY@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca double
   %_p1 = load <2 x double>, <2 x double>* %_p
@@ -3722,7 +3650,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_CELL@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %size) #1 {
+define private void @"V_CELL@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %size) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -3797,7 +3725,7 @@ false46:                                          ; preds = %false
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_CPOW@UUFV"(<2 x double>* %p, <2 x double>* %_p, double* %w, <3 x double>* %cpow) #1 {
+define private void @"V_CPOW@UUFV"(<2 x double>* %p, <2 x double>* %_p, double* %w, <3 x double>* %cpow) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -3853,7 +3781,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_EDISC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_EDISC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %snv = alloca double
   %csv = alloca double
@@ -3919,10 +3847,10 @@ end:                                              ; preds = %true, %__llvm_entry
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"acos@FF"(double) #0
+declare double @"acos@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_ELLIPTIC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_ELLIPTIC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca double
@@ -3987,10 +3915,10 @@ end43:                                            ; preds = %end, %false42
 }
 
 ; Function Attrs: nounwind readnone
-declare double @"asin@FF"(double) #0
+declare double @"asin@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_NOISE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_NOISE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sinr = alloca double
   %cosr = alloca double
@@ -4026,7 +3954,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_ESCHER@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %beta) #1 {
+define private void @"V_ESCHER@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %beta) #0 {
 __llvm_entry:
   %seb = alloca double
   %ceb = alloca double
@@ -4082,7 +4010,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_FOCI@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_FOCI@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sn = alloca double
   %cn = alloca double
@@ -4124,7 +4052,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_LAZYSUSAN@UUFVU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <3 x double>* %lazysusan, <2 x double>* %lazy) #1 {
+define private void @"V_LAZYSUSAN@UUFVU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <3 x double>* %lazysusan, <2 x double>* %lazy) #0 {
 __llvm_entry:
   %sina = alloca double
   %cosa = alloca double
@@ -4204,7 +4132,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_LOONIE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_LOONIE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
@@ -4253,7 +4181,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_PREBLUR@UF"(<2 x double>* %p, double* %w) #1 {
+define private void @"V_PREBLUR@UF"(<2 x double>* %p, double* %w) #0 {
 __llvm_entry:
   %sinA = alloca double
   %cosA = alloca double
@@ -4294,7 +4222,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_MODULUS@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %m) #1 {
+define private void @"V_MODULUS@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %m) #0 {
 __llvm_entry:
   %0 = alloca double
   %1 = alloca double
@@ -4410,7 +4338,7 @@ false82:                                          ; preds = %false60
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_OSCOPE@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %oscope) #1 {
+define private void @"V_OSCOPE@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %oscope) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -4478,7 +4406,7 @@ end44:                                            ; preds = %false43, %true42
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_POLAR2@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_POLAR2@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -4506,7 +4434,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_POPCORN2@UUFFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %pop2c, <2 x double>* %pop2) #1 {
+define private void @"V_POPCORN2@UUFFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %pop2c, <2 x double>* %pop2) #0 {
 __llvm_entry:
   %0 = alloca double
   %1 = alloca double
@@ -4548,7 +4476,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SCRY@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_SCRY@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -4583,7 +4511,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SEPARATION@UUFUU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %sep, <2 x double>* %ins) #1 {
+define private void @"V_SEPARATION@UUFUU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %sep, <2 x double>* %ins) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -4658,7 +4586,7 @@ end57:                                            ; preds = %false56, %true55
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SPLIT@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %split) #1 {
+define private void @"V_SPLIT@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %split) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -4724,7 +4652,7 @@ end38:                                            ; preds = %false37, %true36
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SPLITS@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %splits) #1 {
+define private void @"V_SPLITS@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %splits) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -4784,7 +4712,7 @@ end32:                                            ; preds = %false31, %true30
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_STRIPES@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %stripes) #1 {
+define private void @"V_STRIPES@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %stripes) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -4818,7 +4746,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_WEDGE@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %wedge) #1 {
+define private void @"V_WEDGE@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %wedge) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -4866,7 +4794,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_WEDGEJULIA@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %wedgejulia) #1 {
+define private void @"V_WEDGEJULIA@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %wedgejulia) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -4929,7 +4857,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_WEDGESPH@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %wedgesph) #1 {
+define private void @"V_WEDGESPH@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %wedgesph) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -4988,7 +4916,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_WHORL@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %whorl) #1 {
+define private void @"V_WHORL@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %whorl) #0 {
 __llvm_entry:
   %sa = alloca double
   %ca = alloca double
@@ -5048,7 +4976,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_WAVES2@UUFUU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %scl, <2 x double>* %freq) #1 {
+define private void @"V_WAVES2@UUFUU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %scl, <2 x double>* %freq) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -5085,7 +5013,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_EXP@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_EXP@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -5109,7 +5037,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_LOG@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_LOG@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
@@ -5137,7 +5065,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SIN@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_SIN@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -5194,7 +5122,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COS@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_COS@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -5253,7 +5181,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_TAN@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_TAN@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %tancos = alloca double
   %0 = alloca double
@@ -5328,7 +5256,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SEC@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_SEC@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %seccos = alloca double
   %0 = alloca double
@@ -5414,7 +5342,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_CSC@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_CSC@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %csccos = alloca double
   %0 = alloca double
@@ -5502,7 +5430,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COT@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_COT@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %cotcos = alloca double
   %0 = alloca double
@@ -5579,7 +5507,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SINH@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_SINH@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sinhcos = alloca double
   %0 = alloca double
@@ -5648,7 +5576,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COSH@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_COSH@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %coshcos = alloca double
   %0 = alloca double
@@ -5717,7 +5645,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_TANH@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_TANH@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %tanhcos = alloca double
   %0 = alloca double
@@ -5795,7 +5723,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_SECH@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_SECH@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %sechcos = alloca double
   %0 = alloca double
@@ -5885,7 +5813,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_CSCH@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_CSCH@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %cschcos = alloca double
   %0 = alloca double
@@ -5975,7 +5903,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_COTH@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_COTH@IUUF"(i64* %f3c, <2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %cothcos = alloca double
   %0 = alloca double
@@ -6053,7 +5981,7 @@ end:                                              ; preds = %false, %true
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_AUGER@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %auger) #1 {
+define private void @"V_AUGER@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %auger) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -6100,7 +6028,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_FLUX@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %spread) #1 {
+define private void @"V_FLUX@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %spread) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -6141,7 +6069,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_MOBIUS@UUFPP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %re, <4 x double>* %im) #1 {
+define private void @"V_MOBIUS@UUFPP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %re, <4 x double>* %im) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -6199,7 +6127,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_CURVE@UUFUU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %l, <2 x double>* %a) #1 {
+define private void @"V_CURVE@UUFUU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %l, <2 x double>* %a) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -6240,7 +6168,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_PERSPECTIVE@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %persp) #1 {
+define private void @"V_PERSPECTIVE@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %persp) #0 {
 __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
@@ -6277,7 +6205,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_BWRAPS@UUFVU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <3 x double>* %bwraps, <2 x double>* %twist) #1 {
+define private void @"V_BWRAPS@UUFVU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <3 x double>* %bwraps, <2 x double>* %twist) #0 {
 __llvm_entry:
   %ss = alloca double
   %cc = alloca double
@@ -6415,7 +6343,7 @@ false94:                                          ; preds = %false48
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_HEMISPHERE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_HEMISPHERE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
@@ -6442,7 +6370,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_POLYNOMIAL@UUFUUU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %pow, <2 x double>* %lc, <2 x double>* %sc) #1 {
+define private void @"V_POLYNOMIAL@UUFUUU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %pow, <2 x double>* %lc, <2 x double>* %sc) #0 {
 __llvm_entry:
   %0 = alloca double
   %1 = alloca double
@@ -6496,7 +6424,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_CROP@UUFPU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %ltrb, <2 x double>* %az) #1 {
+define private void @"V_CROP@UUFPU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %ltrb, <2 x double>* %az) #0 {
 __llvm_entry:
   %ltrb1 = load <4 x double>, <4 x double>* %ltrb
   %output = call { double, double, double, double } @"assign@FFFFP"(<4 x double> %ltrb1)
@@ -6616,7 +6544,7 @@ true109:                                          ; preds = %false98
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_UNPOLAR@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_UNPOLAR@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %s = alloca double
   %c = alloca double
@@ -6649,7 +6577,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_GLYNNIA@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #1 {
+define private void @"V_GLYNNIA@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca double
@@ -6758,7 +6686,7 @@ false70:                                          ; preds = %false
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_POINT_SYMMETRY@UUFV"(<2 x double>* %p, <2 x double>* %_p, double* %w, <3 x double>* %ptsym) #1 {
+define private void @"V_POINT_SYMMETRY@UUFV"(<2 x double>* %p, <2 x double>* %_p, double* %w, <3 x double>* %ptsym) #0 {
 __llvm_entry:
   %0 = alloca double
   %_p1 = load <2 x double>, <2 x double>* %_p
@@ -6803,7 +6731,7 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private i64 @"XAOS@IIF[F"(i64* %idx, double* %res, double** %XST) #1 {
+define private i64 @"XAOS@IIF[F"(i64* %idx, double* %res, double** %XST) #0 {
 __llvm_entry:
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
   %res1 = load double, double* %res
@@ -9258,10 +9186,13 @@ __llvm_entry:
 }
 
 ; Function Attrs: nounwind readnone
-declare { i64, double, double } @"sample_cdf@[FFIFF"(double*, double) #0
+declare { i64, double, double } @"sample_cdf@[FFIFF"(double*, double) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"lt@III"(i64, i64) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private <2 x double> @"FLAME@UIIIUUUF"(i64* %idx, i64* %T, i64* %f3c, <2 x double>* %pos, <2 x double>* %y, <2 x double>* %o, double* %w) #1 {
+define private <2 x double> @"FLAME@UIIIUUUF"(i64* %idx, i64* %T, i64* %f3c, <2 x double>* %pos, <2 x double>* %y, <2 x double>* %o, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca double
@@ -11253,22 +11184,28 @@ UnifiedReturnBlock:                               ; preds = %true1145, %true1137
 }
 
 ; Function Attrs: nounwind readnone
-declare <2 x double> @"mul@UU"(<2 x double>, <2 x double>) #0
+declare <2 x double> @"mul@UU"(<2 x double>, <2 x double>) #1
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"getcomp@U[UI"(<2 x double>*, i64) #1
 
 ; Function Attrs: nounwind
 declare <4 x double>* @"detail@[PIS"(i64, i8*) #2
 
 ; Function Attrs: nounwind readnone
-declare <4 x double> @"getcomp@P[PI"(<4 x double>*, i64) #0
+declare <4 x double> @"getcomp@P[PI"(<4 x double>*, i64) #1
 
 ; Function Attrs: nounwind
 declare <3 x double>* @"detail@[VIS"(i64, i8*) #2
 
 ; Function Attrs: nounwind readnone
-declare <3 x double> @"getcomp@V[VI"(<3 x double>*, i64) #0
+declare <3 x double> @"getcomp@V[VI"(<3 x double>*, i64) #1
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@F[FI"(double*, i64) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private <2 x double> @"FLAMEFF@USIIUUUF"(i8** %prx, i64* %T, i64* %f3c, <2 x double>* %pos, <2 x double>* %y, <2 x double>* %o, double* %w) #1 {
+define private <2 x double> @"FLAMEFF@USIIUUUF"(i8** %prx, i64* %T, i64* %f3c, <2 x double>* %pos, <2 x double>* %y, <2 x double>* %o, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca double
@@ -13200,8 +13137,23 @@ UnifiedReturnBlock:                               ; preds = %true1088, %true1080
   ret <2 x double> %UnifiedRetVal
 }
 
+; Function Attrs: nounwind readnone
+declare i8* @"concat@SSS"(i8*, i8*) #1
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"chu@US"(i8*) #1
+
+; Function Attrs: nounwind readnone
+declare <4 x double> @"chp@PS"(i8*) #1
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"chv@VS"(i8*) #1
+
+; Function Attrs: nounwind readnone
+declare double @"chf@FS"(i8*) #1
+
 ; Function Attrs: alwaysinline nounwind
-define private void @"_FLAM3@IFFFFV"(i64* %_bound_ptnum, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, double* %_bound_mb, <3 x double>* %_bound_P) #1 {
+define private void @"_FLAM3@IFFFFV"(i64* %_bound_ptnum, double* %_bound_pscale, double* %_bound_clr, double* %_bound_Alpha, double* %_bound_mb, <3 x double>* %_bound_P) #0 {
 __llvm_entry:
   %tmp = alloca <2 x double>
   %mem = alloca <2 x double>
@@ -13975,10 +13927,13 @@ end408:                                           ; preds = %true407, %false399
 }
 
 ; Function Attrs: nounwind readnone
-declare <2 x double> @"set@UI"(i64) #0
+declare i64 @"getcomp@I[II"(i64*, i64) #1
 
 ; Function Attrs: nounwind readnone
-declare <2 x double> @"add@UU"(<2 x double>, <2 x double>) #0
+declare <2 x double> @"set@UI"(i64) #1
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"add@UU"(<2 x double>, <2 x double>) #1
 
 ; Function Attrs: nounwind
 declare i64 @"removepoint@III"(i64, i64) #2
@@ -13987,7 +13942,7 @@ declare i64 @"removepoint@III"(i64, i64) #2
 declare double @"detail@FISI"(i64, i8*, i64) #2
 
 ; Function Attrs: nounwind readnone
-declare <3 x double> @"set@VU"(<2 x double>) #0
+declare <3 x double> @"set@VU"(<2 x double>) #1
 
 ; Function Attrs: nounwind
 define void @FLAM3(i64 %ptnum, double %pscale, double %clr, double %Alpha, double %mb, <3 x double> %P) #2 {
@@ -14037,8 +13992,8 @@ __llvm_entry:
   ret void
 }
 
-attributes #0 = { nounwind readnone }
-attributes #1 = { alwaysinline nounwind }
+attributes #0 = { alwaysinline nounwind }
+attributes #1 = { nounwind readnone }
 attributes #2 = { nounwind }
 attributes #3 = { alwaysinline }
 attributes #4 = { nounwind readonly }
