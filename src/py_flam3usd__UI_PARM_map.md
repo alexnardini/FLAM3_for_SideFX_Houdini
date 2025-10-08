@@ -13,6 +13,8 @@
 #               THIS IS ONLY INFORMATIVE AND FOR EASY FIND INSTEAD OF
 #               NAVIGATING THE PARAMETERS INSIDE THE OTL TYPE PROPERTIES WINDOW.
 ```
+- #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
+
 </br>
 </br>
 
@@ -515,7 +517,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 
 # PREFS Tab
-# parameter name:    `pxsamples_xpu` _only from H21.0 UP_
+# parameter name:    `pxsamples_xpu` -> _only from H21.0 UP_
 ## parameter type: `integer`
 - ### Action Button script
 ```python

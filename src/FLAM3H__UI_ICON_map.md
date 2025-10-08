@@ -16,6 +16,8 @@
 **Note**: _The project logo and the icon set are NOT covered by the **CC BY-SA 4.0** license_.</br>
 _They remain Copyright of (c) 2021 F stands for liFe (and their other respective owners), and may not be redistributed without permission_.
 
+- #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
+
 </br>
 </br>
 
