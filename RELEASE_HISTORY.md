@@ -35,12 +35,12 @@ They are all available in this Github repository.
 
 #### FLAM3H™ ####
 
+- **New**: Compiled file size is now ~3kb smaller.
 - **Fix**: When attempting to activate the Tag without any Sop viewers accessible, the error was accurately shown in the status bar message, but the functionality name was incorrect. it is now fixed.
 
 #### FLAM3HUSD v0.2.28 - Prototype ####
 
 - **New H21 ONLY**: Karma XPU has been added to the available renderer list. Although having it is convenient, Karma CPU is still the best option for rendering pure point clouds (_as the one produced by FLAM3H™_).
-- **New**: Compiled file size is now ~3kb smaller.
 - **Fix**: The import handles viz' tab/parameters, are only enabled when the renderer of choice is Karma CPU because it seem that Karma XPU does not support curves as flat ribbons yet.
 - **Fix**: The parameter: **pxsamples** has been renamed to: **pxsamples_cpu** and for H21 a new one has been added and named: **pxsamples_xpu** specifically to drive Karma XPU pixel samples setting.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
