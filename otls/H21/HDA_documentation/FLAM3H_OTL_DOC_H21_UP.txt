@@ -1055,7 +1055,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
     <br />
         
-auto space xaos weights / xaos information tips [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:DATATYPES/boolean] [Icon:opdef:.?icon_actionButtonSVG.svg]:
+auto space xaos weights / xaos information tips [Icon:DATATYPES/boolean] [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: FLAME
     [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
     
