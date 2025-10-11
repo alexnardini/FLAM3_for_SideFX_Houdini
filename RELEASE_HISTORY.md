@@ -35,8 +35,8 @@ They are all available in this Github repository.
 
 #### FLAM3H™ ####
 
-- **Fix H21 ONLY**: From Houdini 21.0.489 the select iterator mini menu work also over the Network Editor's Parameter Dialog displayed when pressing the \"p\" key 
-- **Updated HDA documentation.**
+- **Fix H21 ONLY**: From Houdini 21.0.489 the SYS tab select iterator mini-menu will work also over the Network Editor's Parameter Dialog displayed when pressing the `p` key.
+- **Updated HDA documentation H21 ONLY.**
 
 
 
