@@ -108,14 +108,11 @@ Fully available only with FLAM3HUSD HDA versions for Houdini H20.5 and up.
 
 <br/>
 <br/>
-Karma interactive viewport rendering:
 
-<br/>
-
-`Worlds - Author: Alessandro Nardini`
+`Karma interactive. Worlds - Author: Alessandro Nardini`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_Karma_H19.jpg)
 
-`Its Pink - Author: Plangkye`
+`Karma interactive. Its Pink - Author: Plangkye`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_02_Karma_H19.jpg)
 
 ##  Highly inspired by Apophysis and its workflow design
@@ -136,7 +133,9 @@ Or you can use Apophysis or Fractorium to author your Flames first and load them
 
 ## Viewport live point cloud
 
-Imagine the possibilities using Houdini procedural paradigm and toolsets to control all aspects of your Flame.
+FLAM3H™ generate a live point cloud of the fractal Flame you are working on.
+
+Following are some screenshots showing it for a few different Flame presets.
 
 </br>
 
