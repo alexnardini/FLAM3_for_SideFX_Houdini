@@ -325,7 +325,10 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     <br /><br />
     
     NOTE:
-        This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the ((p)) key. Please, open a Parameter Editor in its own pane tab or floating panel for this feature to work.
+        This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the ((p)) key in Houdini versions prior to *`21.0.489`*
+        
+        Please,<br />
+        open a Parameter Editor in its own pane tab or floating panel for this feature to work.
 
     <br />
 
