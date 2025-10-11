@@ -118,7 +118,14 @@ Karma interactive viewport rendering:
 `Its Pink - Author: Plangkye`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_02_Karma_H19.jpg)
 
-**Highly inspired by Apophysis software and its workflow design.**
+##  Highly inspired by Apophysis and its workflow design
+
+My first curiosity with fractal Flames led me to download and experiment with Apophysis.
+Since I knew absolutely nothing about the topic, I gradually began to truly like the way its user interface and workflow process were crafted.
+Everything is accessible with a single click, and you get the impression that you can move through your Flame setup quickly and with clarity.
+
+Even though I eventually went into Fractorium,</br>
+from the beginning, I intended to incorporate this into FLAM3H™.
 
 Many Apophysis fractal Flames are available for download on the web, and you can load them inside FLAM3H™.
 Or you can use Apophysis or Fractorium to author your Flames first and load them back into FLAM3H™. But also the other way around, create your Flames in Houdini and render them inside other applications. You've got choices.
@@ -130,6 +137,9 @@ Or you can use Apophysis or Fractorium to author your Flames first and load them
 ## Viewport live point cloud
 
 Imagine the possibilities using Houdini procedural paradigm and toolsets to control all aspects of your Flame.
+
+</br>
+
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_01_H19.jpg)
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_04_H19.jpg)
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H19.jpg)
@@ -143,7 +153,7 @@ A portion of the render parameters deal with the camera and how the fractal Flam
 
 The FLAM3H™ camera sensor will precisely display the image framing.
 
-Once framed, you can save the Flame and be sure it will be framed the same in other applications like Apophysis, Fractorium and others.
+Once framed, you can save the Flame and be sure it will be framed the same in all other applications.
 
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_01.jpg)
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_02.jpg)
@@ -155,6 +165,8 @@ Following are some images showing FLAM3H™ rendering some of the Fractorium's e
 Some have been modified to fit within the available variations. The screenshots show
 FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right.
 
+</br>
+
 `Chocolate Scaffold in Too Many Dimensions by plangkye. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 01](./img/FractoriumToFLAM3HOUDINI_03.jpg)
 `Mountain by tatasz. Source: Fractorium`
@@ -165,7 +177,7 @@ FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the sa
 ![Fractorium to FLAM3HOUDINI 03](./img/FractoriumToFLAM3HOUDINI_00.jpg)
 
 
-## List of all available variations/plugins:
+## List of all available variations/plugins
 
 _Note that all the followings, are also available as PRE__ _and/or POST__ _variations._
 
@@ -228,7 +240,7 @@ Some require thousands of iterations to show you the proper results; some of the
 </br>
 </br>
 
-The screenshots show FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right.
+The following screenshots show FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right.
 
 ### Lets start with this gnarl preset:
 
