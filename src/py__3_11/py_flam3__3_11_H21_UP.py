@@ -6554,7 +6554,7 @@ class flam3h_iterator_utils
                             
                             paneTab_uc.setMultiParmTab(prm.name(), preset_id-1)
                         
-                        # For all Houdini 21 versions prior to 21.0.489    
+                        # For all Houdini versions prior to 21.0.489  
                         else:
                         
                             if hou.isUIAvailable():
