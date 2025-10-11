@@ -7,7 +7,7 @@ source_filename = "FLAM3"
 %gemSHD = type { double*, double*, double* }
 %gemPV = type { i64*, i64*, double*, double*, double* }
 %gemV = type { i64*, i64*, i64*, i64*, double*, double*, double*, double* }
-%gemVP = type { i64*, i64*, double* }
+%gemVP = type { i64*, double* }
 %gemPA = type { <2 x double>*, <2 x double>*, <2 x double>* }
 %gemAP = type { i64*, <2 x double>*, <2 x double>*, <2 x double>* }
 %gemFFPV = type { i64, double }
@@ -864,42 +864,38 @@ __llvm_entry:
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"gemVPBuild@Z5gemVPM3N3PPL[IN3P1t[IN3P1w[F"(%gemVP* %this) #0 {
+define private void @"gemVPBuild@Z5gemVPM2N3P1t[IN3P1w[F"(%gemVP* %this) #0 {
 __llvm_entry:
   %return = call i64 @"neg@II"(i64 7)
   %return1 = call i64* @"detail@[IIS"(i64 %return, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @28, i64 0, i64 0))
   %tmp = load %gemVP, %gemVP* %this
-  %0 = insertvalue %gemVP %tmp, i64* %return1, 1
+  %0 = insertvalue %gemVP %tmp, i64* %return1, 0
   store %gemVP %0, %gemVP* %this
   %return3 = call double* @"detail@[FIS"(i64 %return, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @29, i64 0, i64 0))
   %tmp4 = load %gemVP, %gemVP* %this
-  %1 = insertvalue %gemVP %tmp4, double* %return3, 2
+  %1 = insertvalue %gemVP %tmp4, double* %return3, 1
   store %gemVP %1, %gemVP* %this
   ret void
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemVP @"gemVP@Z5gemVPM3N3PPL[IN3P1t[IN3P1w[F[I[I[F"(i64** %PPL, i64** %P1t, double** %P1w) #0 {
+define private %gemVP @"gemVP@Z5gemVPM2N3P1t[IN3P1w[F[I[F"(i64** %P1t, double** %P1w) #0 {
 __llvm_entry:
-  %PPL1 = load i64*, i64** %PPL
-  %0 = insertvalue %gemVP undef, i64* %PPL1, 0
-  %P1t2 = load i64*, i64** %P1t
-  %1 = insertvalue %gemVP %0, i64* %P1t2, 1
-  %P1w4 = load double*, double** %P1w
-  %2 = insertvalue %gemVP %1, double* %P1w4, 2
-  ret %gemVP %2
+  %P1t1 = load i64*, i64** %P1t
+  %0 = insertvalue %gemVP undef, i64* %P1t1, 0
+  %P1w2 = load double*, double** %P1w
+  %1 = insertvalue %gemVP %0, double* %P1w2, 1
+  ret %gemVP %1
 }
 
 ; Function Attrs: alwaysinline nounwind
-define private %gemVP @"gemVP@Z5gemVPM3N3PPL[IN3P1t[IN3P1w[F"() #0 {
+define private %gemVP @"gemVP@Z5gemVPM2N3P1t[IN3P1w[F"() #0 {
 __llvm_entry:
-  %0 = alloca i64*
-  %1 = alloca double*
-  %2 = alloca i64*
-  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @19, i64 0, i64 0), i64** %2
-  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @19, i64 0, i64 0), i64** %0
-  store double* getelementptr inbounds ([0 x double], [0 x double]* @10, i64 0, i64 0), double** %1
-  %gemVP = call %gemVP @"gemVP@Z5gemVPM3N3PPL[IN3P1t[IN3P1w[F[I[I[F"(i64** %2, i64** %0, double** %1)
+  %0 = alloca double*
+  %1 = alloca i64*
+  store i64* getelementptr inbounds ([0 x i64], [0 x i64]* @19, i64 0, i64 0), i64** %1
+  store double* getelementptr inbounds ([0 x double], [0 x double]* @10, i64 0, i64 0), double** %0
+  %gemVP = call %gemVP @"gemVP@Z5gemVPM2N3P1t[IN3P1w[F[I[F"(i64** %1, double** %0)
   ret %gemVP %gemVP
 }
 
@@ -13442,22 +13438,17 @@ __llvm_entry:
   %GEMV56.fca.6.load = load double*, double** %GEMV55.fca.6.gep
   %GEMV56.fca.6.insert = insertvalue %gemV %GEMV56.fca.5.insert, double* %GEMV56.fca.6.load, 6
   %GEMV56.fca.7.load = load double*, double** %GEMV55.fca.7.gep
-  %GEMVP72 = call %gemVP @"gemVP@Z5gemVPM3N3PPL[IN3P1t[IN3P1w[F"()
+  %GEMVP72 = call %gemVP @"gemVP@Z5gemVPM2N3P1t[IN3P1w[F"()
   %GEMVP72.fca.0.extract = extractvalue %gemVP %GEMVP72, 0
   %GEMVP72.fca.0.gep = getelementptr inbounds %gemVP, %gemVP* %GEMVP, i32 0, i32 0
   store i64* %GEMVP72.fca.0.extract, i64** %GEMVP72.fca.0.gep
   %GEMVP72.fca.1.extract = extractvalue %gemVP %GEMVP72, 1
   %GEMVP72.fca.1.gep = getelementptr inbounds %gemVP, %gemVP* %GEMVP, i32 0, i32 1
-  store i64* %GEMVP72.fca.1.extract, i64** %GEMVP72.fca.1.gep
-  %GEMVP72.fca.2.extract = extractvalue %gemVP %GEMVP72, 2
-  %GEMVP72.fca.2.gep = getelementptr inbounds %gemVP, %gemVP* %GEMVP, i32 0, i32 2
-  store double* %GEMVP72.fca.2.extract, double** %GEMVP72.fca.2.gep
-  call void @"gemVPBuild@Z5gemVPM3N3PPL[IN3P1t[IN3P1w[F"(%gemVP* %GEMVP)
+  store double* %GEMVP72.fca.1.extract, double** %GEMVP72.fca.1.gep
+  call void @"gemVPBuild@Z5gemVPM2N3P1t[IN3P1w[F"(%gemVP* %GEMVP)
   %GEMVP73.fca.0.load = load i64*, i64** %GEMVP72.fca.0.gep
   %GEMVP73.fca.0.insert = insertvalue %gemVP undef, i64* %GEMVP73.fca.0.load, 0
-  %GEMVP73.fca.1.load = load i64*, i64** %GEMVP72.fca.1.gep
-  %GEMVP73.fca.1.insert = insertvalue %gemVP %GEMVP73.fca.0.insert, i64* %GEMVP73.fca.1.load, 1
-  %GEMVP73.fca.2.load = load double*, double** %GEMVP72.fca.2.gep
+  %GEMVP73.fca.1.load = load double*, double** %GEMVP72.fca.1.gep
   %GEMFFPA77 = call %gemFFPA @"gemFFPA@Z7gemFFPAM3N2fxUN2fyUN2foU"()
   %GEMFFPA77.fca.0.extract = extractvalue %gemFFPA %GEMFFPA77, 0
   %GEMFFPA77.fca.0.gep = getelementptr inbounds %gemFFPA, %gemFFPA* %GEMFFPA, i32 0, i32 0
@@ -13569,7 +13560,7 @@ end91:                                            ; preds = %false, %true90
   %return121 = call double @"getcomp@F[FI"(double* %GEMV56.fca.5.load, i64 %phi)
   %return124 = call double @"getcomp@F[FI"(double* %GEMV56.fca.6.load, i64 %phi)
   %return127 = call double @"getcomp@F[FI"(double* %GEMV56.fca.7.load, i64 %phi)
-  %return130 = call double @"getcomp@F[FI"(double* %GEMVP73.fca.2.load, i64 %phi)
+  %return130 = call double @"getcomp@F[FI"(double* %GEMVP73.fca.1.load, i64 %phi)
   %return133 = call i64 @"getcomp@I[II"(i64* %GEMAP36.fca.0.load, i64 %phi)
   %return136 = call double @"getcomp@F[FI"(double* %GEMSHD22.fca.0.load, i64 %phi)
   %return139 = call double @"getcomp@F[FI"(double* %GEMSHD22.fca.1.load, i64 %phi)
@@ -13708,7 +13699,7 @@ end233:                                           ; preds = %true232, %end216
 
 true249:                                          ; preds = %end233
   store i64 %phi, i64* %49
-  %return254 = call i64 @"getcomp@I[II"(i64* %GEMVP73.fca.1.load, i64 %phi)
+  %return254 = call i64 @"getcomp@I[II"(i64* %GEMVP73.fca.0.load, i64 %phi)
   store i64 %return254, i64* %50
   store i64 %GEMSYSGLB2.fca.3.load, i64* %51
   %tmp256 = load <2 x double>, <2 x double>* %tmp

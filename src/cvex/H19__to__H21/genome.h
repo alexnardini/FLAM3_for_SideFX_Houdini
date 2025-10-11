@@ -128,7 +128,7 @@ struct gemV{
 // GENOME: POST VAR
 struct gemVP{
 
-    int     PPL[], P1t[];
+    int     P1t[];
     float   P1w[];
     
     void gemVPBuild(){
