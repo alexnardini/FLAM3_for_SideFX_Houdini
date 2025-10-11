@@ -31,6 +31,23 @@ They are all available in this Github repository.
 
 
 
+### [<ins>v1.9.08 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.08) ###
+
+#### FLAM3H™ ####
+
+- **Fix H21 ONLY**: From Houdini 21.0.489 the select iterator mini menu work also over the Network Editor's Parameter Dialog displayed when pressing the \"p\" key 
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.07 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.07) ###
 
 #### FLAM3H™ ####
