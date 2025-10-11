@@ -6533,7 +6533,7 @@ class flam3h_iterator_utils
                         
                         # Change focus back to the FLAME's Tab
                         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
-                        # If any of the iterators is in SOLO mode, change accordeingly to the selection
+                        # If any of the iterators is in SOLO mode, change it accordingly based on the user' selection
                         flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_solo_follow(preset_id)
                         
                         _MSG: str = f"iterator: {preset_id}"
@@ -6547,19 +6547,23 @@ class flam3h_iterator_utils
                             if active: flam3h_general_utils.flash_message(node, _MSG)
                             else: flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
                         
-                        
                     elif paneTab_uc.type() == hou.paneTabType.NetworkEditor: # type: ignore
                         
-                        # Need to investigate more how to control the floating Parameter Dialog displayed when pressing the "p" key
+                        # From Houdini 21.0.489 SideFX added multiParmTab and setMultiParmTab to hou.NetworkEditor.
+                        if flam3h_general_utils.houdini_version(5) >= 210489:
+                            
+                            paneTab_uc.setMultiParmTab(prm.name(), preset_id-1)
                         
-                        #
-                        if hou.isUIAvailable():
-                            _MSG: str = "This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the \"p\" key.\nPlease, open a Parameter Editor in its own pane tab or floating panel for this feature to work."
-                            hou.ui.displayMessage(_MSG, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ Select Iterator mini-menu", details = None, details_label = None, details_expanded = False) # type: ignore
+                        # For all Houdini 21 versions prior to 21.0.489    
+                        else:
                         
-                        _MSG: str = "Selection do not work over Network Editors"
-                        flam3h_general_utils.flash_message(node, f"{_MSG}")
-                        flam3h_general_utils.set_status_msg(f"{node.name()}: Iterator's {_MSG.lower()}.", 'IMP')
+                            if hou.isUIAvailable():
+                                _MSG: str = "This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the \"p\" key.\nPlease, open a Parameter Editor in its own pane tab or floating panel for this feature to work.\n\nThis has been fixed from Houdini 21.0.489"
+                                hou.ui.displayMessage(_MSG, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ Select Iterator mini-menu", details = None, details_label = None, details_expanded = False) # type: ignore
+                            
+                            _MSG: str = "Selection do not work over Network Editors"
+                            flam3h_general_utils.flash_message(node, f"{_MSG}")
+                            flam3h_general_utils.set_status_msg(f"{node.name()}: Iterator's {_MSG.lower()}.", 'IMP')
                         
                     else:
                         _MSG: str = "Ops! That did not work!"
