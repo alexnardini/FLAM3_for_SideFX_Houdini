@@ -6493,6 +6493,7 @@ class flam3h_iterator_utils
             
             try:
                 # We first try to set them all with this
+                # From Houdini 21.0.489 SideFX added multiParmTab and setMultiParmTab to hou.NetworkEditor.
                 hou.ui.setMultiParmTabInEditors(prm, preset_id-1) # type: ignore
             except:
                 _CHECK = False
