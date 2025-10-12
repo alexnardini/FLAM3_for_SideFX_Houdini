@@ -6275,8 +6275,7 @@ class flam3h_iterator_utils
         menu: list = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = (self.menu_T_PP_data, self.menu_T_PP_FF_data)[FF]()
         var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
-        assert var is not None # I can assert this becasue I tested all of them myself ;)
-        menu[var] = f"{_ICON} {menu[var][:20]}"
+        if var is not None: menu[var] = f"{_ICON} {menu[var][:20]}"
             
         return menu
     
