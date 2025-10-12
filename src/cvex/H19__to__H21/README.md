@@ -40,32 +40,12 @@ Collect all FF(_finalxform_) data to be passed to the chaos game.
 <br>
 <br>
 
-
-# CVEX Source
-# File name:    `cvex_TFFAiteratorsdata.vfl`
-## Houdini version: H19 and up
-### Description:
-NOT USED ANYMORE. (it is now done inside the Houdini environment)<br>
-Collect all iterators data to be passed to the chaos game.
-
-<br>
-<br>
-
 # CVEX Source
 # File name:    `cvex_TFFAmbcalc.vfl`
 ## Houdini version: H19 and up
 ### Description:
 Based on FPS, Samples and Shutter Speed it will compute the necessary time increment
 for the Motion Blur to build its point cloud's layers.
-
-<br>
-<br>
-
-# CVEX Source
-# File name:    `cvex_TFFApalettesimple.vfl`
-## Houdini version: H19 and up
-### Description:
-DISMISSED. This is not being used anymore and it is part of the old legacy code used as a place holder.
 
 <br>
 <br>
@@ -118,15 +98,6 @@ Build all the Xaos data to be used inside the Chaos game.
 <br>
 <br>
 
-# CVEX Source
-# File name:    `cvex_TFFAxaos_chk.vfl`
-## Houdini version: H19 and up
-### Description:
-NOT USED ANYMORE. Simply check if Xaos is active. This is a stripped down version of: `cvex_TFFAxaos.vfl`
-
-<br>
-<br>
-
 
 # CVEX Source
 # File name:    `cvex_TheFractalFlameAlgorithm.vfl`
@@ -151,16 +122,6 @@ The path to the selected variations inside the iterator (PRE, VAR, POST). This f
 ## Houdini version: H19 and up
 ### Description:
 The path to the selected variations inside the FF (PRE, VAR, POST). This file will take care of finding the one and execute it.
-
-<br>
-<br>
-
-# CVEX Header
-# File name:    `flamepp.h`
-## Houdini version: H19 and up
-### Description:
-DISMISSED. This file map only non parametric variations.<br>
-The path to the selected variations inside the iterator (PRE, VAR, POST). This file will take care of finding the one and execute it.
 
 <br>
 <br>

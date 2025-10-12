@@ -54,7 +54,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
     Title:      FLAM3H™. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
-    date:       April 2025, Last revised September 2025 (cloned from: py_flam3__3_7.py)
+    date:       April 2025, Last revised October 2025 (cloned from: py_flam3__3_7.py)
                 Source file start date: January 2023
 
     Name:       PY_FLAM3__3_11 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
