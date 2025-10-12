@@ -411,6 +411,8 @@ class flam3h_iterator_prm_names:
         * flam3h_iterator_utils.iterator_FF_affine_scale(self) -> None:
         * flam3h_iterator_utils.iterator_FF_post_affine_scale(self) -> None:
         * flam3h_iterator_utils.menu_select_iterator(self) -> list:
+        * flam3h_iterator_utils.menu_T_get_var_data(self) -> tuple[int, float]:
+        * flam3h_iterator_utils.menu_T_FF_get_var_data(self) -> tuple[int, float]:
         .
         are not using this class
         but have Houdini parameter's names hard coded inside in an attempt to try to speed up a tiny, tiny bit.
@@ -6132,7 +6134,7 @@ class flam3h_iterator_utils
             (tuple[int, float]): int: variation idx.    float: weight value
         """  
         _TYPE: int = int(self.kwargs['parm'].eval()) # this can be animated with inbetween values so we always force cast it as int()
-        prm_weight_name: str = f"{ str(self.kwargs['parm'].name()).split('type')[0]}weight"
+        prm_weight_name: str = f"{str(self.kwargs['parm'].name()).split('type')[0]}weight"
         return _TYPE, self.node.parm(prm_weight_name).eval()
 
     
