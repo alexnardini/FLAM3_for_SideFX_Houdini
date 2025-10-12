@@ -6130,7 +6130,7 @@ class flam3h_iterator_utils
         Returns:
             (tuple[int, float]): int: variation idx.    float: weight value
         """  
-        _TYPE: int = self.kwargs['parm'].eval()
+        _TYPE: int = int(self.kwargs['parm'].eval()) # this can be animated with inbetween values so we always force cast it as int()
         idx: str = self.kwargs['script_multiparm_index']
         prm_weight_name: str = f"{str(self.kwargs['parm'].name()).split('type')[0]}weight_{idx}"
         return _TYPE, self.node.parm(prm_weight_name).eval()
@@ -6145,7 +6145,7 @@ class flam3h_iterator_utils
         Returns:
             (tuple[int, float]): int: variation idx.    float: weight value
         """  
-        _TYPE: int = self.kwargs['parm'].eval()
+        _TYPE: int = int(self.kwargs['parm'].eval()) # this can be animated with inbetween values so we always force cast it as int()
         prm_weight_name: str = f"{ str(self.kwargs['parm'].name()).split('type')[0]}weight"
         return _TYPE, self.node.parm(prm_weight_name).eval()
 
@@ -6248,8 +6248,7 @@ class flam3h_iterator_utils
         menu: list = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = (self.menu_T_data, self.menu_T_FF_data)[FF]()
         var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
-        assert var is not None # I can assert this becasue I tested all of them myself ;)
-        menu[var] = f"{_ICON} {menu[var][:20]}"
+        if var is not None: menu[var] = f"{_ICON} {menu[var][:20]}"
 
         return menu
 
