@@ -2740,7 +2740,7 @@ Camera sensor VIZ [Icon:DATATYPES/boolean]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
     - When entering the Camera Sensor Viz mode, FLAM3H(tm) will store all the available viewports data prior to entering the mode and restore them all on exit.
-    - When entering the Camera Sensor Viz mode while in viewport xforms handles VIZ mode, the xforms handles will be hidden and the camera sensor frame outline will be of color Yellow if not in solo mode and of color Red if in solo mode, like in the below illustration.
+    - When entering the Camera Sensor Viz mode while in viewport xforms handles VIZ mode, the xforms handles will be hidden and the camera sensor frame outline will be of color Yellow if not in SOLO mode and of color Red if in SOLO mode, like in the below illustration.
     
         _Illustration from left to right_:<br />
         # Entering the camera sensor VIZ mode while the xforms handles VIZ is *`Off`*/Disabled. The sensor outline is of color White.
