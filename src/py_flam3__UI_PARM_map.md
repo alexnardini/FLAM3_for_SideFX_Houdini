@@ -69,7 +69,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.08"
+__version__ = "1.9.09"
 __status__  = "Production"
 __h_versions__: tuple = (210,)
 __range_type__: bool = False # True for closed range. False for open range
@@ -119,7 +119,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.08"
+__version__ = "1.9.09"
 __status__  = "Production"
 __h_versions__: tuple = (190, 195, 200, 205)
 __range_type__: bool = True # True for closed range. False for open range

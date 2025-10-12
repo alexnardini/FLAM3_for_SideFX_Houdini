@@ -31,6 +31,22 @@ They are all available in this Github repository.
 
 
 
+### [<ins>v1.9.09 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.09) ###
+
+#### FLAM3H™ ####
+
+- **Fix**: solved a rare assertion error when animating the variation's type and the variations menus' bookmark icons were in use.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.08 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.08) ###
 
 #### FLAM3H™ ####
