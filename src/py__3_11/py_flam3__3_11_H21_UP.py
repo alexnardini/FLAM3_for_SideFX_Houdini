@@ -6245,6 +6245,7 @@ class flam3h_iterator_utils
             
         Args:
             (self):
+            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
             (list): return menu list
@@ -6268,6 +6269,7 @@ class flam3h_iterator_utils
             
         Args:
             (self):
+            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
             (list): return menu list
@@ -6285,7 +6287,7 @@ class flam3h_iterator_utils
         
         Args:
             (self):
-            FF(bool): Default to False. If true it will signal we are looking to deal with data for the FF. In this specific definition the arg: FF is present only for consistency.
+            FF(bool): Default to False. If true it will signal we are looking to deal with data for the FF(finalXform). In this specific definition the arg: FF is present only for consistency.
             
         Returns:
             (list): return menu list
@@ -6305,7 +6307,7 @@ class flam3h_iterator_utils
 
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF.
+            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
             
         Returns:
             (list): return menu list
@@ -6333,7 +6335,7 @@ class flam3h_iterator_utils
             
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF.
+            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
             (list): return menu list
