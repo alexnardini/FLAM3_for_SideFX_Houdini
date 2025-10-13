@@ -29,17 +29,6 @@ to form the final point cloud.
 <br>
 <br>
 
-
-# CVEX Source
-# File name:    `cvex_TFFAffdata.vfl`
-## Houdini version: H19 and up
-### Description:
-NOT USED ANYMORE. (it is now done inside the Houdini environment)<br>
-Collect all FF(_finalxform_) data to be passed to the chaos game.
-
-<br>
-<br>
-
 # CVEX Source
 # File name:    `cvex_TFFAmbcalc.vfl`
 ## Houdini version: H19 and up
