@@ -8592,6 +8592,9 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 else:
                     pass
+                
+            # BUILD XFVIZ if needed
+            flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
         
         else:
             # We added or removed one iterator
@@ -8655,6 +8658,9 @@ class flam3h_iterator_utils
                         # Let us know
                         _MSG: str = f"{node.name()}: The iterators you just removed had its XF VIZ in SOLO mode. Reverted to display all the xforms handles VIZ together."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        
+                # BUILD XFVIZ if needed
+                flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
                         
             # DEL
             elif idx_del_inbetween is not None and idx_del_inbetween < iter_count:
@@ -8721,6 +8727,9 @@ class flam3h_iterator_utils
                         # Let us know
                         _MSG: str = f"{node.name()}: The iterators you just removed had its XF VIZ in SOLO mode. Reverted to display all the xforms handles VIZ together."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        
+                # BUILD XFVIZ if needed
+                flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
 
             # otherwise ADD
             # If it is true that an iterator has been added in between ( 'idx_add_inbetween' not 'None' ) lets add the new weight at index
@@ -8771,6 +8780,9 @@ class flam3h_iterator_utils
                     if (idx_add_inbetween + 1) <= xf_viz_mp_idx:
                         prm_xfviz_solo_mp_idx.set(xf_viz_mp_idx + 1)
                         node.setUserData(f"{data_name}", str(xf_viz_mp_idx + 1))
+                        
+                # BUILD XFVIZ if needed
+                flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
         
         # Otherwise just update the xaos history
         else:
@@ -8825,8 +8837,9 @@ class flam3h_iterator_utils
             mp_prm.insertMultiParmInstance(int(mp_idx))
             
             # Change multiparameter focus to the newly created iterator
+            # From Houdini 21.0.489 SideFX added multiParmTab and setMultiParmTab to hou.NetworkEditor.
             try: hou.ui.setMultiParmTabInEditors(mp_prm, int(mp_idx)) # type: ignore
-            except: pass # Most likely not a parameter editor in its own pane tab
+            except: pass # Most likely not a parameter editor in its own pane tab or floating panel in Houdini versions prior to 21.0.489
         
         # DELETE THIS INSTANCE
         elif self.kwargs['ctrl']:
