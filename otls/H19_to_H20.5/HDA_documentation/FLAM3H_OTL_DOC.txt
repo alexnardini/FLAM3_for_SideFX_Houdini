@@ -2298,6 +2298,7 @@ IN infos [Icon:DATATYPES/string]:
 
     - If the currenlty loaded Flame lib file is locked, the text *`-> LOCKED`* will appear in the very first line at the top.
     - Next and at the end of the *`Palette count`* info line, the text *`[HSV]`* will appear if the loaded Flame preset is using HSV values different from defaults.
+    - At the end of the *`Palette count`* info line, the palette lookup samples color *`keys' value interpolation method`* will be displayed.
     - Below the *`Palette count`* info line, the text *`CC`* will appear if the loaded Flame preset use color correction curves values different from default.
     - Below the *`Palette count`* info line (_and next to the *`CC`* if present_), the text *`MB`* will appear if the loaded Flame preset use motion blur.
     
