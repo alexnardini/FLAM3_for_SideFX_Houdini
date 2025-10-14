@@ -243,6 +243,8 @@ CP_PALETTE_PRESETS = 'palettepresets'
 CP_PALETTE_PRESETS_OFF = 'palettepresets_off'
 CP_SYS_PALETTE_PRESETS = 'sys_palettepresets'
 CP_SYS_PALETTE_PRESETS_OFF = 'sys_palettepresets_off'
+CP_RAMP_LOOKUP_SAMPLES_BASES = 'cp_bases'
+CP_RAMP_LOOKUP_SAMPLES_BASES_DICT = {0: 'linear', 1: 'constant', 2: 'cubic', 3: 'bezier', 4: 'bspline', 5: 'hermite'}
 CP_RAMP_LOOKUP_SAMPLES = 'cp_lookupsamples'
 CP_RAMP_SRC_NAME = 'palette'
 CP_RAMP_TMP_NAME = 'palettetmp'
@@ -1207,7 +1209,7 @@ class flam3h_scripts
         """Get the houdini version number from the gloabl: __h_versions__
 
         Args:
-            __h_versions__(tuple | int): a tuple containing all the compatible Houdini versions or an int of the desire Houdini version. When a tuple, it will be coming from the HDA's PythonModule: __h_versions__
+            __h_versions__(Union[tuple, int]): a tuple containing all the compatible Houdini versions or an int of the desire Houdini version. When a tuple, it will be coming from the HDA's PythonModule: __h_versions__
             last_index(bool): Default to False as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H™ HDA version run on multiple Houdinin versions.
             or it can be a 3 digits int
 
@@ -11162,6 +11164,7 @@ OUT_XML_FLMA3H_MB_FPS = 'flam3h_mb_fps'
 OUT_XML_FLMA3H_MB_SAMPLES = 'flam3h_mb_samples'
 OUT_XML_FLMA3H_MB_SHUTTER = 'flam3h_mb_shutter'
 OUT_XML_FLAM3H_CP_SAMPLES = 'flam3h_cp_samples'
+OUT_XML_FLAM3H_CP_SAMPLES_BASIS = 'flam3h_cp_basis'
 OUT_XML_FLAM3H_PREFS_F3C = 'flam3h_f3c'
 # OUT XML render key data names
 OUT_XML_VERSION = 'version'
@@ -11972,6 +11975,7 @@ class in_flame
 * __get_palette_flam3h_hsv(self, idx: int) -> Union[list, float, hou.Vector2, hou.Vector3, hou.Vector4, bool]:
 * __get_mb_flam3h_mb(self, idx: int, key: str = '') -> Union[int, float, bool, None]:
 * __get_cp_flam3h_samples(self, idx: int, palette: Union[tuple[hou.Ramp, int, str], None] = None) -> Union[int, bool]:
+* __get_cp_flam3h_basis(self, idx: int) -> Union[int, bool]:
 * __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
 
     Args:
@@ -11979,10 +11983,10 @@ class in_flame
     """  
 
     __slots__ = ("_node", "_flame", "_flame_count", 
-                 "_out_size", "_out_center", "_out_rotate", "_out_scale", "_out_quality", "_out_brightness", "_out_gamma", "_out_highlight_power", "_out_logscale_k2", "_out_vibrancy", 
+                 "_out_size", "_out_center", "_out_rotate", "_out_scale", "_out_quality", "_out_brightness", "_out_gamma", "_out_highlight_power", "_out_logscale_k2", "_out_vibrancy", "_out_palette_mode", 
                  "_out_curves", "_out_curve_overall", "_out_curve_red", "_out_curve_green", "_out_curve_blue", 
                  "_flam3h_sys_rip", "_flam3h_hsv", 
-                 "_flam3h_mb", "_flam3h_mb_samples", "_flam3h_mb_shutter", "_flam3h_cp_samples", 
+                 "_flam3h_mb", "_flam3h_mb_samples", "_flam3h_mb_shutter", "_flam3h_cp_samples", "_flam3h_cp_basis", 
                  "_flam3h_prefs_f3c")
 
     def __init__(self, node: hou.SopNode, xmlfile: str) -> None:
@@ -12009,6 +12013,7 @@ class in_flame
         self._out_highlight_power: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER, '5') # type: ignore
         self._out_logscale_k2: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2, '0') # type: ignore
         self._out_vibrancy: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY, '0.3333') # type: ignore
+        self._out_palette_mode: tuple = self.get_name(OUT_XML_FLAME_PALETTE_MODE)
         
         # render curves
         self._out_curves: tuple = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVES, OUT_XML_FLAME_RENDER_CURVES_DEFAULT) # type: ignore
@@ -12027,6 +12032,7 @@ class in_flame
         self._flam3h_mb_samples: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SAMPLES, '16') # type: ignore
         self._flam3h_mb_shutter: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER, '0.5') # type: ignore
         self._flam3h_cp_samples: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES, '256') # type: ignore
+        self._flam3h_cp_basis: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES_BASIS, '0') # type: ignore
         
         self._flam3h_prefs_f3c: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore # This xml key must be present to be set otherwise leave it untouched
         
@@ -12301,6 +12307,10 @@ class in_flame
     def out_vibrancy(self):
         return self._out_vibrancy
     
+    @property
+    def out_palette_mode(self):
+        return self._out_palette_mode
+    
     # render curves
     
     @property
@@ -12344,6 +12354,10 @@ class in_flame
     @property
     def flam3h_cp_samples(self):
         return self._flam3h_cp_samples
+    
+    @property
+    def flam3h_cp_basis(self):
+        return self._flam3h_cp_basis
     
     @property
     def flam3h_prefs_f3c(self): # flam3 compatibility preferences option
@@ -12655,6 +12669,53 @@ class in_flame
         
         
     # custom to FLAM3H™ only
+    def __get_cp_flam3h_basis(self, idx: int) -> Union[int, bool]:
+        """Get FLAM3H™ palette lookup samples interpolation basis ( from 0 to 5)
+        Check the XML key: palette_mode first on Flame Load, and decide the one to use based on each other value.
+        
+        Args:
+            self:
+            idx(int): flame idx out of all flames included in the loaded flame file
+
+        Returns:
+            (int): FLAM3H™ palette basis parameter values.
+        """  
+        if self.isvalidtree:
+            
+            # Fractorium palette_mode
+            palette_mode_key = self.out_palette_mode[idx]
+            mode: Union[int, bool] = False
+            if palette_mode_key and isinstance(palette_mode_key, str):
+                
+                key_lower: str = palette_mode_key.lower()
+                
+                if key_lower == 'linear':
+                    mode = 0
+                    
+                elif key_lower == 'step':
+                    mode = 1
+                    
+                else:
+                    pass # Currently, Fractorium has 2(two) modes: 'linear' and 'step', anything else will be ignored
+                    
+            # FLAM3H™ cp_basis
+            cp_basis_key: str = self.flam3h_cp_basis[idx]
+            if cp_basis_key and isinstance(cp_basis_key, str):
+                basis: int = int(cp_basis_key)
+                if basis > 5: return 0 # there are 6(six) different bases, anything above (for whatever reasons) will fallback to linear(0)
+                else: return basis
+                
+            else:
+                if mode is not False:
+                    return mode
+                else:
+                    return 0 # if key is missing, always return linear(0)
+            
+        else:
+            return False
+        
+        
+    # custom to FLAM3H™ only
     def __get_flam3h_toggle(self, toggle: bool) -> Union[int, None]:
         """Get FLAM3H™ toggle parameter value: ON or OFF ( 1 or 0 )
 
@@ -12701,7 +12762,7 @@ class in_flame_iter_data(in_flame):
                  "_coefs", "_f3h_coefs", "_f3h_coefs_angle", "_post", "_f3h_post", "_f3h_post_angle", 
                  "_finalxform", "_finalxform_coefs", "_finalxform_f3h_coefs", "_finalxform_f3h_coefs_angle", "_finalxform_post", "_finalxform_f3h_post", "_finalxform_f3h_post_angle", "_finalxform_name", 
                  "_palette", "_color", "_color_speed", "_symmetry", "_opacity", 
-                 "_sys_flam3h_rip", "_cp_flam3h_hsv", "_mb_flam3h_mb_fps", "_mb_flam3h_mb_samples", "_mb_flam3h_mb_shutter", "_cp_flam3h_cp_samples", "_prefs_flam3h_f3c")
+                 "_sys_flam3h_rip", "_cp_flam3h_hsv", "_mb_flam3h_mb_fps", "_mb_flam3h_mb_samples", "_mb_flam3h_mb_shutter", "_cp_flam3h_cp_samples", "_cp_flam3h_cp_basis", "_prefs_flam3h_f3c")
     
     def __init__(self, node: hou.SopNode, xmlfile: str, idx: int=0) -> None:
         """
@@ -12749,6 +12810,7 @@ class in_flame_iter_data(in_flame):
         self._mb_flam3h_mb_samples: Union[int, float, bool] = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
         self._mb_flam3h_mb_shutter: Union[int, float, bool] = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
         self._cp_flam3h_cp_samples: Union[int, bool] = self._in_flame__get_cp_flam3h_samples(self._idx, self.palette) # type: ignore
+        self._cp_flam3h_cp_basis: Union[int, bool] = self._in_flame__get_cp_flam3h_basis(self._idx) # type: ignore
         self._prefs_flam3h_f3c: Union[int, None] = self._in_flame__get_flam3h_toggle(self._flam3h_prefs_f3c[self._idx]) # type: ignore
 
 
@@ -12877,6 +12939,10 @@ class in_flame_iter_data(in_flame):
     @property
     def cp_flam3h_samples(self):
         return self._cp_flam3h_cp_samples
+    
+    @property
+    def cp_flam3h_basis(self):
+        return self._cp_flam3h_cp_basis
     
     @property
     def prefs_flam3h_f3c(self):
@@ -15252,8 +15318,8 @@ class in_flame_utils
         else: ff_msg: str = f"{XML_updated}FF: NO\n"
         
         if palette_bool and apo_data.palette is not None:
-            if apo_data.cp_flam3h_hsv is not False: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} {IN_HSV_LABEL_MSG}" # custom to FLAM3H™ only
-            else: palette_count_format: str = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}"
+            if apo_data.cp_flam3h_hsv is not False: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} {IN_HSV_LABEL_MSG}, {CP_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis]}" # custom to FLAM3H™ only
+            else: palette_count_format: str = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}, {CP_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis]}"
         else: palette_count_format: str = f"Palette not found."
         
         # ITERATOR COLLECT
@@ -15779,7 +15845,10 @@ class in_flame_utils
         else:
             # Otherwise set RIP toggle accordingly from the XML data if any
             if apo_data.sys_flam3h_rip is not None:
-                flam3h_general_utils.private_prm_set(node, PREFS_PVT_DOFF, apo_data.sys_flam3h_rip)
+                flam3h_general_utils.private_prm_set(node, PREFS_PVT_RIP, apo_data.sys_flam3h_rip)
+            else:
+                # Otherwise always turn it OFF
+                flam3h_general_utils.private_prm_set(node, PREFS_PVT_RIP, 0)
 
         # Set iterators
         self.in_flam3h_set_iterators(0, node, apo_data, preset_id)
@@ -15863,6 +15932,7 @@ class in_flame_utils
             flam3h_palette_utils(self.kwargs).palette_cp()
             # Set palette lookup samples
             node.setParms({CP_RAMP_LOOKUP_SAMPLES: apo_data.cp_flam3h_samples}) # type: ignore
+            node.setParms({CP_RAMP_LOOKUP_SAMPLES_BASES: apo_data.cp_flam3h_basis}) # type: ignore
             # Mark this as not a loaded palette preset
             flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
             # reset tmp ramp palette
@@ -16557,12 +16627,13 @@ class out_flame_utils
 * __out_flame_data_flam3h_mb_val(self, prm_name: str = '') -> Union[str, bool]:
 * __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 * __out_flame_palette_lookup_samples(self) -> Union[str, bool]:
+* __out_flame_palette_basis(self) -> Union[str, bool]:
     """
 
     __slots__ = ("_kwargs", "_node", 
                  "_flam3h_iter_prm_names", "_flam3h_iter", "_flam3h_iter_FF", "_flam3h_do_FF", 
                  "_iter_count", "_palette", "_palette_hsv_do", "_palette_plus_do", "_f3h_affine", "_xm", 
-                 "_flam3h_rip", "_flam3h_mb_do", "_flam3h_f3c", "_flam3h_cp_lookup_samples")
+                 "_flam3h_rip", "_flam3h_mb_do", "_flam3h_f3c", "_flam3h_cp_lookup_samples", "_flam3h_cp_basis")
 
     def __init__(self, kwargs: dict) -> None:
         """
@@ -16596,6 +16667,7 @@ class out_flame_utils
         self._flam3h_mb_do: int = self._node.parm(MB_DO).eval()
         self._flam3h_f3c: int = self._node.parm(PREFS_PVT_F3C).eval()
         self._flam3h_cp_lookup_samples: int = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).evalAsInt()
+        self._flam3h_cp_basis: int = self._node.parm(CP_RAMP_LOOKUP_SAMPLES_BASES).evalAsInt()
         
     
     @staticmethod
@@ -17688,6 +17760,10 @@ class out_flame_utils
     def flam3h_cp_lookup_samples(self):
         return self._flam3h_cp_lookup_samples
     
+    @property
+    def flam3h_cp_basis(self):
+        return self._flam3h_cp_basis
+    
     
     def out_to_flam3h_init_data_quick(self, node: hou.SopNode, tab: str = 'OUT') -> tuple[Union[str, None], int]:
         """Load a flame preset and gather some data.
@@ -18389,6 +18465,7 @@ class out_flame_utils
                 OUT_XML_FLMA3H_MB_SAMPLES: f3r.flam3h_mb_samples, # custom to FLAM3H™ only
                 OUT_XML_FLMA3H_MB_SHUTTER: f3r.flam3h_mb_shutter, # custom to FLAM3H™ only
                 OUT_XML_FLAM3H_CP_SAMPLES: f3r.flam3h_cp_samples, # custom to FLAM3H™ only
+                OUT_XML_FLAM3H_CP_SAMPLES_BASIS: f3r.flam3h_cp_basis, # custom to FLAM3H™ only
                 OUT_XML_FLAM3H_PREFS_F3C: f3r.flam3h_prefs_f3c, # custom to FLAM3H™ only
                 OUT_XML_FLAME_SIZE: f3r.flame_size, 
                 OUT_XML_FLAME_CENTER: f3r.flame_center,
@@ -18407,7 +18484,7 @@ class out_flame_utils
                 OUT_XML_FLAME_RADIUS: '9',
                 OUT_XML_FLAME_ESTIMATOR_MINIMUM: '0',
                 OUT_XML_FLAME_ESTIMATOR_CURVE: '0.4',
-                OUT_XML_FLAME_PALETTE_MODE: 'linear',
+                OUT_XML_FLAME_PALETTE_MODE: f3r.flame_cp_mode,
                 OUT_XML_FLAME_INTERPOLATION: 'linear',
                 OUT_XML_FLAME_INTERPOLATION_TYPE: 'log'
                 }
@@ -19279,6 +19356,32 @@ class out_flame_utils
         hex_join: list = [f"      {''.join(grp)}\n" for grp in hex_grp] # 6 times \s
         return f"\n{''.join(hex_join)}    " # 4 times \s
         
+        
+    def __out_flame_palette_mode(self) -> str:
+        """Prepare the FLAM3H™ palette mode to be written out into the Flame preset file.
+        This is specifically for Fractorium, it uses 2(two) modes: 'linear' and 'step'.
+        Everything else will fallback on: 'linear'
+        
+        Args:
+            (self):
+
+        Returns:
+            (str): The FLAM3H™ palette mode for this Flame prepped into a string.
+        """  
+        if self.flam3h_cp_basis:
+            
+            if self.flam3h_cp_basis == 0:
+                return 'linear'
+            
+            elif self.flam3h_cp_basis == 1:
+                return 'step' # 'constant'(1) in FLAM3H™
+            
+            else:
+                return 'linear'
+                
+        else:
+            return 'linear'
+        
     
     # custom to FLAM3H™ only
     def __out_flame_data_flam3h_hsv(self, prm_name = CP_RAMP_HSV_VAL_NAME) -> Union[str, bool]:
@@ -19370,6 +19473,22 @@ class out_flame_utils
                 return False
             else:
                 return str(self.flam3h_cp_lookup_samples)
+            
+            
+    # custom to FLAM3H™ only
+    def __out_flame_palette_basis(self) -> Union[str, bool]:
+        """Prepare the FLAM3H™ lookup samples interpolation to be written out into the Flame preset file.
+        
+        Args:
+            (self):
+
+        Returns:
+            (str): The FLAM3H™ lookup samples interpolation for this Flame prepped into a string.
+        """  
+        if self.flam3h_cp_basis:
+            return str(self.flam3h_cp_basis)
+        else:
+            return False # if linear(0) basis, do not export
 
 
 # OUT FLAME RENDER PROPERTIES start here
@@ -19391,7 +19510,8 @@ class out_flame_render_properties(out_flame_utils):
 
     __slots__ = ("_flame_name", "_flame_size", "_flame_center", "_flame_scale", "_flame_rotate", "_flame_quality", "_flame_brightness", "_flame_gamma", "_flame_k2", "_flame_vibrancy", "_flame_highlight", 
                  "_flame_render_curves", "_flame_overall_curve", "_flame_red_curve", "_flame_green_curve", "_flame_blue_curve", 
-                 "_flam3h_sys_rip", "_flam3h_cp_hsv", "_flam3h_mb_fps", "_flam3h_mb_samples", "_flam3h_mb_shutter", "_flam3h_cp_samples", "_flam3h_prefs_f3c")
+                 "_flame_cp_mode", 
+                 "_flam3h_sys_rip", "_flam3h_cp_hsv", "_flam3h_mb_fps", "_flam3h_mb_samples", "_flam3h_mb_shutter", "_flam3h_cp_samples", "_flam3h_cp_samples_basis", "_flam3h_prefs_f3c")
 
     def __init__(self, kwargs: dict) -> None:
         """
@@ -19423,6 +19543,9 @@ class out_flame_render_properties(out_flame_utils):
         self._flame_green_curve: str = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval()
         self._flame_blue_curve: str = self.node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval()
         
+        # Fractorium palette mkode
+        self._flame_cp_mode: str = self._out_flame_utils__out_flame_palette_mode() # type: ignore
+        
         # custom to FLAM3H™ only
         self._flam3h_sys_rip: str = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_rip) # type: ignore
         self._flam3h_cp_hsv: Union[str, bool] = self._out_flame_utils__out_flame_data_flam3h_hsv() # type: ignore
@@ -19430,6 +19553,7 @@ class out_flame_render_properties(out_flame_utils):
         self._flam3h_mb_samples: Union[str, bool] = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_SAMPLES) # type: ignore
         self._flam3h_mb_shutter: Union[str, bool] = self._out_flame_utils__out_flame_data_flam3h_mb_val(MB_SHUTTER) # type: ignore
         self._flam3h_cp_samples: Union[str, bool] = self._out_flame_utils__out_flame_palette_lookup_samples() # type: ignore
+        self._flam3h_cp_basis: Union[str, bool] = self._out_flame_utils__out_flame_palette_basis() # type: ignore
         self._flam3h_prefs_f3c: str = self._out_flame_utils__out_flame_data_flam3h_toggle(self._flam3h_f3c) # type: ignore
         
 
@@ -19481,7 +19605,7 @@ class out_flame_render_properties(out_flame_utils):
     def flame_highlight(self):
         return self._flame_highlight
     
-    # OUT render curves
+    # OUT render curves (Fractorium)
     
     @property
     def flame_render_curves(self):
@@ -19502,6 +19626,12 @@ class out_flame_render_properties(out_flame_utils):
     @property
     def flame_blue_curve(self):
         return self._flame_blue_curve
+    
+    # OUT palette mode (Fractorium)
+    
+    @property
+    def flame_cp_mode(self):
+        return self._flame_cp_mode
     
     # custom to FLAM3H™ only
     
@@ -19528,6 +19658,10 @@ class out_flame_render_properties(out_flame_utils):
     @property
     def flam3h_cp_samples(self):
         return self._flam3h_cp_samples
+    
+    @property
+    def flam3h_cp_basis(self):
+        return self._flam3h_cp_basis
     
     @property
     def flam3h_prefs_f3c(self):

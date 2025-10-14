@@ -69,7 +69,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.10"
+__version__ = "1.9.14"
 __status__  = "Production"
 __h_versions__: tuple = (210,)
 __range_type__: bool = False # True for closed range. False for open range
@@ -106,7 +106,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
 </br>
 </br>
 
-# PythonModule - Houdini version:  `H19 to H20.5`
+# PythonModule - Houdini version:  `H20.5`
 The **`flam3`** module is created out of the **`py_flam3__x_x`** file located inside the **Extra Files** section.</br>
 Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
@@ -119,9 +119,59 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.10"
+__version__ = "1.9.14"
 __status__  = "Production"
-__h_versions__: tuple = (190, 195, 200, 205)
+__h_versions__: tuple = (205,)
+__range_type__: bool = True # True for closed range. False for open range
+
+# The following are min and max Houdini version where FLAM3H™ can run.
+# The max version is always most likely the latest Houdini version released by SideFX
+# unless it is a closed range due to moving into newer Houdini and FLAM3H™ versions.
+#
+# The ranges can be open or close inside this definition:
+# - (py_flam3__3_11) -> def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
+# - (py_flam3__3_7)  -> def flam3h_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
+__h_version_min__: int = 190
+__h_version_max__: int = __h_versions__[-1]
+
+def houdini_version(digit: int=1) -> int:
+    """Retrieve the major Houdini version number currently in use.
+
+    Args:
+        digit(int): Default to 1: 19, 20. if set to 2: 190, 195, 200, 205, and so on.
+
+    Returns:
+        (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
+    """ 
+    return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
+    
+h: int = houdini_version(2)
+if h < 205: __module__: str = "py_flam3__3_7"
+else: __module__: str = "py_flam3__3_11"
+
+flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
+```
+
+</br>
+</br>
+</br>
+
+# PythonModule - Houdini version:  `H19 to H20`
+The **`flam3`** module is created out of the **`py_flam3__x_x`** file located inside the **Extra Files** section.</br>
+Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
+
+```python
+#   Title:      FLAM3H™. SideFX Houdini FLAM3
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2021 F stands for liFe
+
+import toolutils
+
+# Set some HDA infos
+__version__ = "1.9.14"
+__status__  = "Production"
+__h_versions__: tuple = (190, 195, 200)
 __range_type__: bool = True # True for closed range. False for open range
 
 # The following are min and max Houdini version where FLAM3H™ can run.
