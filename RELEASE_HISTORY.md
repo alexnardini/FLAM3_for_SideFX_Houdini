@@ -35,7 +35,7 @@ They are all available in this Github repository.
 
 #### FLAM3H™ ####
 
-- **New**: Added palette lookup samples interpolation methods mini-menu to the CP tab. It support: "**linear**", "**constant**", "**cubic**", "**bezider**", "**bspline**" and only from H20.5 and up "**hermite**" color keys interpolation methods.
+- **New**: Added palette lookup samples interpolation methods mini-menu to the CP tab. It support: "**linear**", "**constant**", "**cubic**", "**bezier**", "**bspline**" and only from H20.5 and up "**hermite**" color keys interpolation methods.
 - **New**: Added support for the Fractorium XML key: "**palette_mode**" (_previewsly it was always being set to "linear" on Flame load_). It is now comparing with the new palette lookup samples interpolation methods and decide the one to use on Flame Load.
 - **Fix**: On Flame Load, the **RIP** sys option was being mistaken with the **DOFF** sys option. It is now fixed.
 - **Updated HDA documentation.**
