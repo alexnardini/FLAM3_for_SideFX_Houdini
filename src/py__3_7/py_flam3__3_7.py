@@ -10489,6 +10489,7 @@ class flam3h_palette_utils
         """
         node = self.node
         node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
+        node.setParms({CP_RAMP_LOOKUP_SAMPLES_BASES: 0})
         node.setParms({CP_RAMP_SAVE_HSV: 0})
         self.reset_CP_LOCK_MSG()
 
@@ -10606,6 +10607,7 @@ class flam3h_palette_utils
         flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
         # Set lookup samples to the default value of: 256
         node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256})
+        node.setParms({CP_RAMP_LOOKUP_SAMPLES_BASES: 0})
         
         # Print out to Houdini's status bar
         _MSG: str = f"CP: RESET"
