@@ -33,9 +33,12 @@ They are all available in this Github repository.
 
 ### [<ins>v1.9.14 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.14) ###
 
+_This is a re-release of the same version with some minor fixes/improvements that did not make it in the first attempt_.
+
 #### FLAM3H™ ####
 
 - **New**: Added palette lookup samples interpolation methods mini-menu to the CP tab. It support: "**linear**", "**constant**", "**cubic**", "**bezier**", "**bspline**" and only from H20.5 and up "**hermite**" color keys interpolation methods.
+- **New**: Added menu bookmark icons to the CP tab lookup samples bases parameter.
 - **New**: Added support for the Fractorium XML key: "**palette_mode**" (_previewsly it was always being set to "linear" on Flame load_). It is now comparing with the new palette lookup samples interpolation methods and decide the one to use on Flame Load.
 - **Fix**: On Flame Load, the **RIP** sys option was being mistaken with the **DOFF** sys option. It is now fixed.
 - **Updated HDA documentation.**
