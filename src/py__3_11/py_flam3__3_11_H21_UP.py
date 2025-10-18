@@ -7544,6 +7544,7 @@ class flam3h_iterator_utils
                 case 3:
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_xaos, idx, idx_from)
                     self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_XAOS, idx, idx_from)
+                    self.auto_set_xaos()
                 # set SHADER 
                 case 4:
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_shader, idx, idx_from)
