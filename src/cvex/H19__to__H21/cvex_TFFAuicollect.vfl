@@ -207,7 +207,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
 
 
     // SYS
-    int FF, RIP, MB, F3C, iter, inum, xaos_chk, xaos_mode;
+    int FF, RIP, MB, F3C, iter, xaos_chk, xaos_mode;
     FF   = chi("doff");
     RIP  = chi("rip");
     MB   = chi("domb");
@@ -219,7 +219,6 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     //      Unchecked:  use the Chaotica behavior.
     F3C = chi("f3c");
     iter = chi("iter");
-    inum = chi("flamefunc");
     xaos_chk = detail(1, "XS");
     xaos_mode = chi("xm");
 

@@ -1767,12 +1767,12 @@ mini-menu bases  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     Fractorium allow *`linear`* by default, and *`step`*(_*`constant`*_) as its second option.
 
     _In FLAM3H(tm) you can choose from_:
-    - *`linear`* (_Default_)<br />Connects the key points with a polyline.
-    - *`constant`*<br />Maintains each key value until the next key, creating a “stair step” curve.
-    - *`cubic`*<br />Connect the point values with a Catmull-Rom spline.
-    - *`bezier`*<br />A bezier spline.
-    - *`bspline`*<br />A b-spline basis.
-    - *`hermite`*<br />A hermite spline.
+    - [Icon:CHANNELS/linear] *`linear`* (_Default_)<br />Connects the key points with a polyline.
+    - [Icon:CHANNELS/constant] *`constant`*<br />Maintains each key value until the next key, creating a “stair step” curve.
+    - [Icon:CHANNELS/cubic] *`cubic`*<br />Connect the point values with a Catmull-Rom spline.
+    - [Icon:CHANNELS/bezier] *`bezier`*<br />A bezier spline.
+    - [Icon:CHANNELS/b_spline]*`bspline`*<br />A b-spline basis.
+    - [Icon:CHANNELS/hermite] *`hermite`*<br />A hermite spline.
 
     The selected choice will be exported into the Flame file on save.
     <br /><br />
