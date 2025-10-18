@@ -1775,6 +1775,8 @@ mini-menu bases  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     - [Icon:CHANNELS/hermite] *`hermite`*<br />A hermite spline.
 
     The selected choice will be exported into the Flame file on save.
+
+    Keep in mind that these are interpolation methods between the lookup samples that are used to sample the palette, not between the color keys of the palette itself.
     <br /><br />
 
     NOTE:
