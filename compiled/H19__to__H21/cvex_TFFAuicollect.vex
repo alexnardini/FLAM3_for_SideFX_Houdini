@@ -170,8 +170,9 @@ source_filename = "TFFAuicollect"
 @162 = private constant [2 x i8] c".\00"
 @163 = private constant [3 x i8] c"]:\00"
 @164 = private constant [3 x i8] c" ]\00"
+@165 = private constant [6 x i8] c"(FF) \00"
 @VARTYPE = external global i8**
-@165 = private constant [8 x i8] c"VARTYPE\00"
+@166 = private constant [8 x i8] c"VARTYPE\00"
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"gemtagBuild@Z6gemtagM17N4sIDX[SN3RESIN3p1t[IN3p2t[IN3v1t[IN3v2t[IN3v3t[IN3v4t[IN3P1t[IN3pbw[FN3p1w[FN3p2w[FN3v1w[FN3v2w[FN3v3w[FN3v4w[FN3P1w[F"(%gemtag* %this) #0 {
@@ -864,8 +865,8 @@ true312:                                          ; preds = %end92
   %return315 = fcmp one double %GEMTAGFF44.fca.6.load, 0.000000e+00
   br i1 %return315, label %true317, label %false318
 
-end313:                                           ; preds = %end405, %end92
-  %T.5 = phi i8** [ %output426, %end405 ], [ %T.4, %end92 ]
+end313:                                           ; preds = %end341, %end92
+  %T.5 = phi i8** [ %output414, %end341 ], [ %T.4, %end92 ]
   store i8** %T.5, i8*** %_bound_VARTYPE
   ret void
 
@@ -893,102 +894,89 @@ false328:                                         ; preds = %end319
 end329:                                           ; preds = %false328, %true327
   %FV2.0 = phi i8* [ %output333, %true327 ], [ getelementptr inbounds ([2 x i8], [2 x i8]* @155, i64 0, i64 0), %false328 ]
   %output336 = fadd double %GEMTAGFF44.fca.6.load, %GEMTAGFF44.fca.7.load
-  %return338 = fcmp ogt double %GEMTAGFF44.fca.5.load, 0.000000e+00
+  %return338 = fcmp one double %output336, 0.000000e+00
   br i1 %return338, label %true340, label %end341
 
 true340:                                          ; preds = %end329
-  %return343 = fcmp one double %output336, 0.000000e+00
-  br i1 %return343, label %true345, label %end341
+  %return343 = fcmp ogt double %GEMTAGFF44.fca.5.load, 0.000000e+00
+  br i1 %return343, label %true345, label %end346
 
-end341:                                           ; preds = %true340, %true345, %end329
-  %FPRE.0 = phi i8** [ %output351, %true345 ], [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0), %true340 ], [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0), %end329 ]
+end341:                                           ; preds = %false393, %true401, %true392, %end329
+  %FFPRE_build.0 = phi i8* [ %FFPRE_build.1, %true392 ], [ %FFPRE_build.1, %true401 ], [ %FFPRE_build.1, %false393 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @152, i64 0, i64 0), %end329 ]
+  %FFPOST_build.0 = phi i8* [ %return397, %true392 ], [ %return405, %true401 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @152, i64 0, i64 0), %false393 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @152, i64 0, i64 0), %end329 ]
+  %return410 = call i8* @"concat@SSS:SSS"(i8* getelementptr inbounds ([6 x i8], [6 x i8]* @165, i64 0, i64 0), i8* %FFPRE_build.0, i8* %FV1.0, i8* %FV2.0, i8* %FFPOST_build.0)
+  %return413 = call i8* @"toupper@SS"(i8* %return410)
+  %output414 = call i8** @"append@[SS"(i8** %T.4, i8* %return413)
+  br label %end313
+
+true345:                                          ; preds = %true340
+  %return350 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([106 x i8*], [106 x i8*]* @136, i64 0, i64 0), i64 %GEMTAGFF44.fca.0.load)
+  %output351 = call i8** @"append@[SS"(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0), i8* %return350)
+  br label %end346
+
+end346:                                           ; preds = %true345, %true340
+  %FPRE.0 = phi i8** [ %output351, %true345 ], [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0), %true340 ]
   %return353 = call i64 @"len@I[S"(i8** %FPRE.0)
   %return354 = call i64 @"eq@III"(i64 %return353, i64 1)
   %13 = icmp ne i64 %return354, 0
   br i1 %13, label %true355, label %false356
 
-true345:                                          ; preds = %true340
-  %return350 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([106 x i8*], [106 x i8*]* @136, i64 0, i64 0), i64 %GEMTAGFF44.fca.0.load)
-  %output351 = call i8** @"append@[SS"(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0), i8* %return350)
-  br label %end341
-
-true355:                                          ; preds = %end341
+true355:                                          ; preds = %end346
   %return359 = call i8* @"getcomp@S[SI"(i8** %FPRE.0, i64 0)
   %return360 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @157, i64 0, i64 0), i8* %return359, i8* getelementptr inbounds ([4 x i8], [4 x i8]* @158, i64 0, i64 0))
   br label %end357
 
-false356:                                         ; preds = %end341
+false356:                                         ; preds = %end346
   %return363 = call i64 @"gt@III"(i64 %return353, i64 1)
   %14 = icmp ne i64 %return363, 0
-  br i1 %14, label %true364, label %false365
+  br i1 %14, label %true364, label %end357
 
-end357:                                           ; preds = %true364, %false365, %true355
-  %FPRE_build.0 = phi i8* [ %return360, %true355 ], [ %return369, %true364 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @152, i64 0, i64 0), %false365 ]
-  %return371 = fcmp ogt double %GEMTAGFF44.fca.8.load, 0.000000e+00
-  br i1 %return371, label %true373, label %end374
+end357:                                           ; preds = %false356, %true364, %true355
+  %FFPRE_build.1 = phi i8* [ %return360, %true355 ], [ %return368, %true364 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @152, i64 0, i64 0), %false356 ]
+  %return370 = fcmp ogt double %GEMTAGFF44.fca.8.load, 0.000000e+00
+  br i1 %return370, label %true372, label %end373
 
 true364:                                          ; preds = %false356
-  %return368 = call i8* @"join@S[SS"(i8** %FPRE.0, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @159, i64 0, i64 0))
-  %return369 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @144, i64 0, i64 0), i8* %return368, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @163, i64 0, i64 0))
+  %return367 = call i8* @"join@S[SS"(i8** %FPRE.0, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @159, i64 0, i64 0))
+  %return368 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([2 x i8], [2 x i8]* @144, i64 0, i64 0), i8* %return367, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @163, i64 0, i64 0))
   br label %end357
 
-false365:                                         ; preds = %false356
-  br label %end357
+true372:                                          ; preds = %end357
+  %return377 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([106 x i8*], [106 x i8*]* @136, i64 0, i64 0), i64 %GEMTAGFF44.fca.3.load)
+  %output378 = call i8** @"append@[SS"(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0), i8* %return377)
+  br label %end373
 
-true373:                                          ; preds = %end357
-  %return376 = fcmp one double %output336, 0.000000e+00
-  br i1 %return376, label %true378, label %end374
+end373:                                           ; preds = %true372, %end357
+  %FPOST.0 = phi i8** [ %output378, %true372 ], [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0), %end357 ]
+  %return380 = fcmp ogt double %GEMTAGFF44.fca.9.load, 0.000000e+00
+  br i1 %return380, label %true382, label %end383
 
-end374:                                           ; preds = %true373, %true378, %end357
-  %FPOST.0 = phi i8** [ %output384, %true378 ], [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0), %true373 ], [ getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0), %end357 ]
-  %return386 = fcmp ogt double %GEMTAGFF44.fca.9.load, 0.000000e+00
-  br i1 %return386, label %true388, label %end389
+true382:                                          ; preds = %end373
+  %return387 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([106 x i8*], [106 x i8*]* @136, i64 0, i64 0), i64 %GEMTAGFF44.fca.4.load)
+  %output388 = call i8** @"append@[SS"(i8** %FPOST.0, i8* %return387)
+  br label %end383
 
-true378:                                          ; preds = %true373
-  %return383 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([106 x i8*], [106 x i8*]* @136, i64 0, i64 0), i64 %GEMTAGFF44.fca.3.load)
-  %output384 = call i8** @"append@[SS"(i8** getelementptr inbounds ([0 x i8*], [0 x i8*]* @17, i64 0, i64 0), i8* %return383)
-  br label %end374
+end383:                                           ; preds = %true382, %end373
+  %FPOST.1 = phi i8** [ %output388, %true382 ], [ %FPOST.0, %end373 ]
+  %return390 = call i64 @"len@I[S"(i8** %FPOST.1)
+  %return391 = call i64 @"eq@III"(i64 %return390, i64 1)
+  %15 = icmp ne i64 %return391, 0
+  br i1 %15, label %true392, label %false393
 
-true388:                                          ; preds = %end374
-  %return391 = fcmp one double %output336, 0.000000e+00
-  br i1 %return391, label %true393, label %end389
+true392:                                          ; preds = %end383
+  %return396 = call i8* @"getcomp@S[SI"(i8** %FPOST.1, i64 0)
+  %return397 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @157, i64 0, i64 0), i8* %return396, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @164, i64 0, i64 0))
+  br label %end341
 
-end389:                                           ; preds = %true388, %true393, %end374
-  %FPOST.1 = phi i8** [ %output399, %true393 ], [ %FPOST.0, %true388 ], [ %FPOST.0, %end374 ]
-  %return401 = call i64 @"len@I[S"(i8** %FPOST.1)
-  %return402 = call i64 @"eq@III"(i64 %return401, i64 1)
-  %15 = icmp ne i64 %return402, 0
-  br i1 %15, label %true403, label %false404
+false393:                                         ; preds = %end383
+  %return400 = call i64 @"gt@III"(i64 %return390, i64 1)
+  %16 = icmp ne i64 %return400, 0
+  br i1 %16, label %true401, label %end341
 
-true393:                                          ; preds = %true388
-  %return398 = call i8* @"getcomp@S[SI"(i8** getelementptr inbounds ([106 x i8*], [106 x i8*]* @136, i64 0, i64 0), i64 %GEMTAGFF44.fca.4.load)
-  %output399 = call i8** @"append@[SS"(i8** %FPOST.0, i8* %return398)
-  br label %end389
-
-true403:                                          ; preds = %end389
-  %return407 = call i8* @"getcomp@S[SI"(i8** %FPOST.1, i64 0)
-  %return408 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @157, i64 0, i64 0), i8* %return407, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @164, i64 0, i64 0))
-  br label %end405
-
-false404:                                         ; preds = %end389
-  %return411 = call i64 @"gt@III"(i64 %return401, i64 1)
-  %16 = icmp ne i64 %return411, 0
-  br i1 %16, label %true412, label %false413
-
-end405:                                           ; preds = %true412, %false413, %true403
-  %FPOST_build.0 = phi i8* [ %return408, %true403 ], [ %return417, %true412 ], [ getelementptr inbounds ([1 x i8], [1 x i8]* @152, i64 0, i64 0), %false413 ]
-  %return422 = call i8* @"concat@SSS:SS"(i8* %FPRE_build.0, i8* %FV1.0, i8* %FV2.0, i8* %FPOST_build.0)
-  %return425 = call i8* @"toupper@SS"(i8* %return422)
-  %output426 = call i8** @"append@[SS"(i8** %T.4, i8* %return425)
-  br label %end313
-
-true412:                                          ; preds = %false404
-  %return416 = call i8* @"join@S[SS"(i8** %FPOST.1, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @159, i64 0, i64 0))
-  %return417 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @157, i64 0, i64 0), i8* %return416, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @164, i64 0, i64 0))
-  br label %end405
-
-false413:                                         ; preds = %false404
-  br label %end405
+true401:                                          ; preds = %false393
+  %return404 = call i8* @"join@S[SS"(i8** %FPOST.1, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @159, i64 0, i64 0))
+  %return405 = call i8* @"concat@SSS:S"(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @157, i64 0, i64 0), i8* %return404, i8* getelementptr inbounds ([3 x i8], [3 x i8]* @164, i64 0, i64 0))
+  br label %end341
 }
 
 ; Function Attrs: nounwind readnone
@@ -1052,7 +1040,7 @@ declare i8* @"slice@SSIIIIII"(i8*, i64, i64, i64, i64, i64, i64) #2
 declare i8* @"concat@SSS:SSSSSSS"(i8*, i8*, i8*, i8*, i8*, i8*, i8*, i8*, i8*) #2
 
 ; Function Attrs: nounwind readnone
-declare i8* @"concat@SSS:SS"(i8*, i8*, i8*, i8*) #2
+declare i8* @"concat@SSS:SSS"(i8*, i8*, i8*, i8*, i8*) #2
 
 ; Function Attrs: nounwind
 declare i8* @"toupper@SS"(i8*) #1
@@ -1064,7 +1052,7 @@ __llvm_entry:
   store i8** %VARTYPE, i8*** %"<VARTYPE>"
   call void @"_TFFAuicollect@[S"(i8*** %"<VARTYPE>")
   %evalue = load i8**, i8*** %"<VARTYPE>"
-  %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @165, i64 0, i64 0), i8** %evalue) #3
+  %gvalue = call i8** @"_export@[SS[S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @166, i64 0, i64 0), i8** %evalue) #3
   store i8** %gvalue, i8*** @VARTYPE
   ret void
 }

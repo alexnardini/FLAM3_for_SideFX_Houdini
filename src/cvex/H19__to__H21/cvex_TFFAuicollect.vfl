@@ -326,32 +326,40 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     // Build FF
     if(FF){
 
-        string FF_TAG, FV1, FV2, FPRE[], FPOST[];
+        string FF_TAG, FV1, FV2, FPRE[], FPOST[], FFPRE_build, FFPOST_build;
 
         // FF VAR 1
         if(fv1w!=0) FV1 = Ts[fv1t]+":";
         else FV1 = ":";
+
         // FF VAR 1
         if(fv2w!=0) FV2 = Ts[fv2t]+":";
         else FV2 = ":";
-        float fw_total = fv1w+fv2w;
-        // FF PRE 1
-        if(fp1w>0){ if(fw_total != 0) append(FPRE, Ts[fp1t]); }
-        string FPRE_build;
-        if(len(FPRE)==1) FPRE_build = concat( "[ ", FPRE[0], " ]:");
-        else if(len(FPRE)>1) FPRE_build = concat( "[", join(FPRE, ", "), "]:");
-        else FPRE_build = "";
-        // FF POST 1
-        if(fP1w>0){ if(fw_total != 0) append(FPOST, Ts[fP1t]); }
-        // FF POST 2
-        if(fP2w>0){ if(fw_total != 0) append(FPOST, Ts[fP2t]); }
-        // Build post vars tag string
-        string FPOST_build;
-        if(len(FPOST)==1) FPOST_build = concat( "[ ", FPOST[0], " ]");
-        else if(len(FPOST)>1) FPOST_build = concat( "[ ", join(FPOST, ", "), " ]");
-        else FPOST_build = "";
 
-        FF_TAG = concat(FPRE_build, FV1, FV2, FPOST_build);
+        // FF VAR weights total
+        float fw_total = fv1w+fv2w;
+
+        if(fw_total != 0){
+
+            // FF PRE 1
+            if(fp1w>0) append(FPRE, Ts[fp1t]);
+
+            // Build PRE VARS tag string
+            if(len(FPRE)==1) FFPRE_build = concat( "[ ", FPRE[0], " ]:");
+            else if(len(FPRE)>1) FFPRE_build = concat( "[", join(FPRE, ", "), "]:");
+
+            // FF POST 1
+            if(fP1w>0) append(FPOST, Ts[fP1t]);
+
+            // FF POST 2
+            if(fP2w>0) append(FPOST, Ts[fP2t]);
+
+            // Build POST VARS tag string
+            if(len(FPOST)==1) FFPOST_build = concat( "[ ", FPOST[0], " ]");
+            else if(len(FPOST)>1) FFPOST_build = concat( "[ ", join(FPOST, ", "), " ]");
+        }
+
+        FF_TAG = concat("(FF) ", FFPRE_build, FV1, FV2, FFPOST_build);
         append(T, toupper(FF_TAG));
         }
         
