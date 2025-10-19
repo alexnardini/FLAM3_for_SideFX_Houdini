@@ -237,20 +237,24 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     float  fp1w, fv1w, fv2w, fP1w, fP2w; /* CAST */ fp1w=GEMTAGFF.fp1w; fv1w=GEMTAGFF.fv1w; fv2w=GEMTAGFF.fv2w; fP1w=GEMTAGFF.fP1w; fP2w=GEMTAGFF.fP2w;
 
     // BUILD TAG
-    append(T, concat("[", itoa(iter), "]"));
-    if(xaos_chk){
-        if(!xaos_mode) append(T, concat("[", "Xt", "]"));   // xaos TO
-        else append(T, concat("[", "fX", "]"));             // xaos FROM
-    }
 
+    // iterations
+    append(T, concat("[", itoa(iter), "]"));
+
+    // xaos mode
+    string xaos_type[] = {"[Xt]", "[fX]"}; // "[xaos_TO]", "[xaos_FROM]"
+    if(xaos_chk) append(T, xaos_type[xaos_mode]);
+
+    // SYS options
     if(RIP) append(T, "RIP");
     if(F3C) append(T, "F3C");
     if(MB) append(T, "MB");
 
+    // Build iterators
     for(int i=0; i<RES; ++i){
 
         string ITERATOR_TAG, ITERNUM, W, PRE[], PB, V1, V2, V3, V4, POST[];
-        ITERNUM = concat("(", sIDX[i], ")");
+        ITERNUM = concat("(", sIDX[i], ") "); // Note the enpty space after the closing brace
 
         // VAR 1
         w1 = v1w[i];
@@ -308,9 +312,10 @@ _TFFAuicollect(string _bound_VARTYPE[]){
         ITERATOR_TAG = concat(PB, ITERNUM, pre_build, V1, V2, V3, V4, post_build, W);
 
         append(T, ITERATOR_TAG);
-        PRE = {};
+        PRE = POST = {};
     }
 
+    // Build FF
     if(FF){
 
         string FF_TAG, FV1, FV2, FPRE[], FPOST[];
