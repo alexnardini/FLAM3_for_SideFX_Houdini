@@ -1682,7 +1682,7 @@ FF: PP VARS tab [Icon:TOP/xmlinput]:
 :box:
     #display: rounded white
     
-    == CP: Palette ramps == (CPRAMPS)
+    == CP: HSV Palette == (CPHSVRAMP)
     
 HSV values [Icon:TOP/xmlinput]:
     #id: PALETTE
@@ -1723,6 +1723,11 @@ HSV palette [Icon:DATATYPES/ramp]:
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] <br />
     - ((LMB)) to updated the HSV color correction in case it was not already.
 
+:box:
+    #display: rounded white
+    
+    == CP: Palette == (CPRAMP)
+
 mini-menu bases  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: PALETTE
 
@@ -1738,7 +1743,7 @@ mini-menu bases  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     - [Icon:CHANNELS/cubic] *`cubic`*<br />Connect the point values with a Catmull-Rom spline.
     - [Icon:CHANNELS/bezier] *`bezier`*<br />A bezier spline.
     - [Icon:CHANNELS/b_spline]*`bspline`*<br />A b-spline basis.
-    - [Icon:CHANNELS/hermite] *`hermite`*<br />A hermite spline (_Only from *`H20.5`* and up_).
+    - [Icon:CHANNELS/hermite] *`hermite`*<br />A hermite spline.
 
     The selected choice will be exported into the Flame file on save.
 
@@ -1750,13 +1755,14 @@ mini-menu bases  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
         - Being a custom FLAM3H™ XML data,<br />it wont be recognized by third party applications on load.
 
     <br />
+
     
 menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     #id: PALETTE
     
     The amount of lookup samples to use to sample this palette.
 
-    _Some of the menu labels posses a bookmark icon_:
+    _Some of the menu labels possess a bookmark icon_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the standard preset, *`256`* samples (_Default_).
     - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] indicate a medium preset, *`512`* samples.
@@ -1788,6 +1794,7 @@ palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
 
     _The palette parameter come with the following tool icons_:
 
+    - mini-menu [Icon:BUTTONS/pane_menu] to select between the palette color keys interpolation methods (_bases_).
     - [Largeicon:BUTTONS/ramp_flip_y] to invert the palette's color values (_e.g. Black will become White_).
     - [Largeicon:BUTTONS/ramp_flip_x] to flip the palette's colors horizontally.
     - [Largeicon:BUTTONS/gear] mini-menu [Icon:BUTTONS/pane_menu] to select some of the Houdini's default ramp presets.
