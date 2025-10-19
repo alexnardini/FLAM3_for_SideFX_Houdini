@@ -260,14 +260,17 @@ _TFFAuicollect(string _bound_VARTYPE[]){
         w1 = v1w[i];
         if(w1!=0) V1 = Ts[v1t[i]]+":";
         else V1 = ":";
+
         // VAR 2
         w2 = v2w[i];
         if(w2!=0) V2 = Ts[v2t[i]]+":";
         else V2 = ":";
+
         // VAR 3
         w3 = v3w[i];
         if(w3!=0) V3 = Ts[v3t[i]]+":";
         else V3 = ":";
+        
         // VAR 4
         w4 = v4w[i];
         if(w4!=0) V4 = Ts[v4t[i]]+":";
