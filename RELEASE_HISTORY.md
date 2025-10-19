@@ -31,6 +31,24 @@ They are all available in this Github repository.
 
 
 
+### [<ins>v1.9.16 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.16) ###
+
+#### FLAM3H™ ####
+
+- **New**: Compiled file size is now ~2kb smaller.
+- **Fix**: Improved performance of the TAG data collection.
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.14 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.14) ###
 
 _This is a re-release of the same version with some minor fixes/improvements that did not make it in the first attempt_.
