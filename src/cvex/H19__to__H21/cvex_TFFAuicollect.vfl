@@ -361,7 +361,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
 
         FF_TAG = concat("(FF) ", FFPRE_build, FV1, FV2, FFPOST_build);
         append(T, toupper(FF_TAG));
-        }
+    }
         
     _bound_VARTYPE = T;
 }
