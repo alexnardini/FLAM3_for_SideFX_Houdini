@@ -253,7 +253,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     // Build iterators
     for(int i=0; i<RES; ++i){
 
-        string ITERATOR_TAG, ITERNUM, W, PRE[], PB, V1, V2, V3, V4, POST[];
+        string ITERATOR_TAG, ITERNUM, W, PRE[], PB, V1, V2, V3, V4, POST[], pre_build, post_build;
         ITERNUM = concat("(", sIDX[i], ") "); // Note the enpty space after the closing brace
 
         // VAR 1
@@ -272,43 +272,51 @@ _TFFAuicollect(string _bound_VARTYPE[]){
         w4 = v4w[i];
         if(w4!=0) V4 = Ts[v4t[i]]+":";
         else V4 = ":";
+
         // VAR weights total
         float w_total = w1+w2+w3+w4;
         
-        // PRE BLUR
-        ppbw = pbw[i];
-        if(ppbw>0){ if(w_total != 0) PB="*"; }
-        // PRE VAR 1
-        ppw1 = p1w[i];
-        if(ppw1>0){ if(w_total != 0) append(PRE, Ts[p1t[i]]); }
-        // PRE VAR 2
-        ppw2 = p2w[i];
-        if(ppw2>0){ if(w_total != 0) append(PRE, Ts[p2t[i]]); }
-        // Build pre vars tag string
-        string pre_build;
-        if(len(PRE)==1) pre_build = concat( "[ ", PRE[0], " ]:");
-        else if(len(PRE)>1) pre_build = concat( "[ ", join(PRE, ", "), " ]:");
-        else pre_build = "";
-        // POST VAR 1
-        Pw1 = P1w[i];
-        if(Pw1>0) { if(w_total != 0) append(POST, Ts[P1t[i]]); }
-        // Build post vars tag string
-        string post_build;
-        if(len(POST)==1) post_build = concat( "[ ", POST[0], " ]:");
-        else if(len(POST)>1) post_build = concat( "[ ", join(POST, ", "), " ]:");
-        else post_build = "";
-        // Iterator weight
-        if(w_total != 0) W = sprintf( "%g", chf(concat("iw_", sIDX[i]))); else W = "";
-        
-        // Reformat iterator weights string floats
-        string out[] = {};
-        string SPLIT[] = split(W, ".");
-        if(len(SPLIT)>1){
-            int count = 1;
-            foreach(string s; SPLIT){ append(out, s[:(6/count)]); count++; }
+        if(w_total != 0){
+
+            // PRE blur
+            ppbw = pbw[i];
+            if(ppbw>0) PB="*";
+
+            // PRE VAR 1
+            ppw1 = p1w[i];
+            if(ppw1>0) append(PRE, Ts[p1t[i]]);
+
+            // PRE VAR 2
+            ppw2 = p2w[i];
+            if(ppw2>0) append(PRE, Ts[p2t[i]]);
+
+            // Build PRE VARS tag string
+            if(len(PRE)==1) pre_build = concat( "[ ", PRE[0], " ]:");
+            else if(len(PRE)>1) pre_build = concat( "[ ", join(PRE, ", "), " ]:");
+
+            // POST VAR 1
+            Pw1 = P1w[i];
+            if(Pw1>0) append(POST, Ts[P1t[i]]);
+
+            // Build POST VARS tag string
+            if(len(POST)==1) post_build = concat( "[ ", POST[0], " ]:");
+            else if(len(POST)>1) post_build = concat( "[ ", join(POST, ", "), " ]:");
+
+            // Iterator Weight
+            W = sprintf( "%g", chf(concat("iw_", sIDX[i])));
+
+            // Reformat iterator Weights string floats
+            string out[] = {};
+            string SPLIT[] = split(W, ".");
+            if(len(SPLIT)>1){
+                int count = 1;
+                foreach(string s; SPLIT){ append(out, s[:(6/count)]); count++; }
+            }
+            else out = SPLIT;
+
+            W = join(out, ".");
         }
-        else out = SPLIT;
-        W = join(out, ".");
+
         ITERATOR_TAG = concat(PB, ITERNUM, pre_build, V1, V2, V3, V4, post_build, W);
 
         append(T, ITERATOR_TAG);
