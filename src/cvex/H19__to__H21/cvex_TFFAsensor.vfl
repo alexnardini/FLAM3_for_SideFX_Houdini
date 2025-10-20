@@ -5,7 +5,7 @@
  /              Houdini 20.5
  /              Houdini 21.0
  /
- /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
+ /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
  /  date:       November 2023, Last revised April 2025
  /  License:    GPL
@@ -24,9 +24,9 @@
  /
  /  Comment:    All the render settings required by third-party programs
  /              such as Apophysis and Fractorium are stored together with the fractal flames
- /              when they are saved from FLAM3H. A portion of the render parameters
+ /              when they are saved from FLAM3H™. A portion of the render parameters
  /              deal with the camera and how the fractal flame you just saved is framed.
- /              The FLAM3H camera sensor will precisely display the image framing.
+ /              The FLAM3H™ camera sensor will precisely display the image framing.
 */
 
 
