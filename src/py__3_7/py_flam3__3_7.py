@@ -764,60 +764,64 @@ class flam3h_varsPRM
         return list(map(lambda x: x[0], self.varsPRM))
     
     
-    def menu_vars_all(self) -> list:
+    def menu_vars_all(self, _PB: bool = False) -> list:
         """This is used to generate the following list: MENU_VARS_ALL
         
         Args:
             (self):
+            _PB(bool): Default to False. When set to True it will include the pre_blur variation in the menu variation lists.
             
         Returns:
             (list): return an enumerated variations menu list with "linear" being the first one for convenience
         """
 
         vars_no_lin: list = list(enumerate(self.vars_all()))[1:]
-        vars_no_lin.remove((65, 'Pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
+        if not _PB: vars_no_lin.remove((65, 'Pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
         vars_sorted: list = sorted(vars_no_lin, key=lambda var: var[1])
         return list(enumerate(['Linear'])) + vars_sorted
     
     
-    def menu_vars_no_PRM(self) -> list:
+    def menu_vars_no_PRM(self, _PB: bool = False) -> list:
         """Build a list of all the variation names properly ordered as per flame*.h files without the parametric variations in it.
         
         Args:
             (self):
+            _PB(bool): Default to False. When set to True it will include the pre_blur variation in the menu variation lists.
             
         Returns:
             (list): return a list of all the variation names properly ordered as per flame*.h files without the parametric variations in it.
         """   
-        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all())))
+        return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all(_PB))))
     
     
-    def build_menu_vars_all_linear(self) -> list:
+    def build_menu_vars_all_linear(self, _PB: bool = False) -> list:
         """This is used to generate the following list: MENU_VARS_ALL_SIMPLE
         
         Args:
             (self):
+            _PB(bool): Default to False. When set to True it will include the pre_blur variation in the menu variation lists.
             
         Returns:
             (list): return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data
         """  
         linear: list = []
-        [self.__populate_linear_list(linear, item, id) for id, item in self.menu_vars_all()]
+        [self.__populate_linear_list(linear, item, id) for id, item in self.menu_vars_all(_PB)]
         return linear
     
     
-    def build_menu_vars_all_indexes(self) -> dict[int, int]:
+    def build_menu_vars_all_indexes(self, _PB: bool = False) -> dict[int, int]:
         """This is used to generate the following dict: MENU_VARS_ALL_INDEXES
         
         Args:
             (self):
+            _PB(bool): Default to False. When set to True it will include the pre_blur variation in the menu variation lists.
             
         Returns:
             (dict): a dictionary for the variation indexes used by the menu_T_ICONS definitions
         """   
         keys: list = []
         values: list = []
-        [self.__populate_keys_and_values(keys, values, item, id) for id, item in enumerate(self.build_menu_vars_all_linear())]
+        [self.__populate_keys_and_values(keys, values, item, id) for id, item in enumerate(self.build_menu_vars_all_linear(_PB))]
         return dict(zip(keys, values))
 
 
