@@ -24,7 +24,7 @@ It is an ongoing effort and they have been regularly updated and improved even t
 They are already embedded inside each HDA and available in this repository for easy edit and review.
 
 **Below each icon's image**,</br>
-**you can find strings to use to call the desired icon within different places inside Houdini as long as the desired icon exist inside the extra files section of the asset**.</br>
+**you can find strings to use to call the desired icon within different places inside Houdini as long as the desired icon exist inside the extra files section of the asset. A github web url path is provided as well**.</br>
 
 **Each path is composed as follow:**</br>
 `opdef` `:/` `__namespace__` `::` `__context__` `/` `__asset_name__` `?` `__icon_file_name__`
@@ -77,6 +77,11 @@ opdef:/alexnardini::Sop/FLAM3H?FLAM3H_DOC_icon.svg
 ```
 [Largeicon:opdef:.?FLAM3H_DOC_icon.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/FLAM3H_DOC_icon.svg
+```
 <p align="center">...</p></br/></br/></br/></br/></br/></br/></br/></br/>
 
 
@@ -111,6 +116,11 @@ opdef:/alexnardini::Sop/FLAM3H?FLAM3HUSD_DOC_icon.svg
 ```
 [Largeicon:opdef:.?FLAM3HUSD_DOC_icon.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/FLAM3HUSD_DOC_icon.svg
+```
 <p align="center">...</p></br/></br/></br/></br/></br/></br/></br/></br/>
 
 
@@ -123,27 +133,32 @@ opdef:/alexnardini::Sop/FLAM3H?FLAM3HUSD_DOC_icon.svg
 <b>"Parameter Buttom" / "Action Button" icon</b>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?FLAM3HUSD_DOC_icon.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_actionButtonSVG.svg
 ```
 <b>Menu bookmark icon</b>
 
 ```
-![opdef:/alexnardini::Sop/FLAM3H?FLAM3HUSD_DOC_icon.svg] Label
+![opdef:/alexnardini::Sop/FLAM3H?icon_actionButtonSVG.svg] Label
 ```
 <b>DOC icon</b>
 
 ```
-[Icon:opdef:.?FLAM3HUSD_DOC_icon.svg]
+[Icon:opdef:.?icon_actionButtonSVG.svg]
 ```
 <b>DOC icon Small</b>
 
 ```
-[Smallicon:opdef:.?FLAM3HUSD_DOC_icon.svg]
+[Smallicon:opdef:.?icon_actionButtonSVG.svg]
 ```
 <b>DOC icon Large</b>
 
 ```
-[Largeicon:opdef:.?FLAM3HUSD_DOC_icon.svg]
+[Largeicon:opdef:.?icon_actionButtonSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_actionButtonSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/></br/></br/></br/></br/>
 
@@ -179,6 +194,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_AddDelIteratorSVG.svg
 ```
 [Largeicon:opdef:.?icon_AddDelIteratorSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_AddDelIteratorSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -212,6 +232,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_bitbucketLogoSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_bitbucketLogoSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_bitbucketLogoSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -247,6 +272,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_cvex_compileSVG.svg
 ```
 [Largeicon:opdef:.?icon_cvex_compileSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_cvex_compileSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -280,6 +310,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_F_docStarSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_F_docStarSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_F_docStarSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -315,6 +350,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledSVG.svg
 ```
 [Largeicon:opdef:.?icon_ffHandlesEnabledSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_ffHandlesEnabledSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -348,6 +388,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FractoriumWebSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_FractoriumWebSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_FractoriumWebSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -383,6 +428,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg
 ```
 [Largeicon:opdef:.?icon_FrameBlueSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_FrameBlueSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -416,6 +466,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FrameRedSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_FrameRedSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_FrameRedSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -451,6 +506,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_geo_reloadSVG.svg
 ```
 [Largeicon:opdef:.?icon_geo_reloadSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_geo_reloadSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -485,6 +545,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionCPSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionCPSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 <p align="center">
@@ -517,6 +582,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIterSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionDisabledSelIterSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -552,6 +622,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionDisabledSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionDisabledSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -585,6 +660,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionDisabledZeroIterSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -620,6 +700,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionEnabledSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionEnabledSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 <p align="center">
@@ -652,6 +737,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionEnabledMidSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionEnabledMidSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -687,6 +777,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CDisabledSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionF3CDisabledSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionF3CDisabledSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -720,6 +815,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CEnabledSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionF3CEnabledSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionF3CEnabledSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -755,6 +855,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionFFDisabledSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionFFDisabledSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -788,6 +893,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionFFEnabledSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionFFEnabledSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -823,6 +933,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameINEntrieSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionFlameINEntrieSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -856,6 +971,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameOUTEntrieSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionFlameOUTEntrieSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionFlameOUTEntrieSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -891,6 +1011,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionPRIDEDisabledSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionPRIDEDisabledSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -924,6 +1049,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPDisabledSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionRIPDisabledSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionRIPDisabledSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -959,6 +1089,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPEnabledSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionRIPEnabledSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionRIPEnabledSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -992,6 +1127,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueKwargsSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarBlueKwargsSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1027,6 +1167,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionStarBlueSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarBlueSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1060,6 +1205,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarOrangeSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1095,6 +1245,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarRedHighSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1128,6 +1283,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionStarRedSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarRedSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1163,6 +1323,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarWhiteKwargsSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1196,6 +1361,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBHSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarWhitePBHSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1231,6 +1401,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarWhitePBSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1264,6 +1439,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarWhiteSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1299,6 +1479,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZOFFSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionStarWhiteXFVIZOFFSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarWhiteXFVIZOFFSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1332,6 +1517,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarWhiteXFVIZSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1367,6 +1557,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSOLOSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSOLOSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarWhiteXFVIZSOLOSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1400,6 +1595,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarYellowOrangeSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1435,6 +1635,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowSVG.svg
 ```
 [Largeicon:opdef:.?icon_optionStarYellowSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarYellowSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1468,6 +1673,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_rendererKarmaPropertiesSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_rendererKarmaPropertiesSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_rendererKarmaPropertiesSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1503,6 +1713,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_rendererMenuSVG.svg
 ```
 [Largeicon:opdef:.?icon_rendererMenuSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_rendererMenuSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1536,6 +1751,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuBigSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_TagOBlueMenuBigSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_TagOBlueMenuBigSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1571,6 +1791,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuMidSVG.svg
 ```
 [Largeicon:opdef:.?icon_TagOBlueMenuMidSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_TagOBlueMenuMidSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1604,6 +1829,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuSmallSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_TagOBlueMenuSmallSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_TagOBlueMenuSmallSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1639,6 +1869,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG_disabled.svg
 ```
 [Largeicon:opdef:.?icon_TagOBlueSVG_disabled.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_TagOBlueSVG_disabled.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1673,6 +1908,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg
 ```
 [Largeicon:opdef:.?icon_TagOBlueSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_TagOBlueSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 <p align="center">
@@ -1705,6 +1945,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedOffSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_TagORedOffSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_TagORedOffSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1740,6 +1985,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG_disabled.svg
 ```
 [Largeicon:opdef:.?icon_TagORedSVG_disabled.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_TagORedSVG_disabled.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1773,6 +2023,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_TagORedSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_TagORedSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1808,6 +2063,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOSVG.svg
 ```
 [Largeicon:opdef:.?icon_TagOSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_TagOSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1841,6 +2101,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_xfHandlesDisabledSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_xfHandlesDisabledSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1876,6 +2141,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledSVG.svg
 ```
 [Largeicon:opdef:.?icon_xfHandlesEnabledSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_xfHandlesEnabledSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1909,6 +2179,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_xfHandlesEnabledMPIDXSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1944,6 +2219,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_youtube_red_play.svg
 ```
 [Largeicon:opdef:.?icon_youtube_red_play.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_youtube_red_play.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -1977,6 +2257,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlackSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_GithubBlackSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_GithubBlackSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -2012,6 +2297,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubWhiteSVG.svg
 ```
 [Largeicon:opdef:.?icon_GithubWhiteSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_GithubWhiteSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -2045,6 +2335,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_InstagramSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_InstagramSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_InstagramSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -2080,6 +2375,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_SierpinskyDefSVG.svg
 ```
 [Largeicon:opdef:.?icon_SierpinskyDefSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_SierpinskyDefSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -2113,6 +2413,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_StarSwapCyanSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapCyanSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -2148,6 +2453,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanMidSVG.svg
 ```
 [Largeicon:opdef:.?icon_StarSwapCyanMidSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapCyanMidSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -2181,6 +2491,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_StarSwapCyanSmallSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapCyanSmallSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -2216,6 +2531,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg
 ```
 [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapCyanSmallXFVIZOFFSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -2249,6 +2569,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapCyanSmallXFVIZSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -2284,6 +2609,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg
 ```
 [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapCyanSmallXFVIZSOLOSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -2317,6 +2647,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapRedCopyPasteAffineSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -2352,6 +2687,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineFFSVG.svg
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteAffineFFSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapRedCopyPasteAffineFFSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -2385,6 +2725,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -2420,6 +2765,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieFFSVG.svg
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapRedCopyPasteEntrieFFSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -2453,6 +2803,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapRedCopyPasteEntrieSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -2488,6 +2843,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteFFSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapRedCopyPasteFFSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -2521,6 +2881,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteInfosSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapRedCopyPasteInfosSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -2556,6 +2921,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapRedCopyPasteSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -2589,6 +2959,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroWSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapRedCopyPasteZeroWSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -2624,6 +2999,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedSVG.svg
 ```
 [Largeicon:opdef:.?icon_StarSwapRedSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapRedSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -2657,6 +3037,11 @@ opdef:/alexnardini::Sop/FLAM3H?iconSVG.svg
 
 ```
 [Largeicon:opdef:.?iconSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/iconSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -2692,6 +3077,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg
 ```
 [Largeicon:opdef:.?icon_WhiteStarSVG.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_WhiteStarSVG.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -2726,6 +3116,11 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG_disabled.svg
 ```
 [Largeicon:opdef:.?icon_WhiteSVG_disabled.svg]
 ```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_WhiteSVG_disabled.svg
+```
 <p align="center">...</p></br/></br/></br/></br/>
 
 
@@ -2759,5 +3154,10 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
 
 ```
 [Largeicon:opdef:.?icon_WhiteSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_WhiteSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
