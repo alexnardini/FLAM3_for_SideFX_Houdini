@@ -5,7 +5,7 @@
  /              Houdini 20.5
  /              Houdini 21.0
  /
- /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
+ /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
  /  date:       October 2020, Last revised October 2025
  /  License:    GPL
@@ -22,7 +22,7 @@
  /
  /  Name:       TFFAUICOLLECT "CVEX"
  /
- /  Comment:    UI FLAM3H viewport TAG infos collection.
+ /  Comment:    UI FLAM3H™ viewport TAG infos collection.
 */
 
 
@@ -31,6 +31,22 @@
 #pragma opmininputs 1
 #pragma opmaxinputs 3
 
+
+// TAG SYS (not used yet)
+struct gemsys{
+
+    int FF, RIP, MB, F3C, ITER, XS, XM;
+
+    void gemsysBuild(){
+        ITER = detail(1, "ITER");
+        FF = detail(1, "FF");
+        RIP = detail(1, "RIP");
+        F3C = detail(1, "F3C");
+        MB = detail(1, "MB");
+        XS = detail(1, "XS");
+        XM = chi("xm");
+    }
+}
 
 // TAG GENOME
 struct gemtag{
@@ -207,20 +223,14 @@ _TFFAuicollect(string _bound_VARTYPE[]){
 
 
     // SYS
-    int FF, RIP, MB, F3C, iter, xaos_chk, xaos_mode;
-    FF   = chi("doff");
-    RIP  = chi("rip");
-    MB   = chi("domb");
-    // From Fractorium: flam3 comptibility (f3c). Check inside variations.h to see both versions of each.
-    // The behavior of the:
-    // cos, cosh, cot, coth, csc, csch, sec, sech, sin, sinh, tan and tanh variations
-    // are different in flam3/Apophysis versus Chaotica.
-    //      Checked:    use the Apophysis behavior.
-    //      Unchecked:  use the Chaotica behavior.
-    F3C = chi("f3c");
-    iter = chi("iter");
-    xaos_chk = detail(1, "XS");
-    xaos_mode = chi("xm");
+    int FF, RIP, MB, F3C, ITER, XS, XM;
+    ITER = detail(1, "ITER");
+    FF = detail(1, "FF");
+    RIP = detail(1, "RIP");
+    F3C = detail(1, "F3C");
+    MB = detail(1, "MB");
+    XS = detail(1, "XS");
+    XM = chi("xm");
 
     // GEM TAG
     gemtag GEMTAG;
@@ -230,6 +240,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     float  pbw[], p1w[], p2w[], v1w[], v2w[], v3w[], v4w[], P1w[]; /* CAST */ pbw=GEMTAG.pbw; p1w=GEMTAG.p1w; p2w=GEMTAG.p2w; v1w=GEMTAG.v1w; v2w=GEMTAG.v2w; v3w=GEMTAG.v3w; v4w=GEMTAG.v4w; P1w=GEMTAG.P1w;
     // GEM TAG tmp
     float ppbw, ppw1, ppw2, w1, w2, w3, w4, Pw1;
+
     // GEM FF TAG
     gemtagff GEMTAGFF;
     GEMTAGFF->gemtagffBuild(FF);
@@ -239,18 +250,18 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     // BUILD TAG
 
     // iterations
-    append(T, concat("[", itoa(iter), "]"));
+    append(T, concat("[", itoa(ITER), "]"));
 
-    // xaos mode
+    // XM (xaos mode)
     string xaos_type[] = {"[Xt]", "[fX]"}; // "[xaos_TO]", "[xaos_FROM]"
-    if(xaos_chk) append(T, xaos_type[xaos_mode]);
+    if(XS) append(T, xaos_type[XM]);
 
     // SYS options
     if(RIP) append(T, "RIP");
     if(F3C) append(T, "F3C");
     if(MB) append(T, "MB");
 
-    // Build iterators
+    // BUILD iterators
     for(int i=0; i<RES; ++i){
 
         string ITERATOR_TAG, ITERNUM, W, PRE[], PB, V1, V2, V3, V4, POST[], pre_build, post_build;
@@ -258,22 +269,22 @@ _TFFAuicollect(string _bound_VARTYPE[]){
 
         // VAR 1
         w1 = v1w[i];
-        if(w1!=0) V1 = Ts[v1t[i]]+":";
+        if(w1!=0) V1 = concat(Ts[v1t[i]], ":");
         else V1 = ":";
 
         // VAR 2
         w2 = v2w[i];
-        if(w2!=0) V2 = Ts[v2t[i]]+":";
+        if(w2!=0) V2 = concat(Ts[v2t[i]], ":");
         else V2 = ":";
 
         // VAR 3
         w3 = v3w[i];
-        if(w3!=0) V3 = Ts[v3t[i]]+":";
+        if(w3!=0) V3 = concat(Ts[v3t[i]], ":");
         else V3 = ":";
         
         // VAR 4
         w4 = v4w[i];
-        if(w4!=0) V4 = Ts[v4t[i]]+":";
+        if(w4!=0) V4 = concat(Ts[v4t[i]], ":");
         else V4 = ":";
 
         // VAR weights total
@@ -326,7 +337,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
         PRE = POST = {};
     }
 
-    // Build FF
+    // BUILD FF
     if(FF){
 
         string FF_TAG, FV1, FV2, FPRE[], FPOST[], FFPRE_build, FFPOST_build;
