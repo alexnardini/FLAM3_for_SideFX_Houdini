@@ -180,11 +180,10 @@ class flam3husd_scripts
             if f3h_all_instances:
                 
                 f3husd_all_instances: list = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY).instances()
+                f3husd_all_instances_paths: list = [f3husd.parm(PREFS_F3H_PATH).eval() for f3husd in f3husd_all_instances if node != f3husd]
                 
                 # If we already have some FLAM3HUSD nodes and more than one FLAM3H™ nodes
                 if len(f3husd_all_instances) > 1 and len(f3h_all_instances) > 1:
-                    
-                    f3husd_all_instances_paths: list = [f3husd.parm(PREFS_F3H_PATH).eval() for f3husd in f3husd_all_instances if node != f3husd]
                     
                     for f3h in f3h_all_instances:
                         
@@ -217,26 +216,30 @@ class flam3husd_scripts
                     
                 else: # If we are creating the very first FLAM3HUSD instance, always import the very first FLAM3H™ node
                     
-                    # If the point count of the FLAM3H™ node we want to import is not greater than F3H_IMPORT_DENSITY_LIMIT
-                    if limit:
-                        if f3h_all_instances[0].parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
+                    if f3h_all_instances[0].path() in f3husd_all_instances_paths:
+                        return False
+                    
+                    else:
+                        # If the point count of the FLAM3H™ node we want to import is not greater than F3H_IMPORT_DENSITY_LIMIT
+                        if limit:
+                            if f3h_all_instances[0].parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
+                                node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
+                                if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                
+                                if msg:
+                                    ...
+                                    
+                                return True
+                            
+                            else:
+                                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                                return False
+                        else:
                             node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                 flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
-                            
-                            if msg:
-                                ...
-                                
                             return True
-                        
-                        else:
-                            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
-                            return False
-                    else:
-                        node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
-                        if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
-                        return True
             
             else: # If there are not FLAM3H™ nodes
                 if msg:
