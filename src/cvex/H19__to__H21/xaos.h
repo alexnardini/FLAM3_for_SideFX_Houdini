@@ -8,7 +8,7 @@
  /              Houdini 20.5
  /              Houdini 21.0
  /
- /  Title:      FLAM3H. SideFX Houdini FLAM3: 2D
+ /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
  /  date:       December 2022, Last revised December 2022
  /  License:    GPL
