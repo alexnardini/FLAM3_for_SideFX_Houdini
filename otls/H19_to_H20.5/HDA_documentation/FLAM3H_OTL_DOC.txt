@@ -1745,11 +1745,9 @@ mini-menu bases  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     - [Icon:CHANNELS/ease] *`cubic`*<br />Connect the point values with a Catmull-Rom spline.
     - [Icon:CHANNELS/bezier] *`bezier`*<br />A bezier spline.
     - [Icon:CHANNELS/b_spline]*`bspline`*<br />A b-spline basis.
-    - [Icon:CHANNELS/hermite] *`hermite`*<br />A hermite spline.
+    - [Icon:CHANNELS/hermite] *`hermite`*<br />A hermite spline (_Only from H20.5 up_).
 
     The selected choice will be exported into the Flame file on save.
-
-    Keep in mind that these are interpolation methods between the lookup samples that are used to sample the palette, not between the color keys of the palette itself.
     <br /><br />
 
     NOTE:
