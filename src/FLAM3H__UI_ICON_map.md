@@ -1441,12 +1441,12 @@ Token: 1
 Token: 2
 
 ```
-![CHANNELS_cubic] cubic
+![CHANNELS_ease] cubic
 ```
 <p align="left">Houdini DOC icon path for reference</p>
 
 ```
-[Icon:CHANNELS/cubic]
+[Icon:CHANNELS/ease]
 ```
 <br/><br/>
 Token: 3
