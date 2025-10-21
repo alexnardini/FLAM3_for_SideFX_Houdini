@@ -16567,6 +16567,7 @@ class out_flame_utils
 * out_util_vars_duplicate(vars: list) -> list:
 * out_check_build_file(file_split: Union[tuple[str, str], list[str]], file_name: str, file_ext: str) -> str:
 * out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
+* out_file_cleanup(_out_file: str) -> str:
 * out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, out: bool = True, auto_name: bool = True) -> Union[str, bool]:
 * out_affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
 * out_xaos_cleanup(xaos: Union[list[str], list[list[str]], tuple[str]]) -> list[list[str]]:
@@ -17180,6 +17181,31 @@ class out_flame_utils
 
 
     @staticmethod
+    def out_file_cleanup(_out_file: str) -> str:
+        """Further cleanup the generated out file before sending it out.
+
+        Args:
+            _out_file(str): The incoming out_file string to further cleanup.
+
+        Returns:
+            (str): The out_file string ready to go out
+        """  
+        # Further cleanup
+        _out_s: tuple = os.path.split(_out_file)
+        _out_st: tuple = os.path.splitext(_out_s[-1].strip())
+        # We can add as many of the following as we want.
+        _out_st_root: str = _out_st[0].replace(".", "_")
+        
+        # Build final out file
+        if _out_s[0][-1] == "/":
+            out_file: str = f"{_out_s[0]}{_out_st_root}{_out_st[-1]}"
+        else:
+            out_file: str = f"{_out_s[0]}/{_out_st_root}{_out_st[-1]}"
+            
+        return out_file
+
+
+    @staticmethod
     def out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, out: bool = True, auto_name: bool = True) -> Union[str, bool]:
         """Check for the validity of the provided output file path and correct it if needed.
         
@@ -17205,7 +17231,7 @@ class out_flame_utils
         elif prx == AUTO_NAME_OUT and _xml_tree(file).isvalidtree: return file
 
         # Otherwise lets be sure to build a proper output path and file name.
-        # This will need some more work to make it more sophisticated and remove the unnecessary eventually.
+        
         file_s: list = [''.join(x.split(' ')) for x in os.path.split(file)]
         
         # This toggle should be removed from FLAM3H™ at some point
@@ -17266,24 +17292,28 @@ class out_flame_utils
                         file_new: str = out_flame_utils.out_check_build_file(file_s, filename_s[0], file_ext)
                 
                 if file_new:
-                    # This is really a patch instead of rewriting this entire definition...
-                    # Will allow network paths to work as well.
+                    # The following will allow network paths to work as well.
+                    
                     file_dir_out: str = os.path.split(file)[0]
                     # Lets check if the original output path is a valid location
                     if os.path.isdir(file_dir_out):
-                        if f"{file_dir_out}"[-1] == '/': out_file = f"{file_dir_out}{os.path.split(file_new)[-1]}"
-                        else: out_file = f"{file_dir_out}/{os.path.split(file_new)[-1]}"
+                        if f"{file_dir_out}"[-1] == '/': _out_file = f"{file_dir_out}{os.path.split(file_new)[-1]}"
+                        else: _out_file = f"{file_dir_out}/{os.path.split(file_new)[-1]}"
                     # Otherwise lets check if the generated output path is a valid location
-                    elif os.path.isdir(os.path.split(file_new)[0]): out_file = file_new
+                    elif os.path.isdir(os.path.split(file_new)[0]): _out_file = file_new
                     # Otherwise get the expanded and corrected infile location and append the new filename to it
                     else:
-                        if f"{file_s[0]}"[-1] == '/': out_file = f"{file_s[0]}{os.path.split(file_new)[-1]}"
-                        else: out_file = f"{file_s[0]}/{os.path.split(file_new)[-1]}"
+                        if f"{file_s[0]}"[-1] == '/': _out_file = f"{file_s[0]}{os.path.split(file_new)[-1]}"
+                        else: _out_file = f"{file_s[0]}/{os.path.split(file_new)[-1]}"
                     
+                    # Check if there are messages worth printing
                     out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
-                    return out_file
+                    
+                    # OUT
+                    return out_flame_utils.out_file_cleanup(_out_file)
                         
-                else: return False
+                else:
+                    return False
 
             else:
                 if file:
