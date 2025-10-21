@@ -1767,7 +1767,9 @@ mini-menu bases  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
     The interpolation methods between lookup samples color keys' values.
 
-    This is what you should use to alter the color keys interpolation's method in the palette. You may observe its impact on the final fractal Flame output point colors in the viewport, but it is applied internally to the lookup samples and won't be previewed in the palette parameter.
+    Keep in mind that these are interpolation methods between the lookup samples that are used to sample the palette, not between the color keys of the palette itself.
+    
+    You may observe its impact on the final fractal Flame output point colors in the viewport or at render time, but it is applied internally to the lookup samples and won't be previewed in the palette parameter.
 
     Fractorium allow *`linear`* by default, and *`step`*(_*`constant`*_) as its second option.
 
@@ -1780,8 +1782,6 @@ mini-menu bases  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     - [Icon:CHANNELS/hermite] *`hermite`*<br />A hermite spline.
 
     The selected choice will be exported into the Flame file on save.
-
-    Keep in mind that these are interpolation methods between the lookup samples that are used to sample the palette, not between the color keys of the palette itself.
     <br /><br />
 
     NOTE:
