@@ -33,6 +33,8 @@ They are all available in this Github repository.
 
 ### [<ins>v1.9.17 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.17) ###
 
+_This is a re-release of the same version with some minor fixes/improvements that did not make it in the first attempt_.
+
 #### FLAM3H™ ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
