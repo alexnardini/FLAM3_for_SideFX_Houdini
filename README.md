@@ -11,16 +11,13 @@ _The following are Houdini versions where FLAM3H™ is fully functional, tested 
 - **H19** to **H20.5**
 - **H21**
 
-
 <br/>
 <br/>
-
 
 # The Fractal Flame Algorithm
 ![FLAM3 Intro image](./img/GITHUB_intro_img.jpg)
 
 `The above fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer.`
-
 
 ## FLAM3 for SideFX Houdini - aka: FLAM3H™
 **_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
@@ -97,7 +94,7 @@ FLAM3H™ generates a live point cloud of the fractal Flame being worked on, whi
 From there to the final image, it is left to the users ( aka points rendering ).
 With Houdini integrated Karma renderer, you will be able to render the generated fractal Flames in nearly real time.
 
-### Karma render Note:
+### Karma render note
 
 From FLAM3H™ [<ins>v1.8.98</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98),<br/>
 a new custom materialX Shader has been introduced to the FLAM3HUSD HDA to allow proper points color values accumulation. It will perfectly match what third-party implementations refer to as:<br/>
@@ -106,7 +103,6 @@ _"build a buffer with the histogram or summation/accumulation of every point in 
 This custom shader will match the visual quality of the fractal Flames rendered with Apophysis, Fractorium and others.
 Fully available only with FLAM3HUSD HDA versions for Houdini H20.5 and up.
 
-<br/>
 <br/>
 
 `Karma interactive. Worlds - Author: Alessandro Nardini`
@@ -175,13 +171,11 @@ FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the sa
 `Flipped disk. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 03](./img/FractoriumToFLAM3HOUDINI_00.jpg)
 
-
 ## List of all available variations/plugins
 
 _Note that all the followings, are also available as PRE__ _and/or POST__ _variations._
 
 _`Arch` `Auger` `Bent` `Bent2` `Bipolar` `Blade` `Blob` `Blur` `Boarders` `Bubble` `Butterfly` `Bwraps` `Cell` `Conic` `Cos` `Cosh` `Cosine` `Cot` `Coth` `Cpow` `Crop` `Cross` `Csc` `Csch` `Curl` `Curve` `Cylinder` `Diamond` `Disc` `Disc2` `Edisc` `Elliptic` `Escher` `Ex` `Exp` `Exponential` `Eyefish` `Fan` `Fan2` `Fisheye` `Flower` `Flux` `Foci` `Gaussian_blur` `Glynnia` `Handkerchief` `Heart` `Hemisphere` `Horseshoe` `Hyperbolic` `Julia` `JuliaN` `Juliascope` `Lazysusan` `Linear` `Log` `Loonie` `Mobius` `Modulus` `Ngon` `Noise` `Oscope` `Parabola` `Pdj` `Perspective` `Pie` `Point_symmetry` `Polar` `Polar2` `Polynomial` `Popcorn` `Popcorn2` `Power` `Pre_blur` `Radialblur` `Rays` `Rectangles` `Rings` `Rings2` `Scry` `Sec` `Secant2` `Sech` `Separation` `Sin` `Sinh` `Sinusoidal` `Spherical` `Spiral` `Split` `Splits` `Square` `Stripes` `Supershape` `Swirl` `Tan` `Tangent` `Tanh` `Twintrian` `Unpolar` `Waves` `Waves2` `Wedge` `Wedgejulia` `Wedgesph` `Whorl`_
-
 
 _They are 106, if you were wondering..._
 
@@ -239,7 +233,7 @@ Some require thousands of iterations to show you the proper results; some of the
 </br>
 </br>
 
-The following screenshots show FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right.
+_The following screenshots show FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right_.
 
 ### Lets start with this gnarl preset:
 
@@ -295,7 +289,7 @@ Every aspect of this algorithm, once understood, looks simple on the surface, bu
 
 It is time to park this project for a little bit, but I really, really loved the long journey on this topic, and I will now forever love fractal Flames as a whole, they are awesome  ( and addictive )!
 
-## Example Flame files.
+## Example Flame files
 
 Some of the example Flame files I'm using as a proof of correctness and shipped with this implementation were created or authored by some incredible fractal artists using a variety of open source and free apps like Apophysis and Fractorium among the most popular.
 

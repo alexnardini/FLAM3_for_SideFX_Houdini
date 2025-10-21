@@ -31,6 +31,27 @@ They are all available in this Github repository.
 
 
 
+### [<ins>v1.9.17 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.17) ###
+
+#### FLAM3H™ ####
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+#### FLAM3HUSD v0.2.30 - Prototype ####
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.16 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.16) ###
 
 #### FLAM3H™ ####
