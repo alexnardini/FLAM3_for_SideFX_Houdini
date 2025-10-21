@@ -1411,9 +1411,9 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 </br>
 
 # CP Tab
-# parameter name:    `cp_bases`
+# parameter name:    `cp_bases` -> _only from H20.5 UP_
 ### Menu icons
-<p align="left">( This menu uses Houdini icons )</p>
+<p align="left">( This menu uses icons from the Houdini icon library )</p>
 <br/><br/>
 
 Token: 0
