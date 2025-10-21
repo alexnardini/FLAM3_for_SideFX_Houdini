@@ -1411,6 +1411,81 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 </br>
 
 # CP Tab
+# parameter name:    `cp_bases`
+### Menu icons
+<p align="left">( This menu uses Houdini icons )</p>
+<br/><br/>
+
+Token: 0
+
+```
+![CHANNELS_linear] linear
+```
+<p align="left">Houdini DOC icon path for reference</p>
+
+```
+[Icon:CHANNELS/linear]
+```
+<br/><br/>
+Token: 1
+
+```
+![CHANNELS_constant] constant
+```
+<p align="left">Houdini DOC icon path for reference</p>
+
+```
+[Icon:CHANNELS/constant]
+```
+<br/><br/>
+Token: 2
+
+```
+![CHANNELS_cubic] cubic
+```
+<p align="left">Houdini DOC icon path for reference</p>
+
+```
+[Icon:CHANNELS/cubic]
+```
+<br/><br/>
+Token: 3
+
+```
+![CHANNELS_bezier] bezier
+```
+<p align="left">Houdini DOC icon path for reference</p>
+
+```
+[Icon:CHANNELS/bezier]
+```
+<br/><br/>
+Token: 4
+
+```
+![CHANNELS_b_spline] bspline
+```
+<p align="left">Houdini DOC icon path for reference</p>
+
+```
+[Icon:CHANNELS/b_spline]
+```
+<br/><br/>
+Token: 5
+
+```
+![CHANNELS_hermite] hermite
+```
+<p align="left">Houdini DOC icon path for reference</p>
+
+```
+[Icon:CHANNELS/hermite]
+```
+
+</br>
+</br>
+
+# CP Tab
 # parameter name:    `cp_lookupsamples`
 ### Menu icons
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
