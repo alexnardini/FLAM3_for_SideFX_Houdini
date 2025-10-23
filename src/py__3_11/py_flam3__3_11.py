@@ -2671,7 +2671,7 @@ class flam3h_general_utils
             (bool): True if locked. False if not.
         """
         if filepath is not False:
-            if os.path.exists(filepath) and os.path.split(str(filepath))[-1].startswith(FLAM3H_LIB_LOCK):
+            if os.path.exists(filepath) and os.path.split(str(filepath))[-1].upper().startswith(FLAM3H_LIB_LOCK):
                 return True
             else:
                 return False

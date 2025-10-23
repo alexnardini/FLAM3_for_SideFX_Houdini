@@ -2670,7 +2670,7 @@ class flam3h_general_utils
             (bool): True if locked. False if not.
         """
         if filepath is not False:
-            if os.path.exists(filepath) and os.path.split(str(filepath))[-1].startswith(FLAM3H_LIB_LOCK):
+            if os.path.exists(filepath) and os.path.split(str(filepath))[-1].upper().startswith(FLAM3H_LIB_LOCK):
                 return True
             else:
                 return False
@@ -13511,6 +13511,7 @@ class in_flame_utils
         Returns:
             (list | None): return a list of variations found using the prefix criteria
         """  
+
         if xforms is not None:
             return [list(map(lambda x: x, filter(lambda x: x in vars.get(in_flame_utils.in_util_removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys()))))) for xf in xforms] # type: ignore
         else:
