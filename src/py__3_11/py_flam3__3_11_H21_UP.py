@@ -35,6 +35,9 @@ from re import sub as re_sub
 from re import search as re_search
 from numpy import pad as np_pad
 from numpy import resize as np_resize
+from numpy import array as np_array
+from numpy import float32 as np_float32
+from numpy.typing import NDArray
 from numpy import transpose as np_transpose
 from numpy import searchsorted as np_searchsorted
 from webbrowser import open as www_open
@@ -71,7 +74,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                 
                 This code will be turned into a module from within Houdini.
 
-                _NOTE:
+                Note:
                     Some definitions run directly from inside the FLAM3H™ parameters.
                     Please check the file: ../py_flam3_UI_PRM_map.py
                     to see if any of the definition you are curious about is being used inside any of the FLAM3H™ parameters directly.
@@ -138,7 +141,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                     out_flame_render_properties(out_flame_utils)
                     out_flame_xforms_data(out_flame_utils)
 
-                    _NOTE:
+                    Note:
                         - Class @properties are always defined inbetween the @staticmethods and the class methods.
                         - Global variables are all upper cases. Every upper case variable's name created inside any definition always start with an underscore (_)
 
@@ -147,12 +150,11 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 T = TypeVar('T')
 
 TA_TypeVarCollection: TypeAlias = str | list | tuple | KeysView
-TA_XformVarKeys: TypeAlias = str | list[str] | tuple[str] | dict[str, int] | dict[str, tuple] | KeysView | None
+TA_XformVarKeys: TypeAlias = str | list[str] | tuple[str] | dict[str, int] | dict[str, tuple] | dict[str, set] | KeysView | None
 TA_TypeMaker: TypeAlias = list | float | hou.Vector2 | hou.Vector3 | hou.Vector4
 TA_F3H_Init: TypeAlias = tuple[str | None, bool, int, str, bool, bool]
 TA_MNode: TypeAlias = hou.SopNode | None
 TA_M: TypeAlias = int | None
-
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -960,7 +962,7 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
         self.prx = prx
 
     def varsPRM_FF(self) -> tuple:
-
+        
         px: str = self.prx
         vPRM: tuple = self.varsPRM
         varsPRM_FF: tuple = ( vPRM[0], 
@@ -1962,7 +1964,7 @@ class flam3h_scripts
     def flam3h_on_create_compatible_false(self, iterators_count_zero: bool = True, descriptive_prm: bool = True) -> None:
         """When FLAM3H™ is loaded into an incompatible Houdini version this code is run on creation.
         
-        _NOTE:
+        Note:
             This will need to be expanded at some point in time, for now it is enough to catch the versions and show the incompatibility for simple cases.
         
         Args:
@@ -2100,7 +2102,7 @@ class flam3h_scripts
     def flam3h_on_loaded_compatible_false(self) -> None:
         """When FLAM3H™ is loaded into an incompatible Houdini version on hip file load and on node copy/clone this code is run.
         
-        _NOTE:
+        Note:
             This will need to be expanded at some point in time, for now it is enough to catch the versions and show the incompatibility for simple cases.
         
         Args:
@@ -2125,7 +2127,7 @@ class flam3h_scripts
         * if hou.hipFile.isLoadingHipFile():
             ....
         
-        _NOTE:
+        Note:
             This may be extended in the future, depending on needs.
         
         To be used inside:
@@ -2481,6 +2483,12 @@ class flam3h_general_utils
             prm.lock(False)
             prm.set(data) # type: ignore # the set method for the hou.Parm exist but it is not recognized
             prm.lock(True)
+            
+        else:
+            if isinstance(_prm, str):
+                print(f"{node.name()}: PVT parameter not found to Set: {_prm}")
+            else:
+                print(f"{node.name()}: PVT parameter not found to Set.")
         
         
     @staticmethod
@@ -2503,8 +2511,14 @@ class flam3h_general_utils
             prm.lock(False)
             prm.deleteAllKeyframes()
             prm.lock(True)
+            
+        elif prm is None:
+            if isinstance(_prm, str):
+                print(f"{node.name()}: PVT parameter not found to DeleteAllKeyFrames: {_prm}")
+            else:
+                print(f"{node.name()}: PVT parameter not found to DeleteAllKeyFrames.")
         
-        
+    
     @staticmethod
     def select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> None | str:
         """Return the filepath string for either the CP or IN filepath parameter if any, otherwise return None if empty or invalid.
@@ -3163,7 +3177,7 @@ class flam3h_general_utils
         
         Maybe it would be better to split all those purposes into their own definition for each...but good for now.
         
-        _NOTE:
+        Note:
             This definition is also run inside the following definitions:
             
             * def flam3h_outsensor_toggle(self, prm_name: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
@@ -3987,7 +4001,7 @@ class flam3h_general_utils
         and the next one the user may make some modification to the stored file, like moving it into another location or deleting it
         so this way we make sure to always be up to date.
         
-        _NOTE:
+        Note:
             This definition differ from the IN and OUT file init presets definitions,
             because it deal with the Loading and Saving data initializations in one place.
         
@@ -4216,7 +4230,7 @@ class flam3h_general_utils
     def flam3h_init_presets_OUT_PRESETS(self, destroy_menus: bool = True) -> None:
         """Initialize parameter's menu presets for the OUT tab.
         
-        _NOTE:
+        Note:
             This need a little update at some point.
         
         Args:
@@ -5322,7 +5336,7 @@ class flam3h_iterator_utils
             _MSG: str = f"{node.name()} -> The FLAM3H™ node you are trying to copy data from do not exist"
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             
-    
+            
     @staticmethod
     def is_iterator_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, id: str, id_from: str, post: bool = False) -> bool:
         """To be used with the copy/paste methods. Check if an iterator Affine (PRE or POST) are at default values. 
@@ -5413,7 +5427,7 @@ class flam3h_iterator_utils
                 prm_from = node.parmTuple(f"{prm[0]}{id}")
                 prm_to = node.parmTuple(f"{prm_list_affine_from[idx][0]}{id}")
                 prm_to.deleteAllKeyframes()
-                [[prm_to[prm_idx].setKeyframe(k) for k in p.keyframes()] if len(p.keyframes()) else prm_to[prm_idx].set(p.eval()) for prm_idx, p in enumerate(prm_from)]
+                [[prm_to[prm_idx].setKeyframe(k) for k in kf] if len((kf := p.keyframes())) else prm_to[prm_idx].set(p.eval()) for prm_idx, p in enumerate(prm_from)]
                 
                 # prm_idx = 0
                 # for p in prm_from:
@@ -5468,7 +5482,7 @@ class flam3h_iterator_utils
         """When copy/paste parameter values between different multiparameter indexes,
         this will save the current note and place it into parenthesis as a form of backup.
         
-        _NOTE:
+        Note:
             This need an upgrade/improvements at some point.
         
         Args:
@@ -5498,7 +5512,7 @@ class flam3h_iterator_utils
     def paste_set_note(node: hou.SopNode, flam3node: hou.SopNode | None, int_mode: int, str_section: str, id: str, id_from: str) -> None:
         """After a copy/paste, it will set the note parameter with a string indicating what has been pasted ( when copy/paste iterator's sections )
         
-        _NOTE:
+        Note:
             This need an upgrade/improvements at some point.
         
         Args:
@@ -5593,7 +5607,7 @@ class flam3h_iterator_utils
         """Set the data_name data into FLAM3H™ data parameters.
         Note that all the data will be of type: string.
 
-        _NOTE:
+        Note:
             This parameter has been swapped for a label message parameter so the lock/unlock is not necessary anymore.
             However, is not causing any problem and I leave it here for now.
 
@@ -6244,7 +6258,7 @@ class flam3h_iterator_utils
         """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
         Differentiate iterators and FF
         
-        _NOTE:
+        Note:
             When changing weight's value, the bookmark icon will updated too
             but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
             Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
@@ -6268,7 +6282,7 @@ class flam3h_iterator_utils
         """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
         Differentiate iterators and FF
         
-        _NOTE:
+        Note:
             When changing weight's value, the bookmark icon will updated too
             but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
             Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
@@ -6305,11 +6319,12 @@ class flam3h_iterator_utils
     def menu_T(self, FF: bool = False) -> list:
         """Populate variation names parameter menu list.
         Differentiate iterators and FF
-        
-        _NOTE:
-            When changing weight's value, the bookmark icon will updated too
-            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
-            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+            
+        Note:
+            When changing a weight's value, the bookmark icon updates immediately.
+            However, it will not refresh when opening the parameter menu until a new
+            selection is made. It's unclear if this is intended behavior or a bug —
+            consider reporting this to SideFX.
 
         Args:
             (self):
@@ -6325,19 +6340,20 @@ class flam3h_iterator_utils
         data: list | None = node.cachedUserData('vars_menu_all_simple')
         if data is not None:
             return data
-        else:
-            _ICONS_TOGGLE: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
-            return (self.menu_T_simple, self.menu_T_ICON)[_ICONS_TOGGLE](FF)
+
+        use_icons: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        return (self.menu_T_simple, self.menu_T_ICON)[use_icons](FF)
 
     
     def menu_T_PP(self, FF: bool = False) -> list:
         """Populate variation names parameter menu list.
         Differentiate iterators and FF
         
-        _NOTE:
-            When changing weight's value, the bookmark icon will updated too
-            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
-            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+        Note:
+            When changing a weight's value, the bookmark icon updates immediately.
+            However, it will not refresh when opening the parameter menu until a new
+            selection is made. It's unclear if this is intended behavior or a bug —
+            consider reporting this to SideFX.
             
         Args:
             (self):
@@ -6352,15 +6368,15 @@ class flam3h_iterator_utils
         data: list | None = node.cachedUserData('vars_menu_all_simple')
         if data is not None:
             return data
-        else:
-            _ICONS_TOGGLE: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
-            return (self.menu_T_simple, self.menu_T_PP_ICON)[_ICONS_TOGGLE](FF)
+
+        use_icons: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        return (self.menu_T_simple, self.menu_T_PP_ICON)[use_icons](FF)
     
     
     def menu_T_pb(self) -> list:
         """Populate variation name parameter menu list for Pre blur variation
         
-        _NOTE:
+        Note:
             When changing weight's value, the bookmark icon will updated too
             but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
             Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
@@ -6460,7 +6476,7 @@ class flam3h_iterator_utils
             # For undos: compare old data_* against current data_*
             # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-            data_now: tuple = tuple([[node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha')])
+            data_now: tuple = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha'))
             data_cached: tuple = (  (0, node.cachedUserData('iter_sel_n')), 
                                     (1, node.cachedUserData('iter_sel_a')), 
                                     (2, node.cachedUserData('iter_sel_w')), 
@@ -6478,7 +6494,7 @@ class flam3h_iterator_utils
     def prm_select_iterator(self) -> None:
         """Change multi-parameter index focus based on the selected iterator number from: def menu_select_iterator(self) -> list:
         
-        _NOTE:
+        Note:
             Need to investigate more how to control the Network Editor's Parameter Dialog displayed when pressing the "p" key.
             For now, it will just do nothing and let the user know.
 
@@ -7588,7 +7604,7 @@ class flam3h_iterator_utils
         else:
             _MSG: str = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-            
+        
         # Delete keyframes from all iterators copy/paste menus
         iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         prm_name: str = n.main_prmpastesel
@@ -8813,7 +8829,7 @@ class flam3h_iterator_utils
         
         # Update iterator's names if there is a need ( If they have a default name )
         mp_note_name: str = flam3h_iterator_prm_names().main_note
-        [node.setParms({f"{mp_note_name}_{str(mp_idx + 1)}": f"iterator_{mp_idx + 1}"}) for mp_idx in range(iter_count) if self.flam3h_iterator_is_default_name(str(node.parm(f"{mp_note_name}_{str(mp_idx + 1)}").eval()).strip())] # type: ignore
+        [node.setParms({f"{mp_note_name}_{new_mp_idx}": f"iterator_{new_mp_idx}"}) for mp_idx in range(iter_count) if self.flam3h_iterator_is_default_name(str(node.parm(f"{mp_note_name}_{(new_mp_idx := str(mp_idx + 1))}").eval()).strip())] # type: ignore
         
         # lock
         [prm.lock(True) for prm in _PVT_PARMS]
@@ -9026,7 +9042,7 @@ class flam3h_iterator_utils
         we must always have at least one active iterator, if at least one iterator is present and its Weight above Zero.
         This will prevent the last active iterator to being disabled.
         
-        _NOTE:
+        Note:
             The parameters names are hard coded here to try to speed up even if a tiny bit.
             If class flam3h_iterator_prm_names: is updated, need to be updated here too.
             
@@ -9069,7 +9085,7 @@ class flam3h_iterator_utils
         This is the actual definition that run in a callback script.
         It will prevent the lasct active iterator to be turned OFF.
         
-        _NOTE:
+        Note:
             The parameters names are hard coded here to try to speed up even if a tiny bit.
             If class flam3h_iterator_prm_names: is updated, need to be updated here too.
             
@@ -9094,7 +9110,7 @@ class flam3h_iterator_utils
         we must always have at least one iterator's weight above Zero, if at least one iterator is present or active.
         This will prevent to set the last active iterator's Weight to be Zero.
         
-        _NOTE:
+        Note:
             The parameters names are hard coded here to try to speed up even if a tiny bit.
             If class flam3h_iterator_prm_names: is updated, need to be updated here too.
             
@@ -9282,9 +9298,19 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        posList: KeysView = ramp_parm.evalAsRamp().keys()
-        [hou.parm(f"{ramp_parm.path()}{str(i + 1)}pos").deleteAllKeyframes() for i in range(0, len(posList))]
-        [hou.parmTuple(f"{ramp_parm.path()}{str(i + 1)}c").deleteAllKeyframes() for i in range(0, len(posList))]
+        # pre-compute some data
+        parm_path = ramp_parm.path()
+        posList_len = len(ramp_parm.evalAsRamp().keys()) + 1
+        
+        for i in range(1, posList_len):
+            
+            # Delete position keyframes
+            pos_parm = hou.parm(f"{parm_path}{i}pos")
+            if pos_parm: pos_parm.deleteAllKeyframes()
+            
+            # Delete color keyframes
+            color_parm = hou.parmTuple(f"{parm_path}{i}c")
+            if color_parm: color_parm.deleteAllKeyframes()
 
         
     @staticmethod 
@@ -9292,7 +9318,7 @@ class flam3h_palette_utils
         """Based on how many color keys are present in the provided ramp,
         select a palette colors/keys count preset to use for better resample it.
         
-        _NOTE:
+        Note:
             This need to be revised and smartened up a little as there may be cases where it will fail
             to sample the palette enough to collect the proper colors based on their location and proxymity to each other in the ramp.
 
@@ -10076,8 +10102,9 @@ class flam3h_palette_utils
         if rgb_from_XML_PALETTE:
             
             try:
-                POSs: list = list(iter_islice(iter_count(0, 1.0/(len(rgb_from_XML_PALETTE)-1)), len(rgb_from_XML_PALETTE)))
-                BASEs: list = [hou.rampBasis.Linear] * len(rgb_from_XML_PALETTE) # type: ignore
+                _len: int = len(rgb_from_XML_PALETTE)
+                POSs: list = list(iter_islice(iter_count(0, 1.0/(_len-1)), _len))
+                BASEs: list = [hou.rampBasis.Linear] * _len # type: ignore
             except:
                 # If something goes wrong...set one RED key only
                 BASEs, POSs, rgb_from_XML_PALETTE = self.build_ramp_palette_error()
@@ -10155,7 +10182,9 @@ class flam3h_palette_utils
                 except:
                     rgb_from_XML_PALETTE: list = []
                 else:
-                    rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                    # Convert to NumPy array and normalize
+                    RGBs_array: NDArray[np_float32] = np_array(RGBs[:len(HEXs)], dtype=np_float32)
+                    rgb_from_XML_PALETTE: list = (RGBs_array / 255.0).tolist()
                 
                 del data
                 
@@ -10341,7 +10370,9 @@ class flam3h_palette_utils
                     except:
                         rgb_from_XML_PALETTE: list = []
                     else:
-                        rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                        # Convert to NumPy array and normalize
+                        RGBs_array: NDArray[np_float32] = np_array(RGBs[:len(HEXs)], dtype=np_float32)
+                        rgb_from_XML_PALETTE: list = (RGBs_array / 255.0).tolist()
                         
                     del data
                     
@@ -11354,7 +11385,7 @@ XML_APP_NAME_FRACTORIUM = 'EMBER'
 # From the XML's xforms, each variations look itself up inside here to get the corresponding FLAM3H™ var idx it is mapped to.
 # The key names matter and must match the variation's names as known by other apps ( in my case: Apophysis and Fratorium )
 #
-# _NOTE:
+# Note:
 #       Variation name "linear3d" has been added to this dict as it is often used in old Flames and we are remapping it to "linear" on load.
 
 VARS_FLAM3_DICT_IDX: dict[str, int] = { "linear": 0, 
@@ -11477,33 +11508,33 @@ VARS_FLAM3_DICT_IDX: dict[str, int] = { "linear": 0,
 #
 # If you want an Unknown variation to be recognized by FLAM3H™, add it here inside the corresponding dictionary letter entrie based on its name.
 
-VARS_FRACTORIUM_DICT: dict[str, tuple] = {  "a": ("arch", "arcsech", "arcsech2", "arcsinh", "arctanh", "asteria", "auger"),
-                                            "b": ( "barycentroid", "bcircle", "bcollide", "bent", "bent2", "bipolar", "bisplit", "blade", "blade3d", "blob", "blob2", "blob3d", "block", "blocky", "blur", "blur_circle", "blur_heart", "blur_linear", "blur_pixelize", "blur_square", "blur_zoom", "blur3d", "bmod", "boarders", "boarders2", "bswirl", "btransform", "bubble", "bubble2", "bubblet3d", "butterfly", "bwraps", "bwraps_rand"),
-                                            "c": ( "cardioid", "cell", "checks", "circleblur", "circlecrop", "circlecrop2", "circlelinear", "circlerand", "circlesplit", "circletrans1", "circlize", "circlize2", "circus", "collideoscope", "concentric", "conic", "cos", "cos_wrap", "cosh", "coshq", "cosine", "cosq", "cot", "coth", "coth_spiral", "cothq", "cotq", "cpow", "cpow2", "cpow3", "crackle", "crackle2", "crescents", "crob", "crop", "cropn", "cross", "csc", "csch", "cschq", "cscq", "cubic3d", "cubic_lattice3d", "curl", "curl3d", "curl_sp", "curvature", "curve", "cylinder", "cylinder2"),
-                                            "d": ("delta_a", "depth", "depth_blur", "depth_blur2", "depth_gaussian", "depth_gaussian2", "depth_ngon", "depth_ngon2", "depth_sine", "depth_sine2", "diamond", "disc", "disc2", "disc3d", "dragonfire", "dust","d_spherical"),
-                                            "e": ("eclipse", "ecollide", "edisc", "ejulia", "elliptic", "emod", "emotion", "ennepers", "epispiral", "epush", "erf", "erotate", "escale", "escher", "estiq", "eswirl", "ex", "excinis", "exp", "exp2", "expo", "exponential", "extrude", "eyefish"),
-                                            "f": ("falloff", "falloff2", "falloff3", "fan", "fan2", "farblur", "fdisc", "fibonacci", "fibonacci2", "fisheye", "flatten", "flip_circle", "flip_x", "flip_y", "flower", "flower_db", "flux", "foci", "foci3d", "foci_p", "fourth", "funnel"),
-                                            "g": ("gamma", "gaussian", "gaussian_blur", "gdoffs", "glynnia", "glynnia2", "glynnsim1", "glynnsim2", "glynnsim3", "glynnsim4", "glynnsim5", "gnarly", "gridout"),
-                                            "h": ("handkerchief", "heart", "heat", "helicoid", "helix", "hemisphere", "henon", "hexaplay3d", "hexcrop", "hexes", "hexnix3d", "hex_modulus", "hex_rand", "hex_truchet", "ho", "hole", "horseshoe", "hyperbolic", "hypercrop", "hypershift", "hypershift2", "hypertile", "hypertile1", "hypertile2", "hypertile3d", "hypertile3d1", "hypertile3d2"),
-                                            "i": ("idisc", "inkdrop", "interference2"),
-                                            "j": ("jac_cn", "jac_dn", "jac_sn", "julia", "julia3d", "julia3dq", "julia3dz", "juliac", "julian", "julian2", "julian3dx", "julianab", "juliaq", "juliascope"), 
-                                            "k": ("kaleidoscope",),
-                                            "l": ("lazyjess", "lazysusan", "lazy_travis", "lens", "line", "linear", "linear_t", "linear_t3d", "linear_xz", "linear_yz", "linear3d", "lissajous", "log", "log_db", "loq", "loonie", "loonie2", "loonie3", "loonie3d", "lozi"),
-                                            "m": ("mask", "mcarpet", "mirror_x", "mirror_y", "mirror_z", "mobiq", "mobius", "mobius_strip", "mobiusn", "modulus", "modulusx", "modulusy", "murl", "murl2"),
-                                            "n": ("nblur", "ngon", "noise", "npolar"),
-                                            "o": ("octagon", "octapol", "ortho", "oscilloscope", "oscilloscope2", "ovoid", "ovoid3d"),
-                                            "p": ("panorama1", "panorama2", "parabola", "pdj", "perspective", "petal", "phoenix_julia", "pie", "pie3d", "pixel_flow", "poincare", "poincare2", "poincare3d", "point_symmetry", "polar", "polar2", "polynomial", "popcorn", "popcorn2", "popcorn23d", "pow_block", "power", "pressure_wave", "projective", "prose3d", "psphere", "pulse"),
-                                            "q": ("q_ode",),
-                                            "r": ("radial_blur", "radial_gaussian", "rand_cubes", "rational3", "rays", "rays1", "rays2", "rays3", "rblur", "rectangles", "rings", "rings2", "ripple", "rippled", "rotate", "rotate_x", "rotate_y", "rotate_z", "roundspher", "roundspher3d"),
-                                            "s": ("scry", "scry2", "scry3d", "sec", "secant2", "sech", "sechq", "secq", "separation", "shift", "shred_rad", "shred_lin", "sigmoid", "sin", "sineblur", "sinh", "sinhq", "sinq", "sintrange", "sinus_grid", "sinusoidal", "sinusoidal3d", "smartshape", "smartcrop", "spher", "sphereblur", "spherical", "spherical3d", "sphericaln", "spherivoid", "sphyp3d", "spiral", "spiral_wing", "spirograph", "split", "split_brdr", "splits", "splits3d", "square", "squares", "square3d", "squarize", "squirrel", "squish", "sschecks", "starblur", "starblur2", "stripes", "stwin", "super_shape", "super_shape3d","svf", "swirl", "swirl3", "swirl3r", "synth"),
-                                            "t": ("tan", "tancos", "tangent", "tanh", "tanhq", "tanh_spiral", "tanq", "target", "target0", "target2", "taurus", "tile_hlp", "tile_log", "trade", "truchet", "truchet_fill", "truchet_hex_fill", "truchet_hex_crop", "truchet_glyph", "truchet_inv", "truchet_knot", "twintrian", "twoface"),
-                                            "u": ("unicorngaloshen", "unpolar"),
-                                            "v": ("vibration", "vibration2", "vignette", "voron"),
-                                            "w": ("w", "waffle", "waves", "waves2", "waves22", "waves23", "waves23d", "waves2b", "waves2_radial", "waves3", "waves4", "waves42", "wavesn", "wdisc", "wedge", "wedge_julia", "wedge_sph", "whorl"),
-                                            "x": ("x", "xerf", "xheart", "xtrb"),
-                                            "y": ("y",),
-                                            "z": ("z", "zblur", "zcone", "zscale","ztranslate")
-                                            }
+VARS_FRACTORIUM_DICT: dict[str, set] = {"a": {"arch", "arcsech", "arcsech2", "arcsinh", "arctanh", "asteria", "auger"},
+                                                    "b": {"barycentroid", "bcircle", "bcollide", "bent", "bent2", "bipolar", "bisplit", "blade", "blade3d", "blob", "blob2", "blob3d", "block", "blocky", "blur", "blur_circle", "blur_heart", "blur_linear", "blur_pixelize", "blur_square", "blur_zoom", "blur3d", "bmod", "boarders", "boarders2", "bswirl", "btransform", "bubble", "bubble2", "bubblet3d", "butterfly", "bwraps", "bwraps_rand"},
+                                                    "c": {"cardioid", "cell", "checks", "circleblur", "circlecrop", "circlecrop2", "circlelinear", "circlerand", "circlesplit", "circletrans1", "circlize", "circlize2", "circus", "collideoscope", "concentric", "conic", "cos", "cos_wrap", "cosh", "coshq", "cosine", "cosq", "cot", "coth", "coth_spiral", "cothq", "cotq", "cpow", "cpow2", "cpow3", "crackle", "crackle2", "crescents", "crob", "crop", "cropn", "cross", "csc", "csch", "cschq", "cscq", "cubic3d", "cubic_lattice3d", "curl", "curl3d", "curl_sp", "curvature", "curve", "cylinder", "cylinder2"},
+                                                    "d": {"delta_a", "depth", "depth_blur", "depth_blur2", "depth_gaussian", "depth_gaussian2", "depth_ngon", "depth_ngon2", "depth_sine", "depth_sine2", "diamond", "disc", "disc2", "disc3d", "dragonfire", "dust","d_spherical"},
+                                                    "e": {"eclipse", "ecollide", "edisc", "ejulia", "elliptic", "emod", "emotion", "ennepers", "epispiral", "epush", "erf", "erotate", "escale", "escher", "estiq", "eswirl", "ex", "excinis", "exp", "exp2", "expo", "exponential", "extrude", "eyefish"},
+                                                    "f": {"falloff", "falloff2", "falloff3", "fan", "fan2", "farblur", "fdisc", "fibonacci", "fibonacci2", "fisheye", "flatten", "flip_circle", "flip_x", "flip_y", "flower", "flower_db", "flux", "foci", "foci3d", "foci_p", "fourth", "funnel"},
+                                                    "g": {"gamma", "gaussian", "gaussian_blur", "gdoffs", "glynnia", "glynnia2", "glynnsim1", "glynnsim2", "glynnsim3", "glynnsim4", "glynnsim5", "gnarly", "gridout"},
+                                                    "h": {"handkerchief", "heart", "heat", "helicoid", "helix", "hemisphere", "henon", "hexaplay3d", "hexcrop", "hexes", "hexnix3d", "hex_modulus", "hex_rand", "hex_truchet", "ho", "hole", "horseshoe", "hyperbolic", "hypercrop", "hypershift", "hypershift2", "hypertile", "hypertile1", "hypertile2", "hypertile3d", "hypertile3d1", "hypertile3d2"},
+                                                    "i": {"idisc", "inkdrop", "interference2"},
+                                                    "j": {"jac_cn", "jac_dn", "jac_sn", "julia", "julia3d", "julia3dq", "julia3dz", "juliac", "julian", "julian2", "julian3dx", "julianab", "juliaq", "juliascope"}, 
+                                                    "k": {"kaleidoscope",},
+                                                    "l": {"lazyjess", "lazysusan", "lazy_travis", "lens", "line", "linear", "linear_t", "linear_t3d", "linear_xz", "linear_yz", "linear3d", "lissajous", "log", "log_db", "loq", "loonie", "loonie2", "loonie3", "loonie3d", "lozi"},
+                                                    "m": {"mask", "mcarpet", "mirror_x", "mirror_y", "mirror_z", "mobiq", "mobius", "mobius_strip", "mobiusn", "modulus", "modulusx", "modulusy", "murl", "murl2"},
+                                                    "n": {"nblur", "ngon", "noise", "npolar"},
+                                                    "o": {"octagon", "octapol", "ortho", "oscilloscope", "oscilloscope2", "ovoid", "ovoid3d"},
+                                                    "p": {"panorama1", "panorama2", "parabola", "pdj", "perspective", "petal", "phoenix_julia", "pie", "pie3d", "pixel_flow", "poincare", "poincare2", "poincare3d", "point_symmetry", "polar", "polar2", "polynomial", "popcorn", "popcorn2", "popcorn23d", "pow_block", "power", "pressure_wave", "projective", "prose3d", "psphere", "pulse"},
+                                                    "q": {"q_ode",},
+                                                    "r": {"radial_blur", "radial_gaussian", "rand_cubes", "rational3", "rays", "rays1", "rays2", "rays3", "rblur", "rectangles", "rings", "rings2", "ripple", "rippled", "rotate", "rotate_x", "rotate_y", "rotate_z", "roundspher", "roundspher3d"},
+                                                    "s": {"scry", "scry2", "scry3d", "sec", "secant2", "sech", "sechq", "secq", "separation", "shift", "shred_rad", "shred_lin", "sigmoid", "sin", "sineblur", "sinh", "sinhq", "sinq", "sintrange", "sinus_grid", "sinusoidal", "sinusoidal3d", "smartshape", "smartcrop", "spher", "sphereblur", "spherical", "spherical3d", "sphericaln", "spherivoid", "sphyp3d", "spiral", "spiral_wing", "spirograph", "split", "split_brdr", "splits", "splits3d", "square", "squares", "square3d", "squarize", "squirrel", "squish", "sschecks", "starblur", "starblur2", "stripes", "stwin", "super_shape", "super_shape3d","svf", "swirl", "swirl3", "swirl3r", "synth"},
+                                                    "t": {"tan", "tancos", "tangent", "tanh", "tanhq", "tanh_spiral", "tanq", "target", "target0", "target2", "taurus", "tile_hlp", "tile_log", "trade", "truchet", "truchet_fill", "truchet_hex_fill", "truchet_hex_crop", "truchet_glyph", "truchet_inv", "truchet_knot", "twintrian", "twoface"},
+                                                    "u": {"unicorngaloshen", "unpolar"},
+                                                    "v": {"vibration", "vibration2", "vignette", "voron"},
+                                                    "w": {"w", "waffle", "waves", "waves2", "waves22", "waves23", "waves23d", "waves2b", "waves2_radial", "waves3", "waves4", "waves42", "wavesn", "wdisc", "wedge", "wedge_julia", "wedge_sph", "whorl"},
+                                                    "x": {"x", "xerf", "xheart", "xtrb"},
+                                                    "y": {"y",},
+                                                    "z": {"z", "zblur", "zcone", "zscale","ztranslate"}
+                                                    }
 
 
 class flam3h_varsPRM_APO:
@@ -11839,7 +11870,8 @@ class _xml_tree
                 newroot = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
                 newroot.insert(0, root)
                 # If there are flames, proceed
-                if tuple([f for f in newroot.iter(XML_FLAME_NAME)]):
+                if any(True for _ in tree.getroot().iter(XML_FLAME_NAME)):
+                
                     out_flame_utils._out_pretty_print(newroot)
                     return lxmlET.tostring(newroot, encoding="unicode") # type: ignore
                 else:
@@ -11851,7 +11883,8 @@ class _xml_tree
                     return None
             else:
                 # If there are flames, proceed
-                if tuple([f for f in root.iter(XML_FLAME_NAME)]):
+                if any(True for _ in tree.getroot().iter(XML_FLAME_NAME)):
+                
                     out_flame_utils._out_pretty_print(root)
                     return lxmlET.tostring(root, encoding="unicode") # type: ignore
                 else:
@@ -11876,7 +11909,8 @@ class _xml_tree
                 root = tree.getroot()
                 if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
                     # If there are flames, proceed
-                    if tuple([f for f in root.iter(XML_FLAME_NAME)]):
+                    if any(True for _ in tree.getroot().iter(XML_FLAME_NAME)):
+                    
                         return True
                     else:
                         return False
@@ -11932,9 +11966,11 @@ class _xml_tree
             (tuple): Flame presets names packed into a tuple.
         """
         if self.isvalidtree:
+            _strip: Callable[[str], str] = str.strip
             root = self.tree.getroot()
-            if key == XML_XF_NAME: return tuple( [str(name.get(key)).strip() if name.get(key) is not None and len(name.get(key)) else '[]' for name in root] )
-            else: return tuple( [str(name.get(key)).strip() if name.get(key) is not None and len(name.get(key)) else [] for name in root] )
+            if key == XML_XF_NAME: return tuple(_strip(keyval) if (keyval := name.get(key)) is not None and len(keyval) else '[]' for name in root)
+            else: return tuple(_strip(keyval) if (keyval := name.get(key)) is not None and len(keyval) else [] for name in root)
+            
         else:
             return () 
         
@@ -11952,8 +11988,10 @@ class _xml_tree
             (tuple): Flame presets single string values packed into a tuple.
         """      
         if self.isvalidtree:
+            _strip: Callable[[str], str] = str.strip
             root = self.tree.getroot()
-            return tuple( [str(in_flame.xf_val_cleanup_str(name.get(key), _DEFAULT, key).strip()) if name.get(key) is not None else [] for name in root] )
+            return tuple(_strip(in_flame.xf_val_cleanup_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None else [] for name in root)
+            
         else:
             return () 
         
@@ -11971,8 +12009,10 @@ class _xml_tree
             (tuple): Flame presets multi color correction curve values packed into a tuple.
         """      
         if self.isvalidtree:
+            _strip: Callable[[str], str] = str.strip
             root = self.tree.getroot()
-            return tuple( [str(in_flame.xf_val_cleanup_split_str(name.get(key), _DEFAULT, key).strip()) if name.get(key) is not None and name.get(key) != '' else [] for name in root] )
+            return tuple(_strip(in_flame.xf_val_cleanup_split_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None and keyval != '' else [] for name in root)
+            
         else:
             return () 
         
@@ -11994,8 +12034,10 @@ class _xml_tree
             if _d is not None: _default: str = _d
             else: _default: str = '0'
             
+            _strip: Callable[[str], str] = str.strip
             root = self.tree.getroot()
-            return tuple( [str(in_flame.xf_list_cleanup_str(str(name.get(key)).strip().split(), _default, key)) if name.get(key) is not None else [] for name in root] )
+            return tuple(str(in_flame.xf_list_cleanup_str(_strip(keyval).split(), _default, key)) if (keyval := name.get(key)) is not None else [] for name in root)
+        
         else:
             return () 
         
@@ -12511,7 +12553,8 @@ class in_flame
         """
         if  self.isvalidtree and xforms is not None:
 
-            xaos: list = [f"xaos:{':'.join(self.xf_list_cleanup(str(xf.get(key)).split(), '1', key))}" if xf.get(key) is not None else [] for xf in xforms]
+            xaos: list = [f"xaos:{':'.join(self.xf_list_cleanup(str(keyval).split(), '1', key))}" if (keyval := xf.get(key)) is not None else [] for xf in xforms]
+
             if not max(list(map(lambda x: len(x), xaos))): return None
             else: return tuple(xaos)
         
@@ -12531,7 +12574,8 @@ class in_flame
             (tuple | None): Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) / ((A, D), (B, E), (C, F)) or None
         """   
         if  self.isvalidtree and xforms is not None:
-            coefs: list = [tuple(self.affine_coupling([float(x) for x in self.xf_list_cleanup(str(xf.get(key)).split(), '0', key)], key, int(idx + 1), type)) if xf.get(key) is not None else [] for idx, xf in enumerate(xforms)]
+            coefs: list = [tuple(self.affine_coupling([float(x) for x in self.xf_list_cleanup(str(keyval).split(), '0', key)], key, int(idx + 1), type)) if (keyval := xf.get(key)) is not None else [] for idx, xf in enumerate(xforms)]
+
             if max(list(map(lambda x: len(x), coefs))): return tuple(coefs)
             else: return None
             
@@ -12637,13 +12681,17 @@ class in_flame
                 
                 palette_hex: str = self.flame[idx].find(key).text
                 all_lines: list[str] = [line.replace(" ", "") for line in palette_hex.splitlines()]
-                HEXs: list = [hex for line in all_lines for hex in wrap(i_cleandoc(line), 6) if len(i_cleandoc(line)) > 1]
+                HEXs = [h for line in all_lines if (clean := i_cleandoc(line)) and len(clean) > 1 for h in wrap(clean, 6)]
+                
                 try:
                     RGBs: list = [list(map(abs, flam3h_palette_utils.hex_to_rgb(hex))) for hex in HEXs]
                 except:
                     return None
                 else:
-                    rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                    # Convert to NumPy array and normalize
+                    RGBs_array: NDArray[np_float32] = np_array(RGBs[:len(HEXs)], dtype=np_float32)
+                    rgb_from_XML_PALETTE: list = (RGBs_array / 255.0).tolist()
+                    
                     format: str | None = dict(palette_attrib).get(XML_PALETTE_FORMAT)
                     ramp_keys_count: int = len(rgb_from_XML_PALETTE)
                     POSs: list = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
@@ -13511,7 +13559,6 @@ class in_flame_utils
         Returns:
             (list | None): return a list of variations found using the prefix criteria
         """  
-
         if xforms is not None:
             return [list(map(lambda x: x, filter(lambda x: x in vars.get(in_flame_utils.in_util_removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys()))))) for xf in xforms] # type: ignore
         else:
@@ -14260,7 +14307,9 @@ class in_flame_utils
         Returns:
             (str): The final message without the extra empty line at the end.
         """     
-        vars: list = [", ".join(grp) + ",\n" if id < len(groups)-1 else ", ".join(grp) + "." for id, grp in enumerate(groups)]   
+        
+        vars: list = [", ".join(grp) + (",\n" if i < len(groups) - 1 else ".") for i, grp in enumerate(groups)]
+        
         return ''.join(vars)
 
 
@@ -14276,14 +14325,8 @@ class in_flame_utils
         Returns:
             (list[str]): Return a flattened list of unique and sorted items without duplicates.
         """
-        flatten: list = [item for sublist in VARS_list for item in sublist]
-        result: list = []
-        [result.append(x) for x in flatten if x not in result]
-        sort: list = sorted(result, key=lambda var: var)
-        if not capitalize:
-            return [str(func(x)) for x in sort if x]
-        else:
-            return [str(func(x)).capitalize() for x in sort if x]
+        
+        return [str(func(x)).capitalize() if capitalize else str(func(x)) for x in sorted(set(item for sublist in VARS_list for item in sublist)) if x]
     
     
     @staticmethod
@@ -15539,7 +15582,7 @@ class in_flame_utils
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
         When a flame preset is loaded. This will use the blue star icon to signal wich preset is currently loaded.
 
-        _NOTE:
+        Note:
             If you change the icon gobal variable name inside here,
             remember to updated with the same global variable names inside: in_flame_utils.in_presets_in_isvalid_file_menu_label(...)
 
@@ -15618,7 +15661,7 @@ class in_flame_utils
         This definition exist only becasue if I change the icon dynamically inside: def menu_in_presets(self) -> list:
         Houdini will mix them up sometime, giving inconsistent results until I perform a new selection from the menu labels list.
 
-        _NOTE:
+        Note:
             If you change the icon gobal variable name inside here,
             remember to updated with the same global variable names inside: in_flame_utils.in_presets_in_isvalid_file_menu_label(...)
 
@@ -16191,7 +16234,8 @@ class in_flame_utils
         except: tree: lxmlET.ElementTree | None = None
         if tree is not None:
             assert xml is not None
-            if tuple([f for f in tree.getroot().iter(XML_FLAME_NAME)]):
+            if any(True for _ in tree.getroot().iter(XML_FLAME_NAME)):
+            
                 flame_name_clipboard: str = _xml_tree(xml).name[0]
                 return xml, True, 0, flame_name_clipboard, True, False
             else:
@@ -16617,8 +16661,8 @@ class in_flame_utils
 ##########################################
 ##########################################
 # Turn Fractorium variation names dictionary into PRE and POST variation names dictionary
-VARS_FRACTORIUM_DICT_PRE: dict[str, tuple]  = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_PRE)
-VARS_FRACTORIUM_DICT_POST: dict[str, tuple] = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_POST)
+VARS_FRACTORIUM_DICT_PRE: dict[str, tuple[str, ...]]  = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_PRE)
+VARS_FRACTORIUM_DICT_POST: dict[str, tuple[str, ...]] = in_flame_utils.in_util_vars_dict_type_maker(VARS_FRACTORIUM_DICT, in_flame_utils.in_util_make_POST)
 
 
 # SAVE XML FILES start here
@@ -16667,9 +16711,8 @@ class out_flame_utils
 * _out_pretty_print(current, parent=None, index: int=-1, depth: int=0) -> None:
 * menu_out_presets_loop(menu: list, i: int, item: str) -> None:
 * menu_out_presets_loop_enum(menu: list, i: int, item: str) -> None:
-* out_collect_var_section_names(node: hou.SopNode, var_section: str = "VAR") -> list[str] | None:
-* out_collect_var_section_names_dict(node: hou.SopNode, mode: int = False, var_section = "VAR") -> dict[str | list[str], bool]:
-* out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple:
+* out_collect_var_section_names_dict(node: hou.SopNode, mode: bool = False, var_section: str = "VAR") -> dict[str, list[str]] | bool:
+* out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple[str, ...]:
 
 @METHODS
 * out_to_flam3h_init_data_quick(self, node: hou.SopNode, tab: str = 'OUT') -> tuple[str | None, int]:
@@ -16685,8 +16728,8 @@ class out_flame_utils
 * reset_OUT_kwargs(self) -> None:
 * reset_OUT_options(self) -> None:
 * reset_OUT(self, mode=0) -> None:
-* out_xf_xaos_to(self) -> tuple:
-* out_xf_xaos_from(self, mode=0) -> tuple:
+* out_xf_xaos_to(self) -> tuple[str, ...]:
+* out_xf_xaos_from(self, mode: int = 0) -> tuple[str, ...]:
 * menu_out_contents_presets_data(self) -> list:
 * menu_out_contents_presets(self) -> list:
 * out_auto_add_iter_data(self) -> tuple[int, str, int]:
@@ -17191,16 +17234,16 @@ class out_flame_utils
         Returns:
             (list): duplicate variation's names per each iterator
         """
-        v: list = []
-        d: list = []
-        for var in vars:
-            if var not in v:
-                v.append(var)
-            else:
-                if var not in d:
-                    d.append(var)
         
-        return d
+        v = set()
+        d = set()
+        for var in vars:
+            if var in v:
+                d.add(var)
+            else:
+                v.add(var)
+
+        return list(d)
     
 
     @staticmethod
@@ -17300,7 +17343,7 @@ class out_flame_utils
     def out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, out: bool = True, auto_name: bool = True) -> str | bool:
         """Check for the validity of the provided output file path and correct it if needed.
         
-        _NOTE:
+        Note:
             This definition was very old and I am improving it.
 
         Args:
@@ -17317,9 +17360,10 @@ class out_flame_utils
         
         file: str = os.path.expandvars(infile)
         
-        # If the input file is valid, just use it as it is
-        if prx == AUTO_NAME_CP and flam3h_palette_utils.isJSON_F3H(node, file, False)[-1]: return file
-        elif prx == AUTO_NAME_OUT and _xml_tree(file).isvalidtree: return file
+        # Early exit if the file is already valid
+        if (prx == AUTO_NAME_CP and flam3h_palette_utils.isJSON_F3H(node, file, False)[-1]) or \
+           (prx == AUTO_NAME_OUT and _xml_tree(file).isvalidtree):
+            return file
 
         # Otherwise lets be sure to build a proper output path and file name.
         
@@ -17436,31 +17480,39 @@ class out_flame_utils
                     # If the path string is empty we do not want to print out
                     flam3h_general_utils.set_status_msg('', 'MSG')
                 return False
-            
- 
+    
+    
     @staticmethod
-    def out_affine_rot(affine: list[tuple[str] | list[str]], angleDeg: float) -> list[list[str] | tuple[str]]:
-        """Every affine has an Angle parameter wich rotate the affine values internally.
-        When we save out an iterator that use the angle parameter, we need to transform the affine by this angle
-        and export the resulting values out so we can get the same result once we load it back.
+    def out_affine_rot(affine: list[tuple[str, ...] | list[str]], angleDeg: float) -> list[tuple[str, ...] | list[str]]:
+        """
+        Rotate a 2D affine by a given angle in degrees for export.
+
+        Each affine has an internal angle parameter that rotates X/Y values. 
+        When saving iterators using this angle, we need to apply the rotation
+        and export the resulting affine values so they can be restored correctly.
 
         Args:
-            affine( list[tuple[str] | list[str]]): X, Y, O afffine component
-            angleDeg(float): a float value that represent the angle in degrees ( The iterator.affine's angle parameter )
+            affine (list[tuple[str, ...] | list[str]]): X, Y, O affine components.
+            angleDeg (float): Rotation angle in degrees.
 
         Returns:
-            (list[list[str] | tuple[str]]): A new affine list of tuples ( (X), (Y), (O) ) rotated by the angle amount.
+            list[tuple[str, ...] | list[str]]: Rotated affine (X, Y, O) components.
         """
-        if angleDeg != 0.0:      
-            angleRad = hou.hmath.degToRad(angleDeg) # type: ignore
-            m2 = hou.Matrix2((affine[0], affine[1]))
-            rot = hou.Matrix2(((cos(angleRad), -(sin(angleRad))), (sin(angleRad), cos(angleRad))))
-            new: tuple = (m2 * rot).asTupleOfTuples()
-            return [new[0], new[1], affine[2]]
-        else:
+        # Early termination
+        if angleDeg == 0.0:
             return affine
 
+        # Otherwise do the calculations
+        angleRad = hou.hmath.degToRad(angleDeg) # type: ignore
+        m2 = hou.Matrix2(affine[:2])
+        rot = hou.Matrix2(((cos(angleRad), -sin(angleRad)), (sin(angleRad), cos(angleRad))))
+        rotated = m2 * rot
+        rotated_xy = rotated.asTupleOfTuples()
 
+        # Return rotated X/Y and original O
+        return [rotated_xy[0], rotated_xy[1], affine[2]]
+    
+    
     @staticmethod
     def out_xaos_cleanup(xaos: list[str] | list[list[str]] | tuple[str]) -> list[list[str]]:
         """Remove all inactive iterators from each xaos weight list.
@@ -17471,19 +17523,7 @@ class out_flame_utils
         Returns:
            (list[list[str]]): an iterator Xaos cleaned up from the inactive iterator's values
         """
-        xaos_cleaned: list = []
-        for x in xaos:
-            invert = x[::-1]
-            trace: int = 0
-            for idx in range(len(x)): # for idx, item in enumerate(x):
-                _idx: int = idx - trace
-                if invert[_idx] == '1':
-                    invert.pop(_idx) # type: ignore
-                    trace = trace + 1
-                else:
-                    break
-            xaos_cleaned.append(invert[::-1])
-        return xaos_cleaned
+        return [list(x[:len(x) - next((i for i, v in enumerate(reversed(x)) if v != '1'), len(x))]) for x in xaos]
     
 
     @staticmethod
@@ -17531,9 +17571,10 @@ class out_flame_utils
                     
                     try:
                         _xaos: list = strip[1:iter_count + 1]
-                        
+                        _cleanup_str: Callable[[str]] = in_flame.xf_val_cleanup_str
                         if _xaos[0] and val_prev is not None and len(val_prev) == iter_count:
-                            _xaos_strip: list = [str(float((in_flame.xf_val_cleanup_str(str(x), val_prev[iter][idx])))) if float(in_flame.xf_val_cleanup_str(str(x), val_prev[iter][idx])) >= 0 else '1' for idx, x in enumerate(_xaos)]
+                            _xaos_strip: list = [str(float((_cleanup_str(str(x), prev_val)))) if float(_cleanup_str(str(x), (prev_val := val_prev[iter][idx]))) >= 0 else '1' for idx, x in enumerate(_xaos)]
+                            
                         else:
                             # Otherwise use the safer version.
                             # This is used every time we add or remove an iterator or when loading Flames with different iterator's count than what we currently have.
@@ -17669,44 +17710,9 @@ class out_flame_utils
             enum_label: str = str(i + 1) # start count from 1
             menu.append(f"{FLAM3H_ICON_STAR_FLAME_SAVE_ENTRIE}  {enum_label}:  {item}     ")
         
-    
+        
     @staticmethod
-    def out_collect_var_section_names(node: hou.SopNode, var_section: str = "VAR") -> list[str] | None:
-        """Collect all the variation's names inside any of the available iterator's sections (PRE, VAR, POST)
-        
-        Args:
-            node(hou.SopNode): This FLAM3H™ node
-            var_section(str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
-
-        Returns:
-            (list[str] | None): List of used variations in this iterator/xform section
-        """
-        # Build var parameter's sections
-        f3h_iter = flam3h_iterator()
-        prm_sections_T: dict[str, tuple] = {'VAR': f3h_iter.sec_varsT, 'PRE': f3h_iter.sec_prevarsT, 'POST': f3h_iter.sec_postvarsT}
-        prm_sections_W: dict[str, tuple] = {'VAR': f3h_iter.sec_varsW, 'PRE': f3h_iter.sec_prevarsW[1:], 'POST': f3h_iter.sec_postvarsW}
-        
-        # Get correct parameter's names based on the desired var section
-        T_tuple: tuple | None = prm_sections_T.get(var_section)
-        W_tuple: tuple | None = prm_sections_W.get(var_section)
-        
-        if T_tuple is not None and W_tuple is not None:
-            names: list = []
-            for iter in range(node.parm(FLAME_ITERATORS_COUNT).eval()):
-                _MP_IDX: str = str(int(iter + 1))
-                for idx, prm in enumerate(W_tuple):
-                    prm_w: float = node.parm(f"{prm[0]}{_MP_IDX}").eval()
-                    if prm_w != 0:
-                        v_type: int = node.parm(f"{T_tuple[idx]}{_MP_IDX}").eval()
-                        names.append(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type))
-                    
-            return names
-        else:
-            return None
-        
-    
-    @staticmethod
-    def out_collect_var_section_names_dict(node: hou.SopNode, mode: int = False, var_section = "VAR") -> dict[str, list[str]] | bool:
+    def out_collect_var_section_names_dict(node: hou.SopNode, mode: bool = False, var_section: str = "VAR") -> dict[str, list[str]] | bool:
         """Collect all the variation's names inside any of the available sections (PRE, VAR, POST)
         They will be built inside a dict with the keys representing the irterator number and the value the used variations collected inside a list.
         For the FF, the dictionary key will always be 'FF'
@@ -17720,71 +17726,60 @@ class out_flame_utils
         Returns:
             (dict[str, list[str]] | bool): A dictionary of used variations in this iterator/xform/FF or False if none in the desired section (VAR, PRE, POST)
         """
-        # Build var parameter's sections
-        if not mode:
-            # Iterator
-            f3h_iter = flam3h_iterator()
-            prm_sections_T: dict[str, tuple] = {'VAR': f3h_iter.sec_varsT, 'PRE': f3h_iter.sec_prevarsT, 'POST': f3h_iter.sec_postvarsT}
-            prm_sections_W: dict[str, tuple] = {'VAR': f3h_iter.sec_varsW, 'PRE': f3h_iter.sec_prevarsW[1:], 'POST': f3h_iter.sec_postvarsW}
-        else:
-            # FF
-            f3h_iter_FF = flam3h_iterator_FF()
-            prm_sections_T: dict[str, tuple] = {'VAR': f3h_iter_FF.sec_varsT_FF, 'PRE': f3h_iter_FF.sec_prevarsT_FF, 'POST': f3h_iter_FF.sec_postvarsT_FF}
-            prm_sections_W: dict[str, tuple] = {'VAR': f3h_iter_FF.sec_varsW_FF, 'PRE': f3h_iter_FF.sec_prevarsW_FF, 'POST': f3h_iter_FF.sec_postvarsW_FF}
         
-        # Get correct parameter's names based on the desired var section and mode
-        T_tuple: tuple | None = prm_sections_T.get(var_section)
-        W_tuple: tuple | None = prm_sections_W.get(var_section)
-        
-        # Just double checking
-        if T_tuple is not None and W_tuple is not None:
+        # Pick iterator type (regular or FF)
+        f3h_iter = flam3h_iterator_FF() if mode else flam3h_iterator()
 
-            names_idx: dict[str, list[str]] = {}
-            
-            if mode:
-                # FF
-                if node.parm(PREFS_PVT_DOFF).eval():
-                    
-                    _MP_IDX = 'FF'
-                    names_collect_values: list = []
-                    for idx, prm in enumerate(W_tuple):
-                        prm_w: float = node.parm(f"{prm[0]}").eval()
-                        if prm_w != 0:
-                            v_type: int = node.parm(f"{T_tuple[idx]}").eval()
-                            var_name: str = in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type)
-                            names_collect_values.append(var_name)
-                        
-                    if names_collect_values:   
-                        names_idx[_MP_IDX] = names_collect_values
-                        
-                    if not names_idx: return False
-                    else: return names_idx
-                    
-                else: return False
-                
-            else:
-                # iterators
-                for iter in range(node.parm(FLAME_ITERATORS_COUNT).eval()):
-                    _MP_IDX = str(int(iter + 1))
-                    names_collect_values: list = []
-                    for idx, prm in enumerate(W_tuple):
-                        prm_w: float = node.parm(f"{prm[0]}{_MP_IDX}").eval()
-                        if prm_w != 0:
-                            v_type: int = node.parm(f"{T_tuple[idx]}{_MP_IDX}").eval()
-                            var_name: str = in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type)
-                            names_collect_values.append(var_name)
-                        
-                    if names_collect_values:   
-                        names_idx[_MP_IDX] = names_collect_values
+        # Map section attributes dynamically
+        suffix = "_FF" if mode else ""
+        prm_sections_T = {
+            "VAR": getattr(f3h_iter, f"sec_varsT{suffix}"),
+            "PRE": getattr(f3h_iter, f"sec_prevarsT{suffix}"),
+            "POST": getattr(f3h_iter, f"sec_postvarsT{suffix}")
+        }
+        prm_sections_W = {
+            "VAR": getattr(f3h_iter, f"sec_varsW{suffix}"),
+            "PRE": getattr(f3h_iter, f"sec_prevarsW{suffix}"),
+            "POST": getattr(f3h_iter, f"sec_postvarsW{suffix}")
+        }
 
-                if not names_idx: return False
-                else: return names_idx
-        else:
+        # Select correct parameter tuples
+        T_tuple, W_tuple = prm_sections_T.get(var_section), prm_sections_W.get(var_section)
+        if not T_tuple or not W_tuple:
             return False
-        
-        
+
+        # Small optimization for the non-FF PRE section
+        if not mode and var_section == "PRE":
+            W_tuple = W_tuple[1:]
+
+        # Shortcuts
+        eval_parm = node.parm
+        get_var_name = in_flame_utils.in_get_dict_key_from_value
+        var_dict = VARS_FLAM3_DICT_IDX
+
+        names_idx: dict[str, list[str]] = {}
+
+        if mode:  # FF
+            if not node.parm(PREFS_PVT_DOFF).eval():
+                return False
+
+            names = [get_var_name(var_dict, eval_parm(T_tuple[i]).eval()) for i, prm in enumerate(W_tuple) if eval_parm(prm[0]).eval() != 0]
+            if names:
+                names_idx["FF"] = names
+
+        else:  # Iterators
+            iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+            for i in range(1, iter_count + 1):
+                suffix = str(i)
+                names = [get_var_name(var_dict, eval_parm(f"{T_tuple[j]}{suffix}").eval()) for j, prm in enumerate(W_tuple) if eval_parm(f"{prm[0]}{suffix}").eval() != 0]
+                if names:
+                    names_idx[suffix] = names
+
+        return names_idx or False
+
+
     @staticmethod
-    def out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple:
+    def out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple[str, ...]:
         """Build the XML Flame iterator's names to account for inactive ierators if any.
         If all are active or if an iterator has a custom name nothing will be changed.
         
@@ -17797,17 +17792,25 @@ class out_flame_utils
         Returns:
             (bool): A tuple of either the corrected names or the untouched ones.
         """
+
+        # Shortcuts
+        xf_name = f3d.xf_name
+        xf_vactive = f3d.xf_vactive
+        iter_count = f3d.iter_count
+        is_default_name = flam3h_iterator_utils.flam3h_iterator_is_default_name
+
+        # build
         new_names: list = []
-        if '0' in f3d.xf_vactive:
-            iter_idx = 1
-            for mp_idx in range(f3d.iter_count):
-                if int(f3d.xf_vactive[mp_idx]):
-                    if flam3h_iterator_utils.flam3h_iterator_is_default_name(f3d.xf_name[mp_idx]) or not str(f3d.xf_name[mp_idx]).strip():
-                        new_names.append(f"iterator_{iter_idx}")
+        if '0' in xf_vactive:
+            mp_idx: int = 1
+            for i in range(iter_count):
+                if int(xf_vactive[i]):
+                    if is_default_name((xfn := xf_name[i])) or not str(xfn).strip():
+                        new_names.append(f"iterator_{mp_idx}")
                     else:
-                        new_names.append(f3d.xf_name[mp_idx])
+                        new_names.append(xf_name[i])
                         
-                    iter_idx = iter_idx + 1
+                    mp_idx = mp_idx + 1
                     
                 else:
                     new_names.append('OFF')
@@ -17815,7 +17818,7 @@ class out_flame_utils
             return tuple(new_names)
         
         else:
-            return tuple( [f"iterator_{mp_idx + 1}" if flam3h_iterator_utils.flam3h_iterator_is_default_name(f3d.xf_name[mp_idx]) or not str(f3d.xf_name[mp_idx]).strip() else f3d.xf_name[mp_idx] for mp_idx in range(f3d.iter_count)] ) # type: ignore
+            return tuple(f"iterator_{i + 1}" if is_default_name((xfn := xf_name[i])) or not str(xfn).strip() else xfn for i in range(iter_count)) # type: ignore
 
 
     # CLASS: PROPERTIES
@@ -18358,7 +18361,7 @@ class out_flame_utils
             node.setParms({OUT_FLAME_PRESET_NAME: ""})
 
 
-    def out_xf_xaos_to(self) -> tuple:
+    def out_xf_xaos_to(self) -> tuple[str, ...]:
         """Export in a tuple[str] the xaos TO values to write out.
         
         Args:
@@ -18370,10 +18373,10 @@ class out_flame_utils
         val: list = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
         fill: list = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
         xaos_vactive: list = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
-        return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
+        return tuple(" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
 
 
-    def out_xf_xaos_from(self, mode: int = 0) -> tuple:
+    def out_xf_xaos_from(self, mode: int = 0) -> tuple[str, ...]:
         """Export in a tuple[str] the xaos FROM values to write out.
         
         Args:
@@ -18387,9 +18390,9 @@ class out_flame_utils
         t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count)).tolist()).tolist()
         if mode:
             xaos_vactive: list = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
-            return tuple([" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive))])
+            return tuple(" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
         else:
-            return tuple([" ".join(x) for x in self.out_util_round_floats(t)])
+            return tuple(" ".join(x) for x in self.out_util_round_floats(t))
 
 
     def menu_out_contents_presets_data(self) -> list:
@@ -18412,7 +18415,7 @@ class out_flame_utils
             apo = _xml_tree(xml)
             
             if apo.isvalidtree:
-                    
+                
                 menu: list = []
                 [self.menu_out_presets_loop_enum(menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_out_presets_loop(menu, i, item) for i, item in enumerate(apo.name)]
                 node.setCachedUserData('out_presets_menu', menu)
@@ -18569,7 +18572,7 @@ class out_flame_utils
     def out_flame_properties_build(self, f3r: out_flame_render_properties) -> dict:
         """Return a dictionary with all the flame properties to be written out.
         
-        _NOTE:
+        Note:
             Any of these properties will not be included into the exported XML flame file if they are: False
 
         Args:
@@ -18635,8 +18638,8 @@ class out_flame_utils
         
         # Iterators: duplicates check
         #############################################################################
-        iter_PRE: dict[str, list[str]] | bool = self.out_collect_var_section_names_dict(node, 0, 'PRE')
-        iter_VAR: dict[str, list[str]] | bool = self.out_collect_var_section_names_dict(node, 0, 'VAR')
+        iter_PRE: dict[str, list[str]] | bool = self.out_collect_var_section_names_dict(node, False, 'PRE')
+        iter_VAR: dict[str, list[str]] | bool = self.out_collect_var_section_names_dict(node, False, 'VAR')
         
         iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         
@@ -18671,10 +18674,11 @@ class out_flame_utils
         #############################################################################
         _FF_VAR_dup: dict[str, list | str] = {}
         _FF_POST_dup: dict[str, list | str] = {}
-        key: str = 'FF'
+        
         if node.parm(PREFS_PVT_DOFF).eval():
-            _FF_VAR: dict[str, list[str]] | bool  = self.out_collect_var_section_names_dict(node, 1, 'VAR')
-            _FF_POST: dict[str, list[str]] | bool = self.out_collect_var_section_names_dict(node, 1, 'POST')
+            key: str = 'FF' # will always be FF
+            _FF_VAR: dict[str, list[str]] | bool  = self.out_collect_var_section_names_dict(node, True, 'VAR')
+            _FF_POST: dict[str, list[str]] | bool = self.out_collect_var_section_names_dict(node, True, 'POST')
             if _FF_VAR is not False:
                 assert isinstance(_FF_VAR, dict)
                 vars: list[str] | None = _FF_VAR.get(key)
@@ -19377,7 +19381,7 @@ class out_flame_utils
             f3h_flatten: list = [item for sublist in collect for item in sublist]
             val.append([str(x) for x in flatten])
             f3h_val.append([str(x) for x in f3h_flatten])
-        return tuple([" ".join(x) for x in self.out_util_round_floats(val)]), tuple([" ".join(x) for x in self.out_util_round_floats(f3h_val)]), tuple(f3h_angleDeg)
+        return tuple(" ".join(x) for x in self.out_util_round_floats(val)), tuple(" ".join(x) for x in self.out_util_round_floats(f3h_val)), tuple(f3h_angleDeg)
     
     
     def __out_xf_postaffine(self) -> tuple[tuple, tuple, tuple]:
@@ -19411,7 +19415,7 @@ class out_flame_utils
                 val.append([])
                 f3h_val.append([])
                 f3h_angleDeg.append([])
-        return tuple([" ".join(x) for x in self.out_util_round_floats(val)]), tuple([" ".join(x) for x in self.out_util_round_floats(f3h_val)]), tuple(f3h_angleDeg)
+        return tuple(" ".join(x) for x in self.out_util_round_floats(val)), tuple(" ".join(x) for x in self.out_util_round_floats(f3h_val)), tuple(f3h_angleDeg)
 
 
     def __out_finalxf_preaffine(self) -> tuple[str, str, str]:
