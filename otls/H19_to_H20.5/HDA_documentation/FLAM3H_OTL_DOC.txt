@@ -869,7 +869,7 @@ copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
     - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when the marked iterator is *`Off`*/Disabled.
 
     <br />
-    When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another iterator either on the same FLAM3H(tm) node or on a different one.
+    When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) (_or when using the nearby mini-menu_ [Icon:BUTTONS/pane_menu]) from inside another iterator either on the same FLAM3H(tm) node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
 
     _Usage_:
@@ -1500,7 +1500,7 @@ FF: copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg] when the marked FF is *`Off`*/Disabled.
     
     <br />
-    When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) from inside another FLAM3H(tm) node' FF.
+    When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) (_or when using the nearby mini-menu_ [Icon:BUTTONS/pane_menu]) from inside another FLAM3H(tm) node' FF.
     This way you can keep the FF marked while working and paste again its data somewhere else after making additional changes to its contents.
 
     _Usage_:
