@@ -17881,12 +17881,14 @@ class out_flame_utils
                     build.append(f"Palette: {str(palette)}")
                     build_flash = build.copy()
                     if apo_data.cp_flam3h_hsv is not False:
-                        build_flash.append('HSV')
                         assert isinstance(apo_data.cp_flam3h_hsv, hou.Vector3)
+                        build_flash.append('HSV')
                         hsv_val: str = f"({', '.join([str(val) for val in apo_data.cp_flam3h_hsv])})"
                         build.append(f"HSV: {hsv_val}")
-                        build.append(f"Basis: {CP_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis]}")
-                        build_flash.append(CP_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis])
+                        
+                    basis: str = CP_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis]
+                    build.append(f"Basis: {basis}")
+                    build_flash.append(basis)
                 
                 # Build and Display infos
                 _MSG: str = ', '.join(build)

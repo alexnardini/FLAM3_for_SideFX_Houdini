@@ -11772,6 +11772,7 @@ class _xml_tree
                 if tuple([f for f in newroot.iter(XML_FLAME_NAME)]):
                     out_flame_utils._out_pretty_print(newroot)
                     return lxmlET.tostring(newroot, encoding="unicode") # type: ignore
+                
                 else:
                     if XML_VALID_CHAOS_ROOT_TAG in root_tag:
                         # let us know
@@ -11779,6 +11780,7 @@ class _xml_tree
                         flam3h_general_utils.set_status_msg(f"{hou.pwd().name()}: {_MSG}", 'WARN')
                         flam3h_general_utils.flash_message(hou.pwd(), _MSG)
                     return None
+                
             else:
                 # If there are flames, proceed
                 if tuple([f for f in root.iter(XML_FLAME_NAME)]):
@@ -17901,12 +17903,14 @@ class out_flame_utils
                     build.append(f"Palette: {str(palette)}")
                     build_flash = build.copy()
                     if apo_data.cp_flam3h_hsv is not False:
-                        build_flash.append('HSV')
                         assert isinstance(apo_data.cp_flam3h_hsv, hou.Vector3)
+                        build_flash.append('HSV')
                         hsv_val: str = f"({', '.join([str(val) for val in apo_data.cp_flam3h_hsv])})"
                         build.append(f"HSV: {hsv_val}")
-                        build.append(f"Basis: {CP_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis]}")
-                        build_flash.append(CP_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis])
+                        
+                    basis: str = CP_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis]
+                    build.append(f"Basis: {basis}")
+                    build_flash.append(basis)
                 
                 # Build and Display infos
                 _MSG: str = ', '.join(build)
