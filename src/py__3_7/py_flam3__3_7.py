@@ -17889,6 +17889,12 @@ class out_flame_utils
                     basis: str = CP_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis]
                     build.append(f"Basis: {basis}")
                     build_flash.append(basis)
+                    
+                # As last, so we dnt add those to the build_flash list
+                if apo_data.prefs_flam3h_f3c is not None and apo_data.prefs_flam3h_f3c:
+                    build.insert(0, 'F3C')
+                if  apo_data.sys_flam3h_rip is not None and apo_data.sys_flam3h_rip:
+                    build.insert(0, 'RIP')
                 
                 # Build and Display infos
                 _MSG: str = ', '.join(build)
