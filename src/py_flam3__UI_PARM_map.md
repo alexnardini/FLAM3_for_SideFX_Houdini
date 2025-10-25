@@ -246,14 +246,14 @@ def flam3h_first_time() -> bool:
     elif __range_type__ is True:
         if hou_version < __h_versions__[0] or hou_version > __h_versions__[-1]:
             return False
-        else:
-            return True
+        
+        return True
         
     elif __range_type__ is False:
         if hou_version < __h_versions__[0]:
             return False
-        else:
-            return True
+        
+        return True
         
     else:
         return True
@@ -296,6 +296,7 @@ def flam3h_compile_first_time_msg() -> None:
         first_instance_32bit: bool = False
     except:
         first_instance_32bit: bool = True
+        
     try:
         hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
         first_instance_64bit: bool = False
