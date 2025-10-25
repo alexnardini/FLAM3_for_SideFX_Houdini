@@ -17905,6 +17905,7 @@ class out_flame_utils
                         assert isinstance(apo_data.cp_flam3h_hsv, hou.Vector3)
                         hsv_val: str = f"{apo_data.cp_flam3h_hsv[0]}, {apo_data.cp_flam3h_hsv[1]}, {apo_data.cp_flam3h_hsv[2]}"
                         build.append(f"HSV: {hsv_val}")
+                        build.append(CP_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis])
                 
                 # Build and Display infos
                 _MSG: str = ', '.join(build)
