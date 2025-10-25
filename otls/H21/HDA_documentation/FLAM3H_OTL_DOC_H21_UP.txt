@@ -2569,7 +2569,7 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     - *`Palette`*: number of colors in the palette
     - *`HSV`*: when HSV color correction is being used
     - *`HSV values`* ( _only in the status bar_ )
-    - *`Palette basis`*: samples interpolation method ( _only in the status bar_ )
+    - *`Basis`*: Palette lookup samples interpolation method
 
     <br />
 
