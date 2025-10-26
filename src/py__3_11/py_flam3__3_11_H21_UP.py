@@ -830,7 +830,7 @@ class flam3h_varsPRM
             (list): return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data
         """  
         linear: list = []
-        [self.__populate_linear_list(linear, item, id) for id, item in self.menu_vars_all(_PB)]
+        for id, item in self.menu_vars_all(_PB): self.__populate_linear_list(linear, item, id)
         return linear
     
     
@@ -846,7 +846,7 @@ class flam3h_varsPRM
         """   
         keys: list = []
         values: list = []
-        [self.__populate_keys_and_values(keys, values, item, id) for id, item in enumerate(self.build_menu_vars_all_linear(_PB))]
+        for id, item in enumerate(self.build_menu_vars_all_linear(_PB)): self.__populate_keys_and_values(keys, values, item, id)
         return dict(zip(keys, values))
 
 
