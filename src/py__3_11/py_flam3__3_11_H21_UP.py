@@ -1455,7 +1455,11 @@ class flam3h_scripts
                             PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM
                             )
         
-        [node.parm(prm_name).lock(True) for prm_name in prm_names if not node.parm(prm_name).isLocked()]
+        for prm_name in prm_names:
+            parm = node.parm(prm_name)
+            if parm is not None and not parm.isLocked():
+                parm.lock(True)
+
         
         
         # The following are FLAM3H™ UI utility parameters
@@ -1468,7 +1472,11 @@ class flam3h_scripts
                                      "aboutdisable"
                                      )
         
-        [node.parm(prm_name).lock(True) for prm_name in disabler_prm_names if not node.parm(prm_name).isLocked()]
+        for prm_name in disabler_prm_names:
+            parm = node.parm(prm_name)
+            if parm is not None and not parm.isLocked():
+                parm.lock(True)
+
 
 
     @staticmethod
