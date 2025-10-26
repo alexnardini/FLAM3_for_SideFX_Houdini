@@ -710,12 +710,15 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
     It will also print quick informations (_in the status bar and as a flash message in the network editor_) about the Flame preset when one is selected.
     
     _Quick infos are_:
+    - *`FF`*<br />when finalXform(_FF_) is being used
+    - *`RIP`* ( _only in the status bar_ )<br />when Remove Invalid Points is being used
+    - *`F3C`* ( _only in the status bar_ )<br /> when Flam3 compatibility is being used
     - *`Flame preset name`* ( _only in the status bar_ )
-    - *`XF`*: number of iterators/xforms being used
-    - *`FF`*: when finalXform(_FF_) is being used
-    - *`Palette`*: number of colors in the palette
-    - *`HSV`*: when HSV color correction is being used
+    - *`XF`*<br />number of iterators/xforms being used
+    - *`Palette`*<br />number of colors in the palette
+    - *`HSV`*<br />when HSV color correction is being used
     - *`HSV values`* ( _only in the status bar_ )
+    - *`Basis`*<br />Palette lookup samples interpolation method
 
     <br />
     
@@ -2533,15 +2536,15 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     It will also print quick informations (_in the status bar and as a flash message in the network editor_) about the Flame preset when one is selected.
     
     _Quick infos are_:
-    - *`RIP`*: when Remove Invalid Points is being used ( _only in the status bar_ )
-    - *`F3C`*: when Flam3 compatibility is being used ( _only in the status bar_ )
+    - *`FF`*<br />when finalXform(_FF_) is being used
+    - *`RIP`* ( _only in the status bar_ )<br />when Remove Invalid Points is being used
+    - *`F3C`* ( _only in the status bar_ )<br /> when Flam3 compatibility is being used
     - *`Flame preset name`* ( _only in the status bar_ )
-    - *`XF`*: number of iterators/xforms being used
-    - *`FF`*: when finalXform(_FF_) is being used
-    - *`Palette`*: number of colors in the palette
-    - *`HSV`*: when HSV color correction is being used
+    - *`XF`*<br />number of iterators/xforms being used
+    - *`Palette`*<br />number of colors in the palette
+    - *`HSV`*<br />when HSV color correction is being used
     - *`HSV values`* ( _only in the status bar_ )
-    - *`Basis`*: Palette lookup samples interpolation method
+    - *`Basis`*<br />Palette lookup samples interpolation method
 
     <br />
 
