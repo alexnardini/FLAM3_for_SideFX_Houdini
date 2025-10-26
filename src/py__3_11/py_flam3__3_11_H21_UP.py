@@ -8631,7 +8631,7 @@ class flam3h_iterator_utils
         data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
         
         # unlock
-        [prm.lock(False) for prm in _PVT_PARMS]
+        for prm in _PVT_PARMS: prm.lock(False)
         
         # init indexes
         idx_del_inbetween: int | None = None
@@ -8643,7 +8643,7 @@ class flam3h_iterator_utils
         
         # get mpmem parms now
         mp_mem_name: str = flam3h_iterator_prm_names().main_mpmem
-        [mpmem.append(int(node.parm(f"{mp_mem_name}_{str(mp_idx + 1)}").eval())) for mp_idx in range(iter_count)]
+        for mp_idx in range(iter_count): mpmem.append(int(node.parm(f"{mp_mem_name}_{str(mp_idx + 1)}").eval()))
         
         # get mpmem from CachedUserData
         __mpmem_hou_get: list | None = self.auto_set_xaos_data_get_MP_MEM(node)
