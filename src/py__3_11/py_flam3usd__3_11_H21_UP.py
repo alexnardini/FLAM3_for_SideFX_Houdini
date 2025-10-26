@@ -203,9 +203,8 @@ class flam3husd_scripts
                                         
                                     return True
                                 
-                                else:
-                                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
-                                    return False
+                                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                                return False
                                 
                             else:
                                 node.setParms({PREFS_F3H_PATH: f3h.path()}) # type: ignore
@@ -232,9 +231,10 @@ class flam3husd_scripts
                                     
                                 return True
                             
-                            else:
-                                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
-                                return False
+                            
+                            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                            return False
+                        
                         else:
                             node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
@@ -396,8 +396,7 @@ class flam3husd_scripts
                     
                 return True
             
-            else:
-                return True
+            return True
         
         else:
             
@@ -437,9 +436,8 @@ class flam3husd_scripts
             
             return False
         
-        else:
-            # This will probably never evaluate with the range close, but just in case.
-            return flam3husd_scripts.flam3husd_compatible(h_version, this_h_versions, kwargs, msg)
+        # This will probably never evaluate with the range close, but just in case.
+        return flam3husd_scripts.flam3husd_compatible(h_version, this_h_versions, kwargs, msg)
 
 
     @staticmethod
@@ -476,10 +474,8 @@ class flam3husd_scripts
                 ...
             
             return False
-        
-        else:
             
-            return flam3husd_scripts.flam3husd_compatible(h_version, this_h_versions, kwargs, msg)
+        return flam3husd_scripts.flam3husd_compatible(h_version, this_h_versions, kwargs, msg)
 
 
     # CLASS: PROPERTIES
@@ -511,8 +507,8 @@ class flam3husd_scripts
         """ 
         if range_type:
             return self.flam3husd_compatible_range_close(kwargs, msg)
-        else:
-            return self.flam3husd_compatible_range_open(kwargs, msg)
+        
+        return self.flam3husd_compatible_range_open(kwargs, msg)
 
 
     def flam3husd_is_valid_flam3h_node(self, _node: hou.LopNode | None = None) -> None:
@@ -699,7 +695,11 @@ class flam3husd_scripts
         # Check H version and set
         self.flam3husd_h_version_check()
         # Check if we are importing a valid FLAM3H™ node on all of the other FLAM3HUSD node instances
-        [self.flam3husd_is_valid_flam3h_node(f3husd) for f3husd in self.node.type().instances() if f3husd != node]
+        is_valid = self.flam3husd_is_valid_flam3h_node
+        for f3husd in node.type().instances():
+            if f3husd != node:
+                is_valid(f3husd)
+
         
         if self.flam3husd_compatible_type(__range_type__):
             
@@ -803,7 +803,12 @@ class flam3husd_scripts
             self.flam3husd_is_valid_flam3h_node()
             # When cloning FLAM3HUSD nodes, check if other FLAM3HUSD nodes still have a valid FLAM3H™ node imported and disable them if not.
             if not hou.hipFile.isLoadingHipFile(): #type: ignore
-                [self.flam3husd_is_valid_flam3h_node(f3husd) for f3husd in self.node.type().instances() if f3husd != self.node]
+                
+                is_valid = self.flam3husd_is_valid_flam3h_node
+                for f3husd in self.node.type().instances():
+                    if f3husd != self.node:
+                        is_valid(f3husd)
+
                 
             # Set about box
             flam3husd_about_utils(self.kwargs).flam3husd_about_msg()
@@ -922,7 +927,12 @@ class flam3husd_scripts
         """
         node = self.node
         node_instances: tuple = node.type().instances()
-        [self.flam3husd_is_valid_flam3h_node(f3husd) for f3husd in node_instances if f3husd != self.node]
+
+        is_valid = self.flam3husd_is_valid_flam3h_node
+        for f3husd in node_instances:
+            if f3husd != node:
+                is_valid(f3husd)
+
         
         if len(node_instances) == 1:
             
@@ -1004,20 +1014,22 @@ class flam3husd_general_utils
         current_import: str = node.parm(PREFS_F3H_PATH).eval()
         try:
             f3h: hou.SopNode | None = hou.node(current_import)
+            
         except:
             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
             return False
+        
         else:
             if f3h is not None: # I dnt think  this is needed
                 if f3h.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
                     flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                     return True
-                else:
-                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
-                    return False
-            else:
+                
                 flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                 return False
+            
+            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+            return False
             
             
     @staticmethod
@@ -1032,7 +1044,7 @@ class flam3husd_general_utils
             (None):
         """ 
         [flam3husd_general_utils.util_flam3h_node_exist_self(f3husd) for f3husd in node.type().instances()]
-        
+
         
     @staticmethod
     def private_prm_set(node: hou.LopNode, _prm: str | hou.Parm, data: str | int | float) -> None:
@@ -1182,8 +1194,10 @@ class flam3husd_general_utils
             (bool): [True if we are in Solaris and False if we are not.]
         """    
         context_now: hou.NodeTypeCategory = hou.ui.findPaneTab(viewport.name()).pwd().childTypeCategory() # type: ignore
-        if str(context_now.name()).lower() == context.lower(): return True
-        else: return False
+        if str(context_now.name()).lower() == context.lower():
+            return True
+        
+        return False
 
 
     @staticmethod
@@ -1220,7 +1234,7 @@ class flam3husd_general_utils
             (None):
         """  
         if hou.isUIAvailable():
-            [ne.flashMessage(img, msg, timer) for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]] # type: ignore
+            for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]: ne.flashMessage(img, msg, timer) # type: ignore
 
         
     @staticmethod
@@ -1484,10 +1498,10 @@ class flam3husd_general_utils
         search = matcher.nodes(self.kwargs['node'], recursive=True)
         if search:
             return search[0].path()
-        else:
-            _MSG: str = f"{self.node.name()}: Camera sensor BBOX data node not found."
-            self.set_status_msg(_MSG, 'WARN')
-            return None
+        
+        _MSG: str = f"{self.node.name()}: Camera sensor BBOX data node not found."
+        self.set_status_msg(_MSG, 'WARN')
+        return None
         
         
     def util_viewport_bbox_frame(self) -> None:
@@ -1699,7 +1713,12 @@ class flam3husd_general_utils
             # Update dark preference's option toggle on other FLAM3HUSD nodes instances
             all_f3husd: tuple = self.node.type().instances()
             if len(all_f3husd) > 1:
-                [f3husd.setParms({PREFS_VIEWPORT_DARK: prm.eval()}) for f3husd in all_f3husd if f3husd != node if f3husd.parm(PREFS_VIEWPORT_DARK).eval() != prm.eval()]
+                for f3husd in all_f3husd:
+                    if f3husd == node:
+                        continue
+                    if f3husd.parm(PREFS_VIEWPORT_DARK).eval() != prm.eval():
+                        f3husd.setParms({PREFS_VIEWPORT_DARK: prm.eval()})
+
 
 
     def viewportParticleDisplay(self) -> None:
@@ -1752,16 +1771,27 @@ class flam3husd_general_utils
         all_f3husd: tuple = node.type().instances()
                         
         # Delete all keyframes
-        [f3husd.parm(PREFS_VIEWPORT_PT_TYPE).deleteAllKeyframes() for f3husd in all_f3husd]
+        for f3husd in all_f3husd: f3husd.parm(PREFS_VIEWPORT_PT_TYPE).deleteAllKeyframes()
         # Delete all keyframes on memory parms
-        [self.private_prm_deleteAllKeyframes(f3husd, PREFS_PVT_VIEWPORT_PT_TYPE_MEM) for f3husd in all_f3husd]
+        for f3husd in all_f3husd: self.private_prm_deleteAllKeyframes(f3husd, PREFS_PVT_VIEWPORT_PT_TYPE_MEM)
               
         if lop_viewers:  
-            [f3husd.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3husd in all_f3husd if f3husd != node if f3husd.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
-            [self.private_prm_set(f3husd, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype) for f3husd in all_f3husd if f3husd != node if f3husd.parm(PREFS_PVT_VIEWPORT_PT_TYPE_MEM).eval() != pttype]
+            for f3husd in all_f3husd:
+                if f3husd == node:
+                    continue
+
+                if f3husd.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype:
+                    f3husd.setParms({PREFS_VIEWPORT_PT_TYPE: pttype})
+
+                if f3husd.parm(PREFS_PVT_VIEWPORT_PT_TYPE_MEM).eval() != pttype:
+                    self.private_prm_set(f3husd, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype)
+
     
         else:
-            [f3husd.setParms({PREFS_VIEWPORT_PT_TYPE: pttype_mem}) for f3husd in all_f3husd if pttype != pttype_mem]
+            if pttype != pttype_mem:
+                for f3husd in all_f3husd:
+                    f3husd.setParms({PREFS_VIEWPORT_PT_TYPE: pttype_mem})
+
             
             _MSG = f"No Lop viewers available."
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
@@ -1823,18 +1853,25 @@ class flam3husd_general_utils
             all_f3husd: tuple = node.type().instances()
             
             # Delete all keyframes
-            [f3husd.parm(prm_name_size).deleteAllKeyframes() for f3husd in all_f3husd]
+            for f3husd in all_f3husd: f3husd.parm(prm_name_size).deleteAllKeyframes()
             # Delete all keyframes on memory parms
-            [self.private_prm_deleteAllKeyframes(f3husd, PREFS_PVT_VIEWPORT_PT_SIZE_MEM) for f3husd in all_f3husd]
+            for f3husd in all_f3husd: self.private_prm_deleteAllKeyframes(f3husd, PREFS_PVT_VIEWPORT_PT_SIZE_MEM)
             
             # Update Point Size preference's option toggle on other FLAM3HUSD nodes instances
             if prm_name_size == PREFS_VIEWPORT_PT_SIZE and node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
                 
                 if lop_viewers:
-                    [f3husd.setParms({prm_name_size: ptsize}) for f3husd in node.type().instances() if f3husd.parm(prm_name_size).eval() != ptsize]
-                    [self.private_prm_set(f3husd, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize) for f3husd in node.type().instances() if f3husd.parm(PREFS_PVT_VIEWPORT_PT_SIZE_MEM).eval() != ptsize]
+                    for f3husd in node.type().instances():
+                        if f3husd.parm(prm_name_size).eval() != ptsize:
+                            f3husd.setParms({prm_name_size: ptsize})
+                        if f3husd.parm(PREFS_PVT_VIEWPORT_PT_SIZE_MEM).eval() != ptsize:
+                            self.private_prm_set(f3husd, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize)
+
                 else:
-                    [f3husd.setParms({prm_name_size: ptsize_mem}) for f3husd in node.type().instances() if f3husd.parm(prm_name_size).eval() != ptsize_mem]
+                    for f3husd in node.type().instances():
+                        if f3husd.parm(prm_name_size).eval() != ptsize_mem:
+                            f3husd.setParms({prm_name_size: ptsize_mem})
+
                 
                     _MSG: str = f"No Lop viewers available."
                     self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
@@ -1883,12 +1920,15 @@ class flam3husd_general_utils
                 else: pass
                 
         if lop_viewers:
-            # Sync FLAM3HUSD node instances
-            [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
-            # update memory
-            # Sync FLAM3HUSD node instances memory
-            [self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_RENDERER_MEM) for n in node.type().instances() if n != node]
-            [self.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype) for n in node.type().instances() if n != node]
+            for n in node.type().instances():
+                if n != node:
+                    # Sync FLAM3HUSD node instances
+                    n.setParms({PREFS_VIEWPORT_RENDERER: rndtype})
+                    # Update memory
+                    self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_RENDERER_MEM)
+                    self.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype)
+
+
         else:
             node.setParms({PREFS_VIEWPORT_RENDERER: rndtype_mem.eval()})
         
