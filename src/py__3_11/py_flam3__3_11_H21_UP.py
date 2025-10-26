@@ -142,13 +142,27 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                     out_flame_xforms_data(out_flame_utils)
 
                     Note:
-                        - Class @properties are always defined inbetween the @staticmethods and the class methods.
+                        - Class @properties (or @cached_slot_property) are always defined inbetween the @staticmethods and the class methods.
                         - Global variables are all upper cases. Every upper case variable's name created inside any definition always start with an underscore (_)
 
 '''
 
-T = TypeVar('T')
+# @Decorator
+def cached_slot_property(func):
+    name = func.__name__
 
+    @property
+    def cached(self):
+        if not hasattr(self, '_cached_data') or self._cached_data is None:
+            object.__setattr__(self, '_cached_data', {})
+        if name not in self._cached_data:
+            self._cached_data[name] = func(self)
+        return self._cached_data[name]
+
+    return cached
+
+# TypeAlias
+T = TypeVar('T')
 TA_TypeVarCollection: TypeAlias = str | list | tuple | KeysView
 TA_XformVarKeys: TypeAlias = str | list[str] | tuple[str] | dict[str, int] | dict[str, tuple] | dict[str, set] | KeysView | None
 TA_TypeMaker: TypeAlias = list | float | hou.Vector2 | hou.Vector3 | hou.Vector4
@@ -4872,6 +4886,7 @@ class flam3h_iterator_utils
 * flam3h_init_hou_session_ff_data(node: hou.SopNode) -> None:
 * flam3h_init_hou_session_restore_from_user_data(node: hou.SopNode) -> None:
 * iterator_mpidx_mem_set(node, data: int) -> None:
+* tmp_prm_clear_and_reset(node: hou.SopNode, prm_from: hou.Parm, prm_to: hou.Parm, default_val: float) -> None:
 * paste_from_prm(prm_from: hou.Parm, prm_to: hou.Parm, pvt: bool = False) -> None:
 * paste_from_list(node: hou.SopNode, flam3node: hou.SopNode | None, prm_list: tuple, id: str, id_from: str) -> None:
 * is_iterator_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, id: str, id_from: str, post: bool = False) -> bool:
@@ -5284,6 +5299,30 @@ class flam3h_iterator_utils
             (None):
         """   
         flam3h_general_utils.private_prm_set(node, FLAM3H_DATA_PRM_MPIDX, data)
+
+
+    @staticmethod
+    def tmp_prm_clear_and_reset(node: hou.SopNode, prm_from: hou.Parm, prm_to: hou.Parm, reset_val: int | float = 0) -> None:
+        """Delete all keyframes and reset to a default value after the two temp parameters performed a value swap.
+        
+        This is specifically made for:
+        * def swap_iter_pre_vars(self) -> None:
+        * def swap_FF_post_vars(self) -> None:
+        
+        Args:
+            node(hou.SopNode): this FLAM3H™ node
+            prm_from(hou.Parm): the first parameter
+            prm_to(hou.Parm): the second parameter
+            reset_val(int | float): the value to reset the parameters to. This should be int for types and float for weights.
+            
+        Returns:
+            (None):
+        """
+        # Clear tmp prm so in case of keyframes or expression it doesnt evaluate
+        flam3h_general_utils.private_prm_deleteAllKeyframes(node, prm_from)
+        flam3h_general_utils.private_prm_deleteAllKeyframes(node, prm_to)
+        flam3h_general_utils.private_prm_set(node, prm_from, reset_val)
+        flam3h_general_utils.private_prm_set(node, prm_to, reset_val)
 
 
     @staticmethod
@@ -8217,12 +8256,8 @@ class flam3h_iterator_utils
             # SWAP TYPES from tmp
             self.paste_from_prm(__pvT_prm[0], pvT_prm[1])
             self.paste_from_prm(__pvT_prm[1], pvT_prm[0])
-            
             # Clear tmp prms so in case of keyframes or expression they wont evaluate
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0])
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1])
-            flam3h_general_utils.private_prm_set(node, __pvT_prm[0], 0)
-            flam3h_general_utils.private_prm_set(node, __pvT_prm[1], 0)
+            self.tmp_prm_clear_and_reset(node, __pvT_prm[0], __pvT_prm[1])
             
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
@@ -8235,30 +8270,20 @@ class flam3h_iterator_utils
             # SWAP TYPES from tmp
             self.paste_from_prm(__pvT_prm[0], pvT_prm[1])
             self.paste_from_prm(__pvT_prm[1], pvT_prm[0])
-            
             # Clear tmp prms so in case of keyframes or expression they wont evaluate
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0])
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1])
-            flam3h_general_utils.private_prm_set(node, __pvT_prm[0], 0)
-            flam3h_general_utils.private_prm_set(node, __pvT_prm[1], 0)
-
+            self.tmp_prm_clear_and_reset(node, __pvT_prm[0], __pvT_prm[1])
 
             # COPY WEIGHTS into tmp
             self.paste_from_prm(pvW_prm[0], __pvW_prm[0], True)
             self.paste_from_prm(pvW_prm[1], __pvW_prm[1], True)
-            
             # SWAP WEIGHTS from tmp
             self.paste_from_prm(__pvW_prm[0], pvW_prm[1])
             self.paste_from_prm(__pvW_prm[1], pvW_prm[0])
-            
             # Clear tmp prms so in case of keyframes or expression they wont evaluate
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[0])
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[1])
-            flam3h_general_utils.private_prm_set(node, __pvW_prm[0], 0)
-            flam3h_general_utils.private_prm_set(node, __pvW_prm[1], 0)
+            self.tmp_prm_clear_and_reset(node, __pvW_prm[0], __pvW_prm[1])
             
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-                
+            
                 
     def swap_FF_post_vars(self) -> None:
         """Swap the FF iterator POST vars order or swap only their names.
@@ -8269,7 +8294,6 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        
         node = self.node
         _MSG: str = f"{node.name()}: FF POST variations -> SWAP"
         
@@ -8294,10 +8318,7 @@ class flam3h_iterator_utils
             self.paste_from_prm(__pvT_prm[0], pvT_prm[1])
             self.paste_from_prm(__pvT_prm[1], pvT_prm[0])
             # Clear tmp prm so in case of keyframes or expression it doesnt evaluate
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0])
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1])
-            flam3h_general_utils.private_prm_set(node, __pvT_prm[0], 0)
-            flam3h_general_utils.private_prm_set(node, __pvT_prm[1], 0)
+            self.tmp_prm_clear_and_reset(node, __pvT_prm[0], __pvT_prm[1])
             
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
@@ -8311,10 +8332,7 @@ class flam3h_iterator_utils
             self.paste_from_prm(__pvT_prm[0], pvT_prm[1])
             self.paste_from_prm(__pvT_prm[1], pvT_prm[0])
             # Clear tmp prm so in case of keyframes or expression it doesnt evaluate
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[0])
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvT_prm[1])
-            flam3h_general_utils.private_prm_set(node, __pvT_prm[0], 0)
-            flam3h_general_utils.private_prm_set(node, __pvT_prm[1], 0)
+            self.tmp_prm_clear_and_reset(node, __pvT_prm[0], __pvT_prm[1])
 
             # Copy weights into tmp
             self.paste_from_prm(pvW_prm[0], __pvW_prm[0], True)
@@ -8323,10 +8341,7 @@ class flam3h_iterator_utils
             self.paste_from_prm(__pvW_prm[0], pvW_prm[1])
             self.paste_from_prm(__pvW_prm[1], pvW_prm[0])
             # Clear tmp prm so in case of keyframes or expression it doesnt evaluate
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[0])
-            flam3h_general_utils.private_prm_deleteAllKeyframes(node, __pvW_prm[1])
-            flam3h_general_utils.private_prm_set(node, __pvW_prm[0], 0)
-            flam3h_general_utils.private_prm_set(node, __pvW_prm[1], 0)
+            self.tmp_prm_clear_and_reset(node, __pvW_prm[0], __pvW_prm[1])
             
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
 
@@ -11745,7 +11760,8 @@ class _xml_tree
 
 """
 
-    __slots__ = ("_xmlfile", "_xmlfile_data", "_xmlfile_data_clipboard", "_isvalidtree", "_tree", "_name", "_plugins", "_sw_version")
+    __slots__ = ("_cached_data", 
+                 "_xmlfile", "_xmlfile_data", "_xmlfile_data_clipboard", "_isvalidtree", "_tree", "_name", "_plugins", "_sw_version")
     
     def __init__(self, xmlfile: str) -> None:
         """
@@ -11754,14 +11770,14 @@ class _xml_tree
             xmlfile (str): xmlfile (str): [xml *.flame file v_type to load]
         """
         self._xmlfile: str = xmlfile
-        self._xmlfile_data: str | None = self.xmlfile_root_chk(self._xmlfile)
-        self._xmlfile_data_clipboard: str | None = self.xmlfile_root_chk(self._xmlfile, True)
-        self._isvalidtree: bool = self.xmlfile_isvalidtree_chk(self._xmlfile)
-        if self._xmlfile_data_clipboard is not None:
-            self._tree = lxmlET.ElementTree(lxmlET.fromstring(self._xmlfile_data_clipboard)) # type: ignore
+        self._xmlfile_data: str | None = self.xmlfile_root_chk(self.xmlfile)
+        self._xmlfile_data_clipboard: str | None = self.xmlfile_root_chk(self.xmlfile, True)
+        self._isvalidtree: bool = self.xmlfile_isvalidtree_chk(self.xmlfile)
+        if self.xmlfile_data_clipboard is not None:
+            self._tree = lxmlET.ElementTree(lxmlET.fromstring(self.xmlfile_data_clipboard)) # type: ignore
             self._isvalidtree = True
-        elif self._xmlfile_data is not None:
-            self._tree = lxmlET.ElementTree(lxmlET.fromstring(self._xmlfile_data)) # type: ignore
+        elif self.xmlfile_data is not None:
+            self._tree = lxmlET.ElementTree(lxmlET.fromstring(self.xmlfile_data)) # type: ignore
             self._isvalidtree = True
         else:
             if self._isvalidtree:
@@ -11869,23 +11885,27 @@ class _xml_tree
     ##########################################
     ##########################################
     
-    @property
+    @cached_slot_property
     def xmlfile(self):
         return self._xmlfile
     
-    @property
+    @cached_slot_property
     def xmlfile_data(self):
         return self._xmlfile_data
     
-    @property
+    @cached_slot_property
+    def xmlfile_data_clipboard(self):
+        return self._xmlfile_data_clipboard
+    
+    @cached_slot_property
     def tree(self):
         return self._tree
     
-    @property
+    @cached_slot_property
     def isvalidtree(self):
         return self._isvalidtree
     
-    @property
+    @cached_slot_property
     def name(self):
         return self._name
     
@@ -12060,7 +12080,8 @@ class in_flame
         _xml_tree ([class]): [inherit properties methods from the _xml_tree class]
     """  
 
-    __slots__ = ("_node", "_flame", "_flame_count", 
+    __slots__ = ("_cached_data", 
+                 "_node", "_flame", "_flame_count", 
                  "_out_size", "_out_center", "_out_rotate", "_out_scale", "_out_quality", "_out_brightness", "_out_gamma", "_out_highlight_power", "_out_logscale_k2", "_out_vibrancy", "_out_palette_mode", 
                  "_out_curves", "_out_curve_overall", "_out_curve_red", "_out_curve_green", "_out_curve_blue", 
                  "_flam3h_sys_rip", "_flam3h_hsv", 
@@ -12078,7 +12099,7 @@ class in_flame
         
         self._node = node
         self._flame: tuple | None = self._xml_tree__get_flame() # type: ignore
-        self._flame_count: int = self._xml_tree__get_flame_count(self._flame) # type: ignore
+        self._flame_count: int = self._xml_tree__get_flame_count(self.flame) # type: ignore
         
         # render properties
         self._out_size: tuple = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SIZE) # type: ignore
@@ -12373,111 +12394,111 @@ class in_flame
     # def name(self):
     #     return self._name
 
-    @property
+    @cached_slot_property
     def flame(self):
         return self._flame
 
-    @property
+    @cached_slot_property
     def flame_count(self):
         return self._flame_count
     
-    @property
+    @cached_slot_property
     def out_size(self):
         return self._out_size
     
-    @property
+    @cached_slot_property
     def out_center(self):
         return self._out_center
     
-    @property
+    @cached_slot_property
     def out_rotate(self):
         return self._out_rotate
     
-    @property
+    @cached_slot_property
     def out_scale(self):
         return self._out_scale
     
-    @property
+    @cached_slot_property
     def out_quality(self):
         return self._out_quality
 
-    @property
+    @cached_slot_property
     def out_brightness(self):
         return self._out_brightness
     
-    @property
+    @cached_slot_property
     def out_gamma(self):
         return self._out_gamma
     
-    @property
+    @cached_slot_property
     def out_highlight_power(self):
         return self._out_highlight_power
     
-    @property
+    @cached_slot_property
     def out_logscale_k2(self):
         return self._out_logscale_k2
     
-    @property
+    @cached_slot_property
     def out_vibrancy(self):
         return self._out_vibrancy
     
-    @property
+    @cached_slot_property
     def out_palette_mode(self):
         return self._out_palette_mode
     
     # render curves
     
-    @property
+    @cached_slot_property
     def out_curves(self):
         return self._out_curves
     
-    @property
+    @cached_slot_property
     def out_curve_overall(self):
         return self._out_curve_overall
     
-    @property
+    @cached_slot_property
     def out_curve_red(self):
         return self._out_curve_red
     
-    @property
+    @cached_slot_property
     def out_curve_green(self):
         return self._out_curve_green
     
-    @property
+    @cached_slot_property
     def out_curve_blue(self):
         return self._out_curve_blue
     
     # custom to FLAM3H™ only
 
-    @property
+    @cached_slot_property
     def flam3h_hsv(self):
         return self._flam3h_hsv
     
-    @property
+    @cached_slot_property
     def flam3h_mb(self): # motion blur fps ( frames per second )
         return self._flam3h_mb
     
-    @property
+    @cached_slot_property
     def flam3h_mb_samples(self):
         return self._flam3h_mb_samples
     
-    @property
+    @cached_slot_property
     def flam3h_mb_shutter(self):
         return self._flam3h_mb_shutter
     
-    @property
+    @cached_slot_property
     def flam3h_cp_samples(self):
         return self._flam3h_cp_samples
     
-    @property
+    @cached_slot_property
     def flam3h_cp_basis(self):
         return self._flam3h_cp_basis
     
-    @property
+    @cached_slot_property
     def flam3h_prefs_f3c(self): # flam3 compatibility preferences option
         return self._flam3h_prefs_f3c
     
-    @property
+    @cached_slot_property
     def flame3h_sys_rip(self):
         return self._flam3h_sys_rip
     
@@ -12492,7 +12513,7 @@ class in_flame
         Returns:
             (int): clamped idx value just in case the user pass an invalid idx to this function
         """     
-        return 0 if idx < 0 else 0 if self.flame_count == 1 else self.flame_count-1 if idx > self.flame_count-1 else idx
+        return 0 if idx < 0 else 0 if {fc := self.flame_count} == 1 else fc-1 if idx > fc-1 else idx
 
 
     def __get_xforms(self, idx: int, key: str) -> tuple | None:
@@ -12899,7 +12920,8 @@ class in_flame_iter_data(in_flame):
         in_flame ([class]): [inherit properties methods from the in_flame class]
     """  
     
-    __slots__ = ("_idx", "_xforms", "_xf_name", "_weight", "_pre_blur", "_xaos", 
+    __slots__ = ("_cached_data", 
+                 "_idx", "_xforms", "_xf_name", "_weight", "_pre_blur", "_xaos", 
                  "_coefs", "_f3h_coefs", "_f3h_coefs_angle", "_post", "_f3h_post", "_f3h_post_angle", 
                  "_finalxform", "_finalxform_coefs", "_finalxform_f3h_coefs", "_finalxform_f3h_coefs_angle", "_finalxform_post", "_finalxform_f3h_post", "_finalxform_f3h_post_angle", "_finalxform_name", 
                  "_palette", "_color", "_color_speed", "_symmetry", "_opacity", 
@@ -12916,180 +12938,180 @@ class in_flame_iter_data(in_flame):
         super().__init__(node, xmlfile)
         
         self._idx: int = self._in_flame__is_valid_idx(idx) # type: ignore
-        self._xforms: tuple | None = self._in_flame__get_xforms(self._idx, XML_XF) # type: ignore
-        self._xf_name: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_XF_NAME) # type: ignore
-        self._weight: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_XF_WEIGHT) # type: ignore
-        self._pre_blur: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_XF_PB) # type: ignore
-        self._xaos: tuple | None  = self._in_flame__get_xaos(self._xforms) # type: ignore
+        self._xforms: tuple | None = self._in_flame__get_xforms(self.idx, XML_XF) # type: ignore
+        self._xf_name: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_NAME) # type: ignore
+        self._weight: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_WEIGHT) # type: ignore
+        self._pre_blur: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_PB) # type: ignore
+        self._xaos: tuple | None  = self._in_flame__get_xaos(self.xforms) # type: ignore
         
-        self._coefs: tuple | None = self._in_flame__get_affine(self._xforms, XML_PRE_AFFINE) # type: ignore
-        self._f3h_coefs: tuple | None = self._in_flame__get_affine(self._xforms, XML_FLAM3H_PRE_AFFINE) # type: ignore
-        self._f3h_coefs_angle: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
-        self._post: tuple | None  = self._in_flame__get_affine(self._xforms, XML_POST_AFFINE) # type: ignore
-        self._f3h_post: tuple | None  = self._in_flame__get_affine(self._xforms, XML_FLAM3H_POST_AFFINE) # type: ignore
-        self._f3h_post_angle: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
+        self._coefs: tuple | None = self._in_flame__get_affine(self.xforms, XML_PRE_AFFINE) # type: ignore
+        self._f3h_coefs: tuple | None = self._in_flame__get_affine(self.xforms, XML_FLAM3H_PRE_AFFINE) # type: ignore
+        self._f3h_coefs_angle: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
+        self._post: tuple | None  = self._in_flame__get_affine(self.xforms, XML_POST_AFFINE) # type: ignore
+        self._f3h_post: tuple | None  = self._in_flame__get_affine(self.xforms, XML_FLAM3H_POST_AFFINE) # type: ignore
+        self._f3h_post_angle: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
         
-        self._finalxform: tuple | None = self._in_flame__get_xforms(self._idx, XML_FF) # type: ignore
-        self._finalxform_coefs: tuple | None = self._in_flame__get_affine(self._finalxform, XML_PRE_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_coefs: tuple | None = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_PRE_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_coefs_angle: tuple | None = self._in_flame__get_keyvalue(self._finalxform, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
-        self._finalxform_post: tuple | None  = self._in_flame__get_affine(self._finalxform, XML_POST_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_post: tuple | None = self._in_flame__get_affine(self._finalxform, XML_FLAM3H_POST_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_post_angle: tuple | None = self._in_flame__get_keyvalue(self._finalxform, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
-        self._finalxform_name: tuple | None = self._in_flame__get_keyvalue(self._finalxform, XML_XF_NAME) # type: ignore
+        self._finalxform: tuple | None = self._in_flame__get_xforms(self.idx, XML_FF) # type: ignore
+        self._finalxform_coefs: tuple | None = self._in_flame__get_affine(self.finalxform, XML_PRE_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_coefs: tuple | None = self._in_flame__get_affine(self.finalxform, XML_FLAM3H_PRE_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_coefs_angle: tuple | None = self._in_flame__get_keyvalue(self.finalxform, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
+        self._finalxform_post: tuple | None  = self._in_flame__get_affine(self.finalxform, XML_POST_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_post: tuple | None = self._in_flame__get_affine(self.finalxform, XML_FLAM3H_POST_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_post_angle: tuple | None = self._in_flame__get_keyvalue(self.finalxform, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
+        self._finalxform_name: tuple | None = self._in_flame__get_keyvalue(self.finalxform, XML_XF_NAME) # type: ignore
         
-        self._palette: tuple[hou.Ramp, int, str] | None = self._in_flame__get_palette(self._idx) # type: ignore
-        self._color: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR) # type: ignore
-        self._color_speed: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_XF_COLOR_SPEED, False) # type: ignore # Color speed is only used by Fractorium so we silent its warning message when missing
-        self._symmetry: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_XF_SYMMETRY) # type: ignore
-        self._opacity: tuple | None = self._in_flame__get_keyvalue(self._xforms, XML_XF_OPACITY) # type: ignore
+        self._palette: tuple[hou.Ramp, int, str] | None = self._in_flame__get_palette(self.idx) # type: ignore
+        self._color: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_COLOR) # type: ignore
+        self._color_speed: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_COLOR_SPEED, False) # type: ignore # Color speed is only used by Fractorium so we silent its warning message when missing
+        self._symmetry: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_SYMMETRY) # type: ignore
+        self._opacity: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_OPACITY) # type: ignore
         
         # custom to FLAM3H™ only
-        self._sys_flam3h_rip: int | None = self._in_flame__get_flam3h_toggle(self._flam3h_sys_rip[self._idx]) # type: ignore
-        self._cp_flam3h_hsv: TA_TypeMaker | bool = self._in_flame__get_palette_flam3h_hsv(self._idx) # type: ignore
-        self._mb_flam3h_mb_fps: int | float | bool = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
-        self._mb_flam3h_mb_samples: int | float | bool = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
-        self._mb_flam3h_mb_shutter: int | float | bool = self._in_flame__get_mb_flam3h_mb(self._idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
-        self._cp_flam3h_cp_samples: int | bool = self._in_flame__get_cp_flam3h_samples(self._idx, self.palette) # type: ignore
-        self._cp_flam3h_cp_basis: int | bool = self._in_flame__get_cp_flam3h_basis(self._idx) # type: ignore
-        self._prefs_flam3h_f3c: int | None = self._in_flame__get_flam3h_toggle(self._flam3h_prefs_f3c[self._idx]) # type: ignore
+        self._sys_flam3h_rip: int | None = self._in_flame__get_flam3h_toggle(self.flame3h_sys_rip[self.idx]) # type: ignore
+        self._cp_flam3h_hsv: TA_TypeMaker | bool = self._in_flame__get_palette_flam3h_hsv(self.idx) # type: ignore
+        self._mb_flam3h_mb_fps: int | float | bool = self._in_flame__get_mb_flam3h_mb(self.idx, OUT_XML_FLMA3H_MB_FPS) # type: ignore
+        self._mb_flam3h_mb_samples: int | float | bool = self._in_flame__get_mb_flam3h_mb(self.idx, OUT_XML_FLMA3H_MB_SAMPLES) # type: ignore
+        self._mb_flam3h_mb_shutter: int | float | bool = self._in_flame__get_mb_flam3h_mb(self.idx, OUT_XML_FLMA3H_MB_SHUTTER) # type: ignore
+        self._cp_flam3h_cp_samples: int | bool = self._in_flame__get_cp_flam3h_samples(self.idx, self.palette) # type: ignore
+        self._cp_flam3h_cp_basis: int | bool = self._in_flame__get_cp_flam3h_basis(self.idx) # type: ignore
+        self._prefs_flam3h_f3c: int | None = self._in_flame__get_flam3h_toggle(self.flam3h_prefs_f3c[self.idx]) # type: ignore
 
 
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
 
-    @property
+    @cached_slot_property
     def idx(self):
         return self._idx
 
-    @property
+    @cached_slot_property
     def xforms(self):
         return self._xforms
     
-    @property
+    @cached_slot_property
     def xf_name(self):
         return self._xf_name
     
-    @property
+    @cached_slot_property
     def finalxform(self):
         return self._finalxform
     
-    @property
+    @cached_slot_property
     def finalxform_name(self):
         return self._finalxform_name
     
-    @property
+    @cached_slot_property
     def weight(self):
         return self._weight
     
-    @property
+    @cached_slot_property
     def pre_blur(self):
         return self._pre_blur
          
-    @property
+    @cached_slot_property
     def xaos(self):
         return self._xaos
  
-    @property
+    @cached_slot_property
     def coefs(self):
         return self._coefs
     
-    @property
+    @cached_slot_property
     def f3h_coefs(self):
         return self._f3h_coefs
     
-    @property
+    @cached_slot_property
     def f3h_coefs_angle(self):
         return self._f3h_coefs_angle
         
-    @property
+    @cached_slot_property
     def post(self):
         return self._post
     
-    @property
+    @cached_slot_property
     def f3h_post(self):
         return self._f3h_post
     
-    @property
+    @cached_slot_property
     def f3h_post_angle(self):
         return self._f3h_post_angle
     
-    @property
+    @cached_slot_property
     def finalxform_coefs(self):
         return self._finalxform_coefs
     
-    @property
+    @cached_slot_property
     def finalxform_f3h_coefs(self):
         return self._finalxform_f3h_coefs
     
-    @property
+    @cached_slot_property
     def finalxform_f3h_coefs_angle(self):
         return self._finalxform_f3h_coefs_angle
         
-    @property
+    @cached_slot_property
     def finalxform_post(self):
         return self._finalxform_post
     
-    @property
+    @cached_slot_property
     def finalxform_f3h_post(self):
         return self._finalxform_f3h_post
     
-    @property
+    @cached_slot_property
     def finalxform_f3h_post_angle(self):
         return self._finalxform_f3h_post_angle
     
-    @property
+    @cached_slot_property
     def palette(self):
         return self._palette
     
-    @property
+    @cached_slot_property
     def color(self):
         return self._color
     
-    @property
+    @cached_slot_property
     def color_speed(self):
         return self._color_speed
     
-    @property
+    @cached_slot_property
     def symmetry(self):
         return self._symmetry
     
-    @property
+    @cached_slot_property
     def opacity(self):
         return self._opacity
     
     # custom to FLAM3H™ only
     
-    @property
+    @cached_slot_property
     def cp_flam3h_hsv(self):
         return self._cp_flam3h_hsv
     
-    @property
+    @cached_slot_property
     def mb_flam3h_fps(self):
         return self._mb_flam3h_mb_fps
     
-    @property
+    @cached_slot_property
     def mb_flam3h_samples(self):
         return self._mb_flam3h_mb_samples
     
-    @property
+    @cached_slot_property
     def mb_flam3h_shutter(self):
         return self._mb_flam3h_mb_shutter
     
-    @property
+    @cached_slot_property
     def cp_flam3h_samples(self):
         return self._cp_flam3h_cp_samples
     
-    @property
+    @cached_slot_property
     def cp_flam3h_basis(self):
         return self._cp_flam3h_cp_basis
     
-    @property
+    @cached_slot_property
     def prefs_flam3h_f3c(self):
         return self._prefs_flam3h_f3c
     
-    @property
+    @cached_slot_property
     def sys_flam3h_rip(self):
         return self._sys_flam3h_rip
     
@@ -18062,8 +18084,6 @@ class out_flame_utils
                 build_flash: list = []
                 n_xf: int = len(apo_data.xforms)
                 build.append(f"XF: {n_xf}")
-                if apo_data.finalxform is not None: 
-                    build.append('FF')
                 
                 palette: int = -1
                 if apo_data.palette is not None:
@@ -18092,8 +18112,11 @@ class out_flame_utils
                 # As last, so we dnt add those to the build_flash list
                 if apo_data.prefs_flam3h_f3c is not None and apo_data.prefs_flam3h_f3c:
                     build.insert(0, 'F3C')
-                if  apo_data.sys_flam3h_rip is not None and apo_data.sys_flam3h_rip:
+                if apo_data.sys_flam3h_rip is not None and apo_data.sys_flam3h_rip:
                     build.insert(0, 'RIP')
+                if apo_data.finalxform is not None: 
+                    build.insert(0,'FF')
+                    build_flash.insert(0,'FF') # also in the build flash message string
 
                 # Build and Display infos
                 _MSG: str = ', '.join(build)
