@@ -3727,7 +3727,7 @@ class flam3h_general_utils
         
         if prm.eval():
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
-            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx + 1)}": 0}) for mp_idx in range(iter_num)]
+            for mp_idx in range(iter_num): node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx + 1)}": 0})
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             
             _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: OFF"
@@ -3805,7 +3805,7 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: ALL")
             
         else:
-            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) for mp_id in range(iter_num)] # type: ignore
+            for mp_id in range(iter_num): node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) # type: ignore
             prm_mp.set(1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, int(mp_idx))
@@ -3847,7 +3847,7 @@ class flam3h_general_utils
                 iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
                 data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
                 
-                [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) for mp_id in range(iter_num)] # type: ignore
+                for mp_id in range(iter_num): node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) # type: ignore
                 prm_mp.set(1)
                 # Update data accordingly
                 self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, mp_idx)
@@ -3890,7 +3890,7 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: ALL")
             
         else:
-            [node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) for mp_id in range(iter_num)] # type: ignore
+            for mp_id in range(iter_num): node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) # type: ignore
             self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
             node.setUserData(f"{data_name}", "FF")
@@ -6535,7 +6535,7 @@ class flam3h_iterator_utils
                 # Each one is a list as "data_now" is a tuple of lists
                 note, active, weight, shader_opacity = data_now
                 data_now_names = ('iter_sel_n', 'iter_sel_a', 'iter_sel_w', 'iter_sel_o') # The order matter
-                [node.setCachedUserData(data_now_names[idx], data) for idx, data in enumerate(data_now)]
+                for idx, data in enumerate(data_now): node.setCachedUserData(data_now_names[idx], data)
                 
                 # This definition probably can be made more light-weight for this particular case
                 from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
@@ -7758,15 +7758,19 @@ class flam3h_iterator_utils
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[1:-2], f3h_iter.sec_preAffine[:-2], idx)
             _MSG: str = f"iterator.{idx} - POST affine X and Y copied into the PRE affine."
+            
         elif kwargs['ctrl']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[3:-1], f3h_iter.sec_preAffine[2:-1], idx)
             _MSG: str = f"iterator.{idx} - POST affine OFFSET copied into the PRE affine."
+            
         elif kwargs['alt']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[4:], f3h_iter.sec_preAffine[3:], idx)
             _MSG: str = f"iterator.{idx} - POST affine ROT angle copied into the PRE affine."
+            
         else:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[1:], f3h_iter.sec_preAffine, idx)
             _MSG: str = f"iterator.{idx} - POST affine ALL values copied into the PRE affine."
+            
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
@@ -7790,15 +7794,19 @@ class flam3h_iterator_utils
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[:-2], f3h_iter.sec_postAffine[1:-2], idx)
             _MSG: str = f"iterator.{idx} - PRE affine X and Y copied into the POST affine."
+            
         elif kwargs['ctrl']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[2:-1], f3h_iter.sec_postAffine[3:-1], idx)
             _MSG: str = f"iterator.{idx} - PRE affine OFFSET copied into the POST affine."
+            
         elif kwargs['alt']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[3:], f3h_iter.sec_postAffine[4:], idx)
             _MSG: str = f"iterator.{idx} - PRE affine ROT angle copied into the POST affine."
+            
         else:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine, f3h_iter.sec_postAffine[1:], idx)
             _MSG: str = f"iterator.{idx} - PRE affine ALL values copied into the POST affine."
+            
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
@@ -7820,15 +7828,19 @@ class flam3h_iterator_utils
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[1:-2], f3h_iter_FF.sec_preAffine_FF[:-2], "")
             _MSG: str = f"FF POST affine X and Y copied into the FF PRE affine."
+            
         elif kwargs['ctrl']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[3:-1], f3h_iter_FF.sec_preAffine_FF[2:-1], "")
             _MSG: str = f"FF POST affine OFFSET copied into the FF PRE affine."
+            
         elif kwargs['alt']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[4:], f3h_iter_FF.sec_preAffine_FF[3:], "")
             _MSG: str = f"FF POST affine ROT angle copied into the FF PRE affine."
+            
         else:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[1:], f3h_iter_FF.sec_preAffine_FF, "")
             _MSG: str = f"FF POST affine ALL values copied into the FF PRE affine."
+            
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
         
@@ -7850,15 +7862,19 @@ class flam3h_iterator_utils
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_preAffine_FF[:-2], f3h_iter_FF.sec_postAffine_FF[1:-2], "")
             _MSG: str = f"FF PRE affine X and Y copied into the FF POST affine."
+            
         elif kwargs['ctrl']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_preAffine_FF[2:-1], f3h_iter_FF.sec_postAffine_FF[3:-1], "")
             _MSG: str = f"FF PRE affine OFFSET copied into the FF POST affine."
+            
         elif kwargs['alt']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_preAffine_FF[3:], f3h_iter_FF.sec_postAffine_FF[4:], "")
             _MSG: str = f"FF PRE affine ROT angle copied into the FF POST affine."
+            
         else:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_preAffine_FF, f3h_iter_FF.sec_postAffine_FF[1:], "")
             _MSG: str = f"FF PRE affine values ALL copied into the FF POST affine."
+            
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
             
             
@@ -8489,10 +8505,10 @@ class flam3h_iterator_utils
         n = flam3h_iterator_prm_names_collections()
 
         # Delete all keyframes
-        for prm_name in n.prm_iterator_tuple:
-            node.parmTuple(f"{prm_name}_{idx}").deleteAllKeyframes()
         for prm_name in n.prm_iterator:
             node.parm(f"{prm_name}_{idx}").deleteAllKeyframes()
+        for prm_name in n.prm_iterator_tuple:
+            node.parmTuple(f"{prm_name}_{idx}").deleteAllKeyframes()
         # Delete all keyframes parametrics and revert to defaults
         for prm_name in n.prm_parametrics:
             node.parm(f"{prm_name}_{idx}").deleteAllKeyframes()
@@ -8553,29 +8569,28 @@ class flam3h_iterator_utils
         # Delete all keyframes and revert to defaults
         #
         # For FF tuple and normal params
+        for prm_name in n.prm_FF:
+            prm = node.parm(f"{PRX_FF_PRM}{prm_name}")
+            prm.deleteAllKeyframes()
+            prm.revertToDefaults()
+            
         for prm_name in n.prm_FF_tuple:
             prm = node.parmTuple(f"{PRX_FF_PRM}{prm_name}")
             prm.deleteAllKeyframes()
             prm.revertToDefaults()
 
-        for prm_name in n.prm_FF:
-            prm = node.parm(f"{PRX_FF_PRM}{prm_name}")
-            prm.deleteAllKeyframes()
-            prm.revertToDefaults()
-
         # For parametrics (PRE and POST)
-        for prm_name in n.prm_parametrics_tuple:
-            for prefix in (PRX_FF_PRM, PRX_FF_PRM_POST):
-                prm = node.parmTuple(f"{prefix}_{prm_name}")
-                prm.deleteAllKeyframes()
-                prm.revertToDefaults()
-
         for prm_name in n.prm_parametrics:
             for prefix in (PRX_FF_PRM, PRX_FF_PRM_POST):
                 prm = node.parm(f"{prefix}_{prm_name}")
                 prm.deleteAllKeyframes()
                 prm.revertToDefaults()
-
+                
+        for prm_name in n.prm_parametrics_tuple:
+            for prefix in (PRX_FF_PRM, PRX_FF_PRM_POST):
+                prm = node.parmTuple(f"{prefix}_{prm_name}")
+                prm.deleteAllKeyframes()
+                prm.revertToDefaults()
 
         # FF note
         node.setParms({f"{PRX_FF_PRM}{n.main_note}": "iterator_FF"})
@@ -9772,11 +9787,9 @@ class flam3h_palette_utils
                     menuitems: KeysView = json.load(f).keys()
                     
                 menu: list = []
+                enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
                 for i, item in enumerate(menuitems):
-                    if node.parm(PREFS_ENUMERATE_MENU).eval():
-                        self.menu_cp_presets_loop_enum(node, menu, i, item)
-                    else:
-                        self.menu_cp_presets_loop(node, menu, i, item)
+                    self.menu_cp_presets_loop_enum(node, menu, i, item) if enum else self.menu_cp_presets_loop(node, menu, i, item)
 
                 node.setCachedUserData('cp_presets_menu', menu)
                 return menu
@@ -9858,11 +9871,9 @@ class flam3h_palette_utils
                     menuitems: KeysView = json.load(f).keys()
                     
                 menu: list = []
+                enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
                 for i, item in enumerate(menuitems):
-                    if node.parm(PREFS_ENUMERATE_MENU).eval():
-                        self.menu_cp_presets_empty_loop_enum(node, menu, i, item)
-                    else:
-                        self.menu_cp_presets_empty_loop(node, menu, i, item)
+                    self.menu_cp_presets_empty_loop_enum(node, menu, i, item) if enum else self.menu_cp_presets_empty_loop(node, menu, i, item)
 
                 node.setCachedUserData('cp_presets_menu_off', menu)
                 return menu
@@ -10075,7 +10086,7 @@ class flam3h_palette_utils
                             
                             # Set all CP preset menus parameter index
                             assert isinstance(data, dict)
-                            [prm.set(str(len(data.keys())-1)) for prm in (node.parm(CP_PALETTE_PRESETS), node.parm(CP_PALETTE_PRESETS_OFF), node.parm(CP_SYS_PALETTE_PRESETS), node.parm(CP_SYS_PALETTE_PRESETS_OFF))]
+                            for prm in (node.parm(CP_PALETTE_PRESETS), node.parm(CP_PALETTE_PRESETS_OFF), node.parm(CP_SYS_PALETTE_PRESETS), node.parm(CP_SYS_PALETTE_PRESETS_OFF)): prm.set(str(len(data.keys())-1))
                             # Clearup the Palette name if any were given
                             node.setParms({CP_PALETTE_OUT_PRESET_NAME: ''})
                             # Mark this as a valid file and as the currently loaded preset as it is the preset we just saved
@@ -13824,7 +13835,7 @@ class in_flame_utils
             else:
                 if apo_data.finalxform_coefs is not None:
                     # The affine XML key: "coefs" must always be present in the XML file.
-                    [node.setParms({f"{prx}{pre_affine[id]}": apo_data.finalxform_coefs[mp_idx][id]}) for id in range(3)] # type: ignore
+                    for id in range(3): node.setParms({f"{prx}{pre_affine[id]}": apo_data.finalxform_coefs[mp_idx][id]}) # type: ignore
                     
                 else:
                     # If not present, we set all the pre affine values for this iterator to a value of: 0(Zero)
@@ -13841,7 +13852,7 @@ class in_flame_utils
                     node.setParms({f"{prx}{flam3h_prm_names.postaffine_ang}": apo_data.finalxform_f3h_post_angle[mp_idx]}) # type: ignore
                     
                 else:
-                    [node.setParms({f"{prx}{post_affine[id]}": apo_data.finalxform_post[mp_idx][id]}) for id in range(3)] # type: ignore
+                    for id in range(3): node.setParms({f"{prx}{post_affine[id]}": apo_data.finalxform_post[mp_idx][id]}) # type: ignore
                 
         else:
             
@@ -13869,7 +13880,7 @@ class in_flame_utils
                     node.setParms({f"{prx}{flam3h_prm_names.postaffine_ang}_{idx}": apo_data.f3h_post_angle[mp_idx]}) # type: ignore
                     
                 else:
-                    [node.setParms({f"{prx}{post_affine[id]}_{idx}": apo_data.post[mp_idx][id]}) for id in range(3)] # type: ignore
+                    for id in range(3): node.setParms({f"{prx}{post_affine[id]}_{idx}": apo_data.post[mp_idx][id]}) # type: ignore
 
 
     @staticmethod
@@ -15577,7 +15588,7 @@ class in_flame_utils
                                                          n.shader_speed: apo_data.symmetry,
                                                          n.shader_alpha: apo_data.opacity
                                                          }
-                [self.in_set_data(mode, node, prx, value, key, mp_idx) for key, value in apo_data_set.items()]
+                for key, value in apo_data_set.items(): self.in_set_data(mode, node, prx, value, key, mp_idx)
             
             # Set Affine ( PRE, POST and F3H_PRE, F3H_POST) for this iterator or FF
             self.in_set_affine(mode, node, prx, apo_data, n, mp_idx)
@@ -15820,7 +15831,11 @@ class in_flame_utils
                 is_clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
                 
                 menu: list = []
-                [self.menu_in_presets_loop_enum(node, menu, i, item, in_idx, is_clipboard) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_in_presets_loop(node, menu, i, item, in_idx, is_clipboard) for i, item in enumerate(_xml(xml).get_name())]
+                enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
+                for i, item in enumerate(_xml(xml).get_name()):
+                    self.menu_in_presets_loop_enum(node, menu, i, item, in_idx, is_clipboard) if enum else self.menu_in_presets_loop(node, menu, i, item, in_idx, is_clipboard)
+
+                        
                 node.setCachedUserData('in_presets_menu', menu)
                 return menu
             
@@ -15896,7 +15911,9 @@ class in_flame_utils
             if _xml_tree(xml).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and not node.parm(IN_PVT_ISVALID_PRESET).eval():
                     
                 menu: list = []
-                [self.menu_in_presets_empty_loop_enum(node, menu, i, item) if node.parm(PREFS_ENUMERATE_MENU).eval() else self.menu_in_presets_empty_loop(node, menu, i, item) for i, item in enumerate(_xml(xml).get_name())]
+                enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
+                for i, item in enumerate(_xml(xml).get_name()):
+                    self.menu_in_presets_empty_loop_enum(node, menu, i, item) if enum else self.menu_in_presets_empty_loop(node, menu, i, item)
                 node.setCachedUserData('in_presets_menu_off', menu)
                 return menu
                 
@@ -18685,11 +18702,9 @@ class out_flame_utils
             if apo.isvalidtree:
                 
                 menu: list = []
+                enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
                 for i, item in enumerate(apo.name):
-                    if node.parm(PREFS_ENUMERATE_MENU).eval():
-                        self.menu_out_presets_loop_enum(menu, i, item)
-                    else:
-                        self.menu_out_presets_loop(menu, i, item)
+                    self.menu_out_presets_loop_enum(menu, i, item) if enum else self.menu_out_presets_loop(menu, i, item)
 
                 node.setCachedUserData('out_presets_menu', menu)
                 return menu
