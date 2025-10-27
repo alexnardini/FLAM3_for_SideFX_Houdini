@@ -12034,11 +12034,11 @@ class _xml_tree
     def name(self):
         return self._name
     
-    @property
+    @cached_slot_property
     def plugins(self):
         return self._plugins
     
-    @property
+    @cached_slot_property
     def sw_version(self):
         return self._sw_version
     
