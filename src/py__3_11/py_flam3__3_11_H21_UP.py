@@ -10637,7 +10637,7 @@ class flam3h_palette_utils
             
             # Apply color correction
             rmpsrc: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
-            _RGBs: list = [colorsys.hsv_to_rgb( item[0] + hsvprm_vals[0], item[1] * hsvprm_vals[1], item[2] * hsvprm_vals[2] ) for item in list(map(lambda x: colorsys.rgb_to_hsv(x[0], x[1], x[2]), rmpsrc.values()))]
+            _RGBs: list = [colorsys.hsv_to_rgb(h + hsvprm_vals[0], s * hsvprm_vals[1], v * hsvprm_vals[2]) for h, s, v in (colorsys.rgb_to_hsv(r, g, b) for r, g, b in rmpsrc.values())]
             # Set the ramp
             rmphsv = node.parm(CP_RAMP_HSV_NAME)
             rmphsv.set(hou.Ramp(rmpsrc.basis(), rmpsrc.keys(), _RGBs))
