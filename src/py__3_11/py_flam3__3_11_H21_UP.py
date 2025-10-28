@@ -3116,7 +3116,7 @@ class flam3h_general_utils
                         )
         # This is probably light weight enough to be run all together
         # However in the future will be better to split this to run per type with checks (CP, IN and OUT)
-        [prm.set(prm.eval()) for prm in prm_menus]
+        for prm in prm_menus: prm.set(prm.eval())
 
 
     def get_node_path(self, node_name: str) -> str | None:
@@ -4811,10 +4811,10 @@ class flam3h_general_utils
                                         MB_SHUTTER: 0.5,
                                         MB_VIZ: 0}
         
-        [node.parm(key).deleteAllKeyframes() for key in _MB.keys()]
+        for key in _MB.keys(): node.parm(key).deleteAllKeyframes()
         
         if all:
-            [node.setParms({key: value}) for key, value in _MB.items()]
+            for key, value in _MB.items(): node.setParms({key: value})
             
         else:
             prm_fps: int = node.parm(MB_FPS).eval()
@@ -4827,7 +4827,9 @@ class flam3h_general_utils
                 self.flash_message(node, _MSG)
                 
             else:
-                [node.setParms({key: value}) if key not in (MB_DO, MB_VIZ) else ... for key, value in _MB.items()]
+                for key, value in _MB.items():
+                    if key not in (MB_DO, MB_VIZ):
+                        node.setParms({key: value})
                 
                 _MSG: str = f"MB: RESET"
                 self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
@@ -5403,7 +5405,8 @@ class flam3h_iterator_utils
         if pvt: prm_to.lock(False) 
         prm_to.deleteAllKeyframes()
         if len(prm_from.keyframes()):
-            [prm_to.setKeyframe(k) for k in prm_from.keyframes()]
+            for k in prm_from.keyframes(): prm_to.setKeyframe(k)
+            
         else:
             prm_to.set(prm_from.eval()) # type: ignore
         if pvt: prm_to.lock(True)
@@ -5891,7 +5894,7 @@ class flam3h_iterator_utils
                             f"{PRX_FF_PRM}{n.var_type_2}",
                             f"{PRX_FF_PRM}{n.postvar_type_1}",
                             f"{PRX_FF_PRM}{n.postvar_type_2}")
-        [node.parm(name).pressButton() for name in prm_names] 
+        for name in prm_names: node.parm(name).pressButton()
 
 
     @staticmethod
@@ -8068,7 +8071,7 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         else:
-            [prm.deleteAllKeyframes() for prm in current.values()]
+            for prm in current.values(): prm.deleteAllKeyframes()
             for key in list(AFFINE_DEFAULT_DICT.keys()):
                 if current[key].eval() != AFFINE_DEFAULT_DICT[key]:
                     check = False
@@ -8147,7 +8150,7 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             else:
-                [prm.deleteAllKeyframes() for prm in current.values()]
+                for prm in current.values(): prm.deleteAllKeyframes()
                 for key in list(AFFINE_DEFAULT_DICT.keys()):
                     if current[key].eval() != AFFINE_DEFAULT_DICT[key]:
                         check = False
@@ -8222,7 +8225,7 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         else:
-            [prm.deleteAllKeyframes() for prm in current.values()]
+            for prm in current.values(): prm.deleteAllKeyframes()
             for key in list(AFFINE_DEFAULT_DICT.keys()):
                 if current[key].eval() != AFFINE_DEFAULT_DICT[key]:
                     check = False
@@ -8300,7 +8303,7 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
             else:
-                [prm.deleteAllKeyframes() for prm in current.values()]
+                for prm in current.values(): prm.deleteAllKeyframes()
                 for key in list(AFFINE_DEFAULT_DICT.keys()):
                     if current[key].eval() != AFFINE_DEFAULT_DICT[key]:
                         check = False
@@ -8993,7 +8996,7 @@ class flam3h_iterator_utils
                 node.setParms({f"{mp_note_name}_{new_mp_idx}": f"iterator_{new_mp_idx}"})
 
         # lock
-        [prm.lock(True) for prm in _PVT_PARMS]
+        for prm in _PVT_PARMS: prm.lock(True)
         
         
     def add_iterator(self) -> None:
@@ -9078,7 +9081,9 @@ class flam3h_iterator_utils
         self.destroy_cachedUserData(node, 'edge_case_01')
         
         # delete channel references
-        [p.deleteAllKeyframes() for p in node.parms() if not p.isLocked()]
+        for p in node.parms():
+            if not p.isLocked():
+                p.deleteAllKeyframes()
             
         # GLOBAL
         # Reset/Set density
@@ -11021,7 +11026,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
                                       MSG_FRACT_WEB: _FRACTWEB_MSG
                                     }
         
-        [node.setParms({key: value}) for key, value in about_web.items()]
+        for key, value in about_web.items(): node.setParms({key: value})
         
 
     def flam3h_about_web_homepage(self) -> None:
@@ -12822,7 +12827,7 @@ class in_flame
                 
                 palette_hex: str = self.flame[idx].find(key).text
                 all_lines: list[str] = [line.replace(" ", "") for line in palette_hex.splitlines()]
-                HEXs = [h for line in all_lines if (clean := i_cleandoc(line)) and len(clean) > 1 for h in wrap(clean, 6)]
+                HEXs: list = [h for line in all_lines if (clean := i_cleandoc(line)) and len(clean) > 1 for h in wrap(clean, 6)]
                 
                 try:
                     RGBs: list = [list(map(abs, flam3h_palette_utils.hex_to_rgb(hex))) for hex in HEXs]
@@ -19116,7 +19121,9 @@ class out_flame_utils
         f3r = out_flame_render_properties(self.kwargs)
         
         # SET Flame render properties
-        [flame.set(key, value) for key, value in self.out_flame_properties_build(f3r).items() if value is not False]
+        for key, value in self.out_flame_properties_build(f3r).items():
+            if value is not False:
+                flame.set(key, value)
 
         # SET xforms
         name_PRE_BLUR: str = ""
