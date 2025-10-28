@@ -15426,6 +15426,9 @@ class in_flame_utils
         apo_prm: tuple = flam3h_varsPRM_APO().varsPRM
         n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
         # Cache Callables for reuse
+        _in_util_make_PRE: Callable[[TA_TypeVarCollection], str | list[str] | None] = self.in_util_make_PRE
+        _in_util_make_POST: Callable[[TA_TypeVarCollection], str | list[str] | None] = self.in_util_make_POST
+        _in_get_xforms_var_keys: Callable[[tuple | None, TA_XformVarKeys, tuple], list | None] = self.in_get_xforms_var_keys
         _in_xml_key_val: Callable[[dict, str, float], float] = self.in_xml_key_val
         _in_get_idx_by_key: Callable[[str], int | None] = self.in_get_idx_by_key
         _in_util_check_negative_weight: Callable[[hou.SopNode, float, int, int, int, Callable], float] = self.in_util_check_negative_weight
@@ -15433,19 +15436,19 @@ class in_flame_utils
         _in_set_data: Callable[[int, hou.SopNode, str, tuple | list | None, str, int], None] = self.in_set_data
         
         # I could hard-code the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
-        pgb_name: str | list[str] | None = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
+        pgb_name: str | list[str] | None = _in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
         assert isinstance(pgb_name, str)
         
         xforms, _MAX_VARS_MODE = self.in_get_xforms_data_and_flam3h_vars_limit(mode, apo_data)
         
         __EXCLUDE__: tuple = copy(XML_XF_KEY_EXCLUDE)
-        vars_keys: list | None = self.in_get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), __EXCLUDE__)
+        vars_keys: list | None = _in_get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), __EXCLUDE__)
         if vars_keys is not None:
             vars_keys_flatten: list = [item for sublist in vars_keys for item in sublist]
             if vars_keys_flatten: __EXCLUDE__ += tuple(vars_keys_flatten)
             
         assert vars_keys is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
-        vars_keys_pre_pgb: list | None = self.in_get_xforms_var_keys(xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
+        vars_keys_pre_pgb: list | None = _in_get_xforms_var_keys(xforms, _in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
         vars_keys_pre: list | None = self.in_vars_keys_remove_pgb(vars_keys_pre_pgb, pgb_name)
         
         if vars_keys_pre is not None:
@@ -15453,7 +15456,7 @@ class in_flame_utils
             if vars_keys_pre_flatten: __EXCLUDE__ += tuple(vars_keys_pre_flatten)
             
         assert vars_keys_pre is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
-        vars_keys_post: list | None = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
+        vars_keys_post: list | None = _in_get_xforms_var_keys(xforms, _in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
         assert vars_keys_post is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
         
         # Set variations ( iterator and FF )
@@ -15513,7 +15516,7 @@ class in_flame_utils
                         v_type: int | None = _in_get_idx_by_key(_in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w: float = _in_xml_key_val(xform, key_name)
-                            v_weight: float = _in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_PRE) # type: ignore
+                            v_weight: float = _in_util_check_negative_weight(node, w, v_type, mode, mp_idx, _in_util_make_PRE) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_PRE_FF(app, 
                                                             node, 
@@ -15536,7 +15539,7 @@ class in_flame_utils
                         v_type: int | None = _in_get_idx_by_key(_in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w: float = _in_xml_key_val(xform, key_name)
-                            v_weight: float = _in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_POST) # type: ignore
+                            v_weight: float = _in_util_check_negative_weight(node, w, v_type, mode, mp_idx, _in_util_make_POST) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_POST_FF(app, 
                                                              node, 
@@ -15570,7 +15573,7 @@ class in_flame_utils
                         v_type: int | None = _in_get_idx_by_key(_in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w: float = _in_xml_key_val(xform, key_name)
-                            v_weight: float = _in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_PRE) # type: ignore
+                            v_weight: float = _in_util_check_negative_weight(node, w, v_type, mode, mp_idx, _in_util_make_PRE) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_PRE(app, 
                                                          mode, 
@@ -15595,7 +15598,7 @@ class in_flame_utils
                         v_type: int | None = _in_get_idx_by_key(_in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
                             w: float = _in_xml_key_val(xform, key_name)
-                            v_weight: float = _in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_POST) # type: ignore
+                            v_weight: float = _in_util_check_negative_weight(node, w, v_type, mode, mp_idx, _in_util_make_POST) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_POST(app, 
                                                           mode, 
