@@ -24,8 +24,8 @@ from typing import TypeVar
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import TypeAlias
-from itertools import count as iter_count
-from itertools import islice as iter_islice
+from itertools import count as it_count
+from itertools import islice as it_islice
 from textwrap import wrap
 from datetime import datetime
 from math import sin
@@ -153,11 +153,13 @@ def cached_slot_property(func):
 
     @property
     def cached(self):
-        if not hasattr(self, '_cached_data') or self._cached_data is None:
-            object.__setattr__(self, '_cached_data', {})
-        if name not in self._cached_data:
-            self._cached_data[name] = func(self)
-        return self._cached_data[name]
+        cache = getattr(self, "_cached_data", None)
+        if cache is None:
+            cache = {}
+            object.__setattr__(self, "_cached_data", cache)
+        if name not in cache:
+            cache[name] = func(self)
+        return cache[name]
 
     return cached
 
@@ -9962,7 +9964,7 @@ class flam3h_palette_utils
             palette: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
             
         keys_count: str = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(palette.keys()), 1, False)
-        POSs: list = list(iter_islice(iter_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
+        POSs: list = list(it_islice(it_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
         HEXs: list = [self.rgb_to_hex(palette.lookup(p)) for p in POSs]
         
         if hsv_vals_prm[0] == hsv_vals_prm[1] == hsv_vals_prm[2] == 1:
@@ -10181,7 +10183,7 @@ class flam3h_palette_utils
             
             try:
                 _len: int = len(rgb_from_XML_PALETTE)
-                POSs: list = list(iter_islice(iter_count(0, 1.0/(_len-1)), _len))
+                POSs: list = list(it_islice(it_count(0, 1.0/(_len-1)), _len))
                 BASEs: list = [hou.rampBasis.Linear] * _len # type: ignore
             except:
                 # If something goes wrong...set one RED key only
@@ -12835,7 +12837,7 @@ class in_flame
                     
                     format: str | None = dict(palette_attrib).get(XML_PALETTE_FORMAT)
                     ramp_keys_count: int = len(rgb_from_XML_PALETTE)
-                    POSs: list = list(iter_islice(iter_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
+                    POSs: list = list(it_islice(it_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
                     BASESs: list = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
                     
                     return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), ramp_keys_count, str(format)
@@ -16164,8 +16166,6 @@ class in_flame_utils
                     p.deleteAllKeyframes()
                 if p.isMultiParmInstance():
                     p.revertToDefaults()
-
-
 
 
     def in_to_flam3h_resets(self, node: hou.SopNode, _FLAM3H_INIT_DATA: TA_F3H_Init) -> None:
@@ -19790,7 +19790,7 @@ class out_flame_utils
             (str): The FLAM3H™ palette prepped into a string and converted into hex values.
         """  
         _PALETTE_KEYS_OUT = self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0)
-        POSs: list = list(iter_islice(iter_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
+        POSs: list = list(it_islice(it_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
         HEXs: list = [flam3h_palette_utils.rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
         n: int = 8
         hex_grp: list = [HEXs[i:i + n] for i in range(0, len(HEXs), n)]
