@@ -18,6 +18,7 @@ import lxml.etree as lxmlET
 
 from platform import python_version
 from platform import system as platform_system
+from typing import Iterable
 from typing import Callable
 from typing import KeysView
 from typing import TypeVar
@@ -6555,14 +6556,15 @@ class flam3h_iterator_utils
                 # Store the most updated version of this data
                 node.setCachedUserData('iter_sel_id', mp_id_from)
                 
+                _menu_append: Callable[[int | str], None] = menu.append
                 # append an empty line to reset to after selection (Null value).
-                menu.append(0)
-                menu.append("")
+                _menu_append(0)
+                _menu_append("")
                 
                 for i in range(iter_count):
                     
                     idx: int = i + 1
-                    menu.append(idx)
+                    _menu_append(idx)
 
                     _OPACITY_MSG: str = ""
                     if shader_opacity[i] == 0: _OPACITY_MSG = "[ZERO opacity] "
@@ -6571,13 +6573,13 @@ class flam3h_iterator_utils
                     if node == from_FLAM3H_NODE and mp_id_from == idx: _ICON_IDX = 1 # Marked
                     
                     if active[i] and weight[i] > 0:
-                        menu.append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        _menu_append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
                             
                     elif active[i] and weight[i] == 0:
-                        menu.append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        _menu_append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
 
                     else:
-                        menu.append(f"{SEL_ITER_BOOKMARK_OFF[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        _menu_append(f"{SEL_ITER_BOOKMARK_OFF[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
                             
             else:
                 menu = MENU_ZERO_ITERATORS
@@ -8671,7 +8673,8 @@ class flam3h_iterator_utils
         
         # get mpmem parms now
         mp_mem_name: str = flam3h_iterator_prm_names().main_mpmem
-        for mp_idx in range(iter_count): mpmem.append(int(node.parm(f"{mp_mem_name}_{str(mp_idx + 1)}").eval()))
+        _mpmem_append: Callable[[int], None] = mpmem.append
+        for mp_idx in range(iter_count): _mpmem_append(int(node.parm(f"{mp_mem_name}_{str(mp_idx + 1)}").eval()))
         
         # get mpmem from CachedUserData
         __mpmem_hou_get: list | None = self.auto_set_xaos_data_get_MP_MEM(node)
@@ -8975,7 +8978,8 @@ class flam3h_iterator_utils
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
         
         # set all multi parms xaos strings parms
-        xaos_str_round_floats: list = [div_weight.join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)]
+        _join: Callable[[Iterable[str]], str] = div_weight.join
+        xaos_str_round_floats: list[str] = [_join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)]
         prm_xaos_name: str = flam3h_iterator_prm_names().xaos
         for mp_idx in range(iter_count): node.parm(f"{prm_xaos_name}_{str(mp_idx + 1)}").deleteAllKeyframes() # This parameter can not be animated
         for mp_idx, xaos in enumerate(xaos_str_round_floats): node.setParms({f"{prm_xaos_name}_{str(mp_idx + 1)}": (div_xaos + xaos)})
@@ -8991,9 +8995,10 @@ class flam3h_iterator_utils
         mp_note_name: str = flam3h_iterator_prm_names().main_note
         for mp_idx in range(iter_count):
             new_mp_idx: str = str(mp_idx + 1)
-            param_val: str = str(node.parm(f"{mp_note_name}_{new_mp_idx}").eval()).strip()
+            param_name: str = f"{mp_note_name}_{new_mp_idx}"
+            param_val: str = str(node.parm(param_name).eval()).strip()
             if self.flam3h_iterator_is_default_name(param_val):
-                node.setParms({f"{mp_note_name}_{new_mp_idx}": f"iterator_{new_mp_idx}"})
+                node.setParms({param_name: f"iterator_{new_mp_idx}"})
 
         # lock
         for prm in _PVT_PARMS: prm.lock(True)
@@ -9803,8 +9808,10 @@ class flam3h_palette_utils
                     
                 menu: list = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
+                _menu_enum: Callable[[hou.SopNode, list, int, str], None] = self.menu_cp_presets_loop_enum
+                _menu_raw: Callable[[hou.SopNode, list, int, str], None] = self.menu_cp_presets_loop
                 for i, item in enumerate(menuitems):
-                    self.menu_cp_presets_loop_enum(node, menu, i, item) if enum else self.menu_cp_presets_loop(node, menu, i, item)
+                    _menu_enum(node, menu, i, item) if enum else _menu_raw(node, menu, i, item)
 
                 node.setCachedUserData('cp_presets_menu', menu)
                 return menu
@@ -9887,8 +9894,10 @@ class flam3h_palette_utils
                     
                 menu: list = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
+                _menu_enum: Callable[[hou.SopNode, list, int, str], None] = self.menu_cp_presets_empty_loop_enum
+                _menu_raw: Callable[[hou.SopNode, list, int, str], None] = self.menu_cp_presets_empty_loop
                 for i, item in enumerate(menuitems):
-                    self.menu_cp_presets_empty_loop_enum(node, menu, i, item) if enum else self.menu_cp_presets_empty_loop(node, menu, i, item)
+                    _menu_enum(node, menu, i, item) if enum else _menu_raw(node, menu, i, item)
 
                 node.setCachedUserData('cp_presets_menu_off', menu)
                 return menu
@@ -11846,14 +11855,15 @@ class _xml
         Returns:
             (tuple): Flame presets names.
         """     
-        if os.path.isfile(self.xml):   
+        if os.path.isfile(self.xml):
+            _strip: Callable[[str], str] = str.strip 
             root = self.tree.getroot()
             if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
-                return tuple(str(name.get(key)).strip() if name.get(key) is not None else [] for name in root)
+                return tuple(_strip(keyval) if (keyval := name.get(key)) is not None else [] for name in root)
             
             newroot = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
             newroot.insert(0, root)
-            return tuple(str(name.get(key)).strip() if name.get(key) is not None else [] for name in newroot)
+            return tuple(_strip(keyval) if (keyval := name.get(key)) is not None else [] for name in newroot)
         
         else:
             # inside a try/except block because it happened that when Houdini is busy like for example computing the flame while it is in camera sensor mode,
@@ -12664,7 +12674,8 @@ class in_flame
             assert self.flame is not None
             xforms: list = [xf.attrib for xf in self.flame[idx].iter(key)]
             if xforms:
-                return tuple(dict(zip([str(x).lower() for x in xf.keys()], xf.values())) for xf in xforms)
+                _lower: Callable[[str], str] = str.lower
+                return tuple(dict(zip([_lower(x) for x in xf.keys()], xf.values())) for xf in xforms)
                 
                 # xforms_lower = []
                 # for xf in xforms:
@@ -12688,7 +12699,6 @@ class in_flame
             (tuple | None): either a list of xaos strings or None
         """
         if  self.isvalidtree and xforms is not None:
-
             xaos: list = [f"xaos:{':'.join(self.xf_list_cleanup(str(keyval).split(), '1', key))}" if (keyval := xf.get(key)) is not None else [] for xf in xforms]
 
             if not max(list(map(lambda x: len(x), xaos))):
@@ -13836,7 +13846,7 @@ class in_flame_utils
             mp_idx(int): Multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
         """
         idx: str = str(mp_idx + 1)
-        zer_vectors = [hou.Vector2(tuple([0, 0, 0, 0, 0, 0][i:i + 2])) for i in (0, 2, 4)]
+        zero_vectors: list[hou.Vector2] = [hou.Vector2(tuple([0, 0, 0, 0, 0, 0][i:i + 2])) for i in (0, 2, 4)]
         pre_affine: tuple = (flam3h_prm_names.preaffine_x, flam3h_prm_names.preaffine_y, flam3h_prm_names.preaffine_o)
         post_affine: tuple = (flam3h_prm_names.postaffine_x, flam3h_prm_names.postaffine_y, flam3h_prm_names.postaffine_o)
         f3h_affine: int = node.parm(IN_FLAM3H_AFFINE_STYLE).eval()
@@ -13857,7 +13867,7 @@ class in_flame_utils
                     # Doing so it wont error out on load and it will act as a warning sign.
                     print(f"Warning: iterator.FF\nIN xml key: {XML_PRE_AFFINE} -> NOT FOUND, zero values used.\n")
                     
-                    for id in range(3): node.setParms({f"{prx}{pre_affine[id]}": zer_vectors[id]}) # type: ignore
+                    for id in range(3): node.setParms({f"{prx}{pre_affine[id]}": zero_vectors[id]}) # type: ignore
 
                 
             if apo_data.finalxform_post is not None:
@@ -13885,7 +13895,7 @@ class in_flame_utils
                     # Doing so it wont error out on load and it will act as a warning sign.
                     print(f"Warning: iterator.{mp_idx+1}\nIN xml key: {XML_PRE_AFFINE} -> NOT FOUND, zero values used.\n")
                     
-                    for id in range(3): node.setParms({f"{prx}{pre_affine[id]}_{idx}": zer_vectors[id]}) # type: ignore
+                    for id in range(3): node.setParms({f"{prx}{pre_affine[id]}_{idx}": zero_vectors[id]}) # type: ignore
 
                 
             if apo_data.post is not None and apo_data.post[mp_idx]:
@@ -14013,11 +14023,12 @@ class in_flame_utils
         VAR: list = []
         for names in apo_prm[1:-1]:
             var_prm_vals: list = []
+            _var_prm_vals_append: Callable[[float], None] = var_prm_vals.append
             for n in [x.lower() for x in names]:
                 # If one of the FLAM3H™ parameter is not in the xform, skip it and set it to ZERO for now.
                 n: str = func(n)
                 if xform.get(n) is not None:
-                    var_prm_vals.append(float(in_flame.xf_val_cleanup_str(str(xform.get(n)), '0', n)))
+                    _var_prm_vals_append(float(in_flame.xf_val_cleanup_str(str(xform.get(n)), '0', n)))
                     
                 else:
                     # If a variation parameter FLAM3H™ has is not found, set it to ZERO. Print its name to let us know if not inside XML_XF_PRM_EXCEPTION
@@ -14539,7 +14550,8 @@ class in_flame_utils
             (list[str]): Return a flattened list of unique and sorted items without duplicates.
         """
         
-        return [str(func(x)).capitalize() if capitalize else str(func(x)) for x in sorted(set(item for sublist in VARS_list for item in sublist)) if x]
+        _capitalize: Callable[[str], str] = str.capitalize
+        return [_capitalize(func(x)) if capitalize else str(func(x)) for x in sorted(set(item for sublist in VARS_list for item in sublist)) if x]
     
     
     @staticmethod
@@ -15404,6 +15416,22 @@ class in_flame_utils
         
         # timenow = datetime.now().strftime('%b-%d-%Y %H:%M:%S')
         
+        # Prefix
+        prx, prx_prm = self.in_util_flam3h_prx_mode(mode)
+        # Application
+        app: str = apo_data.sw_version[preset_id]
+        
+        # Cache for reuse
+        var_prm: tuple = flam3h_varsPRM().varsPRM
+        apo_prm: tuple = flam3h_varsPRM_APO().varsPRM
+        n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
+        # Cache Callables for reuse
+        _in_xml_key_val: Callable[[dict, str, float], float] = self.in_xml_key_val
+        _in_get_idx_by_key: Callable[[str], int | None] = self.in_get_idx_by_key
+        _in_util_check_negative_weight: Callable[[hou.SopNode, float, int, int, int, Callable], float] = self.in_util_check_negative_weight
+        _in_util_make_VAR: Callable[[TA_TypeVarCollection], str | list[str] | None] = self.in_util_make_VAR
+        _in_set_data: Callable[[int, hou.SopNode, str, tuple | list | None, str, int], None] = self.in_set_data
+        
         # I could hard-code the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
         pgb_name: str | list[str] | None = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
         assert isinstance(pgb_name, str)
@@ -15428,12 +15456,6 @@ class in_flame_utils
         vars_keys_post: list | None = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
         assert vars_keys_post is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
         
-        app: str = apo_data.sw_version[preset_id]
-        var_prm: tuple = flam3h_varsPRM().varsPRM
-        apo_prm: tuple = flam3h_varsPRM_APO().varsPRM
-        n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
-        prx, prx_prm = self.in_util_flam3h_prx_mode(mode)
-        
         # Set variations ( iterator and FF )
         for mp_idx, xform in enumerate(xforms):
             
@@ -15447,9 +15469,9 @@ class in_flame_utils
             
             # in case of an iterator only the first 4. In case of an FF only the first 2
             for t_idx, key_name in enumerate(vars_keys[mp_idx][:_MAX_VARS_MODE]):
-                v_type: int | None = self.in_get_idx_by_key(key_name)
+                v_type: int | None = _in_get_idx_by_key(key_name)
                 if v_type is not None:
-                    v_weight: float = self.in_xml_key_val(xform, key_name)
+                    v_weight: float = _in_xml_key_val(xform, key_name)
                     if apo_prm[v_type][-1]:
                         self.in_v_parametric(app, 
                                              mode, 
@@ -15488,10 +15510,10 @@ class in_flame_utils
                 # FF PRE vars ( only the first one in "vars_keys_pre[mp_idx]" will be kept )
                 if vars_keys_pre[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_FF_VARS_PRE]):
-                        v_type: int | None = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        v_type: int | None = _in_get_idx_by_key(_in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
-                            w: float = self.in_xml_key_val(xform, key_name)
-                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_PRE) # type: ignore
+                            w: float = _in_xml_key_val(xform, key_name)
+                            v_weight: float = _in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_PRE) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_PRE_FF(app, 
                                                             node, 
@@ -15511,10 +15533,10 @@ class in_flame_utils
                 # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
                 if vars_keys_post[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_FF_VARS_POST]):
-                        v_type: int | None = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        v_type: int | None = _in_get_idx_by_key(_in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
-                            w: float = self.in_xml_key_val(xform, key_name)
-                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_POST) # type: ignore
+                            w: float = _in_xml_key_val(xform, key_name)
+                            v_weight: float = _in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_POST) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_POST_FF(app, 
                                                              node, 
@@ -15545,10 +15567,10 @@ class in_flame_utils
                 if vars_keys_pre[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:MAX_ITER_VARS_PRE]):
                         
-                        v_type: int | None = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        v_type: int | None = _in_get_idx_by_key(_in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
-                            w: float = self.in_xml_key_val(xform, key_name)
-                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_PRE) # type: ignore
+                            w: float = _in_xml_key_val(xform, key_name)
+                            v_weight: float = _in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_PRE) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_PRE(app, 
                                                          mode, 
@@ -15570,10 +15592,10 @@ class in_flame_utils
                 # POST vars in this iterator ( only the first one in "vars_keys_post[mp_idx]" will be kept )
                 if vars_keys_post[mp_idx]: # type: ignore
                     for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:MAX_ITER_VARS_POST]):
-                        v_type: int | None = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        v_type: int | None = _in_get_idx_by_key(_in_util_make_VAR(key_name)) # type: ignore
                         if v_type is not None:
-                            w: float = self.in_xml_key_val(xform, key_name)
-                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_POST) # type: ignore
+                            w: float = _in_xml_key_val(xform, key_name)
+                            v_weight: float = _in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_POST) # type: ignore
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_POST(app, 
                                                           mode, 
@@ -15603,7 +15625,7 @@ class in_flame_utils
                                                          n.shader_speed: apo_data.symmetry,
                                                          n.shader_alpha: apo_data.opacity
                                                          }
-                for key, value in apo_data_set.items(): self.in_set_data(mode, node, prx, value, key, mp_idx)
+                for key, value in apo_data_set.items(): _in_set_data(mode, node, prx, value, key, mp_idx)
             
             # Set Affine ( PRE, POST and F3H_PRE, F3H_POST) for this iterator or FF
             self.in_set_affine(mode, node, prx, apo_data, n, mp_idx)
@@ -15627,6 +15649,10 @@ class in_flame_utils
         # spacers
         nl: str = "\n"
         nnl: str = "\n\n"
+        
+        # Cache Callables for reuse
+        _in_get_xforms_var_keys: Callable[[tuple | None, TA_XformVarKeys, tuple], list | None] = self.in_get_xforms_var_keys
+        _in_get_xforms_var_keys_PP: Callable[[tuple | None, dict, str, tuple], list | None] = self.in_get_xforms_var_keys_PP
         
         # If the XML Flame preset is modified on disk while it is currently loaded inside FLAM3H™ an asterisk(*) will be added to each IN infos line as an indicator.
         XML_updated: str = ''
@@ -15706,30 +15732,30 @@ class in_flame_utils
         
         # ITERATOR COLLECT
         __EXCLUDE__: tuple = copy(XML_XF_KEY_EXCLUDE)
-        vars_keys: list | None = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), __EXCLUDE__)
+        vars_keys: list | None = _in_get_xforms_var_keys(apo_data.xforms, VARS_FLAM3_DICT_IDX.keys(), __EXCLUDE__)
         if vars_keys is not None:
             vars_keys_flatten: list = [item for sublist in vars_keys for item in sublist]
             if vars_keys_flatten: __EXCLUDE__ += tuple(vars_keys_flatten)
-        vars_keys_PRE_pgb:list | None = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
+        vars_keys_PRE_pgb:list | None = _in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
         vars_keys_PRE: list | None = self.in_vars_keys_remove_pgb(vars_keys_PRE_pgb, pgb_name)
         if vars_keys_PRE is not None: 
             vars_keys_PRE_flatten: list = [item for sublist in vars_keys_PRE for item in sublist]
             if vars_keys_PRE_flatten: __EXCLUDE__ += tuple(vars_keys_PRE_flatten)
-        vars_keys_POST: list | None = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
+        vars_keys_POST: list | None = _in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
         
         # FF COLLECT
         vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
         if ff_bool:
             __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
-            vars_keys_FF: list | None = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), __EXCLUDE__)
+            vars_keys_FF: list | None = _in_get_xforms_var_keys(apo_data.finalxform, VARS_FLAM3_DICT_IDX.keys(), __EXCLUDE__)
             if vars_keys_FF is not None:
                 vars_keys_FF_flatten: list = [item for sublist in vars_keys_FF for item in sublist]
                 if vars_keys_FF_flatten: __EXCLUDE__ += tuple(vars_keys_FF_flatten)
-            vars_keys_PRE_FF: list | None = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
+            vars_keys_PRE_FF: list | None = _in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
             if vars_keys_PRE_FF is not None:
                 vars_keys_PRE_FF_flatten: list = [item for sublist in vars_keys_PRE_FF for item in sublist]
                 if vars_keys_PRE_FF_flatten: __EXCLUDE__ += tuple(vars_keys_PRE_FF_flatten)
-            vars_keys_POST_FF: list | None = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
+            vars_keys_POST_FF: list | None = _in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
         
         vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
         if pb_bool: vars_all += [["pre_blur"]]
@@ -15751,30 +15777,30 @@ class in_flame_utils
         
         # Build ITERATOR MISSING
         __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
-        vars_keys_from_fractorium: list | None = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, __EXCLUDE__)
+        vars_keys_from_fractorium: list | None = _in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, __EXCLUDE__)
         if vars_keys_from_fractorium is not None:
             vars_keys_from_fractorium_flatten: list = [item for sublist in vars_keys_from_fractorium for item in sublist]
             if vars_keys_from_fractorium_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_flatten)
-        vars_keys_from_fractorium_pre_pgb: list | None = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
+        vars_keys_from_fractorium_pre_pgb: list | None = _in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
         vars_keys_from_fractorium_pre: list | None = self.in_vars_keys_remove_pgb(vars_keys_from_fractorium_pre_pgb, pgb_name)
         if vars_keys_from_fractorium_pre is not None:
             vars_keys_from_fractorium_pre_flatten: list = [item for sublist in vars_keys_from_fractorium_pre for item in sublist]
             if vars_keys_from_fractorium_pre_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_pre_flatten)
-        vars_keys_from_fractorium_post: list | None = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
+        vars_keys_from_fractorium_post: list | None = _in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
         
         # BUILD FF MISSING
         vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = []
         if ff_bool:
             __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
-            vars_keys_from_fractorium_FF: list | None = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, __EXCLUDE__)
+            vars_keys_from_fractorium_FF: list | None = _in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, __EXCLUDE__)
             if vars_keys_from_fractorium_FF is not None:
                 vars_keys_from_fractorium_FF_flatten: list = [item for sublist in vars_keys_from_fractorium_FF for item in sublist]
                 if vars_keys_from_fractorium_FF_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_FF_flatten)
-            vars_keys_from_fractorium_pre_FF: list | None = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
+            vars_keys_from_fractorium_pre_FF: list | None = _in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
             if vars_keys_from_fractorium_pre_FF is not None:
                 vars_keys_from_fractorium_pre_FF_flatten: list = [item for sublist in vars_keys_from_fractorium_pre_FF for item in sublist]
                 if vars_keys_from_fractorium_pre_FF_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_pre_FF_flatten)
-            vars_keys_from_fractorium_post_FF: list | None = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
+            vars_keys_from_fractorium_post_FF: list | None = _in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
         
         vars_keys_from_fractorium_all: list = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
         result_sorted_fractorium: list = self.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, self.in_util_make_NULL, True)
@@ -15847,8 +15873,10 @@ class in_flame_utils
                 
                 menu: list = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
+                _menu_enum: Callable[[hou.SopNode, list, int, str, int, int], None] = self.menu_in_presets_loop_enum
+                _menu_raw: Callable[[hou.SopNode, list, int, str, int, int], None] = self.menu_in_presets_loop
                 for i, item in enumerate(_xml(xml).get_name()):
-                    self.menu_in_presets_loop_enum(node, menu, i, item, in_idx, is_clipboard) if enum else self.menu_in_presets_loop(node, menu, i, item, in_idx, is_clipboard)
+                    _menu_enum(node, menu, i, item, in_idx, is_clipboard) if enum else _menu_raw(node, menu, i, item, in_idx, is_clipboard)
 
                         
                 node.setCachedUserData('in_presets_menu', menu)
@@ -15927,8 +15955,10 @@ class in_flame_utils
                     
                 menu: list = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
+                _menu_enum: Callable[[hou.SopNode, list, int, str], None] = self.menu_in_presets_empty_loop_enum
+                _menu_raw: Callable[[hou.SopNode, list, int, str], None] = self.menu_in_presets_empty_loop
                 for i, item in enumerate(_xml(xml).get_name()):
-                    self.menu_in_presets_empty_loop_enum(node, menu, i, item) if enum else self.menu_in_presets_empty_loop(node, menu, i, item)
+                    _menu_enum(node, menu, i, item) if enum else _menu_raw(node, menu, i, item)
                 node.setCachedUserData('in_presets_menu_off', menu)
                 return menu
                 
@@ -17501,7 +17531,8 @@ class out_flame_utils
         build_f_s: list = os.path.split(build_f)[0].split("/")
         build_f_s[:] = [item for item in build_f_s if item]
         # Clean location directories. ( maybe not needed but whatever )
-        build_f_s_cleaned: list = [''.join(letter for letter in item if letter.isalnum() or letter in CHARACTERS_ALLOWED) for item in build_f_s]
+        _join: Callable[[Iterable[str]], str] = ''.join
+        build_f_s_cleaned: list = [_join(letter for letter in item if letter.isalnum() or letter in CHARACTERS_ALLOWED) for item in build_f_s]
         # append cleaned file_name
         build_f_s_cleaned.append(''.join(letter for letter in file_name if letter.isalnum() or letter in CHARACTERS_ALLOWED))
         
@@ -17823,7 +17854,7 @@ class out_flame_utils
                     
                     try:
                         _xaos: list = strip[1:iter_count + 1]
-                        _cleanup_str: Callable[[str]] = in_flame.xf_val_cleanup_str
+                        _cleanup_str: Callable[[str], str] = in_flame.xf_val_cleanup_str
                         if _xaos[0] and val_prev is not None and len(val_prev) == iter_count:
                             _xaos_strip: list = [str(_prev_val) if (_prev_val := float(_cleanup_str(str(x), val_prev[iter][idx]))) >= 0 else '1' for idx, x in enumerate(_xaos)]
                             
@@ -18671,7 +18702,8 @@ class out_flame_utils
         fill: list = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
         xaos_vactive: list = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
         
-        return tuple(" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
+        _join: Callable[[Iterable[str]], str] = " ".join
+        return tuple(_join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
 
 
     def out_xf_xaos_from(self, mode: int = 0) -> tuple[str, ...]:
@@ -18686,11 +18718,12 @@ class out_flame_utils
         val: list = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
         fill: list = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1) for item in val]
         t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count)).tolist()).tolist()
+        _join: Callable[[Iterable[str]], str] = " ".join
         if mode:
             xaos_vactive: list = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
-            return tuple(" ".join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
+            return tuple(_join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
         
-        return tuple(" ".join(x) for x in self.out_util_round_floats(t))
+        return tuple(_join(x) for x in self.out_util_round_floats(t))
 
 
     def menu_out_contents_presets_data(self) -> list:
@@ -18716,8 +18749,10 @@ class out_flame_utils
                 
                 menu: list = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
+                _menu_enum: Callable[[list, int, str], None] = self.menu_out_presets_loop_enum
+                _menu_raw: Callable[[list, int, str], None] = self.menu_out_presets_loop
                 for i, item in enumerate(apo.name):
-                    self.menu_out_presets_loop_enum(menu, i, item) if enum else self.menu_out_presets_loop(menu, i, item)
+                    _menu_enum(menu, i, item) if enum else _menu_raw(menu, i, item)
 
                 node.setCachedUserData('out_presets_menu', menu)
                 return menu
@@ -19694,7 +19729,8 @@ class out_flame_utils
             val.append([str(x) for x in flatten])
             f3h_val.append([str(x) for x in f3h_flatten])
             
-        return tuple(" ".join(x) for x in self.out_util_round_floats(val)), tuple(" ".join(x) for x in self.out_util_round_floats(f3h_val)), tuple(f3h_angleDeg)
+        _join: Callable[[Iterable[str]], str] = " ".join
+        return tuple(_join(x) for x in self.out_util_round_floats(val)), tuple(_join(x) for x in self.out_util_round_floats(f3h_val)), tuple(f3h_angleDeg)
     
     
     def __out_xf_postaffine(self) -> tuple[tuple, tuple, tuple]:
@@ -19729,7 +19765,8 @@ class out_flame_utils
                 f3h_val.append([])
                 f3h_angleDeg.append([])
                 
-        return tuple(" ".join(x) for x in self.out_util_round_floats(val)), tuple(" ".join(x) for x in self.out_util_round_floats(f3h_val)), tuple(f3h_angleDeg)
+        _join: Callable[[Iterable[str]], str] = " ".join
+        return tuple(_join(x) for x in self.out_util_round_floats(val)), tuple(_join(x) for x in self.out_util_round_floats(f3h_val)), tuple(f3h_angleDeg)
 
 
     def __out_finalxf_preaffine(self) -> tuple[str, str, str]:
