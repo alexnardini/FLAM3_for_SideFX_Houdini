@@ -6210,7 +6210,8 @@ class flam3h_iterator_utils
             # Reset memory mpidx prm data
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
             
-            # In H21.0.440 and UP the following is not needed anymore.
+            # In H21.0.440 and UP the following is not needed anymore,
+            # and we get the benefit of keeping the copy/paste marked iterator/FF data running smooth while switching modes.
             '''
             # Remove any comment and user data from the node
             if self.exist_user_data(node):
