@@ -6201,6 +6201,7 @@ class flam3h_iterator_utils
             (None):
         """  
         node = self.node
+        _MSG_PRX: str = "Iterator var menus:"
         
         # Reset/Set density
         flam3h_general_utils.reset_density(node)
@@ -6229,7 +6230,7 @@ class flam3h_iterator_utils
             node.matchCurrentDefinition()
             '''
             
-            _MSG: str = "Iterator var menus: SIMPLE"
+            _MSG: str = f"{_MSG_PRX} SIMPLE"
             flam3h_general_utils.flash_message(node, f"{_MSG}")
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
             
@@ -6239,7 +6240,7 @@ class flam3h_iterator_utils
             # For some reasons the FF menus did not update so we force them to just in case
             self.force_menu_var_update_FF(node)
             
-            _MSG: str = "Iterator var menus: ICONS"
+            _MSG: str = f"{_MSG_PRX} ICONS"
             flam3h_general_utils.flash_message(node, f"{_MSG}")
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
             
