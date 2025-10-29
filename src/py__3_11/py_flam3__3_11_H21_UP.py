@@ -6235,9 +6235,8 @@ class flam3h_iterator_utils
         else:
             self.destroy_cachedUserData(node, 'vars_menu_all_simple')
             
-            # For some reasons the FF menus do not update when OFF so we force them to
-            if not node.parm(PREFS_PVT_DOFF).eval():
-                self.force_menu_var_update_FF(node)
+            # For some reasons the FF menus did not update so we force them to just in case
+            self.force_menu_var_update_FF(node)
             
             _MSG: str = "Iterator var menus: ICONS"
             flam3h_general_utils.flash_message(node, f"{_MSG}")
