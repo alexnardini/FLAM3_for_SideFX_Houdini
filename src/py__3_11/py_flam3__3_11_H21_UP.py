@@ -15615,7 +15615,7 @@ class in_flame_utils
                                                          n.shader_speed: apo_data.symmetry,
                                                          n.shader_alpha: apo_data.opacity
                                                          }
-                [self.in_set_data(mode, node, prx, value, key, mp_idx) for key, value in apo_data_set.items()]
+                for key, value in apo_data_set.items(): self.in_set_data(mode, node, prx, value, key, mp_idx)
             
             # Set Affine ( PRE, POST and F3H_PRE, F3H_POST) for this iterator or FF
             self.in_set_affine(mode, node, prx, apo_data, n, mp_idx)
