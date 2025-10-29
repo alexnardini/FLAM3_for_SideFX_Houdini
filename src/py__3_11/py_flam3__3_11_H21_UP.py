@@ -6207,6 +6207,8 @@ class flam3h_iterator_utils
         
         # Reset/Set density
         flam3h_general_utils.reset_density(node)
+        # For some reasons the FF menus did not update so we force them to just in case
+        self.force_menu_var_update_FF(node)
         
         if not self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval():
             
@@ -6238,9 +6240,6 @@ class flam3h_iterator_utils
             
         else:
             self.destroy_cachedUserData(node, 'vars_menu_all_simple')
-            
-            # For some reasons the FF menus did not update so we force them to just in case
-            self.force_menu_var_update_FF(node)
             
             _MSG: str = f"{_MSG_PRX} ICONS"
             flam3h_general_utils.flash_message(node, f"{_MSG}")
