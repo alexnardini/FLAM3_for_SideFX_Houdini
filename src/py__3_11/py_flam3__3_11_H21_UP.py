@@ -6209,6 +6209,10 @@ class flam3h_iterator_utils
         flam3h_general_utils.reset_density(node)
         # For some reasons the FF menus did not update so we force them to just in case
         self.force_menu_var_update_FF(node)
+        # Change focus back to the FLAME's Tab
+        node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
+        # Check and Update this data
+        self.update_xml_last_loaded()
         
         if not self.node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval():
             
@@ -6244,11 +6248,6 @@ class flam3h_iterator_utils
             _MSG: str = f"{_MSG_PRX} ICONS"
             flam3h_general_utils.flash_message(node, f"{_MSG}")
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
-            
-        # Change focus back to the FLAME's Tab
-        node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
-        # Check and Update this data
-        self.update_xml_last_loaded()
         
 
     def destroy_data_note(self) -> None:
