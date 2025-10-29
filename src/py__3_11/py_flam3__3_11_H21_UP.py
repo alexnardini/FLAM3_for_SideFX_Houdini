@@ -6210,16 +6210,23 @@ class flam3h_iterator_utils
             # Reset memory mpidx prm data
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
             
+            # In H21.0.440 and UP the following is not needed anymore.
+            '''
             # Remove any comment and user data from the node
             if self.exist_user_data(node):
                 self.destroy_cachedUserData(node, 'iter_sel')
                 self.del_comment_and_user_data_iterator(node)
+                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+                hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
             if self.exist_user_data(node, FLAM3H_USER_DATA_FF):
                 self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
+                hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
+                hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
             
             # This is the only way I found to update the FLAME tab multiparameter's menus, for now...
             node.type().definition().updateFromNode(node)
             node.matchCurrentDefinition()
+            '''
             
             _MSG: str = "Iterator var menus: SIMPLE"
             flam3h_general_utils.flash_message(node, f"{_MSG}")
@@ -6228,8 +6235,9 @@ class flam3h_iterator_utils
         else:
             self.destroy_cachedUserData(node, 'vars_menu_all_simple')
             
-            # For some reasons the FF menus do not update so we force them to
-            self.force_menu_var_update_FF(node)
+            # For some reasons the FF menus do not update when OFF so we force them to
+            if not node.parm(PREFS_PVT_DOFF).eval():
+                self.force_menu_var_update_FF(node)
             
             _MSG: str = "Iterator var menus: ICONS"
             flam3h_general_utils.flash_message(node, f"{_MSG}")
