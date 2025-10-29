@@ -3702,7 +3702,8 @@ class flam3h_general_utils
                 
     
     def flam3h_all_mp_xf_viz_check(self) -> bool:
-        """Check if any multiparameter have its xf_viz ON.
+        """ NOT USED YET
+        Check if any multiparameter have its xf_viz ON.
 
         Args:
             (self):
@@ -3712,7 +3713,8 @@ class flam3h_general_utils
         """ 
         node = self.node
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-        all_mp_xf_viz: list = [node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx + 1)}").eval() for mp_idx in range(iter_num)]
+        parm_base_name: str = flam3h_iterator_prm_names().main_xf_viz
+        all_mp_xf_viz: list = [node.parm(f"{parm_base_name}_{str(mp_idx + 1)}").eval() for mp_idx in range(iter_num)]
         if max(all_mp_xf_viz) == 1:
             return True
         
@@ -4928,7 +4930,6 @@ MENU_ITER_COPY_PASTE_DELETED_MARKED: list = [ 0, "![opdef:/alexnardini::Sop/FLAM
 MENU_FF_COPY_PASTE_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg]  Please, mark the FF first.', 0, '']
 MENU_FF_COPY_PASTE_SELECT: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED\n-> Select a different FLAM3H™ node to paste those FF values.', 1, '']
 
-MENU_VARS_ALL: list = [(0, 'Linear'), (39, 'Arch'), (94, 'Auger...'), (14, 'Bent'), (52, 'Bent2...'), (53, 'Bipolar...'), (43, 'Blade'), (30, 'Blob...'), (26, 'Blur'), (54, 'Boarders'), (23, 'Bubble'), (55, 'Butterfly'), (99, 'Bwraps...'), (56, 'Cell...'), (50, 'Conic...'), (83, 'Cos'), (89, 'Cosh'), (20, 'Cosine'), (87, 'Cot'), (93, 'Coth'), (57, 'Cpow...'), (102, 'Crop...'), (46, 'Cross'), (86, 'Csc'), (92, 'Csch'), (27, 'Curl...'), (97, 'Curve...'), (24, 'Cylinder'), (11, 'Diamond'), (8, 'Disc'), (47, 'Disc2...'), (58, 'Edisc'), (59, 'Elliptic'), (61, 'Escher...'), (12, 'Ex'), (80, 'Exp'), (18, 'Exponential'), (25, 'Eyefish'), (22, 'Fan*'), (34, 'Fan2...'), (16, 'Fisheye'), (49, 'Flower...'), (95, 'Flux...'), (62, 'Foci'), (33, 'Gaussian blur'), (104, 'Glynnia'), (6, 'Handkerchief'), (7, 'Heart'), (100, 'Hemisphere'), (4, 'Horseshoe'), (10, 'Hyperbolic'), (13, 'Julia'), (31, 'JuliaN...'), (32, 'Juliascope...'), (63, 'Lazysusan...'), (81, 'Log'), (64, 'Loonie'), (96, 'Mobius...'), (66, 'Modulus...'), (28, 'Ngon...'), (60, 'Noise'), (67, 'Oscope...'), (51, 'Parabola...'), (29, 'Pdj...'), (98, 'Perspective...'), (38, 'Pie...'), (105, 'Point sym...'), (5, 'Polar'), (68, 'Polar2'), (101, 'Polynomial...'), (17, 'Popcorn*'), (69, 'Popcorn2...'), (19, 'Power'), (37, 'Radialblur...'), (42, 'Rays'), (36, 'Rectangles...'), (21, 'Rings*'), (35, 'Rings2...'), (70, 'Scry'), (85, 'Sec'), (44, 'Secant2'), (91, 'Sech'), (71, 'Separation...'), (82, 'Sin'), (88, 'Sinh'), (1, 'Sinusoidal'), (2, 'Spherical'), (9, 'Spiral'), (72, 'Split...'), (73, 'Splits...'), (41, 'Square'), (74, 'Stripes...'), (48, 'Supershape...'), (3, 'Swirl'), (84, 'Tan'), (40, 'Tangent'), (90, 'Tanh'), (45, 'Twintrian'), (103, 'Unpolar'), (15, 'Waves*'), (79, 'Waves2...'), (75, 'Wedge...'), (76, 'Wedgejulia...'), (77, 'Wedgesph...'), (78, 'Whorl...')]
 MENU_VARS_ALL_SIMPLE: list = [0, 'Linear                    ', 39, 'Arch                    ', 94, 'Auger...                    ', 14, 'Bent                    ', 52, 'Bent2...                    ', 53, 'Bipolar...                    ', 43, 'Blade                    ', 30, 'Blob...                    ', 26, 'Blur                    ', 54, 'Boarders                    ', 23, 'Bubble                    ', 55, 'Butterfly                    ', 99, 'Bwraps...                    ', 56, 'Cell...                    ', 50, 'Conic...                    ', 83, 'Cos                    ', 89, 'Cosh                    ', 20, 'Cosine                    ', 87, 'Cot                    ', 93, 'Coth                    ', 57, 'Cpow...                    ', 102, 'Crop...                    ', 46, 'Cross                    ', 86, 'Csc                    ', 92, 'Csch                    ', 27, 'Curl...                    ', 97, 'Curve...                    ', 24, 'Cylinder                    ', 11, 'Diamond                    ', 8, 'Disc                    ', 47, 'Disc2...                    ', 58, 'Edisc                    ', 59, 'Elliptic                    ', 61, 'Escher...                    ', 12, 'Ex                    ', 80, 'Exp                    ', 18, 'Exponential                    ', 25, 'Eyefish                    ', 22, 'Fan*                    ', 34, 'Fan2...                    ', 16, 'Fisheye                    ', 49, 'Flower...                    ', 95, 'Flux...                    ', 62, 'Foci                    ', 33, 'Gaussian blur                    ', 104, 'Glynnia                    ', 6, 'Handkerchief                    ', 7, 'Heart                    ', 100, 'Hemisphere                    ', 4, 'Horseshoe                    ', 10, 'Hyperbolic                    ', 13, 'Julia                    ', 31, 'JuliaN...                    ', 32, 'Juliascope...                    ', 63, 'Lazysusan...                    ', 81, 'Log                    ', 64, 'Loonie                    ', 96, 'Mobius...                    ', 66, 'Modulus...                    ', 28, 'Ngon...                    ', 60, 'Noise                    ', 67, 'Oscope...                    ', 51, 'Parabola...                    ', 29, 'Pdj...                    ', 98, 'Perspective...                    ', 38, 'Pie...                    ', 105, 'Point sym...                    ', 5, 'Polar                    ', 68, 'Polar2                    ', 101, 'Polynomial...                    ', 17, 'Popcorn*                    ', 69, 'Popcorn2...                    ', 19, 'Power                    ', 37, 'Radialblur...                    ', 42, 'Rays                    ', 36, 'Rectangles...                    ', 21, 'Rings*                    ', 35, 'Rings2...                    ', 70, 'Scry                    ', 85, 'Sec                    ', 44, 'Secant2                    ', 91, 'Sech                    ', 71, 'Separation...                    ', 82, 'Sin                    ', 88, 'Sinh                    ', 1, 'Sinusoidal                    ', 2, 'Spherical                    ', 9, 'Spiral                    ', 72, 'Split...                    ', 73, 'Splits...                    ', 41, 'Square                    ', 74, 'Stripes...                    ', 48, 'Supershape...                    ', 3, 'Swirl                    ', 84, 'Tan                    ', 40, 'Tangent                    ', 90, 'Tanh                    ', 45, 'Twintrian                    ', 103, 'Unpolar                    ', 15, 'Waves*                    ', 79, 'Waves2...                    ', 75, 'Wedge...                    ', 76, 'Wedgejulia...                    ', 77, 'Wedgesph...                    ', 78, 'Whorl...                    ']
 MENU_VARS_ALL_INDEXES: dict[int, int] = {0: 1, 39: 3, 94: 5, 14: 7, 52: 9, 53: 11, 43: 13, 30: 15, 26: 17, 54: 19, 23: 21, 55: 23, 99: 25, 56: 27, 50: 29, 83: 31, 89: 33, 20: 35, 87: 37, 93: 39, 57: 41, 102: 43, 46: 45, 86: 47, 92: 49, 27: 51, 97: 53, 24: 55, 11: 57, 8: 59, 47: 61, 58: 63, 59: 65, 61: 67, 12: 69, 80: 71, 18: 73, 25: 75, 22: 77, 34: 79, 16: 81, 49: 83, 95: 85, 62: 87, 33: 89, 104: 91, 6: 93, 7: 95, 100: 97, 4: 99, 10: 101, 13: 103, 31: 105, 32: 107, 63: 109, 81: 111, 64: 113, 96: 115, 66: 117, 28: 119, 60: 121, 67: 123, 51: 125, 29: 127, 98: 129, 38: 131, 105: 133, 5: 135, 68: 137, 101: 139, 17: 141, 69: 143, 19: 145, 37: 147, 42: 149, 36: 151, 21: 153, 35: 155, 70: 157, 85: 159, 44: 161, 91: 163, 71: 165, 82: 167, 88: 169, 1: 171, 2: 173, 9: 175, 72: 177, 73: 179, 41: 181, 74: 183, 48: 185, 3: 187, 84: 189, 40: 191, 90: 193, 45: 195, 103: 197, 15: 199, 79: 201, 75: 203, 76: 205, 77: 207, 78: 209}
 
@@ -5766,7 +5767,8 @@ class flam3h_iterator_utils
             flam3h_general_utils.private_prm_set(node, FLAM3H_DATA_PRM_XAOS_PREV, data_to_prm)
             
         else:
-            data_to_prm: str = ':'.join([' '.join(xaos) for xaos in data])
+            _join: Callable[[Iterable[str]], str] = ' '.join
+            data_to_prm: str = ':'.join([_join(xaos) for xaos in data])
             # set
             flam3h_general_utils.private_prm_set(node, FLAM3H_DATA_PRM_XAOS_PREV, data_to_prm)
             
@@ -11003,7 +11005,8 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         Returns:
             (None):
         """    
-        vars_sorted: list = [var.capitalize() for var in sorted(VARS_FLAM3_DICT_IDX.keys()) if var not in ("linear3d",)]
+        _capitalize: Callable[[str], str] = str.capitalize
+        vars_sorted: list = [_capitalize(var) for var in sorted(VARS_FLAM3_DICT_IDX.keys()) if var not in ("linear3d",)]
         n: int = 5
         vars_sorted_grp: list = [vars_sorted[i:i + n] for i in range(0, len(vars_sorted), n)]
         vars_txt: str = "".join( [", ".join(grp) + "." if idx == (len(vars_sorted_grp)-1) else ", ".join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
@@ -15450,10 +15453,10 @@ class in_flame_utils
         assert vars_keys_post is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
         
         app: str = apo_data.sw_version[preset_id]
+        prx, prx_prm = self.in_util_flam3h_prx_mode(mode)
         var_prm: tuple = flam3h_varsPRM().varsPRM
         apo_prm: tuple = flam3h_varsPRM_APO().varsPRM
         n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
-        prx, prx_prm = self.in_util_flam3h_prx_mode(mode)
         
         # Set variations ( iterator and FF )
         for mp_idx, xform in enumerate(xforms):
@@ -17143,12 +17146,13 @@ class out_flame_utils
                                         'prm_curve_blue': node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE) # type: ignore
                                         }
         
-        # Unlock, Set and Lock again
-        for prm in prm_ui.values(): prm.lock(False)
-        for prm in prm_ui.values(): prm.deleteAllKeyframes()
+        # Unlock, Clear, Set and Lock again
+        for prm in prm_ui.values():
+            prm.lock(False)
+            prm.deleteAllKeyframes()
         for key in prm_ui.keys(): prm_ui.get(key).set(prm_data.get(key).eval()) # type: ignore
         for prm in prm_ui.values(): prm.lock(True)
-        
+
         
     @staticmethod
     def out_render_curves_set_and_retrieve_defaults(node: hou.SopNode) -> None:
@@ -18700,7 +18704,7 @@ class out_flame_utils
         fill: list = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
         xaos_vactive: list = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
         
-        _join: Callable[[Iterable[str]], str] = " ".join
+        _join: Callable[[Iterable[str]], str] = ' '.join
         return tuple(_join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
 
 
@@ -18716,7 +18720,7 @@ class out_flame_utils
         val: list = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
         fill: list = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1) for item in val]
         t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count)).tolist()).tolist()
-        _join: Callable[[Iterable[str]], str] = " ".join
+        _join: Callable[[Iterable[str]], str] = ' '.join
         if mode:
             xaos_vactive: list = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
             return tuple(_join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
@@ -19727,7 +19731,7 @@ class out_flame_utils
             val.append([str(x) for x in flatten])
             f3h_val.append([str(x) for x in f3h_flatten])
             
-        _join: Callable[[Iterable[str]], str] = " ".join
+        _join: Callable[[Iterable[str]], str] = ' '.join
         return tuple(_join(x) for x in self.out_util_round_floats(val)), tuple(_join(x) for x in self.out_util_round_floats(f3h_val)), tuple(f3h_angleDeg)
     
     
@@ -19763,7 +19767,7 @@ class out_flame_utils
                 f3h_val.append([])
                 f3h_angleDeg.append([])
                 
-        _join: Callable[[Iterable[str]], str] = " ".join
+        _join: Callable[[Iterable[str]], str] = ' '.join
         return tuple(_join(x) for x in self.out_util_round_floats(val)), tuple(_join(x) for x in self.out_util_round_floats(f3h_val)), tuple(f3h_angleDeg)
 
 
