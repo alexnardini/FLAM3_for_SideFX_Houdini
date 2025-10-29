@@ -15416,6 +15416,9 @@ class in_flame_utils
         
         # timenow = datetime.now().strftime('%b-%d-%Y %H:%M:%S')
         
+        # Cache for resuse
+        _V_F3H_DICT_IDX_keys: KeysView = VARS_FLAM3_DICT_IDX.keys()
+        
         # I could hard-code the name into the function: def in_vars_keys_remove_pgb(...), but this way I keep this dict global for all purposes.
         pgb_name: str | list[str] | None = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
         assert isinstance(pgb_name, str)
@@ -15423,18 +15426,18 @@ class in_flame_utils
         xforms, _MAX_VARS_MODE = self.in_get_xforms_data_and_flam3h_vars_limit(mode, apo_data)
         
         __EXCLUDE__: tuple = copy(XML_XF_KEY_EXCLUDE)
-        vars_keys: list | None = self.in_get_xforms_var_keys(xforms, VARS_FLAM3_DICT_IDX.keys(), __EXCLUDE__)
+        vars_keys: list | None = self.in_get_xforms_var_keys(xforms, _V_F3H_DICT_IDX_keys, __EXCLUDE__)
         if vars_keys is not None:
             vars_keys_flatten: list = [item for sublist in vars_keys for item in sublist]
             if vars_keys_flatten: __EXCLUDE__ += tuple(vars_keys_flatten)
         assert vars_keys is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
-        vars_keys_pre_pgb: list | None = self.in_get_xforms_var_keys(xforms, self.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
+        vars_keys_pre_pgb: list | None = self.in_get_xforms_var_keys(xforms, self.in_util_make_PRE(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
         vars_keys_pre: list | None = self.in_vars_keys_remove_pgb(vars_keys_pre_pgb, pgb_name)
         if vars_keys_pre is not None:
             vars_keys_pre_flatten: list = [item for sublist in vars_keys_pre for item in sublist]
             if vars_keys_pre_flatten: __EXCLUDE__ += tuple(vars_keys_pre_flatten)
         assert vars_keys_pre is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
-        vars_keys_post: list | None = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(VARS_FLAM3_DICT_IDX.keys()), __EXCLUDE__)
+        vars_keys_post: list | None = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
         assert vars_keys_post is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
         
         app: str = apo_data.sw_version[preset_id]
