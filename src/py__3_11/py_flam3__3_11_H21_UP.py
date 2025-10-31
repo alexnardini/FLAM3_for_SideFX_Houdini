@@ -440,7 +440,6 @@ class flam3h_iterator_prm_names:
         * flam3h_iterator_utils.iterator_post_affine_scale(self) -> None:
         * flam3h_iterator_utils.iterator_FF_affine_scale(self) -> None:
         * flam3h_iterator_utils.iterator_FF_post_affine_scale(self) -> None:
-        * flam3h_iterator_utils.menu_select_iterator(self) -> list:
         * flam3h_iterator_utils.menu_T_get_var_data(self) -> tuple[int, float]:
         * flam3h_iterator_utils.menu_T_FF_get_var_data(self) -> tuple[int, float]:
         .
@@ -1463,8 +1462,7 @@ class flam3h_scripts
             if parm is not None and not parm.isLocked():
                 parm.lock(True)
 
-        
-        
+
         # The following are FLAM3H™ UI utility parameters
         # hence they do not have a global variable and only hard coded here.
         disabler_prm_names: tuple = ("cpdisable",
@@ -1479,7 +1477,6 @@ class flam3h_scripts
             parm = node.parm(prm_name)
             if parm is not None and not parm.isLocked():
                 parm.lock(True)
-
 
 
     @staticmethod
@@ -12382,6 +12379,7 @@ class in_flame
             _d: str | None = XML_TO_F3H_LIST_DEFAULT_VALS.get(key_name)
             if _d is not None: vals = str(_d).split()
             
+        _new_append: Callable[[str], None] = new.append
         for idx, val in enumerate(vals):
             try:
                 float(val)
@@ -12394,14 +12392,14 @@ class in_flame
                     float(new_val)
                     
                 except ValueError:
-                    new.append(default_val)
+                    _new_append(default_val)
                     if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
                     
                 else:
-                    new.append(new_val)
+                    _new_append(new_val)
                     if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
             else:
-                new.append(val)
+                _new_append(val)
                 
         return new
     
@@ -12422,6 +12420,8 @@ class in_flame
         if not vals and key_name is not None:
             new_vals: str | None = XML_TO_F3H_LIST_DEFAULT_VALS.get(key_name)
             if new_vals is not None: vals = str(new_vals).split(' ')
+            
+        _new_append: Callable[[str], None] = new.append
         for idx, val in enumerate(vals):
             try:
                 float(val)
@@ -12433,15 +12433,15 @@ class in_flame
                     float(new_val)
                     
                 except ValueError:
-                    new.append(default_val)
+                    _new_append(default_val)
                     if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE\n")
                     
                 else:
-                    new.append(new_val)
+                    _new_append(new_val)
                     if key_name is not None: print(f"Warning:\nIN xml key: {key_name}[{idx}] -> NOT A VALUE (Corrected)\n")
                     
             else:
-                new.append(val)
+                _new_append(val)
                     
         return ' '.join(new)
 
@@ -15735,7 +15735,7 @@ class in_flame_utils
         if vars_keys is not None:
             vars_keys_flatten: list = [item for sublist in vars_keys for item in sublist]
             if vars_keys_flatten: __EXCLUDE__ += tuple(vars_keys_flatten)
-        vars_keys_PRE_pgb:list | None = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
+        vars_keys_PRE_pgb: list | None = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
         vars_keys_PRE: list | None = self.in_vars_keys_remove_pgb(vars_keys_PRE_pgb, pgb_name)
         if vars_keys_PRE is not None: 
             vars_keys_PRE_flatten: list = [item for sublist in vars_keys_PRE for item in sublist]
@@ -15876,7 +15876,6 @@ class in_flame_utils
                 _menu_raw: Callable[[hou.SopNode, list, int, str, int, int], None] = self.menu_in_presets_loop
                 for i, item in enumerate(_xml(xml).get_name()):
                     _menu_enum(node, menu, i, item, in_idx, is_clipboard) if enum else _menu_raw(node, menu, i, item, in_idx, is_clipboard)
-
                         
                 node.setCachedUserData('in_presets_menu', menu)
                 return menu
@@ -15958,6 +15957,7 @@ class in_flame_utils
                 _menu_raw: Callable[[hou.SopNode, list, int, str], None] = self.menu_in_presets_empty_loop
                 for i, item in enumerate(_xml(xml).get_name()):
                     _menu_enum(node, menu, i, item) if enum else _menu_raw(node, menu, i, item)
+                    
                 node.setCachedUserData('in_presets_menu_off', menu)
                 return menu
                 
@@ -16047,13 +16047,16 @@ class in_flame_utils
         node = self.node
         useiteronload: int = node.parm(IN_USE_ITER_ON_LOAD).eval()
         if useiteronload:
+            
             iternumonload: int = node.parm(IN_ITER_NUM_ON_LOAD).eval()
             iter: int = node.parm(GLB_ITERATIONS).eval()
             if iternumonload == iter:
                 pass
+            
             elif iternumonload > iter:
                 # node.setParms({GLB_ITERATIONS: iter})
                 node.setParms({IN_ITER_NUM_ON_LOAD: iter})
+                
             else:
                 node.setParms({GLB_ITERATIONS: iternumonload})
                 # update Flame preset name if any
@@ -18592,8 +18595,9 @@ class out_flame_utils
                                                                 }
         
         # Clear and set
-        for key in prms_out_render_data.keys(): node.parm(key).deleteAllKeyframes()
-        for key, value in prms_out_render_data.items(): node.setParms({key: value})
+        for key, value in prms_out_render_data.items():
+            node.parm(key).deleteAllKeyframes()
+            node.setParms({key: value})
 
 
     def reset_OUT_kwargs(self) -> None:
@@ -19872,11 +19876,12 @@ class out_flame_utils
         
     
     # custom to FLAM3H™ only
-    def __out_flame_data_flam3h_hsv(self, prm_name = CP_RAMP_HSV_VAL_NAME) -> str | bool:
+    def __out_flame_data_flam3h_hsv(self, prm_name: str = CP_RAMP_HSV_VAL_NAME) -> str | bool:
         """Prepare the FLAM3H™ palette HSV parameter to be written out into the Flame preset file.
 
         Args:
             (self):
+            prm_name(str): Defailt to: CP_RAMP_HSV_VAL_NAME . The name of the FLAM3H™ parameter to be prep into a string for writing out.
 
         Returns:
             (str): The FLAM3H™ palette HSV parameter prepped into a string.
