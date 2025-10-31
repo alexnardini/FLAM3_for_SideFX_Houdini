@@ -27,6 +27,7 @@ from textwrap import wrap
 from datetime import datetime
 from math import sin
 from math import cos
+from math import sqrt
 from copy import copy
 from re import sub as re_sub
 from re import search as re_search
@@ -4980,19 +4981,87 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        # iterator prm names
-        n = flam3h_iterator_prm_names()
+        # Iterator prm names
+        n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
         
         # Iterator parms names
-        prm_names: tuple = (n.shader_color, n.shader_speed, n.prevar_type_1, n.prevar_type_2, n.var_type_1, n.var_type_2, n.var_type_3, n.var_type_4, n.postvar_type_1, n.preaffine_x, n.preaffine_y, n.preaffine_o) # iterator params names
-        # Iterators parms values ( as many entries as: prm_names: tuple )
-        prm_vals_1: tuple = (0, -0.5, 0, 0, 0, 0, 0, 0, 0, hou.Vector2((0.5, 0.0)), hou.Vector2((0.0, 0.5)), hou.Vector2((0.0, 0.51225))) # iterator 1
-        prm_vals_2: tuple = (0.5, -0.5, 0, 0, 0, 0, 0, 0, 0, hou.Vector2((0.5, 0.0)), hou.Vector2((0.0, 0.5)), hou.Vector2((-0.29575, 0.0))) # iterator 2
-        prm_vals_3: tuple = (1, -0.5, 0, 0, 0, 0, 0, 0, 0, hou.Vector2((0.5, 0.0)), hou.Vector2((0.0, 0.5)), hou.Vector2((0.29575, 0.0))) # iterator 3
+        prm_names: tuple = (n.shader_color, 
+                            n.shader_speed, 
+                            n.prevar_type_1, 
+                            n.prevar_type_2, 
+                            n.var_type_1, 
+                            n.var_type_2, 
+                            n.var_type_3, 
+                            n.var_type_4, 
+                            n.postvar_type_1, 
+                            n.preaffine_x, 
+                            n.preaffine_y, 
+                            n.preaffine_o) # iterator parms names
+        
+        # Calc triangle sides
+        height: float = 0.5 # so it is 1(one) Houdini unit tall
+        side: float = height * 2.0 / sqrt(3)
+        side /= 2.0 # Being 0(Zero) world centered
+        
+        # Bake the values that stay the same across all iterators
+        _X: hou.Vector2 = hou.Vector2((0.5, 0.0))
+        _Y: hou.Vector2 = hou.Vector2((0.0, 0.5))
+        # Build sides values
+        _O_1: hou.Vector2 = hou.Vector2((0.0, height))
+        _O_2: hou.Vector2 = hou.Vector2((-side, 0.0))
+        _O_3: hou.Vector2 = hou.Vector2((side, 0.0))
+        
+        # Iterator 1
+        prm_vals_1: tuple = (0, 
+                             -0.5, 
+                             0, 
+                             0, 
+                             0, 
+                             0, 
+                             0, 
+                             0, 
+                             0, 
+                             _X, 
+                             _Y, 
+                             _O_1)
+        
+        # Iterator 2
+        prm_vals_2: tuple = (0.5, 
+                             -0.5, 
+                             0, 
+                             0, 
+                             0, 
+                             0, 
+                             0, 
+                             0, 
+                             0, 
+                             _X, 
+                             _Y, 
+                             _O_2)
+        
+        # Iterator 3
+        prm_vals_3: tuple = (1, 
+                             -0.5, 
+                             0, 
+                             0, 
+                             0, 
+                             0, 
+                             0, 
+                             0, 
+                             0, 
+                             _X, 
+                             _Y, 
+                             _O_3)
+        
         # Collect all iterators parms values
         prm_vals_all: tuple = (prm_vals_1, prm_vals_2, prm_vals_3)
+        
         # Set
-        [[node.setParms({f"{name}_{iter_idx + 1}": iter_vals[idx]}) for idx, name in enumerate(prm_names)] for iter_idx, iter_vals in enumerate(prm_vals_all)] # type: ignore
+        for iter_idx, iter_vals in enumerate(prm_vals_all):
+            prm_idx: int = iter_idx + 1
+            for idx, name in enumerate(prm_names):
+                prm_name: str = f"{name}_{prm_idx}"
+                node.setParms({prm_name: iter_vals[idx]}) # type: ignore
 
 
     @staticmethod
@@ -9098,6 +9167,7 @@ class flam3h_palette_utils
 * menu_cp_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
 
 @METHODS
+* cp_bases_selection_msg(self) -> None:
 * cp_preset_name_set(self) -> None:
 * menu_cp_presets_data(self) -> list:
 * menu_cp_presets(self) -> list:
@@ -9579,6 +9649,26 @@ class flam3h_palette_utils
     @property
     def palette_plus_do(self):
         return self._palette_plus_do
+    
+    
+    def cp_bases_selection_msg(self) -> None:
+        """Print messages in the status bar and as a flash message about the selected cp lookup samples basis.
+
+        Args:
+            (self):
+
+        Returns:
+            (None):
+        """
+        with hou.undos.disabler(): # type: ignore
+            
+            node = self.node
+            selection: int = node.parm(CP_RAMP_LOOKUP_SAMPLES_BASES).eval()
+            basis: str | None = CP_RAMP_LOOKUP_SAMPLES_BASES_DICT.get(selection)
+            if basis is not None:
+                _MSG: str = f"{basis.upper()}"
+                flam3h_general_utils.set_status_msg(f"{node.name()}: CP Palette lookup samples basis: {_MSG}", 'MSG')
+                flam3h_general_utils.flash_message(node, f"basis: {_MSG}")
     
     
     def cp_preset_name_set(self) -> None:
