@@ -1272,6 +1272,17 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp()
 </br>
 
 # CP Tab
+# parameter name:    `cp_bases`
+## parameter type: `ordered menu`
+- ### Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).cp_bases_selection_msg(), kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# CP Tab
 # parameter name:    `cp_lookupsamples`
 ## parameter type: `ordered menu`
 - ### Callback Script
