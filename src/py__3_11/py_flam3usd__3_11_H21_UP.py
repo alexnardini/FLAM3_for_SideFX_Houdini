@@ -273,7 +273,10 @@ class flam3husd_scripts
                             PREFS_PVT_FLAM3HUSD_DATA_H205_UP
                             )
         
-        [node.parm(prm_name).lock(True) for prm_name in prm_names if not node.parm(prm_name).isLocked()]
+        for prm_name in prm_names:
+            parm = node.parm(prm_name)
+            if parm is not None and not parm.isLocked():
+                parm.lock(True)
         
         
         # The following are FLAM3HUSD UI utility parameters
@@ -287,7 +290,10 @@ class flam3husd_scripts
                                      "aboutdisable"
                                      )
         
-        [node.parm(prm_name).lock(True) for prm_name in disabler_prm_names if not node.parm(prm_name).isLocked()]
+        for prm_name in disabler_prm_names:
+            parm = node.parm(prm_name)
+            if parm is not None and not parm.isLocked():
+                parm.lock(True)
         """
         
         
@@ -1043,7 +1049,8 @@ class flam3husd_general_utils
         Returns:
             (None):
         """ 
-        [flam3husd_general_utils.util_flam3h_node_exist_self(f3husd) for f3husd in node.type().instances()]
+        for f3husd in node.type().instances():
+            flam3husd_general_utils.util_flam3h_node_exist_self(f3husd)
 
         
     @staticmethod
@@ -1957,8 +1964,9 @@ class flam3husd_general_utils
                                                     }
         
         # Clear and set
-        [node.parm(key).deleteAllKeyframes() for key in prms_f3h_shader_data.keys()]
-        [node.setParms({key: value}) for key, value in prms_f3h_shader_data.items()]
+        for key, value in prms_f3h_shader_data.items():
+            node.parm(key).deleteAllKeyframes()
+            node.setParms({key: value})
         
         
     def flam3husd_display_help(self) -> None:
