@@ -137,6 +137,9 @@ _TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
      / The following code becasue I need to start from a string
      / and reformat/reconvert due to a bug in Houdini.
      / [Bug ID# 124486], SideFX Support Ticket [SESI #128304]
+     /
+     / This has been fixed by SideFX from Houdini v21.0.457
+     / but this method is still faster, even tho it's then limited to 20 iterators max inside: xaos.h
     */
     int xm = chi("xm");
     if(xm && x_chk){
