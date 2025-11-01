@@ -8411,7 +8411,7 @@ class flam3h_iterator_utils
         if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
             # Print to Houdini's status bar
             _MSG: str = f"{node.name()}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
-            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             flam3h_general_utils.flash_message(node, f"Sierpiński triangle::10")
             
             
@@ -16177,7 +16177,7 @@ class in_flame_utils
             preset_name: str = apo_data.name[preset_id]
             _MSG: str = f"{node.name()}: LOAD Flame preset: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
             
-        flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         flam3h_general_utils.flash_message(node, f"{preset_name}")
 
 
