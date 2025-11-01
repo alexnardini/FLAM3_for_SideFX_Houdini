@@ -2244,7 +2244,7 @@ Copy render properties on Load [Icon:DATATYPES/boolean]:
 
     <br />
         
-Reload preset with "Copy renderer properties on Load" changes [Icon:opdef:.?icon_actionButtonSVG.svg]:
+Reload preset with "Copy render properties on Load" changes [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: prefs
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
@@ -2336,7 +2336,7 @@ Copy/Paste ALL preset settings:
 
     When you save it out and load it back into, say, Fractorium, you can be sure that your Flame will match the visual parameters of the Flame you just loaded.
 
-    When loading a Flame preset from the Clipboard, all its renderer properties will be automatically copied into the OUT render properties on load.
+    When loading a Flame preset from the Clipboard, all its render properties will be automatically copied into the OUT render properties on load.
 
     <br />
         
