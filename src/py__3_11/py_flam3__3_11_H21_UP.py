@@ -429,11 +429,8 @@ class flam3h_iterator_prm_names:
     Note:
         The following definitions:
         
-        * flam3h_iterator_utils.iterator_keep_last_vactive(self) -> None:
-        * flam3h_iterator_utils.iterator_keep_last_vactive_STAR(self) -> None:
-        * flam3h_iterator_utils.iterator_keep_last_weight(self) -> None:
         * flam3h_iterator_utils.iterator_vactive_and_update(self) -> None:
-        * flam3h_iterator_utils.menu_select_iterator_data(self) -> list:
+        * flam3h_iterator_utils.menu_select_iterator_data(self, data_now: tuple) -> list:
         * flam3h_iterator_utils.menu_select_iterator(self) -> list:
         * flam3h_iterator_utils.menu_copypaste(self) -> list:
         * flam3h_iterator_utils.menu_copypaste_FF(self) -> list:
@@ -17198,7 +17195,8 @@ class out_flame_utils
 * __out_flame_palette_basis(self) -> str | bool:
     """
 
-    __slots__ = ("_kwargs", "_node", 
+    __slots__ = ("_cached_data", 
+                 "_kwargs", "_node", 
                  "_flam3h_iter_prm_names", "_flam3h_iter", "_flam3h_iter_FF", "_flam3h_do_FF", 
                  "_iter_count", "_palette", "_palette_hsv_do", "_palette_plus_do", "_f3h_affine", "_xm", 
                  "_flam3h_rip", "_flam3h_mb_do", "_flam3h_f3c", "_flam3h_cp_lookup_samples", "_flam3h_cp_basis")
@@ -18270,15 +18268,15 @@ class out_flame_utils
     def node(self):
         return self._node
 
-    @property
+    @cached_slot_property
     def flam3h_iter_prm_names(self):
         return self._flam3h_iter_prm_names
     
-    @property
+    @cached_slot_property
     def flam3h_iter(self):
         return self._flam3h_iter
     
-    @property
+    @cached_slot_property
     def flam3h_iter_FF(self):
         return self._flam3h_iter_FF
     
@@ -18290,7 +18288,7 @@ class out_flame_utils
     def iter_count(self):
         return self._iter_count
 
-    @property
+    @cached_slot_property
     def palette(self):
         return self._palette
     
