@@ -5184,7 +5184,7 @@ class flam3h_iterator_utils
                              _O_3)
         
         # Collect all iterators parms values
-        prm_vals_all: tuple = (prm_vals_1, prm_vals_2, prm_vals_3)
+        prm_vals_all: tuple[tuple, tuple, tuple] = (prm_vals_1, prm_vals_2, prm_vals_3)
         
         # Set
         for iter_idx, iter_vals in enumerate(prm_vals_all):
@@ -13882,14 +13882,15 @@ class in_flame_utils
         Args:
             xforms(tuple | None): All the xforms of this flame. This can be iterator's xforms or FF xform.
             vars(dict): the variations we are searching for
-            prx(str): the current type of the variation expressed as a prefix: "pre" or "post"
+            prx(str): the current type of the variation expressed as a prefix: V_PRX_PRE("pre_") or V_PRX_POST("post_")
             exclude_keys(tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
 
         Returns:
             (list | None): return a list of variations found using the prefix criteria
         """  
         if xforms is not None:
-            return [list(map(lambda x: x, filter(lambda x: x in vars.get(in_flame_utils.in_util_removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys()))))) for xf in xforms] # type: ignore
+            _in_util_removeprefix: Callable[[str, str], str] = in_flame_utils.in_util_removeprefix
+            return [list(map(lambda x: x, filter(lambda x: x in vars.get(_in_util_removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys()))))) for xf in xforms] # type: ignore
         
         return None
         
@@ -14042,7 +14043,6 @@ class in_flame_utils
                     
                     for id in range(3): node.setParms({f"{prx}{pre_affine[id]}_{idx}": zero_vectors[id]}) # type: ignore
 
-                
             if apo_data.post is not None and apo_data.post[mp_idx]:
                 node.setParms({f"{prx}{flam3h_prm_names.postaffine_do}_{idx}": 1}) # type: ignore
                 if f3h_affine and apo_data.f3h_post is not None and apo_data.f3h_post[mp_idx]:
@@ -18187,11 +18187,10 @@ class out_flame_utils
         # Small optimization for the non-FF PRE section
         if not mode and var_section == "PRE":
             W_tuple = W_tuple[1:]
-
+        
         # Shortcuts
         eval_parm = node.parm
         _in_get_dict_key_from_value: Callable[[dict, int], str] = in_flame_utils.in_get_dict_key_from_value
-        var_dict = VARS_FLAM3_DICT_IDX
 
         names_idx: dict[str, list[str]] = {}
 
@@ -18199,7 +18198,7 @@ class out_flame_utils
             if not node.parm(PREFS_PVT_DOFF).eval():
                 return False
 
-            names = [_in_get_dict_key_from_value(var_dict, eval_parm(T_tuple[i]).eval()) for i, prm in enumerate(W_tuple) if eval_parm(prm[0]).eval() != 0]
+            names = [_in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, eval_parm(T_tuple[i]).eval()) for i, prm in enumerate(W_tuple) if eval_parm(prm[0]).eval() != 0]
             if names:
                 names_idx["FF"] = names
 
@@ -18207,7 +18206,7 @@ class out_flame_utils
             iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
             for i in range(1, iter_count + 1):
                 suffix = str(i)
-                names = [_in_get_dict_key_from_value(var_dict, eval_parm(f"{T_tuple[j]}{suffix}").eval()) for j, prm in enumerate(W_tuple) if eval_parm(f"{prm[0]}{suffix}").eval() != 0]
+                names = [_in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, eval_parm(f"{T_tuple[j]}{suffix}").eval()) for j, prm in enumerate(W_tuple) if eval_parm(f"{prm[0]}{suffix}").eval() != 0]
                 if names:
                     names_idx[suffix] = names
 
