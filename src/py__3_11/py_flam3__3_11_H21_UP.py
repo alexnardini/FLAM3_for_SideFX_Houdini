@@ -13930,16 +13930,10 @@ class in_flame_utils
             key(str): variation name we are processing
 
         Returns:
-            (int | None): return variation idx from the tuple look up table
+            (int | None): return variation idx from the tuple look up table or None if not found
         """
-        try:
-            idx = VARS_FLAM3_DICT_IDX.get(key)
-        
-        except:
-            return None
-        
-        else:
-            return idx
+
+        return VARS_FLAM3_DICT_IDX.get(key)
         
         
     @staticmethod
@@ -17125,8 +17119,8 @@ class out_flame_utils
 * out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
 * out_file_cleanup(_out_file: str) -> str:
 * out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, out: bool = True, auto_name: bool = True) -> str | bool:
-* out_affine_rot(affine: list[tuple[str] | list[str]], angleDeg: float) -> list[list[str] | tuple[str]]:
-* out_xaos_cleanup(xaos: list[str] | list[list[str], tuple[str]]) -> list[list[str]]:
+* out_affine_rot(affine: list[tuple[str, ...] | list[str]], angleDeg: float) -> list[tuple[str, ...] | list[str]]:
+* out_xaos_cleanup(xaos: list[str] | tuple[str] | list[list[str]]) -> list[list[str]]:
 * out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list[list[str]]:
 * out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> list[list[str]]:
 * _out_pretty_print(current: lxmlET.Element, parent: lxmlET.Element | None = None, index: int = -1, depth: int = 0) -> None: #type: ignore
@@ -17408,7 +17402,6 @@ class out_flame_utils
                 prm_ui.get(key).set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
         for prm in prm_ui.values(): prm.lock(True) 
 
-    
     
     @staticmethod
     def out_auto_add_iter_num(iter_num: int, name: str, autoadd: int, flame: bool = True) -> str:
@@ -17936,7 +17929,7 @@ class out_flame_utils
     
     
     @staticmethod
-    def out_xaos_cleanup(xaos: list[str] | list[list[str]] | tuple[str]) -> list[list[str]]:
+    def out_xaos_cleanup(xaos: list[str] | tuple[str] | list[list[str]]) -> list[list[str]]:
         """Remove all inactive iterators from each xaos weight list.
 
         Args:
@@ -17996,7 +17989,7 @@ class out_flame_utils
                         _xaos: list = strip[1:iter_count + 1]
                         _xf_val_cleanup_str: Callable[[str], str] = in_flame.xf_val_cleanup_str
                         if _xaos[0] and val_prev is not None and len(val_prev) == iter_count:
-                            _xaos_strip: list = [str(_prev_val) if (_prev_val := float(_xf_val_cleanup_str(str(x), val_prev[iter][idx]))) >= 0 else '1' for idx, x in enumerate(_xaos)]
+                            _xaos_strip: list = [str(_val_now) if (_val_now := float(_xf_val_cleanup_str(str(x), val_prev[iter][idx]))) >= 0 else '1' for idx, x in enumerate(_xaos)]
                             
                         else:
                             # Otherwise use the safer version.

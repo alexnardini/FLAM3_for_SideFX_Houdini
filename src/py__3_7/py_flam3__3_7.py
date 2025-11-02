@@ -13559,11 +13559,10 @@ class in_flame_utils
             key(str): variation name we are processing
 
         Returns:
-            (Union[int, None]): return variation idx from the tuple look up table
+            (int | None): return variation idx from the tuple look up table or None if not found
         """
-        try: idx = VARS_FLAM3_DICT_IDX.get(key)
-        except: return None
-        return idx
+
+        return VARS_FLAM3_DICT_IDX.get(key)
         
         
     @staticmethod
