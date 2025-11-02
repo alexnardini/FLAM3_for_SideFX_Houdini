@@ -3207,7 +3207,7 @@ class flam3h_general_utils
         
         This definition is multipurpose, it is run from multiple parameters:
         * When run from the SYS prm: _SYS_FRAME_VIEW_SENSOR_prm it will also print a flash message.
-        * When run from the OUT Sensor prms, it will re frame the sensor based of if update sensor prm is ON or OFF.
+        * When run from the OUT Sensor parms, it will re frame the sensor based of if update sensor prm is ON or OFF.
         * When run while loading a hip file it will test the necessary condition to see if it can work ort not.
         
         Maybe it would be better to split all those purposes into their own definition for each...but good for now.
@@ -8458,7 +8458,7 @@ class flam3h_iterator_utils
             # SWAP TYPES from tmp
             self.paste_from_prm(__pvT_prm[0], pvT_prm[1])
             self.paste_from_prm(__pvT_prm[1], pvT_prm[0])
-            # Clear tmp prms so in case of keyframes or expression they wont evaluate
+            # Clear tmp parms so in case of keyframes or expression they wont evaluate
             self.tmp_prm_clear_and_reset(node, __pvT_prm[0], __pvT_prm[1])
             
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -8472,7 +8472,7 @@ class flam3h_iterator_utils
             # SWAP TYPES from tmp
             self.paste_from_prm(__pvT_prm[0], pvT_prm[1])
             self.paste_from_prm(__pvT_prm[1], pvT_prm[0])
-            # Clear tmp prms so in case of keyframes or expression they wont evaluate
+            # Clear tmp parms so in case of keyframes or expression they wont evaluate
             self.tmp_prm_clear_and_reset(node, __pvT_prm[0], __pvT_prm[1])
 
             # COPY WEIGHTS into tmp
@@ -8481,7 +8481,7 @@ class flam3h_iterator_utils
             # SWAP WEIGHTS from tmp
             self.paste_from_prm(__pvW_prm[0], pvW_prm[1])
             self.paste_from_prm(__pvW_prm[1], pvW_prm[0])
-            # Clear tmp prms so in case of keyframes or expression they wont evaluate
+            # Clear tmp parms so in case of keyframes or expression they wont evaluate
             self.tmp_prm_clear_and_reset(node, __pvW_prm[0], __pvW_prm[1])
             
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -18689,19 +18689,19 @@ class out_flame_utils
         
         node = self.node
         
-        prms_out_sensor_data: dict[str | None, hou.Vector2 | float] = { OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024)),    # tuple
+        parms_out_sensor_data: dict[str | None, hou.Vector2 | float] = { OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024)),    # tuple
                                                                         OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0)),  # tuple
                                                                         OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0,
                                                                         OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400
                                                                         }
         
         # Clear and set
-        for key in prms_out_sensor_data.keys():
+        for key in parms_out_sensor_data.keys():
             parm_tuple = node.parmTuple(key)
             if isinstance(parm_tuple.eval(), tuple): parm_tuple.deleteAllKeyframes()
             else: node.parm(key).deleteAllKeyframes()
 
-        for key, value in prms_out_sensor_data.items(): node.setParms({key: value})
+        for key, value in parms_out_sensor_data.items(): node.setParms({key: value})
 
         
     def reset_OUT_render(self) -> None:
@@ -18715,7 +18715,7 @@ class out_flame_utils
         """
         node = self.node
         
-        prms_out_render_data: dict[str | None, int | float] = { OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000,
+        parms_out_render_data: dict[str | None, int | float] = { OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000,
                                                                 OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3,
                                                                 OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5,
                                                                 OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 5,
@@ -18724,7 +18724,7 @@ class out_flame_utils
                                                                 }
         
         # Clear and set
-        for key, value in prms_out_render_data.items():
+        for key, value in parms_out_render_data.items():
             node.parm(key).deleteAllKeyframes()
             node.setParms({key: value})
 
