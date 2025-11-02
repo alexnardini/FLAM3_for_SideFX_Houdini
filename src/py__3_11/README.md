@@ -2,6 +2,7 @@
 # Python
 # File name:    `py_flam3__3_11_H21_UP.py`
 - _The ending filename digits represent the least python version needed to run this code_.
+- _This python file version is the most updated out of them all._
 ## Houdini version: H21 and up
 ### Description:
 
