@@ -1606,7 +1606,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionStarYellowSVG.svg" /></p>
-<b><p align="center">icon_optionStarYellowSVG.svg (unused)</p>
+<b><p align="center">icon_optionStarYellowSVG.svg (unused)</p></b>
 <p align="center">......</p>
 <p align="center">
 
@@ -2424,7 +2424,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Sta
 
 <p align="center">
   <img width="160" height="160" src="./icon_StarSwapCyanMidSVG.svg" /></p>
-<b><p align="center">icon_StarSwapCyanMidSVG.svg (unused)</p>
+<b><p align="center">icon_StarSwapCyanMidSVG.svg (unused)</p></b>
 <p align="center">......</p>
 <p align="center">
 
@@ -2459,6 +2459,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanMidSVG.svg
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapCyanMidSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
+
 
 
 <p align="center">
