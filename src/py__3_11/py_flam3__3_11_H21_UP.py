@@ -7853,7 +7853,6 @@ class flam3h_iterator_utils
                     prm.deleteAllKeyframes()
             
 
-
     def prm_paste_sel_pre_affine(self) -> None:
         """Copy/Paste POST affine inside the PRE affine.
         
@@ -12267,7 +12266,8 @@ class _xml_tree
             
             root = self.root
             _strip: Callable[[str], str] = str.strip
-            return tuple(_strip(in_flame.xf_val_cleanup_split_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None and keyval != '' else [] for name in root)
+            _xf_val_cleanup_split_str: Callable[[str, str, str], str] = in_flame.xf_val_cleanup_split_str
+            return tuple(_strip(_xf_val_cleanup_split_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None and keyval != '' else [] for name in root)
             
         return () 
         
@@ -12291,7 +12291,8 @@ class _xml_tree
             
             root = self.root
             _strip: Callable[[str], str] = str.strip
-            return tuple(str(in_flame.xf_list_cleanup_str(_strip(keyval).split(), _default, key)) if (keyval := name.get(key)) is not None else [] for name in root)
+            _xf_list_cleanup_str: Callable[[list, str, str], str] = in_flame.xf_list_cleanup_str
+            return tuple(str(_xf_list_cleanup_str(_strip(keyval).split(), _default, key)) if (keyval := name.get(key)) is not None else [] for name in root)
         
         return () 
         
@@ -18710,7 +18711,7 @@ class out_flame_utils
         
         node = self.node
         
-        parms_out_sensor_data: dict[str | None, hou.Vector2 | float] = { OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024)),    # tuple
+        parms_out_sensor_data: dict[str | None, hou.Vector2 | float] = {OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024)),    # tuple
                                                                         OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0)),  # tuple
                                                                         OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): 0,
                                                                         OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): 400
@@ -18736,7 +18737,7 @@ class out_flame_utils
         """
         node = self.node
         
-        parms_out_render_data: dict[str | None, int | float] = { OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000,
+        parms_out_render_data: dict[str | None, int | float] = {OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000,
                                                                 OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3,
                                                                 OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): 2.5,
                                                                 OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): 5,
