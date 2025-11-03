@@ -1018,14 +1018,14 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
                               (vPRM[36][0], (f"{px}_{vPRM[36][1][0][:-1]}", 1), 1), 
                               (vPRM[37][0], (f"{px}_{vPRM[37][1][0][:-1]}", 1), 1), 
                               (vPRM[38][0], (f"{px}_{vPRM[38][1][0][:-1]}", 1), 1), 
-                              (vPRM[39][0], 0), 
-                              (vPRM[40][0], 0), 
-                              (vPRM[41][0], 0), 
-                              (vPRM[42][0], 0), 
-                              (vPRM[43][0], 0), 
-                              (vPRM[44][0], 0), 
-                              (vPRM[45][0], 0), 
-                              (vPRM[46][0], 0), 
+                              vPRM[39], 
+                              vPRM[40], 
+                              vPRM[41], 
+                              vPRM[42], 
+                              vPRM[43], 
+                              vPRM[44], 
+                              vPRM[45], 
+                              vPRM[46], 
                               (vPRM[47][0], (f"{px}_{vPRM[47][1][0][:-1]}", 1), 1), 
                               (vPRM[48][0], (f"{px}_{vPRM[48][1][0][:-1]}", 1), (f"{px}_{vPRM[48][2][0][:-1]}", 1), 1), 
                               (vPRM[49][0], (f"{px}_{vPRM[49][1][0][:-1]}", 1), 1), 
@@ -1033,23 +1033,23 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
                               (vPRM[51][0], (f"{px}_{vPRM[51][1][0][:-1]}", 1), 1), 
                               (vPRM[52][0], (f"{px}_{vPRM[52][1][0][:-1]}", 1), 1), 
                               (vPRM[53][0], (f"{px}_{vPRM[53][1][0][:-1]}", 0), 1),
-                              (vPRM[54][0], 0),
-                              (vPRM[55][0], 0), 
+                              vPRM[54],
+                              vPRM[55], 
                               (vPRM[56][0], (f"{px}_{vPRM[56][1][0][:-1]}", 0), 1), 
                               (vPRM[57][0], (f"{px}_{vPRM[57][1][0][:-1]}", 1), 1), 
-                              (vPRM[58][0], 0), 
-                              (vPRM[59][0], 0), 
-                              (vPRM[60][0], 0), 
+                              vPRM[58], 
+                              vPRM[59], 
+                              vPRM[60], 
                               (vPRM[61][0], (f"{px}_{vPRM[61][1][0][:-1]}", 0), 1), 
-                              (vPRM[62][0], 0), 
+                              vPRM[62], 
                               (vPRM[63][0], (f"{px}_{vPRM[63][1][0][:-1]}", 1), (f"{px}_{vPRM[63][2][0][:-1]}", 1), 1), 
-                              (vPRM[64][0], 0), 
-                              (vPRM[65][0], 0), 
+                              vPRM[64], 
+                              vPRM[65], 
                               (vPRM[66][0], (f"{px}_{vPRM[66][1][0][:-1]}", 1), 1), 
                               (vPRM[67][0], (f"{px}_{vPRM[67][1][0][:-1]}", 1), 1), 
-                              (vPRM[68][0], 0), 
+                              vPRM[68], 
                               (vPRM[69][0], (f"{px}_{vPRM[69][1][0][:-1]}", 1), (f"{px}_{vPRM[69][2][0][:-1]}", 0), 1), 
-                              (vPRM[70][0], 0), 
+                              vPRM[70], 
                               (vPRM[71][0], (f"{px}_{vPRM[71][1][0][:-1]}", 1), (f"{px}_{vPRM[71][2][0][:-1]}", 1), 1), 
                               (vPRM[72][0], (f"{px}_{vPRM[72][1][0][:-1]}", 1), 1), 
                               (vPRM[73][0], (f"{px}_{vPRM[73][1][0][:-1]}", 1), 1), 
@@ -1059,31 +1059,31 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
                               (vPRM[77][0], (f"{px}_{vPRM[77][1][0][:-1]}", 1), 1), 
                               (vPRM[78][0], (f"{px}_{vPRM[78][1][0][:-1]}", 1), 1), 
                               (vPRM[79][0], (f"{px}_{vPRM[79][1][0][:-1]}", 1), (f"{px}_{vPRM[79][2][0][:-1]}", 1), 1), 
-                              (vPRM[80][0], 0), 
-                              (vPRM[81][0], 0), 
-                              (vPRM[82][0], 0), 
-                              (vPRM[83][0], 0), 
-                              (vPRM[84][0], 0), 
-                              (vPRM[85][0], 0), 
-                              (vPRM[86][0], 0), 
-                              (vPRM[87][0], 0), 
-                              (vPRM[88][0], 0), 
-                              (vPRM[89][0], 0), 
-                              (vPRM[90][0], 0), 
-                              (vPRM[91][0], 0), 
-                              (vPRM[92][0], 0), 
-                              (vPRM[93][0], 0), 
+                              vPRM[80], 
+                              vPRM[81], 
+                              vPRM[82], 
+                              vPRM[83], 
+                              vPRM[84], 
+                              vPRM[85], 
+                              vPRM[86], 
+                              vPRM[87], 
+                              vPRM[88], 
+                              vPRM[89], 
+                              vPRM[90], 
+                              vPRM[91], 
+                              vPRM[92], 
+                              vPRM[93], 
                               (vPRM[94][0], (f"{px}_{vPRM[94][1][0][:-1]}", 1), 1), 
                               (vPRM[95][0], (f"{px}_{vPRM[95][1][0][:-1]}", 0), 1), 
                               (vPRM[96][0], (f"{px}_{vPRM[96][1][0][:-1]}", 1), (f"{px}_{vPRM[96][2][0][:-1]}", 1), 1),
                               (vPRM[97][0], (f"{px}_{vPRM[97][1][0][:-1]}", 1), (f"{px}_{vPRM[97][2][0][:-1]}", 1), 1), 
                               (vPRM[98][0], (f"{px}_{vPRM[98][1][0][:-1]}", 1), 1), 
                               (vPRM[99][0], (f"{px}_{vPRM[99][1][0][:-1]}", 1), (f"{px}_{vPRM[99][2][0][:-1]}", 1), 1), 
-                              (vPRM[100][0], 0), 
+                              vPRM[100], 
                               (vPRM[101][0], (f"{px}_{vPRM[101][1][0][:-1]}", 1), (f"{px}_{vPRM[101][2][0][:-1]}", 1), (f"{px}_{vPRM[101][3][0][:-1]}", 1), 1),
                               (vPRM[102][0], (f"{px}_{vPRM[102][1][0][:-1]}", 1), (f"{px}_{vPRM[102][2][0][:-1]}", 1), 1), 
-                              (vPRM[103][0], 0),
-                              (vPRM[104][0], 0), 
+                              vPRM[103],
+                              vPRM[104], 
                               (vPRM[105][0], (f"{px}_{vPRM[105][1][0][:-1]}", 1), 1)
                               )
         
@@ -2414,7 +2414,7 @@ class flam3h_general_utils
 @STATICMETHODS
 * private_prm_set(node: hou.SopNode, prm_name: str, data: str | int | float) -> None:
 * private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm) -> None:
-* select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> None | str:
+* select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> str | None:
 * flash_message(node: hou.SopNode, msg: str | None, timer: float = FLAM3H_FLASH_MESSAGE_TIMER, img: str | None = None) -> None:
 * remove_locked_from_flame_stats(node) -> None:
 * houdini_version(digit: int=1) -> int:
@@ -2548,7 +2548,7 @@ class flam3h_general_utils
         
     
     @staticmethod
-    def select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> None | str:
+    def select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> str | None:
         """Return the filepath string for either the CP or IN filepath parameter if any, otherwise return None if empty or invalid.
         If an invalid filepath is present, it will try to extrapolate out the parent directory first and check for its validity, otherwise return: None
         
@@ -2562,11 +2562,11 @@ class flam3h_general_utils
         # Get start directory if one is already set in the CP oir IN tabs filepath parameter (e.g. a Palette or a Flame file is already being loaded)
         CP_filepath: str = os.path.expandvars(node.parm(type).eval())
         if os.path.isfile(CP_filepath):
-            CP_filepath_dir: None | str = os.path.split(CP_filepath)[0]
+            CP_filepath_dir: str | None = os.path.split(CP_filepath)[0]
         else:
             _dir: str = os.path.split(CP_filepath)[0]
             if os.path.isdir(_dir): CP_filepath_dir = _dir
-            else: CP_filepath_dir: None | str = None
+            else: CP_filepath_dir: str | None = None
             
         return CP_filepath_dir
 
@@ -6932,7 +6932,7 @@ class flam3h_iterator_utils
             node.setParms({GLB_DENSITY: val_get})
             
             _MSG: str = f"{node.name()} -> SET Density: {vals_name.get(sel)}"
-            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         # Check and Update this data
         self.update_xml_last_loaded()
@@ -6963,7 +6963,7 @@ class flam3h_iterator_utils
                 node.setParms({GLB_DENSITY_PRESETS: -1})
                 flam3h_general_utils.flash_message(node, 'Density: 300k')
                 _MSG: str = f"{node.name()} -> SET Density: 300K points"
-                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             else:
                 _MSG: str = f"{node.name()}: Density already at: 300k points"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -6974,7 +6974,7 @@ class flam3h_iterator_utils
                 node.setParms({GLB_DENSITY_PRESETS: -1})
                 flam3h_general_utils.flash_message(node, 'Density: 200k')
                 _MSG: str = f"{node.name()} -> SET Density: 200K points"
-                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             else:
                 _MSG: str = f"{node.name()}: Density already at: 200k points"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -6985,7 +6985,7 @@ class flam3h_iterator_utils
                 node.setParms({GLB_DENSITY_PRESETS: -1})
                 flam3h_general_utils.flash_message(node, 'Density: 100k')
                 _MSG: str = f"{node.name()} -> SET Density: 100K points"
-                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             else:
                 _MSG: str = f"{node.name()}: Density already at: 100k points"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -8596,7 +8596,7 @@ class flam3h_iterator_utils
         if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
             # Print to Houdini's status bar
             _MSG: str = f"{node.name()}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Sierpiński triangle::10")
             
             
@@ -10278,7 +10278,7 @@ class flam3h_palette_utils
                 
                 if self.kwargs['shift']:
                     # If there is NOT a valid dir or filepath already, open a file chooser to pick or define one
-                    _START_DIR: None | str = flam3h_general_utils.select_file_start_dir(node, CP_PATH)
+                    _START_DIR: str | None = flam3h_general_utils.select_file_start_dir(node, CP_PATH)
                     # Open a floating file chooser
                     filepath: str = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Load/Save a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.ReadAndWrite, width=0, height=0)  # type: ignore
                     filepath_expandvars: str = os.path.expandvars(filepath)
@@ -10487,7 +10487,7 @@ class flam3h_palette_utils
             (None):
         """
         # Get start directory if one is already set in the CP file path (e.g. a Palette file is already being loaded)
-        _START_DIR: None | str = flam3h_general_utils.select_file_start_dir(node, CP_PATH)
+        _START_DIR: str | None = flam3h_general_utils.select_file_start_dir(node, CP_PATH)
         # Open a floating file chooser
         filepath: str = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Load/Save a palette *.json file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.json", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.ReadAndWrite, width=0, height=0)  # type: ignore
         filepath_expandvars: str = os.path.expandvars(filepath)
@@ -12028,7 +12028,8 @@ class _xml_tree
 """
 
     __slots__ = ("_cached_data", 
-                 "_xmlfile", "_xmlfile_data", "_xmlfile_data_clipboard", "_isvalidtree", "_tree", "_name", "_plugins", "_sw_version")
+                 "_xmlfile", "_xmlfile_data", "_xmlfile_data_clipboard", "_isvalidtree", "_tree", "_root", 
+                 "_name", "_plugins", "_sw_version")
     
     def __init__(self, xmlfile: str) -> None:
         """
@@ -12040,16 +12041,21 @@ class _xml_tree
         self._xmlfile_data: str | None = self.xmlfile_root_chk(self.xmlfile)
         self._xmlfile_data_clipboard: str | None = self.xmlfile_root_chk(self.xmlfile, True)
         self._isvalidtree: bool = self.xmlfile_isvalidtree_chk(self.xmlfile)
+
         if self.xmlfile_data_clipboard is not None:
+            self._isvalidtree = True
             self._tree = lxmlET.ElementTree(lxmlET.fromstring(self.xmlfile_data_clipboard)) # type: ignore
-            self._isvalidtree = True
+            self._root = self.tree.getroot()
+            
         elif self.xmlfile_data is not None:
-            self._tree = lxmlET.ElementTree(lxmlET.fromstring(self.xmlfile_data)) # type: ignore
             self._isvalidtree = True
-        else:
-            if self._isvalidtree:
-                self._tree = lxmlET.parse(xmlfile) # type: ignore
-                
+            self._tree = lxmlET.ElementTree(lxmlET.fromstring(self.xmlfile_data)) # type: ignore
+            self._root = self.tree.getroot()
+            
+        elif self._isvalidtree:
+            self._tree = lxmlET.parse(self.xmlfile) # type: ignore
+            self._root = self.tree.getroot()
+            
         # This not private as its cheaper to have it evaluate from this parent class.
         self._name: tuple = self.get_name()
         self._plugins: tuple = self.get_name(XML_FLAME_PLUGINS)
@@ -12173,6 +12179,21 @@ class _xml_tree
         return self._isvalidtree
     
     @cached_slot_property
+    def root(self):
+        """Build the XML file root.<br/>
+        
+        Note:<br/>
+        This will only be valid if: self._isvalidtree is True
+
+        Args:
+            (self):
+
+        Returns:
+            (lxmlET.etree._Element):
+        """
+        return self._root
+    
+    @cached_slot_property
     def name(self):
         return self._name
     
@@ -12197,9 +12218,10 @@ class _xml_tree
             (tuple): Flame presets names packed into a tuple.
         """
         if self.isvalidtree:
+            
+            root = self.root
             _strip: Callable[[str], str] = str.strip
             _len: Callable[[str], int] = len
-            root = self.tree.getroot()
             if key == XML_XF_NAME:
                 return tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else '[]' for name in root)
             
@@ -12221,9 +12243,9 @@ class _xml_tree
             (tuple): Flame presets single string values packed into a tuple.
         """      
         if self.isvalidtree:
-            _strip: Callable[[str], str] = str.strip
-            root = self.tree.getroot()
             
+            root = self.root
+            _strip: Callable[[str], str] = str.strip
             return tuple(_strip(in_flame.xf_val_cleanup_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None else [] for name in root)
             
         return () 
@@ -12242,8 +12264,9 @@ class _xml_tree
             (tuple): Flame presets multi color correction curve values packed into a tuple.
         """      
         if self.isvalidtree:
+            
+            root = self.root
             _strip: Callable[[str], str] = str.strip
-            root = self.tree.getroot()
             return tuple(_strip(in_flame.xf_val_cleanup_split_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None and keyval != '' else [] for name in root)
             
         return () 
@@ -12266,9 +12289,8 @@ class _xml_tree
             if _d is not None: _default: str = _d
             else: _default: str = '0'
             
+            root = self.root
             _strip: Callable[[str], str] = str.strip
-            root = self.tree.getroot()
-            
             return tuple(str(in_flame.xf_list_cleanup_str(_strip(keyval).split(), _default, key)) if (keyval := name.get(key)) is not None else [] for name in root)
         
         return () 
@@ -12285,9 +12307,8 @@ class _xml_tree
             (tuple | None): Flames objects data or None if not found.
         """
         if self.isvalidtree:
-            root = self.tree.getroot()
             
-            return tuple( [f for f in root.iter(key)] )
+            return tuple(f for f in self.root.iter(key))
         
         return None
 
@@ -16618,7 +16639,7 @@ class in_flame_utils
             preset_name: str = apo_data.name[preset_id]
             _MSG: str = f"{node.name()}: LOAD Flame preset: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
             
-        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+        flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         flam3h_general_utils.flash_message(node, f"{preset_name}")
 
 
@@ -16695,7 +16716,7 @@ class in_flame_utils
         """
         
         # Get start directory if one is already set in the IN file path (e.g. a Flame file is already being loaded)
-        _START_DIR: None | str = flam3h_general_utils.select_file_start_dir(node)
+        _START_DIR: str | None = flam3h_general_utils.select_file_start_dir(node)
         # Open a floating file chooser
         flameFile = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
         flameFile_expandvars: str = os.path.expandvars(flameFile)
@@ -16990,7 +17011,7 @@ class in_flame_utils
                      
                 # Anything else   
                 else:
-                    for prm_name in (IN_PVT_ISVALID_FILE, IN_PVT_ISVALID_PRESET, IN_PVT_CLIPBOARD_TOGGLE): flam3h_general_utils.private_prm_set(node, prm_name, 0)
+                    for prm in (node.parm(IN_PVT_ISVALID_FILE), node.parm(IN_PVT_ISVALID_PRESET), node.parm(IN_PVT_CLIPBOARD_TOGGLE)): flam3h_general_utils.private_prm_set(node, prm, 0)
                     # clear info msgs
                     for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_DESCRIPTIVE_PRM)): prm.set("")
 
@@ -17166,7 +17187,7 @@ class out_flame_utils
 * out_userData_XML_last_loaded(self, data_name: str = FLAM3H_USER_DATA_XML_LAST, flame_name: str | None = None) -> None:
 * out_new_XML(self, outpath: str) -> None:
 * out_preset_XML_clipboard(self) -> None
-* out_append_XML(self, apo_data: in_flame, out_path: str) -> None:
+* out_append_XML(self, root, out_path: str) -> None:
 * out_XML(self) -> None:
 * __out_flame_data(self, prm_name: str = '') -> str:
 * __out_flame_name(self, prm_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
@@ -19516,20 +19537,18 @@ class out_flame_utils
             flam3h_general_utils.flash_message(node, f"{_MSG}")
 
 
-    def out_append_XML(self, apo_data: in_flame, out_path: str) -> None:
+    def out_append_XML(self, root, out_path: str) -> None:
         """Append a XML flame file to the current OUT flame lib file.
 
         Args:
             (self):
-            apo_data(in_flame): Current OUT flame lib file data for all its flame presets.
+            root(lxmlET.etree._Element): Current OUT flame lib file data XML root.
             out_path(str): Current OUT flame full file path.
 
         Returns:
             (None):
         """
         node = self.node
-        
-        root = apo_data.tree.getroot()
         
         flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
         flame.tag = XML_FLAME_NAME
@@ -19624,7 +19643,7 @@ class out_flame_utils
                             
                             if exist:
                                 if apo_data.isvalidtree:
-                                    self.out_append_XML(apo_data, out_path_checked)
+                                    self.out_append_XML(apo_data.root, out_path_checked)
                                     # Clear OUT presets menu filepath cache (this is done to force update the preset menu)
                                     flam3h_iterator_utils.destroy_cachedUserData(node, "out_presets_filepath")
                                 else:
@@ -19646,7 +19665,7 @@ class out_flame_utils
                 
                 if kwargs['shift']:
                     # If there is NOT a valid dir or filepath already, open a file chooser to pick or define one
-                    _START_DIR: None | str = flam3h_general_utils.select_file_start_dir(node, OUT_PATH)
+                    _START_DIR: str | None = flam3h_general_utils.select_file_start_dir(node, OUT_PATH)
                     # Open a floating file chooser
                     filepath: str = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Save a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Write, width=0, height=0)  # type: ignore
                     filepath_expandvars: str = os.path.expandvars(filepath)

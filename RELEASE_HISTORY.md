@@ -31,6 +31,23 @@ They are all available in this Github repository.
 
 
 
+### [<ins>v1.9.27 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.27) ###
+
+#### FLAM3H™ ####
+
+- **Python code improvements H21.0 UP ONLY**: py_flam3 python 3.11 (_**H21 UP**_) module improvements.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.25 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.25) ###
 
 #### FLAM3H™ ####
@@ -202,8 +219,8 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 
 #### FLAM3H™ ####
 
-- **Fix H21 ONLY**: From Houdini 21.0.489 the SYS tab select iterator mini-menu will work also over the Network Editor's Parameter Dialog displayed when pressing the `p` key.
-- **Updated HDA documentation H21 ONLY.**
+- **Fix H21.0 UP ONLY**: From Houdini 21.0.489 the SYS tab select iterator mini-menu will work also over the Network Editor's Parameter Dialog displayed when pressing the `p` key.
+- **Updated HDA documentation H21.0 UP ONLY.**
 
 
 
@@ -224,7 +241,7 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 
 #### FLAM3HUSD v0.2.28 - Prototype ####
 
-- **New H21 ONLY**: Karma XPU has been added to the available renderer list. Although having it is convenient, Karma CPU is still the best option for rendering pure point clouds (_as the one produced by FLAM3H™_).
+- **New H21.0 UP ONLY**: Karma XPU has been added to the available renderer list. Although having it is convenient, Karma CPU is still the best option for rendering pure point clouds (_as the one produced by FLAM3H™_).
 - **Fix**: The import handles viz' tab/parameters, are only enabled when the renderer of choice is Karma CPU because it seem that Karma XPU does not support curves as flat ribbons yet.
 - **Fix**: The parameter: **pxsamples** has been renamed to: **pxsamples_cpu** and for H21 a new one has been added and named: **pxsamples_xpu** specifically to drive Karma XPU pixel samples setting.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -357,7 +374,7 @@ _A restart of Houdini maybe needed for the new changes to correctly pickup_.
 _**Emission** parameter is available only from FLAM3HUSD HDA versions for Houdini 19.5 and up_.<br/>
 _**Transmission** and **Tone map** parameters are available only from FLAM3HUSD HDA versions for Houdini 20.5 and up_.
 
-- **New H21 ONLY**: FLAM3H™ **points widths** and Handles VIZ **curves widths** are now controlled by the new **width_scale** parameter introduced in **H21** (_instead of directly modify the geometry with a wrangle node_).
+- **New H21.0 UP ONLY**: FLAM3H™ **points widths** and Handles VIZ **curves widths** are now controlled by the new **width_scale** parameter introduced in **H21** (_instead of directly modify the geometry with a wrangle node_).
 - **New**: Ability to change the imported xforms handles VIZ curves widths. 
 - **Fix**: Xforms handles VIZ SOP import node now uses a point instancer method.
 - **Fix**: Changing the handles widths parameter now affect also the post affine curves segments.
@@ -545,14 +562,14 @@ _This is a re-release of the same version but with some minor updates that were 
 
 #### FLAM3H™ ####
 
-- **New H21 ONLY**: Recompiled FLAM3H™ with the latest production buid vcc compiler: 21.0.440.
-- **New H21 ONLY**: Updated H21 custom_node_info to include the HDA version. (FLAM3H™ and FLAM3HUSD)
+- **New H21.0 UP ONLY**: Recompiled FLAM3H™ with the latest production buid vcc compiler: 21.0.440.
+- **New H21.0 UP ONLY**: Updated H21 custom_node_info to include the HDA version. (FLAM3H™ and FLAM3HUSD)
 - **Fix**: Every HDA infos is now pulled from the HDA PythonModule section from everywhere (_custom node info included_), much more elegant.
 - **Fix**: Better formatted custom node infos.
 
 #### H21 FLAM3HUSD v0.1.62 - Prototype ####
 
-- **New H21 ONLY**: Updated custom_node_info to include the HDA version.
+- **New H21.0 UP ONLY**: Updated custom_node_info to include the HDA version.
 - **Fix**: Every HDA infos is now pulled from the HDA PythonModule section from everywhere (_custom node info included_), much more elegant.
 - **Fix**: Better formatted custom node infos.
 
@@ -631,7 +648,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 #### FLAM3H™ ####
 
-- **New H21 ONLY**: Added FLAM3H™ and FLAM3HUSD descriptive infos to the new H21 node info window. 
+- **New H21.0 UP ONLY**: Added FLAM3H™ and FLAM3HUSD descriptive infos to the new H21 node info window. 
 - **Fix**: Improved handling of incompatible Houdini versions.
 
 
@@ -646,8 +663,8 @@ _This is a re-release of the same version but with some minor updates that were 
 
 #### FLAM3H™ ####
 
-- **New H21 ONLY**: Added FLAM3H™ for **H21** (_initial release_).
-- **New H21 ONLY**: New iterators' control icon to add or delete iterators while still updating their xaos string correctly.
+- **New H21.0 UP ONLY**: Added FLAM3H™ for **H21** (_initial release_).
+- **New H21.0 UP ONLY**: New iterators' control icon to add or delete iterators while still updating their xaos string correctly.
 - **New**: When an iterator is in SOLO mode, changing the iterator focus using the SYS tab' select iterator mini menu will also set the selected iterator to be in SOLO mode, allowing you to easily review them one by one automatically.
 - **New**: The whole user interface will now be disabled and zero points will be generated when a FLAM3H OTL is installed in the incorrect Houdini version. The user will also get an error message informing them of the appropriate Houdini version to use.
 - **Fix**: CP Save action button -> [SHIFT+LMB] file chooser had the wrong default file extension to start with, it is now fxed.
@@ -660,7 +677,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 _Some of the small fixes/improvements include_:
 
-- **Fix H21 ONLY**: The variations menus had varying lengths based on the selected variation's name, it is now of a fixed length as it used to be in preview versions of Houdini.
+- **Fix H21.0 UP ONLY**: The variations menus had varying lengths based on the selected variation's name, it is now of a fixed length as it used to be in preview versions of Houdini.
 - Copy/paste menus (_iterators and FF_) now delete their keyframes every time they are executed (_they should not be allowed to be animated_).
 - Variation "**_Pt_symmetry_**" has been renamed to: "**_Point sym_**".
 

@@ -962,7 +962,7 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
         self.prx = prx
 
     def varsPRM_FF(self) -> tuple:
-
+        
         px: str = self.prx
         vPRM: tuple = self.varsPRM
         varsPRM_FF: tuple = ( vPRM[0], 
@@ -1004,14 +1004,14 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
                               (vPRM[36][0], (f"{px}_{vPRM[36][1][0][:-1]}", 1), 1), 
                               (vPRM[37][0], (f"{px}_{vPRM[37][1][0][:-1]}", 1), 1), 
                               (vPRM[38][0], (f"{px}_{vPRM[38][1][0][:-1]}", 1), 1), 
-                              (vPRM[39][0], 0), 
-                              (vPRM[40][0], 0), 
-                              (vPRM[41][0], 0), 
-                              (vPRM[42][0], 0), 
-                              (vPRM[43][0], 0), 
-                              (vPRM[44][0], 0), 
-                              (vPRM[45][0], 0), 
-                              (vPRM[46][0], 0), 
+                              vPRM[39], 
+                              vPRM[40], 
+                              vPRM[41], 
+                              vPRM[42], 
+                              vPRM[43], 
+                              vPRM[44], 
+                              vPRM[45], 
+                              vPRM[46], 
                               (vPRM[47][0], (f"{px}_{vPRM[47][1][0][:-1]}", 1), 1), 
                               (vPRM[48][0], (f"{px}_{vPRM[48][1][0][:-1]}", 1), (f"{px}_{vPRM[48][2][0][:-1]}", 1), 1), 
                               (vPRM[49][0], (f"{px}_{vPRM[49][1][0][:-1]}", 1), 1), 
@@ -1019,23 +1019,23 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
                               (vPRM[51][0], (f"{px}_{vPRM[51][1][0][:-1]}", 1), 1), 
                               (vPRM[52][0], (f"{px}_{vPRM[52][1][0][:-1]}", 1), 1), 
                               (vPRM[53][0], (f"{px}_{vPRM[53][1][0][:-1]}", 0), 1),
-                              (vPRM[54][0], 0),
-                              (vPRM[55][0], 0), 
+                              vPRM[54],
+                              vPRM[55], 
                               (vPRM[56][0], (f"{px}_{vPRM[56][1][0][:-1]}", 0), 1), 
                               (vPRM[57][0], (f"{px}_{vPRM[57][1][0][:-1]}", 1), 1), 
-                              (vPRM[58][0], 0), 
-                              (vPRM[59][0], 0), 
-                              (vPRM[60][0], 0), 
+                              vPRM[58], 
+                              vPRM[59], 
+                              vPRM[60], 
                               (vPRM[61][0], (f"{px}_{vPRM[61][1][0][:-1]}", 0), 1), 
-                              (vPRM[62][0], 0), 
+                              vPRM[62], 
                               (vPRM[63][0], (f"{px}_{vPRM[63][1][0][:-1]}", 1), (f"{px}_{vPRM[63][2][0][:-1]}", 1), 1), 
-                              (vPRM[64][0], 0), 
-                              (vPRM[65][0], 0), 
+                              vPRM[64], 
+                              vPRM[65], 
                               (vPRM[66][0], (f"{px}_{vPRM[66][1][0][:-1]}", 1), 1), 
                               (vPRM[67][0], (f"{px}_{vPRM[67][1][0][:-1]}", 1), 1), 
-                              (vPRM[68][0], 0), 
+                              vPRM[68], 
                               (vPRM[69][0], (f"{px}_{vPRM[69][1][0][:-1]}", 1), (f"{px}_{vPRM[69][2][0][:-1]}", 0), 1), 
-                              (vPRM[70][0], 0), 
+                              vPRM[70], 
                               (vPRM[71][0], (f"{px}_{vPRM[71][1][0][:-1]}", 1), (f"{px}_{vPRM[71][2][0][:-1]}", 1), 1), 
                               (vPRM[72][0], (f"{px}_{vPRM[72][1][0][:-1]}", 1), 1), 
                               (vPRM[73][0], (f"{px}_{vPRM[73][1][0][:-1]}", 1), 1), 
@@ -1045,31 +1045,31 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
                               (vPRM[77][0], (f"{px}_{vPRM[77][1][0][:-1]}", 1), 1), 
                               (vPRM[78][0], (f"{px}_{vPRM[78][1][0][:-1]}", 1), 1), 
                               (vPRM[79][0], (f"{px}_{vPRM[79][1][0][:-1]}", 1), (f"{px}_{vPRM[79][2][0][:-1]}", 1), 1), 
-                              (vPRM[80][0], 0), 
-                              (vPRM[81][0], 0), 
-                              (vPRM[82][0], 0), 
-                              (vPRM[83][0], 0), 
-                              (vPRM[84][0], 0), 
-                              (vPRM[85][0], 0), 
-                              (vPRM[86][0], 0), 
-                              (vPRM[87][0], 0), 
-                              (vPRM[88][0], 0), 
-                              (vPRM[89][0], 0), 
-                              (vPRM[90][0], 0), 
-                              (vPRM[91][0], 0), 
-                              (vPRM[92][0], 0), 
-                              (vPRM[93][0], 0), 
+                              vPRM[80], 
+                              vPRM[81], 
+                              vPRM[82], 
+                              vPRM[83], 
+                              vPRM[84], 
+                              vPRM[85], 
+                              vPRM[86], 
+                              vPRM[87], 
+                              vPRM[88], 
+                              vPRM[89], 
+                              vPRM[90], 
+                              vPRM[91], 
+                              vPRM[92], 
+                              vPRM[93], 
                               (vPRM[94][0], (f"{px}_{vPRM[94][1][0][:-1]}", 1), 1), 
                               (vPRM[95][0], (f"{px}_{vPRM[95][1][0][:-1]}", 0), 1), 
                               (vPRM[96][0], (f"{px}_{vPRM[96][1][0][:-1]}", 1), (f"{px}_{vPRM[96][2][0][:-1]}", 1), 1),
                               (vPRM[97][0], (f"{px}_{vPRM[97][1][0][:-1]}", 1), (f"{px}_{vPRM[97][2][0][:-1]}", 1), 1), 
                               (vPRM[98][0], (f"{px}_{vPRM[98][1][0][:-1]}", 1), 1), 
                               (vPRM[99][0], (f"{px}_{vPRM[99][1][0][:-1]}", 1), (f"{px}_{vPRM[99][2][0][:-1]}", 1), 1), 
-                              (vPRM[100][0], 0), 
+                              vPRM[100], 
                               (vPRM[101][0], (f"{px}_{vPRM[101][1][0][:-1]}", 1), (f"{px}_{vPRM[101][2][0][:-1]}", 1), (f"{px}_{vPRM[101][3][0][:-1]}", 1), 1),
                               (vPRM[102][0], (f"{px}_{vPRM[102][1][0][:-1]}", 1), (f"{px}_{vPRM[102][2][0][:-1]}", 1), 1), 
-                              (vPRM[103][0], 0),
-                              (vPRM[104][0], 0), 
+                              vPRM[103],
+                              vPRM[104], 
                               (vPRM[105][0], (f"{px}_{vPRM[105][1][0][:-1]}", 1), 1)
                               )
         
@@ -6758,7 +6758,7 @@ class flam3h_iterator_utils
             node.setParms({GLB_DENSITY: val_get})
             
             _MSG: str = f"{node.name()} -> SET Density: {vals_name.get(sel)}"
-            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         # Check and Update this data
         self.update_xml_last_loaded()
@@ -6789,7 +6789,7 @@ class flam3h_iterator_utils
                 node.setParms({GLB_DENSITY_PRESETS: -1})
                 flam3h_general_utils.flash_message(node, 'Density: 300k')
                 _MSG: str = f"{node.name()} -> SET Density: 300K points"
-                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             else:
                 _MSG: str = f"{node.name()}: Density already at: 300k points"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -6800,7 +6800,7 @@ class flam3h_iterator_utils
                 node.setParms({GLB_DENSITY_PRESETS: -1})
                 flam3h_general_utils.flash_message(node, 'Density: 200k')
                 _MSG: str = f"{node.name()} -> SET Density: 200K points"
-                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             else:
                 _MSG: str = f"{node.name()}: Density already at: 200k points"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -6811,7 +6811,7 @@ class flam3h_iterator_utils
                 node.setParms({GLB_DENSITY_PRESETS: -1})
                 flam3h_general_utils.flash_message(node, 'Density: 100k')
                 _MSG: str = f"{node.name()} -> SET Density: 100K points"
-                flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             else:
                 _MSG: str = f"{node.name()}: Density already at: 100k points"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -8411,7 +8411,7 @@ class flam3h_iterator_utils
         if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
             # Print to Houdini's status bar
             _MSG: str = f"{node.name()}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
-            flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+            flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Sierpiński triangle::10")
             
             
@@ -16176,7 +16176,7 @@ class in_flame_utils
             preset_name: str = apo_data.name[preset_id]
             _MSG: str = f"{node.name()}: LOAD Flame preset: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
             
-        flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+        flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         flam3h_general_utils.flash_message(node, f"{preset_name}")
 
 
