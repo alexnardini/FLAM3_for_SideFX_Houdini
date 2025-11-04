@@ -34,7 +34,7 @@
  /              [Bug ID# 124486], SideFX Support Ticket [SESI #128304]
  /              
  /              This has been fixed by SideFX from Houdini v21.0.457
- /              but this method is still faster, even tho it's limited to 20 iterators max.
+ /              but this method is still faster, even tho it's then limited to 20 iterators max from inside: "xaos.h" file.
  /              
 */
 
