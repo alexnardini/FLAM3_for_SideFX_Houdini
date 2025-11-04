@@ -1204,14 +1204,14 @@ class flam3husd_general_utils
         
         pe: list = flam3husd_general_utils.util_getParameterEditors()
         for p in pe:
-            currentNode: hou.SopNode = p.currentNode()
-            if currentNode.type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY and currentNode != f3h_node and p.isPin():
+            if p.currentNode() != f3h_node and p.isPin():
                 p.setCurrentNode(f3h_node, False)
     
     
     @staticmethod
     def util_getParameterEditors() -> list:
         """Return a list of Parameter Editors currently open in this Houdini session.
+        It will collect only the Parameter Editors with a FLAM3H node parameter on display already.
         
         Args:
             (None):
@@ -1220,7 +1220,7 @@ class flam3husd_general_utils
             (list): [return a list of open scene viewers]
         """    
         parms: tuple = hou.ui.paneTabs() # type: ignore
-        return [p for p in parms if isinstance(p, hou.ParameterEditor)]
+        return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY]
 
 
     @staticmethod
