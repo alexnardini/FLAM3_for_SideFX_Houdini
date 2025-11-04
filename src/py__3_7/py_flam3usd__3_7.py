@@ -175,6 +175,9 @@ class flam3husd_scripts
         
         # If it is a valid Houdini version
         if node.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
+            
+            # displayFlag
+            display_flag: bool = node.isGenericFlagSet(hou.nodeFlag.Display) # type: ignore
                 
             f3h_all_instances: list = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
             if f3h_all_instances:
@@ -193,8 +196,13 @@ class flam3husd_scripts
                         else:
                             # If the point count of the FLAM3H™ node we want to import is not greater than F3H_IMPORT_DENSITY_LIMIT
                             if limit:
+                                
                                 if f3h.parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
                                     node.setParms({PREFS_F3H_PATH: f3h.path()}) # type: ignore
+                                    
+                                    if display_flag:
+                                        flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h)
+                                        
                                     if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                         flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                     
@@ -203,9 +211,8 @@ class flam3husd_scripts
                                         
                                     return True
                                 
-                                else:
-                                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
-                                    return False
+                                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                                return False
                                 
                             else:
                                 node.setParms({PREFS_F3H_PATH: f3h.path()}) # type: ignore
@@ -222,8 +229,13 @@ class flam3husd_scripts
                     else:
                         # If the point count of the FLAM3H™ node we want to import is not greater than F3H_IMPORT_DENSITY_LIMIT
                         if limit:
+                            
                             if f3h_all_instances[0].parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
                                 node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
+                                
+                                if display_flag:
+                                    flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h_all_instances[0])
+                                    
                                 if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                     flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                 
@@ -232,11 +244,15 @@ class flam3husd_scripts
                                     
                                 return True
                             
-                            else:
-                                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
-                                return False
+                            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                            return False
+                        
                         else:
                             node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
+                            
+                            if display_flag:
+                                flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h_all_instances[0])
+                                
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                 flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                             return True
@@ -938,6 +954,8 @@ class flam3husd_general_utils
 * in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
 * karma_hydra_renderer_name() -> str:
 * houdini_version(digit: int = 1) -> int:
+* util_auto_set_f3h_parameter_editor(f3h_node: hou.SopNode) -> None:
+* util_getParameterEditors() -> list:
 * util_getSceneViewers() -> list:
 * util_is_context(context: str, viewport: hou.paneTabType) -> bool:
 * util_is_context_available_viewer(context: str) -> bool:
@@ -987,7 +1005,7 @@ class flam3husd_general_utils
         """ 
         current_import: str = node.parm(PREFS_F3H_PATH).eval()
         try:
-            f3h: hou.SopNode | None = hou.node(current_import)
+            f3h: Union[hou.SopNode, None] = hou.node(current_import)
         except:
             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
             return False
@@ -1121,6 +1139,38 @@ class flam3husd_general_utils
         """ 
         return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
 
+
+    @staticmethod
+    def util_auto_set_f3h_parameter_editor(f3h_node: hou.SopNode) -> None:
+        """Update any pinned Parameter Editor with the currently imported FLAM3H™ node if a FLAM3H™ node Parameters was already on display.
+        
+        Args:
+            f3h_node(hou.SopNode): The FLAM3H™ node to set the pinned parameter editor to.
+            
+        Returns:
+            (None):
+        """ 
+        
+        pe: list = flam3husd_general_utils.util_getParameterEditors()
+        for p in pe:
+            currentNode: hou.SopNode = p.currentNode()
+            if currentNode.type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY and currentNode != f3h_node and p.isPin():
+                p.setCurrentNode(f3h_node, False)
+    
+    
+    @staticmethod
+    def util_getParameterEditors() -> list:
+        """Return a list of Parameter Editors currently open in this Houdini session.
+        
+        Args:
+            (None):
+            
+        Returns:
+            (list): [return a list of open scene viewers]
+        """    
+        parms: tuple = hou.ui.paneTabs() # type: ignore
+        return [p for p in parms if isinstance(p, hou.ParameterEditor)]
+    
 
     @staticmethod
     def util_getSceneViewers() -> list:
@@ -1324,7 +1374,7 @@ class flam3husd_general_utils
                 
                 f3h_all_instances_paths: list = [f3h.path() for f3h in f3h_all_instances]
                 current_import: str = node.parm(PREFS_F3H_PATH).eval()
-                
+                    
                 # If we have multiple FLAM3H™ node instances
                 if len(f3h_all_instances) > 1:
                         
@@ -1333,6 +1383,7 @@ class flam3husd_general_utils
                     
                         try:
                             hou.node(current_import).type()
+                            
                         except:
                             # Otherwise load one that has not being imported yet to start with 
                             flam3husd_scripts.flam3husd_on_create_load_first_instance(node, False, False)
@@ -1340,8 +1391,11 @@ class flam3husd_general_utils
                                 # IF it could not find a new one to import
                                 # import the first one
                                 node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                                self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
                                 self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                
                         else:
+                            
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                 self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                 
@@ -1349,24 +1403,36 @@ class flam3husd_general_utils
                                 
                                 current_index: int = f3h_all_instances_paths.index(current_import)
                                 
+                                # Update current pinned Parameter editor if any
+                                if self.kwargs['ctrl']:
+                                    self.util_auto_set_f3h_parameter_editor(hou.node(current_import))
+                                
                                 # Import preview
-                                if self.kwargs['shift']:
+                                elif self.kwargs['shift']:
+                                    
                                     try:
                                         node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index - 1]})
+                                        self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[current_index - 1]))
+                                        
                                     except:
                                         # start over
                                         node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[-1]})
+                                        self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[-1]))
                                         
                                     if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                         self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                     
                                 # Import next
                                 else:
+                                    
                                     try:
                                         node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index + 1]})
+                                        self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[current_index + 1]))
+                                        
                                     except:
                                         # start over
                                         node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                                        self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
                                         
                                     if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                         self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
@@ -1375,6 +1441,7 @@ class flam3husd_general_utils
                         
                         try:
                             hou.node(current_import).type()
+                            
                         except:
                             # Otherwise load one that has not being imported yet to start with
                             flam3husd_scripts.flam3husd_on_create_load_first_instance(node, False, False)
@@ -1382,22 +1449,39 @@ class flam3husd_general_utils
                                 # IF it could not find a new one to import
                                 # import the first one
                                 node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                                self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
                                 self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                
                         else:
+                            
+                            # Update current pinned Parameter editor if any
+                            if self.kwargs['ctrl']:
+                                self.util_auto_set_f3h_parameter_editor(hou.node(current_import))
+                            
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                 self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                 
             
                 # If we have one FLAM3H™ node instance
                 else:
-                    # current_import: str = node.parm(PREFS_F3H_PATH).eval()
+                    
+                    current_import: str = node.parm(PREFS_F3H_PATH).eval()
+                    
                     try:
                         hou.node(current_import).type()
+                        
                     except:
                         node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                        self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
                         if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                             self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                            
                     else:
+                        
+                        # Update current pinned Parameter editor if any
+                        if self.kwargs['ctrl']:
+                            self.util_auto_set_f3h_parameter_editor(hou.node(current_import))
+                        
                         # Just in case
                         if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                             self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
