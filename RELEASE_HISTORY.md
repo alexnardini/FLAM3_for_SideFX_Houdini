@@ -4033,7 +4033,7 @@ _Will update once H20 release._
 
 ### [<ins>v0.7.8b indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.8b) ###
 
-#### FLAM3H™ ####
+#### FLAM3H™ H18.x ####
 
 - Added POST Variation to Final Flame transform.
 - ~40% faster first node instance creation time.
@@ -4047,7 +4047,7 @@ _Will update once H20 release._
 
 ### [<ins>v0.7.7c3 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.7c3) ###
 
-#### FLAM3H™ ####
+#### FLAM3H™ H18.x ####
 
 - Removed some leftover variables from variation.h and fixed an else statement inside genome.h
 
@@ -4058,7 +4058,7 @@ _Will update once H20 release._
 
 ### [<ins>v0.7.7c2 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.7c2) ###
 
-#### FLAM3H™ ####
+#### FLAM3H™ H18.x ####
 
 - Fixed Final Flame transform POST affine not being used.
 
@@ -4069,7 +4069,7 @@ _Will update once H20 release._
 
 ### [<ins>v0.7.7c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.7c) ###
 
-#### FLAM3H™ ####
+#### FLAM3H™ H18.x ####
 
 - Color mode now in line with Apophysis and the other ( uses Color Location and Blend Speed).
    To test it out I replicated a preset from Chaotica software inside Houdini.
@@ -4083,7 +4083,7 @@ _Will update once H20 release._
 
 ### [<ins>v0.7.6 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.6) ###
 
-#### FLAM3H™ ####
+#### FLAM3H™ H18.x ####
 
 - Affine coefficients now have the same layout as Apophysis software. Improved genomeParametricBuild() function. New Presets file, override the old one ( back it up first ) as the UI layout as changed. Overall is ~10% faster.
 
@@ -4094,7 +4094,7 @@ _Will update once H20 release._
 
 ### [<ins>v0.7.5d indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.5d) ###
 
-#### FLAM3H™ ####
+#### FLAM3H™ H18.x ####
 
 - Fixed POST affine and faster first node instance creation time
 
