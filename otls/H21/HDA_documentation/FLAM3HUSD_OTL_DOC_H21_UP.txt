@@ -3,7 +3,7 @@
 #context: lop
 #namespace: FLAM3HUSD
 #internal: FLAM3HUSD
-#version: 0.2.31 - Prototype
+#version: 0.2.33 - Prototype
 
 """Simple utility node to quickly render FLAM3H(tm) fractal Flames in Solaris."""
 
@@ -66,7 +66,7 @@ _It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`*
 
 
     
-== FLAM3HUSD system == (IMPORT)
+== SYS: System == (IMPORT)
     
 ~~~
 :box:
@@ -140,7 +140,7 @@ FLAM3H(tm) Next/Prev [Icon:opdef:.?icon_actionButtonSVG.svg]:
     - Importing FLAM3H™ node instances from this icon will not check if the imported FLAM3H™ node density value is set to more than *`50M`*(_millions_). It will import all density values regardless.
 
 
-== Prefs == (PREFS)
+== PREFS: preferences == (PREFS)
     
 ~~~
 :box:
