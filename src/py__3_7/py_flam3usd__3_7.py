@@ -29,7 +29,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
     Title:      SideFX Houdini FLAM3HUSD
     Author:     F stands for liFe ( made in Italy )
-    date:       September 2023, Last revised October 2025
+    date:       September 2023, Last revised November 2025
                 This is the source file.
 
     Name:       PY_FLAM3USD__3_7 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
