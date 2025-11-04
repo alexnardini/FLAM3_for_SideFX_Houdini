@@ -122,16 +122,17 @@ FLAM3H(tm) Next/Prev [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: F3HNEXTPREV
     [Largeicon:opdef:.?icon_optionFlameINEntrieSVG.svg]
 
-    Import and cycle through the available FLAM3H™ nodes instances.
+    Import and/or cycle through the available FLAM3H™ nodes instances.
 
-    This is usefull when multiple FLAM3H™ nodes instances exist in the current Houdini session and you want to easily cycle between all of them one by one.
+    When multiple FLAM3H™ nodes instances exist in the current Houdini session you will be able to easily cycle between all of them one by one.
 
     _Usage_:
     - ((LMB)) to import a FLAM3H™ node or to import the *`next`* FLAM3H™ node instance. When you reach the last instance it will start again from the start (_index_ *`0`*_(Zero)_).
-        - If pinned Parameter Editors exist already with a FLAM3H™ node on display, it will be updated with the parameters of the newly imported FLAM3H™ node.
+        - If pinned Parameter Editors exist already with a valid FLAM3H™ node on display, it will be updated with the parameters of the newly imported FLAM3H™ node.
     - ((SHIFT)) + ((LMB)) to import a FLAM3H™ node or to import the *`preview`* FLAM3H™ node instance. When you reach the first instance, it will start again from the end (_last available index_).
-        - If pinned Parameter Editors exist already with a FLAM3H™ node on display, it will be updated with the parameters of the newly imported FLAM3H™ node.
-    - ((CTRL)) + ((LMB)) to update pinned Parameter Editors with the currently imported FLAM3H™ node parameters.
+        - If pinned Parameter Editors exist already with a valid FLAM3H™ node on display, it will be updated with the parameters of the newly imported FLAM3H™ node.
+    - ((CTRL)) + ((LMB)) to update pinned Parameter Editors with the currently imported FLAM3H™ node parameters
+        - _only if a valid FLAM3H™ node paramters was already on display_.
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
