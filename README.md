@@ -309,7 +309,7 @@ Please be sure to check out their gallery:
 
 Reference A: [**Github :: FLAM3 from Scott Draves and Erik Reckase**](https://github.com/scottdraves/flam3)
 
-Reference B: [**Bitbucket :: Fractorium from Matt Feemster**](https://bitbucket.org/mfeemster/fractorium/src/master/)
+Reference B: [**Github :: Fractorium from Matt Feemster**](https://github.com/mfeemster/fractorium/tree/master)
 
 Reference C: [**Github :: Apophysis 7x from Georg Kiehne**](https://github.com/xyrus02/apophysis-7x)
 
