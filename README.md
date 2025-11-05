@@ -1,8 +1,8 @@
 ## Web
 
-**[FLAM3H™ website](https://www.alexnardini.net)**</br>
-**[FLAM3H™ youtube](https://www.youtube.com/@alexnardiniITALY/videos)**</br>
-**[FLAM3H™ instagram](https://www.instagram.com/alexnardini/)**
+- **[FLAM3H™ website](https://www.alexnardini.net)**</br>
+- **[FLAM3H™ youtube](https://www.youtube.com/@alexnardiniITALY/videos)**</br>
+- **[FLAM3H™ instagram](https://www.instagram.com/alexnardini/)**
 
 ## License
 - Software: [GNU GPL v3.0](LICENSE)
