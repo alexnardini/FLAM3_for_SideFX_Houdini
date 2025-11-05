@@ -38,8 +38,8 @@ from numpy import searchsorted as np_searchsorted
 from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 
-FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
-nodetype = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
+F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
+nodetype = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
 __status__ = nodetype.hdaModule().__status__
 __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
@@ -2725,7 +2725,7 @@ class flam3h_general_utils
             (list): [return a list of open Parmaeter Editors with a FLAM3H™ node on display]
         """    
         parms: tuple = hou.ui.paneTabs() # type: ignore
-        return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == FLAM3H_NODE_TYPE_NAME_CATEGORY]
+        return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY]
 
 
     @staticmethod
