@@ -178,6 +178,8 @@ CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
 CHARACTERS_ALLOWED_XFORM_VAL = "0123456789.-e"
 
+F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
+
 # Default globals
 FLAM3H_DEFAULT_GLB_DENSITY: int = 500000
 FLAM3H_DEFAULT_GLB_ITERATIONS: int = 10
@@ -1202,6 +1204,7 @@ class flam3h_scripts
 * flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
 * flam3h_set_first_instance_global_var(cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
 * is_post_affine_default_on_load(node: hou.SopNode) -> None:
+* unpin_parameter_editor_with_f3h_node(f3h_node: hou.SopNode) -> None:
 
 @METHODS
 * flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
@@ -1604,6 +1607,26 @@ class flam3h_scripts
         collect: list = [node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() if prm_list_post_affine_FF[1:][idx][1] else node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() for idx in range(len(prm_list_post_affine_FF[1:]))]
         if node.parm(f"{prm_list_post_affine_FF[0][0]}").eval() and 1 not in keyframes and collect == AFFINE_DEFAULT_VALS:
             node.setParms({f"{prm_list_post_affine_FF[0][0]}": 0}) # type: ignore
+
+
+    @staticmethod
+    def unpin_parameter_editor_with_f3h_node(f3h_node: hou.SopNode) -> None:
+        """If a FLAM3H™ is on display in a pinned Parameter Editor, unpin that parameter Editor.<br/>
+        This is specifically made for: def flam3h_on_deleted(self) -> None: <br />
+        to avoid a menu error happening sometime when deleting multiple FLAM3H™ nodes in one go while one of them was on display in a pinned Parameter Editor.
+
+        Args:
+            node(hou.SopNode): This FLAM3H™ node.
+            
+        Returns:
+            (None):
+        """  
+    
+        pe: list = flam3h_general_utils.util_getParameterEditors()
+        for p in pe:
+            if p.currentNode() == f3h_node and p.isPin():
+                p.setPin(False)
+
 
 
     # CLASS: PROPERTIES
@@ -2332,6 +2355,7 @@ class flam3h_scripts
             (None):
         """
         node = self.node
+        self.unpin_parameter_editor_with_f3h_node(node)
         
         node_instances: tuple = node.type().instances()
         
@@ -2424,6 +2448,7 @@ class flam3h_general_utils
 * set_status_msg(msg: str, type: str) -> None:
 * isLOCK(filepath: str | bool) -> bool:
 * util_open_file_explorer(filepath_name: str) -> None:
+* util_getParameterEditors() -> list:
 * util_getSceneViewers() -> list:
 * util_getNetworkEditors() -> list:
 * util_is_context(context: str, viewport: hou.paneTabType | hou.SceneViewer) -> bool:
@@ -2741,6 +2766,21 @@ class flam3h_general_utils
             dir = os.path.dirname(filepath_name)
             if os.path.isdir(dir):
                 hou.ui.showInFileBrowser(dir) # type: ignore
+                
+                
+    @staticmethod
+    def util_getParameterEditors() -> list:
+        """Return a list of Parameter Editors currently open in this Houdini session.
+        It will collect only the Parameter Editors with a FLAM3H node parameter on display already.
+        
+        Args:
+            (None):
+            
+        Returns:
+            (list): [return a list of open Parmaeter Editors with a FLAM3H™ node on display]
+        """    
+        parms: tuple = hou.ui.paneTabs() # type: ignore
+        return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY]
 
 
     @staticmethod
