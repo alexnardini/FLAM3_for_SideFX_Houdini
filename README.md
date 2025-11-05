@@ -139,11 +139,11 @@ Following are some screenshots showing it for a few different Flame presets.
 
 </br>
 
-`Dancing Stars - Athor: Alessandro Nardini`
+`Dancing Stars - Author: Alessandro Nardini`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_01_H19.jpg)
-`Cool EDisc - Athor: Pillemaster`
+`Cool EDisc - Author: Pillemaster`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_04_H19.jpg)
-`Crystal Eggs - Athor: Alessandro Nardini`
+`Crystal Eggs - Author: Alessandro Nardini`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H19.jpg)
 
 ## Camera sensor
