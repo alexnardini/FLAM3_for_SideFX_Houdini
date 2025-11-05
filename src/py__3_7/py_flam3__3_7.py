@@ -150,8 +150,6 @@ CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
 CHARACTERS_ALLOWED_XFORM_VAL = "0123456789.-e"
 
-F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
-
 # Default globals
 FLAM3H_DEFAULT_GLB_DENSITY: int = 500000
 FLAM3H_DEFAULT_GLB_ITERATIONS: int = 10
@@ -2727,7 +2725,7 @@ class flam3h_general_utils
             (list): [return a list of open Parmaeter Editors with a FLAM3H™ node on display]
         """    
         parms: tuple = hou.ui.paneTabs() # type: ignore
-        return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY]
+        return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == FLAM3H_NODE_TYPE_NAME_CATEGORY]
 
 
     @staticmethod
