@@ -1167,7 +1167,7 @@ class flam3husd_general_utils
             (None):
             
         Returns:
-            (list): [return a list of open scene viewers]
+            (list): [return a list of open Parmaeter Editors with a FLAM3H™ node on display]
         """    
         parms: tuple = hou.ui.paneTabs() # type: ignore
         return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY]
