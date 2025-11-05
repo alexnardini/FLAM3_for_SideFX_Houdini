@@ -1611,7 +1611,7 @@ class flam3h_scripts
 
     @staticmethod
     def unpin_parameter_editor_with_f3h_node(f3h_node: hou.SopNode) -> None:
-        """If a FLAM3H™ is on display in a pinned Parameter Editor, unpin that parameter Editor.<br/>
+        """If a FLAM3H™ node is on display in a pinned Parameter Editor, unpin that parameter Editor.<br/>
         This is specifically made for: def flam3h_on_deleted(self) -> None: <br />
         to avoid a menu error happening sometime when deleting multiple FLAM3H™ nodes in one go while one of them was on display in a pinned Parameter Editor.
 
