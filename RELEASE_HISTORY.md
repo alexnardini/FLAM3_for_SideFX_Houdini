@@ -31,6 +31,26 @@ They are all available in this Github repository.
 
 
 
+### [<ins>v1.9.29 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.29) ###
+
+#### FLAM3H™ ####
+
+- **Fix**: sometime when deleting multiple FLAM3H™ nodes in one go while one of them was on display in a pinned Parameter Editor Houdini could raise a parameter' menu error. It is now fixed.
+
+#### FLAM3HUSD v0.2.34 - Prototype ####
+
+- **Fix**: suppressed a statusbar message when the BBOX data node is not being found on node creation and added it to the definition that call it by the user.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.28 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.28) ###
 
 #### FLAM3H™ ####
