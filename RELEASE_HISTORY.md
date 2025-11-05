@@ -5,6 +5,12 @@
   <img width="160" height="160" src="./img/LOGO_F_github.svg" />
 </p>
 
+## Web
+
+**[FLAM3H™ website](https://www.alexnardini.net)**</br>
+**[FLAM3H™ youtube](https://www.youtube.com/@alexnardiniITALY/videos)**</br>
+**[FLAM3H™ instagram](https://www.instagram.com/alexnardini/)**
+
 ## License
 - Software: [GNU GPL v3.0](LICENSE)
 - Documentation: [CC BY-SA 4.0](LICENSE.docs)
@@ -25,11 +31,7 @@ _The following are Houdini versions where FLAM3H™ is fully functional, tested 
 Below is a list of all the **FLAM3H™** (_and_ **FLAM3HUSD**) releases and the updates that went into each.</br>
 They are all available in this Github repository.
 
-
 </br>
-</br>
-
-
 
 ### [<ins>v1.9.29 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.29) ###
 

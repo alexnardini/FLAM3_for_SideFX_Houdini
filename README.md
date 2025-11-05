@@ -1,3 +1,9 @@
+## Web
+
+**[FLAM3H™ website](https://www.alexnardini.net)**</br>
+**[FLAM3H™ youtube](https://www.youtube.com/@alexnardiniITALY/videos)**</br>
+**[FLAM3H™ instagram](https://www.instagram.com/alexnardini/)**
+
 ## License
 - Software: [GNU GPL v3.0](LICENSE)
 - Documentation: [CC BY-SA 4.0](LICENSE.docs)
@@ -17,7 +23,7 @@ _The following are Houdini versions where FLAM3H™ is fully functional, tested 
 # The Fractal Flame Algorithm
 ![FLAM3 Intro image](./img/GITHUB_intro_img.jpg)
 
-`The above fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer.`
+`The above fractal Flame image consist of 400M points and rendered with Houdini internal Karma renderer. Originally rendered at 7k resolution.`
 
 ## FLAM3 for SideFX Houdini - aka: FLAM3H™
 **_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
@@ -26,11 +32,7 @@ _The following are Houdini versions where FLAM3H™ is fully functional, tested 
   <img width="160" height="160" src="./img/LOGO_F_github.svg" />
 </p>
 
-**[FLAM3H™ website](https://www.alexnardini.net)**
-
-**[FLAM3H™ youtube](https://www.youtube.com/@alexnardiniITALY/videos)**
-
-**[FLAM3H™ instagram](https://www.instagram.com/alexnardini/)**
+</br>
 
 ### Premise
 
@@ -137,10 +139,12 @@ Following are some screenshots showing it for a few different Flame presets.
 
 </br>
 
+`Dancing Stars - Athor: Alessandro Nardini`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_01_H19.jpg)
+`Cool EDisc - Athor: Pillemaster`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_04_H19.jpg)
+`Crystal Eggs - Athor: Alessandro Nardini`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H19.jpg)
-`FLAM3H™ generate a live point cloud of the fractal Flame being worked on.`
 
 ## Camera sensor
 
