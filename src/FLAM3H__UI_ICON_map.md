@@ -556,7 +556,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg
 </br>
 
 # SYS Tab
-# parameter name:    `frameview`
+# parameter name:    `frameviewsensor`
 ### Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_FrameRedSVG.svg" /></p>
 
