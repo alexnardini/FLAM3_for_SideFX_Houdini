@@ -1591,7 +1591,8 @@ class flam3husd_general_utils
         if search:
             return search[0].path()
         
-        # Disabling this because it is annoying it never find it on creation, need to investigate
+        # Disabling this because it is annoying it never find it on creation, need to investigate.
+        # Added it to: def util_viewport_bbox_frame(self) -> None:
         # _MSG: str = f"{self.node.name()}: Camera sensor BBOX data node not found."
         # self.set_status_msg(_MSG, 'WARN')
         return None
@@ -1628,6 +1629,9 @@ class flam3husd_general_utils
                     if self.bbox_reframe_path is not None:
                         node_bbox: hou.SopNode = hou.node(self.bbox_reframe_path)
                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                    else:
+                        _MSG: str = f"{self.node.name()}: Camera sensor BBOX data node not found."
+                        self.set_status_msg(_MSG, 'WARN')
                         
             match num_viewers_lop:
                 
