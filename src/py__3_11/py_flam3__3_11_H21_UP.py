@@ -6809,14 +6809,26 @@ class flam3h_iterator_utils
                 weight: float = node.parm(f"{flam3h_iterator_prm_names().main_weight}_{preset_id}").eval()
                 
                 if node == from_FLAM3H_NODE and mp_id_from == preset_id:
-                    if active and weight > 0: flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
-                    elif active and weight == 0: flam3h_general_utils.flash_message(node, f"{_MSG} (Zero Weight and Marked)")
-                    else: flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled and Marked)")
+                    if active and weight > 0:
+                        flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} (Marked)", 'MSG')
+                    elif active and weight == 0:
+                        flam3h_general_utils.flash_message(node, f"{_MSG} (Zero Weight and Marked)")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} (Zero Weight and Marked)", 'MSG')
+                    else:
+                        flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled and Marked)")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} (Disabled and Marked)", 'MSG')
                     
                 else:
-                    if active and weight > 0: flam3h_general_utils.flash_message(node, _MSG)
-                    elif active and weight == 0: flam3h_general_utils.flash_message(node, f"{_MSG} (Zero Weight)")
-                    else: flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
+                    if active and weight > 0:
+                        flam3h_general_utils.flash_message(node, _MSG)
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    elif active and weight == 0:
+                        flam3h_general_utils.flash_message(node, f"{_MSG} (Zero Weight)")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} (Zero Weight)", 'MSG')
+                    else:
+                        flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} (Disabled)", 'MSG')
                 
             else:
                 # If we can not set them all, lets see different cases one by one
@@ -6838,12 +6850,20 @@ class flam3h_iterator_utils
                         active: int = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
                         
                         if node == from_FLAM3H_NODE and mp_id_from == preset_id:
-                            if active: flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
-                            else: flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled and Marked)")
+                            if active:
+                                flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
+                                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} (Marked)", 'MSG')
+                            else:
+                                flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled and Marked)")
+                                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} (Disabled and Marked)", 'MSG')
                                 
                         else:
-                            if active: flam3h_general_utils.flash_message(node, _MSG)
-                            else: flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
+                            if active:
+                                flam3h_general_utils.flash_message(node, _MSG)
+                                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                            else:
+                                flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
+                                flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} (Disabled)", 'MSG')
                         
                     elif paneTab_uc.type() == hou.paneTabType.NetworkEditor: # type: ignore
                         
