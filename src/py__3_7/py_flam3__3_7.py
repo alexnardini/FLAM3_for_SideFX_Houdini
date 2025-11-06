@@ -1706,7 +1706,7 @@ class flam3h_scripts
         This is specifically made for: def flam3h_on_deleted(self) -> None: <br />
 
         Args:
-            node(hou.SopNode): The FLAM3H™ node to check if its parameter are being pinned inside a Parameter Editor.
+            (None):
             
         Returns:
             (None):
@@ -2455,7 +2455,7 @@ class flam3h_scripts
         """
         node = self.node
         self.unpin_parameter_editor_with_f3h_node(node)
-        
+
         node_instances: tuple = node.type().instances()
         
         if len(node_instances) == 1:
