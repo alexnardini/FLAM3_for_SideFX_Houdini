@@ -2612,7 +2612,8 @@ class flam3h_general_utils
 * reset_PREFS(self, mode: int = 0) -> None:
     """    
     
-    __slots__ = ("_kwargs", "_node", "_bbox_sensor_path", "_bbox_reframe_path")
+    __slots__ = ("_cached_data", 
+                 "_kwargs", "_node", "_bbox_sensor_path", "_bbox_reframe_path")
     
     def __init__(self, kwargs: dict) -> None:
         """
@@ -3215,11 +3216,11 @@ class flam3h_general_utils
     def node(self):
         return self._node
     
-    @property
+    @cached_slot_property
     def bbox_sensor_path(self):
         return self._bbox_sensor_path
     
-    @property
+    @cached_slot_property
     def bbox_reframe_path(self):
         return self._bbox_reframe_path
 
