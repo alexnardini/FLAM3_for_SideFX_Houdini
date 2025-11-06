@@ -1286,6 +1286,7 @@ class flam3h_scripts
 * flam3h_set_first_instance_global_var(cvex_precision: int, first_instance_32bit: bool, first_instance_64bit: bool) -> None:
 * is_post_affine_default_on_load(node: hou.SopNode) -> None:
 * unpin_parameter_editor_with_f3h_node(f3h_node: hou.SopNode) -> None:
+* hou_session_data_clear_and_restore() -> None:
 
 @METHODS
 * flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG: bool = True) -> None:
@@ -1697,6 +1698,38 @@ class flam3h_scripts
             if p.currentNode() == f3h_node and p.isPin():
                 p.setPin(False)
                 break
+            
+            
+    @staticmethod
+    def hou_session_data_clear_and_restore() -> None:
+        """Clear and set hou.session data when the last FLAM3H™ node is being deleted.<br/>
+        This is specifically made for: def flam3h_on_deleted(self) -> None: <br />
+
+        Args:
+            node(hou.SopNode): The FLAM3H™ node to check if its parameter are being pinned inside a Parameter Editor.
+            
+        Returns:
+            (None):
+        """  
+        
+        # Init the Copy/Paste data to defaults
+        try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+        except:
+            try:
+                if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None:  # type: ignore
+                    hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
+            except: pass
+            
+        try: hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
+        except:
+            try:
+                if hou.session.FLAM3H_MARKED_FF_CHECK is not None:  # type: ignore
+                    hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
+            except: pass
+            
+        # Delete the Houdini update mode data if needed
+        try: del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+        except: pass
 
 
     # CLASS: PROPERTIES
@@ -2422,29 +2455,13 @@ class flam3h_scripts
         """
         node = self.node
         self.unpin_parameter_editor_with_f3h_node(node)
-    
+        
         node_instances: tuple = node.type().instances()
         
         if len(node_instances) == 1:
             
             # Init the Copy/Paste data to defaults
-            try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-            except:
-                try:
-                    if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None:  # type: ignore
-                        hou.session.FLAM3H_MARKED_ITERATOR_NODE: Union[hou.SopNode, None] = None # type: ignore
-                except: pass
-                
-            try: hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
-            except:
-                try:
-                    if hou.session.FLAM3H_MARKED_FF_CHECK is not None:  # type: ignore
-                        hou.session.FLAM3H_MARKED_FF_NODE: Union[hou.SopNode, None] = None # type: ignore
-                except: pass
-                
-            # Delete the Houdini update mode data if needed
-            try: del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
-            except: pass
+            self.hou_session_data_clear_and_restore()
             
             # Restore and delete the xforms handles VIZ data if needed
             flam3h_general_utils.util_xf_viz_set_stashed_wire_width()
