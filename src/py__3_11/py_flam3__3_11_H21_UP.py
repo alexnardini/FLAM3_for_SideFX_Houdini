@@ -1721,7 +1721,7 @@ class flam3h_scripts
         to avoid a menu error happening sometime when deleting multiple FLAM3H™ nodes in one go while one of them was on display in a pinned Parameter Editor.
 
         Args:
-            node(hou.SopNode): This FLAM3H™ node.
+            node(hou.SopNode): The FLAM3H™ node to check if its parameter are being pinned inside a Parameter Editor.
             
         Returns:
             (None):
