@@ -116,7 +116,6 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                     hou.session.H_VIEWPORT_WIRE_WIDTH
                     hou.session.H_CS_STASH_DICT
                     hou.session.F3H_H_VERSION_ALLOWED
-                    hou.session.F3H_PY_MODULE_VERSION # This is set/initialized inside the HDA python module script
 
 
                 LIST OF CLASSES:
