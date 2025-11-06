@@ -956,111 +956,217 @@ class flam3h_varsPRM_FF(flam3h_varsPRM):
         
         px: str = self.prx
         vPRM: tuple = self.varsPRM
-        varsPRM_FF: tuple = ( vPRM[0], 
+        varsPRM_FF: tuple = ( # Linear
+                              vPRM[0], 
+                              # Sinusoidal
                               vPRM[1], 
+                              # Spherical
                               vPRM[2], 
+                              # Swirl
                               vPRM[3], 
+                              # Horseshoe
                               vPRM[4], 
+                              # Polar
                               vPRM[5], 
+                              # Handkerchief
                               vPRM[6], 
+                              # Heart
                               vPRM[7], 
+                              # Disc
                               vPRM[8], 
+                              # Spiral
                               vPRM[9], 
+                              # Hyperbolic
                               vPRM[10], 
+                              # Diamond
                               vPRM[11], 
+                              # Ex
                               vPRM[12], 
+                              # Julia
                               vPRM[13], 
+                              # Bent
                               vPRM[14], 
+                              # Waves*
                               vPRM[15], 
+                              # Fisheye
                               vPRM[16], 
+                              # Popcorn*
                               vPRM[17], 
+                              # Exponential
                               vPRM[18], 
+                              # Power
                               vPRM[19], 
+                              # Cosine
                               vPRM[20], 
+                              # Rings*
                               vPRM[21], 
+                              # Fan*
                               vPRM[22], 
+                              # Bubble
                               vPRM[23], 
+                              # Cylinder
                               vPRM[24], 
+                              # Eyefish
                               vPRM[25], 
+                              # Blur
                               vPRM[26], 
+                              # Curl
                               (vPRM[27][0], (f"{px}_{vPRM[27][1][0][:-1]}", 1), 1), 
+                              # Ngon
                               (vPRM[28][0], (f"{px}_{vPRM[28][1][0][:-1]}", 1), 1), 
+                              # Pdj
                               (vPRM[29][0], (f"{px}_{vPRM[29][1][0][:-1]}", 1), 1), 
+                              # Blob
                               (vPRM[30][0], (f"{px}_{vPRM[30][1][0][:-1]}", 1), 1), 
+                              # JuliaN
                               (vPRM[31][0], (f"{px}_{vPRM[31][1][0][:-1]}", 1), 1), 
+                              # Juliascope
                               (vPRM[32][0], (f"{px}_{vPRM[32][1][0][:-1]}", 1), 1), 
+                              # Gaussian blur
                               (vPRM[33][0], 0), 
+                              # Fan2
                               (vPRM[34][0], (f"{px}_{vPRM[34][1][0][:-1]}", 1), 1), 
+                              # Rings2
                               (vPRM[35][0], (f"{px}_{vPRM[35][1][0][:-1]}", 0), 1), 
+                              # Rectangles
                               (vPRM[36][0], (f"{px}_{vPRM[36][1][0][:-1]}", 1), 1), 
+                              # Radialblur
                               (vPRM[37][0], (f"{px}_{vPRM[37][1][0][:-1]}", 1), 1), 
+                              # Pie
                               (vPRM[38][0], (f"{px}_{vPRM[38][1][0][:-1]}", 1), 1), 
+                              # Arch
                               vPRM[39], 
+                              # Tangent
                               vPRM[40], 
+                              # Square
                               vPRM[41], 
+                              # Rays
                               vPRM[42], 
+                              # Blade
                               vPRM[43], 
+                              # Secant2
                               vPRM[44], 
+                              # Twintrian
                               vPRM[45], 
+                              # Cross
                               vPRM[46], 
+                              # Disc2
                               (vPRM[47][0], (f"{px}_{vPRM[47][1][0][:-1]}", 1), 1), 
+                              # Supershape
                               (vPRM[48][0], (f"{px}_{vPRM[48][1][0][:-1]}", 1), (f"{px}_{vPRM[48][2][0][:-1]}", 1), 1), 
+                              # Flower
                               (vPRM[49][0], (f"{px}_{vPRM[49][1][0][:-1]}", 1), 1), 
+                              # Conic
                               (vPRM[50][0], (f"{px}_{vPRM[50][1][0][:-1]}", 1), 1), 
+                              # Parabola
                               (vPRM[51][0], (f"{px}_{vPRM[51][1][0][:-1]}", 1), 1), 
+                              # Bent2
                               (vPRM[52][0], (f"{px}_{vPRM[52][1][0][:-1]}", 1), 1), 
-                              (vPRM[53][0], (f"{px}_{vPRM[53][1][0][:-1]}", 0), 1),
-                              vPRM[54],
+                              # Bipolar
+                              (vPRM[53][0], (f"{px}_{vPRM[53][1][0][:-1]}", 0), 1), 
+                              # Boarders
+                              vPRM[54], 
+                              # Butterfly
                               vPRM[55], 
+                              # Cell
                               (vPRM[56][0], (f"{px}_{vPRM[56][1][0][:-1]}", 0), 1), 
+                              # Cpow
                               (vPRM[57][0], (f"{px}_{vPRM[57][1][0][:-1]}", 1), 1), 
+                              # Edisc
                               vPRM[58], 
+                              # Elliptic
                               vPRM[59], 
+                              # Noise
                               vPRM[60], 
+                              # Escher
                               (vPRM[61][0], (f"{px}_{vPRM[61][1][0][:-1]}", 0), 1), 
+                              # Foci
                               vPRM[62], 
+                              # Lazysusan
                               (vPRM[63][0], (f"{px}_{vPRM[63][1][0][:-1]}", 1), (f"{px}_{vPRM[63][2][0][:-1]}", 1), 1), 
+                              # Loonie
                               vPRM[64], 
+                              # Pre blur
                               vPRM[65], 
+                              # Modulus
                               (vPRM[66][0], (f"{px}_{vPRM[66][1][0][:-1]}", 1), 1), 
+                              # Oscope
                               (vPRM[67][0], (f"{px}_{vPRM[67][1][0][:-1]}", 1), 1), 
+                              # Polar2
                               vPRM[68], 
+                              # Popcorn2
                               (vPRM[69][0], (f"{px}_{vPRM[69][1][0][:-1]}", 1), (f"{px}_{vPRM[69][2][0][:-1]}", 0), 1), 
+                              # Scry
                               vPRM[70], 
+                              # Separation
                               (vPRM[71][0], (f"{px}_{vPRM[71][1][0][:-1]}", 1), (f"{px}_{vPRM[71][2][0][:-1]}", 1), 1), 
+                              # Split
                               (vPRM[72][0], (f"{px}_{vPRM[72][1][0][:-1]}", 1), 1), 
+                              # Splits
                               (vPRM[73][0], (f"{px}_{vPRM[73][1][0][:-1]}", 1), 1), 
+                              # Stripes
                               (vPRM[74][0], (f"{px}_{vPRM[74][1][0][:-1]}", 1), 1), 
+                              # Wedge
                               (vPRM[75][0], (f"{px}_{vPRM[75][1][0][:-1]}", 1), 1), 
+                              # Wedgejulia
                               (vPRM[76][0], (f"{px}_{vPRM[76][1][0][:-1]}", 1), 1), 
+                              # Wedgesph
                               (vPRM[77][0], (f"{px}_{vPRM[77][1][0][:-1]}", 1), 1), 
+                              # Whorl
                               (vPRM[78][0], (f"{px}_{vPRM[78][1][0][:-1]}", 1), 1), 
+                              # Waves2
                               (vPRM[79][0], (f"{px}_{vPRM[79][1][0][:-1]}", 1), (f"{px}_{vPRM[79][2][0][:-1]}", 1), 1), 
+                              # Exp
                               vPRM[80], 
+                              # Log
                               vPRM[81], 
+                              # Sin
                               vPRM[82], 
+                              # Cos
                               vPRM[83], 
+                              # Tan
                               vPRM[84], 
+                              # Sec
                               vPRM[85], 
+                              # Csc
                               vPRM[86], 
+                              # Cot
                               vPRM[87], 
+                              # Sinh
                               vPRM[88], 
+                              # Cosh
                               vPRM[89], 
+                              # Tanh
                               vPRM[90], 
+                              # Sech
                               vPRM[91], 
+                              # Csch
                               vPRM[92], 
+                              # Coth
                               vPRM[93], 
+                              # Auger
                               (vPRM[94][0], (f"{px}_{vPRM[94][1][0][:-1]}", 1), 1), 
+                              # Flux
                               (vPRM[95][0], (f"{px}_{vPRM[95][1][0][:-1]}", 0), 1), 
+                              # Mobius
                               (vPRM[96][0], (f"{px}_{vPRM[96][1][0][:-1]}", 1), (f"{px}_{vPRM[96][2][0][:-1]}", 1), 1),
+                              # Curve
                               (vPRM[97][0], (f"{px}_{vPRM[97][1][0][:-1]}", 1), (f"{px}_{vPRM[97][2][0][:-1]}", 1), 1), 
+                              # Perspective
                               (vPRM[98][0], (f"{px}_{vPRM[98][1][0][:-1]}", 1), 1), 
+                              # Bwraps
                               (vPRM[99][0], (f"{px}_{vPRM[99][1][0][:-1]}", 1), (f"{px}_{vPRM[99][2][0][:-1]}", 1), 1), 
+                              # Hemisphere
                               vPRM[100], 
+                              # Polynomial
                               (vPRM[101][0], (f"{px}_{vPRM[101][1][0][:-1]}", 1), (f"{px}_{vPRM[101][2][0][:-1]}", 1), (f"{px}_{vPRM[101][3][0][:-1]}", 1), 1),
+                              # Crop
                               (vPRM[102][0], (f"{px}_{vPRM[102][1][0][:-1]}", 1), (f"{px}_{vPRM[102][2][0][:-1]}", 1), 1), 
+                              # Unpolar
                               vPRM[103],
+                              # Glynnia
                               vPRM[104], 
+                              # Point symmetry
                               (vPRM[105][0], (f"{px}_{vPRM[105][1][0][:-1]}", 1), 1)
                               )
         
