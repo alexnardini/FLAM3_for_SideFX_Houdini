@@ -1990,7 +1990,7 @@ Reload preset [Icon:opdef:.?icon_actionButtonSVG.svg]:
 _This functionality is included to complete the implementation as presented in the original FLAM3 paper_.
 
 _From H19, with each new major Houdini version this functionality became slower and slower_.<br />
-_It is not yet clear to me if the issue became just the for loop, or the for loop with a invoke compile block inside or who knows. It used to be almost as fast as the one with Motion Blur turned *`OFF`*/Disabled_.
+_It is not yet clear to me if the issue became just the for loop, or the for loop with a invoke compile block inside or who knows. It used to be almost as fast as when Motion Blur is turned *`Off`*/Disabled_.
     
 
 :box:
