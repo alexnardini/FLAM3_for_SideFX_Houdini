@@ -12604,10 +12604,12 @@ class in_flame
 
     @staticmethod
     def xf_val_cleanup_split_str(val: str, default_val: str = '0', key_name: str | None = None) -> str:
-        """ Attempt to remove invalid characters from the passed value.
-        This is specifically for the XML curves data.
-        It will split each knots value and check for invalid chars and if the result is a valid float. If not it will return a '0' string by default.
-        In the end it will re-join everything for output.
+        """ Try to eliminate any invalid characters from the value that was given.</br>
+        This is especially relevant to the XML curve data.</br>
+        Each knot's value will be divided, and it will check to see if the result is a valid float and for invalid characters.</br>
+        If not, it will automatically return a string of "0."
+
+        Ultimately, it will re-join all for the output.
         
         Args:
             val(str): value from the xml
@@ -12645,7 +12647,7 @@ class in_flame
 
     @staticmethod
     def xf_val_cleanup_str(val: str, default_val: str = '0', key_name: str | None = None) -> str:
-        """ Attempt to remove invalid characters from the passed value.
+        """ Try to eliminate characters that are not allowed in the passed value.
         
         Args:
             val(str): value from the xml
@@ -12681,7 +12683,7 @@ class in_flame
 
     @staticmethod
     def xf_list_cleanup(vals: list, default_val: str = '0', key_name: str | None = None) -> list:
-        """Attempt to remove invalid characters from the list values and return a list.
+        """ Return a list after attempting to eliminate invalid characters from the provided list values.
         
         Args:
             vals(list): values from the xml
@@ -12723,7 +12725,7 @@ class in_flame
     
     @staticmethod
     def xf_list_cleanup_str(vals: list, default_val: str = '0', key_name: str | None = None) -> str:
-        """ Attempt to remove invalid characters from the list values and return a spaced joined string of the list.
+        """ Return a spaced joined string of the list after attempting to eliminate any incorrect characters from the list values.
         
         Args:
             vals(list): values from the xml
@@ -12838,7 +12840,7 @@ class in_flame
     
     @staticmethod
     def check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
-        """If all iterators have their weights set to: 0.0(ZERO), let the user know.
+        """ If all iterators have their weights set to: 0.0(ZERO), let the user know.
         
         Args:
             node(hou.SopNode): Current FLAM3H™ node we are loading a Flame preset from.
@@ -12978,7 +12980,7 @@ class in_flame
     
 
     def __is_valid_idx(self, idx: int) -> int:
-        """Make sure the fractal flame's idx passed in will always be valid and never out of range.
+        """ Make sure the fractal flame's idx passed in will always be valid and never out of range.
 
         Args:
             (self):
@@ -12991,8 +12993,8 @@ class in_flame
 
 
     def __get_xforms(self, idx: int, key: str) -> tuple | None:
-        """Get choosen fractal flame's xforms collected inside a dict each.
-        every xform in xforms is a dict coming directly from the parsed XML file.
+        """ Get choosen fractal flame's xforms collected inside a dict each.</br>
+        Every xform in xforms is a dict coming directly from the parsed XML file.
 
         Args:
             (self):
