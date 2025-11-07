@@ -113,7 +113,7 @@ def py_module_vars() -> tuple:
         __module_version__: str = '3.7'
         __module_filename__: str = "py_flam3__3_7"
     else:
-        __module_version__: str = '3.11' # type: ignore
+        __module_version__: str = '3.11'
         __module_filename__: str = "py_flam3__3_11_H21_UP"
 
     return __module_version__, __module_filename__
@@ -184,7 +184,7 @@ def py_module_vars() -> tuple:
         __module_version__: str = '3.7'
         __module_filename__: str = "py_flam3__3_7"
     else:
-        __module_version__: str = '3.11' # type: ignore
+        __module_version__: str = '3.11'
         __module_filename__: str = "py_flam3__3_11"
 
     return __module_version__, __module_filename__
@@ -255,7 +255,7 @@ def py_module_vars() -> tuple:
         __module_version__: str = '3.7'
         __module_filename__: str = "py_flam3__3_7"
     else:
-        __module_version__: str = '3.11' # type: ignore
+        __module_version__: str = '3.11'
         __module_filename__: str = "py_flam3__3_11"
 
     return __module_version__, __module_filename__
