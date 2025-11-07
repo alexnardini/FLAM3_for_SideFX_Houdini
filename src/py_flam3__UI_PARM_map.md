@@ -84,6 +84,7 @@ __range_type__: bool = False # True for closed range. False for open range
 __h_version_min__: int = 190
 __h_version_max__: int = __h_versions__[-1]
 
+
 def houdini_version(digit: int=1) -> int:
     """Retrieve the major Houdini version number currently in use.
 
@@ -94,12 +95,33 @@ def houdini_version(digit: int=1) -> int:
         (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
     """ 
     return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
-    
-h: int = houdini_version(2)
-if h < 205: __module__: str = "py_flam3__3_7"
-else: __module__: str = "py_flam3__3_11_H21_UP"
 
-flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
+
+def py_module_vars() -> tuple:
+    """Return a a tuple of two strings:</br>
+    * __module_version__ -> module python version string number
+    * __module_filename__ -> module filename to use
+
+    Args:
+        (None):
+        
+    Returns:
+        (None):
+    """ 
+    h: int = houdini_version(2)
+    if h < 205: 
+        __module_version__: str = '3.7'
+        __module_filename__: str = "py_flam3__3_7"
+    else:
+        __module_version__: str = '3.11' # type: ignore
+        __module_filename__: str = "py_flam3__3_11_H21_UP"
+
+    return __module_version__, __module_filename__
+
+
+# __module_version__ -> is used by the flam3 module we are about to create from: __module_filename__
+__module_version__, __module_filename__ = py_module_vars()
+flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_filename__)
 ```
 
 </br>
@@ -144,12 +166,33 @@ def houdini_version(digit: int=1) -> int:
         (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
     """ 
     return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
-    
-h: int = houdini_version(2)
-if h < 205: __module__: str = "py_flam3__3_7"
-else: __module__: str = "py_flam3__3_11"
 
-flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
+
+def py_module_vars() -> tuple:
+    """Return a a tuple of two strings:</br>
+    * __module_version__ -> module python version string number
+    * __module_filename__ -> module filename to use
+
+    Args:
+        (None):
+        
+    Returns:
+        (None):
+    """ 
+    h: int = houdini_version(2)
+    if h < 205: 
+        __module_version__: str = '3.7'
+        __module_filename__: str = "py_flam3__3_7"
+    else:
+        __module_version__: str = '3.11' # type: ignore
+        __module_filename__: str = "py_flam3__3_11"
+
+    return __module_version__, __module_filename__
+
+
+# __module_version__ -> is used by the flam3 module we are about to create from: __module_filename__
+__module_version__, __module_filename__ = py_module_vars()
+flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_filename__)
 ```
 
 </br>
@@ -195,11 +238,32 @@ def houdini_version(digit: int=1) -> int:
     """ 
     return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
     
-h: int = houdini_version(2)
-if h < 205: __module__: str = "py_flam3__3_7"
-else: __module__: str = "py_flam3__3_11"
 
-flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module__)
+def py_module_vars() -> tuple:
+    """Return a a tuple of two strings:</br>
+    * __module_version__ -> module python version string number
+    * __module_filename__ -> module filename to use
+
+    Args:
+        (None):
+        
+    Returns:
+        (None):
+    """ 
+    h: int = houdini_version(2)
+    if h < 205: 
+        __module_version__: str = '3.7'
+        __module_filename__: str = "py_flam3__3_7"
+    else:
+        __module_version__: str = '3.11' # type: ignore
+        __module_filename__: str = "py_flam3__3_11"
+
+    return __module_version__, __module_filename__
+
+
+# __module_version__ -> is used by the flam3 module we are about to create from: __module_filename__
+__module_version__, __module_filename__ = py_module_vars()
+flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_filename__)
 ```
 
 </br>
