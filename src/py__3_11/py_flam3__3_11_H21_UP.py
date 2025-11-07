@@ -1421,7 +1421,7 @@ class flam3h_scripts
         Args:
             h_version(int): This Houdini version.
             this_h_versions(tuple): The allowed Houdini versions this FLAM3H™ can run with.
-            kwargs(dict | None): When needed, this must be the class' self.kwargs. In the case of this definition, it will be passed in from the containing definition args. Or None
+            kwargs(dict | None): When needed, this must be the class' self.kwargs.</br>In the case of this definition, it will be passed in from the containing definition args. Or None.
             msg(bool): When False it will not run the hou display messages.
 
         Returns:
@@ -1604,12 +1604,12 @@ class flam3h_scripts
 
     @staticmethod
     def flam3h_check_first_node_instance_msg_status_bar_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
-        """This is temporary until I dnt have time to find a better solution
-        to advice the user about the first node compile time without having any leftover
-        messages in the Houdini status bar.
+        """This is temporary</br>
+        until I dnt have time to find a better solution to advice the user about the first node compile time</br>
+        without having any leftover messages in the Houdini status bar.
         
-        This definition will cook and updated the FLAM3H™ node on creation based on its CVEX precision preference's setting
-        if its display flag is True.
+        This definition will cook and updated the FLAM3H™ node on creation</br>
+        based on its CVEX precision preference's setting if its display flag is True.
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
@@ -1641,12 +1641,12 @@ class flam3h_scripts
 
     @staticmethod
     def flam3h_check_first_node_instance_msg_status_bar_no_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
-        """This is temporary until I dnt have time to find a better solution
-        to advice the user about the first node compile time without having any leftover
-        messages in the Houdini status bar.
+        """This is temporary</br>
+        until I dnt have time to find a better solution to advice the user about the first node compile time</br>
+        without having any leftover messages in the Houdini status bar.
         
-        This definition will cook and updated the FLAM3H™ node on creation based on its CVEX precision preference's setting
-        if its display flag is False.
+        This definition will cook and updated the FLAM3H™ node on creation</br>
+        based on its CVEX precision preference's setting if its display flag is False.
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
