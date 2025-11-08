@@ -33,6 +33,23 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.31 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.31) ###
+
+#### FLAM3H™ ####
+
+- **New**: Select iterator mini-menu now also print to the statusbar when invoked.
+- **New**: Options/Preferences toggles parameters should not be allowed to be animated/keyframed. Added callback script to avoid that.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.29 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.29) ###
 
 #### FLAM3H™ ####
