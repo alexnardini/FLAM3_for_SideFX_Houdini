@@ -1309,6 +1309,17 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(2)
 </br>
 
 # CP Tab
+# parameter name:    `keephsv`
+## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# CP Tab
 # parameter name:    `palettehsv`
 ## parameter type: `ramp type color RGB`
 - ### Callback Script
@@ -1517,7 +1528,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 ## parameter type: `integer`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).set_iter_on_load_callback()
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).set_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1528,7 +1539,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).set_iter_on_load_callback()
 ## parameter type: `toggle`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1539,7 +1550,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
 ## parameter type: `toggle`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1548,6 +1559,10 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
 # IN Tab
 # parameter name:    `in_f3h_affine`
 ## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_f3h_affine()
@@ -1559,6 +1574,10 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_f3h_
 # IN Tab
 # parameter name:    `propertiescp`
 ## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle("propertiescp")
@@ -1661,11 +1680,44 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_presets_copy_menu_l
 </br>
 
 # OUT Tab
+# parameter name:    `outpalette`
+## parameter type: `string`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# OUT Tab
+# parameter name:    `out_f3h_affine`
+## parameter type: `string`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# OUT Tab
 # parameter name:    `out_in_flame_name`
 ## parameter type: `string`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_load()
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_load(), kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# OUT Tab
+# parameter name:    `outfractoriumprm`
+## parameter type: `string`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1676,7 +1728,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_lo
 ## parameter type: `toggle`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
