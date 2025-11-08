@@ -1955,7 +1955,29 @@ _but do not directly impact the visual characteristics of individual fractal Fla
 ## parameter type: `toggle`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_palette_256_plus_check()
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_palette_256_plus_check(), kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `solo_follow`
+## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `flashmsg`
+## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1988,7 +2010,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_
 ## parameter type: `string`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_scripts(kwargs).flam3h_check_first_node_instance_prefs_cvex_precision_msg()
+hou.pwd().hdaModule().flam3.flam3h_scripts(kwargs).flam3h_check_first_node_instance_prefs_cvex_precision_msg(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -2011,6 +2033,39 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert(),
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(kwargs['node'])
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `camhandle`
+## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `camcull`
+## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `fcam`
+## parameter type: `Operator Path`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
