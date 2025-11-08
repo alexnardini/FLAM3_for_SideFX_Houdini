@@ -45,7 +45,6 @@ F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
 nodetype = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
 __status__ = nodetype.hdaModule().__status__
-__module_version__ = nodetype.hdaModule().__module_version__
 __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
 __h_version_min__: int = nodetype.hdaModule().__h_version_min__
 __h_version_max__: int = nodetype.hdaModule().__h_version_max__
@@ -1813,6 +1812,8 @@ class flam3h_scripts
                 
         if FIRST_TIME_MSG is True and ( first_instance_32bit is True or first_instance_64bit is True ): # type: ignore
             
+            __module_version__ = '.'.join((__py_version__.split('.'))[:2])
+            
             if cvex_precision == 32 and first_instance_32bit is True:
                 
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
@@ -1879,6 +1880,8 @@ class flam3h_scripts
             
             sys_updated_mode = hou.updateModeSetting() # type: ignore
             hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
+            
+            __module_version__ = '.'.join((__py_version__.split('.'))[:2])
             
             if cvex_precision == 32:
                 _MSG_INFO = f" FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ CVEX node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
