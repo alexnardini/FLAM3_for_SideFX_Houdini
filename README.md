@@ -321,10 +321,8 @@ Reference D: [**PDF :: The Fractal Flame Algorithm publication**](https://flam3.
 
 Reference E: [**WEB :: A more accurate Elliptic variation from Claude Heiland-Allen**](https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html)
 
-## Example videos
-
-**[FLAM3HOUDINI vimeo](https://vimeo.com/alexnardini)**
-
+</br>
+</br>
 
 ## Copyrights
 
