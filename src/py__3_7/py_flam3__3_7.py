@@ -16827,7 +16827,7 @@ class out_flame_utils
 * out_remove_iter_num(flame_name: str) -> str:
 * out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
 * out_util_round_float(val: float) -> str:
-* out_util_round_floats(val_list: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
+* out_util_round_floats(val_list: Union[list[list[str]], tuple[list]]) -> Union[list[str], tuple[str], list[list[str]]]:
 * out_util_check_duplicate_var_section(vars: list) -> bool:
 * __out_util_iterators_vars_duplicate(vars: list) -> list:
 * out_util_vars_duplicate(vars: list) -> list:
@@ -16836,7 +16836,7 @@ class out_flame_utils
 * out_file_cleanup(_out_file: str) -> str:
 * out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, out: bool = True, auto_name: bool = True) -> Union[str, bool]:
 * out_affine_rot(affine: list[Union[tuple[str], list[str]]], angleDeg: float) -> list[Union[list[str], tuple[str]]]:
-* out_xaos_cleanup(xaos: Union[list[str], list[list[str]], tuple[str]]) -> list[list[str]]:
+* out_xaos_cleanup(xaos: Union[list[str], tuple[str], list[list[str]]]) -> list[list[str]]:
 * out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list[list[str]]:
 * out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> list[list[str]]:
 * _out_pretty_print(current: lxmlET.Element, parent: Union[lxmlET.Element, None] = None, index: int = -1, depth: int = 0) -> None: #type: ignore
@@ -17301,14 +17301,14 @@ class out_flame_utils
         
         
     @staticmethod
-    def out_util_round_floats(val_list: Union[list[list[str]], tuple[list]]) -> Union[list[str], list[list[str]], tuple[str]]:
+    def out_util_round_floats(val_list: Union[list[list[str]], tuple[list]]) -> Union[list[str], tuple[str], list[list[str]]]:
         """remove floating Zero if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values 
 
         Args:
             val_list(Union[list[list[str]], tuple[list]]): A collection of values to rounds
 
         Returns:
-            (Union[list[str], list[list[str]], tuple[str]]): A list/tuple of list[str]/tuple[str] with the rounded values if any
+            (Union[list[str], tuple[str], list[list[str]]]): A list/tuple of list[str]/tuple[str] with the rounded values if any
         """    
         return [[str(int(float(i))) if float(i).is_integer() else str(round(float(i), ROUND_DECIMAL_COUNT)) for i in item] for item in val_list]
         
@@ -17637,11 +17637,11 @@ class out_flame_utils
 
 
     @staticmethod
-    def out_xaos_cleanup(xaos: Union[list[str], list[list[str]], tuple[str]]) -> list[list[str]]:
+    def out_xaos_cleanup(xaos: Union[list[str], tuple[str], list[list[str]]]) -> list[list[str]]:
         """Remove all inactive iterators from each xaos weight list.
 
         Args:
-            xaos (Union[list[str], list[list[str]], tuple[str]]): All iterators xaos values.
+            xaos (Union[list[str], tuple[str], list[list[str]]]): All iterators xaos values.
 
         Returns:
            (list[list[str]]): an iterator Xaos cleaned up from the inactive iterator's values
@@ -19614,11 +19614,11 @@ class out_flame_utils
         collect: list = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
         angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
         f3h_angleDeg: str = str(angleDeg)
-        f3h_affine: Union[list[str], list[list[str]], tuple[str]] = self.out_util_round_floats(collect)
+        f3h_affine: Union[list[str], tuple[str], list[list[str]]] = self.out_util_round_floats(collect)
         if angleDeg != 0.0:
-            affine: Union[list[str], list[list[str]], tuple[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+            affine: Union[list[str], tuple[str], list[list[str]]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
         else:
-            affine: Union[list[str], list[list[str]], tuple[str]] = f3h_affine
+            affine: Union[list[str], tuple[str], list[list[str]]] = f3h_affine
         flatten: list = [item for sublist in affine for item in sublist]
         f3h_flatten: list = [item for sublist in f3h_affine for item in sublist]
         return " ".join(flatten), " ".join(f3h_flatten), f3h_angleDeg
@@ -19639,11 +19639,11 @@ class out_flame_utils
             angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
             if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                 f3h_angleDeg: str = str(angleDeg)
-                f3h_affine: Union[list[str], list[list[str]], tuple[str]] = self.out_util_round_floats(collect)
+                f3h_affine: Union[list[str], tuple[str], list[list[str]]] = self.out_util_round_floats(collect)
                 if angleDeg != 0.0:
-                    affine: Union[list[str], list[list[str]], tuple[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+                    affine: Union[list[str], tuple[str], list[list[str]]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
                 else:
-                    affine: Union[list[str], list[list[str]], tuple[str]] = f3h_affine
+                    affine: Union[list[str], tuple[str], list[list[str]]] = f3h_affine
                 flatten: list = [item for sublist in affine for item in sublist]
                 f3h_flatten: list = [item for sublist in f3h_affine for item in sublist]
                 return " ".join(flatten), " ".join(f3h_flatten), f3h_angleDeg
