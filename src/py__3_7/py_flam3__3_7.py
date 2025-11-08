@@ -16612,7 +16612,7 @@ class in_flame_utils
         """
         node = self.node
         
-        _FLAM3H_INIT_DATA: tuple = self.in_to_flam3h_init_data(node)
+        _FLAM3H_INIT_DATA: tuple[Union[str, None], bool, int, str, bool, bool] = self.in_to_flam3h_init_data(node)
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
 
         if xml is not None and _xml_tree(xml).isvalidtree:
