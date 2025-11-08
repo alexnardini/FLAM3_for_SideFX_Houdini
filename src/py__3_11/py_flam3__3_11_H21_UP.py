@@ -12551,7 +12551,8 @@ class in_flame
 
     __slots__ = ("_cached_data", 
                  "_node", "_flame", "_flame_count", 
-                 "_out_size", "_out_center", "_out_rotate", "_out_scale", "_out_quality", "_out_brightness", "_out_gamma", "_out_highlight_power", "_out_logscale_k2", "_out_vibrancy", "_out_palette_mode", 
+                 "_out_size", "_out_center", "_out_rotate", "_out_scale", "_out_quality", "_out_brightness", "_out_gamma", "_out_highlight_power", "_out_logscale_k2", "_out_vibrancy", 
+                 "_out_palette_mode", 
                  "_out_curves", "_out_curve_overall", "_out_curve_red", "_out_curve_green", "_out_curve_blue", 
                  "_flam3h_sys_rip", "_flam3h_hsv", 
                  "_flam3h_mb", "_flam3h_mb_samples", "_flam3h_mb_shutter", "_flam3h_cp_samples", "_flam3h_cp_basis", 
@@ -12581,6 +12582,8 @@ class in_flame
         self._out_highlight_power: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER, '5') # type: ignore
         self._out_logscale_k2: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2, '0') # type: ignore
         self._out_vibrancy: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY, '0.3333') # type: ignore
+        
+        # palette lookup samples basis
         self._out_palette_mode: tuple = self.get_name(OUT_XML_FLAME_PALETTE_MODE)
         
         # render curves
@@ -17100,7 +17103,7 @@ class in_flame_utils
         """
         node = self.node
         
-        _FLAM3H_INIT_DATA: tuple = self.in_to_flam3h_init_data(node)
+        _FLAM3H_INIT_DATA: TA_F3H_Init = self.in_to_flam3h_init_data(node)
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
 
         if xml is not None and _xml_tree(xml).isvalidtree:
