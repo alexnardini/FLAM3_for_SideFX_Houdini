@@ -1,7 +1,7 @@
 ```python
 #   Title:      FLAM3H™. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       April 2023, Last revised September 2025
+#   date:       April 2023, Last revised November 2025
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
 #
@@ -69,7 +69,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.29"
+__version__ = "1.9.31"
 __status__  = "Production"
 __h_versions__: tuple = (210,)
 __range_type__: bool = False # True for closed range. False for open range
@@ -97,9 +97,8 @@ def houdini_version(digit: int=1) -> int:
     return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
 
 
-def py_module_vars() -> tuple:
-    """Return a a tuple of two strings:</br>
-    * __module_version__ -> module python version string number
+def py_module_vars() -> str:
+    """Return a strings:</br>
     * __module_filename__ -> module filename to use
 
     Args:
@@ -110,17 +109,14 @@ def py_module_vars() -> tuple:
     """ 
     h: int = houdini_version(2)
     if h < 205: 
-        __module_version__: str = '3.7'
         __module_filename__: str = "py_flam3__3_7"
     else:
-        __module_version__: str = '3.11' # type: ignore
         __module_filename__: str = "py_flam3__3_11_H21_UP"
 
-    return __module_version__, __module_filename__
+    return __module_filename__
 
 
-# __module_version__ -> is used by the flam3 module we are about to create from: __module_filename__
-__module_version__, __module_filename__ = py_module_vars()
+__module_filename__ = py_module_vars()
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_filename__)
 ```
 
@@ -141,7 +137,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.29"
+__version__ = "1.9.31"
 __status__  = "Production"
 __h_versions__: tuple = (205,)
 __range_type__: bool = True # True for closed range. False for open range
@@ -168,9 +164,8 @@ def houdini_version(digit: int=1) -> int:
     return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
 
 
-def py_module_vars() -> tuple:
-    """Return a a tuple of two strings:</br>
-    * __module_version__ -> module python version string number
+def py_module_vars() -> str:
+    """Return a strings:</br>
     * __module_filename__ -> module filename to use
 
     Args:
@@ -181,17 +176,14 @@ def py_module_vars() -> tuple:
     """ 
     h: int = houdini_version(2)
     if h < 205: 
-        __module_version__: str = '3.7'
         __module_filename__: str = "py_flam3__3_7"
     else:
-        __module_version__: str = '3.11' # type: ignore
         __module_filename__: str = "py_flam3__3_11"
 
-    return __module_version__, __module_filename__
+    return __module_filename__
 
 
-# __module_version__ -> is used by the flam3 module we are about to create from: __module_filename__
-__module_version__, __module_filename__ = py_module_vars()
+__module_filename__ = py_module_vars()
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_filename__)
 ```
 
@@ -212,7 +204,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.29"
+__version__ = "1.9.31"
 __status__  = "Production"
 __h_versions__: tuple = (190, 195, 200)
 __range_type__: bool = True # True for closed range. False for open range
@@ -239,9 +231,8 @@ def houdini_version(digit: int=1) -> int:
     return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
     
 
-def py_module_vars() -> tuple:
-    """Return a a tuple of two strings:</br>
-    * __module_version__ -> module python version string number
+def py_module_vars() -> str:
+    """Return a strings:</br>
     * __module_filename__ -> module filename to use
 
     Args:
@@ -252,17 +243,14 @@ def py_module_vars() -> tuple:
     """ 
     h: int = houdini_version(2)
     if h < 205: 
-        __module_version__: str = '3.7'
         __module_filename__: str = "py_flam3__3_7"
     else:
-        __module_version__: str = '3.11' # type: ignore
         __module_filename__: str = "py_flam3__3_11"
 
-    return __module_version__, __module_filename__
+    return __module_filename__
 
 
-# __module_version__ -> is used by the flam3 module we are about to create from: __module_filename__
-__module_version__, __module_filename__ = py_module_vars()
+__module_filename__ = py_module_vars()
 flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_filename__)
 ```
 
@@ -1321,6 +1309,17 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(2)
 </br>
 
 # CP Tab
+# parameter name:    `keephsv`
+## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# CP Tab
 # parameter name:    `palettehsv`
 ## parameter type: `ramp type color RGB`
 - ### Callback Script
@@ -1529,7 +1528,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 ## parameter type: `integer`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).set_iter_on_load_callback()
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).set_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1540,7 +1539,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).set_iter_on_load_callback()
 ## parameter type: `toggle`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1551,7 +1550,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
 ## parameter type: `toggle`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
+hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1560,6 +1559,10 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback()
 # IN Tab
 # parameter name:    `in_f3h_affine`
 ## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_f3h_affine()
@@ -1571,6 +1574,10 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_f3h_
 # IN Tab
 # parameter name:    `propertiescp`
 ## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
 - ### Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle("propertiescp")
@@ -1673,11 +1680,44 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_presets_copy_menu_l
 </br>
 
 # OUT Tab
+# parameter name:    `outpalette`
+## parameter type: `string`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# OUT Tab
+# parameter name:    `out_f3h_affine`
+## parameter type: `string`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# OUT Tab
 # parameter name:    `out_in_flame_name`
 ## parameter type: `string`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_load()
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_load(), kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# OUT Tab
+# parameter name:    `outfractoriumprm`
+## parameter type: `string`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1688,7 +1728,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_lo
 ## parameter type: `toggle`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1915,7 +1955,29 @@ _but do not directly impact the visual characteristics of individual fractal Fla
 ## parameter type: `toggle`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_palette_256_plus_check()
+hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_palette_256_plus_check(), kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `solo_follow`
+## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `flashmsg`
+## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1948,7 +2010,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_
 ## parameter type: `string`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_scripts(kwargs).flam3h_check_first_node_instance_prefs_cvex_precision_msg()
+hou.pwd().hdaModule().flam3.flam3h_scripts(kwargs).flam3h_check_first_node_instance_prefs_cvex_precision_msg(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1971,6 +2033,39 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert(),
 - ### Callback Script
 ```python
 hou.pwd().hdaModule().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(kwargs['node'])
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `camhandle`
+## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `camcull`
+## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `fcam`
+## parameter type: `Operator Path`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>

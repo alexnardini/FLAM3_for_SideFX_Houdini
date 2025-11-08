@@ -49,7 +49,6 @@ F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
 nodetype = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
 __status__ = nodetype.hdaModule().__status__
-__module_version__ = nodetype.hdaModule().__module_version__
 __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
 __h_version_min__: int = nodetype.hdaModule().__h_version_min__
 __h_version_max__: int = nodetype.hdaModule().__h_version_max__
@@ -60,7 +59,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
     Title:      FLAM3H™ H21 UP. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
-    date:       August 2025, Last revised October 2025 (cloned from: py_flam3__3_11.py)
+    date:       August 2025, Last revised November 2025 (cloned from: py_flam3__3_11.py)
                 Source file start date: April 2025
 
     Name:       PY_FLAM3__3_11_H21_UP "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -1838,6 +1837,8 @@ class flam3h_scripts
                 
         if FIRST_TIME_MSG is True and ( first_instance_32bit is True or first_instance_64bit is True ): # type: ignore
             
+            __module_version__ = '.'.join((__py_version__.split('.'))[:2])
+            
             if cvex_precision == 32 and first_instance_32bit is True:
                 
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
@@ -1904,6 +1905,8 @@ class flam3h_scripts
             
             sys_updated_mode = hou.updateModeSetting() # type: ignore
             hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
+            
+            __module_version__ = '.'.join((__py_version__.split('.'))[:2])
             
             if cvex_precision == 32:
                 _MSG_INFO = f" FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ CVEX node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
@@ -12548,7 +12551,8 @@ class in_flame
 
     __slots__ = ("_cached_data", 
                  "_node", "_flame", "_flame_count", 
-                 "_out_size", "_out_center", "_out_rotate", "_out_scale", "_out_quality", "_out_brightness", "_out_gamma", "_out_highlight_power", "_out_logscale_k2", "_out_vibrancy", "_out_palette_mode", 
+                 "_out_size", "_out_center", "_out_rotate", "_out_scale", "_out_quality", "_out_brightness", "_out_gamma", "_out_highlight_power", "_out_logscale_k2", "_out_vibrancy", 
+                 "_out_palette_mode", 
                  "_out_curves", "_out_curve_overall", "_out_curve_red", "_out_curve_green", "_out_curve_blue", 
                  "_flam3h_sys_rip", "_flam3h_hsv", 
                  "_flam3h_mb", "_flam3h_mb_samples", "_flam3h_mb_shutter", "_flam3h_cp_samples", "_flam3h_cp_basis", 
@@ -12578,6 +12582,8 @@ class in_flame
         self._out_highlight_power: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER, '5') # type: ignore
         self._out_logscale_k2: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2, '0') # type: ignore
         self._out_vibrancy: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY, '0.3333') # type: ignore
+        
+        # palette lookup samples basis
         self._out_palette_mode: tuple = self.get_name(OUT_XML_FLAME_PALETTE_MODE)
         
         # render curves
@@ -12604,10 +12610,12 @@ class in_flame
 
     @staticmethod
     def xf_val_cleanup_split_str(val: str, default_val: str = '0', key_name: str | None = None) -> str:
-        """ Attempt to remove invalid characters from the passed value.
-        This is specifically for the XML curves data.
-        It will split each knots value and check for invalid chars and if the result is a valid float. If not it will return a '0' string by default.
-        In the end it will re-join everything for output.
+        """ Try to eliminate any invalid characters from the value that was given.</br>
+        This is especially relevant to the XML curve data.</br>
+        Each knot's value will be divided, and it will check to see if the result is a valid float and for invalid characters.</br>
+        If not, it will automatically return a string of "0."
+
+        Ultimately, it will re-join all for the output.
         
         Args:
             val(str): value from the xml
@@ -12645,7 +12653,7 @@ class in_flame
 
     @staticmethod
     def xf_val_cleanup_str(val: str, default_val: str = '0', key_name: str | None = None) -> str:
-        """ Attempt to remove invalid characters from the passed value.
+        """ Try to eliminate characters that are not allowed in the passed value.
         
         Args:
             val(str): value from the xml
@@ -12681,7 +12689,7 @@ class in_flame
 
     @staticmethod
     def xf_list_cleanup(vals: list, default_val: str = '0', key_name: str | None = None) -> list:
-        """Attempt to remove invalid characters from the list values and return a list.
+        """ Return a list after attempting to eliminate invalid characters from the provided list values.
         
         Args:
             vals(list): values from the xml
@@ -12723,7 +12731,7 @@ class in_flame
     
     @staticmethod
     def xf_list_cleanup_str(vals: list, default_val: str = '0', key_name: str | None = None) -> str:
-        """ Attempt to remove invalid characters from the list values and return a spaced joined string of the list.
+        """ Return a spaced joined string of the list after attempting to eliminate any incorrect characters from the list values.
         
         Args:
             vals(list): values from the xml
@@ -12838,7 +12846,7 @@ class in_flame
     
     @staticmethod
     def check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
-        """If all iterators have their weights set to: 0.0(ZERO), let the user know.
+        """ If all iterators have their weights set to: 0.0(ZERO), let the user know.
         
         Args:
             node(hou.SopNode): Current FLAM3H™ node we are loading a Flame preset from.
@@ -12978,7 +12986,7 @@ class in_flame
     
 
     def __is_valid_idx(self, idx: int) -> int:
-        """Make sure the fractal flame's idx passed in will always be valid and never out of range.
+        """ Make sure the fractal flame's idx passed in will always be valid and never out of range.
 
         Args:
             (self):
@@ -12991,8 +12999,8 @@ class in_flame
 
 
     def __get_xforms(self, idx: int, key: str) -> tuple | None:
-        """Get choosen fractal flame's xforms collected inside a dict each.
-        every xform in xforms is a dict coming directly from the parsed XML file.
+        """ Get choosen fractal flame's xforms collected inside a dict each.</br>
+        Every xform in xforms is a dict coming directly from the parsed XML file.
 
         Args:
             (self):
@@ -17095,7 +17103,7 @@ class in_flame_utils
         """
         node = self.node
         
-        _FLAM3H_INIT_DATA: tuple = self.in_to_flam3h_init_data(node)
+        _FLAM3H_INIT_DATA: TA_F3H_Init = self.in_to_flam3h_init_data(node)
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
 
         if xml is not None and _xml_tree(xml).isvalidtree:
@@ -17311,7 +17319,7 @@ class out_flame_utils
 * out_remove_iter_num(flame_name: str) -> str:
 * out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
 * out_util_round_float(val: float) -> str:
-* out_util_round_floats(val_list: list[list[str]] | tuple[list]) -> list[str] | list[list[str]] | tuple[str]:
+* out_util_round_floats(val_list: list[list[str]] | tuple[list]) -> list[str] | tuple[str] | list[list[str]]:
 * out_util_vars_duplicate(vars: list) -> list:
 * out_check_build_file(file_split: tuple[str, str] | list[str], file_name: str, file_ext: str) -> str:
 * out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
@@ -17808,16 +17816,18 @@ class out_flame_utils
         
         
     @staticmethod
-    def out_util_round_floats(val_list: list[list[str]] | tuple[list]) -> list[str] | list[list[str]] | tuple[str]:
+    def out_util_round_floats(val_list: list[list[str]] | tuple[list]) -> list[str] | tuple[str] | list[list[str]]:
         """remove floating Zeros if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values 
 
         Args:
             val_list(list[list[str]] | tuple[list]): A collection of values to rounds
 
         Returns:
-            (list[str] | list[list[str]] | tuple[str]): A list/tuple of list[str]/tuple[str] with the rounded values if any
+            (list[str] | tuple[str] | list[list[str]]): A list/tuple of list[str]/tuple[str] with the rounded values if any
         """    
-        return [[str(int(float(i))) if float(i).is_integer() else str(round(float(i), ROUND_DECIMAL_COUNT)) for i in item] for item in val_list]
+        _is_integer: Callable[[float], bool] = float.is_integer
+        _round: Callable[[float, int], float] = round
+        return [[str(int(float(i))) if _is_integer(float(i)) else str(_round(float(i), ROUND_DECIMAL_COUNT)) for i in item] for item in val_list]
     
     
     @staticmethod
@@ -20115,11 +20125,11 @@ class out_flame_utils
         collect: list = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
         angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
         f3h_angleDeg: str = str(angleDeg)
-        f3h_affine: list[str] | list[list[str]] | tuple[str] = self.out_util_round_floats(collect)
+        f3h_affine: list[str] | tuple[str] | list[list[str]] = self.out_util_round_floats(collect)
         if angleDeg != 0.0:
-            affine: list[str] | list[list[str]] | tuple[str] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+            affine: list[str] | tuple[str] | list[list[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
         else:
-            affine: list[str] | list[list[str]] | tuple[str] = f3h_affine
+            affine: list[str] | tuple[str] | list[list[str]] = f3h_affine
         flatten: list = [item for sublist in affine for item in sublist]
         f3h_flatten: list = [item for sublist in f3h_affine for item in sublist]
         
@@ -20141,11 +20151,11 @@ class out_flame_utils
             angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
             if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                 f3h_angleDeg: str = str(angleDeg)
-                f3h_affine: list[str] | list[list[str]] | tuple[str] = self.out_util_round_floats(collect)
+                f3h_affine: list[str] | tuple[str] | list[list[str]] = self.out_util_round_floats(collect)
                 if angleDeg != 0.0:
-                    affine: list[str] | list[list[str]] | tuple[str] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+                    affine: list[str] | tuple[str] | list[list[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
                 else:
-                    affine: list[str] | list[list[str]] | tuple[str] = f3h_affine
+                    affine: list[str] | tuple[str] | list[list[str]] = f3h_affine
                 flatten: list = [item for sublist in affine for item in sublist]
                 f3h_flatten: list = [item for sublist in f3h_affine for item in sublist]
                 
