@@ -1781,7 +1781,7 @@ class flam3h_scripts
     
     
     def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
-        """Check FLAM3H™ compatibility based on the type of range(of Houdini versions)
+        """Check FLAM3H™ compatibility based on the type of range(of Houdini versions)</br>
         
         * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside: nodetype.hdaModule().__h_versions__ before being properly fine tuned.
         * range_close -> mean FLAM3H™ will run only on Houdini versions included inside: nodetype.hdaModule().__h_versions__
