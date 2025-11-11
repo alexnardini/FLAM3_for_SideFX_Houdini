@@ -6546,9 +6546,10 @@ class flam3h_iterator_utils
         Returns:
             (tuple[int, float]): int: variation idx.    float: weight value
         """  
-        _TYPE: int = int(self.kwargs['parm'].eval()) # this can be animated with inbetween values so we always force cast it as int()
+        prm: hou.Parm = self.kwargs['parm']
+        _TYPE: int = prm.evalAsInt() # this can be animated with inbetween values so we always force cast it as int()
         idx: str = self.kwargs['script_multiparm_index']
-        prm_weight_name: str = f"{str(self.kwargs['parm'].name()).split('type')[0]}weight_{idx}"
+        prm_weight_name: str = f"{str(prm.name()).split('type')[0]}weight_{idx}"
         return _TYPE, self.node.parm(prm_weight_name).eval()
     
     
@@ -6561,8 +6562,9 @@ class flam3h_iterator_utils
         Returns:
             (tuple[int, float]): int: variation idx.    float: weight value
         """  
-        _TYPE: int = int(self.kwargs['parm'].eval()) # this can be animated with inbetween values so we always force cast it as int()
-        prm_weight_name: str = f"{str(self.kwargs['parm'].name()).split('type')[0]}weight"
+        prm: hou.Parm = self.kwargs['parm']
+        _TYPE: int = prm.evalAsInt() # this can be animated with inbetween values so we always force cast it as int()
+        prm_weight_name: str = f"{str(prm.name()).split('type')[0]}weight"
         return _TYPE, self.node.parm(prm_weight_name).eval()
 
     
