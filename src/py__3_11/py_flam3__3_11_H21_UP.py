@@ -18311,8 +18311,8 @@ class out_flame_utils
                             
                         val.append([float(x.strip()) for x in _xaos_strip])
                         
-                    except Exception as e: # I do not remember so lets catch one
-                        print(f"FLAM3H™ Error\ndef out_xaos_collect()\nCaught an error: {type(e).__name__}: {e}")
+                    except Exception as e: # I do not remember so lets try to catch one
+                        print(f"FLAM3H™ Error\nPython {__py_version__} H21 UP\ndef out_xaos_collect(...)\nCaught an error: {type(e).__name__}: {e}")
                         if val_prev is not None:
                             val.append(val_prev[iter])
                             
