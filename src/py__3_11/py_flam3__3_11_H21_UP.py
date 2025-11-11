@@ -16304,7 +16304,7 @@ class in_flame_utils
             node = self.node
             xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
 
-            if _xml_tree(xml).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and node.parm(IN_PVT_ISVALID_PRESET).eval():
+            if xml and _xml_tree(xml).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and node.parm(IN_PVT_ISVALID_PRESET).eval():
                 
                 in_idx: int = int(node.parm(IN_PRESETS).eval())
                 is_clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
@@ -16388,7 +16388,7 @@ class in_flame_utils
             node = self.node
             xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
 
-            if _xml_tree(xml).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and not node.parm(IN_PVT_ISVALID_PRESET).eval():
+            if xml and _xml_tree(xml).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and not node.parm(IN_PVT_ISVALID_PRESET).eval():
                     
                 menu: list = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
@@ -19193,7 +19193,7 @@ class out_flame_utils
             # Instead of the lightweight version class: _xml(...)
             apo = _xml_tree(xml)
             
-            if apo.isvalidtree:
+            if xml and apo.isvalidtree:
                 
                 menu: list = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
