@@ -5442,7 +5442,7 @@ class flam3h_iterator_utils
             # If this node do not posses the copy/paste data, lets first check if the data and its node exist (other FLAM3H™ node)
             # before clearing it out
             try: 
-                hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
                 hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
             except:
                 hou.session.FLAM3H_MARKED_FF_NODE: Union[hou.SopNode, None] = None # type: ignore
@@ -12827,12 +12827,18 @@ class in_flame
                 except:
                     return None
                 else:
-                    rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
-                    format: Union[str, None] = dict(palette_attrib).get(XML_PALETTE_FORMAT)
-                    ramp_keys_count: int = len(rgb_from_XML_PALETTE)
-                    POSs: list = list(it_islice(it_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
-                    BASESs: list = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
-                    return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), ramp_keys_count, str(format)
+                    
+                    if RGBs:
+                    
+                        rgb_from_XML_PALETTE: list = [(RGBs[idx][0]/(255 + 0.0), RGBs[idx][1]/(255 + 0.0), RGBs[idx][2]/(255 + 0.0)) for idx in range(len(HEXs))]
+                        format: Union[str, None] = dict(palette_attrib).get(XML_PALETTE_FORMAT)
+                        ramp_keys_count: int = len(rgb_from_XML_PALETTE)
+                        POSs: list = list(it_islice(it_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
+                        BASESs: list = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
+                        return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), ramp_keys_count, str(format)
+                    
+                    else:
+                        return None
 
             else:
                 return None

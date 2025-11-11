@@ -5620,7 +5620,7 @@ class flam3h_iterator_utils
             try: 
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
-            except AttributeError:
+            except (AttributeError, hou.ObjectWasDeleted):
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
             
@@ -5632,9 +5632,9 @@ class flam3h_iterator_utils
             # If this node do not posses the copy/paste data, lets first check if the data and its node exist (other FLAM3H™ node)
             # before clearing it out
             try: 
-                hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
                 hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
-            except AttributeError:
+            except (AttributeError, hou.ObjectWasDeleted):
                 hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
                 hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
 
@@ -7422,6 +7422,12 @@ class flam3h_iterator_utils
                 try:
                     assert from_FLAM3H_NODE is not None
                     __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+                except AssertionError:
+                    from_FLAM3H_NODE = None
+                    __FLAM3H_DATA_PRM_MPIDX = 0
+                except AttributeError:
+                    from_FLAM3H_NODE = None
+                    __FLAM3H_DATA_PRM_MPIDX = 0
                 except hou.ObjectWasDeleted:
                     return None, None, isDELETED
                 
@@ -7554,7 +7560,7 @@ class flam3h_iterator_utils
             try:
                 assert from_FLAM3H_NODE is not None
                 from_FLAM3H_NODE.type()
-            except AttributeError:
+            except (AttributeError, AssertionError):
                 from_FLAM3H_NODE_FF_CHECK = None
                 from_FLAM3H_NODE = None
                 isDELETED = True
