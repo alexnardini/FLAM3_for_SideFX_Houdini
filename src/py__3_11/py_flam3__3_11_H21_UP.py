@@ -2118,8 +2118,10 @@ class flam3h_scripts
         if flam3h_general_utils(self.kwargs).util_other_xf_viz() is False:
             hou.session.H_VIEWPORT_WIRE_WIDTH: float = 3 # type: ignore
         else:
-            try: hou.session.H_VIEWPORT_WIRE_WIDTH # type: ignore
-            except: hou.session.H_VIEWPORT_WIRE_WIDTH: float = 3 # type: ignore
+            try:
+                hou.session.H_VIEWPORT_WIRE_WIDTH # type: ignore
+            except AttributeError:
+                hou.session.H_VIEWPORT_WIRE_WIDTH: float = 3 # type: ignore
     
     
     def flam3h_presets_cache_filepath_on_load(self) -> None:
@@ -12344,13 +12346,13 @@ class _xml_tree
             
             if xmlfile is not None:
                 try:
-                    tree = lxmlET.ElementTree(lxmlET.fromstring(xmlfile)) # type: ignore
+                    tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(xmlfile)) # type: ignore
                 except lxmlET.XMLSyntaxError:
                     return None
                 
             else:
                 try:
-                    tree = lxmlET.parse(xmlfile) # type: ignore
+                    tree: lxmlET._ElementTree = lxmlET.parse(xmlfile) # type: ignore
                 except OSError:
                     return None
                 except lxmlET.XMLSyntaxError:
@@ -12358,7 +12360,7 @@ class _xml_tree
                 
         else:
             try:
-                tree = lxmlET.parse(xmlfile) # type: ignore
+                tree: lxmlET._ElementTree = lxmlET.parse(xmlfile) # type: ignore
             except OSError:
                 return None
             except lxmlET.XMLSyntaxError:
@@ -12404,9 +12406,15 @@ class _xml_tree
             (bool): True if it is a valid flame preset data or False if Not
         """
         try:
+            tree: lxmlET._ElementTree = lxmlET.parse(xmlfile) # type: ignore
+        except OSError:
+            return False
+        except lxmlET.XMLSyntaxError:
+            return False
+        
+        else:
             
-            tree = lxmlET.parse(xmlfile) # type: ignore
-            if isinstance(tree, lxmlET.ElementTree): # type: ignore
+            if isinstance(tree, lxmlET._ElementTree): # type: ignore
                 
                 root = tree.getroot()
                 if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
@@ -12419,9 +12427,6 @@ class _xml_tree
                 
                 return False
             
-            return False
-        
-        except:
             return False
 
 
@@ -13260,12 +13265,8 @@ class in_flame
         
         if self.isvalidtree:
             assert self.flame is not None
-            try:
-                palette_attrib: dict | None = self.flame[idx].find(key).attrib
+            palette_attrib: dict | None = self.flame[idx].find(key).attrib
             
-            except:
-                palette_attrib: dict | None = None
-
             if palette_attrib is not None:
                 
                 # _HEX = []
@@ -13283,20 +13284,26 @@ class in_flame
                     _hex_to_rgb: Callable[[str], tuple] = flam3h_palette_utils.hex_to_rgb
                     RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                     
-                except:
+                except ValueError:
                     return None
                 
                 else:
-                    # Convert to NumPy array and normalize
-                    RGBs_array: NDArray[np_float32] = np_array(RGBs[:len(HEXs)], dtype=np_float32)
-                    rgb_from_XML_PALETTE: list = (RGBs_array / 255.0).tolist()
                     
-                    format: str | None = dict(palette_attrib).get(XML_PALETTE_FORMAT)
-                    ramp_keys_count: int = len(rgb_from_XML_PALETTE)
-                    POSs: list = list(it_islice(it_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
-                    BASESs: list = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
+                    if RGBs:
+                        
+                        # Convert to NumPy array and normalize
+                        RGBs_array: NDArray[np_float32] = np_array(RGBs[:len(HEXs)], dtype=np_float32)
+                        rgb_from_XML_PALETTE: list = (RGBs_array / 255.0).tolist()
+                        
+                        format: str | None = dict(palette_attrib).get(XML_PALETTE_FORMAT)
+                        ramp_keys_count: int = len(rgb_from_XML_PALETTE)
+                        POSs: list = list(it_islice(it_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
+                        BASESs: list = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
+                        
+                        return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), ramp_keys_count, str(format)
                     
-                    return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), ramp_keys_count, str(format)
+                    else:
+                        return None
 
             return None
         
@@ -13349,7 +13356,7 @@ class in_flame
                     try:
                         return int(mb_do)
                     
-                    except:
+                    except ValueError:
                         return False
 
                 elif key == OUT_XML_FLMA3H_MB_SAMPLES:
@@ -13478,7 +13485,7 @@ class in_flame
                 try:
                     return int(toggle)
                 
-                except:
+                except ValueError:
                     return None
 
             return None
@@ -14069,16 +14076,16 @@ class in_flame_utils
         Returns:
             (bool): attempt_to_load_from_clipboard ( bool ): Is it a Chaotica's flame preset ? True or False.
         """ 
-        try: tree = lxmlET.parse(xml) # type: ignore
-        except: tree = None
-              
-        if tree is not None:
+        try:
+            tree: lxmlET._ElementTree = lxmlET.parse(xml)
+        except lxmlET.XMLSyntaxError:
+            return False
+            
+        else:
             if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag.lower():
                 return True
             
             return False
-        
-        return False
 
 
     @staticmethod
@@ -14092,16 +14099,18 @@ class in_flame_utils
             (bool): attempt_to_load_from_clipboard ( bool ): Is it a Chaotica's flame preset ? True or False.
         """     
         xml: str = hou.ui.getTextFromClipboard() # type: ignore
-        try: tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
-        except: tree = None
+        try:
+            tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+        except ValueError:
+            return False
+        except lxmlET.XMLSyntaxError:
+            return False
         
-        if tree is not None:
+        else:
             if XML_VALID_CHAOS_ROOT_TAG in tree.getroot().tag.lower():
                 return True
             
             return False
-        
-        return False
 
 
     @staticmethod
@@ -14949,7 +14958,7 @@ class in_flame_utils
             try:
                 return int(splt[-1])
             
-            except:
+            except ValueError:
                 return None
             
         return None
@@ -15206,22 +15215,22 @@ class in_flame_utils
             (None):
         """  
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split()[0]), int(f3r.out_size[preset_id].split()[1])))}) # type: ignore
-        except: # If missing set it to its default
+        except AttributeError: # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(1024), int(1024)))}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_SIZE} -> NOT FOUND, default value used.\n")
             
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split()[0]), float(f3r.out_center[preset_id].split()[1])))}) # type: ignore
-        except: # If missing set it to its default
+        except AttributeError: # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(0), float(0)))}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_CENTER} -> NOT FOUND, default value used.\n")
             
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): float(f3r.out_rotate[preset_id])}) # type: ignore
-        except: # If missing set it to its default
+        except AttributeError: # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE): float(0)}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_ROTATE} -> NOT FOUND, default value used.\n")
             
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): float(f3r.out_scale[preset_id])}) # type: ignore
-        except: # If missing set it to its default
+        except AttributeError: # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE): float(400)}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_SCALE} -> NOT FOUND, default value used.\n")
     
@@ -15239,32 +15248,32 @@ class in_flame_utils
             (None):
         """  
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(f3r.out_quality[preset_id])}) # type: ignore
-        except: # If missing set it to its default
+        except AttributeError: # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): int(1000)}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_QUALITY} -> NOT FOUND, default value used.\n")
             
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): float(f3r.out_brightness[preset_id])}) # type: ignore
-        except: # If missing set it to its default
+        except AttributeError: # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): float(3)}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_BRIGHTNESS} -> NOT FOUND, default value used.\n")
             
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): float(f3r.out_gamma[preset_id])}) # type: ignore
-        except: # If missing set it to its default
+        except AttributeError: # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA): float(2.5)}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_GAMMA} -> NOT FOUND, default value used.\n")
             
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): float(f3r.out_highlight_power[preset_id])}) # type: ignore
-        except: # If missing set it to its default
+        except AttributeError: # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER): float(5.0)}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_POWER} -> NOT FOUND, default value used.\n")
             
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): float(f3r._out_logscale_k2[preset_id])}) # type: ignore
-        except: # If missing set it to its default
+        except AttributeError: # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2): float(0)}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_K2} -> NOT FOUND, default value used.\n")
             
         try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(f3r.out_vibrancy[preset_id])}) # type: ignore
-        except: # If missing set it to its default
+        except AttributeError: # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY): float(0.3333)}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_VIBRANCY} -> NOT FOUND, default value used.\n")
     
@@ -15287,7 +15296,7 @@ class in_flame_utils
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT}) # type: ignore
         else:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): f3r.out_curves[preset_id]}) # type: ignore
-            except: # If missing set it to its default
+            except (AttributeError, TypeError): # If missing set it to its default
                 node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT}) # type: ignore
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVES} -> NOT FOUND, default value used.\n")
@@ -15296,7 +15305,7 @@ class in_flame_utils
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
         else:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): f3r.out_curve_overall[preset_id]}) # type: ignore
-            except: # If missing set it to its default
+            except (AttributeError, TypeError): # If missing set it to its default
                 node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVE_OVERALL} -> NOT FOUND, default value used.\n")
@@ -15305,7 +15314,7 @@ class in_flame_utils
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
         else:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): f3r.out_curve_red[preset_id]}) # type: ignore
-            except: # If missing set it to its default
+            except (AttributeError, TypeError): # If missing set it to its default
                 node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVE_RED} -> NOT FOUND, default value used.\n")
@@ -15314,7 +15323,7 @@ class in_flame_utils
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
         else:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): f3r.out_curve_green[preset_id]}) # type: ignore
-            except: # If missing set it to its default
+            except (AttributeError, TypeError): # If missing set it to its default
                 node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVE_GREEN} -> NOT FOUND, default value used.\n")
@@ -15323,7 +15332,7 @@ class in_flame_utils
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
         else:
             try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): f3r.out_curve_blue[preset_id]}) # type: ignore
-            except: # If missing set it to its default
+            except (AttributeError, TypeError): # If missing set it to its default
                 node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}) # type: ignore
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVE_BLUE} -> NOT FOUND, default value used.\n")
@@ -16948,19 +16957,20 @@ class in_flame_utils
                                  * chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """     
         xml: str = hou.ui.getTextFromClipboard() # type: ignore
-        try: tree: lxmlET.ElementTree | None = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
-        except: tree: lxmlET.ElementTree | None = None
-        
-        if tree is not None:
-            assert xml is not None
-            if any(True for _ in tree.getroot().iter(XML_FLAME_NAME)):
-                flame_name_clipboard: str = _xml_tree(xml).name[0]
-                return xml, True, 0, flame_name_clipboard, True, False
-            
-            if self.in_to_flam3h_is_CHAOS(xml):
-                return None, False, 0, '', True, True
-            
+        try:
+            tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+        except ValueError:
             return None, False, 0, '', True, False
+        except lxmlET.XMLSyntaxError:
+            return None, False, 0, '', True, False
+        
+        assert xml is not None
+        if any(True for _ in tree.getroot().iter(XML_FLAME_NAME)):
+            flame_name_clipboard: str = _xml_tree(xml).name[0]
+            return xml, True, 0, flame_name_clipboard, True, False
+        
+        if self.in_to_flam3h_is_CHAOS(xml):
+            return None, False, 0, '', True, True
         
         return None, False, 0, '', True, False
 
@@ -17120,10 +17130,9 @@ class in_flame_utils
         """ 
         # The following try/except block is in place to avoid a 'KeyError' when
         # loading a flame preset from the menu parameter entries instead of clicking the Action Button's icon.
-        
         try:
             self.kwargs['alt']
-        except:
+        except KeyError:
             _K: bool = False
         else:
             _K: bool = True
@@ -17753,14 +17762,15 @@ class out_flame_utils
                     rp[:] = [item for item in rp if item]
             
             is_int: bool = True
-            try:
-                # if the name is a number, I want to still add the iteration num to it
-                # and not evaluate this as integer, even if it is an integer.
-                if rp[-1] != name:
+
+            # if the name is a number, I want to still add the iteration num to it
+            # and not evaluate this as integer, even if it is an integer.
+            if rp[-1] != name:
+                try:
                     int(rp[-1].strip())
-                else:
+                except ValueError:
                     is_int: bool = False
-            except:
+            else:
                 is_int: bool = False
                 
             if is_int is False:
@@ -17816,14 +17826,14 @@ class out_flame_utils
                 rp: tuple = flame_name.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV)
 
                 is_int: bool = False
-                try:
-                    if rp[-1] != flame_name:
+                if rp[-1] != flame_name:
+                    try:
                         int(rp[-1])
-                        is_int = True
-                    else:
+                    except ValueError:
                         pass
-                    
-                except:
+                    else:
+                        is_int = True
+                else:
                     pass
                 
                 if is_int:
@@ -17856,15 +17866,16 @@ class out_flame_utils
             rp: tuple = flame_name.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV)
 
             is_int: bool = False
-            try:
-                if rp[-1] != flame_name:
+            
+            if rp[-1] != flame_name:
+                try:
                     int(rp[-1])
-                    is_int = True
-                    
-                else:
+                except ValueError:
                     pass
+                else:
+                    is_int = True
                 
-            except:
+            else:
                 pass
             
             if is_int:
@@ -18327,7 +18338,7 @@ class out_flame_utils
                         if isinstance(float(iter_xaos_clean), float):
                             isNUM = True
                             
-                    except:
+                    except ValueError:
                         pass
                     
                     # If a number is typed, fill all xaos weights with that number.
@@ -18700,16 +18711,8 @@ class out_flame_utils
                 
                 palette: int = -1
                 if apo_data.palette is not None:
-                    try:
-                        palette = apo_data.palette[1]
                     
-                    except:
-                        try:
-                            palette = len(apo_data.palette[0].keys())
-                        
-                        except:
-                            pass
-                    
+                    palette = len(apo_data.palette[0].keys())
                     build.append(f"Palette: {str(palette)}")
                     build_flash = build.copy()
                     if apo_data.cp_flam3h_hsv is not False:
@@ -18722,6 +18725,10 @@ class out_flame_utils
                     build.append(f"Basis: {basis}")
                     build_flash.append(basis)
                     
+                else:
+                    build.append('Palette not Found')
+                    build_flash = build.copy()
+                
                 # As last, so we dnt add those to the build_flash list
                 if apo_data.prefs_flam3h_f3c is not None and apo_data.prefs_flam3h_f3c:
                     build.insert(0, 'F3C')
@@ -18730,7 +18737,7 @@ class out_flame_utils
                 if apo_data.finalxform is not None: 
                     build.insert(0,'FF')
                     build_flash.insert(0,'FF') # also in the build flash message string
-
+                
                 # Build and Display infos
                 _MSG: str = ', '.join(build)
                 _MSG_FLASH: str = ', '.join(build_flash)
@@ -19995,31 +20002,24 @@ class out_flame_utils
         node = self.node
         if prm_name:
             
-            _VALID_PRM: bool = False
-            try:
-                prm: hou.Parm | hou.ParmTuple = node.parmTuple(prm_name)
-                _VALID_PRM = True
-            except:
-                try:
-                    prm: hou.Parm | hou.ParmTuple = node.parm(prm_name)
-                    _VALID_PRM = True
-                except:
-                    pass
-            
-            if _VALID_PRM:
+            prm: hou.Parm | hou.ParmTuple | None = node.parm(prm_name)
+            if prm is None:
+                prm = node.parmTuple(prm_name)
+                
+            if prm is not None:
                 
                 if isinstance(prm, hou.ParmTuple):
                     try:
                         _out_util_round_float: Callable[[float], str] = self.out_util_round_float
                         return ' '.join([str(_out_util_round_float(float(val))) for val in prm.eval()])
-                    except:
+                    except ValueError:
                         print(f"Warning:\n{node.name()}: parameter tuple name: \"{prm_name}\" not a valid value or string value tuple. Please pass in a valid FLAM3H™ parameter tuple name.\n")
                         return ''
                 
                 else:
                     try:
                         return self.out_util_round_float(float(prm.eval()))
-                    except:
+                    except ValueError:
                         print(f"Warning:\n{node.name()}: parameter name: \"{prm_name}\" not a valid value or string value. Please pass in a valid FLAM3H™ parameter name.\n")
                         return ''
                 
@@ -20355,7 +20355,7 @@ class out_flame_utils
             try:
                 return self.out_util_round_float(float(self.node.parm(prm_name).eval()))
             
-            except:
+            except ValueError:
                 print(f"Warning:\n{self.node.name()}: Motion Blur parameter name: \"{prm_name}\" not found. Please pass in a valid FLAM3H™ Motion Blur val parameter name.\n")
                 return False
             
