@@ -7425,7 +7425,7 @@ class flam3h_iterator_utils
                 except hou.ObjectWasDeleted:
                     return None, None, isDELETED
                 
-            try:
+            try: # I know, such a big try/except block but hey, some time you gotta do what you gotta do ;)
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
                 mp_id_from: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
                 
@@ -12347,6 +12347,8 @@ class _xml_tree
             if xmlfile is not None:
                 try:
                     tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(xmlfile)) # type: ignore
+                except ValueError:
+                    return None
                 except lxmlET.XMLSyntaxError:
                     return None
                 
@@ -12365,7 +12367,7 @@ class _xml_tree
                 return None
             except lxmlET.XMLSyntaxError:
                 return None
-            
+        
         root = tree.getroot()
         root_tag = root.tag.lower()
         if XML_VALID_FLAMES_ROOT_TAG not in root_tag:
@@ -14078,6 +14080,8 @@ class in_flame_utils
         """ 
         try:
             tree: lxmlET._ElementTree = lxmlET.parse(xml)
+        except OSError:
+            return False
         except lxmlET.XMLSyntaxError:
             return False
             
