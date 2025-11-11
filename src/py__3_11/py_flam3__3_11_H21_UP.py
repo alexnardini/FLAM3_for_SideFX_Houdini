@@ -10650,7 +10650,7 @@ class flam3h_palette_utils
                 try:
                     hsv_vals: list = [float(x) for x in str(data[CP_JSON_KEY_NAME_HSV]).split(' ')]
                     hsv_check: bool = True
-                except ValueError:
+                except (ValueError, KeyError):
                     hsv_vals: list = []
                     hsv_check: bool = False
                 
@@ -16445,9 +16445,10 @@ class in_flame_utils
                 if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
                 data = None
             elif xml and is_valid:
-                # This caused some pain becasue it is forcing us not to tell the truth sometime
-                # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
-                flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
+                if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): # to double check
+                    # This caused some pain becasue it is forcing us not to tell the truth sometime
+                    # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
+                    flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
                 
             if data is not None and data_idx == preset_idx:
                 return data
@@ -18310,8 +18311,8 @@ class out_flame_utils
                             
                         val.append([float(x.strip()) for x in _xaos_strip])
                         
-                    except:
-                        
+                    except Exception as e: # I do not remember so lets catch one
+                        print(f"FLAM3H™ Error\ndef out_xaos_collect()\nCaught an error: {type(e).__name__}: {e}")
                         if val_prev is not None:
                             val.append(val_prev[iter])
                             
@@ -18335,11 +18336,13 @@ class out_flame_utils
                     iter_xaos_clean: str = in_flame.xf_val_cleanup_str(iter_xaos, '@') # default_val here is set to an invalid char to make it fail on purpose if needed
                     
                     try:
-                        if isinstance(float(iter_xaos_clean), float):
-                            isNUM = True
+                        float(iter_xaos_clean)
                             
                     except ValueError:
                         pass
+                    
+                    else:
+                        isNUM = True
                     
                     # If a number is typed, fill all xaos weights with that number.
                     if isNUM:
