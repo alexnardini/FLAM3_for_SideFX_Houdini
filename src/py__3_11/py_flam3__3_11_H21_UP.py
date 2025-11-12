@@ -1304,7 +1304,7 @@ class flam3h_scripts
 
 @STATICMETHODS
 * flam3h_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
-* flam3h_exception_print_infos(e: Any, traceback_info: bool = False) -> None:
+* flam3h_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
 * flam3h_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
 * flam3h_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
 * flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
@@ -1350,13 +1350,14 @@ class flam3h_scripts
         
         
     @staticmethod
-    def flam3h_exception_print_infos(e: Any, traceback_info: bool = False) -> None:
+    def flam3h_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
         """ Simple print exception infos.</br>
         Addiotianlly it can print also the full traceback infos.
         
         Args:
             e(Any): Any of the exceptions type.
             traceback_info(bool): Default to False. If True, it will print also the full traceback.
+            extra_info(str | None): Default to None: Add a string message to print it under a: "Extra info" message
             
         Returns:
             (None):
@@ -1375,10 +1376,12 @@ class flam3h_scripts
             tb = tb.tb_next
             
         print(f"FLAM3H™ Exception Type: {exc_type}")
-        print(f"FLAM3H™ PY filename: {__module_filename__}")
-        print(f"Module name: {filename}")
-        print(f"Module line: {lineno}")
-        print(f"Message: {str(e)}")
+        print(f"\tPY filename: {__module_filename__}")
+        print(f"\tModule name: {filename}")
+        print(f"\tCode line: {lineno}")
+        print(f"\tMessage: {str(e)}")
+        if extra_info is not None:
+            print(f"\tExtra info: {extra_info}")
         
         # Optional
         if traceback_info:
@@ -10716,7 +10719,8 @@ class flam3h_palette_utils
                     _hex_to_rgb: Callable[[str], tuple] = self.hex_to_rgb
                     RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                     
-                except ValueError:
+                except ValueError as e:
+                    flam3h_scripts.flam3h_exception_print_infos(e)
                     rgb_from_XML_PALETTE: list = []
                     
                 else:
@@ -10916,7 +10920,8 @@ class flam3h_palette_utils
                         _hex_to_rgb: Callable[[str], tuple] = self.hex_to_rgb
                         RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                         
-                    except ValueError:
+                    except ValueError as e:
+                        flam3h_scripts.flam3h_exception_print_infos(e)
                         rgb_from_XML_PALETTE: list = []
                         
                     else:
@@ -12424,18 +12429,23 @@ class _xml_tree
                 except OSError:
                     return None
                 
-                except lxmlET.XMLSyntaxError:
+                except lxmlET.XMLSyntaxError as e:
                     return None
                 
         else:
             
-            try:
-                tree: lxmlET._ElementTree = lxmlET.parse(xmlfile) # type: ignore
+            if xmlfile is not None and os.path.isfile(xmlfile):
                 
-            except OSError:
-                return None
-            
-            except lxmlET.XMLSyntaxError:
+                try:
+                    tree: lxmlET._ElementTree = lxmlET.parse(xmlfile) # type: ignore
+                    
+                except OSError:
+                    return None
+                
+                except lxmlET.XMLSyntaxError as e:
+                    return None
+                
+            else:
                 return None
         
         root: lxmlET._Element = tree.getroot()
@@ -12477,28 +12487,32 @@ class _xml_tree
         Returns:
             (bool): True if it is a valid flame preset data or False if Not
         """
-        try:
-            tree: lxmlET._ElementTree = lxmlET.parse(xmlfile) # type: ignore
-        except OSError:
-            return False
-        except lxmlET.XMLSyntaxError:
-            return False
-        
-        else:
+        if os.path.isfile(xmlfile):
             
-            if isinstance(tree, lxmlET._ElementTree): # type: ignore
+            try:
+                tree: lxmlET._ElementTree = lxmlET.parse(xmlfile) # type: ignore
+            except OSError:
+                return False
+            except lxmlET.XMLSyntaxError as e:
+                return False
+            
+            else:
                 
-                root: lxmlET._Element = tree.getroot()
-                if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
+                if isinstance(tree, lxmlET._ElementTree): # type: ignore
                     
-                    # If there are flames, proceed
-                    if any(True for _ in tree.getroot().iter(XML_FLAME_NAME)):
-                        return True
+                    root: lxmlET._Element = tree.getroot()
+                    if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
+                        
+                        # If there are flames, proceed
+                        if any(True for _ in tree.getroot().iter(XML_FLAME_NAME)):
+                            return True
+                        
+                        return False
                     
                     return False
                 
                 return False
-            
+        else:    
             return False
 
 
@@ -13360,7 +13374,8 @@ class in_flame
                     _hex_to_rgb: Callable[[str], tuple] = flam3h_palette_utils.hex_to_rgb
                     RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                     
-                except ValueError:
+                except ValueError as e:
+                    flam3h_scripts.flam3h_exception_print_infos(e)
                     return None
                 
                 else:
