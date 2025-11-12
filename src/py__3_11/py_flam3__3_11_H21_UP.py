@@ -9934,8 +9934,7 @@ class flam3h_palette_utils
                 preset_name: str = list(json.load(r).keys())[0]
             return preset_name
         
-        except json.decoder.JSONDecodeError as e:
-            F3H_Exception.F3H_exception_print_infos(e)
+        except json.decoder.JSONDecodeError:
             return False
         
         except FileNotFoundError:
