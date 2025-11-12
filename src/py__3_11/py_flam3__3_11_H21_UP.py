@@ -12429,7 +12429,7 @@ class _xml_tree
                 except OSError:
                     return None
                 
-                except lxmlET.XMLSyntaxError as e:
+                except lxmlET.XMLSyntaxError:
                     return None
                 
         else:
@@ -12442,7 +12442,7 @@ class _xml_tree
                 except OSError:
                     return None
                 
-                except lxmlET.XMLSyntaxError as e:
+                except lxmlET.XMLSyntaxError:
                     return None
                 
             else:
