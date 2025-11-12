@@ -15891,9 +15891,10 @@ class in_flame_utils
                     if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
                     data = None
                 elif xml and is_valid:
-                    # This caused some pain becasue it is forcing us not to tell the truth sometime
-                    # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
-                    flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
+                    if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): # to double check
+                        # This caused some pain becasue it is forcing us not to tell the truth sometime
+                        # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
+                        flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
                     
                 if data is not None and data_idx == preset_idx:
                     return data
