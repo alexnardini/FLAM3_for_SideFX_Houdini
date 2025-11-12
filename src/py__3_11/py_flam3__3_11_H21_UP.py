@@ -15245,12 +15245,12 @@ class in_flame_utils
         Returns:
             (None):
         """  
-        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(f3r.out_size[preset_id].split()[0]), int(f3r.out_size[preset_id].split()[1])))}) # type: ignore
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(str(f3r.out_size[preset_id]).split()[0]), int(str(f3r.out_size[preset_id]).split()[1])))}) # type: ignore
         except (AttributeError, TypeError): # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(1024), int(1024)))}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_SIZE} -> NOT FOUND, default value used.\n")
             
-        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(f3r.out_center[preset_id].split()[0]), float(f3r.out_center[preset_id].split()[1])))}) # type: ignore
+        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(str(f3r.out_center[preset_id]).split()[0]), float(str(f3r.out_center[preset_id]).split()[1])))}) # type: ignore
         except (AttributeError, TypeError): # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(0), float(0)))}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_CENTER} -> NOT FOUND, default value used.\n")
