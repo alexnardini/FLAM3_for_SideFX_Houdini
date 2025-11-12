@@ -6467,7 +6467,7 @@ class flam3h_iterator_utils
             
             # Build the apo data
             preset_id: int = int(node.parm(IN_PRESETS).eval())
-            apo_data = in_flame_iter_data(node, xml, preset_id)
+            apo_data: in_flame_iter_data = in_flame_iter_data(node, xml, preset_id)
             if apo_data.isvalidtree:
                 
                 old_data: str | None = node.userData(FLAM3H_USER_DATA_XML_LAST)
@@ -10912,7 +10912,7 @@ class flam3h_palette_utils
 
             if xml is not None and clipboard:
                 
-                apo_data = in_flame_iter_data(node, xml, preset_id)
+                apo_data: in_flame_iter_data = in_flame_iter_data(node, xml, preset_id)
                 if in_flame_utils(self.kwargs).in_to_flam3h_set_palette(node, apo_data, _FLAM3H_INIT_DATA, True):
                 # If not an error (otherwise the ERROR messages are fired from the above definition)
                     _MSG: str = f"{node.name()}: PALETTE Clipboard: LOAD Palette data from Flame preset: \"{_FLAM3H_INIT_DATA[3]}\" -> Completed"
@@ -12249,11 +12249,12 @@ class _xml
         """     
         if os.path.isfile(self.xml):
             _strip: Callable[[str], str] = str.strip 
-            root = self.tree.getroot()
+            root: lxmlET._Element = self.tree.getroot()
+            
             if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
                 return tuple(_strip(keyval) if (keyval := name.get(key)) is not None else [] for name in root)
             
-            newroot = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
+            newroot: lxmlET._Element = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
             newroot.insert(0, root)
             return tuple(_strip(keyval) if (keyval := name.get(key)) is not None else [] for name in newroot)
         
@@ -12309,17 +12310,17 @@ class _xml_tree
 
         if self.xmlfile_data_clipboard is not None:
             self._isvalidtree = True
-            self._tree = lxmlET.ElementTree(lxmlET.fromstring(self.xmlfile_data_clipboard)) # type: ignore
-            self._root = self.tree.getroot()
+            self._tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(self.xmlfile_data_clipboard)) # type: ignore
+            self._root: lxmlET._Element = self.tree.getroot()
             
         elif self.xmlfile_data is not None:
             self._isvalidtree = True
-            self._tree = lxmlET.ElementTree(lxmlET.fromstring(self.xmlfile_data)) # type: ignore
-            self._root = self.tree.getroot()
+            self._tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(self.xmlfile_data)) # type: ignore
+            self._root: lxmlET._Element = self.tree.getroot()
             
         elif self._isvalidtree:
-            self._tree = lxmlET.parse(self.xmlfile) # type: ignore
-            self._root = self.tree.getroot()
+            self._tree: lxmlET._ElementTree = lxmlET.parse(self.xmlfile) # type: ignore
+            self._root: lxmlET._Element = self.tree.getroot()
             
         # This not private as its cheaper to have it evaluate from this parent class.
         self._name: tuple = self.get_name()
@@ -12371,10 +12372,10 @@ class _xml_tree
             except lxmlET.XMLSyntaxError:
                 return None
         
-        root = tree.getroot()
-        root_tag = root.tag.lower()
+        root: lxmlET._Element = tree.getroot()
+        root_tag: str = root.tag.lower()
         if XML_VALID_FLAMES_ROOT_TAG not in root_tag:
-            newroot = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
+            newroot: lxmlET._Element = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
             newroot.insert(0, root)
             # If there are flames, proceed
             if any(True for _ in tree.getroot().iter(XML_FLAME_NAME)):
@@ -12421,7 +12422,7 @@ class _xml_tree
             
             if isinstance(tree, lxmlET._ElementTree): # type: ignore
                 
-                root = tree.getroot()
+                root: lxmlET._Element = tree.getroot()
                 if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
                     
                     # If there are flames, proceed
@@ -12500,7 +12501,7 @@ class _xml_tree
         """
         if self.isvalidtree:
             
-            root = self.root
+            root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
             _len: Callable[[str], int] = len
             if key == XML_XF_NAME:
@@ -12525,7 +12526,7 @@ class _xml_tree
         """      
         if self.isvalidtree:
             
-            root = self.root
+            root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
             return tuple(_strip(in_flame.xf_val_cleanup_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None else [] for name in root)
             
@@ -12546,7 +12547,7 @@ class _xml_tree
         """      
         if self.isvalidtree:
             
-            root = self.root
+            root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
             _xf_val_cleanup_split_str: Callable[[str, str, str], str] = in_flame.xf_val_cleanup_split_str
             return tuple(_strip(_xf_val_cleanup_split_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None and keyval != '' else [] for name in root)
@@ -12571,7 +12572,7 @@ class _xml_tree
             if _d is not None: _default: str = _d
             else: _default: str = '0'
             
-            root = self.root
+            root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
             _xf_list_cleanup_str: Callable[[list, str, str], str] = in_flame.xf_list_cleanup_str
             return tuple(str(_xf_list_cleanup_str(_strip(keyval).split(), _default, key)) if (keyval := name.get(key)) is not None else [] for name in root)
@@ -16545,7 +16546,7 @@ class in_flame_utils
         # and we need to carefully validate it before proceding.
         if xml is not None and _xml_tree(xml).isvalidtree:
             
-            apo_data = in_flame_iter_data(node, xml, preset_id)
+            apo_data: in_flame_iter_data = in_flame_iter_data(node, xml, preset_id)
             if apo_data.f3h_coefs is not None or apo_data.f3h_post is not None or apo_data.finalxform_f3h_coefs is not None or apo_data.finalxform_f3h_post:
                 flam3h_general_utils(self.kwargs).flam3h_toggle(IN_FLAM3H_AFFINE_STYLE)
                 self.in_to_flam3h()
@@ -17219,7 +17220,7 @@ class in_flame_utils
         if xml is not None and _xml_tree(xml).isvalidtree:
 
             # IN flame preset data
-            apo_data = in_flame_iter_data(node, xml, preset_id)
+            apo_data: in_flame_iter_data = in_flame_iter_data(node, xml, preset_id)
             # If there are xforms/iterators
             if apo_data.xforms is not None:
                 
@@ -17339,7 +17340,7 @@ class in_flame_utils
         if xml is not None and _xml_tree(xml).isvalidtree:
 
             # IN flame preset data
-            apo_data = in_flame_iter_data(node, xml, preset_id)
+            apo_data: in_flame_iter_data = in_flame_iter_data(node, xml, preset_id)
             
             # Transfer the data from the stored XML Render Properties from the Clipboard into FLAM3H™               
             self.in_to_flam3h_stats_and_properties(node, apo_data, _FLAM3H_INIT_DATA, True)
@@ -17482,7 +17483,7 @@ class out_flame_utils
 * out_userData_XML_last_loaded(self, data_name: str = FLAM3H_USER_DATA_XML_LAST, flame_name: str | None = None) -> None:
 * out_new_XML(self, outpath: str) -> None:
 * out_preset_XML_clipboard(self) -> None
-* out_append_XML(self, root, out_path: str) -> None:
+* out_append_XML(self, root: lxmlET._Element, out_path: str) -> None:
 * out_XML(self) -> None:
 * __out_flame_data(self, prm_name: str = '') -> str:
 * __out_flame_name(self, prm_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
@@ -18708,7 +18709,7 @@ class out_flame_utils
         if xml is not None and _xml_tree(xml).isvalidtree:
 
             # IN flame preset data
-            apo_data = in_flame_iter_data(node, xml, preset_id)
+            apo_data: in_flame_iter_data = in_flame_iter_data(node, xml, preset_id)
             name: str = apo_data.name[preset_id]
             
             # If there are xforms/iterators
@@ -19343,7 +19344,7 @@ class out_flame_utils
             if xml and xml_isFile and inisvalidfile and inisvalidpreset and not clipboard:
                 # Build the apo data
                 preset_id: int = int(node.parm(IN_PRESETS).eval())
-                apo_data = in_flame_iter_data(node, xml, preset_id)
+                apo_data: in_flame_iter_data = in_flame_iter_data(node, xml, preset_id)
                 
                 if apo_data.isvalidtree:
                     node.setParms({OUT_FLAME_PRESET_NAME: apo_data.name[preset_id]}) #type: ignore
@@ -19353,7 +19354,7 @@ class out_flame_utils
             elif inisvalidpreset and clipboard:
                 data: str | None = node.userData(FLAM3H_USER_DATA_XML_LAST)
                 if data is not None:
-                    apo_data = in_flame_iter_data(node, data, 0)
+                    apo_data: in_flame_iter_data = in_flame_iter_data(node, data, 0)
                     if apo_data.isvalidtree:
                         node.setParms({OUT_FLAME_PRESET_NAME: apo_data.name[0]}) #type: ignore
                         # Updated the Flame name iter num if exist and if needed
@@ -19620,7 +19621,7 @@ class out_flame_utils
         for iter in range(f3d.iter_count):
             mp_idx = str(int(iter + 1))
             if int(f3d.xf_vactive[iter]):
-                xf = lxmlET.SubElement(flame, XML_XF) # type: ignore
+                xf: lxmlET._Element = lxmlET.SubElement(flame, XML_XF) # type: ignore
                 xf.tag = XML_XF
                 xf.set(XML_XF_NAME, xml_xf_names[iter])
                 xf.set(XML_XF_WEIGHT, f3d.xf_weight[iter])
@@ -19648,11 +19649,11 @@ class out_flame_utils
                 names_VARS_POST.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_postvarsT, f3h_iter.sec_postvarsW, xf, mp_idx, in_flame_utils.in_util_make_POST))
         
         # SET finalxform (FF)
-        names_VARS_FF: list = []
-        names_VARS_PRE_FF: list = []
-        names_VARS_POST_FF: list = []
+        names_VARS_FF: list[str] = []
+        names_VARS_PRE_FF: list[str] = []
+        names_VARS_POST_FF: list[str] = []
         if f3d.flam3h_do_FF:
-            finalxf = lxmlET.SubElement(flame, XML_FF) # type: ignore
+            finalxf: lxmlET._Element = lxmlET.SubElement(flame, XML_FF) # type: ignore
             finalxf.tag = XML_FF
             finalxf.set(XML_XF_NAME, f3d.finalxf_name)
             finalxf.set(XML_XF_COLOR, '0')
@@ -19674,16 +19675,16 @@ class out_flame_utils
             names_VARS_POST_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), f3h_iter_FF.sec_postvarsT_FF, f3h_iter_FF.sec_postvarsW_FF, finalxf, '', in_flame_utils.in_util_make_POST)
         
         # SET palette
-        palette = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
+        palette: lxmlET._Element = lxmlET.SubElement(flame, XML_PALETTE) # type: ignore
         palette.tag = XML_PALETTE
         palette.set(XML_PALETTE_COUNT, self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)) # When saving a Flame out, we always use a 256 color palette unless the OUT tab option "save palette 256+" is ON
         palette.set(XML_PALETTE_FORMAT, PALETTE_FORMAT)
         palette.text = f3d.palette_hex
 
         # SET unique used 'plugins' and 'new linear'
-        names_VARS_flatten_unique: list = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS + [names_VARS_FF], in_flame_utils.in_util_make_NULL)
-        names_VARS_PRE_flatten_unique: list = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE + [names_VARS_PRE_FF] + list(map(lambda x: in_flame_utils.in_util_make_VAR([x]) if x else x, [name_PRE_BLUR])), in_flame_utils.in_util_make_PRE)
-        names_VARS_POST_flatten_unique: list = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST + [names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
+        names_VARS_flatten_unique: list[str] = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS + [names_VARS_FF], in_flame_utils.in_util_make_NULL)
+        names_VARS_PRE_flatten_unique: list[str] = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE + [names_VARS_PRE_FF] + list(map(lambda x: in_flame_utils.in_util_make_VAR([x]) if x else x, [name_PRE_BLUR])), in_flame_utils.in_util_make_PRE)
+        names_VARS_POST_flatten_unique: list[str] = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST + [names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
         flame.set(XML_FLAME_PLUGINS, i_cleandoc(' '.join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
         flame.set(XML_FLAME_NEW_LINEAR, '1')
         
@@ -19718,7 +19719,7 @@ class out_flame_utils
         """ 
         node = self.node
         
-        root = lxmlET.Element(XML_FLAME_NAME) # type: ignore
+        root: lxmlET._Element = lxmlET.Element(XML_FLAME_NAME) # type: ignore
         if flame_name is None:
             if self.out_build_XML(root):
                 self._out_pretty_print(root)
@@ -19752,8 +19753,8 @@ class out_flame_utils
         """   
         node = self.node
         
-        root = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
-        flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
+        root: lxmlET._Element = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
+        flame: lxmlET._Element = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
         flame.tag = XML_FLAME_NAME
         
         if self.out_build_XML(flame):
@@ -19778,7 +19779,7 @@ class out_flame_utils
         """ 
         node = self.node
         
-        root = lxmlET.Element(XML_FLAME_NAME) # type: ignore
+        root: lxmlET._Element = lxmlET.Element(XML_FLAME_NAME) # type: ignore
         
         if self.out_build_XML(root):
             self._out_pretty_print(root)
@@ -19809,7 +19810,7 @@ class out_flame_utils
         if xml is not None and _xml_tree(xml).isvalidtree:
 
             # OUT flame preset data
-            apo_data = in_flame_iter_data(node, xml, preset_id)
+            apo_data: in_flame_iter_data = in_flame_iter_data(node, xml, preset_id)
             name: str = apo_data.name[preset_id]
             
             # If there are xforms/iterators
@@ -19834,12 +19835,12 @@ class out_flame_utils
             flam3h_general_utils.flash_message(node, f"{_MSG}")
 
 
-    def out_append_XML(self, root, out_path: str) -> None:
+    def out_append_XML(self, root: lxmlET._Element, out_path: str) -> None:
         """Append a XML flame file to the current OUT flame lib file.
 
         Args:
             (self):
-            root(lxmlET.etree._Element): Current OUT flame lib file data XML root.
+            root(lxmlET._Element): Current OUT flame lib file data XML root.
             out_path(str): Current OUT flame full file path.
 
         Returns:
@@ -19847,7 +19848,7 @@ class out_flame_utils
         """
         node = self.node
         
-        flame = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
+        flame: lxmlET._Element = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
         flame.tag = XML_FLAME_NAME
         
         if self.out_build_XML(flame):
@@ -19919,7 +19920,7 @@ class out_flame_utils
                         
                         node.setParms({OUT_PATH: out_path_checked})
                         exist: bool = os.path.exists(out_path_checked)
-                        apo_data = in_flame(self.node, out_path_checked)
+                        apo_data: in_flame = in_flame(node, out_path_checked)
                         _CHK = True
                         
                         if kwargs["ctrl"]:
