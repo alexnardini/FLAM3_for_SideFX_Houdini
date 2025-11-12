@@ -123,6 +123,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
                 LIST OF CLASSES:
 
+                    F3H_Error(Exception)
                     flam3h_iterator_prm_names
                     flam3h_iterator_prm_names_collections
                     flam3h_varsPRM
@@ -418,6 +419,109 @@ CP_JSON_KEY_NAME_HEX = 'f3h_hex'
 CP_JSON_KEY_NAME_HSV = 'f3h_hsv'
 # Flash messages timer
 FLAM3H_FLASH_MESSAGE_TIMER: float = 2
+
+
+# FLAM3H™ EXCEPTIONS start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+
+
+class F3H_Error(Exception):
+    """
+class flam3h_CustomError(Exception)
+
+This is a very simple and basic implementation for now.</br>
+
+If I find the time I'd like to expand on this</br>
+and implement more user friendly exception messages across this entire file.
+
+@STATICMETHODS
+* F3H_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
+
+
+@METHODS
+
+
+    """    
+    
+    __slots__ = ("_kwargs", "_node", "_message")
+    
+    def __init__(self, kwargs: dict, message: str) -> None:
+        """
+        Args:
+            kwargs(dict): this FLAM3H™ node houdini kwargs.
+            message(str): CustomError message
+            
+        Returns:
+            (None):
+        """  
+        super().__init__(message)
+        self._kwargs: dict = kwargs
+        self._node = kwargs['node']
+        self._message: str = message # Not used for now, but its a start ;)
+        
+        
+    @staticmethod
+    def F3H_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
+        """ Simple print exception infos.</br>
+        Addiotianlly it can print also the full traceback infos.
+        
+        Args:
+            e(Any): Any of the exceptions type.
+            traceback_info(bool): Default to False. If True, it will print also the full traceback.
+            extra_info(str | None): Default to None: Add a string message to print it under a: "Extra info" message
+            
+        Returns:
+            (None):
+        """  
+        exc_type = type(e).__name__
+        
+        # Extract traceback info
+        tb = e.__traceback__
+        filename = None
+        lineno = None
+        
+        # Walk to the last traceback frame
+        while tb is not None:
+            filename = tb.tb_frame.f_code.co_filename
+            lineno = tb.tb_lineno
+            tb = tb.tb_next
+            
+        print(f"FLAM3H™ Exception Type: {exc_type}")
+        print(f"\tPY filename: {__module_filename__}")
+        print(f"\tModule name: {filename}")
+        print(f"\tCode line: {lineno}")
+        print(f"\tMessage: {str(e)}")
+        if extra_info is not None:
+            print(f"\tExtra info: {extra_info}")
+        
+        # Optional
+        if traceback_info:
+            print("\nFull Traceback:")
+            traceback.print_exc(file=sys.stdout)
+            
+            
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
+
+    @property
+    def kwargs(self):
+        return self._kwargs
+    
+    @property
+    def node(self):
+        return self._node
+    
+    @property
+    def message(self):
+        return self._message
 
 
 class flam3h_iterator_prm_names:
@@ -1304,7 +1408,6 @@ class flam3h_scripts
 
 @STATICMETHODS
 * flam3h_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
-* flam3h_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
 * flam3h_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
 * flam3h_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
 * flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
@@ -1347,46 +1450,6 @@ class flam3h_scripts
         """  
         self._kwargs: dict = kwargs
         self._node = kwargs['node']
-        
-        
-    @staticmethod
-    def flam3h_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
-        """ Simple print exception infos.</br>
-        Addiotianlly it can print also the full traceback infos.
-        
-        Args:
-            e(Any): Any of the exceptions type.
-            traceback_info(bool): Default to False. If True, it will print also the full traceback.
-            extra_info(str | None): Default to None: Add a string message to print it under a: "Extra info" message
-            
-        Returns:
-            (None):
-        """  
-        exc_type = type(e).__name__
-        
-        # Extract traceback info
-        tb = e.__traceback__
-        filename = None
-        lineno = None
-        
-        # Walk to the last traceback frame
-        while tb is not None:
-            filename = tb.tb_frame.f_code.co_filename
-            lineno = tb.tb_lineno
-            tb = tb.tb_next
-            
-        print(f"FLAM3H™ Exception Type: {exc_type}")
-        print(f"\tPY filename: {__module_filename__}")
-        print(f"\tModule name: {filename}")
-        print(f"\tCode line: {lineno}")
-        print(f"\tMessage: {str(e)}")
-        if extra_info is not None:
-            print(f"\tExtra info: {extra_info}")
-        
-        # Optional
-        if traceback_info:
-            print("\nFull Traceback:")
-            traceback.print_exc(file=sys.stdout)
         
         
     @staticmethod
@@ -1826,7 +1889,6 @@ class flam3h_scripts
             pass
 
 
-
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -2243,7 +2305,7 @@ class flam3h_scripts
         try:
             hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
         except AttributeError as e:
-            flam3h_scripts.flam3h_exception_print_infos(e)
+            F3H_Error.F3H_exception_print_infos(e)
             pass
         
         # Force to update
@@ -3515,7 +3577,7 @@ class flam3h_general_utils
                                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                     
                                 except AttributeError as e:
-                                    flam3h_scripts.flam3h_exception_print_infos(e)
+                                    F3H_Error.F3H_exception_print_infos(e)
                                     node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                     self.util_clear_stashed_cam_data()
                                     return False
@@ -3539,7 +3601,7 @@ class flam3h_general_utils
                                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                         
                                     except AttributeError as e:
-                                        flam3h_scripts.flam3h_exception_print_infos(e)
+                                        F3H_Error.F3H_exception_print_infos(e)
                                         node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                         self.util_clear_stashed_cam_data()
                                         return False
@@ -3622,7 +3684,7 @@ class flam3h_general_utils
                                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                         
                                     except AttributeError as e:
-                                        flam3h_scripts.flam3h_exception_print_infos(e)
+                                        F3H_Error.F3H_exception_print_infos(e)
                                         node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0}) # type: ignore
                                         self.util_clear_stashed_cam_data()
                                         return False
@@ -3641,7 +3703,7 @@ class flam3h_general_utils
                                             view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                             
                                         except AttributeError as e:
-                                            flam3h_scripts.flam3h_exception_print_infos(e)
+                                            F3H_Error.F3H_exception_print_infos(e)
                                             self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                             self.util_clear_stashed_cam_data()
                                             return False
@@ -9447,7 +9509,7 @@ class flam3h_iterator_utils
             try:
                 hou.ui.setMultiParmTabInEditors(mp_prm, int(mp_idx)) # type: ignore
             except AttributeError as e:
-                flam3h_scripts.flam3h_exception_print_infos(e)
+                F3H_Error.F3H_exception_print_infos(e)
                 pass # Most likely not a parameter editor in its own pane tab or floating panel in Houdini versions prior to 21.0.489
         
         # DELETE THIS INSTANCE
@@ -9549,7 +9611,7 @@ class flam3h_iterator_utils
         try:
             hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
         except AttributeError as e:
-            flam3h_scripts.flam3h_exception_print_infos(e)
+            F3H_Error.F3H_exception_print_infos(e)
             pass
         
         if do_msg:
@@ -9844,7 +9906,7 @@ class flam3h_palette_utils
             return preset_name
         
         except json.decoder.JSONDecodeError as e:
-            flam3h_scripts.flam3h_exception_print_infos(e)
+            F3H_Error.F3H_exception_print_infos(e)
             return False
         
         except FileNotFoundError:
@@ -9879,7 +9941,7 @@ class flam3h_palette_utils
                     data[CP_JSON_KEY_NAME_HEX]
                     
                 except (KeyError, TypeError) as e:
-                    flam3h_scripts.flam3h_exception_print_infos(e)
+                    F3H_Error.F3H_exception_print_infos(e)
                     if msg:
                         _MSG: str = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H™ Palette data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -10720,7 +10782,7 @@ class flam3h_palette_utils
                     RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                     
                 except ValueError as e:
-                    flam3h_scripts.flam3h_exception_print_infos(e)
+                    F3H_Error.F3H_exception_print_infos(e)
                     rgb_from_XML_PALETTE: list = []
                     
                 else:
@@ -10875,7 +10937,7 @@ class flam3h_palette_utils
                 del _data
                 
             except IndexError as e:
-                flam3h_scripts.flam3h_exception_print_infos(e)
+                F3H_Error.F3H_exception_print_infos(e)
                 preset: str | None = None
                 
             if preset is not None:
@@ -10921,7 +10983,7 @@ class flam3h_palette_utils
                         RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                         
                     except ValueError as e:
-                        flam3h_scripts.flam3h_exception_print_infos(e)
+                        F3H_Error.F3H_exception_print_infos(e)
                         rgb_from_XML_PALETTE: list = []
                         
                     else:
@@ -13375,7 +13437,7 @@ class in_flame
                     RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                     
                 except ValueError as e:
-                    flam3h_scripts.flam3h_exception_print_infos(e)
+                    F3H_Error.F3H_exception_print_infos(e)
                     return None
                 
                 else:
