@@ -7560,17 +7560,21 @@ class flam3h_iterator_utils
                 __FLAM3H_DATA_PRM_MPIDX = 0
                 
             else:
+                
                 try:
                     assert from_FLAM3H_NODE is not None
                     __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+                    
                 except (AttributeError, AssertionError):
                     from_FLAM3H_NODE = None
                     __FLAM3H_DATA_PRM_MPIDX = 0
+                    
                 except hou.ObjectWasDeleted:
                     return None, None, True
                 
-            # OLD - I know it is a big try/except block, wiil be back to this at some point
             try:
+                # Do we have a marked iterator in the current scene
+                # (This can also be: None - hence the double check)
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
                 
             except AttributeError:
@@ -7671,8 +7675,9 @@ class flam3h_iterator_utils
                         if not self.exist_user_data(from_FLAM3H_NODE):
                             mp_id_from = None
                             self.destroy_cachedUserData(node, 'iter_sel')
-                
-                return from_FLAM3H_NODE, mp_id_from, isDELETED
+                            
+            # Return the desire data
+            return from_FLAM3H_NODE, mp_id_from, isDELETED
 
 
     def prm_paste_update_for_undo_ff(self, node: hou.SopNode) -> tuple[hou.SopNode | None, int | None, bool]:
