@@ -9824,7 +9824,7 @@ class flam3h_palette_utils
                 try:
                     data[CP_JSON_KEY_NAME_HEX]
                     
-                except TypeError:
+                except (KeyError, TypeError):
                     if msg:
                         _MSG: str = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H™ Palette data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -10659,6 +10659,7 @@ class flam3h_palette_utils
                 
                 # Get usable color values
                 HEXs: list = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
+                
                 try:
                     _hex_to_rgb: Callable[[str], tuple] = self.hex_to_rgb
                     RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
@@ -10822,12 +10823,13 @@ class flam3h_palette_utils
             if preset is not None:
                 
                 data: dict | None = json.loads(palette)[preset]
+                
                 try:
                     assert data is not None
                     # Check if it is a valid FLAM3H™ JSON data. This is the moment of the truth ;)
                     data[CP_JSON_KEY_NAME_HEX]
                     
-                except TypeError:
+                except (KeyError, TypeError):
                     isJSON_F3H: bool = False
                     _MSG: str = f"{node.name()}: PALETTE JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H™ Palette data."
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -10855,6 +10857,7 @@ class flam3h_palette_utils
                     
                     # Get usable color values
                     HEXs: list = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
+                    
                     try:
                         _hex_to_rgb: Callable[[str], tuple] = self.hex_to_rgb
                         RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
@@ -12349,26 +12352,35 @@ class _xml_tree
         if clipboard:
             
             if xmlfile is not None:
+                
                 try:
                     tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(xmlfile)) # type: ignore
+                    
                 except ValueError:
                     return None
+                
                 except lxmlET.XMLSyntaxError:
                     return None
                 
             else:
+                
                 try:
                     tree: lxmlET._ElementTree = lxmlET.parse(xmlfile) # type: ignore
+                    
                 except OSError:
                     return None
+                
                 except lxmlET.XMLSyntaxError:
                     return None
                 
         else:
+            
             try:
                 tree: lxmlET._ElementTree = lxmlET.parse(xmlfile) # type: ignore
+                
             except OSError:
                 return None
+            
             except lxmlET.XMLSyntaxError:
                 return None
         
@@ -12732,6 +12744,7 @@ class in_flame
         new = []
         knots: list = val.strip().split(' ')
         for idx, k in enumerate(knots):
+            
             try:
                 float(k)
                 
@@ -12772,8 +12785,8 @@ class in_flame
             
         except ValueError:
             clean: list = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
-            
             new_val: str = ''.join(clean)
+            
             try:
                 float(new_val)
                 
@@ -12810,6 +12823,7 @@ class in_flame
             
         _new_append: Callable[[str], None] = new.append
         for idx, val in enumerate(vals):
+            
             try:
                 float(val)
                 
@@ -12852,12 +12866,14 @@ class in_flame
             
         _new_append: Callable[[str], None] = new.append
         for idx, val in enumerate(vals):
+            
             try:
                 float(val)
                 
             except ValueError:
                 clean: list = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 new_val = ''.join(clean)
+                
                 try:
                     float(new_val)
                     
@@ -13359,6 +13375,7 @@ class in_flame
             mb_do: str | list = self.flam3h_mb[idx]
             if isinstance(mb_do, str):
                 if key == OUT_XML_FLMA3H_MB_FPS:
+                    
                     try:
                         return int(mb_do)
                     
@@ -13488,6 +13505,7 @@ class in_flame
             # f3c = self._flam3h_prefs_f3c[idx]
             # self._flam3h_prefs_f3c[idx] can also be an empty list, hence the double check
             if toggle is not None and toggle:
+                
                 try:
                     return int(toggle)
                 
@@ -14107,10 +14125,13 @@ class in_flame_utils
             (bool): attempt_to_load_from_clipboard ( bool ): Is it a Chaotica's flame preset ? True or False.
         """     
         xml: str = hou.ui.getTextFromClipboard() # type: ignore
+        
         try:
             tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+            
         except ValueError:
             return False
+        
         except lxmlET.XMLSyntaxError:
             return False
         
@@ -14963,6 +14984,7 @@ class in_flame_utils
         """
         splt: tuple = menu_label.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV)
         if len([item for item in splt if item]) > 1:
+            
             try:
                 return int(splt[-1])
             
@@ -15659,12 +15681,14 @@ class in_flame_utils
         """   
         key_val: str | None = xform.get(key_name)
         assert key_val is not None # I can assert this becasue the passed key_name has been collected already from an xform
+        
         try:
             float(key_val)
             
         except ValueError:
             clean = [letter for letter in key_val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
             new_val: str = ''.join(clean)
+            
             try:
                 float(new_val)
                 
@@ -16966,10 +16990,13 @@ class in_flame_utils
                                  * chaos ( bool ): Is it a chaotica XML file type ? True or False.
         """     
         xml: str = hou.ui.getTextFromClipboard() # type: ignore
+        
         try:
             tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+            
         except ValueError:
             return None, False, 0, '', True, False
+        
         except lxmlET.XMLSyntaxError:
             return None, False, 0, '', True, False
         
@@ -17141,13 +17168,11 @@ class in_flame_utils
         # loading a flame preset from the menu parameter entries instead of clicking the Action Button's icon.
         try:
             self.kwargs['alt']
+            
         except KeyError:
-            _K: bool = False
+            return self.in_to_flam3h_init_data_LMB(node)
+        
         else:
-            _K: bool = True
-
-        # if kwargs
-        if _K:
             # ALT - If we are loading a flame from the clipboard
             if self.kwargs['alt']:
                 return self.in_to_flam3h_init_data_ALT()
@@ -17162,9 +17187,6 @@ class in_flame_utils
             
             else:
                 return self.in_to_flam3h_init_data_LMB(node)
-            
-        # otherwise if just a mouse click
-        return self.in_to_flam3h_init_data_LMB(node)
 
 
     '''
@@ -17775,10 +17797,13 @@ class out_flame_utils
             # if the name is a number, I want to still add the iteration num to it
             # and not evaluate this as integer, even if it is an integer.
             if rp[-1] != name:
+                
                 try:
                     int(rp[-1].strip())
+                    
                 except ValueError:
                     is_int: bool = False
+                    
             else:
                 is_int: bool = False
                 
@@ -17836,10 +17861,13 @@ class out_flame_utils
 
                 is_int: bool = False
                 if rp[-1] != flame_name:
+                    
                     try:
                         int(rp[-1])
+                        
                     except ValueError:
                         pass
+                    
                     else:
                         is_int = True
                 else:
@@ -17877,10 +17905,13 @@ class out_flame_utils
             is_int: bool = False
             
             if rp[-1] != flame_name:
+                
                 try:
                     int(rp[-1])
+                    
                 except ValueError:
                     pass
+                
                 else:
                     is_int = True
                 
@@ -20020,16 +20051,20 @@ class out_flame_utils
             if prm is not None:
                 
                 if isinstance(prm, hou.ParmTuple):
+                    
                     try:
                         _out_util_round_float: Callable[[float], str] = self.out_util_round_float
                         return ' '.join([str(_out_util_round_float(float(val))) for val in prm.eval()])
+                    
                     except ValueError:
                         print(f"Warning:\n{node.name()}: parameter tuple name: \"{prm_name}\" not a valid value or string value tuple. Please pass in a valid FLAM3H™ parameter tuple name.\n")
                         return ''
                 
                 else:
+                    
                     try:
                         return self.out_util_round_float(float(prm.eval()))
+                    
                     except ValueError:
                         print(f"Warning:\n{node.name()}: parameter name: \"{prm_name}\" not a valid value or string value. Please pass in a valid FLAM3H™ parameter name.\n")
                         return ''
@@ -20363,6 +20398,7 @@ class out_flame_utils
             (str): The FLAM3H™ motion blur single val parameter prepped into a string.
         """  
         if self.flam3h_mb_do and prm_name:
+            
             try:
                 return self.out_util_round_float(float(self.node.parm(prm_name).eval()))
             
