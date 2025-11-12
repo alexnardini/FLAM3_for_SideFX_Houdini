@@ -14107,7 +14107,7 @@ class in_flame_utils
         """     
         xml: str = hou.ui.getTextFromClipboard() # type: ignore
         try:
-            tree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+            tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
         except ValueError:
             return False
         except lxmlET.XMLSyntaxError:
@@ -19758,7 +19758,7 @@ class out_flame_utils
         
         if self.out_build_XML(flame):
             self._out_pretty_print(root)
-            tree = lxmlET.ElementTree(root)
+            tree: lxmlET._ElementTree = lxmlET.ElementTree(root)
             tree.write(outpath)
             
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
@@ -19852,7 +19852,7 @@ class out_flame_utils
         
         if self.out_build_XML(flame):
             self._out_pretty_print(root)
-            tree = lxmlET.ElementTree(root)
+            tree: lxmlET._ElementTree = lxmlET.ElementTree(root)
             tree.write(out_path)
             
             node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
