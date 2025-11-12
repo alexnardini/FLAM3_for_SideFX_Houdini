@@ -7569,9 +7569,25 @@ class flam3h_iterator_utils
                 except hou.ObjectWasDeleted:
                     return None, None, True
                 
-            # I know it is a big try/except block, wiil be back to this at some point
+            # OLD - I know it is a big try/except block, wiil be back to this at some point
             try:
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                
+            except AttributeError as e:
+                F3H_Exception.F3H_exception_print_infos(e)
+                mp_id_from = None
+                self.destroy_cachedUserData(node, 'iter_sel')
+                # This to avoid a wrong copy/paste info message
+                try:
+                    # If we really deleted a node with a marked iterator
+                    if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
+                        isDELETED = True
+                        
+                except AttributeError:
+                    # otherwise leave things as they are
+                    pass
+            
+            else:
                 mp_id_from: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
                 
                 if node == from_FLAM3H_NODE:
@@ -7619,19 +7635,6 @@ class flam3h_iterator_utils
                                 self.destroy_cachedUserData(node, 'iter_sel')
                                 # This so we dnt fallback into this case again and again.
                                 hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
-                            
-            except AttributeError:
-                mp_id_from = None
-                self.destroy_cachedUserData(node, 'iter_sel')
-                # This to avoid a wrong copy/paste info message
-                try:
-                    # If we really deleted a node with a marked iterator
-                    if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
-                        isDELETED = True
-                        
-                except AttributeError:
-                    # otherwise leave things as they are
-                    pass
             
             # It happened sometime that the hou.undoGroup() break and it doesnt group operation anylonger, especially after multiple Undos.
             # The following will try to pick up the pieces and put them together to keep the copy/paste iterators data going smooth.
