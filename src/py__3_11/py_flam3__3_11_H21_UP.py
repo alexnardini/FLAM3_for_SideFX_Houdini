@@ -480,7 +480,7 @@ class F3H_Exception:
 class F3H_Exception
 
 @STATICMETHODS
-F3H_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
+F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
 
 @METHODS
 
@@ -500,8 +500,9 @@ F3H_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
         self._kwargs: dict = kwargs
         self._node = kwargs['node']
         
+    
     @staticmethod
-    def F3H_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
+    def F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
         """ Simple print exception infos.</br>
         Addiotianlly it can print also the full traceback infos.
         
@@ -514,17 +515,17 @@ F3H_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
             (None):
         """  
         exc_type = type(e).__name__
-        
-        # Extract traceback info
-        tb = e.__traceback__
-        filename = None
-        lineno = None
-        
-        # Walk to the last traceback frame
-        while tb is not None:
-            filename = tb.tb_frame.f_code.co_filename
-            lineno = tb.tb_lineno
-            tb = tb.tb_next
+
+        # Extract detailed traceback information
+        tb = traceback
+        tb_info = tb.extract_tb(e.__traceback__)
+
+        filename = lineno = None
+        # If traceback info is available
+        if tb_info:
+            last_frame = tb_info[-1]
+            filename = last_frame.filename
+            lineno = last_frame.lineno
             
         print(f"FLAM3H™ Exception Type: {exc_type}")
         print(f"\tPY filename: {__module_filename__}")
@@ -537,7 +538,7 @@ F3H_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
         # Optional
         if traceback_info:
             print("\nFull Traceback:")
-            traceback.print_exc(file=sys.stdout)
+            tb.print_exc(file=sys.stdout)
             
             
     # CLASS: PROPERTIES
@@ -2334,7 +2335,7 @@ class flam3h_scripts
         try:
             hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
         except AttributeError as e:
-            F3H_Exception.F3H_exception_print_infos(e)
+            F3H_Exception.F3H_traceback_print_infos(e)
             pass
         
         # Force to update
@@ -3606,7 +3607,7 @@ class flam3h_general_utils
                                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                     
                                 except AttributeError as e:
-                                    F3H_Exception.F3H_exception_print_infos(e)
+                                    F3H_Exception.F3H_traceback_print_infos(e)
                                     node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                     self.util_clear_stashed_cam_data()
                                     return False
@@ -3630,7 +3631,7 @@ class flam3h_general_utils
                                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                         
                                     except AttributeError as e:
-                                        F3H_Exception.F3H_exception_print_infos(e)
+                                        F3H_Exception.F3H_traceback_print_infos(e)
                                         node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                         self.util_clear_stashed_cam_data()
                                         return False
@@ -3713,7 +3714,7 @@ class flam3h_general_utils
                                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                         
                                     except AttributeError as e:
-                                        F3H_Exception.F3H_exception_print_infos(e)
+                                        F3H_Exception.F3H_traceback_print_infos(e)
                                         node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0}) # type: ignore
                                         self.util_clear_stashed_cam_data()
                                         return False
@@ -3732,7 +3733,7 @@ class flam3h_general_utils
                                             view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                             
                                         except AttributeError as e:
-                                            F3H_Exception.F3H_exception_print_infos(e)
+                                            F3H_Exception.F3H_traceback_print_infos(e)
                                             self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                             self.util_clear_stashed_cam_data()
                                             return False
@@ -9547,7 +9548,7 @@ class flam3h_iterator_utils
             try:
                 hou.ui.setMultiParmTabInEditors(mp_prm, int(mp_idx)) # type: ignore
             except AttributeError as e:
-                F3H_Exception.F3H_exception_print_infos(e)
+                F3H_Exception.F3H_traceback_print_infos(e)
                 pass # Most likely not a parameter editor in its own pane tab or floating panel in Houdini versions prior to 21.0.489
         
         # DELETE THIS INSTANCE
@@ -9649,7 +9650,7 @@ class flam3h_iterator_utils
         try:
             hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
         except AttributeError as e:
-            F3H_Exception.F3H_exception_print_infos(e)
+            F3H_Exception.F3H_traceback_print_infos(e)
             pass
         
         if do_msg:
@@ -9978,7 +9979,7 @@ class flam3h_palette_utils
                     data[CP_JSON_KEY_NAME_HEX]
                     
                 except (KeyError, TypeError) as e:
-                    F3H_Exception.F3H_exception_print_infos(e)
+                    F3H_Exception.F3H_traceback_print_infos(e)
                     if msg:
                         _MSG: str = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H™ Palette data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -10819,7 +10820,7 @@ class flam3h_palette_utils
                     RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                     
                 except ValueError as e:
-                    F3H_Exception.F3H_exception_print_infos(e)
+                    F3H_Exception.F3H_traceback_print_infos(e)
                     rgb_from_XML_PALETTE: list = []
                     
                 else:
@@ -10974,7 +10975,7 @@ class flam3h_palette_utils
                 del _data
                 
             except IndexError as e:
-                F3H_Exception.F3H_exception_print_infos(e)
+                F3H_Exception.F3H_traceback_print_infos(e)
                 preset: str | None = None
                 
             if preset is not None:
@@ -11020,7 +11021,7 @@ class flam3h_palette_utils
                         RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                         
                     except ValueError as e:
-                        F3H_Exception.F3H_exception_print_infos(e)
+                        F3H_Exception.F3H_traceback_print_infos(e)
                         rgb_from_XML_PALETTE: list = []
                         
                     else:
@@ -13474,7 +13475,7 @@ class in_flame
                     RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                     
                 except ValueError as e:
-                    F3H_Exception.F3H_exception_print_infos(e)
+                    F3H_Exception.F3H_traceback_print_infos(e)
                     return None
                 
                 else:
