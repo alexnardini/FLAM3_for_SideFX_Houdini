@@ -12,12 +12,15 @@ import hou
 import nodesearch
 
 import os
+import sys
 import json
 import colorsys
+import traceback
 import lxml.etree as lxmlET
 
 from platform import python_version
 from platform import system as platform_system
+from typing import Any
 from typing import Iterable
 from typing import Callable
 from typing import KeysView
@@ -49,6 +52,7 @@ F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
 nodetype = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
 __status__ = nodetype.hdaModule().__status__
+__module_filename__ = nodetype.hdaModule().__module_filename__
 __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
 __h_version_min__: int = nodetype.hdaModule().__h_version_min__
 __h_version_max__: int = nodetype.hdaModule().__h_version_max__
@@ -1300,6 +1304,7 @@ class flam3h_scripts
 
 @STATICMETHODS
 * flam3h_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
+* flam3h_exception_print_infos(e: Any, traceback_info: bool = False) -> None:
 * flam3h_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
 * flam3h_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
 * flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
@@ -1342,6 +1347,43 @@ class flam3h_scripts
         """  
         self._kwargs: dict = kwargs
         self._node = kwargs['node']
+        
+        
+    @staticmethod
+    def flam3h_exception_print_infos(e: Any, traceback_info: bool = False) -> None:
+        """ Simple print exception infos.</br>
+        Addiotianlly it can print also the full traceback infos.
+        
+        Args:
+            e(Any): Any of the exceptions type.
+            traceback_info(bool): Default to False. If True, it will print also the full traceback.
+            
+        Returns:
+            (None):
+        """  
+        exc_type = type(e).__name__
+        
+        # Extract traceback info
+        tb = e.__traceback__
+        filename = None
+        lineno = None
+        
+        # Walk to the last traceback frame
+        while tb is not None:
+            filename = tb.tb_frame.f_code.co_filename
+            lineno = tb.tb_lineno
+            tb = tb.tb_next
+            
+        print(f"FLAM3H™ Exception Type: {exc_type}")
+        print(f"FLAM3H™ PY filename: {__module_filename__}")
+        print(f"Module name: {filename}")
+        print(f"Module line: {lineno}")
+        print(f"Message: {str(e)}")
+        
+        # Optional
+        if traceback_info:
+            print("\nFull Traceback:")
+            traceback.print_exc(file=sys.stdout)
         
         
     @staticmethod
@@ -2197,7 +2239,8 @@ class flam3h_scripts
         # it is not allowed to cook ? Need to investigate...
         try:
             hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
-        except AttributeError:
+        except AttributeError as e:
+            flam3h_scripts.flam3h_exception_print_infos(e)
             pass
         
         # Force to update
@@ -3165,7 +3208,7 @@ class flam3h_general_utils
         if not node.parm(PREFS_PVT_XF_VIZ).eval():
             # BUILD XFVIZ
             try: hou.node(flam3h_general_utils(kwargs).get_node_path(NODE_NAME_PREFS_XFVIZ)).cook(force=True)
-            except AttributeError: 
+            except AttributeError:
                 flam3h_general_utils.set_status_msg(f"{node.name()}: XF VIZ node not found.", 'WARN')
 
 
@@ -3468,7 +3511,8 @@ class flam3h_general_utils
                                 try:
                                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                     
-                                except AttributeError:
+                                except AttributeError as e:
+                                    flam3h_scripts.flam3h_exception_print_infos(e)
                                     node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                     self.util_clear_stashed_cam_data()
                                     return False
@@ -3491,7 +3535,8 @@ class flam3h_general_utils
                                     try:
                                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                         
-                                    except AttributeError:
+                                    except AttributeError as e:
+                                        flam3h_scripts.flam3h_exception_print_infos(e)
                                         node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                         self.util_clear_stashed_cam_data()
                                         return False
@@ -3573,7 +3618,8 @@ class flam3h_general_utils
                                     try:
                                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                         
-                                    except AttributeError:
+                                    except AttributeError as e:
+                                        flam3h_scripts.flam3h_exception_print_infos(e)
                                         node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0}) # type: ignore
                                         self.util_clear_stashed_cam_data()
                                         return False
@@ -3591,7 +3637,8 @@ class flam3h_general_utils
                                         try:
                                             view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                             
-                                        except AttributeError:
+                                        except AttributeError as e:
+                                            flam3h_scripts.flam3h_exception_print_infos(e)
                                             self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                             self.util_clear_stashed_cam_data()
                                             return False
@@ -9396,7 +9443,8 @@ class flam3h_iterator_utils
             # From Houdini 21.0.489 SideFX added multiParmTab and setMultiParmTab to hou.NetworkEditor.
             try:
                 hou.ui.setMultiParmTabInEditors(mp_prm, int(mp_idx)) # type: ignore
-            except AttributeError:
+            except AttributeError as e:
+                flam3h_scripts.flam3h_exception_print_infos(e)
                 pass # Most likely not a parameter editor in its own pane tab or floating panel in Houdini versions prior to 21.0.489
         
         # DELETE THIS INSTANCE
@@ -9497,7 +9545,8 @@ class flam3h_iterator_utils
         # it is not allowed to cook ? Need to investigate...
         try:
             hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
-        except AttributeError:
+        except AttributeError as e:
+            flam3h_scripts.flam3h_exception_print_infos(e)
             pass
         
         if do_msg:
@@ -9791,7 +9840,8 @@ class flam3h_palette_utils
                 preset_name: str = list(json.load(r).keys())[0]
             return preset_name
         
-        except json.decoder.JSONDecodeError:
+        except json.decoder.JSONDecodeError as e:
+            flam3h_scripts.flam3h_exception_print_infos(e)
             return False
         
         except FileNotFoundError:
@@ -9825,7 +9875,8 @@ class flam3h_palette_utils
                 try:
                     data[CP_JSON_KEY_NAME_HEX]
                     
-                except (KeyError, TypeError):
+                except (KeyError, TypeError) as e:
+                    flam3h_scripts.flam3h_exception_print_infos(e)
                     if msg:
                         _MSG: str = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H™ Palette data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -10819,7 +10870,8 @@ class flam3h_palette_utils
                 preset: str | None = list(_data.keys())[0]
                 del _data
                 
-            except IndexError:
+            except IndexError as e:
+                flam3h_scripts.flam3h_exception_print_infos(e)
                 preset: str | None = None
                 
             if preset is not None:
