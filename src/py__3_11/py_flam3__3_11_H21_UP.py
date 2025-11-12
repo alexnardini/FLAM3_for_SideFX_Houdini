@@ -124,6 +124,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                 LIST OF CLASSES:
 
                     F3H_Error(Exception)
+                    F3H_Exception
                     flam3h_iterator_prm_names
                     flam3h_iterator_prm_names_collections
                     flam3h_varsPRM
@@ -434,38 +435,70 @@ FLAM3H_FLASH_MESSAGE_TIMER: float = 2
 
 class F3H_Error(Exception):
     """
-class flam3h_CustomError(Exception)
+class F3H_Error(Exception)
 
-This is a very simple and basic implementation for now.</br>
+If I find more time I'd like to expand on this</br>
+and make this entire file more verbose and friendly.
 
-If I find the time I'd like to expand on this</br>
-and implement more user friendly exception messages across this entire file.
+For now just here as the beginning of something.</br>
+Need to review this entire file again and carefully grow from there.
 
 @STATICMETHODS
-* F3H_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
-
+*
 
 @METHODS
-
+*
 
     """    
     
-    __slots__ = ("_kwargs", "_node", "_message")
+    __slots__ = ("_message")
     
-    def __init__(self, kwargs: dict, message: str) -> None:
+    def __init__(self, message: str) -> None:
         """
         Args:
-            kwargs(dict): this FLAM3H™ node houdini kwargs.
+            (self):
             message(str): CustomError message
             
         Returns:
             (None):
         """  
         super().__init__(message)
+        self._message: str = message
+        
+        
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
+
+    @property
+    def message(self):
+        return self._message
+    
+    
+class F3H_Exception:
+    """
+class F3H_Exception
+
+@STATICMETHODS
+F3H_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
+
+@METHODS
+
+
+    """    
+    
+    __slots__ = ("_kwargs", "_node")
+    
+    def __init__(self, kwargs: dict) -> None:
+        """
+        Args:
+            kwargs(dict): this FLAM3H™ node houdini kwargs.
+            
+        Returns:
+            (None):
+        """  
         self._kwargs: dict = kwargs
         self._node = kwargs['node']
-        self._message: str = message # Not used for now, but its a start ;)
-        
         
     @staticmethod
     def F3H_exception_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
@@ -518,10 +551,6 @@ and implement more user friendly exception messages across this entire file.
     @property
     def node(self):
         return self._node
-    
-    @property
-    def message(self):
-        return self._message
 
 
 class flam3h_iterator_prm_names:
@@ -2305,7 +2334,7 @@ class flam3h_scripts
         try:
             hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
         except AttributeError as e:
-            F3H_Error.F3H_exception_print_infos(e)
+            F3H_Exception.F3H_exception_print_infos(e)
             pass
         
         # Force to update
@@ -3577,7 +3606,7 @@ class flam3h_general_utils
                                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                     
                                 except AttributeError as e:
-                                    F3H_Error.F3H_exception_print_infos(e)
+                                    F3H_Exception.F3H_exception_print_infos(e)
                                     node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                     self.util_clear_stashed_cam_data()
                                     return False
@@ -3601,7 +3630,7 @@ class flam3h_general_utils
                                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                         
                                     except AttributeError as e:
-                                        F3H_Error.F3H_exception_print_infos(e)
+                                        F3H_Exception.F3H_exception_print_infos(e)
                                         node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                         self.util_clear_stashed_cam_data()
                                         return False
@@ -3684,7 +3713,7 @@ class flam3h_general_utils
                                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                         
                                     except AttributeError as e:
-                                        F3H_Error.F3H_exception_print_infos(e)
+                                        F3H_Exception.F3H_exception_print_infos(e)
                                         node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0}) # type: ignore
                                         self.util_clear_stashed_cam_data()
                                         return False
@@ -3703,7 +3732,7 @@ class flam3h_general_utils
                                             view.frameBoundingBox(node_bbox.geometry().boundingBox())
                                             
                                         except AttributeError as e:
-                                            F3H_Error.F3H_exception_print_infos(e)
+                                            F3H_Exception.F3H_exception_print_infos(e)
                                             self.node.setParms({OUT_RENDER_PROPERTIES_SENSOR: 0})
                                             self.util_clear_stashed_cam_data()
                                             return False
@@ -9509,7 +9538,7 @@ class flam3h_iterator_utils
             try:
                 hou.ui.setMultiParmTabInEditors(mp_prm, int(mp_idx)) # type: ignore
             except AttributeError as e:
-                F3H_Error.F3H_exception_print_infos(e)
+                F3H_Exception.F3H_exception_print_infos(e)
                 pass # Most likely not a parameter editor in its own pane tab or floating panel in Houdini versions prior to 21.0.489
         
         # DELETE THIS INSTANCE
@@ -9611,7 +9640,7 @@ class flam3h_iterator_utils
         try:
             hou.node(flam3h_general_utils(self.kwargs).get_node_path(NODE_NAME_TFFA_XAOS)).cook(force=True)
         except AttributeError as e:
-            F3H_Error.F3H_exception_print_infos(e)
+            F3H_Exception.F3H_exception_print_infos(e)
             pass
         
         if do_msg:
@@ -9906,7 +9935,7 @@ class flam3h_palette_utils
             return preset_name
         
         except json.decoder.JSONDecodeError as e:
-            F3H_Error.F3H_exception_print_infos(e)
+            F3H_Exception.F3H_exception_print_infos(e)
             return False
         
         except FileNotFoundError:
@@ -9941,7 +9970,7 @@ class flam3h_palette_utils
                     data[CP_JSON_KEY_NAME_HEX]
                     
                 except (KeyError, TypeError) as e:
-                    F3H_Error.F3H_exception_print_infos(e)
+                    F3H_Exception.F3H_exception_print_infos(e)
                     if msg:
                         _MSG: str = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H™ Palette data."
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -10782,7 +10811,7 @@ class flam3h_palette_utils
                     RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                     
                 except ValueError as e:
-                    F3H_Error.F3H_exception_print_infos(e)
+                    F3H_Exception.F3H_exception_print_infos(e)
                     rgb_from_XML_PALETTE: list = []
                     
                 else:
@@ -10937,7 +10966,7 @@ class flam3h_palette_utils
                 del _data
                 
             except IndexError as e:
-                F3H_Error.F3H_exception_print_infos(e)
+                F3H_Exception.F3H_exception_print_infos(e)
                 preset: str | None = None
                 
             if preset is not None:
@@ -10983,7 +11012,7 @@ class flam3h_palette_utils
                         RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                         
                     except ValueError as e:
-                        F3H_Error.F3H_exception_print_infos(e)
+                        F3H_Exception.F3H_exception_print_infos(e)
                         rgb_from_XML_PALETTE: list = []
                         
                     else:
@@ -12431,7 +12460,7 @@ class _xml_tree
         self._xmlfile_data: str | None = self.xmlfile_root_chk(self.xmlfile)
         self._xmlfile_data_clipboard: str | None = self.xmlfile_root_chk(self.xmlfile, True)
         self._isvalidtree: bool = self.xmlfile_isvalidtree_chk(self.xmlfile)
-
+            
         if self.xmlfile_data_clipboard is not None:
             self._isvalidtree = True
             self._tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(self.xmlfile_data_clipboard)) # type: ignore
@@ -12574,7 +12603,7 @@ class _xml_tree
                     return False
                 
                 return False
-        else:    
+        else:
             return False
 
 
@@ -13437,7 +13466,7 @@ class in_flame
                     RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                     
                 except ValueError as e:
-                    F3H_Error.F3H_exception_print_infos(e)
+                    F3H_Exception.F3H_exception_print_infos(e)
                     return None
                 
                 else:
