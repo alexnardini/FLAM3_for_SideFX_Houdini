@@ -7573,8 +7573,7 @@ class flam3h_iterator_utils
             try:
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
                 
-            except AttributeError as e:
-                F3H_Exception.F3H_exception_print_infos(e)
+            except AttributeError:
                 mp_id_from = None
                 self.destroy_cachedUserData(node, 'iter_sel')
                 # This to avoid a wrong copy/paste info message
@@ -7636,42 +7635,44 @@ class flam3h_iterator_utils
                                 # This so we dnt fallback into this case again and again.
                                 hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
             
-            # It happened sometime that the hou.undoGroup() break and it doesnt group operation anylonger, especially after multiple Undos.
-            # The following will try to pick up the pieces and put them together to keep the copy/paste iterators data going smooth.
-            #
-            if mp_id_from is not None and from_FLAM3H_NODE is not None:
-                # Mark, mark another node, Undo
-                if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE) is False:
-                    for f3h in node.type().instances():
-                        if f3h != node and self.exist_user_data(f3h):
-                            from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE = f3h # type: ignore
-                            mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = self.get_user_data(f3h) # type: ignore
-                            self.iterator_mpidx_mem_set(f3h, int(self.get_user_data(f3h)))
-                            # Always on ourself since we dnt care about others FLAM3H™ nodes SYS tab's Select Iterator mini-menus
-                            self.destroy_cachedUserData(node, 'iter_sel')
-                            break
-                # Mark, mark another node, Undo, Redo
-                elif node != from_FLAM3H_NODE and self.exist_user_data(node):
-                    from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
-                    mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = self.get_user_data(node) # type: ignore
-                    self.iterator_mpidx_mem_set(node, int(self.get_user_data(node)))
-                    self.destroy_cachedUserData(node, 'iter_sel')
-
-            # Mark, Clear, Mark, Undo
-            elif mp_id_from is None and from_FLAM3H_NODE is not None:
-                if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE):
-                    mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = self.get_user_data(from_FLAM3H_NODE) # type: ignore
-                    self.iterator_mpidx_mem_set(from_FLAM3H_NODE, int(self.get_user_data(from_FLAM3H_NODE)))
-                    self.destroy_cachedUserData(node, 'iter_sel')
-
-
-            if isDELETED is False:
+            finally:
+                
+                # It happened sometime that the hou.undoGroup() break and it doesnt group operation anylonger, especially after multiple Undos.
+                # The following will try to pick up the pieces and put them together to keep the copy/paste iterators data going smooth.
+                #
                 if mp_id_from is not None and from_FLAM3H_NODE is not None:
-                    if not self.exist_user_data(from_FLAM3H_NODE):
-                        mp_id_from = None
+                    # Mark, mark another node, Undo
+                    if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE) is False:
+                        for f3h in node.type().instances():
+                            if f3h != node and self.exist_user_data(f3h):
+                                from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE = f3h # type: ignore
+                                mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = self.get_user_data(f3h) # type: ignore
+                                self.iterator_mpidx_mem_set(f3h, int(self.get_user_data(f3h)))
+                                # Always on ourself since we dnt care about others FLAM3H™ nodes SYS tab's Select Iterator mini-menus
+                                self.destroy_cachedUserData(node, 'iter_sel')
+                                break
+                    # Mark, mark another node, Undo, Redo
+                    elif node != from_FLAM3H_NODE and self.exist_user_data(node):
+                        from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
+                        mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = self.get_user_data(node) # type: ignore
+                        self.iterator_mpidx_mem_set(node, int(self.get_user_data(node)))
                         self.destroy_cachedUserData(node, 'iter_sel')
-            
-            return from_FLAM3H_NODE, mp_id_from, isDELETED
+
+                # Mark, Clear, Mark, Undo
+                elif mp_id_from is None and from_FLAM3H_NODE is not None:
+                    if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE):
+                        mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = self.get_user_data(from_FLAM3H_NODE) # type: ignore
+                        self.iterator_mpidx_mem_set(from_FLAM3H_NODE, int(self.get_user_data(from_FLAM3H_NODE)))
+                        self.destroy_cachedUserData(node, 'iter_sel')
+
+
+                if isDELETED is False:
+                    if mp_id_from is not None and from_FLAM3H_NODE is not None:
+                        if not self.exist_user_data(from_FLAM3H_NODE):
+                            mp_id_from = None
+                            self.destroy_cachedUserData(node, 'iter_sel')
+                
+                return from_FLAM3H_NODE, mp_id_from, isDELETED
 
 
     def prm_paste_update_for_undo_ff(self, node: hou.SopNode) -> tuple[hou.SopNode | None, int | None, bool]:
