@@ -405,7 +405,7 @@ class flam3husd_scripts
             
             try:
                 _H_VERSION_ALLOWED: bool =  hou.session.F3HUSD_H_VERSION_ALLOWED # type: ignore
-            except:
+            except AttributeError:
                 _H_VERSION_ALLOWED: bool = False
             
             if _H_VERSION_ALLOWED is False:
@@ -551,7 +551,7 @@ class flam3husd_scripts
         f3h_to_f3husd_node: hou.SopNode = hou.node(f"{f3h_path}{F3H_TO_FLAM3HUSD_NODE_PATH}")
         try:
             type: hou.SopNodeType = f3h_to_f3husd_node.type()
-        except:
+        except AttributeError:
             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
         else:
             if hou.node(f3h_path).type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY and type.name() == F3H_TO_FLAM3HUSD_NODE_TYPE_CATEGORY:
@@ -959,8 +959,10 @@ class flam3husd_scripts
         if len(node_instances) == 1:
             
             # Delete the Houdini update mode data if needed
-            try: del hou.session.HUSD_CS_STASH_DICT # type: ignore
-            except: pass
+            try:
+                del hou.session.HUSD_CS_STASH_DICT # type: ignore
+            except AttributeError:
+                pass
 
 
 # FLAM3HUSD GENERAL UTILS start here
@@ -1036,10 +1038,10 @@ class flam3husd_general_utils
             (bool): True if the imported FLAM3H™ node exist and False if it does not.
         """ 
         current_import: str = node.parm(PREFS_F3H_PATH).eval()
-        try:
-            f3h: hou.SopNode | None = hou.node(current_import)
+        
+        f3h: hou.SopNode | None = hou.node(current_import)
             
-        except:
+        if f3h is None:
             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
             return False
         
@@ -1338,7 +1340,7 @@ class flam3husd_general_utils
         try:
             hou.session.HUSD_CS_STASH_DICT # type: ignore
             _EXIST: bool = True
-        except:
+        except AttributeError:
             _EXIST: bool = False
             
         views_scheme: list[hou.EnumValue]  = []
@@ -1437,7 +1439,7 @@ class flam3husd_general_utils
                         try:
                             hou.node(current_import).type()
                             
-                        except:
+                        except AttributeError:
                             # Otherwise load one that has not being imported yet to start with 
                             flam3husd_scripts.flam3husd_on_create_load_first_instance(node, False, False)
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
@@ -1467,7 +1469,7 @@ class flam3husd_general_utils
                                         node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index - 1]})
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[current_index - 1]))
                                         
-                                    except:
+                                    except IndexError: # just in case
                                         # start over
                                         node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[-1]})
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[-1]))
@@ -1482,7 +1484,7 @@ class flam3husd_general_utils
                                         node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index + 1]})
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[current_index + 1]))
                                         
-                                    except:
+                                    except IndexError: # just in case
                                         # start over
                                         node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
@@ -1495,7 +1497,7 @@ class flam3husd_general_utils
                         try:
                             hou.node(current_import).type()
                             
-                        except:
+                        except AttributeError:
                             # Otherwise load one that has not being imported yet to start with
                             flam3husd_scripts.flam3husd_on_create_load_first_instance(node, False, False)
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
@@ -1523,7 +1525,7 @@ class flam3husd_general_utils
                     try:
                         hou.node(current_import).type()
                         
-                    except:
+                    except AttributeError:
                         node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
                         if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
@@ -1666,8 +1668,7 @@ class flam3husd_general_utils
             (None):  
         """  
         # Do this only if the parameter toggle is: PREFS_VIEWPORT_DARK
-        try: parm = self.kwargs['parm']
-        except: parm = None
+        parm = self.kwargs.get('parm')
         _ENTER_PRM = None
         if parm is not None: _ENTER_PRM = parm.name()
         if _ENTER_PRM is not None and _ENTER_PRM == PREFS_VIEWPORT_DARK:
@@ -1748,7 +1749,7 @@ class flam3husd_general_utils
             else:
                 
                 try: _STASH_DICT: dict[str, hou.EnumValue] | None = hou.session.HUSD_CS_STASH_DICT # type: ignore
-                except: _STASH_DICT: dict[str, hou.EnumValue] | None = None
+                except AttributeError: _STASH_DICT: dict[str, hou.EnumValue] | None = None
                 
                 dark = False
                 lop_viewers: bool = False
