@@ -7428,7 +7428,8 @@ class flam3h_iterator_utils
                 except hou.ObjectWasDeleted:
                     return None, None, True
                 
-            try: # I know, such a big try/except block but hey, some time you gotta do what you gotta do ;)
+            # I know it is a big try/except block, wiil be back to this at some point
+            try:
                 hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
                 mp_id_from: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
                 
@@ -15245,12 +15246,16 @@ class in_flame_utils
         Returns:
             (None):
         """  
-        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(str(f3r.out_size[preset_id]).split()[0]), int(str(f3r.out_size[preset_id]).split()[1])))}) # type: ignore
+        try:
+            out_size: list[str] = str(f3r.out_size[preset_id]).split()
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(out_size[0]), int(out_size[1])))}) # type: ignore
         except (AttributeError, TypeError): # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((int(1024), int(1024)))}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_SIZE} -> NOT FOUND, default value used.\n")
             
-        try: node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(str(f3r.out_center[preset_id]).split()[0]), float(str(f3r.out_center[preset_id]).split()[1])))}) # type: ignore
+        try:
+            out_center: list[str] = str(f3r.out_center[preset_id]).split()
+            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(out_center[0]), float(out_center[1])))}) # type: ignore
         except (AttributeError, TypeError): # If missing set it to its default
             node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((float(0), float(0)))}) # type: ignore
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_CENTER} -> NOT FOUND, default value used.\n")
@@ -17767,7 +17772,7 @@ class out_flame_utils
             if flame: name_new: str = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
             else: name_new: str = datetime.now().strftime("Palette_%b-%d-%Y_%H%M%S")
             
-            rp: list = name.split(splt)
+            rp: list[str] = name.split(splt)
             rp[:] = [item for item in rp if item]
             # Lets make some name checks first
             #
