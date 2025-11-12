@@ -10817,6 +10817,7 @@ class flam3h_palette_utils
             try:
                 preset: str | None = list(_data.keys())[0]
                 del _data
+                
             except IndexError:
                 preset: str | None = None
                 
@@ -18042,7 +18043,7 @@ class out_flame_utils
         if OUT_FLAM3_FILE_EXT == file_ext:
             if os.path.isfile(infile) and os.path.exists(infile):
                 _MSG: str = f"OUT: You selected an OUT file that is not a {prx} file type."
-                print(f"{node.name()}.{_MSG}\n")
+                # print(f"{node.name()}.{_MSG}\n")
                 flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
                 
             else:
@@ -18058,7 +18059,7 @@ class out_flame_utils
         elif OUT_PALETTE_FILE_EXT == file_ext:
             if os.path.isfile(infile) and os.path.exists(infile):
                 _MSG: str = f"CP: You selected an OUT file that is not a {prx} file type."
-                print(f"{node.name()}.{_MSG}\n")
+                # print(f"{node.name()}.{_MSG}\n")
                 flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
                 
             else:
