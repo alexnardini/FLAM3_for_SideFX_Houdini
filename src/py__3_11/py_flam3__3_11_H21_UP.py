@@ -10845,7 +10845,7 @@ class flam3h_palette_utils
                     RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                     
                 except ValueError as e:
-                    F3H_Exception.F3H_traceback_print_infos(e)
+                    F3H_Exception.F3H_traceback_print_infos(e, extra_info='Invalid hex values in the loaded palette.')
                     rgb_from_XML_PALETTE: list = []
                     
                 else:
@@ -11031,7 +11031,7 @@ class flam3h_palette_utils
                     try:
                         hsv_vals: list = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
                         
-                    except ValueError:
+                    except (KeyError, ValueError):
                         hsv_vals: list = []
                         hsv_check: bool = False
                         
@@ -11046,7 +11046,7 @@ class flam3h_palette_utils
                         RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                         
                     except ValueError as e:
-                        F3H_Exception.F3H_traceback_print_infos(e)
+                        F3H_Exception.F3H_traceback_print_infos(e, extra_info='Invalid hex values in the loaded palette from Clipboard.')
                         rgb_from_XML_PALETTE: list = []
                         
                     else:
@@ -13500,7 +13500,7 @@ class in_flame
                     RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                     
                 except ValueError as e:
-                    F3H_Exception.F3H_traceback_print_infos(e)
+                    F3H_Exception.F3H_traceback_print_infos(e, extra_info='Invalid hex values in the loaded Flame palette.')
                     return None
                 
                 else:
