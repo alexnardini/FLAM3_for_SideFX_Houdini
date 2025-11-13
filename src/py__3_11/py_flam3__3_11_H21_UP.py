@@ -10349,12 +10349,14 @@ class flam3h_palette_utils
         node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset_name_checked})
 
 
-    def menu_cp_presets_data(self) -> list:
+    def menu_cp_presets_data(self, json_file_path: str, json_is_file: bool) -> list:
         """Build the palette preset parameter menu entries based on the loaded json palette lib file.
         When a palette preset is currently loaded. This will use the color star icon to signal wich preset is being loaded.
 
         Args:
             (self):
+            json_file_path(str): the CP_PATH parameter string.
+            json_is_valid(bool): wether the json_file_path file is an existing file. 
             
         Returns:
             (list): return menu
@@ -10363,11 +10365,10 @@ class flam3h_palette_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            filepath: str = os.path.expandvars(node.parm(CP_PATH).eval())
             
-            if os.path.exists(filepath) and node.parm(CP_PVT_ISVALID_FILE).eval() and self.node.parm(CP_PVT_ISVALID_PRESET).eval():
+            if json_is_file and node.parm(CP_PVT_ISVALID_FILE).eval() and self.node.parm(CP_PVT_ISVALID_PRESET).eval():
                     
-                with open(filepath) as f:
+                with open(json_file_path) as f:
                     menuitems: KeysView = json.load(f).keys()
                     
                 menu: list = []
@@ -10381,11 +10382,12 @@ class flam3h_palette_utils
                 return menu
             
             flam3h_iterator_utils.destroy_cachedUserData(node, 'cp_presets_menu')
-            head_tail: tuple = os.path.split(filepath)
-            if filepath and os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
+            head_tail: tuple = os.path.split(json_file_path)
+            
+            if json_file_path and not json_is_file and os.path.isdir(head_tail[0]):
                 return MENU_PRESETS_SAVEONE
             
-            elif filepath and not os.path.isfile(filepath):
+            elif json_file_path and not json_is_file:
                 return MENU_PRESETS_INVALID
             
             else:
@@ -10401,7 +10403,10 @@ class flam3h_palette_utils
         Returns:
             (list): return menu
         """
-        if hou.isUIAvailable() is False: self.node.updateParmStates()
+        node = self.node
+        if hou.isUIAvailable() is False: node.updateParmStates()
+        
+        # Quick return
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
         elif not self.node.parm(CP_PATH).eval():
@@ -10410,20 +10415,19 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            node = self.node
             data: list | None = node.cachedUserData('cp_presets_menu')
             data_idx: str | None = node.cachedUserData('cp_presets_menu_idx')
             preset_idx: str = node.parm(CP_PALETTE_PRESETS).eval()
             
             # Double check 
-            json: str = os.path.expandvars(node.parm(CP_PATH).eval())
-            is_valid: bool = os.path.isfile(json)
-            if json and not is_valid:
+            json_file_path: str = os.path.expandvars(node.parm(CP_PATH).eval())
+            json_is_file: bool = os.path.isfile(json_file_path)
+            if json_file_path and not json_is_file:
                 flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_FILE, 0)
                 flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
                 data = None
                 
-            elif json and is_valid:
+            elif json_file_path and json_is_file:
                 # This caused some pain becasue it is forcing us not to tell the truth sometime
                 # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
                 flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_FILE, 1)
@@ -10431,10 +10435,10 @@ class flam3h_palette_utils
             if data is not None and data_idx == preset_idx:
                 return data
             
-            return self.menu_cp_presets_data()
+            return self.menu_cp_presets_data(json_file_path, json_is_file)
     
 
-    def menu_cp_presets_empty_data(self) -> list:
+    def menu_cp_presets_empty_data(self, json_file_path: str, json_is_valid: bool) -> list:
         """Build the palette preset parameter menu entries based on the loaded json palette lib file.
         When no palette preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
 
@@ -10443,6 +10447,8 @@ class flam3h_palette_utils
 
         Args:
             (self):
+            json_file_path(str): the CP_PATH parameter string.
+            json_is_valid(bool): wether the json_file_path file is an existing file. 
             
         Returns:
             (list): return menu
@@ -10451,11 +10457,10 @@ class flam3h_palette_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            filepath: str = os.path.expandvars(self.node.parm(CP_PATH).eval())
 
-            if self.isJSON_F3H(node, filepath, False)[-1] and node.parm(CP_PVT_ISVALID_FILE).eval() and not node.parm(CP_PVT_ISVALID_PRESET).eval():
+            if self.isJSON_F3H(node, json_file_path, False)[-1] and node.parm(CP_PVT_ISVALID_FILE).eval() and not node.parm(CP_PVT_ISVALID_PRESET).eval():
                     
-                with open(filepath) as f:
+                with open(json_file_path) as f:
                     menuitems: KeysView = json.load(f).keys()
                     
                 menu: list = []
@@ -10469,11 +10474,11 @@ class flam3h_palette_utils
                 return menu
                 
             flam3h_iterator_utils.destroy_cachedUserData(node, 'cp_presets_menu_off')
-            head_tail: tuple = os.path.split(filepath)
-            if filepath and os.path.isdir(head_tail[0]) and not os.path.isfile(filepath):
+            head_tail: tuple = os.path.split(json_file_path)
+            if json_file_path  and not json_is_valid and os.path.isdir(head_tail[0]):
                 return MENU_PRESETS_SAVEONE
             
-            if filepath and not os.path.isfile(filepath):
+            if json_file_path and not json_is_valid:
                 return MENU_PRESETS_INVALID
             
             return MENU_PRESETS_EMPTY
@@ -10488,7 +10493,10 @@ class flam3h_palette_utils
         Returns:
             (list): return menu
         """
-        if hou.isUIAvailable() is False: self.node.updateParmStates()
+        node = self.node
+        if hou.isUIAvailable() is False: node.updateParmStates()
+        
+        # Quick return
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
         elif not self.node.parm(CP_PATH).eval():
@@ -10497,19 +10505,18 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            node = self.node
             data: list | None = node.cachedUserData('cp_presets_menu_off')
             data_idx: str | None = node.cachedUserData('cp_presets_menu_off_idx')
             preset_idx: str = node.parm(CP_PALETTE_PRESETS_OFF).eval()
             
             # Double check 
-            json: str = os.path.expandvars(node.parm(CP_PATH).eval())
-            is_valid: bool = os.path.isfile(json)
-            if json and not is_valid:
+            json_file_path: str = os.path.expandvars(node.parm(CP_PATH).eval())
+            json_is_file: bool = os.path.isfile(json_file_path)
+            if json_file_path and not json_is_file:
                 flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_FILE, 0)
                 flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
                 data = None
-            elif json and is_valid:
+            elif json_file_path and json_is_file:
                 # This caused some pain becasue it is forcing us not to tell the truth sometime
                 # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
                 flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_FILE, 1)
@@ -10517,7 +10524,7 @@ class flam3h_palette_utils
             if data is not None and data_idx == preset_idx:
                 return data
             
-            return self.menu_cp_presets_empty_data()
+            return self.menu_cp_presets_empty_data(json_file_path, json_is_file)
 
 
     def flam3h_ramp_save_JSON_DATA(self) -> tuple[dict, str]:
