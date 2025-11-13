@@ -9956,6 +9956,9 @@ class flam3h_palette_utils
             with open(filepath, 'r') as r:
                 preset_name: str = list(json.load(r).keys())[0]
             return preset_name
+        
+        except PermissionError:
+            return False
             
         except FileNotFoundError:
             return False
