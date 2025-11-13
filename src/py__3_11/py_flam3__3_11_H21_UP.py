@@ -9959,10 +9959,10 @@ class flam3h_palette_utils
         
         except PermissionError:
             return False
-            
+        
         except FileNotFoundError:
             return False
-            
+        
         except json.decoder.JSONDecodeError:
             return False
 
@@ -16515,6 +16515,8 @@ class in_flame_utils
 
         Args:
             (self):
+            xml_file_path(str): the IN_PATH parameter string.
+            xml_is_valid(bool): wether the xml_file_path file is an existing file.
 
         Returns:
             (list): the actual menu
@@ -16561,7 +16563,7 @@ class in_flame_utils
         # quick return
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
-        elif not node.parm(IN_PATH).eval():
+        elif node.parm(FLAME_ITERATORS_COUNT).eval() and not node.parm(IN_PATH).eval():
             if node.parm(IN_PVT_ISVALID_PRESET).eval() and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
                 return MENU_IN_PRESETS_EMPTY_CB
             return MENU_PRESETS_EMPTY
@@ -16576,14 +16578,18 @@ class in_flame_utils
             # Double check 
             xml_file_path: str = os.path.expandvars(node.parm(IN_PATH).eval())
             xml_is_file: bool = os.path.isfile(xml_file_path)
-            if xml_file_path and not xml_is_file:
-                flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
-                if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
-                data = None
-            elif xml_file_path and xml_is_file:
-                # This caused some pain becasue it is forcing us not to tell the truth sometime
-                # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
-                flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
+            
+            if xml_file_path:
+                
+                if not xml_is_file:
+                    flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
+                    if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
+                    data = None
+                    
+                elif xml_is_file:
+                    # This caused some pain becasue it is forcing us not to tell the truth sometime
+                    # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
+                    flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
                 
             if data is not None and data_idx == preset_idx:
                 return data
@@ -16591,7 +16597,7 @@ class in_flame_utils
             return self.menu_in_presets_data(xml_file_path, xml_is_file)
         
 
-    def menu_in_presets_empty_data(self, xml_file_path: str, xml_is_file: bool) -> list:
+    def menu_in_presets_empty_data(self, xml_file_path: str, xml_is_valid: bool) -> list:
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
         When no flame preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
 
@@ -16604,6 +16610,8 @@ class in_flame_utils
 
         Args:
             (self):
+            xml_file_path(str): the IN_PATH parameter string.
+            xml_is_valid(bool): wether the xml_file_path file is an existing file.
 
         Returns:
             (list): the actual menu
@@ -16627,19 +16635,19 @@ class in_flame_utils
                 
             else:
                 if node.parm(IN_PVT_ISVALID_PRESET).eval() and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
-                    if not xml_is_file:
+                    if not xml_is_valid:
                         return MENU_PRESETS_INVALID_CB
                     
                     return MENU_IN_PRESETS_EMPTY_CB
                         
             flam3h_iterator_utils.destroy_cachedUserData(node, 'in_presets_menu_off')
             if node.parm(FLAME_ITERATORS_COUNT).eval():
-                if not xml_is_file:
+                if not xml_is_valid:
                     return MENU_PRESETS_INVALID
                 
                 return MENU_PRESETS_EMPTY
             
-            if not xml_is_file:
+            if xml_file_path and not xml_is_valid:
                 return MENU_ZERO_ITERATORS_PRESETS_INVALID
             
             return MENU_ZERO_ITERATORS
@@ -16660,7 +16668,7 @@ class in_flame_utils
         # quick return
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
-        elif not node.parm(IN_PATH).eval():
+        elif node.parm(FLAME_ITERATORS_COUNT).eval() and not node.parm(IN_PATH).eval():
             if node.parm(IN_PVT_ISVALID_PRESET).eval() and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
                 return MENU_IN_PRESETS_EMPTY_CB
             return MENU_PRESETS_EMPTY
@@ -16674,21 +16682,25 @@ class in_flame_utils
             
             # Double check 
             xml_file_path: str = os.path.expandvars(node.parm(IN_PATH).eval())
-            xml_is_file: bool = os.path.isfile(xml_file_path)
-            if xml_file_path and not xml_is_file:
-                flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
-                if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
-                data = None
-            elif xml_file_path and xml_is_file:
-                if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): # to double check
-                    # This caused some pain becasue it is forcing us not to tell the truth sometime
-                    # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
-                    flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
+            xml_is_valid: bool = os.path.isfile(xml_file_path)
+            
+            if xml_file_path:
+                
+                if not xml_is_valid:
+                    flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
+                    if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
+                    data = None
+                    
+                elif xml_is_valid:
+                    if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): # to double check
+                        # This caused some pain becasue it is forcing us not to tell the truth sometime
+                        # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
+                        flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
                 
             if data is not None and data_idx == preset_idx:
                 return data
             
-            return self.menu_in_presets_empty_data(xml_file_path, xml_is_file)
+            return self.menu_in_presets_empty_data(xml_file_path, xml_is_valid)
         
         
     def set_iter_on_load_callback(self) -> None:
