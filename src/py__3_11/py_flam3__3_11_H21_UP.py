@@ -4153,7 +4153,21 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: ALL")
             
         else:
-            for mp_id in range(iter_num): node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) # type: ignore
+            # NEW method
+            # Get the idx of the xf_viz solo iterator from the memory
+            xfviz_idx_mem: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
+            # Try to get the multi parameter instance parm with idx: xfviz_idx_mem.eval()
+            xfviv_solo: hou.Parm = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}")
+            # It it does exist and the xf_viz idx from memory was set
+            if xfviv_solo is not None and xfviz_idx_mem.eval() > 0:
+                # Set the old xv_viz multi parameter instance solo toggle back to 0(Zero)
+                node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}": 0}) # type: ignore
+               
+            # OLD method 
+            # Set all xv_viz multi parameter instance solo toggles back to 0(Zero)
+            # This was the old method. It was ~N times slower where N is the number of the iterators.
+            # for mp_id in range(iter_num): node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) # type: ignore
+            
             prm_mp.set(1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, int(mp_idx))
