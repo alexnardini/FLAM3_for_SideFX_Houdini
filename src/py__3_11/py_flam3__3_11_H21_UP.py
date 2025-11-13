@@ -126,6 +126,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
                     F3H_Error(Exception)
                     F3H_Exception
+                    
                     flam3h_iterator_prm_names
                     flam3h_iterator_prm_names_collections
                     flam3h_varsPRM
@@ -140,6 +141,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                     flam3h_ui_msg_utils
 
                     flam3h_varsPRM_APO
+                    
                     _xml
                     _xml_tree
                     in_flame(_xml_tree)
@@ -12039,7 +12041,7 @@ OUT_XML_FLAME_RENDER_CURVES = 'curves'
 OUT_XML_FLAME_RENDER_CURVES_DEFAULT = '0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1'
 OUT_XML_FLAME_RENDER_CURVES_DEFAULT_B = '0 0 1 0.25 0.25 1 0.75 0.75 1 1 1 1 0 0 1 0.25 0.25 1 0.75 0.75 1 1 1 1 0 0 1 0.25 0.25 1 0.75 0.75 1 1 1 1 0 0 1 0.25 0.25 1 0.75 0.75 1 1 1 1'
 OUT_XML_FLAME_RENDER_CURVES_DEFAULT_C = '0 0 1 0.25 0.25 1 1 1 1 0.75 0.75 1 0 0 1 0.25 0.25 1 1 1 1 0.75 0.75 1 0 0 1 0.25 0.25 1 1 1 1 0.75 0.75 1 0 0 1 0.25 0.25 1 1 1 1 0.75 0.75 1'
-OUT_XML_FLAME_RENDER_CURVES_DEFAULT_ALL: tuple = (OUT_XML_FLAME_RENDER_CURVES_DEFAULT, OUT_XML_FLAME_RENDER_CURVES_DEFAULT_B, OUT_XML_FLAME_RENDER_CURVES_DEFAULT_C) # I'll do a better solution another day for this
+OUT_XML_FLAME_RENDER_CURVES_DEFAULT_ALL: tuple[str, ...] = (OUT_XML_FLAME_RENDER_CURVES_DEFAULT.__str__(), OUT_XML_FLAME_RENDER_CURVES_DEFAULT_B.__str__(), OUT_XML_FLAME_RENDER_CURVES_DEFAULT_C.__str__()) # I'll do a better solution another day for this
 OUT_XML_FLAME_RENDER_CURVE_OVERALL = 'overall_curve'
 OUT_XML_FLAME_RENDER_CURVE_RED = 'red_curve'
 OUT_XML_FLAME_RENDER_CURVE_GREEN = 'green_curve'
@@ -12047,7 +12049,7 @@ OUT_XML_FLAME_RENDER_CURVE_BLUE = 'blue_curve'
 OUT_XML_FLAME_RENDER_CURVE_DEFAULT = '0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1'
 OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B = '0 0 0.25 0.25 0.75 0.75 1 1'
 OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C = '0 0 0.25 0.25 1 1 0.75 0.75' # This order is odd but I have some flames coming in with this so...
-OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: tuple = (OUT_XML_FLAME_RENDER_CURVE_DEFAULT, OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B, OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C) # I'll do a better solution another day for this
+OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: tuple[str, ...] = (OUT_XML_FLAME_RENDER_CURVE_DEFAULT.__str__(), OUT_XML_FLAME_RENDER_CURVE_DEFAULT_B.__str__(), OUT_XML_FLAME_RENDER_CURVE_DEFAULT_C.__str__()) # I'll do a better solution another day for this
 # XML OUT render key data prm names HOUDINI
 # for now make sense to expose those, I may add more in the future if needed
 # Note that those are the FLAM3H™ UI parameter's names for the OUT Render properties tab.
@@ -12529,10 +12531,10 @@ class _xml_tree
 * xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
 
 @METHODS
-* get_name(self, key: str = XML_XF_NAME) -> tuple:
-* __get_name_val_str(self, key: str, _DEFAULT: str = '0') -> tuple:
-* __get_name_curve_val_str(self, key: str, _DEFAULT: str = '0') -> tuple:
-* __get_name_list_str(self, key: str) -> tuple:
+* get_name(self, key: str = XML_XF_NAME) -> tuple[str, ...]:
+* __get_name_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str, ...]:
+* __get_name_curve_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str]:
+* __get_name_list_str(self, key: str) -> tuple[str, ...]:
 * __get_flame(self, key: str = XML_FLAME_NAME) -> tuple | None:
 * __get_flame_count(self, flames: list) -> int:
 
@@ -12752,7 +12754,7 @@ class _xml_tree
     
 
     # This not private as its cheaper to have it evaluate from this parent class.
-    def get_name(self, key: str = XML_XF_NAME) -> tuple:
+    def get_name(self, key: str = XML_XF_NAME) -> tuple[str, ...]:
         """Collect all Flame presets name from the XML Flame file.
 
         Args:
@@ -12760,7 +12762,7 @@ class _xml_tree
             key(str): Defaults to XML_XF_NAME. The XML Flame's name key.
 
         Returns:
-            (tuple): Flame presets names packed into a tuple.
+            (tuple[str, ...]): Flame presets names packed into a tuple.
         """
         if self.isvalidtree:
             
@@ -12768,14 +12770,15 @@ class _xml_tree
             _strip: Callable[[str], str] = str.strip
             _len: Callable[[str], int] = len
             if key == XML_XF_NAME:
-                return tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else '[]' for name in root)
-            
-            return tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else [] for name in root)
-            
+                list_values_cleaned: tuple = tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else '[]' for name in root)
+            else:
+                list_values_cleaned: tuple = tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else [] for name in root)
+            return list_values_cleaned
+        
         return () 
         
         
-    def __get_name_val_str(self, key: str, _DEFAULT: str = '0') -> tuple:
+    def __get_name_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str, ...]:
         """Collect all Flame presets single value from the XML Flame file and return all of them packed into a tuple.
         It will also scan each string value for invalid characters and try to remove them returning a cleaned up string value.
 
@@ -12785,18 +12788,19 @@ class _xml_tree
             _DEFAULT(str): If something goes wrong, use this default value instead.
 
         Returns:
-            (tuple): Flame presets single string values packed into a tuple.
+            (tuple[str, ...]): Flame presets single string values packed into a tuple or an empty tuple
         """      
         if self.isvalidtree:
             
             root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
-            return tuple(_strip(in_flame.xf_val_cleanup_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None else [] for name in root)
+            list_values_cleaned: tuple = tuple(_strip(in_flame.xf_val_cleanup_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None else [] for name in root)
+            return list_values_cleaned
             
         return () 
         
         
-    def __get_name_curve_val_str(self, key: str, _DEFAULT: str = '0') -> tuple:
+    def __get_name_curve_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str, ...]:
         """Collect all Flame presets multi color correction curve values from the XML Flame file and return all of them packed into a tuple.
         It will also scan each string value for invalid characters and try to remove them returning a cleaned up string value.
 
@@ -12806,19 +12810,20 @@ class _xml_tree
             _DEFAULT(str): If something goes wrong, use this default value instead.
 
         Returns:
-            (tuple): Flame presets multi color correction curve values packed into a tuple.
+            (tuple[str, ...]): Flame presets multi color correction curve values packed into a tuple or an empty tuple.
         """      
         if self.isvalidtree:
             
             root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
             _xf_val_cleanup_split_str: Callable[[str, str, str], str] = in_flame.xf_val_cleanup_split_str
-            return tuple(_strip(_xf_val_cleanup_split_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None and keyval != '' else [] for name in root)
+            list_values_cleaned: tuple = tuple(_strip(_xf_val_cleanup_split_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None and keyval != '' else [] for name in root)
+            return list_values_cleaned
             
         return () 
         
         
-    def __get_name_list_str(self, key: str) -> tuple:
+    def __get_name_list_str(self, key: str) -> tuple[str, ...]:
         """Collect all Flame presets list values from the XML Flame file.
         Some examples of values to use this definition with are: size, center... (all key name that hold multiple string values in it)
 
@@ -12827,7 +12832,7 @@ class _xml_tree
             key(str): The XML Flame's key name.
 
         Returns:
-            (tuple): Return all values packed into a tuple.
+            (tuple[str, ...]): Return all values packed into a tuple.
         """
         if self.isvalidtree:
             
@@ -12838,7 +12843,8 @@ class _xml_tree
             root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
             _xf_list_cleanup_str: Callable[[list, str, str], str] = in_flame.xf_list_cleanup_str
-            return tuple(str(_xf_list_cleanup_str(_strip(keyval).split(), _default, key)) if (keyval := name.get(key)) is not None else [] for name in root)
+            list_values_cleaned: tuple = tuple(str(_xf_list_cleanup_str(_strip(keyval).split(), _default, key)) if (keyval := name.get(key)) is not None else [] for name in root)
+            return list_values_cleaned
         
         return () 
         
@@ -12939,40 +12945,40 @@ class in_flame
         self._flame_count: int = self._xml_tree__get_flame_count(self.flame) # type: ignore
         
         # render properties
-        self._out_size: tuple = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SIZE) # type: ignore
-        self._out_center: tuple = self._xml_tree__get_name_list_str(OUT_XML_FLAME_CENTER) # type: ignore
-        self._out_rotate: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_ROTATE, '0') # type: ignore
-        self._out_scale: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_SCALE, '0') # type: ignore
-        self._out_quality: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_QUALITY, '1000') # type: ignore
-        self._out_brightness: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_BRIGHTNESS, '3') # type: ignore
-        self._out_gamma: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_GAMMA, '2.5') # type: ignore
-        self._out_highlight_power: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER, '5') # type: ignore
-        self._out_logscale_k2: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2, '0') # type: ignore
-        self._out_vibrancy: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY, '0.3333') # type: ignore
+        self._out_size: tuple[str, ...] = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SIZE) # type: ignore
+        self._out_center: tuple[str, ...] = self._xml_tree__get_name_list_str(OUT_XML_FLAME_CENTER) # type: ignore
+        self._out_rotate: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_ROTATE, '0') # type: ignore
+        self._out_scale: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_SCALE, '0') # type: ignore
+        self._out_quality: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_QUALITY, '1000') # type: ignore
+        self._out_brightness: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_BRIGHTNESS, '3') # type: ignore
+        self._out_gamma: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_GAMMA, '2.5') # type: ignore
+        self._out_highlight_power: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER, '5') # type: ignore
+        self._out_logscale_k2: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2, '0') # type: ignore
+        self._out_vibrancy: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY, '0.3333') # type: ignore
         
         # palette lookup samples basis
         self._out_palette_mode: tuple = self.get_name(OUT_XML_FLAME_PALETTE_MODE)
         
         # render curves
-        self._out_curves: tuple = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVES, OUT_XML_FLAME_RENDER_CURVES_DEFAULT) # type: ignore
-        self._out_curve_overall: tuple = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_OVERALL, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
-        self._out_curve_red: tuple = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_RED, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
-        self._out_curve_green: tuple = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_GREEN, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
-        self._out_curve_blue: tuple = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_BLUE, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curves: tuple[str, ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVES, OUT_XML_FLAME_RENDER_CURVES_DEFAULT) # type: ignore
+        self._out_curve_overall: tuple[str, ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_OVERALL, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curve_red: tuple[str, ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_RED, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curve_green: tuple[str, ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_GREEN, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curve_blue: tuple[str, ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_BLUE, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
         
         # custom to FLAM3H™ only
-        self._flam3h_sys_rip: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_SYS_RIP) # type: ignore # This xml key must be present to be set otherwise leave it untouched
-        self._flam3h_hsv: tuple = self._xml_tree__get_name_list_str(OUT_XML_FLAM3H_HSV) # type: ignore
+        self._flam3h_sys_rip: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_SYS_RIP) # type: ignore # This xml key must be present to be set otherwise leave it untouched
+        self._flam3h_hsv: tuple[str, ...] = self._xml_tree__get_name_list_str(OUT_XML_FLAM3H_HSV) # type: ignore
         
         # just check any of the MB val and if exist mean there is MB data to be set.
         # this will act as bool and if true, it will hold our OUT_XML_FLMA3H_MB_FPS value ( as string )
-        self._flam3h_mb: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS) # type: ignore # This xml key must be present to be set otherwise leave it untouched
-        self._flam3h_mb_samples: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SAMPLES, '16') # type: ignore
-        self._flam3h_mb_shutter: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER, '0.5') # type: ignore
-        self._flam3h_cp_samples: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES, '256') # type: ignore
-        self._flam3h_cp_basis: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES_BASIS, '0') # type: ignore
+        self._flam3h_mb: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS) # type: ignore # This xml key must be present to be set otherwise leave it untouched
+        self._flam3h_mb_samples: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SAMPLES, '16') # type: ignore
+        self._flam3h_mb_shutter: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER, '0.5') # type: ignore
+        self._flam3h_cp_samples: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES, '256') # type: ignore
+        self._flam3h_cp_basis: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES_BASIS, '0') # type: ignore
         
-        self._flam3h_prefs_f3c: tuple = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore # This xml key must be present to be set otherwise leave it untouched
+        self._flam3h_prefs_f3c: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore # This xml key must be present to be set otherwise leave it untouched
         
 
     @staticmethod
@@ -15465,10 +15471,18 @@ class in_flame_utils
             vibrancy = f"{OUT_XML_FLAME_VIBRANCY.capitalize()}: {vibrancy_val}"
         
         cc_curves: list = []
-        if apo_data.out_curve_overall[preset_id] and apo_data.out_curve_overall[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Overall')
-        if apo_data.out_curve_red[preset_id] and apo_data.out_curve_red[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Red')
-        if apo_data.out_curve_green[preset_id] and apo_data.out_curve_green[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Green')
-        if apo_data.out_curve_blue[preset_id] and apo_data.out_curve_blue[preset_id] not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Blue')
+        
+        # Get this presed_id curves data
+        _this_out_curve_overall: str = apo_data.out_curve_overall[preset_id]
+        _this_out_curve_red: str = apo_data.out_curve_red[preset_id]
+        _this_out_curve_green: str = apo_data.out_curve_green[preset_id]
+        _this_out_curve_blue: str = apo_data.out_curve_blue[preset_id]
+        
+        # Compare and build
+        if _this_out_curve_overall and _this_out_curve_overall not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Overall')
+        if _this_out_curve_red and _this_out_curve_red not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Red')
+        if _this_out_curve_green and _this_out_curve_green not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Green')
+        if _this_out_curve_blue and _this_out_curve_blue not in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL: cc_curves.append('Blue')
         if not cc_curves: cc = f"{XML_updated}COLOR CORRECTION: Default (OFF)\nThe loaded preset CC Curves are default values."
         else: cc = f"{XML_updated}COLOR CORRECTION:\n{', '.join(cc_curves)}"
         
