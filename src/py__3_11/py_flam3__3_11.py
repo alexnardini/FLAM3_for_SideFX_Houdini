@@ -7426,9 +7426,10 @@ class flam3h_iterator_utils
         # Update data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
 
+        _MSG_UNMARKED = "This iterator is Unmarked already"
+        
         if node == from_FLAM3H_NODE: # type: ignore
             
-            _MSG_UNMARKED = "This iterator is Unmarked already"
             assert from_FLAM3H_NODE is not None
             
             if mp_id_from is not None:
