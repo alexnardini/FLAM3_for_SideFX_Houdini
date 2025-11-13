@@ -4124,7 +4124,6 @@ class flam3h_general_utils
     def flam3h_toggle_mp_xf_viz(self) -> None:
         """If a toggle is OFF it will switch ON, and viceversa.
         Specifically built for the XF VIZ multiparameter icons.
-        
 
         Args:
             (self):
@@ -4226,7 +4225,6 @@ class flam3h_general_utils
         """If a toggle is OFF it will switch ON, and viceversa.
         Specifically built for the XF FF VIZ icons.
         
-
         Args:
             (self):
 
@@ -9857,9 +9855,9 @@ class flam3h_palette_utils
 @METHODS
 * cp_bases_selection_msg(self) -> None:
 * cp_preset_name_set(self) -> None:
-* menu_cp_presets_data(self) -> list:
+* menu_cp_presets_data(self, node: hou.SopNode, json_file_path: str, json_is_file: bool) -> list:
 * menu_cp_presets(self) -> list:
-* menu_cp_presets_empty_data(self) -> list:
+* menu_cp_presets_empty_data(self, node: hou.SopNode, json_file_path: str, json_is_valid: bool) -> list:
 * menu_cp_presets_empty(self) -> list:
 * flam3h_ramp_save_JSON_DATA(self) -> tuple[dict, str]:
 * flam3h_ramp_save(self) -> None:
@@ -14167,9 +14165,9 @@ class in_flame_utils
                           preset_id: int, 
                           ) -> None:
 * in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool, XML_last_update: bool = False) -> str:
-* menu_in_presets_data(self) -> list:
+* menu_in_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> list:
 * menu_in_presets(self) -> list:
-* menu_in_presets_empty_data(self) -> list:
+* menu_in_presets_empty_data(self, node: hou.SopNode, xml_file_path: str, xml_is_valid: bool) -> list:
 * menu_in_presets_empty(self) -> list:
 * set_iter_on_load_callback(self) -> None:
 * use_iter_on_load_callback(self) -> None:
