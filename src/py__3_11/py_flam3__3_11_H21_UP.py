@@ -4133,7 +4133,6 @@ class flam3h_general_utils
         # with hou.undos.disabler(): # type: ignore
         
         node: hou.SopNode = self.node
-        iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         mp_idx: str = self.kwargs['script_multiparm_index']
         prm_mp = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{mp_idx}")
