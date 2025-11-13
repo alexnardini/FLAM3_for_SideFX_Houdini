@@ -10356,7 +10356,7 @@ class flam3h_palette_utils
         Args:
             (self):
             json_file_path(str): the CP_PATH parameter string.
-            json_is_valid(bool): wether the json_file_path file is an existing file. 
+            json_is_valid(bool): wether the json_file_path file is an existing file. True or False
             
         Returns:
             (list): return menu
@@ -10448,7 +10448,7 @@ class flam3h_palette_utils
         Args:
             (self):
             json_file_path(str): the CP_PATH parameter string.
-            json_is_valid(bool): wether the json_file_path file is an existing file. 
+            json_is_valid(bool): wether the json_file_path file is an existing file. True or False
             
         Returns:
             (list): return menu
@@ -16523,7 +16523,7 @@ class in_flame_utils
         Args:
             (self):
             xml_file_path(str): the IN_PATH parameter string.
-            xml_is_valid(bool): wether the xml_file_path file is an existing file.
+            xml_is_valid(bool): wether the xml_file_path file is an existing file. True or False
 
         Returns:
             (list): the actual menu
@@ -16618,7 +16618,7 @@ class in_flame_utils
         Args:
             (self):
             xml_file_path(str): the IN_PATH parameter string.
-            xml_is_valid(bool): wether the xml_file_path file is an existing file.
+            xml_is_valid(bool): wether the xml_file_path file is an existing file. True or False
 
         Returns:
             (list): the actual menu
@@ -19431,11 +19431,13 @@ class out_flame_utils
         return tuple(_join(x) for x in self.out_util_round_floats(t))
 
 
-    def menu_out_contents_presets_data(self) -> list:
+    def menu_out_contents_presets_data(self, xml_file_path: str, xml_is_file: bool) -> list:
         """Populate OUT parameter menu items for the SYS and OUT tab.
         
         Args:
             (self):
+            xml_file_path(str): the OUT_PATH parameter string.
+            xml_is_valid(bool): wether the xml_file_path file is an existing file. True or False
 
         Returns:
             (list): Return a menu
@@ -19448,26 +19450,26 @@ class out_flame_utils
             
             # For the OUT Tab menu presets we are forced to use the class: _xml_tree(...)
             # Instead of the lightweight version class: _xml(...)
-            apo = _xml_tree(xml)
+            apo_data = _xml_tree(xml_file_path)
             
-            if xml and apo.isvalidtree:
+            if apo_data.isvalidtree:
                 
                 menu: list = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
                 _menu_enum: Callable[[list, int, str], None] = self.menu_out_presets_loop_enum
                 _menu_raw: Callable[[list, int, str], None] = self.menu_out_presets_loop
-                for i, item in enumerate(apo.name):
+                for i, item in enumerate(apo_data.name):
                     _menu_enum(menu, i, item) if enum else _menu_raw(menu, i, item)
 
                 node.setCachedUserData('out_presets_menu', menu)
                 return menu
             
             flam3h_iterator_utils.destroy_cachedUserData(node, 'out_presets_menu')
-            head_tail: tuple = os.path.split(xml)
-            if xml and os.path.isdir(head_tail[0]) and not os.path.isfile(xml):
+            head_tail: tuple = os.path.split(xml_file_path)
+            if not xml_is_file and os.path.isdir(head_tail[0]):
                 return MENU_PRESETS_SAVEONE
             
-            elif xml and not os.path.isfile(xml):
+            elif not xml_is_file:
                 return MENU_PRESETS_INVALID
             
             else:
@@ -19483,19 +19485,26 @@ class out_flame_utils
         Returns:
             list: Return a menu
         """
+        
+        node = self.node
+        if hou.isUIAvailable() is False: node.updateParmStates()
+        
+        # quick return
+        if not node.parm(OUT_PATH).eval():
+            return MENU_PRESETS_EMPTY
+        
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            node = self.node
             data: list | None = node.cachedUserData('out_presets_menu')
             
             # Double check
-            xml: str = os.path.expandvars(node.parm(OUT_PATH).eval())
-            is_valid: bool = os.path.isfile(xml)
-            if xml and not is_valid:
+            xml_file_path: str = os.path.expandvars(node.parm(OUT_PATH).eval())
+            xml_is_file: bool = os.path.isfile(xml_file_path)
+            if xml_file_path and not xml_is_file:
                 flam3h_general_utils.private_prm_set(node, OUT_PVT_ISVALID_FILE, 0)
                 data = None
-            elif xml and is_valid:
+            elif xml_file_path and xml_is_file:
                 # This caused some pain becasue it is forcing us not to tell the truth sometime
                 # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
                 flam3h_general_utils.private_prm_set(node, OUT_PVT_ISVALID_FILE, 1)
@@ -19503,7 +19512,7 @@ class out_flame_utils
             if data is not None:
                 return data
             
-            return self.menu_out_contents_presets_data()
+            return self.menu_out_contents_presets_data(xml_file_path, xml_is_file)
 
     
     def out_auto_add_iter_data(self) -> tuple[int, str, int]:
