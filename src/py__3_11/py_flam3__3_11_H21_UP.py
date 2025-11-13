@@ -4134,8 +4134,8 @@ class flam3h_general_utils
         
         node: hou.SopNode = self.node
         
-        index: int = self.kwargs['script_multiparm_index']
-        prm_mp = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{index}")
+        s_mp_index: int = self.kwargs['script_multiparm_index']
+        prm_mp = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{s_mp_index}")
         
         data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
         
@@ -4169,13 +4169,13 @@ class flam3h_general_utils
             
             prm_mp.set(1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 1)
-            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, index)
+            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, s_mp_index)
             self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
-            node.setUserData(f"{data_name}", str(index))
+            node.setUserData(f"{data_name}", str(s_mp_index))
                 
             _MSG: str = f"{node.name()}: {str(prm_mp.name()).upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
-            self.flash_message(node, f"XF VIZ: {index}")
+            self.flash_message(node, f"XF VIZ: {s_mp_index}")
             
             
     def flam3h_toggle_mp_xf_viz_solo_follow(self, mp_idx: str) -> None:
@@ -4236,7 +4236,7 @@ class flam3h_general_utils
         node: hou.SopNode = self.node
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         
-        # index: int = self.kwargs['script_multiparm_index']
+        # s_mp_index: int = self.kwargs['script_multiparm_index']
         prm_mp = node.parm(PREFS_PVT_XF_FF_VIZ_SOLO)
         data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
         
@@ -5292,7 +5292,7 @@ class flam3h_iterator_utils
 * flam3h_iterator_is_default_name(name: str, regex: str = "^[^\d\s()]+(?: [^\d\s()]+)*[\d]+") -> bool:
 * flam3h_on_loaded_set_density_menu(node: hou.SopNode) -> None:
 * sierpinski_settings(node: hou.SopNode) -> None:
-* get_user_data(node: hou.SopNode, data_name: str = FLAM3H_USER_DATA_ITER) -> int | bool:
+* def get_user_data(node: hou.SopNode, data_name: str = FLAM3H_USER_DATA_ITER) -> str | bool:
 * exist_user_data(node: hou.SopNode, data: str = FLAM3H_USER_DATA_ITER) -> bool:
 * set_comment_and_user_data_iterator(node: hou.SopNode, value: str, data: str = FLAM3H_USER_DATA_ITER) -> None:
 * del_comment_and_user_data_iterator(node: hou.SopNode, data: str = FLAM3H_USER_DATA_ITER) -> None:
@@ -5540,7 +5540,7 @@ class flam3h_iterator_utils
 
 
     @staticmethod
-    def get_user_data(node: hou.SopNode, data_name: str = FLAM3H_USER_DATA_ITER) -> int | bool:
+    def get_user_data(node: hou.SopNode, data_name: str = FLAM3H_USER_DATA_ITER) -> str | bool:
         """Get the node user data associated to the copy/paste data.
         
         Args:
@@ -5552,7 +5552,7 @@ class flam3h_iterator_utils
         """   
         
         name: str = f"{FLAM3H_USER_DATA_PRX}_{data_name}"
-        data: int | None = node.userData(f"{name}")
+        data: str | None = node.userData(f"{name}")
         if data is not None:
             return data
         
@@ -5766,9 +5766,9 @@ class flam3h_iterator_utils
         # Iterator
         if flam3h_iterator_utils.exist_user_data(node):
             hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = node # type: ignore
-            data = flam3h_iterator_utils.get_user_data(node)
+            data: int = int(flam3h_iterator_utils.get_user_data(node))
             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = data # type: ignore
-            flam3h_iterator_utils.iterator_mpidx_mem_set(node, int(data)) # type: ignore
+            flam3h_iterator_utils.iterator_mpidx_mem_set(node, data) # type: ignore
         else:
             # If this node do not posses the copy/paste data, lets first check if the data and its node exist (other FLAM3H™ node)
             # before clearing it out
@@ -6441,16 +6441,16 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        index: int = self.kwargs['script_multiparm_index']
+        s_mp_index: int = self.kwargs['script_multiparm_index']
         scl_prm: hou.Parm = self.kwargs['parm']
         scl_prm.deleteAllKeyframes() # This parameter can not be animated
         
         scl: float = scl_prm.eval()
-        x: tuple = hou.parmTuple(f"x_{index}").eval()
-        y: tuple = hou.parmTuple(f"y_{index}").eval()
+        x: tuple = hou.parmTuple(f"x_{s_mp_index}").eval()
+        y: tuple = hou.parmTuple(f"y_{s_mp_index}").eval()
         m2_new: tuple = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms({f"x_{index}": hou.Vector2((m2_new[0]))})
-        self.node.setParms({f"y_{index}": hou.Vector2((m2_new[1]))})
+        self.node.setParms({f"x_{s_mp_index}": hou.Vector2((m2_new[0]))})
+        self.node.setParms({f"y_{s_mp_index}": hou.Vector2((m2_new[1]))})
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
         
@@ -6471,16 +6471,16 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        index: int = self.kwargs['script_multiparm_index']
+        s_mp_index: int = self.kwargs['script_multiparm_index']
         scl_prm: hou.Parm = self.kwargs['parm']
         scl_prm.deleteAllKeyframes() # This parameter can not be animated
         
         scl: float = scl_prm.eval()
-        x: tuple = hou.parmTuple(f"px_{index}").eval()
-        y: tuple = hou.parmTuple(f"py_{index}").eval()
+        x: tuple = hou.parmTuple(f"px_{s_mp_index}").eval()
+        y: tuple = hou.parmTuple(f"py_{s_mp_index}").eval()
         m2_new: tuple = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms({f"px_{index}": hou.Vector2((m2_new[0]))})
-        self.node.setParms({f"py_{index}": hou.Vector2((m2_new[1]))})
+        self.node.setParms({f"px_{s_mp_index}": hou.Vector2((m2_new[0]))})
+        self.node.setParms({f"py_{s_mp_index}": hou.Vector2((m2_new[1]))})
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
         
@@ -6736,9 +6736,9 @@ class flam3h_iterator_utils
         node = self.node
         self.destroy_cachedUserData(node, 'iter_sel')
         prm = self.kwargs['parm']
-        index: int = self.kwargs['script_multiparm_index']
+        s_mp_index: int = self.kwargs['script_multiparm_index']
         if not prm.eval():
-            prm.set(f"iterator_{index}")
+            prm.set(f"iterator_{s_mp_index}")
         else:
             prm.set(str(prm.eval()).strip())
             
@@ -6770,8 +6770,8 @@ class flam3h_iterator_utils
         """  
         prm: hou.Parm = self.kwargs['parm']
         _TYPE: int = prm.evalAsInt() # this can be animated with inbetween values so we always force cast it as int()
-        index: int = self.kwargs['script_multiparm_index']
-        prm_weight_name: str = f"{str(prm.name()).split('type')[0]}weight_{index}"
+        s_mp_index: int = self.kwargs['script_multiparm_index']
+        prm_weight_name: str = f"{str(prm.name()).split('type')[0]}weight_{s_mp_index}"
         return _TYPE, self.node.parm(prm_weight_name).eval()
     
     
@@ -6856,8 +6856,8 @@ class flam3h_iterator_utils
         Returns:
             (tuple[int, str]): int: variation idx.    str: icon
         """
-        index: int = self.kwargs['script_multiparm_index']
-        prm_weight_name: str = f"{flam3h_iterator_prm_names().prevar_weight_blur}_{index}"
+        s_mp_index: int = self.kwargs['script_multiparm_index']
+        prm_weight_name: str = f"{flam3h_iterator_prm_names().prevar_weight_blur}_{s_mp_index}"
 
         w: float = self.node.parm(prm_weight_name).eval()
 
@@ -7434,7 +7434,7 @@ class flam3h_iterator_utils
             menu: list = []
             
             node = self.node
-            index: int = self.kwargs['script_multiparm_index']
+            s_mp_index: int = self.kwargs['script_multiparm_index']
             
             if self.exist_user_data(node):
                 node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
@@ -7447,9 +7447,9 @@ class flam3h_iterator_utils
                 
                 idx_from: str = str(mp_id_from)
                 
-                prm_selmem = node.parm(f"selmem_{index}")
+                prm_selmem = node.parm(f"selmem_{s_mp_index}")
                 if prm_selmem.eval() > 0:
-                    node.setParms({f"prmpastesel_{index}": 0})
+                    node.setParms({f"prmpastesel_{s_mp_index}": 0})
                     prm_selmem.set(0)
                     
                 # Menu entrie sections bookmark icon
@@ -7460,8 +7460,8 @@ class flam3h_iterator_utils
                 else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
 
                 # Build menu
-                if node == from_FLAM3H_NODE and index == mp_id_from:
-                    menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {index}: MARKED\n-> Select a different iterator number or a different FLAM3H™ node to paste its values.", 1,"" ]
+                if node == from_FLAM3H_NODE and s_mp_index == mp_id_from:
+                    menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {s_mp_index}: MARKED\n-> Select a different iterator number or a different FLAM3H™ node to paste its values.", 1,"" ]
                 elif node == from_FLAM3H_NODE:
                     path: str = f"{_ICON}  {idx_from}"
                     menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
@@ -7663,24 +7663,27 @@ class flam3h_iterator_utils
                     if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE) is False:
                         for f3h in node.type().instances():
                             if f3h != node and self.exist_user_data(f3h):
+                                s_mp_index: int | None = int(self.get_user_data(f3h))
                                 from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE = f3h # type: ignore
-                                mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = self.get_user_data(f3h) # type: ignore
-                                self.iterator_mpidx_mem_set(f3h, int(self.get_user_data(f3h)))
+                                mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = s_mp_index # type: ignore
+                                self.iterator_mpidx_mem_set(f3h, s_mp_index)
                                 # Always on ourself since we dnt care about others FLAM3H™ nodes SYS tab's Select Iterator mini-menus
                                 self.destroy_cachedUserData(node, 'iter_sel')
                                 break
                     # Mark, mark another node, Undo, Redo
                     elif node != from_FLAM3H_NODE and self.exist_user_data(node):
+                        s_mp_index: int | None = int(self.get_user_data(node))
                         from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
-                        mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = self.get_user_data(node) # type: ignore
-                        self.iterator_mpidx_mem_set(node, int(self.get_user_data(node)))
+                        mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = s_mp_index # type: ignore
+                        self.iterator_mpidx_mem_set(node, s_mp_index)
                         self.destroy_cachedUserData(node, 'iter_sel')
 
                 # Mark, Clear, Mark, Undo
                 elif mp_id_from is None and from_FLAM3H_NODE is not None:
+                    s_mp_index: int | None = int(self.get_user_data(from_FLAM3H_NODE))
                     if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE):
-                        mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = self.get_user_data(from_FLAM3H_NODE) # type: ignore
-                        self.iterator_mpidx_mem_set(from_FLAM3H_NODE, int(self.get_user_data(from_FLAM3H_NODE)))
+                        mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = s_mp_index # type: ignore
+                        self.iterator_mpidx_mem_set(from_FLAM3H_NODE, s_mp_index)
                         self.destroy_cachedUserData(node, 'iter_sel')
 
 
@@ -7957,36 +7960,36 @@ class flam3h_iterator_utils
         # Clear menu cache
         self.destroy_cachedUserData(node, 'iter_sel')
         
-        index: int = self.kwargs['script_multiparm_index']
+        s_mp_index: int = self.kwargs['script_multiparm_index']
         
         # This is to make sure the hou.session's data is at least initialized.
         self.flam3h_init_hou_session_iterator_data(node)
         
         # Adding ability to reset the current iterator to its default values. 
         if self.kwargs["ctrl"]:
-            with hou.undos.group(f"FLAM3H™ reset iterator {index}"): # type: ignore
+            with hou.undos.group(f"FLAM3H™ reset iterator {s_mp_index}"): # type: ignore
                 self.flam3h_reset_iterator()
-                _MSG: str = f"{node.name()}: Iterator {index} -> RESET"
+                _MSG: str = f"{node.name()}: Iterator {s_mp_index} -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["shift"]:
-            with hou.undos.group(f"FLAM3H™ unmark iterator SHIFT {index}"): # type: ignore
+            with hou.undos.group(f"FLAM3H™ unmark iterator SHIFT {s_mp_index}"): # type: ignore
                 self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
-                self.prm_paste_SHIFT(index)
+                self.prm_paste_SHIFT(s_mp_index)
                      
         elif self.kwargs["alt"]:
-            with hou.undos.group(f"FLAM3H™ paste iterator data CTRL {index}"): # type: ignore
-                self.prm_paste_CTRL(index)
+            with hou.undos.group(f"FLAM3H™ paste iterator data CTRL {s_mp_index}"): # type: ignore
+                self.prm_paste_CTRL(s_mp_index)
         
         else:
-            if self.exist_user_data(node) and int(self.get_user_data(node)) == index and index == hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node == hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
-                with hou.undos.group(f"FLAM3H™ unmark iterator CLICK {index}"): # type: ignore
+            if self.exist_user_data(node) and int(self.get_user_data(node)) == s_mp_index and s_mp_index == hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node == hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
+                with hou.undos.group(f"FLAM3H™ unmark iterator CLICK {s_mp_index}"): # type: ignore
                     self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
-                    self.prm_paste_SHIFT(index)
+                    self.prm_paste_SHIFT(s_mp_index)
             else:
-                with hou.undos.group(f"FLAM3H™ mark iterator CLICK {index}"): # type: ignore
+                with hou.undos.group(f"FLAM3H™ mark iterator CLICK {s_mp_index}"): # type: ignore
                     self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
-                    self.prm_paste_CLICK(index)
+                    self.prm_paste_CLICK(s_mp_index)
     
     
     def prm_paste_FF_CTRL(self) -> None:
@@ -8183,8 +8186,8 @@ class flam3h_iterator_utils
         if mp_id_from is not None:
 
             # current iterator
-            index: int = self.kwargs['script_multiparm_index']
-            mp_idx: str = str(index)
+            s_mp_index: int = self.kwargs['script_multiparm_index']
+            mp_idx: str = str(s_mp_index)
             idx_from = str(mp_id_from)
             
             # prm names
@@ -8195,8 +8198,8 @@ class flam3h_iterator_utils
             assert isinstance(from_FLAM3H_NODE, hou.SopNode)
             
             # Get user selection of paste methods
-            paste_sel: int = node.parm(f"{n.main_prmpastesel}_{index}").eval()
-            node.setParms({f"{n.main_selmem}_{index}": paste_sel})
+            paste_sel: int = node.parm(f"{n.main_prmpastesel}_{s_mp_index}").eval()
+            node.setParms({f"{n.main_selmem}_{s_mp_index}": paste_sel})
 
             f3h_iter = flam3h_iterator()
             varsPRM = flam3h_varsPRM().varsPRM
@@ -8205,7 +8208,7 @@ class flam3h_iterator_utils
                 
                 # set ALL
                 case 1:
-                    self.prm_paste_CTRL(index)
+                    self.prm_paste_CTRL(s_mp_index)
                     
                 # set MAIN
                 case 2:
@@ -8253,8 +8256,8 @@ class flam3h_iterator_utils
                     if not self.is_iterator_affine_default(node, from_FLAM3H_NODE, f3h_iter.sec_postAffine, mp_idx, idx_from, True):
                         self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, mp_idx, idx_from)
                         
-            node.setParms({f"{n.main_prmpastesel}_{index}": 0})
-            node.setParms({f"{n.main_selmem}_{index}": paste_sel})
+            node.setParms({f"{n.main_prmpastesel}_{s_mp_index}": 0})
+            node.setParms({f"{n.main_selmem}_{s_mp_index}": paste_sel})
             
             # Force select-iterator menu update in case an iterator is marked on this FLAM3H™ node
             self.prm_paste_sel_iter_sel_force_update(node)
@@ -8292,26 +8295,26 @@ class flam3h_iterator_utils
         self.update_xml_last_loaded()
         
         # current iterator
-        index: int = self.kwargs['script_multiparm_index']
-        mp_idx: str = str(index)
+        s_mp_index: int = self.kwargs['script_multiparm_index']
+        mp_idx: str = str(s_mp_index)
         kwargs: dict = self.kwargs
         
         f3h_iter = flam3h_iterator()
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[1:-2], f3h_iter.sec_preAffine[:-2], mp_idx)
-            _MSG: str = f"iterator.{index} - POST affine X and Y copied into the PRE affine."
+            _MSG: str = f"iterator.{s_mp_index} - POST affine X and Y copied into the PRE affine."
             
         elif kwargs['ctrl']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[3:-1], f3h_iter.sec_preAffine[2:-1], mp_idx)
-            _MSG: str = f"iterator.{index} - POST affine OFFSET copied into the PRE affine."
+            _MSG: str = f"iterator.{s_mp_index} - POST affine OFFSET copied into the PRE affine."
             
         elif kwargs['alt']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[4:], f3h_iter.sec_preAffine[3:], mp_idx)
-            _MSG: str = f"iterator.{index} - POST affine ROT angle copied into the PRE affine."
+            _MSG: str = f"iterator.{s_mp_index} - POST affine ROT angle copied into the PRE affine."
             
         else:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[1:], f3h_iter.sec_preAffine, mp_idx)
-            _MSG: str = f"iterator.{index} - POST affine ALL values copied into the PRE affine."
+            _MSG: str = f"iterator.{s_mp_index} - POST affine ALL values copied into the PRE affine."
             
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
@@ -8329,26 +8332,26 @@ class flam3h_iterator_utils
         self.update_xml_last_loaded()
         
         # current iterator
-        index: int = self.kwargs['script_multiparm_index']
-        mp_idx: str = str(index)
+        s_mp_index: int = self.kwargs['script_multiparm_index']
+        mp_idx: str = str(s_mp_index)
         kwargs: dict = self.kwargs
         
         f3h_iter = flam3h_iterator()
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[:-2], f3h_iter.sec_postAffine[1:-2], mp_idx)
-            _MSG: str = f"iterator.{index} - PRE affine X and Y copied into the POST affine."
+            _MSG: str = f"iterator.{s_mp_index} - PRE affine X and Y copied into the POST affine."
             
         elif kwargs['ctrl']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[2:-1], f3h_iter.sec_postAffine[3:-1], mp_idx)
-            _MSG: str = f"iterator.{index} - PRE affine OFFSET copied into the POST affine."
+            _MSG: str = f"iterator.{s_mp_index} - PRE affine OFFSET copied into the POST affine."
             
         elif kwargs['alt']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[3:], f3h_iter.sec_postAffine[4:], mp_idx)
-            _MSG: str = f"iterator.{index} - PRE affine ROT angle copied into the POST affine."
+            _MSG: str = f"iterator.{s_mp_index} - PRE affine ROT angle copied into the POST affine."
             
         else:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine, f3h_iter.sec_postAffine[1:], mp_idx)
-            _MSG: str = f"iterator.{index} - PRE affine ALL values copied into the POST affine."
+            _MSG: str = f"iterator.{s_mp_index} - PRE affine ALL values copied into the POST affine."
             
         flam3h_general_utils.set_status_msg(f"{self.node.name()}: {_MSG}", 'IMP')
         
@@ -8552,10 +8555,10 @@ class flam3h_iterator_utils
         """
         node = self.node
         n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
-        index: int = self.kwargs['script_multiparm_index']
+        s_mp_index: int = self.kwargs['script_multiparm_index']
         check = True
         
-        current: dict = { "affine_x": node.parmTuple(f"{n.preaffine_x}_{index}"), "affine_y": node.parmTuple(f"{n.preaffine_y}_{index}"), "affine_o": node.parmTuple(f"{n.preaffine_o}_{index}"), "angle": node.parm(f"{n.preaffine_ang}_{index}") }
+        current: dict = { "affine_x": node.parmTuple(f"{n.preaffine_x}_{s_mp_index}"), "affine_y": node.parmTuple(f"{n.preaffine_y}_{s_mp_index}"), "affine_o": node.parmTuple(f"{n.preaffine_o}_{s_mp_index}"), "angle": node.parm(f"{n.preaffine_ang}_{s_mp_index}") }
         
         if self.kwargs["shift"]:
             current["affine_x"].deleteAllKeyframes()
@@ -8567,11 +8570,11 @@ class flam3h_iterator_utils
                     current["affine_x"].set(AFFINE_DEFAULT_DICT.get("affine_x"))
                     current["affine_y"].set(AFFINE_DEFAULT_DICT.get("affine_y"))
                     # Print to Houdini's status bar
-                    _MSG: str = f"{node.name()}: Iterator.{index} PRE Affine X and Y -> RESET"
+                    _MSG: str = f"{node.name()}: Iterator.{s_mp_index} PRE Affine X and Y -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG: str = f"{node.name()}: Iterator.{index} PRE Affine X and Y -> already at their default values."
+                _MSG: str = f"{node.name()}: Iterator.{s_mp_index} PRE Affine X and Y -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["ctrl"]:
@@ -8580,10 +8583,10 @@ class flam3h_iterator_utils
                 check = False
                 current["affine_o"].set(AFFINE_DEFAULT_DICT.get("affine_o"))
                 # Print to Houdini's status bar
-                _MSG: str = f"{node.name()}: Iterator.{index} PRE Affine OFFSET -> RESET"
+                _MSG: str = f"{node.name()}: Iterator.{s_mp_index} PRE Affine OFFSET -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG: str = f"{node.name()}: Iterator.{index} PRE Affine OFFSET -> already at its default values."
+                _MSG: str = f"{node.name()}: Iterator.{s_mp_index} PRE Affine OFFSET -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["alt"]:
@@ -8592,10 +8595,10 @@ class flam3h_iterator_utils
                 check = False
                 current["angle"].set(AFFINE_DEFAULT_DICT.get("angle"))
                 # Print to Houdini's status bar
-                _MSG: str = f"{node.name()}: Iterator.{index} PRE Affine ROT Angle -> RESET"
+                _MSG: str = f"{node.name()}: Iterator.{s_mp_index} PRE Affine ROT Angle -> RESET"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             if check:
-                _MSG: str = f"{node.name()}: Iterator.{index} PRE Affine ROT Angle -> already at its default values."
+                _MSG: str = f"{node.name()}: Iterator.{s_mp_index} PRE Affine ROT Angle -> already at its default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         else:
@@ -8609,11 +8612,11 @@ class flam3h_iterator_utils
                     current["affine_o"].set(AFFINE_DEFAULT_DICT.get("affine_o"))
                     current["angle"].set(AFFINE_DEFAULT_DICT.get("angle"))
                     # Print to Houdini's status bar
-                    _MSG: str = f"{node.name()}: Iterator.{index} PRE Affine ALL -> RESET"
+                    _MSG: str = f"{node.name()}: Iterator.{s_mp_index} PRE Affine ALL -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     break
             if check:
-                _MSG: str = f"{node.name()}: Iterator.{index} PRE Affine ALL -> already at their default values."
+                _MSG: str = f"{node.name()}: Iterator.{s_mp_index} PRE Affine ALL -> already at their default values."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
 
@@ -8628,12 +8631,12 @@ class flam3h_iterator_utils
         """
         node = self.node
         n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
-        index: int = self.kwargs['script_multiparm_index']
+        s_mp_index: int = self.kwargs['script_multiparm_index']
         
-        if node.parm(f"{n.postaffine_do}_{index}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
+        if node.parm(f"{n.postaffine_do}_{s_mp_index}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
                 
             check: bool = True
-            current: dict = { "affine_x": node.parmTuple(f"{n.postaffine_x}_{index}"), "affine_y": node.parmTuple(f"{n.postaffine_y}_{index}"), "affine_o": node.parmTuple(f"{n.postaffine_o}_{index}"), "angle": node.parm(f"{n.postaffine_ang}_{index}") }
+            current: dict = { "affine_x": node.parmTuple(f"{n.postaffine_x}_{s_mp_index}"), "affine_y": node.parmTuple(f"{n.postaffine_y}_{s_mp_index}"), "affine_o": node.parmTuple(f"{n.postaffine_o}_{s_mp_index}"), "angle": node.parm(f"{n.postaffine_ang}_{s_mp_index}") }
             
             if self.kwargs["shift"]:
                 current["affine_x"].deleteAllKeyframes()
@@ -8645,11 +8648,11 @@ class flam3h_iterator_utils
                         current["affine_x"].set(AFFINE_DEFAULT_DICT.get("affine_x"))
                         current["affine_y"].set(AFFINE_DEFAULT_DICT.get("affine_y"))
                         # Print to Houdini's status bar
-                        _MSG: str = f"{node.name()}: Iterator.{index} POST Affine X and Y -> RESET"
+                        _MSG: str = f"{node.name()}: Iterator.{s_mp_index} POST Affine X and Y -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
                 if check:
-                    _MSG: str = f"{node.name()}: Iterator.{index} POST Affine X and Y -> already at their default values."
+                    _MSG: str = f"{node.name()}: Iterator.{s_mp_index} POST Affine X and Y -> already at their default values."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
             elif self.kwargs["ctrl"]:
@@ -8658,10 +8661,10 @@ class flam3h_iterator_utils
                     check = False
                     current["affine_o"].set(AFFINE_DEFAULT_DICT.get("affine_o"))
                     # Print to Houdini's status bar
-                    _MSG: str = f"{node.name()}: Iterator.{index} POST Affine OFFSET -> RESET"
+                    _MSG: str = f"{node.name()}: Iterator.{s_mp_index} POST Affine OFFSET -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 if check:
-                    _MSG: str = f"{node.name()}: Iterator.{index} POST Affine OFFSET -> already at its default values."
+                    _MSG: str = f"{node.name()}: Iterator.{s_mp_index} POST Affine OFFSET -> already at its default values."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
             elif self.kwargs["alt"]:
@@ -8671,10 +8674,10 @@ class flam3h_iterator_utils
                     # post affine
                     current["angle"].set(AFFINE_DEFAULT_DICT.get("angle"))
                     # Print to Houdini's status bar
-                    _MSG: str = f"{node.name()}: Iterator.{index} POST Affine ROT Angle -> RESET"
+                    _MSG: str = f"{node.name()}: Iterator.{s_mp_index} POST Affine ROT Angle -> RESET"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 if check:
-                    _MSG: str = f"{node.name()}: Iterator.{index} POST Affine ROT Angle -> already at its default value."
+                    _MSG: str = f"{node.name()}: Iterator.{s_mp_index} POST Affine ROT Angle -> already at its default value."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             else:
@@ -8688,11 +8691,11 @@ class flam3h_iterator_utils
                         current["affine_o"].set(AFFINE_DEFAULT_DICT.get("affine_o"))
                         current["angle"].set(AFFINE_DEFAULT_DICT.get("angle"))
                         # Print to Houdini's status bar
-                        _MSG: str = f"{node.name()}: Iterator.{index} POST Affine ALL -> RESET"
+                        _MSG: str = f"{node.name()}: Iterator.{s_mp_index} POST Affine ALL -> RESET"
                         flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                         break
                 if check:
-                    _MSG: str = f"{node.name()}: Iterator.{index} POST Affine ALL -> already at their default values."
+                    _MSG: str = f"{node.name()}: Iterator.{s_mp_index} POST Affine ALL -> already at their default values."
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
         
         
@@ -8864,16 +8867,16 @@ class flam3h_iterator_utils
         # Check and Update this data
         self.update_xml_last_loaded()
         
-        index: int = self.kwargs['script_multiparm_index']
-        _MSG: str = f"{node.name()}.iterator.{index} PRE variations -> SWAP"
+        s_mp_index: int = self.kwargs['script_multiparm_index']
+        _MSG: str = f"{node.name()}.iterator.{s_mp_index} PRE variations -> SWAP"
         
         # Get prm names
         pvT: tuple = flam3h_iterator().sec_prevarsT
         pvW: tuple = flam3h_iterator().sec_prevarsW[1:]
         
         # Get prm
-        pvT_prm: tuple = (node.parm(f"{pvT[0]}{index}"), node.parm(f"{pvT[1]}{index}"))
-        pvW_prm: tuple = (node.parm(f"{pvW[0][0]}{index}"), node.parm(f"{pvW[1][0]}{index}"))
+        pvT_prm: tuple = (node.parm(f"{pvT[0]}{s_mp_index}"), node.parm(f"{pvT[1]}{s_mp_index}"))
+        pvW_prm: tuple = (node.parm(f"{pvW[0][0]}{s_mp_index}"), node.parm(f"{pvW[1][0]}{s_mp_index}"))
         # get tmp prm
         __pvT_prm: tuple = (node.parm(PREFS_PVT_INT_0), node.parm(PREFS_PVT_INT_1))
         __pvW_prm: tuple = (node.parm(PREFS_PVT_FLOAT_0), node.parm(PREFS_PVT_FLOAT_1))
@@ -9040,51 +9043,51 @@ class flam3h_iterator_utils
             (None):
         """
         node = self.node
-        index: int = self.kwargs['script_multiparm_index']
+        s_mp_index: int = self.kwargs['script_multiparm_index']
         
         # prm names
         n: flam3h_iterator_prm_names_collections = flam3h_iterator_prm_names_collections()
 
         # Delete all keyframes
         for prm_name in n.prm_iterator:
-            node.parm(f"{prm_name}_{index}").deleteAllKeyframes()
+            node.parm(f"{prm_name}_{s_mp_index}").deleteAllKeyframes()
         for prm_name in n.prm_iterator_tuple:
-            node.parmTuple(f"{prm_name}_{index}").deleteAllKeyframes()
+            node.parmTuple(f"{prm_name}_{s_mp_index}").deleteAllKeyframes()
         # Delete all keyframes parametrics and revert to defaults
         for prm_name in n.prm_parametrics:
-            node.parm(f"{prm_name}_{index}").deleteAllKeyframes()
-            node.parm(f"{prm_name}_{index}").revertToDefaults()
+            node.parm(f"{prm_name}_{s_mp_index}").deleteAllKeyframes()
+            node.parm(f"{prm_name}_{s_mp_index}").revertToDefaults()
         for prm_name in n.prm_parametrics_tuple:
-            node.parmTuple(f"{prm_name}_{index}").deleteAllKeyframes()
-            node.parmTuple(f"{prm_name}_{index}").revertToDefaults()
+            node.parmTuple(f"{prm_name}_{s_mp_index}").deleteAllKeyframes()
+            node.parmTuple(f"{prm_name}_{s_mp_index}").revertToDefaults()
 
         # iter idx
         #
         # iter main
-        node.setParms({f"{n.main_note}_{index}": f"iterator_{index}"}) # type: ignore
-        node.setParms({f"{n.main_weight}_{index}": 0.5}) # type: ignore
+        node.setParms({f"{n.main_note}_{s_mp_index}": f"iterator_{s_mp_index}"}) # type: ignore
+        node.setParms({f"{n.main_weight}_{s_mp_index}": 0.5}) # type: ignore
         #
         # We leave xaos untouched becasue its handy to keep it and just reset it in a second step if desired
         #
         # iter shader
-        node.setParms({f"{n.shader_color}_{index}": 0}) # type: ignore
-        node.setParms({f"{n.shader_speed}_{index}": 0}) # type: ignore
-        node.setParms({f"{n.shader_alpha}_{index}": 1.0}) # type: ignore
+        node.setParms({f"{n.shader_color}_{s_mp_index}": 0}) # type: ignore
+        node.setParms({f"{n.shader_speed}_{s_mp_index}": 0}) # type: ignore
+        node.setParms({f"{n.shader_alpha}_{s_mp_index}": 1.0}) # type: ignore
         # iter vars
-        [node.setParms({f"{prm}_{index}": 1}) if prm == n.var_weight_1 
-            else node.setParms({f"{prm}_{index}": 0})
+        [node.setParms({f"{prm}_{s_mp_index}": 1}) if prm == n.var_weight_1 
+            else node.setParms({f"{prm}_{s_mp_index}": 0})
                 for prm in n.prm_iterator_vars_all]
         
         # Iterator Affines
-        affines_dict: dict[str, hou.Vector2 | float | None] = { f"{n.preaffine_x}_{index}": AFFINE_DEFAULT_DICT.get("affine_x"),
-                                                                f"{n.preaffine_y}_{index}": AFFINE_DEFAULT_DICT.get("affine_y"),
-                                                                f"{n.preaffine_o}_{index}": AFFINE_DEFAULT_DICT.get("affine_o"),
-                                                                f"{n.preaffine_ang}_{index}": AFFINE_DEFAULT_DICT.get("angle"),
-                                                                f"{n.postaffine_do}_{index}": 0,
-                                                                f"{n.postaffine_x}_{index}": AFFINE_DEFAULT_DICT.get("affine_x"),
-                                                                f"{n.postaffine_y}_{index}": AFFINE_DEFAULT_DICT.get("affine_y"),
-                                                                f"{n.postaffine_o}_{index}": AFFINE_DEFAULT_DICT.get("affine_o"),
-                                                                f"{n.postaffine_ang}_{index}": AFFINE_DEFAULT_DICT.get("angle")
+        affines_dict: dict[str, hou.Vector2 | float | None] = { f"{n.preaffine_x}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_x"),
+                                                                f"{n.preaffine_y}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_y"),
+                                                                f"{n.preaffine_o}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_o"),
+                                                                f"{n.preaffine_ang}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("angle"),
+                                                                f"{n.postaffine_do}_{s_mp_index}": 0,
+                                                                f"{n.postaffine_x}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_x"),
+                                                                f"{n.postaffine_y}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_y"),
+                                                                f"{n.postaffine_o}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_o"),
+                                                                f"{n.postaffine_ang}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("angle")
                                                                 }
         
         # Iterator Affines Set
@@ -9547,7 +9550,7 @@ class flam3h_iterator_utils
             (None):
         """
         node = self.node
-        index: int = self.kwargs['script_multiparm_index']
+        s_mp_index: int = self.kwargs['script_multiparm_index']
         # iterators count
         mp_prm: hou.Parm = self.node.parm(FLAME_ITERATORS_COUNT)
         
@@ -9557,7 +9560,7 @@ class flam3h_iterator_utils
         # INSERT AFTER
         if self.kwargs["shift"]:
             
-            mp_prm.insertMultiParmInstance(index)
+            mp_prm.insertMultiParmInstance(s_mp_index)
             
             # Change multiparameter focus to the newly created iterator
             # From Houdini 21.0.489 SideFX added multiParmTab and setMultiParmTab to hou.NetworkEditor.
@@ -9570,7 +9573,7 @@ class flam3h_iterator_utils
         # DELETE THIS INSTANCE
         elif self.kwargs['ctrl']:
             
-            mp_prm.removeMultiParmInstance(index - 1)
+            mp_prm.removeMultiParmInstance(s_mp_index - 1)
 
             # If we are left with ZERO iterators
             if not mp_prm.eval():
@@ -9581,7 +9584,7 @@ class flam3h_iterator_utils
         # INSERT BEFORE
         else:
             
-            mp_prm.insertMultiParmInstance(index - 1)
+            mp_prm.insertMultiParmInstance(s_mp_index - 1)
         
         # If there are any iterators left
         if mp_prm.eval():
@@ -9758,8 +9761,8 @@ class flam3h_iterator_utils
         
         # Do toggle ON/OFF if the correct parameter is being used
         if 'doiter_' in self.kwargs['parm'].name():
-            index: int = self.kwargs['script_multiparm_index']
-            vactive_prm_name: str = f"vactive_{index}"
+            s_mp_index: int = self.kwargs['script_multiparm_index']
+            vactive_prm_name: str = f"vactive_{s_mp_index}"
             flam3h_general_utils(self.kwargs).flam3h_toggle(vactive_prm_name)
 
 
