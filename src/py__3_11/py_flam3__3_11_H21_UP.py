@@ -7979,12 +7979,12 @@ class flam3h_iterator_utils
                 self.prm_paste_CTRL(index)
         
         else:
-            if self.exist_user_data(node) and int(self.get_user_data(node)) == idx and idx == hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node == hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
-                with hou.undos.group(f"FLAM3H™ unmark iterator CLICK {idx}"): # type: ignore
+            if self.exist_user_data(node) and int(self.get_user_data(node)) == index and index == hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node == hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
+                with hou.undos.group(f"FLAM3H™ unmark iterator CLICK {index}"): # type: ignore
                     self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
                     self.prm_paste_SHIFT(index)
             else:
-                with hou.undos.group(f"FLAM3H™ mark iterator CLICK {idx}"): # type: ignore
+                with hou.undos.group(f"FLAM3H™ mark iterator CLICK {index}"): # type: ignore
                     self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
                     self.prm_paste_CLICK(index)
     
