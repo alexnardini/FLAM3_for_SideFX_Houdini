@@ -10401,6 +10401,8 @@ class flam3h_palette_utils
         if hou.isUIAvailable() is False: self.node.updateParmStates()
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
+        elif not self.node.parm(CP_PATH).eval():
+            return MENU_PRESETS_EMPTY
         
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -10486,6 +10488,8 @@ class flam3h_palette_utils
         if hou.isUIAvailable() is False: self.node.updateParmStates()
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
+        elif not self.node.parm(CP_PATH).eval():
+            return MENU_PRESETS_EMPTY
         
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -16022,6 +16026,30 @@ class in_flame_utils
 
             else:
                 menu.append(f"{enum_label}:  {item}")
+                
+                
+    @staticmethod
+    def in_presets_menu_quick_return(kwargs: dict, node: hou.SopNode) -> list:
+        """This is spcifically to be run inside:</br>
+        * def menu_in_presets
+        * def menu_in_presets_empty
+        
+        to speed up a little
+
+        Args:
+            kwargs(dickt): self.kwargs dictionary
+            node(hou.SopNode): This FLAM3H™ node.
+
+        Returns:
+            (None):
+        """  
+        if hou.isUIAvailable() is False: node.updateParmStates()
+        if kwargs['parm'].isHidden():
+            return MENU_PRESETS_EMPTY_HIDDEN
+        elif not node.parm(IN_PATH).eval():
+            if node.parm(IN_PVT_ISVALID_PRESET).eval() and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
+                return MENU_IN_PRESETS_EMPTY_CB
+            return MENU_PRESETS_EMPTY
 
 
     # CLASS: PROPERTIES
@@ -16549,14 +16577,20 @@ class in_flame_utils
         Returns:
             (list): Return a menu
         """
-        if hou.isUIAvailable() is False: self.node.updateParmStates()
+        node = self.node
+        if hou.isUIAvailable() is False: node.updateParmStates()
+        
+        # quick return
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
+        elif not node.parm(IN_PATH).eval():
+            if node.parm(IN_PVT_ISVALID_PRESET).eval() and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
+                return MENU_IN_PRESETS_EMPTY_CB
+            return MENU_PRESETS_EMPTY
         
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            node = self.node
             data: list | None = node.cachedUserData('in_presets_menu')
             data_idx: str | None = node.cachedUserData('in_presets_menu_idx')
             preset_idx: str = node.parm(IN_PRESETS).eval()
@@ -16643,14 +16677,20 @@ class in_flame_utils
         Returns:
             (list): Return a menu
         """
-        if hou.isUIAvailable() is False: self.node.updateParmStates()
+        node = self.node
+        if hou.isUIAvailable() is False: node.updateParmStates()
+        
+        # quick return
         if self.kwargs['parm'].isHidden():
             return MENU_PRESETS_EMPTY_HIDDEN
+        elif not node.parm(IN_PATH).eval():
+            if node.parm(IN_PVT_ISVALID_PRESET).eval() and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
+                return MENU_IN_PRESETS_EMPTY_CB
+            return MENU_PRESETS_EMPTY
         
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            node = self.node
             data: list | None = node.cachedUserData('in_presets_menu_off')
             data_idx: str | None = node.cachedUserData('in_presets_menu_off_idx')
             preset_idx: str = node.parm(IN_PRESETS_OFF).eval()
