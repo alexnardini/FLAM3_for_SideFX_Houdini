@@ -12,7 +12,6 @@ import hou
 import nodesearch
 
 import os
-import sys
 import json
 import colorsys
 import traceback
@@ -28,6 +27,8 @@ from typing import TypeVar
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import TypeAlias
+    
+from sys import stdout as sys_stdout
 from itertools import count as it_count
 from itertools import islice as it_islice
 from textwrap import wrap
@@ -538,7 +539,7 @@ F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
         # Optional
         if traceback_info:
             print("\nFull Traceback:")
-            tb.print_exc(file=sys.stdout)
+            tb.print_exc(file=sys_stdout)
             
             
     # CLASS: PROPERTIES
@@ -10051,10 +10052,11 @@ class flam3h_palette_utils
                     data[CP_JSON_KEY_NAME_HEX]
                     
                 except (KeyError, TypeError) as e:
-                    F3H_Exception.F3H_traceback_print_infos(e)
+                    _MSG_C: str = f"JSON file is legitimate, but it does not contain any valid FLAM3H™ Palette data."
+                    F3H_Exception.F3H_traceback_print_infos(e, extra_info=_MSG_C)
                     if msg:
-                        _MSG: str = f"{node.name()}: Palette JSON load -> Although the JSON file you loaded is legitimate, it does not contain any valid FLAM3H™ Palette data."
-                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                        _MSG_H: str = f"{node.name()}: Palette JSON load -> {_MSG_C}"
+                        flam3h_general_utils.set_status_msg(_MSG_H, 'WARN')
                         flam3h_general_utils.flash_message(node, f"CP LOAD: Not a valid palette file")
                     del data
                     
