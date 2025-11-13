@@ -7701,8 +7701,8 @@ class flam3h_iterator_utils
 
                 # Mark, Clear, Mark, Undo
                 elif mp_id_from is None and from_FLAM3H_NODE is not None:
-                    s_mp_index: int | None = int(self.get_user_data(from_FLAM3H_NODE))
                     if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE):
+                        s_mp_index: int | None = int(self.get_user_data(from_FLAM3H_NODE))
                         mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = s_mp_index # type: ignore
                         self.iterator_mpidx_mem_set(from_FLAM3H_NODE, s_mp_index)
                         self.destroy_cachedUserData(node, 'iter_sel')
