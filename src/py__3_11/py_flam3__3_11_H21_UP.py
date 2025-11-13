@@ -7443,6 +7443,7 @@ class flam3h_iterator_utils
             from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
             
             if mp_id_from is not None:
+                
                 assert from_FLAM3H_NODE is not None
                 
                 idx_from: str = str(mp_id_from)
@@ -7462,11 +7463,12 @@ class flam3h_iterator_utils
                 # Build menu
                 if node == from_FLAM3H_NODE and s_mp_index == mp_id_from:
                     menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {s_mp_index}: MARKED\n-> Select a different iterator number or a different FLAM3H™ node to paste its values.", 1,"" ]
+                    
                 elif node == from_FLAM3H_NODE:
                     path: str = f"{_ICON}  {idx_from}"
                     menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                
                 else:
-                    assert from_FLAM3H_NODE is not None
                     path: str = f"{_ICON}  .../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
                     menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  ... {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
                 
@@ -7477,14 +7479,19 @@ class flam3h_iterator_utils
                     return MENU_ITER_COPY_PASTE_DELETED_MARKED
                 
                 if from_FLAM3H_NODE is not None:
+                    
                     assert from_FLAM3H_NODE is not None
+                    
                     _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                     __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+                    
                     if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
                         menu: list = MENU_ITER_COPY_PASTE_REMOVED
+                        
                     elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
                         path: str = f".../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}"
                         menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  REMOVED: The marked iterator has been removed from node: {path}\n-> Mark an existing iterator instead.", 1, "" ]
+                        
                     else:
                         menu: list = MENU_ITER_COPY_PASTE_EMPTY
                         
@@ -7615,20 +7622,26 @@ class flam3h_iterator_utils
                             self.del_comment_and_user_data_iterator(node)
                             self.set_comment_and_user_data_iterator(node, str(mp_id_from))
                             self.destroy_cachedUserData(node, 'iter_sel')
+                            
                     else:
                         if _FLAM3H_DATA_PRM_MPIDX == -1:
                             mp_id_from = None
                             self.del_comment_and_user_data_iterator(node)
                             self.destroy_cachedUserData(node, 'iter_sel')
+                            
                 else:
                     if __FLAM3H_DATA_PRM_MPIDX > 0:
+                        
                         if mp_id_from != __FLAM3H_DATA_PRM_MPIDX:
+                            
+                            assert from_FLAM3H_NODE is not None
+                            
                             mp_id_from = __FLAM3H_DATA_PRM_MPIDX
                             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = mp_id_from # type: ignore
-                            assert from_FLAM3H_NODE is not None
                             self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                             self.set_comment_and_user_data_iterator(from_FLAM3H_NODE, str(mp_id_from))
                             self.destroy_cachedUserData(node, 'iter_sel')
+                            
                         else:
                             # This is for an edge case so we dnt have marked iterators in multiple node's "select iterator" mini-menus
                             data: bool | None = node.cachedUserData('edge_case_01')
@@ -7636,12 +7649,17 @@ class flam3h_iterator_utils
                                 self.destroy_cachedUserData(node, 'iter_sel')
                                 # This so we dnt fallback into this case again and again.
                                 node.setCachedUserData('edge_case_01', True)
+                                
                     else:
+                        
                         if __FLAM3H_DATA_PRM_MPIDX == -1:
-                            mp_id_from = None
+                            
                             assert from_FLAM3H_NODE is not None
+                            
+                            mp_id_from = None
                             self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                             self.destroy_cachedUserData(node, 'iter_sel')
+                            
                         # This is for an edge case so we dnt have marked iterators in multiple node's "select iterator" mini-menus
                         elif _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is None: # type: ignore
                             try:
@@ -7659,6 +7677,7 @@ class flam3h_iterator_utils
                 # The following will try to pick up the pieces and put them together to keep the copy/paste iterators data going smooth.
                 #
                 if mp_id_from is not None and from_FLAM3H_NODE is not None:
+                    
                     # Mark, mark another node, Undo
                     if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE) is False:
                         for f3h in node.type().instances():
@@ -7670,6 +7689,7 @@ class flam3h_iterator_utils
                                 # Always on ourself since we dnt care about others FLAM3H™ nodes SYS tab's Select Iterator mini-menus
                                 self.destroy_cachedUserData(node, 'iter_sel')
                                 break
+                            
                     # Mark, mark another node, Undo, Redo
                     elif node != from_FLAM3H_NODE and self.exist_user_data(node):
                         s_mp_index: int | None = int(self.get_user_data(node))
@@ -7722,9 +7742,11 @@ class flam3h_iterator_utils
             from_FLAM3H_NODE_FF_CHECK: TA_M = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
             
             isDELETED = False
+            
             try:
                 assert from_FLAM3H_NODE is not None
                 from_FLAM3H_NODE.type()
+                
             except (AttributeError, AssertionError):
                 from_FLAM3H_NODE_FF_CHECK = None
                 from_FLAM3H_NODE = None
@@ -7735,6 +7757,7 @@ class flam3h_iterator_utils
             #
             # -> def menu_copypaste_FF(self) -> list:
             if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
+                
                 # Mark, mark another node, Undos
                 if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF) is False:
                     for f3h in node.type().instances():
@@ -7742,16 +7765,19 @@ class flam3h_iterator_utils
                             from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE = f3h # type: ignore
                             from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK = 1  # type: ignore
                             break
+                        
                 # Mark, mark another node, Undo, Redos
                 elif node != from_FLAM3H_NODE and self.exist_user_data(node, FLAM3H_USER_DATA_FF):
                     from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
                     from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK = 1  # type: ignore
+                    
             # Mark, unmark, Undos
             elif from_FLAM3H_NODE_FF_CHECK is None and from_FLAM3H_NODE is not None:
                 if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF):
                     from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK = 1  # type: ignore
 
             if isDELETED is False:
+                
                 if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
                     if not self.exist_user_data(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF):
                         from_FLAM3H_NODE_FF_CHECK = None
@@ -7808,17 +7834,25 @@ class flam3h_iterator_utils
                         flam3h_general_utils.flash_message(node, MARK_ITER_MSG)
                         
                 elif node != from_FLAM3H_NODE:
-                    assert from_FLAM3H_NODE is not None
-                    __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                     
-                    if __FLAM3H_DATA_PRM_MPIDX == -1:
-                        _MSG: str = f"{node.name()} -> {_MSG_REM} from node: {from_FLAM3H_NODE.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
-                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, _MSG_REM)
+                    try:
+                        assert from_FLAM3H_NODE is not None
+                    
+                    except AssertionError:
+                        pass
+                    
                     else:
-                        _MSG: str = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
-                        flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, MARK_ITER_MSG)
+                        
+                        __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+                        
+                        if __FLAM3H_DATA_PRM_MPIDX == -1:
+                            _MSG: str = f"{node.name()} -> {_MSG_REM} from node: {from_FLAM3H_NODE.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
+                            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                            flam3h_general_utils.flash_message(node, _MSG_REM)
+                        else:
+                            _MSG: str = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
+                            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                            flam3h_general_utils.flash_message(node, MARK_ITER_MSG)
                         
                 else:
                     _MSG: str = f"{node.name()} -> {MARK_ITER_MSG_STATUS_BAR}"
@@ -7841,13 +7875,14 @@ class flam3h_iterator_utils
         # Update data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
 
+        _MSG_UNMARKED = "This iterator is Unmarked already"
+        
         if node == from_FLAM3H_NODE: # type: ignore
             
-            _MSG_UNMARKED = "This iterator is Unmarked already"
             assert from_FLAM3H_NODE is not None
             
             if mp_id_from is not None:
-                _MSG: str = f"{node.name()}: iterator UNMARKED: {str(mp_id_from)}" # type: ignore
+                _MSG: str = f"{node.name()}: iterator UNMARKED: {mp_id_from}" # type: ignore
                 hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
                 self.iterator_mpidx_mem_set(node, 0)
                 self.del_comment_and_user_data_iterator(node)
@@ -7875,15 +7910,24 @@ class flam3h_iterator_utils
                 flam3h_general_utils.flash_message(node, _MSG_DEL)
                 
             else:
-                assert from_FLAM3H_NODE is not None
-                __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                 
-                if __FLAM3H_DATA_PRM_MPIDX == -1:
-                    _MSG: str = f"{node.name()}: {_MSG_UNMARKED} -> The marked iterator has been removed from node: {from_FLAM3H_NODE.name()} ->  Mark an existing iterator instead." # type: ignore
-                    flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                try:
+                    assert from_FLAM3H_NODE is not None
+                    
+                except AssertionError:
+                    _MSG: str = f"{node.name()}: {_MSG_UNMARKED}"
+                    flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                    pass
+                
                 else:
-                    _MSG: str = f"{node.name()}: {_MSG_UNMARKED} -> The marked iterator is from node: {from_FLAM3H_NODE.name()}.iterator.{str(mp_id_from)}" # type: ignore
-                    flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                    __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+                    
+                    if __FLAM3H_DATA_PRM_MPIDX == -1:
+                        _MSG: str = f"{node.name()}: {_MSG_UNMARKED} -> The marked iterator has been removed from node: {from_FLAM3H_NODE.name()} ->  Mark an existing iterator instead." # type: ignore
+                        flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                    else:
+                        _MSG: str = f"{node.name()}: {_MSG_UNMARKED} -> The marked iterator is from node: {from_FLAM3H_NODE.name()}.iterator.{mp_id_from}" # type: ignore
+                        flam3h_general_utils.set_status_msg(_MSG, 'IMP')
         
 
     def prm_paste_CLICK(self, id: int) -> None:
@@ -8024,6 +8068,7 @@ class flam3h_iterator_utils
                 self.paste_set_note(node, from_FLAM3H_NODE, 1, SEC_ALL, "", "")
 
         else:
+            
             if isDELETED:
                 _MSG: str = f"{node.name()}: Marked FF's node has been deleted -> {MARK_FF_MSG_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -8048,8 +8093,11 @@ class flam3h_iterator_utils
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
             
         if from_FLAM3H_NODE_FF_CHECK is not None: # type: ignore
+            
             if node == from_FLAM3H_NODE:
+                
                 assert from_FLAM3H_NODE is not None
+                
                 _MSG: str = f"{node.name()}: FF UNMARKED: {from_FLAM3H_NODE.name()}.FF" # type: ignore
                 hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
                 hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
@@ -8061,7 +8109,9 @@ class flam3h_iterator_utils
             else:
                 _MSG: str = f"{node.name()}: This FF is Unmarked already. The marked FF is from node: {str(hou.session.FLAM3H_MARKED_FF_NODE)}.FF" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                
         else:
+            
             if isDELETED:
                 _MSG: str = f"{node.name()}: Marked FF's node has been deleted. Mark a new FF first."
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
