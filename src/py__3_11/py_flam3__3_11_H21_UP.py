@@ -17032,7 +17032,7 @@ class in_flame_utils
         Returns:
             (bool): True if all goes well. False if the loaded palette fail, most likely due to wrong HEX values in it.
         """ 
-        xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
+        # xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
         
         if apo_data.palette is not None:
             
@@ -17065,7 +17065,9 @@ class in_flame_utils
         if flashmessage:
             _MSG = f"CP ERROR from the Clipboard"
             flam3h_general_utils.flash_message(node, _MSG)
-            flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}. The loaded Palette data has invalid HEX values.", "WARN")
+            
+        # This always
+        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}. The loaded Palette data has invalid HEX values.", "WARN")
             
         # Now that I do have proper exception handling in place this else statement is not needed anymore.
         # I leave it here for now just in case I decide to print anything else.
