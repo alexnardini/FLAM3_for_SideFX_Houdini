@@ -17066,12 +17066,18 @@ class in_flame_utils
             _MSG = f"CP ERROR from the Clipboard"
             flam3h_general_utils.flash_message(node, _MSG)
             flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}. The loaded Palette data has invalid HEX values.", "WARN")
+            
+        # Now that I do have proper exception handling in place this else statement is not needed anymore.
+        # I leave it here for now just in case I decide to print anything else.
+        
+        '''
         else:
             if attempt_from_clipboard: _MSG: str = "\nFlame IN Clipboard: The loaded Flame preset's Palette has invalid HEX values."
             else: _MSG: str = "\nFlame IN: The loaded Flame preset's Palette has invalid HEX values."
             # A print() is being used here becasue otherwise
             # it will be cleared out by other status bar messages down the line when loading a Flame preset
             print(f"Warning:\n{node.name()}: {_MSG}\n")
+        '''
             
         return False
             
