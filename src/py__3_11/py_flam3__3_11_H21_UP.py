@@ -10349,12 +10349,13 @@ class flam3h_palette_utils
         node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset_name_checked})
 
 
-    def menu_cp_presets_data(self, json_file_path: str, json_is_file: bool) -> list:
+    def menu_cp_presets_data(self, node: hou.SopNode, json_file_path: str, json_is_file: bool) -> list:
         """Build the palette preset parameter menu entries based on the loaded json palette lib file.
         When a palette preset is currently loaded. This will use the color star icon to signal wich preset is being loaded.
 
         Args:
             (self):
+            node(hou.SopNode): this FLAM3H™ node
             json_file_path(str): the CP_PATH parameter string.
             json_is_valid(bool): wether the json_file_path file is an existing file. True or False
             
@@ -10363,8 +10364,6 @@ class flam3h_palette_utils
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
-            
-            node = self.node
             
             if json_is_file and node.parm(CP_PVT_ISVALID_FILE).eval() and self.node.parm(CP_PVT_ISVALID_PRESET).eval():
                     
@@ -10435,10 +10434,10 @@ class flam3h_palette_utils
             if data is not None and data_idx == preset_idx:
                 return data
             
-            return self.menu_cp_presets_data(json_file_path, json_is_file)
+            return self.menu_cp_presets_data(node, json_file_path, json_is_file)
     
 
-    def menu_cp_presets_empty_data(self, json_file_path: str, json_is_valid: bool) -> list:
+    def menu_cp_presets_empty_data(self, node: hou.SopNode, json_file_path: str, json_is_valid: bool) -> list:
         """Build the palette preset parameter menu entries based on the loaded json palette lib file.
         When no palette preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
 
@@ -10447,6 +10446,7 @@ class flam3h_palette_utils
 
         Args:
             (self):
+            node(hou.SopNode): this FLAM3H™ node
             json_file_path(str): the CP_PATH parameter string.
             json_is_valid(bool): wether the json_file_path file is an existing file. True or False
             
@@ -10455,8 +10455,6 @@ class flam3h_palette_utils
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
-            
-            node = self.node
 
             if self.isJSON_F3H(node, json_file_path, False)[-1] and node.parm(CP_PVT_ISVALID_FILE).eval() and not node.parm(CP_PVT_ISVALID_PRESET).eval():
                     
@@ -10524,7 +10522,7 @@ class flam3h_palette_utils
             if data is not None and data_idx == preset_idx:
                 return data
             
-            return self.menu_cp_presets_empty_data(json_file_path, json_is_file)
+            return self.menu_cp_presets_empty_data(node, json_file_path, json_is_file)
 
 
     def flam3h_ramp_save_JSON_DATA(self) -> tuple[dict, str]:
@@ -16512,7 +16510,7 @@ class in_flame_utils
         return ''.join(build)
 
 
-    def menu_in_presets_data(self, xml_file_path: str, xml_is_file: bool) -> list:
+    def menu_in_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> list:
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
         When a flame preset is loaded. This will use the blue star icon to signal wich preset is currently loaded.
 
@@ -16522,6 +16520,7 @@ class in_flame_utils
 
         Args:
             (self):
+            node(hou.SopNode): this FLAM3H™ node
             xml_file_path(str): the IN_PATH parameter string.
             xml_is_valid(bool): wether the xml_file_path file is an existing file. True or False
 
@@ -16530,8 +16529,6 @@ class in_flame_utils
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
-            
-            node = self.node
 
             if _xml_tree(xml_file_path).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and node.parm(IN_PVT_ISVALID_PRESET).eval():
                 
@@ -16601,10 +16598,10 @@ class in_flame_utils
             if data is not None and data_idx == preset_idx:
                 return data
             
-            return self.menu_in_presets_data(xml_file_path, xml_is_file)
+            return self.menu_in_presets_data(node, xml_file_path, xml_is_file)
         
 
-    def menu_in_presets_empty_data(self, xml_file_path: str, xml_is_valid: bool) -> list:
+    def menu_in_presets_empty_data(self, node: hou.SopNode, xml_file_path: str, xml_is_valid: bool) -> list:
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
         When no flame preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
 
@@ -16617,6 +16614,7 @@ class in_flame_utils
 
         Args:
             (self):
+            node(hou.SopNode): this FLAM3H™ node
             xml_file_path(str): the IN_PATH parameter string.
             xml_is_valid(bool): wether the xml_file_path file is an existing file. True or False
 
@@ -16625,8 +16623,6 @@ class in_flame_utils
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
-            
-            node = self.node
 
             if _xml_tree(xml_file_path).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and not node.parm(IN_PVT_ISVALID_PRESET).eval():
                     
@@ -16707,7 +16703,7 @@ class in_flame_utils
             if data is not None and data_idx == preset_idx:
                 return data
             
-            return self.menu_in_presets_empty_data(xml_file_path, xml_is_valid)
+            return self.menu_in_presets_empty_data(node, xml_file_path, xml_is_valid)
         
         
     def set_iter_on_load_callback(self) -> None:
@@ -19431,11 +19427,12 @@ class out_flame_utils
         return tuple(_join(x) for x in self.out_util_round_floats(t))
 
 
-    def menu_out_contents_presets_data(self, xml_file_path: str, xml_is_file: bool) -> list:
+    def menu_out_contents_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> list:
         """Populate OUT parameter menu items for the SYS and OUT tab.
         
         Args:
             (self):
+            node(hou.SopNode): this FLAM3H™ node
             xml_file_path(str): the OUT_PATH parameter string.
             xml_is_valid(bool): wether the xml_file_path file is an existing file. True or False
 
@@ -19444,9 +19441,6 @@ class out_flame_utils
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
-            
-            node = self.node
-            xml: str = os.path.expandvars(node.parm(OUT_PATH).eval())
             
             # For the OUT Tab menu presets we are forced to use the class: _xml_tree(...)
             # Instead of the lightweight version class: _xml(...)
@@ -19512,7 +19506,7 @@ class out_flame_utils
             if data is not None:
                 return data
             
-            return self.menu_out_contents_presets_data(xml_file_path, xml_is_file)
+            return self.menu_out_contents_presets_data(node, xml_file_path, xml_is_file)
 
     
     def out_auto_add_iter_data(self) -> tuple[int, str, int]:
