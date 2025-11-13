@@ -9956,11 +9956,11 @@ class flam3h_palette_utils
             with open(filepath, 'r') as r:
                 preset_name: str = list(json.load(r).keys())[0]
             return preset_name
-        
-        except json.decoder.JSONDecodeError:
-            return False
-        
+            
         except FileNotFoundError:
+            return False
+            
+        except json.decoder.JSONDecodeError:
             return False
 
 
@@ -16026,30 +16026,6 @@ class in_flame_utils
 
             else:
                 menu.append(f"{enum_label}:  {item}")
-                
-                
-    @staticmethod
-    def in_presets_menu_quick_return(kwargs: dict, node: hou.SopNode) -> list:
-        """This is spcifically to be run inside:</br>
-        * def menu_in_presets
-        * def menu_in_presets_empty
-        
-        to speed up a little
-
-        Args:
-            kwargs(dickt): self.kwargs dictionary
-            node(hou.SopNode): This FLAM3H™ node.
-
-        Returns:
-            (None):
-        """  
-        if hou.isUIAvailable() is False: node.updateParmStates()
-        if kwargs['parm'].isHidden():
-            return MENU_PRESETS_EMPTY_HIDDEN
-        elif not node.parm(IN_PATH).eval():
-            if node.parm(IN_PVT_ISVALID_PRESET).eval() and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
-                return MENU_IN_PRESETS_EMPTY_CB
-            return MENU_PRESETS_EMPTY
 
 
     # CLASS: PROPERTIES
@@ -16526,7 +16502,7 @@ class in_flame_utils
         return ''.join(build)
 
 
-    def menu_in_presets_data(self) -> list:
+    def menu_in_presets_data(self, xml_file_path: str, xml_is_file: bool) -> list:
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
         When a flame preset is loaded. This will use the blue star icon to signal wich preset is currently loaded.
 
@@ -16544,9 +16520,8 @@ class in_flame_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
 
-            if xml and _xml_tree(xml).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and node.parm(IN_PVT_ISVALID_PRESET).eval():
+            if _xml_tree(xml_file_path).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and node.parm(IN_PVT_ISVALID_PRESET).eval():
                 
                 in_idx: int = int(node.parm(IN_PRESETS).eval())
                 is_clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
@@ -16555,14 +16530,14 @@ class in_flame_utils
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
                 _menu_enum: Callable[[hou.SopNode, list, int, str, int, int], None] = self.menu_in_presets_loop_enum
                 _menu_raw: Callable[[hou.SopNode, list, int, str, int, int], None] = self.menu_in_presets_loop
-                for i, item in enumerate(_xml(xml).get_name()):
+                for i, item in enumerate(_xml(xml_file_path).get_name()):
                     _menu_enum(node, menu, i, item, in_idx, is_clipboard) if enum else _menu_raw(node, menu, i, item, in_idx, is_clipboard)
                         
                 node.setCachedUserData('in_presets_menu', menu)
                 return menu
             
             flam3h_iterator_utils.destroy_cachedUserData(node, 'in_presets_menu')
-            if xml and not os.path.isfile(xml):
+            if not xml_is_file:
                 return MENU_PRESETS_INVALID
             
             return MENU_PRESETS_EMPTY
@@ -16596,13 +16571,13 @@ class in_flame_utils
             preset_idx: str = node.parm(IN_PRESETS).eval()
             
             # Double check 
-            xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
-            is_valid: bool = os.path.isfile(xml)
-            if xml and not is_valid:
+            xml_file_path: str = os.path.expandvars(node.parm(IN_PATH).eval())
+            xml_is_file: bool = os.path.isfile(xml_file_path)
+            if xml_file_path and not xml_is_file:
                 flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
                 if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
                 data = None
-            elif xml and is_valid:
+            elif xml_file_path and xml_is_file:
                 # This caused some pain becasue it is forcing us not to tell the truth sometime
                 # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
                 flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
@@ -16610,10 +16585,10 @@ class in_flame_utils
             if data is not None and data_idx == preset_idx:
                 return data
             
-            return self.menu_in_presets_data()
+            return self.menu_in_presets_data(xml_file_path, xml_is_file)
         
 
-    def menu_in_presets_empty_data(self) -> list:
+    def menu_in_presets_empty_data(self, xml_file_path: str, xml_is_file: bool) -> list:
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
         When no flame preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
 
@@ -16634,15 +16609,14 @@ class in_flame_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
 
-            if xml and _xml_tree(xml).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and not node.parm(IN_PVT_ISVALID_PRESET).eval():
+            if _xml_tree(xml_file_path).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and not node.parm(IN_PVT_ISVALID_PRESET).eval():
                     
                 menu: list = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
                 _menu_enum: Callable[[hou.SopNode, list, int, str], None] = self.menu_in_presets_empty_loop_enum
                 _menu_raw: Callable[[hou.SopNode, list, int, str], None] = self.menu_in_presets_empty_loop
-                for i, item in enumerate(_xml(xml).get_name()):
+                for i, item in enumerate(_xml(xml_file_path).get_name()):
                     _menu_enum(node, menu, i, item) if enum else _menu_raw(node, menu, i, item)
                     
                 node.setCachedUserData('in_presets_menu_off', menu)
@@ -16650,19 +16624,19 @@ class in_flame_utils
                 
             else:
                 if node.parm(IN_PVT_ISVALID_PRESET).eval() and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
-                    if xml and not os.path.isfile(xml):
+                    if not xml_is_file:
                         return MENU_PRESETS_INVALID_CB
                     
                     return MENU_IN_PRESETS_EMPTY_CB
                         
             flam3h_iterator_utils.destroy_cachedUserData(node, 'in_presets_menu_off')
             if node.parm(FLAME_ITERATORS_COUNT).eval():
-                if xml and not os.path.isfile(xml):
+                if not xml_is_file:
                     return MENU_PRESETS_INVALID
                 
                 return MENU_PRESETS_EMPTY
             
-            if xml and not os.path.isfile(xml):
+            if not xml_is_file:
                 return MENU_ZERO_ITERATORS_PRESETS_INVALID
             
             return MENU_ZERO_ITERATORS
@@ -16696,13 +16670,13 @@ class in_flame_utils
             preset_idx: str = node.parm(IN_PRESETS_OFF).eval()
             
             # Double check 
-            xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
-            is_valid: bool = os.path.isfile(xml)
-            if xml and not is_valid:
+            xml_file_path: str = os.path.expandvars(node.parm(IN_PATH).eval())
+            xml_is_file: bool = os.path.isfile(xml_file_path)
+            if xml_file_path and not xml_is_file:
                 flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
                 if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
                 data = None
-            elif xml and is_valid:
+            elif xml_file_path and xml_is_file:
                 if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): # to double check
                     # This caused some pain becasue it is forcing us not to tell the truth sometime
                     # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
@@ -16711,7 +16685,7 @@ class in_flame_utils
             if data is not None and data_idx == preset_idx:
                 return data
             
-            return self.menu_in_presets_empty_data()
+            return self.menu_in_presets_empty_data(xml_file_path, xml_is_file)
         
         
     def set_iter_on_load_callback(self) -> None:
