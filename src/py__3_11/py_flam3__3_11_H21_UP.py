@@ -19,10 +19,10 @@ import lxml.etree as lxmlET
 
 from platform import python_version
 from platform import system as platform_system
+from collections.abc import Iterable
+from collections.abc import Callable
+from collections.abc import KeysView
 from typing import Any
-from typing import Iterable
-from typing import Callable
-from typing import KeysView
 from typing import TypeVar
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
@@ -177,7 +177,8 @@ def cached_slot_property(func):
 # TypeAlias
 T = TypeVar('T')
 TA_Affine: TypeAlias = list[tuple[float, ...] | list[float]]
-TA_STR_ListUnflattened: TypeAlias = list[str] | list[list[str]]
+TA_STR_ListUnflattened: TypeAlias = list[list[str]]
+TA_RoundFloats: TypeAlias = list[tuple[float, ...] | list[float]] | list[tuple[str, ...] | list[str]]
 TA_TypeVarCollection: TypeAlias = str | list | tuple | KeysView
 TA_XformVarKeys: TypeAlias = str | list[str] | tuple[str, ...] | dict[str, int] | dict[str, tuple[str, ...]] | dict[str, set[str]] | KeysView | None
 TA_TypeMaker: TypeAlias = list | float | hou.Vector2 | hou.Vector3 | hou.Vector4
@@ -17765,9 +17766,9 @@ class out_flame_utils
 * out_file_cleanup(_out_file: str) -> str:
 * out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, out: bool = True, auto_name: bool = True) -> str | bool:
 * out_affine_rot(affine: TA_Affine, angleDeg: float) -> TA_Affine:
-* out_xaos_cleanup(xaos: list[str] | tuple[str] | list[list[str]]) -> list[list[str]]:
-* out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list[list[str]]:
-* out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> list[list[str]]:
+* out_xaos_cleanup(xaos: list[str] | tuple[str] | TA_STR_ListUnflattened) -> TA_STR_ListUnflattened:
+* out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> TA_STR_ListUnflattened:
+* out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> TA_STR_ListUnflattened:
 * _out_pretty_print(current: lxmlET._Element, parent: lxmlET._Element | None = None, index: int = -1, depth: int = 0) -> None: #type: ignore
 * _out_pretty_print(current, parent=None, index: int=-1, depth: int=0) -> None:
 * menu_out_presets_loop(menu: list, i: int, item: str) -> None:
@@ -18266,14 +18267,15 @@ class out_flame_utils
         
         
     @staticmethod
-    def out_util_round_floats(val_list: list[tuple[float, ...] | list[float]]) -> TA_STR_ListUnflattened:
-        """remove floating Zeros if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values 
+    def out_util_round_floats(val_list: TA_RoundFloats) -> TA_STR_ListUnflattened:
+        """remove floating Zeros if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values.</br>
+        You can pass in a list[list[float]] or a list[list[str]]
 
         Args:
-            val_list(list[list[str]] | tuple[list]): A collection of values to rounds
+            val_list(TA_RoundFloats): A collection of values to rounds
 
         Returns:
-            (list[str] | tuple[str] | list[list[str]]): A list/tuple of list[str]/tuple[str] with the rounded values if any
+            (TA_STR_ListUnflattened): A list/tuple of list[str]/tuple[str] with the rounded values if any
         """    
         _is_integer: Callable[[float], bool] = float.is_integer
         _round: Callable[[float, int], float] = round
@@ -18587,21 +18589,21 @@ class out_flame_utils
     
     
     @staticmethod
-    def out_xaos_cleanup(xaos: list[str] | tuple[str] | list[list[str]]) -> list[list[str]]:
+    def out_xaos_cleanup(xaos: list[str] | tuple[str] | TA_STR_ListUnflattened) -> TA_STR_ListUnflattened:
         """Remove all inactive iterators from each xaos weight list.
 
         Args:
             xaos (list[str] | list[list[str], tuple[str]]): All iterators xaos values.
 
         Returns:
-           (list[list[str]]): an iterator Xaos cleaned up from the inactive iterator's values
+           (TA_STR_ListUnflattened): an iterator Xaos cleaned up from the inactive iterator's values
         """
         _len: Callable[[str | list[str]], int] = len
         return [list(x[:_len(x) - next((i for i, v in enumerate(reversed(x)) if v != '1'), _len(x))]) for x in xaos]
     
 
     @staticmethod
-    def out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list[list[str]]:
+    def out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> TA_STR_ListUnflattened:
         """Collect all xaos command string weights.
         Provide also a form of Undo in the case we enter non numeric characters instead.
         
@@ -18624,7 +18626,7 @@ class out_flame_utils
             prm(str): xaos varnote parameter
 
         Returns:
-            (list[list[str]]): A list of xaos list[str] of values
+            (TA_STR_ListUnflattened): A list of xaos list[str] of values
         """   
 
         val: list = []
@@ -18712,7 +18714,7 @@ class out_flame_utils
 
 
     @staticmethod
-    def out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> list[list[str]]:
+    def out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> TA_STR_ListUnflattened:
         """Check for any NO-active iterators and account for those.
 
         Args:
@@ -18721,7 +18723,7 @@ class out_flame_utils
             prm(str): iterator vactive parameter.
 
         Returns:
-            (list[list[str]]): return a list of list[str] with the NO-active iterators taken into consideration.
+            (TA_STR_ListUnflattened): return a list of list[str] with the NO-active iterators taken into consideration.
         """    
         xaos_no_vactive: list = []
         for x in fill:
@@ -20632,7 +20634,7 @@ class out_flame_utils
         _rgb_to_hex: Callable[[tuple], str] = flam3h_palette_utils.rgb_to_hex
         HEXs: list[str] = [_rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
         n: int = 8
-        hex_grp: list[list[str]] = [HEXs[i:i + n] for i in range(0, len(HEXs), n)]
+        hex_grp: TA_STR_ListUnflattened = [HEXs[i:i + n] for i in range(0, len(HEXs), n)]
         _join: Callable[[Iterable[str]], str] = ''.join
         hex_join: list = [f"      {_join(grp)}\n" for grp in hex_grp] # 6 times \s
         
