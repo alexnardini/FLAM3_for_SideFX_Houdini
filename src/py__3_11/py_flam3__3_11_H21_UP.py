@@ -177,6 +177,7 @@ def cached_slot_property(func):
 # TypeAlias
 T = TypeVar('T')
 TA_Affine: TypeAlias = list[tuple[float, ...] | list[float]]
+TA_RoundFloats: TypeAlias = list[str] | list[list[str]]
 TA_TypeVarCollection: TypeAlias = str | list | tuple | KeysView
 TA_XformVarKeys: TypeAlias = str | list[str] | tuple[str, ...] | dict[str, int] | dict[str, tuple[str, ...]] | dict[str, set[str]] | KeysView | None
 TA_TypeMaker: TypeAlias = list | float | hou.Vector2 | hou.Vector3 | hou.Vector4
@@ -12642,7 +12643,7 @@ class _xml_tree
             newroot: lxmlET._Element = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
             newroot.insert(0, root)
             # If there are flames, proceed
-            if any(True for _ in tree.getroot().iter(XML_FLAME_NAME)):
+            if any(True for _ in root.iter(XML_FLAME_NAME)):
             
                 out_flame_utils._out_pretty_print(newroot)
                 return lxmlET.tostring(newroot, encoding="unicode") # type: ignore
@@ -12679,8 +12680,10 @@ class _xml_tree
             
             try:
                 tree: lxmlET._ElementTree = lxmlET.parse(xmlfile) # type: ignore
+                
             except OSError:
                 return False
+            
             except lxmlET.XMLSyntaxError as e:
                 return False
             
@@ -12692,7 +12695,7 @@ class _xml_tree
                     if XML_VALID_FLAMES_ROOT_TAG in root.tag.lower():
                         
                         # If there are flames, proceed
-                        if any(True for _ in tree.getroot().iter(XML_FLAME_NAME)):
+                        if any(True for _ in root.iter(XML_FLAME_NAME)):
                             return True
                         
                         return False
@@ -14142,7 +14145,7 @@ class in_flame_utils
 * in_get_xforms_data_and_flam3h_vars_limit(mode: int, apo_data: in_flame_iter_data) -> tuple[tuple, int]:
 * in_get_preset_name_iternum(menu_label: str) -> int | None:
 * in_util_join_vars_grp(groups: list) -> str:
-* in_util_vars_flatten_unique_sorted(VARS_list: list[str] | list[list[str]], func: Callable, capitalize: bool = False) -> list[str]:
+* in_util_vars_flatten_unique_sorted(VARS_list: TA_RoundFloats, func: Callable, capitalize: bool = False) -> list[str]:
 * in_presets_in_isvalid_file_menu_label(node: hou.SopNode, preset_id: int) -> str:
 * in_set_iter_on_load(node: hou.SopNode, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
 * in_load_sensor_stats_msg(preset_id: int, apo_data: in_flame_iter_data, XML_last_update: bool = False) -> str:
@@ -15273,11 +15276,11 @@ class in_flame_utils
 
 
     @staticmethod
-    def in_util_vars_flatten_unique_sorted(VARS_list: list[str] | list[list[str]], func: Callable, capitalize: bool = False) -> list[str]:
+    def in_util_vars_flatten_unique_sorted(VARS_list: TA_RoundFloats, func: Callable, capitalize: bool = False) -> list[str]:
         """Return a flattened list of unique and sorted items without duplicates.
 
         Args:
-            VARS_list(list[str] | list[list[str]]): The data to flatten, remove duplicates and sort.
+            VARS_list(TA_RoundFloats): The data to flatten, remove duplicates and sort.
             func(Callable): Function to turn variation names from VAR to PRE or POST or none based on the function provided.
             capitalize(bool): (default to: False) capitalize the variation's names if any are found.
 
@@ -17752,7 +17755,7 @@ class out_flame_utils
 * out_remove_iter_num(flame_name: str) -> str:
 * out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
 * out_util_round_float(val: float) -> str:
-* out_util_round_floats(val_list: list[tuple[float, ...] | list[float]]) -> list[str] | list[list[str]]:
+* out_util_round_floats(val_list: list[tuple[float, ...] | list[float]]) -> TA_RoundFloats:
 * out_util_vars_duplicate(vars: list[str]) -> list[str]:
 * out_check_build_file(file_split: tuple[str, str] | list[str], file_name: str, file_ext: str) -> str:
 * out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
@@ -18260,7 +18263,7 @@ class out_flame_utils
         
         
     @staticmethod
-    def out_util_round_floats(val_list: list[tuple[float, ...] | list[float]]) -> list[str] | list[list[str]]:
+    def out_util_round_floats(val_list: list[tuple[float, ...] | list[float]]) -> TA_RoundFloats:
         """remove floating Zeros if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values 
 
         Args:
@@ -20570,11 +20573,11 @@ class out_flame_utils
         collect: TA_Affine = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
         angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
         f3h_angleDeg: str = str(angleDeg)
-        f3h_affine: list[str] | list[list[str]] = self.out_util_round_floats(collect)
+        f3h_affine: TA_RoundFloats = self.out_util_round_floats(collect)
         if angleDeg != 0.0:
-            affine: list[str] | list[list[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+            affine: TA_RoundFloats = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
         else:
-            affine: list[str] | list[list[str]] = f3h_affine
+            affine: TA_RoundFloats = f3h_affine
         flatten: list[str] = [item for sublist in affine for item in sublist]
         f3h_flatten: list[str] = [item for sublist in f3h_affine for item in sublist]
         
@@ -20596,11 +20599,11 @@ class out_flame_utils
             angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
             if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                 f3h_angleDeg: str = str(angleDeg)
-                f3h_affine: list[str] | list[list[str]] = self.out_util_round_floats(collect)
+                f3h_affine: TA_RoundFloats = self.out_util_round_floats(collect)
                 if angleDeg != 0.0:
-                    affine: list[str] | list[list[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+                    affine: TA_RoundFloats = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
                 else:
-                    affine: list[str] | list[list[str]] = f3h_affine
+                    affine: TA_RoundFloats = f3h_affine
                 flatten: list[str] = [item for sublist in affine for item in sublist]
                 f3h_flatten: list[str] = [item for sublist in f3h_affine for item in sublist]
                 
