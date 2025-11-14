@@ -570,17 +570,17 @@ class flam3h_iterator_prm_names:
     Note:
         The following definitions:
         
-        * flam3h_iterator_utils.iterator_vactive_and_update(self) -> None:
-        * flam3h_iterator_utils.menu_select_iterator_data(self, data_now: tuple) -> list:
-        * flam3h_iterator_utils.menu_select_iterator(self) -> list:
-        * flam3h_iterator_utils.menu_copypaste(self) -> list:
-        * flam3h_iterator_utils.menu_copypaste_FF(self) -> list:
-        * flam3h_iterator_utils.iterator_affine_scale(self) -> None:
-        * flam3h_iterator_utils.iterator_post_affine_scale(self) -> None:
-        * flam3h_iterator_utils.iterator_FF_affine_scale(self) -> None:
-        * flam3h_iterator_utils.iterator_FF_post_affine_scale(self) -> None:
-        * flam3h_iterator_utils.menu_T_get_var_data(self) -> tuple[int, float]:
-        * flam3h_iterator_utils.menu_T_FF_get_var_data(self) -> tuple[int, float]:
+        * def iterator_vactive_and_update(self) -> None:
+        * def menu_select_iterator_data(self, data_now: tuple) -> list[int | str]:
+        * def menu_select_iterator(self) -> list[int | str]:
+        * def menu_copypaste(self) -> list[int | str]:
+        * def menu_copypaste_FF(self) -> list[int | str]:
+        * def iterator_affine_scale(self) -> None:
+        * def iterator_post_affine_scale(self) -> None:
+        * def iterator_FF_affine_scale(self) -> None:
+        * def iterator_FF_post_affine_scale(self) -> None:
+        * def menu_T_get_var_data(self) -> tuple[int, float]:
+        * def menu_T_FF_get_var_data(self) -> tuple[int, float]:
         .
         are not using this class
         but have Houdini parameter's names hard coded inside in an attempt to try to speed up a tiny, tiny bit.
@@ -903,7 +903,7 @@ class flam3h_varsPRM
     @staticmethod
     def __populate_linear_list(linear: list, item: str, id: int, spacer: bool = True) -> None:
         """ Populate linear list. This is to be used inside a loop.
-        Specifically designed to be used in a list comprehension inside: def build_menu_vars_all_linear(self) -> list:
+        Specifically designed to be used in a list comprehension inside: def build_menu_vars_all_linear(self, _PB: bool = False) -> list[int | str]:
         
         Args:
             linear(list): the empty list to populate
@@ -6952,7 +6952,7 @@ class flam3h_iterator_utils
         """
         node = self.node
         
-        # This data get created inside: menu_T_simple(self, FF: bool = False) -> list:
+        # This data get created inside: menu_T_simple(self, FF: bool = False) -> list[int | str]:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
         data: list[int | str] | None = node.cachedUserData('vars_menu_all_simple')
         if data is not None:
@@ -6980,7 +6980,7 @@ class flam3h_iterator_utils
             (list[int | str]): return menu list
         """
         node = self.node
-        # This data get created inside: menu_T_simple(self, FF: bool = False) -> list:
+        # This data get created inside: menu_T_simple(self, FF: bool = False) -> list[int | str]:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
         data: list[int | str] | None = node.cachedUserData('vars_menu_all_simple')
         if data is not None:
@@ -10502,7 +10502,7 @@ class flam3h_palette_utils
         """Build the palette preset parameter menu entries based on the loaded json palette lib file.
         When no palette preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
 
-        This definition exist only becasue if I change the icon dynamically inside: def menu_cp_presets(self) -> list:
+        This definition exist only becasue if I change the icon dynamically inside: def menu_cp_presets(self) -> list[int | str]:
         Houdini will not update them until I dnt execute a "next" selection in the menu parameter.
 
         Args:
@@ -12900,7 +12900,7 @@ class in_flame
 @STATICMETHODS
 * xf_val_cleanup_split_str(val: str, default_val: str = '0', key_name: str | None = None) -> str:
 * xf_val_cleanup_str(val: str, default_val: str = '0', key_name: str | None = None) -> str:
-* xf_list_cleanup(vals: list, default_val: str = '0', key_name: str | None = None) -> list:
+* xf_list_cleanup(vals: list, default_val: str = '0', key_name: str | None = None) -> list[str]:
 * xf_list_cleanup_str(vals: list, default_val: str = '0', key_name: str | None = None) -> str:
 * affine_coupling(affine: list, key: str = '', mp_idx: int | None = None, type: int = 0) -> list:
 * check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
@@ -13062,7 +13062,7 @@ class in_flame
 
 
     @staticmethod
-    def xf_list_cleanup(vals: list, default_val: str = '0', key_name: str | None = None) -> list:
+    def xf_list_cleanup(vals: list, default_val: str = '0', key_name: str | None = None) -> list[str]:
         """ Return a list after attempting to eliminate invalid characters from the provided list values.
         
         Args:
@@ -13071,7 +13071,7 @@ class in_flame
             key_name(str | None): Default to None. If not None, it will print out the key_name if not a value.
 
         Returns:
-            (list): a list of affine values cleaned up from invalid characters
+            (list[str]): a list of affine values cleaned up from invalid characters
         """  
         new = []
         if not vals and key_name is not None:
@@ -13150,8 +13150,9 @@ class in_flame
 
     @staticmethod
     def affine_coupling(affine: list, key: str = '', mp_idx: int | None = None, type: int = 0) -> list:
-        """ Build proper affine values composed of hou.Vector2 tuples.
-        It will also check the affine passed in and provide an alternative defaults affine values if not correct and print out messages to inform the user about different cases.
+        """ Build proper affine values composed of hou.Vector2 tuples.</br>
+        It will also check the affine passed in and provide an alternative defaults affine values</br>
+        if not correct and print out messages to inform the user about different cases.
         
         Note: This will need some work at some point.
         
@@ -14009,7 +14010,7 @@ class in_flame_utils
 * in_util_make_VAR(name: TA_TypeVarCollection) -> str | list[str] | None:
 * in_util_make_PRE(name: TA_TypeVarCollection) -> str | list[str] | None:
 * in_util_make_POST(name: TA_TypeVarCollection) -> str | list[str] | None:
-* in_load_stats_unknown_vars(preset_id: int, apo_data: in_flame_iter_data) -> list:
+* in_load_stats_unknown_vars(preset_id: int, apo_data: in_flame_iter_data) -> list[str]:
 * in_to_flam3h_is_CHAOS(xml: str) -> bool:
 * in_to_flam3h_clipboard_is_CHAOS() -> bool:
 * in_get_xforms_var_keys( xforms: tuple[dict, ...] | None, 
@@ -14312,7 +14313,7 @@ class in_flame_utils
 
 
     @staticmethod
-    def in_load_stats_unknown_vars(preset_id: int, apo_data: in_flame_iter_data) -> list:
+    def in_load_stats_unknown_vars(preset_id: int, apo_data: in_flame_iter_data) -> list[str]:
         """Find all the variations that Fractorium lacks if any.
         Those variations will be classified as: Unknown
 
@@ -14321,7 +14322,7 @@ class in_flame_utils
             apo_data(in_flame_iter_data): The loaded flame preset data from the xml
 
         Returns:
-            (list): List of sorted uinknown variations if any
+            (list[str]): List of sorted uinknown variations if any
         """
         if apo_data.plugins[preset_id]:
             plugins: list = [p.strip() for p in str(apo_data.plugins[preset_id]).split() if p]
@@ -16677,7 +16678,7 @@ class in_flame_utils
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
         When no flame preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
 
-        This definition exist only becasue if I change the icon dynamically inside: def menu_in_presets(self) -> list:
+        This definition exist only becasue if I change the icon dynamically inside: def menu_in_presets(self) -> list[int | str]:
         Houdini will mix them up sometime, giving inconsistent results until I perform a new selection from the menu labels list.
 
         Note:
@@ -17751,7 +17752,7 @@ class out_flame_utils
 * out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
 * out_util_round_float(val: float) -> str:
 * out_util_round_floats(val_list: list[list[str]]) -> list[str] | list[list[str]]:
-* out_util_vars_duplicate(vars: list) -> list:
+* out_util_vars_duplicate(vars: list[str]) -> list[str]:
 * out_check_build_file(file_split: tuple[str, str] | list[str], file_name: str, file_ext: str) -> str:
 * out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
 * out_file_cleanup(_out_file: str) -> str:
@@ -17774,8 +17775,8 @@ class out_flame_utils
 * out_presets_get_selected_menu_label(self) -> str | None:
 * out_presets_copy_menu_label_callback(self) -> None:
 * out_palette_keys_count(self, palette_plus: int, keys: int, type: int, _MSG = True) -> str:
-* __menu_sensor_resolution(self) -> list:
-* menu_sensor_resolution(self) -> list:
+* __menu_sensor_resolution(self) -> list[int | str]:
+* menu_sensor_resolution(self) -> list[int | str]:
 * menu_sensor_resolution_set(self, update=True) -> None:
 * reset_OUT_sensor(self) -> None:
 * reset_OUT_render(self) -> None:
@@ -17784,7 +17785,7 @@ class out_flame_utils
 * reset_OUT(self, mode=0) -> None:
 * out_xf_xaos_to(self) -> tuple[str, ...]:
 * out_xf_xaos_from(self, mode: int = 0) -> tuple[str, ...]:
-* menu_out_contents_presets_data(self) -> list:
+* menu_out_contents_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> list[int | str]:
 * menu_out_contents_presets(self) -> list[int | str]:
 * out_auto_add_iter_data(self) -> tuple[int, str, int]:
 * out_auto_add_iter_num_to_prm(self) -> None:
@@ -18273,14 +18274,14 @@ class out_flame_utils
     
     
     @staticmethod
-    def out_util_vars_duplicate(vars: list) -> list:
+    def out_util_vars_duplicate(vars: list[str]) -> list[str]:
         """Collect duplicate variation's names in an iterator.
 
         Args:
-            vars(list): List of all variation's list names
+            vars(list[str]): List of all variation's list names
 
         Returns:
-            (list): duplicate variation's names per each iterator
+            (list[str]): duplicate variation's names per each iterator
         """
         v = []
         d = []
@@ -19244,7 +19245,7 @@ class out_flame_utils
         return PALETTE_COUNT_256
 
 
-    def __menu_sensor_resolution(self) -> list:
+    def __menu_sensor_resolution(self) -> list[int | str]:
         """ NOT USED ANYMORE
         and it has been prefixed with two underscores (__)
         as the menu is now pre computed inside: MENU_SENSOR_RESOLUTIONS
@@ -19256,7 +19257,7 @@ class out_flame_utils
             (self):
             
         Returns:
-            (list): Return a menu
+            (list[int | str]): Return a menu
         """
 
         outedit = self.node.parm(OUT_RENDER_PROPERTIES_EDIT).eval()
@@ -19277,9 +19278,9 @@ class out_flame_utils
         return menu
     
     
-    def menu_sensor_resolution(self) -> list:
+    def menu_sensor_resolution(self) -> list[int | str]:
         """ Pre computed menu: MENU_SENSOR_RESOLUTIONS
-        The old sensor resolution menu definition has been renamed to: def __menu_sensor_resolution(self) -> list: (just above)
+        The old sensor resolution menu definition has been renamed to: def __menu_sensor_resolution(self) -> list[int | str]: (just above)
         
         Output sensor resolution menu parameter with a list of options.
         
@@ -19287,7 +19288,7 @@ class out_flame_utils
             (self):
             
         Returns:
-            (list): Return a menu
+            (list[int | str]): Return a menu
         """
         return MENU_OUT_SENSOR_RESOLUTIONS
 
@@ -19507,7 +19508,7 @@ class out_flame_utils
         return tuple(_join(x) for x in self.out_util_round_floats(t))
 
 
-    def menu_out_contents_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> list:
+    def menu_out_contents_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> list[int | str]:
         """Populate OUT parameter menu items for the SYS and OUT tab.
         
         Args:
@@ -19517,7 +19518,7 @@ class out_flame_utils
             xml_is_valid(bool): wether the xml_file_path file is an existing file. True or False
 
         Returns:
-            (list): Return a menu
+            (list[int | str]): Return a menu
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
