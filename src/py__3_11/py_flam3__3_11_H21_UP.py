@@ -706,35 +706,35 @@ class flam3h_iterator_prm_names_collections(flam3h_iterator_prm_names):
     ##########################################
     
     @property
-    def prm_iterator_tuple(self):
+    def prm_iterator_tuple(self) -> tuple[str, ...]:
         return self._prm_iterator_tuple
     
     @property
-    def prm_iterator(self):
+    def prm_iterator(self) -> tuple[str, ...]:
         return self._prm_iterator
     
     @property
-    def prm_iterator_vars_all(self):
+    def prm_iterator_vars_all(self) -> tuple[str, ...]:
         return self._prm_iterator_vars_all
     
     @property
-    def prm_FF_tuple(self):
+    def prm_FF_tuple(self) -> tuple[str, ...]:
         return self._prm_FF_tuple
     
     @property
-    def prm_FF(self):
+    def prm_FF(self) -> tuple[str, ...]:
         return self._prm_FF
     
     @property
-    def prm_FF_vars_all(self):
+    def prm_FF_vars_all(self) -> tuple[str, ...]:
         return self._prm_FF_vars_all
     
     @property
-    def prm_parametrics_tuple(self):
+    def prm_parametrics_tuple(self) -> tuple[str, ...]:
         return self._prm_parametrics_tuple
     
     @property
-    def prm_parametrics(self):
+    def prm_parametrics(self) -> tuple[str, ...]:
         return self._prm_parametrics
 
 
@@ -1040,55 +1040,55 @@ class flam3h_iterator(flam3h_iterator_prm_names):
     ##########################################
     
     @property
-    def sec_main(self):
+    def sec_main(self) -> tuple[tuple[str, int], ...]:
         return self._sec_main
     
     @property
-    def sec_xaos(self):
+    def sec_xaos(self) -> tuple[tuple[str, int], ...]:
         return self._sec_xaos
     
     @property
-    def sec_shader(self):
+    def sec_shader(self) -> tuple[tuple[str, int], ...]:
         return self._sec_shader
     
     @property
-    def sec_prevarsT(self):
+    def sec_prevarsT(self) -> tuple[str, ...]:
         return self._sec_prevarsT
     
     @property
-    def sec_prevarsW(self):
+    def sec_prevarsW(self) -> tuple[tuple[str, int], ...]:
         return self._sec_prevarsW
     
     @property
-    def sec_varsT(self):
+    def sec_varsT(self) -> tuple[str, ...]:
         return self._sec_varsT
     
     @property
-    def sec_varsW(self):
+    def sec_varsW(self) -> tuple[tuple[str, int], ...]:
         return self._sec_varsW
     
     @property
-    def sec_postvarsT(self):
+    def sec_postvarsT(self) -> tuple[str, ...]:
         return self._sec_postvarsT
     
     @property
-    def sec_postvarsW(self):
+    def sec_postvarsW(self) -> tuple[tuple[str, int], ...]:
         return self._sec_postvarsW
     
     @property
-    def sec_preAffine(self):
+    def sec_preAffine(self) -> tuple[tuple[str, int], ...]:
         return self._sec_preAffine
     
     @property
-    def sec_postAffine(self):
+    def sec_postAffine(self) -> tuple[tuple[str, int], ...]:
         return self._sec_postAffine
     
     @property
-    def allT(self):
+    def allT(self) -> tuple[str, ...]:
         return self._allT
     
     @property
-    def allMisc(self):
+    def allMisc(self) -> tuple[tuple[str, int], ...]:
         return self._allMisc
 
 
@@ -1388,39 +1388,39 @@ class flam3h_iterator_FF(flam3h_iterator_prm_names):
     ##########################################
     
     @property
-    def sec_prevarsT_FF(self):
+    def sec_prevarsT_FF(self) -> tuple[str, ...]:
         return self._sec_prevarsT_FF
     
     @property
-    def sec_prevarsW_FF(self):
+    def sec_prevarsW_FF(self) -> tuple[tuple[str, int], ...]:
         return self._sec_prevarsW_FF
     
     @property
-    def sec_varsT_FF(self):
+    def sec_varsT_FF(self) -> tuple[str, ...]:
         return self._sec_varsT_FF
     
     @property
-    def sec_varsW_FF(self):
+    def sec_varsW_FF(self) -> tuple[tuple[str, int], ...]:
         return self._sec_varsW_FF
     
     @property
-    def sec_postvarsT_FF(self):
+    def sec_postvarsT_FF(self) -> tuple[str, ...]:
         return self._sec_postvarsT_FF
     
     @property
-    def sec_postvarsW_FF(self):
+    def sec_postvarsW_FF(self) -> tuple[tuple[str, int], ...]:
         return self._sec_postvarsW_FF
     
     @property
-    def sec_preAffine_FF(self):
+    def sec_preAffine_FF(self) -> tuple[tuple[str, int], ...]:
         return self._sec_preAffine_FF
     
     @property
-    def sec_postAffine_FF(self):
+    def sec_postAffine_FF(self) -> tuple[tuple[str, int], ...]:
         return self._sec_postAffine_FF
     
     @property
-    def allMisc_FF(self):
+    def allMisc_FF(self) -> tuple[tuple[str, int], ...]:
         return self._allMisc_FF
 
 
@@ -9845,7 +9845,7 @@ class flam3h_palette_utils
 * isJSON_F3H(node: hou.SopNode, filepath: str | bool,  msg: bool = True, parm_path_name: str = CP_PATH) -> tuple[bool, bool]:
 * isJSON_F3H_on_preset_load(node: hou.SopNode, filepath: str | bool,  msg: bool = True, parm_path_name: str = CP_PATH) -> tuple[bool, bool]:
 * rgb_to_hex(rgb: tuple) -> str:
-* hex_to_rgb(hex: str) -> tuple:
+* hex_to_rgb(hex: str) -> tuple[int, ...]:
 * find_nearest_idx(array: list | tuple, value: int | float) -> int | float:
 * json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode: bool = False, palette_plus_msg: bool = False) -> None:
 * json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
@@ -10123,7 +10123,7 @@ class flam3h_palette_utils
 
 
     @staticmethod
-    def hex_to_rgb(hex: str) -> tuple:
+    def hex_to_rgb(hex: str) -> tuple[int, ...]:
         """Convert a HEX color value into RGB color value.
 
         Args:
