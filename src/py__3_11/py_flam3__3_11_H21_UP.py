@@ -17,6 +17,10 @@ import colorsys
 import traceback
 import lxml.etree as lxmlET
 
+from math import sin
+from math import cos
+from math import sqrt
+from copy import copy
 from platform import python_version
 from platform import system as platform_system
 from collections.abc import Iterable
@@ -33,10 +37,6 @@ from itertools import count as it_count
 from itertools import islice as it_islice
 from textwrap import wrap
 from datetime import datetime
-from math import sin
-from math import cos
-from math import sqrt
-from copy import copy
 from re import sub as re_sub
 from re import search as re_search
 from numpy import pad as np_pad
@@ -18622,7 +18622,7 @@ class out_flame_utils
     @staticmethod
     def out_xaos_cleanup(xaos: TA_STR_ListUnflattened) -> TA_STR_ListUnflattened:
         """Remove all inactive iterators from each xaos weight list.
-        
+
         Args:
             xaos (TA_STR_ListUnflattened): All iterators xaos values.
 

@@ -16,6 +16,10 @@ import json
 import colorsys
 import lxml.etree as lxmlET
 
+from math import sin
+from math import cos
+from math import sqrt
+from copy import copy
 from platform import python_version
 from platform import system as platform_system
 from collections.abc import Callable
@@ -24,14 +28,11 @@ from typing import TypeVar
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import TypeAlias
+    
 from itertools import count as it_count
 from itertools import islice as it_islice
 from textwrap import wrap
 from datetime import datetime
-from math import sin
-from math import cos
-from math import sqrt
-from copy import copy
 from re import sub as re_sub
 from re import search as re_search
 from numpy import pad as np_pad
