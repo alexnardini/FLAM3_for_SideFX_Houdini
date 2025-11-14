@@ -12234,33 +12234,33 @@ VARS_FLAM3_DICT_IDX: dict[str, int] = { "linear": 0,
 #
 # If you want an Unknown variation to be recognized by FLAM3H™, add it here inside the corresponding dictionary letter entrie based on its name.
 
-VARS_FRACTORIUM_DICT: dict[str, set] = {"a": {"arch", "arcsech", "arcsech2", "arcsinh", "arctanh", "asteria", "auger"},
-                                        "b": {"barycentroid", "bcircle", "bcollide", "bent", "bent2", "bipolar", "bisplit", "blade", "blade3d", "blob", "blob2", "blob3d", "block", "blocky", "blur", "blur_circle", "blur_heart", "blur_linear", "blur_pixelize", "blur_square", "blur_zoom", "blur3d", "bmod", "boarders", "boarders2", "bswirl", "btransform", "bubble", "bubble2", "bubblet3d", "butterfly", "bwraps", "bwraps_rand"},
-                                        "c": {"cardioid", "cell", "checks", "circleblur", "circlecrop", "circlecrop2", "circlelinear", "circlerand", "circlesplit", "circletrans1", "circlize", "circlize2", "circus", "collideoscope", "concentric", "conic", "cos", "cos_wrap", "cosh", "coshq", "cosine", "cosq", "cot", "coth", "coth_spiral", "cothq", "cotq", "cpow", "cpow2", "cpow3", "crackle", "crackle2", "crescents", "crob", "crop", "cropn", "cross", "csc", "csch", "cschq", "cscq", "cubic3d", "cubic_lattice3d", "curl", "curl3d", "curl_sp", "curvature", "curve", "cylinder", "cylinder2"},
-                                        "d": {"delta_a", "depth", "depth_blur", "depth_blur2", "depth_gaussian", "depth_gaussian2", "depth_ngon", "depth_ngon2", "depth_sine", "depth_sine2", "diamond", "disc", "disc2", "disc3d", "dragonfire", "dust","d_spherical"},
-                                        "e": {"eclipse", "ecollide", "edisc", "ejulia", "elliptic", "emod", "emotion", "ennepers", "epispiral", "epush", "erf", "erotate", "escale", "escher", "estiq", "eswirl", "ex", "excinis", "exp", "exp2", "expo", "exponential", "extrude", "eyefish"},
-                                        "f": {"falloff", "falloff2", "falloff3", "fan", "fan2", "farblur", "fdisc", "fibonacci", "fibonacci2", "fisheye", "flatten", "flip_circle", "flip_x", "flip_y", "flower", "flower_db", "flux", "foci", "foci3d", "foci_p", "fourth", "funnel"},
-                                        "g": {"gamma", "gaussian", "gaussian_blur", "gdoffs", "glynnia", "glynnia2", "glynnsim1", "glynnsim2", "glynnsim3", "glynnsim4", "glynnsim5", "gnarly", "gridout"},
-                                        "h": {"handkerchief", "heart", "heat", "helicoid", "helix", "hemisphere", "henon", "hexaplay3d", "hexcrop", "hexes", "hexnix3d", "hex_modulus", "hex_rand", "hex_truchet", "ho", "hole", "horseshoe", "hyperbolic", "hypercrop", "hypershift", "hypershift2", "hypertile", "hypertile1", "hypertile2", "hypertile3d", "hypertile3d1", "hypertile3d2"},
-                                        "i": {"idisc", "inkdrop", "interference2"},
-                                        "j": {"jac_cn", "jac_dn", "jac_sn", "julia", "julia3d", "julia3dq", "julia3dz", "juliac", "julian", "julian2", "julian3dx", "julianab", "juliaq", "juliascope"}, 
-                                        "k": {"kaleidoscope"},
-                                        "l": {"lazyjess", "lazysusan", "lazy_travis", "lens", "line", "linear", "linear_t", "linear_t3d", "linear_xz", "linear_yz", "linear3d", "lissajous", "log", "log_db", "loq", "loonie", "loonie2", "loonie3", "loonie3d", "lozi"},
-                                        "m": {"mask", "mcarpet", "mirror_x", "mirror_y", "mirror_z", "mobiq", "mobius", "mobius_strip", "mobiusn", "modulus", "modulusx", "modulusy", "murl", "murl2"},
-                                        "n": {"nblur", "ngon", "noise", "npolar"},
-                                        "o": {"octagon", "octapol", "ortho", "oscilloscope", "oscilloscope2", "ovoid", "ovoid3d"},
-                                        "p": {"panorama1", "panorama2", "parabola", "pdj", "perspective", "petal", "phoenix_julia", "pie", "pie3d", "pixel_flow", "poincare", "poincare2", "poincare3d", "point_symmetry", "polar", "polar2", "polynomial", "popcorn", "popcorn2", "popcorn23d", "pow_block", "power", "pressure_wave", "projective", "prose3d", "psphere", "pulse"},
-                                        "q": {"q_ode"},
-                                        "r": {"radial_blur", "radial_gaussian", "rand_cubes", "rational3", "rays", "rays1", "rays2", "rays3", "rblur", "rectangles", "rings", "rings2", "ripple", "rippled", "rotate", "rotate_x", "rotate_y", "rotate_z", "roundspher", "roundspher3d"},
-                                        "s": {"scry", "scry2", "scry3d", "sec", "secant2", "sech", "sechq", "secq", "separation", "shift", "shred_rad", "shred_lin", "sigmoid", "sin", "sineblur", "sinh", "sinhq", "sinq", "sintrange", "sinus_grid", "sinusoidal", "sinusoidal3d", "smartshape", "smartcrop", "spher", "sphereblur", "spherical", "spherical3d", "sphericaln", "spherivoid", "sphyp3d", "spiral", "spiral_wing", "spirograph", "split", "split_brdr", "splits", "splits3d", "square", "squares", "square3d", "squarize", "squirrel", "squish", "sschecks", "starblur", "starblur2", "stripes", "stwin", "super_shape", "super_shape3d","svf", "swirl", "swirl3", "swirl3r", "synth"},
-                                        "t": {"tan", "tancos", "tangent", "tanh", "tanhq", "tanh_spiral", "tanq", "target", "target0", "target2", "taurus", "tile_hlp", "tile_log", "trade", "truchet", "truchet_fill", "truchet_hex_fill", "truchet_hex_crop", "truchet_glyph", "truchet_inv", "truchet_knot", "twintrian", "twoface"},
-                                        "u": {"unicorngaloshen", "unpolar"},
-                                        "v": {"vibration", "vibration2", "vignette", "voron"},
-                                        "w": {"w", "waffle", "waves", "waves2", "waves22", "waves23", "waves23d", "waves2b", "waves2_radial", "waves3", "waves4", "waves42", "wavesn", "wdisc", "wedge", "wedge_julia", "wedge_sph", "whorl"},
-                                        "x": {"x", "xerf", "xheart", "xtrb"},
-                                        "y": {"y"},
-                                        "z": {"z", "zblur", "zcone", "zscale","ztranslate"}
-                                        }
+VARS_FRACTORIUM_DICT: dict[str, set[str]] = {"a": {"arch", "arcsech", "arcsech2", "arcsinh", "arctanh", "asteria", "auger"},
+                                            "b": {"barycentroid", "bcircle", "bcollide", "bent", "bent2", "bipolar", "bisplit", "blade", "blade3d", "blob", "blob2", "blob3d", "block", "blocky", "blur", "blur_circle", "blur_heart", "blur_linear", "blur_pixelize", "blur_square", "blur_zoom", "blur3d", "bmod", "boarders", "boarders2", "bswirl", "btransform", "bubble", "bubble2", "bubblet3d", "butterfly", "bwraps", "bwraps_rand"},
+                                            "c": {"cardioid", "cell", "checks", "circleblur", "circlecrop", "circlecrop2", "circlelinear", "circlerand", "circlesplit", "circletrans1", "circlize", "circlize2", "circus", "collideoscope", "concentric", "conic", "cos", "cos_wrap", "cosh", "coshq", "cosine", "cosq", "cot", "coth", "coth_spiral", "cothq", "cotq", "cpow", "cpow2", "cpow3", "crackle", "crackle2", "crescents", "crob", "crop", "cropn", "cross", "csc", "csch", "cschq", "cscq", "cubic3d", "cubic_lattice3d", "curl", "curl3d", "curl_sp", "curvature", "curve", "cylinder", "cylinder2"},
+                                            "d": {"delta_a", "depth", "depth_blur", "depth_blur2", "depth_gaussian", "depth_gaussian2", "depth_ngon", "depth_ngon2", "depth_sine", "depth_sine2", "diamond", "disc", "disc2", "disc3d", "dragonfire", "dust","d_spherical"},
+                                            "e": {"eclipse", "ecollide", "edisc", "ejulia", "elliptic", "emod", "emotion", "ennepers", "epispiral", "epush", "erf", "erotate", "escale", "escher", "estiq", "eswirl", "ex", "excinis", "exp", "exp2", "expo", "exponential", "extrude", "eyefish"},
+                                            "f": {"falloff", "falloff2", "falloff3", "fan", "fan2", "farblur", "fdisc", "fibonacci", "fibonacci2", "fisheye", "flatten", "flip_circle", "flip_x", "flip_y", "flower", "flower_db", "flux", "foci", "foci3d", "foci_p", "fourth", "funnel"},
+                                            "g": {"gamma", "gaussian", "gaussian_blur", "gdoffs", "glynnia", "glynnia2", "glynnsim1", "glynnsim2", "glynnsim3", "glynnsim4", "glynnsim5", "gnarly", "gridout"},
+                                            "h": {"handkerchief", "heart", "heat", "helicoid", "helix", "hemisphere", "henon", "hexaplay3d", "hexcrop", "hexes", "hexnix3d", "hex_modulus", "hex_rand", "hex_truchet", "ho", "hole", "horseshoe", "hyperbolic", "hypercrop", "hypershift", "hypershift2", "hypertile", "hypertile1", "hypertile2", "hypertile3d", "hypertile3d1", "hypertile3d2"},
+                                            "i": {"idisc", "inkdrop", "interference2"},
+                                            "j": {"jac_cn", "jac_dn", "jac_sn", "julia", "julia3d", "julia3dq", "julia3dz", "juliac", "julian", "julian2", "julian3dx", "julianab", "juliaq", "juliascope"}, 
+                                            "k": {"kaleidoscope"},
+                                            "l": {"lazyjess", "lazysusan", "lazy_travis", "lens", "line", "linear", "linear_t", "linear_t3d", "linear_xz", "linear_yz", "linear3d", "lissajous", "log", "log_db", "loq", "loonie", "loonie2", "loonie3", "loonie3d", "lozi"},
+                                            "m": {"mask", "mcarpet", "mirror_x", "mirror_y", "mirror_z", "mobiq", "mobius", "mobius_strip", "mobiusn", "modulus", "modulusx", "modulusy", "murl", "murl2"},
+                                            "n": {"nblur", "ngon", "noise", "npolar"},
+                                            "o": {"octagon", "octapol", "ortho", "oscilloscope", "oscilloscope2", "ovoid", "ovoid3d"},
+                                            "p": {"panorama1", "panorama2", "parabola", "pdj", "perspective", "petal", "phoenix_julia", "pie", "pie3d", "pixel_flow", "poincare", "poincare2", "poincare3d", "point_symmetry", "polar", "polar2", "polynomial", "popcorn", "popcorn2", "popcorn23d", "pow_block", "power", "pressure_wave", "projective", "prose3d", "psphere", "pulse"},
+                                            "q": {"q_ode"},
+                                            "r": {"radial_blur", "radial_gaussian", "rand_cubes", "rational3", "rays", "rays1", "rays2", "rays3", "rblur", "rectangles", "rings", "rings2", "ripple", "rippled", "rotate", "rotate_x", "rotate_y", "rotate_z", "roundspher", "roundspher3d"},
+                                            "s": {"scry", "scry2", "scry3d", "sec", "secant2", "sech", "sechq", "secq", "separation", "shift", "shred_rad", "shred_lin", "sigmoid", "sin", "sineblur", "sinh", "sinhq", "sinq", "sintrange", "sinus_grid", "sinusoidal", "sinusoidal3d", "smartshape", "smartcrop", "spher", "sphereblur", "spherical", "spherical3d", "sphericaln", "spherivoid", "sphyp3d", "spiral", "spiral_wing", "spirograph", "split", "split_brdr", "splits", "splits3d", "square", "squares", "square3d", "squarize", "squirrel", "squish", "sschecks", "starblur", "starblur2", "stripes", "stwin", "super_shape", "super_shape3d","svf", "swirl", "swirl3", "swirl3r", "synth"},
+                                            "t": {"tan", "tancos", "tangent", "tanh", "tanhq", "tanh_spiral", "tanq", "target", "target0", "target2", "taurus", "tile_hlp", "tile_log", "trade", "truchet", "truchet_fill", "truchet_hex_fill", "truchet_hex_crop", "truchet_glyph", "truchet_inv", "truchet_knot", "twintrian", "twoface"},
+                                            "u": {"unicorngaloshen", "unpolar"},
+                                            "v": {"vibration", "vibration2", "vignette", "voron"},
+                                            "w": {"w", "waffle", "waves", "waves2", "waves22", "waves23", "waves23d", "waves2b", "waves2_radial", "waves3", "waves4", "waves42", "wavesn", "wdisc", "wedge", "wedge_julia", "wedge_sph", "whorl"},
+                                            "x": {"x", "xerf", "xheart", "xtrb"},
+                                            "y": {"y"},
+                                            "z": {"z", "zblur", "zcone", "zscale","ztranslate"}
+                                            }
 
 
 class flam3h_varsPRM_APO:
@@ -12290,113 +12290,113 @@ class flam3h_varsPRM_APO:
     
     def __init__(self) -> None:
         
-        self.varsPRM: tuple = ( ("linear", 0), 
-                                ("sinusoidal", 0), 
-                                ("spherical", 0), 
-                                ("swirl", 0), 
-                                ("horseshoe", 0), 
-                                ("polar", 0), 
-                                ("handkerchief", 0), 
-                                ("heart", 0), 
-                                ("disc", 0), 
-                                ("spiral", 0), 
-                                ("hyperbolic", 0), 
-                                ("diamond", 0), 
-                                ("ex", 0), 
-                                ("julia", 0), 
-                                ("bent", 0), 
-                                ("waves", 0), 
-                                ("fisheye", 0), 
-                                ("popcorn", 0), 
-                                ("exponential", 0), 
-                                ("power", 0), 
-                                ("cosine", 0), 
-                                ("rings", 0), 
-                                ("fan", 0), 
-                                ("bubble", 0), 
-                                ("cylinder", 0), 
-                                ("eyefish", 0), 
-                                ("blur", 0), 
-                                ("curl", ("curl_c1", "curl_c2"), 1), 
-                                ("ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
-                                ("pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
-                                ("blob", ("blob_low", "blob_high", "blob_waves"), 1), 
-                                ("juliaN", ("julian_power", "julian_dist"), 1), 
-                                ("juliascope", ("juliascope_power", "juliascope_dist"), 1), 
-                                ("gaussian_blur", 0), 
-                                ("fan2", ("fan2_x", "fan2_y"), 1), 
-                                ("rings2", ("rings2_val",), 1), 
-                                ("rectangles", ("rectangles_x", "rectangles_y"), 1), 
-                                ("radial_blur", ("radial_blur_angle",), 1), 
-                                ("pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
-                                ("arch", 0), 
-                                ("tangent", 0), 
-                                ("square", 0), 
-                                ("rays", 0), 
-                                ("blade", 0), 
-                                ("secant2", 0), 
-                                ("twintrian", 0), 
-                                ("cross", 0), 
-                                ("disc2", ("disc2_rot", "disc2_twist"), 1), 
-                                ("supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
-                                ("flower", ("flower_petals", "flower_holes"), 1), 
-                                ("conic", ("conic_eccentricity", "conic_holes"), 1), 
-                                ("parabola", ("parabola_height", "parabola_width"), 1), 
-                                ("bent2", ("bent2_x", "bent2_y"), 1), 
-                                ("bipolar", ("bipolar_shift",), 1),
-                                ("boarders", 0),
-                                ("butterfly", 0), 
-                                ("cell", ("cell_size",), 1), 
-                                ("cpow", ("cpow_power", "cpow_r", "cpow_i"), 1), 
-                                ("edisc", 0), 
-                                ("elliptic", 0), 
-                                ("noise", 0), 
-                                ("escher", ("escher_beta",), 1), 
-                                ("foci", 0), 
-                                ("lazysusan", ("lazysusan_x", "lazysusan_y"), ("lazysusan_spin", "lazysusan_twist", "lazysusan_space"), 1), 
-                                ("loonie", 0), 
-                                ("pre blur", 0), 
-                                ("modulus", ("modulus_x", "modulus_y"), 1), 
-                                ("oscilloscope", ("oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation"), 1), 
-                                ("polar2", 0), 
-                                ("popcorn2", ("popcorn2_x", "popcorn2_y"), ("popcorn2_c",), 1), 
-                                ("scry", 0), 
-                                ("separation", ("separation_x", "separation_y"), ("separation_xinside", "separation_yinside"), 1), 
-                                ("split", ("split_xsize", "split_ysize"), 1), 
-                                ("splits", ("splits_x", "splits_y"), 1), 
-                                ("stripes", ("stripes_space", "stripes_warp"), 1), 
-                                ("wedge", ("wedge_swirl", "wedge_angle", "wedge_hole", "wedge_count",), 1), 
-                                ("wedge_julia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
-                                ("wedge_sph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
-                                ("whorl", ("whorl_inside", "whorl_outside"), 1), 
-                                ("waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
-                                ("exp", 0), 
-                                ("log", 0), 
-                                ("sin", 0), 
-                                ("cos", 0), 
-                                ("tan", 0), 
-                                ("sec", 0), 
-                                ("csc", 0), 
-                                ("cot", 0), 
-                                ("sinh", 0), 
-                                ("cosh", 0), 
-                                ("tanh", 0), 
-                                ("sech", 0), 
-                                ("csch", 0), 
-                                ("coth", 0), 
-                                ("auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
-                                ("flux", ("flux_spread",), 1), 
-                                ("mobius", ("Re_A", "Re_B", "Re_C", "Re_D"), ("Im_A", "Im_B", "Im_C", "Im_D"), 1),
-                                ("curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
-                                ("persp", ("perspective_angle", "perspective_dist"), 1), 
-                                ("bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
-                                ("hemisphere", 0), 
-                                ("polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1),
-                                ("crop", ("crop_left", "crop_top", "crop_right", "crop_bottom"), ("crop_scatter_area", "crop_zero"), 1), 
-                                ("unpolar", 0), 
-                                ("glynnia", 0), 
-                                ("point_symmetry", ("point_symmetry_order", "point_symmetry_centre_x", "point_symmetry_centre_y"), 1)
-                            )
+        self.varsPRM: tuple[tuple, ...] = ( ("linear", 0), 
+                                            ("sinusoidal", 0), 
+                                            ("spherical", 0), 
+                                            ("swirl", 0), 
+                                            ("horseshoe", 0), 
+                                            ("polar", 0), 
+                                            ("handkerchief", 0), 
+                                            ("heart", 0), 
+                                            ("disc", 0), 
+                                            ("spiral", 0), 
+                                            ("hyperbolic", 0), 
+                                            ("diamond", 0), 
+                                            ("ex", 0), 
+                                            ("julia", 0), 
+                                            ("bent", 0), 
+                                            ("waves", 0), 
+                                            ("fisheye", 0), 
+                                            ("popcorn", 0), 
+                                            ("exponential", 0), 
+                                            ("power", 0), 
+                                            ("cosine", 0), 
+                                            ("rings", 0), 
+                                            ("fan", 0), 
+                                            ("bubble", 0), 
+                                            ("cylinder", 0), 
+                                            ("eyefish", 0), 
+                                            ("blur", 0), 
+                                            ("curl", ("curl_c1", "curl_c2"), 1), 
+                                            ("ngon", ("ngon_power", "ngon_sides", "ngon_corners", "ngon_circle"), 1), 
+                                            ("pdj", ("pdj_a", "pdj_b", "pdj_c", "pdj_d"), 1), 
+                                            ("blob", ("blob_low", "blob_high", "blob_waves"), 1), 
+                                            ("juliaN", ("julian_power", "julian_dist"), 1), 
+                                            ("juliascope", ("juliascope_power", "juliascope_dist"), 1), 
+                                            ("gaussian_blur", 0), 
+                                            ("fan2", ("fan2_x", "fan2_y"), 1), 
+                                            ("rings2", ("rings2_val",), 1), 
+                                            ("rectangles", ("rectangles_x", "rectangles_y"), 1), 
+                                            ("radial_blur", ("radial_blur_angle",), 1), 
+                                            ("pie", ("pie_slices", "pie_thickness", "pie_rotation"), 1), 
+                                            ("arch", 0), 
+                                            ("tangent", 0), 
+                                            ("square", 0), 
+                                            ("rays", 0), 
+                                            ("blade", 0), 
+                                            ("secant2", 0), 
+                                            ("twintrian", 0), 
+                                            ("cross", 0), 
+                                            ("disc2", ("disc2_rot", "disc2_twist"), 1), 
+                                            ("supershape", ("super_shape_m", "super_shape_rnd", "super_shape_holes"), ("super_shape_n1", "super_shape_n2", "super_shape_n3"), 1), 
+                                            ("flower", ("flower_petals", "flower_holes"), 1), 
+                                            ("conic", ("conic_eccentricity", "conic_holes"), 1), 
+                                            ("parabola", ("parabola_height", "parabola_width"), 1), 
+                                            ("bent2", ("bent2_x", "bent2_y"), 1), 
+                                            ("bipolar", ("bipolar_shift",), 1),
+                                            ("boarders", 0),
+                                            ("butterfly", 0), 
+                                            ("cell", ("cell_size",), 1), 
+                                            ("cpow", ("cpow_power", "cpow_r", "cpow_i"), 1), 
+                                            ("edisc", 0), 
+                                            ("elliptic", 0), 
+                                            ("noise", 0), 
+                                            ("escher", ("escher_beta",), 1), 
+                                            ("foci", 0), 
+                                            ("lazysusan", ("lazysusan_x", "lazysusan_y"), ("lazysusan_spin", "lazysusan_twist", "lazysusan_space"), 1), 
+                                            ("loonie", 0), 
+                                            ("pre blur", 0), 
+                                            ("modulus", ("modulus_x", "modulus_y"), 1), 
+                                            ("oscilloscope", ("oscope_frequency", "oscope_amplitude", "oscope_damping", "oscope_separation"), 1), 
+                                            ("polar2", 0), 
+                                            ("popcorn2", ("popcorn2_x", "popcorn2_y"), ("popcorn2_c",), 1), 
+                                            ("scry", 0), 
+                                            ("separation", ("separation_x", "separation_y"), ("separation_xinside", "separation_yinside"), 1), 
+                                            ("split", ("split_xsize", "split_ysize"), 1), 
+                                            ("splits", ("splits_x", "splits_y"), 1), 
+                                            ("stripes", ("stripes_space", "stripes_warp"), 1), 
+                                            ("wedge", ("wedge_swirl", "wedge_angle", "wedge_hole", "wedge_count",), 1), 
+                                            ("wedge_julia", ("wedge_julia_power", "wedge_julia_angle", "wedge_julia_dist", "wedge_julia_count"), 1), 
+                                            ("wedge_sph", ("wedge_sph_swirl", "wedge_sph_angle", "wedge_sph_hole", "wedge_sph_count"), 1), 
+                                            ("whorl", ("whorl_inside", "whorl_outside"), 1), 
+                                            ("waves2", ("waves2_scalex", "waves2_scaley"), ("waves2_freqx", "waves2_freqy"), 1), 
+                                            ("exp", 0), 
+                                            ("log", 0), 
+                                            ("sin", 0), 
+                                            ("cos", 0), 
+                                            ("tan", 0), 
+                                            ("sec", 0), 
+                                            ("csc", 0), 
+                                            ("cot", 0), 
+                                            ("sinh", 0), 
+                                            ("cosh", 0), 
+                                            ("tanh", 0), 
+                                            ("sech", 0), 
+                                            ("csch", 0), 
+                                            ("coth", 0), 
+                                            ("auger", ("auger_freq", "auger_scale", "auger_sym", "auger_weight"), 1), 
+                                            ("flux", ("flux_spread",), 1), 
+                                            ("mobius", ("Re_A", "Re_B", "Re_C", "Re_D"), ("Im_A", "Im_B", "Im_C", "Im_D"), 1),
+                                            ("curve", ("curve_xlength", "curve_ylength"), ("curve_xamp", "curve_yamp"), 1), 
+                                            ("persp", ("perspective_angle", "perspective_dist"), 1), 
+                                            ("bwraps", ("bwraps_cellsize", "bwraps_space", "bwraps_gain"), ("bwraps_inner_twist", "bwraps_outer_twist"), 1), 
+                                            ("hemisphere", 0), 
+                                            ("polynomial", ("polynomial_powx", "polynomial_powy"), ("polynomial_lcx", "polynomial_lcy"), ("polynomial_scx", "polynomial_scy"), 1),
+                                            ("crop", ("crop_left", "crop_top", "crop_right", "crop_bottom"), ("crop_scatter_area", "crop_zero"), 1), 
+                                            ("unpolar", 0), 
+                                            ("glynnia", 0), 
+                                            ("point_symmetry", ("point_symmetry_order", "point_symmetry_centre_x", "point_symmetry_centre_y"), 1)
+                                        )
 
 
         # EXCEPTIONS: so I dnt go into regex...
@@ -12536,7 +12536,7 @@ class _xml_tree
 * __get_name_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str, ...]:
 * __get_name_curve_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str]:
 * __get_name_list_str(self, key: str) -> tuple[str, ...]:
-* __get_flame(self, key: str = XML_FLAME_NAME) -> tuple | None:
+* __get_flame(self, key: str = XML_FLAME_NAME) -> tuple[lxmlET._Element, ...] | None:
 * __get_flame_count(self, flames: list) -> int:
 
 """
@@ -12571,9 +12571,9 @@ class _xml_tree
             self._root: lxmlET._Element = self.tree.getroot()
             
         # This not private as its cheaper to have it evaluate from this parent class.
-        self._name: tuple = self.get_name()
-        self._plugins: tuple = self.get_name(XML_FLAME_PLUGINS)
-        self._sw_version: tuple = self.get_name(XML_FLAME_VERSION) # type: ignore
+        self._name: tuple[str, ...] = self.get_name()
+        self._plugins: tuple[str, ...] = self.get_name(XML_FLAME_PLUGINS)
+        self._sw_version: tuple[str, ...] = self.get_name(XML_FLAME_VERSION) # type: ignore
 
 
     @staticmethod
@@ -12707,27 +12707,27 @@ class _xml_tree
     ##########################################
     
     @cached_slot_property
-    def xmlfile(self):
+    def xmlfile(self) -> str:
         return self._xmlfile
     
     @cached_slot_property
-    def xmlfile_data(self):
+    def xmlfile_data(self) -> str | None:
         return self._xmlfile_data
     
     @cached_slot_property
-    def xmlfile_data_clipboard(self):
+    def xmlfile_data_clipboard(self) -> str | None:
         return self._xmlfile_data_clipboard
     
     @cached_slot_property
-    def tree(self):
-        return self._tree
-    
-    @cached_slot_property
-    def isvalidtree(self):
+    def isvalidtree(self) -> bool:
         return self._isvalidtree
     
     @cached_slot_property
-    def root(self):
+    def tree(self) -> lxmlET._ElementTree:
+        return self._tree
+    
+    @cached_slot_property
+    def root(self) -> lxmlET._Element:
         """Build the XML file root.<br/>
         
         Note:<br/>
@@ -12742,15 +12742,15 @@ class _xml_tree
         return self._root
     
     @cached_slot_property
-    def name(self):
+    def name(self) -> tuple[str, ...]:
         return self._name
     
     @cached_slot_property
-    def plugins(self):
+    def plugins(self) -> tuple[str, ...]:
         return self._plugins
     
     @cached_slot_property
-    def sw_version(self):
+    def sw_version(self) -> tuple[str, ...]:
         return self._sw_version
     
 
@@ -12850,7 +12850,7 @@ class _xml_tree
         return () 
         
         
-    def __get_flame(self, key: str = XML_FLAME_NAME) -> tuple | None:
+    def __get_flame(self, key: str = XML_FLAME_NAME) -> tuple[lxmlET._Element, ...] | None:
         """Collect the actual Flame presets object data from the XML file.
 
         Args:
@@ -12861,7 +12861,6 @@ class _xml_tree
             (tuple | None): Flames objects data or None if not found.
         """
         if self.isvalidtree:
-            
             return tuple(f for f in self.root.iter(key))
         
         return None
@@ -12942,7 +12941,7 @@ class in_flame
         super().__init__(xmlfile)
         
         self._node = node
-        self._flame: tuple | None = self._xml_tree__get_flame() # type: ignore
+        self._flame: tuple[lxmlET._Element, ...] | None = self._xml_tree__get_flame() # type: ignore
         self._flame_count: int = self._xml_tree__get_flame_count(self.flame) # type: ignore
         
         # render properties
@@ -13255,112 +13254,112 @@ class in_flame
     #     return self._name
 
     @cached_slot_property
-    def flame(self):
+    def flame(self) -> tuple[lxmlET._Element, ...] | None:
         return self._flame
 
     @cached_slot_property
-    def flame_count(self):
+    def flame_count(self) -> int:
         return self._flame_count
     
     @cached_slot_property
-    def out_size(self):
+    def out_size(self) -> tuple[str, ...]:
         return self._out_size
     
     @cached_slot_property
-    def out_center(self):
+    def out_center(self) -> tuple[str, ...]:
         return self._out_center
     
     @cached_slot_property
-    def out_rotate(self):
+    def out_rotate(self) -> tuple[str, ...]:
         return self._out_rotate
     
     @cached_slot_property
-    def out_scale(self):
+    def out_scale(self) -> tuple[str, ...]:
         return self._out_scale
     
     @cached_slot_property
-    def out_quality(self):
+    def out_quality(self) -> tuple[str, ...]:
         return self._out_quality
 
     @cached_slot_property
-    def out_brightness(self):
+    def out_brightness(self) -> tuple[str, ...]:
         return self._out_brightness
     
     @cached_slot_property
-    def out_gamma(self):
+    def out_gamma(self) -> tuple[str, ...]:
         return self._out_gamma
     
     @cached_slot_property
-    def out_highlight_power(self):
+    def out_highlight_power(self) -> tuple[str, ...]:
         return self._out_highlight_power
     
     @cached_slot_property
-    def out_logscale_k2(self):
+    def out_logscale_k2(self) -> tuple[str, ...]:
         return self._out_logscale_k2
     
     @cached_slot_property
-    def out_vibrancy(self):
+    def out_vibrancy(self) -> tuple[str, ...]:
         return self._out_vibrancy
     
     @cached_slot_property
-    def out_palette_mode(self):
+    def out_palette_mode(self) -> tuple[str, ...]:
         return self._out_palette_mode
     
     # render curves
     
     @cached_slot_property
-    def out_curves(self):
+    def out_curves(self) -> tuple[str, ...]:
         return self._out_curves
     
     @cached_slot_property
-    def out_curve_overall(self):
+    def out_curve_overall(self) -> tuple[str, ...]:
         return self._out_curve_overall
     
     @cached_slot_property
-    def out_curve_red(self):
+    def out_curve_red(self) -> tuple[str, ...]:
         return self._out_curve_red
     
     @cached_slot_property
-    def out_curve_green(self):
+    def out_curve_green(self) -> tuple[str, ...]:
         return self._out_curve_green
     
     @cached_slot_property
-    def out_curve_blue(self):
+    def out_curve_blue(self) -> tuple[str, ...]:
         return self._out_curve_blue
     
     # custom to FLAM3H™ only
+    
+    @cached_slot_property
+    def flame3h_sys_rip(self) -> tuple[str, ...]:
+        return self._flam3h_sys_rip
 
     @cached_slot_property
-    def flam3h_hsv(self):
+    def flam3h_hsv(self) -> tuple[str, ...]:
         return self._flam3h_hsv
     
     @cached_slot_property
-    def flam3h_mb(self): # motion blur fps ( frames per second )
+    def flam3h_mb(self) -> tuple[str, ...]: # motion blur fps ( frames per second )
         return self._flam3h_mb
     
     @cached_slot_property
-    def flam3h_mb_samples(self):
+    def flam3h_mb_samples(self) -> tuple[str, ...]:
         return self._flam3h_mb_samples
     
     @cached_slot_property
-    def flam3h_mb_shutter(self):
+    def flam3h_mb_shutter(self) -> tuple[str, ...]:
         return self._flam3h_mb_shutter
     
     @cached_slot_property
-    def flam3h_cp_samples(self):
+    def flam3h_cp_samples(self) -> tuple[str, ...]:
         return self._flam3h_cp_samples
     
     @cached_slot_property
-    def flam3h_cp_basis(self):
+    def flam3h_cp_basis(self) -> tuple[str, ...]:
         return self._flam3h_cp_basis
     
     @cached_slot_property
-    def flam3h_prefs_f3c(self): # flam3 compatibility preferences option
+    def flam3h_prefs_f3c(self) -> tuple[str, ...]: # flam3 compatibility preferences option
         return self._flam3h_prefs_f3c
-    
-    @cached_slot_property
-    def flame3h_sys_rip(self):
-        return self._flam3h_sys_rip
     
 
     def __is_valid_idx(self, idx: int) -> int:
@@ -13855,7 +13854,7 @@ class in_flame_iter_data(in_flame):
     ##########################################
 
     @cached_slot_property
-    def idx(self):
+    def idx(self) -> int:
         return self._idx
 
     @cached_slot_property
@@ -17808,14 +17807,14 @@ class out_flame_utils
 * out_XML(self) -> None:
 * __out_flame_data(self, prm_name: str = '') -> str:
 * __out_flame_name(self, prm_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
-* __out_xf_data(self, prm_name: str) -> tuple:
-* __out_xf_data_color_speed(self, prm_name: str=flam3h_iterator_prm_names().shader_speed) -> tuple:
-* __out_xf_name(self) -> tuple:
+* __out_xf_data(self, prm_name: str) -> tuple[str, ...]:
+* __out_xf_data_color_speed(self) -> tuple[str, ...]:
+* __out_xf_name(self) -> tuple[str, ...]:
 * __out_finalxf_name(self) -> str:
-* __out_xf_pre_blur(self) -> tuple:
-* __out_xf_xaos(self) -> tuple:
-* __out_xf_preaffine(self) -> tuple[tuple, tuple, tuple]:
-* __out_xf_postaffine(self) -> tuple[tuple, tuple, tuple]:
+* __out_xf_pre_blur(self) -> tuple[str, ...]:
+* __out_xf_xaos(self) -> tuple[str, ...]:
+* __out_xf_preaffine(self) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
+* __out_xf_postaffine(self) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
 * __out_finalxf_preaffine(self) -> tuple[str, str, str]:
 * __out_finalxf_postaffine(self) -> tuple[str, str, str]:
 * __out_palette_hex(self) -> str:
@@ -20407,7 +20406,7 @@ class out_flame_utils
         return self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
         
         
-    def __out_xf_data(self, prm_name: str) -> tuple:
+    def __out_xf_data(self, prm_name: str) -> tuple[str, ...]:
         """Prepare the xform/iterator single value parameters into a proper string to be written out.
 
         Args:
@@ -20422,7 +20421,7 @@ class out_flame_utils
         return tuple(val)
     
     
-    def __out_xf_data_color_speed(self) -> tuple:
+    def __out_xf_data_color_speed(self) -> tuple[str, ...]:
         """Prepare the xform/iterator color speed into a proper string to be written out.
         This is specifically for Fractorium as it is the one using this conversion of values.
 
@@ -20438,7 +20437,7 @@ class out_flame_utils
         return tuple(val)
     
 
-    def __out_xf_name(self) -> tuple:
+    def __out_xf_name(self) -> tuple[str, ...]:
         """Prepare each xform/iterator names/notes parameters for writing out.
 
         Args:
@@ -20467,7 +20466,7 @@ class out_flame_utils
         return FF_name
 
     
-    def __out_xf_pre_blur(self) -> tuple:
+    def __out_xf_pre_blur(self) -> tuple[str, ...]:
         """Prepare each xform/iterator pre_blur parameters for writing out.
 
         Args:
@@ -20480,7 +20479,7 @@ class out_flame_utils
         return tuple(val)
 
 
-    def __out_xf_xaos(self) -> tuple:
+    def __out_xf_xaos(self) -> tuple[str, ...]:
         """Prepare each xform/iterator xaos parameters for writing out.
 
         Args:
@@ -20495,7 +20494,7 @@ class out_flame_utils
         return self.out_xf_xaos_to()
 
 
-    def __out_xf_preaffine(self) -> tuple[tuple, tuple, tuple]:
+    def __out_xf_preaffine(self) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
         """Prepare each xform/iterator pre_affine parameters for writing out.
         This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will prep the Rotation angle parameter as well.
 
@@ -20521,7 +20520,7 @@ class out_flame_utils
         return tuple(_join(x) for x in self.out_util_round_floats(val)), tuple(_join(x) for x in self.out_util_round_floats(f3h_val)), tuple(f3h_angleDeg)
     
     
-    def __out_xf_postaffine(self) -> tuple[tuple, tuple, tuple]:
+    def __out_xf_postaffine(self) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
         """Prepare each xform/iterator post_affine parameters for writing out.
         This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will prep the Rotation angle parameter as well.
 
@@ -20845,109 +20844,109 @@ class out_flame_render_properties(out_flame_utils):
     ##########################################
 
     @property
-    def flame_name(self):
+    def flame_name(self) -> str:
         return self._flame_name
     
     @property
-    def flame_size(self):
+    def flame_size(self) -> str:
         return self._flame_size
     
     @property
-    def flame_center(self):
+    def flame_center(self) -> str:
         return self._flame_center
     
     @property
-    def flame_scale(self):
+    def flame_scale(self) -> str:
         return self._flame_scale
     
     @property
-    def flame_rotate(self):
+    def flame_rotate(self) -> str:
         return self._flame_rotate
     
     @property
-    def flame_quality(self):
+    def flame_quality(self) -> str:
         return self._flame_quality
     
     @property
-    def flame_brightness(self):
+    def flame_brightness(self) -> str:
         return self._flame_brightness
     
     @property
-    def flame_gamma(self):
+    def flame_gamma(self) -> str:
         return self._flame_gamma
     
     @property
-    def flame_k2(self):
+    def flame_k2(self) -> str:
         return self._flame_k2
     
     @property
-    def flame_vibrancy(self):
+    def flame_vibrancy(self) -> str:
         return self._flame_vibrancy
     
     @property
-    def flame_highlight(self):
+    def flame_highlight(self) -> str:
         return self._flame_highlight
     
     # OUT render curves (Fractorium)
     
     @property
-    def flame_render_curves(self):
+    def flame_render_curves(self) -> str:
         return self._flame_render_curves
     
     @property
-    def flame_overall_curve(self):
+    def flame_overall_curve(self) -> str:
         return self._flame_overall_curve
     
     @property
-    def flame_red_curve(self):
+    def flame_red_curve(self) -> str:
         return self._flame_red_curve
     
     @property
-    def flame_green_curve(self):
+    def flame_green_curve(self) -> str:
         return self._flame_green_curve
     
     @property
-    def flame_blue_curve(self):
+    def flame_blue_curve(self) -> str:
         return self._flame_blue_curve
     
     # OUT palette mode (Fractorium)
     
     @property
-    def flame_cp_mode(self):
+    def flame_cp_mode(self) -> str:
         return self._flame_cp_mode
     
     # custom to FLAM3H™ only
     
     @property
-    def flam3h_sys_rip(self):
+    def flam3h_sys_rip(self) -> str:
         return self._flam3h_sys_rip
     
     @property
-    def flam3h_cp_hsv(self):
+    def flam3h_cp_hsv(self) -> str | bool:
         return self._flam3h_cp_hsv
     
     @property
-    def flam3h_mb_fps(self):
+    def flam3h_mb_fps(self) -> str | bool:
         return self._flam3h_mb_fps
     
     @property
-    def flam3h_mb_samples(self):
+    def flam3h_mb_samples(self) -> str | bool:
         return self._flam3h_mb_samples
     
     @property
-    def flam3h_mb_shutter(self):
+    def flam3h_mb_shutter(self) -> str | bool:
         return self._flam3h_mb_shutter
     
     @property
-    def flam3h_cp_samples(self):
+    def flam3h_cp_samples(self) -> str | bool:
         return self._flam3h_cp_samples
     
     @property
-    def flam3h_cp_basis(self):
+    def flam3h_cp_basis(self) -> str | bool:
         return self._flam3h_cp_basis
     
     @property
-    def flam3h_prefs_f3c(self):
+    def flam3h_prefs_f3c(self) -> str:
         return self._flam3h_prefs_f3c
 
 
@@ -20986,24 +20985,24 @@ class out_flame_xforms_data(out_flame_utils):
         super().__init__(kwargs)
         
         # FLAM3 data
-        self._xf_name: tuple = self._out_flame_utils__out_xf_name() # type: ignore
-        self._xf_vactive: tuple = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.main_vactive) # type: ignore
-        self._xf_weight: tuple = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.main_weight) # type: ignore
-        self._xf_xaos: tuple = self._out_flame_utils__out_xf_xaos() # type: ignore
+        self._xf_name: tuple[str, ...] = self._out_flame_utils__out_xf_name() # type: ignore
+        self._xf_vactive: tuple[str, ...] = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.main_vactive) # type: ignore
+        self._xf_weight: tuple[str, ...] = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.main_weight) # type: ignore
+        self._xf_xaos: tuple[str, ...] = self._out_flame_utils__out_xf_xaos() # type: ignore
         
-        self._xf_color: tuple = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_color) # type: ignore
-        self._xf_symmetry: tuple = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_speed) # type: ignore
-        self._xf_color_speed: tuple = self._out_flame_utils__out_xf_data_color_speed() # type: ignore
-        self._xf_opacity: tuple = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_alpha) # type: ignore
+        self._xf_color: tuple[str, ...] = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_color) # type: ignore
+        self._xf_symmetry: tuple[str, ...] = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_speed) # type: ignore
+        self._xf_color_speed: tuple[str, ...] = self._out_flame_utils__out_xf_data_color_speed() # type: ignore
+        self._xf_opacity: tuple[str, ...] = self._out_flame_utils__out_xf_data(self.flam3h_iter_prm_names.shader_alpha) # type: ignore
         
-        self._xf_pre_blur: tuple = self._out_flame_utils__out_xf_pre_blur() # type: ignore
+        self._xf_pre_blur: tuple[str, ...] = self._out_flame_utils__out_xf_pre_blur() # type: ignore
         
-        self._xf_preaffine: tuple = self._out_flame_utils__out_xf_preaffine()[0] # type: ignore
-        self._xf_f3h_preaffine: tuple = self._out_flame_utils__out_xf_preaffine()[1] # type: ignore
-        self._xf_f3h_preaffine_angle: tuple = self._out_flame_utils__out_xf_preaffine()[2] # type: ignore
-        self._xf_postaffine: tuple = self._out_flame_utils__out_xf_postaffine()[0] # type: ignore
-        self._xf_f3h_postaffine: tuple = self._out_flame_utils__out_xf_postaffine()[1] # type: ignore
-        self._xf_f3h_postaffine_angle: tuple = self._out_flame_utils__out_xf_postaffine()[2] # type: ignore
+        self._xf_preaffine: tuple[str, ...] = self._out_flame_utils__out_xf_preaffine()[0] # type: ignore
+        self._xf_f3h_preaffine: tuple[str, ...] = self._out_flame_utils__out_xf_preaffine()[1] # type: ignore
+        self._xf_f3h_preaffine_angle: tuple[str, ...] = self._out_flame_utils__out_xf_preaffine()[2] # type: ignore
+        self._xf_postaffine: tuple[str, ...] = self._out_flame_utils__out_xf_postaffine()[0] # type: ignore
+        self._xf_f3h_postaffine: tuple[str, ...] = self._out_flame_utils__out_xf_postaffine()[1] # type: ignore
+        self._xf_f3h_postaffine_angle: tuple[str, ...] = self._out_flame_utils__out_xf_postaffine()[2] # type: ignore
         
         self._finalxf_name: str = self._out_flame_utils__out_finalxf_name() # type: ignore
         self._finalxf_preaffine: str = self._out_flame_utils__out_finalxf_preaffine()[0] # type: ignore
@@ -21021,93 +21020,93 @@ class out_flame_xforms_data(out_flame_utils):
     ##########################################
 
     @property
-    def xf_name(self):
+    def xf_name(self) -> tuple[str, ...]:
         return self._xf_name
     
     @property
-    def xf_vactive(self):
+    def xf_vactive(self) -> tuple[str, ...]:
         return self._xf_vactive
     
     @property
-    def xf_weight(self):
+    def xf_weight(self) -> tuple[str, ...]:
         return self._xf_weight
     
     @property
-    def xf_xaos(self):
+    def xf_xaos(self) -> tuple[str, ...]:
         return self._xf_xaos
     
     @property
-    def xf_pre_blur(self):
+    def xf_pre_blur(self) -> tuple[str, ...]:
         return self._xf_pre_blur
     
     @property
-    def xf_color(self):
+    def xf_color(self) -> tuple[str, ...]:
         return self._xf_color
     
     @property
-    def xf_symmetry(self):
+    def xf_symmetry(self) -> tuple[str, ...]:
         return self._xf_symmetry
     
     @property
-    def xf_color_speed(self):
+    def xf_color_speed(self) -> tuple[str, ...]:
         return self._xf_color_speed
     
     @property
-    def xf_opacity(self):
+    def xf_opacity(self) -> tuple[str, ...]:
         return self._xf_opacity
     
     @property
-    def xf_preaffine(self):
+    def xf_preaffine(self) -> tuple[str, ...]:
         return self._xf_preaffine
     
     @property
-    def xf_f3h_preaffine(self):
+    def xf_f3h_preaffine(self) -> tuple[str, ...]:
         return self._xf_f3h_preaffine
     
     @property
-    def xf_f3h_preaffine_angle(self):
+    def xf_f3h_preaffine_angle(self) -> tuple[str, ...]:
         return self._xf_f3h_preaffine_angle
     
     @property
-    def xf_postaffine(self):
+    def xf_postaffine(self) -> tuple[str, ...]:
         return self._xf_postaffine
     
     @property
-    def xf_f3h_postaffine(self):
+    def xf_f3h_postaffine(self) -> tuple[str, ...]:
         return self._xf_f3h_postaffine
     
     @property
-    def xf_f3h_postaffine_angle(self):
+    def xf_f3h_postaffine_angle(self) -> tuple[str, ...]:
         return self._xf_f3h_postaffine_angle
     
     @property
-    def palette_hex(self):
-        return self._palette_hex
-    
-    @property
-    def finalxf_name(self):
+    def finalxf_name(self) -> str:
         return self._finalxf_name
     
     @property
-    def finalxf_preaffine(self):
+    def finalxf_preaffine(self) -> str:
         return self._finalxf_preaffine
     
     @property
-    def finalxf_f3h_preaffine(self):
+    def finalxf_f3h_preaffine(self) -> str:
         return self._finalxf_f3h_preaffine
     
     @property
-    def finalxf_f3h_preaffine_angle(self):
+    def finalxf_f3h_preaffine_angle(self) -> str:
         return self._finalxf_f3h_preaffine_angle
     
     @property
-    def finalxf_postaffine(self):
+    def finalxf_postaffine(self) -> str:
         return self._finalxf_postaffine
     
     @property
-    def finalxf_f3h_postaffine(self):
+    def finalxf_f3h_postaffine(self) -> str:
         return self._finalxf_f3h_postaffine
     
     @property
-    def finalxf_f3h_postaffine_angle(self):
+    def finalxf_f3h_postaffine_angle(self) -> str:
         return self._finalxf_f3h_postaffine_angle
+    
+    @property
+    def palette_hex(self) -> str:
+        return self._palette_hex
