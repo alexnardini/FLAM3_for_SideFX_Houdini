@@ -211,8 +211,8 @@ FLAM3H_ITERATORS_TAB = 'f_flam3h'
 
 # Default affine values
 AFFINE_DEFAULT_DICT: dict[str, hou.Vector2 | float] = {"affine_x": hou.Vector2((1.0, 0.0)), "affine_y": hou.Vector2((0.0, 1.0)), "affine_o": hou.Vector2((0.0, 0.0)), "angle": float(0.0)} # X, Y, O, ANGLE
-AFFINE_DEFAULT_VALS: list = [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]
-AFFINE_IDENT: list = [1.0, 0.0, 0.0, 1.0, 0.0, 0.0]
+AFFINE_DEFAULT_VALS: list[tuple[float, ...] | float] = [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]
+AFFINE_IDENT: list[float] = [1.0, 0.0, 0.0, 1.0, 0.0, 0.0]
 
 # FF parametric parameter's prefixes
 # FF posses two sets of parametric variations parameters, one for the VAR named "VARS" and one for the PRE and POST, named "PP: VARS"
@@ -242,8 +242,8 @@ PALETTE_COUNT_128 = '128'
 PALETTE_COUNT_256 = '256'
 PALETTE_COUNT_512 = '512' # not used
 PALETTE_COUNT_1024 = '1024'
-PALETTE_OUT_MENU_OPTIONS_ALL: tuple = (16, 32, 64, 128, 256, 512, 1024) # not used
-PALETTE_OUT_MENU_OPTIONS_PLUS: tuple = (256, 512, 1024)
+PALETTE_OUT_MENU_OPTIONS_ALL: tuple[int, ...] = (16, 32, 64, 128, 256, 512, 1024) # not used
+PALETTE_OUT_MENU_OPTIONS_PLUS: tuple[int, ...] = (256, 512, 1024)
 PALETTE_PLUS_MSG = '[256+]'
 # The following will always be used for now
 # even tho we check for the XML palette format on load.
@@ -282,7 +282,7 @@ CP_PALETTE_PRESETS_OFF = 'palettepresets_off'
 CP_SYS_PALETTE_PRESETS = 'sys_palettepresets'
 CP_SYS_PALETTE_PRESETS_OFF = 'sys_palettepresets_off'
 CP_RAMP_LOOKUP_SAMPLES_BASES = 'cp_bases'
-CP_RAMP_LOOKUP_SAMPLES_BASES_DICT = {0: 'linear', 1: 'constant', 2: 'cubic', 3: 'bezier', 4: 'bspline', 5: 'hermite'}
+CP_RAMP_LOOKUP_SAMPLES_BASES_DICT: dict[int, str] = {0: 'linear', 1: 'constant', 2: 'cubic', 3: 'bezier', 4: 'bspline', 5: 'hermite'}
 CP_RAMP_LOOKUP_SAMPLES = 'cp_lookupsamples'
 CP_RAMP_SRC_NAME = 'palette'
 CP_RAMP_TMP_NAME = 'palettetmp'
@@ -549,7 +549,7 @@ F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
     ##########################################
 
     @property
-    def kwargs(self):
+    def kwargs(self) -> dict:
         return self._kwargs
     
     @property
@@ -1927,7 +1927,7 @@ class flam3h_scripts
     ##########################################
 
     @property
-    def kwargs(self):
+    def kwargs(self) -> dict:
         return self._kwargs
     
     @property
@@ -3370,7 +3370,7 @@ class flam3h_general_utils
     ##########################################
 
     @property
-    def kwargs(self):
+    def kwargs(self) -> dict:
         return self._kwargs
     
     @property
@@ -6421,7 +6421,7 @@ class flam3h_iterator_utils
     ##########################################
 
     @property
-    def kwargs(self):
+    def kwargs(self) -> dict:
         return self._kwargs
         
     @property
@@ -10363,7 +10363,7 @@ class flam3h_palette_utils
     ##########################################
 
     @property
-    def kwargs(self):
+    def kwargs(self) -> dict:
         return self._kwargs
     
     @property
@@ -11556,7 +11556,7 @@ class flam3h_about_utils
     ##########################################
         
     @property
-    def kwargs(self):
+    def kwargs(self) -> dict:
         return self._kwargs
     
     @property
@@ -11846,7 +11846,7 @@ class flam3h_ui_msg_utils
     ##########################################
         
     @property
-    def kwargs(self):
+    def kwargs(self) -> dict:
         return self._kwargs
     
     @property
@@ -12908,9 +12908,9 @@ class in_flame
 @METHODS
 * __is_valid_idx(self, idx: int) -> int:
 * __get_xforms(self, idx: int, key: str) -> tuple[dict, ...] | None:
-* __get_xaos(self, xforms: tuple | None, key: str = XML_XF_XAOS) -> tuple[list[str], ...] | None:
-* __get_affine(self, xforms: tuple | None, key: str, type: int = 0) -> tuple[tuple[hou.Vector2, ...], ...] | None:
-* __get_keyvalue(self, xforms: tuple | None, key: str, msg: bool = True) -> tuple[float | str, ...] | None:
+* __get_xaos(self, xforms: tuple[dict, ...] | None, key: str = XML_XF_XAOS) -> tuple[list[str], ...] | None:
+* __get_affine(self, xforms: tuple[dict, ...] | None, key: str, type: int = 0) -> tuple[tuple[hou.Vector2, ...], ...] | None:
+* __get_keyvalue(self, xforms: tuple[dict, ...] | None, key: str, msg: bool = True) -> tuple[float | str, ...] | None:
 * __get_palette(self, idx: int, key: str = XML_PALETTE) -> tuple[hou.Ramp, int, str] | None:
 * __get_palette_flam3h_hsv(self, idx: int) -> TA_TypeMaker | bool:
 * __get_mb_flam3h_mb(self, idx: int, key: str = '') -> int | float | bool | None:
@@ -13385,7 +13385,7 @@ class in_flame
             key(str): use "xform" for transforms and "finalxform" for final flame transform
 
         Returns:
-            (tuple): a tuple of all xforms inside the selected flame or None
+            (tuple[dict, ...] | None): a tuple of all xforms inside the selected flame or None
         """
         if  self.isvalidtree:
             assert self.flame is not None
@@ -13405,15 +13405,15 @@ class in_flame
         return None
     
     
-    def __get_xaos(self, xforms: tuple | None, key: str = XML_XF_XAOS) -> tuple[list[str], ...] | None:
+    def __get_xaos(self, xforms: tuple[dict, ...] | None, key: str = XML_XF_XAOS) -> tuple[list[str], ...] | None:
         """
         Args:
             (self):
-            xforms(list): list of all xforms contained inside this flame
+            xforms(tuple[dict, ...] | None): list of all xforms contained inside this flame
             key(str): the flame XML xaos tag name.
 
         Returns:
-            (tuple | None): either a list of xaos strings or None
+            (tuple[list[str], ...] | None): either a list of xaos strings or None
         """
         if  self.isvalidtree and xforms is not None:
             _join: Callable[[Iterable[str]], str] = ':'.join
@@ -13429,16 +13429,16 @@ class in_flame
         return None
 
 
-    def __get_affine(self, xforms: tuple | None, key: str, type: int = 0) -> tuple[tuple[hou.Vector2, ...], ...] | None:
+    def __get_affine(self, xforms: tuple[dict, ...] | None, key: str, type: int = 0) -> tuple[tuple[hou.Vector2, ...], ...] | None:
         """
         Args:
             (self):
-            xforms(list): list of all xforms contained inside this flame
+            xforms(tuple[dict, ...] | None): list of all xforms contained inside this flame
             key(str): affine xml tag name. Either 'coefs' for pre affine or 'post' for post affine
             type(int): Only used by the self.affine_coupling(...) definition. It is either an iterator: 0 or an FF: 1
 
         Returns:
-            (tuple | None): Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) / ((A, D), (B, E), (C, F)) or None
+            (tuple[tuple[hou.Vector2, ...], ...] | None): Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) / ((A, D), (B, E), (C, F)) or None
         """   
         if  self.isvalidtree and xforms is not None:
             _affine_coupling: Callable[[list, str, int | None, int], list] = self.affine_coupling
@@ -13454,15 +13454,15 @@ class in_flame
         return None
 
 
-    def __get_keyvalue(self, xforms: tuple | None, key: str, msg: bool = True) -> tuple[float | str, ...] | None:
+    def __get_keyvalue(self, xforms: tuple[dict, ...] | None, key: str, msg: bool = True) -> tuple[float | str, ...] | None:
         """
         Args:
             (self):
-            xforms(tuple | None): list of all xforms contained inside this Flame or None if something went wrong.
+            xforms(tuple[dict, ...] | None): list of all xforms contained inside this Flame or None if something went wrong.
             key(str): xml tag names. For shader: 'color', 'symmetry'->(color_speed), 'opacity'
 
         Returns:
-            (tuple | None): description
+            (tuple[float | str, ...] | None): description
         """
         if self.isvalidtree and xforms is not None:
             
@@ -13487,7 +13487,7 @@ class in_flame
                             default_val: str | None = '0'
                         
                         assert default_val is not None
-                        keyvalues.append(float(self.xf_val_cleanup_str(xform.get(key), default_val, key)))
+                        keyvalues.append(float(self.xf_val_cleanup_str(xform.get(key, '0'), default_val, key)))
                         continue
                     
                 else:
@@ -14012,13 +14012,13 @@ class in_flame_utils
 * in_load_stats_unknown_vars(preset_id: int, apo_data: in_flame_iter_data) -> list:
 * in_to_flam3h_is_CHAOS(xml: str) -> bool:
 * in_to_flam3h_clipboard_is_CHAOS() -> bool:
-* in_get_xforms_var_keys( xforms: tuple | None, 
+* in_get_xforms_var_keys( xforms: tuple[dict, ...] | None, 
                         vars: TA_XformVarKeys, 
                         exclude_keys: tuple
                         ) -> list[str] | None:
 * in_vars_keys_remove_pgb(vars: list | None, pgb_name: str) -> list | None:              
 * in_util_removeprefix(var_name: str, prefix: str) -> str:
-* in_get_xforms_var_keys_PP(xforms: tuple | None, 
+* in_get_xforms_var_keys_PP(  xforms: tuple[dict, ...] | None, 
                           vars: dict, 
                           prx: str, 
                           exclude_keys: tuple
@@ -14401,7 +14401,7 @@ class in_flame_utils
 
 
     @staticmethod
-    def in_get_xforms_var_keys( xforms: tuple | None, 
+    def in_get_xforms_var_keys( xforms: tuple[dict, ...] | None, 
                                 vars: TA_XformVarKeys, 
                                 exclude_keys: tuple
                                 ) -> list | None:
@@ -14411,7 +14411,7 @@ class in_flame_utils
         Use this with everything but not PRE and POST dictionary lookup, use def in_get_xforms_var_keys_PP() instead
         
         Args:
-            xforms(tuple | None): list of all xforms contained inside this flame. This can be iterator's xforms or FF xform
+            xforms(tuple[dict, ...] | None): list of all xforms contained inside this flame. This can be iterator's xforms or FF xform
             vars(TA_XformVarKeys): list of variations to look for inside each xfomrs, usually: VARS_FLAM3_DICT_IDX.keys()
             exclude_keys(tuple): keys to exclude from teh search to speedup a little
 
@@ -14464,7 +14464,7 @@ class in_flame_utils
         
         
     @staticmethod 
-    def in_get_xforms_var_keys_PP(  xforms: tuple | None, 
+    def in_get_xforms_var_keys_PP(  xforms: tuple[dict, ...] | None, 
                                     vars: dict, 
                                     prx: str, 
                                     exclude_keys: tuple
@@ -14472,7 +14472,7 @@ class in_flame_utils
         """find a PRE or POST variation inside the currently processed xform/iterator. All xforms are passed in.
 
         Args:
-            xforms(tuple | None): All the xforms of this flame. This can be iterator's xforms or FF xform.
+            xforms(tuple[dict, ...] | None): All the xforms of this flame. This can be iterator's xforms or FF xform.
             vars(dict): the variations we are searching for
             prx(str): the current type of the variation expressed as a prefix: V_PRX_PRE("pre_") or V_PRX_POST("post_")
             exclude_keys(tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
@@ -16114,7 +16114,7 @@ class in_flame_utils
 
 
     @property
-    def kwargs(self):
+    def kwargs(self) -> dict:
         return self._kwargs
     
     @property
@@ -17750,7 +17750,7 @@ class out_flame_utils
 * out_remove_iter_num(flame_name: str) -> str:
 * out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
 * out_util_round_float(val: float) -> str:
-* out_util_round_floats(val_list: list[list[str]] | tuple[list]) -> list[str] | tuple[str] | list[list[str]]:
+* out_util_round_floats(val_list: list[list[str]]) -> list[str] | list[list[str]]:
 * out_util_vars_duplicate(vars: list) -> list:
 * out_check_build_file(file_split: tuple[str, str] | list[str], file_name: str, file_ext: str) -> str:
 * out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
@@ -18258,7 +18258,7 @@ class out_flame_utils
         
         
     @staticmethod
-    def out_util_round_floats(val_list: list[list[str]] | tuple[list]) -> list[str] | tuple[str] | list[list[str]]:
+    def out_util_round_floats(val_list: list[list[str]]) -> list[str] | list[list[str]]:
         """remove floating Zeros if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values 
 
         Args:
@@ -18906,7 +18906,7 @@ class out_flame_utils
     ##########################################
 
     @property
-    def kwargs(self):
+    def kwargs(self) -> dict:
         return self._kwargs
 
     @property
