@@ -178,6 +178,7 @@ def cached_slot_property(func):
 T = TypeVar('T')
 TA_Affine: TypeAlias = list[tuple[float, ...] | list[float]]
 TA_STR_ListUnflattened: TypeAlias = list[list[str]]
+TA_STR_ListFlatten: TypeAlias = list[str]
 TA_RoundFloats: TypeAlias = list[tuple[float, ...] | list[float]] | list[tuple[str, ...] | list[str]]
 TA_TypeVarCollection: TypeAlias = str | list | tuple | KeysView
 TA_XformVarKeys: TypeAlias = str | list[str] | tuple[str, ...] | dict[str, int] | dict[str, tuple[str, ...]] | dict[str, set[str]] | KeysView | None
@@ -2715,6 +2716,8 @@ class flam3h_general_utils:
 class flam3h_general_utils
 
 @STATICMETHODS
+* is_list_of_lists(x) -> bool:
+* is_flat_list(x) -> bool:
 * private_prm_set(node: hou.SopNode, prm_name: str, data: str | int | float) -> None:
 * private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm) -> None:
 * select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> str | None:
@@ -2793,6 +2796,34 @@ class flam3h_general_utils
         # hence I added the following so I can always find the nodes even if I place them in different locations from time to time.
         self._bbox_sensor_path: str | None = self.get_node_path(NODE_NAME_OUT_BBOX_SENSOR)
         self._bbox_reframe_path: str | None = self.get_node_path(NODE_NAME_OUT_BBOX_REFRAME)
+        
+    
+    @staticmethod
+    def is_list_of_lists(x) -> bool:
+        """Check if the passed in list is a list of lists
+        
+        Args:
+            x(list): the list to check
+            
+        Returns:
+            (bool): True if it is a list of lists and False if not
+        """ 
+        return isinstance(x, list) and all(isinstance(el, list) for el in x)
+        # If you want to treat an empty list as not a list of lists, change the logic
+        # return isinstance(x, list) and x != [] and all(isinstance(el, list) for el in x)
+    
+    
+    @staticmethod
+    def is_flat_list(x) -> bool:
+        """Check if the passed in list is a flat lists
+        
+        Args:
+            x(list): the list to check
+            
+        Returns:
+            (bool): True if it is a list of lists and False if not
+        """ 
+        return isinstance(x, list) and not any(isinstance(el, list) for el in x)
 
 
     @staticmethod
@@ -17759,14 +17790,14 @@ class out_flame_utils
 * out_remove_iter_num(flame_name: str) -> str:
 * out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
 * out_util_round_float(val: float) -> str:
-* out_util_round_floats(val_list: list[tuple[float, ...] | list[float]]) -> TA_STR_ListUnflattened:
+* out_util_round_floats(val_list: TA_RoundFloats) -> TA_STR_ListUnflattened:
 * out_util_vars_duplicate(vars: list[str]) -> list[str]:
 * out_check_build_file(file_split: tuple[str, str] | list[str], file_name: str, file_ext: str) -> str:
 * out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
 * out_file_cleanup(_out_file: str) -> str:
 * out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, out: bool = True, auto_name: bool = True) -> str | bool:
 * out_affine_rot(affine: TA_Affine, angleDeg: float) -> TA_Affine:
-* out_xaos_cleanup(xaos: list[str] | tuple[str] | TA_STR_ListUnflattened) -> TA_STR_ListUnflattened:
+* out_xaos_cleanup(xaos: TA_STR_ListUnflattened) -> TA_STR_ListUnflattened:
 * out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> TA_STR_ListUnflattened:
 * out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> TA_STR_ListUnflattened:
 * _out_pretty_print(current: lxmlET._Element, parent: lxmlET._Element | None = None, index: int = -1, depth: int = 0) -> None: #type: ignore
@@ -18589,11 +18620,11 @@ class out_flame_utils
     
     
     @staticmethod
-    def out_xaos_cleanup(xaos: list[str] | tuple[str] | TA_STR_ListUnflattened) -> TA_STR_ListUnflattened:
+    def out_xaos_cleanup(xaos: TA_STR_ListUnflattened) -> TA_STR_ListUnflattened:
         """Remove all inactive iterators from each xaos weight list.
-
+        
         Args:
-            xaos (list[str] | list[list[str], tuple[str]]): All iterators xaos values.
+            xaos (TA_STR_ListUnflattened): All iterators xaos values.
 
         Returns:
            (TA_STR_ListUnflattened): an iterator Xaos cleaned up from the inactive iterator's values
@@ -19489,10 +19520,11 @@ class out_flame_utils
         Returns:
             (tuple): the xaos TO values to write out.
         """
-        val: list[list] = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
-        fill: list[list] = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
+        val: list[list[str]] = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
+        fill: list[list[str]] = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
         xaos_vactive: list = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
         _join: Callable[[Iterable[str]], str] = ' '.join
+        print(xaos_vactive)
         return tuple(_join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
 
 
