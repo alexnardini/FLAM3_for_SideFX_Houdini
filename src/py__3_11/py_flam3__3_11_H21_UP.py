@@ -1440,9 +1440,9 @@ class flam3h_scripts:
 class flam3h_scripts
 
 @STATICMETHODS
-* flam3h_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
-* flam3h_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
-* flam3h_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
+* flam3h_h_versions_build_data(__h_versions__: tuple[int, ...] | int, last_index: bool = False) -> str:
+* flam3h_compatible_h_versions_msg(this_h_versions: tuple[int, ...], msg: bool = True) -> str:
+* flam3h_compatible(h_version: int, this_h_versions: tuple[int, ...], kwargs: dict | None, msg: bool) -> bool:
 * flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
 * flam3h_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
 * flam3h_on_create_lock_parms(node: hou.SopNode) -> None:
@@ -1486,11 +1486,11 @@ class flam3h_scripts
         
         
     @staticmethod
-    def flam3h_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
+    def flam3h_h_versions_build_data(__h_versions__: tuple[int, ...] | int, last_index: bool = False) -> str:
         """Get the houdini version number from the gloabl: __h_versions__
 
         Args:
-            __h_versions__(tuple | int): a tuple containing all the compatible Houdini versions or an int of the desire Houdini version. When a tuple, it will be coming from the HDA's PythonModule: __h_versions__
+            __h_versions__(tuple[int, ...] | int): a tuple containing all the compatible Houdini versions or an int of the desire Houdini version. When a tuple, it will be coming from the HDA's PythonModule: __h_versions__
             last_index(bool): Default to False as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H™ HDA version run on multiple Houdinin versions.
             or it can be a 3 digits int
 
@@ -1524,11 +1524,11 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
+    def flam3h_compatible_h_versions_msg(this_h_versions: tuple[int, ...], msg: bool = True) -> str:
         """Build and fire a message letting the user know the Houdini version/s needed to run the installed FLAM3H™ HDA version.
 
         Args:
-            this_h_versions(tuple): a tuple containing all the Houdini version numbers. This is coming from the HDA's PythonModule: __h_versions__
+            this_h_versions(tuple[int, ...]): a tuple containing all the Houdini version numbers. This is coming from the HDA's PythonModule: __h_versions__
             msg(bool): Default to True. When False it will not execute the: hou.ui.displayMessage
 
         Returns:
@@ -1552,7 +1552,7 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
+    def flam3h_compatible(h_version: int, this_h_versions: tuple[int, ...], kwargs: dict | None, msg: bool) -> bool:
         """This is to be run inside:
         
         * def flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
@@ -1562,7 +1562,7 @@ class flam3h_scripts
         
         Args:
             h_version(int): This Houdini version.
-            this_h_versions(tuple): The allowed Houdini versions this FLAM3H™ can run with.
+            this_h_versions(tuple[int, ...]): The allowed Houdini versions this FLAM3H™ can run with.
             kwargs(dict | None): When needed, this must be the class' self.kwargs.</br>In the case of this definition, it will be passed in from the containing definition args. Or None.
             msg(bool): When False it will not run the hou display messages.
 
@@ -1623,7 +1623,7 @@ class flam3h_scripts
             (bool): True if compatible otherwise False.
         """ 
         h_version: int = flam3h_general_utils.houdini_version(2)
-        this_h_versions: tuple = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
+        this_h_versions: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
         
         # checks the full available range in the tuple
         if h_version < this_h_versions[0] or h_version > this_h_versions[-1]:
@@ -1654,7 +1654,7 @@ class flam3h_scripts
             (bool): True if compatible otherwise False.
         """ 
         h_version: int = flam3h_general_utils.houdini_version(2)
-        this_h_versions: tuple = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
+        this_h_versions: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
         
         # Only for the latest FLAM3H™ on the latest Houdini version (and its latest python module version), otherwise the full range is checked.
         #
@@ -14706,12 +14706,12 @@ class in_flame_utils
         
         
     @staticmethod
-    def in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
+    def in_get_dict_key_from_value(mydict: dict[str, int], idx: int) -> str:
         """Get the dictionary key from the dictionary value.
         Used to get the current variation string name from its index from the global dict: VARS_FLAM3_DICT_IDX
 
         Args:
-            mydict(dict): The dictionary for lookup
+            mydict(dict[str, int]): The dictionary for lookup
             idx(int): The variation index to retrieve its string name from.
 
         Returns:
@@ -17794,12 +17794,12 @@ class out_flame_utils
 * out_flame_properties_build(self, f3r: out_flame_render_properties) -> dict:
 * out_flam3_compatibility_check_and_msg(self) -> bool:                                
 * out_populate_xform_vars_XML(self, 
-                            varsPRM: tuple, 
-                            TYPES_tuple: tuple, 
-                            WEIGHTS_tuple: tuple, 
-                            element_xform: lxmlET._Element,
-                            MP_IDX: str, 
-                            FUNC: Callable) -> list[str]:
+                                varsPRM: tuple, 
+                                TYPES_tuple: tuple[str, ...], 
+                                WEIGHTS_tuple: tuple[tuple[str, int], ...], 
+                                element_xform: lxmlET._Element,
+                                MP_IDX: str, 
+                                FUNC: Callable) -> list[str]:
 * out_build_XML(self, flame: lxmlET._Element) -> bool:
 * out_userData_XML_last_loaded(self, data_name: str = FLAM3H_USER_DATA_XML_LAST, flame_name: str | None = None) -> None:
 * out_new_XML(self, outpath: str) -> None:
@@ -19878,8 +19878,8 @@ class out_flame_utils
         
     def out_populate_xform_vars_XML(self, 
                                     varsPRM: tuple, 
-                                    TYPES_tuple: tuple, 
-                                    WEIGHTS_tuple: tuple, 
+                                    TYPES_tuple: tuple[str, ...], 
+                                    WEIGHTS_tuple: tuple[tuple[str, int], ...], 
                                     element_xform: lxmlET._Element,
                                     MP_IDX: str, 
                                     FUNC: Callable) -> list[str]:
@@ -19888,8 +19888,8 @@ class out_flame_utils
         
         Args:
             varsPRM(tuple): FLAM3H™ variation's types and their parametric parameters names.
-            TYPES_tuple(tuple): FLAM3H™ variation's types parameters names.
-            WEIGHTS_tuple(tuple): FLAM3H™ variation's weights parameters names.
+            TYPES_tuple(tuple[str, ...]): FLAM3H™ variation's types parameters names.
+            WEIGHTS_tuple(tuple[tuple[str, int], ...]): FLAM3H™ variation's weights parameters names.
             XFORM(lxmlET._Element): The current xform (lxmlET._Element) to populate.
             MP_IDX(str): Current multiparameter index
             FUNC(Callable): Callable definition to convert variation's names between VAR, PRE and POST: in_flame_utils.in_util_make_NULL, in_flame_utils.in_util_make_PRE, in_flame_utils.in_util_make_POST
