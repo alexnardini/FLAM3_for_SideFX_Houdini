@@ -176,6 +176,7 @@ def cached_slot_property(func):
 
 # TypeAlias
 T = TypeVar('T')
+TA_Affine: TypeAlias = list[tuple[float, ...] | list[float]]
 TA_TypeVarCollection: TypeAlias = str | list | tuple | KeysView
 TA_XformVarKeys: TypeAlias = str | list[str] | tuple[str, ...] | dict[str, int] | dict[str, tuple[str, ...]] | dict[str, set[str]] | KeysView | None
 TA_TypeMaker: TypeAlias = list | float | hou.Vector2 | hou.Vector3 | hou.Vector4
@@ -7027,7 +7028,7 @@ class flam3h_iterator_utils
         with hou.undos.disabler(): # type: ignore
             
             node = self.node
-            menu: list = []
+            menu: TA_Menu = []
 
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             if iter_count:
@@ -7433,7 +7434,7 @@ class flam3h_iterator_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            menu: list = []
+            menu: TA_Menu = []
             
             node = self.node
             s_mp_index: int = self.kwargs['script_multiparm_index']
@@ -7464,15 +7465,15 @@ class flam3h_iterator_utils
 
                 # Build menu
                 if node == from_FLAM3H_NODE and s_mp_index == mp_id_from:
-                    menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {s_mp_index}: MARKED\n-> Select a different iterator number or a different FLAM3H™ node to paste its values.", 1,"" ]
+                    menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {s_mp_index}: MARKED\n-> Select a different iterator number or a different FLAM3H™ node to paste its values.", 1,"" ]
                     
                 elif node == from_FLAM3H_NODE:
                     path: str = f"{_ICON}  {idx_from}"
-                    menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                    menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
                 
                 else:
                     path: str = f"{_ICON}  .../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
-                    menu: list = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  ... {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                    menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  ... {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
                 
                 return menu
             
@@ -7488,14 +7489,14 @@ class flam3h_iterator_utils
                     __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                     
                     if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
-                        menu: list = MENU_ITER_COPY_PASTE_REMOVED
+                        menu = MENU_ITER_COPY_PASTE_REMOVED
                         
                     elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
                         path: str = f".../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}"
-                        menu: list = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  REMOVED: The marked iterator has been removed from node: {path}\n-> Mark an existing iterator instead.", 1, "" ]
+                        menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_ORANGE}  REMOVED: The marked iterator has been removed from node: {path}\n-> Mark an existing iterator instead.", 1, "" ]
                         
                     else:
-                        menu: list = MENU_ITER_COPY_PASTE_EMPTY
+                        menu = MENU_ITER_COPY_PASTE_EMPTY
                         
                     return menu
                 
@@ -10432,7 +10433,7 @@ class flam3h_palette_utils
                 with open(json_file_path) as f:
                     menuitems: KeysView = json.load(f).keys()
                     
-                menu: list = []
+                menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
                 _menu_enum: Callable[[hou.SopNode, list, int, str], None] = self.menu_cp_presets_loop_enum
                 _menu_raw: Callable[[hou.SopNode, list, int, str], None] = self.menu_cp_presets_loop
@@ -10523,7 +10524,7 @@ class flam3h_palette_utils
                 with open(json_file_path) as f:
                     menuitems: KeysView = json.load(f).keys()
                     
-                menu: list = []
+                menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
                 _menu_enum: Callable[[hou.SopNode, list, int, str], None] = self.menu_cp_presets_empty_loop_enum
                 _menu_raw: Callable[[hou.SopNode, list, int, str], None] = self.menu_cp_presets_empty_loop
@@ -13623,10 +13624,9 @@ class in_flame
             (self):
             idx(int): flame idx out of all flames included in the loaded flame file
             key(str): the flame XML motion blur tag name you are interested to get:
-            
-            OUT_XML_FLMA3H_MB_FPS -> flam3h_mb_fps
-            OUT_XML_FLMA3H_MB_SAMPLES -> flam3h_mb_samples
-            OUT_XML_FLMA3H_MB_SHUTTER -> flam3h_mb_shutter
+            * OUT_XML_FLMA3H_MB_FPS -> flam3h_mb_fps
+            * OUT_XML_FLMA3H_MB_SAMPLES -> flam3h_mb_samples
+            * OUT_XML_FLMA3H_MB_SHUTTER -> flam3h_mb_shutter
 
         Returns:
             (int | float | bool | None): FLAM3H™ motion blur parameter's values.
@@ -16609,7 +16609,7 @@ class in_flame_utils
                 in_idx: int = int(node.parm(IN_PRESETS).eval())
                 is_clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
                 
-                menu: list = []
+                menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
                 _menu_enum: Callable[[hou.SopNode, list, int, str, int, int], None] = self.menu_in_presets_loop_enum
                 _menu_raw: Callable[[hou.SopNode, list, int, str, int, int], None] = self.menu_in_presets_loop
@@ -16700,7 +16700,7 @@ class in_flame_utils
 
             if _xml_tree(xml_file_path).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and not node.parm(IN_PVT_ISVALID_PRESET).eval():
                     
-                menu: list = []
+                menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
                 _menu_enum: Callable[[hou.SopNode, list, int, str], None] = self.menu_in_presets_empty_loop_enum
                 _menu_raw: Callable[[hou.SopNode, list, int, str], None] = self.menu_in_presets_empty_loop
@@ -17752,13 +17752,13 @@ class out_flame_utils
 * out_remove_iter_num(flame_name: str) -> str:
 * out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
 * out_util_round_float(val: float) -> str:
-* out_util_round_floats(val_list: list[list[str]]) -> list[str] | list[list[str]]:
+* out_util_round_floats(val_list: list[tuple[float, ...] | list[float]]) -> list[str] | list[list[str]]:
 * out_util_vars_duplicate(vars: list[str]) -> list[str]:
 * out_check_build_file(file_split: tuple[str, str] | list[str], file_name: str, file_ext: str) -> str:
 * out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
 * out_file_cleanup(_out_file: str) -> str:
 * out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, out: bool = True, auto_name: bool = True) -> str | bool:
-* out_affine_rot(affine: list[tuple[str, ...] | list[str]], angleDeg: float) -> list[tuple[str, ...] | list[str]]:
+* out_affine_rot(affine: TA_Affine, angleDeg: float) -> TA_Affine:
 * out_xaos_cleanup(xaos: list[str] | tuple[str] | list[list[str]]) -> list[list[str]]:
 * out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list[list[str]]:
 * out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> list[list[str]]:
@@ -18260,7 +18260,7 @@ class out_flame_utils
         
         
     @staticmethod
-    def out_util_round_floats(val_list: list[list[str]]) -> list[str] | list[list[str]]:
+    def out_util_round_floats(val_list: list[tuple[float, ...] | list[float]]) -> list[str] | list[list[str]]:
         """remove floating Zeros if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values 
 
         Args:
@@ -18550,7 +18550,7 @@ class out_flame_utils
     
     
     @staticmethod
-    def out_affine_rot(affine: list[tuple[str, ...] | list[str]], angleDeg: float) -> list[tuple[str, ...] | list[str]]:
+    def out_affine_rot(affine: TA_Affine, angleDeg: float) -> TA_Affine:
         """
         Rotate a 2D affine by a given angle in degrees for export.
 
@@ -19262,7 +19262,7 @@ class out_flame_utils
         """
 
         outedit = self.node.parm(OUT_RENDER_PROPERTIES_EDIT).eval()
-        menu: list = []
+        menu: TA_Menu = []
         menuitems: tuple = ()
         if outedit:
             menuitems: tuple = ("", "640x480", "HDTV 720", "HDTV 1080", "HDTV 2160 (4K)", # 1 2 3 4
@@ -19481,10 +19481,9 @@ class out_flame_utils
         Returns:
             (tuple): the xaos TO values to write out.
         """
-        val: list = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
-        fill: list = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
+        val: list[list] = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
+        fill: list[list] = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
         xaos_vactive: list = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
-        
         _join: Callable[[Iterable[str]], str] = ' '.join
         return tuple(_join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
 
@@ -19498,8 +19497,8 @@ class out_flame_utils
         Returns:
             (tuple): the xaos FROM values transposed into xaos TO values to write out.
         """
-        val: list = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
-        fill: list = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1) for item in val]
+        val: list[list] = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
+        fill: list[NDArray] = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1) for item in val]
         t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count)).tolist()).tolist()
         _join: Callable[[Iterable[str]], str] = ' '.join
         if mode:
@@ -19530,7 +19529,7 @@ class out_flame_utils
             
             if apo_data.isvalidtree:
                 
-                menu: list = []
+                menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
                 _menu_enum: Callable[[list, int, str], None] = self.menu_out_presets_loop_enum
                 _menu_raw: Callable[[list, int, str], None] = self.menu_out_presets_loop
@@ -19922,7 +19921,7 @@ class out_flame_utils
                     for id, p in enumerate(out_prm):
                         if f3h_prm[id][-1]:
                             for i in range(len(p)): # for i, n in enumerate(p):
-                                vals: tuple = node.parmTuple(f"{f3h_prm[id][0]}{MP_IDX}").eval()
+                                vals: tuple[float, ...] = node.parmTuple(f"{f3h_prm[id][0]}{MP_IDX}").eval()
                                 element_xform.set(FUNC(p[i]), self.out_util_round_float(vals[i]))
                         else:
                             val: float = node.parm(f"{f3h_prm[id][0]}{MP_IDX}").eval()
@@ -20419,7 +20418,7 @@ class out_flame_utils
             (str): The FLAM3H™ parameter prepped into a string for writing out into the Flame preset file.
         """    
         _out_util_round_float: Callable[[float], str] = self.out_util_round_float
-        val: list = [str(_out_util_round_float(self.node.parm(f"{prm_name}_{iter + 1}").eval())) for iter in range(self.iter_count)]
+        val: list[str] = [str(_out_util_round_float(self.node.parm(f"{prm_name}_{iter + 1}").eval())) for iter in range(self.iter_count)]
         return tuple(val)
     
     
@@ -20435,7 +20434,7 @@ class out_flame_utils
         """    
         _shader_speed_name: str = flam3h_iterator_prm_names().shader_speed
         _out_util_round_float: Callable[[float], str] = self.out_util_round_float
-        val: list = [str(_out_util_round_float((1.0-self.node.parm(f"{_shader_speed_name}_{iter + 1}").eval())/2.0)) for iter in range(self.iter_count)]
+        val: list[str] = [str(_out_util_round_float((1.0-self.node.parm(f"{_shader_speed_name}_{iter + 1}").eval())/2.0)) for iter in range(self.iter_count)]
         return tuple(val)
     
 
@@ -20448,7 +20447,7 @@ class out_flame_utils
         Returns:
             (tuple): tuple of all the FLAM3H™ names/notes prepped into strings for writing out into the Flame preset file.
         """    
-        val: list = [str(self.node.parm(f"{self.flam3h_iter_prm_names.main_note}_{iter + 1}").eval()).strip() for iter in range(self._iter_count)]
+        val: list[str] = [str(self.node.parm(f"{self.flam3h_iter_prm_names.main_note}_{iter + 1}").eval()).strip() for iter in range(self._iter_count)]
         return tuple(val)
     
     
@@ -20477,7 +20476,7 @@ class out_flame_utils
         Returns:
             (tuple): tuple of all the FLAM3H™ xforms/iterators pre_blur parameters prepped into strings for writing out into the Flame preset file.
         """   
-        val: list = [str( self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter + 1}").eval() ) if self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter + 1}").eval() > 0 else '' for iter in range(self.iter_count)]
+        val: list[str] = [str( self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter + 1}").eval() ) if self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter + 1}").eval() > 0 else '' for iter in range(self.iter_count)]
         return tuple(val)
 
 
@@ -20510,11 +20509,11 @@ class out_flame_utils
         f3h_val: list = []
         f3h_angleDeg: list = []
         for iter in range(self.iter_count):
-            collect: list = [self.node.parmTuple(f"{prm[0]}{iter + 1}").eval() for prm in self.flam3h_iter.sec_preAffine[:-1]]
+            collect: TA_Affine = [self.node.parmTuple(f"{prm[0]}{iter + 1}").eval() for prm in self.flam3h_iter.sec_preAffine[:-1]]
             angleDeg: float = self.node.parm(f"{self.flam3h_iter.sec_preAffine[-1][0]}{iter + 1}").eval()
             f3h_angleDeg.append(str(round(angleDeg, ROUND_DECIMAL_COUNT)))
-            flatten: list = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
-            f3h_flatten: list = [item for sublist in collect for item in sublist]
+            flatten: list[float] = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
+            f3h_flatten: list[float] = [item for sublist in collect for item in sublist]
             val.append([str(x) for x in flatten])
             f3h_val.append([str(x) for x in f3h_flatten])
             
@@ -20537,12 +20536,12 @@ class out_flame_utils
         f3h_angleDeg: list = []
         for iter in range(self.iter_count):
             if self.node.parm(f"{self.flam3h_iter_prm_names.postaffine_do}_{iter + 1}").eval():
-                collect: list = [self.node.parmTuple(f"{prm[0]}{iter + 1}").eval() for prm in self.flam3h_iter.sec_postAffine[1:-1]]
+                collect: TA_Affine = [self.node.parmTuple(f"{prm[0]}{iter + 1}").eval() for prm in self.flam3h_iter.sec_postAffine[1:-1]]
                 angleDeg: float = self.node.parm(f"{self.flam3h_iter.sec_postAffine[-1][0]}{iter + 1}").eval()
                 if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                     f3h_angleDeg.append(str(round(angleDeg, ROUND_DECIMAL_COUNT)))
-                    flatten: list = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
-                    f3h_flatten: list = [item for sublist in collect for item in sublist]
+                    flatten: list[float] = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
+                    f3h_flatten: list[float] = [item for sublist in collect for item in sublist]
                     val.append([str(x) for x in flatten])
                     f3h_val.append([str(x) for x in f3h_flatten])
                 else:
@@ -20568,16 +20567,16 @@ class out_flame_utils
         Returns:
             (tuple[str, str, str]): tuple[str: flam3_affine, str: F3H_affine, str: F3H Rotation angle]. tuple of strings for all the FLAM3H™ FF/finalXform pre_affine parameters prepped into strings for writing out into the Flame preset file.
         """   
-        collect: list = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
+        collect: TA_Affine = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
         angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
         f3h_angleDeg: str = str(angleDeg)
         f3h_affine: list[str] | list[list[str]] = self.out_util_round_floats(collect)
         if angleDeg != 0.0:
             affine: list[str] | list[list[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
         else:
-            affine: list[str] | tuple[str] | list[list[str]] = f3h_affine
-        flatten: list = [item for sublist in affine for item in sublist]
-        f3h_flatten: list = [item for sublist in f3h_affine for item in sublist]
+            affine: list[str] | list[list[str]] = f3h_affine
+        flatten: list[str] = [item for sublist in affine for item in sublist]
+        f3h_flatten: list[str] = [item for sublist in f3h_affine for item in sublist]
         
         return ' '.join(flatten), ' '.join(f3h_flatten), f3h_angleDeg
     
@@ -20593,7 +20592,7 @@ class out_flame_utils
             (tuple[str, str, str]): tuple[str: flam3_affine, str: F3H_affine, str: F3H Rotation angle]. tuple of strings for all the FLAM3H™ FF/finalXform post_affine parameters prepped into strings for writing out into the Flame preset file.
         """  
         if self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.postaffine_do}").eval():
-            collect: list = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_postAffine_FF[1:-1]]
+            collect: TA_Affine = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_postAffine_FF[1:-1]]
             angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
             if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                 f3h_angleDeg: str = str(angleDeg)
@@ -20601,9 +20600,9 @@ class out_flame_utils
                 if angleDeg != 0.0:
                     affine: list[str] | list[list[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
                 else:
-                    affine: list[str] | tuple[str] | list[list[str]] = f3h_affine
-                flatten: list = [item for sublist in affine for item in sublist]
-                f3h_flatten: list = [item for sublist in f3h_affine for item in sublist]
+                    affine: list[str] | list[list[str]] = f3h_affine
+                flatten: list[str] = [item for sublist in affine for item in sublist]
+                f3h_flatten: list[str] = [item for sublist in f3h_affine for item in sublist]
                 
                 return ' '.join(flatten), ' '.join(f3h_flatten), f3h_angleDeg
             
@@ -20623,11 +20622,11 @@ class out_flame_utils
             (str): The FLAM3H™ palette prepped into a string and converted into hex values.
         """  
         _PALETTE_KEYS_OUT = self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0)
-        POSs: list = list(it_islice(it_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
+        POSs: list[float] = list(it_islice(it_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
         _rgb_to_hex: Callable[[tuple], str] = flam3h_palette_utils.rgb_to_hex
-        HEXs: list = [_rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
+        HEXs: list[str] = [_rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
         n: int = 8
-        hex_grp: list = [HEXs[i:i + n] for i in range(0, len(HEXs), n)]
+        hex_grp: list[list[str]] = [HEXs[i:i + n] for i in range(0, len(HEXs), n)]
         _join: Callable[[Iterable[str]], str] = ''.join
         hex_join: list = [f"      {_join(grp)}\n" for grp in hex_grp] # 6 times \s
         
