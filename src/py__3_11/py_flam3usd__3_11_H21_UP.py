@@ -8,6 +8,7 @@ __maintainer__ = "Alessandro Nardini"
 import hou
 import nodesearch
 
+from typing import Any
 from platform import python_version
 from datetime import datetime
 
@@ -179,11 +180,11 @@ class flam3husd_scripts
             # displayFlag
             display_flag: bool = node.isGenericFlagSet(hou.nodeFlag.Display) # type: ignore
                 
-            f3h_all_instances: list = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
+            f3h_all_instances: list[hou.SopNode] = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
             if f3h_all_instances:
                 
-                f3husd_all_instances: list = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY).instances()
-                f3husd_all_instances_paths: list = [f3husd.parm(PREFS_F3H_PATH).eval() for f3husd in f3husd_all_instances if node != f3husd]
+                f3husd_all_instances: list[hou.LopNode] = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY).instances()
+                f3husd_all_instances_paths: list[str] = [f3husd.parm(PREFS_F3H_PATH).eval() for f3husd in f3husd_all_instances if node != f3husd]
                 
                 # If we already have some FLAM3HUSD nodes and more than one FLAM3H™ nodes
                 if len(f3husd_all_instances) > 1 and len(f3h_all_instances) > 1:
@@ -279,15 +280,15 @@ class flam3husd_scripts
         Returns:
             (None):
         """
-        prm_names: tuple = (PREFS_PVT_VIEWPORT_RENDERER_MEM,
-                            PREFS_PVT_VIEWPORT_PT_SIZE_MEM,
-                            PREFS_PVT_VIEWPORT_PT_TYPE_MEM,
-                            PREFS_PVT_FLAM3HUSD_DATA_DISABLED, 
-                            PREFS_PVT_FLAM3HUSD_DATA_H_VALID, 
-                            PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 
-                            PREFS_PVT_FLAM3HUSD_DATA_H190,
-                            PREFS_PVT_FLAM3HUSD_DATA_H205_UP
-                            )
+        prm_names: tuple[str, ...] = (  PREFS_PVT_VIEWPORT_RENDERER_MEM,
+                                        PREFS_PVT_VIEWPORT_PT_SIZE_MEM,
+                                        PREFS_PVT_VIEWPORT_PT_TYPE_MEM,
+                                        PREFS_PVT_FLAM3HUSD_DATA_DISABLED, 
+                                        PREFS_PVT_FLAM3HUSD_DATA_H_VALID, 
+                                        PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 
+                                        PREFS_PVT_FLAM3HUSD_DATA_H190,
+                                        PREFS_PVT_FLAM3HUSD_DATA_H205_UP
+                                        )
         
         for prm_name in prm_names:
             parm = node.parm(prm_name)
@@ -445,7 +446,7 @@ class flam3husd_scripts
             (bool): True if compatible otherwise False.
         """ 
         h_version: int = flam3husd_general_utils.houdini_version(2)
-        this_h_versions: tuple = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3HUSD HDA PythonModule module.
+        this_h_versions: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3HUSD HDA PythonModule module.
         
         # checks the full available range in the tuple
         if h_version < this_h_versions[0] or h_version > this_h_versions[-1]:
@@ -476,7 +477,7 @@ class flam3husd_scripts
             (bool): True if compatible otherwise False.
         """ 
         h_version: int = flam3husd_general_utils.houdini_version(2)
-        this_h_versions: tuple = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3HUSD HDA PythonModule module.
+        this_h_versions: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3HUSD HDA PythonModule module.
         
         # Only for the latest FLAM3HUSD on the latest Houdini version (and its latest python module version), otherwise the full range is checked.
         #
@@ -685,7 +686,7 @@ class flam3husd_scripts
         node = self.node
         
         flam3husd_general_utils.private_prm_set(self.node, PREFS_PVT_FLAM3HUSD_DATA_H_VALID, 0)
-        __h_versions__: tuple = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3HUSD HDA PythonModule module.
+        __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3HUSD HDA PythonModule module.
         
         _MSG_H_VERSIONS = flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__, False)
 
@@ -989,8 +990,8 @@ class flam3husd_general_utils
 * karma_xpu_hydra_renderer_name() -> str:
 * houdini_version(digit: int = 1) -> int:
 * util_auto_set_f3h_parameter_editor(f3h_node: hou.SopNode) -> None:
-* util_getParameterEditors() -> list:
-* util_getSceneViewers() -> list:
+* util_getParameterEditors() -> list[hou.ParameterEditor]:
+* util_getSceneViewers() -> list[hou.SceneViewer]:
 * util_is_context(context: str, viewport: hou.paneTabType) -> bool:
 * util_is_context_available_viewer(context: str) -> bool:
 * flash_message(msg: str | None, timer: float = FLAM3HUSD_FLASH_MESSAGE_TIMER, img: str | None] = None) -> None:
@@ -1204,14 +1205,14 @@ class flam3husd_general_utils
             (None):
         """ 
         
-        pe: list = flam3husd_general_utils.util_getParameterEditors()
+        pe: list[hou.ParameterEditor] = flam3husd_general_utils.util_getParameterEditors()
         for p in pe:
             if p.currentNode() != f3h_node and p.isPin():
                 p.setCurrentNode(f3h_node, False)
     
     
     @staticmethod
-    def util_getParameterEditors() -> list:
+    def util_getParameterEditors() -> list[hou.ParameterEditor]:
         """Return a list of Parameter Editors currently open in this Houdini session.
         It will collect only the Parameter Editors with a FLAM3H node parameter on display already.
         
@@ -1221,12 +1222,12 @@ class flam3husd_general_utils
         Returns:
             (list): [return a list of open Parmaeter Editors with a FLAM3H™ node on display]
         """    
-        parms: tuple = hou.ui.paneTabs() # type: ignore
+        parms: tuple[Any, ...] = hou.ui.paneTabs() # type: ignore
         return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY]
 
 
     @staticmethod
-    def util_getSceneViewers() -> list:
+    def util_getSceneViewers() -> list[hou.SceneViewer]:
         """Return a list of viewer currently open in this Houdini session.
         
         Args:
@@ -1235,7 +1236,7 @@ class flam3husd_general_utils
         Returns:
             (list): [return a list of open scene viewers]
         """    
-        views: tuple = hou.ui.paneTabs() # type: ignore
+        views: tuple[Any, ...] = hou.ui.paneTabs() # type: ignore
         return [v for v in views if isinstance(v, hou.SceneViewer)]
     
 
@@ -1424,10 +1425,10 @@ class flam3husd_general_utils
         # If it is a valid Houdini version
         if node.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
             
-            f3h_all_instances: list = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
+            f3h_all_instances: list[hou.SopNode] = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
             if f3h_all_instances:
                 
-                f3h_all_instances_paths: list = [f3h.path() for f3h in f3h_all_instances]
+                f3h_all_instances_paths: list[str] = [f3h.path() for f3h in f3h_all_instances]
                 current_import: str = node.parm(PREFS_F3H_PATH).eval()
                     
                 # If we have multiple FLAM3H™ node instances
@@ -1611,7 +1612,7 @@ class flam3husd_general_utils
         """  
         node = self.node
         
-        viewports: list = self.util_getSceneViewers()
+        viewports: list[hou.SceneViewer] = self.util_getSceneViewers()
         num_viewers: int = len(viewports)
         num_viewers_lop: int = 0
         if num_viewers:
@@ -1704,7 +1705,7 @@ class flam3husd_general_utils
         """
         node = self.node
         prm = node.parm(PREFS_VIEWPORT_DARK)
-        views: list = self.util_getSceneViewers()
+        views: list[hou.SceneViewer] = self.util_getSceneViewers()
         
         if views:
             if prm.eval():
@@ -2141,8 +2142,8 @@ class flam3husd_about_utils
         flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{__copyright__}"
         
-        build: tuple = (Implementation_build, nl
-                        )
+        build: tuple[str, ...] = (Implementation_build, nl
+                                )
         
         build_about_msg: str = "".join(build)
 
