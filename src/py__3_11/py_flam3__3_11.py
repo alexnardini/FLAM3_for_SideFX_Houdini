@@ -18,8 +18,8 @@ import lxml.etree as lxmlET
 
 from platform import python_version
 from platform import system as platform_system
-from typing import Callable
-from typing import KeysView
+from collections.abc import Callable
+from collections.abc import KeysView
 from typing import TypeVar
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
