@@ -14584,8 +14584,8 @@ class in_flame_utils
         """
         idx: str = str(mp_idx + 1)
         zero_vectors: list[hou.Vector2] = [hou.Vector2(tuple([0, 0, 0, 0, 0, 0][i:i + 2])) for i in (0, 2, 4)]
-        pre_affine: tuple = (flam3h_prm_names.preaffine_x, flam3h_prm_names.preaffine_y, flam3h_prm_names.preaffine_o)
-        post_affine: tuple = (flam3h_prm_names.postaffine_x, flam3h_prm_names.postaffine_y, flam3h_prm_names.postaffine_o)
+        pre_affine: tuple[str, ...] = (flam3h_prm_names.preaffine_x, flam3h_prm_names.preaffine_y, flam3h_prm_names.preaffine_o)
+        post_affine: tuple[str, ...] = (flam3h_prm_names.postaffine_x, flam3h_prm_names.postaffine_y, flam3h_prm_names.postaffine_o)
         f3h_affine: int = node.parm(IN_FLAM3H_AFFINE_STYLE).eval()
         
         if mode:
