@@ -20,8 +20,6 @@ import lxml.etree as lxmlET
 from platform import python_version
 from platform import system as platform_system
 from typing import Any
-from typing import Union
-from typing import Tuple
 from typing import Iterable
 from typing import Callable
 from typing import KeysView
