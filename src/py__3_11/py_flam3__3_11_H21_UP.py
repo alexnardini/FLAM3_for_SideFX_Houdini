@@ -20,6 +20,8 @@ import lxml.etree as lxmlET
 from platform import python_version
 from platform import system as platform_system
 from typing import Any
+from typing import Union
+from typing import Tuple
 from typing import Iterable
 from typing import Callable
 from typing import KeysView
@@ -689,16 +691,16 @@ class flam3h_iterator_prm_names_collections(flam3h_iterator_prm_names):
         """  
         super().__init__()
         
-        self._prm_iterator_tuple: tuple = (self.preaffine_x, self.preaffine_y, self.preaffine_o, self.postaffine_x, self.postaffine_y, self.postaffine_o)
-        self._prm_iterator: tuple = (self.main_note, self.main_weight, self.xaos, self.shader_color, self.shader_speed, self.shader_alpha, self.prevar_blur, self.prevar_weight_blur, self.prevar_type_1, self.prevar_weight_1, self.prevar_type_2, self.prevar_weight_2, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.var_type_3, self.var_weight_3, self.var_type_4, self.var_weight_4, self.postvar_type_1, self.postvar_weight_1, self.preaffine_scale, self.preaffine_ang, self.postaffine_do, self.postaffine_scale, self.postaffine_ang)
-        self._prm_iterator_vars_all: tuple = (self.prevar_blur, self.prevar_weight_blur, self.prevar_type_1, self.prevar_weight_1, self.prevar_type_2, self.prevar_weight_2, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.var_type_3, self.var_weight_3, self.var_type_4, self.var_weight_4, self.postvar_type_1, self.postvar_weight_1)
-        self._prm_FF_tuple: tuple = (self.preaffine_x, self.preaffine_y, self.preaffine_o, self.postaffine_x, self.postaffine_y, self.postaffine_o)
-        self._prm_FF: tuple = (self.main_note, self.prevar_type_1, self.prevar_weight_1, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.postvar_type_1, self.postvar_weight_1, self.postvar_type_2, self.postvar_weight_2, self.preaffine_scale, self.preaffine_ang, self.postaffine_do, self.postaffine_scale, self.postaffine_ang)
-        self._prm_FF_vars_all: tuple = (self.prevar_type_1, self.prevar_weight_1, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.postvar_type_1, self.postvar_weight_1, self.postvar_type_2, self.postvar_weight_2)
+        self._prm_iterator_tuple: tuple[str, ...] = (self.preaffine_x, self.preaffine_y, self.preaffine_o, self.postaffine_x, self.postaffine_y, self.postaffine_o)
+        self._prm_iterator: tuple[str, ...] = (self.main_note, self.main_weight, self.xaos, self.shader_color, self.shader_speed, self.shader_alpha, self.prevar_blur, self.prevar_weight_blur, self.prevar_type_1, self.prevar_weight_1, self.prevar_type_2, self.prevar_weight_2, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.var_type_3, self.var_weight_3, self.var_type_4, self.var_weight_4, self.postvar_type_1, self.postvar_weight_1, self.preaffine_scale, self.preaffine_ang, self.postaffine_do, self.postaffine_scale, self.postaffine_ang)
+        self._prm_iterator_vars_all: tuple[str, ...] = (self.prevar_blur, self.prevar_weight_blur, self.prevar_type_1, self.prevar_weight_1, self.prevar_type_2, self.prevar_weight_2, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.var_type_3, self.var_weight_3, self.var_type_4, self.var_weight_4, self.postvar_type_1, self.postvar_weight_1)
+        self._prm_FF_tuple: tuple[str, ...] = (self.preaffine_x, self.preaffine_y, self.preaffine_o, self.postaffine_x, self.postaffine_y, self.postaffine_o)
+        self._prm_FF: tuple[str, ...] = (self.main_note, self.prevar_type_1, self.prevar_weight_1, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.postvar_type_1, self.postvar_weight_1, self.postvar_type_2, self.postvar_weight_2, self.preaffine_scale, self.preaffine_ang, self.postaffine_do, self.postaffine_scale, self.postaffine_ang)
+        self._prm_FF_vars_all: tuple[str, ...] = (self.prevar_type_1, self.prevar_weight_1, self.var_type_1, self.var_weight_1, self.var_type_2, self.var_weight_2, self.postvar_type_1, self.postvar_weight_1, self.postvar_type_2, self.postvar_weight_2)
         # Hard coded as this may be the only case with need those parameters.
         # Those are the houdini parametric variations parameters base names.
-        self._prm_parametrics_tuple: tuple = ("curlc", "ngon", "pdjw", "blob", "julian", "juliascope", "fan2", "rectangles", "pie", "disc2", "supershape", "supershapen", "flower", "conic", "parabola", "bent2xy", "cpow", "lazysusanxyz", "lazysusan", "modulusXYZ", "oscope", "popcorn2xyz", "separationxyz", "separationinsidexyz", "splitxyz", "splitsxyz", "stripes", "wedge", "wedgejulia", "wedgesph", "whorl", "waves2scalexyz", "waves2freqxyz", "auger", "mobiusre", "mobiusim", "curvexyzlenght", "curvexyzamp", "persp", "bwraps", "bwrapstwist", "polynomialpow", "polynomiallc", "polynomialsc", "cropltrb", "cropaz", "ptsym")
-        self._prm_parametrics: tuple = ("rings2val", "radialblur", "bipolarshift", "cellsize", "escherbeta", "popcorn2c", "fluxspread")
+        self._prm_parametrics_tuple: tuple[str, ...] = ("curlc", "ngon", "pdjw", "blob", "julian", "juliascope", "fan2", "rectangles", "pie", "disc2", "supershape", "supershapen", "flower", "conic", "parabola", "bent2xy", "cpow", "lazysusanxyz", "lazysusan", "modulusXYZ", "oscope", "popcorn2xyz", "separationxyz", "separationinsidexyz", "splitxyz", "splitsxyz", "stripes", "wedge", "wedgejulia", "wedgesph", "whorl", "waves2scalexyz", "waves2freqxyz", "auger", "mobiusre", "mobiusim", "curvexyzlenght", "curvexyzamp", "persp", "bwraps", "bwrapstwist", "polynomialpow", "polynomiallc", "polynomialsc", "cropltrb", "cropaz", "ptsym")
+        self._prm_parametrics: tuple[str, ...] = ("rings2val", "radialblur", "bipolarshift", "cellsize", "escherbeta", "popcorn2c", "fluxspread")
         
     
     # CLASS: PROPERTIES
@@ -1018,21 +1020,21 @@ class flam3h_iterator(flam3h_iterator_prm_names):
         
         # sec_main = ( (f"{n.main_vactive}_", 0), (f"{n.main_weight}_", 0) )
         
-        self._sec_main: tuple = ( (f"{self.main_weight}_", 0),) # When copy/paste the main section it will not copy the ON/OFF(vactive) iterator parameter anymore.
-        self._sec_xaos: tuple = ( (f"{self.xaos}_", 0),)
-        self._sec_shader: tuple = ( (f"{self.shader_color}_", 0), (f"{self.shader_speed}_", 0), (f"{self.shader_alpha}_", 0) )
-        self._sec_prevarsT: tuple = ( f"{self.prevar_type_1}_", f"{self.prevar_type_2}_" ) # preblur is omitted as it is always ZERO
-        self._sec_prevarsW: tuple = ( (f"{self.prevar_weight_blur}_", 0), (f"{self.prevar_weight_1}_", 0), (f"{self.prevar_weight_2}_", 0) )
-        self._sec_varsT: tuple = ( f"{self.var_type_1}_", f"{self.var_type_2}_", f"{self.var_type_3}_", f"{self.var_type_4}_" )
-        self._sec_varsW: tuple = ( (f"{self.var_weight_1}_", 0), (f"{self.var_weight_2}_", 0), (f"{self.var_weight_3}_", 0), (f"{self.var_weight_4}_", 0) )
-        self._sec_postvarsT: tuple = ( f"{self.postvar_type_1}_",)
-        self._sec_postvarsW: tuple = ( (f"{self.postvar_weight_1}_", 0),)
-        self._sec_preAffine: tuple = ( (f"{self.preaffine_x}_", 1), (f"{self.preaffine_y}_", 1), (f"{self.preaffine_o}_", 1), (f"{self.preaffine_ang}_", 0) )
-        self._sec_postAffine: tuple = ( (f"{self.postaffine_do}_", 0), (f"{self.postaffine_x}_", 1), (f"{self.postaffine_y}_", 1), (f"{self.postaffine_o}_", 1), (f"{self.postaffine_ang}_", 0) )
+        self._sec_main: tuple[tuple[str, int], ...] = ( (f"{self.main_weight}_", 0),) # When copy/paste the main section it will not copy the ON/OFF(vactive) iterator parameter anymore.
+        self._sec_xaos: tuple[tuple[str, int], ...] = ( (f"{self.xaos}_", 0),)
+        self._sec_shader: tuple[tuple[str, int], ...] = ( (f"{self.shader_color}_", 0), (f"{self.shader_speed}_", 0), (f"{self.shader_alpha}_", 0) )
+        self._sec_prevarsT: tuple[str, ...] = ( f"{self.prevar_type_1}_", f"{self.prevar_type_2}_" ) # preblur is omitted as it is always ZERO
+        self._sec_prevarsW: tuple[tuple[str, int], ...] = ( (f"{self.prevar_weight_blur}_", 0), (f"{self.prevar_weight_1}_", 0), (f"{self.prevar_weight_2}_", 0) )
+        self._sec_varsT: tuple[str, ...] = ( f"{self.var_type_1}_", f"{self.var_type_2}_", f"{self.var_type_3}_", f"{self.var_type_4}_" )
+        self._sec_varsW: tuple[tuple[str, int], ...] = ( (f"{self.var_weight_1}_", 0), (f"{self.var_weight_2}_", 0), (f"{self.var_weight_3}_", 0), (f"{self.var_weight_4}_", 0) )
+        self._sec_postvarsT: tuple[str, ...] = ( f"{self.postvar_type_1}_",)
+        self._sec_postvarsW: tuple[tuple[str, int], ...] = ( (f"{self.postvar_weight_1}_", 0),)
+        self._sec_preAffine: tuple[tuple[str, int], ...] = ( (f"{self.preaffine_x}_", 1), (f"{self.preaffine_y}_", 1), (f"{self.preaffine_o}_", 1), (f"{self.preaffine_ang}_", 0) )
+        self._sec_postAffine: tuple[tuple[str, int], ...] = ( (f"{self.postaffine_do}_", 0), (f"{self.postaffine_x}_", 1), (f"{self.postaffine_y}_", 1), (f"{self.postaffine_o}_", 1), (f"{self.postaffine_ang}_", 0) )
         
         # ALL method lists
-        self._allT: tuple = self._sec_prevarsT + self._sec_varsT + self._sec_postvarsT
-        self._allMisc: tuple = self._sec_main + self._sec_shader + self._sec_prevarsW + self._sec_varsW + self._sec_postvarsW + self._sec_preAffine + self._sec_postAffine
+        self._allT: tuple[str, ...] = self._sec_prevarsT + self._sec_varsT + self._sec_postvarsT
+        self._allMisc: tuple[tuple[str, int], ...] = self._sec_main + self._sec_shader + self._sec_prevarsW + self._sec_varsW + self._sec_postvarsW + self._sec_preAffine + self._sec_postAffine
 
 
     # CLASS: PROPERTIES
@@ -1368,14 +1370,14 @@ class flam3h_iterator_FF(flam3h_iterator_prm_names):
         # SECTIONS method lists
         #
         # (*T)Types have no signature and always to be used with: pastePRM_T_from_list()
-        self._sec_prevarsT_FF: tuple = ( f"{PRX_FF_PRM}{self.prevar_type_1}",)
-        self._sec_prevarsW_FF: tuple = ( (f"{PRX_FF_PRM}{self.prevar_weight_1}", 0),)
-        self._sec_varsT_FF: tuple = ( f"{PRX_FF_PRM}{self.var_type_1}", f"{PRX_FF_PRM}{self.var_type_2}" )
-        self._sec_varsW_FF: tuple = ( (f"{PRX_FF_PRM}{self.var_weight_1}", 0), (f"{PRX_FF_PRM}{self.var_weight_2}", 0) )
-        self._sec_postvarsT_FF: tuple = ( f"{PRX_FF_PRM}{self.postvar_type_1}", f"{PRX_FF_PRM}{self.postvar_type_2}" )
-        self._sec_postvarsW_FF: tuple = ( (f"{PRX_FF_PRM}{self.postvar_weight_1}", 0), (f"{PRX_FF_PRM}{self.postvar_weight_2}", 0) )
-        self._sec_preAffine_FF: tuple = ( (f"{PRX_FF_PRM}{self.preaffine_x}", 1), (f"{PRX_FF_PRM}{self.preaffine_y}", 1), (f"{PRX_FF_PRM}{self.preaffine_o}", 1), (f"{PRX_FF_PRM}{self.preaffine_ang}", 0) )
-        self._sec_postAffine_FF: tuple = ( (f"{PRX_FF_PRM}{self.postaffine_do}", 0), (f"{PRX_FF_PRM}{self.postaffine_x}", 1), (f"{PRX_FF_PRM}{self.postaffine_y}", 1), (f"{PRX_FF_PRM}{self.postaffine_o}", 1), (f"{PRX_FF_PRM}{self.postaffine_ang}", 0) )
+        self._sec_prevarsT_FF: tuple[str, ...] = ( f"{PRX_FF_PRM}{self.prevar_type_1}",)
+        self._sec_prevarsW_FF: tuple[tuple[str, int], ...] = ( (f"{PRX_FF_PRM}{self.prevar_weight_1}", 0),)
+        self._sec_varsT_FF: tuple[str, ...] = ( f"{PRX_FF_PRM}{self.var_type_1}", f"{PRX_FF_PRM}{self.var_type_2}" )
+        self._sec_varsW_FF: tuple[tuple[str, int], ...] = ( (f"{PRX_FF_PRM}{self.var_weight_1}", 0), (f"{PRX_FF_PRM}{self.var_weight_2}", 0) )
+        self._sec_postvarsT_FF: tuple[str, ...] = ( f"{PRX_FF_PRM}{self.postvar_type_1}", f"{PRX_FF_PRM}{self.postvar_type_2}" )
+        self._sec_postvarsW_FF: tuple[tuple[str, int], ...] = ( (f"{PRX_FF_PRM}{self.postvar_weight_1}", 0), (f"{PRX_FF_PRM}{self.postvar_weight_2}", 0) )
+        self._sec_preAffine_FF: tuple[tuple[str, int], ...] = ( (f"{PRX_FF_PRM}{self.preaffine_x}", 1), (f"{PRX_FF_PRM}{self.preaffine_y}", 1), (f"{PRX_FF_PRM}{self.preaffine_o}", 1), (f"{PRX_FF_PRM}{self.preaffine_ang}", 0) )
+        self._sec_postAffine_FF: tuple[tuple[str, int], ...] = ( (f"{PRX_FF_PRM}{self.postaffine_do}", 0), (f"{PRX_FF_PRM}{self.postaffine_x}", 1), (f"{PRX_FF_PRM}{self.postaffine_y}", 1), (f"{PRX_FF_PRM}{self.postaffine_o}", 1), (f"{PRX_FF_PRM}{self.postaffine_ang}", 0) )
         
         # ALL method lists
         # allT_FF list is omitted here because FF PRE VARS, FF VARS and FF POST VARS have their own unique parametric parameters
@@ -1842,7 +1844,7 @@ class flam3h_scripts
         _len: Callable[[tuple], int] = len
         # Iterators
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-        prm_list_post_affine: tuple = flam3h_iterator().sec_postAffine
+        prm_list_post_affine: tuple[tuple[str, int], ...] = flam3h_iterator().sec_postAffine
         keyframes: list = [[item for sublist in k for item in sublist] for k in [[[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id + 1}")] if prm_list_post_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").keyframes()) else 0] for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]]
         collect: list = [[node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").eval() if prm_list_post_affine[1:][idx][1] else node.parm(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").eval() for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]
         for id, affine in enumerate(collect):
@@ -1850,7 +1852,7 @@ class flam3h_scripts
                 node.setParms({f"{prm_list_post_affine[0][0]}{id + 1}": 0}) # type: ignore
                 
         # FF
-        prm_list_post_affine_FF: tuple = flam3h_iterator_FF().sec_postAffine_FF
+        prm_list_post_affine_FF: tuple[tuple[str, int], ...] = flam3h_iterator_FF().sec_postAffine_FF
         keyframes: list = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}")] if prm_list_post_affine_FF[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_post_affine_FF[1:]))] for item in sublist]
         collect: list = [node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() if prm_list_post_affine_FF[1:][idx][1] else node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() for idx in range(len(prm_list_post_affine_FF[1:]))]
         if node.parm(f"{prm_list_post_affine_FF[0][0]}").eval() and 1 not in keyframes and collect == AFFINE_DEFAULT_VALS:
@@ -2163,7 +2165,7 @@ class flam3h_scripts
         flam3h_general_utils.util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
         flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
         # Set other FLAM3H™ instances to dark if any
-        all_f3h: tuple = node.type().instances()
+        all_f3h: tuple[hou.SopNode, ...] = node.type().instances()
         all_f3h_vpptsize: list = []
         all_f3h_vptype: list = []
         all_f3h_ww: list = []
@@ -3416,17 +3418,17 @@ class flam3h_general_utils
         # Check and Update this data
         flam3h_iterator_utils(self.kwargs).update_xml_last_loaded(False)
         
-        prm_menus: tuple = (node.parm(CP_PALETTE_PRESETS),
-                            node.parm(CP_PALETTE_PRESETS_OFF),
-                            node.parm(CP_SYS_PALETTE_PRESETS),
-                            node.parm(CP_SYS_PALETTE_PRESETS_OFF),
-                            node.parm(IN_PRESETS),
-                            node.parm(IN_PRESETS_OFF),
-                            node.parm(IN_SYS_PRESETS),
-                            node.parm(IN_SYS_PRESETS_OFF),
-                            node.parm(OUT_PRESETS),
-                            node.parm(OUT_SYS_PRESETS)
-                        )
+        prm_menus: tuple[hou.Parm, ...] = ( node.parm(CP_PALETTE_PRESETS),
+                                            node.parm(CP_PALETTE_PRESETS_OFF),
+                                            node.parm(CP_SYS_PALETTE_PRESETS),
+                                            node.parm(CP_SYS_PALETTE_PRESETS_OFF),
+                                            node.parm(IN_PRESETS),
+                                            node.parm(IN_PRESETS_OFF),
+                                            node.parm(IN_SYS_PRESETS),
+                                            node.parm(IN_SYS_PRESETS_OFF),
+                                            node.parm(OUT_PRESETS),
+                                            node.parm(OUT_SYS_PRESETS)
+                                            )
         # This is probably light weight enough to be run all together
         # However in the future will be better to split this to run per type with checks (CP, IN and OUT)
         for prm in prm_menus: prm.set(prm.eval())
@@ -4052,7 +4054,7 @@ class flam3h_general_utils
         node = self.node
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         _main_xf_viz_name: str = flam3h_iterator_prm_names().main_xf_viz
-        all_mp_xf_viz: list = [node.parm(f"{_main_xf_viz_name}_{str(mp_idx + 1)}").eval() for mp_idx in range(iter_num)]
+        all_mp_xf_viz: list[str] = [node.parm(f"{_main_xf_viz_name}_{str(mp_idx + 1)}").eval() for mp_idx in range(iter_num)]
         if max(all_mp_xf_viz) == 1:
             return True
         
@@ -4071,7 +4073,7 @@ class flam3h_general_utils
         """
         node = self.node
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-        prm = node.parm(PREFS_PVT_XF_VIZ_SOLO)
+        prm: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO)
         
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
@@ -4209,7 +4211,7 @@ class flam3h_general_utils
             if not prm_mp.eval():
                 
                 iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-                data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
+                data_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
                 
                 for mp_id in range(iter_num): node.setParms({f"{_main_xf_viz_name}_{str(mp_id + 1)}": 0}) # type: ignore
                 prm_mp.set(1)
@@ -8922,15 +8924,15 @@ class flam3h_iterator_utils
         _MSG: str = f"{node.name()}.iterator.{s_mp_index} PRE variations -> SWAP"
         
         # Get prm names
-        pvT: tuple = flam3h_iterator().sec_prevarsT
-        pvW: tuple = flam3h_iterator().sec_prevarsW[1:]
+        pvT: tuple[str, ...] = flam3h_iterator().sec_prevarsT
+        pvW: tuple[tuple[str, int], ...] = flam3h_iterator().sec_prevarsW[1:]
         
         # Get prm
-        pvT_prm: tuple = (node.parm(f"{pvT[0]}{s_mp_index}"), node.parm(f"{pvT[1]}{s_mp_index}"))
-        pvW_prm: tuple = (node.parm(f"{pvW[0][0]}{s_mp_index}"), node.parm(f"{pvW[1][0]}{s_mp_index}"))
+        pvT_prm: tuple[hou.Parm, ...] = (node.parm(f"{pvT[0]}{s_mp_index}"), node.parm(f"{pvT[1]}{s_mp_index}"))
+        pvW_prm: tuple[hou.Parm, ...] = (node.parm(f"{pvW[0][0]}{s_mp_index}"), node.parm(f"{pvW[1][0]}{s_mp_index}"))
         # get tmp prm
-        __pvT_prm: tuple = (node.parm(PREFS_PVT_INT_0), node.parm(PREFS_PVT_INT_1))
-        __pvW_prm: tuple = (node.parm(PREFS_PVT_FLOAT_0), node.parm(PREFS_PVT_FLOAT_1))
+        __pvT_prm: tuple[hou.Parm, ...] = (node.parm(PREFS_PVT_INT_0), node.parm(PREFS_PVT_INT_1))
+        __pvW_prm: tuple[hou.Parm, ...] = (node.parm(PREFS_PVT_FLOAT_0), node.parm(PREFS_PVT_FLOAT_1))
         
         # Only types
         if self.kwargs["ctrl"]:
@@ -8983,15 +8985,15 @@ class flam3h_iterator_utils
         _MSG: str = f"{node.name()}: FF POST variations -> SWAP"
         
         # Get prm names
-        pvT: tuple = flam3h_iterator_FF().sec_postvarsT_FF
-        pvW: tuple = flam3h_iterator_FF().sec_postvarsW_FF
+        pvT: tuple[str, ...] = flam3h_iterator_FF().sec_postvarsT_FF
+        pvW: tuple[tuple[str, int], ...] = flam3h_iterator_FF().sec_postvarsW_FF
         
         # Get prm
-        pvT_prm: tuple = (node.parm(f"{pvT[0]}"), node.parm(f"{pvT[1]}"))
-        pvW_prm: tuple = (node.parm(f"{pvW[0][0]}"), node.parm(f"{pvW[1][0]}"))
+        pvT_prm: tuple[hou.Parm, ...] = (node.parm(f"{pvT[0]}"), node.parm(f"{pvT[1]}"))
+        pvW_prm: tuple[hou.Parm, ...] = (node.parm(f"{pvW[0][0]}"), node.parm(f"{pvW[1][0]}"))
         # get tmp prm
-        __pvT_prm: tuple = (node.parm(PREFS_PVT_INT_0), node.parm(PREFS_PVT_INT_1))
-        __pvW_prm: tuple = (node.parm(PREFS_PVT_FLOAT_0), node.parm(PREFS_PVT_FLOAT_1))
+        __pvT_prm: tuple[hou.Parm, ...] = (node.parm(PREFS_PVT_INT_0), node.parm(PREFS_PVT_INT_1))
+        __pvW_prm: tuple[hou.Parm, ...] = (node.parm(PREFS_PVT_FLOAT_0), node.parm(PREFS_PVT_FLOAT_1))
         
         # Only types
         if self.kwargs["ctrl"]:
@@ -9125,9 +9127,12 @@ class flam3h_iterator_utils
         node.setParms({f"{n.shader_speed}_{s_mp_index}": 0}) # type: ignore
         node.setParms({f"{n.shader_alpha}_{s_mp_index}": 1.0}) # type: ignore
         # iter vars
-        [node.setParms({f"{prm}_{s_mp_index}": 1}) if prm == n.var_weight_1 
-            else node.setParms({f"{prm}_{s_mp_index}": 0})
-                for prm in n.prm_iterator_vars_all]
+        for prm in n.prm_iterator_vars_all:
+            node.setParms({f"{prm}_{s_mp_index}": 1}) if prm == n.var_weight_1 else node.setParms({f"{prm}_{s_mp_index}": 0})        
+        
+        # [node.setParms({f"{prm}_{s_mp_index}": 1}) if prm == n.var_weight_1 
+        #     else node.setParms({f"{prm}_{s_mp_index}": 0})
+        #         for prm in n.prm_iterator_vars_all]
         
         # Iterator Affines
         affines_dict: dict[str, hou.Vector2 | float | None] = { f"{n.preaffine_x}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_x"),
@@ -12905,10 +12910,10 @@ class in_flame
 
 @METHODS
 * __is_valid_idx(self, idx: int) -> int:
-* __get_xforms(self, idx: int, key: str) -> tuple | None:
-* __get_xaos(self, xforms: tuple | None, key: str = XML_XF_XAOS) -> tuple | None:
-* __get_affine(self, xforms: tuple | None, key: str, type: int = 0) -> tuple | None:
-* __get_keyvalue(self, xforms: tuple | None, key: str, msg: bool = True) -> tuple | None:
+* __get_xforms(self, idx: int, key: str) -> tuple[dict, ...] | None:
+* __get_xaos(self, xforms: tuple | None, key: str = XML_XF_XAOS) -> tuple[list[str], ...] | None:
+* __get_affine(self, xforms: tuple | None, key: str, type: int = 0) -> tuple[tuple[hou.Vector2, ...], ...] | None:
+* __get_keyvalue(self, xforms: tuple | None, key: str, msg: bool = True) -> tuple[float | str, ...] | None:
 * __get_palette(self, idx: int, key: str = XML_PALETTE) -> tuple[hou.Ramp, int, str] | None:
 * __get_palette_flam3h_hsv(self, idx: int) -> TA_TypeMaker | bool:
 * __get_mb_flam3h_mb(self, idx: int, key: str = '') -> int | float | bool | None:
@@ -13373,7 +13378,7 @@ class in_flame
         return 0 if idx < 0 else 0 if {fc := self.flame_count} == 1 else fc-1 if idx > fc-1 else idx
 
 
-    def __get_xforms(self, idx: int, key: str) -> tuple | None:
+    def __get_xforms(self, idx: int, key: str) -> tuple[dict, ...] | None:
         """ Get choosen fractal flame's xforms collected inside a dict each.</br>
         Every xform in xforms is a dict coming directly from the parsed XML file.
 
@@ -13403,7 +13408,7 @@ class in_flame
         return None
     
     
-    def __get_xaos(self, xforms: tuple | None, key: str = XML_XF_XAOS) -> tuple | None:
+    def __get_xaos(self, xforms: tuple | None, key: str = XML_XF_XAOS) -> tuple[list[str], ...] | None:
         """
         Args:
             (self):
@@ -13427,7 +13432,7 @@ class in_flame
         return None
 
 
-    def __get_affine(self, xforms: tuple | None, key: str, type: int = 0) -> tuple | None:
+    def __get_affine(self, xforms: tuple | None, key: str, type: int = 0) -> tuple[tuple[hou.Vector2, ...], ...] | None:
         """
         Args:
             (self):
@@ -13442,7 +13447,7 @@ class in_flame
             _affine_coupling: Callable[[list, str, int | None, int], list] = self.affine_coupling
             _xf_list_cleanup: Callable[[list, str, str | None], list] = self.xf_list_cleanup
             coefs: list = [tuple(_affine_coupling([float(x) for x in _xf_list_cleanup(str(keyval).split(), '0', key)], key, int(idx + 1), type)) if (keyval := xf.get(key)) is not None else [] for idx, xf in enumerate(xforms)]
-
+            
             _len: Callable[[list], int] = len
             if max(list(map(lambda x: _len(x), coefs))):
                 return tuple(coefs)
@@ -13452,7 +13457,7 @@ class in_flame
         return None
 
 
-    def __get_keyvalue(self, xforms: tuple | None, key: str, msg: bool = True) -> tuple | None:
+    def __get_keyvalue(self, xforms: tuple | None, key: str, msg: bool = True) -> tuple[float | str, ...] | None:
         """
         Args:
             (self):
@@ -13808,33 +13813,33 @@ class in_flame_iter_data(in_flame):
         super().__init__(node, xmlfile)
         
         self._idx: int = self._in_flame__is_valid_idx(idx) # type: ignore
-        self._xforms: tuple | None = self._in_flame__get_xforms(self.idx, XML_XF) # type: ignore
-        self._xf_name: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_NAME) # type: ignore
-        self._weight: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_WEIGHT) # type: ignore
-        self._pre_blur: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_PB) # type: ignore
-        self._xaos: tuple | None  = self._in_flame__get_xaos(self.xforms) # type: ignore
+        self._xforms: tuple[dict, ...] | None = self._in_flame__get_xforms(self.idx, XML_XF) # type: ignore
+        self._xf_name: tuple[str, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_NAME) # type: ignore
+        self._weight: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_WEIGHT) # type: ignore
+        self._pre_blur: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_PB) # type: ignore
+        self._xaos: tuple[list[str], ...] | None  = self._in_flame__get_xaos(self.xforms) # type: ignore
         
-        self._coefs: tuple | None = self._in_flame__get_affine(self.xforms, XML_PRE_AFFINE) # type: ignore
-        self._f3h_coefs: tuple | None = self._in_flame__get_affine(self.xforms, XML_FLAM3H_PRE_AFFINE) # type: ignore
-        self._f3h_coefs_angle: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
-        self._post: tuple | None  = self._in_flame__get_affine(self.xforms, XML_POST_AFFINE) # type: ignore
-        self._f3h_post: tuple | None  = self._in_flame__get_affine(self.xforms, XML_FLAM3H_POST_AFFINE) # type: ignore
-        self._f3h_post_angle: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
+        self._coefs: tuple[tuple[hou.Vector2, ...], ...] | None = self._in_flame__get_affine(self.xforms, XML_PRE_AFFINE) # type: ignore
+        self._f3h_coefs: tuple[tuple[hou.Vector2, ...], ...] | None | None = self._in_flame__get_affine(self.xforms, XML_FLAM3H_PRE_AFFINE) # type: ignore
+        self._f3h_coefs_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
+        self._post: tuple[tuple[hou.Vector2, ...], ...] | None | None  = self._in_flame__get_affine(self.xforms, XML_POST_AFFINE) # type: ignore
+        self._f3h_post: tuple[tuple[hou.Vector2, ...], ...] | None | None  = self._in_flame__get_affine(self.xforms, XML_FLAM3H_POST_AFFINE) # type: ignore
+        self._f3h_post_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
         
-        self._finalxform: tuple | None = self._in_flame__get_xforms(self.idx, XML_FF) # type: ignore
-        self._finalxform_coefs: tuple | None = self._in_flame__get_affine(self.finalxform, XML_PRE_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_coefs: tuple | None = self._in_flame__get_affine(self.finalxform, XML_FLAM3H_PRE_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_coefs_angle: tuple | None = self._in_flame__get_keyvalue(self.finalxform, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
-        self._finalxform_post: tuple | None  = self._in_flame__get_affine(self.finalxform, XML_POST_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_post: tuple | None = self._in_flame__get_affine(self.finalxform, XML_FLAM3H_POST_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_post_angle: tuple | None = self._in_flame__get_keyvalue(self.finalxform, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
-        self._finalxform_name: tuple | None = self._in_flame__get_keyvalue(self.finalxform, XML_XF_NAME) # type: ignore
+        self._finalxform: tuple[dict, ...] | None = self._in_flame__get_xforms(self.idx, XML_FF) # type: ignore
+        self._finalxform_coefs: tuple[tuple[hou.Vector2, ...], ...] | None = self._in_flame__get_affine(self.finalxform, XML_PRE_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_coefs: tuple[tuple[hou.Vector2, ...], ...] | None = self._in_flame__get_affine(self.finalxform, XML_FLAM3H_PRE_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_coefs_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.finalxform, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
+        self._finalxform_post: tuple[tuple[hou.Vector2, ...], ...]  = self._in_flame__get_affine(self.finalxform, XML_POST_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_post: tuple[tuple[hou.Vector2, ...], ...] | None = self._in_flame__get_affine(self.finalxform, XML_FLAM3H_POST_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_post_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.finalxform, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
+        self._finalxform_name: tuple[str, ...] | None = self._in_flame__get_keyvalue(self.finalxform, XML_XF_NAME) # type: ignore
         
         self._palette: tuple[hou.Ramp, int, str] | None = self._in_flame__get_palette(self.idx) # type: ignore
-        self._color: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_COLOR) # type: ignore
-        self._color_speed: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_COLOR_SPEED, False) # type: ignore # Color speed is only used by Fractorium so we silent its warning message when missing
-        self._symmetry: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_SYMMETRY) # type: ignore
-        self._opacity: tuple | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_OPACITY) # type: ignore
+        self._color: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_COLOR) # type: ignore
+        self._color_speed: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_COLOR_SPEED, False) # type: ignore # Color speed is only used by Fractorium so we silent its warning message when missing
+        self._symmetry: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_SYMMETRY) # type: ignore
+        self._opacity: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_OPACITY) # type: ignore
         
         # custom to FLAM3H™ only
         self._sys_flam3h_rip: int | None = self._in_flame__get_flam3h_toggle(self.flame3h_sys_rip[self.idx]) # type: ignore
@@ -13856,134 +13861,134 @@ class in_flame_iter_data(in_flame):
         return self._idx
 
     @cached_slot_property
-    def xforms(self):
+    def xforms(self) -> tuple[dict, ...] | None:
         return self._xforms
     
     @cached_slot_property
-    def xf_name(self):
+    def xf_name(self) -> tuple[str, ...] | None:
         return self._xf_name
     
     @cached_slot_property
-    def finalxform(self):
-        return self._finalxform
-    
-    @cached_slot_property
-    def finalxform_name(self):
-        return self._finalxform_name
-    
-    @cached_slot_property
-    def weight(self):
+    def weight(self) -> tuple[float, ...] | None:
         return self._weight
     
     @cached_slot_property
-    def pre_blur(self):
+    def pre_blur(self) -> tuple[float, ...] | None:
         return self._pre_blur
-         
+    
     @cached_slot_property
-    def xaos(self):
+    def xaos(self) -> tuple[list[str], ...] | None:
         return self._xaos
  
     @cached_slot_property
-    def coefs(self):
+    def coefs(self) -> tuple[tuple[hou.Vector2, ...], ...] | None:
         return self._coefs
     
     @cached_slot_property
-    def f3h_coefs(self):
+    def f3h_coefs(self) -> tuple[tuple[hou.Vector2, ...], ...] | None | None:
         return self._f3h_coefs
     
     @cached_slot_property
-    def f3h_coefs_angle(self):
+    def f3h_coefs_angle(self) -> tuple[float, ...] | None:
         return self._f3h_coefs_angle
         
     @cached_slot_property
-    def post(self):
+    def post(self) -> tuple[tuple[hou.Vector2, ...], ...] | None | None:
         return self._post
     
     @cached_slot_property
-    def f3h_post(self):
+    def f3h_post(self) -> tuple[tuple[hou.Vector2, ...], ...] | None | None:
         return self._f3h_post
     
     @cached_slot_property
-    def f3h_post_angle(self):
+    def f3h_post_angle(self) -> tuple[float, ...] | None:
         return self._f3h_post_angle
     
     @cached_slot_property
-    def finalxform_coefs(self):
+    def finalxform(self) -> tuple[dict, ...] | None:
+        return self._finalxform
+    
+    @cached_slot_property
+    def finalxform_coefs(self) -> tuple[tuple[hou.Vector2, ...], ...] | None:
         return self._finalxform_coefs
     
     @cached_slot_property
-    def finalxform_f3h_coefs(self):
+    def finalxform_f3h_coefs(self) -> tuple[tuple[hou.Vector2, ...], ...] | None:
         return self._finalxform_f3h_coefs
     
     @cached_slot_property
-    def finalxform_f3h_coefs_angle(self):
+    def finalxform_f3h_coefs_angle(self) -> tuple[float, ...] | None:
         return self._finalxform_f3h_coefs_angle
         
     @cached_slot_property
-    def finalxform_post(self):
+    def finalxform_post(self) -> tuple[tuple[hou.Vector2, ...], ...]:
         return self._finalxform_post
     
     @cached_slot_property
-    def finalxform_f3h_post(self):
+    def finalxform_f3h_post(self) -> tuple[tuple[hou.Vector2, ...], ...] | None:
         return self._finalxform_f3h_post
     
     @cached_slot_property
-    def finalxform_f3h_post_angle(self):
+    def finalxform_f3h_post_angle(self) -> tuple[float, ...] | None:
         return self._finalxform_f3h_post_angle
     
     @cached_slot_property
-    def palette(self):
+    def finalxform_name(self) -> tuple[str, ...] | None:
+        return self._finalxform_name
+    
+    @cached_slot_property
+    def palette(self) -> tuple[hou.Ramp, int, str] | None:
         return self._palette
     
     @cached_slot_property
-    def color(self):
+    def color(self) -> tuple[float, ...] | None:
         return self._color
     
     @cached_slot_property
-    def color_speed(self):
+    def color_speed(self) -> tuple[float, ...] | None:
         return self._color_speed
     
     @cached_slot_property
-    def symmetry(self):
+    def symmetry(self) -> tuple[float, ...] | None:
         return self._symmetry
     
     @cached_slot_property
-    def opacity(self):
+    def opacity(self) -> tuple[float, ...] | None:
         return self._opacity
     
     # custom to FLAM3H™ only
     
     @cached_slot_property
-    def cp_flam3h_hsv(self):
+    def sys_flam3h_rip(self) -> int | None:
+        return self._sys_flam3h_rip
+    
+    @cached_slot_property
+    def cp_flam3h_hsv(self) -> TA_TypeMaker | bool:
         return self._cp_flam3h_hsv
     
     @cached_slot_property
-    def mb_flam3h_fps(self):
+    def mb_flam3h_fps(self) -> int | float | bool:
         return self._mb_flam3h_mb_fps
     
     @cached_slot_property
-    def mb_flam3h_samples(self):
+    def mb_flam3h_samples(self) -> int | float | bool:
         return self._mb_flam3h_mb_samples
     
     @cached_slot_property
-    def mb_flam3h_shutter(self):
+    def mb_flam3h_shutter(self) -> int | float | bool:
         return self._mb_flam3h_mb_shutter
     
     @cached_slot_property
-    def cp_flam3h_samples(self):
+    def cp_flam3h_samples(self) -> int | bool:
         return self._cp_flam3h_cp_samples
     
     @cached_slot_property
-    def cp_flam3h_basis(self):
+    def cp_flam3h_basis(self) -> int | bool:
         return self._cp_flam3h_cp_basis
     
     @cached_slot_property
-    def prefs_flam3h_f3c(self):
+    def prefs_flam3h_f3c(self) -> int | None:
         return self._prefs_flam3h_f3c
-    
-    @cached_slot_property
-    def sys_flam3h_rip(self):
-        return self._sys_flam3h_rip
     
     
 # FLAM3H™ IN FLAME UTILS start here
