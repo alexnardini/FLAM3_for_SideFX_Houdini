@@ -992,7 +992,7 @@ class flam3husd_general_utils
 * util_auto_set_f3h_parameter_editor(f3h_node: hou.SopNode) -> None:
 * util_getParameterEditors() -> list[hou.ParameterEditor]:
 * util_getSceneViewers() -> list[hou.SceneViewer]:
-* util_is_context(context: str, viewport: hou.paneTabType) -> bool:
+* util_is_context(context: str, viewport: hou.SceneViewer | hou.NetworkEditor | hou.ParameterEditor) -> bool:
 * util_is_context_available_viewer(context: str) -> bool:
 * flash_message(msg: str | None, timer: float = FLAM3HUSD_FLASH_MESSAGE_TIMER, img: str | None] = None) -> None:
 * set_status_msg(msg: str, type: str) -> None:
@@ -1241,14 +1241,14 @@ class flam3husd_general_utils
     
 
     @staticmethod
-    def util_is_context(context: str, viewport: hou.paneTabType) -> bool:
+    def util_is_context(context: str, viewport: hou.SceneViewer | hou.NetworkEditor | hou.ParameterEditor) -> bool:
         """Return if we are inside a context or not.
         
         Args:
             context(str): The context we want to check if we are currently in. Options so far are: 
                 * Sop: str
                 * Lop: str
-            viewport(hou.paneTabType): Any of the available pane tab types, in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer
+            viewport(hou.SceneViewer | hou.NetworkEditor | hou.ParameterEditor): Any of the available pane tab types, in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer
             
         Returns:
             (bool): [True if we are in Solaris and False if we are not.]

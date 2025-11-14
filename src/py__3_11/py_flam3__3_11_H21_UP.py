@@ -2729,7 +2729,7 @@ class flam3h_general_utils
 * util_getParameterEditors() -> list[hou.ParameterEditor]:
 * util_getSceneViewers() -> list[hou.SceneViewer]:
 * util_getNetworkEditors() -> list[hou.NetworkEditor]:
-* util_is_context(context: str, viewport: hou.SceneViewer | hou.NetworkEditor) -> bool:
+* util_is_context(context: str, viewport: hou.SceneViewer | hou.NetworkEditor | hou.ParameterEditor) -> bool:
 * util_is_context_available_viewer(context: str) -> bool:
 * util_is_context_available_network_editor(context: str) -> bool:
 * util_clear_stashed_cam_data() -> None:
@@ -3091,7 +3091,7 @@ class flam3h_general_utils
     
     
     @staticmethod
-    def util_is_context(context: str, viewport: hou.SceneViewer | hou.NetworkEditor) -> bool:
+    def util_is_context(context: str, viewport: hou.SceneViewer | hou.NetworkEditor | hou.ParameterEditor) -> bool:
         """Return if we are inside a context or not.
         
         Args:
@@ -12779,9 +12779,9 @@ class _xml_tree
             _strip: Callable[[str], str] = str.strip
             _len: Callable[[str], int] = len
             if key == XML_XF_NAME:
-                list_values_cleaned: tuple[str, ...] = tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else '[]' for name in root)
+                list_values_cleaned: tuple = tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else '[]' for name in root)
             else:
-                list_values_cleaned: tuple[str, ...] = tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else [] for name in root)
+                list_values_cleaned: tuple = tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else [] for name in root)
             return list_values_cleaned
         
         return () 
@@ -12803,7 +12803,7 @@ class _xml_tree
             
             root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
-            list_values_cleaned: tuple[str, ...] = tuple(_strip(in_flame.xf_val_cleanup_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None else [] for name in root)
+            list_values_cleaned: tuple = tuple(_strip(in_flame.xf_val_cleanup_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None else [] for name in root)
             return list_values_cleaned
             
         return () 
@@ -12826,7 +12826,7 @@ class _xml_tree
             root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
             _xf_val_cleanup_split_str: Callable[[str, str, str], str] = in_flame.xf_val_cleanup_split_str
-            list_values_cleaned: tuple[str, ...] = tuple(_strip(_xf_val_cleanup_split_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None and keyval != '' else [] for name in root)
+            list_values_cleaned: tuple = tuple(_strip(_xf_val_cleanup_split_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None and keyval != '' else [] for name in root)
             return list_values_cleaned
             
         return () 
@@ -12852,7 +12852,7 @@ class _xml_tree
             root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
             _xf_list_cleanup_str: Callable[[list, str, str], str] = in_flame.xf_list_cleanup_str
-            list_values_cleaned: tuple[str, ...] = tuple(str(_xf_list_cleanup_str(_strip(keyval).split(), _default, key)) if (keyval := name.get(key)) is not None else [] for name in root)
+            list_values_cleaned: tuple = tuple(str(_xf_list_cleanup_str(_strip(keyval).split(), _default, key)) if (keyval := name.get(key)) is not None else [] for name in root)
             return list_values_cleaned
         
         return () 
