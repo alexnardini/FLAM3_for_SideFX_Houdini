@@ -17760,7 +17760,7 @@ class out_flame_utils
 * out_xaos_cleanup(xaos: list[str] | tuple[str] | list[list[str]]) -> list[list[str]]:
 * out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list[list[str]]:
 * out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> list[list[str]]:
-* _out_pretty_print(current: lxmlET.Element, parent: lxmlET.Element | None = None, index: int = -1, depth: int = 0) -> None: #type: ignore
+* _out_pretty_print(current: lxmlET._Element, parent: lxmlET._Element | None = None, index: int = -1, depth: int = 0) -> None: #type: ignore
 * _out_pretty_print(current, parent=None, index: int=-1, depth: int=0) -> None:
 * menu_out_presets_loop(menu: list, i: int, item: str) -> None:
 * menu_out_presets_loop_enum(menu: list, i: int, item: str) -> None:
@@ -17796,10 +17796,10 @@ class out_flame_utils
                             varsPRM: tuple, 
                             TYPES_tuple: tuple, 
                             WEIGHTS_tuple: tuple, 
-                            XFORM: lxmlET.Element, # type: ignore
+                            element_xform: lxmlET._Element,
                             MP_IDX: str, 
                             FUNC: Callable) -> list[str]:
-* out_build_XML(self, flame: lxmlET.Element) -> bool:
+* out_build_XML(self, flame: lxmlET._Element) -> bool:
 * out_userData_XML_last_loaded(self, data_name: str = FLAM3H_USER_DATA_XML_LAST, flame_name: str | None = None) -> None:
 * out_new_XML(self, outpath: str) -> None:
 * out_preset_XML_clipboard(self) -> None
@@ -18729,7 +18729,7 @@ class out_flame_utils
 
 
     @staticmethod
-    def _out_pretty_print(current: lxmlET.Element, parent: lxmlET.Element | None = None, index: int = -1, depth: int = 0) -> None: #type: ignore
+    def _out_pretty_print(current: lxmlET._Element, parent: lxmlET._Element | None = None, index: int = -1, depth: int = 0) -> None: #type: ignore
         """Reformat the XML data in a pretty way.
 
         Args:
@@ -19879,17 +19879,17 @@ class out_flame_utils
                                     varsPRM: tuple, 
                                     TYPES_tuple: tuple, 
                                     WEIGHTS_tuple: tuple, 
-                                    XFORM: lxmlET.Element, # type: ignore
+                                    element_xform: lxmlET._Element,
                                     MP_IDX: str, 
                                     FUNC: Callable) -> list[str]:
-        """Set this iterator variations types parameters, weights parameters and their parametric parameters inside the xform (lxmlET.Element) to be written out into the XML file.
+        """Set this iterator variations types parameters, weights parameters and their parametric parameters inside the xform (lxmlET._Element) to be written out into the XML file.
         It will also return a list of used variations in the provided iterator/xform.
         
         Args:
             varsPRM(tuple): FLAM3H™ variation's types and their parametric parameters names.
             TYPES_tuple(tuple): FLAM3H™ variation's types parameters names.
             WEIGHTS_tuple(tuple): FLAM3H™ variation's weights parameters names.
-            XFORM(lxmlET.Element): The current xform (lxmlET.Element) to populate.
+            XFORM(lxmlET._Element): The current xform (lxmlET._Element) to populate.
             MP_IDX(str): Current multiparameter index
             FUNC(Callable): Callable definition to convert variation's names between VAR, PRE and POST: in_flame_utils.in_util_make_NULL, in_flame_utils.in_util_make_PRE, in_flame_utils.in_util_make_POST
 
@@ -19904,7 +19904,7 @@ class out_flame_utils
                 v_type: int = node.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
                 v_name: str = in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type)
                 names.append(v_name)
-                XFORM.set(FUNC(v_name), self.out_util_round_float(prm_w))
+                element_xform.set(FUNC(v_name), self.out_util_round_float(prm_w))
                 vars_prm: tuple = varsPRM[v_type]
                 if vars_prm[-1]:
                     f3h_prm: tuple = varsPRM[v_type][1:-1]
@@ -19921,20 +19921,20 @@ class out_flame_utils
                         if f3h_prm[id][-1]:
                             for i in range(len(p)): # for i, n in enumerate(p):
                                 vals: tuple = node.parmTuple(f"{f3h_prm[id][0]}{MP_IDX}").eval()
-                                XFORM.set(FUNC(p[i]), self.out_util_round_float(vals[i]))
+                                element_xform.set(FUNC(p[i]), self.out_util_round_float(vals[i]))
                         else:
                             val: float = node.parm(f"{f3h_prm[id][0]}{MP_IDX}").eval()
-                            XFORM.set(FUNC(p[0]), self.out_util_round_float(val))
+                            element_xform.set(FUNC(p[0]), self.out_util_round_float(val))
                             
         return names
 
 
-    def out_build_XML(self, flame: lxmlET.Element) -> bool: # type: ignore
+    def out_build_XML(self, flame: lxmlET._Element) -> bool: # type: ignore
         """Build the XML Flame data to be then written out.
 
         Args:
             (self):
-            flame(lxmlET.Element): The root of either the flame to be written out or the flame file to append the new flame to.
+            flame(lxmlET._Element): The root of either the flame to be written out or the flame file to append the new flame to.
 
         Returns:
             (bool): return True if the Flame is a compatible FLAM3 flame or False if not.
@@ -20569,9 +20569,9 @@ class out_flame_utils
         collect: list = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
         angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
         f3h_angleDeg: str = str(angleDeg)
-        f3h_affine: list[str] | tuple[str] | list[list[str]] = self.out_util_round_floats(collect)
+        f3h_affine: list[str] | list[list[str]] = self.out_util_round_floats(collect)
         if angleDeg != 0.0:
-            affine: list[str] | tuple[str] | list[list[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+            affine: list[str] | list[list[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
         else:
             affine: list[str] | tuple[str] | list[list[str]] = f3h_affine
         flatten: list = [item for sublist in affine for item in sublist]
@@ -20595,9 +20595,9 @@ class out_flame_utils
             angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
             if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                 f3h_angleDeg: str = str(angleDeg)
-                f3h_affine: list[str] | tuple[str] | list[list[str]] = self.out_util_round_floats(collect)
+                f3h_affine: list[str] | list[list[str]] = self.out_util_round_floats(collect)
                 if angleDeg != 0.0:
-                    affine: list[str] | tuple[str] | list[list[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+                    affine: list[str] | list[list[str]] = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
                 else:
                     affine: list[str] | tuple[str] | list[list[str]] = f3h_affine
                 flatten: list = [item for sublist in affine for item in sublist]
