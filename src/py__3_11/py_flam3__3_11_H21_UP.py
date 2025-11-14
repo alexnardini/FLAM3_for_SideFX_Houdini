@@ -182,6 +182,7 @@ TA_TypeMaker: TypeAlias = list | float | hou.Vector2 | hou.Vector3 | hou.Vector4
 TA_F3H_Init: TypeAlias = tuple[str | None, bool, int, str, bool, bool]
 TA_MNode: TypeAlias = hou.SopNode | None
 TA_M: TypeAlias = int | None
+TA_Menu: TypeAlias = list[int | str]
 
 CHARACTERS_ALLOWED = "_-().:"
 CHARACTERS_ALLOWED_OUT_AUTO_ADD_ITER_NUM = "_-+!?().: "
@@ -571,10 +572,10 @@ class flam3h_iterator_prm_names:
         The following definitions:
         
         * def iterator_vactive_and_update(self) -> None:
-        * def menu_select_iterator_data(self, data_now: tuple) -> list[int | str]:
-        * def menu_select_iterator(self) -> list[int | str]:
-        * def menu_copypaste(self) -> list[int | str]:
-        * def menu_copypaste_FF(self) -> list[int | str]:
+        * def menu_select_iterator_data(self, data_now: tuple) -> TA_Menu:
+        * def menu_select_iterator(self) -> TA_Menu:
+        * def menu_copypaste(self) -> TA_Menu:
+        * def menu_copypaste_FF(self) -> TA_Menu:
         * def iterator_affine_scale(self) -> None:
         * def iterator_post_affine_scale(self) -> None:
         * def iterator_FF_affine_scale(self) -> None:
@@ -750,7 +751,7 @@ class flam3h_varsPRM
 * vars_all(self) -> list[str]:
 * menu_vars_all(self, _PB: bool = False) -> list[tuple[int, str]]:
 * menu_vars_no_PRM(self, _PB: bool = False) -> list[tuple[int, str]]:
-* build_menu_vars_all_linear(self, _PB: bool = False) -> list[int | str]:
+* build_menu_vars_all_linear(self, _PB: bool = False) -> TA_Menu:
 * build_menu_vars_all_indexes(self, _PB: bool = False) -> dict[int, int]:
 
     """ 
@@ -903,7 +904,7 @@ class flam3h_varsPRM
     @staticmethod
     def __populate_linear_list(linear: list, item: str, id: int, spacer: bool = True) -> None:
         """ Populate linear list. This is to be used inside a loop.
-        Specifically designed to be used in a list comprehension inside: def build_menu_vars_all_linear(self, _PB: bool = False) -> list[int | str]:
+        Specifically designed to be used in a list comprehension inside: def build_menu_vars_all_linear(self, _PB: bool = False) -> TA_Menu:
         
         Args:
             linear(list): the empty list to populate
@@ -962,7 +963,7 @@ class flam3h_varsPRM
         return list(map(lambda x: x, filter(lambda x: x[1][-3:]!=PRM, self.menu_vars_all(_PB))))
     
     
-    def build_menu_vars_all_linear(self, _PB: bool = False) -> list[int | str]:
+    def build_menu_vars_all_linear(self, _PB: bool = False) -> TA_Menu:
         """This is used to generate the following list: MENU_VARS_ALL_SIMPLE
         
         Args:
@@ -5262,26 +5263,26 @@ SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple[str, ...] = (FLAM3H_ICON_STAR_EM
 SEL_ITER_BOOKMARK_OFF: tuple[str, ...] = (FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED)
 
 # The following are pre built to speed up the generations of the menus.
-MENU_ZERO_ITERATORS: list[int | str] = [0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  ZERO ITERATORS\n -> Please, create at least one iterator or load an IN flame file first.", 1, ""]
-MENU_DENSITY: list[int | str] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
-MENU_DENSITY_XFVIZ_OFF: list[int | str] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZOFFSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
-MENU_DENSITY_XFVIZ_ON: list[int | str] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
-MENU_DENSITY_XFVIZ_ON_SOLO: list[int | str] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSOLOSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
+MENU_ZERO_ITERATORS: TA_Menu = [0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  ZERO ITERATORS\n -> Please, create at least one iterator or load an IN flame file first.", 1, ""]
+MENU_DENSITY: TA_Menu = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
+MENU_DENSITY_XFVIZ_OFF: TA_Menu = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZOFFSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
+MENU_DENSITY_XFVIZ_ON: TA_Menu = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
+MENU_DENSITY_XFVIZ_ON_SOLO: TA_Menu = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSOLOSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
 # This is now handled from inside Houdini # MENU_DENSITY_OFF: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]...', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]1 Billion']
-MENU_PRESETS_EMPTY: list[int | str] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
-MENU_PRESETS_EMPTY_HIDDEN: list[int | str] = [-1, '']
-MENU_PRESETS_SAVEONE: list[int | str] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
-MENU_ZERO_ITERATORS_PRESETS_INVALID: list[int | str] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
-MENU_PRESETS_INVALID: list[int | str] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  Invalid file path     ']
-MENU_PRESETS_INVALID_CB: list[int | str] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  [CLIPBOARD] Invalid file path     ']
-MENU_IN_PRESETS_EMPTY_CB: list[int | str] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  [CLIPBOARD]     ']
-MENU_ITER_COPY_PASTE_EMPTY: list[int | str] = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg]  Please, mark an iterator first.', 1, '']
-MENU_ITER_COPY_PASTE_REMOVED: list[int | str] = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.', 1, '']
-MENU_ITER_COPY_PASTE_DELETED_MARKED: list[int | str] = [ 0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", 1, "" ]
-MENU_FF_COPY_PASTE_EMPTY: list[int | str] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg]  Please, mark the FF first.', 0, '']
-MENU_FF_COPY_PASTE_SELECT: list[int | str] = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED\n-> Select a different FLAM3H™ node to paste those FF values.', 1, '']
+MENU_PRESETS_EMPTY: TA_Menu = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+MENU_PRESETS_EMPTY_HIDDEN: TA_Menu = [-1, '']
+MENU_PRESETS_SAVEONE: TA_Menu = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
+MENU_ZERO_ITERATORS_PRESETS_INVALID: TA_Menu = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
+MENU_PRESETS_INVALID: TA_Menu = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  Invalid file path     ']
+MENU_PRESETS_INVALID_CB: TA_Menu = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  [CLIPBOARD] Invalid file path     ']
+MENU_IN_PRESETS_EMPTY_CB: TA_Menu = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  [CLIPBOARD]     ']
+MENU_ITER_COPY_PASTE_EMPTY: TA_Menu = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg]  Please, mark an iterator first.', 1, '']
+MENU_ITER_COPY_PASTE_REMOVED: TA_Menu = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.', 1, '']
+MENU_ITER_COPY_PASTE_DELETED_MARKED: TA_Menu = [ 0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", 1, "" ]
+MENU_FF_COPY_PASTE_EMPTY: TA_Menu = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg]  Please, mark the FF first.', 0, '']
+MENU_FF_COPY_PASTE_SELECT: TA_Menu = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED\n-> Select a different FLAM3H™ node to paste those FF values.', 1, '']
 
-MENU_VARS_ALL_SIMPLE: list[int | str] = [0, 'Linear                    ', 39, 'Arch                    ', 94, 'Auger...                    ', 14, 'Bent                    ', 52, 'Bent2...                    ', 53, 'Bipolar...                    ', 43, 'Blade                    ', 30, 'Blob...                    ', 26, 'Blur                    ', 54, 'Boarders                    ', 23, 'Bubble                    ', 55, 'Butterfly                    ', 99, 'Bwraps...                    ', 56, 'Cell...                    ', 50, 'Conic...                    ', 83, 'Cos                    ', 89, 'Cosh                    ', 20, 'Cosine                    ', 87, 'Cot                    ', 93, 'Coth                    ', 57, 'Cpow...                    ', 102, 'Crop...                    ', 46, 'Cross                    ', 86, 'Csc                    ', 92, 'Csch                    ', 27, 'Curl...                    ', 97, 'Curve...                    ', 24, 'Cylinder                    ', 11, 'Diamond                    ', 8, 'Disc                    ', 47, 'Disc2...                    ', 58, 'Edisc                    ', 59, 'Elliptic                    ', 61, 'Escher...                    ', 12, 'Ex                    ', 80, 'Exp                    ', 18, 'Exponential                    ', 25, 'Eyefish                    ', 22, 'Fan*                    ', 34, 'Fan2...                    ', 16, 'Fisheye                    ', 49, 'Flower...                    ', 95, 'Flux...                    ', 62, 'Foci                    ', 33, 'Gaussian blur                    ', 104, 'Glynnia                    ', 6, 'Handkerchief                    ', 7, 'Heart                    ', 100, 'Hemisphere                    ', 4, 'Horseshoe                    ', 10, 'Hyperbolic                    ', 13, 'Julia                    ', 31, 'JuliaN...                    ', 32, 'Juliascope...                    ', 63, 'Lazysusan...                    ', 81, 'Log                    ', 64, 'Loonie                    ', 96, 'Mobius...                    ', 66, 'Modulus...                    ', 28, 'Ngon...                    ', 60, 'Noise                    ', 67, 'Oscope...                    ', 51, 'Parabola...                    ', 29, 'Pdj...                    ', 98, 'Perspective...                    ', 38, 'Pie...                    ', 105, 'Point sym...                    ', 5, 'Polar                    ', 68, 'Polar2                    ', 101, 'Polynomial...                    ', 17, 'Popcorn*                    ', 69, 'Popcorn2...                    ', 19, 'Power                    ', 37, 'Radialblur...                    ', 42, 'Rays                    ', 36, 'Rectangles...                    ', 21, 'Rings*                    ', 35, 'Rings2...                    ', 70, 'Scry                    ', 85, 'Sec                    ', 44, 'Secant2                    ', 91, 'Sech                    ', 71, 'Separation...                    ', 82, 'Sin                    ', 88, 'Sinh                    ', 1, 'Sinusoidal                    ', 2, 'Spherical                    ', 9, 'Spiral                    ', 72, 'Split...                    ', 73, 'Splits...                    ', 41, 'Square                    ', 74, 'Stripes...                    ', 48, 'Supershape...                    ', 3, 'Swirl                    ', 84, 'Tan                    ', 40, 'Tangent                    ', 90, 'Tanh                    ', 45, 'Twintrian                    ', 103, 'Unpolar                    ', 15, 'Waves*                    ', 79, 'Waves2...                    ', 75, 'Wedge...                    ', 76, 'Wedgejulia...                    ', 77, 'Wedgesph...                    ', 78, 'Whorl...                    ']
+MENU_VARS_ALL_SIMPLE: TA_Menu = [0, 'Linear                    ', 39, 'Arch                    ', 94, 'Auger...                    ', 14, 'Bent                    ', 52, 'Bent2...                    ', 53, 'Bipolar...                    ', 43, 'Blade                    ', 30, 'Blob...                    ', 26, 'Blur                    ', 54, 'Boarders                    ', 23, 'Bubble                    ', 55, 'Butterfly                    ', 99, 'Bwraps...                    ', 56, 'Cell...                    ', 50, 'Conic...                    ', 83, 'Cos                    ', 89, 'Cosh                    ', 20, 'Cosine                    ', 87, 'Cot                    ', 93, 'Coth                    ', 57, 'Cpow...                    ', 102, 'Crop...                    ', 46, 'Cross                    ', 86, 'Csc                    ', 92, 'Csch                    ', 27, 'Curl...                    ', 97, 'Curve...                    ', 24, 'Cylinder                    ', 11, 'Diamond                    ', 8, 'Disc                    ', 47, 'Disc2...                    ', 58, 'Edisc                    ', 59, 'Elliptic                    ', 61, 'Escher...                    ', 12, 'Ex                    ', 80, 'Exp                    ', 18, 'Exponential                    ', 25, 'Eyefish                    ', 22, 'Fan*                    ', 34, 'Fan2...                    ', 16, 'Fisheye                    ', 49, 'Flower...                    ', 95, 'Flux...                    ', 62, 'Foci                    ', 33, 'Gaussian blur                    ', 104, 'Glynnia                    ', 6, 'Handkerchief                    ', 7, 'Heart                    ', 100, 'Hemisphere                    ', 4, 'Horseshoe                    ', 10, 'Hyperbolic                    ', 13, 'Julia                    ', 31, 'JuliaN...                    ', 32, 'Juliascope...                    ', 63, 'Lazysusan...                    ', 81, 'Log                    ', 64, 'Loonie                    ', 96, 'Mobius...                    ', 66, 'Modulus...                    ', 28, 'Ngon...                    ', 60, 'Noise                    ', 67, 'Oscope...                    ', 51, 'Parabola...                    ', 29, 'Pdj...                    ', 98, 'Perspective...                    ', 38, 'Pie...                    ', 105, 'Point sym...                    ', 5, 'Polar                    ', 68, 'Polar2                    ', 101, 'Polynomial...                    ', 17, 'Popcorn*                    ', 69, 'Popcorn2...                    ', 19, 'Power                    ', 37, 'Radialblur...                    ', 42, 'Rays                    ', 36, 'Rectangles...                    ', 21, 'Rings*                    ', 35, 'Rings2...                    ', 70, 'Scry                    ', 85, 'Sec                    ', 44, 'Secant2                    ', 91, 'Sech                    ', 71, 'Separation...                    ', 82, 'Sin                    ', 88, 'Sinh                    ', 1, 'Sinusoidal                    ', 2, 'Spherical                    ', 9, 'Spiral                    ', 72, 'Split...                    ', 73, 'Splits...                    ', 41, 'Square                    ', 74, 'Stripes...                    ', 48, 'Supershape...                    ', 3, 'Swirl                    ', 84, 'Tan                    ', 40, 'Tangent                    ', 90, 'Tanh                    ', 45, 'Twintrian                    ', 103, 'Unpolar                    ', 15, 'Waves*                    ', 79, 'Waves2...                    ', 75, 'Wedge...                    ', 76, 'Wedgejulia...                    ', 77, 'Wedgesph...                    ', 78, 'Whorl...                    ']
 MENU_VARS_ALL_INDEXES: dict[int, int] = {0: 1, 39: 3, 94: 5, 14: 7, 52: 9, 53: 11, 43: 13, 30: 15, 26: 17, 54: 19, 23: 21, 55: 23, 99: 25, 56: 27, 50: 29, 83: 31, 89: 33, 20: 35, 87: 37, 93: 39, 57: 41, 102: 43, 46: 45, 86: 47, 92: 49, 27: 51, 97: 53, 24: 55, 11: 57, 8: 59, 47: 61, 58: 63, 59: 65, 61: 67, 12: 69, 80: 71, 18: 73, 25: 75, 22: 77, 34: 79, 16: 81, 49: 83, 95: 85, 62: 87, 33: 89, 104: 91, 6: 93, 7: 95, 100: 97, 4: 99, 10: 101, 13: 103, 31: 105, 32: 107, 63: 109, 81: 111, 64: 113, 96: 115, 66: 117, 28: 119, 60: 121, 67: 123, 51: 125, 29: 127, 98: 129, 38: 131, 105: 133, 5: 135, 68: 137, 101: 139, 17: 141, 69: 143, 19: 145, 37: 147, 42: 149, 36: 151, 21: 153, 35: 155, 70: 157, 85: 159, 44: 161, 91: 163, 71: 165, 82: 167, 88: 169, 1: 171, 2: 173, 9: 175, 72: 177, 73: 179, 41: 181, 74: 183, 48: 185, 3: 187, 84: 189, 40: 191, 90: 193, 45: 195, 103: 197, 15: 199, 79: 201, 75: 203, 76: 205, 77: 207, 78: 209}
 
 
@@ -5340,21 +5341,21 @@ class flam3h_iterator_utils
 * menu_T_FF_data(self) -> tuple[int, str]:
 * menu_T_PP_FF_data(self) -> tuple[int, str]:
 * menu_T_pb_data(self) -> str:
-* menu_T_ICON(self, FF: bool = False) -> list[int | str]:
-* menu_T_PP_ICON(self, FF: bool = False) -> list[int | str]:
-* menu_T_simple(self, FF: bool = False) -> list[int | str]:
-* menu_T(self, FF: bool = False) -> list[int | str]:
-* menu_T_PP(self, FF: bool = False) -> list[int | str]:
-* menu_T_pb(self) -> list[int | str]:
-* menu_select_iterator_data(self, data_now: tuple) -> list[int | str]:
-* menu_select_iterator(self) -> list[int | str]:
+* menu_T_ICON(self, FF: bool = False) -> TA_Menu:
+* menu_T_PP_ICON(self, FF: bool = False) -> TA_Menu:
+* menu_T_simple(self, FF: bool = False) -> TA_Menu:
+* menu_T(self, FF: bool = False) -> TA_Menu:
+* menu_T_PP(self, FF: bool = False) -> TA_Menu:
+* menu_T_pb(self) -> TA_Menu:
+* menu_select_iterator_data(self, data_now: tuple) -> TA_Menu:
+* menu_select_iterator(self) -> TA_Menu:
 * prm_select_iterator(self) -> None:
 * flam3h_paste_reset_hou_session_data(self, hipLoad: bool = False) -> None:
-* menu_global_density(self) -> list[int | str]:
+* menu_global_density(self) -> TA_Menu:
 * menu_global_density_set(self) -> None:
 * menu_global_density_set_default(self) -> None:
-* menu_copypaste(self) -> list[int | str]:
-* menu_copypaste_FF(self) -> list[int | str]:
+* menu_copypaste(self) -> TA_Menu:
+* menu_copypaste_FF(self) -> TA_Menu:
 * prm_paste_update_for_undo(self, node: hou.SopNode) -> tuple[hou.SopNode | None, int | None, bool]:
 * prm_paste_update_for_undo_ff(self, node: hou.SopNode) -> tuple[hou.SopNode | None, int | None, bool]:
 * prm_paste_CTRL(self, id: int) -> None:
@@ -6871,7 +6872,7 @@ class flam3h_iterator_utils
         return FLAM3H_ICON_STAR_EMPTY_OPACITY
     
     
-    def menu_T_ICON(self, FF: bool = False) -> list[int | str]:
+    def menu_T_ICON(self, FF: bool = False) -> TA_Menu:
         """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
         Differentiate iterators and FF
         
@@ -6885,7 +6886,7 @@ class flam3h_iterator_utils
             FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
-            (list[int | str]): return menu list
+            (TA_Menu): return menu list
         """
         menu: list = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = (self.menu_T_data, self.menu_T_FF_data)[FF]()
@@ -6895,7 +6896,7 @@ class flam3h_iterator_utils
         return menu
 
 
-    def menu_T_PP_ICON(self, FF: bool = False) -> list[int | str]:
+    def menu_T_PP_ICON(self, FF: bool = False) -> TA_Menu:
         """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
         Differentiate iterators and FF
         
@@ -6909,7 +6910,7 @@ class flam3h_iterator_utils
             FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
-            (list[int | str]): return menu list
+            (TA_Menu): return menu list
         """
         menu: list = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = (self.menu_T_PP_data, self.menu_T_PP_FF_data)[FF]()
@@ -6919,7 +6920,7 @@ class flam3h_iterator_utils
         return menu
     
     
-    def menu_T_simple(self, FF: bool = False) -> list[int | str]:
+    def menu_T_simple(self, FF: bool = False) -> TA_Menu:
         """Populate variation names parameter menu list.
         
         Args:
@@ -6927,13 +6928,13 @@ class flam3h_iterator_utils
             FF(bool): Default to False. If true it will signal we are looking to deal with data for the FF(finalXform). In this specific definition the arg: FF is present only for consistency.
             
         Returns:
-            (list[int | str]): return menu list
+            (TA_Menu): return menu list
         """
         self.node.setCachedUserData('vars_menu_all_simple', MENU_VARS_ALL_SIMPLE)
         return MENU_VARS_ALL_SIMPLE
     
     
-    def menu_T(self, FF: bool = False) -> list[int | str]:
+    def menu_T(self, FF: bool = False) -> TA_Menu:
         """Populate variation names parameter menu list.
         Differentiate iterators and FF
             
@@ -6948,13 +6949,13 @@ class flam3h_iterator_utils
             FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
             
         Returns:
-            (list[int | str]): return menu list
+            (TA_Menu): return menu list
         """
         node = self.node
         
-        # This data get created inside: menu_T_simple(self, FF: bool = False) -> list[int | str]:
+        # This data get created inside: menu_T_simple(self, FF: bool = False) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: list[int | str] | None = node.cachedUserData('vars_menu_all_simple')
+        data: TA_Menu | None = node.cachedUserData('vars_menu_all_simple')
         if data is not None:
             return data
 
@@ -6962,7 +6963,7 @@ class flam3h_iterator_utils
         return (self.menu_T_simple, self.menu_T_ICON)[use_icons](FF)
 
     
-    def menu_T_PP(self, FF: bool = False) -> list[int | str]:
+    def menu_T_PP(self, FF: bool = False) -> TA_Menu:
         """Populate variation names parameter menu list.
         Differentiate iterators and FF
         
@@ -6977,12 +6978,12 @@ class flam3h_iterator_utils
             FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
-            (list[int | str]): return menu list
+            (TA_Menu): return menu list
         """
         node = self.node
-        # This data get created inside: menu_T_simple(self, FF: bool = False) -> list[int | str]:
+        # This data get created inside: menu_T_simple(self, FF: bool = False) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: list[int | str] | None = node.cachedUserData('vars_menu_all_simple')
+        data: TA_Menu | None = node.cachedUserData('vars_menu_all_simple')
         if data is not None:
             return data
 
@@ -6990,7 +6991,7 @@ class flam3h_iterator_utils
         return (self.menu_T_simple, self.menu_T_PP_ICON)[use_icons](FF)
     
     
-    def menu_T_pb(self) -> list[int | str]:
+    def menu_T_pb(self) -> TA_Menu:
         """Populate variation name parameter menu list for Pre blur variation
         
         Note:
@@ -7002,13 +7003,13 @@ class flam3h_iterator_utils
             (self):
 
         Returns:
-            (list[int | str]): return menu list
+            (TA_Menu): return menu list
         """
         _ICON = self.menu_T_pb_data()
         return [ 0,  f"{_ICON} Pre blur                       "] # 23 times \s instead of 26 times as in from H19 to H20.5
 
 
-    def menu_select_iterator_data(self, data_now: tuple) -> list[int | str]:
+    def menu_select_iterator_data(self, data_now: tuple) -> TA_Menu:
         """Build a menu of iterators using their states as bookmark icon
 
         Args:
@@ -7020,7 +7021,7 @@ class flam3h_iterator_utils
                 * 3: shader_opacity (iterators shader's opacity)
 
         Returns:
-            (list[int | str]): return menu list
+            (TA_Menu): return menu list
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -7073,14 +7074,14 @@ class flam3h_iterator_utils
             return menu
     
     
-    def menu_select_iterator(self) -> list[int | str]:
+    def menu_select_iterator(self) -> TA_Menu:
         """Cache or rebuild the menu on demand.
 
         Args:
             (self):
             
         Returns:
-            (list[int | str]): return menu list
+            (TA_Menu): return menu list
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -7108,7 +7109,7 @@ class flam3h_iterator_utils
                         self.destroy_cachedUserData(node, 'iter_sel')
                         break
             
-            menu: list[int | str] | None = node.cachedUserData('iter_sel')
+            menu: TA_Menu | None = node.cachedUserData('iter_sel')
             if menu is not None:
                 return menu
             
@@ -7116,7 +7117,7 @@ class flam3h_iterator_utils
         
     
     def prm_select_iterator(self) -> None:
-        """Change multi-parameter index focus based on the selected iterator number from: def menu_select_iterator(self) -> list[int | str]:
+        """Change multi-parameter index focus based on the selected iterator number from: def menu_select_iterator(self) -> TA_Menu:
         
         Note:
             Need to investigate more how to control the Network Editor's Parameter Dialog displayed when pressing the "p" key.
@@ -7295,7 +7296,7 @@ class flam3h_iterator_utils
             self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
     
     
-    def menu_global_density(self) -> list[int | str]:
+    def menu_global_density(self) -> TA_Menu:
         """Return a pre built static menu data.
         It will use a different menu if the user is in xfomrs handles VIZ mode(ON or SOLO).
 
@@ -7303,7 +7304,7 @@ class flam3h_iterator_utils
             (self):
 
         Returns:
-            (list[int | str]): return menu list
+            (TA_Menu): return menu list
         """
         node = self.node
         if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
@@ -7415,7 +7416,7 @@ class flam3h_iterator_utils
         self.update_xml_last_loaded()
     
     
-    def menu_copypaste(self) -> list[int | str]:
+    def menu_copypaste(self) -> TA_Menu:
         """
         Build copy/paste parameter menu entries and eventually update its data if needed.
         This menu, is the only one not being cached for reuse and always evaluated
@@ -7426,7 +7427,7 @@ class flam3h_iterator_utils
             (self):
 
         Returns:
-            (list[int | str]): return menu list
+            (TA_Menu): return menu list
         """    
 
         # This undo's disabler is needed to make the undo work. They work best in H20.5
@@ -7501,10 +7502,10 @@ class flam3h_iterator_utils
                 return MENU_ITER_COPY_PASTE_EMPTY
 
     
-    def menu_copypaste_FF(self) -> list[int | str]:
+    def menu_copypaste_FF(self) -> TA_Menu:
         """
         Build copy/paste FF parameter menu entries and eventually update its data if needed.
-        This menu, together with: def menu_copypaste(self) -> list[int | str]: , are the only two menus not being cached for reuse.
+        This menu, together with: def menu_copypaste(self) -> TA_Menu: , are the only two menus not being cached for reuse.
         It is important not to play the cache/destroy data mechanism on those two because we need them to always evaluate to help us update other data as well.
         They are our sentinels and always vigilant.
         
@@ -7512,7 +7513,7 @@ class flam3h_iterator_utils
             (self):
 
         Returns:
-            (list[int | str]): return menu list
+            (TA_Menu): return menu list
         """    
 
         if self.node.parmTuple(FLAM3H_ITERATORS_TAB).eval() != (1,):
@@ -7756,7 +7757,7 @@ class flam3h_iterator_utils
             # It happened sometime that the hou.undoGroup() break and it doesnt group operation anylonger, especially after multiple Undos.
             # The following will try to pick up the pieces and put them together to keep the copy/paste FF data going smooth.
             #
-            # -> def menu_copypaste_FF(self) -> list[int | str]:
+            # -> def menu_copypaste_FF(self) -> TA_Menu:
             if from_FLAM3H_NODE_FF_CHECK is not None and from_FLAM3H_NODE is not None:
                 
                 # Mark, mark another node, Undos
@@ -9858,10 +9859,10 @@ class flam3h_palette_utils
 @METHODS
 * cp_bases_selection_msg(self) -> None:
 * cp_preset_name_set(self) -> None:
-* menu_cp_presets_data(self, node: hou.SopNode, json_file_path: str, json_is_file: bool) -> list[int | str]:
-* menu_cp_presets(self) -> list[int | str]:
-* menu_cp_presets_empty_data(self, node: hou.SopNode, json_file_path: str, json_is_valid: bool) -> list[int | str]:
-* menu_cp_presets_empty(self) -> list[int | str]:
+* menu_cp_presets_data(self, node: hou.SopNode, json_file_path: str, json_is_file: bool) -> TA_Menu:
+* menu_cp_presets(self) -> TA_Menu:
+* menu_cp_presets_empty_data(self, node: hou.SopNode, json_file_path: str, json_is_valid: bool) -> TA_Menu:
+* menu_cp_presets_empty(self) -> TA_Menu:
 * flam3h_ramp_save_JSON_DATA(self) -> tuple[dict, str]:
 * flam3h_ramp_save(self) -> None:
 * json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list) -> tuple[hou.Ramp, int, bool]:
@@ -10410,7 +10411,7 @@ class flam3h_palette_utils
         node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset_name_checked})
 
 
-    def menu_cp_presets_data(self, node: hou.SopNode, json_file_path: str, json_is_file: bool) -> list[int | str]:
+    def menu_cp_presets_data(self, node: hou.SopNode, json_file_path: str, json_is_file: bool) -> TA_Menu:
         """Build the palette preset parameter menu entries based on the loaded json palette lib file.
         When a palette preset is currently loaded. This will use the color star icon to signal wich preset is being loaded.
 
@@ -10421,7 +10422,7 @@ class flam3h_palette_utils
             json_is_valid(bool): wether the json_file_path file is an existing file. True or False
             
         Returns:
-            (list[int | str]): return menu
+            (TA_Menu): return menu
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -10454,14 +10455,14 @@ class flam3h_palette_utils
                 return MENU_PRESETS_EMPTY
     
     
-    def menu_cp_presets(self) -> list[int | str]:
+    def menu_cp_presets(self) -> TA_Menu:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
 
         Args:
             (self):
             
         Returns:
-            (list[int | str]): return menu
+            (TA_Menu): return menu
         """
         node = self.node
         if hou.isUIAvailable() is False: node.updateParmStates()
@@ -10475,7 +10476,7 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            data: list[int | str] | None = node.cachedUserData('cp_presets_menu')
+            data: TA_Menu | None = node.cachedUserData('cp_presets_menu')
             data_idx: str | None = node.cachedUserData('cp_presets_menu_idx')
             preset_idx: str = node.parm(CP_PALETTE_PRESETS).eval()
             
@@ -10498,11 +10499,11 @@ class flam3h_palette_utils
             return self.menu_cp_presets_data(node, json_file_path, json_is_file)
     
 
-    def menu_cp_presets_empty_data(self, node: hou.SopNode, json_file_path: str, json_is_valid: bool) -> list[int | str]:
+    def menu_cp_presets_empty_data(self, node: hou.SopNode, json_file_path: str, json_is_valid: bool) -> TA_Menu:
         """Build the palette preset parameter menu entries based on the loaded json palette lib file.
         When no palette preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
 
-        This definition exist only becasue if I change the icon dynamically inside: def menu_cp_presets(self) -> list[int | str]:
+        This definition exist only becasue if I change the icon dynamically inside: def menu_cp_presets(self) -> TA_Menu:
         Houdini will not update them until I dnt execute a "next" selection in the menu parameter.
 
         Args:
@@ -10512,7 +10513,7 @@ class flam3h_palette_utils
             json_is_valid(bool): wether the json_file_path file is an existing file. True or False
             
         Returns:
-            (list[int | str]): return menu
+            (TA_Menu): return menu
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -10543,14 +10544,14 @@ class flam3h_palette_utils
             return MENU_PRESETS_EMPTY
     
     
-    def menu_cp_presets_empty(self) -> list[int | str]:
+    def menu_cp_presets_empty(self) -> TA_Menu:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
 
         Args:
             (self):
             
         Returns:
-            (list[int | str]): return menu
+            (TA_Menu): return menu
         """
         node = self.node
         if hou.isUIAvailable() is False: node.updateParmStates()
@@ -10564,7 +10565,7 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            data: list[int | str] | None = node.cachedUserData('cp_presets_menu_off')
+            data: TA_Menu | None = node.cachedUserData('cp_presets_menu_off')
             data_idx: str | None = node.cachedUserData('cp_presets_menu_off_idx')
             preset_idx: str = node.parm(CP_PALETTE_PRESETS_OFF).eval()
             
@@ -14168,10 +14169,10 @@ class in_flame_utils
                           preset_id: int, 
                           ) -> None:
 * in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool, XML_last_update: bool = False) -> str:
-* menu_in_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> list[int | str]:
-* menu_in_presets(self) -> list[int | str]:
-* menu_in_presets_empty_data(self, node: hou.SopNode, xml_file_path: str, xml_is_valid: bool) -> list[int | str]:
-* menu_in_presets_empty(self) -> list[int | str]:
+* menu_in_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> TA_Menu:
+* menu_in_presets(self) -> TA_Menu:
+* menu_in_presets_empty_data(self, node: hou.SopNode, xml_file_path: str, xml_is_valid: bool) -> TA_Menu:
+* menu_in_presets_empty(self) -> TA_Menu:
 * set_iter_on_load_callback(self) -> None:
 * use_iter_on_load_callback(self) -> None:
 * in_to_flam3h_toggle(self, prm: str) -> None:
@@ -16583,7 +16584,7 @@ class in_flame_utils
         return ''.join(build)
 
 
-    def menu_in_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> list[int | str]:
+    def menu_in_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> TA_Menu:
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
         When a flame preset is loaded. This will use the blue star icon to signal wich preset is currently loaded.
 
@@ -16598,7 +16599,7 @@ class in_flame_utils
             xml_is_valid(bool): wether the xml_file_path file is an existing file. True or False
 
         Returns:
-            (list[int | str]): the actual menu
+            (TA_Menu): the actual menu
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -16625,14 +16626,14 @@ class in_flame_utils
             return MENU_PRESETS_EMPTY
 
             
-    def menu_in_presets(self) -> list[int | str]:
+    def menu_in_presets(self) -> TA_Menu:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
 
         Args:
             (self):
             
         Returns:
-            (list[int | str]): Return a menu
+            (TA_Menu): Return a menu
         """
         node = self.node
         if hou.isUIAvailable() is False: node.updateParmStates()
@@ -16648,7 +16649,7 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            data: list[int | str] | None = node.cachedUserData('in_presets_menu')
+            data: TA_Menu | None = node.cachedUserData('in_presets_menu')
             data_idx: str | None = node.cachedUserData('in_presets_menu_idx')
             preset_idx: str = node.parm(IN_PRESETS).eval()
             
@@ -16674,11 +16675,11 @@ class in_flame_utils
             return self.menu_in_presets_data(node, xml_file_path, xml_is_file)
         
 
-    def menu_in_presets_empty_data(self, node: hou.SopNode, xml_file_path: str, xml_is_valid: bool) -> list[int | str]:
+    def menu_in_presets_empty_data(self, node: hou.SopNode, xml_file_path: str, xml_is_valid: bool) -> TA_Menu:
         """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
         When no flame preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
 
-        This definition exist only becasue if I change the icon dynamically inside: def menu_in_presets(self) -> list[int | str]:
+        This definition exist only becasue if I change the icon dynamically inside: def menu_in_presets(self) -> TA_Menu:
         Houdini will mix them up sometime, giving inconsistent results until I perform a new selection from the menu labels list.
 
         Note:
@@ -16692,7 +16693,7 @@ class in_flame_utils
             xml_is_valid(bool): wether the xml_file_path file is an existing file. True or False
 
         Returns:
-            (list[int | str]): the actual menu
+            (TA_Menu): the actual menu
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -16729,14 +16730,14 @@ class in_flame_utils
             return MENU_ZERO_ITERATORS
 
             
-    def menu_in_presets_empty(self) -> list[int | str]:
+    def menu_in_presets_empty(self) -> TA_Menu:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
 
         Args:
             (self):
             
         Returns:
-            (list[int | str]): Return a menu
+            (TA_Menu): Return a menu
         """
         node = self.node
         if hou.isUIAvailable() is False: node.updateParmStates()
@@ -16752,7 +16753,7 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            data: list[int | str] | None = node.cachedUserData('in_presets_menu_off')
+            data: TA_Menu | None = node.cachedUserData('in_presets_menu_off')
             data_idx: str | None = node.cachedUserData('in_presets_menu_off_idx')
             preset_idx: str = node.parm(IN_PRESETS_OFF).eval()
             
@@ -17775,8 +17776,8 @@ class out_flame_utils
 * out_presets_get_selected_menu_label(self) -> str | None:
 * out_presets_copy_menu_label_callback(self) -> None:
 * out_palette_keys_count(self, palette_plus: int, keys: int, type: int, _MSG = True) -> str:
-* __menu_sensor_resolution(self) -> list[int | str]:
-* menu_sensor_resolution(self) -> list[int | str]:
+* __menu_sensor_resolution(self) -> TA_Menu:
+* menu_sensor_resolution(self) -> TA_Menu:
 * menu_sensor_resolution_set(self, update=True) -> None:
 * reset_OUT_sensor(self) -> None:
 * reset_OUT_render(self) -> None:
@@ -17785,8 +17786,8 @@ class out_flame_utils
 * reset_OUT(self, mode=0) -> None:
 * out_xf_xaos_to(self) -> tuple[str, ...]:
 * out_xf_xaos_from(self, mode: int = 0) -> tuple[str, ...]:
-* menu_out_contents_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> list[int | str]:
-* menu_out_contents_presets(self) -> list[int | str]:
+* menu_out_contents_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> TA_Menu:
+* menu_out_contents_presets(self) -> TA_Menu:
 * out_auto_add_iter_data(self) -> tuple[int, str, int]:
 * out_auto_add_iter_num_to_prm(self) -> None:
 * out_auto_change_iter_num_to_prm(self, name: str | None = None) -> None:
@@ -19245,7 +19246,7 @@ class out_flame_utils
         return PALETTE_COUNT_256
 
 
-    def __menu_sensor_resolution(self) -> list[int | str]:
+    def __menu_sensor_resolution(self) -> TA_Menu:
         """ NOT USED ANYMORE
         and it has been prefixed with two underscores (__)
         as the menu is now pre computed inside: MENU_SENSOR_RESOLUTIONS
@@ -19257,7 +19258,7 @@ class out_flame_utils
             (self):
             
         Returns:
-            (list[int | str]): Return a menu
+            (TA_Menu): Return a menu
         """
 
         outedit = self.node.parm(OUT_RENDER_PROPERTIES_EDIT).eval()
@@ -19278,9 +19279,9 @@ class out_flame_utils
         return menu
     
     
-    def menu_sensor_resolution(self) -> list[int | str]:
+    def menu_sensor_resolution(self) -> TA_Menu:
         """ Pre computed menu: MENU_SENSOR_RESOLUTIONS
-        The old sensor resolution menu definition has been renamed to: def __menu_sensor_resolution(self) -> list[int | str]: (just above)
+        The old sensor resolution menu definition has been renamed to: def __menu_sensor_resolution(self) -> TA_Menu: (just above)
         
         Output sensor resolution menu parameter with a list of options.
         
@@ -19288,7 +19289,7 @@ class out_flame_utils
             (self):
             
         Returns:
-            (list[int | str]): Return a menu
+            (TA_Menu): Return a menu
         """
         return MENU_OUT_SENSOR_RESOLUTIONS
 
@@ -19508,7 +19509,7 @@ class out_flame_utils
         return tuple(_join(x) for x in self.out_util_round_floats(t))
 
 
-    def menu_out_contents_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> list[int | str]:
+    def menu_out_contents_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> TA_Menu:
         """Populate OUT parameter menu items for the SYS and OUT tab.
         
         Args:
@@ -19518,7 +19519,7 @@ class out_flame_utils
             xml_is_valid(bool): wether the xml_file_path file is an existing file. True or False
 
         Returns:
-            (list[int | str]): Return a menu
+            (TA_Menu): Return a menu
         """
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
@@ -19551,14 +19552,14 @@ class out_flame_utils
                 return MENU_PRESETS_EMPTY
         
         
-    def menu_out_contents_presets(self) -> list[int | str]:
+    def menu_out_contents_presets(self) -> TA_Menu:
         """Rerturn either a cached menu data or rebuild that data on the fly if needed.
 
         Args:
             (self):
 
         Returns:
-            (list[int | str]): Return a menu
+            (TA_Menu): Return a menu
         """
         
         node = self.node
@@ -19571,7 +19572,7 @@ class out_flame_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            data: list[int | str] | None = node.cachedUserData('out_presets_menu')
+            data: TA_Menu | None = node.cachedUserData('out_presets_menu')
             
             # Double check
             xml_file_path: str = os.path.expandvars(node.parm(OUT_PATH).eval())
