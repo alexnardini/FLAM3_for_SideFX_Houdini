@@ -515,8 +515,8 @@ F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
         
         Args:
             e(Any): Any of the exceptions type.
-            traceback_info(bool): Default to False. If True, it will print also the full traceback.
-            extra_info(str | None): Default to None: Add a string message to print it under a: "Extra info" message
+            traceback_info(bool): Default to False.</br>If True, it will print also the full traceback.
+            extra_info(str | None): Default to None.</br>Add a string message to print it under a: "Extra info" message
             
         Returns:
             (None):
@@ -913,7 +913,7 @@ class flam3h_varsPRM
             linear(list): the empty list to populate
             item(str): The current loop iteration item
             id(int): The current loop iteration index
-            spacer(bool): Default to: True. Add a spacer to the ent of the item to conform with the desired menu label length
+            spacer(bool): Default to: True</br>Add a spacer to the ent of the item to conform with the desired menu label length
             
         Returns:
             (None):
@@ -941,7 +941,7 @@ class flam3h_varsPRM
         
         Args:
             (self):
-            _PB(bool): Default to False. When set to True it will include the pre_blur variation in the menu variation lists.
+            _PB(bool): Default to False</br>When set to True it will include the pre_blur variation in the menu variation lists.
             
         Returns:
             (list[tuple[int, str]]): return an enumerated variations menu list with "linear" being the first one for convenience
@@ -958,7 +958,7 @@ class flam3h_varsPRM
         
         Args:
             (self):
-            _PB(bool): Default to False. When set to True it will include the pre_blur variation in the menu variation lists.
+            _PB(bool): Default to False</br>When set to True it will include the pre_blur variation in the menu variation lists.
             
         Returns:
             (list[tuple[int, str]]): return a list of all the variation names properly ordered as per flame*.h files without the parametric variations in it.
@@ -971,7 +971,7 @@ class flam3h_varsPRM
         
         Args:
             (self):
-            _PB(bool): Default to False. When set to True it will include the pre_blur variation in the menu variation lists.
+            _PB(bool): Default to False</br>When set to True it will include the pre_blur variation in the menu variation lists.
             
         Returns:
             (list): return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data
@@ -986,7 +986,7 @@ class flam3h_varsPRM
         
         Args:
             (self):
-            _PB(bool): Default to False. When set to True it will include the pre_blur variation in the menu variation lists.
+            _PB(bool): Default to False</br>When set to True it will include the pre_blur variation in the menu variation lists.
             
         Returns:
             (dict): a dictionary for the variation indexes used by the menu_T_ICONS definitions
@@ -1497,7 +1497,7 @@ class flam3h_scripts
 
         Args:
             __h_versions__(tuple[int, ...] | int): a tuple containing all the compatible Houdini versions or an int of the desire Houdini version. When a tuple, it will be coming from the HDA's PythonModule: __h_versions__
-            last_index(bool): Default to False as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H™ HDA version run on multiple Houdinin versions.
+            last_index(bool): Default to False</br>as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H™ HDA version run on multiple Houdinin versions.
             or it can be a 3 digits int
 
         Returns:
@@ -1535,7 +1535,7 @@ class flam3h_scripts
 
         Args:
             this_h_versions(tuple[int, ...]): a tuple containing all the Houdini version numbers. This is coming from the HDA's PythonModule: __h_versions__
-            msg(bool): Default to True. When False it will not execute the: hou.ui.displayMessage
+            msg(bool): Default to True</br>When False it will not execute the: hou.ui.displayMessage
 
         Returns:
             (str): Only the part of the message string with the allowed Houdini versions, to be used to compose the final message.
@@ -1952,8 +1952,8 @@ class flam3h_scripts
 
         Args:
             range_type(bool): True for closed range. False for open range. This is set inside the HDA's -> Type Properties -> Scripts -> PythonModule
-            kwargs(dict | None): Default to None. When needed, this must be the class' self.kwargs
-            msg(bool): Default to True. When False it will not run the hou display messages.
+            kwargs(dict | None): Default to None</br>When needed, this must be the class' self.kwargs
+            msg(bool): Default to True</br>When False it will not run the hou display messages.
 
         Returns:
             (bool): True if compatible otherwise False.
@@ -2317,8 +2317,8 @@ class flam3h_scripts
         
         Args:
             (self):
-            iterators_count_zero(bool): Default to True. Set the iterators count to Zero. Set it to False to not set.
-            descriptive_prm(bool): Default to True. Set the node descriptive parameter. Set it to False to not set.
+            iterators_count_zero(bool): Default to True</br>Set the iterators count to Zero. Set it to False to not set.
+            descriptive_prm(bool): Default to True</br>Set the node descriptive parameter. Set it to False to not set.
             
         Returns:
             (None):
@@ -2925,7 +2925,7 @@ class flam3h_general_utils
         
         Args:
             node(hou.SopNode): this FLAM3H™ node.
-            type(str): Default to: IN_PATH . the parameter name for either the CP or IN filepath (respectively: CP_PATH, IN_PATH or OUT_PATH).
+            type(str): Default to: IN_PATH</br>the parameter name for either the CP or IN filepath (respectively: CP_PATH, IN_PATH or OUT_PATH).
             
         Returns:
             (None):
@@ -2950,8 +2950,8 @@ class flam3h_general_utils
         Args:
             node(hou.SopNode): the current FLAM3H™ node.
             msg(str | None): The string message to print or None.
-            timer(float): Default to: FLAM3H_FLASH_MESSAGE_TIMER (2 sec). How long the printed message stay before it fade away.
-            img(str | None): Default to none. specifies an icon or image file that should be displayed along with the text specified in the msg argument.
+            timer(float): Default to: FLAM3H_FLASH_MESSAGE_TIMER (2 sec)</br>How long the printed message stay before it fade away.
+            img(str | None): Default to None</br>specifies an icon or image file that should be displayed along with the text specified in the msg argument.
 
         Returns:
             (None):
@@ -2983,7 +2983,7 @@ class flam3h_general_utils
         """Retrieve the major Houdini version number currently in use.</br>
 
         Args:
-            digit(int): Default to 1: H_19, H_20. if set to 2: H_190, H_195, H_200, H_205, and so on.
+            digit(int): Default to: 1</br>H_19, H_20. if set to 2: H_190, H_195, H_200, H_205, and so on.
 
         Returns:
             (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
@@ -2997,7 +2997,7 @@ class flam3h_general_utils
 
         Args:
             x(int | float): the value to clamp.
-            val_max(int | float): Default to: 255. Max value to clamp to.
+            val_max(int | float): Default to: 255</br>Max value to clamp to.
 
         Returns:
             float: value clamped between Zero and 255.
@@ -4475,10 +4475,10 @@ class flam3h_general_utils
         
         Args:
             (self):
-            mode(int): Default to: 1. This is to be used to prevent to load a left over preset when loading back a hip file.
-            destroy(bool): Default to True. Destroy menu presets cached data. True or False.
-            json_file(bool | None): Default to None. Is it a json file ?
-            f3h_json_file(bool | None): Default to None. Is it a F3H palette json file ?
+            mode(int): Default to: 1</br>This is to be used to prevent to load a left over preset when loading back a hip file.
+            destroy(bool): Default to True</br>Destroy menu presets cached data. True or False.
+            json_file(bool | None): Default to None</br>Is it a json file ?
+            f3h_json_file(bool | None): Default to None</br>Is it a F3H palette json file ?
             
         Returns:
             (None):
@@ -4597,7 +4597,7 @@ class flam3h_general_utils
         
         Args:
             (self):
-            mode(int): Default to: 1. This is to be used to prevent to load a left over preset when loading back a hip file.
+            mode(int): Default to: 1</br>This is to be used to prevent to load a left over preset when loading back a hip file.
             
         Returns:
             (None):
@@ -4826,7 +4826,7 @@ class flam3h_general_utils
         
         Args:
             (self):
-            update_others(bool): Default to True. Update also the other FLAM3H™ nodes in the scene if any
+            update_others(bool): Default to True</br>Update also the other FLAM3H™ nodes in the scene if any
             
         Returns:
             (None):
@@ -5040,8 +5040,8 @@ class flam3h_general_utils
         
         Args:
             (self):
-            reset_val (float | None): Default to None. Can be either "None" or a float value. If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
-            prm_name_size(str): Default to: PREFS_VIEWPORT_PT_SIZE. The name of the parameter to set.
+            reset_val (float | None): Default to None</br>Can be either "None" or a float value. If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
+            prm_name_size(str): Default to: PREFS_VIEWPORT_PT_SIZE</br>The name of the parameter to set.
             
         Returns:
             (None):
@@ -5121,7 +5121,7 @@ class flam3h_general_utils
         
         Args:
             (self):
-            reset_val (float | None): Default to None. Can be either "None" or a float value. If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
+            reset_val (float | None): Default to None</br>Can be either "None" or a float value.</br>If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
             
         Returns:
             (None):
@@ -5221,7 +5221,7 @@ class flam3h_general_utils
         
         Args:
             (self):
-            all(bool): Default to True. It will reset all parameters. If False, it will not reset the ON/OFF and VIZ toggles.
+            all(bool): Default to True</br>It will reset all parameters.</br>If False, it will not reset the ON/OFF and VIZ toggles.
             
         Returns:
             (None):
@@ -5619,7 +5619,7 @@ class flam3h_iterator_utils
         
         Args:
             node(hou.SopNode): [current hou.SopNode to set]
-            data(str): Default to: FLAM3H_USER_DATA_ITER. The name of the data we want to get. 
+            data(str): Default to: FLAM3H_USER_DATA_ITER</br>The name of the data we want to get. 
             
         Returns:
             (int | bool): Return the requested user data or False if it does not exist.
@@ -5639,7 +5639,7 @@ class flam3h_iterator_utils
         
         Args:
             node(hou.SopNode): [current hou.SopNode to set]
-            data(str): Default to: FLAM3H_USER_DATA_ITER. The name of the data we want to get. For FF it wil be: " FLAM3H_USER_DATA_FF "
+            data(str): Default to: FLAM3H_USER_DATA_ITER</br>The name of the data we want to get. For FF it wil be: " FLAM3H_USER_DATA_FF "
             
         Returns:
             (bool): Return True if the requested user data exist or False if it does not.
@@ -5658,7 +5658,7 @@ class flam3h_iterator_utils
         Args:
             node(hou.SopNode): FLAM3H™ node to set
             value(str): The value to set this user data to.
-            data(str): Default to: FLAM3H_USER_DATA_ITER. The name of the data we want to set the comment for. 
+            data(str): Default to: FLAM3H_USER_DATA_ITER</br>The name of the data we want to set the comment for. 
 
         Returns:
             (None):
@@ -5707,7 +5707,7 @@ class flam3h_iterator_utils
         
         Args:
             node(hou.SopNode): FLAM3H™ node to set
-            data(str): Default to: FLAM3H_USER_DATA_ITER. The name of the data we want to delete the comment for. 
+            data(str): Default to: FLAM3H_USER_DATA_ITER</br>The name of the data we want to delete the comment for. 
             
         Returns:
             (None):
@@ -5916,7 +5916,7 @@ class flam3h_iterator_utils
         Args:
             prm_from(hou.Parm): The parameter to copy the data from
             prm_to(hou.Parm): The parameter to copy the dato into
-            pvt(bool): Default to False. is it a private parameter or not ?
+            pvt(bool): Default to False</br>Is it a private parameter or not ?
             
         Returns:
             (None):
@@ -5993,7 +5993,7 @@ class flam3h_iterator_utils
             prm_list_affine(tuple): parameters list to query. This expect either: flam3h_iterator().sec_preAffine or flam3h_iterator().sec_postAffine
             id(str): current multiparamter index
             id_from(str): multiparameter index to copy from
-            post(bool): Default to False. Is it a post affine ?  True for declaring it as post affine.
+            post(bool): Default to False</br>Is it a post affine ?</br>True for declaring it as post affine.
             
         Returns:
             (bool): True if the affine are default values and False if they are not.
@@ -6028,8 +6028,8 @@ class flam3h_iterator_utils
         Args:
             node(hou.SopNode): This FLAM3H™ node
             flam3node(hou.SopNode, None): hou.SopNode to copy values from
-            prm_list_affine(tuple): parameters list to query. This expect either: flam3h_iterator_FF().sec_preAffine_FF or flam3h_iterator_FF().sec_postAffine_FF
-            post(bool): Default to False. Is it a post affine ?  True for declaring it as post affine.
+            prm_list_affine(tuple): parameters list to query.</br>This expect either:</br>flam3h_iterator_FF().sec_preAffine_FF</br>flam3h_iterator_FF().sec_postAffine_FF
+            post(bool): Default to False</br>Is it a post affine ?</br>True for declaring it as post affine.
             
         Returns:
             (bool): True if the affine are default values and False if they are not.
@@ -6322,7 +6322,7 @@ class flam3h_iterator_utils
 
         Args:
             node(hou.SopNode): The current FLAM3H™ node being loaded in the hip file.
-            f3h_all(bool): Default to False. Perform this check and correct if needed for all FLAM3H™ nodes in the scene.
+            f3h_all(bool): Default to False</br>Perform this check and correct if needed for all FLAM3H™ nodes in the scene.
 
         Returns:
             (None):
@@ -6370,7 +6370,7 @@ class flam3h_iterator_utils
         Args:
             node(hou.SopNode): FLAM3H™ node
             data(str): the name of the data to destroy
-            must_exist(bool): Default to False. Destroy data will run silently if the data name do not exist. Set it to True to get an error.
+            must_exist(bool): Default to False</br>Destroy data will run silently if the data name do not exist. Set it to True to get an error.
 
         Returns:
             (None):
@@ -6415,7 +6415,7 @@ class flam3h_iterator_utils
         Args:
             node(hou.SopNode): This FLAM3H™ node
             data(str): The name of the data to retrieve
-            must_exist(bool): Default to: False. When True it will throw an error if the data do not exist, other will it will silently pass.
+            must_exist(bool): Default to: False</br>When True it will throw an error if the data do not exist, other will it will silently pass.
             
             
         Returns:
@@ -6679,7 +6679,7 @@ class flam3h_iterator_utils
             
         Args:
             (self):
-            menu_update(bool): Default to True. If False, it will NOT force the IN and OUT tab presets menus to update. Useful when coupled with: def destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool = False) -> None: (So not to force an update twice)
+            menu_update(bool): Default to True</br>If False, it will NOT force the IN and OUT tab presets menus to update.</br></br>Useful when coupled with:</br>def destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool = False) -> None: </br>(So not to force an update twice)
             
         Returns:
             (None):
@@ -6957,7 +6957,7 @@ class flam3h_iterator_utils
             
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
+            FF(bool): Default to: False</br>If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
             (TA_Menu): return menu list
@@ -6981,7 +6981,7 @@ class flam3h_iterator_utils
             
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
+            FF(bool): Default to: False</br>If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
             (TA_Menu): return menu list
@@ -6999,7 +6999,7 @@ class flam3h_iterator_utils
         
         Args:
             (self):
-            FF(bool): Default to False. If true it will signal we are looking to deal with data for the FF(finalXform). In this specific definition the arg: FF is present only for consistency.
+            FF(bool): Default to False</br>If true it will signal we are looking to deal with data for the FF(finalXform). In this specific definition the arg: FF is present only for consistency.
             
         Returns:
             (TA_Menu): return menu list
@@ -7020,7 +7020,7 @@ class flam3h_iterator_utils
 
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
+            FF(bool): Default to: False</br>If True it will signal we are looking to deal with data for the FF(finalXform).
             
         Returns:
             (TA_Menu): return menu list
@@ -7049,7 +7049,7 @@ class flam3h_iterator_utils
             
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
+            FF(bool): Default to: False</br>If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
             (TA_Menu): return menu list
@@ -7334,7 +7334,7 @@ class flam3h_iterator_utils
         
         Args:
             (self):
-            hipLoad(bool): Default to False. To use when loading a hip file.
+            hipLoad(bool): Default to False</br>To use when loading a hip file.
             
         Returns:
             (None):
@@ -9745,7 +9745,7 @@ class flam3h_iterator_utils
         Args:
             (self):
             node(hou.SopNode): this FLAM3H™ node
-            do_msg(bool): Default to True. If False it will not print a message to the status bar and not fire a flash message either.
+            do_msg(bool): Default to True</br>If False it will not print a message to the status bar and not fire a flash message either.
             
         Returns:
             (None):
@@ -10112,8 +10112,8 @@ class flam3h_palette_utils
         Args:
             node(hou.SopNode): current FLAM3H™ node
             filepath(str | bool): Palette lib full file path.
-            msg(bool): Default to True, print out messages to the Houdini's status bar. Set it to False to not print out messages.
-            parm_path_name(str): Default to global: CP_PATH. The actual Houdini's palette file parameter name.
+            msg(bool): Default to True</br>print out messages to the Houdini's status bar.</br>Set it to False to not print out messages.
+            parm_path_name(str): Default to global: CP_PATH</br>The actual Houdini's palette file parameter name.
 
         Returns:
             (tuple[bool, bool]): True if valid. False if not valid.
@@ -10167,8 +10167,8 @@ class flam3h_palette_utils
         Args:
             node(hou.SopNode): current FLAM3H™ node
             filepath(str | bool): Palette lib full file path.
-            msg(bool): Default to True, print out messages to the Houdini's status bar. Set it to False to not print out messages.
-            parm_path_name(str): Default to global: CP_PATH. The actual Houdini's palette file parameter name.
+            msg(bool): Default to True</br>Print out messages to the Houdini's status bar.</br>Set it to False to not print out messages.
+            parm_path_name(str): Default to global: CP_PATH</br>The actual Houdini's palette file parameter name.
 
         Returns:
             (tuple[bool, bool]): True if valid. False if not valid.
@@ -12533,18 +12533,18 @@ class _xml
     __slots__ = ("_xml", "_tree")
     
     def __init__(self, xmlfile: str) -> None:
-        """This Class is only to try to speedup the python menu UI evaulation.
-        Here I assume that if the parameter IN_PVT_ISVALID_FILE is 1,
-        than we can proceed without worries about actually checking and iterate through the flame file for its validity.
-        It is a mere attempt to speedup but it should help a little bit ;)
-        as we are not evaluating the _xml_tree() class witch is more heavy and sophisticated, something we do not need for this purpose.
-        This is a very lightweight way to gather the Flames names.
+        """This Class is only to try to speedup the python menu UI evaulation.</br>
+        Here I assume that if the parameter IN_PVT_ISVALID_FILE is 1,</br>
+        than we can proceed without worries about actually checking and iterate through the flame file for its validity.</br>
+        It is a mere attempt to speedup but it should help a little bit ;)</br>
+        as we are not evaluating the _xml_tree() class witch is more heavy and sophisticated, something we do not need for this purpose.</br>
+        This is a very lightweight way to gather the Flames names.</br></br>
         
-        A parameter to the IN Tab has been added: IN_PVT_ISVALID_PRESET
-        This parameter will tell us if a preset is currently loaded or not.
+        A parameter to the IN Tab has been added: IN_PVT_ISVALID_PRESET</br>
+        This parameter will tell us if a preset is currently loaded or not.</br></br>
         
-        Before we only had: IN_PVT_ISVALID_FILE
-        so we were forced to read and evaluate the entire _xml_tree() class.
+        Before we only had: IN_PVT_ISVALID_FILE</br>
+        so we were forced to read and evaluate the entire _xml_tree() class.</br>
 
         Args:
             xmlfile (str): The XML full file path name to evaluate
@@ -12567,10 +12567,10 @@ class _xml
         
         
     def get_name(self, key: str = XML_XF_NAME) -> tuple:
-        """Collect all Flame presets name from the XML Flame file.
+        """Collect all Flame presets name from the XML Flame file.</br></br>
         
-        This is being added as a quick and cheap way to do so making some assumption ahead of time.
-        Read this class __init__ doc string to know more.
+        This is being added as a quick and cheap way to do so making some assumption ahead of time.</br>
+        Read this class __init__ doc string to know more.</br>
 
         Args:
             (self):
@@ -12662,17 +12662,17 @@ class _xml_tree
 
     @staticmethod
     def xmlfile_root_chk(xmlfile: str | None, clipboard: bool = False) -> str | None:
-        """When loading a Flame files, it can contain many flame presets in it.
-        When multiple flame presets are present into the file, they will all be grouped under a root with a name.
-        However, when you save a flame into the clipboard ( from FLAM3H™ but also from Apophysis, Fractorium and other)
-        the saved Flame wont be grouped under a root, but it will be rootless.
+        """When loading a Flame files, it can contain many flame presets in it.</br>
+        When multiple flame presets are present into the file, they will all be grouped under a root with a name.</br>
+        However, when you save a flame into the clipboard ( from FLAM3H™ but also from Apophysis, Fractorium and other)</br>
+        the saved Flame wont be grouped under a root, but it will be rootless.</br></br>
         
-        This definition will check if the loaded preset (from a file or from the Clipboard) lives under a root or not
-        and perform the necessary operation to be loaded inside FLAM3H™ either ways.
+        This definition will check if the loaded preset (from a file or from the Clipboard) lives under a root or not</br>
+        and perform the necessary operation to be loaded inside FLAM3H™ either ways.</br></br>
 
         Args:
-            xmlfile(str | None): The flame file full path string we are trying to load.
-            clipboard(bool): Default to False. True if the flame preset is being loaded from the clipboard and False if not.
+            xmlfile(str | None): The flame file full path string we are trying to load.</br>
+            clipboard(bool): Default to False</br>True if the flame preset is being loaded from the clipboard and False if not.</br>
             
         Returns:
             (str | None): A new flame preset data valid to be loaded in.
@@ -12748,8 +12748,8 @@ class _xml_tree
 
     @staticmethod
     def xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
-        """When loading a Flame files, this definition will check their data
-        and tell us if what we are trying to load is actually a valid flame data to be loaded.
+        """When loading a Flame files, this definition will check their data</br>
+        and tell us if what we are trying to load is actually a valid flame data to be loaded.</br></br>
 
         Args:
             xmlfile(str): The flame file full path string we are trying to load.
@@ -12842,7 +12842,7 @@ class _xml_tree
 
     # This not private as its cheaper to have it evaluate from this parent class.
     def get_name(self, key: str = XML_XF_NAME) -> tuple[str, ...]:
-        """Collect all Flame presets name from the XML Flame file.
+        """Collect all Flame presets name from the XML Flame file.</br>
 
         Args:
             (self):
@@ -12866,8 +12866,8 @@ class _xml_tree
         
         
     def __get_name_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str, ...]:
-        """Collect all Flame presets single value from the XML Flame file and return all of them packed into a tuple.
-        It will also scan each string value for invalid characters and try to remove them returning a cleaned up string value.
+        """Collect all Flame presets single value from the XML Flame file and return all of them packed into a tuple.</br>
+        It will also scan each string value for invalid characters and try to remove them returning a cleaned up string value.</br>
 
         Args:
             (self):
@@ -12888,8 +12888,8 @@ class _xml_tree
         
         
     def __get_name_curve_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str, ...]:
-        """Collect all Flame presets multi color correction curve values from the XML Flame file and return all of them packed into a tuple.
-        It will also scan each string value for invalid characters and try to remove them returning a cleaned up string value.
+        """Collect all Flame presets multi color correction curve values from the XML Flame file and return all of them packed into a tuple.</br>
+        It will also scan each string value for invalid characters and try to remove them returning a cleaned up string value.</br>
 
         Args:
             (self):
@@ -12911,8 +12911,9 @@ class _xml_tree
         
         
     def __get_name_list_str(self, key: str) -> tuple[str, ...]:
-        """Collect all Flame presets list values from the XML Flame file.
-        Some examples of values to use this definition with are: size, center... (all key name that hold multiple string values in it)
+        """Collect all Flame presets list values from the XML Flame file.</br>
+        Some examples of values to use this definition with are: size, center...</br>
+        (all key name that hold multiple string values in it)</br>
 
         Args:
             (self):
@@ -12937,7 +12938,7 @@ class _xml_tree
         
         
     def __get_flame(self, key: str = XML_FLAME_NAME) -> tuple[lxmlET._Element, ...] | None:
-        """Collect the actual Flame presets object data from the XML file.
+        """Collect the actual Flame presets object data from the XML file.</br>
 
         Args:
             (self):
@@ -12953,7 +12954,7 @@ class _xml_tree
 
 
     def __get_flame_count(self, flames: list) -> int:
-        """Get the number of Flame presets inside the XML file.
+        """Get the number of Flame presets inside the XML file.</br>
 
         Args:
             (self):
@@ -13072,14 +13073,14 @@ class in_flame
         """ Try to eliminate any invalid characters from the value that was given.</br>
         This is especially relevant to the XML curve data.</br>
         Each knot's value will be divided, and it will check to see if the result is a valid float and for invalid characters.</br>
-        If not, it will automatically return a string of "0."
+        If not, it will automatically return a string of "0."</br></br>
 
-        Ultimately, it will re-join all for the output.
+        Ultimately, it will re-join all for the output.</br>
         
         Args:
             val(str): value from the xml
-            default_val(str): Default to: '0'. If something goes wrong use this as the returned value.
-            key_name(str | None): Default to None. If not None, it will print out the key_name if not a value.
+            default_val(str): Default to: '0'</br>If something goes wrong use this as the returned value.
+            key_name(str | None): Default to None</br>If not None, it will print out the key_name if not a value.
 
         Returns:
             (str): value cleaned up from invalid characters
@@ -13113,12 +13114,12 @@ class in_flame
 
     @staticmethod
     def xf_val_cleanup_str(val: str, default_val: str = '0', key_name: str | None = None) -> str:
-        """ Try to eliminate characters that are not allowed in the passed value.
+        """ Try to eliminate characters that are not allowed in the passed value.</br>
         
         Args:
             val(str): value from the xml
-            default_val(str): Default to: '0'. If something goes wrong use this as the returned value.
-            key_name(str | None): Default to None. If not None, it will print out the key_name if not a value. Specifically added for: in_flame_utils.in_v_parametric_var_collect(...)  but it ended up being used in other places as well.
+            default_val(str): Default to: '0'</br>If something goes wrong use this as the returned value.
+            key_name(str | None): Default to None</br>If not None, it will print out the key_name if not a value.</br>Specifically added for:</br>in_flame_utils.in_v_parametric_var_collect(...) </br>but it ended up being used in other places as well.
 
         Returns:
             (str): value cleaned up from invalid characters
@@ -13149,12 +13150,12 @@ class in_flame
 
     @staticmethod
     def xf_list_cleanup(vals: list, default_val: str = '0', key_name: str | None = None) -> list[str]:
-        """ Return a list after attempting to eliminate invalid characters from the provided list values.
+        """ Return a list after attempting to eliminate invalid characters from the provided list values.</br>
         
         Args:
             vals(list): values from the xml
-            default_val(str): Default to: '0'. If something goes wrong use this as the returned value.
-            key_name(str | None): Default to None. If not None, it will print out the key_name if not a value.
+            default_val(str): Default to: '0'</br>If something goes wrong use this as the returned value.
+            key_name(str | None): Default to None</br>If not None</br>it will print out the key_name if not a value.
 
         Returns:
             (list[str]): a list of affine values cleaned up from invalid characters
@@ -13192,12 +13193,12 @@ class in_flame
     
     @staticmethod
     def xf_list_cleanup_str(vals: list, default_val: str = '0', key_name: str | None = None) -> str:
-        """ Return a spaced joined string of the list after attempting to eliminate any incorrect characters from the list values.
+        """ Return a spaced joined string of the list after attempting to eliminate any incorrect characters from the list values.</br>
         
         Args:
             vals(list): values from the xml
-            default_val(str): Default to: '0'. If something goesw wrong use this as the returned value.
-            key_name(str | None): Default to None. If not None, it will print out the key_name if not a value.
+            default_val(str): Default to: '0'</br>If something goesw wrong use this as the returned value.
+            key_name(str | None): Default to None</br>If not None</br>it will print out the key_name if not a value.
 
         Returns:
             (str): a string of spaced joined affine values cleaned up from invalid characters
@@ -13238,9 +13239,10 @@ class in_flame
     def affine_coupling(affine: list, key: str = '', mp_idx: int | None = None, type: int = 0) -> list:
         """ Build proper affine values composed of hou.Vector2 tuples.</br>
         It will also check the affine passed in and provide an alternative defaults affine values</br>
-        if not correct and print out messages to inform the user about different cases.
+        if not correct and print out messages to inform the user about different cases.</br></br>
         
-        Note: This will need some work at some point.
+        Note:
+            This will need some work at some point.</br>
         
         Args:
             vals(list): values from the xml
@@ -13310,7 +13312,7 @@ class in_flame
     
     @staticmethod
     def check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
-        """ If all iterators have their weights set to: 0.0(ZERO), let the user know.
+        """ If all iterators have their weights set to: 0.0(ZERO), let the user know.</br>
         
         Args:
             node(hou.SopNode): Current FLAM3H™ node we are loading a Flame preset from.
@@ -13450,7 +13452,7 @@ class in_flame
     
 
     def __is_valid_idx(self, idx: int) -> int:
-        """ Make sure the fractal flame's idx passed in will always be valid and never out of range.
+        """ Make sure the fractal flame's idx passed in will always be valid and never out of range.</br>
 
         Args:
             (self):
@@ -13464,7 +13466,7 @@ class in_flame
 
     def __get_xforms(self, idx: int, key: str) -> tuple[dict, ...] | None:
         """ Get choosen fractal flame's xforms collected inside a dict each.</br>
-        Every xform in xforms is a dict coming directly from the parsed XML file.
+        Every xform in xforms is a dict coming directly from the parsed XML file.</br>
 
         Args:
             (self):
@@ -13787,8 +13789,8 @@ class in_flame
         
     # custom to FLAM3H™ only
     def __get_cp_flam3h_basis(self, idx: int) -> int | bool:
-        """Get FLAM3H™ palette lookup samples interpolation basis ( from 0 to 5)
-        Check the XML key: palette_mode first on Flame Load, and decide the one to use based on each other value.
+        """Get FLAM3H™ palette lookup samples interpolation basis ( from 0 to 5)</br>
+        Check the XML key: palette_mode first on Flame Load, and decide the one to use based on each other value.</br>
         
         Args:
             self:
@@ -13836,7 +13838,7 @@ class in_flame
         
     # custom to FLAM3H™ only
     def __get_flam3h_toggle(self, toggle: bool) -> int | None:
-        """Get FLAM3H™ toggle parameter value: ON or OFF ( 1 or 0 )
+        """Get FLAM3H™ toggle parameter value: ON or OFF ( 1 or 0 )</br>
 
         Args:
             toggle(bool): Get value from a toggle (Either ON or OFF - 1 or 0)
@@ -14295,7 +14297,7 @@ class in_flame_utils
         
     @staticmethod
     def in_util_key_name_isalnum(key_name: str) -> str:
-        """Check and correct the passed in string for invalid characters.
+        """Check and correct the passed in string for invalid characters.</br>
 
         Args:
             name(str): The string to check and correct.
@@ -14308,7 +14310,7 @@ class in_flame_utils
     
     @staticmethod
     def in_util_make_NULL(name: T) -> T:
-        """This definition is used as a place holder.
+        """This definition is used as a place holder.</br>
 
         Args:
             name(T): name or names to convert.
@@ -14321,7 +14323,7 @@ class in_flame_utils
 
     @staticmethod
     def in_util_make_VAR(name: TA_TypeVarCollection) -> str | list[str] | None:
-        """Convert a PRE or POST variation name into a variation name.
+        """Convert a PRE or POST variation name into a variation name.</br>
 
         Args:
             name(TA_TypeVarCollection): name or names to convert.
@@ -14357,7 +14359,7 @@ class in_flame_utils
 
     @staticmethod
     def in_util_make_PRE(name: TA_TypeVarCollection) -> str | list[str] | None:
-        """Convert a variation name into a variation PRE variation name.
+        """Convert a variation name into a variation PRE variation name.</br>
 
         Args:
             name(TA_TypeVarCollection): name or names to convert.
@@ -14378,7 +14380,7 @@ class in_flame_utils
 
     @staticmethod
     def in_util_make_POST(name: TA_TypeVarCollection) -> str | list[str] | None:
-        """Convert a variation name into a variation POST variation name.
+        """Convert a variation name into a variation POST variation name.</br>
 
         Args:
             name(TA_TypeVarCollection): name or names to convert.
@@ -14399,8 +14401,8 @@ class in_flame_utils
 
     @staticmethod
     def in_load_stats_unknown_vars(preset_id: int, apo_data: in_flame_iter_data) -> list[str]:
-        """Find all the variations that Fractorium lacks if any.
-        Those variations will be classified as: Unknown
+        """Find all the variations that Fractorium lacks if any.</br>
+        Those variations will be classified as: Unknown</br>
 
         Args:
             preset_id(int): The loaded flame preset idx
@@ -14436,7 +14438,7 @@ class in_flame_utils
 
     @staticmethod
     def in_to_flam3h_is_CHAOS(xml: str) -> bool:
-        """Load a flame preset from a file and tell us if it is a Chaotica flame preset or not.
+        """Load a flame preset from a file and tell us if it is a Chaotica flame preset or not.</br>
 
         Args:
             xml(str): the xml file to load from.
@@ -14460,7 +14462,7 @@ class in_flame_utils
 
     @staticmethod
     def in_to_flam3h_clipboard_is_CHAOS() -> bool:
-        """Load a flame preset from the clipboard and tell us if it is a Chaotica flame preset or not.
+        """Load a flame preset from the clipboard and tell us if it is a Chaotica flame preset or not.</br>
 
         Args:
             (None):
@@ -14491,10 +14493,11 @@ class in_flame_utils
                                 vars: TA_XformVarKeys, 
                                 exclude_keys: tuple
                                 ) -> list | None:
-        """Return a list of all the variation names included in all xforms compared against the available FLAM3H™ variations.
-        This is used to find variation names and PRE and POST variation names based on the provided vars argument.
+        """Return a list of all the variation names included in all xforms compared against the available FLAM3H™ variations.</br>
+        This is used to find variation names and PRE and POST variation names based on the provided vars argument.</br></br>
         
-        Use this with everything but not PRE and POST dictionary lookup, use def in_get_xforms_var_keys_PP() instead
+        Use this with everything but not PRE and POST dictionary lookup, use the following instead:
+        * def in_get_xforms_var_keys_PP()
         
         Args:
             xforms(tuple[dict, ...] | None): list of all xforms contained inside this flame. This can be iterator's xforms or FF xform
@@ -14515,7 +14518,7 @@ class in_flame_utils
         
     @staticmethod
     def in_vars_keys_remove_pgb(vars: list | None, pgb_name: str) -> list | None:
-        """Remove "pre_gaussian_blur" variation if it is the first one in the list as we are remapping it to "pre_blur" on load.
+        """Remove "pre_gaussian_blur" variation if it is the first one in the list as we are remapping it to "pre_blur" on load.</br>
         Args:
             vars(list | None): per iterator list of variations used, ideally always the PRE variations are passed here
             pgb_name(str): The name of the "pre_gaussian_blur" variation to check against.
@@ -14555,7 +14558,7 @@ class in_flame_utils
                                     prx: str, 
                                     exclude_keys: tuple
                                     ) -> list | None:
-        """find a PRE or POST variation inside the currently processed xform/iterator. All xforms are passed in.
+        """find a PRE or POST variation inside the currently processed xform/iterator. All xforms are passed in.</br>
 
         Args:
             xforms(tuple[dict, ...] | None): All the xforms of this flame. This can be iterator's xforms or FF xform.
@@ -14575,7 +14578,7 @@ class in_flame_utils
         
     @staticmethod
     def in_util_typemaker(data: list) -> TA_TypeMaker:
-        """Based on how many element in the passed list return the proper type of data.
+        """Based on how many element in the passed list return the proper type of data.</br>
         
         Args:
             data(list): [a list of floats containinig the current parameter values to be converted into hou types]
@@ -14605,7 +14608,7 @@ class in_flame_utils
         
     @staticmethod  
     def in_get_idx_by_key(key: str) -> int | None:
-        """Return the variation idx based on its name from the variation's dictionary.
+        """Return the variation idx based on its name from the variation's dictionary.</br>
         
         Args:
             key(str): variation name we are processing
@@ -14619,7 +14622,7 @@ class in_flame_utils
         
     @staticmethod
     def in_util_flam3h_prx_mode(mode: int) -> tuple[str, str]:
-        """Set a prefix based on modes ( iterator, FF, FF PRE/POST )
+        """Set a prefix based on modes ( iterator, FF, FF PRE/POST )</br>
         Args:
             mode(int): 0 for iterator and 1 for FF
 
@@ -14652,8 +14655,8 @@ class in_flame_utils
                       flam3h_prm_names: flam3h_iterator_prm_names, 
                       mp_idx: int
                       ) -> None:
-        """Set the affine values based on the loaded flame preset affine values for an iterator or the FF.
-        Added the ability to set parameters based also on the F3H affine style format if included in the loaded Flame preset.
+        """Set the affine values based on the loaded flame preset affine values for an iterator or the FF.</br>
+        Added the ability to set parameters based also on the F3H affine style format if included in the loaded Flame preset.</br>
         
         Args:
             mode(int): 0 for iterator. 1 for FF
@@ -14733,7 +14736,7 @@ class in_flame_utils
                     prm_name: str, 
                     mp_idx: int
                     ) -> None:
-        """Set single parameter data value from the loaded flame preset.
+        """Set single parameter data value from the loaded flame preset.</br>
         An example of the parameter you will set using this function are:
         
         * main_note
@@ -14768,9 +14771,9 @@ class in_flame_utils
            
     @staticmethod  
     def in_prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
-        """Some software have variation names and parameters names different from FLAM3H™ and Apophysis.
-        This will take care of those special cases.
-        It will swap the current variation dictionary item with the one the posses the corret names.
+        """Some software have variation names and parameters names different from FLAM3H™ and Apophysis.</br>
+        This will take care of those special cases.</br>
+        It will swap the current variation dictionary item with the one the posses the corret names.</br>
 
         Args:
             v_type(int): The current variation we are processing
@@ -14792,8 +14795,8 @@ class in_flame_utils
         
     @staticmethod
     def in_get_dict_key_from_value(mydict: dict[str, int], idx: int) -> str:
-        """Get the dictionary key from the dictionary value.
-        Used to get the current variation string name from its index from the global dict: VARS_FLAM3_DICT_IDX
+        """Get the dictionary key from the dictionary value.</br>
+        Used to get the current variation string name from its index from the global dict: VARS_FLAM3_DICT_IDX</br>
 
         Args:
             mydict(dict[str, int]): The dictionary for lookup
@@ -14814,12 +14817,12 @@ class in_flame_utils
                                     mp_idx: int, 
                                     v_type: int, 
                                     func: Callable) -> TA_TypeMaker:
-        """Every parametric variation posses a certain number of parameters to control its behavior.
-        In FLAM3H™, those parameters have been grouped into a single data type.
-        For example the Curl variation posses two parametric parameters: c1, c2
-        Those two parameters have been packed into a vector2 data type: vector2[c1, c2].
-        This has been done to help with performance as querying many, many different parameters did end up being costly,
-        especially considering having many iterators each with parametric variations at the same time.
+        """Every parametric variation posses a certain number of parameters to control its behavior.</br>
+        In FLAM3H™, those parameters have been grouped into a single data type.</br>
+        For example the Curl variation posses two parametric parameters: c1, c2</br>
+        Those two parameters have been packed into a vector2 data type: vector2[c1, c2].</br>
+        This has been done to help with performance as querying many, many different parameters did end up being costly,</br>
+        especially considering having many iterators each with parametric variations at the same time.</br>
         
         Args:
             node(hou.SopNode): Current FLAM3H™ node
@@ -14870,8 +14873,8 @@ class in_flame_utils
                         var_prm: tuple, 
                         apo_prm: tuple
                         ) -> None:
-        """Set a FLAM3H™ parametric variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
-        This include setting the variation type, its weight and its parametric parameters for an iterator or the FF.
+        """Set a FLAM3H™ parametric variation parameter data from the corresponding data found in the loaded XML Flame preset xform.</br>
+        This include setting the variation type, its weight and its parametric parameters for an iterator or the FF.</br>
         
         Args:
             app(str): What software were used to generate this flame preset
@@ -14929,8 +14932,8 @@ class in_flame_utils
                             var_prm: tuple, 
                             apo_prm: tuple
                             ) -> None:
-        """Set a FLAM3H™ parametric PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
-        This include setting the variation type, its weight and its parametric parameters.
+        """Set a FLAM3H™ parametric PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.</br>
+        This include setting the variation type, its weight and its parametric parameters.</br>
         
         Args:
             app(str): What software were used to generate this flame preset
@@ -14980,8 +14983,8 @@ class in_flame_utils
                              var_prm: tuple, 
                              apo_prm: tuple
                              ) -> None:
-        """Set a FLAM3H™ parametric POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
-        This include setting the variation type, its weight and its parametric parameters.
+        """Set a FLAM3H™ parametric POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.</br>
+        This include setting the variation type, its weight and its parametric parameters.</br>
         
         Args:
             app(str): What software were used to generate this flame preset
@@ -15029,8 +15032,8 @@ class in_flame_utils
                                var_prm: tuple, 
                                apo_prm: tuple
                                ) -> None:
-        """Set a FLAM3H™ parametric FF PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
-        This include setting the variation type, its weight and its parametric parameters.
+        """Set a FLAM3H™ parametric FF PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.</br>
+        This include setting the variation type, its weight and its parametric parameters.</br>
         
         Args:
             app(str): What software were used to generate this flame preset
@@ -15073,8 +15076,8 @@ class in_flame_utils
                                 var_prm: tuple, 
                                 apo_prm: tuple
                                 ) -> None:
-        """Set a FLAM3H™ parametric FF POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
-        This include setting the variation type, its weight and its parametric parameters.
+        """Set a FLAM3H™ parametric FF POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.</br>
+        This include setting the variation type, its weight and its parametric parameters.</br>
         
         Args:
             app(str): What software were used to generate this flame preset
@@ -15115,7 +15118,7 @@ class in_flame_utils
                      v_type: int, 
                      v_weight: float
                      ) -> None:
-        """Set a FLAM3H™ variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
+        """Set a FLAM3H™ variation parameter data from the corresponding data found in the loaded XML Flame preset xform.</br>
         
         Args:
             mode(int): 0 for iterator. 1 for FF
@@ -15148,7 +15151,7 @@ class in_flame_utils
                          v_type: int, 
                          v_weight: float
                          ) -> None:
-        """Set a FLAM3H™ PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
+        """Set a FLAM3H™ PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.</br>
         
         Args:
             mode(int): 0 for iterator. 1 for FF
@@ -15175,7 +15178,7 @@ class in_flame_utils
                           v_type: int, 
                           v_weight: float
                           ) -> None:
-        """Set a FLAM3H™ POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
+        """Set a FLAM3H™ POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.</br>
         
         Args:
             mode(int): [0 for iterator. 1 for FF
@@ -15200,7 +15203,7 @@ class in_flame_utils
                             v_type: int, 
                             v_weight: float
                             ) -> None:
-        """Set a FLAM3H™ FF PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
+        """Set a FLAM3H™ FF PRE variation parameter data from the corresponding data found in the loaded XML Flame preset xform.</br>
         
         Args:
             node(hou.SopNode): Current FLAM3H™ node
@@ -15221,7 +15224,7 @@ class in_flame_utils
                              v_type: int, 
                              v_weight: float
                              ) -> None:
-        """Set a FLAM3H™ FF POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
+        """Set a FLAM3H™ FF POST variation parameter data from the corresponding data found in the loaded XML Flame preset xform.</br>
         
         Args:
             node(hou.SopNode): Current FLAM3H™ node
@@ -15242,7 +15245,7 @@ class in_flame_utils
                       mp_idx: int, 
                       pb_weights: tuple
                       ) -> None:
-        """Set a FLAM3H™ pre_blur variation parameter data from the corresponding data found in the loaded XML Flame preset xform.
+        """Set a FLAM3H™ pre_blur variation parameter data from the corresponding data found in the loaded XML Flame preset xform.</br>
         
         Args:
             mode(int): 0 for iterator. 1 for FF
@@ -15264,8 +15267,8 @@ class in_flame_utils
 
     @staticmethod
     def in_util_check_negative_weight(node: hou.SopNode, w: float, v_type: int, mode: int, mp_idx: int, func: Callable) -> float:
-        """FLAM3H™ do not allow negative variation's weights for the PRE and POST variations.
-        This function will turn a negative weight into its absoulute value instead.
+        """FLAM3H™ do not allow negative variation's weights for the PRE and POST variations.</br>
+        This function will turn a negative weight into its absoulute value instead.</br>
 
         Args:
             node(hou.SopNode): FLAM3H™ node
@@ -15292,8 +15295,8 @@ class in_flame_utils
 
     @staticmethod
     def in_get_xforms_data_and_flam3h_vars_limit(mode: int, apo_data: in_flame_iter_data) -> tuple[tuple, int]:
-        """Get all the xforms data based on mode ( iterator or FF ),
-        and get all the allowed variations to be used based on mode ( iterator or FF ).
+        """Get all the xforms data based on mode ( iterator or FF ),</br>
+        and get all the allowed variations to be used based on mode ( iterator or FF ).</br>
 
         Args:
             mode(int): iterator or FF
@@ -15318,7 +15321,7 @@ class in_flame_utils
 
     @staticmethod
     def in_get_preset_name_iternum(menu_label: str) -> int | None:
-        """Get the iteration number from the loaded Flame preset if any.
+        """Get the iteration number from the loaded Flame preset if any.</br>
 
         Args:
             preset_name(str): The Flame preset name.
@@ -15340,8 +15343,8 @@ class in_flame_utils
 
     @staticmethod
     def in_util_join_vars_grp(groups: list) -> str:
-        """When formatting a message to print out we use groups as if they were each line of the meesage and join them.
-        This function will avoid to have an extra empty line at the very end.
+        """When formatting a message to print out we use groups as if they were each line of the meesage and join them.</br>
+        This function will avoid to have an extra empty line at the very end.</br>
 
         Args:
             groups(list): The groups to join
@@ -15375,9 +15378,9 @@ class in_flame_utils
     
     @staticmethod
     def in_presets_in_isvalid_file_menu_label(node: hou.SopNode, preset_id: int) -> str:
-        """The IN presets menu parameters are 2, one for when a flame preset is loaded and one when not
-        plus when a it can also be that a preset from the clipboard has been loaded, introducing a new bookmark icon.
-        Those need to be queried separately, this definition will query the currently visible one and account for the clipboard case as well.
+        """The IN presets menu parameters are 2, one for when a flame preset is loaded and one when not</br>
+        plus when a it can also be that a preset from the clipboard has been loaded, introducing a new bookmark icon.</br>
+        Those need to be queried separately, this definition will query the currently visible one and account for the clipboard case as well.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
@@ -15419,13 +15422,13 @@ class in_flame_utils
     
     @staticmethod
     def in_set_iter_on_load(node: hou.SopNode, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
-        """When loading a FLame preset, set the FLAM3H™ iteration number
-        to the value backed into the Flame preset name we just loaded.
+        """When loading a FLame preset, set the FLAM3H™ iteration number</br>
+        to the value backed into the Flame preset name we just loaded.</br>
 
         Args:
             node(hou.SopNode): FLAM3H™ houdini node
             preset_id(int): The Flame preset we loaded
-            clipboard(bool): Are we loading from a file or from the clipboard ? This data is computed inside: def in_flame_utils.in_to_flam3h_init_data(self, node: hou.SopNode)
+            clipboard(bool): Are we loading from a file or from the clipboard ?</br>This data is computed inside:</br>def in_flame_utils.in_to_flam3h_init_data(self, node: hou.SopNode)
             flame_name_clipboard(str): If we are laoding from the clipboard, use this preset name instead
 
         Returns:
@@ -15458,12 +15461,12 @@ class in_flame_utils
 
     @staticmethod
     def in_load_sensor_stats_msg(preset_id: int, apo_data: in_flame_iter_data, XML_last_update: bool = False) -> str:
-        """Collect and write a summuary of the loaded IN Flame file preset render properties.
+        """Collect and write a summuary of the loaded IN Flame file preset render properties.</br>
 
         Args:
             preset_id(int): The loaded XML Flame preset id to gather the data from.
             apo_data(in_flame_iter_data): The XML Flame file data
-            XML_last_update(bool): Default to False. If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™ will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
+            XML_last_update(bool): Default to False.</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
 
         Returns:
             (str): A string to be used to set the IN Render properties data parameter message.
@@ -15507,12 +15510,12 @@ class in_flame_utils
     
     @staticmethod
     def in_load_render_stats_msg(preset_id: int, apo_data: in_flame_iter_data, XML_last_update: bool = False) -> str:
-        """Collect and write a summuary of the loaded IN Flame file preset render properties.
+        """Collect and write a summuary of the loaded IN Flame file preset render properties.</br>
 
         Args:
             preset_id(int): The loaded XML Flame preset id to gather the data from.
             apo_data(in_flame_iter_data): The XML Flame file data
-            XML_last_update(bool): Default to False. If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™ will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
+            XML_last_update(bool): Default to False.</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
 
         Returns:
             (str): A string to be used to set the IN Render properties data parameter message.
@@ -15586,7 +15589,7 @@ class in_flame_utils
     
     @staticmethod
     def in_copy_sensor(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
-        """Copy the loaded IN Flame preset sensor XML data into the FLAM3H™ OUT sensor data.
+        """Copy the loaded IN Flame preset sensor XML data into the FLAM3H™ OUT sensor data.</br>
 
         Args:
             node(hou.SopNode): FLAM3H™ node.
@@ -15623,7 +15626,7 @@ class in_flame_utils
     
     @staticmethod
     def in_copy_render(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
-        """Copy the loaded IN Flame preset render XML data into the FLAM3H™ OUT render data.
+        """Copy the loaded IN Flame preset render XML data into the FLAM3H™ OUT render data.</br>
 
         Args:
             node(hou.SopNode): FLAM3H™ node.
@@ -15666,8 +15669,8 @@ class in_flame_utils
     
     @staticmethod
     def in_copy_render_cc_curves(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
-        """Copy the loaded IN Flame preset color correction XML data into the FLAM3H™ render color correction curves data.
-        It will check if each is one of the defaults settings first. 
+        """Copy the loaded IN Flame preset color correction XML data into the FLAM3H™ render color correction curves data.</br>
+        It will check if each is one of the defaults settings first.</br>
 
         Args:
             node(hou.SopNode): FLAM3H™ node.
@@ -15726,13 +15729,13 @@ class in_flame_utils
     
     @staticmethod
     def in_copy_render_all_stats_msg(kwargs: dict,  apo_data: in_flame_iter_data | None = None, clipboard: bool = False, flash_message: bool = False) -> None:
-        """Copy the loaded IN Flame preset ALL properties into the OUT Flame render properties to be written out. 
+        """Copy the loaded IN Flame preset ALL properties into the OUT Flame render properties to be written out.</br>
 
         Args:
             kwargs(hou.SopNode): houdini kwargs.
-            apo_data(in_flame_iter_data | None): Default to None. All the XML data from the loaded Flame preset.
+            apo_data(in_flame_iter_data | None): Default to None</br>All the XML data from the loaded Flame preset.
             clipboard(bool): True: load from clipboard. False: load from disk file ( load from the node stored data ).
-            flash_message(bool): Default to False. If True it will fire a flash message.
+            flash_message(bool): Default to False</br>If True it will fire a flash message.
             
         Returns:
             (None):
@@ -15805,7 +15808,7 @@ class in_flame_utils
 
     @staticmethod
     def in_copy_sensor_stats_msg(kwargs: dict) -> None:
-        """Copy the loaded IN Flame preset SENSOR properties into the OUT Flame render properties to be written out. 
+        """Copy the loaded IN Flame preset SENSOR properties into the OUT Flame render properties to be written out.</br>
 
         Args:
             kwargs(dict): this FLAM3H™ node houdini kwargs.
@@ -15867,7 +15870,7 @@ class in_flame_utils
 
     @staticmethod
     def in_copy_render_stats_msg(kwargs: dict) -> None:
-        """Copy the loaded IN Flame preset RENDER properties into the OUT Flame render properties to be written out. 
+        """Copy the loaded IN Flame preset RENDER properties into the OUT Flame render properties to be written out.</br>
 
         Args:
             kwargs(dict): this FLAM3H™ node houdini kwargs.
@@ -15939,7 +15942,7 @@ class in_flame_utils
             
     @staticmethod
     def in_copy_cc_curves_stats_msg(kwargs: dict) -> None:
-        """Copy the loaded IN Flame preset CC CURVES data into the OUT Flame render color correction curves properties to be written out. 
+        """Copy the loaded IN Flame preset CC CURVES data into the OUT Flame render color correction curves properties to be written out.</br>
 
         Args:
             kwargs(dict): this FLAM3H™ node houdini kwargs.
@@ -16009,12 +16012,12 @@ class in_flame_utils
 
     @staticmethod
     def in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
-        """Convert a dictionary of variation names into either PRE, VAR or POST variations names in one go.
-        This is used mainly with this dictionary: VARS_FRACTORIUM_DICT 
+        """Convert a dictionary of variation names into either PRE, VAR or POST variations names in one go.</br>
+        This is used mainly with this dictionary: VARS_FRACTORIUM_DICT</br> 
 
         Args:
             vars_dict(dict): The dictionary to convert.
-            func(Callable):  The function to conert the variation name. Can be any of: in_flame_utils.in_util_make_PRE, in_flame_utils.in_util_make_VAR, in_flame_utils.in_util_make_POST, in_flame_utils.in_util_make_NULL
+            func(Callable):  The function to conert the variation name.</br>Can be any of:</br>in_flame_utils.in_util_make_PRE</br>in_flame_utils.in_util_make_VAR</br>in_flame_utils.in_util_make_POST</br>in_flame_utils.in_util_make_NULL
             
         Returns:
             (dict): A new dictionary equal to the one passed in but with all variation names converted based on the passed Callable func.
@@ -16024,8 +16027,8 @@ class in_flame_utils
 
     @staticmethod
     def in_xml_key_val(xform: dict, key_name: str, default_val: float = 0) -> float:
-        """Check for the queried XML key name value if it is an actual value.
-        if not will return a default value instead.
+        """Check for the queried XML key name value if it is an actual value.</br>
+        if not will return a default value instead.</br>
 
         Args:
             xform(dict): The current xform dictionary.
@@ -16064,7 +16067,7 @@ class in_flame_utils
 
     @staticmethod
     def menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
-        """This is spcifically to be run inside a list comprehension.
+        """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
@@ -16098,7 +16101,7 @@ class in_flame_utils
             
     @staticmethod
     def menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
-        """This is spcifically to be run inside a list comprehension.
+        """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
@@ -16133,7 +16136,7 @@ class in_flame_utils
             
     @staticmethod
     def menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
-        """This is spcifically to be run inside a list comprehension.
+        """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
@@ -16164,7 +16167,7 @@ class in_flame_utils
             
     @staticmethod
     def menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
-        """This is spcifically to be run inside a list comprehension.
+        """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
@@ -16209,8 +16212,8 @@ class in_flame_utils
 
 
     def in_copy_section_render_stats_msg(self) -> None:
-        """Copy either the SENSOR or the RENDER settings from the loaded flame preset
-        into the OUT tab properties.
+        """Copy either the SENSOR or the RENDER settings from the loaded flame preset</br>
+        into the OUT tab properties.</br>
 
         Args:
             (self):
@@ -16231,9 +16234,10 @@ class in_flame_utils
                                 apo_data: in_flame_iter_data, 
                                 preset_id: int, 
                                 ) -> None:
-        """Set the FLAM3H™ iterators/FF parameters based on collected XML data from the flame file loaded.
+        """Set the FLAM3H™ iterators/FF parameters based on collected XML data from the flame file loaded.</br>
         
-    The collection of XML data happen inside: class in_flame_iter_data(in_flame)
+        The collection of XML data happen inside:
+        * class in_flame_iter_data(in_flame)
 
         Args:
             (self):
@@ -16455,14 +16459,14 @@ class in_flame_utils
             
 
     def in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool, XML_last_update: bool = False) -> str:
-        """Build a message with all the informations about the Flame preset we just loaded.
+        """Build a message with all the informations about the Flame preset we just loaded.</br>
 
         Args:
             (self):
             preset_id(int): The loaded XML Flame preset
             apo_data(in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
             clipboard(bool): Is the cuurently loaded Flame preset coming from the Clipboard? True or False.
-            XML_last_update(bool): Default to False. If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™ will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
+            XML_last_update(bool): Default to False.</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
 
         Returns:
             (str): A string to be used to set the IN Flame info data parameter message.
@@ -16669,12 +16673,12 @@ class in_flame_utils
 
 
     def menu_in_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> TA_Menu:
-        """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
-        When a flame preset is loaded. This will use the blue star icon to signal wich preset is currently loaded.
+        """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.</br>
+        When a flame preset is loaded. This will use the blue star icon to signal wich preset is currently loaded.</br>
 
         Note:
             If you change the icon gobal variable name inside here,
-            remember to updated with the same global variable names inside: in_flame_utils.in_presets_in_isvalid_file_menu_label(...)
+            remember to updated with the same global variable names inside:</br>in_flame_utils.in_presets_in_isvalid_file_menu_label(...)
 
         Args:
             (self):
@@ -16711,7 +16715,7 @@ class in_flame_utils
 
             
     def menu_in_presets(self) -> TA_Menu:
-        """Rerturn either a cached menu data or rebuild that data on the fly if needed.
+        """Rerturn either a cached menu data or rebuild that data on the fly if needed.</br>
 
         Args:
             (self):
@@ -16760,10 +16764,12 @@ class in_flame_utils
         
 
     def menu_in_presets_empty_data(self, node: hou.SopNode, xml_file_path: str, xml_is_valid: bool) -> TA_Menu:
-        """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.
-        When no flame preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.
+        """Populate the IN menu parameters with entries based on the loaded IN XML Flame file.</br>
+        When no flame preset has been loaded. This will use the empty star icon to signal wich preset is being selected but not loaded.</br>
 
-        This definition exist only becasue if I change the icon dynamically inside: def menu_in_presets(self) -> TA_Menu:
+        This definition exist only becasue if I change the icon dynamically inside:
+        * def menu_in_presets(self) -> TA_Menu:
+        
         Houdini will mix them up sometime, giving inconsistent results until I perform a new selection from the menu labels list.
 
         Note:
@@ -16815,7 +16821,7 @@ class in_flame_utils
 
             
     def menu_in_presets_empty(self) -> TA_Menu:
-        """Rerturn either a cached menu data or rebuild that data on the fly if needed.
+        """Rerturn either a cached menu data or rebuild that data on the fly if needed.</br>
 
         Args:
             (self):
@@ -16865,7 +16871,7 @@ class in_flame_utils
         
         
     def set_iter_on_load_callback(self) -> None:
-        """Set the iteration number based on the "iteration on load" number.
+        """Set the iteration number based on the "iteration on load" number.</br>
         
         Args:
             (self):
@@ -16880,7 +16886,7 @@ class in_flame_utils
         
         
     def use_iter_on_load_callback(self) -> None:
-        """When the IN tab "force iterations on Load" option is turned ON it will set the initial iteration number wisely.
+        """When the IN tab "force iterations on Load" option is turned ON it will set the initial iteration number wisely.</br>
         
         Args:
             (self):
@@ -16908,7 +16914,7 @@ class in_flame_utils
 
 
     def in_to_flam3h_toggle(self, prm: str) -> None:
-        """Given a FLAM3H™ parameter name, toggle it ON or OFF and reload the currently selected flame preset right after.
+        """Given a FLAM3H™ parameter name, toggle it ON or OFF and reload the currently selected flame preset right after.</br>
 
         Args:
             prm(str): The strin parameter name (toggle parameter) we desire to switch either ON or OFF before reloading the selected flame preset.
@@ -16928,10 +16934,11 @@ class in_flame_utils
             
 
     def in_to_flam3h_toggle_f3h_affine(self) -> None:
-        """When loading a flame preset that use F3H affine style, this function will reload it
-        and switch the "F3H affine style" toggle ON/OFF on the fly.
+        """When loading a flame preset that use F3H affine style, this function will reload it</br>
+        and switch the "F3H affine style" toggle ON/OFF on the fly.</br></br>
         
-        If no F3H affine style are present in the currently selected flame preset, nothing will happen and a status bar warning message will let the user know about it.
+        If no F3H affine style are present in the currently selected flame preset,</br>
+        nothing will happen and a status bar warning message will let the user know about it.
         
         Args:
             (self):
@@ -16976,8 +16983,8 @@ class in_flame_utils
             
 
     def in_to_flam3h_reset_user_data(self) -> None:
-        """Every time we load a flame preset, this definition will reset all FLAM3H™ data
-        so not to clash or cause conflict with the new data generated by the new loaded flame preset.
+        """Every time we load a flame preset, this definition will reset all FLAM3H™ data</br>
+        so not to clash or cause conflict with the new data generated by the new loaded flame preset.</br>
 
         Args:
             (self):
@@ -17011,8 +17018,8 @@ class in_flame_utils
 
 
     def in_to_flam3h_reset_iterators_parms(self, node: hou.SopNode, in_flame_iter_count: int) -> None:
-        """Prior to this, I was setting the iterator's count to zero and then back to the requested count to reset all their values.
-        It was not the fastest solution and this is actually making it more performant overall.
+        """Prior to this, I was setting the iterator's count to zero and then back to the requested count to reset all their values.</br>
+        It was not the fastest solution and this is actually making it more performant overall.</br>
 
         Args:
             (self):
@@ -17050,7 +17057,7 @@ class in_flame_utils
 
 
     def in_to_flam3h_resets(self, node: hou.SopNode, _FLAM3H_INIT_DATA: TA_F3H_Init) -> None:
-        """Reset the FLAM3H™ UI parameters to welcome the new one from the XML Flame preset we are loading.
+        """Reset the FLAM3H™ UI parameters to welcome the new one from the XML Flame preset we are loading.</br>
         
         Args:
             (self):
@@ -17082,7 +17089,7 @@ class in_flame_utils
 
 
     def in_to_flam3h_set_iterators(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: TA_F3H_Init) -> None:
-        """Set the iterators data (FLAME or FF tab) into FLAM3H™ from the loaded XML Flame preset.
+        """Set the iterators data (FLAME or FF tab) into FLAM3H™ from the loaded XML Flame preset.</br>
         
         Args:
             (self):
@@ -17145,7 +17152,7 @@ class in_flame_utils
 
 
     def in_to_flam3h_set_motion_blur(self, node: hou.SopNode, apo_data: in_flame_iter_data) -> None:
-        """Set the Motion Blur data into FLAM3H™ from the loaded XML Flame preset.
+        """Set the Motion Blur data into FLAM3H™ from the loaded XML Flame preset.</br>
         
         Args:
             (self):
@@ -17165,7 +17172,7 @@ class in_flame_utils
             
 
     def in_to_flam3h_set_palette(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: TA_F3H_Init, flashmessage: bool = False) -> bool:
-        """Set the Palette data into FLAM3H™ from the loaded XML Flame preset.
+        """Set the Palette data into FLAM3H™ from the loaded XML Flame preset.</br>
         
         Args:
             (self):
@@ -17185,7 +17192,7 @@ class in_flame_utils
                                                     * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
                                                     * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
                                                     * chaos ( bool ): Is it a chaotica XML file type ? True or False.
-            flashmessage(bool): Default to False. if True, it will fire a flash and status message instead of a print message to the console. To be used when loading Palette data from the clipboard from a Flame preset.
+            flashmessage(bool): Default to False.</br>if True, it will fire a flash and status message instead of a print message to the console.</br>To be used when loading Palette data from the clipboard from a Flame preset.
 
         Returns:
             (bool): True if all goes well. False if the loaded palette fail, most likely due to wrong HEX values in it.
@@ -17243,7 +17250,7 @@ class in_flame_utils
             
             
     def in_to_flam3h_stats_and_properties(self, node: hou.SopNode, apo_data: in_flame_iter_data, _FLAM3H_INIT_DATA: TA_F3H_Init, copy_only: bool = False) -> None:
-        """Set all the loaded Flame preset stats/infos and copy its render properties if needed into the OUT tab.
+        """Set all the loaded Flame preset stats/infos and copy its render properties if needed into the OUT tab.</br>
         
         Args:
             (self):
@@ -17264,7 +17271,7 @@ class in_flame_utils
                                                     * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
                                                     * chaos ( bool ): Is it a chaotica XML file type ? True or False.
                                                                                                 
-            copy_only (bool): This is used to distinguish a Flame preset coming in from the Clipboard only for the Render Properties copy/paste. Default to: False
+            copy_only (bool): Default to: False</br>This is used to distinguish a Flame preset coming in from the Clipboard only for the Render Properties copy/paste. 
 
         Returns:
             (None):
@@ -17348,7 +17355,7 @@ class in_flame_utils
 
 
     def in_to_flam3h_init_data_ALT(self) -> TA_F3H_Init:
-        """Load a flame preset from the clipboard.
+        """Load a flame preset from the clipboard.</br>
         This definition will be used inside: 
         * def in_to_flam3h_init_data(self, node: hou.SopNode) -> TA_F3H_Init:
         
@@ -17396,7 +17403,7 @@ class in_flame_utils
 
 
     def in_to_flam3h_init_data_SHIFT(self, node: hou.SopNode) -> TA_F3H_Init:
-        """Load a flame file from a file dialog.
+        """Load a flame file from a file dialog.</br>
         This definition will be used inside: 
         * def in_to_flam3h_init_data(self, node: hou.SopNode) -> TA_F3H_Init:
         
@@ -17454,7 +17461,7 @@ class in_flame_utils
         
         
     def in_to_flam3h_init_data_CTRL(self) -> TA_F3H_Init:
-        """Load nothing, as the kwargs['ctrl'] is not mapped to anything yet so this is a place holder.
+        """Load nothing, as the kwargs['ctrl'] is not mapped to anything yet so this is a place holder.</br>
         This definition will be used inside: 
         * def in_to_flam3h_init_data(self, node: hou.SopNode) -> TA_F3H_Init:
         
@@ -17483,11 +17490,12 @@ class in_flame_utils
     
     
     def in_to_flam3h_init_data_LMB(self, node: hou.SopNode) -> TA_F3H_Init:
-        """Load a flame preset with a mouse click, no kwargs.
+        """Load a flame preset with a mouse click, no kwargs.</br>
         This definition will be used inside:
         * def in_to_flam3h_init_data(self, node: hou.SopNode) -> TA_F3H_Init:
         
-        It will also output some data to be used inside: def in_to_flam3h(self) -> None:
+        It will also output some data to be used inside:
+        * def in_to_flam3h(self) -> None:
 
         Args:
             (self):
@@ -17525,8 +17533,8 @@ class in_flame_utils
 
 
     def in_to_flam3h_init_data(self, node: hou.SopNode) -> TA_F3H_Init:
-        """Check if we are able to load a flame from a selected file or to parse a flame from the clipboard
-        and provide some output data to work with if any of those cases are true.
+        """Check if we are able to load a flame from a selected file or to parse a flame from the clipboard</br>
+        and provide some output data to work with if any of those cases are true.</br>
         
         Args:
             (self):
@@ -17579,8 +17587,8 @@ class in_flame_utils
         It works like a hook to then set and evaluate it from the SYS Tab.
     '''
     def in_to_flam3h_sys(self) -> None:
-        """Load a Flame preset into FLAM3H™ from the SYS Tab Flame load icon.
-        This will set all FLAM3H™ node parameters based on values from the loaded XML Flame preset.
+        """Load a Flame preset into FLAM3H™ from the SYS Tab Flame load icon.</br>
+        This will set all FLAM3H™ node parameters based on values from the loaded XML Flame preset.</br>
         
         Args:
             (self):
@@ -17609,8 +17617,8 @@ class in_flame_utils
         The following is the actual load preset/flame function to be used.
     '''
     def in_to_flam3h(self) -> None:
-        """Load a Flame preset into FLAM3H™.
-        This will set all FLAM3H™ node parameters based on values from the loaded XML Flame preset.
+        """Load a Flame preset into FLAM3H™.</br>
+        This will set all FLAM3H™ node parameters based on values from the loaded XML Flame preset.</br>
         
         Args:
             (self):
@@ -17729,8 +17737,8 @@ class in_flame_utils
                     
                     
     def in_to_flam3h_render_properties_only(self) -> None:
-        """Load a Flame preset render properties into FLAM3H™.
-        This will set all FLAM3H™ node parameters based on values from the loaded XML Flame preset.
+        """Load a Flame preset render properties into FLAM3H™.</br>
+        This will set all FLAM3H™ node parameters based on values from the loaded XML Flame preset.</br>
         
         Args:
             (self):
@@ -17767,7 +17775,7 @@ class in_flame_utils
 
 
     def reset_IN(self, mode: int = 0) -> None:
-        """Reset the FLAM3H™ IN Tab parameters.
+        """Reset the FLAM3H™ IN Tab parameters.</br>
 
         Args:
             (self):
@@ -17963,7 +17971,7 @@ class out_flame_utils
     
     @staticmethod
     def out_render_curves_set_data_defaults(node: hou.SopNode) -> None:
-        """Set the defaults values into the color correction curves data parameters.
+        """Set the defaults values into the color correction curves data parameters.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
@@ -17981,8 +17989,8 @@ class out_flame_utils
         
     @staticmethod
     def out_render_curves_retrive_data(node: hou.SopNode) -> None:
-        """Retrieve the data from color correction curves data parameters
-        and copy it into the corresponding color correction curves UI parameters.
+        """Retrieve the data from color correction curves data parameters</br>
+        and copy it into the corresponding color correction curves UI parameters.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
@@ -18016,8 +18024,8 @@ class out_flame_utils
         
     @staticmethod
     def out_render_curves_set_and_retrieve_defaults(node: hou.SopNode) -> None:
-        """Set the defaults values into the color correction curves data parameters
-        and copy it into the correcsponding color correction curves UI parameters.
+        """Set the defaults values into the color correction curves data parameters</br>
+        and copy it into the correcsponding color correction curves UI parameters.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
@@ -18033,13 +18041,14 @@ class out_flame_utils
     
     @staticmethod
     def out_render_curves_compare(node: hou.SopNode, mode: bool = False) -> bool:
-        """Compare the current UI CC curves with the CC CURVES DATA.
-        Two modes:  (mode: False) will compare if they are default values(return: True) or not(return: False)
-                    (mode: True) will compare the UI data with the CC CURVES DATA and check if they are identical(return: True) or not(return: False)
+        """Compare the current UI CC curves with the CC CURVES DATA.</br></br>
+        Two modes:
+        * (mode: False)</br>will compare if they are default values(return: True) or not(return: False)
+        * (mode: True)</br>will compare the UI data with the CC CURVES DATA and check if they are identical(return: True) or not(return: False)
 
         Args:
             node(hou.SopNode): this FLAM3H™ node
-            mode(bool): Default to False.
+            mode(bool): Default to False
                 * (mode: False) will compare if they are default values( return: True) or not(return: False)
                 * (mode: True) will compare the UI data with the CC CURVES DATA and check if they are identical(return: True) or not(return: False)
 
@@ -18070,8 +18079,8 @@ class out_flame_utils
     
     @staticmethod
     def out_render_curves_compare_and_set_toggle(node: hou.SopNode) -> None:
-        """Check if the color correction curves data parameters are at their default values
-        and set the UI heading label parameter accordingly.
+        """Check if the color correction curves data parameters are at their default values</br>
+        and set the UI heading label parameter accordingly.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
@@ -18089,8 +18098,8 @@ class out_flame_utils
     
     @staticmethod
     def out_render_curves_set_defaults_on_load(node: hou.SopNode):
-        """This is for backward compatibility when loading hip files with older version of FLAM3H™ nodes.
-        it will set proper color correction curves default values if needed.
+        """This is for backward compatibility when loading hip files with older version of FLAM3H™ nodes.</br>
+        it will set proper color correction curves default values if needed.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
@@ -18136,14 +18145,14 @@ class out_flame_utils
     
     @staticmethod
     def out_auto_add_iter_num(iter_num: int, name: str, autoadd: int, flame: bool = True) -> str:
-        """It will check and correct the passed Flame name and add the iteration number to it if needed.
-        Additionally, when the "flame" arg is set to False, it will just autocorrect the passed name, to be used for example for the Palette name.
+        """It will check and correct the passed Flame name and add the iteration number to it if needed.</br>
+        Additionally, when the "flame" arg is set to False, it will just autocorrect the passed name, to be used for example for the Palette name.</br>
 
         Args:
             iter_num(int): the current iteration's number
             flame_name(str): The Flame name to check and correct
             autoadd(int): Auto add iter num toggle value (This toggle will eventually be removed from FLAM3H™ at some point)
-            flame(bool): Default to True(Flame). Use False for Palette
+            flame(bool): Default to True(Flame)</br>Use False for Palette
 
         Returns:
             (str): A new name with either the iterations number added to it if needed or corrected or both.
@@ -18230,10 +18239,10 @@ class out_flame_utils
     
     @staticmethod 
     def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
-        """It will check the passed Flame name 
-        and update the iteration number when changing iterations.
-        If no iteration number is present in the passed Flame name
-        it will add it to the end of the Flame name.
+        """It will check the passed Flame name </br>
+        and update the iteration number when changing iterations.</br>
+        If no iteration number is present in the passed Flame name</br>
+        it will add it to the end of the Flame name.</br>
 
         Args:
             iter_num(int): the current iteration's number
@@ -18279,7 +18288,7 @@ class out_flame_utils
         
     @staticmethod 
     def out_remove_iter_num(flame_name: str) -> str:
-        """Remove the iterations number from the Flame name if any.
+        """Remove the iterations number from the Flame name if any.</br>
 
         Args:
             flame_name(str): The Flame name to check
@@ -18320,7 +18329,7 @@ class out_flame_utils
         
     @staticmethod
     def out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
-        """Create a default name to be used for the output Flame file path.
+        """Create a default name to be used for the output Flame file path.</br>
 
         Args:
             node(hou.SopNode): Current FLAM3H™ houdini node
@@ -18354,7 +18363,9 @@ class out_flame_utils
     @staticmethod
     def out_util_round_floats(val_list: TA_RoundFloats) -> TA_STR_ListUnflattened:
         """remove floating Zeros if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values.</br>
-        You can pass in a list[list[float]] or a list[list[str]]
+        You can pass in:
+        * list[list[float]]
+        * list[list[str]]</br>
 
         Args:
             val_list(TA_RoundFloats): A collection of values to rounds
@@ -18369,7 +18380,7 @@ class out_flame_utils
     
     @staticmethod
     def out_util_vars_duplicate(vars: list[str]) -> list[str]:
-        """Collect duplicate variation's names in an iterator.
+        """Collect duplicate variation's names in an iterator.</br>
 
         Args:
             vars(list[str]): List of all variation's list names
@@ -18392,8 +18403,8 @@ class out_flame_utils
     
     @staticmethod
     def out_check_build_file(file_split: tuple[str, str] | list[str], file_name: str, file_ext: str) -> str:
-        """Used in conjuction with: def out_check_outpath()
-        help to make spelling auto corrections to the provided output file path.
+        """Used in conjuction with: def out_check_outpath()</br>
+        help to make spelling auto corrections to the provided output file path.</br>
 
         Args:
             file_split(tuple[str, str] | list[str]): Returns tuple "(head, tail)" where "tail" is everything after the final slash. Either part may be empty
@@ -18419,7 +18430,7 @@ class out_flame_utils
     
     @staticmethod
     def out_check_outpath_messages(node: hou.SopNode, infile: str, file_new: str, file_ext: str, prx: str) -> None:
-        """Print out some messages in the console and in the status bar.
+        """Print out some messages in the console and in the status bar.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
@@ -18467,7 +18478,7 @@ class out_flame_utils
                         
     @staticmethod
     def out_file_cleanup(_out_file: str) -> str:
-        """Further cleanup the generated out file before sending it out.
+        """Further cleanup the generated out file before sending it out.</br>
 
         Args:
             _out_file(str): The incoming out_file string to further cleanup.
@@ -18493,7 +18504,7 @@ class out_flame_utils
 
     @staticmethod
     def out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, out: bool = True, auto_name: bool = True) -> str | bool:
-        """Check for the validity of the provided output file path and correct it if needed.
+        """Check for the validity of the provided output file path and correct it if needed.</br>
         
         Note:
             This definition was very old and I am improving it.
@@ -18502,9 +18513,9 @@ class out_flame_utils
             node(hou.SopNode): Current FLAM3H™ node.
             infile(str): THe file path to check.
             file_ext(str): Provide an extension to tell this function if it is a Flame file or a FLAM3H™ palette file. 
-            prx(str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame' (AUTO_NAME_CP: str or AUTO_NAME_OUT: str)
-            out(int): Default to True. Which Flame tab are we running this from? False for IN tab, True for OUT tab.
-            auto_name(bool): Default to: True. When checking the output path you some time do not want to generate a filename and extension, like for example inside the IN file string parameter.
+            prx(str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file.</br>'Palette' or 'Flame'</br>(AUTO_NAME_CP: str or AUTO_NAME_OUT: str)
+            out(int): Default to True</br>Which Flame tab are we running this from? False for IN tab, True for OUT tab.
+            auto_name(bool): Default to: True</br>When checking the output path you some time do not want to generate a filename and extension, </br>like for example inside the IN file string parameter.
         
         Returns:
             str | bool: Either a corrected/valid file path or False if not valid.
@@ -18645,11 +18656,11 @@ class out_flame_utils
     @staticmethod
     def out_affine_rot(affine: TA_Affine, angleDeg: float) -> TA_Affine:
         """
-        Rotate a 2D affine by a given angle in degrees for export.
+        Rotate a 2D affine by a given angle in degrees for export.</br></br>
 
-        Each affine has an internal angle parameter that rotates X/Y values. 
-        When saving iterators using this angle, we need to apply the rotation
-        and export the resulting affine values so they can be restored correctly.
+        Each affine has an internal angle parameter that rotates X/Y values. </br>
+        When saving iterators using this angle, we need to apply the rotation</br>
+        and export the resulting affine values so they can be restored correctly.</br>
 
         Args:
             affine (list[tuple[str, ...] | list[str]]): X, Y, O affine components.
@@ -18675,7 +18686,7 @@ class out_flame_utils
     
     @staticmethod
     def out_xaos_cleanup(xaos: TA_STR_ListUnflattened) -> TA_STR_ListUnflattened:
-        """Remove all inactive iterators from each xaos weight list.
+        """Remove all inactive iterators from each xaos weight list.</br>
 
         Args:
             xaos (TA_STR_ListUnflattened): All iterators xaos values.
@@ -18689,18 +18700,18 @@ class out_flame_utils
 
     @staticmethod
     def out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> TA_STR_ListUnflattened:
-        """Collect all xaos command string weights.
-        Provide also a form of Undo in the case we enter non numeric characters instead.
+        """Collect all xaos command string weights.</br>
+        Provide also a form of Undo in the case we enter non numeric characters instead.</br>
         
         XAOS COMMAND OPTIONS:
 
-        * If you type a non-numeric character in any of the xaos's weights,
+        * If you type a non-numeric character in any of the xaos's weights,</br>
         FLAM3H™ will undo to what you had before.
 
-        * If you dnt use the “ xaos: ” keywork at the beginning,
+        * If you dnt use the “ xaos: ” keywork at the beginning,</br>
         FLAM3H™ will undo to what you had before.
 
-        * If you type a number,
+        * If you type a number,</br>
         the entire xaos string will be reset to all weights set to that number.
 
         * If you type a negative number, it will be reset to a value of: 1
@@ -18800,7 +18811,7 @@ class out_flame_utils
 
     @staticmethod
     def out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> TA_STR_ListUnflattened:
-        """Check for any NO-active iterators and account for those.
+        """Check for any NO-active iterators and account for those.</br>
 
         Args:
             node(hou.SopNode): FLAM3H™ node.
@@ -18825,7 +18836,7 @@ class out_flame_utils
 
     @staticmethod
     def _out_pretty_print(current: lxmlET._Element, parent: lxmlET._Element | None = None, index: int = -1, depth: int = 0) -> None: #type: ignore
-        """Reformat the XML data in a pretty way.
+        """Reformat the XML data in a pretty way.</br>
 
         Args:
             current(lxmlET._Element): The Flame XML root we want to reformat.
@@ -18848,7 +18859,7 @@ class out_flame_utils
                 
     @staticmethod
     def menu_out_presets_loop(menu: list, i: int, item: str) -> None:
-        """This is specifically to be run inside a list comprehension.
+        """This is specifically to be run inside a list comprehension.</br>
 
         Args:
             menu(list): the menu list to populate.
@@ -18867,7 +18878,7 @@ class out_flame_utils
 
     @staticmethod
     def menu_out_presets_loop_enum(menu: list, i: int, item: str) -> None:
-        """This is specifically to be run inside a list comprehension.
+        """This is specifically to be run inside a list comprehension.</br>
 
         Args:
             menu(list): the menu list to populate.
@@ -18887,15 +18898,15 @@ class out_flame_utils
         
     @staticmethod
     def out_collect_var_section_names_dict(node: hou.SopNode, mode: bool = False, var_section: str = "VAR") -> dict[str, list[str]] | bool:
-        """Collect all the variation's names inside any of the available sections (PRE, VAR, POST)
-        They will be built inside a dict with the keys representing the irterator number and the value the used variations collected inside a list.
-        For the FF, the dictionary key will always be 'FF'
+        """Collect all the variation's names inside any of the available sections (PRE, VAR, POST)</br>
+        They will be built inside a dict with the keys representing the irterator number and the value the used variations collected inside a list.</br>
+        For the FF, the dictionary key will always be 'FF'</br>
         
         
         Args:
             node(hou.SopNode): FLAM3H™ node
-            mode(bool): Default to: 'False'. False for iterators and True for FF.
-            var_section(str): Default to: 'VAR'. Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
+            mode(bool): Default to: False</br>False for iterators and True for FF.
+            var_section(str): Default to: 'VAR'</br>Desired variation's section to query, Can be one of: 'PRE', 'VAR' or 'POST' keynames.
 
         Returns:
             (dict[str, list[str]] | bool): A dictionary of used variations in this iterator/xform/FF or False if none in the desired section (VAR, PRE, POST)
@@ -18953,10 +18964,10 @@ class out_flame_utils
 
     @staticmethod
     def out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple[str, ...]:
-        """Build the XML Flame iterator's names to account for inactive ierators if any.
-        If all are active or if an iterator has a custom name nothing will be changed.
+        """Build the XML Flame iterator's names to account for inactive ierators if any.</br>
+        If all are active or if an iterator has a custom name nothing will be changed.</br></br>
         
-        The iterator's name *.strip() is probably not needed as they are stripped already during the XML data collection but why not.
+        The iterator's name *.strip() is probably not needed as they are stripped already during the XML data collection but why not.</br>
 
         Args:
             (self):
@@ -19196,12 +19207,12 @@ class out_flame_utils
     
     
     def out_to_flam3h_init_data_quick(self, node: hou.SopNode, tab: str = 'OUT') -> tuple[str | None, int]:
-        """Load a flame preset and gather some data.
+        """Load a flame preset and gather some data.</br>
 
         Args:
             (self):
             node(hou.SopNode): FLAM3H™ node to load the flame file/preset into.
-            tab(str): Default to "OUT" (for the OUT tab). Set it to "SYS" for the sys tab out preset menu to be evaluated.
+            tab(str): Default to "OUT" (for the OUT tab).</br>Set it to "SYS" for the sys tab out preset menu to be evaluated.
 
         Returns:
             (tuple[Union[str, None], int]):  tuple( xml, 
@@ -19230,10 +19241,10 @@ class out_flame_utils
         
         
     def out_to_flam3h_quick(self, tab: str = 'OUT') -> None:
-        """Load a Flame preset to then print its compact infos into the status bar and flash message for purely informational purpose.
+        """Load a Flame preset to then print its compact infos into the status bar and flash message for purely informational purpose.</br></br>
         
         This is done so instead of having just a list of the Flames included into the file as a menu,</br>
-        we can also gather a bit of infos quickly every time we select a menu entrie.
+        we can also gather a bit of infos quickly every time we select a menu entrie.</br></br>
         
         The infos are:
         * Flame preset name.
@@ -19245,7 +19256,7 @@ class out_flame_utils
         
         Args:
             (self):
-            tab(str): Default to "OUT" (for the OUT tab). Set it to "SYS" for the sys tab out preset menu to be evaluated.
+            tab(str): Default to "OUT" (for the OUT tab).</br>Set it to "SYS" for the sys tab out preset menu to be evaluated.
             
         Returns:
             (None):
@@ -19317,7 +19328,7 @@ class out_flame_utils
 
     def out_palette_256_plus_check(self) -> None:
         """When activating the PREFS option: palette 256+ toggle,</br>
-        let the user knows if the current palette posses enough colors and give some infos.
+        let the user knows if the current palette posses enough colors and give some infos.</br>
 
         Args:
             (self):
@@ -19345,7 +19356,7 @@ class out_flame_utils
 
 
     def out_presets_get_selected_menu_label(self) -> str | None:
-        """Get the currently selected OUT preset menu label string.
+        """Get the currently selected OUT preset menu label string.</br>
 
         Args:
             (self):
@@ -19374,7 +19385,7 @@ class out_flame_utils
     
     
     def out_presets_copy_menu_label_callback(self) -> None:
-        """Get the currently selected OUT preset menu label string and copy it into the OUT Flame name parameter string field.
+        """Get the currently selected OUT preset menu label string and copy it into the OUT Flame name parameter string field.</br></br>
         
         Additionally:
         - [SHIFT+LMB] to display quick informations message about the selected OUT Flame preset
@@ -19425,11 +19436,11 @@ class out_flame_utils
                 
     def out_palette_keys_count(self, palette_plus: int, keys: int, type: int, _MSG = True) -> str:
         """This is used to find the number of colors we want to export when saving out a Flame file.</br>
-        We need to always export as many colors to include the current color keys count in the palette based on a predefined set of value.</br>
+        We need to always export as many colors to include the current color keys count in the palette based on a predefined set of value.</br></br>
         
         So for example,</br>
         if the current palette posses 270 color keys,</br>
-        we will export using the closest but greater menu entry whitch is: 512 (the smaller being: 256).</br>
+        we will export using the closest but greater menu entry whitch is: 512 (the smaller being: 256).</br></br>
         
         The minimum will always be clamped at: 256
 
@@ -19469,12 +19480,12 @@ class out_flame_utils
 
 
     def __menu_sensor_resolution(self) -> TA_Menu:
-        """ NOT USED ANYMORE
-        and it has been prefixed with two underscores (__)
-        as the menu is now pre computed inside: MENU_SENSOR_RESOLUTIONS
-        I leave it here for future needs to re-generate the menu with new entries.
+        """ NOT USED ANYMORE</br>
+        and it has been prefixed with two underscores (__)</br>
+        as the menu is now pre computed inside: MENU_SENSOR_RESOLUTIONS</br>
+        I leave it here for future needs to re-generate the menu with new entries.</br></br>
         
-        Build sensor resolution menu parameter with a list of options.
+        Build sensor resolution menu parameter with a list of options.</br>
         
         Args:
             (self):
@@ -19502,7 +19513,7 @@ class out_flame_utils
     
     
     def menu_sensor_resolution(self) -> TA_Menu:
-        """ Pre computed menu: MENU_SENSOR_RESOLUTIONS
+        """ Pre computed menu: MENU_SENSOR_RESOLUTIONS</br></br>
         The old sensor resolution menu definition has been renamed to:
         * def __menu_sensor_resolution(self) -> TA_Menu: (just above)
         
@@ -19518,7 +19529,7 @@ class out_flame_utils
 
 
     def menu_sensor_resolution_set(self, update: bool=True) -> None:
-        """Set sensor resolution parameter based on user choice.
+        """Set sensor resolution parameter based on user choice.</br>
         
         Args:
             (self):
@@ -19551,7 +19562,7 @@ class out_flame_utils
 
 
     def reset_OUT_sensor(self) -> None:
-        """Reset the OUT Camera sensor settings parameters tab.
+        """Reset the OUT Camera sensor settings parameters tab.</br>
         
         Args:
             (self):
@@ -19578,7 +19589,7 @@ class out_flame_utils
 
         
     def reset_OUT_render(self) -> None:
-        """Reset the OUT Render settings parameters tab.
+        """Reset the OUT Render settings parameters tab.</br>
         
         Args:
             (self):
@@ -19604,7 +19615,7 @@ class out_flame_utils
 
     def reset_OUT_kwargs(self) -> None:
         """Build a multifunctional reset OUT render properties method.</br>
-        IT will allow to reset the entire tab or either only the Sensor or Render settings tab.
+        IT will allow to reset the entire tab or either only the Sensor or Render settings tab.</br>
         
         Args:
             (self):
@@ -19643,7 +19654,7 @@ class out_flame_utils
 
 
     def reset_OUT_options(self) -> None:
-        """Reset the OUT save options tab parameters.
+        """Reset the OUT save options tab parameters.</br>
         
         Args:
             (self):
@@ -19659,7 +19670,7 @@ class out_flame_utils
 
 
     def reset_OUT(self, mode: int=0) -> None:
-        """Reset the OUT flame render properties to their default.
+        """Reset the OUT flame render properties to their default.</br>
 
         Args:
             mode(int): Defaults to 0. 1 will reset the remainder of the parameters.
@@ -19696,7 +19707,7 @@ class out_flame_utils
 
 
     def out_xf_xaos_to(self) -> tuple[str, ...]:
-        """Export in a tuple[str] the xaos TO values to write out.
+        """Export in a tuple[str] the xaos TO values to write out.</br>
         
         Args:
             (self):
@@ -19713,7 +19724,7 @@ class out_flame_utils
 
 
     def out_xf_xaos_from(self, mode: int = 0) -> tuple[str, ...]:
-        """Export in a tuple[str] the xaos FROM values to write out.
+        """Export in a tuple[str] the xaos FROM values to write out.</br>
         
         Args:
             mode(int): mode=1 is for writing out flame file while the default mode=0 is for converting between xaos modes only
@@ -19733,7 +19744,7 @@ class out_flame_utils
 
 
     def menu_out_contents_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> TA_Menu:
-        """Populate OUT parameter menu items for the SYS and OUT tab.
+        """Populate OUT parameter menu items for the SYS and OUT tab.</br>
         
         Args:
             (self):
@@ -19776,7 +19787,7 @@ class out_flame_utils
         
         
     def menu_out_contents_presets(self) -> TA_Menu:
-        """Rerturn either a cached menu data or rebuild that data on the fly if needed.
+        """Rerturn either a cached menu data or rebuild that data on the fly if needed.</br>
 
         Args:
             (self):
@@ -19815,11 +19826,10 @@ class out_flame_utils
 
     
     def out_auto_add_iter_data(self) -> tuple[int, str, int]:
-        """Collect data needed by:
+        """Collect data needed by:</br>
         
-        def out_auto_add_iter_num_to_prm()
-        
-        def out_auto_change_iter_num_to_prm()
+        * def out_auto_add_iter_num_to_prm()
+        * def out_auto_change_iter_num_to_prm()
         
         Args:
             (self):
@@ -19836,7 +19846,7 @@ class out_flame_utils
 
 
     def out_auto_add_iter_num_to_prm(self) -> None:
-        """Add the iteration number string to the OUT Flame name after you type a name string in.
+        """Add the iteration number string to the OUT Flame name after you type a name string in.</br>
         
         Args:
             (self):
@@ -19851,11 +19861,11 @@ class out_flame_utils
 
 
     def out_auto_change_iter_num_to_prm(self, name: str | None = None) -> None:
-        """Change the iteration number string to the OUT Flame name when you change FLAM3H™ iterations.
+        """Change the iteration number string to the OUT Flame name when you change FLAM3H™ iterations.</br>
         
         Args:
             (self):
-            name(str | None): Default to None (nothing happen). Handy to automatically set the out preset name when an IN preset name is loaded.
+            name(str | None): Default to None (nothing happen).</br>Handy to automatically set the out preset name when an IN preset name is loaded.
             
         Returns:
             (None):
@@ -19886,7 +19896,7 @@ class out_flame_utils
                 
     def out_flame_name_inherit_on_load(self) -> None:
         """When this option is toggled ON,</br>
-        cause the Flame name parameter to be set to the currently loaded Flame preset name.
+        cause the Flame name parameter to be set to the currently loaded Flame preset name.</br>
         
         Args:
             (self):
@@ -19924,9 +19934,9 @@ class out_flame_utils
                 
 
     def out_flame_properties_build(self, f3r: out_flame_render_properties) -> dict:
-        """Return a dictionary with all the flame properties to be written out.
+        """Return a dictionary with all the flame properties to be written out.</br></br>
         
-        Note:
+        Note:</br>
             Any of these properties will not be included into the exported XML flame file if they are: False
 
         Args:
@@ -19976,7 +19986,7 @@ class out_flame_utils
 
     def out_flam3_compatibility_check_and_msg(self) -> bool:
         """Check if the Flame we want to write out is compatible with the FLAM3 flame format.</br>
-        If not, print out details to let us know what is wrong with it.
+        If not, print out details to let us know what is wrong with it.</br>
 
         Args:
             (self):
@@ -20161,7 +20171,7 @@ class out_flame_utils
 
 
     def out_build_XML(self, flame: lxmlET._Element) -> bool: # type: ignore
-        """Build the XML Flame data to be then written out.
+        """Build the XML Flame data to be then written out.</br>
 
         Args:
             (self):
@@ -20269,11 +20279,11 @@ class out_flame_utils
             
             
     def out_userData_XML_last_loaded(self, data_name: str = FLAM3H_USER_DATA_XML_LAST, flame_name: str | None = None) -> None:
-        """Store the loaded Flame preset into the FLAM3H™ node data storage.
-        This definition run a full save out preset(a snapshot of the curernt status of the FLAM3H™ parameters).
+        """Store the loaded Flame preset into the FLAM3H™ node data storage.</br>
+        This definition run a full save out preset(a snapshot of the curernt status of the FLAM3H™ parameters).</br>
         
         This is being added to have some sort of history/backup some how.</br>
-        Will probably never be used but it is something more to have in any case.</br>
+        Will probably never be used but it is something more to have in any case.</br></br>
         This data is cleared every time:
         * a FLAM3H™ node is being created
         * when FLAM3H™ is being reset to the default Sierpinsky triangle
@@ -20281,8 +20291,8 @@ class out_flame_utils
 
         Args:
             (self):
-            data_name(str): Default to "FLAM3H_USER_DATA_XML_LAST". The name of the node user data to store the flame preset into.
-            flame_name(str | None): Default to None. If a flame name is provided it will use it, otherwise it will either use the one set into the OUT flame name parameter or if this last is empty it will generate one based on today'sdate and time.
+            data_name(str): Default to "FLAM3H_USER_DATA_XML_LAST".</br>The name of the node user data to store the flame preset into.
+            flame_name(str | None): Default to None</br>If a flame name is provided it will use it, </br>otherwise it will either use the one set into the OUT flame name parameter or if this last is empty it will generate one based on today'sdate and time.
             
         Returns:
             (None):
@@ -20312,7 +20322,7 @@ class out_flame_utils
             
             
     def out_new_XML(self, outpath: str) -> None:
-        """Write out a new XML flame file with only the current FLAM3H™ flame preset.
+        """Write out a new XML flame file with only the current FLAM3H™ flame preset.</br>
 
         Args:
            (self):
@@ -20339,7 +20349,7 @@ class out_flame_utils
 
 
     def out_new_XML_clipboard(self) -> None:
-        """Write out a new XML flame file with only the current FLAM3H™ flame preset into the clipboard.
+        """Write out a new XML flame file with only the current FLAM3H™ flame preset into the clipboard.</br>
 
         Args:
             (self):
@@ -20363,7 +20373,7 @@ class out_flame_utils
             
             
     def out_preset_XML_clipboard(self) -> None:
-        """Copy the OUT tab selected flame preset into the clipboard.
+        """Copy the OUT tab selected flame preset into the clipboard.</br>
 
         Args:
             (self):
@@ -20406,7 +20416,7 @@ class out_flame_utils
 
 
     def out_append_XML(self, root: lxmlET._Element, out_path: str) -> None:
-        """Append a XML flame file to the current OUT flame lib file.
+        """Append a XML flame file to the current OUT flame lib file.</br>
 
         Args:
             (self):
@@ -20433,8 +20443,8 @@ class out_flame_utils
 
 
     def out_XML(self) -> None:
-        """Write out the XML Flame file.
-        It allow for writing out a new file or append to the current XML flame file.
+        """Write out the XML Flame file.</br>
+        It allow for writing out a new file or append to the current XML flame file.</br>
         
         Args:
             (self):
@@ -20569,8 +20579,9 @@ class out_flame_utils
     '''
     
     def __out_flame_data(self, prm_name: str = '') -> str:
-        """Prepare the OUT render data FLAM3H™ parameters into proper strings to be written out.
-        This will deal with tuple value (flame_size, flame_center, etc) as well with float values (flame_quality, flame_rotate, etc).
+        """Prepare the OUT render data FLAM3H™ parameters into proper strings to be written out.</br></br>
+        This will deal with tuple value (flame_size, flame_center, etc)</br>
+        as well with float values (flame_quality, flame_rotate, etc).</br>
 
         Args:
             (self):
@@ -20619,13 +20630,13 @@ class out_flame_utils
 
     def __out_flame_name(self, prm_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
         """Prepare the Flame name string for the XML Flame name key.</br>
-        It will either use an automated one if no Flame name is provided or use the one provided by the user.
+        It will either use an automated one if no Flame name is provided or use the one provided by the user.</br></br>
         
         It will also auto add the iterations number to the string name if requested ("add iterations to Flame name" toggle ON)
 
         Args:
             (self):
-            prm_name(str | None = OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)): Default to: OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME). The FLAM3H™ "Flame name" parameter name.
+            prm_name(str | None = OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)): Default to: OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)</br>The FLAM3H™ "Flame name" parameter name.
 
         Returns:
             (str): The FLAM3H™ parameter prepped into a string for writing out into the Flame preset file.
@@ -20642,7 +20653,7 @@ class out_flame_utils
         
         
     def __out_xf_data(self, prm_name: str) -> tuple[str, ...]:
-        """Prepare the xform/iterator single value parameters into a proper string to be written out.
+        """Prepare the xform/iterator single value parameters into a proper string to be written out.</br>
 
         Args:
             (self):
@@ -20658,7 +20669,7 @@ class out_flame_utils
     
     def __out_xf_data_color_speed(self) -> tuple[str, ...]:
         """Prepare the xform/iterator color speed into a proper string to be written out.</br>
-        This is specifically for Fractorium as it is the one using this conversion of values.
+        This is specifically for Fractorium as it is the one using this conversion of values.</br>
 
         Args:
             (self):
@@ -20673,7 +20684,7 @@ class out_flame_utils
     
 
     def __out_xf_name(self) -> tuple[str, ...]:
-        """Prepare each xform/iterator names/notes parameters for writing out.
+        """Prepare each xform/iterator names/notes parameters for writing out.</br>
 
         Args:
             (self):
@@ -20686,7 +20697,7 @@ class out_flame_utils
     
     
     def __out_finalxf_name(self) -> str:
-        """Prepare the FF/finalXform name/note parameter for writing out.
+        """Prepare the FF/finalXform name/note parameter for writing out.</br>
 
         Args:
             (self):
@@ -20702,7 +20713,7 @@ class out_flame_utils
 
     
     def __out_xf_pre_blur(self) -> tuple[str, ...]:
-        """Prepare each xform/iterator pre_blur parameters for writing out.
+        """Prepare each xform/iterator pre_blur parameters for writing out.</br>
 
         Args:
             (self):
@@ -20715,7 +20726,7 @@ class out_flame_utils
 
 
     def __out_xf_xaos(self) -> tuple[str, ...]:
-        """Prepare each xform/iterator xaos parameters for writing out.
+        """Prepare each xform/iterator xaos parameters for writing out.</br>
 
         Args:
             (self):
@@ -20732,7 +20743,7 @@ class out_flame_utils
     def __out_xf_preaffine(self) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
         """Prepare each xform/iterator pre_affine parameters for writing out.</br>
         This will prep both flam3_affine style and F3H_affine style.</br>
-        In case of the F3H_affine style it will prep the Rotation angle parameter as well.
+        In case of the F3H_affine style it will prep the Rotation angle parameter as well.</br>
 
         Args:
             (self):
@@ -20760,7 +20771,7 @@ class out_flame_utils
     def __out_xf_postaffine(self) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
         """Prepare each xform/iterator post_affine parameters for writing out.</br>
         This will prep both flam3_affine style and F3H_affine style.</br>
-        In case of the F3H_affine style it will prep the Rotation angle parameter as well.
+        In case of the F3H_affine style it will prep the Rotation angle parameter as well.</br>
 
         Args:
             (self):
@@ -20798,7 +20809,7 @@ class out_flame_utils
     def __out_finalxf_preaffine(self) -> tuple[str, str, str]:
         """Prepare each FF/finalXform pre_affine parameters for writing out.</br>
         This will prep both flam3_affine style and F3H_affine style.</br>
-        In case of the F3H_affine style it will prep the Rotation angle parameter as well.
+        In case of the F3H_affine style it will prep the Rotation angle parameter as well.</br>
 
         Args:
             (self):
@@ -20823,7 +20834,7 @@ class out_flame_utils
     def __out_finalxf_postaffine(self) -> tuple[str, str, str]:
         """Prepare each FF/finalXform post_affine parameters for writing out.</br>
         This will prep both flam3_affine style and F3H_affine style.</br>
-        In case of the F3H_affine style it will prep the Rotation angle parameter as well.
+        In case of the F3H_affine style it will prep the Rotation angle parameter as well.</br>
 
         Args:
             (self):
@@ -20853,7 +20864,7 @@ class out_flame_utils
     
     
     def __out_palette_hex(self) -> str:
-        """Prepare the FLAM3H™ palette ramp parameter to be written out into the Flame preset file.
+        """Prepare the FLAM3H™ palette ramp parameter to be written out into the Flame preset file.</br>
 
         Args:
             (self):
@@ -20875,8 +20886,9 @@ class out_flame_utils
     
     def __out_flame_palette_mode(self) -> str:
         """Prepare the FLAM3H™ palette mode to be written out into the Flame preset file.</br>
-        This is specifically for Fractorium, it uses 2(two) modes: 'linear' and 'step'.</br>
-        Everything else will fallback on: 'linear'
+        This is specifically for Fractorium, it uses 2(two) modes: 'linear' and 'step'.</br></br>
+        Everything else will fallback on:
+        * linear
         
         Args:
             (self):
@@ -20903,11 +20915,11 @@ class out_flame_utils
     
     # custom to FLAM3H™ only
     def __out_flame_data_flam3h_hsv(self, prm_name: str = CP_RAMP_HSV_VAL_NAME) -> str | bool:
-        """Prepare the FLAM3H™ palette HSV parameter to be written out into the Flame preset file.
+        """Prepare the FLAM3H™ palette HSV parameter to be written out into the Flame preset file.</br>
 
         Args:
             (self):
-            prm_name(str): Defailt to: CP_RAMP_HSV_VAL_NAME . The name of the FLAM3H™ parameter to be prep into a string for writing out.
+            prm_name(str): Defailt to: CP_RAMP_HSV_VAL_NAME</br>The name of the FLAM3H™ parameter to be prep into a string for writing out.
 
         Returns:
             (str): The FLAM3H™ palette HSV parameter prepped into a string.
@@ -20934,7 +20946,7 @@ class out_flame_utils
         
     # custom to FLAM3H™ only
     def __out_flame_data_flam3h_mb_val(self, prm_name: str = '') -> str | bool:
-        """Prepare the FLAM3H™ motion blur single val parameter to be written out into the Flame preset file.
+        """Prepare the FLAM3H™ motion blur single val parameter to be written out into the Flame preset file.</br>
 
         Args:
             (self):
@@ -20958,7 +20970,7 @@ class out_flame_utils
         
     # custom to FLAM3H™ only
     def __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
-        """Prepare a FLAM3H™ toggle value to be written out into the Flame preset file.
+        """Prepare a FLAM3H™ toggle value to be written out into the Flame preset file.</br>
 
         Args:
             (self):
@@ -21000,7 +21012,7 @@ class out_flame_utils
             
     # custom to FLAM3H™ only
     def __out_flame_palette_basis(self) -> str | bool:
-        """Prepare the FLAM3H™ lookup samples interpolation to be written out into the Flame preset file.
+        """Prepare the FLAM3H™ lookup samples interpolation to be written out into the Flame preset file.</br>
         
         Args:
             (self):
