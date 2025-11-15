@@ -998,7 +998,9 @@ class flam3h_varsPRM
 
 
 class flam3h_iterator(flam3h_iterator_prm_names):
-    """
+    """Note that the underscore (_) before the iterator number</br>
+    has been included already for convenience.
+    
     Args:
         flam3h_iterator_prm_names ([class]): [inherit properties methods from the flam3h_iterator_prm_names class]
     """   
@@ -1617,7 +1619,7 @@ class flam3h_scripts
     def flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
         """Tell if this FLAM3H™ version is compatible with this Houdini version
         
-        * range_close -> mean FLAM3H™ will run only on Houdini versions included inside: nodetype.hdaModule().__h_versions__
+        * range_close -> mean FLAM3H™ will run only on Houdini versions included inside:</br>nodetype.hdaModule().__h_versions__
         
         Args:
             kwargs(dict | None): When needed, this must be the class' self.kwargs, or None
@@ -1648,7 +1650,7 @@ class flam3h_scripts
     def flam3h_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
         """Tell if this FLAM3H™ version is compatible with this Houdini version
         
-        * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside: nodetype.hdaModule().__h_versions__ before being properly fine tuned.
+        * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside:</br>nodetype.hdaModule().__h_versions__ before being properly fine tuned.
 
         Args:
             kwargs(dict | None): When needed, this must be the class' self.kwargs, or None
@@ -1942,8 +1944,8 @@ class flam3h_scripts
     def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
         """Check FLAM3H™ compatibility based on the type of range(of Houdini versions)</br>
         
-        * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside: nodetype.hdaModule().__h_versions__ before being properly fine tuned.
-        * range_close -> mean FLAM3H™ will run only on Houdini versions included inside: nodetype.hdaModule().__h_versions__
+        * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside:</br>nodetype.hdaModule().__h_versions__ before being properly fine tuned.
+        * range_close -> mean FLAM3H™ will run only on Houdini versions included inside:</br>nodetype.hdaModule().__h_versions__
 
         Args:
             range_type(bool): True for closed range. False for open range. This is set inside the HDA's -> Type Properties -> Scripts -> PythonModule
@@ -2033,8 +2035,9 @@ class flam3h_scripts
 
 
     def flam3h_check_first_node_instance_prefs_cvex_precision_msg(self) -> None:
-        """When changing CVEX precison modes in the preference's tab,
-        this definition will let the user node of the compilie time if a mode is selected for the first time in the current houdini's session.
+        """When changing CVEX precison modes in the preference's tab,</br>
+        this definition will let the user node know about the compilie time</br>
+        if a mode is selected for the first time in the current houdini's session.
 
         Args:
             (self):
@@ -2146,7 +2149,7 @@ class flam3h_scripts
 
 
     def flam3h_on_create_set_prefs_viewport(self, default_value_pt: float = 1, default_value_ww: float = 3) -> None:
-        """Initialize the necessary data for the viewport display preference's option on creation.
+        """Initialize the necessary data for the viewport display preference's option on creation.</br>
         This need some work as it is a little rough, I'll be back to this at some point. Good enough for now.
         
         Args:
@@ -2249,8 +2252,8 @@ class flam3h_scripts
     
     
     def flam3h_on_create_init_viewportWireWidth(self) -> None:
-        """Initialize FLAM3H™ viewport wire width.
-        We set it ot 3 for now as it looks nice.
+        """Initialize FLAM3H™ viewport wire width.</br>
+        We set it ot 3 for now as it looks nice.</br>
         This will affect the viewport wireframe width as it is a global setting.
         
         Args:
@@ -2269,10 +2272,10 @@ class flam3h_scripts
     
     
     def flam3h_presets_cache_filepath_on_load(self) -> None:
-        """Initialize presets cached data to be up to date.
+        """Initialize presets cached data to be up to date.</br>
         
-        Here I could use userData instead of a cachedUserData but can happen that between one houdini session
-        and the next one the user may make some modification to the stored file, like moving it into another location or deleting it
+        Here I could use userData instead of a cachedUserData but can happen that between one houdini session</br>
+        and the next one the user may make some modification to the stored file, like moving it into another location or deleting it</br>
         so this way we make sure to always be up to date.
         
         Args:
@@ -2466,7 +2469,7 @@ class flam3h_scripts
             
             
     def flam3h_on_loaded_compatible_true(self) -> None:
-        """If we are loading hip files with FLAM3H™ nodes in it that were prviewsly initialized with an incompatible version of Houdini,
+        """If we are loading hip files with FLAM3H™ nodes in it that were prviewsly initialized with an incompatible version of Houdini,</br>
         restore their default settings if their iterators count is set to Zero, otherwise leave them as they are to not modify exixting settings.
         
         This definition must run inside a:
@@ -2857,8 +2860,8 @@ class flam3h_general_utils
 
     @staticmethod
     def private_prm_set(node: hou.SopNode, _prm: str | hou.Parm, data: str | int | float) -> None:
-        """Set a parameter value while making sure to unlock and lock it right after.
-        This is being introduced to add an extra level of security so to speak to certain parameters
+        """Set a parameter value while making sure to unlock and lock it right after.</br>
+        This is being introduced to add an extra level of security so to speak to certain parameters</br>
         that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.
         
         Args:
@@ -2886,8 +2889,8 @@ class flam3h_general_utils
         
     @staticmethod
     def private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm) -> None:
-        """Delete all parameter's keyframes while making sure to unlock and lock it right after.
-        This is being introduced to add an extra level of security so to speak to certain parameters
+        """Delete all parameter's keyframes while making sure to unlock and lock it right after.</br>
+        This is being introduced to add an extra level of security so to speak to certain parameters</br>
         that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.
         
         Args:
@@ -2914,7 +2917,7 @@ class flam3h_general_utils
     
     @staticmethod
     def select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> str | None:
-        """Return the filepath string for either the CP or IN filepath parameter if any, otherwise return None if empty or invalid.
+        """Return the filepath string for either the CP or IN filepath parameter if any, otherwise return None if empty or invalid.</br>
         If an invalid filepath is present, it will try to extrapolate out the parent directory first and check for its validity, otherwise return: None
         
         Args:
@@ -2938,7 +2941,7 @@ class flam3h_general_utils
 
     @staticmethod
     def flash_message(node: hou.SopNode, msg: str | None, timer: float = FLAM3H_FLASH_MESSAGE_TIMER, img: str | None = None) -> None:
-        """Cause a message to appear on the top left of the network editor.
+        """Cause a message to appear on the top left of the network editor.</br>
         This will work either in Sop and Lop context as it is handy to get those messages either ways. 
 
         Args:
@@ -2956,8 +2959,8 @@ class flam3h_general_utils
 
     @staticmethod
     def remove_locked_from_flame_stats(node) -> None:
-        """When loading a flame preset from the clipboard while a valid locked flame library is loaded,
-        deleting the path string will leave the text: -> LOCKED inside the stats.
+        """When loading a flame preset from the clipboard while a valid locked flame library is loaded,</br>
+        deleting the path string will leave the text: -> LOCKED inside the stats.</br>
         This definition will remove it.
 
         Args:
@@ -3110,7 +3113,7 @@ class flam3h_general_utils
                 
     @staticmethod
     def util_getParameterEditors() -> list[hou.ParameterEditor]:
-        """Return a list of Parameter Editors currently open in this Houdini session.
+        """Return a list of Parameter Editors currently open in this Houdini session.</br>
         It will collect only the Parameter Editors with a FLAM3H node parameter on display already.
         
         Args:
@@ -3240,7 +3243,7 @@ class flam3h_general_utils
 
     @staticmethod
     def util_set_stashed_cam() -> None:
-        """Set/Load the stored stashed camera if a stashed camera data is available.
+        """Set/Load the stored stashed camera if a stashed camera data is available.</br>
         It will also restore multiple stashed cameras if multiple viewers were open when entering the Sensor Viz mode.
 
         Args:
@@ -3355,8 +3358,8 @@ class flam3h_general_utils
 
     @staticmethod
     def util_xf_viz_force_cook(node: hou.SopNode, kwargs: dict) -> None:
-        """Force viewport xforms handles VIZ to cook when the mode is OFF
-        to have the geometry ready when the user turn the mode ON.
+        """Force viewport xforms handles VIZ to cook when the mode is OFF</br>
+        to have the geometry ready when the user turn the mode ON.</br>
         
         If not success, it will pass silently and throw a warning message.
 
@@ -3376,8 +3379,8 @@ class flam3h_general_utils
 
     @staticmethod
     def util_store_all_viewers_color_scheme_onCreate() -> None:
-        """Store dictionaries of viewers color schemes if needed on FLAM3H™ node creation
-        This version do not check from which parameter run as we need it to run regardless.
+        """Store dictionaries of viewers color schemes if needed on FLAM3H™ node creation</br>
+        This version do not check from which parameter run as we need it to run regardless.</br>
         
         It will check the currently stored color schemes data and update it if there is a need to do so.
         
@@ -3451,8 +3454,8 @@ class flam3h_general_utils
 
 
     def menus_refresh_enum_prefs(self) -> None:
-        """Refresh and force presets menus names to update
-        after the preference's option "enumerate presets menu" has been toggled ON or OFF
+        """Refresh and force presets menus names to update</br>
+        after the preference's option "enumerate presets menu" has been toggled ON or OFF</br>
         and also from inside other places, following a list:
         
         * def util_set_front_viewer(self, update: bool = True) -> bool:
@@ -3497,8 +3500,7 @@ class flam3h_general_utils
 
 
     def get_node_path(self, node_name: str) -> str | None:
-        """Find the full path of the bbox data null node
-        inside the current FLAM3H™ node.
+        """Find the full path of the bbox data null node inside the current FLAM3H™ node.</br>
         
         The Null node names prefixes to search are stored inside the global variables:
         
@@ -3589,9 +3591,9 @@ class flam3h_general_utils
             
 
     def util_set_front_viewer(self, update: bool = True) -> bool:
-        """Set front view when entering the camera sensor mode.
-        This include storing and restoring the current viewport prior to entering the camera sensor mode if there is only one and is: viewport.isCurrentTab().
-        Otherwise it will set them all if multiple viewports are present and restore them all on exit.
+        """Set front view when entering the camera sensor mode.</br>
+        This include storing and restoring the current viewport prior to entering the camera sensor mode if there is only one and is: viewport.isCurrentTab().</br>
+        Otherwise it will set them all if multiple viewports are present and restore them all on exit.</br>
         
         This definition is multipurpose, it is run from multiple parameters:
         * When run from the SYS prm: _SYS_FRAME_VIEW_SENSOR_prm it will also print a flash message.
@@ -3739,7 +3741,7 @@ class flam3h_general_utils
 
 
     def util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool = True) -> bool:
-        """This is a fallback if the: util_set_front_viewer(...) can not run succesfully.
+        """This is a fallback if the: util_set_front_viewer(...) can not run succesfully.</br>
         It will activate the Sensor Viz in all available viewports with the ability of storing and restoring a stashed camera for each.
 
         Args:
@@ -3946,7 +3948,7 @@ class flam3h_general_utils
 
 
     def flam3h_other_sensor_viz_off(self, node: hou.SopNode) -> None:
-        """When activating the Camera sensor viz, check if there is another FLAM3H™ in camera sensor mode
+        """When activating the Camera sensor viz, check if there is another FLAM3H™ in camera sensor mode</br>
         and turn it Off if so. this way we guarantee there can be only one FLAM3H™ node in Camera sensor viz mode at any given time.
 
         Args:
@@ -4104,7 +4106,7 @@ class flam3h_general_utils
                 
     
     def flam3h_all_mp_xf_viz_check(self) -> bool:
-        """ NOT USED YET
+        """ NOT USED YET</br>
         Check if any multiparameter have its xf_viz ON.
 
         Args:
@@ -4124,7 +4126,7 @@ class flam3h_general_utils
         
         
     def flam3h_toggle_sys_xf_viz_solo(self) -> None:
-        """When in xform VIZ SOLO mode, this will turn it off and go back to viz them all.
+        """When in xform VIZ SOLO mode, this will turn it off and go back to viz them all.</br>
         Specifically built for the SYS -> "xfviz_on_solo" icon parameter.
 
         Args:
@@ -4156,7 +4158,7 @@ class flam3h_general_utils
             
             
     def flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
-        """When in xform VIZ SOLO mode, this will turn it off and go back to viz them all.
+        """When in xform VIZ SOLO mode, this will turn it off and go back to viz them all.</br>
         Specifically built for the SYS -> "xfvizff_on_solo" icon parameter.
 
         Args:
@@ -4186,7 +4188,7 @@ class flam3h_general_utils
                 
                 
     def flam3h_toggle_mp_xf_viz(self) -> None:
-        """If a toggle is OFF it will switch ON, and viceversa.
+        """If a toggle is OFF it will switch ON, and viceversa.</br>
         Specifically built for the XF VIZ multiparameter icons.
 
         Args:
@@ -4245,9 +4247,9 @@ class flam3h_general_utils
             
             
     def flam3h_toggle_mp_xf_viz_solo_follow(self, mp_idx: str) -> None:
-        """When one of the iterators in in SOLO mode,
-        changing the iterators focus using the select iterator mini menu
-        will change olso the SOLO focus as well, keeping any selected iterator in SOLO modo while switching.
+        """When one of the iterators in in SOLO mode,</br>
+        changing the iterators focus using the select iterator mini menu</br>
+        will change olso the SOLO focus as well, keeping any selected iterator in SOLO modo while switching.</br>
         
         This is used inside:
         - def prm_select_iterator(self) -> None:
@@ -4286,7 +4288,7 @@ class flam3h_general_utils
             
             
     def flam3h_toggle_xf_ff_viz(self) -> None:
-        """If a toggle is OFF it will switch ON, and viceversa.
+        """If a toggle is OFF it will switch ON, and viceversa.</br>
         Specifically built for the XF FF VIZ icons.
         
         Args:
@@ -4328,7 +4330,7 @@ class flam3h_general_utils
                 
             
     def flam3h_toggle(self, prm_name: str) -> None:
-        """If a toggle is OFF it will switch ON, and viceversa.
+        """If a toggle is OFF it will switch ON, and viceversa.</br>
 
         Args:
             (self):
@@ -4355,7 +4357,7 @@ class flam3h_general_utils
             
             
     def flam3h_toggle_private(self, prm_name: str) -> None:
-        """If a toggle is OFF it will switch ON, and viceversa,
+        """If a toggle is OFF it will switch ON, and viceversa,</br>
         and make sure to unlock and lock the parameter.
 
         Args:
@@ -4400,8 +4402,8 @@ class flam3h_general_utils
             
             
     def flam3h_toggle_private_FF(self, prm_name: str = PREFS_PVT_DOFF) -> None:
-        """If a toggle is OFF it will switch ON, and viceversa,
-        and make sure to unlock and lock the parameter.
+        """If a toggle is OFF it will switch ON, and viceversa,</br>
+        and make sure to unlock and lock the parameter.</br>
         Specifically built for the FF toggles ON/OFF
 
         Args:
@@ -4459,11 +4461,11 @@ class flam3h_general_utils
                 
                 
     def flam3h_init_presets_CP_PRESETS(self, mode: int = 1, destroy_menus: bool = True, json_file: bool | None = None, f3h_json_file: bool | None = None, json_path_checked: str | bool | None = None) -> None:
-        """Initialize parameter's menu presets for the CP tab.
+        """Initialize parameter's menu presets for the CP tab.</br>
         
-        Here I could use userData instead of a cachedUserData but can happen that between one houdini session
-        and the next one the user may make some modification to the stored file, like moving it into another location or deleting it
-        so this way we make sure to always be up to date.
+        Here I could use userData instead of a cachedUserData but can happen that between one houdini session</br>
+        and the next one the user may make some modification to the stored file, like moving it into another location or deleting it</br>
+        so this way we make sure to always be up to date.</br>
         
         Note:
             This definition differ from the IN and OUT file init presets definitions,
@@ -4585,11 +4587,11 @@ class flam3h_general_utils
 
 
     def flam3h_init_presets_IN_PRESETS(self, mode: int = 1) -> None:
-        """Initialize parameter's menu presets for the IN tab.
+        """Initialize parameter's menu presets for the IN tab.</br>
         
-        Here I could use userData instead of a cachedUserData but can happen that between one houdini session
-        and the next one the user may make some modification to the stored file, like moving it into another location or deleting it
-        so this way we make sure to always be up to date.
+        Here I could use userData instead of a cachedUserData but can happen that between one houdini session</br>
+        and the next one the user may make some modification to the stored file, like moving it into another location or deleting it</br>
+        so this way we make sure to always be up to date.</br>
         
         Args:
             (self):
@@ -4692,7 +4694,7 @@ class flam3h_general_utils
 
 
     def flam3h_init_presets_OUT_PRESETS(self, destroy_menus: bool = True) -> None:
-        """Initialize parameter's menu presets for the OUT tab.
+        """Initialize parameter's menu presets for the OUT tab.</br>
         
         Note:
             This need a little update at some point.
@@ -4816,9 +4818,9 @@ class flam3h_general_utils
 
 
     def colorSchemeDark(self, update_others: bool = True) -> None:
-        """Change viewport color scheme to dark
-        and remember the current color scheme so to switch back to it when unchecked.
-        If the viewport color scheme is already dark, checking this option will do nothing. 
+        """Change viewport color scheme to dark</br>
+        and remember the current color scheme so to switch back to it when unchecked.</br>
+        If the viewport color scheme is already dark, checking this option will do nothing.</br>
         
         Args:
             (self):
@@ -4952,7 +4954,7 @@ class flam3h_general_utils
     
     
     def viewportParticleDisplay(self) -> None:
-        """Switch viewport particle display mode
+        """Switch viewport particle display mode</br>
         between Pixel and Points.
         
         Args:
@@ -5031,7 +5033,7 @@ class flam3h_general_utils
     
     
     def viewportParticleSize(self, reset_val: float | None = None, prm_name_size: str = PREFS_VIEWPORT_PT_SIZE) -> None:
-        """When the viewport particle display type is set to Point
+        """When the viewport particle display type is set to Point</br>
         this will change their viewport size.
         
         Args:
@@ -5112,7 +5114,7 @@ class flam3h_general_utils
             
 
     def viewportWireWidth(self, reset_val: float | None = None) -> None:
-        """When the viewport handle VIZ is ON
+        """When the viewport handle VIZ is ON</br>
         this will change their viewport setting wire width value.
         
         Args:
@@ -5212,7 +5214,7 @@ class flam3h_general_utils
         
 
     def reset_MB(self, all: bool = True) -> None:
-        """Reset the FLAM3H™ MB Tab parameters.
+        """Reset the FLAM3H™ MB Tab parameters.</br>
         It will also clear/delete any keyframes for each parameters.
         
         Args:
