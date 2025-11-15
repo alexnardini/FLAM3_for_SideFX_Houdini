@@ -2832,7 +2832,7 @@ class flam3h_general_utils
         """Check if the passed in tuple is a tuple of tuples
         
         Args:
-            x(list): the list to check
+            x(list): the tuple to check
             
         Returns:
             (bool): True if it is a tuple of tuples and False if not
@@ -2847,7 +2847,7 @@ class flam3h_general_utils
         """Check if the passed in tuple is a flat tuple
         
         Args:
-            x(list): the list to check
+            x(list): the tuple to check
             
         Returns:
             (bool): True if it is a flat tuple and False if not
