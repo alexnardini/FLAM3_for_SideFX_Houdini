@@ -17837,6 +17837,14 @@ class out_flame_utils
 * out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple[str, ...]:
 
 @METHODS
+* get_iter_affine_pre(self, iterator_num: int) -> TA_Affine:
+* get_iter_affine_pre_rot(self, iterator_num: int) -> float:
+* get_iter_affine_post(self, iterator_num: int) -> TA_Affine:
+* get_iter_affine_post_rot(self, iterator_num: int) -> float:
+* get_FF_affine_pre(self) -> TA_Affine:
+* get_FF_affine_pre_rot(self) -> float:
+* get_FF_affine_post(self) -> TA_Affine:
+* get_FF_affine_post_rot(self) -> float:
 * out_to_flam3h_init_data_quick(self, node: hou.SopNode, tab: str = 'OUT') -> tuple[str | None, int]:
 * out_to_flam3h_quick(self, tab: str = 'OUT') -> None:
 * out_palette_256_plus_check(self) -> None:
@@ -19046,6 +19054,130 @@ class out_flame_utils
         return self._flam3h_cp_basis
     
     
+    def get_iter_affine_pre(self, iterator_num: int) -> TA_Affine:
+        """Return the selected iterator pre affine values in a list of tuples: X, Y, O</br>
+        It does not collect the Rotation/Angle parameter, must collect this in a separate call if needed using: 
+        * def get_iter_affine_pre_rot(self, iterator_num: int) -> float:
+        
+        Note:</br>
+        This must run inside a for loop for each available iterator: e.g. for iter_idx in total_number_of_iterators:</br>
+        The correct number of the iterator will be: (iter_idx + 1) as multi parameter indexes in FLAM3H™ start count from 1 and not from Zero
+
+        Args:
+            (self):
+            iterator_num(int): the iterator number we want to collect the pre affine from. Note that from inside the for loop, the iterator number will be the loop iteration number + 1
+
+        Returns:
+            (TA_Affine):
+        """
+        return [self.node.parmTuple(f"{prm[0]}{iterator_num}").eval() for prm in self.flam3h_iter.sec_preAffine[:-1]]
+    
+    
+    def get_iter_affine_pre_rot(self, iterator_num: int) -> float:
+        """Return the selected iterator pre affine Rotation/Angle value.</br>
+        
+        Note:</br>
+        This must run inside a for loop for each available iterator: e.g. for iter_idx in total_number_of_iterators:</br>
+        The correct number of the iterator will be: (iter_idx + 1) as multi parameter indexes in FLAM3H™ start count from 1 and not from Zero
+
+        Args:
+            (self):
+            iterator_num(int): the iterator number we want to collect the pre affine from. Note that from inside the for loop, the iterator number will be the loop iteration number + 1
+
+        Returns:
+            (float):
+        """
+        return self.node.parm(f"{self.flam3h_iter.sec_preAffine[-1][0]}{iterator_num}").eval()
+    
+    
+    def get_iter_affine_post(self, iterator_num: int) -> TA_Affine:
+        """Return the selected iterator post affine values in a list of tuples: X, Y, O</br>
+        It does not collect the Rotation/Angle parameter, must collect this in a separate call if needed using:
+        * def get_iter_affine_post_rot(self, iterator_num: int) -> float:
+        
+        Note:</br>
+        This must run inside a for loop for each available iterator: e.g. for iter_idx in total_number_of_iterators:</br>
+        The correct number of the iterator will be: (iter_idx + 1) as multi parameter indexes in FLAM3H™ start count from 1 and not from Zero
+
+        Args:
+            (self):
+            iterator_num(int): the iterator number we want to collect the pre affine from. Note that from inside the for loop, the iterator number will be the loop iteration number + 1
+
+        Returns:
+            (TA_Affine):
+        """
+        return [self.node.parmTuple(f"{prm[0]}{iterator_num}").eval() for prm in self.flam3h_iter.sec_postAffine[1:-1]]
+    
+    
+    def get_iter_affine_post_rot(self, iterator_num: int) -> float:
+        """Return the selected iterator post affine Rotation/Angle value.</br>
+        
+        Note:</br>
+        This must run inside a for loop for each available iterator: e.g. for iter_idx in total_number_of_iterators:</br>
+        The correct number of the iterator will be: (iter_idx + 1) as multi parameter indexes in FLAM3H™ start count from 1 and not from Zero
+
+        Args:
+            (self):
+            iterator_num(int): the iterator number we want to collect the pre affine from. Note that from inside the for loop, the iterator number will be the loop iteration number + 1
+
+        Returns:
+            (float):
+        """
+        return self.node.parm(f"{self.flam3h_iter.sec_postAffine[-1][0]}{iterator_num}").eval()
+    
+    
+    def get_FF_affine_pre(self) -> TA_Affine:
+        """Return the FF pre affine values in a list of tuples: X, Y, O</br>
+        It does not collect the Rotation/Angle parameter, must collect this in a separate call if needed using:
+        * def get_FF_affine_pre_rot(self) -> float:
+
+        Args:
+            (self):
+
+        Returns:
+            (TA_Affine):
+        """
+        return [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
+    
+    
+    def get_FF_affine_pre_rot(self) -> float:
+        """Return the FF pre affine Rotation/Angle value.</br>
+
+        Args:
+            (self):
+
+        Returns:
+            (float):
+        """
+        return self.node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
+    
+    
+    def get_FF_affine_post(self) -> TA_Affine:
+        """Return the FF post affine values in a list of tuples: X, Y, O</br>
+        It does not collect the Rotation/Angle parameter, must collect this in a separate call if needed using:
+        * def get_FF_affine_post_rot(self) -> float:
+
+        Args:
+            (self):
+
+        Returns:
+            (TA_Affine):
+        """
+        return [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_postAffine_FF[1:-1]]
+    
+    
+    def get_FF_affine_post_rot(self) -> float:
+        """Return the FF post affine Rotation/Angle value.</br>
+
+        Args:
+            (self):
+
+        Returns:
+            (float):
+        """
+        return self.node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
+    
+    
     def out_to_flam3h_init_data_quick(self, node: hou.SopNode, tab: str = 'OUT') -> tuple[str | None, int]:
         """Load a flame preset and gather some data.
 
@@ -19083,7 +19215,8 @@ class out_flame_utils
     def out_to_flam3h_quick(self, tab: str = 'OUT') -> None:
         """Load a Flame preset to then print its compact infos into the status bar and flash message for purely informational purpose.
         
-        This is done so instead of having just a list of the Flames included into the file as a menu, we can also gather a bit of infos quickly every time we select a menu entrie.
+        This is done so instead of having just a list of the Flames included into the file as a menu,</br>
+        we can also gather a bit of infos quickly every time we select a menu entrie.
         
         The infos are:
         * Flame preset name.
@@ -19166,7 +19299,7 @@ class out_flame_utils
 
 
     def out_palette_256_plus_check(self) -> None:
-        """When activating the PREFS option: palette 256+ toggle,
+        """When activating the PREFS option: palette 256+ toggle,</br>
         let the user knows if the current palette posses enough colors and give some infos.
 
         Args:
@@ -19274,9 +19407,13 @@ class out_flame_utils
                 
                 
     def out_palette_keys_count(self, palette_plus: int, keys: int, type: int, _MSG = True) -> str:
-        """This is used to find the number of colors we want to export when saving out a Flame file.
-        We need to always export as many colors to include the current color keys count in the palette based on a predefined set of value:
-        So for example, if the current palette posses 270 color keys, we will export using the closest but greater menu entry whitch is: 512 (the smaller being: 256).
+        """This is used to find the number of colors we want to export when saving out a Flame file.</br>
+        We need to always export as many colors to include the current color keys count in the palette based on a predefined set of value.</br>
+        
+        So for example,</br>
+        if the current palette posses 270 color keys,</br>
+        we will export using the closest but greater menu entry whitch is: 512 (the smaller being: 256).</br>
+        
         The minimum will always be clamped at: 256
 
         Args:
@@ -19349,7 +19486,8 @@ class out_flame_utils
     
     def menu_sensor_resolution(self) -> TA_Menu:
         """ Pre computed menu: MENU_SENSOR_RESOLUTIONS
-        The old sensor resolution menu definition has been renamed to: def __menu_sensor_resolution(self) -> TA_Menu: (just above)
+        The old sensor resolution menu definition has been renamed to:
+        * def __menu_sensor_resolution(self) -> TA_Menu: (just above)
         
         Output sensor resolution menu parameter with a list of options.
         
@@ -19448,7 +19586,7 @@ class out_flame_utils
 
 
     def reset_OUT_kwargs(self) -> None:
-        """Build a multifunctional reset OUT render properties method.
+        """Build a multifunctional reset OUT render properties method.</br>
         IT will allow to reset the entire tab or either only the Sensor or Render settings tab.
         
         Args:
@@ -19730,7 +19868,8 @@ class out_flame_utils
                 
                 
     def out_flame_name_inherit_on_load(self) -> None:
-        """When this option is toggled ON, cause the Flame name parameter to be set to the currently loaded Flame preset name.
+        """When this option is toggled ON,</br>
+        cause the Flame name parameter to be set to the currently loaded Flame preset name.
         
         Args:
             (self):
@@ -19819,7 +19958,7 @@ class out_flame_utils
         
 
     def out_flam3_compatibility_check_and_msg(self) -> bool:
-        """Check if the Flame we want to write out is compatible with the FLAM3 flame format.
+        """Check if the Flame we want to write out is compatible with the FLAM3 flame format.</br>
         If not, print out details to let us know what is wrong with it.
 
         Args:
@@ -19952,7 +20091,12 @@ class out_flame_utils
                                     element_xform: lxmlET._Element,
                                     MP_IDX: str, 
                                     FUNC: Callable) -> list[str]:
-        """Set this iterator variations types parameters, weights parameters and their parametric parameters inside the xform (lxmlET._Element) to be written out into the XML file.
+        """Set this iterator variations:
+        * types parameters
+        * weights parameters and their parametric parameters
+        
+        inside the xform (lxmlET._Element) to be written out into the XML file.
+        
         It will also return a list of used variations in the provided iterator/xform.
         
         Args:
@@ -20111,9 +20255,12 @@ class out_flame_utils
         """Store the loaded Flame preset into the FLAM3H™ node data storage.
         This definition run a full save out preset(a snapshot of the curernt status of the FLAM3H™ parameters).
         
-        This is being added to have some sort of history/backup some how.
-        Will probably never be used but it is something more to have in any case.
-        This data is cleared every time a FLAM3H™ node is being created, or when FLAM3H™ is being reset to the default Sierpinsky triangle or its iterator's count is set to 0(Zero).
+        This is being added to have some sort of history/backup some how.</br>
+        Will probably never be used but it is something more to have in any case.</br>
+        This data is cleared every time:
+        * a FLAM3H™ node is being created
+        * when FLAM3H™ is being reset to the default Sierpinsky triangle
+        * its iterator's count is set to 0(Zero).
 
         Args:
             (self):
@@ -20454,8 +20601,9 @@ class out_flame_utils
 
 
     def __out_flame_name(self, prm_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)) -> str:
-        """Prepare the Flame name string for the XML Flame name key.
+        """Prepare the Flame name string for the XML Flame name key.</br>
         It will either use an automated one if no Flame name is provided or use the one provided by the user.
+        
         It will also auto add the iterations number to the string name if requested ("add iterations to Flame name" toggle ON)
 
         Args:
@@ -20492,7 +20640,7 @@ class out_flame_utils
     
     
     def __out_xf_data_color_speed(self) -> tuple[str, ...]:
-        """Prepare the xform/iterator color speed into a proper string to be written out.
+        """Prepare the xform/iterator color speed into a proper string to be written out.</br>
         This is specifically for Fractorium as it is the one using this conversion of values.
 
         Args:
@@ -20565,8 +20713,9 @@ class out_flame_utils
 
 
     def __out_xf_preaffine(self) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
-        """Prepare each xform/iterator pre_affine parameters for writing out.
-        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will prep the Rotation angle parameter as well.
+        """Prepare each xform/iterator pre_affine parameters for writing out.</br>
+        This will prep both flam3_affine style and F3H_affine style.</br>
+        In case of the F3H_affine style it will prep the Rotation angle parameter as well.
 
         Args:
             (self):
@@ -20578,8 +20727,9 @@ class out_flame_utils
         f3h_val: list = []
         f3h_angleDeg: list = []
         for iter in range(self.iter_count):
-            collect: TA_Affine = [self.node.parmTuple(f"{prm[0]}{iter + 1}").eval() for prm in self.flam3h_iter.sec_preAffine[:-1]]
-            angleDeg: float = self.node.parm(f"{self.flam3h_iter.sec_preAffine[-1][0]}{iter + 1}").eval()
+            iter_num: int = iter + 1
+            collect: TA_Affine = self.get_iter_affine_pre(iterator_num=iter_num)
+            angleDeg: float = self.get_iter_affine_pre_rot(iterator_num=iter_num)
             f3h_angleDeg.append(str(round(angleDeg, ROUND_DECIMAL_COUNT)))
             flatten: list[float] = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
             f3h_flatten: list[float] = [item for sublist in collect for item in sublist]
@@ -20591,8 +20741,9 @@ class out_flame_utils
     
     
     def __out_xf_postaffine(self) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
-        """Prepare each xform/iterator post_affine parameters for writing out.
-        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will prep the Rotation angle parameter as well.
+        """Prepare each xform/iterator post_affine parameters for writing out.</br>
+        This will prep both flam3_affine style and F3H_affine style.</br>
+        In case of the F3H_affine style it will prep the Rotation angle parameter as well.
 
         Args:
             (self):
@@ -20605,8 +20756,9 @@ class out_flame_utils
         f3h_angleDeg: list = []
         for iter in range(self.iter_count):
             if self.node.parm(f"{self.flam3h_iter_prm_names.postaffine_do}_{iter + 1}").eval():
-                collect: TA_Affine = [self.node.parmTuple(f"{prm[0]}{iter + 1}").eval() for prm in self.flam3h_iter.sec_postAffine[1:-1]]
-                angleDeg: float = self.node.parm(f"{self.flam3h_iter.sec_postAffine[-1][0]}{iter + 1}").eval()
+                iter_num: int = iter + 1
+                collect: TA_Affine = self.get_iter_affine_post(iterator_num=iter_num)
+                angleDeg: float = self.get_iter_affine_post_rot(iterator_num=iter_num)
                 if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                     f3h_angleDeg.append(str(round(angleDeg, ROUND_DECIMAL_COUNT)))
                     flatten: list[float] = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
@@ -20627,8 +20779,9 @@ class out_flame_utils
 
 
     def __out_finalxf_preaffine(self) -> tuple[str, str, str]:
-        """Prepare each FF/finalXform pre_affine parameters for writing out.
-        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will prep the Rotation angle parameter as well.
+        """Prepare each FF/finalXform pre_affine parameters for writing out.</br>
+        This will prep both flam3_affine style and F3H_affine style.</br>
+        In case of the F3H_affine style it will prep the Rotation angle parameter as well.
 
         Args:
             (self):
@@ -20636,8 +20789,8 @@ class out_flame_utils
         Returns:
             (tuple[str, str, str]): tuple[str: flam3_affine, str: F3H_affine, str: F3H Rotation angle]. tuple of strings for all the FLAM3H™ FF/finalXform pre_affine parameters prepped into strings for writing out into the Flame preset file.
         """   
-        collect: TA_Affine = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_preAffine_FF[:-1]]
-        angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_preAffine_FF[-1][0]}").eval()
+        collect: TA_Affine = self.get_FF_affine_pre()
+        angleDeg: float = self.get_FF_affine_pre_rot()
         f3h_angleDeg: str = str(angleDeg)
         f3h_affine: TA_STR_ListUnflattened = self.out_util_round_floats(collect)
         if angleDeg != 0.0:
@@ -20651,8 +20804,9 @@ class out_flame_utils
     
     
     def __out_finalxf_postaffine(self) -> tuple[str, str, str]:
-        """Prepare each FF/finalXform post_affine parameters for writing out.
-        This will prep both flam3_affine style and F3H_affine style. In case of the F3H_affine style it will prep the Rotation angle parameter as well.
+        """Prepare each FF/finalXform post_affine parameters for writing out.</br>
+        This will prep both flam3_affine style and F3H_affine style.</br>
+        In case of the F3H_affine style it will prep the Rotation angle parameter as well.
 
         Args:
             (self):
@@ -20661,8 +20815,8 @@ class out_flame_utils
             (tuple[str, str, str]): tuple[str: flam3_affine, str: F3H_affine, str: F3H Rotation angle]. tuple of strings for all the FLAM3H™ FF/finalXform post_affine parameters prepped into strings for writing out into the Flame preset file.
         """  
         if self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.postaffine_do}").eval():
-            collect: TA_Affine = [self.node.parmTuple(f"{prm[0]}").eval() for prm in self.flam3h_iter_FF.sec_postAffine_FF[1:-1]]
-            angleDeg: float = self.node.parm(f"{self.flam3h_iter_FF.sec_postAffine_FF[-1][0]}").eval()
+            collect: TA_Affine = self.get_FF_affine_post()
+            angleDeg: float = self.get_FF_affine_post_rot()
             if AFFINE_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                 f3h_angleDeg: str = str(angleDeg)
                 f3h_affine: TA_STR_ListUnflattened = self.out_util_round_floats(collect)
@@ -20703,8 +20857,8 @@ class out_flame_utils
     
     
     def __out_flame_palette_mode(self) -> str:
-        """Prepare the FLAM3H™ palette mode to be written out into the Flame preset file.
-        This is specifically for Fractorium, it uses 2(two) modes: 'linear' and 'step'.
+        """Prepare the FLAM3H™ palette mode to be written out into the Flame preset file.</br>
+        This is specifically for Fractorium, it uses 2(two) modes: 'linear' and 'step'.</br>
         Everything else will fallback on: 'linear'
         
         Args:
@@ -20801,8 +20955,8 @@ class out_flame_utils
     
     # custom to FLAM3H™ only
     def __out_flame_palette_lookup_samples(self) -> str | bool:
-        """Prepare the FLAM3H™ lookup samples to be written out into the Flame preset file.
-        It will check if palette 256+ is active and if so if the number of palette color keys are enough to use higher samples or not.
+        """Prepare the FLAM3H™ lookup samples to be written out into the Flame preset file.</br>
+        It will check if palette 256+ is active and if so if the number of palette color keys are enough to use higher samples or not.</br>
         If plaette 256+ toggle is off, it will check if the user is using a lookup sample value different from default and store it if so.
         
         Args:
