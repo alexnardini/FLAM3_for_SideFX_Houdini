@@ -14,7 +14,7 @@
 #               NAVIGATING THE PARAMETERS INSIDE THE OTL TYPE PROPERTIES WINDOW.
 ```
 - #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
-- #### Houdini versions:  `H19 to H20.5`
+- #### Houdini versions:  `H21 UP`
 
 </br>
 </br>
@@ -57,7 +57,7 @@ to: **py_flam3usd__3_11**
 </br>
 </br>
 
-# PythonModule `H20.5`
+# PythonModule `H21 UP`
 The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
@@ -72,15 +72,15 @@ import toolutils
 # Set some HDA infos
 __version__ = "0.2.34"
 __status__ = "Prototype"
-__h_versions__: tuple = (205,)
-__range_type__: bool = True # True for closed range. False for open range
+__h_versions__: tuple = (210,)
+__range_type__: bool = False # True for closed range. False for open range
 
 # The following are min and max Houdini version where FLAM3HUSD can run.
 # The max version is always most likely the latest Houdini version released by SideFX
 # unless it is a closed range due to moving into newer Houdini and FLAM3HUSD versions.
 #
 # The ranges can be open or close inside this definition:
-# - (py_flam3usd__3_11) -> def flam3husd_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
+# - (py_flam3usd__3_11_H21_UP) -> def flam3husd_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
 # - (py_flam3usd__3_7)  -> def flam3husd_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
 __h_version_min__: int = 190
 __h_version_max__: int = __h_versions__[-1]
@@ -98,7 +98,7 @@ def houdini_version(digit: int=1) -> int:
     
 h: int = houdini_version(2)
 if h < 205: __module__: str = "py_flam3usd__3_7"
-else: __module__: str = "py_flam3usd__3_11"
+else: __module__: str = "py_flam3usd__3_11_H21_UP"
 
 flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __module__)
 ```
@@ -107,57 +107,7 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 </br>
 </br>
 
-# PythonModule `H19 to H20`
-The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>
-First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
-
-```python
-#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
-#   Author:     F stands for liFe ( made in Italy )
-#   License:    GPL
-#   Copyright:  (c) 2023 F stands for liFe
-
-import toolutils
-
-# Set some HDA infos
-__version__ = "0.2.34"
-__status__ = "Prototype"
-__h_versions__: tuple = (190, 195, 200)
-__range_type__: bool = True # True for closed range. False for open range
-
-# The following are min and max Houdini version where FLAM3HUSD can run.
-# The max version is always most likely the latest Houdini version released by SideFX
-# unless it is a closed range due to moving into newer Houdini and FLAM3HUSD versions.
-#
-# The ranges can be open or close inside this definition:
-# - (py_flam3usd__3_11) -> def flam3husd_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
-# - (py_flam3usd__3_7)  -> def flam3husd_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
-__h_version_min__: int = 190
-__h_version_max__: int = __h_versions__[-1]
-
-def houdini_version(digit: int=1) -> int:
-    """Retrieve the major Houdini version number currently in use.
-
-    Args:
-        digit(int): Default to 1: 19, 20. if set to 2: 190, 195, 200, 205, and so on.
-
-    Returns:
-        (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
-    """ 
-    return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
-    
-h: int = houdini_version(2)
-if h < 205: __module__: str = "py_flam3usd__3_7"
-else: __module__: str = "py_flam3usd__3_11"
-
-flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __module__)
-```
-
-</br>
-</br>
-</br>
-
-# PreFirstCreate `H19 to H20.5`
+# PreFirstCreate `H21 UP`
 Before the node is even created but invoked.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**
 
@@ -249,7 +199,7 @@ if not flam3husd_first_time():
 </br>
 </br>
 
-# OnCreated `H19 to H20.5`
+# OnCreated `H21 UP`
 Initialize what the tool need when you create its node in the network editor.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**OnCreated**
 ```python
@@ -265,7 +215,7 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_creat
 </br>
 </br>
 
-# OnLoaded `H19 to H20.5`
+# OnLoaded `H21 UP`
 When loading hip files with FLAM3HUSD nodes in it do some checks.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded**
 ```python
@@ -281,7 +231,7 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_loade
 </br>
 </br>
 
-# OnDeleted `H19 to H20.5`
+# OnDeleted `H21 UP`
 When deleting a FLAM3HUSD node.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted**
 ```python
@@ -309,7 +259,7 @@ _FLAM3HUSD system utilities._
 
 
 
-# SYS Tab
+# SYS Tab `H21 UP`
 # parameter name:    `sys_help`
 ## parameter type: `button`
 - ### Callback Script
@@ -321,7 +271,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display
 
 _Here you will play with the main settings of FLAM3HUSD._
 
-# SYS Tab
+# SYS Tab `H21 UP`
 # parameter name:    `sys_reframe`
 ## parameter type: `button`
 - ### Callback Script
@@ -333,7 +283,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_viewport_bbo
 </br>
 </br>
 
-# SYS Tab
+# SYS Tab `H21 UP`
 # parameter name:    `flam3hpath`
 ## parameter type: `operator path`
 - ### Callback Script
@@ -361,7 +311,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 _Here you will play with the main settings of FLAM3HUSD._
 
-# PREFS Tab
+# PREFS Tab `H21 UP`
 # parameter name:    `setdark`
 ## parameter type: `toggle`
 - ### Callback Script
@@ -372,7 +322,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark()
 </br>
 </br>
 
-# PREFS Tab
+# PREFS Tab `H21 UP`
 # parameter name:    `rndtype`
 ## parameter type: `ordered menu`
 - ### Callback Script
@@ -389,7 +339,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 </br>
 
-# PREFS Tab
+# PREFS Tab `H21 UP`
 # parameter name:    `vptype`
 ## parameter type: `ordered menu`
 - ### Callback Script
@@ -400,7 +350,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleD
 </br>
 </br>
 
-# PREFS Tab
+# PREFS Tab `H21 UP`
 # parameter name:    `vpptsize`
 ## parameter type: `float`
 - ### Callback Script
@@ -417,7 +367,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 </br>
 
-# PREFS Tab
+# PREFS Tab `H21 UP`
 # parameter name:    `widths`
 ## parameter type: `float`
 - ### Action Button script
@@ -430,7 +380,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 </br>
 
-# PREFS Tab
+# PREFS Tab `H21 UP`
 # parameter name:    `xfviz`
 ## parameter type: `toggle`
 - ### Callback Script
@@ -441,7 +391,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_
 </br>
 </br>
 
-# PREFS Tab
+# PREFS Tab `H21 UP`
 # parameter name:    `widths_xf_viz`
 ## parameter type: `float`
 - ### Action Button script
@@ -454,7 +404,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 </br>
 
-# PREFS Tab
+# PREFS Tab `H21 UP`
 # parameter name:    `pxsamples_cpu`
 ## parameter type: `integer`
 - ### Action Button script
@@ -467,7 +417,20 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 </br>
 
-# PREFS Tab
+# PREFS Tab `H21 UP`
+# parameter name:    `pxsamples_xpu`
+## parameter type: `integer`
+- ### Action Button script
+```python
+node = kwargs['node']
+node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(512, 'pxsamples_xpu')
+node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
+```
+
+</br>
+</br>
+
+# PREFS Tab `H21 UP`
 # parameter name:    `denoiser`
 ## parameter type: `string`
 - ### Callback Script
@@ -478,7 +441,7 @@ kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_ge
 </br>
 </br>
 
-# PREFS Tab
+# PREFS Tab `H21 UP`
 # parameter name:    `use_f3h_shader`
 ## parameter type: `toggle`
 - ### Callback Script
@@ -495,7 +458,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 </br>
 
-# PREFS Tab
+# PREFS Tab `H21 UP`
 # parameter name:    `tonemap`
 ## parameter type: `string`
 - ### Callback Script
