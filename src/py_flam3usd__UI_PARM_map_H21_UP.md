@@ -265,7 +265,7 @@ _FLAM3HUSD system utilities._
 ## parameter type: `button`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display_help(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
+hou.phm().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display_help(), hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 </br>
 </br>
@@ -277,7 +277,7 @@ _Here you will play with the main settings of FLAM3HUSD._
 ## parameter type: `button`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_viewport_bbox_frame(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
+hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_viewport_bbox_frame(), hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
 
@@ -289,7 +289,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_viewport_bbo
 ## parameter type: `operator path`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_is_valid_flam3h_node(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3usd.flam3husd_scripts(kwargs).flam3husd_is_valid_flam3h_node(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### Action Button script
 ```python
@@ -317,7 +317,7 @@ _Here you will play with the main settings of FLAM3HUSD._
 ## parameter type: `toggle`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
+hou.phm().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes(), hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
 </br>
@@ -328,7 +328,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark()
 ## parameter type: `ordered menu`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer(), kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
+hou.phm().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer(), kwargs['parm'].deleteAllKeyframes(), hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 - ### Action Button script
 ```python
@@ -345,7 +345,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 ## parameter type: `ordered menu`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleDisplay(), kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
+hou.phm().flam3usd.flam3husd_general_utils(kwargs).viewportParticleDisplay(), kwargs['parm'].deleteAllKeyframes(), hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
 </br>
@@ -356,7 +356,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleD
 ## parameter type: `float`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize()
+hou.phm().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize()
 ```
 - ### Action Button script
 ```python
@@ -386,7 +386,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 ## parameter type: `toggle`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
+hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
 </br>
@@ -436,7 +436,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 ## parameter type: `string`
 - ### Callback Script
 ```python
-kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
+kwargs['parm'].deleteAllKeyframes(), hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
 </br>
@@ -447,7 +447,7 @@ kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_ge
 ## parameter type: `toggle`
 - ### Callback Script
 ```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
+hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 - ### Action Button script
 ```python
@@ -464,7 +464,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 ## parameter type: `string`
 - ### Callback Script
 ```python
-kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
+kwargs['parm'].deleteAllKeyframes(), hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
 </br>

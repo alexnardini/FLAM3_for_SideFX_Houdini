@@ -283,7 +283,7 @@ Inside: **OTL**->**type_properties**->**Scripts**->**OnCreated**
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
 
-hou.phm().flam3.flam3h_scripts(kwargs).flam3h_on_create()
+kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_create()
 ```
 
 </br>
@@ -300,7 +300,7 @@ Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded**
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
 
-hou.phm().flam3.flam3h_scripts(kwargs).flam3h_on_loaded()
+kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_loaded()
 ```
 
 </br>
@@ -317,7 +317,7 @@ Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted**
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
 
-hou.phm().flam3.flam3h_scripts(kwargs).flam3h_on_deleted()
+kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_deleted()
 ```
 
 </br>
