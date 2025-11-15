@@ -178,7 +178,6 @@ def cached_slot_property(func):
 T = TypeVar('T')
 TA_Affine: TypeAlias = list[tuple[float, ...] | list[float]]
 TA_STR_ListUnflattened: TypeAlias = list[list[str]]
-TA_STR_ListFlatten: TypeAlias = list[str]
 TA_RoundFloats: TypeAlias = list[tuple[float, ...] | list[float]] | list[tuple[str, ...] | list[str]]
 TA_TypeVarCollection: TypeAlias = str | list | tuple | KeysView
 TA_XformVarKeys: TypeAlias = str | list[str] | tuple[str, ...] | dict[str, int] | dict[str, tuple[str, ...]] | dict[str, set[str]] | KeysView | None
@@ -2821,7 +2820,7 @@ class flam3h_general_utils
             x(list): the list to check
             
         Returns:
-            (bool): True if it is a list of lists and False if not
+            (bool): True if it is a flat lists and False if not
         """ 
         return isinstance(x, list) and not any(isinstance(el, list) for el in x)
 
@@ -19524,7 +19523,7 @@ class out_flame_utils
         fill: list[list[str]] = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
         xaos_vactive: list = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
         _join: Callable[[Iterable[str]], str] = ' '.join
-        print(xaos_vactive)
+
         return tuple(_join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
 
 
