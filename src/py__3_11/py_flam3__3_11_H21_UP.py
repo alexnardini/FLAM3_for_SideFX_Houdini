@@ -2717,7 +2717,7 @@ class flam3h_general_utils
 @STATICMETHODS
 * is_list_of_lists(x: list) -> bool:
 * is_flat_list(x: list) -> bool:
-* is_tuple_of_tuple(x: tuple) -> bool:
+* is_tuple_of_tuples(x: tuple) -> bool:
 * is_flat_tuple(x: tuple) -> bool:
 * private_prm_set(node: hou.SopNode, prm_name: str, data: str | int | float) -> None:
 * private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm) -> None:
@@ -2728,7 +2728,7 @@ class flam3h_general_utils
 * clamp(x, val_max: int | float = 255) -> float:
 * reset_density(node: hou.SopNode) -> None:
 * my_system() -> str:
-* set_status_msg(msg: str, type: str) -> None:
+* set_status_msg(msg: str, msg_type: str) -> None:
 * isLOCK(filepath: str | bool) -> bool:
 * util_open_file_explorer(filepath_name: str) -> None:
 * util_getParameterEditors() -> list[hou.ParameterEditor]:
@@ -2824,11 +2824,11 @@ class flam3h_general_utils
         Returns:
             (bool): True if it is a flat lists and False if not
         """ 
-        return isinstance(x, list) and not any(isinstance(el, list | tuple) for el in x)
+        return isinstance(x, list) and not any(isinstance(el, list | tuple | set) for el in x)
     
     
     @staticmethod
-    def is_tuple_of_tuple(x: tuple) -> bool:
+    def is_tuple_of_tuples(x: tuple) -> bool:
         """Check if the passed in tuple is a tuple of tuples
         
         Args:
@@ -2838,7 +2838,7 @@ class flam3h_general_utils
             (bool): True if it is a tuple of tuples and False if not
         """ 
         return isinstance(x, tuple) and all(isinstance(el, tuple) for el in x)
-        # If you want to treat an empty list as not a list of lists, change the logic
+        # If you want to treat an empty tuple as not a tuple of tuples, change the logic
         # return isinstance(x, tuple) and x != () and all(isinstance(el, tuple) for el in x)
     
     
@@ -2852,7 +2852,7 @@ class flam3h_general_utils
         Returns:
             (bool): True if it is a flat tuple and False if not
         """ 
-        return isinstance(x, tuple) and not any(isinstance(el, list | tuple) for el in x)
+        return isinstance(x, tuple) and not any(isinstance(el, list | tuple | set) for el in x)
 
 
     @staticmethod
@@ -3040,12 +3040,12 @@ class flam3h_general_utils
 
 
     @staticmethod
-    def set_status_msg(msg: str, type: str) -> None:
+    def set_status_msg(msg: str, msg_type: str) -> None:
         """Print a message to the Houdini's status bar if the UI is available.
 
         Args:
             msg(str): The message string to print
-            type(str): The type of severity message to use, Possible choises are:
+            msg_type(str): The type of severity message to use, Possible choises are:
             
             * MSG ( message )
             * IMP ( important message )
@@ -3056,16 +3056,16 @@ class flam3h_general_utils
         Returns:
             (None):
         """
-
+        
         if hou.isUIAvailable():
             st: dict[str, hou.EnumValue] = { 'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning }  # type: ignore
-            severityType: hou.EnumValue | None = st.get(type)
+            severityType: hou.EnumValue | None = st.get(msg_type)
             if severityType is not None:
-                hou.ui.setStatusMessage(msg, st.get(type)) # type: ignore
+                hou.ui.setStatusMessage(msg, severityType) # type: ignore
             else:
                 # If the selected severity type is not found, use the default severity type: hou.severityType.Message
                 # This mostly not to make it error out if the user make a typo or such.
-                hou.ui.setStatusMessage(msg, hou.severityType.Message) # type: ignore
+                hou.ui.setStatusMessage(f"\"{msg_type}\" is not a recognized hou.severityType, using \"MSG\" instead. {msg}", hou.severityType.Message) # type: ignore
 
 
     @staticmethod
