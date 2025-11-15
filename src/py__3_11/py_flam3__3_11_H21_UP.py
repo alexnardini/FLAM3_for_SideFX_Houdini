@@ -4086,7 +4086,7 @@ class flam3h_general_utils
         node = self.node
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         _main_xf_viz_name: str = flam3h_iterator_prm_names().main_xf_viz
-        all_mp_xf_viz: list[str] = [node.parm(f"{_main_xf_viz_name}_{str(mp_idx + 1)}").eval() for mp_idx in range(iter_num)]
+        all_mp_xf_viz: list[int] = [node.parm(f"{_main_xf_viz_name}_{str(mp_idx + 1)}").eval() for mp_idx in range(iter_num)]
         if max(all_mp_xf_viz) == 1:
             return True
         
