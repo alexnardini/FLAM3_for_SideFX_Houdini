@@ -947,9 +947,9 @@ class flam3h_varsPRM
             (list[tuple[int, str]]): return an enumerated variations menu list with "linear" being the first one for convenience
         """
 
-        vars_no_lin: list = list(enumerate(self.vars_all()))[1:]
+        vars_no_lin: list[tuple[int, str]] = list(enumerate(self.vars_all()))[1:]
         if not _PB: vars_no_lin.remove((65, 'Pre blur')) # remove "pre blur" as it is hard coded into the chaos game.
-        vars_sorted: list = sorted(vars_no_lin, key=lambda var: var[1])
+        vars_sorted: list[tuple[int, str]] = sorted(vars_no_lin, key=lambda var: var[1])
         return list(enumerate(['Linear'])) + vars_sorted
     
     
