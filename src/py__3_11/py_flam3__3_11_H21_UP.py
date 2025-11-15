@@ -2715,8 +2715,10 @@ class flam3h_general_utils:
 class flam3h_general_utils
 
 @STATICMETHODS
-* is_list_of_lists(x) -> bool:
-* is_flat_list(x) -> bool:
+* is_list_of_lists(x: list) -> bool:
+* is_flat_list(x: list) -> bool:
+* is_tuple_of_tuple(x: tuple) -> bool:
+* is_flat_tuple(x: tuple) -> bool:
 * private_prm_set(node: hou.SopNode, prm_name: str, data: str | int | float) -> None:
 * private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm) -> None:
 * select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> str | None:
@@ -2798,7 +2800,7 @@ class flam3h_general_utils
         
     
     @staticmethod
-    def is_list_of_lists(x) -> bool:
+    def is_list_of_lists(x: list) -> bool:
         """Check if the passed in list is a list of lists
         
         Args:
@@ -2813,7 +2815,7 @@ class flam3h_general_utils
     
     
     @staticmethod
-    def is_flat_list(x) -> bool:
+    def is_flat_list(x: list) -> bool:
         """Check if the passed in list is a flat lists
         
         Args:
@@ -2822,7 +2824,35 @@ class flam3h_general_utils
         Returns:
             (bool): True if it is a flat lists and False if not
         """ 
-        return isinstance(x, list) and not any(isinstance(el, list) for el in x)
+        return isinstance(x, list) and not any(isinstance(el, list | tuple) for el in x)
+    
+    
+    @staticmethod
+    def is_tuple_of_tuple(x: tuple) -> bool:
+        """Check if the passed in tuple is a tuple of tuples
+        
+        Args:
+            x(list): the list to check
+            
+        Returns:
+            (bool): True if it is a tuple of tuples and False if not
+        """ 
+        return isinstance(x, tuple) and all(isinstance(el, tuple) for el in x)
+        # If you want to treat an empty list as not a list of lists, change the logic
+        # return isinstance(x, tuple) and x != () and all(isinstance(el, tuple) for el in x)
+    
+    
+    @staticmethod
+    def is_flat_tuple(x: tuple) -> bool:
+        """Check if the passed in tuple is a flat tuple
+        
+        Args:
+            x(list): the list to check
+            
+        Returns:
+            (bool): True if it is a flat tuple and False if not
+        """ 
+        return isinstance(x, tuple) and not any(isinstance(el, list | tuple) for el in x)
 
 
     @staticmethod
