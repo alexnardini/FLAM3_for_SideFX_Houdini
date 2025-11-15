@@ -27,6 +27,7 @@
 
 - **FLAM3H™** [**UI_ICON_map**](FLAM3H__UI_ICON_map.md)
 - **FLAM3H™** [**UI_PARM_map**](py_flam3__UI_PARM_map.md)
+- **FLAM3H™** [**UI_PARM_map H21 UP**](py_flam3__UI_PARM_map_H21_UP.md)
 
 </br>
 

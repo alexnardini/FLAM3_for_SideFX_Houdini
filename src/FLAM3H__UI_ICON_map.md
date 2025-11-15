@@ -17,6 +17,7 @@
 _They remain Copyright of (c) 2021 F stands for liFe (and their other respective owners), and may not be redistributed without permission_.
 
 - #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
+- #### Houdini versions:  `H19 to H21 UP`
 
 </br>
 </br>
@@ -24,6 +25,7 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 #### Quick links
 
 - **FLAM3H™** [**UI_PARM_map**](py_flam3__UI_PARM_map.md)
+- **FLAM3H™** [**UI_PARM_map H21 UP**](py_flam3__UI_PARM_map_H21_UP.md)
 
 </br>
 
