@@ -1694,23 +1694,23 @@ class flam3h_scripts
         Returns:
             (None):
         """
-        prm_names: tuple = (CP_PVT_ISVALID_FILE, 
-                            CP_PVT_ISVALID_PRESET, 
-                            IN_PVT_ISVALID_FILE, 
-                            IN_PVT_ISVALID_PRESET, 
-                            IN_PVT_CLIPBOARD_TOGGLE, 
-                            OUT_PVT_ISVALID_FILE, 
-                            PREFS_PVT_F3C, 
-                            PREFS_PVT_XAOS_AUTO_SPACE,
-                            PREFS_PVT_INT_0,
-                            PREFS_PVT_INT_1,
-                            PREFS_PVT_FLOAT_0,
-                            PREFS_PVT_FLOAT_1,
-                            FLAM3H_PVT_H_VALID,
-                            PREFS_PVT_VIEWPORT_PT_SIZE_MEM,
-                            PREFS_PVT_VIEWPORT_PT_TYPE_MEM,
-                            PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM
-                            )
+        prm_names: tuple[str,...] = (   CP_PVT_ISVALID_FILE, 
+                                        CP_PVT_ISVALID_PRESET, 
+                                        IN_PVT_ISVALID_FILE, 
+                                        IN_PVT_ISVALID_PRESET, 
+                                        IN_PVT_CLIPBOARD_TOGGLE, 
+                                        OUT_PVT_ISVALID_FILE, 
+                                        PREFS_PVT_F3C, 
+                                        PREFS_PVT_XAOS_AUTO_SPACE,
+                                        PREFS_PVT_INT_0,
+                                        PREFS_PVT_INT_1,
+                                        PREFS_PVT_FLOAT_0,
+                                        PREFS_PVT_FLOAT_1,
+                                        FLAM3H_PVT_H_VALID,
+                                        PREFS_PVT_VIEWPORT_PT_SIZE_MEM,
+                                        PREFS_PVT_VIEWPORT_PT_TYPE_MEM,
+                                        PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM
+                                        )
         
         for prm_name in prm_names:
             parm = node.parm(prm_name)
@@ -1720,13 +1720,13 @@ class flam3h_scripts
 
         # The following are FLAM3H™ UI utility parameters
         # hence they do not have a global variable and only hard coded here.
-        disabler_prm_names: tuple = ("cpdisable",
-                                     "hide_palette",
-                                     "indisable",
-                                     "outdisable",
-                                     "prefsdisable",
-                                     "aboutdisable"
-                                     )
+        disabler_prm_names: tuple[str, ...] = ( "cpdisable",
+                                                "hide_palette",
+                                                "indisable",
+                                                "outdisable",
+                                                "prefsdisable",
+                                                "aboutdisable"
+                                                )
         
         for prm_name in disabler_prm_names:
             parm = node.parm(prm_name)
@@ -1849,17 +1849,17 @@ class flam3h_scripts
         # Iterators
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         prm_list_post_affine: tuple[tuple[str, int], ...] = flam3h_iterator().sec_postAffine
-        keyframes: list = [[item for sublist in k for item in sublist] for k in [[[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id + 1}")] if prm_list_post_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").keyframes()) else 0] for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]]
-        collect: list = [[node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").eval() if prm_list_post_affine[1:][idx][1] else node.parm(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").eval() for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]
-        for id, affine in enumerate(collect):
-            if node.parm(f"{prm_list_post_affine[0][0]}{id + 1}").eval() and 1 not in keyframes[id] and affine == AFFINE_DEFAULT_VALS:
+        keyframes_iters: list[list[int]] = [[item for sublist in k for item in sublist] for k in [[[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id + 1}")] if prm_list_post_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").keyframes()) else 0] for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]]
+        collect_iters: list[list[tuple[float, ...] | float]] = [[node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").eval() if prm_list_post_affine[1:][idx][1] else node.parm(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").eval() for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]
+        for id, affine in enumerate(collect_iters):
+            if node.parm(f"{prm_list_post_affine[0][0]}{id + 1}").eval() and 1 not in keyframes_iters[id] and affine == AFFINE_DEFAULT_VALS:
                 node.setParms({f"{prm_list_post_affine[0][0]}{id + 1}": 0}) # type: ignore
                 
         # FF
         prm_list_post_affine_FF: tuple[tuple[str, int], ...] = flam3h_iterator_FF().sec_postAffine_FF
-        keyframes: list = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}")] if prm_list_post_affine_FF[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_post_affine_FF[1:]))] for item in sublist]
-        collect: list = [node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() if prm_list_post_affine_FF[1:][idx][1] else node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() for idx in range(len(prm_list_post_affine_FF[1:]))]
-        if node.parm(f"{prm_list_post_affine_FF[0][0]}").eval() and 1 not in keyframes and collect == AFFINE_DEFAULT_VALS:
+        keyframes_FF: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}")] if prm_list_post_affine_FF[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_post_affine_FF[1:]))] for item in sublist]
+        collect_FF: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() if prm_list_post_affine_FF[1:][idx][1] else node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() for idx in range(len(prm_list_post_affine_FF[1:]))]
+        if node.parm(f"{prm_list_post_affine_FF[0][0]}").eval() and 1 not in keyframes_FF and collect_FF == AFFINE_DEFAULT_VALS:
             node.setParms({f"{prm_list_post_affine_FF[0][0]}": 0}) # type: ignore
 
 
@@ -2001,7 +2001,7 @@ class flam3h_scripts
                 
         if FIRST_TIME_MSG is True and ( first_instance_32bit is True or first_instance_64bit is True ): # type: ignore
             
-            __module_version__ = '.'.join((__py_version__.split('.'))[:2])
+            __module_version__: str = '.'.join((__py_version__.split('.'))[:2])
             
             if cvex_precision == 32 and first_instance_32bit is True:
                 
@@ -2068,10 +2068,10 @@ class flam3h_scripts
             node = self.node
             cvex_precision: int = int( node.parm(PREFS_CVEX_PRECISION).eval() )
             
-            sys_updated_mode = hou.updateModeSetting() # type: ignore
+            sys_updated_mode: hou.EnumValue = hou.updateModeSetting() # type: ignore
             hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
             
-            __module_version__ = '.'.join((__py_version__.split('.'))[:2])
+            __module_version__: str = '.'.join((__py_version__.split('.'))[:2])
             
             if cvex_precision == 32:
                 _MSG_INFO = f" FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ CVEX node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
@@ -2205,7 +2205,7 @@ class flam3h_scripts
             flam3h_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, all_f3h_vptype[0])
             
         else:
-            Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
+            Pixels: hou.EnumValue = hou.viewportParticleDisplay.Pixels # type: ignore
             
             for v in viewers:
                 
@@ -4207,7 +4207,7 @@ class flam3h_general_utils
         s_mp_index: int = self.kwargs['script_multiparm_index']
         prm_mp = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{s_mp_index}")
         
-        data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
+        data_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
         
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
@@ -4307,7 +4307,7 @@ class flam3h_general_utils
         
         # s_mp_index: int = self.kwargs['script_multiparm_index']
         prm_mp = node.parm(PREFS_PVT_XF_FF_VIZ_SOLO)
-        data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
+        data_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
         
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
@@ -4426,7 +4426,7 @@ class flam3h_general_utils
             
             if node.parm(PREFS_PVT_XF_FF_VIZ_SOLO).eval():
                 self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
-                data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
+                data_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
                 flam3h_iterator_utils.destroy_userData(node, f"{data_name}")
                 
             _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: OFF"
@@ -5531,18 +5531,19 @@ class flam3h_iterator_utils
         n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
         
         # Iterator parms names
-        prm_names: tuple[str, ...] = (n.shader_color, 
-                                    n.shader_speed, 
-                                    n.prevar_type_1, 
-                                    n.prevar_type_2, 
-                                    n.var_type_1, 
-                                    n.var_type_2, 
-                                    n.var_type_3, 
-                                    n.var_type_4, 
-                                    n.postvar_type_1, 
-                                    n.preaffine_x, 
-                                    n.preaffine_y, 
-                                    n.preaffine_o) # iterator parms names
+        prm_names: tuple[str, ...] = (  n.shader_color, 
+                                        n.shader_speed, 
+                                        n.prevar_type_1, 
+                                        n.prevar_type_2, 
+                                        n.var_type_1, 
+                                        n.var_type_2, 
+                                        n.var_type_3, 
+                                        n.var_type_4, 
+                                        n.postvar_type_1, 
+                                        n.preaffine_x, 
+                                        n.preaffine_y, 
+                                        n.preaffine_o
+                                        )
         
         # Calc triangle sides
         height: float = 0.5 # so it is 1(one) Houdini unit tall
@@ -6000,18 +6001,18 @@ class flam3h_iterator_utils
         """   
         _len: Callable[[tuple], int] = len
         if post:
-            keyframes: list = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}")] if prm_list_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_affine[1:][idx][0]}{id}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
-            collect: list = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}").eval() if prm_list_affine[1:][idx][1] else node.parm(f"{prm_list_affine[1:][idx][0]}{id}").eval() for idx in range(len(prm_list_affine[1:]))]
-            if 1 not in keyframes and collect == AFFINE_DEFAULT_VALS:
+            keyframes_post: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}")] if prm_list_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_affine[1:][idx][0]}{id}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
+            collect_post: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}").eval() if prm_list_affine[1:][idx][1] else node.parm(f"{prm_list_affine[1:][idx][0]}{id}").eval() for idx in range(len(prm_list_affine[1:]))]
+            if 1 not in keyframes_post and collect_post == AFFINE_DEFAULT_VALS:
                 node.setParms({f"{prm_list_affine[0][0]}{id}": 0}) # type: ignore
                 from_FLAM3H_NODE.setParms({f"{prm_list_affine[0][0]}{id_from}": 0}) # type: ignore
                 return True
             
             return False
 
-        keyframes: list = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[idx][0]}{id}")] if prm_list_affine[idx][1] else [1 if _len(node.parm(f"{prm_list_affine[idx][0]}{id}").keyframes()) else 0] for idx in range(len(prm_list_affine))] for item in sublist]
-        collect: list = [node.parmTuple(f"{prm_list_affine[idx][0]}{id}").eval() if prm_list_affine[idx][1] else node.parm(f"{prm_list_affine[idx][0]}{id}").eval() for idx in range(len(prm_list_affine))]
-        if 1 not in keyframes and collect == AFFINE_DEFAULT_VALS:
+        keyframes_pre: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[idx][0]}{id}")] if prm_list_affine[idx][1] else [1 if _len(node.parm(f"{prm_list_affine[idx][0]}{id}").keyframes()) else 0] for idx in range(len(prm_list_affine))] for item in sublist]
+        collect_pre: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine[idx][0]}{id}").eval() if prm_list_affine[idx][1] else node.parm(f"{prm_list_affine[idx][0]}{id}").eval() for idx in range(len(prm_list_affine))]
+        if 1 not in keyframes_pre and collect_pre == AFFINE_DEFAULT_VALS:
             return True
         
         return False
@@ -6036,18 +6037,18 @@ class flam3h_iterator_utils
         """   
         _len: Callable[[tuple], int] = len
         if post:
-            keyframes: list = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}")] if prm_list_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_affine[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
-            collect: list = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}").eval() if prm_list_affine[1:][idx][1] else node.parm(f"{prm_list_affine[1:][idx][0]}").eval() for idx in range(len(prm_list_affine[1:]))]
-            if 1 not in keyframes and collect == AFFINE_DEFAULT_VALS:
+            keyframes_post: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}")] if prm_list_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_affine[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
+            collect_post: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}").eval() if prm_list_affine[1:][idx][1] else node.parm(f"{prm_list_affine[1:][idx][0]}").eval() for idx in range(len(prm_list_affine[1:]))]
+            if 1 not in keyframes_post and collect_post == AFFINE_DEFAULT_VALS:
                 node.setParms({f"{prm_list_affine[0][0]}": 0}) # type: ignore
                 from_FLAM3H_NODE.setParms({f"{prm_list_affine[0][0]}": 0}) # type: ignore
                 return True
             
             return False
 
-        keyframes: list = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}")] if prm_list_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_affine[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
-        collect: list = [node.parmTuple(f"{prm_list_affine[idx][0]}").eval() if prm_list_affine[idx][1] else node.parm(f"{prm_list_affine[idx][0]}").eval() for idx in range(len(prm_list_affine))]
-        if 1 not in keyframes and collect == AFFINE_DEFAULT_VALS:
+        keyframes_pre: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}")] if prm_list_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_affine[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
+        collect_pre: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine[idx][0]}").eval() if prm_list_affine[idx][1] else node.parm(f"{prm_list_affine[idx][0]}").eval() for idx in range(len(prm_list_affine))]
+        if 1 not in keyframes_pre and collect_pre == AFFINE_DEFAULT_VALS:
             return True
         
         return False
@@ -6397,7 +6398,7 @@ class flam3h_iterator_utils
         """  
         for f3h in node.type().instances():
             assert isinstance(f3h, hou.SopNode)
-            data = f3h.cachedUserData(data_name)
+            data: Any | None = f3h.cachedUserData(data_name)
             if data is not None: flam3h_iterator_utils.destroy_cachedUserData(f3h, data_name)
             
             
@@ -9160,7 +9161,7 @@ class flam3h_iterator_utils
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Sierpiński triangle::10")
             
-            
+    
     def flam3h_reset_iterator(self) -> None:
         """Reset selected iterator to its default parameter's values.</br>
         Include parametrics too.</br>
@@ -9314,7 +9315,7 @@ class flam3h_iterator_utils
         prm_xfviz_solo_mp_idx = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
         _PVT_PARMS: tuple[hou.Parm, ...] = (prm_mpidx, prm_xfviz, prm_xfviz_solo, prm_xfviz_solo_mp_idx)
         # XF VIZ data name
-        data_name = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
+        data_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
         
         # unlock
         for prm in _PVT_PARMS: prm.lock(False)
@@ -10035,8 +10036,8 @@ class flam3h_palette_utils
             (None):
         """
         # pre-compute some data
-        parm_path = ramp_parm.path()
-        posList_len = len(ramp_parm.evalAsRamp().keys()) + 1
+        parm_path: str = ramp_parm.path()
+        posList_len: int = len(ramp_parm.evalAsRamp().keys()) + 1
         
         for i in range(1, posList_len):
             
