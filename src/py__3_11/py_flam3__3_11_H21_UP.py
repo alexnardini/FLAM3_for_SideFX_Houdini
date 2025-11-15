@@ -2830,7 +2830,7 @@ class flam3h_general_utils
         Returns:
             (bool): True if it is a flat lists and False if not
         """ 
-        return isinstance(x, list) and not any(isinstance(el, list | tuple | set) for el in x)
+        return isinstance(x, list) and not any(isinstance(el, (list, tuple, set)) for el in x)
     
     
     @staticmethod
@@ -2858,7 +2858,7 @@ class flam3h_general_utils
         Returns:
             (bool): True if it is a flat tuple and False if not
         """ 
-        return isinstance(x, tuple) and not any(isinstance(el, list | tuple | set) for el in x)
+        return isinstance(x, tuple) and not any(isinstance(el, (list, tuple, set)) for el in x)
 
 
     @staticmethod
@@ -14332,7 +14332,7 @@ class in_flame_utils
         Returns:
             (str | list[str] | None): A converted str, list[str] of variation's names.
         """
-        if type(name) is str:
+        if isinstance(name, str):
             
             if name.startswith(V_PRX_PRE):
                 return re_sub(REGEX_PRE, '', name)
@@ -14343,7 +14343,7 @@ class in_flame_utils
             else:
                 return name
             
-        elif type(name) is list or tuple:
+        elif isinstance(name, (list, tuple)):
             
             _names: list = [re_sub(REGEX_PRE, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
             if not _names:
@@ -14368,11 +14368,11 @@ class in_flame_utils
         Returns:
             (str | list | None): A converted str, list[str] of variation's names.
         """  
-        if type(name) is str:
+        if isinstance(name, str):
             if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
                 return V_PRX_PRE + name
             
-        elif type(name) is list or tuple:
+        elif isinstance(name, (list, tuple)):
             return [V_PRX_PRE + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
         
         else:
@@ -14389,11 +14389,11 @@ class in_flame_utils
         Returns:
             (str | list[str] | None): A converted str, list[str] of variation's names.
         """  
-        if type(name) is str:
+        if isinstance(name, str):
             if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
                 return V_PRX_POST + name
             
-        elif type(name) is list or tuple:
+        elif isinstance(name, (list, tuple)):
             return [V_PRX_POST + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
         
         else:
@@ -14509,7 +14509,7 @@ class in_flame_utils
             (list | None): return a list of variation's names in each xform,  or None
         """    
         if xforms is not None:
-            if type(vars) is dict:
+            if isinstance(vars, dict):
                 return [list(map(lambda x: x, filter(lambda x: x in vars.get(x[0]), filter(lambda x: x not in exclude_keys, xf.keys())))) for xf in xforms] # type: ignore
             
             return [list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in exclude_keys, xf.keys())))) for xf in xforms] # type: ignore
