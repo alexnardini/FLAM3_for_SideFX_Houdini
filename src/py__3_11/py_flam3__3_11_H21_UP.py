@@ -1386,7 +1386,7 @@ class flam3h_iterator_FF(flam3h_iterator_prm_names):
         # ALL method lists
         # allT_FF list is omitted here because FF PRE VARS, FF VARS and FF POST VARS have their own unique parametric parameters
         # so I need to handle them one by one inside: def prm_paste_FF(kwargs).prm_paste_FF() and prm_paste_FF(kwargs).def prm_paste_sel_FF()
-        self._allMisc_FF: tuple = self._sec_varsW_FF + self._sec_prevarsW_FF + self._sec_postvarsW_FF + self._sec_preAffine_FF + self._sec_postAffine_FF
+        self._allMisc_FF: tuple[tuple[str, int], ...] = self._sec_varsW_FF + self._sec_prevarsW_FF + self._sec_postvarsW_FF + self._sec_preAffine_FF + self._sec_postAffine_FF
 
 
     # CLASS: PROPERTIES
@@ -4276,10 +4276,18 @@ class flam3h_general_utils
             
             if not prm_mp.eval():
                 
-                iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
                 data_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
                 
-                for mp_id in range(iter_num): node.setParms({f"{_main_xf_viz_name}_{str(mp_id + 1)}": 0}) # type: ignore
+                # NEW method
+                # Get the idx of the xf_viz solo iterator from the memory
+                xfviz_idx_mem: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
+                # Try to get the multi parameter instance parm with idx: xfviz_idx_mem.eval()
+                xfviv_solo: hou.Parm = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}")
+                # It it does exist and the xf_viz idx from memory was set
+                if xfviv_solo is not None and xfviz_idx_mem.eval() > 0:
+                    # Set the old xv_viz multi parameter instance solo toggle back to 0(Zero)
+                    node.setParms({f"{_main_xf_viz_name}_{str(xfviz_idx_mem.eval())}": 0}) # type: ignore
+                
                 prm_mp.set(1)
                 # Update data accordingly
                 self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, int(mp_idx))
@@ -4321,7 +4329,17 @@ class flam3h_general_utils
             self.flash_message(node, f"XF VIZ: ALL")
             
         else:
-            for mp_id in range(iter_num): node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) # type: ignore
+            
+            # NEW method
+            # Get the idx of the xf_viz solo iterator from the memory
+            xfviz_idx_mem: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
+            # Try to get the multi parameter instance parm with idx: xfviz_idx_mem.eval()
+            xfviv_solo: hou.Parm = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}")
+            # It it does exist and the xf_viz idx from memory was set
+            if xfviv_solo is not None and xfviz_idx_mem.eval() > 0:
+                # Set the old xv_viz multi parameter instance solo toggle back to 0(Zero)
+                node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}": 0}) # type: ignore
+            
             self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
             node.setUserData(f"{data_name}", "FF")
@@ -7232,7 +7250,7 @@ class flam3h_iterator_utils
                 # Change focus back to the FLAME's Tab
                 node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
                 # If any of the iterators is in SOLO mode, change accordeingly to the selection
-                flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_solo_follow(preset_id)
+                flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_solo_follow(str(preset_id))
                 
                 _MSG: str = f"iterator: {preset_id}"
                 active: int = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
@@ -7274,7 +7292,7 @@ class flam3h_iterator_utils
                         # Change focus back to the FLAME's Tab
                         node.parmTuple(FLAM3H_ITERATORS_TAB).set((0,))
                         # If any of the iterators is in SOLO mode, change it accordingly based on the user' selection
-                        flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_solo_follow(preset_id)
+                        flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_solo_follow(str(preset_id))
                         
                         _MSG: str = f"iterator: {preset_id}"
                         active: int = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
