@@ -2748,7 +2748,8 @@ class flam3h_general_utils
 * util_clear_xf_viz_stashed_wire_width_data() -> None:
 * util_xf_viz_set_stashed_wire_width() -> None:
 * util_xf_viz_force_cook(node: hou.SopNode, kwargs: dict) -> None:
-* util_store_all_viewers_color_scheme_onCreate(self) -> None:
+* util_store_all_viewers_color_scheme_onCreate() -> None:
+* mp_xf_viz_solo_follow_off(node: hou.SopNode) -> None:
 
 @METHODS
 * menus_refresh_enum_prefs(self) -> None:
@@ -3433,7 +3434,35 @@ class flam3h_general_utils
             else:
                 # otherwise create
                 hou.session.H_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = new # type: ignore
-
+                
+                
+    @staticmethod
+    def mp_xf_viz_solo_follow_off(node: hou.SopNode) -> None:
+        """When in xf viz SOLO (follow) mode,</br>
+        Switching iterators using the select iterator mini-menu</br>
+        will take care of turning the preview xfviz iterator number OFF</br>
+        before turning the selected one ON.
+        
+        To be used inside:
+        * def flam3h_toggle_mp_xf_viz(self) -> None:
+        * def flam3h_toggle_mp_xf_viz_solo_follow(self, mp_idx: str) -> None
+        * def flam3h_toggle_xf_ff_viz(self) -> None:
+        
+        Args:
+            node(hou.SopNode): This FLAM3H™ node
+            
+        Returns:
+            (None):  
+        """  
+        # NEW method
+        # Get the idx of the xf_viz solo iterator from the memory
+        xfviz_idx_mem: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
+        # Try to get the multi parameter instance parm with idx: xfviz_idx_mem.eval()
+        xfviv_solo: hou.Parm = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}")
+        # It it does exist and the xf_viz idx from memory was set
+        if xfviv_solo is not None and xfviz_idx_mem.eval() > 0:
+            # Set the old xv_viz multi parameter instance solo toggle back to 0(Zero)
+            node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}": 0}) # type: ignore
 
     # CLASS: PROPERTIES
     ##########################################
@@ -4223,14 +4252,7 @@ class flam3h_general_utils
             
         else:
             # NEW method
-            # Get the idx of the xf_viz solo iterator from the memory
-            xfviz_idx_mem: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
-            # Try to get the multi parameter instance parm with idx: xfviz_idx_mem.eval()
-            xfviv_solo: hou.Parm = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}")
-            # It it does exist and the xf_viz idx from memory was set
-            if xfviv_solo is not None and xfviz_idx_mem.eval() > 0:
-                # Set the old xv_viz multi parameter instance solo toggle back to 0(Zero)
-                node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}": 0}) # type: ignore
+            self.mp_xf_viz_solo_follow_off(node)
                
             # OLD method 
             # Set all xv_viz multi parameter instance solo toggles back to 0(Zero)
@@ -4279,14 +4301,7 @@ class flam3h_general_utils
                 data_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
                 
                 # NEW method
-                # Get the idx of the xf_viz solo iterator from the memory
-                xfviz_idx_mem: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
-                # Try to get the multi parameter instance parm with idx: xfviz_idx_mem.eval()
-                xfviv_solo: hou.Parm = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}")
-                # It it does exist and the xf_viz idx from memory was set
-                if xfviv_solo is not None and xfviz_idx_mem.eval() > 0:
-                    # Set the old xv_viz multi parameter instance solo toggle back to 0(Zero)
-                    node.setParms({f"{_main_xf_viz_name}_{str(xfviz_idx_mem.eval())}": 0}) # type: ignore
+                self.mp_xf_viz_solo_follow_off(node)
                 
                 prm_mp.set(1)
                 # Update data accordingly
@@ -4331,14 +4346,7 @@ class flam3h_general_utils
         else:
             
             # NEW method
-            # Get the idx of the xf_viz solo iterator from the memory
-            xfviz_idx_mem: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
-            # Try to get the multi parameter instance parm with idx: xfviz_idx_mem.eval()
-            xfviv_solo: hou.Parm = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}")
-            # It it does exist and the xf_viz idx from memory was set
-            if xfviv_solo is not None and xfviz_idx_mem.eval() > 0:
-                # Set the old xv_viz multi parameter instance solo toggle back to 0(Zero)
-                node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}": 0}) # type: ignore
+            self.mp_xf_viz_solo_follow_off(node)
             
             self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
