@@ -16789,7 +16789,8 @@ class in_flame_utils
                 flam3h_general_utils.reset_density(node)
                 
                 # XF VIZ SOLO OFF (but leave the xforms handles VIZ ON)
-                flam3h_general_utils.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
+                flam3h_general_utils.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
+                flam3h_general_utils.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0) # Reset mp index to Off value: 0(Zero)
                 flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
                 # BUILD XFVIZ if needed
                 flam3h_general_utils.util_xf_viz_force_cook(node, self.kwargs)
