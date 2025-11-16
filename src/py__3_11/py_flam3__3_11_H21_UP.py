@@ -882,8 +882,9 @@ class flam3h_varsPRM
     
     @staticmethod
     def __populate_keys_and_values(keys: list, values: list, item: int | str, id: int) -> None:
-        """ Populate the keys and values lists. This is to be used inside a loop.
-        Specifically designed to be used in a list comprehension inside: def build_menu_vars_all_indexes(self) -> dict[int, int]:
+        """ Populate the keys and values lists. This is to be used inside a loop.</br>
+        Specifically designed to be used in a list comprehension inside:
+        * def build_menu_vars_all_indexes(self) -> dict[int, int]:
         
         Args:
             keys(str): the keys empty list to populate
@@ -906,8 +907,9 @@ class flam3h_varsPRM
             
     @staticmethod
     def __populate_linear_list(linear: list, item: str, id: int, spacer: bool = True) -> None:
-        """ Populate linear list. This is to be used inside a loop.
-        Specifically designed to be used in a list comprehension inside: def build_menu_vars_all_linear(self, _PB: bool = False) -> TA_Menu:
+        """ Populate linear list. This is to be used inside a loop.</br>
+        Specifically designed to be used in a list comprehension inside:
+        * def build_menu_vars_all_linear(self, _PB: bool = False) -> TA_Menu:
         
         Args:
             linear(list): the empty list to populate
@@ -924,7 +926,7 @@ class flam3h_varsPRM
     
     
     def vars_all(self) -> list[str]:
-        """Build a list of all the variation names properly ordered as per flame*.h files
+        """Build a list of all the variation names properly ordered as per flame*.h files.</br>
         
         Args:
             (self):
@@ -937,7 +939,7 @@ class flam3h_varsPRM
     
     
     def menu_vars_all(self, _PB: bool = False) -> list[tuple[int, str]]:
-        """This is used to generate the following list: MENU_VARS_ALL
+        """This is used to generate the following list: MENU_VARS_ALL</br>
         
         Args:
             (self):
@@ -954,7 +956,7 @@ class flam3h_varsPRM
     
     
     def menu_vars_no_PRM(self, _PB: bool = False) -> list[tuple[int, str]]:
-        """Build a list of all the variation names properly ordered as per flame*.h files without the parametric variations in it.
+        """Build a list of all the variation names properly ordered as per flame*.h files without the parametric variations in it.</br>
         
         Args:
             (self):
@@ -967,7 +969,7 @@ class flam3h_varsPRM
     
     
     def build_menu_vars_all_linear(self, _PB: bool = False) -> TA_Menu:
-        """This is used to generate the following list: MENU_VARS_ALL_SIMPLE
+        """This is used to generate the following list: MENU_VARS_ALL_SIMPLE</br>
         
         Args:
             (self):
@@ -982,7 +984,7 @@ class flam3h_varsPRM
     
     
     def build_menu_vars_all_indexes(self, _PB: bool = False) -> dict[int, int]:
-        """This is used to generate the following dict: MENU_VARS_ALL_INDEXES
+        """This is used to generate the following dict: MENU_VARS_ALL_INDEXES</br>
         
         Args:
             (self):
@@ -999,7 +1001,7 @@ class flam3h_varsPRM
 
 class flam3h_iterator(flam3h_iterator_prm_names):
     """Note that the underscore (_) before the iterator number</br>
-    has been included already for convenience.
+    has been included already for convenience.</br>
     
     Args:
         flam3h_iterator_prm_names ([class]): [inherit properties methods from the flam3h_iterator_prm_names class]
@@ -2749,7 +2751,7 @@ class flam3h_general_utils
 * util_xf_viz_set_stashed_wire_width() -> None:
 * util_xf_viz_force_cook(node: hou.SopNode, kwargs: dict) -> None:
 * util_store_all_viewers_color_scheme_onCreate() -> None:
-* mp_xf_viz_solo_follow_off(node: hou.SopNode) -> None:
+* mp_xf_viz_solo_follow_prev_off(node: hou.SopNode) -> None:
 
 @METHODS
 * menus_refresh_enum_prefs(self) -> None:
@@ -3437,10 +3439,10 @@ class flam3h_general_utils
                 
                 
     @staticmethod
-    def mp_xf_viz_solo_follow_off(node: hou.SopNode) -> None:
+    def mp_xf_viz_solo_follow_prev_off(node: hou.SopNode) -> None:
         """When in xf viz SOLO (follow) mode,</br>
         Switching iterators using the select iterator mini-menu</br>
-        will take care of turning the preview xfviz iterator number OFF</br>
+        will take care of turning the preview xfviz iterator number xf mp index OFF</br>
         before turning the selected one ON.</br>
         
         To be used inside:
@@ -3462,8 +3464,9 @@ class flam3h_general_utils
         # It it does exist and the xf_viz idx from memory was set
         if xfviv_solo is not None and prm_xfviz_idx_mem.eval() > 0:
             # Set the old xv_viz multi parameter instance solo toggle back to 0(Zero)
-            node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}": 0}) # type: ignore
+            node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(prm_xfviz_idx_mem.eval())}": 0}) # type: ignore
 
+    
     # CLASS: PROPERTIES
     ##########################################
     ##########################################
@@ -4167,24 +4170,27 @@ class flam3h_general_utils
             (None):  
         """
         node = self.node
-        iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-        prm: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO)
+        prm_xfviz_solo: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO)
         
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
         
-        if prm.eval():
-            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
-            for mp_idx in range(iter_num): node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx + 1)}": 0})
+        if prm_xfviz_solo.eval():
+            
+            # NEW method
+            self.mp_xf_viz_solo_follow_prev_off(node)
+            
+            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
+            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             
-            _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: OFF"
+            _MSG: str = f"{node.name()}: {str(prm_xfviz_solo.name()).upper()}: OFF"
             self.set_status_msg(_MSG, 'MSG')
             self.flash_message(node, f"XF VIZ: ALL")
             
         else:
             
-            _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: ON"
+            _MSG: str = f"{node.name()}: {str(prm_xfviz_solo.name()).upper()}: ON"
             self.set_status_msg(_MSG, 'IMP')
             
             
@@ -4205,7 +4211,8 @@ class flam3h_general_utils
         self.menus_refresh_enum_prefs()
         
         if prm_FF.eval():
-            self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
+            self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
+            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             
             _MSG: str = f"{node.name()}: {str(prm_FF.name()).upper()}: OFF"
@@ -4243,7 +4250,8 @@ class flam3h_general_utils
         
         if prm_mp.eval():
             prm_mp.set(0)
-            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
+            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
+            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
             flam3h_iterator_utils.destroy_userData(node, f"{data_name}")
             
             _MSG: str = f"{node.name()}: VIZHANDLES_SOLO: OFF"
@@ -4252,7 +4260,7 @@ class flam3h_general_utils
             
         else:
             # NEW method
-            self.mp_xf_viz_solo_follow_off(node)
+            self.mp_xf_viz_solo_follow_prev_off(node)
                
             # OLD method 
             # Set all xv_viz multi parameter instance solo toggles back to 0(Zero)
@@ -4273,7 +4281,7 @@ class flam3h_general_utils
     def flam3h_toggle_mp_xf_viz_solo_follow(self, mp_idx: str) -> None:
         """When one of the iterators in in SOLO mode,</br>
         changing the iterators focus using the select iterator mini menu</br>
-        will change olso the SOLO focus as well, keeping any selected iterator in SOLO modo while switching.</br>
+        will change also the SOLO focus as well, keeping any selected iterator in SOLO modo while switching.</br>
         
         This is used inside:
         - def prm_select_iterator(self) -> None:
@@ -4287,24 +4295,25 @@ class flam3h_general_utils
         """    
         node: hou.SopNode = self.node
         
-        _SOLO = node.parm(PREFS_PVT_XF_VIZ_SOLO).eval()
-        _SOLO_FOLLOW = node.parm(PREFS_SOLO_FOLLOW).eval()
+        prm_xfviz_solo = node.parm(PREFS_PVT_XF_VIZ_SOLO).eval()
+        prm_xfviz_solo_follow = node.parm(PREFS_SOLO_FOLLOW).eval()
         
         # If any of the iterators is in SOLO mode
-        if _SOLO and _SOLO_FOLLOW:
+        if prm_xfviz_solo and prm_xfviz_solo_follow:
             
             _main_xf_viz_name: str = flam3h_iterator_prm_names().main_xf_viz
             prm_mp = node.parm(f"{_main_xf_viz_name}_{mp_idx}")
             
             if not prm_mp.eval():
                 
-                data_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
-                
                 # NEW method
-                self.mp_xf_viz_solo_follow_off(node)
+                self.mp_xf_viz_solo_follow_prev_off(node)
                 
+                # Turn the new one On
                 prm_mp.set(1)
+                
                 # Update data accordingly
+                data_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
                 self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, int(mp_idx))
                 node.setUserData(f"{data_name}", mp_idx)
                 # message
@@ -4346,10 +4355,11 @@ class flam3h_general_utils
         else:
             
             # NEW method
-            self.mp_xf_viz_solo_follow_off(node)
+            self.mp_xf_viz_solo_follow_prev_off(node)
             
             self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 1)
-            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
+            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
+            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
             node.setUserData(f"{data_name}", "FF")
                 
             _MSG: str = f"{node.name()}: {str(prm_mp.name()).upper()}: ON"
@@ -5302,8 +5312,8 @@ class flam3h_general_utils
         node.setParms({PREFS_CAMERA_CULL_AMOUNT: 0.99})
         
         # XF VIZ SOLO OFF (but leave the xforms handles VIZ ON)
-        self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
-        self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
+        self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
+        self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0) # Reset mp index to Off value: 0(Zero)
         flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
         
         if mode:
@@ -9440,7 +9450,8 @@ class flam3h_iterator_utils
                     
                     xf_viz_mp_idx: int = prm_xfviz_solo_mp_idx.eval()
                     if xf_viz_mp_idx  > len(s_current):
-                        prm_xfviz_solo.set(0)
+                        prm_xfviz_solo.set(0) # Turn Off iterator xf viz solo mode
+                        prm_xfviz_solo_mp_idx.set(0) # Reset mp index to Off value: 0(Zero)
                         self.destroy_userData(node, f"{data_name}")
                         # Let us know
                         _XF_VIZ_DEL = True
@@ -9524,7 +9535,8 @@ class flam3h_iterator_utils
                     
                     xf_viz_mp_idx: int = prm_xfviz_solo_mp_idx.eval()
                     if (idx_del_inbetween + 1) == xf_viz_mp_idx:
-                        prm_xfviz_solo.set(0)
+                        prm_xfviz_solo.set(0) # Turn Off iterator xf viz solo mode
+                        prm_xfviz_solo_mp_idx.set(0) # Reset mp index to Off value: 0(Zero)
                         self.destroy_userData(node, f"{data_name}")
                         # Let us know
                         _MSG: str = f"{node.name()}: The iterators you just removed had its XF VIZ in SOLO mode. Reverted to display all the xforms handles VIZ together."
@@ -9597,7 +9609,8 @@ class flam3h_iterator_utils
                         prm_xfviz_solo_mp_idx.set(xf_viz_mp_idx - 1)
                         node.setUserData(f"{data_name}", str(xf_viz_mp_idx - 1))
                     elif (idx_del_inbetween + 1) == xf_viz_mp_idx:
-                        prm_xfviz_solo.set(0)
+                        prm_xfviz_solo.set(0) # Turn Off iterator xf viz solo mode
+                        prm_xfviz_solo_mp_idx.set(0) # Reset mp index to Off value: 0(Zero)
                         self.destroy_userData(node, f"{data_name}")
                         # Let us know
                         _MSG: str = f"{node.name()}: The iterators you just removed had its XF VIZ in SOLO mode. Reverted to display all the xforms handles VIZ together."
