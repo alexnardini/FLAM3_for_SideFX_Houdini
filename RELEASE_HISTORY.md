@@ -33,6 +33,23 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.39 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.39) ###
+
+#### FLAM3H™ ####
+
+- **Fix H21.0 UP ONLY**: A regression from preview versions causing an error when switching iterators using the Select Iterator mini-menu while in xf-viz SOLO mode. It is now fixed.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.37 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.37) ###
 
 #### FLAM3H™ ####
