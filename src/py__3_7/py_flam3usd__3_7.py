@@ -1,7 +1,7 @@
 __author__ = "F stands for liFe ( made in Italy )"
 __copyright__ = "© 2023 F stands for liFe"
 
-__py_version__ = "3.7.13"
+__py_version__ = "3.7.13" # H19.0 to H20.0
 __license__ = "GPL v3.0"
 __maintainer__ = "Alessandro Nardini"
 
