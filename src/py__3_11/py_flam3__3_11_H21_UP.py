@@ -3441,7 +3441,7 @@ class flam3h_general_utils
         """When in xf viz SOLO (follow) mode,</br>
         Switching iterators using the select iterator mini-menu</br>
         will take care of turning the preview xfviz iterator number OFF</br>
-        before turning the selected one ON.
+        before turning the selected one ON.</br>
         
         To be used inside:
         * def flam3h_toggle_mp_xf_viz(self) -> None:
@@ -3455,12 +3455,12 @@ class flam3h_general_utils
             (None):  
         """  
         # NEW method
-        # Get the idx of the xf_viz solo iterator from the memory
-        xfviz_idx_mem: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
+        # Get the idx parameter of the xf_viz solo iterator from the memory
+        prm_xfviz_idx_mem: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
         # Try to get the multi parameter instance parm with idx: xfviz_idx_mem.eval()
-        xfviv_solo: hou.Parm = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}")
+        xfviv_solo: hou.Parm = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(prm_xfviz_idx_mem.eval())}")
         # It it does exist and the xf_viz idx from memory was set
-        if xfviv_solo is not None and xfviz_idx_mem.eval() > 0:
+        if xfviv_solo is not None and prm_xfviz_idx_mem.eval() > 0:
             # Set the old xv_viz multi parameter instance solo toggle back to 0(Zero)
             node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(xfviz_idx_mem.eval())}": 0}) # type: ignore
 
@@ -7239,8 +7239,8 @@ class flam3h_iterator_utils
             # This definition probably can be made more light-weight for this particular case
             from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
             
-            prm = node.parm(FLAME_ITERATORS_COUNT)
-            preset_id = node.parm(SYS_SELECT_ITERATOR).eval()
+            prm: hou.Parm = node.parm(FLAME_ITERATORS_COUNT)
+            preset_id: int = node.parm(SYS_SELECT_ITERATOR).eval()
             
             try:
                 # We first try to set them all with this
