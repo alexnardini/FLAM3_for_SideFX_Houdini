@@ -558,7 +558,7 @@ F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
         return self._kwargs
     
     @property
-    def node(self):
+    def node(self) -> hou.SopNode:
         return self._node
 
 
@@ -1945,7 +1945,7 @@ class flam3h_scripts
         return self._kwargs
     
     @property
-    def node(self):
+    def node(self) -> hou.SopNode:
         return self._node
     
     
@@ -3481,7 +3481,7 @@ class flam3h_general_utils
         return self._kwargs
     
     @property
-    def node(self):
+    def node(self) -> hou.SopNode:
         return self._node
     
     @cached_slot_property
@@ -6560,7 +6560,7 @@ class flam3h_iterator_utils
         return self._kwargs
         
     @property
-    def node(self):
+    def node(self) -> hou.SopNode:
         return self._node
     
     
@@ -10527,7 +10527,7 @@ class flam3h_palette_utils
         return self._kwargs
     
     @property
-    def node(self):
+    def node(self) -> hou.SopNode:
         return self._node
     
     @property
@@ -11724,7 +11724,7 @@ class flam3h_about_utils
         return self._kwargs
     
     @property
-    def node(self):
+    def node(self) -> hou.SopNode:
         return self._node
         
 
@@ -12014,7 +12014,7 @@ class flam3h_ui_msg_utils
         return self._kwargs
     
     @property
-    def node(self):
+    def node(self) -> hou.SopNode:
         return self._node
         
 
@@ -13415,7 +13415,7 @@ class in_flame
     ##########################################
 
     @property
-    def node(self):
+    def node(self) -> hou.SopNode:
         return self._node
     
     # @property # This is now stored from inside: class _xml_tree:
@@ -16359,7 +16359,7 @@ class in_flame_utils
         return self._kwargs
     
     @property
-    def node(self):
+    def node(self) -> hou.SopNode:
         return self._node
 
 
@@ -19183,7 +19183,7 @@ class out_flame_utils
         return self._kwargs
 
     @property
-    def node(self):
+    def node(self) -> hou.SopNode:
         return self._node
 
     @cached_slot_property
