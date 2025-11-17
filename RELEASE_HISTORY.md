@@ -40,6 +40,7 @@ _This an only H21 release (FLAM3H™ and FLAM3HUSD) and it will be the only vers
 #### FLAM3H™ ####
 
 - **Python code improvements H21.0 UP ONLY**: py_flam3 python 3.11 (_**H21 UP**_) module improvements.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
 
 #### FLAM3HUSD v0.2.36 - Prototype ####
 
