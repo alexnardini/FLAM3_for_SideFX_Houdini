@@ -33,7 +33,7 @@ They are all available in this Github repository.
 
 </br>
 
-### [<ins>v1.9.40 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.40) ###
+### [<ins>v1.9.41 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.41) ###
 
 _This an only H21 release (FLAM3H™ and FLAM3HUSD) and it will be the only version to be updated from now moving forward_.
 
