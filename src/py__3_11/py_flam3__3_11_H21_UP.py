@@ -15764,7 +15764,7 @@ class in_flame_utils
         prm_k2_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2)
         assert prm_k2_name is not None
         try:
-            prm_k2_val: float = float(f3r._out_logscale_k2[preset_id])
+            prm_k2_val: float = float(f3r.out_logscale_k2[preset_id])
             node.parm(prm_k2_name).set(prm_k2_val)
         except (AttributeError, TypeError): # If missing set it to its default
             node.parm(prm_k2_name).set(0.0)
