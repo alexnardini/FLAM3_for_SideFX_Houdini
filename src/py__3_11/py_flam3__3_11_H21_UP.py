@@ -14962,7 +14962,7 @@ class in_flame_utils
         This include setting the variation type, its weight and its parametric parameters for an iterator or the FF.</br>
         
         Args:
-            app(str | list[Never]): What software were used to generate this flame preset
+            app(str | list[Never]): What software were used to generate this flame preset.</br>It can also be an empty list if the app XML key is missing from the Flame preset we are trying to load.
             mode(int): 0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H™ node
             mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
@@ -15021,7 +15021,7 @@ class in_flame_utils
         This include setting the variation type, its weight and its parametric parameters.</br>
         
         Args:
-            app(str | list[Never]): What software were used to generate this flame preset
+            app(str | list[Never]): What software were used to generate this flame preset.</br>It can also be an empty list if the app XML key is missing from the Flame preset we are trying to load.
             mode(int): 0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H™ node
             mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
@@ -15072,7 +15072,7 @@ class in_flame_utils
         This include setting the variation type, its weight and its parametric parameters.</br>
         
         Args:
-            app(str | list[Never]): What software were used to generate this flame preset
+            app(str | list[Never]): What software were used to generate this flame preset.</br>It can also be an empty list if the app XML key is missing from the Flame preset we are trying to load.
             mode(int): 0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H™ node
             mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
@@ -15121,7 +15121,7 @@ class in_flame_utils
         This include setting the variation type, its weight and its parametric parameters.</br>
         
         Args:
-            app(str | list[Never]): What software were used to generate this flame preset
+            app(str | list[Never]): What software were used to generate this flame preset.</br>It can also be an empty list if the app XML key is missing from the Flame preset we are trying to load.
             node(hou.SopNode): Current FLAM3H™ houdini node
             t_idx(int): current variation number idx to use with: flam3h_iterator().sec_prevarsT_FF, flam3h_iterator().sec_prevarsW_FF
             xform(dict): current xform we are processing to the relative key names and values for the iterator
@@ -15165,7 +15165,7 @@ class in_flame_utils
         This include setting the variation type, its weight and its parametric parameters.</br>
         
         Args:
-            app(str | list[Never]): What software were used to generate this flame preset
+            app(str | list[Never]): What software were used to generate this flame preset.</br>It can also be an empty list if the app XML key is missing from the Flame preset we are trying to load.
             node(hou.SopNode): Current FLAM3H™ node
             t_idx(int): current variation number idx to use with: flam3h_iterator().sec_postvarsT_FF, flam3h_iterator().sec_postvarsW_FF
             xform(dict): current xform we are processing to the relative key names and values for the iterator
