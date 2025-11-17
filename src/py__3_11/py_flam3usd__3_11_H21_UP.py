@@ -199,7 +199,7 @@ class flam3husd_scripts
                             if limit:
                                 
                                 if f3h.parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
-                                    node.setParms({PREFS_F3H_PATH: f3h.path()}) # type: ignore
+                                    node.parm(PREFS_F3H_PATH).set(f3h.path())
                                     
                                     if display_flag:
                                         flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h)
@@ -216,7 +216,7 @@ class flam3husd_scripts
                                 return False
                                 
                             else:
-                                node.setParms({PREFS_F3H_PATH: f3h.path()}) # type: ignore
+                                node.parm(PREFS_F3H_PATH).set(f3h.path())
                                 return True
                             
                     flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
@@ -232,7 +232,7 @@ class flam3husd_scripts
                         if limit:
                             
                             if f3h_all_instances[0].parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
-                                node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
+                                node.parm(PREFS_F3H_PATH).set(f3h_all_instances[0].path())
                                 
                                 if display_flag:
                                     flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h_all_instances[0])
@@ -249,7 +249,7 @@ class flam3husd_scripts
                             return False
                         
                         else:
-                            node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
+                            node.parm(PREFS_F3H_PATH).set(f3h_all_instances[0].path())
                             
                             if display_flag:
                                 flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h_all_instances[0])
@@ -621,21 +621,22 @@ class flam3husd_scripts
                     all_f3h_vpptsize.append(f3husd.parm(PREFS_VIEWPORT_PT_SIZE).eval())
                     all_f3h_vptype.append(f3husd.parm(PREFS_VIEWPORT_PT_TYPE).eval())
                     if f3husd.parm(PREFS_VIEWPORT_DARK).eval():
-                        node.setParms({PREFS_VIEWPORT_DARK: 1})
+                        node.parm(PREFS_VIEWPORT_DARK).set(1)
                         flam3husd_general_utils(self.kwargs).colorSchemeDark(False)
                         
                     # FLAM3HUSD nodes viewport preferences options are already synced
                     # so we really need only one to know them all
                     break
         else:
-            node.setParms({PREFS_VIEWPORT_DARK: 1})
+            node.parm(PREFS_VIEWPORT_DARK).set(1)
             flam3husd_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
     
         # If we collected some data, set
         if all_f3h_vpptsize:
             
-            node.setParms({PREFS_VIEWPORT_PT_SIZE: all_f3h_vpptsize[0]})
-            node.setParms({PREFS_VIEWPORT_PT_TYPE: all_f3h_vptype[0]})
+            node.setParms({PREFS_VIEWPORT_PT_SIZE: all_f3h_vpptsize[0], 
+                           PREFS_VIEWPORT_PT_TYPE: all_f3h_vptype[0]
+                           })
             # Updated memory
             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, all_f3h_vpptsize[0])
             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, all_f3h_vptype[0])
@@ -652,19 +653,19 @@ class flam3husd_scripts
                     size: float = settings.particlePointSize()
                     
                     if size != default_value_pt:
-                        node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
+                        node.parm(PREFS_VIEWPORT_PT_SIZE).set(size)
                         # Updated memory
                         flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, size)
                         
                     type: hou.EnumValue = settings.particleDisplayType()
                     if type == Pixels:
-                        node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
+                        node.parm(PREFS_VIEWPORT_PT_TYPE).set(1)
                         # Updated memory
                         flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, 1)
                         
                 else:
                     # FLAM3HUSD shoud use its parameter default value in this case, but just to be sure
-                    node.setParms({PREFS_VIEWPORT_PT_SIZE: default_value_pt})
+                    node.parm(PREFS_VIEWPORT_PT_SIZE).set(default_value_pt)
                     # Updated memory
                     flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, default_value_pt)
                     
@@ -695,8 +696,9 @@ class flam3husd_scripts
         # _MSG_DESCRIPTIVE_MSG = f"FLAM3HUSD v{__version__}\nYou need {_MSG_H_VERSIONS}"
         
         # Set proper messages in the about tabs
-        node.setParms({MSG_F3HUSD_ERROR: _MSG_ABOUT})
-        node.setParms({MSG_F3HUSD_ABOUT_ERROR: _MSG_ABOUT})
+        node.setParms({MSG_F3HUSD_ERROR: _MSG_ABOUT, 
+                       MSG_F3HUSD_ABOUT_ERROR: _MSG_ABOUT
+                       })
             
         # ERROR in the status bar
         if hou.isUIAvailable(): hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
@@ -794,8 +796,9 @@ class flam3husd_scripts
             flam3husd_general_utils.private_prm_set(self.node, h_valid_prm, 1)
             
             # Clear messages just in case
-            node.setParms({MSG_F3HUSD_ERROR: ''})
-            node.setParms({MSG_F3HUSD_ABOUT_ERROR: ''})
+            node.setParms({MSG_F3HUSD_ERROR: '', 
+                           MSG_F3HUSD_ABOUT_ERROR: ''
+                           })
             
             # Lock data parameters
             self.flam3husd_on_create_lock_parms(node)
@@ -917,7 +920,7 @@ class flam3husd_scripts
                         
                         if rnd_idx is not None:
                             
-                            node.setParms({PREFS_VIEWPORT_RENDERER: rnd_idx}) # type: ignore
+                            node.parm(PREFS_VIEWPORT_RENDERER).set(rnd_idx)
                             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rnd_idx)
                             hou.SceneViewer.setHydraRenderer(v, _RND)
 
@@ -929,7 +932,7 @@ class flam3husd_scripts
                                     
                                     if n != node:
                                         
-                                        n.setParms({PREFS_VIEWPORT_RENDERER: rnd_idx}) # type: ignore
+                                        n.parm(PREFS_VIEWPORT_RENDERER).set(rnd_idx)
                                         flam3husd_general_utils.private_prm_set(n, PREFS_PVT_VIEWPORT_RENDERER_MEM, rnd_idx)
                         
                     else:
@@ -1446,7 +1449,7 @@ class flam3husd_general_utils
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                 # IF it could not find a new one to import
                                 # import the first one
-                                node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                                node.parm(PREFS_F3H_PATH).set(f3h_all_instances_paths[0])
                                 self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
                                 self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                 
@@ -1467,12 +1470,12 @@ class flam3husd_general_utils
                                 elif self.kwargs['shift']:
                                     
                                     try:
-                                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index - 1]})
+                                        node.parm(PREFS_F3H_PATH).set(f3h_all_instances_paths[current_index - 1])
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[current_index - 1]))
                                         
                                     except IndexError: # just in case
                                         # start over
-                                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[-1]})
+                                        node.parm(PREFS_F3H_PATH).set(f3h_all_instances_paths[-1])
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[-1]))
                                         
                                     if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
@@ -1482,12 +1485,12 @@ class flam3husd_general_utils
                                 else:
                                     
                                     try:
-                                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index + 1]})
+                                        node.parm(PREFS_F3H_PATH).set(f3h_all_instances_paths[current_index + 1])
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[current_index + 1]))
                                         
                                     except IndexError: # just in case
                                         # start over
-                                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                                        node.parm(PREFS_F3H_PATH).set(f3h_all_instances_paths[0])
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
                                         
                                     if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
@@ -1504,7 +1507,7 @@ class flam3husd_general_utils
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                 # IF it could not find a new one to import
                                 # import the first one
-                                node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                                node.parm(PREFS_F3H_PATH).set(f3h_all_instances_paths[0])
                                 self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
                                 self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                 
@@ -1527,7 +1530,7 @@ class flam3husd_general_utils
                         hou.node(current_import).type()
                         
                     except AttributeError:
-                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                        node.parm(PREFS_F3H_PATH).set(f3h_all_instances_paths[0])
                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
                         if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                             self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
@@ -1816,8 +1819,7 @@ class flam3husd_general_utils
                     if f3husd == node:
                         continue
                     if f3husd.parm(PREFS_VIEWPORT_DARK).eval() != prm.eval():
-                        f3husd.setParms({PREFS_VIEWPORT_DARK: prm.eval()})
-
+                        f3husd.parm(PREFS_VIEWPORT_DARK).set(prm.eval())
 
 
     def viewportParticleDisplay(self) -> None:
@@ -1880,7 +1882,7 @@ class flam3husd_general_utils
                     continue
 
                 if f3husd.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype:
-                    f3husd.setParms({PREFS_VIEWPORT_PT_TYPE: pttype})
+                    f3husd.parm(PREFS_VIEWPORT_PT_TYPE).set(pttype)
 
                 if f3husd.parm(PREFS_PVT_VIEWPORT_PT_TYPE_MEM).eval() != pttype:
                     self.private_prm_set(f3husd, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype)
@@ -1889,7 +1891,7 @@ class flam3husd_general_utils
         else:
             if pttype != pttype_mem:
                 for f3husd in all_f3husd:
-                    f3husd.setParms({PREFS_VIEWPORT_PT_TYPE: pttype_mem})
+                    f3husd.parm(PREFS_VIEWPORT_PT_TYPE).set(pttype_mem)
 
             
             _MSG = f"No Lop viewers available."
@@ -1962,14 +1964,14 @@ class flam3husd_general_utils
                 if lop_viewers:
                     for f3husd in node.type().instances():
                         if f3husd.parm(prm_name_size).eval() != ptsize:
-                            f3husd.setParms({prm_name_size: ptsize})
+                            f3husd.parm(prm_name_size).set(ptsize)
                         if f3husd.parm(PREFS_PVT_VIEWPORT_PT_SIZE_MEM).eval() != ptsize:
                             self.private_prm_set(f3husd, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize)
 
                 else:
                     for f3husd in node.type().instances():
                         if f3husd.parm(prm_name_size).eval() != ptsize_mem:
-                            f3husd.setParms({prm_name_size: ptsize_mem})
+                            f3husd.parm(prm_name_size).set(ptsize_mem)
 
                 
                     _MSG: str = f"No Lop viewers available."
@@ -2022,14 +2024,14 @@ class flam3husd_general_utils
             for n in node.type().instances():
                 if n != node:
                     # Sync FLAM3HUSD node instances
-                    n.setParms({PREFS_VIEWPORT_RENDERER: rndtype})
+                    n.parm(PREFS_VIEWPORT_RENDERER).set(rndtype)
                     # Update memory
                     self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_RENDERER_MEM)
                     self.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype)
 
 
         else:
-            node.setParms({PREFS_VIEWPORT_RENDERER: rndtype_mem.eval()})
+            node.parm(PREFS_VIEWPORT_RENDERER).set(rndtype_mem.eval())
         
             _MSG = f"No Lop viewers available."
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
@@ -2055,10 +2057,11 @@ class flam3husd_general_utils
                                                     PREFS_KARMA_F3H_SHADER_TRANSMISSION: 0
                                                     }
         
-        # Clear and set
-        for key, value in prms_f3h_shader_data.items():
+        # Clear
+        for key in prms_f3h_shader_data.keys():
             node.parm(key).deleteAllKeyframes()
-            node.setParms({key: value})
+        # Set
+        node.setParms(prms_f3h_shader_data)
         
         
     def flam3husd_display_help(self) -> None:
@@ -2147,4 +2150,4 @@ class flam3husd_about_utils
         
         build_about_msg: str = "".join(build)
 
-        self.node.setParms({MSG_F3HUSD_ABOUT: build_about_msg})
+        self.node.parm(MSG_F3HUSD_ABOUT).set(build_about_msg)

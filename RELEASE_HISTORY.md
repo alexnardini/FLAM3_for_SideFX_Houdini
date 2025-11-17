@@ -33,6 +33,26 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.40 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.40) ###
+
+#### FLAM3H™ ####
+
+- **Python code improvements H21.0 UP ONLY**: py_flam3 python 3.11 (_**H21 UP**_) module improvements.
+
+#### FLAM3HUSD v0.2.36 - Prototype ####
+
+- **Python code improvements H21.0 UP ONLY**: py_flam3usd python 3.11 (_**H21 UP**_) module improvements
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.39 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.39) ###
 
 #### FLAM3H™ ####
