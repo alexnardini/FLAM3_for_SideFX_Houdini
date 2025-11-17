@@ -153,7 +153,7 @@ class flam3husd_scripts
             (None):
         """  
         self._kwargs: dict = kwargs
-        self._node = kwargs['node']
+        self._node: hou.LopNode = kwargs['node']
         
     
     @staticmethod
@@ -506,11 +506,11 @@ class flam3husd_scripts
     ##########################################
 
     @property
-    def kwargs(self):
+    def kwargs(self) -> dict:
         return self._kwargs
     
     @property
-    def node(self):
+    def node(self) -> hou.LopNode:
         return self._node
     
     
@@ -604,7 +604,7 @@ class flam3husd_scripts
             (None):
         """
         
-        node = self.node
+        node: hou.LopNode = self.node
         
         # Update dark history
         flam3husd_general_utils.util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
@@ -634,7 +634,7 @@ class flam3husd_scripts
         # If we collected some data, set
         if all_f3h_vpptsize:
             
-            node.setParms({PREFS_VIEWPORT_PT_SIZE: all_f3h_vpptsize[0], 
+            node.setParms({PREFS_VIEWPORT_PT_SIZE: all_f3h_vpptsize[0], # type: ignore
                            PREFS_VIEWPORT_PT_TYPE: all_f3h_vptype[0]
                            })
             # Updated memory
@@ -684,7 +684,7 @@ class flam3husd_scripts
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.LopNode = self.node
         
         flam3husd_general_utils.private_prm_set(self.node, PREFS_PVT_FLAM3HUSD_DATA_H_VALID, 0)
         __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3HUSD HDA PythonModule module.
@@ -696,7 +696,7 @@ class flam3husd_scripts
         # _MSG_DESCRIPTIVE_MSG = f"FLAM3HUSD v{__version__}\nYou need {_MSG_H_VERSIONS}"
         
         # Set proper messages in the about tabs
-        node.setParms({MSG_F3HUSD_ERROR: _MSG_ABOUT, 
+        node.setParms({MSG_F3HUSD_ERROR: _MSG_ABOUT, # type: ignore
                        MSG_F3HUSD_ABOUT_ERROR: _MSG_ABOUT
                        })
             
@@ -713,7 +713,7 @@ class flam3husd_scripts
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.LopNode = self.node
         # Set initial node color
         node.setColor(hou.Color((0.165,0.165,0.165)))
         
@@ -787,7 +787,7 @@ class flam3husd_scripts
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.LopNode = self.node
         
         # This is done in case the user saved a hip file with FLAM3HUSD nodes in it
         # while using an incompatible version of Houdini so that we can restore it to functional again.
@@ -796,7 +796,7 @@ class flam3husd_scripts
             flam3husd_general_utils.private_prm_set(self.node, h_valid_prm, 1)
             
             # Clear messages just in case
-            node.setParms({MSG_F3HUSD_ERROR: '', 
+            node.setParms({MSG_F3HUSD_ERROR: '', # type: ignore
                            MSG_F3HUSD_ABOUT_ERROR: ''
                            })
             
@@ -951,7 +951,7 @@ class flam3husd_scripts
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.LopNode = self.node
         node_instances: tuple = node.type().instances()
 
         is_valid = self.flam3husd_is_valid_flam3h_node
@@ -1027,7 +1027,7 @@ class flam3husd_general_utils
             (None):
         """ 
         self._kwargs: dict = kwargs
-        self._node = kwargs['node']
+        self._node: hou.LopNode = kwargs['node']
         self._bbox_reframe_path: str | None = self.get_node_path(NODE_NAME_OUT_BBOX_REFRAME)
         
         
@@ -1381,11 +1381,11 @@ class flam3husd_general_utils
     ##########################################
 
     @property
-    def kwargs(self):
+    def kwargs(self) -> dict:
         return self._kwargs
     
     @property
-    def node(self):
+    def node(self) -> hou.LopNode:
         return self._node
     
     @property
@@ -1405,7 +1405,7 @@ class flam3husd_general_utils
         Returns:
             (None):
         """ 
-        node = self.node
+        node: hou.LopNode = self.node
         if f3husd_all: self.util_flam3h_node_exist_all(node)
         else: self.util_flam3h_node_exist_self(node)
         
@@ -1424,7 +1424,7 @@ class flam3husd_general_utils
             (None):  
         """
         
-        node = self.node
+        node: hou.LopNode = self.node
         # If it is a valid Houdini version
         if node.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
             
@@ -1613,7 +1613,7 @@ class flam3husd_general_utils
         Returns:
             (None):  
         """  
-        node = self.node
+        node: hou.LopNode = self.node
         
         viewports: list[hou.SceneViewer] = self.util_getSceneViewers()
         num_viewers: int = len(viewports)
@@ -1706,7 +1706,7 @@ class flam3husd_general_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.LopNode = self.node
         prm = node.parm(PREFS_VIEWPORT_DARK)
         views: list[hou.SceneViewer] = self.util_getSceneViewers()
         
@@ -1832,7 +1832,7 @@ class flam3husd_general_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.LopNode = self.node
         
         pttype: int = node.parm(PREFS_VIEWPORT_PT_TYPE).eval()
         pttype_mem: int = node.parm(PREFS_PVT_VIEWPORT_PT_TYPE_MEM).eval()
@@ -1911,7 +1911,7 @@ class flam3husd_general_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.LopNode = self.node
         
         Points: hou.EnumValue = hou.viewportParticleDisplay.Points # type: ignore
         ptsize: float = node.parm(prm_name_size).eval()
@@ -1988,7 +1988,7 @@ class flam3husd_general_utils
         Returns:
             (None):  
         """  
-        node = self.node
+        node: hou.LopNode = self.node
         rndtype: int = node.parm(PREFS_VIEWPORT_RENDERER).eval()
         rndtype_mem: hou.Parm = node.parm(PREFS_PVT_VIEWPORT_RENDERER_MEM)
         lop_viewers: bool = False
@@ -2047,7 +2047,7 @@ class flam3husd_general_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.LopNode = self.node
         
         prms_f3h_shader_data: dict[str, float] = {  PREFS_KARMA_F3H_SHADER_GAMMA: 1,
                                                     PREFS_KARMA_F3H_SHADER_HUE: 1,
@@ -2061,7 +2061,7 @@ class flam3husd_general_utils
         for key in prms_f3h_shader_data.keys():
             node.parm(key).deleteAllKeyframes()
         # Set
-        node.setParms(prms_f3h_shader_data)
+        node.setParms(prms_f3h_shader_data) # type: ignore
         
         
     def flam3husd_display_help(self) -> None:
@@ -2108,7 +2108,7 @@ class flam3husd_about_utils
             (None):
         """ 
         self._kwargs: dict = kwargs
-        self._node = kwargs['node']
+        self._node: hou.LopNode = kwargs['node']
 
 
     # CLASS: PROPERTIES
@@ -2116,11 +2116,11 @@ class flam3husd_about_utils
     ##########################################
 
     @property
-    def kwargs(self):
+    def kwargs(self) -> dict:
         return self._kwargs
     
     @property
-    def node(self):
+    def node(self) -> hou.LopNode:
         return self._node
 
 
