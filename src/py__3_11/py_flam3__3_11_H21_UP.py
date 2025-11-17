@@ -15683,7 +15683,7 @@ class in_flame_utils
         try:
             prm_size_val: hou.Vector2 = hou.Vector2((int(f3r.out_size[preset_id].split()[0]), int(f3r.out_size[preset_id].split()[1])))
             node.parmTuple(prm_size_name).set(prm_size_val)
-        except: # If missing set it to its default
+        except (AttributeError, TypeError): # If missing set it to its default
             node.parmTuple(prm_size_name).set( hou.Vector2((int(1024), int(1024))) )
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_SIZE} -> NOT FOUND, default value used.\n")
             
@@ -15691,7 +15691,7 @@ class in_flame_utils
         try:
             prm_center_val: hou.Vector2 = hou.Vector2((float(f3r.out_center[preset_id].split()[0]), float(f3r.out_center[preset_id].split()[1])))
             node.parmTuple(prm_center_name).set(prm_center_val)
-        except: # If missing set it to its default
+        except (AttributeError, TypeError): # If missing set it to its default
             node.parmTuple(prm_center_name).set( hou.Vector2((float(0), float(0))) )
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_CENTER} -> NOT FOUND, default value used.\n")
             
@@ -15700,7 +15700,7 @@ class in_flame_utils
         try:
             prm_rotate_val: float = float(f3r.out_rotate[preset_id])
             node.parm(prm_rotate_name).set(prm_rotate_val)
-        except: # If missing set it to its default
+        except (AttributeError, TypeError): # If missing set it to its default
             node.parm(prm_rotate_name).set(float(0))
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_ROTATE} -> NOT FOUND, default value used.\n")
             
@@ -15708,7 +15708,7 @@ class in_flame_utils
         try:
             prm_scale_val: float = float(f3r.out_scale[preset_id])
             node.parm(prm_scale_name).set(prm_scale_val)
-        except: # If missing set it to its default
+        except (AttributeError, TypeError): # If missing set it to its default
             node.parm(prm_scale_name).set(float(400))
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_SCALE} -> NOT FOUND, default value used.\n")
     
