@@ -27,6 +27,7 @@ from collections.abc import Iterable
 from collections.abc import Callable
 from collections.abc import KeysView
 from typing import Any
+from typing import Never
 from typing import TypeVar
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
@@ -12605,7 +12606,7 @@ class _xml:
 class _xml
 
 @METHODS
-* get_name(self, key: str = XML_XF_NAME) -> tuple:
+* def get_name(self, key: str = XML_XF_NAME) -> tuple[str | list[Never], ...]:
 
     """    
     
@@ -12645,7 +12646,7 @@ class _xml
         return self._tree
         
         
-    def get_name(self, key: str = XML_XF_NAME) -> tuple:
+    def get_name(self, key: str = XML_XF_NAME) -> tuple[str | list[Never], ...]:
         """Collect all Flame presets name from the XML Flame file.</br></br>
         
         This is being added as a quick and cheap way to do so making some assumption ahead of time.</br>
@@ -12656,7 +12657,7 @@ class _xml
             key(str): Defaults to XML_XF_NAME. The XML Flame's name key.
 
         Returns:
-            (tuple): Flame presets names.
+            (tuple[str | list[Never], ...]): Flame presets names packed into a tuple of strings</br>or an empty list instead if the XML key is not found in the XML preset. Or an empty tuple.
         """     
         if os.path.isfile(self.xml):
             _strip: Callable[[str], str] = str.strip 
@@ -12695,10 +12696,10 @@ class _xml_tree
 * xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
 
 @METHODS
-* get_name(self, key: str = XML_XF_NAME) -> tuple[str, ...]:
-* __get_name_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str, ...]:
-* __get_name_curve_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str]:
-* __get_name_list_str(self, key: str) -> tuple[str, ...]:
+* get_name(self, key: str = XML_XF_NAME) -> tuple[str | list[Never], ...]:
+* __get_name_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str | list[Never], ...]:
+* __get_name_curve_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str | list[Never], ...]:
+* __get_name_list_str(self, key: str) -> tuple[str | list[Never], ...]:
 * __get_flame(self, key: str = XML_FLAME_NAME) -> tuple[lxmlET._Element, ...] | None:
 * __get_flame_count(self, flames: list) -> int:
 
@@ -12734,9 +12735,9 @@ class _xml_tree
             self._root: lxmlET._Element = self.tree.getroot()
             
         # This not private as its cheaper to have it evaluate from this parent class.
-        self._name: tuple[str, ...] = self.get_name()
-        self._plugins: tuple[str, ...] = self.get_name(XML_FLAME_PLUGINS)
-        self._sw_version: tuple[str, ...] = self.get_name(XML_FLAME_VERSION) # type: ignore
+        self._name: tuple[str | list[Never], ...] = self.get_name()
+        self._plugins: tuple[str | list[Never], ...] = self.get_name(XML_FLAME_PLUGINS)
+        self._sw_version: tuple[str | list[Never], ...] = self.get_name(XML_FLAME_VERSION) # type: ignore
 
 
     @staticmethod
@@ -12907,20 +12908,20 @@ class _xml_tree
         return self._root
     
     @cached_slot_property
-    def name(self) -> tuple[str, ...]:
+    def name(self) -> tuple[str | list[Never], ...]:
         return self._name
     
     @cached_slot_property
-    def plugins(self) -> tuple[str, ...]:
+    def plugins(self) -> tuple[str | list[Never], ...]:
         return self._plugins
     
     @cached_slot_property
-    def sw_version(self) -> tuple[str, ...]:
+    def sw_version(self) -> tuple[str | list[Never], ...]:
         return self._sw_version
     
 
     # This not private as its cheaper to have it evaluate from this parent class.
-    def get_name(self, key: str = XML_XF_NAME) -> tuple[str, ...]:
+    def get_name(self, key: str = XML_XF_NAME) -> tuple[str | list[Never], ...]:
         """Collect all Flame presets name from the XML Flame file.</br>
 
         Args:
@@ -12928,7 +12929,7 @@ class _xml_tree
             key(str): Defaults to XML_XF_NAME. The XML Flame's name key.
 
         Returns:
-            (tuple[str, ...]): Flame presets names packed into a tuple.
+            (tuple[str | list[Never], ...]): Flame presets names packed into a tuple of strings</br>or an empty list instead if the XML key is not found in the XML preset. Or an empty tuple.
         """
         if self.isvalidtree:
             
@@ -12944,7 +12945,7 @@ class _xml_tree
         return () 
         
         
-    def __get_name_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str, ...]:
+    def __get_name_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str | list[Never], ...]:
         """Collect all Flame presets single value from the XML Flame file and return all of them packed into a tuple.</br>
         It will also scan each string value for invalid characters and try to remove them returning a cleaned up string value.</br>
 
@@ -12954,7 +12955,7 @@ class _xml_tree
             _DEFAULT(str): If something goes wrong, use this default value instead.
 
         Returns:
-            (tuple[str, ...]): Flame presets single string values packed into a tuple or an empty tuple
+            (tuple[str | list[Never], ...]): Flame presets single string values packed into a tuple os strings</br>or an empty list instead if the XML key is not found in the XML preset. Or an empty tuple
         """      
         if self.isvalidtree:
             
@@ -12966,7 +12967,7 @@ class _xml_tree
         return () 
         
         
-    def __get_name_curve_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str, ...]:
+    def __get_name_curve_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str | list[Never], ...]:
         """Collect all Flame presets multi color correction curve values from the XML Flame file and return all of them packed into a tuple.</br>
         It will also scan each string value for invalid characters and try to remove them returning a cleaned up string value.</br>
 
@@ -12976,7 +12977,7 @@ class _xml_tree
             _DEFAULT(str): If something goes wrong, use this default value instead.
 
         Returns:
-            (tuple[str, ...]): Flame presets multi color correction curve values packed into a tuple or an empty tuple.
+            (tuple[str | list[Never], ...]): Flame presets multi color correction curve values packed into a tuple of strings</br>or an empty list instead if the XML key is not found in the XML preset. Or an empty tuple.
         """      
         if self.isvalidtree:
             
@@ -12989,7 +12990,7 @@ class _xml_tree
         return () 
         
         
-    def __get_name_list_str(self, key: str) -> tuple[str, ...]:
+    def __get_name_list_str(self, key: str) -> tuple[str | list[Never], ...]:
         """Collect all Flame presets list values from the XML Flame file.</br>
         Some examples of values to use this definition with are: size, center...</br>
         (all key name that hold multiple string values in it)</br>
@@ -12999,7 +13000,7 @@ class _xml_tree
             key(str): The XML Flame's key name.
 
         Returns:
-            (tuple[str, ...]): Return all values packed into a tuple.
+            (tuple[str | list[Never], ...]): Return all values packed into a tuple of strings</br>or an empty list instead if the XML key is not found in the XML preset. Or an empty tuple
         """
         if self.isvalidtree:
             
@@ -13074,8 +13075,8 @@ class in_flame
 @METHODS
 * __is_valid_idx(self, idx: int) -> int:
 * __get_xforms(self, idx: int, key: str) -> tuple[dict, ...] | None:
-* __get_xaos(self, xforms: tuple[dict, ...] | None, key: str = XML_XF_XAOS) -> tuple[list[str], ...] | None:
-* __get_affine(self, xforms: tuple[dict, ...] | None, key: str, type: int = 0) -> tuple[tuple[hou.Vector2, ...], ...] | None:
+* __get_xaos(self, xforms: tuple[dict, ...] | None, key: str = XML_XF_XAOS) -> tuple[list[str] | list[Never], ...] | None:
+* __get_affine(self, xforms: tuple[dict, ...] | None, key: str, type: int = 0) -> tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None:
 * __get_keyvalue(self, xforms: tuple[dict, ...] | None, key: str, msg: bool = True) -> tuple[float | str, ...] | None:
 * __get_palette(self, idx: int, key: str = XML_PALETTE) -> tuple[hou.Ramp, int, str] | None:
 * __get_palette_flam3h_hsv(self, idx: int) -> TA_TypeMaker | bool:
@@ -13111,40 +13112,40 @@ class in_flame
         self._flame_count: int = self._xml_tree__get_flame_count(self.flame) # type: ignore
         
         # render properties
-        self._out_size: tuple[str, ...] = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SIZE) # type: ignore
-        self._out_center: tuple[str, ...] = self._xml_tree__get_name_list_str(OUT_XML_FLAME_CENTER) # type: ignore
-        self._out_rotate: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_ROTATE, '0') # type: ignore
-        self._out_scale: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_SCALE, '0') # type: ignore
-        self._out_quality: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_QUALITY, '1000') # type: ignore
-        self._out_brightness: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_BRIGHTNESS, '3') # type: ignore
-        self._out_gamma: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_GAMMA, '2.5') # type: ignore
-        self._out_highlight_power: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER, '5') # type: ignore
-        self._out_logscale_k2: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2, '0') # type: ignore
-        self._out_vibrancy: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY, '0.3333') # type: ignore
+        self._out_size: tuple[str | list[Never], ...] = self._xml_tree__get_name_list_str(OUT_XML_FLAME_SIZE) # type: ignore
+        self._out_center: tuple[str | list[Never], ...] = self._xml_tree__get_name_list_str(OUT_XML_FLAME_CENTER) # type: ignore
+        self._out_rotate: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_ROTATE, '0') # type: ignore
+        self._out_scale: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_SCALE, '0') # type: ignore
+        self._out_quality: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_QUALITY, '1000') # type: ignore
+        self._out_brightness: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_BRIGHTNESS, '3') # type: ignore
+        self._out_gamma: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_GAMMA, '2.5') # type: ignore
+        self._out_highlight_power: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_POWER, '5') # type: ignore
+        self._out_logscale_k2: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_K2, '0') # type: ignore
+        self._out_vibrancy: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY, '0.3333') # type: ignore
         
         # palette lookup samples basis
         self._out_palette_mode: tuple = self.get_name(OUT_XML_FLAME_PALETTE_MODE)
         
         # render curves
-        self._out_curves: tuple[str, ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVES, OUT_XML_FLAME_RENDER_CURVES_DEFAULT) # type: ignore
-        self._out_curve_overall: tuple[str, ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_OVERALL, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
-        self._out_curve_red: tuple[str, ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_RED, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
-        self._out_curve_green: tuple[str, ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_GREEN, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
-        self._out_curve_blue: tuple[str, ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_BLUE, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curves: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVES, OUT_XML_FLAME_RENDER_CURVES_DEFAULT) # type: ignore
+        self._out_curve_overall: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_OVERALL, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curve_red: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_RED, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curve_green: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_GREEN, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
+        self._out_curve_blue: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVE_BLUE, OUT_XML_FLAME_RENDER_CURVE_DEFAULT) # type: ignore
         
         # custom to FLAM3H™ only
-        self._flam3h_sys_rip: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_SYS_RIP) # type: ignore # This xml key must be present to be set otherwise leave it untouched
-        self._flam3h_hsv: tuple[str, ...] = self._xml_tree__get_name_list_str(OUT_XML_FLAM3H_HSV) # type: ignore
+        self._flam3h_sys_rip: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_SYS_RIP) # type: ignore # This xml key must be present to be set otherwise leave it untouched
+        self._flam3h_hsv: tuple[str | list[Never], ...] = self._xml_tree__get_name_list_str(OUT_XML_FLAM3H_HSV) # type: ignore
         
         # just check any of the MB val and if exist mean there is MB data to be set.
         # this will act as bool and if true, it will hold our OUT_XML_FLMA3H_MB_FPS value ( as string )
-        self._flam3h_mb: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS) # type: ignore # This xml key must be present to be set otherwise leave it untouched
-        self._flam3h_mb_samples: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SAMPLES, '16') # type: ignore
-        self._flam3h_mb_shutter: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER, '0.5') # type: ignore
-        self._flam3h_cp_samples: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES, '256') # type: ignore
-        self._flam3h_cp_basis: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES_BASIS, '0') # type: ignore
+        self._flam3h_mb: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_FPS) # type: ignore # This xml key must be present to be set otherwise leave it untouched
+        self._flam3h_mb_samples: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SAMPLES, '16') # type: ignore
+        self._flam3h_mb_shutter: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLMA3H_MB_SHUTTER, '0.5') # type: ignore
+        self._flam3h_cp_samples: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES, '256') # type: ignore
+        self._flam3h_cp_basis: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_CP_SAMPLES_BASIS, '0') # type: ignore
         
-        self._flam3h_prefs_f3c: tuple[str, ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore # This xml key must be present to be set otherwise leave it untouched
+        self._flam3h_prefs_f3c: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAM3H_PREFS_F3C) # type: ignore # This xml key must be present to be set otherwise leave it untouched
         
 
     @staticmethod
@@ -13430,43 +13431,43 @@ class in_flame
         return self._flame_count
     
     @cached_slot_property
-    def out_size(self) -> tuple[str, ...]:
+    def out_size(self) -> tuple[str | list[Never], ...]:
         return self._out_size
     
     @cached_slot_property
-    def out_center(self) -> tuple[str, ...]:
+    def out_center(self) -> tuple[str | list[Never], ...]:
         return self._out_center
     
     @cached_slot_property
-    def out_rotate(self) -> tuple[str, ...]:
+    def out_rotate(self) -> tuple[str | list[Never], ...]:
         return self._out_rotate
     
     @cached_slot_property
-    def out_scale(self) -> tuple[str, ...]:
+    def out_scale(self) -> tuple[str | list[Never], ...]:
         return self._out_scale
     
     @cached_slot_property
-    def out_quality(self) -> tuple[str, ...]:
+    def out_quality(self) -> tuple[str | list[Never], ...]:
         return self._out_quality
 
     @cached_slot_property
-    def out_brightness(self) -> tuple[str, ...]:
+    def out_brightness(self) -> tuple[str | list[Never], ...]:
         return self._out_brightness
     
     @cached_slot_property
-    def out_gamma(self) -> tuple[str, ...]:
+    def out_gamma(self) -> tuple[str | list[Never], ...]:
         return self._out_gamma
     
     @cached_slot_property
-    def out_highlight_power(self) -> tuple[str, ...]:
+    def out_highlight_power(self) -> tuple[str | list[Never], ...]:
         return self._out_highlight_power
     
     @cached_slot_property
-    def out_logscale_k2(self) -> tuple[str, ...]:
+    def out_logscale_k2(self) -> tuple[str | list[Never], ...]:
         return self._out_logscale_k2
     
     @cached_slot_property
-    def out_vibrancy(self) -> tuple[str, ...]:
+    def out_vibrancy(self) -> tuple[str | list[Never], ...]:
         return self._out_vibrancy
     
     @cached_slot_property
@@ -13476,57 +13477,57 @@ class in_flame
     # render curves
     
     @cached_slot_property
-    def out_curves(self) -> tuple[str, ...]:
+    def out_curves(self) -> tuple[str | list[Never], ...]:
         return self._out_curves
     
     @cached_slot_property
-    def out_curve_overall(self) -> tuple[str, ...]:
+    def out_curve_overall(self) -> tuple[str | list[Never], ...]:
         return self._out_curve_overall
     
     @cached_slot_property
-    def out_curve_red(self) -> tuple[str, ...]:
+    def out_curve_red(self) -> tuple[str | list[Never], ...]:
         return self._out_curve_red
     
     @cached_slot_property
-    def out_curve_green(self) -> tuple[str, ...]:
+    def out_curve_green(self) -> tuple[str | list[Never], ...]:
         return self._out_curve_green
     
     @cached_slot_property
-    def out_curve_blue(self) -> tuple[str, ...]:
+    def out_curve_blue(self) -> tuple[str | list[Never], ...]:
         return self._out_curve_blue
     
     # custom to FLAM3H™ only
     
     @cached_slot_property
-    def flame3h_sys_rip(self) -> tuple[str, ...]:
+    def flame3h_sys_rip(self) -> tuple[str | list[Never], ...]:
         return self._flam3h_sys_rip
 
     @cached_slot_property
-    def flam3h_hsv(self) -> tuple[str, ...]:
+    def flam3h_hsv(self) -> tuple[str | list[Never], ...]:
         return self._flam3h_hsv
     
     @cached_slot_property
-    def flam3h_mb(self) -> tuple[str, ...]: # motion blur fps ( frames per second )
+    def flam3h_mb(self) -> tuple[str | list[Never], ...]: # motion blur fps ( frames per second )
         return self._flam3h_mb
     
     @cached_slot_property
-    def flam3h_mb_samples(self) -> tuple[str, ...]:
+    def flam3h_mb_samples(self) -> tuple[str | list[Never], ...]:
         return self._flam3h_mb_samples
     
     @cached_slot_property
-    def flam3h_mb_shutter(self) -> tuple[str, ...]:
+    def flam3h_mb_shutter(self) -> tuple[str | list[Never], ...]:
         return self._flam3h_mb_shutter
     
     @cached_slot_property
-    def flam3h_cp_samples(self) -> tuple[str, ...]:
+    def flam3h_cp_samples(self) -> tuple[str | list[Never], ...]:
         return self._flam3h_cp_samples
     
     @cached_slot_property
-    def flam3h_cp_basis(self) -> tuple[str, ...]:
+    def flam3h_cp_basis(self) -> tuple[str | list[Never], ...]:
         return self._flam3h_cp_basis
     
     @cached_slot_property
-    def flam3h_prefs_f3c(self) -> tuple[str, ...]: # flam3 compatibility preferences option
+    def flam3h_prefs_f3c(self) -> tuple[str | list[Never], ...]: # flam3 compatibility preferences option
         return self._flam3h_prefs_f3c
     
 
@@ -13573,7 +13574,7 @@ class in_flame
         return None
     
     
-    def __get_xaos(self, xforms: tuple[dict, ...] | None, key: str = XML_XF_XAOS) -> tuple[list[str], ...] | None:
+    def __get_xaos(self, xforms: tuple[dict, ...] | None, key: str = XML_XF_XAOS) -> tuple[list[str] | list[Never], ...] | None:
         """
         Args:
             (self):
@@ -13581,7 +13582,7 @@ class in_flame
             key(str): the flame XML xaos tag name.
 
         Returns:
-            (tuple[list[str], ...] | None): either a list of xaos strings or None
+            (tuple[list[str] | list[Never], ...] | None): either a list of xaos strings</br>or an empty list instead if the XML key is not found in the XML preset. Or None
         """
         if  self.isvalidtree and xforms is not None:
             _join: Callable[[Iterable[str]], str] = ':'.join
@@ -13597,7 +13598,7 @@ class in_flame
         return None
 
 
-    def __get_affine(self, xforms: tuple[dict, ...] | None, key: str, type: int = 0) -> tuple[tuple[hou.Vector2, ...], ...] | None:
+    def __get_affine(self, xforms: tuple[dict, ...] | None, key: str, type: int = 0) -> tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None:
         """
         Args:
             (self):
@@ -13606,7 +13607,7 @@ class in_flame
             type(int): Only used by the self.affine_coupling(...) definition. It is either an iterator: 0 or an FF: 1
 
         Returns:
-            (tuple[tuple[hou.Vector2, ...], ...] | None): Either a list of list of tuples ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) / ((A, D), (B, E), (C, F)) or None
+            (tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None): Either a list of list of tuples of hou.Vector2 ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) / ((A, D), (B, E), (C, F))</br>or an empty list instead if the XML key is not found in the XML preset. Or None
         """   
         if  self.isvalidtree and xforms is not None:
             _affine_coupling: Callable[[list, str, int | None, int], list] = self.affine_coupling
@@ -13981,21 +13982,21 @@ class in_flame_iter_data(in_flame):
         self._xf_name: tuple[str, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_NAME) # type: ignore
         self._weight: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_WEIGHT) # type: ignore
         self._pre_blur: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_XF_PB) # type: ignore
-        self._xaos: tuple[list[str], ...] | None  = self._in_flame__get_xaos(self.xforms) # type: ignore
+        self._xaos: tuple[list[str] | list[Never], ...] | None  = self._in_flame__get_xaos(self.xforms) # type: ignore
         
-        self._coefs: tuple[tuple[hou.Vector2, ...], ...] | None = self._in_flame__get_affine(self.xforms, XML_PRE_AFFINE) # type: ignore
-        self._f3h_coefs: tuple[tuple[hou.Vector2, ...], ...] | None | None = self._in_flame__get_affine(self.xforms, XML_FLAM3H_PRE_AFFINE) # type: ignore
+        self._coefs: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.xforms, XML_PRE_AFFINE) # type: ignore
+        self._f3h_coefs: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.xforms, XML_FLAM3H_PRE_AFFINE) # type: ignore
         self._f3h_coefs_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
-        self._post: tuple[tuple[hou.Vector2, ...], ...] | None | None  = self._in_flame__get_affine(self.xforms, XML_POST_AFFINE) # type: ignore
-        self._f3h_post: tuple[tuple[hou.Vector2, ...], ...] | None | None  = self._in_flame__get_affine(self.xforms, XML_FLAM3H_POST_AFFINE) # type: ignore
+        self._post: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None  = self._in_flame__get_affine(self.xforms, XML_POST_AFFINE) # type: ignore
+        self._f3h_post: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None  = self._in_flame__get_affine(self.xforms, XML_FLAM3H_POST_AFFINE) # type: ignore
         self._f3h_post_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
         
         self._finalxform: tuple[dict, ...] | None = self._in_flame__get_xforms(self.idx, XML_FF) # type: ignore
-        self._finalxform_coefs: tuple[tuple[hou.Vector2, ...], ...] | None = self._in_flame__get_affine(self.finalxform, XML_PRE_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_coefs: tuple[tuple[hou.Vector2, ...], ...] | None = self._in_flame__get_affine(self.finalxform, XML_FLAM3H_PRE_AFFINE, 1) # type: ignore
+        self._finalxform_coefs: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.finalxform, XML_PRE_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_coefs: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.finalxform, XML_FLAM3H_PRE_AFFINE, 1) # type: ignore
         self._finalxform_f3h_coefs_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.finalxform, XML_FLAM3H_PRE_AFFINE_ANGLE) # type: ignore
-        self._finalxform_post: tuple[tuple[hou.Vector2, ...], ...]  = self._in_flame__get_affine(self.finalxform, XML_POST_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_post: tuple[tuple[hou.Vector2, ...], ...] | None = self._in_flame__get_affine(self.finalxform, XML_FLAM3H_POST_AFFINE, 1) # type: ignore
+        self._finalxform_post: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None  = self._in_flame__get_affine(self.finalxform, XML_POST_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_post: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.finalxform, XML_FLAM3H_POST_AFFINE, 1) # type: ignore
         self._finalxform_f3h_post_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.finalxform, XML_FLAM3H_POST_AFFINE_ANGLE) # type: ignore
         self._finalxform_name: tuple[str, ...] | None = self._in_flame__get_keyvalue(self.finalxform, XML_XF_NAME) # type: ignore
         
@@ -14041,15 +14042,15 @@ class in_flame_iter_data(in_flame):
         return self._pre_blur
     
     @cached_slot_property
-    def xaos(self) -> tuple[list[str], ...] | None:
+    def xaos(self) -> tuple[list[str] | list[Never], ...] | None:
         return self._xaos
  
     @cached_slot_property
-    def coefs(self) -> tuple[tuple[hou.Vector2, ...], ...] | None:
+    def coefs(self) -> tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None:
         return self._coefs
     
     @cached_slot_property
-    def f3h_coefs(self) -> tuple[tuple[hou.Vector2, ...], ...] | None | None:
+    def f3h_coefs(self) -> tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None:
         return self._f3h_coefs
     
     @cached_slot_property
@@ -14057,11 +14058,11 @@ class in_flame_iter_data(in_flame):
         return self._f3h_coefs_angle
         
     @cached_slot_property
-    def post(self) -> tuple[tuple[hou.Vector2, ...], ...] | None | None:
+    def post(self) -> tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None:
         return self._post
     
     @cached_slot_property
-    def f3h_post(self) -> tuple[tuple[hou.Vector2, ...], ...] | None | None:
+    def f3h_post(self) -> tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None:
         return self._f3h_post
     
     @cached_slot_property
@@ -14073,11 +14074,11 @@ class in_flame_iter_data(in_flame):
         return self._finalxform
     
     @cached_slot_property
-    def finalxform_coefs(self) -> tuple[tuple[hou.Vector2, ...], ...] | None:
+    def finalxform_coefs(self) -> tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None:
         return self._finalxform_coefs
     
     @cached_slot_property
-    def finalxform_f3h_coefs(self) -> tuple[tuple[hou.Vector2, ...], ...] | None:
+    def finalxform_f3h_coefs(self) -> tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None:
         return self._finalxform_f3h_coefs
     
     @cached_slot_property
@@ -14085,11 +14086,11 @@ class in_flame_iter_data(in_flame):
         return self._finalxform_f3h_coefs_angle
         
     @cached_slot_property
-    def finalxform_post(self) -> tuple[tuple[hou.Vector2, ...], ...]:
+    def finalxform_post(self) -> tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None:
         return self._finalxform_post
     
     @cached_slot_property
-    def finalxform_f3h_post(self) -> tuple[tuple[hou.Vector2, ...], ...] | None:
+    def finalxform_f3h_post(self) -> tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None:
         return self._finalxform_f3h_post
     
     @cached_slot_property
@@ -14207,7 +14208,7 @@ class in_flame_utils
               prm_name: str, 
               mp_idx: int
               ) -> None:
-* in_prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
+* in_prm_name_exceptions(v_type: int, app: str | list[Never], apo_prm: tuple) -> tuple:
 * in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
 * in_v_parametric_var_collect(node: hou.SopNode, 
                             mode: int, 
@@ -14321,10 +14322,10 @@ class in_flame_utils
 * in_copy_cc_curves_stats_msg(kwargs: dict) -> None:
 * in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
 * in_xml_key_val(xform: dict, key_name: str, default_val: float = 0) -> float:
-* menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
-* menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
-* menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
-* menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+* menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
+* menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
+* menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str | list[Never]) -> None:
+* menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str | list[Never]) -> None:
 
 @METHODS
 * in_flam3h_set_iterators(self, 
@@ -14848,19 +14849,25 @@ class in_flame_utils
            
            
     @staticmethod  
-    def in_prm_name_exceptions(v_type: int, app: str, apo_prm: tuple) -> tuple:
+    def in_prm_name_exceptions(v_type: int, app: str | list[Never], apo_prm: tuple) -> tuple:
         """Some software have variation names and parameters names different from FLAM3H™ and Apophysis.</br>
         This will take care of those special cases.</br>
         It will swap the current variation dictionary item with the one the posses the corret names.</br>
 
         Args:
             v_type(int): The current variation we are processing
-            app(str): The software used to generate the loaded flame preset.
+            app(str | list[Never]): The software used to generate the loaded flame preset.</br>It can also be an empty list if the app XML key is missing from the Flame preset we are trying to load.
             apo_prm(tuple): If no exception is found, return the original variation and parameter's names.
 
         Returns:
             (tuple): If an exception is confirmed, return the parameter expected parameter's name.
         """
+        # if the app XML key is missing, set it to start with the Fractorium prefix always
+        # otherwise use the found one.
+        if isinstance(app, list): app = f"{XML_APP_NAME_FRACTORIUM}-NOT-FOUND"
+        else: app = app.upper()
+        
+        # Lets check which one is coming in so to grab the proper parameteric parameters names
         if app.startswith(XML_APP_NAME_FRACTORIUM):
             check: tuple | None = flam3h_varsPRM_APO().varsPRM_FRACTORIUM_EXCEPTIONS.get(v_type)
             if check is not None:
@@ -14940,7 +14947,7 @@ class in_flame_utils
 
 
     @staticmethod
-    def in_v_parametric(app: str, 
+    def in_v_parametric(app: str | list[Never], 
                         mode: int, 
                         node: hou.SopNode, 
                         mp_idx: int, 
@@ -14955,7 +14962,7 @@ class in_flame_utils
         This include setting the variation type, its weight and its parametric parameters for an iterator or the FF.</br>
         
         Args:
-            app(str): What software were used to generate this flame preset
+            app(str | list[Never]): What software were used to generate this flame preset
             mode(int): 0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H™ node
             mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
@@ -14972,7 +14979,7 @@ class in_flame_utils
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
         
         # Exceptions: check if this flame need different parameters names based on detected exception
-        apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
+        apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
 
         _VAR: TA_TypeMaker = in_flame_utils.in_v_parametric_var_collect(node, 
                                                                         mode, 
@@ -14999,7 +15006,7 @@ class in_flame_utils
             
             
     @staticmethod
-    def in_v_parametric_PRE(app: str, 
+    def in_v_parametric_PRE(app: str | list[Never], 
                             mode: int, 
                             node: hou.SopNode, 
                             mp_idx: int, 
@@ -15014,7 +15021,7 @@ class in_flame_utils
         This include setting the variation type, its weight and its parametric parameters.</br>
         
         Args:
-            app(str): What software were used to generate this flame preset
+            app(str | list[Never]): What software were used to generate this flame preset
             mode(int): 0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H™ node
             mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
@@ -15031,7 +15038,7 @@ class in_flame_utils
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
         
         # Exceptions: check if this flame need different parameters names based on detected exception
-        apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
+        apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
         
         _VAR: TA_TypeMaker = in_flame_utils.in_v_parametric_var_collect(node, 
                                                                         mode, 
@@ -15050,7 +15057,7 @@ class in_flame_utils
 
 
     @staticmethod
-    def in_v_parametric_POST(app: str, 
+    def in_v_parametric_POST(app: str | list[Never], 
                              mode: int, 
                              node: hou.SopNode, 
                              mp_idx: int, 
@@ -15065,7 +15072,7 @@ class in_flame_utils
         This include setting the variation type, its weight and its parametric parameters.</br>
         
         Args:
-            app(str): What software were used to generate this flame preset
+            app(str | list[Never]): What software were used to generate this flame preset
             mode(int): 0 for iterator. 1 for FF
             node(hou.SopNode): Current FLAM3H™ node
             mp_idx(int): for multiparameter index -> the xform count from the outer loop: (mp_idx + 1)
@@ -15082,7 +15089,7 @@ class in_flame_utils
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
         
         # Exceptions: check if this flame need different parameters names based on detected exception
-        apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
+        apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
 
         _VAR: TA_TypeMaker = in_flame_utils.in_v_parametric_var_collect(node, 
                                                                         mode, 
@@ -15101,7 +15108,7 @@ class in_flame_utils
     
     
     @staticmethod    
-    def in_v_parametric_PRE_FF(app: str, 
+    def in_v_parametric_PRE_FF(app: str | list[Never], 
                                node: hou.SopNode, 
                                t_idx: int, 
                                xform: dict, 
@@ -15114,7 +15121,7 @@ class in_flame_utils
         This include setting the variation type, its weight and its parametric parameters.</br>
         
         Args:
-            app(str): What software were used to generate this flame preset
+            app(str | list[Never]): What software were used to generate this flame preset
             node(hou.SopNode): Current FLAM3H™ houdini node
             t_idx(int): current variation number idx to use with: flam3h_iterator().sec_prevarsT_FF, flam3h_iterator().sec_prevarsW_FF
             xform(dict): current xform we are processing to the relative key names and values for the iterator
@@ -15127,7 +15134,7 @@ class in_flame_utils
             (None):
         """
         # Exceptions: check if this flame need different parameters names based on detected exception
-        apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
+        apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
 
         _VAR: TA_TypeMaker = in_flame_utils.in_v_parametric_var_collect(node, 
                                                                         1, 
@@ -15145,7 +15152,7 @@ class in_flame_utils
 
 
     @staticmethod
-    def in_v_parametric_POST_FF(app: str, 
+    def in_v_parametric_POST_FF(app: str | list[Never], 
                                 node: hou.SopNode, 
                                 t_idx: int, 
                                 xform: dict, 
@@ -15158,7 +15165,7 @@ class in_flame_utils
         This include setting the variation type, its weight and its parametric parameters.</br>
         
         Args:
-            app(str): What software were used to generate this flame preset
+            app(str | list[Never]): What software were used to generate this flame preset
             node(hou.SopNode): Current FLAM3H™ node
             t_idx(int): current variation number idx to use with: flam3h_iterator().sec_postvarsT_FF, flam3h_iterator().sec_postvarsW_FF
             xform(dict): current xform we are processing to the relative key names and values for the iterator
@@ -15171,7 +15178,7 @@ class in_flame_utils
             (None):
         """
         # Exceptions: check if this flame need different parameters names based on detected exception
-        apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app.upper(), apo_prm)
+        apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
 
         _VAR: TA_TypeMaker = in_flame_utils.in_v_parametric_var_collect(node, 
                                                                         1, 
@@ -16207,20 +16214,21 @@ class in_flame_utils
 
 
     @staticmethod
-    def menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
+    def menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
         """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
             menu(list): the menu list to populate.
             i(int): The outer loop index/iteration.
-            item(str): The outer loop item at index/iteration.
+            item(str | list[Never]): The outer loop item at index/iteration.</br>It can also be an empty list if the XML key is missing from the Flame preset we are trying to load.
             in_idx(int): The currently selected IN preset index.
             is_clipboard(int): IN Clipboard toggle.
 
         Returns:
             (None):
         """  
+        
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
@@ -16241,20 +16249,21 @@ class in_flame_utils
             
             
     @staticmethod
-    def menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str, in_idx: int, is_clipboard: int) -> None:
+    def menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
         """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
             menu(list): the menu list to populate.
             i(int): The outer loop index/iteration.
-            item(str): The outer loop item at index/iteration.
+            item(str | list[Never]): The outer loop item at index/iteration.</br>It can also be an empty list if the XML key is missing from the Flame preset we are trying to load.
             in_idx(int): The currently selected IN preset index.
             is_clipboard(int): IN Clipboard toggle.
 
         Returns:
             (None):
         """  
+        
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
@@ -16276,18 +16285,19 @@ class in_flame_utils
             
             
     @staticmethod
-    def menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+    def menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str | list[Never]) -> None:
         """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
             menu(list): the menu list to populate.
             i(int): The outer loop index/iteration.
-            item(str): The outer loop item at index/iteration.
+            item(str | list[Never]): The outer loop item at index/iteration.</br>It can also be an empty list if the XML key is missing from the Flame preset we are trying to load.
 
         Returns:
             (None):
         """  
+        
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
@@ -16307,18 +16317,19 @@ class in_flame_utils
             
             
     @staticmethod
-    def menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+    def menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str | list[Never]) -> None:
         """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
             menu(list): the menu list to populate.
             i(int): The outer loop index/iteration.
-            item(str): The outer loop item at index/iteration.
+            item(str | list[Never]): The outer loop item at index/iteration.</br>It can also be an empty list if the XML key is missing from the Flame preset we are trying to load.
 
         Returns:
             (None):
         """  
+        
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
@@ -16842,8 +16853,8 @@ class in_flame_utils
                 
                 menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
-                _menu_enum: Callable[[hou.SopNode, list, int, str, int, int], None] = self.menu_in_presets_loop_enum
-                _menu_raw: Callable[[hou.SopNode, list, int, str, int, int], None] = self.menu_in_presets_loop
+                _menu_enum: Callable[[hou.SopNode, list, int, str | list[Never], int, int], None] = self.menu_in_presets_loop_enum
+                _menu_raw: Callable[[hou.SopNode, list, int, str | list[Never], int, int], None] = self.menu_in_presets_loop
                 for i, item in enumerate(_xml(xml_file_path).get_name()):
                     _menu_enum(node, menu, i, item, in_idx, is_clipboard) if enum else _menu_raw(node, menu, i, item, in_idx, is_clipboard)
                         
@@ -16935,8 +16946,8 @@ class in_flame_utils
                     
                 menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
-                _menu_enum: Callable[[hou.SopNode, list, int, str], None] = self.menu_in_presets_empty_loop_enum
-                _menu_raw: Callable[[hou.SopNode, list, int, str], None] = self.menu_in_presets_empty_loop
+                _menu_enum: Callable[[hou.SopNode, list, int, str | list[Never]], None] = self.menu_in_presets_empty_loop_enum
+                _menu_raw: Callable[[hou.SopNode, list, int, str | list[Never]], None] = self.menu_in_presets_empty_loop
                 for i, item in enumerate(_xml(xml_file_path).get_name()):
                     _menu_enum(node, menu, i, item) if enum else _menu_raw(node, menu, i, item)
                     
@@ -19014,13 +19025,13 @@ class out_flame_utils
                 
                 
     @staticmethod
-    def menu_out_presets_loop(menu: list, i: int, item: str) -> None:
+    def menu_out_presets_loop(menu: list, i: int, item: str | list[Never]) -> None:
         """This is specifically to be run inside a list comprehension.</br>
 
         Args:
             menu(list): the menu list to populate.
             i(int): The outer loop index/iteration.
-            item(str): The outer loop item at index/iteration.
+            item(str | list[NEver]): The outer loop item at index/iteration.</br>It can also be an empty list if the XML key is missing from the Flame preset we are trying to load.
 
         Returns:
             (None):
@@ -19033,13 +19044,13 @@ class out_flame_utils
 
 
     @staticmethod
-    def menu_out_presets_loop_enum(menu: list, i: int, item: str) -> None:
+    def menu_out_presets_loop_enum(menu: list, i: int, item: str | list[Never]) -> None:
         """This is specifically to be run inside a list comprehension.</br>
 
         Args:
             menu(list): the menu list to populate.
             i(int): The outer loop index/iteration.
-            item(str): The outer loop item at index/iteration.
+            item(str | list[Never]): The outer loop item at index/iteration.</br>It can also be an empty list if the XML key is missing from the Flame preset we are trying to load.
 
         Returns:
             (None):
@@ -19926,8 +19937,8 @@ class out_flame_utils
                 
                 menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
-                _menu_enum: Callable[[list, int, str], None] = self.menu_out_presets_loop_enum
-                _menu_raw: Callable[[list, int, str], None] = self.menu_out_presets_loop
+                _menu_enum: Callable[[list, int, str | list[Never]], None] = self.menu_out_presets_loop_enum
+                _menu_raw: Callable[[list, int, str | list[Never]], None] = self.menu_out_presets_loop
                 for i, item in enumerate(apo_data.name):
                     _menu_enum(menu, i, item) if enum else _menu_raw(menu, i, item)
 
