@@ -505,7 +505,7 @@ F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
             (None):
         """  
         self._kwargs: dict = kwargs
-        self._node = kwargs['node']
+        self._node: hou.SopNode = kwargs['node']
         
     
     @staticmethod
@@ -1490,7 +1490,7 @@ class flam3h_scripts
             (None):
         """  
         self._kwargs: dict = kwargs
-        self._node = kwargs['node']
+        self._node: hou.SopNode = kwargs['node']
         
         
     @staticmethod
@@ -2000,7 +2000,7 @@ class flam3h_scripts
         else:
             first_instance_64bit: bool = False
             
-        node = self.node
+        node: hou.SopNode = self.node
         cvex_precision: int = int( node.parm(PREFS_CVEX_PRECISION).eval() )
                 
         if FIRST_TIME_MSG is True and ( first_instance_32bit is True or first_instance_64bit is True ): # type: ignore
@@ -2069,7 +2069,7 @@ class flam3h_scripts
                 
         if first_instance_32bit is True or first_instance_64bit is True: # type: ignore
 
-            node = self.node
+            node: hou.SopNode = self.node
             cvex_precision: int = int( node.parm(PREFS_CVEX_PRECISION).eval() )
             
             sys_updated_mode: hou.EnumValue = hou.updateModeSetting() # type: ignore
@@ -2125,7 +2125,7 @@ class flam3h_scripts
             (None):
         """
         
-        node = self.node
+        node: hou.SopNode = self.node
         node_instances: tuple = self.node.type().instances()
         
         # FLAM3H™ node and MultiParameter id for iterators
@@ -2168,7 +2168,7 @@ class flam3h_scripts
             (None):
         """
         
-        node = self.node
+        node: hou.SopNode = self.node
         
         # viewers
         viewers: list = flam3h_general_utils.util_getSceneViewers()
@@ -2291,7 +2291,7 @@ class flam3h_scripts
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         cp_is_valid: int = node.parm(CP_PVT_ISVALID_FILE).eval()
         in_is_valid: int = node.parm(IN_PVT_ISVALID_FILE).eval()
@@ -2327,7 +2327,7 @@ class flam3h_scripts
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         flam3h_general_utils.private_prm_set(self.node, FLAM3H_PVT_H_VALID, 0)
         __h_versions__: tuple = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
@@ -2395,7 +2395,7 @@ class flam3h_scripts
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         if self.flam3h_compatible_type(__range_type__):
             
@@ -2447,7 +2447,7 @@ class flam3h_scripts
     #     Returns:
     #         (None):
     #     """
-    #     node = self.node
+    #     node: hou.SopNode = self.node
     #     density = node.parm(GLB_DENSITY).eval()
     #     density_values: dict = { 500000: 1, 1000000: 2, 2000000: 3, 5000000: 4, 15000000: 5, 25000000: 6, 50000000: 7, 100000000: 8, 150000000: 9, 250000000: 10, 500000000: 11, 750000000: 12, 1000000000: 13 }
     #     density_new = min(density_values.keys(), key=lambda x:abs(x-density))
@@ -2495,7 +2495,7 @@ class flam3h_scripts
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         # This is done in case the user saved a hip file with FLAM3H™ nodes in it
         # while using an incompatible version of Houdini so that we can restore it to functional again.
@@ -2524,7 +2524,7 @@ class flam3h_scripts
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         if self.flam3h_compatible_type(__range_type__):
             
@@ -2601,7 +2601,7 @@ class flam3h_scripts
                 # Same goes for the palette preset entrie, and some time goes also out of range
                 # so we store the selection first inside a mem menu parameter on Load inside:
                 #
-                #   - flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_SET_PRESET_DATA()
+                #   - flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_SET_PRESET_DATA(node)
                 #   - flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_sys()
                 #
                 # and on Save inside:
@@ -2659,7 +2659,7 @@ class flam3h_scripts
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         self.unpin_parameter_editor_with_f3h_node(node)
         
         node_instances: tuple = node.type().instances()
@@ -2803,7 +2803,7 @@ class flam3h_general_utils
             (None):
         """ 
         self._kwargs: dict = kwargs
-        self._node = kwargs['node']
+        self._node: hou.SopNode = kwargs['node']
         # Why am I doing the following ? Because with time FLAM3H™ grew and evolved and I was tiered to keep updating an hard coded node path,
         # hence I added the following so I can always find the nodes even if I place them in different locations from time to time.
         self._bbox_sensor_path: str | None = self.get_node_path(NODE_NAME_OUT_BBOX_SENSOR)
@@ -3516,7 +3516,7 @@ class flam3h_general_utils
         Returns:
             (None):                            
         """ 
-        node = self.node
+        node: hou.SopNode = self.node
         # Clear menu caches
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         # Check and Update this data
@@ -3661,7 +3661,7 @@ class flam3h_general_utils
         Returns:
             (bool): True if the Sensor Viz is being activated. False if not.
         """     
-        node = self.node
+        node: hou.SopNode = self.node
         if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
             
             desktop: hou.Desktop = hou.ui.curDesktop() # type: ignore
@@ -3925,7 +3925,7 @@ class flam3h_general_utils
         Returns:
             (bool): True if there are other FLAM3H™ nodes with the xforms handles VIZ ON or False
         """ 
-        node = self.node
+        node: hou.SopNode = self.node
         if [1 for f3h in node.type().instances() if f3h != node and f3h.parm(PREFS_PVT_XF_VIZ).eval()]:
             return True
         
@@ -3941,7 +3941,7 @@ class flam3h_general_utils
         Returns:
             (None):  
         """  
-        node = self.node
+        node: hou.SopNode = self.node
         
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
@@ -4020,7 +4020,7 @@ class flam3h_general_utils
             (None):
         """
         
-        node = self.node
+        node: hou.SopNode = self.node
         prm = node.parm(prm_name)
         
         # Refresh menu caches
@@ -4084,7 +4084,7 @@ class flam3h_general_utils
         Returns:
             (None):  
         """
-        node = self.node
+        node: hou.SopNode = self.node
         prm = node.parm(prm_name)
         f3h_xf_viz_others: bool = self.util_other_xf_viz()
         
@@ -4153,7 +4153,7 @@ class flam3h_general_utils
         Returns:
             (None):  
         """ 
-        node = self.node
+        node: hou.SopNode = self.node
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         _main_xf_viz_name: str = flam3h_iterator_prm_names().main_xf_viz
         all_mp_xf_viz: list[int] = [node.parm(f"{_main_xf_viz_name}_{str(mp_idx + 1)}").eval() for mp_idx in range(iter_num)]
@@ -4173,7 +4173,7 @@ class flam3h_general_utils
         Returns:
             (None):  
         """
-        node = self.node
+        node: hou.SopNode = self.node
         prm_xfviz_solo: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO)
         
         # Refresh menu caches
@@ -4208,7 +4208,7 @@ class flam3h_general_utils
         Returns:
             (None):  
         """
-        node = self.node
+        node: hou.SopNode = self.node
         prm_FF = node.parm(PREFS_PVT_XF_FF_VIZ_SOLO)
         
         # Refresh menu caches
@@ -4381,7 +4381,7 @@ class flam3h_general_utils
         Returns:
             (None):  
         """
-        node = self.node
+        node: hou.SopNode = self.node
         prm = node.parm(prm_name)
         
         # Refresh menu caches
@@ -4409,7 +4409,7 @@ class flam3h_general_utils
         Returns:
             (None):  
         """
-        node = self.node
+        node: hou.SopNode = self.node
         prm = node.parm(prm_name)
         
         # Refresh menu caches
@@ -4455,7 +4455,7 @@ class flam3h_general_utils
         Returns:
             (None):  
         """
-        node = self.node
+        node: hou.SopNode = self.node
         prm = node.parm(prm_name)
         
         # Refresh menu caches
@@ -4523,7 +4523,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """    
-        node = self.node
+        node: hou.SopNode = self.node
         # Clear menu cache
         if destroy_menus:
             flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
@@ -4642,7 +4642,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """    
-        node = self.node
+        node: hou.SopNode = self.node
         # Clear menu caches
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         # Check and Update this data
@@ -4747,7 +4747,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """    
-        node = self.node
+        node: hou.SopNode = self.node
         # Clear menu caches
         if destroy_menus:
             flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
@@ -4871,7 +4871,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         prm = node.parm(PREFS_VIEWPORT_DARK)
         views: list = self.util_getSceneViewers()
         
@@ -5005,7 +5005,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         pttype: int = node.parm(PREFS_VIEWPORT_PT_TYPE).eval()
         pttype_mem: int = node.parm(PREFS_PVT_VIEWPORT_PT_TYPE_MEM).eval()
@@ -5086,7 +5086,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         Points: hou.EnumValue = hou.viewportParticleDisplay.Points # type: ignore
         ptsize: float = node.parm(prm_name_size).eval()
@@ -5166,7 +5166,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         width: float = node.parm(PREFS_VIEWPORT_WIRE_WIDTH).evalAsFloat()
         width_mem: float = node.parm(PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM).eval()
 
@@ -5242,8 +5242,8 @@ class flam3h_general_utils
         Returns:
             (None):
         """    
-        node = self.node
-        node.setParms({ GLB_DENSITY: density, 
+        node: hou.SopNode = self.node
+        node.setParms({ GLB_DENSITY: density, # type: ignore
                         GLB_DENSITY_PRESETS: 1, 
                         GLB_ITERATIONS: iter, 
                         SYS_TAG_SIZE: 0
@@ -5266,7 +5266,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         parms_mb_dict: dict[str, int | float] = {MB_DO: 0,
                                                  MB_FPS: 24,
                                                  MB_SAMPLES: 16,
@@ -5276,7 +5276,7 @@ class flam3h_general_utils
         for key in parms_mb_dict.keys(): node.parm(key).deleteAllKeyframes()
         
         if all:
-            node.setParms(parms_mb_dict)
+            node.setParms(parms_mb_dict) # type: ignore
             
         else:
             prm_fps: int = node.parm(MB_FPS).eval()
@@ -5308,8 +5308,8 @@ class flam3h_general_utils
         Returns:
             (None):
         """
-        node = self.node
-        node.setParms({PREFS_XAOS_MODE: 0, 
+        node: hou.SopNode = self.node
+        node.setParms({PREFS_XAOS_MODE: 0, # type: ignore
                        PREFS_CAMERA_HANDLE: 0, 
                        PREFS_CAMERA_CULL: 0, 
                        PREFS_CAMERA: "", 
@@ -5510,7 +5510,7 @@ class flam3h_iterator_utils
             (None):
         """ 
         self._kwargs: dict = kwargs
-        self._node = kwargs['node']
+        self._node: hou.SopNode = kwargs['node']
         
         
     @staticmethod
@@ -6584,7 +6584,7 @@ class flam3h_iterator_utils
         x: tuple[float, ...] = hou.parmTuple(f"x_{s_mp_index}").eval()
         y: tuple[float, ...] = hou.parmTuple(f"y_{s_mp_index}").eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms({f"x_{s_mp_index}": hou.Vector2((m2_new[0])), 
+        self.node.setParms({f"x_{s_mp_index}": hou.Vector2((m2_new[0])), # type: ignore
                             f"y_{s_mp_index}": hou.Vector2((m2_new[1]))
                             })
 
@@ -6616,7 +6616,7 @@ class flam3h_iterator_utils
         x: tuple[float, ...] = hou.parmTuple(f"px_{s_mp_index}").eval()
         y: tuple[float, ...] = hou.parmTuple(f"py_{s_mp_index}").eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms({f"px_{s_mp_index}": hou.Vector2((m2_new[0])), 
+        self.node.setParms({f"px_{s_mp_index}": hou.Vector2((m2_new[0])), # type: ignore
                             f"py_{s_mp_index}": hou.Vector2((m2_new[1]))
                             })
 
@@ -6644,7 +6644,7 @@ class flam3h_iterator_utils
         x: tuple[float, ...] = hou.parmTuple("ffx").eval()
         y: tuple[float, ...] = hou.parmTuple("ffy").eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms({"ffx": hou.Vector2((m2_new[0])), 
+        self.node.setParms({"ffx": hou.Vector2((m2_new[0])), # type: ignore
                             "ffy": hou.Vector2((m2_new[1]))
                             })
 
@@ -6672,7 +6672,7 @@ class flam3h_iterator_utils
         x: tuple[float, ...] = hou.parmTuple("ffpx").eval()
         y: tuple[float, ...] = hou.parmTuple("ffpy").eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms({"ffpx": hou.Vector2((m2_new[0])), 
+        self.node.setParms({"ffpx": hou.Vector2((m2_new[0])), # type: ignore
                             "ffpy": hou.Vector2((m2_new[1]))
                             })
 
@@ -6751,7 +6751,7 @@ class flam3h_iterator_utils
             (None):
         """  
             
-        node = self.node
+        node: hou.SopNode = self.node
         
         # Updated the "XML_last_loaded" user data if there is a need to do so:
         inisvalidfile: int = node.parm(IN_PVT_ISVALID_FILE).eval()
@@ -6785,7 +6785,7 @@ class flam3h_iterator_utils
                     # Update user data
                     node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
                     # Update flame stats
-                    node.setParms({MSG_IN_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True), 
+                    node.setParms({MSG_IN_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True), # type: ignore
                                    MSG_IN_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data, True), 
                                    MSG_IN_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data, True)
                                    })
@@ -6817,7 +6817,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        node = self.node
+        node: hou.SopNode = self.node
         _MSG_PRX: str = "Iterator var menus:"
         
         # Reset/Set density
@@ -6876,7 +6876,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        node = self.node
+        node: hou.SopNode = self.node
         self.destroy_cachedUserData(node, 'iter_sel')
         prm = self.kwargs['parm']
         s_mp_index: int = self.kwargs['script_multiparm_index']
@@ -7092,7 +7092,7 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         # This data get created inside: menu_T_simple(self, FF: bool = False) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
@@ -7121,7 +7121,7 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        node = self.node
+        node: hou.SopNode = self.node
         # This data get created inside: menu_T_simple(self, FF: bool = False) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
         data: TA_Menu | None = node.cachedUserData('vars_menu_all_simple')
@@ -7167,7 +7167,7 @@ class flam3h_iterator_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            node = self.node
+            node: hou.SopNode = self.node
             menu: TA_Menu = []
 
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
@@ -7227,7 +7227,7 @@ class flam3h_iterator_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            node = self.node
+            node: hou.SopNode = self.node
             
             mem_id: int = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
             if node.cachedUserData('iter_sel_id') != mem_id and mem_id:
@@ -7271,7 +7271,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
 
         if iter_count:
@@ -7406,7 +7406,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         try:
             hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
@@ -7448,7 +7448,7 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        node = self.node
+        node: hou.SopNode = self.node
         if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
             return MENU_DENSITY
         
@@ -7471,7 +7471,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """       
-        node = self.node
+        node: hou.SopNode = self.node
         ptcount: int = node.parm(GLB_DENSITY).eval()
         sel: int = self.kwargs['parm'].evalAsInt()
         vals: dict[int, int] = { 1: 500000, 2: 1000000, 3: 2000000, 4: 5000000, 5: 15000000, 6: 25000000, 7: 50000000, 8: 100000000, 9: 150000000, 10: 250000000, 11: 500000000, 12: 750000000, 13: 1000000000}
@@ -7501,7 +7501,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         kwargs: dict = self.kwargs
         
         glb_density: int = node.parm(GLB_DENSITY).eval()
@@ -7512,7 +7512,7 @@ class flam3h_iterator_utils
         
         if kwargs['shift']:
             if glb_density != 300000:
-                node.setParms({GLB_DENSITY: 300000, 
+                node.setParms({GLB_DENSITY: 300000, # type: ignore
                                GLB_DENSITY_PRESETS: -1
                                })
                 flam3h_general_utils.flash_message(node, 'Density: 300k')
@@ -7524,7 +7524,7 @@ class flam3h_iterator_utils
                 
         elif kwargs['ctrl']:
             if glb_density != 200000:
-                node.setParms({GLB_DENSITY: 200000, 
+                node.setParms({GLB_DENSITY: 200000, # type: ignore
                                GLB_DENSITY_PRESETS: -1
                                })
                 flam3h_general_utils.flash_message(node, 'Density: 200k')
@@ -7536,7 +7536,7 @@ class flam3h_iterator_utils
                 
         elif kwargs['alt']:
             if glb_density != 100000:
-                node.setParms({GLB_DENSITY: 100000, 
+                node.setParms({GLB_DENSITY: 100000, # type: ignore
                                GLB_DENSITY_PRESETS: -1
                                })
                 flam3h_general_utils.flash_message(node, 'Density: 100k')
@@ -7580,7 +7580,7 @@ class flam3h_iterator_utils
             
             menu: TA_Menu = []
             
-            node = self.node
+            node: hou.SopNode = self.node
             s_mp_index: int = self.kwargs['script_multiparm_index']
             
             if self.exist_user_data(node):
@@ -7669,7 +7669,7 @@ class flam3h_iterator_utils
         # This undo's disabler is needed to make the undo work. They work best in H20.5
         with hou.undos.disabler(): # type: ignore
             
-            node = self.node
+            node: hou.SopNode = self.node
             # This is to make sure the hou.session's data is at least initialized.
             self.flam3h_init_hou_session_ff_data(node)
             # Update data for FF copy/paste iterator's methods in case of Undos.
@@ -7948,7 +7948,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """    
-        node = self.node
+        node: hou.SopNode = self.node
         # Update data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
                 
@@ -8023,7 +8023,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """   
-        node = self.node
+        node: hou.SopNode = self.node
         idx: str = str(id)
         # Update data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
@@ -8093,7 +8093,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         idx: str = str(id)
         # Update data for copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
@@ -8150,7 +8150,7 @@ class flam3h_iterator_utils
             (None):
         """    
         
-        node = self.node
+        node: hou.SopNode = self.node
         
         # Check and Update this data
         self.update_xml_last_loaded()
@@ -8198,7 +8198,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """    
-        node = self.node
+        node: hou.SopNode = self.node
         
         # Check and Update this data
         self.update_xml_last_loaded()
@@ -8241,7 +8241,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        node = self.node
+        node: hou.SopNode = self.node
         # Update data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
             
@@ -8282,7 +8282,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """ 
-        node = self.node
+        node: hou.SopNode = self.node
         # Update data for FF copy/paste iterator's methods in case of Undos.
         from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
         
@@ -8321,7 +8321,7 @@ class flam3h_iterator_utils
             (None):
         """   
         
-        node = self.node
+        node: hou.SopNode = self.node
         # This is to make sure the hou.session's data is at least initialized.
         self.flam3h_init_hou_session_ff_data(node)
         
@@ -8378,7 +8378,7 @@ class flam3h_iterator_utils
             (None):
         """    
 
-        node = self.node
+        node: hou.SopNode = self.node
         
         # Marked iterator ( not needed but just in case lets "try" so to speak )
         try:
@@ -8459,7 +8459,7 @@ class flam3h_iterator_utils
                     if not self.is_iterator_affine_default(node, from_FLAM3H_NODE, f3h_iter.sec_postAffine, mp_idx, idx_from, True):
                         self.paste_set_note(node, from_FLAM3H_NODE, 0, SEC_POSTAFFINE, mp_idx, idx_from)
                         
-            node.setParms({f"{n.main_prmpastesel}_{s_mp_index}": 0, 
+            node.setParms({f"{n.main_prmpastesel}_{s_mp_index}": 0, # type: ignore
                            f"{n.main_selmem}_{s_mp_index}": paste_sel
                            })
             
@@ -8638,7 +8638,7 @@ class flam3h_iterator_utils
             (None):
         """    
         
-        node = self.node
+        node: hou.SopNode = self.node
         
         n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
 
@@ -8722,7 +8722,7 @@ class flam3h_iterator_utils
         # Check and Update this data
         self.update_xml_last_loaded()
         
-        node = self.node
+        node: hou.SopNode = self.node
         # AUTO DIV XAOS strings
         div_xaos, div_weight = self.auto_set_xaos_div_str(node)
         
@@ -8757,7 +8757,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
         s_mp_index: int = self.kwargs['script_multiparm_index']
         check = True
@@ -8833,7 +8833,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
         s_mp_index: int = self.kwargs['script_multiparm_index']
         
@@ -8912,7 +8912,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
         check: bool = True
         
@@ -8987,7 +8987,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
         
         if node.parm(f"{PRX_FF_PRM}{n.postaffine_do}").eval(): # This can be omitted as the post affine tab wont be accessible if this toggle is off.
@@ -9066,7 +9066,7 @@ class flam3h_iterator_utils
             (None):
         """
         
-        node = self.node
+        node: hou.SopNode = self.node
         
         # Check and Update this data
         self.update_xml_last_loaded()
@@ -9132,7 +9132,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         _MSG: str = f"{node.name()}: FF POST variations -> SWAP"
         
         # Get prm names
@@ -9195,7 +9195,7 @@ class flam3h_iterator_utils
             (None):
         """
         
-        node = self.node
+        node: hou.SopNode = self.node
         # Clear menu cache
         self.destroy_cachedUserData(node, 'iter_sel')
         self.destroy_cachedUserData(node, 'edge_case_01')
@@ -9246,7 +9246,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         s_mp_index: int = self.kwargs['script_multiparm_index']
         
         # prm names
@@ -9268,14 +9268,14 @@ class flam3h_iterator_utils
         # iter idx
         #
         # iter main
-        node.setParms({f"{n.main_note}_{s_mp_index}": f"iterator_{s_mp_index}", 
+        node.setParms({f"{n.main_note}_{s_mp_index}": f"iterator_{s_mp_index}", # type: ignore
                        f"{n.main_weight}_{s_mp_index}": 0.5
                        })
         
         # We leave xaos untouched becasue its handy to keep it and just reset it in a second step if desired
         #
         # iter shader
-        node.setParms({f"{n.shader_color}_{s_mp_index}": 0, 
+        node.setParms({f"{n.shader_color}_{s_mp_index}": 0, # type: ignore
                        f"{n.shader_speed}_{s_mp_index}": 0, 
                        f"{n.shader_alpha}_{s_mp_index}": 1.0
                        })
@@ -9297,7 +9297,7 @@ class flam3h_iterator_utils
                                                                         }
         
         # Iterator Affines Set
-        node.setParms(parms_affines_dict)
+        node.setParms(parms_affines_dict) # type: ignore
     
     
     def flam3h_reset_FF(self) -> None:
@@ -9310,7 +9310,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
 
         # prm names
         n: flam3h_iterator_prm_names_collections = flam3h_iterator_prm_names_collections()
@@ -9360,7 +9360,7 @@ class flam3h_iterator_utils
                                                                      f"{PRX_FF_PRM}{n.postaffine_ang}": AFFINE_DEFAULT_DICT.get("angle")
                                                                     }
         # FF Affines Set
-        node.setParms(parms_affines_dict)
+        node.setParms(parms_affines_dict) # type: ignore
         
 
     def auto_set_xaos(self) -> None:
@@ -9374,7 +9374,7 @@ class flam3h_iterator_utils
             (None):
         """
         
-        node = self.node
+        node: hou.SopNode = self.node
         iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         # AUTO DIV XAOS strings
         div_xaos, div_weight = self.auto_set_xaos_div_str(node)
@@ -9758,7 +9758,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         s_mp_index: int = self.kwargs['script_multiparm_index']
         # iterators count
         mp_prm: hou.Parm = self.node.parm(FLAME_ITERATORS_COUNT)
@@ -9931,7 +9931,7 @@ class flam3h_iterator_utils
             (None):
         """
 
-        node = self.node
+        node: hou.SopNode = self.node
         # Clear menu cache
         self.destroy_cachedUserData(node, 'iter_sel')
         
@@ -9964,7 +9964,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """  
-        node = self.node
+        node: hou.SopNode = self.node
         # Clear menu cache
         self.destroy_cachedUserData(node, 'iter_sel')
         
@@ -10052,7 +10052,7 @@ class flam3h_palette_utils
             (None):
         """ 
         self._kwargs: dict = kwargs
-        self._node = kwargs['node']
+        self._node: hou.SopNode = kwargs['node']
         self._palette_plus_do: int = self._node.parm(CP_PALETTE_256_PLUS).eval()
         
         
@@ -10545,7 +10545,7 @@ class flam3h_palette_utils
         """
         with hou.undos.disabler(): # type: ignore
             
-            node = self.node
+            node: hou.SopNode = self.node
             selection: int = node.parm(CP_RAMP_LOOKUP_SAMPLES_BASES).eval()
             basis: str | None = CP_RAMP_LOOKUP_SAMPLES_BASES_DICT.get(selection)
             if basis is not None:
@@ -10563,7 +10563,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         preset_name: str = node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()
         preset_name_checked: str = out_flame_utils.out_auto_add_iter_num(0, preset_name, 1, False)
         node.parm(CP_PALETTE_OUT_PRESET_NAME).set(preset_name_checked)
@@ -10622,7 +10622,7 @@ class flam3h_palette_utils
         Returns:
             (TA_Menu): return menu
         """
-        node = self.node
+        node: hou.SopNode = self.node
         if hou.isUIAvailable() is False: node.updateParmStates()
         
         # Quick return
@@ -10713,7 +10713,7 @@ class flam3h_palette_utils
         Returns:
             (TA_Menu): return menu
         """
-        node = self.node
+        node: hou.SopNode = self.node
         if hou.isUIAvailable() is False: node.updateParmStates()
         
         # Quick return
@@ -10756,7 +10756,7 @@ class flam3h_palette_utils
         Returns:
             (tuple[dict, str]): (dict): Raw json data dictionary. (str): indented json data as string
         """
-        node = self.node
+        node: hou.SopNode = self.node
         # get user's preset name or build an automated one
         presetname: str = str(node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()).strip()
         if not presetname:
@@ -10800,7 +10800,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """        
-        node = self.node
+        node: hou.SopNode = self.node
         # Force this data to be rebuilt
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         # Check and Update this data
@@ -11034,7 +11034,6 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        node = self.node
         
         iterators_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iterators_num:
@@ -11136,7 +11135,7 @@ class flam3h_palette_utils
             self.json_to_flam3h_ramp(use_kwargs)
             
         else:
-            node = self.node
+            node: hou.SopNode = self.node
             if node.parm(CP_PVT_ISVALID_PRESET).eval():
                 preset_id: str = node.parm(CP_SYS_PALETTE_PRESETS).eval()
                 node.parm(CP_SYS_PALETTE_PRESETS_OFF).set(preset_id)
@@ -11144,7 +11143,7 @@ class flam3h_palette_utils
                 preset_id: str = node.parm(CP_SYS_PALETTE_PRESETS_OFF).eval()
                 node.parm(CP_SYS_PALETTE_PRESETS).set(preset_id)
                 
-            node.setParms({CP_PALETTE_PRESETS: preset_id, 
+            node.setParms({CP_PALETTE_PRESETS: preset_id, # type: ignore
                            CP_PALETTE_PRESETS_OFF: preset_id
                            })
             self.json_to_flam3h_ramp(use_kwargs)
@@ -11348,7 +11347,7 @@ class flam3h_palette_utils
         # Check and Update this data
         flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         
-        node = self.node
+        node: hou.SopNode = self.node
         
         # KWARGS
         if use_kwargs:
@@ -11386,7 +11385,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """    
-        node = self.node
+        node: hou.SopNode = self.node
         rmpsrc: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         rmphsv = node.parm(CP_RAMP_HSV_NAME)
         # Clear and re-set
@@ -11422,7 +11421,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """    
-        node = self.node
+        node: hou.SopNode = self.node
         rmpsrc: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         rmptmp = node.parm(CP_RAMP_TMP_NAME)
         rmptmp.set(rmpsrc)
@@ -11437,7 +11436,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """  
-        node = self.node
+        node: hou.SopNode = self.node
         hsvprm_vals: tuple[float, float, float] = node.parmTuple(CP_RAMP_HSV_VAL_NAME).eval()
         if hsvprm_vals[0] != 1 or hsvprm_vals[1] != 1 or hsvprm_vals[2] != 1:
             
@@ -11480,7 +11479,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         filepath: str = node.parm(CP_PATH).eval()
         if self.isJSON_F3H(node, filepath, False)[0]:
             if flam3h_general_utils.isLOCK(filepath) is False:
@@ -11514,8 +11513,8 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        node = self.node
-        node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256, 
+        node: hou.SopNode = self.node
+        node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256, # type: ignore
                        CP_RAMP_LOOKUP_SAMPLES_BASES: 0, 
                        CP_RAMP_SAVE_HSV: 0
                        })
@@ -11531,7 +11530,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         # CP
         node.parmTuple(CP_RAMP_HSV_VAL_NAME).set(hou.Vector3((1.0, 1.0, 1.0)))
         # CP->ramp
@@ -11562,7 +11561,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         # CP->ramp
         rmp_scr = node.parm(CP_RAMP_SRC_NAME)
         rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
@@ -11584,7 +11583,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         hsv_prm = node.parmTuple(CP_RAMP_HSV_VAL_NAME)
         _hsv: tuple[float, float, float] = hsv_prm.eval()
         if _hsv[0] == _hsv[1] == _hsv[2] == 1:
@@ -11617,7 +11616,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         rmp_src = node.parm(CP_RAMP_SRC_NAME)
         # Build ramp
         #
@@ -11634,7 +11633,7 @@ class flam3h_palette_utils
         # Mark this as not a loaded preset
         flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
         # Set lookup samples to the default value of: 256 and basis to: linear(0)
-        node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256, 
+        node.setParms({CP_RAMP_LOOKUP_SAMPLES: 256, # type: ignore
                        CP_RAMP_LOOKUP_SAMPLES_BASES: 0
                        })
         
@@ -11712,7 +11711,7 @@ class flam3h_about_utils
             (None):
         """ 
         self._kwargs: dict = kwargs
-        self._node = kwargs['node']
+        self._node: hou.SopNode = kwargs['node']
         
 
     # CLASS: PROPERTIES
@@ -11816,7 +11815,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
             (None):
         """    
         
-        node = self.node
+        node: hou.SopNode = self.node
         
         # values
         _FLAM3HWEB_MSG: str = 'FLAM3H™ web'
@@ -11839,7 +11838,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
                                             MSG_FRACT_WEB: _FRACTWEB_MSG
                                             }
         
-        node.setParms(parms_about_web)
+        node.setParms(parms_about_web) # type: ignore
         
 
     def flam3h_about_web_homepage(self) -> None:
@@ -12002,7 +12001,7 @@ class flam3h_ui_msg_utils
             (None):
         """ 
         self._kwargs: dict = kwargs
-        self._node = kwargs['node']
+        self._node: hou.SopNode = kwargs['node']
 
 
     # CLASS: PROPERTIES
@@ -12064,7 +12063,7 @@ the entire xaos string will be reset to all weights set to that number.
 
 If you type a negative number, it will be reset to a value of: 1"""
         
-        node = self.node
+        node: hou.SopNode = self.node
         # Check and Update this data
         flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
 
@@ -13004,7 +13003,7 @@ class _xml_tree
         """
         if self.isvalidtree:
             
-            _d: str | None = XML_TO_F3H_DEFAULT_VALS.get(key)
+            _d: str | None = XML_TO_F3H_LIST_DEFAULT_VALS.get(key)
             if _d is not None: _default: str = _d
             else: _default: str = '0'
             
@@ -14372,7 +14371,7 @@ class in_flame_utils
             (None):
         """ 
         self._kwargs: dict = kwargs
-        self._node = kwargs['node']
+        self._node: hou.SopNode = kwargs['node']
         
         
     @staticmethod
@@ -15921,11 +15920,11 @@ class in_flame_utils
             
             # Set folder heading
             if clipboard:
-                node.setParms({MSG_IN_STATS_HEADING: f"{MSG_IN_STATS_HEADING_DEFAULT} {IN_CLIPBOARD_LABEL_MSG}", 
+                node.setParms({MSG_IN_STATS_HEADING: f"{MSG_IN_STATS_HEADING_DEFAULT} {IN_CLIPBOARD_LABEL_MSG}", # type: ignore
                                MSG_IN_SETTINGS_HEADING: f"{MSG_IN_SETTINGS_HEADING_DEFAULT} {IN_CLIPBOARD_LABEL_MSG}"
                                })
             else:
-                node.setParms({MSG_IN_STATS_HEADING: f"{MSG_IN_STATS_HEADING_DEFAULT}", 
+                node.setParms({MSG_IN_STATS_HEADING: f"{MSG_IN_STATS_HEADING_DEFAULT}", # type: ignore
                                MSG_IN_SETTINGS_HEADING: f"{MSG_IN_SETTINGS_HEADING_DEFAULT}"
                                })
             
@@ -16123,7 +16122,7 @@ class in_flame_utils
                 cc_g: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN)).eval()
                 cc_b: str = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE)).eval()
                 if cc_o.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_r.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_g.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL and cc_b.strip() in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-                    node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
+                    node.setParms({OUT_LABEL_CC_DEFAULTS_MSG: 'Defaults', # type: ignore
                                    OUT_TOGGLE_CC_DEFAULTS_MSG: 0
                                    })
                     _MSG: str = f"IN CC Curves:"
@@ -16620,7 +16619,7 @@ class in_flame_utils
             (str): A string to be used to set the IN Flame info data parameter message.
         """     
         
-        node = self.node  
+        node: hou.SopNode = self.node  
         # spacers
         nl: str = "\n"
         nnl: str = "\n\n"
@@ -16873,7 +16872,7 @@ class in_flame_utils
         Returns:
             (TA_Menu): Return a menu
         """
-        node = self.node
+        node: hou.SopNode = self.node
         if hou.isUIAvailable() is False: node.updateParmStates()
         
         # quick return
@@ -16979,7 +16978,7 @@ class in_flame_utils
         Returns:
             (TA_Menu): Return a menu
         """
-        node = self.node
+        node: hou.SopNode = self.node
         if hou.isUIAvailable() is False: node.updateParmStates()
         
         # quick return
@@ -17044,7 +17043,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         useiteronload: int = node.parm(IN_USE_ITER_ON_LOAD).eval()
         if useiteronload:
             
@@ -17095,7 +17094,7 @@ class in_flame_utils
         Returns:
             (None):
         """ 
-        node = self.node
+        node: hou.SopNode = self.node
         xml, clipboard, preset_id, flame_name_clipboard, load_from_clipboard, chaos = self.in_to_flam3h_init_data(node)
         
         # Here we are forced to use the class: _xml_tree(...) becasue a Flame can come from the clipboard
@@ -17141,7 +17140,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         # lets initialize those to default values in case their data no longer exist.
         flam3h_iterator_utils.flam3h_init_hou_session_iterator_data(node)
@@ -17752,7 +17751,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         xml: str = node.parm(IN_PATH).eval()
 
         if xml and node.parm(IN_PVT_ISVALID_FILE).eval():
@@ -17782,7 +17781,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         _FLAM3H_INIT_DATA: TA_F3H_Init = self.in_to_flam3h_init_data(node)
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
@@ -17903,7 +17902,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         _FLAM3H_INIT_DATA: TA_F3H_Init = self.in_to_flam3h_init_data(node)
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
@@ -17941,7 +17940,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
         flam3h_general_utils.private_prm_set(node, IN_PVT_CLIPBOARD_TOGGLE, 0)
@@ -17949,7 +17948,7 @@ class in_flame_utils
         
         if mode:
             # This is not being used anymore but I leave it here just in case
-            node.setParms({IN_PATH: "", 
+            node.setParms({IN_PATH: "", # type: ignore
                            IN_PRESETS: str(-1), 
                            IN_PRESETS_OFF: str(-1), 
                            IN_ITER_NUM_ON_LOAD: 64, 
@@ -18101,7 +18100,7 @@ class out_flame_utils
             (None):
         """ 
         self._kwargs: dict = kwargs
-        self._node = kwargs['node']
+        self._node: hou.SopNode = kwargs['node']
         
         self._flam3h_iter_prm_names = flam3h_iterator_prm_names()
         self._flam3h_iter = flam3h_iterator()
@@ -18138,7 +18137,7 @@ class out_flame_utils
             (None):
         """
         # render curves
-        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT, 
+        node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT, # type: ignore
                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT, 
                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT, 
                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT, 
@@ -19424,7 +19423,7 @@ class out_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         _FLAM3H_INIT_DATA: tuple[str | None, int] = self.out_to_flam3h_init_data_quick(node, tab)
         xml, preset_id = _FLAM3H_INIT_DATA
@@ -19499,7 +19498,7 @@ class out_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         prm_prefs_256_plus = self.kwargs['parm']
         rmp_src: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
         if prm_prefs_256_plus.eval():
@@ -19527,7 +19526,7 @@ class out_flame_utils
         Returns:
             (str | None): The selected menu preset menu label string if any or None
         """
-        node = self.node
+        node: hou.SopNode = self.node
 
         if node.parm(OUT_PVT_ISVALID_FILE).eval():
             toggle_PREFS_ENUMERATE_MENU: int = node.parm(PREFS_ENUMERATE_MENU).eval()
@@ -19562,7 +19561,7 @@ class out_flame_utils
             (None):
         """
         
-        node = self.node
+        node: hou.SopNode = self.node
         kwargs: dict = self.kwargs
         
         if kwargs['shift']:
@@ -19701,7 +19700,7 @@ class out_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         sel: int = int(node.parm(OUT_RENDER_PROPERTIES_RES_PRESETS_MENU).eval())
         res: dict[int, tuple | None] = {-1: None, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), # 1 2 3 4
                                         -1: None, 6: (640, 486), 7: (720, 486), 8: (768, 586), 9: (1024, 576), # 6 7 8 9
@@ -19734,7 +19733,7 @@ class out_flame_utils
             (None):
         """
         
-        node = self.node
+        node: hou.SopNode = self.node
         
         parms_out_sensor_data: dict[str | None, hou.Vector2 | float] = {OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2((1024, 1024)),    # tuple
                                                                         OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER): hou.Vector2((0, 0)),  # tuple
@@ -19748,7 +19747,7 @@ class out_flame_utils
             if isinstance(parm_tuple.eval(), tuple): parm_tuple.deleteAllKeyframes()
             else: node.parm(key).deleteAllKeyframes()
         # Set
-        node.setParms(parms_out_sensor_data)
+        node.setParms(parms_out_sensor_data) # type: ignore
 
         
     def reset_OUT_render(self) -> None:
@@ -19760,7 +19759,7 @@ class out_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         parms_out_render_data: dict[str | None, int | float] = {OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY): 1000,
                                                                 OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS): 3,
@@ -19774,7 +19773,7 @@ class out_flame_utils
         for key, value in parms_out_render_data.items():
             node.parm(key).deleteAllKeyframes()
         # Set
-        node.setParms(parms_out_render_data)
+        node.setParms(parms_out_render_data) # type: ignore
 
 
     def reset_OUT_kwargs(self) -> None:
@@ -19826,8 +19825,8 @@ class out_flame_utils
         Returns:
             (None):
         """
-        node = self.node
-        node.setParms({OUT_HSV_PALETTE_DO: 0, 
+        node: hou.SopNode = self.node
+        node.setParms({OUT_HSV_PALETTE_DO: 0, # type: ignore
                        OUT_FLAM3H_AFFINE_STYLE: 1, 
                        OUT_USE_FRACTORIUM_PRM_NAMES: 1, 
                        OUT_AUTO_ADD_ITER_NUM: 1
@@ -19843,7 +19842,7 @@ class out_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
 
         self.reset_OUT_options()
         self.reset_OUT_sensor()
@@ -19857,7 +19856,7 @@ class out_flame_utils
         # I do not think this is used anymore but I leave it here 
         # until I make a cleanup pass of this code.
         if mode == 0:
-            node.setParms({MSG_OUT: '', 
+            node.setParms({MSG_OUT: '', # type: ignore
                            OUT_RENDER_PROPERTIES_EDIT: 0, 
                            OUT_RENDER_PROPERTIES_SENSOR: 0
                            })
@@ -19865,7 +19864,7 @@ class out_flame_utils
         # I do not think this is used anymore but I leave it here 
         # until I make a cleanup pass of this code.
         if mode == 2:
-            node.setParms({OUT_PATH: '', 
+            node.setParms({OUT_PATH: '', # type: ignore
                            OUT_HSV_PALETTE_DO: 0, 
                            OUT_PRESETS: str(-1), 
                            OUT_SYS_PRESETS: str(-1), 
@@ -19963,7 +19962,7 @@ class out_flame_utils
             (TA_Menu): Return a menu
         """
         
-        node = self.node
+        node: hou.SopNode = self.node
         if hou.isUIAvailable() is False: node.updateParmStates()
         
         # quick return
@@ -20004,7 +20003,7 @@ class out_flame_utils
         Returns:
             (tuple[int, str, int]): A tuple with the needed data
         """
-        node = self.node
+        node: hou.SopNode = self.node
         iter_num: int = node.parm(GLB_ITERATIONS).eval()
         flame_name: str = str(node.parm(OUT_FLAME_PRESET_NAME).eval()).strip()
         autoadd: int = node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
@@ -20021,7 +20020,7 @@ class out_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
         flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
         node.parm(OUT_FLAME_PRESET_NAME).set(flame_name_new)
@@ -20037,7 +20036,7 @@ class out_flame_utils
         Returns:
             (None):
         """      
-        node = self.node
+        node: hou.SopNode = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
         in_flame_name_auto_file: int = node.parm(OUT_IN_FLAME_NAME_AUTO_FILL).eval()
         if name is not None and in_flame_name_auto_file: flame_name = name
@@ -20073,7 +20072,7 @@ class out_flame_utils
         """  
         if self.kwargs['parm'].eval():
             
-            node = self.node
+            node: hou.SopNode = self.node
             inisvalidfile: int = node.parm(IN_PVT_ISVALID_FILE).eval()
             inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
             clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
@@ -20161,7 +20160,7 @@ class out_flame_utils
         Returns:
             (bool): Return True if the Flame is valid or False if not.
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         # Here we are adding POST VARS and FF PRE VARS even tho they are only one slot,
         # just in case in the future I add more.
@@ -20304,7 +20303,7 @@ class out_flame_utils
         Returns:
             (list[str]): List of used variation in this iterator/xform
         """
-        node = self.node
+        node: hou.SopNode = self.node
         names: list = []
         for idx, prm in enumerate(WEIGHTS_tuple):
             prm_w: float = node.parm(f"{prm[0]}{MP_IDX}").eval()
@@ -20464,7 +20463,7 @@ class out_flame_utils
         Returns:
             (None):
         """ 
-        node = self.node
+        node: hou.SopNode = self.node
         
         root: lxmlET._Element = lxmlET.Element(XML_FLAME_NAME) # type: ignore
         if flame_name is None:
@@ -20498,7 +20497,7 @@ class out_flame_utils
         Returns:
             (none):
         """   
-        node = self.node
+        node: hou.SopNode = self.node
         
         root: lxmlET._Element = lxmlET.Element(XML_VALID_FLAMES_ROOT_TAG) # type: ignore
         flame: lxmlET._Element = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
@@ -20524,7 +20523,7 @@ class out_flame_utils
         Returns:
             (None):
         """ 
-        node = self.node
+        node: hou.SopNode = self.node
         
         root: lxmlET._Element = lxmlET.Element(XML_FLAME_NAME) # type: ignore
         
@@ -20549,7 +20548,7 @@ class out_flame_utils
             (None):
         """ 
         
-        node = self.node
+        node: hou.SopNode = self.node
         
         _FLAM3H_INIT_DATA: tuple[str | None, int] = self.out_to_flam3h_init_data_quick(node)
         xml, preset_id = _FLAM3H_INIT_DATA
@@ -20593,7 +20592,7 @@ class out_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         
         flame: lxmlET._Element = lxmlET.SubElement(root, XML_FLAME_NAME) # type: ignore
         flame.tag = XML_FLAME_NAME
@@ -20619,7 +20618,7 @@ class out_flame_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         # Force this data to be rebuilt
         # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
         # (ex. the user perform hand made modifications like renaming a Preset and such).
@@ -20758,7 +20757,7 @@ class out_flame_utils
             (str): The FLAM3H™ parameter prepped into a string for writing out into the Flame preset file.
         """    
         
-        node = self.node
+        node: hou.SopNode = self.node
         if prm_name:
             
             prm: hou.Parm | hou.ParmTuple | None = node.parm(prm_name)

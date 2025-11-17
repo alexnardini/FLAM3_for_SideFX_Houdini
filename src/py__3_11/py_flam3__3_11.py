@@ -2402,7 +2402,7 @@ class flam3h_scripts
                 # Same goes for the palette preset entrie, and some time goes also out of range
                 # so we store the selection first inside a mem menu parameter on Load inside:
                 #
-                #   - flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_SET_PRESET_DATA()
+                #   - flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_SET_PRESET_DATA(node)
                 #   - flam3h_palette_utils(self.kwargs).json_to_flam3h_ramp_sys()
                 #
                 # and on Save inside:
