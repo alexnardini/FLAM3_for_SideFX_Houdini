@@ -13003,7 +13003,7 @@ class _xml_tree
         """
         if self.isvalidtree:
             
-            _d: str | None = XML_TO_F3H_LIST_DEFAULT_VALS.get(key)
+            _d: str | None = XML_TO_F3H_DEFAULT_VALS.get(key)
             if _d is not None: _default: str = _d
             else: _default: str = '0'
             
@@ -15668,7 +15668,7 @@ class in_flame_utils
     
     @staticmethod
     def in_copy_sensor(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
-        """Copy the loaded IN Flame preset sensor XML data into the FLAM3H™ OUT sensor data.</br>
+        """Copy the loaded IN Flame preset sensor XML data into the FLAM3H™ OUT sensor data.
 
         Args:
             node(hou.SopNode): FLAM3H™ node.
@@ -15681,41 +15681,35 @@ class in_flame_utils
         prm_size_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE)
         assert prm_size_name is not None
         try:
-            out_size: list[str] = str(f3r.out_size[preset_id]).split()
-            out_size_val: hou.Vector2 = hou.Vector2((int(out_size[0]), int(out_size[1])))
-            node.parmTuple(prm_size_name).set(out_size_val)
-        except (AttributeError, TypeError): # If missing set it to its default
-            out_size_val: hou.Vector2 = hou.Vector2((int(1024), int(1024)))
-            node.parmTuple(prm_size_name).set(out_size_val)
+            prm_size_val: hou.Vector2 = hou.Vector2((int(f3r.out_size[preset_id].split()[0]), int(f3r.out_size[preset_id].split()[1])))
+            node.parmTuple(prm_size_name).set(prm_size_val)
+        except: # If missing set it to its default
+            node.parmTuple(prm_size_name).set( hou.Vector2((int(1024), int(1024))) )
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_SIZE} -> NOT FOUND, default value used.\n")
             
         prm_center_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER)
-        assert prm_center_name is not None
         try:
-            out_center: list[str] = str(f3r.out_center[preset_id]).split()
-            out_center_val: hou.Vector2 = hou.Vector2((float(out_center[0]), float(out_center[1])))
-            node.parmTuple(prm_center_name).set(out_center_val)
-        except (AttributeError, TypeError): # If missing set it to its default
-            out_center_val: hou.Vector2 = hou.Vector2((0.0, 0.0))
-            node.parmTuple(prm_center_name).set(out_center_val)
+            prm_center_val: hou.Vector2 = hou.Vector2((float(f3r.out_center[preset_id].split()[0]), float(f3r.out_center[preset_id].split()[1])))
+            node.parmTuple(prm_center_name).set(prm_center_val)
+        except: # If missing set it to its default
+            node.parmTuple(prm_center_name).set( hou.Vector2((float(0), float(0))) )
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_CENTER} -> NOT FOUND, default value used.\n")
             
         prm_rotate_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE)
         assert prm_rotate_name is not None
         try:
-            out_rotate_val: float = float(f3r.out_rotate[preset_id])
-            node.parm(prm_rotate_name).set(out_rotate_val)
-        except (AttributeError, TypeError): # If missing set it to its default
-            node.parm(prm_rotate_name).set(0.0)
+            prm_rotate_val: float = float(f3r.out_rotate[preset_id])
+            node.parm(prm_rotate_name).set(prm_rotate_val)
+        except: # If missing set it to its default
+            node.parm(prm_rotate_name).set(float(0))
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_ROTATE} -> NOT FOUND, default value used.\n")
             
         prm_scale_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE)
-        assert prm_scale_name is not None
         try:
-            out_scale_val: float = float(f3r.out_scale[preset_id])
-            node.parm(prm_scale_name).set(out_scale_val)
-        except (AttributeError, TypeError): # If missing set it to its default
-            node.parm(prm_scale_name).set(400.0)
+            prm_scale_val: float = float(f3r.out_scale[preset_id])
+            node.parm(prm_scale_name).set(prm_scale_val)
+        except: # If missing set it to its default
+            node.parm(prm_scale_name).set(float(400))
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_SCALE} -> NOT FOUND, default value used.\n")
     
     
