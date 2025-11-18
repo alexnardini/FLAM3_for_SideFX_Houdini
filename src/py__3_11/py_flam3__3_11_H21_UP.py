@@ -9431,7 +9431,7 @@ class flam3h_iterator_utils
         # Check if our current set of iterators is different from the history
         s_current: set = set(mpmem)
         s_history: set = set(mpmem_hou_get)
-        _idx: list = list(set(s_history - s_current))
+        _idx: list[int] = list(set(s_history - s_current))
         
         _XAOS_UPDATE: bool = False
         
