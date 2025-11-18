@@ -19905,7 +19905,7 @@ class out_flame_utils
         """
         val: list[list] = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
         fill: list[NDArray] = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1) for item in val]
-        t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count)).tolist()).tolist()
+        t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count))).tolist()
         _join: Callable[[Iterable[str]], str] = ' '.join
         if mode:
             xaos_vactive: list = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
