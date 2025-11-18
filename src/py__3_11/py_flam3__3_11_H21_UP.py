@@ -479,7 +479,7 @@ Need to review this entire file again and carefully grow from there.
     ##########################################
 
     @property
-    def message(self):
+    def message(self) -> str:
         return self._message
     
     
@@ -3485,11 +3485,11 @@ class flam3h_general_utils
         return self._node
     
     @cached_slot_property
-    def bbox_sensor_path(self):
+    def bbox_sensor_path(self) -> str | None:
         return self._bbox_sensor_path
     
     @cached_slot_property
-    def bbox_reframe_path(self):
+    def bbox_reframe_path(self) -> str | None:
         return self._bbox_reframe_path
 
 
@@ -10531,7 +10531,7 @@ class flam3h_palette_utils
         return self._node
     
     @property
-    def palette_plus_do(self):
+    def palette_plus_do(self) -> int:
         return self._palette_plus_do
     
     
@@ -12629,8 +12629,8 @@ class _xml
         Args:
             xmlfile (str): The XML full file path name to evaluate
         """     
-        self._xml = xmlfile
-        self._tree = lxmlET.parse(xmlfile) # type: ignore
+        self._xml: str = xmlfile
+        self._tree: lxmlET._ElementTree = lxmlET.parse(xmlfile) # type: ignore
 
 
     # CLASS: PROPERTIES
@@ -12638,11 +12638,11 @@ class _xml
     ##########################################
 
     @property
-    def xml(self):
+    def xml(self) -> str:
         return self._xml
     
     @property
-    def tree(self):
+    def tree(self) -> lxmlET._ElementTree:
         return self._tree
         
         
@@ -19187,65 +19187,65 @@ class out_flame_utils
         return self._node
 
     @cached_slot_property
-    def flam3h_iter_prm_names(self):
+    def flam3h_iter_prm_names(self) -> flam3h_iterator_prm_names:
         return self._flam3h_iter_prm_names
     
     @cached_slot_property
-    def flam3h_iter(self):
+    def flam3h_iter(self) -> flam3h_iterator:
         return self._flam3h_iter
     
     @cached_slot_property
-    def flam3h_iter_FF(self):
+    def flam3h_iter_FF(self) -> flam3h_iterator_FF:
         return self._flam3h_iter_FF
     
     @property
-    def flam3h_do_FF(self):
+    def flam3h_do_FF(self) -> int:
         return self._flam3h_do_FF
 
     @property
-    def iter_count(self):
+    def iter_count(self) -> int:
         return self._iter_count
 
     @cached_slot_property
-    def palette(self):
+    def palette(self) -> hou.Ramp:
         return self._palette
     
     @property
-    def palette_hsv_do(self):
+    def palette_hsv_do(self) -> int:
         return self._palette_hsv_do
     
     @property
-    def palette_plus_do(self):
+    def palette_plus_do(self) -> int:
         return self._palette_plus_do
     
     @property
-    def f3h_affine(self):
+    def f3h_affine(self) -> int:
         return self._f3h_affine
     
     @property
-    def xm(self):
+    def xm(self) -> int:
         return self._xm
     
     # custom to FLAM3H™ only
     
     @property
-    def flam3h_mb_do(self):
-        return self._flam3h_mb_do
-    
-    @property
-    def flam3h_f3c(self):
-        return self._flam3h_f3c
-    
-    @property
-    def flam3h_rip(self):
+    def flam3h_rip(self) -> int:
         return self._flam3h_rip
     
     @property
-    def flam3h_cp_lookup_samples(self):
+    def flam3h_mb_do(self) -> int:
+        return self._flam3h_mb_do
+    
+    @property
+    def flam3h_f3c(self) -> int:
+        return self._flam3h_f3c
+
+    @property
+    def flam3h_cp_lookup_samples(self) -> int:
         return self._flam3h_cp_lookup_samples
     
     @property
-    def flam3h_cp_basis(self):
+    def flam3h_cp_basis(self) -> int:
         return self._flam3h_cp_basis
     
     
