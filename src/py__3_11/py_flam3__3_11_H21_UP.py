@@ -179,6 +179,7 @@ def cached_slot_property(func):
 T = TypeVar('T')
 TA_Affine: TypeAlias = list[Iterable[float]]
 TA_STR_ListUnflattened: TypeAlias = list[list[str]]
+TA_XAOS_Collect: TypeAlias = list[list[str | float] | list[Never]]
 TA_RoundFloats: TypeAlias = Iterable[Iterable[str | float]]
 TA_TypeVarCollection: TypeAlias = str | list | tuple | KeysView
 TA_XformVarKeys: TypeAlias = str | Iterable[str] | dict[str, int] | dict[str, tuple[str, ...]] | dict[str, set[str]] | KeysView | None
@@ -9413,7 +9414,7 @@ class flam3h_iterator_utils
             mpmem_hou_get = __mpmem_hou_get
         
         # collect all xaos
-        val: list = out_flame_utils.out_xaos_collect(node, iter_count, flam3h_iterator_prm_names().xaos)
+        val: TA_XAOS_Collect = out_flame_utils.out_xaos_collect(node, iter_count, flam3h_iterator_prm_names().xaos)
         
         # fill missing weights if any
         fill_all_xaos: list[list[float]] = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
@@ -18013,7 +18014,7 @@ class out_flame_utils
 * out_check_outpath(node: hou.SopNode, infile: str, file_ext: str, prx: str, out: bool = True, auto_name: bool = True) -> str | bool:
 * out_affine_rot(affine: TA_Affine, angleDeg: float) -> TA_Affine:
 * out_xaos_cleanup(xaos: TA_STR_ListUnflattened) -> TA_STR_ListUnflattened:
-* out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> TA_STR_ListUnflattened:
+* out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> TA_XAOS_Collect:
 * out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> TA_STR_ListUnflattened:
 * _out_pretty_print(current: lxmlET._Element, parent: lxmlET._Element | None = None, index: int = -1, depth: int = 0) -> None: #type: ignore
 * _out_pretty_print(current, parent=None, index: int=-1, depth: int=0) -> None:
@@ -18865,7 +18866,7 @@ class out_flame_utils
     
 
     @staticmethod
-    def out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list:
+    def out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> TA_XAOS_Collect:
         """Collect all xaos command string weights.</br>
         Provide also a form of Undo in the case we enter non numeric characters instead.</br>
         
@@ -18888,7 +18889,7 @@ class out_flame_utils
             prm(str): xaos varnote parameter
 
         Returns:
-            (list): A list of xaos list[str] of values
+            (TA_XAOS_Collect): A list of list[str] or list[float] or empty list.
         """   
 
         val: list = []
@@ -19885,7 +19886,7 @@ class out_flame_utils
         Returns:
             (tuple): the xaos TO values to write out.
         """
-        val: list[list[str]] = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
+        val: TA_XAOS_Collect = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
         fill: list[list[str]] = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
         xaos_vactive: list = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
         _join: Callable[[Iterable[str]], str] = ' '.join
@@ -19902,7 +19903,7 @@ class out_flame_utils
         Returns:
             (tuple): the xaos FROM values transposed into xaos TO values to write out.
         """
-        val: list[list] = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
+        val: TA_XAOS_Collect = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
         fill: list[NDArray] = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1) for item in val]
         t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count))).tolist()
         _join: Callable[[Iterable[str]], str] = ' '.join
