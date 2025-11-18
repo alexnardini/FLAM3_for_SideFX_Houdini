@@ -179,7 +179,7 @@ def cached_slot_property(func):
 T = TypeVar('T')
 TA_Affine: TypeAlias = list[tuple[float, ...] | list[float]]
 TA_STR_ListUnflattened: TypeAlias = list[list[str]]
-TA_RoundFloats: TypeAlias = list[tuple[float, ...] | list[float]] | list[tuple[str, ...] | list[str]]
+TA_RoundFloats: TypeAlias = list[tuple[float, ...] | list[float]] | list[tuple[str, ...] | list[str]] | list[list[str]]
 TA_TypeVarCollection: TypeAlias = str | list | tuple | KeysView
 TA_XformVarKeys: TypeAlias = str | list[str] | tuple[str, ...] | dict[str, int] | dict[str, tuple[str, ...]] | dict[str, set[str]] | KeysView | None
 TA_TypeMaker: TypeAlias = list | float | hou.Vector2 | hou.Vector3 | hou.Vector4
@@ -522,18 +522,18 @@ F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
         Returns:
             (None):
         """  
-        exc_type = type(e).__name__
+        exc_type: str = type(e).__name__
 
         # Extract detailed traceback information
         tb = traceback
-        tb_info = tb.extract_tb(e.__traceback__)
+        tb_info: traceback.StackSummary = tb.extract_tb(e.__traceback__)
 
         filename = lineno = None
         # If traceback info is available
         if tb_info:
-            last_frame = tb_info[-1]
-            filename = last_frame.filename
-            lineno = last_frame.lineno
+            last_frame: traceback.FrameSummary = tb_info[-1]
+            filename: str | None = last_frame.filename
+            lineno: int | None = last_frame.lineno
             
         print(f"FLAM3H™ Exception Type: {exc_type}")
         print(f"\tPY filename: {__module_filename__}")
@@ -907,13 +907,13 @@ class flam3h_varsPRM
             
             
     @staticmethod
-    def __populate_linear_list(linear: list, item: str, id: int, spacer: bool = True) -> None:
+    def __populate_linear_list(menu: TA_Menu, item: str, id: int, spacer: bool = True) -> None:
         """ Populate linear list. This is to be used inside a loop.</br>
         Specifically designed to be used in a list comprehension inside:
         * def build_menu_vars_all_linear(self, _PB: bool = False) -> TA_Menu:
         
         Args:
-            linear(list): the empty list to populate
+            menu(TA_Menu): the empty menu to populate
             item(str): The current loop iteration item
             id(int): The current loop iteration index
             spacer(bool): Default to: True</br>Add a spacer to the ent of the item to conform with the desired menu label length
@@ -921,9 +921,9 @@ class flam3h_varsPRM
         Returns:
             (None):
         """
-        linear.append(id)
-        if spacer: linear.append(f"{item}                    ") # 20 times \s, so we can clamp later during the build of the menus
-        else: linear.append(item)
+        menu.append(id)
+        if spacer: menu.append(f"{item}                    ") # 20 times \s, so we can clamp later during the build of the menus
+        else: menu.append(item)
     
     
     def vars_all(self) -> list[str]:
@@ -979,9 +979,9 @@ class flam3h_varsPRM
         Returns:
             (list): return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data
         """  
-        linear: list = []
-        for id, item in self.menu_vars_all(_PB): self.__populate_linear_list(linear, item, id)
-        return linear
+        menu: TA_Menu = []
+        for id, item in self.menu_vars_all(_PB): self.__populate_linear_list(menu, item, id)
+        return menu
     
     
     def build_menu_vars_all_indexes(self, _PB: bool = False) -> dict[int, int]:
@@ -2127,7 +2127,7 @@ class flam3h_scripts
         """
         
         node: hou.SopNode = self.node
-        node_instances: tuple = self.node.type().instances()
+        node_instances: tuple[hou.SopNode, ...] = self.node.type().instances()
         
         # FLAM3H™ node and MultiParameter id for iterators
         # This is to make sure the hou.session's data is at least initialized.
@@ -2178,10 +2178,10 @@ class flam3h_scripts
         flam3h_general_utils.util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
         flam3h_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
         # Set other FLAM3H™ instances to dark if any
-        all_f3h: tuple = node.type().instances()
-        all_f3h_vpptsize: list = []
-        all_f3h_vptype: list = []
-        all_f3h_ww: list = []
+        all_f3h: tuple[hou.SopNode, ...] = node.type().instances()
+        all_f3h_vpptsize: list[float] = []
+        all_f3h_vptype: list[int] = []
+        all_f3h_ww: list[float] = []
         
         if len(all_f3h) > 1:
 
@@ -2663,7 +2663,7 @@ class flam3h_scripts
         node: hou.SopNode = self.node
         self.unpin_parameter_editor_with_f3h_node(node)
         
-        node_instances: tuple = node.type().instances()
+        node_instances: tuple[hou.SopNode, ...] = node.type().instances()
         
         if len(node_instances) == 1:
             
@@ -3997,7 +3997,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """
-        all_f3h: tuple = node.type().instances()
+        all_f3h: tuple[hou.SopNode, ...] = node.type().instances()
         if len(all_f3h) > 1:
             for f3h in all_f3h:
                 if f3h != node:
@@ -4340,7 +4340,6 @@ class flam3h_general_utils
         # with hou.undos.disabler(): # type: ignore
         
         node: hou.SopNode = self.node
-        iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         
         # s_mp_index: int = self.kwargs['script_multiparm_index']
         prm_mp = node.parm(PREFS_PVT_XF_FF_VIZ_SOLO)
@@ -4981,7 +4980,7 @@ class flam3h_general_utils
             
         if update_others:
             # Update dark preference's option toggle on other FLAM3H™ nodes instances
-            all_f3h: tuple = self.node.type().instances()
+            all_f3h: tuple[hou.SopNode, ...] = self.node.type().instances()
             if len(all_f3h) > 1:
                 val = prm.eval()
                 for f3h in all_f3h:
@@ -5040,8 +5039,8 @@ class flam3h_general_utils
                     case _:
                         pass # For now, will see if in the future new option will be added.
                         
-        # Sync FLAM3HUSD nodes
-        all_f3h: tuple = node.type().instances()
+        # Sync FLAM3H™ nodes
+        all_f3h: tuple[hou.SopNode, ...] = node.type().instances()
                         
         # Delete all keyframes
         for f3h in all_f3h:
@@ -5123,8 +5122,8 @@ class flam3h_general_utils
         
         if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
             
-            # Sync FLAM3HUSD nodes
-            all_f3h: tuple = node.type().instances()
+            # Sync FLAM3H™ nodes
+            all_f3h: tuple[hou.SopNode, ...] = node.type().instances()
             
             for f3h in all_f3h:
                 # Delete all keyframes
@@ -5132,7 +5131,7 @@ class flam3h_general_utils
                 # Delete all keyframes on memory parms
                 self.private_prm_deleteAllKeyframes(f3h, PREFS_PVT_VIEWPORT_PT_SIZE_MEM)
             
-            # Update Point Size preference's option toggle on other FLAM3HUSD nodes instances
+            # Update Point Size preference's option toggle on other FLAM3H™ nodes instances
             if prm_name_size == PREFS_VIEWPORT_PT_SIZE and node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
                 
                 if allowed_viewers:
@@ -5196,8 +5195,8 @@ class flam3h_general_utils
                     self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM)
                     self.private_prm_set(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM, width)
             
-        # Sync FLAM3HUSD nodes
-        all_f3h: tuple = node.type().instances()
+        # Sync FLAM3H™ nodes
+        all_f3h: tuple[hou.SopNode, ...] = node.type().instances()
             
         if allowed_viewers:
             
@@ -5421,8 +5420,8 @@ class flam3h_iterator_utils
 * paste_save_note(_note: str) -> str:
 * paste_set_note(node: hou.SopNode, flam3node: hou.SopNode | None, int_mode: int, str_section: str, id: str, id_from: str) -> None:
 * auto_set_xaos_div_str(node: hou.SopNode) -> tuple[str, str]:
-* auto_set_xaos_data_get_MP_MEM(node: hou.SopNode) -> list | None:
-* auto_set_xaos_data_get_XAOS_PREV(node: hou.SopNode) -> list | None:
+* auto_set_xaos_data_get_MP_MEM(node: hou.SopNode) -> list[int] | None:
+* auto_set_xaos_data_get_XAOS_PREV(node: hou.SopNode) -> list[list[str]] | None:
 * auto_set_xaos_data_set_MP_MEM(node: hou.SopNode, data: list | tuple) -> None:
 * auto_set_xaos_data_set_XAOS_PREV(node: hou.SopNode, data: list | tuple) -> None:
 * flam3h_on_load_opacity_zero(node: hou.SopNode, f3h_all: bool = False) -> None:
@@ -6296,7 +6295,7 @@ class flam3h_iterator_utils
 
 
     @staticmethod
-    def auto_set_xaos_data_get_MP_MEM(node: hou.SopNode) -> list | None:
+    def auto_set_xaos_data_get_MP_MEM(node: hou.SopNode) -> list[int] | None:
         """Retrieve the desire data from FLAM3H™ data srting parameters</br>
     and reconvert it back to usable types.</br>
 
@@ -6314,7 +6313,7 @@ class flam3h_iterator_utils
         
         
     @staticmethod
-    def auto_set_xaos_data_get_XAOS_PREV(node: hou.SopNode) -> list | None:
+    def auto_set_xaos_data_get_XAOS_PREV(node: hou.SopNode) -> list[list[str]] | None:
         """Retrieve the desire data from FLAM3H™ data srting parameters</br>
     and reconvert it back to usable types.</br>
 
@@ -6700,7 +6699,7 @@ class flam3h_iterator_utils
         data_names: tuple[str, ...] = ('cp_presets_menu', 'cp_presets_menu_off', 'in_presets_menu', 'in_presets_menu_off', 'out_presets_menu')
         
         if f3h_all:
-            f3h_instances: tuple = node.type().instances()
+            f3h_instances: tuple[hou.SopNode, ...] = node.type().instances()
             for f3h in f3h_instances:
                 for name in data_names:
                     self.destroy_cachedUserData(f3h, name)
@@ -7067,7 +7066,7 @@ class flam3h_iterator_utils
         
         Args:
             (self):
-            FF(bool): Default to: False</br>If true it will signal we are looking to deal with data for the FF(finalXform). In this specific definition the arg: FF is present only for consistency.
+            FF(bool): Default to: False</br>If true it will signal we are looking to deal with data for the FF(finalXform). In this specific definition this arg is present only for consistency.
             
         Returns:
             (TA_Menu): return menu list
@@ -7238,13 +7237,13 @@ class flam3h_iterator_utils
             # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             data_now: tuple[Any, ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha'))
-            data_cached: tuple = (  (0, node.cachedUserData('iter_sel_n')), 
-                                    (1, node.cachedUserData('iter_sel_a')), 
-                                    (2, node.cachedUserData('iter_sel_w')), 
-                                    (3, node.cachedUserData('iter_sel_o'))
-                                    )
+            data_cached: tuple[tuple[Any, ...], ...] = ((0, node.cachedUserData('iter_sel_n')), 
+                                                        (1, node.cachedUserData('iter_sel_a')), 
+                                                        (2, node.cachedUserData('iter_sel_w')), 
+                                                        (3, node.cachedUserData('iter_sel_o'))
+                                                        )
             
-            cached = node.cachedUserData('iter_sel')
+            cached: TA_Menu | None = node.cachedUserData('iter_sel')
             if cached is not None:
                 for idx, data in data_cached:
                     if data != data_now[idx]:
@@ -9397,9 +9396,9 @@ class flam3h_iterator_utils
         idx_del_inbetween: int | None = None
         idx_add_inbetween: int | None = None
         
-        mpmem: list = []
-        mpmem_hou_get: list = []
-        xaos_str_hou_get: list = []
+        mpmem: list[int] = []
+        mpmem_hou_get: list[int] = []
+        xaos_str_hou_get: list[list[str]] = []
         
         # get mpmem parms now
         mp_mem_name: str = flam3h_iterator_prm_names().main_mpmem
@@ -9407,26 +9406,27 @@ class flam3h_iterator_utils
         for mp_idx in range(iter_count): _mpmem_append(int(node.parm(f"{mp_mem_name}_{mp_idx + 1}").eval()))
         
         # get mpmem from CachedUserData
-        __mpmem_hou_get: list | None = self.auto_set_xaos_data_get_MP_MEM(node)
+        __mpmem_hou_get: list[int] | None = self.auto_set_xaos_data_get_MP_MEM(node)
         if __mpmem_hou_get is None:
             mpmem_hou_get = mpmem
         else:
-            mpmem_hou_get = list(__mpmem_hou_get)
+            mpmem_hou_get = __mpmem_hou_get
         
         # collect all xaos
         val: list = out_flame_utils.out_xaos_collect(node, iter_count, flam3h_iterator_prm_names().xaos)
-        # fill missing weights if any
-        fill_all_xaos: list = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
         
+        # fill missing weights if any
+        fill_all_xaos: list[list[float]] = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
+
         # convert all xaos into array of strings
-        xaos_str: list = [[str(item) for item in xaos] for xaos in fill_all_xaos]
+        xaos_str: list[list[str]] = [[str(item) for item in xaos] for xaos in fill_all_xaos]
             
         # get xaos from CachedUserData
-        __xaos_str_hou_get: list | None = self.auto_set_xaos_data_get_XAOS_PREV(node)
+        __xaos_str_hou_get: list[list[str]] | None = self.auto_set_xaos_data_get_XAOS_PREV(node)
         if __xaos_str_hou_get is None:
             xaos_str_hou_get = xaos_str
         else:
-            xaos_str_hou_get = list(__xaos_str_hou_get)
+            xaos_str_hou_get = __xaos_str_hou_get
             
         # Check if our current set of iterators is different from the history
         s_current: set = set(mpmem)
@@ -9588,7 +9588,7 @@ class flam3h_iterator_utils
                 # Clear menu cache
                 self.destroy_cachedUserData(node, 'iter_sel')
 
-                xaos_str: list = xaos_str_hou_get
+                xaos_str = xaos_str_hou_get
                 del xaos_str[idx_del_inbetween]
                 for x in xaos_str:
                     del x[idx_del_inbetween]
@@ -10020,7 +10020,7 @@ class flam3h_palette_utils
 * menu_cp_presets_empty(self) -> TA_Menu:
 * flam3h_ramp_save_JSON_DATA(self) -> tuple[dict, str]:
 * flam3h_ramp_save(self) -> None:
-* json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list) -> tuple[hou.Ramp, int, bool]:
+* json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list[list[float]]) -> tuple[hou.Ramp, int, bool]:
 * json_to_flam3h_ramp_set_HSV(self, node, hsv_check: bool, hsv_vals: list) -> None:
 * json_to_flam3h_ramp_SET_PRESET_DATA(self, node: hou.SopNode) -> None:
 * json_to_flam3h_ramp_sys(self, use_kwargs: bool = True) -> None:
@@ -10774,9 +10774,9 @@ class flam3h_palette_utils
             palette: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
             
         keys_count: str = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(palette.keys()), 1, False)
-        POSs: list = list(it_islice(it_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
+        POSs: list[int | float] = list(it_islice(it_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
         _rgb_to_hex: Callable[[tuple], str] = self.rgb_to_hex
-        HEXs: list = [_rgb_to_hex(palette.lookup(p)) for p in POSs]
+        HEXs: list[str] = [_rgb_to_hex(palette.lookup(p)) for p in POSs]
         
         if hsv_vals_prm[0] == hsv_vals_prm[1] == hsv_vals_prm[2] == 1:
             json_dict: dict[str, dict[str, str]] = { presetname: {CP_JSON_KEY_NAME_HEX: ''.join(HEXs),  } }
@@ -10978,13 +10978,13 @@ class flam3h_palette_utils
                     flam3h_general_utils.flash_message(node, f"CP: Select a valid output file")
 
 
-    def json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list) -> tuple[hou.Ramp, int, bool]:
+    def json_to_flam3h_ramp_initialize(self, rgb_from_XML_PALETTE: list[list[float]]) -> tuple[hou.Ramp, int, bool]:
         """It will check the passed list of colors for validity and build a Houdini ramp parameter's values from it.</br>
         If not valid, or only one coclor is included, it will output one RED color and mark this palette as an Error.</br>
 
         Args:
             (self):
-            rgb_from_XML_PALETTE(list): a list of colors collected from the palette json file preset (from file or from Clipboard)
+            rgb_from_XML_PALETTE(list[list[float]]): a list of colors collected from the palette json file preset (from file or from Clipboard)
             
         Returns:
             (tuple[hou.Ramp, int, bool]): Return a tuple containing: a houdini Ramp parameter, number of keys and True or False if the operation succeded or not. If False, it will build an error Ramp instead.
@@ -10992,8 +10992,8 @@ class flam3h_palette_utils
         _CHECK: bool = True
         if rgb_from_XML_PALETTE:
             _len: int = len(rgb_from_XML_PALETTE)
-            POSs: list = list(it_islice(it_count(0, 1.0/(_len-1)), _len))
-            BASEs: list = [hou.rampBasis.Linear] * _len # type: ignore
+            POSs: list[int | float] = list(it_islice(it_count(0, 1.0/(_len-1)), _len))
+            BASEs: list[hou.EnumValue] = [hou.rampBasis.Linear] * _len # type: ignore
             
         else:
             BASEs, POSs, rgb_from_XML_PALETTE = self.build_ramp_palette_error()
@@ -11053,27 +11053,27 @@ class flam3h_palette_utils
                     data: dict = json.load(r)[preset]
                     
                 try:
-                    hsv_vals: list = [float(x) for x in str(data[CP_JSON_KEY_NAME_HSV]).split(' ')]
+                    hsv_vals: list[float] = [float(x) for x in str(data[CP_JSON_KEY_NAME_HSV]).split(' ')]
                     hsv_check: bool = True
                 except (ValueError, KeyError):
-                    hsv_vals: list = []
+                    hsv_vals: list[float] = []
                     hsv_check: bool = False
                 
                 # Get usable color values
-                HEXs: list = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
+                HEXs: list[str] = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
                 
                 try:
                     _hex_to_rgb: Callable[[str], tuple] = self.hex_to_rgb
-                    RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
+                    RGBs: list[list[int]] = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                     
                 except ValueError as e:
                     F3H_Exception.F3H_traceback_print_infos(e, extra_info='Invalid hex values in the loaded palette.')
-                    rgb_from_XML_PALETTE: list = []
+                    rgb_from_XML_PALETTE: list[list[float]] = []
                     
                 else:
                     # Convert to NumPy array and normalize
                     RGBs_array: NDArray[np_float32] = np_array(RGBs[:len(HEXs)], dtype=np_float32)
-                    rgb_from_XML_PALETTE: list = (RGBs_array / 255.0).tolist()
+                    rgb_from_XML_PALETTE: list[list[float]] = (RGBs_array / 255.0).tolist()
                 
                 del data
                 
@@ -11266,16 +11266,16 @@ class flam3h_palette_utils
                     
                     try:
                         _hex_to_rgb: Callable[[str], tuple] = self.hex_to_rgb
-                        RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
+                        RGBs: list[list[int]] = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                         
                     except ValueError as e:
                         F3H_Exception.F3H_traceback_print_infos(e, extra_info='Invalid hex values in the loaded palette from Clipboard.')
-                        rgb_from_XML_PALETTE: list = []
+                        rgb_from_XML_PALETTE: list[list[float]] = []
                         
                     else:
                         # Convert to NumPy array and normalize
                         RGBs_array: NDArray[np_float32] = np_array(RGBs[:len(HEXs)], dtype=np_float32)
-                        rgb_from_XML_PALETTE: list = (RGBs_array / 255.0).tolist()
+                        rgb_from_XML_PALETTE: list[list[float]] = (RGBs_array / 255.0).tolist()
                         
                     del data
                     
@@ -11771,17 +11771,17 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         PC_name: str = f"Machine name: {hou.machineName()}"
         Platform: str = f"Platform: {hou.applicationPlatformInfo()}"
         
-        build: tuple = (Implementation_build, nnl,
-                        code_references, nnl,
-                        special_thanks, nnl,
-                        example_flames, nnl,
-                        Houdini_version, nl,
-                        Houdini_license, nl,
-                        Python_version, nl,
-                        User, nl,
-                        PC_name, nl,
-                        Platform
-                        )
+        build: tuple[str, ...] = (Implementation_build, nnl,
+                                code_references, nnl,
+                                special_thanks, nnl,
+                                example_flames, nnl,
+                                Houdini_version, nl,
+                                Houdini_license, nl,
+                                Python_version, nl,
+                                User, nl,
+                                PC_name, nl,
+                                Platform
+                                )
         
         self.node.parm(MSG_FLAM3H_ABOUT).set(''.join(build))
 
@@ -11796,9 +11796,9 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
             (None):
         """    
         _str_capitalize: Callable[[str], str] = str.capitalize
-        vars_sorted: list = [_str_capitalize(var) for var in sorted(VARS_FLAM3_DICT_IDX.keys()) if var not in ("linear3d",)]
+        vars_sorted: list[str] = [_str_capitalize(var) for var in sorted(VARS_FLAM3_DICT_IDX.keys()) if var not in ("linear3d",)]
         n: int = 5
-        vars_sorted_grp: list = [vars_sorted[i:i + n] for i in range(0, len(vars_sorted), n)]
+        vars_sorted_grp: list[list[str]] = [vars_sorted[i:i + n] for i in range(0, len(vars_sorted), n)]
         _join: Callable[[Iterable[str]], str] = ', '.join
         _len: Callable[[list], int] = len
         vars_txt: str = ''.join( [_join(grp) + "." if idx == (_len(vars_sorted_grp)-1) else _join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
@@ -12937,9 +12937,9 @@ class _xml_tree
             _strip: Callable[[str], str] = str.strip
             _len: Callable[[str], int] = len
             if key == XML_XF_NAME:
-                list_values_cleaned: tuple = tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else '[]' for name in root)
+                list_values_cleaned: tuple[str | list[Never], ...] = tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else '[]' for name in root)
             else:
-                list_values_cleaned: tuple = tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else [] for name in root)
+                list_values_cleaned: tuple[str | list[Never], ...] = tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else [] for name in root)
             return list_values_cleaned
         
         return () 
@@ -12961,7 +12961,7 @@ class _xml_tree
             
             root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
-            list_values_cleaned: tuple = tuple(_strip(in_flame.xf_val_cleanup_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None else [] for name in root)
+            list_values_cleaned: tuple[str | list[Never], ...] = tuple(_strip(in_flame.xf_val_cleanup_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None else [] for name in root)
             return list_values_cleaned
             
         return () 
@@ -12984,7 +12984,7 @@ class _xml_tree
             root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
             _xf_val_cleanup_split_str: Callable[[str, str, str], str] = in_flame.xf_val_cleanup_split_str
-            list_values_cleaned: tuple = tuple(_strip(_xf_val_cleanup_split_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None and keyval != '' else [] for name in root)
+            list_values_cleaned: tuple[str | list[Never], ...] = tuple(_strip(_xf_val_cleanup_split_str(keyval, _DEFAULT, key)) if (keyval := name.get(key)) is not None and keyval != '' else [] for name in root)
             return list_values_cleaned
             
         return () 
@@ -13011,7 +13011,7 @@ class _xml_tree
             root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
             _xf_list_cleanup_str: Callable[[list, str, str], str] = in_flame.xf_list_cleanup_str
-            list_values_cleaned: tuple = tuple(str(_xf_list_cleanup_str(_strip(keyval).split(), _default, key)) if (keyval := name.get(key)) is not None else [] for name in root)
+            list_values_cleaned: tuple[str | list[Never], ...] = tuple(str(_xf_list_cleanup_str(_strip(keyval).split(), _default, key)) if (keyval := name.get(key)) is not None else [] for name in root)
             return list_values_cleaned
         
         return () 
@@ -13083,7 +13083,7 @@ class in_flame
 * __get_mb_flam3h_mb(self, idx: int, key: str = '') -> int | float | bool | None:
 * __get_cp_flam3h_samples(self, idx: int, palette: tuple[hou.Ramp, int, str] | None = None) -> int | bool:
 * __get_cp_flam3h_basis(self, idx: int) -> int | bool:
-* __get_flam3h_toggle(self, toggle: bool) -> int | None:
+* __get_flam3h_toggle(self, toggle: str | list[Never]) -> int | None:
 
     Args:
         _xml_tree ([class]): [inherit properties methods from the _xml_tree class]
@@ -13124,7 +13124,7 @@ class in_flame
         self._out_vibrancy: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(OUT_XML_FLAME_VIBRANCY, '0.3333') # type: ignore
         
         # palette lookup samples basis
-        self._out_palette_mode: tuple = self.get_name(OUT_XML_FLAME_PALETTE_MODE)
+        self._out_palette_mode: tuple[str | list[Never], ...] = self.get_name(OUT_XML_FLAME_PALETTE_MODE)
         
         # render curves
         self._out_curves: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(OUT_XML_FLAME_RENDER_CURVES, OUT_XML_FLAME_RENDER_CURVES_DEFAULT) # type: ignore
@@ -13166,14 +13166,14 @@ class in_flame
             (str): value cleaned up from invalid characters
         """  
         new = []
-        knots: list = val.strip().split(' ')
+        knots: list[str] = val.strip().split(' ')
         for idx, k in enumerate(knots):
             
             try:
                 float(k)
                 
             except ValueError:
-                clean: list = [letter for letter in k if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+                clean: list[str] = [letter for letter in k if letter in CHARACTERS_ALLOWED_XFORM_VAL]
                 
                 new_val: str = ''.join(clean)
                 try:
@@ -13208,7 +13208,7 @@ class in_flame
             float(val)
             
         except ValueError:
-            clean: list = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
+            clean: list[str] = [letter for letter in val if letter in CHARACTERS_ALLOWED_XFORM_VAL]
             new_val: str = ''.join(clean)
             
             try:
@@ -13471,7 +13471,7 @@ class in_flame
         return self._out_vibrancy
     
     @cached_slot_property
-    def out_palette_mode(self) -> tuple[str, ...]:
+    def out_palette_mode(self) -> tuple[str | list[Never], ...]:
         return self._out_palette_mode
     
     # render curves
@@ -13726,11 +13726,11 @@ class in_flame
                 palette_hex: str = self.flame[idx].find(key).text
                 all_lines: list[str] = [line.replace(" ", "") for line in palette_hex.splitlines()]
                 _len: Callable[[str], int] = len
-                HEXs: list = [h for line in all_lines if (clean := i_cleandoc(line)) and _len(clean) > 1 for h in wrap(clean, 6)]
+                HEXs: list[str] = [h for line in all_lines if (clean := i_cleandoc(line)) and _len(clean) > 1 for h in wrap(clean, 6)]
                 
                 try:
                     _hex_to_rgb: Callable[[str], tuple] = flam3h_palette_utils.hex_to_rgb
-                    RGBs: list = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
+                    RGBs: list[list[int]] = [list(map(abs, _hex_to_rgb(hex))) for hex in HEXs]
                     
                 except ValueError as e:
                     F3H_Exception.F3H_traceback_print_infos(e, extra_info='Invalid hex values in the loaded Flame palette.')
@@ -13742,11 +13742,10 @@ class in_flame
                         
                         # Convert to NumPy array and normalize
                         RGBs_array: NDArray[np_float32] = np_array(RGBs[:len(HEXs)], dtype=np_float32)
-                        rgb_from_XML_PALETTE: list = (RGBs_array / 255.0).tolist()
-                        
+                        rgb_from_XML_PALETTE: list[list[float]] = (RGBs_array / 255.0).tolist()
                         format: str | None = dict(palette_attrib).get(XML_PALETTE_FORMAT)
                         ramp_keys_count: int = len(rgb_from_XML_PALETTE)
-                        POSs: list = list(it_islice(it_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
+                        POSs: list[int | float] = list(it_islice(it_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
                         BASESs: list = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
                         
                         return hou.Ramp(BASESs, POSs, rgb_from_XML_PALETTE), ramp_keys_count, str(format)
@@ -13770,11 +13769,11 @@ class in_flame
             (TA_TypeMaker | bool): [a hou.Vector type of HSV vals or False] Since we know the HSV is made out of 3 floats, it will always rreturn a: hou.Vector3
         """   
         if self.isvalidtree:
-            palette_hsv_xml_list: str | list = self.flam3h_hsv[idx]
+            palette_hsv_xml_list: str | list[Never] = self.flam3h_hsv[idx]
             if isinstance(palette_hsv_xml_list, str):
-                palette_hsv_xml_s: list = palette_hsv_xml_list.split()
+                palette_hsv_xml_s: list[str] = palette_hsv_xml_list.split()
                 if len(palette_hsv_xml_s) != 3:
-                    palette_hsv_xml_s: list = np_pad(palette_hsv_xml_s, (0, 3-min(3, len(palette_hsv_xml_s))), 'constant', constant_values = 1).tolist()
+                    palette_hsv_xml_s: list[str] = np_pad(palette_hsv_xml_s, (0, 3-min(3, len(palette_hsv_xml_s))), 'constant', constant_values = 1).tolist()
                 
                 return in_flame_utils.in_util_typemaker(list(map(lambda x: float(x), palette_hsv_xml_s )))
             
@@ -13843,7 +13842,7 @@ class in_flame
             (int | bool): FLAM3H™ palette lookup samples parameter values.
         """   
         if self.isvalidtree:
-            cp_samples_key: str | list = self.flam3h_cp_samples[idx]
+            cp_samples_key: str | list[Never] = self.flam3h_cp_samples[idx]
             if isinstance(cp_samples_key, str):
                 
                 samples: int = int(cp_samples_key)
@@ -13898,7 +13897,7 @@ class in_flame
                         pass # Currently, Fractorium has 2(two) modes: 'linear' and 'step', anything else will be ignored
                     
             # FLAM3H™ cp_basis
-            cp_basis_key: str = self.flam3h_cp_basis[idx]
+            cp_basis_key: str | list[Never] = self.flam3h_cp_basis[idx]
             if cp_basis_key and isinstance(cp_basis_key, str):
                 
                 basis: int = int(cp_basis_key)
@@ -13915,13 +13914,13 @@ class in_flame
             
         return False
             
-        
+    
     # custom to FLAM3H™ only
-    def __get_flam3h_toggle(self, toggle: bool) -> int | None:
+    def __get_flam3h_toggle(self, toggle: str | list[Never]) -> int | None:
         """Get FLAM3H™ toggle parameter value: ON or OFF ( 1 or 0 )</br>
 
         Args:
-            toggle(bool): Get value from a toggle (Either ON or OFF - 1 or 0)
+            toggle(str | list[Never]): Get value from a toggle (Either ON or OFF - '1' or '0')
 
         Returns:
             (int | None): This flame toggle or None if not found
@@ -13929,8 +13928,8 @@ class in_flame
 
         if self.isvalidtree:
             # f3c = self._flam3h_prefs_f3c[idx]
-            # self._flam3h_prefs_f3c[idx] can also be an empty list, hence the double check
-            if toggle is not None and toggle:
+            # self._flam3h_prefs_f3c[idx] can also be an empty list
+            if isinstance(toggle, str):
                 
                 try:
                     return int(toggle)
@@ -15414,7 +15413,7 @@ class in_flame_utils
         Returns:
             (int | None): The iteration number or none.
         """
-        splt: tuple = menu_label.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV)
+        splt: tuple[str, str, str] = menu_label.rpartition(FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV)
         if len([item for item in splt if item]) > 1:
             
             try:
@@ -15566,22 +15565,22 @@ class in_flame_utils
         if XML_last_update: XML_updated = '*'
         
         size: str = f"{OUT_XML_FLAME_RESOLUTION.capitalize()}: {na}"
-        size_val = apo_data.out_size[preset_id]
+        size_val: str | list[Never] = apo_data.out_size[preset_id]
         if size_val:
             size = f"{OUT_XML_FLAME_RESOLUTION.capitalize()}: {size_val}"
             
         center: str = f"{OUT_XML_FLAME_CENTER.capitalize()}: {na}"
-        center_val = apo_data.out_center[preset_id]
+        center_val: str | list[Never] = apo_data.out_center[preset_id]
         if center_val:
             center = f"{OUT_XML_FLAME_CENTER.capitalize()}: {center_val}"
             
         rotate: str = f"{OUT_XML_FLAME_ROTATE.capitalize()}: {na}"
-        rotate_val = apo_data.out_rotate[preset_id]
+        rotate_val: str | list[Never] = apo_data.out_rotate[preset_id]
         if rotate_val:
             rotate = f"{OUT_XML_FLAME_ROTATE.capitalize()}: {rotate_val}"
 
         scale: str = f"{OUT_XML_FLAME_SCALE.capitalize()}: {na}"
-        scale_val = apo_data.out_scale[preset_id]
+        scale_val: str | list[Never] = apo_data.out_scale[preset_id]
         if scale_val:
             scale = f"{OUT_XML_FLAME_SCALE.capitalize()}: {scale_val}"
         
@@ -15616,32 +15615,32 @@ class in_flame_utils
         if XML_last_update: XML_updated = '*'
         
         quality: str = f"{OUT_XML_FLAME_QUALITY.capitalize()}: {na}"
-        quality_val = apo_data.out_quality[preset_id]
+        quality_val: str | list[Never] = apo_data.out_quality[preset_id]
         if quality_val:
             quality = f"{OUT_XML_FLAME_QUALITY.capitalize()}: {quality_val}"
 
         brightness: str = f"{OUT_XML_FLAME_BRIGHTNESS.capitalize()}: {na}"
-        brightness_val = apo_data.out_brightness[preset_id]
+        brightness_val: str | list[Never] = apo_data.out_brightness[preset_id]
         if brightness_val:
             brightness = f"{OUT_XML_FLAME_BRIGHTNESS.capitalize()}: {brightness_val}"
             
         gamma: str = f"{OUT_XML_FLAME_GAMMA.capitalize()}: {na}"
-        gamma_val = apo_data.out_gamma[preset_id]
+        gamma_val: str | list[Never] = apo_data.out_gamma[preset_id]
         if gamma_val:
             gamma = f"{OUT_XML_FLAME_GAMMA.capitalize()}: {gamma_val}"
             
         highlight: str = f"{' '.join(OUT_XML_FLAME_POWER.split('_')).capitalize()}: {na}"
-        highlight_val = apo_data.out_highlight_power[preset_id]
+        highlight_val: str | list[Never] = apo_data.out_highlight_power[preset_id]
         if highlight_val:
             highlight = f"{' '.join(OUT_XML_FLAME_POWER.split('_')).capitalize()}: {highlight_val}"
             
         log_k2: str = f"{' '.join(OUT_XML_FLAME_K2.split('_')).capitalize()}: {na}"
-        log_k2_val = apo_data.out_logscale_k2[preset_id]
+        log_k2_val: str | list[Never] = apo_data.out_logscale_k2[preset_id]
         if log_k2_val:
             log_k2 = f"{' '.join(OUT_XML_FLAME_K2.split('_')).capitalize()}: {log_k2_val}"
             
         vibrancy: str = f"{OUT_XML_FLAME_VIBRANCY.capitalize()}: {na}"
-        vibrancy_val = apo_data.out_vibrancy[preset_id]
+        vibrancy_val: str | list[Never] = apo_data.out_vibrancy[preset_id]
         if vibrancy_val:
             vibrancy = f"{OUT_XML_FLAME_VIBRANCY.capitalize()}: {vibrancy_val}"
         
@@ -16786,7 +16785,7 @@ class in_flame_utils
         # Build MISSING: Compare, keep and build
         vars_missing: list = [x for x in result_sorted_fractorium if x not in result_sorted]
         result_grp_fractorium: list = [vars_missing[i:i + n] for i in range(0, len(vars_missing), n)]  
-        if vars_missing: vars_missing_msg = f"{nnl}{XML_updated}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
+        if vars_missing: vars_missing_msg: str = f"{nnl}{XML_updated}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
         else: vars_missing_msg: str = ""
         
         # Build UNKNOWN
@@ -18555,8 +18554,8 @@ class out_flame_utils
         Returns:
             (list[str]): duplicate variation's names per each iterator
         """
-        v = []
-        d = []
+        v: list[str] = []
+        d: list[str] = []
 
         for var in vars:
             if var in v:
@@ -18583,7 +18582,7 @@ class out_flame_utils
         """    
         # This code is very old and need some revision ;D
         build_f: str = "/".join(file_split) + file_ext
-        build_f_s: list = os.path.split(build_f)[0].split("/")
+        build_f_s: list[str] = os.path.split(build_f)[0].split("/")
         build_f_s[:] = [item for item in build_f_s if item]
         # Clean location directories. ( maybe not needed but whatever )
         _join: Callable[[Iterable[str]], str] = ''.join
@@ -18698,7 +18697,7 @@ class out_flame_utils
 
         # Otherwise lets be sure to build a proper output path and file name.
         
-        file_s: list = [''.join(x.split(' ')) for x in os.path.split(file)]
+        file_s: list[str] = [''.join(x.split(' ')) for x in os.path.split(file)]
         
         # This toggle should be removed from FLAM3H™ at some point
         autopath: int = node.parm(PREFS_PVT_AUTO_PATH_CORRECTION).eval()
@@ -18712,7 +18711,7 @@ class out_flame_utils
                 if auto_name: new_name: str = datetime.now().strftime(f"{prx}_%b-%d-%Y_%H%M%S")
                 else: new_name = ''
                 
-                filename_s = os.path.splitext(file_s[-1].strip())
+                filename_s: tuple[str, str] = os.path.splitext(file_s[-1].strip())
                 
                 if filename_s[-1] == file_ext:
                     # This code is very old and need some revision ;D
@@ -18841,11 +18840,11 @@ class out_flame_utils
             return affine
 
         # Otherwise do the calculations
-        angleRad = hou.hmath.degToRad(angleDeg) # type: ignore
-        m2 = hou.Matrix2(affine[:2])
-        rot = hou.Matrix2(((cos(angleRad), -sin(angleRad)), (sin(angleRad), cos(angleRad))))
-        rotated = m2 * rot
-        rotated_xy = rotated.asTupleOfTuples()
+        angleRad: float = hou.hmath.degToRad(angleDeg) # type: ignore
+        m2: hou.Matrix2 = hou.Matrix2(affine[:2])
+        rot: hou.Matrix2 = hou.Matrix2(((cos(angleRad), -sin(angleRad)), (sin(angleRad), cos(angleRad))))
+        rotated: hou.Matrix2 = m2 * rot
+        rotated_xy: tuple[tuple[float, ...], ...] = rotated.asTupleOfTuples()
 
         # Return rotated X/Y and original O
         return [rotated_xy[0], rotated_xy[1], affine[2]]
@@ -18866,7 +18865,7 @@ class out_flame_utils
     
 
     @staticmethod
-    def out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> TA_STR_ListUnflattened:
+    def out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list:
         """Collect all xaos command string weights.</br>
         Provide also a form of Undo in the case we enter non numeric characters instead.</br>
         
@@ -18889,11 +18888,11 @@ class out_flame_utils
             prm(str): xaos varnote parameter
 
         Returns:
-            (TA_STR_ListUnflattened): A list of xaos list[str] of values
+            (list): A list of xaos list[str] of values
         """   
 
         val: list = []
-        val_prev: list | None = flam3h_iterator_utils.auto_set_xaos_data_get_XAOS_PREV(node)
+        val_prev: list[list[str]] | None = flam3h_iterator_utils.auto_set_xaos_data_get_XAOS_PREV(node)
         
         for iter in range(iter_count):
             
@@ -18909,15 +18908,15 @@ class out_flame_utils
                 if strip[0].lower().replace(" ", "") == 'xaos':
                     
                     try:
-                        _xaos: list = strip[1:iter_count + 1]
+                        _xaos: list[str] = strip[1:iter_count + 1]
                         _xf_val_cleanup_str: Callable[[str], str] = in_flame.xf_val_cleanup_str
                         if _xaos[0] and val_prev is not None and len(val_prev) == iter_count:
-                            _xaos_strip: list = [str(_val_now) if (_val_now := float(_xf_val_cleanup_str(str(x), val_prev[iter][idx]))) >= 0 else '1' for idx, x in enumerate(_xaos)]
+                            _xaos_strip: list[str] = [str(_val_now) if (_val_now := float(_xf_val_cleanup_str(str(x), val_prev[iter][idx]))) >= 0 else '1' for idx, x in enumerate(_xaos)]
                             
                         else:
                             # Otherwise use the safer version.
                             # This is used every time we add or remove an iterator or when loading Flames with different iterator's count than what we currently have.
-                            _xaos_strip: list = [str(_x_strip) if (_x_strip := float(str(x).strip())) >= 0 else '1' for x in _xaos if x]
+                            _xaos_strip: list[str] = [str(_x_strip) if (_x_strip := float(str(x).strip())) >= 0 else '1' for x in _xaos if x]
                             
                         val.append([float(x.strip()) for x in _xaos_strip])
                         
@@ -19081,9 +19080,9 @@ class out_flame_utils
         
         # Pick iterator type (regular or FF)
         f3h_iter = flam3h_iterator_FF() if mode else flam3h_iterator()
-
+        
         # Map section attributes dynamically
-        suffix = "_FF" if mode else ""
+        suffix: str = "_FF" if mode else ""
         prm_sections_T = {
             "VAR": getattr(f3h_iter, f"sec_varsT{suffix}"),
             "PRE": getattr(f3h_iter, f"sec_prevarsT{suffix}"),
@@ -19106,7 +19105,7 @@ class out_flame_utils
         
         # Shortcuts
         eval_parm = node.parm
-        _in_get_dict_key_from_value: Callable[[dict, int], str] = in_flame_utils.in_get_dict_key_from_value
+        _in_get_dict_key_from_value: Callable[[dict[str, int], int], str] = in_flame_utils.in_get_dict_key_from_value
 
         names_idx: dict[str, list[str]] = {}
 
@@ -19114,12 +19113,12 @@ class out_flame_utils
             if not node.parm(PREFS_PVT_DOFF).eval():
                 return False
 
-            names = [_in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, eval_parm(T_tuple[i]).eval()) for i, prm in enumerate(W_tuple) if eval_parm(prm[0]).eval() != 0]
+            names: list[str] = [_in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, eval_parm(T_tuple[i]).eval()) for i, prm in enumerate(W_tuple) if eval_parm(prm[0]).eval() != 0]
             if names:
                 names_idx["FF"] = names
 
         else:  # Iterators
-            iter_count = node.parm(FLAME_ITERATORS_COUNT).eval()
+            iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             for i in range(1, iter_count + 1):
                 suffix = str(i)
                 names = [_in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, eval_parm(f"{T_tuple[j]}{suffix}").eval()) for j, prm in enumerate(W_tuple) if eval_parm(f"{prm[0]}{suffix}").eval() != 0]
@@ -19145,13 +19144,13 @@ class out_flame_utils
         """
 
         # Shortcuts
-        xf_name = f3d.xf_name
-        xf_vactive = f3d.xf_vactive
-        iter_count = f3d.iter_count
+        xf_name: tuple[str, ...] = f3d.xf_name
+        xf_vactive: tuple[str, ...] = f3d.xf_vactive
+        iter_count: int = f3d.iter_count
         _flam3h_iterator_is_default_name: Callable[[str, str], bool] = flam3h_iterator_utils.flam3h_iterator_is_default_name
 
         # build
-        new_names: list = []
+        new_names: list[str] = []
         if '0' in xf_vactive:
             mp_idx: int = 1
             for i in range(iter_count):
@@ -21044,7 +21043,7 @@ class out_flame_utils
             (str): The FLAM3H™ palette prepped into a string and converted into hex values.
         """  
         _PALETTE_KEYS_OUT = self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0)
-        POSs: list[float] = list(it_islice(it_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
+        POSs: list[int | float] = list(it_islice(it_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
         _rgb_to_hex: Callable[[tuple], str] = flam3h_palette_utils.rgb_to_hex
         HEXs: list[str] = [_rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
         n: int = 8

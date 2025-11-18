@@ -180,7 +180,7 @@ class flam3husd_scripts
             # displayFlag
             display_flag: bool = node.isGenericFlagSet(hou.nodeFlag.Display) # type: ignore
                 
-            f3h_all_instances: list[hou.SopNode] = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
+            f3h_all_instances: tuple[hou.SopNode, ...] = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
             if f3h_all_instances:
                 
                 f3husd_all_instances: list[hou.LopNode] = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY).instances()
@@ -224,14 +224,33 @@ class flam3husd_scripts
                     
                 else: # If we are creating the very first FLAM3HUSD instance, always import the very first FLAM3H™ node
                     
-                    if f3h_all_instances[0].path() in f3husd_all_instances_paths:
-                        return False
-                    
-                    else:
-                        # If the point count of the FLAM3H™ node we want to import is not greater than F3H_IMPORT_DENSITY_LIMIT
-                        if limit:
+                    if f3h_all_instances:
+                        
+                        if f3h_all_instances[0].path() in f3husd_all_instances_paths:
+                            return False
+                        
+                        else:
+                            # If the point count of the FLAM3H™ node we want to import is not greater than F3H_IMPORT_DENSITY_LIMIT
+                            if limit:
+                                
+                                if f3h_all_instances[0].parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
+                                    node.parm(PREFS_F3H_PATH).set(f3h_all_instances[0].path())
+                                    
+                                    if display_flag:
+                                        flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h_all_instances[0])
+                                        
+                                    if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
+                                        flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                    
+                                    if msg:
+                                        ...
+                                        
+                                    return True
+                                
+                                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                                return False
                             
-                            if f3h_all_instances[0].parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
+                            else:
                                 node.parm(PREFS_F3H_PATH).set(f3h_all_instances[0].path())
                                 
                                 if display_flag:
@@ -239,24 +258,9 @@ class flam3husd_scripts
                                     
                                 if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                     flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
-                                
-                                if msg:
-                                    ...
-                                    
                                 return True
                             
-                            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
-                            return False
-                        
-                        else:
-                            node.parm(PREFS_F3H_PATH).set(f3h_all_instances[0].path())
-                            
-                            if display_flag:
-                                flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h_all_instances[0])
-                                
-                            if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
-                            return True
+                    return False
             
             else: # If there are not FLAM3H™ nodes
                 if msg:
@@ -610,16 +614,16 @@ class flam3husd_scripts
         flam3husd_general_utils.util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
         flam3husd_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
         # Set other FLAM3HUSD instances to dark if any
-        all_f3husd: tuple = node.type().instances()
-        all_f3h_vpptsize: list = []
-        all_f3h_vptype: list = []
+        all_f3husd: tuple[hou.LopNode, ...] = node.type().instances()
+        all_f3husd_vpptsize: list[float] = []
+        all_f3husd_vptype: list[int] = []
         
         if len(all_f3husd) > 1:
 
             for f3husd in all_f3husd:
                 if f3husd != node:
-                    all_f3h_vpptsize.append(f3husd.parm(PREFS_VIEWPORT_PT_SIZE).eval())
-                    all_f3h_vptype.append(f3husd.parm(PREFS_VIEWPORT_PT_TYPE).eval())
+                    all_f3husd_vpptsize.append(f3husd.parm(PREFS_VIEWPORT_PT_SIZE).eval())
+                    all_f3husd_vptype.append(f3husd.parm(PREFS_VIEWPORT_PT_TYPE).eval())
                     if f3husd.parm(PREFS_VIEWPORT_DARK).eval():
                         node.parm(PREFS_VIEWPORT_DARK).set(1)
                         flam3husd_general_utils(self.kwargs).colorSchemeDark(False)
@@ -632,14 +636,14 @@ class flam3husd_scripts
             flam3husd_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
     
         # If we collected some data, set
-        if all_f3h_vpptsize:
+        if all_f3husd_vpptsize:
             
-            node.setParms({PREFS_VIEWPORT_PT_SIZE: all_f3h_vpptsize[0], # type: ignore
-                           PREFS_VIEWPORT_PT_TYPE: all_f3h_vptype[0]
+            node.setParms({PREFS_VIEWPORT_PT_SIZE: all_f3husd_vpptsize[0], # type: ignore
+                           PREFS_VIEWPORT_PT_TYPE: all_f3husd_vptype[0]
                            })
             # Updated memory
-            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, all_f3h_vpptsize[0])
-            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, all_f3h_vptype[0])
+            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, all_f3husd_vpptsize[0])
+            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, all_f3husd_vptype[0])
             
         else:
             Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
@@ -924,7 +928,7 @@ class flam3husd_scripts
                             flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rnd_idx)
                             hou.SceneViewer.setHydraRenderer(v, _RND)
 
-                            instances: tuple = node.type().instances()
+                            instances: tuple[hou.LopNode, ...] = node.type().instances()
                             if len(instances) > 1:
                                 
                                 # Sync FLAM3HUSD nodes
@@ -952,7 +956,7 @@ class flam3husd_scripts
             (None):
         """
         node: hou.LopNode = self.node
-        node_instances: tuple = node.type().instances()
+        node_instances: tuple[hou.LopNode, ...] = node.type().instances()
 
         is_valid = self.flam3husd_is_valid_flam3h_node
         for f3husd in node_instances:
@@ -1428,7 +1432,7 @@ class flam3husd_general_utils
         # If it is a valid Houdini version
         if node.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
             
-            f3h_all_instances: list[hou.SopNode] = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
+            f3h_all_instances: tuple[hou.SopNode, ...] = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY).instances()
             if f3h_all_instances:
                 
                 f3h_all_instances_paths: list[str] = [f3h.path() for f3h in f3h_all_instances]
@@ -1813,7 +1817,7 @@ class flam3husd_general_utils
             
         if update_others:
             # Update dark preference's option toggle on other FLAM3HUSD nodes instances
-            all_f3husd: tuple = self.node.type().instances()
+            all_f3husd: tuple[hou.LopNode, ...] = self.node.type().instances()
             if len(all_f3husd) > 1:
                 for f3husd in all_f3husd:
                     if f3husd == node:
@@ -1869,7 +1873,7 @@ class flam3husd_general_utils
                         pass # For now, will see if in the future new option will be added.
                         
         # Sync FLAM3HUSD nodes
-        all_f3husd: tuple = node.type().instances()
+        all_f3husd: tuple[hou.LopNode, ...] = node.type().instances()
                         
         # Delete all keyframes
         for f3husd in all_f3husd: f3husd.parm(PREFS_VIEWPORT_PT_TYPE).deleteAllKeyframes()
@@ -1951,7 +1955,7 @@ class flam3husd_general_utils
         if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
             
             # Sync FLAM3HUSD nodes
-            all_f3husd: tuple = node.type().instances()
+            all_f3husd: tuple[hou.LopNode, ...] = node.type().instances()
             
             # Delete all keyframes
             for f3husd in all_f3husd: f3husd.parm(prm_name_size).deleteAllKeyframes()
