@@ -179,7 +179,7 @@ def cached_slot_property(func):
 T = TypeVar('T')
 TA_Affine: TypeAlias = list[tuple[float, ...] | list[float]]
 TA_STR_ListUnflattened: TypeAlias = list[list[str]]
-TA_RoundFloats: TypeAlias = list[tuple[float, ...] | list[float]] | list[tuple[str, ...] | list[str]] | list[list[str]]
+TA_RoundFloats: TypeAlias = Iterable[Iterable[str | float]]
 TA_TypeVarCollection: TypeAlias = str | list | tuple | KeysView
 TA_XformVarKeys: TypeAlias = str | list[str] | tuple[str, ...] | dict[str, int] | dict[str, tuple[str, ...]] | dict[str, set[str]] | KeysView | None
 TA_TypeMaker: TypeAlias = list | float | hou.Vector2 | hou.Vector3 | hou.Vector4
