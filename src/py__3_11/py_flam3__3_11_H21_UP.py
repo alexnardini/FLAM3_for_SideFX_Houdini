@@ -18889,7 +18889,7 @@ class out_flame_utils
             prm(str): xaos varnote parameter
 
         Returns:
-            (TA_XAOS_Collect): A list of list[str] or list[float] or empty list.
+            (TA_XAOS_Collect): A list of list[str], list[float] or empty list.
         """   
 
         val: list = []
@@ -19888,7 +19888,7 @@ class out_flame_utils
         """
         val: TA_XAOS_Collect = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
         fill: list[list[str]] = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
-        xaos_vactive: list = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
+        xaos_vactive: TA_STR_ListUnflattened = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
         _join: Callable[[Iterable[str]], str] = ' '.join
 
         return tuple(_join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
@@ -19908,7 +19908,7 @@ class out_flame_utils
         t: list = np_transpose(np_resize(fill, (self.iter_count, self.iter_count))).tolist()
         _join: Callable[[Iterable[str]], str] = ' '.join
         if mode:
-            xaos_vactive: list = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
+            xaos_vactive: TA_STR_ListUnflattened = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
             return tuple(_join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
         
         return tuple(_join(x) for x in self.out_util_round_floats(t))
