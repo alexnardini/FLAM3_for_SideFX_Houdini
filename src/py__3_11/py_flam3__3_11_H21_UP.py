@@ -9775,7 +9775,7 @@ class flam3h_iterator_utils
             # Change multiparameter focus to the newly created iterator
             # From Houdini 21.0.489 SideFX added multiParmTab and setMultiParmTab to hou.NetworkEditor.
             try:
-                hou.ui.setMultiParmTabInEditors(mp_prm, index) # type: ignore
+                hou.ui.setMultiParmTabInEditors(mp_prm, s_mp_index) # type: ignore
             except AttributeError as e:
                 F3H_Exception.F3H_traceback_print_infos(e)
                 pass # Most likely not a parameter editor in its own pane tab or floating panel in Houdini versions prior to 21.0.489
