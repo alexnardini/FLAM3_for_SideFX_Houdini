@@ -516,8 +516,8 @@ F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
         
         Args:
             e(Any): Any of the exceptions type.
-            traceback_info(bool): Default to False.</br>If True, it will print also the full traceback.
-            extra_info(str | None): Default to None.</br>Add a string message to print it under a: "Extra info" message
+            traceback_info(bool): Default to: False.</br>If True, it will print also the full traceback.
+            extra_info(str | None): Default to: None.</br>Add a string message to print it under a: "Extra info" message
             
         Returns:
             (None):
@@ -944,7 +944,7 @@ class flam3h_varsPRM
         
         Args:
             (self):
-            _PB(bool): Default to False</br>When set to True it will include the pre_blur variation in the menu variation lists.
+            _PB(bool): Default to: False</br>When set to True it will include the pre_blur variation in the menu variation lists.
             
         Returns:
             (list[tuple[int, str]]): return an enumerated variations menu list with "linear" being the first one for convenience
@@ -961,7 +961,7 @@ class flam3h_varsPRM
         
         Args:
             (self):
-            _PB(bool): Default to False</br>When set to True it will include the pre_blur variation in the menu variation lists.
+            _PB(bool): Default to: False</br>When set to True it will include the pre_blur variation in the menu variation lists.
             
         Returns:
             (list[tuple[int, str]]): return a list of all the variation names properly ordered as per flame*.h files without the parametric variations in it.
@@ -974,7 +974,7 @@ class flam3h_varsPRM
         
         Args:
             (self):
-            _PB(bool): Default to False</br>When set to True it will include the pre_blur variation in the menu variation lists.
+            _PB(bool): Default to: False</br>When set to True it will include the pre_blur variation in the menu variation lists.
             
         Returns:
             (list): return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data
@@ -989,7 +989,7 @@ class flam3h_varsPRM
         
         Args:
             (self):
-            _PB(bool): Default to False</br>When set to True it will include the pre_blur variation in the menu variation lists.
+            _PB(bool): Default to: False</br>When set to True it will include the pre_blur variation in the menu variation lists.
             
         Returns:
             (dict): a dictionary for the variation indexes used by the menu_T_ICONS definitions
@@ -1500,7 +1500,7 @@ class flam3h_scripts
 
         Args:
             __h_versions__(tuple[int, ...] | int): a tuple containing all the compatible Houdini versions or an int of the desire Houdini version. When a tuple, it will be coming from the HDA's PythonModule: __h_versions__
-            last_index(bool): Default to False</br>as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H™ HDA version run on multiple Houdinin versions.
+            last_index(bool): Default to: False</br>as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H™ HDA version run on multiple Houdinin versions.
             or it can be a 3 digits int
 
         Returns:
@@ -1538,7 +1538,7 @@ class flam3h_scripts
 
         Args:
             this_h_versions(tuple[int, ...]): a tuple containing all the Houdini version numbers. This is coming from the HDA's PythonModule: __h_versions__
-            msg(bool): Default to True</br>When False it will not execute the: hou.ui.displayMessage
+            msg(bool): Default to: True</br>When False it will not execute the: hou.ui.displayMessage
 
         Returns:
             (str): Only the part of the message string with the allowed Houdini versions, to be used to compose the final message.
@@ -1957,8 +1957,8 @@ class flam3h_scripts
 
         Args:
             range_type(bool): True for closed range. False for open range. This is set inside the HDA's -> Type Properties -> Scripts -> PythonModule
-            kwargs(dict | None): Default to None</br>When needed, this must be the class' self.kwargs
-            msg(bool): Default to True</br>When False it will not run the hou display messages.
+            kwargs(dict | None): Default to: None</br>When needed, this must be the class' self.kwargs
+            msg(bool): Default to: True</br>When False it will not run the hou display messages.
 
         Returns:
             (bool): True if compatible otherwise False.
@@ -2322,8 +2322,8 @@ class flam3h_scripts
         
         Args:
             (self):
-            iterators_count_zero(bool): Default to True</br>Set the iterators count to Zero. Set it to False to not set.
-            descriptive_prm(bool): Default to True</br>Set the node descriptive parameter. Set it to False to not set.
+            iterators_count_zero(bool): Default to: True</br>Set the iterators count to Zero. Set it to False to not set.
+            descriptive_prm(bool): Default to: True</br>Set the node descriptive parameter. Set it to False to not set.
             
         Returns:
             (None):
@@ -2957,7 +2957,7 @@ class flam3h_general_utils
             node(hou.SopNode): the current FLAM3H™ node.
             msg(str | None): The string message to print or None.
             timer(float): Default to: FLAM3H_FLASH_MESSAGE_TIMER (2 sec)</br>How long the printed message stay before it fade away.
-            img(str | None): Default to None</br>specifies an icon or image file that should be displayed along with the text specified in the msg argument.
+            img(str | None): Default to: None</br>specifies an icon or image file that should be displayed along with the text specified in the msg argument.
 
         Returns:
             (None):
@@ -3657,7 +3657,7 @@ class flam3h_general_utils
 
         Args:
             (self):
-            update(bool): Defaults to True. Updated the viewport camera sensor or not(False)
+            update(bool): Default to: True</br>Updated the viewport camera sensor or not(False)
             
         Returns:
             (bool): True if the Sensor Viz is being activated. False if not.
@@ -4015,7 +4015,7 @@ class flam3h_general_utils
 
         Args:
             (self):
-            prm_name(str): Defaults to OUT_RENDER_PROPERTIES_SENSOR. Toggle parameter name to use.
+            prm_name(str): Default to: OUT_RENDER_PROPERTIES_SENSOR</br>Toggle parameter name to use.
             
         Returns:
             (None):
@@ -4080,7 +4080,7 @@ class flam3h_general_utils
 
         Args:
             (self):
-            prm(str): Defaults to PREFS_PVT_XF_VIZ. Toggle parameter name to use.
+            prm(str): Default to: PREFS_PVT_XF_VIZ</br>Toggle parameter name to use.
 
         Returns:
             (None):  
@@ -4517,9 +4517,9 @@ class flam3h_general_utils
         Args:
             (self):
             mode(int): Default to: 1</br>This is to be used to prevent to load a left over preset when loading back a hip file.
-            destroy(bool): Default to True</br>Destroy menu presets cached data. True or False.
-            json_file(bool | None): Default to None</br>Is it a json file ?
-            f3h_json_file(bool | None): Default to None</br>Is it a F3H palette json file ?
+            destroy(bool): Default to: True</br>Destroy menu presets cached data. True or False.
+            json_file(bool | None): Default to: None</br>Is it a json file ?
+            f3h_json_file(bool | None): Default to: None</br>Is it a F3H palette json file ?
             
         Returns:
             (None):
@@ -4867,7 +4867,7 @@ class flam3h_general_utils
         
         Args:
             (self):
-            update_others(bool): Default to True</br>Update also the other FLAM3H™ nodes in the scene if any
+            update_others(bool): Default to: True</br>Update also the other FLAM3H™ nodes in the scene if any
             
         Returns:
             (None):
@@ -5081,7 +5081,7 @@ class flam3h_general_utils
         
         Args:
             (self):
-            reset_val (float | None): Default to None</br>Can be either "None" or a float value. If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
+            reset_val (float | None): Default to: None</br>Can be either "None" or a float value. If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
             prm_name_size(str): Default to: PREFS_VIEWPORT_PT_SIZE</br>The name of the parameter to set.
             
         Returns:
@@ -5162,7 +5162,7 @@ class flam3h_general_utils
         
         Args:
             (self):
-            reset_val (float | None): Default to None</br>Can be either "None" or a float value.</br>If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
+            reset_val (float | None): Default to: None</br>Can be either "None" or a float value.</br>If "None" it will use the current parameter value, otherwise it will use the one passed in this function.
             
         Returns:
             (None):
@@ -5262,7 +5262,7 @@ class flam3h_general_utils
         
         Args:
             (self):
-            all(bool): Default to True</br>It will reset all parameters.</br>If False, it will not reset the ON/OFF and VIZ toggles.
+            all(bool): Default to: True</br>It will reset all parameters.</br>If False, it will not reset the ON/OFF and VIZ toggles.
             
         Returns:
             (None):
@@ -5304,7 +5304,7 @@ class flam3h_general_utils
 
         Args:
             (self):
-            mode(int): Defaults to 0. If set to 1, it will activate the flam3 compatibility option.
+            mode(int): Default to: 0(Zero)</br>If set to 1, it will activate the flam3 compatibility option.
             
         Returns:
             (None):
@@ -5962,7 +5962,7 @@ class flam3h_iterator_utils
         Args:
             prm_from(hou.Parm): The parameter to copy the data from
             prm_to(hou.Parm): The parameter to copy the dato into
-            pvt(bool): Default to False</br>Is it a private parameter or not ?
+            pvt(bool): Default to: False</br>Is it a private parameter or not ?
             
         Returns:
             (None):
@@ -6039,7 +6039,7 @@ class flam3h_iterator_utils
             prm_list_affine(tuple): parameters list to query. This expect either: flam3h_iterator().sec_preAffine or flam3h_iterator().sec_postAffine
             id(str): current multiparamter index
             id_from(str): multiparameter index to copy from
-            post(bool): Default to False</br>Is it a post affine ?</br>True for declaring it as post affine.
+            post(bool): Default to: False</br>Is it a post affine ?</br>True for declaring it as post affine.
             
         Returns:
             (bool): True if the affine are default values and False if they are not.
@@ -6076,7 +6076,7 @@ class flam3h_iterator_utils
             node(hou.SopNode): This FLAM3H™ node
             flam3node(hou.SopNode, None): hou.SopNode to copy values from
             prm_list_affine(tuple): parameters list to query.</br>This expect either:</br>flam3h_iterator_FF().sec_preAffine_FF</br>flam3h_iterator_FF().sec_postAffine_FF
-            post(bool): Default to False</br>Is it a post affine ?</br>True for declaring it as post affine.
+            post(bool): Default to: False</br>Is it a post affine ?</br>True for declaring it as post affine.
             
         Returns:
             (bool): True if the affine are default values and False if they are not.
@@ -6381,7 +6381,7 @@ class flam3h_iterator_utils
 
         Args:
             node(hou.SopNode): The current FLAM3H™ node being loaded in the hip file.
-            f3h_all(bool): Default to False</br>Perform this check and correct if needed for all FLAM3H™ nodes in the scene.
+            f3h_all(bool): Default to: False</br>Perform this check and correct if needed for all FLAM3H™ nodes in the scene.
 
         Returns:
             (None):
@@ -6429,7 +6429,7 @@ class flam3h_iterator_utils
         Args:
             node(hou.SopNode): FLAM3H™ node
             data(str): the name of the data to destroy
-            must_exist(bool): Default to False</br>Destroy data will run silently if the data name do not exist. Set it to True to get an error.
+            must_exist(bool): Default to: False</br>Destroy data will run silently if the data name do not exist. Set it to True to get an error.
 
         Returns:
             (None):
@@ -6746,7 +6746,7 @@ class flam3h_iterator_utils
             
         Args:
             (self):
-            menu_update(bool): Default to True</br>If False, it will NOT force the IN and OUT tab presets menus to update.</br></br>Useful when coupled with:</br>def destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool = False) -> None: </br>(So not to force an update twice)
+            menu_update(bool): Default to: True</br>If False, it will NOT force the IN and OUT tab presets menus to update.</br></br>Useful when coupled with:</br>def destroy_all_menus_data(self, node: hou.SopNode, f3h_all: bool = False) -> None: </br>(So not to force an update twice)
             
         Returns:
             (None):
@@ -7067,7 +7067,7 @@ class flam3h_iterator_utils
         
         Args:
             (self):
-            FF(bool): Default to False</br>If true it will signal we are looking to deal with data for the FF(finalXform). In this specific definition the arg: FF is present only for consistency.
+            FF(bool): Default to: False</br>If true it will signal we are looking to deal with data for the FF(finalXform). In this specific definition the arg: FF is present only for consistency.
             
         Returns:
             (TA_Menu): return menu list
@@ -7402,7 +7402,7 @@ class flam3h_iterator_utils
         
         Args:
             (self):
-            hipLoad(bool): Default to False</br>To use when loading a hip file.
+            hipLoad(bool): Default to: False</br>To use when loading a hip file.
             
         Returns:
             (None):
@@ -9823,7 +9823,7 @@ class flam3h_iterator_utils
         Args:
             (self):
             node(hou.SopNode): this FLAM3H™ node
-            do_msg(bool): Default to True</br>If False it will not print a message to the status bar and not fire a flash message either.
+            do_msg(bool): Default to: True</br>If False it will not print a message to the status bar and not fire a flash message either.
             
         Returns:
             (None):
@@ -10190,8 +10190,8 @@ class flam3h_palette_utils
         Args:
             node(hou.SopNode): current FLAM3H™ node
             filepath(str | bool): Palette lib full file path.
-            msg(bool): Default to True</br>print out messages to the Houdini's status bar.</br>Set it to False to not print out messages.
-            parm_path_name(str): Default to global: CP_PATH</br>The actual Houdini's palette file parameter name.
+            msg(bool): Default to: True</br>print out messages to the Houdini's status bar.</br>Set it to False to not print out messages.
+            parm_path_name(str): Default to: global: CP_PATH</br>The actual Houdini's palette file parameter name.
 
         Returns:
             (tuple[bool, bool]): True if valid. False if not valid.
@@ -10245,8 +10245,8 @@ class flam3h_palette_utils
         Args:
             node(hou.SopNode): current FLAM3H™ node
             filepath(str | bool): Palette lib full file path.
-            msg(bool): Default to True</br>Print out messages to the Houdini's status bar.</br>Set it to False to not print out messages.
-            parm_path_name(str): Default to global: CP_PATH</br>The actual Houdini's palette file parameter name.
+            msg(bool): Default to: True</br>Print out messages to the Houdini's status bar.</br>Set it to False to not print out messages.
+            parm_path_name(str): Default to: global: CP_PATH</br>The actual Houdini's palette file parameter name.
 
         Returns:
             (tuple[bool, bool]): True if valid. False if not valid.
@@ -11340,7 +11340,7 @@ class flam3h_palette_utils
         
         Args:
             (self):
-            use_kwargs(bool): Default to True.</br>Use the houdini kwargs arguments or not.</br>This is being done as when this definition run from a menu parameter the kwargs arguments are not available. 
+            use_kwargs(bool): Default to: True.</br>Use the houdini kwargs arguments or not.</br>This is being done as when this definition run from a menu parameter the kwargs arguments are not available. 
 
         Returns:
             (None):
@@ -11381,7 +11381,7 @@ class flam3h_palette_utils
         
         Args:
             (self):
-            palette_plus_msg(bool): Default to False.</br>Coordinate messages about palette 256+ when the preferences option: "palette 256+" is ON
+            palette_plus_msg(bool): Default to: False.</br>Coordinate messages about palette 256+ when the preferences option: "palette 256+" is ON
             
         Returns:
             (None):
@@ -12654,7 +12654,7 @@ class _xml
 
         Args:
             (self):
-            key(str): Defaults to XML_XF_NAME. The XML Flame's name key.
+            key(str): Default to: XML_XF_NAME</br>The XML Flame's name key.
 
         Returns:
             (tuple[str | list[Never], ...]): Flame presets names packed into a tuple of strings</br>or an empty list instead if the XML key is not found in the XML preset. Or an empty tuple.
@@ -12752,7 +12752,7 @@ class _xml_tree
 
         Args:
             xmlfile(str | None): The flame file full path string we are trying to load.</br>
-            clipboard(bool): Default to False</br>True if the flame preset is being loaded from the clipboard and False if not.</br>
+            clipboard(bool): Default to: False</br>True if the flame preset is being loaded from the clipboard and False if not.</br>
             
         Returns:
             (str | None): A new flame preset data valid to be loaded in.
@@ -12926,7 +12926,7 @@ class _xml_tree
 
         Args:
             (self):
-            key(str): Defaults to XML_XF_NAME. The XML Flame's name key.
+            key(str): Default to: XML_XF_NAME</br>The XML Flame's name key.
 
         Returns:
             (tuple[str | list[Never], ...]): Flame presets names packed into a tuple of strings</br>or an empty list instead if the XML key is not found in the XML preset. Or an empty tuple.
@@ -12951,7 +12951,7 @@ class _xml_tree
 
         Args:
             (self):
-            key(str): Defaults to XML_XF_NAME. The XML Flame's name key.
+            key(str): The XML Flame's name key.
             _DEFAULT(str): If something goes wrong, use this default value instead.
 
         Returns:
@@ -12973,7 +12973,7 @@ class _xml_tree
 
         Args:
             (self):
-            key(str): Defaults to XML_XF_NAME. The XML Flame's name key.
+            key(str): The XML Flame's name key.
             _DEFAULT(str): If something goes wrong, use this default value instead.
 
         Returns:
@@ -13022,7 +13022,7 @@ class _xml_tree
 
         Args:
             (self):
-            key (str): Defaults to XML_FLAME_NAME. The XML Flame's flame key.
+            key (str): Default to: XML_FLAME_NAME</br>The XML Flame's flame key.
 
         Returns:
             (tuple | None): Flames objects data or None if not found.
@@ -13160,7 +13160,7 @@ class in_flame
         Args:
             val(str): value from the xml
             default_val(str): Default to: '0'</br>If something goes wrong use this as the returned value.
-            key_name(str | None): Default to None</br>If not None, it will print out the key_name if not a value.
+            key_name(str | None): Default to: None</br>If not None, it will print out the key_name if not a value.
 
         Returns:
             (str): value cleaned up from invalid characters
@@ -13199,7 +13199,7 @@ class in_flame
         Args:
             val(str): value from the xml
             default_val(str): Default to: '0'</br>If something goes wrong use this as the returned value.
-            key_name(str | None): Default to None</br>If not None, it will print out the key_name if not a value.</br>Specifically added for:</br>in_flame_utils.in_v_parametric_var_collect(...) </br>but it ended up being used in other places as well.
+            key_name(str | None): Default to: None</br>If not None, it will print out the key_name if not a value.</br>Specifically added for:</br>in_flame_utils.in_v_parametric_var_collect(...) </br>but it ended up being used in other places as well.
 
         Returns:
             (str): value cleaned up from invalid characters
@@ -13235,7 +13235,7 @@ class in_flame
         Args:
             vals(list): values from the xml
             default_val(str): Default to: '0'</br>If something goes wrong use this as the returned value.
-            key_name(str | None): Default to None</br>If not None</br>it will print out the key_name if not a value.
+            key_name(str | None): Default to: None</br>If not None</br>it will print out the key_name if not a value.
 
         Returns:
             (list[str]): a list of affine values cleaned up from invalid characters
@@ -13278,7 +13278,7 @@ class in_flame
         Args:
             vals(list): values from the xml
             default_val(str): Default to: '0'</br>If something goesw wrong use this as the returned value.
-            key_name(str | None): Default to None</br>If not None</br>it will print out the key_name if not a value.
+            key_name(str | None): Default to: None</br>If not None</br>it will print out the key_name if not a value.
 
         Returns:
             (str): a string of spaced joined affine values cleaned up from invalid characters
@@ -13705,7 +13705,7 @@ class in_flame
         Args:
             (self):
             idx(int): flame idx out of all flames included in the loaded flame file
-            key(str): the flame XML palette tag name. Default to: XML_PALETTE
+            key(str): Default to: XML_PALETTE</br>The flame XML palette tag name
 
         Returns:
             (tuple[hou.Ramp, int, str] | None): return a tu-ple with an already made hou.Ramp, number of keys, format or None if something went wrong.
@@ -13973,7 +13973,7 @@ class in_flame_iter_data(in_flame):
             (self):
             node(hou.SopNode): This FLAM3H™ node.
             xmlfile (str): xmlfile (str): xml flame v_type file to load
-            idx (int, optional): flame idx out of all flames included in the loaded flame file]. Defaults to 0.
+            idx (int, optional): Default to: 0(Zero)</br>Flame idx out of all flames included in the loaded flame file.
         """
         super().__init__(node, xmlfile)
         
@@ -15552,7 +15552,7 @@ class in_flame_utils
         Args:
             preset_id(int): The loaded XML Flame preset id to gather the data from.
             apo_data(in_flame_iter_data): The XML Flame file data
-            XML_last_update(bool): Default to False.</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
+            XML_last_update(bool): Default to: False.</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
 
         Returns:
             (str): A string to be used to set the IN Render properties data parameter message.
@@ -15601,7 +15601,7 @@ class in_flame_utils
         Args:
             preset_id(int): The loaded XML Flame preset id to gather the data from.
             apo_data(in_flame_iter_data): The XML Flame file data
-            XML_last_update(bool): Default to False.</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
+            XML_last_update(bool): Default to: False.</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
 
         Returns:
             (str): A string to be used to set the IN Render properties data parameter message.
@@ -15878,9 +15878,9 @@ class in_flame_utils
 
         Args:
             kwargs(hou.SopNode): houdini kwargs.
-            apo_data(in_flame_iter_data | None): Default to None</br>All the XML data from the loaded Flame preset.
-            clipboard(bool): True: load from clipboard. False: load from disk file ( load from the node stored data ).
-            flash_message(bool): Default to False</br>If True it will fire a flash message.
+            apo_data(in_flame_iter_data | None): Default to: None</br>All the XML data from the loaded Flame preset.
+            clipboard(bool): Default to: False</br>True: load from clipboard. False: load from disk file ( load from the node stored data ).
+            flash_message(bool): Default to: False</br>If True it will fire a flash message.
             
         Returns:
             (None):
@@ -16618,7 +16618,7 @@ class in_flame_utils
             preset_id(int): The loaded XML Flame preset
             apo_data(in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
             clipboard(bool): Is the cuurently loaded Flame preset coming from the Clipboard? True or False.
-            XML_last_update(bool): Default to False.</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
+            XML_last_update(bool): Default to: False.</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
 
         Returns:
             (str): A string to be used to set the IN Flame info data parameter message.
@@ -17347,7 +17347,7 @@ class in_flame_utils
                                                     * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
                                                     * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
                                                     * chaos ( bool ): Is it a chaotica XML file type ? True or False.
-            flashmessage(bool): Default to False.</br>if True, it will fire a flash and status message instead of a print message to the console.</br>To be used when loading Palette data from the clipboard from a Flame preset.
+            flashmessage(bool): Default to: False.</br>if True, it will fire a flash and status message instead of a print message to the console.</br>To be used when loading Palette data from the clipboard from a Flame preset.
 
         Returns:
             (bool): True if all goes well. False if the loaded palette fail, most likely due to wrong HEX values in it.
@@ -17940,7 +17940,7 @@ class in_flame_utils
 
         Args:
             (self):
-            mode(int): Defaults to 0. 1 will reset the remainder of the parameters.
+            mode(int): Default to: 0(Zero)</br>1 will reset the remainder of the parameters.
             
         Returns:
             (None):
@@ -18212,7 +18212,7 @@ class out_flame_utils
 
         Args:
             node(hou.SopNode): this FLAM3H™ node
-            mode(bool): Default to False
+            mode(bool): Default to: False
                 * (mode: False) will compare if they are default values( return: True) or not(return: False)
                 * (mode: True) will compare the UI data with the CC CURVES DATA and check if they are identical(return: True) or not(return: False)
 
@@ -18319,7 +18319,7 @@ class out_flame_utils
             iter_num(int): the current iteration's number
             flame_name(str): The Flame name to check and correct
             autoadd(int): Auto add iter num toggle value (This toggle will eventually be removed from FLAM3H™ at some point)
-            flame(bool): Default to True(Flame)</br>Use False for Palette
+            flame(bool): Default to: True(Flame)</br>Use False for Palette
 
         Returns:
             (str): A new name with either the iterations number added to it if needed or corrected or both.
@@ -18681,7 +18681,7 @@ class out_flame_utils
             infile(str): THe file path to check.
             file_ext(str): Provide an extension to tell this function if it is a Flame file or a FLAM3H™ palette file. 
             prx(str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file.</br>'Palette' or 'Flame'</br>(AUTO_NAME_CP: str or AUTO_NAME_OUT: str)
-            out(int): Default to True</br>Which Flame tab are we running this from? False for IN tab, True for OUT tab.
+            out(int): Default to: True</br>Which Flame tab are we running this from? False for IN tab, True for OUT tab.
             auto_name(bool): Default to: True</br>When checking the output path you some time do not want to generate a filename and extension, </br>like for example inside the IN file string parameter.
         
         Returns:
@@ -19007,9 +19007,9 @@ class out_flame_utils
 
         Args:
             current(lxmlET._Element): The Flame XML root we want to reformat.
-            parent(lxmlET.Element | None): Default to None.
-            index(int): _description_. Defaults to -1.
-            depth(int): _description_. Defaults to 0.
+            parent(lxmlET.Element | None): Default to: None.
+            index(int): Default to: -1
+            depth(int): Default to: 0(Zero)
         """
 
         for i, node in enumerate(current):
@@ -19379,7 +19379,7 @@ class out_flame_utils
         Args:
             (self):
             node(hou.SopNode): FLAM3H™ node to load the flame file/preset into.
-            tab(str): Default to "OUT" (for the OUT tab).</br>Set it to "SYS" for the sys tab out preset menu to be evaluated.
+            tab(str): Default to: "OUT" (for the OUT tab).</br>Set it to "SYS" for the sys tab out preset menu to be evaluated.
 
         Returns:
             (tuple[Union[str, None], int]):  tuple( xml, 
@@ -19423,7 +19423,7 @@ class out_flame_utils
         
         Args:
             (self):
-            tab(str): Default to "OUT" (for the OUT tab).</br>Set it to "SYS" for the sys tab out preset menu to be evaluated.
+            tab(str): Default to: "OUT" (for the OUT tab).</br>Set it to "SYS" for the sys tab out preset menu to be evaluated.
             
         Returns:
             (None):
@@ -19842,7 +19842,7 @@ class out_flame_utils
         """Reset the OUT flame render properties to their default.</br>
 
         Args:
-            mode(int): Defaults to 0. 1 will reset the remainder of the parameters.
+            mode(int): Default to: 0(Zero)</br>1 will reset the remainder of the parameters.
 
         Returns:
             (None):
@@ -20036,7 +20036,7 @@ class out_flame_utils
         
         Args:
             (self):
-            name(str | None): Default to None (nothing happen).</br>Handy to automatically set the out preset name when an IN preset name is loaded.
+            name(str | None): Default to: None (nothing happen).</br>Handy to automatically set the out preset name when an IN preset name is loaded.
             
         Returns:
             (None):
@@ -20462,8 +20462,8 @@ class out_flame_utils
 
         Args:
             (self):
-            data_name(str): Default to "FLAM3H_USER_DATA_XML_LAST".</br>The name of the node user data to store the flame preset into.
-            flame_name(str | None): Default to None</br>If a flame name is provided it will use it, </br>otherwise it will either use the one set into the OUT flame name parameter or if this last is empty it will generate one based on today'sdate and time.
+            data_name(str): Default to: FLAM3H_USER_DATA_XML_LAST</br>The name of the node user data to store the flame preset into.
+            flame_name(str | None): Default to: None</br>If a flame name is provided it will use it, </br>otherwise it will either use the one set into the OUT flame name parameter or if this last is empty it will generate one based on today'sdate and time.
             
         Returns:
             (None):
@@ -20807,7 +20807,7 @@ class out_flame_utils
 
         Args:
             (self):
-            prm_name(str | None = OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)): Default to: OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)</br>The FLAM3H™ "Flame name" parameter name.
+            prm_name(str | None = OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)): Default to: OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)</br>The FLAM3H™ "Flame name parameter name.
 
         Returns:
             (str): The FLAM3H™ parameter prepped into a string for writing out into the Flame preset file.
