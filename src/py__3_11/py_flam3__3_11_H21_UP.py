@@ -9729,7 +9729,7 @@ class flam3h_iterator_utils
         for mp_idx in range(iter_count): node.parm(f"{mp_mem_name}_{mp_idx + 1}").set(str(mp_idx + 1))
         
         # update flam3h_xaos_mpmem
-        __mpmem_hou: list = [int(node.parm(f"{mp_mem_name}_{mp_idx + 1}").eval()) for mp_idx in range(iter_count)]
+        __mpmem_hou: list[int] = [int(node.parm(f"{mp_mem_name}_{mp_idx + 1}").eval()) for mp_idx in range(iter_count)]
         # export mpmem into CachedUserData
         self.auto_set_xaos_data_set_MP_MEM(node, __mpmem_hou)
         
