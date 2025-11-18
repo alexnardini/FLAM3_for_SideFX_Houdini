@@ -512,7 +512,7 @@ F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
     @staticmethod
     def F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str | None = None) -> None:
         """ Simple print exception infos.</br>
-        Addiotianlly it can print also the full traceback infos.
+        Additionally it can print also the full traceback infos.
         
         Args:
             e(Any): Any of the exceptions type.
@@ -1499,7 +1499,7 @@ class flam3h_scripts
         """Get the houdini version number from the gloabl: __h_versions__</br>
 
         Args:
-            __h_versions__(tuple[int, ...] | int): a tuple containing all the compatible Houdini versions or an int of the desire Houdini version. When a tuple, it will be coming from the HDA's PythonModule: __h_versions__
+            __h_versions__(tuple[int, ...] | int): a tuple containing all the compatible Houdini versions or an int of the desired Houdini version. When a tuple, it will be coming from the HDA's PythonModule: __h_versions__
             last_index(bool): Default to: False</br>as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H™ HDA version run on multiple Houdinin versions.
             or it can be a 3 digits int
 
@@ -1883,7 +1883,7 @@ class flam3h_scripts
             (None):
         """  
     
-        pe: list = flam3h_general_utils.util_getParameterEditors()
+        pe: list[hou.ParameterEditor] = flam3h_general_utils.util_getParameterEditors()
         for p in pe:
             if p.currentNode() == f3h_node and p.isPin():
                 p.setPin(False)
@@ -2172,7 +2172,7 @@ class flam3h_scripts
         node: hou.SopNode = self.node
         
         # viewers
-        viewers: list = flam3h_general_utils.util_getSceneViewers()
+        viewers: list[hou.SceneViewer] = flam3h_general_utils.util_getSceneViewers()
         
         # Update dark history
         flam3h_general_utils.util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
@@ -3669,7 +3669,7 @@ class flam3h_general_utils
             viewport: hou.SceneViewer = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
             
             # check if there are more than one viewport available
-            viewports: list = self.util_getSceneViewers()
+            viewports: list[hou.SceneViewer] = self.util_getSceneViewers()
             
             # Get some data for down the line condition checks
             update_sensor: int = self.node.parm(OUT_UPDATE_SENSOR).eval()
@@ -3795,7 +3795,7 @@ class flam3h_general_utils
         """ 
         if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
             
-            viewports: list = self.util_getSceneViewers()
+            viewports: list[hou.SceneViewer] = self.util_getSceneViewers()
             if len(viewports):
                 
                 lop_viewports: list = []
@@ -3954,7 +3954,7 @@ class flam3h_general_utils
             self.util_set_front_viewer()
         
         else:
-            viewports: list = self.util_getSceneViewers()
+            viewports: list[hou.SceneViewer] = self.util_getSceneViewers()
             num_viewers: int = len(viewports)
             if num_viewers:
                 self.util_set_clipping_viewers()
@@ -4874,7 +4874,7 @@ class flam3h_general_utils
         """
         node: hou.SopNode = self.node
         prm = node.parm(PREFS_VIEWPORT_DARK)
-        views: list = self.util_getSceneViewers()
+        views: list[hou.SceneViewer] = self.util_getSceneViewers()
         
         if views:
             if prm.eval():
@@ -14902,12 +14902,12 @@ class in_flame_utils
                                     mp_idx: int, 
                                     v_type: int, 
                                     func: Callable) -> TA_TypeMaker:
-        """Every parametric variation posses a certain number of parameters to control its behavior.</br>
-        In FLAM3H™, those parameters have been grouped into a single data type.</br>
-        For example the Curl variation posses two parametric parameters: c1, c2</br>
+        """Each parametric variation has a specific number of parameters that govern its behavior.</br>
+        These attributes have been combined into a single data type in FLAM3H™.</br>
+        The Curl variation, for instance, has two parametric parameters: c1 and c2</br>
         Those two parameters have been packed into a vector2 data type: vector2[c1, c2].</br>
-        This has been done to help with performance as querying many, many different parameters did end up being costly,</br>
-        especially considering having many iterators each with parametric variations at the same time.</br>
+        This was done to improve speed since it was expensive to query a large number of distinct parameters,</br>
+        especially when there were several iterators with simultaneous parametric parameters.</br>
         
         Args:
             node(hou.SopNode): Current FLAM3H™ node
@@ -15464,7 +15464,7 @@ class in_flame_utils
     @staticmethod
     def in_presets_in_isvalid_file_menu_label(node: hou.SopNode, preset_id: int) -> str:
         """The IN presets menu parameters are 2, one for when a flame preset is loaded and one when not</br>
-        plus when a it can also be that a preset from the clipboard has been loaded, introducing a new bookmark icon.</br>
+        plus when it can also happen that a preset from the clipboard has been loaded, introducing a new bookmark icon.</br>
         Those need to be queried separately, this definition will query the currently visible one and account for the clipboard case as well.</br>
 
         Args:
