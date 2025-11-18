@@ -3464,7 +3464,7 @@ class flam3h_general_utils
         # Get the idx parameter of the xf_viz solo iterator from the memory
         prm_xfviz_idx_mem: hou.Parm = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
         # Try to get the multi parameter instance parm with idx: xfviz_idx_mem.eval()
-        xfviz_solo_prm_name: str = f"{flam3h_iterator_prm_names().main_xf_viz}_{str(prm_xfviz_idx_mem.eval())}"
+        xfviz_solo_prm_name: str = f"{flam3h_iterator_prm_names().main_xf_viz}_{prm_xfviz_idx_mem.eval()}"
         xfviv_solo: hou.Parm = node.parm(xfviz_solo_prm_name)
         # It it does exist and the xf_viz idx from memory was set
         if xfviv_solo is not None and prm_xfviz_idx_mem.eval() > 0:
@@ -4157,7 +4157,7 @@ class flam3h_general_utils
         node: hou.SopNode = self.node
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         _main_xf_viz_name: str = flam3h_iterator_prm_names().main_xf_viz
-        all_mp_xf_viz: list[int] = [node.parm(f"{_main_xf_viz_name}_{str(mp_idx + 1)}").eval() for mp_idx in range(iter_num)]
+        all_mp_xf_viz: list[int] = [node.parm(f"{_main_xf_viz_name}_{mp_idx + 1}").eval() for mp_idx in range(iter_num)]
         if max(all_mp_xf_viz) == 1:
             return True
         
@@ -4270,7 +4270,7 @@ class flam3h_general_utils
             # OLD method 
             # Set all xv_viz multi parameter instance solo toggles back to 0(Zero)
             # This was the old method. It was ~N times slower where N is the number of the iterators.
-            # for mp_id in range(iter_num): node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}").set(0) # type: ignore
+            # for mp_id in range(iter_num): node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{mp_id + 1}").set(0) # type: ignore
             
             prm_mp.set(1)
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 1)
@@ -5743,7 +5743,7 @@ class flam3h_iterator_utils
                     with hou.undos.group(f"FLAM3H™ SET FF user data"): # type: ignore
                         data_iter = node.userData(f"{data_iter_name}")
                         node.setUserData(f"{data_name}", value)
-                        node.setComment(f"{str(data_iter)}, FF")
+                        node.setComment(f"{data_iter}, FF")
                         node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
 
         
@@ -5796,7 +5796,7 @@ class flam3h_iterator_utils
                         flam3h_iterator_utils.destroy_userData(node, f"{data_name}")
                         # node.setComment("")
                         node.setGenericFlag(hou.nodeFlag.DisplayComment, False) # type: ignore
-                        node.setComment(f"{str(data_iter)}")
+                        node.setComment(f"{data_iter}")
                         node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
 
 
@@ -8046,7 +8046,7 @@ class flam3h_iterator_utils
                 
             else:
                 if from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval() == -1:
-                    _MSG: str = f"{node.name()}: {_MSG_UNMARKED}:  {idx}   Unmarked removed iterator -> {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
+                    _MSG: str = f"{node.name()}: {_MSG_UNMARKED}:  {idx}   Unmarked removed iterator -> {hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX}" # type: ignore
                 else:
                     _MSG: str = f"{node.name()}: {_MSG_UNMARKED} -> {idx}"
                     
@@ -8112,9 +8112,9 @@ class flam3h_iterator_utils
                 self.del_comment_and_user_data_iterator(node)
                 self.set_comment_and_user_data_iterator(node, idx)
                 
-                _MSG: str = f"{self.node.name()}: iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
+                _MSG: str = f"{self.node.name()}: iterator MARKED:  {hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX}" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-                flam3h_general_utils.flash_message(node, f"{str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}: MARKED") # type: ignore
+                flam3h_general_utils.flash_message(node, f"{hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX}: MARKED") # type: ignore
                 
             else:
                 self.iterator_mpidx_mem_set(node, id)
@@ -8136,9 +8136,9 @@ class flam3h_iterator_utils
                 self.iterator_mpidx_mem_set(from_FLAM3H_NODE, 0)
                 self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                 
-            _MSG: str = f"{self.node.name()}: iterator MARKED:  {str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}" # type: ignore
+            _MSG: str = f"{self.node.name()}: iterator MARKED:  {hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX}" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"{str(hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX)}: MARKED") # type: ignore
+            flam3h_general_utils.flash_message(node, f"{hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX}: MARKED") # type: ignore
 
 
     def prm_paste(self) -> None:
@@ -8261,7 +8261,7 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.flash_message(node, f"FF UNMARKED")
             else:
-                _MSG: str = f"{node.name()}: This FF is Unmarked already. The marked FF is from node: {str(hou.session.FLAM3H_MARKED_FF_NODE)}.FF" # type: ignore
+                _MSG: str = f"{node.name()}: This FF is Unmarked already. The marked FF is from node: {hou.session.FLAM3H_MARKED_FF_NODE}.FF" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         else:
@@ -9404,7 +9404,7 @@ class flam3h_iterator_utils
         # get mpmem parms now
         mp_mem_name: str = flam3h_iterator_prm_names().main_mpmem
         _mpmem_append: Callable[[int], None] = mpmem.append
-        for mp_idx in range(iter_count): _mpmem_append(int(node.parm(f"{mp_mem_name}_{str(mp_idx + 1)}").eval()))
+        for mp_idx in range(iter_count): _mpmem_append(int(node.parm(f"{mp_mem_name}_{mp_idx + 1}").eval()))
         
         # get mpmem from CachedUserData
         __mpmem_hou_get: list | None = self.auto_set_xaos_data_get_MP_MEM(node)
@@ -9722,7 +9722,7 @@ class flam3h_iterator_utils
         _join: Callable[[Iterable[str]], str] = div_weight.join
         xaos_str_round_floats: list[str] = [_join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)]
         prm_xaos_name: str = flam3h_iterator_prm_names().xaos
-        for mp_idx in range(iter_count): node.parm(f"{prm_xaos_name}_{str(mp_idx + 1)}").deleteAllKeyframes() # This parameter can not be animated
+        for mp_idx in range(iter_count): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").deleteAllKeyframes() # This parameter can not be animated
         for mp_idx, xaos in enumerate(xaos_str_round_floats): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").set(div_xaos + xaos)
         
         # reset iterator's mpmem prm
@@ -10152,7 +10152,7 @@ class flam3h_palette_utils
         
         else:
             # This message when the CP options: palette 256+ toggle is OFF
-            _MSG: str = f'{str(hou.pwd())}: Colors: {str(keys_count)}: to many colors and will default back to the standard 256 color keys for this palette.'
+            _MSG: str = f'{str(hou.pwd())}: Colors: {keys_count}: to many colors and will default back to the standard 256 color keys for this palette.'
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             print(f"{_MSG}\n")
             return PALETTE_COUNT_256
@@ -16595,7 +16595,7 @@ class in_flame_utils
                     print(build)
                                 
                 # Activate iterator
-                node.parm(f"{n.main_vactive}_{str(mp_idx + 1)}").set(1)
+                node.parm(f"{n.main_vactive}_{mp_idx + 1}").set(1)
                 # Set the rest of the iterator(FLAME or FF) parameters
                 apo_data_set: dict[str, tuple | None] = {n.main_note: apo_data.xf_name, 
                                                          n.main_weight: apo_data.weight,
@@ -16666,7 +16666,7 @@ class in_flame_utils
         sw: str = f"Software: {apo_data.sw_version[preset_id]}"
         name: str = f"Name: {apo_data.name[preset_id]}"
         assert apo_data.xforms is not None
-        iter_count: str = f"Iterators count: {str(len(apo_data.xforms))}"
+        iter_count: str = f"Iterators count: {len(apo_data.xforms)}"
         post: str = f"Post affine: {post_bool_msg}"
         opacity: str = f"Opacity: {opacity_bool_msg}"
         xaos: str = f"Xaos: {xaos_bool_msg}"
@@ -18393,7 +18393,7 @@ class out_flame_utils
                 build: str = ''.join([item.strip() for item in splt[:-1]])
                 if flame: 
                     if autoadd:
-                        return f"{build}{FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV}{str(iter_num)}"
+                        return f"{build}{FLAM3H_IN_ITERATIONS_FLAME_NAME_DIV}{iter_num}"
                     
                     return build
                     
@@ -19451,7 +19451,7 @@ class out_flame_utils
                 if apo_data.palette is not None:
                     
                     palette = len(apo_data.palette[0].keys())
-                    build.append(f"Palette: {str(palette)}")
+                    build.append(f"Palette: {palette}")
                     build_flash = build.copy()
                     if apo_data.cp_flam3h_hsv is not False:
                         assert isinstance(apo_data.cp_flam3h_hsv, hou.Vector3)
@@ -20238,23 +20238,23 @@ class out_flame_utils
             
             _MSG_PRE = _MSG_VAR = ''
             if bool_VARS_PRE:
-                dup = ''.join(f"\titerator.{key}\n\t\t{str(', '.join(val))}\n" for key, val in iter_PRE_dup.items())
+                dup = ''.join(f"\titerator.{key}\n\t\t{', '.join(val)}\n" for key, val in iter_PRE_dup.items())
                 assert isinstance(dup, str)
                 _MSG_PRE = f"\nPRE\n{dup}"
             
             if bool_VARS:
-                dup = ''.join(f"\titerator.{key}\n\t\t{str(', '.join(val))}\n" for key, val in iter_VAR_dup.items())
+                dup = ''.join(f"\titerator.{key}\n\t\t{', '.join(val)}\n" for key, val in iter_VAR_dup.items())
                 assert isinstance(dup, str)
                 _MSG_VAR = f"\nVAR\n{dup}"
                 
             _MSG_FF_VAR = _MSG_FF_POST = ''
             if bool_VARS_FF:
-                dup = ''.join(f"{str(', '.join(val))}\n" for val in _FF_VAR_dup.values())
+                dup = ''.join(f"{', '.join(val)}\n" for val in _FF_VAR_dup.values())
                 assert isinstance(dup, str)
                 _MSG_FF_VAR = f"\nFF VAR\n\t{dup}"
             
             if bool_VARS_POST_FF:
-                dup = ''.join(f"{str(', '.join(val))}\n" for val in _FF_POST_dup.values())
+                dup = ''.join(f"{', '.join(val)}\n" for val in _FF_POST_dup.values())
                 assert isinstance(dup, str)
                 _MSG_FF_POST = f"\nFF POST\n\t{dup}"
                 
