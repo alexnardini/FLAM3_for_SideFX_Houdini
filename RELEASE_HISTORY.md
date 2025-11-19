@@ -33,6 +33,24 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.44 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.44) ###
+
+_This an only H21 release (FLAM3H™)_.
+
+#### FLAM3H™ ####
+
+- **Fix H21.0 UP ONLY**: A regression from preview version caused an error when loading back Flames with post affine **On**. It is now fixed.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.43 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.43) ###
 
 _This an only H21 release (FLAM3H™ and FLAM3HUSD)_.
