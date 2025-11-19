@@ -303,13 +303,13 @@ class flam3husd_scripts
         # The following are FLAM3HUSD UI utility parameters
         # hence they do not have a global variable and only hard coded here.
         """
-        disabler_prm_names: tuple = ("cpdisable",
-                                     "hide_palette",
-                                     "indisable",
-                                     "outdisable",
-                                     "prefsdisable",
-                                     "aboutdisable"
-                                     )
+        disabler_prm_names: tuple[str, ...] = ( "cpdisable",
+                                                "hide_palette",
+                                                "indisable",
+                                                "outdisable",
+                                                "prefsdisable",
+                                                "aboutdisable"
+                                                )
         
         for prm_name in disabler_prm_names:
             parm = node.parm(prm_name)
@@ -868,7 +868,7 @@ class flam3husd_scripts
         node: hou.LopNode = self.node
         
         views = flam3husd_general_utils.util_getSceneViewers()
-        renderers: list = []
+        renderers: list[str] = []
         
         for v in views:
             # Store only if it is a Lop viewer
