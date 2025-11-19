@@ -4303,8 +4303,8 @@ class flam3h_general_utils
         """    
         node: hou.SopNode = self.node
         
-        prm_xfviz_solo = node.parm(PREFS_PVT_XF_VIZ_SOLO).eval()
-        prm_xfviz_solo_follow = node.parm(PREFS_SOLO_FOLLOW).eval()
+        prm_xfviz_solo: int = node.parm(PREFS_PVT_XF_VIZ_SOLO).eval()
+        prm_xfviz_solo_follow: int = node.parm(PREFS_SOLO_FOLLOW).eval()
         
         # If any of the iterators is in SOLO mode
         if prm_xfviz_solo and prm_xfviz_solo_follow:
@@ -4841,7 +4841,7 @@ class flam3h_general_utils
         """  
         # Do this only if the parameter toggle is: PREFS_VIEWPORT_DARK
         parm: hou.Parm | None = self.kwargs.get('parm')
-        _ENTER_PRM = None
+        _ENTER_PRM: str | None = None
         if parm is not None: _ENTER_PRM = parm.name()
         if _ENTER_PRM is not None and _ENTER_PRM == PREFS_VIEWPORT_DARK:
             views_scheme: list[hou.viewportColorScheme]  = []
@@ -5135,7 +5135,7 @@ class flam3h_general_utils
                 self.private_prm_deleteAllKeyframes(f3h, PREFS_PVT_VIEWPORT_PT_SIZE_MEM)
             
             # Update Point Size preference's option toggle on other FLAM3H™ nodes instances
-            if prm_name_size == PREFS_VIEWPORT_PT_SIZE and node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
+            if prm_name_size == PREFS_VIEWPORT_PT_SIZE and node.parm(PREFS_VIEWPORT_PT_TYPE).eval() == 0:
                 
                 if allowed_viewers:
                     for f3h in all_f3h:
@@ -5170,7 +5170,7 @@ class flam3h_general_utils
             (None):
         """
         node: hou.SopNode = self.node
-        width: float = node.parm(PREFS_VIEWPORT_WIRE_WIDTH).evalAsFloat()
+        width: float = node.parm(PREFS_VIEWPORT_WIRE_WIDTH).eval()
         width_mem: float = node.parm(PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM).eval()
 
         allowed_viewers: bool = False
@@ -7425,7 +7425,7 @@ class flam3h_iterator_utils
         if from_FLAM3HNODE is not None and node == from_FLAM3HNODE:  # type: ignore
             hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
             # Reset internal mpidx memory to a None value
-            if node.parm(FLAM3H_DATA_PRM_MPIDX).evalAsInt() != 0:
+            if node.parm(FLAM3H_DATA_PRM_MPIDX).eval() != 0:
                 self.iterator_mpidx_mem_set(node, 0)
             if hipLoad:
                 # This is needed on hip file load to allow: def flam3h_init_hou_session_restore_from_user_data(node: hou.SopNode) -> None:
@@ -18129,8 +18129,8 @@ class out_flame_utils
         self._flam3h_rip: int = self._node.parm(PREFS_PVT_RIP).eval()
         self._flam3h_mb_do: int = self._node.parm(MB_DO).eval()
         self._flam3h_f3c: int = self._node.parm(PREFS_PVT_F3C).eval()
-        self._flam3h_cp_lookup_samples: int = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).evalAsInt()
-        self._flam3h_cp_basis: int = self._node.parm(CP_RAMP_LOOKUP_SAMPLES_BASES).evalAsInt()
+        self._flam3h_cp_lookup_samples: int = self._node.parm(CP_RAMP_LOOKUP_SAMPLES).eval()
+        self._flam3h_cp_basis: int = self._node.parm(CP_RAMP_LOOKUP_SAMPLES_BASES).eval()
         
     
     @staticmethod
