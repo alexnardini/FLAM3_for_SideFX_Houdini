@@ -510,7 +510,7 @@ class flam3husd_scripts
     ##########################################
 
     @property
-    def kwargs(self) -> dict:
+    def kwargs(self) ->  dict[str, Any]:
         return self._kwargs
     
     @property
@@ -1030,7 +1030,7 @@ class flam3husd_general_utils
         Returns:
             (None):
         """ 
-        self._kwargs: dict = kwargs
+        self._kwargs: dict[str, Any] = kwargs
         self._node: hou.LopNode = kwargs['node']
         self._bbox_reframe_path: str | None = self.get_node_path(NODE_NAME_OUT_BBOX_REFRAME)
         
@@ -1385,7 +1385,7 @@ class flam3husd_general_utils
     ##########################################
 
     @property
-    def kwargs(self) -> dict:
+    def kwargs(self) ->  dict[str, Any]:
         return self._kwargs
     
     @property
@@ -2111,7 +2111,7 @@ class flam3husd_about_utils
         Returns:
             (None):
         """ 
-        self._kwargs: dict = kwargs
+        self._kwargs: dict[str, Any] = kwargs
         self._node: hou.LopNode = kwargs['node']
 
 
@@ -2120,7 +2120,7 @@ class flam3husd_about_utils
     ##########################################
 
     @property
-    def kwargs(self) -> dict:
+    def kwargs(self) ->  dict[str, Any]:
         return self._kwargs
     
     @property

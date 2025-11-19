@@ -508,7 +508,7 @@ F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
         Returns:
             (None):
         """  
-        self._kwargs: dict = kwargs
+        self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
         
     
@@ -557,7 +557,7 @@ F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
     ##########################################
 
     @property
-    def kwargs(self) -> dict:
+    def kwargs(self) ->  dict[str, Any]:
         return self._kwargs
     
     @property
@@ -1493,7 +1493,7 @@ class flam3h_scripts
         Returns:
             (None):
         """  
-        self._kwargs: dict = kwargs
+        self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
         
         
@@ -1944,7 +1944,7 @@ class flam3h_scripts
     ##########################################
 
     @property
-    def kwargs(self) -> dict:
+    def kwargs(self) ->  dict[str, Any]:
         return self._kwargs
     
     @property
@@ -2806,7 +2806,7 @@ class flam3h_general_utils
         Returns:
             (None):
         """ 
-        self._kwargs: dict = kwargs
+        self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
         # Why am I doing the following ? Because with time FLAM3H™ grew and evolved and I was tiered to keep updating an hard coded node path,
         # hence I added the following so I can always find the nodes even if I place them in different locations from time to time.
@@ -3480,7 +3480,7 @@ class flam3h_general_utils
     ##########################################
 
     @property
-    def kwargs(self) -> dict:
+    def kwargs(self) ->  dict[str, Any]:
         return self._kwargs
     
     @property
@@ -4926,7 +4926,7 @@ class flam3h_general_utils
                 except AttributeError:
                     _STASH_DICT: dict[str, hou.EnumValue] | None = None
                     
-                dark = False
+                dark: bool = False
                 allowed_viewers: bool = False
                 if _STASH_DICT is not None:
                     for v in views:
@@ -5512,7 +5512,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """ 
-        self._kwargs: dict = kwargs
+        self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
         
         
@@ -6558,7 +6558,7 @@ class flam3h_iterator_utils
     ##########################################
 
     @property
-    def kwargs(self) -> dict:
+    def kwargs(self) ->  dict[str, Any]:
         return self._kwargs
         
     @property
@@ -7634,8 +7634,8 @@ class flam3h_iterator_utils
                     
                     assert from_FLAM3H_NODE is not None
                     
-                    _FLAM3H_DATA_PRM_MPIDX = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
-                    __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+                    _FLAM3H_DATA_PRM_MPIDX: int = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
+                    __FLAM3H_DATA_PRM_MPIDX: int = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                     
                     if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
                         menu = MENU_ITER_COPY_PASTE_REMOVED
@@ -10055,7 +10055,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """ 
-        self._kwargs: dict = kwargs
+        self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
         self._palette_plus_do: int = self._node.parm(CP_PALETTE_256_PLUS).eval()
         
@@ -10526,7 +10526,7 @@ class flam3h_palette_utils
     ##########################################
 
     @property
-    def kwargs(self) -> dict:
+    def kwargs(self) ->  dict[str, Any]:
         return self._kwargs
     
     @property
@@ -11714,7 +11714,7 @@ class flam3h_about_utils
         Returns:
             (None):
         """ 
-        self._kwargs: dict = kwargs
+        self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
         
 
@@ -11723,7 +11723,7 @@ class flam3h_about_utils
     ##########################################
         
     @property
-    def kwargs(self) -> dict:
+    def kwargs(self) ->  dict[str, Any]:
         return self._kwargs
     
     @property
@@ -12004,7 +12004,7 @@ class flam3h_ui_msg_utils
         Returns:
             (None):
         """ 
-        self._kwargs: dict = kwargs
+        self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
 
 
@@ -12013,7 +12013,7 @@ class flam3h_ui_msg_utils
     ##########################################
         
     @property
-    def kwargs(self) -> dict:
+    def kwargs(self) ->  dict[str, Any]:
         return self._kwargs
     
     @property
@@ -14373,7 +14373,7 @@ class in_flame_utils
         Returns:
             (None):
         """ 
-        self._kwargs: dict = kwargs
+        self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
         
         
@@ -16357,7 +16357,7 @@ class in_flame_utils
 
 
     @property
-    def kwargs(self) -> dict:
+    def kwargs(self) ->  dict[str, Any]:
         return self._kwargs
     
     @property
@@ -17595,7 +17595,7 @@ class in_flame_utils
         # Get start directory if one is already set in the IN file path (e.g. a Flame file is already being loaded)
         _START_DIR: str | None = flam3h_general_utils.select_file_start_dir(node)
         # Open a floating file chooser
-        flameFile = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
+        flameFile: str = hou.ui.selectFile(start_directory=_START_DIR, title="FLAM3H™ Load a *.flame file", collapse_sequences=False, file_type=hou.fileType.Any, pattern="*.flame", default_value=None, multiple_select=False, image_chooser=None, chooser_mode=hou.fileChooserMode.Read, width=0, height=0)  # type: ignore
         flameFile_expandvars: str = os.path.expandvars(flameFile)
         
         dir: str = os.path.dirname(flameFile_expandvars)
@@ -18106,12 +18106,12 @@ class out_flame_utils
         Returns:
             (None):
         """ 
-        self._kwargs: dict = kwargs
+        self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
         
-        self._flam3h_iter_prm_names = flam3h_iterator_prm_names()
-        self._flam3h_iter = flam3h_iterator()
-        self._flam3h_iter_FF = flam3h_iterator_FF()
+        self._flam3h_iter_prm_names: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
+        self._flam3h_iter: flam3h_iterator = flam3h_iterator()
+        self._flam3h_iter_FF: flam3h_iterator_FF = flam3h_iterator_FF()
         self._flam3h_do_FF: int = self._node.parm(PREFS_PVT_DOFF).eval()
         
         self._iter_count: int = self._node.parm(FLAME_ITERATORS_COUNT).eval()
@@ -19181,7 +19181,7 @@ class out_flame_utils
     ##########################################
 
     @property
-    def kwargs(self) -> dict:
+    def kwargs(self) ->  dict[str, Any]:
         return self._kwargs
 
     @property
