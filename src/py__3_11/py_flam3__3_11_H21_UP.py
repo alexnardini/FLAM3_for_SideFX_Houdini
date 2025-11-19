@@ -175,10 +175,12 @@ def cached_slot_property(func):
 
     return cached
 
-# TypeAlias
+# TypeVar
 T = TypeVar('T')
+# TypeAlias
 TA_Affine: TypeAlias = list[Iterable[float]]
-TA_OUT_Affine: TypeAlias = tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]
+TA_OUT_Pre_Affine: TypeAlias = tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]
+TA_OUT_Post_Affine: TypeAlias = tuple[tuple[str | list[Never], ...], tuple[str | list[Never], ...], tuple[str | list[Never], ...]]
 TA_OUT_Affine_FF: TypeAlias = tuple[str, str, str]
 TA_STR_ListUnflattened: TypeAlias = list[list[str]]
 TA_XAOS_Collect: TypeAlias = list[list[str | float] | list[Never]]
@@ -2982,7 +2984,7 @@ class flam3h_general_utils
             (None):
         """  
         stats: str = node.parm(MSG_IN_FLAMESTATS).eval()
-        lines: list = stats.splitlines()
+        lines: list[str] = stats.splitlines()
         if lines[0] == MSG_FLAMESTATS_LOCK: lines[0] = ''
         stats_join: str = "\n".join(lines)
         node.parm(MSG_IN_FLAMESTATS).set(stats_join)
@@ -3801,7 +3803,7 @@ class flam3h_general_utils
             viewports: list[hou.SceneViewer] = self.util_getSceneViewers()
             if len(viewports):
                 
-                lop_viewports: list = []
+                lop_viewports: list[bool] = []
                 allowed_viewers: bool = False
                 # Set them all without storing any stashed camera data 
                 self.util_set_clipping_viewers()
@@ -4985,7 +4987,7 @@ class flam3h_general_utils
             # Update dark preference's option toggle on other FLAM3H™ nodes instances
             all_f3h: tuple[hou.SopNode, ...] = self.node.type().instances()
             if len(all_f3h) > 1:
-                val = prm.eval()
+                val: int = prm.eval()
                 for f3h in all_f3h:
                     if f3h is node:
                         continue
@@ -6193,7 +6195,7 @@ class flam3h_iterator_utils
         search_FF: str = ".FF"
 
         if _note.find("(") or _note.find(")") == -1:
-            _note_split: list = _note.split()
+            _note_split: list[str] = _note.split()
             if len(_note_split) > 1 and (search_iter in _note_split[-1].rpartition(search_iter) or search_FF in _note_split[-1].rpartition(search_FF)):
                 note: str = f"({' '.join(_note_split[0:-1])}) "
             elif len(_note.split(".")) > 1 and ("iter" in _note.split(".") or "FF" in _note.split(".")):
@@ -7032,10 +7034,10 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        menu: list = copy(MENU_VARS_ALL_SIMPLE)
+        menu: list[int | str] = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = (self.menu_T_data, self.menu_T_FF_data)[FF]()
         var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
-        if var is not None: menu[var] = f"{_ICON} {menu[var][:20]}"
+        if var is not None: menu[var] = f"{_ICON} {str(menu[var])[:20]}"
 
         return menu
 
@@ -7056,11 +7058,11 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        menu: list = copy(MENU_VARS_ALL_SIMPLE)
+        menu: list[int | str] = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = (self.menu_T_PP_data, self.menu_T_PP_FF_data)[FF]()
         var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
-        if var is not None: menu[var] = f"{_ICON} {menu[var][:20]}"
-            
+        if var is not None: menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+        
         return menu
     
     
@@ -10070,9 +10072,9 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        cp_def_bases: list = [hou.rampBasis.Linear] * 4 # type: ignore
-        cp_def_keys: list = [0.0, 0.25, 0.5, 0.75, 1.0]
-        cp_def_values: list[tuple] = [(0.2, 0.05, 1), (0.1, 0.85 , 1), (0.05, 1, 0.1), (0.95, 1, 0.1), (1, 0.05, 0.05)]
+        cp_def_bases: list[hou.EnumValue] = [hou.rampBasis.Linear] * 4 # type: ignore
+        cp_def_keys: list[float] = [0.0, 0.25, 0.5, 0.75, 1.0]
+        cp_def_values: list[tuple[float, ...]] = [(0.2, 0.05, 1), (0.1, 0.85 , 1), (0.05, 1, 0.1), (0.95, 1, 0.1), (1, 0.05, 0.05)]
         ramp_parm.set(hou.Ramp(cp_def_bases, cp_def_keys, cp_def_values)) # type: ignore
         
         
@@ -10086,9 +10088,9 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        cp_tmp_bases: list = [hou.rampBasis.Linear] * 2  # type: ignore
-        cp_tmp_keys: list = [0.0, 1.0]
-        cp_tmp_values: list[tuple] = [(0.9989989989989989987654, 0, 0), (0.9989989989989989987654, 0 , 0)]
+        cp_tmp_bases: list[hou.EnumValue] = [hou.rampBasis.Linear] * 2  # type: ignore
+        cp_tmp_keys: list[float] = [0.0, 1.0]
+        cp_tmp_values: list[tuple[float, ...]] = [(0.9989989989989989987654, 0, 0), (0.9989989989989989987654, 0 , 0)]
         ramp_tmp_parm.set(hou.Ramp(cp_tmp_bases, cp_tmp_keys, cp_tmp_values)) # type: ignore
         
         
@@ -11255,17 +11257,17 @@ class flam3h_palette_utils
                     rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
                     
                     try:
-                        hsv_vals: list = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
+                        hsv_vals: list[float] = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
                         
                     except (KeyError, ValueError):
-                        hsv_vals: list = []
+                        hsv_vals: list[float] = []
                         hsv_check: bool = False
                         
                     else:
                         hsv_check: bool = True
                     
                     # Get usable color values
-                    HEXs: list = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
+                    HEXs: list[str] = [hex for hex in wrap(data[CP_JSON_KEY_NAME_HEX], 6)]
                     
                     try:
                         _hex_to_rgb: Callable[[str], tuple] = self.hex_to_rgb
@@ -11448,7 +11450,8 @@ class flam3h_palette_utils
             rmpsrc: hou.Ramp = node.parm(CP_RAMP_SRC_NAME).evalAsRamp()
             _hsv_to_rgb: Callable[[float, float, float], tuple[float, float, float]] = colorsys.hsv_to_rgb
             _rgb_to_hsv: Callable[[float, float, float], tuple[float, float, float]] = colorsys.rgb_to_hsv
-            _RGBs: list = [_hsv_to_rgb(h + hsvprm_vals[0], s * hsvprm_vals[1], v * hsvprm_vals[2]) for h, s, v in (_rgb_to_hsv(r, g, b) for r, g, b in rmpsrc.values())]
+            _RGBs: list[tuple[float, float, float]] = [_hsv_to_rgb(h + hsvprm_vals[0], s * hsvprm_vals[1], v * hsvprm_vals[2]) for h, s, v in (_rgb_to_hsv(r, g, b) for r, g, b in rmpsrc.values())]
+            
             # Set the ramp
             rmphsv = node.parm(CP_RAMP_HSV_NAME)
             rmphsv.set(hou.Ramp(rmpsrc.basis(), rmpsrc.keys(), _RGBs))
@@ -18079,8 +18082,8 @@ class out_flame_utils
 * __out_finalxf_name(self) -> str:
 * __out_xf_pre_blur(self) -> tuple[str, ...]:
 * __out_xf_xaos(self) -> tuple[str, ...]:
-* __out_xf_preaffine(self) -> TA_OUT_Affine:
-* __out_xf_postaffine(self) -> TA_OUT_Affine:
+* __out_xf_preaffine(self) -> TA_OUT_Pre_Affine:
+* __out_xf_postaffine(self) -> TA_OUT_Post_Affine:
 * __out_finalxf_preaffine(self) -> TA_OUT_Affine_FF:
 * __out_finalxf_postaffine(self) -> TA_OUT_Affine_FF:
 * __out_palette_hex(self) -> str:
@@ -20368,9 +20371,13 @@ class out_flame_utils
         names_VARS_PRE: list = []
         names_VARS_POST: list = []
         xml_xf_names: tuple[str, ...] = self.out_buil_xf_names(f3d)
+        
         for iter in range(f3d.iter_count):
+            
             mp_idx = str(int(iter + 1))
+            
             if int(f3d.xf_vactive[iter]):
+                
                 xf: lxmlET._Element = lxmlET.SubElement(flame, XML_XF) # type: ignore
                 xf.tag = XML_XF
                 xf.set(XML_XF_NAME, xml_xf_names[iter])
@@ -20381,17 +20388,23 @@ class out_flame_utils
                 if f3d.xf_pre_blur[iter]:
                     name_PRE_BLUR = XML_XF_PB
                     xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
+                    
                 xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
-                if f3d.f3h_affine and float(f3d.xf_f3h_preaffine_angle[iter]) != 0:
+                angle: str | list[Never] = f3d.xf_f3h_preaffine_angle[iter]
+                if f3d.f3h_affine and isinstance(angle, str) and float(angle) != 0:
                     xf.set(XML_FLAM3H_PRE_AFFINE, f3d.xf_f3h_preaffine[iter])
                     xf.set(XML_FLAM3H_PRE_AFFINE_ANGLE, f3d.xf_f3h_preaffine_angle[iter])
+                    
                 if f3d.xf_postaffine[iter]:
                     xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
-                    if f3d.f3h_affine and float(f3d.xf_f3h_postaffine_angle[iter]) != 0:
+                    f3h_angle: str | list[Never] = f3d.xf_f3h_postaffine_angle[iter]
+                    if f3d.f3h_affine and isinstance(f3h_angle, str) and float(f3h_angle) != 0:
                         xf.set(XML_FLAM3H_POST_AFFINE, f3d.xf_f3h_postaffine[iter])
                         xf.set(XML_FLAM3H_POST_AFFINE_ANGLE, f3d.xf_f3h_postaffine_angle[iter])
+                        
                 if f3d.xf_xaos[iter]:
                     xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
+                    
                 xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
                 f3h_iter = flam3h_iterator()
                 names_VARS.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_varsT, f3h_iter.sec_varsW, xf, mp_idx, in_flame_utils.in_util_make_NULL))
@@ -20402,6 +20415,7 @@ class out_flame_utils
         names_VARS_FF: list[str] = []
         names_VARS_PRE_FF: list[str] = []
         names_VARS_POST_FF: list[str] = []
+        
         if f3d.flam3h_do_FF:
             finalxf: lxmlET._Element = lxmlET.SubElement(flame, XML_FF) # type: ignore
             finalxf.tag = XML_FF
@@ -20410,15 +20424,18 @@ class out_flame_utils
             finalxf.set(XML_XF_VAR_COLOR, '1')
             finalxf.set(XML_XF_COLOR_SPEED, '0')
             finalxf.set(XML_XF_SYMMETRY, '1')
+            
             finalxf.set(XML_PRE_AFFINE, f3d.finalxf_preaffine)
             if f3d.f3h_affine and float(f3d.finalxf_f3h_preaffine_angle) != 0:
                 finalxf.set(XML_FLAM3H_PRE_AFFINE, f3d.finalxf_f3h_preaffine)
                 finalxf.set(XML_FLAM3H_PRE_AFFINE_ANGLE, f3d.finalxf_f3h_preaffine_angle)
+                
             if f3d.finalxf_postaffine:
                 finalxf.set(XML_POST_AFFINE, f3d.finalxf_postaffine)
                 if f3d.f3h_affine and float(f3d.finalxf_f3h_postaffine_angle) != 0:
                     finalxf.set(XML_FLAM3H_POST_AFFINE, f3d.finalxf_f3h_postaffine)
                     finalxf.set(XML_FLAM3H_POST_AFFINE_ANGLE, f3d.finalxf_f3h_postaffine_angle)
+                    
             f3h_iter_FF = flam3h_iterator_FF()
             names_VARS_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), f3h_iter_FF.sec_varsT_FF, f3h_iter_FF.sec_varsW_FF, finalxf, '', in_flame_utils.in_util_make_NULL)
             names_VARS_PRE_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), f3h_iter_FF.sec_prevarsT_FF, f3h_iter_FF.sec_prevarsW_FF, finalxf, '', in_flame_utils.in_util_make_PRE)
@@ -20913,7 +20930,7 @@ class out_flame_utils
         return self.out_xf_xaos_to()
 
 
-    def __out_xf_preaffine(self) -> TA_OUT_Affine:
+    def __out_xf_preaffine(self) -> TA_OUT_Pre_Affine:
         """Prepare each xform/iterator pre_affine parameters for writing out.</br>
         This will prep both flam3_affine style and F3H_affine style.</br>
         In case of the F3H_affine style it will prep the Rotation angle parameter as well.</br>
@@ -20922,11 +20939,11 @@ class out_flame_utils
             (self):
 
         Returns:
-            (TA_OUT_Affine): tuple[tuple[flam3_affine], tuple[F3H_affine], tuple[F3H Rotation angle]]. tuple of all the FLAM3H™ xforms/iterators pre_affine parameters prepped into strings for writing out into the Flame preset file.
+            (TA_OUT_Pre_Affine): tuple[tuple[flam3_affine], tuple[F3H_affine], tuple[F3H Rotation angle]]. tuple of all the FLAM3H™ xforms/iterators pre_affine parameters prepped into strings for writing out into the Flame preset file.
         """   
-        val: list = []
-        f3h_val: list = []
-        f3h_angleDeg: list = []
+        val: list[list[str]] = []
+        f3h_val: list[list[str]] = []
+        f3h_angleDeg: list[str] = []
         for iter in range(self.iter_count):
             iter_num: int = iter + 1
             collect: TA_Affine = self.get_iter_affine_pre(iterator_num=iter_num)
@@ -20941,7 +20958,7 @@ class out_flame_utils
         return tuple(_join(x) for x in self.out_util_round_floats(val)), tuple(_join(x) for x in self.out_util_round_floats(f3h_val)), tuple(f3h_angleDeg)
     
     
-    def __out_xf_postaffine(self) -> TA_OUT_Affine:
+    def __out_xf_postaffine(self) -> TA_OUT_Post_Affine:
         """Prepare each xform/iterator post_affine parameters for writing out.</br>
         This will prep both flam3_affine style and F3H_affine style.</br>
         In case of the F3H_affine style it will prep the Rotation angle parameter as well.</br>
@@ -20950,11 +20967,11 @@ class out_flame_utils
             (self):
 
         Returns:
-            (TA_OUT_Affine): tuple[tuple[str: flam3_affine], tuple[str: F3H_affine], tuple[str: F3H Rotation angle]]. tuple of all the FLAM3H™ xforms/iterators post_affine parameters prepped into strings for writing out into the Flame preset file.
+            (TA_OUT_Post_Affine): tuple[tuple[str: flam3_affine], tuple[str: F3H_affine], tuple[str: F3H Rotation angle]]. tuple of all the FLAM3H™ xforms/iterators post_affine parameters prepped into strings for writing out into the Flame preset file.
         """   
-        val: list = []
-        f3h_val: list = []
-        f3h_angleDeg: list = []
+        val: list[list[str] | list[Never]] = []
+        f3h_val: list[list[str] | list[Never]] = []
+        f3h_angleDeg: list[str | list[Never]] = []
         for iter in range(self.iter_count):
             if self.node.parm(f"{self.flam3h_iter_prm_names.postaffine_do}_{iter + 1}").eval():
                 iter_num: int = iter + 1
@@ -20974,7 +20991,7 @@ class out_flame_utils
                 val.append([])
                 f3h_val.append([])
                 f3h_angleDeg.append([])
-                
+
         _join: Callable[[Iterable[str]], str] = ' '.join
         return tuple(_join(x) for x in self.out_util_round_floats(val)), tuple(_join(x) for x in self.out_util_round_floats(f3h_val)), tuple(f3h_angleDeg)
 
@@ -21427,8 +21444,8 @@ class out_flame_xforms_data(out_flame_utils):
         self._xf_f3h_preaffine: tuple[str, ...] = self._out_flame_utils__out_xf_preaffine()[1] # type: ignore
         self._xf_f3h_preaffine_angle: tuple[str, ...] = self._out_flame_utils__out_xf_preaffine()[2] # type: ignore
         self._xf_postaffine: tuple[str, ...] = self._out_flame_utils__out_xf_postaffine()[0] # type: ignore
-        self._xf_f3h_postaffine: tuple[str, ...] = self._out_flame_utils__out_xf_postaffine()[1] # type: ignore
-        self._xf_f3h_postaffine_angle: tuple[str, ...] = self._out_flame_utils__out_xf_postaffine()[2] # type: ignore
+        self._xf_f3h_postaffine: tuple[str | list[Never], ...] = self._out_flame_utils__out_xf_postaffine()[1] # type: ignore
+        self._xf_f3h_postaffine_angle: tuple[str | list[Never], ...] = self._out_flame_utils__out_xf_postaffine()[2] # type: ignore
         
         self._finalxf_name: str = self._out_flame_utils__out_finalxf_name() # type: ignore
         self._finalxf_preaffine: str = self._out_flame_utils__out_finalxf_preaffine()[0] # type: ignore
@@ -21498,11 +21515,11 @@ class out_flame_xforms_data(out_flame_utils):
         return self._xf_postaffine
     
     @property
-    def xf_f3h_postaffine(self) -> tuple[str, ...]:
+    def xf_f3h_postaffine(self) -> tuple[str | list[Never], ...]:
         return self._xf_f3h_postaffine
     
     @property
-    def xf_f3h_postaffine_angle(self) -> tuple[str, ...]:
+    def xf_f3h_postaffine_angle(self) -> tuple[str | list[Never], ...]:
         return self._xf_f3h_postaffine_angle
     
     @property
