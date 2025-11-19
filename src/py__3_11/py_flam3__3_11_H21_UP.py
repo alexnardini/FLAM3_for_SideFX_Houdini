@@ -14805,7 +14805,7 @@ class in_flame_utils
             if apo_data.post is not None and apo_data.post[mp_idx]:
                 node.parm(f"{prx}{flam3h_prm_names.postaffine_do}_{idx}").set(1)
                 if f3h_affine and apo_data.f3h_post is not None and apo_data.f3h_post[mp_idx]:
-                    for id in range(3): node.parmTuple({f"{prx}{post_affine[id]}_{idx}": apo_data.f3h_post[mp_idx][id]}) # type: ignore
+                    for id in range(3): node.parmTuple(f"{prx}{post_affine[id]}_{idx}").set(apo_data.f3h_post[mp_idx][id]) # type: ignore
                     node.parm(f"{prx}{flam3h_prm_names.postaffine_ang}_{idx}").set(apo_data.f3h_post_angle[mp_idx])
                     
                 else:
