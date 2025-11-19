@@ -5550,9 +5550,6 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        # Force menu update
-        flam3h_iterator_utils.destroy_cachedUserData(node, 'global_density_menu')
-        
         density: int = node.parm(GLB_DENSITY).eval()
         # node.parm(GLB_DENSITY).deleteAllKeyframes() # This is commented out for now to allow to anim the density only from here
         node.parm(GLB_DENSITY_PRESETS).deleteAllKeyframes()
@@ -6410,7 +6407,6 @@ class flam3h_iterator_utils
         
         So far the cached user data names being used are:
         
-        * global_density_menu
         * iter_sel
         * iter_sel_n
         * iter_sel_a
@@ -7456,30 +7452,17 @@ class flam3h_iterator_utils
             (TA_Menu): return menu list
         """
         node: hou.SopNode = self.node
+        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+            return MENU_DENSITY
         
-        # Retrieve menu from cache
-        data: TA_Menu | None = node.cachedUserData('global_density_menu')
-        if data is not None:
-            return data
+        elif node.parm(PREFS_PVT_XF_VIZ).eval():
+            if node.parm(PREFS_PVT_XF_VIZ_SOLO).eval() or node.parm(PREFS_PVT_XF_FF_VIZ_SOLO).eval():
+                return MENU_DENSITY_XFVIZ_ON_SOLO
+            
+            return MENU_DENSITY_XFVIZ_ON
         
         else:
-            menu: TA_Menu = []
-            
-            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
-                menu = MENU_DENSITY
-            
-            elif node.parm(PREFS_PVT_XF_VIZ).eval():
-                if node.parm(PREFS_PVT_XF_VIZ_SOLO).eval() or node.parm(PREFS_PVT_XF_FF_VIZ_SOLO).eval():
-                    menu = MENU_DENSITY_XFVIZ_ON_SOLO
-                
-                menu = MENU_DENSITY_XFVIZ_ON
-            
-            else:
-                menu = MENU_DENSITY_XFVIZ_OFF
-                
-            # Cache menu
-            node.setCachedUserData('global_density_menu', menu)
-            return menu
+            return MENU_DENSITY_XFVIZ_OFF
     
     
     def menu_global_density_set(self) -> None:
@@ -7492,10 +7475,6 @@ class flam3h_iterator_utils
             (None):
         """       
         node: hou.SopNode = self.node
-        
-        # Force menu update
-        self.destroy_cachedUserData(node, 'global_density_menu')
-        
         ptcount: int = node.parm(GLB_DENSITY).eval()
         sel: int = self.kwargs['parm'].evalAsInt()
         vals: dict[int, int] = { 1: 500000, 2: 1000000, 3: 2000000, 4: 5000000, 5: 15000000, 6: 25000000, 7: 50000000, 8: 100000000, 9: 150000000, 10: 250000000, 11: 500000000, 12: 750000000, 13: 1000000000}
@@ -7527,9 +7506,6 @@ class flam3h_iterator_utils
         """
         node: hou.SopNode = self.node
         kwargs: dict = self.kwargs
-        
-        # Force menu update
-        self.destroy_cachedUserData(node, 'global_density_menu')
         
         glb_density: int = node.parm(GLB_DENSITY).eval()
         
