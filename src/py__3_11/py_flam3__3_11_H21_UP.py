@@ -178,11 +178,13 @@ def cached_slot_property(func):
 # TypeAlias
 T = TypeVar('T')
 TA_Affine: TypeAlias = list[Iterable[float]]
+TA_OUT_Affine: TypeAlias = tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]
+TA_OUT_Affine_FF: TypeAlias = tuple[str, str, str]
 TA_STR_ListUnflattened: TypeAlias = list[list[str]]
 TA_XAOS_Collect: TypeAlias = list[list[str | float] | list[Never]]
 TA_RoundFloats: TypeAlias = Iterable[Iterable[str | float]]
 TA_TypeVarCollection: TypeAlias = str | list | tuple | KeysView
-TA_XformVarKeys: TypeAlias = str | Iterable[str] | dict[str, int] | dict[str, tuple[str, ...]] | dict[str, set[str]] | KeysView | None
+TA_XformVarKeys: TypeAlias = Iterable[str] | dict[str, int] | dict[str, Iterable[str]] | KeysView | None
 TA_TypeMaker: TypeAlias = list | float | hou.Vector2 | hou.Vector3 | hou.Vector4
 TA_F3H_Init: TypeAlias = tuple[str | None, bool, int, str, bool, bool]
 TA_MNode: TypeAlias = hou.SopNode | None
@@ -18077,10 +18079,10 @@ class out_flame_utils
 * __out_finalxf_name(self) -> str:
 * __out_xf_pre_blur(self) -> tuple[str, ...]:
 * __out_xf_xaos(self) -> tuple[str, ...]:
-* __out_xf_preaffine(self) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
-* __out_xf_postaffine(self) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
-* __out_finalxf_preaffine(self) -> tuple[str, str, str]:
-* __out_finalxf_postaffine(self) -> tuple[str, str, str]:
+* __out_xf_preaffine(self) -> TA_OUT_Affine:
+* __out_xf_postaffine(self) -> TA_OUT_Affine:
+* __out_finalxf_preaffine(self) -> TA_OUT_Affine_FF:
+* __out_finalxf_postaffine(self) -> TA_OUT_Affine_FF:
 * __out_palette_hex(self) -> str:
 * __out_flame_palette_mode(self) -> str:
 * __out_flame_data_flam3h_hsv(self, prm_name = CP_RAMP_HSV_VAL_NAME) -> str | bool:
@@ -18716,7 +18718,7 @@ class out_flame_utils
                 
                 if filename_s[-1] == file_ext:
                     # This code is very old and need some revision ;D
-                    build_f_s: list = file.split("/")
+                    build_f_s: list[str] = file.split("/")
                     build_f_s[:] = [item for item in build_f_s if item]
                     build_f_s[-1] = ''.join(letter for letter in build_f_s[-1] if letter.isalnum() or letter in CHARACTERS_ALLOWED)
                     file_new: str = "/".join(build_f_s)
@@ -19442,8 +19444,8 @@ class out_flame_utils
             # If there are xforms/iterators
             if apo_data.xforms is not None:
                 
-                build: list = []
-                build_flash: list = []
+                build: list[str] = []
+                build_flash: list[str] = []
                 n_xf: int = len(apo_data.xforms)
                 build.append(f"XF: {n_xf}")
                 
@@ -19707,12 +19709,12 @@ class out_flame_utils
         """
         node: hou.SopNode = self.node
         sel: int = int(node.parm(OUT_RENDER_PROPERTIES_RES_PRESETS_MENU).eval())
-        res: dict[int, tuple | None] = {-1: None, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), # 1 2 3 4
-                                        -1: None, 6: (640, 486), 7: (720, 486), 8: (768, 586), 9: (1024, 576), # 6 7 8 9
-                                        -1: None, 11: (4096, 3112), 12: (2048, 1556), 13: (3656, 2664), 14: (1828, 1332), 15: (3656, 3112), 16: (1828, 1556), 17: (3072, 2048), # 11 12 13 14 15 16 17
-                                        -1: None, 19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096), # 19 20 21 22 23
-                                        -1: None 
-                                        }
+        res: dict[int, tuple[int, ...] | None] = {  -1: None, 1: (640, 480), 2: (1280, 720), 3: (1920, 1080), 4: (3840, 2160), # 1 2 3 4
+                                                    -1: None, 6: (640, 486), 7: (720, 486), 8: (768, 586), 9: (1024, 576), # 6 7 8 9
+                                                    -1: None, 11: (4096, 3112), 12: (2048, 1556), 13: (3656, 2664), 14: (1828, 1332), 15: (3656, 3112), 16: (1828, 1556), 17: (3072, 2048), # 11 12 13 14 15 16 17
+                                                    -1: None, 19: (256, 256), 20: (512, 512), 21: (1024, 1024), 22: (2048, 2048), 23: (4096, 4096), # 19 20 21 22 23
+                                                    -1: None 
+                                                    }
  
         if res.get(sel) is not None:
             node.parmTuple(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE)).set(hou.Vector2(res.get(sel)))
@@ -20911,7 +20913,7 @@ class out_flame_utils
         return self.out_xf_xaos_to()
 
 
-    def __out_xf_preaffine(self) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
+    def __out_xf_preaffine(self) -> TA_OUT_Affine:
         """Prepare each xform/iterator pre_affine parameters for writing out.</br>
         This will prep both flam3_affine style and F3H_affine style.</br>
         In case of the F3H_affine style it will prep the Rotation angle parameter as well.</br>
@@ -20920,7 +20922,7 @@ class out_flame_utils
             (self):
 
         Returns:
-            (tuple[tuple, tuple, tuple]): tuple[tuple[flam3_affine], tuple[F3H_affine], tuple[F3H Rotation angle]]. tuple of all the FLAM3H™ xforms/iterators pre_affine parameters prepped into strings for writing out into the Flame preset file.
+            (TA_OUT_Affine): tuple[tuple[flam3_affine], tuple[F3H_affine], tuple[F3H Rotation angle]]. tuple of all the FLAM3H™ xforms/iterators pre_affine parameters prepped into strings for writing out into the Flame preset file.
         """   
         val: list = []
         f3h_val: list = []
@@ -20939,7 +20941,7 @@ class out_flame_utils
         return tuple(_join(x) for x in self.out_util_round_floats(val)), tuple(_join(x) for x in self.out_util_round_floats(f3h_val)), tuple(f3h_angleDeg)
     
     
-    def __out_xf_postaffine(self) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
+    def __out_xf_postaffine(self) -> TA_OUT_Affine:
         """Prepare each xform/iterator post_affine parameters for writing out.</br>
         This will prep both flam3_affine style and F3H_affine style.</br>
         In case of the F3H_affine style it will prep the Rotation angle parameter as well.</br>
@@ -20948,7 +20950,7 @@ class out_flame_utils
             (self):
 
         Returns:
-            (tuple[tuple, tuple, tuple]): tuple[tuple[str: flam3_affine], tuple[str: F3H_affine], tuple[str: F3H Rotation angle]]. tuple of all the FLAM3H™ xforms/iterators post_affine parameters prepped into strings for writing out into the Flame preset file.
+            (TA_OUT_Affine): tuple[tuple[str: flam3_affine], tuple[str: F3H_affine], tuple[str: F3H Rotation angle]]. tuple of all the FLAM3H™ xforms/iterators post_affine parameters prepped into strings for writing out into the Flame preset file.
         """   
         val: list = []
         f3h_val: list = []
@@ -20977,7 +20979,7 @@ class out_flame_utils
         return tuple(_join(x) for x in self.out_util_round_floats(val)), tuple(_join(x) for x in self.out_util_round_floats(f3h_val)), tuple(f3h_angleDeg)
 
 
-    def __out_finalxf_preaffine(self) -> tuple[str, str, str]:
+    def __out_finalxf_preaffine(self) -> TA_OUT_Affine_FF:
         """Prepare each FF/finalXform pre_affine parameters for writing out.</br>
         This will prep both flam3_affine style and F3H_affine style.</br>
         In case of the F3H_affine style it will prep the Rotation angle parameter as well.</br>
@@ -20986,7 +20988,7 @@ class out_flame_utils
             (self):
 
         Returns:
-            (tuple[str, str, str]): tuple[str: flam3_affine, str: F3H_affine, str: F3H Rotation angle]. tuple of strings for all the FLAM3H™ FF/finalXform pre_affine parameters prepped into strings for writing out into the Flame preset file.
+            (TA_OUT_Affine_FF): tuple[str: flam3_affine, str: F3H_affine, str: F3H Rotation angle]. tuple of strings for all the FLAM3H™ FF/finalXform pre_affine parameters prepped into strings for writing out into the Flame preset file.
         """   
         collect: TA_Affine = self.get_FF_affine_pre()
         angleDeg: float = self.get_FF_affine_pre_rot()
@@ -21002,7 +21004,7 @@ class out_flame_utils
         return ' '.join(flatten), ' '.join(f3h_flatten), f3h_angleDeg
     
     
-    def __out_finalxf_postaffine(self) -> tuple[str, str, str]:
+    def __out_finalxf_postaffine(self) -> TA_OUT_Affine_FF:
         """Prepare each FF/finalXform post_affine parameters for writing out.</br>
         This will prep both flam3_affine style and F3H_affine style.</br>
         In case of the F3H_affine style it will prep the Rotation angle parameter as well.</br>
@@ -21011,7 +21013,7 @@ class out_flame_utils
             (self):
 
         Returns:
-            (tuple[str, str, str]): tuple[str: flam3_affine, str: F3H_affine, str: F3H Rotation angle]. tuple of strings for all the FLAM3H™ FF/finalXform post_affine parameters prepped into strings for writing out into the Flame preset file.
+            (TA_OUT_Affine_FF): tuple[str: flam3_affine, str: F3H_affine, str: F3H Rotation angle]. tuple of strings for all the FLAM3H™ FF/finalXform post_affine parameters prepped into strings for writing out into the Flame preset file.
         """  
         if self.node.parm(f"{PRX_FF_PRM}{self.flam3h_iter_prm_names.postaffine_do}").eval():
             collect: TA_Affine = self.get_FF_affine_post()
