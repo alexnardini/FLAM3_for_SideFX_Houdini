@@ -13647,7 +13647,7 @@ class in_flame
         return None
 
 
-    def __get_keyvalue(self, xforms: tuple[dict, ...] | None, key: str, msg: bool = True) -> tuple[float | str, ...] | None:
+    def __get_keyvalue(self, xforms: tuple[dict, ...] | None, key: str, msg: bool = True) -> tuple[str | float | list[Never], ...] | None:
         """
         Args:
             (self):
@@ -13655,14 +13655,14 @@ class in_flame
             key(str): xml tag names. For shader: 'color', 'symmetry'->(color_speed), 'opacity'
 
         Returns:
-            (tuple[float | str, ...] | None): description
+            (tuple[str | float | list[Never], ...] | None): description
         """
         if self.isvalidtree and xforms is not None:
             
             vars_keys_pre: list | None = None
             if key == XML_XF_PB: vars_keys_pre = in_flame_utils.in_get_xforms_var_keys(xforms, in_flame_utils.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
             
-            keyvalues = []
+            keyvalues: list[str | float | list[Never]] = []
             for idx, xform in enumerate(xforms):
                 
                 if xform.get(key) is not None:
@@ -14239,7 +14239,7 @@ class in_flame_utils
                             xform: dict, 
                             mp_idx: int, 
                             v_type: int, 
-                            func: Callable) -> TA_TypeMaker:
+                            func: Callable) -> list[TA_TypeMaker]:
 * in_v_parametric(app: str, 
                 mode: int, 
                 node: hou.SopNode, 
@@ -14445,7 +14445,7 @@ class in_flame_utils
             else:
                 return name
             
-        elif isinstance(name, (list, tuple, KeysView)):
+        elif isinstance(name, (list, tuple, set, KeysView)):
             
             _names: list = [re_sub(REGEX_PRE, '', x) for x in name if str(x).startswith(V_PRX_PRE) is True]
             if not _names:
@@ -14474,7 +14474,7 @@ class in_flame_utils
             if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
                 return V_PRX_PRE + name
             
-        elif isinstance(name, (list, tuple, KeysView)):
+        elif isinstance(name, (list, tuple, KeysView, set, set)):
             return [V_PRX_PRE + x for x in name if str(x).startswith(V_PRX_PRE) is False and str(x).startswith(V_PRX_POST) is False]
         
         else:
@@ -14495,7 +14495,7 @@ class in_flame_utils
             if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
                 return V_PRX_POST + name
             
-        elif isinstance(name, (list, tuple, KeysView)):
+        elif isinstance(name, (list, tuple, set, KeysView)):
             return [V_PRX_POST + x for x in name if str(x).startswith(V_PRX_PRE) is False and str(x).startswith(V_PRX_POST) is False]
         
         else:
@@ -14515,11 +14515,11 @@ class in_flame_utils
             (list[str]): List of sorted uinknown variations if any
         """
         if apo_data.plugins[preset_id]:
-            plugins: list = [p.strip() for p in str(apo_data.plugins[preset_id]).split() if p]
+            plugins: list[str] = [p.strip() for p in str(apo_data.plugins[preset_id]).split() if p]
         else:
-            plugins: list = []
+            plugins: list[str] = []
         
-        unknown = []
+        unknown: list[str] = []
         if plugins:
             for var in plugins:
                 if str(var).startswith(V_PRX_PRE):
@@ -14924,7 +14924,7 @@ class in_flame_utils
                                     xform: dict, 
                                     mp_idx: int, 
                                     v_type: int, 
-                                    func: Callable) -> TA_TypeMaker:
+                                    func: Callable) -> list[TA_TypeMaker]:
         """Each parametric variation has a specific number of parameters that govern its behavior.</br>
         These attributes have been combined into a single data type in FLAM3H™.</br>
         The Curl variation, for instance, has two parametric parameters: c1 and c2</br>
@@ -14942,15 +14942,15 @@ class in_flame_utils
             func(Callable): function to change variation name between var, pre_var and post_var
         
         Returns:
-            (TA_TypeMaker): Expected data type of the collected parametric variation's parameters values.
+            (list[TA_TypeMaker]): List of the expected data type of the collected parametric variation's parameters values.
         """   
         
         iter_type: str = f"{mp_idx + 1}"
         if mode: iter_type = 'FF'
 
-        VAR: list = []
+        VAR: list[TA_TypeMaker] = []
         for names in apo_prm[1:-1]:
-            var_prm_vals: list = []
+            var_prm_vals: list[float] = []
             _var_prm_vals_append: Callable[[float], None] = var_prm_vals.append
             for n in [x.lower() for x in names]:
                 # If one of the FLAM3H™ parameter is not in the xform, skip it and set it to ZERO for now.
@@ -14965,7 +14965,7 @@ class in_flame_utils
                         print(f"Warning: iterator.{iter_type}\n{node.name()}: PARAMETER NOT FOUND\n-> Variation: {func(in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type))}\n-> Missing parameter: {n}\n")
                         
             VAR.append(in_flame_utils.in_util_typemaker(var_prm_vals))
-
+        
         return VAR
 
 
@@ -15004,7 +15004,7 @@ class in_flame_utils
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
 
-        _VAR: TA_TypeMaker = in_flame_utils.in_v_parametric_var_collect(node, 
+        _VAR: list[TA_TypeMaker] = in_flame_utils.in_v_parametric_var_collect(node, 
                                                                         mode, 
                                                                         apo_prm, 
                                                                         xform, 
@@ -15063,7 +15063,7 @@ class in_flame_utils
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
         
-        _VAR: TA_TypeMaker = in_flame_utils.in_v_parametric_var_collect(node, 
+        _VAR: list[TA_TypeMaker] = in_flame_utils.in_v_parametric_var_collect(node, 
                                                                         mode, 
                                                                         apo_prm, 
                                                                         xform, 
@@ -15114,7 +15114,7 @@ class in_flame_utils
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
 
-        _VAR: TA_TypeMaker = in_flame_utils.in_v_parametric_var_collect(node, 
+        _VAR: list[TA_TypeMaker] = in_flame_utils.in_v_parametric_var_collect(node, 
                                                                         mode, 
                                                                         apo_prm, 
                                                                         xform, 
@@ -15159,7 +15159,7 @@ class in_flame_utils
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
 
-        _VAR: TA_TypeMaker = in_flame_utils.in_v_parametric_var_collect(node, 
+        _VAR: list[TA_TypeMaker] = in_flame_utils.in_v_parametric_var_collect(node, 
                                                                         1, 
                                                                         apo_prm, 
                                                                         xform, 
@@ -15203,7 +15203,7 @@ class in_flame_utils
         # Exceptions: check if this flame need different parameters names based on detected exception
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
 
-        _VAR: TA_TypeMaker = in_flame_utils.in_v_parametric_var_collect(node, 
+        _VAR: list[TA_TypeMaker] = in_flame_utils.in_v_parametric_var_collect(node, 
                                                                         1, 
                                                                         apo_prm, 
                                                                         xform, 
