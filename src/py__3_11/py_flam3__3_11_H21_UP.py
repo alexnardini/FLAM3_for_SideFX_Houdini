@@ -3135,7 +3135,7 @@ class flam3h_general_utils
     @staticmethod
     def util_getParameterEditors() -> list[hou.ParameterEditor]:
         """Return a list of Parameter Editors currently open in this Houdini session.</br>
-        It will collect only the Parameter Editors with a FLAM3H node parameter on display already.</br>
+        It will collect only the Parameter Editors with a FLAM3H™ node parameter on display already.</br>
         
         Args:
             (None):
@@ -14434,7 +14434,7 @@ class in_flame_utils
         Returns:
             (str | list[str] | None): A converted str, list[str] of variation's names.
         """
-        if type(name) is str:
+        if isinstance(name, str):
             
             if name.startswith(V_PRX_PRE):
                 return re_sub(REGEX_PRE, '', name)
@@ -14445,11 +14445,11 @@ class in_flame_utils
             else:
                 return name
             
-        elif type(name) is list or tuple:
+        elif isinstance(name, (list, tuple, KeysView)):
             
-            _names: list = [re_sub(REGEX_PRE, '', x) for x in name if x.startswith(V_PRX_PRE) is True]
+            _names: list = [re_sub(REGEX_PRE, '', x) for x in name if str(x).startswith(V_PRX_PRE) is True]
             if not _names:
-                _names = [re_sub(REGEX_POST, '', x) for x in name if x.startswith(V_PRX_POST) is True]
+                _names = [re_sub(REGEX_POST, '', x) for x in name if str(x).startswith(V_PRX_POST) is True]
                 
             if not _names:
                 return None
@@ -14470,12 +14470,12 @@ class in_flame_utils
         Returns:
             (str | list | None): A converted str, list[str] of variation's names.
         """  
-        if type(name) is str:
+        if isinstance(name, str):
             if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
                 return V_PRX_PRE + name
             
-        elif type(name) is list or tuple:
-            return [V_PRX_PRE + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
+        elif isinstance(name, (list, tuple, KeysView)):
+            return [V_PRX_PRE + x for x in name if str(x).startswith(V_PRX_PRE) is False and str(x).startswith(V_PRX_POST) is False]
         
         else:
             return None
@@ -14491,12 +14491,12 @@ class in_flame_utils
         Returns:
             (str | list[str] | None): A converted str, list[str] of variation's names.
         """  
-        if type(name) is str:
+        if isinstance(name, str):
             if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
                 return V_PRX_POST + name
             
-        elif type(name) is list or tuple:
-            return [V_PRX_POST + x for x in name if x.startswith(V_PRX_PRE) is False and x.startswith(V_PRX_POST) is False]
+        elif isinstance(name, (list, tuple, KeysView)):
+            return [V_PRX_POST + x for x in name if str(x).startswith(V_PRX_PRE) is False and str(x).startswith(V_PRX_POST) is False]
         
         else:
             return None
@@ -14611,7 +14611,7 @@ class in_flame_utils
             (list | None): return a list of variation's names in each xform,  or None
         """    
         if xforms is not None:
-            if type(vars) is dict:
+            if isinstance(vars, dict):
                 return [list(map(lambda x: x, filter(lambda x: x in vars.get(x[0]), filter(lambda x: x not in exclude_keys, xf.keys())))) for xf in xforms] # type: ignore
             
             return [list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in exclude_keys, xf.keys())))) for xf in xforms] # type: ignore
