@@ -2336,7 +2336,7 @@ class flam3h_scripts
         node: hou.SopNode = self.node
         
         flam3h_general_utils.private_prm_set(self.node, FLAM3H_PVT_H_VALID, 0)
-        __h_versions__: tuple = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
+        __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
         
         _MSG_H_VERSIONS = flam3h_scripts.flam3h_compatible_h_versions_msg(__h_versions__, False)
 
@@ -14206,14 +14206,14 @@ class in_flame_utils
 * in_get_xforms_var_keys( xforms: tuple[dict, ...] | None, 
                         vars: TA_XformVarKeys, 
                         exclude_keys: tuple
-                        ) -> list[str] | None:
-* in_vars_keys_remove_pgb(vars: list | None, pgb_name: str) -> list | None:              
+                        ) -> TA_STR_ListUnflattened | None:
+* in_vars_keys_remove_pgb(vars: list | None, pgb_name: str) -> TA_STR_ListUnflattened | None:             
 * in_util_removeprefix(var_name: str, prefix: str) -> str:
 * in_get_xforms_var_keys_PP(  xforms: tuple[dict, ...] | None, 
                           vars: dict, 
                           prx: str, 
                           exclude_keys: tuple
-                          ) -> list[str] | None:
+                          ) -> TA_STR_ListUnflattened | None:
 * in_util_typemaker(data: list) -> TA_TypeMaker:
 * in_get_idx_by_key(key: str) -> int | None:
 * in_util_flam3h_prx_mode(mode: int) -> tuple[str, str]:
@@ -14240,7 +14240,7 @@ class in_flame_utils
                             mp_idx: int, 
                             v_type: int, 
                             func: Callable) -> list[TA_TypeMaker]:
-* in_v_parametric(app: str, 
+* in_v_parametric(app: str | list[Never], 
                 mode: int, 
                 node: hou.SopNode, 
                 mp_idx: int, 
@@ -14251,7 +14251,7 @@ class in_flame_utils
                 var_prm: tuple, 
                 apo_prm: tuple
                 ) -> None:
-* in_v_parametric_PRE(app: str, 
+* in_v_parametric_PRE(app: str | list[Never], 
                     mode: int, 
                     node: hou.SopNode, 
                     mp_idx: int, 
@@ -14273,7 +14273,7 @@ class in_flame_utils
                      var_prm: tuple, 
                      apo_prm: tuple
                      ) -> None:
-* in_v_parametric_PRE_FF(app: str, 
+* in_v_parametric_PRE_FF(app: str | list[Never], 
                        node: hou.SopNode, 
                        t_idx: int, 
                        xform: dict, 
@@ -14282,7 +14282,7 @@ class in_flame_utils
                        var_prm: tuple, 
                        apo_prm: tuple
                        ) -> None:
-* in_v_parametric_POST_FF(app: str, 
+* in_v_parametric_POST_FF(app: str | list[Never], 
                         node: hou.SopNode, 
                         t_idx: int, 
                         xform: dict, 
@@ -14330,7 +14330,7 @@ class in_flame_utils
 * in_util_check_negative_weight(node: hou.SopNode, w: float, v_type: int, mode: int, mp_idx: int, func: Callable) -> float:
 * in_get_xforms_data_and_flam3h_vars_limit(mode: int, apo_data: in_flame_iter_data) -> tuple[tuple, int]:
 * in_get_preset_name_iternum(menu_label: str) -> int | None:
-* in_util_join_vars_grp(groups: list) -> str:
+* in_util_join_vars_grp(groups: TA_STR_ListUnflattened) -> str:
 * in_util_vars_flatten_unique_sorted(VARS_list: TA_STR_ListUnflattened, func: Callable, capitalize: bool = False) -> list[str]:
 * in_presets_in_isvalid_file_menu_label(node: hou.SopNode, preset_id: int) -> str:
 * in_set_iter_on_load(node: hou.SopNode, preset_id: int, clipboard: bool, flame_name_clipboard: str) -> int:
@@ -14448,7 +14448,7 @@ class in_flame_utils
         # Should I use: Iterable instead ? Perhaps this way I can catch if something else is being used.
         elif isinstance(name, (list, tuple, set, KeysView)):
             
-            _names: list = [re_sub(REGEX_PRE, '', x) for x in name if str(x).startswith(V_PRX_PRE) is True]
+            _names: list[str] = [re_sub(REGEX_PRE, '', x) for x in name if str(x).startswith(V_PRX_PRE) is True]
             if not _names:
                 _names = [re_sub(REGEX_POST, '', x) for x in name if str(x).startswith(V_PRX_POST) is True]
                 
@@ -14598,7 +14598,7 @@ class in_flame_utils
     def in_get_xforms_var_keys( xforms: tuple[dict, ...] | None, 
                                 vars: TA_XformVarKeys, 
                                 exclude_keys: tuple
-                                ) -> list | None:
+                                ) -> TA_STR_ListUnflattened | None:
         """Return a list of all the variation names included in all xforms compared against the available FLAM3H™ variations.</br>
         This is used to find variation names and PRE and POST variation names based on the provided vars argument.</br></br>
         
@@ -14611,7 +14611,7 @@ class in_flame_utils
             exclude_keys(tuple): keys to exclude from teh search to speedup a little
 
         Returns:
-            (list | None): return a list of variation's names in each xform,  or None
+            (TA_STR_ListUnflattened | None): return a list of variation's names in each xform,  or None
         """    
         if xforms is not None:
             if isinstance(vars, dict):
@@ -14623,14 +14623,14 @@ class in_flame_utils
         
         
     @staticmethod
-    def in_vars_keys_remove_pgb(vars: list | None, pgb_name: str) -> list | None:
+    def in_vars_keys_remove_pgb(vars: list | None, pgb_name: str) -> TA_STR_ListUnflattened | None:
         """Remove "pre_gaussian_blur" variation if it is the first one in the list as we are remapping it to "pre_blur" on load.</br>
         Args:
             vars(list | None): per iterator list of variations used, ideally always the PRE variations are passed here
             pgb_name(str): The name of the "pre_gaussian_blur" variation to check against.
 
         Returns:
-            (list | None): A new list containing all iterator list of used variations without the "pre_gaussian_blur" if it was the first one in the list. 
+            (TA_STR_ListUnflattened | None): A new list containing all iterator list of used variations without the "pre_gaussian_blur" if it was the first one in the list. 
         """
         if vars is not None:
             [vars[idx].pop(0) for idx, iter in enumerate(vars) if iter and iter[0] == pgb_name]
@@ -14663,7 +14663,7 @@ class in_flame_utils
                                     vars: dict, 
                                     prx: str, 
                                     exclude_keys: tuple
-                                    ) -> list | None:
+                                    ) -> TA_STR_ListUnflattened | None:
         """find a PRE or POST variation inside the currently processed xform/iterator. All xforms are passed in.</br>
 
         Args:
@@ -14673,7 +14673,7 @@ class in_flame_utils
             exclude_keys(tuple): exclude those keys inside the current xform/iterator from the search to speed up a little
 
         Returns:
-            (list | None): return a list of variations found using the prefix criteria
+            (TA_STR_ListUnflattened | None): return a list of variations found using the prefix criteria
         """  
         if xforms is not None:
             _in_util_removeprefix: Callable[[str, str], str] = in_flame_utils.in_util_removeprefix
@@ -15453,19 +15453,19 @@ class in_flame_utils
 
 
     @staticmethod
-    def in_util_join_vars_grp(groups: list) -> str:
+    def in_util_join_vars_grp(groups: TA_STR_ListUnflattened) -> str:
         """When formatting a message to print out we use groups as if they were each line of the meesage and join them.</br>
         This function will avoid to have an extra empty line at the very end.</br>
 
         Args:
-            groups(list): The groups to join
+            groups(TA_STR_ListUnflattened): The groups to join
 
         Returns:
             (str): The final message without the extra empty line at the end.
         """     
         _join: Callable[[Iterable[str]], str] = ', '.join
         _len: Callable[[list], int] = len
-        vars: list = [_join(grp) + (",\n" if i < _len(groups) - 1 else ".") for i, grp in enumerate(groups)]
+        vars: list[str] = [_join(grp) + (",\n" if i < _len(groups) - 1 else ".") for i, grp in enumerate(groups)]
         
         return ''.join(vars)
 
@@ -15611,11 +15611,11 @@ class in_flame_utils
         if scale_val:
             scale = f"{OUT_XML_FLAME_SCALE.capitalize()}: {scale_val}"
         
-        build: tuple = (XML_updated, size, nl,
-                        XML_updated, center, nl,
-                        XML_updated, rotate, nl,
-                        XML_updated, scale, nl,
-                        )
+        build: tuple[str, ...] = (XML_updated, size, nl,
+                                XML_updated, center, nl,
+                                XML_updated, rotate, nl,
+                                XML_updated, scale, nl,
+                                )
         
         return ''.join(build)
 
@@ -15671,7 +15671,7 @@ class in_flame_utils
         if vibrancy_val:
             vibrancy = f"{OUT_XML_FLAME_VIBRANCY.capitalize()}: {vibrancy_val}"
         
-        cc_curves: list = []
+        cc_curves: list[str] = []
         
         # Get this presed_id curves data
         _this_out_curve_overall: str = apo_data.out_curve_overall[preset_id]
@@ -15687,14 +15687,14 @@ class in_flame_utils
         if not cc_curves: cc = f"{XML_updated}COLOR CORRECTION: Default (OFF)\nThe loaded preset CC Curves are default values."
         else: cc = f"{XML_updated}COLOR CORRECTION:\n{', '.join(cc_curves)}"
         
-        build: tuple = (XML_updated, quality, nl,
-                        XML_updated, brightness, nl,
-                        XML_updated, gamma, nl,
-                        XML_updated, highlight, nl,
-                        XML_updated, log_k2, nl,
-                        XML_updated, vibrancy, nnl,
-                        cc
-                        )
+        build: tuple[str, ...] = (XML_updated, quality, nl,
+                                XML_updated, brightness, nl,
+                                XML_updated, gamma, nl,
+                                XML_updated, highlight, nl,
+                                XML_updated, log_k2, nl,
+                                XML_updated, vibrancy, nnl,
+                                cc
+                                )
         
         return ''.join(build)
     
@@ -16441,18 +16441,19 @@ class in_flame_utils
         xforms, _MAX_VARS_MODE = self.in_get_xforms_data_and_flam3h_vars_limit(mode, apo_data)
         
         __EXCLUDE__: tuple[str, ...] = copy(XML_XF_KEY_EXCLUDE)
-        vars_keys: list | None = self.in_get_xforms_var_keys(xforms, _V_F3H_DICT_IDX_keys, __EXCLUDE__)
+        vars_keys: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(xforms, _V_F3H_DICT_IDX_keys, __EXCLUDE__)
+        
         if vars_keys is not None:
-            vars_keys_flatten: list = [item for sublist in vars_keys for item in sublist]
+            vars_keys_flatten: list[str] = [item for sublist in vars_keys for item in sublist]
             if vars_keys_flatten: __EXCLUDE__ += tuple(vars_keys_flatten)
         assert vars_keys is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
-        vars_keys_pre_pgb: list | None = self.in_get_xforms_var_keys(xforms, self.in_util_make_PRE(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
-        vars_keys_pre: list | None = self.in_vars_keys_remove_pgb(vars_keys_pre_pgb, pgb_name)
+        vars_keys_pre_pgb: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(xforms, self.in_util_make_PRE(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
+        vars_keys_pre: TA_STR_ListUnflattened | None = self.in_vars_keys_remove_pgb(vars_keys_pre_pgb, pgb_name)
         if vars_keys_pre is not None:
-            vars_keys_pre_flatten: list = [item for sublist in vars_keys_pre for item in sublist]
+            vars_keys_pre_flatten: list[str] = [item for sublist in vars_keys_pre for item in sublist]
             if vars_keys_pre_flatten: __EXCLUDE__ += tuple(vars_keys_pre_flatten)
         assert vars_keys_pre is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
-        vars_keys_post: list | None = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
+        vars_keys_post: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(xforms, self.in_util_make_POST(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
         assert vars_keys_post is not None # This can be asserted because this definition is run after this Flame preset has been checked for its validity.
         
         app: str = apo_data.sw_version[preset_id]
@@ -16464,8 +16465,8 @@ class in_flame_utils
         # Set variations ( iterator and FF )
         for mp_idx, xform in enumerate(xforms):
             
-            iterator_vars_skipped: list = []
-            FF_vars_skipped: list = []
+            iterator_vars_skipped: list[str] = []
+            FF_vars_skipped: list[str] = []
             
             # Collect iterator or FF vars in excess  
             if len(vars_keys[mp_idx]) > _MAX_VARS_MODE:
@@ -16736,38 +16737,38 @@ class in_flame_utils
         
         # ITERATOR COLLECT
         __EXCLUDE__: tuple[str, ...] = copy(XML_XF_KEY_EXCLUDE)
-        vars_keys: list | None = self.in_get_xforms_var_keys(apo_data.xforms, _V_F3H_DICT_IDX_keys, __EXCLUDE__)
+        vars_keys: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.xforms, _V_F3H_DICT_IDX_keys, __EXCLUDE__)
         if vars_keys is not None:
-            vars_keys_flatten: list = [item for sublist in vars_keys for item in sublist]
+            vars_keys_flatten: list[str] = [item for sublist in vars_keys for item in sublist]
             if vars_keys_flatten: __EXCLUDE__ += tuple(vars_keys_flatten)
-        vars_keys_PRE_pgb: list | None = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
-        vars_keys_PRE: list | None = self.in_vars_keys_remove_pgb(vars_keys_PRE_pgb, pgb_name)
+        vars_keys_PRE_pgb: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
+        vars_keys_PRE: TA_STR_ListUnflattened | None = self.in_vars_keys_remove_pgb(vars_keys_PRE_pgb, pgb_name)
         if vars_keys_PRE is not None: 
-            vars_keys_PRE_flatten: list = [item for sublist in vars_keys_PRE for item in sublist]
+            vars_keys_PRE_flatten: list[str] = [item for sublist in vars_keys_PRE for item in sublist]
             if vars_keys_PRE_flatten: __EXCLUDE__ += tuple(vars_keys_PRE_flatten)
-        vars_keys_POST: list | None = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
+        vars_keys_POST: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
         
         # FF COLLECT
         vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
         if ff_bool:
             __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
-            vars_keys_FF: list | None = self.in_get_xforms_var_keys(apo_data.finalxform, _V_F3H_DICT_IDX_keys, __EXCLUDE__)
+            vars_keys_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.finalxform, _V_F3H_DICT_IDX_keys, __EXCLUDE__)
             if vars_keys_FF is not None:
-                vars_keys_FF_flatten: list = [item for sublist in vars_keys_FF for item in sublist]
+                vars_keys_FF_flatten: list[str] = [item for sublist in vars_keys_FF for item in sublist]
                 if vars_keys_FF_flatten: __EXCLUDE__ += tuple(vars_keys_FF_flatten)
-            vars_keys_PRE_FF: list | None = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
+            vars_keys_PRE_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
             if vars_keys_PRE_FF is not None:
-                vars_keys_PRE_FF_flatten: list = [item for sublist in vars_keys_PRE_FF for item in sublist]
+                vars_keys_PRE_FF_flatten: list[str] = [item for sublist in vars_keys_PRE_FF for item in sublist]
                 if vars_keys_PRE_FF_flatten: __EXCLUDE__ += tuple(vars_keys_PRE_FF_flatten)
-            vars_keys_POST_FF: list | None = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
+            vars_keys_POST_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
         
-        vars_all = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
+        vars_all: list[list[str]] = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
         if pb_bool: vars_all += [["pre_blur"]]
         result_sorted: list = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL, True) # type: ignore
         
         n: int = 5
         vars_used_heading: str = "Variations used:"
-        result_grp: list = [result_sorted[i:i + n] for i in range(0, len(result_sorted), n)]  
+        result_grp: TA_STR_ListUnflattened = [result_sorted[i:i + n] for i in range(0, len(result_sorted), n)]  
         vars_used_msg: str = f"{XML_updated}{vars_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
         
         # Build and set descriptive parameter msg
@@ -16781,42 +16782,42 @@ class in_flame_utils
         
         # Build ITERATOR MISSING
         __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
-        vars_keys_from_fractorium: list | None = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, __EXCLUDE__)
+        vars_keys_from_fractorium: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, __EXCLUDE__)
         if vars_keys_from_fractorium is not None:
-            vars_keys_from_fractorium_flatten: list = [item for sublist in vars_keys_from_fractorium for item in sublist]
+            vars_keys_from_fractorium_flatten: list[str] = [item for sublist in vars_keys_from_fractorium for item in sublist]
             if vars_keys_from_fractorium_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_flatten)
-        vars_keys_from_fractorium_pre_pgb: list | None = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
-        vars_keys_from_fractorium_pre: list | None = self.in_vars_keys_remove_pgb(vars_keys_from_fractorium_pre_pgb, pgb_name)
+        vars_keys_from_fractorium_pre_pgb: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
+        vars_keys_from_fractorium_pre: TA_STR_ListUnflattened | None = self.in_vars_keys_remove_pgb(vars_keys_from_fractorium_pre_pgb, pgb_name)
         if vars_keys_from_fractorium_pre is not None:
-            vars_keys_from_fractorium_pre_flatten: list = [item for sublist in vars_keys_from_fractorium_pre for item in sublist]
+            vars_keys_from_fractorium_pre_flatten: list[str] = [item for sublist in vars_keys_from_fractorium_pre for item in sublist]
             if vars_keys_from_fractorium_pre_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_pre_flatten)
-        vars_keys_from_fractorium_post: list | None = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
+        vars_keys_from_fractorium_post: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
         
         # BUILD FF MISSING
-        vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = []
+        vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = [] # TA_STR_ListUnflattened
         if ff_bool:
             __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
-            vars_keys_from_fractorium_FF: list | None = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, __EXCLUDE__)
+            vars_keys_from_fractorium_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, __EXCLUDE__)
             if vars_keys_from_fractorium_FF is not None:
-                vars_keys_from_fractorium_FF_flatten: list = [item for sublist in vars_keys_from_fractorium_FF for item in sublist]
+                vars_keys_from_fractorium_FF_flatten: list[str] = [item for sublist in vars_keys_from_fractorium_FF for item in sublist]
                 if vars_keys_from_fractorium_FF_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_FF_flatten)
-            vars_keys_from_fractorium_pre_FF: list | None = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
+            vars_keys_from_fractorium_pre_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
             if vars_keys_from_fractorium_pre_FF is not None:
-                vars_keys_from_fractorium_pre_FF_flatten: list = [item for sublist in vars_keys_from_fractorium_pre_FF for item in sublist]
+                vars_keys_from_fractorium_pre_FF_flatten: list[str] = [item for sublist in vars_keys_from_fractorium_pre_FF for item in sublist]
                 if vars_keys_from_fractorium_pre_FF_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_pre_FF_flatten)
-            vars_keys_from_fractorium_post_FF: list | None = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
+            vars_keys_from_fractorium_post_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
         
-        vars_keys_from_fractorium_all: list = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
-        result_sorted_fractorium: list = self.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, self.in_util_make_NULL, True)
+        vars_keys_from_fractorium_all: list[list[str]] = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
+        result_sorted_fractorium: list[str] = self.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, self.in_util_make_NULL, True)
         
         # Build MISSING: Compare, keep and build
-        vars_missing: list = [x for x in result_sorted_fractorium if x not in result_sorted]
-        result_grp_fractorium: list = [vars_missing[i:i + n] for i in range(0, len(vars_missing), n)]  
+        vars_missing: list[str] = [x for x in result_sorted_fractorium if x not in result_sorted]
+        result_grp_fractorium: TA_STR_ListUnflattened = [vars_missing[i:i + n] for i in range(0, len(vars_missing), n)]
         if vars_missing: vars_missing_msg: str = f"{nnl}{XML_updated}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
         else: vars_missing_msg: str = ""
         
         # Build UNKNOWN
-        vars_unknown: list = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
+        vars_unknown: list[str] = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
         if vars_unknown: vars_unknown_msg: str = f"{nnl}{XML_updated}UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i + n] for i in range(0, len(vars_unknown), n)] )}"
         else: vars_unknown_msg: str = ''
         
@@ -16835,19 +16836,20 @@ class in_flame_utils
                 node.parm(MSG_PALETTE).set(f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}")
         
         # build full stats msg
-        build: tuple = (flame_lib_locked, nl,
-                        XML_updated, sw, nl,
-                        XML_updated, name, nnl,
-                        XML_updated, palette_count_format, nl,
-                        cc, mb,
-                        XML_updated, iter_count, nl,
-                        XML_updated, post, nl,
-                        XML_updated, opacity, nl,
-                        XML_updated, xaos, nl,
-                        XML_updated, ff_msg, nnl,
-                        vars_used_msg,
-                        vars_missing_msg,
-                        vars_unknown_msg )
+        build: tuple[str, ...] = (flame_lib_locked, nl,
+                                XML_updated, sw, nl,
+                                XML_updated, name, nnl,
+                                XML_updated, palette_count_format, nl,
+                                cc, mb,
+                                XML_updated, iter_count, nl,
+                                XML_updated, post, nl,
+                                XML_updated, opacity, nl,
+                                XML_updated, xaos, nl,
+                                XML_updated, ff_msg, nnl,
+                                vars_used_msg,
+                                vars_missing_msg,
+                                vars_unknown_msg
+                                )
 
         return ''.join(build)
 
