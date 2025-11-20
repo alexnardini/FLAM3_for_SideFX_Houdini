@@ -2767,7 +2767,13 @@ class flam3h_general_utils
 * util_set_clipping_viewers(self) -> None:
 * util_store_all_viewers(self) -> None:
 * util_set_front_viewer(self, update: bool=True) -> bool:
-* util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool = True) -> bool:
+* util_set_front_viewer_all(self, 
+                            node: hou.SopNode, 
+                            viewports: list[hou.SceneViewer], 
+                            update_sensor: int, 
+                            _SYS_FRAME_VIEW_SENSOR_prm: int, 
+                            update: bool = True
+                            ) -> bool:
 * util_store_all_viewers_xf_viz(self) -> None:
 * util_other_xf_viz(self) -> bool:
 * util_viewport_bbox_frame(self) -> None:
@@ -3772,7 +3778,11 @@ class flam3h_general_utils
                   
             else:  
                 self.util_store_all_viewers()
-                if self.util_set_front_viewer_all(node, bool(update_sensor), _SYS_FRAME_VIEW_SENSOR_prm, update):
+                # Try to set all viewports
+                if self.util_set_front_viewer_all(  node, 
+                                                    viewports, 
+                                                    update_sensor, 
+                                                    _SYS_FRAME_VIEW_SENSOR_prm, update ):
                     return True
                 
                 # Or just exit the Sensor Viz mode
@@ -3784,40 +3794,69 @@ class flam3h_general_utils
         return False
 
 
-    def util_set_front_viewer_all(self, node: hou.SopNode, update_sensor: bool, _SYS_FRAME_VIEW_SENSOR_prm: bool, update: bool = True) -> bool:
+    def util_set_front_viewer_all(self, 
+                                  node: hou.SopNode, 
+                                  viewports: list[hou.SceneViewer], 
+                                  update_sensor: int, 
+                                  _SYS_FRAME_VIEW_SENSOR_prm: int, 
+                                  update: bool = True
+                                  ) -> bool:
         """This is a fallback if the: util_set_front_viewer(...) can not run succesfully.</br>
         It will activate the Sensor Viz in all available viewports with the ability of storing and restoring a stashed camera for each.</br>
+        
+        Note:</br>
+        This expect the following condition to be True (Must run inside this if statement):
+        * if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():</br>
+        
 
         Args:
             (self):
             node(hou.SopNode): FLAM3H™ node
-            update_sensor(bool): Is the force sensor update toggle ON or OFF ?
+            viewports(list[hou.SceneViewer): A list of hou.ScenViewer
+            update_sensor(int): Is the force sensor update toggle ON or OFF ?
             _SYS_FRAME_VIEW_SENSOR_prm(bool): Is this being run from the SYS tab reframe viewport icon ?
             update(bool): Is the updated Sensor Viz toggle ON or OFF ?
             
         Returns:
             (bool): True if the Sensor Viz is being activated. False if not.
         """ 
-        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
             
-            viewports: list[hou.SceneViewer] = self.util_getSceneViewers()
-            if len(viewports):
+        if len(viewports):
+            
+            lop_viewports: list[bool] = []
+            allowed_viewers: bool = False
+            # Set them all without storing any stashed camera data 
+            self.util_set_clipping_viewers()
+            for v in viewports:
                 
-                lop_viewports: list[bool] = []
-                allowed_viewers: bool = False
-                # Set them all without storing any stashed camera data 
-                self.util_set_clipping_viewers()
-                for v in viewports:
+                # Set only if it is a Sop viewer
+                if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
                     
-                    # Set only if it is a Sop viewer
-                    if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
-                        
-                        if allowed_viewers is False: allowed_viewers = True
-                        
-                        view: hou.GeometryViewport = v.curViewport()
-                        if view.type() != hou.geometryViewportType.Front: # type: ignore
-                            view.changeType(hou.geometryViewportType.Front) # type: ignore
-                        if update:
+                    if allowed_viewers is False: allowed_viewers = True
+                    
+                    view: hou.GeometryViewport = v.curViewport()
+                    if view.type() != hou.geometryViewportType.Front: # type: ignore
+                        view.changeType(hou.geometryViewportType.Front) # type: ignore
+                    if update:
+                        if self.bbox_sensor_path is not None:
+                            node_bbox: hou.SopNode = hou.node(self.bbox_sensor_path)
+                            if hou.hipFile.isLoadingHipFile(): # type: ignore
+                                # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
+                                # but work on H20.0.590 and up, hence the try/except block
+                                try:
+                                    view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                                    
+                                except AttributeError as e:
+                                    F3H_Exception.F3H_traceback_print_infos(e)
+                                    node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+                                    self.util_clear_stashed_cam_data()
+                                    return False
+                                
+                            else:
+                                view.frameBoundingBox(node_bbox.geometry().boundingBox())
+                                
+                    else:
+                        if update_sensor or _SYS_FRAME_VIEW_SENSOR_prm:
                             if self.bbox_sensor_path is not None:
                                 node_bbox: hou.SopNode = hou.node(self.bbox_sensor_path)
                                 if hou.hipFile.isLoadingHipFile(): # type: ignore
@@ -3831,63 +3870,42 @@ class flam3h_general_utils
                                         node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
                                         self.util_clear_stashed_cam_data()
                                         return False
-                                    
                                 else:
                                     view.frameBoundingBox(node_bbox.geometry().boundingBox())
-                                    
-                        else:
-                            if update_sensor or _SYS_FRAME_VIEW_SENSOR_prm:
-                                if self.bbox_sensor_path is not None:
-                                    node_bbox: hou.SopNode = hou.node(self.bbox_sensor_path)
-                                    if hou.hipFile.isLoadingHipFile(): # type: ignore
-                                        # This fail on "isLoadingHipFile" under H19.x, H19.5.x and H20.0.506
-                                        # but work on H20.0.590 and up, hence the try/except block
-                                        try:
-                                            view.frameBoundingBox(node_bbox.geometry().boundingBox())
-                                            
-                                        except AttributeError as e:
-                                            F3H_Exception.F3H_traceback_print_infos(e)
-                                            node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
-                                            self.util_clear_stashed_cam_data()
-                                            return False
-                                    else:
-                                        view.frameBoundingBox(node_bbox.geometry().boundingBox())
-                                            
-                    else:
-                        # Count how many Lop viewports are present
-                        lop_viewports.append(True)
-                        
-                if allowed_viewers and _SYS_FRAME_VIEW_SENSOR_prm:
-                    self.flash_message(self.node, f"sensor REFRAMED")
-                        
-                # If all the viewports are Lop viewports
-                if len(lop_viewports) == len(viewports):
+                                        
+                else:
+                    # Count how many Lop viewports are present
+                    lop_viewports.append(True)
                     
-                    # If we were activating the Camera Sensor mode
-                    if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
-                        # Revert it back to OFF and fire a message
-                        node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
-                        _MSG: str = f"No Sop viewers available."
-                        self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Sensor Viz to work.", 'WARN')
-                        self.flash_message(node, f"{_MSG}")
-                        
-                    return False
+            if allowed_viewers and _SYS_FRAME_VIEW_SENSOR_prm:
+                self.flash_message(self.node, f"sensor REFRAMED")
+                    
+            # If all the viewports are Lop viewports
+            if len(lop_viewports) == len(viewports):
                 
-                return True
-            
-            else:
-                # Exit the Sensor Viz mode
-                self.flam3h_other_sensor_viz_off(self.node)
-                node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
-                self.util_clear_stashed_cam_data()
-                
-                _MSG: str = f"No Sop viewers available."
-                self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Sensor Viz to work.", 'WARN')
-                self.flash_message(node, f"{_MSG}")
+                # If we were activating the Camera Sensor mode
+                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                    # Revert it back to OFF and fire a message
+                    node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+                    _MSG: str = f"No Sop viewers available."
+                    self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Sensor Viz to work.", 'WARN')
+                    self.flash_message(node, f"{_MSG}")
+                    
                 return False
             
-        return False
-    
+            return True
+        
+        else:
+            # Exit the Sensor Viz mode
+            self.flam3h_other_sensor_viz_off(self.node)
+            node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+            self.util_clear_stashed_cam_data()
+            
+            _MSG: str = f"No Sop viewers available."
+            self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Sensor Viz to work.", 'WARN')
+            self.flash_message(node, f"{_MSG}")
+            return False
+            
     
     def util_store_all_viewers_xf_viz(self) -> None:
         """Store dictionaries of viewers cameras and their wire width value.</br>
