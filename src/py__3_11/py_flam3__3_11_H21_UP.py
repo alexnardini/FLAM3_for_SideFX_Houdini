@@ -8236,7 +8236,7 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"Select a different FLAM3H™ node's FF")
             else:
-                f3h_iter_FF = flam3h_iterator_FF()
+                f3h_iter_FF: flam3h_iterator_FF = flam3h_iterator_FF()
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_varsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM).varsPRM_FF(), "", "")
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(PRX_FF_PRM_POST).varsPRM_FF(), "", "")
@@ -8427,7 +8427,7 @@ class flam3h_iterator_utils
             paste_sel: int = node.parm(f"{n.main_prmpastesel}_{s_mp_index}").eval()
             node.parm(f"{n.main_selmem}_{s_mp_index}").set(paste_sel)
 
-            f3h_iter = flam3h_iterator()
+            f3h_iter: flam3h_iterator = flam3h_iterator()
             varsPRM = flam3h_varsPRM().varsPRM
             
             match paste_sel:
@@ -8526,7 +8526,7 @@ class flam3h_iterator_utils
         mp_idx: str = str(s_mp_index)
         kwargs: dict = self.kwargs
         
-        f3h_iter = flam3h_iterator()
+        f3h_iter: flam3h_iterator = flam3h_iterator()
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_postAffine[1:-2], f3h_iter.sec_preAffine[:-2], mp_idx)
             _MSG: str = f"iterator.{s_mp_index} - POST affine X and Y copied into the PRE affine."
@@ -8563,7 +8563,7 @@ class flam3h_iterator_utils
         mp_idx: str = str(s_mp_index)
         kwargs: dict = self.kwargs
         
-        f3h_iter = flam3h_iterator()
+        f3h_iter: flam3h_iterator = flam3h_iterator()
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter.sec_preAffine[:-2], f3h_iter.sec_postAffine[1:-2], mp_idx)
             _MSG: str = f"iterator.{s_mp_index} - PRE affine X and Y copied into the POST affine."
@@ -8597,7 +8597,7 @@ class flam3h_iterator_utils
         
         kwargs: dict = self.kwargs
         
-        f3h_iter_FF = flam3h_iterator_FF()
+        f3h_iter_FF: flam3h_iterator_FF = flam3h_iterator_FF()
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_postAffine_FF[1:-2], f3h_iter_FF.sec_preAffine_FF[:-2], "")
             _MSG: str = f"FF POST affine X and Y copied into the FF PRE affine."
@@ -8631,7 +8631,7 @@ class flam3h_iterator_utils
         
         kwargs: dict = self.kwargs
         
-        f3h_iter_FF = flam3h_iterator_FF()
+        f3h_iter_FF: flam3h_iterator_FF = flam3h_iterator_FF()
         if kwargs['shift']:
             self.paste_from_list_affine(self.node, f3h_iter_FF.sec_preAffine_FF[:-2], f3h_iter_FF.sec_postAffine_FF[1:-2], "")
             _MSG: str = f"FF PRE affine X and Y copied into the FF POST affine."
@@ -8681,7 +8681,7 @@ class flam3h_iterator_utils
             paste_sel_FF: int = node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").eval()
             node.parm(f"{PRX_FF_PRM}{n.main_selmem}").set(paste_sel_FF)
             
-            f3h_iter_FF = flam3h_iterator_FF()
+            f3h_iter_FF: flam3h_iterator_FF = flam3h_iterator_FF()
             
             match paste_sel_FF:
                 
@@ -14445,6 +14445,7 @@ class in_flame_utils
             else:
                 return name
             
+        # Should I use: Iterable instead ? Perhaps this way I can catch if something else is being used.
         elif isinstance(name, (list, tuple, set, KeysView)):
             
             _names: list = [re_sub(REGEX_PRE, '', x) for x in name if str(x).startswith(V_PRX_PRE) is True]
@@ -14474,6 +14475,7 @@ class in_flame_utils
             if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
                 return V_PRX_PRE + name
             
+        # Should I use: Iterable instead ? Perhaps this way I can catch if something else is being used.
         elif isinstance(name, (list, tuple, KeysView, set, set)):
             return [V_PRX_PRE + x for x in name if str(x).startswith(V_PRX_PRE) is False and str(x).startswith(V_PRX_POST) is False]
         
@@ -14495,6 +14497,7 @@ class in_flame_utils
             if not (name.startswith(V_PRX_PRE) and name.startswith(V_PRX_POST)):
                 return V_PRX_POST + name
             
+        # Should I use: Iterable instead ? Perhaps this way I can catch if something else is being used.
         elif isinstance(name, (list, tuple, set, KeysView)):
             return [V_PRX_POST + x for x in name if str(x).startswith(V_PRX_PRE) is False and str(x).startswith(V_PRX_POST) is False]
         
@@ -15018,7 +15021,7 @@ class in_flame_utils
             if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": _VAR[idx]}) # type: ignore
             else: node.setParms({f"{prx_prm}{prm[0]}{mpidx}": _VAR[idx]}) # type: ignore
 
-        f3h_iter = flam3h_iterator()
+        f3h_iter: flam3h_iterator = flam3h_iterator()
         if mode:
             node.parm(f"{prx}{f3h_iter.sec_varsT[t_idx][:-1]}").set(v_type)
             node.parm(f"{prx}{f3h_iter.sec_varsW[t_idx][0][:-1]}").set(v_weight)
@@ -15064,12 +15067,12 @@ class in_flame_utils
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
         
         _VAR: list[TA_TypeMaker] = in_flame_utils.in_v_parametric_var_collect(node, 
-                                                                        mode, 
-                                                                        apo_prm, 
-                                                                        xform, 
-                                                                        mp_idx, 
-                                                                        v_type, 
-                                                                        in_flame_utils.in_util_make_PRE)
+                                                                              mode, 
+                                                                              apo_prm, 
+                                                                              xform, 
+                                                                              mp_idx, 
+                                                                              v_type, 
+                                                                              in_flame_utils.in_util_make_PRE)
         
         mpidx: str = str(mp_idx + 1)
         for idx, prm in enumerate(var_prm[1:-1]): node.setParms({f"{prx_prm}{prm[0]}{mpidx}": _VAR[idx]}) # type: ignore
@@ -15115,12 +15118,12 @@ class in_flame_utils
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
 
         _VAR: list[TA_TypeMaker] = in_flame_utils.in_v_parametric_var_collect(node, 
-                                                                        mode, 
-                                                                        apo_prm, 
-                                                                        xform, 
-                                                                        mp_idx, 
-                                                                        v_type, 
-                                                                        in_flame_utils.in_util_make_POST)
+                                                                              mode, 
+                                                                              apo_prm, 
+                                                                              xform, 
+                                                                              mp_idx, 
+                                                                              v_type, 
+                                                                              in_flame_utils.in_util_make_POST)
         
         mpidx: str = str(mp_idx + 1)
         for idx, prm in enumerate(var_prm[1:-1]): node.setParms({f"{prx_prm}{prm[0]}{mpidx}": _VAR[idx]}) # type: ignore
@@ -15160,12 +15163,12 @@ class in_flame_utils
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
 
         _VAR: list[TA_TypeMaker] = in_flame_utils.in_v_parametric_var_collect(node, 
-                                                                        1, 
-                                                                        apo_prm, 
-                                                                        xform, 
-                                                                        0, 
-                                                                        v_type, 
-                                                                        in_flame_utils.in_util_make_PRE)
+                                                                              1, 
+                                                                              apo_prm, 
+                                                                              xform, 
+                                                                              0, 
+                                                                              v_type, 
+                                                                              in_flame_utils.in_util_make_PRE)
             
         for idx, prm in enumerate(var_prm[1:-1]): node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": _VAR[idx]}) # type: ignore
 
@@ -15204,12 +15207,12 @@ class in_flame_utils
         apo_prm = in_flame_utils.in_prm_name_exceptions(v_type, app, apo_prm)
 
         _VAR: list[TA_TypeMaker] = in_flame_utils.in_v_parametric_var_collect(node, 
-                                                                        1, 
-                                                                        apo_prm, 
-                                                                        xform, 
-                                                                        0, 
-                                                                        v_type, 
-                                                                        in_flame_utils.in_util_make_POST)
+                                                                              1, 
+                                                                              apo_prm, 
+                                                                              xform, 
+                                                                              0, 
+                                                                              v_type, 
+                                                                              in_flame_utils.in_util_make_POST)
             
         for idx, prm in enumerate(var_prm[1:-1]): node.setParms({f"{PRX_FF_PRM_POST}_{prm[0][0:-1]}": _VAR[idx]}) # type: ignore
 
@@ -15240,7 +15243,7 @@ class in_flame_utils
             (None):
         """
         prx, prx_prm = in_flame_utils.in_util_flam3h_prx_mode(mode)
-        f3h_iter = flam3h_iterator()
+        f3h_iter: flam3h_iterator = flam3h_iterator()
         if mode:
             node.parm(f"{prx}{f3h_iter.sec_varsT[t_idx][:-1]}").set(v_type)
             node.parm(f"{prx}{f3h_iter.sec_varsW[t_idx][0][:-1]}").set(v_weight)
@@ -18038,7 +18041,7 @@ class out_flame_utils
 * out_affine_rot(affine: TA_Affine, angleDeg: float) -> TA_Affine:
 * out_xaos_cleanup(xaos: TA_STR_ListUnflattened) -> TA_STR_ListUnflattened:
 * out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> TA_XAOS_Collect:
-* out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> TA_STR_ListUnflattened:
+* out_xaos_collect_vactive(node: hou.SopNode, fill: list[list[str]] | list[list[float]], prm: str) -> list[list[str] | list[Never]]:
 * _out_pretty_print(current: lxmlET._Element, parent: lxmlET._Element | None = None, index: int = -1, depth: int = 0) -> None: #type: ignore
 * _out_pretty_print(current, parent=None, index: int=-1, depth: int=0) -> None:
 * menu_out_presets_loop(menu: list, i: int, item: str) -> None:
@@ -19000,20 +19003,20 @@ class out_flame_utils
 
 
     @staticmethod
-    def out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> TA_STR_ListUnflattened:
+    def out_xaos_collect_vactive(node: hou.SopNode, fill: list[list[str]] | list[list[float]], prm: str) -> list[list[str] | list[Never]]:
         """Check for any NO-active iterators and account for those.</br>
 
         Args:
             node(hou.SopNode): FLAM3H™ node.
-            fill(list): List representing all xaos weights.
+            fill(list[list[str]] | list[list[float]]): List of list representing all xaos weights.
             prm(str): iterator vactive parameter.
 
         Returns:
-            (TA_STR_ListUnflattened): return a list of list[str] with the NO-active iterators taken into consideration.
+            (list[list[str] | list[Never]]): return a list of list[str] with the NO-active iterators taken into consideration.
         """    
-        xaos_no_vactive: list = []
+        xaos_no_vactive: list[list[str] | list[Never]] = []
         for x in fill:
-            collect: list = [str(item) for idx, item in enumerate(x) if node.parm(f"{prm}_{idx + 1}").eval()]
+            collect: list[str] = [str(item) for idx, item in enumerate(x) if node.parm(f"{prm}_{idx + 1}").eval()]
             
             if collect:
                 xaos_no_vactive.append(collect)
@@ -19103,7 +19106,7 @@ class out_flame_utils
         """
         
         # Pick iterator type (regular or FF)
-        f3h_iter = flam3h_iterator_FF() if mode else flam3h_iterator()
+        f3h_iter: flam3h_iterator | flam3h_iterator_FF = flam3h_iterator_FF() if mode else flam3h_iterator()
         
         # Map section attributes dynamically
         suffix: str = "_FF" if mode else ""
@@ -19475,7 +19478,7 @@ class out_flame_utils
                     
                     palette = len(apo_data.palette[0].keys())
                     build.append(f"Palette: {palette}")
-                    build_flash = build.copy()
+                    build_flash: list[str] = build.copy()
                     if apo_data.cp_flam3h_hsv is not False:
                         assert isinstance(apo_data.cp_flam3h_hsv, hou.Vector3)
                         build_flash.append('HSV')
@@ -19911,7 +19914,7 @@ class out_flame_utils
         """
         val: TA_XAOS_Collect = self.out_xaos_collect(self.node, self.iter_count, self.flam3h_iter_prm_names.xaos)
         fill: list[list[str]] = [np_pad(item, (0,self.iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
-        xaos_vactive: TA_STR_ListUnflattened = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
+        xaos_vactive: list[list[str] | list[Never]] = self.out_xaos_collect_vactive(self.node, fill, self.flam3h_iter_prm_names.main_vactive)
         _join: Callable[[Iterable[str]], str] = ' '.join
 
         return tuple(_join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
@@ -19931,7 +19934,7 @@ class out_flame_utils
         t: list[list[float]] = np_transpose(np_resize(fill, (self.iter_count, self.iter_count))).tolist()
         _join: Callable[[Iterable[str]], str] = ' '.join
         if mode:
-            xaos_vactive: TA_STR_ListUnflattened = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
+            xaos_vactive: list[list[str] | list[Never]] = self.out_xaos_collect_vactive(self.node, t, self.flam3h_iter_prm_names.main_vactive)
             return tuple(_join(x) for x in self.out_xaos_cleanup(self.out_util_round_floats(xaos_vactive)))
         
         return tuple(_join(x) for x in self.out_util_round_floats(t))
@@ -20424,7 +20427,7 @@ class out_flame_utils
                     xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
                     
                 xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
-                f3h_iter = flam3h_iterator()
+                f3h_iter: flam3h_iterator = flam3h_iterator()
                 names_VARS.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_varsT, f3h_iter.sec_varsW, xf, mp_idx, in_flame_utils.in_util_make_NULL))
                 names_VARS_PRE.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_prevarsT, f3h_iter.sec_prevarsW[1:], xf, mp_idx, in_flame_utils.in_util_make_PRE))
                 names_VARS_POST.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_postvarsT, f3h_iter.sec_postvarsW, xf, mp_idx, in_flame_utils.in_util_make_POST))
@@ -20454,7 +20457,7 @@ class out_flame_utils
                     finalxf.set(XML_FLAM3H_POST_AFFINE, f3d.finalxf_f3h_postaffine)
                     finalxf.set(XML_FLAM3H_POST_AFFINE_ANGLE, f3d.finalxf_f3h_postaffine_angle)
                     
-            f3h_iter_FF = flam3h_iterator_FF()
+            f3h_iter_FF: flam3h_iterator_FF = flam3h_iterator_FF()
             names_VARS_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), f3h_iter_FF.sec_varsT_FF, f3h_iter_FF.sec_varsW_FF, finalxf, '', in_flame_utils.in_util_make_NULL)
             names_VARS_PRE_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), f3h_iter_FF.sec_prevarsT_FF, f3h_iter_FF.sec_prevarsW_FF, finalxf, '', in_flame_utils.in_util_make_PRE)
             names_VARS_POST_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), f3h_iter_FF.sec_postvarsT_FF, f3h_iter_FF.sec_postvarsW_FF, finalxf, '', in_flame_utils.in_util_make_POST)
