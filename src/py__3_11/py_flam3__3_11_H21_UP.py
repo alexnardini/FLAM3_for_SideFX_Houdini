@@ -2230,8 +2230,8 @@ class flam3h_scripts
                         # Updated memory
                         flam3h_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, size)
                         
-                    type: hou.EnumValue = settings.particleDisplayType()
-                    if type == Pixels:
+                    _type: hou.EnumValue = settings.particleDisplayType()
+                    if _type == Pixels:
                         node.parm(PREFS_VIEWPORT_PT_TYPE).set(1)
                         # Updated memory
                         flam3h_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, 1)
@@ -13189,7 +13189,7 @@ class in_flame
         Returns:
             (str): value cleaned up from invalid characters
         """  
-        new = []
+        new: list[str] = []
         knots: list[str] = val.strip().split(' ')
         for idx, k in enumerate(knots):
             
@@ -13264,7 +13264,7 @@ class in_flame
         Returns:
             (list[str]): a list of affine values cleaned up from invalid characters
         """  
-        new = []
+        new: list[str] = []
         if not vals and key_name is not None:
             _d: str | None = XML_TO_F3H_LIST_DEFAULT_VALS.get(key_name)
             if _d is not None: vals = str(_d).split()
@@ -13307,7 +13307,7 @@ class in_flame
         Returns:
             (str): a string of spaced joined affine values cleaned up from invalid characters
         """  
-        new = []
+        new: list[str] = []
         if not vals and key_name is not None:
             new_vals: str | None = XML_TO_F3H_LIST_DEFAULT_VALS.get(key_name)
             if new_vals is not None: vals = str(new_vals).split(' ')
