@@ -20390,9 +20390,9 @@ class out_flame_utils
 
         # SET xforms
         name_PRE_BLUR: str = ""
-        names_VARS: list = []
-        names_VARS_PRE: list = []
-        names_VARS_POST: list = []
+        names_VARS: list[list[str]] = []
+        names_VARS_PRE: list = [] # this is a: list[list[str]] but I can not cast it yet because I am doing dirty things down the line
+        names_VARS_POST: list[list[str]] = []
         xml_xf_names: tuple[str, ...] = self.out_buil_xf_names(f3d)
         
         for iter in range(f3d.iter_count):
