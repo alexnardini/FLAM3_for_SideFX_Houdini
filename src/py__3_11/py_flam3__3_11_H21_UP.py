@@ -7187,7 +7187,7 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             node: hou.SopNode = self.node
@@ -7247,7 +7247,7 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             node: hou.SopNode = self.node
@@ -7598,7 +7598,7 @@ class flam3h_iterator_utils
             (TA_Menu): return menu list
         """    
 
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             menu: TA_Menu = []
@@ -7689,7 +7689,7 @@ class flam3h_iterator_utils
         if self.node.parmTuple(FLAM3H_ITERATORS_TAB).eval() != (1,):
             return MENU_PRESETS_EMPTY_HIDDEN
         
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             node: hou.SopNode = self.node
@@ -7742,7 +7742,7 @@ class flam3h_iterator_utils
             * mp_id_from -> Multiparameter index. Is the iterator number we are copying from inside "from_FLAM3H_NODE".
             * isDELETED -> will tell us if "from_FLAM3H_NODE" still exist.
         """
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             isDELETED: bool = False
@@ -7911,7 +7911,7 @@ class flam3h_iterator_utils
             * from_FLAM3H_NODE_FF_CHECK -> Is the FF being marked or not".
             * isDELETED -> will tell us if "from_FLAM3H_NODE" still exist.
         """     
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             from_FLAM3H_NODE: TA_MNode = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
@@ -10444,7 +10444,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """  
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
@@ -10471,7 +10471,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """  
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
@@ -10499,7 +10499,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """  
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
@@ -10526,7 +10526,7 @@ class flam3h_palette_utils
         Returns:
             (None):
         """  
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
@@ -10606,7 +10606,7 @@ class flam3h_palette_utils
         Returns:
             (TA_Menu): return menu
         """
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             if json_is_file and node.parm(CP_PVT_ISVALID_FILE).eval() and self.node.parm(CP_PVT_ISVALID_PRESET).eval():
@@ -10655,7 +10655,7 @@ class flam3h_palette_utils
         elif not self.node.parm(CP_PATH).eval():
             return MENU_PRESETS_EMPTY
         
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             data: TA_Menu | None = node.cachedUserData('cp_presets_menu')
@@ -10699,7 +10699,7 @@ class flam3h_palette_utils
         Returns:
             (TA_Menu): return menu
         """
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
 
             if self.isJSON_F3H(node, json_file_path, False)[-1] and node.parm(CP_PVT_ISVALID_FILE).eval() and not node.parm(CP_PVT_ISVALID_PRESET).eval():
@@ -10746,7 +10746,7 @@ class flam3h_palette_utils
         elif not self.node.parm(CP_PATH).eval():
             return MENU_PRESETS_EMPTY
         
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             data: TA_Menu | None = node.cachedUserData('cp_presets_menu_off')
@@ -16252,7 +16252,7 @@ class in_flame_utils
             (None):
         """  
         
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
@@ -16287,7 +16287,7 @@ class in_flame_utils
             (None):
         """  
         
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
@@ -16321,7 +16321,7 @@ class in_flame_utils
             (None):
         """  
         
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
@@ -16353,7 +16353,7 @@ class in_flame_utils
             (None):
         """  
         
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
@@ -16866,7 +16866,7 @@ class in_flame_utils
         Returns:
             (TA_Menu): the actual menu
         """
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
 
             if _xml_tree(xml_file_path).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and node.parm(IN_PVT_ISVALID_PRESET).eval():
@@ -16911,7 +16911,7 @@ class in_flame_utils
                 return MENU_IN_PRESETS_EMPTY_CB
             return MENU_PRESETS_EMPTY
         
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             data: TA_Menu | None = node.cachedUserData('in_presets_menu')
@@ -16962,7 +16962,7 @@ class in_flame_utils
         Returns:
             (TA_Menu): the actual menu
         """
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
 
             if _xml_tree(xml_file_path).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and not node.parm(IN_PVT_ISVALID_PRESET).eval():
@@ -17017,7 +17017,7 @@ class in_flame_utils
                 return MENU_IN_PRESETS_EMPTY_CB
             return MENU_PRESETS_EMPTY
         
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             data: TA_Menu | None = node.cachedUserData('in_presets_menu_off')
@@ -19059,7 +19059,7 @@ class out_flame_utils
         Returns:
             (None):
         """  
-        # This undo's disabler is needed to make the undo work. They work best in H20.5 (probably not needed anymore)
+        # This undo's disabler is needed to make the undo work.  (probably not needed anymore)
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
@@ -19078,7 +19078,7 @@ class out_flame_utils
         Returns:
             (None):
         """  
-        # This undo's disabler is needed to make the undo work. They work best in H20.5 (probably not needed anymore)
+        # This undo's disabler is needed to make the undo work.  (probably not needed anymore)
         with hou.undos.disabler(): # type: ignore
             
             menu.append(str(i)) # This menu is a string parameter so I do believe this is the correct way
@@ -19949,7 +19949,7 @@ class out_flame_utils
         Returns:
             (TA_Menu): Return a menu
         """
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             # For the OUT Tab menu presets we are forced to use the class: _xml_tree(...)
@@ -19997,7 +19997,7 @@ class out_flame_utils
         if not node.parm(OUT_PATH).eval():
             return MENU_PRESETS_EMPTY
         
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             data: TA_Menu | None = node.cachedUserData('out_presets_menu')
