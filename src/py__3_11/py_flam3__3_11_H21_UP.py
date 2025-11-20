@@ -2991,7 +2991,7 @@ class flam3h_general_utils
         """  
         stats: str = node.parm(MSG_IN_FLAMESTATS).eval()
         lines: list[str] = stats.splitlines()
-        if lines[0] == MSG_FLAMESTATS_LOCK: lines[0] = ''
+        if str(lines[0]).startswith(MSG_FLAMESTATS_LOCK): lines[0] = ''
         stats_join: str = "\n".join(lines)
         node.parm(MSG_IN_FLAMESTATS).set(stats_join)
 
