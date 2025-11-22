@@ -521,8 +521,8 @@ F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
         
         Args:
             e(Any): Any of the exceptions type.
-            traceback_info(bool): Default to: False.</br>If True, it will print also the full traceback.
-            extra_info(str | None): Default to: None.</br>Add a string message to print it under a: "Extra info" message
+            traceback_info(bool): Default to: False</br>If True, it will print also the full traceback.
+            extra_info(str | None): Default to: None</br>Add a string message to print it under a: "Extra info" message
             
         Returns:
             (None):
@@ -982,7 +982,7 @@ class flam3h_varsPRM
             _PB(bool): Default to: False</br>When set to True it will include the pre_blur variation in the menu variation lists.
             
         Returns:
-            (list): return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data
+            (TA_Menu): return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data
         """  
         menu: TA_Menu = []
         for id, item in self.menu_vars_all(_PB): self.__populate_linear_list(menu, item, id)
@@ -1504,9 +1504,8 @@ class flam3h_scripts
         """Get the houdini version number from the gloabl: __h_versions__</br>
 
         Args:
-            __h_versions__(tuple[int, ...] | int): a tuple containing all the compatible Houdini versions or an int of the desired Houdini version. When a tuple, it will be coming from the HDA's PythonModule: __h_versions__
-            last_index(bool): Default to: False</br>as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H™ HDA version run on multiple Houdinin versions.
-            or it can be a 3 digits int
+            __h_versions__(tuple[int, ...] | int): a tuple containing all the compatible Houdini versions or an int of the desired Houdini version.</br>When a tuple, it will be coming from the HDA's PythonModule: __h_versions__
+            last_index(bool): Default to: False</br>as it will return the first in the tuple.</br>If True, it will return the last in the tuple.</br>This is done because some FLAM3H™ HDA version run on multiple Houdinin versions or it can also be a 3 digits int
 
         Returns:
             (None):
@@ -1986,7 +1985,7 @@ class flam3h_scripts
 
         Args:
             (self):
-            FIRST_TIME_MSG(int): False for onLoaded and True for onCreated
+            FIRST_TIME_MSG(int): Default to: True</br>False for onLoaded and True for onCreated
             
         Returns:
             (None):
@@ -2167,8 +2166,8 @@ class flam3h_scripts
         
         Args:
             (self):
-            default_value_pt(float): A default value to compare to for the point setting. This must always be the same as the FLAM3H™ UI parameter's default values.
-            default_value_ww(float): A default value to compare to for the wire width setting. This must always be the same as the FLAM3H™ UI parameter's default values.
+            default_value_pt(float): Default to: 1</br>A default value to compare to for the point setting.</br>This must always be the same as the FLAM3H™ UI parameter's default values.
+            default_value_ww(float): Default to: 3</br>A default value to compare to for the wire width setting.</br>This must always be the same as the FLAM3H™ UI parameter's default values.
             
         Returns:
             (None):
@@ -2968,7 +2967,7 @@ class flam3h_general_utils
             node(hou.SopNode): the current FLAM3H™ node.
             msg(str | None): The string message to print or None.
             timer(float): Default to: FLAM3H_FLASH_MESSAGE_TIMER (2 sec)</br>How long the printed message stay before it fade away.
-            img(str | None): Default to: None</br>specifies an icon or image file that should be displayed along with the text specified in the msg argument.
+            img(str | None): Default to: None</br>Specifies an icon or image file that should be displayed along with the text specified in the msg argument.
 
         Returns:
             (None):
@@ -3815,7 +3814,7 @@ class flam3h_general_utils
             viewports(list[hou.SceneViewer): A list of hou.ScenViewer
             update_sensor(int): Is the force sensor update toggle ON or OFF ?
             _SYS_FRAME_VIEW_SENSOR_prm(bool): Is this being run from the SYS tab reframe viewport icon ?
-            update(bool): Is the updated Sensor Viz toggle ON or OFF ?
+            update(bool): Default to: True</br>Updated the viewport camera sensor or not(False)
             
         Returns:
             (bool): True if the Sensor Viz is being activated. False if not.
@@ -4473,7 +4472,7 @@ class flam3h_general_utils
 
         Args:
             (self):
-            prm_name(str): Toggle parameter name to use.
+            prm_name(str): Default to: PREFS_PVT_DOFF</br>Toggle parameter name to use.
 
         Returns:
             (None):  
@@ -4542,6 +4541,7 @@ class flam3h_general_utils
             destroy(bool): Default to: True</br>Destroy menu presets cached data. True or False.
             json_file(bool | None): Default to: None</br>Is it a json file ?
             f3h_json_file(bool | None): Default to: None</br>Is it a F3H palette json file ?
+            json_path_checked(str | bool | None): Default to: None</br>Check if the provided path is a valid one, it will autocorrect it if needed.
             
         Returns:
             (None):
@@ -4766,6 +4766,7 @@ class flam3h_general_utils
         
         Args:
             (self):
+            destroy_menus(bool): Default to: True</br>Destroy all menus data and force them to be rebuilt.</br>Set it to False to not force menus rebuild.
             
         Returns:
             (None):
@@ -5542,7 +5543,7 @@ class flam3h_iterator_utils
         
         Args:
             name(str): current iterator name to check.
-            regex(str): The regex expresion to use to. Default to one build for the current iterators default name.
+            regex(str): Default to: "^[^\d\s()]+(?: [^\d\s()]+)*[\d]+"</br>The regex expresion to use. Default to one build for the current iterators default name.
         
         Returns:
             (bool): True if the iterator name is a default name and False if not.
@@ -5965,7 +5966,7 @@ class flam3h_iterator_utils
             node(hou.SopNode): this FLAM3H™ node
             prm_from(hou.Parm): the first parameter
             prm_to(hou.Parm): the second parameter
-            reset_val(int | float): the value to reset the parameters to. This should be int for types and float for weights.
+            reset_val(int | float): Default to: 0</br>The value to reset the parameters to.</br>This should be int for types and float for weights.
             
         Returns:
             (None):
@@ -6712,7 +6713,7 @@ class flam3h_iterator_utils
         Args:
             (self):
             node(hou.SopNode): The FLAM3H™ node.
-            f3h_all(bool): Perform this for all FLAM3H™ nodes in the scene.
+            f3h_all(bool): Default to: False</br>Perform this for all FLAM3H™ nodes in the scene.
             
         Returns:
             (None):
@@ -10214,7 +10215,7 @@ class flam3h_palette_utils
             node(hou.SopNode): current FLAM3H™ node
             filepath(str | bool): Palette lib full file path.
             msg(bool): Default to: True</br>print out messages to the Houdini's status bar.</br>Set it to False to not print out messages.
-            parm_path_name(str): Default to: global: CP_PATH</br>The actual Houdini's palette file parameter name.
+            parm_path_name(str): Default to: CP_PATH</br>The actual Houdini's palette file parameter name.
 
         Returns:
             (tuple[bool, bool]): True if valid. False if not valid.
@@ -10269,7 +10270,7 @@ class flam3h_palette_utils
             node(hou.SopNode): current FLAM3H™ node
             filepath(str | bool): Palette lib full file path.
             msg(bool): Default to: True</br>Print out messages to the Houdini's status bar.</br>Set it to False to not print out messages.
-            parm_path_name(str): Default to: global: CP_PATH</br>The actual Houdini's palette file parameter name.
+            parm_path_name(str): Default to: CP_PATH</br>The actual Houdini's palette file parameter name.
 
         Returns:
             (tuple[bool, bool]): True if valid. False if not valid.
@@ -10341,7 +10342,8 @@ class flam3h_palette_utils
             HEXs(list): The array/list of hex colors.
                          In case of: palette_cp(self) definition -> this argument will be the number of the (source)palette color keys 
                                                                     and it is used only to check if we need to update the palette message while editing it.
-            mode(bool): (default to False) For now True only to use inside: palette_cp(self) -> None:
+            mode(bool): Default to: False</br>For now True only to use inside: palette_cp(self) -> None:
+            palette_plus_msg(bool): Default to: False</br>Do not print out messages. Set it to True to print.
 
         Returns:
             (None):
@@ -11149,7 +11151,7 @@ class flam3h_palette_utils
 
         Args:
             (self):
-            use_kwargs(bool): Default to: True.</br>Use the houdini kwargs arguments or not.</br>This is being done as when this definition run from a menu parameter the kwargs arguments are not available. 
+            use_kwargs(bool): Default to: True</br>Use the houdini kwargs arguments or not.</br>This is being done as when this definition run from a menu parameter the kwargs arguments are not available. 
         
         Returns:
             (None):
@@ -11363,7 +11365,7 @@ class flam3h_palette_utils
         
         Args:
             (self):
-            use_kwargs(bool): Default to: True.</br>Use the houdini kwargs arguments or not.</br>This is being done as when this definition run from a menu parameter the kwargs arguments are not available. 
+            use_kwargs(bool): Default to: True</br>Use the houdini kwargs arguments or not.</br>This is being done as when this definition run from a menu parameter the kwargs arguments are not available. 
 
         Returns:
             (None):
@@ -11404,7 +11406,7 @@ class flam3h_palette_utils
         
         Args:
             (self):
-            palette_plus_msg(bool): Default to: False.</br>Coordinate messages about palette 256+ when the preferences option: "palette 256+" is ON
+            palette_plus_msg(bool): Default to: False</br>Coordinate messages about palette 256+ when the preferences option: "palette 256+" is ON
             
         Returns:
             (None):
@@ -11673,7 +11675,7 @@ class flam3h_palette_utils
 
         Args:
             (self):
-            mode(int): definition idx to run
+            mode(int): Default to: 0</br>Definition idx to run
 
         Returns:
             (None):
@@ -12976,7 +12978,7 @@ class _xml_tree
         Args:
             (self):
             key(str): The XML Flame's name key.
-            _DEFAULT(str): If something goes wrong, use this default value instead.
+            _DEFAULT(str): Default to: '0'</br>If something goes wrong, use this default value instead.
 
         Returns:
             (tuple[str | list[Never], ...]): Flame presets single string values packed into a tuple os strings</br>or an empty list instead if the XML key is not found in the XML preset. Or an empty tuple
@@ -12998,7 +13000,7 @@ class _xml_tree
         Args:
             (self):
             key(str): The XML Flame's name key.
-            _DEFAULT(str): If something goes wrong, use this default value instead.
+            _DEFAULT(str): Default to: '0'</br>If something goes wrong, use this default value instead.
 
         Returns:
             (tuple[str | list[Never], ...]): Flame presets multi color correction curve values packed into a tuple of strings</br>or an empty list instead if the XML key is not found in the XML preset. Or an empty tuple.
@@ -13351,8 +13353,8 @@ class in_flame
         Args:
             vals(list): values from the xml
             key(str): The type of affine to build: XML_PRE_AFFINE, XML_POST_AFFINE, XML_FLAM3H_PRE_AFFINE, XML_FLAM3H_POST_AFFINE
-            mp_idx(int | None=None): [multi parameter index, for messaging purpose only]
-            type(int): Is it an iterator or an FF ?
+            mp_idx(int | None=None): Default to: None</br>Multi parameter index, for messaging purpose only.
+            type(int): Default to: 0(Zero)</br>It is either an iterator: 0 or an FF: 1
 
         Returns:
             (list): a list of hou.Vector2: ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) / ((A, D), (B, E), (C, F)) ready to be used to set affine parms, or an empty list if something is wrong
@@ -13603,7 +13605,7 @@ class in_flame
         Args:
             (self):
             xforms(tuple[dict, ...] | None): list of all xforms contained inside this flame
-            key(str): the flame XML xaos tag name.
+            key(str): Default to: XML_XF_XAOS</br>Rhe flame XML xaos tag name.
 
         Returns:
             (tuple[list[str] | list[Never], ...] | None): either a list of xaos strings</br>or an empty list instead if the XML key is not found in the XML preset. Or None
@@ -13628,7 +13630,7 @@ class in_flame
             (self):
             xforms(tuple[dict, ...] | None): list of all xforms contained inside this flame
             key(str): affine xml tag name. Either 'coefs' for pre affine or 'post' for post affine
-            type(int): Only used by the self.affine_coupling(...) definition. It is either an iterator: 0 or an FF: 1
+            type(int): Default to: 0(Zero)</br>Only used by the self.affine_coupling(...) definition.</br>It is either an iterator: 0 or an FF: 1
 
         Returns:
             (tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None): Either a list of list of tuples of hou.Vector2 ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) / ((A, D), (B, E), (C, F))</br>or an empty list instead if the XML key is not found in the XML preset. Or None
@@ -13653,6 +13655,7 @@ class in_flame
             (self):
             xforms(tuple[dict, ...] | None): list of all xforms contained inside this Flame or None if something went wrong.
             key(str): xml tag names. For shader: 'color', 'symmetry'->(color_speed), 'opacity'
+            msg(bool): Default to True</br> Set it to False to not print a message.
 
         Returns:
             (tuple[str | float | list[Never], ...] | None): description
@@ -13860,7 +13863,7 @@ class in_flame
         Args:
             self:
             idx(int): flame idx out of all flames included in the loaded flame file
-                      palette(tuple[hou.Ramp, int, str]): The loaded Flame palette data if any[palette hou ramp parm, colors count, format], otherwise: None
+            palette(tuple[hou.Ramp, int, str]): Default to None</br>The loaded Flame palette data if any[palette hou ramp parm, colors count, format]</br>otherwise: None
 
         Returns:
             (int | bool): FLAM3H™ palette lookup samples parameter values.
@@ -19207,7 +19210,7 @@ class out_flame_utils
     ##########################################
 
     @property
-    def kwargs(self) ->  dict[str, Any]:
+    def kwargs(self) -> dict[str, Any]:
         return self._kwargs
 
     @property
