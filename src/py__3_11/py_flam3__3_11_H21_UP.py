@@ -19803,7 +19803,7 @@ class out_flame_utils
                                                                 }
         
         # Clear and set
-        for key, value in parms_out_render_data.items():
+        for key in parms_out_render_data.keys():
             node.parm(key).deleteAllKeyframes()
         # Set
         node.setParms(parms_out_render_data) # type: ignore
