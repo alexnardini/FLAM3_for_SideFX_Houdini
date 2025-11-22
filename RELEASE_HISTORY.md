@@ -4294,4 +4294,22 @@ _Will update once H20 release._
 <br>
 
 
+### [<ins>v0.7.5c indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.5c) ###
+
+#### FLAM3H™ H18.x ####
+
+
+<br>
+<br>
+
+
+### [<ins>v0.7.5 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.7.5) ###
+
+#### FLAM3H™ H18.x ####
+
+
+<br>
+<br>
+
+
 ..._plus many more from when I first started and this project was not on GitHub yet_.
