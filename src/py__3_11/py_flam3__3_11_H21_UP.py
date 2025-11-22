@@ -420,7 +420,7 @@ MSG_FLAM3H_YOUTUBE = 'flam3h_heading_youtube'
 MSG_FLAM3_PDF = 'flam3_heading_pdf'
 MSG_FLAM3_GIT = 'flam3_heading_git'
 # MSG_FRACT_BITBUCKET = 'fract_heading_bit' # This repository has been abbandoned by the author in favor of a new Github repository instead
-MSG_FRACT_GUTHUB = 'fract_heading_bit'
+MSG_FRACT_GITHUB = 'fract_heading_bit'
 MSG_FRACT_WEB = 'fract_heading_web'
 # Message Mark iterators
 MARK_ITER_MSG = "Please, mark an iterator first"
@@ -11862,7 +11862,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
                                             MSG_FLAM3H_YOUTUBE: _FLAM3HYOUTUBE_MSG,
                                             MSG_FLAM3_PDF: _FLAM3PDF_MSG,
                                             MSG_FLAM3_GIT: _FLAM3GIT_MSG,
-                                            MSG_FRACT_GUTHUB: _FRACTGIT_MSG,
+                                            MSG_FRACT_GITHUB: _FRACTGIT_MSG,
                                             MSG_FRACT_WEB: _FRACTWEB_MSG
                                             }
         
