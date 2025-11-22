@@ -7052,7 +7052,7 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        menu: list[int | str] = copy(MENU_VARS_ALL_SIMPLE)
+        menu: TA_Menu = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = (self.menu_T_data, self.menu_T_FF_data)[FF]()
         var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
         if var is not None: menu[var] = f"{_ICON} {str(menu[var])[:20]}"
@@ -7076,7 +7076,7 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        menu: list[int | str] = copy(MENU_VARS_ALL_SIMPLE)
+        menu: TA_Menu = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = (self.menu_T_PP_data, self.menu_T_PP_FF_data)[FF]()
         var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
         if var is not None: menu[var] = f"{_ICON} {str(menu[var])[:20]}"
@@ -14345,7 +14345,7 @@ class in_flame_utils
 * in_copy_cc_curves_stats_msg(kwargs: dict) -> None:
 * in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
 * in_xml_key_val(xform: dict, key_name: str, default_val: float = 0) -> float:
-* menu_in_presets_loop(node: hou.SopNode, menu: lisTA_Menut, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
+* menu_in_presets_loop(node: hou.SopNode, menu: TA_Menu, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
 * menu_in_presets_loop_enum(node: hou.SopNode, menu: TA_Menu, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
 * menu_in_presets_empty_loop(node: hou.SopNode, menu: TA_Menu, i: int, item: str | list[Never]) -> None:
 * menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: TA_Menu, i: int, item: str | list[Never]) -> None:
@@ -18046,8 +18046,8 @@ class out_flame_utils
 * out_xaos_collect_vactive(node: hou.SopNode, fill: list[list[str]] | list[list[float]], prm: str) -> list[list[str] | list[Never]]:
 * _out_pretty_print(current: lxmlET._Element, parent: lxmlET._Element | None = None, index: int = -1, depth: int = 0) -> None: #type: ignore
 * _out_pretty_print(current, parent=None, index: int=-1, depth: int=0) -> None:
-* menu_out_presets_loop(menu: list, i: int, item: str) -> None:
-* menu_out_presets_loop_enum(menu: list, i: int, item: str) -> None:
+* menu_out_presets_loop(menu: TA_Menu, i: int, item: str) -> None:
+* menu_out_presets_loop_enum(menu: TA_Menu, i: int, item: str) -> None:
 * out_collect_var_section_names_dict(node: hou.SopNode, mode: bool = False, var_section: str = "VAR") -> dict[str, list[str]] | bool:
 * out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple[str, ...]:
 
@@ -19053,7 +19053,7 @@ class out_flame_utils
                 
                 
     @staticmethod
-    def menu_out_presets_loop(menu: list, i: int, item: str | list[Never]) -> None:
+    def menu_out_presets_loop(menu: TA_Menu, i: int, item: str | list[Never]) -> None:
         """This is specifically to be run inside a list comprehension.</br>
 
         Args:
@@ -19072,7 +19072,7 @@ class out_flame_utils
 
 
     @staticmethod
-    def menu_out_presets_loop_enum(menu: list, i: int, item: str | list[Never]) -> None:
+    def menu_out_presets_loop_enum(menu: TA_Menu, i: int, item: str | list[Never]) -> None:
         """This is specifically to be run inside a list comprehension.</br>
 
         Args:
