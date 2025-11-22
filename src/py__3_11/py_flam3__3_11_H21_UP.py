@@ -419,7 +419,8 @@ MSG_FLAM3H_INSTA = 'flam3h_heading_insta'
 MSG_FLAM3H_YOUTUBE = 'flam3h_heading_youtube'
 MSG_FLAM3_PDF = 'flam3_heading_pdf'
 MSG_FLAM3_GIT = 'flam3_heading_git'
-MSG_FRACT_BITBUCKET = 'fract_heading_bit'
+# MSG_FRACT_BITBUCKET = 'fract_heading_bit' # This repository has been abbandoned by the author in favor of a new Github repository instead
+MSG_FRACT_GUTHUB = 'fract_heading_bit'
 MSG_FRACT_WEB = 'fract_heading_web'
 # Message Mark iterators
 MARK_ITER_MSG = "Please, mark an iterator first"
@@ -11851,7 +11852,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         _FLAM3HYOUTUBE_MSG: str = 'FLAM3H™ youtube tutorials'
         _FLAM3PDF_MSG: str = 'The Fractal Flame Algorithm(FLAM3) pdf'
         _FLAM3GIT_MSG: str = 'The Fractal Flame Algorithm(FLAM3) github'
-        _FRACTBITBUCKETGIT_MSG: str = 'Fractorium bitbucket'
+        _FRACTGIT_MSG: str = 'Fractorium github'
         _FRACTWEB_MSG: str = 'Fractorium web'
         
         # {prm_name: value, ...}
@@ -11861,7 +11862,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
                                             MSG_FLAM3H_YOUTUBE: _FLAM3HYOUTUBE_MSG,
                                             MSG_FLAM3_PDF: _FLAM3PDF_MSG,
                                             MSG_FLAM3_GIT: _FLAM3GIT_MSG,
-                                            MSG_FRACT_BITBUCKET: _FRACTBITBUCKETGIT_MSG,
+                                            MSG_FRACT_GUTHUB: _FRACTGIT_MSG,
                                             MSG_FRACT_WEB: _FRACTWEB_MSG
                                             }
         
@@ -11959,6 +11960,19 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         www_open(page)
         
         
+    def flam3h_about_web_fractorium_github(self) -> None:
+        """Open a web browser to the Fractorium Bitbucket repository.</br>
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        page: str = "https://github.com/mfeemster/fractorium/tree/master"
+        www_open(page)
+        
+        
     def flam3h_about_web_fractorium(self) -> None:
         """Open a web browser to the Fractorium Bitbucket repository.</br>
         
@@ -11989,7 +12003,8 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
                                               'youtube': self.flam3h_about_web_youtube,
                                               'paper': self.flam3h_about_web_flam3_paper,
                                               'flam3git': self.flam3h_about_web_flam3_github,
-                                              'bitbucket': self.flam3h_about_web_bitbucket,
+                                              'fractbitbucket': self.flam3h_about_web_bitbucket,
+                                              'fractgithub': self.flam3h_about_web_fractorium_github,
                                               'fractweb': self.flam3h_about_web_fractorium,
                                             }
         

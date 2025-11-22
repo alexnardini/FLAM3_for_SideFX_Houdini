@@ -2263,7 +2263,46 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlackSVG.svg
 <b>GITHUB</b>
 
 ```
-https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_GithubBlackSVG.svg
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_GithubBlueSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_GithubBlueSVG.svg" /></p>
+<b><p align="center">icon_GithubBlueSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlueSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlueSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_GithubBlueSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_GithubBlueSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_GithubBlueSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_GithubBlueSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
