@@ -14498,7 +14498,7 @@ class in_flame_utils
                 return V_PRX_POST + name
             
         # Should I use: Iterable instead ? Perhaps this way I can catch if something else is being used.
-        elif isinstance(name, (list, tuple, set, KeysView)):
+        elif isinstance(name, (list, tuple, KeysView, set)):
             return [V_PRX_POST + x for x in name if str(x).startswith(V_PRX_PRE) is False and str(x).startswith(V_PRX_POST) is False]
         
         else:
