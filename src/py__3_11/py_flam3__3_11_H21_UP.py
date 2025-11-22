@@ -14446,7 +14446,7 @@ class in_flame_utils
                 return name
             
         # Should I use: Iterable instead ? Perhaps this way I can catch if something else is being used.
-        elif isinstance(name, (list, tuple, set, KeysView)):
+        elif isinstance(name, (list, tuple, KeysView, set)):
             
             _names: list[str] = [re_sub(REGEX_PRE, '', x) for x in name if str(x).startswith(V_PRX_PRE) is True]
             if not _names:
@@ -14476,7 +14476,7 @@ class in_flame_utils
                 return V_PRX_PRE + name
             
         # Should I use: Iterable instead ? Perhaps this way I can catch if something else is being used.
-        elif isinstance(name, (list, tuple, KeysView, set, set)):
+        elif isinstance(name, (list, tuple, KeysView, set)):
             return [V_PRX_PRE + x for x in name if str(x).startswith(V_PRX_PRE) is False and str(x).startswith(V_PRX_POST) is False]
         
         else:
