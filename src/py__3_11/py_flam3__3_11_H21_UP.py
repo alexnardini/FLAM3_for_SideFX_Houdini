@@ -1852,7 +1852,7 @@ class flam3h_scripts
         Returns:
             (None):
         """  
-        _len: Callable[[tuple], int] = len
+        _len: Callable[[tuple[Any]], int] = len
         # Iterators
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         prm_list_post_affine: tuple[tuple[str, int], ...] = flam3h_iterator().sec_postAffine
@@ -6067,7 +6067,7 @@ class flam3h_iterator_utils
         Returns:
             (bool): True if the affine are default values and False if they are not.
         """   
-        _len: Callable[[tuple], int] = len
+        _len: Callable[[tuple[Any]], int] = len
         if post:
             keyframes_post: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}")] if prm_list_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_affine[1:][idx][0]}{id}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
             collect_post: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}").eval() if prm_list_affine[1:][idx][1] else node.parm(f"{prm_list_affine[1:][idx][0]}{id}").eval() for idx in range(len(prm_list_affine[1:]))]
@@ -6104,7 +6104,7 @@ class flam3h_iterator_utils
         Returns:
             (bool): True if the affine are default values and False if they are not.
         """   
-        _len: Callable[[tuple], int] = len
+        _len: Callable[[tuple[Any]], int] = len
         if post:
             keyframes_post: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}")] if prm_list_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_affine[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
             collect_post: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}").eval() if prm_list_affine[1:][idx][1] else node.parm(f"{prm_list_affine[1:][idx][0]}").eval() for idx in range(len(prm_list_affine[1:]))]
@@ -10024,7 +10024,7 @@ class flam3h_palette_utils
 * isJSON_F3H_get_first_preset(filepath: str | bool) -> str | bool:
 * isJSON_F3H(node: hou.SopNode, filepath: str | bool,  msg: bool = True, parm_path_name: str = CP_PATH) -> tuple[bool, bool]:
 * isJSON_F3H_on_preset_load(node: hou.SopNode, filepath: str | bool,  msg: bool = True, parm_path_name: str = CP_PATH) -> tuple[bool, bool]:
-* rgb_to_hex(rgb: tuple) -> str:
+* rgb_to_hex(rgb: tuple[float, ...]) -> str:
 * hex_to_rgb(hex: str) -> tuple[int, ...]:
 * find_nearest_idx(array: list | tuple, value: int | float) -> int | float:
 * json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode: bool = False, palette_plus_msg: bool = False) -> None:
@@ -10289,11 +10289,11 @@ class flam3h_palette_utils
         
         
     @staticmethod
-    def rgb_to_hex(rgb: tuple) -> str:
+    def rgb_to_hex(rgb: tuple[float, ...]) -> str:
         """Convert a RGB color values into HEX color values.</br>
 
         Args:
-            rgb(tuple): the RGB color value to convert.
+            rgb(tuple[float, ...]): the RGB color value to convert.
 
         Returns:
             (str): HEX color value
@@ -10800,7 +10800,7 @@ class flam3h_palette_utils
             
         keys_count: str = out_flame_utils(self.kwargs).out_palette_keys_count(self.palette_plus_do, len(palette.keys()), 1, False)
         POSs: list[int | float] = list(it_islice(it_count(0, 1.0/(int(keys_count)-1)), int(keys_count)))
-        _rgb_to_hex: Callable[[tuple], str] = self.rgb_to_hex
+        _rgb_to_hex: Callable[[tuple[float, ...]], str] = self.rgb_to_hex
         HEXs: list[str] = [_rgb_to_hex(palette.lookup(p)) for p in POSs]
         
         if hsv_vals_prm[0] == hsv_vals_prm[1] == hsv_vals_prm[2] == 1:
@@ -11826,7 +11826,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         n: int = 5
         vars_sorted_grp: list[list[str]] = [vars_sorted[i:i + n] for i in range(0, len(vars_sorted), n)]
         _join: Callable[[Iterable[str]], str] = ', '.join
-        _len: Callable[[list], int] = len
+        _len: Callable[[list[Any]], int] = len
         vars_txt: str = ''.join( [_join(grp) + "." if idx == (_len(vars_sorted_grp)-1) else _join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
         vars_txt_MSG: str = f"They are also available as PRE and POST.\n\nNumber of plugins/variations: {len(vars_sorted)}\n\n{vars_txt}"
         self.node.parm(MSG_FLAM3H_PLUGINS).set(vars_txt_MSG)
@@ -13036,7 +13036,7 @@ class _xml_tree
             
             root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
-            _xf_list_cleanup_str: Callable[[list, str, str], str] = in_flame.xf_list_cleanup_str
+            _xf_list_cleanup_str: Callable[[list[str], str, str], str] = in_flame.xf_list_cleanup_str
             list_values_cleaned: tuple[str | list[Never], ...] = tuple(str(_xf_list_cleanup_str(_strip(keyval).split(), _default, key)) if (keyval := name.get(key)) is not None else [] for name in root)
             return list_values_cleaned
         
@@ -13093,8 +13093,8 @@ class in_flame
 @STATICMETHODS
 * xf_val_cleanup_split_str(val: str, default_val: str = '0', key_name: str | None = None) -> str:
 * xf_val_cleanup_str(val: str, default_val: str = '0', key_name: str | None = None) -> str:
-* xf_list_cleanup(vals: list, default_val: str = '0', key_name: str | None = None) -> list[str]:
-* xf_list_cleanup_str(vals: list, default_val: str = '0', key_name: str | None = None) -> str:
+* xf_list_cleanup(vals: list[str], default_val: str = '0', key_name: str | None = None) -> list[str]:
+* xf_list_cleanup_str(vals: list[str], default_val: str = '0', key_name: str | None = None) -> str:
 * affine_coupling(affine: list, key: str = '', mp_idx: int | None = None, type: int = 0) -> list:
 * check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
 
@@ -13255,11 +13255,11 @@ class in_flame
 
 
     @staticmethod
-    def xf_list_cleanup(vals: list, default_val: str = '0', key_name: str | None = None) -> list[str]:
+    def xf_list_cleanup(vals: list[str], default_val: str = '0', key_name: str | None = None) -> list[str]:
         """ Return a list after attempting to eliminate invalid characters from the provided list values.</br>
         
         Args:
-            vals(list): values from the xml
+            vals(list[str]): values from the xml
             default_val(str): Default to: '0'</br>If something goes wrong use this as the returned value.
             key_name(str | None): Default to: None</br>If not None</br>it will print out the key_name if not a value.
 
@@ -13298,11 +13298,11 @@ class in_flame
     
     
     @staticmethod
-    def xf_list_cleanup_str(vals: list, default_val: str = '0', key_name: str | None = None) -> str:
+    def xf_list_cleanup_str(vals: list[str], default_val: str = '0', key_name: str | None = None) -> str:
         """ Return a spaced joined string of the list after attempting to eliminate any incorrect characters from the list values.</br>
         
         Args:
-            vals(list): values from the xml
+            vals(list[str]): values from the xml
             default_val(str): Default to: '0'</br>If something goesw wrong use this as the returned value.
             key_name(str | None): Default to: None</br>If not None</br>it will print out the key_name if not a value.
 
@@ -13342,7 +13342,7 @@ class in_flame
 
 
     @staticmethod
-    def affine_coupling(affine: list, key: str = '', mp_idx: int | None = None, type: int = 0) -> list:
+    def affine_coupling(affine: list[float], key: str = '', mp_idx: int | None = None, type: int = 0) -> list:
         """ Build proper affine values composed of hou.Vector2 tuples.</br>
         It will also check the affine passed in and provide an alternative defaults affine values</br>
         if not correct and print out messages to inform the user about different cases.</br></br>
@@ -13351,7 +13351,7 @@ class in_flame
             This will need some work at some point.</br>
         
         Args:
-            vals(list): values from the xml
+            affine(list[float]): values from the xml
             key(str): The type of affine to build: XML_PRE_AFFINE, XML_POST_AFFINE, XML_FLAM3H_PRE_AFFINE, XML_FLAM3H_POST_AFFINE
             mp_idx(int | None): Default to: None</br>Multi parameter index, for messaging purpose only.
             type(int): Default to: 0(Zero)</br>It is either an iterator: 0 or an FF: 1
@@ -13612,10 +13612,10 @@ class in_flame
         """
         if  self.isvalidtree and xforms is not None:
             _join: Callable[[Iterable[str]], str] = ':'.join
-            _xf_list_cleanup: Callable[[list, str, str | None], list] = self.xf_list_cleanup
+            _xf_list_cleanup: Callable[[list[str], str, str | None], list[str]] = self.xf_list_cleanup
             xaos: list = [f"xaos:{_join(_xf_list_cleanup(str(keyval).split(), '1', key))}" if (keyval := xf.get(key)) is not None else [] for xf in xforms]
 
-            _len: Callable[[list], int] = len
+            _len: Callable[[list[Any]], int] = len
             if not max(list(map(lambda x: _len(x), xaos))):
                 return None
             
@@ -13636,11 +13636,11 @@ class in_flame
             (tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None): Either a list of list of tuples of hou.Vector2 ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) / ((A, D), (B, E), (C, F))</br>or an empty list instead if the XML key is not found in the XML preset. Or None
         """   
         if  self.isvalidtree and xforms is not None:
-            _affine_coupling: Callable[[list, str, int | None, int], list] = self.affine_coupling
-            _xf_list_cleanup: Callable[[list, str, str | None], list] = self.xf_list_cleanup
+            _affine_coupling: Callable[[list[float], str, int | None, int], list] = self.affine_coupling
+            _xf_list_cleanup: Callable[[list[str], str, str | None], list] = self.xf_list_cleanup
             coefs: list = [tuple(_affine_coupling([float(x) for x in _xf_list_cleanup(str(keyval).split(), '0', key)], key, int(idx + 1), type)) if (keyval := xf.get(key)) is not None else [] for idx, xf in enumerate(xforms)]
             
-            _len: Callable[[list], int] = len
+            _len: Callable[[list[Any]], int] = len
             if max(list(map(lambda x: _len(x), coefs))):
                 return tuple(coefs)
             
@@ -14217,7 +14217,7 @@ class in_flame_utils
                           prx: str, 
                           exclude_keys: tuple
                           ) -> TA_STR_ListUnflattened | None:
-* in_util_typemaker(data: list) -> TA_TypeMaker:
+* in_util_typemaker(data: list[float]) -> TA_TypeMaker:
 * in_get_idx_by_key(key: str) -> int | None:
 * in_util_flam3h_prx_mode(mode: int) -> tuple[str, str]:
 * in_set_affine(mode: int, 
@@ -14686,11 +14686,11 @@ class in_flame_utils
         
         
     @staticmethod
-    def in_util_typemaker(data: list) -> TA_TypeMaker:
+    def in_util_typemaker(data: list[float]) -> TA_TypeMaker:
         """Based on how many element in the passed list return the proper type of data.</br>
         
         Args:
-            data(list): [a list of floats containinig the current parameter values to be converted into hou types]
+            data(list[float]): A list of floats containinig the current parameter values to be converted into hou types.
 
         Returns:
             (TA_TypeMaker): Based on how many element in the passed list return the proper type of data
@@ -15467,7 +15467,7 @@ class in_flame_utils
             (str): The final message without the extra empty line at the end.
         """     
         _join: Callable[[Iterable[str]], str] = ', '.join
-        _len: Callable[[list], int] = len
+        _len: Callable[[list[Any]], int] = len
         vars: list[str] = [_join(grp) + (",\n" if i < _len(groups) - 1 else ".") for i, grp in enumerate(groups)]
         
         return ''.join(vars)
@@ -18987,7 +18987,7 @@ class out_flame_utils
                     
                     # If a number is typed, fill all xaos weights with that number.
                     if isNUM:
-                        v: list = [str((float(iter_xaos_clean))) if float(iter_xaos_clean) >= 0 else '1' for x in range(iter_count)]
+                        v: list[str] = [str((float(iter_xaos_clean))) if float(iter_xaos_clean) >= 0 else '1' for x in range(iter_count)]
                         val.append(v)
                         
                     else:
@@ -21090,7 +21090,7 @@ class out_flame_utils
         """  
         _PALETTE_KEYS_OUT = self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0)
         POSs: list[int | float] = list(it_islice(it_count(0, 1.0/(int(_PALETTE_KEYS_OUT)-1)), int(_PALETTE_KEYS_OUT)))
-        _rgb_to_hex: Callable[[tuple], str] = flam3h_palette_utils.rgb_to_hex
+        _rgb_to_hex: Callable[[tuple[float, ...]], str] = flam3h_palette_utils.rgb_to_hex
         HEXs: list[str] = [_rgb_to_hex(tuple(self.palette.lookup(p))) for p in POSs]
         n: int = 8
         hex_grp: TA_STR_ListUnflattened = [HEXs[i:i + n] for i in range(0, len(HEXs), n)]
