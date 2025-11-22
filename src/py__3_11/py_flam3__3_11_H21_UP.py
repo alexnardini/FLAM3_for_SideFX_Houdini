@@ -10029,10 +10029,10 @@ class flam3h_palette_utils
 * json_to_flam3h_palette_plus_MSG(node: hou.SopNode, HEXs: list, mode: bool = False, palette_plus_msg: bool = False) -> None:
 * json_to_flam3h_palette_plus_preset_MSG(node: hou.SopNode, _MSG: str) -> None:
 * json_to_flam3h_get_preset_name_and_id(node: hou.SopNode) -> tuple[str, int]:
-* menu_cp_presets_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
-* menu_cp_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
-* menu_cp_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
-* menu_cp_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+* menu_cp_presets_loop(node: hou.SopNode, menu: TA_Menu, i: int, item: str) -> None:
+* menu_cp_presets_loop_enum(node: hou.SopNode, menu: TA_Menu, i: int, item: str) -> None:
+* menu_cp_presets_empty_loop(node: hou.SopNode, menu: TA_Menu, i: int, item: str) -> None:
+* menu_cp_presets_empty_loop_enum(node: hou.SopNode, menu: TA_Menu, i: int, item: str) -> None:
 
 @METHODS
 * cp_bases_selection_msg(self) -> None:
@@ -10432,12 +10432,12 @@ class flam3h_palette_utils
         
             
     @staticmethod
-    def menu_cp_presets_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+    def menu_cp_presets_loop(node: hou.SopNode, menu: TA_Menu, i: int, item: str) -> None:
         """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
-            menu(list): the menu list to populate.
+            menu(TA_Menu): the menu list to populate.
             i(int): The outer loop index/iteration.
             item(str): The outer loop item at index/iteration.
 
@@ -10459,12 +10459,12 @@ class flam3h_palette_utils
             
             
     @staticmethod
-    def menu_cp_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+    def menu_cp_presets_loop_enum(node: hou.SopNode, menu: TA_Menu, i: int, item: str) -> None:
         """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
-            menu(list): the menu list to populate.
+            menu(TA_Menu): the menu list to populate.
             i(int): The outer loop index/iteration.
             item(str): The outer loop item at index/iteration.
 
@@ -10487,12 +10487,12 @@ class flam3h_palette_utils
             
             
     @staticmethod
-    def menu_cp_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+    def menu_cp_presets_empty_loop(node: hou.SopNode, menu: TA_Menu, i: int, item: str) -> None:
         """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
-            menu(list): the menu list to populate.
+            menu(TA_Menu): the menu list to populate.
             i(int): The outer loop index/iteration.
             item(str): The outer loop item at index/iteration.
 
@@ -10514,12 +10514,12 @@ class flam3h_palette_utils
             
             
     @staticmethod
-    def menu_cp_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str) -> None:
+    def menu_cp_presets_empty_loop_enum(node: hou.SopNode, menu: TA_Menu, i: int, item: str) -> None:
         """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
-            menu(list): the menu list to populate.
+            menu(TA_Menu): the menu list to populate.
             i(int): The outer loop index/iteration.
             item(str): The outer loop item at index/iteration.
 
@@ -10616,8 +10616,8 @@ class flam3h_palette_utils
                     
                 menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
-                _menu_enum: Callable[[hou.SopNode, list, int, str], None] = self.menu_cp_presets_loop_enum
-                _menu_raw: Callable[[hou.SopNode, list, int, str], None] = self.menu_cp_presets_loop
+                _menu_enum: Callable[[hou.SopNode, TA_Menu, int, str], None] = self.menu_cp_presets_loop_enum
+                _menu_raw: Callable[[hou.SopNode, TA_Menu, int, str], None] = self.menu_cp_presets_loop
                 for i, item in enumerate(menuitems):
                     _menu_enum(node, menu, i, item) if enum else _menu_raw(node, menu, i, item)
 
@@ -10709,8 +10709,8 @@ class flam3h_palette_utils
                     
                 menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
-                _menu_enum: Callable[[hou.SopNode, list, int, str], None] = self.menu_cp_presets_empty_loop_enum
-                _menu_raw: Callable[[hou.SopNode, list, int, str], None] = self.menu_cp_presets_empty_loop
+                _menu_enum: Callable[[hou.SopNode, TA_Menu, int, str], None] = self.menu_cp_presets_empty_loop_enum
+                _menu_raw: Callable[[hou.SopNode, TA_Menu, int, str], None] = self.menu_cp_presets_empty_loop
                 for i, item in enumerate(menuitems):
                     _menu_enum(node, menu, i, item) if enum else _menu_raw(node, menu, i, item)
 
@@ -14345,10 +14345,10 @@ class in_flame_utils
 * in_copy_cc_curves_stats_msg(kwargs: dict) -> None:
 * in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
 * in_xml_key_val(xform: dict, key_name: str, default_val: float = 0) -> float:
-* menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
-* menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
-* menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str | list[Never]) -> None:
-* menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str | list[Never]) -> None:
+* menu_in_presets_loop(node: hou.SopNode, menu: lisTA_Menut, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
+* menu_in_presets_loop_enum(node: hou.SopNode, menu: TA_Menu, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
+* menu_in_presets_empty_loop(node: hou.SopNode, menu: TA_Menu, i: int, item: str | list[Never]) -> None:
+* menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: TA_Menu, i: int, item: str | list[Never]) -> None:
 
 @METHODS
 * in_flam3h_set_iterators(self, 
@@ -16240,12 +16240,12 @@ class in_flame_utils
 
 
     @staticmethod
-    def menu_in_presets_loop(node: hou.SopNode, menu: list, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
+    def menu_in_presets_loop(node: hou.SopNode, menu: TA_Menu, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
         """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
-            menu(list): the menu list to populate.
+            menu(TA_Menu): the menu list to populate.
             i(int): The outer loop index/iteration.
             item(str | list[Never]): The outer loop item at index/iteration.</br>It can also be an empty list if the XML key is missing from the Flame preset we are trying to load.
             in_idx(int): The currently selected IN preset index.
@@ -16275,12 +16275,12 @@ class in_flame_utils
             
             
     @staticmethod
-    def menu_in_presets_loop_enum(node: hou.SopNode, menu: list, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
+    def menu_in_presets_loop_enum(node: hou.SopNode, menu: TA_Menu, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
         """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
-            menu(list): the menu list to populate.
+            menu(TA_Menu): the menu list to populate.
             i(int): The outer loop index/iteration.
             item(str | list[Never]): The outer loop item at index/iteration.</br>It can also be an empty list if the XML key is missing from the Flame preset we are trying to load.
             in_idx(int): The currently selected IN preset index.
@@ -16311,12 +16311,12 @@ class in_flame_utils
             
             
     @staticmethod
-    def menu_in_presets_empty_loop(node: hou.SopNode, menu: list, i: int, item: str | list[Never]) -> None:
+    def menu_in_presets_empty_loop(node: hou.SopNode, menu: TA_Menu, i: int, item: str | list[Never]) -> None:
         """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
-            menu(list): the menu list to populate.
+            menu(TA_Menu): the menu list to populate.
             i(int): The outer loop index/iteration.
             item(str | list[Never]): The outer loop item at index/iteration.</br>It can also be an empty list if the XML key is missing from the Flame preset we are trying to load.
 
@@ -16343,12 +16343,12 @@ class in_flame_utils
             
             
     @staticmethod
-    def menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: list, i: int, item: str | list[Never]) -> None:
+    def menu_in_presets_empty_loop_enum(node: hou.SopNode, menu: TA_Menu, i: int, item: str | list[Never]) -> None:
         """This is spcifically to be run inside a list comprehension.</br>
 
         Args:
             node(hou.SopNode): This FLAM3H™ node.
-            menu(list): the menu list to populate.
+            menu(TA_Menu): the menu list to populate.
             i(int): The outer loop index/iteration.
             item(str | list[Never]): The outer loop item at index/iteration.</br>It can also be an empty list if the XML key is missing from the Flame preset we are trying to load.
 
@@ -16881,8 +16881,8 @@ class in_flame_utils
                 
                 menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
-                _menu_enum: Callable[[hou.SopNode, list, int, str | list[Never], int, int], None] = self.menu_in_presets_loop_enum
-                _menu_raw: Callable[[hou.SopNode, list, int, str | list[Never], int, int], None] = self.menu_in_presets_loop
+                _menu_enum: Callable[[hou.SopNode, TA_Menu, int, str | list[Never], int, int], None] = self.menu_in_presets_loop_enum
+                _menu_raw: Callable[[hou.SopNode, TA_Menu, int, str | list[Never], int, int], None] = self.menu_in_presets_loop
                 for i, item in enumerate(_xml(xml_file_path).get_name()):
                     _menu_enum(node, menu, i, item, in_idx, is_clipboard) if enum else _menu_raw(node, menu, i, item, in_idx, is_clipboard)
                         
@@ -16974,8 +16974,8 @@ class in_flame_utils
                     
                 menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
-                _menu_enum: Callable[[hou.SopNode, list, int, str | list[Never]], None] = self.menu_in_presets_empty_loop_enum
-                _menu_raw: Callable[[hou.SopNode, list, int, str | list[Never]], None] = self.menu_in_presets_empty_loop
+                _menu_enum: Callable[[hou.SopNode, TA_Menu, int, str | list[Never]], None] = self.menu_in_presets_empty_loop_enum
+                _menu_raw: Callable[[hou.SopNode, TA_Menu, int, str | list[Never]], None] = self.menu_in_presets_empty_loop
                 for i, item in enumerate(_xml(xml_file_path).get_name()):
                     _menu_enum(node, menu, i, item) if enum else _menu_raw(node, menu, i, item)
                     
@@ -19965,8 +19965,8 @@ class out_flame_utils
                 
                 menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
-                _menu_enum: Callable[[list, int, str | list[Never]], None] = self.menu_out_presets_loop_enum
-                _menu_raw: Callable[[list, int, str | list[Never]], None] = self.menu_out_presets_loop
+                _menu_enum: Callable[[TA_Menu, int, str | list[Never]], None] = self.menu_out_presets_loop_enum
+                _menu_raw: Callable[[TA_Menu, int, str | list[Never]], None] = self.menu_out_presets_loop
                 for i, item in enumerate(apo_data.name):
                     _menu_enum(menu, i, item) if enum else _menu_raw(menu, i, item)
 
