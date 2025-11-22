@@ -13353,7 +13353,7 @@ class in_flame
         Args:
             vals(list): values from the xml
             key(str): The type of affine to build: XML_PRE_AFFINE, XML_POST_AFFINE, XML_FLAM3H_PRE_AFFINE, XML_FLAM3H_POST_AFFINE
-            mp_idx(int | None=None): Default to: None</br>Multi parameter index, for messaging purpose only.
+            mp_idx(int | None): Default to: None</br>Multi parameter index, for messaging purpose only.
             type(int): Default to: 0(Zero)</br>It is either an iterator: 0 or an FF: 1
 
         Returns:
@@ -13815,7 +13815,7 @@ class in_flame
         Args:
             (self):
             idx(int): flame idx out of all flames included in the loaded flame file
-            key(str): the flame XML motion blur tag name you are interested to get:
+            key(str): Default to: ''</br>The flame XML motion blur tag name you are interested to get:
             * OUT_XML_FLMA3H_MB_FPS -> flam3h_mb_fps
             * OUT_XML_FLMA3H_MB_SAMPLES -> flam3h_mb_samples
             * OUT_XML_FLMA3H_MB_SHUTTER -> flam3h_mb_shutter
@@ -15581,7 +15581,7 @@ class in_flame_utils
         Args:
             preset_id(int): The loaded XML Flame preset id to gather the data from.
             apo_data(in_flame_iter_data): The XML Flame file data
-            XML_last_update(bool): Default to: False.</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
+            XML_last_update(bool): Default to: False</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
 
         Returns:
             (str): A string to be used to set the IN Render properties data parameter message.
@@ -15630,7 +15630,7 @@ class in_flame_utils
         Args:
             preset_id(int): The loaded XML Flame preset id to gather the data from.
             apo_data(in_flame_iter_data): The XML Flame file data
-            XML_last_update(bool): Default to: False.</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
+            XML_last_update(bool): Default to: False</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
 
         Returns:
             (str): A string to be used to set the IN Render properties data parameter message.
@@ -16210,7 +16210,7 @@ class in_flame_utils
         Args:
             xform(dict): The current xform dictionary.
             key_name(str):  The XMK key name to querie
-            default_val(float): If anything goes wrong, return this value instead
+            default_val(float): Default to: 0(Zero)</br>If anything goes wrong, return this value instead
             
         Returns:
             (float): Either the queried key name value or a default value.
@@ -16648,7 +16648,7 @@ class in_flame_utils
             preset_id(int): The loaded XML Flame preset
             apo_data(in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
             clipboard(bool): Is the cuurently loaded Flame preset coming from the Clipboard? True or False.
-            XML_last_update(bool): Default to: False.</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
+            XML_last_update(bool): Default to: False</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
 
         Returns:
             (str): A string to be used to set the IN Flame info data parameter message.
@@ -17378,7 +17378,7 @@ class in_flame_utils
                                                     * clipboard_flame_name ( str ): If a valid flame preset from the clipboard is loaded, this will store the preset name of it.
                                                     * attempt_to_load_from_clipboard ( bool ): Did we try to load flame preset from the clipboard ? True or False.
                                                     * chaos ( bool ): Is it a chaotica XML file type ? True or False.
-            flashmessage(bool): Default to: False.</br>if True, it will fire a flash and status message instead of a print message to the console.</br>To be used when loading Palette data from the clipboard from a Flame preset.
+            flashmessage(bool): Default to: False</br>if True, it will fire a flash and status message instead of a print message to the console.</br>To be used when loading Palette data from the clipboard from a Flame preset.
 
         Returns:
             (bool): True if all goes well. False if the loaded palette fail, most likely due to wrong HEX values in it.
@@ -19038,7 +19038,7 @@ class out_flame_utils
 
         Args:
             current(lxmlET._Element): The Flame XML root we want to reformat.
-            parent(lxmlET.Element | None): Default to: None.
+            parent(lxmlET.Element | None): Default to: None
             index(int): Default to: -1
             depth(int): Default to: 0(Zero)
         """
@@ -19410,7 +19410,7 @@ class out_flame_utils
         Args:
             (self):
             node(hou.SopNode): FLAM3H™ node to load the flame file/preset into.
-            tab(str): Default to: "OUT" (for the OUT tab).</br>Set it to "SYS" for the sys tab out preset menu to be evaluated.
+            tab(str): Default to: "OUT" (for the OUT tab)</br>Set it to "SYS" for the sys tab out preset menu to be evaluated.
 
         Returns:
             (tuple[Union[str, None], int]):  tuple( xml, 
@@ -19454,7 +19454,7 @@ class out_flame_utils
         
         Args:
             (self):
-            tab(str): Default to: "OUT" (for the OUT tab).</br>Set it to "SYS" for the sys tab out preset menu to be evaluated.
+            tab(str): Default to: "OUT" (for the OUT tab)</br>Set it to "SYS" for the sys tab out preset menu to be evaluated.
             
         Returns:
             (None):
@@ -19646,8 +19646,8 @@ class out_flame_utils
             (self):
             palette_plus(bool): "save palette 256+" toggle parameter value.
             keys(int): number of color keys in the palette.
-            type(int): 0 for a Flame and 1 for a Palette.
-            _MSG:(bool): Print a warning message or not. Default to: True
+            type(int): 0(Zero) for a Flame and 1 for a Palette.
+            _MSG:(bool): Default to: True</br>Print a warning message or not.
 
         Returns:
             (str): number of color to export
@@ -19731,7 +19731,7 @@ class out_flame_utils
         
         Args:
             (self):
-            update(bool): True or False if we want to update the OUT Sensor front viewer
+            update(bool): Default to: True</br>False if we want to update the OUT Sensor front viewer
             
         Returns:
             (None):
@@ -19929,7 +19929,7 @@ class out_flame_utils
         """Export in a tuple[str] the xaos FROM values to write out.</br>
         
         Args:
-            mode(int): mode=1 is for writing out flame file while the default mode=0 is for converting between xaos modes only
+            mode(int): Default to: 0</br>mode=1 is for writing out flame file</br>while the default mode=0 is for converting between xaos modes only
             
         Returns:
             (tuple): the xaos FROM values transposed into xaos TO values to write out.
@@ -20801,7 +20801,7 @@ class out_flame_utils
 
         Args:
             (self):
-            prm_name(str): The name of the FLAM3H™ parameter to be prep into a string for writing out.
+            prm_name(str): Default to: ''</br>The name of the FLAM3H™ parameter to be prep into a string for writing out.
 
         Returns:
             (str): The FLAM3H™ parameter prepped into a string for writing out into the Flame preset file.
@@ -20852,7 +20852,7 @@ class out_flame_utils
 
         Args:
             (self):
-            prm_name(str | None = OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)): Default to: OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)</br>The FLAM3H™ "Flame name parameter name.
+            prm_name(str | None = OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)): Default to: OUT_XML_RENDER_HOUDINI_DICT.get(XML_XF_NAME)</br>The FLAM3H™ Flame name parameter name.
 
         Returns:
             (str): The FLAM3H™ parameter prepped into a string for writing out into the Flame preset file.
