@@ -582,7 +582,7 @@ class flam3h_iterator_prm_names:
         The following definitions:
         
         * def iterator_vactive_and_update(self) -> None:
-        * def menu_select_iterator_data(self, data_now: tuple) -> TA_Menu:
+        * def menu_select_iterator_data(self, data_now: tuple[list[Any], ...]) -> TA_Menu:
         * def menu_select_iterator(self) -> TA_Menu:
         * def menu_copypaste(self) -> TA_Menu:
         * def menu_copypaste_FF(self) -> TA_Menu:
@@ -5480,7 +5480,7 @@ class flam3h_iterator_utils
 * menu_T(self, FF: bool = False) -> TA_Menu:
 * menu_T_PP(self, FF: bool = False) -> TA_Menu:
 * menu_T_pb(self) -> TA_Menu:
-* menu_select_iterator_data(self, data_now: tuple) -> TA_Menu:
+* menu_select_iterator_data(self, data_now: tuple[list[Any], ...]) -> TA_Menu:
 * menu_select_iterator(self) -> TA_Menu:
 * prm_select_iterator(self) -> None:
 * flam3h_paste_reset_hou_session_data(self, hipLoad: bool = False) -> None:
@@ -7175,16 +7175,16 @@ class flam3h_iterator_utils
         return [ 0,  f"{_ICON} Pre blur                       "] # 23 times \s instead of 26 times as in from H19 to H20.5
 
 
-    def menu_select_iterator_data(self, data_now: tuple) -> TA_Menu:
+    def menu_select_iterator_data(self, data_now: tuple[list[Any], ...]) -> TA_Menu:
         """Build a menu of iterators using their states as bookmark icon.</br>
 
         Args:
             (self):
-            data_now(tuple): the required data collected into a tuple, each entrie is a list (as many elements as the iterators count inside each list). The order matter:
-                * 0: note (iterators names)
-                * 1: active (iterators active)
-                * 2: weight (iterators Weights)
-                * 3: shader_opacity (iterators shader's opacity)
+            data_now(tuple[list[Any], ...]): the required data collected into a tuple, each entrie is a list (as many elements as the iterators count inside each list). The order matter:
+                * 0: note(str): iterators names
+                * 1: active(float): iterators active
+                * 2: weight(float): iterators Weights
+                * 3: shader_opacity(float): iterators shader's opacity
 
         Returns:
             (TA_Menu): return menu list
@@ -7200,7 +7200,7 @@ class flam3h_iterator_utils
                 
                 # Each one is a list as "data_now" is a tuple of lists
                 note, active, weight, shader_opacity = data_now
-                data_now_names = ('iter_sel_n', 'iter_sel_a', 'iter_sel_w', 'iter_sel_o') # The order matter
+                data_now_names: tuple[str, ...] = ('iter_sel_n', 'iter_sel_a', 'iter_sel_w', 'iter_sel_o') # The order matter
                 for idx, data in enumerate(data_now): node.setCachedUserData(data_now_names[idx], data)
                 
                 # This definition probably can be made more light-weight for this particular case
@@ -7261,7 +7261,7 @@ class flam3h_iterator_utils
             # For undos: compare old data_* against current data_*
             # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-            data_now: tuple[Any, ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha'))
+            data_now: tuple[list[Any], ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha'))
             data_cached: tuple[tuple[Any, ...], ...] = ((0, node.cachedUserData('iter_sel_n')), 
                                                         (1, node.cachedUserData('iter_sel_a')), 
                                                         (2, node.cachedUserData('iter_sel_w')), 
