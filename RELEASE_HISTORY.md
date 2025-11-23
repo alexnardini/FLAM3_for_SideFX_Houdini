@@ -35,7 +35,7 @@ They are all available in this Github repository.
 
 ### [<ins>v1.9.46 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.46) ###
 
-#### FLAM3H™ H21.0 UP -> v1.9.47 indie</br>FLAM3H™ H19.0 to H20.5 -> v1.9.40 indie ####
+#### FLAM3H™ H21.0 UP -> v1.9.46 indie</br>FLAM3H™ H19.0 to H20.5 -> v1.9.40 indie ####
 
 - **New**: Updated about box Fractorium weblink to point to its Github repository instead of the Bitbucked repository.
 - **Small fixes/improvements as part of an ongoing polishing pass: H21.0 UP ONLY**
