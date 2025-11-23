@@ -73,7 +73,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.39"
+__version__ = "1.9.40"
 __status__  = "Production"
 __h_versions__: tuple[int, ...] = (205,)
 __range_type__: bool = True # True for closed range. False for open range
@@ -140,7 +140,7 @@ Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.39"
+__version__ = "1.9.40"
 __status__  = "Production"
 __h_versions__: tuple = (190, 195, 200)
 __range_type__: bool = True # True for closed range. False for open range
@@ -2125,11 +2125,11 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('flam
 </br>
 
 # ABOUT Tab
-# parameter name:    `fract_bit`
+# parameter name:    `fract_git`
 ## parameter type: `geometry data`
 - ### Action Button Script
 ```python
-kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('bitbucket')
+kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('fractgithub')
 ```
 
 </br>

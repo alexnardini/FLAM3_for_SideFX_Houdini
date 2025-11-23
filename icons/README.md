@@ -206,7 +206,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Add
 
 <p align="center">
   <img width="160" height="160" src="./icon_bitbucketLogoSVG.svg" /></p>
-<b><p align="center">icon_bitbucketLogoSVG.svg</p></b></b>
+<b><p align="center">icon_bitbucketLogoSVG.svg (unused)</p></b>
 <p align="center">......</p>
 <p align="center">
 

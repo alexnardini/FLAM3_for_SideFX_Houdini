@@ -419,7 +419,6 @@ MSG_FLAM3H_INSTA = 'flam3h_heading_insta'
 MSG_FLAM3H_YOUTUBE = 'flam3h_heading_youtube'
 MSG_FLAM3_PDF = 'flam3_heading_pdf'
 MSG_FLAM3_GIT = 'flam3_heading_git'
-# MSG_FRACT_BITBUCKET = 'fract_heading_bit' # This repository has been abbandoned by the author in favor of a new Github repository instead
 MSG_FRACT_GITHUB = 'fract_heading_git'
 MSG_FRACT_WEB = 'fract_heading_web'
 # Message Mark iterators
