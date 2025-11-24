@@ -33,9 +33,26 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.47 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.47) ###
+
+#### FLAM3H™ v1.9.47 indie -> H21.0 UP</br>FLAM3H™ v1.9.41 indie -> H19.0 to H20.5 ####
+
+- **New**: Added the ability to output the iterative color point float attribute **`@clr`** (_inside the preferences tab_). This attribute values are computed isnside the chaos game and can be useful to post process the output point cloud in many ways.
+- **Updated HDAs documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.46 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.46) ###
 
-#### FLAM3H™ H21.0 UP -> v1.9.46 indie</br>FLAM3H™ H19.0 to H20.5 -> v1.9.40 indie ####
+#### FLAM3H™ v1.9.46 indie -> H21.0 UP</br>FLAM3H™ v1.9.40 indie -> H19.0 to H20.5 ####
 
 - **New**: Updated about box Fractorium weblink to point to its Github repository instead of the Bitbucked repository.
 - **Small fixes/improvements as part of an ongoing polishing pass: H21.0 UP ONLY**
