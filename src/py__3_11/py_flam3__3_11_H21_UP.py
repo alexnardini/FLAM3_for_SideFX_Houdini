@@ -5669,7 +5669,7 @@ class flam3h_iterator_utils
                                                         )
         
         # Collect all iterators parms values
-        prm_vals_all: tuple[tuple, tuple, tuple] = (prm_vals_1, prm_vals_2, prm_vals_3)
+        prm_vals_all: tuple[tuple[float | hou.Vector2, ...], tuple[float | hou.Vector2, ...], tuple[float | hou.Vector2, ...]] = (prm_vals_1, prm_vals_2, prm_vals_3)
         
         # Set
         for iter_idx, iter_vals in enumerate(prm_vals_all):
@@ -13109,7 +13109,7 @@ class in_flame
 * xf_val_cleanup_str(val: str, default_val: str = '0', key_name: str | None = None) -> str:
 * xf_list_cleanup(vals: list[str], default_val: str = '0', key_name: str | None = None) -> list[str]:
 * xf_list_cleanup_str(vals: list[str], default_val: str = '0', key_name: str | None = None) -> str:
-* affine_coupling(affine: list, key: str = '', mp_idx: int | None = None, type: int = 0) -> list:
+* affine_coupling(affine: list[float], key: str = '', mp_idx: int | None = None, type: int = 0) -> list[hou.Vector2] | list[Never]:
 * check_all_iterator_weights(node: hou.SopNode, keyvalues: list) -> None:
 
 @METHODS
@@ -13356,7 +13356,7 @@ class in_flame
 
 
     @staticmethod
-    def affine_coupling(affine: list[float], key: str = '', mp_idx: int | None = None, type: int = 0) -> list:
+    def affine_coupling(affine: list[float], key: str = '', mp_idx: int | None = None, type: int = 0) -> list[hou.Vector2] | list[Never]:
         """ Build proper affine values composed of hou.Vector2 tuples.</br>
         It will also check the affine passed in and provide an alternative defaults affine values</br>
         if not correct and print out messages to inform the user about different cases.</br></br>
@@ -13366,12 +13366,12 @@ class in_flame
         
         Args:
             affine(list[float]): values from the xml
-            key(str): The type of affine to build: XML_PRE_AFFINE, XML_POST_AFFINE, XML_FLAM3H_PRE_AFFINE, XML_FLAM3H_POST_AFFINE
+            key(str): Default to: ''</br>The type of affine to build: XML_PRE_AFFINE, XML_POST_AFFINE, XML_FLAM3H_PRE_AFFINE, XML_FLAM3H_POST_AFFINE
             mp_idx(int | None): Default to: None</br>Multi parameter index, for messaging purpose only.
             type(int): Default to: 0(Zero)</br>It is either an iterator: 0 or an FF: 1
 
         Returns:
-            (list): a list of hou.Vector2: ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) / ((A, D), (B, E), (C, F)) ready to be used to set affine parms, or an empty list if something is wrong
+            (list[hou.Vector2]): a list of hou.Vector2: ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) / ((A, D), (B, E), (C, F)) ready to be used to set affine parms, or an empty list if something is wrong
         """      
         affine_count: int = len(affine)
         if affine_count == 6:
@@ -13650,8 +13650,8 @@ class in_flame
             (tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None): Either a list of list of tuples of hou.Vector2 ((X.x, X.y), (Y.x, Y.y), (O.x, O.y)) / ((A, D), (B, E), (C, F))</br>or an empty list instead if the XML key is not found in the XML preset. Or None
         """   
         if  self.isvalidtree and xforms is not None:
-            _affine_coupling: Callable[[list[float], str, int | None, int], list] = self.affine_coupling
-            _xf_list_cleanup: Callable[[list[str], str, str | None], list] = self.xf_list_cleanup
+            _affine_coupling: Callable[[list[float], str, int | None, int], list[hou.Vector2] | list[Never]] = self.affine_coupling
+            _xf_list_cleanup: Callable[[list[str], str, str | None], list[str]] = self.xf_list_cleanup
             coefs: list = [tuple(_affine_coupling([float(x) for x in _xf_list_cleanup(str(keyval).split(), '0', key)], key, int(idx + 1), type)) if (keyval := xf.get(key)) is not None else [] for idx, xf in enumerate(xforms)]
             
             _len: Callable[[list[Any]], int] = len
