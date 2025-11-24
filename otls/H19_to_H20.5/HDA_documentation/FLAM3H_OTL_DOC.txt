@@ -231,15 +231,17 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     _Additionally,_<br />
     _some of the bookmark icons will signal the density values the xforms handles VIZ mode will keep being active, like the following_:
 
+    _when the xforms handles VIZ mode is OFF (_[Icon:opdef:.?icon_xfHandlesDisabledSVG.svg]_)_:
+
     - [Largeicon:opdef:.?icon_optionStarWhiteXFVIZOFFSVG.svg] 
     - [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]
 
-    _or when the xforms handles VIZ mode is ON_:
+    _or when the xforms handles VIZ mode is ON (_[Icon:opdef:.?icon_xfHandlesEnabledSVG.svg]_)_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSVG.svg]
     - [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZSVG.svg]
 
-    _or when the xforms handles VIZ is in SOLO mode_:
+    _or when the xforms handles VIZ is in SOLO mode (_[Icon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]_)_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSOLOSVG.svg]
     - [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]
@@ -1073,6 +1075,8 @@ Speed [Icon:TOP/xmlinput]:
     #id: FLAME
     Speed of color blending between iterations.<br /><br />
     Values above *`0`*(Zero) attract the selected color while values below *`0`*(Zero) will repel it.
+
+    The correct ranges for this value should always be between *`-1`* and *`1`*.
     
 Opacity [Icon:TOP/xmlinput]:
     #id: FLAME
@@ -3185,6 +3189,19 @@ flash messages (network editor) [Icon:DATATYPES/boolean]:
     Causes a message to appear briefly in the upper left corner of the network editor, then fade away.
     
     Copy/Paste iterators and FF data uses flash messages, as well as some other features.
+
+    <br />
+
+Iterative color attribute [Icon:DATATYPES/boolean]:
+    #id: prefs
+    *`Off`* by default.<br />
+
+    Output the iterative color point attribute *`@clr`* used internally by FLAM3H™<br />
+    to map the palette colors to the points.
+    
+    This attribute values are computed inside the chaos game and can be usefull to post process the output point cloud in many ways.
+
+    It is dependent of each iterator shader *`location`* and *`speed`* parameters values. 
 
 :box:
     #display: round white

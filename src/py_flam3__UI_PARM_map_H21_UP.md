@@ -1856,6 +1856,17 @@ kwargs['parm'].deleteAllKeyframes()
 </br>
 
 # PREFS Tab `H21 UP`
+# parameter name:    `iterclr`
+## parameter type: `toggle`
+- ### Callback Script
+```python
+kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+
+# PREFS Tab `H21 UP`
 # parameter name:    `enumeratemenu`
 ## parameter type: `toggle`
 - ### Callback Script
