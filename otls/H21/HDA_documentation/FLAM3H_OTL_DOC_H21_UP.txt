@@ -3244,12 +3244,12 @@ Iterative color attribute [Icon:DATATYPES/boolean]:
     #id: prefs
     *`Off`* by default.<br />
 
-    Output the iterative color point attribute *`@clr`* used internally by FLAM3H™<br />
+    Output the iterative color float point attribute *`@clr`* used internally by FLAM3H™<br />
     to map the palette colors to the points.
     
-    This attribute values are computed inside the chaos game and can be usefull to post process the output point cloud in many ways.
+    The attribute values are computed inside the chaos game and can be usefull to post process the output point cloud in many ways.
 
-    It is dependent of each iterator shader *`location`* and *`speed`* parameters values. 
+    It is dependent of each iterator shader *`location`* and *`speed`* parameters values along with the number of iterations being used.
 
 :box:
     #display: round white
