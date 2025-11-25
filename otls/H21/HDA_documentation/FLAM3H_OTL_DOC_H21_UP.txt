@@ -3251,6 +3251,11 @@ Iterative color attribute [Icon:DATATYPES/boolean]:
 
     It is dependent of each iterator shader *`location`* and *`speed`* parameters values along with the number of iterations being used.
 
+    <br />
+
+    NOTE:
+        When this option is turned *`On`*/Active the final point cloud memory consumption will be *`~12%`* higher.
+
 :box:
     #display: round white
     
