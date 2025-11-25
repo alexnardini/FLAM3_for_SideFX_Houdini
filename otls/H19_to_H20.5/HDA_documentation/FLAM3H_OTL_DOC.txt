@@ -3287,6 +3287,11 @@ Density :
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tip*<br />
     - This is the only place where you are allowed to animate the density value.
 
+Reset density [Icon:opdef:.?icon_actionButtonSVG.svg]:
+    #id: prefs
+    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    - ((LMB)) to reset density to a default value of *`500k`*(_thousands_).
+
 :box:
     #display: rounded white
 

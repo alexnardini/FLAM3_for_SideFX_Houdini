@@ -35,6 +35,8 @@ They are all available in this Github repository.
 
 ### [<ins>v1.9.47 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.47) ###
 
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
+
 #### FLAM3H™ v1.9.47 indie -> H21.0 UP</br>FLAM3H™ v1.9.41 indie -> H19.0 to H20.5 ####
 
 - **New**: Added the ability to output the iterative color point float attribute **`@clr`** (_inside the preferences tab_). The attribute values are computed inside the chaos game and can be useful to post process the output point cloud in many ways.

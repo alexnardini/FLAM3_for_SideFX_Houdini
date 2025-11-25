@@ -2761,6 +2761,7 @@ class flam3h_general_utils
 * mp_xf_viz_solo_follow_prev_off(node: hou.SopNode) -> None:
 
 @METHODS
+* reset_parm(self, val: tuple[int | float, ...]) -> None:
 * menus_refresh_enum_prefs(self) -> None:
 * get_node_path(self, node_name: str) -> str | None:
 * util_set_clipping_viewers(self) -> None:
@@ -3501,6 +3502,20 @@ class flam3h_general_utils
     @cached_slot_property
     def bbox_reframe_path(self) -> str | None:
         return self._bbox_reframe_path
+    
+    
+    def reset_parm(self, val: tuple[int | float, ...]) -> None:
+        """Reset a parameter to a value.</br>
+        This is to be run from an action button script.
+        
+        Args:
+            (self):
+            val(tuple[int | float, ...]): The values to reset to.
+            
+        Returns:
+            (None):                            
+        """ 
+        self.kwargs['parmtuple'].set(val)
 
 
     def menus_refresh_enum_prefs(self) -> None:

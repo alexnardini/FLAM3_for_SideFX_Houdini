@@ -2046,6 +2046,30 @@ Token: 0
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]Points                     
 ```
 
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `vpptsize`
+### Action Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
+```
+
+</br>
+</br>
+
+# PREFS Tab
+# parameter name:    `vpww`
+### Action Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
+```
+
 <br>
 <br>
 <br>

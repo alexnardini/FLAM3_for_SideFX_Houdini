@@ -1917,6 +1917,12 @@ hou.phm().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert(), kwargs['par
 ```python
 hou.phm().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(kwargs['node'])
 ```
+- ### Action Button Script
+```python
+node = kwargs['node']
+node.hdaModule().flam3.flam3h_general_utils(kwargs).reset_parm((500000,))
+node.hdaModule().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(node)
+```
 
 </br>
 </br>
