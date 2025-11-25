@@ -1972,9 +1972,7 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_m
 ```
 - ### Action Button Script
 ```python
-node = kwargs['node']
-node.hdaModule().flam3.flam3h_general_utils(kwargs).reset_parm((500000,))
-node.hdaModule().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(node)
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density_set_default()
 ```
 
 </br>
