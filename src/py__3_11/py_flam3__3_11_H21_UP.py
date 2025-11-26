@@ -5411,7 +5411,7 @@ FLAM3H_ICON_STAR_FLAME_ITER_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_option
 FLAM3H_ICON_STAR_FLAME_ITER_ACTV_XFVIZ = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrange_xfVizSVG.svg]' # for select iterator bookmark icon when an iterator is in SOLO mode
 # High tier menu entrie
 FLAM3H_ICON_STAR_HIGH_TIER = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]'
-# Menu select iterator - Prep icons (unmarked, marked)
+# Menu select iterator - Prep icons ((unmarked, marked), (unmarked_xfviz, marked_xfviz))
 SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT: tuple[tuple[str, str], tuple[str, str]] = ((FLAM3H_ICON_STAR_FLAME_ITER_ACTV, FLAM3H_ICON_COPY_PASTE), (FLAM3H_ICON_STAR_FLAME_ITER_ACTV_XFVIZ, FLAM3H_ICON_COPY_PASTE_XFVIZ))
 SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple[tuple[str, str], tuple[str, str]] = ((FLAM3H_ICON_STAR_EMPTY_OPACITY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO), (FLAM3H_ICON_STAR_EMPTY_OPACITY_XFVIZ, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO_XFVIZ))
 SEL_ITER_BOOKMARK_OFF: tuple[tuple[str, str], tuple[str, str]] = ((FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED), (FLAM3H_ICON_STAR_EMPTY_XFVIZ, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED_XFVIZ))
@@ -7216,7 +7216,7 @@ class flam3h_iterator_utils
             
             node: hou.SopNode = self.node
             menu: TA_Menu = []
-
+            
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             if iter_count:
                 
@@ -7251,13 +7251,13 @@ class flam3h_iterator_utils
                     
                     if active[i] and weight[i] > 0:
                         _menu_append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
-                            
+                    
                     elif active[i] and weight[i] == 0:
                         _menu_append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
 
                     else:
                         _menu_append(f"{SEL_ITER_BOOKMARK_OFF[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
-                            
+                    
             else:
                 menu = MENU_ZERO_ITERATORS
                     
