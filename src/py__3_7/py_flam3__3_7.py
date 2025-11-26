@@ -18,6 +18,7 @@ import lxml.etree as lxmlET
 
 from platform import python_version
 from platform import system as platform_system
+from typing import Any
 from typing import Union
 from typing import Callable
 from typing import KeysView
@@ -405,7 +406,7 @@ class flam3h_iterator_prm_names:
         * flam3h_iterator_utils.iterator_keep_last_vactive_STAR(self) -> None:
         * flam3h_iterator_utils.iterator_keep_last_weight(self) -> None:
         * flam3h_iterator_utils.iterator_vactive_and_update(self) -> None:
-        * flam3h_iterator_utils.menu_select_iterator_data(self) -> list:
+        * flam3h_iterator_utils.menu_select_iterator_data(self, data_now: tuple[Union[list[Any], Any], ...]) -> list:
         * flam3h_iterator_utils.menu_select_iterator(self) -> list:
         * flam3h_iterator_utils.menu_copypaste(self) -> list:
         * flam3h_iterator_utils.menu_copypaste_FF(self) -> list:
@@ -4966,8 +4967,10 @@ class flam3h_general_utils
 
 # ICONS menu copy/paste bookmarks
 FLAM3H_ICON_COPY_PASTE = '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg]'
+FLAM3H_ICON_COPY_PASTE_XFVIZ = '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPaste_xfVizSVG.svg]' # for select iterator bookmark icon when an iterator is in SOLO mode
 FLAM3H_ICON_COPY_PASTE_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO = '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroWSVG.svg]'
+FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO_XFVIZ = '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg]' # for select iterator bookmark icon when an iterator is in SOLO mode
 FLAM3H_ICON_COPY_PASTE_INFO = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_INFO_ORANGE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]'
 FLAM3H_ICON_COPY_PASTE_FF = '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg]'
@@ -4975,10 +4978,13 @@ FLAM3H_ICON_COPY_PASTE_FF_ENTRIE = '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSw
 FLAM3H_ICON_COPY_PASTE_FF_ENTRIE_OFF = '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg]'
 # ICONS menu select/iterator
 FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIterSVG.svg]'
+FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED_XFVIZ = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIter_xfVizSVG.svg]' # for select iterator bookmark icon when an iterator is in SOLO mode
 
 # ICONS menu vars and palette bookmarks
 FLAM3H_ICON_STAR_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
+FLAM3H_ICON_STAR_EMPTY_XFVIZ = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabled_xfVizSVG.svg]' # for select iterator bookmark icon when an iterator is in SOLO mode
 FLAM3H_ICON_STAR_EMPTY_OPACITY = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]'
+FLAM3H_ICON_STAR_EMPTY_OPACITY_XFVIZ = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIter_xfVizSVG.svg]' # for select iterator bookmark icon when an iterator is in SOLO mode
 FLAM3H_ICON_STAR_FLAME_LOAD = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionFlameINEntrieSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD_CB = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_LOAD_EMPTY = '![opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG_disabled.svg]'
@@ -4992,12 +4998,13 @@ FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE = '![opdef:/alexnardini::Sop/FLAM3H?ico
 FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhitePBHSVG.svg]'
 FLAM3H_ICON_STAR_FLAME_ITER_ACTV = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg]'
+FLAM3H_ICON_STAR_FLAME_ITER_ACTV_XFVIZ = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrange_xfVizSVG.svg]' # for select iterator bookmark icon when an iterator is in SOLO mode
 # High tier menu entrie
 FLAM3H_ICON_STAR_HIGH_TIER = '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]'
 # Menu select iterator - Prep icons (unmarked, marked)
-SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT: tuple[str, ...] = (FLAM3H_ICON_STAR_FLAME_ITER_ACTV, FLAM3H_ICON_COPY_PASTE)
-SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple[str, ...] = (FLAM3H_ICON_STAR_EMPTY_OPACITY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO)
-SEL_ITER_BOOKMARK_OFF: tuple[str, ...] = (FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED)
+SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT: tuple[tuple[str, str], tuple[str, str]] = ((FLAM3H_ICON_STAR_FLAME_ITER_ACTV, FLAM3H_ICON_COPY_PASTE), (FLAM3H_ICON_STAR_FLAME_ITER_ACTV_XFVIZ, FLAM3H_ICON_COPY_PASTE_XFVIZ))
+SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple[tuple[str, str], tuple[str, str]] = ((FLAM3H_ICON_STAR_EMPTY_OPACITY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO), (FLAM3H_ICON_STAR_EMPTY_OPACITY_XFVIZ, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO_XFVIZ))
+SEL_ITER_BOOKMARK_OFF: tuple[tuple[str, str], tuple[str, str]] = ((FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED), (FLAM3H_ICON_STAR_EMPTY_XFVIZ, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED_XFVIZ))
 
 # The following are pre built to speed up the generations of the menus.
 MENU_ZERO_ITERATORS: list = [0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  ZERO ITERATORS\n -> Please, create at least one iterator or load an IN flame file first.", 1, ""]
@@ -5084,7 +5091,7 @@ class flam3h_iterator_utils
 * menu_T(self, FF: bool = False) -> list:
 * menu_T_PP(self, FF: bool = False) -> list:
 * menu_T_pb(self) -> list:
-* menu_select_iterator_data(self, data_now: tuple) -> list:
+* menu_select_iterator_data(self, data_now: tuple[Union[list[Any], Any], ...]) -> list:
 * menu_select_iterator(self) -> list:
 * prm_select_iterator(self) -> None:
 * flam3h_paste_reset_hou_session_data(self, hipLoad: bool = False) -> None:
@@ -6645,12 +6652,12 @@ class flam3h_iterator_utils
         return [ 0,  f"{_ICON} Pre blur                          "] # 26 times \s instead of 23 times as in H21
 
 
-    def menu_select_iterator_data(self, data_now: tuple) -> list:
+    def menu_select_iterator_data(self, data_now: tuple[Union[list[Any], Any], ...]) -> list:
         """Build a menu of iterators using their states as bookmark icon
 
         Args:
             (self):
-            data_now(tuple): the required data collected into a tuple, each entrie is a list (as many elements as the iterators count inside each list). The order matter:
+            data_now(tuple[Union[list[Any], Any], ...]): the required data collected into a tuple, each entrie is a list (as many elements as the iterators count inside each list). The order matter:
                 * 0: note (iterators names)
                 * 1: active (iterators active)
                 * 2: weight (iterators Weights)
@@ -6669,8 +6676,8 @@ class flam3h_iterator_utils
             if iter_count:
                 
                 # Each one is a list as "data_now" is a tuple of lists
-                note, active, weight, shader_opacity = data_now
-                data_now_names = ('iter_sel_n', 'iter_sel_a', 'iter_sel_w', 'iter_sel_o') # The order matter
+                note, active, weight, shader_opacity, xfviz_solo_idx = data_now
+                data_now_names = ('iter_sel_n', 'iter_sel_a', 'iter_sel_w', 'iter_sel_o', 'iter_xfviz_solo_idx') # The order matter
                 [node.setCachedUserData(data_now_names[idx], data) for idx, data in enumerate(data_now)]
                 
                 # This definition probably can be made more light-weight for this particular case
@@ -6678,14 +6685,18 @@ class flam3h_iterator_utils
                 # Store the most updated version of this data
                 node.setCachedUserData('iter_sel_id', mp_id_from)
                 
+                _menu_append: Callable[[Union[int, str]], None] = menu.append
                 # append an empty line to reset to after selection (Null value).
-                menu.append(0)
-                menu.append("")
+                _menu_append(0)
+                _menu_append("")
                 
                 for i in range(iter_count):
                     
                     idx: int = i + 1
-                    menu.append(idx)
+                    _menu_append(idx)
+                    
+                    _XFVIZ: int = 0
+                    if idx == xfviz_solo_idx: _XFVIZ = 1
 
                     _OPACITY_MSG: str = ""
                     if shader_opacity[i] == 0: _OPACITY_MSG = "[ZERO opacity] "
@@ -6694,13 +6705,13 @@ class flam3h_iterator_utils
                     if node == from_FLAM3H_NODE and mp_id_from == idx: _ICON_IDX = 1 # Marked
                     
                     if active[i] and weight[i] > 0:
-                        menu.append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        _menu_append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
                             
                     elif active[i] and weight[i] == 0:
-                        menu.append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        _menu_append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
 
                     else:
-                        menu.append(f"{SEL_ITER_BOOKMARK_OFF[_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        _menu_append(f"{SEL_ITER_BOOKMARK_OFF[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
                             
             else:
                 menu = MENU_ZERO_ITERATORS
@@ -6730,12 +6741,15 @@ class flam3h_iterator_utils
             # For undos: compare old data_* against current data_*
             # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-            data_now: tuple = tuple([[node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha')])
-            data_cached: tuple = (  (0, node.cachedUserData('iter_sel_n')), 
-                                    (1, node.cachedUserData('iter_sel_a')), 
-                                    (2, node.cachedUserData('iter_sel_w')), 
-                                    (3, node.cachedUserData('iter_sel_o'))
-                                    )
+            data_now: tuple[Union[list[Any], Any], ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha'))
+            xfviz_mem_id: int = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX).eval()
+            data_now += (xfviz_mem_id,)
+            data_cached: tuple[tuple[int, Union[list[Any], Any]], ...] = (  (0, node.cachedUserData('iter_sel_n')), 
+                                                                            (1, node.cachedUserData('iter_sel_a')), 
+                                                                            (2, node.cachedUserData('iter_sel_w')), 
+                                                                            (3, node.cachedUserData('iter_sel_o')), 
+                                                                            (4, node.cachedUserData('iter_xfviz_solo_idx'))
+                                                                            )
             [self.destroy_cachedUserData(node, 'iter_sel') if node.cachedUserData('iter_sel') is not None and data != data_now[idx] else ... for idx, data in data_cached]
             
             menu: Union[list, None] = node.cachedUserData('iter_sel')

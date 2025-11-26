@@ -7282,19 +7282,19 @@ class flam3h_iterator_utils
             mem_id: int = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
             if node.cachedUserData('iter_sel_id') != mem_id and mem_id:
                 self.destroy_cachedUserData(node, 'iter_sel')
-
+            
             # For undos: compare old data_* against current data_*
             # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             data_now: tuple[list[Any] | Any, ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha'))
             xfviz_mem_id: int = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX).eval()
             data_now += (xfviz_mem_id,)
-            data_cached: tuple = (  (0, node.cachedUserData('iter_sel_n')), 
-                                    (1, node.cachedUserData('iter_sel_a')), 
-                                    (2, node.cachedUserData('iter_sel_w')), 
-                                    (3, node.cachedUserData('iter_sel_o')), 
-                                    (4, node.cachedUserData('iter_xfviz_solo_idx'))
-                                    )
+            data_cached: tuple[tuple[int, list[Any] | Any], ...] = ((0, node.cachedUserData('iter_sel_n')), 
+                                                                    (1, node.cachedUserData('iter_sel_a')), 
+                                                                    (2, node.cachedUserData('iter_sel_w')), 
+                                                                    (3, node.cachedUserData('iter_sel_o')), 
+                                                                    (4, node.cachedUserData('iter_xfviz_solo_idx'))
+                                                                    )
             
             cached: TA_Menu | None = node.cachedUserData('iter_sel')
             if cached is not None:
