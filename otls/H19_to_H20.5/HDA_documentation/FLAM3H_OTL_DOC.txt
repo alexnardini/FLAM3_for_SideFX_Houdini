@@ -308,12 +308,12 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
 
     _The bookmark icon will display the status of each iterator_:
 
-    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] when an iterator is *`On`*/Active (_Default_).
-    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when an iterator is *`On`*/Active and *`0`*(Zero) Weight.
-    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when an iterator is *`On`*/Active, *`0`*(Zero) Weight and Marked.
-    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg] when an iterator is *`On`*/Active and Marked.
-    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when an iterator is *`Off`*/Disabled.
-    - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when an iterator is *`Off`*/Disabled and Marked.
+    - [Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg] when an iterator is *`On`*/Active (_Default_).<br />[Largeicon:opdef:.?icon_optionStarYellowOrange_xfVizSVG.svg] (_this iterator xform handle in SOLO mode_)<br /><br />
+    - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when an iterator is *`On`*/Active and *`0`*(Zero) Weight.<br />[Largeicon:opdef:.?icon_optionDisabledZeroIter_xfVizSVG.svg] (_this iterator xform handle in SOLO mode_)<br /><br />
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg] when an iterator is *`On`*/Active, *`0`*(Zero) Weight and Marked.<br />[Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg] (_this iterator xform handle in SOLO mode_)<br /><br />
+    - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg] when an iterator is *`On`*/Active and Marked.<br />[Largeicon:opdef:.?icon_StarSwapRedCopyPaste_xfVizSVG.svg] (_this iterator xform handle in SOLO mode_)<br /><br />
+    - [Largeicon:opdef:.?icon_optionDisabledSVG.svg] when an iterator is *`Off`*/Disabled.<br />[Largeicon:opdef:.?icon_optionDisabled_xfVizSVG.svg] (_this iterator xform handle in SOLO mode_)<br /><br />
+    - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when an iterator is *`Off`*/Disabled and Marked.<br />[Largeicon:opdef:.?icon_optionDisabledSelIter_xfVizSVG.svg] (_this iterator xform handle in SOLO mode_)<br /><br />
 
     <br />
     When an iterator shader's opacity is set to *`0`*(Zero),<br />
