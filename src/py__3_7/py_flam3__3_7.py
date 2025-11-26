@@ -6696,10 +6696,10 @@ class flam3h_iterator_utils
                     _menu_append(idx)
                     
                     _XFVIZ: int = 0
-                    if idx == xfviz_solo_idx: _XFVIZ = 1
+                    if idx == xfviz_solo_idx: _XFVIZ = 1 # SOLO mode
 
                     _OPACITY_MSG: str = ""
-                    if shader_opacity[i] == 0: _OPACITY_MSG = "[ZERO opacity] "
+                    if shader_opacity[i] == 0: _OPACITY_MSG = "[ZERO opacity] " # ZERO opacity
                     
                     _ICON_IDX: int = 0
                     if node == from_FLAM3H_NODE and mp_id_from == idx: _ICON_IDX = 1 # Marked
