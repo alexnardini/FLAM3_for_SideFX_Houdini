@@ -33,6 +33,23 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.49 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.49) ###
+
+#### FLAM3H™ v1.9.49 indie -> H21.0 UP</br>FLAM3H™ v1.9.43 indie -> H19.0 to H20.5 ####
+
+- **New**: The SYS tab select iterator mini-menu bookmark icons are now capable to signal the iterator being in xform handle viz SOLO mode with a new set of SVG bookmark icons (_when in SOLO mode a small red handle in the botton left corner of the icon will appear_).
+- **Updated HDAs documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.47 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.47) ###
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
