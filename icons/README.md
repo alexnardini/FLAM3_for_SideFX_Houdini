@@ -554,6 +554,85 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
+
+<p align="center">
+  <img width="160" height="160" src="./icon_optionDisabledSelIter_xfVizSVG.svg" /></p>
+<b><p align="center">icon_optionDisabledSelIter_xfVizSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIter_xfVizSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIter_xfVizSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_optionDisabledSelIter_xfVizSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_optionDisabledSelIter_xfVizSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_optionDisabledSelIter_xfVizSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionDisabledSelIter_xfVizSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_optionDisabled_xfVizSVG.svg" /></p>
+<b><p align="center">icon_optionDisabled_xfVizSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabled_xfVizSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabled_xfVizSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_optionDisabled_xfVizSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_optionDisabled_xfVizSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_optionDisabled_xfVizSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionDisabled_xfVizSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
 <p align="center">
   <img width="160" height="160" src="./icon_optionDisabledSelIterSVG.svg" /></p>
 <b><p align="center">icon_optionDisabledSelIterSVG.svg</p></b>
@@ -628,6 +707,45 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionDisabledSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_optionDisabledZeroIter_xfVizSVG.svg" /></p>
+<b><p align="center">icon_optionDisabledZeroIter_xfVizSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIter_xfVizSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIter_xfVizSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_optionDisabledZeroIter_xfVizSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_optionDisabledZeroIter_xfVizSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_optionDisabledZeroIter_xfVizSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionDisabledZeroIterSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1563,6 +1681,45 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSOLOSVG.svg
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarWhiteXFVIZSOLOSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_optionStarYellowOrange_xfVizSVG.svg" /></p>
+<b><p align="center">icon_optionStarYellowOrange_xfVizSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrange_xfVizSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrange_xfVizSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_optionStarYellowOrange_xfVizSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_optionStarYellowOrange_xfVizSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_optionStarYellowOrange_xfVizSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarYellowOrange_xfVizSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -2660,6 +2817,45 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Sta
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_StarSwapRedCopyPaste_xfVizSVG.svg" /></p>
+<b><p align="center">icon_StarSwapRedCopyPaste_xfVizSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPaste_xfVizSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPaste_xfVizSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_StarSwapRedCopyPaste_xfVizSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_StarSwapRedCopyPaste_xfVizSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_StarSwapRedCopyPaste_xfVizSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapRedCopyPaste_xfVizSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
 <b><p align="center">icon_StarSwapRedCopyPasteAffineSVG.svg</p></b>
 <p align="center">......</p>
@@ -2967,6 +3163,45 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapRedCopyPasteSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg" /></p>
+<b><p align="center">icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 

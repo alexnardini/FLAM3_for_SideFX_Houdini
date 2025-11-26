@@ -4945,8 +4945,9 @@ class flam3h_general_utils
         node.setParms({PREFS_CAMERA_CULL_AMOUNT: 0.99})
         
         # XF VIZ SOLO OFF (but leave the xforms handles VIZ ON)
-        self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
-        self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
+        self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
+        self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0) # Turn Off iterator FF xf viz solo mode
+        self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
         flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
         
         if mode:
