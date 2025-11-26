@@ -6675,7 +6675,7 @@ class flam3h_iterator_utils
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             if iter_count:
                 
-                # Each one is a list as "data_now" is a tuple of lists
+                # Each one is a list as "data_now" is a tuple of lists except: xfviz_solo_idx
                 note, active, weight, shader_opacity, xfviz_solo_idx = data_now
                 data_now_names: tuple[str, ...] = ('iter_sel_n', 'iter_sel_a', 'iter_sel_w', 'iter_sel_o', 'iter_xfviz_solo_idx') # The order matter
                 [node.setCachedUserData(data_now_names[idx], data) for idx, data in enumerate(data_now)]
@@ -6697,27 +6697,27 @@ class flam3h_iterator_utils
                     _menu_append(idx)
                     
                     # This iterator data
-                    a, w = active[i], weight[i]
+                    _n, _a, _w, _o = note[i], active[i], weight[i], shader_opacity[i]
                     
                     # CHECKS
                     _XFVIZ: int = 0
                     if idx == xfviz_solo_idx: _XFVIZ = 1 # SOLO mode
                     
                     _OPACITY_MSG: str = ""
-                    if shader_opacity[i] == 0: _OPACITY_MSG = "[ZERO opacity] " # ZERO opacity
+                    if _o == 0: _OPACITY_MSG = "[ZERO opacity] " # ZERO opacity
                     
                     _ICON_IDX: int = 0
                     if node == from_FLAM3H_NODE and mp_id_from == idx: _ICON_IDX = 1 # Marked
                     
                     # BUILD
-                    if a and w > 0:
-                        _menu_append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                    if _a and _w > 0:
+                        _menu_append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{_n}")
                     
-                    elif a and w == 0:
-                        _menu_append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                    elif _a and _w == 0:
+                        _menu_append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{_n}")
 
                     else:
-                        _menu_append(f"{SEL_ITER_BOOKMARK_OFF[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{note[i]}")
+                        _menu_append(f"{SEL_ITER_BOOKMARK_OFF[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{_n}")
                     
             else:
                 menu = MENU_ZERO_ITERATORS
