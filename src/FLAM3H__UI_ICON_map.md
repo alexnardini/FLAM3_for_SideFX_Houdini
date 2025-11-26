@@ -217,10 +217,12 @@ The pre-built icons menu python lists being used:
 
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarYellowOrangeSVG.svg" />
 <img width="48" height="48" src="../icons/icon_StarSwapRedCopyPasteSVG.svg" />
+<img width="48" height="48" src="../icons/icon_optionStarYellowOrange_xfVizSVG.svg" />
+<img width="48" height="48" src="../icons/icon_StarSwapRedCopyPaste_xfVizSVG.svg" />
 </p>
 
 ```python
-SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT: tuple[str, ...] = (FLAM3H_ICON_STAR_FLAME_ITER_ACTV, FLAM3H_ICON_COPY_PASTE)
+SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT: tuple[tuple[str, str], tuple[str, str]] = ((FLAM3H_ICON_STAR_FLAME_ITER_ACTV, FLAM3H_ICON_COPY_PASTE), (FLAM3H_ICON_STAR_FLAME_ITER_ACTV_XFVIZ, FLAM3H_ICON_COPY_PASTE_XFVIZ))
 ```
 FLAM3H_ICON_STAR_FLAME_ITER_ACTV
 ```python
@@ -230,16 +232,26 @@ FLAM3H_ICON_COPY_PASTE
 ```python
 '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg]'
 ```
+FLAM3H_ICON_STAR_FLAME_ITER_ACTV_XFVIZ
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrange_xfVizSVG.svg]'
+```
+FLAM3H_ICON_COPY_PASTE_XFVIZ
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPaste_xfVizSVG.svg]'
+```
 
 </br>
 </br>
 
 <p align="left"><img width="48" height="48" src="../icons/icon_optionDisabledZeroIterSVG.svg" />
 <img width="48" height="48" src="../icons/icon_StarSwapRedCopyPasteZeroWSVG.svg" />
+<img width="48" height="48" src="../icons/icon_optionDisabledZeroIter_xfVizSVG.svg" />
+<img width="48" height="48" src="../icons/icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg" />
 </p>
 
 ```python
-SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple[str, ...] = (FLAM3H_ICON_STAR_EMPTY_OPACITY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO)
+SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple[tuple[str, str], tuple[str, str]] = ((FLAM3H_ICON_STAR_EMPTY_OPACITY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO), (FLAM3H_ICON_STAR_EMPTY_OPACITY_XFVIZ, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO_XFVIZ))
 ```
 FLAM3H_ICON_STAR_EMPTY_OPACITY
 ```python
@@ -249,16 +261,26 @@ FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
 ```python
 '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroWSVG.svg]'
 ```
+FLAM3H_ICON_STAR_EMPTY_OPACITY_XFVIZ
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIter_xfVizSVG.svg]'
+```
+FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO_XFVIZ
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg]'
+```
 
 </br>
 </br>
 
 <p align="left"><img width="48" height="48" src="../icons/icon_optionDisabledSVG.svg" />
 <img width="48" height="48" src="../icons/icon_optionDisabledSelIterSVG.svg" />
+<img width="48" height="48" src="../icons/icon_optionDisabled_xfVizSVG.svg" />
+<img width="48" height="48" src="../icons/icon_optionDisabledSelIter_xfVizSVG.svg" />
 </p>
 
 ```python
-SEL_ITER_BOOKMARK_OFF: tuple[str, ...] = (FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED)
+SEL_ITER_BOOKMARK_OFF: tuple[tuple[str, str], tuple[str, str]] = ((FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED), (FLAM3H_ICON_STAR_EMPTY_XFVIZ, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED_XFVIZ))
 ```
 FLAM3H_ICON_STAR_EMPTY
 ```python
@@ -267,6 +289,14 @@ FLAM3H_ICON_STAR_EMPTY
 FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
 ```python
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIterSVG.svg]'
+```
+FLAM3H_ICON_STAR_EMPTY_XFVIZ
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabled_xfVizSVG.svg]'
+```
+FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED_XFVIZ
+```python
+'![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIter_xfVizSVG.svg]'
 ```
 
 </br>
