@@ -581,7 +581,7 @@ class flam3h_iterator_prm_names:
         The following definitions:
         
         * def iterator_vactive_and_update(self) -> None:
-        * def menu_select_iterator_data(self, data_now: tuple[list[Any], ...]) -> TA_Menu:
+        * def menu_select_iterator_data(self, data_now: tuple[list[Any] | Any, ...]) -> TA_Menu:
         * def menu_select_iterator(self) -> TA_Menu:
         * def menu_copypaste(self) -> TA_Menu:
         * def menu_copypaste_FF(self) -> TA_Menu:
@@ -5501,7 +5501,7 @@ class flam3h_iterator_utils
 * menu_T(self, FF: bool = False) -> TA_Menu:
 * menu_T_PP(self, FF: bool = False) -> TA_Menu:
 * menu_T_pb(self) -> TA_Menu:
-* menu_select_iterator_data(self, data_now: tuple[list[Any], ...]) -> TA_Menu:
+* menu_select_iterator_data(self, data_now: tuple[list[Any] | Any, ...]) -> TA_Menu:
 * menu_select_iterator(self) -> TA_Menu:
 * prm_select_iterator(self) -> None:
 * flam3h_paste_reset_hou_session_data(self, hipLoad: bool = False) -> None:
