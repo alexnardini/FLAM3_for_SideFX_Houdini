@@ -9178,7 +9178,7 @@ class flam3h_iterator_utils
         # SYS, IN and PREFS
         [prm.set(0) for prm in (node.parm(PREFS_CAMERA_HANDLE), node.parm(PREFS_CAMERA_CULL))]
         [flam3h_general_utils.private_prm_set(node, prm_name, 0) for prm_name in (IN_PVT_ISVALID_PRESET, IN_PVT_CLIPBOARD_TOGGLE)]
-        [flam3h_general_utils.private_prm_set(node, prm_name, 0) for prm_name in (PREFS_PVT_DOFF, PREFS_PVT_RIP, PREFS_PVT_XF_VIZ_SOLO, PREFS_PVT_XF_FF_VIZ_SOLO)]
+        [flam3h_general_utils.private_prm_set(node, prm_name, 0) for prm_name in (PREFS_PVT_DOFF, PREFS_PVT_RIP, PREFS_PVT_XF_VIZ_SOLO, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, PREFS_PVT_XF_FF_VIZ_SOLO)]
         flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
         # descriptive message parameter
         node.setParms({MSG_DESCRIPTIVE_PRM: ""}) # type: ignore

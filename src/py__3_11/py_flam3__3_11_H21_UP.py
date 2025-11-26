@@ -7282,7 +7282,7 @@ class flam3h_iterator_utils
             mem_id: int = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
             if node.cachedUserData('iter_sel_id') != mem_id and mem_id:
                 self.destroy_cachedUserData(node, 'iter_sel')
-            
+
             # For undos: compare old data_* against current data_*
             # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
@@ -9901,7 +9901,7 @@ class flam3h_iterator_utils
         for prm in (node.parm(PREFS_CAMERA_HANDLE), node.parm(PREFS_CAMERA_CULL)): prm.set(0)
         _IN_PVT_PRM: tuple[hou.Parm, ...] = (node.parm(IN_PVT_ISVALID_PRESET), node.parm(IN_PVT_CLIPBOARD_TOGGLE))
         for prm in _IN_PVT_PRM: flam3h_general_utils.private_prm_set(node, prm, 0)
-        _PREFS_PVT_PRM: tuple[hou.Parm, ...] = (node.parm(PREFS_PVT_DOFF), node.parm(PREFS_PVT_RIP), node.parm(PREFS_PVT_XF_VIZ_SOLO), node.parm(PREFS_PVT_XF_FF_VIZ_SOLO))
+        _PREFS_PVT_PRM: tuple[hou.Parm, ...] = (node.parm(PREFS_PVT_DOFF), node.parm(PREFS_PVT_RIP), node.parm(PREFS_PVT_XF_VIZ_SOLO), node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX), node.parm(PREFS_PVT_XF_FF_VIZ_SOLO))
         for prm in _PREFS_PVT_PRM: flam3h_general_utils.private_prm_set(node, prm, 0)
         
         flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
