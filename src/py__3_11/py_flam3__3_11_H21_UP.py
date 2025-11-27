@@ -7266,12 +7266,12 @@ class flam3h_iterator_utils
 
                     else:
                         _menu_append(f"{SEL_ITER_BOOKMARK_OFF[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{_n}")
-                    
-            else:
-                menu = MENU_ZERO_ITERATORS
-                    
-            node.setCachedUserData('iter_sel', menu)
-            return menu
+                        
+                node.setCachedUserData('iter_sel', menu)
+                return menu
+                
+            self.destroy_cachedUserData(node, 'iter_sel')
+            return MENU_ZERO_ITERATORS
     
     
     def menu_select_iterator(self) -> TA_Menu:
