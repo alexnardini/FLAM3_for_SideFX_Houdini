@@ -7218,10 +7218,12 @@ class flam3h_iterator_utils
         with hou.undos.disabler(): # type: ignore
             
             node: hou.SopNode = self.node
-            menu: TA_Menu = []
-
+            
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             if iter_count:
+                
+                # init menu
+                menu: TA_Menu = []
                 
                 # Each one is a list as "data_now" is a tuple of lists except: xfviz_solo_idx
                 note, active, weight, shader_opacity, xfviz_solo_idx = data_now
@@ -7270,7 +7272,9 @@ class flam3h_iterator_utils
                 node.setCachedUserData('iter_sel', menu)
                 return menu
                 
-            self.destroy_cachedUserData(node, 'iter_sel')
+            if node.cachedUserData('iter_sel_id') is not None:
+                self.destroy_cachedUserData(node, 'iter_sel')
+                
             return MENU_ZERO_ITERATORS
     
     
