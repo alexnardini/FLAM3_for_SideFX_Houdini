@@ -6748,9 +6748,7 @@ class flam3h_iterator_utils
                 node.setCachedUserData('iter_sel', menu)
                 return menu
                     
-            if node.cachedUserData('iter_sel_id') is not None:
-                self.destroy_cachedUserData(node, 'iter_sel')
-                
+            self.destroy_cachedUserData(node, 'iter_sel')
             return MENU_ZERO_ITERATORS
     
     
