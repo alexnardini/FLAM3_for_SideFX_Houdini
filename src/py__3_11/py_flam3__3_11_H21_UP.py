@@ -14289,35 +14289,35 @@ class in_flame_checks():
     ##########################################
 
     @property
-    def pb_bool(self) -> int:
+    def pb_bool(self) -> bool:
         return self._pb_bool
     
     @property
-    def opacity_bool(self) -> int:
+    def opacity_bool(self) -> bool:
         return self._opacity_bool
     
     @property
-    def post_bool(self) -> int:
+    def post_bool(self) -> bool:
         return self._post_bool
     
     @property
-    def xaos_bool(self) -> int:
+    def xaos_bool(self) -> bool:
         return self._xaos_bool
     
     @property
-    def palette_bool(self) -> int:
+    def palette_bool(self) -> bool:
         return self._palette_bool
     
     @property
-    def ff_bool(self) -> int:
+    def ff_bool(self) -> bool:
         return self._ff_bool
     
     @property
-    def ff_post_bool(self) -> int:
+    def ff_post_bool(self) -> bool:
         return self._ff_post_bool
     
     @property
-    def f3h_mb_bool(self) -> int:
+    def f3h_mb_bool(self) -> bool:
         return self._f3h_mb_bool
     
     
