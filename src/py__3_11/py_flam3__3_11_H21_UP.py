@@ -20759,14 +20759,14 @@ class out_flame_utils
                 angle: str | list[Never] = f3d.xf_f3h_preaffine_angle[iter]
                 if f3d.f3h_affine and isinstance(angle, str) and float(angle) != 0:
                     xf.set(XML_FLAM3H_PRE_AFFINE, f3d.xf_f3h_preaffine[iter])
-                    xf.set(XML_FLAM3H_PRE_AFFINE_ANGLE, f3d.xf_f3h_preaffine_angle[iter])
+                    xf.set(XML_FLAM3H_PRE_AFFINE_ANGLE, angle)
                     
                 if f3d.xf_postaffine[iter]:
                     xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
                     f3h_angle: str | list[Never] = f3d.xf_f3h_postaffine_angle[iter]
                     if f3d.f3h_affine and isinstance(f3h_angle, str) and float(f3h_angle) != 0:
                         xf.set(XML_FLAM3H_POST_AFFINE, f3d.xf_f3h_postaffine[iter])
-                        xf.set(XML_FLAM3H_POST_AFFINE_ANGLE, f3d.xf_f3h_postaffine_angle[iter])
+                        xf.set(XML_FLAM3H_POST_AFFINE_ANGLE, f3h_angle)
                         
                 if f3d.xf_xaos[iter]:
                     xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
