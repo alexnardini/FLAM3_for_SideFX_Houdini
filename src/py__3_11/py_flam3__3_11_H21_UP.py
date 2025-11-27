@@ -16905,12 +16905,12 @@ class in_flame_utils
 
         Args:
             (self):
-            apo_data(in_flame_iter_data): The XML Flame file data for the preset we are loading in FLAM3H™.
+            apo_data(in_flame_iter_data): The XML Flame data for the preset we are loading in FLAM3H™.
             data_checks(in_flame_checks): Class containing checks about what is being used by the loaded Flame preset.</br>Please refere to the class itself for more infos.
             pgb_name(str): Default to: 'pre_gaussian_blur'</br>Correct name of the PRE gaussian blur, always "pre_gaussian_blur" but always computed in advance.</br>This variation will be removed if it is the first one in the list of PRE variations.
 
         Returns:
-            (list[str]): A list of containing the unique used variations sorted alphatically.
+            (list[str]): A list containing the unique used variations sorted alphatically.
         """  
         
         # Cache for resuse
@@ -16958,13 +16958,13 @@ class in_flame_utils
 
         Args:
             (self):
-            apo_data(in_flame_iter_data): The XML Flame file data for the preset we are loading in FLAM3H™.
+            apo_data(in_flame_iter_data): The XML Flame data for the preset we are loading in FLAM3H™.
             data_checks(in_flame_checks): Class containing checks about what is being used by the loaded Flame preset.</br>Please refere to the class itself for more infos.
             vars_used(list[str]): Used variations unique and sorted.</br>This is coming from: def in_load_collect_vars(self, apo_data: in_flame_iter_data, data_checks: in_flame_checks, pgb_name: str = 'pre_gaussian_blur') -> list[str]:
             pgb_name(str): Default to: 'pre_gaussian_blur'</br>Correct name of the PRE gaussian blur, always "pre_gaussian_blur" but always computed in advance.</br>This variation will be removed if it is the first one in the list of PRE variations.
 
         Returns:
-            (list[str]): A list of containing the unique missing variations sorted alphatically.
+            (list[str]): A list containing the unique missing variations sorted alphatically.
         """  
         # Build ITERATOR MISSING
         __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
