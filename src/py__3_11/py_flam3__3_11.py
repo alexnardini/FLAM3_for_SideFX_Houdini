@@ -15818,12 +15818,12 @@ class in_flame_utils
         # Build MISSING: Compare, keep and build
         vars_missing: list = [x for x in result_sorted_fractorium if x not in result_sorted]
         result_grp_fractorium: list = [vars_missing[i:i + n] for i in range(0, len(vars_missing), n)]  
-        if vars_missing: vars_missing_msg = f"{nnl}{XML_updated}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
+        if vars_missing: vars_missing_msg = f"{XML_updated}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
         else: vars_missing_msg: str = ""
         
         # Build UNKNOWN
         vars_unknown: list = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
-        if vars_unknown: vars_unknown_msg: str = f"{nnl}{XML_updated}UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i + n] for i in range(0, len(vars_unknown), n)] )}"
+        if vars_unknown: vars_unknown_msg: str = f"{XML_updated}UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i + n] for i in range(0, len(vars_unknown), n)] )}"
         else: vars_unknown_msg: str = ''
         
         # Check if the loaded Flame file is locked.
@@ -15839,19 +15839,21 @@ class in_flame_utils
             else: node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}"})
         
         # build full stats msg
-        build: tuple = (flame_lib_locked, nl,
-                        XML_updated, sw, nl,
-                        XML_updated, name, nnl,
-                        XML_updated, palette_count_format, nl,
-                        cc, mb,
-                        XML_updated, iter_count, nl,
-                        XML_updated, post, nl,
-                        XML_updated, opacity, nl,
-                        XML_updated, xaos, nl,
-                        XML_updated, ff_msg, nnl,
-                        vars_used_msg,
-                        vars_missing_msg,
-                        vars_unknown_msg )
+        build: tuple[str, ...] = (
+                                    flame_lib_locked, nl, 
+                                    XML_updated, sw, nl, 
+                                    XML_updated, name, nnl, 
+                                    XML_updated, palette_count_format, nl, 
+                                    cc, mb, 
+                                    XML_updated, iter_count, nl, 
+                                    XML_updated, post, nl, 
+                                    XML_updated, opacity, nl, 
+                                    XML_updated, xaos, nl, 
+                                    XML_updated, ff_msg, nnl, 
+                                    vars_used_msg, nnl if vars_missing_msg else '', 
+                                    vars_missing_msg, nnl if vars_unknown_msg else '', 
+                                    vars_unknown_msg
+                                )
 
         return "".join(build)
 
