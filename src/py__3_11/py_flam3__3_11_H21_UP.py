@@ -4255,7 +4255,7 @@ class flam3h_general_utils
         self.menus_refresh_enum_prefs()
         
         if prm_FF.eval():
-            self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
+            self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0) # Turn Off FF xf viz solo mode
             self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             
@@ -9346,16 +9346,17 @@ class flam3h_iterator_utils
             node.parm(f"{prm}_{s_mp_index}").set(1) if prm == n.var_weight_1 else node.parm(f"{prm}_{s_mp_index}").set(0)
         
         # Iterator Affines
-        parms_affines_dict: dict[str, hou.Vector2 | float | None] = {   f"{n.preaffine_x}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_x"),
-                                                                        f"{n.preaffine_y}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_y"),
-                                                                        f"{n.preaffine_o}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_o"),
-                                                                        f"{n.preaffine_ang}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("angle"),
-                                                                        f"{n.postaffine_do}_{s_mp_index}": 0,
-                                                                        f"{n.postaffine_x}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_x"),
-                                                                        f"{n.postaffine_y}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_y"),
-                                                                        f"{n.postaffine_o}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_o"),
-                                                                        f"{n.postaffine_ang}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("angle")
-                                                                        }
+        parms_affines_dict: dict[str, hou.Vector2 | float | None] = {   
+                                                                    f"{n.preaffine_x}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_x"),
+                                                                    f"{n.preaffine_y}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_y"),
+                                                                    f"{n.preaffine_o}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_o"),
+                                                                    f"{n.preaffine_ang}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("angle"),
+                                                                    f"{n.postaffine_do}_{s_mp_index}": 0,
+                                                                    f"{n.postaffine_x}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_x"),
+                                                                    f"{n.postaffine_y}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_y"),
+                                                                    f"{n.postaffine_o}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("affine_o"),
+                                                                    f"{n.postaffine_ang}_{s_mp_index}": AFFINE_DEFAULT_DICT.get("angle")
+                                                                    }
         
         # Iterator Affines Set
         node.setParms(parms_affines_dict) # type: ignore
@@ -12922,7 +12923,7 @@ class _xml_tree
             except OSError:
                 return False
             
-            except lxmlET.XMLSyntaxError as e:
+            except lxmlET.XMLSyntaxError:
                 return False
             
             else:
@@ -16901,7 +16902,7 @@ class in_flame_utils
 
     def in_load_collect_vars(self, apo_data: in_flame_iter_data, data_checks: in_flame_checks, pgb_name: str = 'pre_gaussian_blur') -> list[str]:
         """Build a message with all the used variations in the Flame preset we just loaded.</br>
-        The will be collected inside a list of strings and they will be unique(no duplicates) and sorted.</br>
+        They will be collected inside a list of strings and they will be unique(no duplicates) and sorted.</br>
 
         Args:
             (self):
@@ -16954,7 +16955,7 @@ class in_flame_utils
     
     def in_load_collect_vars_missing(self, apo_data: in_flame_iter_data, data_checks: in_flame_checks, vars_used: list[str], pgb_name: str = 'pre_gaussian_blur') -> list[str]:
         """Build a message with all the missing variation in the Flame preset we just loaded.</br>
-        The will be collected inside a list of strings and they will be unique(no duplicates) and sorted.</br>
+        They will be collected inside a list of strings and they will be unique(no duplicates) and sorted.</br>
 
         Args:
             (self):
