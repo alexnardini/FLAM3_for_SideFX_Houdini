@@ -15774,7 +15774,7 @@ class in_flame_utils
         n: int = 5
         vars_used_heading: str = "Variations used:"
         result_grp: list = [result_sorted[i:i + n] for i in range(0, len(result_sorted), n)]  
-        vars_used_msg: str = f"{XML_updated}{vars_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
+        vars_used_msg: str = f"{vars_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
         
         # Build and set descriptive parameter msg
         if clipboard: preset_name: str = apo_data.name[0]
@@ -15818,12 +15818,12 @@ class in_flame_utils
         # Build MISSING: Compare, keep and build
         vars_missing: list = [x for x in result_sorted_fractorium if x not in result_sorted]
         result_grp_fractorium: list = [vars_missing[i:i + n] for i in range(0, len(vars_missing), n)]  
-        if vars_missing: vars_missing_msg = f"{XML_updated}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
+        if vars_missing: vars_missing_msg = f"MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
         else: vars_missing_msg: str = ""
         
         # Build UNKNOWN
         vars_unknown: list = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
-        if vars_unknown: vars_unknown_msg: str = f"{XML_updated}UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i + n] for i in range(0, len(vars_unknown), n)] )}"
+        if vars_unknown: vars_unknown_msg: str = f"UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i + n] for i in range(0, len(vars_unknown), n)] )}"
         else: vars_unknown_msg: str = ''
         
         # Check if the loaded Flame file is locked.
@@ -15850,9 +15850,9 @@ class in_flame_utils
                                     XML_updated, opacity, nl, 
                                     XML_updated, xaos, nl, 
                                     XML_updated, ff_msg, nnl, 
-                                    vars_used_msg, nnl if vars_missing_msg else '', 
-                                    vars_missing_msg, nnl if vars_unknown_msg else '', 
-                                    vars_unknown_msg
+                                    XML_updated, vars_used_msg, nnl if vars_missing_msg else '', 
+                                    XML_updated if vars_missing_msg else '', vars_missing_msg, nnl if vars_unknown_msg else '', 
+                                    XML_updated if vars_unknown_msg else '', vars_unknown_msg
                                 )
 
         return "".join(build)

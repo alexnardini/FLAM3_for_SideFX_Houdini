@@ -1702,23 +1702,24 @@ class flam3h_scripts
         Returns:
             (None):
         """
-        prm_names: tuple[str,...] = (   CP_PVT_ISVALID_FILE, 
-                                        CP_PVT_ISVALID_PRESET, 
-                                        IN_PVT_ISVALID_FILE, 
-                                        IN_PVT_ISVALID_PRESET, 
-                                        IN_PVT_CLIPBOARD_TOGGLE, 
-                                        OUT_PVT_ISVALID_FILE, 
-                                        PREFS_PVT_F3C, 
-                                        PREFS_PVT_XAOS_AUTO_SPACE,
-                                        PREFS_PVT_INT_0,
-                                        PREFS_PVT_INT_1,
-                                        PREFS_PVT_FLOAT_0,
-                                        PREFS_PVT_FLOAT_1,
-                                        FLAM3H_PVT_H_VALID,
-                                        PREFS_PVT_VIEWPORT_PT_SIZE_MEM,
-                                        PREFS_PVT_VIEWPORT_PT_TYPE_MEM,
-                                        PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM
-                                        )
+        prm_names: tuple[str,...] = (  
+                                    CP_PVT_ISVALID_FILE, 
+                                    CP_PVT_ISVALID_PRESET, 
+                                    IN_PVT_ISVALID_FILE, 
+                                    IN_PVT_ISVALID_PRESET, 
+                                    IN_PVT_CLIPBOARD_TOGGLE, 
+                                    OUT_PVT_ISVALID_FILE, 
+                                    PREFS_PVT_F3C, 
+                                    PREFS_PVT_XAOS_AUTO_SPACE,
+                                    PREFS_PVT_INT_0,
+                                    PREFS_PVT_INT_1,
+                                    PREFS_PVT_FLOAT_0,
+                                    PREFS_PVT_FLOAT_1,
+                                    FLAM3H_PVT_H_VALID,
+                                    PREFS_PVT_VIEWPORT_PT_SIZE_MEM,
+                                    PREFS_PVT_VIEWPORT_PT_TYPE_MEM,
+                                    PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM
+                                    )
         
         for prm_name in prm_names:
             parm = node.parm(prm_name)
@@ -14617,9 +14618,9 @@ class in_flame_utils
                           ) -> None:
 * in_load_collect_vars(self, apo_data: in_flame_iter_data, data_checks: in_flame_checks, pgb_name: str = 'pre_gaussian_blur') -> list[str]:
 * in_load_collect_vars_missing(self, apo_data: in_flame_iter_data, data_checks: in_flame_checks, vars_used: list[str], pgb_name: str = 'pre_gaussian_blur') -> list[str]:
-* in_load_vars_used_msg(self, vars_used: list[str], XML_updated: str, grp_num: int = 5) -> str:
-* in_load_vars_missing_msg(self, vars_missing: list[str], XML_updated: str, grp_num: int = 5) -> str:
-* in_load_vars_unknown_msg(self, apo_data: in_flame_iter_data, preset_id: int, XML_updated: str, grp_num: int = 5) -> str:
+* in_load_vars_used_msg(self, vars_used: list[str], grp_num: int = 5) -> str:
+* in_load_vars_missing_msg(self, vars_missing: list[str], grp_num: int = 5) -> str:
+* in_load_vars_unknown_msg(self, apo_data: in_flame_iter_data, preset_id: int, grp_num: int = 5) -> str:
 * in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool, XML_last_update: bool = False) -> str:
 * menu_in_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> TA_Menu:
 * menu_in_presets(self) -> TA_Menu:
@@ -17004,13 +17005,12 @@ class in_flame_utils
         return vars_missing
     
     
-    def in_load_vars_used_msg(self, vars_used: list[str], XML_updated: str, grp_num: int = 5) -> str:
+    def in_load_vars_used_msg(self, vars_used: list[str], grp_num: int = 5) -> str:
         """Build the IN infos stats message for the used variations in the Flame preset we just loaded.</br>
 
         Args:
             (self):
             vars_used(list[str]): List of unique variation used in the Flame preset we just loaded.
-            XML_updated(str): If the loaded XML on disk is being modified it will be an asterisk(*)</br>otherwise an empty string: ''.</br>This is being computed in advance.
             grp_num(int): All the collected variations will be formatted in groups of 5 for each line.
 
         Returns:
@@ -17018,18 +17018,17 @@ class in_flame_utils
         """   
         vars_used_heading: str = 'Variations used:'
         result_grp: TA_STR_ListUnflattened = [vars_used[i:i + grp_num] for i in range(0, len(vars_used), grp_num)]  
-        vars_used_msg: str = f"{XML_updated}{vars_used_heading} {int(len(vars_used))}\n{self.in_util_join_vars_grp(result_grp)}"
+        vars_used_msg: str = f"{vars_used_heading} {int(len(vars_used))}\n{self.in_util_join_vars_grp(result_grp)}"
         
         return vars_used_msg
     
     
-    def in_load_vars_missing_msg(self, vars_missing: list[str], XML_updated: str, grp_num: int = 5) -> str:
+    def in_load_vars_missing_msg(self, vars_missing: list[str], grp_num: int = 5) -> str:
         """Build the IN infos stats message for the missing variations in the Flame preset we just loaded.</br>
 
         Args:
             (self):
             vars_missing(list[str]): List of unique variation missing in the Flame preset we just loaded.
-            XML_updated(str): If the loaded XML on disk is being modified it will be an asterisk(*)</br>otherwise an empty string: ''.</br>This is being computed in advance.
             grp_num(int): All the collected variations will be formatted in groups of 5 for each line.
 
         Returns:
@@ -17037,20 +17036,19 @@ class in_flame_utils
         """   
         vars_missing_heading: str = 'MISSING:'
         __vars_missing_grp__: TA_STR_ListUnflattened = [vars_missing[i:i + grp_num] for i in range(0, len(vars_missing), grp_num)]
-        if vars_missing: vars_missing_msg: str = f"{XML_updated}{vars_missing_heading}\n{self.in_util_join_vars_grp(__vars_missing_grp__)}"
+        if vars_missing: vars_missing_msg: str = f"{vars_missing_heading}\n{self.in_util_join_vars_grp(__vars_missing_grp__)}"
         else: vars_missing_msg: str = ''
         
         return vars_missing_msg
     
     
-    def in_load_vars_unknown_msg(self, apo_data: in_flame_iter_data, preset_id: int, XML_updated: str, grp_num: int = 5) -> str:
+    def in_load_vars_unknown_msg(self, apo_data: in_flame_iter_data, preset_id: int, grp_num: int = 5) -> str:
         """Build the IN infos stats message for the unknown variations in the Flame preset we just loaded.</br>
 
         Args:
             (self):
             apo_data(in_flame_iter_data): The XML Flame file data for the preset we are loading in FLAM3H™.
             preset_id(int): The loaded XML Flame preset
-            XML_updated(str): If the loaded XML on disk is being modified it will be an asterisk(*)</br>otherwise an empty string: ''.</br>This is being computed in advance.
             grp_num(int): All the collected variations will be formatted in groups of 5 for each line.
 
         Returns:
@@ -17058,7 +17056,7 @@ class in_flame_utils
         """   
         vars_unknown_heading: str = 'UNKNOWN:'
         __vars_unknown__: list[str] = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
-        if __vars_unknown__: vars_unknown_msg: str = f"{XML_updated}{vars_unknown_heading}\n{self.in_util_join_vars_grp( [__vars_unknown__[i:i + grp_num] for i in range(0, len(__vars_unknown__), grp_num)] )}"
+        if __vars_unknown__: vars_unknown_msg: str = f"{vars_unknown_heading}\n{self.in_util_join_vars_grp( [__vars_unknown__[i:i + grp_num] for i in range(0, len(__vars_unknown__), grp_num)] )}"
         else: vars_unknown_msg: str = ''
         
         return vars_unknown_msg
@@ -17113,14 +17111,14 @@ class in_flame_utils
         
         # Used VARS
         __vars_used__: list[str] = self.in_load_collect_vars(apo_data, data_checks, pgb_name)
-        vars_used_msg: str = self.in_load_vars_used_msg(__vars_used__, XML_updated)
+        vars_used_msg: str = self.in_load_vars_used_msg(__vars_used__)
 
         # Missing VARS
         __vars_missing__: list[str] = self.in_load_collect_vars_missing(apo_data, data_checks, __vars_used__, pgb_name)
-        vars_missing_msg: str = self.in_load_vars_missing_msg(__vars_missing__, XML_updated)
+        vars_missing_msg: str = self.in_load_vars_missing_msg(__vars_missing__)
         
         # Build unknown MSG
-        vars_unknown_msg: str = self.in_load_vars_unknown_msg(apo_data, preset_id, XML_updated)
+        vars_unknown_msg: str = self.in_load_vars_unknown_msg(apo_data, preset_id)
         
         # CC - build data
         cc_overall: str | list = apo_data.out_curve_overall[preset_id]
@@ -17190,9 +17188,9 @@ class in_flame_utils
                                     XML_updated, opacity, nl, 
                                     XML_updated, xaos, nl, 
                                     XML_updated, ff_msg, nnl, 
-                                    vars_used_msg, nnl if vars_missing_msg else '', 
-                                    vars_missing_msg, nnl if vars_unknown_msg else '', 
-                                    vars_unknown_msg
+                                    XML_updated, vars_used_msg, nnl if vars_missing_msg else '', 
+                                    XML_updated if vars_missing_msg else '', vars_missing_msg, nnl if vars_unknown_msg else '', 
+                                    XML_updated if vars_unknown_msg else '', vars_unknown_msg
                                 )
 
         return ''.join(build)
@@ -17724,7 +17722,7 @@ class in_flame_utils
         Returns:
             (bool): True if all goes well. False if the loaded palette fail, most likely due to wrong HEX values in it.
         """ 
-        # xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
+        xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
         
         if apo_data.palette is not None:
             
@@ -17757,12 +17755,15 @@ class in_flame_utils
         _BASEs, _POSs, _COLORs = flam3h_palette_utils.build_ramp_palette_error()
         ramp_parm.set(hou.Ramp(_BASEs, _POSs, _COLORs))
         
+        if attempt_from_clipboard: _MSG = f"CP ERROR from the Clipboard"
+        else: _MSG = f"CP ERROR"
         if flashmessage:
-            _MSG = f"CP ERROR from the Clipboard"
             flam3h_general_utils.flash_message(node, _MSG)
             
         # This always
-        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}. The loaded Palette data has invalid HEX values.", "WARN")
+        _FULL_MSG = f"{node.name()}: {_MSG}. The loaded Palette data has invalid HEX values."
+        flam3h_general_utils.set_status_msg(_FULL_MSG, "WARN")
+        print(_FULL_MSG)
             
         # Now that I do have proper exception handling in place this else statement is not needed anymore.
         # I leave it here for now just in case I decide to print anything else.
