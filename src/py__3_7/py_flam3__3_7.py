@@ -6752,12 +6752,12 @@ class flam3h_iterator_utils
             data_now: tuple[Union[list[Any], Any], ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha'))
             xfviz_mem_id: int = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX).eval()
             data_now += (xfviz_mem_id,)
-            data_cached: tuple[tuple[Union[list[Any], Any]], ...] = (node.cachedUserData('iter_sel_n'), 
-                                                                     node.cachedUserData('iter_sel_a'), 
-                                                                     node.cachedUserData('iter_sel_w'), 
-                                                                     node.cachedUserData('iter_sel_o'), 
-                                                                     node.cachedUserData('iter_xfviz_solo_idx')
-                                                                    )
+            data_cached: tuple[Union[list[Any], Any], ...] = (  node.cachedUserData('iter_sel_n'), 
+                                                                node.cachedUserData('iter_sel_a'), 
+                                                                node.cachedUserData('iter_sel_w'), 
+                                                                node.cachedUserData('iter_sel_o'), 
+                                                                node.cachedUserData('iter_xfviz_solo_idx')
+                                                                )
             
             cached: Union[list, None] = node.cachedUserData('iter_sel')
             if cached is not None:
