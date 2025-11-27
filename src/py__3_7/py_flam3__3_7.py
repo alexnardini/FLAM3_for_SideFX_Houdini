@@ -3939,7 +3939,8 @@ class flam3h_general_utils
         
         if prm_mp.eval():
             prm_mp.set(0)
-            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0)
+            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
+            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
             flam3h_iterator_utils.destroy_userData(node, f"{data_name}")
             
             _MSG: str = f"{node.name()}: VIZHANDLES_SOLO: OFF"
@@ -6746,21 +6747,23 @@ class flam3h_iterator_utils
             if node.cachedUserData('iter_sel_id') != mem_id and mem_id:
                 self.destroy_cachedUserData(node, 'iter_sel')
 
-            # For undos: compare old data_* against current data_*
-            # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             data_now: tuple[Union[list[Any], Any], ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha'))
             xfviz_mem_id: int = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX).eval()
             data_now += (xfviz_mem_id,)
-            data_cached: tuple[Union[list[Any], Any], ...] = (  node.cachedUserData('iter_sel_n'), 
-                                                                node.cachedUserData('iter_sel_a'), 
-                                                                node.cachedUserData('iter_sel_w'), 
-                                                                node.cachedUserData('iter_sel_o'), 
-                                                                node.cachedUserData('iter_xfviz_solo_idx')
-                                                                )
             
             cached: Union[list, None] = node.cachedUserData('iter_sel')
             if cached is not None:
+                
+                data_cached: tuple[Union[list[Any], Any], ...] = (  node.cachedUserData('iter_sel_n'), 
+                                                                    node.cachedUserData('iter_sel_a'), 
+                                                                    node.cachedUserData('iter_sel_w'), 
+                                                                    node.cachedUserData('iter_sel_o'), 
+                                                                    node.cachedUserData('iter_xfviz_solo_idx')
+                                                                    )
+                
+                # For undos: compare old data_* against current data_*
+                # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
                 if data_cached != data_now:
                     self.destroy_cachedUserData(node, 'iter_sel')
                     return self.menu_select_iterator_data(data_now)
