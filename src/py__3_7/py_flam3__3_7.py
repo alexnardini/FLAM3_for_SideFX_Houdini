@@ -6752,19 +6752,22 @@ class flam3h_iterator_utils
             data_now: tuple[Union[list[Any], Any], ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha'))
             xfviz_mem_id: int = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX).eval()
             data_now += (xfviz_mem_id,)
-            data_cached: tuple[tuple[int, Union[list[Any], Any]], ...] = (  (0, node.cachedUserData('iter_sel_n')), 
-                                                                            (1, node.cachedUserData('iter_sel_a')), 
-                                                                            (2, node.cachedUserData('iter_sel_w')), 
-                                                                            (3, node.cachedUserData('iter_sel_o')), 
-                                                                            (4, node.cachedUserData('iter_xfviz_solo_idx'))
-                                                                            )
-            [self.destroy_cachedUserData(node, 'iter_sel') if node.cachedUserData('iter_sel') is not None and data != data_now[idx] else ... for idx, data in data_cached]
+            data_cached: tuple[tuple[Union[list[Any], Any]], ...] = (node.cachedUserData('iter_sel_n'), 
+                                                                     node.cachedUserData('iter_sel_a'), 
+                                                                     node.cachedUserData('iter_sel_w'), 
+                                                                     node.cachedUserData('iter_sel_o'), 
+                                                                     node.cachedUserData('iter_xfviz_solo_idx')
+                                                                    )
             
-            menu: Union[list, None] = node.cachedUserData('iter_sel')
-            if menu is not None:
-                return menu
-            else:
-                return self.menu_select_iterator_data(data_now)
+            cached: Union[list, None] = node.cachedUserData('iter_sel')
+            if cached is not None:
+                if data_cached != data_now:
+                    self.destroy_cachedUserData(node, 'iter_sel')
+                    return self.menu_select_iterator_data(data_now)
+                
+                return cached
+            
+            return self.menu_select_iterator_data(data_now)
         
     
     def prm_select_iterator(self) -> None:

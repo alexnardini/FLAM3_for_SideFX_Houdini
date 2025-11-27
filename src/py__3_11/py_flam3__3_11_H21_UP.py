@@ -7300,23 +7300,20 @@ class flam3h_iterator_utils
             data_now: tuple[list[Any] | Any, ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha'))
             xfviz_mem_id: int = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX).eval()
             data_now += (xfviz_mem_id,)
-            data_cached: tuple[tuple[int, list[Any] | Any], ...] = ((0, node.cachedUserData('iter_sel_n')), 
-                                                                    (1, node.cachedUserData('iter_sel_a')), 
-                                                                    (2, node.cachedUserData('iter_sel_w')), 
-                                                                    (3, node.cachedUserData('iter_sel_o')), 
-                                                                    (4, node.cachedUserData('iter_xfviz_solo_idx'))
-                                                                    )
+            data_cached: tuple[tuple[list[Any] | Any], ...] = ( node.cachedUserData('iter_sel_n'), 
+                                                                node.cachedUserData('iter_sel_a'), 
+                                                                node.cachedUserData('iter_sel_w'), 
+                                                                node.cachedUserData('iter_sel_o'), 
+                                                                node.cachedUserData('iter_xfviz_solo_idx')
+                                                                )
             
             cached: TA_Menu | None = node.cachedUserData('iter_sel')
             if cached is not None:
-                for idx, data in data_cached:
-                    if data != data_now[idx]:
-                        self.destroy_cachedUserData(node, 'iter_sel')
-                        break
-            
-            menu: TA_Menu | None = node.cachedUserData('iter_sel')
-            if menu is not None:
-                return menu
+                if data_cached != data_now:
+                    self.destroy_cachedUserData(node, 'iter_sel')
+                    return self.menu_select_iterator_data(data_now)
+                
+                return cached
             
             return self.menu_select_iterator_data(data_now)
         
