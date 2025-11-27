@@ -148,6 +148,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                     in_flame(_xml_tree)
                     in_flame_iter_data(in_flame)
                     in_flame_utils
+                    in_flame_checks
 
                     out_flame_utils
                     out_flame_render_properties(out_flame_utils)
@@ -14232,6 +14233,209 @@ class in_flame_iter_data(in_flame):
         return self._prefs_flam3h_f3c
     
     
+# FLAM3H™ IN FLAME CHECKS start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+
+
+class in_flame_checks():
+    """
+@STATICMETHODS
+
+@METHODS
+* __in_flame_pb_chk(self) -> bool:
+* __in_flame_opacity_chk(self) -> bool:
+* __in_flame_post_chk(self) -> bool:
+* __in_flame_xaos_chk(self) -> bool:
+* __in_flame_palette_chk(self) -> bool:
+* __in_flame_ff_chk(self) -> bool:
+* __in_flame_ff_post_chk(self) -> bool:
+* __in_flame_f3h_mb_chk(self) -> bool:
+        
+    """  
+    
+    __slots__ = ("apo_data", 
+                 "_pb_bool", "_opacity_bool", "_post_bool", "_xaos_bool", "_palette_bool", "_ff_bool", "_ff_post_bool", "_f3h_mb_bool")
+    
+    def __init__(self, apo_data: in_flame_iter_data) -> None:
+        """
+        Args:
+            (self):
+            apo_data(in_flame_iter_data): The XML Flame preset data we are loading in FLAM3H™.
+        """
+        
+        self.apo_data = apo_data
+        
+        self._pb_bool: bool = self.__in_flame_pb_chk()
+        self._opacity_bool: bool = self.__in_flame_opacity_chk()
+        self._post_bool: bool = self.__in_flame_post_chk()
+        self._xaos_bool: bool = self.__in_flame_xaos_chk()
+        self._palette_bool: bool = self.__in_flame_palette_chk()
+        self._ff_bool: bool = self.__in_flame_ff_chk()
+        self._ff_post_bool: bool = self.__in_flame_ff_post_chk()
+        self._f3h_mb_bool: bool = self.__in_flame_f3h_mb_chk()
+        
+        
+    # CLASS: PROPERTIES
+    ##########################################
+    ##########################################
+
+    @property
+    def pb_bool(self) -> int:
+        return self._pb_bool
+    
+    @property
+    def opacity_bool(self) -> int:
+        return self._opacity_bool
+    
+    @property
+    def post_bool(self) -> int:
+        return self._post_bool
+    
+    @property
+    def xaos_bool(self) -> int:
+        return self._xaos_bool
+    
+    @property
+    def palette_bool(self) -> int:
+        return self._palette_bool
+    
+    @property
+    def ff_bool(self) -> int:
+        return self._ff_bool
+    
+    @property
+    def ff_post_bool(self) -> int:
+        return self._ff_post_bool
+    
+    @property
+    def f3h_mb_bool(self) -> int:
+        return self._f3h_mb_bool
+    
+    
+    def __in_flame_pb_chk(self) -> bool:
+        """Check if the loaded Flame preset uses pre_blur.</br>
+
+        Args:
+            (self):
+            
+        Returns:
+            (bool): is pre_blur being used in the loaded Flame preset ? True or False
+        """  
+        pb_bool: bool = False
+        if self.apo_data.pre_blur is not None:
+            for item in self.apo_data.pre_blur:
+                if item:
+                    pb_bool = True
+                    break
+        return pb_bool
+    
+    
+    def __in_flame_opacity_chk(self) -> bool:
+        """Check if the loaded Flame preset have any iterator's opacity set to 0(Zero).</br>
+
+        Args:
+            (self):
+            
+        Returns:
+            (bool): are there any iterator with 0(Zero) opacity in the loaded Flame preset ? True or False
+        """  
+        opacity_bool: bool = False
+        if self.apo_data.opacity is not None:
+            if min(self.apo_data.opacity) == 0.0: opacity_bool = True
+        return opacity_bool
+    
+    
+    def __in_flame_post_chk(self) -> bool:
+        """Check if the loaded Flame preset have any iterator's post affine On.</br>
+
+        Args:
+            (self):
+            
+        Returns:
+            (bool): are there any iterator that use post affine in the loaded Flame preset ? True or False
+        """  
+        post_bool: bool = False
+        if self.apo_data.post is not None: post_bool = True
+        return post_bool
+    
+    
+    def __in_flame_xaos_chk(self) -> bool:
+        """Check if the loaded Flame preset uses xaos.</br>
+
+        Args:
+            (self):
+            
+        Returns:
+            (bool): is xaos being used in the loaded Flame preset ? True or False
+        """  
+        xaos_bool: bool = False
+        if self.apo_data.xaos is not None: xaos_bool = True
+        return xaos_bool
+    
+    
+    def __in_flame_palette_chk(self) -> bool:
+        """Check if the loaded Flame preset posses a valid palette, or a palette at all.</br>
+
+        Args:
+            (self):
+            
+        Returns:
+            (bool): is a valid palette present in the loaded Flame preset ? True or False
+        """  
+        palette_bool: bool = False
+        if self.apo_data.palette is not None: palette_bool = True
+        return palette_bool
+    
+    
+    def __in_flame_ff_chk(self) -> bool:
+        """Check if the loaded Flame preset uses FF(finalXform).</br>
+
+        Args:
+            (self):
+            
+        Returns:
+            (bool): is the FF(finalXform) being used in the loaded Flame preset ? True or False
+        """  
+        ff_bool: bool = False
+        if self.apo_data.finalxform is not None: ff_bool = True
+        return ff_bool
+    
+    
+    def __in_flame_ff_post_chk(self) -> bool:
+        """Check if the loaded Flame preset FF uses post affine.</br>
+
+        Args:
+            (self):
+            
+        Returns:
+            (bool): is the FF(finalXform) if present using its post affine in the loaded Flame preset ? True or False
+        """ 
+        ff_post_bool: bool = False
+        if self.apo_data.finalxform_post is not None: ff_post_bool = True
+        return ff_post_bool
+    
+    
+    def __in_flame_f3h_mb_chk(self) -> bool:
+        """Check if the loaded Flame preset uses Motion Blur.</br>
+
+        Args:
+            (self):
+            
+        Returns:
+            (bool): is the loaded Flame preset using Motion Blur ? True or False
+        """  
+        f3h_mb_bool: bool = False
+        if self.apo_data.mb_flam3h_fps is not False: f3h_mb_bool = True
+        return f3h_mb_bool
+        
+    
 # FLAM3H™ IN FLAME UTILS start here
 ##########################################
 ##########################################
@@ -14410,6 +14614,11 @@ class in_flame_utils
                           apo_data: in_flame_iter_data, 
                           preset_id: int, 
                           ) -> None:
+* in_load_collect_vars(self, apo_data: in_flame_iter_data, data_checks: in_flame_checks, pgb_name: str = 'pre_gaussian_blur') -> list[str]:
+* in_load_collect_vars_missing(self, apo_data: in_flame_iter_data, data_checks: in_flame_checks, vars_used: list[str], pgb_name: str = 'pre_gaussian_blur') -> list[str]:
+* in_load_vars_used_msg(self, vars_used: list[str], XML_updated: str, grp_num: int = 5) -> str:
+* in_load_vars_missing_msg(self, vars_missing: list[str], XML_updated: str, grp_num: int = 5) -> str:
+* in_load_vars_unknown_msg(self, apo_data: in_flame_iter_data, preset_id: int, XML_updated: str, grp_num: int = 5) -> str:
 * in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool, XML_last_update: bool = False) -> str:
 * menu_in_presets_data(self, node: hou.SopNode, xml_file_path: str, xml_is_file: bool) -> TA_Menu:
 * menu_in_presets(self) -> TA_Menu:
@@ -16688,7 +16897,171 @@ class in_flame_utils
             
             # Set Affine ( PRE, POST and F3H_PRE, F3H_POST) for this iterator or FF
             self.in_set_affine(mode, node, prx, apo_data, n, mp_idx)
-            
+
+
+    def in_load_collect_vars(self, apo_data: in_flame_iter_data, data_checks: in_flame_checks, pgb_name: str = 'pre_gaussian_blur') -> list[str]:
+        """Build a message with all the used variations in the Flame preset we just loaded.</br>
+        The will be collected inside a list of strings and they will be unique(no duplicates) and sorted.</br>
+
+        Args:
+            (self):
+            apo_data(in_flame_iter_data): The XML Flame file data for the preset we are loading in FLAM3H™.
+            data_checks(in_flame_checks): Class containing checks about what is being used by the loaded Flame preset.</br>Please refere to the class itself for more infos.
+            pgb_name(str): Default to: 'pre_gaussian_blur'</br>Correct name of the PRE gaussian blur, always "pre_gaussian_blur" but always computed in advance.</br>This variation will be removed if it is the first one in the list of PRE variations.
+
+        Returns:
+            (list[str]): A list of containing the unique used variations sorted alphatically.
+        """  
+        
+        # Cache for resuse
+        _V_F3H_DICT_IDX_keys: KeysView = VARS_FLAM3_DICT_IDX.keys()
+        
+        # ITERATOR COLLECT
+        __EXCLUDE__: tuple[str, ...] = copy(XML_XF_KEY_EXCLUDE)
+        vars_keys: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.xforms, _V_F3H_DICT_IDX_keys, __EXCLUDE__)
+        if vars_keys is not None:
+            vars_keys_flatten: list[str] = [item for sublist in vars_keys for item in sublist]
+            if vars_keys_flatten: __EXCLUDE__ += tuple(vars_keys_flatten)
+        vars_keys_PRE_pgb: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
+        vars_keys_PRE: TA_STR_ListUnflattened | None = self.in_vars_keys_remove_pgb(vars_keys_PRE_pgb, pgb_name)
+        if vars_keys_PRE is not None: 
+            vars_keys_PRE_flatten: list[str] = [item for sublist in vars_keys_PRE for item in sublist]
+            if vars_keys_PRE_flatten: __EXCLUDE__ += tuple(vars_keys_PRE_flatten)
+        vars_keys_POST: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
+        
+        # FF COLLECT
+        vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
+        if data_checks.ff_bool:
+            __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
+            vars_keys_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.finalxform, _V_F3H_DICT_IDX_keys, __EXCLUDE__)
+            if vars_keys_FF is not None:
+                vars_keys_FF_flatten: list[str] = [item for sublist in vars_keys_FF for item in sublist]
+                if vars_keys_FF_flatten: __EXCLUDE__ += tuple(vars_keys_FF_flatten)
+            vars_keys_PRE_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
+            if vars_keys_PRE_FF is not None:
+                vars_keys_PRE_FF_flatten: list[str] = [item for sublist in vars_keys_PRE_FF for item in sublist]
+                if vars_keys_PRE_FF_flatten: __EXCLUDE__ += tuple(vars_keys_PRE_FF_flatten)
+            vars_keys_POST_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
+        
+        # JOIN PRE, VAR and POST
+        vars_all: list[list[str]] = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
+        if data_checks.pb_bool: vars_all += [["pre_blur"]]
+        # Unique and sorted
+        vars_used: list[str] = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL, True) # type: ignore
+        
+        return vars_used
+    
+    
+    def in_load_collect_vars_missing(self, apo_data: in_flame_iter_data, data_checks: in_flame_checks, vars_used: list[str], pgb_name: str = 'pre_gaussian_blur') -> list[str]:
+        """Build a message with all the missing variation in the Flame preset we just loaded.</br>
+        The will be collected inside a list of strings and they will be unique(no duplicates) and sorted.</br>
+
+        Args:
+            (self):
+            apo_data(in_flame_iter_data): The XML Flame file data for the preset we are loading in FLAM3H™.
+            data_checks(in_flame_checks): Class containing checks about what is being used by the loaded Flame preset.</br>Please refere to the class itself for more infos.
+            vars_used(list[str]): Used variations unique and sorted.</br>This is coming from: def in_load_collect_vars(self, apo_data: in_flame_iter_data, data_checks: in_flame_checks, pgb_name: str = 'pre_gaussian_blur') -> list[str]:
+            pgb_name(str): Default to: 'pre_gaussian_blur'</br>Correct name of the PRE gaussian blur, always "pre_gaussian_blur" but always computed in advance.</br>This variation will be removed if it is the first one in the list of PRE variations.
+
+        Returns:
+            (list[str]): A list of containing the unique missing variations sorted alphatically.
+        """  
+        # Build ITERATOR MISSING
+        __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
+        vars_keys_from_fractorium: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, __EXCLUDE__)
+        if vars_keys_from_fractorium is not None:
+            vars_keys_from_fractorium_flatten: list[str] = [item for sublist in vars_keys_from_fractorium for item in sublist]
+            if vars_keys_from_fractorium_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_flatten)
+        vars_keys_from_fractorium_pre_pgb: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
+        vars_keys_from_fractorium_pre: TA_STR_ListUnflattened | None = self.in_vars_keys_remove_pgb(vars_keys_from_fractorium_pre_pgb, pgb_name)
+        if vars_keys_from_fractorium_pre is not None:
+            vars_keys_from_fractorium_pre_flatten: list[str] = [item for sublist in vars_keys_from_fractorium_pre for item in sublist]
+            if vars_keys_from_fractorium_pre_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_pre_flatten)
+        vars_keys_from_fractorium_post: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
+        
+        # BUILD FF MISSING
+        vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = [] # TA_STR_ListUnflattened
+        if data_checks.ff_bool:
+            __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
+            vars_keys_from_fractorium_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, __EXCLUDE__)
+            if vars_keys_from_fractorium_FF is not None:
+                vars_keys_from_fractorium_FF_flatten: list[str] = [item for sublist in vars_keys_from_fractorium_FF for item in sublist]
+                if vars_keys_from_fractorium_FF_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_FF_flatten)
+            vars_keys_from_fractorium_pre_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
+            if vars_keys_from_fractorium_pre_FF is not None:
+                vars_keys_from_fractorium_pre_FF_flatten: list[str] = [item for sublist in vars_keys_from_fractorium_pre_FF for item in sublist]
+                if vars_keys_from_fractorium_pre_FF_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_pre_FF_flatten)
+            vars_keys_from_fractorium_post_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
+        
+        # JOIN ITERATORS and FF PRE, VARS and POST
+        vars_keys_from_fractorium_all: list[list[str]] = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
+        # Unique and sorted
+        result_sorted_fractorium: list[str] = self.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, self.in_util_make_NULL, True)
+        # Build MISSING: Compare, keep and build
+        vars_missing: list[str] = [x for x in result_sorted_fractorium if x not in vars_used]
+        
+        return vars_missing
+    
+    
+    def in_load_vars_used_msg(self, vars_used: list[str], XML_updated: str, grp_num: int = 5) -> str:
+        """Build the IN infos stats message for the used variations in the Flame preset we just loaded.</br>
+
+        Args:
+            (self):
+            vars_used(list[str]): List of unique variation used in the Flame preset we just loaded.
+            XML_updated(str): If the loaded XML on disk is being modified it will be an asterisk(*)</br>otherwise an empty string: ''.</br>This is being computed in advance.
+            grp_num(int): All the collected variations will be formatted in groups of 5 for each line.
+
+        Returns:
+            (str): The string message to print into the IN infos stats for the loaded Flame preset.
+        """   
+        vars_used_heading: str = 'Variations used:'
+        result_grp: TA_STR_ListUnflattened = [vars_used[i:i + grp_num] for i in range(0, len(vars_used), grp_num)]  
+        vars_used_msg: str = f"{XML_updated}{vars_used_heading} {int(len(vars_used))}\n{self.in_util_join_vars_grp(result_grp)}"
+        
+        return vars_used_msg
+    
+    
+    def in_load_vars_missing_msg(self, vars_missing: list[str], XML_updated: str, grp_num: int = 5) -> str:
+        """Build the IN infos stats message for the missing variations in the Flame preset we just loaded.</br>
+
+        Args:
+            (self):
+            vars_missing(list[str]): List of unique variation missing in the Flame preset we just loaded.
+            XML_updated(str): If the loaded XML on disk is being modified it will be an asterisk(*)</br>otherwise an empty string: ''.</br>This is being computed in advance.
+            grp_num(int): All the collected variations will be formatted in groups of 5 for each line.
+
+        Returns:
+            (str): The string message to print into the IN infos stats for the loaded Flame preset.
+        """   
+        vars_missing_heading: str = 'MISSING:'
+        __vars_missing_grp__: TA_STR_ListUnflattened = [vars_missing[i:i + grp_num] for i in range(0, len(vars_missing), grp_num)]
+        if vars_missing: vars_missing_msg: str = f"{XML_updated}{vars_missing_heading}\n{self.in_util_join_vars_grp(__vars_missing_grp__)}"
+        else: vars_missing_msg: str = ''
+        
+        return vars_missing_msg
+    
+    
+    def in_load_vars_unknown_msg(self, apo_data: in_flame_iter_data, preset_id: int, XML_updated: str, grp_num: int = 5) -> str:
+        """Build the IN infos stats message for the unknown variations in the Flame preset we just loaded.</br>
+
+        Args:
+            (self):
+            apo_data(in_flame_iter_data): The XML Flame file data for the preset we are loading in FLAM3H™.
+            preset_id(int): The loaded XML Flame preset
+            XML_updated(str): If the loaded XML on disk is being modified it will be an asterisk(*)</br>otherwise an empty string: ''.</br>This is being computed in advance.
+            grp_num(int): All the collected variations will be formatted in groups of 5 for each line.
+
+        Returns:
+            (str): The string message to print into the IN infos stats for the loaded Flame preset.
+        """   
+        vars_unknown_heading: str = 'UNKNOWN:'
+        __vars_unknown__: list[str] = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
+        if __vars_unknown__: vars_unknown_msg: str = f"{XML_updated}{vars_unknown_heading}\n{self.in_util_join_vars_grp( [__vars_unknown__[i:i + grp_num] for i in range(0, len(__vars_unknown__), grp_num)] )}"
+        else: vars_unknown_msg: str = ''
+        
+        return vars_unknown_msg
+
 
     def in_load_stats_msg(self, preset_id: int, apo_data: in_flame_iter_data, clipboard: bool, XML_last_update: bool = False) -> str:
         """Build a message with all the informations about the Flame preset we just loaded.</br>
@@ -16696,7 +17069,7 @@ class in_flame_utils
         Args:
             (self):
             preset_id(int): The loaded XML Flame preset
-            apo_data(in_flame_iter_data): The XML Flame file data to get the loaded preset data from.
+            apo_data(in_flame_iter_data): The XML Flame file data for the preset we are loading in FLAM3H™.
             clipboard(bool): Is the cuurently loaded Flame preset coming from the Clipboard? True or False.
             XML_last_update(bool): Default to: False</br>If True and when a Flame preset is modified on disk while it is loaded into FLAM3H™</br>will add an asterisk(*) to the infos lines as an indicator we need to reload the Flame preset to fully update.
 
@@ -16704,7 +17077,11 @@ class in_flame_utils
             (str): A string to be used to set the IN Flame info data parameter message.
         """     
         
-        node: hou.SopNode = self.node  
+        node: hou.SopNode = self.node
+        
+        # checks
+        data_checks: in_flame_checks = in_flame_checks(apo_data)
+         
         # spacers
         nl: str = "\n"
         nnl: str = "\n\n"
@@ -16717,30 +17094,12 @@ class in_flame_utils
         pgb_name: str | list[str] | None = self.in_util_make_PRE(self.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, 33))
         assert isinstance(pgb_name, str)
         
-        # checks
-        pb_bool = opacity_bool = post_bool = xaos_bool = palette_bool = ff_bool = ff_post_bool = flam3h_mb_bool = False
-        if apo_data.pre_blur is not None:
-            for item in apo_data.pre_blur:
-                if item:
-                    pb_bool = True
-                    break
-        
-        if apo_data.opacity is not None:
-            if min(apo_data.opacity) == 0.0: opacity_bool = True
-        if apo_data.post is not None: post_bool = True
-        if apo_data.xaos is not None: xaos_bool = True
-        if apo_data.palette is not None: palette_bool = True
-        if apo_data.finalxform is not None: ff_bool = True
-        if apo_data.finalxform_post is not None: ff_post_bool = True
-        # custom to FLAM3H™ only
-        if apo_data.mb_flam3h_fps is not False: flam3h_mb_bool = True
-        
         # checks msgs
         opacity_bool_msg = post_bool_msg = xaos_bool_msg = ff_post_bool_msg = "NO"
-        if opacity_bool: opacity_bool_msg = "YES"
-        if post_bool: post_bool_msg = "YES"
-        if xaos_bool: xaos_bool_msg = "YES"
-        if ff_post_bool: ff_post_bool_msg = "YES"
+        if data_checks.opacity_bool: opacity_bool_msg = "YES"
+        if data_checks.post_bool: post_bool_msg = "YES"
+        if data_checks.xaos_bool: xaos_bool_msg = "YES"
+        if data_checks.ff_post_bool: ff_post_bool_msg = "YES"
         
         # build msgs
         sw: str = f"Software: {apo_data.sw_version[preset_id]}"
@@ -16750,6 +17109,17 @@ class in_flame_utils
         post: str = f"Post affine: {post_bool_msg}"
         opacity: str = f"Opacity: {opacity_bool_msg}"
         xaos: str = f"Xaos: {xaos_bool_msg}"
+        
+        # Used VARS
+        __vars_used__: list[str] = self.in_load_collect_vars(apo_data, data_checks, pgb_name)
+        vars_used_msg: str = self.in_load_vars_used_msg(__vars_used__, XML_updated)
+
+        # Missing VARS
+        __vars_missing__: list[str] = self.in_load_collect_vars_missing(apo_data, data_checks, __vars_used__, pgb_name)
+        vars_missing_msg: str = self.in_load_vars_missing_msg(__vars_missing__, XML_updated)
+        
+        # Build unknown MSG
+        vars_unknown_msg: str = self.in_load_vars_unknown_msg(apo_data, preset_id, XML_updated)
         
         # CC - build data
         cc_overall: str | list = apo_data.out_curve_overall[preset_id]
@@ -16772,113 +17142,32 @@ class in_flame_utils
             cc: str = f"{XML_updated}CC"
         
         # MB (Motion blur)
-        if flam3h_mb_bool:
+        if data_checks.f3h_mb_bool:
             if cc: mb: str = f", {XML_updated}MB{nnl}" # not that elegant, but...
             else: mb: str = f"{XML_updated}MB{nnl}"
         else: mb: str = nnl
         
-        if ff_bool: ff_msg: str = f"{XML_updated}FF: YES\n{XML_updated}FF Post affine: {ff_post_bool_msg}"
+        if data_checks.ff_bool: ff_msg: str = f"{XML_updated}FF: YES\n{XML_updated}FF Post affine: {ff_post_bool_msg}"
         else: ff_msg: str = f"{XML_updated}FF: NO\n"
         
-        if palette_bool and apo_data.palette is not None:
+        if data_checks.palette_bool:
             if apo_data.cp_flam3h_hsv is not False: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} {IN_HSV_LABEL_MSG}, {CP_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis]}" # custom to FLAM3H™ only
             else: palette_count_format: str = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}, {CP_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis]}"
         else: palette_count_format: str = f"Palette not found."
-        
-        # Cache for resuse
-        _V_F3H_DICT_IDX_keys: KeysView = VARS_FLAM3_DICT_IDX.keys()
-        
-        # ITERATOR COLLECT
-        __EXCLUDE__: tuple[str, ...] = copy(XML_XF_KEY_EXCLUDE)
-        vars_keys: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.xforms, _V_F3H_DICT_IDX_keys, __EXCLUDE__)
-        if vars_keys is not None:
-            vars_keys_flatten: list[str] = [item for sublist in vars_keys for item in sublist]
-            if vars_keys_flatten: __EXCLUDE__ += tuple(vars_keys_flatten)
-        vars_keys_PRE_pgb: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_PRE(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
-        vars_keys_PRE: TA_STR_ListUnflattened | None = self.in_vars_keys_remove_pgb(vars_keys_PRE_pgb, pgb_name)
-        if vars_keys_PRE is not None: 
-            vars_keys_PRE_flatten: list[str] = [item for sublist in vars_keys_PRE for item in sublist]
-            if vars_keys_PRE_flatten: __EXCLUDE__ += tuple(vars_keys_PRE_flatten)
-        vars_keys_POST: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.xforms, self.in_util_make_POST(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
-        
-        # FF COLLECT
-        vars_keys_FF = vars_keys_PRE_FF = vars_keys_POST_FF = []
-        if ff_bool:
-            __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
-            vars_keys_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.finalxform, _V_F3H_DICT_IDX_keys, __EXCLUDE__)
-            if vars_keys_FF is not None:
-                vars_keys_FF_flatten: list[str] = [item for sublist in vars_keys_FF for item in sublist]
-                if vars_keys_FF_flatten: __EXCLUDE__ += tuple(vars_keys_FF_flatten)
-            vars_keys_PRE_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_PRE(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
-            if vars_keys_PRE_FF is not None:
-                vars_keys_PRE_FF_flatten: list[str] = [item for sublist in vars_keys_PRE_FF for item in sublist]
-                if vars_keys_PRE_FF_flatten: __EXCLUDE__ += tuple(vars_keys_PRE_FF_flatten)
-            vars_keys_POST_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.finalxform, self.in_util_make_POST(_V_F3H_DICT_IDX_keys), __EXCLUDE__)
-        
-        vars_all: list[list[str]] = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
-        if pb_bool: vars_all += [["pre_blur"]]
-        result_sorted: list = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL, True) # type: ignore
-        
-        n: int = 5
-        vars_used_heading: str = "Variations used:"
-        result_grp: TA_STR_ListUnflattened = [result_sorted[i:i + n] for i in range(0, len(result_sorted), n)]  
-        vars_used_msg: str = f"{XML_updated}{vars_used_heading} {int(len(result_sorted))}\n{self.in_util_join_vars_grp(result_grp)}"
-        
-        # Build and set descriptive parameter msg
-        if clipboard: preset_name: str = apo_data.name[0]
-        else: preset_name: str = apo_data.name[preset_id]   # Get the correct menu parameter's preset menu label
-                                                            # The apo_data.name[idx] is used for the descriptive parameter
-                                                            # so to not print the icon path into the name.
-        
-        descriptive_prm: tuple[str, ...] = ( f"{XML_updated}sw: {apo_data.sw_version[preset_id]}\n", f"{XML_updated}{out_flame_utils.out_remove_iter_num(preset_name)}",)
-        node.parm(MSG_DESCRIPTIVE_PRM).set(''.join(descriptive_prm))
-        
-        # Build ITERATOR MISSING
-        __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
-        vars_keys_from_fractorium: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.xforms, VARS_FRACTORIUM_DICT, __EXCLUDE__)
-        if vars_keys_from_fractorium is not None:
-            vars_keys_from_fractorium_flatten: list[str] = [item for sublist in vars_keys_from_fractorium for item in sublist]
-            if vars_keys_from_fractorium_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_flatten)
-        vars_keys_from_fractorium_pre_pgb: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
-        vars_keys_from_fractorium_pre: TA_STR_ListUnflattened | None = self.in_vars_keys_remove_pgb(vars_keys_from_fractorium_pre_pgb, pgb_name)
-        if vars_keys_from_fractorium_pre is not None:
-            vars_keys_from_fractorium_pre_flatten: list[str] = [item for sublist in vars_keys_from_fractorium_pre for item in sublist]
-            if vars_keys_from_fractorium_pre_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_pre_flatten)
-        vars_keys_from_fractorium_post: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys_PP(apo_data.xforms, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
-        
-        # BUILD FF MISSING
-        vars_keys_from_fractorium_FF = vars_keys_from_fractorium_pre_FF = vars_keys_from_fractorium_post_FF = [] # TA_STR_ListUnflattened
-        if ff_bool:
-            __EXCLUDE__ = copy(XML_XF_KEY_EXCLUDE)
-            vars_keys_from_fractorium_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys(apo_data.finalxform, VARS_FRACTORIUM_DICT, __EXCLUDE__)
-            if vars_keys_from_fractorium_FF is not None:
-                vars_keys_from_fractorium_FF_flatten: list[str] = [item for sublist in vars_keys_from_fractorium_FF for item in sublist]
-                if vars_keys_from_fractorium_FF_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_FF_flatten)
-            vars_keys_from_fractorium_pre_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_PRE, V_PRX_PRE, __EXCLUDE__)
-            if vars_keys_from_fractorium_pre_FF is not None:
-                vars_keys_from_fractorium_pre_FF_flatten: list[str] = [item for sublist in vars_keys_from_fractorium_pre_FF for item in sublist]
-                if vars_keys_from_fractorium_pre_FF_flatten: __EXCLUDE__ += tuple(vars_keys_from_fractorium_pre_FF_flatten)
-            vars_keys_from_fractorium_post_FF: TA_STR_ListUnflattened | None = self.in_get_xforms_var_keys_PP(apo_data.finalxform, VARS_FRACTORIUM_DICT_POST, V_PRX_POST, __EXCLUDE__)
-        
-        vars_keys_from_fractorium_all: list[list[str]] = vars_keys_from_fractorium + vars_keys_from_fractorium_pre + vars_keys_from_fractorium_post + vars_keys_from_fractorium_pre_FF + vars_keys_from_fractorium_FF + vars_keys_from_fractorium_post_FF # type: ignore
-        result_sorted_fractorium: list[str] = self.in_util_vars_flatten_unique_sorted(vars_keys_from_fractorium_all, self.in_util_make_NULL, True)
-        
-        # Build MISSING: Compare, keep and build
-        vars_missing: list[str] = [x for x in result_sorted_fractorium if x not in result_sorted]
-        result_grp_fractorium: TA_STR_ListUnflattened = [vars_missing[i:i + n] for i in range(0, len(vars_missing), n)]
-        if vars_missing: vars_missing_msg: str = f"{nnl}{XML_updated}MISSING:\n{self.in_util_join_vars_grp(result_grp_fractorium)}"
-        else: vars_missing_msg: str = ""
-        
-        # Build UNKNOWN
-        vars_unknown: list[str] = in_flame_utils.in_load_stats_unknown_vars(preset_id, apo_data)
-        if vars_unknown: vars_unknown_msg: str = f"{nnl}{XML_updated}UNKNOWN:\n{self.in_util_join_vars_grp( [vars_unknown[i:i + n] for i in range(0, len(vars_unknown), n)] )}"
-        else: vars_unknown_msg: str = ''
         
         # Check if the loaded Flame file is locked.
         in_path: str = os.path.expandvars(node.parm(IN_PATH).eval())
         in_path_checked: str | bool = out_flame_utils.out_check_outpath(node, in_path, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
         if flam3h_general_utils.isLOCK(in_path_checked): flame_lib_locked = MSG_FLAMESTATS_LOCK
         else: flame_lib_locked = ''
+        
+        # Build and set descriptive parameter msg
+        if clipboard: preset_name: str = apo_data.name[0]
+        else: preset_name: str = apo_data.name[preset_id]   # Get the correct menu parameter's preset menu label
+                                                            # The apo_data.name[idx] is used for the descriptive parameter
+                                                            # so to not print the icon path into the name.
+        descriptive_prm: tuple[str, ...] = ( f"{XML_updated}sw: {apo_data.sw_version[preset_id]}\n", f"{XML_updated}{out_flame_utils.out_remove_iter_num(preset_name)}",)
+        node.parm(MSG_DESCRIPTIVE_PRM).set(''.join(descriptive_prm))
         
         # If the Flame use a 256+ palette, update the CP palette MSG
         if apo_data.palette is not None and apo_data.palette[1] > 256:
@@ -16889,19 +17178,20 @@ class in_flame_utils
                 node.parm(MSG_PALETTE).set(f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}")
         
         # build full stats msg
-        build: tuple[str, ...] = (flame_lib_locked, nl,
-                                XML_updated, sw, nl,
-                                XML_updated, name, nnl,
-                                XML_updated, palette_count_format, nl,
-                                cc, mb,
-                                XML_updated, iter_count, nl,
-                                XML_updated, post, nl,
-                                XML_updated, opacity, nl,
-                                XML_updated, xaos, nl,
-                                XML_updated, ff_msg, nnl,
-                                vars_used_msg,
-                                vars_missing_msg,
-                                vars_unknown_msg
+        build: tuple[str, ...] = (
+                                    flame_lib_locked, nl, 
+                                    XML_updated, sw, nl, 
+                                    XML_updated, name, nnl, 
+                                    XML_updated, palette_count_format, nl, 
+                                    cc, mb, 
+                                    XML_updated, iter_count, nl, 
+                                    XML_updated, post, nl, 
+                                    XML_updated, opacity, nl, 
+                                    XML_updated, xaos, nl, 
+                                    XML_updated, ff_msg, nnl, 
+                                    vars_used_msg, nnl if vars_missing_msg else '', 
+                                    vars_missing_msg, nnl if vars_unknown_msg else '', 
+                                    vars_unknown_msg
                                 )
 
         return ''.join(build)
