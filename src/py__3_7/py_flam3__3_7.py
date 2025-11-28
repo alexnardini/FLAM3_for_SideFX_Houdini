@@ -408,7 +408,7 @@ class flam3h_iterator_prm_names:
         * flam3h_iterator_utils.iterator_keep_last_vactive_STAR(self) -> None:
         * flam3h_iterator_utils.iterator_keep_last_weight(self) -> None:
         * flam3h_iterator_utils.iterator_vactive_and_update(self) -> None:
-        * flam3h_iterator_utils.menu_select_iterator_data(self, data_now: tuple[Union[list[Any], Any], ...]) -> list:
+        * flam3h_iterator_utils.menu_select_iterator_data(self, data_now: tuple[Union[list[Any], Any], ...], data_names: tuple[str, ...]) -> list:
         * flam3h_iterator_utils.menu_select_iterator(self) -> list:
         * flam3h_iterator_utils.menu_copypaste(self) -> list:
         * flam3h_iterator_utils.menu_copypaste_FF(self) -> list:
@@ -3987,11 +3987,12 @@ class flam3h_general_utils
         """    
         node: hou.SopNode = self.node
         
-        prm_xfviz_solo = node.parm(PREFS_PVT_XF_VIZ_SOLO).eval()
-        prm_xfviz_solo_follow = node.parm(PREFS_SOLO_FOLLOW).eval()
+        xfviz_solo: int = node.parm(PREFS_PVT_XF_VIZ_SOLO).eval()
+        xfviz_solo_follow: int = node.parm(PREFS_SOLO_FOLLOW).eval()
+        xfviz_out_sensor: int = node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval()
         
-        # If any of the iterators is in SOLO mode
-        if prm_xfviz_solo and prm_xfviz_solo_follow:
+        # If any of the iterators is in SOLO mode and we are not in camera sensor mode
+        if xfviz_solo and xfviz_solo_follow and not xfviz_out_sensor:
             
             _main_xf_viz_name: str = flam3h_iterator_prm_names().main_xf_viz
             prm_mp = node.parm(f"{_main_xf_viz_name}_{mp_idx}")
@@ -5095,7 +5096,7 @@ class flam3h_iterator_utils
 * menu_T(self, FF: bool = False) -> list:
 * menu_T_PP(self, FF: bool = False) -> list:
 * menu_T_pb(self) -> list:
-* menu_select_iterator_data(self, data_now: tuple[Union[list[Any], Any], ...]) -> list:
+* menu_select_iterator_data(self, data_now: tuple[Union[list[Any], Any], ...], data_names: tuple[str, ...]) -> list:
 * menu_select_iterator(self) -> list:
 * prm_select_iterator(self) -> None:
 * flam3h_paste_reset_hou_session_data(self, hipLoad: bool = False) -> None:
@@ -5946,6 +5947,8 @@ class flam3h_iterator_utils
         * iter_sel_w
         * iter_sel_o
         * iter_sel_id
+        * iter_xfviz_solo_idx
+        * iter_xfviz_out_sensor
         * edge_case_01
         * cp_presets_menu
         * cp_presets_menu_idx
@@ -6656,35 +6659,39 @@ class flam3h_iterator_utils
         return [ 0,  f"{_ICON} Pre blur                          "] # 26 times \s instead of 23 times as in H21
 
 
-    def menu_select_iterator_data(self, data_now: tuple[Union[list[Any], Any], ...]) -> list:
-        """Build a menu of iterators using their states as bookmark icon
+    def menu_select_iterator_data(self, data_now: tuple[Union[list[Any], Any], ...], data_names: tuple[str, ...]) -> list:
+        """Build a menu of iterators using their states as bookmark icon.</br>
+        
+        The arg: 'data_now' is composed as follow:
+        * 0: note <b>list[str]</b></br>iterators names</br></br>
+        * 1: active <b>list[int]</b></br>iterators active</br></br>
+        * 2: weight <b>list[float]</b></br>iterators Weights</br></br>
+        * 3: shader_opacity <b>list[float]</b></br>iterators shader's opacity</br></br>
+        * 4: xfviz_solo_idx <b>int</b></br>xform handle SOLO mode iterator mp idx</br></br>
+        * 5: xfviz_out_sensor <b>int</b></br>camera sensor toggle parameter</br>
 
         Args:
             (self):
-            data_now(tuple[Union[list[Any], Any], ...]): the required data collected into a tuple, each entrie is a list (as many elements as the iterators count inside each list). The order matter:
-                * 0: note (iterators names)
-                * 1: active (iterators active)
-                * 2: weight (iterators Weights)
-                * 3: shader_opacity (iterators shader's opacity)
+            data_now(tuple[Union[list[Any], Any], ...]): the now cached user data collected into a tuple.</br>Each entrie is a list (as many elements as the iterators count inside each list) plus some single values.</br>The order matter.
+            data_names(tuple[str, ...]): The names of the cached user data we need to set, the order matter.</br>
 
         Returns:
-            (list): return menu list
+            (TA_Menu): return menu list
         """
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
-            node = self.node
-
+            node: hou.SopNode = self.node
+            
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             if iter_count:
                 
                 # init menu
                 menu: list = []
                 
-                # Each one is a list as "data_now" is a tuple of lists except: xfviz_solo_idx
-                note, active, weight, shader_opacity, xfviz_solo_idx = data_now
-                data_now_names: tuple[str, ...] = ('iter_sel_n', 'iter_sel_a', 'iter_sel_w', 'iter_sel_o', 'iter_xfviz_solo_idx') # The order matter
-                [node.setCachedUserData(data_now_names[idx], data) for idx, data in enumerate(data_now)]
+                # Each one is a list as "data_now" is a tuple of lists except: xfviz_solo_idx('iter_xfviz_solo_idx') and xfviz_out_sensor('iter_xfviz_out_sensor')
+                note, active, weight, shader_opacity, xfviz_solo_idx, xfviz_out_sensor = data_now
+                for idx, data in enumerate(data_now): node.setCachedUserData(data_names[idx], data)
                 
                 # This definition probably can be made more light-weight for this particular case
                 from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
@@ -6707,7 +6714,7 @@ class flam3h_iterator_utils
                     
                     # CHECKS
                     _XFVIZ: int = 0
-                    if idx == xfviz_solo_idx: _XFVIZ = 1 # SOLO mode
+                    if idx == xfviz_solo_idx: _XFVIZ = 1 - xfviz_out_sensor if isinstance(xfviz_out_sensor, int) else 1 # SOLO mode. When in camera sensor mode, do not display the SOLO mode icons
                     
                     _OPACITY_MSG: str = ""
                     if _o == 0: _OPACITY_MSG = "[ZERO opacity] " # ZERO opacity
@@ -6724,56 +6731,53 @@ class flam3h_iterator_utils
 
                     else:
                         _menu_append(f"{SEL_ITER_BOOKMARK_OFF[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{_n}")
-                    
+                        
                 node.setCachedUserData('iter_sel', menu)
                 return menu
-                    
+                
             self.destroy_cachedUserData(node, 'iter_sel')
             return MENU_ZERO_ITERATORS
     
     
     def menu_select_iterator(self) -> list:
-        """Cache or rebuild the menu on demand.
+        """Cache or rebuild the menu on demand.</br>
 
         Args:
             (self):
             
         Returns:
-            (list): return menu list
+            (TA_Menu): return menu list
         """
-        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
-            node = self.node
+            node: hou.SopNode = self.node
             
             mem_id: int = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
             if node.cachedUserData('iter_sel_id') != mem_id and mem_id:
                 self.destroy_cachedUserData(node, 'iter_sel')
-
+            
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             data_now: tuple[Union[list[Any], Any], ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha'))
             xfviz_mem_id: int = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX).eval()
-            data_now += (xfviz_mem_id,)
+            xfviz_out_sensor: int = node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval()
+            data_now += (xfviz_mem_id, xfviz_out_sensor)
             
+            data_names: tuple[str, ...] = ('iter_sel_n', 'iter_sel_a', 'iter_sel_w', 'iter_sel_o', 'iter_xfviz_solo_idx', 'iter_xfviz_out_sensor') # The order matter
             cached: Union[list, None] = node.cachedUserData('iter_sel')
             if cached is not None:
                 
-                data_cached: tuple[Union[list[Any], Any], ...] = (  node.cachedUserData('iter_sel_n'), 
-                                                                    node.cachedUserData('iter_sel_a'), 
-                                                                    node.cachedUserData('iter_sel_w'), 
-                                                                    node.cachedUserData('iter_sel_o'), 
-                                                                    node.cachedUserData('iter_xfviz_solo_idx')
-                                                                    )
-                
+                data_cached: tuple[Union[list[Any], Any], ...] = tuple(node.cachedUserData(name) for name in data_names)
+            
                 # For undos: compare old data_* against current data_*
                 # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
                 if data_cached != data_now:
                     self.destroy_cachedUserData(node, 'iter_sel')
-                    return self.menu_select_iterator_data(data_now)
+                    return self.menu_select_iterator_data(data_now, data_names)
                 
                 return cached
             
-            return self.menu_select_iterator_data(data_now)
+            return self.menu_select_iterator_data(data_now, data_names)
         
     
     def prm_select_iterator(self) -> None:
