@@ -312,12 +312,12 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
 
     <br />
 
-    - When an iterator is *`On`*/Active (_Default_).<br />[Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg]<br />[Largeicon:opdef:.?icon_optionStarYellowOrange_xfVizSVG.svg] (_this iterator xform handle in SOLO mode_)<br /><br />
-    - When an iterator is *`On`*/Active and *`0`*(Zero) Weight.<br />[Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg]<br />[Largeicon:opdef:.?icon_optionDisabledZeroIter_xfVizSVG.svg] (_this iterator xform handle in SOLO mode_)<br /><br />
-    - When an iterator is *`On`*/Active, *`0`*(Zero) Weight and Marked.<br />[Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg]<br />[Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg] (_this iterator xform handle in SOLO mode_)<br /><br />
-    - When an iterator is *`On`*/Active and Marked.<br />[Largeicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg] <br />[Largeicon:opdef:.?icon_StarSwapRedCopyPaste_xfVizSVG.svg] (_this iterator xform handle in SOLO mode_)<br /><br />
-    - When an iterator is *`Off`*/Disabled.<br />[Largeicon:opdef:.?icon_optionDisabledSVG.svg]<br />[Largeicon:opdef:.?icon_optionDisabled_xfVizSVG.svg] (_this iterator xform handle in SOLO mode_)<br /><br />
-    - When an iterator is *`Off`*/Disabled and Marked.<br />[Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg]<br />[Largeicon:opdef:.?icon_optionDisabledSelIter_xfVizSVG.svg] (_this iterator xform handle in SOLO mode_)<br /><br />
+    - This iterator is *`On`*/Active (_Default_).<br />[Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg]<br />[Largeicon:opdef:.?icon_optionStarYellowOrange_xfVizSVG.svg] _xform handle in SOLO mode_<br /><br />
+    - This iterator is *`On`*/Active and *`0`*(Zero) Weight.<br />[Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg]<br />[Largeicon:opdef:.?icon_optionDisabledZeroIter_xfVizSVG.svg] _xform handle in SOLO mode_<br /><br />
+    - This iterator is *`On`*/Active, *`0`*(Zero) Weight and Marked.<br />[Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg]<br />[Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg] _xform handle in SOLO mode_<br /><br />
+    - This iterator is *`On`*/Active and Marked.<br />[Largeicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg] <br />[Largeicon:opdef:.?icon_StarSwapRedCopyPaste_xfVizSVG.svg] _xform handle in SOLO mode_<br /><br />
+    - This iterator is *`Off`*/Disabled.<br />[Largeicon:opdef:.?icon_optionDisabledSVG.svg]<br />[Largeicon:opdef:.?icon_optionDisabled_xfVizSVG.svg] _xform handle in SOLO mode_<br /><br />
+    - This iterator is *`Off`*/Disabled and Marked.<br />[Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg]<br />[Largeicon:opdef:.?icon_optionDisabledSelIter_xfVizSVG.svg] _xform handle in SOLO mode_<br /><br />
 
     <br />
     When an iterator shader's opacity is set to *`0`*(Zero),<br />

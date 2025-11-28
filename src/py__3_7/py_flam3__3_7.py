@@ -238,6 +238,8 @@ SYS_TAG_SIZE = 'tagsize'
 SYS_FRAME_VIEW_SENSOR = 'frameviewsensor'
 # MULTI PARAMETER
 FLAME_ITERATORS_COUNT = 'flamefunc'
+# MSG
+MSG_ZERO_ITERATORS = 'Iterators count set to Zero.'
 # CP tab: Parameters at hand
 CP_PATH = 'palettefile'
 CP_PALETTE_OUT_PRESET_NAME = 'palettename'
@@ -9200,7 +9202,7 @@ class flam3h_iterator_utils
         
         if do_msg:
             # Print to Houdini's status bar
-            _MSG_str = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file"
+            _MSG_str = f"{MSG_ZERO_ITERATORS} Add at least one iterator or load a valid IN flame file"
             _MSG: str = f"{node.name()}: {_MSG_str}"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Iterators count ZERO")
@@ -9229,8 +9231,7 @@ class flam3h_iterator_utils
         self.update_xml_last_loaded(False)
         
         # Clear status bar msg if needed
-        _MSG_str = "Iterators count set to Zero. Add at least one iterator or load a valid IN flame file"
-        if  _MSG_str in hou.ui.statusMessage()[0]: # type: ignore
+        if  MSG_ZERO_ITERATORS in hou.ui.statusMessage()[0]: # type: ignore
             flam3h_general_utils.set_status_msg('', 'MSG')
             
 
