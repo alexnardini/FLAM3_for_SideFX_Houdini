@@ -7666,25 +7666,27 @@ class flam3h_iterator_utils
                     prm_selmem.set(0)
                     
                 # Menu entrie sections bookmark icon
-                active: int = from_FLAM3H_NODE.parm(f"vactive_{idx_from}").eval()
-                weight: float = from_FLAM3H_NODE.parm(f"iw_{idx_from}").eval()
-                if active and weight > 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE
-                elif active and weight == 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
-                else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
-
-                # Build menu
-                if node == from_FLAM3H_NODE and s_mp_index == mp_id_from:
-                    menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {s_mp_index}: MARKED\n-> Select a different iterator number or a different FLAM3H™ node to paste its values.", 1,"" ]
-                    
-                elif node == from_FLAM3H_NODE:
-                    path: str = f"{_ICON}  {idx_from}"
-                    menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
-                
+                try: active: int = from_FLAM3H_NODE.parm(f"vactive_{idx_from}").eval()
+                except: return [0, '']
                 else:
-                    path: str = f"{_ICON}  .../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
-                    menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  ... {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
-                
-                return menu
+                    weight: float = from_FLAM3H_NODE.parm(f"iw_{idx_from}").eval()
+                    if active and weight > 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE
+                    elif active and weight == 0: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
+                    else: _ICON = FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
+
+                    # Build menu
+                    if node == from_FLAM3H_NODE and s_mp_index == mp_id_from:
+                        menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {s_mp_index}: MARKED\n-> Select a different iterator number or a different FLAM3H™ node to paste its values.", 1,"" ]
+                        
+                    elif node == from_FLAM3H_NODE:
+                        path: str = f"{_ICON}  {idx_from}"
+                        menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                    
+                    else:
+                        path: str = f"{_ICON}  .../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
+                        menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  ... {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                    
+                    return menu
             
             else:
                 if isDELETED:
