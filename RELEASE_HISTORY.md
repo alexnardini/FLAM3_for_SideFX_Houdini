@@ -33,6 +33,22 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.51 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.51) ###
+
+#### FLAM3H™ v1.9.51 indie -> H21.0 UP</br>FLAM3H™ v1.9.45 indie -> H19.0 to H20.5 ####
+
+- **New**: When in camera sensor mode the SYS tab Select Iterator mini-menu is now not using the xform handle SOLO mode SVG icons set if any iterator is in SOLO mode. This is to be consistent with all the other menus since when in camera sensor mode the xforms handles are automatically disabled by FLAM3H™ and no menus is using any of their xforms handles SVG icons.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.50 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.50) ###
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
@@ -52,7 +68,6 @@ _This is a re-release of the same version with some minor improvements that did 
 
 
 
-##
 ### [<ins>v1.9.49 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.49) ###
 
 #### FLAM3H™ v1.9.49 indie -> H21.0 UP</br>FLAM3H™ v1.9.43 indie -> H19.0 to H20.5 ####
