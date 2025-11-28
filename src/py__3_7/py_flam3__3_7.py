@@ -3901,7 +3901,8 @@ class flam3h_general_utils
         self.menus_refresh_enum_prefs()
         
         if prm_FF.eval():
-            self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
+            self.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0) # Turn Off FF xf viz solo mode
+            self.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             
             _MSG: str = f"{node.name()}: {str(prm_FF.name()).upper()}: OFF"
