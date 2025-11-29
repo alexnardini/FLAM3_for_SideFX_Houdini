@@ -342,7 +342,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_viewport_bbo
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_is_valid_flam3h_node(), kwargs['parm'].deleteAllKeyframes()
 ```
-- ### Action Button script
+- ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_cycle_import()
@@ -381,7 +381,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark()
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer(), kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
-- ### Action Button script
+- ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer()
@@ -409,7 +409,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleD
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize()
 ```
-- ### Action Button script
+- ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(1.0)
@@ -422,7 +422,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 # PREFS Tab
 # parameter name:    `widths`
 ## parameter type: `float`
-- ### Action Button script
+- ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(1.0, 'widths')
@@ -446,7 +446,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_
 # PREFS Tab
 # parameter name:    `widths_xf_viz`
 ## parameter type: `float`
-- ### Action Button script
+- ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(2.0, 'widths_xf_viz')
@@ -459,7 +459,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 # PREFS Tab
 # parameter name:    `pxsamples_cpu`
 ## parameter type: `integer`
-- ### Action Button script
+- ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(128, 'pxsamples_cpu')
@@ -487,7 +487,7 @@ kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_ge
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
-- ### Action Button script
+- ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
 node = kwargs['node']
 node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).reset_flam3h_shader()
