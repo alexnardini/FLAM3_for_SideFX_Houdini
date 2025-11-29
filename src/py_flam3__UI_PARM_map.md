@@ -60,7 +60,7 @@ to: **py_flam3__3_11**
 </br>
 </br>
 
-# PythonModule `H20.5`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PythonModule `H20.5`
 The **`flam3`** module is created out of the **`py_flam3__x_x`** file located inside the **Extra Files** section.</br>
 Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
@@ -127,7 +127,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 </br>
 </br>
 
-# PythonModule `H19 to H20`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PythonModule `H19 to H20`
 The **`flam3`** module is created out of the **`py_flam3__x_x`** file located inside the **Extra Files** section.</br>
 Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
@@ -194,7 +194,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 </br>
 </br>
 
-# PreFirstCreate `H19 to H20.5`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PreFirstCreate `H19 to H20.5`
 Before the node is even created but invoked.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**
 
@@ -341,7 +341,7 @@ else:
 </br>
 </br>
 
-# OnCreated `H19 to H20.5`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnCreated `H19 to H20.5`
 Initialize what the tool need when you create its node in the network editor.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**OnCreated**
 
@@ -358,7 +358,7 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_create()
 </br>
 </br>
 
-# OnLoaded `H19 to H20.5`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnLoaded `H19 to H20.5`
 When loading hip files with FLAM3H™ nodes in it do some checks.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded**
 
@@ -375,7 +375,7 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_loaded()
 </br>
 </br>
 
-# OnDeleted `H19 to H20.5`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnDeleted `H19 to H20.5`
 When deleting a FLAM3H™ node.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted**
 

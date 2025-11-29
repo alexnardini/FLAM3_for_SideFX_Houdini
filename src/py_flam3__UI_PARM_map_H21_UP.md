@@ -59,7 +59,7 @@ to: **py_flam3__3_11**
 </br>
 </br>
 
-# PythonModule `H21 UP`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PythonModule `H21 UP`
 The **`flam3`** module is created out of the **`py_flam3__x_x`** file located inside the **Extra Files** section.</br>
 Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
@@ -127,7 +127,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 </br>
 </br>
 
-# PreFirstCreate `H21 UP`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PreFirstCreate `H21 UP`
 Before the node is even created but invoked.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**
 
@@ -274,7 +274,7 @@ else:
 </br>
 </br>
 
-# OnCreated `H21 UP`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnCreated `H21 UP`
 Initialize what the tool need when you create its node in the network editor.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**OnCreated**
 
@@ -291,7 +291,7 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_create()
 </br>
 </br>
 
-# OnLoaded `H21 UP`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnLoaded `H21 UP`
 When loading hip files with FLAM3H™ nodes in it do some checks.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded**
 
@@ -308,7 +308,7 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_loaded()
 </br>
 </br>
 
-# OnDeleted `H21 UP`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnDeleted `H21 UP`
 When deleting a FLAM3H™ node.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted**
 

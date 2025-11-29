@@ -59,7 +59,7 @@ to: **py_flam3usd__3_11**
 </br>
 </br>
 
-# PythonModule `H20.5`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PythonModule `H20.5`
 The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
@@ -109,7 +109,7 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 </br>
 </br>
 
-# PythonModule `H19 to H20`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PythonModule `H19 to H20`
 The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>
 First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
 
@@ -159,7 +159,7 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 </br>
 </br>
 
-# PreFirstCreate `H19 to H20.5`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PreFirstCreate `H19 to H20.5`
 Before the node is even created but invoked.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**
 
@@ -251,7 +251,7 @@ if not flam3husd_first_time():
 </br>
 </br>
 
-# OnCreated `H19 to H20.5`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnCreated `H19 to H20.5`
 Initialize what the tool need when you create its node in the network editor.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**OnCreated**
 ```python
@@ -267,7 +267,7 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_creat
 </br>
 </br>
 
-# OnLoaded `H19 to H20.5`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnLoaded `H19 to H20.5`
 When loading hip files with FLAM3HUSD nodes in it do some checks.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded**
 ```python
@@ -283,7 +283,7 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_loade
 </br>
 </br>
 
-# OnDeleted `H19 to H20.5`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnDeleted `H19 to H20.5`
 When deleting a FLAM3HUSD node.</br>
 Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted**
 ```python

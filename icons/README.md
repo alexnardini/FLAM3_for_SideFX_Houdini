@@ -1881,6 +1881,45 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_pythonSVG.svg" /></p>
+<b><p align="center">icon_pythonSVG.svg</b> (used only for DOC purposes)</p>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_pythonSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_pythonSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_pythonSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_pythonSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_pythonSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_pythonSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_rendererKarmaPropertiesSVG.svg" /></p>
 <b><p align="center">icon_rendererKarmaPropertiesSVG.svg</p></b>
 <p align="center">......</p>
