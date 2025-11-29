@@ -338,7 +338,7 @@ _Parameters to define the quality of the fractal Flame algorithm solution._
 # H21 UP
 # parameter name:    `iter`
 ## parameter type: `integer`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
 ```
@@ -350,11 +350,11 @@ hou.phm().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
 # H21 UP
 # parameter name:    `ptcount_presets`
 ## parameter type: `ordered menu`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_global_density_set()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_global_density()
 return menu
@@ -393,7 +393,7 @@ I keep changing and adding functionalities, it is still a work in progress, but 
 # H21 UP
 # parameter name:    `sys_help`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_display_help(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -404,11 +404,11 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_display_help(), kwargs['parm
 # SYS Tab `H21 UP`
 # parameter name:    `iterlist`
 ## parameter type: `ordered menu`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).prm_select_iterator(), kwargs['parm'].deleteAllKeyframes()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_select_iterator()
 return menu
@@ -420,7 +420,7 @@ return menu
 # SYS Tab `H21 UP`
 # parameter name:    `doff_sysdisabled`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -431,7 +431,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs[
 # SYS Tab `H21 UP`
 # parameter name:    `doff_sysenabled`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -442,7 +442,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs[
 # SYS Tab `H21 UP`
 # parameter name:    `rip_disabled`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("rip"), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -453,7 +453,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("rip"), kwarg
 # SYS Tab `H21 UP`
 # parameter name:    `rip_enabled`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("rip"), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -464,7 +464,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("rip"), kwarg
 # SYS Tab `H21 UP`
 # parameter name:    `f3c_chaotica`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("f3c"), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -475,7 +475,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("f3c"), kwarg
 # SYS Tab `H21 UP`
 # parameter name:    `f3c_apophysis`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("f3c"), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -486,7 +486,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("f3c"), kwarg
 # SYS Tab `H21 UP`
 # parameter name:    `xfviz_off`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -497,7 +497,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(), kwargs['par
 # SYS Tab `H21 UP`
 # parameter name:    `xfviz_on`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -508,7 +508,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(), kwargs['par
 # SYS Tab `H21 UP`
 # parameter name:    `xfviz_on_solo`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_viz_solo(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -519,7 +519,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_viz_solo(), kw
 # SYS Tab `H21 UP`
 # parameter name:    `xfvizff_on_solo`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_ff_viz_solo(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -530,7 +530,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_ff_viz_solo(),
 # SYS Tab `H21 UP`
 # parameter name:    `sys_out_sensorviz`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -541,7 +541,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['
 # SYS Tab `H21 UP`
 # parameter name:    `sys_out_sensorviz_off`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -552,7 +552,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['
 # SYS Tab `H21 UP`
 # parameter name:    `sys_tag_off`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -563,7 +563,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwarg
 # SYS Tab `H21 UP`
 # parameter name:    `sys_tag`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -574,7 +574,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwarg
 # SYS Tab `H21 UP`
 # parameter name:    `tagsize`
 ## parameter type: `ordered menu`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -585,7 +585,7 @@ kwargs['parm'].deleteAllKeyframes()
 # SYS Tab `H21 UP`
 # parameter name:    `loaddef`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
 ```
@@ -596,7 +596,7 @@ hou.phm().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
 # SYS Tab `H21 UP`
 # parameter name:    `frameview`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_frame(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -607,7 +607,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_frame(), kwargs[
 # SYS Tab `H21 UP`
 # parameter name:    `frameviewsensor`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -629,11 +629,11 @@ n = None
 # SYS Tab `H21 UP`
 # parameter name:    `sys_palettepresets_off`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False), kwargs['parm'].deleteAllKeyframes()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
 return menu
@@ -649,11 +649,11 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 # SYS Tab `H21 UP`
 # parameter name:    `sys_palettepresets`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False), kwargs['parm'].deleteAllKeyframes()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()
 return menu
@@ -669,11 +669,11 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 # SYS Tab `H21 UP`
 # parameter name:    `sys_inpresets_disabled`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.in_flame_utils(kwargs).in_to_flam3h_sys(), kwargs['parm'].deleteAllKeyframes()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.in_flame_utils(kwargs).menu_in_presets_empty()
 return menu
@@ -689,11 +689,11 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 # SYS Tab `H21 UP`
 # parameter name:    `sys_inpresets`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.in_flame_utils(kwargs).in_to_flam3h_sys(), kwargs['parm'].deleteAllKeyframes()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.in_flame_utils(kwargs).menu_in_presets()
 return menu
@@ -720,11 +720,11 @@ n = None
 # SYS Tab `H21 UP`
 # parameter name:    `sys_outpresets`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils(kwargs).out_to_flam3h_quick('SYS'), kwargs['parm'].deleteAllKeyframes()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
 return menu
@@ -751,7 +751,7 @@ Here you will create your fractal Flame logic.<br>Since every parameter has the 
 # FLAME Tab `H21 UP`
 # parameter name:    `flamefunc`
 ## parameter type: `multiparm block (tabs)`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 ```
@@ -773,7 +773,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).add_iterator()
 # FLAME Tab `H21 UP`
 # parameter name:    `note_#`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).destroy_data_note(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -784,11 +784,11 @@ hou.phm().flam3.flam3h_iterator_utils(kwargs).destroy_data_note(), kwargs['parm'
 # FLAME Tab `H21 UP`
 # parameter name:    `prmpastesel_#`
 ## parameter type: `ordered menu`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_copypaste()
 return menu
@@ -804,7 +804,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste()
 # FLAME Tab `H21 UP`
 # parameter name:    `doiter_disabled_#`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -815,7 +815,7 @@ hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwa
 # FLAME Tab `H21 UP`
 # parameter name:    `doiter_#`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -826,7 +826,7 @@ hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwa
 # FLAME Tab `H21 UP`
 # parameter name:    `xfviz_off_#`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -837,7 +837,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz(), kwargs['
 # FLAME Tab `H21 UP`
 # parameter name:    `xfviz_on_#`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -848,7 +848,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz(), kwargs['
 # FLAME Tab `H21 UP`
 # parameter name:    `iw_#`
 ## parameter type: `float`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update()
 ```
@@ -859,7 +859,7 @@ hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update()
 # FLAME Tab `H21 UP`
 # parameter name:    `xaos_#`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
 ```
@@ -874,7 +874,7 @@ kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_xaos_infos()
 # FLAME Tab `H21 UP`
 # parameter name:    `alpha_#`
 ## parameter type: `float`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils.destroy_cachedUserData(kwargs['node'], 'iter_sel')
 ```
@@ -885,7 +885,7 @@ hou.phm().flam3.flam3h_iterator_utils.destroy_cachedUserData(kwargs['node'], 'it
 # FLAME Tab `H21 UP`
 # parameter name:    `preblurtype_#`
 ## parameter type: `ordered menu`
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T_pb()
 return menu
@@ -897,7 +897,7 @@ return menu
 # FLAME Tab `H21 UP`
 # parameter name:    `pre1type_#`, `pre2type_#` and `p1type_#`
 ## parameter type: `ordered menu`
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T_PP()
 return menu
@@ -920,7 +920,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_iter_pre_var
 # FLAME Tab `H21 UP`
 # parameter name:    `v1type_#`, `v2type_#`, `v3type_#`, `v4type_#`
 ## parameter type: `ordered menu`
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T()
 return menu
@@ -932,7 +932,7 @@ return menu
 # FLAME Tab `H21 UP`
 # parameter name:    `scl_#`
 ## parameter type: `float`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_affine_scale()
 ```
@@ -958,7 +958,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine()
 # FLAME Tab `H21 UP`
 # parameter name:    `pscl_#`
 ## parameter type: `float`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_post_affine_scale()
 ```
@@ -995,7 +995,7 @@ It allows for a great deal of creative experimentation by taking the combined re
 # FF Tab `H21 UP`
 # parameter name:    `doff_disabled`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1006,7 +1006,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs[
 # FF Tab `H21 UP`
 # parameter name:    `doff_enabled`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1017,7 +1017,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs[
 # FF Tab `H21 UP`
 # parameter name:    `xfvizff_off`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1028,7 +1028,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz(), kwargs['
 # FF Tab `H21 UP`
 # parameter name:    `xfvizff_on`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1039,7 +1039,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz(), kwargs['
 # FF Tab `H21 UP`
 # parameter name:    `ffnote`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).note_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1050,11 +1050,11 @@ hou.phm().flam3.flam3h_iterator_utils(kwargs).note_FF(), kwargs['parm'].deleteAl
 # FF Tab `H21 UP`
 # parameter name:    `ffprmpastesel`
 ## parameter type: `ordered menu`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_FF()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_copypaste_FF()
 return menu
@@ -1070,7 +1070,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_FF()
 # FF Tab `H21 UP`
 # parameter name:    `ffpre1type` and `ffp1type`, `ffp2type`
 ## parameter type: `ordered menu`
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T_PP(True)
 return menu
@@ -1082,7 +1082,7 @@ return menu
 # FF Tab `H21 UP`
 # parameter name:    `ffv1type`, `ffv2type`
 ## parameter type: `ordered menu`
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T(True)
 return menu
@@ -1105,7 +1105,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_FF_post_vars
 # FF Tab `H21 UP`
 # parameter name:    `ffscl`
 ## parameter type: `float`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_FF_affine_scale()
 ```
@@ -1131,7 +1131,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine_F
 # FF Tab `H21 UP`
 # parameter name:    `ffpscl`
 ## parameter type: `float`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_FF_post_affine_scale()
 ```
@@ -1168,7 +1168,7 @@ In addition to playing with the shader parameters for each iterator, fractal Fla
 # CP Tab `H21 UP`
 # parameter name:    `hsv`
 ## parameter type: `float vector 3`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_palette_utils(kwargs).palette_hsv()
 ```
@@ -1183,7 +1183,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(2)
 # CP Tab `H21 UP`
 # parameter name:    `keephsv`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1194,7 +1194,7 @@ kwargs['parm'].deleteAllKeyframes()
 # CP Tab `H21 UP`
 # parameter name:    `palettehsv`
 ## parameter type: `ramp type color RGB`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_palette_utils(kwargs).palette_lock()
 ```
@@ -1209,7 +1209,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp()
 # CP Tab `H21 UP`
 # parameter name:    `cp_bases`
 ## parameter type: `ordered menu`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_palette_utils(kwargs).cp_bases_selection_msg(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1220,7 +1220,7 @@ hou.phm().flam3.flam3h_palette_utils(kwargs).cp_bases_selection_msg(), kwargs['p
 # CP Tab `H21 UP`
 # parameter name:    `cp_lookupsamples`
 ## parameter type: `ordered menu`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1231,7 +1231,7 @@ kwargs['parm'].deleteAllKeyframes()
 # CP Tab `H21 UP`
 # parameter name:    `palette`
 ## parameter type: `ramp type color RGB`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_palette_utils(kwargs).palette_cp(True)
 ```
@@ -1246,7 +1246,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP_palette_a
 # CP Tab `H21 UP`
 # parameter name:    `palettefile`
 ## parameter type: `file`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PRESETS(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1257,7 +1257,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PRESETS(), k
 # CP Tab `H21 UP`
 # parameter name:    `palettename`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_palette_utils(kwargs).cp_preset_name_set(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1272,11 +1272,11 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).flam3h_ramp_save()
 # CP Tab `H21 UP`
 # parameter name:    `palettepresets_off`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False), kwargs['parm'].deleteAllKeyframes()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
 return menu
@@ -1292,11 +1292,11 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 # CP Tab `H21 UP`
 # parameter name:    `palettepresets`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False), kwargs['parm'].deleteAllKeyframes()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()
 return menu
@@ -1347,7 +1347,7 @@ _It is a native Flame fractal file format containing transformation parameters, 
 # IN Tab `H21 UP`
 # parameter name:    `inpath`
 ## parameter type: `file`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_IN_PRESETS(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1358,11 +1358,11 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_IN_PRESETS(), k
 # IN Tab `H21 UP`
 # parameter name:    `inpresets_disabled`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.in_flame_utils(kwargs).in_to_flam3h(), kwargs['parm'].deleteAllKeyframes()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.in_flame_utils(kwargs).menu_in_presets_empty()
 return menu
@@ -1378,11 +1378,11 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 # IN Tab `H21 UP`
 # parameter name:    `inpresets`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.in_flame_utils(kwargs).in_to_flam3h(), kwargs['parm'].deleteAllKeyframes()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.in_flame_utils(kwargs).menu_in_presets()
 return menu
@@ -1398,7 +1398,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 # IN Tab `H21 UP`
 # parameter name:    `iternumonload`
 ## parameter type: `integer`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.in_flame_utils(kwargs).set_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1409,7 +1409,7 @@ hou.phm().flam3.in_flame_utils(kwargs).set_iter_on_load_callback(), kwargs['parm
 # IN Tab `H21 UP`
 # parameter name:    `useiteronload`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1420,7 +1420,7 @@ hou.phm().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm
 # IN Tab `H21 UP`
 # parameter name:    `oritername`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1431,7 +1431,7 @@ hou.phm().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm
 # IN Tab `H21 UP`
 # parameter name:    `in_f3h_affine`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1446,7 +1446,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_f3h_
 # IN Tab `H21 UP`
 # parameter name:    `propertiescp`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1461,7 +1461,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle("pro
 # IN Tab `H21 UP`
 # parameter name:    `cprendervals`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1472,7 +1472,7 @@ hou.phm().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False,
 # IN Tab `H21 UP`
 # parameter name:    `icon_in_infos_sensor`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.in_flame_utils.in_copy_sensor_stats_msg(kwargs)
 ```
@@ -1483,7 +1483,7 @@ hou.phm().flam3.in_flame_utils.in_copy_sensor_stats_msg(kwargs)
 # IN Tab `H21 UP`
 # parameter name:    `icon_in_infos_render`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
 ```
@@ -1508,7 +1508,7 @@ _It is a native Flame fractal file format containing transformation parameters, 
 # OUT Tab `H21 UP`
 # parameter name:    `outpath`
 ## parameter type: `file`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1519,7 +1519,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS(), 
 # OUT Tab `H21 UP`
 # parameter name:    `outname`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils(kwargs).out_auto_add_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1534,11 +1534,11 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 # OUT Tab `H21 UP`
 # parameter name:    `outpresets`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils(kwargs).out_to_flam3h_quick(), kwargs['parm'].deleteAllKeyframes()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
 return menu
@@ -1554,7 +1554,7 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_presets_copy_menu_l
 # OUT Tab `H21 UP`
 # parameter name:    `outpalette`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1565,7 +1565,7 @@ kwargs['parm'].deleteAllKeyframes()
 # OUT Tab `H21 UP`
 # parameter name:    `out_f3h_affine`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1576,7 +1576,7 @@ kwargs['parm'].deleteAllKeyframes()
 # OUT Tab `H21 UP`
 # parameter name:    `out_in_flame_name`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_load(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1587,7 +1587,7 @@ hou.phm().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_load(), kwargs
 # OUT Tab `H21 UP`
 # parameter name:    `outfractoriumprm`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1598,7 +1598,7 @@ kwargs['parm'].deleteAllKeyframes()
 # OUT Tab `H21 UP`
 # parameter name:    `autoadditer`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1609,7 +1609,7 @@ hou.phm().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm(), kwarg
 # OUT Tab `H21 UP`
 # parameter name:    `outedit`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_off("outsensor"), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1624,7 +1624,7 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).reset_OUT_kwargs()
 # OUT Tab `H21 UP`
 # parameter name:    `out_sensorviz_disabled`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1635,7 +1635,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['
 # OUT Tab `H21 UP`
 # parameter name:    `out_sensorviz`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1646,7 +1646,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['
 # OUT Tab `H21 UP`
 # parameter name:    `out_sensorviz_off`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1657,7 +1657,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['
 # OUT Tab `H21 UP`
 # parameter name:    `outres`
 ## parameter type: `integer vector 2`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 ```
@@ -1668,11 +1668,11 @@ hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 # OUT Tab `H21 UP`
 # parameter name:    `outrespresets`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils(kwargs).menu_sensor_resolution_set(False), kwargs['parm'].deleteAllKeyframes()
 ```
-- ### Menu Script
+- ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
 menu = hou.phm().flam3.out_flame_utils(kwargs).menu_sensor_resolution()
 return menu
@@ -1684,7 +1684,7 @@ return menu
 # OUT Tab `H21 UP`
 # parameter name:    `outcprendervals`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1695,7 +1695,7 @@ hou.phm().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False,
 # OUT Tab `H21 UP`
 # parameter name:    `outcenter`
 ## parameter type: `float vector 2`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 ```
@@ -1706,7 +1706,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 # OUT Tab `H21 UP`
 # parameter name:    `outrotate`
 ## parameter type: `float`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 ```
@@ -1717,7 +1717,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 # OUT Tab `H21 UP`
 # parameter name:    `outscale`
 ## parameter type: `float`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 ```
@@ -1728,7 +1728,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 # OUT Tab `H21 UP`
 # parameter name:    `outsensorupdate`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1739,7 +1739,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False), kwarg
 # OUT Tab `H21 UP`
 # parameter name:    `outccdefault`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils.out_render_curves_compare_and_set_toggle(kwargs['node']), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1750,14 +1750,14 @@ hou.phm().flam3.out_flame_utils.out_render_curves_compare_and_set_toggle(kwargs[
 # OUT Tab `H21 UP`
 # parameter name:    `icon_f3h_cc_defaults_copy`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.in_flame_utils.in_copy_cc_curves_stats_msg(kwargs), kwargs['parm'].deleteAllKeyframes()
 ```
 # OUT Tab `H21 UP`
 # parameter name:    `icon_f3h_cc_modified_reset`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils.out_render_curves_set_and_retrieve_defaults(kwargs['node']), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1768,7 +1768,7 @@ hou.phm().flam3.out_flame_utils.out_render_curves_set_and_retrieve_defaults(kwar
 # OUT Tab `H21 UP`
 # parameter name:    `outcurveoverallval`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
@@ -1779,7 +1779,7 @@ hou.phm().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 # OUT Tab `H21 UP`
 # parameter name:    `outcurveredval`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
@@ -1790,7 +1790,7 @@ hou.phm().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 # OUT Tab `H21 UP`
 # parameter name:    `outcurvegreenval`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
@@ -1801,7 +1801,7 @@ hou.phm().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 # OUT Tab `H21 UP`
 # parameter name:    `outcurveblueval`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
@@ -1825,7 +1825,7 @@ _but do not directly impact the visual characteristics of individual fractal Fla
 # PREFS Tab `H21 UP`
 # parameter name:    `paletteplus`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils(kwargs).out_palette_256_plus_check(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1836,7 +1836,7 @@ hou.phm().flam3.out_flame_utils(kwargs).out_palette_256_plus_check(), kwargs['pa
 # PREFS Tab `H21 UP`
 # parameter name:    `solo_follow`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1847,7 +1847,7 @@ kwargs['parm'].deleteAllKeyframes()
 # PREFS Tab `H21 UP`
 # parameter name:    `flashmsg`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1858,7 +1858,7 @@ kwargs['parm'].deleteAllKeyframes()
 # PREFS Tab `H21 UP`
 # parameter name:    `iterclr`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1869,7 +1869,7 @@ kwargs['parm'].deleteAllKeyframes()
 # PREFS Tab `H21 UP`
 # parameter name:    `enumeratemenu`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1880,7 +1880,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs(), kwargs[
 # PREFS Tab `H21 UP`
 # parameter name:    `itericons`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_menu(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1891,7 +1891,7 @@ hou.phm().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_menu(), kwar
 # PREFS Tab `H21 UP`
 # parameter name:    `vex_precision`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_scripts(kwargs).flam3h_check_first_node_instance_prefs_cvex_precision_msg(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1902,7 +1902,7 @@ hou.phm().flam3.flam3h_scripts(kwargs).flam3h_check_first_node_instance_prefs_cv
 # PREFS Tab `H21 UP`
 # parameter name:    `xm`
 ## parameter type: `ordered menu`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1913,7 +1913,7 @@ hou.phm().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert(), kwargs['par
 # PREFS Tab `H21 UP`
 # parameter name:    `ptcount`
 ## parameter type: `integer`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(kwargs['node'])
 ```
@@ -1928,7 +1928,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_densi
 # PREFS Tab `H21 UP`
 # parameter name:    `camhandle`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1939,7 +1939,7 @@ kwargs['parm'].deleteAllKeyframes()
 # PREFS Tab `H21 UP`
 # parameter name:    `camcull`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1950,7 +1950,7 @@ kwargs['parm'].deleteAllKeyframes()
 # PREFS Tab `H21 UP`
 # parameter name:    `fcam`
 ## parameter type: `Operator Path`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1961,7 +1961,7 @@ kwargs['parm'].deleteAllKeyframes()
 # PREFS Tab `H21 UP`
 # parameter name:    `setdark`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1972,7 +1972,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].d
 # PREFS Tab `H21 UP`
 # parameter name:    `vptype`
 ## parameter type: `ordered menu`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -1983,7 +1983,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay(), kwargs['
 # PREFS Tab `H21 UP`
 # parameter name:    `vpptsize`
 ## parameter type: `float`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).viewportParticleSize()
 ```
@@ -1998,7 +1998,7 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSi
 # PREFS Tab `H21 UP`
 # parameter name:    `vpww`
 ## parameter type: `float`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).viewportWireWidth()
 ```

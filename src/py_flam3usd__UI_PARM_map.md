@@ -314,7 +314,7 @@ _FLAM3HUSD system utilities._
 # SYS Tab
 # parameter name:    `sys_help`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display_help(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
@@ -326,7 +326,7 @@ _Here you will play with the main settings of FLAM3HUSD._
 # SYS Tab
 # parameter name:    `sys_reframe`
 ## parameter type: `button`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_viewport_bbox_frame(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
@@ -338,7 +338,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_viewport_bbo
 # SYS Tab
 # parameter name:    `flam3hpath`
 ## parameter type: `operator path`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_is_valid_flam3h_node(), kwargs['parm'].deleteAllKeyframes()
 ```
@@ -366,7 +366,7 @@ _Here you will play with the main settings of FLAM3HUSD._
 # PREFS Tab
 # parameter name:    `setdark`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
@@ -377,7 +377,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark()
 # PREFS Tab
 # parameter name:    `rndtype`
 ## parameter type: `ordered menu`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer(), kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
@@ -394,7 +394,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 # PREFS Tab
 # parameter name:    `vptype`
 ## parameter type: `ordered menu`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleDisplay(), kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
@@ -405,7 +405,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleD
 # PREFS Tab
 # parameter name:    `vpptsize`
 ## parameter type: `float`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize()
 ```
@@ -435,7 +435,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 # PREFS Tab
 # parameter name:    `xfviz`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
@@ -472,7 +472,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 # PREFS Tab
 # parameter name:    `denoiser`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
@@ -483,7 +483,7 @@ kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_ge
 # PREFS Tab
 # parameter name:    `use_f3h_shader`
 ## parameter type: `toggle`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
@@ -500,7 +500,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 # PREFS Tab
 # parameter name:    `tonemap`
 ## parameter type: `string`
-- ### Callback Script
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```

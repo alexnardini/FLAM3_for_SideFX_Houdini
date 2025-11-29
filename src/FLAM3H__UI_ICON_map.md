@@ -55,7 +55,7 @@ _Parameters to define the quality of the fractal Flame algorithm solution._
 
 # GLOBAL Tab
 # parameter name:    `icon_iter_off`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -67,7 +67,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 # GLOBAL Tab
 # parameter name:    `ptcount_presets_off`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 Token: 0
@@ -84,7 +84,7 @@ Token: 1
 
 # GLOBAL Tab
 # parameter name:    `icon_iter`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -96,7 +96,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # GLOBAL Tab
 # parameter name:    `ptcount_presets`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density()
@@ -189,7 +189,7 @@ I keep changing and adding functionalities, it is still a work in progress, but 
 
 # SYS Tab
 # parameter name:    `sys_help`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_F_docStarSVG.svg" /></p>
 
 ```
@@ -201,7 +201,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_F_docStarSVG.svg
 
 # SYS Tab
 # parameter name:    `iterlist`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_select_iterator()
@@ -313,7 +313,7 @@ MENU_ZERO_ITERATORS: list = [0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionSta
 
 # SYS Tab
 # parameter name:    `doff_no_iterators`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -325,7 +325,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 # SYS Tab
 # parameter name:    `doff_sysdisabled`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFFDisabledSVG.svg" /></p>
 
 ```
@@ -337,7 +337,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg
 
 # SYS Tab
 # parameter name:    `doff_sysenabled`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFFEnabledSVG.svg" /></p>
 
 ```
@@ -349,7 +349,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg
 
 # SYS Tab
 # parameter name:    `rip_no_iterators`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -361,7 +361,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 # SYS Tab
 # parameter name:    `rip_disabled`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionRIPDisabledSVG.svg" /></p>
 
 ```
@@ -373,7 +373,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPDisabledSVG.svg
 
 # SYS Tab
 # parameter name:    `rip_enabled`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionRIPEnabledSVG.svg" /></p>
 
 ```
@@ -385,7 +385,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPEnabledSVG.svg
 
 # SYS Tab
 # parameter name:    `f3c_no_iterators`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -397,7 +397,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 # SYS Tab
 # parameter name:    `f3c_chaotica`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionF3CDisabledSVG.svg" /></p>
 
 ```
@@ -409,7 +409,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CDisabledSVG.svg
 
 # SYS Tab
 # parameter name:    `f3c_apophysis`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionF3CEnabledSVG.svg" /></p>
 
 ```
@@ -421,7 +421,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CEnabledSVG.svg
 
 # SYS Tab
 # parameter name:    `xfviz_no_iterators`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -433,7 +433,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 # SYS Tab
 # parameter name:    `xfviz_off`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesDisabledSVG.svg" /></p>
 
 ```
@@ -445,7 +445,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg
 
 # SYS Tab
 # parameter name:    `xfviz_on`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesEnabledSVG.svg" /></p>
 
 ```
@@ -457,7 +457,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledSVG.svg
 
 # SYS Tab
 # parameter name:    `xfviz_on_solo`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesEnabledMPIDXSVG.svg" /></p>
 
 ```
@@ -469,7 +469,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg
 
 # SYS Tab
 # parameter name:    `xfvizff_on_solo`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_ffHandlesEnabledSVG.svg" /></p>
 
 ```
@@ -481,7 +481,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_out_sensorviz`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedSVG.svg" /></p>
 
 ```
@@ -493,7 +493,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_out_sensorviz_off`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedOffSVG.svg" /></p>
 
 ```
@@ -505,7 +505,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedOffSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_tag_disabled`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -517,7 +517,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_tag_off`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueSVG_disabled.svg" /></p>
 
 ```
@@ -529,7 +529,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG_disabled.svg
 
 # SYS Tab
 # parameter name:    `sys_tag`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueSVG.svg" /></p>
 
 ```
@@ -541,7 +541,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg
 
 # SYS Tab
 # parameter name:    `tagsize`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 <p align="left"><img width="48" height="48" src="../icons/icon_TagOBlueMenuSmallSVG.svg" /></p>
 Token: 0
 
@@ -566,7 +566,7 @@ Token: 2
 
 # SYS Tab
 # parameter name:    `loaddef`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_SierpinskyDefSVG.svg" /></p>
 
 ```
@@ -578,7 +578,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_SierpinskyDefSVG.svg
 
 # SYS Tab
 # parameter name:    `frameview`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_FrameBlueSVG.svg" /></p>
 
 ```
@@ -590,7 +590,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg
 
 # SYS Tab
 # parameter name:    `frameviewsensor`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_FrameRedSVG.svg" /></p>
 
 ```
@@ -614,7 +614,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_palettepresets_off`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
@@ -678,7 +678,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_palettepresets`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()
@@ -707,7 +707,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_inpresets_disabled`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets_empty()
@@ -789,7 +789,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG_disabled.svg
 
 # SYS Tab
 # parameter name:    `sys_inpresets`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets()
@@ -837,7 +837,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_outpresets`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
@@ -888,7 +888,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_AddDelIteratorSVG.svg
 
 # FLAME Tab
 # parameter name:    `prmpastesel_#`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_copypaste()
@@ -959,7 +959,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg
 
 # FLAME Tab
 # parameter name:    `doiter_disabled_#`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledSVG.svg" /></p>
 
 ```
@@ -971,7 +971,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg
 
 # FLAME Tab
 # parameter name:    `doiter_#`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarYellowOrangeSVG.svg" /></p>
 
 ```
@@ -983,7 +983,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg
 
 # FLAME Tab
 # parameter name:    `xfviz_off_#`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesDisabledSVG.svg" /></p>
 
 ```
@@ -995,7 +995,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg
 
 # FLAME Tab
 # parameter name:    `xfviz_on_#`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesEnabledMPIDXSVG.svg" /></p>
 
 ```
@@ -1019,7 +1019,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueKwargsSVG.svg
 
 # FLAME Tab
 # parameter name:    `preblurtype_#`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_pb()
@@ -1043,7 +1043,7 @@ _The following are icons being used on demand based on the menu python script ne
 
 # FLAME Tab
 # parameter name:    `pre1type_#`, `pre2type_#` and `p1type_#`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP()
@@ -1084,7 +1084,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 # FLAME Tab
 # parameter name:    `v1type_#`, `v2type_#`, `v3type_#`, `v4type_#`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T()
@@ -1177,7 +1177,7 @@ It allows for a great deal of creative experimentation by taking the combined re
 
 # FF Tab
 # parameter name:    `doff_disabled`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFFDisabledSVG.svg" /></p>
 
 ```
@@ -1189,7 +1189,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg
 
 # FF Tab
 # parameter name:    `doff_enabled`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFFEnabledSVG.svg" /></p>
 
 ```
@@ -1201,7 +1201,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg
 
 # FF Tab
 # parameter name:    `xfvizff_off`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesDisabledSVG.svg" /></p>
 
 ```
@@ -1213,7 +1213,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg
 
 # FF Tab
 # parameter name:    `xfvizff_on`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_ffHandlesEnabledSVG.svg" /></p>
 
 ```
@@ -1225,7 +1225,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledSVG.svg
 
 # FF Tab
 # parameter name:    `ffprmpastesel`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_copypaste_FF()
@@ -1287,7 +1287,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg
 
 # FF Tab
 # parameter name:    `ffpre1type` and `ffp1type`, `ffp2type`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP(True)
@@ -1316,7 +1316,7 @@ _The following are icons being used on demand based on the menu python script ne
 
 # FF Tab
 # parameter name:    `ffv1type`, `ffv2type`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T(True)
@@ -1445,7 +1445,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 # CP Tab
 # parameter name:    `cp_bases` -> _only from H20.5 UP_
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 <p align="left">( This menu uses icons from the Houdini icon library )</p>
 <br/><br/>
 
@@ -1520,7 +1520,7 @@ Token: 5
 
 # CP Tab
 # parameter name:    `cp_lookupsamples`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
 Token: 256
 
@@ -1569,7 +1569,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg
 
 # CP Tab
 # parameter name:    `palettepresets_off`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
@@ -1633,7 +1633,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg
 
 # CP Tab
 # parameter name:    `palettepresets`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()
@@ -1702,7 +1702,7 @@ _It is a native Flame fractal file format containing transformation parameters, 
 
 # IN Tab
 # parameter name:    `inpresets_disabled`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets_empty()
@@ -1784,7 +1784,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG_disabled.svg
 
 # IN Tab
 # parameter name:    `inpresets`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets()
@@ -1843,7 +1843,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 # IN Tab
 # parameter name:    `icon_in_infos`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -1855,7 +1855,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # IN Tab
 # parameter name:    `cprendervals`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteInfosSVG.svg" /></p>
 
 ```
@@ -1867,7 +1867,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg
 
 # IN Tab
 # parameter name:    `icon_in_infos_sensor`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
 
 ```
@@ -1879,7 +1879,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 
 # IN Tab
 # parameter name:    `icon_in_infos_render`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
 
 ```
@@ -1917,7 +1917,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg
 
 # OUT Tab
 # parameter name:    `outpresets`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
 ```python
 menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
@@ -1958,7 +1958,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 # OUT Tab
 # parameter name:    `out_sensorviz_disabled`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedSVG_disabled.svg" /></p>
 
 ```
@@ -1970,7 +1970,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG_disabled.svg
 
 # OUT Tab
 # parameter name:    `out_sensorviz`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedSVG.svg" /></p>
 
 ```
@@ -1982,7 +1982,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG.svg
 
 # OUT Tab
 # parameter name:    `out_sensorviz_off`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedOffSVG.svg" /></p>
 
 ```
@@ -1994,7 +1994,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedOffSVG.svg
 
 # OUT Tab
 # parameter name:    `outcprendervals`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteInfosSVG.svg" /></p>
 
 ```
@@ -2006,7 +2006,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg
 
 # OUT Tab
 # parameter name:    `icon_f3h_cc_defaults_copy`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
 
 ```
@@ -2018,7 +2018,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 # OUT Tab
 # parameter name:    `icon_f3h_cc_modified_reset`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarRedSVG.svg" /></p>
 
 ```
@@ -2030,7 +2030,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg
 
 # OUT Tab
 # parameter name:    `icon_f3h_cc_curves` (_hidden_), `icon_f3h_cc_overall`, `icon_f3h_cc_red`, `icon_f3h_cc_green`, `icon_f3h_cc_blue`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2055,7 +2055,7 @@ _These preferences affect how the software behaves and appears but do not direct
 
 # PREFS Tab
 # parameter name:    `xm`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
 Token: 0
 
@@ -2081,7 +2081,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 # PREFS Tab
 # parameter name:    `vptype`
-### Menu icons
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
 Token: 0
 
@@ -2119,7 +2119,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_6` _hidden_
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2131,7 +2131,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_5` _hidden_
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2143,7 +2143,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_4` _hidden_
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2155,7 +2155,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_2` _hidden_
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2167,7 +2167,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_3` _hidden_
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2179,7 +2179,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_3` _hidden_
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2191,7 +2191,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_8` _hidden_
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2215,7 +2215,7 @@ _Here you will find informations about FLAM3H™._
 
 # ABOUT Tab
 # parameter name:    `icon_about_error`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
 
 ```
@@ -2227,7 +2227,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg
 
 # ABOUT Tab
 # parameter name:    `icon_about`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2239,7 +2239,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # ABOUT Tab
 # parameter name:    `icon_about_plugins_error`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
 
 ```
@@ -2251,7 +2251,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg
 
 # ABOUT Tab
 # parameter name:    `icon_about_plugins`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2263,7 +2263,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # ABOUT Tab
 # parameter name:    `icon_f3h_links`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2323,7 +2323,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_youtube_red_play.svg
 
 # ABOUT Tab
 # parameter name:    `icon_f3_links`
-### Button icon
+### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
