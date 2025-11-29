@@ -55,7 +55,7 @@ _Parameters to define the quality of the fractal Flame algorithm solution._
 
 # GLOBAL Tab
 # parameter name:    `icon_iter_off`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -84,7 +84,7 @@ Token: 1
 
 # GLOBAL Tab
 # parameter name:    `icon_iter`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -189,7 +189,7 @@ I keep changing and adding functionalities, it is still a work in progress, but 
 
 # SYS Tab
 # parameter name:    `sys_help`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_F_docStarSVG.svg" /></p>
 
 ```
@@ -313,7 +313,7 @@ MENU_ZERO_ITERATORS: list = [0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionSta
 
 # SYS Tab
 # parameter name:    `doff_no_iterators`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -325,7 +325,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 # SYS Tab
 # parameter name:    `doff_sysdisabled`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFFDisabledSVG.svg" /></p>
 
 ```
@@ -337,7 +337,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg
 
 # SYS Tab
 # parameter name:    `doff_sysenabled`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFFEnabledSVG.svg" /></p>
 
 ```
@@ -349,7 +349,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg
 
 # SYS Tab
 # parameter name:    `rip_no_iterators`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -361,7 +361,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 # SYS Tab
 # parameter name:    `rip_disabled`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionRIPDisabledSVG.svg" /></p>
 
 ```
@@ -373,7 +373,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPDisabledSVG.svg
 
 # SYS Tab
 # parameter name:    `rip_enabled`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionRIPEnabledSVG.svg" /></p>
 
 ```
@@ -385,7 +385,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPEnabledSVG.svg
 
 # SYS Tab
 # parameter name:    `f3c_no_iterators`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -397,7 +397,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 # SYS Tab
 # parameter name:    `f3c_chaotica`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionF3CDisabledSVG.svg" /></p>
 
 ```
@@ -409,7 +409,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CDisabledSVG.svg
 
 # SYS Tab
 # parameter name:    `f3c_apophysis`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionF3CEnabledSVG.svg" /></p>
 
 ```
@@ -421,7 +421,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CEnabledSVG.svg
 
 # SYS Tab
 # parameter name:    `xfviz_no_iterators`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -433,7 +433,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 # SYS Tab
 # parameter name:    `xfviz_off`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesDisabledSVG.svg" /></p>
 
 ```
@@ -445,7 +445,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg
 
 # SYS Tab
 # parameter name:    `xfviz_on`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesEnabledSVG.svg" /></p>
 
 ```
@@ -457,7 +457,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledSVG.svg
 
 # SYS Tab
 # parameter name:    `xfviz_on_solo`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesEnabledMPIDXSVG.svg" /></p>
 
 ```
@@ -469,7 +469,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg
 
 # SYS Tab
 # parameter name:    `xfvizff_on_solo`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_ffHandlesEnabledSVG.svg" /></p>
 
 ```
@@ -481,7 +481,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_out_sensorviz`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedSVG.svg" /></p>
 
 ```
@@ -493,7 +493,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_out_sensorviz_off`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedOffSVG.svg" /></p>
 
 ```
@@ -505,7 +505,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedOffSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_tag_disabled`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
 
 ```
@@ -517,7 +517,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_tag_off`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueSVG_disabled.svg" /></p>
 
 ```
@@ -529,7 +529,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG_disabled.svg
 
 # SYS Tab
 # parameter name:    `sys_tag`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueSVG.svg" /></p>
 
 ```
@@ -578,7 +578,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_SierpinskyDefSVG.svg
 
 # SYS Tab
 # parameter name:    `frameview`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_FrameBlueSVG.svg" /></p>
 
 ```
@@ -590,7 +590,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg
 
 # SYS Tab
 # parameter name:    `frameviewsensor`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_FrameRedSVG.svg" /></p>
 
 ```
@@ -959,7 +959,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg
 
 # FLAME Tab
 # parameter name:    `doiter_disabled_#`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledSVG.svg" /></p>
 
 ```
@@ -971,7 +971,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg
 
 # FLAME Tab
 # parameter name:    `doiter_#`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarYellowOrangeSVG.svg" /></p>
 
 ```
@@ -983,7 +983,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg
 
 # FLAME Tab
 # parameter name:    `xfviz_off_#`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesDisabledSVG.svg" /></p>
 
 ```
@@ -995,7 +995,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg
 
 # FLAME Tab
 # parameter name:    `xfviz_on_#`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesEnabledMPIDXSVG.svg" /></p>
 
 ```
@@ -1177,7 +1177,7 @@ It allows for a great deal of creative experimentation by taking the combined re
 
 # FF Tab
 # parameter name:    `doff_disabled`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFFDisabledSVG.svg" /></p>
 
 ```
@@ -1189,7 +1189,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg
 
 # FF Tab
 # parameter name:    `doff_enabled`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFFEnabledSVG.svg" /></p>
 
 ```
@@ -1201,7 +1201,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg
 
 # FF Tab
 # parameter name:    `xfvizff_off`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesDisabledSVG.svg" /></p>
 
 ```
@@ -1213,7 +1213,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg
 
 # FF Tab
 # parameter name:    `xfvizff_on`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_ffHandlesEnabledSVG.svg" /></p>
 
 ```
@@ -1843,7 +1843,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 # IN Tab
 # parameter name:    `icon_in_infos`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -1855,7 +1855,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # IN Tab
 # parameter name:    `cprendervals`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteInfosSVG.svg" /></p>
 
 ```
@@ -1867,7 +1867,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg
 
 # IN Tab
 # parameter name:    `icon_in_infos_sensor`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
 
 ```
@@ -1879,7 +1879,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 
 # IN Tab
 # parameter name:    `icon_in_infos_render`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
 
 ```
@@ -1958,7 +1958,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 # OUT Tab
 # parameter name:    `out_sensorviz_disabled`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedSVG_disabled.svg" /></p>
 
 ```
@@ -1970,7 +1970,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG_disabled.svg
 
 # OUT Tab
 # parameter name:    `out_sensorviz`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedSVG.svg" /></p>
 
 ```
@@ -1982,7 +1982,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG.svg
 
 # OUT Tab
 # parameter name:    `out_sensorviz_off`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedOffSVG.svg" /></p>
 
 ```
@@ -1994,7 +1994,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedOffSVG.svg
 
 # OUT Tab
 # parameter name:    `outcprendervals`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteInfosSVG.svg" /></p>
 
 ```
@@ -2006,7 +2006,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg
 
 # OUT Tab
 # parameter name:    `icon_f3h_cc_defaults_copy`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
 
 ```
@@ -2018,7 +2018,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 # OUT Tab
 # parameter name:    `icon_f3h_cc_modified_reset`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarRedSVG.svg" /></p>
 
 ```
@@ -2030,7 +2030,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg
 
 # OUT Tab
 # parameter name:    `icon_f3h_cc_curves` (_hidden_), `icon_f3h_cc_overall`, `icon_f3h_cc_red`, `icon_f3h_cc_green`, `icon_f3h_cc_blue`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2119,7 +2119,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_6` _hidden_
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2131,7 +2131,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_5` _hidden_
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2143,7 +2143,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_4` _hidden_
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2155,7 +2155,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_2` _hidden_
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2167,7 +2167,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_3` _hidden_
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2179,7 +2179,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_3` _hidden_
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2191,7 +2191,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # PREFS Tab
 # parameter name:    `icon_custom_8` _hidden_
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2215,7 +2215,7 @@ _Here you will find informations about FLAM3H™._
 
 # ABOUT Tab
 # parameter name:    `icon_about_error`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
 
 ```
@@ -2227,7 +2227,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg
 
 # ABOUT Tab
 # parameter name:    `icon_about`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2239,7 +2239,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # ABOUT Tab
 # parameter name:    `icon_about_plugins_error`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
 
 ```
@@ -2251,7 +2251,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg
 
 # ABOUT Tab
 # parameter name:    `icon_about_plugins`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2263,7 +2263,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 # ABOUT Tab
 # parameter name:    `icon_f3h_links`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -2323,7 +2323,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_youtube_red_play.svg
 
 # ABOUT Tab
 # parameter name:    `icon_f3_links`
-### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icons
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
