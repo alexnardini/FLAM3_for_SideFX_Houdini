@@ -64,7 +64,7 @@ _FLAM3HUSD system utilities._
 
 # SYS Tab
 # parameter name:    `icon_error`
-### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
 
 ```
@@ -76,7 +76,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarOrangeSVG.svg
 
 # SYS Tab
 # parameter name:    `icon_tip`
-### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -88,7 +88,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_help`
-### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_F_docStarSVG.svg" /></p>
 
 ```
@@ -100,7 +100,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_F_docStarSVG.svg
 
 # SYS Tab
 # parameter name:    `sys_reframe`
-### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_FrameRedSVG.svg" /></p>
 
 ```
@@ -135,7 +135,7 @@ _Here you will play with the main settings of FLAM3HUSD._
 
 # PREFS Tab
 # parameter name:    `icon_tip`
-### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```
@@ -243,7 +243,7 @@ _Here you will find informations about FLAM3HUSD._
 
 # ABOUT Tab
 # parameter name:    `icon_about_error`
-### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
 
 ```
@@ -255,7 +255,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarOrangeSVG.svg
 
 # ABOUT Tab
 # parameter name:    `icon_about`
-### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Button icon
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```

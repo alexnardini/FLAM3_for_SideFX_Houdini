@@ -244,6 +244,45 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_bit
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_buttonButtonSVG.svg" /></p>
+<b><p align="center">icon_buttonButtonSVG.svg</b> (used only for DOC purposes)</p>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_buttonButtonSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_buttonButtonSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_buttonButtonSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_buttonButtonSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_buttonButtonSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_buttonButtonSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_callbackButtonSVG.svg" /></p>
 <b><p align="center">icon_callbackButtonSVG.svg</b> (used only for DOC purposes)</p>
 <p align="center">......</p>
