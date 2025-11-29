@@ -3161,7 +3161,7 @@ class flam3h_general_utils
         
         To be used inside:
         * def flam3h_toggle_mp_xf_viz(self) -> None:
-        * def flam3h_toggle_mp_xf_viz_solo_follow(self, mp_idx: str) -> None
+        * def flam3h_toggle_mp_xf_viz_solo_follow(self, mp_idx: int) -> None
         * def flam3h_toggle_xf_ff_viz(self) -> None:
         
         Args:
@@ -3988,11 +3988,12 @@ class flam3h_general_utils
         node: hou.SopNode = self.node
         
         xfviz_solo: int = node.parm(PREFS_PVT_XF_VIZ_SOLO).eval()
+        xfviz_solo_mp_idx: int = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX).eval() # this need to one higher than 0(Zero)
         xfviz_solo_follow: int = node.parm(PREFS_SOLO_FOLLOW).eval()
         xfviz_out_sensor: int = node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval()
         
         # If any of the iterators is in SOLO mode and we are not in camera sensor mode
-        if xfviz_solo and xfviz_solo_follow and not xfviz_out_sensor:
+        if xfviz_solo and xfviz_solo_mp_idx and xfviz_solo_follow and not xfviz_out_sensor:
             
             _main_xf_viz_name: str = flam3h_iterator_prm_names().main_xf_viz
             prm_mp = node.parm(f"{_main_xf_viz_name}_{mp_idx}")
