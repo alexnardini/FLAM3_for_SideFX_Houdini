@@ -1980,9 +1980,6 @@ hou.phm().flam3.out_flame_utils.out_render_curves_compare_and_set_toggle(kwargs[
 |:---|:---|---:|---:|
 | **OUT** | `icon_f3h_cc_defaults_copy` |  `button` | `H21` |
 
-# OUT Tab `H21 UP`
-# parameter name:    `icon_f3h_cc_defaults_copy`
-## parameter type: `button`
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.in_flame_utils.in_copy_cc_curves_stats_msg(kwargs), kwargs['parm'].deleteAllKeyframes()
