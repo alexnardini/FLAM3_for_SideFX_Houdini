@@ -2490,8 +2490,6 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 |:---|:---|---:|
 | **PREFS** | `icon_custom_8` _(hidden)_ | `H19 to H21` |
 
-# PREFS Tab
-# parameter name:    `icon_custom_8` _hidden_
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 

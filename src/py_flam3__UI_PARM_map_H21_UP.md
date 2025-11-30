@@ -1325,9 +1325,6 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(2)
 |:---|:---|---:|---:|
 | **CP** | `keephsv` |  `toggle` | `H21` |
 
-# CP Tab `H21 UP`
-# parameter name:    `keephsv`
-## parameter type: `toggle`
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes()
@@ -2072,9 +2069,6 @@ _but do not directly impact the visual characteristics of individual fractal Fla
 |:---|:---|---:|---:|
 | **PREFS** | `paletteplus` |  `toggle` | `H21` |
 
-# PREFS Tab `H21 UP`
-# parameter name:    `paletteplus`
-## parameter type: `toggle`
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.phm().flam3.out_flame_utils(kwargs).out_palette_256_plus_check(), kwargs['parm'].deleteAllKeyframes()
