@@ -60,8 +60,11 @@ to: **py_flam3usd__3_11**
 </br>
 
 # <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PythonModule `H20.5`
-The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>
-First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
+
+| SCRIPT | Description | 
+|:---|:---|
+| **PythonModule** | The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule*** | 
+
 
 ```python
 #   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
@@ -110,8 +113,10 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 </br>
 
 # <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PythonModule `H19 to H20`
-The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>
-First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule**
+
+| SCRIPT | Description | 
+|:---|:---|
+| **PythonModule** | The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule** | 
 
 ```python
 #   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
@@ -160,8 +165,12 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 </br>
 
 # <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PreFirstCreate `H19 to H20.5`
-Before the node is even created but invoked.</br>
-Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate**
+
+| SCRIPT | Description | 
+|:---|:---|
+| **PreFirstCreate** | Before the node is even created but invoked.</br>Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate** | 
+
+
 
 ```python
 #   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
@@ -252,8 +261,11 @@ if not flam3husd_first_time():
 </br>
 
 # <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnCreated `H19 to H20.5`
-Initialize what the tool need when you create its node in the network editor.</br>
-Inside: **OTL**->**type_properties**->**Scripts**->**OnCreated**
+
+| SCRIPT | Description | 
+|:---|:---|
+| **OnCreated** | Initialize what the tool need when you create its node in the network editor.</br>Inside: **OTL**->**type_properties**->**Scripts**->**OnCreated** | 
+
 ```python
 #   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
 #   Author:     F stands for liFe ( made in Italy )
@@ -268,8 +280,11 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_creat
 </br>
 
 # <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnLoaded `H19 to H20.5`
-When loading hip files with FLAM3HUSD nodes in it do some checks.</br>
-Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded**
+
+| SCRIPT | Description | 
+|:---|:---|
+| **OnLoaded** | When loading hip files with FLAM3HUSD nodes in it do some checks.</br>Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded** | 
+
 ```python
 #   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
 #   Author:     F stands for liFe ( made in Italy )
@@ -284,8 +299,11 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_loade
 </br>
 
 # <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnDeleted `H19 to H20.5`
-When deleting a FLAM3HUSD node.</br>
-Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted**
+
+| SCRIPT | Description | 
+|:---|:---|
+| **OnLoaded** | When deleting a FLAM3HUSD node.</br>Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted** | 
+
 ```python
 #   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
 #   Author:     F stands for liFe ( made in Italy )
@@ -308,36 +326,37 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_delet
 
 _FLAM3HUSD system utilities._
 
+</br>
 
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **SYS** | `sys_help` | `button` | `H19 to H20.5` |
 
-
-# SYS Tab
-# parameter name:    `sys_help`
-## parameter type: `button`
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display_help(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 </br>
 </br>
+</br>
 
-_Here you will play with the main settings of FLAM3HUSD._
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **SYS** | `sys_reframe` | `button` | `H19 to H20.5` |
 
-# SYS Tab
-# parameter name:    `sys_reframe`
-## parameter type: `button`
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_viewport_bbox_frame(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 ```
 
-
 </br>
 </br>
+</br>
 
-# SYS Tab
-# parameter name:    `flam3hpath`
-## parameter type: `operator path`
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **SYS** | `flam3hpath` | `operator path` | `H19 to H20.5` |
+
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_is_valid_flam3h_node(), kwargs['parm'].deleteAllKeyframes()
@@ -363,9 +382,12 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 _Here you will play with the main settings of FLAM3HUSD._
 
-# PREFS Tab
-# parameter name:    `setdark`
-## parameter type: `toggle`
+</br>
+
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **PREFS** | `setdark` | `toggle` | `H19 to H20.5` |
+
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
@@ -373,10 +395,12 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark()
 
 </br>
 </br>
+</br>
 
-# PREFS Tab
-# parameter name:    `rndtype`
-## parameter type: `ordered menu`
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **PREFS** | `rndtype` | `ordered menu` | `H19 to H20.5` |
+
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer(), kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
@@ -390,10 +414,12 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 </br>
 </br>
+</br>
 
-# PREFS Tab
-# parameter name:    `vptype`
-## parameter type: `ordered menu`
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **PREFS** | `vptype` | `ordered menu` | `H19 to H20.5` |
+
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleDisplay(), kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
@@ -401,10 +427,12 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleD
 
 </br>
 </br>
+</br>
 
-# PREFS Tab
-# parameter name:    `vpptsize`
-## parameter type: `float`
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **PREFS** | `vpptsize` | `float` | `H19 to H20.5` |
+
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize()
@@ -418,10 +446,12 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 </br>
 </br>
+</br>
 
-# PREFS Tab
-# parameter name:    `widths`
-## parameter type: `float`
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **PREFS** | `widths` | `float` | `H19 to H20.5` |
+
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
 node = kwargs['node']
@@ -431,10 +461,12 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 </br>
 </br>
+</br>
 
-# PREFS Tab
-# parameter name:    `xfviz`
-## parameter type: `toggle`
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **PREFS** | `xfviz` | `toggle` | `H19 to H20.5` |
+
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
@@ -442,10 +474,12 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_
 
 </br>
 </br>
+</br>
 
-# PREFS Tab
-# parameter name:    `widths_xf_viz`
-## parameter type: `float`
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **PREFS** | `widths_xf_viz` | `float` | `H19 to H20.5` |
+
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
 node = kwargs['node']
@@ -455,10 +489,12 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 </br>
 </br>
+</br>
 
-# PREFS Tab
-# parameter name:    `pxsamples_cpu`
-## parameter type: `integer`
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **PREFS** | `pxsamples_cpu` | `integer` | `H19 to H20.5` |
+
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
 node = kwargs['node']
@@ -468,10 +504,12 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 </br>
 </br>
+</br>
 
-# PREFS Tab
-# parameter name:    `denoiser`
-## parameter type: `string`
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **PREFS** | `denoiser` | `string` | `H19 to H20.5` |
+
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
@@ -479,10 +517,12 @@ kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_ge
 
 </br>
 </br>
+</br>
 
-# PREFS Tab
-# parameter name:    `use_f3h_shader`
-## parameter type: `toggle`
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **PREFS** | `use_f3h_shader` | `toggle` | `H19 to H20.5` |
+
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
@@ -496,10 +536,12 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 </br>
 </br>
+</br>
 
-# PREFS Tab
-# parameter name:    `tonemap`
-## parameter type: `string`
+| TAB | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **PREFS** | `tonemap` | `string` | `H19 to H20.5` |
+
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
 kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
