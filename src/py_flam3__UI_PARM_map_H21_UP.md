@@ -335,7 +335,6 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_deleted()
 _Parameters to define the quality of the fractal Flame algorithm solution._
 
 # GLOBAL Tab `H21 UP`
-# H21 UP
 # parameter name:    `iter`
 ## parameter type: `integer`
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
@@ -347,7 +346,6 @@ hou.phm().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
 </br>
 
 # GLOBAL Tab `H21 UP`
-# H21 UP
 # parameter name:    `ptcount_presets`
 ## parameter type: `ordered menu`
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
@@ -390,7 +388,6 @@ _Tools available to enhance and speed up the workflow.<br>
 I keep changing and adding functionalities, it is still a work in progress, but thus far, this most recent configuration has been successful._
 
 # SYS Tab `H21 UP`
-# H21 UP
 # parameter name:    `sys_help`
 ## parameter type: `button`
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
