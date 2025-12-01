@@ -328,7 +328,7 @@ _FLAM3HUSD system utilities._
 
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **SYS** | `sys_help` | `button` | `H19 to H20.5` |
 
@@ -340,7 +340,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display
 </br>
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **SYS** | `sys_reframe` | `button` | `H19 to H20.5` |
 
@@ -353,7 +353,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_viewport_bbo
 </br>
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **SYS** | `flam3hpath` | `operator path` | `H19 to H20.5` |
 
@@ -384,7 +384,7 @@ _Here you will play with the main settings of FLAM3HUSD._
 
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **PREFS** | `setdark` | `toggle` | `H19 to H20.5` |
 
@@ -397,7 +397,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark()
 </br>
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **PREFS** | `rndtype` | `ordered menu` | `H19 to H20.5` |
 
@@ -416,7 +416,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **PREFS** | `vptype` | `ordered menu` | `H19 to H20.5` |
 
@@ -429,7 +429,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleD
 </br>
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **PREFS** | `vpptsize` | `float` | `H19 to H20.5` |
 
@@ -448,7 +448,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **PREFS** | `widths` | `float` | `H19 to H20.5` |
 
@@ -463,7 +463,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **PREFS** | `xfviz` | `toggle` | `H19 to H20.5` |
 
@@ -476,7 +476,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_
 </br>
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **PREFS** | `widths_xf_viz` | `float` | `H19 to H20.5` |
 
@@ -491,7 +491,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **PREFS** | `pxsamples_cpu` | `integer` | `H19 to H20.5` |
 
@@ -506,7 +506,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **PREFS** | `denoiser` | `string` | `H19 to H20.5` |
 
@@ -519,7 +519,7 @@ kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_ge
 </br>
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **PREFS** | `use_f3h_shader` | `toggle` | `H19 to H20.5` |
 
@@ -538,7 +538,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 </br>
 
-| TAB | Parameter name | Parameter type |  Houdini version |
+| Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **PREFS** | `tonemap` | `string` | `H19 to H20.5` |
 
