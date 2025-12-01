@@ -1,6 +1,6 @@
 ```python
 #   Title:      FLAM3HUSD. SideFX Houdini FLAM3USD: PYTHON MAP PRM Definitions
-#   Author:     Alessandro Nardini
+#   Author:     F stands for liFe ( made in Italy )
 #   date:       March 2025, Last revised November 2025
 #   License:    GPL
 #   Copyright:  2023, © F stands for liFe ( made in Italy )
@@ -14,7 +14,7 @@
 #               NAVIGATING THE PARAMETERS INSIDE THE OTL TYPE PROPERTIES WINDOW.
 ```
 - #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
-- #### Houdini versions:  `H21 UP`
+- #### Houdini versions:  `from H21`
 
 </br>
 </br>
@@ -22,13 +22,13 @@
 #### Quick links
 
 - **FLAM3HUSD** [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md)
-- **FLAM3HUSD** [**UI_PARM_map**](py_flam3usd__UI_PARM_map.md)
+- **FLAM3HUSD** [**UI_PARM_map H19 to H20.5**](py_flam3usd__UI_PARM_map_H19_to_H205.md)
 
 </br>
 
 - **FLAM3H™** [**UI_ICON_map**](FLAM3H__UI_ICON_map.md)
-- **FLAM3H™** [**UI_PARM_map**](py_flam3__UI_PARM_map.md)
 - **FLAM3H™** [**UI_PARM_map H21 UP**](py_flam3__UI_PARM_map_H21_UP.md)
+- **FLAM3H™** [**UI_PARM_map H19 to H20.5**](py_flam3__UI_PARM_map_H19_to_H205.md)
 
 </br>
 
@@ -276,7 +276,7 @@ _FLAM3HUSD system utilities._
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_help` | `button` | `H21` |
+| **SYS** | `sys_help` | `button` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -289,7 +289,7 @@ hou.phm().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display_help(), hou
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_reframe` | `button` | `H21` |
+| **SYS** | `sys_reframe` | `button` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -302,7 +302,7 @@ hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_viewport_bbox_frame(), h
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `flam3hpath` | `operator path` | `H21` |
+| **SYS** | `flam3hpath` | `operator path` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -333,7 +333,7 @@ _Here you will play with the main settings of FLAM3HUSD._
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `setdark` | `toggle` | `H21` |
+| **PREFS** | `setdark` | `toggle` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -346,7 +346,7 @@ hou.phm().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark(), kwargs['pa
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `rndtype` | `ordered menu` | `H21` |
+| **PREFS** | `rndtype` | `ordered menu` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -365,7 +365,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `vptype` | `ordered menu` | `H21` |
+| **PREFS** | `vptype` | `ordered menu` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -378,7 +378,7 @@ hou.phm().flam3usd.flam3husd_general_utils(kwargs).viewportParticleDisplay(), kw
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `vpptsize` | `float` | `H21` |
+| **PREFS** | `vpptsize` | `float` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -397,7 +397,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `widths` | `float` | `H21` |
+| **PREFS** | `widths` | `float` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -412,7 +412,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `xfviz` | `toggle` | `H21` |
+| **PREFS** | `xfviz` | `toggle` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -425,7 +425,7 @@ hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `widths_xf_viz` | `float` | `H21` |
+| **PREFS** | `widths_xf_viz` | `float` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -440,7 +440,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `pxsamples_cpu` | `integer` | `H21` |
+| **PREFS** | `pxsamples_cpu` | `integer` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -455,7 +455,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `pxsamples_xpu` | `integer` | `H21` |
+| **PREFS** | `pxsamples_xpu` | `integer` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -470,7 +470,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `denoiser` | `string` | `H21` |
+| **PREFS** | `denoiser` | `string` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -483,7 +483,7 @@ kwargs['parm'].deleteAllKeyframes(), hou.phm().flam3usd.flam3husd_general_utils(
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `use_f3h_shader` | `toggle` | `H21` |
+| **PREFS** | `use_f3h_shader` | `toggle` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -502,7 +502,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 
 | TAB | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `tonemap` | `string` | `H21` |
+| **PREFS** | `tonemap` | `string` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python

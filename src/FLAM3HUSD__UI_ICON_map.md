@@ -17,21 +17,20 @@
 _They remain Copyright of (c) 2021 F stands for liFe (and their other respective owners), and may not be redistributed without permission_.
 
 - #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
-- #### Houdini versions:  `H19 to H21 UP`
 
 </br>
 </br>
 
 #### Quick links
 
-- **FLAM3HUSD** [**UI_PARM_map**](py_flam3usd__UI_PARM_map.md)
 - **FLAM3HUSD** [**UI_PARM_map H21 UP**](py_flam3usd__UI_PARM_map_H21_UP.md)
+- **FLAM3HUSD** [**UI_PARM_map H19 to H20.5**](py_flam3usd__UI_PARM_map_H19_to_H205.md)
 
 </br>
 
 - **FLAM3H™** [**UI_ICON_map**](FLAM3H__UI_ICON_map.md)
-- **FLAM3H™** [**UI_PARM_map**](py_flam3__UI_PARM_map.md)
 - **FLAM3H™** [**UI_PARM_map H21 UP**](py_flam3__UI_PARM_map_H21_UP.md)
+- **FLAM3H™** [**UI_PARM_map H19 to H20.5**](py_flam3__UI_PARM_map_H19_to_H205.md)
 
 </br>
 
@@ -67,7 +66,7 @@ _FLAM3HUSD system utilities._
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_help` | `H19 to H21` |
+| **SYS** | `sys_help` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_F_docStarSVG.svg" /></p>
@@ -82,7 +81,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_F_docStarSVG.svg
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_reframe` | `H19 to H21` |
+| **SYS** | `sys_reframe` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_FrameRedSVG.svg" /></p>
@@ -97,7 +96,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_FrameBlueSVG.svg
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `flam3hpath` | `H19 to H21` |
+| **SYS** | `flam3hpath` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFlameINEntrieSVG.svg" /></p>
@@ -124,7 +123,7 @@ _Here you will play with the main settings of FLAM3HUSD._
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `icon_error` | `H19 to H21` |
+| **PREFS** | `icon_error` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
@@ -139,7 +138,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarOrangeSVG.svg
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `icon_tip` | `H19 to H21` |
+| **PREFS** | `icon_tip` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -154,7 +153,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `rndtype` | `H19 to H21` |
+| **PREFS** | `rndtype` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_rendererMenuSVG.svg" /></p>
@@ -169,7 +168,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererMenuSVG.svg
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `vptype` | `H19 to H21` |
+| **PREFS** | `vptype` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
@@ -185,7 +184,7 @@ Token: 0
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `vpptsize` | `H19 to H21` |
+| **PREFS** | `vpptsize` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
@@ -200,7 +199,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `widths` | `H19 to H21` |
+| **PREFS** | `widths` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
@@ -215,7 +214,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `pxsamples_cpu` | `H19 to H21` |
+| **PREFS** | `pxsamples_cpu` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_rendererKarmaPropertiesSVG.svg" /></p>
@@ -230,7 +229,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `pxsamples_xpu` | `H21` |
+| **PREFS** | `pxsamples_xpu` | `from H21` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_rendererKarmaPropertiesSVG.svg" /></p>
@@ -245,7 +244,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `use_f3h_shader` | `H19 to H21` |
+| **PREFS** | `use_f3h_shader` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_rendererKarmaPropertiesSVG.svg" /></p>
@@ -272,7 +271,7 @@ _Here you will find informations about FLAM3HUSD._
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `icon_about_error` | `H19 to H21` |
+| **PREFS** | `icon_about_error` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
@@ -287,7 +286,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarOrangeSVG.svg
 
 | TAB | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `icon_about` | `H19 to H21` |
+| **PREFS** | `icon_about` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
