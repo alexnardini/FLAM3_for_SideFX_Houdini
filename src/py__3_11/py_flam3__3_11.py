@@ -5943,16 +5943,20 @@ class flam3h_iterator_utils
 
         Args:
             node(hou.SopNode): The current FLAM3H™ node being loaded in the hip file.
-            f3h_all(bool): Default to False. Perform this check and correct if needed for all FLAM3H™ nodes in the scene.
+            f3h_all(bool): Default to: False</br>Perform this check and correct if needed for all FLAM3H™ nodes in the scene.
 
         Returns:
             (None):
         """  
         iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iter_count:
-            lambda_min_opacity: Callable[[], float] = lambda: min([node.parm(f'{flam3h_iterator_prm_names().shader_alpha}_{idx + 1}').eval() for idx in range(iter_count)])
-            if f3h_all: [flam3h_general_utils.private_prm_set(f3h, PREFS_PVT_RIP, 1) if lambda_min_opacity() == 0 else ... for f3h in node.type().instances()]
+            if f3h_all:
+                for f3h in node.type().instances():
+                    f3h_all_lambda_min_opacity: Callable[[], float] = lambda: min((f3h.parm(f'{flam3h_iterator_prm_names().shader_alpha}_{idx + 1}').eval() for idx in range(iter_count)))
+                    if f3h_all_lambda_min_opacity() == 0:
+                        flam3h_general_utils.private_prm_set(f3h, PREFS_PVT_RIP, 1)
             else:
+                lambda_min_opacity: Callable[[], float] = lambda: min((node.parm(f'{flam3h_iterator_prm_names().shader_alpha}_{idx + 1}').eval() for idx in range(iter_count)))
                 if lambda_min_opacity() == 0: flam3h_general_utils.private_prm_set(node, PREFS_PVT_RIP, 1)
 
 

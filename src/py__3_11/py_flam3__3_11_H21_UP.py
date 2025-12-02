@@ -6440,12 +6440,13 @@ class flam3h_iterator_utils
         """  
         iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         if iter_count:
-            lambda_min_opacity: Callable[[], float] = lambda: min((node.parm(f'{flam3h_iterator_prm_names().shader_alpha}_{idx + 1}').eval() for idx in range(iter_count)))
             if f3h_all:
-                if lambda_min_opacity() == 0:
-                    for f3h in node.type().instances():
+                for f3h in node.type().instances():
+                    f3h_all_lambda_min_opacity: Callable[[], float] = lambda: min((f3h.parm(f'{flam3h_iterator_prm_names().shader_alpha}_{idx + 1}').eval() for idx in range(iter_count)))
+                    if f3h_all_lambda_min_opacity() == 0:
                         flam3h_general_utils.private_prm_set(f3h, PREFS_PVT_RIP, 1)
             else:
+                lambda_min_opacity: Callable[[], float] = lambda: min((node.parm(f'{flam3h_iterator_prm_names().shader_alpha}_{idx + 1}').eval() for idx in range(iter_count)))
                 if lambda_min_opacity() == 0: flam3h_general_utils.private_prm_set(node, PREFS_PVT_RIP, 1)
 
 
