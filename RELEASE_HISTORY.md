@@ -33,6 +33,22 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.52 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.52) ###
+
+#### FLAM3H™ v1.9.52 indie -> H21.0 UP</br>FLAM3H™ v1.9.46 indie -> H19.0 to H20.5 ####
+
+- **Fix**: When checking for all FLAM3H™ nodes opacities, all RIP(Remove Invalid points) toggles were being set to **On**/Active if only some of them had its opacity set to **0**(Zero). It is now fixed.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.51 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.51) ###
 
 #### FLAM3H™ v1.9.51 indie -> H21.0 UP</br>FLAM3H™ v1.9.45 indie -> H19.0 to H20.5 ####
