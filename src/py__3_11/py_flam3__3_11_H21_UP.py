@@ -15750,7 +15750,7 @@ class in_flame_utils
         Args:
             VARS_list(TA_STR_ListUnflattened): The data to flatten, remove duplicates and sort.
             func(Callable): Function to turn variation names from VAR to PRE or POST or none based on the function provided.
-            capitalize(bool): (default to: False) capitalize the variation's names if any are found.
+            capitalize(bool): Default to: False</br>capitalize the variation's names if any are found.
 
         Returns:
             (list[str]): Return a flattened list of unique and sorted items without duplicates.
