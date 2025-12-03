@@ -19,7 +19,6 @@ import lxml.etree as lxmlET
 
 from math import sin
 from math import cos
-from math import sqrt
 from copy import copy
 from platform import python_version
 from platform import system as platform_system
@@ -5641,7 +5640,7 @@ class flam3h_iterator_utils
         
         # Calc triangle sides
         height: float = 0.5 # so it is 1(one) Houdini unit tall
-        side: float = height * 2.0 / sqrt(3)
+        side: float = height * 2.0 / 1.7320508075688772
         side /= 2.0 # Being 0(Zero) world centered
         
         # Bake the values that stay the same across all iterators
