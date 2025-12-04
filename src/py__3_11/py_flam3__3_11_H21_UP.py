@@ -2966,6 +2966,10 @@ class flam3h_general_utils
     def flash_message(node: hou.SopNode, msg: str | None, timer: float = FLAM3H_FLASH_MESSAGE_TIMER, img: str | None = None) -> None:
         """Cause a message to appear on the top left of the network editor.</br>
         This will work either in Sop and Lop context as it is handy to get those messages either ways.</br>
+        
+        Note:
+            Whne working with FLAM3HUSD inside the Solaris context, a flash message will be sent to any available Lop viewers
+            to make it easier for the user to read them since in that case the network editor real estate area will most likely be covered with parameters editor interfaces.
 
         Args:
             node(hou.SopNode): the current FLAM3H™ node.
@@ -2978,8 +2982,13 @@ class flam3h_general_utils
         """  
         if hou.isUIAvailable() and node.parm(PREFS_FLASH_MSG).eval():
             for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]: ne.flashMessage(img, msg, timer) # type: ignore
-        
+            # Force the flash message to appear in any Lop viewers available.
+            # This is being done because it is more handy for the user to read the message in the Lop viewers
+            # when working through the FLAM3HUSD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
+            if flam3h_general_utils.util_is_context_available_viewer('Lop'):
+                for view in [v for v in hou.ui.paneTabs() if v.type() == hou.paneTabType.SceneViewer and flam3h_general_utils.util_is_context('Lop', v)]: view.flashMessage('', msg, timer) # type: ignore
 
+    
     @staticmethod
     def remove_locked_from_flame_stats(node) -> None:
         """When loading a flame preset from the clipboard while a valid locked flame library is loaded,</br>
@@ -3184,14 +3193,14 @@ class flam3h_general_utils
         """Return if we are inside a context or not.</br>
         
         Args:
-            context(str): The context we want to check if we are currently in. Options so far are: 
+            context(str): The context we want to check if we are currently in.</br>Options so far are: 
                 * Object: str
                 * Sop: str
                 * Lop: str
-            viewport(hou.paneTabType): Any of the available pane tab types, in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer
+            viewport(hou.paneTabType): Any of the available pane tab types,</br>in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer
             
         Returns:
-            (bool): [True if we are in desired context or False if we are not.]
+            (bool): True if we are in a desired context or False if we are not.
         """    
         context_now: hou.NodeTypeCategory = hou.ui.findPaneTab(viewport.name()).pwd().childTypeCategory() # type: ignore
         if str(context_now.name()).lower() == context.lower():
@@ -9458,11 +9467,11 @@ class flam3h_iterator_utils
         prm_xfviz_solo = node.parm(PREFS_PVT_XF_VIZ_SOLO)
         prm_xfviz_solo_mp_idx = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX)
         _PVT_PARMS: tuple[hou.Parm, ...] = (prm_mpidx, prm_xfviz, prm_xfviz_solo, prm_xfviz_solo_mp_idx)
-        # XF VIZ data name
-        data_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
-        
         # unlock
         for prm in _PVT_PARMS: prm.lock(False)
+        
+        # XF VIZ data name
+        data_name: str = f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}"
         
         # init indexes
         idx_del_inbetween: int | None = None
@@ -13194,7 +13203,7 @@ class in_flame
         """
         super().__init__(xmlfile)
         
-        self._node = node
+        self._node: hou.SopNode = node
         self._flame: tuple[lxmlET._Element, ...] | None = self._xml_tree__get_flame() # type: ignore
         self._flame_count: int = self._xml_tree__get_flame_count(self.flame) # type: ignore
         
@@ -16184,7 +16193,7 @@ class in_flame_utils
             (None):
         """       
         
-        node = kwargs['node']
+        node: hou.SopNode = kwargs['node']
         
         inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
         
@@ -16262,7 +16271,7 @@ class in_flame_utils
             (None):
         """
         
-        node = kwargs['node']
+        node: hou.SopNode = kwargs['node']
         
         inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
         clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
@@ -16324,7 +16333,7 @@ class in_flame_utils
             (None):
         """
         
-        node = kwargs['node']
+        node: hou.SopNode = kwargs['node']
         
         inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
         clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
@@ -16395,7 +16404,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        node = kwargs['node']
+        node: hou.SopNode = kwargs['node']
 
         inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
         clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()

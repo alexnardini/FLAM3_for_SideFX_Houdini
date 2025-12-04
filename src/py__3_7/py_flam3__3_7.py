@@ -2682,6 +2682,11 @@ class flam3h_general_utils
         """  
         if hou.isUIAvailable() and node.parm(PREFS_FLASH_MSG).eval():
             [ne.flashMessage(img, msg, timer) for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]] # type: ignore
+            # Force the flash message to appear in any Lop viewers available.
+            # This is being done because it is more handy for the user to read the message in the Lop viewers
+            # when working through the FLAM3HUSD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
+            if flam3h_general_utils.util_is_context_available_viewer('Lop'):
+                for view in [v for v in hou.ui.paneTabs() if v.type() == hou.paneTabType.SceneViewer and flam3h_general_utils.util_is_context('Lop', v)]: view.flashMessage('', msg, timer) # type: ignore
         
 
     @staticmethod

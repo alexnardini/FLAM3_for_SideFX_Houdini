@@ -33,11 +33,27 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.53 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.53) ###
+
+#### FLAM3H™ v1.9.53 indie -> H21.0 UP</br>FLAM3H™ v1.9.47 indie -> H19.0 to H20.5 ####
+
+- **New**: Flash messages will now appear also in any available Lop viewers. This is handy when working in Solaris with the FLAM3HUSD HDA to better read those messages as the network editor will most likely be covered with parameter editors interfaces.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.52 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.52) ###
 
 #### FLAM3H™ v1.9.52 indie -> H21.0 UP</br>FLAM3H™ v1.9.46 indie -> H19.0 to H20.5 ####
 
-- **Fix**: When checking for all FLAM3H™ nodes opacities, all RIP(Remove Invalid points) toggles were being set to **On**/Active if only some of them had its opacity set to **0**(Zero). It is now fixed.
+- **Fix**: When checking for all FLAM3H™ nodes opacities, all RIP(_Remove Invalid points_) toggles were being set to **On**/Active if only some of them had its opacity set to **0**(Zero). It is now fixed.
 
 
 
