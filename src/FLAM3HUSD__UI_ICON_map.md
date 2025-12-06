@@ -214,6 +214,22 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
+| **PREFS** | `widths_xf_viz` | `from H19.5` |
+
+### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg
+```
+
+</br>
+</br>
+</br>
+
+
+| Tab | Parameter name | Houdini version |
+|:---|:---|---:|
 | **PREFS** | `pxsamples_cpu` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 

@@ -2695,13 +2695,13 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubWhiteSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `fract_bit` | `from H19 ` |
+| **ABOUT** | `fract_git` | `from H19 ` |
 
-### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_bitbucketLogoSVG.svg" /></p>
+### <img width="16" height="16" src="../icons/icon_GithubBlueSVG.svg" /> Action Button icon 
+<p align="left"><img width="80" height="80" src="../icons/icon_GithubBlueSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_bitbucketLogoSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlueSVG.svg
 ```
 
 </br>

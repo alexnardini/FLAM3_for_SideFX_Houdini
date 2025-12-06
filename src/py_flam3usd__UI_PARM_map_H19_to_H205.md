@@ -478,7 +478,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `widths_xf_viz` | `float` | `H19 to H20.5` |
+| **PREFS** | `widths_xf_viz` | `float` | `H19.5 to H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
