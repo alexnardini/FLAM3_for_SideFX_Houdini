@@ -2754,6 +2754,7 @@ class flam3h_general_utils
 * util_getNetworkEditors() -> list[hou.NetworkEditor]:
 * util_is_context(context: str, viewport: hou.SceneViewer | hou.NetworkEditor | hou.ParameterEditor) -> bool:
 * util_is_context_available_viewer(context: str) -> bool:
+* util_is_context_available_viewer_data(context: str) -> tuple[bool, list[hou.SceneViewer]]:
 * util_is_context_available_network_editor(context: str) -> bool:
 * util_clear_stashed_cam_data() -> None:
 * util_set_stashed_cam() -> None:
@@ -2963,7 +2964,7 @@ class flam3h_general_utils
 
 
     @staticmethod
-    def flash_message(node: hou.SopNode, msg: str | None, timer: float = FLAM3H_FLASH_MESSAGE_TIMER, img: str | None = None) -> None:
+    def flash_message(node: hou.SopNode, msg: str | None, timer: float = FLAM3H_FLASH_MESSAGE_TIMER, img: str | None = None, usd_context: str = 'Lop') -> None:
         """Cause a message to appear on the top left of the network editor.</br>
         This will work either in Sop and Lop context as it is handy to get those messages either ways.</br>
         
@@ -2976,6 +2977,7 @@ class flam3h_general_utils
             msg(str | None): The string message to print or None.
             timer(float): Default to: FLAM3H_FLASH_MESSAGE_TIMER (2 sec)</br>How long the printed message stay before it fade away.
             img(str | None): Default to: None</br>Specifies an icon or image file that should be displayed along with the text specified in the msg argument.
+            usd_context(str): Default to: 'Lop'</br>The name of the context being used when working in the USD Solaris with FLAM3HUSD.
 
         Returns:
             (None):
@@ -2985,8 +2987,9 @@ class flam3h_general_utils
             # Force the flash message to appear in any Lop viewers available.
             # This is being done because it is more handy for the user to read the message in the Lop viewers
             # when working through the FLAM3HUSD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
-            if flam3h_general_utils.util_is_context_available_viewer('Lop'):
-                for view in [v for v in hou.ui.paneTabs() if v.type() == hou.paneTabType.SceneViewer and flam3h_general_utils.util_is_context('Lop', v)]: view.flashMessage('', msg, timer) # type: ignore
+            lop_viewer_available, viewers = flam3h_general_utils.util_is_context_available_viewer_data(usd_context)
+            if lop_viewer_available:
+                for view in [v for v in viewers if flam3h_general_utils.util_is_context(usd_context, v)]: view.flashMessage('', msg, timer)
 
     
     @staticmethod
@@ -3229,6 +3232,35 @@ class flam3h_general_utils
                 break
             
         return available
+    
+    
+    @staticmethod
+    def util_is_context_available_viewer_data(context: str) -> tuple[bool, list[hou.SceneViewer]]:
+        """Return if there are viewers that belong to a desired context and a list of all viewers.</br>
+        
+        This is being added as an alternative to:
+        * def util_is_context_available_viewer(context: str) -> bool:
+        
+        It perform the same operations</br>
+        but will also return all the data available instead of just getting a bool.
+        
+        Args:
+            context(str): The context we want to check if we are currently in. Options so far are: 
+                * Object: str
+                * Sop: str
+                * Lop: str
+            
+        Returns:
+            (tuple[bool, list[hou.SceneViewer]]): A tuple containing a bool and a list of viewers.</br>The bool will tell us if there is at least one viewer that belong to a desired context and the list will contain all available viewers.
+        """    
+        available = False
+        viewers: list[hou.SceneViewer] = flam3h_general_utils.util_getSceneViewers()
+        for v in viewers:
+            if flam3h_general_utils.util_is_context(context, v):
+                available = True
+                break
+            
+        return available, viewers
     
     
     @staticmethod
