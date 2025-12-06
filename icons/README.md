@@ -206,7 +206,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Add
 
 <p align="center">
   <img width="160" height="160" src="./icon_bitbucketLogoSVG.svg" /></p>
-<b><p align="center">icon_bitbucketLogoSVG.svg</b> (unused)</p>
+<b><p align="center">icon_bitbucketLogoSVG.svg</b> (<i>unused</i>)</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -245,7 +245,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_bit
 
 <p align="center">
   <img width="160" height="160" src="./icon_buttonButtonSVG.svg" /></p>
-<b><p align="center">icon_buttonButtonSVG.svg</b> (used only for DOC purposes)</p>
+<b><p align="center">icon_buttonButtonSVG.svg</b> (<i>used only for DOC purposes</>)</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -284,7 +284,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_but
 
 <p align="center">
   <img width="160" height="160" src="./icon_callbackButtonSVG.svg" /></p>
-<b><p align="center">icon_callbackButtonSVG.svg</b> (used only for DOC purposes)</p>
+<b><p align="center">icon_callbackButtonSVG.svg</b> (<i>used only for DOC purposes</i>)</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -1843,7 +1843,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionStarYellowSVG.svg" /></p>
-<b><p align="center">icon_optionStarYellowSVG.svg</b> (unused)</p>
+<b><p align="center">icon_optionStarYellowSVG.svg</b> (<i>unused</i>)</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -1882,7 +1882,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_pythonSVG.svg" /></p>
-<b><p align="center">icon_pythonSVG.svg</b> (used only for DOC purposes)</p>
+<b><p align="center">icon_pythonSVG.svg</b> (<i>used only for DOC purposes</i>)</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -2661,7 +2661,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Ins
 
 <p align="center">
   <img width="160" height="160" src="./icon_menuButtonSVG.svg" /></p>
-<b><p align="center">icon_menuButtonSVG.svg</b> (used only for DOC purposes)</p>
+<b><p align="center">icon_menuButtonSVG.svg</b> (<i>used only for DOC purposes</i>)</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -2778,7 +2778,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Sta
 
 <p align="center">
   <img width="160" height="160" src="./icon_StarSwapCyanMidSVG.svg" /></p>
-<b><p align="center">icon_StarSwapCyanMidSVG.svg</b> (unused)</p>
+<b><p align="center">icon_StarSwapCyanMidSVG.svg</b> (<i>unused</i>)</p>
 <p align="center">......</p>
 <p align="center">
 
