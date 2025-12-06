@@ -2697,7 +2697,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubWhiteSVG.svg
 |:---|:---|---:|
 | **ABOUT** | `fract_git` | `from H19 ` |
 
-### <img width="16" height="16" src="../icons/icon_GithubBlueSVG.svg" /> Action Button icon 
+### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_GithubBlueSVG.svg" /></p>
 
 ```
