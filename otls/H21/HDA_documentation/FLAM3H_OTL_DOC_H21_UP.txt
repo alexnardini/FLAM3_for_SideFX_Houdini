@@ -3242,6 +3242,12 @@ flash messages (network editor) [Icon:DATATYPES/boolean]:
     
     Copy/Paste iterators and FF data uses flash messages, as well as some other features.
 
+    TIP:
+        #display: orange
+        Flash messages will be displayed also in any of the available Lop viewers.
+
+        This will make them easier to understand because the network editor will probably include parameter editor interfaces while in Solaris and when using the companion HDA FLA3HUSD.
+
     <br />
 
 Iterative color attribute [Icon:DATATYPES/boolean]:
