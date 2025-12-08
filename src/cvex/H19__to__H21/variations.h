@@ -384,11 +384,9 @@ void V_BLOB(vector2 p; const vector2 _p; const float w; const vector blob){
     float _SQRT, low, high, wave, blob_coeff, rr, aa, bdiff;
     _SQRT = SQRT(_p);
     vector2 precalc = _p / _SQRT;
-    
     assign(low, high, wave, blob);
-
-    float SQRT = _SQRT;
-    rr = SQRT;
+    
+    rr = _SQRT;
     aa = ATAN(_p);
     bdiff = high - low;
     rr = rr * (low + bdiff * (0.5 + 0.5 * sin(wave * aa)));
