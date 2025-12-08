@@ -3246,7 +3246,7 @@ flash messages (network editor) [Icon:DATATYPES/boolean]:
         #display: orange
         Flash messages will be displayed also in any of the available Lop viewers.
 
-        This will make them easier to understand because the network editor will probably be covered with parameter editor interfaces while in Solaris and when using the companion **FLAM3HUSD** HDA.
+        This will make them easier to understand because the network editor will probably be covered with parameter editor interfaces while in Solaris and when using the companion *`FLAM3HUSD`* HDA.
 
     <br />
 
