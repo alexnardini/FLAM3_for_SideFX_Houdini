@@ -33,6 +33,26 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.54 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.53) ###
+
+#### FLAM3H™ v1.9.54 indie -> H21.0 UP</br>FLAM3H™ v1.9.48 indie -> H19.0 to H20.5 ####
+
+- **Fix**: The variations: **Handkerchief**, **Heart**, **Spiral**, **Hiperbolic**, **Power**, **Rings**, **Blob** and **Rings2** have been slightly optimized. They are now slightly faster and the final cvex compiled file size is also ~2kb smaller.
+
+#### FLAM3HUSD v0.2.39 indie -> H21.0 UP</br>FLAM3HUSD v0.2.35 indie -> H19.0 to H20.5 ####
+
+- **New**: Flash messages will now appear also in any available Lop viewers. This is handy when working in Solaris with the FLAM3HUSD HDA to better read those messages as the network editor will most likely be covered with parameter editors interfaces.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.53 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.53) ###
 
 #### FLAM3H™ v1.9.53 indie -> H21.0 UP</br>FLAM3H™ v1.9.47 indie -> H19.0 to H20.5 ####

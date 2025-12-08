@@ -74,7 +74,7 @@ to: **py_flam3usd__3_11**
 import toolutils
 
 # Set some HDA infos
-__version__ = "0.2.38"
+__version__ = "0.2.39"
 __status__ = "Prototype"
 __h_versions__: tuple = (210,)
 __range_type__: bool = False # True for closed range. False for open range
