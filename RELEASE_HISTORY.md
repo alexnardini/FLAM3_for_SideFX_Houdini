@@ -37,7 +37,7 @@ They are all available in this Github repository.
 
 #### FLAM3H™ v1.9.54 indie -> H21.0 UP</br>FLAM3H™ v1.9.48 indie -> H19.0 to H20.5 ####
 
-- **Fix**: The variations: **Handkerchief**, **Heart**, **Spiral**, **Hiperbolic**, **Power**, **Rings**, **Blob** and **Rings2** have been slightly optimized. They are now slightly faster and the final cvex compiled file size is also ~2kb smaller.
+- **Fix**: The variations: **Handkerchief**, **Heart**, **Spiral**, **Hiperbolic**, **Power**, **Rings**, **Blob**, **Rings2** and **JuliaScope** have been slightly optimized. They are now slightly faster and the final cvex compiled file size is also ~2kb smaller.
 
 #### FLAM3HUSD v0.2.39 indie -> H21.0 UP</br>FLAM3HUSD v0.2.35 indie -> H19.0 to H20.5 ####
 
