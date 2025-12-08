@@ -385,7 +385,7 @@ void V_BLOB(vector2 p; const vector2 _p; const float w; const vector blob){
     _SQRT = SQRT(_p);
     vector2 precalc = _p / _SQRT;
     assign(low, high, wave, blob);
-    
+
     rr = _SQRT;
     aa = ATAN(_p);
     bdiff = high - low;
@@ -411,13 +411,14 @@ void V_JULIAN(vector2 p; const vector2 _p; const float w; const vector2 julian){
 // 32 ( parametric )
 void V_JULIASCOPE(vector2 p; const vector2 _p; const float w; const vector2 juliascope){
     int t_rnd;
-    float power, jdist, julian_rN, julian_cn, tmpr, rr, sina, cosa;
+    float _ATANYX, power, jdist, julian_rN, julian_cn, tmpr, rr, sina, cosa;
     assign(power, jdist, juliascope);
 
+    _ATANYX = ATANYX(_p);
     julian_rN = power;
     julian_cn = jdist / power / 2.0;
     t_rnd = (int)trunc(julian_rN * nrandom('twister'));
-    tmpr = ((t_rnd & 1) == 0) ? (2.0*M_PI*t_rnd+ATANYX(_p))/power : (2.0*M_PI*t_rnd-ATANYX(_p))/power;
+    tmpr = ((t_rnd & 1) == 0) ? (2.0 * M_PI * t_rnd + _ATANYX) / power : (2.0 * M_PI * t_rnd - _ATANYX) / power;
     sincos(tmpr, sina, cosa);
     rr = w * pow( SUMSQ(_p), julian_cn );
     p[0] = rr * cosa;
