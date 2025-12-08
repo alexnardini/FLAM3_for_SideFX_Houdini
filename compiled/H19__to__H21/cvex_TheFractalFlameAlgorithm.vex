@@ -1404,21 +1404,15 @@ define private void @"V_HANDKERCHIEF@UUF"(<2 x double>* %p, <2 x double>* %_p, d
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
-  %2 = alloca <2 x double>
-  %3 = alloca <2 x double>
-  %4 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p1, <2 x double>* %0
   %ATAN = call double @"ATAN@FU"(<2 x double>* %0)
-  %w2 = load double, double* %w
-  %_p3 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p3, <2 x double>* %1
+  %_p2 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p2, <2 x double>* %1
   %SQRT = call double @"SQRT@FU"(<2 x double>* %1)
-  %output = fmul double %w2, %SQRT
-  %_p5 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p5, <2 x double>* %2
-  %SQRT6 = call double @"SQRT@FU"(<2 x double>* %2)
-  %output7 = fadd double %ATAN, %SQRT6
+  %w3 = load double, double* %w
+  %output = fmul double %w3, %SQRT
+  %output7 = fadd double %ATAN, %SQRT
   %return = call double @"sin@FF"(double %output7)
   %output8 = fmul double %output, %return
   %tmp = load <2 x double>, <2 x double>* %p
@@ -1426,20 +1420,13 @@ __llvm_entry:
   %output11 = extractvalue { double, <2 x double> } %return9, 1
   store <2 x double> %output11, <2 x double>* %p
   %w12 = load double, double* %w
-  %_p13 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p13, <2 x double>* %3
-  %SQRT14 = call double @"SQRT@FU"(<2 x double>* %3)
-  %output15 = fmul double %w12, %SQRT14
-  %_p17 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p17, <2 x double>* %4
-  %SQRT18 = call double @"SQRT@FU"(<2 x double>* %4)
-  %output19 = fsub double %ATAN, %SQRT18
-  %return20 = call double @"cos@FF"(double %output19)
-  %output21 = fmul double %output15, %return20
-  %tmp22 = load <2 x double>, <2 x double>* %p
-  %return23 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %tmp22, double %output21, i64 1)
-  %output25 = extractvalue { double, <2 x double> } %return23, 1
-  store <2 x double> %output25, <2 x double>* %p
+  %output14 = fmul double %w12, %SQRT
+  %output17 = fsub double %ATAN, %SQRT
+  %return18 = call double @"cos@FF"(double %output17)
+  %output19 = fmul double %output14, %return18
+  %return21 = call { double, <2 x double> } @"setcomp@FUFI"(<2 x double> %output11, double %output19, i64 1)
+  %output23 = extractvalue { double, <2 x double> } %return21, 1
+  store <2 x double> %output23, <2 x double>* %p
   ret void
 }
 
@@ -1448,19 +1435,15 @@ define private void @"V_HEART@UUF"(<2 x double>* %p, <2 x double>* %_p, double* 
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
-  %2 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p1, <2 x double>* %0
   %SQRT = call double @"SQRT@FU"(<2 x double>* %0)
-  %_p2 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p2, <2 x double>* %1
+  %_p3 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p3, <2 x double>* %1
   %ATAN = call double @"ATAN@FU"(<2 x double>* %1)
   %output = fmul double %SQRT, %ATAN
-  %w3 = load double, double* %w
-  %_p4 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p4, <2 x double>* %2
-  %SQRT5 = call double @"SQRT@FU"(<2 x double>* %2)
-  %output6 = fmul double %w3, %SQRT5
+  %w4 = load double, double* %w
+  %output6 = fmul double %w4, %SQRT
   %return = call double @"sin@FF"(double %output)
   %output9 = fmul double %output6, %return
   %tmp = load <2 x double>, <2 x double>* %p
@@ -1518,28 +1501,25 @@ __llvm_entry:
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_SPIRAL@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
-  %0 = alloca <2 x double>
   %sr = alloca double
   %cr = alloca double
+  %0 = alloca <2 x double>
   %1 = alloca double
-  %2 = alloca <2 x double>
-  %3 = alloca double
+  %2 = alloca double
+  store double 0.000000e+00, double* %sr, !vex-initializer-store !3
+  store double 0.000000e+00, double* %cr, !vex-initializer-store !3
   %_p1 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p1, <2 x double>* %0
   %SQRT = call double @"SQRT@FU"(<2 x double>* %0)
+  %_p2 = load <2 x double>, <2 x double>* %_p
   %cast = call <2 x double> @"set@UF"(double %SQRT)
-  %output = call <2 x double> @"div@UU"(<2 x double> %_p1, <2 x double> %cast)
-  store double 0.000000e+00, double* %sr, !vex-initializer-store !3
-  store double 0.000000e+00, double* %cr, !vex-initializer-store !3
-  %_p3 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p3, <2 x double>* %2
-  %SQRT4 = call double @"SQRT@FU"(<2 x double>* %2)
-  store double %SQRT4, double* %1
+  %output = call <2 x double> @"div@UU"(<2 x double> %_p2, <2 x double> %cast)
+  store double %SQRT, double* %1
   %Zeps = call double @"Zeps@FF"(double* %1)
   %w5 = load double, double* %w
   %output7 = call double @"div@FF"(double %w5, double %Zeps)
-  store double %Zeps, double* %3
-  call void @"sincos@FFF"(double* %3, double* %sr, double* %cr)
+  store double %Zeps, double* %2
+  call void @"sincos@FFF"(double* %2, double* %sr, double* %cr)
   %return = call double @"getcomp@FUI"(<2 x double> %output, i64 1)
   %sr11 = load double, double* %sr
   %output12 = fadd double %return, %sr11
@@ -1569,17 +1549,14 @@ define private void @"V_HIPERBOLIC@UUF"(<2 x double>* %p, <2 x double>* %_p, dou
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca double
-  %2 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p1, <2 x double>* %0
   %SQRT = call double @"SQRT@FU"(<2 x double>* %0)
-  %cast = call <2 x double> @"set@UF"(double %SQRT)
-  %output = call <2 x double> @"div@UU"(<2 x double> %_p1, <2 x double> %cast)
-  %_p3 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p3, <2 x double>* %2
-  %SQRT4 = call double @"SQRT@FU"(<2 x double>* %2)
-  store double %SQRT4, double* %1
+  store double %SQRT, double* %1
   %Zeps = call double @"Zeps@FF"(double* %1)
+  %_p3 = load <2 x double>, <2 x double>* %_p
+  %cast = call <2 x double> @"set@UF"(double %SQRT)
+  %output = call <2 x double> @"div@UU"(<2 x double> %_p3, <2 x double> %cast)
   %w5 = load double, double* %w
   %return = call double @"getcomp@FUI"(<2 x double> %output, i64 0)
   %output7 = fmul double %w5, %return
@@ -1895,19 +1872,16 @@ declare double @"exp@FF"(double) #1
 define private void @"V_POWER@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
-  %1 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p1, <2 x double>* %0
   %SQRT = call double @"SQRT@FU"(<2 x double>* %0)
+  %_p2 = load <2 x double>, <2 x double>* %_p
   %cast = call <2 x double> @"set@UF"(double %SQRT)
-  %output = call <2 x double> @"div@UU"(<2 x double> %_p1, <2 x double> %cast)
-  %w3 = load double, double* %w
-  %_p4 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p4, <2 x double>* %1
-  %SQRT5 = call double @"SQRT@FU"(<2 x double>* %1)
+  %output = call <2 x double> @"div@UU"(<2 x double> %_p2, <2 x double> %cast)
+  %w4 = load double, double* %w
   %return = call double @"getcomp@FUI"(<2 x double> %output, i64 0)
-  %return7 = call double @"pow@FFF"(double %SQRT5, double %return)
-  %output8 = fmul double %w3, %return7
+  %return7 = call double @"pow@FFF"(double %SQRT, double %return)
+  %output8 = fmul double %w4, %return7
   %return11 = call double @"getcomp@FUI"(<2 x double> %output, i64 1)
   %output12 = fmul double %output8, %return11
   %tmp = load <2 x double>, <2 x double>* %p
@@ -1971,30 +1945,27 @@ define private void @"V_RINGS@UUFF"(<2 x double>* %p, <2 x double>* %_p, double*
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca double
-  %2 = alloca <2 x double>
+  %2 = alloca double
   %3 = alloca double
-  %4 = alloca double
   %_p1 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p1, <2 x double>* %0
   %SQRT = call double @"SQRT@FU"(<2 x double>* %0)
+  %_p2 = load <2 x double>, <2 x double>* %_p
   %cast = call <2 x double> @"set@UF"(double %SQRT)
-  %output = call <2 x double> @"div@UU"(<2 x double> %_p1, <2 x double> %cast)
-  %d3 = load double, double* %d
-  %output5 = fmul double %d3, %d3
-  store double %output5, double* %1
+  %output = call <2 x double> @"div@UU"(<2 x double> %_p2, <2 x double> %cast)
+  %d4 = load double, double* %d
+  %output6 = fmul double %d4, %d4
+  store double %output6, double* %1
   %Zeps = call double @"Zeps@FF"(double* %1)
-  %_p6 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p6, <2 x double>* %2
-  %SQRT7 = call double @"SQRT@FU"(<2 x double>* %2)
   %w8 = load double, double* %w
-  %output11 = fadd double %SQRT7, %Zeps
-  store double %output11, double* %3
+  %output11 = fadd double %SQRT, %Zeps
+  store double %output11, double* %2
   %output13 = fmul double 2.000000e+00, %Zeps
-  store double %output13, double* %4
-  %fmod = call double @"fmod@FFF"(double* %3, double* %4)
+  store double %output13, double* %3
+  %fmod = call double @"fmod@FFF"(double* %2, double* %3)
   %output15 = fsub double %fmod, %Zeps
   %output18 = fsub double 1.000000e+00, %Zeps
-  %output19 = fmul double %SQRT7, %output18
+  %output19 = fmul double %SQRT, %output18
   %output20 = fadd double %output15, %output19
   %output21 = fmul double %w8, %output20
   %return = call double @"getcomp@FUI"(<2 x double> %output, i64 1)
@@ -2342,31 +2313,28 @@ define private void @"V_BLOB@UUFV"(<2 x double>* %p, <2 x double>* %_p, double* 
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca <2 x double>
-  %2 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p1, <2 x double>* %0
   %SQRT = call double @"SQRT@FU"(<2 x double>* %0)
+  %_p2 = load <2 x double>, <2 x double>* %_p
   %cast = call <2 x double> @"set@UF"(double %SQRT)
-  %output = call <2 x double> @"div@UU"(<2 x double> %_p1, <2 x double> %cast)
-  %blob3 = load <3 x double>, <3 x double>* %blob
-  %output4 = call { double, double, double } @"assign@FFFV"(<3 x double> %blob3)
-  %output5 = extractvalue { double, double, double } %output4, 0
-  %output6 = extractvalue { double, double, double } %output4, 1
-  %output7 = extractvalue { double, double, double } %output4, 2
-  %_p9 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p9, <2 x double>* %1
-  %SQRT10 = call double @"SQRT@FU"(<2 x double>* %1)
+  %output = call <2 x double> @"div@UU"(<2 x double> %_p2, <2 x double> %cast)
+  %blob4 = load <3 x double>, <3 x double>* %blob
+  %output5 = call { double, double, double } @"assign@FFFV"(<3 x double> %blob4)
+  %output6 = extractvalue { double, double, double } %output5, 0
+  %output7 = extractvalue { double, double, double } %output5, 1
+  %output8 = extractvalue { double, double, double } %output5, 2
   %_p12 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p12, <2 x double>* %2
-  %ATAN = call double @"ATAN@FU"(<2 x double>* %2)
-  %output15 = fsub double %output6, %output5
-  %output21 = fmul double %output7, %ATAN
+  store <2 x double> %_p12, <2 x double>* %1
+  %ATAN = call double @"ATAN@FU"(<2 x double>* %1)
+  %output15 = fsub double %output7, %output6
+  %output21 = fmul double %output8, %ATAN
   %return = call double @"sin@FF"(double %output21)
   %output22 = fmul double 5.000000e-01, %return
   %output23 = fadd double 5.000000e-01, %output22
   %output24 = fmul double %output15, %output23
-  %output25 = fadd double %output5, %output24
-  %output26 = fmul double %SQRT10, %output25
+  %output25 = fadd double %output6, %output24
+  %output26 = fmul double %SQRT, %output25
   %w27 = load double, double* %w
   %return29 = call double @"getcomp@FUI"(<2 x double> %output, i64 0)
   %output30 = fmul double %w27, %return29
@@ -2594,29 +2562,26 @@ __llvm_entry:
 define private void @"V_RINGS2@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %rings2val) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
-  %1 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p1, <2 x double>* %0
   %SQRT = call double @"SQRT@FU"(<2 x double>* %0)
+  %_p2 = load <2 x double>, <2 x double>* %_p
   %cast = call <2 x double> @"set@UF"(double %SQRT)
-  %output = call <2 x double> @"div@UU"(<2 x double> %_p1, <2 x double> %cast)
-  %_p3 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p3, <2 x double>* %1
-  %SQRT4 = call double @"SQRT@FU"(<2 x double>* %1)
+  %output = call <2 x double> @"div@UU"(<2 x double> %_p2, <2 x double> %cast)
   %rings2val5 = load double, double* %rings2val
   %output7 = fmul double %rings2val5, %rings2val5
   %return = call double @"neg@FF"(double 2.000000e+00)
   %output10 = fmul double %return, %output7
-  %output13 = fadd double %SQRT4, %output7
+  %output13 = fadd double %SQRT, %output7
   %output15 = fmul double 2.000000e+00, %output7
   %output16 = call double @"div@FF"(double %output13, double %output15)
   %cast17 = fptosi double %output16 to i64
   %cast18 = sitofp i64 %cast17 to double
   %output19 = fmul double %output10, %cast18
   %output22 = fsub double 1.000000e+00, %output7
-  %output23 = fmul double %SQRT4, %output22
+  %output23 = fmul double %SQRT, %output22
   %output24 = fadd double %output19, %output23
-  %output25 = fadd double %SQRT4, %output24
+  %output25 = fadd double %SQRT, %output24
   %w26 = load double, double* %w
   %return28 = call double @"getcomp@FUI"(<2 x double> %output, i64 0)
   %output29 = fmul double %w26, %return28
