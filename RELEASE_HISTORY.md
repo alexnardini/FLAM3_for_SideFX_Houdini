@@ -33,7 +33,23 @@ They are all available in this Github repository.
 
 </br>
 
-### [<ins>v1.9.54 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.53) ###
+### [<ins>v1.9.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.55) ###
+
+#### FLAM3H™ v1.9.55 indie -> H21.0 UP</br>FLAM3H™ v1.9.49 indie -> H19.0 to H20.5 ####
+
+- **New**: Can be up to ~2% faster. Final cvex compiled file size is also ~50kb smaller.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+### [<ins>v1.9.54 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.54) ###
 
 #### FLAM3H™ v1.9.54 indie -> H21.0 UP</br>FLAM3H™ v1.9.48 indie -> H19.0 to H20.5 ####
 

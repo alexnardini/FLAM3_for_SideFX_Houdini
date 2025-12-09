@@ -1,7 +1,7 @@
 ```python
 #   Title:      FLAM3H™. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       April 2023, Last revised November 2025
+#   date:       April 2023, Last revised December 2025
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
 #
@@ -75,7 +75,7 @@ to: **py_flam3__3_11**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.48"
+__version__ = "1.9.49"
 __status__  = "Production"
 __h_versions__: tuple[int, ...] = (205,)
 __range_type__: bool = True # True for closed range. False for open range
@@ -144,7 +144,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.48"
+__version__ = "1.9.49"
 __status__  = "Production"
 __h_versions__: tuple = (190, 195, 200)
 __range_type__: bool = True # True for closed range. False for open range

@@ -1,7 +1,7 @@
 ```python
 #   Title:      FLAM3HUSD. SideFX Houdini FLAM3USD: PYTHON MAP PRM Definitions
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       March 2025, Last revised November 2025
+#   date:       March 2025, Last revised December 2025
 #   License:    GPL
 #   Copyright:  2023, © F stands for liFe ( made in Italy )
 #
