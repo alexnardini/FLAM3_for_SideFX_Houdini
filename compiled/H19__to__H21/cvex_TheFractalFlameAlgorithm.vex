@@ -1558,10 +1558,12 @@ __llvm_entry:
   %output20 = fmul double %output18, %return8
   %output22 = fmul double %output20, %SQRT
   %w23 = load double, double* %w
+  %output26 = fadd double %output15, %output22
   %output29 = fsub double %output15, %output22
-  %output30 = fmul double %w23, %output29
-  %cast = call <2 x double> @"set@UF"(double %output30)
-  store <2 x double> %cast, <2 x double>* %p
+  %return30 = call <2 x double> @"set@UFF"(double %output26, double %output29)
+  %cast = call <2 x double> @"set@UF"(double %w23)
+  %output31 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return30)
+  store <2 x double> %output31, <2 x double>* %p
   ret void
 }
 

@@ -147,7 +147,7 @@ void V_EX(vector2 p; const vector2 _p; const float w){
     m0 = n0*n0*n0*r;
     m1 = n1*n1*n1*r;
 
-    p = w * (m0 + m1, m0 - m1);
+    p = w * set(m0 + m1, m0 - m1);
 }
 // 13
 void V_JULIA(vector2 p; const vector2 _p; const float w){
