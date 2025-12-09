@@ -118,7 +118,7 @@ void V_SPIRAL(vector2 p; const vector2 _p; const float w){
     r1 = w/r;
     sincos(r, sr, cr);
 
-    p = r1 * precalc.yx + set(sr, -cr);
+    p = r1 * set((precalc[1] + sr), (precalc[0] - cr));
 }
 // 10 (precalc _p)
 void V_HIPERBOLIC(vector2 p; const vector2 _p; const float w){

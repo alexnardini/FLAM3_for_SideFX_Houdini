@@ -1464,26 +1464,21 @@ __llvm_entry:
   %output7 = call double @"div@FF"(double %w5, double %Zeps)
   store double %Zeps, double* %2
   call void @"sincos@FFF"(double* %2, double* %sr, double* %cr)
-  %return = call <2 x double> @"swizzle@UUII"(<2 x double> %output, i64 1, i64 0)
-  %cast11 = call <2 x double> @"set@UF"(double %output7)
-  %output12 = call <2 x double> @"mul@UU"(<2 x double> %cast11, <2 x double> %return)
-  %sr13 = load double, double* %sr
-  %cr14 = load double, double* %cr
-  %return15 = call double @"neg@FF"(double %cr14)
-  %return16 = call <2 x double> @"set@UFF"(double %sr13, double %return15)
-  %output17 = call <2 x double> @"add@UU"(<2 x double> %output12, <2 x double> %return16)
-  store <2 x double> %output17, <2 x double>* %p
+  %return = call double @"getcomp@FUI"(<2 x double> %output, i64 1)
+  %sr11 = load double, double* %sr
+  %output12 = fadd double %return, %sr11
+  %return14 = call double @"getcomp@FUI"(<2 x double> %output, i64 0)
+  %cr15 = load double, double* %cr
+  %output16 = fsub double %return14, %cr15
+  %return17 = call <2 x double> @"set@UFF"(double %output12, double %output16)
+  %cast18 = call <2 x double> @"set@UF"(double %output7)
+  %output19 = call <2 x double> @"mul@UU"(<2 x double> %cast18, <2 x double> %return17)
+  store <2 x double> %output19, <2 x double>* %p
   ret void
 }
 
 ; Function Attrs: nounwind readnone
 declare <2 x double> @"div@UU"(<2 x double>, <2 x double>) #1
-
-; Function Attrs: nounwind
-declare <2 x double> @"swizzle@UUII"(<2 x double>, i64, i64) #2
-
-; Function Attrs: nounwind readnone
-declare <2 x double> @"add@UU"(<2 x double>, <2 x double>) #1
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_HIPERBOLIC@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
@@ -1777,6 +1772,9 @@ __llvm_entry:
 
 ; Function Attrs: nounwind readnone
 declare double @"pow@FFF"(double, double) #1
+
+; Function Attrs: nounwind
+declare <2 x double> @"swizzle@UUII"(<2 x double>, i64, i64) #2
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_COSINE@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
@@ -2499,6 +2497,9 @@ __llvm_entry:
   store <2 x double> %output36, <2 x double>* %p
   ret void
 }
+
+; Function Attrs: nounwind readnone
+declare <2 x double> @"add@UU"(<2 x double>, <2 x double>) #1
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_PIE@UFV"(<2 x double>* %p, double* %w, <3 x double>* %pie) #0 {
