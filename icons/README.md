@@ -167,7 +167,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_act
 
 <p align="center">
   <img width="160" height="160" src="./icon_AddDelIteratorSVG.svg" /></p>
-<b><p align="center">icon_AddDelIteratorSVG.svg (H21 and up only)</p></b>
+<b><p align="center">icon_AddDelIteratorSVG.svg</b> (<i>H21 and UP only</i>)</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -245,7 +245,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_bit
 
 <p align="center">
   <img width="160" height="160" src="./icon_buttonButtonSVG.svg" /></p>
-<b><p align="center">icon_buttonButtonSVG.svg</b> (<i>used only for DOC purposes</>)</p>
+<b><p align="center">icon_buttonButtonSVG.svg</b> (<i>used only for DOC purposes</i>)</p>
 <p align="center">......</p>
 <p align="center">
 
