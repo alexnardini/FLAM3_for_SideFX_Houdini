@@ -630,8 +630,7 @@ void V_CONIC(vector2 p; const vector2 _p; const float w; const vector2 conic){
 
     float SQRT = SQRT(_p);
     ct = _px / SQRT;
-    rr = w * (nrandom("twister") - holes) 
-                * eccentricity / (1 + eccentricity*ct) / SQRT;
+    rr = w * (nrandom("twister") - holes) * eccentricity / (1 + eccentricity*ct) / SQRT;
 
     p = rr * _p;
 }
