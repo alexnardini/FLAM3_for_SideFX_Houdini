@@ -33,6 +33,27 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.56 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.56) ###
+
+#### FLAM3H™ v1.9.56 indie -> H21.0 UP</br>FLAM3H™ v1.9.50 indie -> H19.0 to H20.5 ####
+
+- **New**: Added a new star icon for the menus and UI warning messages.
+- **Fix**: Fixed an error happening during the compatibility checks with the current Houdini version.
+
+#### FLAM3HUSD v0.2.40 indie -> H21.0 UP</br>FLAM3HUSD v0.2.36 indie -> H19.0 to H20.5 ####
+
+- **New**: Added a new star icon for the UI warning messages.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.55 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.55) ###
 
 #### FLAM3H™ v1.9.55 indie -> H21.0 UP</br>FLAM3H™ v1.9.49 indie -> H19.0 to H20.5 ####
