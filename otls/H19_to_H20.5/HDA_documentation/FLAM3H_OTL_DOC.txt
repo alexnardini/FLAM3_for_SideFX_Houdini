@@ -899,7 +899,7 @@ copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
     
 Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: FLAME
-    *`Off`* by default.
+    *`On`* by default.
 
     <br />
     
