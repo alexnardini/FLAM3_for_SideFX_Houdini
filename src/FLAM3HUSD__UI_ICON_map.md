@@ -126,10 +126,10 @@ _Here you will play with the main settings of FLAM3HUSD._
 | **PREFS** | `icon_error` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
-<p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWarningSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarOrangeSVG.svg
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWarningSVG.svg
 ```
 
 </br>
@@ -290,10 +290,10 @@ _Here you will find informations about FLAM3HUSD._
 | **PREFS** | `icon_about_error` | `from H19` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
-<p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWarningSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarOrangeSVG.svg
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWarningSVG.svg
 ```
 
 </br>
