@@ -9994,6 +9994,8 @@ class flam3h_iterator_utils
         except AttributeError as e:
             F3H_Exception.F3H_traceback_print_infos(e)
             pass
+        except hou.OperationFailed:
+            pass
         
         if do_msg:
             # Print to Houdini's status bar
