@@ -2362,6 +2362,8 @@ class flam3h_scripts
         except AttributeError as e:
             F3H_Exception.F3H_traceback_print_infos(e)
             pass
+        except hou.OperationFailed:
+            pass
         
         # Force to update
         node.cook(force=True)
