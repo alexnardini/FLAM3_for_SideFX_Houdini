@@ -1375,7 +1375,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 <p align="center">
   <img width="160" height="160" src="./icon_optionStarOrangeSVG.svg" /></p>
-<b><p align="center">icon_optionStarOrangeSVG.svg</p></b>
+<b><p align="center">icon_optionStarOrangeSVG.svg</b> (<i>unused</i>)</p>
 <p align="center">......</p>
 <p align="center">
 
@@ -1486,6 +1486,45 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarRedSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_optionStarWarningSVG.svg" /></p>
+<b><p align="center">icon_optionStarWarningSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_optionStarWarningSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_optionStarWarningSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_optionStarWarningSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarWarningSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 

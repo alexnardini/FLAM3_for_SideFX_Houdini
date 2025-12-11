@@ -750,11 +750,11 @@ MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionS
 </br>
 </br>
 
-<p align="left"><img width="48" height="48" src="../icons/icon_optionStarOrangeSVG.svg" />
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWarningSVG.svg" />
 </p>
 
 ```python
-MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  Invalid file path     ']
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
 ```
 
 </br>
@@ -849,19 +849,19 @@ MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionS
 </br>
 </br>
 
-<p align="left"><img width="48" height="48" src="../icons/icon_optionStarOrangeSVG.svg" />
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWarningSVG.svg" />
 </p>
 
 ```python
-MENU_ZERO_ITERATORS_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
+MENU_ZERO_ITERATORS_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
 ```
 
 ```python
-MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  Invalid file path     ']
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
 ```
 
 ```python
-MENU_PRESETS_INVALID_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  [CLIPBOARD] Invalid file path     ']
+MENU_PRESETS_INVALID_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  [CLIPBOARD] Invalid file path     ']
 ```
 
 </br>
@@ -1040,15 +1040,15 @@ The pre-built icons menu python lists being used:
 </br>
 </br>
 
-<p align="left"><img width="48" height="48" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWarningSVG.svg" /></p>
 
 ```python
-MENU_ITER_COPY_PASTE_DELETED_MARKED: list = [ 0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", 1, "" ]
+MENU_ITER_COPY_PASTE_DELETED_MARKED: list = [ 0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", 1, "" ]
 ```
 
 
 ```python
-MENU_ITER_COPY_PASTE_REMOVED: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.', 1, '']
+MENU_ITER_COPY_PASTE_REMOVED: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.', 1, '']
 ```
 
 </br>
@@ -1825,11 +1825,11 @@ MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionS
 </br>
 </br>
 
-<p align="left"><img width="48" height="48" src="../icons/icon_optionStarOrangeSVG.svg" />
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWarningSVG.svg" />
 </p>
 
 ```python
-MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  Invalid file path     ']
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
 ```
 
 </br>
@@ -1968,19 +1968,19 @@ MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionS
 </br>
 </br>
 
-<p align="left"><img width="48" height="48" src="../icons/icon_optionStarOrangeSVG.svg" />
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWarningSVG.svg" />
 </p>
 
 ```python
-MENU_ZERO_ITERATORS_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
+MENU_ZERO_ITERATORS_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
 ```
 
 ```python
-MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  Invalid file path     ']
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
 ```
 
 ```python
-MENU_PRESETS_INVALID_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg]  [CLIPBOARD] Invalid file path     ']
+MENU_PRESETS_INVALID_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  [CLIPBOARD] Invalid file path     ']
 ```
 
 </br>
@@ -2518,10 +2518,10 @@ _Here you will find informations about FLAM3H™._
 | **ABOUT** | `icon_about_error` | `from H19 ` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
-<p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWarningSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg
 ```
 
 </br>
@@ -2548,10 +2548,10 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 | **ABOUT** | `icon_about_plugins_error` | `from H19 ` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
-<p align="left"><img width="80" height="80" src="../icons/icon_optionStarOrangeSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWarningSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionStarOrangeSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg
 ```
 
 </br>

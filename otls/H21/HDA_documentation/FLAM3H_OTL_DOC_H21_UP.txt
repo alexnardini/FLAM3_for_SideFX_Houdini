@@ -617,7 +617,7 @@ mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
     _Additionally_:
 
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
-    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+    - [Largeicon:opdef:.?icon_optionStarWarningSVG.svg] when an invalid file path.
     
     If after loading a preset you make any modification to the loaded palette, the menu label bookmark icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
     <br /><br />
@@ -667,7 +667,7 @@ mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
     
     _Additionally_:
 
-    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+    - [Largeicon:opdef:.?icon_optionStarWarningSVG.svg] when an invalid file path.
 
     When a Flame preset has been loaded from the Clipboard, the selected menu preset label will be prefixed with: *`[CLIPBOARD]`*
     <br /><br />
@@ -738,7 +738,7 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
     _Additionally_:
 
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
-    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+    - [Largeicon:opdef:.?icon_optionStarWarningSVG.svg] when an invalid file path.
     <br /><br />
 
     TIP:
@@ -1958,7 +1958,7 @@ menu CP file contents [Icon:BUTTONS/pane_menu]:
     _Additionally_:
     
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
-    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+    - [Largeicon:opdef:.?icon_optionStarWarningSVG.svg] when an invalid file path.
     
     If after loading a preset you make any modification to the loaded palette, the menu label icon will switch to a not loaded star icon: [Smallicon:opdef:.?icon_optionPRIDEDisabledSVG.svg] indicating that the palette no longer match the one you originally loaded.
 
@@ -2147,7 +2147,7 @@ menu IN file contents [Icon:BUTTONS/pane_menu]:
 
     _Additionally_:
     
-    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+    - [Largeicon:opdef:.?icon_optionStarWarningSVG.svg] when an invalid file path.
 
     When a Flame preset has been loaded from the Clipboard, the selected menu preset label will be prefixed with: *`[CLIPBOARD]`*
 
@@ -2610,7 +2610,7 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
     _Additionally_:
     
     - [Largeicon:opdef:.?icon_optionStarBlueSVG.svg] when the directory path is valid but the file do not exist yet.
-    - [Largeicon:opdef:.?icon_optionStarOrangeSVG.svg] when an invalid file path.
+    - [Largeicon:opdef:.?icon_optionStarWarningSVG.svg] when an invalid file path.
 
     <br />
 
