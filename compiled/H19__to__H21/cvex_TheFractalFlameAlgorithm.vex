@@ -1422,23 +1422,22 @@ __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   store <2 x double> %_p1, <2 x double>* %0
   %ATAN = call double @"ATAN@FU"(<2 x double>* %0)
-  %output = call double @"div@FF"(double 1.000000e+00, double 0x400921FB4D12D84A)
-  %output2 = fmul double %ATAN, %output
-  %_p3 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p3, <2 x double>* %1
+  %output = fmul double %ATAN, 0x3FD45F306DC9C883
+  %_p2 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p2, <2 x double>* %1
   %SQRT = call double @"SQRT@FU"(<2 x double>* %1)
-  %output4 = fmul double 0x400921FB4D12D84A, %SQRT
-  store double %output4, double* %2
+  %output3 = fmul double 0x400921FB4D12D84A, %SQRT
+  store double %output3, double* %2
   call void @"sincos@FFF"(double* %2, double* %sr, double* %cr)
-  %w6 = load double, double* %w
-  %sr7 = load double, double* %sr
-  %cr8 = load double, double* %cr
-  %return = call <2 x double> @"set@UFF"(double %sr7, double %cr8)
-  %cast = call <2 x double> @"set@UF"(double %w6)
-  %output9 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return)
-  %cast11 = call <2 x double> @"set@UF"(double %output2)
-  %output12 = call <2 x double> @"mul@UU"(<2 x double> %output9, <2 x double> %cast11)
-  store <2 x double> %output12, <2 x double>* %p
+  %w5 = load double, double* %w
+  %sr6 = load double, double* %sr
+  %cr7 = load double, double* %cr
+  %return = call <2 x double> @"set@UFF"(double %sr6, double %cr7)
+  %cast = call <2 x double> @"set@UF"(double %w5)
+  %output8 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return)
+  %cast10 = call <2 x double> @"set@UF"(double %output)
+  %output11 = call <2 x double> @"mul@UU"(<2 x double> %output8, <2 x double> %cast10)
+  store <2 x double> %output11, <2 x double>* %p
   ret void
 }
 
@@ -1963,19 +1962,18 @@ __llvm_entry:
   store double 0.000000e+00, double* %sinr, !vex-initializer-store !3
   store double 0.000000e+00, double* %cosr, !vex-initializer-store !3
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output = fmul double %return, 2.000000e+00
-  %output1 = fmul double %output, 0x400921FB4D12D84A
-  store double %output1, double* %0
+  %output = fmul double %return, 0x401921FB54442D18
+  store double %output, double* %0
   call void @"sincos@FFF"(double* %0, double* %sinr, double* %cosr)
-  %w3 = load double, double* %w
-  %return4 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output5 = fmul double %w3, %return4
-  %cosr7 = load double, double* %cosr
-  %sinr8 = load double, double* %sinr
-  %return9 = call <2 x double> @"set@UFF"(double %cosr7, double %sinr8)
-  %cast = call <2 x double> @"set@UF"(double %output5)
-  %output10 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return9)
-  store <2 x double> %output10, <2 x double>* %p
+  %w2 = load double, double* %w
+  %return3 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output4 = fmul double %w2, %return3
+  %cosr6 = load double, double* %cosr
+  %sinr7 = load double, double* %sinr
+  %return8 = call <2 x double> @"set@UFF"(double %cosr6, double %sinr7)
+  %cast = call <2 x double> @"set@UF"(double %output4)
+  %output9 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return8)
+  store <2 x double> %output9, <2 x double>* %p
   ret void
 }
 
@@ -2187,7 +2185,7 @@ __llvm_entry:
   store <2 x double> %_p12, <2 x double>* %0
   %ATANYX = call double @"ATANYX@FU"(<2 x double>* %0)
   %cast14 = sitofp i64 %cast to double
-  %output15 = fmul double 0x401921FB4D12D84A, %cast14
+  %output15 = fmul double 0x401921FB54442D18, %cast14
   %output16 = fadd double %ATANYX, %output15
   %output18 = call double @"div@FF"(double %output16, double %output2)
   %w19 = load double, double* %w
@@ -2237,7 +2235,7 @@ __llvm_entry:
   %return15 = call i64 @"eq@III"(i64 %return14, i64 0)
   %3 = icmp ne i64 %return15, 0
   %cast17 = sitofp i64 %cast to double
-  %output18 = fmul double 0x401921FB4D12D84A, %cast17
+  %output18 = fmul double 0x401921FB54442D18, %cast17
   br i1 %3, label %true, label %false
 
 true:                                             ; preds = %__llvm_entry
@@ -2276,24 +2274,23 @@ declare i64 @"eq@III"(i64, i64) #1
 define private void @"V_GAUSSIAN_BLUR@UF"(<2 x double>* %p, double* %w) #0 {
 __llvm_entry:
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output = fmul double %return, 2.000000e+00
-  %output1 = fmul double %output, 0x400921FB4D12D84A
-  %w2 = load double, double* %w
+  %output = fmul double %return, 0x401921FB54442D18
+  %w1 = load double, double* %w
+  %return2 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
   %return3 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %return4 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output5 = fadd double %return3, %return4
-  %return6 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output7 = fadd double %output5, %return6
-  %return8 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output9 = fadd double %output7, %return8
-  %output10 = fsub double %output9, 2.000000e+00
-  %output11 = fmul double %w2, %output10
-  %return14 = call double @"cos@FF"(double %output1)
-  %return16 = call double @"sin@FF"(double %output1)
-  %return17 = call <2 x double> @"set@UFF"(double %return14, double %return16)
-  %cast = call <2 x double> @"set@UF"(double %output11)
-  %output18 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return17)
-  store <2 x double> %output18, <2 x double>* %p
+  %output4 = fadd double %return2, %return3
+  %return5 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output6 = fadd double %output4, %return5
+  %return7 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output8 = fadd double %output6, %return7
+  %output9 = fsub double %output8, 2.000000e+00
+  %output10 = fmul double %w1, %output9
+  %return13 = call double @"cos@FF"(double %output)
+  %return15 = call double @"sin@FF"(double %output)
+  %return16 = call <2 x double> @"set@UFF"(double %return13, double %return15)
+  %cast = call <2 x double> @"set@UF"(double %output10)
+  %output17 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return16)
+  store <2 x double> %output17, <2 x double>* %p
   ret void
 }
 
@@ -2457,44 +2454,43 @@ __llvm_entry:
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
   %angle4 = load double, double* %angle
-  %output5 = fmul double %angle4, 0x400921FB4D12D84A
-  %output6 = call double @"div@FF"(double %output5, double 2.000000e+00)
-  store double %output6, double* %0
+  %output5 = fmul double %angle4, 0x3FF921FB4D12D84A
+  store double %output5, double* %0
   call void @"sincos@FFF"(double* %0, double* %m_spin, double* %m_zoom)
-  %w7 = load double, double* %w
+  %w6 = load double, double* %w
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %return8 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output9 = fadd double %return, %return8
-  %return10 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output11 = fadd double %output9, %return10
-  %return12 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output13 = fadd double %output11, %return12
-  %output14 = fsub double %output13, 2.000000e+00
-  %output15 = fmul double %w7, %output14
-  %_p16 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p16, <2 x double>* %1
+  %return7 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output8 = fadd double %return, %return7
+  %return9 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output10 = fadd double %output8, %return9
+  %return11 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output12 = fadd double %output10, %return11
+  %output13 = fsub double %output12, 2.000000e+00
+  %output14 = fmul double %w6, %output13
+  %_p15 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p15, <2 x double>* %1
   %SQRT = call double @"SQRT@FU"(<2 x double>* %1)
-  %_p17 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p17, <2 x double>* %2
+  %_p16 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p16, <2 x double>* %2
   %ATANYX = call double @"ATANYX@FU"(<2 x double>* %2)
-  %m_spin18 = load double, double* %m_spin
-  %output20 = fmul double %m_spin18, %output15
-  %output21 = fadd double %ATANYX, %output20
-  store double %output21, double* %3
+  %m_spin17 = load double, double* %m_spin
+  %output19 = fmul double %m_spin17, %output14
+  %output20 = fadd double %ATANYX, %output19
+  store double %output20, double* %3
   call void @"sincos@FFF"(double* %3, double* %sa, double* %ca)
-  %m_zoom23 = load double, double* %m_zoom
-  %output25 = fmul double %m_zoom23, %output15
-  %output26 = fsub double %output25, 1.000000e+00
-  %ca28 = load double, double* %ca
-  %sa29 = load double, double* %sa
-  %return30 = call <2 x double> @"set@UFF"(double %ca28, double %sa29)
+  %m_zoom22 = load double, double* %m_zoom
+  %output24 = fmul double %m_zoom22, %output14
+  %output25 = fsub double %output24, 1.000000e+00
+  %ca27 = load double, double* %ca
+  %sa28 = load double, double* %sa
+  %return29 = call <2 x double> @"set@UFF"(double %ca27, double %sa28)
   %cast = call <2 x double> @"set@UF"(double %SQRT)
-  %output31 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return30)
-  %_p33 = load <2 x double>, <2 x double>* %_p
-  %cast34 = call <2 x double> @"set@UF"(double %output26)
-  %output35 = call <2 x double> @"mul@UU"(<2 x double> %cast34, <2 x double> %_p33)
-  %output36 = call <2 x double> @"add@UU"(<2 x double> %output31, <2 x double> %output35)
-  store <2 x double> %output36, <2 x double>* %p
+  %output30 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return29)
+  %_p32 = load <2 x double>, <2 x double>* %_p
+  %cast33 = call <2 x double> @"set@UF"(double %output25)
+  %output34 = call <2 x double> @"mul@UU"(<2 x double> %cast33, <2 x double> %_p32)
+  %output35 = call <2 x double> @"add@UU"(<2 x double> %output30, <2 x double> %output34)
+  store <2 x double> %output35, <2 x double>* %p
   ret void
 }
 
@@ -2521,7 +2517,7 @@ __llvm_entry:
   %return10 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
   %output12 = fmul double %return10, %output3
   %output13 = fadd double %cast7, %output12
-  %output14 = fmul double 0x401921FB4D12D84A, %output13
+  %output14 = fmul double 0x401921FB54442D18, %output13
   %output16 = call double @"div@FF"(double %output14, double %output2)
   %output17 = fadd double %output4, %output16
   %w18 = load double, double* %w
@@ -2778,35 +2774,32 @@ __llvm_entry:
   %1 = alloca <2 x double>
   store double 0.000000e+00, double* %sinr, !vex-initializer-store !3
   store double 0.000000e+00, double* %cosr, !vex-initializer-store !3
-  %_p1 = load <2 x double>, <2 x double>* %_p
-  %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
-  %output2 = extractvalue { double, double } %output, 0
-  %output3 = extractvalue { double, double } %output, 1
-  %disc24 = load <2 x double>, <2 x double>* %disc2
-  %output5 = call { double, double } @"assign@FFU"(<2 x double> %disc24)
-  %disc2_pc8 = load <3 x double>, <3 x double>* %disc2_pc
-  %output9 = call { double, double, double } @"assign@FFFV"(<3 x double> %disc2_pc8)
-  %output10 = extractvalue { double, double, double } %output9, 0
-  %output11 = extractvalue { double, double, double } %output9, 1
-  %output12 = extractvalue { double, double, double } %output9, 2
-  %output16 = fadd double %output2, %output3
-  %output17 = fmul double %output10, %output16
-  store double %output17, double* %0
+  %disc21 = load <2 x double>, <2 x double>* %disc2
+  %output = call { double, double } @"assign@FFU"(<2 x double> %disc21)
+  %disc2_pc4 = load <3 x double>, <3 x double>* %disc2_pc
+  %output5 = call { double, double, double } @"assign@FFFV"(<3 x double> %disc2_pc4)
+  %output6 = extractvalue { double, double, double } %output5, 0
+  %output7 = extractvalue { double, double, double } %output5, 1
+  %output8 = extractvalue { double, double, double } %output5, 2
+  %_p10 = load <2 x double>, <2 x double>* %_p
+  %return = call double @"sum@FU"(<2 x double> %_p10)
+  %output11 = fmul double %output6, %return
+  store double %output11, double* %0
   call void @"sincos@FFF"(double* %0, double* %sinr, double* %cosr)
-  %w19 = load double, double* %w
-  %_p20 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p20, <2 x double>* %1
+  %w13 = load double, double* %w
+  %_p14 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p14, <2 x double>* %1
   %ATAN = call double @"ATAN@FU"(<2 x double>* %1)
-  %output21 = fmul double %w19, %ATAN
-  %output22 = call double @"div@FF"(double %output21, double 0x400921FB4D12D84A)
-  %sinr24 = load double, double* %sinr
-  %output26 = fadd double %sinr24, %output12
-  %cosr27 = load double, double* %cosr
-  %output29 = fadd double %cosr27, %output11
-  %return = call <2 x double> @"set@UFF"(double %output26, double %output29)
-  %cast = call <2 x double> @"set@UF"(double %output22)
-  %output30 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return)
-  store <2 x double> %output30, <2 x double>* %p
+  %output15 = fmul double %w13, %ATAN
+  %output16 = call double @"div@FF"(double %output15, double 0x400921FB4D12D84A)
+  %sinr18 = load double, double* %sinr
+  %output20 = fadd double %sinr18, %output8
+  %cosr21 = load double, double* %cosr
+  %output23 = fadd double %cosr21, %output7
+  %return24 = call <2 x double> @"set@UFF"(double %output20, double %output23)
+  %cast = call <2 x double> @"set@UF"(double %output16)
+  %output25 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return24)
+  store <2 x double> %output25, <2 x double>* %p
   ret void
 }
 
@@ -3318,7 +3311,7 @@ __llvm_entry:
   %SUMSQ = call double @"SUMSQ@FU"(<2 x double>* %1)
   %return = call double @"log@FF"(double %SUMSQ)
   %output7 = fmul double 5.000000e-01, %return
-  %output9 = call double @"div@FF"(double 0x401921FB4D12D84A, double %output2)
+  %output9 = call double @"div@FF"(double 0x401921FB54442D18, double %output2)
   %output12 = call double @"div@FF"(double %output3, double %output2)
   %output15 = call double @"div@FF"(double %output4, double %output2)
   %output18 = fmul double %output12, %ATANYX
@@ -3481,21 +3474,20 @@ __llvm_entry:
   store double 0.000000e+00, double* %sinr, !vex-initializer-store !3
   store double 0.000000e+00, double* %cosr, !vex-initializer-store !3
   %return = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output = fmul double %return, 2.000000e+00
-  %output1 = fmul double %output, 0x400921FB4D12D84A
-  store double %output1, double* %0
+  %output = fmul double %return, 0x401921FB54442D18
+  store double %output, double* %0
   call void @"sincos@FFF"(double* %0, double* %sinr, double* %cosr)
-  %w3 = load double, double* %w
-  %return4 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output5 = fmul double %w3, %return4
-  %_p6 = load <2 x double>, <2 x double>* %_p
-  %cast = call <2 x double> @"set@UF"(double %output5)
-  %output8 = call <2 x double> @"mul@UU"(<2 x double> %_p6, <2 x double> %cast)
-  %cosr9 = load double, double* %cosr
-  %sinr10 = load double, double* %sinr
-  %return11 = call <2 x double> @"set@UFF"(double %cosr9, double %sinr10)
-  %output12 = call <2 x double> @"mul@UU"(<2 x double> %output8, <2 x double> %return11)
-  store <2 x double> %output12, <2 x double>* %p
+  %w2 = load double, double* %w
+  %return3 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output4 = fmul double %w2, %return3
+  %_p5 = load <2 x double>, <2 x double>* %_p
+  %cast = call <2 x double> @"set@UF"(double %output4)
+  %output7 = call <2 x double> @"mul@UU"(<2 x double> %_p5, <2 x double> %cast)
+  %cosr8 = load double, double* %cosr
+  %sinr9 = load double, double* %sinr
+  %return10 = call <2 x double> @"set@UFF"(double %cosr8, double %sinr9)
+  %output11 = call <2 x double> @"mul@UU"(<2 x double> %output7, <2 x double> %return10)
+  store <2 x double> %output11, <2 x double>* %p
   ret void
 }
 
@@ -3712,18 +3704,17 @@ __llvm_entry:
   %output7 = fsub double %output6, 2.000000e+00
   %output8 = fmul double %w1, %output7
   %return9 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output10 = fmul double %return9, 2.000000e+00
-  %output11 = fmul double %output10, 0x400921FB4D12D84A
-  store double %output11, double* %0
+  %output10 = fmul double %return9, 0x401921FB54442D18
+  store double %output10, double* %0
   call void @"sincos@FFF"(double* %0, double* %sinA, double* %cosA)
-  %p13 = load <2 x double>, <2 x double>* %p
-  %cosA15 = load double, double* %cosA
-  %sinA16 = load double, double* %sinA
-  %return17 = call <2 x double> @"set@UFF"(double %cosA15, double %sinA16)
+  %p12 = load <2 x double>, <2 x double>* %p
+  %cosA14 = load double, double* %cosA
+  %sinA15 = load double, double* %sinA
+  %return16 = call <2 x double> @"set@UFF"(double %cosA14, double %sinA15)
   %cast = call <2 x double> @"set@UF"(double %output8)
-  %output18 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return17)
-  %output19 = call <2 x double> @"add@UU"(<2 x double> %p13, <2 x double> %output18)
-  store <2 x double> %output19, <2 x double>* %p
+  %output17 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return16)
+  %output18 = call <2 x double> @"add@UU"(<2 x double> %p12, <2 x double> %output17)
+  store <2 x double> %output18, <2 x double>* %p
   ret void
 }
 
@@ -3836,7 +3827,7 @@ __llvm_entry:
   %output7 = extractvalue { double, double, double, double } %output5, 1
   %output8 = extractvalue { double, double, double, double } %output5, 2
   %output9 = extractvalue { double, double, double, double } %output5, 3
-  %output11 = fmul double 0x401921FB4D12D84A, %output6
+  %output11 = fmul double 0x401921FB54442D18, %output6
   %return = fcmp oeq double %output8, 0.000000e+00
   br i1 %return, label %true, label %false
 
@@ -4172,34 +4163,32 @@ __llvm_entry:
   %output4 = extractvalue { double, double, double, double } %output, 2
   %output5 = extractvalue { double, double, double, double } %output, 3
   %output8 = fmul double %output3, %output5
-  %output9 = fmul double %output8, 0x3FD45F306DC9C883
-  %output10 = fmul double %output9, 5.000000e-01
-  %output11 = fsub double 1.000000e+00, %output10
-  %_p12 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p12, <2 x double>* %0
+  %output9 = fmul double %output8, 0x3FC45F306DC9C883
+  %output10 = fsub double 1.000000e+00, %output9
+  %_p11 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p11, <2 x double>* %0
   %SQRT = call double @"SQRT@FU"(<2 x double>* %0)
-  %_p13 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p13, <2 x double>* %1
+  %_p12 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p12, <2 x double>* %1
   %ATANYX = call double @"ATANYX@FU"(<2 x double>* %1)
-  %output16 = fmul double %output2, %SQRT
-  %output17 = fadd double %ATANYX, %output16
-  %output20 = fmul double %output5, %output17
-  %output21 = fadd double %output20, 0x400921FB4D12D84A
-  %output22 = fmul double %output21, 0x3FD45F306DC9C883
-  %output23 = fmul double %output22, 5.000000e-01
-  %return = call double @"floor@FF"(double %output23)
-  %output26 = fmul double %output17, %output11
-  %output29 = fmul double %return, %output3
-  %output30 = fadd double %output26, %output29
-  %w31 = load double, double* %w
-  %output34 = fadd double %SQRT, %output4
-  %output35 = fmul double %w31, %output34
-  %return38 = call double @"cos@FF"(double %output30)
-  %return40 = call double @"sin@FF"(double %output30)
-  %return41 = call <2 x double> @"set@UFF"(double %return38, double %return40)
-  %cast = call <2 x double> @"set@UF"(double %output35)
-  %output42 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return41)
-  store <2 x double> %output42, <2 x double>* %p
+  %output15 = fmul double %output2, %SQRT
+  %output16 = fadd double %ATANYX, %output15
+  %output19 = fmul double %output5, %output16
+  %output20 = fadd double %output19, 0x400921FB4D12D84A
+  %output21 = fmul double %output20, 0x3FC45F306DC9C883
+  %return = call double @"floor@FF"(double %output21)
+  %output24 = fmul double %output16, %output10
+  %output27 = fmul double %return, %output3
+  %output28 = fadd double %output24, %output27
+  %w29 = load double, double* %w
+  %output32 = fadd double %SQRT, %output4
+  %output33 = fmul double %w29, %output32
+  %return36 = call double @"cos@FF"(double %output28)
+  %return38 = call double @"sin@FF"(double %output28)
+  %return39 = call <2 x double> @"set@UFF"(double %return36, double %return38)
+  %cast = call <2 x double> @"set@UF"(double %output33)
+  %output40 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return39)
+  store <2 x double> %output40, <2 x double>* %p
   ret void
 }
 
@@ -4220,44 +4209,42 @@ __llvm_entry:
   %output4 = extractvalue { double, double, double, double } %output, 2
   %output5 = extractvalue { double, double, double, double } %output, 3
   %output8 = fmul double %output3, %output5
-  %output9 = fmul double %output8, 0x3FD45F306DC9C883
-  %output10 = fmul double %output9, 5.000000e-01
-  %output11 = fsub double 1.000000e+00, %output10
+  %output9 = fmul double %output8, 0x3FC45F306DC9C883
+  %output10 = fsub double 1.000000e+00, %output9
   %return = call double @"abs@FF"(double %output2)
-  %output15 = call double @"div@FF"(double %output4, double %output2)
-  %output16 = call double @"div@FF"(double %output15, double 2.000000e+00)
-  %w17 = load double, double* %w
-  %_p18 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p18, <2 x double>* %0
+  %output14 = call double @"div@FF"(double %output4, double %output2)
+  %output15 = call double @"div@FF"(double %output14, double 2.000000e+00)
+  %w16 = load double, double* %w
+  %_p17 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p17, <2 x double>* %0
   %SUMSQ = call double @"SUMSQ@FU"(<2 x double>* %0)
-  %return20 = call double @"pow@FFF"(double %SUMSQ, double %output16)
-  %output21 = fmul double %w17, %return20
-  %return23 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
-  %output24 = fmul double %return, %return23
-  %cast = fptosi double %output24 to i64
-  %cast25 = sitofp i64 %cast to double
-  %_p26 = load <2 x double>, <2 x double>* %_p
-  store <2 x double> %_p26, <2 x double>* %1
+  %return19 = call double @"pow@FFF"(double %SUMSQ, double %output15)
+  %output20 = fmul double %w16, %return19
+  %return22 = call double @"nrandom@F:S"(i8* getelementptr inbounds ([8 x i8], [8 x i8]* @0, i64 0, i64 0))
+  %output23 = fmul double %return, %return22
+  %cast = fptosi double %output23 to i64
+  %cast24 = sitofp i64 %cast to double
+  %_p25 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p25, <2 x double>* %1
   %ATANYX = call double @"ATANYX@FU"(<2 x double>* %1)
-  %output28 = fmul double 0x401921FB4D12D84A, %cast25
-  %output29 = fadd double %ATANYX, %output28
-  %output31 = call double @"div@FF"(double %output29, double %output2)
-  %output34 = fmul double %output5, %output31
-  %output35 = fadd double %output34, 0x400921FB4D12D84A
-  %output36 = fmul double %output35, 0x3FD45F306DC9C883
-  %output37 = fmul double %output36, 5.000000e-01
-  %return38 = call double @"floor@FF"(double %output37)
-  %output41 = fmul double %output31, %output11
-  %output44 = fmul double %return38, %output3
-  %output45 = fadd double %output41, %output44
-  store double %output45, double* %2
+  %output27 = fmul double 0x401921FB54442D18, %cast24
+  %output28 = fadd double %ATANYX, %output27
+  %output30 = call double @"div@FF"(double %output28, double %output2)
+  %output33 = fmul double %output5, %output30
+  %output34 = fadd double %output33, 0x400921FB4D12D84A
+  %output35 = fmul double %output34, 0x3FC45F306DC9C883
+  %return36 = call double @"floor@FF"(double %output35)
+  %output39 = fmul double %output30, %output10
+  %output42 = fmul double %return36, %output3
+  %output43 = fadd double %output39, %output42
+  store double %output43, double* %2
   call void @"sincos@FFF"(double* %2, double* %sa, double* %ca)
-  %ca48 = load double, double* %ca
-  %sa49 = load double, double* %sa
-  %return50 = call <2 x double> @"set@UFF"(double %ca48, double %sa49)
-  %cast51 = call <2 x double> @"set@UF"(double %output21)
-  %output52 = call <2 x double> @"mul@UU"(<2 x double> %cast51, <2 x double> %return50)
-  store <2 x double> %output52, <2 x double>* %p
+  %ca46 = load double, double* %ca
+  %sa47 = load double, double* %sa
+  %return48 = call <2 x double> @"set@UFF"(double %ca46, double %sa47)
+  %cast49 = call <2 x double> @"set@UF"(double %output20)
+  %output50 = call <2 x double> @"mul@UU"(<2 x double> %cast49, <2 x double> %return48)
+  store <2 x double> %output50, <2 x double>* %p
   ret void
 }
 
@@ -4291,27 +4278,25 @@ __llvm_entry:
   %output12 = fadd double %ATANYX, %output11
   %output15 = fmul double %output5, %output12
   %output16 = fadd double %output15, 0x400921FB4D12D84A
-  %output17 = fmul double %output16, 0x3FD45F306DC9C883
-  %output18 = fmul double %output17, 5.000000e-01
-  %return = call double @"floor@FF"(double %output18)
-  %output21 = fmul double %output3, %output5
-  %output22 = fmul double %output21, 0x3FD45F306DC9C883
-  %output23 = fmul double %output22, 5.000000e-01
-  %output24 = fsub double 1.000000e+00, %output23
-  %output27 = fmul double %output12, %output24
-  %output30 = fmul double %return, %output3
-  %output31 = fadd double %output27, %output30
-  store double %output31, double* %3
+  %output17 = fmul double %output16, 0x3FC45F306DC9C883
+  %return = call double @"floor@FF"(double %output17)
+  %output20 = fmul double %output3, %output5
+  %output21 = fmul double %output20, 0x3FC45F306DC9C883
+  %output22 = fsub double 1.000000e+00, %output21
+  %output25 = fmul double %output12, %output22
+  %output28 = fmul double %return, %output3
+  %output29 = fadd double %output25, %output28
+  store double %output29, double* %3
   call void @"sincos@FFF"(double* %3, double* %sa, double* %ca)
-  %w33 = load double, double* %w
-  %output36 = fadd double %output7, %output4
-  %output37 = fmul double %w33, %output36
-  %ca39 = load double, double* %ca
-  %sa40 = load double, double* %sa
-  %return41 = call <2 x double> @"set@UFF"(double %ca39, double %sa40)
-  %cast = call <2 x double> @"set@UF"(double %output37)
-  %output42 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return41)
-  store <2 x double> %output42, <2 x double>* %p
+  %w31 = load double, double* %w
+  %output34 = fadd double %output7, %output4
+  %output35 = fmul double %w31, %output34
+  %ca37 = load double, double* %ca
+  %sa38 = load double, double* %sa
+  %return39 = call <2 x double> @"set@UFF"(double %ca37, double %sa38)
+  %cast = call <2 x double> @"set@UF"(double %output35)
+  %output40 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return39)
+  store <2 x double> %output40, <2 x double>* %p
   ret void
 }
 
@@ -5370,23 +5355,22 @@ __llvm_entry:
   %output5 = call { double, double } @"assign@FFU"(<2 x double> %persp4)
   %output6 = extractvalue { double, double } %output5, 0
   %output7 = extractvalue { double, double } %output5, 1
-  %output9 = fmul double %output6, 0x400921FB4D12D84A
-  %output10 = call double @"div@FF"(double %output9, double 2.000000e+00)
-  %return = call double @"sin@FF"(double %output10)
-  %return14 = call double @"cos@FF"(double %output10)
-  %output15 = fmul double %output7, %return14
-  %output19 = fmul double %output3, %return
-  %output20 = fsub double %output7, %output19
-  %output21 = call double @"div@FF"(double 1.000000e+00, double %output20)
-  %w22 = load double, double* %w
-  %output25 = fmul double %output7, %output2
-  %output27 = fmul double %output25, %output21
-  %output30 = fmul double %output15, %output3
-  %output32 = fmul double %output30, %output21
-  %return33 = call <2 x double> @"set@UFF"(double %output27, double %output32)
-  %cast = call <2 x double> @"set@UF"(double %w22)
-  %output34 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return33)
-  store <2 x double> %output34, <2 x double>* %p
+  %output9 = fmul double %output6, 0x3FF921FB4D12D84A
+  %return = call double @"sin@FF"(double %output9)
+  %return13 = call double @"cos@FF"(double %output9)
+  %output14 = fmul double %output7, %return13
+  %output18 = fmul double %output3, %return
+  %output19 = fsub double %output7, %output18
+  %output20 = call double @"div@FF"(double 1.000000e+00, double %output19)
+  %w21 = load double, double* %w
+  %output24 = fmul double %output7, %output2
+  %output26 = fmul double %output24, %output20
+  %output29 = fmul double %output14, %output3
+  %output31 = fmul double %output29, %output20
+  %return32 = call <2 x double> @"set@UFF"(double %output26, double %output31)
+  %cast = call <2 x double> @"set@UF"(double %w21)
+  %output33 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return32)
+  store <2 x double> %output33, <2 x double>* %p
   ret void
 }
 

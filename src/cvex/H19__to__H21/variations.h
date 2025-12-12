@@ -103,7 +103,7 @@ void V_HEART(vector2 p; const vector2 _p; const float w){
 // 08
 void V_DISC(vector2 p; const vector2 _p; const float w){
     float a, r, sr, cr;
-    a = ATAN(_p) * (1.0/M_PI);
+    a = ATAN(_p) * M_1_PI;
     r = M_PI * SQRT(_p);
     sincos(r, sr,cr);
 
@@ -284,7 +284,7 @@ void V_EYEFISH(vector2 p; const vector2 _p; const float w){
 // 26
 void V_BLUR(vector2 p; const float w){
     float tmpr, sinr, cosr, r;
-    tmpr = nrandom("twister") * 2 * M_PI;
+    tmpr = nrandom("twister") * M_TAU;
     sincos(tmpr, sinr, cosr);
     r = w * nrandom("twister");
 
@@ -385,7 +385,7 @@ void V_JULIAN(vector2 p; const vector2 _p; const float w; const vector2 julian){
     julian_rN = power;
     julian_cn = jdist / power / 2.0;
     t_rnd = (int)trunc(julian_rN * nrandom('twister'));
-    tmpr = ( ATANYX(_p) + 2 * M_PI * t_rnd ) / power;
+    tmpr = ( ATANYX(_p) + M_TAU * t_rnd ) / power;
     rr = w * pow( SUMSQ(_p), julian_cn );
     sincos(tmpr, sina, cosa);
 
@@ -401,7 +401,7 @@ void V_JULIASCOPE(vector2 p; const vector2 _p; const float w; const vector2 juli
     julian_rN = power;
     julian_cn = jdist / power / 2.0;
     t_rnd = (int)trunc(julian_rN * nrandom('twister'));
-    tmpr = ((t_rnd & 1) == 0) ? (2.0 * M_PI * t_rnd + _ATANYX) / power : (2.0 * M_PI * t_rnd - _ATANYX) / power;
+    tmpr = ((t_rnd & 1) == 0) ? (M_TAU * t_rnd + _ATANYX) / power : (M_TAU * t_rnd - _ATANYX) / power;
     sincos(tmpr, sina, cosa);
     rr = w * pow( SUMSQ(_p), julian_cn );
 
@@ -410,7 +410,7 @@ void V_JULIASCOPE(vector2 p; const vector2 _p; const float w; const vector2 juli
 // 33
 void V_GAUSSIAN_BLUR(vector2 p; const float w){
     float ang, rr, sina, cosa;
-    ang = nrandom('twister') * 2.0 * M_PI;
+    ang = nrandom('twister') * M_TAU;
     rr = w * (nrandom('twister')+nrandom('twister')+nrandom('twister')+nrandom('twister') - 2.0);
 
     p = rr * set(cos(ang), sin(ang));
@@ -461,7 +461,7 @@ void V_RADIALBLUR(vector2 p; const vector2 _p; const float w, angle){
     assign(_px, _py, _p);
 
     // precalc ( this probably better done inside the genome.h )
-    sincos(angle * M_PI / 2, m_spin, m_zoom);
+    sincos(angle * M_PI_2, m_spin, m_zoom);
 
     // compute
     rndG = w * (nrandom('twister')+nrandom('twister')+nrandom('twister')+nrandom('twister') - 2.0);
@@ -478,7 +478,7 @@ void V_PIE(vector2 p; const float w; const vector pie){
     assign(slices, thickness, rotation, pie);
 
     sl = (int)(nrandom('twister')*slices);
-    aa = rotation + 2.0 * M_PI * (sl + nrandom("twister") * thickness) / slices;
+    aa = rotation + M_TAU * (sl + nrandom("twister") * thickness) / slices;
     rr = w * nrandom('twister');
     sincos(aa, sa, ca);
 
@@ -545,7 +545,7 @@ void V_TWINTRIAN(vector2 p; const vector2 _p; const float w){
     if(!isfinite(diff) || isnan(diff))
         diff = -30.0;
 
-    p = w * _px * set(diff, diff - sinr*M_PI);
+    p = w * _px * set(diff, diff - sinr * M_PI);
 }
 // 46
 void V_CROSS(vector2 p; const vector2 _p; const float w){
@@ -559,13 +559,12 @@ void V_CROSS(vector2 p; const vector2 _p; const float w){
 }
 // 47 ( parametric )
 void V_DISC2(vector2 p; const vector2 _p; const float w; const vector2 disc2; const vector disc2_pc){
-    float rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd, rr, tt, sinr, cosr, _px, _py;
-    assign(_px, _py, _p);
+    float rot, twist, disc2_timespi, disc2_sinadd, disc2_cosadd, rr, tt, sinr, cosr;
     assign(rot, twist, disc2);
     assign(disc2_timespi, disc2_sinadd, disc2_cosadd, disc2_pc);
 
     // PRECALC done inside its detail wrangle core in the Houdini environment
-    tt = disc2_timespi * (_px + _py);
+    tt = disc2_timespi * sum(_p);
     sincos(tt, sinr, cosr);
     rr = w * ATAN(_p) / M_PI;
 
@@ -754,10 +753,10 @@ void V_CPOW(vector2 p; const vector2 _p; const float w; const vector cpow){
 
     aa = ATANYX(_p);
     lnr = 0.5 * log(SUMSQ(_p));
-    va = 2.0 * M_PI / power;
+    va = M_TAU / power;
     vc = pow_r / power;
     vd = pow_i / power;
-    ang = vc*aa + vd*lnr + va*floor(power * nrandom("twister"));
+    ang = vc*aa + vd*lnr + va * floor(power * nrandom("twister"));
     mm = w * exp(vc * lnr - vd * aa);
     sincos(ang, sa, ca);
 
@@ -829,7 +828,7 @@ void V_ELLIPTIC(vector2 p; const vector2 _p; const float w){
 void V_NOISE(vector2 p; const vector2 _p; const float w){
     float tmpr, sinr, cosr, rr;
 
-    tmpr = nrandom("twister") * 2 * M_PI;
+    tmpr = nrandom("twister") * M_TAU;
     sincos(tmpr, sinr, cosr);
     rr = w * nrandom("twister");
 
@@ -903,7 +902,7 @@ void V_LOONIE(vector2 p; const vector2 _p; const float w){
 void V_PREBLUR(vector2 p; const float w){
     float rndG, rndA, sinA, cosA;
     rndG = w * (nrandom("twister") + nrandom("twister") + nrandom("twister") + nrandom("twister") - 2.0);
-    rndA = nrandom("twister") * 2.0 * M_PI;
+    rndA = nrandom("twister") * M_TAU;
     sincos(rndA, sinA, cosA);
 
     p += rndG * set(cosA, sinA);
@@ -937,7 +936,7 @@ void V_OSCOPE(vector2 p; const vector2 _p; const float w; const vector4 oscope){
     assign(_px, _py, _p);
     assign(freq, amp, damp, sep, oscope);
 
-    tpf = 2 * M_PI * freq;
+    tpf = M_TAU * freq;
     if(damp == 0.0) tt = amp * cos(tpf*_px) + sep;
     else tt = amp * exp(-abs(_px)* damp) * cos(tpf*_px) + sep;
     if(abs(_py) <= tt){
@@ -1028,10 +1027,10 @@ void V_WEDGE(vector2 p; const vector2 _p; const float w; const vector4 wedge){
     float swirl, angle, hole, count, r, a, c, m_CompFac;
     assign(swirl, angle, hole, count, wedge);
 
-    m_CompFac = 1 - angle * count * M_1_PI * 0.5;
+    m_CompFac = 1 - angle * count * M_1_2PI;
     r = SQRT(_p);
     a = ATANYX(_p) + swirl * r;
-    c = floor((count * a + M_PI) * M_1_PI * 0.5);
+    c = floor((count * a + M_PI) * M_1_2PI);
     a = a * m_CompFac + c * angle;
     r = w * (r + hole);
 
@@ -1043,14 +1042,14 @@ void V_WEDGEJULIA(vector2 p; const vector2 _p; const float w; const vector4 wedg
     assign(power, angle, dist, count, wedgejulia);
 
     // PRECALC
-    wedgeJulia_cf = 1.0 - angle * count * M_1_PI * 0.5;
+    wedgeJulia_cf = 1.0 - angle * count * M_1_2PI;
     wedgeJulia_rN = abs(power);
     wedgeJulia_cn = dist / power / 2.0;
 
     rr = w * pow(SUMSQ(_p), wedgeJulia_cn);
     t_rnd = (int)((wedgeJulia_rN)*nrandom("twister"));
-    aa = (ATANYX(_p) + 2 * M_PI * t_rnd) / power;
-    cc = floor( (count * aa + M_PI)*M_1_PI*0.5 );
+    aa = (ATANYX(_p) + M_TAU * t_rnd) / power;
+    cc = floor( (count * aa + M_PI) * M_1_2PI );
     aa = aa * wedgeJulia_cf + cc * angle;
     sincos(aa, sa, ca);
 
@@ -1063,8 +1062,8 @@ void V_WEDGESPH(vector2 p; const vector2 _p; const float w; const vector4 wedges
 
     rr = 1.0/Zeps(SQRT(_p));
     aa = ATANYX(_p) + swirl * rr;
-    cc = floor( (count * aa + M_PI)*M_1_PI*0.5 );
-    comp_fac = 1 - angle*count*M_1_PI*0.5;
+    cc = floor( (count * aa + M_PI) * M_1_2PI );
+    comp_fac = 1 - angle*count * M_1_2PI;
     aa = aa * comp_fac + cc * angle;
     sincos(aa, sa, ca);
     rr = w * (rr + hole);
@@ -1416,7 +1415,7 @@ void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w; const vector2 per
     assign(angle, dist, persp);
 
     // PRECALC
-    float ang = angle * M_PI / 2.0;
+    float ang = angle * M_PI_2;
     vsin = sin(ang);
     vfcos = dist * cos(ang);
     tt = 1.0 / (dist - _py * vsin);
@@ -1582,7 +1581,7 @@ void V_POINT_SYMMETRY(vector2 p; const vector2 _p; const float w; const vector p
     assign(m_Order, m_X, m_Y, ptsym);
     
     // precalc
-    m_TwoPiDivOrder = M_PI2 / Zeps(m_Order);
+    m_TwoPiDivOrder = M_TAU / Zeps(m_Order);
     // compute
     angle = floor(nrandom("twister") * m_Order) * m_TwoPiDivOrder;
     dx = (_px - m_X) * w;
