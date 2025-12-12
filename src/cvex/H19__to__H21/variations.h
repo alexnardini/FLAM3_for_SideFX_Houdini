@@ -133,7 +133,7 @@ void V_DIAMOND(vector2 p; const vector2 _p; const float w){
     float a, r, _px, _py;
     assign(_px, _py, _p);
     a = atan2(_px, _py);
-    r = sqrt(_px*_px + _py*_py);
+    r = SQRT(_p);
 
     p = w * set(sin(a) * cos(r), cos(a) * sin(r));
 }
@@ -767,7 +767,7 @@ void V_EDISC(vector2 p; const vector2 _p; const float w){
     float tmp, tmp2, rr1, rr2, xmax, aa1, aa2, ww, snv, csv, snhu, cshu, _px, _py;
     assign(_px, _py, _p);
 
-    tmp =SUMSQ(_p) + 1;
+    tmp = SUMSQ(_p) + 1;
     tmp2 = 2.0 * _px;
     rr1 = sqrt(tmp+tmp2);
     rr2 = sqrt(tmp-tmp2);
