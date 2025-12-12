@@ -38,6 +38,7 @@ They are all available in this Github repository.
 #### FLAM3H™ v1.9.56 indie -> H21.0 UP</br>FLAM3H™ v1.9.50 indie -> H19.0 to H20.5 ####
 
 - **New**: Added a new star icon for the menus and UI warning messages.
+- **Fix**: Final cvex compiled file size is ~1kb smaller.
 - **Fix**: Fixed an error happening during the compatibility checks with the current Houdini version.
 
 #### FLAM3HUSD v0.2.40 indie -> H21.0 UP</br>FLAM3HUSD v0.2.36 indie -> H19.0 to H20.5 ####
