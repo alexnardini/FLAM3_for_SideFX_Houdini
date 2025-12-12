@@ -555,7 +555,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, y, o; con
                 vector2 lgt, amp;
                 lgt = chu(concat(prx, "curvexyzlenght"));
                 amp = chu(concat(prx, "curvexyzamp"));
-                V_CURVE(p, _p, w, lgt, amp);
+                V_CURVE(f3c, p, _p, w, lgt, amp);
                 return p; }
             // 98 PERSPECTIVE ( parametric )
             else if(T==98){

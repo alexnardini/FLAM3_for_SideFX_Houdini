@@ -560,7 +560,7 @@ vector2 FLAME(const int idx, T, f3c; const vector2 pos, y, o; const float w){
                 vector2 lgt, amp;
                 lgt = detail(-53, "curve_lenght")[idx]; // GMP.curve_lenght[idx];
                 amp = detail(-53, "curve_amp")[idx]; // GMP.curve_amp[idx];
-                V_CURVE(p, _p, w, lgt, amp);
+                V_CURVE(f3c, p, _p, w, lgt, amp);
                 return p; }
             // 98 PERSPECTIVE ( parametric )
             else if(T==98){

@@ -1405,20 +1405,23 @@ void V_MOBIUS(vector2 p; const vector2 _p; const float w; const vector4 re, im){
     p = radv * set((reu*rev + imu*imv), (imu*rev - reu*imv));
 }
 // 97 ( parametric )
-void V_CURVE(vector2 p; const vector2 _p; const float w; const vector2 l, a){
-    float x, y, _px, _py, pc_xlen, pc_ylen, lx, ly, ax, ay;
+void V_CURVE(const int f3c; vector2 p; const vector2 _p; const float w; const vector2 l, a){
+    float _px, _py, pc_lx, pc_ly, lx, ly, ax, ay;
     assign(_px, _py, _p);
     assign(lx, ly, l);
     assign(ax, ay, a);
 
-    // From Apophysis
-    pc_xlen = Zeps(lx*lx);
-    pc_ylen = Zeps(ly*ly);
-    x = w * (_px + ax * exp(-_py * _py / lx));
-    y = w * (_py + ay * exp(-_px * _px / ly));
-
-    p = set(x, y);
-
+    if(f3c){
+        // From Fractorium
+		lx = 1 / max((lx * lx), 1e-20);
+		ly = 1 / max((ly * ly), 1e-20);
+        
+        p = w * set(_px + ax * exp(-_py * _py * lx), _py + ay * exp(-_px * _px * ly));
+    }
+    else{
+        // This seem to match the Chaotica behavior
+        p = w * set(_px + ax * exp(-_py * _py / Zeps(lx)), _py + ay * exp(-_px * _px / Zeps(ly)));
+    }
 }
 // 98 ( parametric )
 void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w; const vector2 persp){
