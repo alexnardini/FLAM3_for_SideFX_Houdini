@@ -549,14 +549,14 @@ void V_TWINTRIAN(vector2 p; const vector2 _p; const float w){
 }
 // 46
 void V_CROSS(const int f3c; vector2 p; const vector2 _p; const float w){
-    float s, r, _px, _py;
+    float r, _px, _py;
     assign(_px, _py, _p);
 
     if(f3c){
         r = w / Zeps(abs((_px - _py) * (_px + _py)));
     }
     else{
-        s = Zeps((_px * _px) - (_py * _py));
+        float s = Zeps((_px * _px) - (_py * _py));
         r = w / s;
     }
 
