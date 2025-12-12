@@ -1507,26 +1507,26 @@ __llvm_entry:
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_DIAMOND@UUF"(<2 x double>* %p, <2 x double>* %_p, double* %w) #0 {
 __llvm_entry:
+  %0 = alloca <2 x double>
   %_p1 = load <2 x double>, <2 x double>* %_p
   %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
   %output2 = extractvalue { double, double } %output, 0
   %output3 = extractvalue { double, double } %output, 1
   %return = call double @"atan2@FFF"(double %output2, double %output3)
-  %output8 = fmul double %output2, %output2
-  %output11 = fmul double %output3, %output3
-  %output12 = fadd double %output8, %output11
-  %return13 = call double @"sqrt@FF"(double %output12)
-  %w14 = load double, double* %w
-  %return16 = call double @"sin@FF"(double %return)
-  %return18 = call double @"cos@FF"(double %return13)
-  %output19 = fmul double %return16, %return18
-  %return21 = call double @"cos@FF"(double %return)
-  %return23 = call double @"sin@FF"(double %return13)
-  %output24 = fmul double %return21, %return23
-  %return25 = call <2 x double> @"set@UFF"(double %output19, double %output24)
-  %cast = call <2 x double> @"set@UF"(double %w14)
-  %output26 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return25)
-  store <2 x double> %output26, <2 x double>* %p
+  %_p6 = load <2 x double>, <2 x double>* %_p
+  store <2 x double> %_p6, <2 x double>* %0
+  %SQRT = call double @"SQRT@FU"(<2 x double>* %0)
+  %w7 = load double, double* %w
+  %return9 = call double @"sin@FF"(double %return)
+  %return11 = call double @"cos@FF"(double %SQRT)
+  %output12 = fmul double %return9, %return11
+  %return14 = call double @"cos@FF"(double %return)
+  %return16 = call double @"sin@FF"(double %SQRT)
+  %output17 = fmul double %return14, %return16
+  %return18 = call <2 x double> @"set@UFF"(double %output12, double %output17)
+  %cast = call <2 x double> @"set@UF"(double %w7)
+  %output19 = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %return18)
+  store <2 x double> %output19, <2 x double>* %p
   ret void
 }
 
