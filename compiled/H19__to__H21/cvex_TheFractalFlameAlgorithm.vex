@@ -5319,30 +5319,45 @@ __llvm_entry:
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_CURVE@UUFUU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %l, <2 x double>* %a) #0 {
 __llvm_entry:
-  %w1 = load double, double* %w
-  %_p2 = load <2 x double>, <2 x double>* %_p
-  %cast = call <2 x double> @"set@UF"(double %w1)
-  %output = call <2 x double> @"mul@UU"(<2 x double> %cast, <2 x double> %_p2)
-  %a3 = load <2 x double>, <2 x double>* %a
-  %return = call <2 x double> @"swizzle@UUII"(<2 x double> %_p2, i64 1, i64 0)
-  %return5 = call <2 x double> @"neg@UU"(<2 x double> %return)
-  %_p6 = load <2 x double>, <2 x double>* %_p
-  %return7 = call <2 x double> @"swizzle@UUII"(<2 x double> %_p6, i64 1, i64 0)
-  %output8 = call <2 x double> @"mul@UU"(<2 x double> %return5, <2 x double> %return7)
-  %l9 = load <2 x double>, <2 x double>* %l
-  %output10 = call <2 x double> @"mul@UU"(<2 x double> %output8, <2 x double> %l9)
-  %return11 = call <2 x double> @"exp@UU"(<2 x double> %output10)
-  %output12 = call <2 x double> @"mul@UU"(<2 x double> %a3, <2 x double> %return11)
-  %output13 = call <2 x double> @"add@UU"(<2 x double> %output, <2 x double> %output12)
-  store <2 x double> %output13, <2 x double>* %p
+  %0 = alloca double
+  %1 = alloca double
+  %_p1 = load <2 x double>, <2 x double>* %_p
+  %output = call { double, double } @"assign@FFU"(<2 x double> %_p1)
+  %output2 = extractvalue { double, double } %output, 0
+  %output3 = extractvalue { double, double } %output, 1
+  %l4 = load <2 x double>, <2 x double>* %l
+  %output5 = call { double, double } @"assign@FFU"(<2 x double> %l4)
+  %output6 = extractvalue { double, double } %output5, 0
+  %output7 = extractvalue { double, double } %output5, 1
+  %a8 = load <2 x double>, <2 x double>* %a
+  %output9 = call { double, double } @"assign@FFU"(<2 x double> %a8)
+  %output10 = extractvalue { double, double } %output9, 0
+  %output11 = extractvalue { double, double } %output9, 1
+  %output14 = fmul double %output6, %output6
+  store double %output14, double* %0
+  %Zeps = call double @"Zeps@FF"(double* %0)
+  %output17 = fmul double %output7, %output7
+  store double %output17, double* %1
+  %Zeps18 = call double @"Zeps@FF"(double* %1)
+  %w19 = load double, double* %w
+  %return = call double @"neg@FF"(double %output3)
+  %output24 = fmul double %return, %output3
+  %output26 = call double @"div@FF"(double %output24, double %output6)
+  %return27 = call double @"exp@FF"(double %output26)
+  %output28 = fmul double %output10, %return27
+  %output29 = fadd double %output2, %output28
+  %output30 = fmul double %w19, %output29
+  %return35 = call double @"neg@FF"(double %output2)
+  %output37 = fmul double %return35, %output2
+  %output39 = call double @"div@FF"(double %output37, double %output7)
+  %return40 = call double @"exp@FF"(double %output39)
+  %output41 = fmul double %output11, %return40
+  %output42 = fadd double %output3, %output41
+  %output43 = fmul double %w19, %output42
+  %return46 = call <2 x double> @"set@UFF"(double %output30, double %output43)
+  store <2 x double> %return46, <2 x double>* %p
   ret void
 }
-
-; Function Attrs: nounwind readnone
-declare <2 x double> @"neg@UU"(<2 x double>) #1
-
-; Function Attrs: nounwind readnone
-declare <2 x double> @"exp@UU"(<2 x double>) #1
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_PERSPECTIVE@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %persp) #0 {

@@ -1406,7 +1406,19 @@ void V_MOBIUS(vector2 p; const vector2 _p; const float w; const vector4 re, im){
 }
 // 97 ( parametric )
 void V_CURVE(vector2 p; const vector2 _p; const float w; const vector2 l, a){
-    p = w * _p + a * exp(-_p.yx * _p.yx * l);
+    float x, y, _px, _py, pc_xlen, pc_ylen, lx, ly, ax, ay;
+    assign(_px, _py, _p);
+    assign(lx, ly, l);
+    assign(ax, ay, a);
+
+    // From Apophysis
+    pc_xlen = Zeps(lx*lx);
+    pc_ylen = Zeps(ly*ly);
+    x = w * (_px + ax * exp(-_py * _py / lx));
+    y = w * (_py + ay * exp(-_px * _px / ly));
+
+    p = set(x, y);
+
 }
 // 98 ( parametric )
 void V_PERSPECTIVE(vector2 p; const vector2 _p; const float w; const vector2 persp){
