@@ -37,7 +37,7 @@ They are all available in this Github repository.
 
 #### FLAM3H™ v1.9.57 indie -> H21.0 UP</br>FLAM3H™ v1.9.51 indie -> H19.0 to H20.5 ####
 
-- **Fix**: The behavior of the Curve variation is also different in Flam3/Apophysis versus Chaotica.
+- **Fix**: The behavior of the **Cross** and **Curve** variations are also different in Flam3/Apophysis versus Chaotica.
 - **Updated HDA documentation.**
 
 

@@ -548,14 +548,19 @@ void V_TWINTRIAN(vector2 p; const vector2 _p; const float w){
     p = w * _px * set(diff, diff - sinr * M_PI);
 }
 // 46
-void V_CROSS(vector2 p; const vector2 _p; const float w){
-    float ss, rr, _px, _py;
+void V_CROSS(const int f3c; vector2 p; const vector2 _p; const float w){
+    float s, r, _px, _py;
     assign(_px, _py, _p);
 
-    ss = _px*_px - _py*_py;
-    rr = w * sqrt(1.0 / Zeps(ss*ss));
+    if(f3c){
+        r = w / Zeps(abs((_px - _py) * (_px + _py)));
+    }
+    else{
+        s = Zeps((_px * _px) - (_py * _py));
+        r = w / s;
+    }
 
-    p = rr * _p;
+    p = _p * r;
 }
 // 47 ( parametric )
 void V_DISC2(vector2 p; const vector2 _p; const float w; const vector2 disc2; const vector disc2_pc){

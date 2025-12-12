@@ -405,7 +405,7 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     <br />
 
     NOTE:
-        The behavior of the *`Curve`* variation is also different in Flam3/Apophysis versus Chaotica.
+        The behavior of the *`Cross`* and *`Curve`* variations are also different in Flam3/Apophysis versus Chaotica.
 
     <br />
 

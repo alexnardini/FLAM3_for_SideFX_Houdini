@@ -302,7 +302,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, y, o; con
                 return p; }
             // 46 CROSS
             else if(T==46){
-                V_CROSS(p, _p, w);
+                V_CROSS(f3c, p, _p, w);
                 return p; }
             // 47 DISC2 ( parametric )
             else if(T==47){
