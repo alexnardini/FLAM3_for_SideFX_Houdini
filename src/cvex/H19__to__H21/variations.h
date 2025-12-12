@@ -1406,7 +1406,7 @@ void V_MOBIUS(vector2 p; const vector2 _p; const float w; const vector4 re, im){
 }
 // 97 ( parametric )
 void V_CURVE(const int f3c; vector2 p; const vector2 _p; const float w; const vector2 l, a){
-    float _px, _py, pc_lx, pc_ly, lx, ly, ax, ay;
+    float _px, _py, lx, ly, ax, ay;
     assign(_px, _py, _p);
     assign(lx, ly, l);
     assign(ax, ay, a);
