@@ -543,7 +543,7 @@ TAG [Icon:DATATYPES/boolean]:
         - [Largeicon:opdef:.?icon_TagORedOffSVG.svg] when the OUT Camera sensor viz mode is *`On`*/Active and update sensor option is *`Off`*/Disabled.
 
         _Additionally only in the viewport Tag_:
-        - [Largeicon:opdef:.?icon_TagOSVG.svg] when iterator's count is *`0`*(Zero) and when xaos is active but you cross the 20 iterators limit.
+        - [Largeicon:opdef:.?icon_TagOSVG.svg] when iterator's count is *`0`*(Zero) and when xaos is active but you cross the 20 active iterators limit.
 
     <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
@@ -4082,7 +4082,7 @@ _A list of all parametric variations and their parametric parameter's names_
     FLAM3H(tm) allows you to create as many iterators as you wish.<br />
 
     However,<br />
-    when using xaos you are only permitted to create a maximum of *`20`* iterators.<br />
+    when using xaos you are only permitted to create a maximum of *`20`* active iterators.<br />
     This is a workaround to make xaos work due to a Houdini bug.
 
     <br />
