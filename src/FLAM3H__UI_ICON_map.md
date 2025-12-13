@@ -2234,10 +2234,10 @@ MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionS
 </br>
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_WhiteStarSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueKwargsSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueKwargsSVG.svg
 ```
 
 </br>
