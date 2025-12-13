@@ -839,16 +839,6 @@ MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDis
 </br>
 </br>
 
-<p align="left"><img width="48" height="48" src="../icons/icon_optionStarBlueSVG.svg" />
-</p>
-
-```python
-MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
-```
-
-</br>
-</br>
-
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarWarningSVG.svg" />
 </p>
 
@@ -962,12 +952,46 @@ _The following are icons being used on demand based on the menu python script ne
 </br>
 </br>
 
+The pre-built icons menu python lists being used:
+
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionDisabledZeroIterSVG.svg" />
+</p>
+
+```python
+MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+```
+
+</br>
+</br>
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarBlueSVG.svg" />
+</p>
+
+```python
+MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
+```
+
+</br>
+</br>
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWarningSVG.svg" />
+</p>
+
+```python
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
+```
+
+</br>
+</br>
+
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_WhiteStarSVG.svg" /></p>
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg
 ```
+
 
 </br>
 </br>
@@ -1958,16 +1982,6 @@ MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDis
 </br>
 </br>
 
-<p align="left"><img width="48" height="48" src="../icons/icon_optionStarBlueSVG.svg" />
-</p>
-
-```python
-MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
-```
-
-</br>
-</br>
-
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarWarningSVG.svg" />
 </p>
 
@@ -2186,11 +2200,44 @@ _The following are icons being used on demand based on the menu python script ne
 </br>
 </br>
 
+The pre-built icons menu python lists being used:
+
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionDisabledZeroIterSVG.svg" />
+</p>
+
+```python
+MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+```
+
+</br>
+</br>
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarBlueSVG.svg" />
+</p>
+
+```python
+MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
+```
+
+</br>
+</br>
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionStarWarningSVG.svg" />
+</p>
+
+```python
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
+```
+
+</br>
+</br>
+
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueKwargsSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_WhiteStarSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueKwargsSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg
 ```
 
 </br>
