@@ -340,7 +340,7 @@ void V_NGON(vector2 p; const vector2 _p; const float w; const vector4 ngon){
     assign(_px, _py, _p);
     assign(pow, sides, corners, circle, ngon);
 
-    cpower = -0.5*pow; csides = 2.0*PI/sides; csidesinv = 1.0/csides;
+    cpower = -0.5*pow; csides = M_TAU/sides; csidesinv = 1.0/csides;
     r_factor = (_px==0 && _py==0) ? 0 : pow(SUMSQ(_p), cpower);
     theta = ATANYX(_p);
     phi = theta - csides * floor(theta*csidesinv);
