@@ -33,6 +33,26 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.60 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.60) ###
+
+#### FLAM3H™ v1.9.60 indie -> H21.0 UP</br>FLAM3H™ v1.9.54 indie -> H19.0 to H20.5 ####
+
+- **Fix**: When using more than 20 iterators with xaos, FLAM3H™ was setting the limit based on the UI iterators count, and not using the number of active iterators which could have been less than the number of iterators being created. It is now fixed.
+- **Fix**: Further HDA contents cleanup and parameters locks and hides.
+- **Fix**: Updated/Corrected: [src/FLAM3H__UI_ICON_map.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/FLAM3H__UI_ICON_map.md)
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.57 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.57) ###
 
 #### FLAM3H™ v1.9.57 indie -> H21.0 UP</br>FLAM3H™ v1.9.51 indie -> H19.0 to H20.5 ####
