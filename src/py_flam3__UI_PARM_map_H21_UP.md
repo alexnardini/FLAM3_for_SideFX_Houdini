@@ -1197,7 +1197,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_FF()
 
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T_PP(True)
+menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T_PP_FF()
 return menu
 ```
 
@@ -1211,7 +1211,7 @@ return menu
 
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T(True)
+menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T_FF()
 return menu
 ```
 
