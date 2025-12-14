@@ -7239,14 +7239,14 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        node: hou.SopNode = self.node
+        # node: hou.SopNode = self.node
 
         # This data get created inside: menu_T_simple(self) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: TA_Menu | None = node.cachedUserData('vars_menu_all_simple')
+        data: TA_Menu | None = self._node.cachedUserData('vars_menu_all_simple')
         if data is not None: return data
 
-        use_icons: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
         return (self.menu_T_simple, self.menu_T_ICON)[use_icons]()
     
     
@@ -7265,14 +7265,14 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        node: hou.SopNode = self.node
+        # node: hou.SopNode = self.node
         
         # This data get created inside: menu_T_simple(self) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: TA_Menu | None = node.cachedUserData('vars_menu_all_simple')
+        data: TA_Menu | None = self._node.cachedUserData('vars_menu_all_simple')
         if data is not None: return data
 
-        use_icons: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
         return (self.menu_T_simple, self.menu_T_ICON_FF)[use_icons]()
 
     
@@ -7291,14 +7291,14 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        node: hou.SopNode = self.node
+        # node: hou.SopNode = self.node
         
         # This data get created inside: menu_T_simple(self) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: TA_Menu | None = node.cachedUserData('vars_menu_all_simple')
+        data: TA_Menu | None = self._node.cachedUserData('vars_menu_all_simple')
         if data is not None: return data
 
-        use_icons: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
         return (self.menu_T_simple, self.menu_T_PP_ICON)[use_icons]()
     
     
@@ -7317,14 +7317,14 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        node: hou.SopNode = self.node
+        # node: hou.SopNode = self.node
         
         # This data get created inside: menu_T_simple(self) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: TA_Menu | None = node.cachedUserData('vars_menu_all_simple')
+        data: TA_Menu | None = self._node.cachedUserData('vars_menu_all_simple')
         if data is not None: return data
-        
-        use_icons: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+
+        use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
         return (self.menu_T_simple, self.menu_T_PP_ICON_FF)[use_icons]()
     
     
