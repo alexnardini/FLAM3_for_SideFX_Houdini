@@ -2038,7 +2038,7 @@ __llvm_entry:
   %output9 = extractvalue { double, double, double, double } %output5, 3
   %return = call double @"neg@FF"(double 5.000000e-01)
   %output11 = fmul double %return, %output6
-  %output13 = call double @"div@FF"(double 0x401921FB4D12D84A, double %output7)
+  %output13 = call double @"div@FF"(double 0x401921FB54442D18, double %output7)
   %output15 = call double @"div@FF"(double 1.000000e+00, double %output13)
   %return17 = fcmp oeq double %output2, 0.000000e+00
   %return18 = zext i1 %return17 to i64
