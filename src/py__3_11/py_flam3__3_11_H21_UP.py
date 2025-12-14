@@ -7014,8 +7014,8 @@ class flam3h_iterator_utils
             (tuple[int, float]): int: variation idx.    float: weight value
         """  
         prm: hou.Parm = self.kwargs['parm']
-        _TYPE: int = prm.evalAsInt() # this can be animated with inbetween values so we always force cast it as int()
         s_mp_index: int = self.kwargs['script_multiparm_index']
+        _TYPE: int = prm.evalAsInt() # this can be animated with inbetween values so we always force cast it as int()
         prm_weight_name: str = f"{str(prm.name()).split('type')[0]}weight_{s_mp_index}"
         return _TYPE, self.node.parm(prm_weight_name).eval()
     
@@ -7221,6 +7221,7 @@ class flam3h_iterator_utils
         """
         self.node.setCachedUserData('vars_menu_all_simple', MENU_VARS_ALL_SIMPLE)
         return MENU_VARS_ALL_SIMPLE
+
     
     
     def menu_T(self) -> TA_Menu:
@@ -7243,8 +7244,7 @@ class flam3h_iterator_utils
         # This data get created inside: menu_T_simple(self) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
         data: TA_Menu | None = node.cachedUserData('vars_menu_all_simple')
-        if data is not None:
-            return data
+        if data is not None: return data
 
         use_icons: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
         return (self.menu_T_simple, self.menu_T_ICON)[use_icons]()
@@ -7270,8 +7270,7 @@ class flam3h_iterator_utils
         # This data get created inside: menu_T_simple(self) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
         data: TA_Menu | None = node.cachedUserData('vars_menu_all_simple')
-        if data is not None:
-            return data
+        if data is not None: return data
 
         use_icons: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
         return (self.menu_T_simple, self.menu_T_ICON_FF)[use_icons]()
@@ -7297,8 +7296,7 @@ class flam3h_iterator_utils
         # This data get created inside: menu_T_simple(self) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
         data: TA_Menu | None = node.cachedUserData('vars_menu_all_simple')
-        if data is not None:
-            return data
+        if data is not None: return data
 
         use_icons: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
         return (self.menu_T_simple, self.menu_T_PP_ICON)[use_icons]()
@@ -7324,9 +7322,8 @@ class flam3h_iterator_utils
         # This data get created inside: menu_T_simple(self) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
         data: TA_Menu | None = node.cachedUserData('vars_menu_all_simple')
-        if data is not None:
-            return data
-
+        if data is not None: return data
+        
         use_icons: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
         return (self.menu_T_simple, self.menu_T_PP_ICON_FF)[use_icons]()
     
