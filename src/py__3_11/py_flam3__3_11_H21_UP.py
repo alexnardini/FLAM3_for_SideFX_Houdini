@@ -7044,8 +7044,8 @@ class flam3h_iterator_utils
         prm: hou.Parm = self.kwargs['parm']
         s_mp_index: int = self.kwargs['script_multiparm_index']
         _TYPE: int = prm.evalAsInt() # this can be animated with inbetween values so we always force cast it as int()
-        prm_weight: float = self.node.parm(f"{FLAME_TAB_MENU_TYPE_W_MATCH[prm.name()[:-len(str(s_mp_index))]]}{s_mp_index}").eval()
-        return _TYPE, prm_weight
+        _W: float = self.node.parm(f"{FLAME_TAB_MENU_TYPE_W_MATCH[prm.name()[:-len(str(s_mp_index))]]}{s_mp_index}").eval()
+        return _TYPE, _W
     
     
     def menu_T_FF_get_var_data(self) -> tuple[int, float]:
@@ -7059,8 +7059,8 @@ class flam3h_iterator_utils
         """  
         prm: hou.Parm = self.kwargs['parm']
         _TYPE: int = prm.evalAsInt() # this can be animated with inbetween values so we always force cast it as int()
-        prm_weight: float = self.node.parm(FF_TAB_MENU_TYPE_W_MATCH[prm.name()]).eval()
-        return _TYPE, prm_weight
+        _W: float = self.node.parm(FF_TAB_MENU_TYPE_W_MATCH[prm.name()]).eval()
+        return _TYPE, _W
 
     
     def menu_T_data(self) -> tuple[int, str]:
