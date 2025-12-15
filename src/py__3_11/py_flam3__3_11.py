@@ -5957,8 +5957,11 @@ class flam3h_iterator_utils
             if f3h_all:
                 for f3h in node.type().instances():
                     f3h_all_lambda_min_opacity: Callable[[], float] = lambda: min((f3h.parm(f'{flam3h_iterator_prm_names().shader_alpha}_{idx + 1}').eval() for idx in range(iter_count)))
-                    if f3h_all_lambda_min_opacity() == 0:
-                        flam3h_general_utils.private_prm_set(f3h, PREFS_PVT_RIP, 1)
+                    try:
+                        if f3h_all_lambda_min_opacity() == 0:
+                            flam3h_general_utils.private_prm_set(f3h, PREFS_PVT_RIP, 1)
+                    except AttributeError:
+                        pass
             else:
                 lambda_min_opacity: Callable[[], float] = lambda: min((node.parm(f'{flam3h_iterator_prm_names().shader_alpha}_{idx + 1}').eval() for idx in range(iter_count)))
                 if lambda_min_opacity() == 0: flam3h_general_utils.private_prm_set(node, PREFS_PVT_RIP, 1)
