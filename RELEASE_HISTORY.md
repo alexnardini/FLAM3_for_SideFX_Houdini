@@ -35,11 +35,12 @@ They are all available in this Github repository.
 
 ### [<ins>v1.9.61 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.61) ###
 
-_This an only H21 release (FLAM3H™)_.
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
 #### FLAM3H™ v1.9.61 indie -> H21.0 UP</br>FLAM3H™ v1.9.54 indie -> H19.0 to H20.5 ####
 
 - **Fix H21.0 UP ONLY**: Improved a little the UI performance, especially when using the Preferences option: **iterator menus bookmark icons**.
+- **Fix**: Copy/Paste FLAM3H™ nodes between different Houdini sessions could trigger an AttributeError when running the Zero opacities checks inside the OnLoaded script definition.(_A regression from preview versions_.)
 
 
 
