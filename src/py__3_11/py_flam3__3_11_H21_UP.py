@@ -6648,16 +6648,14 @@ class flam3h_iterator_utils
         Returns:
             (str): The full path of the bookmark icon to use in the menu based on this variation weight value.
         """
-        if w > 0:
-            if w > 1:
-                return FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
-            
+        if w > 1:
+            return FLAM3H_ICON_STAR_FLAME_VAR_ACTV_OVER_ONE
+        elif w > 0:
             return FLAM3H_ICON_STAR_FLAME_VAR_ACTV
-        
         elif w < 0:
             return FLAM3H_ICON_STAR_FLAME_VAR_ACTV_NEGATIVE
-            
-        return FLAM3H_ICON_STAR_EMPTY_OPACITY
+        else:
+            return FLAM3H_ICON_STAR_EMPTY_OPACITY
     
     
     @staticmethod
@@ -6671,12 +6669,10 @@ class flam3h_iterator_utils
         Returns:
             (str): The full path of the bookmark icon to use in the menu based on this variation weight value.
         """
-        if w > 0:
-            if w > 1:
-                return FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE
-            
+        if w > 1:
+            return FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE
+        elif w > 0:
             return FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV
-            
         return FLAM3H_ICON_STAR_EMPTY_OPACITY
 
 
@@ -7134,12 +7130,10 @@ class flam3h_iterator_utils
 
         w: float = self.node.parm(prm_weight_name).eval()
 
-        if w > 0:
-            if w > 1:
-                return FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE
-            
+        if w > 1:
+            return FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV_OVER_ONE
+        elif w > 0:
             return FLAM3H_ICON_STAR_FLAME_VAR_PP_ACTV
-            
         return FLAM3H_ICON_STAR_EMPTY_OPACITY
     
     
