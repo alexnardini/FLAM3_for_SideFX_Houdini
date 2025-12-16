@@ -50,7 +50,7 @@ float ATAN(const vector2 p){ return atan2(p[0], p[1]); }
 
 float ATANYX(const vector2 p){ return atan2(p[1], p[0]); }
 
-float SUMSQ(const vector2 p){ return (p[0]*p[0] + p[1]*p[1]); }
+float SUMSQ(const vector2 p){ return dot(p, p); }
 
 float SQRT(const vector2 p){ return sqrt(SUMSQ(p)); }
 

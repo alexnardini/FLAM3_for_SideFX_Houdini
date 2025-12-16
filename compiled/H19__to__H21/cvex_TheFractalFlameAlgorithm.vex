@@ -200,13 +200,12 @@ __llvm_entry:
 define private double @"SUMSQ@FU"(<2 x double>* %p) #0 {
 __llvm_entry:
   %p1 = load <2 x double>, <2 x double>* %p
-  %return = call double @"getcomp@FUI"(<2 x double> %p1, i64 0)
-  %output = fmul double %return, %return
-  %return5 = call double @"getcomp@FUI"(<2 x double> %p1, i64 1)
-  %output8 = fmul double %return5, %return5
-  %output9 = fadd double %output, %output8
-  ret double %output9
+  %return = call double @"dot@FUU"(<2 x double> %p1, <2 x double> %p1)
+  ret double %return
 }
+
+; Function Attrs: nounwind
+declare double @"dot@FUU"(<2 x double>, <2 x double>) #2
 
 ; Function Attrs: alwaysinline nounwind
 define private double @"SQRT@FU"(<2 x double>* %p) #0 {
