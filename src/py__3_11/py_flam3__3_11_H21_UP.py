@@ -18578,7 +18578,7 @@ class out_flame_utils
 * menu_out_presets_loop(menu: TA_Menu, i: int, item: str) -> None:
 * menu_out_presets_loop_enum(menu: TA_Menu, i: int, item: str) -> None:
 * out_collect_var_section_names_dict(node: hou.SopNode, mode: bool = False, var_section: str = "VAR") -> dict[str, list[str]] | bool:
-* out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple[str, ...]:
+* out_build_xf_names(f3d: out_flame_xforms_data) -> tuple[str, ...]:
 
 @METHODS
 * get_iter_affine_pre(self, iterator_num: int) -> TA_Affine:
@@ -19687,7 +19687,7 @@ class out_flame_utils
 
 
     @staticmethod
-    def out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple[str, ...]:
+    def out_build_xf_names(f3d: out_flame_xforms_data) -> tuple[str, ...]:
         """Build the XML Flame iterator's names to account for inactive ierators if any.</br>
         If all are active or if an iterator has a custom name nothing will be changed.</br></br>
         
@@ -20922,7 +20922,7 @@ class out_flame_utils
         names_VARS: list[list[str]] = []
         names_VARS_PRE: list = [] # this is a: list[list[str]] but I can not cast it yet because I am doing dirty things down the line
         names_VARS_POST: list[list[str]] = []
-        xml_xf_names: tuple[str, ...] = self.out_buil_xf_names(f3d)
+        xml_xf_names: tuple[str, ...] = self.out_build_xf_names(f3d)
         
         for iter in range(f3d.iter_count):
             

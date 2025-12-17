@@ -17050,7 +17050,7 @@ class out_flame_utils
 * menu_out_presets_loop_enum(menu: list, i: int, item: str) -> None:
 * out_collect_var_section_names(node: hou.SopNode, var_section: str = "VAR") -> list[str] | None:
 * out_collect_var_section_names_dict(node: hou.SopNode, mode: int = False, var_section = "VAR") -> dict[str | list[str], bool]:
-* out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple:
+* out_build_xf_names(f3d: out_flame_xforms_data) -> tuple:
 
 @METHODS
 * out_to_flam3h_init_data_quick(self, node: hou.SopNode, tab: str = 'OUT') -> tuple[str | None, int]:
@@ -18165,7 +18165,7 @@ class out_flame_utils
         
         
     @staticmethod
-    def out_buil_xf_names(f3d: out_flame_xforms_data) -> tuple:
+    def out_build_xf_names(f3d: out_flame_xforms_data) -> tuple:
         """Build the XML Flame iterator's names to account for inactive ierators if any.
         If all are active or if an iterator has a custom name nothing will be changed.
         
@@ -19225,7 +19225,7 @@ class out_flame_utils
         names_VARS: list = []
         names_VARS_PRE: list = []
         names_VARS_POST: list = []
-        xml_xf_names: tuple = self.out_buil_xf_names(f3d)
+        xml_xf_names: tuple = self.out_build_xf_names(f3d)
         for iter in range(f3d.iter_count):
             mp_idx = str(int(iter + 1))
             if int(f3d.xf_vactive[iter]):
