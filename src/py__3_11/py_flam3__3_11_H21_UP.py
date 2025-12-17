@@ -343,9 +343,10 @@ OUT_USE_FRACTORIUM_PRM_NAMES = 'outfractoriumprm'
 OUT_PALETTE_FILE_EXT = '.json'
 OUT_FLAM3_FILE_EXT = '.flame'
 OUT_RENDER_PROPERTIES_EDIT = 'outedit'
-OUT_RENDER_PROPERTIES_SENSOR = 'outsensor'
 OUT_RENDER_PROPERTIES_SENSOR_ENTER = 'out_sensorviz_disabled'
 OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
+# PRIVATE OUT SYSTEM
+OUT_PVT_RENDER_PROPERTIES_SENSOR = 'outsensor'
 # OUT tab: Curves
 OUT_TOGGLE_CC_DEFAULTS_MSG = 'outccdefault'
 OUT_LABEL_CC_DEFAULTS_MSG = 'label_outccdefault'
@@ -1738,6 +1739,7 @@ class flam3h_scripts
                                     IN_PVT_ISVALID_PRESET, 
                                     IN_PVT_CLIPBOARD_TOGGLE, 
                                     OUT_PVT_ISVALID_FILE, 
+                                    OUT_PVT_RENDER_PROPERTIES_SENSOR, 
                                     PREFS_PVT_F3C, 
                                     PREFS_PVT_XAOS_AUTO_SPACE,
                                     PREFS_PVT_INT_0,
@@ -2615,13 +2617,13 @@ class flam3h_scripts
                 #
                 # If a FLAM3H™ node is in camera sensor mode and its display flag ON, update the viewport to actually be in camera sensor mode.
                 # This work with multiple FLAM3H™ node becasue there can only be one FLAM3H™ node in camera sensor mode at any given time.
-                if node.isGenericFlagSet(hou.nodeFlag.Display) and node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval(): # type: ignore
+                if node.isGenericFlagSet(hou.nodeFlag.Display) and node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval(): # type: ignore
                     flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
                     flam3h_general_utils(self.kwargs).util_set_front_viewer()
                 else:
                     # Otherwise just turn the camera sensor mode OFF.
-                    if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
-                        node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+                    if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
+                        flam3h_general_utils.private_prm_set(node, OUT_PVT_RENDER_PROPERTIES_SENSOR, 0)
                         # Clear stashed cams data
                         flam3h_general_utils.util_clear_stashed_cam_data()
                 
@@ -2659,9 +2661,9 @@ class flam3h_scripts
             else:
                 # CAMERA SENSOR
                 # If camera sensor is ON
-                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
                     # lets turn it OFF.
-                    node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+                    flam3h_general_utils.private_prm_set(node, OUT_PVT_RENDER_PROPERTIES_SENSOR, 0)
                     # Restore anc clear stashed cams data
                     flam3h_general_utils.util_set_stashed_cam()
                     flam3h_general_utils(self.kwargs).flam3h_other_sensor_viz_off(node)
@@ -2731,7 +2733,7 @@ class flam3h_scripts
             
             # If we are deleting a FLAM3H™ node in camera Sensor Viz mode,
             # restore the viewers to their preview states and clear all the stashed cams data
-            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+            if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
                 flam3h_general_utils.util_set_stashed_cam()
                 flam3h_general_utils.util_clear_stashed_cam_data()
             
@@ -2812,7 +2814,7 @@ class flam3h_general_utils
 * util_other_xf_viz(self) -> bool:
 * util_viewport_bbox_frame(self) -> None:
 * flam3h_other_sensor_viz_off(self, node: hou.SopNode) -> None:
-* flam3h_outsensor_toggle(self, prm_name: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
+* flam3h_outsensor_toggle(self, prm_name: str=OUT_PVT_RENDER_PROPERTIES_SENSOR) -> None:
 * flam3h_xf_viz_toggle(self, prm_name: str = PREFS_PVT_XF_VIZ) -> None:
 * flam3h_toggle_sys_xf_viz_solo(self) -> None:
 * flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
@@ -3600,7 +3602,7 @@ class flam3h_general_utils
         
         * def util_set_front_viewer(self, update: bool = True) -> bool:
         * def util_viewport_bbox_frame(self) -> None:
-        * def flam3h_outsensor_toggle(self, prm_name: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
+        * def flam3h_outsensor_toggle(self, prm_name: str=OUT_PVT_RENDER_PROPERTIES_SENSOR) -> None:
         * def flam3h_xf_viz_toggle(self, prm_name: str = PREFS_PVT_XF_VIZ) -> None:
         * def flam3h_toggle_sys_xf_viz_solo(self) -> None:
         * def flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
@@ -3744,7 +3746,7 @@ class flam3h_general_utils
         Note:
             This definition is also run inside the following definitions:
             
-            * def flam3h_outsensor_toggle(self, prm_name: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
+            * def flam3h_outsensor_toggle(self, prm_name: str=OUT_PVT_RENDER_PROPERTIES_SENSOR) -> None:
             * def iterators_count(self) -> None:
             * def util_viewport_bbox_frame(self) -> None:
             * def in_copy_render_all_stats_msg(kwargs: dict,  apo_data: in_flame_iter_data | None=None, clipboard: bool=False) -> None:
@@ -3763,7 +3765,7 @@ class flam3h_general_utils
             (bool): True if the Sensor Viz is being activated. False if not.
         """     
         node: hou.SopNode = self.node
-        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+        if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
             
             desktop: hou.Desktop = hou.ui.curDesktop() # type: ignore
             viewport: hou.SceneViewer = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
@@ -3816,7 +3818,7 @@ class flam3h_general_utils
                                     
                                 except AttributeError as e:
                                     F3H_Exception.F3H_traceback_print_infos(e)
-                                    node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+                                    self.private_prm_set(node, OUT_PVT_RENDER_PROPERTIES_SENSOR, 0)
                                     self.util_clear_stashed_cam_data()
                                     return False
                             else:
@@ -3840,7 +3842,7 @@ class flam3h_general_utils
                                         
                                     except AttributeError as e:
                                         F3H_Exception.F3H_traceback_print_infos(e)
-                                        node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+                                        self.private_prm_set(node, OUT_PVT_RENDER_PROPERTIES_SENSOR, 0)
                                         self.util_clear_stashed_cam_data()
                                         return False
                                     
@@ -3856,9 +3858,9 @@ class flam3h_general_utils
                 
                 else:
                     # If we were activating the Camera Sensor mode
-                    if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                    if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
                         # Revert it back to OFF and fire a message
-                        node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+                        self.private_prm_set(node, OUT_PVT_RENDER_PROPERTIES_SENSOR, 0)
                         _MSG: str = f"No Sop viewers available."
                         self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Camera Sensor to work.", 'WARN')
                         self.flash_message(node, f"{_MSG}")
@@ -3876,7 +3878,7 @@ class flam3h_general_utils
                 
                 # Or just exit the Sensor Viz mode
                 self.flam3h_other_sensor_viz_off(self.node)
-                node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+                self.private_prm_set(node, OUT_PVT_RENDER_PROPERTIES_SENSOR, 0)
                 self.util_clear_stashed_cam_data()
                 return False
                 
@@ -3895,7 +3897,7 @@ class flam3h_general_utils
         
         Note:</br>
         This expect the following condition to be True (Must run inside this if statement):
-        * if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():</br>
+        * if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():</br>
         
 
         Args:
@@ -3937,7 +3939,7 @@ class flam3h_general_utils
                                     
                                 except AttributeError as e:
                                     F3H_Exception.F3H_traceback_print_infos(e)
-                                    node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+                                    self.private_prm_set(node, OUT_PVT_RENDER_PROPERTIES_SENSOR, 0)
                                     self.util_clear_stashed_cam_data()
                                     return False
                                 
@@ -3956,7 +3958,7 @@ class flam3h_general_utils
                                         
                                     except AttributeError as e:
                                         F3H_Exception.F3H_traceback_print_infos(e)
-                                        node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+                                        self.private_prm_set(node, OUT_PVT_RENDER_PROPERTIES_SENSOR, 0)
                                         self.util_clear_stashed_cam_data()
                                         return False
                                 else:
@@ -3973,9 +3975,9 @@ class flam3h_general_utils
             if len(lop_viewports) == len(viewports):
                 
                 # If we were activating the Camera Sensor mode
-                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
                     # Revert it back to OFF and fire a message
-                    node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+                    self.private_prm_set(node, OUT_PVT_RENDER_PROPERTIES_SENSOR, 0)
                     _MSG: str = f"No Sop viewers available."
                     self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the Sensor Viz to work.", 'WARN')
                     self.flash_message(node, f"{_MSG}")
@@ -3987,7 +3989,7 @@ class flam3h_general_utils
         else:
             # Exit the Sensor Viz mode
             self.flam3h_other_sensor_viz_off(self.node)
-            node.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+            self.private_prm_set(node, OUT_PVT_RENDER_PROPERTIES_SENSOR, 0)
             self.util_clear_stashed_cam_data()
             
             _MSG: str = f"No Sop viewers available."
@@ -4059,7 +4061,7 @@ class flam3h_general_utils
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
         
-        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval() and not node.parm(OUT_UPDATE_SENSOR).eval():
+        if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval() and not node.parm(OUT_UPDATE_SENSOR).eval():
             # This condition probably will never evaluate to True as when in Sensor Viz mode
             # a new reframe icon will be displayed with the proper definition, but its good to make this icon multipurpose anyway.
             self.util_set_clipping_viewers()
@@ -4113,8 +4115,8 @@ class flam3h_general_utils
         if len(all_f3h) > 1:
             for f3h in all_f3h:
                 if f3h != node:
-                    if f3h.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
-                        f3h.parm(OUT_RENDER_PROPERTIES_SENSOR).set(0)
+                    if f3h.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
+                        self.private_prm_set(node, OUT_PVT_RENDER_PROPERTIES_SENSOR, 0)
                         # If another FLAM3H™ node is in Camera Sensor mode, clear up its data.
                         # after restoring the viewport prior to entering the Camera sensor mode
                         self.util_set_stashed_cam()
@@ -4122,12 +4124,12 @@ class flam3h_general_utils
                         break
 
 
-    def flam3h_outsensor_toggle(self, prm_name: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
+    def flam3h_outsensor_toggle(self, prm_name: str=OUT_PVT_RENDER_PROPERTIES_SENSOR) -> None:
         """If a toggle is OFF it will switch ON, and viceversa.</br>
 
         Args:
             (self):
-            prm_name(str): Default to: OUT_RENDER_PROPERTIES_SENSOR</br>Toggle parameter name to use.
+            prm_name(str): Default to: OUT_PVT_RENDER_PROPERTIES_SENSOR</br>Toggle parameter name to use.
             
         Returns:
             (None):
@@ -4141,7 +4143,7 @@ class flam3h_general_utils
         
         if prm.eval():
             
-            prm.set(0)
+            flam3h_general_utils.private_prm_set(node, prm_name, 0)
             
             # Restore the viewport prior to entering the Camera sensor mode
             self.util_set_stashed_cam()
@@ -4159,7 +4161,7 @@ class flam3h_general_utils
             # and if an active Karma viewer is present it will be re-started during the process as of now.
             if self.util_is_context_available_viewer('Sop') or self.util_is_context_available_viewer('Object'):
                 
-                prm.set(1)
+                flam3h_general_utils.private_prm_set(node, prm_name, 1)
                 
                 # If the current FLAM3H™ node is displayed ( its displayFlag is On )
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
@@ -4174,7 +4176,7 @@ class flam3h_general_utils
                         
                 else:
                     # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
-                    prm.set(0)
+                    flam3h_general_utils.private_prm_set(node, prm_name, 0)
                     _MSG: str = f"This node display flag is OFF. Please use a FLAM3H™ node that is currently displayed to enter the Camera sensor viz."
                     self.set_status_msg(f"{node.name()}: {str(prm.name()).upper()} -> {_MSG}", 'WARN')
                     self.flash_message(node, f"{_MSG[:30]}")
@@ -4415,7 +4417,7 @@ class flam3h_general_utils
         xfviz_solo: int = node.parm(PREFS_PVT_XF_VIZ_SOLO).eval()
         xfviz_solo_mp_idx: int = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX).eval() # this need to one higher than 0(Zero)
         xfviz_solo_follow: int = node.parm(PREFS_SOLO_FOLLOW).eval()
-        xfviz_out_sensor: int = node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval()
+        xfviz_out_sensor: int = node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval()
         
         # If any of the iterators is in SOLO mode and we are not in camera sensor mode
         if xfviz_solo and xfviz_solo_mp_idx and xfviz_solo_follow and not xfviz_out_sensor:
@@ -4608,12 +4610,14 @@ class flam3h_general_utils
         self.menus_refresh_enum_prefs()
         
         if prm.eval():
-            prm.set(0)
             # If the passed toggle's name argument is the camera sensor: 'outsensor'
             # restore the viewport prior to entering the Camera sensor mode and clearup all related data
-            if prm_name == OUT_RENDER_PROPERTIES_SENSOR:
+            if prm_name == OUT_PVT_RENDER_PROPERTIES_SENSOR:
+                self.private_prm_set(self.node, OUT_PVT_RENDER_PROPERTIES_SENSOR, 0)
                 self.util_set_stashed_cam()
                 self.util_clear_stashed_cam_data()
+            else:
+                prm.set(0)
                 
                 
     def flam3h_init_presets_CP_PRESETS(self, mode: int = 1, destroy_menus: bool = True, json_file: bool | None = None, f3h_json_file: bool | None = None, json_path_checked: str | bool | None = None) -> None:
@@ -7472,7 +7476,7 @@ class flam3h_iterator_utils
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
             data_now: tuple[list[Any] | Any, ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha')) # The order matter, those are the parameter's names without the multiparameter number, just the base names.
             xfviz_mem_id: int = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX).eval()
-            xfviz_out_sensor: int = node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval()
+            xfviz_out_sensor: int = node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval()
             data_now += (xfviz_mem_id, xfviz_out_sensor)
             
             data_names: tuple[str, ...] = ('iter_sel_n', 'iter_sel_a', 'iter_sel_w', 'iter_sel_o', 'iter_xfviz_solo_idx', 'iter_xfviz_out_sensor') # The order matter, they are the cached user data names being used
@@ -7684,7 +7688,7 @@ class flam3h_iterator_utils
             (TA_Menu): return menu list
         """
         node: hou.SopNode = self.node
-        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+        if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
             return MENU_DENSITY
         
         elif node.parm(PREFS_PVT_XF_VIZ).eval():
@@ -10046,7 +10050,7 @@ class flam3h_iterator_utils
         # This is probably not needed but I leave it here for now
         #
         # If OUT Camera sensor viz mode is ON.
-        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+        if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
             # We can avoid to set the clipping planes as they are already set
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
 
@@ -10193,7 +10197,7 @@ class flam3h_iterator_utils
         # This is probably not needed but I leave it here for now
         #
         # If OUT Camera sensor viz mode is ON.
-        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+        if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
             # We can avoid to set the clipping planes as they are already set
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
             
@@ -16400,7 +16404,7 @@ class in_flame_utils
             
             node.parm(OUT_RENDER_PROPERTIES_EDIT).set(1)
             
-            if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+            if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
                 flam3h_general_utils(kwargs).util_set_clipping_viewers()
                 flam3h_general_utils(kwargs).util_set_front_viewer()
             
@@ -16459,7 +16463,7 @@ class in_flame_utils
                 
                 node.parm(OUT_RENDER_PROPERTIES_EDIT).set(1)
                 
-                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
                     flam3h_general_utils(kwargs).util_set_clipping_viewers()
                     flam3h_general_utils(kwargs).util_set_front_viewer()
                     
@@ -16531,7 +16535,7 @@ class in_flame_utils
                 node.parm(OUT_RENDER_PROPERTIES_EDIT).set(1)
                 
                 # This is not needed for just the RENDER properties, but it casue no harm, so...
-                if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+                if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
                     flam3h_general_utils(kwargs).util_set_clipping_viewers()
                     flam3h_general_utils(kwargs).util_set_front_viewer()
                     
@@ -20370,7 +20374,7 @@ class out_flame_utils
             self.out_render_curves_set_and_retrieve_defaults(kwargs['node'])
             flam3h_general_utils.flash_message(self.node, f"OUT Render properties: RESET")
         
-        if self.node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+        if self.node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
 
 
@@ -20407,16 +20411,16 @@ class out_flame_utils
         self.reset_OUT_render()
         
         # If we are in sensor viz and we reset, make sure the sensor is framed properly.
-        if node.parm(OUT_RENDER_PROPERTIES_SENSOR).eval():
+        if node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval():
             flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
             flam3h_general_utils(self.kwargs).util_set_front_viewer()
             
         # I do not think this is used anymore but I leave it here 
         # until I make a cleanup pass of this code.
         if mode == 0:
+            flam3h_general_utils.private_prm_set(node, OUT_PVT_RENDER_PROPERTIES_SENSOR, 0)
             node.setParms({MSG_OUT: '', # type: ignore
                            OUT_RENDER_PROPERTIES_EDIT: 0, 
-                           OUT_RENDER_PROPERTIES_SENSOR: 0
                            })
         
         # I do not think this is used anymore but I leave it here 
