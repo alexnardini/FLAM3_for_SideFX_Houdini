@@ -1710,7 +1710,6 @@ class flam3h_scripts
         for p in pe:
             if p.currentNode() == f3h_node and p.isPin():
                 p.setPin(False)
-                break
             
             
     @staticmethod
