@@ -380,7 +380,8 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     - [Largeicon:opdef:.?icon_optionF3CEnabledSVG.svg] *Checked*: use the Flam3/Apophysis behavior (_Default_).
     - [Largeicon:opdef:.?icon_optionF3CDisabledSVG.svg] *Unchecked*: use the Chaotica behavior.
-    <br /><br />
+    
+    <br />
 
     Flam3 compatibility.
 
@@ -401,6 +402,9 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     TIP:
         #display: orange
         In Fractorium you can go to "Options" to find the exact same checkbox.
+
+        From Fractorium *`v25.25.12.1`*,<br />
+        The Flam3 Compatibility toggle is *`Off`* by default the first time the software is run (_Chaotica behavior_).
 
     <br />
 
