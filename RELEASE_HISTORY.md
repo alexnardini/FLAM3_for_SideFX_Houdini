@@ -33,6 +33,23 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.63 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.63) ###
+
+#### FLAM3H™ v1.9.63 indie -> H21.0 UP</br>FLAM3H™ v1.9.56 indie -> H19.0 to H20.5 ####
+
+- **Fix**: When deleting FLAM3H™ nodes, the OnDeleted python definition was checking for pinned parameter editors of it and was only un-pinning the first one if found. It is now fixed.
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.62 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.62) ###
 
 _This updated will require a restart of Houdini to fully pickup the changes_.
