@@ -303,7 +303,7 @@ CP_PALETTE_256_PLUS = 'cppaletteplus'
 CP_RAMP_SAVE_HSV = 'savehsv'
 CP_RAMP_HSV_KEEP_ON_LOAD = 'keephsv'
 CP_RAMP_HSV_VAL_NAME = 'hsv'
-# CP tab: SYSTEM PRIVATE
+# CP tab: PRIVATE SYSTEM
 CP_PVT_ISVALID_FILE = 'cpisvalidfile'
 CP_PVT_ISVALID_PRESET = 'cpisvalidpreset'
 # MB tab: Parameters at hand
@@ -325,7 +325,7 @@ IN_OVERRIDE_ITER_FLAME_NAME = 'oritername'
 IN_ITER_NUM_ON_LOAD = 'iternumonload'
 IN_FLAM3H_AFFINE_STYLE = 'in_f3h_affine'
 IN_COPY_RENDER_PROPERTIES_ON_LOAD = 'propertiescp'
-# IN SYSTEM PRIVATE
+# IN tab: PRIVATE SYSTEM
 IN_PVT_ISVALID_FILE = 'inisvalidfile'
 IN_PVT_ISVALID_PRESET = 'inisvalidpreset'
 IN_PVT_CLIPBOARD_TOGGLE = 'inclipboard'
@@ -345,8 +345,6 @@ OUT_FLAM3_FILE_EXT = '.flame'
 OUT_RENDER_PROPERTIES_EDIT = 'outedit'
 OUT_RENDER_PROPERTIES_SENSOR_ENTER = 'out_sensorviz_disabled'
 OUT_RENDER_PROPERTIES_RES_PRESETS_MENU = 'outrespresets'
-# PRIVATE OUT SYSTEM
-OUT_PVT_RENDER_PROPERTIES_SENSOR = 'outsensor'
 # OUT tab: Curves
 OUT_TOGGLE_CC_DEFAULTS_MSG = 'outccdefault'
 OUT_LABEL_CC_DEFAULTS_MSG = 'label_outccdefault'
@@ -355,8 +353,9 @@ OUT_RENDER_PROPERTIES_CURVE_OVERALL = 'outcurveoverallval'
 OUT_RENDER_PROPERTIES_CURVE_RED = 'outcurveredval'
 OUT_RENDER_PROPERTIES_CURVE_GREEN = 'outcurvegreenval'
 OUT_RENDER_PROPERTIES_CURVE_BLUE = 'outcurveblueval'
-# OUT tab: SYSTEM PRIVATE
+# OUT tab: PRIVATE SYSTEM
 OUT_PVT_ISVALID_FILE = 'outisvalidfile'
+OUT_PVT_RENDER_PROPERTIES_SENSOR = 'outsensor'
 # PREFS tab: Parameters at hand
 PREFS_PALETTE_256_PLUS = 'paletteplus'
 PREFS_SOLO_FOLLOW = 'solo_follow'
@@ -373,7 +372,7 @@ PREFS_VIEWPORT_DARK = 'setdark'
 PREFS_VIEWPORT_WIRE_WIDTH = 'vpww'
 PREFS_VIEWPORT_PT_TYPE = 'vptype'
 PREFS_VIEWPORT_PT_SIZE = 'vpptsize'
-# PRIVATE PREFS SYSTEM
+# PREFS tab: PRIVATE SYSTEM
 PREFS_PVT_DOFF = 'doff'
 PREFS_PVT_RIP = 'rip'
 PREFS_PVT_F3C = 'f3c'
@@ -384,16 +383,16 @@ PREFS_PVT_XF_VIZ = 'vizhandles'
 PREFS_PVT_XF_VIZ_SOLO = 'vizhandles_solo'
 PREFS_PVT_XF_VIZ_SOLO_MP_IDX = 'vizhandles_solo_mpidx'
 PREFS_PVT_XF_FF_VIZ_SOLO = 'vizhandlesff_solo'
-# PRIVATE PREFS SYSTEM MEM
+# PREFS tab: PRIVATE SYSTEM MEM
 PREFS_PVT_VIEWPORT_PT_SIZE_MEM = 'vpptsize_mem'
 PREFS_PVT_VIEWPORT_PT_TYPE_MEM = 'vptype_mem'
 PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM = 'vpww_mem'
-# PRIVATE PREFS TEMP PARMS
+# PREFS tab: PRIVATE TEMP PARMS
 PREFS_PVT_INT_0 = 'tmp_int_0'
 PREFS_PVT_INT_1 = 'tmp_int_1'
 PREFS_PVT_FLOAT_0 = 'tmp_float_0'
 PREFS_PVT_FLOAT_1 = 'tmp_float_1'
-# PREFS SYSTEM PRIVATE: self prm names for user data
+# PREFS tab: PRIVATE self prm names for user data
 FLAM3H_DATA_PRM_XAOS_MP_MEM = 'flam3h_data_mpmem'
 FLAM3H_DATA_PRM_XAOS_PREV = 'flam3h_data_xaos'
 FLAM3H_DATA_PRM_MPIDX = 'flam3h_data_mpidx'
@@ -408,12 +407,7 @@ MSG_IN_FLAMESTATS = 'flamestats_msg'
 MSG_IN_FLAMESENSOR = 'flamesensor_msg'
 MSG_IN_FLAMERENDER = 'flamerender_msg'
 MSG_DESCRIPTIVE_PRM = 'descriptive_msg'
-# Presets PRM and MSG
-MSG_PALETTE = 'palettemsg'
-MSG_PALETTE_MSG = 'Palette lib file: LOCKED'
-MSG_OUT = 'outmsg'
-MSG_OUT_MSG = 'Flame lib file: LOCKED'
-# Message About Tab parameters
+# ABOUT tab: Message parameters
 MSG_FLAM3H_ABOUT = 'flam3about_msg'
 MSG_FLAM3H_PLUGINS = 'flam3plugins_msg'
 MSG_FLAM3H_WEB = 'flam3h_heading_web'
@@ -424,16 +418,26 @@ MSG_FLAM3_PDF = 'flam3_heading_pdf'
 MSG_FLAM3_GIT = 'flam3_heading_git'
 MSG_FRACT_GITHUB = 'fract_heading_git'
 MSG_FRACT_WEB = 'fract_heading_web'
+
+# Presets PRM and MSG
+MSG_PALETTE = 'palettemsg'
+MSG_PALETTE_MSG = 'Palette lib file: LOCKED'
+MSG_OUT = 'outmsg'
+MSG_OUT_MSG = 'Flame lib file: LOCKED'
+
 # Message Mark iterators
 MARK_ITER_MSG = "Please, mark an iterator first"
 MARK_ITER_MSG_STATUS_BAR = f"{MARK_ITER_MSG} to copy parameter's values from."
 MARK_FF_MSG = "Please, mark the FF first"
 MARK_FF_MSG_STATUS_BAR = f"{MARK_FF_MSG} to copy parameter's values from."
+
 # File lock prefix
 FLAM3H_LIB_LOCK = 'F3H_LOCK'
+
 # PALETTE JSON data keys
 CP_JSON_KEY_NAME_HEX = 'f3h_hex'
 CP_JSON_KEY_NAME_HSV = 'f3h_hsv'
+
 # Flash messages timer
 FLAM3H_FLASH_MESSAGE_TIMER: float = 2
 
