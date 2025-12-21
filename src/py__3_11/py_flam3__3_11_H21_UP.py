@@ -3024,7 +3024,7 @@ class flam3h_general_utils
             # when working through the FLAM3HUSD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
             lop_viewer_available, viewers = flam3h_general_utils.util_is_context_available_viewer_data(usd_context)
             if lop_viewer_available:
-                for view in [v for v in viewers if flam3h_general_utils.util_is_context(usd_context, v)]: view.flashMessage('', msg, timer)
+                for view in [v for v in viewers if flam3h_general_utils.util_is_context(usd_context, v) and v.isViewingSceneGraph()]: view.flashMessage('', msg, timer)
 
     
     @staticmethod

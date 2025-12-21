@@ -643,7 +643,7 @@ class flam3husd_scripts
             for view in flam3husd_general_utils.util_getSceneViewers():
                 
                 # Lets make sure we check for a viewer in the Lop context
-                if flam3husd_general_utils.util_is_context('Lop', view):
+                if flam3husd_general_utils.util_is_context('Lop', view) and view.isViewingSceneGraph():
                     
                     settings: hou.GeometryViewportSettings = view.curViewport().settings()
                     size: float = settings.particlePointSize()
@@ -853,11 +853,8 @@ class flam3husd_scripts
         
         for v in views:
             # Store only if it is a Lop viewer
-            if flam3husd_general_utils.util_is_context('Lop', v) and not hou.hipFile.isLoadingHipFile(): # type: ignore
-                try:
-                    renderers.append(hou.SceneViewer.currentHydraRenderer(v))
-                except TypeError: # most likely OnCreation without any valid Lop viewers in the current Houdini Desktop
-                    pass
+            if (flam3husd_general_utils.util_is_context('Lop', v) and v.isViewingSceneGraph()) and not hou.hipFile.isLoadingHipFile(): # type: ignore
+                renderers.append(hou.SceneViewer.currentHydraRenderer(v))
 
         if renderers:
             
@@ -887,7 +884,7 @@ class flam3husd_scripts
                 for v in views:
                     
                     # Set only if it is a Lop viewer
-                    if flam3husd_general_utils.util_is_context('Lop', v):
+                    if flam3husd_general_utils.util_is_context('Lop', v) and v.isViewingSceneGraph():
                         
                         if lop_viewers is False: lop_viewers = True
                         
@@ -1301,7 +1298,7 @@ class flam3husd_general_utils
         for v in flam3husd_general_utils.util_getSceneViewers():
             
             # Store only if it is a Lop viewer
-            if flam3husd_general_utils.util_is_context('Lop', v):
+            if flam3husd_general_utils.util_is_context('Lop', v) and v.isViewingSceneGraph():
             
                 settings: hou.GeometryViewportSettings = v.curViewport().settings()
                 _CS: hou.EnumValue = settings.colorScheme()
@@ -1515,7 +1512,7 @@ class flam3husd_general_utils
         for view in self.util_getSceneViewers():
             
             # Only if it is a Lop viewer
-            if self.util_is_context('Lop', view):
+            if self.util_is_context('Lop', view) and view.isViewingSceneGraph():
                 
                 curView: hou.GeometryViewport = view.curViewport()
                 settings = curView.settings()
@@ -1572,7 +1569,7 @@ class flam3husd_general_utils
             for v in viewports:
                 
                 # Only if it is a Lop viewer
-                if self.util_is_context('Lop', v):
+                if self.util_is_context('Lop', v) and v.isViewingSceneGraph():
                     
                     num_viewers_lop = num_viewers_lop + 1
                     
@@ -1628,7 +1625,7 @@ class flam3husd_general_utils
             for v in self.util_getSceneViewers():
                 
                 # Store only if it is a Lop viewer
-                if self.util_is_context('Lop', v):
+                if self.util_is_context('Lop', v) and v.isViewingSceneGraph():
                     
                     view = v.curViewport()
                     settings = view.settings()
@@ -1669,7 +1666,7 @@ class flam3husd_general_utils
                 for v in views:
                     
                     # Set only if it is a Lop viewer
-                    if self.util_is_context('Lop', v):
+                    if self.util_is_context('Lop', v) and v.isViewingSceneGraph():
                         
                         if lop_viewers is False: lop_viewers = True
                         
@@ -1708,7 +1705,7 @@ class flam3husd_general_utils
                     for v in views:
                         
                         # Only if it is a Sop viewer
-                        if self.util_is_context('Lop', v):
+                        if self.util_is_context('Lop', v) and v.isViewingSceneGraph():
                             
                             if lop_viewers is False: lop_viewers = True
                             
@@ -1788,7 +1785,7 @@ class flam3husd_general_utils
         for view in self.util_getSceneViewers():
             
             # Set only if it is a Lop viewer
-            if self.util_is_context('Lop', view):
+            if self.util_is_context('Lop', view) and view.isViewingSceneGraph():
                 
                 if lop_viewers is False: lop_viewers = True
                 
@@ -1852,7 +1849,7 @@ class flam3husd_general_utils
         for view in self.util_getSceneViewers():
             
             # Set only if it is a Lop viewer
-            if self.util_is_context('Lop', view):
+            if self.util_is_context('Lop', view) and view.isViewingSceneGraph():
             
                 if lop_viewers is False: lop_viewers = True
             
@@ -1919,7 +1916,7 @@ class flam3husd_general_utils
         for view in self.util_getSceneViewers():
             
             # Set only if it is a Lop viewer
-            if self.util_is_context('Lop', view):
+            if self.util_is_context('Lop', view) and view.isViewingSceneGraph():
                 
                 # This double check should not be necessary
                 # But H19 did throw me an error in some cases so I leave it here for now

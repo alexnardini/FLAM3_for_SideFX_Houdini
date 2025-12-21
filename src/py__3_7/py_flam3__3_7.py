@@ -2685,7 +2685,7 @@ class flam3h_general_utils
             # This is being done because it is more handy for the user to read the message in the Lop viewers
             # when working through the FLAM3HUSD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
             if flam3h_general_utils.util_is_context_available_viewer('Lop'):
-                for view in [v for v in hou.ui.paneTabs() if v.type() == hou.paneTabType.SceneViewer and flam3h_general_utils.util_is_context('Lop', v)]: view.flashMessage('', msg, timer) # type: ignore
+                for view in [v for v in hou.ui.paneTabs() if v.type() == hou.paneTabType.SceneViewer and flam3h_general_utils.util_is_context('Lop', v) and v.isViewingSceneGraph()]: view.flashMessage('', msg, timer) # type: ignore
         
 
     @staticmethod
