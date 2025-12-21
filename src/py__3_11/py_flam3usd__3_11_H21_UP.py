@@ -875,7 +875,7 @@ class flam3husd_scripts
             if flam3husd_general_utils.util_is_context('Lop', v) and not hou.hipFile.isLoadingHipFile(): # type: ignore
                 try:
                     renderers.append(hou.SceneViewer.currentHydraRenderer(v))
-                except TypeError:
+                except TypeError: # most likely OnCreation without any valid Lop viewers in the current Houdini Desktop
                     pass
 
         if renderers:
