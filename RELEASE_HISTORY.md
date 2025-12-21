@@ -33,6 +33,29 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.64 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.64) ###
+
+#### FLAM3H™ v1.9.64 indie -> H21.0 UP</br>FLAM3H™ v1.9.57 indie -> H19.0 to H20.5 ####
+
+- **New**: Xforms handles viz now have a `@path` attribute that is then used by the **FLAM3HUSD** Lop node in the Solaris context(**USD**) to build layers hierarchy paths.
+
+#### FLAM3HUSD v0.2.44 indie -> H21.0 UP</br>FLAM3HUSD v0.2.40 indie -> H19.0 to H20.5 ####
+
+- **New**: Xforms handles viz are now built with proper layers hierarchy paths thanks to the new `@path` attribute coming from the imported FLAM3H™ data.
+- **Fix**: Xforms handles viz were not properly imported/updated when turning iterators **Off** and **On**, same for the finalXform(**FF**). It is now fixed.
+- **Fix**: Xforms handles VIZ are now imported as references. This seem to also fix a Houdini crash while editing the PRE/POST affine during Karma interactive updates and the handles imported at the same time (_karma CPU_).
+- **Fix**: OnCreation without any Lop viewers will throw a python: **TypeError**. It is now fixed.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.63 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.63) ###
 
 #### FLAM3H™ v1.9.63 indie -> H21.0 UP</br>FLAM3H™ v1.9.56 indie -> H19.0 to H20.5 ####

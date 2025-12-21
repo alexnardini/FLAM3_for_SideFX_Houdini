@@ -75,7 +75,7 @@ to: **py_flam3usd__3_11**
 import toolutils
 
 # Set some HDA infos
-__version__ = "0.2.36"
+__version__ = "0.2.40"
 __status__ = "Prototype"
 __h_versions__: tuple = (205,)
 __range_type__: bool = True # True for closed range. False for open range
@@ -127,7 +127,7 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 import toolutils
 
 # Set some HDA infos
-__version__ = "0.2.36"
+__version__ = "0.2.40"
 __status__ = "Prototype"
 __h_versions__: tuple = (190, 195, 200)
 __range_type__: bool = True # True for closed range. False for open range
