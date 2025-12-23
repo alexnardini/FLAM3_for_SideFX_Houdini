@@ -93,7 +93,7 @@ void V_HANDKERCHIEF(vector2 p; const vector2 _p; const float w){
 }
 // 07
 void V_HEART(vector2 p; const vector2 _p; const float w){
-    float a, r, _SQRT;
+    float _SQRT, a, r;
     _SQRT = SQRT(_p);
     a = _SQRT * ATAN(_p);
     r = w * _SQRT;
@@ -111,7 +111,7 @@ void V_DISC(vector2 p; const vector2 _p; const float w){
 }
 // 09 (precalc _p)
 void V_SPIRAL(vector2 p; const vector2 _p; const float w){
-    float r, _SQRT, r1, sr, cr;
+    float _SQRT, r, r1, sr, cr;
     _SQRT = SQRT(_p);
     vector2 precalc = _p / _SQRT;
     r = Zeps(_SQRT);
@@ -236,7 +236,7 @@ void V_COSINE(vector2 p; const vector2 _p; const float w){
 }
 // 21 (precalc _p)
 void V_RINGS(vector2 p; const vector2 _p; const float w, d){
-    float dx, rr, _SQRT;
+    float _SQRT, dx, rr;
     _SQRT = SQRT(_p);
     vector2 precalc = _p / _SQRT;
     
@@ -599,7 +599,7 @@ void V_DISC2_FF(vector2 p; const vector2 _p; const float w; const vector2 disc2)
 }
 // 48 ( parametric )
 void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w; const vector ss; const vector ss_n){
-    float ss_m, ss_rnd, ss_holes, theta, st, ct, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1, ss_nx, ss_ny, ss_nz;
+    float _SQRT, ss_m, ss_rnd, ss_holes, theta, st, ct, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1, ss_nx, ss_ny, ss_nz;
     assign(ss_m, ss_rnd, ss_holes, ss);
     assign(ss_nx, ss_ny, ss_nz, ss_n);
 
@@ -611,8 +611,8 @@ void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w; const vector ss; c
     sincos(theta, st, ct);
     tt1 = abs(ct);  tt1 = pow(tt1, ss_ny);
     tt2 = abs(st);  tt2 = pow(tt2, ss_nz);
-    float SQRT = SQRT(_p);
-    rr = w * ((ss_rnd*nrandom('twister') + (1.0-ss_rnd)*SQRT) - ss_holes) * pow(tt1+tt2, ss_pneg1_n1) / SQRT;
+    _SQRT = SQRT(_p);
+    rr = w * ((ss_rnd*nrandom('twister') + (1.0-ss_rnd)*_SQRT) - ss_holes) * pow(tt1+tt2, ss_pneg1_n1) / _SQRT;
 
     p = rr * _p;
 }
@@ -628,13 +628,13 @@ void V_FLOWER(vector2 p; const vector2 _p; const float w; const vector2 flower){
 }
 // 50 ( parametric )
 void V_CONIC(vector2 p; const vector2 _p; const float w; const vector2 conic){
-    float eccentricity, holes, ct, rr, _px, _py;
+    float _SQRT, eccentricity, holes, ct, rr, _px, _py;
     assign(_px, _py, _p);
     assign(eccentricity, holes, conic);
 
-    float SQRT = SQRT(_p);
-    ct = _px / SQRT;
-    rr = w * (nrandom("twister") - holes) * eccentricity / (1 + eccentricity*ct) / SQRT;
+    _SQRT = SQRT(_p);
+    ct = _px / _SQRT;
+    rr = w * (nrandom("twister") - holes) * eccentricity / (1 + eccentricity*ct) / _SQRT;
 
     p = rr * _p;
 }
