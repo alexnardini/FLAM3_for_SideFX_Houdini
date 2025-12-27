@@ -20945,17 +20945,18 @@ class out_flame_utils
                     xf.set(XML_XF_PB, f3d.xf_pre_blur[iter])
                     
                 xf.set(XML_PRE_AFFINE, f3d.xf_preaffine[iter])
-                angle: str | list[Never] = f3d.xf_f3h_preaffine_angle[iter]
-                if f3d.f3h_affine and isinstance(angle, str) and float(angle) != 0:
+                angle_pre: str | list[Never] = f3d.xf_f3h_preaffine_angle[iter]
+                if f3d.f3h_affine and isinstance(angle_pre, str) and float(angle_pre) != 0:
                     xf.set(XML_FLAM3H_PRE_AFFINE, f3d.xf_f3h_preaffine[iter])
-                    xf.set(XML_FLAM3H_PRE_AFFINE_ANGLE, angle)
+                    xf.set(XML_FLAM3H_PRE_AFFINE_ANGLE, angle_pre)
                     
                 if f3d.xf_postaffine[iter]:
                     xf.set(XML_POST_AFFINE, f3d.xf_postaffine[iter])
-                    f3h_angle: str | list[Never] = f3d.xf_f3h_postaffine_angle[iter]
-                    if f3d.f3h_affine and isinstance(f3h_angle, str) and float(f3h_angle) != 0:
+                    # This look like will never be a list[Never] but its not causing any issues and not a bad idea to check if it is a str anyway.
+                    angle_post: str | list[Never] = f3d.xf_f3h_postaffine_angle[iter]
+                    if f3d.f3h_affine and isinstance(angle_post, str) and float(angle_post) != 0:
                         xf.set(XML_FLAM3H_POST_AFFINE, f3d.xf_f3h_postaffine[iter])
-                        xf.set(XML_FLAM3H_POST_AFFINE_ANGLE, f3h_angle)
+                        xf.set(XML_FLAM3H_POST_AFFINE_ANGLE, angle_post)
                         
                 if f3d.xf_xaos[iter]:
                     xf.set(XML_XF_XAOS, f3d.xf_xaos[iter])
