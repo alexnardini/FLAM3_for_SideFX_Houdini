@@ -5544,8 +5544,8 @@ class flam3h_iterator_utils
 * tmp_prm_clear_and_reset(node: hou.SopNode, prm_from: hou.Parm, prm_to: hou.Parm, default_val: float) -> None:
 * paste_from_prm(prm_from: hou.Parm, prm_to: hou.Parm, pvt: bool = False) -> None:
 * paste_from_list(node: hou.SopNode, flam3node: hou.SopNode | None, prm_list: tuple, id: str, id_from: str) -> None:
-* is_iterator_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, id: str, id_from: str, post: bool = False) -> bool:
-* is_FF_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, post: bool = False) -> bool:
+* is_iterator_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple[tuple[str, int], ...], id: str, id_from: str, post: bool = False) -> bool:
+* is_FF_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple[tuple[str, int], ...], post: bool = False) -> bool:
 * paste_from_list_affine(node: hou.SopNode, prm_list_affine_to: tuple, prm_list_affine_from: tuple, id: str) -> None:
 * pastePRM_T_from_list(node: hou.SopNode, flam3node: hou.SopNode | None, prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
 * paste_save_note(_note: str) -> str:
@@ -6162,7 +6162,7 @@ class flam3h_iterator_utils
             
             
     @staticmethod
-    def is_iterator_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, id: str, id_from: str, post: bool = False) -> bool:
+    def is_iterator_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple[tuple[str, int], ...], id: str, id_from: str, post: bool = False) -> bool:
         """To be used with the copy/paste methods. Check if an iterator Affine (PRE or POST) are at default values. </br>
         If they are default values and they are the post affine, it will turn the post affine toggle OFF for both this iterator (id) and the from iterator (id_from)</br>
         even if they are between two different FLAM3H™ nodes (node and from_FLAM3H_NODE)</br>
@@ -6170,7 +6170,7 @@ class flam3h_iterator_utils
         Args:
             node(hou.SopNode): This FLAM3H™ node
             from_FLAM3H_NODE(hou.SopNode, None): hou.SopNode to copy values from
-            prm_list_affine(tuple): parameters list to query. This expect either: flam3h_iterator().sec_preAffine or flam3h_iterator().sec_postAffine
+            prm_list_affine(tuple[tuple[str, int], ...]): parameters list to query. This expect either: flam3h_iterator().sec_preAffine or flam3h_iterator().sec_postAffine
             id(str): current multiparamter index
             id_from(str): multiparameter index to copy from
             post(bool): Default to: False</br>Is it a post affine ?</br>True for declaring it as post affine.
@@ -6180,7 +6180,7 @@ class flam3h_iterator_utils
         """   
         _len: Callable[[tuple[Any]], int] = len
         if post:
-            prm_list_affine_XYOA: tuple = prm_list_affine[1:]
+            prm_list_affine_XYOA: tuple[tuple[str, int], ...] = prm_list_affine[1:]
             keyframes_post: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine_XYOA[idx][0]}{id}")] if prm_list_affine_XYOA[idx][1] else [1 if _len(node.parm(f"{prm_list_affine_XYOA[idx][0]}{id}").keyframes()) else 0] for idx in range(len(prm_list_affine_XYOA))] for item in sublist]
             collect_post: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine_XYOA[idx][0]}{id}").eval() if prm_list_affine_XYOA[idx][1] else node.parm(f"{prm_list_affine_XYOA[idx][0]}{id}").eval() for idx in range(len(prm_list_affine_XYOA))]
             if 1 not in keyframes_post and collect_post == AFFINE_DEFAULT_VALS:
@@ -6200,7 +6200,7 @@ class flam3h_iterator_utils
             
             
     @staticmethod
-    def is_FF_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple, post: bool = False) -> bool:
+    def is_FF_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple[tuple[str, int], ...], post: bool = False) -> bool:
         """To be used with the copy/paste methods. Check if the FF Affine (PRE or POST) are at default values.</br></br>
         
         If they are default values and they are the post affine,</br>
@@ -6210,7 +6210,7 @@ class flam3h_iterator_utils
         Args:
             node(hou.SopNode): This FLAM3H™ node
             flam3node(hou.SopNode, None): hou.SopNode to copy values from
-            prm_list_affine(tuple): parameters list to query.</br>This expect either:</br>flam3h_iterator_FF().sec_preAffine_FF</br>flam3h_iterator_FF().sec_postAffine_FF
+            prm_list_affine(tuple[tuple[str, int], ...]): parameters list to query.</br>This expect either:</br>flam3h_iterator_FF().sec_preAffine_FF</br>flam3h_iterator_FF().sec_postAffine_FF
             post(bool): Default to: False</br>Is it a post affine ?</br>True for declaring it as post affine.
             
         Returns:
@@ -6218,7 +6218,7 @@ class flam3h_iterator_utils
         """   
         _len: Callable[[tuple[Any]], int] = len
         if post:
-            prm_list_affine_XYOA: tuple = prm_list_affine[1:]
+            prm_list_affine_XYOA: tuple[tuple[str, int], ...] = prm_list_affine[1:]
             keyframes_post: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine_XYOA[idx][0]}")] if prm_list_affine_XYOA[idx][1] else [1 if _len(node.parm(f"{prm_list_affine_XYOA[idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine_XYOA))] for item in sublist]
             collect_post: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine_XYOA[idx][0]}").eval() if prm_list_affine_XYOA[idx][1] else node.parm(f"{prm_list_affine_XYOA[idx][0]}").eval() for idx in range(len(prm_list_affine_XYOA))]
             if 1 not in keyframes_post and collect_post == AFFINE_DEFAULT_VALS:
