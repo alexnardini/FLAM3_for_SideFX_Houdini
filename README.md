@@ -108,12 +108,16 @@ Fully available only with FLAM3HUSD HDA versions for Houdini H20.5 and up.
 <br/>
 
 `Karma interactive.`<br/>
+`Sphere Sugar Dragon - Author: SuicideBySafetyPin`
+![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_00_Karma.jpg)
+
+`Karma interactive.`<br/>
 `Worlds - Author: Alessandro Nardini`
-![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_Karma_H19.jpg)
+![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_01_Karma.jpg)
 
 `Karma interactive.`<br/>
 `Its Pink - Author: Plangkye`
-![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_02_Karma_H19.jpg)
+![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_02_Karma.jpg)
 
 ##  Highly inspired by Apophysis and its workflow design
 
