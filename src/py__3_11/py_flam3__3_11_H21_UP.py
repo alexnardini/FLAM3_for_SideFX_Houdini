@@ -5547,7 +5547,7 @@ class flam3h_iterator_utils
 * paste_from_list(node: hou.SopNode, flam3node: hou.SopNode | None, prm_list: tuple, id: str, id_from: str) -> None:
 * is_iterator_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple[tuple[str, int], ...], id: str, id_from: str, post: bool = False) -> bool:
 * is_FF_affine_default(node: hou.SopNode, from_FLAM3H_NODE: hou.SopNode, prm_list_affine: tuple[tuple[str, int], ...], post: bool = False) -> bool:
-* paste_from_list_affine(node: hou.SopNode, prm_list_affine_to: tuple, prm_list_affine_from: tuple, id: str) -> None:
+* paste_from_list_affine(node: hou.SopNode, prm_list_affine_to: tuple[tuple[str, int], ...], prm_list_affine_from: tuple[tuple[str, int], ...], id: str) -> None:
 * pastePRM_T_from_list(node: hou.SopNode, flam3node: hou.SopNode | None, prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
 * paste_save_note(_note: str) -> str:
 * paste_set_note(node: hou.SopNode, flam3node: hou.SopNode | None, int_mode: int, str_section: str, id: str, id_from: str) -> None:
@@ -6239,13 +6239,13 @@ class flam3h_iterator_utils
     
     
     @staticmethod
-    def paste_from_list_affine(node: hou.SopNode, prm_list_affine_to: tuple, prm_list_affine_from: tuple, id: str) -> None:
+    def paste_from_list_affine(node: hou.SopNode, prm_list_affine_to: tuple[tuple[str, int], ...], prm_list_affine_from: tuple[tuple[str, int], ...], id: str) -> None:
         """Paste value from the post affine into the pre affine and viceversa ( just swap  )</br>
         
         Args:
             node(hou.SopNode): FLAM3H™ node to set
-            prm_list_affine_to(tuple): parameters list to query and set for the either the PRE or POST affine
-            prm_list_affine_from(tuple): parameters list to query and set for the either the PRE or POST affine
+            prm_list_affine_to(tuple[tuple[str, int], ...]): parameters list to query and set for the either the PRE or POST affine
+            prm_list_affine_from(tuple[tuple[str, int], ...]): parameters list to query and set for the either the PRE or POST affine
             id(str): current multiparamter index
             
         Returns:
