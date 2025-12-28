@@ -1893,8 +1893,9 @@ class flam3h_scripts
         # Iterators
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         prm_list_post_affine: tuple[tuple[str, int], ...] = flam3h_iterator().sec_postAffine
-        keyframes_iters: list[list[int]] = [[item for sublist in k for item in sublist] for k in [[[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id + 1}")] if prm_list_post_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").keyframes()) else 0] for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]]
-        collect_iters: list[list[tuple[float, ...] | float]] = [[node.parmTuple(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").eval() if prm_list_post_affine[1:][idx][1] else node.parm(f"{prm_list_post_affine[1:][idx][0]}{id + 1}").eval() for idx in range(len(prm_list_post_affine[1:]))] for id in range(iter_num)]
+        prm_list_post_affine_XYOA: tuple[tuple[str, int], ...] = prm_list_post_affine[1:]
+        keyframes_iters: list[list[int]] = [[item for sublist in k for item in sublist] for k in [[[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine_XYOA[idx][0]}{id + 1}")] if prm_list_post_affine_XYOA[idx][1] else [1 if _len(node.parm(f"{prm_list_post_affine_XYOA[idx][0]}{id + 1}").keyframes()) else 0] for idx in range(len(prm_list_post_affine_XYOA))] for id in range(iter_num)]]
+        collect_iters: list[list[tuple[float, ...] | float]] = [[node.parmTuple(f"{prm_list_post_affine_XYOA[idx][0]}{id + 1}").eval() if prm_list_post_affine_XYOA[idx][1] else node.parm(f"{prm_list_post_affine_XYOA[idx][0]}{id + 1}").eval() for idx in range(len(prm_list_post_affine_XYOA))] for id in range(iter_num)]
         for id, affine in enumerate(collect_iters):
             prm_iter_name: str = f"{prm_list_post_affine[0][0]}{id + 1}"
             if node.parm(prm_iter_name).eval() and 1 not in keyframes_iters[id] and affine == AFFINE_DEFAULT_VALS:
@@ -6179,8 +6180,9 @@ class flam3h_iterator_utils
         """   
         _len: Callable[[tuple[Any]], int] = len
         if post:
-            keyframes_post: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}")] if prm_list_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_affine[1:][idx][0]}{id}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
-            collect_post: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}{id}").eval() if prm_list_affine[1:][idx][1] else node.parm(f"{prm_list_affine[1:][idx][0]}{id}").eval() for idx in range(len(prm_list_affine[1:]))]
+            prm_list_affine_XYOA: tuple = prm_list_affine[1:]
+            keyframes_post: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine_XYOA[idx][0]}{id}")] if prm_list_affine_XYOA[idx][1] else [1 if _len(node.parm(f"{prm_list_affine_XYOA[idx][0]}{id}").keyframes()) else 0] for idx in range(len(prm_list_affine_XYOA))] for item in sublist]
+            collect_post: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine_XYOA[idx][0]}{id}").eval() if prm_list_affine_XYOA[idx][1] else node.parm(f"{prm_list_affine_XYOA[idx][0]}{id}").eval() for idx in range(len(prm_list_affine_XYOA))]
             if 1 not in keyframes_post and collect_post == AFFINE_DEFAULT_VALS:
                 prm_name: str = prm_list_affine[0][0]
                 node.parm(f"{prm_name}{id}").set(0)
@@ -6216,8 +6218,9 @@ class flam3h_iterator_utils
         """   
         _len: Callable[[tuple[Any]], int] = len
         if post:
-            keyframes_post: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}")] if prm_list_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_affine[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
-            collect_post: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine[1:][idx][0]}").eval() if prm_list_affine[1:][idx][1] else node.parm(f"{prm_list_affine[1:][idx][0]}").eval() for idx in range(len(prm_list_affine[1:]))]
+            prm_list_affine_XYOA: tuple = prm_list_affine[1:]
+            keyframes_post: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine_XYOA[idx][0]}")] if prm_list_affine_XYOA[idx][1] else [1 if _len(node.parm(f"{prm_list_affine_XYOA[idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine_XYOA))] for item in sublist]
+            collect_post: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine_XYOA[idx][0]}").eval() if prm_list_affine_XYOA[idx][1] else node.parm(f"{prm_list_affine_XYOA[idx][0]}").eval() for idx in range(len(prm_list_affine_XYOA))]
             if 1 not in keyframes_post and collect_post == AFFINE_DEFAULT_VALS:
                 prm_name: str = prm_list_affine[0][0]
                 node.parm(prm_name).set(0)
@@ -6226,7 +6229,7 @@ class flam3h_iterator_utils
             
             return False
 
-        keyframes_pre: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[1:][idx][0]}")] if prm_list_affine[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_affine[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine[1:]))] for item in sublist]
+        keyframes_pre: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_affine[idx][0]}")] if prm_list_affine[idx][1] else [1 if _len(node.parm(f"{prm_list_affine[idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_affine))] for item in sublist]
         collect_pre: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine[idx][0]}").eval() if prm_list_affine[idx][1] else node.parm(f"{prm_list_affine[idx][0]}").eval() for idx in range(len(prm_list_affine))]
         if 1 not in keyframes_pre and collect_pre == AFFINE_DEFAULT_VALS:
             return True
