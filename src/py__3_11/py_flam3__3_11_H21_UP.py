@@ -10878,7 +10878,7 @@ class flam3h_palette_utils
         
         # Quick return
         if self.kwargs['parm'].isHidden():
-            return []
+            return [] # MENU_PRESETS_EMPTY_HIDDEN
         elif not self.node.parm(CP_PATH).eval():
             return MENU_PRESETS_EMPTY
         
@@ -10969,7 +10969,7 @@ class flam3h_palette_utils
         
         # Quick return
         if self.kwargs['parm'].isHidden():
-            return []
+            return [] # MENU_PRESETS_EMPTY_HIDDEN
         elif not self.node.parm(CP_PATH).eval():
             return MENU_PRESETS_EMPTY
         
@@ -17438,7 +17438,7 @@ class in_flame_utils
         
         # quick return
         if self.kwargs['parm'].isHidden():
-            return []
+            return [] # MENU_PRESETS_EMPTY_HIDDEN
         elif node.parm(FLAME_ITERATORS_COUNT).eval() and not node.parm(IN_PATH).eval():
             if node.parm(IN_PVT_ISVALID_PRESET).eval() and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
                 return MENU_IN_PRESETS_EMPTY_CB
@@ -17544,7 +17544,7 @@ class in_flame_utils
         
         # quick return
         if self.kwargs['parm'].isHidden():
-            return []
+            return [] # MENU_PRESETS_EMPTY_HIDDEN
         elif node.parm(FLAME_ITERATORS_COUNT).eval() and not node.parm(IN_PATH).eval():
             if node.parm(IN_PVT_ISVALID_PRESET).eval() and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
                 return MENU_IN_PRESETS_EMPTY_CB
