@@ -1903,8 +1903,9 @@ class flam3h_scripts
                 
         # FF
         prm_list_post_affine_FF: tuple[tuple[str, int], ...] = flam3h_iterator_FF().sec_postAffine_FF
-        keyframes_FF: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}")] if prm_list_post_affine_FF[1:][idx][1] else [1 if _len(node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_post_affine_FF[1:]))] for item in sublist]
-        collect_FF: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() if prm_list_post_affine_FF[1:][idx][1] else node.parm(f"{prm_list_post_affine_FF[1:][idx][0]}").eval() for idx in range(len(prm_list_post_affine_FF[1:]))]
+        prm_list_post_affine_FF_XYOA: tuple[tuple[str, int], ...] = prm_list_post_affine_FF[1:]
+        keyframes_FF: list[int] = [item for sublist in [[1 if _len(p.keyframes()) else 0 for p in node.parmTuple(f"{prm_list_post_affine_FF_XYOA[idx][0]}")] if prm_list_post_affine_FF_XYOA[idx][1] else [1 if _len(node.parm(f"{prm_list_post_affine_FF_XYOA[idx][0]}").keyframes()) else 0] for idx in range(len(prm_list_post_affine_FF_XYOA))] for item in sublist]
+        collect_FF: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_post_affine_FF_XYOA[idx][0]}").eval() if prm_list_post_affine_FF_XYOA[idx][1] else node.parm(f"{prm_list_post_affine_FF_XYOA[idx][0]}").eval() for idx in range(len(prm_list_post_affine_FF_XYOA))]
         prm_ff_name: str = f"{prm_list_post_affine_FF[0][0]}"
         if node.parm(prm_ff_name).eval() and 1 not in keyframes_FF and collect_FF == AFFINE_DEFAULT_VALS:
             node.parm(prm_ff_name).set(0)
