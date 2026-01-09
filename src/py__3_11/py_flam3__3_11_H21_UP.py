@@ -16639,12 +16639,12 @@ class in_flame_utils
 
 
     @staticmethod
-    def in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
+    def in_util_vars_dict_type_maker(vars_dict: dict[str, set[str]], func: Callable) -> dict:
         """Convert a dictionary of variation names into either PRE, VAR or POST variations names in one go.</br>
         This is used mainly with this dictionary: VARS_FRACTORIUM_DICT</br> 
 
         Args:
-            vars_dict(dict): The dictionary to convert.
+            vars_dict(dict[str, set[str]]): The dictionary to convert. For now, always: VARS_FRACTORIUM_DICT
             func(Callable):  The function to conert the variation name.</br>Can be any of:</br>in_flame_utils.in_util_make_PRE</br>in_flame_utils.in_util_make_VAR</br>in_flame_utils.in_util_make_POST</br>in_flame_utils.in_util_make_NULL
             
         Returns:
@@ -18551,7 +18551,7 @@ VARS_FRACTORIUM_DICT_POST: dict[str, tuple[str, ...]] = in_flame_utils.in_util_v
 ##########################################
 
 # this has been pre-built to work with: menu_sensor_resolution_set(self, update=True) -> None:
-MENU_OUT_SENSOR_RESOLUTIONS: list = [0, '', 1, '640x480', 2, 'HDTV 720', 3, 'HDTV 1080', 4, 'HDTV 2160 (4K)', 5, '', 6, 'NTSC', 7, 'NTSC D1', 8, 'PAL', 9, 'PAL 16:9 (1 to 1)', 10, '', 11, 'Full Ap 4K', 12, 'Full Ap 2K', 13, 'Acad 4K', 14, 'Acad 2K', 15, 'Scope 4K', 16, 'Scope 2K', 17, 'Vista 2K', 18, '', 19, '256^2', 20, '512^2', 21, '1024^2', 22, '2048^2', 23, '4096^2', 24, '']
+MENU_OUT_SENSOR_RESOLUTIONS: TA_Menu = [0, '', 1, '640x480', 2, 'HDTV 720', 3, 'HDTV 1080', 4, 'HDTV 2160 (4K)', 5, '', 6, 'NTSC', 7, 'NTSC D1', 8, 'PAL', 9, 'PAL 16:9 (1 to 1)', 10, '', 11, 'Full Ap 4K', 12, 'Full Ap 2K', 13, 'Acad 4K', 14, 'Acad 2K', 15, 'Scope 4K', 16, 'Scope 2K', 17, 'Vista 2K', 18, '', 19, '256^2', 20, '512^2', 21, '1024^2', 22, '2048^2', 23, '4096^2', 24, '']
 
 
 class out_flame_utils:
