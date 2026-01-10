@@ -2343,17 +2343,20 @@ class flam3h_scripts
         if cp_is_valid:
             cp_path: str = os.path.expandvars(node.parm(CP_PATH).eval())
             cp_path_checked: str | bool = out_flame_utils.out_check_outpath(node,  cp_path, OUT_PALETTE_FILE_EXT, AUTO_NAME_CP)
-            if cp_path_checked is not False and os.path.isfile(cp_path_checked): node.setCachedUserData('cp_presets_filepath', cp_path_checked)
+            cp_is_file: bool = os.path.isfile(cp_path_checked) if cp_path_checked is not False else False
+            if cp_is_file: node.setCachedUserData('cp_presets_filepath', cp_path_checked)
                 
         if in_is_valid:
-            xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
-            xml_checked: str | bool = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT, False, False)
-            if xml_checked is not False and os.path.isfile(xml_checked): node.setCachedUserData('in_presets_filepath', xml_checked)
+            in_xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
+            in_xml_checked: str | bool = out_flame_utils.out_check_outpath(node,  in_xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT, False, False)
+            in_xml_is_file: bool = os.path.isfile(in_xml_checked) if in_xml_checked is not False else False
+            if in_xml_is_file: node.setCachedUserData('in_presets_filepath', in_xml_checked)
             
         if out_is_valid:
-            xml: str = os.path.expandvars(node.parm(OUT_PATH).eval())
-            xml_checked: str | bool = out_flame_utils.out_check_outpath(node,  xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
-            if xml_checked is not False and os.path.isfile(xml_checked): node.setCachedUserData('out_presets_filepath', xml_checked)
+            out_xml: str = os.path.expandvars(node.parm(OUT_PATH).eval())
+            out_xml_checked: str | bool = out_flame_utils.out_check_outpath(node,  out_xml, OUT_FLAM3_FILE_EXT, AUTO_NAME_OUT)
+            out_xml_is_file: bool = os.path.isfile(out_xml_checked) if out_xml_checked is not False else False
+            if out_xml_is_file: node.setCachedUserData('out_presets_filepath', out_xml_checked)
 
 
     def flam3h_on_create_compatible_false(self, iterators_count_zero: bool = True, descriptive_prm: bool = True) -> None:
@@ -7169,12 +7172,14 @@ class flam3h_iterator_utils
         if self.node.parmTuple(FLAM3H_ITERATORS_TAB).eval() != (0,):
             return []
         
-        menu: TA_Menu = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = self.menu_T_data()
         var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
-        if var is not None: menu[var] = f"{_ICON} {str(menu[var])[:20]}"
-
-        return menu
+        if var is not None:
+            menu: TA_Menu = copy(MENU_VARS_ALL_SIMPLE)
+            menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+            return menu
+        
+        return MENU_VARS_ALL_SIMPLE
     
     
     def menu_T_ICON_FF(self) -> TA_Menu:
@@ -7191,12 +7196,15 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        menu: TA_Menu = copy(MENU_VARS_ALL_SIMPLE)
+        
         _TYPE, _ICON = self.menu_T_FF_data()
         var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
-        if var is not None: menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+        if var is not None:
+            menu: TA_Menu = copy(MENU_VARS_ALL_SIMPLE)
+            menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+            return menu
 
-        return menu
+        return MENU_VARS_ALL_SIMPLE
 
 
     def menu_T_PP_ICON(self) -> TA_Menu:
@@ -7216,14 +7224,16 @@ class flam3h_iterator_utils
         if self.node.parmTuple(FLAM3H_ITERATORS_TAB).eval() != (0,):
             return []
         
-        menu: TA_Menu = copy(MENU_VARS_ALL_SIMPLE)
         _TYPE, _ICON = self.menu_T_PP_data()
         var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
-        if var is not None: menu[var] = f"{_ICON} {str(menu[var])[:20]}"
-        
-        return menu
+        if var is not None:
+            menu: TA_Menu = copy(MENU_VARS_ALL_SIMPLE)
+            menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+            return menu
+
+        return MENU_VARS_ALL_SIMPLE
     
-    
+
     def menu_T_PP_ICON_FF(self) -> TA_Menu:
         """Populate FF variation names parameter menu list and add proper bookmark icons based on their weights.</br>
         
@@ -7238,14 +7248,17 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        menu: TA_Menu = copy(MENU_VARS_ALL_SIMPLE)
+        
         _TYPE, _ICON = self.menu_T_PP_FF_data()
         var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
-        if var is not None: menu[var] = f"{_ICON} {str(menu[var])[:20]}"
-        
-        return menu
+        if var is not None:
+            menu: TA_Menu = copy(MENU_VARS_ALL_SIMPLE)
+            menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+            return menu
+
+        return MENU_VARS_ALL_SIMPLE
     
-    
+
     def menu_T_simple(self) -> TA_Menu:
         """Populate variation names parameter menu list.</br>
         
@@ -10873,10 +10886,13 @@ class flam3h_palette_utils
         node: hou.SopNode = self.node
         if hou.isUIAvailable() is False: node.updateParmStates()
         
+        # Cache parm reads
+        cp_path: str = node.parm(CP_PATH).eval()
+        
         # Quick return
         if self.kwargs['parm'].isHidden():
             return [] # MENU_PRESETS_EMPTY_HIDDEN
-        elif not self.node.parm(CP_PATH).eval():
+        elif not cp_path:
             return MENU_PRESETS_EMPTY
         
         # This undo's disabler is needed to make the undo work. 
@@ -10887,7 +10903,7 @@ class flam3h_palette_utils
             preset_idx: str = node.parm(CP_PALETTE_PRESETS).eval()
             
             # Double check 
-            json_file_path: str = os.path.expandvars(node.parm(CP_PATH).eval())
+            json_file_path: str = os.path.expandvars(cp_path) if cp_path else ''
             json_is_file: bool = os.path.isfile(json_file_path) if json_file_path else False
             
             if json_file_path and not json_is_file:
@@ -10969,10 +10985,13 @@ class flam3h_palette_utils
         node: hou.SopNode = self.node
         if hou.isUIAvailable() is False: node.updateParmStates()
         
+        # Cache parm reads
+        cp_path: str = node.parm(CP_PATH).eval()
+        
         # Quick return
         if self.kwargs['parm'].isHidden():
             return [] # MENU_PRESETS_EMPTY_HIDDEN
-        elif not self.node.parm(CP_PATH).eval():
+        elif not cp_path:
             return MENU_PRESETS_EMPTY
         
         # This undo's disabler is needed to make the undo work. 
@@ -10983,7 +11002,7 @@ class flam3h_palette_utils
             preset_idx: str = node.parm(CP_PALETTE_PRESETS_OFF).eval()
             
             # Double check 
-            json_file_path: str = os.path.expandvars(node.parm(CP_PATH).eval())
+            json_file_path: str = os.path.expandvars(cp_path) if cp_path else ''
             json_is_file: bool = os.path.isfile(json_file_path) if json_file_path else False
             
             if json_file_path and not json_is_file:
@@ -17447,8 +17466,14 @@ class in_flame_utils
         # quick return
         if self.kwargs['parm'].isHidden():
             return [] # MENU_PRESETS_EMPTY_HIDDEN
-        elif node.parm(FLAME_ITERATORS_COUNT).eval() and not node.parm(IN_PATH).eval():
-            if node.parm(IN_PVT_ISVALID_PRESET).eval() and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
+        
+        # Cache parm reads
+        in_path: str = node.parm(IN_PATH).eval()
+        iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
+        clipboard_toggle: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+        
+        if iter_count and not in_path:
+            if node.parm(IN_PVT_ISVALID_PRESET).eval() and clipboard_toggle:
                 return MENU_IN_PRESETS_EMPTY_CB
             return MENU_PRESETS_EMPTY
         
@@ -17459,13 +17484,13 @@ class in_flame_utils
             data_idx: str | None = node.cachedUserData('in_presets_menu_idx')
             preset_idx: str = node.parm(IN_PRESETS).eval()
             
-            # Double check 
-            xml_file_path: str = os.path.expandvars(node.parm(IN_PATH).eval())
+            # Double check - expand only if path is non-empty
+            xml_file_path: str = os.path.expandvars(in_path) if in_path else ''
             xml_is_file: bool = os.path.isfile(xml_file_path) if xml_file_path else False
                 
             if not xml_is_file:
                 flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
-                if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
+                if not clipboard_toggle: flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
                 data = None
                 
             else:
@@ -17556,8 +17581,15 @@ class in_flame_utils
         # quick return
         if self.kwargs['parm'].isHidden():
             return [] # MENU_PRESETS_EMPTY_HIDDEN
-        elif node.parm(FLAME_ITERATORS_COUNT).eval() and not node.parm(IN_PATH).eval():
-            if node.parm(IN_PVT_ISVALID_PRESET).eval() and node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
+        
+        # Cache parm reads
+        in_path: str = node.parm(IN_PATH).eval()
+        iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
+        is_valid_preset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
+        clipboard_toggle: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
+        
+        if iter_count and not in_path:
+            if is_valid_preset and clipboard_toggle:
                 return MENU_IN_PRESETS_EMPTY_CB
             return MENU_PRESETS_EMPTY
         
@@ -17569,16 +17601,16 @@ class in_flame_utils
             preset_idx: str = node.parm(IN_PRESETS_OFF).eval()
             
             # Double check 
-            xml_file_path: str = os.path.expandvars(node.parm(IN_PATH).eval())
+            xml_file_path: str = os.path.expandvars(in_path) if in_path else ''
             xml_is_valid: bool = os.path.isfile(xml_file_path) if xml_file_path else False
                 
             if not xml_is_valid:
                 flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
-                if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
+                if not clipboard_toggle: flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
                 data = None
                 
             else:
-                if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): # to double check
+                if not clipboard_toggle: # to double check
                     # This caused some pain becasue it is forcing us not to tell the truth sometime
                     # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
                     flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
@@ -19267,6 +19299,146 @@ class out_flame_utils
 
         # Otherwise lets be sure to build a proper output path and file name.
         
+        # Cache path components once
+        file_split: tuple[str, str] = os.path.split(file)
+        file_dir: str = file_split[0]
+        file_s: list[str] = [''.join(x.split(' ')) for x in file_split]
+        file_dir_is_valid: bool = os.path.isdir(file_dir)
+        
+        # This toggle should be removed from FLAM3H™ at some point
+        autopath: int = node.parm(PREFS_PVT_AUTO_PATH_CORRECTION).eval()
+        if autopath:
+            
+            # Just in case lets check is a valid location
+            if file_dir_is_valid or os.path.isdir(file_s[0]):
+                
+                file_new = ''
+                # Generate timestamp once if needed
+                new_name: str = datetime.now().strftime(f"{prx}_%b-%d-%Y_%H%M%S") if auto_name else ''
+                
+                filename_s: tuple[str, str] = os.path.splitext(file_s[-1].strip())
+                
+                if filename_s[-1] == file_ext:
+                    # This code is very old and need some revision ;D
+                    build_f_s: list[str] = file.split("/")
+                    build_f_s[:] = [item for item in build_f_s if item]
+                    build_f_s[-1] = ''.join(letter for letter in build_f_s[-1] if letter.isalnum() or letter in CHARACTERS_ALLOWED)
+                    file_new: str = "/".join(build_f_s)
+                
+                elif not filename_s[-1] and filename_s[0]:
+                    
+                    # this is done in case only the extension is left in the prm field
+                    if file_s[-1] in file_ext and file_s[-1][0] == ".":
+                        if auto_name: file_new: str = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
+                        else: file_new: str = out_flame_utils.out_check_build_file(file_s, new_name, '')
+                        
+                    else:
+                        
+                        if not file_s[-1][0].isalnum():
+                            if auto_name: file_new: str = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
+                            else: file_new: str = out_flame_utils.out_check_build_file(file_s, new_name, '')
+                            
+                        else:
+                            file_new: str = out_flame_utils.out_check_build_file(file_s, file_s[-1], file_ext)
+                            
+                    # Print out proper msg based on file extension
+                    out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
+                    
+                elif not filename_s[-1] and not filename_s[0]:
+                    if auto_name: file_new: str = out_flame_utils.out_check_build_file(file_s, new_name, file_ext)
+                    else: file_new: str = out_flame_utils.out_check_build_file(file_s, new_name, '')
+                
+                # this as last for now
+                #
+                # If there is a file extension and it match part or all of the file_ext string.
+                #
+                # This will execute only if the string match at the beginning of the file extension
+                # otherwise the above if/elif statements would have executed already.
+                elif len(filename_s) > 1 and filename_s[-1] in file_ext:
+                    file_new: str = out_flame_utils.out_check_build_file(file_s, filename_s[0], file_ext)
+
+                else:
+                    if not os.path.exists(file):
+                        file_new: str = out_flame_utils.out_check_build_file(file_s, filename_s[0], file_ext)
+                
+                if file_new:
+                    
+                    # The following will allow network paths to work as well
+                    
+                    # Cache file_new split
+                    file_new_split: tuple[str, str] = os.path.split(file_new)
+                    file_new_name: str = file_new_split[1]
+                    file_new_dir: str = file_new_split[0]
+                    
+                    # Lets check if the original output path is a valid location
+                    if file_dir_is_valid:
+                        _out_file = f"{file_dir}{'' if file_dir.endswith('/') else '/'}{file_new_name}"
+                        
+                    # Otherwise lets check if the generated output path is a valid location
+                    elif os.path.isdir(file_new_dir):
+                        _out_file = file_new
+                    
+                    # Otherwise get the expanded and corrected infile location and append the new filename to it
+                    else:
+                        _out_file = f"{file_s[0]}{'' if file_s[0].endswith('/') else '/'}{file_new_name}"
+                    
+                    # Check if there are messages worth printing
+                    out_flame_utils.out_check_outpath_messages(node, file, file_new, file_ext, prx)
+                    
+                    # OUT
+                    return out_flame_utils.out_file_cleanup(_out_file)
+                        
+                else:
+                    return False
+
+            if file:
+                if OUT_FLAM3_FILE_EXT == file_ext:
+                    if out: _MSG: str = f"OUT: Select a valid OUT flame directory location."
+                    else: _MSG: str = f"IN: Select a valid IN flame file path."
+                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
+                    
+            else:
+                # If the path string is empty we do not want to print out
+                flam3h_general_utils.set_status_msg('', 'MSG')
+                
+            return False
+            
+        # The following else statement is not really needed anymore
+        # but until I do not remove the hidden toggle I leave it here.
+        else:
+            # just check if the user input is a valid location using cached checks
+            if file_dir_is_valid or os.path.isdir(file_s[0]):
+                return infile
+            
+            if file:
+                if OUT_FLAM3_FILE_EXT == file_ext:
+                    _MSG: str = f"OUT: Select a valid OUT flame directory location." if out else f"IN: Select a valid IN flame file path."
+                elif OUT_PALETTE_FILE_EXT == file_ext:
+                    _MSG: str = f"CP: Select a valid OUT directory location."
+                else:
+                    _MSG: str = ""
+                
+                if _MSG:
+                    flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
+            else:
+                # If the path string is empty we do not want to print out
+                flam3h_general_utils.set_status_msg('', 'MSG')
+                
+            return False
+        
+        '''
+        # OLD CODE BELOW
+        
+        file: str = os.path.expandvars(infile)
+        
+        # Early exit if the file is already valid
+        if (prx == AUTO_NAME_CP and flam3h_palette_utils.isJSON_F3H(node, file, False)[-1]) or \
+           (prx == AUTO_NAME_OUT and _xml_tree(file).isvalidtree):
+               
+            return file
+
+        # Otherwise lets be sure to build a proper output path and file name.
+        
         file_s: list[str] = [''.join(x.split(' ')) for x in os.path.split(file)]
         
         # This toggle should be removed from FLAM3H™ at some point
@@ -19387,6 +19559,8 @@ class out_flame_utils
                 flam3h_general_utils.set_status_msg('', 'MSG')
                 
             return False
+            
+        '''
     
     
     @staticmethod
@@ -20542,8 +20716,11 @@ class out_flame_utils
         node: hou.SopNode = self.node
         if hou.isUIAvailable() is False: node.updateParmStates()
         
+        # Cache parm reads to avoid repeated evaluations
+        out_path: str = node.parm(OUT_PATH).eval()
+        
         # quick return
-        if not node.parm(OUT_PATH).eval():
+        if not out_path:
             return MENU_PRESETS_EMPTY
         
         # This undo's disabler is needed to make the undo work. 
@@ -20552,7 +20729,7 @@ class out_flame_utils
             data: TA_Menu | None = node.cachedUserData('out_presets_menu')
             
             # Double check
-            xml_file_path: str = os.path.expandvars(node.parm(OUT_PATH).eval())
+            xml_file_path: str = os.path.expandvars(out_path) if out_path else ''
             xml_is_file: bool = os.path.isfile(xml_file_path) if xml_file_path else False
             
             if xml_file_path and not xml_is_file:
