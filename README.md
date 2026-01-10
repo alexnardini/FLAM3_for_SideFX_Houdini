@@ -108,7 +108,7 @@ Fully available only with FLAM3HUSD HDA versions for Houdini H20.5 and up.
 <br/>
 
 `Karma interactive.`<br/>
-`Sphere Sugar Dragon - Author: SuicideBySafetyPin`
+`Sphere Sugar Dragon - Author: Pillemaster`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_00_Karma.jpg)
 
 `Karma interactive.`<br/>
