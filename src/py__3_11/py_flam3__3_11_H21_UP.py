@@ -2990,7 +2990,8 @@ class flam3h_general_utils
         """ 
         # Get start directory if one is already set in the CP oir IN tabs filepath parameter (e.g. a Palette or a Flame file is already being loaded)
         CP_filepath: str = os.path.expandvars(node.parm(type).eval())
-        if os.path.isfile(CP_filepath):
+        _is_file: bool = os.path.isfile(CP_filepath) if CP_filepath else False
+        if _is_file:
             CP_filepath_dir: str | None = os.path.split(CP_filepath)[0]
         else:
             _dir: str = os.path.split(CP_filepath)[0]
@@ -6898,7 +6899,7 @@ class flam3h_iterator_utils
         inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
         clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
         xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
-        xml_isFile: bool = os.path.isfile(xml)
+        xml_isFile: bool = os.path.isfile(xml) if xml else False
         xml_history: str | None = node.cachedUserData('in_presets_filepath')
         # Only if a valid preset has been loaded from a disk file ( not clipboard )
         if xml and xml_isFile and xml == xml_history and inisvalidfile and inisvalidpreset and not clipboard:
@@ -20654,7 +20655,7 @@ class out_flame_utils
             inisvalidpreset: int = node.parm(IN_PVT_ISVALID_PRESET).eval()
             clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
             xml: str = os.path.expandvars(node.parm(IN_PATH).eval())
-            xml_isFile: bool = os.path.isfile(xml)
+            xml_isFile: bool = os.path.isfile(xml) if xml else False
             # Only if a valid preset has been loaded from a disk file ( not clipboard )
             if xml and xml_isFile and inisvalidfile and inisvalidpreset and not clipboard:
                 # Build the apo data
