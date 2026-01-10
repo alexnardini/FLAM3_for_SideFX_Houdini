@@ -3020,13 +3020,13 @@ class flam3h_general_utils
             (None):
         """  
         if hou.isUIAvailable() and node.parm(PREFS_FLASH_MSG).eval():
-            for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]: ne.flashMessage(img, msg, timer) # type: ignore
+            for ne in (p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor): ne.flashMessage(img, msg, timer) # type: ignore
             # Force the flash message to appear in any Lop viewers available.
             # This is being done because it is more handy for the user to read the message in the Lop viewers
             # when working through the FLAM3HUSD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
             lop_viewer_available, viewers = flam3h_general_utils.util_is_context_available_viewer_data(usd_context)
             if lop_viewer_available:
-                for view in [v for v in viewers if flam3h_general_utils.util_is_context(usd_context, v) and v.isViewingSceneGraph()]: view.flashMessage('', msg, timer)
+                for view in (v for v in viewers if flam3h_general_utils.util_is_context(usd_context, v) and v.isViewingSceneGraph()): view.flashMessage('', msg, timer)
 
     
     @staticmethod
@@ -7401,65 +7401,53 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
             node: hou.SopNode = self.node
-            
             iter_count: int = node.parm(FLAME_ITERATORS_COUNT).eval()
-            if iter_count:
+            if not iter_count:
+                self.destroy_cachedUserData(node, 'iter_sel')
+                return MENU_ZERO_ITERATORS
+            
+            # Unpack and cache data
+            note, active, weight, shader_opacity, xfviz_solo_idx, xfviz_out_sensor = data_now
+            for idx, data in enumerate(data_now):
+                node.setCachedUserData(data_names[idx], data)
+            
+            # Get paste info once
+            from_FLAM3H_NODE, mp_id_from, _ = self.prm_paste_update_for_undo(node)
+            node.setCachedUserData('iter_sel_id', mp_id_from)
+            
+            # Pre compute to avoid repeated checks
+            _is_sensor_int: bool = isinstance(xfviz_out_sensor, int)
+            _node_matches: bool = node == from_FLAM3H_NODE
+            
+            # Build menu with header
+            menu: TA_Menu = [0, ""]
+            
+            for i in range(iter_count):
                 
-                # init menu
-                menu: TA_Menu = []
+                idx: int = i + 1
+                _n, _a, _w, _o = note[i], active[i], weight[i], shader_opacity[i]
                 
-                # Each one is a list as "data_now" is a tuple of lists except: xfviz_solo_idx('iter_xfviz_solo_idx') and xfviz_out_sensor('iter_xfviz_out_sensor')
-                note, active, weight, shader_opacity, xfviz_solo_idx, xfviz_out_sensor = data_now
-                for idx, data in enumerate(data_now): node.setCachedUserData(data_names[idx], data)
+                # Xfviz: compute only if needed
+                _xfviz: int = 0 if idx != xfviz_solo_idx else (1 - xfviz_out_sensor if _is_sensor_int else 1)
                 
-                # This definition probably can be made more light-weight for this particular case
-                from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
-                # Store the most updated version of this data
-                node.setCachedUserData('iter_sel_id', mp_id_from)
+                # Marked state
+                _marked: int = 1 if (_node_matches and mp_id_from == idx) else 0
                 
-                _menu_append: Callable[[int | str], None] = menu.append
-                # append an empty line to reset to after selection (Null value).
-                _menu_append(0)
-                _menu_append("")
+                # Icon selection
+                if _a:
+                    _icon = SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT[_xfviz][_marked] if _w > 0 else SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO[_xfviz][_marked]
+                else:
+                    _icon = SEL_ITER_BOOKMARK_OFF[_xfviz][_marked]
                 
-                for i in range(iter_count):
-                    
-                    # This iterator index
-                    idx: int = i + 1
-                    _menu_append(idx)
-                    
-                    # This iterator data
-                    _n, _a, _w, _o = note[i], active[i], weight[i], shader_opacity[i]
-                    
-                    # CHECKS
-                    _XFVIZ: int = 0
-                    if idx == xfviz_solo_idx: _XFVIZ = 1 - xfviz_out_sensor if isinstance(xfviz_out_sensor, int) else 1 # SOLO mode. When in camera sensor mode, do not display the SOLO mode icons
-                    
-                    _OPACITY_MSG: str = ""
-                    if _o == 0: _OPACITY_MSG = "[ZERO opacity] " # ZERO opacity
-                    
-                    _ICON_IDX: int = 0
-                    if node == from_FLAM3H_NODE and mp_id_from == idx: _ICON_IDX = 1 # Marked
-                    
-                    # BUILD
-                    if _a and _w > 0:
-                        _menu_append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{_n}")
-                    
-                    elif _a and _w == 0:
-                        _menu_append(f"{SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{_n}")
-
-                    else:
-                        _menu_append(f"{SEL_ITER_BOOKMARK_OFF[_XFVIZ][_ICON_IDX]}  {idx}:  {_OPACITY_MSG}{_n}")
-                        
-                node.setCachedUserData('iter_sel', menu)
-                return menu
-                
-            self.destroy_cachedUserData(node, 'iter_sel')
-            return MENU_ZERO_ITERATORS
+                # Build entry
+                _opacity_str: str = "[ZERO opacity] " if _o == 0 else ""
+                menu.extend([idx, f"{_icon}  {idx}:  {_opacity_str}{_n}"])
+            
+            node.setCachedUserData('iter_sel', menu)
+            return menu
     
     
     def menu_select_iterator(self) -> TA_Menu:
@@ -10840,17 +10828,21 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
-            if json_is_file and node.parm(CP_PVT_ISVALID_FILE).eval() and self.node.parm(CP_PVT_ISVALID_PRESET).eval():
+            # Pre compute all parameter evals once instead of inline
+            _is_valid_file: bool = node.parm(CP_PVT_ISVALID_FILE).eval()
+            _is_valid_preset: bool = self.node.parm(CP_PVT_ISVALID_PRESET).eval()
+            
+            if json_is_file and _is_valid_file and _is_valid_preset:
                     
                 with open(json_file_path) as f:
-                    menuitems: KeysView = json.load(f).keys()
-                    
-                menu: TA_Menu = []
+                    menuitems: list = list(json.load(f).keys())
+                
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
-                _menu_enum: Callable[[hou.SopNode, TA_Menu, int, str], None] = self.menu_cp_presets_loop_enum
-                _menu_raw: Callable[[hou.SopNode, TA_Menu, int, str], None] = self.menu_cp_presets_loop
+                _menu_func: Callable[[hou.SopNode, TA_Menu, int, str], None] = (self.menu_cp_presets_loop_enum if enum else self.menu_cp_presets_loop)
+                
+                menu: TA_Menu = []
                 for i, item in enumerate(menuitems):
-                    _menu_enum(node, menu, i, item) if enum else _menu_raw(node, menu, i, item)
+                    _menu_func(node, menu, i, item)
 
                 node.setCachedUserData('cp_presets_menu', menu)
                 return menu
@@ -10895,7 +10887,8 @@ class flam3h_palette_utils
             
             # Double check 
             json_file_path: str = os.path.expandvars(node.parm(CP_PATH).eval())
-            json_is_file: bool = os.path.isfile(json_file_path)
+            json_is_file: bool = os.path.isfile(json_file_path) if json_file_path else False
+            
             if json_file_path and not json_is_file:
                 flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_FILE, 0)
                 flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
@@ -10933,17 +10926,21 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
 
-            if self.isJSON_F3H(node, json_file_path, False)[-1] and node.parm(CP_PVT_ISVALID_FILE).eval() and not node.parm(CP_PVT_ISVALID_PRESET).eval():
+            # Pre compute all parameter evals once instead of inline
+            _is_valid_file: bool = node.parm(CP_PVT_ISVALID_FILE).eval()
+            _is_valid_preset: bool = node.parm(CP_PVT_ISVALID_PRESET).eval()
+            
+            if self.isJSON_F3H(node, json_file_path, False)[-1] and _is_valid_file and not _is_valid_preset:
                     
                 with open(json_file_path) as f:
-                    menuitems: KeysView = json.load(f).keys()
+                    menuitems: list = list(json.load(f).keys())
                     
-                menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
-                _menu_enum: Callable[[hou.SopNode, TA_Menu, int, str], None] = self.menu_cp_presets_empty_loop_enum
-                _menu_raw: Callable[[hou.SopNode, TA_Menu, int, str], None] = self.menu_cp_presets_empty_loop
+                _menu_func: Callable[[hou.SopNode, TA_Menu, int, str], None] = (self.menu_cp_presets_empty_loop_enum if enum else self.menu_cp_presets_empty_loop)
+                
+                menu: TA_Menu = []
                 for i, item in enumerate(menuitems):
-                    _menu_enum(node, menu, i, item) if enum else _menu_raw(node, menu, i, item)
+                    _menu_func(node, menu, i, item)
 
                 node.setCachedUserData('cp_presets_menu_off', menu)
                 return menu
@@ -10986,7 +10983,8 @@ class flam3h_palette_utils
             
             # Double check 
             json_file_path: str = os.path.expandvars(node.parm(CP_PATH).eval())
-            json_is_file: bool = os.path.isfile(json_file_path)
+            json_is_file: bool = os.path.isfile(json_file_path) if json_file_path else False
+            
             if json_file_path and not json_is_file:
                 flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_FILE, 0)
                 flam3h_general_utils.private_prm_set(node, CP_PVT_ISVALID_PRESET, 0)
@@ -17406,17 +17404,22 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
 
-            if _xml_tree(xml_file_path).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and node.parm(IN_PVT_ISVALID_PRESET).eval():
+            _is_valid_file: bool = node.parm(IN_PVT_ISVALID_FILE).eval()
+            _is_valid_preset: bool = node.parm(IN_PVT_ISVALID_PRESET).eval()
+            _xml_tree_obj: _xml_tree = _xml_tree(xml_file_path)
+            
+            if _xml_tree_obj.isvalidtree and _is_valid_file and _is_valid_preset:
                 
                 in_idx: int = int(node.parm(IN_PRESETS).eval())
                 is_clipboard: int = node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval()
                 
-                menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
-                _menu_enum: Callable[[hou.SopNode, TA_Menu, int, str | list[Never], int, int], None] = self.menu_in_presets_loop_enum
-                _menu_raw: Callable[[hou.SopNode, TA_Menu, int, str | list[Never], int, int], None] = self.menu_in_presets_loop
-                for i, item in enumerate(_xml(xml_file_path).get_name()):
-                    _menu_enum(node, menu, i, item, in_idx, is_clipboard) if enum else _menu_raw(node, menu, i, item, in_idx, is_clipboard)
+                _menu_func: Callable[[hou.SopNode, TA_Menu, int, str | list[Never], int, int], None] = (self.menu_in_presets_loop_enum if enum else self.menu_in_presets_loop)
+                
+                menu: TA_Menu = []
+                preset_names: tuple[str | list[Never], ...] = _xml_tree_obj.get_name()
+                for i, item in enumerate(preset_names):
+                    _menu_func(node, menu, i, item, in_idx, is_clipboard)
                         
                 node.setCachedUserData('in_presets_menu', menu)
                 return menu
@@ -17457,19 +17460,17 @@ class in_flame_utils
             
             # Double check 
             xml_file_path: str = os.path.expandvars(node.parm(IN_PATH).eval())
-            xml_is_file: bool = os.path.isfile(xml_file_path)
-            
-            if xml_file_path:
+            xml_is_file: bool = os.path.isfile(xml_file_path) if xml_file_path else False
                 
-                if not xml_is_file:
-                    flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
-                    if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
-                    data = None
-                    
-                elif xml_is_file:
-                    # This caused some pain becasue it is forcing us not to tell the truth sometime
-                    # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
-                    flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
+            if not xml_is_file:
+                flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
+                if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
+                data = None
+                
+            else:
+                # This caused some pain becasue it is forcing us not to tell the truth sometime
+                # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
+                flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
                 
             if data is not None and data_idx == preset_idx:
                 return data
@@ -17502,14 +17503,19 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
 
-            if _xml_tree(xml_file_path).isvalidtree and node.parm(IN_PVT_ISVALID_FILE).eval() and not node.parm(IN_PVT_ISVALID_PRESET).eval():
+            _is_valid_file: bool = node.parm(IN_PVT_ISVALID_FILE).eval()
+            _is_valid_preset: bool = node.parm(IN_PVT_ISVALID_PRESET).eval()
+            _xml_tree_obj: _xml_tree = _xml_tree(xml_file_path)
+            
+            if _xml_tree_obj.isvalidtree and _is_valid_file and not _is_valid_preset:
                     
-                menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
-                _menu_enum: Callable[[hou.SopNode, TA_Menu, int, str | list[Never]], None] = self.menu_in_presets_empty_loop_enum
-                _menu_raw: Callable[[hou.SopNode, TA_Menu, int, str | list[Never]], None] = self.menu_in_presets_empty_loop
-                for i, item in enumerate(_xml(xml_file_path).get_name()):
-                    _menu_enum(node, menu, i, item) if enum else _menu_raw(node, menu, i, item)
+                _menu_func: Callable[[hou.SopNode, TA_Menu, int, str | list[Never]], None] = (self.menu_in_presets_empty_loop_enum if enum else self.menu_in_presets_empty_loop)
+                
+                menu: TA_Menu = []
+                preset_names: tuple[str | list[Never], ...] = _xml_tree_obj.get_name()
+                for i, item in enumerate(preset_names):
+                    _menu_func(node, menu, i, item)
                     
                 node.setCachedUserData('in_presets_menu_off', menu)
                 return menu
@@ -17563,20 +17569,18 @@ class in_flame_utils
             
             # Double check 
             xml_file_path: str = os.path.expandvars(node.parm(IN_PATH).eval())
-            xml_is_valid: bool = os.path.isfile(xml_file_path)
-            
-            if xml_file_path:
+            xml_is_valid: bool = os.path.isfile(xml_file_path) if xml_file_path else False
                 
-                if not xml_is_valid:
-                    flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
-                    if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
-                    data = None
-                    
-                elif xml_is_valid:
-                    if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): # to double check
-                        # This caused some pain becasue it is forcing us not to tell the truth sometime
-                        # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
-                        flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
+            if not xml_is_valid:
+                flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
+                if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
+                data = None
+                
+            else:
+                if not node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval(): # to double check
+                    # This caused some pain becasue it is forcing us not to tell the truth sometime
+                    # but its quick and we added double checks for each file types (Palette or Flame) inside each menus empty presets (CP, IN and OUT)
+                    flam3h_general_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 1)
                 
             if data is not None and data_idx == preset_idx:
                 return data
@@ -20495,16 +20499,19 @@ class out_flame_utils
             
             # For the OUT Tab menu presets we are forced to use the class: _xml_tree(...)
             # Instead of the lightweight version class: _xml(...)
-            apo_data = _xml_tree(xml_file_path)
+            apo_data: _xml_tree = _xml_tree(xml_file_path)
             
             if apo_data.isvalidtree:
                 
-                menu: TA_Menu = []
                 enum: bool = node.parm(PREFS_ENUMERATE_MENU).eval()
-                _menu_enum: Callable[[TA_Menu, int, str | list[Never]], None] = self.menu_out_presets_loop_enum
-                _menu_raw: Callable[[TA_Menu, int, str | list[Never]], None] = self.menu_out_presets_loop
-                for i, item in enumerate(apo_data.name):
-                    _menu_enum(menu, i, item) if enum else _menu_raw(menu, i, item)
+                
+                _menu_func: Callable[[TA_Menu, int, str | list[Never]], None] = (self.menu_out_presets_loop_enum if enum else self.menu_out_presets_loop)
+                
+                preset_names: list = apo_data.name
+                
+                menu: TA_Menu = []
+                for i, item in enumerate(preset_names):
+                    _menu_func(menu, i, item)
 
                 node.setCachedUserData('out_presets_menu', menu)
                 return menu
@@ -20545,7 +20552,8 @@ class out_flame_utils
             
             # Double check
             xml_file_path: str = os.path.expandvars(node.parm(OUT_PATH).eval())
-            xml_is_file: bool = os.path.isfile(xml_file_path)
+            xml_is_file: bool = os.path.isfile(xml_file_path) if xml_file_path else False
+            
             if xml_file_path and not xml_is_file:
                 flam3h_general_utils.private_prm_set(node, OUT_PVT_ISVALID_FILE, 0)
                 data = None
