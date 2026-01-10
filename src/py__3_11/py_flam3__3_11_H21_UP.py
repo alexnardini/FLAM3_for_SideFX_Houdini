@@ -7837,7 +7837,6 @@ class flam3h_iterator_utils
             if node.parmTuple(FLAM3H_ITERATORS_TAB).eval() != (0,):
                 return []
             
-            menu: TA_Menu = []
             if mp_id_from is not None:
                 
                 s_mp_index: int = self.kwargs['script_multiparm_index']
@@ -7864,17 +7863,15 @@ class flam3h_iterator_utils
 
                     # Build menu
                     if node == from_FLAM3H_NODE and s_mp_index == mp_id_from:
-                        menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {s_mp_index}: MARKED\n-> Select a different iterator number or a different FLAM3H™ node to paste its values.", 1,"" ]
+                        return [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO}  {s_mp_index}: MARKED\n-> Select a different iterator number or a different FLAM3H™ node to paste its values.", 1,"" ]
                         
                     elif node == from_FLAM3H_NODE:
                         path: str = f"{_ICON}  {idx_from}"
-                        menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
+                        return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
                     
                     else:
                         path: str = f"{_ICON}  .../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}.iter.{idx_from}"
-                        menu = [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  ... {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
-                    
-                    return menu
+                        return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE}  ... {idx_from}:  All (no xaos:)", 2, f"{path}", 3, f"{path}:  xaos:", 4, f"{path}:  shader", 5, f"{path}:  PRE", 6, f"{path}:  VAR", 7, f"{path}:  POST", 8, f"{path}:  pre affine", 9, f"{path}:  post affine", 10, "" ]
             
             else:
                 if isDELETED:
@@ -7882,22 +7879,18 @@ class flam3h_iterator_utils
                 
                 if from_FLAM3H_NODE is not None:
                     
-                    assert from_FLAM3H_NODE is not None
-                    
                     _FLAM3H_DATA_PRM_MPIDX: int = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                     __FLAM3H_DATA_PRM_MPIDX: int = from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                     
                     if node == from_FLAM3H_NODE and _FLAM3H_DATA_PRM_MPIDX == -1:
-                        menu = MENU_ITER_COPY_PASTE_REMOVED
+                        return MENU_ITER_COPY_PASTE_REMOVED
                         
                     elif node != from_FLAM3H_NODE and __FLAM3H_DATA_PRM_MPIDX == -1:
                         path: str = f".../{from_FLAM3H_NODE.parent()}/{from_FLAM3H_NODE.name()}"
-                        menu = [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_WARN}  REMOVED: The marked iterator has been removed from node: {path}\n-> Mark an existing iterator instead.", 1, "" ]
+                        return [ 0, f"{FLAM3H_ICON_COPY_PASTE_INFO_WARN}  REMOVED: The marked iterator has been removed from node: {path}\n-> Mark an existing iterator instead.", 1, "" ]
                         
                     else:
-                        menu = MENU_ITER_COPY_PASTE_EMPTY
-                        
-                    return menu
+                        return MENU_ITER_COPY_PASTE_EMPTY
                 
                 return MENU_ITER_COPY_PASTE_EMPTY
 
