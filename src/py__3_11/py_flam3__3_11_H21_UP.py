@@ -444,28 +444,28 @@ FLAM3H_FLASH_MESSAGE_TIMER: float = 2
 
 # The following dictionaires are to speed up the pairing of the variation type and their weight parameter's names.
 # They are hard coded so they will need to be changed if the parameters names change in the FLAM3H™ UI.
-# FLAME_TAB_MENU_TYPE_W_MATCH uses the full name without the multi parm index which is then computed on the fly.
+# FLAME_TAB_MENU_T_W_MATCH uses the full name without the multi parm index which is then computed on the fly.
 #
 # Inside:
 #           def menu_T_get_var_data(self) -> tuple[int, float]:
 #           def menu_T_FF_get_var_data(self) -> tuple[int, float]:
 
-FLAME_TAB_MENU_TYPE_W_MATCH: dict[str, str] = { 'pre1type_': 'pre1weight_', 
-                                                'pre2type_': 'pre2weight_', 
-                                                'v1type_': 'v1weight_', 
-                                                'v2type_': 'v2weight_', 
-                                                'v3type_': 'v3weight_', 
-                                                'v4type_': 'v4weight_', 
-                                                'p1type_': 'p1weight_'
-                                                }
-
-
-FF_TAB_MENU_TYPE_W_MATCH: dict[str, str] = {'ffpre1type': 'ffpre1weight', 
-                                            'ffv1type': 'ffv1weight', 
-                                            'ffv2type': 'ffv2weight', 
-                                            'ffp1type': 'ffp1weight', 
-                                            'ffp2type': 'ffp2weight'
+FLAME_TAB_MENU_T_W_MATCH: dict[str, str] = {'pre1type_': 'pre1weight_', 
+                                            'pre2type_': 'pre2weight_', 
+                                            'v1type_': 'v1weight_', 
+                                            'v2type_': 'v2weight_', 
+                                            'v3type_': 'v3weight_', 
+                                            'v4type_': 'v4weight_', 
+                                            'p1type_': 'p1weight_'
                                             }
+
+
+FF_TAB_MENU_T_W_MATCH: dict[str, str] = {'ffpre1type': 'ffpre1weight', 
+                                        'ffv1type': 'ffv1weight', 
+                                        'ffv2type': 'ffv2weight', 
+                                        'ffp1type': 'ffp1weight', 
+                                        'ffp2type': 'ffp2weight'
+                                        }
 
 
 # FLAM3H™ EXCEPTIONS start here
@@ -624,8 +624,8 @@ class flam3h_iterator_prm_names:
         * def iterator_FF_post_affine_scale(self) -> None:
         * def menu_T_get_var_data(self) -> tuple[int, float]:
         * def menu_T_FF_get_var_data(self) -> tuple[int, float]:
-        * FLAME_TAB_MENU_TYPE_W_MATCH
-        * FF_TAB_MENU_TYPE_W_MATCH
+        * FLAME_TAB_MENU_T_W_MATCH
+        * FF_TAB_MENU_T_W_MATCH
         .
         are not using this class
         but have Houdini parameter's names hard coded inside in an attempt to try to speed up a tiny, tiny bit.
@@ -7058,7 +7058,7 @@ class flam3h_iterator_utils
         prm: hou.Parm = self.kwargs['parm']
         s_mp_index: int = self.kwargs['script_multiparm_index']
         _TYPE: int = prm.evalAsInt() # this can be animated with inbetween values so we always force cast it as int()
-        _W: float = self.node.parm(f"{FLAME_TAB_MENU_TYPE_W_MATCH[prm.name()[:-len(str(s_mp_index))]]}{s_mp_index}").eval()
+        _W: float = self.node.parm(f"{FLAME_TAB_MENU_T_W_MATCH[prm.name()[:-len(str(s_mp_index))]]}{s_mp_index}").eval()
         return _TYPE, _W
     
     
@@ -7073,7 +7073,7 @@ class flam3h_iterator_utils
         """  
         prm: hou.Parm = self.kwargs['parm']
         _TYPE: int = prm.evalAsInt() # this can be animated with inbetween values so we always force cast it as int()
-        _W: float = self.node.parm(FF_TAB_MENU_TYPE_W_MATCH[prm.name()]).eval()
+        _W: float = self.node.parm(FF_TAB_MENU_T_W_MATCH[prm.name()]).eval()
         return _TYPE, _W
 
     
