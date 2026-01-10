@@ -81,11 +81,12 @@ void _TFFAsensorInfo(vector _bound_P, _bound_Cd)
 
     w = 0.5;
     resw = res_weight(resx, resy, w);
+    resw *= 1.25;
 
     factor = 1.0 / float(sensor_zoom);
     scale = factor * sw;
     matrix m4_tx = maketransform(0, 0, 0, 0, factor);
-    matrix m4_scale = maketransform(0, 0, 0, 0, scale*resw);
+    matrix m4_scale = maketransform(0, 0, 0, 0, scale * resw);
 
     myp = myp * m4_scale + pos_info * m4_tx;
 

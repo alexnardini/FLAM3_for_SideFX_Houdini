@@ -129,18 +129,19 @@ end:                                              ; preds = %false, %true
   store double %output9, double* %1
   store double 5.000000e-01, double* %2
   %res_weight = call double @"res_weight@FFFF"(double* %0, double* %1, double* %2)
-  %output27 = call double @"div@FF"(double 1.000000e+00, double %INFO2.fca.1.load)
-  %output30 = fmul double %output27, %sw.0
-  %cast31 = call <3 x double> @"set@VI"(i64 0)
-  %cast34 = call <3 x double> @"set@VF"(double %output27)
-  %return35 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast31, <3 x double> %cast31, <3 x double> %cast34)
-  %output40 = fmul double %output30, %res_weight
-  %cast41 = call <3 x double> @"set@VF"(double %output40)
-  %return42 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast31, <3 x double> %cast31, <3 x double> %cast41)
-  %output45 = call <3 x double> @"mul@V4"(<3 x double> %output22, <16 x double> %return42)
-  %output48 = call <3 x double> @"mul@V4"(<3 x double> %pos_info.0, <16 x double> %return35)
-  %output49 = call <3 x double> @"add@VV"(<3 x double> %output45, <3 x double> %output48)
-  store <3 x double> %output49, <3 x double>* %_bound_P
+  %output27 = fmul double %res_weight, 1.250000e+00
+  %output29 = call double @"div@FF"(double 1.000000e+00, double %INFO2.fca.1.load)
+  %output32 = fmul double %output29, %sw.0
+  %cast33 = call <3 x double> @"set@VI"(i64 0)
+  %cast36 = call <3 x double> @"set@VF"(double %output29)
+  %return37 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast33, <3 x double> %cast33, <3 x double> %cast36)
+  %output42 = fmul double %output32, %output27
+  %cast43 = call <3 x double> @"set@VF"(double %output42)
+  %return44 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast33, <3 x double> %cast33, <3 x double> %cast43)
+  %output47 = call <3 x double> @"mul@V4"(<3 x double> %output22, <16 x double> %return44)
+  %output50 = call <3 x double> @"mul@V4"(<3 x double> %pos_info.0, <16 x double> %return37)
+  %output51 = call <3 x double> @"add@VV"(<3 x double> %output47, <3 x double> %output50)
+  store <3 x double> %output51, <3 x double>* %_bound_P
   ret void
 }
 
