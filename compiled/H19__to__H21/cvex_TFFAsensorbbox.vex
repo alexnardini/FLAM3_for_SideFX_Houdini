@@ -24,96 +24,6 @@ __llvm_entry:
 ; Function Attrs: nounwind readnone
 declare double @"div@FF"(double, double) #1
 
-; Function Attrs: nounwind readnone
-declare double @"getcomp@FUI"(<2 x double>, i64) #1
-
-; Function Attrs: nounwind readnone
-declare double @"atan2@FFF"(double, double) #1
-
-; Function Attrs: nounwind readnone
-declare double @"sqrt@FF"(double) #1
-
-; Function Attrs: nounwind readnone
-declare double @"neg@FF"(double) #1
-
-; Function Attrs: nounwind
-declare double @"clamp@FFFF"(double, double, double) #2
-
-; Function Attrs: nounwind readnone
-declare double @"tan@FF"(double) #1
-
-; Function Attrs: nounwind readnone
-declare i64 @"neg@II"(i64) #1
-
-; Function Attrs: nounwind readnone
-declare double @"floor@FF"(double) #1
-
-; Function Attrs: nounwind readnone
-declare double @"sin@FF"(double) #1
-
-; Function Attrs: nounwind readnone
-declare double @"cos@FF"(double) #1
-
-; Function Attrs: nounwind readnone
-declare double @"log@FF"(double) #1
-
-; Function Attrs: nounwind readnone
-declare i64 @"and@III"(i64, i64) #1
-
-; Function Attrs: nounwind readnone
-declare <3 x double> @"set@VFFF"(double, double, double) #1
-
-; Function Attrs: nounwind readnone
-declare <2 x double> @"setcomp@UFI"(<2 x double>, double, i64) #1
-
-; Function Attrs: nounwind readnone
-declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #1
-
-; Function Attrs: nounwind
-declare double @"abs@FF"(double) #2
-
-; Function Attrs: nounwind readnone
-declare double @"getcomp@FVI"(<3 x double>, i64) #1
-
-; Function Attrs: nounwind
-declare double @"nrandom@F:S"(i8*) #2
-
-; Function Attrs: nounwind readnone
-declare <2 x double> @"set@UFF"(double, double) #1
-
-; Function Attrs: nounwind
-declare double @"sum@FU"(<2 x double>) #2
-
-; Function Attrs: nounwind readnone
-declare i64 @"isfinite@IF"(double) #1
-
-; Function Attrs: nounwind readnone
-declare i64 @"not@II"(i64) #1
-
-; Function Attrs: nounwind readnone
-declare i64 @"isnan@IF"(double) #1
-
-; Function Attrs: nounwind readnone
-declare i64 @"or@III"(i64, i64) #1
-
-; Function Attrs: nounwind
-declare double @"length@FU"(<2 x double>) #2
-
-; Function Attrs: nounwind
-declare <4 x double> @"set@2UU"(<2 x double>, <2 x double>) #2
-
-; Function Attrs: nounwind readnone
-declare <4 x double> @"rotate@2F"(<4 x double>, double) #1
-
-; Function Attrs: nounwind readnone
-declare i64 @"lt@III"(i64, i64) #1
-
-; Function Attrs: nounwind readnone
-declare i8* @"getcomp@S[SI"(i8**, i64) #1
-
-; Function Attrs: nounwind
-declare i8** @"append@[SS"(i8**, i8*) #2
-
 ; Function Attrs: alwaysinline nounwind
 define private void @"sensor_info_DATA@Z11sensor_infoM3N4modeIN4zoomFN3resU"(%sensor_info* %this) #0 {
 __llvm_entry:
@@ -181,61 +91,74 @@ __llvm_entry:
   %INFO2.fca.1.insert = insertvalue %sensor_info %INFO2.fca.0.insert, double %INFO2.fca.1.load, 1
   %INFO2.fca.2.load = load <2 x double>, <2 x double>* %INFO1.fca.2.gep
   %return = call double @"getcomp@FUI"(<2 x double> %INFO2.fca.2.load, i64 0)
+  %output = call double @"div@FF"(double %return, double 2.000000e+00)
   %return6 = call double @"getcomp@FUI"(<2 x double> %INFO2.fca.2.load, i64 1)
+  %output7 = call double @"div@FF"(double %return6, double 2.000000e+00)
   br label %cond
 
-cond:                                             ; preds = %end11, %__llvm_entry
-  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output56, %end11 ]
-  %return8 = call i64 @"lt@III"(i64 %i.0, i64 2)
-  %3 = icmp ne i64 %return8, 0
+cond:                                             ; preds = %end12, %__llvm_entry
+  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output54, %end12 ]
+  %return9 = call i64 @"lt@III"(i64 %i.0, i64 2)
+  %3 = icmp ne i64 %return9, 0
   br i1 %3, label %body, label %end
 
 body:                                             ; preds = %cond
-  %return10 = call i64 @"not@II"(i64 %i.0)
-  %4 = icmp ne i64 %return10, 0
+  %return11 = call i64 @"not@II"(i64 %i.0)
+  %4 = icmp ne i64 %return11, 0
   br i1 %4, label %true, label %false
 
 end:                                              ; preds = %cond
   ret void
 
 true:                                             ; preds = %body
-  %output = call double @"div@FF"(double %return, double 2.000000e+00)
-  %output14 = call double @"div@FF"(double %return6, double 2.000000e+00)
-  %return15 = call double @"neg@FF"(double %output14)
+  %return15 = call double @"neg@FF"(double %output7)
   %return16 = call <3 x double> @"set@VFFF"(double %output, double %return15, double 0.000000e+00)
-  br label %end11
+  br label %end12
 
 false:                                            ; preds = %body
-  %output18 = call double @"div@FF"(double %return, double 2.000000e+00)
-  %return19 = call double @"neg@FF"(double %output18)
-  %output21 = call double @"div@FF"(double %return6, double 2.000000e+00)
-  %return22 = call <3 x double> @"set@VFFF"(double %return19, double %output21, double 0.000000e+00)
-  br label %end11
+  %return18 = call double @"neg@FF"(double %output)
+  %return20 = call <3 x double> @"set@VFFF"(double %return18, double %output7, double 0.000000e+00)
+  br label %end12
 
-end11:                                            ; preds = %false, %true
-  %pos_info.0 = phi <3 x double> [ %return16, %true ], [ %return22, %false ]
+end12:                                            ; preds = %false, %true
+  %pos_info.0 = phi <3 x double> [ %return16, %true ], [ %return20, %false ]
   %myp_offset.0 = phi <3 x double> [ <double 0.000000e+00, double -8.000000e-01, double 1.000000e+00>, %true ], [ <double 0.000000e+00, double 3.500000e-01, double 1.000000e-01>, %false ]
   %sw.0 = phi double [ 6.000000e+01, %true ], [ 5.000000e+02, %false ]
   %cast = call <3 x double> @"set@VI"(i64 0)
-  %output25 = call <3 x double> @"add@VV"(<3 x double> %cast, <3 x double> %myp_offset.0)
-  store double %return, double* %0
-  store double %return6, double* %1
+  %output23 = call <3 x double> @"add@VV"(<3 x double> %cast, <3 x double> %myp_offset.0)
+  store double %output, double* %0
+  store double %output7, double* %1
   store double 5.000000e-01, double* %2
   %res_weight = call double @"res_weight@FFFF"(double* %0, double* %1, double* %2)
-  %output30 = call double @"div@FF"(double 1.000000e+00, double %INFO2.fca.1.load)
-  %output33 = fmul double %output30, %sw.0
-  %cast37 = call <3 x double> @"set@VF"(double %output30)
-  %return38 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast37)
-  %output43 = fmul double %output33, %res_weight
-  %cast44 = call <3 x double> @"set@VF"(double %output43)
-  %return45 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast44)
-  %output48 = call <3 x double> @"mul@V4"(<3 x double> %output25, <16 x double> %return45)
-  %output51 = call <3 x double> @"mul@V4"(<3 x double> %pos_info.0, <16 x double> %return38)
-  %output52 = call <3 x double> @"add@VV"(<3 x double> %output48, <3 x double> %output51)
-  %return54 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %output52)
-  %output56 = add i64 %i.0, 1
+  %output28 = call double @"div@FF"(double 1.000000e+00, double %INFO2.fca.1.load)
+  %output31 = fmul double %output28, %sw.0
+  %cast35 = call <3 x double> @"set@VF"(double %output28)
+  %return36 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast35)
+  %output41 = fmul double %output31, %res_weight
+  %cast42 = call <3 x double> @"set@VF"(double %output41)
+  %return43 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast42)
+  %output46 = call <3 x double> @"mul@V4"(<3 x double> %output23, <16 x double> %return43)
+  %output49 = call <3 x double> @"mul@V4"(<3 x double> %pos_info.0, <16 x double> %return36)
+  %output50 = call <3 x double> @"add@VV"(<3 x double> %output46, <3 x double> %output49)
+  %return52 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %output50)
+  %output54 = add i64 %i.0, 1
   br label %cond
 }
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@FUI"(<2 x double>, i64) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"lt@III"(i64, i64) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"not@II"(i64) #1
+
+; Function Attrs: nounwind readnone
+declare double @"neg@FF"(double) #1
+
+; Function Attrs: nounwind readnone
+declare <3 x double> @"set@VFFF"(double, double, double) #1
 
 ; Function Attrs: nounwind readnone
 declare <3 x double> @"set@VI"(i64) #1

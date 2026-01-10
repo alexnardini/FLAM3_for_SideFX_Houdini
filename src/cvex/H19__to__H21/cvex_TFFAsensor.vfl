@@ -90,13 +90,13 @@ void _TFFAsensor()
     m4_second_sensor = maketransform(0, 0, 0, -rotation, 1, translation);
     m4_flip = maketransform(0, 0, 0, 0, set(1, -1, 1));
     
-    float resx = sensor_res[0];
-    float resy = sensor_res[1];
+    float resx = sensor_res[0] / 2.0;
+    float resy = sensor_res[1] / 2.0;
     vector _p1, _p2, _p3, _p4;
-    _p1 = set(-(resx/2), resy/2, 0);
-    _p2 = set(resx/2, resy/2, 0);
-    _p3 = set(resx/2, -(resy/2), 0);
-    _p4 = set(-(resx/2), -(resy/2), 0);
+    _p1 = set(-resx, resy, 0);
+    _p2 = set(resx, resy, 0);
+    _p3 = set(resx, -resy, 0);
+    _p4 = set(-resx, -resy, 0);
     vector _points[] = array(_p1, _p2, _p3, _p4);
     
     vector _points_tm[] = {};

@@ -62,19 +62,19 @@ void _TFFAsensorInfo(vector _bound_P, _bound_Cd)
     sensor_res = INFO.res;
     sensor_zoom = INFO.zoom;
 
-    resx = sensor_res[0];
-    resy = sensor_res[1];
+    resx = sensor_res[0] / 2.0;
+    resy = sensor_res[1] / 2.0;
     
     if(mode){
         sw = 60;
         myp_offset = {-1, -0.8, 1};
-        pos_info = set(resx/2, -(resy/2), 0);
+        pos_info = set(resx, -resy, 0);
     }
     else{
         _bound_Cd = 2;
         sw = 500;
         myp_offset = {0, 0.05, 0.1};
-        pos_info = set(-(resx/2), resy/2, 0);
+        pos_info = set(-resx, resy, 0);
     }
     myp = _bound_P;
     myp += myp_offset;
