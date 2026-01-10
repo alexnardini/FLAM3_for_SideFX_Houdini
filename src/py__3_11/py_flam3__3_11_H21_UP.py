@@ -7424,7 +7424,7 @@ class flam3h_iterator_utils
                 return MENU_ZERO_ITERATORS
             
             # Unpack and cache data
-            note, active, weight, shader_opacity, xfviz_solo_idx, xfviz_out_sensor = data_now
+            note, active, weight, shader_opacity, xfviz_solo_idx, xfviz_out_sensor, _ = data_now
             for idx, data in enumerate(data_now):
                 node.setCachedUserData(data_names[idx], data)
             
@@ -7486,9 +7486,9 @@ class flam3h_iterator_utils
             data_now: tuple[list[Any] | Any, ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha')) # The order matter, those are the parameter's names without the multiparameter number, just the base names.
             xfviz_mem_id: int = node.parm(PREFS_PVT_XF_VIZ_SOLO_MP_IDX).eval()
             xfviz_out_sensor: int = node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval()
-            data_now += (xfviz_mem_id, xfviz_out_sensor)
+            data_now += (xfviz_mem_id, xfviz_out_sensor, mem_id) # adding mem_id to catch an edge case when user change the memory id to another FLAM3H™ node and undoing it afterwards
             
-            data_names: tuple[str, ...] = ('iter_sel_n', 'iter_sel_a', 'iter_sel_w', 'iter_sel_o', 'iter_xfviz_solo_idx', 'iter_xfviz_out_sensor') # The order matter, they are the cached user data names being used
+            data_names: tuple[str, ...] = ('iter_sel_n', 'iter_sel_a', 'iter_sel_w', 'iter_sel_o', 'iter_xfviz_solo_idx', 'iter_xfviz_out_sensor', 'mem_id') # The order matter, they are the cached user data names being used
             cached: TA_Menu | None = node.cachedUserData('iter_sel')
             if cached is not None:
                 
