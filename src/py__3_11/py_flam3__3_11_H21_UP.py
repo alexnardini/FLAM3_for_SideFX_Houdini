@@ -7405,7 +7405,8 @@ class flam3h_iterator_utils
         * 2: weight <b>list[float]</b></br>iterators Weights</br></br>
         * 3: shader_opacity <b>list[float]</b></br>iterators shader's opacity</br></br>
         * 4: xfviz_solo_idx <b>int</b></br>xform handle SOLO mode iterator mp idx</br></br>
-        * 5: xfviz_out_sensor <b>int</b></br>camera sensor toggle parameter</br>
+        * 5: xfviz_out_sensor <b>int</b></br>camera sensor toggle parameter</br></br>
+        * 6: mem_id <b>int</b></br>The marked iterator number, Zero for no iterators being marked</br>
 
         Args:
             (self):
