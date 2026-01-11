@@ -17344,8 +17344,7 @@ class in_flame_utils
         
         # MB (Motion blur)
         if data_checks.f3h_mb_bool:
-            if cc: mb: str = f", {XML_updated}MB{nnl}" # not that elegant, but...
-            else: mb: str = f"{XML_updated}MB{nnl}"
+            mb: str = f", {XML_updated}MB{nnl}" if cc else f"{XML_updated}MB{nnl}"
         else: mb: str = nnl
         
         if data_checks.ff_bool: ff_msg: str = f"{XML_updated}FF: YES\n{XML_updated}FF Post affine: {ff_post_bool_msg}"
