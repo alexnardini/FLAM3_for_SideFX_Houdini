@@ -1,7 +1,7 @@
 ```python
 #   Title:      FLAM3H™. SideFX Houdini FLAM3: PYTHON MAP PRM Definitions
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       April 2023, Last revised December 2025
+#   date:       April 2023, Last revised January 2026
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
 #
@@ -264,7 +264,7 @@ def flam3h_sys_updated_mode() -> None:
         (None):
     """ 
     current: hou.EnumValue = hou.updateModeSetting()
-    hou.session.FLAM3H_SYS_UPDATE_MODE: hou.EnumValue = current
+    hou.session.F3H_SYS_UPDATE_MODE: hou.EnumValue = current
 
 
 def flam3h_compile_first_time_msg() -> None:
@@ -286,13 +286,13 @@ def flam3h_compile_first_time_msg() -> None:
     else: __module_version__: str = "3.11"
     
     try:
-        hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
+        hou.session.F3H_FIRST_INSTANCE_32BIT # type: ignore
         first_instance_32bit: bool = False
     except:
         first_instance_32bit: bool = True
         
     try:
-        hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
+        hou.session.F3H_FIRST_INSTANCE_64BIT # type: ignore
         first_instance_64bit: bool = False
     except:
         first_instance_64bit: bool = True

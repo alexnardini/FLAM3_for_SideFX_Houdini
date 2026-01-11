@@ -104,18 +104,18 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
                 GLOBALS -> hou.session.*
 
-                    hou.session.FLAM3H_FIRST_INSTANCE_32BIT
-                    hou.session.FLAM3H_FIRST_INSTANCE_64BIT
-                    hou.session.FLAM3H_SYS_UPDATE_MODE
-                    hou.session.FLAM3H_MARKED_ITERATOR_NODE
-                    hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX
-                    hou.session.FLAM3H_MARKED_FF_NODE
-                    hou.session.FLAM3H_MARKED_FF_CHECK
-                    hou.session.FLAM3H_SENSOR_CAM_STASH
-                    hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE
-                    hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT
-                    hou.session.FLAM3H_SENSOR_CAM_STASH_DICT
-                    hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT
+                    hou.session.F3H_FIRST_INSTANCE_32BIT
+                    hou.session.F3H_FIRST_INSTANCE_64BIT
+                    hou.session.F3H_SYS_UPDATE_MODE
+                    hou.session.F3H_MARKED_ITERATOR_NODE
+                    hou.session.F3H_MARKED_ITERATOR_MP_IDX
+                    hou.session.F3H_MARKED_FF_NODE
+                    hou.session.F3H_MARKED_FF_CHECK
+                    hou.session.F3H_SENSOR_CAM_STASH
+                    hou.session.F3H_SENSOR_CAM_STASH_TYPE
+                    hou.session.F3H_SENSOR_CAM_STASH_COUNT
+                    hou.session.F3H_SENSOR_CAM_STASH_DICT
+                    hou.session.F3H_SENSOR_CAM_STASH_TYPE_DICT
                     hou.session.H_XF_VIZ_WIRE_WIDTH_STASH_DICT
                     hou.session.H_VIEWPORT_WIRE_WIDTH
                     hou.session.H_CS_STASH_DICT
@@ -1789,9 +1789,9 @@ class flam3h_scripts
             (None):
         """  
         if cvex_precision == 32:
-            hou.session.FLAM3H_FIRST_INSTANCE_32BIT: bool = False # type: ignore
+            hou.session.F3H_FIRST_INSTANCE_32BIT: bool = False # type: ignore
         elif cvex_precision == 64:
-            hou.session.FLAM3H_FIRST_INSTANCE_64BIT: bool = False # type: ignore
+            hou.session.F3H_FIRST_INSTANCE_64BIT: bool = False # type: ignore
 
 
     @staticmethod
@@ -1874,9 +1874,9 @@ class flam3h_scripts
             (None):
         """  
         if cvex_precision == 32 and first_instance_32bit is True:
-            hou.session.FLAM3H_FIRST_INSTANCE_32BIT: bool = False # type: ignore
+            hou.session.F3H_FIRST_INSTANCE_32BIT: bool = False # type: ignore
         elif cvex_precision == 64 and first_instance_64bit is True:
-            hou.session.FLAM3H_FIRST_INSTANCE_64BIT: bool = False # type: ignore
+            hou.session.F3H_FIRST_INSTANCE_64BIT: bool = False # type: ignore
 
 
     @staticmethod
@@ -1947,32 +1947,32 @@ class flam3h_scripts
         
         # Init the Copy/Paste data to defaults
         try: 
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
             
         except (AttributeError, hou.ObjectWasDeleted):
             
             try:
-                if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None:  # type: ignore
-                    hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
+                if hou.session.F3H_MARKED_ITERATOR_MP_IDX is not None:  # type: ignore
+                    hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
             
             except AttributeError:
                 pass
             
         try: 
-            hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
+            hou.session.F3H_MARKED_FF_NODE.type() # type: ignore
             
         except (AttributeError, hou.ObjectWasDeleted):
             
             try:
-                if hou.session.FLAM3H_MARKED_FF_CHECK is not None:  # type: ignore
-                    hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
+                if hou.session.F3H_MARKED_FF_CHECK is not None:  # type: ignore
+                    hou.session.F3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
             
             except AttributeError:
                 pass
             
         # Delete the Houdini update mode data if needed
         try: 
-            del hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+            del hou.session.F3H_SYS_UPDATE_MODE # type: ignore
         
         except AttributeError:
             pass
@@ -2030,14 +2030,14 @@ class flam3h_scripts
         """
         
         try:
-            hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
+            hou.session.F3H_FIRST_INSTANCE_32BIT # type: ignore
         except AttributeError:
             first_instance_32bit: bool = True
         else:
             first_instance_32bit: bool = False
             
         try:
-            hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
+            hou.session.F3H_FIRST_INSTANCE_64BIT # type: ignore
         except AttributeError:
             first_instance_64bit: bool = True
         else:
@@ -2053,7 +2053,7 @@ class flam3h_scripts
             if cvex_precision == 32 and first_instance_32bit is True:
                 
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
-                sys_updated_mode: hou.EnumValue = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+                sys_updated_mode: hou.EnumValue = hou.session.F3H_SYS_UPDATE_MODE # type: ignore
                 
                 _MSG_INFO = f"FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ CVEX nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H™ CVEX nodes compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
@@ -2067,7 +2067,7 @@ class flam3h_scripts
             elif cvex_precision == 64 and first_instance_64bit is True:
 
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
-                sys_updated_mode: hou.EnumValue = hou.session.FLAM3H_SYS_UPDATE_MODE # type: ignore
+                sys_updated_mode: hou.EnumValue = hou.session.F3H_SYS_UPDATE_MODE # type: ignore
                 
                 _MSG_INFO = f"FLAM3H™ v{__version__} 64-bit  first instance -> Compiling FLAM3H™ CVEX 64-bit nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H™ CVEX 64-bit nodes compile: DONE\nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
@@ -2097,14 +2097,14 @@ class flam3h_scripts
         """
         
         try:
-            hou.session.FLAM3H_FIRST_INSTANCE_32BIT # type: ignore
+            hou.session.F3H_FIRST_INSTANCE_32BIT # type: ignore
         except AttributeError:
             first_instance_32bit: bool = True
         else:
             first_instance_32bit: bool = False
             
         try:
-            hou.session.FLAM3H_FIRST_INSTANCE_64BIT # type: ignore
+            hou.session.F3H_FIRST_INSTANCE_64BIT # type: ignore
         except AttributeError:
             first_instance_64bit: bool = True
         else:
@@ -2176,26 +2176,26 @@ class flam3h_scripts
         flam3h_iterator_utils.flam3h_init_hou_session_iterator_data(node)
 
         # If an iterator was copied from a node that has been deleted
-        try: hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+        try: hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
         except AttributeError:
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
             # If we deleted all FLAM3H™ nodes and we then create a new one,
             # Lets initialize back to himself.
             if len(node_instances) == 1:
-                hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = node # type: ignore
+                hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = node # type: ignore
 
         # FLAM3H™ node for FF.
         # This is to make sure the hou.session's data is at least initialized.
         flam3h_iterator_utils.flam3h_init_hou_session_ff_data(node)
 
         # If the FF was copied from a node that has been deleted
-        try: hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
+        try: hou.session.F3H_MARKED_FF_NODE.type() # type: ignore
         except AttributeError:
-            hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
+            hou.session.F3H_MARKED_FF_CHECK: TA_M = None # type: ignore
             # If we deleted all FLAM3H™ nodes and we then create a new one,
             # Lets initialize back to himself.
             if len(node_instances) == 1:
-                hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
+                hou.session.F3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
 
 
     def flam3h_on_create_set_prefs_viewport(self, default_value_pt: float = 1, default_value_ww: float = 3) -> None:
@@ -2745,12 +2745,12 @@ class flam3h_scripts
                 flam3h_general_utils.util_set_stashed_cam()
                 flam3h_general_utils.util_clear_stashed_cam_data()
             
-            if hou.session.FLAM3H_MARKED_FF_CHECK: # type: ignore
-                from_FLAM3H_NODE: TA_MNode = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+            if hou.session.F3H_MARKED_FF_CHECK: # type: ignore
+                from_FLAM3H_NODE: TA_MNode = hou.session.F3H_MARKED_FF_NODE # type: ignore
                 
                 if node == from_FLAM3H_NODE and node_instances:
-                    hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
-                    hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = node_instances[0] # type: ignore
+                    hou.session.F3H_MARKED_FF_CHECK: TA_M = None # type: ignore
+                    hou.session.F3H_MARKED_FF_NODE: TA_MNode = node_instances[0] # type: ignore
                     
                     _MSG: str = f"The FLAM3H™ node you just deleted had its FF marked for being copied. Please, mark a FF first to copy parameters from."
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
@@ -3336,15 +3336,15 @@ class flam3h_general_utils
         Returns:
             (None):
         """
-        try: del hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+        try: del hou.session.F3H_SENSOR_CAM_STASH # type: ignore
         except AttributeError: pass
-        try: del hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
+        try: del hou.session.F3H_SENSOR_CAM_STASH_TYPE # type: ignore
         except AttributeError: pass
-        try: del hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
+        try: del hou.session.F3H_SENSOR_CAM_STASH_COUNT # type: ignore
         except AttributeError: pass
-        try: del hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
+        try: del hou.session.F3H_SENSOR_CAM_STASH_DICT # type: ignore
         except AttributeError: pass
-        try: del hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
+        try: del hou.session.F3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
         except AttributeError: pass
 
 
@@ -3362,7 +3362,7 @@ class flam3h_general_utils
         desktop: hou.Desktop = hou.ui.curDesktop() # type: ignore
         viewport: hou.SceneViewer = desktop.paneTabOfType(hou.paneTabType.SceneViewer) # type: ignore
         
-        try: _CAMS: int | None = hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
+        try: _CAMS: int | None = hou.session.F3H_SENSOR_CAM_STASH_COUNT # type: ignore
         except AttributeError: _CAMS: int | None = None
         
         if _CAMS is None:
@@ -3371,7 +3371,7 @@ class flam3h_general_utils
                 
                 view: hou.GeometryViewport = viewport.curViewport()
                 
-                try: _CAM_STASHED: hou.GeometryViewportCamera | None = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+                try: _CAM_STASHED: hou.GeometryViewportCamera | None = hou.session.F3H_SENSOR_CAM_STASH # type: ignore
                 except AttributeError: _CAM_STASHED: hou.GeometryViewportCamera | None = None
                     
                 if _CAM_STASHED is not None:
@@ -3382,7 +3382,7 @@ class flam3h_general_utils
                         
                     elif _CAM_STASHED.isOrthographic:
                         
-                        try: _CAM_STASHED_TYPE: hou.geometryViewportType | None = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE # type: ignore
+                        try: _CAM_STASHED_TYPE: hou.geometryViewportType | None = hou.session.F3H_SENSOR_CAM_STASH_TYPE # type: ignore
                         except AttributeError: _CAM_STASHED_TYPE: hou.geometryViewportType | None = None
                             
                         if _CAM_STASHED_TYPE is not None:
@@ -3392,9 +3392,9 @@ class flam3h_general_utils
                             view_obj.setTranslation(_CAM_STASHED.translation())
                             
         else:
-            try: _STASH_DICT: dict[str, hou.GeometryViewportCamera] | None = hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
+            try: _STASH_DICT: dict[str, hou.GeometryViewportCamera] | None = hou.session.F3H_SENSOR_CAM_STASH_DICT # type: ignore
             except AttributeError: _STASH_DICT: dict[str, hou.GeometryViewportCamera] | None = None
-            try: _TYPE_DICT: dict[str, hou.geometryViewportType] | None = hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
+            try: _TYPE_DICT: dict[str, hou.geometryViewportType] | None = hou.session.F3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
             except AttributeError: _TYPE_DICT: dict[str, hou.geometryViewportType] | None = None
                 
             if _STASH_DICT is not None and _TYPE_DICT is not None:
@@ -3725,19 +3725,19 @@ class flam3h_general_utils
             # Store everything into the hou.session so we can retrieve them later but keep them if they exist already
             # as it mean another FLAM3H™ node was already im camera sensor mode and we likely want to restore what was already stored.
             try:
-                hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT # type: ignore
+                hou.session.F3H_SENSOR_CAM_STASH_COUNT # type: ignore
             except AttributeError:
-                hou.session.FLAM3H_SENSOR_CAM_STASH_COUNT: int = len(views_cam) # type: ignore
+                hou.session.F3H_SENSOR_CAM_STASH_COUNT: int = len(views_cam) # type: ignore
                 
             try:
-                hou.session.FLAM3H_SENSOR_CAM_STASH_DICT # type: ignore
+                hou.session.F3H_SENSOR_CAM_STASH_DICT # type: ignore
             except AttributeError:
-                hou.session.FLAM3H_SENSOR_CAM_STASH_DICT: dict[str, hou.GeometryViewportCamera] = dict(zip(views_keys, views_cam)) # type: ignore
+                hou.session.F3H_SENSOR_CAM_STASH_DICT: dict[str, hou.GeometryViewportCamera] = dict(zip(views_keys, views_cam)) # type: ignore
                 
             try:
-                hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
+                hou.session.F3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
             except AttributeError:
-                hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE_DICT: dict[str, hou.geometryViewportType] = dict(zip(views_keys, views_type)) # type: ignore
+                hou.session.F3H_SENSOR_CAM_STASH_TYPE_DICT: dict[str, hou.geometryViewportType] = dict(zip(views_keys, views_type)) # type: ignore
             
 
     def util_set_front_viewer(self, update: bool = True) -> bool:
@@ -3805,13 +3805,13 @@ class flam3h_general_utils
                     _ENTER_PRM = None
                     if parm is not None: _ENTER_PRM = parm.name()
                     if _ENTER_PRM is not None and _ENTER_PRM == OUT_RENDER_PROPERTIES_SENSOR_ENTER:
-                        try: _CAM_STASHED: hou.GeometryViewportCamera | None = hou.session.FLAM3H_SENSOR_CAM_STASH # type: ignore
+                        try: _CAM_STASHED: hou.GeometryViewportCamera | None = hou.session.F3H_SENSOR_CAM_STASH # type: ignore
                         except AttributeError: _CAM_STASHED: hou.GeometryViewportCamera | None = None
                             
                         if _CAM_STASHED is None:
                             cam = view.defaultCamera()
-                            hou.session.FLAM3H_SENSOR_CAM_STASH: hou.GeometryViewportCamera = cam.stash() # type: ignore
-                            hou.session.FLAM3H_SENSOR_CAM_STASH_TYPE: hou.geometryViewportType = view.type() # type: ignore
+                            hou.session.F3H_SENSOR_CAM_STASH: hou.GeometryViewportCamera = cam.stash() # type: ignore
+                            hou.session.F3H_SENSOR_CAM_STASH_TYPE: hou.geometryViewportType = view.type() # type: ignore
                     
                     if view.type() != hou.geometryViewportType.Front: # type: ignore
                         view.changeType(hou.geometryViewportType.Front) # type: ignore
@@ -5954,24 +5954,24 @@ class flam3h_iterator_utils
         # becasue FLAM3H™ node will create and initialize those on creation
         # but just in case this data is deleted somehow.
         try:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore
         except AttributeError:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = node # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = node # type: ignore
         except hou.ObjectWasDeleted:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = node # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = node # type: ignore
             
         try:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
         except AttributeError:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
         except hou.ObjectWasDeleted:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
         try:
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_MP_IDX # type: ignore
         except AttributeError:
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
         except hou.ObjectWasDeleted:
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
 
 
     @staticmethod
@@ -5989,25 +5989,25 @@ class flam3h_iterator_utils
         # becasue FLAM3H™ node will create and initialize those on creation
         # but just in case this data is deleted somehow.
         try:
-            hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+            hou.session.F3H_MARKED_FF_NODE # type: ignore
         except AttributeError:
-            hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
+            hou.session.F3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
         except hou.ObjectWasDeleted:
-            hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
+            hou.session.F3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
             
         try:
-            hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
+            hou.session.F3H_MARKED_FF_NODE.type() # type: ignore
         except AttributeError:
-            hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
+            hou.session.F3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
         except hou.ObjectWasDeleted:
-            hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
+            hou.session.F3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
             
         try:
-            hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
+            hou.session.F3H_MARKED_FF_CHECK # type: ignore
         except AttributeError:
-            hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
+            hou.session.F3H_MARKED_FF_CHECK: TA_M = None # type: ignore
         except hou.ObjectWasDeleted:
-            hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
+            hou.session.F3H_MARKED_FF_CHECK: TA_M = None # type: ignore
         
         
     @staticmethod
@@ -6024,33 +6024,33 @@ class flam3h_iterator_utils
         
         # Iterator
         if flam3h_iterator_utils.exist_user_data(node):
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = node # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = node # type: ignore
             data: int = int(flam3h_iterator_utils.get_user_data(node))
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = data # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = data # type: ignore
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, data) # type: ignore
         else:
             # If this node do not posses the copy/paste data, lets first check if the data and its node exist (other FLAM3H™ node)
             # before clearing it out
             try: 
-                hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                hou.session.F3H_MARKED_ITERATOR_MP_IDX # type: ignore
             except (AttributeError, hou.ObjectWasDeleted):
-                hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
-                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+                hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
+                hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
             
         # FF
         if flam3h_iterator_utils.exist_user_data(node, FLAM3H_USER_DATA_FF):
-            hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
-            hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = 1 # type: ignore
+            hou.session.F3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
+            hou.session.F3H_MARKED_FF_CHECK: TA_M = 1 # type: ignore
         else:
             # If this node do not posses the copy/paste data, lets first check if the data and its node exist (other FLAM3H™ node)
             # before clearing it out
             try: 
-                hou.session.FLAM3H_MARKED_FF_NODE.type() # type: ignore
-                hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
+                hou.session.F3H_MARKED_FF_NODE.type() # type: ignore
+                hou.session.F3H_MARKED_FF_CHECK # type: ignore
             except (AttributeError, hou.ObjectWasDeleted):
-                hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
-                hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
+                hou.session.F3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
+                hou.session.F3H_MARKED_FF_CHECK: TA_M = None # type: ignore
 
 
     @staticmethod
@@ -6985,12 +6985,12 @@ class flam3h_iterator_utils
             if self.exist_user_data(node):
                 self.destroy_cachedUserData(node, 'iter_sel')
                 self.del_comment_and_user_data_iterator(node)
-                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
-                hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
+                hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+                hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
             if self.exist_user_data(node, FLAM3H_USER_DATA_FF):
                 self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
-                hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
-                hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
+                hou.session.F3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
+                hou.session.F3H_MARKED_FF_CHECK: TA_M = None # type: ignore
             
             # This is the only way I found to update the FLAME tab multiparameter's menus, for now...
             node.type().definition().updateFromNode(node)
@@ -7658,7 +7658,7 @@ class flam3h_iterator_utils
         node: hou.SopNode = self.node
         
         try:
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
             
         except AttributeError:
             from_FLAM3HNODE = None
@@ -7666,10 +7666,10 @@ class flam3h_iterator_utils
             from_FLAM3HNODE = None
             
         else:
-            from_FLAM3HNODE: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+            from_FLAM3HNODE: TA_MNode = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore
         
         if from_FLAM3HNODE is not None and node == from_FLAM3HNODE:  # type: ignore
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
             # Reset internal mpidx memory to a None value
             if node.parm(FLAM3H_DATA_PRM_MPIDX).eval() != 0:
                 self.iterator_mpidx_mem_set(node, 0)
@@ -7677,11 +7677,11 @@ class flam3h_iterator_utils
                 # This is needed on hip file load to allow: def flam3h_init_hou_session_restore_from_user_data(node: hou.SopNode) -> None:
                 # to rewire the FF copy/paste data properly on load, if any is present in the loaded FLAM3H™ nodes.
                 if not self.exist_user_data(node, FLAM3H_USER_DATA_FF):
-                    hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
-                    hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
+                    hou.session.F3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
+                    hou.session.F3H_MARKED_FF_CHECK: TA_M = None # type: ignore
             else:
-                hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
-                hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
+                hou.session.F3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
+                hou.session.F3H_MARKED_FF_CHECK: TA_M = None # type: ignore
             # Remove any comment and user data from the node
             self.del_comment_and_user_data_iterator(node)
             self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
@@ -7924,7 +7924,7 @@ class flam3h_iterator_utils
 
             if from_FLAM3H_NODE_FF_CHECK is not None:
 
-                flam3node_FF: TA_MNode = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+                flam3node_FF: TA_MNode = hou.session.F3H_MARKED_FF_NODE # type: ignore
                 
                 if node == flam3node_FF:
                     return MENU_FF_COPY_PASTE_SELECT
@@ -7953,7 +7953,7 @@ class flam3h_iterator_utils
         will always be up to date.</br>
         
         It is for:
-        * hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX -> UNDO, so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
+        * hou.session.F3H_MARKED_ITERATOR_MP_IDX -> UNDO, so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
 
         Args:
             (self):
@@ -7973,7 +7973,7 @@ class flam3h_iterator_utils
             _FLAM3H_DATA_PRM_MPIDX: int = node.parm(FLAM3H_DATA_PRM_MPIDX).eval()
                 
             try:
-                from_FLAM3H_NODE: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore 
+                from_FLAM3H_NODE: TA_MNode = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore 
 
             except AttributeError:
                 from_FLAM3H_NODE = None
@@ -7995,7 +7995,7 @@ class flam3h_iterator_utils
             try:
                 # Do we have a marked iterator in the current scene
                 # (This can also be: None - hence the double check)
-                hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
                 
             except AttributeError:
                 mp_id_from = None
@@ -8003,7 +8003,7 @@ class flam3h_iterator_utils
                 # This to avoid a wrong copy/paste info message
                 try:
                     # If we really deleted a node with a marked iterator
-                    if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
+                    if hou.session.F3H_MARKED_ITERATOR_MP_IDX is not None: # type: ignore
                         isDELETED = True
                         
                 except AttributeError:
@@ -8011,13 +8011,13 @@ class flam3h_iterator_utils
                     pass
             
             else:
-                mp_id_from: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                mp_id_from: TA_M = hou.session.F3H_MARKED_ITERATOR_MP_IDX # type: ignore
                 
                 if node == from_FLAM3H_NODE:
                     if _FLAM3H_DATA_PRM_MPIDX > 0:
                         if mp_id_from != _FLAM3H_DATA_PRM_MPIDX:
                             mp_id_from = _FLAM3H_DATA_PRM_MPIDX
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = mp_id_from # type: ignore
+                            hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = mp_id_from # type: ignore
                             self.del_comment_and_user_data_iterator(node)
                             self.set_comment_and_user_data_iterator(node, str(mp_id_from))
                             self.destroy_cachedUserData(node, 'iter_sel')
@@ -8036,7 +8036,7 @@ class flam3h_iterator_utils
                             assert from_FLAM3H_NODE is not None
                             
                             mp_id_from = __FLAM3H_DATA_PRM_MPIDX
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = mp_id_from # type: ignore
+                            hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = mp_id_from # type: ignore
                             self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                             self.set_comment_and_user_data_iterator(from_FLAM3H_NODE, str(mp_id_from))
                             self.destroy_cachedUserData(node, 'iter_sel')
@@ -8044,7 +8044,7 @@ class flam3h_iterator_utils
                         else:
                             # This is for an edge case so we dnt have marked iterators in multiple node's "select iterator" mini-menus
                             data: bool | None = node.cachedUserData('edge_case_01')
-                            if _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None and data is None: # type: ignore
+                            if _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.F3H_MARKED_ITERATOR_MP_IDX is not None and data is None: # type: ignore
                                 self.destroy_cachedUserData(node, 'iter_sel')
                                 # This so we dnt fallback into this case again and again.
                                 node.setCachedUserData('edge_case_01', True)
@@ -8060,15 +8060,15 @@ class flam3h_iterator_utils
                             self.destroy_cachedUserData(node, 'iter_sel')
                             
                         # This is for an edge case so we dnt have marked iterators in multiple node's "select iterator" mini-menus
-                        elif _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is None: # type: ignore
+                        elif _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.F3H_MARKED_ITERATOR_MP_IDX is None: # type: ignore
                             try:
-                                hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                                hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
                             except AttributeError:
                                 pass
                             else:
                                 self.destroy_cachedUserData(node, 'iter_sel')
                                 # This so we dnt fallback into this case again and again.
-                                hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
+                                hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
             
             finally:
                 
@@ -8082,8 +8082,8 @@ class flam3h_iterator_utils
                         for f3h in node.type().instances():
                             if f3h != node and self.exist_user_data(f3h):
                                 s_mp_index: int | None = int(self.get_user_data(f3h))
-                                from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE = f3h # type: ignore
-                                mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = s_mp_index # type: ignore
+                                from_FLAM3H_NODE = hou.session.F3H_MARKED_ITERATOR_NODE = f3h # type: ignore
+                                mp_id_from = hou.session.F3H_MARKED_ITERATOR_MP_IDX = s_mp_index # type: ignore
                                 self.iterator_mpidx_mem_set(f3h, s_mp_index)
                                 # Always on ourself since we dnt care about others FLAM3H™ nodes SYS tab's Select Iterator mini-menus
                                 self.destroy_cachedUserData(node, 'iter_sel')
@@ -8092,8 +8092,8 @@ class flam3h_iterator_utils
                     # Mark, mark another node, Undo, Redo
                     elif node != from_FLAM3H_NODE and self.exist_user_data(node):
                         s_mp_index: int | None = int(self.get_user_data(node))
-                        from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_ITERATOR_NODE = node # type: ignore
-                        mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = s_mp_index # type: ignore
+                        from_FLAM3H_NODE = hou.session.F3H_MARKED_ITERATOR_NODE = node # type: ignore
+                        mp_id_from = hou.session.F3H_MARKED_ITERATOR_MP_IDX = s_mp_index # type: ignore
                         self.iterator_mpidx_mem_set(node, s_mp_index)
                         self.destroy_cachedUserData(node, 'iter_sel')
 
@@ -8101,7 +8101,7 @@ class flam3h_iterator_utils
                 elif mp_id_from is None and from_FLAM3H_NODE is not None:
                     if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE):
                         s_mp_index: int | None = int(self.get_user_data(from_FLAM3H_NODE))
-                        mp_id_from = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX = s_mp_index # type: ignore
+                        mp_id_from = hou.session.F3H_MARKED_ITERATOR_MP_IDX = s_mp_index # type: ignore
                         self.iterator_mpidx_mem_set(from_FLAM3H_NODE, s_mp_index)
                         self.destroy_cachedUserData(node, 'iter_sel')
 
@@ -8122,7 +8122,7 @@ class flam3h_iterator_utils
         will always be up to date.</br>
         
         It is for:
-        * hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX -> UNDO, so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
+        * hou.session.F3H_MARKED_ITERATOR_MP_IDX -> UNDO, so to speak -> prm: FLAM3H_DATA_PRM_MPIDX
 
         Args:
             (self):
@@ -8138,8 +8138,8 @@ class flam3h_iterator_utils
         # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
-            from_FLAM3H_NODE: TA_MNode = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
-            from_FLAM3H_NODE_FF_CHECK: TA_M = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
+            from_FLAM3H_NODE: TA_MNode = hou.session.F3H_MARKED_FF_NODE # type: ignore
+            from_FLAM3H_NODE_FF_CHECK: TA_M = hou.session.F3H_MARKED_FF_CHECK # type: ignore
             
             isDELETED = False
             
@@ -8162,19 +8162,19 @@ class flam3h_iterator_utils
                 if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF) is False:
                     for f3h in node.type().instances():
                         if f3h != node and self.exist_user_data(f3h, FLAM3H_USER_DATA_FF):
-                            from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE = f3h # type: ignore
-                            from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK = 1  # type: ignore
+                            from_FLAM3H_NODE = hou.session.F3H_MARKED_FF_NODE = f3h # type: ignore
+                            from_FLAM3H_NODE_FF_CHECK = hou.session.F3H_MARKED_FF_CHECK = 1  # type: ignore
                             break
                         
                 # Mark, mark another node, Undo, Redos
                 elif node != from_FLAM3H_NODE and self.exist_user_data(node, FLAM3H_USER_DATA_FF):
-                    from_FLAM3H_NODE = hou.session.FLAM3H_MARKED_FF_NODE = node # type: ignore
-                    from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK = 1  # type: ignore
+                    from_FLAM3H_NODE = hou.session.F3H_MARKED_FF_NODE = node # type: ignore
+                    from_FLAM3H_NODE_FF_CHECK = hou.session.F3H_MARKED_FF_CHECK = 1  # type: ignore
                     
             # Mark, unmark, Undos
             elif from_FLAM3H_NODE_FF_CHECK is None and from_FLAM3H_NODE is not None:
                 if node == from_FLAM3H_NODE and self.exist_user_data(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF):
-                    from_FLAM3H_NODE_FF_CHECK = hou.session.FLAM3H_MARKED_FF_CHECK = 1  # type: ignore
+                    from_FLAM3H_NODE_FF_CHECK = hou.session.F3H_MARKED_FF_CHECK = 1  # type: ignore
 
             if isDELETED is False:
                 
@@ -8283,7 +8283,7 @@ class flam3h_iterator_utils
             
             if mp_id_from is not None:
                 _MSG: str = f"{node.name()}: iterator UNMARKED: {mp_id_from}" # type: ignore
-                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+                hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
                 self.iterator_mpidx_mem_set(node, 0)
                 self.del_comment_and_user_data_iterator(node)
                 
@@ -8292,11 +8292,11 @@ class flam3h_iterator_utils
                 
             else:
                 if from_FLAM3H_NODE.parm(FLAM3H_DATA_PRM_MPIDX).eval() == -1:
-                    _MSG: str = f"{node.name()}: {_MSG_UNMARKED}:  {idx}   Unmarked removed iterator -> {hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX}" # type: ignore
+                    _MSG: str = f"{node.name()}: {_MSG_UNMARKED}:  {idx}   Unmarked removed iterator -> {hou.session.F3H_MARKED_ITERATOR_MP_IDX}" # type: ignore
                 else:
                     _MSG: str = f"{node.name()}: {_MSG_UNMARKED} -> {idx}"
                     
-                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+                hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
                 self.iterator_mpidx_mem_set(node, 0)
                 self.del_comment_and_user_data_iterator(node)
                 
@@ -8349,18 +8349,18 @@ class flam3h_iterator_utils
             if node.isGenericFlagSet(hou.nodeFlag.DisplayComment) is False: # type: ignore
                 node.setGenericFlag(hou.nodeFlag.DisplayComment, True) # type: ignore
 
-        if node == hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
+        if node == hou.session.F3H_MARKED_ITERATOR_NODE: # type: ignore
             
-            if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX != id: # type: ignore
-                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = id # type: ignore
-                hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = self.node # type: ignore
+            if hou.session.F3H_MARKED_ITERATOR_MP_IDX != id: # type: ignore
+                hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = id # type: ignore
+                hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = self.node # type: ignore
                 self.iterator_mpidx_mem_set(node, id)
                 self.del_comment_and_user_data_iterator(node)
                 self.set_comment_and_user_data_iterator(node, idx)
                 
-                _MSG: str = f"{self.node.name()}: iterator MARKED:  {hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX}" # type: ignore
+                _MSG: str = f"{self.node.name()}: iterator MARKED:  {hou.session.F3H_MARKED_ITERATOR_MP_IDX}" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-                flam3h_general_utils.flash_message(node, f"{hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX}: MARKED") # type: ignore
+                flam3h_general_utils.flash_message(node, f"{hou.session.F3H_MARKED_ITERATOR_MP_IDX}: MARKED") # type: ignore
                 
             else:
                 self.iterator_mpidx_mem_set(node, id)
@@ -8371,8 +8371,8 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
                 
         else:
-            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = id # type: ignore
-            hou.session.FLAM3H_MARKED_ITERATOR_NODE: TA_MNode = self.node # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = id # type: ignore
+            hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = self.node # type: ignore
             self.iterator_mpidx_mem_set(node, id)
             self.del_comment_and_user_data_iterator(node)
             self.set_comment_and_user_data_iterator(node, idx)
@@ -8382,9 +8382,9 @@ class flam3h_iterator_utils
                 self.iterator_mpidx_mem_set(from_FLAM3H_NODE, 0)
                 self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                 
-            _MSG: str = f"{self.node.name()}: iterator MARKED:  {hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX}" # type: ignore
+            _MSG: str = f"{self.node.name()}: iterator MARKED:  {hou.session.F3H_MARKED_ITERATOR_MP_IDX}" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"{hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX}: MARKED") # type: ignore
+            flam3h_general_utils.flash_message(node, f"{hou.session.F3H_MARKED_ITERATOR_MP_IDX}: MARKED") # type: ignore
 
 
     def prm_paste(self) -> None:
@@ -8426,7 +8426,7 @@ class flam3h_iterator_utils
                 self.prm_paste_CTRL(s_mp_index)
         
         else:
-            if self.exist_user_data(node) and int(self.get_user_data(node)) == s_mp_index and s_mp_index == hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX and node == hou.session.FLAM3H_MARKED_ITERATOR_NODE: # type: ignore
+            if self.exist_user_data(node) and int(self.get_user_data(node)) == s_mp_index and s_mp_index == hou.session.F3H_MARKED_ITERATOR_MP_IDX and node == hou.session.F3H_MARKED_ITERATOR_NODE: # type: ignore
                 with hou.undos.group(f"FLAM3H™ unmark iterator CLICK {s_mp_index}"): # type: ignore
                     self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
                     self.prm_paste_SHIFT(s_mp_index)
@@ -8499,15 +8499,15 @@ class flam3h_iterator_utils
                 assert from_FLAM3H_NODE is not None
                 
                 _MSG: str = f"{node.name()}: FF UNMARKED: {from_FLAM3H_NODE.name()}.FF" # type: ignore
-                hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
-                hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
+                hou.session.F3H_MARKED_FF_CHECK: TA_M = None # type: ignore
+                hou.session.F3H_MARKED_FF_NODE: TA_MNode = node # type: ignore
                 
                 self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
                 
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 flam3h_general_utils.flash_message(node, f"FF UNMARKED")
             else:
-                _MSG: str = f"{node.name()}: This FF is Unmarked already. The marked FF is from node: {hou.session.FLAM3H_MARKED_FF_NODE}.FF" # type: ignore
+                _MSG: str = f"{node.name()}: This FF is Unmarked already. The marked FF is from node: {hou.session.F3H_MARKED_FF_NODE}.FF" # type: ignore
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         else:
@@ -8547,8 +8547,8 @@ class flam3h_iterator_utils
                 
                 self.del_comment_and_user_data_iterator(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF)
                 
-            hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = 1 # type: ignore
-            hou.session.FLAM3H_MARKED_FF_NODE: TA_MNode = self.node # type: ignore
+            hou.session.F3H_MARKED_FF_CHECK: TA_M = 1 # type: ignore
+            hou.session.F3H_MARKED_FF_NODE: TA_MNode = self.node # type: ignore
             
             self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
             self.set_comment_and_user_data_iterator(node, "Yes", FLAM3H_USER_DATA_FF)
@@ -8588,7 +8588,7 @@ class flam3h_iterator_utils
                 self.prm_paste_FF_CTRL()
         
         else:
-            if self.exist_user_data(node, FLAM3H_USER_DATA_FF) and hou.session.FLAM3H_MARKED_FF_CHECK is not None and node == hou.session.FLAM3H_MARKED_FF_NODE: # type: ignore
+            if self.exist_user_data(node, FLAM3H_USER_DATA_FF) and hou.session.F3H_MARKED_FF_CHECK is not None and node == hou.session.F3H_MARKED_FF_NODE: # type: ignore
                 with hou.undos.group(f"FLAM3H™ unmark FF CLICK"): # type: ignore
                     self.prm_paste_FF_SHIFT()
             else:
@@ -8608,7 +8608,7 @@ class flam3h_iterator_utils
             (None):
         """   
         try:
-            if hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX is not None and hou.session.FLAM3H_MARKED_ITERATOR_NODE == node: # type: ignore
+            if hou.session.F3H_MARKED_ITERATOR_MP_IDX is not None and hou.session.F3H_MARKED_ITERATOR_NODE == node: # type: ignore
                 self.destroy_cachedUserData(node, 'iter_sel')
                 self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
         except AttributeError:
@@ -8629,7 +8629,7 @@ class flam3h_iterator_utils
         
         # Marked iterator ( not needed but just in case lets "try" so to speak )
         try:
-            mp_id_from: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+            mp_id_from: TA_M = hou.session.F3H_MARKED_ITERATOR_MP_IDX # type: ignore
         except AttributeError:
             mp_id_from: TA_M = None
 
@@ -8644,7 +8644,7 @@ class flam3h_iterator_utils
             n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
 
             # Marked iterator node
-            from_FLAM3H_NODE: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+            from_FLAM3H_NODE: TA_MNode = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore
             assert isinstance(from_FLAM3H_NODE, hou.SopNode)
             
             # Get user selection of paste methods
@@ -8891,14 +8891,14 @@ class flam3h_iterator_utils
 
         # Marked FF check ( not needed but just in case lets "try" so to speak )
         try:
-            from_FLAM3H_NODE_FF_CHECK: TA_M = hou.session.FLAM3H_MARKED_FF_CHECK # type: ignore
+            from_FLAM3H_NODE_FF_CHECK: TA_M = hou.session.F3H_MARKED_FF_CHECK # type: ignore
         except AttributeError:
             from_FLAM3H_NODE_FF_CHECK: TA_M = None
             
         if from_FLAM3H_NODE_FF_CHECK is not None:
             
             # Marked FF node
-            from_FLAM3H_NODE: TA_MNode = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+            from_FLAM3H_NODE: TA_MNode = hou.session.F3H_MARKED_FF_NODE # type: ignore
             assert isinstance(from_FLAM3H_NODE, hou.SopNode)
             
             # Get user selection of paste methods
@@ -9702,20 +9702,20 @@ class flam3h_iterator_utils
                 
                 # Update copy/paste iterator's index if there is a need to do so
                 try:
-                    flam3h_node_mp_id: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                    flam3h_node_mp_id: TA_M = hou.session.F3H_MARKED_ITERATOR_MP_IDX # type: ignore
                 except AttributeError:
                     flam3h_node_mp_id: TA_M = None
                 
                 if flam3h_node_mp_id is not None:
                     # Check if the node still exist
                     try:
-                        hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                        hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
                         
                     except AttributeError:
                         flam3h_node: TA_MNode = None
                         
                     else:
-                        flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                        flam3h_node: TA_MNode = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore
                         
                     # If the node exist
                     if node == flam3h_node:
@@ -9723,7 +9723,7 @@ class flam3h_iterator_utils
                         # did we have a marked iterator inside the group we just removed ?
                         if flam3h_node_mp_id > len(s_current):
                             
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+                            hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
                             # set
                             prm_mpidx.set(-1)
                             self.del_comment_and_user_data_iterator(node)
@@ -9788,26 +9788,26 @@ class flam3h_iterator_utils
                 
                 # Update copy/paste iterator's index if there is a need to do so
                 try:
-                    flam3h_node_mp_id: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                    flam3h_node_mp_id: TA_M = hou.session.F3H_MARKED_ITERATOR_MP_IDX # type: ignore
                 except AttributeError:
                     flam3h_node_mp_id: TA_M = None
                 
                 if flam3h_node_mp_id is not None:
                     # Check if the node still exist
                     try:
-                        hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                        hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
                         
                     except AttributeError:
                         flam3h_node: TA_MNode = None
                         
                     else:
-                        flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                        flam3h_node: TA_MNode = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore
                         
                     # If the node exist
                     if node == flam3h_node:
                             
                         if (idx_del_inbetween + 1) == flam3h_node_mp_id: # just in case..
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+                            hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
                             # set
                             prm_mpidx.set(-1)
                             self.del_comment_and_user_data_iterator(node)
@@ -9847,26 +9847,26 @@ class flam3h_iterator_utils
                 
                 # Update copy/paste iterator's index if there is a need to do so
                 try:
-                    flam3h_node_mp_id: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                    flam3h_node_mp_id: TA_M = hou.session.F3H_MARKED_ITERATOR_MP_IDX # type: ignore
                 except AttributeError:
                     flam3h_node_mp_id: TA_M = None
                 
                 if flam3h_node_mp_id is not None:
                     # Check if the node still exist
                     try:
-                        hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                        hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
                         
                     except AttributeError:
                         flam3h_node: TA_MNode = None
                         
                     else:
-                        flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                        flam3h_node: TA_MNode = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore
                         
                     # If the node exist and if it is the selected one
                     if node == flam3h_node:
                             
                         if (idx_del_inbetween + 1) < flam3h_node_mp_id:
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = flam3h_node_mp_id - 1 # type: ignore
+                            hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = flam3h_node_mp_id - 1 # type: ignore
                             # set
                             idx_new: int = prm_mpidx.eval() - 1
                             prm_mpidx.set(idx_new)
@@ -9875,7 +9875,7 @@ class flam3h_iterator_utils
 
                         elif (idx_del_inbetween + 1) == flam3h_node_mp_id:
                             
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+                            hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
                             # set
                             prm_mpidx.set(-1)
                             self.del_comment_and_user_data_iterator(node)
@@ -9924,26 +9924,26 @@ class flam3h_iterator_utils
                 
                 # Update copy/paste iterator's index if there is a need to do so
                 try:
-                    flam3h_node_mp_id: TA_M = hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                    flam3h_node_mp_id: TA_M = hou.session.F3H_MARKED_ITERATOR_MP_IDX # type: ignore
                 except AttributeError:
                     flam3h_node_mp_id: TA_M = None
                 
                 if flam3h_node_mp_id is not None:
                     # Check if the node still exist
                     try:
-                        hou.session.FLAM3H_MARKED_ITERATOR_NODE.type() # type: ignore
+                        hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
                         
                     except AttributeError:
                         flam3h_node: TA_MNode = None
                         
                     else:
-                        flam3h_node: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+                        flam3h_node: TA_MNode = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore
                         
                     # If the node exist and if it is the selected one
                     if node == flam3h_node:
                             
                         if (idx_add_inbetween + 1) <= flam3h_node_mp_id:
-                            hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = flam3h_node_mp_id + 1 # type: ignore
+                            hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = flam3h_node_mp_id + 1 # type: ignore
                             # set
                             idx_new: int = prm_mpidx.eval() + 1
                             prm_mpidx.set(idx_new)
@@ -17743,22 +17743,22 @@ class in_flame_utils
         flam3h_iterator_utils.flam3h_init_hou_session_ff_data(node)
         
         # Reset iterator user data if needed
-        from_FLAM3H_NODE: TA_MNode = hou.session.FLAM3H_MARKED_ITERATOR_NODE # type: ignore
+        from_FLAM3H_NODE: TA_MNode = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore
         if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
             if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE):
                 flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
-                hou.session.FLAM3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
+                hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
         
         # Reset mp idx FLAM3H™ mem parameter
         if node.parm(FLAM3H_DATA_PRM_MPIDX).eval() != 0:
             flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
         
         # Reset FF user data if needed
-        from_FLAM3H_NODE: TA_MNode = hou.session.FLAM3H_MARKED_FF_NODE # type: ignore
+        from_FLAM3H_NODE: TA_MNode = hou.session.F3H_MARKED_FF_NODE # type: ignore
         if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
             if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF):
                 flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE, FLAM3H_USER_DATA_FF)
-                hou.session.FLAM3H_MARKED_FF_CHECK: TA_M = None # type: ignore
+                hou.session.F3H_MARKED_FF_CHECK: TA_M = None # type: ignore
 
 
     def in_to_flam3h_reset_iterators_parms(self, node: hou.SopNode, in_flame_iter_count: int) -> None:
