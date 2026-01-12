@@ -24,7 +24,7 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 
 #### Quick links
 
-- **FLAM3H™** [**UI_ICON_map H21 UP**](FLAM3HUSD__UI_ICON_map_H21_UP.md)
+- **FLAM3H™** [**UI_ICON_map H21 UP**](FLAM3H__UI_ICON_map_H21_UP.md)
 - **FLAM3H™** [**UI_PARM_map H21 UP**](py_flam3__UI_PARM_map_H21_UP.md)
 - **FLAM3H™** [**UI_PARM_map H19 to H20.5**](py_flam3__UI_PARM_map_H19_to_H205.md)
 
