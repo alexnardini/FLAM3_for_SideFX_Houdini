@@ -12589,7 +12589,12 @@ and change the flame → “name” key afterwards.
 
 
 class xml_keys:
-
+    '''
+    XML keys for FLAM3H™ XML flame files.</br>
+    It also include FLAM3 and Fractorium keys where applicable along with defaults.</br></br>
+    
+    Used when loading/saving flame XML files.</br>
+    '''
     # For now we force to assume a valid flame's XML file must have this tree.root name.
     ROOT: Final = 'flames'
     # And this for a valid chaotica file ( not supported )
