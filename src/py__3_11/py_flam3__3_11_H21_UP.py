@@ -807,7 +807,6 @@ class flam3h_iterator_prm_names:
         
         * def iterator_vactive_and_update(self) -> None:
         * def menu_select_iterator_data(self, data_now: tuple[list[Any] | Any, ...], data_names: tuple[str, ...]) -> TA_Menu:
-        * def menu_select_iterator(self) -> TA_Menu:
         * def menu_copypaste(self) -> TA_Menu:
         * def menu_copypaste_FF(self) -> TA_Menu:
         * def iterator_affine_scale(self) -> None:
@@ -7584,12 +7583,12 @@ class flam3h_iterator_utils
         """Build a menu of iterators using their states as bookmark icon.</br>
         
         The arg: 'data_now' is composed as follow:
-        * 0: note <b>list[str]</b></br>iterators names</br></br>
-        * 1: active <b>list[int]</b></br>iterators active</br></br>
-        * 2: weight <b>list[float]</b></br>iterators Weights</br></br>
-        * 3: shader_opacity <b>list[float]</b></br>iterators shader's opacity</br></br>
-        * 4: xfviz_solo_idx <b>int</b></br>xform handle SOLO mode iterator mp idx</br></br>
-        * 5: xfviz_out_sensor <b>int</b></br>camera sensor toggle parameter</br></br>
+        * 0: iter_sel_n <b>list[str]</b></br>iterators names</br></br>
+        * 1: iter_sel_a <b>list[int]</b></br>iterators active</br></br>
+        * 2: iter_sel_w <b>list[float]</b></br>iterators Weights</br></br>
+        * 3: iter_sel_o <b>list[float]</b></br>iterators shader's opacity</br></br>
+        * 4: iter_xfviz_solo_idx <b>int</b></br>xform handle SOLO mode iterator mp idx</br></br>
+        * 5: iter_xfviz_out_sensor <b>int</b></br>camera sensor toggle parameter</br></br>
         * 6: mem_id <b>int</b></br>The marked iterator number, Zero for no iterators being marked</br>
 
         Args:
@@ -7662,13 +7661,14 @@ class flam3h_iterator_utils
         with hou.undos.disabler(): # type: ignore
             
             node: hou.SopNode = self.node
+            n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
             
             mem_id: int = node.parm(f3h_tabs.PREFS.PVT_PRM_DATA_PRM_MPIDX).eval()
             if node.cachedUserData(f3h_cachedUserData.iter_sel_id) != mem_id and mem_id:
                 self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
             
             iter_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
-            data_now: tuple[list[Any] | Any, ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha')) # The order matter, those are the parameter's names without the multiparameter number, just the base names.
+            data_now: tuple[list[Any] | Any, ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in (n.main_note, n.main_vactive, n.main_weight, n.shader_alpha)) # The order matter, those are the parameter's names without the multiparameter number, just the base names.
             xfviz_mem_id: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX).eval()
             xfviz_out_sensor: int = node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval()
             data_now += (xfviz_mem_id, xfviz_out_sensor, mem_id) # adding mem_id to catch an edge case when user change the memory id to another FLAM3H™ node and undoing it afterwards
@@ -7679,7 +7679,8 @@ class flam3h_iterator_utils
                                             f3h_cachedUserData.iter_sel_o, 
                                             f3h_cachedUserData.iter_xfviz_solo_idx, 
                                             f3h_cachedUserData.iter_xfviz_out_sensor, 
-                                            f3h_cachedUserData.mem_id) # The order matter, they are the cached user data names being used
+                                            f3h_cachedUserData.mem_id
+                                            ) # The order matter, they are the cached user data names being used
             
             cached: TA_Menu | None = node.cachedUserData(f3h_cachedUserData.iter_sel)
             if cached is not None:
