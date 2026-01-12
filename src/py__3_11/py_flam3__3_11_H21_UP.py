@@ -8254,7 +8254,7 @@ class flam3h_iterator_utils
                             if _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.F3H_MARKED_ITERATOR_MP_IDX is not None and data is None: # type: ignore
                                 self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                                 # This so we dnt fallback into this case again and again.
-                                node.setCachedUserData('edge_case_01', True)
+                                node.setCachedUserData(f3h_cachedUserData.edge_case_01, True)
                                 
                     else:
                         
