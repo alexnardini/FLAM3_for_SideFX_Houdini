@@ -27,6 +27,7 @@ from collections.abc import Callable
 from collections.abc import KeysView
 from typing import Any
 from typing import Final
+from typing import Literal
 from typing import Never
 from typing import TypeVar
 from typing import TYPE_CHECKING
@@ -234,9 +235,9 @@ class f3h_char:
     Attributes representing allowed characters in various contexts.</br>
     
     '''
-    ALLOWED: Final[str] = "_-().:"
-    ALLOWED_OUT_AUTO_ADD_ITER_NUM: Final[str] = "_-+!?().: "
-    ALLOWED_XFORM_VAL: Final[str] = "0123456789.-e"
+    ALLOWED: Final[Literal["_-().:"]] = "_-().:"
+    ALLOWED_OUT_AUTO_ADD_ITER_NUM: Final[Literal["_-+!?().: "]] = "_-+!?().: "
+    ALLOWED_XFORM_VAL: Final[Literal["0123456789.-e"]] = "0123456789.-e"
 
 
 class f3h_userData:
@@ -245,12 +246,12 @@ class f3h_userData:
     
     '''
     # Node user data (nodeinfo)
-    PRX: Final[str] = 'nodeinfo'
-    MARKED_ITER: Final[str] = 'Marked iterator'
-    MARKED_FF: Final[str] = 'Marked FF'
-    XFVIZ_SOLO: Final[str] = 'XF VIZ'
+    PRX: Final[Literal['nodeinfo']] = 'nodeinfo'
+    MARKED_ITER: Final[Literal['Marked iterator']] = 'Marked iterator'
+    MARKED_FF: Final[Literal['Marked FF']] = 'Marked FF'
+    XFVIZ_SOLO: Final[Literal['XF VIZ']] = 'XF VIZ'
     # Node user data
-    XML_LAST: Final[str] = 'XML_last_loaded'
+    XML_LAST: Final[Literal['XML_last_loaded']] = 'XML_last_loaded'
 
 
 class f3h_affineDefaults:
@@ -271,8 +272,8 @@ class f3h_ffPrmPrx:
     '''
     # FF parametric parameter's prefixes
     # FF posses two sets of parametric variations parameters, one for the VAR named "VARS" and one for the PRE and POST, named "PP: VARS"
-    PRM: Final[str] = 'ff'
-    PRM_PP: Final[str] = 'fp1'
+    PRM: Final[Literal['ff']] = 'ff'
+    PRM_PP: Final[Literal['fp1']] = 'fp1'
 
 
 class f3h_varsIdentifiers:
@@ -281,8 +282,8 @@ class f3h_varsIdentifiers:
     
     '''
     # vars names identifiers for parametrics and dependants
-    DPT: Final[str] = '*'
-    PRM: Final[str] = '...'
+    DPT: Final[Literal['*']] = '*'
+    PRM: Final[Literal['...']] = '...'
 
 
 class f3h_copyPaste:
@@ -292,21 +293,21 @@ class f3h_copyPaste:
     
     '''
     # Message Mark iterators
-    MSG_MARK_ITER: Final[str] = 'Please, mark an iterator first'
+    MSG_MARK_ITER: Final[Literal['Please, mark an iterator first']] = 'Please, mark an iterator first'
     MSG_MARK_ITER_STATUS_BAR: Final[str] = f"{MSG_MARK_ITER} to copy parameter's values from."
-    MSG_MARK_FF: Final[str] = 'Please, mark the FF first'
+    MSG_MARK_FF: Final[Literal['Please, mark the FF first']] = 'Please, mark the FF first'
     MSG_MARK_FF_STATUS_BAR: Final[str] = f"{MSG_MARK_FF} to copy parameter's values from."
 
     # copy/paste set note sections names
-    SEC_ALL: Final[str] = '.ALL'
-    SEC_MAIN: Final[str] = '.main'
-    SEC_XAOS: Final[str] = '.xaos'
-    SEC_SHADER: Final[str] = '.shader'
-    SEC_PREVARS: Final[str] = '.PRE'
-    SEC_VARS: Final[str] = '.VAR'
-    SEC_POSTVARS: Final[str] = '.POST'
-    SEC_PREAFFINE: Final[str] = '.pre affine'
-    SEC_POSTAFFINE: Final[str] = '.post affine'
+    SEC_ALL: Final[Literal['.ALL']] = '.ALL'
+    SEC_MAIN: Final[Literal['.main']] = '.main'
+    SEC_XAOS: Final[Literal['.xaos']] = '.xaos'
+    SEC_SHADER: Final[Literal['.shader']] = '.shader'
+    SEC_PREVARS: Final[Literal['.PRE']] = '.PRE'
+    SEC_VARS: Final[Literal['.VAR']] = '.VAR'
+    SEC_POSTVARS: Final[Literal['.POST']] = '.POST'
+    SEC_PREAFFINE: Final[Literal['.pre affine']] = '.pre affine'
+    SEC_POSTAFFINE: Final[Literal['.post affine']] = '.post affine'
 
 
 class f3h_nodeNames:
@@ -317,10 +318,10 @@ class f3h_nodeNames:
     # Those node names are hard coded here.
     # If you change those node names inside the FLAM3H™ houdini HDA network, update those global variables as well.
     # If not, some functionalities will stop working.
-    OUT_BBOX_SENSOR: Final[str] = 'OUT_bbox_sensor' # prefix
-    OUT_BBOX_REFRAME: Final[str] = 'OUT_bbox_reframe' # prefix
-    XFVIZGL: Final[str] = 'XFVIZ_GL'
-    TFFA_XAOS: Final[str] = '_TFFAxaos'
+    OUT_BBOX_SENSOR: Final[Literal['OUT_bbox_sensor']] = 'OUT_bbox_sensor' # prefix
+    OUT_BBOX_REFRAME: Final[Literal['OUT_bbox_reframe']] = 'OUT_bbox_reframe' # prefix
+    XFVIZGL: Final[Literal['XFVIZ_GL']] = 'XFVIZ_GL'
+    TFFA_XAOS: Final[Literal['_TFFAxaos']] = '_TFFAxaos'
 
 
 class f3h_tabs:
@@ -339,11 +340,11 @@ class f3h_tabs:
 
     '''
     # Main FLAME tab in the UI
-    PRM_ITERATORS_TAB: Final[str] = 'f_flam3h'
+    PRM_ITERATORS_TAB: Final[Literal['f_flam3h']] = 'f_flam3h'
     # Iterators count number parameter
-    PRM_ITERATORS_COUNT: Final[str] = 'flamefunc'
+    PRM_ITERATORS_COUNT: Final[Literal['flamefunc']] = 'flamefunc'
     # Node descriptive parameter
-    PRM_DESCRIPTIVE: Final[str] = 'descriptive_msg'
+    PRM_DESCRIPTIVE: Final[Literal['descriptive_msg']] = 'descriptive_msg'
     
     # The following dictionaires are to speed up the pairing of the variation type and their weight parameter's names.
     # They are hard coded so they will need to be changed if the parameters names change in the FLAM3H™ UI.
@@ -370,8 +371,8 @@ class f3h_tabs:
     
     # MISC
     # Flash messages timer - This should probably be moved into somwhere else later.
-    FLASH_MESSAGE_TIMER: Final[float] = 2
-    MSG_ZERO_ITERATORS: Final[str] = 'Iterators count set to Zero.'
+    FLASH_MESSAGE_TIMER: Final[Literal[2]] = 2
+    MSG_ZERO_ITERATORS: Final[Literal['Iterators count set to Zero.']] = 'Iterators count set to Zero.'
     
     
     # UI TABS (Most of the FLAME and FF tabs are handled directly by their own classes)
@@ -382,12 +383,12 @@ class f3h_tabs:
         
         '''
         # Default globals
-        DEFAULT_DENSITY: Final[int] = 500000
-        DEFAULT_ITERATIONS: Final[int] = 10
+        DEFAULT_DENSITY: Final[Literal[500000]] = 500000
+        DEFAULT_ITERATIONS: Final[Literal[10]] = 10
         
-        PRM_DENSITY: Final[str] = 'ptcount'
-        PRM_DENSITY_PRESETS: Final[str] = 'ptcount_presets'
-        PRM_ITERATIONS: Final[str] = 'iter'
+        PRM_DENSITY: Final[Literal['ptcount']] = 'ptcount'
+        PRM_DENSITY_PRESETS: Final[Literal['ptcount_presets']] = 'ptcount_presets'
+        PRM_ITERATIONS: Final[Literal['iter']] = 'iter'
         
         
     class SYS:
@@ -395,11 +396,11 @@ class f3h_tabs:
         Everything related to the SYS tab parameters names and miscellaneous constants.</br>
         
         '''
-        PRM_SELECT_ITERATOR: Final[str] = 'iterlist'
-        PRM_XF_VIZ_OFF: Final[str] = 'xfviz_off'
-        PRM_XF_VIZ_ON: Final[str] = 'xfviz_on'
-        PRM_TAG_SIZE: Final[str] = 'tagsize'
-        PRM_FRAME_VIEW_SENSOR: Final[str] = 'frameviewsensor'
+        PRM_SELECT_ITERATOR: Final[Literal['iterlist']] = 'iterlist'
+        PRM_XF_VIZ_OFF: Final[Literal['xfviz_off']] = 'xfviz_off'
+        PRM_XF_VIZ_ON: Final[Literal['xfviz_on']] = 'xfviz_on'
+        PRM_TAG_SIZE: Final[Literal['tagsize']] = 'tagsize'
+        PRM_FRAME_VIEW_SENSOR: Final[Literal['frameviewsensor']] = 'frameviewsensor'
         
         
     class CP:
@@ -408,48 +409,48 @@ class f3h_tabs:
         
         '''
         # PRM_PATH: Final[str] = 'palettefile'
-        PRM_PATH: Final[str] = 'palettefile'
-        PRM_PALETTE_PRESET_NAME: Final[str] = 'palettename'
-        PRM_PALETTE_PRESETS: Final[str] = 'palettepresets'
-        PRM_PALETTE_PRESETS_OFF: Final[str] = 'palettepresets_off'
-        PRM_SYS_PALETTE_PRESETS: Final[str] = 'sys_palettepresets'
-        PRM_SYS_PALETTE_PRESETS_OFF: Final[str] = 'sys_palettepresets_off'
-        PRM_RAMP_LOOKUP_SAMPLES_BASES: Final[str] = 'cp_bases'
+        PRM_PATH: Final[Literal['palettefile']] = 'palettefile'
+        PRM_PALETTE_PRESET_NAME: Final[Literal['palettename']] = 'palettename'
+        PRM_PALETTE_PRESETS: Final[Literal['palettepresets']] = 'palettepresets'
+        PRM_PALETTE_PRESETS_OFF: Final[Literal['palettepresets_off']] = 'palettepresets_off'
+        PRM_SYS_PALETTE_PRESETS: Final[Literal['sys_palettepresets']] = 'sys_palettepresets'
+        PRM_SYS_PALETTE_PRESETS_OFF: Final[Literal['sys_palettepresets_off']] = 'sys_palettepresets_off'
+        PRM_RAMP_LOOKUP_SAMPLES_BASES: Final[Literal['cp_bases']] = 'cp_bases'
         PRM_RAMP_LOOKUP_SAMPLES_BASES_DICT: Final[dict[int, str]] = {0: 'linear', 1: 'constant', 2: 'cubic', 3: 'bezier', 4: 'bspline', 5: 'hermite'}
-        PRM_RAMP_LOOKUP_SAMPLES: Final[str] = 'cp_lookupsamples'
-        PRM_RAMP_SRC_NAME: Final[str] = 'palette'
-        PRM_RAMP_TMP_NAME: Final[str] = 'palettetmp'
-        PRM_RAMP_HSV_NAME: Final[str] = 'palettehsv'
-        PRM_PALETTE_256_PLUS: Final[str] = 'cppaletteplus'
-        PRM_RAMP_SAVE_HSV: Final[str] = 'savehsv'
-        PRM_RAMP_HSV_KEEP_ON_LOAD: Final[str] = 'keephsv'
-        PRM_RAMP_HSV_VAL_NAME: Final[str] = 'hsv'
+        PRM_RAMP_LOOKUP_SAMPLES: Final[Literal['cp_lookupsamples']] = 'cp_lookupsamples'
+        PRM_RAMP_SRC_NAME: Final[Literal['palette']] = 'palette'
+        PRM_RAMP_TMP_NAME: Final[Literal['palettetmp']] = 'palettetmp'
+        PRM_RAMP_HSV_NAME: Final[Literal['palettehsv']] = 'palettehsv'
+        PRM_PALETTE_256_PLUS: Final[Literal['cppaletteplus']] = 'cppaletteplus'
+        PRM_RAMP_SAVE_HSV: Final[Literal['savehsv']] = 'savehsv'
+        PRM_RAMP_HSV_KEEP_ON_LOAD: Final[Literal['keephsv']] = 'keephsv'
+        PRM_RAMP_HSV_VAL_NAME: Final[Literal['hsv']] = 'hsv'
         # CP tab: PRIVATE SYSTEM
-        PVT_PRM_ISVALID_FILE: Final[str] = 'cpisvalidfile'
-        PVT_PRM_ISVALID_PRESET: Final[str] = 'cpisvalidpreset'
-        
+        PVT_PRM_ISVALID_FILE: Final[Literal['cpisvalidfile']] = 'cpisvalidfile'
+        PVT_PRM_ISVALID_PRESET: Final[Literal['cpisvalidpreset']] = 'cpisvalidpreset'
+
         # CP message parameters
-        MSG_PRM_PALETTE: Final[str] = 'palettemsg'
+        MSG_PRM_PALETTE: Final[Literal['palettemsg']] = 'palettemsg'
         
         # CP MISC
-        FILE_EXT: Final[str] = '.json'
-        AUTO_NAME: Final[str] = 'Palette'
-        COUNT_64: Final[str] = '64' # not used
-        COUNT_128: Final[str] = '128'
-        COUNT_256: Final[str] = '256'
-        COUNT_512: Final[str] = '512' # not used
-        COUNT_1024: Final[str] = '1024'
+        FILE_EXT: Final[Literal['.json']] = '.json'
+        AUTO_NAME: Final[Literal['Palette']] = 'Palette'
+        COUNT_64: Final[Literal['64']] = '64' # not used
+        COUNT_128: Final[Literal['128']] = '128'
+        COUNT_256: Final[Literal['256']] = '256'
+        COUNT_512: Final[Literal['512']] = '512' # not used
+        COUNT_1024: Final[Literal['1024']] = '1024'
         OUT_MENU_OPTIONS_ALL: Final[tuple[int, ...]] = (16, 32, 64, 128, 256, 512, 1024) # not used
         OUT_MENU_OPTIONS_PLUS: Final[tuple[int, ...]] = (256, 512, 1024)
-        MSG_PLUS: Final[str] = '[256+]'
+        MSG_PLUS: Final[Literal['[256+]']] = '[256+]'
         # The following will always be used for now
         # even tho we check for the XML palette format on load.
-        MSG_COLOR_FORMAT: Final[str] = 'RGB'
-        MSG_PALETTE_LOCK: Final[str] = 'Palette lib file: LOCKED'
+        MSG_COLOR_FORMAT: Final[Literal['RGB']] = 'RGB'
+        MSG_PALETTE_LOCK: Final[Literal['Palette lib file: LOCKED']] = 'Palette lib file: LOCKED'
         
         # CP JSON data keys
-        JSON_KEY_NAME_HEX: Final[str] = 'f3h_hex'
-        JSON_KEY_NAME_HSV: Final[str] = 'f3h_hsv'
+        JSON_KEY_NAME_HEX: Final[Literal['f3h_hex']] = 'f3h_hex'
+        JSON_KEY_NAME_HSV: Final[Literal['f3h_hsv']] = 'f3h_hsv'
 
 
     class MB:
@@ -457,11 +458,11 @@ class f3h_tabs:
         Everything related to the MB tab parameters names and miscellaneous constants.</br>
         
         '''
-        PRM_DO: Final[str] = 'domb'
-        PRM_FPS: Final[str] = 'fps'
-        PRM_SAMPLES: Final[str] = 'mbsamples'
-        PRM_SHUTTER: Final[str] = 'shutter'
-        PRM_VIZ: Final[str] = 'vizmb'
+        PRM_DO: Final[Literal['domb']] = 'domb'
+        PRM_FPS: Final[Literal['fps']] = 'fps'
+        PRM_SAMPLES: Final[Literal['mbsamples']] = 'mbsamples'
+        PRM_SHUTTER: Final[Literal['shutter']] = 'shutter'
+        PRM_VIZ: Final[Literal['vizmb']] = 'vizmb'
         
         
     class IN:
@@ -474,36 +475,36 @@ class f3h_tabs:
         # All of the above settings will be overwritten if the iteration number to use is baked into the Flame preset's name.
         DEFAULT_ITERATIONS_ON_LOAD: Final[int] = 64
         
-        PRM_PATH: Final[str] = 'inpath'
-        PRM_PRESETS: Final[str] = 'inpresets'
-        PRM_PRESETS_OFF: Final[str] = 'inpresets_disabled'
-        PRM_SYS_PRESETS: Final[str] = 'sys_inpresets'
-        PRM_SYS_PRESETS_OFF: Final[str] = 'sys_inpresets_disabled'
-        PRM_USE_ITER_ON_LOAD: Final[str] = 'useiteronload'
-        PRM_OVERRIDE_ITER_FLAME_NAME: Final[str] = 'oritername'
-        PRM_ITER_NUM_ON_LOAD: Final[str] = 'iternumonload'
-        PRM_FLAM3H_AFFINE_STYLE: Final[str] = 'in_f3h_affine'
-        PRM_COPY_RENDER_PROPERTIES_ON_LOAD: Final[str] = 'propertiescp'
+        PRM_PATH: Final[Literal['inpath']] = 'inpath'
+        PRM_PRESETS: Final[Literal['inpresets']] = 'inpresets'
+        PRM_PRESETS_OFF: Final[Literal['inpresets_disabled']] = 'inpresets_disabled'
+        PRM_SYS_PRESETS: Final[Literal['sys_inpresets']] = 'sys_inpresets'
+        PRM_SYS_PRESETS_OFF: Final[Literal['sys_inpresets_disabled']] = 'sys_inpresets_disabled'
+        PRM_USE_ITER_ON_LOAD: Final[Literal['useiteronload']] = 'useiteronload'
+        PRM_OVERRIDE_ITER_FLAME_NAME: Final[Literal['oritername']] = 'oritername'
+        PRM_ITER_NUM_ON_LOAD: Final[Literal['iternumonload']] = 'iternumonload'
+        PRM_FLAM3H_AFFINE_STYLE: Final[Literal['in_f3h_affine']] = 'in_f3h_affine'
+        PRM_COPY_RENDER_PROPERTIES_ON_LOAD: Final[Literal['propertiescp']] = 'propertiescp'
         
         # IN tab: PRIVATE SYSTEM
-        PVT_PRM_ISVALID_FILE: Final[str] = 'inisvalidfile'
-        PVT_PRM_ISVALID_PRESET: Final[str] = 'inisvalidpreset'
-        PVT_PRM_CLIPBOARD_TOGGLE: Final[str] = 'inclipboard'
+        PVT_PRM_ISVALID_FILE: Final[Literal['inisvalidfile']] = 'inisvalidfile'
+        PVT_PRM_ISVALID_PRESET: Final[Literal['inisvalidpreset']] = 'inisvalidpreset'
+        PVT_PRM_CLIPBOARD_TOGGLE: Final[Literal['inclipboard']] = 'inclipboard'
 
         # IN message parameters
-        MSG_PRM_STATS_HEADING: Final[str] = 'flamestats_heading'
-        MSG_PRM_STATS_HEADING_DEFAULT: Final[str] = 'IN flame preset infos'
-        MSG_PRM_SETTINGS_HEADING: Final[str] = 'flamerender_heading'
-        MSG_PRM_SETTINGS_HEADING_DEFAULT: Final[str] = 'IN flame preset render properties'
-        MSG_PRM_FLAMESTATS: Final[str] = 'flamestats_msg'
-        MSG_PRM_FLAMESENSOR: Final[str] = 'flamesensor_msg'
-        MSG_PRM_FLAMERENDER: Final[str] = 'flamerender_msg'
+        MSG_PRM_STATS_HEADING: Final[Literal['flamestats_heading']] = 'flamestats_heading'
+        MSG_PRM_STATS_HEADING_DEFAULT: Final[Literal['IN flame preset infos']] = 'IN flame preset infos'
+        MSG_PRM_SETTINGS_HEADING: Final[Literal['flamerender_heading']] = 'flamerender_heading'
+        MSG_PRM_SETTINGS_HEADING_DEFAULT: Final[Literal['IN flame preset render properties']] = 'IN flame preset render properties'
+        MSG_PRM_FLAMESTATS: Final[Literal['flamestats_msg']] = 'flamestats_msg'
+        MSG_PRM_FLAMESENSOR: Final[Literal['flamesensor_msg']] = 'flamesensor_msg'
+        MSG_PRM_FLAMERENDER: Final[Literal['flamerender_msg']] = 'flamerender_msg'
         
         # IN MISC
-        ITERATIONS_FLAME_NAME_DIV: Final[str] = '::' # Divider between the Flame name and the Iterations number baked into the Flame name.
-        CLIPBOARD_LABEL_MSG: Final[str] = '[CLIPBOARD]'
-        MSG_HSV_LABEL: Final[str] = '[HSV]'
-        MSG_FLAMESTATS_LOCK: Final[str] = '-> LOCKED'
+        ITERATIONS_FLAME_NAME_DIV: Final[Literal['::']] = '::' # Divider between the Flame name and the Iterations number baked into the Flame name.
+        CLIPBOARD_LABEL_MSG: Final[Literal['[CLIPBOARD]']] = '[CLIPBOARD]'
+        MSG_HSV_LABEL: Final[Literal['[HSV]']] = '[HSV]'
+        MSG_FLAMESTATS_LOCK: Final[Literal['-> LOCKED']] = '-> LOCKED'
         
         
     class OUT:
@@ -511,40 +512,40 @@ class f3h_tabs:
         Everything related to the OUT tab parameters names and miscellaneous constants.</br>
         
         '''
-        PRM_PATH: Final[str] = 'outpath'
-        PRM_PRESETS: Final[str] = 'outpresets'
-        PRM_SYS_PRESETS: Final[str] = 'sys_outpresets'
-        PRM_FLAME_PRESET_NAME: Final[str] = 'outname'
-        PRM_AUTO_ADD_ITER_NUM: Final[str] = 'autoadditer'
-        PRM_UPDATE_SENSOR: Final[str] = 'outsensorupdate'
-        PRM_HSV_PALETTE_DO: Final[str] = 'outpalette'
-        PRM_FLAM3H_AFFINE_STYLE: Final[str] = 'out_f3h_affine'
-        PRM_IN_FLAME_NAME_AUTO_FILL: Final[str] = 'out_in_flame_name'
-        PRM_USE_FRACTORIUM_PRM_NAMES: Final[str] = 'outfractoriumprm'
-        PRM_RENDER_PROPERTIES_EDIT: Final[str] = 'outedit'
-        PRM_RENDER_PROPERTIES_SENSOR_ENTER: Final[str] = 'out_sensorviz_disabled'
-        PRM_RENDER_PROPERTIES_RES_PRESETS_MENU: Final[str] = 'outrespresets'
-        
+        PRM_PATH: Final[Literal['outpath']] = 'outpath'
+        PRM_PRESETS: Final[Literal['outpresets']] = 'outpresets'
+        PRM_SYS_PRESETS: Final[Literal['sys_outpresets']] = 'sys_outpresets'
+        PRM_FLAME_PRESET_NAME: Final[Literal['outname']] = 'outname'
+        PRM_AUTO_ADD_ITER_NUM: Final[Literal['autoadditer']] = 'autoadditer'
+        PRM_UPDATE_SENSOR: Final[Literal['outsensorupdate']] = 'outsensorupdate'
+        PRM_HSV_PALETTE_DO: Final[Literal['outpalette']] = 'outpalette'
+        PRM_FLAM3H_AFFINE_STYLE: Final[Literal['out_f3h_affine']] = 'out_f3h_affine'
+        PRM_IN_FLAME_NAME_AUTO_FILL: Final[Literal['out_in_flame_name']] = 'out_in_flame_name'
+        PRM_USE_FRACTORIUM_PRM_NAMES: Final[Literal['outfractoriumprm']] = 'outfractoriumprm'
+        PRM_RENDER_PROPERTIES_EDIT: Final[Literal['outedit']] = 'outedit'
+        PRM_RENDER_PROPERTIES_SENSOR_ENTER: Final[Literal['out_sensorviz_disabled']] = 'out_sensorviz_disabled'
+        PRM_RENDER_PROPERTIES_RES_PRESETS_MENU: Final[Literal['outrespresets']] = 'outrespresets'
+
         # OUT tab: Curves
-        PRM_TOGGLE_CC_DEFAULTS_MSG: Final[str] = 'outccdefault'
-        PRM_LABEL_CC_DEFAULTS_MSG: Final[str] = 'label_outccdefault'
-        PRM_RENDER_PROPERTIES_CURVES: Final[str] = 'outcurvesval'
-        PRM_RENDER_PROPERTIES_CURVE_OVERALL: Final[str] = 'outcurveoverallval'
-        PRM_RENDER_PROPERTIES_CURVE_RED: Final[str] = 'outcurveredval'
-        PRM_RENDER_PROPERTIES_CURVE_GREEN: Final[str] = 'outcurvegreenval'
-        PRM_RENDER_PROPERTIES_CURVE_BLUE: Final[str] = 'outcurveblueval'
+        PRM_TOGGLE_CC_DEFAULTS_MSG: Final[Literal['outccdefault']] = 'outccdefault'
+        PRM_LABEL_CC_DEFAULTS_MSG: Final[Literal['label_outccdefault']] = 'label_outccdefault'
+        PRM_RENDER_PROPERTIES_CURVES: Final[Literal['outcurvesval']] = 'outcurvesval'
+        PRM_RENDER_PROPERTIES_CURVE_OVERALL: Final[Literal['outcurveoverallval']] = 'outcurveoverallval'
+        PRM_RENDER_PROPERTIES_CURVE_RED: Final[Literal['outcurveredval']] = 'outcurveredval'
+        PRM_RENDER_PROPERTIES_CURVE_GREEN: Final[Literal['outcurvegreenval']] = 'outcurvegreenval'
+        PRM_RENDER_PROPERTIES_CURVE_BLUE: Final[Literal['outcurveblueval']] = 'outcurveblueval'
 
         # OUT tab: PRIVATE SYSTEM
-        PVT_PRM_ISVALID_FILE: Final[str] = 'outisvalidfile'
-        PVT_PRM_RENDER_PROPERTIES_SENSOR: Final[str] = 'outsensor'
+        PVT_PRM_ISVALID_FILE: Final[Literal['outisvalidfile']] = 'outisvalidfile'
+        PVT_PRM_RENDER_PROPERTIES_SENSOR: Final[Literal['outsensor']] = 'outsensor'
         
         # OUT message parameters
-        MSG_PRM_OUT: Final[str] = 'outmsg'
-        
+        MSG_PRM_OUT: Final[Literal['outmsg']] = 'outmsg'
+
         # OUT MISC
-        AUTO_NAME: Final[str] = 'Flame'
-        FILE_EXT: Final[str] = '.flame'
-        MSG_OUT_LOCK: Final[str] = 'Flame lib file: LOCKED'
+        AUTO_NAME: Final[Literal['Flame']] = 'Flame'
+        FILE_EXT: Final[Literal['.flame']] = '.flame'
+        MSG_OUT_LOCK: Final[Literal['Flame lib file: LOCKED']] = 'Flame lib file: LOCKED'
         
         
     class PREFS:
@@ -552,46 +553,46 @@ class f3h_tabs:
         Everything related to the PREFS tab parameters names and miscellaneous constants.</br>
         
         '''
-        PRM_PALETTE_256_PLUS: Final[str] = 'paletteplus'
-        PRM_SOLO_FOLLOW: Final[str] = 'solo_follow'
-        PRM_FLASH_MSG: Final[str] = 'flashmsg'
-        PRM_ITERATOR_BOOKMARK_ICONS: Final[str] = 'itericons'
-        PRM_ENUMERATE_MENU: Final[str] = 'enumeratemenu'
-        PRM_CVEX_PRECISION: Final[str] = 'vex_precision'
-        PRM_XAOS_MODE: Final[str] = 'xm'
-        PRM_CAMERA_HANDLE: Final[str] = 'camhandle'
-        PRM_CAMERA: Final[str] = 'fcam'
-        PRM_CAMERA_CULL: Final[str] = 'camcull'
-        PRM_CAMERA_CULL_AMOUNT: Final[str] = 'cullamount'
-        PRM_VIEWPORT_DARK: Final[str] = 'setdark'
-        PRM_VIEWPORT_WIRE_WIDTH: Final[str] = 'vpww'
-        PRM_VIEWPORT_PT_TYPE: Final[str] = 'vptype'
-        PRM_VIEWPORT_PT_SIZE: Final[str] = 'vpptsize'
+        PRM_PALETTE_256_PLUS: Final[Literal['paletteplus']] = 'paletteplus'
+        PRM_SOLO_FOLLOW: Final[Literal['solo_follow']] = 'solo_follow'
+        PRM_FLASH_MSG: Final[Literal['flashmsg']] = 'flashmsg'
+        PRM_ITERATOR_BOOKMARK_ICONS: Final[Literal['itericons']] = 'itericons'
+        PRM_ENUMERATE_MENU: Final[Literal['enumeratemenu']] = 'enumeratemenu'
+        PRM_CVEX_PRECISION: Final[Literal['vex_precision']] = 'vex_precision'
+        PRM_XAOS_MODE: Final[Literal['xm']] = 'xm'
+        PRM_CAMERA_HANDLE: Final[Literal['camhandle']] = 'camhandle'
+        PRM_CAMERA: Final[Literal['fcam']] = 'fcam'
+        PRM_CAMERA_CULL: Final[Literal['camcull']] = 'camcull'
+        PRM_CAMERA_CULL_AMOUNT: Final[Literal['cullamount']] = 'cullamount'
+        PRM_VIEWPORT_DARK: Final[Literal['setdark']] = 'setdark'
+        PRM_VIEWPORT_WIRE_WIDTH: Final[Literal['vpww']] = 'vpww'
+        PRM_VIEWPORT_PT_TYPE: Final[Literal['vptype']] = 'vptype'
+        PRM_VIEWPORT_PT_SIZE: Final[Literal['vpptsize']] = 'vpptsize'
         # PREFS tab: PRIVATE SYSTEM
-        PVT_PRM_H_VALID = 'h_valid'
-        PVT_PRM_DOFF: Final[str] = 'doff'
-        PVT_PRM_RIP: Final[str] = 'rip'
-        PVT_PRM_F3C: Final[str] = 'f3c'
-        PVT_PRM_TAG: Final[str] = 'tag'
-        PVT_PRM_XAOS_AUTO_SPACE: Final[str] = 'xaosdiv'
-        PVT_PRM_AUTO_PATH_CORRECTION: Final[str] = 'autopath'
-        PVT_PRM_XF_VIZ: Final[str] = 'vizhandles'
-        PVT_PRM_XF_VIZ_SOLO: Final[str] = 'vizhandles_solo'
-        PVT_PRM_XF_VIZ_SOLO_MP_IDX: Final[str] = 'vizhandles_solo_mpidx'
-        PVT_PRM_XF_FF_VIZ_SOLO: Final[str] = 'vizhandlesff_solo'
+        PVT_PRM_H_VALID: Final[Literal['h_valid']] = 'h_valid'
+        PVT_PRM_DOFF: Final[Literal['doff']] = 'doff'
+        PVT_PRM_RIP: Final[Literal['rip']] = 'rip'
+        PVT_PRM_F3C: Final[Literal['f3c']] = 'f3c'
+        PVT_PRM_TAG: Final[Literal['tag']] = 'tag'
+        PVT_PRM_XAOS_AUTO_SPACE: Final[Literal['xaosdiv']] = 'xaosdiv'
+        PVT_PRM_AUTO_PATH_CORRECTION: Final[Literal['autopath']] = 'autopath'
+        PVT_PRM_XF_VIZ: Final[Literal['vizhandles']] = 'vizhandles'
+        PVT_PRM_XF_VIZ_SOLO: Final[Literal['vizhandles_solo']] = 'vizhandles_solo'
+        PVT_PRM_XF_VIZ_SOLO_MP_IDX: Final[Literal['vizhandles_solo_mpidx']] = 'vizhandles_solo_mpidx'
+        PVT_PRM_XF_FF_VIZ_SOLO: Final[Literal['vizhandlesff_solo']] = 'vizhandlesff_solo'
         # PREFS tab: PRIVATE SYSTEM MEM
-        PVT_PRM_VIEWPORT_PT_SIZE_MEM: Final[str] = 'vpptsize_mem'
-        PVT_PRM_VIEWPORT_PT_TYPE_MEM: Final[str] = 'vptype_mem'
-        PVT_PRM_VIEWPORT_WIRE_WIDTH_MEM: Final[str] = 'vpww_mem'
+        PVT_PRM_VIEWPORT_PT_SIZE_MEM: Final[Literal['vpptsize_mem']] = 'vpptsize_mem'
+        PVT_PRM_VIEWPORT_PT_TYPE_MEM: Final[Literal['vptype_mem']] = 'vptype_mem'
+        PVT_PRM_VIEWPORT_WIRE_WIDTH_MEM: Final[Literal['vpww_mem']] = 'vpww_mem'
         # PREFS tab: PRIVATE SYSTEM TEMP PARMS
-        PVT_PRM_INT_0: Final[str] = 'tmp_int_0'
-        PVT_PRM_INT_1: Final[str] = 'tmp_int_1'
-        PVT_PRM_FLOAT_0: Final[str] = 'tmp_float_0'
-        PVT_PRM_FLOAT_1: Final[str] = 'tmp_float_1'
+        PVT_PRM_INT_0: Final[Literal['tmp_int_0']] = 'tmp_int_0'
+        PVT_PRM_INT_1: Final[Literal['tmp_int_1']] = 'tmp_int_1'
+        PVT_PRM_FLOAT_0: Final[Literal['tmp_float_0']] = 'tmp_float_0'
+        PVT_PRM_FLOAT_1: Final[Literal['tmp_float_1']] = 'tmp_float_1'
         # PREFS tab: PRIVATE self prm names for user data
-        PVT_PRM_DATA_PRM_XAOS_MP_MEM: Final[str] = 'flam3h_data_mpmem'
-        PVT_PRM_DATA_PRM_XAOS_PREV: Final[str] = 'flam3h_data_xaos'
-        PVT_PRM_DATA_PRM_MPIDX: Final[str] = 'flam3h_data_mpidx'
+        PVT_PRM_DATA_PRM_XAOS_MP_MEM: Final[Literal['flam3h_data_mpmem']] = 'flam3h_data_mpmem'
+        PVT_PRM_DATA_PRM_XAOS_PREV: Final[Literal['flam3h_data_xaos']] = 'flam3h_data_xaos'
+        PVT_PRM_DATA_PRM_MPIDX: Final[Literal['flam3h_data_mpidx']] = 'flam3h_data_mpidx'
 
 
     class ABOUT:
@@ -600,17 +601,16 @@ class f3h_tabs:
         
         '''
         # ABOUT tab: Message parameters
-        MSG_PRM_F3H_ABOUT: Final[str] = 'flam3about_msg'
-        MSG_PRM_F3H_PLUGINS: Final[str] = 'flam3plugins_msg'
-        MSG_PRM_F3H_WEB: Final[str] = 'flam3h_heading_web'
-        MSG_PRM_F3H_GIT: Final[str] = 'flam3h_heading_git'
-        MSG_PRM_F3H_INSTA: Final[str] = 'flam3h_heading_insta'
-        MSG_PRM_F3H_YOUTUBE: Final[str] = 'flam3h_heading_youtube'
-        MSG_PRM_FLAM3_PDF: Final[str] = 'flam3_heading_pdf'
-        MSG_PRM_FLAM3_GIT: Final[str] = 'flam3_heading_git'
-        MSG_PRM_FRACT_GITHUB: Final[str] = 'fract_heading_git'
-        MSG_PRM_FRACT_WEB: Final[str] = 'fract_heading_web'
-
+        MSG_PRM_F3H_ABOUT: Final[Literal['flam3about_msg']] = 'flam3about_msg'
+        MSG_PRM_F3H_PLUGINS: Final[Literal['flam3plugins_msg']] = 'flam3plugins_msg'
+        MSG_PRM_F3H_WEB: Final[Literal['flam3h_heading_web']] = 'flam3h_heading_web'
+        MSG_PRM_F3H_GIT: Final[Literal['flam3h_heading_git']] = 'flam3h_heading_git'
+        MSG_PRM_F3H_INSTA: Final[Literal['flam3h_heading_insta']] = 'flam3h_heading_insta'
+        MSG_PRM_F3H_YOUTUBE: Final[Literal['flam3h_heading_youtube']] = 'flam3h_heading_youtube'
+        MSG_PRM_FLAM3_PDF: Final[Literal['flam3_heading_pdf']] = 'flam3_heading_pdf'
+        MSG_PRM_FLAM3_GIT: Final[Literal['flam3_heading_git']] = 'flam3_heading_git'
+        MSG_PRM_FRACT_GITHUB: Final[Literal['fract_heading_git']] = 'fract_heading_git'
+        MSG_PRM_FRACT_WEB: Final[Literal['fract_heading_web']] = 'fract_heading_web'
 
 # FLAM3H™ EXCEPTIONS start here
 ##########################################
@@ -5615,7 +5615,7 @@ class f3h_icons:
     To bad vscode does truncate literals of this size in the preview window...</br>
     I am only using Final[str] here as the truncated tooltip is not useful anyway.</br></br>
     
-    Maybe there are some settings I can tweak, need to investigate a little sometime.</br>
+    Maybe there are some settings I can tweak, need to investigate a little.</br>
     
     '''
     # ICONS menu copy/paste bookmarks
