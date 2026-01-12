@@ -5561,11 +5561,12 @@ class flam3h_general_utils
             (None):
         """    
         node: hou.SopNode = self.node
-        node.setParms({ f3h_tabs.GLB.PRM_DENSITY: density, # type: ignore
+        node.setParms(  # type: ignore
+                        {f3h_tabs.GLB.PRM_DENSITY: density, 
                         f3h_tabs.GLB.PRM_DENSITY_PRESETS: 1, 
                         f3h_tabs.GLB.PRM_ITERATIONS: iter, 
-                        f3h_tabs.SYS.PRM_TAG_SIZE: 0
-                        })
+                        f3h_tabs.SYS.PRM_TAG_SIZE: 0}
+                        )
         self.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_TAG, 0)
         self.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 0)
 
@@ -5627,12 +5628,13 @@ class flam3h_general_utils
             (None):
         """
         node: hou.SopNode = self.node
-        node.setParms({f3h_tabs.PREFS.PRM_XAOS_MODE: 0, # type: ignore
-                       f3h_tabs.PREFS.PRM_CAMERA_HANDLE: 0, 
-                       f3h_tabs.PREFS.PRM_CAMERA_CULL: 0, 
-                       f3h_tabs.PREFS.PRM_CAMERA: "", 
-                       f3h_tabs.PREFS.PRM_CAMERA_CULL_AMOUNT: 0.99
-                       })
+        node.setParms(  # type: ignore
+                        {f3h_tabs.PREFS.PRM_XAOS_MODE: 0, 
+                        f3h_tabs.PREFS.PRM_CAMERA_HANDLE: 0, 
+                        f3h_tabs.PREFS.PRM_CAMERA_CULL: 0, 
+                        f3h_tabs.PREFS.PRM_CAMERA: "", 
+                        f3h_tabs.PREFS.PRM_CAMERA_CULL_AMOUNT: 0.99}
+                        )
         
         # XF VIZ SOLO OFF (but leave the xforms handles VIZ ON)
         self.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
@@ -6911,9 +6913,10 @@ class flam3h_iterator_utils
         x: tuple[float, ...] = hou.parmTuple(f"x_{s_mp_index}").eval()
         y: tuple[float, ...] = hou.parmTuple(f"y_{s_mp_index}").eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms({f"x_{s_mp_index}": hou.Vector2((m2_new[0])), # type: ignore
-                            f"y_{s_mp_index}": hou.Vector2((m2_new[1]))
-                            })
+        self.node.setParms( # type: ignore
+                            {f"x_{s_mp_index}": hou.Vector2((m2_new[0])), 
+                            f"y_{s_mp_index}": hou.Vector2((m2_new[1]))}
+                            )
 
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
@@ -6943,9 +6946,10 @@ class flam3h_iterator_utils
         x: tuple[float, ...] = hou.parmTuple(f"px_{s_mp_index}").eval()
         y: tuple[float, ...] = hou.parmTuple(f"py_{s_mp_index}").eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms({f"px_{s_mp_index}": hou.Vector2((m2_new[0])), # type: ignore
-                            f"py_{s_mp_index}": hou.Vector2((m2_new[1]))
-                            })
+        self.node.setParms( # type: ignore
+                            {f"px_{s_mp_index}": hou.Vector2((m2_new[0])), 
+                            f"py_{s_mp_index}": hou.Vector2((m2_new[1]))}
+                            )
 
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
@@ -6971,9 +6975,10 @@ class flam3h_iterator_utils
         x: tuple[float, ...] = hou.parmTuple("ffx").eval()
         y: tuple[float, ...] = hou.parmTuple("ffy").eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms({"ffx": hou.Vector2((m2_new[0])), # type: ignore
-                            "ffy": hou.Vector2((m2_new[1]))
-                            })
+        self.node.setParms( # type: ignore
+                            {"ffx": hou.Vector2((m2_new[0])), 
+                            "ffy": hou.Vector2((m2_new[1]))}
+                            )
 
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
@@ -6999,9 +7004,10 @@ class flam3h_iterator_utils
         x: tuple[float, ...] = hou.parmTuple("ffpx").eval()
         y: tuple[float, ...] = hou.parmTuple("ffpy").eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms({"ffpx": hou.Vector2((m2_new[0])), # type: ignore
-                            "ffpy": hou.Vector2((m2_new[1]))
-                            })
+        self.node.setParms( # type: ignore
+                            {"ffpx": hou.Vector2((m2_new[0])), 
+                            "ffpy": hou.Vector2((m2_new[1]))}
+                            )
 
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
@@ -7112,10 +7118,11 @@ class flam3h_iterator_utils
                     # Update user data
                     node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
                     # Update flame stats
-                    node.setParms({f3h_tabs.IN.MSG_PRM_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True), # type: ignore
-                                   f3h_tabs.IN.MSG_PRM_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data, True), 
-                                   f3h_tabs.IN.MSG_PRM_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data, True)
-                                   })
+                    node.setParms(  # type: ignore
+                                    {f3h_tabs.IN.MSG_PRM_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True), 
+                                    f3h_tabs.IN.MSG_PRM_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data, True), 
+                                    f3h_tabs.IN.MSG_PRM_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data, True)}
+                                    )
 
                     _MSG_ALL = f"\"XML_last_loaded\" user data: Updated\n\nThe currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk. Reload the preset to update.\n\n-> Meanwhile,\nthe IN flame preset infos have been updated\nas well as its render properties infos."
                     _MSG_UI = f"The currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk."
@@ -7953,9 +7960,10 @@ class flam3h_iterator_utils
         
         if kwargs['shift']:
             if glb_density != 300000:
-                node.setParms({f3h_tabs.GLB.PRM_DENSITY: 300000, # type: ignore
-                               f3h_tabs.GLB.PRM_DENSITY_PRESETS: -1
-                               })
+                node.setParms(  # type: ignore
+                                {f3h_tabs.GLB.PRM_DENSITY: 300000, 
+                                f3h_tabs.GLB.PRM_DENSITY_PRESETS: -1}
+                                )
                 flam3h_general_utils.flash_message(node, 'Density: 300k')
                 _MSG: str = f"{node.name()} -> SET Density: 300K points"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -7965,9 +7973,10 @@ class flam3h_iterator_utils
                 
         elif kwargs['ctrl']:
             if glb_density != 200000:
-                node.setParms({f3h_tabs.GLB.PRM_DENSITY: 200000, # type: ignore
-                               f3h_tabs.GLB.PRM_DENSITY_PRESETS: -1
-                               })
+                node.setParms(  # type: ignore
+                                {f3h_tabs.GLB.PRM_DENSITY: 200000, 
+                                f3h_tabs.GLB.PRM_DENSITY_PRESETS: -1}
+                                )
                 flam3h_general_utils.flash_message(node, 'Density: 200k')
                 _MSG: str = f"{node.name()} -> SET Density: 200K points"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -7977,9 +7986,10 @@ class flam3h_iterator_utils
                 
         elif kwargs['alt']:
             if glb_density != 100000:
-                node.setParms({f3h_tabs.GLB.PRM_DENSITY: 100000, # type: ignore
-                               f3h_tabs.GLB.PRM_DENSITY_PRESETS: -1
-                               })
+                node.setParms(  # type: ignore
+                                {f3h_tabs.GLB.PRM_DENSITY: 100000, 
+                                f3h_tabs.GLB.PRM_DENSITY_PRESETS: -1}
+                                )
                 flam3h_general_utils.flash_message(node, 'Density: 100k')
                 _MSG: str = f"{node.name()} -> SET Density: 100K points"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -8898,9 +8908,10 @@ class flam3h_iterator_utils
                     if not self.is_iterator_affine_default(node, from_FLAM3H_NODE, f3h_iter.sec_postAffine, mp_idx, idx_from, True):
                         self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.SEC_POSTAFFINE, mp_idx, idx_from)
                         
-            node.setParms({f"{n.main_prmpastesel}_{s_mp_index}": 0, # type: ignore
-                           f"{n.main_selmem}_{s_mp_index}": paste_sel
-                           })
+            node.setParms(  # type: ignore
+                            {f"{n.main_prmpastesel}_{s_mp_index}": 0, 
+                            f"{n.main_selmem}_{s_mp_index}": paste_sel}
+                            )
             
             # Force select-iterator menu update in case an iterator is marked on this FLAM3H™ node
             self.prm_paste_sel_iter_sel_force_update(node)
@@ -9707,17 +9718,19 @@ class flam3h_iterator_utils
         # iter idx
         #
         # iter main
-        node.setParms({f"{n.main_note}_{s_mp_index}": f"iterator_{s_mp_index}", # type: ignore
-                       f"{n.main_weight}_{s_mp_index}": 0.5
-                       })
+        node.setParms(  # type: ignore
+                        {f"{n.main_note}_{s_mp_index}": f"iterator_{s_mp_index}", 
+                        f"{n.main_weight}_{s_mp_index}": 0.5}
+                        )
         
         # We leave xaos untouched becasue its handy to keep it and just reset it in a second step if desired
         #
         # iter shader
-        node.setParms({f"{n.shader_color}_{s_mp_index}": 0, # type: ignore
-                       f"{n.shader_speed}_{s_mp_index}": 0, 
-                       f"{n.shader_alpha}_{s_mp_index}": 1.0
-                       })
+        node.setParms(  # type: ignore
+                        {f"{n.shader_color}_{s_mp_index}": 0, 
+                        f"{n.shader_speed}_{s_mp_index}": 0, 
+                        f"{n.shader_alpha}_{s_mp_index}": 1.0}
+                        )
 
         # iter vars
         for prm in n.prm_iterator_vars_all:
@@ -11602,9 +11615,10 @@ class flam3h_palette_utils
                 preset_id: str = node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS_OFF).eval()
                 node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS).set(preset_id)
                 
-            node.setParms({f3h_tabs.CP.PRM_PALETTE_PRESETS: preset_id, # type: ignore
-                           f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF: preset_id
-                           })
+            node.setParms(  # type: ignore
+                            {f3h_tabs.CP.PRM_PALETTE_PRESETS: preset_id, 
+                            f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF: preset_id}
+                            )
             self.json_to_flam3h_ramp(use_kwargs)
 
 
@@ -11974,10 +11988,11 @@ class flam3h_palette_utils
             (None):
         """
         node: hou.SopNode = self.node
-        node.setParms({f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES: 256, # type: ignore
-                       f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES: 0, 
-                       f3h_tabs.CP.PRM_RAMP_SAVE_HSV: 0
-                       })
+        node.setParms(  # type: ignore
+                        {f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES: 256, 
+                        f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES: 0, 
+                        f3h_tabs.CP.PRM_RAMP_SAVE_HSV: 0}
+                        )
         self.reset_CP_LOCK_MSG()
 
 
@@ -12093,9 +12108,10 @@ class flam3h_palette_utils
         # Mark this as not a loaded preset
         flam3h_general_utils.private_prm_set(node, f3h_tabs.CP.PVT_PRM_ISVALID_PRESET, 0)
         # Set lookup samples to the default value of: 256 and basis to: linear(0)
-        node.setParms({f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES: 256, # type: ignore
-                       f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES: 0
-                       })
+        node.setParms(  # type: ignore
+                        {f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES: 256, 
+                        f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES: 0}
+                        )
         
         # Print out to Houdini's status bar
         _MSG: str = f"CP: RESET"
@@ -13133,7 +13149,7 @@ class _xml
             xmlfile (str): The XML full file path name to evaluate
         """     
         self._xml: str = xmlfile
-        self._tree: lxmlET._ElementTree = lxmlET.parse(xmlfile) # type: ignore
+        self._tree: lxmlET._ElementTree = lxmlET.parse(xmlfile)
 
 
     # CLASS: PROPERTIES
@@ -13169,7 +13185,7 @@ class _xml
             if xml_keys.ROOT in root.tag.lower():
                 return tuple(_strip(keyval) if (keyval := name.get(key)) is not None else [] for name in root)
             
-            newroot: lxmlET._Element = lxmlET.Element(xml_keys.ROOT) # type: ignore
+            newroot: lxmlET._Element = lxmlET.Element(xml_keys.ROOT)
             newroot.insert(0, root)
             return tuple(_strip(keyval) if (keyval := name.get(key)) is not None else [] for name in newroot)
         
@@ -15267,7 +15283,7 @@ class in_flame_utils
         xml: str = hou.ui.getTextFromClipboard() # type: ignore
         
         try:
-            tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+            tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(xml))
             
         except ValueError:
             return False
@@ -15706,8 +15722,12 @@ class in_flame_utils
         mpidx: str = str(mp_idx + 1)
         
         for idx, prm in enumerate(var_prm[1:-1]):
-            if mode: node.setParms({f"{prx_prm}{prm[0][:-1]}": _VAR[idx]}) # type: ignore
-            else: node.setParms({f"{prx_prm}{prm[0]}{mpidx}": _VAR[idx]}) # type: ignore
+            if mode: node.setParms( # type: ignore
+                                    {f"{prx_prm}{prm[0][:-1]}": _VAR[idx]}
+                                    ) 
+            else: node.setParms(    # type: ignore
+                                    {f"{prx_prm}{prm[0]}{mpidx}": _VAR[idx]}
+                                    ) 
 
         f3h_iter: flam3h_iterator = flam3h_iterator()
         if mode:
@@ -15763,7 +15783,9 @@ class in_flame_utils
                                                                               in_flame_utils.in_util_make_PRE)
         
         mpidx: str = str(mp_idx + 1)
-        for idx, prm in enumerate(var_prm[1:-1]): node.setParms({f"{prx_prm}{prm[0]}{mpidx}": _VAR[idx]}) # type: ignore
+        for idx, prm in enumerate(var_prm[1:-1]): node.setParms(# type: ignore
+                                                                {f"{prx_prm}{prm[0]}{mpidx}": _VAR[idx]}
+                                                                ) 
 
         # Only on pre variations with parametric so:
         node.parm(f"{prx}{flam3h_iterator().sec_prevarsT[t_idx]}{mpidx}").set(v_type)
@@ -15814,7 +15836,9 @@ class in_flame_utils
                                                                               in_flame_utils.in_util_make_POST)
         
         mpidx: str = str(mp_idx + 1)
-        for idx, prm in enumerate(var_prm[1:-1]): node.setParms({f"{prx_prm}{prm[0]}{mpidx}": _VAR[idx]}) # type: ignore
+        for idx, prm in enumerate(var_prm[1:-1]): node.setParms(# type: ignore
+                                                                {f"{prx_prm}{prm[0]}{mpidx}": _VAR[idx]}
+                                                                ) 
 
         # Only on post variation with parametric so:
         node.parm(f"{prx}{flam3h_iterator().sec_postvarsT[t_idx]}{mpidx}").set(v_type)
@@ -15858,7 +15882,9 @@ class in_flame_utils
                                                                               v_type, 
                                                                               in_flame_utils.in_util_make_PRE)
             
-        for idx, prm in enumerate(var_prm[1:-1]): node.setParms({f"{f3h_ffPrmPrx.PRM_PP}_{prm[0][0:-1]}": _VAR[idx]}) # type: ignore
+        for idx, prm in enumerate(var_prm[1:-1]): node.setParms(# type: ignore
+                                                                {f"{f3h_ffPrmPrx.PRM_PP}_{prm[0][0:-1]}": _VAR[idx]}
+                                                                ) 
 
         # Only on post variation with parametric so:
         node.parm(f"{flam3h_iterator_FF().sec_prevarsT_FF[t_idx]}").set(v_type)
@@ -15902,7 +15928,9 @@ class in_flame_utils
                                                                               v_type, 
                                                                               in_flame_utils.in_util_make_POST)
             
-        for idx, prm in enumerate(var_prm[1:-1]): node.setParms({f"{f3h_ffPrmPrx.PRM_PP}_{prm[0][0:-1]}": _VAR[idx]}) # type: ignore
+        for idx, prm in enumerate(var_prm[1:-1]): node.setParms(# type: ignore
+                                                                {f"{f3h_ffPrmPrx.PRM_PP}_{prm[0][0:-1]}": _VAR[idx]}
+                                                                ) 
 
         # Only on post variation with parametric so:
         node.parm(f"{flam3h_iterator_FF().sec_postvarsT_FF[t_idx]}").set(v_type)
@@ -16247,9 +16275,10 @@ class in_flame_utils
             if use_iter_on_load and node.parm(f3h_tabs.IN.PRM_OVERRIDE_ITER_FLAME_NAME).eval():
                 return node.parm(f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD).eval()
             
-            node.setParms({f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD: iter_on_load_preset,  # type: ignore
-                           f3h_tabs.IN.PRM_USE_ITER_ON_LOAD: 0
-                           })
+            node.setParms(  # type: ignore
+                            {f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD: iter_on_load_preset, 
+                            f3h_tabs.IN.PRM_USE_ITER_ON_LOAD: 0}
+                            )
             return iter_on_load_preset
         
         if not use_iter_on_load:
@@ -16635,13 +16664,15 @@ class in_flame_utils
             
             # Set folder heading
             if clipboard:
-                node.setParms({f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.MSG_PRM_STATS_HEADING_DEFAULT} {f3h_tabs.IN.CLIPBOARD_LABEL_MSG}", # type: ignore
-                               f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING_DEFAULT} {f3h_tabs.IN.CLIPBOARD_LABEL_MSG}"
-                               })
+                node.setParms(  # type: ignore
+                                {f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.MSG_PRM_STATS_HEADING_DEFAULT} {f3h_tabs.IN.CLIPBOARD_LABEL_MSG}", 
+                                f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING_DEFAULT} {f3h_tabs.IN.CLIPBOARD_LABEL_MSG}"}
+                                )
             else:
-                node.setParms({f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.MSG_PRM_STATS_HEADING_DEFAULT}", # type: ignore
-                               f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING_DEFAULT}"
-                               })
+                node.setParms(  # type: ignore
+                                {f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.MSG_PRM_STATS_HEADING_DEFAULT}", 
+                                f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING_DEFAULT}"}
+                                )
             
             node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT).set(1)
             
@@ -16837,9 +16868,10 @@ class in_flame_utils
                 cc_g: str = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN)).eval()
                 cc_b: str = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE)).eval()
                 if cc_o.strip() in xml_keys.DEFAULT_CC_CURVE_ALL and cc_r.strip() in xml_keys.DEFAULT_CC_CURVE_ALL and cc_g.strip() in xml_keys.DEFAULT_CC_CURVE_ALL and cc_b.strip() in xml_keys.DEFAULT_CC_CURVE_ALL:
-                    node.setParms({f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', # type: ignore
-                                   f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0
-                                   })
+                    node.setParms(  # type: ignore
+                                    {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
+                                    f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0}
+                                    )
                     _MSG: str = f"IN CC Curves:"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} the loaded IN Flame preset CC Curves are default values. COPY SKIPPED", 'IMP')
                     flam3h_general_utils.flash_message(node, f"{_MSG} Defaults. COPY SKIPPED")
@@ -17202,12 +17234,12 @@ class in_flame_utils
                     else: FF_vars_skipped.append(f"\n\t\tFF PRE -> {', '.join(vars_keys_pre[mp_idx][xml_keys.f3h.DEFAULT_MAX_FF_VARS_PRE:])}")
                     
                 # FF PRE vars ( only the first one in "vars_keys_pre[mp_idx]" will be kept )
-                if vars_keys_pre[mp_idx]: # type: ignore
+                if vars_keys_pre[mp_idx]:
                     for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:xml_keys.f3h.DEFAULT_MAX_FF_VARS_PRE]):
-                        v_type: int | None = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        v_type: int | None = self.in_get_idx_by_key(str(self.in_util_make_VAR(key_name)))
                         if v_type is not None:
                             w: float = self.in_xml_key_val(xform, key_name)
-                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_PRE) # type: ignore
+                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_PRE)
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_PRE_FF(app, 
                                                             node, 
@@ -17225,12 +17257,12 @@ class in_flame_utils
                     FF_vars_skipped.append(f"\n\t\tFF POST -> {', '.join(vars_keys_post[mp_idx][xml_keys.f3h.DEFAULT_MAX_FF_VARS_POST:])}")
 
                 # FF POST vars ( only the first two in "vars_keys_post[mp_idx]" will be kept )
-                if vars_keys_post[mp_idx]: # type: ignore
+                if vars_keys_post[mp_idx]:
                     for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:xml_keys.f3h.DEFAULT_MAX_FF_VARS_POST]):
-                        v_type: int | None = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        v_type: int | None = self.in_get_idx_by_key(str(self.in_util_make_VAR(key_name)))
                         if v_type is not None:
                             w: float = self.in_xml_key_val(xform, key_name)
-                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_POST) # type: ignore
+                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_POST)
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_POST_FF(app, 
                                                              node, 
@@ -17257,13 +17289,13 @@ class in_flame_utils
                     else:
                         iterator_vars_skipped.append(f"\n\t\tPRE -> {', '.join(vars_keys_pre[mp_idx][xml_keys.f3h.DEFAULT_MAX_ITER_VARS_PRE:])}")
                 # PRE vars in this iterator ( only the first two in "vars_keys_pre[mp_idx]" will be kept )
-                if vars_keys_pre[mp_idx]: # type: ignore
+                if vars_keys_pre[mp_idx]:
                     for t_idx, key_name in enumerate(vars_keys_pre[mp_idx][:xml_keys.f3h.DEFAULT_MAX_ITER_VARS_PRE]):
                         
-                        v_type: int | None = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        v_type: int | None = self.in_get_idx_by_key(str(self.in_util_make_VAR(key_name)))
                         if v_type is not None:
                             w: float = self.in_xml_key_val(xform, key_name)
-                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_PRE) # type: ignore
+                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_PRE)
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_PRE(app, 
                                                          mode, 
@@ -17283,12 +17315,12 @@ class in_flame_utils
                     iterator_vars_skipped.append(f"\n\t\tPOST -> {', '.join(vars_keys_post[mp_idx][xml_keys.f3h.DEFAULT_MAX_ITER_VARS_POST:])}")
 
                 # POST vars in this iterator ( only the first one in "vars_keys_post[mp_idx]" will be kept )
-                if vars_keys_post[mp_idx]: # type: ignore
+                if vars_keys_post[mp_idx]:
                     for t_idx, key_name in enumerate(vars_keys_post[mp_idx][:xml_keys.f3h.DEFAULT_MAX_ITER_VARS_POST]):
-                        v_type: int | None = self.in_get_idx_by_key(self.in_util_make_VAR(key_name)) # type: ignore
+                        v_type: int | None = self.in_get_idx_by_key(str(self.in_util_make_VAR(key_name)))
                         if v_type is not None:
                             w: float = self.in_xml_key_val(xform, key_name)
-                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_POST) # type: ignore
+                            v_weight: float = self.in_util_check_negative_weight(node, w, v_type, mode, mp_idx, self.in_util_make_POST)
                             if apo_prm[v_type][-1]:
                                 self.in_v_parametric_POST(app, 
                                                           mode, 
@@ -18127,11 +18159,12 @@ class in_flame_utils
             (None):
         """ 
         if apo_data.mb_flam3h_fps is not False:
-            node.setParms({f3h_tabs.MB.PRM_DO: 1, # type: ignore
-                           f3h_tabs.MB.PRM_FPS: apo_data.mb_flam3h_fps, 
-                           f3h_tabs.MB.PRM_SAMPLES: apo_data.mb_flam3h_samples, 
-                           f3h_tabs.MB.PRM_SHUTTER: apo_data.mb_flam3h_shutter
-                           })
+            node.setParms(  # type: ignore
+                            {f3h_tabs.MB.PRM_DO: 1, 
+                            f3h_tabs.MB.PRM_FPS: apo_data.mb_flam3h_fps, 
+                            f3h_tabs.MB.PRM_SAMPLES: apo_data.mb_flam3h_samples, 
+                            f3h_tabs.MB.PRM_SHUTTER: apo_data.mb_flam3h_shutter}
+                            )
             
         else:
             flam3h_general_utils(self.kwargs).reset_MB()
@@ -18182,9 +18215,10 @@ class in_flame_utils
             ramp_parm.set(apo_data.palette[0])
             flam3h_palette_utils(self.kwargs).palette_cp()
             # Set palette lookup samples and basis
-            node.setParms({f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES: apo_data.cp_flam3h_samples, # type: ignore
-                           f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES: apo_data.cp_flam3h_basis
-                           })
+            node.setParms(  # type: ignore
+                            {f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES: apo_data.cp_flam3h_samples, 
+                            f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES: apo_data.cp_flam3h_basis}
+                            )
             # Mark this as not a loaded palette preset
             flam3h_general_utils.private_prm_set(node, f3h_tabs.CP.PVT_PRM_ISVALID_PRESET, 0)
             # reset tmp ramp palette
@@ -18253,19 +18287,21 @@ class in_flame_utils
         # This for when we are loading a Flame preset in full
         if copy_only is False:
             # Update flame stats
-            node.setParms({f3h_tabs.IN.MSG_PRM_FLAMESTATS: self.in_load_stats_msg(preset_id, apo_data, clipboard), # type: ignore
-                           f3h_tabs.IN.MSG_PRM_FLAMESENSOR: self.in_load_sensor_stats_msg(preset_id, apo_data), 
-                           f3h_tabs.IN.MSG_PRM_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)
-                           })
+            node.setParms(  # type: ignore
+                            {f3h_tabs.IN.MSG_PRM_FLAMESTATS: self.in_load_stats_msg(preset_id, apo_data, clipboard), 
+                            f3h_tabs.IN.MSG_PRM_FLAMESENSOR: self.in_load_sensor_stats_msg(preset_id, apo_data), 
+                            f3h_tabs.IN.MSG_PRM_FLAMERENDER: self.in_load_render_stats_msg(preset_id, apo_data)}
+                            )
             
             # if we are loading from the clipboard, always copy the render settings on load
             if clipboard: self.in_copy_render_all_stats_msg(self.kwargs, apo_data, clipboard)
             else:
                 # If not from clipboard
                 # Update SYS inpresets parameters
-                node.setParms({f3h_tabs.IN.PRM_SYS_PRESETS: str(preset_id), # type: ignore
-                               f3h_tabs.IN.PRM_SYS_PRESETS_OFF: str(preset_id)
-                               })
+                node.setParms(  # type: ignore
+                                {f3h_tabs.IN.PRM_SYS_PRESETS: str(preset_id), 
+                                f3h_tabs.IN.PRM_SYS_PRESETS_OFF: str(preset_id)}
+                                )
                 
                 # if "copy render properties on Load" is checked
                 if node.parm(f3h_tabs.IN.PRM_COPY_RENDER_PROPERTIES_ON_LOAD).eval():
@@ -18768,13 +18804,14 @@ class in_flame_utils
         
         if mode:
             # This is not being used anymore but I leave it here just in case
-            node.setParms({f3h_tabs.IN.PRM_PATH: "", # type: ignore
-                           f3h_tabs.IN.PRM_PRESETS: str(-1), 
-                           f3h_tabs.IN.PRM_PRESETS_OFF: str(-1), 
-                           f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD: 64, 
-                           f3h_tabs.IN.PRM_USE_ITER_ON_LOAD: 0, 
-                           f3h_tabs.IN.PRM_COPY_RENDER_PROPERTIES_ON_LOAD: 1
-                           })
+            node.setParms(  # type: ignore
+                            {f3h_tabs.IN.PRM_PATH: "",
+                            f3h_tabs.IN.PRM_PRESETS: str(-1), 
+                            f3h_tabs.IN.PRM_PRESETS_OFF: str(-1), 
+                            f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD: 64, 
+                            f3h_tabs.IN.PRM_USE_ITER_ON_LOAD: 0, 
+                            f3h_tabs.IN.PRM_COPY_RENDER_PROPERTIES_ON_LOAD: 1}
+                            )
 
 
 # CONVERT FRACTORIUM's VAR DICT start here
@@ -18957,12 +18994,13 @@ class out_flame_utils
             (None):
         """
         # render curves
-        node.setParms({XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVES): xml_keys.DEFAULT_CC_CURVES, # type: ignore
-                       XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_OVERALL): xml_keys.DEFAULT_CC_CURVE, 
-                       XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_RED): xml_keys.DEFAULT_CC_CURVE, 
-                       XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN): xml_keys.DEFAULT_CC_CURVE, 
-                       XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE): xml_keys.DEFAULT_CC_CURVE
-                       })
+        node.setParms(  # type: ignore
+                        {XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVES): xml_keys.DEFAULT_CC_CURVES, 
+                        XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_OVERALL): xml_keys.DEFAULT_CC_CURVE, 
+                        XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_RED): xml_keys.DEFAULT_CC_CURVE, 
+                        XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN): xml_keys.DEFAULT_CC_CURVE, 
+                        XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE): xml_keys.DEFAULT_CC_CURVE}
+                        )
         
         
     @staticmethod
@@ -19013,9 +19051,10 @@ class out_flame_utils
         """
         out_flame_utils.out_render_curves_set_data_defaults(node)
         out_flame_utils.out_render_curves_retrive_data(node)
-        node.setParms({f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', # type: ignore
-                       f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0
-                       })
+        node.setParms(  # type: ignore
+                        {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
+                        f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0}
+                        )
     
     
     @staticmethod
@@ -19068,13 +19107,15 @@ class out_flame_utils
             (None):
         """
         if out_flame_utils.out_render_curves_compare(node):
-            node.setParms({f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', # type: ignore
-                           f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0
-                           })
+            node.setParms(  # type: ignore
+                            {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
+                            f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0}
+                            )
         else:
-            node.setParms({f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Modified: Click to Reset', # type: ignore
-                           f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 1
-                           })
+            node.setParms(  # type: ignore
+                            {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Modified: Click to Reset', 
+                            f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 1}
+                            )
     
     
     @staticmethod
@@ -19109,9 +19150,10 @@ class out_flame_utils
         if len(prm_curves_data.eval()) == 1:
             prm_curves_ui.set(xml_keys.DEFAULT_CC_CURVES) # type: ignore
             # Update CC label and toggle to their defaults
-            node.setParms({f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', # type: ignore
-                           f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0
-                           })
+            node.setParms(  # type: ignore
+                            {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
+                            f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0}
+                            )
         prm_curves_ui.lock(True)
         for key in prm_ui.keys():
             if len(prm_data.get(key).eval()) == 1: # type: ignore
@@ -20788,11 +20830,12 @@ class out_flame_utils
             (None):
         """
         node: hou.SopNode = self.node
-        node.setParms({f3h_tabs.OUT.PRM_HSV_PALETTE_DO: 0, # type: ignore
-                       f3h_tabs.OUT.PRM_FLAM3H_AFFINE_STYLE: 1, 
-                       f3h_tabs.OUT.PRM_USE_FRACTORIUM_PRM_NAMES: 1, 
-                       f3h_tabs.OUT.PRM_AUTO_ADD_ITER_NUM: 1
-                       })
+        node.setParms(  # type: ignore
+                        {f3h_tabs.OUT.PRM_HSV_PALETTE_DO: 0, 
+                        f3h_tabs.OUT.PRM_FLAM3H_AFFINE_STYLE: 1, 
+                        f3h_tabs.OUT.PRM_USE_FRACTORIUM_PRM_NAMES: 1, 
+                        f3h_tabs.OUT.PRM_AUTO_ADD_ITER_NUM: 1}
+                        )
 
 
     def reset_OUT(self, mode: int=0) -> None:
@@ -20819,19 +20862,21 @@ class out_flame_utils
         # until I make a cleanup pass of this code.
         if mode == 0:
             flam3h_general_utils.private_prm_set(node, f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 0)
-            node.setParms({MSG_OUT: '', # type: ignore
-                           f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT: 0, 
-                           })
+            node.setParms(  # type: ignore
+                            {f3h_tabs.OUT.MSG_PRM_OUT: '', 
+                            f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT: 0, }
+                            )
         
         # I do not think this is used anymore but I leave it here 
         # until I make a cleanup pass of this code.
         if mode == 2:
-            node.setParms({f3h_tabs.OUT.PRM_PATH: '', # type: ignore
-                           f3h_tabs.OUT.PRM_HSV_PALETTE_DO: 0, 
-                           f3h_tabs.OUT.PRM_PRESETS: str(-1), 
-                           f3h_tabs.OUT.PRM_SYS_PRESETS: str(-1), 
-                           f3h_tabs.OUT.PRM_FLAME_PRESET_NAME: ''
-                           })
+            node.setParms(  # type: ignore
+                            {f3h_tabs.OUT.PRM_PATH: '', 
+                            f3h_tabs.OUT.PRM_HSV_PALETTE_DO: 0, 
+                            f3h_tabs.OUT.PRM_PRESETS: str(-1), 
+                            f3h_tabs.OUT.PRM_SYS_PRESETS: str(-1), 
+                            f3h_tabs.OUT.PRM_FLAME_PRESET_NAME: ''}
+                            )
 
 
     def out_xf_xaos_to(self) -> tuple[str, ...]:
