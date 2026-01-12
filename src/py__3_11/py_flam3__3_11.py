@@ -75,7 +75,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
                 _NOTE:
                     Some definitions run directly from inside the FLAM3H™ parameters.
-                    Please check the file: ../py_flam3_UI_PRM_map.py
+                    Please check the file: ../py_flam3__UI_PARM_map_H19_to_H205.md
                     to see if any of the definition you are curious about is being used inside any of the FLAM3H™ parameters directly.
                     The file include a list/map of all the definitions used directly inside FLAM3H™ and categorized as:
                         
