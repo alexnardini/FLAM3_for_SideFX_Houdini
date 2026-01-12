@@ -5982,6 +5982,7 @@ class flam3h_iterator_utils
         * iter_sel_id
         * iter_xfviz_solo_idx
         * iter_xfviz_out_sensor
+        * mem_id
         * edge_case_01
         * cp_presets_menu
         * cp_presets_menu_idx
