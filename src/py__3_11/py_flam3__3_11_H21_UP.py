@@ -127,6 +127,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                 
                     f3h_char
                     f3h_userData
+                    f3h_cachedUserData
                     f3h_affineDefaults
                     f3h_ffPrmPrx
                     f3h_varsIdentifiers
@@ -254,6 +255,36 @@ class f3h_userData:
     XFVIZ_SOLO: Final = 'XF VIZ'
     # Node user data
     XML_LAST: Final = 'XML_last_loaded'
+    
+    
+class f3h_cachedUserData:
+    '''
+    FLAM3H™ cached user data keys used for storing custom information on nodes.</br>
+    
+    '''
+    iter_sel: Final = 'iter_sel'
+    iter_sel_n: Final = 'iter_sel_n'
+    iter_sel_a: Final = 'iter_sel_a'
+    iter_sel_w: Final = 'iter_sel_w'
+    iter_sel_o: Final = 'iter_sel_o'
+    iter_sel_id: Final = 'iter_sel_id'
+    iter_xfviz_solo_idx: Final = 'iter_xfviz_solo_idx'
+    iter_xfviz_out_sensor: Final = 'iter_xfviz_out_sensor'
+    mem_id: Final = 'mem_id'
+    edge_case_01: Final = 'edge_case_01'
+    cp_presets_menu: Final = 'cp_presets_menu'
+    cp_presets_menu_idx: Final = 'cp_presets_menu_idx'
+    cp_presets_menu_off: Final = 'cp_presets_menu_off'
+    cp_presets_menu_off_idx: Final = 'cp_presets_menu_off_idx'
+    cp_presets_filepath: Final = 'cp_presets_filepath'
+    in_presets_menu: Final = 'in_presets_menu'
+    in_presets_menu_idx: Final = 'in_presets_menu_idx'
+    in_presets_menu_off: Final = 'in_presets_menu_off'
+    in_presets_menu_off_idx: Final = 'in_presets_menu_off_idx'
+    in_presets_filepath: Final = 'in_presets_filepath'
+    out_presets_menu: Final = 'out_presets_menu'
+    out_presets_filepath: Final = 'out_presets_filepath'
+    vars_menu_all_simple: Final = 'vars_menu_all_simple'
 
 
 class f3h_affineDefaults:
@@ -2505,19 +2536,19 @@ class flam3h_scripts
             cp_path: str = os.path.expandvars(node.parm(f3h_tabs.CP.PRM_PATH).eval())
             cp_path_checked: str | bool = out_flame_utils.out_check_outpath(node,  cp_path, f3h_tabs.CP.FILE_EXT, f3h_tabs.CP.AUTO_NAME)
             cp_is_file: bool = os.path.isfile(cp_path_checked) if cp_path_checked is not False else False
-            if cp_is_file: node.setCachedUserData('cp_presets_filepath', cp_path_checked)
+            if cp_is_file: node.setCachedUserData(f3h_cachedUserData.cp_presets_filepath, cp_path_checked)
                 
         if in_is_valid:
             in_xml: str = os.path.expandvars(node.parm(f3h_tabs.IN.PRM_PATH).eval())
             in_xml_checked: str | bool = out_flame_utils.out_check_outpath(node,  in_xml, f3h_tabs.OUT.FILE_EXT, f3h_tabs.OUT.AUTO_NAME, False, False)
             in_xml_is_file: bool = os.path.isfile(in_xml_checked) if in_xml_checked is not False else False
-            if in_xml_is_file: node.setCachedUserData('in_presets_filepath', in_xml_checked)
+            if in_xml_is_file: node.setCachedUserData(f3h_cachedUserData.in_presets_filepath, in_xml_checked)
             
         if out_is_valid:
             out_xml: str = os.path.expandvars(node.parm(f3h_tabs.OUT.PRM_PATH).eval())
             out_xml_checked: str | bool = out_flame_utils.out_check_outpath(node,  out_xml, f3h_tabs.OUT.FILE_EXT, f3h_tabs.OUT.AUTO_NAME)
             out_xml_is_file: bool = os.path.isfile(out_xml_checked) if out_xml_checked is not False else False
-            if out_xml_is_file: node.setCachedUserData('out_presets_filepath', out_xml_checked)
+            if out_xml_is_file: node.setCachedUserData(f3h_cachedUserData.out_presets_filepath, out_xml_checked)
 
 
     def flam3h_on_create_compatible_false(self, iterators_count_zero: bool = True, descriptive_prm: bool = True) -> None:
@@ -2738,8 +2769,8 @@ class flam3h_scripts
         if self.flam3h_compatible_type(__range_type__):
             
             # Force updated of the mini-menu iterator selection
-            flam3h_iterator_utils.destroy_cachedUserData(node, 'iter_sel')
-            flam3h_iterator_utils.destroy_cachedUserData(node, 'edge_case_01')
+            flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
+            flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.edge_case_01)
             # CP and IN PRESETS filepaths (cache data)
             self.flam3h_presets_cache_filepath_on_load()
             # Turn iterators/FF post affine OFF if they are default values
@@ -4820,7 +4851,7 @@ class flam3h_general_utils
             flam3h_iterator_utils(self.kwargs).update_xml_last_loaded(False)
         
         # Retrieve the filepath from the history (preview valid F3H json file path used)
-        cp_presets_filepath_history: str | None = node.cachedUserData('cp_presets_filepath')
+        cp_presets_filepath_history: str | None = node.cachedUserData(f3h_cachedUserData.cp_presets_filepath)
         
         prm = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS)
         prm_off = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF)
@@ -4848,7 +4879,7 @@ class flam3h_general_utils
                 # CP is valid file
                 self.private_prm_set(node, f3h_tabs.CP.PVT_PRM_ISVALID_FILE, 1)
                 # We store the file path only when we know it is a valid F3H json file path
-                node.setCachedUserData('cp_presets_filepath', json_path_checked)
+                node.setCachedUserData(f3h_cachedUserData.cp_presets_filepath, json_path_checked)
                 
                 # Only set when NOT on an: onLoaded python script
                 if mode:
@@ -4876,7 +4907,7 @@ class flam3h_general_utils
                         # CP is valid file
                         self.private_prm_set(node, f3h_tabs.CP.PVT_PRM_ISVALID_FILE, 1)
                         # We store the file path only when we know it is a valid F3H json file path
-                        node.setCachedUserData('cp_presets_filepath', json_path_checked)
+                        node.setCachedUserData(f3h_cachedUserData.cp_presets_filepath, json_path_checked)
                         
                         prm.set('0')
                         prm_off.set('0')
@@ -4900,7 +4931,7 @@ class flam3h_general_utils
                     # Mark this as not a loaded preset
                     self.private_prm_set(node, f3h_tabs.CP.PVT_PRM_ISVALID_PRESET, 0)
                     # Clear cached data
-                    flam3h_iterator_utils.destroy_cachedUserData(node, 'cp_presets_filepath')
+                    flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.cp_presets_filepath)
 
         else:
             # CP not a valid file
@@ -4909,7 +4940,7 @@ class flam3h_general_utils
             # Mark this as not a loaded preset
             self.private_prm_set(node, f3h_tabs.CP.PVT_PRM_ISVALID_PRESET, 0)
             # Clear cached data
-            flam3h_iterator_utils.destroy_cachedUserData(node, 'cp_presets_filepath')
+            flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.cp_presets_filepath)
             
             # We do not want to print if the file path parameter is empty
             # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
@@ -4937,7 +4968,7 @@ class flam3h_general_utils
         # Check and Update this data
         flam3h_iterator_utils(self.kwargs).update_xml_last_loaded(False)
         # Retrieve the filepath from the history (preview valid F3H json file path used)
-        in_presets_filepath_history: str | None = node.cachedUserData('in_presets_filepath')
+        in_presets_filepath_history: str | None = node.cachedUserData(f3h_cachedUserData.in_presets_filepath)
         
         is_valid: int = node.parm(f3h_tabs.IN.PVT_PRM_ISVALID_FILE).eval()
         clipboard: int = node.parm(f3h_tabs.IN.PVT_PRM_CLIPBOARD_TOGGLE).eval()
@@ -4986,7 +5017,7 @@ class flam3h_general_utils
                     # IN is valid file
                     self.private_prm_set(node, f3h_tabs.IN.PVT_PRM_ISVALID_FILE, 1)
                     # We store the file path only when we know it is a valid Flame file path
-                    node.setCachedUserData('in_presets_filepath', xml_checked)
+                    node.setCachedUserData(f3h_cachedUserData.in_presets_filepath, xml_checked)
                     
                     prm.set('0')
                     prm_off.set('0')
@@ -5000,7 +5031,7 @@ class flam3h_general_utils
                     # IN is valid file
                     self.private_prm_set(node, f3h_tabs.IN.PVT_PRM_ISVALID_FILE, 1)
                     # We store the file path only when we know it is a valid Flame file path
-                    node.setCachedUserData('in_presets_filepath', xml_checked)
+                    node.setCachedUserData(f3h_cachedUserData.in_presets_filepath, xml_checked)
                     
                     prm.set('0')
                     prm_off.set('0')
@@ -5044,7 +5075,7 @@ class flam3h_general_utils
             # Check and Update this data
             flam3h_iterator_utils(self.kwargs).update_xml_last_loaded(False)
         # Retrieve the filepath from the history (preview valid F3H json file path used)
-        out_presets_filepath_history: str | None = node.cachedUserData('out_presets_filepath')
+        out_presets_filepath_history: str | None = node.cachedUserData(f3h_cachedUserData.out_presets_filepath)
         
         is_valid: int = node.parm(f3h_tabs.OUT.PVT_PRM_ISVALID_FILE).eval()
         prm = node.parm(f3h_tabs.OUT.PRM_PRESETS)
@@ -5071,7 +5102,7 @@ class flam3h_general_utils
                 if xml_checked != out_presets_filepath_history:
                     
                     # We store the file path only when we know it is a valid Flame file path
-                    node.setCachedUserData('out_presets_filepath', xml_checked)
+                    node.setCachedUserData(f3h_cachedUserData.out_presets_filepath, xml_checked)
                     
                     prm.set(f'{len(apo.name)-1}')
                     prm_sys.set(f'{len(apo.name)-1}')
@@ -5087,7 +5118,7 @@ class flam3h_general_utils
                     flam3h_general_utils.private_prm_set(node, f3h_tabs.OUT.PVT_PRM_ISVALID_FILE, 1)
                 
             else:
-                flam3h_iterator_utils.destroy_cachedUserData(node, 'out_presets_filepath')
+                flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.out_presets_filepath)
                 
                 prm.set('-1')
                 prm_sys.set('-1')
@@ -5095,7 +5126,7 @@ class flam3h_general_utils
                 flam3h_general_utils.private_prm_set(node, f3h_tabs.OUT.PVT_PRM_ISVALID_FILE, 0)
                 
         else:
-            flam3h_iterator_utils.destroy_cachedUserData(node, 'out_presets_filepath')
+            flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.out_presets_filepath)
             
             node.parm(f3h_tabs.OUT.MSG_PRM_OUT).set('')
             flam3h_general_utils.private_prm_set(node, f3h_tabs.OUT.PVT_PRM_ISVALID_FILE, 0)
@@ -6724,30 +6755,9 @@ class flam3h_iterator_utils
         This is to be run also as a callback script inside parms that are responsible to update some menus,</br>
         For now inside: Iterator shader's opacity -> calback script</br>
         
-        So far the cached user data names being used are:
+        So far the cached user data names being used are inside:</br>
         
-        * iter_sel
-        * iter_sel_n
-        * iter_sel_a
-        * iter_sel_w
-        * iter_sel_o
-        * iter_sel_id
-        * iter_xfviz_solo_idx
-        * iter_xfviz_out_sensor
-        * edge_case_01
-        * cp_presets_menu
-        * cp_presets_menu_idx
-        * cp_presets_menu_off
-        * cp_presets_menu_off_idx
-        * cp_presets_filepath
-        * in_presets_menu
-        * in_presets_menu_idx
-        * in_presets_menu_off
-        * in_presets_menu_off_idx
-        * in_presets_filepath
-        * out_presets_menu
-        * out_presets_filepath
-        * vars_menu_all_simple
+        * class <b>f3h_cachedUserData</b>
             
         Args:
             node(hou.SopNode): FLAM3H™ node
@@ -7078,7 +7088,7 @@ class flam3h_iterator_utils
         clipboard: int = node.parm(f3h_tabs.IN.PVT_PRM_CLIPBOARD_TOGGLE).eval()
         xml: str = os.path.expandvars(node.parm(f3h_tabs.IN.PRM_PATH).eval())
         xml_isFile: bool = os.path.isfile(xml) if xml else False
-        xml_history: str | None = node.cachedUserData('in_presets_filepath')
+        xml_history: str | None = node.cachedUserData(f3h_cachedUserData.in_presets_filepath)
         # Only if a valid preset has been loaded from a disk file ( not clipboard )
         if xml and xml_isFile and xml == xml_history and inisvalidfile and inisvalidpreset and not clipboard:
             
@@ -7095,11 +7105,11 @@ class flam3h_iterator_utils
                     if menu_update:
                         # Update IN presets menus.
                         # This just in case the changes are made to the currently loaded Flame preset name so those menus are up to date too.
-                        self.destroy_cachedUserData(node, 'in_presets_menu')
-                        self.destroy_cachedUserData(node, 'in_presets_menu_off')
+                        self.destroy_cachedUserData(node, f3h_cachedUserData.in_presets_menu)
+                        self.destroy_cachedUserData(node, f3h_cachedUserData.in_presets_menu_off)
                         # If the same Flame preset file is currently open also inside the OUT tab, force to update its presets menus as well for the same reason.
-                        if node.parm(f3h_tabs.OUT.PVT_PRM_ISVALID_FILE).eval() and node.cachedUserData('in_presets_filepath') == node.cachedUserData('out_presets_filepath'):
-                            self.destroy_cachedUserData(node, 'out_presets_menu')
+                        if node.parm(f3h_tabs.OUT.PVT_PRM_ISVALID_FILE).eval() and node.cachedUserData(f3h_cachedUserData.in_presets_filepath) == node.cachedUserData(f3h_cachedUserData.out_presets_filepath):
+                            self.destroy_cachedUserData(node, f3h_cachedUserData.out_presets_menu)
                 
                     # Update user data
                     node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
@@ -7158,7 +7168,7 @@ class flam3h_iterator_utils
             
             # Remove any comment and user data from the node
             if self.exist_user_data(node):
-                self.destroy_cachedUserData(node, 'iter_sel')
+                self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                 self.del_comment_and_user_data_iterator(node)
                 hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
                 hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
@@ -7178,7 +7188,7 @@ class flam3h_iterator_utils
             
         else:
             # We do not need this data anymore if we are using BOOKMARK ICONS
-            self.destroy_cachedUserData(node, 'vars_menu_all_simple')
+            self.destroy_cachedUserData(node, f3h_cachedUserData.vars_menu_all_simple)
             
             _MSG: str = f"{_MSG_PRX} ICONS"
             flam3h_general_utils.flash_message(node, f"{_MSG}")
@@ -7196,7 +7206,7 @@ class flam3h_iterator_utils
             (None):
         """  
         node: hou.SopNode = self.node
-        self.destroy_cachedUserData(node, 'iter_sel')
+        self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
         prm = self.kwargs['parm']
         s_mp_index: int = self.kwargs['script_multiparm_index']
         if not prm.eval():
@@ -7443,7 +7453,7 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
-        self.node.setCachedUserData('vars_menu_all_simple', f3h_menus.VARS_ALL_SIMPLE)
+        self.node.setCachedUserData(f3h_cachedUserData.vars_menu_all_simple, f3h_menus.VARS_ALL_SIMPLE)
         return f3h_menus.VARS_ALL_SIMPLE
 
     
@@ -7467,7 +7477,7 @@ class flam3h_iterator_utils
 
         # This data get created inside: menu_T_simple(self) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: TA_Menu | None = self._node.cachedUserData('vars_menu_all_simple')
+        data: TA_Menu | None = self._node.cachedUserData(f3h_cachedUserData.vars_menu_all_simple)
         if data is not None: return data
 
         use_icons: int = self._node.parm(f3h_tabs.PREFS.PRM_ITERATOR_BOOKMARK_ICONS).eval()
@@ -7493,7 +7503,7 @@ class flam3h_iterator_utils
         
         # This data get created inside: menu_T_simple(self) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: TA_Menu | None = self._node.cachedUserData('vars_menu_all_simple')
+        data: TA_Menu | None = self._node.cachedUserData(f3h_cachedUserData.vars_menu_all_simple)
         if data is not None: return data
 
         use_icons: int = self._node.parm(f3h_tabs.PREFS.PRM_ITERATOR_BOOKMARK_ICONS).eval()
@@ -7519,7 +7529,7 @@ class flam3h_iterator_utils
         
         # This data get created inside: menu_T_simple(self) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: TA_Menu | None = self._node.cachedUserData('vars_menu_all_simple')
+        data: TA_Menu | None = self._node.cachedUserData(f3h_cachedUserData.vars_menu_all_simple)
         if data is not None: return data
 
         use_icons: int = self._node.parm(f3h_tabs.PREFS.PRM_ITERATOR_BOOKMARK_ICONS).eval()
@@ -7545,7 +7555,7 @@ class flam3h_iterator_utils
         
         # This data get created inside: menu_T_simple(self) -> TA_Menu:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: TA_Menu | None = self._node.cachedUserData('vars_menu_all_simple')
+        data: TA_Menu | None = self._node.cachedUserData(f3h_cachedUserData.vars_menu_all_simple)
         if data is not None: return data
 
         use_icons: int = self._node.parm(f3h_tabs.PREFS.PRM_ITERATOR_BOOKMARK_ICONS).eval()
@@ -7595,7 +7605,7 @@ class flam3h_iterator_utils
             node: hou.SopNode = self.node
             iter_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
             if not iter_count:
-                self.destroy_cachedUserData(node, 'iter_sel')
+                self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                 return f3h_menus.ZERO_ITERATORS
             
             # Unpack and cache data
@@ -7605,7 +7615,7 @@ class flam3h_iterator_utils
             
             # Get paste info once
             from_FLAM3H_NODE, mp_id_from, _ = self.prm_paste_update_for_undo(node)
-            node.setCachedUserData('iter_sel_id', mp_id_from)
+            node.setCachedUserData(f3h_cachedUserData.iter_sel_id, mp_id_from)
             
             # Pre compute to avoid repeated checks
             _is_sensor_int: bool = isinstance(xfviz_out_sensor, int)
@@ -7635,7 +7645,7 @@ class flam3h_iterator_utils
                 _opacity_str: str = "[ZERO opacity] " if _o == 0 else ""
                 menu.extend([idx, f"{_icon}  {idx}:  {_opacity_str}{_n}"])
             
-            node.setCachedUserData('iter_sel', menu)
+            node.setCachedUserData(f3h_cachedUserData.iter_sel, menu)
             return menu
     
     
@@ -7654,8 +7664,8 @@ class flam3h_iterator_utils
             node: hou.SopNode = self.node
             
             mem_id: int = node.parm(f3h_tabs.PREFS.PVT_PRM_DATA_PRM_MPIDX).eval()
-            if node.cachedUserData('iter_sel_id') != mem_id and mem_id:
-                self.destroy_cachedUserData(node, 'iter_sel')
+            if node.cachedUserData(f3h_cachedUserData.iter_sel_id) != mem_id and mem_id:
+                self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
             
             iter_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
             data_now: tuple[list[Any] | Any, ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in ('note', 'vactive', 'iw', 'alpha')) # The order matter, those are the parameter's names without the multiparameter number, just the base names.
@@ -7663,8 +7673,15 @@ class flam3h_iterator_utils
             xfviz_out_sensor: int = node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval()
             data_now += (xfviz_mem_id, xfviz_out_sensor, mem_id) # adding mem_id to catch an edge case when user change the memory id to another FLAM3H™ node and undoing it afterwards
             
-            data_names: tuple[str, ...] = ('iter_sel_n', 'iter_sel_a', 'iter_sel_w', 'iter_sel_o', 'iter_xfviz_solo_idx', 'iter_xfviz_out_sensor', 'mem_id') # The order matter, they are the cached user data names being used
-            cached: TA_Menu | None = node.cachedUserData('iter_sel')
+            data_names: tuple[str, ...] = ( f3h_cachedUserData.iter_sel_n, 
+                                            f3h_cachedUserData.iter_sel_a, 
+                                            f3h_cachedUserData.iter_sel_w, 
+                                            f3h_cachedUserData.iter_sel_o, 
+                                            f3h_cachedUserData.iter_xfviz_solo_idx, 
+                                            f3h_cachedUserData.iter_xfviz_out_sensor, 
+                                            f3h_cachedUserData.mem_id) # The order matter, they are the cached user data names being used
+            
+            cached: TA_Menu | None = node.cachedUserData(f3h_cachedUserData.iter_sel)
             if cached is not None:
                 
                 data_cached: tuple[list[Any] | Any, ...] = tuple(node.cachedUserData(name) for name in data_names)
@@ -7672,7 +7689,7 @@ class flam3h_iterator_utils
                 # For undos: compare old data_* against current data_*
                 # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
                 if data_cached != data_now:
-                    self.destroy_cachedUserData(node, 'iter_sel')
+                    self.destroy_cachedUserData(node,f3h_cachedUserData.iter_sel)
                     return self.menu_select_iterator_data(data_now, data_names)
                 
                 return cached
@@ -8173,7 +8190,7 @@ class flam3h_iterator_utils
                 
             except AttributeError:
                 mp_id_from = None
-                self.destroy_cachedUserData(node, 'iter_sel')
+                self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                 # This to avoid a wrong copy/paste info message
                 try:
                     # If we really deleted a node with a marked iterator
@@ -8194,13 +8211,13 @@ class flam3h_iterator_utils
                             hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = mp_id_from # type: ignore
                             self.del_comment_and_user_data_iterator(node)
                             self.set_comment_and_user_data_iterator(node, str(mp_id_from))
-                            self.destroy_cachedUserData(node, 'iter_sel')
+                            self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                             
                     else:
                         if _FLAM3H_DATA_PRM_MPIDX == -1:
                             mp_id_from = None
                             self.del_comment_and_user_data_iterator(node)
-                            self.destroy_cachedUserData(node, 'iter_sel')
+                            self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                             
                 else:
                     if __FLAM3H_DATA_PRM_MPIDX > 0:
@@ -8213,13 +8230,13 @@ class flam3h_iterator_utils
                             hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = mp_id_from # type: ignore
                             self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
                             self.set_comment_and_user_data_iterator(from_FLAM3H_NODE, str(mp_id_from))
-                            self.destroy_cachedUserData(node, 'iter_sel')
+                            self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                             
                         else:
                             # This is for an edge case so we dnt have marked iterators in multiple node's "select iterator" mini-menus
-                            data: bool | None = node.cachedUserData('edge_case_01')
+                            data: bool | None = node.cachedUserData(f3h_cachedUserData.edge_case_01)
                             if _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.F3H_MARKED_ITERATOR_MP_IDX is not None and data is None: # type: ignore
-                                self.destroy_cachedUserData(node, 'iter_sel')
+                                self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                                 # This so we dnt fallback into this case again and again.
                                 node.setCachedUserData('edge_case_01', True)
                                 
@@ -8231,7 +8248,7 @@ class flam3h_iterator_utils
                             
                             mp_id_from = None
                             self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
-                            self.destroy_cachedUserData(node, 'iter_sel')
+                            self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                             
                         # This is for an edge case so we dnt have marked iterators in multiple node's "select iterator" mini-menus
                         elif _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.F3H_MARKED_ITERATOR_MP_IDX is None: # type: ignore
@@ -8240,7 +8257,7 @@ class flam3h_iterator_utils
                             except AttributeError:
                                 pass
                             else:
-                                self.destroy_cachedUserData(node, 'iter_sel')
+                                self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                                 # This so we dnt fallback into this case again and again.
                                 hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
             
@@ -8260,7 +8277,7 @@ class flam3h_iterator_utils
                                 mp_id_from = hou.session.F3H_MARKED_ITERATOR_MP_IDX = s_mp_index # type: ignore
                                 self.iterator_mpidx_mem_set(f3h, s_mp_index)
                                 # Always on ourself since we dnt care about others FLAM3H™ nodes SYS tab's Select Iterator mini-menus
-                                self.destroy_cachedUserData(node, 'iter_sel')
+                                self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                                 break
                             
                     # Mark, mark another node, Undo, Redo
@@ -8269,7 +8286,7 @@ class flam3h_iterator_utils
                         from_FLAM3H_NODE = hou.session.F3H_MARKED_ITERATOR_NODE = node # type: ignore
                         mp_id_from = hou.session.F3H_MARKED_ITERATOR_MP_IDX = s_mp_index # type: ignore
                         self.iterator_mpidx_mem_set(node, s_mp_index)
-                        self.destroy_cachedUserData(node, 'iter_sel')
+                        self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
 
                 # Mark, Clear, Mark, Undo
                 elif mp_id_from is None and from_FLAM3H_NODE is not None:
@@ -8277,14 +8294,14 @@ class flam3h_iterator_utils
                         s_mp_index: int | None = int(self.get_user_data(from_FLAM3H_NODE))
                         mp_id_from = hou.session.F3H_MARKED_ITERATOR_MP_IDX = s_mp_index # type: ignore
                         self.iterator_mpidx_mem_set(from_FLAM3H_NODE, s_mp_index)
-                        self.destroy_cachedUserData(node, 'iter_sel')
+                        self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
 
 
                 if isDELETED is False:
                     if mp_id_from is not None and from_FLAM3H_NODE is not None:
                         if not self.exist_user_data(from_FLAM3H_NODE):
                             mp_id_from = None
-                            self.destroy_cachedUserData(node, 'iter_sel')
+                            self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                             
             # Return the desire data
             return from_FLAM3H_NODE, mp_id_from, isDELETED
@@ -8576,7 +8593,7 @@ class flam3h_iterator_utils
         # Check and Update this data
         self.update_xml_last_loaded()
         # Clear menu cache
-        self.destroy_cachedUserData(node, 'iter_sel')
+        self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
         
         s_mp_index: int = self.kwargs['script_multiparm_index']
         
@@ -8592,7 +8609,7 @@ class flam3h_iterator_utils
                 
         elif self.kwargs["shift"]:
             with hou.undos.group(f"FLAM3H™ unmark iterator SHIFT {s_mp_index}"): # type: ignore
-                self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
+                self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
                 self.prm_paste_SHIFT(s_mp_index)
                      
         elif self.kwargs["alt"]:
@@ -8602,11 +8619,11 @@ class flam3h_iterator_utils
         else:
             if self.exist_user_data(node) and int(self.get_user_data(node)) == s_mp_index and s_mp_index == hou.session.F3H_MARKED_ITERATOR_MP_IDX and node == hou.session.F3H_MARKED_ITERATOR_NODE: # type: ignore
                 with hou.undos.group(f"FLAM3H™ unmark iterator CLICK {s_mp_index}"): # type: ignore
-                    self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
+                    self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
                     self.prm_paste_SHIFT(s_mp_index)
             else:
                 with hou.undos.group(f"FLAM3H™ mark iterator CLICK {s_mp_index}"): # type: ignore
-                    self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
+                    self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
                     self.prm_paste_CLICK(s_mp_index)
     
     
@@ -8783,8 +8800,8 @@ class flam3h_iterator_utils
         """   
         try:
             if hou.session.F3H_MARKED_ITERATOR_MP_IDX is not None and hou.session.F3H_MARKED_ITERATOR_NODE == node: # type: ignore
-                self.destroy_cachedUserData(node, 'iter_sel')
-                self.destroy_cachedUserData_all_f3h(node, 'edge_case_01')
+                self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
+                self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
         except AttributeError:
             pass
 
@@ -9618,8 +9635,8 @@ class flam3h_iterator_utils
         
         node: hou.SopNode = self.node
         # Clear menu cache
-        self.destroy_cachedUserData(node, 'iter_sel')
-        self.destroy_cachedUserData(node, 'edge_case_01')
+        self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
+        self.destroy_cachedUserData(node, f3h_cachedUserData.edge_case_01)
         self.destroy_all_menus_data(node, False)
         # Iterators reset
         in_flame_utils(self.kwargs).in_to_flam3h_reset_iterators_parms(node, 3)
@@ -9868,7 +9885,7 @@ class flam3h_iterator_utils
                 _XF_VIZ_DEL: bool = False
                 
                 # Clear menu cache
-                self.destroy_cachedUserData(node, 'iter_sel')
+                self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
 
                 # update the xaos history
                 # update parameterUserData: flam3h_xaos_iterators_prev
@@ -9954,7 +9971,7 @@ class flam3h_iterator_utils
             if idx_del_inbetween is not None and idx_del_inbetween == iter_count:
                 
                 # Clear menu cache
-                self.destroy_cachedUserData(node, 'iter_sel')
+                self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
 
                 # update the xaos history
                 # update parameterUserData: flam3h_xaos_iterators_prev
@@ -10008,7 +10025,7 @@ class flam3h_iterator_utils
             elif idx_del_inbetween is not None and idx_del_inbetween < iter_count:
                 
                 # Clear menu cache
-                self.destroy_cachedUserData(node, 'iter_sel')
+                self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
 
                 xaos_str = xaos_str_hou_get
                 del xaos_str[idx_del_inbetween]
@@ -10083,7 +10100,7 @@ class flam3h_iterator_utils
             elif idx_add_inbetween is not None:
                 
                 # Clear menu cache
-                self.destroy_cachedUserData(node, 'iter_sel')
+                self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
 
                 for xidx, x in enumerate(xaos_str):
                     if xidx != idx_add_inbetween:
@@ -10187,7 +10204,7 @@ class flam3h_iterator_utils
         mp_prm: hou.Parm = self.node.parm(f3h_tabs.PRM_ITERATORS_COUNT)
         
         # Clear menu cache
-        self.destroy_cachedUserData(node, 'iter_sel')
+        self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
         
         # INSERT AFTER
         if self.kwargs["shift"]:
@@ -10250,7 +10267,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
-        self.destroy_cachedUserData(node, 'edge_case_01')
+        self.destroy_cachedUserData(node, f3h_cachedUserData.edge_case_01)
         
         # delete channel references
         for p in node.parms():
@@ -10356,7 +10373,7 @@ class flam3h_iterator_utils
 
         node: hou.SopNode = self.node
         # Clear menu cache
-        self.destroy_cachedUserData(node, 'iter_sel')
+        self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
         
         iterators_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
         
@@ -10389,7 +10406,7 @@ class flam3h_iterator_utils
         """  
         node: hou.SopNode = self.node
         # Clear menu cache
-        self.destroy_cachedUserData(node, 'iter_sel')
+        self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
         
         # Do toggle ON/OFF if the correct parameter is being used
         if 'doiter_' in self.kwargs['parm'].name():
@@ -10851,7 +10868,7 @@ class flam3h_palette_utils
             
             # ICON tag
             if i == int(node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS).eval()):
-                node.setCachedUserData('cp_presets_menu_idx', str(i))
+                node.setCachedUserData(f3h_cachedUserData.cp_presets_menu_idx, str(i))
                 menu.append(f"{f3h_icons.STAR_PALETTE_LOAD}  {item}     ") # 5 ending \s to be able to read the full label
                 
             else:
@@ -10879,7 +10896,7 @@ class flam3h_palette_utils
             
             # ICON tag
             if i == int(node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS).eval()):
-                node.setCachedUserData('cp_presets_menu_idx', str(i))
+                node.setCachedUserData(f3h_cachedUserData.cp_presets_menu_idx, str(i))
                 menu.append(f"{f3h_icons.STAR_PALETTE_LOAD}  {enum_label}:  {item}     ") # 5 ending \s to be able to read the full label
                 
             else:
@@ -10906,7 +10923,7 @@ class flam3h_palette_utils
             
             # ICON tag
             if i == int(node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF).eval()):
-                node.setCachedUserData('cp_presets_menu_off_idx', str(i))
+                node.setCachedUserData(f3h_cachedUserData.cp_presets_menu_off_idx, str(i))
                 menu.append(f"{f3h_icons.STAR_PALETTE_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
                 
             else:
@@ -10934,7 +10951,7 @@ class flam3h_palette_utils
             
             # ICON tag
             if i == int(node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF).eval()):
-                node.setCachedUserData('cp_presets_menu_off_idx', str(i))
+                node.setCachedUserData(f3h_cachedUserData.cp_presets_menu_off_idx, str(i))
                 menu.append(f"{f3h_icons.STAR_PALETTE_LOAD_EMPTY}  {enum_label}:  {item}     ") # 5 ending \s to be able to read the full label
                 
             else:
@@ -11025,10 +11042,10 @@ class flam3h_palette_utils
                 for i, item in enumerate(menuitems):
                     _menu_func(node, menu, i, item)
 
-                node.setCachedUserData('cp_presets_menu', menu)
+                node.setCachedUserData(f3h_cachedUserData.cp_presets_menu, menu)
                 return menu
             
-            flam3h_iterator_utils.destroy_cachedUserData(node, 'cp_presets_menu')
+            flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.cp_presets_menu)
             head_tail: tuple[str, str] = os.path.split(json_file_path)
             
             if json_file_path and not json_is_file and os.path.isdir(head_tail[0]):
@@ -11065,8 +11082,8 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
-            data: TA_Menu | None = node.cachedUserData('cp_presets_menu')
-            data_idx: str | None = node.cachedUserData('cp_presets_menu_idx')
+            data: TA_Menu | None = node.cachedUserData(f3h_cachedUserData.cp_presets_menu)
+            data_idx: str | None = node.cachedUserData(f3h_cachedUserData.cp_presets_menu_idx)
             preset_idx: str = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS).eval()
             
             # Double check 
@@ -11126,10 +11143,10 @@ class flam3h_palette_utils
                 for i, item in enumerate(menuitems):
                     _menu_func(node, menu, i, item)
 
-                node.setCachedUserData('cp_presets_menu_off', menu)
+                node.setCachedUserData(f3h_cachedUserData.cp_presets_menu_off, menu)
                 return menu
                 
-            flam3h_iterator_utils.destroy_cachedUserData(node, 'cp_presets_menu_off')
+            flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.cp_presets_menu_off)
             head_tail: tuple[str, str] = os.path.split(json_file_path)
             if json_file_path  and not json_is_valid and os.path.isdir(head_tail[0]):
                 return f3h_menus.PRESETS_SAVEONE
@@ -11164,8 +11181,8 @@ class flam3h_palette_utils
         # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
-            data: TA_Menu | None = node.cachedUserData('cp_presets_menu_off')
-            data_idx: str | None = node.cachedUserData('cp_presets_menu_off_idx')
+            data: TA_Menu | None = node.cachedUserData(f3h_cachedUserData.cp_presets_menu_off)
+            data_idx: str | None = node.cachedUserData(f3h_cachedUserData.cp_presets_menu_off_idx)
             preset_idx: str = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF).eval()
             
             # Double check 
@@ -16931,7 +16948,7 @@ class in_flame_utils
             #
             # If a flame preset from a file is loaded
             if i == in_idx:
-                node.setCachedUserData('in_presets_menu_idx', str(i))
+                node.setCachedUserData(f3h_cachedUserData.in_presets_menu_idx, str(i))
                 menu.append(labels[is_clipboard])
                 
             else:
@@ -16967,7 +16984,7 @@ class in_flame_utils
             #
             # If a flame preset from a file is loaded
             if i == in_idx:
-                node.setCachedUserData('in_presets_menu_idx', str(i))
+                node.setCachedUserData(f3h_cachedUserData.in_presets_menu_idx, str(i))
                 menu.append(labels[is_clipboard])
                 
             else:
@@ -16999,7 +17016,7 @@ class in_flame_utils
             #
             # If a flame preset from a file is loaded
             if i == in_idx and not clipboard:
-                node.setCachedUserData('in_presets_menu_off_idx', str(i))
+                node.setCachedUserData(f3h_cachedUserData.in_presets_menu_off_idx, str(i))
                 menu.append(f"{f3h_icons.STAR_FLAME_LOAD_EMPTY}  {item}     ") # 5 ending \s to be able to read the full label
 
             else:
@@ -17032,7 +17049,7 @@ class in_flame_utils
             #
             # If a flame preset from a file is loaded
             if i == in_idx and not clipboard:
-                node.setCachedUserData('in_presets_menu_off_idx', str(i))
+                node.setCachedUserData(f3h_cachedUserData.in_presets_menu_off_idx, str(i))
                 menu.append(f"{f3h_icons.STAR_FLAME_LOAD_EMPTY}  {enum_label}:  {item}     ") # 5 ending \s to be able to read the full label
 
             else:
@@ -17631,10 +17648,10 @@ class in_flame_utils
                 for i, item in enumerate(preset_names):
                     _menu_func(node, menu, i, item, in_idx, is_clipboard)
                         
-                node.setCachedUserData('in_presets_menu', menu)
+                node.setCachedUserData(f3h_cachedUserData.in_presets_menu, menu)
                 return menu
             
-            flam3h_iterator_utils.destroy_cachedUserData(node, 'in_presets_menu')
+            flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.in_presets_menu)
             if not xml_is_file:
                 return f3h_menus.PRESETS_INVALID
             
@@ -17670,8 +17687,8 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
-            data: TA_Menu | None = node.cachedUserData('in_presets_menu')
-            data_idx: str | None = node.cachedUserData('in_presets_menu_idx')
+            data: TA_Menu | None = node.cachedUserData(f3h_cachedUserData.in_presets_menu)
+            data_idx: str | None = node.cachedUserData(f3h_cachedUserData.in_presets_menu_idx)
             preset_idx: str = node.parm(f3h_tabs.IN.PRM_PRESETS).eval()
             
             # Double check - expand only if path is non-empty
@@ -17733,7 +17750,7 @@ class in_flame_utils
                 for i, item in enumerate(preset_names):
                     _menu_func(node, menu, i, item)
                     
-                node.setCachedUserData('in_presets_menu_off', menu)
+                node.setCachedUserData(f3h_cachedUserData.in_presets_menu_off, menu)
                 return menu
                 
             else:
@@ -17743,7 +17760,7 @@ class in_flame_utils
                     
                     return f3h_menus.IN_PRESETS_EMPTY_CB
                         
-            flam3h_iterator_utils.destroy_cachedUserData(node, 'in_presets_menu_off')
+            flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.in_presets_menu_off)
             if node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval():
                 if not xml_is_valid:
                     return f3h_menus.PRESETS_INVALID
@@ -17786,8 +17803,8 @@ class in_flame_utils
         # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
-            data: TA_Menu | None = node.cachedUserData('in_presets_menu_off')
-            data_idx: str | None = node.cachedUserData('in_presets_menu_off_idx')
+            data: TA_Menu | None = node.cachedUserData(f3h_cachedUserData.in_presets_menu_off)
+            data_idx: str | None = node.cachedUserData(f3h_cachedUserData.in_presets_menu_off_idx)
             preset_idx: str = node.parm(f3h_tabs.IN.PRM_PRESETS_OFF).eval()
             
             # Double check 
@@ -18602,8 +18619,8 @@ class in_flame_utils
                 # Updates
                 flam3h_iterator_utils(self.kwargs).auto_set_xaos()
                 out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm(apo_data.name[preset_id])
-                flam3h_iterator_utils.destroy_cachedUserData(node, 'iter_sel')
-                flam3h_iterator_utils.destroy_cachedUserData(node, 'edge_case_01')
+                flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
+                flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.edge_case_01)
                 # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
                 # (ex. the user perform hand made modifications like renaming a Preset and such).
                 flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node, False)
@@ -20878,10 +20895,10 @@ class out_flame_utils
                 for i, item in enumerate(preset_names):
                     _menu_func(menu, i, item)
 
-                node.setCachedUserData('out_presets_menu', menu)
+                node.setCachedUserData(f3h_cachedUserData.out_presets_menu, menu)
                 return menu
             
-            flam3h_iterator_utils.destroy_cachedUserData(node, 'out_presets_menu')
+            flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.out_presets_menu)
             head_tail: tuple[str, str] = os.path.split(xml_file_path)
             if not xml_is_file and os.path.isdir(head_tail[0]):
                 return f3h_menus.PRESETS_SAVEONE
@@ -20916,7 +20933,7 @@ class out_flame_utils
         # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
-            data: TA_Menu | None = node.cachedUserData('out_presets_menu')
+            data: TA_Menu | None = node.cachedUserData(f3h_cachedUserData.out_presets_menu)
             
             # Double check
             xml_file_path: str = os.path.expandvars(out_path) if out_path else ''
@@ -21635,13 +21652,13 @@ class out_flame_utils
                                 if apo_data.isvalidtree:
                                     self.out_new_XML(out_path_checked)
                                     # Clear OUT presets menu filepath cache (this is done to force update the preset menu)
-                                    flam3h_iterator_utils.destroy_cachedUserData(node, "out_presets_filepath")
+                                    flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.out_presets_filepath)
                                 else:
                                     _CHK = False
                             else:
                                 self.out_new_XML(out_path_checked)
                                 # Clear OUT presets menu filepath cache (this is done to force update the preset menu)
-                                flam3h_iterator_utils.destroy_cachedUserData(node, "out_presets_filepath")
+                                flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.out_presets_filepath)
                             
                         else:
                             
@@ -21649,13 +21666,13 @@ class out_flame_utils
                                 if apo_data.isvalidtree:
                                     self.out_append_XML(apo_data.root, out_path_checked)
                                     # Clear OUT presets menu filepath cache (this is done to force update the preset menu)
-                                    flam3h_iterator_utils.destroy_cachedUserData(node, "out_presets_filepath")
+                                    flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.out_presets_filepath)
                                 else:
                                     _CHK = False
                             else:
                                 self.out_new_XML(out_path_checked)
                                 # Clear OUT presets menu filepath cache (this is done to force update the preset menu)
-                                flam3h_iterator_utils.destroy_cachedUserData(node, "out_presets_filepath")
+                                flam3h_iterator_utils.destroy_cachedUserData(node, f3h_cachedUserData.out_presets_filepath)
                                 
                         if not _CHK:
                             _MSG: str = "OUT File not a FLAME file"
