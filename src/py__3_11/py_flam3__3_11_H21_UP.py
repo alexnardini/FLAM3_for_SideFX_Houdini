@@ -598,7 +598,7 @@ class f3h_tabs:
         '''
         # ABOUT tab: Message parameters
         MSG_PRM_F3H_ABOUT: Final = 'flam3about_msg'
-        MSG_PRM_F3H_PLUGINS: Final= 'flam3plugins_msg'
+        MSG_PRM_F3H_PLUGINS: Final = 'flam3plugins_msg'
         MSG_PRM_F3H_WEB: Final = 'flam3h_heading_web'
         MSG_PRM_F3H_GIT: Final = 'flam3h_heading_git'
         MSG_PRM_F3H_INSTA: Final = 'flam3h_heading_insta'
