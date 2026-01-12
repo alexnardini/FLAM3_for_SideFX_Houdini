@@ -2815,7 +2815,7 @@ class flam3h_scripts
                 #
                 # If a FLAM3H™ node is in camera sensor mode and its display flag ON, update the viewport to actually be in camera sensor mode.
                 # This work with multiple FLAM3H™ node becasue there can only be one FLAM3H™ node in camera sensor mode at any given time.
-                if node.isGenericFlagSet(hou.nodeFlag.Display) and node.parm(OUT_PVT_RENDER_PROPERTIES_SENSOR).eval(): # type: ignore
+                if node.isGenericFlagSet(hou.nodeFlag.Display) and node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval(): # type: ignore
                     flam3h_general_utils(self.kwargs).util_set_clipping_viewers()
                     flam3h_general_utils(self.kwargs).util_set_front_viewer()
                 else:
