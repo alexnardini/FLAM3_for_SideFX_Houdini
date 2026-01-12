@@ -658,6 +658,7 @@ class f3h_tabs:
         MSG_PRM_FRACT_GITHUB: Final = 'fract_heading_git'
         MSG_PRM_FRACT_WEB: Final = 'fract_heading_web'
 
+
 # FLAM3H™ EXCEPTIONS start here
 ##########################################
 ##########################################
@@ -12610,6 +12611,11 @@ class xml_keys:
     It also include Fractorium keys where applicable along with defaults.</br></br>
     
     Used when loading/saving flame XML files.</br>
+    
+    Mainly for organizational purposes and namespace.</br></br>
+    
+    * Default values always start with the prefix: <b>DEFAULT_</b>
+    * Miscellaneous constants can be anything else.
     '''
     # For now we force to assume a valid flame's XML file must have this tree.root name.
     ROOT: Final = 'flames'
