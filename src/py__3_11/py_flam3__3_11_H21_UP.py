@@ -7740,9 +7740,10 @@ class flam3h_iterator_utils
                 # If any of the iterators is in SOLO mode, change accordeingly to the selection
                 flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_solo_follow(str(preset_id))
                 
+                n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
                 _MSG: str = f"iterator: {preset_id}"
-                active: int = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
-                weight: float = node.parm(f"{flam3h_iterator_prm_names().main_weight}_{preset_id}").eval()
+                active: int = node.parm(f"{n.main_vactive}_{preset_id}").eval()
+                weight: float = node.parm(f"{n.main_weight}_{preset_id}").eval()
                 
                 if node == from_FLAM3H_NODE and mp_id_from == preset_id:
                     if active and weight > 0:
@@ -9814,6 +9815,7 @@ class flam3h_iterator_utils
         """
         
         node: hou.SopNode = self.node
+        n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
         iter_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
         # AUTO DIV XAOS strings
         div_xaos, div_weight = self.auto_set_xaos_div_str(node)
@@ -9840,7 +9842,7 @@ class flam3h_iterator_utils
         xaos_str_hou_get: list[list[str]] = []
         
         # get mpmem parms now
-        mp_mem_name: str = flam3h_iterator_prm_names().main_mpmem
+        mp_mem_name: str = n.main_mpmem
         _mpmem_append: Callable[[int], None] = mpmem.append
         for mp_idx in range(iter_count): _mpmem_append(int(node.parm(f"{mp_mem_name}_{mp_idx + 1}").eval()))
         
@@ -9852,7 +9854,7 @@ class flam3h_iterator_utils
             mpmem_hou_get = __mpmem_hou_get
         
         # collect all xaos
-        val: TA_XAOS_Collect = out_flame_utils.out_xaos_collect(node, iter_count, flam3h_iterator_prm_names().xaos)
+        val: TA_XAOS_Collect = out_flame_utils.out_xaos_collect(node, iter_count, n.xaos)
         
         # fill missing weights if any
         fill_all_xaos: list[list[float]] = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
@@ -10160,7 +10162,7 @@ class flam3h_iterator_utils
         # set all multi parms xaos strings parms
         _join: Callable[[Iterable[str]], str] = div_weight.join
         xaos_str_round_floats: list[str] = [_join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)]
-        prm_xaos_name: str = flam3h_iterator_prm_names().xaos
+        prm_xaos_name: str = n.xaos
         for mp_idx in range(iter_count): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").deleteAllKeyframes() # This parameter can not be animated
         for mp_idx, xaos in enumerate(xaos_str_round_floats): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").set(div_xaos + xaos)
         
@@ -10173,7 +10175,7 @@ class flam3h_iterator_utils
         self.auto_set_xaos_data_set_MP_MEM(node, __mpmem_hou)
         
         # Update iterator's names if there is a need ( If they have a default name )
-        mp_note_name: str = flam3h_iterator_prm_names().main_note
+        mp_note_name: str = n.main_note
         for mp_idx in range(iter_count):
             new_mp_idx: str = str(mp_idx + 1)
             param_name: str = f"{mp_note_name}_{new_mp_idx}"
