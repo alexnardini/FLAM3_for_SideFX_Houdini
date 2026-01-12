@@ -845,53 +845,53 @@ class flam3h_iterator_prm_names:
         # ITERATOR
         #
         # Main
-        self.main_xf_viz: Final[str] = 'xfviz'
-        self.main_mpmem: Final[str] = 'mpmem' # auto set xaos: custom data
-        self.main_note: Final[str] = 'note'
-        self.main_prmpastesel: Final[str] = 'prmpastesel'
-        self.main_selmem: Final[str] = 'selmem' # custom data
-        self.main_vactive: Final[str] = 'vactive'
-        self.main_weight: Final[str] = 'iw'
+        self.main_xf_viz: Final = 'xfviz'
+        self.main_mpmem: Final = 'mpmem' # auto set xaos: custom data
+        self.main_note: Final = 'note'
+        self.main_prmpastesel: Final = 'prmpastesel'
+        self.main_selmem: Final = 'selmem' # custom data
+        self.main_vactive: Final = 'vactive'
+        self.main_weight: Final = 'iw'
         # Xaos
         self.xaos: Final[str] = 'xaos'
         # Shader
-        self.shader_color: Final[str] = 'clr'
-        self.shader_speed: Final[str] = 'clrspeed'
-        self.shader_alpha: Final[str] = 'alpha'
+        self.shader_color: Final = 'clr'
+        self.shader_speed: Final = 'clrspeed'
+        self.shader_alpha: Final = 'alpha'
         # PRE 
-        self.prevar_blur: Final[str] = 'preblurtype' # this can be omitted as it is always zero
-        self.prevar_weight_blur: Final[str] = 'preblurweight'
-        self.prevar_type_1: Final[str] = 'pre1type'
-        self.prevar_type_2: Final[str] = 'pre2type'
-        self.prevar_weight_1: Final[str] = 'pre1weight'
-        self.prevar_weight_2: Final[str] = 'pre2weight'
+        self.prevar_blur: Final = 'preblurtype' # this can be omitted as it is always zero
+        self.prevar_weight_blur: Final = 'preblurweight'
+        self.prevar_type_1: Final = 'pre1type'
+        self.prevar_type_2: Final = 'pre2type'
+        self.prevar_weight_1: Final = 'pre1weight'
+        self.prevar_weight_2: Final = 'pre2weight'
         # VAR
-        self.var_type_1: Final[str] = 'v1type'
-        self.var_type_2: Final[str] = 'v2type'
-        self.var_type_3: Final[str] = 'v3type'
-        self.var_type_4: Final[str] = 'v4type'
-        self.var_weight_1: Final[str] = 'v1weight'
-        self.var_weight_2: Final[str] = 'v2weight'
-        self.var_weight_3: Final[str] = 'v3weight'
-        self.var_weight_4: Final[str] = 'v4weight'
+        self.var_type_1: Final = 'v1type'
+        self.var_type_2: Final = 'v2type'
+        self.var_type_3: Final = 'v3type'
+        self.var_type_4: Final = 'v4type'
+        self.var_weight_1: Final = 'v1weight'
+        self.var_weight_2: Final = 'v2weight'
+        self.var_weight_3: Final = 'v3weight'
+        self.var_weight_4: Final = 'v4weight'
         # POST
-        self.postvar_type_1: Final[str] = 'p1type'
-        self.postvar_type_2: Final[str] = 'p2type'
-        self.postvar_weight_1: Final[str] = 'p1weight'
-        self.postvar_weight_2: Final[str] = 'p2weight'
+        self.postvar_type_1: Final = 'p1type'
+        self.postvar_type_2: Final = 'p2type'
+        self.postvar_weight_1: Final = 'p1weight'
+        self.postvar_weight_2: Final = 'p2weight'
         # pre affine
-        self.preaffine_scale: Final[str] = 'scl' # this do not really need to be stored/copied as it modify the pre affine only.
-        self.preaffine_x: Final[str] = 'x'
-        self.preaffine_y: Final[str] = 'y'
-        self.preaffine_o: Final[str] = 'o'
-        self.preaffine_ang: Final[str] = 'ang'
+        self.preaffine_scale: Final = 'scl' # this do not really need to be stored/copied as it modify the pre affine only.
+        self.preaffine_x: Final = 'x'
+        self.preaffine_y: Final = 'y'
+        self.preaffine_o: Final = 'o'
+        self.preaffine_ang: Final = 'ang'
         # post affine
-        self.postaffine_do: Final[str] = 'dopost'
-        self.postaffine_scale: Final[str] = 'pscl' # this do not really need to be stored/copied as it modify the post affine only.
-        self.postaffine_x: Final[str] = 'px'
-        self.postaffine_y: Final[str] = 'py'
-        self.postaffine_o: Final[str] = 'po'
-        self.postaffine_ang: Final[str] = 'pang'
+        self.postaffine_do: Final = 'dopost'
+        self.postaffine_scale: Final = 'pscl' # this do not really need to be stored/copied as it modify the post affine only.
+        self.postaffine_x: Final = 'px'
+        self.postaffine_y: Final = 'py'
+        self.postaffine_o: Final = 'po'
+        self.postaffine_ang: Final = 'pang'
     
     
 class flam3h_iterator_prm_names_collections(flam3h_iterator_prm_names):
@@ -5742,10 +5742,10 @@ class flam3h_iterator_utils
 * flam3h_iterator_is_default_name(name: str, regex: str = "^[^\d\s()]+(?: [^\d\s()]+)*[\d]+") -> bool:
 * flam3h_on_loaded_set_density_menu(node: hou.SopNode) -> None:
 * sierpinski_settings(node: hou.SopNode) -> None:
-* def get_user_data(node: hou.SopNode, data_name: str = FLAM3H_USER_DATA_ITER) -> str | bool:
-* exist_user_data(node: hou.SopNode, data: str = FLAM3H_USER_DATA_ITER) -> bool:
-* set_comment_and_user_data_iterator(node: hou.SopNode, value: str, data: str = FLAM3H_USER_DATA_ITER) -> None:
-* del_comment_and_user_data_iterator(node: hou.SopNode, data: str = FLAM3H_USER_DATA_ITER) -> None:
+* def get_user_data(node: hou.SopNode, data_name: str = f3h_userData.MARKED_ITER) -> str | bool:
+* exist_user_data(node: hou.SopNode, data: str = f3h_userData.MARKED_ITER) -> bool:
+* set_comment_and_user_data_iterator(node: hou.SopNode, value: str, data: str = f3h_userData.MARKED_ITER) -> None:
+* del_comment_and_user_data_iterator(node: hou.SopNode, data: str = f3h_userData.MARKED_ITER) -> None:
 * flam3h_init_hou_session_iterator_data(node: hou.SopNode) -> None:
 * flam3h_init_hou_session_ff_data(node: hou.SopNode) -> None:
 * flam3h_init_hou_session_restore_from_user_data(node: hou.SopNode) -> None:
@@ -6008,7 +6008,7 @@ class flam3h_iterator_utils
         
         Args:
             node(hou.SopNode): [current hou.SopNode to set]
-            data(str): Default to: FLAM3H_USER_DATA_ITER</br>The name of the data we want to get. 
+            data(str): Default to: f3h_userData.MARKED_ITER</br>The name of the data we want to get. 
             
         Returns:
             (int | bool): Return the requested user data or False if it does not exist.
@@ -6028,7 +6028,7 @@ class flam3h_iterator_utils
         
         Args:
             node(hou.SopNode): [current hou.SopNode to set]
-            data(str): Default to: FLAM3H_USER_DATA_ITER</br>The name of the data we want to get. For FF it wil be: " FLAM3H_USER_DATA_FF "
+            data(str): Default to: f3h_userData.MARKED_ITER</br>The name of the data we want to get. For FF it wil be: " f3h_userData.MARKED_FF "
             
         Returns:
             (bool): Return True if the requested user data exist or False if it does not.
@@ -6047,7 +6047,7 @@ class flam3h_iterator_utils
         Args:
             node(hou.SopNode): FLAM3H™ node to set
             value(str): The value to set this user data to.
-            data(str): Default to: FLAM3H_USER_DATA_ITER</br>The name of the data we want to set the comment for. 
+            data(str): Default to: f3h_userData.MARKED_ITER</br>The name of the data we want to set the comment for. 
 
         Returns:
             (None):
@@ -7170,8 +7170,8 @@ class flam3h_iterator_utils
                 self.del_comment_and_user_data_iterator(node)
                 hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
                 hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
-            if self.exist_user_data(node, FLAM3H_USER_DATA_FF):
-                self.del_comment_and_user_data_iterator(node, FLAM3H_USER_DATA_FF)
+            if self.exist_user_data(node, f3h_userData.MARKED_FF):
+                self.del_comment_and_user_data_iterator(node, f3h_userData.MARKED_FF)
                 hou.session.F3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
                 hou.session.F3H_MARKED_FF_CHECK: TA_M = None # type: ignore
             
@@ -8780,7 +8780,7 @@ class flam3h_iterator_utils
                 self.prm_paste_FF_CTRL()
         
         else:
-            if self.exist_user_data(node, FLAM3H_USER_DATA_FF) and hou.session.F3H_MARKED_FF_CHECK is not None and node == hou.session.F3H_MARKED_FF_NODE: # type: ignore
+            if self.exist_user_data(node, f3h_userData.MARKED_FF) and hou.session.F3H_MARKED_FF_CHECK is not None and node == hou.session.F3H_MARKED_FF_NODE: # type: ignore
                 with hou.undos.group(f"FLAM3H™ unmark FF CLICK"): # type: ignore
                     self.prm_paste_FF_SHIFT()
             else:
