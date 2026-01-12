@@ -314,7 +314,6 @@ class f3h_varsIdentifiers:
     FLAM3H™ Variation identifiers for dependants and parametrics.</br>
     
     '''
-    # vars names identifiers for parametrics and dependants
     DPT: Final = '*'
     PRM: Final = '...'
 
@@ -441,7 +440,6 @@ class f3h_tabs:
         Everything related to the CP tab parameters names and miscellaneous constants.</br>
         
         '''
-        # PRM_PATH: Final[str] = 'palettefile'
         PRM_PATH: Final = 'palettefile'
         PRM_PALETTE_PRESET_NAME: Final = 'palettename'
         PRM_PALETTE_PRESETS: Final = 'palettepresets'
