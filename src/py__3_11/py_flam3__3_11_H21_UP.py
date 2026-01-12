@@ -5595,7 +5595,9 @@ class flam3h_general_utils
         for key in parms_mb_dict.keys(): node.parm(key).deleteAllKeyframes()
         
         if all:
-            node.setParms(parms_mb_dict) # type: ignore
+            node.setParms(  # type: ignore
+                            parms_mb_dict
+                            ) 
             
         else:
             prm_fps: int = node.parm(f3h_tabs.MB.PRM_FPS).eval()
@@ -9750,7 +9752,9 @@ class flam3h_iterator_utils
                                                                     }
         
         # Iterator Affines Set
-        node.setParms(parms_affines_dict) # type: ignore
+        node.setParms(  # type: ignore
+                        parms_affines_dict
+                        )
     
     
     def flam3h_reset_FF(self) -> None:
@@ -9813,7 +9817,9 @@ class flam3h_iterator_utils
                                                                      f"{f3h_ffPrmPrx.PRM}{n.postaffine_ang}": f3h_affineDefaults.DEFAULT_DICT.get("angle")
                                                                     }
         # FF Affines Set
-        node.setParms(parms_affines_dict) # type: ignore
+        node.setParms(  # type: ignore
+                        parms_affines_dict
+                        )
         
 
     def auto_set_xaos(self) -> None:
@@ -12314,7 +12320,9 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
                                             f3h_tabs.ABOUT.MSG_PRM_FRACT_WEB: _FRACTWEB_MSG
                                             }
         
-        node.setParms(parms_about_web) # type: ignore
+        node.setParms(  # type: ignore
+                        parms_about_web
+                        )
         
 
     def flam3h_about_web_homepage(self) -> None:
@@ -20751,8 +20759,9 @@ class out_flame_utils
             if isinstance(parm_tuple.eval(), tuple): parm_tuple.deleteAllKeyframes()
             else: node.parm(key).deleteAllKeyframes()
         # Set
-        node.setParms(parms_out_sensor_data) # type: ignore
-
+        node.setParms(  # type: ignore
+                        parms_out_sensor_data
+                        )
         
     def reset_OUT_render(self) -> None:
         """Reset the OUT Render settings parameters tab.</br>
@@ -20777,7 +20786,9 @@ class out_flame_utils
         for key in parms_out_render_data.keys():
             node.parm(key).deleteAllKeyframes()
         # Set
-        node.setParms(parms_out_render_data) # type: ignore
+        node.setParms(  # type: ignore
+                        parms_out_render_data
+                        )
 
 
     def reset_OUT_kwargs(self) -> None:
