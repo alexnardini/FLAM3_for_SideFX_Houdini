@@ -292,11 +292,11 @@ class f3h_copyPaste:
     
     '''
     # Message Mark iterators
-    MSG_MARK_ITER = 'Please, mark an iterator first'
-    MSG_MARK_ITER_STATUS_BAR = f"{MSG_MARK_ITER} to copy parameter's values from."
-    MSG_MARK_FF = 'Please, mark the FF first'
-    MSG_MARK_FF_STATUS_BAR = f"{MSG_MARK_FF} to copy parameter's values from."
-    
+    MSG_MARK_ITER: Final[str] = 'Please, mark an iterator first'
+    MSG_MARK_ITER_STATUS_BAR: Final[str] = f"{MSG_MARK_ITER} to copy parameter's values from."
+    MSG_MARK_FF: Final[str] = 'Please, mark the FF first'
+    MSG_MARK_FF_STATUS_BAR: Final[str] = f"{MSG_MARK_FF} to copy parameter's values from."
+
     # copy/paste set note sections names
     SEC_ALL: Final[str] = '.ALL'
     SEC_MAIN: Final[str] = '.main'
@@ -5610,7 +5610,12 @@ class flam3h_general_utils
 
 class f3h_icons:
     '''
-    FLAM3H™ ICONS for bookmarks and menus.</br>
+    FLAM3H™ ICONS for bookmarks and menus.</br></br>
+    
+    To bad vscode does truncate literals of this size in the preview window...</br>
+    I am only using Final[str] here as the truncated tooltip is not useful anyway.</br></br>
+    
+    Maybe there are some settings I can tweak, need to investigate a little sometime.</br>
     
     '''
     # ICONS menu copy/paste bookmarks
