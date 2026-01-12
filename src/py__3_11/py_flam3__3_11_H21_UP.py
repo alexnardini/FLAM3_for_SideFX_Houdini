@@ -6314,14 +6314,17 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """   
-        if pvt: prm_to.lock(False) 
+        if pvt:
+            prm_to.lock(False) 
+            
         prm_to.deleteAllKeyframes()
         if len(prm_from.keyframes()):
             for k in prm_from.keyframes(): prm_to.setKeyframe(k)
-            
         else:
             prm_to.set(prm_from.eval()) # type: ignore
-        if pvt: prm_to.lock(True)
+            
+        if pvt:
+            prm_to.lock(True)
 
 
     @staticmethod
@@ -7104,7 +7107,7 @@ class flam3h_iterator_utils
             if apo_data.isvalidtree:
                 
                 old_data: str | None = node.userData(f3h_userData.XML_LAST)
-                now_data = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode") # type: ignore
+                now_data = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")
                 now_data_isvalid = _xml_tree(now_data).isvalidtree
                 if old_data is not None and old_data != now_data and now_data_isvalid:
                     
@@ -7118,7 +7121,7 @@ class flam3h_iterator_utils
                             self.destroy_cachedUserData(node, f3h_cachedUserData.out_presets_menu)
                 
                     # Update user data
-                    node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
+                    node.setUserData(f3h_userData.XML_LAST, now_data)
                     # Update flame stats
                     node.setParms(  # type: ignore
                                     {f3h_tabs.IN.MSG_PRM_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True), 
@@ -7869,7 +7872,7 @@ class flam3h_iterator_utils
         else:
             from_FLAM3HNODE: TA_MNode = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore
         
-        if from_FLAM3HNODE is not None and node == from_FLAM3HNODE:  # type: ignore
+        if from_FLAM3HNODE is not None and node == from_FLAM3HNODE:
             hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
             # Reset internal mpidx memory to a None value
             if node.parm(f3h_tabs.PREFS.PVT_PRM_DATA_PRM_MPIDX).eval() != 0:
@@ -8481,12 +8484,12 @@ class flam3h_iterator_utils
 
         _MSG_UNMARKED = "This iterator is Unmarked already"
         
-        if node == from_FLAM3H_NODE: # type: ignore
+        if node == from_FLAM3H_NODE:
             
             assert from_FLAM3H_NODE is not None
             
             if mp_id_from is not None:
-                _MSG: str = f"{node.name()}: iterator UNMARKED: {mp_id_from}" # type: ignore
+                _MSG: str = f"{node.name()}: iterator UNMARKED: {mp_id_from}"
                 hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
                 self.iterator_mpidx_mem_set(node, 0)
                 self.del_comment_and_user_data_iterator(node)
@@ -15329,7 +15332,7 @@ class in_flame_utils
             if isinstance(vars, dict):
                 return [list(map(lambda x: x, filter(lambda x: x in vars.get(x[0]), filter(lambda x: x not in exclude_keys, xf.keys())))) for xf in xforms] # type: ignore
             
-            return [list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in exclude_keys, xf.keys())))) for xf in xforms] # type: ignore
+            return [list(map(lambda x: x, filter(lambda x: x in vars, filter(lambda x: x not in exclude_keys, xf.keys())))) for xf in xforms]
         
         return None
         
@@ -15389,7 +15392,7 @@ class in_flame_utils
         """  
         if xforms is not None:
             _in_util_removeprefix: Callable[[str, str], str] = in_flame_utils.in_util_removeprefix
-            return [list(map(lambda x: x, filter(lambda x: x in vars.get(_in_util_removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys()))))) for xf in xforms] # type: ignore
+            return [list(map(lambda x: x, filter(lambda x: x in vars.get(_in_util_removeprefix(x, prx)[0]), filter(lambda x: x.startswith(prx), filter(lambda x: x not in exclude_keys, xf.keys()))))) for xf in xforms]
         
         return None
         
@@ -15538,7 +15541,7 @@ class in_flame_utils
             if apo_data.post is not None and apo_data.post[mp_idx]:
                 node.parm(f"{prx}{flam3h_prm_names.postaffine_do}_{idx}").set(1)
                 if f3h_affine and apo_data.f3h_post is not None and apo_data.f3h_post[mp_idx]:
-                    for id in range(3): node.parmTuple(f"{prx}{post_affine[id]}_{idx}").set(apo_data.f3h_post[mp_idx][id]) # type: ignore
+                    for id in range(3): node.parmTuple(f"{prx}{post_affine[id]}_{idx}").set(apo_data.f3h_post[mp_idx][id])
                     node.parm(f"{prx}{flam3h_prm_names.postaffine_ang}_{idx}").set(apo_data.f3h_post_angle[mp_idx])
                     
                 else:
@@ -17412,7 +17415,7 @@ class in_flame_utils
         vars_all: list[list[str]] = vars_keys_PRE + vars_keys + vars_keys_POST + vars_keys_PRE_FF + vars_keys_FF + vars_keys_POST_FF # type: ignore
         if data_checks.pb_bool: vars_all += [["pre_blur"]]
         # Unique and sorted
-        vars_used: list[str] = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL, True) # type: ignore
+        vars_used: list[str] = self.in_util_vars_flatten_unique_sorted(vars_all, self.in_util_make_NULL, True)
         
         return vars_used
     
@@ -18401,7 +18404,7 @@ class in_flame_utils
         xml: str = hou.ui.getTextFromClipboard() # type: ignore
         
         try:
-            tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(xml)) # type: ignore
+            tree: lxmlET._ElementTree = lxmlET.ElementTree(lxmlET.fromstring(xml))
             
         except ValueError:
             return None, False, 0, '', True, False
@@ -18924,7 +18927,7 @@ class out_flame_utils
                                 MP_IDX: str, 
                                 FUNC: Callable) -> list[str]:
 * out_build_XML(self, flame: lxmlET._Element) -> bool:
-* out_userData_XML_last_loaded(self, data_name: str = FLAM3H_USER_DATA_XML_LAST, flame_name: str | None = None) -> None:
+* out_userData_XML_last_loaded(self, data_name: str = f3h_userData.XML_LAST, flame_name: str | None = None) -> None:
 * out_new_XML(self, outpath: str) -> None:
 * out_preset_XML_clipboard(self) -> None
 * out_append_XML(self, root: lxmlET._Element, out_path: str) -> None:
@@ -19023,19 +19026,19 @@ class out_flame_utils
             (None):
         """
         # render curves data
-        prm_data: dict[str, hou.Parm] = {'prm_curves': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVES)), # type: ignore
-                                         'prm_curve_overall': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_OVERALL)), # type: ignore
-                                         'prm_curve_red': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_RED)), # type: ignore
-                                         'prm_curve_green': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN)), # type: ignore
-                                         'prm_curve_blue': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE)), # type: ignore
+        prm_data: dict[str, hou.Parm] = {'prm_curves': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVES)), 
+                                         'prm_curve_overall': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_OVERALL)), 
+                                         'prm_curve_red': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_RED)), 
+                                         'prm_curve_green': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN)), 
+                                         'prm_curve_blue': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE))
                                         }
         
         # render curves parms
-        prm_ui: dict[str, hou.Parm] = { 'prm_curves': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVES), # type: ignore
-                                        'prm_curve_overall': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_OVERALL), # type: ignore
-                                        'prm_curve_red': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_RED), # type: ignore
-                                        'prm_curve_green': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_GREEN), # type: ignore
-                                        'prm_curve_blue': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_BLUE) # type: ignore
+        prm_ui: dict[str, hou.Parm] = { 'prm_curves': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVES), 
+                                        'prm_curve_overall': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_OVERALL), 
+                                        'prm_curve_red': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_RED), 
+                                        'prm_curve_green': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_GREEN), 
+                                        'prm_curve_blue': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_BLUE)
                                         }
         
         # Unlock, Clear, Set and Lock again
@@ -19139,18 +19142,18 @@ class out_flame_utils
         """
         # render curves data
         prm_curves_data: hou.Parm = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVES))
-        prm_data: dict[str, hou.Parm] = {'prm_curve_overall': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_OVERALL)), # type: ignore
-                                         'prm_curve_red': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_RED)), # type: ignore
-                                         'prm_curve_green': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN)), # type: ignore
-                                         'prm_curve_blue': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE)), # type: ignore
+        prm_data: dict[str, hou.Parm] = {'prm_curve_overall': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_OVERALL)), 
+                                         'prm_curve_red': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_RED)), 
+                                         'prm_curve_green': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN)), 
+                                         'prm_curve_blue': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE))
                                          }
         
         # render curves parms
-        prm_curves_ui: hou.Parm = node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVES) # type: ignore
-        prm_ui: dict[str, hou.Parm] = { 'prm_curve_overall': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_OVERALL), # type: ignore
-                                        'prm_curve_red': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_RED), # type: ignore
-                                        'prm_curve_green': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_GREEN), # type: ignore
-                                        'prm_curve_blue': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_BLUE) # type: ignore
+        prm_curves_ui: hou.Parm = node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVES)
+        prm_ui: dict[str, hou.Parm] = { 'prm_curve_overall': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_OVERALL),
+                                        'prm_curve_red': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_RED), 
+                                        'prm_curve_green': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_GREEN), 
+                                        'prm_curve_blue': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_BLUE)
                                         }
         
         # Set the prm data defaults first
@@ -20178,7 +20181,7 @@ class out_flame_utils
 
             return tuple(new_names)
         
-        return tuple(f"iterator_{i + 1}" if _flam3h_iterator_is_default_name((xfn := xf_name[i])) or not str(xfn).strip() else xfn for i in range(iter_count)) # type: ignore
+        return tuple(f"iterator_{i + 1}" if _flam3h_iterator_is_default_name((xfn := xf_name[i])) or not str(xfn).strip() else xfn for i in range(iter_count))
 
 
     # CLASS: PROPERTIES
@@ -21361,7 +21364,7 @@ class out_flame_utils
         return names
 
 
-    def out_build_XML(self, flame: lxmlET._Element) -> bool: # type: ignore
+    def out_build_XML(self, flame: lxmlET._Element) -> bool:
         """Build the XML Flame data to be then written out.</br>
 
         Args:
@@ -21393,7 +21396,7 @@ class out_flame_utils
             
             if int(f3d.xf_vactive[iter]):
                 
-                xf: lxmlET._Element = lxmlET.SubElement(flame, xml_keys.XF) # type: ignore
+                xf: lxmlET._Element = lxmlET.SubElement(flame, xml_keys.XF)
                 xf.tag = xml_keys.XF
                 xf.set(xml_keys.XF_NAME, xml_xf_names[iter])
                 xf.set(xml_keys.XF_WEIGHT, f3d.xf_weight[iter])
@@ -21433,7 +21436,7 @@ class out_flame_utils
         names_VARS_POST_FF: list[str] = []
         
         if f3d.flam3h_do_FF:
-            finalxf: lxmlET._Element = lxmlET.SubElement(flame, xml_keys.FF) # type: ignore
+            finalxf: lxmlET._Element = lxmlET.SubElement(flame, xml_keys.FF)
             finalxf.tag = xml_keys.FF
             finalxf.set(xml_keys.XF_NAME, f3d.finalxf_name)
             finalxf.set(xml_keys.XF_COLOR, '0')
@@ -21458,7 +21461,7 @@ class out_flame_utils
             names_VARS_POST_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{f3h_ffPrmPrx.PRM_PP}").varsPRM_FF(), f3h_iter_FF.sec_postvarsT_FF, f3h_iter_FF.sec_postvarsW_FF, finalxf, '', in_flame_utils.in_util_make_POST)
         
         # SET palette
-        palette: lxmlET._Element = lxmlET.SubElement(flame, xml_keys.PALETTE) # type: ignore
+        palette: lxmlET._Element = lxmlET.SubElement(flame, xml_keys.PALETTE)
         palette.tag = xml_keys.PALETTE
         palette.set(xml_keys.PALETTE_COUNT, self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)) # When saving a Flame out, we always use a 256 color palette unless the OUT tab option "save palette 256+" is ON
         palette.set(xml_keys.PALETTE_FORMAT, f3h_tabs.CP.MSG_COLOR_FORMAT)
@@ -21497,7 +21500,7 @@ class out_flame_utils
 
         Args:
             (self):
-            data_name(str): Default to: FLAM3H_USER_DATA_XML_LAST</br>The name of the node user data to store the flame preset into.
+            data_name(str): Default to: f3h_userData.XML_LAST</br>The name of the node user data to store the flame preset into.
             flame_name(str | None): Default to: None</br>If a flame name is provided it will use it, </br>otherwise it will either use the one set into the OUT flame name parameter or if this last is empty it will generate one based on today'sdate and time.
             
         Returns:
@@ -21505,11 +21508,11 @@ class out_flame_utils
         """ 
         node: hou.SopNode = self.node
         
-        root: lxmlET._Element = lxmlET.Element(xml_keys.NAME) # type: ignore
+        root: lxmlET._Element = lxmlET.Element(xml_keys.NAME)
         if flame_name is None:
             if self.out_build_XML(root):
                 self._out_pretty_print(root)
-                flame = lxmlET.tostring(root, encoding="unicode") # type: ignore
+                flame = lxmlET.tostring(root, encoding="unicode")
                 # Store the loaded Flame preset into the FLAM3H™ node data storage
                 node.setUserData(data_name, flame)
                 
@@ -21520,7 +21523,7 @@ class out_flame_utils
             node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set(flame_name)
             if self.out_build_XML(root):
                 self._out_pretty_print(root)
-                flame = lxmlET.tostring(root, encoding="unicode") # type: ignore
+                flame = lxmlET.tostring(root, encoding="unicode")
                 # Store the loaded Flame preset into the FLAM3H™ node data storage
                 node.setUserData(data_name, flame)
             # Restore whatever flame name was there if any (even if it was empty)
@@ -22028,7 +22031,7 @@ class out_flame_utils
         f3h_angleDeg: str = str(angleDeg)
         f3h_affine: TA_STR_ListUnflattened = self.out_util_round_floats(collect)
         if angleDeg != 0.0:
-            affine: TA_STR_ListUnflattened = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+            affine: TA_STR_ListUnflattened = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg))
         else:
             affine: TA_STR_ListUnflattened = f3h_affine
         flatten: list[str] = [item for sublist in affine for item in sublist]
@@ -22055,7 +22058,7 @@ class out_flame_utils
                 f3h_angleDeg: str = str(angleDeg)
                 f3h_affine: TA_STR_ListUnflattened = self.out_util_round_floats(collect)
                 if angleDeg != 0.0:
-                    affine: TA_STR_ListUnflattened = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg)) # type: ignore
+                    affine: TA_STR_ListUnflattened = self.out_util_round_floats(self.out_affine_rot(collect, angleDeg))
                 else:
                     affine: TA_STR_ListUnflattened = f3h_affine
                 flatten: list[str] = [item for sublist in affine for item in sublist]
