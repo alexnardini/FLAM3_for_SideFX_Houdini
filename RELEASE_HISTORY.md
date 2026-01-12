@@ -33,6 +33,22 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.71 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.71) ###
+
+#### FLAM3H™ v1.9.71 indie -> H21.0 UP</br>FLAM3H™ v1.9.59 indie -> H19.0 to H20.5 ####
+
+- **Fix H21.0 UP ONLY**: Fixed a few small bugs introduced with the preview release's python module updates (regressions).
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 ### [<ins>v1.9.70 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.70) ###
 
 #### FLAM3H™ v1.9.70 indie -> H21.0 UP</br>FLAM3H™ v1.9.59 indie -> H19.0 to H20.5 ####

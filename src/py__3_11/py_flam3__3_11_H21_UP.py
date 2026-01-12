@@ -19400,7 +19400,7 @@ class out_flame_utils
         """remove floating Zeros if it is an integer value ( ex: from '1.0' to '1' ) in a list or tuple of values.</br>
         You can pass in:
         * list[list[float]]
-        * list[list[str]]</br>
+        * list[list[str]]
 
         Args:
             val_list(TA_RoundFloats): A collection of values to rounds
