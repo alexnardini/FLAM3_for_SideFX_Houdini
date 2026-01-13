@@ -464,13 +464,13 @@ class f3h_tabs:
         MSG_PRM_PALETTE: Final = 'palettemsg'
         
         # CP MISC
-        FILE_EXT: Final = '.json'
-        AUTO_NAME: Final = 'Palette'
-        COUNT_64: Final = '64' # not used
-        COUNT_128: Final = '128'
-        COUNT_256: Final = '256'
-        COUNT_512: Final = '512' # not used
-        COUNT_1024: Final = '1024'
+        DEFAULT_FILE_EXT: Final = '.json'
+        DEFAULT_AUTO_NAME: Final = 'Palette'
+        DEFAULT_COUNT_64: Final = '64' # not used
+        DEFAULT_COUNT_128: Final = '128'
+        DEFAULT_COUNT_256: Final = '256'
+        DEFAULT_COUNT_512: Final = '512' # not used
+        DEFAULT_COUNT_1024: Final = '1024'
         DEFAULT_MENU_OPTIONS_ALL: Final[tuple[int, ...]] = (16, 32, 64, 128, 256, 512, 1024) # not used
         DEFAULT_MENU_OPTIONS_PLUS: Final[tuple[int, ...]] = (256, 512, 1024)
         DEFAULT_MSG_PLUS: Final = '[256+]'
@@ -531,10 +531,10 @@ class f3h_tabs:
         MSG_PRM_FLAMERENDER: Final = 'flamerender_msg'
         
         # IN MISC
-        ITERATIONS_FLAME_NAME_DIV: Final = '::' # Divider between the Flame name and the Iterations number baked into the Flame name.
-        CLIPBOARD_LABEL_MSG: Final = '[CLIPBOARD]'
-        MSG_HSV_LABEL: Final = '[HSV]'
-        MSG_FLAMESTATS_LOCK: Final = '-> LOCKED'
+        DEFAULT_ITERATIONS_FLAME_NAME_DIV: Final = '::' # Divider between the Flame name and the Iterations number baked into the Flame name.
+        DEFAULT_MSG_CLIPBOARD_LABEL: Final = '[CLIPBOARD]'
+        DEFAULT_MSG_HSV_LABEL: Final = '[HSV]'
+        DEFAULT_MSG_FLAMESTATS_LOCK: Final = '-> LOCKED'
         
         
     class OUT:
@@ -589,9 +589,9 @@ class f3h_tabs:
         MSG_PRM_OUT: Final = 'outmsg'
 
         # OUT MISC
-        AUTO_NAME: Final = 'Flame'
-        FILE_EXT: Final = '.flame'
-        MSG_OUT_LOCK: Final = 'Flame lib file: LOCKED'
+        DEFAULT_AUTO_NAME: Final = 'Flame'
+        DEFAULT_FILE_EXT: Final = '.flame'
+        DEFAULT_MSG_OUT_LOCK: Final = 'Flame lib file: LOCKED'
         
         
     class PREFS:
@@ -2532,19 +2532,19 @@ class flam3h_scripts
         
         if cp_is_valid:
             cp_path: str = os.path.expandvars(node.parm(f3h_tabs.CP.PRM_PATH).eval())
-            cp_path_checked: str | bool = out_flame_utils.out_check_outpath(node,  cp_path, f3h_tabs.CP.FILE_EXT, f3h_tabs.CP.AUTO_NAME)
+            cp_path_checked: str | bool = out_flame_utils.out_check_outpath(node,  cp_path, f3h_tabs.CP.DEFAULT_FILE_EXT, f3h_tabs.CP.DEFAULT_AUTO_NAME)
             cp_is_file: bool = os.path.isfile(cp_path_checked) if cp_path_checked is not False else False
             if cp_is_file: node.setCachedUserData(f3h_cachedUserData.cp_presets_filepath, cp_path_checked)
                 
         if in_is_valid:
             in_xml: str = os.path.expandvars(node.parm(f3h_tabs.IN.PRM_PATH).eval())
-            in_xml_checked: str | bool = out_flame_utils.out_check_outpath(node,  in_xml, f3h_tabs.OUT.FILE_EXT, f3h_tabs.OUT.AUTO_NAME, False, False)
+            in_xml_checked: str | bool = out_flame_utils.out_check_outpath(node,  in_xml, f3h_tabs.OUT.DEFAULT_FILE_EXT, f3h_tabs.OUT.DEFAULT_AUTO_NAME, False, False)
             in_xml_is_file: bool = os.path.isfile(in_xml_checked) if in_xml_checked is not False else False
             if in_xml_is_file: node.setCachedUserData(f3h_cachedUserData.in_presets_filepath, in_xml_checked)
             
         if out_is_valid:
             out_xml: str = os.path.expandvars(node.parm(f3h_tabs.OUT.PRM_PATH).eval())
-            out_xml_checked: str | bool = out_flame_utils.out_check_outpath(node,  out_xml, f3h_tabs.OUT.FILE_EXT, f3h_tabs.OUT.AUTO_NAME)
+            out_xml_checked: str | bool = out_flame_utils.out_check_outpath(node,  out_xml, f3h_tabs.OUT.DEFAULT_FILE_EXT, f3h_tabs.OUT.DEFAULT_AUTO_NAME)
             out_xml_is_file: bool = os.path.isfile(out_xml_checked) if out_xml_checked is not False else False
             if out_xml_is_file: node.setCachedUserData(f3h_cachedUserData.out_presets_filepath, out_xml_checked)
 
@@ -3238,7 +3238,7 @@ class flam3h_general_utils
         stats: str = node.parm(f3h_tabs.IN.MSG_PRM_FLAMESTATS).eval()
         lines: list[str] = stats.splitlines()
         # Just in case lets check the str.lower()
-        if str(lines[0]).lower().startswith(f3h_tabs.IN.MSG_FLAMESTATS_LOCK.__str__().lower()): lines[0] = ''
+        if str(lines[0]).lower().startswith(f3h_tabs.IN.DEFAULT_MSG_FLAMESTATS_LOCK.__str__().lower()): lines[0] = ''
         stats_join: str = "\n".join(lines)
         node.parm(f3h_tabs.IN.MSG_PRM_FLAMESTATS).set(stats_join)
 
@@ -4856,7 +4856,7 @@ class flam3h_general_utils
 
         if json_path_checked is None:
             json_path: str = os.path.expandvars(node.parm(f3h_tabs.CP.PRM_PATH).eval())
-            json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, f3h_tabs.CP.FILE_EXT, f3h_tabs.CP.AUTO_NAME)
+            json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, f3h_tabs.CP.DEFAULT_FILE_EXT, f3h_tabs.CP.DEFAULT_AUTO_NAME)
         
         if cp_presets_filepath_history is not None and node.parm(f3h_tabs.CP.PVT_PRM_ISVALID_FILE).eval() and os.path.isfile(cp_presets_filepath_history) and cp_presets_filepath_history == json_path_checked:
             pass
@@ -4974,7 +4974,7 @@ class flam3h_general_utils
         prm_off = node.parm(f3h_tabs.IN.PRM_PRESETS_OFF)
 
         xml: str = os.path.expandvars(node.parm(f3h_tabs.IN.PRM_PATH).eval())
-        xml_checked: str | bool = out_flame_utils.out_check_outpath(node,  xml, f3h_tabs.OUT.FILE_EXT, f3h_tabs.OUT.AUTO_NAME, False, False)
+        xml_checked: str | bool = out_flame_utils.out_check_outpath(node,  xml, f3h_tabs.OUT.DEFAULT_FILE_EXT, f3h_tabs.OUT.DEFAULT_AUTO_NAME, False, False)
         
         if in_presets_filepath_history is not None and is_valid and os.path.isfile(in_presets_filepath_history) and in_presets_filepath_history == xml_checked:
             pass
@@ -5080,7 +5080,7 @@ class flam3h_general_utils
         prm_sys = node.parm(f3h_tabs.OUT.PRM_SYS_PRESETS)
 
         xml: str = os.path.expandvars(node.parm(f3h_tabs.OUT.PRM_PATH).eval())
-        xml_checked: str | bool = out_flame_utils.out_check_outpath(node, xml, f3h_tabs.OUT.FILE_EXT, f3h_tabs.OUT.AUTO_NAME)
+        xml_checked: str | bool = out_flame_utils.out_check_outpath(node, xml, f3h_tabs.OUT.DEFAULT_FILE_EXT, f3h_tabs.OUT.DEFAULT_AUTO_NAME)
 
         if out_presets_filepath_history is not None and is_valid and os.path.isfile(out_presets_filepath_history) and out_presets_filepath_history == xml_checked:
             pass
@@ -5106,9 +5106,9 @@ class flam3h_general_utils
                     prm_sys.set(f'{len(apo.name)-1}')
                     # check if the selected Flame file is locked
                     if self.isLOCK(xml_checked):
-                        node.parm(f3h_tabs.OUT.MSG_PRM_OUT).set(f3h_tabs.OUT.MSG_OUT_LOCK)
+                        node.parm(f3h_tabs.OUT.MSG_PRM_OUT).set(f3h_tabs.OUT.DEFAULT_MSG_OUT_LOCK)
                         # Lets print to the status bar as well
-                        _MSG: str = f"OUT: {f3h_tabs.OUT.MSG_OUT_LOCK}"
+                        _MSG: str = f"OUT: {f3h_tabs.OUT.DEFAULT_MSG_OUT_LOCK}"
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {xml_checked}", 'WARN')
                     else:
                         node.parm(f3h_tabs.OUT.MSG_PRM_OUT).set('')
@@ -10608,17 +10608,17 @@ class flam3h_palette_utils
         keys_count: int = len(ramp.keys())
         
         if keys_count <= 128:
-            return f3h_tabs.CP.COUNT_128
+            return f3h_tabs.CP.DEFAULT_COUNT_128
         
         elif keys_count <= 256:
-            return f3h_tabs.CP.COUNT_256
+            return f3h_tabs.CP.DEFAULT_COUNT_256
         
         else:
             # This message when the CP options: palette 256+ toggle is OFF
             _MSG: str = f'{str(hou.pwd())}: Colors: {keys_count}: to many colors and will default back to the standard 256 color keys for this palette.'
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             print(f"{_MSG}\n")
-            return f3h_tabs.CP.COUNT_256
+            return f3h_tabs.CP.DEFAULT_COUNT_256
         
         
     @staticmethod
@@ -11302,7 +11302,7 @@ class flam3h_palette_utils
         # Save palette into a file
         else:
             palettepath: str = node.parm(f3h_tabs.CP.PRM_PATH).eval()
-            out_path_checked: str | bool = out_flame_utils.out_check_outpath(node, palettepath, f3h_tabs.CP.FILE_EXT, f3h_tabs.CP.AUTO_NAME)
+            out_path_checked: str | bool = out_flame_utils.out_check_outpath(node, palettepath, f3h_tabs.CP.DEFAULT_FILE_EXT, f3h_tabs.CP.DEFAULT_AUTO_NAME)
 
             if out_path_checked is not False:
                 assert isinstance(out_path_checked, str)
@@ -16170,7 +16170,7 @@ class in_flame_utils
         Returns:
             (int | None): The iteration number or none.
         """
-        splt: tuple[str, str, str] = menu_label.rpartition(f3h_tabs.IN.ITERATIONS_FLAME_NAME_DIV)
+        splt: tuple[str, str, str] = menu_label.rpartition(f3h_tabs.IN.DEFAULT_ITERATIONS_FLAME_NAME_DIV)
         if len([item for item in splt if item]) > 1:
             
             try:
@@ -16679,8 +16679,8 @@ class in_flame_utils
             # Set folder heading
             if clipboard:
                 node.setParms(  # type: ignore
-                                {f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_STATS_HEADING} {f3h_tabs.IN.CLIPBOARD_LABEL_MSG}", 
-                                f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_SETTINGS_HEADING} {f3h_tabs.IN.CLIPBOARD_LABEL_MSG}"}
+                                {f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_STATS_HEADING} {f3h_tabs.IN.DEFAULT_MSG_CLIPBOARD_LABEL}", 
+                                f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_SETTINGS_HEADING} {f3h_tabs.IN.DEFAULT_MSG_CLIPBOARD_LABEL}"}
                                 )
             else:
                 node.setParms(  # type: ignore
@@ -16996,7 +16996,7 @@ class in_flame_utils
             
             # 5 ending \s to be able to read the full label
             labels: tuple[ str, ...] = (f"{f3h_icons.STAR_FLAME_LOAD}  {item}     ", 
-                                        f"{f3h_icons.STAR_FLAME_LOAD_CB}  {f3h_tabs.IN.CLIPBOARD_LABEL_MSG} {item}     ")
+                                        f"{f3h_icons.STAR_FLAME_LOAD_CB}  {f3h_tabs.IN.DEFAULT_MSG_CLIPBOARD_LABEL} {item}     ")
             # ICON bookmarks
             #
             # If a flame preset from a file is loaded
@@ -17032,7 +17032,7 @@ class in_flame_utils
             
             # 5 ending \s to be able to read the full label
             labels: tuple[str, ...] = ( f"{f3h_icons.STAR_FLAME_LOAD}  {enum_label}:  {item}     ", 
-                                        f"{f3h_icons.STAR_FLAME_LOAD_CB}  {enum_label}:  {f3h_tabs.IN.CLIPBOARD_LABEL_MSG} {item}     ")
+                                        f"{f3h_icons.STAR_FLAME_LOAD_CB}  {enum_label}:  {f3h_tabs.IN.DEFAULT_MSG_CLIPBOARD_LABEL} {item}     ")
             # ICON bookmarks
             #
             # If a flame preset from a file is loaded
@@ -17618,14 +17618,14 @@ class in_flame_utils
         else: ff_msg: str = f"{XML_updated}FF: NO\n"
         
         if data_checks.palette_bool:
-            if apo_data.cp_flam3h_hsv is not False: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} {f3h_tabs.IN.MSG_HSV_LABEL}, {f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis]}" # custom to FLAM3H™ only
+            if apo_data.cp_flam3h_hsv is not False: palette_count_format = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]} {f3h_tabs.IN.DEFAULT_MSG_HSV_LABEL}, {f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis]}" # custom to FLAM3H™ only
             else: palette_count_format: str = f"Palette count: {apo_data.palette[1]}, format: {apo_data.palette[2]}, {f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES_DICT[apo_data.cp_flam3h_basis]}"
         else: palette_count_format: str = f"Palette not found."
         
         # Check if the loaded Flame file is locked.
         in_path: str = os.path.expandvars(node.parm(f3h_tabs.IN.PRM_PATH).eval())
-        in_path_checked: str | bool = out_flame_utils.out_check_outpath(node, in_path, f3h_tabs.OUT.FILE_EXT, f3h_tabs.OUT.AUTO_NAME)
-        if flam3h_general_utils.isLOCK(in_path_checked): flame_lib_locked = f3h_tabs.IN.MSG_FLAMESTATS_LOCK
+        in_path_checked: str | bool = out_flame_utils.out_check_outpath(node, in_path, f3h_tabs.OUT.DEFAULT_FILE_EXT, f3h_tabs.OUT.DEFAULT_AUTO_NAME)
+        if flam3h_general_utils.isLOCK(in_path_checked): flame_lib_locked = f3h_tabs.IN.DEFAULT_MSG_FLAMESTATS_LOCK
         else: flame_lib_locked = ''
         
         # Build and set descriptive parameter msg
@@ -19251,7 +19251,7 @@ class out_flame_utils
                 _join: Callable[[Iterable[str]], str] = ''.join
                 rp_clean: list = [_join(letter for letter in item.strip() if letter.isalnum() or letter in f3h_char.ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
                 if flame:
-                    if autoadd: name_new: str = ' '.join(rp_clean) + f3h_tabs.IN.ITERATIONS_FLAME_NAME_DIV + str(iter_num)
+                    if autoadd: name_new: str = ' '.join(rp_clean) + f3h_tabs.IN.DEFAULT_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
                     else: name_new: str = ' '.join(rp_clean)
                     
                 else: name_new: str = ' '.join(rp_clean)
@@ -19264,7 +19264,7 @@ class out_flame_utils
                 build: str = ''.join([item.strip() for item in splt[:-1]])
                 if flame: 
                     if autoadd:
-                        return f"{build}{f3h_tabs.IN.ITERATIONS_FLAME_NAME_DIV}{iter_num}"
+                        return f"{build}{f3h_tabs.IN.DEFAULT_ITERATIONS_FLAME_NAME_DIV}{iter_num}"
                     
                     return build
                     
@@ -19296,7 +19296,7 @@ class out_flame_utils
             if flame_name:
                 
                 flame_name = out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
-                rp: tuple[str, str, str] = flame_name.rpartition(f3h_tabs.IN.ITERATIONS_FLAME_NAME_DIV)
+                rp: tuple[str, str, str] = flame_name.rpartition(f3h_tabs.IN.DEFAULT_ITERATIONS_FLAME_NAME_DIV)
 
                 is_int: bool = False
                 if rp[-1] != flame_name:
@@ -19339,7 +19339,7 @@ class out_flame_utils
         
         if flame_name:
             
-            rp: tuple[str, str, str] = flame_name.rpartition(f3h_tabs.IN.ITERATIONS_FLAME_NAME_DIV)
+            rp: tuple[str, str, str] = flame_name.rpartition(f3h_tabs.IN.DEFAULT_ITERATIONS_FLAME_NAME_DIV)
 
             is_int: bool = False
             
@@ -19475,13 +19475,13 @@ class out_flame_utils
             infile(str): THe file path to check.
             file_new(str): The new generated file full path
             file_ext(str): Provide an extension to tell this function if it is a Flame file or a FLAM3H™ palette file. 
-            prx(str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame' (f3h_tabs.CP.AUTO_NAME: str or f3h_tabs.OUT.AUTO_NAME: str)
+            prx(str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file. 'Palette' or 'Flame' (f3h_tabs.CP.DEFAULT_AUTO_NAME: str or f3h_tabs.OUT.DEFAULT_AUTO_NAME: str)
 
         Returns:
             (None):
         """  
         # Print out proper msg based on file extension
-        if f3h_tabs.OUT.FILE_EXT == file_ext:
+        if f3h_tabs.OUT.DEFAULT_FILE_EXT == file_ext:
             if os.path.isfile(infile) and os.path.exists(infile):
                 _MSG: str = f"OUT: You selected an OUT file that is not a {prx} file type."
                 # print(f"{node.name()}.{_MSG}\n")
@@ -19497,7 +19497,7 @@ class out_flame_utils
                         _MSG: str = 'OUT: Save to create this file'
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}: {file_new}", 'IMP')
                         
-        elif f3h_tabs.CP.FILE_EXT == file_ext:
+        elif f3h_tabs.CP.DEFAULT_FILE_EXT == file_ext:
             if os.path.isfile(infile) and os.path.exists(infile):
                 _MSG: str = f"CP: You selected an OUT file that is not a {prx} file type."
                 # print(f"{node.name()}.{_MSG}\n")
@@ -19551,7 +19551,7 @@ class out_flame_utils
             node(hou.SopNode): Current FLAM3H™ node.
             infile(str): THe file path to check.
             file_ext(str): Provide an extension to tell this function if it is a Flame file or a FLAM3H™ palette file. 
-            prx(str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file.</br>'Palette' or 'Flame'</br>(f3h_tabs.CP.AUTO_NAME: str or f3h_tabs.OUT.AUTO_NAME: str)
+            prx(str): A prefix for an automated file name to be provided for the XML Flame file or a Palette flame file.</br>'Palette' or 'Flame'</br>(f3h_tabs.CP.DEFAULT_AUTO_NAME: str or f3h_tabs.OUT.DEFAULT_AUTO_NAME: str)
             out(int): Default to: True</br>Which Flame tab are we running this from? False for IN tab, True for OUT tab.
             auto_name(bool): Default to: True</br>When checking the output path you some time do not want to generate a filename and extension, </br>like for example inside the IN file string parameter.
         
@@ -19562,8 +19562,8 @@ class out_flame_utils
         file: str = os.path.expandvars(infile)
         
         # Early exit if the file is already valid
-        if (prx == f3h_tabs.CP.AUTO_NAME and flam3h_palette_utils.isJSON_F3H(node, file, False)[-1]) or \
-           (prx == f3h_tabs.OUT.AUTO_NAME and _xml_tree(file).isvalidtree):
+        if (prx == f3h_tabs.CP.DEFAULT_AUTO_NAME and flam3h_palette_utils.isJSON_F3H(node, file, False)[-1]) or \
+           (prx == f3h_tabs.OUT.DEFAULT_AUTO_NAME and _xml_tree(file).isvalidtree):
                
             return file
 
@@ -19662,7 +19662,7 @@ class out_flame_utils
                     return False
 
             if file:
-                if f3h_tabs.OUT.FILE_EXT == file_ext:
+                if f3h_tabs.OUT.DEFAULT_FILE_EXT == file_ext:
                     if out: _MSG: str = f"OUT: Select a valid OUT flame directory location."
                     else: _MSG: str = f"IN: Select a valid IN flame file path."
                     flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG}", 'WARN')
@@ -19681,9 +19681,9 @@ class out_flame_utils
                 return infile
             
             if file:
-                if f3h_tabs.OUT.FILE_EXT == file_ext:
+                if f3h_tabs.OUT.DEFAULT_FILE_EXT == file_ext:
                     _MSG: str = f"OUT: Select a valid OUT flame directory location." if out else f"IN: Select a valid IN flame file path."
-                elif f3h_tabs.CP.FILE_EXT == file_ext:
+                elif f3h_tabs.CP.DEFAULT_FILE_EXT == file_ext:
                     _MSG: str = f"CP: Select a valid OUT directory location."
                 else:
                     _MSG: str = ""
@@ -19702,8 +19702,8 @@ class out_flame_utils
         file: str = os.path.expandvars(infile)
         
         # Early exit if the file is already valid
-        if (prx == f3h_tabs.CP.AUTO_NAME and flam3h_palette_utils.isJSON_F3H(node, file, False)[-1]) or \
-           (prx == f3h_tabs.OUT.AUTO_NAME and _xml_tree(file).isvalidtree):
+        if (prx == f3h_tabs.CP.DEFAULT_AUTO_NAME and flam3h_palette_utils.isJSON_F3H(node, file, False)[-1]) or \
+           (prx == f3h_tabs.OUT.DEFAULT_AUTO_NAME and _xml_tree(file).isvalidtree):
                
             return file
 
@@ -20643,7 +20643,7 @@ class out_flame_utils
                     
                     if not type:
                         # For a Flame
-                        return f3h_tabs.CP.COUNT_256
+                        return f3h_tabs.CP.DEFAULT_COUNT_256
                     
                     # For a palette
                     return flam3h_palette_utils.get_ramp_keys_count(self.palette)
@@ -20653,10 +20653,10 @@ class out_flame_utils
             # Otherwise clamp to 1024 color keys
             if _MSG:
                 print(f"Warning:\n{self.node.name()}: the palette exceed the allowed amount of color keys and it has been clamped at: 1024\n")
-            return f3h_tabs.CP.COUNT_1024
+            return f3h_tabs.CP.DEFAULT_COUNT_1024
         
         # Otherwise always export the Flame with 256 color palette
-        return f3h_tabs.CP.COUNT_256
+        return f3h_tabs.CP.DEFAULT_COUNT_256
 
 
     def __menu_sensor_resolution(self) -> TA_Menu:
@@ -21679,7 +21679,7 @@ class out_flame_utils
             kwargs: dict = self.kwargs
             
             out_path: str = os.path.expandvars(node.parm(f3h_tabs.OUT.PRM_PATH).eval())
-            out_path_checked: str | bool = self.out_check_outpath(node, out_path, f3h_tabs.OUT.FILE_EXT, f3h_tabs.OUT.AUTO_NAME)
+            out_path_checked: str | bool = self.out_check_outpath(node, out_path, f3h_tabs.OUT.DEFAULT_FILE_EXT, f3h_tabs.OUT.DEFAULT_AUTO_NAME)
             
             # Write to the clipboard
             if kwargs['alt']:
