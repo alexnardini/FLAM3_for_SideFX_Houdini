@@ -3012,7 +3012,7 @@ class flam3h_general_utils
 * util_other_xf_viz(self) -> bool:
 * util_viewport_bbox_frame(self) -> None:
 * flam3h_other_sensor_viz_off(self, node: hou.SopNode) -> None:
-* flam3h_outsensor_toggle(self, prm_name: str=OUT_PVT_RENDER_PROPERTIES_SENSOR) -> None:
+* flam3h_outsensor_toggle(self, prm_name: str = f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR) -> None:
 * flam3h_xf_viz_toggle(self, prm_name: str = PREFS_PVT_XF_VIZ) -> None:
 * flam3h_toggle_sys_xf_viz_solo(self) -> None:
 * flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
@@ -3030,7 +3030,7 @@ class flam3h_general_utils
 * util_store_all_viewers_color_scheme(self) -> None:
 * colorSchemeDark(self, update_others: bool = True) -> None:
 * viewportParticleDisplay(self) -> None:
-* viewportParticleSize(self, reset_val: float | None = None, prm_name_size: str = PREFS_VIEWPORT_PT_SIZE) -> None:
+* viewportParticleSize(self, reset_val: float | None = None, prm_name_size: str = f3h_tabs.PREFS.PRM_VIEWPORT_PT_SIZE) -> None:
 * viewportWireWidth(self, reset_val: float | None = None) -> None:
 * reset_SYS(self, density: int, iter: int, mode: int) -> None:
 * reset_MB(self, all: bool = True) -> None:
@@ -3801,7 +3801,7 @@ class flam3h_general_utils
         
         * def util_set_front_viewer(self, update: bool = True) -> bool:
         * def util_viewport_bbox_frame(self) -> None:
-        * def flam3h_outsensor_toggle(self, prm_name: str=OUT_PVT_RENDER_PROPERTIES_SENSOR) -> None:
+        * def flam3h_outsensor_toggle(self, prm_name: str = f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR) -> None:
         * def flam3h_xf_viz_toggle(self, prm_name: str = PREFS_PVT_XF_VIZ) -> None:
         * def flam3h_toggle_sys_xf_viz_solo(self) -> None:
         * def flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
@@ -3945,7 +3945,7 @@ class flam3h_general_utils
         Note:
             This definition is also run inside the following definitions:
             
-            * def flam3h_outsensor_toggle(self, prm_name: str=OUT_PVT_RENDER_PROPERTIES_SENSOR) -> None:
+            * def flam3h_outsensor_toggle(self, prm_name: str = f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR) -> None:
             * def iterators_count(self) -> None:
             * def util_viewport_bbox_frame(self) -> None:
             * def in_copy_render_all_stats_msg(kwargs: dict,  apo_data: in_flame_iter_data | None=None, clipboard: bool=False) -> None:
@@ -5746,7 +5746,7 @@ class flam3h_iterator_utils
 * flam3h_iterator_is_default_name(name: str, regex: str = "^[^\d\s()]+(?: [^\d\s()]+)*[\d]+") -> bool:
 * flam3h_on_loaded_set_density_menu(node: hou.SopNode) -> None:
 * sierpinski_settings(node: hou.SopNode) -> None:
-* def get_user_data(node: hou.SopNode, data_name: str = f3h_userData.MARKED_ITER) -> str | bool:
+* get_user_data(node: hou.SopNode, data_name: str = f3h_userData.MARKED_ITER) -> str | bool:
 * exist_user_data(node: hou.SopNode, data: str = f3h_userData.MARKED_ITER) -> bool:
 * set_comment_and_user_data_iterator(node: hou.SopNode, value: str, data: str = f3h_userData.MARKED_ITER) -> None:
 * del_comment_and_user_data_iterator(node: hou.SopNode, data: str = f3h_userData.MARKED_ITER) -> None:
@@ -10461,8 +10461,8 @@ class flam3h_palette_utils
 * delete_ramp_all_keyframes(ramp_parm: hou.Parm) -> None:
 * get_ramp_keys_count(ramp: hou.Ramp) -> str:
 * isJSON_F3H_get_first_preset(filepath: str | bool) -> str | bool:
-* isJSON_F3H(node: hou.SopNode, filepath: str | bool,  msg: bool = True, parm_path_name: str = CP_PATH) -> tuple[bool, bool]:
-* isJSON_F3H_on_preset_load(node: hou.SopNode, filepath: str | bool,  msg: bool = True, parm_path_name: str = CP_PATH) -> tuple[bool, bool]:
+* isJSON_F3H(node: hou.SopNode, filepath: str | bool,  msg: bool = True, parm_path_name: str = f3h_tabs.CP.PRM_PATH) -> tuple[bool, bool]:
+* isJSON_F3H_on_preset_load(node: hou.SopNode, filepath: str | bool,  msg: bool = True, parm_path_name: str = f3h_tabs.CP.PRM_PATH) -> tuple[bool, bool]:
 * rgb_to_hex(rgb: tuple[float, ...]) -> str:
 * hex_to_rgb(hex: str) -> tuple[int, ...]:
 * find_nearest_idx(array: list | tuple, value: int | float) -> int | float:
@@ -18949,7 +18949,7 @@ class out_flame_utils
 * __out_finalxf_postaffine(self) -> TA_OUT_Affine_FF:
 * __out_palette_hex(self) -> str:
 * __out_flame_palette_mode(self) -> str:
-* __out_flame_data_flam3h_hsv(self, prm_name = CP_RAMP_HSV_VAL_NAME) -> str | bool:
+* __out_flame_data_flam3h_hsv(self, prm_name: str = f3h_tabs.CP.PRM_RAMP_HSV_VAL_NAME) -> str | bool:
 * __out_flame_data_flam3h_mb_val(self, prm_name: str = '') -> str | bool:
 * __out_flame_data_flam3h_toggle(self, toggle: bool) -> str:
 * __out_flame_palette_lookup_samples(self) -> str | bool:
