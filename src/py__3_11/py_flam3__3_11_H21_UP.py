@@ -295,7 +295,7 @@ class f3h_affineDefaults:
     # Default affine values
     DEFAULT_DICT: Final[dict[str, hou.Vector2 | float]] = {"affine_x": hou.Vector2((1.0, 0.0)), "affine_y": hou.Vector2((0.0, 1.0)), "affine_o": hou.Vector2((0.0, 0.0)), "angle": float(0.0)} # X, Y, O, ANGLE
     DEFAULT_VALS: Final[list[tuple[float, ...] | float]] = [(1.0, 0.0), (0.0, 1.0), (0.0, 0.0), 0.0]
-    IDENT: Final[list[float]] = [1.0, 0.0, 0.0, 1.0, 0.0, 0.0]
+    DEFAULT_IDENT: Final[list[float]] = [1.0, 0.0, 0.0, 1.0, 0.0, 0.0]
 
 
 class f3h_ffPrmPrx:
@@ -325,21 +325,21 @@ class f3h_copyPaste:
     
     '''
     # Message Mark iterators
-    MSG_MARK_ITER: Final = 'Please, mark an iterator first'
-    MSG_MARK_ITER_STATUS_BAR: Final = f"{MSG_MARK_ITER} to copy parameter's values from."
-    MSG_MARK_FF: Final = 'Please, mark the FF first'
-    MSG_MARK_FF_STATUS_BAR: Final = f"{MSG_MARK_FF} to copy parameter's values from."
+    DEFAULT_MSG_MARK_ITER: Final = 'Please, mark an iterator first'
+    DEFAULT_MSG_MARK_ITER_STATUS_BAR: Final = f"{DEFAULT_MSG_MARK_ITER} to copy parameter's values from."
+    DEFAULT_MSG_MARK_FF: Final = 'Please, mark the FF first'
+    DEFAULT_MSG_MARK_FF_STATUS_BAR: Final = f"{DEFAULT_MSG_MARK_FF} to copy parameter's values from."
 
     # copy/paste set note sections names
-    SEC_ALL: Final = '.ALL'
-    SEC_MAIN: Final = '.main'
-    SEC_XAOS: Final = '.xaos'
-    SEC_SHADER: Final = '.shader'
-    SEC_PREVARS: Final = '.PRE'
-    SEC_VARS: Final = '.VAR'
-    SEC_POSTVARS: Final = '.POST'
-    SEC_PREAFFINE: Final = '.pre affine'
-    SEC_POSTAFFINE: Final = '.post affine'
+    DEFAULT_SEC_ALL: Final = '.ALL'
+    DEFAULT_SEC_MAIN: Final = '.main'
+    DEFAULT_SEC_XAOS: Final = '.xaos'
+    DEFAULT_SEC_SHADER: Final = '.shader'
+    DEFAULT_SEC_PREVARS: Final = '.PRE'
+    DEFAULT_SEC_VARS: Final = '.VAR'
+    DEFAULT_SEC_POSTVARS: Final = '.POST'
+    DEFAULT_SEC_PREAFFINE: Final = '.pre affine'
+    DEFAULT_SEC_POSTAFFINE: Final = '.post affine'
     
     
 class f3h_nodeNames:
@@ -350,10 +350,10 @@ class f3h_nodeNames:
     # Those node names are hard coded here.
     # If you change those node names inside the FLAM3H™ houdini HDA network, update those global variables as well.
     # If not, some functionalities will stop working.
-    OUT_BBOX_SENSOR: Final = 'OUT_bbox_sensor' # prefix
-    OUT_BBOX_REFRAME: Final = 'OUT_bbox_reframe' # prefix
-    XFVIZGL: Final = 'XFVIZ_GL'
-    TFFA_XAOS: Final = '_TFFAxaos'
+    DEFAULT_OUT_BBOX_SENSOR: Final = 'OUT_bbox_sensor' # prefix
+    DEFAULT_OUT_BBOX_REFRAME: Final = 'OUT_bbox_reframe' # prefix
+    DEFAULT_XFVIZGL: Final = 'XFVIZ_GL'
+    DEFAULT_TFFA_XAOS: Final = '_TFFAxaos'
 
 
 class f3h_tabs:
@@ -368,7 +368,7 @@ class f3h_tabs:
     * Message parameters names always start with the prefix: <b>MSG_PRM_</b>
     * Default values always start with the prefix: <b>DEFAULT_</b>
     * Message strings always start with the prefix: <b>MSG_</b>
-    * Miscellaneous constants can be anything else.
+    * Miscellaneous constants can be anything else.</b>
 
     '''
     # Main FLAME tab in the UI
@@ -403,8 +403,8 @@ class f3h_tabs:
     
     # MISC
     # Flash messages timer - This should probably be moved into somwhere else later.
-    FLASH_MESSAGE_TIMER: Final = 2
-    MSG_ZERO_ITERATORS: Final = 'Iterators count set to Zero.'
+    DEFAULT_FLASH_MESSAGE_TIMER: Final = 2
+    DEFAULT_MSG_ZERO_ITERATORS: Final = 'Iterators count set to Zero.'
     
     
     # UI TABS (Most of the FLAME and FF tabs are handled directly by their own classes)
@@ -471,17 +471,17 @@ class f3h_tabs:
         COUNT_256: Final = '256'
         COUNT_512: Final = '512' # not used
         COUNT_1024: Final = '1024'
-        OUT_MENU_OPTIONS_ALL: Final[tuple[int, ...]] = (16, 32, 64, 128, 256, 512, 1024) # not used
-        OUT_MENU_OPTIONS_PLUS: Final[tuple[int, ...]] = (256, 512, 1024)
-        MSG_PLUS: Final = '[256+]'
+        DEFAULT_CP_MENU_OPTIONS_ALL: Final[tuple[int, ...]] = (16, 32, 64, 128, 256, 512, 1024) # not used
+        DEFAULT_CP_MENU_OPTIONS_PLUS: Final[tuple[int, ...]] = (256, 512, 1024)
+        DEFAULT_MSG_PLUS: Final = '[256+]'
         # The following will always be used for now
         # even tho we check for the XML palette format on load.
-        MSG_COLOR_FORMAT: Final = 'RGB'
-        MSG_PALETTE_LOCK: Final = 'Palette lib file: LOCKED'
+        DEFAULT_MSG_COLOR_FORMAT: Final = 'RGB'
+        DEFAULT_MSG_PALETTE_LOCK: Final = 'Palette lib file: LOCKED'
         
         # CP JSON data keys
-        JSON_KEY_NAME_HEX: Final = 'f3h_hex'
-        JSON_KEY_NAME_HSV: Final = 'f3h_hsv'
+        DEFAULT_JSON_KEY_NAME_HEX: Final = 'f3h_hex'
+        DEFAULT_JSON_KEY_NAME_HSV: Final = 'f3h_hsv'
 
     class MB:
         '''
@@ -523,9 +523,9 @@ class f3h_tabs:
 
         # IN message parameters
         MSG_PRM_STATS_HEADING: Final = 'flamestats_heading'
-        MSG_PRM_STATS_HEADING_DEFAULT: Final = 'IN flame preset infos'
+        DEFAULT_MSG_PRM_STATS_HEADING: Final = 'IN flame preset infos'
         MSG_PRM_SETTINGS_HEADING: Final = 'flamerender_heading'
-        MSG_PRM_SETTINGS_HEADING_DEFAULT: Final = 'IN flame preset render properties'
+        DEFAULT_MSG_PRM_SETTINGS_HEADING: Final = 'IN flame preset render properties'
         MSG_PRM_FLAMESTATS: Final = 'flamestats_msg'
         MSG_PRM_FLAMESENSOR: Final = 'flamesensor_msg'
         MSG_PRM_FLAMERENDER: Final = 'flamerender_msg'
@@ -2586,7 +2586,7 @@ class flam3h_scripts
         # Probably becasue I am now raising an error from the xaos cvex code and when it does
         # it is not allowed to cook ? Need to investigate...
         try:
-            hou.node(flam3h_general_utils(self.kwargs).get_node_path(f3h_nodeNames.TFFA_XAOS)).cook(force=True)
+            hou.node(flam3h_general_utils(self.kwargs).get_node_path(f3h_nodeNames.DEFAULT_TFFA_XAOS)).cook(force=True)
         except AttributeError as e:
             F3H_Exception.F3H_traceback_print_infos(e)
             pass
@@ -3052,8 +3052,8 @@ class flam3h_general_utils
         self._node: hou.SopNode = kwargs['node']
         # Why am I doing the following ? Because with time FLAM3H™ grew and evolved and I was tiered to keep updating an hard coded node path,
         # hence I added the following so I can always find the nodes even if I place them in different locations from time to time.
-        self._bbox_sensor_path: str | None = self.get_node_path(f3h_nodeNames.OUT_BBOX_SENSOR)
-        self._bbox_reframe_path: str | None = self.get_node_path(f3h_nodeNames.OUT_BBOX_REFRAME)
+        self._bbox_sensor_path: str | None = self.get_node_path(f3h_nodeNames.DEFAULT_OUT_BBOX_SENSOR)
+        self._bbox_reframe_path: str | None = self.get_node_path(f3h_nodeNames.DEFAULT_OUT_BBOX_REFRAME)
         
     
     @staticmethod
@@ -3195,7 +3195,7 @@ class flam3h_general_utils
 
 
     @staticmethod
-    def flash_message(node: hou.SopNode, msg: str | None, timer: float = f3h_tabs.FLASH_MESSAGE_TIMER, img: str | None = None, usd_context: str = 'Lop') -> None:
+    def flash_message(node: hou.SopNode, msg: str | None, timer: float = f3h_tabs.DEFAULT_FLASH_MESSAGE_TIMER, img: str | None = None, usd_context: str = 'Lop') -> None:
         """Cause a message to appear on the top left of the network editor.</br>
         This will work either in Sop and Lop context as it is handy to get those messages either ways.</br>
         
@@ -3669,7 +3669,7 @@ class flam3h_general_utils
         """   
         if not node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ).eval():
             # BUILD XFVIZ
-            try: hou.node(flam3h_general_utils(kwargs).get_node_path(f3h_nodeNames.XFVIZGL)).cook(force=True)
+            try: hou.node(flam3h_general_utils(kwargs).get_node_path(f3h_nodeNames.DEFAULT_XFVIZGL)).cook(force=True)
             except AttributeError:
                 flam3h_general_utils.set_status_msg(f"{node.name()}: XF VIZ node not found.", 'WARN')
 
@@ -3844,8 +3844,8 @@ class flam3h_general_utils
         """Find the full path of the bbox data null node inside the current FLAM3H™ node.</br>
         
         The Null node names prefixes to search are stored inside the global variables:
-        * f3h_nodeNames.OUT_BBOX_SENSOR
-        * f3h_nodeNames.OUT_BBOX_REFRAME
+        * f3h_nodeNames.DEFAULT_OUT_BBOX_SENSOR
+        * f3h_nodeNames.DEFAULT_OUT_BBOX_REFRAME
 
         Args:
             (self):
@@ -4887,9 +4887,9 @@ class flam3h_general_utils
                     self.private_prm_set(node, f3h_tabs.CP.PVT_PRM_ISVALID_PRESET, 0)
                     # check if the selected FLAM3H™ palette file is locked
                     if self.isLOCK(json_path_checked):
-                        flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, f3h_tabs.CP.MSG_PALETTE_LOCK)
+                        flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, f3h_tabs.CP.DEFAULT_MSG_PALETTE_LOCK)
                         # Lets print to the status bar as well
-                        _MSG: str = f"CP: {f3h_tabs.CP.MSG_PALETTE_LOCK}"
+                        _MSG: str = f"CP: {f3h_tabs.CP.DEFAULT_MSG_PALETTE_LOCK}"
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {json_path_checked}", 'WARN')
                     else:
                         flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
@@ -4913,9 +4913,9 @@ class flam3h_general_utils
                         self.private_prm_set(node, f3h_tabs.CP.PVT_PRM_ISVALID_PRESET, 0)
                         # check if the selected FLAM3H™ palette file is locked
                         if self.isLOCK(json_path_checked):
-                            flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, f3h_tabs.CP.MSG_PALETTE_LOCK)
+                            flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, f3h_tabs.CP.DEFAULT_MSG_PALETTE_LOCK)
                             # Lets print to the status bar as well
-                            _MSG: str = f"CP: {f3h_tabs.CP.MSG_PALETTE_LOCK}"
+                            _MSG: str = f"CP: {f3h_tabs.CP.DEFAULT_MSG_PALETTE_LOCK}"
                             flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {json_path_checked}", 'WARN')
                         else:
                             flam3h_palette_utils.json_to_flam3h_palette_plus_preset_MSG(node, "")
@@ -8418,12 +8418,12 @@ class flam3h_iterator_utils
             else:
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, flam3h_iterator().allT, flam3h_varsPRM().varsPRM, idx, idx_from)
                 self.paste_from_list(node, from_FLAM3H_NODE, flam3h_iterator().allMisc, idx, idx_from)
-                self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.SEC_ALL, idx, idx_from)
+                self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.DEFAULT_SEC_ALL, idx, idx_from)
 
         else:
             if isDELETED:
                 _MSG_DEL: str = "Marked iterator's node has been deleted"
-                _MSG: str = f"{node.name()}: {_MSG_DEL} -> {f3h_copyPaste.MSG_MARK_ITER_STATUS_BAR}"
+                _MSG: str = f"{node.name()}: {_MSG_DEL} -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN') 
                 flam3h_general_utils.flash_message(node, _MSG_DEL)
                 
@@ -8432,13 +8432,13 @@ class flam3h_iterator_utils
                 if node == from_FLAM3H_NODE:
                     _FLAM3H_DATA_PRM_MPIDX = node.parm(f3h_tabs.PREFS.PVT_PRM_DATA_PRM_MPIDX).eval()
                     if _FLAM3H_DATA_PRM_MPIDX == -1:
-                        _MSG: str = f"{node.name()} -> {_MSG_REM} -> {f3h_copyPaste.MSG_MARK_ITER_STATUS_BAR}"
+                        _MSG: str = f"{node.name()} -> {_MSG_REM} -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         flam3h_general_utils.flash_message(node, _MSG_REM)
                     else:
-                        _MSG: str = f"{node.name()} -> {f3h_copyPaste.MSG_MARK_ITER_STATUS_BAR}"
+                        _MSG: str = f"{node.name()} -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                        flam3h_general_utils.flash_message(node, f3h_copyPaste.MSG_MARK_ITER)
+                        flam3h_general_utils.flash_message(node, f3h_copyPaste.DEFAULT_MSG_MARK_ITER)
                         
                 elif node != from_FLAM3H_NODE:
                     
@@ -8453,18 +8453,18 @@ class flam3h_iterator_utils
                         __FLAM3H_DATA_PRM_MPIDX = from_FLAM3H_NODE.parm(f3h_tabs.PREFS.PVT_PRM_DATA_PRM_MPIDX).eval()
                         
                         if __FLAM3H_DATA_PRM_MPIDX == -1:
-                            _MSG: str = f"{node.name()} -> {_MSG_REM} from node: {from_FLAM3H_NODE.name()} -> {f3h_copyPaste.MSG_MARK_ITER_STATUS_BAR}"
+                            _MSG: str = f"{node.name()} -> {_MSG_REM} from node: {from_FLAM3H_NODE.name()} -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                             flam3h_general_utils.flash_message(node, _MSG_REM)
                         else:
-                            _MSG: str = f"{node.name()} -> {f3h_copyPaste.MSG_MARK_ITER_STATUS_BAR}"
+                            _MSG: str = f"{node.name()} -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                            flam3h_general_utils.flash_message(node, f3h_copyPaste.MSG_MARK_ITER)
+                            flam3h_general_utils.flash_message(node, f3h_copyPaste.DEFAULT_MSG_MARK_ITER)
                         
                 else:
-                    _MSG: str = f"{node.name()} -> {f3h_copyPaste.MSG_MARK_ITER_STATUS_BAR}"
+                    _MSG: str = f"{node.name()} -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                    flam3h_general_utils.flash_message(node, f3h_copyPaste.MSG_MARK_ITER)
+                    flam3h_general_utils.flash_message(node, f3h_copyPaste.DEFAULT_MSG_MARK_ITER)
 
 
     def prm_paste_SHIFT(self, id: int) -> None:
@@ -8672,18 +8672,18 @@ class flam3h_iterator_utils
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_varsT_FF, flam3h_varsPRM_FF(f3h_ffPrmPrx.PRM).varsPRM_FF(), "", "")
                 self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(f3h_ffPrmPrx.PRM_PP).varsPRM_FF(), "", "")
                 self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.allMisc_FF, "", "")
-                self.paste_set_note(node, from_FLAM3H_NODE, 1, f3h_copyPaste.SEC_ALL, "", "")
+                self.paste_set_note(node, from_FLAM3H_NODE, 1, f3h_copyPaste.DEFAULT_SEC_ALL, "", "")
 
         else:
             
             if isDELETED:
-                _MSG: str = f"{node.name()}: Marked FF's node has been deleted -> {f3h_copyPaste.MSG_MARK_FF_STATUS_BAR}"
+                _MSG: str = f"{node.name()}: Marked FF's node has been deleted -> {f3h_copyPaste.DEFAULT_MSG_MARK_FF_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                 flam3h_general_utils.flash_message(node, f"Marked FF's node has been deleted")
             else:
-                _MSG: str = f"{node.name()} -> {f3h_copyPaste.MSG_MARK_FF_STATUS_BAR}"
+                _MSG: str = f"{node.name()} -> {f3h_copyPaste.DEFAULT_MSG_MARK_FF_STATUS_BAR}"
                 flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-                flam3h_general_utils.flash_message(node, f3h_copyPaste.MSG_MARK_FF)
+                flam3h_general_utils.flash_message(node, f3h_copyPaste.DEFAULT_MSG_MARK_FF)
     
     
     def prm_paste_FF_SHIFT(self) -> None:
@@ -8870,48 +8870,48 @@ class flam3h_iterator_utils
                 # set MAIN
                 case 2:
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_main, mp_idx, idx_from)
-                    self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.SEC_MAIN, mp_idx, idx_from)
+                    self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.DEFAULT_SEC_MAIN, mp_idx, idx_from)
                     
                 # set XAOS
                 case 3:
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_xaos, mp_idx, idx_from)
-                    self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.SEC_XAOS, mp_idx, idx_from)
+                    self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.DEFAULT_SEC_XAOS, mp_idx, idx_from)
                     self.auto_set_xaos()
                     
                 # set SHADER 
                 case 4:
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_shader, mp_idx, idx_from)
-                    self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.SEC_SHADER, mp_idx, idx_from)
+                    self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.DEFAULT_SEC_SHADER, mp_idx, idx_from)
                     
                 # set PRE VARS
                 case 5:
                     self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_prevarsT, varsPRM, mp_idx, idx_from)
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_prevarsW, mp_idx, idx_from)
-                    self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.SEC_PREVARS, mp_idx, idx_from)
+                    self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.DEFAULT_SEC_PREVARS, mp_idx, idx_from)
                     
                 # set VARS
                 case 6:
                     self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_varsT, varsPRM, mp_idx, idx_from)
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_varsW, mp_idx, idx_from)
-                    self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.SEC_VARS, mp_idx, idx_from)
+                    self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.DEFAULT_SEC_VARS, mp_idx, idx_from)
                     
                 # set POST VARS
                 case 7:
                     self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_postvarsT, varsPRM, mp_idx, idx_from)
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_postvarsW, mp_idx, idx_from)
-                    self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.SEC_POSTVARS, mp_idx, idx_from)
+                    self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.DEFAULT_SEC_POSTVARS, mp_idx, idx_from)
                     
                 # set PRE AFFINE
                 case 8:
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_preAffine, mp_idx, idx_from)
                     if not self.is_iterator_affine_default(node, from_FLAM3H_NODE, f3h_iter.sec_preAffine, mp_idx, idx_from):
-                        self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.SEC_PREAFFINE, mp_idx, idx_from)
+                        self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.DEFAULT_SEC_PREAFFINE, mp_idx, idx_from)
                         
                 # set POST AFFINE
                 case 9:
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter.sec_postAffine, mp_idx, idx_from)
                     if not self.is_iterator_affine_default(node, from_FLAM3H_NODE, f3h_iter.sec_postAffine, mp_idx, idx_from, True):
-                        self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.SEC_POSTAFFINE, mp_idx, idx_from)
+                        self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.DEFAULT_SEC_POSTAFFINE, mp_idx, idx_from)
                         
             node.setParms(  # type: ignore
                             {f"{n.main_prmpastesel}_{s_mp_index}": 0, 
@@ -8922,7 +8922,7 @@ class flam3h_iterator_utils
             self.prm_paste_sel_iter_sel_force_update(node)
             
         else:
-            _MSG: str = f"{node.name()} -> {f3h_copyPaste.MSG_MARK_ITER_STATUS_BAR}"
+            _MSG: str = f"{node.name()} -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
         
         # Delete keyframes from all iterators copy/paste menus
@@ -9125,31 +9125,31 @@ class flam3h_iterator_utils
                 case 2:
                     self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_prevarsT_FF, flam3h_varsPRM_FF(f3h_ffPrmPrx.PRM_PP).varsPRM_FF(), "", "")
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_prevarsW_FF, "", "")
-                    self.paste_set_note(node, from_FLAM3H_NODE, 2, f3h_copyPaste.SEC_PREVARS, "", "")
+                    self.paste_set_note(node, from_FLAM3H_NODE, 2, f3h_copyPaste.DEFAULT_SEC_PREVARS, "", "")
                     
                 # set FF VARS
                 case 3:
                     self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_varsT_FF, flam3h_varsPRM_FF(f3h_ffPrmPrx.PRM).varsPRM_FF(), "", "")
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_varsW_FF, "", "")
-                    self.paste_set_note(node, from_FLAM3H_NODE, 2, f3h_copyPaste.SEC_VARS, "", "")
+                    self.paste_set_note(node, from_FLAM3H_NODE, 2, f3h_copyPaste.DEFAULT_SEC_VARS, "", "")
                     
                 # set FF POST VARS
                 case 4:
                     self.pastePRM_T_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postvarsT_FF, flam3h_varsPRM_FF(f3h_ffPrmPrx.PRM_PP).varsPRM_FF(), "", "")
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postvarsW_FF, "", "")
-                    self.paste_set_note(node, from_FLAM3H_NODE, 2, f3h_copyPaste.SEC_POSTVARS, "", "")
+                    self.paste_set_note(node, from_FLAM3H_NODE, 2, f3h_copyPaste.DEFAULT_SEC_POSTVARS, "", "")
                     
                 # set FF PRE AFFINE
                 case 5:
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_preAffine_FF, "", "")
                     if not self.is_FF_affine_default(node, from_FLAM3H_NODE, f3h_iter_FF.sec_preAffine_FF):
-                        self.paste_set_note(node, from_FLAM3H_NODE, 2, f3h_copyPaste.SEC_PREAFFINE, "", "")
+                        self.paste_set_note(node, from_FLAM3H_NODE, 2, f3h_copyPaste.DEFAULT_SEC_PREAFFINE, "", "")
                         
                 # set FF POST AFFINE
                 case 6:
                     self.paste_from_list(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postAffine_FF, "", "")
                     if not self.is_FF_affine_default(node, from_FLAM3H_NODE, f3h_iter_FF.sec_postAffine_FF, True):
-                        self.paste_set_note(node, from_FLAM3H_NODE, 2, f3h_copyPaste.SEC_POSTAFFINE, "", "")
+                        self.paste_set_note(node, from_FLAM3H_NODE, 2, f3h_copyPaste.DEFAULT_SEC_POSTAFFINE, "", "")
 
             node.parm(f"{f3h_ffPrmPrx.PRM}{n.main_prmpastesel}").set(0)
             
@@ -9159,7 +9159,7 @@ class flam3h_iterator_utils
                 from_FLAM3H_NODE.parm(f"{f3h_ffPrmPrx.PRM}{n.main_prmpastesel}").deleteAllKeyframes()
                     
         else:
-            _MSG: str = f"{node.name()} -> {f3h_copyPaste.MSG_MARK_FF_STATUS_BAR}"
+            _MSG: str = f"{node.name()} -> {f3h_copyPaste.DEFAULT_MSG_MARK_FF_STATUS_BAR}"
             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
             
 
@@ -9957,11 +9957,11 @@ class flam3h_iterator_utils
                         _XF_VIZ_DEL = True
 
                 if _ITER_DEL and _XF_VIZ_DEL:
-                    _MSG: str = f"{node.name()}: One of the iterators you just removed was marked for being copied and one had its XF VIZ in SOLO mode. Reverted to display all the xforms handles VIZ together. -> {f3h_copyPaste.MSG_MARK_ITER_STATUS_BAR}"
+                    _MSG: str = f"{node.name()}: One of the iterators you just removed was marked for being copied and one had its XF VIZ in SOLO mode. Reverted to display all the xforms handles VIZ together. -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
                     flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                     
                 elif _ITER_DEL:
-                     _MSG: str = f"{node.name()}: One of the iterators you just removed was marked for being copied -> {f3h_copyPaste.MSG_MARK_ITER_STATUS_BAR}"
+                     _MSG: str = f"{node.name()}: One of the iterators you just removed was marked for being copied -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
                      flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                      
                 elif _XF_VIZ_DEL:
@@ -10027,7 +10027,7 @@ class flam3h_iterator_utils
                             prm_mpidx.set(-1)
                             self.del_comment_and_user_data_iterator(node)
                             # Let us know
-                            _MSG: str = f"{node.name()}: The iterator you just removed was marked for being copied -> {f3h_copyPaste.MSG_MARK_ITER_STATUS_BAR}"
+                            _MSG: str = f"{node.name()}: The iterator you just removed was marked for being copied -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         
                 # XF VIZ
@@ -10095,7 +10095,7 @@ class flam3h_iterator_utils
                             prm_mpidx.set(-1)
                             self.del_comment_and_user_data_iterator(node)
                             # Let us know
-                            _MSG: str = f"{node.name()}: The iterator you just removed was marked for being copied -> {f3h_copyPaste.MSG_MARK_ITER_STATUS_BAR}"
+                            _MSG: str = f"{node.name()}: The iterator you just removed was marked for being copied -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                             
                         else:
@@ -10339,7 +10339,7 @@ class flam3h_iterator_utils
         # Probably becasue I am now raising an error from the xaos cvex code and when it does
         # it is not allowed to cook ? Need to investigate...
         try:
-            hou.node(flam3h_general_utils(self.kwargs).get_node_path(f3h_nodeNames.TFFA_XAOS)).cook(force=True)
+            hou.node(flam3h_general_utils(self.kwargs).get_node_path(f3h_nodeNames.DEFAULT_TFFA_XAOS)).cook(force=True)
         except AttributeError as e:
             F3H_Exception.F3H_traceback_print_infos(e)
             pass
@@ -10348,7 +10348,7 @@ class flam3h_iterator_utils
         
         if do_msg:
             # Print to Houdini's status bar
-            _MSG_str = f"{f3h_tabs.MSG_ZERO_ITERATORS} Add at least one iterator or load a valid IN flame file"
+            _MSG_str = f"{f3h_tabs.DEFAULT_MSG_ZERO_ITERATORS} Add at least one iterator or load a valid IN flame file"
             _MSG: str = f"{node.name()}: {_MSG_str}"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Iterators count ZERO")
@@ -10378,7 +10378,7 @@ class flam3h_iterator_utils
         self.update_xml_last_loaded(False)
         
         # Clear status bar msg if needed
-        if  f3h_tabs.MSG_ZERO_ITERATORS in hou.ui.statusMessage()[0]: # type: ignore
+        if  f3h_tabs.DEFAULT_MSG_ZERO_ITERATORS in hou.ui.statusMessage()[0]: # type: ignore
             flam3h_general_utils.set_status_msg('', 'MSG')
             
 
@@ -10671,7 +10671,7 @@ class flam3h_palette_utils
                     
                 # This is the moment of the truth ;)
                 try:
-                    data[f3h_tabs.CP.JSON_KEY_NAME_HEX]
+                    data[f3h_tabs.CP.DEFAULT_JSON_KEY_NAME_HEX]
                     
                 except (KeyError, TypeError) as e:
                     _MSG_C: str = f"JSON file is legitimate, but it does not contain any valid FLAM3H™ Palette data."
@@ -10789,23 +10789,23 @@ class flam3h_palette_utils
         """  
         palette_msg: str = node.parm(f3h_tabs.CP.MSG_PRM_PALETTE).eval()
         if len(HEXs) > 256:
-            if f3h_tabs.CP.MSG_PLUS in palette_msg:
+            if f3h_tabs.CP.DEFAULT_MSG_PLUS in palette_msg:
                 pass
             
             else:
-                node.parm(f3h_tabs.CP.MSG_PRM_PALETTE).set(f"{f3h_tabs.CP.MSG_PLUS.strip()} {palette_msg.strip()}")
+                node.parm(f3h_tabs.CP.MSG_PRM_PALETTE).set(f"{f3h_tabs.CP.DEFAULT_MSG_PLUS.strip()} {palette_msg.strip()}")
                 
                 if palette_plus_msg and node.parm(f3h_tabs.PREFS.PRM_PALETTE_256_PLUS).eval():
                     _MSG: str = f"OUT Palette 256+: ON"
-                    flam3h_general_utils.flash_message(node, f3h_tabs.CP.MSG_PLUS)
+                    flam3h_general_utils.flash_message(node, f3h_tabs.CP.DEFAULT_MSG_PLUS)
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
         else:
-            if f3h_tabs.CP.MSG_PLUS in palette_msg:
-                node.parm(f3h_tabs.CP.MSG_PRM_PALETTE).set(f"{palette_msg[len(f3h_tabs.CP.MSG_PLUS.strip()):]}")
+            if f3h_tabs.CP.DEFAULT_MSG_PLUS in palette_msg:
+                node.parm(f3h_tabs.CP.MSG_PRM_PALETTE).set(f"{palette_msg[len(f3h_tabs.CP.DEFAULT_MSG_PLUS.strip()):]}")
                 
                 if palette_plus_msg and node.parm(f3h_tabs.PREFS.PRM_PALETTE_256_PLUS).eval():
                     _MSG: str = f"OUT Palette 256+: OFF"
-                    flam3h_general_utils.flash_message(node, f"{f3h_tabs.CP.MSG_PLUS} OFF")
+                    flam3h_general_utils.flash_message(node, f"{f3h_tabs.CP.DEFAULT_MSG_PLUS} OFF")
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                 
             else:
@@ -10837,8 +10837,8 @@ class flam3h_palette_utils
         """  
         
         palette_msg: str = node.parm(f3h_tabs.CP.MSG_PRM_PALETTE).eval()
-        if f3h_tabs.CP.MSG_PLUS in palette_msg:
-            node.parm(f3h_tabs.CP.MSG_PRM_PALETTE).set(f"{f3h_tabs.CP.MSG_PLUS.strip()} {_MSG.strip()}")
+        if f3h_tabs.CP.DEFAULT_MSG_PLUS in palette_msg:
+            node.parm(f3h_tabs.CP.MSG_PRM_PALETTE).set(f"{f3h_tabs.CP.DEFAULT_MSG_PLUS.strip()} {_MSG.strip()}")
         else:
             node.parm(f3h_tabs.CP.MSG_PRM_PALETTE).set(f"{_MSG}")
 
@@ -11259,10 +11259,10 @@ class flam3h_palette_utils
         HEXs: list[str] = [_rgb_to_hex(palette.lookup(p)) for p in POSs]
         
         if hsv_vals_prm[0] == hsv_vals_prm[1] == hsv_vals_prm[2] == 1:
-            json_dict: dict[str, dict[str, str]] = { presetname: {f3h_tabs.CP.JSON_KEY_NAME_HEX: ''.join(HEXs),  } }
+            json_dict: dict[str, dict[str, str]] = { presetname: {f3h_tabs.CP.DEFAULT_JSON_KEY_NAME_HEX: ''.join(HEXs),  } }
         else:
             hsv_vals: str = ' '.join([str(x) for x in hsv_vals_prm])
-            json_dict: dict[str, dict[str, str]] = { presetname: {f3h_tabs.CP.JSON_KEY_NAME_HEX: ''.join(HEXs), f3h_tabs.CP.JSON_KEY_NAME_HSV: hsv_vals} }
+            json_dict: dict[str, dict[str, str]] = { presetname: {f3h_tabs.CP.DEFAULT_JSON_KEY_NAME_HEX: ''.join(HEXs), f3h_tabs.CP.DEFAULT_JSON_KEY_NAME_HSV: hsv_vals} }
             
         # OUTPUT DATA
         return json_dict, json.dumps(json_dict, indent=4)
@@ -11533,14 +11533,14 @@ class flam3h_palette_utils
                     data: dict = json.load(r)[preset]
                     
                 try:
-                    hsv_vals: list[float] = [float(x) for x in str(data[f3h_tabs.CP.JSON_KEY_NAME_HSV]).split(' ')]
+                    hsv_vals: list[float] = [float(x) for x in str(data[f3h_tabs.CP.DEFAULT_JSON_KEY_NAME_HSV]).split(' ')]
                     hsv_check: bool = True
                 except (ValueError, KeyError):
                     hsv_vals: list[float] = []
                     hsv_check: bool = False
                 
                 # Get usable color values
-                HEXs: list[str] = [hex for hex in wrap(data[f3h_tabs.CP.JSON_KEY_NAME_HEX], 6)]
+                HEXs: list[str] = [hex for hex in wrap(data[f3h_tabs.CP.DEFAULT_JSON_KEY_NAME_HEX], 6)]
                 
                 try:
                     _hex_to_rgb: Callable[[str], tuple] = self.hex_to_rgb
@@ -11714,7 +11714,7 @@ class flam3h_palette_utils
                 try:
                     assert data is not None
                     # Check if it is a valid FLAM3H™ JSON data. This is the moment of the truth ;)
-                    data[f3h_tabs.CP.JSON_KEY_NAME_HEX]
+                    data[f3h_tabs.CP.DEFAULT_JSON_KEY_NAME_HEX]
                     
                 except (KeyError, TypeError):
                     isJSON_F3H: bool = False
@@ -11733,7 +11733,7 @@ class flam3h_palette_utils
                     rmp_hsv = node.parm(f3h_tabs.CP.PRM_RAMP_HSV_NAME)
                     
                     try:
-                        hsv_vals: list[float] = [float(x) for x in data[f3h_tabs.CP.JSON_KEY_NAME_HSV].split(' ')]
+                        hsv_vals: list[float] = [float(x) for x in data[f3h_tabs.CP.DEFAULT_JSON_KEY_NAME_HSV].split(' ')]
                         
                     except (KeyError, ValueError):
                         hsv_vals: list[float] = []
@@ -11743,7 +11743,7 @@ class flam3h_palette_utils
                         hsv_check: bool = True
                     
                     # Get usable color values
-                    HEXs: list[str] = [hex for hex in wrap(data[f3h_tabs.CP.JSON_KEY_NAME_HEX], 6)]
+                    HEXs: list[str] = [hex for hex in wrap(data[f3h_tabs.CP.DEFAULT_JSON_KEY_NAME_HEX], 6)]
                     
                     try:
                         _hex_to_rgb: Callable[[str], tuple] = self.hex_to_rgb
@@ -12636,88 +12636,91 @@ and change the flame → “name” key afterwards.
 
 class xml_keys:
     '''
-    XML standard keys for XML flame files.</br>
+    Xml standard keys for Xml flame files.</br>
     It also include Fractorium keys where applicable along with defaults.</br></br>
     
-    Used when loading/saving flame XML files.</br>
+    Used when loading/saving flame Xml files.</br>
     
     Mainly for organizational purposes and namespace.</br></br>
     
+    * Xml keys names always start with the prefix: <b>XML_</b>
     * Default values always start with the prefix: <b>DEFAULT_</b>
-    * Miscellaneous constants can be anything else.
+    * Regex always start with the prefix: <b>REGEX_</b>
+    * Miscellaneous constants can be anything else.</b>
     '''
     # For now we force to assume a valid flame's XML file must have this tree.root name.
-    ROOT: Final = 'flames'
+    XML_ROOT: Final = 'flames'
     # And this for a valid chaotica file ( not supported )
-    ROOT_CHAOS: Final = 'ifs'
+    XML_ROOT_CHAOS: Final = 'ifs'
 
-    APP_NAME_FLAM3H: Final = 'FLAM3H'
-    APP_NAME_FRACTORIUM: Final = 'EMBER'
+    XML_APP_NAME_FLAM3H: Final = 'FLAM3H'
+    XML_APP_NAME_FRACTORIUM: Final = 'EMBER'
 
-    NAME: Final = 'flame'
-    VERSION: Final = 'version'
-    SIZE: Final = 'size'
-    RESOLUTION: Final = 'resolution' # This is not used by the Flame format but only a one off for the IN Infos Flame stats UI
-    CENTER: Final = 'center'
-    ROTATE: Final = 'rotate'
-    SCALE: Final = 'scale'
-    BG: Final = 'background'
-    SUPERSAMPLE: Final = 'supersample'
-    FILTER: Final = 'filter'
-    QUALITY: Final = 'quality'
-    BRIGHTNESS: Final = 'brightness'
-    GAMMA: Final = 'gamma'
-    GAMMA_THRESHOLD: Final = 'gamma_threshold'
-    VIBRANCY: Final = 'vibrancy'
-    POWER: Final = 'highlight_power'
-    K2: Final = 'logscale_k2'
-    RADIUS: Final = 'estimator_radius'
-    ESTIMATOR_MINIMUM: Final = 'estimator_minimum'
-    ESTIMATOR_CURVE: Final = 'estimator_curve'
-    PALETTE_MODE: Final = 'palette_mode'
-    INTERPOLATION: Final = 'interpolation'
-    INTERPOLATION_TYPE: Final = 'interpolation_type'
-    PLUGINS: Final = 'plugins'
-    NEW_LINEAR: Final = 'new_linear'
+    XML_NAME: Final = 'flame'
+    XML_VERSION: Final = 'version'
+    XML_SIZE: Final = 'size'
+    XML_RESOLUTION: Final = 'resolution' # This is not used by the Flame format but only a one off for the IN Infos Flame stats UI
+    XML_CENTER: Final = 'center'
+    XML_ROTATE: Final = 'rotate'
+    XML_SCALE: Final = 'scale'
+    XML_BG: Final = 'background'
+    XML_SUPERSAMPLE: Final = 'supersample'
+    XML_FILTER: Final = 'filter'
+    XML_QUALITY: Final = 'quality'
+    XML_BRIGHTNESS: Final = 'brightness'
+    XML_GAMMA: Final = 'gamma'
+    XML_GAMMA_THRESHOLD: Final = 'gamma_threshold'
+    XML_VIBRANCY: Final = 'vibrancy'
+    XML_POWER: Final = 'highlight_power'
+    XML_K2: Final = 'logscale_k2'
+    XML_RADIUS: Final = 'estimator_radius'
+    XML_ESTIMATOR_MINIMUM: Final = 'estimator_minimum'
+    XML_ESTIMATOR_CURVE: Final = 'estimator_curve'
+    XML_PALETTE_MODE: Final = 'palette_mode'
+    XML_INTERPOLATION: Final = 'interpolation'
+    XML_INTERPOLATION_TYPE: Final = 'interpolation_type'
+    XML_PLUGINS: Final = 'plugins'
+    XML_NEW_LINEAR: Final = 'new_linear'
     
-    CC_CURVES: Final = 'curves'    
+    XML_CC_CURVES: Final = 'curves'    
     DEFAULT_CC_CURVES: Final = '0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1'
     DEFAULT_CC_CURVES_B: Final = '0 0 1 0.25 0.25 1 0.75 0.75 1 1 1 1 0 0 1 0.25 0.25 1 0.75 0.75 1 1 1 1 0 0 1 0.25 0.25 1 0.75 0.75 1 1 1 1 0 0 1 0.25 0.25 1 0.75 0.75 1 1 1 1'
     DEFAULT_CC_CURVES_C: Final = '0 0 1 0.25 0.25 1 1 1 1 0.75 0.75 1 0 0 1 0.25 0.25 1 1 1 1 0.75 0.75 1 0 0 1 0.25 0.25 1 1 1 1 0.75 0.75 1 0 0 1 0.25 0.25 1 1 1 1 0.75 0.75 1'
     DEFAULT_CC_CURVES_ALL: tuple[str, ...] = (DEFAULT_CC_CURVES.__str__(), DEFAULT_CC_CURVES_B.__str__(), DEFAULT_CC_CURVES_C.__str__()) # I'll do a better solution another day for this
 
-    CC_CURVE_OVERALL: Final = 'overall_curve'
-    CC_CURVE_RED: Final = 'red_curve'
-    CC_CURVE_GREEN: Final = 'green_curve'
-    CC_CURVE_BLUE: Final = 'blue_curve'
+    XML_CC_CURVE_OVERALL: Final = 'overall_curve'
+    XML_CC_CURVE_RED: Final = 'red_curve'
+    XML_CC_CURVE_GREEN: Final = 'green_curve'
+    XML_CC_CURVE_BLUE: Final = 'blue_curve'
     DEFAULT_CC_CURVE: Final = '0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1'
     DEFAULT_CC_CURVE_B: Final = '0 0 0.25 0.25 0.75 0.75 1 1'
     DEFAULT_CC_CURVE_C: Final = '0 0 0.25 0.25 1 1 0.75 0.75' # This order is odd but I have some flames coming in with this so...
     DEFAULT_CC_CURVE_ALL: tuple[str, ...] = (DEFAULT_CC_CURVE.__str__(), DEFAULT_CC_CURVE_B.__str__(), DEFAULT_CC_CURVE_C.__str__()) # I'll do a better solution another day for this
 
-    PRE_AFFINE: Final = 'coefs'
-    POST_AFFINE: Final = 'post'
+    XML_PRE_AFFINE: Final = 'coefs'
+    XML_POST_AFFINE: Final = 'post'
 
-    XF: Final = 'xform'
-    XF_NAME: Final = 'name'
-    XF_WEIGHT: Final = 'weight'
-    XF_COLOR: Final = 'color'
-    XF_VAR_COLOR: Final = 'var_color'
-    XF_SYMMETRY: Final = 'symmetry'
-    XF_COLOR_SPEED: Final = 'color_speed'
-    XF_OPACITY: Final = 'opacity'
-    XF_PB: Final = 'pre_blur'
-    XF_XAOS: Final = 'chaos'
-    XF_ANIMATE: Final = 'animate' # Fractorium only
+    XML_XF: Final = 'xform'
+    XML_XF_NAME: Final = 'name'
+    XML_XF_WEIGHT: Final = 'weight'
+    XML_XF_COLOR: Final = 'color'
+    XML_XF_VAR_COLOR: Final = 'var_color'
+    XML_XF_SYMMETRY: Final = 'symmetry'
+    XML_XF_COLOR_SPEED: Final = 'color_speed'
+    XML_XF_OPACITY: Final = 'opacity'
+    XML_XF_PB: Final = 'pre_blur'
+    XML_XF_XAOS: Final = 'chaos'
+    XML_XF_ANIMATE: Final = 'animate' # Fractorium only
 
-    FF: Final = 'finalxform'
+    XML_FF: Final = 'finalxform'
 
-    PALETTE: Final = 'palette'
-    PALETTE_COUNT: Final = 'count'
-    PALETTE_FORMAT: Final = 'format'
+    XML_PALETTE: Final = 'palette'
+    XML_PALETTE_COUNT: Final = 'count'
+    XML_PALETTE_FORMAT: Final = 'format'
     
     DEFAULT_VAR_PRE_PRX: Final = "pre_"
     DEFAULT_VAR_POST_PRX: Final = "post_"
+    
     REGEX_PRE = "^(?:pre_)"
     REGEX_POST = "^(?:post_)"
     
@@ -12727,19 +12730,19 @@ class xml_keys:
         FLAM3H™ custom XML keys and defaults.</br>
         Used when loading/saving flame XML files.</br>
         '''
-        RIP: Final = 'flam3h_rip'
-        F3C: Final = 'flam3h_f3c'
-        HSV: Final = 'flam3h_hsv'
-        MB_FPS: Final = 'flam3h_mb_fps'
-        MB_SAMPLES: Final = 'flam3h_mb_samples'
-        MB_SHUTTER: Final = 'flam3h_mb_shutter'
-        CP_SAMPLES: Final = 'flam3h_cp_samples'
-        CP_SAMPLES_BASIS: Final = 'flam3h_cp_basis'
+        XML_RIP: Final = 'flam3h_rip'
+        XML_F3C: Final = 'flam3h_f3c'
+        XML_HSV: Final = 'flam3h_hsv'
+        XML_MB_FPS: Final = 'flam3h_mb_fps'
+        XML_MB_SAMPLES: Final = 'flam3h_mb_samples'
+        XML_MB_SHUTTER: Final = 'flam3h_mb_shutter'
+        XML_CP_SAMPLES: Final = 'flam3h_cp_samples'
+        XML_CP_SAMPLES_BASIS: Final = 'flam3h_cp_basis'
         
-        PRE_AFFINE: Final = 'f3h_coefs'
-        PRE_AFFINE_ANGLE: Final = 'f3h_coefs_angle'
-        POST_AFFINE: Final = 'f3h_post'
-        POST_AFFINE_ANGLE: Final = 'f3h_post_angle'
+        XML_PRE_AFFINE: Final = 'f3h_coefs'
+        XML_PRE_AFFINE_ANGLE: Final = 'f3h_coefs_angle'
+        XML_POST_AFFINE: Final = 'f3h_post'
+        XML_POST_AFFINE_ANGLE: Final = 'f3h_post_angle'
         
         # It happen that Houdini sometime round value to many, many decimals.
         # I am limiting this to max 8 decimals on export so not to have the xml file explode with trailing floats...
@@ -12758,62 +12761,62 @@ class xml_keys:
 # XML OUT render key data prm names HOUDINI
 # for now make sense to expose those, I may add more in the future if needed
 # Note that those are the FLAM3H™ UI parameter's names for the OUT Render properties tab.
-XML_RENDER_HOUDINI_DICT: dict[str, str] = { xml_keys.XF_NAME: f3h_tabs.OUT.PRM_FLAME_PRESET_NAME,
-                                            xml_keys.SIZE: f3h_tabs.OUT.PRM_RENDER_SIZE,
-                                            xml_keys.CENTER: f3h_tabs.OUT.PRM_RENDER_CENTER,
-                                            xml_keys.ROTATE: f3h_tabs.OUT.PRM_RENDER_ROTATE,
-                                            xml_keys.SCALE: f3h_tabs.OUT.PRM_RENDER_SCALE,
-                                            xml_keys.QUALITY: f3h_tabs.OUT.PRM_RENDER_QUALITY,
-                                            xml_keys.BRIGHTNESS: f3h_tabs.OUT.PRM_RENDER_BRIGHTNESS,
-                                            xml_keys.GAMMA: f3h_tabs.OUT.PRM_RENDER_GAMMA,
-                                            xml_keys.POWER: f3h_tabs.OUT.PRM_RENDER_POWER,
-                                            xml_keys.K2: f3h_tabs.OUT.PRM_RENDER_K2,
-                                            xml_keys.VIBRANCY: f3h_tabs.OUT.PRM_RENDER_VIBRANCY,
-                                            xml_keys.CC_CURVES: f3h_tabs.OUT.PRM_RENDER_CC_CURVES,
-                                            xml_keys.CC_CURVE_OVERALL: f3h_tabs.OUT.PRM_RENDER_CC_CURVE_OVERALL,
-                                            xml_keys.CC_CURVE_RED: f3h_tabs.OUT.PRM_RENDER_CC_CURVE_RED,
-                                            xml_keys.CC_CURVE_GREEN: f3h_tabs.OUT.PRM_RENDER_CC_CURVE_GREEN,
-                                            xml_keys.CC_CURVE_BLUE: f3h_tabs.OUT.PRM_RENDER_CC_CURVE_BLUE
+XML_RENDER_HOUDINI_DICT: dict[str, str] = { xml_keys.XML_XF_NAME: f3h_tabs.OUT.PRM_FLAME_PRESET_NAME,
+                                            xml_keys.XML_SIZE: f3h_tabs.OUT.PRM_RENDER_SIZE,
+                                            xml_keys.XML_CENTER: f3h_tabs.OUT.PRM_RENDER_CENTER,
+                                            xml_keys.XML_ROTATE: f3h_tabs.OUT.PRM_RENDER_ROTATE,
+                                            xml_keys.XML_SCALE: f3h_tabs.OUT.PRM_RENDER_SCALE,
+                                            xml_keys.XML_QUALITY: f3h_tabs.OUT.PRM_RENDER_QUALITY,
+                                            xml_keys.XML_BRIGHTNESS: f3h_tabs.OUT.PRM_RENDER_BRIGHTNESS,
+                                            xml_keys.XML_GAMMA: f3h_tabs.OUT.PRM_RENDER_GAMMA,
+                                            xml_keys.XML_POWER: f3h_tabs.OUT.PRM_RENDER_POWER,
+                                            xml_keys.XML_K2: f3h_tabs.OUT.PRM_RENDER_K2,
+                                            xml_keys.XML_VIBRANCY: f3h_tabs.OUT.PRM_RENDER_VIBRANCY,
+                                            xml_keys.XML_CC_CURVES: f3h_tabs.OUT.PRM_RENDER_CC_CURVES,
+                                            xml_keys.XML_CC_CURVE_OVERALL: f3h_tabs.OUT.PRM_RENDER_CC_CURVE_OVERALL,
+                                            xml_keys.XML_CC_CURVE_RED: f3h_tabs.OUT.PRM_RENDER_CC_CURVE_RED,
+                                            xml_keys.XML_CC_CURVE_GREEN: f3h_tabs.OUT.PRM_RENDER_CC_CURVE_GREEN,
+                                            xml_keys.XML_CC_CURVE_BLUE: f3h_tabs.OUT.PRM_RENDER_CC_CURVE_BLUE
                                             }
 
 
 # This is used inside: __get_name_list_str(...)
 # to set what default single value should be used in case something goes wrong during the processed string value cleanup/correction
-XML_TO_F3H_DEFAULT_VALS: dict[str, str] = { xml_keys.XF_WEIGHT: '0.5', 
-                                            xml_keys.XF_COLOR: '0', 
-                                            xml_keys.XF_COLOR_SPEED: '0', 
-                                            xml_keys.XF_SYMMETRY: '0', 
-                                            xml_keys.XF_OPACITY: '1', 
-                                            xml_keys.f3h.HSV: '1', 
-                                            xml_keys.SIZE: '1024'
+XML_TO_F3H_DEFAULT_VALS: dict[str, str] = { xml_keys.XML_XF_WEIGHT: '0.5', 
+                                            xml_keys.XML_XF_COLOR: '0', 
+                                            xml_keys.XML_XF_COLOR_SPEED: '0', 
+                                            xml_keys.XML_XF_SYMMETRY: '0', 
+                                            xml_keys.XML_XF_OPACITY: '1', 
+                                            xml_keys.f3h.XML_HSV: '1', 
+                                            xml_keys.XML_SIZE: '1024'
                                             }
 
 
 # This is used inside: def xf_list_cleanup(...) and def xf_list_cleanup_str(...)
 # to gather a proper default list of values in case the one from the XML is empty.
-XML_TO_F3H_LIST_DEFAULT_VALS: dict[str, str] = {xml_keys.SIZE: '1024 1024', 
-                                                xml_keys.CENTER: '0 0', 
-                                                xml_keys.f3h.HSV: '1 1 1'
+XML_TO_F3H_LIST_DEFAULT_VALS: dict[str, str] = {xml_keys.XML_SIZE: '1024 1024', 
+                                                xml_keys.XML_CENTER: '0 0', 
+                                                xml_keys.f3h.XML_HSV: '1 1 1'
                                                 }
 
 
 # Since we get the folowing keys in a separate action, we exclude them for later variation's names searches to help speed up a little.
-XML_XF_KEY_EXCLUDE: tuple[str, ...] = ( xml_keys.XF_WEIGHT, 
-                                        xml_keys.XF_COLOR, 
-                                        xml_keys.XF_VAR_COLOR, 
-                                        xml_keys.XF_SYMMETRY, 
-                                        xml_keys.XF_COLOR_SPEED, 
-                                        xml_keys.XF_NAME, 
-                                        xml_keys.XF_ANIMATE, 
-                                        xml_keys.XF_PB, 
-                                        xml_keys.PRE_AFFINE, 
-                                        xml_keys.f3h.PRE_AFFINE, 
-                                        xml_keys.f3h.PRE_AFFINE_ANGLE, 
-                                        xml_keys.POST_AFFINE, 
-                                        xml_keys.f3h.POST_AFFINE, 
-                                        xml_keys.f3h.POST_AFFINE_ANGLE, 
-                                        xml_keys.XF_XAOS, 
-                                        xml_keys.XF_OPACITY
+XML_XF_KEY_EXCLUDE: tuple[str, ...] = ( xml_keys.XML_XF_WEIGHT, 
+                                        xml_keys.XML_XF_COLOR, 
+                                        xml_keys.XML_XF_VAR_COLOR, 
+                                        xml_keys.XML_XF_SYMMETRY, 
+                                        xml_keys.XML_XF_COLOR_SPEED, 
+                                        xml_keys.XML_XF_NAME, 
+                                        xml_keys.XML_XF_ANIMATE, 
+                                        xml_keys.XML_XF_PB, 
+                                        xml_keys.XML_PRE_AFFINE, 
+                                        xml_keys.f3h.XML_PRE_AFFINE, 
+                                        xml_keys.f3h.XML_PRE_AFFINE_ANGLE, 
+                                        xml_keys.XML_POST_AFFINE, 
+                                        xml_keys.f3h.XML_POST_AFFINE, 
+                                        xml_keys.f3h.XML_POST_AFFINE_ANGLE, 
+                                        xml_keys.XML_XF_XAOS, 
+                                        xml_keys.XML_XF_OPACITY
                                         )
 
 
@@ -13136,7 +13139,7 @@ class _xml:
 class _xml
 
 @METHODS
-* def get_name(self, key: str = xml_keys.XF_NAME) -> tuple[str | list[Never], ...]:
+* def get_name(self, key: str = xml_keys.XML_XF_NAME) -> tuple[str | list[Never], ...]:
 
     """    
     
@@ -13176,7 +13179,7 @@ class _xml
         return self._tree
         
         
-    def get_name(self, key: str = xml_keys.XF_NAME) -> tuple[str | list[Never], ...]:
+    def get_name(self, key: str = xml_keys.XML_XF_NAME) -> tuple[str | list[Never], ...]:
         """Collect all Flame presets name from the XML Flame file.</br></br>
         
         This is being added as a quick and cheap way to do so making some assumption ahead of time.</br>
@@ -13184,7 +13187,7 @@ class _xml
 
         Args:
             (self):
-            key(str): Default to: xml_keys.XF_NAME</br>The XML Flame's name key.
+            key(str): Default to: xml_keys.XML_XF_NAME</br>The XML Flame's name key.
 
         Returns:
             (tuple[str | list[Never], ...]): Flame presets names packed into a tuple of strings</br>or an empty list instead if the XML key is not found in the XML preset. Or an empty tuple.
@@ -13193,10 +13196,10 @@ class _xml
             _strip: Callable[[str], str] = str.strip 
             root: lxmlET._Element = self.tree.getroot()
             
-            if xml_keys.ROOT in root.tag.lower():
+            if xml_keys.XML_ROOT in root.tag.lower():
                 return tuple(_strip(keyval) if (keyval := name.get(key)) is not None else [] for name in root)
             
-            newroot: lxmlET._Element = lxmlET.Element(xml_keys.ROOT)
+            newroot: lxmlET._Element = lxmlET.Element(xml_keys.XML_ROOT)
             newroot.insert(0, root)
             return tuple(_strip(keyval) if (keyval := name.get(key)) is not None else [] for name in newroot)
         
@@ -13226,11 +13229,11 @@ class _xml_tree
 * xmlfile_isvalidtree_chk(xmlfile: str) -> bool:
 
 @METHODS
-* get_name(self, key: str = xml_keys.XF_NAME) -> tuple[str | list[Never], ...]:
+* get_name(self, key: str = xml_keys.XML_XF_NAME) -> tuple[str | list[Never], ...]:
 * __get_name_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str | list[Never], ...]:
 * __get_name_curve_val_str(self, key: str, _DEFAULT: str = '0') -> tuple[str | list[Never], ...]:
 * __get_name_list_str(self, key: str) -> tuple[str | list[Never], ...]:
-* __get_flame(self, key: str = xml_keys.NAME) -> tuple[lxmlET._Element, ...] | None:
+* __get_flame(self, key: str = xml_keys.XML_NAME) -> tuple[lxmlET._Element, ...] | None:
 * __get_flame_count(self, flames: list) -> int:
 
 """
@@ -13266,8 +13269,8 @@ class _xml_tree
             
         # This not private as its cheaper to have it evaluate from this parent class.
         self._name: tuple[str | list[Never], ...] = self.get_name()
-        self._plugins: tuple[str | list[Never], ...] = self.get_name(xml_keys.PLUGINS)
-        self._sw_version: tuple[str | list[Never], ...] = self.get_name(xml_keys.VERSION)
+        self._plugins: tuple[str | list[Never], ...] = self.get_name(xml_keys.XML_PLUGINS)
+        self._sw_version: tuple[str | list[Never], ...] = self.get_name(xml_keys.XML_VERSION)
 
 
     @staticmethod
@@ -13330,16 +13333,16 @@ class _xml_tree
         
         root: lxmlET._Element = tree.getroot()
         root_tag: str = root.tag.lower()
-        if xml_keys.ROOT not in root_tag:
-            newroot: lxmlET._Element = lxmlET.Element(xml_keys.ROOT)
+        if xml_keys.XML_ROOT not in root_tag:
+            newroot: lxmlET._Element = lxmlET.Element(xml_keys.XML_ROOT)
             newroot.insert(0, root)
             # If there are flames, proceed
-            if any(True for _ in root.iter(xml_keys.NAME)):
+            if any(True for _ in root.iter(xml_keys.XML_NAME)):
             
                 out_flame_utils._out_pretty_print(newroot)
                 return lxmlET.tostring(newroot, encoding="unicode")
             
-            if xml_keys.ROOT_CHAOS in root_tag:
+            if xml_keys.XML_ROOT_CHAOS in root_tag:
                 # let us know
                 _MSG: str = "IN: Chaotica XML not supported"
                 flam3h_general_utils.set_status_msg(f"{hou.pwd().name()}: {_MSG}", 'WARN')
@@ -13348,7 +13351,7 @@ class _xml_tree
             return None
         
         # If there are flames, proceed
-        if any(True for _ in tree.getroot().iter(xml_keys.NAME)):
+        if any(True for _ in tree.getroot().iter(xml_keys.XML_NAME)):
         
             out_flame_utils._out_pretty_print(root)
             return lxmlET.tostring(root, encoding="unicode")
@@ -13383,10 +13386,10 @@ class _xml_tree
                 if isinstance(tree, lxmlET._ElementTree):
                     
                     root: lxmlET._Element = tree.getroot()
-                    if xml_keys.ROOT in root.tag.lower():
+                    if xml_keys.XML_ROOT in root.tag.lower():
                         
                         # If there are flames, proceed
-                        if any(True for _ in root.iter(xml_keys.NAME)):
+                        if any(True for _ in root.iter(xml_keys.XML_NAME)):
                             return True
                         
                         return False
@@ -13451,12 +13454,12 @@ class _xml_tree
     
 
     # This not private as its cheaper to have it evaluate from this parent class.
-    def get_name(self, key: str = xml_keys.XF_NAME) -> tuple[str | list[Never], ...]:
+    def get_name(self, key: str = xml_keys.XML_XF_NAME) -> tuple[str | list[Never], ...]:
         """Collect all Flame presets name from the XML Flame file.</br>
 
         Args:
             (self):
-            key(str): Default to: xml_keys.XF_NAME</br>The XML Flame's name key.
+            key(str): Default to: xml_keys.XML_XF_NAME</br>The XML Flame's name key.
 
         Returns:
             (tuple[str | list[Never], ...]): Flame presets names packed into a tuple of strings</br>or an empty list instead if the XML key is not found in the XML preset. Or an empty tuple.
@@ -13466,7 +13469,7 @@ class _xml_tree
             root: lxmlET._Element = self.root
             _strip: Callable[[str], str] = str.strip
             _len: Callable[[str], int] = len
-            if key == xml_keys.XF_NAME:
+            if key == xml_keys.XML_XF_NAME:
                 list_values_cleaned: tuple[str | list[Never], ...] = tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else '[]' for name in root)
             else:
                 list_values_cleaned: tuple[str | list[Never], ...] = tuple(_strip(keyval) if (keyval := name.get(key)) is not None and _len(keyval) else [] for name in root)
@@ -13547,12 +13550,12 @@ class _xml_tree
         return () 
         
         
-    def __get_flame(self, key: str = xml_keys.NAME) -> tuple[lxmlET._Element, ...] | None:
+    def __get_flame(self, key: str = xml_keys.XML_NAME) -> tuple[lxmlET._Element, ...] | None:
         """Collect the actual Flame presets object data from the XML file.</br>
 
         Args:
             (self):
-            key (str): Default to: xml_keys.NAME</br>The XML Flame's flame key.
+            key (str): Default to: xml_keys.XML_NAME</br>The XML Flame's flame key.
 
         Returns:
             (tuple | None): Flames objects data or None if not found.
@@ -13605,10 +13608,10 @@ class in_flame
 @METHODS
 * __is_valid_idx(self, idx: int) -> int:
 * __get_xforms(self, idx: int, key: str) -> tuple[dict, ...] | None:
-* __get_xaos(self, xforms: tuple[dict, ...] | None, key: str = xml_keys.XF_XAOS) -> tuple[list[str] | list[Never], ...] | None:
+* __get_xaos(self, xforms: tuple[dict, ...] | None, key: str = xml_keys.XML_XF_XAOS) -> tuple[list[str] | list[Never], ...] | None:
 * __get_affine(self, xforms: tuple[dict, ...] | None, key: str, type: int = 0) -> tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None:
 * __get_keyvalue(self, xforms: tuple[dict, ...] | None, key: str, msg: bool = True) -> tuple[float | str, ...] | None:
-* __get_palette(self, idx: int, key: str = xml_keys.PALETTE) -> tuple[hou.Ramp, int, str] | None:
+* __get_palette(self, idx: int, key: str = xml_keys.XML_PALETTE) -> tuple[hou.Ramp, int, str] | None:
 * __get_palette_flam3h_hsv(self, idx: int) -> TA_TypeMaker | bool:
 * __get_mb_flam3h_mb(self, idx: int, key: str = '') -> int | float | bool | None:
 * __get_cp_flam3h_samples(self, idx: int, palette: tuple[hou.Ramp, int, str] | None = None) -> int | bool:
@@ -13642,40 +13645,40 @@ class in_flame
         self._flame_count: int = self._xml_tree__get_flame_count(self.flame) # type: ignore
         
         # render properties
-        self._out_size: tuple[str | list[Never], ...] = self._xml_tree__get_name_list_str(xml_keys.SIZE) # type: ignore
-        self._out_center: tuple[str | list[Never], ...] = self._xml_tree__get_name_list_str(xml_keys.CENTER) # type: ignore
-        self._out_rotate: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.ROTATE, '0') # type: ignore
-        self._out_scale: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.SCALE, '0') # type: ignore
-        self._out_quality: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.QUALITY, '1000') # type: ignore
-        self._out_brightness: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.BRIGHTNESS, '3') # type: ignore
-        self._out_gamma: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.GAMMA, '2.5') # type: ignore
-        self._out_highlight_power: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.POWER, '5') # type: ignore
-        self._out_logscale_k2: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.K2, '0') # type: ignore
-        self._out_vibrancy: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.VIBRANCY, '0.3333') # type: ignore
+        self._out_size: tuple[str | list[Never], ...] = self._xml_tree__get_name_list_str(xml_keys.XML_SIZE) # type: ignore
+        self._out_center: tuple[str | list[Never], ...] = self._xml_tree__get_name_list_str(xml_keys.XML_CENTER) # type: ignore
+        self._out_rotate: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.XML_ROTATE, '0') # type: ignore
+        self._out_scale: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.XML_SCALE, '0') # type: ignore
+        self._out_quality: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.XML_QUALITY, '1000') # type: ignore
+        self._out_brightness: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.XML_BRIGHTNESS, '3') # type: ignore
+        self._out_gamma: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.XML_GAMMA, '2.5') # type: ignore
+        self._out_highlight_power: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.XML_POWER, '5') # type: ignore
+        self._out_logscale_k2: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.XML_K2, '0') # type: ignore
+        self._out_vibrancy: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.XML_VIBRANCY, '0.3333') # type: ignore
         
         # palette lookup samples basis
-        self._out_palette_mode: tuple[str | list[Never], ...] = self.get_name(xml_keys.PALETTE_MODE)
+        self._out_palette_mode: tuple[str | list[Never], ...] = self.get_name(xml_keys.XML_PALETTE_MODE)
         
         # render curves
-        self._out_curves: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(xml_keys.CC_CURVES, xml_keys.DEFAULT_CC_CURVES) # type: ignore
-        self._out_curve_overall: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(xml_keys.CC_CURVE_OVERALL, xml_keys.DEFAULT_CC_CURVE) # type: ignore
-        self._out_curve_red: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(xml_keys.CC_CURVE_RED, xml_keys.DEFAULT_CC_CURVE) # type: ignore
-        self._out_curve_green: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(xml_keys.CC_CURVE_GREEN, xml_keys.DEFAULT_CC_CURVE) # type: ignore
-        self._out_curve_blue: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(xml_keys.CC_CURVE_BLUE, xml_keys.DEFAULT_CC_CURVE) # type: ignore
+        self._out_curves: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(xml_keys.XML_CC_CURVES, xml_keys.DEFAULT_CC_CURVES) # type: ignore
+        self._out_curve_overall: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(xml_keys.XML_CC_CURVE_OVERALL, xml_keys.DEFAULT_CC_CURVE) # type: ignore
+        self._out_curve_red: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(xml_keys.XML_CC_CURVE_RED, xml_keys.DEFAULT_CC_CURVE) # type: ignore
+        self._out_curve_green: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(xml_keys.XML_CC_CURVE_GREEN, xml_keys.DEFAULT_CC_CURVE) # type: ignore
+        self._out_curve_blue: tuple[str | list[Never], ...] = self._xml_tree__get_name_curve_val_str(xml_keys.XML_CC_CURVE_BLUE, xml_keys.DEFAULT_CC_CURVE) # type: ignore
 
         # custom to FLAM3H™ only
-        self._flam3h_sys_rip: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.RIP) # type: ignore # This xml key must be present to be set otherwise leave it untouched
-        self._flam3h_hsv: tuple[str | list[Never], ...] = self._xml_tree__get_name_list_str(xml_keys.f3h.HSV) # type: ignore
+        self._flam3h_sys_rip: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.XML_RIP) # type: ignore # This xml key must be present to be set otherwise leave it untouched
+        self._flam3h_hsv: tuple[str | list[Never], ...] = self._xml_tree__get_name_list_str(xml_keys.f3h.XML_HSV) # type: ignore
         
         # just check any of the MB val and if exist mean there is MB data to be set.
-        # this will act as bool and if true, it will hold our xml_keys.f3h.MB_FPS value ( as string )
-        self._flam3h_mb: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.MB_FPS) # type: ignore # This xml key must be present to be set otherwise leave it untouched
-        self._flam3h_mb_samples: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.MB_SAMPLES, '16') # type: ignore
-        self._flam3h_mb_shutter: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.MB_SHUTTER, '0.5') # type: ignore
-        self._flam3h_cp_samples: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.CP_SAMPLES, '256') # type: ignore
-        self._flam3h_cp_basis: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.CP_SAMPLES_BASIS, '0') # type: ignore
+        # this will act as bool and if true, it will hold our xml_keys.f3h.XML_MB_FPS value ( as string )
+        self._flam3h_mb: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.XML_MB_FPS) # type: ignore # This xml key must be present to be set otherwise leave it untouched
+        self._flam3h_mb_samples: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.XML_MB_SAMPLES, '16') # type: ignore
+        self._flam3h_mb_shutter: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.XML_MB_SHUTTER, '0.5') # type: ignore
+        self._flam3h_cp_samples: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.XML_CP_SAMPLES, '256') # type: ignore
+        self._flam3h_cp_basis: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.XML_CP_SAMPLES_BASIS, '0') # type: ignore
 
-        self._flam3h_prefs_f3c: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.F3C) # type: ignore # This xml key must be present to be set otherwise leave it untouched
+        self._flam3h_prefs_f3c: tuple[str | list[Never], ...] = self._xml_tree__get_name_val_str(xml_keys.f3h.XML_F3C) # type: ignore # This xml key must be present to be set otherwise leave it untouched
         
 
     @staticmethod
@@ -13856,7 +13859,7 @@ class in_flame
         
         Args:
             affine(list[float]): values from the xml
-            key(str): Default to: ''</br>The type of affine to build: xml_keys.PRE_AFFINE, xml_keys.POST_AFFINE, xml_keys.f3h.PRE_AFFINE, xml_keys.f3h.POST_AFFINE
+            key(str): Default to: ''</br>The type of affine to build: xml_keys.XML_PRE_AFFINE, xml_keys.XML_POST_AFFINE, xml_keys.f3h.XML_PRE_AFFINE, xml_keys.f3h.XML_POST_AFFINE
             mp_idx(int | None): Default to: None</br>Multi parameter index, for messaging purpose only.
             type(int): Default to: 0(Zero)</br>It is either an iterator: 0 or an FF: 1
 
@@ -13869,7 +13872,7 @@ class in_flame
         
         print(datetime.now().strftime('%b-%d-%Y %H:%M:%S'))
         
-        sel: dict[str, str] = {xml_keys.PRE_AFFINE: f"Pre affine", xml_keys.POST_AFFINE: f"Post affine", xml_keys.f3h.PRE_AFFINE: f"F3H Pre affine", xml_keys.f3h.POST_AFFINE: f"F3H Post affine"}
+        sel: dict[str, str] = {xml_keys.XML_PRE_AFFINE: f"Pre affine", xml_keys.XML_POST_AFFINE: f"Post affine", xml_keys.f3h.XML_PRE_AFFINE: f"F3H Pre affine", xml_keys.f3h.XML_POST_AFFINE: f"F3H Post affine"}
         sel_key: str | None = sel.get(key)
         
         # Is it an iterator or an FF or None ?
@@ -13886,7 +13889,7 @@ class in_flame
                 case _:
                     iter_type: int | str | None = None
         
-        if key in [xml_keys.PRE_AFFINE, xml_keys.POST_AFFINE]:
+        if key in [xml_keys.XML_PRE_AFFINE, xml_keys.XML_POST_AFFINE]:
             if affine_count == 0:
                 if iter_type is not None:
                     _MSG: str = f"\t{sel_key} on iterator.{iter_type}, have no affine values. Expeted are: 6\n\t:Reverted back to default affine values."
@@ -13896,7 +13899,7 @@ class in_flame
                 
                 print(f"{_MSG}\n")
                 
-                return [hou.Vector2((tuple( f3h_affineDefaults.IDENT[i:i + 2] ))) for i in (0, 2, 4)]
+                return [hou.Vector2((tuple( f3h_affineDefaults.DEFAULT_IDENT[i:i + 2] ))) for i in (0, 2, 4)]
             
             if iter_type is not None:
                 _MSG: str = f"\t{sel_key} on iterator.{iter_type}, have {affine_count} values. Expeted are: 6\n\t:Using 0.0(Zeros) for missing affine values."
@@ -14104,12 +14107,12 @@ class in_flame
         return None
     
     
-    def __get_xaos(self, xforms: tuple[dict, ...] | None, key: str = xml_keys.XF_XAOS) -> tuple[list[str] | list[Never], ...] | None:
+    def __get_xaos(self, xforms: tuple[dict, ...] | None, key: str = xml_keys.XML_XF_XAOS) -> tuple[list[str] | list[Never], ...] | None:
         """
         Args:
             (self):
             xforms(tuple[dict, ...] | None): list of all xforms contained inside this flame
-            key(str): Default to: xml_keys.XF_XAOS</br>Rhe flame XML xaos tag name.
+            key(str): Default to: xml_keys.XML_XF_XAOS</br>Rhe flame XML xaos tag name.
 
         Returns:
             (tuple[list[str] | list[Never], ...] | None): either a list of xaos strings</br>or an empty list instead if the XML key is not found in the XML preset. Or None
@@ -14167,20 +14170,20 @@ class in_flame
         if self.isvalidtree and xforms is not None:
             
             vars_keys_pre: list | None = None
-            if key == xml_keys.XF_PB: vars_keys_pre = in_flame_utils.in_get_xforms_var_keys(xforms, in_flame_utils.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
+            if key == xml_keys.XML_XF_PB: vars_keys_pre = in_flame_utils.in_get_xforms_var_keys(xforms, in_flame_utils.in_util_make_PRE(VARS_FLAM3_DICT_IDX.keys()), XML_XF_KEY_EXCLUDE)
             
             keyvalues: list[str | float | list[Never]] = []
             for idx, xform in enumerate(xforms):
                 
                 if xform.get(key) is not None:
 
-                    if key in xml_keys.XF_NAME:
+                    if key in xml_keys.XML_XF_NAME:
                         keyvalues.append(str(xform.get(key)).strip())
                         continue
                     
                     else:
-                        if key in xml_keys.XF_OPACITY:
-                            default_val: str | None = XML_TO_F3H_DEFAULT_VALS.get(xml_keys.XF_OPACITY) # This way I keep this dict for all default values purposes
+                        if key in xml_keys.XML_XF_OPACITY:
+                            default_val: str | None = XML_TO_F3H_DEFAULT_VALS.get(xml_keys.XML_XF_OPACITY) # This way I keep this dict for all default values purposes
                             if default_val is None: default_val = '0'
                         
                         else:
@@ -14221,7 +14224,7 @@ class in_flame
                         continue
             
             # CHECKS
-            if key in xml_keys.XF_WEIGHT:
+            if key in xml_keys.XML_XF_WEIGHT:
                 # Let the user know
                 in_flame.check_all_iterator_weights(self.node, keyvalues)
                 
@@ -14231,12 +14234,12 @@ class in_flame
         return None
 
         
-    def __get_palette(self, idx: int, key: str = xml_keys.PALETTE) -> tuple[hou.Ramp, int, str] | None:
+    def __get_palette(self, idx: int, key: str = xml_keys.XML_PALETTE) -> tuple[hou.Ramp, int, str] | None:
         """
         Args:
             (self):
             idx(int): flame idx out of all flames included in the loaded flame file
-            key(str): Default to: xml_keys.PALETTE</br>The flame XML palette tag name
+            key(str): Default to: xml_keys.XML_PALETTE</br>The flame XML palette tag name
 
         Returns:
             (tuple[hou.Ramp, int, str] | None): return a tu-ple with an already made hou.Ramp, number of keys, format or None if something went wrong.
@@ -14274,7 +14277,7 @@ class in_flame
                         # Convert to NumPy array and normalize
                         RGBs_array: NDArray[np_float32] = np_array(RGBs[:len(HEXs)], dtype=np_float32)
                         rgb_from_XML_PALETTE: list[list[float]] = (RGBs_array / 255.0).tolist()
-                        format: str | None = dict(palette_attrib).get(xml_keys.PALETTE_FORMAT)
+                        format: str | None = dict(palette_attrib).get(xml_keys.XML_PALETTE_FORMAT)
                         ramp_keys_count: int = len(rgb_from_XML_PALETTE)
                         POSs: list[int | float] = list(it_islice(it_count(0, 1.0/(ramp_keys_count-1)), (ramp_keys_count)))
                         BASESs: list = [hou.rampBasis.Linear] * (ramp_keys_count) # type: ignore
@@ -14320,9 +14323,9 @@ class in_flame
             (self):
             idx(int): flame idx out of all flames included in the loaded flame file
             key(str): Default to: ''</br>The flame XML motion blur tag name you are interested to get:
-            * xml_keys.f3h.MB_FPS -> flam3h_mb_fps
-            * xml_keys.f3h.MB_SAMPLES -> flam3h_mb_samples
-            * xml_keys.f3h.MB_SHUTTER -> flam3h_mb_shutter
+            * xml_keys.f3h.XML_MB_FPS -> flam3h_mb_fps
+            * xml_keys.f3h.XML_MB_SAMPLES -> flam3h_mb_samples
+            * xml_keys.f3h.XML_MB_SHUTTER -> flam3h_mb_shutter
 
         Returns:
             (int | float | bool | None): FLAM3H™ motion blur parameter's values.
@@ -14330,7 +14333,7 @@ class in_flame
         if self.isvalidtree:
             mb_do: str | list = self.flam3h_mb[idx]
             if isinstance(mb_do, str):
-                if key == xml_keys.f3h.MB_FPS:
+                if key == xml_keys.f3h.XML_MB_FPS:
                     
                     try:
                         return int(mb_do)
@@ -14338,18 +14341,18 @@ class in_flame
                     except ValueError:
                         return False
 
-                elif key == xml_keys.f3h.MB_SAMPLES:
+                elif key == xml_keys.f3h.XML_MB_SAMPLES:
                     mp_samples: str | list = self.flam3h_mb_samples[idx]
                     if isinstance(mp_samples, list):
-                        print(f"Warning:\nIN xml key: {xml_keys.f3h.MB_SAMPLES} -> NOT FOUND, default value used.\n")
+                        print(f"Warning:\nIN xml key: {xml_keys.f3h.XML_MB_SAMPLES} -> NOT FOUND, default value used.\n")
                         return int(16) # default
                     
                     return int(mp_samples)
                     
-                elif key == xml_keys.f3h.MB_SHUTTER:
+                elif key == xml_keys.f3h.XML_MB_SHUTTER:
                     mb_shutter: str | list = self.flam3h_mb_shutter[idx]
                     if isinstance(mb_shutter, list):
-                        print(f"Warning:\nIN xml key: {xml_keys.f3h.MB_SHUTTER} -> NOT FOUND, default value used.\n")
+                        print(f"Warning:\nIN xml key: {xml_keys.f3h.XML_MB_SHUTTER} -> NOT FOUND, default value used.\n")
                         return float(0.5) # default
                     
                     return float(mb_shutter)
@@ -14377,7 +14380,7 @@ class in_flame
             if isinstance(cp_samples_key, str):
                 
                 samples: int = int(cp_samples_key)
-                if samples in f3h_tabs.CP.OUT_MENU_OPTIONS_PLUS: # just make sure the lookup samples count is one of the valid options.
+                if samples in f3h_tabs.CP.DEFAULT_CP_MENU_OPTIONS_PLUS: # just make sure the lookup samples count is one of the valid options.
                     return samples
                 
                 # else return the default value
@@ -14387,7 +14390,7 @@ class in_flame
                 
                 count: int = palette[1]
                 if count > 0:
-                    return int(flam3h_palette_utils.find_nearest_idx(f3h_tabs.CP.OUT_MENU_OPTIONS_PLUS, count))
+                    return int(flam3h_palette_utils.find_nearest_idx(f3h_tabs.CP.DEFAULT_CP_MENU_OPTIONS_PLUS, count))
                 # else return the default value
                 return 256
             
@@ -14508,40 +14511,40 @@ class in_flame_iter_data(in_flame):
         super().__init__(node, xmlfile)
         
         self._idx: int = self._in_flame__is_valid_idx(idx) # type: ignore
-        self._xforms: tuple[dict, ...] | None = self._in_flame__get_xforms(self.idx, xml_keys.XF) # type: ignore
-        self._xf_name: tuple[str, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XF_NAME) # type: ignore
-        self._weight: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XF_WEIGHT) # type: ignore
-        self._pre_blur: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XF_PB) # type: ignore
+        self._xforms: tuple[dict, ...] | None = self._in_flame__get_xforms(self.idx, xml_keys.XML_XF) # type: ignore
+        self._xf_name: tuple[str, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XML_XF_NAME) # type: ignore
+        self._weight: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XML_XF_WEIGHT) # type: ignore
+        self._pre_blur: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XML_XF_PB) # type: ignore
         self._xaos: tuple[list[str] | list[Never], ...] | None  = self._in_flame__get_xaos(self.xforms) # type: ignore
         
-        self._coefs: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.xforms, xml_keys.PRE_AFFINE) # type: ignore
-        self._f3h_coefs: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.xforms, xml_keys.f3h.PRE_AFFINE) # type: ignore
-        self._f3h_coefs_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.f3h.PRE_AFFINE_ANGLE) # type: ignore
-        self._post: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None  = self._in_flame__get_affine(self.xforms, xml_keys.POST_AFFINE) # type: ignore
-        self._f3h_post: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None  = self._in_flame__get_affine(self.xforms, xml_keys.f3h.POST_AFFINE) # type: ignore
-        self._f3h_post_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.f3h.POST_AFFINE_ANGLE) # type: ignore
+        self._coefs: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.xforms, xml_keys.XML_PRE_AFFINE) # type: ignore
+        self._f3h_coefs: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.xforms, xml_keys.f3h.XML_PRE_AFFINE) # type: ignore
+        self._f3h_coefs_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.f3h.XML_PRE_AFFINE_ANGLE) # type: ignore
+        self._post: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None  = self._in_flame__get_affine(self.xforms, xml_keys.XML_POST_AFFINE) # type: ignore
+        self._f3h_post: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None  = self._in_flame__get_affine(self.xforms, xml_keys.f3h.XML_POST_AFFINE) # type: ignore
+        self._f3h_post_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.f3h.XML_POST_AFFINE_ANGLE) # type: ignore
         
-        self._finalxform: tuple[dict, ...] | None = self._in_flame__get_xforms(self.idx, xml_keys.FF) # type: ignore
-        self._finalxform_coefs: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.finalxform, xml_keys.PRE_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_coefs: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.finalxform, xml_keys.f3h.PRE_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_coefs_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.finalxform, xml_keys.f3h.PRE_AFFINE_ANGLE) # type: ignore
-        self._finalxform_post: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None  = self._in_flame__get_affine(self.finalxform, xml_keys.POST_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_post: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.finalxform, xml_keys.f3h.POST_AFFINE, 1) # type: ignore
-        self._finalxform_f3h_post_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.finalxform, xml_keys.f3h.POST_AFFINE_ANGLE) # type: ignore
-        self._finalxform_name: tuple[str, ...] | None = self._in_flame__get_keyvalue(self.finalxform, xml_keys.XF_NAME) # type: ignore
+        self._finalxform: tuple[dict, ...] | None = self._in_flame__get_xforms(self.idx, xml_keys.XML_FF) # type: ignore
+        self._finalxform_coefs: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.finalxform, xml_keys.XML_PRE_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_coefs: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.finalxform, xml_keys.f3h.XML_PRE_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_coefs_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.finalxform, xml_keys.f3h.XML_PRE_AFFINE_ANGLE) # type: ignore
+        self._finalxform_post: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None  = self._in_flame__get_affine(self.finalxform, xml_keys.XML_POST_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_post: tuple[tuple[hou.Vector2, ...] | list[Never], ...] | None = self._in_flame__get_affine(self.finalxform, xml_keys.f3h.XML_POST_AFFINE, 1) # type: ignore
+        self._finalxform_f3h_post_angle: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.finalxform, xml_keys.f3h.XML_POST_AFFINE_ANGLE) # type: ignore
+        self._finalxform_name: tuple[str, ...] | None = self._in_flame__get_keyvalue(self.finalxform, xml_keys.XML_XF_NAME) # type: ignore
         
         self._palette: tuple[hou.Ramp, int, str] | None = self._in_flame__get_palette(self.idx) # type: ignore
-        self._color: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XF_COLOR) # type: ignore
-        self._color_speed: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XF_COLOR_SPEED, False) # type: ignore # Color speed is only used by Fractorium so we silent its warning message when missing
-        self._symmetry: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XF_SYMMETRY) # type: ignore
-        self._opacity: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XF_OPACITY) # type: ignore
+        self._color: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XML_XF_COLOR) # type: ignore
+        self._color_speed: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XML_XF_COLOR_SPEED, False) # type: ignore # Color speed is only used by Fractorium so we silent its warning message when missing
+        self._symmetry: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XML_XF_SYMMETRY) # type: ignore
+        self._opacity: tuple[float, ...] | None = self._in_flame__get_keyvalue(self.xforms, xml_keys.XML_XF_OPACITY) # type: ignore
         
         # custom to FLAM3H™ only
         self._sys_flam3h_rip: int | None = self._in_flame__get_flam3h_toggle(self.flame3h_sys_rip[self.idx]) # type: ignore
         self._cp_flam3h_hsv: TA_TypeMaker | bool = self._in_flame__get_palette_flam3h_hsv(self.idx) # type: ignore
-        self._mb_flam3h_mb_fps: int | float | bool = self._in_flame__get_mb_flam3h_mb(self.idx, xml_keys.f3h.MB_FPS) # type: ignore
-        self._mb_flam3h_mb_samples: int | float | bool = self._in_flame__get_mb_flam3h_mb(self.idx, xml_keys.f3h.MB_SAMPLES) # type: ignore
-        self._mb_flam3h_mb_shutter: int | float | bool = self._in_flame__get_mb_flam3h_mb(self.idx, xml_keys.f3h.MB_SHUTTER) # type: ignore
+        self._mb_flam3h_mb_fps: int | float | bool = self._in_flame__get_mb_flam3h_mb(self.idx, xml_keys.f3h.XML_MB_FPS) # type: ignore
+        self._mb_flam3h_mb_samples: int | float | bool = self._in_flame__get_mb_flam3h_mb(self.idx, xml_keys.f3h.XML_MB_SAMPLES) # type: ignore
+        self._mb_flam3h_mb_shutter: int | float | bool = self._in_flame__get_mb_flam3h_mb(self.idx, xml_keys.f3h.XML_MB_SHUTTER) # type: ignore
         self._cp_flam3h_cp_samples: int | bool = self._in_flame__get_cp_flam3h_samples(self.idx, self.palette) # type: ignore
         self._cp_flam3h_cp_basis: int | bool = self._in_flame__get_cp_flam3h_basis(self.idx) # type: ignore
         self._prefs_flam3h_f3c: int | None = self._in_flame__get_flam3h_toggle(self.flam3h_prefs_f3c[self.idx]) # type: ignore
@@ -15275,7 +15278,7 @@ class in_flame_utils
             return False
             
         else:
-            if xml_keys.ROOT_CHAOS in tree.getroot().tag.lower():
+            if xml_keys.XML_ROOT_CHAOS in tree.getroot().tag.lower():
                 return True
             
             return False
@@ -15303,7 +15306,7 @@ class in_flame_utils
             return False
         
         else:
-            if xml_keys.ROOT_CHAOS in tree.getroot().tag.lower():
+            if xml_keys.XML_ROOT_CHAOS in tree.getroot().tag.lower():
                 return True
             
             return False
@@ -15507,7 +15510,7 @@ class in_flame_utils
                 else:
                     # If not present, we set all the pre affine values for this iterator to a value of: 0(Zero)
                     # Doing so it wont error out on load and it will act as a warning sign.
-                    print(f"Warning: iterator.FF\nIN xml key: {xml_keys.PRE_AFFINE} -> NOT FOUND, zero values used.\n")
+                    print(f"Warning: iterator.FF\nIN xml key: {xml_keys.XML_PRE_AFFINE} -> NOT FOUND, zero values used.\n")
                     
                     for id in range(3): node.parm(f"{prx}{pre_affine[id]}").set(zero_vectors[id])
 
@@ -15534,7 +15537,7 @@ class in_flame_utils
                 else:
                     # If not present, we set all the pre affine values for this iterator to a value of: 0(Zero)
                     # Doing so it wont error out on load and it will act as a warning sign.
-                    print(f"Warning: iterator.{mp_idx+1}\nIN xml key: {xml_keys.PRE_AFFINE} -> NOT FOUND, zero values used.\n")
+                    print(f"Warning: iterator.{mp_idx+1}\nIN xml key: {xml_keys.XML_PRE_AFFINE} -> NOT FOUND, zero values used.\n")
                     
                     for id in range(3): node.parmTuple(f"{prx}{pre_affine[id]}_{idx}").set(zero_vectors[id])
 
@@ -15605,11 +15608,11 @@ class in_flame_utils
         """
         # if the app XML key is missing, set it to start with the Fractorium prefix always
         # otherwise use the found one.
-        if isinstance(app, list): app = f"{xml_keys.APP_NAME_FRACTORIUM}-NOT-FOUND"
+        if isinstance(app, list): app = f"{xml_keys.XML_APP_NAME_FRACTORIUM}-NOT-FOUND"
         else: app = app.upper()
         
         # Lets check which one is coming in so to grab the proper parameteric parameters names
-        if app.startswith(xml_keys.APP_NAME_FRACTORIUM):
+        if app.startswith(xml_keys.XML_APP_NAME_FRACTORIUM):
             check: tuple | None = flam3h_varsPRM_APO().varsPRM_FRACTORIUM_EXCEPTIONS.get(v_type)
             if check is not None:
                 return check
@@ -16319,25 +16322,25 @@ class in_flame_utils
         XML_updated: str = ''
         if XML_last_update: XML_updated = '*'
         
-        size: str = f"{xml_keys.RESOLUTION.capitalize()}: {na}"
+        size: str = f"{xml_keys.XML_RESOLUTION.capitalize()}: {na}"
         size_val: str | list[Never] = apo_data.out_size[preset_id]
         if size_val:
-            size = f"{xml_keys.RESOLUTION.capitalize()}: {size_val}"
+            size = f"{xml_keys.XML_RESOLUTION.capitalize()}: {size_val}"
             
-        center: str = f"{xml_keys.CENTER.capitalize()}: {na}"
+        center: str = f"{xml_keys.XML_CENTER.capitalize()}: {na}"
         center_val: str | list[Never] = apo_data.out_center[preset_id]
         if center_val:
-            center = f"{xml_keys.CENTER.capitalize()}: {center_val}"
+            center = f"{xml_keys.XML_CENTER.capitalize()}: {center_val}"
             
-        rotate: str = f"{xml_keys.ROTATE.capitalize()}: {na}"
+        rotate: str = f"{xml_keys.XML_ROTATE.capitalize()}: {na}"
         rotate_val: str | list[Never] = apo_data.out_rotate[preset_id]
         if rotate_val:
-            rotate = f"{xml_keys.ROTATE.capitalize()}: {rotate_val}"
+            rotate = f"{xml_keys.XML_ROTATE.capitalize()}: {rotate_val}"
 
-        scale: str = f"{xml_keys.SCALE.capitalize()}: {na}"
+        scale: str = f"{xml_keys.XML_SCALE.capitalize()}: {na}"
         scale_val: str | list[Never] = apo_data.out_scale[preset_id]
         if scale_val:
-            scale = f"{xml_keys.SCALE.capitalize()}: {scale_val}"
+            scale = f"{xml_keys.XML_SCALE.capitalize()}: {scale_val}"
         
         build: tuple[str, ...] = (XML_updated, size, nl,
                                 XML_updated, center, nl,
@@ -16369,35 +16372,35 @@ class in_flame_utils
         XML_updated: str = ''
         if XML_last_update: XML_updated = '*'
         
-        quality: str = f"{xml_keys.QUALITY.capitalize()}: {na}"
+        quality: str = f"{xml_keys.XML_QUALITY.capitalize()}: {na}"
         quality_val: str | list[Never] = apo_data.out_quality[preset_id]
         if quality_val:
-            quality = f"{xml_keys.QUALITY.capitalize()}: {quality_val}"
+            quality = f"{xml_keys.XML_QUALITY.capitalize()}: {quality_val}"
 
-        brightness: str = f"{xml_keys.BRIGHTNESS.capitalize()}: {na}"
+        brightness: str = f"{xml_keys.XML_BRIGHTNESS.capitalize()}: {na}"
         brightness_val: str | list[Never] = apo_data.out_brightness[preset_id]
         if brightness_val:
-            brightness = f"{xml_keys.BRIGHTNESS.capitalize()}: {brightness_val}"
+            brightness = f"{xml_keys.XML_BRIGHTNESS.capitalize()}: {brightness_val}"
             
-        gamma: str = f"{xml_keys.GAMMA.capitalize()}: {na}"
+        gamma: str = f"{xml_keys.XML_GAMMA.capitalize()}: {na}"
         gamma_val: str | list[Never] = apo_data.out_gamma[preset_id]
         if gamma_val:
-            gamma = f"{xml_keys.GAMMA.capitalize()}: {gamma_val}"
+            gamma = f"{xml_keys.XML_GAMMA.capitalize()}: {gamma_val}"
 
-        highlight: str = f"{' '.join(xml_keys.POWER.split('_')).capitalize()}: {na}"
+        highlight: str = f"{' '.join(xml_keys.XML_POWER.split('_')).capitalize()}: {na}"
         highlight_val: str | list[Never] = apo_data.out_highlight_power[preset_id]
         if highlight_val:
-            highlight = f"{' '.join(xml_keys.POWER.split('_')).capitalize()}: {highlight_val}"
+            highlight = f"{' '.join(xml_keys.XML_POWER.split('_')).capitalize()}: {highlight_val}"
             
-        log_k2: str = f"{' '.join(xml_keys.K2.split('_')).capitalize()}: {na}"
+        log_k2: str = f"{' '.join(xml_keys.XML_K2.split('_')).capitalize()}: {na}"
         log_k2_val: str | list[Never] = apo_data.out_logscale_k2[preset_id]
         if log_k2_val:
-            log_k2 = f"{' '.join(xml_keys.K2.split('_')).capitalize()}: {log_k2_val}"
+            log_k2 = f"{' '.join(xml_keys.XML_K2.split('_')).capitalize()}: {log_k2_val}"
 
-        vibrancy: str = f"{xml_keys.VIBRANCY.capitalize()}: {na}"
+        vibrancy: str = f"{xml_keys.XML_VIBRANCY.capitalize()}: {na}"
         vibrancy_val: str | list[Never] = apo_data.out_vibrancy[preset_id]
         if vibrancy_val:
-            vibrancy = f"{xml_keys.VIBRANCY.capitalize()}: {vibrancy_val}"
+            vibrancy = f"{xml_keys.XML_VIBRANCY.capitalize()}: {vibrancy_val}"
         
         cc_curves: list[str] = []
         
@@ -16439,39 +16442,39 @@ class in_flame_utils
         Returns:
             (None):
         """  
-        prm_size_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.SIZE)
+        prm_size_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_SIZE)
         assert prm_size_name is not None
         try:
             prm_size_val: hou.Vector2 = hou.Vector2((int(f3r.out_size[preset_id].split()[0]), int(f3r.out_size[preset_id].split()[1])))
             node.parmTuple(prm_size_name).set(prm_size_val)
         except (AttributeError, TypeError): # If missing set it to its default
             node.parmTuple(prm_size_name).set( hou.Vector2((int(1024), int(1024))) )
-            print(f"Warning:\nIN xml key: {xml_keys.SIZE} -> NOT FOUND, default value used.\n")
+            print(f"Warning:\nIN xml key: {xml_keys.XML_SIZE} -> NOT FOUND, default value used.\n")
             
-        prm_center_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.CENTER)
+        prm_center_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CENTER)
         try:
             prm_center_val: hou.Vector2 = hou.Vector2((float(f3r.out_center[preset_id].split()[0]), float(f3r.out_center[preset_id].split()[1])))
             node.parmTuple(prm_center_name).set(prm_center_val)
         except (AttributeError, TypeError): # If missing set it to its default
             node.parmTuple(prm_center_name).set( hou.Vector2((float(0), float(0))) )
-            print(f"Warning:\nIN xml key: {xml_keys.CENTER} -> NOT FOUND, default value used.\n")
+            print(f"Warning:\nIN xml key: {xml_keys.XML_CENTER} -> NOT FOUND, default value used.\n")
             
-        prm_rotate_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.ROTATE)
+        prm_rotate_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_ROTATE)
         assert prm_rotate_name is not None
         try:
             prm_rotate_val: float = float(f3r.out_rotate[preset_id])
             node.parm(prm_rotate_name).set(prm_rotate_val)
         except (AttributeError, TypeError): # If missing set it to its default
             node.parm(prm_rotate_name).set(float(0))
-            print(f"Warning:\nIN xml key: {xml_keys.ROTATE} -> NOT FOUND, default value used.\n")
+            print(f"Warning:\nIN xml key: {xml_keys.XML_ROTATE} -> NOT FOUND, default value used.\n")
 
-        prm_scale_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.SCALE)
+        prm_scale_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_SCALE)
         try:
             prm_scale_val: float = float(f3r.out_scale[preset_id])
             node.parm(prm_scale_name).set(prm_scale_val)
         except (AttributeError, TypeError): # If missing set it to its default
             node.parm(prm_scale_name).set(float(400))
-            print(f"Warning:\nIN xml key: {xml_keys.SCALE} -> NOT FOUND, default value used.\n")
+            print(f"Warning:\nIN xml key: {xml_keys.XML_SCALE} -> NOT FOUND, default value used.\n")
     
     
     @staticmethod
@@ -16486,59 +16489,59 @@ class in_flame_utils
         Returns:
             (None):
         """  
-        prm_quality_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.QUALITY)
+        prm_quality_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_QUALITY)
         assert prm_quality_name is not None
         try:
             prm_quality_val: int = int(f3r.out_quality[preset_id])
             node.parm(prm_quality_name).set(prm_quality_val)
         except (AttributeError, TypeError): # If missing set it to its default
             node.parm(prm_quality_name).set(int(1000))
-            print(f"Warning:\nIN xml key: {xml_keys.QUALITY} -> NOT FOUND, default value used.\n")
+            print(f"Warning:\nIN xml key: {xml_keys.XML_QUALITY} -> NOT FOUND, default value used.\n")
 
-        prm_brightness_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.BRIGHTNESS)
+        prm_brightness_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_BRIGHTNESS)
         assert prm_brightness_name is not None
         try:
             prm_brightness_val: float = float(f3r.out_brightness[preset_id])
             node.parm(prm_brightness_name).set(prm_brightness_val)
         except (AttributeError, TypeError): # If missing set it to its default
             node.parm(prm_brightness_name).set(3.0)
-            print(f"Warning:\nIN xml key: {xml_keys.BRIGHTNESS} -> NOT FOUND, default value used.\n")
+            print(f"Warning:\nIN xml key: {xml_keys.XML_BRIGHTNESS} -> NOT FOUND, default value used.\n")
 
-        prm_gamma_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.GAMMA)
+        prm_gamma_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_GAMMA)
         assert prm_gamma_name is not None
         try:
             prm_gamma_val: float = float(f3r.out_gamma[preset_id])
             node.parm(prm_gamma_name).set(prm_gamma_val)
         except (AttributeError, TypeError): # If missing set it to its default
             node.parm(prm_gamma_name).set(2.5)
-            print(f"Warning:\nIN xml key: {xml_keys.GAMMA} -> NOT FOUND, default value used.\n")
+            print(f"Warning:\nIN xml key: {xml_keys.XML_GAMMA} -> NOT FOUND, default value used.\n")
 
-        prm_hpower_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.POWER)
+        prm_hpower_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_POWER)
         assert prm_hpower_name is not None
         try:
             prm_hpower_val: float = float(f3r.out_highlight_power[preset_id])
             node.parm(prm_hpower_name).set(prm_hpower_val)
         except (AttributeError, TypeError): # If missing set it to its default
             node.parm(prm_hpower_name).set(5.0)
-            print(f"Warning:\nIN xml key: {xml_keys.POWER} -> NOT FOUND, default value used.\n")
+            print(f"Warning:\nIN xml key: {xml_keys.XML_POWER} -> NOT FOUND, default value used.\n")
 
-        prm_k2_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.K2)
+        prm_k2_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_K2)
         assert prm_k2_name is not None
         try:
             prm_k2_val: float = float(f3r.out_logscale_k2[preset_id])
             node.parm(prm_k2_name).set(prm_k2_val)
         except (AttributeError, TypeError): # If missing set it to its default
             node.parm(prm_k2_name).set(0.0)
-            print(f"Warning:\nIN xml key: {xml_keys.K2} -> NOT FOUND, default value used.\n")
+            print(f"Warning:\nIN xml key: {xml_keys.XML_K2} -> NOT FOUND, default value used.\n")
 
-        prm_vibrancy_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.VIBRANCY)
+        prm_vibrancy_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_VIBRANCY)
         assert prm_vibrancy_name is not None
         try:
             prm_vibrancy_val: float = float(f3r.out_vibrancy[preset_id])
             node.parm(prm_vibrancy_name).set(prm_vibrancy_val)
         except (AttributeError, TypeError): # If missing set it to its default
             node.parm(prm_vibrancy_name).set(0.33333333)
-            print(f"Warning:\nIN xml key: {xml_keys.VIBRANCY} -> NOT FOUND, default value used.\n")
+            print(f"Warning:\nIN xml key: {xml_keys.XML_VIBRANCY} -> NOT FOUND, default value used.\n")
     
     
     @staticmethod
@@ -16556,7 +16559,7 @@ class in_flame_utils
         """     
         # render curves
         
-        prm_cc_all_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVES)
+        prm_cc_all_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVES)
         assert prm_cc_all_name is not None
         prm_cc_all_val: str = f3r.out_curves[preset_id]
         if prm_cc_all_val in xml_keys.DEFAULT_CC_CURVES_ALL:
@@ -16567,10 +16570,10 @@ class in_flame_utils
             except (AttributeError, TypeError): # If missing set it to its default
                 node.parm(prm_cc_all_name).set(xml_keys.DEFAULT_CC_CURVES)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
-                # print(f"Warning:\nIN xml key: {xml_keys.CC_CURVES} -> NOT FOUND, default value used.\n")
+                # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVES} -> NOT FOUND, default value used.\n")
                 
         
-        prm_cc_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_OVERALL)
+        prm_cc_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_OVERALL)
         assert prm_cc_name is not None
         prm_cc_val: str = f3r.out_curve_overall[preset_id]
         if prm_cc_val in xml_keys.DEFAULT_CC_CURVE_ALL:
@@ -16581,10 +16584,10 @@ class in_flame_utils
             except (AttributeError, TypeError): # If missing set it to its default
                 node.parm(prm_cc_name).set(xml_keys.DEFAULT_CC_CURVE)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
-                # print(f"Warning:\nIN xml key: {xml_keys.CC_CURVE_OVERALL} -> NOT FOUND, default value used.\n")
+                # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVE_OVERALL} -> NOT FOUND, default value used.\n")
                 
                 
-        prm_ccr_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_RED)
+        prm_ccr_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_RED)
         assert prm_ccr_name is not None
         prm_ccr_val: str = f3r.out_curve_red[preset_id]
         if prm_ccr_val in xml_keys.DEFAULT_CC_CURVE_ALL:
@@ -16595,10 +16598,10 @@ class in_flame_utils
             except (AttributeError, TypeError): # If missing set it to its default
                 node.parm(prm_ccr_name).set(xml_keys.DEFAULT_CC_CURVE)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
-                # print(f"Warning:\nIN xml key: {xml_keys.CC_CURVE_RED} -> NOT FOUND, default value used.\n")
+                # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVE_RED} -> NOT FOUND, default value used.\n")
                 
                 
-        prm_ccg_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN)
+        prm_ccg_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_GREEN)
         assert prm_ccg_name is not None
         prm_ccg_val: str = f3r.out_curve_green[preset_id]
         if prm_ccg_val in xml_keys.DEFAULT_CC_CURVE_ALL:
@@ -16609,10 +16612,10 @@ class in_flame_utils
             except (AttributeError, TypeError): # If missing set it to its default
                 node.parm(prm_ccg_name).set(xml_keys.DEFAULT_CC_CURVE)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
-                # print(f"Warning:\nIN xml key: {xml_keys.CC_CURVE_GREEN} -> NOT FOUND, default value used.\n")
+                # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVE_GREEN} -> NOT FOUND, default value used.\n")
 
 
-        prm_ccb_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE)
+        prm_ccb_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_BLUE)
         assert prm_ccb_name is not None
         prm_ccb_val: str = f3r.out_curve_green[preset_id]
         if prm_ccb_val in xml_keys.DEFAULT_CC_CURVE_ALL:
@@ -16623,7 +16626,7 @@ class in_flame_utils
             except (AttributeError, TypeError): # If missing set it to its default
                 node.parm(prm_ccb_name).set(xml_keys.DEFAULT_CC_CURVE)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
-                # print(f"Warning:\nIN xml key: {xml_keys.CC_CURVE_BLUE} -> NOT FOUND, default value used.\n")
+                # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVE_BLUE} -> NOT FOUND, default value used.\n")
     
     
     @staticmethod
@@ -16676,13 +16679,13 @@ class in_flame_utils
             # Set folder heading
             if clipboard:
                 node.setParms(  # type: ignore
-                                {f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.MSG_PRM_STATS_HEADING_DEFAULT} {f3h_tabs.IN.CLIPBOARD_LABEL_MSG}", 
-                                f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING_DEFAULT} {f3h_tabs.IN.CLIPBOARD_LABEL_MSG}"}
+                                {f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_STATS_HEADING} {f3h_tabs.IN.CLIPBOARD_LABEL_MSG}", 
+                                f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_SETTINGS_HEADING} {f3h_tabs.IN.CLIPBOARD_LABEL_MSG}"}
                                 )
             else:
                 node.setParms(  # type: ignore
-                                {f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.MSG_PRM_STATS_HEADING_DEFAULT}", 
-                                f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING_DEFAULT}"}
+                                {f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_STATS_HEADING}", 
+                                f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_SETTINGS_HEADING}"}
                                 )
             
             node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT).set(1)
@@ -16874,10 +16877,10 @@ class in_flame_utils
                 # render curves data
                 in_flame_utils.in_copy_render_cc_curves(node, f3r, 0)
                 
-                cc_o: str = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_OVERALL)).eval()
-                cc_r: str = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_RED)).eval()
-                cc_g: str = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN)).eval()
-                cc_b: str = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE)).eval()
+                cc_o: str = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_OVERALL)).eval()
+                cc_r: str = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_RED)).eval()
+                cc_g: str = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_GREEN)).eval()
+                cc_b: str = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_BLUE)).eval()
                 if cc_o.strip() in xml_keys.DEFAULT_CC_CURVE_ALL and cc_r.strip() in xml_keys.DEFAULT_CC_CURVE_ALL and cc_g.strip() in xml_keys.DEFAULT_CC_CURVE_ALL and cc_b.strip() in xml_keys.DEFAULT_CC_CURVE_ALL:
                     node.setParms(  # type: ignore
                                     {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
@@ -17636,10 +17639,10 @@ class in_flame_utils
         # If the Flame use a 256+ palette, update the CP palette MSG
         if apo_data.palette is not None and apo_data.palette[1] > 256:
             palette_msg: str = node.parm(f3h_tabs.CP.MSG_PRM_PALETTE).eval()
-            if f3h_tabs.CP.MSG_PLUS in palette_msg:
+            if f3h_tabs.CP.DEFAULT_MSG_PLUS in palette_msg:
                 pass
             else:
-                node.parm(f3h_tabs.CP.MSG_PRM_PALETTE).set(f"{f3h_tabs.CP.MSG_PLUS.strip()} {palette_msg.strip()}")
+                node.parm(f3h_tabs.CP.MSG_PRM_PALETTE).set(f"{f3h_tabs.CP.DEFAULT_MSG_PLUS.strip()} {palette_msg.strip()}")
         
         # build full stats msg
         build: tuple[str, ...] = (
@@ -18413,7 +18416,7 @@ class in_flame_utils
             return None, False, 0, '', True, False
         
         assert xml is not None
-        if any(True for _ in tree.getroot().iter(xml_keys.NAME)):
+        if any(True for _ in tree.getroot().iter(xml_keys.XML_NAME)):
             flame_name_clipboard: str = _xml_tree(xml).name[0]
             return xml, True, 0, flame_name_clipboard, True, False
         
@@ -18933,7 +18936,7 @@ class out_flame_utils
 * out_append_XML(self, root: lxmlET._Element, out_path: str) -> None:
 * out_XML(self) -> None:
 * __out_flame_data(self, prm_name: str = '') -> str:
-* __out_flame_name(self, prm_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XF_NAME)) -> str:
+* __out_flame_name(self, prm_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_XF_NAME)) -> str:
 * __out_xf_data(self, prm_name: str) -> tuple[str, ...]:
 * __out_xf_data_color_speed(self) -> tuple[str, ...]:
 * __out_xf_name(self) -> tuple[str, ...]:
@@ -19006,11 +19009,11 @@ class out_flame_utils
         """
         # render curves
         node.setParms(  # type: ignore
-                        {XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVES): xml_keys.DEFAULT_CC_CURVES, 
-                        XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_OVERALL): xml_keys.DEFAULT_CC_CURVE, 
-                        XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_RED): xml_keys.DEFAULT_CC_CURVE, 
-                        XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN): xml_keys.DEFAULT_CC_CURVE, 
-                        XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE): xml_keys.DEFAULT_CC_CURVE}
+                        {XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVES): xml_keys.DEFAULT_CC_CURVES, 
+                        XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_OVERALL): xml_keys.DEFAULT_CC_CURVE, 
+                        XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_RED): xml_keys.DEFAULT_CC_CURVE, 
+                        XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_GREEN): xml_keys.DEFAULT_CC_CURVE, 
+                        XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_BLUE): xml_keys.DEFAULT_CC_CURVE}
                         )
         
         
@@ -19026,11 +19029,11 @@ class out_flame_utils
             (None):
         """
         # render curves data
-        prm_data: dict[str, hou.Parm] = {'prm_curves': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVES)), 
-                                         'prm_curve_overall': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_OVERALL)), 
-                                         'prm_curve_red': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_RED)), 
-                                         'prm_curve_green': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN)), 
-                                         'prm_curve_blue': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE))
+        prm_data: dict[str, hou.Parm] = {'prm_curves': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVES)), 
+                                         'prm_curve_overall': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_OVERALL)), 
+                                         'prm_curve_red': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_RED)), 
+                                         'prm_curve_green': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_GREEN)), 
+                                         'prm_curve_blue': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_BLUE))
                                         }
         
         # render curves parms
@@ -19084,10 +19087,10 @@ class out_flame_utils
         Returns:
             (bool): True or Flase
         """
-        cc_o: str = str(node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_OVERALL)).eval()).strip()
-        cc_r: str = str(node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_RED)).eval()).strip()
-        cc_g: str = str(node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN)).eval()).strip()
-        cc_b: str = str(node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE)).eval()).strip()
+        cc_o: str = str(node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_OVERALL)).eval()).strip()
+        cc_r: str = str(node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_RED)).eval()).strip()
+        cc_g: str = str(node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_GREEN)).eval()).strip()
+        cc_b: str = str(node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_BLUE)).eval()).strip()
         
         if not mode:
             if cc_o in xml_keys.DEFAULT_CC_CURVE_ALL and cc_r in xml_keys.DEFAULT_CC_CURVE_ALL and cc_g in xml_keys.DEFAULT_CC_CURVE_ALL and cc_b in xml_keys.DEFAULT_CC_CURVE_ALL:
@@ -19141,11 +19144,11 @@ class out_flame_utils
             (None):
         """
         # render curves data
-        prm_curves_data: hou.Parm = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVES))
-        prm_data: dict[str, hou.Parm] = {'prm_curve_overall': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_OVERALL)), 
-                                         'prm_curve_red': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_RED)), 
-                                         'prm_curve_green': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN)), 
-                                         'prm_curve_blue': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE))
+        prm_curves_data: hou.Parm = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVES))
+        prm_data: dict[str, hou.Parm] = {'prm_curve_overall': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_OVERALL)), 
+                                         'prm_curve_red': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_RED)), 
+                                         'prm_curve_green': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_GREEN)), 
+                                         'prm_curve_blue': node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_BLUE))
                                          }
         
         # render curves parms
@@ -20645,7 +20648,7 @@ class out_flame_utils
                     # For a palette
                     return flam3h_palette_utils.get_ramp_keys_count(self.palette)
                 
-                return str(flam3h_palette_utils.find_nearest_idx(f3h_tabs.CP.OUT_MENU_OPTIONS_PLUS, keys))
+                return str(flam3h_palette_utils.find_nearest_idx(f3h_tabs.CP.DEFAULT_CP_MENU_OPTIONS_PLUS, keys))
             
             # Otherwise clamp to 1024 color keys
             if _MSG:
@@ -20725,7 +20728,7 @@ class out_flame_utils
                                                     }
  
         if res.get(sel) is not None:
-            node.parmTuple(XML_RENDER_HOUDINI_DICT.get(xml_keys.SIZE)).set(hou.Vector2(res.get(sel)))
+            node.parmTuple(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_SIZE)).set(hou.Vector2(res.get(sel)))
 
             if update:
                 flam3h_general_utils(self.kwargs).util_set_front_viewer()
@@ -20750,10 +20753,10 @@ class out_flame_utils
         
         node: hou.SopNode = self.node
         
-        parms_out_sensor_data: dict[str | None, hou.Vector2 | float] = {XML_RENDER_HOUDINI_DICT.get(xml_keys.SIZE): hou.Vector2((1024, 1024)),    # tuple
-                                                                        XML_RENDER_HOUDINI_DICT.get(xml_keys.CENTER): hou.Vector2((0, 0)),  # tuple
-                                                                        XML_RENDER_HOUDINI_DICT.get(xml_keys.ROTATE): 0,
-                                                                        XML_RENDER_HOUDINI_DICT.get(xml_keys.SCALE): 400
+        parms_out_sensor_data: dict[str | None, hou.Vector2 | float] = {XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_SIZE): hou.Vector2((1024, 1024)),    # tuple
+                                                                        XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CENTER): hou.Vector2((0, 0)),  # tuple
+                                                                        XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_ROTATE): 0,
+                                                                        XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_SCALE): 400
                                                                         }
         
         # Clear and set
@@ -20777,12 +20780,12 @@ class out_flame_utils
         """
         node: hou.SopNode = self.node
         
-        parms_out_render_data: dict[str | None, int | float] = {XML_RENDER_HOUDINI_DICT.get(xml_keys.QUALITY): 1000,
-                                                                XML_RENDER_HOUDINI_DICT.get(xml_keys.BRIGHTNESS): 3,
-                                                                XML_RENDER_HOUDINI_DICT.get(xml_keys.GAMMA): 2.5,
-                                                                XML_RENDER_HOUDINI_DICT.get(xml_keys.POWER): 5,
-                                                                XML_RENDER_HOUDINI_DICT.get(xml_keys.K2): 0,
-                                                                XML_RENDER_HOUDINI_DICT.get(xml_keys.VIBRANCY): 0.3333
+        parms_out_render_data: dict[str | None, int | float] = {XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_QUALITY): 1000,
+                                                                XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_BRIGHTNESS): 3,
+                                                                XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_GAMMA): 2.5,
+                                                                XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_POWER): 5,
+                                                                XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_K2): 0,
+                                                                XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_VIBRANCY): 0.3333
                                                                 }
         
         # Clear and set
@@ -21142,39 +21145,39 @@ class out_flame_utils
         """   
         # If "use Fractorium parametric prm names" OUT option is ON, lets append the EMBER name to the app name
         # so that we can pick up the proper parametric parameter names if we load it back in Houdini.
-        if self.node.parm(f3h_tabs.OUT.PRM_USE_FRACTORIUM_PRM_NAMES).eval(): _XML_APP_NAME = f"{xml_keys.APP_NAME_FRACTORIUM}-{xml_keys.APP_NAME_FLAM3H}"
-        else: _XML_APP_NAME = xml_keys.APP_NAME_FLAM3H
+        if self.node.parm(f3h_tabs.OUT.PRM_USE_FRACTORIUM_PRM_NAMES).eval(): _XML_APP_NAME = f"{xml_keys.XML_APP_NAME_FRACTORIUM}-{xml_keys.XML_APP_NAME_FLAM3H}"
+        else: _XML_APP_NAME = xml_keys.XML_APP_NAME_FLAM3H
         
-        return {xml_keys.VERSION: f'{_XML_APP_NAME}-{flam3h_general_utils.my_system()}-{__version__}',
-                xml_keys.XF_NAME: f3r.flame_name,
-                xml_keys.f3h.RIP: f3r.flam3h_sys_rip, # custom to FLAM3H™ only
-                xml_keys.f3h.HSV: f3r.flam3h_cp_hsv, # custom to FLAM3H™ only
-                xml_keys.f3h.MB_FPS: f3r.flam3h_mb_fps, # custom to FLAM3H™ only
-                xml_keys.f3h.MB_SAMPLES: f3r.flam3h_mb_samples, # custom to FLAM3H™ only
-                xml_keys.f3h.MB_SHUTTER: f3r.flam3h_mb_shutter, # custom to FLAM3H™ only
-                xml_keys.f3h.CP_SAMPLES: f3r.flam3h_cp_samples, # custom to FLAM3H™ only
-                xml_keys.f3h.CP_SAMPLES_BASIS: f3r.flam3h_cp_basis, # custom to FLAM3H™ only
-                xml_keys.f3h.F3C: f3r.flam3h_prefs_f3c, # custom to FLAM3H™ only
-                xml_keys.SIZE: f3r.flame_size, 
-                xml_keys.CENTER: f3r.flame_center,
-                xml_keys.SCALE: f3r.flame_scale,
-                xml_keys.ROTATE: f3r.flame_rotate,
-                xml_keys.BG: '0 0 0', # This probably will be made available to the end user at some point, eventually. For now always a black background.
-                xml_keys.SUPERSAMPLE: '2',
-                xml_keys.FILTER: '0.5',
-                xml_keys.QUALITY: f3r.flame_quality,
-                xml_keys.BRIGHTNESS: f3r.flame_brightness,
-                xml_keys.GAMMA: f3r.flame_gamma,
-                xml_keys.GAMMA_THRESHOLD: '0.0423093658828749',
-                xml_keys.K2: f3r.flame_k2,
-                xml_keys.VIBRANCY: f3r.flame_vibrancy,
-                xml_keys.POWER: f3r.flame_highlight,
-                xml_keys.RADIUS: '9',
-                xml_keys.ESTIMATOR_MINIMUM: '0',
-                xml_keys.ESTIMATOR_CURVE: '0.4',
-                xml_keys.PALETTE_MODE: f3r.flame_cp_mode,
-                xml_keys.INTERPOLATION: 'linear',
-                xml_keys.INTERPOLATION_TYPE: 'log'
+        return {xml_keys.XML_VERSION: f'{_XML_APP_NAME}-{flam3h_general_utils.my_system()}-{__version__}',
+                xml_keys.XML_XF_NAME: f3r.flame_name,
+                xml_keys.f3h.XML_RIP: f3r.flam3h_sys_rip, # custom to FLAM3H™ only
+                xml_keys.f3h.XML_HSV: f3r.flam3h_cp_hsv, # custom to FLAM3H™ only
+                xml_keys.f3h.XML_MB_FPS: f3r.flam3h_mb_fps, # custom to FLAM3H™ only
+                xml_keys.f3h.XML_MB_SAMPLES: f3r.flam3h_mb_samples, # custom to FLAM3H™ only
+                xml_keys.f3h.XML_MB_SHUTTER: f3r.flam3h_mb_shutter, # custom to FLAM3H™ only
+                xml_keys.f3h.XML_CP_SAMPLES: f3r.flam3h_cp_samples, # custom to FLAM3H™ only
+                xml_keys.f3h.XML_CP_SAMPLES_BASIS: f3r.flam3h_cp_basis, # custom to FLAM3H™ only
+                xml_keys.f3h.XML_F3C: f3r.flam3h_prefs_f3c, # custom to FLAM3H™ only
+                xml_keys.XML_SIZE: f3r.flame_size, 
+                xml_keys.XML_CENTER: f3r.flame_center,
+                xml_keys.XML_SCALE: f3r.flame_scale,
+                xml_keys.XML_ROTATE: f3r.flame_rotate,
+                xml_keys.XML_BG: '0 0 0', # This probably will be made available to the end user at some point, eventually. For now always a black background.
+                xml_keys.XML_SUPERSAMPLE: '2',
+                xml_keys.XML_FILTER: '0.5',
+                xml_keys.XML_QUALITY: f3r.flame_quality,
+                xml_keys.XML_BRIGHTNESS: f3r.flame_brightness,
+                xml_keys.XML_GAMMA: f3r.flame_gamma,
+                xml_keys.XML_GAMMA_THRESHOLD: '0.0423093658828749',
+                xml_keys.XML_K2: f3r.flame_k2,
+                xml_keys.XML_VIBRANCY: f3r.flame_vibrancy,
+                xml_keys.XML_POWER: f3r.flame_highlight,
+                xml_keys.XML_RADIUS: '9',
+                xml_keys.XML_ESTIMATOR_MINIMUM: '0',
+                xml_keys.XML_ESTIMATOR_CURVE: '0.4',
+                xml_keys.XML_PALETTE_MODE: f3r.flame_cp_mode,
+                xml_keys.XML_INTERPOLATION: 'linear',
+                xml_keys.XML_INTERPOLATION_TYPE: 'log'
                 }
         
 
@@ -21348,7 +21351,7 @@ class out_flame_utils
                     # make sure to use the parametric variation's parameters names that Fractorium expect.
                     apo_prm: tuple = flam3h_varsPRM_APO().varsPRM[v_type]
                     if node.parm(f3h_tabs.OUT.PRM_USE_FRACTORIUM_PRM_NAMES).eval():
-                        out_prm: tuple = in_flame_utils.in_prm_name_exceptions(v_type, xml_keys.APP_NAME_FRACTORIUM, apo_prm)[1:-1]
+                        out_prm: tuple = in_flame_utils.in_prm_name_exceptions(v_type, xml_keys.XML_APP_NAME_FRACTORIUM, apo_prm)[1:-1]
                     else:
                         out_prm: tuple = apo_prm[1:-1]
                         
@@ -21396,35 +21399,35 @@ class out_flame_utils
             
             if int(f3d.xf_vactive[iter]):
                 
-                xf: lxmlET._Element = lxmlET.SubElement(flame, xml_keys.XF)
-                xf.tag = xml_keys.XF
-                xf.set(xml_keys.XF_NAME, xml_xf_names[iter])
-                xf.set(xml_keys.XF_WEIGHT, f3d.xf_weight[iter])
-                xf.set(xml_keys.XF_COLOR, f3d.xf_color[iter])
-                xf.set(xml_keys.XF_SYMMETRY, f3d.xf_symmetry[iter])
-                xf.set(xml_keys.XF_COLOR_SPEED, f3d.xf_color_speed[iter])
+                xf: lxmlET._Element = lxmlET.SubElement(flame, xml_keys.XML_XF)
+                xf.tag = xml_keys.XML_XF
+                xf.set(xml_keys.XML_XF_NAME, xml_xf_names[iter])
+                xf.set(xml_keys.XML_XF_WEIGHT, f3d.xf_weight[iter])
+                xf.set(xml_keys.XML_XF_COLOR, f3d.xf_color[iter])
+                xf.set(xml_keys.XML_XF_SYMMETRY, f3d.xf_symmetry[iter])
+                xf.set(xml_keys.XML_XF_COLOR_SPEED, f3d.xf_color_speed[iter])
                 if f3d.xf_pre_blur[iter]:
-                    name_PRE_BLUR = xml_keys.XF_PB
-                    xf.set(xml_keys.XF_PB, f3d.xf_pre_blur[iter])
+                    name_PRE_BLUR = xml_keys.XML_XF_PB
+                    xf.set(xml_keys.XML_XF_PB, f3d.xf_pre_blur[iter])
                     
-                xf.set(xml_keys.PRE_AFFINE, f3d.xf_preaffine[iter])
+                xf.set(xml_keys.XML_PRE_AFFINE, f3d.xf_preaffine[iter])
                 angle_pre: str | list[Never] = f3d.xf_f3h_preaffine_angle[iter]
                 if f3d.f3h_affine and isinstance(angle_pre, str) and float(angle_pre) != 0:
-                    xf.set(xml_keys.f3h.PRE_AFFINE, f3d.xf_f3h_preaffine[iter])
-                    xf.set(xml_keys.f3h.PRE_AFFINE_ANGLE, angle_pre)
+                    xf.set(xml_keys.f3h.XML_PRE_AFFINE, f3d.xf_f3h_preaffine[iter])
+                    xf.set(xml_keys.f3h.XML_PRE_AFFINE_ANGLE, angle_pre)
                     
                 if f3d.xf_postaffine[iter]:
-                    xf.set(xml_keys.POST_AFFINE, f3d.xf_postaffine[iter])
+                    xf.set(xml_keys.XML_POST_AFFINE, f3d.xf_postaffine[iter])
                     # This look like will never be a list[Never] but its not causing any issues and not a bad idea to check if it is a str anyway.
                     angle_post: str | list[Never] = f3d.xf_f3h_postaffine_angle[iter]
                     if f3d.f3h_affine and isinstance(angle_post, str) and float(angle_post) != 0:
-                        xf.set(xml_keys.f3h.POST_AFFINE, f3d.xf_f3h_postaffine[iter])
-                        xf.set(xml_keys.f3h.POST_AFFINE_ANGLE, angle_post)
+                        xf.set(xml_keys.f3h.XML_POST_AFFINE, f3d.xf_f3h_postaffine[iter])
+                        xf.set(xml_keys.f3h.XML_POST_AFFINE_ANGLE, angle_post)
                         
                 if f3d.xf_xaos[iter]:
-                    xf.set(xml_keys.XF_XAOS, f3d.xf_xaos[iter])
+                    xf.set(xml_keys.XML_XF_XAOS, f3d.xf_xaos[iter])
                     
-                xf.set(xml_keys.XF_OPACITY, f3d.xf_opacity[iter])
+                xf.set(xml_keys.XML_XF_OPACITY, f3d.xf_opacity[iter])
                 f3h_iter: flam3h_iterator = flam3h_iterator()
                 names_VARS.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_varsT, f3h_iter.sec_varsW, xf, mp_idx, in_flame_utils.in_util_make_NULL))
                 names_VARS_PRE.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_prevarsT, f3h_iter.sec_prevarsW[1:], xf, mp_idx, in_flame_utils.in_util_make_PRE))
@@ -21436,24 +21439,24 @@ class out_flame_utils
         names_VARS_POST_FF: list[str] = []
         
         if f3d.flam3h_do_FF:
-            finalxf: lxmlET._Element = lxmlET.SubElement(flame, xml_keys.FF)
-            finalxf.tag = xml_keys.FF
-            finalxf.set(xml_keys.XF_NAME, f3d.finalxf_name)
-            finalxf.set(xml_keys.XF_COLOR, '0')
-            finalxf.set(xml_keys.XF_VAR_COLOR, '1')
-            finalxf.set(xml_keys.XF_COLOR_SPEED, '0')
-            finalxf.set(xml_keys.XF_SYMMETRY, '1')
+            finalxf: lxmlET._Element = lxmlET.SubElement(flame, xml_keys.XML_FF)
+            finalxf.tag = xml_keys.XML_FF
+            finalxf.set(xml_keys.XML_XF_NAME, f3d.finalxf_name)
+            finalxf.set(xml_keys.XML_XF_COLOR, '0')
+            finalxf.set(xml_keys.XML_XF_VAR_COLOR, '1')
+            finalxf.set(xml_keys.XML_XF_COLOR_SPEED, '0')
+            finalxf.set(xml_keys.XML_XF_SYMMETRY, '1')
 
-            finalxf.set(xml_keys.PRE_AFFINE, f3d.finalxf_preaffine)
+            finalxf.set(xml_keys.XML_PRE_AFFINE, f3d.finalxf_preaffine)
             if f3d.f3h_affine and float(f3d.finalxf_f3h_preaffine_angle) != 0:
-                finalxf.set(xml_keys.f3h.PRE_AFFINE, f3d.finalxf_f3h_preaffine)
-                finalxf.set(xml_keys.f3h.PRE_AFFINE_ANGLE, f3d.finalxf_f3h_preaffine_angle)
+                finalxf.set(xml_keys.f3h.XML_PRE_AFFINE, f3d.finalxf_f3h_preaffine)
+                finalxf.set(xml_keys.f3h.XML_PRE_AFFINE_ANGLE, f3d.finalxf_f3h_preaffine_angle)
                 
             if f3d.finalxf_postaffine:
-                finalxf.set(xml_keys.POST_AFFINE, f3d.finalxf_postaffine)
+                finalxf.set(xml_keys.XML_POST_AFFINE, f3d.finalxf_postaffine)
                 if f3d.f3h_affine and float(f3d.finalxf_f3h_postaffine_angle) != 0:
-                    finalxf.set(xml_keys.f3h.POST_AFFINE, f3d.finalxf_f3h_postaffine)
-                    finalxf.set(xml_keys.f3h.POST_AFFINE_ANGLE, f3d.finalxf_f3h_postaffine_angle)
+                    finalxf.set(xml_keys.f3h.XML_POST_AFFINE, f3d.finalxf_f3h_postaffine)
+                    finalxf.set(xml_keys.f3h.XML_POST_AFFINE_ANGLE, f3d.finalxf_f3h_postaffine_angle)
                     
             f3h_iter_FF: flam3h_iterator_FF = flam3h_iterator_FF()
             names_VARS_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{f3h_ffPrmPrx.PRM}").varsPRM_FF(), f3h_iter_FF.sec_varsT_FF, f3h_iter_FF.sec_varsW_FF, finalxf, '', in_flame_utils.in_util_make_NULL)
@@ -21461,25 +21464,25 @@ class out_flame_utils
             names_VARS_POST_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{f3h_ffPrmPrx.PRM_PP}").varsPRM_FF(), f3h_iter_FF.sec_postvarsT_FF, f3h_iter_FF.sec_postvarsW_FF, finalxf, '', in_flame_utils.in_util_make_POST)
         
         # SET palette
-        palette: lxmlET._Element = lxmlET.SubElement(flame, xml_keys.PALETTE)
-        palette.tag = xml_keys.PALETTE
-        palette.set(xml_keys.PALETTE_COUNT, self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)) # When saving a Flame out, we always use a 256 color palette unless the OUT tab option "save palette 256+" is ON
-        palette.set(xml_keys.PALETTE_FORMAT, f3h_tabs.CP.MSG_COLOR_FORMAT)
+        palette: lxmlET._Element = lxmlET.SubElement(flame, xml_keys.XML_PALETTE)
+        palette.tag = xml_keys.XML_PALETTE
+        palette.set(xml_keys.XML_PALETTE_COUNT, self.out_palette_keys_count(self.palette_plus_do, len(self.palette.keys()), 0, False)) # When saving a Flame out, we always use a 256 color palette unless the OUT tab option "save palette 256+" is ON
+        palette.set(xml_keys.XML_PALETTE_FORMAT, f3h_tabs.CP.DEFAULT_MSG_COLOR_FORMAT)
         palette.text = f3d.palette_hex
 
         # SET unique used 'plugins' and 'new linear'
         names_VARS_flatten_unique: list[str] = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS + [names_VARS_FF], in_flame_utils.in_util_make_NULL)
         names_VARS_PRE_flatten_unique: list[str] = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_PRE + [names_VARS_PRE_FF] + list(map(lambda x: in_flame_utils.in_util_make_VAR([x]) if x else x, [name_PRE_BLUR])), in_flame_utils.in_util_make_PRE)
         names_VARS_POST_flatten_unique: list[str] = in_flame_utils.in_util_vars_flatten_unique_sorted(names_VARS_POST + [names_VARS_POST_FF], in_flame_utils.in_util_make_POST)
-        flame.set(xml_keys.PLUGINS, i_cleandoc(' '.join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
-        flame.set(xml_keys.NEW_LINEAR, '1')
+        flame.set(xml_keys.XML_PLUGINS, i_cleandoc(' '.join(names_VARS_PRE_flatten_unique + names_VARS_flatten_unique + names_VARS_POST_flatten_unique)))
+        flame.set(xml_keys.XML_NEW_LINEAR, '1')
         
         # SET CC Curves
-        cc: dict[str, str] = {  xml_keys.CC_CURVES: f3r.flame_render_curves,
-                                xml_keys.CC_CURVE_OVERALL: f3r.flame_overall_curve,
-                                xml_keys.CC_CURVE_RED: f3r.flame_red_curve,
-                                xml_keys.CC_CURVE_GREEN: f3r.flame_green_curve,
-                                xml_keys.CC_CURVE_BLUE: f3r.flame_blue_curve
+        cc: dict[str, str] = {  xml_keys.XML_CC_CURVES: f3r.flame_render_curves,
+                                xml_keys.XML_CC_CURVE_OVERALL: f3r.flame_overall_curve,
+                                xml_keys.XML_CC_CURVE_RED: f3r.flame_red_curve,
+                                xml_keys.XML_CC_CURVE_GREEN: f3r.flame_green_curve,
+                                xml_keys.XML_CC_CURVE_BLUE: f3r.flame_blue_curve
                                 }
         for key, value in cc.items(): flame.set(key, value)
         
@@ -21508,7 +21511,7 @@ class out_flame_utils
         """ 
         node: hou.SopNode = self.node
         
-        root: lxmlET._Element = lxmlET.Element(xml_keys.NAME)
+        root: lxmlET._Element = lxmlET.Element(xml_keys.XML_NAME)
         if flame_name is None:
             if self.out_build_XML(root):
                 self._out_pretty_print(root)
@@ -21542,9 +21545,9 @@ class out_flame_utils
         """   
         node: hou.SopNode = self.node
         
-        root: lxmlET._Element = lxmlET.Element(xml_keys.ROOT)
-        flame: lxmlET._Element = lxmlET.SubElement(root, xml_keys.NAME)
-        flame.tag = xml_keys.NAME
+        root: lxmlET._Element = lxmlET.Element(xml_keys.XML_ROOT)
+        flame: lxmlET._Element = lxmlET.SubElement(root, xml_keys.XML_NAME)
+        flame.tag = xml_keys.XML_NAME
         
         if self.out_build_XML(flame):
             self._out_pretty_print(root)
@@ -21568,7 +21571,7 @@ class out_flame_utils
         """ 
         node: hou.SopNode = self.node
         
-        root: lxmlET._Element = lxmlET.Element(xml_keys.NAME)
+        root: lxmlET._Element = lxmlET.Element(xml_keys.XML_NAME)
         
         if self.out_build_XML(root):
             self._out_pretty_print(root)
@@ -21637,8 +21640,8 @@ class out_flame_utils
         """
         node: hou.SopNode = self.node
         
-        flame: lxmlET._Element = lxmlET.SubElement(root, xml_keys.NAME)
-        flame.tag = xml_keys.NAME
+        flame: lxmlET._Element = lxmlET.SubElement(root, xml_keys.XML_NAME)
+        flame.tag = xml_keys.XML_NAME
         
         if self.out_build_XML(flame):
             self._out_pretty_print(root)
@@ -21837,7 +21840,7 @@ class out_flame_utils
             return ''
 
 
-    def __out_flame_name(self, prm_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XF_NAME)) -> str:
+    def __out_flame_name(self, prm_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_XF_NAME)) -> str:
         """Prepare the Flame name string for the XML Flame name key.</br>
         It will either use an automated one if no Flame name is provided or use the one provided by the user.</br></br>
         
@@ -21845,7 +21848,7 @@ class out_flame_utils
 
         Args:
             (self):
-            prm_name(str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XF_NAME)): Default to: XML_RENDER_HOUDINI_DICT.get(xml_keys.XF_NAME)</br>The FLAM3H™ Flame name parameter name.
+            prm_name(str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_XF_NAME)): Default to: XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_XF_NAME)</br>The FLAM3H™ Flame name parameter name.
 
         Returns:
             (str): The FLAM3H™ parameter prepped into a string for writing out into the Flame preset file.
@@ -21996,7 +21999,7 @@ class out_flame_utils
                 iter_num: int = iter + 1
                 collect: TA_Affine = self.get_iter_affine_post(iterator_num=iter_num)
                 angleDeg: float = self.get_iter_affine_post_rot(iterator_num=iter_num)
-                if f3h_affineDefaults.IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
+                if f3h_affineDefaults.DEFAULT_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                     f3h_angleDeg.append(str(round(angleDeg, xml_keys.f3h.DEFAULT_ROUND_DECIMAL_COUNT)))
                     flatten: list[float] = [item for sublist in self.out_affine_rot(collect, angleDeg) for item in sublist]
                     f3h_flatten: list[float] = [item for sublist in collect for item in sublist]
@@ -22054,7 +22057,7 @@ class out_flame_utils
         if self.node.parm(f"{f3h_ffPrmPrx.PRM}{self.flam3h_iter_prm_names.postaffine_do}").eval():
             collect: TA_Affine = self.get_FF_affine_post()
             angleDeg: float = self.get_FF_affine_post_rot()
-            if f3h_affineDefaults.IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
+            if f3h_affineDefaults.DEFAULT_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
                 f3h_angleDeg: str = str(angleDeg)
                 f3h_affine: TA_STR_ListUnflattened = self.out_util_round_floats(collect)
                 if angleDeg != 0.0:
@@ -22268,24 +22271,24 @@ class out_flame_render_properties(out_flame_utils):
         super().__init__(kwargs)
         
         self._flame_name: str = self._out_flame_utils__out_flame_name() # type: ignore
-        self._flame_size: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.SIZE)) # type: ignore
-        self._flame_center: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.CENTER)) # type: ignore
-        self._flame_scale: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.SCALE)) # type: ignore
-        self._flame_rotate: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.ROTATE)) # type: ignore
-        self._flame_quality: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.QUALITY)) # type: ignore
-        self._flame_brightness: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.BRIGHTNESS)) # type: ignore
-        self._flame_gamma: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.GAMMA)) # type: ignore
-        self._flame_k2: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.K2)) # type: ignore
-        self._flame_vibrancy: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.VIBRANCY)) # type: ignore
-        self._flame_highlight: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.POWER)) # type: ignore
+        self._flame_size: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_SIZE)) # type: ignore
+        self._flame_center: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CENTER)) # type: ignore
+        self._flame_scale: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_SCALE)) # type: ignore
+        self._flame_rotate: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_ROTATE)) # type: ignore
+        self._flame_quality: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_QUALITY)) # type: ignore
+        self._flame_brightness: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_BRIGHTNESS)) # type: ignore
+        self._flame_gamma: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_GAMMA)) # type: ignore
+        self._flame_k2: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_K2)) # type: ignore
+        self._flame_vibrancy: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_VIBRANCY)) # type: ignore
+        self._flame_highlight: str = self._out_flame_utils__out_flame_data(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_POWER)) # type: ignore
         
         # OUT render curves
         # We can directly get the data from the FLAM3H™ UI parameters since they have been checked on creation already.
-        self._flame_render_curves: str = self.node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVES)).eval()
-        self._flame_overall_curve: str = self.node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_OVERALL)).eval()
-        self._flame_red_curve: str = self.node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_RED)).eval()
-        self._flame_green_curve: str = self.node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_GREEN)).eval()
-        self._flame_blue_curve: str = self.node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.CC_CURVE_BLUE)).eval()
+        self._flame_render_curves: str = self.node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVES)).eval()
+        self._flame_overall_curve: str = self.node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_OVERALL)).eval()
+        self._flame_red_curve: str = self.node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_RED)).eval()
+        self._flame_green_curve: str = self.node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_GREEN)).eval()
+        self._flame_blue_curve: str = self.node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_BLUE)).eval()
         
         # Fractorium palette mkode
         self._flame_cp_mode: str = self._out_flame_utils__out_flame_palette_mode() # type: ignore
