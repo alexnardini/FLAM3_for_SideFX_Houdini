@@ -471,8 +471,8 @@ class f3h_tabs:
         COUNT_256: Final = '256'
         COUNT_512: Final = '512' # not used
         COUNT_1024: Final = '1024'
-        DEFAULT_CP_MENU_OPTIONS_ALL: Final[tuple[int, ...]] = (16, 32, 64, 128, 256, 512, 1024) # not used
-        DEFAULT_CP_MENU_OPTIONS_PLUS: Final[tuple[int, ...]] = (256, 512, 1024)
+        DEFAULT_MENU_OPTIONS_ALL: Final[tuple[int, ...]] = (16, 32, 64, 128, 256, 512, 1024) # not used
+        DEFAULT_MENU_OPTIONS_PLUS: Final[tuple[int, ...]] = (256, 512, 1024)
         DEFAULT_MSG_PLUS: Final = '[256+]'
         # The following will always be used for now
         # even tho we check for the XML palette format on load.
@@ -14380,7 +14380,7 @@ class in_flame
             if isinstance(cp_samples_key, str):
                 
                 samples: int = int(cp_samples_key)
-                if samples in f3h_tabs.CP.DEFAULT_CP_MENU_OPTIONS_PLUS: # just make sure the lookup samples count is one of the valid options.
+                if samples in f3h_tabs.CP.DEFAULT_MENU_OPTIONS_PLUS: # just make sure the lookup samples count is one of the valid options.
                     return samples
                 
                 # else return the default value
@@ -14390,7 +14390,7 @@ class in_flame
                 
                 count: int = palette[1]
                 if count > 0:
-                    return int(flam3h_palette_utils.find_nearest_idx(f3h_tabs.CP.DEFAULT_CP_MENU_OPTIONS_PLUS, count))
+                    return int(flam3h_palette_utils.find_nearest_idx(f3h_tabs.CP.DEFAULT_MENU_OPTIONS_PLUS, count))
                 # else return the default value
                 return 256
             
@@ -20648,7 +20648,7 @@ class out_flame_utils
                     # For a palette
                     return flam3h_palette_utils.get_ramp_keys_count(self.palette)
                 
-                return str(flam3h_palette_utils.find_nearest_idx(f3h_tabs.CP.DEFAULT_CP_MENU_OPTIONS_PLUS, keys))
+                return str(flam3h_palette_utils.find_nearest_idx(f3h_tabs.CP.DEFAULT_MENU_OPTIONS_PLUS, keys))
             
             # Otherwise clamp to 1024 color keys
             if _MSG:
