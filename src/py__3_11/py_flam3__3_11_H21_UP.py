@@ -20,6 +20,8 @@ import lxml.etree as lxmlET
 import builtins
 from PySide6 import QtWidgets, QtGui, QtCore
 from PySide6.QtSvgWidgets import QSvgWidget
+from PySide6.QtSvg import QSvgRenderer
+from PySide6.QtGui import QPainter
 
 from math import sin
 from math import cos
@@ -22609,6 +22611,7 @@ class pyside_utils
 * pyside_panels_safe_launch(ps_cls: Type[PS_MASTER_BaseProto], varname: str = "_ps_cls", run: bool = True, *args, **kwargs) -> None:
 
 """
+
             
     @staticmethod
     def pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], varname: str = "_ps_cls", run: bool = True, *args, **kwargs) -> None:
@@ -22638,6 +22641,42 @@ class pyside_utils
         if run:
             setattr(builtins, varname, ps_cls(*args, **kwargs))
             getattr(builtins, varname).show()
+            
+            
+class SvgIcon(QtWidgets.QWidget):
+    """A QWidget for displaying an SVG image.</br></br>
+
+    This widget wraps a QSvgRenderer to render SVG content inside a QWidget.</br>
+    It safely handles invalid SVG data or incorrect types.</br>
+    
+    """
+    def __init__(self, svg_bytes: QtCore.QByteArray, parent=None):
+        super().__init__(parent)
+        
+        try:
+            self.renderer: QSvgRenderer | None = QSvgRenderer(svg_bytes)
+            if not self.renderer.isValid():
+                self.renderer = None
+                print("Warning: SVG data is invalid!")
+                
+        except TypeError:
+            self.renderer = None
+            print("Warning: SVG data is invalid!")
+
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+
+        if parent is not None and isinstance(parent, QtWidgets.QWidget):
+            self.setSizePolicy(parent.sizePolicy())
+        else:
+            self.setSizePolicy( QtWidgets.QSizePolicy.Preferred,
+                                QtWidgets.QSizePolicy.Preferred)
+            print("Warning: SVG parent is not a QWidget!")
+            
+
+    def paintEvent(self, event):
+        if self.renderer and self.renderer.isValid():
+            painter = QPainter(self)
+            self.renderer.render(painter, self.rect())
 
 
 class pyside_master_base_proto(Protocol):
@@ -22654,6 +22693,19 @@ class pyside_master:
     """ 
         
     class F3H_msg_panel(QtWidgets.QWidget):
+        """A default PySide meassage panel.</br></br>
+
+        Can be used in different scenarios to display a short message nicely.</br></br>
+        
+        It features auto close timer, fade in, fade out.</br>
+        and allow drawing Svg files on top of banner images as well.</br></br>
+        
+        Everything is properly scaled to keep the right size and proportions</br>
+        across different screen sizes (4K, HD, ...) and few more features.</br></br>
+        
+        It is a work in progress and it will likely grow in the future.</br>
+        
+        """
 
         APP_NAME: str = "FLAM3H™"
         
@@ -22685,7 +22737,7 @@ class pyside_master:
         IMG_PIXMAP: QtGui.QPixmap | None = None
         IMG_PIXMAP_SECTION_NAME: str = 'FLAM3H_DOC_intro.jpg'
         
-        SVG_ICON: QSvgWidget | None = None
+        SVG_ICON: SvgIcon | None = None
         SVG_ICON_SECTION_NAME: str = 'iconSVGW.svg'
         
         NODETYPE: hou.SopNodeType = nodetype
@@ -22806,32 +22858,43 @@ class pyside_master:
             self._update_banner()
 
             # Svg
-            section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_SECTION_NAME]
-            self.SVG_ICON = QSvgWidget(parent=self.banner_container)
-            self.SVG_ICON.load(QtCore.QByteArray(section_svg.binaryContents()))
+            section_svg = self.NODETYPE.definition().sections()[self.SVG_ICON_SECTION_NAME]
+            svg_bytes: QtCore.QByteArray = QtCore.QByteArray(section_svg.binaryContents())
+            self.SVG_ICON = SvgIcon(svg_bytes, parent=self.banner_container)
             self.SVG_ICON.resize(self.svg_icon_size, self.svg_icon_size)
             self._position_svg_icon()
+            
+            # Svg: OLD (keeping this just in case)
+            # section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_SECTION_NAME]
+            # self.SVG_ICON = QSvgWidget(parent=self.banner_container)
+            # self.SVG_ICON.load(QtCore.QByteArray(section_svg.binaryContents()))
+            # self.SVG_ICON.resize(self.svg_icon_size, self.svg_icon_size)
+            # self._position_svg_icon()
 
             # Title
-            title_font_size: int = int(14 * self.dpi_scale)
             title_label: QtWidgets.QLabel = QtWidgets.QLabel(self.APP_NAME, self)
             title_label.setAlignment(QtCore.Qt.AlignCenter)
-            title_label.setFont(QtGui.QFont("Segoe UI", title_font_size, QtGui.QFont.Bold))
+            title_font = QtGui.QFont("Segoe UI")
+            title_font.setPointSize(22)
+            title_font.setBold(True)
+            title_label.setFont(title_font)
             main_layout.addWidget(title_label)
             
             # Info
-            info_font_size: int = int(10 * self.dpi_scale)
             info_label: QtWidgets.QLabel = QtWidgets.QLabel(self.INFO, self)
             info_label.setAlignment(QtCore.Qt.AlignCenter)
-            info_label.setFont(QtGui.QFont("Segoe UI", info_font_size))
+            info_font = QtGui.QFont("Segoe UI")
+            info_font.setPointSize(16)
+            info_label.setFont(info_font)
             info_label.setWordWrap(True)
             main_layout.addWidget(info_label)
 
             # Copyright
-            title_font_size: int = int(7 * self.dpi_scale)
             copyright_label: QtWidgets.QLabel = QtWidgets.QLabel(self.APP_COPYRIGHT, self)
             copyright_label.setAlignment(QtCore.Qt.AlignCenter)
-            copyright_label.setFont(QtGui.QFont("Segoe UI", title_font_size))
+            copyright_font = QtGui.QFont("Segoe UI")
+            copyright_font.setPointSize(10)
+            copyright_label.setFont(copyright_font)
             copyright_label.setWordWrap(True)
             main_layout.addWidget(copyright_label)
 
