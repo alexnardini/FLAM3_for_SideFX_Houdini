@@ -57,10 +57,10 @@ from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 
 F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
-nodetype = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
-__version__ = nodetype.hdaModule().__version__
-__status__ = nodetype.hdaModule().__status__
-__module_filename__ = nodetype.hdaModule().__module_filename__
+nodetype: hou.SopNodeType = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
+__version__: str = nodetype.hdaModule().__version__
+__status__: str = nodetype.hdaModule().__status__
+__module_filename__: str = nodetype.hdaModule().__module_filename__
 __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
 __h_version_min__: int = nodetype.hdaModule().__h_version_min__
 __h_version_max__: int = nodetype.hdaModule().__h_version_max__
@@ -22619,7 +22619,10 @@ class pyside_utils
             ps_cls(Type[pyside_master_base_proto]): Any of the classes that agree to the pyside_master_base_proto protocol.
             varname(str): Default to: "_ps_cls"</br>The app name.
             run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
-            *args: Any args to pass to the <b>ps_cls</b> if any.
+            *args: Any args to pass to the <b>ps_cls</b> if any.</br>Available arguments and their defaults are:
+                * parent=None (usually untouched)
+                * app_info=APP_INFO (The main info message string)
+                * auto_close_ms=5000 (Timer in millisecond. Default to 5 seconds)
             **kwargs: Any kwargs to pass to the <b>ps_cls</b> if any.
 
         Returns:
@@ -22652,45 +22655,46 @@ class pyside_master:
         
     class F3H_msg_panel(QtWidgets.QWidget):
 
-        APP_NAME = "FLAM3H™"
+        APP_NAME: str = "FLAM3H™"
         
-        APP_INFO = (
+        APP_INFO: str = (
             "compiling cvex nodes\n"
         )
 
-        APP_COPYRIGHT = (
+        APP_COPYRIGHT: str = (
             "\n"
             f"{__version__} indie, {__license__} - {__copyright__} ( made in Italy )"
         )
         
         # milliseconds
-        FADE_IN_DURATION_MS = 0
-        FADE_OUT_DURATION_MS = 0
+        FADE_IN_DURATION_MS: int = 0
+        FADE_OUT_DURATION_MS: int = 0
         
-        BG_COLOR = "#f4f6f8"
-        TEXT_COLOR = "#2b2b2b"
-        ACCENT_COLOR = "#5b7cfa"
+        BG_COLOR: str = "#f4f6f8"
+        TEXT_COLOR: str = "#2b2b2b"
+        ACCENT_COLOR: str = "#5b7cfa"
         
-        BASE_WINDOW_WIDTH = 512
-        BASE_WINDOW_HEIGHT = 472
-        BASE_DRAG_POSITION = None
+        BASE_WINDOW_WIDTH: int = 512
+        BASE_WINDOW_HEIGHT: int = 472
+        BASE_DRAG_POSITION: QtCore.QPoint | None = None
         
-        BASE_BANNER_HEIGHT = 300
+        BASE_BANNER_HEIGHT: int = 300
         
-        BASE_SVG_ICON_SIZE = 96
+        BASE_SVG_ICON_SIZE: int = 96
         
-        IMG_PIXMAP = None
-        IMG_PIXMAP_SECTION_NAME = 'FLAM3H_DOC_intro.jpg'
-        SVG_ICON = None
-        SVG_ICON_SECTION_NAME = 'iconSVGW.svg'
+        IMG_PIXMAP: QtGui.QPixmap | None = None
+        IMG_PIXMAP_SECTION_NAME: str = 'FLAM3H_DOC_intro.jpg'
         
-        NODETYPE = nodetype
+        SVG_ICON: QSvgWidget | None = None
+        SVG_ICON_SECTION_NAME: str = 'iconSVGW.svg'
+        
+        NODETYPE: hou.SopNodeType = nodetype
 
         def __init__(self, parent=None, app_info=APP_INFO, auto_close_ms=5000):
             super().__init__(parent)
             
             # Enable High DPI scaling (once per app)
-            app = QtWidgets.QApplication.instance()
+            app: QtCore.QCoreApplication | None = QtWidgets.QApplication.instance()
             if app:
                 app.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
                 app.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
@@ -22700,13 +22704,13 @@ class pyside_master:
             self.INFO = app_info
 
             # DPI scaling
-            screen = QtWidgets.QApplication.primaryScreen()
-            self.dpi_scale = screen.logicalDotsPerInch() / 96.0
+            screen: QtGui.QScreen = QtWidgets.QApplication.primaryScreen()
+            self.dpi_scale: float = screen.logicalDotsPerInch() / 96.0
 
-            self.window_width = int(self.BASE_WINDOW_WIDTH * self.dpi_scale)
-            self.window_height = int(self.BASE_WINDOW_HEIGHT * self.dpi_scale)
-            self.banner_height = int(self.BASE_BANNER_HEIGHT * self.dpi_scale)
-            self.svg_icon_size = int(self.BASE_SVG_ICON_SIZE * self.dpi_scale)
+            self.window_width: int = int(self.BASE_WINDOW_WIDTH * self.dpi_scale)
+            self.window_height: int = int(self.BASE_WINDOW_HEIGHT * self.dpi_scale)
+            self.banner_height: int = int(self.BASE_BANNER_HEIGHT * self.dpi_scale)
+            self.svg_icon_size: int = int(self.BASE_SVG_ICON_SIZE * self.dpi_scale)
 
             # Frameless + always on top
             self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
@@ -22718,7 +22722,7 @@ class pyside_master:
 
             # Fade in animation
             self.setWindowOpacity(0)
-            self.fade_in_anim = QtCore.QPropertyAnimation(self, b"windowOpacity")
+            self.fade_in_anim: QtCore.QPropertyAnimation = QtCore.QPropertyAnimation(self, b"windowOpacity")
             self.fade_in_anim.setDuration(self.FADE_IN_DURATION_MS)
             self.fade_in_anim.setStartValue(0)
             self.fade_in_anim.setEndValue(1)
@@ -22726,7 +22730,7 @@ class pyside_master:
 
             # Auto close with fade out
             if auto_close_ms > 0:
-                fade_out_start = max(0, auto_close_ms - self.FADE_OUT_DURATION_MS)
+                fade_out_start: int = max(0, auto_close_ms - self.FADE_OUT_DURATION_MS)
                 QtCore.QTimer.singleShot(fade_out_start, lambda: self._start_fade_out(self.FADE_OUT_DURATION_MS))
 
 
@@ -22736,7 +22740,7 @@ class pyside_master:
             
         # LOAD BANNER IMG
         def _load_image_pixmap(self):
-            section_img = self.NODETYPE.definition().sections()[self.IMG_PIXMAP_SECTION_NAME]
+            section_img: hou.HDASection = self.NODETYPE.definition().sections()[self.IMG_PIXMAP_SECTION_NAME]
             # PIXMAP LOAD
             self.IMG_PIXMAP = QtGui.QPixmap()
             self.IMG_PIXMAP.loadFromData(QtCore.QByteArray(section_img.binaryContents()))
@@ -22744,15 +22748,16 @@ class pyside_master:
             
         # CENTER WINDOW
         def _center_window(self):
+            
             try:
-                main_win = hou.ui.mainQtWindow()
-                houdini_geom = main_win.frameGeometry()
-
-                best_screen = None
-                max_area = 0
+                main_win: QtWidgets.QWidget = hou.qt.mainWindow()
+                houdini_geom: QtCore.QRect = main_win.frameGeometry()
+                
+                best_screen: QtGui.QScreen | None = None
+                max_area: int = 0
                 for screen in QtWidgets.QApplication.screens():
-                    intersect = houdini_geom.intersected(screen.availableGeometry())
-                    area = intersect.width() * intersect.height()
+                    intersect: QtCore.QRect = houdini_geom.intersected(screen.availableGeometry())
+                    area: int = intersect.width() * intersect.height()
                     if area > max_area:
                         max_area = area
                         best_screen = screen
@@ -22760,18 +22765,21 @@ class pyside_master:
                 if best_screen is None:
                     best_screen = QtWidgets.QApplication.primaryScreen()
 
-                geom = best_screen.availableGeometry()
-                x = geom.x() + (geom.width() - self.width()) // 2
-                y = geom.y() + (geom.height() - self.height()) // 2
+                geom: QtCore.QRect = best_screen.availableGeometry()
+                x: int = geom.x() + (geom.width() - self.width()) // 2
+                y: int = geom.y() + (geom.height() - self.height()) // 2
                 self.move(x, y)
+                
             except Exception:
-                geom = QtWidgets.QApplication.primaryScreen().availableGeometry()
-                x = (geom.width() - self.width()) // 2
-                y = (geom.height() - self.height()) // 2
+                geom: QtCore.QRect = QtWidgets.QApplication.primaryScreen().availableGeometry()
+                x: int = (geom.width() - self.width()) // 2
+                y: int = (geom.height() - self.height()) // 2
                 self.move(x, y)
+
 
         # BUILD UI
         def _build_ui(self):
+            
             self.setStyleSheet(f"""
                 QWidget {{
                     background-color: {self.BG_COLOR};
@@ -22781,13 +22789,13 @@ class pyside_master:
                 }}
             """)
 
-            main_layout = QtWidgets.QVBoxLayout(self)
+            main_layout: QtWidgets.QWidget = QtWidgets.QVBoxLayout(self)
             main_layout.setContentsMargins(0, 0, 0, 0)
             main_layout.setSpacing(int(10 * self.dpi_scale))
             main_layout.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignCenter)
 
             # Banner
-            self.banner_container = QtWidgets.QWidget()
+            self.banner_container: QtWidgets.QWidget = QtWidgets.QWidget()
             self.banner_container.setFixedSize(self.window_width, self.banner_height)
             self.banner_container.setStyleSheet("background: transparent;")
             main_layout.addWidget(self.banner_container)
@@ -22797,28 +22805,33 @@ class pyside_master:
             self.image_label.setAlignment(QtCore.Qt.AlignCenter)
             self._update_banner()
 
-            # SVG
-            section_svg = self.NODETYPE.definition().sections()[self.SVG_ICON_SECTION_NAME]
+            # Svg
+            section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_SECTION_NAME]
             self.SVG_ICON = QSvgWidget(parent=self.banner_container)
             self.SVG_ICON.load(QtCore.QByteArray(section_svg.binaryContents()))
             self.SVG_ICON.resize(self.svg_icon_size, self.svg_icon_size)
             self._position_svg_icon()
 
             # Title
-            title_label = QtWidgets.QLabel(self.APP_NAME, alignment=QtCore.Qt.AlignCenter)
-            title_label.setFont(QtGui.QFont("Segoe UI", int(14 * self.dpi_scale), QtGui.QFont.Bold))
+            title_font_size: int = int(14 * self.dpi_scale)
+            title_label: QtWidgets.QLabel = QtWidgets.QLabel(self.APP_NAME, self)
+            title_label.setAlignment(QtCore.Qt.AlignCenter)
+            title_label.setFont(QtGui.QFont("Segoe UI", title_font_size, QtGui.QFont.Bold))
             main_layout.addWidget(title_label)
             
             # Info
-            info_font_size = int(10 * self.dpi_scale)
-            info_label = QtWidgets.QLabel(self.INFO, alignment=QtCore.Qt.AlignCenter)
+            info_font_size: int = int(10 * self.dpi_scale)
+            info_label: QtWidgets.QLabel = QtWidgets.QLabel(self.INFO, self)
+            info_label.setAlignment(QtCore.Qt.AlignCenter)
             info_label.setFont(QtGui.QFont("Segoe UI", info_font_size))
             info_label.setWordWrap(True)
             main_layout.addWidget(info_label)
 
             # Copyright
-            copyright_label = QtWidgets.QLabel(self.APP_COPYRIGHT, alignment=QtCore.Qt.AlignCenter)
-            copyright_label.setFont(QtGui.QFont("Segoe UI", int(7 * self.dpi_scale)))
+            title_font_size: int = int(7 * self.dpi_scale)
+            copyright_label: QtWidgets.QLabel = QtWidgets.QLabel(self.APP_COPYRIGHT, self)
+            copyright_label.setAlignment(QtCore.Qt.AlignCenter)
+            copyright_label.setFont(QtGui.QFont("Segoe UI", title_font_size))
             copyright_label.setWordWrap(True)
             main_layout.addWidget(copyright_label)
 
@@ -22826,62 +22839,66 @@ class pyside_master:
 
         # BANNER UPDATE: SCALE + CROP
         def _update_banner(self):
-            from PySide6 import QtCore
             if self.IMG_PIXMAP:
                 try:
-                    w = self.banner_container.width()
-                    h = self.banner_container.height()
-                    scaled = self.IMG_PIXMAP.scaled(
+                    w: int = self.banner_container.width()
+                    h: int = self.banner_container.height()
+                    scaled: QtGui.QPixmap = self.IMG_PIXMAP.scaled(
                         w, h, QtCore.Qt.KeepAspectRatioByExpanding, QtCore.Qt.SmoothTransformation
                     )
-                    x_offset = (scaled.width() - w) // 2
-                    y_offset = (scaled.height() - h) // 2
-                    cropped = scaled.copy(x_offset, y_offset, w, h)
+                    x_offset: int = (scaled.width() - w) // 2
+                    y_offset: int = (scaled.height() - h) // 2
+                    cropped: QtGui.QPixmap = scaled.copy(x_offset, y_offset, w, h)
                     self.image_label.setPixmap(cropped)
+                    
                 except Exception as e:
                     print("Failed to update banner:", e)
+                    
             else:
                 self.image_label.setText("🎨")
                 self.image_label.setFont(QtGui.QFont("Segoe UI Emoji", int(64 * self.dpi_scale)))
                 self.image_label.setAlignment(QtCore.Qt.AlignCenter)
 
+
+        # SVG POSITION
+        def _position_svg_icon(self):
+            if self.SVG_ICON:
+                x: int = (self.banner_container.width() - self.SVG_ICON.width()) // 2
+                y: int = (self.banner_container.height() - self.SVG_ICON.height()) // 2
+                self.SVG_ICON.move(x, y)
+                
+                
+        # PYSIDE: RESIZE EVENT
         def resizeEvent(self, event):
             super().resizeEvent(event)
             self._position_svg_icon()
             self._update_banner()
 
-        # SVG POSITION
-        def _position_svg_icon(self):
-            if self.SVG_ICON:
-                x = (self.banner_container.width() - self.SVG_ICON.width()) // 2
-                y = (self.banner_container.height() - self.SVG_ICON.height()) // 2
-                self.SVG_ICON.move(x, y)
 
-        # DRAG SUPPORT
+        # PYSIDE: DRAG SUPPORT MOUSE PRESS
         def mousePressEvent(self, event):
-            from PySide6 import QtCore
             if event.button() == QtCore.Qt.LeftButton:
                 self.BASE_DRAG_POSITION = event.globalPosition().toPoint()
 
+
+        # PYSIDE: DRAG SUPPORT MOUSE MOVE
         def mouseMoveEvent(self, event):
-            from PySide6 import QtCore
             if event.buttons() == QtCore.Qt.LeftButton and self.BASE_DRAG_POSITION:
                 delta = event.globalPosition().toPoint() - self.BASE_DRAG_POSITION
                 self.move(self.x() + delta.x(), self.y() + delta.y())
                 self.BASE_DRAG_POSITION = event.globalPosition().toPoint()
 
+
         # FADE OUT ANIMATION
         def _start_fade_out(self, fade_out_duration_ms):
-            from PySide6 import QtCore
-            self.fade_out_anim = QtCore.QPropertyAnimation(self, b"windowOpacity")
+            self.fade_out_anim: QtCore.QPropertyAnimation = QtCore.QPropertyAnimation(self, b"windowOpacity")
             self.fade_out_anim.setDuration(fade_out_duration_ms)
             self.fade_out_anim.setStartValue(1)
             self.fade_out_anim.setEndValue(0)
             self.fade_out_anim.finished.connect(self._exit)
             self.fade_out_anim.start()
 
-        # ---------------------------
-        # Exit
-        # ---------------------------
+
+        # EXIT
         def _exit(self):
             self.close()
