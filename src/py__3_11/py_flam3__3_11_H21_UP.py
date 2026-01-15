@@ -22848,7 +22848,7 @@ class pyside_master:
         # LOAD SVG ICON
         def _load_svg_icon(self) -> None:
             try:
-                section_svg = self.NODETYPE.definition().sections()[self.SVG_ICON_SECTION_NAME]
+                section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_SECTION_NAME]
             except KeyError:
                 print(f"Warning: SVG icon: HDASection[{self.SVG_ICON_SECTION_NAME}] not found!")
             else:
