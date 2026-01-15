@@ -22592,7 +22592,7 @@ class out_flame_xforms_data(out_flame_utils):
         return self._palette_hex
 
 
-# PYSIDE6 start here (panels and such)
+# PYSIDE start here (panels and such)
 ##########################################
 ##########################################
 ##########################################
@@ -22608,22 +22608,23 @@ class pyside_utils:
 class pyside_utils
 
 @STATICMETHODS
-* pyside_panels_safe_launch(ps_cls: Type[PS_MASTER_BaseProto], varname: str = "_ps_cls", run: bool = True, *args, **kwargs) -> None:
+* pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], app_name: str = "_ps_cls", run: bool = True, *args, **kwargs) -> None:
 
 """
 
             
     @staticmethod
-    def pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], varname: str = "_ps_cls", run: bool = True, *args, **kwargs) -> None:
+    def pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], app_name: str = "_ps_cls", run: bool = True, *args, **kwargs) -> None:
         """Safely run a pyside panel,</br>
         additionally there is the option to only remove an already exisiting one.</br>
 
         Args:
             ps_cls(Type[pyside_master_base_proto]): Any of the classes that agree to the pyside_master_base_proto protocol.
-            varname(str): Default to: "_ps_cls"</br>The app name.
+            app_name(str): Default to: "_ps_cls"</br>The app name.
             run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
             *args: Any args to pass to the <b>ps_cls</b> if any.</br>Available arguments and their defaults are:
                 * parent=None (usually untouched)
+                * f3h_node=None (This FLAM3H™ node)
                 * app_info=APP_INFO (The main info message string)
                 * auto_close_ms=5000 (Timer in millisecond. Default to 5 seconds)
             **kwargs: Any kwargs to pass to the <b>ps_cls</b> if any.
@@ -22631,18 +22632,19 @@ class pyside_utils
         Returns:
             (None):
         """ 
-        if hasattr(builtins, varname):
-            try:
-                getattr(builtins, varname).close()
-            except Exception:
-                pass
-            delattr(builtins, varname)
+        if hou.isUIAvailable():
+            if hasattr(builtins, app_name):
+                try:
+                    getattr(builtins, app_name).close()
+                except Exception:
+                    pass
+                delattr(builtins, app_name)
 
-        if run:
-            setattr(builtins, varname, ps_cls(*args, **kwargs))
-            getattr(builtins, varname).show()
-            
-            
+            if run:
+                setattr(builtins, app_name, ps_cls(*args, **kwargs))
+                getattr(builtins, app_name).show()
+
+
 class SvgIcon(QtWidgets.QWidget):
     """A QWidget for displaying an SVG image.</br></br>
 
@@ -22715,7 +22717,7 @@ class pyside_master:
 
         APP_COPYRIGHT: str = (
             "\n"
-            f"{__version__} indie, {__license__} - {__copyright__} ( made in Italy )"
+            f"v{__version__} indie, {__license__} - {__copyright__} ( made in Italy )"
         )
         
         # milliseconds
@@ -22742,8 +22744,10 @@ class pyside_master:
         
         NODETYPE: hou.SopNodeType = nodetype
 
-        def __init__(self, parent=None, app_info=APP_INFO, auto_close_ms=5000):
+        def __init__(self, parent=None, f3h_node=None, app_info=APP_INFO, auto_close_ms=5000):
             super().__init__(parent)
+            
+            self.node: hou.SopNode | None = f3h_node # mot being used just yet
             
             # Enable High DPI scaling (once per app)
             app: QtCore.QCoreApplication | None = QtWidgets.QApplication.instance()
@@ -22841,7 +22845,7 @@ class pyside_master:
                 }}
             """)
 
-            main_layout: QtWidgets.QWidget = QtWidgets.QVBoxLayout(self)
+            main_layout: QtWidgets.QVBoxLayout = QtWidgets.QVBoxLayout(self)
             main_layout.setContentsMargins(0, 0, 0, 0)
             main_layout.setSpacing(int(10 * self.dpi_scale))
             main_layout.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignCenter)
@@ -22899,6 +22903,7 @@ class pyside_master:
             main_layout.addWidget(copyright_label)
 
             main_layout.addStretch()
+            
 
         # BANNER UPDATE: SCALE + CROP
         def _update_banner(self):
