@@ -12227,11 +12227,10 @@ class flam3h_about_utils
         Returns:
             (None):
         """ 
-        h_version: int = flam3h_general_utils.houdini_version(2)
+        
         pyside_utils.pyside_panels_safe_launch(
                                                 pyside_master.F3H_msg_panel, 
                                                 app_name="_ps_cls_about", 
-                                                app_info="", 
                                                 links=True,
                                                 auto_close_ms=4000, 
                                                 fade_in_ms=400, 
@@ -22790,10 +22789,11 @@ class pyside_master:
                 app.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
                 app.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
 
+            # Add FLAM3H™ weblinks
+            self.LINKS: bool = links
             # in case of a custom message, this must be a one liner ending with a newline(\n). Meant for short descriptive messages.
             # Check: APP_INFO variable for an example as it is the default message
-            self.INFO = app_info # if app_info else ""
-            self.LINKS: bool = links
+            self.INFO = '' if self.LINKS else app_info if app_info else "\n"
 
             # DPI scaling
             screen: QtGui.QScreen = QtWidgets.QApplication.primaryScreen()
@@ -22944,7 +22944,7 @@ class pyside_master:
             info_label.setWordWrap(True)
             main_layout.addWidget(info_label)
             
-            # clickable links
+            # Clickable links
             if self.LINKS:
                 links_label: QtWidgets.QLabel = QtWidgets.QLabel(self.INFO, self)
                 links_label.setAlignment(QtCore.Qt.AlignCenter)
@@ -23012,6 +23012,16 @@ class pyside_master:
                 self.SVG_ICON.move(x, y)
                 
                 
+        # FADE OUT ANIMATION
+        def _start_fade_out(self, fade_out_duration_ms):
+            self.fade_out_anim: QtCore.QPropertyAnimation = QtCore.QPropertyAnimation(self, b"windowOpacity")
+            self.fade_out_anim.setDuration(fade_out_duration_ms)
+            self.fade_out_anim.setStartValue(1)
+            self.fade_out_anim.setEndValue(0)
+            self.fade_out_anim.finished.connect(self._exit)
+            self.fade_out_anim.start()
+                
+                
         # PYSIDE: RESIZE EVENT
         def resizeEvent(self, event: QtGui.QResizeEvent):
             super().resizeEvent(event)
@@ -23031,16 +23041,6 @@ class pyside_master:
                 delta = event.globalPosition().toPoint() - self.BASE_DRAG_POSITION
                 self.move(self.x() + delta.x(), self.y() + delta.y())
                 self.BASE_DRAG_POSITION = event.globalPosition().toPoint()
-
-
-        # FADE OUT ANIMATION
-        def _start_fade_out(self, fade_out_duration_ms):
-            self.fade_out_anim: QtCore.QPropertyAnimation = QtCore.QPropertyAnimation(self, b"windowOpacity")
-            self.fade_out_anim.setDuration(fade_out_duration_ms)
-            self.fade_out_anim.setStartValue(1)
-            self.fade_out_anim.setEndValue(0)
-            self.fade_out_anim.finished.connect(self._exit)
-            self.fade_out_anim.start()
 
 
         # EXIT
