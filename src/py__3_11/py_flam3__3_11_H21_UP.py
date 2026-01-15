@@ -22776,54 +22776,57 @@ class pyside_master:
             
             super().__init__(parent)
             
-            self.f3h_node: hou.SopNode | None = None # mot being used just yet
-            if f3h_node is not None and f3h_node.type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY: self.f3h_node = f3h_node
-            
-            # Check if the user want fade in and/or fade out (Disabled by default)
-            if fade_in_ms is not None and isinstance(fade_in_ms, int | float): self.FADE_IN_DURATION_MS = int(fade_in_ms)
-            if fade_out_ms is not None and isinstance(fade_out_ms, int | float): self.FADE_OUT_DURATION_MS = int(fade_out_ms)
-            
-            # Enable High DPI scaling (once per app)
             app: QtCore.QCoreApplication | None = QtWidgets.QApplication.instance()
             if app:
+                
+                # Enable High DPI scaling (once per app)
                 app.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
                 app.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
+                
+                self.f3h_node: hou.SopNode | None = None # mot being used just yet
+                if f3h_node is not None and f3h_node.type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY: self.f3h_node = f3h_node
+                
+                # Check if the user want fade in and/or fade out (Disabled by default)
+                if fade_in_ms is not None and isinstance(fade_in_ms, int | float): self.FADE_IN_DURATION_MS = int(fade_in_ms)
+                if fade_out_ms is not None and isinstance(fade_out_ms, int | float): self.FADE_OUT_DURATION_MS = int(fade_out_ms)
+                
+                self.font_os = app.font()
 
-            # Add FLAM3H™ weblinks
-            self.LINKS: bool = links
-            # in case of a custom message, this must be a one liner ending with a newline(\n). Meant for short descriptive messages.
-            # Check: APP_INFO variable for an example as it is the default message
-            self.INFO = '' if self.LINKS else app_info if app_info else "\n"
+                # Add FLAM3H™ weblinks
+                self.LINKS: bool = links
+                # in case of a custom message, this must be a one liner ending with a newline(\n). Meant for short descriptive messages.
+                # Check: APP_INFO variable for an example as it is the default message
+                self.INFO = '' if self.LINKS else app_info if app_info else "\n"
 
-            # DPI scaling
-            screen: QtGui.QScreen = QtWidgets.QApplication.primaryScreen()
-            self.dpi_scale: float = screen.logicalDotsPerInch() / 96.0
+                # DPI scaling
+                screen: QtGui.QScreen = QtWidgets.QApplication.primaryScreen()
+                self.dpi_scale: float = screen.logicalDotsPerInch() / 96.0
 
-            self.window_width: int = int(self.BASE_WINDOW_WIDTH * self.dpi_scale)
-            self.window_height: int = int(self.BASE_WINDOW_HEIGHT * self.dpi_scale)
-            self.banner_height: int = int(self.BASE_BANNER_HEIGHT * self.dpi_scale)
-            self.svg_icon_size: int = int(self.BASE_SVG_ICON_SIZE * self.dpi_scale)
+                self.window_width: int = int(self.BASE_WINDOW_WIDTH * self.dpi_scale)
+                self.window_height: int = int(self.BASE_WINDOW_HEIGHT * self.dpi_scale)
+                self.banner_height: int = int(self.BASE_BANNER_HEIGHT * self.dpi_scale)
+                self.svg_icon_size: int = int(self.BASE_SVG_ICON_SIZE * self.dpi_scale)
 
-            # Frameless + always on top
-            self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
-            self.setFixedSize(self.window_width, self.window_height)
-            
-            self._load_image_pixmap()
-            self._center_window()
-            self._build_ui()
+                # Frameless + always on top
+                self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+                self.setFixedSize(self.window_width, self.window_height)
+                
+                self._load_image_pixmap()
+                self._center_window()
+                self._build_ui()
 
-            # Fade in animation
-            self.setWindowOpacity(0)
-            self.fade_in_anim: QtCore.QPropertyAnimation = QtCore.QPropertyAnimation(self, b"windowOpacity")
-            self.fade_in_anim.setDuration(self.FADE_IN_DURATION_MS)
-            self.fade_in_anim.setStartValue(0)
-            self.fade_in_anim.setEndValue(1)
-            self.fade_in_anim.start()
+                # Fade in animation
+                self.setWindowOpacity(0)
+                self.fade_in_anim: QtCore.QPropertyAnimation = QtCore.QPropertyAnimation(self, b"windowOpacity")
+                self.fade_in_anim.setDuration(self.FADE_IN_DURATION_MS)
+                self.fade_in_anim.setStartValue(0)
+                self.fade_in_anim.setEndValue(1)
+                self.fade_in_anim.start()
 
-            # Auto close with fade out
-            if isinstance(auto_close_ms, int | float) and int(auto_close_ms) > 0:
-                fade_out_start: int = max(0, int(auto_close_ms) - self.FADE_OUT_DURATION_MS)
-                QtCore.QTimer.singleShot(fade_out_start, lambda: self._start_fade_out(self.FADE_OUT_DURATION_MS))
+                # Auto close with fade out
+                if isinstance(auto_close_ms, int | float) and int(auto_close_ms) > 0:
+                    fade_out_start: int = max(0, int(auto_close_ms) - self.FADE_OUT_DURATION_MS)
+                    QtCore.QTimer.singleShot(fade_out_start, lambda: self._start_fade_out(self.FADE_OUT_DURATION_MS))
 
 
         # PROTOCOL
@@ -22917,23 +22920,26 @@ class pyside_master:
             self._load_svg_icon()
             self._position_svg_icon()
 
-            # init Font
-            font = QtGui.QFont("Segoe UI")
+            # Init font, dn't neede but just in case!
+            if self.font_os is None:
+                # in my case being on windows
+                self.font_os = QtGui.QFont("Segoe UI")
+
 
             # Title
             title_label: QtWidgets.QLabel = QtWidgets.QLabel(self.APP_NAME, self)
             title_label.setAlignment(QtCore.Qt.AlignCenter)
-            font.setPointSize(22)
-            font.setBold(True)
-            title_label.setFont(font)
+            self.font_os.setPointSize(22)
+            self.font_os.setBold(True)
+            title_label.setFont(self.font_os)
             main_layout.addWidget(title_label)
             
             # Info
             info_label: QtWidgets.QLabel = QtWidgets.QLabel(self.INFO, self)
             info_label.setAlignment(QtCore.Qt.AlignCenter)
-            font.setPointSize(16)
-            font.setBold(False)
-            info_label.setFont(font)
+            self.font_os.setPointSize(16)
+            self.font_os.setBold(False)
+            info_label.setFont(self.font_os)
             info_label.setWordWrap(True)
             main_layout.addWidget(info_label)
             
@@ -22941,9 +22947,9 @@ class pyside_master:
             if self.LINKS:
                 links_label: QtWidgets.QLabel = QtWidgets.QLabel(self.INFO, self)
                 links_label.setAlignment(QtCore.Qt.AlignCenter)
-                font.setPointSize(10)
-                font.setBold(False)
-                links_label.setFont(font)
+                self.font_os.setPointSize(10)
+                self.font_os.setBold(False)
+                links_label.setFont(self.font_os)
                 links_label.setWordWrap(True)
                 links_label.setTextFormat(QtCore.Qt.RichText)
                 links_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
@@ -22964,8 +22970,8 @@ class pyside_master:
             # Copyright
             copyright_label: QtWidgets.QLabel = QtWidgets.QLabel(self.APP_COPYRIGHT, self)
             copyright_label.setAlignment(QtCore.Qt.AlignCenter)
-            font.setPointSize(10)
-            copyright_label.setFont(font)
+            self.font_os.setPointSize(10)
+            copyright_label.setFont(self.font_os)
             copyright_label.setWordWrap(True)
             main_layout.addWidget(copyright_label)
 
