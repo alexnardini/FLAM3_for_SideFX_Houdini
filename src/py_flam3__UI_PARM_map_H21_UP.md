@@ -2299,6 +2299,35 @@ _Here you will find informations about FLAM3H™._
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
+| **ABOUT** | `icon_about_error` |  `geometry data` | `from H21` |
+
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
+```python
+hou.phm().flam3.flam3h_about_utils.flam3h_about_show_info_panel()
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **ABOUT** | `icon_about` |  `geometry data` | `from H21` |
+
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
+```python
+hou.phm().flam3.flam3h_about_utils.flam3h_about_show_info_panel()
+```
+
+</br>
+</br>
+</br>
+
+
+
+
+| Tab | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
 | **ABOUT** | `flam3homepage` |  `geometry data` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script

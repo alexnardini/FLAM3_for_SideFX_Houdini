@@ -3263,7 +3263,7 @@ class flam3h_general_utils
         """Retrieve the major Houdini version number currently in use.</br>
 
         Args:
-            digit(int): Default to: 1</br>H_19, H_20. if set to 2: H_190, H_195, H_200, H_205, and so on.
+            digit(int): Default to: 1</br>19, 20. if set to 2: 190, 195, 200, 205, and so on.
 
         Returns:
             (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
@@ -12227,7 +12227,16 @@ class flam3h_about_utils
         Returns:
             (None):
         """ 
-        pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, app_name="_ps_cls_about", app_info="", auto_close_ms=4000, fade_in_ms=400, fade_out_ms=400)
+        h_version: int = flam3h_general_utils.houdini_version(2)
+        pyside_utils.pyside_panels_safe_launch(
+                                                pyside_master.F3H_msg_panel, 
+                                                app_name="_ps_cls_about", 
+                                                app_info="", 
+                                                links=True,
+                                                auto_close_ms=4000, 
+                                                fade_in_ms=400, 
+                                                fade_out_ms=400
+                                               )
         
         
 
@@ -22639,7 +22648,7 @@ class pyside_utils
             app_name(str): Default to: "_ps_cls"</br>The app name.
             run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
             args: Any args to pass to the <b>ps_cls</b> if any.</br>
-            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:</br><b>parent</b>=None (usually untouched)</br><b>f3h_node</b>=None (This FLAM3H™ node)</br><b>app_info</b>=APP_INFO (The main info message string)</br><b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br><b>fade_in_ms</b>=None (Fade in time in millisecond. Default to 0(Zero))</br><b>fade_out_ms</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br>
+            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:</br><b>parent</b>=None (usually untouched)</br><b>f3h_node</b>=None (This FLAM3H™ node)</br><b>app_info</b>=APP_INFO (The main info message string)</br><b>links</b>=False (When True it will display FLAM3H™ related web links)</br><b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br><b>fade_in_ms</b>=None (Fade in time in millisecond. Default to 0(Zero))</br><b>fade_out_ms</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br>
             
         Returns:
             (None):
@@ -22652,8 +22661,10 @@ class pyside_utils
             delattr(builtins, app_name)
 
         if hou.isUIAvailable() and run:
-            setattr(builtins, app_name, ps_cls(*args, **kwargs))
-            getattr(builtins, app_name).show()
+            h_version: int = flam3h_general_utils.houdini_version(2)
+            if h_version > 205:
+                setattr(builtins, app_name, ps_cls(*args, **kwargs))
+                getattr(builtins, app_name).show()
 
 
 class SvgIcon(QtWidgets.QWidget):
@@ -22757,7 +22768,8 @@ class pyside_master:
         def __init__(   self, 
                         parent=None, 
                         f3h_node: hou.SopNode | None = None, 
-                        app_info: str = APP_INFO, 
+                        app_info: str = APP_INFO,
+                        links: bool = False, 
                         auto_close_ms: int = 5000, 
                         fade_in_ms: int | None = None, 
                         fade_out_ms: int | None = None
@@ -22780,7 +22792,8 @@ class pyside_master:
 
             # in case of a custom message, this must be a one liner ending with a newline(\n). Meant for short descriptive messages.
             # Check: APP_INFO variable for an example as it is the default message
-            self.INFO = app_info if app_info else "\n"
+            self.INFO = app_info # if app_info else ""
+            self.LINKS: bool = links
 
             # DPI scaling
             screen: QtGui.QScreen = QtWidgets.QApplication.primaryScreen()
@@ -22930,6 +22943,30 @@ class pyside_master:
             info_label.setFont(font)
             info_label.setWordWrap(True)
             main_layout.addWidget(info_label)
+            
+            # clickable links
+            if self.LINKS:
+                links_label: QtWidgets.QLabel = QtWidgets.QLabel(self.INFO, self)
+                links_label.setAlignment(QtCore.Qt.AlignCenter)
+                font.setPointSize(10)
+                font.setBold(False)
+                links_label.setFont(font)
+                links_label.setWordWrap(True)
+                links_label.setTextFormat(QtCore.Qt.RichText)
+                links_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+                links_label.setOpenExternalLinks(True)
+                links_label.setText(f"""
+                <html>
+                    <body>
+                    <a href="https://www.alexnardini.net">Website</a>
+                    <a href="https://www.instagram.com/alexnardini/">Instagram</a>
+                    <a href="https://www.youtube.com/@alexnardiniITALY/videos">Youtube</a>
+                    <a href="https://github.com/alexnardini/FLAM3_for_SideFX_Houdini">Github</a>
+                    </body>
+                </html>
+                """)
+                main_layout.addWidget(links_label)
+            
 
             # Copyright
             copyright_label: QtWidgets.QLabel = QtWidgets.QLabel(self.APP_COPYRIGHT, self)
