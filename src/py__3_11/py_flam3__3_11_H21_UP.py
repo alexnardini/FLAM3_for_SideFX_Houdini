@@ -58,7 +58,7 @@ from numpy import searchsorted as np_searchsorted
 from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 
-F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
+F3H_NODE_TYPE_NAME_CATEGORY: str = 'alexnardini::Sop/FLAM3H'
 nodetype: hou.SopNodeType = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
 __version__: str = nodetype.hdaModule().__version__
 __status__: str = nodetype.hdaModule().__status__
@@ -12187,6 +12187,9 @@ class flam3h_about_utils():
     """
 class flam3h_about_utils
 
+@STATICMETHOD
+* flam3h_about_show_info_panel() -> None:
+
 @METHODS
 * flam3h_about_msg(self) -> None:
 * flam3h_about_plugins_msg(self) -> None:
@@ -12212,6 +12215,20 @@ class flam3h_about_utils
         """ 
         self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
+        
+        
+    @staticmethod
+    def flam3h_about_show_info_panel() -> None:
+        """Display default pyside about message panel.</br>
+        
+        Args:
+            (None):
+            
+        Returns:
+            (None):
+        """ 
+        pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, app_name="_ps_cls_about", app_info="", auto_close_ms=4000, fade_in=400, fade_out=400)
+        
         
 
     # CLASS: PROPERTIES
@@ -22611,7 +22628,7 @@ class pyside_utils
 * pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], app_name: str = "_ps_cls", run: bool = True, *args, **kwargs) -> None:
 
 """
-            
+    
     @staticmethod
     def pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], app_name: str = "_ps_cls", run: bool = True, *args, **kwargs) -> None:
         """Safely run a pyside panel,</br>
@@ -22627,17 +22644,16 @@ class pyside_utils
         Returns:
             (None):
         """ 
-        if hou.isUIAvailable():
-            if hasattr(builtins, app_name):
-                try:
-                    getattr(builtins, app_name).close()
-                except Exception:
-                    pass
-                delattr(builtins, app_name)
+        if hasattr(builtins, app_name):
+            try:
+                getattr(builtins, app_name).close()
+            except Exception:
+                pass
+            delattr(builtins, app_name)
 
-            if run:
-                setattr(builtins, app_name, ps_cls(*args, **kwargs))
-                getattr(builtins, app_name).show()
+        if hou.isUIAvailable() and run:
+            setattr(builtins, app_name, ps_cls(*args, **kwargs))
+            getattr(builtins, app_name).show()
 
 
 class SvgIcon(QtWidgets.QWidget):
@@ -22749,7 +22765,8 @@ class pyside_master:
             
             super().__init__(parent)
             
-            self.node: hou.SopNode | None = f3h_node # mot being used just yet
+            self.f3h_node: hou.SopNode | None = None # mot being used just yet
+            if f3h_node is not None and f3h_node.type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY: self.f3h_node = f3h_node
             
             # Check if the user want fade in and/or fade out (Disabled by default)
             if fade_in is not None and isinstance(fade_in, int | float): self.FADE_IN_DURATION_MS = int(fade_in)
@@ -22763,7 +22780,7 @@ class pyside_master:
 
             # in case of a custom message, this must be a one liner ending with a newline(\n). Meant for short descriptive messages.
             # Check: APP_INFO variable for an example as it is the default message
-            self.INFO = app_info
+            self.INFO = app_info if app_info else "\n"
 
             # DPI scaling
             screen: QtGui.QScreen = QtWidgets.QApplication.primaryScreen()
@@ -22802,10 +22819,26 @@ class pyside_master:
             
         # LOAD BANNER IMG
         def _load_image_pixmap(self):
-            section_img: hou.HDASection = self.NODETYPE.definition().sections()[self.IMG_PIXMAP_SECTION_NAME]
-            # PIXMAP LOAD
-            self.IMG_PIXMAP = QtGui.QPixmap()
-            self.IMG_PIXMAP.loadFromData(QtCore.QByteArray(section_img.binaryContents()))
+            try:
+                section_img: hou.HDASection = self.NODETYPE.definition().sections()[self.IMG_PIXMAP_SECTION_NAME]
+            except KeyError:
+                print(f"Warning: Banner image: HDASection[{self.IMG_PIXMAP_SECTION_NAME}] not found!")
+            else:
+                # PIXMAP LOAD
+                self.IMG_PIXMAP = QtGui.QPixmap()
+                self.IMG_PIXMAP.loadFromData(QtCore.QByteArray(section_img.binaryContents()))
+                
+                
+        # LOAD SVG ICON
+        def _load_svg_icon(self) -> None:
+            try:
+                section_svg = self.NODETYPE.definition().sections()[self.SVG_ICON_SECTION_NAME]
+            except KeyError:
+                print(f"Warning: SVG icon: HDASection[{self.SVG_ICON_SECTION_NAME}] not found!")
+            else:
+                svg_bytes: QtCore.QByteArray = QtCore.QByteArray(section_svg.binaryContents())
+                self.SVG_ICON = SvgIcon(svg_bytes, parent=self.banner_container)
+                self.SVG_ICON.resize(self.svg_icon_size, self.svg_icon_size)
             
             
         # CENTER WINDOW
@@ -22868,10 +22901,7 @@ class pyside_master:
             self._update_banner()
 
             # Svg
-            section_svg = self.NODETYPE.definition().sections()[self.SVG_ICON_SECTION_NAME]
-            svg_bytes: QtCore.QByteArray = QtCore.QByteArray(section_svg.binaryContents())
-            self.SVG_ICON = SvgIcon(svg_bytes, parent=self.banner_container)
-            self.SVG_ICON.resize(self.svg_icon_size, self.svg_icon_size)
+            self._load_svg_icon()
             self._position_svg_icon()
             
             # Svg: OLD (keeping this just in case)
@@ -22881,30 +22911,31 @@ class pyside_master:
             # self.SVG_ICON.resize(self.svg_icon_size, self.svg_icon_size)
             # self._position_svg_icon()
 
+            # init Font
+            font = QtGui.QFont("Segoe UI")
+
             # Title
             title_label: QtWidgets.QLabel = QtWidgets.QLabel(self.APP_NAME, self)
             title_label.setAlignment(QtCore.Qt.AlignCenter)
-            title_font = QtGui.QFont("Segoe UI")
-            title_font.setPointSize(22)
-            title_font.setBold(True)
-            title_label.setFont(title_font)
+            font.setPointSize(22)
+            font.setBold(True)
+            title_label.setFont(font)
             main_layout.addWidget(title_label)
             
             # Info
             info_label: QtWidgets.QLabel = QtWidgets.QLabel(self.INFO, self)
             info_label.setAlignment(QtCore.Qt.AlignCenter)
-            info_font = QtGui.QFont("Segoe UI")
-            info_font.setPointSize(16)
-            info_label.setFont(info_font)
+            font.setPointSize(16)
+            font.setBold(False)
+            info_label.setFont(font)
             info_label.setWordWrap(True)
             main_layout.addWidget(info_label)
 
             # Copyright
             copyright_label: QtWidgets.QLabel = QtWidgets.QLabel(self.APP_COPYRIGHT, self)
             copyright_label.setAlignment(QtCore.Qt.AlignCenter)
-            copyright_font = QtGui.QFont("Segoe UI")
-            copyright_font.setPointSize(10)
-            copyright_label.setFont(copyright_font)
+            font.setPointSize(10)
+            copyright_label.setFont(font)
             copyright_label.setWordWrap(True)
             main_layout.addWidget(copyright_label)
 
@@ -22930,7 +22961,9 @@ class pyside_master:
                     
             else:
                 self.image_label.setText("🎨")
-                self.image_label.setFont(QtGui.QFont("Segoe UI Emoji", int(64 * self.dpi_scale)))
+                font = QtGui.QFont("Segoe UI")
+                font.setPointSize(72)
+                self.image_label.setFont(font)
                 self.image_label.setAlignment(QtCore.Qt.AlignCenter)
 
 
@@ -22943,20 +22976,20 @@ class pyside_master:
                 
                 
         # PYSIDE: RESIZE EVENT
-        def resizeEvent(self, event):
+        def resizeEvent(self, event: QtGui.QResizeEvent):
             super().resizeEvent(event)
             self._position_svg_icon()
             self._update_banner()
 
 
-        # PYSIDE: DRAG SUPPORT MOUSE PRESS
-        def mousePressEvent(self, event):
+        # PYSIDE: DRAG SUPPORT MOUSE PRESS EVENT
+        def mousePressEvent(self, event: QtGui.QMouseEvent):
             if event.button() == QtCore.Qt.LeftButton:
                 self.BASE_DRAG_POSITION = event.globalPosition().toPoint()
 
 
-        # PYSIDE: DRAG SUPPORT MOUSE MOVE
-        def mouseMoveEvent(self, event):
+        # PYSIDE: DRAG SUPPORT MOUSE MOVE EVENT
+        def mouseMoveEvent(self, event: QtGui.QMouseEvent):
             if event.buttons() == QtCore.Qt.LeftButton and self.BASE_DRAG_POSITION:
                 delta = event.globalPosition().toPoint() - self.BASE_DRAG_POSITION
                 self.move(self.x() + delta.x(), self.y() + delta.y())
