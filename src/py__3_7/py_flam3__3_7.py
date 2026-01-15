@@ -1594,6 +1594,8 @@ class flam3h_scripts
             
             # If there are not any Sop viewer lets cook it since this is the first node instance of FLAM3H™
             if flam3h_general_utils.util_is_context_available_viewer('Sop') is False: node.cook(force=True)
+            elif sys_updated_mode == hou.updateMode.Manual: # type: ignore
+                node.cook(force=True)
             
             if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ CVEX 32bit compile", details = None, details_label = None, details_expanded = False) == 0: # type: ignore
                 flam3h_scripts.set_first_instance_global_var(cvex_precision)
