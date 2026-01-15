@@ -11,10 +11,11 @@ nodetype = hou_nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
 __status__  = nodetype.hdaModule().__status__
 __license__ = nodetype.hdaModule().flam3.__license__
+__copyright__ = nodetype.hdaModule().flam3.__copyright__
 
 # Build custom node info
 addLabeledText("Description", "The Fractal Flame Algorithm: FLAM3 - Create fractal art in Houdini")
-addLabeledText("Copyright", "© 2021 F stands for liFe (made in Italy)")
+addLabeledText("Copyright", f"{__copyright__} (made in Italy)")
 addLabeledText("Version", f"{__version__} - {__status__}")
 addLabeledText("Lic", __license__)
 
