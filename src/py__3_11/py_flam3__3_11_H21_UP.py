@@ -22916,13 +22916,6 @@ class pyside_master:
             # Svg
             self._load_svg_icon()
             self._position_svg_icon()
-            
-            # Svg: OLD (keeping this just in case)
-            # section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_SECTION_NAME]
-            # self.SVG_ICON = QSvgWidget(parent=self.banner_container)
-            # self.SVG_ICON.load(QtCore.QByteArray(section_svg.binaryContents()))
-            # self.SVG_ICON.resize(self.svg_icon_size, self.svg_icon_size)
-            # self._position_svg_icon()
 
             # init Font
             font = QtGui.QFont("Segoe UI")
@@ -22985,9 +22978,7 @@ class pyside_master:
                 try:
                     w: int = self.banner_container.width()
                     h: int = self.banner_container.height()
-                    scaled: QtGui.QPixmap = self.IMG_PIXMAP.scaled(
-                        w, h, QtCore.Qt.KeepAspectRatioByExpanding, QtCore.Qt.SmoothTransformation
-                    )
+                    scaled: QtGui.QPixmap = self.IMG_PIXMAP.scaled(w, h, QtCore.Qt.KeepAspectRatioByExpanding, QtCore.Qt.SmoothTransformation)
                     x_offset: int = (scaled.width() - w) // 2
                     y_offset: int = (scaled.height() - h) // 2
                     cropped: QtGui.QPixmap = scaled.copy(x_offset, y_offset, w, h)
