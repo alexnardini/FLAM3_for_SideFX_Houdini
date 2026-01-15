@@ -12227,7 +12227,7 @@ class flam3h_about_utils
         Returns:
             (None):
         """ 
-        pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, app_name="_ps_cls_about", app_info="", auto_close_ms=4000, fade_in=400, fade_out=400)
+        pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, app_name="_ps_cls_about", app_info="", auto_close_ms=4000, fade_in_ms=400, fade_out_ms=400)
         
         
 
@@ -22639,7 +22639,7 @@ class pyside_utils
             app_name(str): Default to: "_ps_cls"</br>The app name.
             run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
             args: Any args to pass to the <b>ps_cls</b> if any.</br>
-            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:</br><b>parent</b>=None (usually untouched)</br><b>f3h_node</b>=None (This FLAM3H™ node)</br><b>app_info</b>=APP_INFO (The main info message string)</br><b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br><b>fade_in</b>=None (Fade in time in millisecond. Default to 0(Zero))</br><b>fade_out</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br>
+            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:</br><b>parent</b>=None (usually untouched)</br><b>f3h_node</b>=None (This FLAM3H™ node)</br><b>app_info</b>=APP_INFO (The main info message string)</br><b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br><b>fade_in_ms</b>=None (Fade in time in millisecond. Default to 0(Zero))</br><b>fade_out_ms</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br>
             
         Returns:
             (None):
@@ -22759,8 +22759,8 @@ class pyside_master:
                         f3h_node: hou.SopNode | None = None, 
                         app_info: str = APP_INFO, 
                         auto_close_ms: int = 5000, 
-                        fade_in: int | None = None, 
-                        fade_out: int | None = None
+                        fade_in_ms: int | None = None, 
+                        fade_out_ms: int | None = None
                      ):
             
             super().__init__(parent)
@@ -22769,8 +22769,8 @@ class pyside_master:
             if f3h_node is not None and f3h_node.type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY: self.f3h_node = f3h_node
             
             # Check if the user want fade in and/or fade out (Disabled by default)
-            if fade_in is not None and isinstance(fade_in, int | float): self.FADE_IN_DURATION_MS = int(fade_in)
-            if fade_out is not None and isinstance(fade_out, int | float): self.FADE_OUT_DURATION_MS = int(fade_out)
+            if fade_in_ms is not None and isinstance(fade_in_ms, int | float): self.FADE_IN_DURATION_MS = int(fade_in_ms)
+            if fade_out_ms is not None and isinstance(fade_out_ms, int | float): self.FADE_OUT_DURATION_MS = int(fade_out_ms)
             
             # Enable High DPI scaling (once per app)
             app: QtCore.QCoreApplication | None = QtWidgets.QApplication.instance()
