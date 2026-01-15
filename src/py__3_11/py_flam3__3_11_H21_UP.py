@@ -22611,7 +22611,6 @@ class pyside_utils
 * pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], app_name: str = "_ps_cls", run: bool = True, *args, **kwargs) -> None:
 
 """
-
             
     @staticmethod
     def pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], app_name: str = "_ps_cls", run: bool = True, *args, **kwargs) -> None:
@@ -22622,13 +22621,9 @@ class pyside_utils
             ps_cls(Type[pyside_master_base_proto]): Any of the classes that agree to the pyside_master_base_proto protocol.
             app_name(str): Default to: "_ps_cls"</br>The app name.
             run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
-            *args: Any args to pass to the <b>ps_cls</b> if any.</br>Available arguments and their defaults are:
-                * parent=None (usually untouched)
-                * f3h_node=None (This FLAM3H™ node)
-                * app_info=APP_INFO (The main info message string)
-                * auto_close_ms=5000 (Timer in millisecond. Default to 5 seconds)
-            **kwargs: Any kwargs to pass to the <b>ps_cls</b> if any.
-
+            args: Any args to pass to the <b>ps_cls</b> if any.</br>
+            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:</br><b>parent</b>=None (usually untouched)</br><b>f3h_node</b>=None (This FLAM3H™ node)</br><b>app_info</b>=APP_INFO (The main info message string)</br><b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br><b>fade_in</b>=None (Fade in time in millisecond. Default to 0(Zero))</br><b>fade_out</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br>
+            
         Returns:
             (None):
         """ 
@@ -22675,7 +22670,7 @@ class SvgIcon(QtWidgets.QWidget):
             print("Warning: SVG parent is not a QWidget!")
             
 
-    def paintEvent(self, event):
+    def paintEvent(self, event: QtGui.QPaintEvent):
         if self.renderer and self.renderer.isValid():
             painter = QPainter(self)
             self.renderer.render(painter, self.rect())
@@ -22744,10 +22739,22 @@ class pyside_master:
         
         NODETYPE: hou.SopNodeType = nodetype
 
-        def __init__(self, parent=None, f3h_node=None, app_info=APP_INFO, auto_close_ms=5000):
+        def __init__(   self, 
+                        parent=None, 
+                        f3h_node: hou.SopNode | None = None, 
+                        app_info: str = APP_INFO, 
+                        auto_close_ms: int = 5000, 
+                        fade_in: int | None = None, 
+                        fade_out: int | None = None
+                     ):
+            
             super().__init__(parent)
             
             self.node: hou.SopNode | None = f3h_node # mot being used just yet
+            
+            # Check if the user want fade in and/or fade out (Disabled by default)
+            if fade_in is not None and isinstance(fade_in, int | float): self.FADE_IN_DURATION_MS = int(fade_in)
+            if fade_out is not None and isinstance(fade_out, int | float): self.FADE_OUT_DURATION_MS = int(fade_out)
             
             # Enable High DPI scaling (once per app)
             app: QtCore.QCoreApplication | None = QtWidgets.QApplication.instance()
@@ -22785,8 +22792,8 @@ class pyside_master:
             self.fade_in_anim.start()
 
             # Auto close with fade out
-            if auto_close_ms > 0:
-                fade_out_start: int = max(0, auto_close_ms - self.FADE_OUT_DURATION_MS)
+            if isinstance(auto_close_ms, int | float) and int(auto_close_ms) > 0:
+                fade_out_start: int = max(0, int(auto_close_ms) - self.FADE_OUT_DURATION_MS)
                 QtCore.QTimer.singleShot(fade_out_start, lambda: self._start_fade_out(self.FADE_OUT_DURATION_MS))
 
 
