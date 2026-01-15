@@ -22721,7 +22721,6 @@ class pyside_master:
         
         BG_COLOR: str = "#f4f6f8"
         TEXT_COLOR: str = "#2b2b2b"
-        ACCENT_COLOR: str = "#5b7cfa"
         
         BASE_WINDOW_WIDTH: int = 512
         BASE_WINDOW_HEIGHT: int = 472
