@@ -19,7 +19,6 @@ import lxml.etree as lxmlET
 
 import builtins
 from PySide6 import QtWidgets, QtGui, QtCore
-from PySide6.QtSvgWidgets import QSvgWidget
 from PySide6.QtSvg import QSvgRenderer
 from PySide6.QtGui import QPainter
 
