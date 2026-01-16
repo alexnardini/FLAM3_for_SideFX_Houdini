@@ -2069,7 +2069,7 @@ class flam3h_scripts
                 flam3h_scripts.set_first_instance_global_var(cvex_precision)
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
                 # Close pyside panel if open from first time
-                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False)
+                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False, splash_screen=True)
                 # Print to the Houdini console
                 print(f"\n-> FLAM3H™ CVEX nodes compile: DONE\n")
                 
@@ -2105,7 +2105,7 @@ class flam3h_scripts
         flam3h_scripts.set_first_instance_global_var(cvex_precision)
         hou.setUpdateMode(sys_updated_mode) # type: ignore
         # Close pyside panel if open from first time
-        pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False)
+        pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False, splash_screen=True)
         
         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
         print(f"\nFLAM3H CVEX node compile: DONE\n")
@@ -2307,8 +2307,8 @@ class flam3h_scripts
                 
                 _MSG_INFO = f"FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ CVEX nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H™ CVEX nodes compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
-            
-                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0)
+                
+                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0, splash_screen=True)
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                 else:
@@ -2322,7 +2322,7 @@ class flam3h_scripts
                 _MSG_INFO = f"FLAM3H™ v{__version__} 64-bit  first instance -> Compiling FLAM3H™ CVEX 64-bit nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H™ CVEX 64-bit nodes compile: DONE\nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
                 
-                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0)
+                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0, splash_screen=True)
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                 else:
@@ -7527,7 +7527,6 @@ class flam3h_iterator_utils
         self.node.setCachedUserData(f3h_cachedUserData.vars_menu_all_simple, f3h_menus.VARS_ALL_SIMPLE)
         return f3h_menus.VARS_ALL_SIMPLE
 
-    
     
     def menu_T(self) -> TA_Menu:
         """Populate variation names parameter menu list.</br>
@@ -22750,7 +22749,7 @@ class pyside_utils
             app_name(str): Default to: "_ps_cls"</br>The app name.
             run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
             args: Any args to pass to the <b>ps_cls</b> if any.</br>
-            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:</br><b>parent</b>=None (usually untouched)</br><b>ps_app_name</b>=pyside_master_app_names.PS_CLS (Never to be set as it will always be set to: <b>app_name</b> internally)</br><b>f3h_node</b>=None (This FLAM3H™ node)</br><b>app_info</b>=APP_INFO (The main info message string)</br><b>links</b>=False (When True it will display FLAM3H™ related web links)</br><b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br><b>fade_in_ms</b>=None (Fade in time in millisecond. Default to 0(Zero))</br><b>fade_out_ms</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br>
+            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:</br><b>parent</b>=None (usually untouched)</br><b>ps_app_name</b>=pyside_master_app_names.PS_CLS (Never to be set as it will always be set to: <b>app_name</b> internally)</br><b>f3h_node</b>=None (This FLAM3H™ node)</br><b>app_info</b>=APP_INFO (The main info message string)</br><b>links</b>=False (When True it will display FLAM3H™ related web links)</br><b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br><b>fade_in_ms</b>=None (Fade in time in millisecond. Default to 0(Zero))</br><b>fade_out_ms</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br><b>splash_screen</b>=False (When True it will force the banner image to be load even if some chackes fail, just for the splash screen)</br>
             
         Returns:
             (None):
@@ -22845,7 +22844,8 @@ class pyside_master:
                         links: bool = False, 
                         auto_close_ms: int = 5000, 
                         fade_in_ms: int | None = None, 
-                        fade_out_ms: int | None = None
+                        fade_out_ms: int | None = None,
+                        splash_screen=False, 
                      ):
             
             super().__init__(parent)
@@ -22866,6 +22866,7 @@ class pyside_master:
                 
                 self.f3h_node: hou.SopNode | None = f3h_node if f3h_node is not None and f3h_node.type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY else None
                 self.h_valid: int | None = f3h_node.parm(f3h_tabs.PREFS.PVT_PRM_H_VALID).eval() if f3h_node is not None else None
+                self.splash_screen = splash_screen
                 
                 # Check if the user want fade in and/or fade out (Disabled by default)
                 if fade_in_ms is not None and isinstance(fade_in_ms, int | float): self.FADE_IN_DURATION_MS = int(fade_in_ms)
@@ -22883,7 +22884,7 @@ class pyside_master:
                 self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
                 self.setFixedSize(self.window_width, self.window_height)
                 
-                if self.f3h_node is not None and self.h_valid: self._load_image_pixmap()
+                if (self.f3h_node is not None and self.h_valid) or self.splash_screen: self._load_image_pixmap()
                 self._center_window()
                 self._build_ui()
 
@@ -22921,7 +22922,7 @@ class pyside_master:
         def _load_svg_icon(self) -> None:
             svg_icon_name: str = self.SVG_ICON_W_SECTION_NAME
             try:
-                if self.h_valid:
+                if self.h_valid or self.splash_screen:
                     section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_W_SECTION_NAME]
                 else:
                     section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_R_SECTION_NAME]
@@ -23073,7 +23074,7 @@ class pyside_master:
                     print("Failed to update banner:", e)
                     
             else:
-                if self.f3h_node is not None and self.h_valid:
+                if (self.f3h_node is not None and self.h_valid) or self.splash_screen:
                     self.image_label.setText("🎨")
                     font = QtGui.QFont("Segoe UI")
                     font.setPointSize(72)

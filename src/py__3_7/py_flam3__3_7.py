@@ -6538,52 +6538,108 @@ class flam3h_iterator_utils
         return FLAM3H_ICON_STAR_EMPTY_OPACITY
     
     
-    def menu_T_ICON(self, FF: bool = False) -> list:
-        """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
-        Differentiate iterators and FF
+    def menu_T_ICON(self) -> list:
+        """Populate variation names parameter menu list and add proper bookmark icons based on their weights.</br>
         
-        _NOTE:
+        Note:
             When changing weight's value, the bookmark icon will updated too
             but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
             Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
             
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
             (list): return menu list
         """
-        menu: list = copy(MENU_VARS_ALL_SIMPLE)
-        _TYPE, _ICON = (self.menu_T_data, self.menu_T_FF_data)[FF]()
-        var: Union[int, None] = MENU_VARS_ALL_INDEXES.get(_TYPE)
-        if var is not None: menu[var] = f"{_ICON} {menu[var][:20]}"
-
-        return menu
-
-
-    def menu_T_PP_ICON(self, FF: bool = False) -> list:
-        """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
-        Differentiate iterators and FF
+        if self.node.parmTuple(FLAM3H_ITERATORS_TAB).eval() != (0,):
+            return []
         
-        _NOTE:
+        _TYPE, _ICON = self.menu_T_data()
+        var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
+        if var is not None:
+            menu: list = copy(MENU_VARS_ALL_SIMPLE)
+            menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+            return menu
+
+        return MENU_VARS_ALL_SIMPLE
+    
+    
+    def menu_T_ICON_FF(self) -> list:
+        """Populate FF variation names parameter menu list and add proper bookmark icons based on their weights.</br>
+        
+        Note:
             When changing weight's value, the bookmark icon will updated too
             but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
             Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
             
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
             (list): return menu list
         """
-        menu: list = copy(MENU_VARS_ALL_SIMPLE)
-        _TYPE, _ICON = (self.menu_T_PP_data, self.menu_T_PP_FF_data)[FF]()
-        var: Union[int, None] = MENU_VARS_ALL_INDEXES.get(_TYPE)
-        if var is not None: menu[var] = f"{_ICON} {menu[var][:20]}"
+        
+        _TYPE, _ICON = self.menu_T_FF_data()
+        var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
+        if var is not None:
+            menu: list = copy(MENU_VARS_ALL_SIMPLE)
+            menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+            return menu
+
+        return MENU_VARS_ALL_SIMPLE
+    
+    
+    def menu_T_PP_ICON(self) -> list:
+        """Populate variation names parameter menu list and add proper bookmark icons based on their weights.</br>
+        
+        Note:
+            When changing weight's value, the bookmark icon will updated too
+            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
+            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
             
-        return menu
+        Args:
+            (self):
+
+        Returns:
+            (list): return menu list
+        """
+        if self.node.parmTuple(FLAM3H_ITERATORS_TAB).eval() != (0,):
+            return []
+        
+        _TYPE, _ICON = self.menu_T_PP_data()
+        var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
+        if var is not None:
+            menu: list = copy(MENU_VARS_ALL_SIMPLE)
+            menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+            return menu
+
+        return MENU_VARS_ALL_SIMPLE
+    
+
+    def menu_T_PP_ICON_FF(self) -> list:
+        """Populate FF variation names parameter menu list and add proper bookmark icons based on their weights.</br>
+        
+        Note:
+            When changing weight's value, the bookmark icon will updated too
+            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
+            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+            
+        Args:
+            (self):
+
+        Returns:
+            (list): return menu list
+        """
+        
+        _TYPE, _ICON = self.menu_T_PP_FF_data()
+        var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
+        if var is not None:
+            menu: list = copy(MENU_VARS_ALL_SIMPLE)
+            menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+            return menu
+
+        return MENU_VARS_ALL_SIMPLE
     
     
     def menu_T_simple(self, FF: bool = False) -> list:
@@ -6600,59 +6656,108 @@ class flam3h_iterator_utils
         return MENU_VARS_ALL_SIMPLE
     
     
-    def menu_T(self, FF: bool = False) -> list:
-        """Populate variation names parameter menu list.
-        Differentiate iterators and FF
-        
-        _NOTE:
-            When changing weight's value, the bookmark icon will updated too
-            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
-            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+    def menu_T(self) -> list:
+        """Populate variation names parameter menu list.</br>
+            
+        Note:
+            When changing a weight's value, the bookmark icon updates immediately.
+            However, it will not refresh when opening the parameter menu until a new
+            selection is made. It's unclear if this is intended behavior or a bug —
+            consider reporting this to SideFX.
 
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
             
         Returns:
             (list): return menu list
         """
-        node = self.node
-        
-        # This data get created inside: menu_T_simple(self, FF: bool = False) -> list:
+        # node: hou.SopNode = self.node
+
+        # This data get created inside: menu_T_simple(self) -> list:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: Union[list, None] = node.cachedUserData('vars_menu_all_simple')
-        if data is not None:
-            return data
-        else:
-            _ICONS_TOGGLE: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
-            return (self.menu_T_simple, self.menu_T_ICON)[_ICONS_TOGGLE](FF)
+        data: list | None = self._node.cachedUserData('vars_menu_all_simple')
+        if data is not None: return data
+
+        use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        return (self.menu_T_simple, self.menu_T_ICON)[use_icons]()
+    
+    
+    def menu_T_FF(self) -> list:
+        """Populate FF variation names parameter menu list.</br>
+            
+        Note:
+            When changing a weight's value, the bookmark icon updates immediately.
+            However, it will not refresh when opening the parameter menu until a new
+            selection is made. It's unclear if this is intended behavior or a bug —
+            consider reporting this to SideFX.
+
+        Args:
+            (self):
+            
+        Returns:
+            (list): return menu list
+        """
+        # node: hou.SopNode = self.node
+        
+        # This data get created inside: menu_T_simple(self) -> list:
+        # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
+        data: list | None = self._node.cachedUserData('vars_menu_all_simple')
+        if data is not None: return data
+
+        use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        return (self.menu_T_simple, self.menu_T_ICON_FF)[use_icons]()
 
     
-    def menu_T_PP(self, FF: bool = False) -> list:
-        """Populate variation names parameter menu list.
-        Differentiate iterators and FF
+    def menu_T_PP(self) -> list:
+        """Populate variation names parameter menu list.</br>
         
-        _NOTE:
-            When changing weight's value, the bookmark icon will updated too
-            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
-            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+        Note:
+            When changing a weight's value, the bookmark icon updates immediately.
+            However, it will not refresh when opening the parameter menu until a new
+            selection is made. It's unclear if this is intended behavior or a bug —
+            consider reporting this to SideFX.
             
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
             (list): return menu list
         """
-        node = self.node
-        # This data get created inside: menu_T_simple(self, FF: bool = False) -> list:
+        # node: hou.SopNode = self.node
+        
+        # This data get created inside: menu_T_simple(self) -> list:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: Union[list, None] = node.cachedUserData('vars_menu_all_simple')
-        if data is not None:
-            return data
-        else:
-            _ICONS_TOGGLE: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
-            return (self.menu_T_simple, self.menu_T_PP_ICON)[_ICONS_TOGGLE](FF)
+        data: list | None = self._node.cachedUserData('vars_menu_all_simple')
+        if data is not None: return data
+
+        use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        return (self.menu_T_simple, self.menu_T_PP_ICON)[use_icons]()
+    
+    
+    def menu_T_PP_FF(self) -> list:
+        """Populate FF PRE and/or POST variation names parameter menu list.</br>
+        
+        Note:
+            When changing a weight's value, the bookmark icon updates immediately.
+            However, it will not refresh when opening the parameter menu until a new
+            selection is made. It's unclear if this is intended behavior or a bug —
+            consider reporting this to SideFX.
+            
+        Args:
+            (self):
+
+        Returns:
+            (list): return menu list
+        """
+        # node: hou.SopNode = self.node
+        
+        # This data get created inside: menu_T_simple(self) -> list:
+        # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
+        data: list | None = self._node.cachedUserData('vars_menu_all_simple')
+        if data is not None: return data
+
+        use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        return (self.menu_T_simple, self.menu_T_PP_ICON_FF)[use_icons]()
     
     
     def menu_T_pb(self) -> list:

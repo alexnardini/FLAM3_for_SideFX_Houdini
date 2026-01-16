@@ -1669,7 +1669,7 @@ class flam3h_scripts
                 flam3h_scripts.set_first_instance_global_var(cvex_precision)
                 hou.setUpdateMode(sys_updated_mode) # type: ignore
                 # Close pyside panel if open from first time
-                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False)
+                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False, splash_screen=True)
                 # Print to the Houdini console
                 print(f"\n-> FLAM3H™ CVEX nodes compile: DONE\n")
                 
@@ -1705,7 +1705,7 @@ class flam3h_scripts
         flam3h_scripts.set_first_instance_global_var(cvex_precision)
         hou.setUpdateMode(sys_updated_mode) # type: ignore
         # Close pyside panel if open from first time
-        pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False)
+        pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False, splash_screen=True)
         
         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
         print(f"\nFLAM3H CVEX node compile: DONE\n")
@@ -1886,7 +1886,7 @@ class flam3h_scripts
                 _MSG_INFO = f"FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ CVEX nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H™ CVEX nodes compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
             
-                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0)
+                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0, splash_screen=True)
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                 else:
@@ -1901,7 +1901,7 @@ class flam3h_scripts
                 _MSG_INFO = f"FLAM3H™ v{__version__} 64-bit  first instance -> Compiling FLAM3H™ CVEX 64-bit nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H™ CVEX 64-bit nodes compile: DONE\nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
                 
-                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0)
+                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0, splash_screen=True)
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                 else:
@@ -6622,52 +6622,108 @@ class flam3h_iterator_utils
         return FLAM3H_ICON_STAR_EMPTY_OPACITY
     
     
-    def menu_T_ICON(self, FF: bool = False) -> list:
-        """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
-        Differentiate iterators and FF
+    def menu_T_ICON(self) -> list:
+        """Populate variation names parameter menu list and add proper bookmark icons based on their weights.</br>
         
-        _NOTE:
+        Note:
             When changing weight's value, the bookmark icon will updated too
             but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
             Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
             
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
             (list): return menu list
         """
-        menu: list = copy(MENU_VARS_ALL_SIMPLE)
-        _TYPE, _ICON = (self.menu_T_data, self.menu_T_FF_data)[FF]()
-        var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
-        if var is not None: menu[var] = f"{_ICON} {menu[var][:20]}"
-
-        return menu
-
-
-    def menu_T_PP_ICON(self, FF: bool = False) -> list:
-        """Populate variation names parameter menu list and add proper bookmark icons based on their weights.
-        Differentiate iterators and FF
+        if self.node.parmTuple(FLAM3H_ITERATORS_TAB).eval() != (0,):
+            return []
         
-        _NOTE:
+        _TYPE, _ICON = self.menu_T_data()
+        var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
+        if var is not None:
+            menu: list = copy(MENU_VARS_ALL_SIMPLE)
+            menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+            return menu
+
+        return MENU_VARS_ALL_SIMPLE
+    
+    
+    def menu_T_ICON_FF(self) -> list:
+        """Populate FF variation names parameter menu list and add proper bookmark icons based on their weights.</br>
+        
+        Note:
             When changing weight's value, the bookmark icon will updated too
             but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
             Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
             
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
             (list): return menu list
         """
-        menu: list = copy(MENU_VARS_ALL_SIMPLE)
-        _TYPE, _ICON = (self.menu_T_PP_data, self.menu_T_PP_FF_data)[FF]()
+        
+        _TYPE, _ICON = self.menu_T_FF_data()
         var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
-        if var is not None: menu[var] = f"{_ICON} {menu[var][:20]}"
+        if var is not None:
+            menu: list = copy(MENU_VARS_ALL_SIMPLE)
+            menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+            return menu
+
+        return MENU_VARS_ALL_SIMPLE
+    
+    
+    def menu_T_PP_ICON(self) -> list:
+        """Populate variation names parameter menu list and add proper bookmark icons based on their weights.</br>
+        
+        Note:
+            When changing weight's value, the bookmark icon will updated too
+            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
+            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
             
-        return menu
+        Args:
+            (self):
+
+        Returns:
+            (list): return menu list
+        """
+        if self.node.parmTuple(FLAM3H_ITERATORS_TAB).eval() != (0,):
+            return []
+        
+        _TYPE, _ICON = self.menu_T_PP_data()
+        var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
+        if var is not None:
+            menu: list = copy(MENU_VARS_ALL_SIMPLE)
+            menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+            return menu
+
+        return MENU_VARS_ALL_SIMPLE
+    
+
+    def menu_T_PP_ICON_FF(self) -> list:
+        """Populate FF variation names parameter menu list and add proper bookmark icons based on their weights.</br>
+        
+        Note:
+            When changing weight's value, the bookmark icon will updated too
+            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
+            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+            
+        Args:
+            (self):
+
+        Returns:
+            (list): return menu list
+        """
+        
+        _TYPE, _ICON = self.menu_T_PP_FF_data()
+        var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
+        if var is not None:
+            menu: list = copy(MENU_VARS_ALL_SIMPLE)
+            menu[var] = f"{_ICON} {str(menu[var])[:20]}"
+            return menu
+
+        return MENU_VARS_ALL_SIMPLE
     
     
     def menu_T_simple(self, FF: bool = False) -> list:
@@ -6684,59 +6740,108 @@ class flam3h_iterator_utils
         return MENU_VARS_ALL_SIMPLE
     
     
-    def menu_T(self, FF: bool = False) -> list:
-        """Populate variation names parameter menu list.
-        Differentiate iterators and FF
-        
-        _NOTE:
-            When changing weight's value, the bookmark icon will updated too
-            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
-            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+    def menu_T(self) -> list:
+        """Populate variation names parameter menu list.</br>
+            
+        Note:
+            When changing a weight's value, the bookmark icon updates immediately.
+            However, it will not refresh when opening the parameter menu until a new
+            selection is made. It's unclear if this is intended behavior or a bug —
+            consider reporting this to SideFX.
 
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
             
         Returns:
             (list): return menu list
         """
-        node = self.node
-        
-        # This data get created inside: menu_T_simple(self, FF: bool = False) -> list:
+        # node: hou.SopNode = self.node
+
+        # This data get created inside: menu_T_simple(self) -> list:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: list | None = node.cachedUserData('vars_menu_all_simple')
-        if data is not None:
-            return data
-        else:
-            _ICONS_TOGGLE: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
-            return (self.menu_T_simple, self.menu_T_ICON)[_ICONS_TOGGLE](FF)
+        data: list | None = self._node.cachedUserData('vars_menu_all_simple')
+        if data is not None: return data
+
+        use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        return (self.menu_T_simple, self.menu_T_ICON)[use_icons]()
+    
+    
+    def menu_T_FF(self) -> list:
+        """Populate FF variation names parameter menu list.</br>
+            
+        Note:
+            When changing a weight's value, the bookmark icon updates immediately.
+            However, it will not refresh when opening the parameter menu until a new
+            selection is made. It's unclear if this is intended behavior or a bug —
+            consider reporting this to SideFX.
+
+        Args:
+            (self):
+            
+        Returns:
+            (list): return menu list
+        """
+        # node: hou.SopNode = self.node
+        
+        # This data get created inside: menu_T_simple(self) -> list:
+        # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
+        data: list | None = self._node.cachedUserData('vars_menu_all_simple')
+        if data is not None: return data
+
+        use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        return (self.menu_T_simple, self.menu_T_ICON_FF)[use_icons]()
 
     
-    def menu_T_PP(self, FF: bool = False) -> list:
-        """Populate variation names parameter menu list.
-        Differentiate iterators and FF
+    def menu_T_PP(self) -> list:
+        """Populate variation names parameter menu list.</br>
         
-        _NOTE:
-            When changing weight's value, the bookmark icon will updated too
-            but it wont updated when we click the menu parameter to see all its entries until we dnt make a new selection.
-            Not sure if this is to be considered a bug or is intended, perhaps I should note this to SideFx.
+        Note:
+            When changing a weight's value, the bookmark icon updates immediately.
+            However, it will not refresh when opening the parameter menu until a new
+            selection is made. It's unclear if this is intended behavior or a bug —
+            consider reporting this to SideFX.
             
         Args:
             (self):
-            FF(bool): Default to: False. If True it will signal we are looking to deal with data for the FF(finalXform).
 
         Returns:
             (list): return menu list
         """
-        node = self.node
-        # This data get created inside: menu_T_simple(self, FF: bool = False) -> list:
+        # node: hou.SopNode = self.node
+        
+        # This data get created inside: menu_T_simple(self) -> list:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: list | None = node.cachedUserData('vars_menu_all_simple')
-        if data is not None:
-            return data
-        else:
-            _ICONS_TOGGLE: int = node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
-            return (self.menu_T_simple, self.menu_T_PP_ICON)[_ICONS_TOGGLE](FF)
+        data: list | None = self._node.cachedUserData('vars_menu_all_simple')
+        if data is not None: return data
+
+        use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        return (self.menu_T_simple, self.menu_T_PP_ICON)[use_icons]()
+    
+    
+    def menu_T_PP_FF(self) -> list:
+        """Populate FF PRE and/or POST variation names parameter menu list.</br>
+        
+        Note:
+            When changing a weight's value, the bookmark icon updates immediately.
+            However, it will not refresh when opening the parameter menu until a new
+            selection is made. It's unclear if this is intended behavior or a bug —
+            consider reporting this to SideFX.
+            
+        Args:
+            (self):
+
+        Returns:
+            (list): return menu list
+        """
+        # node: hou.SopNode = self.node
+        
+        # This data get created inside: menu_T_simple(self) -> list:
+        # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
+        data: list | None = self._node.cachedUserData('vars_menu_all_simple')
+        if data is not None: return data
+
+        use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
+        return (self.menu_T_simple, self.menu_T_PP_ICON_FF)[use_icons]()
     
     
     def menu_T_pb(self) -> list:
@@ -6775,7 +6880,7 @@ class flam3h_iterator_utils
             data_names(tuple[str, ...]): The names of the cached user data we need to set, the order matter.</br>
 
         Returns:
-            (TA_Menu): return menu list
+            (list): return menu list
         """
         # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
@@ -20485,7 +20590,7 @@ class SvgIcon(QtWidgets.QWidget):
                                 QtWidgets.QSizePolicy.Preferred)
             print("Warning: SVG parent is not a QWidget!")
             
-            
+    
     def paintEvent(self, event: QtGui.QPaintEvent):
         if self.renderer and self.renderer.isValid():
             painter = QPainter(self)
@@ -20496,8 +20601,8 @@ class pyside_master_app_names:
     """Pyside app names to use with PS_CLS being the default app name.</br>
     
     """
-    PS_CLS: str = "_f3h_ps_cls" # Default app name
-    PS_CLS_ABOUT: str = "_f3h_ps_cls_about"
+    PS_CLS: Final[str] = "_f3h_ps_cls" # Default app name
+    PS_CLS_ABOUT: Final[str] = "_f3h_ps_cls_about"
     
     
 class pyside_master_base_proto(Protocol):
@@ -20531,7 +20636,7 @@ class pyside_utils
             app_name(str): Default to: "_ps_cls"</br>The app name.
             run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
             args: Any args to pass to the <b>ps_cls</b> if any.</br>
-            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:</br><b>parent</b>=None (usually untouched)</br><b>ps_app_name</b>=pyside_master_app_names.PS_CLS (Never to be set as it will always be set to: <b>app_name</b> internally)</br><b>f3h_node</b>=None (This FLAM3H™ node)</br><b>app_info</b>=APP_INFO (The main info message string)</br><b>links</b>=False (When True it will display FLAM3H™ related web links)</br><b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br><b>fade_in_ms</b>=None (Fade in time in millisecond. Default to 0(Zero))</br><b>fade_out_ms</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br>
+            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:</br><b>parent</b>=None (usually untouched)</br><b>ps_app_name</b>=pyside_master_app_names.PS_CLS (Never to be set as it will always be set to: <b>app_name</b> internally)</br><b>f3h_node</b>=None (This FLAM3H™ node)</br><b>app_info</b>=APP_INFO (The main info message string)</br><b>links</b>=False (When True it will display FLAM3H™ related web links)</br><b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br><b>fade_in_ms</b>=None (Fade in time in millisecond. Default to 0(Zero))</br><b>fade_out_ms</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br><b>splash_screen</b>=False (When True it will force the banner image to be load even if some chackes fail, just for the splash screen)</br>
             
         Returns:
             (None):
@@ -20626,7 +20731,8 @@ class pyside_master:
                         links: bool = False, 
                         auto_close_ms: int = 5000, 
                         fade_in_ms: int | None = None, 
-                        fade_out_ms: int | None = None
+                        fade_out_ms: int | None = None,
+                        splash_screen=False, 
                      ):
             
             super().__init__(parent)
@@ -20647,6 +20753,7 @@ class pyside_master:
                 
                 self.f3h_node: hou.SopNode | None = f3h_node if f3h_node is not None and f3h_node.type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY else None
                 self.h_valid: int | None = f3h_node.parm(FLAM3H_PVT_H_VALID).eval() if f3h_node is not None else None
+                self.splash_screen = splash_screen
                 
                 # Check if the user want fade in and/or fade out (Disabled by default)
                 if fade_in_ms is not None and isinstance(fade_in_ms, int | float): self.FADE_IN_DURATION_MS = int(fade_in_ms)
@@ -20664,7 +20771,7 @@ class pyside_master:
                 self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
                 self.setFixedSize(self.window_width, self.window_height)
                 
-                if self.f3h_node is not None and self.h_valid: self._load_image_pixmap()
+                if (self.f3h_node is not None and self.h_valid) or self.splash_screen: self._load_image_pixmap()
                 self._center_window()
                 self._build_ui()
 
@@ -20702,7 +20809,7 @@ class pyside_master:
         def _load_svg_icon(self) -> None:
             svg_icon_name: str = self.SVG_ICON_W_SECTION_NAME
             try:
-                if self.h_valid:
+                if self.h_valid or self.splash_screen:
                     section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_W_SECTION_NAME]
                 else:
                     section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_R_SECTION_NAME]
@@ -20854,7 +20961,7 @@ class pyside_master:
                     print("Failed to update banner:", e)
                     
             else:
-                if self.f3h_node is not None and self.h_valid:
+                if (self.f3h_node is not None and self.h_valid) or self.splash_screen:
                     self.image_label.setText("🎨")
                     font = QtGui.QFont("Segoe UI")
                     font.setPointSize(72)
@@ -20927,4 +21034,3 @@ class pyside_master:
         # EXIT
         def _exit(self):
             self.close()
-

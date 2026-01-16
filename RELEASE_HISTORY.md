@@ -33,6 +33,28 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.74 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.74) ###
+
+#### FLAM3H™ v1.9.74 indie -> H21.0 UP</br>FLAM3H™ v1.9.61 indie -> H19.0 to H20.5 ####
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+- **Fix H20.5 to H21.0 UP ONLY**: Improved the pyside panels introduced in **v1.9.73** (Splash screen and About info box).
+- **Fix H20.5 to H21.0 UP ONLY**: When loading the FLAM3H™ inside a non supported Houdini version the **About info box panel** will display a black banner image with a red logo icon instead, to reinforce the error state.
+- **Fix**: FLAM3H™ for all supported Houdini versions now have their bookmark icons menus python definitions matching, to prevent errors if loaded inside unsopported Houdini versions.
+- **Small fixes/improvements as part of an ongoing polishing pass**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v1.9.73 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.73) ###
 
 #### FLAM3H™ v1.9.73 indie -> H21.0 UP</br>FLAM3H™ v1.9.59 indie -> H19.0 to H20.5 ####

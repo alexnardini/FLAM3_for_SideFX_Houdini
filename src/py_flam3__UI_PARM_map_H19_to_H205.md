@@ -76,7 +76,7 @@ to: **py_flam3__3_11**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.59"
+__version__ = "1.9.61"
 __status__  = "Production"
 __h_versions__: tuple = (205,)
 __range_type__: bool = True # True for closed range. False for open range
@@ -145,7 +145,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.59"
+__version__ = "1.9.61"
 __status__  = "Production"
 __h_versions__: tuple = (190, 195, 200)
 __range_type__: bool = True # True for closed range. False for open range
@@ -1252,7 +1252,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_FF()
 
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP(True)
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP_FF()
 return menu
 ```
 
@@ -1266,7 +1266,7 @@ return menu
 
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T(True)
+menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_FF()
 return menu
 ```
 
@@ -2353,17 +2353,32 @@ _Here you will find informations about FLAM3H™._
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **ABOUT** | `icon_about` |  `geometry data` | `H20.5` |
+| **ABOUT** | `icon_about_error` |  `geometry data` | `from H21` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.phm().flam3.flam3h_about_utils.flam3h_about_show_info_panel()
+hou.pwd().hdaModule().flam3.flam3h_about_utils.flam3h_about_show_info_panel(kwargs['node'])
 ```
 
 </br>
 </br>
 </br>
 
+
+
+
+| Tab | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **ABOUT** | `icon_about` |  `geometry data` | `from H21` |
+
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
+```python
+hou.pwd().hdaModule().flam3.flam3h_about_utils.flam3h_about_show_info_panel(kwargs['node'])
+```
+
+</br>
+</br>
+</br>
 
 
 
