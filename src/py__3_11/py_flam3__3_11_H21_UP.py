@@ -147,6 +147,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                 LIST OF CLASSES: (classes names that start with a lowercase: "f3h" are just for namespace purposes)
                 
                     f3h_char
+                    f3h_hda_sections
                     f3h_userData
                     f3h_cachedUserData
                     f3h_affineDefaults
@@ -270,6 +271,15 @@ class f3h_char:
     ALLOWED: Final = "_-().:"
     ALLOWED_OUT_AUTO_ADD_ITER_NUM: Final = "_-+!?().: "
     ALLOWED_XFORM_VAL: Final = "0123456789.-e"
+    
+    
+class f3h_hda_sections:
+    '''
+    HDA section names being used.</br>
+    
+    '''
+    HDA_SECTION_IMG_BANNER: Final = 'FLAM3H_DOC_intro.jpg'
+    HDA_SECTION_SVG_LOGO_WHITE: Final = 'iconSVGW.svg'
 
 
 class f3h_userData:
@@ -22703,8 +22713,8 @@ class pyside_master_app_names:
     """Pyside app names to use with PS_CLS being the default app name.</br>
     
     """
-    PS_CLS: Final[str] = "_ps_cls" # Default app name
-    PS_CLS_ABOUT: Final[str] = "_ps_cls_about"
+    PS_CLS: Final[str] = "_f3h_ps_cls" # Default app name
+    PS_CLS_ABOUT: Final[str] = "_f3h_ps_cls_about"
     
     
 class pyside_master_base_proto(Protocol):
@@ -22817,10 +22827,10 @@ class pyside_master:
         BASE_SVG_ICON_SIZE: int = 96
         
         IMG_PIXMAP: QtGui.QPixmap | None = None
-        IMG_PIXMAP_SECTION_NAME: str = 'FLAM3H_DOC_intro.jpg'
+        IMG_PIXMAP_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_IMG_BANNER
         
         SVG_ICON: SvgIcon | None = None
-        SVG_ICON_SECTION_NAME: str = 'iconSVGW.svg'
+        SVG_ICON_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_SVG_LOGO_WHITE
         
         NODETYPE: hou.SopNodeType = nodetype
 

@@ -138,6 +138,8 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
                 LIST OF CLASSES:
 
+                    f3h_hda_sections
+                    
                     flam3h_iterator_prm_names
                     flam3h_iterator_prm_names_collections
                     flam3h_varsPRM
@@ -185,6 +187,15 @@ TA_TypeMaker: TypeAlias = list | float | hou.Vector2 | hou.Vector3 | hou.Vector4
 TA_F3H_Init: TypeAlias = tuple[str | None, bool, int, str, bool, bool]
 TA_MNode: TypeAlias = hou.SopNode | None
 TA_M: TypeAlias = int | None
+
+
+class f3h_hda_sections:
+    '''
+    HDA section names being used.</br>
+    
+    '''
+    HDA_SECTION_IMG_BANNER: Final = 'FLAM3H_DOC_intro.jpg'
+    HDA_SECTION_SVG_LOGO_WHITE: Final = 'iconSVGW.svg'
 
 
 CHARACTERS_ALLOWED = "_-().:"
@@ -20483,8 +20494,8 @@ class pyside_master_app_names:
     """Pyside app names to use with PS_CLS being the default app name.</br>
     
     """
-    PS_CLS: str = "_ps_cls" # Default app name
-    PS_CLS_ABOUT: str = "_ps_cls_about"
+    PS_CLS: str = "_f3h_ps_cls" # Default app name
+    PS_CLS_ABOUT: str = "_f3h_ps_cls_about"
     
     
 class pyside_master_base_proto(Protocol):
@@ -20597,10 +20608,10 @@ class pyside_master:
         BASE_SVG_ICON_SIZE: int = 96
         
         IMG_PIXMAP: QtGui.QPixmap | None = None
-        IMG_PIXMAP_SECTION_NAME: str = 'FLAM3H_DOC_intro.jpg'
+        IMG_PIXMAP_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_IMG_BANNER
         
         SVG_ICON: SvgIcon | None = None
-        SVG_ICON_SECTION_NAME: str = 'iconSVGW.svg'
+        SVG_ICON_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_SVG_LOGO_WHITE
         
         NODETYPE: hou.SopNodeType = nodetype
 
