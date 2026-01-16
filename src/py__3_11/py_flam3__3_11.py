@@ -196,6 +196,7 @@ class f3h_hda_sections:
     '''
     HDA_SECTION_IMG_BANNER: Final = 'FLAM3H_DOC_intro.jpg'
     HDA_SECTION_SVG_LOGO_WHITE: Final = 'iconSVGW.svg'
+    HDA_SECTION_SVG_LOGO_RED: Final = 'iconSVGR.svg'
 
 
 CHARACTERS_ALLOWED = "_-().:"
@@ -11171,11 +11172,11 @@ class flam3h_about_utils
         
         
     @staticmethod
-    def flam3h_about_show_info_panel() -> None:
+    def flam3h_about_show_info_panel(node: hou.SopNode) -> None:
         """Display default pyside about message panel.</br>
         
         Args:
-            (None):
+            node(hou.SopNode): This FLAM3H™ node. In this case will be set to: kwargs['node'] directly in the parameter callback script string.
             
         Returns:
             (None):
@@ -11183,7 +11184,8 @@ class flam3h_about_utils
         
         pyside_utils.pyside_panels_safe_launch(
                                                 pyside_master.F3H_msg_panel, 
-                                                app_name=pyside_master_app_names.PS_CLS_ABOUT, 
+                                                app_name=pyside_master_app_names.PS_CLS_ABOUT,
+                                                f3h_node=node,  
                                                 links=True,
                                                 auto_close_ms=4000, 
                                                 fade_in_ms=400, 
@@ -20611,7 +20613,8 @@ class pyside_master:
         IMG_PIXMAP_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_IMG_BANNER
         
         SVG_ICON: SvgIcon | None = None
-        SVG_ICON_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_SVG_LOGO_WHITE
+        SVG_ICON_W_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_SVG_LOGO_WHITE
+        SVG_ICON_R_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_SVG_LOGO_RED
         
         NODETYPE: hou.SopNodeType = nodetype
 
@@ -20642,8 +20645,8 @@ class pyside_master:
                 self.banner_height: int = int(self.BASE_BANNER_HEIGHT * self.dpi_scale)
                 self.svg_icon_size: int = int(self.BASE_SVG_ICON_SIZE * self.dpi_scale)
                 
-                self.f3h_node: hou.SopNode | None = None # mot being used just yet
-                if f3h_node is not None and f3h_node.type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY: self.f3h_node = f3h_node
+                self.f3h_node: hou.SopNode | None = f3h_node if f3h_node is not None and f3h_node.type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY else None
+                self.h_valid: int | None = f3h_node.parm(FLAM3H_PVT_H_VALID).eval() if f3h_node is not None else None
                 
                 # Check if the user want fade in and/or fade out (Disabled by default)
                 if fade_in_ms is not None and isinstance(fade_in_ms, int | float): self.FADE_IN_DURATION_MS = int(fade_in_ms)
@@ -20661,7 +20664,7 @@ class pyside_master:
                 self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
                 self.setFixedSize(self.window_width, self.window_height)
                 
-                self._load_image_pixmap()
+                if self.f3h_node is not None and self.h_valid: self._load_image_pixmap()
                 self._center_window()
                 self._build_ui()
 
@@ -20697,10 +20700,17 @@ class pyside_master:
                 
         # LOAD SVG ICON
         def _load_svg_icon(self) -> None:
+            svg_icon_name: str = self.SVG_ICON_W_SECTION_NAME
             try:
-                section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_SECTION_NAME]
+                if self.h_valid:
+                    section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_W_SECTION_NAME]
+                else:
+                    section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_R_SECTION_NAME]
+                    
             except KeyError:
-                print(f"Warning: SVG icon: HDASection[{self.SVG_ICON_SECTION_NAME}] not found!")
+                svg_icon_name = self.SVG_ICON_R_SECTION_NAME
+                print(f"Warning: SVG icon: HDASection[{svg_icon_name}] not found!")
+                
             else:
                 svg_bytes: QtCore.QByteArray = QtCore.QByteArray(section_svg.binaryContents())
                 self.SVG_ICON = SvgIcon(svg_bytes, parent=self.banner_container)
@@ -20758,7 +20768,7 @@ class pyside_master:
             # Banner
             self.banner_container: QtWidgets.QWidget = QtWidgets.QWidget()
             self.banner_container.setFixedSize(self.window_width, self.banner_height)
-            self.banner_container.setStyleSheet("background: transparent;")
+            self.banner_container.setStyleSheet("background: black;") # transparent
             main_layout.addWidget(self.banner_container)
 
             self.image_label = QtWidgets.QLabel(self.banner_container)
@@ -20844,11 +20854,12 @@ class pyside_master:
                     print("Failed to update banner:", e)
                     
             else:
-                self.image_label.setText("🎨")
-                font = QtGui.QFont("Segoe UI")
-                font.setPointSize(72)
-                self.image_label.setFont(font)
-                self.image_label.setAlignment(QtCore.Qt.AlignCenter)
+                if self.f3h_node is not None and self.h_valid:
+                    self.image_label.setText("🎨")
+                    font = QtGui.QFont("Segoe UI")
+                    font.setPointSize(72)
+                    self.image_label.setFont(font)
+                    self.image_label.setAlignment(QtCore.Qt.AlignCenter)
 
 
         # SVG POSITION
