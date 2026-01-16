@@ -146,6 +146,13 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                     out_flame_utils
                     out_flame_render_properties(out_flame_utils)
                     out_flame_xforms_data(out_flame_utils)
+                    
+                    pyside_utils
+                    SvgIcon
+                    pyside_master_base_proto(Protocol)
+                    
+                    pyside_master
+                        F3H_msg_panel(QtWidgets.QWidget)
 
                     _NOTE:
                         - Class @properties are always defined inbetween the @staticmethods and the class methods.
@@ -20557,9 +20564,14 @@ class pyside_master:
             app: QtCore.QCoreApplication | None = QtWidgets.QApplication.instance()
             if app:
                 
-                # Enable High DPI scaling (once per app)
-                app.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
-                app.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
+                # DPI scaling
+                screen: QtGui.QScreen = app.primaryScreen()
+                self.dpi_scale: float = screen.logicalDotsPerInch() / 96.0
+
+                self.window_width: int = int(self.BASE_WINDOW_WIDTH * self.dpi_scale)
+                self.window_height: int = int(self.BASE_WINDOW_HEIGHT * self.dpi_scale)
+                self.banner_height: int = int(self.BASE_BANNER_HEIGHT * self.dpi_scale)
+                self.svg_icon_size: int = int(self.BASE_SVG_ICON_SIZE * self.dpi_scale)
                 
                 self.f3h_node: hou.SopNode | None = None # mot being used just yet
                 if f3h_node is not None and f3h_node.type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY: self.f3h_node = f3h_node
@@ -20575,15 +20587,6 @@ class pyside_master:
                 # in case of a custom message, this must be a one liner ending with a newline(\n). Meant for short descriptive messages.
                 # Check: APP_INFO variable for an example as it is the default message
                 self.INFO = '' if self.LINKS else app_info if app_info else "\n"
-
-                # DPI scaling
-                screen: QtGui.QScreen = QtWidgets.QApplication.primaryScreen()
-                self.dpi_scale: float = screen.logicalDotsPerInch() / 96.0
-
-                self.window_width: int = int(self.BASE_WINDOW_WIDTH * self.dpi_scale)
-                self.window_height: int = int(self.BASE_WINDOW_HEIGHT * self.dpi_scale)
-                self.banner_height: int = int(self.BASE_BANNER_HEIGHT * self.dpi_scale)
-                self.svg_icon_size: int = int(self.BASE_SVG_ICON_SIZE * self.dpi_scale)
 
                 # Frameless + always on top
                 self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)

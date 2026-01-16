@@ -37,8 +37,8 @@ They are all available in this Github repository.
 
 #### FLAM3H™ v1.9.73 indie -> H21.0 UP</br>FLAM3H™ v1.9.59 indie -> H19.0 to H20.5 ####
 
-- **New H21.0 UP ONLY**: Added splash screen on first node instance creation and about box as well.
-- **Small fixes/improvements as part of an ongoing polishing pass H21.0 UP ONLY**
+- **New H20.5 to H21.0 UP ONLY**: Added splash screen on first node instance creation and about box as well.
+- **Small fixes/improvements as part of an ongoing polishing pass**
 
 
 
