@@ -20612,7 +20612,7 @@ class pyside_master_base_proto(Protocol):
     def null(self) -> str: ...
 
 
-class pyside_utils():
+class pyside_utils:
     """
 class pyside_utils
 
