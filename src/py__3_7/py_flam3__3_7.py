@@ -11056,6 +11056,9 @@ class flam3h_about_utils():
     """
 class flam3h_about_utils
 
+@STATICMETHOD
+* flam3h_about_show_info_panel(node: hou.SopNode) -> None:
+
 @METHODS
 * flam3h_about_msg(self) -> None:
 * flam3h_about_plugins_msg(self) -> None:
@@ -11081,6 +11084,22 @@ class flam3h_about_utils
         """ 
         self._kwargs: dict = kwargs
         self._node = kwargs['node']
+        
+        
+    @staticmethod
+    def flam3h_about_show_info_panel(node: hou.SopNode) -> None:
+        """This is just a place holder for FLAM3H™ versions not compatible with Houdini versions prior to H20.5.</br>
+        so we do not get a python error if the user click the about box icon to open the about pyside panel.
+        
+        This definition is properly written in py3.11 and py3.11 H21 UP files.
+        
+        Args:
+            node(hou.SopNode): This FLAM3H™ node. In this case will be set to: kwargs['node'] directly in the parameter callback script string.
+            
+        Returns:
+            (None):
+        """ 
+        pass
         
 
     # CLASS: PROPERTIES
