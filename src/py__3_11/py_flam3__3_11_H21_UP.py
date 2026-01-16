@@ -18,9 +18,23 @@ import traceback
 import lxml.etree as lxmlET
 
 import builtins
-from PySide6 import QtWidgets, QtGui, QtCore
-from PySide6.QtSvg import QSvgRenderer
-from PySide6.QtGui import QPainter
+
+__pyside_version__: int | None = None
+try:
+    from PySide6 import QtWidgets, QtGui, QtCore
+    __pyside_version__ = 6
+except ImportError:
+    try:
+        from PySide2 import QtWidgets, QtGui, QtCore
+        __pyside_version__ = 2
+    except ImportError:
+        pass
+    else:
+        from PySide2.QtSvg import QSvgRenderer
+        from PySide2.QtGui import QPainter
+else:
+    from PySide6.QtSvg import QSvgRenderer
+    from PySide6.QtGui import QPainter
 
 from math import sin
 from math import cos
@@ -187,9 +201,10 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                     out_flame_render_properties(out_flame_utils)
                     out_flame_xforms_data(out_flame_utils)
                     
+                    pyside_master_app_names
+                    pyside_master_base_proto(Protocol)
                     pyside_utils
                     SvgIcon
-                    pyside_master_base_proto(Protocol)
                     
                     pyside_master
                         F3H_msg_panel(QtWidgets.QWidget)
@@ -1776,26 +1791,40 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_compatible_h_versions_msg(this_h_versions: tuple[int, ...], msg: bool = True) -> str:
+    def flam3h_compatible_h_versions_msg(this_h_versions: tuple[int, ...], msg: bool = True, ps_cls_about: bool = False) -> str:
         """Build and fire a message letting the user know the Houdini version/s needed to run the installed FLAM3H™ HDA version.</br>
 
         Args:
             this_h_versions(tuple[int, ...]): a tuple containing all the Houdini version numbers. This is coming from the HDA's PythonModule: __h_versions__
             msg(bool): Default to: True</br>When False it will not execute the: hou.ui.displayMessage
+            ps_cls_about(bool): Default to False. If True, will build the message string for the pyside about panel.
 
         Returns:
             (str): Only the part of the message string with the allowed Houdini versions, to be used to compose the final message.
         """ 
         if len(this_h_versions) > 1:
-            if __range_type__ is True:
-                _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)}"
+            if __range_type__ is True: 
+                               
+                if ps_cls_about:
+                    _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)}"
+                else:
+                    _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)}"
+                    
             else:
-                _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)} and up"
+                if ps_cls_about:
+                    _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)}*"
+                else:
+                    _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)} and up"
+                    
         else:
             if __range_type__ is True:
                 _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)}"
+                
             else:
-                _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} and up"
+                if ps_cls_about:
+                    _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)}*"
+                else:
+                    _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} and up"
     
         if msg and hou.isUIAvailable():
             hou.ui.displayMessage(f"Sorry, You need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
@@ -12236,7 +12265,7 @@ class flam3h_about_utils
         
         pyside_utils.pyside_panels_safe_launch(
                                                 pyside_master.F3H_msg_panel, 
-                                                app_name="_ps_cls_about", 
+                                                app_name=pyside_master_app_names.PS_CLS_ABOUT, 
                                                 links=True,
                                                 auto_close_ms=4000, 
                                                 fade_in_ms=400, 
@@ -22634,44 +22663,6 @@ class out_flame_xforms_data(out_flame_utils):
 ##########################################
 
 
-class pyside_utils:
-    """
-class pyside_utils
-
-@STATICMETHODS
-* pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], app_name: str = "_ps_cls", run: bool = True, *args, **kwargs) -> None:
-
-"""
-    
-    @staticmethod
-    def pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], app_name: str = "_ps_cls", run: bool = True, *args, **kwargs) -> None:
-        """Safely run a pyside panel,</br>
-        additionally there is the option to only remove an already exisiting one.</br>
-
-        Args:
-            ps_cls(Type[pyside_master_base_proto]): Any of the classes that agree to the pyside_master_base_proto protocol.
-            app_name(str): Default to: "_ps_cls"</br>The app name.
-            run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
-            args: Any args to pass to the <b>ps_cls</b> if any.</br>
-            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:</br><b>parent</b>=None (usually untouched)</br><b>f3h_node</b>=None (This FLAM3H™ node)</br><b>app_info</b>=APP_INFO (The main info message string)</br><b>links</b>=False (When True it will display FLAM3H™ related web links)</br><b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br><b>fade_in_ms</b>=None (Fade in time in millisecond. Default to 0(Zero))</br><b>fade_out_ms</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br>
-            
-        Returns:
-            (None):
-        """ 
-        if hasattr(builtins, app_name):
-            try:
-                getattr(builtins, app_name).close()
-            except Exception:
-                pass
-            delattr(builtins, app_name)
-
-        if hou.isUIAvailable() and run:
-            h_version: int = flam3h_general_utils.houdini_version(2)
-            if h_version > 205:
-                setattr(builtins, app_name, ps_cls(*args, **kwargs))
-                getattr(builtins, app_name).show()
-
-
 class SvgIcon(QtWidgets.QWidget):
     """A QWidget for displaying an SVG image.</br></br>
 
@@ -22701,18 +22692,81 @@ class SvgIcon(QtWidgets.QWidget):
                                 QtWidgets.QSizePolicy.Preferred)
             print("Warning: SVG parent is not a QWidget!")
             
-
+    
     def paintEvent(self, event: QtGui.QPaintEvent):
         if self.renderer and self.renderer.isValid():
             painter = QPainter(self)
             self.renderer.render(painter, self.rect())
+            
 
-
+class pyside_master_app_names:
+    """Pyside app names to use with PS_CLS being the default app name.</br>
+    
+    """
+    PS_CLS: Final[str] = "_ps_cls" # Default app name
+    PS_CLS_ABOUT: Final[str] = "_ps_cls_about"
+    
+    
 class pyside_master_base_proto(Protocol):
     """the protocol to check which pyside_master classes agree with it.
     
     """ 
     def null(self) -> str: ...
+
+
+class pyside_utils():
+    """
+class pyside_utils
+
+@STATICMETHODS
+* pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], app_name: str = pyside_master_app_names.PS_CLS, run: bool = True, *args, **kwargs) -> None:
+
+"""
+    
+    @staticmethod
+    def pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], 
+                                  app_name: str = pyside_master_app_names.PS_CLS, 
+                                  run: bool = True, 
+                                  *args, 
+                                  **kwargs
+                                  ) -> None:
+        """Safely run a pyside panel,</br>
+        additionally there is the option to only remove an already exisiting one.</br>
+
+        Args:
+            ps_cls(Type[pyside_master_base_proto]): Any of the classes that agree to the pyside_master_base_proto protocol.
+            app_name(str): Default to: "_ps_cls"</br>The app name.
+            run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
+            args: Any args to pass to the <b>ps_cls</b> if any.</br>
+            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:</br><b>parent</b>=None (usually untouched)</br><b>ps_app_name</b>=pyside_master_app_names.PS_CLS (Never to be set as it will always be set to: <b>app_name</b> internally)</br><b>f3h_node</b>=None (This FLAM3H™ node)</br><b>app_info</b>=APP_INFO (The main info message string)</br><b>links</b>=False (When True it will display FLAM3H™ related web links)</br><b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br><b>fade_in_ms</b>=None (Fade in time in millisecond. Default to 0(Zero))</br><b>fade_out_ms</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br>
+            
+        Returns:
+            (None):
+        """ 
+        
+        if hasattr(builtins, app_name):
+            try:
+                getattr(builtins, app_name).close()
+                delattr(builtins, app_name) # probably not needed anymore but just in case
+            except AttributeError:
+                pass
+            
+        if hou.isUIAvailable() and run and __pyside_version__ is not None:
+            
+            ps_app_name: str | None = kwargs.get("ps_app_name")
+            if ps_app_name is None and app_name != pyside_master_app_names.PS_CLS:
+                kwargs["ps_app_name"] = app_name
+                
+            h_version: int = flam3h_general_utils.houdini_version(2)
+            if __pyside_version__ == 6:
+                if h_version > 205:
+                    setattr(builtins, app_name, ps_cls(*args, **kwargs))
+                    getattr(builtins, app_name).show()
+                    
+            elif __pyside_version__ == 2:
+                if h_version == 205:
+                    setattr(builtins, app_name, ps_cls(*args, **kwargs))
+                    getattr(builtins, app_name).show()
 
 
 class pyside_master:
@@ -22744,7 +22798,7 @@ class pyside_master:
 
         APP_COPYRIGHT: str = (
             "\n"
-            f"v{__version__} indie, {__license__} - {__copyright__} ( made in Italy )"
+            f"v{__version__} indie {flam3h_scripts.flam3h_compatible_h_versions_msg(nodetype.hdaModule().__h_versions__, False, True)}, {__license__} - {__copyright__} ( made in Italy )"
         )
         
         # milliseconds
@@ -22773,7 +22827,8 @@ class pyside_master:
         def __init__(   self, 
                         parent=None, 
                         f3h_node: hou.SopNode | None = None, 
-                        app_info: str = APP_INFO,
+                        app_info: str = APP_INFO, 
+                        ps_app_name: str = pyside_master_app_names.PS_CLS, 
                         links: bool = False, 
                         auto_close_ms: int = 5000, 
                         fade_in_ms: int | None = None, 
@@ -22784,6 +22839,8 @@ class pyside_master:
             
             app: QtCore.QCoreApplication | None = QtWidgets.QApplication.instance()
             if app:
+                
+                self.ps_app_name = ps_app_name if ps_app_name else pyside_master_app_names.PS_CLS
                 
                 # DPI scaling
                 screen: QtGui.QScreen = app.primaryScreen()
@@ -23020,7 +23077,7 @@ class pyside_master:
             self.fade_out_anim.finished.connect(self._exit)
             self.fade_out_anim.start()
                 
-                
+            
         # PYSIDE: RESIZE EVENT
         def resizeEvent(self, event: QtGui.QResizeEvent):
             super().resizeEvent(event)
@@ -23031,16 +23088,39 @@ class pyside_master:
         # PYSIDE: DRAG SUPPORT MOUSE PRESS EVENT
         def mousePressEvent(self, event: QtGui.QMouseEvent):
             if event.button() == QtCore.Qt.LeftButton:
-                self.BASE_DRAG_POSITION = event.globalPosition().toPoint()
+                
+                if __pyside_version__ == 6:
+                    self.BASE_DRAG_POSITION = event.globalPosition().toPoint()
+                elif __pyside_version__ == 2:
+                    self.BASE_DRAG_POSITION = event.globalPos()
 
 
         # PYSIDE: DRAG SUPPORT MOUSE MOVE EVENT
         def mouseMoveEvent(self, event: QtGui.QMouseEvent):
             if event.buttons() == QtCore.Qt.LeftButton and self.BASE_DRAG_POSITION:
-                delta = event.globalPosition().toPoint() - self.BASE_DRAG_POSITION
+                
+                if __pyside_version__ == 6:
+                    delta = event.globalPosition().toPoint() - self.BASE_DRAG_POSITION
+                elif __pyside_version__ == 2:
+                    delta = event.globalPos() - self.BASE_DRAG_POSITION
+                    
                 self.move(self.x() + delta.x(), self.y() + delta.y())
-                self.BASE_DRAG_POSITION = event.globalPosition().toPoint()
-
+                
+                if __pyside_version__ == 6:
+                    self.BASE_DRAG_POSITION = event.globalPosition().toPoint()
+                elif __pyside_version__ == 2:
+                    self.BASE_DRAG_POSITION = event.globalPos()
+                
+                
+        # PYSIDE: CLOSE EVENT
+        def closeEvent(self, event: QtGui.QCloseEvent):
+            try:
+                delattr(builtins, self.ps_app_name)
+            except AttributeError:
+                pass
+            
+            event.accept()
+            
 
         # EXIT
         def _exit(self):
