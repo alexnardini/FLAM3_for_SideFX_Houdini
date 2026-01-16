@@ -11099,7 +11099,8 @@ class flam3h_about_utils
         Returns:
             (None):
         """ 
-        pass
+        _MSG: str = f"WARNING: \"About info box panel\" only work starting from H20.5 up"
+        print(f"{_MSG}\n")    
         
 
     # CLASS: PROPERTIES
