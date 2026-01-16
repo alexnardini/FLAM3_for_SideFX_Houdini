@@ -77,7 +77,7 @@ import toolutils
 # Set some HDA infos
 __version__ = "1.9.73"
 __status__  = "Production"
-__h_versions__: tuple[int, ...] = (210,)
+__h_versions__: tuple = (210,)
 __range_type__: bool = False # True for closed range. False for open range
 
 # The following are min and max Houdini version where FLAM3H™ can run.
