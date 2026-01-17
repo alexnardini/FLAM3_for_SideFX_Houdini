@@ -20617,7 +20617,12 @@ class pyside_utils:
 class pyside_utils
 
 @STATICMETHODS
-* pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], app_name: str = pyside_master_app_names.PS_CLS, run: bool = True, *args, **kwargs) -> None:
+* pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], 
+                                    app_name: str = pyside_master_app_names.PS_CLS, 
+                                    run: bool = True, 
+                                    *args, 
+                                    **kwargs
+                                    ) -> None:
 
 """
     
@@ -20649,22 +20654,28 @@ class pyside_utils
             except AttributeError:
                 pass
             
-        if hou.isUIAvailable() and run and __pyside_version__ is not None:
+        if __pyside_version__ is not None:
             
-            ps_app_name: str | None = kwargs.get("ps_app_name")
-            if ps_app_name is None and app_name != pyside_master_app_names.PS_CLS:
-                kwargs["ps_app_name"] = app_name
+            if hou.isUIAvailable() and run:
                 
-            h_version: int = flam3h_general_utils.houdini_version(2)
-            if __pyside_version__ == 6:
-                if h_version > 205:
-                    setattr(builtins, app_name, ps_cls(*args, **kwargs))
-                    getattr(builtins, app_name).show()
+                ps_app_name: str | None = kwargs.get("ps_app_name")
+                if ps_app_name is None and app_name != pyside_master_app_names.PS_CLS:
+                    kwargs["ps_app_name"] = app_name
                     
-            elif __pyside_version__ == 2:
-                if h_version == 205:
-                    setattr(builtins, app_name, ps_cls(*args, **kwargs))
-                    getattr(builtins, app_name).show()
+                h_version: int = flam3h_general_utils.houdini_version(2)
+                if __pyside_version__ == 6:
+                    if h_version > 205:
+                        setattr(builtins, app_name, ps_cls(*args, **kwargs))
+                        getattr(builtins, app_name).show()
+                        
+                elif __pyside_version__ == 2:
+                    if h_version == 205:
+                        setattr(builtins, app_name, ps_cls(*args, **kwargs))
+                        getattr(builtins, app_name).show()
+                    
+        else:
+            _MSG: str = f"WARNING: This \"PySide\" version is not supported just yet."
+            print(f"{_MSG}\n")
 
 
 class pyside_master:

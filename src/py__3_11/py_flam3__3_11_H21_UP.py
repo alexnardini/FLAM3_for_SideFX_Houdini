@@ -12893,7 +12893,7 @@ XML_XF_KEY_EXCLUDE: tuple[str, ...] = ( xml_keys.XML_XF_WEIGHT,
                                         xml_keys.XML_XF_SYMMETRY, 
                                         xml_keys.XML_XF_COLOR_SPEED, 
                                         xml_keys.XML_XF_NAME, 
-                                        xml_keys.XML_XF_ANIMATE, 
+                                        xml_keys.XML_XF_ANIMATE, # this is being added as it is a Fractorium only XML key and we are not using it in FLAM3H™
                                         xml_keys.XML_XF_PB, 
                                         xml_keys.XML_PRE_AFFINE, 
                                         xml_keys.f3h.XML_PRE_AFFINE, 
@@ -22730,7 +22730,12 @@ class pyside_utils:
 class pyside_utils
 
 @STATICMETHODS
-* pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], app_name: str = pyside_master_app_names.PS_CLS, run: bool = True, *args, **kwargs) -> None:
+* pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], 
+                                    app_name: str = pyside_master_app_names.PS_CLS, 
+                                    run: bool = True, 
+                                    *args, 
+                                    **kwargs
+                                    ) -> None:
 
 """
     
@@ -22762,22 +22767,28 @@ class pyside_utils
             except AttributeError:
                 pass
             
-        if hou.isUIAvailable() and run and __pyside_version__ is not None:
+        if __pyside_version__ is not None:
             
-            ps_app_name: str | None = kwargs.get("ps_app_name")
-            if ps_app_name is None and app_name != pyside_master_app_names.PS_CLS:
-                kwargs["ps_app_name"] = app_name
+            if hou.isUIAvailable() and run:
                 
-            h_version: int = flam3h_general_utils.houdini_version(2)
-            if __pyside_version__ == 6:
-                if h_version > 205:
-                    setattr(builtins, app_name, ps_cls(*args, **kwargs))
-                    getattr(builtins, app_name).show()
+                ps_app_name: str | None = kwargs.get("ps_app_name")
+                if ps_app_name is None and app_name != pyside_master_app_names.PS_CLS:
+                    kwargs["ps_app_name"] = app_name
                     
-            elif __pyside_version__ == 2:
-                if h_version == 205:
-                    setattr(builtins, app_name, ps_cls(*args, **kwargs))
-                    getattr(builtins, app_name).show()
+                h_version: int = flam3h_general_utils.houdini_version(2)
+                if __pyside_version__ == 6:
+                    if h_version > 205:
+                        setattr(builtins, app_name, ps_cls(*args, **kwargs))
+                        getattr(builtins, app_name).show()
+                        
+                elif __pyside_version__ == 2:
+                    if h_version == 205:
+                        setattr(builtins, app_name, ps_cls(*args, **kwargs))
+                        getattr(builtins, app_name).show()
+                    
+        else:
+            _MSG: str = f"WARNING: This \"PySide\" version is not supported just yet."
+            print(f"{_MSG}\n")
 
 
 class pyside_master:
