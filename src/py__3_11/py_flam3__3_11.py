@@ -20750,7 +20750,7 @@ class pyside_master:
                         auto_close_ms: int = 5000, 
                         fade_in_ms: int | None = None, 
                         fade_out_ms: int | None = None,
-                        splash_screen=False, 
+                        splash_screen: bool = False, 
                      ):
             
             super().__init__(parent)
