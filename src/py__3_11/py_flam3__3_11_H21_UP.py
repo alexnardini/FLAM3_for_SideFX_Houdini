@@ -202,10 +202,10 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                     out_flame_render_properties(out_flame_utils)
                     out_flame_xforms_data(out_flame_utils)
                     
+                    SvgIcon
                     pyside_master_app_names
                     pyside_master_base_proto(Protocol)
                     pyside_utils
-                    SvgIcon
                     
                     pyside_master
                         F3H_msg_panel(QtWidgets.QWidget)
