@@ -12275,7 +12275,7 @@ class flam3h_about_utils
         
         pyside_utils.pyside_panels_safe_launch(
                                                 pyside_master.F3H_msg_panel, 
-                                                app_name=pyside_master_app_names.PS_CLS_ABOUT,
+                                                ps_app_name=pyside_master_app_names.PS_CLS_ABOUT,
                                                 f3h_node=node,  
                                                 links=True,
                                                 auto_close_ms=4000, 
