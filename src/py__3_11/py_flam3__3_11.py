@@ -20674,7 +20674,14 @@ class pyside_utils
                         getattr(builtins, app_name).show()
                     
         else:
-            _MSG: str = f"WARNING: This \"PySide\" version is not supported just yet."
+            _MSG: str = """
+WARNING: This \"PySide\" and/or \"Qt\" versions are not supported just yet.
+Supported and tested versions are:\n
+FLAM3H™ H20.5 - PySide2 version: 5.15.15
+FLAM3H™ H20.5 - Qt6 version: 5.15.2
+FLAM3H™ H21.0 - PySide6 version: 6.5.3
+FLAM3H™ H21.0 - Qt6 version: 6.5.3
+"""
             print(f"{_MSG}\n")
 
 
@@ -20770,7 +20777,7 @@ class pyside_master:
                 if fade_in_ms is not None and isinstance(fade_in_ms, int | float): self.FADE_IN_DURATION_MS = int(fade_in_ms)
                 if fade_out_ms is not None and isinstance(fade_out_ms, int | float): self.FADE_OUT_DURATION_MS = int(fade_out_ms)
                 
-                self.font_os = app.font()
+                self.font_os: QtGui.QFont = app.font()
 
                 # Add FLAM3H™ weblinks
                 self.LINKS: bool = links
@@ -20889,7 +20896,7 @@ class pyside_master:
             self.banner_container.setStyleSheet("background: black;") # transparent
             main_layout.addWidget(self.banner_container)
 
-            self.image_label = QtWidgets.QLabel(self.banner_container)
+            self.image_label: QtWidgets.QLabel = QtWidgets.QLabel(self.banner_container)
             self.image_label.setGeometry(0, 0, self.window_width, self.banner_height)
             self.image_label.setAlignment(QtCore.Qt.AlignCenter)
             self._update_banner()
@@ -20944,7 +20951,6 @@ class pyside_master:
                 """)
                 main_layout.addWidget(links_label)
             
-
             # Copyright
             copyright_label: QtWidgets.QLabel = QtWidgets.QLabel(self.APP_COPYRIGHT, self)
             copyright_label.setAlignment(QtCore.Qt.AlignCenter)
@@ -20974,7 +20980,7 @@ class pyside_master:
             else:
                 if (self.f3h_node is not None and self.h_valid) or self.splash_screen:
                     self.image_label.setText("🎨")
-                    font = QtGui.QFont("Segoe UI")
+                    font: QtGui.QFont = QtGui.QFont("Segoe UI")
                     font.setPointSize(72)
                     self.image_label.setFont(font)
                     self.image_label.setAlignment(QtCore.Qt.AlignCenter)
