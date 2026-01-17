@@ -1162,9 +1162,9 @@ Opacity [Icon:TOP/xmlinput]:
 
         Since variations can be just about anything, they behave in many different ways.
 
-        At a bare minimum, all variations have a weight and most of them use it. You can examine the effect of the weight [parameter|Wp:Parameter_(computer_programming)] by adjusting it and seeing how it affects the final output image.
+        At a bare minimum, all variations have a weight and most of them use it. You can examine the effect of the weight parameter by adjusting it and seeing how it affects the final output image.
 
-        In addition to weight, most variations have additional parameters that can be adjusted.
+        In addition to weight, most variations have additional [parameters|Wp:Parameter_(computer_programming)] that can be adjusted.
 
         Most use the outputs of the pre affine transforms as input points which are then modified via various calculations. However, some do not use the pre affine points at all. For these, you will notice that dragging the pre affine transforms around has no effect on the final output image.
             
