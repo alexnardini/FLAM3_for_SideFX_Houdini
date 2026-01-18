@@ -1329,7 +1329,7 @@ class flam3h_scripts
 
 @STATICMETHODS
 * flam3h_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
-* flam3h_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
+* flam3h_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True, ps_cls_about: bool = False) -> str:
 * flam3h_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
 * flam3h_compatible_range_close(kwargs: dict | None = None, msg: bool = True) -> bool:
 * flam3h_compatible_range_open(kwargs: dict | None = None, msg: bool = True) -> bool:
@@ -20678,9 +20678,9 @@ class pyside_utils
 WARNING: This \"PySide\" and/or \"Qt\" versions are not supported just yet.
 Supported and tested versions are:\n
 FLAM3H™ H20.5 - PySide2 version: 5.15.15
-FLAM3H™ H20.5 - Qt6 version: 5.15.2
+FLAM3H™ H20.5 - Qt version: 5.15.2
 FLAM3H™ H21.0 - PySide6 version: 6.5.3
-FLAM3H™ H21.0 - Qt6 version: 6.5.3
+FLAM3H™ H21.0 - Qt version: 6.5.3
 """
             print(f"{_MSG}\n")
 

@@ -16,10 +16,26 @@ import json
 import colorsys
 import lxml.etree as lxmlET
 
+import builtins
+
+# In this case, we only check against PySide2
+# becasue from H20.5 and up (python 3.11 - and possibly higher with newer Houdini version)
+# FLAM3H™ will not use this file at all.
+__pyside_version__: Union[int, None] = None
+try:
+    from PySide2 import QtWidgets, QtGui, QtCore
+    __pyside_version__ = 2
+except:
+    pass
+else:
+    from PySide2.QtSvg import QSvgRenderer
+    from PySide2.QtGui import QPainter
+
 from platform import python_version
 from platform import system as platform_system
 from typing import Any
 from typing import Union
+from typing import Type
 from typing import Callable
 from typing import KeysView
 from itertools import count as it_count
@@ -1353,26 +1369,40 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
+    def flam3h_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True, ps_cls_about: bool = False) -> str:
         """Build and fire a message letting the user know the Houdini version/s needed to run the installed FLAM3H™ HDA version.
 
         Args:
             this_h_versions(tuple): a tuple containing all the Houdini version numbers. This is coming from the HDA's PythonModule: __h_versions__
             msg(bool): Default to True. When False it will not execute the: hou.ui.displayMessage
+            ps_cls_about(bool): Default to False. If True, will build the message string for the pyside about panel.
 
         Returns:
             (str): Only the part of the message string with the allowed Houdini versions, to be used to compose the final message.
         """ 
         if len(this_h_versions) > 1:
-            if __range_type__ is True:
-                _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)}"
+            if __range_type__ is True: 
+                               
+                if ps_cls_about:
+                    _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)}"
+                else:
+                    _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)}"
+                    
             else:
-                _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)} and up"
+                if ps_cls_about:
+                    _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)}*"
+                else:
+                    _MSG_H_VERSIONS = f"from H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} to H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions, True)} and up"
+                    
         else:
             if __range_type__ is True:
                 _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)}"
+                
             else:
-                _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} and up"
+                if ps_cls_about:
+                    _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)}*"
+                else:
+                    _MSG_H_VERSIONS = f"H{flam3h_scripts.flam3h_h_versions_build_data(this_h_versions)} and up"
     
         if msg and hou.isUIAvailable():
             hou.ui.displayMessage(f"Sorry, You need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
@@ -1599,7 +1629,9 @@ class flam3h_scripts
             
             if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ CVEX 32bit compile", details = None, details_label = None, details_expanded = False) == 0: # type: ignore
                 flam3h_scripts.set_first_instance_global_var(cvex_precision)
-                hou.setUpdateMode(sys_updated_mode) # type: ignore
+                hou.setUpdateMode(sys_updated_mode)
+                # Close pyside panel if open from first time (splash screen)
+                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False)
                 # Print to the Houdini console
                 print(f"\n-> FLAM3H™ CVEX nodes compile: DONE\n")
                 
@@ -1633,8 +1665,10 @@ class flam3h_scripts
         flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
         node.cook(force=True)
         flam3h_scripts.set_first_instance_global_var(cvex_precision)
-
-        hou.setUpdateMode(sys_updated_mode) # type: ignore
+        hou.setUpdateMode(sys_updated_mode)
+        # Close pyside panel if open from first time (splash screen)
+        pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False)
+        
         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
         print(f"\nFLAM3H CVEX node compile: DONE\n")
         
@@ -1814,6 +1848,7 @@ class flam3h_scripts
                 _MSG_INFO = f"FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ CVEX nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H™ CVEX nodes compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
             
+                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0, splash_screen=True)
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                 else:
@@ -1828,6 +1863,7 @@ class flam3h_scripts
                 _MSG_INFO = f"FLAM3H™ v{__version__} 64-bit  first instance -> Compiling FLAM3H™ CVEX 64-bit nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H™ CVEX 64-bit nodes compile: DONE\nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
                 
+                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0, splash_screen=True)
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                 else:
@@ -6556,7 +6592,7 @@ class flam3h_iterator_utils
             return []
         
         _TYPE, _ICON = self.menu_T_data()
-        var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
+        var: Union[int, None] = MENU_VARS_ALL_INDEXES.get(_TYPE)
         if var is not None:
             menu: list = copy(MENU_VARS_ALL_SIMPLE)
             menu[var] = f"{_ICON} {str(menu[var])[:20]}"
@@ -6581,7 +6617,7 @@ class flam3h_iterator_utils
         """
         
         _TYPE, _ICON = self.menu_T_FF_data()
-        var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
+        var: Union[int, None] = MENU_VARS_ALL_INDEXES.get(_TYPE)
         if var is not None:
             menu: list = copy(MENU_VARS_ALL_SIMPLE)
             menu[var] = f"{_ICON} {str(menu[var])[:20]}"
@@ -6608,7 +6644,7 @@ class flam3h_iterator_utils
             return []
         
         _TYPE, _ICON = self.menu_T_PP_data()
-        var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
+        var: Union[int, None] = MENU_VARS_ALL_INDEXES.get(_TYPE)
         if var is not None:
             menu: list = copy(MENU_VARS_ALL_SIMPLE)
             menu[var] = f"{_ICON} {str(menu[var])[:20]}"
@@ -6675,7 +6711,7 @@ class flam3h_iterator_utils
 
         # This data get created inside: menu_T_simple(self) -> list:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: list | None = self._node.cachedUserData('vars_menu_all_simple')
+        data: Union[list, None] = self._node.cachedUserData('vars_menu_all_simple')
         if data is not None: return data
 
         use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
@@ -6701,7 +6737,7 @@ class flam3h_iterator_utils
         
         # This data get created inside: menu_T_simple(self) -> list:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: list | None = self._node.cachedUserData('vars_menu_all_simple')
+        data: Union[list, None] = self._node.cachedUserData('vars_menu_all_simple')
         if data is not None: return data
 
         use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
@@ -6727,7 +6763,7 @@ class flam3h_iterator_utils
         
         # This data get created inside: menu_T_simple(self) -> list:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: list | None = self._node.cachedUserData('vars_menu_all_simple')
+        data: Union[list, None] = self._node.cachedUserData('vars_menu_all_simple')
         if data is not None: return data
 
         use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
@@ -6753,7 +6789,7 @@ class flam3h_iterator_utils
         
         # This data get created inside: menu_T_simple(self) -> list:
         # This data get destroyed inside: refresh_iterator_vars_menu(self) -> None:
-        data: list | None = self._node.cachedUserData('vars_menu_all_simple')
+        data: Union[list, None] = self._node.cachedUserData('vars_menu_all_simple')
         if data is not None: return data
 
         use_icons: int = self._node.parm(PREFS_ITERATOR_BOOKMARK_ICONS).eval()
@@ -11193,10 +11229,7 @@ class flam3h_about_utils
         
     @staticmethod
     def flam3h_about_show_info_panel(node: hou.SopNode) -> None:
-        """This is just a place holder for FLAM3H™ versions not compatible with Houdini versions prior to H20.5.</br>
-        so we do not get a python error if the user click the about box icon to open the about pyside panel.
-        
-        This definition is properly written in py3.11 and py3.11 H21 UP files.
+        """Display default pyside about message panel.</br>
         
         Args:
             node(hou.SopNode): This FLAM3H™ node. In this case will be set to: kwargs['node'] directly in the parameter callback script string.
@@ -11204,8 +11237,16 @@ class flam3h_about_utils
         Returns:
             (None):
         """ 
-        _MSG: str = f"WARNING: \"About info box panel\" only work starting from H20.5 up"
-        print(f"{_MSG}\n")    
+
+        pyside_utils.pyside_panels_safe_launch(
+                                                pyside_master.F3H_msg_panel, 
+                                                app_name=pyside_master_app_names.PS_CLS_ABOUT,
+                                                f3h_node=node,  
+                                                links=True,
+                                                auto_close_ms=4000, 
+                                                fade_in_ms=400, 
+                                                fade_out_ms=400
+                                               )
         
 
     # CLASS: PROPERTIES
@@ -20450,3 +20491,487 @@ class out_flame_xforms_data(out_flame_utils):
     @property
     def finalxf_f3h_postaffine_angle(self):
         return self._finalxf_f3h_postaffine_angle
+
+# PYSIDE start here (panels and such)
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+
+
+class SvgIcon(QtWidgets.QWidget):
+    """A QWidget for displaying an SVG image.</br></br>
+
+    This widget wraps a QSvgRenderer to render SVG content inside a QWidget.</br>
+    It safely handles invalid SVG data or incorrect types.</br>
+    
+    """
+    def __init__(self, svg_bytes: QtCore.QByteArray, parent=None):
+        super().__init__(parent)
+        
+        try:
+            self.renderer: Union[QSvgRenderer, None] = QSvgRenderer(svg_bytes)
+            if not self.renderer.isValid():
+                self.renderer = None
+                print("Warning: SVG data is invalid!")
+                
+        except TypeError:
+            self.renderer = None
+            print("Warning: SVG data is invalid!")
+
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+
+        if parent is not None and isinstance(parent, QtWidgets.QWidget):
+            self.setSizePolicy(parent.sizePolicy())
+        else:
+            self.setSizePolicy( QtWidgets.QSizePolicy.Preferred,
+                                QtWidgets.QSizePolicy.Preferred)
+            print("Warning: SVG parent is not a QWidget!")
+            
+    
+    def paintEvent(self, event: QtGui.QPaintEvent):
+        if self.renderer and self.renderer.isValid():
+            painter = QPainter(self)
+            self.renderer.render(painter, self.rect())
+            
+
+class pyside_master_app_names:
+    """Pyside app names to use with PS_CLS being the default app name.</br>
+    
+    """
+    PS_CLS: str = "_f3h_ps_cls" # Default app name
+    PS_CLS_ABOUT: str = "_f3h_ps_cls_about"
+    
+    
+class f3h_hda_sections:
+    '''
+    HDA section names being used.</br>
+    
+    '''
+    HDA_SECTION_IMG_BANNER: str = 'FLAM3H_DOC_intro.jpg'
+    HDA_SECTION_SVG_LOGO_WHITE: str = 'iconSVGW.svg'
+    HDA_SECTION_SVG_LOGO_RED: str = 'iconSVGR.svg'
+
+
+class pyside_utils:
+    """
+class pyside_utils
+
+@STATICMETHODS
+* pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], 
+                                    app_name: str = pyside_master_app_names.PS_CLS, 
+                                    run: bool = True, 
+                                    *args, 
+                                    **kwargs
+                                    ) -> None:
+
+"""
+    
+    @staticmethod
+    def pyside_panels_safe_launch(ps_cls, 
+                                  app_name: str = pyside_master_app_names.PS_CLS, 
+                                  run: bool = True, 
+                                  *args, 
+                                  **kwargs
+                                  ) -> None:
+        """Safely run a pyside panel,</br>
+        additionally there is the option to only remove an already exisiting one.</br>
+
+        Args:
+            ps_cls(Type[pyside_master_base_proto]): Any of the classes that agree to the pyside_master_base_proto protocol.
+            app_name(str): Default to: "_ps_cls"</br>The app name.
+            run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
+            args: Any args to pass to the <b>ps_cls</b> if any.</br>
+            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:</br><b>parent</b>=None (usually untouched)</br><b>ps_app_name</b>=pyside_master_app_names.PS_CLS (Never to be set as it will always be set to: <b>app_name</b> internally)</br><b>f3h_node</b>=None (This FLAM3H™ node)</br><b>app_info</b>=APP_INFO (The main info message string)</br><b>links</b>=False (When True it will display FLAM3H™ related web links)</br><b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br><b>fade_in_ms</b>=None (Fade in time in millisecond. Default to 0(Zero))</br><b>fade_out_ms</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br><b>splash_screen</b>=False (When True it will force the banner image to be load even if some chackes fail, just for the splash screen)</br>
+            
+        Returns:
+            (None):
+        """ 
+        
+        if not isinstance(ps_cls, type):
+            raise TypeError(f"{ps_cls} is not a class")
+        
+        if hasattr(builtins, app_name):
+            try:
+                getattr(builtins, app_name).close()
+                delattr(builtins, app_name) # probably not needed anymore but just in case
+            except AttributeError:
+                pass
+            
+        if __pyside_version__ is not None:
+            
+            if hou.isUIAvailable() and run:
+            
+                ps_app_name: Union[str, None] = kwargs.get("ps_app_name")
+                if ps_app_name is None and app_name != pyside_master_app_names.PS_CLS:
+                    kwargs["ps_app_name"] = app_name
+                    
+                h_version: int = flam3h_general_utils.houdini_version(2)
+                if h_version < 205:
+                    setattr(builtins, app_name, ps_cls(*args, **kwargs))
+                    getattr(builtins, app_name).show()
+                    
+        else:
+            _MSG: str = """
+WARNING: This \"PySide\" and/or \"Qt\" versions are not supported.
+Supported and tested versions are:\n
+FLAM3H™ H19 to H20 - PySide2 version: 5.15.2
+FLAM3H™ H19 to H20 - Qt version: 5.15.2
+"""
+            print(f"{_MSG}\n")
+
+
+class pyside_master:
+    """Ideally this class will contain all pyside classes for FLAM3H™ panels and such.</br>
+    For now there is just one, its a start...
+    
+    """ 
+        
+    class F3H_msg_panel(QtWidgets.QWidget):
+        """A default PySide meassage panel.</br></br>
+
+        Can be used in different scenarios to display a short message nicely.</br></br>
+        
+        It features auto close timer, fade in, fade out.</br>
+        and allow drawing Svg files on top of banner images as well.</br></br>
+        
+        Everything is properly scaled to keep the right size and proportions</br>
+        across different screen sizes (4K, HD, ...) and few more features.</br></br>
+        
+        It is a work in progress and it will likely grow in the future.</br>
+        
+        """
+
+        APP_NAME: str = "FLAM3H™"
+        
+        APP_INFO: str = (
+            "compiling cvex nodes\n"
+        )
+
+        APP_COPYRIGHT: str = (
+            "\n"
+            f"v{__version__} indie {flam3h_scripts.flam3h_compatible_h_versions_msg(nodetype.hdaModule().__h_versions__, False, True)}, {__license__} - {__copyright__} ( made in Italy )"
+        )
+        
+        # milliseconds
+        FADE_IN_DURATION_MS: int = 0
+        FADE_OUT_DURATION_MS: int = 0
+        
+        BG_COLOR: str = "#f4f6f8"
+        TEXT_COLOR: str = "#2b2b2b"
+        
+        BASE_WINDOW_WIDTH: int = 512
+        BASE_WINDOW_HEIGHT: int = 472
+        BASE_DRAG_POSITION: Union[QtCore.QPoint, None] = None
+        
+        BASE_BANNER_HEIGHT: int = 300
+        
+        BASE_SVG_ICON_SIZE: int = 96
+        
+        IMG_PIXMAP: Union[QtGui.QPixmap, None] = None
+        IMG_PIXMAP_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_IMG_BANNER
+        
+        SVG_ICON: Union[SvgIcon, None] = None
+        SVG_ICON_W_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_SVG_LOGO_WHITE
+        SVG_ICON_R_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_SVG_LOGO_RED
+        
+        NODETYPE: hou.SopNodeType = nodetype
+
+        def __init__(   self, 
+                        parent=None, 
+                        f3h_node: Union[hou.SopNode, None] = None, 
+                        app_info: str = APP_INFO, 
+                        ps_app_name: str = pyside_master_app_names.PS_CLS, 
+                        links: bool = False, 
+                        auto_close_ms: int = 5000, 
+                        fade_in_ms: Union[int, None] = None, 
+                        fade_out_ms: Union[int, None] = None,
+                        splash_screen: bool = False, 
+                     ):
+            
+            super().__init__(parent)
+            
+            app: Union[QtCore.QCoreApplication, None] = QtWidgets.QApplication.instance()
+            if app:
+                
+                self.ps_app_name = ps_app_name if ps_app_name else pyside_master_app_names.PS_CLS
+                
+                # DPI scaling
+                screen: QtGui.QScreen = app.primaryScreen()
+                self.dpi_scale: float = screen.logicalDotsPerInch() / 96.0
+
+                self.window_width: int = int(self.BASE_WINDOW_WIDTH * self.dpi_scale)
+                self.window_height: int = int(self.BASE_WINDOW_HEIGHT * self.dpi_scale)
+                self.banner_height: int = int(self.BASE_BANNER_HEIGHT * self.dpi_scale)
+                self.svg_icon_size: int = int(self.BASE_SVG_ICON_SIZE * self.dpi_scale)
+                
+                self.f3h_node: Union[hou.SopNode, None] = f3h_node if f3h_node is not None and f3h_node.type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY else None
+                self.h_valid: Union[int, None] = f3h_node.parm(FLAM3H_PVT_H_VALID).eval() if f3h_node is not None else None
+                self.splash_screen = splash_screen
+                
+                # Check if the user want fade in and/or fade out (Disabled by default)
+                if fade_in_ms is not None and isinstance(fade_in_ms, (int, float)): self.FADE_IN_DURATION_MS = int(fade_in_ms)
+                if fade_out_ms is not None and isinstance(fade_out_ms, (int, float)): self.FADE_OUT_DURATION_MS = int(fade_out_ms)
+                
+                self.font_os: QtGui.QFont = app.font()
+
+                # Add FLAM3H™ weblinks
+                self.LINKS: bool = links
+                # in case of a custom message, this must be a one liner ending with a newline(\n). Meant for short descriptive messages.
+                # Check: APP_INFO variable for an example as it is the default message
+                self.INFO = '' if self.LINKS else app_info if app_info else "\n"
+
+                # Frameless + always on top
+                self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
+                self.setFixedSize(self.window_width, self.window_height)
+                
+                if (self.f3h_node is not None and self.h_valid) or self.splash_screen: self._load_image_pixmap()
+                self._center_window()
+                self._build_ui()
+
+                # Fade in animation
+                self.setWindowOpacity(0)
+                self.fade_in_anim: QtCore.QPropertyAnimation = QtCore.QPropertyAnimation(self, b"windowOpacity")
+                self.fade_in_anim.setDuration(self.FADE_IN_DURATION_MS)
+                self.fade_in_anim.setStartValue(0)
+                self.fade_in_anim.setEndValue(1)
+                self.fade_in_anim.start()
+
+                # Auto close with fade out
+                if isinstance(auto_close_ms, (int, float)) and int(auto_close_ms) > 0:
+                    fade_out_start: int = max(0, int(auto_close_ms) - self.FADE_OUT_DURATION_MS)
+                    QtCore.QTimer.singleShot(fade_out_start, lambda: self._start_fade_out(self.FADE_OUT_DURATION_MS))
+        
+            
+        # LOAD BANNER IMG
+        def _load_image_pixmap(self):
+            try:
+                section_img: hou.HDASection = self.NODETYPE.definition().sections()[self.IMG_PIXMAP_SECTION_NAME]
+            except KeyError:
+                print(f"Warning: Banner image: HDASection[{self.IMG_PIXMAP_SECTION_NAME}] not found!")
+            else:
+                # PIXMAP LOAD
+                self.IMG_PIXMAP = QtGui.QPixmap()
+                self.IMG_PIXMAP.loadFromData(QtCore.QByteArray(section_img.binaryContents()))
+                
+                
+        # LOAD SVG ICON
+        def _load_svg_icon(self) -> None:
+            svg_icon_name: str = self.SVG_ICON_W_SECTION_NAME
+            try:
+                if self.h_valid or self.splash_screen:
+                    section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_W_SECTION_NAME]
+                else:
+                    section_svg: hou.HDASection = self.NODETYPE.definition().sections()[self.SVG_ICON_R_SECTION_NAME]
+                    
+            except KeyError:
+                svg_icon_name = self.SVG_ICON_R_SECTION_NAME
+                print(f"Warning: SVG icon: HDASection[{svg_icon_name}] not found!")
+                
+            else:
+                svg_bytes: QtCore.QByteArray = QtCore.QByteArray(section_svg.binaryContents())
+                self.SVG_ICON = SvgIcon(svg_bytes, parent=self.banner_container)
+                self.SVG_ICON.resize(self.svg_icon_size, self.svg_icon_size)
+            
+            
+        # CENTER WINDOW
+        def _center_window(self):
+            
+            try:
+                main_win: QtWidgets.QWidget = hou.qt.mainWindow()
+                houdini_geom: QtCore.QRect = main_win.frameGeometry()
+                
+                best_screen: Union[QtGui.QScreen, None] = None
+                max_area: int = 0
+                for screen in QtWidgets.QApplication.screens():
+                    intersect: QtCore.QRect = houdini_geom.intersected(screen.availableGeometry())
+                    area: int = intersect.width() * intersect.height()
+                    if area > max_area:
+                        max_area = area
+                        best_screen = screen
+
+                if best_screen is None:
+                    best_screen = QtWidgets.QApplication.primaryScreen()
+
+                geom: QtCore.QRect = best_screen.availableGeometry()
+                x: int = geom.x() + (geom.width() - self.width()) // 2
+                y: int = geom.y() + (geom.height() - self.height()) // 2
+                self.move(x, y)
+                
+            except Exception:
+                geom: QtCore.QRect = QtWidgets.QApplication.primaryScreen().availableGeometry()
+                x: int = (geom.width() - self.width()) // 2
+                y: int = (geom.height() - self.height()) // 2
+                self.move(x, y)
+
+
+        # BUILD UI
+        def _build_ui(self):
+            
+            self.setStyleSheet(f"""
+                QWidget {{
+                    background-color: {self.BG_COLOR};
+                }}
+                QLabel {{
+                    color: {self.TEXT_COLOR};
+                }}
+            """)
+
+            main_layout: QtWidgets.QVBoxLayout = QtWidgets.QVBoxLayout(self)
+            main_layout.setContentsMargins(0, 0, 0, 0)
+            main_layout.setSpacing(int(10 * self.dpi_scale))
+            main_layout.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignCenter)
+
+            # Banner
+            self.banner_container: QtWidgets.QWidget = QtWidgets.QWidget()
+            self.banner_container.setFixedSize(self.window_width, self.banner_height)
+            self.banner_container.setStyleSheet("background: black;") # transparent
+            main_layout.addWidget(self.banner_container)
+
+            self.image_label: QtWidgets.QLabel = QtWidgets.QLabel(self.banner_container)
+            self.image_label.setGeometry(0, 0, self.window_width, self.banner_height)
+            self.image_label.setAlignment(QtCore.Qt.AlignCenter)
+            self._update_banner()
+
+            # Svg
+            self._load_svg_icon()
+            self._position_svg_icon()
+
+            # Init font, dn't neede but just in case!
+            if self.font_os is None:
+                # in my case being on windows
+                self.font_os = QtGui.QFont("Segoe UI")
+
+
+            # Title
+            title_label: QtWidgets.QLabel = QtWidgets.QLabel(self.APP_NAME, self)
+            title_label.setAlignment(QtCore.Qt.AlignCenter)
+            self.font_os.setPointSize(22)
+            self.font_os.setBold(True)
+            title_label.setFont(self.font_os)
+            main_layout.addWidget(title_label)
+            
+            # Info
+            info_label: QtWidgets.QLabel = QtWidgets.QLabel(self.INFO, self)
+            info_label.setAlignment(QtCore.Qt.AlignCenter)
+            self.font_os.setPointSize(16)
+            self.font_os.setBold(False)
+            info_label.setFont(self.font_os)
+            info_label.setWordWrap(True)
+            main_layout.addWidget(info_label)
+            
+            # Clickable links
+            if self.LINKS:
+                links_label: QtWidgets.QLabel = QtWidgets.QLabel(self.INFO, self)
+                links_label.setAlignment(QtCore.Qt.AlignCenter)
+                self.font_os.setPointSize(10)
+                self.font_os.setBold(False)
+                links_label.setFont(self.font_os)
+                links_label.setWordWrap(True)
+                links_label.setTextFormat(QtCore.Qt.RichText)
+                links_label.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
+                links_label.setOpenExternalLinks(True)
+                links_label.setText(f"""
+                <html>
+                    <body>
+                    <a href="https://www.alexnardini.net">Website</a>
+                    <a href="https://www.instagram.com/alexnardini/">Instagram</a>
+                    <a href="https://www.youtube.com/@alexnardiniITALY/videos">Youtube</a>
+                    <a href="https://github.com/alexnardini/FLAM3_for_SideFX_Houdini">Github</a>
+                    </body>
+                </html>
+                """)
+                main_layout.addWidget(links_label)
+            
+            # Copyright
+            copyright_label: QtWidgets.QLabel = QtWidgets.QLabel(self.APP_COPYRIGHT, self)
+            copyright_label.setAlignment(QtCore.Qt.AlignCenter)
+            self.font_os.setPointSize(10)
+            copyright_label.setFont(self.font_os)
+            copyright_label.setWordWrap(True)
+            main_layout.addWidget(copyright_label)
+
+            main_layout.addStretch()
+            
+
+        # BANNER UPDATE: SCALE + CROP
+        def _update_banner(self):
+            if self.IMG_PIXMAP:
+                try:
+                    w: int = self.banner_container.width()
+                    h: int = self.banner_container.height()
+                    scaled: QtGui.QPixmap = self.IMG_PIXMAP.scaled(w, h, QtCore.Qt.KeepAspectRatioByExpanding, QtCore.Qt.SmoothTransformation)
+                    x_offset: int = (scaled.width() - w) // 2
+                    y_offset: int = (scaled.height() - h) // 2
+                    cropped: QtGui.QPixmap = scaled.copy(x_offset, y_offset, w, h)
+                    self.image_label.setPixmap(cropped)
+                    
+                except Exception as e:
+                    print("Failed to update banner:", e)
+                    
+            else:
+                if (self.f3h_node is not None and self.h_valid) or self.splash_screen:
+                    self.image_label.setText("🎨")
+                    font = self.font_os
+                    font.setPointSize(72)
+                    self.image_label.setFont(font)
+                    self.image_label.setAlignment(QtCore.Qt.AlignCenter)
+
+
+        # SVG POSITION
+        def _position_svg_icon(self):
+            if self.SVG_ICON:
+                x: int = (self.banner_container.width() - self.SVG_ICON.width()) // 2
+                y: int = (self.banner_container.height() - self.SVG_ICON.height()) // 2
+                self.SVG_ICON.move(x, y)
+                
+                
+        # FADE OUT ANIMATION
+        def _start_fade_out(self, fade_out_duration_ms):
+            self.fade_out_anim: QtCore.QPropertyAnimation = QtCore.QPropertyAnimation(self, b"windowOpacity")
+            self.fade_out_anim.setDuration(fade_out_duration_ms)
+            self.fade_out_anim.setStartValue(1)
+            self.fade_out_anim.setEndValue(0)
+            self.fade_out_anim.finished.connect(self._exit)
+            self.fade_out_anim.start()
+                
+            
+        # PYSIDE: RESIZE EVENT
+        def resizeEvent(self, event: QtGui.QResizeEvent):
+            super().resizeEvent(event)
+            self._position_svg_icon()
+            self._update_banner()
+
+
+        # PYSIDE: DRAG SUPPORT MOUSE PRESS EVENT
+        def mousePressEvent(self, event: QtGui.QMouseEvent):
+            if event.button() == QtCore.Qt.LeftButton:
+                self.BASE_DRAG_POSITION = event.globalPos()
+
+
+        # PYSIDE: DRAG SUPPORT MOUSE MOVE EVENT
+        def mouseMoveEvent(self, event: QtGui.QMouseEvent):
+            if event.buttons() == QtCore.Qt.LeftButton and self.BASE_DRAG_POSITION:
+                
+                delta = event.globalPos() - self.BASE_DRAG_POSITION
+                self.move(self.x() + delta.x(), self.y() + delta.y())
+                self.BASE_DRAG_POSITION = event.globalPos()
+                
+                
+        # PYSIDE: CLOSE EVENT
+        def closeEvent(self, event: QtGui.QCloseEvent):
+            try:
+                delattr(builtins, self.ps_app_name)
+            except AttributeError:
+                pass
+            
+            event.accept()
+            
+
+        # EXIT
+        def _exit(self):
+            self.close()
