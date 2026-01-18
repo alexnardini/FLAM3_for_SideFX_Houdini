@@ -39,7 +39,7 @@ They are all available in this Github repository.
 
 _This update may require a restart of Houdini to fully pickup the changes_.
 
-- **New**: Added Splash screen and about box info panel also to FLAM3H™ for **H19.0** to **H20.0** versions.
+- **New**: Added Splash screen on first note instance creation and about box info panel also to FLAM3H™ for **H19.0** to **H20.0** versions.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
