@@ -20562,7 +20562,7 @@ class pyside_utils:
 class pyside_utils
 
 @STATICMETHODS
-* pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], 
+* pyside_panels_safe_launch(ps_cls: Type[Any], 
                                     app_name: str = pyside_master_app_names.PS_CLS, 
                                     run: bool = True, 
                                     *args, 
@@ -20582,7 +20582,7 @@ class pyside_utils
         additionally there is the option to only remove an already exisiting one.</br>
 
         Args:
-            ps_cls(Type[pyside_master_base_proto]): Any of the classes that agree to the pyside_master_base_proto protocol.
+            ps_cls(Type[F3H-113 v1.9.75 indie]): Any of the pyside_master classes.
             app_name(str): Default to: "_ps_cls"</br>The app name.
             run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
             args: Any args to pass to the <b>ps_cls</b> if any.</br>
