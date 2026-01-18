@@ -20582,7 +20582,7 @@ class pyside_utils
         additionally there is the option to only remove an already exisiting one.</br>
 
         Args:
-            ps_cls(Type[F3H-113 v1.9.75 indie]): Any of the pyside_master classes.
+            ps_cls(Type[Any]): Any of the pyside_master classes.
             app_name(str): Default to: "_ps_cls"</br>The app name.
             run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
             args: Any args to pass to the <b>ps_cls</b> if any.</br>
