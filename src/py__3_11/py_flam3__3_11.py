@@ -1667,9 +1667,9 @@ class flam3h_scripts
                 
             if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ CVEX 32bit compile", details = None, details_label = None, details_expanded = False) == 0: # type: ignore
                 flam3h_scripts.set_first_instance_global_var(cvex_precision)
-                hou.setUpdateMode(sys_updated_mode) # type: ignore
-                # Close pyside panel if open from first time
-                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False, splash_screen=True)
+                hou.setUpdateMode(sys_updated_mode)
+                # Close pyside panel if open from first time (splash screen)
+                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False)
                 # Print to the Houdini console
                 print(f"\n-> FLAM3H™ CVEX nodes compile: DONE\n")
                 
@@ -1703,9 +1703,9 @@ class flam3h_scripts
         flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
         node.cook(force=True)
         flam3h_scripts.set_first_instance_global_var(cvex_precision)
-        hou.setUpdateMode(sys_updated_mode) # type: ignore
-        # Close pyside panel if open from first time
-        pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False, splash_screen=True)
+        hou.setUpdateMode(sys_updated_mode)
+        # Close pyside panel if open from first time (splash screen)
+        pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False)
         
         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
         print(f"\nFLAM3H CVEX node compile: DONE\n")
@@ -11289,7 +11289,7 @@ class flam3h_about_utils
         
         pyside_utils.pyside_panels_safe_launch(
                                                 pyside_master.F3H_msg_panel, 
-                                                ps_app_name=pyside_master_app_names.PS_CLS_ABOUT,
+                                                app_name=pyside_master_app_names.PS_CLS_ABOUT,
                                                 f3h_node=node,  
                                                 links=True,
                                                 auto_close_ms=4000, 
@@ -20980,7 +20980,7 @@ class pyside_master:
             else:
                 if (self.f3h_node is not None and self.h_valid) or self.splash_screen:
                     self.image_label.setText("🎨")
-                    font: QtGui.QFont = QtGui.QFont("Segoe UI")
+                    font = self.font_os
                     font.setPointSize(72)
                     self.image_label.setFont(font)
                     self.image_label.setAlignment(QtCore.Qt.AlignCenter)

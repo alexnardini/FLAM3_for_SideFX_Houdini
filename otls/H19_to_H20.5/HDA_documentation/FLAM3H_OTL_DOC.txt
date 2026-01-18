@@ -61,7 +61,7 @@ _Consider the various formulas that make up fractal Flames as different brushes 
 _Each of these events can be identified by their patterns of_ [self-similarity|Wp:Self-similarity] _; while some have a bigger influence on the final forms and colors than others, all of them contribute to the composition as a whole._<br /><br />
 _This is akin to a person's genome, or DNA._<br />
 _Together, all of these variables contribute to the interesting nature of the fractal Flame discipline,_<br />
-_with its seemingly endless possibilities, effects, and patterns._
+_with its seemingly endless possibilities, effects, and_ [patterns|Wp:Pattern].
 
 <br />
 [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) - what is it ?*
@@ -2012,7 +2012,7 @@ FPS [Icon:TOP/xmlinput]:
     #id: MB
     Desired Frames per second.
 
-    Frames per second (FPS) significantly impacts the appearance of motion blur in video, with lower frame rates like 24 or 30 FPS naturally exhibiting more motion blur.
+    Frames per second ( [FPS|Wp:Frame_rate] ) significantly impacts the appearance of motion blur in video, with lower frame rates like 24 or 30 FPS naturally exhibiting more motion blur.
     
 Samples [Icon:TOP/xmlinput]:
     #id: MB
@@ -2022,7 +2022,7 @@ Samples [Icon:TOP/xmlinput]:
     
 Shutter time [Icon:TOP/xmlinput]:
     #id: MB
-    Shutter time.
+    [Shutter time|Wp:Shutter_(photography)]
 
     Bigger shutter time creating more blur and smaller shutter time freezing motion. 
 
