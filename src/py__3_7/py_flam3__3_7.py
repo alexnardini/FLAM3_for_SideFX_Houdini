@@ -20572,7 +20572,7 @@ class pyside_utils
 """
     
     @staticmethod
-    def pyside_panels_safe_launch(ps_cls, 
+    def pyside_panels_safe_launch(ps_cls: Type[Any], 
                                   app_name: str = pyside_master_app_names.PS_CLS, 
                                   run: bool = True, 
                                   *args, 

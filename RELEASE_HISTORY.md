@@ -33,6 +33,27 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.75 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.75) ###
+
+#### FLAM3H™ v1.9.75 indie -> H21.0 UP</br>FLAM3H™ v1.9.63 indie -> H19.0 to H20.5 ####
+
+_This update may require a restart of Houdini to fully pickup the changes_.
+
+- **New**: Added Splash screen and about box info panel also to FLAM3H™ for **H19.0** to **H20.0** versions.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v1.9.74 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.74) ###
 
 #### FLAM3H™ v1.9.74 indie -> H21.0 UP</br>FLAM3H™ v1.9.61 indie -> H19.0 to H20.5 ####
