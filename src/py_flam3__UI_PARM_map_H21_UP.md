@@ -2310,9 +2310,6 @@ hou.phm().flam3.flam3h_about_utils.flam3h_about_show_info_panel()
 </br>
 </br>
 
-
-
-
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
 | **ABOUT** | `icon_about` |  `geometry data` | `from H21` |
@@ -2325,9 +2322,6 @@ hou.phm().flam3.flam3h_about_utils.flam3h_about_show_info_panel()
 </br>
 </br>
 </br>
-
-
-
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
