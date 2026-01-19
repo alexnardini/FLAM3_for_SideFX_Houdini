@@ -405,6 +405,29 @@ CP_JSON_KEY_NAME_HSV = 'f3h_hsv'
 # Flash messages timer
 FLAM3H_FLASH_MESSAGE_TIMER: float = 2
 
+# The following dictionaires are to speed up the pairing of the variation type and their weight parameter's names.
+# They are hard coded so they will need to be changed if the parameters names change in the FLAM3H™ UI.
+# PRM_FLAME_TAB_MENU_T_W_MATCH uses the full name without the multi parm index which is then computed on the fly.
+#
+# Inside:
+#           def menu_T_get_var_data(self) -> tuple[int, float]:
+#           def menu_T_FF_get_var_data(self) -> tuple[int, float]:
+PRM_FLAME_TAB_MENU_T_W_MATCH: dict[str, str] = {'pre1type_': 'pre1weight_', 
+                                                'pre2type_': 'pre2weight_', 
+                                                'v1type_': 'v1weight_', 
+                                                'v2type_': 'v2weight_', 
+                                                'v3type_': 'v3weight_', 
+                                                'v4type_': 'v4weight_', 
+                                                'p1type_': 'p1weight_'
+                                                }
+
+PRM_FF_TAB_MENU_T_W_MATCH: dict[str, str] = {'ffpre1type': 'ffpre1weight', 
+                                            'ffv1type': 'ffv1weight', 
+                                            'ffv2type': 'ffv2weight', 
+                                            'ffp1type': 'ffp1weight', 
+                                            'ffp2type': 'ffp2weight'
+                                            }
+
 
 class flam3h_iterator_prm_names:
 
@@ -6466,7 +6489,7 @@ class flam3h_iterator_utils
             
         
     def menu_T_get_var_data(self) -> tuple[int, float]:
-        """Get this menu variation type idx and its weight value.
+        """Get this menu variation type idx and its weight value.</br>
         
         Args:
             (self):
@@ -6474,14 +6497,15 @@ class flam3h_iterator_utils
         Returns:
             (tuple[int, float]): int: variation idx.    float: weight value
         """  
-        _TYPE: int = int(self.kwargs['parm'].eval()) # this can be animated with inbetween values so we always force cast it as int()
-        idx: str = self.kwargs['script_multiparm_index']
-        prm_weight_name: str = f"{str(self.kwargs['parm'].name()).split('type')[0]}weight_{idx}"
-        return _TYPE, self.node.parm(prm_weight_name).eval()
+        prm: hou.Parm = self.kwargs['parm']
+        s_mp_index: int = self.kwargs['script_multiparm_index']
+        _TYPE: int = prm.evalAsInt() # this can be animated with inbetween values so we always force cast it as int()
+        _W: float = self.node.parm(f"{PRM_FLAME_TAB_MENU_T_W_MATCH[prm.name()[:-len(str(s_mp_index))]]}{s_mp_index}").eval()
+        return _TYPE, _W
     
     
     def menu_T_FF_get_var_data(self) -> tuple[int, float]:
-        """Get this FF menu variation type idx and its weight value.
+        """Get this FF menu variation type idx and its weight value.</br>
         
         Args:
             (self):
@@ -6489,9 +6513,10 @@ class flam3h_iterator_utils
         Returns:
             (tuple[int, float]): int: variation idx.    float: weight value
         """  
-        _TYPE: int = int(self.kwargs['parm'].eval()) # this can be animated with inbetween values so we always force cast it as int()
-        prm_weight_name: str = f"{str(self.kwargs['parm'].name()).split('type')[0]}weight"
-        return _TYPE, self.node.parm(prm_weight_name).eval()
+        prm: hou.Parm = self.kwargs['parm']
+        _TYPE: int = prm.evalAsInt() # this can be animated with inbetween values so we always force cast it as int()
+        _W: float = self.node.parm(PRM_FF_TAB_MENU_T_W_MATCH[prm.name()]).eval()
+        return _TYPE, _W
 
     
     def menu_T_data(self) -> tuple[int, str]:
