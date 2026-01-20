@@ -6097,6 +6097,7 @@ class flam3h_iterator_utils
         Args:
             node(hou.SopNode): [current hou.SopNode to set]
             data(str): Default to: f3h_userData.MARKED_ITER</br>The name of the data we want to get. 
+            nodeinfo(bool): Default to: True</br>It will add the "nodeinfo" prefix to the <b>data_name</b></br>Set to False to use the raw <b>data_name</b> string.
             
         Returns:
             (int | bool): Return the requested user data or False if it does not exist.
@@ -6118,6 +6119,7 @@ class flam3h_iterator_utils
         Args:
             node(hou.SopNode): [current hou.SopNode to set]
             data_name(str): Default to: f3h_userData.MARKED_ITER</br>The name of the data we want to get. For FF it wil be: " f3h_userData.MARKED_FF "
+            nodeinfo(bool): Default to: True</br>It will add the "nodeinfo" prefix to the <b>data_name</b></br>Set to False to use the raw <b>data_name</b> string.
             
         Returns:
             (bool): Return True if the requested user data exist or False if it does not.
