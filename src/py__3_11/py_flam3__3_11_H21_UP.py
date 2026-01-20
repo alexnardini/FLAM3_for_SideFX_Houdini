@@ -7738,7 +7738,6 @@ class flam3h_iterator_utils
                             
                             data_name: str = f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}"
                             node.setUserData(f"{data_name}", str(mp_idx))
-                            self.flam3h_update_iterators_names(node, iter_count)
                             
                             break
                         
@@ -7754,7 +7753,7 @@ class flam3h_iterator_utils
                     self.del_comment_and_user_data_iterator(node)
                     self.set_comment_and_user_data_iterator(node, str(marked_idx + 1))
                     
-                # for mp_id in range(iter_num): node.parm(f"{flam3h_iterator_prm_names().main_mpmem}_{mp_id + 1}").set(str(mp_id + 1)) # type: ignore
+                self.flam3h_update_iterators_names(node, iter_count)
             
             # Get paste info once
             from_FLAM3H_NODE, mp_id_from, _ = self.prm_paste_update_for_undo(node)
