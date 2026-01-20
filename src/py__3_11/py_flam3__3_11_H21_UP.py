@@ -7684,24 +7684,37 @@ class flam3h_iterator_utils
             for idx, data in enumerate(data_now): node.setCachedUserData(data_names[idx], data)
             
             # Check
-            prm_xfviz_solo: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO).eval()
             mpmem_cached: list[str] = data_cached[0]
-            if prm_xfviz_solo and len(mpmem) == len(mpmem_cached) and mpmem != mpmem_cached:
+            
+            _len_check: bool = False
+            try:
+                if len(mpmem) == len(mpmem_cached): _len_check = True
+            except TypeError:
+                pass
+            
+            if _len_check and mpmem != mpmem_cached:
                 
                 iter_num: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
-                for mp_id in range(iter_num):
-                    idx: int = mp_id + 1
-                    this_iter_now_val: int = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{idx}").eval()
-                    if this_iter_now_val:
-                        # node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{mp_id + 1}").set(0)
-                        flam3h_general_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO, 1)
-                        flam3h_general_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX, idx)
-                        flam3h_general_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_FF_VIZ_SOLO, 0)
+                
+                prm_xfviz_solo: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO).eval()
+                if prm_xfviz_solo:
+                    
+                    prm_name: str = flam3h_iterator_prm_names().main_xf_viz
+                    for idx in range(iter_num):
+                        mp_idx: int = idx + 1
                         
-                        data_name: str = f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}"
-                        node.setUserData(f"{data_name}", str(idx))
-                        self.auto_set_xaos(mpmem_reset=False)
-                        break
+                        this_iter_now_val: int = node.parm(f"{prm_name}_{mp_idx}").eval()
+                        if this_iter_now_val:
+                            
+                            flam3h_general_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO, 1)
+                            flam3h_general_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX, mp_idx)
+                            # flam3h_general_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_FF_VIZ_SOLO, 0)
+                            
+                            data_name: str = f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}"
+                            node.setUserData(f"{data_name}", str(mp_idx))
+                            self.auto_set_xaos(mpmem_reset=False)
+                            
+                            break
             
             # Get paste info once
             from_FLAM3H_NODE, mp_id_from, _ = self.prm_paste_update_for_undo(node)
