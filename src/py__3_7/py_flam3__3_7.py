@@ -2246,7 +2246,8 @@ class flam3h_scripts
         """
         node = self.node
         
-        if self.flam3h_compatible_type(__range_type__):
+        # This message is being executed from the HDA preFirstCreate script
+        if self.flam3h_compatible_type(__range_type__, msg=False):
             
             node.setColor(hou.Color((0.9,0.9,0.9)))
             
