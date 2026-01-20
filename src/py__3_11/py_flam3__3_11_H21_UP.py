@@ -5902,7 +5902,7 @@ class flam3h_iterator_utils
 * flam3h_default(self) -> None:
 * flam3h_reset_iterator(self) -> None:
 * flam3h_reset_FF(self) -> None:
-* auto_set_xaos(self, mpmem_reset: bool = True) -> None:
+* auto_set_xaos(self) -> None:
 * add_iterator(self) -> None:
 * iterators_count_zero(self, node: hou.SopNode, do_msg: bool = True) -> None:
 * iterators_count_not_zero(self, node: hou.SopNode) -> None:
@@ -9973,7 +9973,7 @@ class flam3h_iterator_utils
                         )
 
 
-    def auto_set_xaos(self, mpmem_reset: bool = True) -> None:
+    def auto_set_xaos(self) -> None:
         """Set iterator's xaos values every time an iterator is added or removed.</br>
         It will also update the data for the xform handles VIZ SOLO mode if Active.</br>
 
@@ -10340,9 +10340,8 @@ class flam3h_iterator_utils
         for mp_idx in range(iter_count): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").deleteAllKeyframes() # This parameter can not be animated
         for mp_idx, xaos in enumerate(xaos_str_round_floats): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").set(div_xaos + xaos)
         
-        if mpmem_reset:
-            # reset iterator's mpmem prm
-            for mp_idx in range(iter_count): node.parm(f"{mp_mem_name}_{mp_idx + 1}").set(str(mp_idx + 1))
+        # reset iterator's mpmem prm
+        for mp_idx in range(iter_count): node.parm(f"{mp_mem_name}_{mp_idx + 1}").set(str(mp_idx + 1))
         
         # update flam3h_xaos_mpmem
         __mpmem_hou: list[int] = [int(node.parm(f"{mp_mem_name}_{mp_idx + 1}").eval()) for mp_idx in range(iter_count)]
