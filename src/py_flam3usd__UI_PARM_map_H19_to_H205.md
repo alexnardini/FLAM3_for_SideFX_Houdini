@@ -174,25 +174,26 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 
 
 ```python
-#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Title:      FLAM3H™. SideFX Houdini FLAM3
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
-#   Copyright:  (c) 2023 F stands for liFe
+#   Copyright:  (c) 2021 F stands for liFe
 
 from datetime import datetime
 
 # Get some HDA infos from the HDA module
-FLAM3HUSD_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Lop/FLAM3HUSD'
-nodetype = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY)
+FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
+nodetype = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
 __status__ = nodetype.hdaModule().__status__
 __h_versions__: tuple = nodetype.hdaModule().__h_versions__
 __range_type__: bool = nodetype.hdaModule().__range_type__
 __h_version_min__: int = nodetype.hdaModule().__h_version_min__
+__h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
 
-def flam3husd_first_time() -> bool:
-    """If the version of Houdini running is not allowed for this FLAM3HUSD HDA version (different cases)
+def flam3h_first_time() -> bool:
+    """If the version of Houdini running is not allowed for this FLAM3H™ HDA version (different cases)
     will return False, otherwise will return True.
 
     Args:
@@ -209,21 +210,101 @@ def flam3husd_first_time() -> bool:
     elif __range_type__ is True:
         if hou_version < __h_versions__[0] or hou_version > __h_versions__[-1]:
             return False
-        else:
-            return True
+        
+        return True
         
     elif __range_type__ is False:
         if hou_version < __h_versions__[0]:
             return False
-        else:
-            return True
+        
+        return True
         
     else:
         return True
 
 
-def flam3husd_not_compatible_first_time_msg() -> None:
-    """On first time FLAM3HUSD node instance creation:
+def flam3h_compatible_allowed_msg() -> None:
+    """If this the the first instance and an allowed version higher than the latest supported version
+    display a message letting the user know.
+    
+    This is done to allow the splash screen to still be displayed if this is the case.
+    
+    Args:
+        (None):
+        
+    Returns:
+        (None):
+    """ 
+    
+    _H_VERSION_ALLOWED: bool | None = None
+    try:
+        _H_VERSION_ALLOWED = hou.session.F3H_H_VERSION_ALLOWED # type: ignore
+        
+    except AttributeError:  
+        pass
+    
+    if _H_VERSION_ALLOWED is None:
+        
+        h_version: int = nodetype.hdaModule().houdini_version(2)
+        __h_versions__: tuple = nodetype.hdaModule().__h_versions__
+        if h_version > __h_versions__[-1]:
+            _MSG_H_VERSIONS = f"This Houdini version is: H{nodetype.hdaModule().flam3.flam3h_scripts.flam3h_h_versions_build_data(h_version)}\nThe latest Houdini version supported by this FLAM3H™ is: H{nodetype.hdaModule().flam3.flam3h_scripts.flam3h_h_versions_build_data(__h_version_max__)}\nSome functionality may not work as intended or not work at all."
+            hou.ui.displayMessage(_MSG_H_VERSIONS, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+
+
+def flam3h_sys_updated_mode() -> None:
+    """Store the current houdini Update mode status into the hou.session
+    so FLAM3H™ can pick it up from inside the currently used python module.
+
+    Args:
+        ():
+
+    Returns:
+        (None):
+    """ 
+    current: hou.EnumValue = hou.updateModeSetting()
+    hou.session.F3H_SYS_UPDATE_MODE: hou.EnumValue = current
+
+
+def flam3h_compile_first_time_msg() -> None:
+    """On first time FLAM3H™ node instance creation:
+
+    - Store the current FLAM3H™ precision mode into the hou.session so FLAM3H™ can pick it up from inside the currently used python module.
+    - Additionally build a message to print into the console.
+
+    Args:
+        ():
+
+    Returns:
+        (None):
+    """ 
+    now: str = datetime.now().strftime("%b-%d-%Y %H:%M:%S")
+    
+    h: int = nodetype.hdaModule().houdini_version(2)
+    if h < 205: __module_version__: str = "3.7"
+    else: __module_version__: str = "3.11"
+    
+    try:
+        hou.session.F3H_FIRST_INSTANCE_32BIT # type: ignore
+        first_instance_32bit: bool = False
+    except:
+        first_instance_32bit: bool = True
+    try:
+        hou.session.F3H_FIRST_INSTANCE_64BIT # type: ignore
+        first_instance_64bit: bool = False
+    except:
+        first_instance_64bit: bool = True
+
+    if first_instance_32bit:
+        _MSG_INFO = f"\n-> {now}\n\nFLAM3H™ version: {__version__} - {__status__} - F3H Python module: {__module_version__}\n\nThe CVEX nodes need to cook once to compile their definitions.\nDepending on your PC configuration it can take up to 1(one) minute.\nIt is a one time compile process.\n"
+        print(_MSG_INFO)
+        hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Warning) # type: ignore
+        
+    # we skip 64bit check for now as FLAM3H™ should always be at 32bit to start with.
+
+
+def flam3h_not_compatible_first_time_msg() -> None:
+    """On first time FLAM3H™ node instance creation:
 
     Run messages if not compatible with this Houdini version.
     
@@ -237,24 +318,28 @@ def flam3husd_not_compatible_first_time_msg() -> None:
         (None):
     """ 
     
-    _MSG_H_VERSIONS = nodetype.hdaModule().flam3usd.flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__, False)
-    _MSG_INFO = f"\n-> FLAM3HUSD version: {__version__} - {__status__}\n\nThis Houdini version is not compatible with this FLAM3HUSD version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3HUSD version"
+    _MSG_H_VERSIONS = nodetype.hdaModule().flam3.flam3h_scripts.flam3h_compatible_h_versions_msg(__h_versions__, False)
+    _MSG_INFO = f"\n-> FLAM3H™ version: {__version__} - {__status__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
             
     if hou.isUIAvailable():
 
         print(_MSG_INFO)
 
-        _MSG_INFO_SB = f"-> FLAM3HUSD version: {__version__} - {__status__}. This Houdini version is not compatible with this FLAM3HUSD version. You need {_MSG_H_VERSIONS} to run this FLAM3HUSD version"
+        _MSG_INFO_SB = f"-> FLAM3H™ version: {__version__} - {__status__}. This Houdini version is not compatible with this FLAM3H™ version. You need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
         hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
 
-        hou.ui.displayMessage(f"Sorry, you need {_MSG_H_VERSIONS} to run this FLAM3HUSD version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3HUSD Houdini version check", details=None, details_label=None, details_expanded=False)
+        hou.ui.displayMessage(f"Sorry, you need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False)
 
     else:
         print(_MSG_INFO)
 
 
-if not flam3husd_first_time():
-    flam3husd_not_compatible_first_time_msg()
+if flam3h_first_time():
+    flam3h_compatible_allowed_msg()
+    flam3h_sys_updated_mode()
+    flam3h_compile_first_time_msg()
+else:
+    flam3h_not_compatible_first_time_msg()
 ```
 
 </br>

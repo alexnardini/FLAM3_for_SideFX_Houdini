@@ -1354,8 +1354,8 @@ class flam3h_scripts
 * flam3h_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
 * flam3h_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True, ps_cls_about: bool = False) -> str:
 * flam3h_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
-* flam3h_compatible_range_close(kwargs: dict | None = None, msg: bool = True) -> bool:
-* flam3h_compatible_range_open(kwargs: dict | None = None, msg: bool = True) -> bool:
+* flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
+* flam3h_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
 * flam3h_on_create_lock_parms(node: hou.SopNode) -> None:
 * set_first_instance_global_var(cvex_precision: int) -> None:
 * flam3h_check_first_node_instance_msg_status_bar_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
@@ -1475,8 +1475,8 @@ class flam3h_scripts
     def flam3h_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
         """This is to be run inside:
         
-        * def flam3h_compatible_range_close(kwargs: dict | None = None, msg: bool = True) -> bool:
-        * def flam3h_compatible_range_open(kwargs: dict | None = None, msg: bool = True) -> bool:
+        * def flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
+        * def flam3h_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
         
         It is for when FLAM3H™ is allowed to run inside the current Houdini version.
         
@@ -1507,15 +1507,13 @@ class flam3h_scripts
             
             if _H_VERSION_ALLOWED is False:
             
-                if msg and hou.isUIAvailable():
-                    _MSG_H_VERSIONS = f"This Houdini version is: H{flam3h_scripts.flam3h_h_versions_build_data(h_version)}\nThe latest Houdini version supported by FLAM3H™ is: H{flam3h_scripts.flam3h_h_versions_build_data(__h_version_max__)}\nSome functionality may not work as intended or not work at all."
-                    hou.ui.displayMessage(_MSG_H_VERSIONS, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
-                    # Do not show me this Display Message window again when creating succesive instances of this HDA
-                    hou.session.F3H_H_VERSION_ALLOWED = True # type: ignore
+                # Do not show me this Display Message window again when creating succesive instances of this HDA
+                hou.session.F3H_H_VERSION_ALLOWED = True # type: ignore
                     
                 return True
             
             else:
+                
                 return True
         
         else:
@@ -1697,6 +1695,7 @@ class flam3h_scripts
                 print(f"\n-> FLAM3H™ CVEX nodes compile: DONE\n")
                 
             flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
+            
         else:
             flam3h_scripts.set_first_instance_global_var(cvex_precision)
             hou.setUpdateMode(sys_updated_mode) # type: ignore
