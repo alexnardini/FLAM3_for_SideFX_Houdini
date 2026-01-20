@@ -303,6 +303,7 @@ class f3h_cachedUserData:
     
     '''
     iter_sel: Final = 'iter_sel'
+    iter_sel_mpmem: Final = 'iter_sel_mpmem'
     iter_sel_n: Final = 'iter_sel_n'
     iter_sel_a: Final = 'iter_sel_a'
     iter_sel_w: Final = 'iter_sel_w'
@@ -3814,8 +3815,9 @@ class flam3h_general_utils
         xfviv_solo: hou.Parm = node.parm(xfviz_solo_prm_name)
         # It it does exist and the xf_viz idx from memory was set
         if xfviv_solo is not None and prm_xfviz_idx_mem.eval() > 0:
-            # Set the old xv_viz multi parameter instance solo toggle back to 0(Zero)
-            node.parm(xfviz_solo_prm_name).set(0)
+            # Try to set the old xv_viz multi parameter instance solo toggle back to 0(Zero)
+            if node.parm(xfviz_solo_prm_name).eval():
+                node.parm(xfviz_solo_prm_name).set(0)
 
     
     # CLASS: PROPERTIES
@@ -5898,7 +5900,7 @@ class flam3h_iterator_utils
 * flam3h_default(self) -> None:
 * flam3h_reset_iterator(self) -> None:
 * flam3h_reset_FF(self) -> None:
-* auto_set_xaos(self) -> None:
+* auto_set_xaos(self, mpmem_reset: bool = True) -> None:
 * add_iterator(self) -> None:
 * iterators_count_zero(self, node: hou.SopNode, do_msg: bool = True) -> None:
 * iterators_count_not_zero(self, node: hou.SopNode) -> None:
@@ -7648,7 +7650,7 @@ class flam3h_iterator_utils
         return [ 0,  f"{_ICON} Pre blur                       "] # 23 times \s instead of 26 times as in from H19 to H20.5
 
 
-    def menu_select_iterator_data(self, data_now: tuple[list[Any] | Any, ...], data_names: tuple[str, ...]) -> TA_Menu:
+    def menu_select_iterator_data(self, data_cached: tuple[list[Any] | Any, ...], data_now: tuple[list[Any] | Any, ...], data_names: tuple[str, ...]) -> TA_Menu:
         """Build a menu of iterators using their states as bookmark icon.</br>
         
         The arg: 'data_now' is composed as follow:
@@ -7668,6 +7670,7 @@ class flam3h_iterator_utils
         Returns:
             (TA_Menu): return menu list
         """
+        
         with hou.undos.disabler(): # type: ignore
             
             node: hou.SopNode = self.node
@@ -7676,10 +7679,29 @@ class flam3h_iterator_utils
                 self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                 return f3h_menus.ZERO_ITERATORS
             
-            # Unpack and cache data
-            note, active, weight, shader_opacity, xfviz_solo_idx, xfviz_out_sensor, _ = data_now
-            for idx, data in enumerate(data_now):
-                node.setCachedUserData(data_names[idx], data)
+            # Unpack and cache
+            mpmem, note, active, weight, shader_opacity, xfviz_solo_idx, xfviz_out_sensor, _ = data_now
+            for idx, data in enumerate(data_now): node.setCachedUserData(data_names[idx], data)
+            
+            # Check
+            prm_xfviz_solo: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO).eval()
+            mpmem_cached: list[str] = data_cached[0]
+            if prm_xfviz_solo and len(mpmem) == len(mpmem_cached) and mpmem != mpmem_cached:
+                
+                iter_num: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
+                for mp_id in range(iter_num):
+                    idx: int = mp_id + 1
+                    this_iter_now_val: int = node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{idx}").eval()
+                    if this_iter_now_val:
+                        # node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{mp_id + 1}").set(0)
+                        flam3h_general_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO, 1)
+                        flam3h_general_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX, idx)
+                        flam3h_general_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_FF_VIZ_SOLO, 0)
+                        
+                        data_name: str = f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}"
+                        node.setUserData(f"{data_name}", str(idx))
+                        self.auto_set_xaos(mpmem_reset=False)
+                        break
             
             # Get paste info once
             from_FLAM3H_NODE, mp_id_from, _ = self.prm_paste_update_for_undo(node)
@@ -7737,12 +7759,13 @@ class flam3h_iterator_utils
                 self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
             
             iter_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
-            data_now: tuple[list[Any] | Any, ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in (n.main_note, n.main_vactive, n.main_weight, n.shader_alpha)) # The order matter, those are the parameter's names without the multiparameter number, just the base names.
+            data_now: tuple[list[Any] | Any, ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in (n.main_mpmem, n.main_note, n.main_vactive, n.main_weight, n.shader_alpha)) # The order matter, those are the parameter's names without the multiparameter number, just the base names.
             xfviz_mem_id: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX).eval()
             xfviz_out_sensor: int = node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval()
             data_now += (xfviz_mem_id, xfviz_out_sensor, mem_id) # adding mem_id to catch an edge case when user change the memory id to another FLAM3H™ node and undoing it afterwards
             
-            data_names: tuple[str, ...] = ( f3h_cachedUserData.iter_sel_n, 
+            data_names: tuple[str, ...] = ( f3h_cachedUserData.iter_sel_mpmem, 
+                                            f3h_cachedUserData.iter_sel_n, 
                                             f3h_cachedUserData.iter_sel_a, 
                                             f3h_cachedUserData.iter_sel_w, 
                                             f3h_cachedUserData.iter_sel_o, 
@@ -7751,20 +7774,19 @@ class flam3h_iterator_utils
                                             f3h_cachedUserData.mem_id
                                             ) # The order matter, they are the cached user data names being used
             
+            data_cached: tuple[list[Any] | Any, ...] = tuple(node.cachedUserData(name) for name in data_names)
             cached: TA_Menu | None = node.cachedUserData(f3h_cachedUserData.iter_sel)
             if cached is not None:
-                
-                data_cached: tuple[list[Any] | Any, ...] = tuple(node.cachedUserData(name) for name in data_names)
             
                 # For undos: compare old data_* against current data_*
                 # Another piece for the undos to work is inside: def prm_paste_update_for_undo(self, node: hou.SopNode)
                 if data_cached != data_now:
                     self.destroy_cachedUserData(node,f3h_cachedUserData.iter_sel)
-                    return self.menu_select_iterator_data(data_now, data_names)
+                    return self.menu_select_iterator_data(data_cached, data_now, data_names)
                 
                 return cached
             
-            return self.menu_select_iterator_data(data_now, data_names)
+            return self.menu_select_iterator_data(data_cached, data_now, data_names)
         
     
     def prm_select_iterator(self) -> None:
@@ -9883,7 +9905,7 @@ class flam3h_iterator_utils
                         )
         
 
-    def auto_set_xaos(self) -> None:
+    def auto_set_xaos(self, mpmem_reset: bool = True) -> None:
         """Set iterator's xaos values every time an iterator is added or removed.</br>
         It will also update the data for the xform handles VIZ SOLO mode if Active.</br>
 
@@ -10246,8 +10268,9 @@ class flam3h_iterator_utils
         for mp_idx in range(iter_count): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").deleteAllKeyframes() # This parameter can not be animated
         for mp_idx, xaos in enumerate(xaos_str_round_floats): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").set(div_xaos + xaos)
         
-        # reset iterator's mpmem prm
-        for mp_idx in range(iter_count): node.parm(f"{mp_mem_name}_{mp_idx + 1}").set(str(mp_idx + 1))
+        if mpmem_reset:
+            # reset iterator's mpmem prm
+            for mp_idx in range(iter_count): node.parm(f"{mp_mem_name}_{mp_idx + 1}").set(str(mp_idx + 1))
         
         # update flam3h_xaos_mpmem
         __mpmem_hou: list[int] = [int(node.parm(f"{mp_mem_name}_{mp_idx + 1}").eval()) for mp_idx in range(iter_count)]
