@@ -125,17 +125,18 @@ end:                                              ; preds = %false, %true
   %sw.0 = phi double [ 6.000000e+01, %true ], [ 5.000000e+02, %false ]
   %_bound_P19 = load <3 x double>, <3 x double>* %_bound_P
   %output22 = call <3 x double> @"add@VV"(<3 x double> %_bound_P19, <3 x double> %myp_offset.0)
-  store double %output, double* %0
-  store double %output9, double* %1
+  %output24 = fmul double %output, 1.500000e+00
+  store double %output24, double* %0
+  %output26 = fmul double %output9, 1.500000e+00
+  store double %output26, double* %1
   store double 5.000000e-01, double* %2
   %res_weight = call double @"res_weight@FFFF"(double* %0, double* %1, double* %2)
-  %output27 = fmul double %res_weight, 1.250000e+00
   %output29 = call double @"div@FF"(double 1.000000e+00, double %INFO2.fca.1.load)
   %output32 = fmul double %output29, %sw.0
   %cast33 = call <3 x double> @"set@VI"(i64 0)
   %cast36 = call <3 x double> @"set@VF"(double %output29)
   %return37 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast33, <3 x double> %cast33, <3 x double> %cast36)
-  %output42 = fmul double %output32, %output27
+  %output42 = fmul double %output32, %res_weight
   %cast43 = call <3 x double> @"set@VF"(double %output42)
   %return44 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast33, <3 x double> %cast33, <3 x double> %cast43)
   %output47 = call <3 x double> @"mul@V4"(<3 x double> %output22, <16 x double> %return44)
