@@ -332,4 +332,4 @@ Reference E: [**WEB :: A more accurate Elliptic variation from Claude Heiland-Al
 
 ## Copyrights
 
-_All images and logos copyright © 2021 F stands for liFe (and their other respective owners)._
+_All images and logos copyright (c) 2021 F stands for liFe (and their other respective owners)._
