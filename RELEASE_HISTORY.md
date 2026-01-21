@@ -37,6 +37,8 @@ They are all available in this Github repository.
 
 #### FLAM3H™ v1.9.76 indie -> H21.0 UP</br>FLAM3H™ v1.9.64 indie -> H19.0 to H20.5 ####
 
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
+
 - **Fix H21.0 UP ONLY**: When reordering iterators (_multi parameters_) FLAM3H™ will now properly updated the marked iterator and/or xfviz SOLO iterator indexes if any.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
