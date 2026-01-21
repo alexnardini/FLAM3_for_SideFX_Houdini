@@ -48,31 +48,33 @@ It was important, so I could shape and steer this tool in the right direction.
 _Beside being a long time user myself_...</br>
 _Following are just few of the advantages of being a Houdini resident_:
 
-- Through this implementation, fractal Flames are now a real thing within a formal, procedural application, 
+- <b>Fractals Come Alive</b></br>Through this implementation, fractal Flames are now a real thing within a formal, procedural application, 
 with all of its data accessible and available for any kind of modification.
 
-- They now exist in a new format that describes them in ways that were previously impossible, 
+- <b>A New Format</b></br>They now exist in a new format that describes them in ways that were previously impossible, 
 rather than being a rasterized 2D image.
 
-- They can connect to any kind of input and spread that information throughout the generation process, 
+- <b>Decoupled Resolution</b></br>In point cloud format, the "quality" is defined by the number of samples rather than fixed pixels. You can generate a dense point cloud and later decide to render it at 1080p, 4K, or 8K. The point cloud acts as a high-fidelity "source" that preserves the attractor's information independently of the final output resolution.
+
+- <b>Expanding Creative Pathways</b></br>They can connect to any kind of input and spread that information throughout the generation process, 
 opening up countless possibilities for creative and experimental endeavors.
 
-- They are divided into various entities by a hierarchy when inside the USD context. 
+- <b>Structured USD Entities</b></br>They are divided into various entities by a hierarchy when inside the USD context. 
 Point cloud, render properties, handles, shaders, and so on. 
 These entities are all transferable, changeable, and accessible.
 
-- They become part of a larger ecosystem and benefit from all of its features, 
+- <b>Advanced Production Framework</b></br>They become part of a larger ecosystem and benefit from all of its features, 
 including proceduralism, data handling, animations tools, shading networks, and access to high-end renderers, just to name a few.
 
-- Fractal Flames can be computed on a single machine or expand in scope 
+- <b>Distributed Rendering Capabilities</b></br>Fractal Flames can be computed on a single machine or expand in scope 
 by sending them to larger render farms.
 
-- If version control and review systems are in place, 
+- <b>Pipeline-Ready Assets</b></br>If version control and review systems are in place, 
 they can be fed into a pipeline like any other piece of data.
 
-- Without having to go through the hassle of setting up a C/C++ compiler for every platform and Houdini version, something that is typically handled by a senior software engineer, technical directors (and technical artists) may view and modify the source code.
+- <b>Democratized Code Access</b></br>Without having to go through the hassle of setting up a C/C++ compiler for every platform and Houdini version, something that is typically handled by a senior software engineer, technical directors (and technical artists) may view and modify the source code.
 
-- The tool can be modified in-place without affecting the running environment, enabling anyone to add and change its data and toolkits while monitoring the results in real time and ensuring that the updated version will function properly on all platforms that Houdini is running on.
+- <b>Interactive Development Flow</b></br>The tool can be modified in-place without affecting the running environment, enabling anyone to add and change its data and toolkits while monitoring the results in real time and ensuring that the updated version will function properly on all platforms that Houdini is running on.
 
 ### Description
 
