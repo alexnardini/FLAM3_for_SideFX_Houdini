@@ -32,7 +32,7 @@ _Github repository I used a lot as reference from Matt Feemster: [FRACTORIUM|htt
 
 The inception of this [implementation|Wp:Implementation] dates back to 2020, during [COVID-19|Wp:COVID-19]. 
 At first, it was just a straightforward point wrangle exercise to experiment with some of the formulas from the fractal Flame algorithm.
-I didn't know much about the subject at the time, but as I began experimenting with some of the free and [open-source|Wp:Open_source] fractal Flame editors like Apophysis and Fractorium, I grew to love the field and gradually persuaded myself that I could port the entire [algorithm|Wp:Algorithm] and functionalities using Houdini out of the box.
+I didn't know much about the subject at the time, but as I began experimenting with some of the free and [open-source|Wp:Open_source] fractal Flame editors like Apophysis and Fractorium, I grew to love the field and gradually persuaded myself that I could port the entire [algorithm|Wp:Algorithm] and functionalities using Houdini out of the box, no HDK.
 Undoubtedly, it required some time to comprehend everything completely, but as I was also learning how to create fractal art, It slowly shaped into the proper form.
 
 Specifically built to work in tandem with [Fractorium|http://fractorium.com],<br /> 
