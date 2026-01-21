@@ -97,7 +97,7 @@ __llvm_entry:
   br label %cond
 
 cond:                                             ; preds = %end12, %__llvm_entry
-  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output54, %end12 ]
+  %i.0 = phi i64 [ 0, %__llvm_entry ], [ %output56, %end12 ]
   %return9 = call i64 @"lt@III"(i64 %i.0, i64 2)
   %3 = icmp ne i64 %return9, 0
   br i1 %3, label %body, label %end
@@ -126,22 +126,24 @@ end12:                                            ; preds = %false, %true
   %sw.0 = phi double [ 6.000000e+01, %true ], [ 5.000000e+02, %false ]
   %cast = call <3 x double> @"set@VI"(i64 0)
   %output23 = call <3 x double> @"add@VV"(<3 x double> %cast, <3 x double> %myp_offset.0)
-  store double %output, double* %0
-  store double %output7, double* %1
+  %output25 = fmul double %output, 1.500000e+00
+  store double %output25, double* %0
+  %output27 = fmul double %output7, 1.500000e+00
+  store double %output27, double* %1
   store double 5.000000e-01, double* %2
   %res_weight = call double @"res_weight@FFFF"(double* %0, double* %1, double* %2)
-  %output28 = call double @"div@FF"(double 1.000000e+00, double %INFO2.fca.1.load)
-  %output31 = fmul double %output28, %sw.0
-  %cast35 = call <3 x double> @"set@VF"(double %output28)
-  %return36 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast35)
-  %output41 = fmul double %output31, %res_weight
-  %cast42 = call <3 x double> @"set@VF"(double %output41)
-  %return43 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast42)
-  %output46 = call <3 x double> @"mul@V4"(<3 x double> %output23, <16 x double> %return43)
-  %output49 = call <3 x double> @"mul@V4"(<3 x double> %pos_info.0, <16 x double> %return36)
-  %output50 = call <3 x double> @"add@VV"(<3 x double> %output46, <3 x double> %output49)
-  %return52 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %output50)
-  %output54 = add i64 %i.0, 1
+  %output30 = call double @"div@FF"(double 1.000000e+00, double %INFO2.fca.1.load)
+  %output33 = fmul double %output30, %sw.0
+  %cast37 = call <3 x double> @"set@VF"(double %output30)
+  %return38 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast37)
+  %output43 = fmul double %output33, %res_weight
+  %cast44 = call <3 x double> @"set@VF"(double %output43)
+  %return45 = call <16 x double> @"maketransform@4IIVVV"(i64 0, i64 0, <3 x double> %cast, <3 x double> %cast, <3 x double> %cast44)
+  %output48 = call <3 x double> @"mul@V4"(<3 x double> %output23, <16 x double> %return45)
+  %output51 = call <3 x double> @"mul@V4"(<3 x double> %pos_info.0, <16 x double> %return38)
+  %output52 = call <3 x double> @"add@VV"(<3 x double> %output48, <3 x double> %output51)
+  %return54 = call i64 @"addpoint@IIV"(i64 0, <3 x double> %output52)
+  %output56 = add i64 %i.0, 1
   br label %cond
 }
 

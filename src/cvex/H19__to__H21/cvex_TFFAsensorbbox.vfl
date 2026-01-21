@@ -78,7 +78,7 @@ void _TFFAsensorbbox()
         myp += myp_offset;
 
         w = 0.5;
-        resw = res_weight(resx, resy, w);
+        resw = res_weight(resx*1.5, resy*1.5, w);
 
         factor = 1.0 / float(sensor_zoom);
         scale = factor * sw;
