@@ -10381,8 +10381,7 @@ class flam3h_iterator_utils
         # Clear menu cache
         self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
         
-        if flam3h_iterator_utils.exist_user_data(node):
-            for mp_id in range(1, iter_num + 1): node.parm(f"{flam3h_iterator_prm_names().main_mpmem}_{mp_id}").set(str(mp_id))
+        for mp_id in range(1, iter_num + 1): node.parm(f"{flam3h_iterator_prm_names().main_mpmem}_{mp_id}").set(str(mp_id))
         
         # INSERT AFTER
         if self.kwargs["shift"]:
