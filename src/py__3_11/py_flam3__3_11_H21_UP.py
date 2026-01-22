@@ -291,7 +291,7 @@ class f3h_userData:
     # Node user data (nodeinfo)
     PRX: Final = 'nodeinfo'
     MARKED_ITER: Final = 'Marked iterator'
-    MARKED_ITER_MEM: Final = 'Marked label'
+    MARKED_ITER_LABEL: Final = 'Marked label'
     MARKED_FF: Final = 'Marked FF'
     XFVIZ_SOLO: Final = 'XF VIZ'
     # Node user data
@@ -7744,11 +7744,11 @@ class flam3h_iterator_utils
                             break
                         
                 if self.exist_user_data(node):
-                    if self.exist_user_data(node, f3h_userData.MARKED_ITER_MEM):
-                        data: str = str(self.get_user_data(node, f3h_userData.MARKED_ITER_MEM))
+                    if self.exist_user_data(node, f3h_userData.MARKED_ITER_LABEL):
+                        data: str = str(self.get_user_data(node, f3h_userData.MARKED_ITER_LABEL))
                     else:
                         data: str = str(self.get_user_data(node))
-                    node.setUserData(f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_MEM}", data)
+                    node.setUserData(f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}", data)
                     marked_idx: int = mpmem.index(data)
                     prm_marked_data_mpidx: hou.Parm = node.parm(f3h_tabs.PREFS.PVT_PRM_DATA_PRM_MPIDX)
                     flam3h_general_utils.private_prm_set(node, prm_marked_data_mpidx, marked_idx + 1)
@@ -8023,7 +8023,7 @@ class flam3h_iterator_utils
             # Remove any comment and user data from the node
             self.del_comment_and_user_data_iterator(node)
             self.del_comment_and_user_data_iterator(node, f3h_userData.MARKED_FF)
-            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_MEM}")
+            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
     
     
     def menu_global_density(self) -> TA_Menu:
@@ -8763,7 +8763,7 @@ class flam3h_iterator_utils
             with hou.undos.group(f"FLAM3H™ unmark iterator SHIFT {s_mp_index}"): # type: ignore
                 self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
                 if flam3h_iterator_utils.exist_user_data(node):
-                    self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_MEM}")
+                    self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                     for mp_id in range(1, iter_num + 1): node.parm(f"{flam3h_iterator_prm_names().main_mpmem}_{mp_id}").set(str(mp_id))
                     
                 self.prm_paste_SHIFT(s_mp_index)
@@ -8777,7 +8777,7 @@ class flam3h_iterator_utils
                 with hou.undos.group(f"FLAM3H™ unmark iterator CLICK {s_mp_index}"): # type: ignore
                     self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
                     if flam3h_iterator_utils.exist_user_data(node):
-                        self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_MEM}")
+                        self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                         for mp_id in range(1, iter_num + 1): node.parm(f"{flam3h_iterator_prm_names().main_mpmem}_{mp_id}").set(str(mp_id))
                         
                     self.prm_paste_SHIFT(s_mp_index)
@@ -8786,9 +8786,14 @@ class flam3h_iterator_utils
                 with hou.undos.group(f"FLAM3H™ mark iterator CLICK {s_mp_index}"): # type: ignore
                     self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
                     if flam3h_iterator_utils.exist_user_data(node):
-                        self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_MEM}")
+                        self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                         for mp_id in range(1, iter_num + 1): node.parm(f"{flam3h_iterator_prm_names().main_mpmem}_{mp_id}").set(str(mp_id))
     
+                    if not self.exist_user_data(node, f3h_userData.MARKED_ITER_LABEL):
+                        this_label: str = node.parm(f"{flam3h_iterator_prm_names().main_mpmem}_{s_mp_index}").eval()
+                        if this_label != str(s_mp_index):
+                            node.setUserData(f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}", this_label)
+                        
                     self.prm_paste_CLICK(s_mp_index)
                     
     
@@ -10091,7 +10096,7 @@ class flam3h_iterator_utils
                             # set
                             prm_mpidx.set(-1)
                             self.del_comment_and_user_data_iterator(node)
-                            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_MEM}")
+                            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                             # Let us know
                             _ITER_DEL = True
                         
@@ -10176,7 +10181,7 @@ class flam3h_iterator_utils
                             # set
                             prm_mpidx.set(-1)
                             self.del_comment_and_user_data_iterator(node)
-                            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_MEM}")
+                            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                             # Let us know
                             _MSG: str = f"{node.name()}: The iterator you just removed was marked for being copied -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
                             flam3h_general_utils.set_status_msg(_MSG, 'WARN')
@@ -10238,7 +10243,7 @@ class flam3h_iterator_utils
                             prm_mpidx.set(idx_new)
                             self.del_comment_and_user_data_iterator(node)
                             self.set_comment_and_user_data_iterator(node, str(idx_new))
-                            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_MEM}")
+                            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
 
                         elif (idx_del_inbetween + 1) == flam3h_node_mp_id:
                             
@@ -10316,7 +10321,7 @@ class flam3h_iterator_utils
                             prm_mpidx.set(idx_new)
                             self.del_comment_and_user_data_iterator(node)
                             self.set_comment_and_user_data_iterator(node, str(idx_new))
-                            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_MEM}")
+                            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                         
                 # XF VIZ
                 if prm_xfviz.eval() and prm_xfviz_solo.eval():
@@ -10353,7 +10358,7 @@ class flam3h_iterator_utils
         
         # Update iterator's names if there is a need ( If they have a default name )
         self.flam3h_update_iterators_names(node, iter_count)
-        self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_MEM}")
+        self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
 
         # lock
         for prm in _PVT_PARMS: prm.lock(True)
@@ -18192,7 +18197,7 @@ class in_flame_utils
         if from_FLAM3H_NODE is not None and node == from_FLAM3H_NODE:
             if flam3h_iterator_utils.exist_user_data(from_FLAM3H_NODE):
                 flam3h_iterator_utils.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
-                flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_MEM}")
+                flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                 hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
         
         # Reset mp idx FLAM3H™ mem parameter
