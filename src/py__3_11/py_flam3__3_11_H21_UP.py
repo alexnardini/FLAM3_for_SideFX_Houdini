@@ -8723,6 +8723,7 @@ class flam3h_iterator_utils
             if from_FLAM3H_NODE is not None:
                 self.iterator_mpidx_mem_set(from_FLAM3H_NODE, 0)
                 self.del_comment_and_user_data_iterator(from_FLAM3H_NODE)
+                self.destroy_userData(from_FLAM3H_NODE, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                 
             _MSG: str = f"{self.node.name()}: iterator MARKED:  {hou.session.F3H_MARKED_ITERATOR_MP_IDX}" # type: ignore
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -8987,26 +8988,25 @@ class flam3h_iterator_utils
         """    
 
         node: hou.SopNode = self.node
+        # prm names
+        n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
         
         # Marked iterator ( not needed but just in case lets "try" so to speak )
         try:
             mp_id_from: TA_M = hou.session.F3H_MARKED_ITERATOR_MP_IDX # type: ignore
+            from_FLAM3H_NODE: TA_MNode = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore
         except AttributeError:
             mp_id_from: TA_M = None
+            from_FLAM3H_NODE: TA_MNode = None
 
         if mp_id_from is not None:
+            
+            assert isinstance(from_FLAM3H_NODE, hou.SopNode)
 
             # current iterator
             s_mp_index: int = self.kwargs['script_multiparm_index']
             mp_idx: str = str(s_mp_index)
             idx_from = str(mp_id_from)
-            
-            # prm names
-            n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
-
-            # Marked iterator node
-            from_FLAM3H_NODE: TA_MNode = hou.session.F3H_MARKED_ITERATOR_NODE # type: ignore
-            assert isinstance(from_FLAM3H_NODE, hou.SopNode)
             
             # Get user selection of paste methods
             paste_sel: int = node.parm(f"{n.main_prmpastesel}_{s_mp_index}").eval()
@@ -14060,18 +14060,19 @@ class in_flame
         sel_key: str | None = sel.get(key)
         
         # Is it an iterator or an FF or None ?
+        iter_type: int | str | None = None
         if mp_idx is not None:
             
             match type:
                 
                 case 0:
-                    iter_type: int | str | None = mp_idx
+                    iter_type = mp_idx
                     
                 case 1:
-                    iter_type: int | str | None = 'FF'
+                    iter_type = 'FF'
                     
                 case _:
-                    iter_type: int | str | None = None
+                    iter_type = None
         
         if key in [xml_keys.XML_PRE_AFFINE, xml_keys.XML_POST_AFFINE]:
             if affine_count == 0:
