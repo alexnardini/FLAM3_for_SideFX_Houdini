@@ -1778,19 +1778,22 @@ class flam3h_scripts
             (None):
         """ 
         if isinstance(__h_versions__, tuple):
+            
+            num_str: str = "000"
             if len(__h_versions__) > 1:
                 if last_index:
-                    num_str: str = str(__h_versions__[-1])
+                    num_str = str(__h_versions__[-1])
                     
                 else:
-                    num_str: str = str(__h_versions__[0])
+                    num_str = str(__h_versions__[0])
                 
             elif __h_versions__:
-                num_str: str = str(__h_versions__[0])
+                num_str = str(__h_versions__[0])
 
             return f"{num_str[:2]}.{num_str[-1]}"
         
         elif isinstance(__h_versions__, int):
+            
             if len(str(__h_versions__)) == 3:
                 return f"{str(__h_versions__)[:2]}.{str(__h_versions__)[-1]}"
             
@@ -4916,8 +4919,9 @@ class flam3h_general_utils
         prm = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS)
         prm_off = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF)
 
+        json_path: str | None = None
         if json_path_checked is None:
-            json_path: str = os.path.expandvars(node.parm(f3h_tabs.CP.PRM_PATH).eval())
+            json_path = os.path.expandvars(node.parm(f3h_tabs.CP.PRM_PATH).eval())
             json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, f3h_tabs.CP.DEFAULT_FILE_EXT, f3h_tabs.CP.DEFAULT_AUTO_NAME)
         
         if cp_presets_filepath_history is not None and node.parm(f3h_tabs.CP.PVT_PRM_ISVALID_FILE).eval() and os.path.isfile(cp_presets_filepath_history) and cp_presets_filepath_history == json_path_checked:
@@ -4927,6 +4931,7 @@ class flam3h_general_utils
             prm_off.set('-1')
 
         if json_path_checked is not False:
+            assert isinstance(json_path, str)
             assert isinstance(json_path_checked, str)
             
             # Set the CP filepath parameter to this checked and corrected filepath
@@ -8311,6 +8316,7 @@ class flam3h_iterator_utils
         # This undo's disabler is needed to make the undo work. 
         with hou.undos.disabler(): # type: ignore
             
+            mp_id_from: TA_M = None
             isDELETED: bool = False
             _FLAM3H_DATA_PRM_MPIDX: int = node.parm(f3h_tabs.PREFS.PVT_PRM_DATA_PRM_MPIDX).eval()
                 
@@ -8340,7 +8346,6 @@ class flam3h_iterator_utils
                 hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
                 
             except AttributeError:
-                mp_id_from = None
                 self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                 # This to avoid a wrong copy/paste info message
                 try:
@@ -8353,7 +8358,7 @@ class flam3h_iterator_utils
                     pass
             
             else:
-                mp_id_from: TA_M = hou.session.F3H_MARKED_ITERATOR_MP_IDX # type: ignore
+                mp_id_from = hou.session.F3H_MARKED_ITERATOR_MP_IDX # type: ignore
                 
                 if node == from_FLAM3H_NODE:
                     if _FLAM3H_DATA_PRM_MPIDX > 0:
