@@ -33,14 +33,35 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.78 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.78) ###
+
+#### FLAM3H™ v1.9.78 indie -> H21.0 UP</br>FLAM3H™ v1.9.64 indie -> H19.0 to H20.5 ####
+
+_This update may require a restart of Houdini to fully pickup the changes_.
+
+- **Fix H21.0 UP ONLY**: Fixed an issue where marking a FLAM3H™ node did not clear the previously marked node’s iterator data when iterators were already shuffled. This prevented the system from correctly tracking the mark if the same node was marked again immediately. The issue has now been resolved.
+- **Small fixes/improvements as part of an ongoing polishing pass H21.0 UP ONLY.**
+- **Updated HDA documentation H21.0 UP ONLY.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v1.9.77 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.77) ###
 
 #### FLAM3H™ v1.9.77 indie -> H21.0 UP</br>FLAM3H™ v1.9.64 indie -> H19.0 to H20.5 ####
 
 _This update may require a restart of Houdini to fully pickup the changes_.
 
-- **Small fixes/improvements as part of an ongoing polishing pass.**
-- **Updated HDA documentation.**
+- **Small fixes/improvements as part of an ongoing polishing pass H21.0 UP ONLY.**
+- **Updated HDA documentation H21.0 UP ONLY.**
 
 
 
@@ -59,7 +80,7 @@ _This update may require a restart of Houdini to fully pickup the changes_.
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
-- **Fix H21.0 UP ONLY**: When reordering iterators (_multi parameters_) FLAM3H™ will now properly updated the marked iterator and/or xfviz SOLO iterator indexes if any.
+- **Fix H21.0 UP ONLY**: When reordering iterators (_multi parameters_) FLAM3H™ will now properly updated the marked iterator and/or xfviz SOLO iterator indexes. Handy especially when using the SYS tab select iterator mini-menu.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
