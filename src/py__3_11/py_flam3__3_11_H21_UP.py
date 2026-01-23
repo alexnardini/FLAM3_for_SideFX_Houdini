@@ -2431,7 +2431,7 @@ class flam3h_scripts
 
         # If an iterator was copied from a node that has been deleted
         try: hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
-        except AttributeError:
+        except (AttributeError, hou.ObjectWasDeleted):
             hou.session.F3H_MARKED_ITERATOR_MP_IDX: TA_M = None # type: ignore
             # If we deleted all FLAM3H™ nodes and we then create a new one,
             # Lets initialize back to himself.
@@ -2444,7 +2444,7 @@ class flam3h_scripts
 
         # If the FF was copied from a node that has been deleted
         try: hou.session.F3H_MARKED_FF_NODE.type() # type: ignore
-        except AttributeError:
+        except (AttributeError, hou.ObjectWasDeleted):
             hou.session.F3H_MARKED_FF_CHECK: TA_M = None # type: ignore
             # If we deleted all FLAM3H™ nodes and we then create a new one,
             # Lets initialize back to himself.
@@ -4535,7 +4535,7 @@ class flam3h_general_utils
         node: hou.SopNode = self.node
         iter_num: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
         _main_xf_viz_name: str = flam3h_iterator_prm_names().main_xf_viz
-        all_mp_xf_viz: list[int] = [node.parm(f"{_main_xf_viz_name}_{mp_idx + 1}").eval() for mp_idx in range(iter_num)]
+        all_mp_xf_viz: list[int] = [node.parm(f"{_main_xf_viz_name}_{mp_idx}").eval() for mp_idx in range(1, iter_num + 1)]
         if max(all_mp_xf_viz) == 1:
             return True
         
@@ -5935,7 +5935,7 @@ class flam3h_iterator_utils
         
         Args:
             name(str): current iterator name to check.
-            regex(str): Default to: "^[^\d\s()]+(?: [^\d\s()]+)*[\d]+"</br>The regex expresion to use. Default to one build for the current iterators default name.
+            regex(str): Default to: <b>^[^\d\s()]+(?: [^\d\s()]+)*[\d]+</b></br>The regex expresion to use. Default to one build for the current iterators default name.
         
         Returns:
             (bool): True if the iterator name is a default name and False if not.
@@ -5957,12 +5957,14 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """
+        
+        _flam3h_iterator_is_default_name: Callable[[str, str], bool] = flam3h_iterator_utils.flam3h_iterator_is_default_name
         mp_note_name: str = flam3h_iterator_prm_names().main_note
         for mp_idx in range(iter_count):
             new_mp_idx: str = str(mp_idx + 1)
             param_name: str = f"{mp_note_name}_{new_mp_idx}"
             param_val: str = str(node.parm(param_name).eval()).strip()
-            if flam3h_iterator_utils.flam3h_iterator_is_default_name(param_val):
+            if _flam3h_iterator_is_default_name(param_val):
                 node.parm(param_name).set(f"iterator_{new_mp_idx}")
 
 
@@ -6263,9 +6265,7 @@ class flam3h_iterator_utils
             
         try:
             hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
-        except AttributeError:
-            hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
-        except hou.ObjectWasDeleted:
+        except (AttributeError, hou.ObjectWasDeleted):
             hou.session.F3H_MARKED_ITERATOR_NODE: TA_MNode = None # type: ignore
         try:
             hou.session.F3H_MARKED_ITERATOR_MP_IDX # type: ignore
@@ -6298,9 +6298,7 @@ class flam3h_iterator_utils
             
         try:
             hou.session.F3H_MARKED_FF_NODE.type() # type: ignore
-        except AttributeError:
-            hou.session.F3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
-        except hou.ObjectWasDeleted:
+        except (AttributeError, hou.ObjectWasDeleted):
             hou.session.F3H_MARKED_FF_NODE: TA_MNode = None # type: ignore
             
         try:
@@ -6836,14 +6834,14 @@ class flam3h_iterator_utils
             shader_alpha_name: str = flam3h_iterator_prm_names().shader_alpha
             if f3h_all:
                 for f3h in node.type().instances():
-                    f3h_all_lambda_min_opacity: Callable[[], float] = lambda: min((f3h.parm(f'{shader_alpha_name}_{idx + 1}').eval() for idx in range(iter_count)))
+                    f3h_all_lambda_min_opacity: Callable[[], float] = lambda: min((f3h.parm(f'{shader_alpha_name}_{idx}').eval() for idx in range(1, iter_count + 1)))
                     try:
                         if not f3h.parm(f3h_tabs.PREFS.PVT_PRM_RIP).eval() and f3h_all_lambda_min_opacity() == 0: # This is the one that can possibly fail
                             flam3h_general_utils.private_prm_set(f3h, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
                     except AttributeError:
                         pass
             else:
-                lambda_min_opacity: Callable[[], float] = lambda: min((node.parm(f'{shader_alpha_name}_{idx + 1}').eval() for idx in range(iter_count)))
+                lambda_min_opacity: Callable[[], float] = lambda: min((node.parm(f'{shader_alpha_name}_{idx}').eval() for idx in range(1, iter_count + 1)))
                 if lambda_min_opacity() == 0: flam3h_general_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
 
 
@@ -7818,7 +7816,7 @@ class flam3h_iterator_utils
                 self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
             
             iter_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
-            data_now: tuple[list[Any] | Any, ...] = tuple([node.parm(f'{prx}_{idx + 1}').eval() for idx in range(iter_count)] for prx in (n.main_mpmem, n.main_note, n.main_vactive, n.main_weight, n.shader_alpha)) # The order matter, those are the parameter's names without the multiparameter number, just the base names.
+            data_now: tuple[list[Any] | Any, ...] = tuple([node.parm(f'{prx}_{idx}').eval() for idx in range(1, iter_count + 1)] for prx in (n.main_mpmem, n.main_note, n.main_vactive, n.main_weight, n.shader_alpha)) # The order matter, those are the parameter's names without the multiparameter number, just the base names.
             xfviz_mem_id: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX).eval()
             xfviz_out_sensor: int = node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval()
             data_now += (xfviz_mem_id, xfviz_out_sensor, mem_id) # adding mem_id to catch an edge case when user change the memory id to another FLAM3H™ node and undoing it afterwards
@@ -8003,9 +8001,7 @@ class flam3h_iterator_utils
         try:
             hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
             
-        except AttributeError:
-            from_FLAM3HNODE = None
-        except hou.ObjectWasDeleted:
+        except (AttributeError, hou.ObjectWasDeleted):
             from_FLAM3HNODE = None
             
         else:
@@ -8345,7 +8341,7 @@ class flam3h_iterator_utils
                 # (This can also be: None - hence the double check)
                 hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
                 
-            except AttributeError:
+            except (AttributeError, hou.ObjectWasDeleted):
                 self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
                 # This to avoid a wrong copy/paste info message
                 try:
@@ -8410,7 +8406,7 @@ class flam3h_iterator_utils
                         elif _FLAM3H_DATA_PRM_MPIDX == 0 and hou.session.F3H_MARKED_ITERATOR_MP_IDX is None: # type: ignore
                             try:
                                 hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
-                            except AttributeError:
+                            except (AttributeError, hou.ObjectWasDeleted):
                                 pass
                             else:
                                 self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
@@ -9088,14 +9084,14 @@ class flam3h_iterator_utils
         iter_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
         prm_name: str = n.main_prmpastesel
 
-        for idx_mp in range(iter_count):
-            prm: hou.Parm = node.parm(f"{prm_name}_{idx_mp + 1}")
+        for idx_mp in range(1, iter_count + 1):
+            prm: hou.Parm = node.parm(f"{prm_name}_{idx_mp}")
             if prm is not None and prm.keyframes():
                 prm.deleteAllKeyframes()
         
         if node != from_FLAM3H_NODE and from_FLAM3H_NODE is not None:
-            for idx_mp in range(iter_count):
-                prm: hou.Parm = from_FLAM3H_NODE.parm(f"{prm_name}_{idx_mp + 1}")
+            for idx_mp in range(1, iter_count + 1):
+                prm: hou.Parm = from_FLAM3H_NODE.parm(f"{prm_name}_{idx_mp}")
                 if prm is not None and prm.keyframes():
                     prm.deleteAllKeyframes()
             
@@ -10025,7 +10021,7 @@ class flam3h_iterator_utils
         # get mpmem parms now
         mp_mem_name: str = n.main_mpmem
         _mpmem_append: Callable[[int], None] = mpmem.append
-        for mp_idx in range(iter_count): _mpmem_append(int(node.parm(f"{mp_mem_name}_{mp_idx + 1}").eval()))
+        for mp_idx in range(1, iter_count + 1): _mpmem_append(int(node.parm(f"{mp_mem_name}_{mp_idx}").eval()))
         
         # get mpmem from CachedUserData
         __mpmem_hou_get: list[int] | None = self.auto_set_xaos_data_get_MP_MEM(node)
@@ -10085,7 +10081,7 @@ class flam3h_iterator_utils
                     try:
                         hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
                         
-                    except AttributeError:
+                    except (AttributeError, hou.ObjectWasDeleted):
                         flam3h_node: TA_MNode = None
                         
                     else:
@@ -10101,6 +10097,7 @@ class flam3h_iterator_utils
                             # set
                             prm_mpidx.set(-1)
                             self.del_comment_and_user_data_iterator(node)
+                            # becasue we are re-ordering mpmem values later on
                             self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                             # Let us know
                             _ITER_DEL = True
@@ -10172,7 +10169,7 @@ class flam3h_iterator_utils
                     try:
                         hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
                         
-                    except AttributeError:
+                    except (AttributeError, hou.ObjectWasDeleted):
                         flam3h_node: TA_MNode = None
                         
                     else:
@@ -10186,6 +10183,7 @@ class flam3h_iterator_utils
                             # set
                             prm_mpidx.set(-1)
                             self.del_comment_and_user_data_iterator(node)
+                            # becasue we are re-ordering mpmem values later on
                             self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                             # Let us know
                             _MSG: str = f"{node.name()}: The iterator you just removed was marked for being copied -> {f3h_copyPaste.DEFAULT_MSG_MARK_ITER_STATUS_BAR}"
@@ -10232,7 +10230,7 @@ class flam3h_iterator_utils
                     try:
                         hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
                         
-                    except AttributeError:
+                    except (AttributeError, hou.ObjectWasDeleted):
                         flam3h_node: TA_MNode = None
                         
                     else:
@@ -10248,6 +10246,7 @@ class flam3h_iterator_utils
                             prm_mpidx.set(idx_new)
                             self.del_comment_and_user_data_iterator(node)
                             self.set_comment_and_user_data_iterator(node, str(idx_new))
+                            # becasue we are re-ordering mpmem values later on
                             self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
 
                         elif (idx_del_inbetween + 1) == flam3h_node_mp_id:
@@ -10310,7 +10309,7 @@ class flam3h_iterator_utils
                     try:
                         hou.session.F3H_MARKED_ITERATOR_NODE.type() # type: ignore
                         
-                    except AttributeError:
+                    except (AttributeError, hou.ObjectWasDeleted):
                         flam3h_node: TA_MNode = None
                         
                     else:
@@ -10326,6 +10325,7 @@ class flam3h_iterator_utils
                             prm_mpidx.set(idx_new)
                             self.del_comment_and_user_data_iterator(node)
                             self.set_comment_and_user_data_iterator(node, str(idx_new))
+                            # becasue we are re-ordering mpmem values later on
                             self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                         
                 # XF VIZ
@@ -10343,27 +10343,26 @@ class flam3h_iterator_utils
         else:
             # update parameterUserData: flam3h_xaos_iterators_prev
             self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
+            # becasue we are re-ordering mpmem values later on
+            self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
         
         # set all multi parms xaos strings parms
         _join: Callable[[Iterable[str]], str] = div_weight.join
         xaos_str_round_floats: list[str] = [_join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)]
         prm_xaos_name: str = n.xaos
-        for mp_idx in range(iter_count): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").deleteAllKeyframes() # This parameter can not be animated
+        for mp_idx in range(1, iter_count + 1): node.parm(f"{prm_xaos_name}_{mp_idx}").deleteAllKeyframes() # This parameter can not be animated
         for mp_idx, xaos in enumerate(xaos_str_round_floats): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").set(div_xaos + xaos)
         
         # reset iterator's mpmem prm
-        for mp_idx in range(iter_count):
-            index: int = mp_idx + 1
-            node.parm(f"{mp_mem_name}_{(index)}").set(str(index)) # type: ignore
+        for mp_idx in range(1, iter_count + 1): node.parm(f"{mp_mem_name}_{(mp_idx)}").set(str(mp_idx))
         
         # update flam3h_xaos_mpmem
-        __mpmem_hou: list[int] = [int(node.parm(f"{mp_mem_name}_{mp_idx + 1}").eval()) for mp_idx in range(iter_count)]
+        __mpmem_hou: list[int] = [int(node.parm(f"{mp_mem_name}_{mp_idx}").eval()) for mp_idx in range(1, iter_count + 1)]
         # export mpmem into CachedUserData
         self.auto_set_xaos_data_set_MP_MEM(node, __mpmem_hou)
         
         # Update iterator's names if there is a need ( If they have a default name )
         self.flam3h_update_iterators_names(node, iter_count)
-        self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
 
         # lock
         for prm in _PVT_PARMS: prm.lock(True)
@@ -22066,7 +22065,7 @@ class out_flame_utils
             (str): The FLAM3H™ parameter prepped into a string for writing out into the Flame preset file.
         """    
         _out_util_round_float: Callable[[float], str] = self.out_util_round_float
-        val: list[str] = [str(_out_util_round_float(self.node.parm(f"{prm_name}_{iter + 1}").eval())) for iter in range(self.iter_count)]
+        val: list[str] = [str(_out_util_round_float(self.node.parm(f"{prm_name}_{iter}").eval())) for iter in range(1, self.iter_count + 1)]
         return tuple(val)
     
     
@@ -22082,7 +22081,7 @@ class out_flame_utils
         """    
         _shader_speed_name: str = flam3h_iterator_prm_names().shader_speed
         _out_util_round_float: Callable[[float], str] = self.out_util_round_float
-        val: list[str] = [str(_out_util_round_float((1.0-self.node.parm(f"{_shader_speed_name}_{iter + 1}").eval())/2.0)) for iter in range(self.iter_count)]
+        val: list[str] = [str(_out_util_round_float((1.0-self.node.parm(f"{_shader_speed_name}_{iter}").eval())/2.0)) for iter in range(1, self.iter_count + 1)]
         return tuple(val)
     
 
@@ -22095,7 +22094,7 @@ class out_flame_utils
         Returns:
             (tuple): tuple of all the FLAM3H™ names/notes prepped into strings for writing out into the Flame preset file.
         """    
-        val: list[str] = [str(self.node.parm(f"{self.flam3h_iter_prm_names.main_note}_{iter + 1}").eval()).strip() for iter in range(self._iter_count)]
+        val: list[str] = [str(self.node.parm(f"{self.flam3h_iter_prm_names.main_note}_{iter}").eval()).strip() for iter in range(1, self._iter_count + 1)]
         return tuple(val)
     
     
@@ -22124,7 +22123,7 @@ class out_flame_utils
         Returns:
             (tuple): tuple of all the FLAM3H™ xforms/iterators pre_blur parameters prepped into strings for writing out into the Flame preset file.
         """   
-        val: list[str] = [str( self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter + 1}").eval() ) if self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter + 1}").eval() > 0 else '' for iter in range(self.iter_count)]
+        val: list[str] = [str( self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter}").eval() ) if self.node.parm(f"{self.flam3h_iter_prm_names.prevar_weight_blur}_{iter}").eval() > 0 else '' for iter in range(1, self.iter_count + 1)]
         return tuple(val)
 
 
@@ -22185,9 +22184,8 @@ class out_flame_utils
         val: list[list[str] | list[Never]] = []
         f3h_val: list[list[str] | list[Never]] = []
         f3h_angleDeg: list[str | list[Never]] = []
-        for iter in range(self.iter_count):
-            if self.node.parm(f"{self.flam3h_iter_prm_names.postaffine_do}_{iter + 1}").eval():
-                iter_num: int = iter + 1
+        for iter_num in range(1, self.iter_count + 1):
+            if self.node.parm(f"{self.flam3h_iter_prm_names.postaffine_do}_{iter_num}").eval():
                 collect: TA_Affine = self.get_iter_affine_post(iterator_num=iter_num)
                 angleDeg: float = self.get_iter_affine_post_rot(iterator_num=iter_num)
                 if f3h_affineDefaults.DEFAULT_IDENT != [item for sublist in collect for item in sublist] or angleDeg != 0:
@@ -22970,7 +22968,6 @@ class pyside_master:
                         fade_out_ms: int | None = None,
                         splash_screen: bool = False, 
                      ):
-            
             super().__init__(parent)
             
             app: QtCore.QCoreApplication | None = QtWidgets.QApplication.instance()
