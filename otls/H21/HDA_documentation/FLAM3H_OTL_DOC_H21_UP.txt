@@ -241,7 +241,7 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSVG.svg]
     - [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZSVG.svg]
 
-    _or when the xforms handles VIZ is in SOLO mode (_[Icon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]_)_:
+    _or when the xforms handles VIZ is in SOLO mode (iterator_ [Icon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]_ or FF_ [Icon:opdef:.?icon_ffHandlesEnabledSVG.svg]_)_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSOLOSVG.svg]
     - [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]
