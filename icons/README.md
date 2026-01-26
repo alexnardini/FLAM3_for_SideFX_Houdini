@@ -3520,6 +3520,84 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/iconSVG.
 
 
 <p align="center">
+  <img width="160" height="160" src="./iconSVGW.svg" /></p>
+<p align="center">iconSVGW.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?iconSVGW.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?iconSVGW.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?iconSVGW.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?iconSVGW.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?iconSVGW.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/iconSVGW.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./iconSVGR.svg" /></p>
+<p align="center">iconSVGR.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?iconSVGR.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?iconSVGR.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?iconSVGR.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?iconSVGR.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?iconSVGR.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/iconSVGR.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_WhiteStarSVG.svg" /></p>
 <b><p align="center">icon_WhiteStarSVG.svg</p></b>
 <p align="center">......</p>
