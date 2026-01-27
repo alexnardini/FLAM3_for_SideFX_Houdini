@@ -390,7 +390,7 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 :box:
     #display: rounded white
     
-    == SYS: F3C (Flam3 compatibility) == (SYSUTILSF3C)
+    == SYS: F3C (Flam3 Compatibility) == (SYSUTILSF3C)
         
 F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
