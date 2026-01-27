@@ -241,7 +241,7 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSVG.svg]
     - [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZSVG.svg]
 
-    _or when the xforms handles VIZ is in SOLO mode (_[Icon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]_)_:
+    _or when the xforms handles VIZ is in SOLO mode (iterator_ [Icon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]_ or FF_ [Icon:opdef:.?icon_ffHandlesEnabledSVG.svg]_)_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteXFVIZSOLOSVG.svg]
     - [Largeicon:opdef:.?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]
@@ -271,7 +271,7 @@ Reset density [Icon:opdef:.?icon_actionButtonSVG.svg]:
 :box:
     #display: rounded white
 
-== SYS: System options and utils == (SYS)
+== SYS: System Utils and Options == (SYS)
 
 ~~~
 :box:
@@ -286,7 +286,7 @@ Reset density [Icon:opdef:.?icon_actionButtonSVG.svg]:
 :box:
     #display: rounded white
     
-    == SYS: Utils == (SYSUTILS)
+    == SYS: FLAM3H™ Documentation == (SYSUTILSDOC)
     
 FLAM3H(tm) documentation:
     #id: SYS
@@ -295,6 +295,11 @@ FLAM3H(tm) documentation:
     Display this documentation.
 
     <br />
+
+:box:
+    #display: rounded white
+    
+    == SYS: mini-menu Select Iterator == (SYSUTILSMINI)
 
 mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     #id: SYS
@@ -311,7 +316,7 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     _The bookmark icon will display the status of each iterator_:
 
     <br />
-
+    
     - This iterator is *`On`*/Active (_Default_).<br />[Largeicon:opdef:.?icon_optionStarYellowOrangeSVG.svg]<br />[Largeicon:opdef:.?icon_optionStarYellowOrange_xfVizSVG.svg] _xform handle in SOLO mode_<br /><br />
     - This iterator is *`On`*/Active and *`0`*(Zero) Weight.<br />[Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg]<br />[Largeicon:opdef:.?icon_optionDisabledZeroIter_xfVizSVG.svg] _xform handle in SOLO mode_<br /><br />
     - This iterator is *`On`*/Active, *`0`*(Zero) Weight and Marked.<br />[Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroWSVG.svg]<br />[Largeicon:opdef:.?icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg] _xform handle in SOLO mode_<br /><br />
@@ -331,9 +336,16 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     <br /><br />
     
     NOTE:
-        This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the ((p)) key. Please, open a Parameter Editor in its own pane tab or floating panel for this feature to work.
+        This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the ((p)) key in Houdini versions prior to *`21.0.489`*
+        
+        Please, open a Parameter Editor in its own pane tab or floating panel for this feature to work.
 
     <br />
+
+:box:
+    #display: rounded white
+    
+    == SYS: FF (finalXform) == (SYSUTILSFF)
 
 FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
@@ -349,7 +361,11 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     This is being introduced since it is convenient to switch the finalXform(_FF_) *`On`* or *`Off`* without constantly entering the FF tab.
 
     <br />
+
+:box:
+    #display: rounded white
     
+    == SYS: RIP (Remove Invalid Points) == (SYSUTILSRIP)
     
 RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
@@ -371,6 +387,10 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         #display: orange
         When loading hip files FLAM3H(tm) will check if any of the iterators have their shader opacity set to *`0`*(Zero) and if so, it will switch this toggle *`On`*.<br />
 
+:box:
+    #display: rounded white
+    
+    == SYS: F3C (Flam3 compatibility) == (SYSUTILSF3C)
         
 F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
@@ -412,6 +432,7 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         The behavior of the *`Cross`* and *`Curve`* variations are also different in Flam3/Apophysis versus Chaotica.
 
     <br />
+
 
 
 :box:

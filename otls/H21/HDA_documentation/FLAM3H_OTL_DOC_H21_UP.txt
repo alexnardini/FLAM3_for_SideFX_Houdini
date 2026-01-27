@@ -271,7 +271,7 @@ Reset density [Icon:opdef:.?icon_actionButtonSVG.svg]:
 :box:
     #display: rounded white
 
-== SYS: System options and utils == (SYS)
+== SYS: System Utils and Options == (SYS)
 
 ~~~
 :box:
@@ -286,7 +286,7 @@ Reset density [Icon:opdef:.?icon_actionButtonSVG.svg]:
 :box:
     #display: rounded white
     
-    == SYS: Utils == (SYSUTILS)
+    == SYS: FLAM3H™ Documentation == (SYSUTILSDOC)
     
 FLAM3H(tm) documentation:
     #id: SYS
@@ -295,6 +295,11 @@ FLAM3H(tm) documentation:
     Display this documentation.
 
     <br />
+
+:box:
+    #display: rounded white
+    
+    == SYS: mini-menu Select Iterator == (SYSUTILSMINI)
 
 mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     #id: SYS
@@ -337,6 +342,11 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
 
     <br />
 
+:box:
+    #display: rounded white
+    
+    == SYS: FF (finalXform) == (SYSUTILSFF)
+
 FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
     *`Off`* by default.
@@ -351,7 +361,11 @@ FF [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     This is being introduced since it is convenient to switch the finalXform(_FF_) *`On`* or *`Off`* without constantly entering the FF tab.
 
     <br />
+
+:box:
+    #display: rounded white
     
+    == SYS: RIP (Remove Invalid Points) == (SYSUTILSRIP)
     
 RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
@@ -373,6 +387,10 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         #display: orange
         When loading hip files FLAM3H(tm) will check if any of the iterators have their shader opacity set to *`0`*(Zero) and if so, it will switch this toggle *`On`*.<br />
 
+:box:
+    #display: rounded white
+    
+    == SYS: F3C (Flam3 compatibility) == (SYSUTILSF3C)
         
 F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS

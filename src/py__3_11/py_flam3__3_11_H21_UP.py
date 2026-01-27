@@ -16593,7 +16593,7 @@ class in_flame_utils
         
         cc_curves: list[str] = []
         
-        # Get this presed_id curves data
+        # Get this preset_id curves data
         _this_out_curve_overall: str = apo_data.out_curve_overall[preset_id]
         _this_out_curve_red: str = apo_data.out_curve_red[preset_id]
         _this_out_curve_green: str = apo_data.out_curve_green[preset_id]
@@ -23009,12 +23009,7 @@ class pyside_master:
                 self._build_ui()
 
                 # Fade in animation
-                self.setWindowOpacity(0)
-                self.fade_in_anim: QtCore.QPropertyAnimation = QtCore.QPropertyAnimation(self, b"windowOpacity")
-                self.fade_in_anim.setDuration(self.FADE_IN_DURATION_MS)
-                self.fade_in_anim.setStartValue(0)
-                self.fade_in_anim.setEndValue(1)
-                self.fade_in_anim.start()
+                self._start_fade_in()
 
                 # Auto close with fade out
                 if isinstance(auto_close_ms, int | float) and int(auto_close_ms) > 0:
@@ -23027,7 +23022,7 @@ class pyside_master:
         
             
         # LOAD BANNER IMG
-        def _load_image_pixmap(self):
+        def _load_image_pixmap(self) -> None:
             try:
                 section_img: hou.HDASection = self.NODETYPE.definition().sections()[self.IMG_PIXMAP_SECTION_NAME]
             except KeyError:
@@ -23058,7 +23053,7 @@ class pyside_master:
             
             
         # CENTER WINDOW
-        def _center_window(self):
+        def _center_window(self) -> None:
             
             try:
                 main_win: QtWidgets.QWidget = hou.qt.mainWindow()
@@ -23089,7 +23084,7 @@ class pyside_master:
 
 
         # BUILD UI
-        def _build_ui(self):
+        def _build_ui(self) -> None:
             
             self.setStyleSheet(f"""
                 QWidget {{
@@ -23120,7 +23115,7 @@ class pyside_master:
             self._load_svg_icon()
             self._position_svg_icon()
 
-            # Init font, dn't neede but just in case!
+            # Init font, dn't needed but just in case!
             if self.font_os is None:
                 # in my case being on windows
                 self.font_os = QtGui.QFont("Segoe UI")
@@ -23176,9 +23171,19 @@ class pyside_master:
 
             main_layout.addStretch()
             
+            
+        def _start_fade_in(self) -> None:
+            # Fade in animation
+            self.setWindowOpacity(0)
+            self.fade_in_anim: QtCore.QPropertyAnimation = QtCore.QPropertyAnimation(self, b"windowOpacity")
+            self.fade_in_anim.setDuration(self.FADE_IN_DURATION_MS)
+            self.fade_in_anim.setStartValue(0)
+            self.fade_in_anim.setEndValue(1)
+            self.fade_in_anim.start()
+            
 
         # BANNER UPDATE: SCALE + CROP
-        def _update_banner(self):
+        def _update_banner(self) -> None:
             if self.IMG_PIXMAP:
                 try:
                     w: int = self.banner_container.width()
@@ -23202,7 +23207,7 @@ class pyside_master:
 
 
         # SVG POSITION
-        def _position_svg_icon(self):
+        def _position_svg_icon(self) -> None:
             if self.SVG_ICON:
                 x: int = (self.banner_container.width() - self.SVG_ICON.width()) // 2
                 y: int = (self.banner_container.height() - self.SVG_ICON.height()) // 2
@@ -23210,7 +23215,7 @@ class pyside_master:
                 
                 
         # FADE OUT ANIMATION
-        def _start_fade_out(self, fade_out_duration_ms):
+        def _start_fade_out(self, fade_out_duration_ms) -> None:
             self.fade_out_anim: QtCore.QPropertyAnimation = QtCore.QPropertyAnimation(self, b"windowOpacity")
             self.fade_out_anim.setDuration(fade_out_duration_ms)
             self.fade_out_anim.setStartValue(1)
@@ -23220,14 +23225,14 @@ class pyside_master:
                 
             
         # PYSIDE: RESIZE EVENT
-        def resizeEvent(self, event: QtGui.QResizeEvent):
+        def resizeEvent(self, event: QtGui.QResizeEvent) -> None:
             super().resizeEvent(event)
             self._position_svg_icon()
             self._update_banner()
 
 
         # PYSIDE: DRAG SUPPORT MOUSE PRESS EVENT
-        def mousePressEvent(self, event: QtGui.QMouseEvent):
+        def mousePressEvent(self, event: QtGui.QMouseEvent) -> None:
             if event.button() == QtCore.Qt.LeftButton:
                 
                 if __pyside_version__ == 6:
@@ -23237,7 +23242,7 @@ class pyside_master:
 
 
         # PYSIDE: DRAG SUPPORT MOUSE MOVE EVENT
-        def mouseMoveEvent(self, event: QtGui.QMouseEvent):
+        def mouseMoveEvent(self, event: QtGui.QMouseEvent) -> None:
             if event.buttons() == QtCore.Qt.LeftButton and self.BASE_DRAG_POSITION:
                 
                 if __pyside_version__ == 6:
@@ -23254,7 +23259,7 @@ class pyside_master:
                 
                 
         # PYSIDE: CLOSE EVENT
-        def closeEvent(self, event: QtGui.QCloseEvent):
+        def closeEvent(self, event: QtGui.QCloseEvent) -> None:
             try:
                 delattr(builtins, self.ps_app_name)
             except AttributeError:
@@ -23264,5 +23269,5 @@ class pyside_master:
             
 
         # EXIT
-        def _exit(self):
+        def _exit(self) -> None:
             self.close()
