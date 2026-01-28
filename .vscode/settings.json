@@ -1,7 +1,7 @@
 {
     "python.analysis.typeCheckingMode": "basic",
     "python.analysis.diagnosticMode": "openFilesOnly",
-    "python.defaultInterpreterPath": "C:/Program Files/Side Effects Software/Houdini 21.0.559/bin/hython.exe",
+    "python.defaultInterpreterPath": "C:/Program Files/Side Effects Software/Houdini 21.0.596/bin/hython.exe",
     "python.analysis.diagnosticSeverityOverrides": {
         "reportPossiblyUnboundVariable": "warning",
         "reportImplicitStringConcatenation": "warning"
