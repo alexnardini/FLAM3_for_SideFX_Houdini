@@ -7726,12 +7726,13 @@ class flam3h_iterator_utils
             
             if _len_check and mpmem != mpmem_cached:
                 
+                n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
                 iter_num: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
                 
                 prm_xfviz_solo: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO).eval()
                 if prm_xfviz_solo:
                     
-                    prm_name: str = flam3h_iterator_prm_names().main_xf_viz
+                    prm_name: str = n.main_xf_viz
                     for idx in range(iter_num):
                         mp_idx: int = idx + 1
                         
@@ -7757,8 +7758,16 @@ class flam3h_iterator_utils
                     flam3h_general_utils.private_prm_set(node, prm_marked_data_mpidx, marked_idx + 1)
                     self.del_comment_and_user_data_iterator(node)
                     self.set_comment_and_user_data_iterator(node, str(marked_idx + 1))
-                    
+                
+                # update parameterUserData: flam3h_xaos_iterators_prev
+                xaos: TA_XAOS_Collect = out_flame_utils.out_xaos_collect(node, iter_count, n.xaos)
+                fill_all_xaos: list[list[float]] = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in xaos]
+                xaos_str: list[list[str]] = [[str(item) for item in xaos] for xaos in fill_all_xaos]
+                self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
+                
+                # Update iterator's names/notes
                 self.flam3h_update_iterators_names(node, iter_count)
+                
             
             # Get paste info once
             from_FLAM3H_NODE, mp_id_from, _ = self.prm_paste_update_for_undo(node)
