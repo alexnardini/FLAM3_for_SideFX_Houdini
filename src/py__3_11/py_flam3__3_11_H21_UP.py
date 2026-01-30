@@ -10041,13 +10041,11 @@ class flam3h_iterator_utils
         
         # collect all xaos
         val: TA_XAOS_Collect = out_flame_utils.out_xaos_collect(node, iter_count, n.xaos)
-        
         # fill missing weights if any
         fill_all_xaos: list[list[float]] = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in val]
-
         # convert all xaos into array of strings
         xaos_str: list[list[str]] = [[str(item) for item in xaos] for xaos in fill_all_xaos]
-            
+        
         # get xaos from CachedUserData
         __xaos_str_hou_get: list[list[str]] | None = self.auto_set_xaos_data_get_XAOS_PREV(node)
         if __xaos_str_hou_get is None:
