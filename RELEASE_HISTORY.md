@@ -37,7 +37,7 @@ They are all available in this Github repository.
 
 #### FLAM3H™ v1.9.79 indie -> H21.0 UP</br>FLAM3H™ v1.9.64 indie -> H19.0 to H20.5 ####
 
-- **Fix H21 UP ONLY**: When shuffleing iterators, the xaos memory history data was not being updated properly. This caused no harm unless the user performed an undo after editing the xaos strings wrongly causing FLAM3H™ to return to the wrong xaos index value instead.
+- **Fix H21 UP ONLY**: When iterators are shuffled, the xaos memory history data was not being updated properly. This caused no harm unless the user performed an undo after editing the xaos strings wrongly causing FLAM3H™ to return to the wrong xaos index value instead.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
