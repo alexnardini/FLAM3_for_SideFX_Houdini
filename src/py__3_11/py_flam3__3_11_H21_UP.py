@@ -9433,11 +9433,11 @@ class flam3h_iterator_utils
         check = True
         
         current: dict = { "affine_x": node.parmTuple(f"{n.preaffine_x}_{s_mp_index}"), "affine_y": node.parmTuple(f"{n.preaffine_y}_{s_mp_index}"), "affine_o": node.parmTuple(f"{n.preaffine_o}_{s_mp_index}"), "angle": node.parm(f"{n.preaffine_ang}_{s_mp_index}") }
-        for prm in current.values():
-            prm.lock(False)
-            prm.deleteAllKeyframes()
         
         if self.kwargs["shift"]:
+            for prm in (current["affine_x"], current["affine_y"]):
+                prm.lock(False)
+                prm.deleteAllKeyframes()
             for key in list(f3h_affineDefaults.DEFAULT_DICT.keys())[:1]:
                 if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT.get(key):
                     check = False
@@ -9453,6 +9453,8 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["ctrl"]:
+            current["affine_o"].lock(False)
+            current["affine_o"].deleteAllKeyframes()
             if current["affine_o"].eval() != f3h_affineDefaults.DEFAULT_DICT.get("affine_o"):
                 check = False
                 current["affine_o"].set(f3h_affineDefaults.DEFAULT_DICT.get("affine_o"))
@@ -9464,6 +9466,8 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["alt"]:
+            current["angle"].lock(False)
+            current["angle"].deleteAllKeyframes()
             if current["angle"].eval() != f3h_affineDefaults.DEFAULT_DICT.get("angle"):
                 check = False
                 current["angle"].set(f3h_affineDefaults.DEFAULT_DICT.get("angle"))
@@ -9475,6 +9479,9 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
             
         else:
+            for prm in current.values():
+                prm.lock(False)
+                prm.deleteAllKeyframes()
             for key in list(f3h_affineDefaults.DEFAULT_DICT.keys()):
                 if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                     check = False
@@ -9509,11 +9516,11 @@ class flam3h_iterator_utils
                 
             check: bool = True
             current: dict = { "affine_x": node.parmTuple(f"{n.postaffine_x}_{s_mp_index}"), "affine_y": node.parmTuple(f"{n.postaffine_y}_{s_mp_index}"), "affine_o": node.parmTuple(f"{n.postaffine_o}_{s_mp_index}"), "angle": node.parm(f"{n.postaffine_ang}_{s_mp_index}") }
-            for prm in current.values():
-                prm.lock(False)
-                prm.deleteAllKeyframes()
                 
             if self.kwargs["shift"]:
+                for prm in (current["affine_x"], current["affine_y"]):
+                    prm.lock(False)
+                    prm.deleteAllKeyframes()
                 for key in list(f3h_affineDefaults.DEFAULT_DICT.keys())[:1]:
                     if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                         check = False
@@ -9529,6 +9536,8 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
             elif self.kwargs["ctrl"]:
+                current["affine_o"].lock(False)
+                current["affine_o"].deleteAllKeyframes()
                 if current["affine_o"].eval() != f3h_affineDefaults.DEFAULT_DICT.get("affine_o"):
                     check = False
                     current["affine_o"].set(f3h_affineDefaults.DEFAULT_DICT.get("affine_o"))
@@ -9540,6 +9549,8 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
             elif self.kwargs["alt"]:
+                current["angle"].lock(False)
+                current["angle"].deleteAllKeyframes()
                 if current["angle"].eval() != f3h_affineDefaults.DEFAULT_DICT.get("angle"):
                     check = False
                     # post affine
@@ -9552,6 +9563,9 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             else:
+                for prm in current.values():
+                    prm.lock(False)
+                    prm.deleteAllKeyframes()
                 for key in list(f3h_affineDefaults.DEFAULT_DICT.keys()):
                     if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                         check = False
@@ -9583,11 +9597,11 @@ class flam3h_iterator_utils
         check: bool = True
         
         current: dict = { "affine_x": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_x}"), "affine_y": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_y}"), "affine_o": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.preaffine_o}"), "angle": node.parm(f"{f3h_ffPrmPrx.PRM}{n.preaffine_ang}") }
-        for prm in current.values():
-            prm.lock(False)
-            prm.deleteAllKeyframes()
             
         if self.kwargs["shift"]:
+            for prm in (current["affine_x"], current["affine_y"]):
+                prm.lock(False)
+                prm.deleteAllKeyframes()
             for key in list(f3h_affineDefaults.DEFAULT_DICT.keys())[:1]:
                 if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                     check = False
@@ -9603,6 +9617,8 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
         elif self.kwargs["ctrl"]:
+            current["affine_o"].lock(False)
+            current["affine_o"].deleteAllKeyframes()
             if current["affine_o"].eval() != f3h_affineDefaults.DEFAULT_DICT.get("affine_o"):
                 check = False
                 current["affine_o"].set(f3h_affineDefaults.DEFAULT_DICT.get("affine_o"))
@@ -9614,6 +9630,8 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         elif self.kwargs["alt"]:
+            current["angle"].lock(False)
+            current["angle"].deleteAllKeyframes()
             if current["angle"].eval() != f3h_affineDefaults.DEFAULT_DICT.get("angle"):
                 check = False
                 current["angle"].set(f3h_affineDefaults.DEFAULT_DICT.get("angle"))
@@ -9625,6 +9643,9 @@ class flam3h_iterator_utils
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
         else:
+            for prm in current.values():
+                prm.lock(False)
+                prm.deleteAllKeyframes()
             for key in list(f3h_affineDefaults.DEFAULT_DICT.keys()):
                 if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                     check = False
@@ -9658,11 +9679,11 @@ class flam3h_iterator_utils
                 
             check: bool = True
             current: dict = { "affine_x": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_x}"), "affine_y": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_y}"), "affine_o": node.parmTuple(f"{f3h_ffPrmPrx.PRM}{n.postaffine_o}"), "angle": node.parm(f"{f3h_ffPrmPrx.PRM}{n.postaffine_ang}") }
-            for prm in current.values():
-                prm.lock(False)
-                prm.deleteAllKeyframes()
             
             if self.kwargs["shift"]:
+                for prm in (current["affine_x"], current["affine_y"]):
+                    prm.lock(False)
+                    prm.deleteAllKeyframes()
                 for key in list(f3h_affineDefaults.DEFAULT_DICT.keys())[:1]:
                     if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                         check = False
@@ -9678,6 +9699,8 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                     
             elif self.kwargs["ctrl"]:
+                current["affine_o"].lock(False)
+                current["affine_o"].deleteAllKeyframes()
                 if current["affine_o"].eval() != f3h_affineDefaults.DEFAULT_DICT.get("affine_o"):
                     check = False
                     current["affine_o"].set(f3h_affineDefaults.DEFAULT_DICT.get("affine_o"))
@@ -9689,6 +9712,8 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
                 
             elif self.kwargs["alt"]:
+                current["angle"].lock(False)
+                current["angle"].deleteAllKeyframes()
                 if current["angle"].eval() != f3h_affineDefaults.DEFAULT_DICT.get("angle"):
                     check = False
                     # post affine
@@ -9701,6 +9726,9 @@ class flam3h_iterator_utils
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
 
             else:
+                for prm in current.values():
+                    prm.lock(False)
+                    prm.deleteAllKeyframes()
                 for key in list(f3h_affineDefaults.DEFAULT_DICT.keys()):
                     if current[key].eval() != f3h_affineDefaults.DEFAULT_DICT[key]:
                         check = False
