@@ -3379,10 +3379,14 @@ class flam3h_general_utils
         Returns:
             (None):
         """  
-        node.parm(f3h_tabs.GLB.PRM_DENSITY).deleteAllKeyframes()
-        node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS).deleteAllKeyframes()
-        node.parm(f3h_tabs.GLB.PRM_DENSITY).set(f3h_tabs.GLB.DEFAULT_DENSITY)
-        node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS).set(1)
+        prm = node.parm(f3h_tabs.GLB.PRM_DENSITY)
+        prm_presets = node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS)
+        prm.lock(False)
+        prm.deleteAllKeyframes()
+        prm_presets.lock(False)
+        prm_presets.deleteAllKeyframes()
+        prm.set(f3h_tabs.GLB.DEFAULT_DENSITY)
+        prm_presets.set(1)
 
 
     @staticmethod
@@ -6028,13 +6032,15 @@ class flam3h_iterator_utils
         """
         density: int = node.parm(f3h_tabs.GLB.PRM_DENSITY).eval()
         # node.parm(f3h_tabs.GLB.DENSITY).deleteAllKeyframes() # This is commented out for now to allow to anim the density only from here
-        node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS).deleteAllKeyframes()
+        prm = node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS)
+        prm.lock(False)
+        prm.deleteAllKeyframes()
         density_values: dict[int, int] = { 500000: 1, 1000000: 2, 2000000: 3, 5000000: 4, 15000000: 5, 25000000: 6, 50000000: 7, 100000000: 8, 150000000: 9, 250000000: 10, 500000000: 11, 750000000: 12, 1000000000: 13 }
         density_idx: int | None = density_values.get(density)
         if density_idx is not None:
-            node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS).set(density_idx)
+            prm.set(density_idx)
         else:
-             node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS).set(-1)
+             prm.set(-1)
 
 
     @staticmethod
@@ -8156,10 +8162,6 @@ class flam3h_iterator_utils
         kwargs: dict = self.kwargs
         
         glb_density: int = node.parm(f3h_tabs.GLB.PRM_DENSITY).eval()
-        
-        # Clear keyframes
-        node.parm(f3h_tabs.GLB.PRM_DENSITY).deleteAllKeyframes()
-        node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS).deleteAllKeyframes()
         
         if kwargs['shift']:
             if glb_density != 300000:
