@@ -2829,7 +2829,7 @@ class flam3h_scripts
         # We do not always want to set the descriptive parameter
         # likely only on creation, not on hip file load
         if descriptive_prm:
-            node.parm(f3h_tabs.PRM_DESCRIPTIVE).set(_MSG_DESCRIPTIVE_MSG)
+            flam3h_prm_utils.set(node, f3h_tabs.PRM_DESCRIPTIVE, _MSG_DESCRIPTIVE_MSG)
             
         # ERROR in the status bar
         if hou.isUIAvailable(): hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
@@ -6530,8 +6530,8 @@ class flam3h_iterator_utils
             (None):
         """   
         prm_to.lock(False) 
-            
         prm_to.deleteAllKeyframes()
+        
         if len(prm_from.keyframes()):
             for k in prm_from.keyframes(): prm_to.setKeyframe(k)
         else:
@@ -8215,9 +8215,10 @@ class flam3h_iterator_utils
         val_get: int | None = vals.get(sel)
         if val_get is not None and ptcount != val_get:
             
-            node.parm(f3h_tabs.GLB.PRM_DENSITY).deleteAllKeyframes()
-            node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS).deleteAllKeyframes()
-            node.parm(f3h_tabs.GLB.PRM_DENSITY).set(val_get)
+            prm_density_presets = node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS)
+            prm_density_presets.lock(False)
+            prm_density_presets.deleteAllKeyframes()
+            flam3h_prm_utils.set(node, f3h_tabs.GLB.PRM_DENSITY, val_get)
             
             _MSG: str = f"{node.name()} -> SET Density: {vals_name.get(sel)}"
             flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -8331,6 +8332,9 @@ class flam3h_iterator_utils
                 prm_selmem_name: str = f"selmem_{s_mp_index}"
                 prm_selmem = node.parm(prm_selmem_name)
                 if prm_selmem.eval() > 0:
+                    # This menu try to be as fast as it can and do not really want
+                    # to double check for those parms locks and keyframes at all
+                    # as the user really must go in and change those on purpose to cause an issue.
                     prm_prmpastesel_name: str = f"prmpastesel_{s_mp_index}"
                     node.parm(prm_prmpastesel_name).set(0)
                     prm_selmem.set(0)
@@ -8419,6 +8423,9 @@ class flam3h_iterator_utils
                 prm_selmem_name: str = f"{f3h_ffPrmPrx.PRM}selmem"
                 prm_selmem = node.parm(prm_selmem_name)
                 if prm_selmem.eval() > 0:
+                    # This menu try to be as fast as it can and do not really want
+                    # to double check for those parms locks and keyframes at all
+                    # as the user really must go in and change those on purpose to cause an issue.
                     prm_prmpastesel_name: str = f"{f3h_ffPrmPrx.PRM}prmpastesel"
                     node.parm(prm_prmpastesel_name).set(0)
                     prm_selmem.set(0)
@@ -10140,11 +10147,11 @@ class flam3h_iterator_utils
 
         # FF note
         node.parm(f"{f3h_ffPrmPrx.PRM}{n.main_note}").set("iterator_FF")
+        
         # FF vars        
         for prm_name in n.prm_FF_vars_all:
             value = 1 if prm_name == n.var_weight_1 else 0
             prm = node.parm(f"{f3h_ffPrmPrx.PRM}{prm_name}")
-            prm.lock(False)
             node.parm(f"{f3h_ffPrmPrx.PRM}{prm_name}").set(value)
 
         # FF Affines
@@ -10541,9 +10548,7 @@ class flam3h_iterator_utils
         # reset iterator's mpmem prm
         for mp_idx in range(1, iter_count + 1):
             prm = node.parm(f"{mp_mem_name}_{(mp_idx)}")
-            prm.lock(False)
-            prm.deleteAllKeyframes()
-            prm.set(str(mp_idx))
+            flam3h_prm_utils.set(node, prm, str(mp_idx))
         
         # update flam3h_xaos_mpmem
         __mpmem_hou: list[int] = [int(node.parm(f"{mp_mem_name}_{mp_idx}").eval()) for mp_idx in range(1, iter_count + 1)]
@@ -11754,7 +11759,7 @@ class flam3h_palette_utils
                             
                             # Set all CP preset menus parameter index
                             assert isinstance(data, dict)
-                            for prm in (node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS), node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF), node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS), node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS_OFF)): prm.set(str(len(data.keys())-1))
+                            for prm in (node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS), node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF), node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS), node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS_OFF)): flam3h_prm_utils.set(node, prm, str(len(data.keys())-1))
                             # Clearup the Palette name if any were given
                             prm = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESET_NAME)
                             flam3h_prm_utils.set(node, prm, '')
@@ -11812,7 +11817,7 @@ class flam3h_palette_utils
                     filepath_expandvars: str = os.path.expandvars(filepath)
                     dir: str = os.path.dirname(filepath_expandvars)
                     if os.path.isdir(dir):
-                        node.parm(f3h_tabs.OUT.PRM_PATH).set(filepath_expandvars)
+                        flam3h_prm_utils.set(node, f3h_tabs.OUT.PRM_PATH, filepath_expandvars)
                         # The following definition use the default arg's
                         flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS()
                     
@@ -11996,10 +12001,10 @@ class flam3h_palette_utils
             node: hou.SopNode = self.node
             if node.parm(f3h_tabs.CP.PVT_PRM_ISVALID_PRESET).eval():
                 preset_id: str = node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS).eval()
-                node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS_OFF).set(preset_id)
+                flam3h_prm_utils.set(node, f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS_OFF, preset_id)
             else:
                 preset_id: str = node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS_OFF).eval()
-                node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS).set(preset_id)
+                flam3h_prm_utils.set(node, f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS, preset_id)
                 
             parms_dict: dict = {f3h_tabs.CP.PRM_PALETTE_PRESETS: preset_id, 
                                 f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF: preset_id}
@@ -12025,7 +12030,7 @@ class flam3h_palette_utils
         filepath_expandvars: str = os.path.expandvars(filepath)
         dir: str = os.path.dirname(filepath_expandvars)
         if os.path.isdir(dir):
-            node.parm(f3h_tabs.CP.PRM_PATH).set(filepath_expandvars)
+            flam3h_prm_utils.set(node, f3h_tabs.CP.PRM_PATH, filepath_expandvars)
             # The following definition use the default arg's value so it can set the proper ramp message if needed.
             flam3h_general_utils(self.kwargs).flam3h_init_presets_CP_PRESETS()
 
@@ -12049,9 +12054,7 @@ class flam3h_palette_utils
             # SET the Palette name to the preset name
             if preset:
                 prm = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESET_NAME)
-                prm.lock(False)
-                prm.deleteAllKeyframes()
-                prm.set(preset)
+                flam3h_prm_utils.set(node, prm, preset)
                 
                 flam3h_general_utils.flash_message(node, preset)
         else:
@@ -12292,6 +12295,7 @@ class flam3h_palette_utils
         node: hou.SopNode = self.node
         rmpsrc: hou.Ramp = node.parm(f3h_tabs.CP.PRM_RAMP_SRC_NAME).evalAsRamp()
         rmptmp = node.parm(f3h_tabs.CP.PRM_RAMP_TMP_NAME)
+        rmptmp.lock(False)
         rmptmp.set(rmpsrc)
 
 
@@ -16717,17 +16721,14 @@ class in_flame_utils
             if use_iter_on_load and node.parm(f3h_tabs.IN.PRM_OVERRIDE_ITER_FLAME_NAME).eval():
                 return node.parm(f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD).eval()
             
-            # We are not using: def flam3h_prm_utils.setParms()
-            # because those parameters have been already unlocked and cleared of their keyframes if any already
-            node.setParms(  # type: ignore
-                            {f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD: iter_on_load_preset, 
-                            f3h_tabs.IN.PRM_USE_ITER_ON_LOAD: 0}
-                            )
+            parms_dict: dict = {f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD: iter_on_load_preset, 
+                                f3h_tabs.IN.PRM_USE_ITER_ON_LOAD: 0}
+            flam3h_prm_utils.setParms(node, parms_dict)
             
             return iter_on_load_preset
         
         if not use_iter_on_load:
-            node.parm(f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD).set(f3h_tabs.IN.DEFAULT_ITERATIONS_ON_LOAD)
+            flam3h_prm_utils.set(node, f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD, f3h_tabs.IN.DEFAULT_ITERATIONS_ON_LOAD)
             return f3h_tabs.IN.DEFAULT_ITERATIONS_ON_LOAD
             
         return iter_on_load 
@@ -18351,7 +18352,8 @@ class in_flame_utils
             (None):
         """
         iter_on_load: int = self.node.parm(f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD).eval()
-        self.node.parm(f3h_tabs.GLB.PRM_ITERATIONS).set(iter_on_load)
+        flam3h_prm_utils.set(self.node, f3h_tabs.GLB.PRM_ITERATIONS, iter_on_load)
+        
         # update Flame preset name if any
         out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
         
@@ -18369,16 +18371,17 @@ class in_flame_utils
         useiteronload: int = node.parm(f3h_tabs.IN.PRM_USE_ITER_ON_LOAD).eval()
         if useiteronload:
             
-            iternumonload: int = node.parm(f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD).eval()
+            prm_iter_num_on_load = node.parm(f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD)
+            iternumonload: int = prm_iter_num_on_load.eval()
             iter: int = node.parm(f3h_tabs.GLB.PRM_ITERATIONS).eval()
             if iternumonload == iter:
                 pass
             
             elif iternumonload > iter:
-                node.parm(f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD).set(iter)
+                flam3h_prm_utils.set(node, prm_iter_num_on_load, iter)
                 
             else:
-                node.parm(f3h_tabs.GLB.PRM_ITERATIONS).set(iternumonload)
+                flam3h_prm_utils.set(node, prm_iter_num_on_load, iternumonload)
                 # update Flame preset name if any
                 out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
 
@@ -18673,17 +18676,22 @@ class in_flame_utils
             (bool): True if all goes well. False if the loaded palette fail, most likely due to wrong HEX values in it.
         """ 
         xml, clipboard, preset_id, flame_name_clipboard, attempt_from_clipboard, chaos = _FLAM3H_INIT_DATA
+        ramp_parm = node.parm(f3h_tabs.CP.PRM_RAMP_SRC_NAME)
+        ramp_parm.lock(False)
         
         if apo_data.palette is not None:
             
             # if CP HSV vals
+            # in theory I should not need to use: flam3h_prm_utils.set() definition
+            # But since I can copy a a palette from a Flame file (from Clipboard) we need to force the unlock and delete keyframes anyways in that case.
+            prm_hsv = node.parmTuple(f3h_tabs.CP.PRM_RAMP_HSV_VAL_NAME)
             if apo_data.cp_flam3h_hsv is not False:
-                node.parmTuple(f3h_tabs.CP.PRM_RAMP_HSV_VAL_NAME).set(apo_data.cp_flam3h_hsv)
+                flam3h_prm_utils.set(node, prm_hsv, apo_data.cp_flam3h_hsv)
             else:
-                node.parmTuple(f3h_tabs.CP.PRM_RAMP_HSV_VAL_NAME).set(hou.Vector3((1.0, 1.0, 1.0)))
+                flam3h_prm_utils.set(node, prm_hsv, hou.Vector3((1.0, 1.0, 1.0)))
             
             # Set XML palette data
-            ramp_parm = node.parm(f3h_tabs.CP.PRM_RAMP_SRC_NAME)
+            
             # Reset ramps to default
             flam3h_palette_utils.build_ramp_palette_default(ramp_parm)
             flam3h_palette_utils.delete_ramp_all_keyframes(ramp_parm)
@@ -18702,7 +18710,6 @@ class in_flame_utils
             
             return True
             
-        ramp_parm = node.parm(f3h_tabs.CP.PRM_RAMP_SRC_NAME)
         _BASEs, _POSs, _COLORs = flam3h_palette_utils.build_ramp_palette_error()
         ramp_parm.set(hou.Ramp(_BASEs, _POSs, _COLORs))
         
@@ -18933,14 +18940,14 @@ class in_flame_utils
             
             if _xml_tree(flameFile_expandvars).isvalidtree:
                 
-                node.parm(f3h_tabs.IN.PRM_PATH).set(flameFile_expandvars)
+                flam3h_prm_utils.set(node, f3h_tabs.IN.PRM_PATH, flameFile_expandvars)
                 # Since this goes directly into: self.in_to_flam3h() definition only
                 # its argument is set to 0 so not to create a loop of loading processes
                 # becasue inside the following definition there is another call to: self.in_to_flam3h()
                 flam3h_general_utils(self.kwargs).flam3h_init_presets_IN_PRESETS(0)
                 
                 # Set menu parameters index to the first entry
-                for prm in (node.parm(f3h_tabs.IN.PRM_PRESETS), node.parm(f3h_tabs.IN.PRM_PRESETS_OFF), node.parm(f3h_tabs.IN.PRM_SYS_PRESETS), node.parm(f3h_tabs.IN.PRM_SYS_PRESETS_OFF)): prm.set('0')
+                for prm in (node.parm(f3h_tabs.IN.PRM_PRESETS), node.parm(f3h_tabs.IN.PRM_PRESETS_OFF), node.parm(f3h_tabs.IN.PRM_SYS_PRESETS), node.parm(f3h_tabs.IN.PRM_SYS_PRESETS_OFF)): flam3h_prm_utils.set(node, prm, '0')
                 
                 return flameFile_expandvars, False, 0, '', False, False
             
@@ -19225,7 +19232,7 @@ class in_flame_utils
                     # And let the user know it should load a flame file first
                     if node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval() == 0:
                         _MSG: str = "IN: Load an IN flame file first"
-                        node.parmTuple(f3h_tabs.PRM_ITERATORS_TAB).set((1,))
+                        flam3h_prm_utils.set(node, f3h_tabs.PRM_ITERATORS_TAB, (1,))
                     else: _MSG: str = "IN: Nothing to load"
 
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
@@ -21069,9 +21076,7 @@ class out_flame_utils
                     flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
                     
                     prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
-                    prm.lock(False)
-                    prm.deleteAllKeyframes()
-                    prm.set(flame_name_new)
+                    flam3h_prm_utils.set(node, prm, flame_name_new)
 
                     _MSG: str = f"{node.name()}: COPY Flame name: {flame_name_new}"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -21544,7 +21549,7 @@ class out_flame_utils
                 
                 # Update "iter num on load" if "force iterations on Load" toggle is ON 
                 if node.parm(f3h_tabs.IN.PRM_USE_ITER_ON_LOAD).eval():
-                    node.parm(f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD).set(iter_num)
+                    flam3h_prm_utils.set(node, f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD, iter_num)
             else:
                 flame_name_new: str = self.out_remove_iter_num(flame_name)
                 prm.set(flame_name_new)
@@ -22028,9 +22033,7 @@ class out_flame_utils
             tree.write(outpath)
             
             prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
-            prm.lock(False)
-            prm.deleteAllKeyframes()
-            prm.set('')
+            flam3h_prm_utils.set(node, prm, '')
             
             _MSG: str = f"{self.node.name()}: SAVE Flame New: Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -22056,9 +22059,7 @@ class out_flame_utils
             hou.ui.copyTextToClipboard(flame) # type: ignore
             
             prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
-            prm.lock(False)
-            prm.deleteAllKeyframes()
-            prm.set('')
+            flam3h_prm_utils.set(node, prm, '')
             
             _MSG: str = f"{self.node.name()}: SAVE Flame Clipboard: Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -22130,9 +22131,7 @@ class out_flame_utils
             tree.write(out_path)
 
             prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
-            prm.lock(False)
-            prm.deleteAllKeyframes()
-            prm.set('')
+            flam3h_prm_utils.set(node, prm, '')
             
             _MSG: str = f"{self.node.name()}: SAVE Flame Append: Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -22247,7 +22246,7 @@ class out_flame_utils
                     filepath_expandvars: str = os.path.expandvars(filepath)
                     dir: str = os.path.dirname(filepath_expandvars)
                     if os.path.isdir(dir):
-                        node.parm(f3h_tabs.OUT.PRM_PATH).set(filepath_expandvars)
+                        flam3h_prm_utils.set(node, f3h_tabs.OUT.PRM_PATH, filepath_expandvars)
                         # The following definition use the default arg's
                         flam3h_general_utils(self.kwargs).flam3h_init_presets_OUT_PRESETS()
                     
