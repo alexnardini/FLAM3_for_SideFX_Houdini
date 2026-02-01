@@ -10437,11 +10437,18 @@ class flam3h_iterator_utils
         _join: Callable[[Iterable[str]], str] = div_weight.join
         xaos_str_round_floats: list[str] = [_join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)]
         prm_xaos_name: str = n.xaos
-        for mp_idx in range(1, iter_count + 1): node.parm(f"{prm_xaos_name}_{mp_idx}").deleteAllKeyframes() # This parameter can not be animated
+        for mp_idx in range(1, iter_count + 1):
+            prm = node.parm(f"{prm_xaos_name}_{mp_idx}")
+            prm.lock(False)
+            prm.deleteAllKeyframes() # This parameter can not be animated
         for mp_idx, xaos in enumerate(xaos_str_round_floats): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").set(div_xaos + xaos)
         
         # reset iterator's mpmem prm
-        for mp_idx in range(1, iter_count + 1): node.parm(f"{mp_mem_name}_{(mp_idx)}").set(str(mp_idx))
+        for mp_idx in range(1, iter_count + 1):
+            prm = node.parm(f"{mp_mem_name}_{(mp_idx)}")
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            prm.set(str(mp_idx))
         
         # update flam3h_xaos_mpmem
         __mpmem_hou: list[int] = [int(node.parm(f"{mp_mem_name}_{mp_idx}").eval()) for mp_idx in range(1, iter_count + 1)]
