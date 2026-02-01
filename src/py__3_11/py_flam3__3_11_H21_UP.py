@@ -3223,6 +3223,7 @@ class flam3h_general_utils
         else: prm: hou.Parm | None = None
         if prm is not None:
             prm.lock(False)
+            prm.deleteAllKeyframes()
             prm.set(data) # type: ignore # the set method for the hou.Parm exist but it is not recognized
             prm.lock(True)
             
@@ -4946,6 +4947,9 @@ class flam3h_general_utils
         
         prm = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS)
         prm_off = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF)
+        for p in (prm, prm_off):
+            p.lock(False)
+            p.deleteAllKeyframes()
 
         json_path: str | None = None
         if json_path_checked is None:
@@ -5067,6 +5071,9 @@ class flam3h_general_utils
         clipboard: int = node.parm(f3h_tabs.IN.PVT_PRM_CLIPBOARD_TOGGLE).eval()
         prm = node.parm(f3h_tabs.IN.PRM_PRESETS)
         prm_off = node.parm(f3h_tabs.IN.PRM_PRESETS_OFF)
+        for p in (prm, prm_off):
+            p.lock(False)
+            p.deleteAllKeyframes()
 
         xml: str = os.path.expandvars(node.parm(f3h_tabs.IN.PRM_PATH).eval())
         xml_checked: str | bool = out_flame_utils.out_check_outpath(node,  xml, f3h_tabs.OUT.DEFAULT_FILE_EXT, f3h_tabs.OUT.DEFAULT_AUTO_NAME, False, False)
@@ -5173,6 +5180,9 @@ class flam3h_general_utils
         is_valid: int = node.parm(f3h_tabs.OUT.PVT_PRM_ISVALID_FILE).eval()
         prm = node.parm(f3h_tabs.OUT.PRM_PRESETS)
         prm_sys = node.parm(f3h_tabs.OUT.PRM_SYS_PRESETS)
+        for p in (prm, prm_sys):
+            p.lock(False)
+            p.deleteAllKeyframes()
 
         xml: str = os.path.expandvars(node.parm(f3h_tabs.OUT.PRM_PATH).eval())
         xml_checked: str | bool = out_flame_utils.out_check_outpath(node, xml, f3h_tabs.OUT.DEFAULT_FILE_EXT, f3h_tabs.OUT.DEFAULT_AUTO_NAME)
@@ -11699,6 +11709,7 @@ class flam3h_palette_utils
         # Set lookup samples to the default value of: 256
         prm = self.node.parm(f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES)
         prm.lock(False)
+        prm.deleteAllKeyframes()
         prm.set(256)
         return hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE), len(POSs), _CHECK
 
@@ -11720,6 +11731,7 @@ class flam3h_palette_utils
         if not keep_hsv:
             prm = node.parmTuple(f3h_tabs.CP.PRM_RAMP_HSV_VAL_NAME)
             prm.lock(False)
+            prm.deleteAllKeyframes()
             if hsv_check:
                 prm.set(hou.Vector3(hsv_vals))
             else:
@@ -19501,7 +19513,9 @@ class out_flame_utils
                 prm_data.get(key).set(xml_keys.DEFAULT_CC_CURVE) # type: ignore
 
         # Set the prm ui defaults
-        for prm in prm_ui.values(): prm.lock(False)
+        for prm in prm_ui.values():
+            prm.lock(False)
+            prm.deleteAllKeyframes()
         for key in prm_data.keys():
             if len(prm_data.get(key).eval()) == 1: # type: ignore
                 prm_ui.get(key).set(xml_keys.DEFAULT_CC_CURVE) # type: ignore
