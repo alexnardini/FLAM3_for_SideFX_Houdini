@@ -147,7 +147,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                 LIST OF CLASSES: (classes names that start with a lowercase: "f3h" are just for namespace purposes)
                 
                     f3h_char
-                    f3h_hda_sections
+                    f3h_HDAsections
                     f3h_userData
                     f3h_cachedUserData
                     f3h_affineDefaults
@@ -165,6 +165,8 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                         OUT
                         PREFS
                         ABOUT
+                        
+                    f3h_pvt
 
                     F3H_Error(Exception)
                     F3H_Exception
@@ -273,7 +275,7 @@ class f3h_char:
     ALLOWED_XFORM_VAL: Final = "0123456789.-e"
     
     
-class f3h_hda_sections:
+class f3h_HDAsections:
     '''
     HDA section names being used.</br>
     
@@ -699,6 +701,40 @@ class f3h_tabs:
         MSG_PRM_FLAM3_GIT: Final = 'flam3_heading_git'
         MSG_PRM_FRACT_GITHUB: Final = 'fract_heading_git'
         MSG_PRM_FRACT_WEB: Final = 'fract_heading_web'
+        
+        
+class f3h_pvt:
+    '''
+    All FLAM3H™ private parameters names that are supposed to always stay private.</br>
+    
+    '''
+    PVT_ALL: tuple[str,...] = (  
+                                f3h_tabs.CP.PVT_PRM_ISVALID_FILE, 
+                                f3h_tabs.CP.PVT_PRM_ISVALID_PRESET, 
+                                f3h_tabs.IN.PVT_PRM_ISVALID_FILE, 
+                                f3h_tabs.IN.PVT_PRM_ISVALID_PRESET, 
+                                f3h_tabs.IN.PVT_PRM_CLIPBOARD_TOGGLE, 
+                                f3h_tabs.OUT.PVT_PRM_ISVALID_FILE, 
+                                f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 
+                                f3h_tabs.PREFS.PVT_PRM_F3C, 
+                                f3h_tabs.PREFS.PVT_PRM_XAOS_AUTO_SPACE,
+                                f3h_tabs.PREFS.PVT_PRM_INT_0,
+                                f3h_tabs.PREFS.PVT_PRM_INT_1,
+                                f3h_tabs.PREFS.PVT_PRM_FLOAT_0,
+                                f3h_tabs.PREFS.PVT_PRM_FLOAT_1,
+                                f3h_tabs.PREFS.PVT_PRM_H_VALID,
+                                f3h_tabs.PREFS.PVT_PRM_VIEWPORT_PT_SIZE_MEM,
+                                f3h_tabs.PREFS.PVT_PRM_VIEWPORT_PT_TYPE_MEM,
+                                f3h_tabs.PREFS.PVT_PRM_VIEWPORT_WIRE_WIDTH_MEM,
+                                # The following are FLAM3H™ UI utility parameters
+                                # hence they do not have a class attribute and only hard coded here.
+                                "cpdisable",
+                                "hide_palette",
+                                "indisable",
+                                "outdisable",
+                                "prefsdisable",
+                                "aboutdisable"
+                                )
 
 
 # FLAM3H™ EXCEPTIONS start here
@@ -1982,43 +2018,8 @@ class flam3h_scripts
         Returns:
             (None):
         """
-        prm_names: tuple[str,...] = (  
-                                    f3h_tabs.CP.PVT_PRM_ISVALID_FILE, 
-                                    f3h_tabs.CP.PVT_PRM_ISVALID_PRESET, 
-                                    f3h_tabs.IN.PVT_PRM_ISVALID_FILE, 
-                                    f3h_tabs.IN.PVT_PRM_ISVALID_PRESET, 
-                                    f3h_tabs.IN.PVT_PRM_CLIPBOARD_TOGGLE, 
-                                    f3h_tabs.OUT.PVT_PRM_ISVALID_FILE, 
-                                    f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 
-                                    f3h_tabs.PREFS.PVT_PRM_F3C, 
-                                    f3h_tabs.PREFS.PVT_PRM_XAOS_AUTO_SPACE,
-                                    f3h_tabs.PREFS.PVT_PRM_INT_0,
-                                    f3h_tabs.PREFS.PVT_PRM_INT_1,
-                                    f3h_tabs.PREFS.PVT_PRM_FLOAT_0,
-                                    f3h_tabs.PREFS.PVT_PRM_FLOAT_1,
-                                    f3h_tabs.PREFS.PVT_PRM_H_VALID,
-                                    f3h_tabs.PREFS.PVT_PRM_VIEWPORT_PT_SIZE_MEM,
-                                    f3h_tabs.PREFS.PVT_PRM_VIEWPORT_PT_TYPE_MEM,
-                                    f3h_tabs.PREFS.PVT_PRM_VIEWPORT_WIRE_WIDTH_MEM
-                                    )
         
-        for prm_name in prm_names:
-            parm = node.parm(prm_name)
-            if parm is not None and not parm.isLocked():
-                parm.lock(True)
-
-
-        # The following are FLAM3H™ UI utility parameters
-        # hence they do not have a global variable and only hard coded here.
-        disabler_prm_names: tuple[str, ...] = ( "cpdisable",
-                                                "hide_palette",
-                                                "indisable",
-                                                "outdisable",
-                                                "prefsdisable",
-                                                "aboutdisable"
-                                                )
-        
-        for prm_name in disabler_prm_names:
+        for prm_name in f3h_pvt.PVT_ALL:
             parm = node.parm(prm_name)
             if parm is not None and not parm.isLocked():
                 parm.lock(True)
@@ -3031,6 +3032,7 @@ class flam3h_general_utils
 * is_flat_list(x: list) -> bool:
 * is_tuple_of_tuples(x: tuple) -> bool:
 * is_flat_tuple(x: tuple) -> bool:
+* setParms(node: hou.SopNode, parms_dict: dict) -> None:
 * private_prm_set(node: hou.SopNode, prm_name: str, data: str | int | float) -> None:
 * private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm) -> None:
 * select_file_start_dir(node: hou.SopNode, type: str = IN_PATH) -> str | None:
@@ -3174,6 +3176,32 @@ class flam3h_general_utils
             (bool): True if it is a flat tuple and False if not
         """ 
         return isinstance(x, tuple) and not any(isinstance(el, list | tuple | set) for el in x)
+    
+    
+    @staticmethod
+    def setParms(node: hou.SopNode, parms_dict: dict) -> None:
+        """Set a group of parameters using the hou node.setParms method.</br>
+        while unlocking them and deleting their keyframes first .</br>
+        
+        Args:
+            node(hou.SopNode): this FLAM3H™ node.
+            parms_dict(dict): A dictionary specifying the parm names and their values.</br>Usually the dict is composed as [str, int | float | str]
+            
+        Returns:
+            (None):
+        """ 
+        for key in parms_dict.keys():
+            prm: hou.Parm | hou.ParmTuple | None = node.parm(key)
+            if prm is None:
+                prm = node.parmTuple(key)
+            
+            if prm is not None:
+                prm.lock(False)
+                prm.deleteAllKeyframes()
+        
+        node.setParms(  # type: ignore
+                        parms_dict
+                        ) 
 
 
     @staticmethod
@@ -5628,12 +5656,13 @@ class flam3h_general_utils
             (None):
         """    
         node: hou.SopNode = self.node
-        node.setParms(  # type: ignore
-                        {f3h_tabs.GLB.PRM_DENSITY: density, 
-                        f3h_tabs.GLB.PRM_DENSITY_PRESETS: 1, 
-                        f3h_tabs.GLB.PRM_ITERATIONS: iter, 
-                        f3h_tabs.SYS.PRM_TAG_SIZE: 0}
-                        )
+
+        parms_dict: dict = {f3h_tabs.GLB.PRM_DENSITY: density, 
+                            f3h_tabs.GLB.PRM_DENSITY_PRESETS: 1, 
+                            f3h_tabs.GLB.PRM_ITERATIONS: iter, 
+                            f3h_tabs.SYS.PRM_TAG_SIZE: 0}
+        self.setParms(node, parms_dict)
+        
         self.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_TAG, 0)
         self.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 0)
 
@@ -5659,12 +5688,8 @@ class flam3h_general_utils
                                                  f3h_tabs.MB.PRM_SHUTTER: 0.5,
                                                  f3h_tabs.MB.PRM_VIZ: 0}
         
-        for key in parms_mb_dict.keys(): node.parm(key).deleteAllKeyframes()
-        
         if all:
-            node.setParms(  # type: ignore
-                            parms_mb_dict
-                            ) 
+            self.setParms(node, parms_mb_dict)
             
         else:
             prm_fps: int = node.parm(f3h_tabs.MB.PRM_FPS).eval()
@@ -5697,13 +5722,12 @@ class flam3h_general_utils
             (None):
         """
         node: hou.SopNode = self.node
-        node.setParms(  # type: ignore
-                        {f3h_tabs.PREFS.PRM_XAOS_MODE: 0, 
-                        f3h_tabs.PREFS.PRM_CAMERA_HANDLE: 0, 
-                        f3h_tabs.PREFS.PRM_CAMERA_CULL: 0, 
-                        f3h_tabs.PREFS.PRM_CAMERA: "", 
-                        f3h_tabs.PREFS.PRM_CAMERA_CULL_AMOUNT: 0.99}
-                        )
+        parms_dict: dict = {f3h_tabs.PREFS.PRM_XAOS_MODE: 0, 
+                            f3h_tabs.PREFS.PRM_CAMERA_HANDLE: 0, 
+                            f3h_tabs.PREFS.PRM_CAMERA_CULL: 0, 
+                            f3h_tabs.PREFS.PRM_CAMERA: "", 
+                            f3h_tabs.PREFS.PRM_CAMERA_CULL_AMOUNT: 0.99}
+        self.setParms(node, parms_dict)
         
         # XF VIZ SOLO OFF (but leave the xforms handles VIZ ON)
         self.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
@@ -6405,8 +6429,7 @@ class flam3h_iterator_utils
         Returns:
             (None):
         """   
-        if pvt:
-            prm_to.lock(False) 
+        prm_to.lock(False) 
             
         prm_to.deleteAllKeyframes()
         if len(prm_from.keyframes()):
@@ -6414,6 +6437,7 @@ class flam3h_iterator_utils
         else:
             prm_to.set(prm_from.eval()) # type: ignore
             
+        # lock back if it is a private parameter
         if pvt:
             prm_to.lock(True)
 
@@ -6437,10 +6461,12 @@ class flam3h_iterator_utils
         if flam3node is not None:
             
             for prm in prm_list:
+                
                 # if a tuple
                 if prm[1]:
                     prm_from = flam3node.parmTuple(f"{prm[0]}{id_from}")
                     prm_to = node.parmTuple(f"{prm[0]}{id}")
+                    prm_to.lock(False)
                     prm_to.deleteAllKeyframes()
 
                     for prm_idx, p in enumerate(prm_from):
@@ -6456,6 +6482,7 @@ class flam3h_iterator_utils
                 else:
                     prm_from = flam3node.parm(f"{prm[0]}{id_from}")
                     prm_to = node.parm(f"{prm[0]}{id}")
+                    prm_to.lock(False)
                     prm_to.deleteAllKeyframes()
                     keyframes: tuple[hou.Keyframe, ...] = prm_from.keyframes()
                     if keyframes:
@@ -6607,6 +6634,7 @@ class flam3h_iterator_utils
             if flam3node is not None:
                 prm_from = flam3node.parm(f"{prm}{id_from}")
                 prm_to = node.parm(f"{prm}{id}")
+                prm_to.lock(False)
                 prm_to.deleteAllKeyframes()
                 flam3h_iterator_utils.paste_from_prm(prm_from, prm_to)
                 # Check if this var is a parametric or not
@@ -7009,10 +7037,10 @@ class flam3h_iterator_utils
         x: tuple[float, ...] = hou.parmTuple(f"x_{s_mp_index}").eval()
         y: tuple[float, ...] = hou.parmTuple(f"y_{s_mp_index}").eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms( # type: ignore
-                            {f"x_{s_mp_index}": hou.Vector2((m2_new[0])), 
+        
+        parms_dict: dict = {f"x_{s_mp_index}": hou.Vector2((m2_new[0])), 
                             f"y_{s_mp_index}": hou.Vector2((m2_new[1]))}
-                            )
+        flam3h_general_utils.setParms(self.node, parms_dict)
 
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
@@ -7042,10 +7070,10 @@ class flam3h_iterator_utils
         x: tuple[float, ...] = hou.parmTuple(f"px_{s_mp_index}").eval()
         y: tuple[float, ...] = hou.parmTuple(f"py_{s_mp_index}").eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms( # type: ignore
-                            {f"px_{s_mp_index}": hou.Vector2((m2_new[0])), 
+
+        parms_dict: dict =  {f"px_{s_mp_index}": hou.Vector2((m2_new[0])), 
                             f"py_{s_mp_index}": hou.Vector2((m2_new[1]))}
-                            )
+        flam3h_general_utils.setParms(self.node, parms_dict)
 
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
@@ -7071,10 +7099,10 @@ class flam3h_iterator_utils
         x: tuple[float, ...] = hou.parmTuple("ffx").eval()
         y: tuple[float, ...] = hou.parmTuple("ffy").eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms( # type: ignore
-                            {"ffx": hou.Vector2((m2_new[0])), 
+
+        parms_dict: dict = {"ffx": hou.Vector2((m2_new[0])), 
                             "ffy": hou.Vector2((m2_new[1]))}
-                            )
+        flam3h_general_utils.setParms(self.node, parms_dict)
 
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
@@ -7100,11 +7128,11 @@ class flam3h_iterator_utils
         x: tuple[float, ...] = hou.parmTuple("ffpx").eval()
         y: tuple[float, ...] = hou.parmTuple("ffpy").eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-        self.node.setParms( # type: ignore
-                            {"ffpx": hou.Vector2((m2_new[0])), 
-                            "ffpy": hou.Vector2((m2_new[1]))}
-                            )
 
+        parms_dict: dict = {"ffpx": hou.Vector2((m2_new[0])), 
+                            "ffpy": hou.Vector2((m2_new[1]))}
+        flam3h_general_utils.setParms(self.node, parms_dict)
+        
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
 
@@ -7198,7 +7226,7 @@ class flam3h_iterator_utils
             if apo_data.isvalidtree:
                 
                 old_data: str | None = node.userData(f3h_userData.XML_LAST)
-                now_data = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")
+                now_data: str = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")
                 now_data_isvalid = _xml_tree(now_data).isvalidtree
                 if old_data is not None and old_data != now_data and now_data_isvalid:
                     
@@ -7213,12 +7241,11 @@ class flam3h_iterator_utils
                 
                     # Update user data
                     node.setUserData(f3h_userData.XML_LAST, now_data)
-                    # Update flame stats
-                    node.setParms(  # type: ignore
-                                    {f3h_tabs.IN.MSG_PRM_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True), 
-                                    f3h_tabs.IN.MSG_PRM_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data, True), 
-                                    f3h_tabs.IN.MSG_PRM_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data, True)}
-                                    )
+                    # Update flame stats                    
+                    parms_dict: dict = {f3h_tabs.IN.MSG_PRM_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True), 
+                                        f3h_tabs.IN.MSG_PRM_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data, True), 
+                                        f3h_tabs.IN.MSG_PRM_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data, True)}
+                    flam3h_general_utils.setParms(node, parms_dict)
 
                     _MSG_ALL = f"\"XML_last_loaded\" user data: Updated\n\nThe currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk. Reload the preset to update.\n\n-> Meanwhile,\nthe IN flame preset infos have been updated\nas well as its render properties infos."
                     _MSG_UI = f"The currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk."
@@ -8110,10 +8137,9 @@ class flam3h_iterator_utils
         
         if kwargs['shift']:
             if glb_density != 300000:
-                node.setParms(  # type: ignore
-                                {f3h_tabs.GLB.PRM_DENSITY: 300000, 
-                                f3h_tabs.GLB.PRM_DENSITY_PRESETS: -1}
-                                )
+                parms_dict: dict = {f3h_tabs.GLB.PRM_DENSITY: 300000, 
+                                    f3h_tabs.GLB.PRM_DENSITY_PRESETS: -1}
+                flam3h_general_utils.setParms(node, parms_dict)
                 flam3h_general_utils.flash_message(node, 'Density: 300k')
                 _MSG: str = f"{node.name()} -> SET Density: 300K points"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -8123,10 +8149,9 @@ class flam3h_iterator_utils
                 
         elif kwargs['ctrl']:
             if glb_density != 200000:
-                node.setParms(  # type: ignore
-                                {f3h_tabs.GLB.PRM_DENSITY: 200000, 
-                                f3h_tabs.GLB.PRM_DENSITY_PRESETS: -1}
-                                )
+                parms_dict: dict = {f3h_tabs.GLB.PRM_DENSITY: 200000, 
+                                    f3h_tabs.GLB.PRM_DENSITY_PRESETS: -1}
+                flam3h_general_utils.setParms(node, parms_dict)
                 flam3h_general_utils.flash_message(node, 'Density: 200k')
                 _MSG: str = f"{node.name()} -> SET Density: 200K points"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -8136,10 +8161,9 @@ class flam3h_iterator_utils
                 
         elif kwargs['alt']:
             if glb_density != 100000:
-                node.setParms(  # type: ignore
-                                {f3h_tabs.GLB.PRM_DENSITY: 100000, 
-                                f3h_tabs.GLB.PRM_DENSITY_PRESETS: -1}
-                                )
+                parms_dict: dict = {f3h_tabs.GLB.PRM_DENSITY: 100000, 
+                                    f3h_tabs.GLB.PRM_DENSITY_PRESETS: -1}
+                flam3h_general_utils.setParms(node, parms_dict)
                 flam3h_general_utils.flash_message(node, 'Density: 100k')
                 _MSG: str = f"{node.name()} -> SET Density: 100K points"
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -9077,10 +9101,9 @@ class flam3h_iterator_utils
                     if not self.is_iterator_affine_default(node, from_FLAM3H_NODE, f3h_iter.sec_postAffine, mp_idx, idx_from, True):
                         self.paste_set_note(node, from_FLAM3H_NODE, 0, f3h_copyPaste.DEFAULT_SEC_POSTAFFINE, mp_idx, idx_from)
                         
-            node.setParms(  # type: ignore
-                            {f"{n.main_prmpastesel}_{s_mp_index}": 0, 
-                            f"{n.main_selmem}_{s_mp_index}": paste_sel}
-                            )
+            parms_dict: dict = {f"{n.main_prmpastesel}_{s_mp_index}": 0, 
+                                f"{n.main_selmem}_{s_mp_index}": paste_sel}
+            flam3h_general_utils.setParms(node, parms_dict)
             
             # Force select-iterator menu update in case an iterator is marked on this FLAM3H™ node
             self.prm_paste_sel_iter_sel_force_update(node)
@@ -9873,16 +9896,24 @@ class flam3h_iterator_utils
 
         # Delete all keyframes
         for prm_name in n.prm_iterator:
-            node.parm(f"{prm_name}_{s_mp_index}").deleteAllKeyframes()
+            prm = node.parm(f"{prm_name}_{s_mp_index}")
+            prm.lock(False)
+            prm.deleteAllKeyframes()
         for prm_name in n.prm_iterator_tuple:
-            node.parmTuple(f"{prm_name}_{s_mp_index}").deleteAllKeyframes()
+            prm = node.parmTuple(f"{prm_name}_{s_mp_index}")
+            prm.lock(False)
+            prm.deleteAllKeyframes()
         # Delete all keyframes parametrics and revert to defaults
         for prm_name in n.prm_parametrics:
-            node.parm(f"{prm_name}_{s_mp_index}").deleteAllKeyframes()
-            node.parm(f"{prm_name}_{s_mp_index}").revertToDefaults()
+            prm = node.parm(f"{prm_name}_{s_mp_index}")
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            prm.revertToDefaults()
         for prm_name in n.prm_parametrics_tuple:
-            node.parmTuple(f"{prm_name}_{s_mp_index}").deleteAllKeyframes()
-            node.parmTuple(f"{prm_name}_{s_mp_index}").revertToDefaults()
+            prm = node.parmTuple(f"{prm_name}_{s_mp_index}")
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            prm.revertToDefaults()
 
         # iter idx
         #
@@ -9918,10 +9949,7 @@ class flam3h_iterator_utils
                                                                     f"{n.postaffine_ang}_{s_mp_index}": f3h_affineDefaults.DEFAULT_DICT.get("angle")
                                                                     }
         
-        # Iterator Affines Set
-        node.setParms(  # type: ignore
-                        parms_affines_dict
-                        )
+        flam3h_general_utils.setParms(node, parms_affines_dict)
     
     
     def flam3h_reset_FF(self) -> None:
@@ -9944,11 +9972,13 @@ class flam3h_iterator_utils
         # For FF tuple and normal params
         for prm_name in n.prm_FF:
             prm = node.parm(f"{f3h_ffPrmPrx.PRM}{prm_name}")
+            prm.lock(False)
             prm.deleteAllKeyframes()
             prm.revertToDefaults()
             
         for prm_name in n.prm_FF_tuple:
             prm = node.parmTuple(f"{f3h_ffPrmPrx.PRM}{prm_name}")
+            prm.lock(False)
             prm.deleteAllKeyframes()
             prm.revertToDefaults()
 
@@ -9956,21 +9986,25 @@ class flam3h_iterator_utils
         for prm_name in n.prm_parametrics:
             for prefix in (f3h_ffPrmPrx.PRM, f3h_ffPrmPrx.PRM_PP):
                 prm = node.parm(f"{prefix}_{prm_name}")
+                prm.lock(False)
                 prm.deleteAllKeyframes()
                 prm.revertToDefaults()
                 
         for prm_name in n.prm_parametrics_tuple:
             for prefix in (f3h_ffPrmPrx.PRM, f3h_ffPrmPrx.PRM_PP):
                 prm = node.parmTuple(f"{prefix}_{prm_name}")
+                prm.lock(False)
                 prm.deleteAllKeyframes()
                 prm.revertToDefaults()
 
         # FF note
         node.parm(f"{f3h_ffPrmPrx.PRM}{n.main_note}").set("iterator_FF")
         # FF vars        
-        for prm in n.prm_FF_vars_all:
-            value = 1 if prm == n.var_weight_1 else 0
-            node.parm(f"{f3h_ffPrmPrx.PRM}{prm}").set(value)
+        for prm_name in n.prm_FF_vars_all:
+            value = 1 if prm_name == n.var_weight_1 else 0
+            prm = node.parm(f"{f3h_ffPrmPrx.PRM}{prm_name}")
+            prm.lock(False)
+            node.parm(f"{f3h_ffPrmPrx.PRM}{prm_name}").set(value)
 
         # FF Affines
         parms_affines_dict: dict[str, hou.Vector2 | float | None] = {f"{f3h_ffPrmPrx.PRM}{n.preaffine_x}": f3h_affineDefaults.DEFAULT_DICT.get("affine_x"),
@@ -9983,10 +10017,8 @@ class flam3h_iterator_utils
                                                                      f"{f3h_ffPrmPrx.PRM}{n.postaffine_o}": f3h_affineDefaults.DEFAULT_DICT.get("affine_o"),
                                                                      f"{f3h_ffPrmPrx.PRM}{n.postaffine_ang}": f3h_affineDefaults.DEFAULT_DICT.get("angle")
                                                                     }
-        # FF Affines Set
-        node.setParms(  # type: ignore
-                        parms_affines_dict
-                        )
+        
+        flam3h_general_utils.setParms(node, parms_affines_dict)
 
 
     def auto_set_xaos(self) -> None:
@@ -10702,6 +10734,7 @@ class flam3h_palette_utils
         cp_def_bases: list[hou.EnumValue] = [hou.rampBasis.Linear] * 4 # type: ignore
         cp_def_keys: list[float] = [0.0, 0.25, 0.5, 0.75, 1.0]
         cp_def_values: list[tuple[float, ...]] = [(0.2, 0.05, 1), (0.1, 0.85 , 1), (0.05, 1, 0.1), (0.95, 1, 0.1), (1, 0.05, 0.05)]
+        ramp_parm.lock(False)
         ramp_parm.set(hou.Ramp(cp_def_bases, cp_def_keys, cp_def_values)) # type: ignore
         
         
@@ -10718,6 +10751,7 @@ class flam3h_palette_utils
         cp_tmp_bases: list[hou.EnumValue] = [hou.rampBasis.Linear] * 2  # type: ignore
         cp_tmp_keys: list[float] = [0.0, 1.0]
         cp_tmp_values: list[tuple[float, ...]] = [(0.9989989989989989987654, 0, 0), (0.9989989989989989987654, 0 , 0)]
+        ramp_tmp_parm.lock(False)
         ramp_tmp_parm.set(hou.Ramp(cp_tmp_bases, cp_tmp_keys, cp_tmp_values)) # type: ignore
         
         
@@ -10752,11 +10786,15 @@ class flam3h_palette_utils
             
             # Delete position keyframes
             pos_parm = hou.parm(f"{parm_path}{i}pos")
-            if pos_parm: pos_parm.deleteAllKeyframes()
+            if pos_parm:
+                pos_parm.lock(False)
+                pos_parm.deleteAllKeyframes()
             
             # Delete color keyframes
             color_parm = hou.parmTuple(f"{parm_path}{i}c")
-            if color_parm: color_parm.deleteAllKeyframes()
+            if color_parm:
+                color_parm.lock(False)
+                color_parm.deleteAllKeyframes()
 
         
     @staticmethod 
@@ -11649,7 +11687,9 @@ class flam3h_palette_utils
             _CHECK = False
             
         # Set lookup samples to the default value of: 256
-        self.node.parm(f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES).set(256)
+        prm = self.node.parm(f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES)
+        prm.lock(False)
+        prm.set(256)
         return hou.Ramp(BASEs, POSs, rgb_from_XML_PALETTE), len(POSs), _CHECK
 
 
@@ -11666,12 +11706,15 @@ class flam3h_palette_utils
             (None):
         """
         keep_hsv: int = node.parm(f3h_tabs.CP.PRM_RAMP_HSV_KEEP_ON_LOAD).eval()
+        
         if not keep_hsv:
+            prm = node.parmTuple(f3h_tabs.CP.PRM_RAMP_HSV_VAL_NAME)
+            prm.lock(False)
             if hsv_check:
-                node.parmTuple(f3h_tabs.CP.PRM_RAMP_HSV_VAL_NAME).set(hou.Vector3(hsv_vals))
+                prm.set(hou.Vector3(hsv_vals))
             else:
                 # This is for backward compatibility ( when the hsv data wasn't being exported yet )
-                node.parmTuple(f3h_tabs.CP.PRM_RAMP_HSV_VAL_NAME).set(hou.Vector3((1, 1, 1)))
+                prm.set(hou.Vector3((1, 1, 1)))
 
 
     def json_to_flam3h_ramp_SET_PRESET_DATA(self, node: hou.SopNode) -> None:
@@ -11793,10 +11836,10 @@ class flam3h_palette_utils
                 preset_id: str = node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS_OFF).eval()
                 node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS).set(preset_id)
                 
-            node.setParms(  # type: ignore
-                            {f3h_tabs.CP.PRM_PALETTE_PRESETS: preset_id, 
-                            f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF: preset_id}
-                            )
+            parms_dict: dict = {f3h_tabs.CP.PRM_PALETTE_PRESETS: preset_id, 
+                                f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF: preset_id}
+            flam3h_general_utils.setParms(node, parms_dict)
+            
             self.json_to_flam3h_ramp(use_kwargs)
 
 
@@ -12166,11 +12209,13 @@ class flam3h_palette_utils
             (None):
         """
         node: hou.SopNode = self.node
-        node.setParms(  # type: ignore
-                        {f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES: 256, 
-                        f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES: 0, 
-                        f3h_tabs.CP.PRM_RAMP_SAVE_HSV: 0}
-                        )
+        options_dict: dict = {  f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES: 256, 
+                                f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES: 0, 
+                                f3h_tabs.CP.PRM_RAMP_SAVE_HSV: 0
+                                }
+        
+        flam3h_general_utils.setParms(node, options_dict)
+        
         self.reset_CP_LOCK_MSG()
 
 
@@ -12185,7 +12230,9 @@ class flam3h_palette_utils
         """
         node: hou.SopNode = self.node
         # CP
-        node.parmTuple(f3h_tabs.CP.PRM_RAMP_HSV_VAL_NAME).set(hou.Vector3((1.0, 1.0, 1.0)))
+        prm_hsv = node.parmTuple(f3h_tabs.CP.PRM_RAMP_HSV_VAL_NAME)
+        prm_hsv.lock(False)
+        prm_hsv.set(hou.Vector3((1.0, 1.0, 1.0)))
         # CP->ramp
         rmp_src = node.parm(f3h_tabs.CP.PRM_RAMP_SRC_NAME)
         # Reset ramps
@@ -12285,11 +12332,10 @@ class flam3h_palette_utils
         self.reset_CP_TMP()
         # Mark this as not a loaded preset
         flam3h_general_utils.private_prm_set(node, f3h_tabs.CP.PVT_PRM_ISVALID_PRESET, 0)
-        # Set lookup samples to the default value of: 256 and basis to: linear(0)
-        node.setParms(  # type: ignore
-                        {f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES: 256, 
-                        f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES: 0}
-                        )
+        # Set lookup samples to the default value of: 256 and basis to: linear(0)        
+        parms_dict: dict = {f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES: 256, 
+                            f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES: 0}
+        flam3h_general_utils.setParms(node, parms_dict)
         
         # Print out to Houdini's status bar
         _MSG: str = f"CP: RESET"
@@ -12517,10 +12563,7 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
                                             f3h_tabs.ABOUT.MSG_PRM_FRACT_GITHUB: _FRACTGIT_MSG,
                                             f3h_tabs.ABOUT.MSG_PRM_FRACT_WEB: _FRACTWEB_MSG
                                             }
-        
-        node.setParms(  # type: ignore
-                        parms_about_web
-                        )
+        flam3h_general_utils.setParms(node, parms_about_web)
         
 
     def flam3h_about_web_homepage(self) -> None:
@@ -15932,6 +15975,8 @@ class in_flame_utils
         mpidx: str = str(mp_idx + 1)
         
         for idx, prm in enumerate(var_prm[1:-1]):
+            # We are not using: def flam3h_general_utils.setParms()
+            # because those parameters have been already unlocked and cleared of their keyframes if any already
             if mode: node.setParms( # type: ignore
                                     {f"{prx_prm}{prm[0][:-1]}": _VAR[idx]}
                                     ) 
@@ -15993,9 +16038,13 @@ class in_flame_utils
                                                                               in_flame_utils.in_util_make_PRE)
         
         mpidx: str = str(mp_idx + 1)
-        for idx, prm in enumerate(var_prm[1:-1]): node.setParms(# type: ignore
-                                                                {f"{prx_prm}{prm[0]}{mpidx}": _VAR[idx]}
-                                                                ) 
+
+        for idx, prm in enumerate(var_prm[1:-1]):
+            # We are not using: def flam3h_general_utils.setParms()
+            # because those parameters have been already unlocked and cleared of their keyframes if any already
+            node.setParms(# type: ignore
+                        {f"{prx_prm}{prm[0]}{mpidx}": _VAR[idx]}
+                        ) 
 
         # Only on pre variations with parametric so:
         node.parm(f"{prx}{flam3h_iterator().sec_prevarsT[t_idx]}{mpidx}").set(v_type)
@@ -16046,9 +16095,12 @@ class in_flame_utils
                                                                               in_flame_utils.in_util_make_POST)
         
         mpidx: str = str(mp_idx + 1)
-        for idx, prm in enumerate(var_prm[1:-1]): node.setParms(# type: ignore
-                                                                {f"{prx_prm}{prm[0]}{mpidx}": _VAR[idx]}
-                                                                ) 
+        for idx, prm in enumerate(var_prm[1:-1]):
+            # We are not using: def flam3h_general_utils.setParms()
+            # because those parameters have been already unlocked and cleared of their keyframes if any already
+            node.setParms(# type: ignore
+                        {f"{prx_prm}{prm[0]}{mpidx}": _VAR[idx]}
+                        ) 
 
         # Only on post variation with parametric so:
         node.parm(f"{prx}{flam3h_iterator().sec_postvarsT[t_idx]}{mpidx}").set(v_type)
@@ -16092,9 +16144,12 @@ class in_flame_utils
                                                                               v_type, 
                                                                               in_flame_utils.in_util_make_PRE)
             
-        for idx, prm in enumerate(var_prm[1:-1]): node.setParms(# type: ignore
-                                                                {f"{f3h_ffPrmPrx.PRM_PP}_{prm[0][0:-1]}": _VAR[idx]}
-                                                                ) 
+        for idx, prm in enumerate(var_prm[1:-1]):
+            # We are not using: def flam3h_general_utils.setParms()
+            # because those parameters have been already unlocked and cleared of their keyframes if any already
+            node.setParms(# type: ignore
+                        {f"{f3h_ffPrmPrx.PRM_PP}_{prm[0][0:-1]}": _VAR[idx]}
+                        ) 
 
         # Only on post variation with parametric so:
         node.parm(f"{flam3h_iterator_FF().sec_prevarsT_FF[t_idx]}").set(v_type)
@@ -16138,9 +16193,12 @@ class in_flame_utils
                                                                               v_type, 
                                                                               in_flame_utils.in_util_make_POST)
             
-        for idx, prm in enumerate(var_prm[1:-1]): node.setParms(# type: ignore
-                                                                {f"{f3h_ffPrmPrx.PRM_PP}_{prm[0][0:-1]}": _VAR[idx]}
-                                                                ) 
+        for idx, prm in enumerate(var_prm[1:-1]):
+            # We are not using: def flam3h_general_utils.setParms()
+            # because those parameters have been already unlocked and cleared of their keyframes if any already
+            node.setParms(# type: ignore
+                        {f"{f3h_ffPrmPrx.PRM_PP}_{prm[0][0:-1]}": _VAR[idx]}
+                        ) 
 
         # Only on post variation with parametric so:
         node.parm(f"{flam3h_iterator_FF().sec_postvarsT_FF[t_idx]}").set(v_type)
@@ -16485,10 +16543,13 @@ class in_flame_utils
             if use_iter_on_load and node.parm(f3h_tabs.IN.PRM_OVERRIDE_ITER_FLAME_NAME).eval():
                 return node.parm(f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD).eval()
             
+            # We are not using: def flam3h_general_utils.setParms()
+            # because those parameters have been already unlocked and cleared of their keyframes if any already
             node.setParms(  # type: ignore
                             {f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD: iter_on_load_preset, 
                             f3h_tabs.IN.PRM_USE_ITER_ON_LOAD: 0}
                             )
+            
             return iter_on_load_preset
         
         if not use_iter_on_load:
@@ -16638,38 +16699,57 @@ class in_flame_utils
         Returns:
             (None):
         """  
+        
+        # SIZE (Resolution)
         prm_size_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_SIZE)
         assert prm_size_name is not None
+        prm_size = node.parmTuple(prm_size_name)
+        prm_size.lock(False)
+        prm_size.deleteAllKeyframes()
         try:
             prm_size_val: hou.Vector2 = hou.Vector2((int(f3r.out_size[preset_id].split()[0]), int(f3r.out_size[preset_id].split()[1])))
-            node.parmTuple(prm_size_name).set(prm_size_val)
+            prm_size.set(prm_size_val)
         except (AttributeError, TypeError): # If missing set it to its default
-            node.parmTuple(prm_size_name).set( hou.Vector2((int(1024), int(1024))) )
+            prm_size.set( hou.Vector2((int(1024), int(1024))) )
             print(f"Warning:\nIN xml key: {xml_keys.XML_SIZE} -> NOT FOUND, default value used.\n")
             
+        # CENTER
         prm_center_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CENTER)
+        assert prm_center_name is not None
+        prm_center = node.parmTuple(prm_center_name)
+        prm_center.lock(False)
+        prm_center.deleteAllKeyframes()
         try:
             prm_center_val: hou.Vector2 = hou.Vector2((float(f3r.out_center[preset_id].split()[0]), float(f3r.out_center[preset_id].split()[1])))
-            node.parmTuple(prm_center_name).set(prm_center_val)
+            prm_center.set(prm_center_val)
         except (AttributeError, TypeError): # If missing set it to its default
-            node.parmTuple(prm_center_name).set( hou.Vector2((float(0), float(0))) )
+            prm_center.set( hou.Vector2((float(0), float(0))) )
             print(f"Warning:\nIN xml key: {xml_keys.XML_CENTER} -> NOT FOUND, default value used.\n")
             
+        # ROTATE
         prm_rotate_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_ROTATE)
         assert prm_rotate_name is not None
+        prm_rotate = node.parm(prm_rotate_name)
+        prm_rotate.lock(False)
+        prm_rotate.deleteAllKeyframes()
         try:
             prm_rotate_val: float = float(f3r.out_rotate[preset_id])
-            node.parm(prm_rotate_name).set(prm_rotate_val)
+            prm_rotate.set(prm_rotate_val)
         except (AttributeError, TypeError): # If missing set it to its default
-            node.parm(prm_rotate_name).set(float(0))
+            prm_rotate.set(float(0))
             print(f"Warning:\nIN xml key: {xml_keys.XML_ROTATE} -> NOT FOUND, default value used.\n")
 
+        # SCALE (Zoom)
         prm_scale_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_SCALE)
+        assert prm_scale_name is not None
+        prm_scale = node.parm(prm_scale_name)
+        prm_scale.lock(False)
+        prm_scale.deleteAllKeyframes()
         try:
             prm_scale_val: float = float(f3r.out_scale[preset_id])
-            node.parm(prm_scale_name).set(prm_scale_val)
+            prm_scale.set(prm_scale_val)
         except (AttributeError, TypeError): # If missing set it to its default
-            node.parm(prm_scale_name).set(float(400))
+            prm_scale.set(float(400))
             print(f"Warning:\nIN xml key: {xml_keys.XML_SCALE} -> NOT FOUND, default value used.\n")
     
     
@@ -16685,58 +16765,83 @@ class in_flame_utils
         Returns:
             (None):
         """  
+        
+        # QUALITY
         prm_quality_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_QUALITY)
         assert prm_quality_name is not None
+        prm_quality = node.parm(prm_quality_name)
+        prm_quality.lock(False)
+        prm_quality.deleteAllKeyframes()
         try:
             prm_quality_val: int = int(f3r.out_quality[preset_id])
-            node.parm(prm_quality_name).set(prm_quality_val)
+            prm_quality.set(prm_quality_val)
         except (AttributeError, TypeError): # If missing set it to its default
-            node.parm(prm_quality_name).set(int(1000))
+            prm_quality.set(int(1000))
             print(f"Warning:\nIN xml key: {xml_keys.XML_QUALITY} -> NOT FOUND, default value used.\n")
 
+        # BRIGHTNESS
         prm_brightness_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_BRIGHTNESS)
         assert prm_brightness_name is not None
+        prm_brightness = node.parm(prm_brightness_name)
+        prm_brightness.lock(False)
+        prm_brightness.deleteAllKeyframes()
         try:
             prm_brightness_val: float = float(f3r.out_brightness[preset_id])
-            node.parm(prm_brightness_name).set(prm_brightness_val)
+            prm_brightness.set(prm_brightness_val)
         except (AttributeError, TypeError): # If missing set it to its default
-            node.parm(prm_brightness_name).set(3.0)
+            prm_brightness.set(3.0)
             print(f"Warning:\nIN xml key: {xml_keys.XML_BRIGHTNESS} -> NOT FOUND, default value used.\n")
 
+        # GAMMA
         prm_gamma_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_GAMMA)
         assert prm_gamma_name is not None
+        prm_gamma = node.parm(prm_gamma_name)
+        prm_gamma.lock(False)
+        prm_gamma.deleteAllKeyframes()
         try:
             prm_gamma_val: float = float(f3r.out_gamma[preset_id])
-            node.parm(prm_gamma_name).set(prm_gamma_val)
+            prm_gamma.set(prm_gamma_val)
         except (AttributeError, TypeError): # If missing set it to its default
-            node.parm(prm_gamma_name).set(2.5)
+            prm_gamma.set(2.5)
             print(f"Warning:\nIN xml key: {xml_keys.XML_GAMMA} -> NOT FOUND, default value used.\n")
 
+        # HIGHLIGHT POWER
         prm_hpower_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_POWER)
         assert prm_hpower_name is not None
+        prm_hpower = node.parm(prm_hpower_name)
+        prm_hpower.lock(False)
+        prm_hpower.deleteAllKeyframes()
         try:
             prm_hpower_val: float = float(f3r.out_highlight_power[preset_id])
-            node.parm(prm_hpower_name).set(prm_hpower_val)
+            prm_hpower.set(prm_hpower_val)
         except (AttributeError, TypeError): # If missing set it to its default
-            node.parm(prm_hpower_name).set(5.0)
+            prm_hpower.set(5.0)
             print(f"Warning:\nIN xml key: {xml_keys.XML_POWER} -> NOT FOUND, default value used.\n")
 
+        # LOGSCALE K2
         prm_k2_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_K2)
         assert prm_k2_name is not None
+        prm_k2 = node.parm(prm_k2_name)
+        prm_k2.lock(False)
+        prm_k2.deleteAllKeyframes()
         try:
             prm_k2_val: float = float(f3r.out_logscale_k2[preset_id])
-            node.parm(prm_k2_name).set(prm_k2_val)
+            prm_k2.set(prm_k2_val)
         except (AttributeError, TypeError): # If missing set it to its default
-            node.parm(prm_k2_name).set(0.0)
+            prm_k2.set(0.0)
             print(f"Warning:\nIN xml key: {xml_keys.XML_K2} -> NOT FOUND, default value used.\n")
 
+        # VIBRANCY
         prm_vibrancy_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_VIBRANCY)
         assert prm_vibrancy_name is not None
+        prm_vibrancy = node.parm(prm_vibrancy_name)
+        prm_vibrancy.lock(False)
+        prm_vibrancy.deleteAllKeyframes()
         try:
             prm_vibrancy_val: float = float(f3r.out_vibrancy[preset_id])
-            node.parm(prm_vibrancy_name).set(prm_vibrancy_val)
+            prm_vibrancy.set(prm_vibrancy_val)
         except (AttributeError, TypeError): # If missing set it to its default
-            node.parm(prm_vibrancy_name).set(0.33333333)
+            prm_vibrancy.set(0.33333333)
             print(f"Warning:\nIN xml key: {xml_keys.XML_VIBRANCY} -> NOT FOUND, default value used.\n")
     
     
@@ -16845,13 +16950,13 @@ class in_flame_utils
 
         # If "clipboard" is True mean the incoming Flame preset from the Clipboard has been checked/validated already
         # so no needs to double check here any more...just use it as is.
-        if apo_data is not None and clipboard: f3r = apo_data
+        if apo_data is not None and clipboard: f3r: in_flame_iter_data | None = apo_data
         else:
             # Check and Update this data
             flam3h_iterator_utils(kwargs).update_xml_last_loaded()
             # Otherwise just use the stored data
             data: str | None = node.userData(f3h_userData.XML_LAST)
-            if data is not None: f3r = in_flame_iter_data(node, data) # ELSE load from the stored data instead
+            if data is not None: f3r: in_flame_iter_data | None = in_flame_iter_data(node, data) # ELSE load from the stored data instead
             else: f3r = None
         # We are checking only for the XML Flame preset validity
         # becasue we want to copy the data when loading from the clipboard
@@ -16874,6 +16979,8 @@ class in_flame_utils
             
             # Set folder heading
             if clipboard:
+                # We are not using: def flam3h_general_utils.setParms()
+                # because those parameters have been already unlocked and cleared of their keyframes if any already
                 node.setParms(  # type: ignore
                                 {f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_STATS_HEADING} {f3h_tabs.IN.DEFAULT_MSG_CLIPBOARD_LABEL}", 
                                 f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_SETTINGS_HEADING} {f3h_tabs.IN.DEFAULT_MSG_CLIPBOARD_LABEL}"}
@@ -17078,10 +17185,10 @@ class in_flame_utils
                 cc_g: str = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_GREEN)).eval()
                 cc_b: str = node.parm(XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_BLUE)).eval()
                 if cc_o.strip() in xml_keys.DEFAULT_CC_CURVE_ALL and cc_r.strip() in xml_keys.DEFAULT_CC_CURVE_ALL and cc_g.strip() in xml_keys.DEFAULT_CC_CURVE_ALL and cc_b.strip() in xml_keys.DEFAULT_CC_CURVE_ALL:
-                    node.setParms(  # type: ignore
-                                    {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
-                                    f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0}
-                                    )
+                    parms_dict: dict = {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
+                                        f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0}
+                    flam3h_general_utils.setParms(node, parms_dict)
+                    
                     _MSG: str = f"IN CC Curves:"
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} the loaded IN Flame preset CC Curves are default values. COPY SKIPPED", 'IMP')
                     flam3h_general_utils.flash_message(node, f"{_MSG} Defaults. COPY SKIPPED")
@@ -17149,7 +17256,7 @@ class in_flame_utils
             float(key_val)
             
         except ValueError:
-            clean = [letter for letter in key_val if letter in f3h_char.ALLOWED_XFORM_VAL]
+            clean: list[str] = [letter for letter in key_val if letter in f3h_char.ALLOWED_XFORM_VAL]
             new_val: str = ''.join(clean)
             
             try:
@@ -18237,30 +18344,30 @@ class in_flame_utils
             (None):
         """
         # iterators count
-        flam3h_iter_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
+        flam3h_iter_count_prm = node.parm(f3h_tabs.PRM_ITERATORS_COUNT)
+        flam3h_iter_count: int = flam3h_iter_count_prm.eval()
+        
+        for p in node.parms():
+            if p.name() in f3h_pvt.PVT_ALL:
+                p.lock(False)
+                p.deleteAllKeyframes()
+                p.lock(True)
+                
+            else:
+                p.lock(False)
+                p.deleteAllKeyframes()
+                    
+            if p.isMultiParmInstance():
+                p.revertToDefaults()
             
         if in_flame_iter_count > flam3h_iter_count:
-            for p in node.parms():
-                if not p.isLocked():
-                    p.deleteAllKeyframes()
-                if p.isMultiParmInstance():
-                    p.revertToDefaults()
-            node.parm(f3h_tabs.PRM_ITERATORS_COUNT).set(in_flame_iter_count)
+            flam3h_iter_count_prm.set(in_flame_iter_count)
 
         elif in_flame_iter_count == flam3h_iter_count:
-            for p in node.parms():
-                if not p.isLocked():
-                    p.deleteAllKeyframes()
-                if p.isMultiParmInstance():
-                    p.revertToDefaults()
+            pass
 
         else:
-            node.parm(f3h_tabs.PRM_ITERATORS_COUNT).set(in_flame_iter_count)
-            for p in node.parms():
-                if not p.isLocked():
-                    p.deleteAllKeyframes()
-                if p.isMultiParmInstance():
-                    p.revertToDefaults()
+            flam3h_iter_count_prm.set(in_flame_iter_count)
 
 
     def in_to_flam3h_resets(self, node: hou.SopNode, _FLAM3H_INIT_DATA: TA_F3H_Init) -> None:
@@ -18370,12 +18477,13 @@ class in_flame_utils
             (None):
         """ 
         if apo_data.mb_flam3h_fps is not False:
-            node.setParms(  # type: ignore
-                            {f3h_tabs.MB.PRM_DO: 1, 
-                            f3h_tabs.MB.PRM_FPS: apo_data.mb_flam3h_fps, 
-                            f3h_tabs.MB.PRM_SAMPLES: apo_data.mb_flam3h_samples, 
-                            f3h_tabs.MB.PRM_SHUTTER: apo_data.mb_flam3h_shutter}
-                            )
+            
+            parms_mb_dict: dict[str, int | float] = {f3h_tabs.MB.PRM_DO: 0,
+                                                    f3h_tabs.MB.PRM_FPS: 24,
+                                                    f3h_tabs.MB.PRM_SAMPLES: 16,
+                                                    f3h_tabs.MB.PRM_SHUTTER: 0.5
+                                                    }
+            flam3h_general_utils.setParms(node, parms_mb_dict)
             
         else:
             flam3h_general_utils(self.kwargs).reset_MB()
@@ -18426,10 +18534,10 @@ class in_flame_utils
             ramp_parm.set(apo_data.palette[0])
             flam3h_palette_utils(self.kwargs).palette_cp()
             # Set palette lookup samples and basis
-            node.setParms(  # type: ignore
-                            {f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES: apo_data.cp_flam3h_samples, 
-                            f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES: apo_data.cp_flam3h_basis}
-                            )
+            parms_dict: dict = {f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES: apo_data.cp_flam3h_samples, 
+                                f3h_tabs.CP.PRM_RAMP_LOOKUP_SAMPLES_BASES: apo_data.cp_flam3h_basis}
+            flam3h_general_utils.setParms(node, parms_dict)
+
             # Mark this as not a loaded palette preset
             flam3h_general_utils.private_prm_set(node, f3h_tabs.CP.PVT_PRM_ISVALID_PRESET, 0)
             # reset tmp ramp palette
@@ -18497,6 +18605,9 @@ class in_flame_utils
         
         # This for when we are loading a Flame preset in full
         if copy_only is False:
+            # We are not using: def flam3h_general_utils.setParms()
+            # because those parameters have been already unlocked and cleared of their keyframes if any already
+            
             # Update flame stats
             node.setParms(  # type: ignore
                             {f3h_tabs.IN.MSG_PRM_FLAMESTATS: self.in_load_stats_msg(preset_id, apo_data, clipboard), 
@@ -18507,6 +18618,9 @@ class in_flame_utils
             # if we are loading from the clipboard, always copy the render settings on load
             if clipboard: self.in_copy_render_all_stats_msg(self.kwargs, apo_data, clipboard)
             else:
+                # We are not using: def flam3h_general_utils.setParms()
+                # because those parameters have been already unlocked and cleared of their keyframes if any already
+                
                 # If not from clipboard
                 # Update SYS inpresets parameters
                 node.setParms(  # type: ignore
@@ -19262,10 +19376,10 @@ class out_flame_utils
         """
         out_flame_utils.out_render_curves_set_data_defaults(node)
         out_flame_utils.out_render_curves_retrive_data(node)
-        node.setParms(  # type: ignore
-                        {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
-                        f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0}
-                        )
+
+        parms_dict: dict = {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
+                            f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0}
+        flam3h_general_utils.setParms(node, parms_dict)
     
     
     @staticmethod
@@ -19318,15 +19432,13 @@ class out_flame_utils
             (None):
         """
         if out_flame_utils.out_render_curves_compare(node):
-            node.setParms(  # type: ignore
-                            {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
-                            f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0}
-                            )
+            parms_dict: dict = {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
+                                f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0}
+            flam3h_general_utils.setParms(node, parms_dict)
         else:
-            node.setParms(  # type: ignore
-                            {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Modified: Click to Reset', 
-                            f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 1}
-                            )
+            parms_dict: dict = {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Modified: Click to Reset', 
+                                f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 1}
+            flam3h_general_utils.setParms(node, parms_dict)
     
     
     @staticmethod
@@ -19357,15 +19469,13 @@ class out_flame_utils
                                         }
         
         # Set the prm data defaults first
-        prm_curves_ui.lock(False)
         if len(prm_curves_data.eval()) == 1:
             prm_curves_ui.set(xml_keys.DEFAULT_CC_CURVES) # type: ignore
             # Update CC label and toggle to their defaults
-            node.setParms(  # type: ignore
-                            {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
-                            f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0}
-                            )
-        prm_curves_ui.lock(True)
+            parms_dict: dict = {f3h_tabs.OUT.PRM_LABEL_CC_DEFAULTS_MSG: 'Defaults', 
+                                f3h_tabs.OUT.PRM_TOGGLE_CC_DEFAULTS_MSG: 0}
+            flam3h_general_utils.setParms(node, parms_dict)
+        
         for key in prm_ui.keys():
             if len(prm_data.get(key).eval()) == 1: # type: ignore
                 prm_data.get(key).set(xml_keys.DEFAULT_CC_CURVE) # type: ignore
@@ -20956,15 +21066,7 @@ class out_flame_utils
                                                                         XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_SCALE): 400
                                                                         }
         
-        # Clear and set
-        for key in parms_out_sensor_data.keys():
-            parm_tuple = node.parmTuple(key)
-            if isinstance(parm_tuple.eval(), tuple): parm_tuple.deleteAllKeyframes()
-            else: node.parm(key).deleteAllKeyframes()
-        # Set
-        node.setParms(  # type: ignore
-                        parms_out_sensor_data
-                        )
+        flam3h_general_utils.setParms(node, parms_out_sensor_data)
         
     def reset_OUT_render(self) -> None:
         """Reset the OUT Render settings parameters tab.</br>
@@ -20985,13 +21087,7 @@ class out_flame_utils
                                                                 XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_VIBRANCY): 0.3333
                                                                 }
         
-        # Clear and set
-        for key in parms_out_render_data.keys():
-            node.parm(key).deleteAllKeyframes()
-        # Set
-        node.setParms(  # type: ignore
-                        parms_out_render_data
-                        )
+        flam3h_general_utils.setParms(node, parms_out_render_data)
 
 
     def reset_OUT_kwargs(self) -> None:
@@ -21044,12 +21140,13 @@ class out_flame_utils
             (None):
         """
         node: hou.SopNode = self.node
-        node.setParms(  # type: ignore
-                        {f3h_tabs.OUT.PRM_HSV_PALETTE_DO: 0, 
-                        f3h_tabs.OUT.PRM_FLAM3H_AFFINE_STYLE: 1, 
-                        f3h_tabs.OUT.PRM_USE_FRACTORIUM_PRM_NAMES: 1, 
-                        f3h_tabs.OUT.PRM_AUTO_ADD_ITER_NUM: 1}
-                        )
+        options_dict: dict[str, int] = {f3h_tabs.OUT.PRM_HSV_PALETTE_DO: 0, 
+                                        f3h_tabs.OUT.PRM_FLAM3H_AFFINE_STYLE: 1, 
+                                        f3h_tabs.OUT.PRM_USE_FRACTORIUM_PRM_NAMES: 1, 
+                                        f3h_tabs.OUT.PRM_AUTO_ADD_ITER_NUM: 1
+                                        }
+        
+        flam3h_general_utils.setParms(node, options_dict)
 
 
     def reset_OUT(self, mode: int=0) -> None:
@@ -21076,21 +21173,20 @@ class out_flame_utils
         # until I make a cleanup pass of this code.
         if mode == 0:
             flam3h_general_utils.private_prm_set(node, f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 0)
-            node.setParms(  # type: ignore
-                            {f3h_tabs.OUT.MSG_PRM_OUT: '', 
-                            f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT: 0, }
-                            )
+
+            parms_dict: dict = {f3h_tabs.OUT.MSG_PRM_OUT: '', 
+                                f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT: 0, }
+            flam3h_general_utils.setParms(node, parms_dict)
         
         # I do not think this is used anymore but I leave it here 
         # until I make a cleanup pass of this code.
-        if mode == 2:
-            node.setParms(  # type: ignore
-                            {f3h_tabs.OUT.PRM_PATH: '', 
-                            f3h_tabs.OUT.PRM_HSV_PALETTE_DO: 0, 
-                            f3h_tabs.OUT.PRM_PRESETS: str(-1), 
-                            f3h_tabs.OUT.PRM_SYS_PRESETS: str(-1), 
-                            f3h_tabs.OUT.PRM_FLAME_PRESET_NAME: ''}
-                            )
+        if mode == 2:            
+            parms_dict: dict = {f3h_tabs.OUT.PRM_PATH: '', 
+                                f3h_tabs.OUT.PRM_HSV_PALETTE_DO: 0, 
+                                f3h_tabs.OUT.PRM_PRESETS: str(-1), 
+                                f3h_tabs.OUT.PRM_SYS_PRESETS: str(-1), 
+                                f3h_tabs.OUT.PRM_FLAME_PRESET_NAME: ''}
+            flam3h_general_utils.setParms(node, parms_dict)
 
 
     def out_xf_xaos_to(self) -> tuple[str, ...]:
@@ -21712,7 +21808,7 @@ class out_flame_utils
         if flame_name is None:
             if self.out_build_XML(root):
                 self._out_pretty_print(root)
-                flame = lxmlET.tostring(root, encoding="unicode")
+                flame: str = lxmlET.tostring(root, encoding="unicode")
                 # Store the loaded Flame preset into the FLAM3H™ node data storage
                 node.setUserData(data_name, flame)
                 
@@ -21723,7 +21819,7 @@ class out_flame_utils
             node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set(flame_name)
             if self.out_build_XML(root):
                 self._out_pretty_print(root)
-                flame = lxmlET.tostring(root, encoding="unicode")
+                flame: str = lxmlET.tostring(root, encoding="unicode")
                 # Store the loaded Flame preset into the FLAM3H™ node data storage
                 node.setUserData(data_name, flame)
             # Restore whatever flame name was there if any (even if it was empty)
@@ -21772,7 +21868,7 @@ class out_flame_utils
         
         if self.out_build_XML(root):
             self._out_pretty_print(root)
-            flame = lxmlET.tostring(root, encoding="unicode")
+            flame: str = lxmlET.tostring(root, encoding="unicode")
             hou.ui.copyTextToClipboard(flame) # type: ignore
             
             node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set('')
@@ -21806,7 +21902,7 @@ class out_flame_utils
             if apo_data.xforms is not None:
                 
                 assert apo_data.flame is not None
-                flame = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")
+                flame: str = lxmlET.tostring(apo_data.flame[preset_id], encoding="unicode")
                 hou.ui.copyTextToClipboard(flame) # type: ignore
                 
                 _MSG: str = f"{self.node.name()}: SAVE Flame Clipboard: Completed"
@@ -22956,11 +23052,11 @@ class pyside_master:
         BASE_SVG_ICON_SIZE: int = 96
         
         IMG_PIXMAP: QtGui.QPixmap | None = None
-        IMG_PIXMAP_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_IMG_BANNER
+        IMG_PIXMAP_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_IMG_BANNER
         
         SVG_ICON: SvgIcon | None = None
-        SVG_ICON_W_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_SVG_LOGO_WHITE
-        SVG_ICON_R_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_SVG_LOGO_RED
+        SVG_ICON_W_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_SVG_LOGO_WHITE
+        SVG_ICON_R_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_SVG_LOGO_RED
         
         NODETYPE: hou.SopNodeType = nodetype
 
