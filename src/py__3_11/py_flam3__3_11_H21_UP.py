@@ -11236,9 +11236,13 @@ class flam3h_palette_utils
             (None):
         """
         node: hou.SopNode = self.node
-        preset_name: str = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESET_NAME).eval()
+
+        prm = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESET_NAME)
+        preset_name: str = prm.eval()
         preset_name_checked: str = out_flame_utils.out_auto_add_iter_num(0, preset_name, 1, False)
-        node.parm(f3h_tabs.CP.PRM_PALETTE_PRESET_NAME).set(preset_name_checked)
+        prm.lock(False)
+        prm.deleteAllKeyframes()
+        prm.set(preset_name_checked)
 
 
     def menu_cp_presets_data(self, node: hou.SopNode, json_file_path: str, json_is_file: bool) -> TA_Menu:
@@ -11500,7 +11504,10 @@ class flam3h_palette_utils
             json_dict, json_data = self.flam3h_ramp_save_JSON_DATA()
             hou.ui.copyTextToClipboard(json_data) # type: ignore
             # Clear up palette preset name if any
-            node.parm(f3h_tabs.CP.PRM_PALETTE_PRESET_NAME).set('')
+            prm = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESET_NAME)
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            prm.set('')
             # Satus message
             _MSG: str = f"{node.name()}: SAVE Palette Clipboard. Palette copied to the clipboard -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
@@ -11596,7 +11603,10 @@ class flam3h_palette_utils
                             assert isinstance(data, dict)
                             for prm in (node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS), node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF), node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS), node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS_OFF)): prm.set(str(len(data.keys())-1))
                             # Clearup the Palette name if any were given
-                            node.parm(f3h_tabs.CP.PRM_PALETTE_PRESET_NAME).set('')
+                            prm = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESET_NAME)
+                            prm.lock(False)
+                            prm.deleteAllKeyframes()
+                            prm.set('')
                             # Mark this as a valid file and as the currently loaded preset as it is the preset we just saved
                             flam3h_general_utils.private_prm_set(node, f3h_tabs.CP.PVT_PRM_ISVALID_FILE, 1)
                             flam3h_general_utils.private_prm_set(node, f3h_tabs.CP.PVT_PRM_ISVALID_PRESET, 1)
@@ -11883,7 +11893,11 @@ class flam3h_palette_utils
             preset, preset_id = self.json_to_flam3h_get_preset_name_and_id(node)
             # SET the Palette name to the preset name
             if preset:
-                node.parm(f3h_tabs.CP.PRM_PALETTE_PRESET_NAME).set(preset)
+                prm = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESET_NAME)
+                prm.lock(False)
+                prm.deleteAllKeyframes()
+                prm.set(preset)
+                
                 flam3h_general_utils.flash_message(node, preset)
         else:
             _MSG: str = f"{node.name()}: CP: Nothing to load"
@@ -18938,12 +18952,18 @@ class in_flame_utils
             if node.parm(f3h_tabs.IN.PVT_PRM_ISVALID_PRESET).eval():
                 preset_id: str = node.parm(f3h_tabs.IN.PRM_SYS_PRESETS).eval()
                 # Update other PRESETS menu parameters
-                for prm in (node.parm(f3h_tabs.IN.PRM_SYS_PRESETS_OFF), node.parm(f3h_tabs.IN.PRM_PRESETS), node.parm(f3h_tabs.IN.PRM_PRESETS_OFF)): prm.set(preset_id)
+                for prm in (node.parm(f3h_tabs.IN.PRM_SYS_PRESETS_OFF), node.parm(f3h_tabs.IN.PRM_PRESETS), node.parm(f3h_tabs.IN.PRM_PRESETS_OFF)):
+                    prm.lock(False)
+                    prm.deleteAllKeyframes()
+                    prm.set(preset_id)
                 
             else:
                 preset_id: str = node.parm(f3h_tabs.IN.PRM_SYS_PRESETS_OFF).eval()
                 # Update other PRESETS menu parameters
-                for prm in (node.parm(f3h_tabs.IN.PRM_SYS_PRESETS_OFF), node.parm(f3h_tabs.IN.PRM_PRESETS), node.parm(f3h_tabs.IN.PRM_PRESETS_OFF)): prm.set(preset_id)
+                for prm in (node.parm(f3h_tabs.IN.PRM_SYS_PRESETS_OFF), node.parm(f3h_tabs.IN.PRM_PRESETS), node.parm(f3h_tabs.IN.PRM_PRESETS_OFF)):
+                    prm.lock(False)
+                    prm.deleteAllKeyframes()
+                    prm.set(preset_id)
 
             self.in_to_flam3h()
 
@@ -20906,7 +20926,11 @@ class out_flame_utils
                     iter_num: int = node.parm(f3h_tabs.GLB.PRM_ITERATIONS).eval()
                     autoadd: int = node.parm(f3h_tabs.OUT.PRM_AUTO_ADD_ITER_NUM).eval()
                     flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
-                    node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set(flame_name_new)
+                    
+                    prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
+                    prm.lock(False)
+                    prm.deleteAllKeyframes()
+                    prm.set(flame_name_new)
 
                     _MSG: str = f"{node.name()}: COPY Flame name: {flame_name_new}"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -21347,7 +21371,11 @@ class out_flame_utils
         node: hou.SopNode = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
         flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
-        node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set(flame_name_new)
+        
+        prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
+        prm.lock(False)
+        prm.deleteAllKeyframes()
+        prm.set(flame_name_new)
 
 
     def out_auto_change_iter_num_to_prm(self, name: str | None = None) -> None:
@@ -21367,16 +21395,20 @@ class out_flame_utils
         
         if flame_name:
             
+            prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            
             if autoadd:
                 flame_name_new: str = self.out_auto_change_iter_num(iter_num, flame_name, autoadd)
-                node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set(flame_name_new)
+                prm.set(flame_name_new)
                 
                 # Update "iter num on load" if "force iterations on Load" toggle is ON 
                 if node.parm(f3h_tabs.IN.PRM_USE_ITER_ON_LOAD).eval():
                     node.parm(f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD).set(iter_num)
             else:
                 flame_name_new: str = self.out_remove_iter_num(flame_name)
-                node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set(flame_name_new)
+                prm.set(flame_name_new)
                 
             # Flash message if needed.
             # I need to come back on this and see exactly when firing the flash message, for now is not bad.
@@ -21402,6 +21434,11 @@ class out_flame_utils
             clipboard: int = node.parm(f3h_tabs.IN.PVT_PRM_CLIPBOARD_TOGGLE).eval()
             xml: str = os.path.expandvars(node.parm(f3h_tabs.IN.PRM_PATH).eval())
             xml_isFile: bool = os.path.isfile(xml) if xml else False
+            
+            prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            
             # Only if a valid preset has been loaded from a disk file ( not clipboard )
             if xml and xml_isFile and inisvalidfile and inisvalidpreset and not clipboard:
                 # Build the apo data
@@ -21409,7 +21446,7 @@ class out_flame_utils
                 apo_data: in_flame_iter_data = in_flame_iter_data(node, xml, preset_id)
                 
                 if apo_data.isvalidtree:
-                    node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set(apo_data.name[preset_id])
+                    prm.set(apo_data.name[preset_id])
                     # Updated the Flame name iter num if exist and if needed
                     self.out_auto_change_iter_num_to_prm()
                     
@@ -21418,7 +21455,7 @@ class out_flame_utils
                 if data is not None:
                     apo_data: in_flame_iter_data = in_flame_iter_data(node, data, 0)
                     if apo_data.isvalidtree:
-                        node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set(apo_data.name[0])
+                        prm.set(apo_data.name[0])
                         # Updated the Flame name iter num if exist and if needed
                         self.out_auto_change_iter_num_to_prm()
                 
@@ -21813,17 +21850,21 @@ class out_flame_utils
                 node.setUserData(data_name, flame)
                 
         else:
+            prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            
             # Lets check if the OUT flame name parameter has a name already set and store it.
-            out_flame_name: str = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).eval()
+            out_flame_name: str = prm.eval()
             # Let's use the passed flame_name instead
-            node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set(flame_name)
+            prm.set(flame_name)
             if self.out_build_XML(root):
                 self._out_pretty_print(root)
                 flame: str = lxmlET.tostring(root, encoding="unicode")
                 # Store the loaded Flame preset into the FLAM3H™ node data storage
                 node.setUserData(data_name, flame)
             # Restore whatever flame name was there if any (even if it was empty)
-            node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set(out_flame_name)
+            prm.set(out_flame_name)
             
             
     def out_new_XML(self, outpath: str) -> None:
@@ -21847,7 +21888,11 @@ class out_flame_utils
             tree: lxmlET._ElementTree = lxmlET.ElementTree(root)
             tree.write(outpath)
             
-            node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set('')
+            prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            prm.set('')
+            
             _MSG: str = f"{self.node.name()}: SAVE Flame New: Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED")
@@ -21871,7 +21916,11 @@ class out_flame_utils
             flame: str = lxmlET.tostring(root, encoding="unicode")
             hou.ui.copyTextToClipboard(flame) # type: ignore
             
-            node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set('')
+            prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            prm.set('')
+            
             _MSG: str = f"{self.node.name()}: SAVE Flame Clipboard: Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED to the Clipboard")
@@ -21941,7 +21990,11 @@ class out_flame_utils
             tree: lxmlET._ElementTree = lxmlET.ElementTree(root)
             tree.write(out_path)
 
-            node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).set('')
+            prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            prm.set('')
+            
             _MSG: str = f"{self.node.name()}: SAVE Flame Append: Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED: Append")
