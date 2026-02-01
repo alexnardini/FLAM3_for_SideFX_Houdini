@@ -4208,11 +4208,17 @@ _A list of all parametric variations and their parametric parameter's names_
     #display: rounded gray
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *New multiparameter features*<br /><br />
 
-    Adding and/or removing iterators<br />
-    using the native menu displayed when you ((RMB)) on any multi parameter tab label wont work in Houdini versions prior to: *`21.0.470`* and the iterators xaos strings wont be updated. 
-
-    Rearranging iterators wont update their xaos strings either.<br />
+    - Rearranging iterators wont update their xaos strings.<br />
     ( _You should not do that in FLAM3H™_ ).
+    
+    - Adding and/or removing iterators (_inbetween_)<br />
+    using the native menu displayed when you ((RMB)) on any multi parameter tab label wont update all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.<br />
+    Always use the add/remove iterator's button/icon: [Smallicon:opdef:.?icon_AddDelIteratorSVG.svg]
+
+    - Copy and Paste iterators<br />
+    using the native menu displayed when you ((RMB)) on any multi parameter tab label wont update all the FLAM3H(tm) internal data.<br />
+    Always use the copy/paste iterator's button/icon: [Smallicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg]<br />
+    and/or its nearby mini-menu [Icon:BUTTONS/pane_menu] to copy only individual sections of an iterator.
 
 
 :box:
