@@ -2023,7 +2023,7 @@ class flam3h_scripts
         """ 
         if isinstance(__h_versions__, tuple):
             
-            num_str: str = "000"
+            num_str: str | None = None
             if len(__h_versions__) > 1:
                 if last_index:
                     num_str = str(__h_versions__[-1])
@@ -2034,7 +2034,10 @@ class flam3h_scripts
             elif __h_versions__:
                 num_str = str(__h_versions__[0])
 
-            return f"{num_str[:2]}.{num_str[-1]}"
+            if num_str is not None:
+                return f"{num_str[:2]}.{num_str[-1]}"
+            else:
+                return f"**N/A**"
         
         elif isinstance(__h_versions__, int):
             
@@ -18693,10 +18696,10 @@ class in_flame_utils
         """ 
         if apo_data.mb_flam3h_fps is not False:
             
-            parms_mb_dict: dict[str, int | float] = {f3h_tabs.MB.PRM_DO: 0,
-                                                    f3h_tabs.MB.PRM_FPS: 24,
-                                                    f3h_tabs.MB.PRM_SAMPLES: 16,
-                                                    f3h_tabs.MB.PRM_SHUTTER: 0.5
+            parms_mb_dict: dict[str, int | float] = {f3h_tabs.MB.PRM_DO: 1,
+                                                    f3h_tabs.MB.PRM_FPS: apo_data.mb_flam3h_fps,
+                                                    f3h_tabs.MB.PRM_SAMPLES: apo_data.mb_flam3h_samples,
+                                                    f3h_tabs.MB.PRM_SHUTTER: apo_data.mb_flam3h_shutter
                                                     }
             flam3h_prm_utils.setParms(node, parms_mb_dict)
             
