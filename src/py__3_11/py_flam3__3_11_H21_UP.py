@@ -2153,7 +2153,10 @@ class flam3h_scripts
         for id, affine in enumerate(collect_iters):
             prm_iter_name: str = f"{prm_list_post_affine[0][0]}{id + 1}"
             if node.parm(prm_iter_name).eval() and 1 not in keyframes_iters[id] and affine == f3h_affineDefaults.DEFAULT_VALS:
-                node.parm(prm_iter_name).set(0)
+                prm_node = node.parm(prm_iter_name)
+                prm_node.lock(False)
+                prm_node.deleteAllKeyframes()
+                prm_node.set(0)
                 
         # FF
         prm_list_post_affine_FF: tuple[tuple[str, int], ...] = flam3h_iterator_FF().sec_postAffine_FF
@@ -2162,7 +2165,10 @@ class flam3h_scripts
         collect_FF: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_post_affine_FF_XYOA[idx][0]}").eval() if prm_list_post_affine_FF_XYOA[idx][1] else node.parm(f"{prm_list_post_affine_FF_XYOA[idx][0]}").eval() for idx in range(len(prm_list_post_affine_FF_XYOA))]
         prm_ff_name: str = f"{prm_list_post_affine_FF[0][0]}"
         if node.parm(prm_ff_name).eval() and 1 not in keyframes_FF and collect_FF == f3h_affineDefaults.DEFAULT_VALS:
-            node.parm(prm_ff_name).set(0)
+            prm_node = node.parm(prm_ff_name)
+            prm_node.lock(False)
+            prm_node.deleteAllKeyframes()
+            prm_node.set(0)
 
 
     @staticmethod
@@ -6529,8 +6535,12 @@ class flam3h_iterator_utils
             collect_post: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine_XYOA[idx][0]}{id}").eval() if prm_list_affine_XYOA[idx][1] else node.parm(f"{prm_list_affine_XYOA[idx][0]}{id}").eval() for idx in range(len(prm_list_affine_XYOA))]
             if 1 not in keyframes_post and collect_post == f3h_affineDefaults.DEFAULT_VALS:
                 prm_name: str = prm_list_affine[0][0]
-                node.parm(f"{prm_name}{id}").set(0)
-                from_FLAM3H_NODE.parm(f"{prm_name}{id_from}").set(0)
+                prm_node = node.parm(f"{prm_name}{id}")
+                prm_from_FLAM3H_NODE = from_FLAM3H_NODE.parm(f"{prm_name}{id_from}")
+                for p in (prm_node, prm_from_FLAM3H_NODE):
+                    p.lock(False)
+                    p.deleteAllKeyframes()
+                    p.set(0)
                 return True
             
             return False
@@ -6567,8 +6577,12 @@ class flam3h_iterator_utils
             collect_post: list[tuple[float, ...] | float] = [node.parmTuple(f"{prm_list_affine_XYOA[idx][0]}").eval() if prm_list_affine_XYOA[idx][1] else node.parm(f"{prm_list_affine_XYOA[idx][0]}").eval() for idx in range(len(prm_list_affine_XYOA))]
             if 1 not in keyframes_post and collect_post == f3h_affineDefaults.DEFAULT_VALS:
                 prm_name: str = prm_list_affine[0][0]
-                node.parm(prm_name).set(0)
-                from_FLAM3H_NODE.parm(prm_name).set(0)
+                prm_node = node.parm(prm_name)
+                prm_from_FLAM3H_NODE = from_FLAM3H_NODE.parm(prm_name)
+                for p in (prm_node, prm_from_FLAM3H_NODE):
+                    p.lock(False)
+                    p.deleteAllKeyframes()
+                    p.set(0)
                 return True
             
             return False
@@ -6600,6 +6614,7 @@ class flam3h_iterator_utils
             if prm[1]:
                 prm_from = node.parmTuple(f"{prm[0]}{id}")
                 prm_to = node.parmTuple(f"{prm_list_affine_from[idx][0]}{id}")
+                prm_to.lock(False)
                 prm_to.deleteAllKeyframes()
                 for prm_idx, p in enumerate(prm_from):
                     keyframes: tuple[hou.Keyframe, ...] = p.keyframes()
@@ -6613,6 +6628,7 @@ class flam3h_iterator_utils
             else:
                 prm_from = node.parm(f"{prm[0]}{id}")
                 prm_to = node.parm(f"{prm_list_affine_from[idx][0]}{id}")
+                prm_to.lock(False)
                 prm_to.deleteAllKeyframes()
                 keyframes: tuple[hou.Keyframe, ...] = prm_from.keyframes()
                 if keyframes:
