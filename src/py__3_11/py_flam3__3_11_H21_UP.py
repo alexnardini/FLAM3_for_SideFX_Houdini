@@ -5092,7 +5092,9 @@ class flam3h_general_utils
         
         prm = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS)
         prm_off = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS_OFF)
-        for p in (prm, prm_off):
+        prm_sys = node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS)
+        prm_sys_off = node.parm(f3h_tabs.CP.PRM_SYS_PALETTE_PRESETS_OFF)
+        for p in (prm, prm_off, prm_sys, prm_sys_off):
             p.lock(False)
             p.deleteAllKeyframes()
 
@@ -5216,7 +5218,9 @@ class flam3h_general_utils
         clipboard: int = node.parm(f3h_tabs.IN.PVT_PRM_CLIPBOARD_TOGGLE).eval()
         prm = node.parm(f3h_tabs.IN.PRM_PRESETS)
         prm_off = node.parm(f3h_tabs.IN.PRM_PRESETS_OFF)
-        for p in (prm, prm_off):
+        prm_sys = node.parm(f3h_tabs.IN.PRM_SYS_PRESETS)
+        prm_sys_off = node.parm(f3h_tabs.IN.PRM_SYS_PRESETS_OFF)
+        for p in (prm, prm_off, prm_sys, prm_sys_off):
             p.lock(False)
             p.deleteAllKeyframes()
 
