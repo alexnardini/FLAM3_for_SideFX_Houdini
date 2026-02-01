@@ -19284,7 +19284,7 @@ class in_flame_utils
                 else:
                     for prm in (node.parm(f3h_tabs.IN.PVT_PRM_ISVALID_FILE), node.parm(f3h_tabs.IN.PVT_PRM_ISVALID_PRESET), node.parm(f3h_tabs.IN.PVT_PRM_CLIPBOARD_TOGGLE)): flam3h_prm_utils.private_prm_set(node, prm, 0)
                     # clear info msgs
-                    for prm in (node.parm(f3h_tabs.IN.MSG_PRM_FLAMESTATS), node.parm(f3h_tabs.IN.MSG_PRM_FLAMERENDER), node.parm(f3h_tabs.PRM_DESCRIPTIVE)): prm.set('')
+                    for prm in (node.parm(f3h_tabs.IN.MSG_PRM_FLAMESTATS), node.parm(f3h_tabs.IN.MSG_PRM_FLAMERENDER), node.parm(f3h_tabs.PRM_DESCRIPTIVE)): flam3h_prm_utils.set(node, prm, '')
 
                     # If iterator's count is 0(Zero), change focus back to the IN's Tab
                     # And let the user know it should load a flame file first
