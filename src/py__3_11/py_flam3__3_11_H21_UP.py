@@ -8343,13 +8343,14 @@ class flam3h_iterator_utils
         else:
             # Default 500k
             if glb_density != f3h_tabs.GLB.DEFAULT_DENSITY:
-                # Reset/Set density
-                flam3h_general_utils.reset_density(node)
                 _MSG: str = f"{node.name()} -> SET default density preset: 500K points"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             else:
                 _MSG: str = f"{node.name()}: Density already at its default value."
                 flam3h_general_utils.set_status_msg(_MSG, 'MSG')
+                
+            # Reset/Set density
+            flam3h_general_utils.reset_density(node)
                 
         # Check and Update this data
         self.update_xml_last_loaded()
