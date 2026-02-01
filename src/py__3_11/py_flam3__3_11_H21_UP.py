@@ -19080,11 +19080,11 @@ class in_flame_utils
         if node.parm(f3h_tabs.IN.PVT_PRM_ISVALID_PRESET).eval():
             preset_id: str = node.parm(f3h_tabs.IN.PRM_PRESETS).eval()
             # Update
-            node.parm(f3h_tabs.IN.PRM_PRESETS_OFF).set(preset_id)
+            flam3h_prm_utils.set(node, f3h_tabs.IN.PRM_PRESETS_OFF, preset_id)
         else:
             preset_id: str = node.parm(f3h_tabs.IN.PRM_PRESETS_OFF).eval()
             # Update
-            node.parm(f3h_tabs.IN.PRM_PRESETS).set(preset_id)
+            flam3h_prm_utils.set(node, f3h_tabs.IN.PRM_PRESETS, preset_id)
             
         return xml, False, int(preset_id), '', False, False
 
