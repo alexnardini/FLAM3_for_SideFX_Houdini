@@ -5857,6 +5857,12 @@ class flam3h_general_utils
             flam3h_prm_utils.setParms(node, parms_mb_dict)
             
         else:
+            
+            # Lets unlock and delete keyframes anyway
+            for prm_name in parms_mb_dict.keys():
+                node.parm(prm_name).lock(False)
+                node.parm(prm_name).deleteAllKeyframes()
+            
             prm_fps: int = node.parm(f3h_tabs.MB.PRM_FPS).eval()
             prm_samples: int = node.parm(f3h_tabs.MB.PRM_SAMPLES).eval()
             prm_shutter: float = node.parm(f3h_tabs.MB.PRM_SHUTTER).eval()
