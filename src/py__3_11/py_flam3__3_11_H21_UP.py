@@ -1861,7 +1861,7 @@ class f3h_prm_utils
             prm.set(data) # type: ignore
             
         else:
-            raise F3H_Error(f"The passed in parameter is not valid:\n{_prm}")
+            raise F3H_Error(f"{node.name()}: The passed in parameter is not valid:\n{_prm}")
     
     
     @staticmethod
@@ -1876,8 +1876,9 @@ class f3h_prm_utils
         Returns:
             (None):
         """ 
+        prm: hou.Parm | hou.ParmTuple | None = None
         for key in parms_dict.keys():
-            prm: hou.Parm | hou.ParmTuple | None = node.parm(key)
+            prm = node.parm(key)
             if prm is None:
                 prm = node.parmTuple(key)
             
@@ -1885,9 +1886,12 @@ class f3h_prm_utils
                 prm.lock(False)
                 prm.deleteAllKeyframes()
         
-        node.setParms(  # type: ignore
-                        parms_dict
-                        ) 
+        if prm is not None:
+            node.setParms(  # type: ignore
+                            parms_dict
+                            ) 
+        else:
+            raise F3H_Error(f"{node.name()}: The passed in parameters dictionary is not valid:\n{parms_dict}")
 
 
     @staticmethod
@@ -4553,7 +4557,7 @@ class flam3h_general_utils
             for f3h in all_f3h:
                 if f3h != node:
                     if f3h.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
-                        flam3h_prm_utils.private_prm_set(node, f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 0)
+                        flam3h_prm_utils.private_prm_set(f3h, f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 0)
                         # If another FLAM3H™ node is in Camera Sensor mode, clear up its data.
                         # after restoring the viewport prior to entering the Camera sensor mode
                         self.util_set_stashed_cam()
@@ -5098,7 +5102,7 @@ class flam3h_general_utils
             p.lock(False)
             p.deleteAllKeyframes()
 
-        json_path: str | None = None
+        json_path: str | bool = False
         if json_path_checked is None:
             json_path = os.path.expandvars(node.parm(f3h_tabs.CP.PRM_PATH).eval())
             json_path_checked = out_flame_utils.out_check_outpath(node,  json_path, f3h_tabs.CP.DEFAULT_FILE_EXT, f3h_tabs.CP.DEFAULT_AUTO_NAME)
@@ -5110,7 +5114,6 @@ class flam3h_general_utils
             prm_off.set('-1')
 
         if json_path_checked is not False:
-            assert isinstance(json_path, str)
             assert isinstance(json_path_checked, str)
             
             # Set the CP filepath parameter to this checked and corrected filepath
@@ -5623,6 +5626,7 @@ class flam3h_general_utils
             f3h_prm = f3h.parm(f3h_tabs.PREFS.PRM_VIEWPORT_PT_TYPE)
             f3h_prm.lock(False)
             f3h_prm.deleteAllKeyframes()
+            # Delete all keyframes on memory parms
             flam3h_prm_utils.private_prm_deleteAllKeyframes(f3h, f3h_tabs.PREFS.PVT_PRM_VIEWPORT_PT_TYPE_MEM)
               
         if allowed_viewers:
@@ -6579,10 +6583,9 @@ class flam3h_iterator_utils
             (None):
         """
         # Clear tmp prm so in case of keyframes or expression it doesnt evaluate
-        flam3h_prm_utils.private_prm_deleteAllKeyframes(node, prm_from)
-        flam3h_prm_utils.private_prm_deleteAllKeyframes(node, prm_to)
-        flam3h_prm_utils.private_prm_set(node, prm_from, reset_val)
-        flam3h_prm_utils.private_prm_set(node, prm_to, reset_val)
+        for prm in (prm_from, prm_to):
+            flam3h_prm_utils.private_prm_deleteAllKeyframes(node, prm)
+            flam3h_prm_utils.private_prm_set(node, prm, reset_val)
 
 
     @staticmethod
@@ -7212,13 +7215,15 @@ class flam3h_iterator_utils
         scl_prm.deleteAllKeyframes() # This parameter can not be animated
         
         scl: float = scl_prm.eval()
-        x: tuple[float, ...] = hou.parmTuple(f"x_{s_mp_index}").eval()
-        y: tuple[float, ...] = hou.parmTuple(f"y_{s_mp_index}").eval()
+        prm_x: hou.ParmTuple = hou.parmTuple(f"x_{s_mp_index}")
+        prm_y: hou.ParmTuple = hou.parmTuple(f"y_{s_mp_index}")
+        x: tuple[float, ...] = prm_x.eval()
+        y: tuple[float, ...] = prm_y.eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
         
-        parms_dict: dict = {f"x_{s_mp_index}": hou.Vector2((m2_new[0])), 
-                            f"y_{s_mp_index}": hou.Vector2((m2_new[1]))}
-        flam3h_prm_utils.setParms(self.node, parms_dict)
+        for idx, prm in enumerate((prm_x, prm_y)):
+            prm.lock(False)
+            prm.set(hou.Vector2(m2_new[idx])) # type: ignore
 
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
@@ -7245,13 +7250,14 @@ class flam3h_iterator_utils
         scl_prm.deleteAllKeyframes() # This parameter can not be animated
         
         scl: float = scl_prm.eval()
-        x: tuple[float, ...] = hou.parmTuple(f"px_{s_mp_index}").eval()
-        y: tuple[float, ...] = hou.parmTuple(f"py_{s_mp_index}").eval()
+        prm_px: hou.ParmTuple = hou.parmTuple(f"px_{s_mp_index}")
+        prm_py: hou.ParmTuple = hou.parmTuple(f"py_{s_mp_index}")
+        x: tuple[float, ...] = prm_px.eval()
+        y: tuple[float, ...] = prm_py.eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-
-        parms_dict: dict =  {f"px_{s_mp_index}": hou.Vector2((m2_new[0])), 
-                            f"py_{s_mp_index}": hou.Vector2((m2_new[1]))}
-        flam3h_prm_utils.setParms(self.node, parms_dict)
+        for idx, prm in enumerate((prm_px, prm_py)):
+            prm.lock(False)
+            prm.set(hou.Vector2(m2_new[idx])) # type: ignore
 
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
@@ -7274,13 +7280,14 @@ class flam3h_iterator_utils
         scl_prm.deleteAllKeyframes() # This parameter can not be animated
         
         scl: float = scl_prm.eval()
-        x: tuple[float, ...] = hou.parmTuple("ffx").eval()
-        y: tuple[float, ...] = hou.parmTuple("ffy").eval()
+        prm_x: hou.ParmTuple = hou.parmTuple("ffx")
+        prm_y: hou.ParmTuple = hou.parmTuple("ffy")
+        x: tuple[float, ...] = prm_x.eval()
+        y: tuple[float, ...] = prm_y.eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-
-        parms_dict: dict = {"ffx": hou.Vector2((m2_new[0])), 
-                            "ffy": hou.Vector2((m2_new[1]))}
-        flam3h_prm_utils.setParms(self.node, parms_dict)
+        for idx, prm in enumerate((prm_x, prm_y)):
+            prm.lock(False)
+            prm.set(hou.Vector2(m2_new[idx])) # type: ignore
 
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
@@ -7303,13 +7310,14 @@ class flam3h_iterator_utils
         scl_prm.deleteAllKeyframes() # This parameter can not be animated
         
         scl: float = scl_prm.eval()
-        x: tuple[float, ...] = hou.parmTuple("ffpx").eval()
-        y: tuple[float, ...] = hou.parmTuple("ffpy").eval()
+        prm_px: hou.ParmTuple = hou.parmTuple("ffpx")
+        prm_py: hou.ParmTuple = hou.parmTuple("ffpy")
+        x: tuple[float, ...] = prm_px.eval()
+        y: tuple[float, ...] = prm_py.eval()
         m2_new: tuple[tuple[float, ...], ...] = (hou.Matrix2((x, y)) * hou.Matrix2(((scl, 0), (0, scl)))).asTupleOfTuples()
-
-        parms_dict: dict = {"ffpx": hou.Vector2((m2_new[0])), 
-                            "ffpy": hou.Vector2((m2_new[1]))}
-        flam3h_prm_utils.setParms(self.node, parms_dict)
+        for idx, prm in enumerate((prm_px, prm_py)):
+            prm.lock(False)
+            prm.set(hou.Vector2(m2_new[idx])) # type: ignore
         
         # Reset to no-scale value (1 being 100%)
         scl_prm.set(1) # type: ignore
@@ -7331,7 +7339,7 @@ class flam3h_iterator_utils
         """  
         
         # Names of the cachedUserData
-        data_names: tuple[str, ...] = ('cp_presets_menu', 'cp_presets_menu_off', 'in_presets_menu', 'in_presets_menu_off', 'out_presets_menu')
+        data_names: tuple[str, ...] = (f3h_cachedUserData.cp_presets_menu, f3h_cachedUserData.cp_presets_menu_off, f3h_cachedUserData.in_presets_menu, f3h_cachedUserData.in_presets_menu_off, f3h_cachedUserData.out_presets_menu)
         
         if f3h_all:
             f3h_instances: tuple[hou.SopNode, ...] = node.type().instances()
@@ -17089,70 +17097,75 @@ class in_flame_utils
         
         prm_cc_all_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVES)
         assert prm_cc_all_name is not None
+        prm_cc_all = node.parm(prm_cc_all_name)
         prm_cc_all_val: str = f3r.out_curves[preset_id]
         if prm_cc_all_val in xml_keys.DEFAULT_CC_CURVES_ALL:
-            node.parm(prm_cc_all_name).set(xml_keys.DEFAULT_CC_CURVES)
+            prm_cc_all.set(xml_keys.DEFAULT_CC_CURVES)
         else:
             try:
-                node.parm(prm_cc_all_name).set(prm_cc_all_val)
+                prm_cc_all.set(prm_cc_all_val)
             except (AttributeError, TypeError): # If missing set it to its default
-                node.parm(prm_cc_all_name).set(xml_keys.DEFAULT_CC_CURVES)
+                prm_cc_all.set(xml_keys.DEFAULT_CC_CURVES)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVES} -> NOT FOUND, default value used.\n")
                 
         
         prm_cc_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_OVERALL)
         assert prm_cc_name is not None
+        prm_cc = node.parm(prm_cc_name)
         prm_cc_val: str = f3r.out_curve_overall[preset_id]
         if prm_cc_val in xml_keys.DEFAULT_CC_CURVE_ALL:
-            node.parm(prm_cc_name).set(xml_keys.DEFAULT_CC_CURVE)
+            prm_cc.set(xml_keys.DEFAULT_CC_CURVE)
         else:
             try:
-                node.parm(prm_cc_name).set(prm_cc_val)
+                prm_cc.set(prm_cc_val)
             except (AttributeError, TypeError): # If missing set it to its default
-                node.parm(prm_cc_name).set(xml_keys.DEFAULT_CC_CURVE)
+                prm_cc.set(xml_keys.DEFAULT_CC_CURVE)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVE_OVERALL} -> NOT FOUND, default value used.\n")
                 
                 
         prm_ccr_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_RED)
         assert prm_ccr_name is not None
+        prm_ccr = node.parm(prm_ccr_name)
         prm_ccr_val: str = f3r.out_curve_red[preset_id]
         if prm_ccr_val in xml_keys.DEFAULT_CC_CURVE_ALL:
-            node.parm(prm_ccr_name).set(xml_keys.DEFAULT_CC_CURVE)
+            prm_ccr.set(xml_keys.DEFAULT_CC_CURVE)
         else:
             try:
-                node.parm(prm_ccr_name).set(prm_ccr_val)
+                prm_ccr.set(prm_ccr_val)
             except (AttributeError, TypeError): # If missing set it to its default
-                node.parm(prm_ccr_name).set(xml_keys.DEFAULT_CC_CURVE)
+                prm_ccr.set(xml_keys.DEFAULT_CC_CURVE)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVE_RED} -> NOT FOUND, default value used.\n")
                 
                 
         prm_ccg_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_GREEN)
         assert prm_ccg_name is not None
+        prm_ccg = node.parm(prm_ccg_name)
         prm_ccg_val: str = f3r.out_curve_green[preset_id]
         if prm_ccg_val in xml_keys.DEFAULT_CC_CURVE_ALL:
-            node.parm(prm_ccg_name).set(xml_keys.DEFAULT_CC_CURVE)
+            prm_ccg.set(xml_keys.DEFAULT_CC_CURVE)
         else:
             try:
-                node.parm(prm_ccg_name).set(prm_ccg_val)
+                prm_ccg.set(prm_ccg_val)
             except (AttributeError, TypeError): # If missing set it to its default
-                node.parm(prm_ccg_name).set(xml_keys.DEFAULT_CC_CURVE)
+                prm_ccg.set(xml_keys.DEFAULT_CC_CURVE)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVE_GREEN} -> NOT FOUND, default value used.\n")
 
 
         prm_ccb_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_BLUE)
         assert prm_ccb_name is not None
+        prm_ccb = node.parm(prm_ccb_name)
         prm_ccb_val: str = f3r.out_curve_green[preset_id]
         if prm_ccb_val in xml_keys.DEFAULT_CC_CURVE_ALL:
-            node.parm(prm_ccb_name).set(xml_keys.DEFAULT_CC_CURVE)
+            prm_ccb.set(xml_keys.DEFAULT_CC_CURVE)
         else:
             try:
-                node.parm(prm_ccb_name).set(prm_ccb_val)
+                prm_ccb.set(prm_ccb_val)
             except (AttributeError, TypeError): # If missing set it to its default
-                node.parm(prm_ccb_name).set(xml_keys.DEFAULT_CC_CURVE)
+                prm_ccb.set(xml_keys.DEFAULT_CC_CURVE)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVE_BLUE} -> NOT FOUND, default value used.\n")
     
@@ -21278,7 +21291,7 @@ class out_flame_utils
             flam3h_prm_utils.private_prm_set(node, f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 0)
 
             parms_dict: dict = {f3h_tabs.OUT.MSG_PRM_OUT: '', 
-                                f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT: 0, }
+                                f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT: 0}
             flam3h_prm_utils.setParms(node, parms_dict)
         
         # I do not think this is used anymore but I leave it here 
