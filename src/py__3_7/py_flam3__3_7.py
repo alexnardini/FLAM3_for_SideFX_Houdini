@@ -2924,8 +2924,8 @@ class flam3h_general_utils
         stats: str = node.parm(MSG_IN_FLAMESTATS).eval()
         lines: list = stats.splitlines()
         if lines[0] == MSG_FLAMESTATS_LOCK: lines[0] = ''
-        node.setParms({MSG_IN_FLAMESTATS: "\n".join(lines)})
-        flam3h_prm_utils.set(node, MSG_IN_FLAMESTATS, "\n".join(lines))
+        stats_join: str = "\n".join(lines)
+        flam3h_prm_utils.set(node, MSG_IN_FLAMESTATS, stats_join)
 
 
     @staticmethod
@@ -4502,7 +4502,7 @@ class flam3h_general_utils
             assert isinstance(json_path_checked, str)
             
             # Set the CP filepath parameter to this checked and corrected filepath
-            node.setParms({CP_PATH: json_path_checked})
+            flam3h_prm_utils.set(node, CP_PATH, json_path_checked)
             
             # Here we are checking the file path in the file path parameter field if asked to do so(args: "json_file" and "f3h_json_file" are None)
             if json_file is None and f3h_json_file is None: json_file, f3h_json_file = flam3h_palette_utils.isJSON_F3H(node, json_path)
@@ -4625,7 +4625,7 @@ class flam3h_general_utils
             assert isinstance(xml_checked, str)
             
             # Set the CP filepath parameter to this checked and corrected filepath
-            node.setParms({IN_PATH: xml_checked})
+            flam3h_prm_utils.set(node, IN_PATH, xml_checked)
             
             # We are using the class: _xml_tree becasue we really need to carefully validate the loaded flame file.
             # This is important as all the toggles we are setting here will be used to speed up the population of the menu presets.
@@ -4734,7 +4734,7 @@ class flam3h_general_utils
             assert isinstance(xml_checked, str)
             
             # Set the IN filepath parameter to this checked and corrected filepath
-            node.setParms({OUT_PATH: xml_checked})
+            flam3h_prm_utils.set(node, OUT_PATH, xml_checked)
             
             apo = _xml_tree(xml_checked) #type: ignore
             if apo.isvalidtree:
@@ -4744,16 +4744,18 @@ class flam3h_general_utils
                     # We store the file path only when we know it is a valid Flame file path
                     node.setCachedUserData('out_presets_filepath', xml_checked)
                     
-                    prm.set(f'{len(apo.name)-1}')
-                    prm_sys.set(f'{len(apo.name)-1}')
+                    data: str = f'{len(apo.name)-1}'
+                    prm.set(data)
+                    prm_sys.set(data)
+                    
                     # check if the selected Flame file is locked
                     if self.isLOCK(xml_checked):
-                        node.setParms({MSG_OUT: MSG_OUT_MSG})
+                        flam3h_prm_utils.set(node, MSG_OUT, MSG_OUT_MSG)
                         # Lets print to the status bar as well
                         _MSG: str = f"OUT: {MSG_OUT_MSG}"
                         flam3h_general_utils.set_status_msg(f"{node.name()}.{_MSG} -> {xml_checked}", 'WARN')
                     else:
-                        node.setParms({MSG_OUT: ''})
+                        flam3h_prm_utils.set(node, MSG_OUT, '')
                         
                     flam3h_prm_utils.private_prm_set(node, OUT_PVT_ISVALID_FILE, 1)
                 
@@ -4762,13 +4764,13 @@ class flam3h_general_utils
                 
                 prm.set('-1')
                 prm_sys.set('-1')
-                node.setParms({MSG_OUT: ''})
+                flam3h_prm_utils.set(node, MSG_OUT, '')
                 flam3h_prm_utils.private_prm_set(node, OUT_PVT_ISVALID_FILE, 0)
                 
         else:
             flam3h_iterator_utils.destroy_cachedUserData(node, 'out_presets_filepath')
             
-            node.setParms({MSG_OUT: ''})
+            flam3h_prm_utils.set(node, MSG_OUT, '')
             flam3h_prm_utils.private_prm_set(node, OUT_PVT_ISVALID_FILE, 0)
             # We do not want to print if the file path parameter is empty
             # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
@@ -6793,10 +6795,12 @@ class flam3h_iterator_utils
                         
                     # Update user data
                     node.setUserData(FLAM3H_USER_DATA_XML_LAST, now_data) # type: ignore
-                    # Update flame stats
-                    node.setParms({MSG_IN_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True)})
-                    node.setParms({MSG_IN_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data, True)})
-                    node.setParms({MSG_IN_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data, True)})
+
+                    # Update flame stats                    
+                    parms_dict: dict = {MSG_IN_FLAMESTATS: in_flame_utils(self.kwargs).in_load_stats_msg(preset_id, apo_data, bool(clipboard), True), 
+                                        MSG_IN_FLAMESENSOR: in_flame_utils.in_load_sensor_stats_msg(preset_id, apo_data, True), 
+                                        MSG_IN_FLAMERENDER: in_flame_utils.in_load_render_stats_msg(preset_id, apo_data, True)}
+                    flam3h_prm_utils.setParms(node, parms_dict)
 
                     _MSG_ALL = f"\"XML_last_loaded\" user data: Updated\n\nThe currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk. Reload the preset to update.\n\n-> Meanwhile,\nthe IN flame preset infos have been updated\nas well as its render properties infos."
                     _MSG_UI = f"The currently loaded IN Preset: \"{apo_data.name[preset_id]}\"\nhas been modified on disk."
@@ -7688,9 +7692,14 @@ class flam3h_iterator_utils
                 
                 idx_from: str = str(mp_id_from)
                 
-                prm_selmem = node.parm(f"selmem_{idx}")
+                prm_selmem_name: str = f"selmem_{idx}"
+                prm_selmem = node.parm(prm_selmem_name)
                 if prm_selmem.eval() > 0:
-                    node.setParms({f"prmpastesel_{idx}": 0})
+                    # This menu try to be as fast as it can and do not really want
+                    # to double check for those parms locks and keyframes at all
+                    # as the user really must go in and change those on purpose to cause an issue.
+                    prm_prmpastesel_name: str = f"prmpastesel_{idx}"
+                    node.parm(prm_prmpastesel_name).set(0)
                     prm_selmem.set(0)
                     
                 # Menu entrie sections bookmark icon
@@ -7751,38 +7760,42 @@ class flam3h_iterator_utils
         if self.node.parmTuple(FLAM3H_ITERATORS_TAB).eval() != (1,):
             return MENU_PRESETS_EMPTY_HIDDEN
         
-        else:
+        # This undo's disabler is needed to make the undo work. They work best in H20.5
+        with hou.undos.disabler(): # type: ignore
+            
+            node = self.node
+            # This is to make sure the hou.session's data is at least initialized.
+            self.flam3h_init_hou_session_ff_data(node)
+            # Update data for FF copy/paste iterator's methods in case of Undos.
+            from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
+            
+            if from_FLAM3H_NODE_FF_CHECK is not None:
 
-            # This undo's disabler is needed to make the undo work. They work best in H20.5
-            with hou.undos.disabler(): # type: ignore
+                flam3node_FF: Union[hou.SopNode, None] = hou.session.F3H_MARKED_FF_NODE # type: ignore
                 
-                node = self.node
-                # This is to make sure the hou.session's data is at least initialized.
-                self.flam3h_init_hou_session_ff_data(node)
-                # Update data for FF copy/paste iterator's methods in case of Undos.
-                from_FLAM3H_NODE, from_FLAM3H_NODE_FF_CHECK, isDELETED = self.prm_paste_update_for_undo_ff(node)
-
-                if from_FLAM3H_NODE_FF_CHECK is not None:
-
-                    flam3node_FF: Union[hou.SopNode, None] = hou.session.F3H_MARKED_FF_NODE # type: ignore
+                if node == flam3node_FF:
+                    return MENU_FF_COPY_PASTE_SELECT
+                
+                assert flam3node_FF is not None
+                # Menu entrie sections bookmark icon
+                active: int = flam3node_FF.parm(PREFS_PVT_DOFF).eval()
+                _ICON: str = (FLAM3H_ICON_COPY_PASTE_FF_ENTRIE_OFF, FLAM3H_ICON_COPY_PASTE_FF_ENTRIE)[active]
+                
+                prm_selmem_name: str = f"{PRX_FF_PRM}selmem"
+                prm_selmem = node.parm(prm_selmem_name)
+                if prm_selmem.eval() > 0:
+                    # This menu try to be as fast as it can and do not really want
+                    # to double check for those parms locks and keyframes at all
+                    # as the user really must go in and change those on purpose to cause an issue.
+                    prm_prmpastesel_name: str = f"{PRX_FF_PRM}prmpastesel"
+                    node.parm(prm_prmpastesel_name).set(0)
+                    prm_selmem.set(0)
                     
-                    if node == flam3node_FF: return MENU_FF_COPY_PASTE_SELECT
-                    else:
-                        assert flam3node_FF is not None
-                        # Menu entrie sections bookmark icon
-                        active: int = flam3node_FF.parm(PREFS_PVT_DOFF).eval()
-                        _ICON: str = (FLAM3H_ICON_COPY_PASTE_FF_ENTRIE_OFF, FLAM3H_ICON_COPY_PASTE_FF_ENTRIE)[active]
-                        
-                        prm_selmem = node.parm(f"{PRX_FF_PRM}selmem")
-                        if prm_selmem.eval() > 0:
-                            node.setParms({f"{PRX_FF_PRM}prmpastesel": 0})
-                            prm_selmem.set(0)
-                        
-                        path: str = f"{_ICON}  .../{flam3node_FF.parent()}/{flam3node_FF.name()}.FF"
-                        return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  ... FF: All", 2, f"{path}:  PRE", 3, f"{path}:  VAR", 4, f"{path}:  POST", 5, f"{path}:  pre affine", 6, f"{path}:  post affine", 7, "" ]
-                
-                else:
-                    return MENU_FF_COPY_PASTE_EMPTY
+                path: str = f"{_ICON}  .../{flam3node_FF.parent()}/{flam3node_FF.name()}.FF"
+                return [ 0, "", 1, f"{FLAM3H_ICON_COPY_PASTE_FF}  ... FF: All", 2, f"{path}:  PRE", 3, f"{path}:  VAR", 4, f"{path}:  POST", 5, f"{path}:  pre affine", 6, f"{path}:  post affine", 7, "" ]
+            
+            else:
+                return MENU_FF_COPY_PASTE_EMPTY
         
         
     def prm_paste_update_for_undo(self, node: hou.SopNode) -> tuple[Union[hou.SopNode, None], Union[int, None], bool]:
@@ -8432,7 +8445,8 @@ class flam3h_iterator_utils
             
             # Get user selection of paste methods
             paste_sel: int = node.parm(f"{n.main_prmpastesel}_{idx}").eval()
-            node.setParms({f"{n.main_selmem}_{idx}": paste_sel})
+            prm_selmem = node.parm(f"{n.main_selmem}_{idx}")
+            flam3h_prm_utils.set(node, prm_selmem, paste_sel)
 
             f3h_iter = flam3h_iterator()
             varsPRM = flam3h_varsPRM().varsPRM
@@ -8656,8 +8670,10 @@ class flam3h_iterator_utils
             assert isinstance(from_FLAM3H_NODE, hou.SopNode)
             
             # Get user selection of paste methods
-            paste_sel_FF: int = node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}").eval()
-            node.setParms({f"{PRX_FF_PRM}{n.main_selmem}": paste_sel_FF})
+            prm_sel = node.parm(f"{PRX_FF_PRM}{n.main_prmpastesel}")
+            paste_sel_FF: int = prm_sel.eval()
+            prm_selmem_FF = node.parm(f"{PRX_FF_PRM}{n.main_selmem}")
+            flam3h_prm_utils.set(node, prm_selmem_FF, paste_sel_FF)
             
             f3h_iter_FF = flam3h_iterator_FF()
             # set FF ALL
@@ -9827,8 +9843,8 @@ class flam3h_iterator_utils
         out_flame_utils.out_render_curves_set_and_retrieve_defaults(node)
         
         # Reset IN Folder settings heading
-        node.setParms({MSG_IN_STATS_HEADING: ''}) # type: ignore
-        node.setParms({MSG_IN_SETTINGS_HEADING: ''}) # type: ignore
+        flam3h_prm_utils.set(node, MSG_IN_STATS_HEADING, '')
+        flam3h_prm_utils.set(node, MSG_IN_SETTINGS_HEADING, '')
         
         # Force this node to cook to get a warning message show up upstream.
         # It failed on me once, hence the try except block
@@ -10288,7 +10304,7 @@ class flam3h_palette_utils
             if PALETTE_PLUS_MSG in palette_msg:
                 pass
             else:
-                node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}"}) # type: ignore
+                flam3h_prm_utils.set(node, MSG_PALETTE, f"{PALETTE_PLUS_MSG.strip()} {palette_msg.strip()}")
                 
                 if palette_plus_msg and node.parm(PREFS_PALETTE_256_PLUS).eval():
                     _MSG: str = f"OUT Palette 256+: ON"
@@ -10296,7 +10312,7 @@ class flam3h_palette_utils
                     flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'IMP')
         else:
             if PALETTE_PLUS_MSG in palette_msg:
-                node.setParms({MSG_PALETTE: f"{palette_msg[len(PALETTE_PLUS_MSG.strip()):]}"}) # type: ignore
+                flam3h_prm_utils.set(node, MSG_PALETTE, f"{palette_msg[len(PALETTE_PLUS_MSG.strip()):]}")
                 
                 if palette_plus_msg and node.parm(PREFS_PALETTE_256_PLUS).eval():
                     _MSG: str = f"OUT Palette 256+: OFF"
@@ -10329,9 +10345,9 @@ class flam3h_palette_utils
         
         palette_msg: str = node.parm(MSG_PALETTE).eval()
         if PALETTE_PLUS_MSG in palette_msg:
-            node.setParms({MSG_PALETTE: f"{PALETTE_PLUS_MSG.strip()} {_MSG.strip()}"}) # type: ignore
+            flam3h_prm_utils.set(node, MSG_PALETTE, f"{PALETTE_PLUS_MSG.strip()} {_MSG.strip()}")
         else:
-            node.setParms({MSG_PALETTE: f"{_MSG}"}) # type: ignore
+            flam3h_prm_utils.set(node, MSG_PALETTE, f"{_MSG}")
 
 
     @staticmethod
@@ -10514,9 +10530,11 @@ class flam3h_palette_utils
             (None):
         """
         node = self.node
-        preset_name: str = node.parm(CP_PALETTE_OUT_PRESET_NAME).eval()
+
+        prm = node.parm(CP_PALETTE_OUT_PRESET_NAME)
+        preset_name: str = prm.eval()
         preset_name_checked: str = out_flame_utils.out_auto_add_iter_num(0, preset_name, 1, False)
-        node.setParms({CP_PALETTE_OUT_PRESET_NAME: preset_name_checked})
+        flam3h_prm_utils.set(node, prm, preset_name_checked)
 
 
     def menu_cp_presets_data(self, node: hou.SopNode, json_file_path: str, json_is_file: bool) -> list:
@@ -11436,13 +11454,13 @@ class flam3h_palette_utils
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.SopNode = self.node
         filepath: str = node.parm(CP_PATH).eval()
         if self.isJSON_F3H(node, filepath, False)[0]:
             if flam3h_general_utils.isLOCK(filepath) is False:
-                node.parm(MSG_PALETTE).set('')
+                flam3h_prm_utils.set(node, MSG_PALETTE, '')
         else:
-            node.parm(MSG_PALETTE).set('')
+            flam3h_prm_utils.set(node, MSG_PALETTE, '')
 
 
     def reset_CP_TMP(self) -> None:
@@ -14644,9 +14662,10 @@ class in_flame_utils
                 n = flam3h_iterator_prm_names()
                 if prm_name not in [n.shader_alpha, n.main_weight]:
                     if apo_data[mp_idx]:
-                        node.setParms({f"{prx}{prm_name}_{str(mp_idx + 1)}": apo_data[mp_idx]}) # type: ignore
+                        node.parm(f"{prx}{prm_name}_{mp_idx + 1}").set(apo_data[mp_idx])
+                        
                 else:
-                    node.setParms({f"{prx}{prm_name}_{str(mp_idx + 1)}": apo_data[mp_idx]}) # type: ignore
+                    node.parm(f"{prx}{prm_name}_{mp_idx + 1}").set(apo_data[mp_idx])
            
            
     @staticmethod  
@@ -17709,18 +17728,17 @@ class in_flame_utils
         
         flam3h_prm_utils.private_prm_set(node, IN_PVT_ISVALID_PRESET, 0)
         flam3h_prm_utils.private_prm_set(node, IN_PVT_CLIPBOARD_TOGGLE, 0)
-        for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM),  node.parm(MSG_IN_STATS_HEADING), node.parm(MSG_IN_SETTINGS_HEADING)): prm.set('')
+        for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM),  node.parm(MSG_IN_STATS_HEADING), node.parm(MSG_IN_SETTINGS_HEADING)): flam3h_prm_utils.set(node, prm, '')
         
         if mode:
             # This is not being used anymore but I leave it here just in case
-            node.setParms(  # type: ignore
-                            {IN_PATH: "",
-                            IN_PRESETS: str(-1), 
-                            IN_PRESETS_OFF: str(-1), 
-                            IN_ITER_NUM_ON_LOAD: 64, 
-                            IN_USE_ITER_ON_LOAD: 0, 
-                            IN_COPY_RENDER_PROPERTIES_ON_LOAD: 1}
-                            )
+            parms_dict: dict = {IN_PATH: "",
+                                IN_PRESETS: str(-1), 
+                                IN_PRESETS_OFF: str(-1), 
+                                IN_ITER_NUM_ON_LOAD: 64, 
+                                IN_USE_ITER_ON_LOAD: 0, 
+                                IN_COPY_RENDER_PROPERTIES_ON_LOAD: 1}
+            flam3h_prm_utils.setParms(node, parms_dict)
 
 
 # CONVERT FRACTORIUM's VAR DICT start here
@@ -19204,7 +19222,8 @@ class out_flame_utils
                     iter_num: int = node.parm(GLB_ITERATIONS).eval()
                     autoadd: int = node.parm(OUT_AUTO_ADD_ITER_NUM).eval()
                     flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
-                    node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new})
+                    prm = node.parm(OUT_FLAME_PRESET_NAME)
+                    flam3h_prm_utils.set(node, prm, flame_name_new)
                     
                     _MSG: str = f"{node.name()}: COPY Flame name: {flame_name_new}"
                     flam3h_general_utils.set_status_msg(_MSG, 'MSG')
@@ -19324,7 +19343,7 @@ class out_flame_utils
                                                 }
  
         if res.get(sel) is not None:
-            node.setParms({OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE): hou.Vector2(res.get(sel))}) # type: ignore
+            flam3h_prm_utils.set(node, str(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE)), hou.Vector2(res.get(sel)))
 
             if update:
                 flam3h_general_utils(self.kwargs).util_set_front_viewer()
@@ -19626,7 +19645,9 @@ class out_flame_utils
         node = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
         flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
-        node.setParms({OUT_FLAME_PRESET_NAME: flame_name_new}) #type: ignore
+        
+        prm = node.parm(OUT_FLAME_PRESET_NAME)
+        flam3h_prm_utils.set(node, prm, flame_name_new)
 
 
     def out_auto_change_iter_num_to_prm(self, name: Union[str, None]=None) -> None:
@@ -20212,7 +20233,7 @@ class out_flame_utils
             tree = lxmlET.ElementTree(root)
             tree.write(out_path)
             
-            node.setParms({OUT_FLAME_PRESET_NAME: ''}) #type: ignore
+            flam3h_prm_utils.set(node, OUT_FLAME_PRESET_NAME, '')
             _MSG: str = f"{self.node.name()}: SAVE Flame Append: Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
             flam3h_general_utils.flash_message(node, f"Flame SAVED: Append")
