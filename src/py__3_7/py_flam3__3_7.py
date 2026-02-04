@@ -1350,17 +1350,17 @@ class flam3h_prm_utils:
 class f3h_prm_utils
 
 @STATICMETHODS
-* set(node: hou.SopNode, _prm: hou.Parm | hou.ParmTuple | str, data: int | float | str | tuple | hou.Ramp | hou.Vector3 | hou.Vector2) -> None:
+* set(node: hou.SopNode, _prm: Union[hou.Parm, hou.ParmTuple, str], data: Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]) -> None:
 * setParms(node: hou.SopNode, parms_dict: dict) -> None:
-* private_prm_set(node: hou.SopNode, _prm: str | hou.Parm, data: str | int | float) -> None:
-* private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm) -> None:
+* private_prm_set(node: hou.SopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
+* private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: Union[str, hou.Parm]) -> None:
 
 @METHODS
 
     """  
     
     @staticmethod
-    def set(node: hou.SopNode, _prm: hou.Parm | hou.ParmTuple | str, data: Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]) -> None:
+    def set(node: hou.SopNode, _prm: Union[hou.Parm, hou.ParmTuple, str], data: Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]) -> None:
         """Set a single parameter using the folloing hou methods:</br>
         * <b>node.parm("name").set(val)</b>
         * <b>node.parmTuple("name").set(val)</b></br>
@@ -1373,13 +1373,13 @@ class f3h_prm_utils
         
         Args:
             node(hou.SopNode): this FLAM3H™ node.
-            _prm( hou.Parm | hou.ParmTuple | str): Either a <b>hou.Parm</b>, <b>hou.ParmTuple</b> or a <b>parm name string</b>.
+            _prm(Union[hou.Parm, hou.ParmTuple, None]): Either a <b>hou.Parm</b>, <b>hou.ParmTuple</b> or a <b>parm name string</b>.
             data(Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]): the data to set the parameter to.
             
         Returns:
             (None):
         """ 
-        prm: hou.Parm | hou.ParmTuple | None = None
+        prm: Union[hou.Parm, hou.ParmTuple, None] = None
         if isinstance(_prm, str):
             prm = node.parm(_prm)
             if prm is None:
@@ -1407,12 +1407,12 @@ class f3h_prm_utils
         
         Args:
             node(hou.SopNode): this FLAM3H™ node.
-            parms_dict(dict): A dictionary specifying the parm names and their values.</br>Usually the dict is composed as [str, int | float | str]
+            parms_dict(dict): A dictionary specifying the parm names and their values.</br>Usually the dict is composed as [str, Union[int, float, str]]
             
         Returns:
             (None):
         """ 
-        prm: hou.Parm | hou.ParmTuple | None = None
+        prm: Union[hou.Parm, hou.ParmTuple, None] = None
         for key in parms_dict.keys():
             prm = node.parm(key)
             if prm is None:
@@ -1431,22 +1431,22 @@ class f3h_prm_utils
 
 
     @staticmethod
-    def private_prm_set(node: hou.SopNode, _prm: str | hou.Parm, data: str | int | float) -> None:
+    def private_prm_set(node: hou.SopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
         """Set a parameter value while making sure to unlock and lock it right after.</br>
         This is being introduced to add an extra level of security so to speak to certain parameters</br>
         that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.</br>
         
         Args:
             node(hou.SopNode): this FLAM3H™ node.
-            prm_name(str | hou.Parm): the parameter name or the parameter hou.Parm directly.
-            data(str | int | float): The value to set the parameter to.
+            prm_name(Union[str, hou.Parm]): the parameter name or the parameter hou.Parm directly.
+            data(Union[str, int, float]): The value to set the parameter to.
             
         Returns:
             (None):
         """ 
-        if isinstance(_prm, str): prm: hou.Parm | None = node.parm(_prm)
-        elif isinstance(_prm, hou.Parm): prm: hou.Parm | None = _prm
-        else: prm: hou.Parm | None = None
+        if isinstance(_prm, str): prm: Union[hou.Parm, None] = node.parm(_prm)
+        elif isinstance(_prm, hou.Parm): prm: Union[hou.Parm, None] = _prm
+        else: prm: Union[hou.Parm, None] = None
         if prm is not None:
             prm.lock(False)
             prm.deleteAllKeyframes()
@@ -1461,21 +1461,21 @@ class f3h_prm_utils
         
         
     @staticmethod
-    def private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm) -> None:
+    def private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: Union[str, hou.Parm]) -> None:
         """Delete all parameter's keyframes while making sure to unlock and lock it right after.</br>
         This is being introduced to add an extra level of security so to speak to certain parameters</br>
         that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.</br>
         
         Args:
             node(hou.SopNode): this FLAM3H™ node.
-            prm_name(str | hou.Parm):  the parameter name or the parameter hou.Parm directly.
+            prm_name(Union[str, hou.Parm]):  the parameter name or the parameter hou.Parm directly.
             
         Returns:
             (None):
         """ 
-        if isinstance(_prm, str): prm: hou.Parm | None = node.parm(_prm)
-        elif isinstance(_prm, hou.Parm): prm: hou.Parm | None = _prm
-        else: prm: hou.Parm | None = None
+        if isinstance(_prm, str): prm: Union[hou.Parm, None] = node.parm(_prm)
+        elif isinstance(_prm, hou.Parm): prm: Union[hou.Parm, None] = _prm
+        else: prm: Union[hou.Parm, None] = None
         if prm is not None and len(prm.keyframes()):
             prm.lock(False)
             prm.deleteAllKeyframes()
@@ -1562,7 +1562,7 @@ class flam3h_scripts
         """ 
         if isinstance(__h_versions__, tuple):
             
-            num_str: str | None = None
+            num_str: Union[str, None] = None
             if len(__h_versions__) > 1:
                 if last_index:
                     num_str = str(__h_versions__[-1])
@@ -2996,7 +2996,7 @@ class flam3h_general_utils
         """
         sys: str = platform_system()
         sys_options: dict[str, str] = {'Windows': 'WIN', 'Linux': 'LNX', 'Darwin': 'MAC', 'Java': 'JAVA'}
-        mysys: str | None = sys_options.get(sys)
+        mysys: Union[str, None] = sys_options.get(sys)
         if mysys is not None:
             return mysys
         
@@ -3241,10 +3241,10 @@ class flam3h_general_utils
                             view_obj.setTranslation(_CAM_STASHED.translation())
                             
         else:
-            try: _STASH_DICT: dict[str, hou.GeometryViewportCamera] | None = hou.session.F3H_SENSOR_CAM_STASH_DICT # type: ignore
-            except AttributeError: _STASH_DICT: dict[str, hou.GeometryViewportCamera] | None = None
-            try: _TYPE_DICT: dict[str, hou.geometryViewportType] | None = hou.session.F3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
-            except AttributeError: _TYPE_DICT: dict[str, hou.geometryViewportType] | None = None
+            try: _STASH_DICT: Union[dict[str, hou.GeometryViewportCamera], None] = hou.session.F3H_SENSOR_CAM_STASH_DICT # type: ignore
+            except AttributeError: _STASH_DICT: Union[dict[str, hou.GeometryViewportCamera], None] = None
+            try: _TYPE_DICT: Union[dict[str, hou.geometryViewportType], None] = hou.session.F3H_SENSOR_CAM_STASH_TYPE_DICT # type: ignore
+            except AttributeError: _TYPE_DICT: Union[dict[str, hou.geometryViewportType], None] = None
                 
             if _STASH_DICT is not None and _TYPE_DICT is not None:
                 
@@ -7107,7 +7107,7 @@ class flam3h_iterator_utils
         """
         
         _TYPE, _ICON = self.menu_T_PP_FF_data()
-        var: int | None = MENU_VARS_ALL_INDEXES.get(_TYPE)
+        var: Union[int, None] = MENU_VARS_ALL_INDEXES.get(_TYPE)
         if var is not None:
             menu: list = copy(MENU_VARS_ALL_SIMPLE)
             menu[var] = f"{_ICON} {str(menu[var])[:20]}"
@@ -10939,7 +10939,7 @@ class flam3h_palette_utils
         _CHECK: bool = True
         if rgb_from_XML_PALETTE:
             _len: int = len(rgb_from_XML_PALETTE)
-            POSs: list[int | float] = list(it_islice(it_count(0, 1.0/(_len-1)), _len))
+            POSs: list[Union[int, float]] = list(it_islice(it_count(0, 1.0/(_len-1)), _len))
             BASEs: list[hou.EnumValue] = [hou.rampBasis.Linear] * _len # type: ignore
             
         else:
@@ -11165,15 +11165,15 @@ class flam3h_palette_utils
         
         palette: str = hou.ui.getTextFromClipboard() # type: ignore
         try:
-            _data: dict | None = json.loads(palette)
+            _data: Union[dict, None] = json.loads(palette)
         except json.decoder.JSONDecodeError:
-            _data: dict | None = None
+            _data: Union[dict, None] = None
         
         # If it is a valid json data
         if _data is not None:
             
             try:
-                preset: str | None = list(_data.keys())[0]
+                preset: Union[str, None] = list(_data.keys())[0]
                 del _data
                 
             except IndexError:
@@ -13215,7 +13215,7 @@ class in_flame
             sel_key: Union[str, None] = sel.get(key)
             
             # Is it an iterator or an FF or None ?
-            iter_type: int | str | None = None
+            iter_type: Union[int, str, None] = None
             if mp_idx is not None:
                 if type == 0: iter_type: Union[int, str, None] = mp_idx
                 elif type == 1: iter_type: Union[int, str, None] = 'FF'
@@ -15450,7 +15450,7 @@ class in_flame_utils
         """  
         
         # SIZE (Resolution)
-        prm_size_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE)
+        prm_size_name: Union[str, None] = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SIZE)
         assert prm_size_name is not None
         prm_size = node.parmTuple(prm_size_name)
         try:
@@ -15461,7 +15461,7 @@ class in_flame_utils
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_SIZE} -> NOT FOUND, default value used.\n")
             
         # CENTER
-        prm_center_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER)
+        prm_center_name: Union[str, None] = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_CENTER)
         assert prm_center_name is not None
         prm_center = node.parmTuple(prm_center_name)
         try:
@@ -15472,7 +15472,7 @@ class in_flame_utils
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_CENTER} -> NOT FOUND, default value used.\n")
             
         # ROTATE
-        prm_rotate_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE)
+        prm_rotate_name: Union[str, None] = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_ROTATE)
         assert prm_rotate_name is not None
         prm_rotate = node.parm(prm_rotate_name)
         try:
@@ -15483,7 +15483,7 @@ class in_flame_utils
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_ROTATE} -> NOT FOUND, default value used.\n")
             
         # SCALE (Zoom)
-        prm_scale_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE)
+        prm_scale_name: Union[str, None] = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_SCALE)
         assert prm_scale_name is not None
         prm_scale = node.parm(prm_scale_name)
         try:
@@ -15509,7 +15509,7 @@ class in_flame_utils
         """  
         
         # QUALITY
-        prm_quality_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY)
+        prm_quality_name: Union[str, None] = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_QUALITY)
         assert prm_quality_name is not None
         prm_quality = node.parm(prm_quality_name)
         try:
@@ -15520,7 +15520,7 @@ class in_flame_utils
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_QUALITY} -> NOT FOUND, default value used.\n")
             
         # BRIGHTNESS
-        prm_brightness_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS)
+        prm_brightness_name: Union[str, None] = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_BRIGHTNESS)
         assert prm_brightness_name is not None
         prm_brightness = node.parm(prm_brightness_name)
         try:
@@ -15531,7 +15531,7 @@ class in_flame_utils
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_BRIGHTNESS} -> NOT FOUND, default value used.\n")
             
         # GAMMA
-        prm_gamma_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA)
+        prm_gamma_name: Union[str, None] = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_GAMMA)
         assert prm_gamma_name is not None
         prm_gamma = node.parm(prm_gamma_name)
         try:
@@ -15542,7 +15542,7 @@ class in_flame_utils
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_GAMMA} -> NOT FOUND, default value used.\n")
             
         # HIGHLIGHT POWER
-        prm_hpower_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER)
+        prm_hpower_name: Union[str, None] = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_POWER)
         assert prm_hpower_name is not None
         prm_hpower = node.parm(prm_hpower_name)
         try:
@@ -15553,7 +15553,7 @@ class in_flame_utils
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_POWER} -> NOT FOUND, default value used.\n")
             
         # LOGSCALE K2
-        prm_k2_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2)
+        prm_k2_name: Union[str, None] = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_K2)
         assert prm_k2_name is not None
         prm_k2 = node.parm(prm_k2_name)
         try:
@@ -15564,7 +15564,7 @@ class in_flame_utils
             print(f"Warning:\nIN xml key: {OUT_XML_FLAME_K2} -> NOT FOUND, default value used.\n")
             
         # VIBRANCY
-        prm_vibrancy_name: str | None = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY)
+        prm_vibrancy_name: Union[str, None] = OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_VIBRANCY)
         assert prm_vibrancy_name is not None
         prm_vibrancy = node.parm(prm_vibrancy_name)
         try:
@@ -17062,7 +17062,7 @@ class in_flame_utils
         """ 
         if apo_data.mb_flam3h_fps is not False:
             
-            parms_mb_dict: dict[str, int | float] = {MB_DO: 1,
+            parms_mb_dict: dict[str, Union[int, float]] = {MB_DO: 1,
                                                     MB_FPS: apo_data.mb_flam3h_fps,
                                                     MB_SAMPLES: apo_data.mb_flam3h_samples,
                                                     MB_SHUTTER: apo_data.mb_flam3h_shutter
