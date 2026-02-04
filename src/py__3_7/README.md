@@ -1,5 +1,5 @@
 
-# Python
+# <img width="48" height="48" src="../../icons/icon_pythonSVG.svg" /> Python
 # File name:    `py_flam3__3_7.py`
 - _The ending filename digits represent the least python version needed to run this code_.
 ## Houdini version: H19 to H20
@@ -20,7 +20,7 @@ This is the main FLAM3H™ python file that define:
 <br>
 <br>
 
-# Python
+# <img width="48" height="48" src="../../icons/icon_pythonSVG.svg" /> Python
 # File name:    `py_flam3usd__3_7.py`
 - _The ending filename digits represent the least python version needed to run this code_.
 ## Houdini version: H19 to H20

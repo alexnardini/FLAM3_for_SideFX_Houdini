@@ -1,7 +1,7 @@
 ```python
 #   Title:      FLAM3H™. SideFX Houdini FLAM3: UI ICON MAP
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       September 2025, Last revised January 2026
+#   date:       September 2025, Last revised February 2026
 #   License:    GPL, CC BY-SA 4.0
 #   Copyright:  (c) 2021 F stands for liFe
 #
@@ -17,16 +17,16 @@
 _They remain Copyright of (c) 2021 F stands for liFe (and their other respective owners), and may not be redistributed without permission_.
 
 - #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
-- #### Houdini versions:  `from H21`
+- #### Houdini versions:  `H19 to H20`
 
 </br>
 </br>
 
 #### Quick links
 
-- **FLAM3H™** [**UI_ICON_map H19 to H20.5**](FLAM3H__UI_ICON_map_H19_to_H205.md)
-- **FLAM3H™** [**UI_PARM_map H21 UP**](py_flam3__UI_PARM_map_H21_UP.md)
-- **FLAM3H™** [**UI_PARM_map H19 to H20.5**](py_flam3__UI_PARM_map_H19_to_H205.md)
+- **FLAM3H™** [**UI_PARM_map H19 to H20**](py_flam3__UI_PARM_map_H19_to_H20.md)
+- **FLAM3H™** [**UI_PARM_map H20.5 to H21 UP**](py_flam3__UI_PARM_map_H205_to_H21_UP.md)
+- **FLAM3H™** [**UI_ICON_map H20.5 to H21 UP**](FLAM3H__UI_ICON_map_H205_to_H21_UP.md)
 
 </br>
 
@@ -58,7 +58,7 @@ _Parameters to define the quality of the fractal Flame algorithm solution._
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **GLOBAL** | `icon_iter_off` | `from H21` |
+| **GLOBAL** | `icon_iter_off` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
@@ -73,7 +73,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **GLOBAL** | `ptcount_presets_off` | `from H21` |
+| **GLOBAL** | `ptcount_presets_off` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
@@ -93,7 +93,7 @@ Token: 1
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **GLOBAL** | `icon_iter` | `from H21` |
+| **GLOBAL** | `icon_iter` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -108,7 +108,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **GLOBAL** | `ptcount_presets` | `from H21` |
+| **GLOBAL** | `ptcount_presets` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -132,8 +132,7 @@ The pre-built icons menu python lists being used:
 </p>
 
 ```python
-# class f3h_menus
-DENSITY: Final[TA_menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
+MENU_DENSITY: list = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
 ```
 
 </br>
@@ -147,8 +146,7 @@ DENSITY: Final[TA_menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_opt
 </p>
 
 ```python
-# class f3h_menus
-DENSITY_XFVIZ_OFF: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZOFFSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
+MENU_DENSITY_XFVIZ_OFF: list = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZOFFSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
 ```
 
 </br>
@@ -162,8 +160,7 @@ DENSITY_XFVIZ_OFF: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3
 </p>
 
 ```python
-# class f3h_menus
-DENSITY_XFVIZ_ON: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
+MENU_DENSITY_XFVIZ_ON: list = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
 ```
 
 </br>
@@ -177,8 +174,7 @@ DENSITY_XFVIZ_ON: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H
 </p>
 
 ```python
-# class f3h_menus
-DENSITY_XFVIZ_ON_SOLO: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSOLOSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
+MENU_DENSITY_XFVIZ_ON_SOLO: list = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSOLOSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
 ```
 
 </br>
@@ -209,7 +205,7 @@ I keep changing and adding functionalities, it is still a work in progress, but 
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_help` | `from H21` |
+| **SYS** | `sys_help` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_F_docStarSVG.svg" /></p>
@@ -224,7 +220,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_F_docStarSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `iterlist` | `from H21` |
+| **SYS** | `iterlist` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -247,27 +243,22 @@ The pre-built icons menu python lists being used:
 </p>
 
 ```python
-# class f3h_icons
-SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT: Final[tuple[tuple[str, str], tuple[str, str]]] = ((STAR_FLAME_ITER_ACTV, COPY_PASTE), (STAR_FLAME_ITER_ACTV_XFVIZ, COPY_PASTE_XFVIZ))
+SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT: tuple[tuple[str, str], tuple[str, str]] = ((FLAM3H_ICON_STAR_FLAME_ITER_ACTV, FLAM3H_ICON_COPY_PASTE), (FLAM3H_ICON_STAR_FLAME_ITER_ACTV_XFVIZ, FLAM3H_ICON_COPY_PASTE_XFVIZ))
 ```
-STAR_FLAME_ITER_ACTV
+FLAM3H_ICON_STAR_FLAME_ITER_ACTV
 ```python
-# class f3h_icons
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg]'
 ```
-COPY_PASTE
+FLAM3H_ICON_COPY_PASTE
 ```python
-# class f3h_icons
 '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg]'
 ```
-STAR_FLAME_ITER_ACTV_XFVIZ
+FLAM3H_ICON_STAR_FLAME_ITER_ACTV_XFVIZ
 ```python
-# class f3h_icons
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrange_xfVizSVG.svg]'
 ```
-COPY_PASTE_XFVIZ
+FLAM3H_ICON_COPY_PASTE_XFVIZ
 ```python
-# class f3h_icons
 '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPaste_xfVizSVG.svg]'
 ```
 
@@ -281,27 +272,22 @@ COPY_PASTE_XFVIZ
 </p>
 
 ```python
-# class f3h_icons
-SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: Final[tuple[tuple[str, str], tuple[str, str]]] = ((STAR_EMPTY_OPACITY, COPY_PASTE_ENTRIE_ZERO), (STAR_EMPTY_OPACITY_XFVIZ, COPY_PASTE_ENTRIE_ZERO_XFVIZ))
+SEL_ITER_BOOKMARK_ACTIVE_AND_WEIGHT_ZERO: tuple[tuple[str, str], tuple[str, str]] = ((FLAM3H_ICON_STAR_EMPTY_OPACITY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO), (FLAM3H_ICON_STAR_EMPTY_OPACITY_XFVIZ, FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO_XFVIZ))
 ```
-STAR_EMPTY_OPACITY
+FLAM3H_ICON_STAR_EMPTY_OPACITY
 ```python
-# class f3h_icons
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]'
 ```
-COPY_PASTE_ENTRIE_ZERO
+FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO
 ```python
-# class f3h_icons
 '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroWSVG.svg]'
 ```
-STAR_EMPTY_OPACITY_XFVIZ
+FLAM3H_ICON_STAR_EMPTY_OPACITY_XFVIZ
 ```python
-# class f3h_icons
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIter_xfVizSVG.svg]'
 ```
-COPY_PASTE_ENTRIE_ZERO_XFVIZ
+FLAM3H_ICON_COPY_PASTE_ENTRIE_ZERO_XFVIZ
 ```python
-# class f3h_icons
 '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteZeroW_xfVizSVG.svg]'
 ```
 
@@ -315,34 +301,24 @@ COPY_PASTE_ENTRIE_ZERO_XFVIZ
 </p>
 
 ```python
-# class f3h_icons
-SEL_ITER_BOOKMARK_OFF: Final[tuple[tuple[str, str], tuple[str, str]]] = ((STAR_EMPTY, COPY_PASTE_ENTRIE_ITER_OFF_MARKED), (STAR_EMPTY_XFVIZ, COPY_PASTE_ENTRIE_ITER_OFF_MARKED_XFVIZ))
+SEL_ITER_BOOKMARK_OFF: tuple[tuple[str, str], tuple[str, str]] = ((FLAM3H_ICON_STAR_EMPTY, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED), (FLAM3H_ICON_STAR_EMPTY_XFVIZ, FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED_XFVIZ))
 ```
-STAR_EMPTY
+FLAM3H_ICON_STAR_EMPTY
 ```python
-# class f3h_icons
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg]'
 ```
-COPY_PASTE_ENTRIE_ITER_OFF_MARKED
+FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED
 ```python
-# class f3h_icons
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIterSVG.svg]'
 ```
-STAR_EMPTY_XFVIZ
+FLAM3H_ICON_STAR_EMPTY_XFVIZ
 ```python
-# class f3h_icons
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabled_xfVizSVG.svg]'
 ```
-COPY_PASTE_ENTRIE_ITER_OFF_MARKED_XFVIZ
+FLAM3H_ICON_COPY_PASTE_ENTRIE_ITER_OFF_MARKED_XFVIZ
 ```python
-# class f3h_icons
 '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSelIter_xfVizSVG.svg]'
 ```
-
-</br>
-</br>
-
-The pre-built icons menu python lists being used:
 
 </br>
 </br>
@@ -350,8 +326,7 @@ The pre-built icons menu python lists being used:
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```python
-# class f3h_menus
-ZERO_ITERATORS: Final[TA_Menu] = [0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  ZERO ITERATORS\n -> Please, create at least one iterator or load an IN flame file first.", 1, ""]
+MENU_ZERO_ITERATORS: list = [0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  ZERO ITERATORS\n -> Please, create at least one iterator or load an IN flame file first.", 1, ""]
 ```
 
 </br>
@@ -360,7 +335,7 @@ ZERO_ITERATORS: Final[TA_Menu] = [0, "![opdef:/alexnardini::Sop/FLAM3H?icon_opti
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `doff_no_iterators` | `from H21` |
+| **SYS** | `doff_no_iterators` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
@@ -375,7 +350,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `doff_sysdisabled` | `from H21` |
+| **SYS** | `doff_sysdisabled` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFFDisabledSVG.svg" /></p>
@@ -390,7 +365,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `doff_sysenabled` | `from H21` |
+| **SYS** | `doff_sysenabled` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFFEnabledSVG.svg" /></p>
@@ -405,7 +380,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `rip_no_iterators` | `from H21` |
+| **SYS** | `rip_no_iterators` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
@@ -420,7 +395,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `rip_disabled` | `from H21` |
+| **SYS** | `rip_disabled` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionRIPDisabledSVG.svg" /></p>
@@ -435,7 +410,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPDisabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `rip_enabled` | `from H21` |
+| **SYS** | `rip_enabled` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionRIPEnabledSVG.svg" /></p>
@@ -450,7 +425,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPEnabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `f3c_no_iterators` | `from H21` |
+| **SYS** | `f3c_no_iterators` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
@@ -465,7 +440,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `f3c_chaotica` | `from H21` |
+| **SYS** | `f3c_chaotica` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionF3CDisabledSVG.svg" /></p>
@@ -480,7 +455,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CDisabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `f3c_apophysis` | `from H21` |
+| **SYS** | `f3c_apophysis` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionF3CEnabledSVG.svg" /></p>
@@ -495,7 +470,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CEnabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `xfviz_no_iterators` | `from H21` |
+| **SYS** | `xfviz_no_iterators` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
@@ -510,7 +485,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `xfviz_off` | `from H21` |
+| **SYS** | `xfviz_off` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesDisabledSVG.svg" /></p>
@@ -525,7 +500,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `xfviz_on` | `from H21` |
+| **SYS** | `xfviz_on` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesEnabledSVG.svg" /></p>
@@ -540,7 +515,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `xfviz_on_solo` | `from H21` |
+| **SYS** | `xfviz_on_solo` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesEnabledMPIDXSVG.svg" /></p>
@@ -555,7 +530,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `xfvizff_on_solo` | `from H21` |
+| **SYS** | `xfvizff_on_solo` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_ffHandlesEnabledSVG.svg" /></p>
@@ -570,7 +545,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_out_sensorviz` | `from H21` |
+| **SYS** | `sys_out_sensorviz` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedSVG.svg" /></p>
@@ -585,7 +560,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_out_sensorviz_off` | `from H21` |
+| **SYS** | `sys_out_sensorviz_off` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedOffSVG.svg" /></p>
@@ -600,7 +575,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedOffSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_tag_disabled` | `from H21` |
+| **SYS** | `sys_tag_disabled` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
@@ -615,7 +590,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_tag_off` | `from H21` |
+| **SYS** | `sys_tag_off` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueSVG_disabled.svg" /></p>
@@ -630,7 +605,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG_disabled.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_tag` | `from H21` |
+| **SYS** | `sys_tag` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagOBlueSVG.svg" /></p>
@@ -645,7 +620,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `tagsize` | `from H21` |
+| **SYS** | `tagsize` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 <p align="left"><img width="48" height="48" src="../icons/icon_TagOBlueMenuSmallSVG.svg" /></p>
@@ -673,7 +648,7 @@ Token: 2
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `loaddef` | `from H21` |
+| **SYS** | `loaddef` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_SierpinskyDefSVG.svg" /></p>
@@ -688,7 +663,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_SierpinskyDefSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `frameview` | `from H21` |
+| **SYS** | `frameview` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_FrameBlueSVG.svg" /></p>
@@ -703,7 +678,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `frameviewsensor` | `from H21` |
+| **SYS** | `frameviewsensor` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_FrameRedSVG.svg" /></p>
@@ -718,7 +693,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FrameRedSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_palettepresets_disabled` | `from H21` |
+| **SYS** | `sys_palettepresets_disabled` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
@@ -733,7 +708,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_palettepresets_off` | `from H21` |
+| **SYS** | `sys_palettepresets_off` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -761,8 +736,7 @@ The pre-built icons menu python lists being used:
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
 ```
 
 </br>
@@ -772,8 +746,7 @@ PRESETS_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_opti
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_SAVEONE: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
+MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
 ```
 
 </br>
@@ -783,8 +756,7 @@ PRESETS_SAVEONE: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_op
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_INVALID: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
 ```
 
 </br>
@@ -803,7 +775,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_palettepresets` | `from H21` |
+| **SYS** | `sys_palettepresets` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -835,7 +807,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_inpresets_disabled` | `from H21` |
+| **SYS** | `sys_inpresets_disabled` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -863,8 +835,7 @@ The pre-built icons menu python lists being used:
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
 ```
 
 </br>
@@ -874,18 +845,15 @@ PRESETS_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_opti
 </p>
 
 ```python
-# class f3h_menus
-ZERO_ITERATORS_PRESETS_INVALID: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
+MENU_ZERO_ITERATORS_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
 ```
 
 ```python
-# class f3h_menus
-PRESETS_INVALID: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
 ```
 
 ```python
-# class f3h_menus
-PRESETS_INVALID_CB: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  [CLIPBOARD] Invalid file path     ']
+MENU_PRESETS_INVALID_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  [CLIPBOARD] Invalid file path     ']
 ```
 
 </br>
@@ -895,8 +863,7 @@ PRESETS_INVALID_CB: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon
 </p>
 
 ```python
-# class f3h_menus
-IN_PRESETS_EMPTY_CB: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  [CLIPBOARD]     ']
+MENU_IN_PRESETS_EMPTY_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  [CLIPBOARD]     ']
 ```
 
 </br>
@@ -915,7 +882,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG_disabled.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_inpresets` | `from H21` |
+| **SYS** | `sys_inpresets` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -953,7 +920,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_outpresets_disabled` | `from H21` |
+| **SYS** | `sys_outpresets_disabled` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledZeroIterSVG.svg" /></p>
@@ -968,7 +935,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **SYS** | `sys_outpresets` | `from H21` |
+| **SYS** | `sys_outpresets` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -989,15 +956,12 @@ _The following are icons being used on demand based on the menu python script ne
 
 The pre-built icons menu python lists being used:
 
-</br>
-</br>
 
 <p align="left"><img width="48" height="48" src="../icons/icon_optionDisabledZeroIterSVG.svg" />
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
 ```
 
 </br>
@@ -1007,8 +971,7 @@ PRESETS_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_opti
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_SAVEONE: Final[TA_MENU] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
+MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
 ```
 
 </br>
@@ -1018,8 +981,7 @@ PRESETS_SAVEONE: Final[TA_MENU] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_op
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_INVALID: Final_TA_Menu = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
 ```
 
 </br>
@@ -1051,22 +1013,7 @@ Here you will create your fractal Flame logic.<br>Since every parameter has the 
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `mp_add_#` | `from H21` |
-
-### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_AddDelIteratorSVG.svg" /></p>
-
-```
-opdef:/alexnardini::Sop/FLAM3H?icon_AddDelIteratorSVG.svg
-```
-
-</br>
-</br>
-</br>
-
-| Tab | Parameter name | Houdini version |
-|:---|:---|---:|
-| **FLAME** | `prmpastesel_#` | `from H21` |
+| **FLAME** | `prmpastesel_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -1107,14 +1054,12 @@ The pre-built icons menu python lists being used:
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarWarningSVG.svg" /></p>
 
 ```python
-# class f3h_menus
-ITER_COPY_PASTE_DELETED_MARKED: Final[TA_Menu] = [ 0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", 1, "" ]
+MENU_ITER_COPY_PASTE_DELETED_MARKED: list = [ 0, "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  DELETED: Marked iterator's node has been deleted.\n-> Mark another iterator first.", 1, "" ]
 ```
 
 
 ```python
-# class f3h_menus
-ITER_COPY_PASTE_REMOVED: Final[TA_Menu] = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.', 1, '']
+MENU_ITER_COPY_PASTE_REMOVED: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  REMOVED: The marked iterator has been removed.\n-> Mark an existing iterator instead.', 1, '']
 ```
 
 </br>
@@ -1123,8 +1068,7 @@ ITER_COPY_PASTE_REMOVED: Final[TA_Menu] = [0, '![opdef:/alexnardini::Sop/FLAM3H?
 <p align="left"><img width="48" height="48" src="../icons/icon_StarSwapRedCopyPasteSVG.svg" /></p>
 
 ```python
-# class f3h_menus
-ITER_COPY_PASTE_EMPTY: Final[TA_Menu] = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg]  Please, mark an iterator first.', 1, '']
+MENU_ITER_COPY_PASTE_EMPTY: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg]  Please, mark an iterator first.', 1, '']
 ```
 
 </br>
@@ -1143,7 +1087,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `doiter_disabled_#` | `from H21` |
+| **FLAME** | `doiter_disabled_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionDisabledSVG.svg" /></p>
@@ -1158,7 +1102,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `doiter_#` | `from H21` |
+| **FLAME** | `doiter_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarYellowOrangeSVG.svg" /></p>
@@ -1173,7 +1117,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `xfviz_off_#` | `from H21` |
+| **FLAME** | `xfviz_off_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesDisabledSVG.svg" /></p>
@@ -1188,7 +1132,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `xfviz_on_#` | `from H21` |
+| **FLAME** | `xfviz_on_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesEnabledMPIDXSVG.svg" /></p>
@@ -1203,7 +1147,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `xaos_#` | `from H21` |
+| **FLAME** | `xaos_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueKwargsSVG.svg" /></p>
@@ -1218,7 +1162,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueKwargsSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `preblurtype_#` | `from H21` |
+| **FLAME** | `preblurtype_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -1245,7 +1189,7 @@ _The following are icons being used on demand based on the menu python script ne
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `pre1type_#`, `pre2type_#`, `p1type_#` | `from H21` |
+| **FLAME** | `pre1type_#`, `pre2type_#`, `p1type_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -1277,7 +1221,7 @@ _The following are icons being used on demand based on the menu python script ne
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `pre2weight_#` | `from H21` |
+| **FLAME** | `pre2weight_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
@@ -1292,7 +1236,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `v1type_#`, `v2type_#`, `v3type_#`, `v4type_#` | `from H21` |
+| **FLAME** | `v1type_#`, `v2type_#`, `v3type_#`, `v4type_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -1329,7 +1273,7 @@ _The following are icons being used on demand based on the menu python script ne
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `scl_#` | `from H21` |
+| **FLAME** | `scl_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
@@ -1344,7 +1288,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `ang_#` | `from H21` |
+| **FLAME** | `ang_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
@@ -1359,7 +1303,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `pscl_#` | `from H21` |
+| **FLAME** | `pscl_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
@@ -1374,7 +1318,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FLAME** | `pang_#` | `from H21` |
+| **FLAME** | `pang_#` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
@@ -1401,7 +1345,7 @@ It allows for a great deal of creative experimentation by taking the combined re
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FF** | `doff_disabled` | `from H21` |
+| **FF** | `doff_disabled` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFFDisabledSVG.svg" /></p>
@@ -1416,7 +1360,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FF** | `doff_enabled` | `from H21` |
+| **FF** | `doff_enabled` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionFFEnabledSVG.svg" /></p>
@@ -1431,7 +1375,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FF** | `xfvizff_off` | `from H21` |
+| **FF** | `xfvizff_off` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_xfHandlesDisabledSVG.svg" /></p>
@@ -1446,7 +1390,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FF** | `xfvizff_on` | `from H21` |
+| **FF** | `xfvizff_on` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_ffHandlesEnabledSVG.svg" /></p>
@@ -1461,7 +1405,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FF** | `ffprmpastesel` | `from H21` |
+| **FF** | `ffprmpastesel` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -1498,8 +1442,7 @@ The pre-built icons menu python lists being used:
 <p align="left"><img width="48" height="48" src="../icons/icon_StarSwapRedCopyPasteFFSVG.svg" /></p>
 
 ```python
-# class f3h_menus
-FF_COPY_PASTE_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg]  Please, mark the FF first.', 0, '']
+MENU_FF_COPY_PASTE_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg]  Please, mark the FF first.', 0, '']
 ```
 
 </br>
@@ -1508,8 +1451,7 @@ FF_COPY_PASTE_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?ico
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarBlueSVG.svg" /></p>
 
 ```python
-# class f3h_menus
-FF_COPY_PASTE_SELECT: Final[TA_Menu] = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED\n-> Select a different FLAM3H™ node to paste those FF values.', 1, '']
+MENU_FF_COPY_PASTE_SELECT: list = [0, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  FF: MARKED\n-> Select a different FLAM3H™ node to paste those FF values.', 1, '']
 ```
 
 </br>
@@ -1528,7 +1470,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteFFSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FF** | `ffpre1type`, `ffp1type`, `ffp2type` | `from H21` |
+| **FF** | `ffpre1type`, `ffp1type`, `ffp2type` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -1560,7 +1502,7 @@ _The following are icons being used on demand based on the menu python script ne
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FF** | `ffv1type`, `ffv2type` | `from H21` |
+| **FF** | `ffv1type`, `ffv2type` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -1597,7 +1539,7 @@ _The following are icons being used on demand based on the menu python script ne
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FF** | `ffp2weight` | `from H21` |
+| **FF** | `ffp2weight` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
@@ -1612,7 +1554,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FF** | `ffscl` | `from H21` |
+| **FF** | `ffscl` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineFFSVG.svg" /></p>
@@ -1627,7 +1569,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineFFSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FF** | `ffang` | `from H21` |
+| **FF** | `ffang` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
@@ -1642,7 +1584,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FF** | `ffpscl` | `from H21` |
+| **FF** | `ffpscl` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineFFSVG.svg" /></p>
@@ -1657,7 +1599,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineFFSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **FF** | `ffpang` | `from H21` |
+| **FF** | `ffpang` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
@@ -1684,7 +1626,7 @@ In addition to playing with the shader parameters for each iterator, fractal Fla
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **CP** | `hsv` | `from H21` |
+| **CP** | `hsv` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
@@ -1699,7 +1641,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **CP** | `palettehsv` | `from H21` |
+| **CP** | `palettehsv` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
@@ -1792,7 +1734,7 @@ Token: 5
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **CP** | `cp_lookupsamples` | `from H21` |
+| **CP** | `cp_lookupsamples` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
@@ -1820,7 +1762,7 @@ Token: 1024
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **CP** | `palette` | `from H21` |
+| **CP** | `palette` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
@@ -1835,7 +1777,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **CP** | `palettename` | `from H21` |
+| **CP** | `palettename` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_WhiteStarSVG.svg" /></p>
@@ -1850,7 +1792,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **CP** | `palettepresets_off` | `from H21` |
+| **CP** | `palettepresets_off` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -1878,8 +1820,7 @@ The pre-built icons menu python lists being used:
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
 ```
 
 </br>
@@ -1889,8 +1830,7 @@ PRESETS_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_opti
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_SAVEONE: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
+MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
 ```
 
 </br>
@@ -1900,8 +1840,7 @@ PRESETS_SAVEONE: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_op
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_INVALID: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
 ```
 
 </br>
@@ -1920,7 +1859,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionPRIDEDisabledSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **CP** | `palettepresets` | `from H21` |
+| **CP** | `palettepresets` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -1966,7 +1905,7 @@ _When animating your fractal Flame, turning this on will compute a proper tempor
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **MB** | `domb` | `from H21` |
+| **MB** | `domb` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
@@ -1996,7 +1935,7 @@ _It is a native Flame fractal file format containing transformation parameters, 
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **IN** | `inpresets_disabled` | `from H21` |
+| **IN** | `inpresets_disabled` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -2024,8 +1963,7 @@ The pre-built icons menu python lists being used:
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
 ```
 
 </br>
@@ -2035,18 +1973,15 @@ PRESETS_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_opti
 </p>
 
 ```python
-# class f3h_menus
-ZERO_ITERATORS_PRESETS_INVALID: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
+MENU_ZERO_ITERATORS_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  ZERO ITERATORS\n -> Invalid file path. Please, create at least one iterator or load a valid IN flame file first.']
 ```
 
 ```python
-# class f3h_menus
-PRESETS_INVALID: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
 ```
 
 ```python
-# class f3h_menus
-PRESETS_INVALID_CB: Final[TA_menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  [CLIPBOARD] Invalid file path     ']
+MENU_PRESETS_INVALID_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  [CLIPBOARD] Invalid file path     ']
 ```
 
 </br>
@@ -2056,8 +1991,7 @@ PRESETS_INVALID_CB: Final[TA_menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon
 </p>
 
 ```python
-# class f3h_menus
-IN_PRESETS_EMPTY_CB: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  [CLIPBOARD]     ']
+MENU_IN_PRESETS_EMPTY_CB: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]  [CLIPBOARD]     ']
 ```
 
 </br>
@@ -2076,7 +2010,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG_disabled.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **IN** | `inpresets` | `from H21` |
+| **IN** | `inpresets` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -2114,7 +2048,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **IN** | `in_f3h_affine` | `from H21` |
+| **IN** | `in_f3h_affine` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
@@ -2129,7 +2063,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **IN** | `propertiescp` | `from H21` |
+| **IN** | `propertiescp` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
@@ -2144,7 +2078,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **IN** | `icon_in_infos` | `from H21` |
+| **IN** | `icon_in_infos` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -2159,7 +2093,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **IN** | `cprendervals` | `from H21` |
+| **IN** | `cprendervals` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteInfosSVG.svg" /></p>
@@ -2174,7 +2108,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **IN** | `icon_in_infos_sensor` | `from H21` |
+| **IN** | `icon_in_infos_sensor` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
@@ -2189,7 +2123,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **IN** | `icon_in_infos_render` | `from H21` |
+| **IN** | `icon_in_infos_render` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteAffineSVG.svg" /></p>
@@ -2219,7 +2153,7 @@ _It is a native Flame fractal file format containing transformation parameters, 
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **OUT** | `outname` | `from H21` |
+| **OUT** | `outname` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_WhiteStarSVG.svg" /></p>
@@ -2234,7 +2168,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteStarSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **OUT** | `outpresets` | `from H21` |
+| **OUT** | `outpresets` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 This menu icon set is built on demand from the py_flam3__x_x.py HDA python module (_where x_x is the python module version_).
@@ -2255,15 +2189,12 @@ _The following are icons being used on demand based on the menu python script ne
 
 The pre-built icons menu python lists being used:
 
-</br>
-</br>
 
 <p align="left"><img width="48" height="48" src="../icons/icon_optionDisabledZeroIterSVG.svg" />
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
+MENU_PRESETS_EMPTY: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledZeroIterSVG.svg]  Empty     ']
 ```
 
 </br>
@@ -2273,8 +2204,7 @@ PRESETS_EMPTY: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_opti
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_SAVEONE: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
+MENU_PRESETS_SAVEONE: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg]  Save to create this file     ']
 ```
 
 </br>
@@ -2284,8 +2214,7 @@ PRESETS_SAVEONE: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_op
 </p>
 
 ```python
-# class f3h_menus
-PRESETS_INVALID: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
+MENU_PRESETS_INVALID: list = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg]  Invalid file path     ']
 ```
 
 </br>
@@ -2304,7 +2233,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueKwargsSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **OUT** | `outedit` | `from H21` |
+| **OUT** | `outedit` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
@@ -2319,7 +2248,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **OUT** | `out_sensorviz_disabled` | `from H21` |
+| **OUT** | `out_sensorviz_disabled` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedSVG_disabled.svg" /></p>
@@ -2334,7 +2263,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG_disabled.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **OUT** | `out_sensorviz` | `from H21` |
+| **OUT** | `out_sensorviz` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedSVG.svg" /></p>
@@ -2349,7 +2278,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **OUT** | `out_sensorviz_off` | `from H21` |
+| **OUT** | `out_sensorviz_off` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_TagORedOffSVG.svg" /></p>
@@ -2364,7 +2293,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_TagORedOffSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **OUT** | `outcprendervals` | `from H21` |
+| **OUT** | `outcprendervals` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_StarSwapRedCopyPasteInfosSVG.svg" /></p>
@@ -2379,7 +2308,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **OUT** | `icon_f3h_cc_defaults_copy` | `from H21` |
+| **OUT** | `icon_f3h_cc_defaults_copy` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
@@ -2394,7 +2323,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **OUT** | `icon_f3h_cc_modified_reset` | `from H21` |
+| **OUT** | `icon_f3h_cc_modified_reset` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarRedSVG.svg" /></p>
@@ -2409,7 +2338,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **OUT** | `icon_f3h_cc_curves` (_hidden_), `icon_f3h_cc_overall`, `icon_f3h_cc_red`, `icon_f3h_cc_green`, `icon_f3h_cc_blue` | `from H21` |
+| **OUT** | `icon_f3h_cc_curves` (_hidden_), `icon_f3h_cc_overall`, `icon_f3h_cc_red`, `icon_f3h_cc_green`, `icon_f3h_cc_blue` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -2438,7 +2367,7 @@ _These preferences affect how the software behaves and appears but do not direct
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `xm` | `from H21` |
+| **PREFS** | `xm` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
@@ -2454,7 +2383,7 @@ Token: 0
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `ptcount` | `from H21` |
+| **PREFS** | `ptcount` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
@@ -2470,7 +2399,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `vptype` | `from H21` |
+| **PREFS** | `vptype` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
@@ -2486,7 +2415,7 @@ Token: 0
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `vpptsize` | `from H21` |
+| **PREFS** | `vpptsize` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 
@@ -2502,7 +2431,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `vpww` | `from H21` |
+| **PREFS** | `vpww` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
@@ -2517,7 +2446,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `icon_custom_6` _(hidden)_ | `from H21` |
+| **PREFS** | `icon_custom_6` _(hidden)_ | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -2532,7 +2461,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `icon_custom_5` _(hidden)_ | `from H21` |
+| **PREFS** | `icon_custom_5` _(hidden)_ | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -2547,7 +2476,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `icon_custom_4` _(hidden)_ | `from H21` |
+| **PREFS** | `icon_custom_4` _(hidden)_ | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -2562,7 +2491,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `icon_custom_2` _(hidden)_ | `from H21` |
+| **PREFS** | `icon_custom_2` _(hidden)_ | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -2577,7 +2506,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `icon_custom_3` _(hidden)_ | `from H21` |
+| **PREFS** | `icon_custom_3` _(hidden)_ | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -2592,7 +2521,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `icon_custom_8` _(hidden)_ | `from H21` |
+| **PREFS** | `icon_custom_8` _(hidden)_ | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -2620,7 +2549,7 @@ _Here you will find informations about FLAM3H™._
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `icon_about_error` | `from H21` |
+| **ABOUT** | `icon_about_error` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWarningSVG.svg" /></p>
@@ -2635,7 +2564,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `icon_about` | `from H21` |
+| **ABOUT** | `icon_about` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -2650,7 +2579,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `icon_about_plugins_error` | `from H21` |
+| **ABOUT** | `icon_about_plugins_error` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWarningSVG.svg" /></p>
@@ -2665,7 +2594,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `icon_about_plugins` | `from H21` |
+| **ABOUT** | `icon_about_plugins` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -2680,7 +2609,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `icon_f3h_links` | `from H21` |
+| **ABOUT** | `icon_f3h_links` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -2695,7 +2624,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `flam3homepage` | `from H21` |
+| **ABOUT** | `flam3homepage` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/iconSVG.svg" /></p>
@@ -2710,7 +2639,7 @@ opdef:/alexnardini::Sop/FLAM3H?iconSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `flam3github` | `from H21` |
+| **ABOUT** | `flam3github` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_GithubBlackSVG.svg" /></p>
@@ -2725,7 +2654,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlackSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `flam3insta` | `from H21` |
+| **ABOUT** | `flam3insta` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_InstagramSVG.svg" /></p>
@@ -2740,7 +2669,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_InstagramSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `flam3youtube` | `from H21` |
+| **ABOUT** | `flam3youtube` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_youtube_red_play.svg" /></p>
@@ -2755,7 +2684,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_youtube_red_play.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `icon_f3_links` | `from H21` |
+| **ABOUT** | `icon_f3_links` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
@@ -2770,7 +2699,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `tffa_pdf` | `from H21` |
+| **ABOUT** | `tffa_pdf` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_WhiteSVG.svg" /></p>
@@ -2785,7 +2714,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `tffa_flam3github` | `from H21` |
+| **ABOUT** | `tffa_flam3github` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_GithubWhiteSVG.svg" /></p>
@@ -2800,7 +2729,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubWhiteSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `fract_git` | `from H21` |
+| **ABOUT** | `fract_git` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_GithubBlueSVG.svg" /></p>
@@ -2815,7 +2744,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_GithubBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **ABOUT** | `fract_web` | `from H21` |
+| **ABOUT** | `fract_web` | `from H19 to H20` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
 <p align="left"><img width="80" height="80" src="../icons/icon_FractoriumWebSVG.svg" /></p>

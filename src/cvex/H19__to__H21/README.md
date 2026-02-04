@@ -1,5 +1,5 @@
 
-# CVEX Source
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 # File name:    `cvex_TFFAcamcull.vfl`
 ## Houdini version: H19 and up
 ### Description:
@@ -8,7 +8,7 @@ Cull points outside the camera view.
 <br>
 <br>
 
-# CVEX Source
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 # File name:    `cvex_TFFAcamhandles.vfl`
 ## Houdini version: H19 and up
 ### Description:
@@ -18,7 +18,7 @@ It is only working if the camera type is Perspective and not Orthogonal.
 <br>
 <br>
 
-# CVEX Source
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 # File name:    `cvex_TFFAcompensate.vfl`
 ## Houdini version: H19 and up
 ### Description:
@@ -29,7 +29,7 @@ to form the final point cloud.
 <br>
 <br>
 
-# CVEX Source
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 # File name:    `cvex_TFFAmbcalc.vfl`
 ## Houdini version: H19 and up
 ### Description:
@@ -39,7 +39,7 @@ for the Motion Blur to build its point cloud's layers.
 <br>
 <br>
 
-# CVEX Source
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 # File name:    `cvex_TFFAsensor.vfl`
 ## Houdini version: H19 and up
 ### Description:
@@ -48,7 +48,7 @@ All the render settings required by third-party programs such as Apophysis and F
 <br>
 <br>
 
-# CVEX Source
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 # File name:    `cvex_TFFAsensorbbox.vfl`
 ## Houdini version: H19 and up
 ### Description:
@@ -57,7 +57,7 @@ Compute camera sensor bbox data. Used also to reframe the viewport properly.
 <br>
 <br>
 
-# CVEX Source
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 # File name:    `cvex_TFFAsensorInfo.vfl`
 ## Houdini version: H19 and up
 ### Description:
@@ -67,7 +67,7 @@ so they will scale proportionally with the Sensor resolution.
 <br>
 <br>
 
-# CVEX Source
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 # File name:    `cvex_TFFAuicollect.vfl`
 ## Houdini version: H19 and up
 ### Description:
@@ -78,7 +78,7 @@ like variations used, and many system infos.
 <br>
 <br>
 
-# CVEX Source
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 # File name:    `cvex_TFFAxaos.vfl`
 ## Houdini version: H19 and up
 ### Description:
@@ -88,7 +88,7 @@ Build all the Xaos data to be used inside the Chaos game.
 <br>
 
 
-# CVEX Source
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Source
 # File name:    `cvex_TheFractalFlameAlgorithm.vfl`
 ## Houdini version: H19 and up
 ### Description:
@@ -97,7 +97,7 @@ The Chaos game. This is where all the data is mixed, shuffled and executed based
 <br>
 <br>
 
-# CVEX Header
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Header
 # File name:    `flame.h`
 ## Houdini version: H19 and up
 ### Description:
@@ -106,7 +106,7 @@ The path to the selected variations inside the iterator (PRE, VAR, POST). This f
 <br>
 <br>
 
-# CVEX Header
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Header
 # File name:    `flameff.h`
 ## Houdini version: H19 and up
 ### Description:
@@ -115,7 +115,7 @@ The path to the selected variations inside the FF (PRE, VAR, POST). This file wi
 <br>
 <br>
 
-# CVEX Header
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Header
 # File name:    `functions.h`
 ## Houdini version: H19 and up
 ### Description:
@@ -124,7 +124,7 @@ The FLAM3 functions library used by the variations for their computation. Includ
 <br>
 <br>
 
-# CVEX Header
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Header
 # File name:    `genome.h`
 ## Houdini version: H19 and up
 ### Description:
@@ -133,7 +133,7 @@ Build the fractal flame genome entities. A genome is a structure that hold all t
 <br>
 <br>
 
-# CVEX Header
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Header
 # File name:    `variations.h`
 ## Houdini version: H19 and up
 ### Description:
@@ -142,7 +142,7 @@ All the variations functions are inside here.
 <br>
 <br>
 
-# CVEX Header
+# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Header
 # File name:    `xaos.h`
 ## Houdini version: H19 and up
 ### Description:

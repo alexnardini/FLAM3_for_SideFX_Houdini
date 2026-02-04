@@ -33,6 +33,24 @@ They are all available in this Github repository.
 
 </br>
 
+### [<ins>v1.9.80 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.80) ###
+
+#### FLAM3H™ v1.9.80 indie -> H21.0 UP</br>FLAM3H™ v1.9.64 indie -> H19.0 to H20.5 ####
+
+- **Fix**: FLAM3H™ can now deal with locked parameters.
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v1.9.79 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.79) ###
 
 #### FLAM3H™ v1.9.79 indie -> H21.0 UP</br>FLAM3H™ v1.9.64 indie -> H19.0 to H20.5 ####
