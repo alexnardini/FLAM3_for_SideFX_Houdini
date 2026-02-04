@@ -18547,7 +18547,7 @@ class out_flame_utils
         and export the resulting values out so we can get the same result once we load it back.
 
         Args:
-            affine( list[Union[tuple[str], list[str]]]): X, Y, O afffine component
+            affine(list[Union[tuple[str], list[str]]]): X, Y, O afffine component
             angleDeg(float): a float value that represent the angle in degrees ( The iterator.affine's angle parameter )
 
         Returns:

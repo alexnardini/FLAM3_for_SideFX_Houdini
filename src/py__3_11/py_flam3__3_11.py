@@ -20096,11 +20096,11 @@ class out_flame_utils
         and export the resulting affine values so they can be restored correctly.</br>
 
         Args:
-            affine (list[tuple[str, ...] | list[str]]): X, Y, O affine components.
+            affine (TA_Affine): X, Y, O affine components.
             angleDeg (float): Rotation angle in degrees.
 
         Returns:
-            list[tuple[str, ...] | list[str]]: Rotated affine (X, Y, O) components.
+            (TA_Affine): Rotated affine (X, Y, O) components.
         """
         # Early termination
         if angleDeg == 0.0:
