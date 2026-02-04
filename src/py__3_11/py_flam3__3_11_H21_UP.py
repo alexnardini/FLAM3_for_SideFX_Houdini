@@ -4740,7 +4740,7 @@ class flam3h_general_utils
             # NEW method
             self.mp_xf_viz_solo_follow_prev_off(node)
             
-            flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
+            flam3h_prm_utils.private_prm_set(node, prm_xfviz_solo, 0) # Turn Off iterator xf viz solo mode
             flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
             flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}")
             
