@@ -3976,7 +3976,7 @@ class flam3h_general_utils
         
         if prm.eval():
             
-            prm.set(0)
+            flam3h_prm_utils.private_prm_set(node, prm, 0)
             
             # Restore the viewport prior to entering the Camera sensor mode
             self.util_set_stashed_cam()
@@ -3994,7 +3994,7 @@ class flam3h_general_utils
             # and if an active Karma viewer is present it will be re-started during the process as of now.
             if self.util_is_context_available_viewer('Sop'):
                 
-                prm.set(1)
+                flam3h_prm_utils.private_prm_set(node, prm, 1)
                 # If the current FLAM3H™ node is displayed ( its displayFlag is On )
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     # Check if any other FLAM3H™ node is in Camera Sensor viz mode
@@ -4008,7 +4008,7 @@ class flam3h_general_utils
                         
                 else:
                     # IF displayFlag is OFF, turn the outsensor toggle OFF, too.
-                    prm.set(0)
+                    flam3h_prm_utils.private_prm_set(node, prm, 0)
                     _MSG: str = f"This node display flag is OFF. Please use a FLAM3H™ node that is currently displayed to enter the Camera sensor viz."
                     self.set_status_msg(f"{node.name()}: {str(prm.name()).upper()} -> {_MSG}", 'WARN')
                     self.flash_message(node, f"{_MSG[:30]}")
@@ -4126,7 +4126,7 @@ class flam3h_general_utils
             # NEW method
             self.mp_xf_viz_solo_follow_prev_off(node)
             
-            flam3h_prm_utils.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
+            flam3h_prm_utils.private_prm_set(node, prm_xfviz_solo, 0) # Turn Off iterator xf viz solo mode
             flam3h_prm_utils.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             
@@ -4157,7 +4157,7 @@ class flam3h_general_utils
         self.menus_refresh_enum_prefs()
         
         if prm_FF.eval():
-            flam3h_prm_utils.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0) # Turn Off FF xf viz solo mode
+            flam3h_prm_utils.private_prm_set(node, prm_FF, 0) # Turn Off FF xf viz solo mode
             flam3h_prm_utils.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
             flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
             
@@ -4195,7 +4195,7 @@ class flam3h_general_utils
         self.menus_refresh_enum_prefs()
         
         if prm_mp.eval():
-            prm_mp.set(0)
+            flam3h_prm_utils.set(node, prm_mp, 0)
             flam3h_prm_utils.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
             flam3h_prm_utils.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
             flam3h_iterator_utils.destroy_userData(node, f"{data_name}")
@@ -4213,7 +4213,7 @@ class flam3h_general_utils
             # This was the old method. It was ~N times slower where N is the number of the iterators.
             # for mp_id in range(iter_num): node.setParms({f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_id + 1)}": 0}) # type: ignore
             
-            prm_mp.set(1)
+            flam3h_prm_utils.set(node, prm_mp, 1)
             flam3h_prm_utils.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 1)
             flam3h_prm_utils.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, s_mp_index)
             flam3h_prm_utils.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
@@ -4294,7 +4294,7 @@ class flam3h_general_utils
         self.menus_refresh_enum_prefs()
         
         if prm_mp.eval():
-            flam3h_prm_utils.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 0)
+            flam3h_prm_utils.private_prm_set(node, prm_mp, 0)
             flam3h_iterator_utils.destroy_userData(node, f"{data_name}")
             
             _MSG: str = f"{node.name()}: VIZHANDLESFF_SOLO: OFF"
@@ -4305,7 +4305,7 @@ class flam3h_general_utils
             # NEW method
             self.mp_xf_viz_solo_follow_prev_off(node)
             
-            flam3h_prm_utils.private_prm_set(node, PREFS_PVT_XF_FF_VIZ_SOLO, 1)
+            flam3h_prm_utils.private_prm_set(node, prm_mp, 1)
             flam3h_prm_utils.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO, 0) # Turn Off iterator xf viz solo mode
             flam3h_prm_utils.private_prm_set(node, PREFS_PVT_XF_VIZ_SOLO_MP_IDX, 0) # Reset mp index to Off value: 0(Zero)
             node.setUserData(f"{data_name}", "FF")
