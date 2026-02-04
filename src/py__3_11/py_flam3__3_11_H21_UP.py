@@ -11980,6 +11980,7 @@ class flam3h_palette_utils
                 # get ramps parm
                 rmp_src = node.parm(f3h_tabs.CP.PRM_RAMP_SRC_NAME)
                 rmp_hsv = node.parm(f3h_tabs.CP.PRM_RAMP_HSV_NAME)
+                
                 # get current preset name and preset_id(index)
                 preset, preset_id = self.json_to_flam3h_get_preset_name_and_id(node)
                 
