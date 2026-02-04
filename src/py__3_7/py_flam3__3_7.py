@@ -882,9 +882,9 @@ class flam3h_varsPRM
         Returns:
             (list): return an linearly composed list with the var index followed by the var name as if it was a Houdini valid menu data
         """  
-        linear: list = []
-        [self.__populate_linear_list(linear, item, id) for id, item in self.menu_vars_all(_PB)]
-        return linear
+        menu: list = []
+        for id, item in self.menu_vars_all(_PB): self.__populate_linear_list(menu, item, id)
+        return menu
     
     
     def build_menu_vars_all_indexes(self, _PB: bool = False) -> dict[int, int]:
@@ -899,7 +899,7 @@ class flam3h_varsPRM
         """   
         keys: list = []
         values: list = []
-        [self.__populate_keys_and_values(keys, values, item, id) for id, item in enumerate(self.build_menu_vars_all_linear(_PB))]
+        for id, item in enumerate(self.build_menu_vars_all_linear(_PB)): self.__populate_keys_and_values(keys, values, item, id)
         return dict(zip(keys, values))
 
 
@@ -4637,8 +4637,8 @@ class flam3h_general_utils
                     flam3h_prm_utils.private_prm_set(node, IN_PVT_ISVALID_FILE, 0)
                     
                 else:
-                    [flam3h_prm_utils.private_prm_set(node, prm_name, 0) for prm_name in (IN_PVT_ISVALID_FILE, IN_PVT_ISVALID_PRESET, IN_PVT_CLIPBOARD_TOGGLE)]
-                    [prm.set("") for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM))]
+                    for prm in (node.parm(IN_PVT_ISVALID_FILE), node.parm(IN_PVT_ISVALID_PRESET), node.parm(IN_PVT_CLIPBOARD_TOGGLE)): flam3h_prm_utils.private_prm_set(node, prm, 0)
+                    for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM)): prm.set('')
                         
                 # If it is not a chaotica xml file do print out from here,
                 # other wise we are printing out from:
@@ -4679,8 +4679,9 @@ class flam3h_general_utils
         else:
             # If there is not a flame preset loaded from the clipboard
             if not clipboard:
-                [flam3h_prm_utils.private_prm_set(node, prm_name, 0) for prm_name in (IN_PVT_ISVALID_FILE, IN_PVT_ISVALID_PRESET, IN_PVT_CLIPBOARD_TOGGLE)]
-                [prm.set("") for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM))]
+                for prm in (node.parm(IN_PVT_ISVALID_FILE), node.parm(IN_PVT_ISVALID_PRESET), node.parm(IN_PVT_CLIPBOARD_TOGGLE)): flam3h_prm_utils.private_prm_set(node, prm, 0)
+                for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM)): prm.set('')
+
                 
                 # We do not want to print if the file path parameter is empty
                 # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
@@ -5957,7 +5958,7 @@ class flam3h_iterator_utils
         prm_to.deleteAllKeyframes()
         
         if len(prm_from.keyframes()):
-            [prm_to.setKeyframe(k) for k in prm_from.keyframes()]
+            for k in prm_from.keyframes(): prm_to.setKeyframe(k)
         else:
             prm_to.set(prm_from.eval()) # type: ignore
         
@@ -16355,7 +16356,7 @@ class in_flame_utils
                                                                 n.shader_speed: apo_data.symmetry,
                                                                 n.shader_alpha: apo_data.opacity
                                                                 }
-                [self.in_set_data(mode, node, prx, value, key, mp_idx) for key, value in apo_data_set.items()]
+                for key, value in apo_data_set.items(): self.in_set_data(mode, node, prx, value, key, mp_idx)
             
             # Set Affine ( PRE, POST and F3H_PRE, F3H_POST) for this iterator or FF
             self.in_set_affine(mode, node, prx, apo_data, n, mp_idx)
@@ -20040,7 +20041,7 @@ class out_flame_utils
                                 OUT_XML_FLAME_RENDER_CURVE_GREEN: f3r.flame_green_curve,
                                 OUT_XML_FLAME_RENDER_CURVE_BLUE: f3r.flame_blue_curve
                                 }
-        [flame.set(key, value) for key, value in cc.items()]
+        for key, value in cc.items(): flame.set(key, value)
         
         # return if this flame is a valid 'flam3'
         return self.out_flam3_compatibility_check_and_msg()
