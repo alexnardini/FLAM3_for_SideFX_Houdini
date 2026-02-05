@@ -97,7 +97,7 @@ The Chaos game. This is where all the data is mixed, shuffled and executed based
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Header
+# <img width="48" height="48" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
 # File name:    `flame.h`
 ## Houdini version: H19 and up
 ### Description:
@@ -106,7 +106,7 @@ The path to the selected variations inside the iterator (PRE, VAR, POST). This f
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Header
+# <img width="48" height="48" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
 # File name:    `flameff.h`
 ## Houdini version: H19 and up
 ### Description:
@@ -115,7 +115,7 @@ The path to the selected variations inside the FF (PRE, VAR, POST). This file wi
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Header
+# <img width="48" height="48" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
 # File name:    `functions.h`
 ## Houdini version: H19 and up
 ### Description:
@@ -124,7 +124,7 @@ The FLAM3 functions library used by the variations for their computation. Includ
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Header
+# <img width="48" height="48" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
 # File name:    `genome.h`
 ## Houdini version: H19 and up
 ### Description:
@@ -133,7 +133,7 @@ Build the fractal flame genome entities. A genome is a structure that hold all t
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Header
+# <img width="48" height="48" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
 # File name:    `variations.h`
 ## Houdini version: H19 and up
 ### Description:
@@ -142,7 +142,7 @@ All the variations functions are inside here.
 <br>
 <br>
 
-# <img width="48" height="48" src="../../../icons/icon_cvex_compileSVG.svg" /> CVEX Header
+# <img width="48" height="48" src="../../../icons/icon_cvex_headerSVG.svg" /> CVEX Header
 # File name:    `xaos.h`
 ## Houdini version: H19 and up
 ### Description:

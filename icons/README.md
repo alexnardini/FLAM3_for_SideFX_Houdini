@@ -360,6 +360,44 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_cve
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
+<p align="center">
+  <img width="160" height="160" src="./icon_cvex_headerSVG.svg" /></p>
+<b><p align="center">icon_cvex_headerSVG.svg</b> (<i>used only for DOC purposes</i>)</p>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_cvex_headerSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_cvex_headerSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_cvex_headerSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_cvex_headerSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_cvex_headerSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_cvex_headerSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
 
 <p align="center">
   <img width="160" height="160" src="./icon_F_docStarSVG.svg" /></p>
@@ -2695,6 +2733,45 @@ opdef:/alexnardini::Sop/FLAM3H?icon_InstagramSVG.svg
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_InstagramSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_mdSVG.svg" /></p>
+<b><p align="center">icon_mdSVG.svg</b> (<i>used only for DOC purposes</i>)</p>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_mdSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_mdSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_mdSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_mdSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_mdSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_mdSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
