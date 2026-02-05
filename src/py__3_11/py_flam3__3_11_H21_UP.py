@@ -1852,9 +1852,6 @@ class f3h_prm_utils
         elif isinstance(_prm, (hou.Parm, hou.ParmTuple)):
             prm = _prm
             
-        else:
-            prm = None
-            
         if prm is not None:
             prm.lock(False)
             prm.deleteAllKeyframes()
@@ -3302,6 +3299,7 @@ class flam3h_general_utils
 * flam3h_other_sensor_viz_off(self, node: hou.SopNode) -> None:
 * flam3h_outsensor_toggle(self, prm_name: str = f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR) -> None:
 * flam3h_xf_viz_toggle(self, prm_name: str = PREFS_PVT_XF_VIZ) -> None:
+* flam3h_all_mp_xf_viz_check(self) -> bool:
 * flam3h_toggle_sys_xf_viz_solo(self) -> None:
 * flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
 * flam3h_toggle_mp_xf_viz(self) -> None:
@@ -4712,10 +4710,8 @@ class flam3h_general_utils
         iter_num: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
         _main_xf_viz_name: str = flam3h_iterator_prm_names().main_xf_viz
         all_mp_xf_viz: list[int] = [node.parm(f"{_main_xf_viz_name}_{mp_idx}").eval() for mp_idx in range(1, iter_num + 1)]
-        if max(all_mp_xf_viz) == 1:
-            return True
         
-        return False
+        return 1 in all_mp_xf_viz
         
         
     def flam3h_toggle_sys_xf_viz_solo(self) -> None:

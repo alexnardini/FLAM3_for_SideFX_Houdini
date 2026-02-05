@@ -1388,9 +1388,6 @@ class f3h_prm_utils
         elif isinstance(_prm, (hou.Parm, hou.ParmTuple)):
             prm = _prm
             
-        else:
-            prm = None
-            
         if prm is not None:
             prm.lock(False)
             prm.deleteAllKeyframes()
@@ -2821,6 +2818,7 @@ class flam3h_general_utils
 * flam3h_other_sensor_viz_off(self, node: hou.SopNode) -> None:
 * flam3h_outsensor_toggle(self, prm_name: str=OUT_RENDER_PROPERTIES_SENSOR) -> None:
 * flam3h_xf_viz_toggle(self, prm_name: str = PREFS_PVT_XF_VIZ) -> None:
+* flam3h_all_mp_xf_viz_check(self) -> bool:
 * flam3h_toggle_sys_xf_viz_solo(self) -> None:
 * flam3h_toggle_sys_xf_ff_viz_solo(self) -> None:
 * flam3h_toggle_mp_xf_viz(self) -> None:
@@ -4088,7 +4086,8 @@ class flam3h_general_utils
                 
     
     def flam3h_all_mp_xf_viz_check(self) -> bool:
-        """Check if any multiparameter have its xf_viz ON.
+        """ NOT USED YET</br>
+        Check if any multiparameter have its xf_viz ON.</br>
 
         Args:
             (self):
@@ -4099,11 +4098,8 @@ class flam3h_general_utils
         node = self.node
         iter_num: int = node.parm(FLAME_ITERATORS_COUNT).eval()
         all_mp_xf_viz: list = [node.parm(f"{flam3h_iterator_prm_names().main_xf_viz}_{str(mp_idx + 1)}").eval() for mp_idx in range(iter_num)]
-        if max(all_mp_xf_viz) == 1:
-            return True
         
-        return False
-        
+        return 1 in all_mp_xf_viz
         
     def flam3h_toggle_sys_xf_viz_solo(self) -> None:
         """When in xform VIZ SOLO mode, this will turn it off and go back to viz them all.</br>
