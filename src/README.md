@@ -13,7 +13,7 @@ List of all **FLAM3H™** UI parameters with ICONS associated with and the comma
 # File name:    `FLAM3H__UI_ICON_map_H19_to_H20.md`
 ### Description:
 - #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
-- #### From H19.0 to H20.5
+- #### From H19.0 to H20
 
 List of all **FLAM3H™** UI parameters with ICONS associated with and the command string they are called from and from where.
 
