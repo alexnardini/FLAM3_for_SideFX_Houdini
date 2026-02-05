@@ -1892,7 +1892,7 @@ class f3h_prm_utils
 
 
     @staticmethod
-    def private_prm_set(node: hou.SopNode, _prm: str | hou.Parm, data: str | int | float) -> None:
+    def private_prm_set(node: hou.SopNode, _prm: str | hou.Parm, data: TA_PrmData) -> None:
         """Set a parameter value while making sure to unlock and lock it right after.</br>
         This is being introduced to add an extra level of security so to speak to certain parameters</br>
         that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.</br>
@@ -1900,7 +1900,7 @@ class f3h_prm_utils
         Args:
             node(hou.SopNode): this FLAM3H™ node.
             prm_name(str | hou.Parm): the parameter name or the parameter hou.Parm directly.
-            data(str | int | float): The value to set the parameter to.
+            data(TA_PrmData): The value to set the parameter to.
             
         Returns:
             (None):
@@ -5248,7 +5248,7 @@ class flam3h_general_utils
                     
                 else:
                     for prm in (node.parm(f3h_tabs.IN.PVT_PRM_ISVALID_FILE), node.parm(f3h_tabs.IN.PVT_PRM_ISVALID_PRESET), node.parm(f3h_tabs.IN.PVT_PRM_CLIPBOARD_TOGGLE)): flam3h_prm_utils.private_prm_set(node, prm, 0)
-                    for prm in (node.parm(f3h_tabs.IN.MSG_PRM_FLAMESTATS), node.parm(f3h_tabs.IN.MSG_PRM_FLAMERENDER), node.parm(f3h_tabs.IN.MSG_PRM_FLAMESENSOR), node.parm(f3h_tabs.PRM_DESCRIPTIVE)): prm.set('')
+                    for prm in (node.parm(f3h_tabs.IN.MSG_PRM_FLAMESTATS), node.parm(f3h_tabs.IN.MSG_PRM_FLAMERENDER), node.parm(f3h_tabs.IN.MSG_PRM_FLAMESENSOR), node.parm(f3h_tabs.PRM_DESCRIPTIVE)): flam3h_prm_utils.set(node, prm, '')
                         
                 # If it is not a chaotica xml file do print out from here,
                 # other wise we are printing out from:
@@ -5290,7 +5290,7 @@ class flam3h_general_utils
             # If there is not a flame preset loaded from the clipboard
             if not clipboard:
                 for prm in (node.parm(f3h_tabs.IN.PVT_PRM_ISVALID_FILE), node.parm(f3h_tabs.IN.PVT_PRM_ISVALID_PRESET), node.parm(f3h_tabs.IN.PVT_PRM_CLIPBOARD_TOGGLE)): flam3h_prm_utils.private_prm_set(node, prm, 0)
-                for prm in (node.parm(f3h_tabs.IN.MSG_PRM_FLAMESTATS), node.parm(f3h_tabs.IN.MSG_PRM_FLAMERENDER), node.parm(f3h_tabs.IN.MSG_PRM_FLAMESENSOR), node.parm(f3h_tabs.PRM_DESCRIPTIVE)): prm.set('')
+                for prm in (node.parm(f3h_tabs.IN.MSG_PRM_FLAMESTATS), node.parm(f3h_tabs.IN.MSG_PRM_FLAMERENDER), node.parm(f3h_tabs.IN.MSG_PRM_FLAMESENSOR), node.parm(f3h_tabs.PRM_DESCRIPTIVE)): flam3h_prm_utils.set(node, prm, '')
                 
                 # We do not want to print if the file path parameter is empty
                 # This became redundant since I added file checks during the presets menus build process but I leave it here for now.
@@ -10750,7 +10750,7 @@ class flam3h_iterator_utils
 
         flam3h_iterator_utils.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.XFVIZ_SOLO}")
         # descriptive message parameter
-        node.parm(f3h_tabs.PRM_DESCRIPTIVE).set('')
+        flam3h_prm_utils.set(node, f3h_tabs.PRM_DESCRIPTIVE, '')
         
         # init/clear copy/paste iterator's data and prm
         self.flam3h_paste_reset_hou_session_data()
@@ -19563,13 +19563,13 @@ class out_flame_utils
             (None):
         """
         # render curves
-        node.setParms(  # type: ignore
-                        {XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVES): xml_keys.DEFAULT_CC_CURVES, 
-                        XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_OVERALL): xml_keys.DEFAULT_CC_CURVE, 
-                        XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_RED): xml_keys.DEFAULT_CC_CURVE, 
-                        XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_GREEN): xml_keys.DEFAULT_CC_CURVE, 
-                        XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_BLUE): xml_keys.DEFAULT_CC_CURVE}
-                        )
+        parms_dict: dict = {XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVES): xml_keys.DEFAULT_CC_CURVES, 
+                            XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_OVERALL): xml_keys.DEFAULT_CC_CURVE, 
+                            XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_RED): xml_keys.DEFAULT_CC_CURVE, 
+                            XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_GREEN): xml_keys.DEFAULT_CC_CURVE, 
+                            XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVE_BLUE): xml_keys.DEFAULT_CC_CURVE}
+        
+        flam3h_prm_utils.setParms(node, parms_dict)
         
         
     @staticmethod
@@ -19598,13 +19598,14 @@ class out_flame_utils
                                         'prm_curve_green': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_GREEN), 
                                         'prm_curve_blue': node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_CURVE_BLUE)
                                         }
-        
-        # Unlock, Clear, Set and Lock again
-        for prm in prm_ui.values():
-            prm.lock(False)
-            prm.deleteAllKeyframes()
-        for key in prm_ui.keys(): prm_ui.get(key).set(prm_data.get(key).eval()) # type: ignore
-        for prm in prm_ui.values(): prm.lock(True)
+
+        for key in prm_ui.keys():
+            _prm: hou.Parm | hou.ParmTuple | None = prm_ui.get(key)
+            assert _prm is not None
+            _prm_data: hou.Parm | hou.ParmTuple | None = prm_data.get(key)
+            assert _prm_data is not None
+            _prm_data_val: TA_PrmData = _prm_data.eval()
+            flam3h_prm_utils.private_prm_set(node, _prm, _prm_data_val)
 
         
     @staticmethod

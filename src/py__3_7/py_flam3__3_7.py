@@ -1352,7 +1352,7 @@ class f3h_prm_utils
 @STATICMETHODS
 * set(node: hou.SopNode, _prm: Union[hou.Parm, hou.ParmTuple, str], data: Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]) -> None:
 * setParms(node: hou.SopNode, parms_dict: dict) -> None:
-* private_prm_set(node: hou.SopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
+* private_prm_set(node: hou.SopNode, _prm: Union[str, hou.Parm], data: Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]) -> None:
 * private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: Union[str, hou.Parm]) -> None:
 
 @METHODS
@@ -1428,7 +1428,7 @@ class f3h_prm_utils
 
 
     @staticmethod
-    def private_prm_set(node: hou.SopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
+    def private_prm_set(node: hou.SopNode, _prm: Union[str, hou.Parm], data: Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]) -> None:
         """Set a parameter value while making sure to unlock and lock it right after.</br>
         This is being introduced to add an extra level of security so to speak to certain parameters</br>
         that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.</br>
@@ -1436,7 +1436,7 @@ class f3h_prm_utils
         Args:
             node(hou.SopNode): this FLAM3H™ node.
             prm_name(Union[str, hou.Parm]): the parameter name or the parameter hou.Parm directly.
-            data(Union[str, int, float]): The value to set the parameter to.
+            data(Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]): The value to set the parameter to.
             
         Returns:
             (None):
@@ -4634,7 +4634,7 @@ class flam3h_general_utils
                     
                 else:
                     for prm in (node.parm(IN_PVT_ISVALID_FILE), node.parm(IN_PVT_ISVALID_PRESET), node.parm(IN_PVT_CLIPBOARD_TOGGLE)): flam3h_prm_utils.private_prm_set(node, prm, 0)
-                    for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM)): prm.set('')
+                    for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM)): flam3h_prm_utils.set(node, prm, '')
                         
                 # If it is not a chaotica xml file do print out from here,
                 # other wise we are printing out from:
@@ -4676,7 +4676,7 @@ class flam3h_general_utils
             # If there is not a flame preset loaded from the clipboard
             if not clipboard:
                 for prm in (node.parm(IN_PVT_ISVALID_FILE), node.parm(IN_PVT_ISVALID_PRESET), node.parm(IN_PVT_CLIPBOARD_TOGGLE)): flam3h_prm_utils.private_prm_set(node, prm, 0)
-                for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM)): prm.set('')
+                for prm in (node.parm(MSG_IN_FLAMESTATS), node.parm(MSG_IN_FLAMERENDER), node.parm(MSG_IN_FLAMESENSOR), node.parm(MSG_DESCRIPTIVE_PRM)): flam3h_prm_utils.set(node, prm, '')
 
                 
                 # We do not want to print if the file path parameter is empty
@@ -9825,6 +9825,7 @@ class flam3h_iterator_utils
         flam3h_iterator_utils.destroy_userData(node, f"{FLAM3H_USER_DATA_PRX}_{FLAM3H_USER_DATA_XF_VIZ}")
         # descriptive message parameter
         node.parm(MSG_DESCRIPTIVE_PRM).set('')
+        flam3h_prm_utils.set(node, MSG_DESCRIPTIVE_PRM, '')
         
         # init/clear copy/paste iterator's data and prm
         self.flam3h_paste_reset_hou_session_data()
@@ -17909,13 +17910,13 @@ class out_flame_utils
             (None):
         """
         # render curves
-        node.setParms(  # type: ignore
-                        {OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT, 
-                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT, 
-                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT, 
-                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT, 
-                        OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}
-                        )
+        parms_dict: dict = {OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES): OUT_XML_FLAME_RENDER_CURVES_DEFAULT, 
+                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL): OUT_XML_FLAME_RENDER_CURVE_DEFAULT, 
+                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED): OUT_XML_FLAME_RENDER_CURVE_DEFAULT, 
+                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN): OUT_XML_FLAME_RENDER_CURVE_DEFAULT, 
+                            OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE): OUT_XML_FLAME_RENDER_CURVE_DEFAULT}
+        
+        flam3h_prm_utils.setParms(node, parms_dict)
         
         
     @staticmethod
@@ -17945,12 +17946,13 @@ class out_flame_utils
                                         'prm_curve_blue': node.parm(OUT_RENDER_PROPERTIES_CURVE_BLUE) # type: ignore
                                         }
         
-        # Unlock, Clear, Set and Lock again
-        for prm in prm_ui.values():
-            prm.lock(False)
-            prm.deleteAllKeyframes()
-        for key in prm_ui.keys(): prm_ui.get(key).set(prm_data.get(key).eval()) # type: ignore
-        for prm in prm_ui.values(): prm.lock(True)
+        for key in prm_ui.keys():
+            _prm: hou.Parm | hou.ParmTuple | None = prm_ui.get(key)
+            assert _prm is not None
+            _prm_data: hou.Parm | hou.ParmTuple | None = prm_data.get(key)
+            assert _prm_data is not None
+            _prm_data_val: Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2] = _prm_data.eval()
+            flam3h_prm_utils.private_prm_set(node, _prm, _prm_data_val)
         
         
     @staticmethod
