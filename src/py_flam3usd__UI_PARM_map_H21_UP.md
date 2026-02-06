@@ -383,7 +383,7 @@ hou.phm().flam3usd.flam3husd_general_utils(kwargs).viewportParticleDisplay(), kw
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.phm().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize()
+hou.phm().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
