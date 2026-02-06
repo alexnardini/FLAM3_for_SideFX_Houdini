@@ -388,7 +388,7 @@ class f3h_copyPaste:
     
 class f3h_nodeNames:
     '''
-    FLAM3H™ OLT contents node names used in various cases.</br>
+    FLAM3H™ OTL contents node names used in various cases.</br>
     
     '''
     # Those node names are hard coded here.
@@ -5759,7 +5759,6 @@ class flam3h_general_utils
                 if reset_val is None:
                     settings.wireWidth(width)
                     # update memory
-                    flam3h_prm_utils.private_prm_deleteAllKeyframes(node, f3h_tabs.PREFS.PVT_PRM_VIEWPORT_WIRE_WIDTH_MEM)
                     flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_VIEWPORT_WIRE_WIDTH_MEM, width)
                     
                 else:
@@ -5768,7 +5767,6 @@ class flam3h_general_utils
                     prm = node.parm(f3h_tabs.PREFS.PRM_VIEWPORT_WIRE_WIDTH)
                     flam3h_prm_utils.set(node, prm, width)
                     # update memory
-                    flam3h_prm_utils.private_prm_deleteAllKeyframes(node, f3h_tabs.PREFS.PVT_PRM_VIEWPORT_WIRE_WIDTH_MEM)
                     flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_VIEWPORT_WIRE_WIDTH_MEM, width)
             
         # Sync FLAM3H™ nodes
@@ -6577,7 +6575,6 @@ class flam3h_iterator_utils
         """
         # Clear tmp prm so in case of keyframes or expression it doesnt evaluate
         for prm in (prm_from, prm_to):
-            flam3h_prm_utils.private_prm_deleteAllKeyframes(node, prm)
             flam3h_prm_utils.private_prm_set(node, prm, reset_val)
 
 

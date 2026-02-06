@@ -5143,7 +5143,6 @@ class flam3h_general_utils
                 if reset_val is None:
                     settings.wireWidth(width)
                     # update memory
-                    flam3h_prm_utils.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM)
                     flam3h_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM, width)
                     
                 else:
@@ -5153,7 +5152,6 @@ class flam3h_general_utils
                     prm.deleteAllKeyframes()
                     prm.set(width)
                     # update memory
-                    flam3h_prm_utils.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM)
                     flam3h_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM, width)
             
         # Sync FLAM3HUSD nodes
@@ -5936,7 +5934,6 @@ class flam3h_iterator_utils
         """
         # Clear tmp prm so in case of keyframes or expression it doesnt evaluate
         for prm in (prm_from, prm_to):
-            flam3h_prm_utils.private_prm_deleteAllKeyframes(node, prm)
             flam3h_prm_utils.private_prm_set(node, prm, reset_val)
 
 
