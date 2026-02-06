@@ -15605,63 +15605,63 @@ class in_flame_utils
         Returns:
             (None):
         """     
-        # render curves
-        #
+        # Render curves
         # Note that we are setting the value into the curve data parameters. Those parameters are protected inside the PREFS tab.
-        # They are Label parameters and do not need to be unlocked and cleared from any keyframes so that we can use the raw hou method: node.parm("name").set(val)
         
         prm_cc_all = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVES))
         if f3r.out_curves[preset_id] in OUT_XML_FLAME_RENDER_CURVES_DEFAULT_ALL:
-            prm_cc_all.set(OUT_XML_FLAME_RENDER_CURVES_DEFAULT)
+            flam3h_prm_utils.private_prm_set(node, prm_cc_all, OUT_XML_FLAME_RENDER_CURVES_DEFAULT)
         else:
             try:
-                prm_cc_all.set(f3r.out_curves[preset_id])
+                flam3h_prm_utils.private_prm_set(node, prm_cc_all, f3r.out_curves[preset_id])
             except: # If missing set it to its default
-                prm_cc_all.set(OUT_XML_FLAME_RENDER_CURVES_DEFAULT)
+                flam3h_prm_utils.private_prm_set(node, prm_cc_all, OUT_XML_FLAME_RENDER_CURVES_DEFAULT)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVES} -> NOT FOUND, default value used.\n")
                 
         prm_cc = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_OVERALL))
         if f3r.out_curve_overall[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-            prm_cc.set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
+            flam3h_prm_utils.private_prm_set(node, prm_cc, OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
         else:
             try:
-                prm_cc.set(f3r.out_curve_overall[preset_id])
+                flam3h_prm_utils.private_prm_set(node, prm_cc, f3r.out_curve_overall[preset_id])
             except: # If missing set it to its default
-                prm_cc.set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
+                flam3h_prm_utils.private_prm_set(node, prm_cc, OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVE_OVERALL} -> NOT FOUND, default value used.\n")
                 
         prm_ccr = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_RED))
         if f3r.out_curve_red[preset_id] in OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
             prm_ccr.set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
+            flam3h_prm_utils.private_prm_set(node, prm_ccr, OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
         else:
             try:
-                prm_ccr.set(f3r.out_curve_red[preset_id])
+                flam3h_prm_utils.private_prm_set(node, prm_ccr, f3r.out_curve_red[preset_id])
             except: # If missing set it to its default
-                prm_ccr.set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
+                flam3h_prm_utils.private_prm_set(node, prm_ccr, OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVE_RED} -> NOT FOUND, default value used.\n")
                 
         prm_ccg = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_GREEN))
         if f3r.out_curve_green[preset_id] in  OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
-            prm_ccg.set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
+            flam3h_prm_utils.private_prm_set(node, prm_ccg, OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
         else:
             try:
-                prm_ccg.set(f3r.out_curve_green[preset_id])
+                flam3h_prm_utils.private_prm_set(node, prm_ccg, f3r.out_curve_green[preset_id])
             except: # If missing set it to its default
-                prm_ccg.set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
+                flam3h_prm_utils.private_prm_set(node, prm_ccg, OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVE_GREEN} -> NOT FOUND, default value used.\n")
                 
         prm_ccb = node.parm(OUT_XML_RENDER_HOUDINI_DICT.get(OUT_XML_FLAME_RENDER_CURVE_BLUE))
         if f3r.out_curve_blue[preset_id] in  OUT_XML_FLAME_RENDER_CURVE_DEFAULT_ALL:
             prm_ccb.set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
+            flam3h_prm_utils.private_prm_set(node, prm_ccb, OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
         else:
             try:
-                prm_ccb.set(f3r.out_curve_blue[preset_id])
+                flam3h_prm_utils.private_prm_set(node, prm_ccb, f3r.out_curve_blue[preset_id])
             except: # If missing set it to its default
-                prm_ccb.set(OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
+                flam3h_prm_utils.private_prm_set(node, prm_ccb, OUT_XML_FLAME_RENDER_CURVE_DEFAULT)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {OUT_XML_FLAME_RENDER_CURVE_BLUE} -> NOT FOUND, default value used.\n")
     

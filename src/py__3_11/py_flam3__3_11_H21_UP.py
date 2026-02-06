@@ -612,11 +612,6 @@ class f3h_tabs:
         PRM_RENDER_POWER: Final = 'outhighlight'
         PRM_RENDER_K2: Final = 'outk2'
         PRM_RENDER_VIBRANCY: Final = 'outvibrancy'
-        PRM_RENDER_CC_CURVES: Final = 'outcurves'
-        PRM_RENDER_CC_CURVE_OVERALL: Final = 'outcurveoverall'
-        PRM_RENDER_CC_CURVE_RED: Final = 'outcurvered'
-        PRM_RENDER_CC_CURVE_GREEN: Final = 'outcurvegreen'
-        PRM_RENDER_CC_CURVE_BLUE: Final = 'outcurveblue'
 
         # OUT tab: Curves
         PRM_TOGGLE_CC_DEFAULTS_MSG: Final = 'outccdefault'
@@ -676,6 +671,12 @@ class f3h_tabs:
         PVT_PRM_VIEWPORT_PT_SIZE_MEM: Final = 'vpptsize_mem'
         PVT_PRM_VIEWPORT_PT_TYPE_MEM: Final = 'vptype_mem'
         PVT_PRM_VIEWPORT_WIRE_WIDTH_MEM: Final = 'vpww_mem'
+        # PREFS tab: PRIVATE SYSTEM CC CURVES
+        PVT_PRM_RENDER_CC_CURVES: Final = 'outcurves'
+        PVT_PRM_RENDER_CC_CURVE_OVERALL: Final = 'outcurveoverall'
+        PVT_PRM_RENDER_CC_CURVE_RED: Final = 'outcurvered'
+        PVT_PRM_RENDER_CC_CURVE_GREEN: Final = 'outcurvegreen'
+        PVT_PRM_RENDER_CC_CURVE_BLUE: Final = 'outcurveblue'
         # PREFS tab: PRIVATE SYSTEM TEMP PARMS
         PVT_PRM_INT_0: Final = 'tmp_int_0'
         PVT_PRM_INT_1: Final = 'tmp_int_1'
@@ -13262,11 +13263,11 @@ XML_RENDER_HOUDINI_DICT: dict[str, str] = { xml_keys.XML_XF_NAME: f3h_tabs.OUT.P
                                             xml_keys.XML_POWER: f3h_tabs.OUT.PRM_RENDER_POWER,
                                             xml_keys.XML_K2: f3h_tabs.OUT.PRM_RENDER_K2,
                                             xml_keys.XML_VIBRANCY: f3h_tabs.OUT.PRM_RENDER_VIBRANCY,
-                                            xml_keys.XML_CC_CURVES: f3h_tabs.OUT.PRM_RENDER_CC_CURVES,
-                                            xml_keys.XML_CC_CURVE_OVERALL: f3h_tabs.OUT.PRM_RENDER_CC_CURVE_OVERALL,
-                                            xml_keys.XML_CC_CURVE_RED: f3h_tabs.OUT.PRM_RENDER_CC_CURVE_RED,
-                                            xml_keys.XML_CC_CURVE_GREEN: f3h_tabs.OUT.PRM_RENDER_CC_CURVE_GREEN,
-                                            xml_keys.XML_CC_CURVE_BLUE: f3h_tabs.OUT.PRM_RENDER_CC_CURVE_BLUE
+                                            xml_keys.XML_CC_CURVES: f3h_tabs.PREFS.PVT_PRM_RENDER_CC_CURVES,
+                                            xml_keys.XML_CC_CURVE_OVERALL: f3h_tabs.PREFS.PVT_PRM_RENDER_CC_CURVE_OVERALL,
+                                            xml_keys.XML_CC_CURVE_RED: f3h_tabs.PREFS.PVT_PRM_RENDER_CC_CURVE_RED,
+                                            xml_keys.XML_CC_CURVE_GREEN: f3h_tabs.PREFS.PVT_PRM_RENDER_CC_CURVE_GREEN,
+                                            xml_keys.XML_CC_CURVE_BLUE: f3h_tabs.PREFS.PVT_PRM_RENDER_CC_CURVE_BLUE
                                             }
 
 
@@ -17087,22 +17088,20 @@ class in_flame_utils
         Returns:
             (None):
         """     
-        # render curves
-        #
+        # Render curves
         # Note that we are setting the value into the curve data parameters. Those parameters are protected inside the PREFS tab.
-        # They are Label parameters and do not need to be unlocked and cleared from any keyframes so that we can use the raw hou method: node.parm("name").set(val)
         
         prm_cc_all_name: str | None = XML_RENDER_HOUDINI_DICT.get(xml_keys.XML_CC_CURVES)
         assert prm_cc_all_name is not None
         prm_cc_all = node.parm(prm_cc_all_name)
         prm_cc_all_val: str = f3r.out_curves[preset_id]
         if prm_cc_all_val in xml_keys.DEFAULT_CC_CURVES_ALL:
-            prm_cc_all.set(xml_keys.DEFAULT_CC_CURVES)
+            flam3h_prm_utils.private_prm_set(node, prm_cc_all, xml_keys.DEFAULT_CC_CURVES)
         else:
             try:
-                prm_cc_all.set(prm_cc_all_val)
+                flam3h_prm_utils.private_prm_set(node, prm_cc_all, prm_cc_all_val)
             except (AttributeError, TypeError): # If missing set it to its default
-                prm_cc_all.set(xml_keys.DEFAULT_CC_CURVES)
+                flam3h_prm_utils.private_prm_set(node, prm_cc_all, xml_keys.DEFAULT_CC_CURVES)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVES} -> NOT FOUND, default value used.\n")
                 
@@ -17112,12 +17111,12 @@ class in_flame_utils
         prm_cc = node.parm(prm_cc_name)
         prm_cc_val: str = f3r.out_curve_overall[preset_id]
         if prm_cc_val in xml_keys.DEFAULT_CC_CURVE_ALL:
-            prm_cc.set(xml_keys.DEFAULT_CC_CURVE)
+            flam3h_prm_utils.private_prm_set(node, prm_cc, xml_keys.DEFAULT_CC_CURVE)
         else:
             try:
-                prm_cc.set(prm_cc_val)
+                flam3h_prm_utils.private_prm_set(node, prm_cc, prm_cc_val)
             except (AttributeError, TypeError): # If missing set it to its default
-                prm_cc.set(xml_keys.DEFAULT_CC_CURVE)
+                flam3h_prm_utils.private_prm_set(node, prm_cc, xml_keys.DEFAULT_CC_CURVE)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVE_OVERALL} -> NOT FOUND, default value used.\n")
                 
@@ -17127,12 +17126,12 @@ class in_flame_utils
         prm_ccr = node.parm(prm_ccr_name)
         prm_ccr_val: str = f3r.out_curve_red[preset_id]
         if prm_ccr_val in xml_keys.DEFAULT_CC_CURVE_ALL:
-            prm_ccr.set(xml_keys.DEFAULT_CC_CURVE)
+            flam3h_prm_utils.private_prm_set(node, prm_ccr, xml_keys.DEFAULT_CC_CURVE)
         else:
             try:
-                prm_ccr.set(prm_ccr_val)
+                flam3h_prm_utils.private_prm_set(node, prm_ccr, prm_ccr_val)
             except (AttributeError, TypeError): # If missing set it to its default
-                prm_ccr.set(xml_keys.DEFAULT_CC_CURVE)
+                flam3h_prm_utils.private_prm_set(node, prm_ccr, xml_keys.DEFAULT_CC_CURVE)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVE_RED} -> NOT FOUND, default value used.\n")
                 
@@ -17142,12 +17141,12 @@ class in_flame_utils
         prm_ccg = node.parm(prm_ccg_name)
         prm_ccg_val: str = f3r.out_curve_green[preset_id]
         if prm_ccg_val in xml_keys.DEFAULT_CC_CURVE_ALL:
-            prm_ccg.set(xml_keys.DEFAULT_CC_CURVE)
+            flam3h_prm_utils.private_prm_set(node, prm_ccg, xml_keys.DEFAULT_CC_CURVE)
         else:
             try:
-                prm_ccg.set(prm_ccg_val)
+                flam3h_prm_utils.private_prm_set(node, prm_ccg, prm_ccg_val)
             except (AttributeError, TypeError): # If missing set it to its default
-                prm_ccg.set(xml_keys.DEFAULT_CC_CURVE)
+                flam3h_prm_utils.private_prm_set(node, prm_ccg, xml_keys.DEFAULT_CC_CURVE)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVE_GREEN} -> NOT FOUND, default value used.\n")
 
@@ -17157,12 +17156,12 @@ class in_flame_utils
         prm_ccb = node.parm(prm_ccb_name)
         prm_ccb_val: str = f3r.out_curve_green[preset_id]
         if prm_ccb_val in xml_keys.DEFAULT_CC_CURVE_ALL:
-            prm_ccb.set(xml_keys.DEFAULT_CC_CURVE)
+            flam3h_prm_utils.private_prm_set(node, prm_ccb, xml_keys.DEFAULT_CC_CURVE)
         else:
             try:
-                prm_ccb.set(prm_ccb_val)
+                flam3h_prm_utils.private_prm_set(node, prm_ccb, prm_ccb_val)
             except (AttributeError, TypeError): # If missing set it to its default
-                prm_ccb.set(xml_keys.DEFAULT_CC_CURVE)
+                flam3h_prm_utils.private_prm_set(node, prm_ccb, xml_keys.DEFAULT_CC_CURVE)
                 # Not all third-party applications export these keys so we avoid printing as it can be annoying.
                 # print(f"Warning:\nIN xml key: {xml_keys.XML_CC_CURVE_BLUE} -> NOT FOUND, default value used.\n")
     
