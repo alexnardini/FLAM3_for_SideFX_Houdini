@@ -291,21 +291,6 @@ class flam3husd_scripts
         [node.parm(prm_name).lock(True) for prm_name in prm_names if not node.parm(prm_name).isLocked()]
         
         
-        # The following are FLAM3HUSD UI utility parameters
-        # hence they do not have a global variable and only hard coded here.
-        """
-        disabler_prm_names: tuple = ("cpdisable",
-                                     "hide_palette",
-                                     "indisable",
-                                     "outdisable",
-                                     "prefsdisable",
-                                     "aboutdisable"
-                                     )
-        
-        [node.parm(prm_name).lock(True) for prm_name in disabler_prm_names if not node.parm(prm_name).isLocked()]
-        """
-        
-        
     @staticmethod
     def flam3husd_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
         """Get the houdini version number from the gloabl: __h_versions__
@@ -319,19 +304,30 @@ class flam3husd_scripts
             (None):
         """ 
         if isinstance(__h_versions__, tuple):
+            
+            num_str: str | None = None
             if len(__h_versions__) > 1:
-                if last_index: num_str: str = str(__h_versions__[-1])
-                else: num_str: str = str(__h_versions__[0])
+                if last_index: num_str = str(__h_versions__[-1])
+                
+                else:
+                    num_str = str(__h_versions__[0])
+                    
             elif __h_versions__:
-                num_str: str = str(__h_versions__[0])
+                num_str = str(__h_versions__[0])
 
-            return f"{num_str[:2]}.{num_str[-1]}"
+            if num_str is not None:
+                return f"{num_str[:2]}.{num_str[-1]}"
+            else:
+                return f"**N/A**"
         
         elif isinstance(__h_versions__, int):
+            
             if len(str(__h_versions__)) == 3:
                 return f"{str(__h_versions__)[:2]}.{str(__h_versions__)[-1]}"
+            
             elif len(str(__h_versions__)) == 2:
                 return f"**{str(__h_versions__)}**"
+            
             else:
                 return f"**N/A**"
             
