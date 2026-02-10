@@ -572,11 +572,8 @@ class flam3husd_scripts
             
             if _H_VERSION_ALLOWED is False:
                 
-                if msg and hou.isUIAvailable():
-                    _MSG_H_VERSIONS = f"This Houdini version is: H{flam3husd_scripts.flam3husd_h_versions_build_data(h_version)}\nThe latest Houdini version supported by FLAM3HUSD is: H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_version_max__)}\nSome functionality may not work as intended or not work at all."
-                    hou.ui.displayMessage(_MSG_H_VERSIONS, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3HUSD Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
-                    # Do not show me this Display Message window again when creating succesive instances of this HDA
-                    hou.session.F3HUSD_H_VERSION_ALLOWED = True # type: ignore
+                # Do not show me this Display Message window again when creating succesive instances of this HDA
+                hou.session.F3HUSD_H_VERSION_ALLOWED = True # type: ignore
                     
                 return True
             

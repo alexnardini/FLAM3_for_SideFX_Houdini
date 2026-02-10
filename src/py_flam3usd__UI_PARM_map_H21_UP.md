@@ -75,7 +75,7 @@ to: **py_flam3usd__3_11**
 import toolutils
 
 # Set some HDA infos
-__version__ = "0.2.44"
+__version__ = "0.2.48"
 __status__ = "Prototype"
 __h_versions__: tuple = (210,)
 __range_type__: bool = False # True for closed range. False for open range
@@ -134,6 +134,7 @@ __status__ = nodetype.hdaModule().__status__
 __h_versions__: tuple = nodetype.hdaModule().__h_versions__
 __range_type__: bool = nodetype.hdaModule().__range_type__
 __h_version_min__: int = nodetype.hdaModule().__h_version_min__
+__h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
 
 def flam3husd_first_time() -> bool:
@@ -165,6 +166,37 @@ def flam3husd_first_time() -> bool:
         
     else:
         return True
+    
+    
+def flam3husd_compatible_allowed_msg() -> None:
+    """If this the the first instance and an allowed version higher than the latest supported version
+    display a message letting the user know.
+    
+    This is done to allow the splash screen to still be displayed if this is the case.
+    
+    Args:
+        (None):
+        
+    Returns:
+        (None):
+    """ 
+    
+    _H_VERSION_ALLOWED = None
+    try:
+        _H_VERSION_ALLOWED = hou.session.F3HUSD_H_VERSION_ALLOWED # type: ignore
+        
+    except AttributeError:  
+        pass
+    
+    if _H_VERSION_ALLOWED is None:
+        
+        if hou.isUIAvailable():
+            h_version: int = nodetype.hdaModule().houdini_version(2)
+            __h_versions__: tuple = nodetype.hdaModule().__h_versions__
+            if h_version > __h_versions__[-1]:
+                _MSG_H_VERSIONS = f"This Houdini version is: H{nodetype.hdaModule().flam3usd.flam3husd_scripts.flam3husd_h_versions_build_data(h_version)}\nThe latest Houdini version supported by this FLAM3H™ is: H{nodetype.hdaModule().flam3usd.flam3husd_scripts.flam3husd_h_versions_build_data(__h_version_max__)}\nSome functionality may not work as intended or not work at all."
+                hou.ui.displayMessage(_MSG_H_VERSIONS, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+        
 
 
 def flam3husd_not_compatible_first_time_msg() -> None:
@@ -198,7 +230,9 @@ def flam3husd_not_compatible_first_time_msg() -> None:
         print(_MSG_INFO)
 
 
-if not flam3husd_first_time():
+if flam3husd_first_time():
+    flam3husd_compatible_allowed_msg()
+else:
     flam3husd_not_compatible_first_time_msg()
 ```
 
