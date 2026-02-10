@@ -271,7 +271,7 @@ def flam3h_compatible_allowed_msg() -> None:
         (None):
     """ 
     
-    _H_VERSION_ALLOWED: bool | None = None
+    _H_VERSION_ALLOWED = None
     try:
         _H_VERSION_ALLOWED = hou.session.F3H_H_VERSION_ALLOWED # type: ignore
         
@@ -280,11 +280,12 @@ def flam3h_compatible_allowed_msg() -> None:
     
     if _H_VERSION_ALLOWED is None:
         
-        h_version: int = nodetype.hdaModule().houdini_version(2)
-        __h_versions__: tuple = nodetype.hdaModule().__h_versions__
-        if h_version > __h_versions__[-1]:
-            _MSG_H_VERSIONS = f"This Houdini version is: H{nodetype.hdaModule().flam3.flam3h_scripts.flam3h_h_versions_build_data(h_version)}\nThe latest Houdini version supported by this FLAM3H™ is: H{nodetype.hdaModule().flam3.flam3h_scripts.flam3h_h_versions_build_data(__h_version_max__)}\nSome functionality may not work as intended or not work at all."
-            hou.ui.displayMessage(_MSG_H_VERSIONS, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+        if hou.isUIAvailable():
+            h_version: int = nodetype.hdaModule().houdini_version(2)
+            __h_versions__: tuple = nodetype.hdaModule().__h_versions__
+            if h_version > __h_versions__[-1]:
+                _MSG_H_VERSIONS = f"This Houdini version is: H{nodetype.hdaModule().flam3.flam3h_scripts.flam3h_h_versions_build_data(h_version)}\nThe latest Houdini version supported by this FLAM3H™ is: H{nodetype.hdaModule().flam3.flam3h_scripts.flam3h_h_versions_build_data(__h_version_max__)}\nSome functionality may not work as intended or not work at all."
+                hou.ui.displayMessage(_MSG_H_VERSIONS, buttons=("Got it, thank you",), severity=hou.severityType.ImportantMessage, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
     
 
 def flam3h_sys_updated_mode() -> None:
