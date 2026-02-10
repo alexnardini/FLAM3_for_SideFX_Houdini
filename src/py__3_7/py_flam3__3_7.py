@@ -75,7 +75,6 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
     Tested on:  PYTHON v3.7.13  (H19)
                 PYTHON v3.9.10  (H19.5)
                 PYTHON v3.10.10 (H20)
-                PYTHON v3.11.7  (H20.5)
 
     Title:      FLAM3H™ H10 to H20. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )

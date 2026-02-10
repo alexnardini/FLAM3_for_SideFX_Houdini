@@ -2273,7 +2273,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -2290,7 +2290,7 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSi
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth()
+hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
