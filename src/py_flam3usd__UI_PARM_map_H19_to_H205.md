@@ -521,7 +521,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleD
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize()
+hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python

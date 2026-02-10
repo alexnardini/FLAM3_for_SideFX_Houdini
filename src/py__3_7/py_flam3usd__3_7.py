@@ -8,6 +8,7 @@ __maintainer__ = "Alessandro Nardini"
 import hou
 import nodesearch
 
+from typing import Callable
 from platform import python_version
 from datetime import datetime
 from typing import Union
@@ -25,11 +26,10 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
     Tested on:  PYTHON v3.7.13  (H19)
                 PYTHON v3.9.10  (H19.5)
                 PYTHON v3.10.10 (H20)
-                PYTHON v3.11.7  (H20.5)
 
     Title:      SideFX Houdini FLAM3HUSD
     Author:     F stands for liFe ( made in Italy )
-    date:       September 2023, Last revised November 2025
+    date:       September 2023, Last revised February 2026
                 This is the source file.
 
     Name:       PY_FLAM3USD__3_7 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -105,6 +105,168 @@ F3H_GLB_DENSITY = 'ptcount'
 # FLAM3H™ import density limit on creation
 F3H_IMPORT_DENSITY_LIMIT: int = 50000000 # 50M(millions)
 
+PVT_ALL: tuple = (PREFS_PVT_VIEWPORT_RENDERER_MEM,
+                PREFS_PVT_VIEWPORT_PT_SIZE_MEM,
+                PREFS_PVT_VIEWPORT_PT_TYPE_MEM,
+                PREFS_PVT_FLAM3HUSD_DATA_DISABLED, 
+                PREFS_PVT_FLAM3HUSD_DATA_H_VALID, 
+                PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 
+                PREFS_PVT_FLAM3HUSD_DATA_H190,
+                PREFS_PVT_FLAM3HUSD_DATA_H205_UP
+                )
+
+
+# FLAM3H™ PRM UTILS start here
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+
+  
+class flam3husd_prm_utils:
+    """
+class f3h_prm_utils
+
+@STATICMETHODS
+* set(node: hou.LopNode, _prm: Union[hou.Parm, hou.ParmTuple, str], data: Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]) -> None:
+* setParms(node: hou.LopNode, parms_dict: dict) -> None:
+* private_prm_set(node: hou.LopNode, _prm: Union[str, hou.Parm], data: Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]) -> None:
+* private_prm_deleteAllKeyframes(node: hou.LopNode, _prm: Union[str, hou.Parm]) -> None:
+
+@METHODS
+
+    """  
+    
+    @staticmethod
+    def set(node: hou.LopNode, _prm: Union[hou.Parm, hou.ParmTuple, str], data: Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]) -> None:
+        """Set a single parameter using the folloing hou methods:</br>
+        * <b>node.parm("name").set(val)</b>
+        * <b>node.parmTuple("name").set(val)</b></br>
+        
+        while unlocking them and deleting their keyframes first.</br>
+        
+        Note:
+            * In this code base, many parameter uses the raw version from the hou module to set parameters data.</br>
+            * When you find some, it mean a definition prior to that code did unlock and cleared their keyframes already.</br>
+        
+        Args:
+            node(hou.LopNode): this FLAM3H™ node.
+            _prm(Union[hou.Parm, hou.ParmTuple, None]): Either a <b>hou.Parm</b>, <b>hou.ParmTuple</b> or a <b>parm name string</b>.
+            data(Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]): the data to set the parameter to.
+            
+        Returns:
+            (None):
+        """ 
+        prm: Union[hou.Parm, hou.ParmTuple, None] = None
+        if isinstance(_prm, str):
+            prm = node.parm(_prm)
+            if prm is None:
+                prm = node.parmTuple(_prm)
+            
+        elif isinstance(_prm, (hou.Parm, hou.ParmTuple)):
+            prm = _prm
+            
+        if prm is not None:
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            prm.set(data) # type: ignore
+            
+        else:
+            raise Exception(f"{node.name()}: The passed in parameter is not valid:\n{_prm}")
+    
+    
+    @staticmethod
+    def setParms(node: hou.LopNode, parms_dict: dict) -> None:
+        """Set a group of parameters using the hou node.setParms method.</br>
+        while unlocking them and deleting their keyframes first .</br>
+        
+        Args:
+            node(hou.LopNode): this FLAM3H™ node.
+            parms_dict(dict): A dictionary specifying the parm names and their values.</br>Usually the dict is composed as [str, Union[int, float, str]]
+            
+        Returns:
+            (None):
+        """ 
+        prm: Union[hou.Parm, hou.ParmTuple, None] = None
+        for key in parms_dict.keys():
+            prm = node.parm(key)
+            if prm is None:
+                prm = node.parmTuple(key)
+            
+            if prm is not None:
+                prm.lock(False)
+                prm.deleteAllKeyframes()
+        
+        if prm is not None:
+            node.setParms(  # type: ignore
+                            parms_dict
+                            ) 
+        else:
+            raise Exception(f"{node.name()}: The passed in parameters dictionary is not valid:\n{parms_dict}")
+
+
+    @staticmethod
+    def private_prm_set(node: hou.LopNode, _prm: Union[str, hou.Parm], data: Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]) -> None:
+        """Set a parameter value while making sure to unlock and lock it right after.</br>
+        This is being introduced to add an extra level of security so to speak to certain parameters</br>
+        that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.</br>
+        
+        Args:
+            node(hou.LopNode): this FLAM3H™ node.
+            prm_name(Union[str, hou.Parm]): the parameter name or the parameter hou.Parm directly.
+            data(Union[int, float, str, tuple, hou.Ramp, hou.Vector3, hou.Vector2]): The value to set the parameter to.
+            
+        Returns:
+            (None):
+        """ 
+        if isinstance(_prm, str): prm: Union[hou.Parm, None] = node.parm(_prm)
+        elif isinstance(_prm, hou.Parm): prm: Union[hou.Parm, None] = _prm
+        else: prm: Union[hou.Parm, None] = None
+        if prm is not None:
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            prm.set(data) # type: ignore # the set method for the hou.Parm exist but it is not recognized
+            prm.lock(True)
+            
+        else:
+            if isinstance(_prm, str):
+                print(f"{node.name()}: PVT parameter not found to Set: {_prm}")
+            else:
+                print(f"{node.name()}: PVT parameter not found to Set.")
+        
+        
+    @staticmethod
+    def private_prm_deleteAllKeyframes(node: hou.LopNode, _prm: Union[str, hou.Parm]) -> None:
+        """Delete all parameter's keyframes while making sure to unlock and lock it right after.</br>
+        This is being introduced to add an extra level of security so to speak to certain parameters</br>
+        that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.</br>
+        
+        Args:
+            node(hou.LopNode): this FLAM3H™ node.
+            prm_name(Union[str, hou.Parm]):  the parameter name or the parameter hou.Parm directly.
+            
+        Returns:
+            (None):
+        """ 
+        if isinstance(_prm, str): prm: Union[hou.Parm, None] = node.parm(_prm)
+        elif isinstance(_prm, hou.Parm): prm: Union[hou.Parm, None] = _prm
+        else: prm: Union[hou.Parm, None] = None
+        if prm is not None and len(prm.keyframes()):
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            prm.lock(True)
+            
+        elif prm is None:
+            if isinstance(_prm, str):
+                print(f"{node.name()}: PVT parameter not found to DeleteAllKeyFrames: {_prm}")
+            else:
+                print(f"{node.name()}: PVT parameter not found to DeleteAllKeyFrames.")
+
+
 
 # FLAM3HUSD SCRIPTS start here
 ##########################################
@@ -125,7 +287,7 @@ class flam3husd_scripts
 * flam3husd_on_create_load_first_instance(node: hou.LopNode, msg: bool = True, limit: bool = True) -> bool:
 * flam3husd_on_create_lock_parms(node: hou.LopNode) -> None:
 * flam3husd_h_versions_build_data(__h_versions__: Union[tuple, int], last_index: bool = False) -> str:
-* flam3husd_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
+* flam3husd_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True, ps_cls_about: bool = False) -> str:
 * flam3husd_compatible(h_version: int, this_h_versions: tuple, kwargs: Union[dict, None], msg: bool) -> bool:
 * flam3husd_compatible_range_close(kwargs: Union[dict, None], msg: bool) -> bool:
 * flam3husd_compatible_range_open(kwargs: Union[dict, None], msg: bool) -> bool:
@@ -198,27 +360,27 @@ class flam3husd_scripts
                             if limit:
                                 
                                 if f3h.parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
-                                    node.setParms({PREFS_F3H_PATH: f3h.path()}) # type: ignore
+                                    flam3husd_prm_utils.set(node, PREFS_F3H_PATH, f3h.path())
                                     
                                     if display_flag:
                                         flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h)
                                         
                                     if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                        flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                        flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                     
                                     if msg:
                                         ...
                                         
                                     return True
                                 
-                                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                                flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                                 return False
                                 
                             else:
-                                node.setParms({PREFS_F3H_PATH: f3h.path()}) # type: ignore
+                                flam3husd_prm_utils.set(node, PREFS_F3H_PATH, f3h.path())
                                 return True
                             
-                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                    flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                     return False
                     
                 else: # If we are creating the very first FLAM3HUSD instance, always import the very first FLAM3H™ node
@@ -231,41 +393,41 @@ class flam3husd_scripts
                         if limit:
                             
                             if f3h_all_instances[0].parm(F3H_GLB_DENSITY).eval() <= F3H_IMPORT_DENSITY_LIMIT:
-                                node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
+                                flam3husd_prm_utils.set(node, PREFS_F3H_PATH, f3h_all_instances[0].path())
                                 
                                 if display_flag:
                                     flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h_all_instances[0])
                                     
                                 if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                    flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                 
                                 if msg:
                                     ...
                                     
                                 return True
                             
-                            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                            flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                             return False
                         
                         else:
-                            node.setParms({PREFS_F3H_PATH: f3h_all_instances[0].path()}) # type: ignore
+                            flam3husd_prm_utils.set(node, PREFS_F3H_PATH, f3h_all_instances[0].path())
                             
                             if display_flag:
                                 flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h_all_instances[0])
                                 
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                             return True
             
             else: # If there are not FLAM3H™ nodes
                 if msg:
                     ...
                     
-                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                 return False
             
         else:
-            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+            flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
             return False
         
         
@@ -279,32 +441,11 @@ class flam3husd_scripts
         Returns:
             (None):
         """
-        prm_names: tuple = (PREFS_PVT_VIEWPORT_RENDERER_MEM,
-                            PREFS_PVT_VIEWPORT_PT_SIZE_MEM,
-                            PREFS_PVT_VIEWPORT_PT_TYPE_MEM,
-                            PREFS_PVT_FLAM3HUSD_DATA_DISABLED, 
-                            PREFS_PVT_FLAM3HUSD_DATA_H_VALID, 
-                            PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 
-                            PREFS_PVT_FLAM3HUSD_DATA_H190,
-                            PREFS_PVT_FLAM3HUSD_DATA_H205_UP
-                            )
         
-        [node.parm(prm_name).lock(True) for prm_name in prm_names if not node.parm(prm_name).isLocked()]
-        
-        
-        # The following are FLAM3HUSD UI utility parameters
-        # hence they do not have a global variable and only hard coded here.
-        """
-        disabler_prm_names: tuple = ("cpdisable",
-                                     "hide_palette",
-                                     "indisable",
-                                     "outdisable",
-                                     "prefsdisable",
-                                     "aboutdisable"
-                                     )
-        
-        [node.parm(prm_name).lock(True) for prm_name in disabler_prm_names if not node.parm(prm_name).isLocked()]
-        """
+        for prm_name in PVT_ALL:
+            parm = node.parm(prm_name)
+            if parm is not None and not parm.isLocked():
+                parm.lock(True)
         
         
     @staticmethod
@@ -320,19 +461,30 @@ class flam3husd_scripts
             (None):
         """ 
         if isinstance(__h_versions__, tuple):
+            
+            num_str: Union[str, None] = None
             if len(__h_versions__) > 1:
-                if last_index: num_str: str = str(__h_versions__[-1])
-                else: num_str: str = str(__h_versions__[0])
+                if last_index: num_str = str(__h_versions__[-1])
+                
+                else:
+                    num_str = str(__h_versions__[0])
+                    
             elif __h_versions__:
-                num_str: str = str(__h_versions__[0])
+                num_str = str(__h_versions__[0])
 
-            return f"{num_str[:2]}.{num_str[-1]}"
+            if num_str is not None:
+                return f"{num_str[:2]}.{num_str[-1]}"
+            else:
+                return f"**N/A**"
         
         elif isinstance(__h_versions__, int):
+            
             if len(str(__h_versions__)) == 3:
                 return f"{str(__h_versions__)[:2]}.{str(__h_versions__)[-1]}"
+            
             elif len(str(__h_versions__)) == 2:
                 return f"**{str(__h_versions__)}**"
+            
             else:
                 return f"**N/A**"
             
@@ -341,7 +493,7 @@ class flam3husd_scripts
 
 
     @staticmethod
-    def flam3husd_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
+    def flam3husd_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True, ps_cls_about: bool = False) -> str:
         """Build and fire a message letting the user know the Houdini version/s needed to run the installed FLAM3HUSD HDA version.
 
         Args:
@@ -352,15 +504,31 @@ class flam3husd_scripts
             (str): Only the part of the message string with the allowed Houdini versions, to be used to compose the final message.
         """ 
         if len(this_h_versions) > 1:
-            if __range_type__ is True:
-                _MSG_H_VERSIONS = f"from H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)}"
+            if __range_type__ is True: 
+                
+                if ps_cls_about:
+                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)}"
+                else:
+                    _MSG_H_VERSIONS = f"from H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)}"
+                    
             else:
-                _MSG_H_VERSIONS = f"from H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)} and up"
+                
+                if ps_cls_about:
+                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)}*"
+                else:
+                    _MSG_H_VERSIONS = f"from H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)} and up"
+                    
         else:
+            
             if __range_type__ is True:
                 _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)}"
+                
             else:
-                _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} and up"
+                
+                if ps_cls_about:
+                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)}*"
+                else:
+                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} and up"
     
         if msg and hou.isUIAvailable():
             hou.ui.displayMessage(f"Sorry, You need {_MSG_H_VERSIONS} to run this FLAM3HUSD version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3HUSD Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
@@ -550,14 +718,14 @@ class flam3husd_scripts
         try:
             type: hou.SopNodeType = f3h_to_f3husd_node.type()
         except:
-            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+            flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
         else:
             if hou.node(f3h_path).type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY and type.name() == F3H_TO_FLAM3HUSD_NODE_TYPE_CATEGORY:
                 if hou.node(f3h_path).parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
-                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
-                else: flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                    flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                else: flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                 
-            else: flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+            else: flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
         
 
     def flam3husd_h_version_check(self) -> None:
@@ -578,15 +746,15 @@ class flam3husd_scripts
         
         # Houdini 19.0
         if flam3husd_general_utils.houdini_version(2) == 190:
-            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 1)
+            flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 1)
         else:
-            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 0)
+            flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H190, 0)
             
         # Houdini 20.5 UP
         if flam3husd_general_utils.houdini_version(2) >= 205:
-            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H205_UP, 1)
+            flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H205_UP, 1)
         else:
-            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H205_UP, 0)
+            flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_H205_UP, 0)
     
     
     def flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float = 1) -> None:
@@ -618,24 +786,28 @@ class flam3husd_scripts
                     all_f3h_vpptsize.append(f3husd.parm(PREFS_VIEWPORT_PT_SIZE).eval())
                     all_f3h_vptype.append(f3husd.parm(PREFS_VIEWPORT_PT_TYPE).eval())
                     if f3husd.parm(PREFS_VIEWPORT_DARK).eval():
-                        node.setParms({PREFS_VIEWPORT_DARK: 1})
+                        flam3husd_prm_utils.set(node, PREFS_VIEWPORT_DARK, 1)
                         flam3husd_general_utils(self.kwargs).colorSchemeDark(False)
                         
                     # FLAM3HUSD nodes viewport preferences options are already synced
                     # so we really need only one to know them all
                     break
         else:
-            node.setParms({PREFS_VIEWPORT_DARK: 1})
+            flam3husd_prm_utils.set(node, PREFS_VIEWPORT_DARK, 1)
             flam3husd_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
     
         # If we collected some data, set
         if all_f3h_vpptsize:
             
-            node.setParms({PREFS_VIEWPORT_PT_SIZE: all_f3h_vpptsize[0]})
-            node.setParms({PREFS_VIEWPORT_PT_TYPE: all_f3h_vptype[0]})
             # Updated memory
-            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, all_f3h_vpptsize[0])
-            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, all_f3h_vptype[0])
+            parms_dict: dict = {PREFS_VIEWPORT_PT_SIZE: all_f3h_vpptsize[0], # type: ignore
+                                PREFS_VIEWPORT_PT_TYPE: all_f3h_vptype[0]
+                                }
+            flam3husd_prm_utils.setParms(node, parms_dict)
+            
+            # Updated memory
+            flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, all_f3h_vpptsize[0])
+            flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, all_f3h_vptype[0])
             
         else:
             Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
@@ -649,21 +821,21 @@ class flam3husd_scripts
                     size: float = settings.particlePointSize()
                     
                     if size != default_value_pt:
-                        node.setParms({PREFS_VIEWPORT_PT_SIZE: size})
+                        flam3husd_prm_utils.set(node, PREFS_VIEWPORT_PT_SIZE, size)
                         # Updated memory
-                        flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, size)
+                        flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, size)
                         
                     type: hou.EnumValue = settings.particleDisplayType()
                     if type == Pixels:
-                        node.setParms({PREFS_VIEWPORT_PT_TYPE: 1})
+                        flam3husd_prm_utils.set(node, PREFS_VIEWPORT_PT_TYPE, 1)
                         # Updated memory
-                        flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, 1)
+                        flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, 1)
                         
                 else:
                     # FLAM3HUSD shoud use its parameter default value in this case, but just to be sure
-                    node.setParms({PREFS_VIEWPORT_PT_SIZE: default_value_pt})
+                    flam3husd_prm_utils.set(node, PREFS_VIEWPORT_PT_SIZE, default_value_pt)
                     # Updated memory
-                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, default_value_pt)
+                    flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, default_value_pt)
 
 
     def flam3husd_on_create_compatible_false(self) -> None:
@@ -682,7 +854,7 @@ class flam3husd_scripts
         """
         node = self.node
         
-        flam3husd_general_utils.private_prm_set(self.node, PREFS_PVT_FLAM3HUSD_DATA_H_VALID, 0)
+        flam3husd_prm_utils.private_prm_set(self.node, PREFS_PVT_FLAM3HUSD_DATA_H_VALID, 0)
         __h_versions__: tuple = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3HUSD HDA PythonModule module.
         
         _MSG_H_VERSIONS = flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__, False)
@@ -692,9 +864,11 @@ class flam3husd_scripts
         # _MSG_DESCRIPTIVE_MSG = f"FLAM3HUSD v{__version__}\nYou need {_MSG_H_VERSIONS}"
         
         # Set proper messages in the about tabs
-        node.setParms({MSG_F3HUSD_ERROR: _MSG_ABOUT})
-        node.setParms({MSG_F3HUSD_ABOUT_ERROR: _MSG_ABOUT})
-            
+        parms_dict: dict = {MSG_F3HUSD_ERROR: _MSG_ABOUT, # type: ignore
+                            MSG_F3HUSD_ABOUT_ERROR: _MSG_ABOUT
+                            }
+        flam3husd_prm_utils.setParms(node, parms_dict)
+        
         # ERROR in the status bar
         if hou.isUIAvailable(): hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
 
@@ -715,7 +889,10 @@ class flam3husd_scripts
         # Check H version and set
         self.flam3husd_h_version_check()
         # Check if we are importing a valid FLAM3H™ node on all the of other FLAM3HUSD node instances
-        [self.flam3husd_is_valid_flam3h_node(f3husd) for f3husd in self.node.type().instances() if f3husd != node]
+        _flam3husd_is_valid_flam3h_node: Callable[[Union[hou.LopNode, None]], None] = self.flam3husd_is_valid_flam3h_node
+        for f3husd in node.type().instances():
+            if f3husd != node:
+                _flam3husd_is_valid_flam3h_node(f3husd)
         
         if self.flam3husd_compatible_type(__range_type__):
             
@@ -784,11 +961,13 @@ class flam3husd_scripts
         # while using an incompatible version of Houdini so that we can restore it to functional again.
         h_valid_prm: hou.Parm = node.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID)
         if not h_valid_prm.eval():
-            flam3husd_general_utils.private_prm_set(self.node, h_valid_prm, 1)
-            
+            flam3husd_prm_utils.private_prm_set(self.node, h_valid_prm, 1)
+
             # Clear messages just in case
-            node.setParms({MSG_F3HUSD_ERROR: ''})
-            node.setParms({MSG_F3HUSD_ABOUT_ERROR: ''})
+            parms_dict: dict = {MSG_F3HUSD_ERROR: '', # type: ignore
+                                MSG_F3HUSD_ABOUT_ERROR: ''
+                                }
+            flam3husd_prm_utils.setParms(node, parms_dict)
             
             # Lock data parameters
             self.flam3husd_on_create_lock_parms(node)
@@ -819,7 +998,11 @@ class flam3husd_scripts
             self.flam3husd_is_valid_flam3h_node()
             # When cloning FLAM3HUSD nodes, check if other FLAM3HUSD nodes still have a valid FLAM3H™ node imported and disable them if not.
             if not hou.hipFile.isLoadingHipFile(): #type: ignore
-                [self.flam3husd_is_valid_flam3h_node(f3husd) for f3husd in self.node.type().instances() if f3husd != self.node]
+                
+                _flam3husd_is_valid_flam3h_node: Callable[[Union[hou.LopNode, None]], None] = self.flam3husd_is_valid_flam3h_node
+                for f3husd in self.node.type().instances():
+                    if f3husd != self.node:
+                        _flam3husd_is_valid_flam3h_node(f3husd)
                 
             # Set about box
             flam3husd_about_utils(self.kwargs).flam3husd_about_msg()
@@ -861,18 +1044,24 @@ class flam3husd_scripts
             _RND: Union[str, None] = None
             for r in renderers:
                 
-                # Karma has the priority
-                _karma_name: str = flam3husd_general_utils.karma_hydra_renderer_name()
+                _karma_cpu_name: str = flam3husd_general_utils.karma_cpu_hydra_renderer_name()
+                _houdini_name: str = 'Houdini'
+                
+                # CPU
+                #
                 # Just in case lets compare everything as str.lower()
-                if _karma_name.lower() in str(r).lower():
-                    _RND = _karma_name
+                if _karma_cpu_name.lower() in str(r).lower():
+                    _RND = _karma_cpu_name
                     break
                 
+                # GL/VK
+                #
                 # Just in case lets compare everything as str.lower()
-                elif "houdini" in str(r).lower(): 
+                elif _houdini_name.lower() in str(r).lower(): 
                     _RND = 'Houdini GL'
                     break
                 
+                # anything else
                 else:
                     pass
             
@@ -890,8 +1079,8 @@ class flam3husd_scripts
                         
                         if rnd_idx is not None:
                             
-                            node.setParms({PREFS_VIEWPORT_RENDERER: rnd_idx}) # type: ignore
-                            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rnd_idx)
+                            flam3husd_prm_utils.set(node, PREFS_VIEWPORT_RENDERER, rnd_idx)
+                            flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rnd_idx)
                             hou.SceneViewer.setHydraRenderer(v, _RND)
 
                             instances: tuple = node.type().instances()
@@ -902,8 +1091,8 @@ class flam3husd_scripts
                                     
                                     if n != node:
                                         
-                                        n.setParms({PREFS_VIEWPORT_RENDERER: rnd_idx}) # type: ignore
-                                        flam3husd_general_utils.private_prm_set(n, PREFS_PVT_VIEWPORT_RENDERER_MEM, rnd_idx)
+                                        flam3husd_prm_utils.set(n, PREFS_VIEWPORT_RENDERER, rnd_idx)
+                                        flam3husd_prm_utils.private_prm_set(n, PREFS_PVT_VIEWPORT_RENDERER_MEM, rnd_idx)
                         
                     else:
                         pass
@@ -921,15 +1110,21 @@ class flam3husd_scripts
         Returns:
             (None):
         """
-        node = self.node
+        node: hou.LopNode = self.node
         node_instances: tuple = node.type().instances()
-        [self.flam3husd_is_valid_flam3h_node(f3husd) for f3husd in node_instances if f3husd != self.node]
-        
+
+        _flam3husd_is_valid_flam3h_node: Callable[[Union[hou.LopNode, None]], None] = self.flam3husd_is_valid_flam3h_node
+        for f3husd in node_instances:
+            if f3husd != node:
+                _flam3husd_is_valid_flam3h_node(f3husd)
+
         if len(node_instances) == 1:
             
             # Delete the Houdini update mode data if needed
-            try: del hou.session.HUSD_CS_STASH_DICT # type: ignore
-            except: pass
+            try:
+                del hou.session.HUSD_CS_STASH_DICT # type: ignore
+            except AttributeError:
+                pass
 
 
 # FLAM3HUSD GENERAL UTILS start here
@@ -949,9 +1144,8 @@ class flam3husd_general_utils
 @STATICMETHODS
 * util_flam3h_node_exist_all(node: hou.LopNode) -> None:
 * util_flam3h_node_exist_self(node: hou.LopNode) -> bool:
-* private_prm_set(node: hou.LopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
-* private_prm_deleteAllKeyframes(node: hou.LopNode, _prm: Union[str, hou.Parm]) -> None:
 * in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
+* karma_cpu_hydra_renderer_name() -> str:
 * karma_hydra_renderer_name() -> str:
 * houdini_version(digit: int = 1) -> int:
 * util_auto_set_f3h_parameter_editor(f3h_node: hou.SopNode) -> None:
@@ -959,7 +1153,7 @@ class flam3husd_general_utils
 * util_getSceneViewers() -> list:
 * util_is_context(context: str, viewport: hou.paneTabType) -> bool:
 * util_is_context_available_viewer(context: str) -> bool:
-* flash_message(msg: Union[str, None], timer: float = FLAM3HUSD_FLASH_MESSAGE_TIMER, img: Union[str, None] = None) -> None:
+* flash_message(msg: Union[str, None], timer: float = FLAM3HUSD_FLASH_MESSAGE_TIMER, img: Union[str, None] = None, usd_context: str = 'Lop') -> None:
 * set_status_msg(msg: str, type: str) -> None:
 
 @METHODS
@@ -1007,18 +1201,18 @@ class flam3husd_general_utils
         try:
             f3h: Union[hou.SopNode, None] = hou.node(current_import)
         except:
-            flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+            flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
             return False
         else:
             if f3h is not None: # I dnt think  this is needed
                 if f3h.parm(PREFS_PVT_FLAM3HUSD_DATA_H_VALID).eval():
-                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                    flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                     return True
                 else:
-                    flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                    flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                     return False
             else:
-                flam3husd_general_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                 return False
             
             
@@ -1037,49 +1231,6 @@ class flam3husd_general_utils
 
 
     @staticmethod
-    def private_prm_set(node: hou.LopNode, _prm: Union[str, hou.Parm], data: Union[str, int, float]) -> None:
-        """Set a parameter value while making sure to unlock and lock it right after.
-        This is being introduced to add an extra level of security so to speak to certain parameters
-        that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.
-        
-        Args:
-            node(hou.LopNode): this FLAM3HUSD node.
-            prm_name(Union[str, hou.Parm]): the parameter name or the parameter hou.Parm directly.
-            data(Union[str, int, float]): The value to set the parameter to.
-            
-        Returns:
-            (None):
-        """ 
-        if isinstance(_prm, str): prm: Union[hou.Parm, None] = node.parm(_prm)
-        elif isinstance(_prm, hou.Parm): prm: Union[hou.Parm, None] = _prm
-        else: prm: Union[hou.Parm, None] = None
-        if prm is not None:
-            prm.lock(False)
-            prm.set(data) # type: ignore # the set method for the hou.Parm exist but it is not recognized
-            prm.lock(True)
-        
-        
-    @staticmethod
-    def private_prm_deleteAllKeyframes(node: hou.LopNode, _prm: Union[str, hou.Parm]) -> None:
-        """Delete all keyframes in a private parameter (locked).
-        
-        Args:
-            node(hou.LopNode): this FLAM3HUSD node.
-            prm_name(Union[sts, hou.Parm]): the parameter name or the parameter hou.Parm directly.
-            
-        Returns:
-            (None):
-        """ 
-        if isinstance(_prm, str): prm: Union[hou.Parm, None] = node.parm(_prm)
-        elif isinstance(_prm, hou.Parm): prm: Union[hou.Parm, None] = _prm
-        else: prm: Union[hou.Parm, None] = None
-        if prm is not None and len(prm.keyframes()):
-            prm.lock(False)
-            prm.deleteAllKeyframes()
-            prm.lock(True)
-
-
-    @staticmethod
     def in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
         """Get the dictionary key from the dictionary value.
 
@@ -1095,7 +1246,7 @@ class flam3husd_general_utils
 
 
     @staticmethod
-    def karma_hydra_renderer_name() -> str:
+    def karma_cpu_hydra_renderer_name() -> str:
         """Return the internal hydra renderer name for Karma.
         
         Args:
@@ -1121,14 +1272,14 @@ class flam3husd_general_utils
             (str): [Return the internal hydra renderer name for Karma.]
         """    
         _RND_idx: dict[str, int] = {'Houdini GL': 0,
-                                    flam3husd_general_utils.karma_hydra_renderer_name(): 1
+                                    flam3husd_general_utils.karma_cpu_hydra_renderer_name(): 1
                                     }
         
         return _RND_idx
 
 
     @staticmethod
-    def houdini_version(digit: int=1) -> int:
+    def houdini_version(digit: int = 1) -> int:
         """Retrieve the major Houdini version number currently in use.
 
         Args:
@@ -1187,21 +1338,23 @@ class flam3husd_general_utils
     
     
     @staticmethod
-    def util_is_context(context: str, viewport: hou.paneTabType) -> bool:
+    def util_is_context(context: str, viewport: Union[hou.SceneViewer, hou.NetworkEditor, hou.ParameterEditor]) -> bool:
         """Return if we are inside a context or not.
         
         Args:
             context(str): The context we want to check if we are currently in. Options so far are: 
                 * Sop: str
                 * Lop: str
-            viewport(hou.paneTabType): Any of the available pane tab types, in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer
+            viewport(Union[hou.SceneViewer, hou.NetworkEditor, hou.ParameterEditor]): Any of the available pane tab types, in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer
             
         Returns:
             (bool): [True if we are in Solaris and False if we are not.]
         """    
         context_now: hou.NodeTypeCategory = hou.ui.findPaneTab(viewport.name()).pwd().childTypeCategory() # type: ignore
-        if str(context_now.name()).lower() == context.lower(): return True
-        else: return False
+        if str(context_now.name()).lower() == context.lower():
+            return True
+        
+        return False
 
 
     @staticmethod
@@ -1222,10 +1375,39 @@ class flam3husd_general_utils
                 available = True
                 break
         return available
+    
+    
+    @staticmethod
+    def util_is_context_available_viewer_data(context: str) -> tuple:
+        """Return if there are viewers that belong to a desired context and a list of all viewers.</br>
+        
+        This is being added as an alternative to:
+        * def util_is_context_available_viewer(context: str) -> bool:
+        
+        It perform the same operations</br>
+        but will also return all the data available instead of just getting a bool.
+        
+        Args:
+            context(str): The context we want to check if we are currently in. Options so far are: 
+                * Object: str
+                * Sop: str
+                * Lop: str
+            
+        Returns:
+            (tuple[bool, list[hou.SceneViewer]]): A tuple containing a bool and a list of viewers.</br>The bool will tell us if there is at least one viewer that belong to a desired context and the list will contain all available viewers.
+        """    
+        available = False
+        viewers: list[hou.SceneViewer] = flam3husd_general_utils.util_getSceneViewers()
+        for v in viewers:
+            if flam3husd_general_utils.util_is_context(context, v):
+                available = True
+                break
+            
+        return available, viewers
         
     
     @staticmethod
-    def flash_message(msg: Union[str, None], timer: float = FLAM3HUSD_FLASH_MESSAGE_TIMER, img: Union[str, None] = None) -> None:
+    def flash_message(msg: Union[str, None], timer: float = FLAM3HUSD_FLASH_MESSAGE_TIMER, img: Union[str, None] = None, usd_context: str = 'Lop') -> None:
         """Cause a message to appear on the top left of the network editor.
         This will work either in Sop and Lop context as it is handy to get those messages either ways. 
 
@@ -1238,12 +1420,13 @@ class flam3husd_general_utils
             (None):
         """  
         if hou.isUIAvailable():
-            [ne.flashMessage(img, msg, timer) for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]] # type: ignore
+            for ne in (p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor): ne.flashMessage(img, msg, timer) # type: ignore
             # Force the flash message to appear in any Lop viewers available.
             # This is being done because it is more handy for the user to read the message in the Lop viewers
             # when working through the FLAM3HUSD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
-            if flam3husd_general_utils.util_is_context_available_viewer('Lop'):
-                for view in [v for v in hou.ui.paneTabs() if v.type() == hou.paneTabType.SceneViewer and flam3husd_general_utils.util_is_context('Lop', v)]: view.flashMessage('', msg, timer) # type: ignore
+            lop_viewer_available, viewers = flam3husd_general_utils.util_is_context_available_viewer_data(usd_context)
+            if lop_viewer_available:
+                for view in (v for v in viewers if flam3husd_general_utils.util_is_context(usd_context, v) and v.isViewingSceneGraph()): view.flashMessage('', msg, timer)
 
         
     @staticmethod
@@ -1395,14 +1578,14 @@ class flam3husd_general_utils
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                 # IF it could not find a new one to import
                                 # import the first one
-                                node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                                flam3husd_prm_utils.set(node, PREFS_F3H_PATH, f3h_all_instances_paths[0])
                                 self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
-                                self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                 
                         else:
                             
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                 
                             else:
                                 
@@ -1416,31 +1599,31 @@ class flam3husd_general_utils
                                 elif self.kwargs['shift']:
                                     
                                     try:
-                                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index - 1]})
+                                        flam3husd_prm_utils.set(node, PREFS_F3H_PATH, f3h_all_instances_paths[current_index - 1])
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[current_index - 1]))
                                         
                                     except:
                                         # start over
-                                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[-1]})
+                                        flam3husd_prm_utils.set(node, PREFS_F3H_PATH, f3h_all_instances_paths[-1])
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[-1]))
                                         
                                     if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                        self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                        flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                     
                                 # Import next
                                 else:
                                     
                                     try:
-                                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[current_index + 1]})
+                                        flam3husd_prm_utils.set(node, PREFS_F3H_PATH, f3h_all_instances_paths[current_index + 1])
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[current_index + 1]))
                                         
                                     except:
                                         # start over
-                                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                                        flam3husd_prm_utils.set(node, PREFS_F3H_PATH, f3h_all_instances_paths[0])
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
                                         
                                     if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                        self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                        flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                 
                     else:
                         
@@ -1453,9 +1636,9 @@ class flam3husd_general_utils
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
                                 # IF it could not find a new one to import
                                 # import the first one
-                                node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                                flam3husd_prm_utils.set(node, PREFS_F3H_PATH, f3h_all_instances_paths[0])
                                 self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
-                                self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                 
                         else:
                             
@@ -1464,7 +1647,7 @@ class flam3husd_general_utils
                                 self.util_auto_set_f3h_parameter_editor(hou.node(current_import))
                             
                             if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                                 
             
                 # If we have one FLAM3H™ node instance
@@ -1476,10 +1659,10 @@ class flam3husd_general_utils
                         hou.node(current_import).type()
                         
                     except:
-                        node.setParms({PREFS_F3H_PATH: f3h_all_instances_paths[0]})
+                        flam3husd_prm_utils.set(node, PREFS_F3H_PATH, f3h_all_instances_paths[0])
                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
                         if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                            self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                            flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                             
                     else:
                         
@@ -1489,10 +1672,10 @@ class flam3husd_general_utils
                         
                         # Just in case
                         if not node.parm(PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID).eval():
-                            self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
+                            flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 1)
                     
             else:
-                self.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
+                flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_FLAM3HUSD_DATA_F3H_VALID, 0)
                 
             # As last,
             # Check if the imported FLAM3H™ node is really a valid one or not
@@ -1687,7 +1870,7 @@ class flam3husd_general_utils
                         self.set_status_msg(f"{node.name()}: {_MSG}. Viewers are in Dark mode already", 'MSG')
                         
                 else:
-                    prm.set(0)
+                    flam3husd_prm_utils.set(node, prm, 0)
                     
                     if not hou.hipFile.isLoadingHipFile(): # type: ignore
                         _MSG: str = f"No Lop viewers available."
@@ -1730,7 +1913,7 @@ class flam3husd_general_utils
                         if hou.session.HUSD_CS_STASH_DICT: # type: ignore
                             
                             if lop_viewers is False:
-                                prm.set(1)
+                                flam3husd_prm_utils.set(node, prm, 1)
                                 self.set_status_msg(f"{node.name()}: There are not Lop viewers available to restore.", 'WARN')
                                 _MSG_FLASH: str = f"No Lop viewers available."
                                 self.flash_message(f"{_MSG_FLASH}")
@@ -1747,19 +1930,23 @@ class flam3husd_general_utils
                         pass
                             
         else:
-            prm.set(0)
+            flam3husd_prm_utils.set(node, prm, 0)
             
             if not hou.hipFile.isLoadingHipFile(): # type: ignore
                 _MSG = f"No Lop viewers in the current Houdini Desktop."
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewer to either set to Dark or restore.", 'WARN')
                 self.flash_message(f"Dark: {_MSG}")
-            
-            
+        
+        
         if update_others:
             # Update dark preference's option toggle on other FLAM3HUSD nodes instances
-            all_f3h: tuple = self.node.type().instances()
-            if len(all_f3h) > 1:
-                [f3h.setParms({PREFS_VIEWPORT_DARK: prm.eval()}) for f3h in all_f3h if f3h != node if f3h.parm(PREFS_VIEWPORT_DARK).eval() != prm.eval()]
+            all_f3husd: tuple = self.node.type().instances()
+            if len(all_f3husd) > 1:
+                for f3husd in all_f3husd:
+                    if f3husd == node:
+                        continue
+                    if f3husd.parm(PREFS_VIEWPORT_DARK).eval() != prm.eval():
+                        flam3husd_prm_utils.set(f3husd, PREFS_VIEWPORT_DARK, prm.eval())
 
 
     def viewportParticleDisplay(self) -> None:
@@ -1794,32 +1981,36 @@ class flam3husd_general_utils
                 if pttype == 0:
                     settings.particleDisplayType(Points)
                     # update memory
-                    self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM)
-                    self.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype)
+                    flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype)
                     
                 elif pttype == 1:
                     settings.particleDisplayType(Pixels)
                     # update memory
-                    self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM)
-                    self.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype)
+                    flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype)
                     
                 else:
                     pass # For now, will see if in the future new option will be added.
-                        
+        
         # Sync FLAM3HUSD nodes
         all_f3husd: tuple = node.type().instances()
-                        
-        # Delete all keyframes
-        [f3husd.parm(PREFS_VIEWPORT_PT_TYPE).deleteAllKeyframes() for f3husd in all_f3husd]
-        # Delete all keyframes on memory parms
-        [self.private_prm_deleteAllKeyframes(f3husd, PREFS_PVT_VIEWPORT_PT_TYPE_MEM) for f3husd in all_f3husd]
               
         if lop_viewers:  
-            [f3husd.setParms({PREFS_VIEWPORT_PT_TYPE: pttype}) for f3husd in all_f3husd if f3husd != node if f3husd.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype]
-            [self.private_prm_set(f3husd, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype) for f3husd in all_f3husd if f3husd != node if f3husd.parm(PREFS_PVT_VIEWPORT_PT_TYPE_MEM).eval() != pttype]
+            for f3husd in all_f3husd:
+                if f3husd == node:
+                    continue
+
+                if f3husd.parm(PREFS_VIEWPORT_PT_TYPE).eval() != pttype:
+                    flam3husd_prm_utils.set(f3husd, PREFS_VIEWPORT_PT_TYPE, pttype)
+
+                if f3husd.parm(PREFS_PVT_VIEWPORT_PT_TYPE_MEM).eval() != pttype:
+                    flam3husd_prm_utils.private_prm_set(f3husd, PREFS_PVT_VIEWPORT_PT_TYPE_MEM, pttype)
+
     
         else:
-            [f3husd.setParms({PREFS_VIEWPORT_PT_TYPE: pttype_mem}) for f3husd in all_f3husd if pttype != pttype_mem]
+            if pttype != pttype_mem:
+                for f3husd in all_f3husd:
+                    flam3husd_prm_utils.set(f3husd, PREFS_VIEWPORT_PT_TYPE, pttype_mem)
+
             
             _MSG = f"No Lop viewers available."
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
@@ -1859,8 +2050,7 @@ class flam3husd_general_utils
                     if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
                         settings.particlePointSize(ptsize)
                         # update memory
-                        self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM)
-                        self.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize)
+                        flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize)
                         
                 else:
                     ptsize: float = float(reset_val)
@@ -1868,31 +2058,31 @@ class flam3husd_general_utils
                         settings.particlePointSize(ptsize)
                         
                     prm = node.parm(prm_name_size)
-                    prm.deleteAllKeyframes()
-                    prm.set(ptsize)
+                    flam3husd_prm_utils.set(node, prm, ptsize)
                     if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
                         # update memory
-                        self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM)
-                        self.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize)
+                        flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize)
         
         if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
             
             # Sync FLAM3HUSD nodes
             all_f3husd: tuple = node.type().instances()
             
-            # Delete all keyframes
-            [f3husd.parm(prm_name_size).deleteAllKeyframes() for f3husd in all_f3husd]
-            # Delete all keyframes on memory parms
-            [self.private_prm_deleteAllKeyframes(f3husd, PREFS_PVT_VIEWPORT_PT_SIZE_MEM) for f3husd in all_f3husd]
-            
             # Update Point Size preference's option toggle on other FLAM3HUSD nodes instances
             if prm_name_size == PREFS_VIEWPORT_PT_SIZE and node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
                 
                 if lop_viewers:
-                    [f3husd.setParms({prm_name_size: ptsize}) for f3husd in node.type().instances() if f3husd.parm(prm_name_size).eval() != ptsize]
-                    [self.private_prm_set(f3husd, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize) for f3husd in node.type().instances() if f3husd.parm(PREFS_PVT_VIEWPORT_PT_SIZE_MEM).eval() != ptsize]
+                    for f3husd in all_f3husd:
+                        if f3husd.parm(prm_name_size).eval() != ptsize:
+                            flam3husd_prm_utils.set(f3husd, prm_name_size, ptsize)
+                        if f3husd.parm(PREFS_PVT_VIEWPORT_PT_SIZE_MEM).eval() != ptsize:
+                            flam3husd_prm_utils.private_prm_set(f3husd, PREFS_PVT_VIEWPORT_PT_SIZE_MEM, ptsize)
+
                 else:
-                    [f3husd.setParms({prm_name_size: ptsize_mem}) for f3husd in node.type().instances() if f3husd.parm(prm_name_size).eval() != ptsize_mem]
+                    for f3husd in all_f3husd:
+                        if f3husd.parm(prm_name_size).eval() != ptsize_mem:
+                            flam3husd_prm_utils.set(f3husd, prm_name_size, ptsize_mem)
+
                 
                     _MSG: str = f"No Lop viewers available."
                     self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
@@ -1928,8 +2118,7 @@ class flam3husd_general_utils
                         _RND: str = self.in_get_dict_key_from_value(self.flam3husd_hydra_renderers_dict(), rndtype)
                         hou.SceneViewer.setHydraRenderer(view, _RND)
                         # update memory
-                        self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_RENDERER_MEM)
-                        self.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype)
+                        flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype)
                         # fire message
                         self.flash_message(_RND)
                         
@@ -1939,14 +2128,17 @@ class flam3husd_general_utils
                 else: pass
                 
         if lop_viewers:
-            # Sync FLAM3HUSD node instances
-            [n.setParms({PREFS_VIEWPORT_RENDERER: rndtype}) for n in node.type().instances() if n != node]
-            # update memory
-            # Sync FLAM3HUSD node instances memory
-            [self.private_prm_deleteAllKeyframes(node, PREFS_PVT_VIEWPORT_RENDERER_MEM) for n in node.type().instances() if n != node]
-            [self.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype) for n in node.type().instances() if n != node]
+            for n in node.type().instances():
+                if n != node:
+                    # Sync FLAM3HUSD node instances
+                    flam3husd_prm_utils.set(n, PREFS_VIEWPORT_RENDERER, rndtype)
+                    # Update memory
+                    flam3husd_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_RENDERER_MEM, rndtype)
+
+
         else:
-            node.setParms({PREFS_VIEWPORT_RENDERER: rndtype_mem.eval()})
+            flam3husd_prm_utils.set(node, PREFS_VIEWPORT_RENDERER, rndtype_mem.eval())
+            
         
             _MSG = f"No Lop viewers available."
             self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer for this option to work.", 'WARN')
@@ -1972,9 +2164,8 @@ class flam3husd_general_utils
                                                     PREFS_KARMA_F3H_SHADER_TRANSMISSION: 0
                                                     }
         
-        # Clear and set
-        [node.parm(key).deleteAllKeyframes() for key in prms_f3h_shader_data.keys()]
-        [node.setParms({key: value}) for key, value in prms_f3h_shader_data.items()]
+        # Set
+        flam3husd_prm_utils.setParms(node, prms_f3h_shader_data)
         
         
     def flam3husd_display_help(self) -> None:
@@ -2063,4 +2254,4 @@ class flam3husd_about_utils
         
         build_about_msg: str = "".join(build)
 
-        self.node.setParms({MSG_F3HUSD_ABOUT: build_about_msg})
+        flam3husd_prm_utils.set(self.node, MSG_F3HUSD_ABOUT, build_about_msg)

@@ -10,10 +10,12 @@ import nodesearch
 
 from typing import Any
 from typing import Final
+from typing import Callable
 from typing import TypeAlias
-from typing import TYPE_CHECKING
-if TYPE_CHECKING:
-    from typing import TypeAlias
+# This do not seem to work in Lop context
+# from typing import TYPE_CHECKING 
+# if TYPE_CHECKING:
+#     from typing import TypeAlias
 from platform import python_version
 from datetime import datetime
 
@@ -31,7 +33,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
     Title:      SideFX Houdini FLAM3HUSD H21 UP
     Author:     F stands for liFe ( made in Italy )
-    date:       August 2025, Last revised November 2025 (cloned from: py_flam3usd__3_11.py)
+    date:       August 2025, Last revised February 2026 (cloned from: py_flam3usd__3_11.py)
                 Source file start date: April 2025
 
     Name:       PY_FLAM3USD__3_11_H21_UP "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -45,6 +47,15 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
 
     LIST OF CLASSES:
+    
+        f3husd_nodeNames
+        
+        f3husd_tabs
+            PREFS
+            ABOUT
+            
+        f3husd_pvt
+        f3h_hda
 
         flam3husd_prm_utils
         flam3husd_scripts
@@ -162,14 +173,14 @@ class f3h_hda:
     # FLAM3H™ import density limit on creation
     DEFAULT_F3H_IMPORT_DENSITY_LIMIT: Final = 50000000 # 50M(millions)
 
-    # FLAM3H™ - The full path will be the string inside the parameter: f3husd_tabs.PREFS.PREFS_F3H_PATH
+    # FLAM3H™ to FLAM3HUSD - The full path will be the string inside the parameter: f3husd_tabs.PREFS.PREFS_F3H_PATH
     # plus this one
     F3H_TO_FLAM3HUSD_NODE_PATH: Final = '/TAGS/OUT_TO_FLAM3HUSD'
+    # And its node type
     F3H_TO_FLAM3HUSD_NODE_TYPE_CATEGORY: Final = 'null'
 
     # FLAM3H™
     F3H_NODE_TYPE_NAME_CATEGORY: Final = 'alexnardini::Sop/FLAM3H'
-    
 
 
 # FLAM3H™ PRM UTILS start here
@@ -210,7 +221,7 @@ class f3h_prm_utils
             * When you find some, it mean a definition prior to that code did unlock and cleared their keyframes already.</br>
         
         Args:
-            node(hou.SopNode): this FLAM3H™ node.
+            node(hou.LopNode): this FLAM3H™ node.
             _prm( hou.Parm | hou.ParmTuple | str): Either a <b>hou.Parm</b>, <b>hou.ParmTuple</b> or a <b>parm name string</b>.
             data(TA_PrmData): the data to set the parameter to.
             
@@ -241,7 +252,7 @@ class f3h_prm_utils
         while unlocking them and deleting their keyframes first .</br>
         
         Args:
-            node(hou.SopNode): this FLAM3H™ node.
+            node(hou.LopNode): this FLAM3H™ node.
             parms_dict(dict): A dictionary specifying the parm names and their values.</br>Usually the dict is composed as [str, int | float | str]
             
         Returns:
@@ -272,7 +283,7 @@ class f3h_prm_utils
         that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.</br>
         
         Args:
-            node(hou.SopNode): this FLAM3H™ node.
+            node(hou.LopNode): this FLAM3H™ node.
             prm_name(str | hou.Parm): the parameter name or the parameter hou.Parm directly.
             data(TA_PrmData): The value to set the parameter to.
             
@@ -302,7 +313,7 @@ class f3h_prm_utils
         that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.</br>
         
         Args:
-            node(hou.SopNode): this FLAM3H™ node.
+            node(hou.LopNode): this FLAM3H™ node.
             prm_name(str | hou.Parm):  the parameter name or the parameter hou.Parm directly.
             
         Returns:
@@ -342,7 +353,7 @@ class flam3husd_scripts
 * flam3husd_on_create_load_first_instance(node: hou.LopNode, msg: bool = True, limit: bool = True) -> bool:
 * flam3husd_on_create_lock_parms(node: hou.LopNode) -> None:
 * flam3husd_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
-* flam3husd_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
+* flam3husd_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True, ps_cls_about: bool = False) -> str:
 * flam3husd_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
 * flam3husd_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
 * flam3husd_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
@@ -556,26 +567,43 @@ class flam3husd_scripts
 
 
     @staticmethod
-    def flam3husd_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True) -> str:
+    def flam3husd_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True, ps_cls_about: bool = False) -> str:
         """Build and fire a message letting the user know the Houdini version/s needed to run the installed FLAM3HUSD HDA version.
 
         Args:
             this_h_versions(tuple): a tuple containing all the Houdini version numbers. This is coming from the HDA's PythonModule: __h_versions__
             msg(bool): Default to True. When False it will not execute the: hou.ui.displayMessage
+            ps_cls_about(bool): Default to False. If True, will build the message string for the pyside about panel.
 
         Returns:
             (str): Only the part of the message string with the allowed Houdini versions, to be used to compose the final message.
         """ 
         if len(this_h_versions) > 1:
-            if __range_type__ is True:
-                _MSG_H_VERSIONS = f"from H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)}"
+            if __range_type__ is True: 
+                
+                if ps_cls_about:
+                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)}"
+                else:
+                    _MSG_H_VERSIONS = f"from H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)}"
+                    
             else:
-                _MSG_H_VERSIONS = f"from H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)} and up"
+                
+                if ps_cls_about:
+                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)}*"
+                else:
+                    _MSG_H_VERSIONS = f"from H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)} and up"
+                    
         else:
+            
             if __range_type__ is True:
                 _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)}"
+                
             else:
-                _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} and up"
+                
+                if ps_cls_about:
+                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)}*"
+                else:
+                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} and up"
     
         if msg and hou.isUIAvailable():
             hou.ui.displayMessage(f"Sorry, You need {_MSG_H_VERSIONS} to run this FLAM3HUSD version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3HUSD Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
@@ -931,10 +959,10 @@ class flam3husd_scripts
         # Check H version and set
         self.flam3husd_h_version_check()
         # Check if we are importing a valid FLAM3H™ node on all of the other FLAM3HUSD node instances
-        is_valid = self.flam3husd_is_valid_flam3h_node
+        _flam3husd_is_valid_flam3h_node: Callable[[hou.LopNode | None], None] = self.flam3husd_is_valid_flam3h_node
         for f3husd in node.type().instances():
             if f3husd != node:
-                is_valid(f3husd)
+                _flam3husd_is_valid_flam3h_node(f3husd)
 
         
         if self.flam3husd_compatible_type(__range_type__):
@@ -1042,10 +1070,10 @@ class flam3husd_scripts
             # When cloning FLAM3HUSD nodes, check if other FLAM3HUSD nodes still have a valid FLAM3H™ node imported and disable them if not.
             if not hou.hipFile.isLoadingHipFile(): #type: ignore
                 
-                is_valid = self.flam3husd_is_valid_flam3h_node
+                _flam3husd_is_valid_flam3h_node: Callable[[hou.LopNode | None], None] = self.flam3husd_is_valid_flam3h_node
                 for f3husd in self.node.type().instances():
                     if f3husd != self.node:
-                        is_valid(f3husd)
+                        _flam3husd_is_valid_flam3h_node(f3husd)
 
                 
             # Set about box
@@ -1166,12 +1194,11 @@ class flam3husd_scripts
         node: hou.LopNode = self.node
         node_instances: tuple[hou.LopNode, ...] = node.type().instances()
 
-        is_valid = self.flam3husd_is_valid_flam3h_node
+        _flam3husd_is_valid_flam3h_node: Callable[[hou.LopNode | None], None] = self.flam3husd_is_valid_flam3h_node
         for f3husd in node_instances:
             if f3husd != node:
-                is_valid(f3husd)
+                _flam3husd_is_valid_flam3h_node(f3husd)
 
-        
         if len(node_instances) == 1:
             
             # Delete the Houdini update mode data if needed
@@ -1495,13 +1522,13 @@ class flam3husd_general_utils
             (None):
         """  
         if hou.isUIAvailable():
-            for ne in [p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor]: ne.flashMessage(img, msg, timer) # type: ignore
+            for ne in (p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor): ne.flashMessage(img, msg, timer) # type: ignore
             # Force the flash message to appear in any Lop viewers available.
             # This is being done because it is more handy for the user to read the message in the Lop viewers
             # when working through the FLAM3HUSD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
             lop_viewer_available, viewers = flam3husd_general_utils.util_is_context_available_viewer_data(usd_context)
             if lop_viewer_available:
-                for view in [v for v in viewers if flam3husd_general_utils.util_is_context(usd_context, v)]: view.flashMessage('', msg, timer)
+                for view in (v for v in viewers if flam3husd_general_utils.util_is_context(usd_context, v) and v.isViewingSceneGraph()): view.flashMessage('', msg, timer)
 
         
     @staticmethod
