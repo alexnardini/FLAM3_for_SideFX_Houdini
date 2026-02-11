@@ -47,7 +47,17 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
 
     LIST OF CLASSES:
+    
+        f3husd_nodeNames
+        
+        f3husd_tabs
+            PREFS
+            ABOUT
+            
+        f3husd_pvt
+        f3h_hda
 
+        flam3husd_prm_utils
         flam3husd_scripts
         flam3husd_general_utils
         flam3husd_about_utils
