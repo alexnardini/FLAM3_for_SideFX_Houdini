@@ -17211,20 +17211,18 @@ class in_flame_utils
             out_flame_utils.out_render_curves_compare_and_set_toggle(node)
             
             # Set folder heading
+            # For peace of mind the flam3h_prm_utils.setParms() method is being used.
             if clipboard:
-                # We are not using: def flam3h_prm_utils.setParms()
-                # because those parameters have been already unlocked and cleared of their keyframes if any already
-                node.setParms(  # type: ignore
-                                {f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_STATS_HEADING} {f3h_tabs.IN.DEFAULT_MSG_CLIPBOARD_LABEL}", 
-                                f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_SETTINGS_HEADING} {f3h_tabs.IN.DEFAULT_MSG_CLIPBOARD_LABEL}"}
-                                )
+                parms_dict: dict = {f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_STATS_HEADING} {f3h_tabs.IN.DEFAULT_MSG_CLIPBOARD_LABEL}", 
+                                    f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_SETTINGS_HEADING} {f3h_tabs.IN.DEFAULT_MSG_CLIPBOARD_LABEL}"}
+                flam3h_prm_utils.setParms(node, parms_dict)
+                
             else:
-                node.setParms(  # type: ignore
-                                {f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_STATS_HEADING}", 
-                                f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_SETTINGS_HEADING}"}
-                                )
+                parms_dict: dict = {f3h_tabs.IN.MSG_PRM_STATS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_STATS_HEADING}", 
+                                    f3h_tabs.IN.MSG_PRM_SETTINGS_HEADING: f"{f3h_tabs.IN.DEFAULT_MSG_PRM_SETTINGS_HEADING}"}
+                flam3h_prm_utils.setParms(node, parms_dict)
             
-            node.parm(f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT).set(1)
+            flam3h_prm_utils.set(node, f3h_tabs.OUT.PRM_RENDER_PROPERTIES_EDIT, 1)
             
             if node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
                 flam3h_general_utils(kwargs).util_set_clipping_viewers()
@@ -19472,7 +19470,7 @@ class out_flame_utils
 * out_auto_change_iter_num_to_prm(self, name: str | None = None) -> None:
 * out_flame_name_inherit_on_load(self) -> None:
 * out_flame_properties_build(self, f3r: out_flame_render_properties) -> dict:
-* out_flam3_compatibility_check_and_msg(self) -> bool:                                
+* out_flam3_compatibility_check_and_msg(self, msg: bool = True) -> bool:                              
 * out_populate_xform_vars_XML(self, 
                                 varsPRM: tuple, 
                                 TYPES_tuple: tuple[str, ...], 
@@ -19480,7 +19478,8 @@ class out_flame_utils
                                 element_xform: lxmlET._Element,
                                 MP_IDX: str, 
                                 FUNC: Callable) -> list[str]:
-* out_build_XML(self, flame: lxmlET._Element) -> bool:
+* out_build_XML(self, flame: lxmlET._Element, msg: bool = True) -> bool:
+* out_XML_to_var(self, msg: bool = True) -> str:
 * out_userData_XML_last_loaded(self, data_name: str = f3h_userData.XML_LAST, flame_name: str | None = None) -> None:
 * out_new_XML(self, outpath: str) -> None:
 * out_preset_XML_clipboard(self) -> None
@@ -21594,12 +21593,13 @@ class out_flame_utils
                 }
         
 
-    def out_flam3_compatibility_check_and_msg(self) -> bool:
+    def out_flam3_compatibility_check_and_msg(self, msg: bool = True) -> bool:
         """Check if the Flame we want to write out is compatible with the FLAM3 flame format.</br>
         If not, print out details to let us know what is wrong with it.</br>
 
         Args:
             (self):
+            msg(bool): Default to: True</br>Display a message window or not.
             
         Returns:
             (bool): Return True if the Flame is valid or False if not.
@@ -21675,45 +21675,47 @@ class out_flame_utils
         
         if bool_VARS_PRE or bool_VARS or bool_VARS_POST or bool_VARS_PRE_FF or bool_VARS_FF or bool_VARS_POST_FF:
             
-            _MSG_PRE = _MSG_VAR = ''
-            if bool_VARS_PRE:
-                dup = ''.join(f"\titerator.{key}\n\t\t{', '.join(val)}\n" for key, val in iter_PRE_dup.items())
-                assert isinstance(dup, str)
-                _MSG_PRE = f"\nPRE\n{dup}"
-            
-            if bool_VARS:
-                dup = ''.join(f"\titerator.{key}\n\t\t{', '.join(val)}\n" for key, val in iter_VAR_dup.items())
-                assert isinstance(dup, str)
-                _MSG_VAR = f"\nVAR\n{dup}"
+            if msg:
                 
-            _MSG_FF_VAR = _MSG_FF_POST = ''
-            if bool_VARS_FF:
-                dup = ''.join(f"{', '.join(val)}\n" for val in _FF_VAR_dup.values())
-                assert isinstance(dup, str)
-                _MSG_FF_VAR = f"\nFF VAR\n\t{dup}"
-            
-            if bool_VARS_POST_FF:
-                dup = ''.join(f"{', '.join(val)}\n" for val in _FF_POST_dup.values())
-                assert isinstance(dup, str)
-                _MSG_FF_POST = f"\nFF POST\n\t{dup}"
+                _MSG_PRE = _MSG_VAR = ''
+                if bool_VARS_PRE:
+                    dup = ''.join(f"\titerator.{key}\n\t\t{', '.join(val)}\n" for key, val in iter_PRE_dup.items())
+                    assert isinstance(dup, str)
+                    _MSG_PRE = f"\nPRE\n{dup}"
                 
-            _MSG_INTRO: str = f"You are using the same variation multiple times\ninside the following iterators/FF types (PRE, VAR, POST):\n"
-            _MSG_ALL_DUP: str = f"{_MSG_INTRO}{_MSG_PRE}{_MSG_VAR}{_MSG_FF_VAR}{_MSG_FF_POST}"
-            
-            _MSG_HELP: str  = "\n"
-            _MSG_HELP += f"DOC:\n"
-            _MSG_HELP += f"\tWhile this is doable within the tool, it is not compatible with FLAM3 file format.\n\tIt require that a variation is used only once per type ( types: PRE, VAR, POST )\n\totherwise you wont be able to save out the same result neither to load it back.\n\tFor example you are not allowed to use two Spherical variations inside an iterator VAR section.\n\n\tYou can however use\n\tone Spherical variation inside the VAR section, one inside the PRE and one inside the POST.\n\n"
-            _MSG_HELP += f"TIP:\n"
-            _MSG_HELP += f"\tSave the hip file instead if you desire to keep the Flame result as it is now.\n\tFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
-            
-            _MSG_ALL: str = f"{_MSG_ALL_DUP}{_MSG_HELP}"
-            
-            _MSG: str = f"{node.name()}: FLAM3 Compatibility -> The FLAM3 format is incompatible with the fractal Flame you are attempting to save."
-            flam3h_general_utils.set_status_msg(_MSG, 'WARN')
-            if hou.isUIAvailable():
-                _MSG_UI = "Duplicates variations of the same type not allowed.\nShow Details to learn more."
-                hou.ui.displayMessage(_MSG_UI, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ Compatibility", details = _MSG_ALL, details_label = None, details_expanded = False) # type: ignore
-            flam3h_general_utils.set_status_msg('', 'MSG')
+                if bool_VARS:
+                    dup = ''.join(f"\titerator.{key}\n\t\t{', '.join(val)}\n" for key, val in iter_VAR_dup.items())
+                    assert isinstance(dup, str)
+                    _MSG_VAR = f"\nVAR\n{dup}"
+                    
+                _MSG_FF_VAR = _MSG_FF_POST = ''
+                if bool_VARS_FF:
+                    dup = ''.join(f"{', '.join(val)}\n" for val in _FF_VAR_dup.values())
+                    assert isinstance(dup, str)
+                    _MSG_FF_VAR = f"\nFF VAR\n\t{dup}"
+                
+                if bool_VARS_POST_FF:
+                    dup = ''.join(f"{', '.join(val)}\n" for val in _FF_POST_dup.values())
+                    assert isinstance(dup, str)
+                    _MSG_FF_POST = f"\nFF POST\n\t{dup}"
+                    
+                _MSG_INTRO: str = f"You are using the same variation multiple times\ninside the following iterators/FF types (PRE, VAR, POST):\n"
+                _MSG_ALL_DUP: str = f"{_MSG_INTRO}{_MSG_PRE}{_MSG_VAR}{_MSG_FF_VAR}{_MSG_FF_POST}"
+                
+                _MSG_HELP: str  = "\n"
+                _MSG_HELP += f"DOC:\n"
+                _MSG_HELP += f"\tWhile this is doable within the tool, it is not compatible with FLAM3 file format.\n\tIt require that a variation is used only once per type ( types: PRE, VAR, POST )\n\totherwise you wont be able to save out the same result neither to load it back.\n\tFor example you are not allowed to use two Spherical variations inside an iterator VAR section.\n\n\tYou can however use\n\tone Spherical variation inside the VAR section, one inside the PRE and one inside the POST.\n\n"
+                _MSG_HELP += f"TIP:\n"
+                _MSG_HELP += f"\tSave the hip file instead if you desire to keep the Flame result as it is now.\n\tFractorium, Apophysis and all other FLAM3 compatible applications obey to the same rule."
+                
+                _MSG_ALL: str = f"{_MSG_ALL_DUP}{_MSG_HELP}"
+                
+                _MSG: str = f"{node.name()}: FLAM3 Compatibility -> The FLAM3 format is incompatible with the fractal Flame you are attempting to save."
+                flam3h_general_utils.set_status_msg(_MSG, 'WARN')
+                if hou.isUIAvailable():
+                    _MSG_UI = "Duplicates variations of the same type not allowed.\nShow Details to learn more."
+                    hou.ui.displayMessage(_MSG_UI, buttons=("Got it, thank you",), severity = hou.severityType.ImportantMessage, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ Compatibility", details = _MSG_ALL, details_label = None, details_expanded = False) # type: ignore
+                flam3h_general_utils.set_status_msg('', 'MSG')
             
             return False
         
@@ -21780,13 +21782,14 @@ class out_flame_utils
         return names
 
 
-    def out_build_XML(self, flame: lxmlET._Element) -> bool:
+    def out_build_XML(self, flame: lxmlET._Element, msg: bool = True) -> bool:
         """Build the XML Flame data to be then written out.</br>
 
         Args:
             (self):
             flame(lxmlET._Element): The root of either the flame to be written out or the flame file to append the new flame to.
-
+            msg(bool): Default to: True</br>Print a message or not.</br>This is specific for the compatibility check.
+            
         Returns:
             (bool): return True if the Flame is a compatible FLAM3 flame or False if not.
         """
@@ -21900,8 +21903,43 @@ class out_flame_utils
         for key, value in cc.items(): flame.set(key, value)
         
         # return if this flame is a valid 'flam3'
-        return self.out_flam3_compatibility_check_and_msg()
+        return self.out_flam3_compatibility_check_and_msg(msg)
+    
+    
+    def out_XML_to_var(self, msg: bool = True) -> str:
+        """Output a Flame preset XML data to store into a variable.</br>
 
+        Args:
+            (self):
+            msg(bool): Default to: True</br>Display a message window or not.</br>This is specific for the compatibility check.
+            
+        Returns:
+            (str): The Flame preset XML data to store into a variable</br>or a 'NOT FLAM3 COMPATIBLE' string if the Flame is not compatible with the FLAM3 format.
+        """ 
+        
+        prm = self.node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
+        prm.lock(False)
+        prm.deleteAllKeyframes()
+        
+        # Lets check if the OUT flame name parameter has a name already set and store it.
+        out_flame_name: str = prm.eval()
+        # Let's use the automatic flame name
+        prm.set('')
+        
+        root: lxmlET._Element = lxmlET.Element(xml_keys.XML_NAME)
+        if self.out_build_XML(root, msg):
+            self._out_pretty_print(root)
+            flame: str = lxmlET.tostring(root, encoding="unicode")
+            # Restore whatever flame name was there if any (even if it was empty)
+            prm.set(out_flame_name)
+            # Out
+            return flame
+        else:
+            # Restore whatever flame name was there if any (even if it was empty)
+            prm.set(out_flame_name)
+            # Out
+            return 'NOT FLAM3 COMPATIBLE'
+            
 
     def out_userData_XML_last_loaded(self, data_name: str = f3h_userData.XML_LAST, flame_name: str | None = None) -> None:
         """Store the loaded Flame preset into the FLAM3H™ node data storage.</br>

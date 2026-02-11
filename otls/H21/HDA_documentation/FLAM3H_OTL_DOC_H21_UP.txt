@@ -499,7 +499,13 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
         To dive-in is useful to identify them visually as sometime it can be difficult to spot them when the fractal Flame is present.
 
     - To exclusively output the xforms handles, a second output has been introduced to the FLAM3H(tm) node.
-    Since they are not baked into the point cloud, you may safely render the fractal Flame while switching between SOP and LOP, which makes it useful for viz purposes.
+        Since they are not baked into the point cloud, you may safely render the fractal Flame while switching between SOP and LOP, which makes it useful for viz purposes.
+
+        _Additionally_:<br />
+
+        a full snapshot of the Flame currently being worked on is also stored into a global detail attribute call: *`XML`*. 
+        This data is a proper Flame preset format and can be copied and pasted into FLAM3H™. 
+        It is a small but very handy feature that allow to store a full Flame presets with its handles as representative geo.
     
     <br /><br />
     [Icon:NETWORKS/sop] *Context aware*<br />
