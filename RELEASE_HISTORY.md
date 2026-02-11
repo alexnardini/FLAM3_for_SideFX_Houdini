@@ -37,6 +37,7 @@ They are all available in this Github repository.
 
 #### FLAM3H™ v1.9.81 indie -> H21.0 UP</br>FLAM3H™ v1.9.74 indie -> H19.0 to H20.5 ####
 
+- **New**: The second output now also store a snapshot of the current Flame being worked on into a global detail attribute call: **XML**. This data is a proper Flame preset format and can be copied and pasted into FLAM3H™. It is a small but very handy feature that allow to store a full Flame presets with its handles as representative geo.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 #### FLAM3HUSD v0.2.48 indie -> H21.0 UP</br>FLAM3HUSD v0.2.44 indie -> H19.0 to H20.5 ####
