@@ -1143,7 +1143,6 @@ class flam3husd_general_utils
 * util_flam3h_node_exist_self(node: hou.LopNode) -> bool:
 * in_get_dict_key_from_value(mydict: dict, idx: int) -> str:
 * karma_cpu_hydra_renderer_name() -> str:
-* karma_hydra_renderer_name() -> str:
 * houdini_version(digit: int = 1) -> int:
 * util_auto_set_f3h_parameter_editor(f3h_node: hou.SopNode) -> None:
 * util_getParameterEditors() -> list:
