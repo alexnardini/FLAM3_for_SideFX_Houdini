@@ -162,6 +162,14 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                     out_flame_utils
                     out_flame_render_properties(out_flame_utils)
                     out_flame_xforms_data(out_flame_utils)
+                    
+                    SvgIcon(QtWidgets.QWidget)
+                    pyside_master_app_names
+                    f3h_hda_sections
+                    pyside_utils
+                    
+                    pyside_master
+                        F3H_msg_panel(QtWidgets.QWidget)
 
                     _NOTE:
                         - Class @properties are always defined inbetween the @staticmethods and the class methods.

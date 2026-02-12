@@ -205,7 +205,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
                     out_flame_render_properties(out_flame_utils)
                     out_flame_xforms_data(out_flame_utils)
                     
-                    SvgIcon
+                    SvgIcon(QtWidgets.QWidget)
                     pyside_master_app_names
                     pyside_master_base_proto(Protocol)
                     pyside_utils
@@ -21377,14 +21377,14 @@ class out_flame_utils
         """Return a dictionary with all the flame properties to be written out.</br></br>
         
         Note:</br>
-            Any of these properties will not be included into the exported XML flame file if they are: False
+            Any of these properties will not be included into the exported XML flame file if they are: <b>False</b>
 
         Args:
             (self):
             f3r(out_flame_render_properties): Flame render properties class
 
         Returns:
-            (dict): a dictionary with all the flame properties to written out
+            (dict): a dictionary with all the flame properties to be written out.
         """   
         # If "use Fractorium parametric prm names" OUT option is ON, lets append the EMBER name to the app name
         # so that we can pick up the proper parametric parameter names if we load it back in Houdini.
