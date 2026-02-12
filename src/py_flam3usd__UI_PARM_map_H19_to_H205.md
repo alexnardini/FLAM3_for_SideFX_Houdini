@@ -1,5 +1,5 @@
 ```python
-#   Title:      FLAM3HUSD. SideFX Houdini FLAM3USD: PYTHON MAP PRM Definitions
+#   Title:      FLAM3H™USD. SideFX Houdini FLAM3USD: PYTHON MAP PRM Definitions
 #   Author:     F stands for liFe ( made in Italy )
 #   date:       March 2025, Last revised February 2026
 #   License:    GPL
@@ -21,8 +21,8 @@
 
 #### Quick links
 
-- **FLAM3HUSD** [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md)
-- **FLAM3HUSD** [**UI_PARM_map H21 UP**](py_flam3usd__UI_PARM_map_H21_UP.md)
+- **FLAM3H™USD** [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md)
+- **FLAM3H™USD** [**UI_PARM_map H21 UP**](py_flam3usd__UI_PARM_map_H21_UP.md)
 
 </br>
 
@@ -40,7 +40,7 @@
 <br>
 <br>
 
-# FLAM3HUSD -> UI_PARM_map
+# FLAM3H™USD -> UI_PARM_map
 - ### Contents
     - _Collection of all the python modules run by the tool inside the HDA Type properties -> Script tab_.
     - _List of all the UI parameters wired with a python definition and the command string they actually run and from where_.
@@ -68,7 +68,7 @@ to: **py_flam3usd__3_11**
 
 
 ```python
-#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Title:      FLAM3H™USD. Render FLAM3H™ fractal Flames in Solaris using Karma
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
 #   Copyright:  (c) 2023 F stands for liFe
@@ -81,9 +81,9 @@ __status__ = "Prototype"
 __h_versions__: tuple = (205,)
 __range_type__: bool = True # True for closed range. False for open range
 
-# The following are min and max Houdini version where FLAM3HUSD can run.
+# The following are min and max Houdini version where FLAM3H™USD can run.
 # The max version is always most likely the latest Houdini version released by SideFX
-# unless it is a closed range due to moving into newer Houdini and FLAM3HUSD versions.
+# unless it is a closed range due to moving into newer Houdini and FLAM3H™USD versions.
 #
 # The ranges can be open or close inside this definition:
 # - (py_flam3usd__3_11) -> def flam3husd_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
@@ -120,7 +120,7 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 | **PythonModule** | The **`flam3usd`** module is created out of the **`py_flam3usd`** file located inside the **Extra Files** section.</br>First inside the **OTL**->**type_properties**->**Scripts**->**PythonModule** | 
 
 ```python
-#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Title:      FLAM3H™USD. Render FLAM3H™ fractal Flames in Solaris using Karma
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
 #   Copyright:  (c) 2023 F stands for liFe
@@ -133,9 +133,9 @@ __status__ = "Prototype"
 __h_versions__: tuple = (190, 195, 200)
 __range_type__: bool = True # True for closed range. False for open range
 
-# The following are min and max Houdini version where FLAM3HUSD can run.
+# The following are min and max Houdini version where FLAM3H™USD can run.
 # The max version is always most likely the latest Houdini version released by SideFX
-# unless it is a closed range due to moving into newer Houdini and FLAM3HUSD versions.
+# unless it is a closed range due to moving into newer Houdini and FLAM3H™USD versions.
 #
 # The ranges can be open or close inside this definition:
 # - (py_flam3usd__3_11) -> def flam3husd_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
@@ -174,7 +174,7 @@ flam3usd = toolutils.createModuleFromSection("flam3usd", kwargs["type"], __modul
 
 
 ```python
-#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Title:      FLAM3H™USD. Render FLAM3H™ fractal Flames in Solaris using Karma
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
 #   Copyright:  (c) 2023 F stands for liFe
@@ -193,7 +193,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
 
 def flam3husd_first_time() -> bool:
-    """If the version of Houdini running is not allowed for this FLAM3HUSD HDA version (different cases)
+    """If the version of Houdini running is not allowed for this FLAM3H™USD HDA version (different cases)
     will return False, otherwise will return True.
 
     Args:
@@ -255,7 +255,7 @@ def flam3husd_compatible_allowed_msg() -> None:
 
 
 def flam3husd_not_compatible_first_time_msg() -> None:
-    """On first time FLAM3HUSD node instance creation:
+    """On first time FLAM3H™USD node instance creation:
 
     Run messages if not compatible with this Houdini version.
     
@@ -270,16 +270,16 @@ def flam3husd_not_compatible_first_time_msg() -> None:
     """ 
     
     _MSG_H_VERSIONS = nodetype.hdaModule().flam3usd.flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__, False)
-    _MSG_INFO = f"\n-> FLAM3HUSD version: {__version__} - {__status__}\n\nThis Houdini version is not compatible with this FLAM3HUSD version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3HUSD version"
+    _MSG_INFO = f"\n-> FLAM3H™USD version: {__version__} - {__status__}\n\nThis Houdini version is not compatible with this FLAM3H™USD version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3H™USD version"
             
     if hou.isUIAvailable():
 
         print(_MSG_INFO)
 
-        _MSG_INFO_SB = f"-> FLAM3HUSD version: {__version__} - {__status__}. This Houdini version is not compatible with this FLAM3HUSD version. You need {_MSG_H_VERSIONS} to run this FLAM3HUSD version"
+        _MSG_INFO_SB = f"-> FLAM3H™USD version: {__version__} - {__status__}. This Houdini version is not compatible with this FLAM3H™USD version. You need {_MSG_H_VERSIONS} to run this FLAM3H™USD version"
         hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
 
-        hou.ui.displayMessage(f"Sorry, you need {_MSG_H_VERSIONS} to run this FLAM3HUSD version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3HUSD Houdini version check", details=None, details_label=None, details_expanded=False)
+        hou.ui.displayMessage(f"Sorry, you need {_MSG_H_VERSIONS} to run this FLAM3H™USD version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™USD Houdini version check", details=None, details_label=None, details_expanded=False)
 
     else:
         print(_MSG_INFO)
@@ -302,7 +302,7 @@ else:
 | **OnCreated** | Initialize what the tool need when you create its node in the network editor.</br>Inside: **OTL**->**type_properties**->**Scripts**->**OnCreated** | 
 
 ```python
-#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Title:      FLAM3H™USD. Render FLAM3H™ fractal Flames in Solaris using Karma
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
 #   Copyright:  (c) 2023 F stands for liFe
@@ -318,10 +318,10 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_creat
 
 | SCRIPT | Description | 
 |:---|:---|
-| **OnLoaded** | When loading hip files with FLAM3HUSD nodes in it do some checks.</br>Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded** | 
+| **OnLoaded** | When loading hip files with FLAM3H™USD nodes in it do some checks.</br>Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded** | 
 
 ```python
-#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Title:      FLAM3H™USD. Render FLAM3H™ fractal Flames in Solaris using Karma
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
 #   Copyright:  (c) 2023 F stands for liFe
@@ -337,10 +337,10 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_loade
 
 | SCRIPT | Description | 
 |:---|:---|
-| **OnLoaded** | When deleting a FLAM3HUSD node.</br>Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted** | 
+| **OnLoaded** | When deleting a FLAM3H™USD node.</br>Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted** | 
 
 ```python
-#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flames in Solaris using Karma
+#   Title:      FLAM3H™USD. Render FLAM3H™ fractal Flames in Solaris using Karma
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
 #   Copyright:  (c) 2023 F stands for liFe
@@ -359,7 +359,7 @@ kwargs["node"].hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_on_delet
 </br>
 </br>
 
-_FLAM3HUSD system utilities._
+_FLAM3H™USD system utilities._
 
 </br>
 
@@ -415,7 +415,7 @@ node.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist
 </br>
 </br>
 
-_Here you will play with the main settings of FLAM3HUSD._
+_Here you will play with the main settings of FLAM3H™USD._
 
 </br>
 

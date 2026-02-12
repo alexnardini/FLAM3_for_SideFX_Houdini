@@ -52,7 +52,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 '''
     Tested on:  PYTHON v3.11.7  (H21)
 
-    Title:      SideFX Houdini FLAM3HUSD H21 UP
+    Title:      SideFX Houdini FLAM3H™USD H21 UP
     Author:     F stands for liFe ( made in Italy )
     date:       August 2025, Last revised February 2026 (cloned from: py_flam3usd__3_11.py)
                 Source file start date: April 2025
@@ -77,7 +77,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
             ABOUT
             
         f3husd_pvt
-        f3h_hda
+        f3husd_hda
 
         flam3husd_prm_utils
         flam3husd_scripts
@@ -108,7 +108,7 @@ class f3husd_nodeNames:
     
     '''
     # Those node names are hard coded here.
-    # If you change those node names inside the FLAM3HUSD houdini HDA network, update those global variables as well.
+    # If you change those node names inside the FLAM3H™USD houdini HDA network, update those global variables as well.
     # If not, some functionalities will stop working.
     DEFAULT_OUT_BBOX_REFRAME: Final = 'OUT_bbox_reframe' # prefix
     
@@ -125,7 +125,7 @@ class f3husd_HDAsections:
 
 class f3husd_tabs:
     '''
-    FLAM3HUSD tabs and parameters names used throughout the code.</br>
+    FLAM3H™USD tabs and parameters names used throughout the code.</br>
     Additionally some miscellaneous constants used throughout the code as well.</br></br>
     
     Mainly for organizational purposes and namespace.</br></br>
@@ -139,7 +139,7 @@ class f3husd_tabs:
 
     '''
     
-    DEFAULT_FLASH_MESSAGE_TIMER: Final = 2 # Note that for this FLAM3HUSD OTL the flash messages only run in netowrk editors belonging to the Lop context.
+    DEFAULT_FLASH_MESSAGE_TIMER: Final = 2 # Note that for this FLAM3H™USD OTL the flash messages only run in netowrk editors belonging to the Lop context.
 
     
     class PREFS:
@@ -201,10 +201,10 @@ class f3husd_pvt:
                                 )
     
     
-class f3h_hda:
+class f3husd_hda:
     '''
     Everything related to the FLAM3H™ node parameters names and miscellaneous constants being imported.</br>
-    This include paths to and type of specific nodes being referenced inside FLAM3HUSD on import.</br>
+    This include paths to and type of specific nodes being referenced inside FLAM3H™USD on import.</br>
     
     '''
     PRM_GLB_DENSITY = 'ptcount'
@@ -212,7 +212,7 @@ class f3h_hda:
     # FLAM3H™ import density limit on creation
     DEFAULT_F3H_IMPORT_DENSITY_LIMIT: Final = 50000000 # 50M(millions)
 
-    # FLAM3H™ to FLAM3HUSD - The full path will be the string inside the parameter: f3husd_tabs.PREFS.PREFS_F3H_PATH
+    # FLAM3H™ to FLAM3H™USD - The full path will be the string inside the parameter: f3husd_tabs.PREFS.PREFS_F3H_PATH
     # plus this one
     F3H_TO_FLAM3HUSD_NODE_PATH: Final = '/TAGS/OUT_TO_FLAM3HUSD'
     # And its node type
@@ -373,7 +373,7 @@ class f3h_prm_utils
                 print(f"{node.name()}: PVT parameter not found to DeleteAllKeyFrames.")
 
 
-# FLAM3HUSD SCRIPTS start here
+# FLAM3H™USD SCRIPTS start here
 ##########################################
 ##########################################
 ##########################################
@@ -417,7 +417,7 @@ class flam3husd_scripts
     def __init__(self, kwargs: dict) -> None:
         """
         Args:
-            kwargs(dict): this FLAM3HUSD node houdini kwargs.
+            kwargs(dict): this FLAM3H™USD node houdini kwargs.
             
         Returns:
             (None):
@@ -428,17 +428,17 @@ class flam3husd_scripts
     
     @staticmethod
     def flam3husd_on_create_load_first_instance(node: hou.LopNode, msg: bool = True, limit: bool = True) -> bool:
-        """Set the FLAM3H™ node path to the first instance if any are found to be imported into FLAM3HUSD.
+        """Set the FLAM3H™ node path to the first instance if any are found to be imported into FLAM3H™USD.
         
-        If multiple FLAM3HUSD nodes and more than one FLAM3H™ nodes are already present,
+        If multiple FLAM3H™USD nodes and more than one FLAM3H™ nodes are already present,
         always import the FLAM3H™ node that has not been imported yet; If all FLAM3H™ nodes are imported, it will import nothing.
         
-        It will NOT automatically import FLAM3H™ nodes with more than f3h_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT point count. The users will need to import them by theirself.
+        It will NOT automatically import FLAM3H™ nodes with more than f3husd_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT point count. The users will need to import them by theirself.
         
         Args:
-            node(hou.LopNode): This FLAM3HUSD node
+            node(hou.LopNode): This FLAM3H™USD node
             msg(bool): Default to True. When False it will not print messages (Status bar and Flash messages)
-            limit(bool): Default to True. If False, it will not import FLAM3H™ node with a points count higher than 50M(millions) (f3h_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT).
+            limit(bool): Default to True. If False, it will not import FLAM3H™ node with a points count higher than 50M(millions) (f3husd_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT).
             
         Returns:
             (bool): True if an instance is found and False if not.
@@ -450,13 +450,13 @@ class flam3husd_scripts
             # displayFlag
             display_flag: bool = node.isGenericFlagSet(hou.nodeFlag.Display) # type: ignore
                 
-            f3h_all_instances: tuple[hou.SopNode, ...] = hou.nodeType(f3h_hda.F3H_NODE_TYPE_NAME_CATEGORY).instances()
+            f3h_all_instances: tuple[hou.SopNode, ...] = hou.nodeType(f3husd_hda.F3H_NODE_TYPE_NAME_CATEGORY).instances()
             if f3h_all_instances:
                 
                 f3husd_all_instances: list[hou.LopNode] = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY).instances()
                 f3husd_all_instances_paths: list[str] = [f3husd.parm(f3husd_tabs.PREFS.PRM_F3H_PATH).eval() for f3husd in f3husd_all_instances if node != f3husd]
                 
-                # If we already have some FLAM3HUSD nodes and more than one FLAM3H™ nodes
+                # If we already have some FLAM3H™USD nodes and more than one FLAM3H™ nodes
                 if len(f3husd_all_instances) > 1 and len(f3h_all_instances) > 1:
                     
                     for f3h in f3h_all_instances:
@@ -465,10 +465,10 @@ class flam3husd_scripts
                             pass
                         
                         else:
-                            # If the point count of the FLAM3H™ node we want to import is not greater than f3h_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT
+                            # If the point count of the FLAM3H™ node we want to import is not greater than f3husd_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT
                             if limit:
                                 
-                                if f3h.parm(f3h_hda.PRM_GLB_DENSITY).eval() <= f3h_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT:
+                                if f3h.parm(f3husd_hda.PRM_GLB_DENSITY).eval() <= f3husd_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT:
                                     flam3husd_prm_utils.set(node, f3husd_tabs.PREFS.PRM_F3H_PATH, f3h.path())
                                     
                                     if display_flag:
@@ -492,7 +492,7 @@ class flam3husd_scripts
                     flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
                     return False
                     
-                else: # If we are creating the very first FLAM3HUSD instance, always import the very first FLAM3H™ node
+                else: # If we are creating the very first FLAM3H™USD instance, always import the very first FLAM3H™ node
                     
                     if f3h_all_instances:
                         
@@ -500,10 +500,10 @@ class flam3husd_scripts
                             return False
                         
                         else:
-                            # If the point count of the FLAM3H™ node we want to import is not greater than f3h_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT
+                            # If the point count of the FLAM3H™ node we want to import is not greater than f3husd_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT
                             if limit:
                                 
-                                if f3h_all_instances[0].parm(f3h_hda.PRM_GLB_DENSITY).eval() <= f3h_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT:
+                                if f3h_all_instances[0].parm(f3husd_hda.PRM_GLB_DENSITY).eval() <= f3husd_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT:
                                     flam3husd_prm_utils.set(node, f3husd_tabs.PREFS.PRM_F3H_PATH, f3h_all_instances[0].path())
                                     
                                     if display_flag:
@@ -549,7 +549,7 @@ class flam3husd_scripts
         """lock private parameters not being locked on creation by other definitions.
         
         Args:
-            node(hou.LopNode): This FLAM3HUSD node
+            node(hou.LopNode): This FLAM3H™USD node
             
         Returns:
             (None):
@@ -567,7 +567,7 @@ class flam3husd_scripts
 
         Args:
             __h_versions__(tuple | int): a tuple containing all the compatible Houdini versions or an int of the desire Houdini version. When a tuple, it will be coming from the HDA's PythonModule: __h_versions__
-            last_index(bool): Default to False as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3HUSD HDA version run on multiple Houdinin versions.
+            last_index(bool): Default to False as it will return the first in the tuple. If True, it will return the last in the tuple. This is done because some FLAM3H™USD HDA version run on multiple Houdinin versions.
             or it can be a 3 digits int
 
         Returns:
@@ -607,7 +607,7 @@ class flam3husd_scripts
 
     @staticmethod
     def flam3husd_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True, ps_cls_about: bool = False) -> str:
-        """Build and fire a message letting the user know the Houdini version/s needed to run the installed FLAM3HUSD HDA version.
+        """Build and fire a message letting the user know the Houdini version/s needed to run the installed FLAM3H™USD HDA version.
 
         Args:
             this_h_versions(tuple): a tuple containing all the Houdini version numbers. This is coming from the HDA's PythonModule: __h_versions__
@@ -645,7 +645,7 @@ class flam3husd_scripts
                     _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} and up"
     
         if msg and hou.isUIAvailable():
-            hou.ui.displayMessage(f"Sorry, You need {_MSG_H_VERSIONS} to run this FLAM3HUSD version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3HUSD Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+            hou.ui.displayMessage(f"Sorry, You need {_MSG_H_VERSIONS} to run this FLAM3H™USD version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™USD Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
 
         return _MSG_H_VERSIONS
 
@@ -657,11 +657,11 @@ class flam3husd_scripts
         * def flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
         * def flam3h_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
         
-        It is for when FLAM3HUSD is allowed to run inside the current Houdini version.
+        It is for when FLAM3H™USD is allowed to run inside the current Houdini version.
         
         Args:
             h_version(int): This Houdini version.
-            this_h_versions(tuple): The allowed Houdini versions this FLAM3HUSD can run with.
+            this_h_versions(tuple): The allowed Houdini versions this FLAM3H™USD can run with.
             kwargs(dict | None): When needed, this must be the class' self.kwargs. In the case of this definition, it will be passed in from the containing definition args. Or None
             msg(bool): When False it will not run the hou display messages.
 
@@ -675,7 +675,7 @@ class flam3husd_scripts
         
         # We never know what will happen with the next major release of Houdini
         # but we allow it to run regardless for now.
-        # If the current Houdini version is newer than the latest version supported by FLAM3HUSD
+        # If the current Houdini version is newer than the latest version supported by FLAM3H™USD
         # we allow it to run anyway letting the user know that something can go wrong.
         elif h_version > __h_version_max__:
             
@@ -706,9 +706,9 @@ class flam3husd_scripts
 
     @staticmethod
     def flam3husd_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
-        """Tell if this FLAM3HUSD version is compatible with this Houdini version
+        """Tell if this FLAM3H™USD version is compatible with this Houdini version
         
-        * range_close -> mean FLAM3HUSD will run only on Houdini versions included inside: nodetype.hdaModule().__h_versions__
+        * range_close -> mean FLAM3H™USD will run only on Houdini versions included inside: nodetype.hdaModule().__h_versions__
         
         Args:
             kwargs(dict | None): When needed, this must be the class' self.kwargs, or None
@@ -718,7 +718,7 @@ class flam3husd_scripts
             (bool): True if compatible otherwise False.
         """ 
         h_version: int = flam3husd_general_utils.houdini_version(2)
-        this_h_versions: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3HUSD HDA PythonModule module.
+        this_h_versions: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™USD HDA PythonModule module.
         
         # checks the full available range in the tuple
         if h_version < this_h_versions[0] or h_version > this_h_versions[-1]:
@@ -737,9 +737,9 @@ class flam3husd_scripts
 
     @staticmethod
     def flam3husd_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
-        """Tell if this FLAM3HUSD version is compatible with this Houdini version
+        """Tell if this FLAM3H™USD version is compatible with this Houdini version
         
-        * range_open -> mean it allow FLAM3HUSD to run on newer versions of Houdini than the versions included inside: nodetype.hdaModule().__h_versions__ before being properly fine tuned.
+        * range_open -> mean it allow FLAM3H™USD to run on newer versions of Houdini than the versions included inside: nodetype.hdaModule().__h_versions__ before being properly fine tuned.
 
         Args:
             kwargs(dict | None): When needed, this must be the class' self.kwargs, or None
@@ -749,9 +749,9 @@ class flam3husd_scripts
             (bool): True if compatible otherwise False.
         """ 
         h_version: int = flam3husd_general_utils.houdini_version(2)
-        this_h_versions: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3HUSD HDA PythonModule module.
+        this_h_versions: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™USD HDA PythonModule module.
         
-        # Only for the latest FLAM3HUSD on the latest Houdini version (and its latest python module version), otherwise the full range is checked.
+        # Only for the latest FLAM3H™USD on the latest Houdini version (and its latest python module version), otherwise the full range is checked.
         #
         # We never know what will happen with the next major release of Houdini
         # but we allow it to run regardless for now.
@@ -787,10 +787,10 @@ class flam3husd_scripts
     
     
     def flam3husd_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
-        """Check FLAM3HUSD compatibility based on the type of range(of Houdini versions)
+        """Check FLAM3H™USD compatibility based on the type of range(of Houdini versions)
         
-        * range_open -> mean it allow FLAM3HUSD to run on newer versions of Houdini than the versions included inside: nodetype.hdaModule().__h_versions__ before being properly fine tuned.
-        * range_close -> mean FLAM3HUSD will run only on Houdini versions included inside: nodetype.hdaModule().__h_versions__
+        * range_open -> mean it allow FLAM3H™USD to run on newer versions of Houdini than the versions included inside: nodetype.hdaModule().__h_versions__ before being properly fine tuned.
+        * range_close -> mean FLAM3H™USD will run only on Houdini versions included inside: nodetype.hdaModule().__h_versions__
 
         Args:
             range_type(bool): True for closed range. False for open range. This is set inside the HDA's -> Type Properties -> Scripts -> PythonModule
@@ -821,13 +821,13 @@ class flam3husd_scripts
             
         f3h_path: str = node.parm(f3husd_tabs.PREFS.PRM_F3H_PATH).eval()
         
-        f3h_to_f3husd_node: hou.SopNode = hou.node(f"{f3h_path}{f3h_hda.F3H_TO_FLAM3HUSD_NODE_PATH}")
+        f3h_to_f3husd_node: hou.SopNode = hou.node(f"{f3h_path}{f3husd_hda.F3H_TO_FLAM3HUSD_NODE_PATH}")
         try:
             type: hou.SopNodeType = f3h_to_f3husd_node.type()
         except AttributeError:
             flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
         else:
-            if hou.node(f3h_path).type().nameWithCategory() == f3h_hda.F3H_NODE_TYPE_NAME_CATEGORY and type.name() == f3h_hda.F3H_TO_FLAM3HUSD_NODE_TYPE_CATEGORY:
+            if hou.node(f3h_path).type().nameWithCategory() == f3husd_hda.F3H_NODE_TYPE_NAME_CATEGORY and type.name() == f3husd_hda.F3H_TO_FLAM3HUSD_NODE_TYPE_CATEGORY:
                 if hou.node(f3h_path).parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID).eval():
                     flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
                 else: flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
@@ -870,7 +870,7 @@ class flam3husd_scripts
         
         Args:
             (self):
-            default_value_pt(float): A default value to compare to for the point setting. This must always be the same as the FLAM3HUSD UI parameter's default values.
+            default_value_pt(float): A default value to compare to for the point setting. This must always be the same as the FLAM3H™USD UI parameter's default values.
             
         Returns:
             (None):
@@ -881,7 +881,7 @@ class flam3husd_scripts
         # Update dark history
         flam3husd_general_utils.util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
         flam3husd_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
-        # Set other FLAM3HUSD instances to dark if any
+        # Set other FLAM3H™USD instances to dark if any
         all_f3husd: tuple[hou.LopNode, ...] = node.type().instances()
         all_f3husd_vpptsize: list[float] = []
         all_f3husd_vptype: list[int] = []
@@ -896,7 +896,7 @@ class flam3husd_scripts
                         flam3husd_prm_utils.set(node, f3husd_tabs.PREFS.PRM_VIEWPORT_DARK, 1)
                         flam3husd_general_utils(self.kwargs).colorSchemeDark(False)
                         
-                    # FLAM3HUSD nodes viewport preferences options are already synced
+                    # FLAM3H™USD nodes viewport preferences options are already synced
                     # so we really need only one to know them all
                     break
         else:
@@ -938,14 +938,14 @@ class flam3husd_scripts
                         flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_VIEWPORT_PT_TYPE_MEM, 1)
                         
                 else:
-                    # FLAM3HUSD shoud use its parameter default value in this case, but just to be sure
+                    # FLAM3H™USD shoud use its parameter default value in this case, but just to be sure
                     flam3husd_prm_utils.set(node, f3husd_tabs.PREFS.PRM_VIEWPORT_PT_SIZE, default_value_pt)
                     # Updated memory
                     flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_VIEWPORT_PT_SIZE_MEM, default_value_pt)
                     
                     
     def flam3husd_on_create_compatible_false(self) -> None:
-        """When FLAM3HUSD is loaded into an incompatible Houdini version this code is run on creation.
+        """When FLAM3H™USD is loaded into an incompatible Houdini version this code is run on creation.
         
         _NOTE:
             This will need to be expanded at some point in time, for now it is enough to catch the versions and show the incompatibility for simple cases.
@@ -961,13 +961,12 @@ class flam3husd_scripts
         node: hou.LopNode = self.node
         
         flam3husd_prm_utils.private_prm_set(self.node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID, 0)
-        __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3HUSD HDA PythonModule module.
+        __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™USD HDA PythonModule module.
         
         _MSG_H_VERSIONS = flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__, False)
 
-        _MSG_INFO = f"ERROR -> FLAM3HUSD version: {__version__}. This Houdini version is not compatible with this FLAM3HUSD version. you need {_MSG_H_VERSIONS} to run this FLAM3HUSD version"
-        _MSG_ABOUT = f"This FLAM3HUSD version need {_MSG_H_VERSIONS} to work."
-        # _MSG_DESCRIPTIVE_MSG = f"FLAM3HUSD v{__version__}\nYou need {_MSG_H_VERSIONS}"
+        _MSG_INFO = f"ERROR -> FLAM3H™USD version: {__version__}. This Houdini version is not compatible with this FLAM3H™USD version. you need {_MSG_H_VERSIONS} to run this FLAM3H™USD version"
+        _MSG_ABOUT = f"This FLAM3H™USD version need {_MSG_H_VERSIONS} to work."
         
         # Set proper messages in the about tabs
         parms_dict: dict = {f3husd_tabs.PREFS.MSG_PRM_ERROR: _MSG_ABOUT, # type: ignore
@@ -980,7 +979,7 @@ class flam3husd_scripts
 
 
     def flam3husd_on_create(self) -> None:
-        """Initialize FLAM3HUSD node on creation and all the data it need to run.
+        """Initialize FLAM3H™USD node on creation and all the data it need to run.
         
         Args:
             (self)
@@ -994,7 +993,7 @@ class flam3husd_scripts
         
         # Check H version and set
         self.flam3husd_h_version_check()
-        # Check if we are importing a valid FLAM3H™ node on all of the other FLAM3HUSD node instances
+        # Check if we are importing a valid FLAM3H™ node on all of the other FLAM3H™USD node instances
         _flam3husd_is_valid_flam3h_node: Callable[[hou.LopNode | None], None] = self.flam3husd_is_valid_flam3h_node
         for f3husd in node.type().instances():
             if f3husd != node:
@@ -1023,7 +1022,7 @@ class flam3husd_scripts
             
             
     def flam3husd_on_loaded_compatible_false(self) -> None:
-        """When FLAM3HUSD is loaded into an incompatible Houdini version on hip file load and on node copy/clone this code is run.
+        """When FLAM3H™USD is loaded into an incompatible Houdini version on hip file load and on node copy/clone this code is run.
         
         _NOTE:
             This will need to be expanded at some point in time, for now it is enough to catch the versions and show the incompatibility for simple cases.
@@ -1043,7 +1042,7 @@ class flam3husd_scripts
             
             
     def flam3husd_on_loaded_compatible_true(self) -> None:
-        """If we are loading hip files with FLAM3HUSD nodes in it that were prviewsly initialized with an incompatible version of Houdini,
+        """If we are loading hip files with FLAM3H™USD nodes in it that were prviewsly initialized with an incompatible version of Houdini,
         restore their default settings if their iterators count is set to Zero, otherwise leave them as they are to not modify exixting settings.
         
         This definition must run inside a:
@@ -1064,7 +1063,7 @@ class flam3husd_scripts
         """
         node: hou.LopNode = self.node
         
-        # This is done in case the user saved a hip file with FLAM3HUSD nodes in it
+        # This is done in case the user saved a hip file with FLAM3H™USD nodes in it
         # while using an incompatible version of Houdini so that we can restore it to functional again.
         h_valid_prm: hou.Parm = node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID)
         if not h_valid_prm.eval():
@@ -1081,7 +1080,7 @@ class flam3husd_scripts
         
         
     def flam3husd_on_loaded(self) -> None:
-        """Initialize FLAM3HUSD node on creation and all the data it need to run.
+        """Initialize FLAM3H™USD node on creation and all the data it need to run.
         For now the same as the on_create script, will see later on how this will evolve.
         
         Args:
@@ -1103,7 +1102,7 @@ class flam3husd_scripts
             
             # Check if we are importing a valid FLAM3H™ node
             self.flam3husd_is_valid_flam3h_node()
-            # When cloning FLAM3HUSD nodes, check if other FLAM3HUSD nodes still have a valid FLAM3H™ node imported and disable them if not.
+            # When cloning FLAM3H™USD nodes, check if other FLAM3H™USD nodes still have a valid FLAM3H™ node imported and disable them if not.
             if not hou.hipFile.isLoadingHipFile(): #type: ignore
                 
                 _flam3husd_is_valid_flam3h_node: Callable[[hou.LopNode | None], None] = self.flam3husd_is_valid_flam3h_node
@@ -1203,7 +1202,7 @@ class flam3husd_scripts
                             instances: tuple[hou.LopNode, ...] = node.type().instances()
                             if len(instances) > 1:
                                 
-                                # Sync FLAM3HUSD nodes
+                                # Sync FLAM3H™USD nodes
                                 for n in instances:
                                     
                                     if n != node:
@@ -1244,7 +1243,7 @@ class flam3husd_scripts
                 pass
 
 
-# FLAM3HUSD GENERAL UTILS start here
+# FLAM3H™USD GENERAL UTILS start here
 ##########################################
 ##########################################
 ##########################################
@@ -1295,7 +1294,7 @@ class flam3husd_general_utils
     def __init__(self, kwargs: dict) -> None:
         """
         Args:
-            kwargs(dict): this FLAM3HUSD node houdini kwargs.
+            kwargs(dict): this FLAM3H™USD node houdini kwargs.
             
         Returns:
             (None):
@@ -1310,7 +1309,7 @@ class flam3husd_general_utils
         """Check if the currently imported node path point to a valid FLAM3H™ node.
         
         Args:
-            node(hou.LopNode): this FLAM3HUSD node.
+            node(hou.LopNode): this FLAM3H™USD node.
             
         Returns:
             (bool): True if the imported FLAM3H™ node exist and False if it does not.
@@ -1339,10 +1338,10 @@ class flam3husd_general_utils
     @staticmethod
     def util_flam3h_node_exist_all(node: hou.LopNode) -> None:
         """Check if the currently imported node path point to a valid FLAM3H™ node
-        for all FLAM3HUSD node instances.
+        for all FLAM3H™USD node instances.
         
         Args:
-            node(hou.LopNode): this FLAM3HUSD node to use for its node instances collection.
+            node(hou.LopNode): this FLAM3H™USD node to use for its node instances collection.
             
         Returns:
             (None):
@@ -1457,7 +1456,7 @@ class flam3husd_general_utils
             (list): [return a list of open Parmaeter Editors with a FLAM3H™ node on display]
         """    
         parms: tuple[Any, ...] = hou.ui.paneTabs() # type: ignore
-        return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == f3h_hda.F3H_NODE_TYPE_NAME_CATEGORY]
+        return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == f3husd_hda.F3H_NODE_TYPE_NAME_CATEGORY]
 
 
     @staticmethod
@@ -1552,7 +1551,7 @@ class flam3husd_general_utils
             msg(str | None): The string message to print or None.
             timer(float): Default to: f3husd_tabs.DEFAULT_FLASH_MESSAGE_TIMER. How long the printed message stay before it fade away.
             img(str | None): Default to none. specifies an icon or image file that should be displayed along with the text specified in the msg argument.
-            usd_context(str): Default to: 'Lop'</br>The name of the context being used when working in the USD Solaris with FLAM3HUSD.
+            usd_context(str): Default to: 'Lop'</br>The name of the context being used when working in the USD Solaris with FLAM3H™USD.
 
         Returns:
             (None):
@@ -1561,7 +1560,7 @@ class flam3husd_general_utils
             for ne in (p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor): ne.flashMessage(img, msg, timer) # type: ignore
             # Force the flash message to appear in any Lop viewers available.
             # This is being done because it is more handy for the user to read the message in the Lop viewers
-            # when working through the FLAM3HUSD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
+            # when working through the FLAM3H™USD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
             lop_viewer_available, viewers = flam3husd_general_utils.util_is_context_available_viewer_data(usd_context)
             if lop_viewer_available:
                 for view in (v for v in viewers if flam3husd_general_utils.util_is_context(usd_context, v) and v.isViewingSceneGraph()): view.flashMessage('', msg, timer)
@@ -1598,7 +1597,7 @@ class flam3husd_general_utils
 
     @staticmethod
     def util_store_all_viewers_color_scheme_onCreate() -> None:
-        """Store dictionaries of viewers color schemes if needed on FLAM3HUSD node creation
+        """Store dictionaries of viewers color schemes if needed on FLAM3H™USD node creation
         This version do not check from which parameter run as we need it to run regardless.
         
         Args:
@@ -1667,7 +1666,7 @@ class flam3husd_general_utils
         
         Args:
             (self):
-            f3husd_all(bool): Default to False. If set to True it will run for all FLAM3HUSD node instances instead.
+            f3husd_all(bool): Default to False. If set to True it will run for all FLAM3H™USD node instances instead.
             
         Returns:
             (None):
@@ -1695,7 +1694,7 @@ class flam3husd_general_utils
         # If it is a valid Houdini version
         if node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID).eval():
             
-            f3h_all_instances: tuple[hou.SopNode, ...] = hou.nodeType(f3h_hda.F3H_NODE_TYPE_NAME_CATEGORY).instances()
+            f3h_all_instances: tuple[hou.SopNode, ...] = hou.nodeType(f3husd_hda.F3H_NODE_TYPE_NAME_CATEGORY).instances()
             if f3h_all_instances:
                 
                 f3h_all_instances_paths: list[str] = [f3h.path() for f3h in f3h_all_instances]
@@ -1846,7 +1845,7 @@ class flam3husd_general_utils
     
     def get_node_path(self, node_name: str) -> str | None:
         """Find the full path of the bbox data null node
-        inside the current FLAM3HUSD node.
+        inside the current FLAM3H™USD node.
         
         The Null node names prefixes to search are stored inside the global variables:
         
@@ -1968,7 +1967,7 @@ class flam3husd_general_utils
         
         Args:
             (self):
-            update_others(bool): Default to True. Update also the other FLAM3HUSD nodes in the scene if any
+            update_others(bool): Default to True. Update also the other FLAM3H™USD nodes in the scene if any
             
         Returns:
             (None):
@@ -2079,7 +2078,7 @@ class flam3husd_general_utils
             
             
         if update_others:
-            # Update dark preference's option toggle on other FLAM3HUSD nodes instances
+            # Update dark preference's option toggle on other FLAM3H™USD nodes instances
             all_f3husd: tuple[hou.LopNode, ...] = self.node.type().instances()
             if len(all_f3husd) > 1:
                 for f3husd in all_f3husd:
@@ -2133,7 +2132,7 @@ class flam3husd_general_utils
                     case _:
                         pass # For now, will see if in the future new option will be added.
                         
-        # Sync FLAM3HUSD nodes
+        # Sync FLAM3H™USD nodes
         all_f3husd: tuple[hou.LopNode, ...] = node.type().instances()
               
         if lop_viewers:  
@@ -2207,10 +2206,10 @@ class flam3husd_general_utils
         
         if prm_name_size == f3husd_tabs.PREFS.PRM_VIEWPORT_PT_SIZE:
             
-            # Sync FLAM3HUSD nodes
+            # Sync FLAM3H™USD nodes
             all_f3husd: tuple[hou.LopNode, ...] = node.type().instances()
             
-            # Update Point Size preference's option toggle on other FLAM3HUSD nodes instances
+            # Update Point Size preference's option toggle on other FLAM3H™USD nodes instances
             if prm_name_size == f3husd_tabs.PREFS.PRM_VIEWPORT_PT_SIZE and node.parm(f3husd_tabs.PREFS.PRM_VIEWPORT_PT_TYPE).evalAsInt() == 0:
                 
                 if lop_viewers:
@@ -2274,7 +2273,7 @@ class flam3husd_general_utils
         if lop_viewers:
             for n in node.type().instances():
                 if n != node:
-                    # Sync FLAM3HUSD node instances
+                    # Sync FLAM3H™USD node instances
                     flam3husd_prm_utils.set(n, f3husd_tabs.PREFS.PRM_VIEWPORT_RENDERER, rndtype)
                     # Update memory
                     flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_VIEWPORT_RENDERER_MEM, rndtype)
@@ -2311,7 +2310,7 @@ class flam3husd_general_utils
         
         
     def flam3husd_display_help(self) -> None:
-        """Open the Houdini help browser to display the FLAM3HUSD node documentation.
+        """Open the Houdini help browser to display the FLAM3H™USD node documentation.
 
         Args:
             (self):
@@ -2322,7 +2321,7 @@ class flam3husd_general_utils
         hou.ui.displayNodeHelp(self.node.type()) # type: ignore
 
 
-# FLAM3HUSD ABOUT start here
+# FLAM3H™USD ABOUT start here
 ##########################################
 ##########################################
 ##########################################
@@ -2349,7 +2348,7 @@ class flam3husd_about_utils
     def __init__(self, kwargs: dict) -> None:
         """
         Args:
-            kwargs(dict): this FLAM3HUSD node houdini kwargs.
+            kwargs(dict): this FLAM3H™USD node houdini kwargs.
             
         Returns:
             (None):
@@ -2363,7 +2362,7 @@ class flam3husd_about_utils
         """Display default pyside about message panel.</br>
         
         Args:
-            node(hou.SopNode): This FLAM3HUSD node. In this case will be set to: kwargs['node'] directly in the parameter callback script string.
+            node(hou.SopNode): This FLAM3H™USD node. In this case will be set to: kwargs['node'] directly in the parameter callback script string.
             
         Returns:
             (None):
@@ -2394,7 +2393,7 @@ class flam3husd_about_utils
 
 
     def flam3husd_about_msg(self):
-        """Build and set the FLAM3HUSD about message.
+        """Build and set the FLAM3H™USD about message.
         
         Args:
             (self):
@@ -2558,7 +2557,7 @@ FLAM3H™USD H21.0 - Qt version: 6.5.3
 
 
 class pyside_master:
-    """Ideally this class will contain all pyside classes for FLAM3HUSD panels and such.</br>
+    """Ideally this class will contain all pyside classes for FLAM3H™USD panels and such.</br>
     For now there is just one, its a start...
     
     """ 

@@ -1,5 +1,5 @@
 ```python
-#   Title:      FLAM3HUSD. Render FLAM3H™ fractal Flame in Solaris using Karma: UI ICON MAP
+#   Title:      FLAM3H™USD. Render FLAM3H™ fractal Flame in Solaris using Karma: UI ICON MAP
 #   Author:     F stands for liFe ( made in Italy )
 #   date:       September 2025, Last revised December 2025
 #   License:    GPL, CC BY-SA 4.0
@@ -24,8 +24,8 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 
 #### Quick links
 
-- **FLAM3HUSD** [**UI_PARM_map H21 UP**](py_flam3usd__UI_PARM_map_H21_UP.md)
-- **FLAM3HUSD** [**UI_PARM_map H19 to H20.5**](py_flam3usd__UI_PARM_map_H19_to_H205.md)
+- **FLAM3H™USD** [**UI_PARM_map H21 UP**](py_flam3usd__UI_PARM_map_H21_UP.md)
+- **FLAM3H™USD** [**UI_PARM_map H19 to H20.5**](py_flam3usd__UI_PARM_map_H19_to_H205.md)
 
 </br>
 
@@ -43,7 +43,7 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 </br>
 </br>
 
-# FLAM3HUSD -> UI_ICON_map
+# FLAM3H™USD -> UI_ICON_map
 - ### Contents
     - _List of all the UI parameters with ICONS associated with and the command string they are called from and from where_.
 
@@ -60,7 +60,7 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 </br>
 
 
-_FLAM3HUSD system utilities._
+FLAM3H™USD system utilities._
 
 </br>
 </br>
@@ -283,7 +283,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg
 </br>
 
 
-_Here you will find informations about FLAM3HUSD._
+_Here you will find informations about FLAM3H™USD._
 
 </br>
 
