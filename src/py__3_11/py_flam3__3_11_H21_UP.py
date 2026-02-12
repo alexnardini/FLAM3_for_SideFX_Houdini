@@ -21917,28 +21917,36 @@ class out_flame_utils
             (str): The Flame preset XML data to store into a variable</br>or a 'NOT FLAM3 COMPATIBLE' string if the Flame is not compatible with the FLAM3 format.
         """ 
         
-        prm = self.node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
-        prm.lock(False)
-        prm.deleteAllKeyframes()
+        node: hou.SopNode = self.node
+        iter_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
         
-        # Lets check if the OUT flame name parameter has a name already set and store it.
-        out_flame_name: str = prm.eval()
-        # Let's use the automatic flame name
-        prm.set('')
-        
-        root: lxmlET._Element = lxmlET.Element(xml_keys.XML_NAME)
-        if self.out_build_XML(root, msg):
-            self._out_pretty_print(root)
-            flame: str = lxmlET.tostring(root, encoding="unicode")
-            # Restore whatever flame name was there if any (even if it was empty)
-            prm.set(out_flame_name)
-            # Out
-            return flame
-        else:
+        if iter_count:
+            
+            prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
+            prm.lock(False)
+            prm.deleteAllKeyframes()
+            
+            # Lets check if the OUT flame name parameter has a name already set and store it.
+            out_flame_name: str = prm.eval()
+            # Let's use the automatic flame name
+            prm.set('')
+            
+            root: lxmlET._Element = lxmlET.Element(xml_keys.XML_NAME)
+            if self.out_build_XML(root, msg):
+                self._out_pretty_print(root)
+                flame: str = lxmlET.tostring(root, encoding="unicode")
+                # Restore whatever flame name was there if any (even if it was empty)
+                prm.set(out_flame_name)
+                # Out
+                return flame
+            
             # Restore whatever flame name was there if any (even if it was empty)
             prm.set(out_flame_name)
             # Out
             return 'NOT FLAM3 COMPATIBLE'
+        
+        # Out
+        return 'ZERO ITERATORS'
             
 
     def out_userData_XML_last_loaded(self, data_name: str = f3h_userData.XML_LAST, flame_name: str | None = None) -> None:
