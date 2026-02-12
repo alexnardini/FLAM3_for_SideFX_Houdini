@@ -110,7 +110,7 @@ FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
     - Once a valid FLAM3H(tm) node has been imported, FLAM3H(tm) USD will take care of bulding a useful Scene Graph Tree.
-    - When multiple FLAM3H(tm) USD are created, the imported FLAM3H(tm) data will all be grouped under a common root named: *`FLAM3H`*
+    - When multiple FLAM3H(tm) USD nodes are created, the imported FLAM3H(tm) data will all be grouped under a common root named: *`FLAM3H`*
 
     <br />
     _Additionally_:<br />

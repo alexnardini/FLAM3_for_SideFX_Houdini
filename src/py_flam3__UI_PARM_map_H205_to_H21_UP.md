@@ -27,9 +27,10 @@
 
 </br>
 
-- **FLAM3HUSD** [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md)
-- **FLAM3HUSD** [**UI_PARM_map H21 UP**](py_flam3usd__UI_PARM_map_H21_UP.md)
-- **FLAM3HUSD** [**UI_PARM_map H19 to H20.5**](py_flam3usd__UI_PARM_map_H19_to_H205.md)
+- **FLAM3H™USD** [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md)
+- **FLAM3H™USD** [**UI_PARM_map H20.5 to H21 UP**](../src/py_flam3usd__UI_PARM_map_H205_to_H21_UP.md)
+- **FLAM3H™USD** [**UI_PARM_map H19 to H20**](../src/py_flam3usd__UI_PARM_map_H19_to_H20.md)
+
 
 </br>
 
@@ -2401,7 +2402,7 @@ _Here you will find informations about FLAM3H™._
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **ABOUT** | `icon_about_error` |  `geometry data` | `from H20.5` |
+| **ABOUT** | `icon_about_error` |  `Button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -2414,7 +2415,7 @@ hou.phm().flam3.flam3h_about_utils.flam3h_about_show_info_panel()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **ABOUT** | `icon_about` |  `geometry data` | `from H20.5` |
+| **ABOUT** | `icon_about` |  `Button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python

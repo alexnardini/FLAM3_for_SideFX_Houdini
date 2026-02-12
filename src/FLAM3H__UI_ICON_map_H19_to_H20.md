@@ -30,9 +30,10 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 
 </br>
 
-- **FLAM3HUSD** [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md)
-- **FLAM3HUSD** [**UI_PARM_map H21 UP**](py_flam3usd__UI_PARM_map_H21_UP.md)
-- **FLAM3HUSD** [**UI_PARM_map H19 to H20.5**](py_flam3usd__UI_PARM_map_H19_to_H205.md)
+- **FLAM3H™USD** [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md)
+- **FLAM3H™USD** [**UI_PARM_map H20.5 to H21 UP**](../src/py_flam3usd__UI_PARM_map_H205_to_H21_UP.md)
+- **FLAM3H™USD** [**UI_PARM_map H19 to H20**](../src/py_flam3usd__UI_PARM_map_H19_to_H20.md)
+
 
 </br>
 

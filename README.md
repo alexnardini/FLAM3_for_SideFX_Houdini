@@ -15,7 +15,7 @@ _One code base, multiple platforms._
 ## Houdini versions
 _The following are Houdini versions where FLAM3H™ is fully functional, tested and supported._
 - **H19** to **H20.5**
-- **H21** -> _The most polished_
+- **H21**
 
 <br/>
 <br/>
@@ -101,11 +101,11 @@ With Houdini integrated Karma renderer, you will be able to render the generated
 ### Karma render note
 
 From FLAM3H™ [<ins>v1.8.98</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.8.98),<br/>
-a new custom materialX Shader has been introduced to the FLAM3HUSD HDA to allow proper points color values accumulation. It will perfectly match what third-party implementations refer to as:<br/>
+a new custom materialX Shader has been introduced to the FLAM3H™USD HDA to allow proper points color values accumulation. It will perfectly match what third-party implementations refer to as:<br/>
 _"build a buffer with the histogram or summation/accumulation of every point in every pixel"_.
 
 This custom shader will match the visual quality of the fractal Flames rendered with Apophysis, Fractorium and others.
-Fully available only with FLAM3HUSD HDA versions for Houdini H20.5 and up.
+Fully available only with FLAM3H™USD HDA versions for Houdini H20.5 and up.
 
 <br/>
 
@@ -208,7 +208,7 @@ Python and the Houdini's HOM libraries have been used to achieve all of this.
 
 Any parameter that is available in FLAM3H™ can be animated using any of the Houdini procedural paradigms and toolkits. These include but not limited to animation curves, expressions, and procedurally produced data from anywhere in Houdini, such as DOP Simulations, Particles data, CHOPS, and many more.
 
-FLAM3H™ comes with a straightforward utility LOP node call **FLAM3HUSD** to makes it easier to move the fractal Flame point cloud into the USD context Solaris. This node allow to set up and render FLAM3H™ fractal Flames using Houdini's Karma renderer within a few clicks.
+FLAM3H™ comes with a straightforward utility LOP node call **FLAM3H™USD** to makes it easier to move the fractal Flame point cloud into the USD context Solaris. This node allow to set up and render FLAM3H™ fractal Flames using Houdini's Karma renderer within a few clicks.
 
 To finish, FLAM3H™ features a detailed documentation that is designed to provide you with all the informations you would need. This also extend to generous tooltips for each parameter in the FLAM3H™ Houdini user interface.
 

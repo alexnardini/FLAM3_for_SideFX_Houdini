@@ -1,4 +1,4 @@
-### FLAM3H™ (and FLAM3HUSD) icon set ###
+### FLAM3H™ (and FLAM3H™USD) icon set ###
 - #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
 
 </br>
@@ -12,16 +12,16 @@
 
 </br>
 
-- **FLAM3HUSD** [**UI_ICON_map**](../src/FLAM3HUSD__UI_ICON_map.md)
-- **FLAM3HUSD** [**UI_PARM_map H21 UP**](../src/py_flam3usd__UI_PARM_map_H21_UP.md)
-- **FLAM3HUSD** [**UI_PARM_map H19 to H20.5**](../src/py_flam3usd__UI_PARM_map.md)
+- **FLAM3H™USD** [**UI_ICON_map**](../src/FLAM3HUSD__UI_ICON_map.md)
+- **FLAM3H™USD** [**UI_PARM_map H20.5 to H21 UP**](../src/py_flam3usd__UI_PARM_map_H205_to_H21_UP.md)
+- **FLAM3H™USD** [**UI_PARM_map H19 to H20**](../src/py_flam3usd__UI_PARM_map_H19_to_H20.md)
 
 <br>
 <br>
 <br>
 <br>
 
-Following is the full icon set that have been crafted and included with FLAM3H™ (and FLAM3HUSD) for easy find and review.<br>
+Following is the full icon set that have been crafted and included with FLAM3H™ (and FLAM3H™USD) for easy find and review.<br>
 It is an ongoing effort and they have been regularly updated and improved even tho this last set seem to be working well with different Houdini UI scales and color schemes.
 
 They are already embedded inside each HDA and available in this repository for easy edit and review.
