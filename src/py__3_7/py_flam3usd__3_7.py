@@ -190,6 +190,7 @@ class f3h_prm_utils
         if prm is not None:
             prm.lock(False)
             prm.deleteAllKeyframes()
+            prm.revertToDefaults()
             prm.set(data) # type: ignore
             
         else:
@@ -217,6 +218,7 @@ class f3h_prm_utils
             if prm is not None:
                 prm.lock(False)
                 prm.deleteAllKeyframes()
+                prm.revertToDefaults()
         
         if prm is not None:
             node.setParms(  # type: ignore
@@ -246,6 +248,7 @@ class f3h_prm_utils
         if prm is not None:
             prm.lock(False)
             prm.deleteAllKeyframes()
+            prm.revertToDefaults()
             prm.set(data) # type: ignore # the set method for the hou.Parm exist but it is not recognized
             prm.lock(True)
             
@@ -275,6 +278,7 @@ class f3h_prm_utils
         if prm is not None and len(prm.keyframes()):
             prm.lock(False)
             prm.deleteAllKeyframes()
+            prm.revertToDefaults()
             prm.lock(True)
             
         elif prm is None:
