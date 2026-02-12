@@ -78,6 +78,11 @@ _It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`*
 
     *FLAM3H(tm) USD system and import options*
 
+:box:
+    #display: rounded white
+    
+    == SYS: FLAM3H(tm) USD documentation == (IMPORTDOC)
+
 FLAM3H(tm) USD documentation:
     #id: IMPORT
     [Largeicon:opdef:.?icon_F_docStarSVG.svg]
@@ -85,6 +90,11 @@ FLAM3H(tm) USD documentation:
     Display this documentation.
 
     <br />
+
+:box:
+    #display: rounded white
+    
+    == SYS: Frame viewport == (IMPORTFV)
 
 frame viewport:
     #id: SYS
@@ -102,6 +112,11 @@ frame viewport:
     <br /><br />
     [Icon:NETWORKS/lop] *Context aware*<br />
     - This option is context aware, and it will function only if a Lop viewer is available.
+
+:box:
+    #display: rounded white
+    
+    == SYS: FLAM3H(tm) SOP path == (IMPORTF3HPATH)
 
 FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
     #id: IMPORT
@@ -121,6 +136,11 @@ FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
     - On creation, any of the FLAM3H(tm) nodes with density values higher than *`50M`*(_millions_) will be skipped, leaving the field blank. The user can select to import them manually right after the FLAM3H(tm) USD node has been created. 
 
     <br />
+
+:box:
+    #display: rounded white
+    
+    == SYS: FLAM3H(tm) Next/Prev == (IMPORTF3HCYCLE)
 
 FLAM3H(tm) Next/Prev [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: F3HNEXTPREV
@@ -155,7 +175,7 @@ FLAM3H(tm) Next/Prev [Icon:opdef:.?icon_actionButtonSVG.svg]:
 :box:
     #display: rounded white
     
-    == Viewport == (OPTIONS)
+    == PREFS: Viewport == (OPTIONS)
     
 Dark [Icon:DATATYPES/boolean]:
     #id: PREFS
@@ -206,7 +226,7 @@ Force renderer [Icon:opdef:.?icon_actionButtonSVG.svg]:
 :box:
     #display: rounded white
     
-    == Renderer: Houdini == (OPTIONSGL)
+    == PREFS: Renderer Houdini == (OPTIONSGL)
     
 menu Display [Icon:BUTTONS/pane_menu]:
     #id: PREFS
@@ -247,7 +267,7 @@ Reset size [Icon:opdef:.?icon_actionButtonSVG.svg]:
 :box:
     #display: rounded white
     
-    == Renderer: Karma == (OPTIONSKARMA)
+    == PREFS: Renderer Karma == (OPTIONSKARMA)
     
 Points widths:
     #id: PREFS
@@ -349,7 +369,7 @@ menu Denoiser [Icon:BUTTONS/pane_menu]:
 :box:
     #display: rounded white
     
-    == Renderer: Karma FLAM3H(tm) Shader == (OPTIONSF3HSHADER)
+    == PREFS: Renderer Karma FLAM3H(tm) Shader == (OPTIONSF3HSHADER)
 
 Use Shader [Icon:DATATYPES/boolean]:
     #id: PREFS
@@ -413,7 +433,7 @@ Shader parameters:
 :box:
     #display: rounded white
     
-    == Renderer: Karma Tone map == (OPTIONSTONEMAP)
+    == PREFS: Renderer Karma Tone map == (OPTIONSTONEMAP)
 
 menu Presets [Icon:BUTTONS/pane_menu]:
     #id: PREFS
