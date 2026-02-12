@@ -11019,6 +11019,9 @@ class flam3h_palette_utils
                 # get ramps parm
                 rmp_src = node.parm(CP_RAMP_SRC_NAME)
                 rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
+                # Unlock just in case
+                rmp_src.lock(False)
+                rmp_hsv.lock(False)
                 
                 # get current preset name and preset_id(index)
                 preset, preset_id = self.json_to_flam3h_get_preset_name_and_id(node)
@@ -11053,9 +11056,21 @@ class flam3h_palette_utils
                 
                 # Initialize and SET new ramp first
                 _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
+                
+                # Load the new palette colors
+                rmp_src.set(_RAMP)
+                # Make sure we update the HSV palette
+                rmp_hsv.set(_RAMP)
+                
+                '''
+                # The following slowed things down too much
+                #
+                # Load the new palette colors
                 flam3h_prm_utils.set(node, rmp_src, _RAMP)
                 # Make sure we update the HSV palette
                 flam3h_prm_utils.set(node, rmp_hsv, _RAMP)
+                '''
+                
                 self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals) # Set HSV values
                 self.palette_hsv() # Apply HSV values if any
                 # Update palette tmp
@@ -11227,6 +11242,9 @@ class flam3h_palette_utils
                     # get ramps parm
                     rmp_src = node.parm(CP_RAMP_SRC_NAME)
                     rmp_hsv = node.parm(CP_RAMP_HSV_NAME)
+                    # Unlock just in case
+                    rmp_src.lock(False)
+                    rmp_hsv.lock(False)
 
                     try:
                         hsv_vals: list[float] = [float(x) for x in data[CP_JSON_KEY_NAME_HSV].split(' ')]
@@ -11257,9 +11275,21 @@ class flam3h_palette_utils
                     
                     # Initialize and SET new ramp.
                     _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
+                    
+                    # Load the new palette colors
+                    rmp_src.set(_RAMP)
+                    # Make sure we update the HSV palette
+                    rmp_hsv.set(_RAMP)
+                    
+                    '''
+                    # The following slowed things down too much
+                    #
+                    # Load the new palette colors
                     flam3h_prm_utils.set(node, rmp_src, _RAMP)
                     # Make sure we update the HSV palette
                     flam3h_prm_utils.set(node, rmp_hsv, _RAMP)
+                    '''
+                    
                     self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals) # Set HSV values
                     self.palette_hsv()# Apply HSV values if any
                     # Update palette tmp
