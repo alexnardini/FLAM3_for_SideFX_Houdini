@@ -1815,17 +1815,17 @@ class flam3h_prm_utils:
 class f3h_prm_utils
 
 @STATICMETHODS
-* set(node: hou.SopNode, _prm: hou.Parm | hou.ParmTuple | str, data: TA_PrmData) -> None:
-* setParms(node: hou.SopNode, parms_dict: dict) -> None:
-* private_prm_set(node: hou.SopNode, _prm: str | hou.Parm, data: str | int | float) -> None:
-* private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm) -> None:
+* set(node: hou.SopNode, _prm: hou.Parm | hou.ParmTuple | str, data: TA_PrmData, revertToDefaults: bool = False) -> None:
+* setParms(node: hou.SopNode, parms_dict: dict, revertToDefaults: bool = False) -> None:
+* private_prm_set(node: hou.SopNode, _prm: str | hou.Parm, data: str | int | float, revertToDefaults: bool = False) -> None:
+* private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm, revertToDefaults: bool = False) -> None:
 
 @METHODS
 
     """  
     
     @staticmethod
-    def set(node: hou.SopNode, _prm: hou.Parm | hou.ParmTuple | str, data: TA_PrmData) -> None:
+    def set(node: hou.SopNode, _prm: hou.Parm | hou.ParmTuple | str, data: TA_PrmData, revertToDefaults: bool = False) -> None:
         """Set a single parameter using the folloing hou methods:</br>
         * <b>node.parm("name").set(val)</b>
         * <b>node.parmTuple("name").set(val)</b></br>
@@ -1839,7 +1839,8 @@ class f3h_prm_utils
         Args:
             node(hou.SopNode): this FLAM3H™ node.
             _prm( hou.Parm | hou.ParmTuple | str): Either a <b>hou.Parm</b>, <b>hou.ParmTuple</b> or a <b>parm name string</b>.
-            data(TA_PrmData): the data to set the parameter to.
+            data(TA_PrmData): The value to set the parameter to.</br>When <b>revertToDefaults</b> is set to <b>True</b>, just set this to a random number as it will be ignored anyway.
+            revertToDefaults(bool): If True, revert the parameter to its default value before setting the new value.
             
         Returns:
             (None):
@@ -1856,7 +1857,7 @@ class f3h_prm_utils
         if prm is not None:
             prm.lock(False)
             prm.deleteAllKeyframes()
-            prm.revertToDefaults()
+            if revertToDefaults: prm.revertToDefaults()
             prm.set(data) # type: ignore
             
         else:
@@ -1864,13 +1865,14 @@ class f3h_prm_utils
     
     
     @staticmethod
-    def setParms(node: hou.SopNode, parms_dict: dict) -> None:
+    def setParms(node: hou.SopNode, parms_dict: dict, revertToDefaults: bool = False) -> None:
         """Set a group of parameters using the hou node.setParms method.</br>
         while unlocking them and deleting their keyframes first .</br>
         
         Args:
             node(hou.SopNode): this FLAM3H™ node.
             parms_dict(dict): A dictionary specifying the parm names and their values.</br>Usually the dict is composed as [str, int | float | str]
+            revertToDefaults(bool): If True, revert each parameter to its default value before setting the new value.
             
         Returns:
             (None):
@@ -1884,7 +1886,7 @@ class f3h_prm_utils
             if prm is not None:
                 prm.lock(False)
                 prm.deleteAllKeyframes()
-                prm.revertToDefaults()
+                if revertToDefaults: prm.revertToDefaults()
         
         if prm is not None:
             node.setParms(  # type: ignore
@@ -1895,7 +1897,7 @@ class f3h_prm_utils
 
 
     @staticmethod
-    def private_prm_set(node: hou.SopNode, _prm: str | hou.Parm, data: TA_PrmData) -> None:
+    def private_prm_set(node: hou.SopNode, _prm: str | hou.Parm, data: TA_PrmData, revertToDefaults: bool = False) -> None:
         """Set a parameter value while making sure to unlock and lock it right after.</br>
         This is being introduced to add an extra level of security so to speak to certain parameters</br>
         that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.</br>
@@ -1903,7 +1905,8 @@ class f3h_prm_utils
         Args:
             node(hou.SopNode): this FLAM3H™ node.
             prm_name(str | hou.Parm): the parameter name or the parameter hou.Parm directly.
-            data(TA_PrmData): The value to set the parameter to.
+            data(TA_PrmData): The value to set the parameter to.</br>When <b>revertToDefaults</b> is set to <b>True</b>, just set this to a random number as it will be ignored anyway.
+            revertToDefaults(bool): If True, revert the parameter to its default value before setting the new value.
             
         Returns:
             (None):
@@ -1914,7 +1917,7 @@ class f3h_prm_utils
         if prm is not None:
             prm.lock(False)
             prm.deleteAllKeyframes()
-            prm.revertToDefaults()
+            if revertToDefaults: prm.revertToDefaults()
             prm.set(data) # type: ignore # the set method for the hou.Parm exist but it is not recognized
             prm.lock(True)
             
@@ -1926,7 +1929,7 @@ class f3h_prm_utils
         
         
     @staticmethod
-    def private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm) -> None:
+    def private_prm_deleteAllKeyframes(node: hou.SopNode, _prm: str | hou.Parm, revertToDefaults: bool = False) -> None:
         """Delete all parameter's keyframes while making sure to unlock and lock it right after.</br>
         This is being introduced to add an extra level of security so to speak to certain parameters</br>
         that are not meant to be changed by the user, so at least it will require some step before allowing them to do so.</br>
@@ -1934,6 +1937,7 @@ class f3h_prm_utils
         Args:
             node(hou.SopNode): this FLAM3H™ node.
             prm_name(str | hou.Parm):  the parameter name or the parameter hou.Parm directly.
+            revertToDefaults(bool): If True, revert the parameter to its default value after deleting all keyframes.
             
         Returns:
             (None):
@@ -1944,7 +1948,7 @@ class f3h_prm_utils
         if prm is not None and len(prm.keyframes()):
             prm.lock(False)
             prm.deleteAllKeyframes()
-            prm.revertToDefaults()
+            if revertToDefaults: prm.revertToDefaults()
             prm.lock(True)
             
         elif prm is None:
@@ -12017,19 +12021,12 @@ class flam3h_palette_utils
                 # Initialize and SET new ramp first
                 _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
                 
-                # Load the new palette colors
-                rmp_src.set(_RAMP)
-                # Make sure we update the HSV palette
-                rmp_hsv.set(_RAMP)
-                
-                '''
                 # The following slowed things down too much
                 #
                 # Load the new palette colors
                 flam3h_prm_utils.set(node, rmp_src, _RAMP)
                 # Make sure we update the HSV palette
                 flam3h_prm_utils.set(node, rmp_hsv, _RAMP)
-                '''
                 
                 self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals) # Set HSV values
                 self.palette_hsv() # Apply HSV values if any
@@ -12238,19 +12235,12 @@ class flam3h_palette_utils
                     # Initialize and SET new ramp.
                     _RAMP, _COUNT, _CHECK = self.json_to_flam3h_ramp_initialize(rgb_from_XML_PALETTE)
 
-                    # Load the new palette colors
-                    rmp_src.set(_RAMP)
-                    # Make sure we update the HSV palette
-                    rmp_hsv.set(_RAMP)
-                    
-                    '''
                     # The following slowed things down too much
                     #
                     # Load the new palette colors
                     flam3h_prm_utils.set(node, rmp_src, _RAMP)
                     # Make sure we update the HSV palette
                     flam3h_prm_utils.set(node, rmp_hsv, _RAMP)
-                    '''
                     
                     self.json_to_flam3h_ramp_set_HSV(node, hsv_check, hsv_vals) # Set HSV values
                     self.palette_hsv()# Apply HSV values if any
