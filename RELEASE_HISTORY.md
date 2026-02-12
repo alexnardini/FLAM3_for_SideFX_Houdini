@@ -28,10 +28,34 @@ _The following are Houdini versions where FLAM3H™ is fully functional, tested 
 </br>
 
 ## Release history
-Below is a list of all the **FLAM3H™** (_and_ **FLAM3HUSD**) releases and the updates that went into each.</br>
+Below is a list of all the **FLAM3H™** (_and_ **FLAM3H™USD**) releases and the updates that went into each.</br>
 They are all available in this Github repository.
 
 </br>
+
+
+### [<ins>v1.9.82 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.82) ###
+
+#### FLAM3H™ v1.9.82 indie -> H21.0 UP</br>FLAM3H™ v1.9.75 indie -> H19.0 to H20.5 ####
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+#### FLAM3H™USD v0.2.50 indie -> H21.0 UP</br>FLAM3H™USD v0.2.46 indie -> H19.0 to H20.5 ####
+
+- **New**: Added about box info panel.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
 
 ### [<ins>v1.9.81 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.81) ###
 
@@ -40,9 +64,9 @@ They are all available in this Github repository.
 - **New**: The second output now also store a snapshot of the current Flame being worked on into a global detail attribute call: **XML**. This data is a proper Flame preset format and can be copied and pasted into FLAM3H™. It is a small but very handy feature that allow to store a full Flame presets with its handles as representative geo.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-#### FLAM3HUSD v0.2.48 indie -> H21.0 UP</br>FLAM3HUSD v0.2.44 indie -> H19.0 to H20.5 ####
+#### FLAM3H™USD v0.2.48 indie -> H21.0 UP</br>FLAM3H™USD v0.2.44 indie -> H19.0 to H20.5 ####
 
-- **Fix**: FLAM3HUSD can now deal with locked parameters.
+- **Fix**: FLAM3H™USD can now deal with locked parameters.
 
 
 
@@ -270,9 +294,9 @@ _This is a re-release of the same version with some minor improvements that did 
 
 #### FLAM3H™ v1.9.64 indie -> H21.0 UP</br>FLAM3H™ v1.9.57 indie -> H19.0 to H20.5 ####
 
-- **New**: Xforms handles viz now have a `@path` attribute that is then used by the **FLAM3HUSD** Lop node in the Solaris context(**USD**) to build layers hierarchy paths.
+- **New**: Xforms handles viz now have a `@path` attribute that is then used by the **FLAM3H™USD** Lop node in the Solaris context(**USD**) to build layers hierarchy paths.
 
-#### FLAM3HUSD v0.2.44 indie -> H21.0 UP</br>FLAM3HUSD v0.2.40 indie -> H19.0 to H20.5 ####
+#### FLAM3H™USD v0.2.44 indie -> H21.0 UP</br>FLAM3H™USD v0.2.40 indie -> H19.0 to H20.5 ####
 
 - **New**: Xforms handles viz are now built with proper layers hierarchy paths thanks to the new `@path` attribute coming from the imported FLAM3H™ data.
 - **Fix**: Xforms handles viz were not properly imported/updated when turning iterators **Off** and **On**, same for the finalXform(**FF**). It is now fixed.
@@ -388,7 +412,7 @@ _This is a re-release of the same version with some minor improvements that did 
 - **Fix**: Final cvex compiled file size is ~1kb smaller.
 - **Fix**: Fixed an error happening during the compatibility checks with the current Houdini version.
 
-#### FLAM3HUSD v0.2.40 indie -> H21.0 UP</br>FLAM3HUSD v0.2.36 indie -> H19.0 to H20.5 ####
+#### FLAM3H™USD v0.2.40 indie -> H21.0 UP</br>FLAM3H™USD v0.2.36 indie -> H19.0 to H20.5 ####
 
 - **New**: Added a new star icon for the UI warning messages.
 
@@ -424,9 +448,9 @@ _This is a re-release of the same version with some minor improvements that did 
 
 - **Fix**: The variations: **Handkerchief**, **Heart**, **Spiral**, **Hiperbolic**, **Power**, **Rings**, **Blob**, **Rings2** and **JuliaScope** have been slightly optimized. They are now slightly faster and the final cvex compiled file size is also ~2kb smaller.
 
-#### FLAM3HUSD v0.2.39 indie -> H21.0 UP</br>FLAM3HUSD v0.2.35 indie -> H19.0 to H20.5 ####
+#### FLAM3H™USD v0.2.39 indie -> H21.0 UP</br>FLAM3H™USD v0.2.35 indie -> H19.0 to H20.5 ####
 
-- **New**: Flash messages will now appear also in any available Lop viewers. This is handy when working in Solaris with the FLAM3HUSD HDA to better read those messages as the network editor will most likely be covered with parameter editors interfaces.
+- **New**: Flash messages will now appear also in any available Lop viewers. This is handy when working in Solaris with the FLAM3H™USD HDA to better read those messages as the network editor will most likely be covered with parameter editors interfaces.
 
 
 
@@ -442,7 +466,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 #### FLAM3H™ v1.9.53 indie -> H21.0 UP</br>FLAM3H™ v1.9.47 indie -> H19.0 to H20.5 ####
 
-- **New**: Flash messages will now appear also in any available Lop viewers. This is handy when working in Solaris with the FLAM3HUSD HDA to better read those messages as the network editor will most likely be covered with parameter editors interfaces.
+- **New**: Flash messages will now appear also in any available Lop viewers. This is handy when working in Solaris with the FLAM3H™USD HDA to better read those messages as the network editor will most likely be covered with parameter editors interfaces.
 
 
 
@@ -597,14 +621,14 @@ _This an only H21 release (FLAM3H™)_.
 
 ### [<ins>v1.9.43 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.43) ###
 
-_This an only H21 release (FLAM3H™ and FLAM3HUSD)_.
+_This an only H21 release (FLAM3H™ and FLAM3H™USD)_.
 
 #### FLAM3H™ ####
 
 - **Python code improvements H21.0 UP ONLY**: py_flam3 python 3.11 (_**H21 UP**_) module improvements.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-#### FLAM3HUSD v0.2.38 - Prototype ####
+#### FLAM3H™USD v0.2.38 - Prototype ####
 
 - **Python code improvements H21.0 UP ONLY**: py_flam3usd python 3.11 (_**H21 UP**_) module improvements
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -621,14 +645,14 @@ _This an only H21 release (FLAM3H™ and FLAM3HUSD)_.
 
 ### [<ins>v1.9.41 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.41) ###
 
-_This an only H21 release (FLAM3H™ and FLAM3HUSD) and it will be the only version to be updated from now moving forward_.
+_This an only H21 release (FLAM3H™ and FLAM3H™USD) and it will be the only version to be updated from now moving forward_.
 
 #### FLAM3H™ ####
 
 - **Python code improvements H21.0 UP ONLY**: py_flam3 python 3.11 (_**H21 UP**_) module improvements.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-#### FLAM3HUSD v0.2.36 - Prototype ####
+#### FLAM3H™USD v0.2.36 - Prototype ####
 
 - **Python code improvements H21.0 UP ONLY**: py_flam3usd python 3.11 (_**H21 UP**_) module improvements
 
@@ -665,7 +689,7 @@ _This an only H21 release (FLAM3H™ and FLAM3HUSD) and it will be the only vers
 
 - **Python code improvements H21.0 UP ONLY**: py_flam3 python 3.11 (_**H21 UP**_) module improvements.
 
-#### FLAM3HUSD v0.2.35 - Prototype ####
+#### FLAM3H™USD v0.2.35 - Prototype ####
 
 - **Python code improvements H21.0 UP ONLY**: py_flam3usd python 3.11 (_**H21 UP**_) module improvements.
 
@@ -753,7 +777,7 @@ _This an only H21 release (FLAM3H™ and FLAM3HUSD) and it will be the only vers
 
 - **Fix**: sometime when deleting multiple FLAM3H™ nodes in one go while one of them was on display in a pinned Parameter Editor Houdini could raise a parameter' menu error. It is now fixed.
 
-#### FLAM3HUSD v0.2.34 - Prototype ####
+#### FLAM3H™USD v0.2.34 - Prototype ####
 
 - **Fix**: suppressed a statusbar message when the BBOX data node is not being found on node creation and added it to the definition that call it by the user.
 
@@ -773,9 +797,9 @@ _This an only H21 release (FLAM3H™ and FLAM3HUSD) and it will be the only vers
 
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.2.33 - Prototype ####
+#### FLAM3H™USD v0.2.33 - Prototype ####
 
-- **New**: When cycling-import through FLAM3H™ nodes, if a pinned Parameter Editor with a FLAM3H™ node parameters on display is present, it will be updated with the newly imported FLAM3H™ node parameters. Same when creating a new FLAM3HUSD node.
+- **New**: When cycling-import through FLAM3H™ nodes, if a pinned Parameter Editor with a FLAM3H™ node parameters on display is present, it will be updated with the newly imported FLAM3H™ node parameters. Same when creating a new FLAM3H™USD node.
 - **Updated HDA documentation.**
 
 
@@ -845,7 +869,7 @@ _This an only H21 release (FLAM3H™ and FLAM3HUSD) and it will be the only vers
 
 - **Python code improvements H21.0 UP ONLY**: py_flam3 python 3.11 (_**H21 UP**_) module improvements (_performance_).
 
-#### FLAM3HUSD v0.2.31 - Prototype ####
+#### FLAM3H™USD v0.2.31 - Prototype ####
 
 - **Python code improvements H21.0 UP ONLY**: py_flam3usd python 3.11 (_**H21 UP**_) module improvements.
 
@@ -886,7 +910,7 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.2.30 - Prototype ####
+#### FLAM3H™USD v0.2.30 - Prototype ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -996,7 +1020,7 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 - **New**: Compiled file size is now ~3kb smaller.
 - **Fix**: When attempting to activate the Tag without any Sop viewers accessible, the error was accurately shown in the status bar message, but the functionality name was incorrect. it is now fixed.
 
-#### FLAM3HUSD v0.2.28 - Prototype ####
+#### FLAM3H™USD v0.2.28 - Prototype ####
 
 - **New H21.0 UP ONLY**: Karma XPU has been added to the available renderer list. Although having it is convenient, Karma CPU is still the best option for rendering pure point clouds (_as the one produced by FLAM3H™_).
 - **Fix**: The import handles viz' tab/parameters, are only enabled when the renderer of choice is Karma CPU because it seem that Karma XPU does not support curves as flat ribbons yet.
@@ -1020,7 +1044,7 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.2.23 - Prototype ####
+#### FLAM3H™USD v0.2.23 - Prototype ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -1043,13 +1067,13 @@ _This is a re-release of the same version with some minor fixes/improvements tha
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-#### FLAM3HUSD v0.2.22 - Prototype ####
+#### FLAM3H™USD v0.2.22 - Prototype ####
 
 - **New**: Added an Action button to the import FLAM3H™ node path parameter to import and cycle through all of the existing FLAM3H™ node instances one by one. You can move forward or backward through the existing instances.
 - **New**: Added validity checks of the imported FLAM3H™ node to some of the UI parameters (toggles, menus and action buttons but not the main params sliders as it was slowing things down).
-- **New**: Added validity checks of the imported FLAM3H™ node for all FLAM3HUSD node instances with an imported FLAM3H™ node path during hip file load and during cloning or deleting them, to always be up to date.
-- **Fix**: Improved FLAM3HUSD validity checks python definitions.
-- **Fix**: in FLAM3HUSD HDA version for H19, the handles and the message geometries did not have a proper materialX shader applied, it is now fixed.
+- **New**: Added validity checks of the imported FLAM3H™ node for all FLAM3H™USD node instances with an imported FLAM3H™ node path during hip file load and during cloning or deleting them, to always be up to date.
+- **Fix**: Improved FLAM3H™USD validity checks python definitions.
+- **Fix**: in FLAM3H™USD HDA version for H19, the handles and the message geometries did not have a proper materialX shader applied, it is now fixed.
 - **Fix**: Tone map presets menu parameter now lives in its own UI tab/folder.
 - **Fix**: When the imported FLAM3H™ node was not valid, FLAM3USD was still displaying its point cloud even tho the UI was disabled, it is now fixed.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -1075,11 +1099,11 @@ _A restart of Houdini maybe needed for the new changes to correctly pickup_.
 - **Fix**: Some of the toggles were not working when the viewers were in the Object context, it is now fixed.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-#### FLAM3HUSD v0.2.10 - Prototype ####
+#### FLAM3H™USD v0.2.10 - Prototype ####
 
-- **New**: If there are several FLAM3H™ nodes, it will always import the one that hasn't been imported by the other FLAM3HUSD nodes when you create a new instance of the FLAM3HUSD node.
-- **New**: If the current FLAM3HUSD nodes have already imported all of the exisiting FLAM3H™ nodes, nothing will be imported on creation, leaving the field blank.
-- **New**: On creation, any of the FLAM3H™ nodes with density values higher than 50M(_millions_) will be skipped, leaving the field blank. The user can select to import them manually right after the FLAM3HUSD node has been created. 
+- **New**: If there are several FLAM3H™ nodes, it will always import the one that hasn't been imported by the other FLAM3H™USD nodes when you create a new instance of the FLAM3H™USD node.
+- **New**: If the current FLAM3H™USD nodes have already imported all of the exisiting FLAM3H™ nodes, nothing will be imported on creation, leaving the field blank.
+- **New**: On creation, any of the FLAM3H™ nodes with density values higher than 50M(_millions_) will be skipped, leaving the field blank. The user can select to import them manually right after the FLAM3H™USD node has been created. 
 - **New**: When no Lop viewers are available, it will prevent the user to change any of the preferences viewports settings if Houdini GL mode is being used.
 - **Fix**: Improved the python code for many of the existing definitions.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -1101,7 +1125,7 @@ _A restart of Houdini maybe needed for the new changes to correctly pickup_.
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-#### FLAM3HUSD v0.2.00 - Prototype ####
+#### FLAM3H™USD v0.2.00 - Prototype ####
 
 - **New**: Added Houdini versions' compatibility checks.
 - **New**: Added Geometry messages.
@@ -1126,10 +1150,10 @@ _A restart of Houdini maybe needed for the new changes to correctly pickup_.
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-#### FLAM3HUSD v0.1.80 - Prototype ####
+#### FLAM3H™USD v0.1.80 - Prototype ####
 
-_**Emission** parameter is available only from FLAM3HUSD HDA versions for Houdini 19.5 and up_.<br/>
-_**Transmission** and **Tone map** parameters are available only from FLAM3HUSD HDA versions for Houdini 20.5 and up_.
+_**Emission** parameter is available only from FLAM3H™USD HDA versions for Houdini 19.5 and up_.<br/>
+_**Transmission** and **Tone map** parameters are available only from FLAM3H™USD HDA versions for Houdini 20.5 and up_.
 
 - **New H21.0 UP ONLY**: FLAM3H™ **points widths** and Handles VIZ **curves widths** are now controlled by the new **width_scale** parameter introduced in **H21** (_instead of directly modify the geometry with a wrangle node_).
 - **New**: Ability to change the imported xforms handles VIZ curves widths. 
@@ -1156,7 +1180,7 @@ _**Transmission** and **Tone map** parameters are available only from FLAM3HUSD 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.70 - Prototype ####
+#### FLAM3H™USD v0.1.70 - Prototype ####
 
 - **New**: Added a new MaterialX shader capable of proper point color values accumulation to match what third-party render engines implement as: _build a buffer with the histogram or summation/accumulation of every point in every pixel_ (_**Only available from Houdini 19.5 and up**_).
 - **New**: Added the re-frame viewport button icon to the SYS tab.
@@ -1280,7 +1304,7 @@ _This is a re-release of the same version but with some minor updates that were 
 #### FLAM3H™ ####
 
 - **Fix**: Updated and corrected: [src/py_flam3__UI_PARM_map.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/py_flam3__UI_PARM_map.md)
-- **Fix**: Improved readability of the **UI_PARM_map** source files to make it a little easier to go through and find what you are looking for (FLAM3H™ and FLAM3HUSD).
+- **Fix**: Improved readability of the **UI_PARM_map** source files to make it a little easier to go through and find what you are looking for (FLAM3H™ and FLAM3H™USD).
 - **Fix**: Improved readability of all source files **README.md** file.
 - **Updated HDA documentation.**
 
@@ -1301,7 +1325,7 @@ _This is a re-release of the same version but with some minor updates that were 
 - **New**: Updated Markdown [icons/README.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/README.md). It now include a set of strings for each icon to help load them within different places inside Houdini.
 - **Small fixes.**
 
-#### H21 FLAM3HUSD v0.1.63 - Prototype ####
+#### H21 FLAM3H™USD v0.1.63 - Prototype ####
 
 - **New**: Created Markdown [src/FLAM3HUSD__UI_ICON_map.md](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/src/FLAM3HUSD__UI_ICON_map.md) file. It is a map of each UI parameter with an icon and include all the used icon's information.
 - **Small fixes.**
@@ -1320,11 +1344,11 @@ _This is a re-release of the same version but with some minor updates that were 
 #### FLAM3H™ ####
 
 - **New H21.0 UP ONLY**: Recompiled FLAM3H™ with the latest production buid vcc compiler: 21.0.440.
-- **New H21.0 UP ONLY**: Updated H21 custom_node_info to include the HDA version. (FLAM3H™ and FLAM3HUSD)
+- **New H21.0 UP ONLY**: Updated H21 custom_node_info to include the HDA version. (FLAM3H™ and FLAM3H™USD)
 - **Fix**: Every HDA infos is now pulled from the HDA PythonModule section from everywhere (_custom node info included_), much more elegant.
 - **Fix**: Better formatted custom node infos.
 
-#### H21 FLAM3HUSD v0.1.62 - Prototype ####
+#### H21 FLAM3H™USD v0.1.62 - Prototype ####
 
 - **New H21.0 UP ONLY**: Updated custom_node_info to include the HDA version.
 - **Fix**: Every HDA infos is now pulled from the HDA PythonModule section from everywhere (_custom node info included_), much more elegant.
@@ -1374,7 +1398,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-#### FLAM3HUSD v0.1.61 - Prototype ####
+#### FLAM3H™USD v0.1.61 - Prototype ####
 
 - **Fix**: Updated karma render settings as the denoiser was not working in H21.
 
@@ -1405,7 +1429,7 @@ _This is a re-release of the same version but with some minor updates that were 
 
 #### FLAM3H™ ####
 
-- **New H21.0 UP ONLY**: Added FLAM3H™ and FLAM3HUSD descriptive infos to the new H21 node info window. 
+- **New H21.0 UP ONLY**: Added FLAM3H™ and FLAM3H™USD descriptive infos to the new H21 node info window. 
 - **Fix**: Improved handling of incompatible Houdini versions.
 
 
@@ -1470,7 +1494,7 @@ _Renamed some files in this Github repository and updated some additional licens
 
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.59 - Prototype ####
+#### FLAM3H™USD v0.1.59 - Prototype ####
 
 - **New**: Added documentation license chapter to match the one added inside FLAM3H™.
 - **Updated HDA documentation and some parameters tooltips.**
@@ -1881,7 +1905,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-#### FLAM3HUSD v0.1.53 - Prototype ####
+#### FLAM3H™USD v0.1.53 - Prototype ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -1967,9 +1991,9 @@ _No much changes yet but it is a start and it will be the way forward._
 - **Fix**: When in viewport Dark mode, adding new Sop viewers to the current Houdini desktop and creating a new FLAM3H™ node right after was not updating the available viewers data, loosing track of the old Sop viewers stashed Color Scheme and cam data. it is now fixed.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-#### FLAM3HUSD v0.1.52 - Beta ####
+#### FLAM3H™USD v0.1.52 - Beta ####
 
-- **Fix**: When in viewport Dark mode, adding new Lop viewers to the current Houdini desktop and creating a new FLAM3HUSD node right after was not updating the available viewers data, loosing track of the old Lop viewers stashed Color Scheme and cam  data. it is now fixed.
+- **Fix**: When in viewport Dark mode, adding new Lop viewers to the current Houdini desktop and creating a new FLAM3H™USD node right after was not updating the available viewers data, loosing track of the old Lop viewers stashed Color Scheme and cam  data. it is now fixed.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 <br>
@@ -2184,7 +2208,7 @@ _No much changes yet but it is a start and it will be the way forward._
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-#### FLAM3HUSD v0.1.50 - Beta ####
+#### FLAM3H™USD v0.1.50 - Beta ####
 
 - **Fix**: Fixed a potential error on hip file load.
 
@@ -2263,7 +2287,7 @@ _No much changes yet but it is a start and it will be the way forward._
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.48 - Beta ####
+#### FLAM3H™USD v0.1.48 - Beta ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
@@ -2281,7 +2305,7 @@ _No much changes yet but it is a start and it will be the way forward._
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.45 - Beta ####
+#### FLAM3H™USD v0.1.45 - Beta ####
 
 - **Fix**: Reinforced context aware options and messages.
 - **Fix**: New icons.
@@ -2301,7 +2325,7 @@ _No much changes yet but it is a start and it will be the way forward._
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.40 - Beta ####
+#### FLAM3H™USD v0.1.40 - Beta ####
 
 - **Fix**: This is now officially and internally marked as: Beta
 - **Fix**: Less invasive on_create actions.
@@ -2332,7 +2356,7 @@ _No much changes yet but it is a start and it will be the way forward._
 - **New**: Xaos command string: you can now type a single floating point value to fill all entries with it (before you could only type integers).
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.37</ins> ####
+#### FLAM3H™USD v0.1.37</ins> ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -2352,7 +2376,7 @@ _No much changes yet but it is a start and it will be the way forward._
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.35 ####
+#### FLAM3H™USD v0.1.35 ####
 
 - **New**: With Houdini versions higher than 19.0.x you can now import and render the xforms handles viz using Karma.
 - **New**: Addded checking for the validity of the imported FLAM3H™ node.
@@ -2366,9 +2390,9 @@ _No much changes yet but it is a start and it will be the way forward._
 
 ### [<ins>v1.6.91 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.91) ###
 
-_This update is all about FLAM3HUSD._
+_This update is all about FLAM3H™USD._
 
-#### FLAM3HUSD v0.1.25 ####
+#### FLAM3H™USD v0.1.25 ####
 
 - **New**: Added validity check for the imported FLAM3H™ node.
 - **New**: Added action button to reset the Widths parameter to its default value.
@@ -2397,14 +2421,14 @@ _This update is all about FLAM3HUSD._
 - **Fix**: Dark mode will now only affect viewers belonging to the **Sop** context. 
 
 
-#### FLAM3HUSD v0.1.15 ####
+#### FLAM3H™USD v0.1.15 ####
 
 - **Fix**: Python code has been structured the same as the big brother FLAM3H™ so to facilitate future updates.
 - **Fix**: Viewport preferences point type will now only affect viewers belonging to the **Lop** context. 
 - **Fix**: Viewport preferences point size will now only affect viewers belonging to the **Lop** context. 
 - **Fix**: Dark mode will now only affect viewers belonging to the **Lop** context. 
 - **Fix**: Set hydra renderer menu will now only set viewers belonging to the **Lop** context.
-- **Fix**: FLAM3HUSD documentation ICON is now properly displayed.
+- **Fix**: FLAM3H™USD documentation ICON is now properly displayed.
 
 
 <br>
@@ -2419,7 +2443,7 @@ _This update is all about FLAM3HUSD._
 - **Fix**: Motion blur viz was not working. (a regression from preview version: v1.6.82)
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.1.0 ####
+#### FLAM3H™USD v0.1.0 ####
 
 _This simple utility node got an upgrade._
 
@@ -3935,7 +3959,7 @@ _More small things:_
 - **Python code cleanup.**
 - **Updated HDA documentation.**
 
-#### FLAM3HUSD v0.2.10 - Prototype ####
+#### FLAM3H™USD v0.2.10 - Prototype ####
 
 - **New**: The HDA node has a new icon that make more sense and in line with the FLAM3H™ HDA icons library.
 - **Updated HDA documentation.**
@@ -4293,7 +4317,7 @@ _Will update once H20 release._
 - **New**: Added documentation sub topics. Much more clear and easier to find what you are looking for.
 - **New**: Re written most of the documentation in a much more clear and elegant form.
 - **New**: Added a new node icon to reflect the new logo design.
-- **New**: Included a very first release of FLAM3HUSD OTL. A simple **lop** node to make it easier to render FLAM3H™ fractal flames in Solaris for previews. It offers the very fundamental functionalities to setup your fractal flame point cloud to start rendering with Karma within a few clicks.
+- **New**: Included a very first release of FLAM3H™USD OTL. A simple **lop** node to make it easier to render FLAM3H™ fractal flames in Solaris for previews. It offers the very fundamental functionalities to setup your fractal flame point cloud to start rendering with Karma within a few clicks.
 - **New**: Added a houdini desktop config file. This is the Houdini UI layout that worked best while doing fractal art with FLAM3H.
 - **Fix**: Python: FLAM3H™ xaos history data is now protected so to speak.
 

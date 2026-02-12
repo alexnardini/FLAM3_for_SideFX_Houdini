@@ -3,7 +3,7 @@
 #context: lop
 #namespace: alexnardini
 #internal: FLAM3H(tm) USD
-#version: 0.2.44 - Prototype
+#version: 0.2.46 - Prototype
 
 """Simple utility node to quickly render FLAM3H(tm) fractal Flames in Solaris."""
 
