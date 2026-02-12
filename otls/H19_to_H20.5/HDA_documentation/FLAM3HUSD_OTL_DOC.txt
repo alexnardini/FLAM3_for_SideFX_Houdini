@@ -1,13 +1,13 @@
 #icon: opdef:.?FLAM3HUSD_DOC_icon.svg
 #type: node
 #context: lop
-#namespace: FLAM3HUSD
-#internal: FLAM3HUSD
+#namespace: alexnardini
+#internal: FLAM3H(tm) USD
 #version: 0.2.44 - Prototype
 
 """Simple utility node to quickly render FLAM3H(tm) fractal Flames in Solaris."""
 
-== Welcome to FLAM3HUSD for SideFX Houdini ==
+== Welcome to FLAM3H(tm) USD for SideFX Houdini ==
 ( _From H19.x to H20.5.x only_ )
 
 A simple utility node to make rendering FLAM3H(tm) fractal Flames in Solaris for previews easy.<br />
@@ -15,12 +15,15 @@ It offers the very fundamental functionalities to setup your fractal Flames poin
 
 It has been designed to be user-friendly, simple, and intuitive.
 
-At the moment, FLAM3HUSD relies solely on Karma CPU for the majority of its operations and features.<br />
-Karma XPU support was initially only included in FLAM3HUSD HDA versions for H21 and later, and it was simply included for completeness.
+At the moment, FLAM3H(tm) USD relies solely on Karma CPU for the majority of its operations and features.<br />
+Karma XPU support was initially only included in FLAM3H(tm) USD HDA versions for H21.0 and later, and it was simply included for completeness.
 
-_*This tool is a prototype and it may or may not change in the future.*_<br />
-_*This version is only fully compatible with FLAM3H(tm) v1.6.97 or higher.*_
+_Frozen - author: Alessandro Nardini_
+[Image:opdef:.?FLAM3HUSD_DOC_intro.jpg]
+_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
 
+:box:
+    #display: rounded white
 
 @Badges
 
@@ -54,12 +57,12 @@ _The following platforms should function flawlessly, though I didn't get a chanc
 :platform:Linux
 
 
-@parameters FLAM3HUSD Tabs parameters
+@parameters FLAM3H(tm) USD Tabs parameters
 
 == Before you start == (BEFORESTART)
 
 _Third-party applications use an_ [orthogonal|Wp:Orthographic_projection] _type of viewer in their editors_.<br />
-_If you'd like to get close to a fractal Flame editor vibe, set the_ [viewport|Wp:Viewport] _to_: *Front* (_or press the key ((3)) while the cursor is on any viewport_). _Once you have done that, you can also go to the FLAM3HUSD preferences' tab and set the viewport color to: *Dark* (if not already)_.
+_If you'd like to get close to a fractal Flame editor vibe, set the_ [viewport|Wp:Viewport] _to_: *Front* (_or press the key ((3)) while the cursor is on any viewport_). _Once you have done that, you can also go to the FLAM3H(tm) USD preferences' tab and set the viewport color to: *Dark* (if not already)_.
 
 _At the moment of this writing (up to H21)_:<br />
 _It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`* and set the Renderer to_ [OpenGL|Wp:OpenGL] _as it provide a better points visualization in the viewport when millions of them are displayed and/or their viewport point size is smaller than *`1`*(one). Changing the viewer renderer will require a restart of Houdini_.
@@ -72,9 +75,9 @@ _It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`*
 :box:
     #display: inverted teal
 
-    *FLAM3HUSD systemp and import option*
+    *FLAM3H(tm) USD systemp and import option*
 
-FLAM3HUSD documentation:
+FLAM3H(tm) USD documentation:
     #id: IMPORT
     [Largeicon:opdef:.?icon_F_docStarSVG.svg]
     
@@ -106,15 +109,15 @@ FLAM3H(tm) SOP path [Icon:DATATYPES/string]:
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    - Once a valid FLAM3H(tm) node has been imported, FLAM3HUSD will take care of bulding a useful Scene Graph Tree.
-    - When multiple FLAM3HUSD are created, the imported FLAM3H(tm) data will all be grouped under a common root named: *`FLAM3H`*
+    - Once a valid FLAM3H(tm) node has been imported, FLAM3H(tm) USD will take care of bulding a useful Scene Graph Tree.
+    - When multiple FLAM3H(tm) USD are created, the imported FLAM3H(tm) data will all be grouped under a common root named: *`FLAM3H`*
 
     <br />
     _Additionally_:<br />
     
-    - If there are several FLAM3H(tm) nodes, it will always import the one that hasn't been imported by the other FLAM3HUSD nodes when you create a new instance of the FLAM3HUSD node.
-    - If the current FLAM3HUSD nodes have already imported all of the exisiting FLAM3H(tm) nodes, nothing will be imported on creation, leaving the field blank.
-    - On creation, any of the FLAM3H(tm) nodes with density values higher than 50M(_millions_) will be skipped, leaving the field blank. The user can select to import them manually right after the FLAM3HUSD node has been created.
+    - If there are several FLAM3H(tm) nodes, it will always import the one that hasn't been imported by the other FLAM3H(tm) USD nodes when you create a new instance of the FLAM3H(tm) USD node.
+    - If the current FLAM3H(tm) USD nodes have already imported all of the exisiting FLAM3H(tm) nodes, nothing will be imported on creation, leaving the field blank.
+    - On creation, any of the FLAM3H(tm) nodes with density values higher than 50M(_millions_) will be skipped, leaving the field blank. The user can select to import them manually right after the FLAM3H(tm) USD node has been created.
 
     <br />
     
@@ -136,7 +139,7 @@ FLAM3H(tm) Next/Prev [Icon:opdef:.?icon_actionButtonSVG.svg]:
 
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*<br />
-    - When multiple FLAM3HUSD nodes exist already, ((LMB)) this icon without a valid import yet will import the FLAM3H™ node instance that has not been imported already by the others, otherwise it will import the first one to start with.
+    - When multiple FLAM3H(tm) USD nodes exist already, ((LMB)) this icon without a valid import yet will import the FLAM3H™ node instance that has not been imported already by the others, otherwise it will import the first one to start with.
     - Importing FLAM3H™ node instances from this icon will not check if the imported FLAM3H™ node density value is set to more than *`50M`*(_millions_). It will import all density values regardless.
     
     
@@ -146,7 +149,7 @@ FLAM3H(tm) Next/Prev [Icon:opdef:.?icon_actionButtonSVG.svg]:
 :box:
     #display: inverted teal
 
-    *FLAM3HUSD preferences*
+    *FLAM3H(tm) USD preferences*
     
 :box:
     #display: rounded white
@@ -270,7 +273,7 @@ Import FLAM3H(tm) Handles [Icon:DATATYPES/boolean]:
     <br />
 
     NOTE:
-        - _This parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
+        - _This parameter is available only<br />from FLAM3H(tm) USD HDA versions for Houdini 19.5 and up_.
         
     <br />
 
@@ -282,7 +285,7 @@ Handles widths:
     <br />
 
     NOTE:
-        - _This parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
+        - _This parameter is available only<br />from FLAM3H(tm) USD HDA versions for Houdini 19.5 and up_.
 
     <br />
 
@@ -296,7 +299,7 @@ Reset handles widths [Icon:opdef:.?icon_actionButtonSVG.svg]:
     <br />
 
     NOTE:
-        - _This parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
+        - _This parameter is available only<br />from FLAM3H(tm) USD HDA versions for Houdini 19.5 and up_.
 
     <br />
 
@@ -375,9 +378,9 @@ Shader parameters:
     <br />
     
     NOTE:
-        - _*`Emission`* parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 19.5 and up_.
+        - _*`Emission`* parameter is available only<br />from FLAM3H(tm) USD HDA versions for Houdini 19.5 and up_.
 
-        - _*`Transmission`* parameter is available only<br />from FLAM3HUSD HDA versions for Houdini 20.5 and up_.
+        - _*`Transmission`* parameter is available only<br />from FLAM3H(tm) USD HDA versions for Houdini 20.5 and up_.
 
         _*`Emission`* and *`Transmission`* are responsable for a proper point color values accumulation and they are crucial for a correct fractal Flame look with the Karma renderer_.<br />
 
@@ -396,7 +399,7 @@ menu Presets [Icon:BUTTONS/pane_menu]:
     <br />
 
     NOTE:
-        - _*`Tone map`* parameter menu is available only<br />from FLAM3HUSD HDA versions for Houdini 20.5 and up_.
+        - _*`Tone map`* parameter menu is available only<br />from FLAM3H(tm) USD HDA versions for Houdini 20.5 and up_.
 
 :box:
     #display: rounded white
