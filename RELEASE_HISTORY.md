@@ -38,6 +38,8 @@ They are all available in this Github repository.
 
 #### FLAM3H™ v1.9.82 indie -> H21.0 UP</br>FLAM3H™ v1.9.75 indie -> H19.0 to H20.5 ####
 
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
+
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 #### FLAM3H™USD v0.2.50 indie -> H21.0 UP</br>FLAM3H™USD v0.2.46 indie -> H19.0 to H20.5 ####
