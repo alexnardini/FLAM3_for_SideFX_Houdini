@@ -263,7 +263,7 @@ class f3h_prm_utils
             node(hou.LopNode): this FLAM3H™USD node.
             _prm( hou.Parm | hou.ParmTuple | str): Either a <b>hou.Parm</b>, <b>hou.ParmTuple</b> or a <b>parm name string</b>.
             data(TA_PrmData): The value to set the parameter to.</br>When <b>revertToDefaults</b> is set to <b>True</b>, just set this to a random number as it will be ignored anyway.
-            revertToDefaults(bool): If True, the parameter will be reverted to its default value before setting the new value.
+            revertToDefaults(bool): If True, the parameter will be reverted to its default value instead of setting the new value.
             
         Returns:
             (None):
@@ -295,7 +295,7 @@ class f3h_prm_utils
         Args:
             node(hou.LopNode): this FLAM3H™USD node.
             parms_dict(dict): A dictionary specifying the parm names and their values.</br>Usually the dict is composed as [str, int | float | str]
-            revertToDefaults(bool): If True, the parameters will be reverted to their default values before setting the new values.
+            revertToDefaults(bool): If True, the parameters will be reverted to their default values instead of setting the new values.
             
         Returns:
             (None):
@@ -311,7 +311,7 @@ class f3h_prm_utils
                 prm.deleteAllKeyframes()
                 if revertToDefaults: prm.revertToDefaults()
         
-        if prm is not None:
+        if prm is not None and not revertToDefaults:
             node.setParms(  # type: ignore
                             parms_dict
                             ) 
@@ -329,7 +329,7 @@ class f3h_prm_utils
             node(hou.LopNode): this FLAM3H™USD node.
             prm_name(str | hou.Parm): the parameter name or the parameter hou.Parm directly.
             data(TA_PrmData): The value to set the parameter to.
-            revertToDefaults(bool): If True, the parameter will be reverted to its default value before setting the new value.
+            revertToDefaults(bool): if True, the parameter will be reverted to its default value.
             
         Returns:
             (None):
@@ -360,7 +360,7 @@ class f3h_prm_utils
         Args:
             node(hou.LopNode): this FLAM3H™USD node.
             prm_name(str | hou.Parm):  the parameter name or the parameter hou.Parm directly.
-            revertToDefaults(bool): If True, the parameter will be reverted to its default value after deleting all keyframes.
+            revertToDefaults(bool): if True, the parameter will be reverted to its default value.
             
         Returns:
             (None):
