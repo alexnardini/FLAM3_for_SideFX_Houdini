@@ -2917,7 +2917,7 @@ class flam3h_general_utils
             for ne in (p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor): ne.flashMessage(img, msg, timer) # type: ignore
             # Force the flash message to appear in any Lop viewers available.
             # This is being done because it is more handy for the user to read the message in the Lop viewers
-            # when working through the FLAM3HUSD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
+            # when working through the FLAM3H™USD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
             if flam3h_general_utils.util_is_context_available_viewer('Lop'):
                 for view in [v for v in hou.ui.paneTabs() if v.type() == hou.paneTabType.SceneViewer and flam3h_general_utils.util_is_context('Lop', v) and v.isViewingSceneGraph()]: view.flashMessage('', msg, timer) # type: ignore
         
@@ -5096,7 +5096,7 @@ class flam3h_general_utils
         
         if prm_name_size == PREFS_VIEWPORT_PT_SIZE:
             
-            # Sync FLAM3HUSD nodes
+            # Sync FLAM3H™USD nodes
             all_f3h: tuple = node.type().instances()
             
             for f3h in all_f3h:
@@ -5107,7 +5107,7 @@ class flam3h_general_utils
                 # Delete all keyframes on memory parms
                 flam3h_prm_utils.private_prm_deleteAllKeyframes(f3h, PREFS_PVT_VIEWPORT_PT_SIZE_MEM)
             
-            # Update Point Size preference's option toggle on other FLAM3HUSD nodes instances
+            # Update Point Size preference's option toggle on other FLAM3H™USD nodes instances
             if prm_name_size == PREFS_VIEWPORT_PT_SIZE and node.parm(PREFS_VIEWPORT_PT_TYPE).evalAsInt() == 0:
                 
                 if allowed_viewers:
@@ -5169,7 +5169,7 @@ class flam3h_general_utils
                     # update memory
                     flam3h_prm_utils.private_prm_set(node, PREFS_PVT_VIEWPORT_WIRE_WIDTH_MEM, width)
             
-        # Sync FLAM3HUSD nodes
+        # Sync FLAM3H™USD nodes
         all_f3h: tuple = node.type().instances()
             
         if allowed_viewers:

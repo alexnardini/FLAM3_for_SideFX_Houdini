@@ -3436,7 +3436,7 @@ class flam3h_general_utils
         This will work either in Sop and Lop context as it is handy to get those messages either ways.</br>
         
         Note:
-            Whne working with FLAM3HUSD inside the Solaris context, a flash message will be sent to any available Lop viewers
+            Whne working with FLAM3H™USD inside the Solaris context, a flash message will be sent to any available Lop viewers
             to make it easier for the user to read them since in that case the network editor real estate area will most likely be covered with parameters editor interfaces.
 
         Args:
@@ -3444,7 +3444,7 @@ class flam3h_general_utils
             msg(str | None): The string message to print or None.
             timer(float): Default to: FLAM3H_FLASH_MESSAGE_TIMER (2 sec)</br>How long the printed message stay before it fade away.
             img(str | None): Default to: None</br>Specifies an icon or image file that should be displayed along with the text specified in the msg argument.
-            usd_context(str): Default to: 'Lop'</br>The name of the context being used when working in the USD Solaris with FLAM3HUSD.
+            usd_context(str): Default to: 'Lop'</br>The name of the context being used when working in the USD Solaris with FLAM3H™USD.
 
         Returns:
             (None):
@@ -3453,7 +3453,7 @@ class flam3h_general_utils
             for ne in (p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor): ne.flashMessage(img, msg, timer) # type: ignore
             # Force the flash message to appear in any Lop viewers available.
             # This is being done because it is more handy for the user to read the message in the Lop viewers
-            # when working through the FLAM3HUSD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
+            # when working through the FLAM3H™USD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
             lop_viewer_available, viewers = flam3h_general_utils.util_is_context_available_viewer_data(usd_context)
             if lop_viewer_available:
                 for view in (v for v in viewers if flam3h_general_utils.util_is_context(usd_context, v) and v.isViewingSceneGraph()): view.flashMessage('', msg, timer)

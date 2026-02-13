@@ -187,7 +187,7 @@ class f3husd_tabs:
 
 class f3husd_pvt:
     '''
-    All FLAM3HUSD private parameters names that are supposed to always stay private.</br>
+    All FLAM3H™USD private parameters names that are supposed to always stay private.</br>
     
     '''
     PVT_ALL: tuple[str, ...] = (f3husd_tabs.PREFS.PVT_PRM_VIEWPORT_RENDERER_MEM,

@@ -372,7 +372,7 @@ class flam3husd_scripts
                 f3husd_all_instances: list = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY).instances()
                 f3husd_all_instances_paths: list = [f3husd.parm(PREFS_F3H_PATH).eval() for f3husd in f3husd_all_instances if node != f3husd]
                 
-                # If we already have some FLAM3HUSD nodes and more than one FLAM3H™ nodes
+                # If we already have some FLAM3H™USD nodes and more than one FLAM3H™ nodes
                 if len(f3husd_all_instances) > 1 and len(f3h_all_instances) > 1:
                     
                     for f3h in f3h_all_instances:
