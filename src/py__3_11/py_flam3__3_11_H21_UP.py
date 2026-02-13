@@ -6168,7 +6168,7 @@ class flam3h_iterator_utils
                 iter: list[float] = []
                 _iter_append: Callable[[float], None] = iter.append
                 for idx in range(len(this_xaos)):
-                    _iter_append(this_xaos[int(mpmem_x[idx])])
+                    _iter_append(this_xaos[mpmem_x[idx]])
                 _fill_all_xaos_swap_append(iter)
                 
             # reset mpmem_x
