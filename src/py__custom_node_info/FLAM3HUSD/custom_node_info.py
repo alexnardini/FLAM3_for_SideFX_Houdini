@@ -1,4 +1,4 @@
-#   Title:      FLAM3HUSD Custom node info
+#   Title:      FLAM3H™USD Custom node info
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
 #   Copyright:  (c) 2023 F stands for liFe
