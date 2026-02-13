@@ -3288,7 +3288,7 @@ flash messages (network editor) [Icon:DATATYPES/boolean]:
         #display: orange
         Flash messages will be displayed also in any of the available Lop viewers.
 
-        This will make them easier to understand because the network editor will probably be covered with parameter editor interfaces while in Solaris and when using the companion *`FLAM3H(tm) USD`* HDA.
+        This will make them easier to understand because the network editor will probably be covered with parameter editor interfaces while in Solaris and when using the companion *`FLAM3H`*(tm) *`USD`* HDA.
 
     <br />
 
@@ -3845,7 +3845,7 @@ _A list of all parametric variations and their parametric parameter's names_
     
     Following are tips and tricks to help you get the most out of the generated fractal Flames point cloud when rendering them.
 
-    When using the companion *`FLAM3H(tm) USD`* HDA you will have all the necessary settings to match the visual quality of third-party applications without compromises.
+    When using the companion *`FLAM3H`*(tm) *`USD`* HDA you will have all the necessary settings to match the visual quality of third-party applications without compromises.
 
 :box:
     #display: rounded white
@@ -3938,7 +3938,7 @@ _A list of all parametric variations and their parametric parameter's names_
     
     If you are using Houdini *`20.5`* and up,
 
-    the *`FLAM3H(tm) USD`* companion HDA for the Solaris context (_Lop_) will use a custom shader<br />
+    the *`FLAM3H`*(tm) *`USD`* companion HDA for the Solaris context (_Lop_) will use a custom shader<br />
     that perfectly emulate what the original `Flam3` algorithm does, matching the visual color value accumulation quality of all the other implementations.
 
     <br />
