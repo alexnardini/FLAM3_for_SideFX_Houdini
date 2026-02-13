@@ -3236,7 +3236,7 @@ flash messages (network editor) [Icon:DATATYPES/boolean]:
         #display: orange
         Flash messages will be displayed also in any of the available Lop viewers.
 
-        This will make them easier to understand because the network editor will probably be covered with parameter editor interfaces while in Solaris and when using the companion *`FLAM3HUSD`* HDA.
+        This will make them easier to understand because the network editor will probably be covered with parameter editor interfaces while in Solaris and when using the companion *`FLAM3H™USD`* HDA.
 
     <br />
 
@@ -3793,7 +3793,7 @@ _A list of all parametric variations and their parametric parameter's names_
     
     Following are tips and tricks to help you get the most out of the generated fractal Flames point cloud when rendering them.
 
-    When using the companion *`FLAM3HUSD`* HDA you will have all the necessary settings to match the visual quality of third-party applications without compromises.
+    When using the companion *`FLAM3H(tm) USD`* HDA you will have all the necessary settings to match the visual quality of third-party applications without compromises.
 
 :box:
     #display: rounded white
@@ -3869,7 +3869,7 @@ _A list of all parametric variations and their parametric parameter's names_
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*
         #id: KARMAMANTRA
     
-    - When rendering with Karma, remember to turn *`On`* the "_Simplified lighting_"/"_Disable lighting_" option' toggle on the Karma render node to be sure to render the points with their full color values, unless you are using the *`FLAM3HUSD`* companion HDA in which case it will take care of everything.
+    - When rendering with Karma, remember to turn *`On`* the "_Simplified lighting_"/"_Disable lighting_" option' toggle on the Karma render node to be sure to render the points with their full color values, unless you are using the *`FLAM3H™USD`* companion HDA in which case it will take care of everything.
     
     - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
 
@@ -3886,7 +3886,7 @@ _A list of all parametric variations and their parametric parameter's names_
     
     If you are using Houdini *`20.5`* and up,
 
-    the *`FLAM3HUSD`* companion HDA for the Solaris context (_Lop_) will use a custom shader<br />
+    the *`FLAM3H(tm) USD`* companion HDA for the Solaris context (_Lop_) will use a custom shader<br />
     that perfectly emulate what the original `Flam3` algorithm does, matching the visual color value accumulation quality of all the other implementations.
 
     <br />
@@ -4214,9 +4214,6 @@ _A list of all parametric variations and their parametric parameter's names_
     #display: rounded gray
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *New multiparameter features*<br /><br />
 
-    - Rearranging iterators wont update their xaos strings.<br />
-    ( _You should not do that in FLAM3H™_ ).
-    
     - Adding and/or removing iterators (_inbetween_)<br />
     using the native menu displayed when you ((RMB)) on any multi parameter tab label wont update all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.<br />
     Always use the add/remove iterator's button/icon: [Smallicon:opdef:.?icon_AddDelIteratorSVG.svg]

@@ -917,7 +917,7 @@ class flam3h_iterator_prm_names:
     
     '''
     
-    __slots__ = ("main_xf_viz", "main_mpmem", "main_note", "main_prmpastesel", "main_selmem", "main_vactive", "main_weight", 
+    __slots__ = ("main_xf_viz", "main_mpmem", "main_mpmem_x", "main_note", "main_prmpastesel", "main_selmem", "main_vactive", "main_weight", 
                  "xaos", 
                  "shader_color", "shader_speed", "shader_alpha", 
                  "prevar_blur", "prevar_weight_blur", "prevar_type_1", "prevar_type_2", "prevar_weight_1", "prevar_weight_2", 
@@ -939,6 +939,7 @@ class flam3h_iterator_prm_names:
         # Main
         self.main_xf_viz: Final = 'xfviz'
         self.main_mpmem: Final = 'mpmem' # auto set xaos: custom data
+        self.main_mpmem_x: Final = 'mpmem_x' # xaos: elements indexes
         self.main_note: Final = 'note'
         self.main_prmpastesel: Final = 'prmpastesel'
         self.main_selmem: Final = 'selmem' # custom data
@@ -3438,7 +3439,7 @@ class flam3h_general_utils
         This will work either in Sop and Lop context as it is handy to get those messages either ways.</br>
         
         Note:
-            Whne working with FLAM3HUSD inside the Solaris context, a flash message will be sent to any available Lop viewers
+            Whne working with FLAM3H™USD inside the Solaris context, a flash message will be sent to any available Lop viewers
             to make it easier for the user to read them since in that case the network editor real estate area will most likely be covered with parameters editor interfaces.
 
         Args:
@@ -3446,7 +3447,7 @@ class flam3h_general_utils
             msg(str | None): The string message to print or None.
             timer(float): Default to: FLAM3H_FLASH_MESSAGE_TIMER (2 sec)</br>How long the printed message stay before it fade away.
             img(str | None): Default to: None</br>Specifies an icon or image file that should be displayed along with the text specified in the msg argument.
-            usd_context(str): Default to: 'Lop'</br>The name of the context being used when working in the USD Solaris with FLAM3HUSD.
+            usd_context(str): Default to: 'Lop'</br>The name of the context being used when working in the USD Solaris with FLAM3H™USD.
 
         Returns:
             (None):
@@ -3455,7 +3456,7 @@ class flam3h_general_utils
             for ne in (p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor): ne.flashMessage(img, msg, timer) # type: ignore
             # Force the flash message to appear in any Lop viewers available.
             # This is being done because it is more handy for the user to read the message in the Lop viewers
-            # when working through the FLAM3HUSD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
+            # when working through the FLAM3H™USD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
             lop_viewer_available, viewers = flam3h_general_utils.util_is_context_available_viewer_data(usd_context)
             if lop_viewer_available:
                 for view in (v for v in viewers if flam3h_general_utils.util_is_context(usd_context, v) and v.isViewingSceneGraph()): view.flashMessage('', msg, timer)
@@ -6011,6 +6012,7 @@ class flam3h_iterator_utils:
 class flam3h_iterator_utils
 
 @STATICMETHODS
+* auto_set_xaos_shuffle(node, iter_count: int, n: flam3h_iterator_prm_names) -> None:
 * flam3h_iterator_is_default_name(name: str, regex: str = "^[^\d\s()]+(?: [^\d\s()]+)*[\d]+") -> bool:
 * flam3h_update_iterators_names(node: hou.SopNode, iter_count: int) -> None:
 * flam3h_on_loaded_set_density_menu(node: hou.SopNode) -> None:
@@ -6128,6 +6130,68 @@ class flam3h_iterator_utils
         """ 
         self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
+        
+        
+    @staticmethod
+    def auto_set_xaos_shuffle(node, iter_count: int, n: flam3h_iterator_prm_names) -> None:
+        """When iterators are shuffled/reordered,</br>
+        this definition will shuffle/reorder the xaos strings to match the new iterators order.</br>
+        It is being called specifically from:
+        
+        * def menu_select_iterator_data(self, data_cached: tuple[list[Any] | Any, ...], data_now: tuple[list[Any] | Any, ...], data_names: tuple[str, ...]) -> TA_Menu:
+        
+        Args:
+            node(hou.SopNode): this FLAM3H™ node
+            iter_count(int): number of iterators in this FLAM3H™ node.
+            n(flam3h_iterator_prm_names): this FLAM3H™ node parameters names class instance.
+        
+        Returns:
+            (None):
+        """
+        
+        # xaos_node: hou.SopNode = hou.node(flam3h_general_utils({'node': node}).get_node_path(f3h_nodeNames.DEFAULT_TFFA_XAOS))
+        xaos_node: hou.SopNode = hou.node(f"./{f3h_nodeNames.DEFAULT_TFFA_XAOS}")
+        XS: int = xaos_node.geometry().attribValue('XS')
+        
+        if XS:
+            
+            mpmem_x: list[int] = [] # This is used as index lookup
+            mpmem_x_name: str = n.main_mpmem_x
+            _mpmem_x_append: Callable[[int], None] = mpmem_x.append
+            for mp_idx in range(1, iter_count + 1): _mpmem_x_append(node.parm(f"{mpmem_x_name}_{mp_idx}").eval() - 1)
+            
+            xaos_collect: TA_XAOS_Collect = out_flame_utils.out_xaos_collect(node, iter_count, n.xaos)
+            fill_all_xaos: list[list[float]] = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in xaos_collect]
+            fill_all_xaos_swap: list[list[float]] = []
+            _fill_all_xaos_swap_append: Callable[[list[float]], None] = fill_all_xaos_swap.append
+            for this_xaos in fill_all_xaos:
+                iter: list[float] = []
+                _iter_append: Callable[[float], None] = iter.append
+                for idx in range(len(this_xaos)):
+                    _iter_append(this_xaos[int(mpmem_x[idx])])
+                _fill_all_xaos_swap_append(iter)
+                
+            # reset mpmem_x
+            for mp_idx in range(1, iter_count + 1):
+                prm = node.parm(f"{mpmem_x_name}_{(mp_idx)}")
+                flam3h_prm_utils.set(node, prm, mp_idx)
+            
+            # AUTO DIV XAOS strings
+            div_xaos, div_weight = flam3h_iterator_utils.auto_set_xaos_div_str(node)
+            # Convert to strings
+            xaos_str: list[list[str]] = [[str(item) for item in xaos] for xaos in fill_all_xaos_swap]
+            # set all multi parms xaos strings parms
+            _join: Callable[[Iterable[str]], str] = div_weight.join
+            xaos_str_round_floats: list[str] = [_join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)]
+            prm_xaos_name: str = n.xaos
+            for mp_idx in range(1, iter_count + 1):
+                prm = node.parm(f"{prm_xaos_name}_{mp_idx}")
+                prm.lock(False)
+                prm.deleteAllKeyframes() # This parameter can not be animated
+            for mp_idx, xaos in enumerate(xaos_str_round_floats): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").set(div_xaos + xaos)
+            
+            # Update xaos prev
+            flam3h_iterator_utils.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
         
         
     @staticmethod
@@ -7943,6 +8007,7 @@ class flam3h_iterator_utils
                 n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
                 iter_num: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
                 
+                # Update xfviz solo mode data
                 prm_xfviz_solo: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO).eval()
                 if prm_xfviz_solo:
                     
@@ -7961,6 +8026,7 @@ class flam3h_iterator_utils
                             
                             break
                         
+                # update copy/paste data
                 if self.exist_user_data(node):
                     if self.exist_user_data(node, f3h_userData.MARKED_ITER_LABEL):
                         data: str = str(self.get_user_data(node, f3h_userData.MARKED_ITER_LABEL))
@@ -7973,13 +8039,10 @@ class flam3h_iterator_utils
                     self.del_comment_and_user_data_iterator(node)
                     self.set_comment_and_user_data_iterator(node, str(marked_idx + 1))
                 
-                # update parameterUserData: flam3h_xaos_iterators_prev
-                xaos: TA_XAOS_Collect = out_flame_utils.out_xaos_collect(node, iter_count, n.xaos)
-                fill_all_xaos: list[list[float]] = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in xaos]
-                xaos_str: list[list[str]] = [[str(item) for item in xaos] for xaos in fill_all_xaos]
-                self.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
+                # Updated xaos strings based on the new order of the iterators
+                self.auto_set_xaos_shuffle(node, iter_count, n)
                 
-                # Update iterator's names/notes
+                # Update iterator's names/notes if needed
                 self.flam3h_update_iterators_names(node, iter_count)
                 
             
@@ -10623,10 +10686,13 @@ class flam3h_iterator_utils
             prm.deleteAllKeyframes() # This parameter can not be animated
         for mp_idx, xaos in enumerate(xaos_str_round_floats): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").set(div_xaos + xaos)
         
-        # reset iterator's mpmem prm
+        # reset iterator's mpmem and mpmem_x parms
+        mp_mem_x_name: str = n.main_mpmem_x
         for mp_idx in range(1, iter_count + 1):
             prm = node.parm(f"{mp_mem_name}_{(mp_idx)}")
             flam3h_prm_utils.set(node, prm, str(mp_idx))
+            prm = node.parm(f"{mp_mem_x_name}_{(mp_idx)}")
+            flam3h_prm_utils.set(node, prm, mp_idx)
         
         # update flam3h_xaos_mpmem
         __mpmem_hou: list[int] = [int(node.parm(f"{mp_mem_name}_{mp_idx}").eval()) for mp_idx in range(1, iter_count + 1)]
