@@ -509,7 +509,7 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
         It is a small but very handy feature that allow to store a full Flame presets with its xform handles as representative geo.
 
         It is important to know that the *`XML`* detail attribute will be filled with a proper Flame preset data
-        only if the current Flame being worked on is a Flam3 compatible flame, other wise a message string will be stored instead.
+        only if the current Flame being worked on is Flam3 compatible, other wise a message string will be stored instead.
 
         You can read the [OUT tab intro Tip|#OUT] to know more about Flam3 compatibility.
     
@@ -3927,7 +3927,7 @@ _A list of all parametric variations and their parametric parameter's names_
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*
         #id: KARMAMANTRA
     
-    - When rendering with Karma, remember to turn *`On`* the "_Simplified lighting_"/"_Disable lighting_" option' toggle on the Karma render node to be sure to render the points with their full color values, unless you are using the *FLAM3H™USD* companion HDA in which case it will take care of everything.
+    - When rendering with Karma, remember to turn *`On`* the "_Simplified lighting_"/"_Disable lighting_" option' toggle on the Karma render node to be sure to render the points with their full color values, unless you are using the *`FLAM3H`*(tm) *`USD`* companion HDA in which case it will take care of everything.
     
     - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
 

@@ -3236,7 +3236,7 @@ flash messages (network editor) [Icon:DATATYPES/boolean]:
         #display: orange
         Flash messages will be displayed also in any of the available Lop viewers.
 
-        This will make them easier to understand because the network editor will probably be covered with parameter editor interfaces while in Solaris and when using the companion *`FLAM3H™USD`* HDA.
+        This will make them easier to understand because the network editor will probably be covered with parameter editor interfaces while in Solaris and when using the companion *`FLAM3H`*(tm) *`USD`* HDA.
 
     <br />
 
@@ -3869,7 +3869,7 @@ _A list of all parametric variations and their parametric parameter's names_
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*
         #id: KARMAMANTRA
     
-    - When rendering with Karma, remember to turn *`On`* the "_Simplified lighting_"/"_Disable lighting_" option' toggle on the Karma render node to be sure to render the points with their full color values, unless you are using the *`FLAM3H™USD`* companion HDA in which case it will take care of everything.
+    - When rendering with Karma, remember to turn *`On`* the "_Simplified lighting_"/"_Disable lighting_" option' toggle on the Karma render node to be sure to render the points with their full color values, unless you are using the *`FLAM3H`*(tm) *`USD`* companion HDA in which case it will take care of everything.
     
     - When rendering with Mantra, just create a constant shader that uses the *`@Cd`* attribute.
 
