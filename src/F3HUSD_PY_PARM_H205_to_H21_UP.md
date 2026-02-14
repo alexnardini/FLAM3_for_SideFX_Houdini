@@ -17,7 +17,7 @@
 <br>
 <br>
 
-# FLAM3H™USD -> UI_PARM_map
+# FLAM3H™USD -> PY_PARM_map
 
 - #### Houdini versions:  `H20.5 to H21 UP`
 - ### Contents
