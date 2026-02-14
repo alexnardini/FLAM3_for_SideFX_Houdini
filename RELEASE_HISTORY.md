@@ -38,9 +38,12 @@ They are all available in this Github repository.
 
 #### FLAM3H™ v1.9.83 indie -> H21.0 UP</br>FLAM3H™ v1.9.75 indie -> H19.0 to H20.5 ####
 
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
+
 - **Fix H21 UP ONLY**: When rearranging iterators, FLAM3H™ will now update each xaos weights based on the new iterator's order.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
+- **Updated GIT documentation.**
 
 
 

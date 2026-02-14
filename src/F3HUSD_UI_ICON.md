@@ -5,7 +5,7 @@
 #   License:    GPL, CC BY-SA 4.0
 #   Copyright:  (c) 2023 F stands for liFe
 #
-#   Name:       FLAM3HUSD__UI_ICON_MAP
+#   Name:       F3HUSD_UI_ICON
 #
 #   Comment:    List of all the UI parameters with ICONS associated with
 #               and the command string they are called from and from where.
@@ -13,26 +13,32 @@
 #               THIS IS ONLY INFORMATIVE AND FOR EASY FIND INSTEAD OF
 #               NAVIGATING THE PARAMETERS INSIDE THE OTL TYPE PROPERTIES WINDOW.
 ```
-**Note**: _The project logo and the icon set are NOT covered by the **CC BY-SA 4.0** license_.</br>
-_They remain Copyright of (c) 2021 F stands for liFe (and their other respective owners), and may not be redistributed without permission_.
+
+</br>
+</br>
+
+# FLAM3H™USD -> UI_ICON_map
+
+- ### Houdini versions:  `H19 to H21 UP`
+- ### Contents
+    - _List of all the UI parameters with ICONS associated with and the command string they are called from and from where_.
 
 - #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
-- #### Houdini versions:  `H19 to H21 UP`
 
 </br>
 </br>
 
-#### Quick links
+- #### Quick links
 
-- **FLAM3H™USD** [**UI_PARM_map H21 UP**](py_flam3usd__UI_PARM_map_H21_UP.md)
-- **FLAM3H™USD** [**UI_PARM_map H19 to H20.5**](py_flam3usd__UI_PARM_map_H19_to_H205.md)
+- **FLAM3H™USD** [**PY_PARM_map H19 to H20**](F3HUSD_PY_PARM_H19_to_H20.md)
+- **FLAM3H™USD** [**PY_PARM_map H20.5 to H21 UP**](F3HUSD_PY_PARM_H205_to_H21_UP.md)
 
 </br>
 
-- **FLAM3H™** [**UI_ICON_map H20.5 to H21 UP**](FLAM3H__UI_ICON_map_H205_to_H21_UP.md)
-- **FLAM3H™** [**UI_ICON_map H19 to H20**](FLAM3H__UI_ICON_map_H19_to_H20.md)
-- **FLAM3H™** [**UI_PARM_map H20.5 to H21 UP**](py_flam3__UI_PARM_map_H205_to_H21_UP.md)
-- **FLAM3H™** [**UI_PARM_map H19 to H20**](py_flam3__UI_PARM_map_H19_to_H20.md)
+- **FLAM3H™** [**UI_ICON_map H19.0 to H20.0**](F3H_UI_ICON_H19_to_H20.md)
+- **FLAM3H™** [**UI_ICON_map H20.5 to H21.0 UP**](F3H_UI_ICON_H205_to_H21_UP.md)
+- **FLAM3H™** [**PY_PARM_map H19.0 to H20.0**](F3H_PY_PARM_H19_to_H20.md)
+- **FLAM3H™** [**PY_PARM_map H20.5 to H21.0 UP**](F3H_PY_PARM_H205_to_H21_UP.md)
 
 </br>
 
@@ -43,27 +49,12 @@ _They remain Copyright of (c) 2021 F stands for liFe (and their other respective
 </br>
 </br>
 
-# FLAM3H™USD -> UI_ICON_map
-- ### Contents
-    - _List of all the UI parameters with ICONS associated with and the command string they are called from and from where_.
+# Contents
 
-
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
-
+<br>
 
 FLAM3H™USD system utilities._
 
-</br>
-</br>
 </br>
 
 | Tab | Parameter name | Houdini version |

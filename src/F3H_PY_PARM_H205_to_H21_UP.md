@@ -5,7 +5,7 @@
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
 #
-#   Name:       PY_FLAM3__UI_PARM_MAP
+#   Name:       F3H_PY_PARM_H205_to_H21_UP
 #
 #   Comment:    List of all UI parameters wired with a python definition
 #               and the command string they actually run and from where.
@@ -13,42 +13,46 @@
 #               THIS IS ONLY INFORMATIVE AND FOR EASY FIND INSTEAD OF
 #               NAVIGATING THE PARAMETERS INSIDE THE OTL TYPE PROPERTIES WINDOW.
 ```
+
+<br>
+<br>
+
+# FLAM3H™ -> UI_PARM_map
+
+- ### Houdini versions:  `H20.5 to H21 UP`
+- ### Contents
+    - _Collection of all the python modules run by the tool inside the HDA Type properties -> Script tab_.
+    - _List of all the UI parameters wired with a python definition and the command string they actually run and from where_.
+
 - #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
-- #### Houdini versions:  `H19 to H20`
 
 </br>
 </br>
 
-#### Quick links
+- #### Quick links
 
-- **FLAM3H™** [**UI_ICON_map H19 to H20**](FLAM3H__UI_ICON_map_H19_to_H20.md)
-- **FLAM3H™** [**UI_ICON_map H20.5 to H21 UP**](FLAM3H__UI_ICON_map_H205_to_H21_UP.md)
-- **FLAM3H™** [**UI_PARM_map H20.5 to H21 UP**](py_flam3__UI_PARM_map_H205_to_H21_UP.md)
+- **FLAM3H™** [**UI_ICON_map H19.0 to H20.0**](F3H_UI_ICON_H19_to_H20.md)
+- **FLAM3H™** [**UI_ICON_map H20.5 to H21.0 UP**](F3H_UI_ICON_H205_to_H21_UP.md)
+- **FLAM3H™** [**PY_PARM_map H19.0 to H20.0**](F3H_PY_PARM_H19_to_H20.md)
 
 </br>
 
-- **FLAM3H™USD** [**UI_ICON_map**](FLAM3HUSD__UI_ICON_map.md)
-- **FLAM3H™USD** [**UI_PARM_map H20.5 to H21 UP**](../src/py_flam3usd__UI_PARM_map_H205_to_H21_UP.md)
-- **FLAM3H™USD** [**UI_PARM_map H19 to H20**](../src/py_flam3usd__UI_PARM_map_H19_to_H20.md)
-
+- **FLAM3H™USD** [**UI_ICON_map**](F3HUSD_UI_ICON.md)
+- **FLAM3H™USD** [**PY_PARM_map H19.0 to H20.0**](F3HUSD_PY_PARM_H19_to_H20.md)
+- **FLAM3H™USD** [**PY_PARM_map H20.5 to H21.0 UP**](F3HUSD_PY_PARM_H205_to_H21_UP.md)
 
 </br>
 
 - [**FULL ICON set**](../icons/README.md)
 
+
 <br>
 <br>
 <br>
 <br>
 
-# FLAM3H™ -> UI_PARM_map
-- ### Contents
-    - _Collection of all the python modules run by the tool inside the HDA Type properties -> Script tab_.
-    - _List of all the UI parameters wired with a python definition and the command string they actually run and from where_.
+# Contents
 
-<br>
-<br>
-<br>
 <br>
 
 The needed **`py_flam3__x_x.py`** files are loaded inside the **Extra Files** section. Renamed as **`py_flam3__x_x`** (no extension).
@@ -61,7 +65,77 @@ to: **py_flam3__3_11**
 </br>
 </br>
 
-# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PythonModule `H19 to H20`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PythonModule `H21 UP`
+
+| SCRIPT | Description | 
+|:---|:---|
+| **PythonModule** | The **`flam3`** module is created out of the **`py_flam3__x_x`** file located inside the **Extra Files** section.</br>Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule** | 
+
+```python
+#   Title:      FLAM3H™. SideFX Houdini FLAM3
+#   Author:     F stands for liFe ( made in Italy )
+#   License:    GPL
+#   Copyright:  (c) 2021 F stands for liFe
+
+import toolutils
+
+# Set some HDA infos
+__version__ = "1.9.83"
+__status__  = "Production"
+__h_versions__: tuple = (210,)
+__range_type__: bool = False # True for closed range. False for open range
+
+# The following are min and max Houdini version where FLAM3H™ can run.
+# The max version is always most likely the latest Houdini version released by SideFX
+# unless it is a closed range due to moving into newer Houdini and FLAM3H™ versions.
+#
+# The ranges can be open or close inside this definition:
+# - (py_flam3__3_11) -> def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
+# - (py_flam3__3_7)  -> def flam3h_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
+__h_version_min__: int = 190
+__h_version_max__: int = __h_versions__[-1]
+
+
+def houdini_version(digit: int=1) -> int:
+    """Retrieve the major Houdini version number currently in use.
+
+    Args:
+        digit(int): Default to 1: 19, 20. if set to 2: 190, 195, 200, 205, and so on.
+
+    Returns:
+        (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
+    """ 
+    return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
+
+
+def py_module_vars() -> str:
+    """Return a strings:</br>
+    * __module_filename__ -> module filename to use
+
+    Args:
+        (None):
+        
+    Returns:
+        (None):
+    """ 
+    h: int = houdini_version(2)
+    if h < 205: 
+        __module_filename__: str = "py_flam3__3_7"
+    else:
+        __module_filename__: str = "py_flam3__3_11_H21_UP"
+
+    return __module_filename__
+
+
+__module_filename__ = py_module_vars()
+flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_filename__)
+```
+
+</br>
+</br>
+</br>
+
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PythonModule `H20.5`
 
 | SCRIPT | Description | 
 |:---|:---|
@@ -78,7 +152,7 @@ import toolutils
 # Set some HDA infos
 __version__ = "1.9.75"
 __status__  = "Production"
-__h_versions__: tuple = (190, 195, 200)
+__h_versions__: tuple = (205,)
 __range_type__: bool = True # True for closed range. False for open range
 
 # The following are min and max Houdini version where FLAM3H™ can run.
@@ -91,6 +165,7 @@ __range_type__: bool = True # True for closed range. False for open range
 __h_version_min__: int = 190
 __h_version_max__: int = __h_versions__[-1]
 
+
 def houdini_version(digit: int=1) -> int:
     """Retrieve the major Houdini version number currently in use.
 
@@ -101,7 +176,7 @@ def houdini_version(digit: int=1) -> int:
         (int): By default it will retrieve major Houdini version number. ex: 19, 20 but not: 195, 205
     """ 
     return int(''.join(str(x) for x in hou.applicationVersion()[:digit]))
-    
+
 
 def py_module_vars() -> str:
     """Return a strings:</br>
@@ -130,11 +205,13 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 </br>
 </br>
 
-# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PreFirstCreate `H19 to H20`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> PreFirstCreate `H20.5 to H21 UP`
 
 | SCRIPT | Description | 
 |:---|:---|
 | **PreFirstCreate** | Before the node is even created but invoked.</br>Inside: **OTL**->**type_properties**->**Scripts**->**PreFirstCreate** | 
+
+
 
 ```python
 #   Title:      FLAM3H™. SideFX Houdini FLAM3
@@ -311,7 +388,7 @@ else:
 </br>
 </br>
 
-# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnCreated `H19 to H20`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnCreated `H20.5 to H21 UP`
 
 | SCRIPT | Description | 
 |:---|:---|
@@ -330,7 +407,7 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_create()
 </br>
 </br>
 
-# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnLoaded `H19 to H20`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnLoaded `H20.5 to H21 UP`
 
 | SCRIPT | Description | 
 |:---|:---|
@@ -349,7 +426,7 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_loaded()
 </br>
 </br>
 
-# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnDeleted `H19 to H20`
+# <img width="48" height="48" src="../icons/icon_pythonSVG.svg" /> OnDeleted `H20.5 to H21 UP`
 
 | SCRIPT | Description | 
 |:---|:---|
@@ -381,11 +458,11 @@ _Parameters to define the quality of the fractal Flame algorithm solution._
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **GLOBAL** | `iter` | `integer` | `H19 to H20` |
+| **GLOBAL** | `iter` | `integer` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
+hou.phm().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm()
 ```
 
 </br>
@@ -394,15 +471,15 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **GLOBAL** | `ptcount_presets` | `ordered menu` | `H19 to H20` |
+| **GLOBAL** | `ptcount_presets` | `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density_set()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_global_density_set()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_density()
+menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_global_density()
 return menu
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
@@ -416,7 +493,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_densi
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **GLOBAL** | `ptcount_presets_off` | `ordered menu` | `H19 to H20` |
+| **GLOBAL** | `ptcount_presets_off` | `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -441,11 +518,11 @@ I keep changing and adding functionalities, it is still a work in progress, but 
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_help` | `button` | `H19 to H20` |
+| **SYS** | `sys_help` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_display_help(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_display_help(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -454,15 +531,15 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_display_help(), 
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `iterlist` | `ordered menu` | `H19 to H20` |
+| **SYS** | `iterlist` | `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_select_iterator(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).prm_select_iterator(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_select_iterator()
+menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_select_iterator()
 return menu
 ```
 
@@ -472,11 +549,11 @@ return menu
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `doff_sysdisabled` | `button` | `H19 to H20` |
+| **SYS** | `doff_sysdisabled` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -485,11 +562,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_F
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `doff_sysenabled` | `button` | `H19 to H20` |
+| **SYS** | `doff_sysenabled` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -498,11 +575,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_F
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `rip_disabled` | `button` | `H19 to H20` |
+| **SYS** | `rip_disabled` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("rip"), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("rip"), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -511,11 +588,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `rip_enabled` | `button` | `H19 to H20` |
+| **SYS** | `rip_enabled` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("rip"), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("rip"), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -524,11 +601,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `f3c_chaotica` | `button` | `H19 to H20` |
+| **SYS** | `f3c_chaotica` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("f3c"), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("f3c"), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -537,11 +614,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `f3c_apophysis` | `button` | `H19 to H20` |
+| **SYS** | `f3c_apophysis` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("f3c"), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("f3c"), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -550,11 +627,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `xfviz_off` | `button` | `H19 to H20` |
+| **SYS** | `xfviz_off` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -563,11 +640,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(),
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `xfviz_on` | `button` | `H19 to H20` |
+| **SYS** | `xfviz_on` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -576,11 +653,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_xf_viz_toggle(),
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `xfviz_on_solo` | `button` | `H19 to H20` |
+| **SYS** | `xfviz_on_solo` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_viz_solo(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_viz_solo(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -589,11 +666,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_vi
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `xfvizff_on_solo` | `button` | `H19 to H20` |
+| **SYS** | `xfvizff_on_solo` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_ff_viz_solo(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_ff_viz_solo(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -602,11 +679,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_sys_xf_ff
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_out_sensorviz` | `button` | `H19 to H20` |
+| **SYS** | `sys_out_sensorviz` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -615,11 +692,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_out_sensorviz_off` | `button` | `H19 to H20` |
+| **SYS** | `sys_out_sensorviz_off` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -628,11 +705,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_tag_off` | `button` | `H19 to H20` |
+| **SYS** | `sys_tag_off` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -641,11 +718,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_tag` | `button` | `H19 to H20` |
+| **SYS** | `sys_tag` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("tag"), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -654,7 +731,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private("
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `tagsize` | `ordered menu` | `H19 to H20` |
+| **SYS** | `tagsize` | `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -667,11 +744,11 @@ kwargs['parm'].deleteAllKeyframes()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `loaddef` | `button` | `H19 to H20` |
+| **SYS** | `loaddef` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
 ```
 
 </br>
@@ -680,11 +757,11 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_default()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `frameview` | `button` | `H19 to H20` |
+| **SYS** | `frameview` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_frame(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_frame(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -693,11 +770,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_fram
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `frameviewsensor` | `button` | `H19 to H20` |
+| **SYS** | `frameviewsensor` | `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -706,7 +783,7 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_palettepresets_disabled` | `string` | `H19 to H20` |
+| **SYS** | `sys_palettepresets_disabled` | `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -719,15 +796,15 @@ n = None
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_palettepresets_off` | `string` | `H19 to H20` |
+| **SYS** | `sys_palettepresets_off` | `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
+menu = hou.phm().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
 return menu
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
@@ -741,15 +818,15 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_palettepresets` | `string` | `H19 to H20` |
+| **SYS** | `sys_palettepresets` | `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp_sys(False), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()
+menu = hou.phm().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()
 return menu
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
@@ -763,15 +840,15 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_inpresets_disabled` | `string` | `H19 to H20` |
+| **SYS** | `sys_inpresets_disabled` | `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_sys(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.in_flame_utils(kwargs).in_to_flam3h_sys(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets_empty()
+menu = hou.phm().flam3.in_flame_utils(kwargs).menu_in_presets_empty()
 return menu
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
@@ -785,15 +862,15 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_inpresets` | `string` | `H19 to H20` |
+| **SYS** | `sys_inpresets` | `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_sys(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.in_flame_utils(kwargs).in_to_flam3h_sys(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets()
+menu = hou.phm().flam3.in_flame_utils(kwargs).menu_in_presets()
 return menu
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
@@ -807,7 +884,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_outpresets_disabled` | `string` | `H19 to H20` |
+| **SYS** | `sys_outpresets_disabled` | `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -820,15 +897,15 @@ n = None
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **SYS** | `sys_outpresets` | `string` | `H19 to H20` |
+| **SYS** | `sys_outpresets` | `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_to_flam3h_quick('SYS'), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.out_flame_utils(kwargs).out_to_flam3h_quick('SYS'), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
+menu = hou.phm().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
 return menu
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
@@ -854,11 +931,11 @@ Here you will create your fractal Flame logic.<br>Since every parameter has the 
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `flamefunc` |  `multiparm block (tabs)` | `H19 to H20` |
+| **FLAME** | `flamefunc` |  `multiparm block (tabs)` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 ```
 
 </br>
@@ -867,11 +944,11 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `note_#` |  `string` | `H19 to H20` |
+| **FLAME** | `mp_add_#` |  `geometry data` | `from H21 UP` |
 
-- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
+- ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).destroy_data_note(), kwargs['parm'].deleteAllKeyframes()
+kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).add_iterator()
 ```
 
 </br>
@@ -880,15 +957,28 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).destroy_data_note(), k
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `prmpastesel_#` |  `ordered menu` | `H19 to H20` |
+| **FLAME** | `note_#` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).destroy_data_note(), kwargs['parm'].deleteAllKeyframes()
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Parameter type |  Houdini version |
+|:---|:---|---:|---:|
+| **FLAME** | `prmpastesel_#` |  `ordered menu` | `from H20.5` |
+
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
+```python
+hou.phm().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_copypaste()
+menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_copypaste()
 return menu
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
@@ -902,11 +992,11 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `doiter_disabled_#` |  `button` | `H19 to H20` |
+| **FLAME** | `doiter_disabled_#` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -915,11 +1005,11 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_u
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `doiter_#` |  `button` | `H19 to H20` |
+| **FLAME** | `doiter_#` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -928,11 +1018,11 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_u
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `xfviz_off_#` |  `button` | `H19 to H20` |
+| **FLAME** | `xfviz_off_#` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -941,11 +1031,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `xfviz_on_#` |  `button` | `H19 to H20` |
+| **FLAME** | `xfviz_on_#` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -954,11 +1044,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `iw_#` |  `float` | `H19 to H20` |
+| **FLAME** | `iw_#` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update()
 ```
 
 </br>
@@ -967,11 +1057,11 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_u
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `xaos_#` |  `string` | `H19 to H20` |
+| **FLAME** | `xaos_#` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).auto_set_xaos()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -984,11 +1074,11 @@ kwargs['node'].hdaModule().flam3.flam3h_ui_msg_utils(kwargs).ui_xaos_infos()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `alpha_#` |  `float` | `H19 to H20` |
+| **FLAME** | `alpha_#` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils.destroy_cachedUserData(kwargs['node'], 'iter_sel')
+hou.phm().flam3.flam3h_iterator_utils.destroy_cachedUserData(kwargs['node'], 'iter_sel')
 ```
 
 </br>
@@ -997,11 +1087,11 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils.destroy_cachedUserData(kwargs[
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `preblurtype_#` |  `ordered menu` | `H19 to H20` |
+| **FLAME** | `preblurtype_#` |  `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_pb()
+menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T_pb()
 return menu
 ```
 
@@ -1011,11 +1101,11 @@ return menu
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `pre1type_#`, `pre2type_#`, `p1type_#` |  `ordered menu` | `H19 to H20` |
+| **FLAME** | `pre1type_#`, `pre2type_#`, `p1type_#` |  `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP()
+menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T_PP()
 return menu
 ```
 
@@ -1025,7 +1115,7 @@ return menu
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `pre2weight_#` |  `float` | `149 to 20.5` |
+| **FLAME** | `pre2weight_#` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1038,11 +1128,11 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_iter_pre_var
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `v1type_#`, `v2type_#`, `v3type_#`, `v4type_#` |  `ordered menu` | `H19 to H20` |
+| **FLAME** | `v1type_#`, `v2type_#`, `v3type_#`, `v4type_#` |  `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T()
+menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T()
 return menu
 ```
 
@@ -1052,11 +1142,11 @@ return menu
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `scl_#` |  `float` | `H19 to H20` |
+| **FLAME** | `scl_#` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_affine_scale()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_affine_scale()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1069,7 +1159,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pre
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `ang_#` |  `float` | `H19 to H20` |
+| **FLAME** | `ang_#` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1082,11 +1172,11 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `pscl_#` |  `float` | `H19 to H20` |
+| **FLAME** | `pscl_#` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_post_affine_scale()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_post_affine_scale()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1099,7 +1189,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pos
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FLAME** | `pang_#` |  `float` | `H19 to H20` |
+| **FLAME** | `pang_#` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1124,11 +1214,11 @@ It allows for a great deal of creative experimentation by taking the combined re
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FF** | `doff_disabled` |  `button` | `H19 to H20` |
+| **FF** | `doff_disabled` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1137,11 +1227,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_F
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FF** | `doff_enabled` |  `button` | `H19 to H20` |
+| **FF** | `doff_enabled` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1150,11 +1240,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_private_F
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FF** | `xfvizff_off` |  `button` | `H19 to H20` |
+| **FF** | `xfvizff_off` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1163,11 +1253,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FF** | `xfvizff_on` |  `button` | `H19 to H20` |
+| **FF** | `xfvizff_on` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1176,11 +1266,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_xf_ff_viz
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FF** | `ffnote` |  `string` | `H19 to H20` |
+| **FF** | `ffnote` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).note_FF(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).note_FF(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1189,15 +1279,15 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).note_FF(), kwargs['par
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FF** | `ffprmpastesel` |  `ordered menu` | `H19 to H20` |
+| **FF** | `ffprmpastesel` |  `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_FF()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_FF()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_copypaste_FF()
+menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_copypaste_FF()
 return menu
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
@@ -1211,11 +1301,11 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_FF()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FF** | `ffpre1type`, `ffp1type`, `ffp2type` |  `ordered menu` | `H19 to H20` |
+| **FF** | `ffpre1type`, `ffp1type`, `ffp2type` |  `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_PP_FF()
+menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T_PP_FF()
 return menu
 ```
 
@@ -1225,11 +1315,11 @@ return menu
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FF** | `ffv1type`, `ffv2type` |  `ordered menu` | `H19 to H20` |
+| **FF** | `ffv1type`, `ffv2type` |  `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_T_FF()
+menu = hou.phm().flam3.flam3h_iterator_utils(kwargs).menu_T_FF()
 return menu
 ```
 
@@ -1239,7 +1329,7 @@ return menu
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FF** | `ffp2weight` |  `float` | `H19 to H20` |
+| **FF** | `ffp2weight` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1252,11 +1342,11 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_FF_post_vars
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FF** | `ffscl` |  `float` | `H19 to H20` |
+| **FF** | `ffscl` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_FF_affine_scale()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_FF_affine_scale()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1269,7 +1359,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pre
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FF** | `ffang` |  `float` | `H19 to H20` |
+| **FF** | `ffang` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1282,11 +1372,11 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).reset_preaffine_F
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FF** | `ffpscl` |  `float` | `H19 to H20` |
+| **FF** | `ffpscl` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).iterator_FF_post_affine_scale()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_FF_post_affine_scale()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1299,7 +1389,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).prm_paste_sel_pos
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **FF** | `ffpang` |  `float` | `H19 to H20` |
+| **FF** | `ffpang` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1324,11 +1414,11 @@ In addition to playing with the shader parameters for each iterator, fractal Fla
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **CP** | `hsv` |  `float vector 3` | `H19 to H20` |
+| **CP** | `hsv` |  `float vector 3` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_hsv()
+hou.phm().flam3.flam3h_palette_utils(kwargs).palette_hsv()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1341,7 +1431,7 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP(2)
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **CP** | `keephsv` |  `toggle` | `H19 to H20` |
+| **CP** | `keephsv` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -1354,11 +1444,11 @@ kwargs['parm'].deleteAllKeyframes()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **CP** | `palettehsv` |  `ramp type color RGB` | `H19 to H20` |
+| **CP** | `palettehsv` |  `ramp type color RGB` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_lock()
+hou.phm().flam3.flam3h_palette_utils(kwargs).palette_lock()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1371,11 +1461,11 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **CP** | `cp_bases` |  `ordered menu` | `H19 to H20` |
+| **CP** | `cp_bases` |  `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).cp_bases_selection_msg(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_palette_utils(kwargs).cp_bases_selection_msg(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1384,7 +1474,7 @@ hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).cp_bases_selection_msg(
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **CP** | `cp_lookupsamples` |  `ordered menu` | `H19 to H20` |
+| **CP** | `cp_lookupsamples` |  `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -1397,11 +1487,11 @@ kwargs['parm'].deleteAllKeyframes()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **CP** | `palette` |  `ramp type color RGB` | `H19 to H20` |
+| **CP** | `palette` |  `ramp type color RGB` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).palette_cp(True)
+hou.phm().flam3.flam3h_palette_utils(kwargs).palette_cp(True)
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1414,11 +1504,11 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).reset_CP_palette_a
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **CP** | `palettefile` |  `file` | `H19 to H20` |
+| **CP** | `palettefile` |  `file` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PRESETS(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_PRESETS(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1427,11 +1517,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_CP_
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **CP** | `palettename` |  `string` | `H19 to H20` |
+| **CP** | `palettename` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).cp_preset_name_set(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_palette_utils(kwargs).cp_preset_name_set(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1444,15 +1534,15 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).flam3h_ramp_save()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **CP** | `palettepresets_off` |  `string` | `H19 to H20` |
+| **CP** | `palettepresets_off` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
+menu = hou.phm().flam3.flam3h_palette_utils(kwargs).menu_cp_presets_empty()
 return menu
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
@@ -1466,15 +1556,15 @@ kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ram
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **CP** | `palettepresets` |  `string` | `H19 to H20` |
+| **CP** | `palettepresets` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_palette_utils(kwargs).json_to_flam3h_ramp(False), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()
+menu = hou.phm().flam3.flam3h_palette_utils(kwargs).menu_cp_presets()
 return menu
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
@@ -1500,7 +1590,7 @@ _When animating your fractal Flame, turning this on will compute a proper tempor
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **MB** | `domb` |  `toggle` | `H19 to H20` |
+| **MB** | `domb` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1527,11 +1617,11 @@ _It is a native Flame fractal file format containing transformation parameters, 
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **IN** | `inpath` |  `file` | `H19 to H20` |
+| **IN** | `inpath` |  `file` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_IN_PRESETS(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_IN_PRESETS(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1540,15 +1630,15 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_IN_
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **IN** | `inpresets_disabled` |  `string` | `H19 to H20` |
+| **IN** | `inpresets_disabled` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.in_flame_utils(kwargs).in_to_flam3h(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets_empty()
+menu = hou.phm().flam3.in_flame_utils(kwargs).menu_in_presets_empty()
 return menu
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
@@ -1562,15 +1652,15 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **IN** | `inpresets` |  `string` | `H19 to H20` |
+| **IN** | `inpresets` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.in_flame_utils(kwargs).in_to_flam3h(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).menu_in_presets()
+menu = hou.phm().flam3.in_flame_utils(kwargs).menu_in_presets()
 return menu
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
@@ -1584,11 +1674,11 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **IN** | `iternumonload` |  `integer` | `H19 to H20` |
+| **IN** | `iternumonload` |  `integer` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).set_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.in_flame_utils(kwargs).set_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1597,11 +1687,11 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).set_iter_on_load_callback(), 
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **IN** | `useiteronload` |  `toggle` | `H19 to H20` |
+| **IN** | `useiteronload` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1610,11 +1700,11 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), 
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **IN** | `oritername` |  `toggle` | `H19 to H20` |
+| **IN** | `oritername` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1623,7 +1713,7 @@ hou.pwd().hdaModule().flam3.in_flame_utils(kwargs).use_iter_on_load_callback(), 
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **IN** | `in_f3h_affine` |  `toggle` | `H19 to H20` |
+| **IN** | `in_f3h_affine` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -1640,7 +1730,7 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle_f3h_
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **IN** | `propertiescp` |  `toggle` | `H19 to H20` |
+| **IN** | `propertiescp` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -1657,11 +1747,11 @@ kwargs['node'].hdaModule().flam3.in_flame_utils(kwargs).in_to_flam3h_toggle("pro
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **IN** | `cprendervals` |  `button` | `H19 to H20` |
+| **IN** | `cprendervals` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1670,11 +1760,11 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, 
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **IN** | `icon_in_infos_sensor` |  `button` | `H19 to H20` |
+| **IN** | `icon_in_infos_sensor` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_sensor_stats_msg(kwargs)
+hou.phm().flam3.in_flame_utils.in_copy_sensor_stats_msg(kwargs)
 ```
 
 </br>
@@ -1683,11 +1773,11 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_sensor_stats_msg(kwargs)
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **IN** | `icon_in_infos_render` |  `button` | `H19 to H20` |
+| **IN** | `icon_in_infos_render` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
+hou.phm().flam3.in_flame_utils.in_copy_render_stats_msg(kwargs)
 ```
 
 </br>
@@ -1711,11 +1801,11 @@ _It is a native Flame fractal file format containing transformation parameters, 
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outpath` |  `file` | `H19 to H20` |
+| **OUT** | `outpath` |  `file` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT_PRESETS(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1724,11 +1814,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_init_presets_OUT
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outname` |  `string` | `H19 to H20` |
+| **OUT** | `outname` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_add_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.out_flame_utils(kwargs).out_auto_add_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1741,15 +1831,15 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_XML()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outpresets` |  `string` | `H19 to H20` |
+| **OUT** | `outpresets` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_to_flam3h_quick(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.out_flame_utils(kwargs).out_to_flam3h_quick(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
+menu = hou.phm().flam3.out_flame_utils(kwargs).menu_out_contents_presets()
 return menu
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
@@ -1763,7 +1853,7 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).out_presets_copy_menu_l
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outpalette` |  `string` | `H19 to H20` |
+| **OUT** | `outpalette` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -1776,7 +1866,7 @@ kwargs['parm'].deleteAllKeyframes()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `out_f3h_affine` |  `string` | `H19 to H20` |
+| **OUT** | `out_f3h_affine` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -1789,11 +1879,11 @@ kwargs['parm'].deleteAllKeyframes()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `out_in_flame_name` |  `string` | `H19 to H20` |
+| **OUT** | `out_in_flame_name` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_load(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_load(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1802,7 +1892,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_flame_name_inherit_on_lo
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outfractoriumprm` |  `string` | `H19 to H20` |
+| **OUT** | `outfractoriumprm` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -1815,11 +1905,11 @@ kwargs['parm'].deleteAllKeyframes()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `autoadditer` |  `toggle` | `H19 to H20` |
+| **OUT** | `autoadditer` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1828,11 +1918,11 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outedit` |  `toggle` | `H19 to H20` |
+| **OUT** | `outedit` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_toggle_off("outsensor"), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_toggle_off("outsensor"), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -1845,11 +1935,11 @@ kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).reset_OUT_kwargs()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `out_sensorviz_disabled` |  `button` | `H19 to H20` |
+| **OUT** | `out_sensorviz_disabled` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1858,11 +1948,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `out_sensorviz` |  `button` | `H19 to H20` |
+| **OUT** | `out_sensorviz` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1871,11 +1961,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `out_sensorviz_off` |  `button` | `H19 to H20` |
+| **OUT** | `out_sensorviz_off` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1884,11 +1974,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outres` |  `integer vector 2` | `H19 to H20` |
+| **OUT** | `outres` |  `integer vector 2` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
+hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 ```
 
 </br>
@@ -1897,15 +1987,15 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outrespresets` |  `string` | `H19 to H20` |
+| **OUT** | `outrespresets` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).menu_sensor_resolution_set(False), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.out_flame_utils(kwargs).menu_sensor_resolution_set(False), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu Script
 ```python
-menu = kwargs['node'].hdaModule().flam3.out_flame_utils(kwargs).menu_sensor_resolution()
+menu = hou.phm().flam3.out_flame_utils(kwargs).menu_sensor_resolution()
 return menu
 ```
 
@@ -1915,11 +2005,11 @@ return menu
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outcprendervals` |  `button` | `H19 to H20` |
+| **OUT** | `outcprendervals` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1928,11 +2018,11 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, 
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outcenter` |  `float vector 2` | `H19 to H20` |
+| **OUT** | `outcenter` |  `float vector 2` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
+hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 ```
 
 </br>
@@ -1941,11 +2031,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outrotate` |  `float` | `H19 to H20` |
+| **OUT** | `outrotate` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
+hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 ```
 
 </br>
@@ -1954,11 +2044,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outscale` |  `float` | `H19 to H20` |
+| **OUT** | `outscale` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
+hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False)
 ```
 
 </br>
@@ -1967,11 +2057,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outsensorupdate` |  `toggle` | `H19 to H20` |
+| **OUT** | `outsensorupdate` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1980,11 +2070,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(F
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outccdefault` |  `toggle` | `H19 to H20` |
+| **OUT** | `outccdefault` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_compare_and_set_toggle(kwargs['node']), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.out_flame_utils.out_render_curves_compare_and_set_toggle(kwargs['node']), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -1993,11 +2083,11 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_compare_and_set_to
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `icon_f3h_cc_defaults_copy` |  `button` | `H19 to H20` |
+| **OUT** | `icon_f3h_cc_defaults_copy` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_cc_curves_stats_msg(kwargs), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.in_flame_utils.in_copy_cc_curves_stats_msg(kwargs), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -2006,11 +2096,11 @@ hou.pwd().hdaModule().flam3.in_flame_utils.in_copy_cc_curves_stats_msg(kwargs), 
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `icon_f3h_cc_modified_reset` |  `button` | `H19 to H20` |
+| **OUT** | `icon_f3h_cc_modified_reset` |  `button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_set_and_retrieve_defaults(kwargs['node']), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.out_flame_utils.out_render_curves_set_and_retrieve_defaults(kwargs['node']), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -2019,11 +2109,11 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_set_and_retrieve_d
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outcurveoverallval` |  `string` | `H19 to H20` |
+| **OUT** | `outcurveoverallval` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
+hou.phm().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
 
 </br>
@@ -2032,11 +2122,11 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwarg
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outcurveredval` |  `string` | `H19 to H20` |
+| **OUT** | `outcurveredval` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
+hou.phm().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
 
 </br>
@@ -2045,11 +2135,11 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwarg
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outcurvegreenval` |  `string` | `H19 to H20` |
+| **OUT** | `outcurvegreenval` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
+hou.phm().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
 
 </br>
@@ -2058,11 +2148,11 @@ hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwarg
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **OUT** | `outcurveblueval` |  `string` | `H19 to H20` |
+| **OUT** | `outcurveblueval` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
+hou.phm().flam3.out_flame_utils.out_render_curves_retrive_data(kwargs['node'])
 ```
 
 </br>
@@ -2085,11 +2175,11 @@ _but do not directly impact the visual characteristics of individual fractal Fla
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `paletteplus` |  `toggle` | `H19 to H20` |
+| **PREFS** | `paletteplus` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_palette_256_plus_check(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.out_flame_utils(kwargs).out_palette_256_plus_check(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -2098,7 +2188,7 @@ hou.pwd().hdaModule().flam3.out_flame_utils(kwargs).out_palette_256_plus_check()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `solo_follow` |  `toggle` | `H19 to H20` |
+| **PREFS** | `solo_follow` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -2111,7 +2201,7 @@ kwargs['parm'].deleteAllKeyframes()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `flashmsg` |  `toggle` | `H19 to H20` |
+| **PREFS** | `flashmsg` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -2124,7 +2214,7 @@ kwargs['parm'].deleteAllKeyframes()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `iterclr` |  `toggle` | `H19 to H20` |
+| **PREFS** | `iterclr` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -2137,11 +2227,11 @@ kwargs['parm'].deleteAllKeyframes()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `enumeratemenu` |  `toggle` | `H19 to H20` |
+| **PREFS** | `enumeratemenu` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -2150,11 +2240,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_pref
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `itericons` |  `toggle` | `H19 to H20` |
+| **PREFS** | `itericons` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_menu(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_menu(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -2163,11 +2253,11 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).refresh_iterator_vars_
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `vex_precision` |  `string` | `H19 to H20` |
+| **PREFS** | `vex_precision` |  `string` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_scripts(kwargs).flam3h_check_first_node_instance_prefs_cvex_precision_msg(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_scripts(kwargs).flam3h_check_first_node_instance_prefs_cvex_precision_msg(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -2176,11 +2266,11 @@ hou.pwd().hdaModule().flam3.flam3h_scripts(kwargs).flam3h_check_first_node_insta
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `xm` |  `ordered menu` | `H19 to H20` |
+| **PREFS** | `xm` |  `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -2189,11 +2279,11 @@ hou.pwd().hdaModule().flam3.flam3h_iterator_utils(kwargs).flam3h_xaos_convert(),
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `ptcount` |  `integer` | `H19 to H20` |
+| **PREFS** | `ptcount` |  `integer` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(kwargs['node'])
+hou.phm().flam3.flam3h_iterator_utils.flam3h_on_loaded_set_density_menu(kwargs['node'])
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -2206,7 +2296,7 @@ kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).menu_global_densi
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `camhandle` |  `toggle` | `H19 to H20` |
+| **PREFS** | `camhandle` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -2219,7 +2309,7 @@ kwargs['parm'].deleteAllKeyframes()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `camcull` |  `toggle` | `H19 to H20` |
+| **PREFS** | `camcull` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -2232,7 +2322,7 @@ kwargs['parm'].deleteAllKeyframes()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `fcam` |  `Operator Path` | `H19 to H20` |
+| **PREFS** | `fcam` |  `Operator Path` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -2245,11 +2335,11 @@ kwargs['parm'].deleteAllKeyframes()
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `setdark` |  `toggle` | `H19 to H20` |
+| **PREFS** | `setdark` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -2258,11 +2348,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwar
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `vptype` |  `ordered menu` | `H19 to H20` |
+| **PREFS** | `vptype` |  `ordered menu` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay(), kwargs['parm'].deleteAllKeyframes()
 ```
 
 </br>
@@ -2271,11 +2361,11 @@ hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleDisplay
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `vpptsize` |  `float` | `H19 to H20` |
+| **PREFS** | `vpptsize` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSize(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).viewportParticleSize(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -2288,11 +2378,11 @@ kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).viewportParticleSi
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `vpww` |  `float` | `H19 to H20` |
+| **PREFS** | `vpww` |  `float` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_general_utils(kwargs).viewportWireWidth(), kwargs['parm'].deleteAllKeyframes()
+hou.phm().flam3.flam3h_general_utils(kwargs).viewportWireWidth(), kwargs['parm'].deleteAllKeyframes()
 ```
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -2316,11 +2406,11 @@ _Here you will find informations about FLAM3H™._
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **ABOUT** | `icon_about_error` |  `Button` | `H19 to H20` |
+| **ABOUT** | `icon_about_error` |  `Button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_about_utils.flam3h_about_show_info_panel(kwargs['node'])
+hou.phm().flam3.flam3h_about_utils.flam3h_about_show_info_panel()
 ```
 
 </br>
@@ -2329,11 +2419,11 @@ hou.pwd().hdaModule().flam3.flam3h_about_utils.flam3h_about_show_info_panel(kwar
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **ABOUT** | `icon_about` |  `Button` | `H19 to H20` |
+| **ABOUT** | `icon_about` |  `Button` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
-hou.pwd().hdaModule().flam3.flam3h_about_utils.flam3h_about_show_info_panel(kwargs['node'])
+hou.phm().flam3.flam3h_about_utils.flam3h_about_show_info_panel()
 ```
 
 </br>
@@ -2342,7 +2432,7 @@ hou.pwd().hdaModule().flam3.flam3h_about_utils.flam3h_about_show_info_panel(kwar
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **ABOUT** | `flam3homepage` |  `geometry data` | `H19 to H20` |
+| **ABOUT** | `flam3homepage` |  `geometry data` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -2355,7 +2445,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('web'
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **ABOUT** | `flam3github` |  `geometry data` | `H19 to H20` |
+| **ABOUT** | `flam3github` |  `geometry data` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -2368,7 +2458,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('git'
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **ABOUT** | `flam3insta` |  `geometry data` | `H19 to H20` |
+| **ABOUT** | `flam3insta` |  `geometry data` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -2381,7 +2471,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('inst
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **ABOUT** | `flam3youtube` |  `geometry data` | `H19 to H20` |
+| **ABOUT** | `flam3youtube` |  `geometry data` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -2394,7 +2484,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('yout
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **ABOUT** | `tffa_pdf` |  `geometry data` | `H19 to H20` |
+| **ABOUT** | `tffa_pdf` |  `geometry data` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -2407,7 +2497,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('pape
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **ABOUT** | `tffa_flam3github` |  `geometry data` | `H19 to H20` |
+| **ABOUT** | `tffa_flam3github` |  `geometry data` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -2420,7 +2510,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('flam
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **ABOUT** | `fract_git` |  `geometry data` | `H19 to H20` |
+| **ABOUT** | `fract_git` |  `geometry data` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -2433,7 +2523,7 @@ kwargs['node'].hdaModule().flam3.flam3h_about_utils(kwargs).flam3h_web_run('frac
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **ABOUT** | `fract_web` |  `geometry data` | `H19 to H20` |
+| **ABOUT** | `fract_web` |  `geometry data` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python

@@ -1,24 +1,28 @@
-### FLAM3H™ (and FLAM3H™USD) icon set ###
+### FLAM3H™ (and FLAM3H™USD) Full icon set ###
 - #### THIS FILE IS ONLY INFORMATIVE and part of the Documentations
 
 </br>
 
-#### Quick links
+- #### Quick links
 
-- **FLAM3H™** [**UI_ICON_map H20.5 to H21 UP**](../src/FLAM3H__UI_ICON_map_H205_to_H21_UP.md)
-- **FLAM3H™** [**UI_ICON_map H19 to H20**](../src/FLAM3H__UI_ICON_map_H19_to_H20.md)
-- **FLAM3H™** [**UI_PARM_map H20.5 to H21 UP**](../src/py_flam3__UI_PARM_map_H205_to_H21_UP.md)
-- **FLAM3H™** [**UI_PARM_map H19 to H20**](../src/py_flam3__UI_PARM_map_H19_to_H20.md)
+- **FLAM3H™** [**UI_ICON_map H19.0 to H20.0**](../src/F3H_UI_ICON_H19_to_H20.md)
+- **FLAM3H™** [**UI_ICON_map H20.5 to H21.0 UP**](../src/F3H_UI_ICON_H205_to_H21_UP.md)
+- **FLAM3H™** [**PY_PARM_map H19.0 to H20.0**](../src/F3H_PY_PARM_H19_to_H20.md)
+- **FLAM3H™** [**PY_PARM_map H20.5 to H21.0 UP**](../src/F3H_PY_PARM_H205_to_H21_UP.md)
 
 </br>
 
-- **FLAM3H™USD** [**UI_ICON_map**](../src/FLAM3HUSD__UI_ICON_map.md)
-- **FLAM3H™USD** [**UI_PARM_map H20.5 to H21 UP**](../src/py_flam3usd__UI_PARM_map_H205_to_H21_UP.md)
-- **FLAM3H™USD** [**UI_PARM_map H19 to H20**](../src/py_flam3usd__UI_PARM_map_H19_to_H20.md)
+- **FLAM3H™USD** [**UI_ICON_map**](../src/F3HUSD_UI_ICON.md)
+- **FLAM3H™USD** [**PY_PARM_map H19 to H20**](../src/F3HUSD_PY_PARM_H19_to_H20.md)
+- **FLAM3H™USD** [**PY_PARM_map H20.5 to H21 UP**](../src/F3HUSD_PY_PARM_H205_to_H21_UP.md)
 
 <br>
 <br>
 <br>
+<br>
+
+# Intro
+
 <br>
 
 Following is the full icon set that have been crafted and included with FLAM3H™ (and FLAM3H™USD) for easy find and review.<br>
@@ -43,6 +47,13 @@ They are already embedded inside each HDA and available in this repository for e
 
 **Note**: _The project logo and this icon set are NOT covered by the **CC BY-SA 4.0** license_.</br>
 _They remain Copyright of (c) 2021 F stands for liFe (and their other respective owners), and may not be redistributed without permission_.
+
+</br>
+</br>
+</br>
+</br>
+
+# Contents
 
 </br>
 </br>
