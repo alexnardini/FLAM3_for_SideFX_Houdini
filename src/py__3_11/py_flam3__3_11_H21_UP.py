@@ -1859,7 +1859,7 @@ class f3h_prm_utils
             prm.lock(False)
             prm.deleteAllKeyframes()
             if revertToDefaults: prm.revertToDefaults()
-            prm.set(data) # type: ignore
+            else: prm.set(data) # type: ignore
             
         else:
             raise F3H_Error(f"{node.name()}: The passed in parameter is not valid:\n{_prm}")
@@ -6161,16 +6161,9 @@ class flam3h_iterator_utils
             for mp_idx in range(1, iter_count + 1): _mpmem_x_append(node.parm(f"{mpmem_x_name}_{mp_idx}").eval() - 1)
             
             xaos_collect: TA_XAOS_Collect = out_flame_utils.out_xaos_collect(node, iter_count, n.xaos)
-            fill_all_xaos: list[list[float]] = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in xaos_collect]
-            fill_all_xaos_swap: list[list[float]] = []
-            _fill_all_xaos_swap_append: Callable[[list[float]], None] = fill_all_xaos_swap.append
-            for this_xaos in fill_all_xaos:
-                iter: list[float] = []
-                _iter_append: Callable[[float], None] = iter.append
-                for idx in range(len(this_xaos)):
-                    _iter_append(this_xaos[mpmem_x[idx]])
-                _fill_all_xaos_swap_append(iter)
-                
+            fill_all_xaos: list[list[float]] = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in xaos_collect] # this probably not needed here but just to be sure
+            fill_all_xaos_swap: list[list[float]] = [[this_xaos[mpmem_x[idx]] for idx in range(len(this_xaos))] for this_xaos in fill_all_xaos]
+            
             # reset mpmem_x
             for mp_idx in range(1, iter_count + 1):
                 prm = node.parm(f"{mpmem_x_name}_{(mp_idx)}")
@@ -6180,9 +6173,10 @@ class flam3h_iterator_utils
             div_xaos, div_weight = flam3h_iterator_utils.auto_set_xaos_div_str(node)
             # Convert to strings
             xaos_str: list[list[str]] = [[str(item) for item in xaos] for xaos in fill_all_xaos_swap]
-            # set all multi parms xaos strings parms
+            # Build FLAM3H™ xaos strings
             _join: Callable[[Iterable[str]], str] = div_weight.join
             xaos_str_round_floats: list[str] = [_join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)]
+            # set all multi parms xaos strings parms
             prm_xaos_name: str = n.xaos
             for mp_idx in range(1, iter_count + 1):
                 prm = node.parm(f"{prm_xaos_name}_{mp_idx}")
@@ -8012,8 +8006,7 @@ class flam3h_iterator_utils
                 if prm_xfviz_solo:
                     
                     prm_name: str = n.main_xf_viz
-                    for idx in range(iter_num):
-                        mp_idx: int = idx + 1
+                    for mp_idx in range(1, iter_num + 1):
                         
                         this_iter_now_val: int = node.parm(f"{prm_name}_{mp_idx}").eval()
                         if this_iter_now_val:
@@ -8039,11 +8032,21 @@ class flam3h_iterator_utils
                     self.del_comment_and_user_data_iterator(node)
                     self.set_comment_and_user_data_iterator(node, str(marked_idx + 1))
                 
-                # Updated xaos strings based on the new order of the iterators
+                # Update Xaos strings based on the new iterators' order if needed (if Xaos is On/Active)
+                # Since this is run once Houdini trigger the menu and after the reorder is complete (after the user move an iterator in a new position)
+                # Houdini will cook the FLAM3H™ node twice, once for the reorder and once for the menu (to run this code).
                 self.auto_set_xaos_shuffle(node, iter_count, n)
                 
-                # Update iterator's names/notes if needed
+                # Update iterator's names/notes if needed (if they have a default name)
                 self.flam3h_update_iterators_names(node, iter_count)
+                
+                '''
+                Note that we are not updating 'mpmem' with:
+                
+                    def auto_set_xaos_data_set_MP_MEM(node: hou.SopNode, data: list | tuple) -> None:
+                    
+                because 'mpmem' is turned into a set which they are unordered anyway so no need to update this data.
+                '''
                 
             
             # Get paste info once
