@@ -503,13 +503,13 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
 
         _Additionally_:<br />
 
-        on the handles viz geoemtry a full snapshot of the Flame currently being worked on is also stored into a global detail attribute call: *`XML`*.
+        on the handles viz geometry a full snapshot of the Flame currently being worked on is also stored into a global detail attribute call: *`XML`*.
         This data is a proper Flame preset format and can be copied and pasted into FLAM3H™, Apophysis, Fractorium and other Flam3 compatible fractal Flame editors. 
 
         It is a small but very handy feature that allow to store a full Flame presets with its xform handles as representative geo.
 
         It is important to know that the *`XML`* detail attribute will be filled with a proper Flame preset data
-        only if the current Flame being worked on is Flam3 compatible, other wise a message string will be stored instead.
+        only if the current Flame being worked on is Flam3 compatible, otherwise a message string will be stored instead.
 
         You can read the [OUT tab intro Tip|#OUT] to know more about Flam3 compatibility.
     
