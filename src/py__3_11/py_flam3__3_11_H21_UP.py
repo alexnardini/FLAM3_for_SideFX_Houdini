@@ -6012,7 +6012,6 @@ class flam3h_iterator_utils:
 class flam3h_iterator_utils
 
 @STATICMETHODS
-* auto_set_xaos_shuffle(node, iter_count: int, n: flam3h_iterator_prm_names) -> None:
 * flam3h_iterator_is_default_name(name: str, regex: str = "^[^\d\s()]+(?: [^\d\s()]+)*[\d]+") -> bool:
 * flam3h_update_iterators_names(node: hou.SopNode, iter_count: int) -> None:
 * flam3h_on_loaded_set_density_menu(node: hou.SopNode) -> None:
@@ -6034,6 +6033,7 @@ class flam3h_iterator_utils
 * pastePRM_T_from_list(node: hou.SopNode, flam3node: hou.SopNode | None, prmT_list: tuple, varsPRM: tuple, id: str, id_from: str) -> None:
 * paste_save_note(_note: str) -> str:
 * paste_set_note(node: hou.SopNode, flam3node: hou.SopNode | None, int_mode: int, str_section: str, id: str, id_from: str) -> None:
+* auto_set_xaos_shuffle(node, iter_count: int, n: flam3h_iterator_prm_names) -> None:
 * auto_set_xaos_div_str(node: hou.SopNode) -> tuple[str, str]:
 * auto_set_xaos_data_get_MP_MEM(node: hou.SopNode) -> list[int] | None:
 * auto_set_xaos_data_get_XAOS_PREV(node: hou.SopNode) -> list[list[str]] | None:
@@ -6130,62 +6130,6 @@ class flam3h_iterator_utils
         """ 
         self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
-        
-        
-    @staticmethod
-    def auto_set_xaos_shuffle(node, iter_count: int, n: flam3h_iterator_prm_names) -> None:
-        """When iterators are shuffled/reordered,</br>
-        this definition will shuffle/reorder the xaos strings to match the new iterators order.</br>
-        It is being called specifically from:
-        
-        * def menu_select_iterator_data(self, data_cached: tuple[list[Any] | Any, ...], data_now: tuple[list[Any] | Any, ...], data_names: tuple[str, ...]) -> TA_Menu:
-        
-        Args:
-            node(hou.SopNode): this FLAM3H™ node
-            iter_count(int): number of iterators in this FLAM3H™ node.
-            n(flam3h_iterator_prm_names): this FLAM3H™ node parameters names class instance.
-        
-        Returns:
-            (None):
-        """
-        
-        # xaos_node: hou.SopNode = hou.node(flam3h_general_utils({'node': node}).get_node_path(f3h_nodeNames.DEFAULT_TFFA_XAOS))
-        xaos_node: hou.SopNode = hou.node(f"./{f3h_nodeNames.DEFAULT_TFFA_XAOS}")
-        XS: int = xaos_node.geometry().attribValue('XS')
-        
-        if XS:
-            
-            mpmem_x: list[int] = [] # This is used as index lookup
-            mpmem_x_name: str = n.main_mpmem_x
-            _mpmem_x_append: Callable[[int], None] = mpmem_x.append
-            for mp_idx in range(1, iter_count + 1): _mpmem_x_append(node.parm(f"{mpmem_x_name}_{mp_idx}").eval() - 1)
-            
-            xaos_collect: TA_XAOS_Collect = out_flame_utils.out_xaos_collect(node, iter_count, n.xaos)
-            fill_all_xaos: list[list[float]] = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in xaos_collect] # this probably not needed here but just to be sure
-            fill_all_xaos_swap: list[list[float]] = [[this_xaos[mpmem_x[idx]] for idx in range(len(this_xaos))] for this_xaos in fill_all_xaos]
-            
-            # reset mpmem_x
-            for mp_idx in range(1, iter_count + 1):
-                prm = node.parm(f"{mpmem_x_name}_{(mp_idx)}")
-                flam3h_prm_utils.set(node, prm, mp_idx)
-            
-            # AUTO DIV XAOS strings
-            div_xaos, div_weight = flam3h_iterator_utils.auto_set_xaos_div_str(node)
-            # Convert to strings
-            xaos_str: list[list[str]] = [[str(item) for item in xaos] for xaos in fill_all_xaos_swap]
-            # Build FLAM3H™ xaos strings
-            _join: Callable[[Iterable[str]], str] = div_weight.join
-            xaos_str_round_floats: list[str] = [_join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)]
-            # set all multi parms xaos strings parms
-            prm_xaos_name: str = n.xaos
-            for mp_idx in range(1, iter_count + 1):
-                prm = node.parm(f"{prm_xaos_name}_{mp_idx}")
-                prm.lock(False)
-                prm.deleteAllKeyframes() # This parameter can not be animated
-            for mp_idx, xaos in enumerate(xaos_str_round_floats): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").set(div_xaos + xaos)
-            
-            # Update xaos prev
-            flam3h_iterator_utils.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
         
         
     @staticmethod
@@ -6983,6 +6927,62 @@ class flam3h_iterator_utils
                     flam3h_prm_utils.set(node, prm_ff_note_name, prm_ff_note_val)
                 _MSG: str = f"{node.name()}.FF{str_section} -> Copied from: {node_name}.FF{str_section}"
                 flam3h_general_utils.set_status_msg(_MSG, 'IMP')
+                
+                
+    @staticmethod
+    def auto_set_xaos_shuffle(node, iter_count: int, n: flam3h_iterator_prm_names) -> None:
+        """When iterators are shuffled/reordered,</br>
+        this definition will shuffle/reorder the xaos strings to match the new iterators order.</br>
+        It is being called specifically from:
+        
+        * def menu_select_iterator_data(self, data_cached: tuple[list[Any] | Any, ...], data_now: tuple[list[Any] | Any, ...], data_names: tuple[str, ...]) -> TA_Menu:
+        
+        Args:
+            node(hou.SopNode): this FLAM3H™ node
+            iter_count(int): number of iterators in this FLAM3H™ node.
+            n(flam3h_iterator_prm_names): this FLAM3H™ node parameters names class instance.
+        
+        Returns:
+            (None):
+        """
+        
+        # xaos_node: hou.SopNode = hou.node(flam3h_general_utils({'node': node}).get_node_path(f3h_nodeNames.DEFAULT_TFFA_XAOS))
+        xaos_node: hou.SopNode = hou.node(f"./{f3h_nodeNames.DEFAULT_TFFA_XAOS}")
+        XS: int = xaos_node.geometry().attribValue('XS')
+        
+        if XS:
+            
+            mpmem_x: list[int] = [] # This is used as index lookup
+            mpmem_x_name: str = n.main_mpmem_x
+            _mpmem_x_append: Callable[[int], None] = mpmem_x.append
+            for mp_idx in range(1, iter_count + 1): _mpmem_x_append(node.parm(f"{mpmem_x_name}_{mp_idx}").eval() - 1)
+            
+            xaos_collect: TA_XAOS_Collect = out_flame_utils.out_xaos_collect(node, iter_count, n.xaos)
+            fill_all_xaos: list[list[float]] = [np_pad(item, (0, iter_count - len(item)), 'constant', constant_values = 1).tolist() for item in xaos_collect] # this probably not needed here but just to be sure
+            fill_all_xaos_swap: list[list[float]] = [[this_xaos[mpmem_x[idx]] for idx in range(len(this_xaos))] for this_xaos in fill_all_xaos]
+            
+            # reset mpmem_x
+            for mp_idx in range(1, iter_count + 1):
+                prm = node.parm(f"{mpmem_x_name}_{(mp_idx)}")
+                flam3h_prm_utils.set(node, prm, mp_idx)
+            
+            # AUTO DIV XAOS strings
+            div_xaos, div_weight = flam3h_iterator_utils.auto_set_xaos_div_str(node)
+            # Convert to strings
+            xaos_str: list[list[str]] = [[str(item) for item in xaos] for xaos in fill_all_xaos_swap]
+            # Build FLAM3H™ xaos strings
+            _join: Callable[[Iterable[str]], str] = div_weight.join
+            xaos_str_round_floats: list[str] = [_join(x) for x in out_flame_utils.out_util_round_floats(xaos_str)]
+            # set all multi parms xaos strings parms
+            prm_xaos_name: str = n.xaos
+            for mp_idx in range(1, iter_count + 1):
+                prm = node.parm(f"{prm_xaos_name}_{mp_idx}")
+                prm.lock(False)
+                prm.deleteAllKeyframes() # This parameter can not be animated
+            for mp_idx, xaos in enumerate(xaos_str_round_floats): node.parm(f"{prm_xaos_name}_{mp_idx + 1}").set(div_xaos + xaos)
+            
+            # Update xaos prev
+            flam3h_iterator_utils.auto_set_xaos_data_set_XAOS_PREV(node, xaos_str)
 
 
     @staticmethod
