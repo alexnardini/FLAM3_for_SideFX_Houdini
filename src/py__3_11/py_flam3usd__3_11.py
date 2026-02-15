@@ -202,7 +202,7 @@ class f3husd_pvt:
                                 )
     
     
-class f3husd_hda:
+class f3h_hda:
     '''
     Everything related to the FLAM3H™ node parameters names and miscellaneous constants being imported.</br>
     This include paths to and type of specific nodes being referenced inside FLAM3H™USD on import.</br>
@@ -442,12 +442,12 @@ class flam3husd_scripts
         If multiple FLAM3H™USD nodes and more than one FLAM3H™ nodes are already present,
         always import the FLAM3H™ node that has not been imported yet; If all FLAM3H™ nodes are imported, it will import nothing.
         
-        It will NOT automatically import FLAM3H™ nodes with more than f3husd_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT point count. The users will need to import them by theirself.
+        It will NOT automatically import FLAM3H™ nodes with more than f3h_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT point count. The users will need to import them by theirself.
         
         Args:
             node(hou.LopNode): This FLAM3H™USD node
             msg(bool): Default to True. When False it will not print messages (Status bar and Flash messages)
-            limit(bool): Default to True. If False, it will not import FLAM3H™ node with a points count higher than 50M(millions) (f3husd_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT).
+            limit(bool): Default to True. If False, it will not import FLAM3H™ node with a points count higher than 50M(millions) (f3h_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT).
             
         Returns:
             (bool): True if an instance is found and False if not.
@@ -459,7 +459,7 @@ class flam3husd_scripts
             # displayFlag
             display_flag: bool = node.isGenericFlagSet(hou.nodeFlag.Display) # type: ignore
                 
-            f3h_all_instances: tuple[hou.SopNode, ...] = hou.nodeType(f3husd_hda.F3H_NODE_TYPE_NAME_CATEGORY).instances()
+            f3h_all_instances: tuple[hou.SopNode, ...] = hou.nodeType(f3h_hda.F3H_NODE_TYPE_NAME_CATEGORY).instances()
             if f3h_all_instances:
                 
                 f3husd_all_instances: list[hou.LopNode] = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY).instances()
@@ -474,10 +474,10 @@ class flam3husd_scripts
                             pass
                         
                         else:
-                            # If the point count of the FLAM3H™ node we want to import is not greater than f3husd_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT
+                            # If the point count of the FLAM3H™ node we want to import is not greater than f3h_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT
                             if limit:
                                 
-                                if f3h.parm(f3husd_hda.PRM_GLB_DENSITY).eval() <= f3husd_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT:
+                                if f3h.parm(f3h_hda.PRM_GLB_DENSITY).eval() <= f3h_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT:
                                     flam3husd_prm_utils.set(node, f3husd_tabs.PREFS.PRM_F3H_PATH, f3h.path())
                                     
                                     if display_flag:
@@ -509,10 +509,10 @@ class flam3husd_scripts
                             return False
                         
                         else:
-                            # If the point count of the FLAM3H™ node we want to import is not greater than f3husd_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT
+                            # If the point count of the FLAM3H™ node we want to import is not greater than f3h_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT
                             if limit:
                                 
-                                if f3h_all_instances[0].parm(f3husd_hda.PRM_GLB_DENSITY).eval() <= f3husd_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT:
+                                if f3h_all_instances[0].parm(f3h_hda.PRM_GLB_DENSITY).eval() <= f3h_hda.DEFAULT_F3H_IMPORT_DENSITY_LIMIT:
                                     flam3husd_prm_utils.set(node, f3husd_tabs.PREFS.PRM_F3H_PATH, f3h_all_instances[0].path())
                                     
                                     if display_flag:
@@ -830,13 +830,13 @@ class flam3husd_scripts
             
         f3h_path: str = node.parm(f3husd_tabs.PREFS.PRM_F3H_PATH).eval()
         
-        f3h_to_f3husd_node: hou.SopNode = hou.node(f"{f3h_path}{f3husd_hda.F3H_TO_FLAM3HUSD_NODE_PATH}")
+        f3h_to_f3husd_node: hou.SopNode = hou.node(f"{f3h_path}{f3h_hda.F3H_TO_FLAM3HUSD_NODE_PATH}")
         try:
             type: hou.SopNodeType = f3h_to_f3husd_node.type()
         except AttributeError:
             flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
         else:
-            if hou.node(f3h_path).type().nameWithCategory() == f3husd_hda.F3H_NODE_TYPE_NAME_CATEGORY and type.name() == f3husd_hda.F3H_TO_FLAM3HUSD_NODE_TYPE_CATEGORY:
+            if hou.node(f3h_path).type().nameWithCategory() == f3h_hda.F3H_NODE_TYPE_NAME_CATEGORY and type.name() == f3h_hda.F3H_TO_FLAM3HUSD_NODE_TYPE_CATEGORY:
                 if hou.node(f3h_path).parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID).eval():
                     flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
                 else: flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
@@ -1436,7 +1436,7 @@ class flam3husd_general_utils
             (list): [return a list of open Parmaeter Editors with a FLAM3H™ node on display]
         """    
         parms: tuple[Any, ...] = hou.ui.paneTabs() # type: ignore
-        return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == f3husd_hda.F3H_NODE_TYPE_NAME_CATEGORY]
+        return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == f3h_hda.F3H_NODE_TYPE_NAME_CATEGORY]
 
 
     @staticmethod
@@ -1673,7 +1673,7 @@ class flam3husd_general_utils
         # If it is a valid Houdini version
         if node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID).eval():
             
-            f3h_all_instances: tuple[hou.SopNode, ...] = hou.nodeType(f3husd_hda.F3H_NODE_TYPE_NAME_CATEGORY).instances()
+            f3h_all_instances: tuple[hou.SopNode, ...] = hou.nodeType(f3h_hda.F3H_NODE_TYPE_NAME_CATEGORY).instances()
             if f3h_all_instances:
                 
                 f3h_all_instances_paths: list[str] = [f3h.path() for f3h in f3h_all_instances]
