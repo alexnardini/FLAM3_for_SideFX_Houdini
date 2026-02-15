@@ -43,6 +43,7 @@ _This is a re-release of the same version with some minor improvements that did 
 - **Fix H21 UP ONLY**: When rearranging iterators, FLAM3H™ will now update each xaos weights based on the new iterator's order.
 - **Fix**: Fixed the second output geo (_xforms handles viz exclusive_) being flipped when iterators count is **0**(_Zero_) and in camera sensor viz mode.
 - **Fix**: Fixed the second output geo (_xforms handles viz exclusive_) being flipped when FLAM3H™ was created in a not compatible Houdini version and in camera sensor viz mode.
+- **Fix**: Updated FLAM3H™ content references to python class attributes and global variable names.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 - **Updated GIT documentation.**
