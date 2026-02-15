@@ -3,6 +3,7 @@
 # File name: [**`py_flam3__3_11_H21_UP.py`**](py_flam3__3_11_H21_UP.py)
 - _The ending filename digits represent the least python version needed to run this code_.
 - _This python file version is the most updated out of them all._
+## FLAM3H™
 ## Houdini version: H21 and up
 ### Description:
 
@@ -24,6 +25,7 @@ This is the main FLAM3H™ python file that define:
 # <img width="48" height="48" src="../../icons/icon_pythonSVG.svg" /> Python
 # File name: [**`py_flam3__3_11.py`**](py_flam3__3_11.py)
 - _The ending filename digits represent the least python version needed to run this code_.
+## FLAM3H™
 ## Houdini version: H20.5
 ### Description:
 
@@ -46,6 +48,7 @@ This is the main FLAM3H™ python file that define:
 # File name: [**`py_flam3usd__3_11_H21_UP.py`**](py_flam3usd__3_11_H21_UP.py)
 - _The ending filename digits represent the least python version needed to run this code_.
 - _This python file version is the most updated out of them all._
+## FLAM3H™USD
 ## Houdini version: H21 and up
 ### Description:
 
@@ -57,6 +60,7 @@ Simple utility node to quickly setup fractal Flames point clouds in Solaris for 
 # <img width="48" height="48" src="../../icons/icon_pythonSVG.svg" /> Python
 # File name: [**`py_flam3usd__3_11.py`**](py_flam3usd__3_11.py)
 - _The ending filename digits represent the least python version needed to run this code_.
+## FLAM3H™USD
 ## Houdini version: H20.5
 ### Description:
 
