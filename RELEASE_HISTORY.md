@@ -41,6 +41,7 @@ They are all available in this Github repository.
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
 - **Fix H21 UP ONLY**: When rearranging iterators, FLAM3H™ will now update each xaos weights based on the new iterator's order.
+- **Fix**: Fixed the second output geo (xforms handles viz exclusive) being flipped when iterators count is 0(Zero) and in camera sensor viz mode.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 - **Updated GIT documentation.**
