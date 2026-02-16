@@ -7993,7 +7993,7 @@ class flam3h_iterator_utils
             
             _len_check: bool = False
             try:
-                if len(mpmem) == len(mpmem_cached): _len_check = True
+                _len_check = len(mpmem) == len(mpmem_cached)
             except TypeError: # mostly on creation
                 pass
             
@@ -8035,7 +8035,7 @@ class flam3h_iterator_utils
                 
                 # Update Xaos strings based on the new iterators' order if needed (if Xaos is On/Active)
                 # Since this is run once Houdini trigger the menu and after the reorder is complete (after the user move an iterator in a new position)
-                # Houdini will cook the FLAM3H™ node twice, once for the reorder and once for the menu (to run this code).
+                # Houdini will cook the FLAM3H™ node twice, once for the reorder and once for the menu (after runnning the following definition).
                 self.auto_set_xaos_shuffle(node, iter_count, n)
                 
                 # Update iterator's names/notes if needed (if they have a default name)
