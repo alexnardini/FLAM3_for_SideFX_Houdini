@@ -163,11 +163,11 @@ class f3husd_tabs:
         PRM_KARMA_F3H_SHADER_TRANSMISSION: Final = 'f3h_transmission'
 
         # PREFS tab: PRIVATE SYSTEM
-        PVT_PRM_FLAM3HUSD_DATA_DISABLED: Final = 'disabled'
-        PVT_PRM_FLAM3HUSD_DATA_H_VALID: Final = 'h_valid' # The same paramater name as in FLAM3H™
-        PVT_PRM_FLAM3HUSD_DATA_F3H_VALID: Final = 'f3h_valid'
-        PVT_PRM_FLAM3HUSD_DATA_H190: Final = 'h_19_0'
-        PVT_PRM_FLAM3HUSD_DATA_H205_UP: Final = 'h_20_5_up'
+        PVT_PRM_DISABLED: Final = 'disabled'
+        PVT_PRM_H_VALID: Final = 'h_valid' # The same paramater name as in FLAM3H™
+        PVT_PRM_F3H_VALID: Final = 'f3h_valid'
+        PVT_PRM_H190: Final = 'h_19_0'
+        PVT_PRM_H205_UP: Final = 'h_20_5_up'
         # PREFS tab: PRIVATE MEM
         PVT_PRM_VIEWPORT_RENDERER_MEM: Final = 'rndtype_mem'
         PVT_PRM_VIEWPORT_PT_TYPE_MEM: Final = 'vptype_mem'
@@ -193,11 +193,11 @@ class f3husd_pvt:
     PVT_ALL: tuple[str, ...] = (f3husd_tabs.PREFS.PVT_PRM_VIEWPORT_RENDERER_MEM,
                                 f3husd_tabs.PREFS.PVT_PRM_VIEWPORT_PT_SIZE_MEM,
                                 f3husd_tabs.PREFS.PVT_PRM_VIEWPORT_PT_TYPE_MEM,
-                                f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_DISABLED, 
-                                f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID, 
-                                f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 
-                                f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H190,
-                                f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H205_UP
+                                f3husd_tabs.PREFS.PVT_PRM_DISABLED, 
+                                f3husd_tabs.PREFS.PVT_PRM_H_VALID, 
+                                f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 
+                                f3husd_tabs.PREFS.PVT_PRM_H190,
+                                f3husd_tabs.PREFS.PVT_PRM_H205_UP
                                 )
     
     
@@ -453,7 +453,7 @@ class flam3husd_scripts
         """
                 
         # If it is a valid Houdini version
-        if node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID).eval():
+        if node.parm(f3husd_tabs.PREFS.PVT_PRM_H_VALID).eval():
             
             # displayFlag
             display_flag: bool = node.isGenericFlagSet(hou.nodeFlag.Display) # type: ignore
@@ -482,22 +482,22 @@ class flam3husd_scripts
                                     if display_flag:
                                         flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h)
                                         
-                                    if not node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                        flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                    if not node.parm(f3husd_tabs.PREFS.PVT_PRM_F3H_VALID).eval():
+                                        flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 1)
                                     
                                     if msg:
                                         ...
                                         
                                     return True
                                 
-                                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
+                                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 0)
                                 return False
                                 
                             else:
                                 flam3husd_prm_utils.set(node, f3husd_tabs.PREFS.PRM_F3H_PATH, f3h.path())
                                 return True
                             
-                    flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
+                    flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 0)
                     return False
                     
                 else: # If we are creating the very first FLAM3H™USD instance, always import the very first FLAM3H™ node
@@ -517,15 +517,15 @@ class flam3husd_scripts
                                     if display_flag:
                                         flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h_all_instances[0])
                                         
-                                    if not node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                        flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                    if not node.parm(f3husd_tabs.PREFS.PVT_PRM_F3H_VALID).eval():
+                                        flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 1)
                                     
                                     if msg:
                                         ...
                                         
                                     return True
                                 
-                                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
+                                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 0)
                                 return False
                             
                             else:
@@ -534,8 +534,8 @@ class flam3husd_scripts
                                 if display_flag:
                                     flam3husd_general_utils.util_auto_set_f3h_parameter_editor(f3h_all_instances[0])
                                     
-                                if not node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                    flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                if not node.parm(f3husd_tabs.PREFS.PVT_PRM_F3H_VALID).eval():
+                                    flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 1)
                                 return True
                             
                     return False
@@ -544,11 +544,11 @@ class flam3husd_scripts
                 if msg:
                     ...
                     
-                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
+                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 0)
                 return False
             
         else:
-            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
+            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 0)
             return False
         
         
@@ -833,14 +833,14 @@ class flam3husd_scripts
         try:
             type: hou.SopNodeType = f3h_to_f3husd_node.type()
         except AttributeError:
-            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
+            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 0)
         else:
             if hou.node(f3h_path).type().nameWithCategory() == f3h_hda.F3H_NODE_TYPE_NAME_CATEGORY and type.name() == f3h_hda.F3H_TO_FLAM3HUSD_NODE_TYPE_CATEGORY:
-                if hou.node(f3h_path).parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID).eval():
-                    flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
-                else: flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
+                if hou.node(f3h_path).parm(f3husd_tabs.PREFS.PVT_PRM_H_VALID).eval():
+                    flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 1)
+                else: flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 0)
                 
-            else: flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
+            else: flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 0)
         
 
     def flam3husd_h_version_check(self) -> None:
@@ -861,15 +861,15 @@ class flam3husd_scripts
         
         # Houdini 19.0
         if flam3husd_general_utils.houdini_version(2) == 190:
-            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H190, 1)
+            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_H190, 1)
         else:
-            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H190, 0)
+            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_H190, 0)
             
         # Houdini 20.5 UP
         if flam3husd_general_utils.houdini_version(2) >= 205:
-            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H205_UP, 1)
+            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_H205_UP, 1)
         else:
-            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H205_UP, 0)
+            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_H205_UP, 0)
     
     
     def flam3husd_on_create_set_prefs_viewport(self, default_value_pt: float = 1) -> None:
@@ -968,7 +968,7 @@ class flam3husd_scripts
         """
         node: hou.LopNode = self.node
         
-        flam3husd_prm_utils.private_prm_set(self.node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID, 0)
+        flam3husd_prm_utils.private_prm_set(self.node, f3husd_tabs.PREFS.PVT_PRM_H_VALID, 0)
         __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™USD HDA PythonModule module.
         
         _MSG_H_VERSIONS = flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__, False)
@@ -1073,7 +1073,7 @@ class flam3husd_scripts
         
         # This is done in case the user saved a hip file with FLAM3H™USD nodes in it
         # while using an incompatible version of Houdini so that we can restore it to functional again.
-        h_valid_prm: hou.Parm = node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID)
+        h_valid_prm: hou.Parm = node.parm(f3husd_tabs.PREFS.PVT_PRM_H_VALID)
         if not h_valid_prm.eval():
             flam3husd_prm_utils.private_prm_set(self.node, h_valid_prm, 1)
             
@@ -1327,19 +1327,19 @@ class flam3husd_general_utils
         f3h: hou.SopNode | None = hou.node(current_import)
             
         if f3h is None:
-            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
+            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 0)
             return False
         
         else:
             if f3h is not None: # I dnt think  this is needed
-                if f3h.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID).eval():
-                    flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
+                if f3h.parm(f3husd_tabs.PREFS.PVT_PRM_H_VALID).eval():
+                    flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 1)
                     return True
                 
-                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
+                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 0)
                 return False
             
-            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
+            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 0)
             return False
             
             
@@ -1700,7 +1700,7 @@ class flam3husd_general_utils
         
         node: hou.LopNode = self.node
         # If it is a valid Houdini version
-        if node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID).eval():
+        if node.parm(f3husd_tabs.PREFS.PVT_PRM_H_VALID).eval():
             
             f3h_all_instances: tuple[hou.SopNode, ...] = hou.nodeType(f3h_hda.F3H_NODE_TYPE_NAME_CATEGORY).instances()
             if f3h_all_instances:
@@ -1712,7 +1712,7 @@ class flam3husd_general_utils
                 if len(f3h_all_instances) > 1:
                         
                     # If a valid FLAM3H™ is already imported
-                    if node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID).eval():
+                    if node.parm(f3husd_tabs.PREFS.PVT_PRM_F3H_VALID).eval():
                     
                         try:
                             hou.node(current_import).type()
@@ -1720,17 +1720,17 @@ class flam3husd_general_utils
                         except AttributeError:
                             # Otherwise load one that has not being imported yet to start with 
                             flam3husd_scripts.flam3husd_on_create_load_first_instance(node, False, False)
-                            if not node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID).eval():
+                            if not node.parm(f3husd_tabs.PREFS.PVT_PRM_F3H_VALID).eval():
                                 # IF it could not find a new one to import
                                 # import the first one
                                 flam3husd_prm_utils.set(node, f3husd_tabs.PREFS.PRM_F3H_PATH, f3h_all_instances_paths[0])
                                 self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
-                                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 1)
                                 
                         else:
                             
-                            if not node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
+                            if not node.parm(f3husd_tabs.PREFS.PVT_PRM_F3H_VALID).eval():
+                                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 1)
                                 
                             else:
                                 
@@ -1752,8 +1752,8 @@ class flam3husd_general_utils
                                         flam3husd_prm_utils.set(node, f3husd_tabs.PREFS.PRM_F3H_PATH, f3h_all_instances_paths[-1])
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[-1]))
                                         
-                                    if not node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                        flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                    if not node.parm(f3husd_tabs.PREFS.PVT_PRM_F3H_VALID).eval():
+                                        flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 1)
                                     
                                 # Import next
                                 else:
@@ -1767,8 +1767,8 @@ class flam3husd_general_utils
                                         flam3husd_prm_utils.set(node, f3husd_tabs.PREFS.PRM_F3H_PATH, f3h_all_instances_paths[0])
                                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
                                         
-                                    if not node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                        flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                    if not node.parm(f3husd_tabs.PREFS.PVT_PRM_F3H_VALID).eval():
+                                        flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 1)
                                 
                     else:
                         
@@ -1778,12 +1778,12 @@ class flam3husd_general_utils
                         except AttributeError:
                             # Otherwise load one that has not being imported yet to start with
                             flam3husd_scripts.flam3husd_on_create_load_first_instance(node, False, False)
-                            if not node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID).eval():
+                            if not node.parm(f3husd_tabs.PREFS.PVT_PRM_F3H_VALID).eval():
                                 # IF it could not find a new one to import
                                 # import the first one
                                 flam3husd_prm_utils.set(node, f3husd_tabs.PREFS.PRM_F3H_PATH, f3h_all_instances_paths[0])
                                 self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
-                                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
+                                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 1)
                                 
                         else:
                             
@@ -1791,8 +1791,8 @@ class flam3husd_general_utils
                             if self.kwargs['ctrl']:
                                 self.util_auto_set_f3h_parameter_editor(hou.node(current_import))
                             
-                            if not node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID).eval():
-                                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
+                            if not node.parm(f3husd_tabs.PREFS.PVT_PRM_F3H_VALID).eval():
+                                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 1)
                                 
             
                 # If we have one FLAM3H™ node instance
@@ -1806,8 +1806,8 @@ class flam3husd_general_utils
                     except AttributeError:
                         flam3husd_prm_utils.set(node, f3husd_tabs.PREFS.PRM_F3H_PATH, f3h_all_instances_paths[0])
                         self.util_auto_set_f3h_parameter_editor(hou.node(f3h_all_instances_paths[0]))
-                        if not node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID).eval():
-                            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
+                        if not node.parm(f3husd_tabs.PREFS.PVT_PRM_F3H_VALID).eval():
+                            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 1)
                             
                     else:
                         
@@ -1816,15 +1816,15 @@ class flam3husd_general_utils
                             self.util_auto_set_f3h_parameter_editor(hou.node(current_import))
                         
                         # Just in case
-                        if not node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID).eval():
-                            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 1)
+                        if not node.parm(f3husd_tabs.PREFS.PVT_PRM_F3H_VALID).eval():
+                            flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 1)
                     
             else:
-                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID, 0)
+                flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_F3H_VALID, 0)
                 
             # As last,
             # Check if the imported FLAM3H™ node is really a valid one or not
-            if node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_F3H_VALID).eval():
+            if node.parm(f3husd_tabs.PREFS.PVT_PRM_F3H_VALID).eval():
                 flam3husd_scripts(self.kwargs).flam3husd_is_valid_flam3h_node()
 
     
@@ -2648,7 +2648,7 @@ class pyside_master:
                 self.svg_icon_size: int = int(self.BASE_SVG_ICON_SIZE * self.dpi_scale)
                 
                 self.f3husd_node: hou.SopNode | None = f3husd_node if f3husd_node is not None and f3husd_node.type().nameWithCategory() == FLAM3HUSD_NODE_TYPE_NAME_CATEGORY else None
-                self.h_valid: int | None = f3husd_node.parm(f3husd_tabs.PREFS.PVT_PRM_FLAM3HUSD_DATA_H_VALID).eval() if f3husd_node is not None else None
+                self.h_valid: int | None = f3husd_node.parm(f3husd_tabs.PREFS.PVT_PRM_H_VALID).eval() if f3husd_node is not None else None
                 self.splash_screen = splash_screen
                 
                 # Check if the user want fade in and/or fade out (Disabled by default)
