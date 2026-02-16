@@ -67,6 +67,7 @@ nodetype = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
 __version__ = nodetype.hdaModule().__version__
 __status__ = nodetype.hdaModule().__status__
 __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
+__cvex_compiler__: str = nodetype.hdaModule().__cvex_compiler__
 __h_version_min__: int = nodetype.hdaModule().__h_version_min__
 __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
@@ -11773,7 +11774,7 @@ class flam3h_about_utils
         # year = datetime.now().strftime("%Y")
         
         flam3h_author: str = f"AUTHOR: {__author__}"
-        flam3h_cvex_version: str = f"CODE: cvex H{flam3h_scripts.flam3h_h_versions_build_data(nodetype.hdaModule().__h_versions__, True)}"
+        flam3h_cvex_version: str = f"CODE: cvex H{__cvex_compiler__}"
         flam3h_python_version: str = f"Python {__py_version__}"
         flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{__copyright__}"
