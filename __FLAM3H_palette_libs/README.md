@@ -748,7 +748,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 
 - # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
-- ## File name: [**`F3H_LOCK_tatasz_pack_04_B.json`**](F3H_LOCK_tatasz_pack_04_B.json)</br>_color keys_: **256**
+- ## File name: [**`F3H_LOCK_tatasz_pack_04_A.json`**](F3H_LOCK_tatasz_pack_04_A.json)</br>_color keys_: **256**
     1. - tatasz_pack_04_01
     2. - tatasz_pack_04_02
     3. - tatasz_pack_04_03
@@ -798,7 +798,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 
 - # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
-- ## File name: [**`F3H_LOCK_tatasz_pack_04_A.json`**](F3H_LOCK_tatasz_pack_04_A.json)</br>_color keys_: **256**
+- ## File name: [**`F3H_LOCK_tatasz_pack_04_B.json`**](F3H_LOCK_tatasz_pack_04_B.json)</br>_color keys_: **256**
     1. - tatasz_pack_04_45
     2. - tatasz_pack_04_46
     3. - tatasz_pack_04_47
