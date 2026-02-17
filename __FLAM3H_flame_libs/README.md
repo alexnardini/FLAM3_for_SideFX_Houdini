@@ -87,7 +87,9 @@ _The number at the end of each preset's name indicates the iteration number that
     21. - Sai-Flame shells for valentine::**24**
 
 </br>
+</br>
 
+- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_APOPHYSIS_FlamepackIIIbyNeonrauschen.flame`**](F3H_LOCK_APOPHYSIS_FlamepackIIIbyNeonrauschen.flame)
     1. - Frank Hebben::**128**
     2. - Copyright 2009::**48**
@@ -152,7 +154,9 @@ _The number at the end of each preset's name indicates the iteration number that
     4. - Cylindrical Flower Power::**64**
 
 </br>
+</br>
 
+- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_APOPHYSIS_SephFlamePack.flame`**](F3H_LOCK_APOPHYSIS_SephFlamePack.flame)
     1. - Bubbles::**64**
     2. - Egyptean ancient rooms::**48**
