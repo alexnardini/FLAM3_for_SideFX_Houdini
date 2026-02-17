@@ -303,7 +303,7 @@ List of every Palette library files and their Presets contents list.
     2. - Eiffel on a rainy night
     3. - Natural with flowers
     4. - Morning breakfast at home
-    5. - Sensorial swim"
+    5. - Sensorial swim
     6. - Cold bikini bath
     7. - Stanley park jogging on a sunny day
     8. - Pinky wall and a turquoise kimono
