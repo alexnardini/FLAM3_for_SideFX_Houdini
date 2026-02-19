@@ -598,7 +598,7 @@ void V_DISC2_FF(vector2 p; const vector2 _p; const float w; const vector2 disc2)
     V_DISC2(p, _p, w, disc2, precalc);
 }
 // 48 ( parametric )
-void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w; const vector ss; const vector ss_n){
+void V_SUPERSHAPE(vector2 p; const vector2 _p; const float w; const vector ss, ss_n){
     float _SQRT, ss_m, ss_rnd, ss_holes, theta, st, ct, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1, ss_nx, ss_ny, ss_nz;
     assign(ss_m, ss_rnd, ss_holes, ss);
     assign(ss_nx, ss_ny, ss_nz, ss_n);
