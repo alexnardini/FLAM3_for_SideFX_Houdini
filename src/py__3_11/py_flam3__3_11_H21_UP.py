@@ -5569,7 +5569,7 @@ class flam3h_general_utils
             if len(all_f3h) > 1:
                 val: int = prm.eval()
                 for f3h in all_f3h:
-                    if f3h is node:
+                    if f3h == node:
                         continue
 
                     parm = f3h.parm(f3h_tabs.PREFS.PRM_VIEWPORT_DARK)
@@ -5638,7 +5638,7 @@ class flam3h_general_utils
         if allowed_viewers:
 
             for f3h in all_f3h:
-                if f3h is node:
+                if f3h == node:
                     continue
 
                 # Check and set f3h_tabs.PREFS.VIEWPORT_PT_TYPE
@@ -6988,7 +6988,7 @@ class flam3h_iterator_utils
 
     @staticmethod
     def auto_set_xaos_div_str(node: hou.SopNode) -> tuple[str, str]:
-        """Return the proper prefix xaos strings to use based on the value of: PREFS_PVT_XAOS_AUTO_SPACE</br>
+        """Return the proper prefix xaos strings to use based on the value of: f3h_tabs.PREFS.PVT_PRM_XAOS_AUTO_SPACE</br>
 
         Args:
             node(hou.SopNode): this FLAM3H™ node.

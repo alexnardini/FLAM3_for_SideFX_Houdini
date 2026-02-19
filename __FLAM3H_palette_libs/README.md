@@ -54,7 +54,8 @@ List of every Palette library files and their Presets contents list.
     1. - ArchViz_HQ_set_A_01
     2. - ArchViz_HQ_set_A_02
     3. - ArchViz_HQ_set_A_03
-    4. - ArchViz_HQ_set_A_05
+    4. - ArchViz_HQ_set_A_04
+    5. - ArchViz_HQ_set_A_05
     6. - ArchViz_HQ_set_A_06
     7. - ArchViz_HQ_set_A_07
     8. - ArchViz_HQ_set_A_08
@@ -85,7 +86,8 @@ List of every Palette library files and their Presets contents list.
     1. - ArchViz_HQ_set_B_01
     2. - ArchViz_HQ_set_B_02
     3. - ArchViz_HQ_set_B_03
-    4. - ArchViz_HQ_set_B_05
+    4. - ArchViz_HQ_set_B_04
+    5. - ArchViz_HQ_set_B_05
     6. - ArchViz_HQ_set_B_06
     7. - ArchViz_HQ_set_B_07
     8. - ArchViz_HQ_set_B_08
@@ -114,7 +116,8 @@ List of every Palette library files and their Presets contents list.
     1. - ArchViz_HQ_set_C_01
     2. - ArchViz_HQ_set_C_02
     3. - ArchViz_HQ_set_C_03
-    4. - ArchViz_HQ_set_C_05
+    4. - ArchViz_HQ_set_C_04
+    5. - ArchViz_HQ_set_C_05
     6. - ArchViz_HQ_set_C_06
     7. - ArchViz_HQ_set_C_07
     8. - ArchViz_HQ_set_C_08

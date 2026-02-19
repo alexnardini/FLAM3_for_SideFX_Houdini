@@ -3,7 +3,7 @@
 #context: sop
 #namespace: alexnardini
 #internal: FLAM3H(tm)
-#version: 1.9.83 - Production
+#version: 1.9.84 - Production
 
 """The Fractal Flame Algorithm: FLAM3 - Create fractal art in Houdini 
 ( vcc compiler: v21.0.440 )"""
@@ -114,6 +114,8 @@ _Below a list of the currently adopted badges and their meaning_:
 - [Icon:DATATYPES/ramp] it is a ramp.
 
 - [Icon:TOP/xmlinput] the data this parameter represent or enable will be stored into the XML flame file on save.
+
+- [Icon:TOP/jsoninput] the data this parameter represent or enable will be stored into the JSON palette file on save.
 
 - [Icon:DATATYPES/string] it is a string.
 
@@ -1785,7 +1787,7 @@ FF: PP VARS tab [Icon:TOP/xmlinput]:
     
     == CP: HSV Palette == (CPHSVRAMP)
     
-HSV values [Icon:TOP/xmlinput]:
+HSV values [Icon:TOP/xmlinput] [Icon:TOP/jsoninput]:
     #id: PALETTE
     
     Hue, Saturation and Value of the palette's colors.
@@ -1811,7 +1813,7 @@ HSV keep values on Load [Icon:DATATYPES/boolean]:
 
     <br />
 
-HSV palette [Icon:DATATYPES/ramp]:
+HSV palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     #id: PALETTE
     *It is meant for preview only and you can not edit this palette*.
     
@@ -1823,6 +1825,13 @@ HSV palette [Icon:DATATYPES/ramp]:
 
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] <br />
     - ((LMB)) to updated the HSV color correction in case it was not already.
+
+    <br />
+
+    TIP:
+        #display: orange
+        When the OUT tab options _"*palette HSV*"_ toggle is *`On`*/Active,<br />
+        this palette will be saved into the XML Flame preset file instead.
 
 :box:
     #display: rounded white
@@ -1889,7 +1898,7 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
     <br />
 
-palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
+palette [Icon:TOP/xmlinput] [Icon:TOP/jsoninput] [Icon:DATATYPES/ramp]:
     #id: PALETTE
     The actual [color palette|Wp:Palette_(computing)] being used by the Flame you are working on.
 
@@ -1982,7 +1991,7 @@ Save Palette [Icon:opdef:.?icon_actionButtonSVG.svg]:
     
     <br />
 
-Palette name [Icon:DATATYPES/string]:
+Palette name [Icon:TOP/jsoninput] [Icon:DATATYPES/string]:
     #id: PALETTE
     Write a name to give to the selected palette when saving it.
 
@@ -2032,6 +2041,47 @@ Reload preset [Icon:opdef:.?icon_actionButtonSVG.svg]:
 
 :box:
     #display: rounded white
+
+    == CP: Anatomy of a JSON palette file format == (CPJSONFORMAT)
+
+_The following is an example of what the default palette preset looks like once saved :_
+
+{{{
+#!json
+{
+    "Palette_name": {
+        "f3h_hex": "330DFF3213FF311AFF3120FF3026FF2F2DFF2E33FF2D3AFF2D40FF2C47FF2B4DFF2A53FF295AFF2960FF2867FF276DFF2674FF257AFF2580FF2487FF238DFF2294FF219AFF21A1FF20A7FF1FADFF1EB4FF1DBAFF1DC1FF1CC7FF1BCEFF1AD4FF19D9FD19DAF619DBEF18DDE818DEE017DFD917E0D217E1CB16E3C316E4BC15E5B515E6AE15E8A614E99F14EA9813EB9113EC8A13EE8212EF7B12F07411F16D11F26511F45E10F55710F6500FF7480FF8410FFA3A0EFB330EFC2C0DFD240DFE1D10FF1A18FF1A1FFF1A26FF1A2DFF1A35FF1A3CFF1A43FF1A4AFF1A51FF1A59FF1A60FF1A67FF1A6EFF1A76FF1A7DFF1A84FF1A8BFF1A92FF1A9AFF1AA1FF1AA8FF1AAFFF1AB7FF1ABEFF1AC5FF1ACCFF1AD4FF1ADBFF1AE2FF1AE9FF1AF0FF1AF3F919F3F219F3EA18F4E218F4DB18F5D317F5CB17F5C416F6BC16F6B516F7AD15F7A515F79E14F89614F88E14F98713F97F13F97812FA7012FA6812FB6111FB5911FB5110FC4A10FC4210FD3B0FFD330FFD2B0EFE240EFE1C0EFF140DFF0D0D"
+    }
+}
+}}}
+
+The first key in the JSON file is: [Icon:TOP/jsoninput] *`Palette_name`*.<br />
+This is set by the user in the FLAM3H(tm) user interface under the CP tab using the "*_palette name_*" string parameter.<br />
+If not set by the user an automated one composed of todays date and time will be provided instead.
+
+Each Palette preset contains other data keys.
+
+The key: [Icon:TOP/jsoninput] *`f3h_hex`*<br />
+store the list of colors being used in hexadecimal format.
+
+_Additionally_,
+
+The key: [Icon:TOP/jsoninput] *`f3h_hsv`*<br />
+store the HSV values being used if different from defaults.
+
+{{{
+#!json
+{
+    "Palette_Feb-19-2026_074000": {
+        "f3h_hex": "330DFF3213FF311AFF3120FF3026FF2F2DFF2E33FF2D3AFF2D40FF2C47FF2B4DFF2A53FF295AFF2960FF2867FF276DFF2674FF257AFF2580FF2487FF238DFF2294FF219AFF21A1FF20A7FF1FADFF1EB4FF1DBAFF1DC1FF1CC7FF1BCEFF1AD4FF19D9FD19DAF619DBEF18DDE818DEE017DFD917E0D217E1CB16E3C316E4BC15E5B515E6AE15E8A614E99F14EA9813EB9113EC8A13EE8212EF7B12F07411F16D11F26511F45E10F55710F6500FF7480FF8410FFA3A0EFB330EFC2C0DFD240DFE1D10FF1A18FF1A1FFF1A26FF1A2DFF1A35FF1A3CFF1A43FF1A4AFF1A51FF1A59FF1A60FF1A67FF1A6EFF1A76FF1A7DFF1A84FF1A8BFF1A92FF1A9AFF1AA1FF1AA8FF1AAFFF1AB7FF1ABEFF1AC5FF1ACCFF1AD4FF1ADBFF1AE2FF1AE9FF1AF0FF1AF3F919F3F219F3EA18F4E218F4DB18F5D317F5CB17F5C416F6BC16F6B516F7AD15F7A515F79E14F89614F88E14F98713F97F13F97812FA7012FA6812FB6111FB5911FB5110FC4A10FC4210FD3B0FFD330FFD2B0EFE240EFE1C0EFF140DFF0D0D",
+        "f3h_hsv": "1.1 1.2 1.3"
+    }
+}
+}}}
+
+:box:
+    #display: rounded white
+
 
 == MB: Motion blur parameters == (MB)
     
@@ -2766,7 +2816,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="FLAM3H-WIN-1.9.83" ... >
+          <flame version="FLAM3H-WIN-1.9.84" ... >
               ...
         }}}
         
@@ -2775,7 +2825,7 @@ Use Fractorium paramtetrics [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         {{{
         #!xml
         <flames>
-          <flame version="EMBER-FLAM3H-WIN-1.9.83" ... >
+          <flame version="EMBER-FLAM3H-WIN-1.9.84" ... >
               ...
         }}}
         
@@ -3126,7 +3176,7 @@ _The following is an example of what the default Sierpiński triangle preset loo
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.9.83" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.9.84" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform name="iterator_1" weight="0.5" color="0" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0 0.5" opacity="1" linear="1"/>
     <xform name="iterator_2" weight="0.5" color="0.5" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 -0.28867513 0" opacity="1" linear="1"/>
     <xform name="iterator_3" weight="0.5" color="1" symmetry="-0.5" color_speed="0.75" coefs="0.5 0 0 0.5 0.28867513 0" opacity="1" linear="1"/>
@@ -3168,6 +3218,8 @@ _The following is an example of what the default Sierpiński triangle preset loo
 </flames>
 }}}
 
+<br />
+
 _The first line is the main [Icon:TOP/xmlinput] *`flames`* preset XML root. Under this root can live many different flame presets_:
 
 {{{
@@ -3177,26 +3229,49 @@ _The first line is the main [Icon:TOP/xmlinput] *`flames`* preset XML root. Unde
 </flames>
 }}}
 
+<br />
+
 _In this case we only have *`1`*(one) flame preset named: *Sierpiński triangle::10*. This XML line contain also all the renderer properties of the flame preset_:
 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.9.83" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.9.84" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     ...
   </flame>
 </flames>
 }}}
+
+<br />
 
 _Under the [Icon:TOP/xmlinput] *`flame`* preset XML key lives all its data: [Icon:TOP/xmlinput] *`xform`* data and its [Icon:TOP/xmlinput] *`palette`* data_.
 
 {{{
 #!xml
 <flames>
-  <flame version="FLAM3H-WIN-1.9.83" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+  <flame version="FLAM3H-WIN-1.9.84" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
     <xform .../>
     <xform .../>
     <xform .../>
+    <palette ...>
+      330DFF...
+    </palette>
+  </flame>
+</flames>
+}}}
+
+<br />
+
+_When the FF_(_finalXform_) _is *`On`*/Active, its data will be included in the list of [Icon:TOP/xmlinput] *`xform`* under the key: [Icon:TOP/xmlinput] *`finalxform`*_
+
+{{{
+#!xml
+<flames>
+  <flame version="FLAM3H-WIN-1.9.84" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+    <xform .../>
+    <xform .../>
+    <xform .../>
+    <finalxform ...>
     <palette ...>
       330DFF...
     </palette>

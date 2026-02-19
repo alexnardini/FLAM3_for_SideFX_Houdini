@@ -80,7 +80,7 @@ to: **py_flam3__3_11**
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.83"
+__version__ = "1.9.84"
 __status__  = "Production"
 __h_versions__: tuple = (210,)
 __range_type__: bool = False # True for closed range. False for open range
@@ -151,7 +151,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.75"
+__version__ = "1.9.76"
 __status__  = "Production"
 __h_versions__: tuple = (205,)
 __range_type__: bool = True # True for closed range. False for open range
