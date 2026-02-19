@@ -2010,7 +2010,8 @@ contain the list of colors in hexadecimal format.
 
 _Additionally_,
 
-a palette preset can also store the HSV values being used if different from defaults under the key name: [Icon:TOP/jsoninput] *`f3h_hsv`*
+The key: [Icon:TOP/jsoninput] *`f3h_hsv`*<br />
+store the HSV values being used if different from defaults.
 
 {{{
 #!json
