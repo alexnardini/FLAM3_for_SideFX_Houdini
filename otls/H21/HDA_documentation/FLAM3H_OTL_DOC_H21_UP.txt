@@ -115,6 +115,8 @@ _Below a list of the currently adopted badges and their meaning_:
 
 - [Icon:TOP/xmlinput] the data this parameter represent or enable will be stored into the XML flame file on save.
 
+- [Icon:TOP/jsoninput] the data this parameter represent or enable will be stored into the JSON palette file on save.
+
 - [Icon:DATATYPES/string] it is a string.
 
 - [Icon:NETVIEW/time_dependent_badge] it is time dependant.
@@ -1785,7 +1787,7 @@ FF: PP VARS tab [Icon:TOP/xmlinput]:
     
     == CP: HSV Palette == (CPHSVRAMP)
     
-HSV values [Icon:TOP/xmlinput]:
+HSV values [Icon:TOP/xmlinput] [Icon:TOP/jsoninput]:
     #id: PALETTE
     
     Hue, Saturation and Value of the palette's colors.
@@ -1889,7 +1891,7 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
     <br />
 
-palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
+palette [Icon:TOP/xmlinput] [Icon:TOP/jsoninput] [Icon:DATATYPES/ramp]:
     #id: PALETTE
     The actual [color palette|Wp:Palette_(computing)] being used by the Flame you are working on.
 
