@@ -1813,7 +1813,7 @@ HSV keep values on Load [Icon:DATATYPES/boolean]:
 
     <br />
 
-HSV palette [Icon:DATATYPES/ramp]:
+HSV palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     #id: PALETTE
     *It is meant for preview only and you can not edit this palette*.
     
@@ -1825,6 +1825,13 @@ HSV palette [Icon:DATATYPES/ramp]:
 
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] <br />
     - ((LMB)) to updated the HSV color correction in case it was not already.
+
+    <br />
+
+    TIP:
+        #display: orange
+        When the OUT tab options _"*palette HSV*"_ toggle is *`On`*/Active,<br />
+        this palette will be saved into the XML Flame preset file instead.
 
 :box:
     #display: rounded white
@@ -1984,7 +1991,7 @@ Save Palette [Icon:opdef:.?icon_actionButtonSVG.svg]:
     
     <br />
 
-Palette name [Icon:DATATYPES/string]:
+Palette name [Icon:TOP/jsoninput] [Icon:DATATYPES/string]:
     #id: PALETTE
     Write a name to give to the selected palette when saving it.
 
