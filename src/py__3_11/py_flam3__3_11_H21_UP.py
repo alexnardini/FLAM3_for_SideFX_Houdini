@@ -6988,7 +6988,7 @@ class flam3h_iterator_utils
 
     @staticmethod
     def auto_set_xaos_div_str(node: hou.SopNode) -> tuple[str, str]:
-        """Return the proper prefix xaos strings to use based on the value of: PREFS_PVT_XAOS_AUTO_SPACE</br>
+        """Return the proper prefix xaos strings to use based on the value of: f3h_tabs.PREFS.PVT_PRM_XAOS_AUTO_SPACE</br>
 
         Args:
             node(hou.SopNode): this FLAM3H™ node.
