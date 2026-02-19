@@ -2003,10 +2003,10 @@ The first key in the JSON file is: [Icon:TOP/jsoninput] *`Palette_name`*.<br />
 This is set by the user in the FLAM3H(tm) user interface under the CP tab using the "*_palette name_*" string parameter.<br />
 If not set by the user an automated one composed of todays date and time will be provided instead.
 
-Each Palette presets contains other data keys.
+Each Palette preset contains other data keys.
 
 The key: [Icon:TOP/jsoninput] *`f3h_hex`*<br />
-contain the list of colors in hexadecimal format.
+store the list of colors being used in hexadecimal format.
 
 _Additionally_,
 
@@ -3156,6 +3156,8 @@ _The following is an example of what the default Sierpiński triangle preset loo
 </flames>
 }}}
 
+<br /> 
+
 _The first line is the main [Icon:TOP/xmlinput] *`flames`* preset XML root. Under this root can live many different flame presets_:
 
 {{{
@@ -3164,6 +3166,8 @@ _The first line is the main [Icon:TOP/xmlinput] *`flames`* preset XML root. Unde
   ...
 </flames>
 }}}
+
+<br /> 
 
 _In this case we only have *`1`*(one) flame preset named: *Sierpiński triangle::10*. This XML line contain also all the renderer properties of the flame preset_:
 
@@ -3176,6 +3180,8 @@ _In this case we only have *`1`*(one) flame preset named: *Sierpiński triangle:
 </flames>
 }}}
 
+<br /> 
+
 _Under the [Icon:TOP/xmlinput] *`flame`* preset XML key lives all its data: [Icon:TOP/xmlinput] *`xform`* data and its [Icon:TOP/xmlinput] *`palette`* data_.
 
 {{{
@@ -3185,6 +3191,25 @@ _Under the [Icon:TOP/xmlinput] *`flame`* preset XML key lives all its data: [Ico
     <xform .../>
     <xform .../>
     <xform .../>
+    <palette ...>
+      330DFF...
+    </palette>
+  </flame>
+</flames>
+}}}
+
+<br /> 
+
+_When the FF_(_finalXform_) _is *`On`*/Active, its data will be included in the list of [Icon:TOP/xmlinput] *`xform`* under the key: [Icon:TOP/xmlinput] *`finalxform`*_
+
+{{{
+#!xml
+<flames>
+  <flame version="FLAM3H-WIN-1.9.83" name="Sierpiński triangle::10" flam3h_rip="0" flam3h_f3c="1" size="1024 1024" center="0 0" scale="400" rotate="0" background="0 0 0" supersample="2" filter="0.5" quality="1000" brightness="3" gamma="2.5" gamma_threshold="0.0423093658828749" logscale_k2="0" vibrancy="0.333333" highlight_power="1" estimator_radius="9" estimator_minimum="0" estimator_curve="0.4" palette_mode="linear" interpolation="linear" interpolation_type="log" plugins="linear" new_linear="1" curves="0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1 0 0 1 0.25 0.25 1 0.5 0.5 1 0.75 0.75 1" overall_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" red_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" green_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1" blue_curve="0 0 0.25 0.25 0.5 0.5 0.75 0.75 1 1">
+    <xform .../>
+    <xform .../>
+    <xform .../>
+    <finalxform ...>
     <palette ...>
       330DFF...
     </palette>
