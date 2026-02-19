@@ -5566,7 +5566,7 @@ class flam3h_general_utils
             if len(all_f3h) > 1:
                 val: int = prm.eval()
                 for f3h in all_f3h:
-                    if f3h is node:
+                    if f3h == node:
                         continue
 
                     parm = f3h.parm(f3h_tabs.PREFS.PRM_VIEWPORT_DARK)
@@ -5635,7 +5635,7 @@ class flam3h_general_utils
         if allowed_viewers:
 
             for f3h in all_f3h:
-                if f3h is node:
+                if f3h == node:
                     continue
 
                 # Check and set f3h_tabs.PREFS.VIEWPORT_PT_TYPE
