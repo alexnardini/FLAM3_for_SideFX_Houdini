@@ -40,6 +40,7 @@ They are all available in this Github repository.
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
+- **Updated GIT documentation.**
 
 
 
