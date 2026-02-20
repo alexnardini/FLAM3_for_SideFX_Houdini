@@ -2622,6 +2622,10 @@ class pyside_master:
 
         def __init__(   self, 
                         parent=None, 
+                        win_width: int = BASE_WINDOW_WIDTH, 
+                        win_height: int = BASE_WINDOW_HEIGHT, 
+                        banner_height: int = BASE_BANNER_HEIGHT, 
+                        icon_size: int = BASE_SVG_ICON_SIZE, 
                         f3husd_node: hou.SopNode | None = None, 
                         app_info: str = APP_INFO, 
                         ps_app_name: str = pyside_master_app_names.PS_CLS, 
@@ -2642,10 +2646,10 @@ class pyside_master:
                 screen: QtGui.QScreen = app.primaryScreen()
                 self.dpi_scale: float = screen.logicalDotsPerInch() / 96.0
 
-                self.window_width: int = int(self.BASE_WINDOW_WIDTH * self.dpi_scale)
-                self.window_height: int = int(self.BASE_WINDOW_HEIGHT * self.dpi_scale)
-                self.banner_height: int = int(self.BASE_BANNER_HEIGHT * self.dpi_scale)
-                self.svg_icon_size: int = int(self.BASE_SVG_ICON_SIZE * self.dpi_scale)
+                self.window_width: int = int(win_width * self.dpi_scale)
+                self.window_height: int = int(win_height * self.dpi_scale)
+                self.banner_height: int = int(banner_height * self.dpi_scale)
+                self.svg_icon_size: int = int(icon_size * self.dpi_scale)
                 
                 self.f3husd_node: hou.SopNode | None = f3husd_node if f3husd_node is not None and f3husd_node.type().nameWithCategory() == FLAM3HUSD_NODE_TYPE_NAME_CATEGORY else None
                 self.h_valid: int | None = f3husd_node.parm(f3husd_tabs.PREFS.PVT_PRM_H_VALID).eval() if f3husd_node is not None else None
