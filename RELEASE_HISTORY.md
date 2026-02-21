@@ -34,6 +34,26 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v1.9.85 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.85) ###
+
+#### FLAM3H™ v1.9.85 indie -> H21.0 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20.5 ####
+
+- **Fix**: Palette HSV application is now slightly faster.
+- **Fix**: When in Camera sensor VIZ mode it is now slightly faster.
+- **Fix**: Some variations names inside the Fractorium reference dictionary were wrongly written. They are now fixed and FLAM3H™ is now able to properly categorize them (_not **Unknown** anymore_).
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v1.9.84 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.84) ###
 
 #### FLAM3H™ v1.9.84 indie -> H21.0 UP</br>FLAM3H™ v1.9.76 indie -> H19.0 to H20.5 ####
