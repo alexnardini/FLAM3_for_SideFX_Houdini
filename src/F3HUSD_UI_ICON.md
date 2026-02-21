@@ -53,7 +53,7 @@
 
 <br>
 
-FLAM3H™USD system utilities._
+_FLAM3H™USD system utilities._
 
 </br>
 
@@ -80,7 +80,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_F_docStarSVG.svg
 <p align="left"><img width="80" height="80" src="../icons/icon_FrameRedSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Lop/FLAM3HUSD?icon_FrameBlueSVG.svg
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_FrameRedSVG.svg
 ```
 
 </br>
