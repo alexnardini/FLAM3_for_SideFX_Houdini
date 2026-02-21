@@ -21299,7 +21299,22 @@ class pyside_utils
             app_name(str): Default to: "_ps_cls"</br>The app name.
             run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
             args: Any args to pass to the <b>ps_cls</b> if any.</br>
-            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:</br><b>parent</b>=None (usually untouched)</br><b>ps_app_name</b>=pyside_master_app_names.PS_CLS (Never to be set as it will always be set to: <b>app_name</b> internally)</br><b>f3h_node</b>=None (This FLAM3H™ node)</br><b>app_info</b>=APP_INFO (The main info message string)</br><b>links</b>=False (When True it will display FLAM3H™ related web links)</br><b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br><b>fade_in_ms</b>=None (Fade in time in millisecond. Default to 0(Zero))</br><b>fade_out_ms</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br><b>splash_screen</b>=False (When True it will force the banner image to be load even if some chackes fail, just for the splash screen)</br>
+            kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:
+            - <b>parent</b>=None (usually untouched)</br>
+            - <b>ps_app_name</b>=pyside_master_app_names.PS_CLS (Never to be set as it will always be set to: <b>app_name</b> internally)</br>
+            - <b>app_name</b>=APP_NAME</br>
+            - <b>app_info</b>=APP_INFO (The main info message string)</br>
+            - <b>win_width</b>=BASE_WINDOW_WIDTH (The width of the main window panel)</br>
+            - <b>win_height</b>=BASE_WINDOW_HEIGHT (The height of the main window panel)</br>
+            - <b>banner_height</b>=BASE_BANNER_HEIGHT (The height of the banner image, must be equal or less than the main window panel height)</br>
+            - <b>svg_icon_width</b>=BASE_SVG_ICON_WIDTH (The size of the SVG icon on top of the banner image)</br>
+            - <b>svg_icon_height</b>=None (The height of the SVG icon on top of the banner image. This uses the svg_icon_width value by default for square size SVG icon.)</br>
+            - <b>links</b>=False (When True it will display FLAM3H™ related web links)</br>
+            - <b>auto_close_ms</b>=5000 (Timer in millisecond. Default to 5 seconds)</br>
+            - <b>fade_in_ms</b>=None (Fade in time in millisecond. Default to 0(Zero))</br>
+            - <b>fade_out_ms</b>=None (Fade ot time in millisecond. Default to 0(Zero))</br>
+            - <b>splash_screen</b>=False (When True it will force the banner image to be load even if some chackes fail, just for the splash screen)</br>
+            - <b>f3h_node</b>=None (This FLAM3H™ node. This is needed if you need to check for the FLAM3H™ node validity.)</br>
             
         Returns:
             (None):
