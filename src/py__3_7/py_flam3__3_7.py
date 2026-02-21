@@ -12465,7 +12465,7 @@ VARS_FRACTORIUM_DICT: dict[str, tuple] = {  "a": ("arch", "arcsech", "arcsech2",
                                             "p": ("panorama1", "panorama2", "parabola", "pdj", "perspective", "petal", "phoenix_julia", "pie", "pie3d", "pixel_flow", "poincare", "poincare2", "poincare3d", "point_symmetry", "polar", "polar2", "polynomial", "popcorn", "popcorn2", "popcorn23d", "pow_block", "power", "pressure_wave", "projective", "prose3d", "psphere", "pulse"),
                                             "q": ("q_ode",),
                                             "r": ("radial_blur", "radial_gaussian", "rand_cubes", "rational3", "rays", "rays1", "rays2", "rays3", "rblur", "rectangles", "rings", "rings2", "ripple", "rippled", "rotate", "rotate_x", "rotate_y", "rotate_z", "roundspher", "roundspher3d"),
-                                            "s": ("scry", "scry2", "scry3d", "sec", "secant2", "sech", "sechq", "secq", "separation", "shift", "shred_rad", "shred_lin", "sigmoid", "sin", "sineblur", "sinh", "sinhq", "sinq", "sintrange", "sinus_grid", "sinusoidal", "sinusoidal3d", "smartshape", "smartcrop", "spher", "sphereblur", "spherical", "spherical3d", "sphericaln", "spherivoid", "sphyp3d", "spiral", "spiral_wing", "spirograph", "split", "split_brdr", "splits", "splits3d", "square", "squares", "square3d", "squarize", "squirrel", "squish", "sschecks", "starblur", "starblur2", "stripes", "stwin", "super_shape", "super_shape3d","svf", "swirl", "swirl3", "swirl3r", "synth"),
+                                            "s": ("scry", "scry2", "scry3d", "sec", "secant2", "sech", "sechq", "secq", "separation", "shift", "shred_rad", "shredrad", "shred_lin", "shredlin", "sigmoid", "sin", "sineblur", "sinh", "sinhq", "sinq", "sintrange", "sinus_grid", "sinusoidal", "sinusoidal3d", "smartshape", "smartcrop", "spher", "sphereblur", "spherical", "spherical3d", "sphericaln", "spherivoid", "sphyp3d", "spiral", "spiral_wing", "spiralwing", "spirograph", "split", "split_brdr", "splitbrdr", "splits", "splits3d", "square", "squares", "square3d", "squarize", "squirrel", "squish", "sschecks", "starblur", "starblur2", "stripes", "stwin", "super_shape", "super_shape3d","svf", "swirl", "swirl3", "swirl3r", "synth"),
                                             "t": ("tan", "tancos", "tangent", "tanh", "tanhq", "tanh_spiral", "tanq", "target", "target0", "target2", "taurus", "tile_hlp", "tile_log", "trade", "truchet", "truchet_fill", "truchet_hex_fill", "truchet_hex_crop", "truchet_glyph", "truchet_inv", "truchet_knot", "twintrian", "twoface"),
                                             "u": ("unicorngaloshen", "unpolar"),
                                             "v": ("vibration", "vibration2", "vignette", "voron"),
@@ -21260,7 +21260,7 @@ class pyside_master_app_names:
     PS_CLS_ABOUT: str = "_f3h_ps_cls_about"
     
     
-class f3h_hda_sections:
+class f3h_HDAsections:
     '''
     HDA section names being used.</br>
     
@@ -21383,31 +21383,33 @@ class pyside_master:
         
         BASE_BANNER_HEIGHT: int = 300
         
-        BASE_SVG_ICON_SIZE: int = 96
+        BASE_SVG_ICON_WIDTH: int = 96
         
         IMG_PIXMAP: Union[QtGui.QPixmap, None] = None
-        IMG_PIXMAP_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_IMG_BANNER
+        IMG_PIXMAP_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_IMG_BANNER
         
         SVG_ICON: Union[SvgIcon, None] = None
-        SVG_ICON_W_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_SVG_LOGO_WHITE
-        SVG_ICON_R_SECTION_NAME: str = f3h_hda_sections.HDA_SECTION_SVG_LOGO_RED
+        SVG_ICON_W_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_SVG_LOGO_WHITE
+        SVG_ICON_R_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_SVG_LOGO_RED
         
         NODETYPE: hou.SopNodeType = nodetype
 
         def __init__(   self, 
                         parent=None, 
+                        ps_app_name: str = pyside_master_app_names.PS_CLS, 
+                        app_name: str = APP_NAME, 
+                        app_info: str = APP_INFO, 
                         win_width: int = BASE_WINDOW_WIDTH, 
                         win_height: int = BASE_WINDOW_HEIGHT, 
                         banner_height: int = BASE_BANNER_HEIGHT, 
-                        icon_size: int = BASE_SVG_ICON_SIZE, 
-                        f3h_node: Union[hou.SopNode, None] = None, 
-                        app_info: str = APP_INFO, 
-                        ps_app_name: str = pyside_master_app_names.PS_CLS, 
+                        svg_icon_width: int = BASE_SVG_ICON_WIDTH, 
+                        svg_icon_height: Union[int, None] = None, 
                         links: bool = False, 
                         auto_close_ms: int = 5000, 
                         fade_in_ms: Union[int, None] = None, 
                         fade_out_ms: Union[int, None] = None,
                         splash_screen: bool = False, 
+                        f3h_node: Union[hou.SopNode, None] = None,
                      ):
             
             super().__init__(parent)
@@ -21415,6 +21417,7 @@ class pyside_master:
             app: Union[QtCore.QCoreApplication, None] = QtWidgets.QApplication.instance()
             if app:
                 
+                self.app_name: str = app_name
                 self.ps_app_name = ps_app_name if ps_app_name else pyside_master_app_names.PS_CLS
                 
                 # DPI scaling
@@ -21424,7 +21427,11 @@ class pyside_master:
                 self.window_width: int = int(win_width * self.dpi_scale)
                 self.window_height: int = int(win_height * self.dpi_scale)
                 self.banner_height: int = int(banner_height * self.dpi_scale)
-                self.svg_icon_size: int = int(icon_size * self.dpi_scale)
+                self.svg_icon_width: int = int(svg_icon_width * self.dpi_scale)
+                # If only the SVG width is provided, mean we want the SVG to be a perfect square (default behavior)
+                # otherwise use the SVG height value passed in by the user.
+                if svg_icon_height is None: self.svg_icon_height = self.svg_icon_width
+                else: self.svg_icon_height: int = int(svg_icon_height * self.dpi_scale)
                 
                 self.f3h_node: Union[hou.SopNode, None] = f3h_node if f3h_node is not None and f3h_node.type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY else None
                 self.h_valid: Union[int, None] = f3h_node.parm(FLAM3H_PVT_H_VALID).eval() if f3h_node is not None else None
@@ -21437,10 +21444,10 @@ class pyside_master:
                 self.font_os: QtGui.QFont = app.font()
 
                 # Add FLAM3H™ weblinks
-                self.LINKS: bool = links
+                self.links: bool = links
                 # in case of a custom message, this must be a one liner ending with a newline(\n). Meant for short descriptive messages.
                 # Check: APP_INFO variable for an example as it is the default message
-                self.INFO = '' if self.LINKS else app_info if app_info else "\n"
+                self.info = '' if self.links else app_info if app_info else "\n"
 
                 # Frameless + always on top
                 self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
@@ -21487,7 +21494,7 @@ class pyside_master:
             else:
                 svg_bytes: QtCore.QByteArray = QtCore.QByteArray(section_svg.binaryContents())
                 self.SVG_ICON = SvgIcon(svg_bytes, parent=self.banner_container)
-                self.SVG_ICON.resize(self.svg_icon_size, self.svg_icon_size)
+                self.SVG_ICON.resize(self.svg_icon_width, self.svg_icon_height)
             
             
         # CENTER WINDOW
@@ -21568,7 +21575,7 @@ class pyside_master:
             main_layout.addWidget(title_label)
             
             # Info
-            info_label: QtWidgets.QLabel = QtWidgets.QLabel(self.INFO, self)
+            info_label: QtWidgets.QLabel = QtWidgets.QLabel(self.info, self)
             info_label.setAlignment(QtCore.Qt.AlignCenter)
             self.font_os.setPointSize(16)
             self.font_os.setBold(False)
@@ -21577,8 +21584,8 @@ class pyside_master:
             main_layout.addWidget(info_label)
             
             # Clickable links
-            if self.LINKS:
-                links_label: QtWidgets.QLabel = QtWidgets.QLabel(self.INFO, self)
+            if self.links:
+                links_label: QtWidgets.QLabel = QtWidgets.QLabel(self.info, self)
                 links_label.setAlignment(QtCore.Qt.AlignCenter)
                 self.font_os.setPointSize(10)
                 self.font_os.setBold(False)
