@@ -6953,6 +6953,13 @@ class flam3h_iterator_utils
         
         if XS:
             
+            # As a way to prevent the already expensive double cook to be even more expensive.
+            with hou.undos.disabler(): # type: ignore
+                prm_density = node.parm(f3h_tabs.GLB.PRM_DENSITY)
+                if prm_density.eval() >= 5000000:
+                    prm_density.set(500000)
+                    node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS).set(1)
+            
             mpmem_x: list[int] = [] # This is used as index lookup
             mpmem_x_name: str = n.main_mpmem_x
             _mpmem_x_append: Callable[[int], None] = mpmem_x.append
