@@ -13129,8 +13129,12 @@ If you set only iterator 1 and iterator 2,
 FLAM3H™ will always fill in the rest with a value of 1.0. \" xaos:0:0 \" will be interpreted as \" xaos:0:0:1:1 \"
 
 When turning iterators ON and OFF and removing or adding them,
-FLAM3H™ will internally remove and reformat Xaos values
-to account for missing iterators. In short, it is fully automatic.
+FLAM3H™ will internally remove and reformat Xaos values to account for missing iterators.
+
+When reordering iterators,
+FLAM3H™ will also reorder the Xaos values to match the new iterators order.
+
+In short, it is fully automatic.
 
 
 XAOS COMMAND OPTIONS:
