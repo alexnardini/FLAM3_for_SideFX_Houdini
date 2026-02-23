@@ -38,6 +38,7 @@ They are all available in this Github repository.
 
 #### FLAM3H™ v1.9.85 indie -> H21.0 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20.5 ####
 
+- **New**: When reordering iterators while Xaos is **On**/_Active_ FLAM3H™ will now check the density value first and revert back to its default (_500k_) if higher than **2M**(_millions_) already to save on computation.
 - **Fix**: Palette HSV application is now slightly faster.
 - **Fix**: When in Camera sensor VIZ mode it is now slightly faster.
 - **Fix**: Some variations names inside the Fractorium reference dictionary were wrongly written. They are now fixed and FLAM3H™ is now able to properly categorize them (_not **Unknown** anymore_).
