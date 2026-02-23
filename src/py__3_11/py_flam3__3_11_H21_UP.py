@@ -6956,7 +6956,7 @@ class flam3h_iterator_utils
             # As a way to prevent the already expensive double cook to be even more expensive.
             with hou.undos.disabler(): # type: ignore
                 prm_density = node.parm(f3h_tabs.GLB.PRM_DENSITY)
-                if prm_density.eval() >= 5000000:
+                if prm_density.eval() > 2000000:
                     prm_density.set(500000)
                     node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS).set(1)
             
