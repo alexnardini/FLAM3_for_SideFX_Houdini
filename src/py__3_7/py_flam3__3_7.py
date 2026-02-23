@@ -11736,7 +11736,7 @@ class flam3h_about_utils
 
         pyside_utils.pyside_panels_safe_launch(
                                                 pyside_master.F3H_msg_panel, 
-                                                app_name=pyside_master_app_names.PS_CLS_ABOUT,
+                                                launch_app_name=pyside_master_app_names.PS_CLS_ABOUT,
                                                 f3h_node=node,  
                                                 links=True,
                                                 auto_close_ms=4000, 
@@ -21276,7 +21276,7 @@ class pyside_utils
 
 @STATICMETHODS
 * pyside_panels_safe_launch(ps_cls: Type[Any], 
-                                    app_name: str = pyside_master_app_names.PS_CLS, 
+                                    launch_app_name: str = pyside_master_app_names.PS_CLS, 
                                     run: bool = True, 
                                     *args, 
                                     **kwargs
@@ -21286,7 +21286,7 @@ class pyside_utils
     
     @staticmethod
     def pyside_panels_safe_launch(ps_cls: Type[Any], 
-                                  app_name: str = pyside_master_app_names.PS_CLS, 
+                                  launch_app_name: str = pyside_master_app_names.PS_CLS, 
                                   run: bool = True, 
                                   *args, 
                                   **kwargs
@@ -21323,10 +21323,10 @@ class pyside_utils
         if not isinstance(ps_cls, type):
             raise TypeError(f"{ps_cls} is not a class")
         
-        if hasattr(builtins, app_name):
+        if hasattr(builtins, launch_app_name):
             try:
-                getattr(builtins, app_name).close()
-                delattr(builtins, app_name) # probably not needed anymore but just in case
+                getattr(builtins, launch_app_name).close()
+                delattr(builtins, launch_app_name) # probably not needed anymore but just in case
             except AttributeError:
                 pass
             
@@ -21335,13 +21335,13 @@ class pyside_utils
             if hou.isUIAvailable() and run:
             
                 ps_app_name: Union[str, None] = kwargs.get("ps_app_name")
-                if ps_app_name is None and app_name != pyside_master_app_names.PS_CLS:
-                    kwargs["ps_app_name"] = app_name
+                if ps_app_name is None and launch_app_name != pyside_master_app_names.PS_CLS:
+                    kwargs["ps_app_name"] = launch_app_name
                     
                 h_version: int = flam3h_general_utils.houdini_version(2)
                 if h_version < 205:
-                    setattr(builtins, app_name, ps_cls(*args, **kwargs))
-                    getattr(builtins, app_name).show()
+                    setattr(builtins, launch_app_name, ps_cls(*args, **kwargs))
+                    getattr(builtins, launch_app_name).show()
                     
         else:
             _MSG: str = """
@@ -21425,7 +21425,30 @@ class pyside_master:
                         fade_out_ms: Union[int, None] = None,
                         splash_screen: bool = False, 
                         f3h_node: Union[hou.SopNode, None] = None,
-                     ):
+                     ) -> None:
+            """</br>
+            
+            Args:
+                (self):
+                parent (QWidget): The parent widget for this panel, usually left as None for top level windows.
+                ps_app_name (str): The name of the PySide application instance to create or use.
+                app_name (str): The name of the application, used for display purposes.
+                app_info (str): The main info message string to display on the panel.
+                win_width (int): The width of the main window panel.
+                win_height (int): The height of the main window panel.
+                banner_height (int): The height of the banner image, must be equal or less than the main window panel height.
+                svg_icon_width (int): The width of the SVG icon on top of the banner image
+                svg_icon_height (Union[int, None]): The height of the SVG icon on top of the banner image. This uses the svg_icon_width value by default for square size SVG icon.
+                links (bool): When True it will display FLAM3H™ related web links.
+                auto_close_ms (int): Timer in millisecond. Default to 5 seconds. When set to 0 or negative, it will disable the auto close feature.
+                fade_in_ms (Union[int, None]): Fade in time in millisecond. Default to 0(Zero). When set to None, it will keep the default value of the class variable FADE_IN_DURATION_MS.
+                fade_out_ms (Union[int, None]): Fade out time in millisecond. Default to 0(Zero). When set to None, it will keep the default value of the class variable FADE_OUT_DURATION_MS.
+                splash_screen (bool): When True it will force the banner image to be load even if some chackes fail, just for the splash screen.
+                f3h_node (Union[hou.SopNode, None]): This FLAM3H™ node. This is needed if you need to check for the FLAM3H™ node validity and access some of its parameters for display purposes on the panel.
+
+            Returns:
+                (None):
+            """  
             
             super().__init__(parent)
             

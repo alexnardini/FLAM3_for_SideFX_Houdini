@@ -12775,7 +12775,7 @@ class flam3h_about_utils
         
         pyside_utils.pyside_panels_safe_launch(
                                                 pyside_master.F3H_msg_panel, 
-                                                app_name=pyside_master_app_names.PS_CLS_ABOUT,
+                                                launch_app_name=pyside_master_app_names.PS_CLS_ABOUT,
                                                 f3h_node=node,  
                                                 links=True,
                                                 auto_close_ms=4000, 
@@ -23212,7 +23212,7 @@ class pyside_utils
 
 @STATICMETHODS
 * pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], 
-                                    app_name: str = pyside_master_app_names.PS_CLS, 
+                                    launch_app_name: str = pyside_master_app_names.PS_CLS, 
                                     run: bool = True, 
                                     *args, 
                                     **kwargs
@@ -23222,7 +23222,7 @@ class pyside_utils
     
     @staticmethod
     def pyside_panels_safe_launch(ps_cls: Type[pyside_master_base_proto], 
-                                  app_name: str = pyside_master_app_names.PS_CLS, 
+                                  launch_app_name: str = pyside_master_app_names.PS_CLS, 
                                   run: bool = True, 
                                   *args, 
                                   **kwargs
@@ -23232,7 +23232,7 @@ class pyside_utils
 
         Args:
             ps_cls(Type[pyside_master_base_proto]): Any of the classes that agree to the pyside_master_base_proto protocol.
-            app_name(str): Default to: "_ps_cls"</br>The app name.
+            launch_app_name(str): Default to: "_ps_cls"</br>The app name.
             run(str): Default to: True</br>When False, it will close/exit the app with the <b>varname</b>.
             args: Any args to pass to the <b>ps_cls</b> if any.</br>
             kwargs: Any kwargs to pass to the <b>ps_cls</b> if any, following a list:
@@ -23256,10 +23256,10 @@ class pyside_utils
             (None):
         """ 
         
-        if hasattr(builtins, app_name):
+        if hasattr(builtins, launch_app_name):
             try:
-                getattr(builtins, app_name).close()
-                delattr(builtins, app_name) # probably not needed anymore but just in case
+                getattr(builtins, launch_app_name).close()
+                delattr(builtins, launch_app_name) # probably not needed anymore but just in case
             except AttributeError:
                 pass
             
@@ -23268,19 +23268,19 @@ class pyside_utils
             if hou.isUIAvailable() and run:
                 
                 ps_app_name: str | None = kwargs.get("ps_app_name")
-                if ps_app_name is None and app_name != pyside_master_app_names.PS_CLS:
-                    kwargs["ps_app_name"] = app_name
+                if ps_app_name is None and launch_app_name != pyside_master_app_names.PS_CLS:
+                    kwargs["ps_app_name"] = launch_app_name
                     
                 h_version: int = flam3h_general_utils.houdini_version(2)
                 if __pyside_version__ == 6:
                     if h_version > 205:
-                        setattr(builtins, app_name, ps_cls(*args, **kwargs))
-                        getattr(builtins, app_name).show()
+                        setattr(builtins, launch_app_name, ps_cls(*args, **kwargs))
+                        getattr(builtins, launch_app_name).show()
                         
                 elif __pyside_version__ == 2:
                     if h_version == 205:
-                        setattr(builtins, app_name, ps_cls(*args, **kwargs))
-                        getattr(builtins, app_name).show()
+                        setattr(builtins, launch_app_name, ps_cls(*args, **kwargs))
+                        getattr(builtins, launch_app_name).show()
                     
         else:
             _MSG: str = """
@@ -23366,7 +23366,31 @@ class pyside_master:
                         fade_out_ms: int | None = None,
                         splash_screen: bool = False, 
                         f3h_node: hou.SopNode | None = None
-                     ):
+                     ) -> None:
+            """</br>
+            
+            Args:
+                (self):
+                parent (QWidget): The parent widget for this panel, usually left as None for top level windows.
+                ps_app_name (str): The name of the PySide application instance to create or use.
+                app_name (str): The name of the application, used for display purposes.
+                app_info (str): The main info message string to display on the panel.
+                win_width (int): The width of the main window panel.
+                win_height (int): The height of the main window panel.
+                banner_height (int): The height of the banner image, must be equal or less than the main window panel height.
+                svg_icon_width (int): The width of the SVG icon on top of the banner image
+                svg_icon_height (int | None): The height of the SVG icon on top of the banner image. This uses the svg_icon_width value by default for square size SVG icon.
+                links (bool): When True it will display FLAM3H™ related web links.
+                auto_close_ms (int): Timer in millisecond. Default to 5 seconds. When set to 0 or negative, it will disable the auto close feature.
+                fade_in_ms (int | None): Fade in time in millisecond. Default to 0(Zero). When set to None, it will keep the default value of the class variable FADE_IN_DURATION_MS.
+                fade_out_ms (int | None): Fade out time in millisecond. Default to 0(Zero). When set to None, it will keep the default value of the class variable FADE_OUT_DURATION_MS.
+                splash_screen (bool): When True it will force the banner image to be load even if some chackes fail, just for the splash screen.
+                f3h_node (hou.SopNode | None): This FLAM3H™ node. This is needed if you need to check for the FLAM3H™ node validity and access some of its parameters for display purposes on the panel.
+
+            Returns:
+                (None):
+            """  
+            
             super().__init__(parent)
             
             app: QtCore.QCoreApplication | None = QtWidgets.QApplication.instance()
