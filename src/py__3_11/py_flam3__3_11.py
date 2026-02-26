@@ -2284,7 +2284,8 @@ class flam3h_scripts
         if hou.isUIAvailable():
             
             # If there are not any Sop viewer lets cook it since this is the first node instance of FLAM3H™
-            if flam3h_general_utils.util_is_context_available_viewer('Sop') is False and flam3h_general_utils.util_is_context_available_viewer('Object') is False: node.cook(force=True)
+            viewers: list[hou.SceneViewer] = flam3h_general_utils.util_getSceneViewers()
+            if flam3h_general_utils.util_is_context_available_viewer_SOP(viewers) is False and flam3h_general_utils.util_is_context_available_viewer('Object') is False: node.cook(force=True)
             elif sys_updated_mode == hou.updateMode.Manual: # type: ignore
                 node.cook(force=True)
                 
@@ -2738,7 +2739,7 @@ class flam3h_scripts
             for v in viewers:
                 
                 # Lets make sure we check for a viewer in the Sop context
-                if flam3h_general_utils.util_is_context('Sop', v) or flam3h_general_utils.util_is_context('Object', v):
+                if flam3h_general_utils.util_is_context_SOP(v):
                     
                     settings: hou.GeometryViewportSettings = v.curViewport().settings()
                     size: float = settings.particlePointSize()
@@ -2771,7 +2772,7 @@ class flam3h_scripts
             for v in viewers:
                 
                 # Lets make sure we check for a viewer in the Sop context
-                if flam3h_general_utils.util_is_context('Sop', v) or flam3h_general_utils.util_is_context('Object', v):
+                if flam3h_general_utils.util_is_context_SOP(v):
                     
                     settings: hou.GeometryViewportSettings = v.curViewport().settings()
                     size: float = settings.wireWidth()
@@ -3276,8 +3277,10 @@ class flam3h_general_utils
 * util_getSceneViewers() -> list[hou.SceneViewer]:
 * util_getNetworkEditors() -> list[hou.NetworkEditor]:
 * util_is_context(context: str, viewport: hou.SceneViewer | hou.NetworkEditor | hou.ParameterEditor) -> bool:
+* def util_is_context_SOP(viewport: hou.SceneViewer | hou.NetworkEditor | hou.ParameterEditor) -> bool:
 * util_is_context_available_viewer(context: str) -> bool:
 * util_is_context_available_viewer_data(context: str) -> tuple[bool, list[hou.SceneViewer]]:
+* util_is_context_available_viewer_SOP(viewers: list[hou.SceneViewer]) -> bool:
 * util_is_context_available_network_editor(context: str) -> bool:
 * util_clear_stashed_cam_data() -> None:
 * util_set_stashed_cam() -> None:
@@ -3675,7 +3678,7 @@ class flam3h_general_utils
                 * Object: str
                 * Sop: str
                 * Lop: str
-            viewport(hou.paneTabType): Any of the available pane tab types,</br>in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer
+            viewport(hou.SceneViewer | hou.NetworkEditor | hou.ParameterEditor): Any of the available pane tab types,</br>in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer
             
         Returns:
             (bool): True if we are in a desired context or False if we are not.
@@ -3684,6 +3687,22 @@ class flam3h_general_utils
         if str(context_now.name()).lower() == context.lower():
             return True
         
+        return False
+    
+    
+    @staticmethod
+    def util_is_context_SOP(viewport: hou.SceneViewer | hou.NetworkEditor | hou.ParameterEditor) -> bool:
+        """Return if we are inside a SOP context or not.</br>
+        
+        Args:
+            viewport(hou.SceneViewer | hou.NetworkEditor | hou.ParameterEditor): Any of the available pane tab types,</br>in my case will always be: hou.paneTabType.SceneViewer or hou.SceneViewer
+            
+        Returns:
+            (bool): True if we are inside a SOP context (include Object context) or False if we are not.
+        
+        """
+        if  flam3h_general_utils.util_is_context('Sop', viewport) or flam3h_general_utils.util_is_context('Object', viewport):
+            return True
         return False
 
 
@@ -3703,6 +3722,25 @@ class flam3h_general_utils
         available = False
         for v in flam3h_general_utils.util_getSceneViewers():
             if flam3h_general_utils.util_is_context(context, v):
+                available = True
+                break
+            
+        return available
+    
+    
+    @staticmethod
+    def util_is_context_available_viewer_SOP(viewers: list[hou.SceneViewer]) -> bool:
+        """Return if there are viewers that belong to a desired context.</br>
+        
+        Args:
+            viewers(list[hou.SceneViewer]): A list of viewers to check if there are viewers that belong to either 'Sop' or 'Object'.</br>This is being added as an alternative to: <b>def util_is_context_available_viewer(context: str) -> bool:</b></br>It perform the same operations but will also allow to reuse the already collected viewers data instead of collecting them multiple times.
+            
+        Returns:
+            (bool): [True if there is at least one viewer that belong to a desired context or False if not.]
+        """    
+        available = False
+        for v in viewers:
+            if flam3h_general_utils.util_is_context_SOP(v):
                 available = True
                 break
             
@@ -3801,7 +3839,7 @@ class flam3h_general_utils
         
         if _CAMS is None:
             
-            if viewport is not None and viewport.isCurrentTab() and (flam3h_general_utils.util_is_context('Sop', viewport) or flam3h_general_utils.util_is_context('Object', viewport)):
+            if viewport is not None and viewport.isCurrentTab() and flam3h_general_utils.util_is_context_SOP(viewport):
                 
                 view: hou.GeometryViewport = viewport.curViewport()
                 
@@ -3836,7 +3874,7 @@ class flam3h_general_utils
                 for v in flam3h_general_utils.util_getSceneViewers():
                     
                     # Restore only if it is a Sop viewer
-                    if flam3h_general_utils.util_is_context('Sop', v) or flam3h_general_utils.util_is_context('Object', v):
+                    if flam3h_general_utils.util_is_context_SOP(v):
                         
                         view: hou.GeometryViewport = v.curViewport()
                         key: str = v.name()
@@ -3948,7 +3986,7 @@ class flam3h_general_utils
         for v in flam3h_general_utils.util_getSceneViewers():
             
             # Store only if it is a Sop viewer
-            if flam3h_general_utils.util_is_context('Sop', v) or flam3h_general_utils.util_is_context('Object', v):
+            if flam3h_general_utils.util_is_context_SOP(v):
                 
                 view: hou.GeometryViewport = v.curViewport()
                 settings: hou.GeometryViewportSettings = view.settings()
@@ -4153,7 +4191,7 @@ class flam3h_general_utils
             views_type: list[hou.geometryViewportType] = []
             for v in self.util_getSceneViewers():
                 # Store only if it is a Sop viewer
-                if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
+                if self.util_is_context_SOP(v):
                     view: hou.GeometryViewport = v.curViewport()
                     views_cam.append(view.defaultCamera().stash())
                     views_keys.append(v.name())
@@ -4233,7 +4271,7 @@ class flam3h_general_utils
             if viewport is not None and len(viewports) == 1 and viewport.isCurrentTab():
                 
                 # Set only if it is a Sop viewer
-                if self.util_is_context('Sop', viewport) or self.util_is_context('Object', viewport):
+                if self.util_is_context_SOP(viewport):
                     
                     view: hou.GeometryViewport = viewport.curViewport()
                     
@@ -4367,7 +4405,7 @@ class flam3h_general_utils
             for v in viewports:
                 
                 # Set only if it is a Sop viewer
-                if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
+                if self.util_is_context_SOP(v):
                     
                     if allowed_viewers is False: allowed_viewers = True
                     
@@ -4462,7 +4500,7 @@ class flam3h_general_utils
             views_keys: list[str] = []
             for v in self.util_getSceneViewers():
                 # Store only if it is a Sop viewer
-                if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
+                if self.util_is_context_SOP(v):
                     
                     view: hou.GeometryViewport = v.curViewport()
                     settings: hou.GeometryViewportSettings = view.settings()
@@ -4605,7 +4643,8 @@ class flam3h_general_utils
             # This will prevent Karma to restart if we are trying to activate the camera sensor viz.
             # However, if we have a mix of SOP and LOP viewers, we still need to go and check them one by one inside: self.util_set_front_viewer()
             # and if an active Karma viewer is present it will be re-started during the process as of now.
-            if self.util_is_context_available_viewer('Sop') or self.util_is_context_available_viewer('Object'):
+            viewers: list[hou.SceneViewer] = self.util_getSceneViewers()
+            if self.util_is_context_available_viewer_SOP(viewers):
                 
                 flam3h_prm_utils.private_prm_set(node, prm, 1)
                 
@@ -4652,10 +4691,12 @@ class flam3h_general_utils
         # Refresh menu caches
         self.menus_refresh_enum_prefs()
         
+        viewers: list[hou.SceneViewer] = self.util_getSceneViewers()
+        
         if prm.eval():
             
             # There must be at least one viewport
-            if self.util_is_context_available_viewer('Sop') or self.util_is_context_available_viewer('Object'):
+            if self.util_is_context_available_viewer_SOP(viewers):
                 
                 flam3h_prm_utils.private_prm_set(node, prm, 0)
                 
@@ -4678,7 +4719,7 @@ class flam3h_general_utils
         else:
             
             # There must be at least one viewport
-            if self.util_is_context_available_viewer('Sop') or self.util_is_context_available_viewer('Object'):
+            if self.util_is_context_available_viewer_SOP(viewers):
             
                 if f3h_xf_viz_others is False:
                     self.util_store_all_viewers_xf_viz()
@@ -4985,7 +5026,8 @@ class flam3h_general_utils
             # This is a one off only for the TAG
             if prm_name == f3h_tabs.PREFS.PVT_PRM_TAG:
                 
-                if self.util_is_context_available_viewer('Sop') or self.util_is_context_available_viewer('Object'):
+                viewers: list[hou.SceneViewer] = self.util_getSceneViewers()
+                if self.util_is_context_available_viewer_SOP(viewers):
                     
                     flam3h_prm_utils.private_prm_set(node, prm, 1)
                     _MSG: str = f"{node.name()}: {str(prm.name()).upper()}: ON"
@@ -5427,7 +5469,7 @@ class flam3h_general_utils
             for v in self.util_getSceneViewers():
                 
                 # Store only if it is a Sop viewer
-                if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
+                if self.util_is_context_SOP(v):
                     
                     view: hou.GeometryViewport = v.curViewport()
                     settings: hou.GeometryViewportSettings = view.settings()
@@ -5469,7 +5511,7 @@ class flam3h_general_utils
                 for v in views:
                     
                     # Set only if it is a Sop viewer
-                    if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
+                    if self.util_is_context_SOP(v):
                         
                         if allowed_viewers is False: allowed_viewers = True
                         
@@ -5510,7 +5552,7 @@ class flam3h_general_utils
                     for v in views:
                         
                         # Only if it is a Sop viewer
-                        if self.util_is_context('Sop', v) or self.util_is_context('Object', v):
+                        if self.util_is_context_SOP(v):
                             
                             if allowed_viewers is False: allowed_viewers = True
                             
@@ -5600,7 +5642,7 @@ class flam3h_general_utils
         for view in self.util_getSceneViewers():
             
             # Set only if it is a Lop viewer
-            if self.util_is_context('Sop', view) or self.util_is_context('Object', view):
+            if self.util_is_context_SOP(view):
                 
                 if allowed_viewers is False: allowed_viewers = True
                 
@@ -5682,7 +5724,7 @@ class flam3h_general_utils
         for view in self.util_getSceneViewers():
             
             # Set only if it is a Lop viewer
-            if self.util_is_context('Sop', view) or self.util_is_context('Object', view):
+            if self.util_is_context_SOP(view):
             
                 if allowed_viewers is False: allowed_viewers = True
             
@@ -5760,7 +5802,7 @@ class flam3h_general_utils
         for view in self.util_getSceneViewers():
             
             # Set only if it is a Sop viewer
-            if self.util_is_context('Sop', view) or self.util_is_context('Object', view):
+            if self.util_is_context_SOP(view):
                 
                 if allowed_viewers is False: allowed_viewers = True
                 
