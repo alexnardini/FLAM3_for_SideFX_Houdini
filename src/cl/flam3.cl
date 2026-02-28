@@ -58,12 +58,12 @@ inline int sample_cdf_binary(__global const float* CDF, int length, float u_rand
 }
 
 
+
 inline void affine_local(float2* pos, float2 X, float2 Y, float2 O) {
     float2 p = *pos;
     pos->x = p.x * X.x + p.y * Y.x + O.x;
     pos->y = p.x * X.y + p.y * Y.y + O.y;
 }
-
 
 // NOT USED
 inline float2 affine(float2 p, float2 X, float2 Y, float2 O)
@@ -73,7 +73,6 @@ inline float2 affine(float2 p, float2 X, float2 Y, float2 O)
         p.x * X.y + p.y * Y.y + O.y
     );
 }
-
 
 kernel void flam3( 
     int P_length,
@@ -103,7 +102,7 @@ kernel void flam3(
     global float * restrict SHD
 )
 {
-    uint gid = (uint)get_global_id(0);
+    int gid = get_global_id(0);
     if (gid >= P_length)
         return;
     
@@ -113,7 +112,7 @@ kernel void flam3(
     
     
     uint s0 = gid;
-    uint s1 = gid ^ 0xdeadbeef;
+    uint s1 = gid ^ 0x9E3779B9u;
         
     #pragma unroll 4
     for (int i = 0; i < 1024; ++i){
@@ -124,14 +123,8 @@ kernel void flam3(
         // Random number float in [0,1)
         float r = rand_xoroshiro(&s0, &s1);
         
-        // Binary Xform selection
+        // Xform selection
         int idx_xf = sample_cdf_binary(IW, RES, r);
-        
-        // Linear Xform selection
-        // float target = r * IW[RES - 1];
-        // int idx_xf = 0;
-        // while (idx_xf < RES - 1 && target >= IW[idx_xf])
-        //     idx_xf++;
         
         // Pre-affine transform
         affine_local(&tmp, X[idx_xf], Y[idx_xf], O[idx_xf]);
@@ -142,10 +135,10 @@ kernel void flam3(
         // tmp.x = x0 * X[idx_xf].x + y0 * Y[idx_xf].x + O[idx_xf].x;
         // tmp.y = x0 * X[idx_xf].y + y0 * Y[idx_xf].y + O[idx_xf].y;
 
-        // Color update
+        // Color (minimize repeated global reads)
         prev_clr = clr = SHD[idx_xf] + SHD[RES + idx_xf] * prev_clr;
         
-        // Position Update
+        // Update
         pos = tmp;
     }
 
