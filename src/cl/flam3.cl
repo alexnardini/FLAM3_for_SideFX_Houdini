@@ -2,6 +2,7 @@
 float lerpConstant( constant float * in, int size, float pos);
 
 
+// NOT USED
 inline int sample_cdf(__global const float* CDF, int length, float u_rand) {
     if (length <= 0) return 0;
 
@@ -41,15 +42,15 @@ inline int sample_cdf_binary(__global const float* CDF, int length, float u_rand
 }
 
 
-// 2D affine transform in-place
-inline void affine_transform_inplace_local(float2* pos, float2 X, float2 Y, float2 O) {
+
+inline void affine_local(float2* pos, float2 X, float2 Y, float2 O) {
     float2 p = *pos;
     pos->x = p.x * X.x + p.y * Y.x + O.x;
     pos->y = p.x * X.y + p.y * Y.y + O.y;
 }
 
-
-inline float2 affine_transform(float2 p, float2 X, float2 Y, float2 O)
+// NOT USED
+inline float2 affine(float2 p, float2 X, float2 Y, float2 O)
 {
     return (float2)(
         p.x * X.x + p.y * Y.x + O.x,
@@ -100,7 +101,7 @@ kernel void flam3(
         int idx_xf = sample_cdf_binary(IW, RES, r);
         
         // PRE Affine
-        affine_transform_inplace_local(&tmp, X[idx_xf], Y[idx_xf], O[idx_xf]);
+        affine_local(&tmp, X[idx_xf], Y[idx_xf], O[idx_xf]);
             
         // Update
         pos = tmp;
