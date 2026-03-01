@@ -8,13 +8,16 @@ uint rotate_left(uint x, int k) {
 }
 // returns random float [0,1), updates s0/s1
 float rand_xoroshiro(uint *s0, uint *s1) {
-    uint result = (*s0 + *s1);
+    uint _s0 = *s0;
+    uint _s1 = *s1;
+    uint result = (_s0 + _s1);
 
-    uint t = *s1 ^ *s0;
-    *s0 = rotate_left(*s0, 26) ^ t ^ (t << 9);
+    uint t = _s1 ^ _s0;
+    *s0 = rotate_left(_s0, 26) ^ t ^ (t << 9);
     *s1 = rotate_left(t, 13);
-
-    return (float)(result & 0x00FFFFFFu) / 16777216.0f;
+    
+    return (float)(result >> 8) / 16777216.0f; // Isolate the top 24 bits for higher quality randomness
+    // return (float)(result & 0x00FFFFFFu) / 16777216.0f;
 }
 
 
