@@ -1,4 +1,5 @@
 #define MAX_XFORMS 64
+#define MAX_AFFINE_SIZE (MAX_XFORMS * 3)
 #define MAX_XFORMS_XAOS 20
 #define PSCL 0.001f
 
@@ -76,50 +77,50 @@ inline float2 affine(float2 p, float2 X, float2 Y, float2 O)
 
 kernel void flam3( 
     int P_length,
-    global float * restrict P,
+    __global float * restrict P,
     int PSCALE_length,
-    global float * restrict PSCALE,
+    __global float * restrict PSCALE,
     int COLOR_length,
-    global float * restrict COLOR,
+    __global float * restrict COLOR,
     int ALPHA_length,
-    global float * restrict ALPHA,
+    __global float * restrict ALPHA,
     int    RES,
     int IW_length,
     int IW_tuplesize,
-    global int * restrict IW_index,
-    global float * restrict IW,
+    __global int * restrict IW_index,
+    __global float * restrict IW,
     int SHD_length,
     int SHD_tuplesize,
-    global int * restrict SHD_index,
-    global float * restrict SHD,
+    __global int * restrict SHD_index,
+    __global float * restrict SHD,
     int X_length,
     int X_tuplesize,
-    global int * restrict X_index,
-    global float2 * restrict X,
+    __global int * restrict X_index,
+    __global float2 * restrict X,
     int Y_length,
     int Y_tuplesize,
-    global int * restrict Y_index,
-    global float2 * restrict Y,
+    __global int * restrict Y_index,
+    __global float2 * restrict Y,
     int O_length,
     int O_tuplesize,
-    global int * restrict O_index,
-    global float2 * restrict O,
+    __global int * restrict O_index,
+    __global float2 * restrict O,
     int POST_length,
     int POST_tuplesize,
-    global int * restrict POST_index,
-    global int * restrict POST,
+    __global int * restrict POST_index,
+    __global int * restrict POST,
     int PX_length,
     int PX_tuplesize,
-    global int * restrict PX_index,
-    global float2 * restrict PX,
+    __global int * restrict PX_index,
+    __global float2 * restrict PX,
     int PY_length,
     int PY_tuplesize,
-    global int * restrict PY_index,
-    global float2 * restrict PY,
+    __global int * restrict PY_index,
+    __global float2 * restrict PY,
     int PO_length,
     int PO_tuplesize,
-    global int * restrict PO_index,
-    global float2 * restrict PO
+    __global int * restrict PO_index,
+    __global float2 * restrict PO
 )
 {
     int gid = get_global_id(0);
@@ -129,12 +130,12 @@ kernel void flam3(
     // Copy data to local memory
     int lid = get_local_id(0);
     int lsize = get_local_size(0);
-    local float2 local_X[MAX_XFORMS * 3];
-    local float2 local_Y[MAX_XFORMS * 3];
-    local float2 local_O[MAX_XFORMS * 3];
-    local float2 local_PX[MAX_XFORMS * 3];
-    local float2 local_PY[MAX_XFORMS * 3];
-    local float2 local_PO[MAX_XFORMS * 3];
+    __local float2 local_X[MAX_AFFINE_SIZE];
+    __local float2 local_Y[MAX_AFFINE_SIZE];
+    __local float2 local_O[MAX_AFFINE_SIZE];
+    __local float2 local_PX[MAX_AFFINE_SIZE];
+    __local float2 local_PY[MAX_AFFINE_SIZE];
+    __local float2 local_PO[MAX_AFFINE_SIZE];
     int total_affine = RES * 3;
     // Copy
     for(int i = lid; i < total_affine; i += lsize){
