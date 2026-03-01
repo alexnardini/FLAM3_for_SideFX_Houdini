@@ -1,6 +1,6 @@
-#include "interpolate.h" 
-float lerpConstant( constant float * in, int size, float pos);
-
+#define MAX_XFORMS 64
+#define MAX_XFORMS_XAOS 20
+#define PSCL 0.001f
 
 uint rotate_left(uint x, int k) {
     return (x << k) | (x >> (32 - k));
@@ -77,9 +77,21 @@ inline float2 affine(float2 p, float2 X, float2 Y, float2 O)
 kernel void flam3( 
     int P_length,
     global float * restrict P,
-    int my_clr_length,
-    global float * restrict my_clr,
+    int PSCALE_length,
+    global float * restrict PSCALE,
+    int COLOR_length,
+    global float * restrict COLOR,
+    int ALPHA_length,
+    global float * restrict ALPHA,
     int    RES,
+    int IW_length,
+    int IW_tuplesize,
+    global int * restrict IW_index,
+    global float * restrict IW,
+    int SHD_length,
+    int SHD_tuplesize,
+    global int * restrict SHD_index,
+    global float * restrict SHD,
     int X_length,
     int X_tuplesize,
     global int * restrict X_index,
@@ -92,20 +104,51 @@ kernel void flam3(
     int O_tuplesize,
     global int * restrict O_index,
     global float2 * restrict O,
-    int IW_length,
-    int IW_tuplesize,
-    global int * restrict IW_index,
-    global float * restrict IW,
-    int SHD_length,
-    int SHD_tuplesize,
-    global int * restrict SHD_index,
-    global float * restrict SHD
+    int POST_length,
+    int POST_tuplesize,
+    global int * restrict POST_index,
+    global int * restrict POST,
+    int PX_length,
+    int PX_tuplesize,
+    global int * restrict PX_index,
+    global float2 * restrict PX,
+    int PY_length,
+    int PY_tuplesize,
+    global int * restrict PY_index,
+    global float2 * restrict PY,
+    int PO_length,
+    int PO_tuplesize,
+    global int * restrict PO_index,
+    global float2 * restrict PO
 )
 {
     int gid = get_global_id(0);
     if (gid >= P_length)
         return;
+        
+    // Copy data to local memory
+    int lid = get_local_id(0);
+    int lsize = get_local_size(0);
+    local float2 local_X[MAX_XFORMS * 3];
+    local float2 local_Y[MAX_XFORMS * 3];
+    local float2 local_O[MAX_XFORMS * 3];
+    local float2 local_PX[MAX_XFORMS * 3];
+    local float2 local_PY[MAX_XFORMS * 3];
+    local float2 local_PO[MAX_XFORMS * 3];
+    int total_affine = RES * 3;
+    // Copy
+    for(int i = lid; i < total_affine; i += lsize){
+        local_X[i] = X[i];
+        local_Y[i] = Y[i];
+        local_O[i] = O[i];
+        local_PX[i] = PX[i];
+        local_PY[i] = PY[i];
+        local_PO[i] = PO[i];
+    }
+    // Wait for all workgroup to complete the copy
+    barrier(CLK_LOCAL_MEM_FENCE);
     
+    int idx_xf;
     float2 pos = (float2)(0.0f, 0.0f);
     float prev_clr = 0.0f;
     float clr = 0;
@@ -114,7 +157,6 @@ kernel void flam3(
     uint s0 = gid;
     uint s1 = gid ^ 0x9E3779B9u;
         
-    #pragma unroll 4
     for (int i = 0; i < 1024; ++i){
     
         // Init
@@ -124,26 +166,42 @@ kernel void flam3(
         float r = rand_xoroshiro(&s0, &s1);
         
         // Xform selection
-        int idx_xf = sample_cdf_binary(IW, RES, r);
+        idx_xf = sample_cdf_binary(IW, RES, r);
         
         // Pre-affine transform
-        affine_local(&tmp, X[idx_xf], Y[idx_xf], O[idx_xf]);
+        // affine_local(&tmp, local_X[idx_xf], local_Y[idx_xf], local_O[idx_xf]);
 
         // Pre-affine transform (inline)
-        // float x0 = tmp.x;
-        // float y0 = tmp.y;
-        // tmp.x = x0 * X[idx_xf].x + y0 * Y[idx_xf].x + O[idx_xf].x;
-        // tmp.y = x0 * X[idx_xf].y + y0 * Y[idx_xf].y + O[idx_xf].y;
+        float x0 = tmp.x;
+        float y0 = tmp.y;
+        tmp.x = x0 * local_X[idx_xf].x + y0 * local_Y[idx_xf].x + local_O[idx_xf].x;
+        tmp.y = x0 * local_X[idx_xf].y + y0 * local_Y[idx_xf].y + local_O[idx_xf].y;
+        
+        // Post-affine transform
+        if(POST[idx_xf]){
+            // affine_local(&tmp, local_PX[idx_xf], local_PY[idx_xf], local_PO[idx_xf]);
+            
+            // Post-affine transform (inline)
+            x0 = tmp.x;
+            y0 = tmp.y;
+            tmp.x = x0 * local_PX[idx_xf].x + y0 * local_PY[idx_xf].x + local_PO[idx_xf].x;
+            tmp.y = x0 * local_PX[idx_xf].y + y0 * local_PY[idx_xf].y + local_PO[idx_xf].y;
+        }
 
-        // Color (minimize repeated global reads)
+        // Color
         prev_clr = clr = SHD[idx_xf] + SHD[RES + idx_xf] * prev_clr;
         
         // Update
         pos = tmp;
-    }
-
+    } 
+    
+    // Get this sample Alpha value
+    float a = SHD[RES + RES + idx_xf];
+    
     // OUT
-    vstore(clr, gid, my_clr);
     vstore3((float3)(pos.x, pos.y, 0), gid, P);
-
+    vstore(PSCL * a, gid, PSCALE);
+    vstore(clr, gid, COLOR);
+    vstore(a, gid, ALPHA);
+    
 }
