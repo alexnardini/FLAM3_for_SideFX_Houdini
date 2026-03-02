@@ -235,7 +235,15 @@ __kernel void flam3(
     int PO_length,
     int PO_tuplesize,
     __global int * restrict PO_index,
-    __global float2 * restrict PO
+    __global float2 * restrict PO,
+    int V1T_length,
+    int V1T_tuplesize,
+    __global int * restrict V1T_index,
+    __global float * restrict V1T,
+    int V1W_length,
+    int V1W_tuplesize,
+    __global int * restrict V1W_index,
+    __global float * restrict V1W
 )
 {
     int gid = get_global_id(0);
@@ -246,22 +254,27 @@ __kernel void flam3(
     int lid = get_local_id(0);
     int lsize = get_local_size(0);
     __local float local_IW[MAX_XFORMS];
+    __local float local_SHD[MAX_XFORMS];
     __local float2 local_X[MAX_AFFINE_SIZE];
     __local float2 local_Y[MAX_AFFINE_SIZE];
     __local float2 local_O[MAX_AFFINE_SIZE];
+
+    __local int local_POST[MAX_XFORMS];
     __local float2 local_PX[MAX_AFFINE_SIZE];
     __local float2 local_PY[MAX_AFFINE_SIZE];
     __local float2 local_PO[MAX_AFFINE_SIZE];
 
     // Copy cooperatively among work-items in the group
-    int total_affine = RES * 3;
-    for(int i = lid; i < total_affine; i += lsize){
+    int TOTAL_AFFINE = RES * 3;
+    for(int i = lid; i < TOTAL_AFFINE; i += lsize){
+        local_SHD[i] = SHD[i];
         local_X[i] = X[i];
         local_Y[i] = Y[i];
         local_O[i] = O[i];
         local_PX[i] = PX[i];
         local_PY[i] = PY[i];
         local_PO[i] = PO[i];
+        local_POST[i] = POST[i];
     }
     // This will always be smaller, so one work-item will copy the remaining data
     if (lid == 0) {
@@ -272,7 +285,7 @@ __kernel void flam3(
     // Wait to complete the copy
     barrier(CLK_LOCAL_MEM_FENCE);
     
-    int idx_xf;
+    int idx;
     float2 pos = (0.0f, 0.0f);
     float prev_clr = 0.0f;
     float clr = 0.0f;
@@ -290,25 +303,31 @@ __kernel void flam3(
         float r = x128_next_float(&rng);
         
         // Xform selection
-        idx_xf = sample_cdf_binary(local_IW, RES, r);
+        idx = sample_cdf_binary(local_IW, RES, r);
         
         // Pre-affine transform
-        affine_local(&tmp, local_X[idx_xf], local_Y[idx_xf], local_O[idx_xf]);
-
-        // Apply variations (not implemented yet, but would go between pre-affine and post-affine)
+        affine_local(&tmp, local_X[idx], local_Y[idx], local_O[idx]);
+        
+        
+        
+        // Apply variations (not implemented yet)
+        float w = V1W[idx];
+        tmp *= w;
+        
+        
         
         // Post-affine transform
-        if(POST[idx_xf]) affine_local(&tmp, local_PX[idx_xf], local_PY[idx_xf], local_PO[idx_xf]);
+        if(local_POST[idx]) affine_local(&tmp, local_PX[idx], local_PY[idx], local_PO[idx]);
 
         // Color
-        prev_clr = clr = SHD[idx_xf] + SHD[RES + idx_xf] * prev_clr;
+        prev_clr = clr = local_SHD[idx] + local_SHD[RES + idx] * prev_clr;
         
         // Update
         pos = tmp;
     } 
     
     // Get this sample Alpha value
-    float a = SHD[RES + RES + idx_xf];
+    float a = local_SHD[RES + RES + idx];
     
     // OUT
     vstore3((float3)(pos.x, pos.y, 0), gid, P);
