@@ -1,13 +1,129 @@
-#define MAX_XFORMS 64
-#define MAX_AFFINE_SIZE (MAX_XFORMS * 3)
-#define MAX_XFORMS_XAOS 20
+#pragma once
+
+#define USEFMA 1    // Enable fused multiply-add if desired
 #define PSCL 0.001f
 
-uint rotate_left(uint x, int k) {
+// ----------------------------
+// Constants
+// ----------------------------
+enum {
+    MAX_XFORMS       = 64,
+    MAX_AFFINE_SIZE  = MAX_XFORMS * 3,
+    MAX_XFORMS_XAOS  = 20,
+    MWC64X_A         = 4294883355u
+};
+
+
+// ----------------------------
+// GPU RNG: Xoroshiro128+
+//
+// This RNG was originally MWC64X in Fractorium.
+// Updated to use Xoroshiro128+ instead for better randomness and longer period.
+// It is basically upgrading MWC64X functionality while keeping the same type of helper functions.
+// ----------------------------
+
+// ----------------------------
+// RNG state per thread
+// ----------------------------
+typedef struct {
+    uint s0;
+    uint s1;
+    uint s2;
+    uint s3;
+} x128_state_t;
+
+// ----------------------------
+// Rotate left
+// ----------------------------
+inline uint rotate_left(uint x, int k) {
     return (x << k) | (x >> (32 - k));
 }
-// returns random float [0,1), updates s0/s1
-float rand_xoroshiro(uint *s0, uint *s1) {
+
+// ----------------------------
+// SplitMix32 for per-thread seeding
+// ----------------------------
+inline uint splitmix32(uint seed) {
+    uint z = seed + 0x9E3779B9u;
+    z = (z ^ (z >> 16)) * 0x85EBCA6Bu;
+    z = (z ^ (z >> 13)) * 0xC2B2AE35u;
+    return z ^ (z >> 16);
+}
+
+// ----------------------------
+// Initialize RNG state for a work-item
+// gid = get_global_id(0) or other unique thread index
+// ----------------------------
+inline void rng_init(x128_state_t* state, uint gid) {
+    state->s0 = splitmix32(gid + 0);
+    state->s1 = splitmix32(gid + 1);
+    state->s2 = splitmix32(gid + 2);
+    state->s3 = splitmix32(gid + 3);
+}
+
+// ----------------------------
+// Next uint32 random
+// ----------------------------
+inline uint x128_next_uint(x128_state_t* state) {
+    uint result = state->s0 + state->s3;
+
+    uint t = state->s1 << 9;
+
+    state->s2 ^= state->s0;
+    state->s3 ^= state->s1;
+    state->s1 ^= state->s2;
+    state->s0 ^= state->s3;
+
+    state->s2 ^= t;
+
+    state->s3 = rotate_left(state->s3, 11);
+
+    return result;
+}
+
+// ----------------------------
+// Float in [0,1)
+// ----------------------------
+inline float x128_next_float(x128_state_t* state) {
+    uint r = x128_next_uint(state);
+    return (float)(r >> 8) * (1.0f / 16777216.0f); // 1/2^24
+}
+
+// ----------------------------
+// Float in [lower, upper)
+// ----------------------------
+inline float x128_next_float_range(x128_state_t* state, float lower, float upper) {
+    float f = x128_next_float(state);
+#ifdef USEFMA
+    return fma(f, upper - lower, lower);
+#else
+    return f * (upper - lower) + lower;
+#endif
+}
+
+// ----------------------------
+// Float in [-1,1)
+// ----------------------------
+inline float x128_next_neg1pos1(x128_state_t* state) {
+    float f = x128_next_float(state);
+#ifdef USEFMA
+    return fma(f, 2.0f, -1.0f);
+#else
+    return f * 2.0f - 1.0f;
+#endif
+}
+
+// ----------------------------
+// Float in [-0.5,0.5)
+// ----------------------------
+inline float x128_next_0505(x128_state_t* state) {
+    float f = x128_next_float(state);
+    return f - 0.5f;
+}
+
+
+// ----------------------------
+// GPU RNG: xoroshiro64+ variant (outputs float in [0,1) using top 24 bits)
+float rand_x64(uint *s0, uint *s1) {
     uint _s0 = *s0;
     uint _s1 = *s1;
     uint result = (_s0 + _s1);
@@ -16,8 +132,7 @@ float rand_xoroshiro(uint *s0, uint *s1) {
     *s0 = rotate_left(_s0, 26) ^ t ^ (t << 9);
     *s1 = rotate_left(t, 13);
 
-    return (float)(result >> 8) / 16777216.0f;
-    // return (float)(result & 0x00FFFFFFu) / 16777216.0f;
+    return (float)(result >> 8) / 16777216.0f; // Get the upper 24bit for more uniform randomness
 }
 
 
@@ -163,8 +278,8 @@ __kernel void flam3(
     float clr = 0.0f;
     
     
-    uint s0 = gid;
-    uint s1 = gid ^ 0x9E3779B9u;
+    x128_state_t rng;
+    rng_init(&rng, gid);  // unique per thread
         
     for (int i = 0; i < 1024; ++i){
     
@@ -172,7 +287,7 @@ __kernel void flam3(
         float2 tmp = pos;
     
         // Random number float in [0,1)
-        float r = rand_xoroshiro(&s0, &s1);
+        float r = x128_next_float(&rng);
         
         // Xform selection
         idx_xf = sample_cdf_binary(local_IW, RES, r);
