@@ -15,14 +15,12 @@ float rand_xoroshiro(uint *s0, uint *s1) {
     uint t = _s1 ^ _s0;
     *s0 = rotate_left(_s0, 26) ^ t ^ (t << 9);
     *s1 = rotate_left(t, 13);
-    
-    return (float)(result >> 8) / 16777216.0f; // Isolate the top 24 bits for higher quality randomness
+
+    return (float)(result >> 8) / 16777216.0f;
     // return (float)(result & 0x00FFFFFFu) / 16777216.0f;
 }
 
 
-
-// NOT USED
 inline int sample_cdf(__global const float* CDF, int length, float u_rand) {
     if (length <= 0) return 0;
 
@@ -39,7 +37,7 @@ inline int sample_cdf(__global const float* CDF, int length, float u_rand) {
 }
 
 
-inline int sample_cdf_binary(__global const float* CDF, int length, float u_rand) {
+inline int sample_cdf_binary(__local const float* CDF, int length, float u_rand) {
     if (length <= 0) return 0;
 
     // scale u_rand to the range of the CDF
@@ -62,14 +60,13 @@ inline int sample_cdf_binary(__global const float* CDF, int length, float u_rand
 }
 
 
-
 inline void affine_local(float2* pos, float2 X, float2 Y, float2 O) {
     float2 p = *pos;
     pos->x = p.x * X.x + p.y * Y.x + O.x;
     pos->y = p.x * X.y + p.y * Y.y + O.y;
 }
 
-// NOT USED
+
 inline float2 affine(float2 p, float2 X, float2 Y, float2 O)
 {
     return (float2)(
@@ -78,7 +75,7 @@ inline float2 affine(float2 p, float2 X, float2 Y, float2 O)
     );
 }
 
-kernel void flam3( 
+__kernel void flam3( 
     int P_length,
     __global float * restrict P,
     int PSCALE_length,
@@ -133,14 +130,16 @@ kernel void flam3(
     // Copy data to local memory
     int lid = get_local_id(0);
     int lsize = get_local_size(0);
+    __local float local_IW[MAX_XFORMS];
     __local float2 local_X[MAX_AFFINE_SIZE];
     __local float2 local_Y[MAX_AFFINE_SIZE];
     __local float2 local_O[MAX_AFFINE_SIZE];
     __local float2 local_PX[MAX_AFFINE_SIZE];
     __local float2 local_PY[MAX_AFFINE_SIZE];
     __local float2 local_PO[MAX_AFFINE_SIZE];
+
+    // Copy cooperatively among work-items in the group
     int total_affine = RES * 3;
-    // Copy
     for(int i = lid; i < total_affine; i += lsize){
         local_X[i] = X[i];
         local_Y[i] = Y[i];
@@ -149,13 +148,19 @@ kernel void flam3(
         local_PY[i] = PY[i];
         local_PO[i] = PO[i];
     }
-    // Wait for all workgroup to complete the copy
+    // This will always be smaller, so one work-item will copy the remaining data
+    if (lid == 0) {
+         for(int i = 0; i < RES; ++i){
+            local_IW[i] = IW[i];
+        }
+    }
+    // Wait to complete the copy
     barrier(CLK_LOCAL_MEM_FENCE);
     
     int idx_xf;
-    float2 pos = (float2)(0.0f, 0.0f);
+    float2 pos = (0.0f, 0.0f);
     float prev_clr = 0.0f;
-    float clr = 0;
+    float clr = 0.0f;
     
     
     uint s0 = gid;
@@ -170,27 +175,15 @@ kernel void flam3(
         float r = rand_xoroshiro(&s0, &s1);
         
         // Xform selection
-        idx_xf = sample_cdf_binary(IW, RES, r);
+        idx_xf = sample_cdf_binary(local_IW, RES, r);
         
         // Pre-affine transform
-        // affine_local(&tmp, local_X[idx_xf], local_Y[idx_xf], local_O[idx_xf]);
+        affine_local(&tmp, local_X[idx_xf], local_Y[idx_xf], local_O[idx_xf]);
 
-        // Pre-affine transform (inline)
-        float x0 = tmp.x;
-        float y0 = tmp.y;
-        tmp.x = x0 * local_X[idx_xf].x + y0 * local_Y[idx_xf].x + local_O[idx_xf].x;
-        tmp.y = x0 * local_X[idx_xf].y + y0 * local_Y[idx_xf].y + local_O[idx_xf].y;
+        // Apply variations (not implemented yet, but would go between pre-affine and post-affine)
         
         // Post-affine transform
-        if(POST[idx_xf]){
-            // affine_local(&tmp, local_PX[idx_xf], local_PY[idx_xf], local_PO[idx_xf]);
-            
-            // Post-affine transform (inline)
-            x0 = tmp.x;
-            y0 = tmp.y;
-            tmp.x = x0 * local_PX[idx_xf].x + y0 * local_PY[idx_xf].x + local_PO[idx_xf].x;
-            tmp.y = x0 * local_PX[idx_xf].y + y0 * local_PY[idx_xf].y + local_PO[idx_xf].y;
-        }
+        if(POST[idx_xf]) affine_local(&tmp, local_PX[idx_xf], local_PY[idx_xf], local_PO[idx_xf]);
 
         // Color
         prev_clr = clr = SHD[idx_xf] + SHD[RES + idx_xf] * prev_clr;
