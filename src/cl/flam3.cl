@@ -7,10 +7,10 @@
 // Constants
 // ----------------------------
 enum {
-    MAX_XFORMS       = 64,
-    MAX_AFFINE_SIZE  = MAX_XFORMS * 3,
-    MAX_XFORMS_XAOS  = 20,
-    MWC64X_A         = 4294883355u
+    MAX_XFORMS           = 64, 
+    MAX_AFFINE_SIZE      = MAX_XFORMS * 3, 
+    MAX_XFORMS_XAOS      = 20, 
+    MAX_XFORMS_XAOS_SIZE = MAX_XFORMS_XAOS * MAX_XFORMS_XAOS
 };
 
 
