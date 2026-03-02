@@ -8,7 +8,7 @@
 // ----------------------------
 enum {
     MAX_XFORMS           = 64, 
-    MAX_AFFINE_SIZE      = MAX_XFORMS * 3, 
+    MAX_AFFINE_SIZE      = MAX_XFORMS, 
     MAX_XFORMS_XAOS      = 20, 
     MAX_XFORMS_XAOS_SIZE = MAX_XFORMS_XAOS * MAX_XFORMS_XAOS
 };
@@ -238,8 +238,8 @@ __kernel void flam3(
     __global float2 * restrict PO,
     int V1T_length,
     int V1T_tuplesize,
-    __global int * restrict V1T_index,
-    __global float * restrict V1T,
+    global int * restrict V1T_index,
+    global int * restrict V1T,
     int V1W_length,
     int V1W_tuplesize,
     __global int * restrict V1W_index,
@@ -265,23 +265,31 @@ __kernel void flam3(
     __local float2 local_PO[MAX_AFFINE_SIZE];
 
     // Copy cooperatively among work-items in the group
-    int TOTAL_AFFINE = RES * 3;
-    for(int i = lid; i < TOTAL_AFFINE; i += lsize){
-        local_SHD[i] = SHD[i];
+    for(int i = lid; i < RES; i += lsize){
+        // CDF
+        local_IW[i] = IW[i];
+        // Pre affine
         local_X[i] = X[i];
         local_Y[i] = Y[i];
         local_O[i] = O[i];
+        // Post affine
+        local_POST[i] = POST[i];
         local_PX[i] = PX[i];
         local_PY[i] = PY[i];
         local_PO[i] = PO[i];
-        local_POST[i] = POST[i];
     }
-    // This will always be smaller, so one work-item will copy the remaining data
-    if (lid == 0) {
-         for(int i = 0; i < RES; ++i){
-            local_IW[i] = IW[i];
-        }
+    
+    int TOTAL_ELEMENTS = RES * 3;
+    for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+        local_SHD[i] = SHD[i];
     }
+    // // This will always be smaller, so one work-item will copy the remaining data
+    // if (lid == 0) {
+    //      for(int i = 0; i < RES; ++i){
+    //         local_IW[i] = IW[i];
+    //         local_POST[i] = POST[i];
+    //     }
+    // }
     // Wait to complete the copy
     barrier(CLK_LOCAL_MEM_FENCE);
     
