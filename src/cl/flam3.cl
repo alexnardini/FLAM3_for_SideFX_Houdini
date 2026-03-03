@@ -7,10 +7,8 @@
 // Constants
 // ----------------------------
 enum {
-    MAX_XFORMS           = 64, 
-    MAX_AFFINE_SIZE      = MAX_XFORMS, 
-    MAX_XFORMS_XAOS      = 20, 
-    MAX_XFORMS_XAOS_SIZE = MAX_XFORMS_XAOS * MAX_XFORMS_XAOS
+    MAX_XFORMS           = 20, 
+    MAX_XFORMS_XAOS_SIZE = MAX_XFORMS * MAX_XFORMS
 };
 
 
@@ -181,14 +179,31 @@ inline void affine_local(float2* pos, float2 X, float2 Y, float2 O) {
     pos->y = p.x * X.y + p.y * Y.y + O.y;
 }
 
+// inline void affine_local(float2* pos, float2 X, float2 Y, float2 O) {
+//     float2 p = *pos;
+//     *pos = (float2)(dot(p, (float2)(X.x, Y.x)),
+//                     dot(p, (float2)(X.y, Y.y))) + O;
+// }
 
-inline float2 affine(float2 p, float2 X, float2 Y, float2 O)
-{
-    return (float2)(
-        p.x * X.x + p.y * Y.x + O.x,
-        p.x * X.y + p.y * Y.y + O.y
-    );
-}
+// inline void affine_local(float2* pos, float2 X, float2 Y, float2 O) {
+//     float2 p = *pos;
+//     *pos = p * X + (float2)(p.y * Y.x, p.x * Y.y) + O;
+// }
+
+
+// inline float2 affine(float2 p, float2 X, float2 Y, float2 O)
+// {
+//     return (float2)(
+//         p.x * X.x + p.y * Y.x + O.x,
+//         p.x * X.y + p.y * Y.y + O.y
+//     );
+// }
+
+// inline float2 affine_local(float2 p, float2 X, float2 Y, float2 O) {
+//     // Compute new x and y as dot products + offset
+//     return (float2)(dot(p, (float2)(X.x, Y.x)),
+//                     dot(p, (float2)(X.y, Y.y))) + O;
+// }
 
 
 inline float2 V_LINEAR(float2 in, float w) {
@@ -267,18 +282,18 @@ __kernel void flam3(
     __local float local_IW[MAX_XFORMS];
     __local float local_XST[MAX_XFORMS_XAOS_SIZE];
 
-    __local float local_SHD[MAX_XFORMS];
+    __local float local_SHD[MAX_XFORMS * 3];
 
-    __local float2 local_X[MAX_AFFINE_SIZE];
-    __local float2 local_Y[MAX_AFFINE_SIZE];
-    __local float2 local_O[MAX_AFFINE_SIZE];
+    __local float2 local_X[MAX_XFORMS];
+    __local float2 local_Y[MAX_XFORMS];
+    __local float2 local_O[MAX_XFORMS];
 
     __local int local_POST[MAX_XFORMS];
-    __local float2 local_PX[MAX_AFFINE_SIZE];
-    __local float2 local_PY[MAX_AFFINE_SIZE];
-    __local float2 local_PO[MAX_AFFINE_SIZE];
+    __local float2 local_PX[MAX_XFORMS];
+    __local float2 local_PY[MAX_XFORMS];
+    __local float2 local_PO[MAX_XFORMS];
 
-    // Copy cooperatively among work-items in the group
+    // Copy cooperatively
     for(int i = lid; i < RES; i += lsize){
         // CDF
         local_IW[i] = IW[i];
@@ -295,20 +310,23 @@ __kernel void flam3(
     
     int TOTAL_ELEMENTS = RES * 3;
     for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+        // Shader
         local_SHD[i] = SHD[i];
     }
     int TOTAL_ELEMENTS_XAOS = RES * RES;
     for(int i = lid; i < TOTAL_ELEMENTS_XAOS; i += lsize){
+        // Xaos
         local_XST[i] = XST[i];
     }
     barrier(CLK_LOCAL_MEM_FENCE);   // Wait to complete the copy
     
-
+    // Init
     int idx;
     float clr = 0.0f;
     float prev_clr = 0.0f;
     float2 tmp, mem;
     
+    // RNG
     float r;
     x128_state_t rng;
     rng_init(&rng, gid);  // unique per thread
@@ -344,14 +362,14 @@ __kernel void flam3(
         if(local_POST[idx]) affine_local(&tmp, local_PX[idx], local_PY[idx], local_PO[idx]);
 
         // Color
-        prev_clr = clr = local_SHD[idx] + local_SHD[RES + idx] * prev_clr;
+        prev_clr = clr = local_SHD[idx] + local_SHD[idx + RES] * prev_clr;
         
         // Update
         mem = tmp;
-    } 
+    }
     
     // Get this sample Alpha value
-    float a = local_SHD[RES + RES + idx];
+    float a = local_SHD[idx + RES + RES];
     
     // OUT
     vstore3((float3)(mem, 0.0f), gid, P);
