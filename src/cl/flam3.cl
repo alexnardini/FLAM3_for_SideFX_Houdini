@@ -1,6 +1,6 @@
 #pragma once
 
-#define USEFMA 1    // Enable fused multiply-add if desired
+#define USEFMA      // Enable fused multiply-add if desired
 #define PSCL 0.001f
 
 // ----------------------------
@@ -190,6 +190,11 @@ inline float2 affine(float2 p, float2 X, float2 Y, float2 O)
     );
 }
 
+
+inline float2 V_LINEAR(float2 in, float w) {
+    return in * w;
+}
+
 __kernel void flam3( 
     int P_length,
     __global float * restrict P,
@@ -296,32 +301,23 @@ __kernel void flam3(
     for(int i = lid; i < TOTAL_ELEMENTS_XAOS; i += lsize){
         local_XST[i] = XST[i];
     }
-    // // This will always be smaller, so one work-item will copy the remaining data
-    // if (lid == 0) {
-    //      // copy something
-    // }
+    barrier(CLK_LOCAL_MEM_FENCE);   // Wait to complete the copy
+    
 
-    // Wait to complete the copy
-    barrier(CLK_LOCAL_MEM_FENCE);
-    
-    float2 pos = (0.0f, 0.0f);
-    float prev_clr = 0.0f;
-    float clr = 0.0f;
-    
     int idx;
+    float clr = 0.0f;
+    float prev_clr = 0.0f;
+    float2 tmp, mem;
+    
     float r;
     x128_state_t rng;
     rng_init(&rng, gid);  // unique per thread
+    mem = (float2)(x128_next_neg1pos1(&rng), x128_next_neg1pos1(&rng));  // Biunit
     
-    if(XS){
-        r = x128_next_float(&rng);
-        idx = sample_cdf_binary(&local_IW, RES, r);
-    }
+    if(XS) idx = sample_cdf_binary(&local_IW, RES, x128_next_float(&rng));
     
     for (int i = 0; i < 1024; ++i){
     
-        // Init
-        float2 tmp = pos;
         
         // Xform selection
         float r = x128_next_float(&rng);
@@ -329,14 +325,19 @@ __kernel void flam3(
         else idx = sample_cdf_binary(local_IW, RES, r);
         
         // Pre-affine transform
-        affine_local(&tmp, local_X[idx], local_Y[idx], local_O[idx]);
+        affine_local(&mem, local_X[idx], local_Y[idx], local_O[idx]);
         
         
         
-        // Apply variations (not implemented yet, for now just a bare Linear)
+        tmp = (float2)(0.0f, 0.0f);
+        ////////////////////////////////////////////////////////////////////////
+        // Apply variations (not implemented yet, for now just a Linear)
         float w = V1W[idx];
-        tmp *= w;
+        if(w != 0.0f) tmp += V_LINEAR(mem, w);
         
+        ////////////////////////////////////////////////////////////////////////
+        
+
         
         
         // Post-affine transform
@@ -346,14 +347,14 @@ __kernel void flam3(
         prev_clr = clr = local_SHD[idx] + local_SHD[RES + idx] * prev_clr;
         
         // Update
-        pos = tmp;
+        mem = tmp;
     } 
     
     // Get this sample Alpha value
     float a = local_SHD[RES + RES + idx];
     
     // OUT
-    vstore3((float3)(pos.x, pos.y, 0), gid, P);
+    vstore3((float3)(mem, 0.0f), gid, P);
     vstore(PSCL * a, gid, PSCALE);
     vstore(clr, gid, COLOR);
     vstore(a, gid, ALPHA);
