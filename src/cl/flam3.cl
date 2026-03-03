@@ -204,6 +204,11 @@ __kernel void flam3(
     int IW_tuplesize,
     __global int * restrict IW_index,
     __global float * restrict IW,
+    int    XS,
+    int XST_length,
+    int XST_tuplesize,
+    __global int * restrict XST_index,
+    __global float * restrict XST,
     int SHD_length,
     int SHD_tuplesize,
     __global int * restrict SHD_index,
@@ -253,8 +258,12 @@ __kernel void flam3(
     // Copy data to local memory
     int lid = get_local_id(0);
     int lsize = get_local_size(0);
+    
     __local float local_IW[MAX_XFORMS];
+    __local float local_XST[MAX_XFORMS_XAOS_SIZE];
+
     __local float local_SHD[MAX_XFORMS];
+
     __local float2 local_X[MAX_AFFINE_SIZE];
     __local float2 local_Y[MAX_AFFINE_SIZE];
     __local float2 local_O[MAX_AFFINE_SIZE];
@@ -283,42 +292,48 @@ __kernel void flam3(
     for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
         local_SHD[i] = SHD[i];
     }
+    int TOTAL_ELEMENTS_XAOS = RES * RES;
+    for(int i = lid; i < TOTAL_ELEMENTS_XAOS; i += lsize){
+        local_XST[i] = XST[i];
+    }
     // // This will always be smaller, so one work-item will copy the remaining data
     // if (lid == 0) {
-    //      for(int i = 0; i < RES; ++i){
-    //         local_IW[i] = IW[i];
-    //         local_POST[i] = POST[i];
-    //     }
+    //      // copy something
     // }
+
     // Wait to complete the copy
     barrier(CLK_LOCAL_MEM_FENCE);
     
-    int idx;
     float2 pos = (0.0f, 0.0f);
     float prev_clr = 0.0f;
     float clr = 0.0f;
     
-    
+    int idx;
+    float r;
     x128_state_t rng;
     rng_init(&rng, gid);  // unique per thread
-        
+    
+    if(XS){
+        r = x128_next_float(&rng);
+        idx = sample_cdf_binary(&local_IW, RES, r);
+    }
+    
     for (int i = 0; i < 1024; ++i){
     
         // Init
         float2 tmp = pos;
-    
-        // Random number float in [0,1)
-        float r = x128_next_float(&rng);
         
         // Xform selection
-        idx = sample_cdf_binary(local_IW, RES, r);
+        float r = x128_next_float(&rng);
+        if(XS) idx = sample_cdf_binary(&local_XST[idx * RES], RES, r);
+        else idx = sample_cdf_binary(local_IW, RES, r);
         
         // Pre-affine transform
         affine_local(&tmp, local_X[idx], local_Y[idx], local_O[idx]);
         
         
         
-        // Apply variations (not implemented yet)
+        // Apply variations (not implemented yet, for now just a bare Linear)
         float w = V1W[idx];
         tmp *= w;
         
