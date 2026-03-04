@@ -173,37 +173,20 @@ inline int sample_cdf_binary(__local const float* CDF, int length, float u_rand)
 }
 
 
-inline void affine_local(float2* pos, float2 X, float2 Y, float2 O) {
-    float2 p = *pos;
-    pos->x = p.x * X.x + p.y * Y.x + O.x;
-    pos->y = p.x * X.y + p.y * Y.y + O.y;
+inline float2 affine(
+    const float2 pos,
+    const float2 X,
+    const float2 Y,
+    const float2 O)
+{
+    float px = pos.x;
+    float py = pos.y;
+
+    return (float2)(
+        px * X.x + py * Y.x + O.x,
+        px * X.y + py * Y.y + O.y
+    );
 }
-
-// inline void affine_local(float2* pos, float2 X, float2 Y, float2 O) {
-//     float2 p = *pos;
-//     *pos = (float2)(dot(p, (float2)(X.x, Y.x)),
-//                     dot(p, (float2)(X.y, Y.y))) + O;
-// }
-
-// inline void affine_local(float2* pos, float2 X, float2 Y, float2 O) {
-//     float2 p = *pos;
-//     *pos = p * X + (float2)(p.y * Y.x, p.x * Y.y) + O;
-// }
-
-
-// inline float2 affine(float2 p, float2 X, float2 Y, float2 O)
-// {
-//     return (float2)(
-//         p.x * X.x + p.y * Y.x + O.x,
-//         p.x * X.y + p.y * Y.y + O.y
-//     );
-// }
-
-// inline float2 affine_local(float2 p, float2 X, float2 Y, float2 O) {
-//     // Compute new x and y as dot products + offset
-//     return (float2)(dot(p, (float2)(X.x, Y.x)),
-//                     dot(p, (float2)(X.y, Y.y))) + O;
-// }
 
 
 inline float2 V_LINEAR(float2 in, float w) {
@@ -347,7 +330,7 @@ __kernel void flam3(
         idx = (XS) ? sample_cdf_binary(&local_XST[idx * RES], RES, r) : sample_cdf_binary(local_IW, RES, r);
         
         // Pre-affine transform
-        affine_local(&mem, local_X[idx], local_Y[idx], local_O[idx]);
+        mem = affine(mem, local_X[idx], local_Y[idx], local_O[idx]);
         
         
         
@@ -363,7 +346,7 @@ __kernel void flam3(
         
         
         // Post-affine transform
-        if(local_POST[idx]) affine_local(&tmp, local_PX[idx], local_PY[idx], local_PO[idx]);
+        if(local_POST[idx]) tmp = affine(tmp, local_PX[idx], local_PY[idx], local_PO[idx]);
 
         // Color
         prev_clr = clr = local_SHD[idx] + local_SHD[idx + RES] * prev_clr;
