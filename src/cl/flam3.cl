@@ -211,6 +211,7 @@ inline float2 V_LINEAR(float2 in, float w) {
 }
 
 __kernel void flam3( 
+    uint OPID,
     int P_length,
     __global float * restrict P,
     int PSCALE_length,
@@ -322,25 +323,28 @@ __kernel void flam3(
     
     // Init
     int idx;
+    float w1;
     float clr = 0.0f;
     float prev_clr = 0.0f;
     float2 tmp, mem;
     
-    // RNG
+    // RNG init
     float r;
     x128_state_t rng;
-    rng_init(&rng, gid);  // unique per thread
-    mem = (float2)(x128_next_neg1pos1(&rng), x128_next_neg1pos1(&rng));  // Biunit
+    rng_init(&rng, gid + OPID);  // unique per thread, per node
+
+    // Biunit samples
+    mem = (float2)(x128_next_neg1pos1(&rng), x128_next_neg1pos1(&rng));
     
+    // If XAOS, pick a starting iterator from distribution
     if(XS) idx = sample_cdf_binary(&local_IW, RES, x128_next_float(&rng));
     
     for (int i = 0; i < 1024; ++i){
     
         
         // Xform selection
-        float r = x128_next_float(&rng);
-        if(XS) idx = sample_cdf_binary(&local_XST[idx * RES], RES, r);
-        else idx = sample_cdf_binary(local_IW, RES, r);
+        r = x128_next_float(&rng);
+        idx = (XS) ? sample_cdf_binary(&local_XST[idx * RES], RES, r) : sample_cdf_binary(local_IW, RES, r);
         
         // Pre-affine transform
         affine_local(&mem, local_X[idx], local_Y[idx], local_O[idx]);
@@ -350,8 +354,8 @@ __kernel void flam3(
         tmp = (float2)(0.0f, 0.0f);
         ////////////////////////////////////////////////////////////////////////
         // Apply variations (not implemented yet, for now just a Linear)
-        float w = V1W[idx];
-        if(w != 0.0f) tmp += V_LINEAR(mem, w);
+        w1 = V1W[idx];
+        if(w1 != 0.0f) tmp += V_LINEAR(mem, w1);
         
         ////////////////////////////////////////////////////////////////////////
         
