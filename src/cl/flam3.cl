@@ -197,16 +197,20 @@ inline float2 affine(const float2 pos, const float2 X, const float2 Y, const flo
 #define FLOAT_MAX_TAN 8388607.0f
 #define FLOAT_MIN_TAN -FLOAT_MAX_TAN
 
-inline float ATAN(const float2 p){ return atan2(p.x, p.y); }
+inline float ATAN(const float2 p){return atan2(p.x, p.y); }
+
 inline float ATANYX(const float2 p){ return atan2(p.y, p.x); }
-inline float SUMSQ(const float2 p){ return p.x * p.x + p.y * p.y; }
+
+inline float SUMSQ(const float2 p){ return dot(p, p); }
+
 inline float SQRT(const float2 p){
 #ifdef USE_NATIVE
-    return native_sqrt(p.x * p.x + p.y * p.y);
+    return native_sqrt(dot(p, p));
 #else
-    return sqrt(p.x * p.x + p.y * p.y);
+    return sqrt(dot(p, p));
 #endif
 }
+
 inline float SafeTan(const float x){ 
 #ifdef USE_NATIVE
     return native_tan(clamp(x, FLOAT_MIN_TAN, FLOAT_MAX_TAN));
@@ -214,20 +218,25 @@ inline float SafeTan(const float x){
     return tan(clamp(x, FLOAT_MIN_TAN, FLOAT_MAX_TAN)); 
 #endif
 }
+
 inline float Zeps(const float x) { return x + (x == 0) * EPS; }
+
 // inline float sgn(const float n){ return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
 inline float sgn(const float n){ return (float)((0 < n) - (n < 0)); }
+
 // inline float fmod_custom(const float a, const float b){ return (a-floor(a/b)*b); }
 inline float fmod_custom(const float a, const float b){ return a - trunc(a / b) * b; }
-inline void sincos(const float a, float* sa, float* ca){
+
+inline void sincos_fast(float a, float* s, float* c)
+{
 #ifdef USE_NATIVE
-    *sa = native_sin(a);
-    *ca = native_cos(a);
+    *s = native_sin(a);
+    *c = native_cos(a);
 #else
-    *sa = sin(a);
-    *ca = cos(a);
+    *s = sincos(a, c);
 #endif
 }
+
 // To be used with an improved Elliptic version which helps with rounding errors. For 64bit(DP, when and if I'll get to add support for it)
 // Source: https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html
 inline float Sqrt1pm1(const float x){
@@ -282,10 +291,11 @@ inline float Sqrt1pm1(const float x) {
 
 
 
-
+// VAR LINEAR
 float2 OCL_V_LINEAR(const float2 in, const float w){
     return w * in;
 }
+// VAR SINUSOIDAL
 float2 OCL_V_SINUSOIDAL(const float2 in, const float w){
 #ifdef USE_NATIVE
     return w * native_sin(in);
@@ -293,28 +303,226 @@ float2 OCL_V_SINUSOIDAL(const float2 in, const float w){
     return w * sin(in);
 #endif
 }
+// VAR SPHERICAL
 float2 OCL_V_SPHERICAL(const float2 in, const float w){
     float r2 = w / Zeps(SUMSQ(in));
     return r2 * in;
 }
+// VAR SWIRL
+float2 OCL_V_SWIRL(float2 in, float w)
+{
+    float rr = SUMSQ(in);
+
+    float s, c;
+    sincos_fast(rr, &s, &c);
+
+    return w * (float2)(
+        s * in.x - c * in.y,
+        c * in.x + s * in.y
+    );
+}
+// VAR HORSESHOWE
+float2 OCL_V_HORSESHOE(const float2 in, const float w){
+    float x = in.x;
+    float y = in.y;
+
+    float xx = x*x;
+    float yy = y*y;
+    float xy = x*y;
+
+    float r = w / Zeps(SQRT(in));
+
+    return (float2)(
+        (xx - yy) * r,
+        (2.0f * xy) * r
+    );
+}
+// VAR POLAR
+float2 OCL_V_POLAR(const float2 in, const float w){
+    float nx, ny;
+    nx = ATAN(in) * M_1_PI;
+    ny = SQRT(in) - 1.0;
+
+    return w * (float2)(nx, ny);
+}
+// VAR HANDKERCHIEF
+float2 OCL_V_HANDKERCHIEF(const float2 in, const float w){
+    float a = ATAN(in);
+    float _SQRT = SQRT(in);
+#ifdef USE_NATIVE
+    return w * _SQRT * (float2)(native_sin(a + _SQRT), native_cos(a - _SQRT));
+#else
+    return w * _SQRT * (float2)(sin(a + _SQRT), cos(a - _SQRT));
+#endif
+}
+// VAR HEART
+float2 OCL_V_HEART(const float2 in, const float w){
+    float _SQRT, a, r;
+    _SQRT = SQRT(in);
+    a = _SQRT * ATAN(in);
+    r = w * _SQRT;
+#ifdef USE_NATIVE
+    return (float2)(
+        r * native_sin(a),
+        (-r) * native_cos(a)
+    );
+#else
+    return (float2)(
+        r * sin(a),
+        (-r) * cos(a)
+    );
+#endif
+}
+// VAR DISC
+float2 OCL_V_DISC(const float2 in, const float w){
+    float a, r, s, c;
+    a  = ATAN(in) * M_1_PI;
+    r = SQRT(in) * M_PI;
+    sincos_fast(r, &s, &c);
+
+    return w * a * (float2)(s, c);
+}
+// VAR SPIRAL
+float2 OCL_V_SPIRAL(const float2 in, const float w){
+    float _SQRT, r, r1, s, c;
+    _SQRT = SQRT(in);
+    float2 precalc = in / _SQRT;
+    r = Zeps(_SQRT);
+    r1 = w/r;
+    sincos_fast(r, &s, &c);
+
+    return r1 * (float2)((precalc.y + s), (precalc.x - c));
+}
+// VAR HIPERBOLIC
+float2 OCL_V_HIPERBOLIC(const float2 in, const float w){
+    float _SQRT = SQRT(in);
+    float rr = Zeps(_SQRT);
+    float2 precalc = in / _SQRT;
+
+    return w * (float2)(precalc.x / rr, precalc.y * rr);
+}
+// VAR DIAMOND
+float2 OCL_V_DIAMOND(const float2 in, const float w){
+    float a, r;
+    a = atan2(in.x, in.y);
+    r = SQRT(in);
+
+#ifdef USE_NATIVE
+    return w * (float2)(
+        native_sin(a) * native_cos(r), 
+        native_cos(a) * native_sin(r)
+    );
+#else
+    return w * (float2)(
+        sin(a) * cos(rr), 
+        cos(a) * sin(rr)
+    );
+#endif
+}
+// VAR EX
+float2 OCL_V_EX(const float2 in, const float w){
+    float a, r, n0, n1, m0, m1;
+    a = ATAN(in);
+    r = SQRT(in);
+#ifdef USE_NATIVE
+    n0 = native_sin(a+r);
+    n1 = native_cos(a-r);
+#else
+    n0 = sin(a+r);
+    n1 = cos(a-r);
+#endif
+    m0 = n0*n0*n0*r;
+    m1 = n1*n1*n1*r;
+
+    return w * (float2)(m0 + m1, m0 - m1);
+}
+// VAR JULIA
+float2 OCL_V_JULIA(const float2 in, const float w, x128_state_t* state){
+    float r, a, sa, ca;
+    a = 0.5 * ATAN(in);
+    if(x128_next_float(state)<0.5)
+        a += M_PI;
+    r = w * sqrt(SQRT(in));
+    sincos_fast(a, &sa, &ca);
+
+    return r * (float2)(ca, sa);
+}
+// VAR BENT
+float2 OCL_V_BENT(const float2 in, const float w){
+    float nx = select(in.x, in.x * 2.0f, in.x < 0.0f);
+    float ny = select(in.y, in.y * 0.5f, in.y < 0.0f);
+
+    return w * (float2)(nx, ny);
+}
+
 
 
 float2 OCL_V_DISPATCH(
     const int type, 
     const float2 in, 
     const float w, 
-    const float2 X, 
-    const float2 Y
+    const float2 x, 
+    const float2 y, 
+    x128_state_t* state
     )
 {
     switch(type)
     {
-        case 0: return OCL_V_LINEAR(in, w);
-        case 1: return OCL_V_SINUSOIDAL(in, w);
-        case 2: return OCL_V_SPHERICAL(in, w);
-        default: return w * in;
+        case 0:     return OCL_V_LINEAR(in, w);
+        case 1:     return OCL_V_SINUSOIDAL(in, w);
+        case 2:     return OCL_V_SPHERICAL(in, w);
+        case 3:     return OCL_V_SWIRL(in, w);
+        case 4:     return OCL_V_HORSESHOE(in, w);
+        case 5:     return OCL_V_POLAR(in, w);
+        case 6:     return OCL_V_HANDKERCHIEF(in, w);
+        case 7:     return OCL_V_HEART(in, w);
+        case 8:     return OCL_V_DISC(in, w);
+        case 9:     return OCL_V_SPIRAL(in, w);
+        case 10:    return OCL_V_HIPERBOLIC(in, w);
+        case 11:    return OCL_V_DIAMOND(in, w);
+        case 12:    return OCL_V_EX(in, w);
+        case 13:    return OCL_V_JULIA(in, w, state);
+        case 14:    return OCL_V_BENT(in, w);
+
+        default:    return w * in;
     }
 }
+
+
+
+
+/*
+#define OCL_VAR_LIST            \
+    VAR(0, OCL_V_LINEAR)        \
+    VAR(1, OCL_V_SINUSOIDAL)    \
+    VAR(2, OCL_V_SPHERICAL)     \
+    VAR(3, OCL_V_SWIRL)         \
+    VAR(4, OCL_V_HORSESHOE)     \
+    VAR(5, OCL_V_POLAR)         \
+    VAR(6, OCL_V_HANDKERCHIEF)  \
+    VAR(7, OCL_V_HEART)         \
+    VAR(8, OCL_V_DISC)          
+
+
+float2 OCL_V_DISPATCH_COMPILER(
+    const int type, 
+    const float2 in, 
+    const float w, 
+    const float2 x, 
+    const float2 y
+    )
+{
+    switch(type)
+    {
+        #define CASE(ID, OCL_VAR) case ID: return OCL_VAR(in, w, x, y);
+        OCL_VAR_LIST
+        #undef CASE
+    }
+    return (float2)(0.0f, 0.0f);
+}
+*/
+
+
 
 
 __kernel void flam3( 
@@ -469,12 +677,10 @@ __kernel void flam3(
         _vt = local_VT[idx];
         _vw = local_VW[idx];
         _tmp = (float2)(0.0f, 0.0f);
-        if (_vw.x != 0.0f) _tmp += OCL_V_DISPATCH(_vt.x, mem, _vw.x, _x, _y);
-        if (_vw.y != 0.0f) _tmp += OCL_V_DISPATCH(_vt.y, mem, _vw.y, _x, _y);
-        if (_vw.z != 0.0f) _tmp += OCL_V_DISPATCH(_vt.z, mem, _vw.z, _x, _y);
-        if (_vw.w != 0.0f) _tmp += OCL_V_DISPATCH(_vt.w, mem, _vw.w, _x, _y);
-        
-        ////////////////////////////////////////////////////////////////////////
+        if (_vw.x != 0.0f) _tmp += OCL_V_DISPATCH(_vt.x, mem, _vw.x, _x, _y, &rng);
+        if (_vw.y != 0.0f) _tmp += OCL_V_DISPATCH(_vt.y, mem, _vw.y, _x, _y, &rng);
+        if (_vw.z != 0.0f) _tmp += OCL_V_DISPATCH(_vt.z, mem, _vw.z, _x, _y, &rng);
+        if (_vw.w != 0.0f) _tmp += OCL_V_DISPATCH(_vt.w, mem, _vw.w, _x, _y, &rng);
         
 
         
