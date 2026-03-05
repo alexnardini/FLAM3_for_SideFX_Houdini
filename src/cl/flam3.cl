@@ -299,7 +299,14 @@ float2 OCL_V_SPHERICAL(const float2 in, const float w){
 }
 
 
-float2 OCL_V_DISPATCH(const int type, const float2 in, const float w, const float2 X, const float2 Y){
+float2 OCL_V_DISPATCH(
+    const int type, 
+    const float2 in, 
+    const float w, 
+    const float2 X, 
+    const float2 Y
+    )
+{
     switch(type)
     {
         case 0: return OCL_V_LINEAR(in, w);
