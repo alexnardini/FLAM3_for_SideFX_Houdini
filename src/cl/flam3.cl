@@ -135,22 +135,9 @@ float rand_x64(uint *s0, uint *s1) {
 }
 
 
-inline int sample_cdf(__global const float* CDF, const int length, const float u_rand) {
-    if (length <= 0) return 0;
-
-    // scale u_rand to the range of the CDF
-    float target = u_rand * CDF[length - 1];
-
-    // find first index where CDF[idx] > target
-    for (int idx = 0; idx < length; ++idx) {
-        if (CDF[idx] > target) return idx;
-    }
-
-    // fallback (should never happen if CDF is well-formed)
-    return length - 1;
-}
-
-
+// ----------------------------
+// CL FLAM3 CDF binary
+// ----------------------------
 inline int sample_cdf_binary(__local const float* CDF, const int length, const float u_rand) {
     if (length <= 0) return 0;
 
@@ -174,6 +161,9 @@ inline int sample_cdf_binary(__local const float* CDF, const int length, const f
 }
 
 
+// ----------------------------
+// CL FLAM3 affine transform
+// ----------------------------
 inline float2 affine(const float2 pos, const float2 X, const float2 Y, const float2 O)
 {
     float px = pos.x;
@@ -188,6 +178,13 @@ inline float2 affine(const float2 pos, const float2 X, const float2 Y, const flo
 
 
 
+// ----------------------------
+// CL FLAM3 helper functions
+//
+// They are used across all variations to perform their computation.
+// Mostly proted from the CVEX code base but alsode upgraded using OpenCL specific instructions.
+// They all make distinctions for native and not native OpenCl functions.
+// ----------------------------
 
 #define EPS     2.220446049250313e-016
 #define M_TAU   6.283185307179586476925
@@ -290,11 +287,23 @@ inline float Sqrt1pm1(const float x) {
 
 
 
+// ----------------------------
+// CL FLAM3 variations
+//
+// All the variations/plugins being implemented.
+// The CVEX code base has been the starting point
+// and they all have been upgraded for OpenCL.
+// ----------------------------
+
+// ----------------------------
 // 000 VAR LINEAR
+// ----------------------------
 float2 CL_V_LINEAR(const float2 in, const float w){
     return w * in;
 }
+// ----------------------------
 // 001 VAR SINUSOIDAL
+// ----------------------------
 float2 CL_V_SINUSOIDAL(const float2 in, const float w){
 #ifdef USE_NATIVE
     return w * native_sin(in);
@@ -302,12 +311,16 @@ float2 CL_V_SINUSOIDAL(const float2 in, const float w){
     return w * sin(in);
 #endif
 }
+// ----------------------------
 // 002 VAR SPHERICAL
+// ----------------------------
 float2 CL_V_SPHERICAL(const float2 in, const float w){
     float r2 = w / Zeps(SUMSQ(in));
     return r2 * in;
 }
+// ----------------------------
 // 003 VAR SWIRL
+// ----------------------------
 float2 CL_V_SWIRL(float2 in, float w)
 {
     float r = SUMSQ(in);
@@ -320,7 +333,9 @@ float2 CL_V_SWIRL(float2 in, float w)
         cr * in.x + sr * in.y
     );
 }
+// ----------------------------
 // 004 VAR HORSESHOWE
+// ----------------------------
 float2 CL_V_HORSESHOE(const float2 in, const float w){
     float x = in.x;
     float y = in.y;
@@ -336,7 +351,9 @@ float2 CL_V_HORSESHOE(const float2 in, const float w){
         (2.0f * xy) * r
     );
 }
+// ----------------------------
 // 005 VAR POLAR
+// ----------------------------
 float2 CL_V_POLAR(const float2 in, const float w){
     float nx, ny;
     nx = ATAN(in) * M_1_PI;
@@ -344,7 +361,9 @@ float2 CL_V_POLAR(const float2 in, const float w){
 
     return w * (float2)(nx, ny);
 }
+// ----------------------------
 // 006 VAR HANDKERCHIEF
+// ----------------------------
 float2 CL_V_HANDKERCHIEF(const float2 in, const float w){
     float a = ATAN(in);
     float _SQRT = SQRT(in);
@@ -354,7 +373,9 @@ float2 CL_V_HANDKERCHIEF(const float2 in, const float w){
     return w * _SQRT * (float2)(sin(a + _SQRT), cos(a - _SQRT));
 #endif
 }
+// ----------------------------
 // 007 VAR HEART
+// ----------------------------
 float2 CL_V_HEART(const float2 in, const float w){
     float _SQRT, a, r;
     _SQRT = SQRT(in);
@@ -372,7 +393,9 @@ float2 CL_V_HEART(const float2 in, const float w){
     );
 #endif
 }
+// ----------------------------
 // 008 VAR DISC
+// ----------------------------
 float2 CL_V_DISC(const float2 in, const float w){
     float a, r, sr, cr;
     a  = ATAN(in) * M_1_PI;
@@ -381,7 +404,9 @@ float2 CL_V_DISC(const float2 in, const float w){
 
     return w * a * (float2)(sr, cr);
 }
+// ----------------------------
 // 009 VAR SPIRAL
+// ----------------------------
 float2 CL_V_SPIRAL(const float2 in, const float w){
     float _SQRT, r, r1, sr, cr;
     _SQRT = SQRT(in);
@@ -392,7 +417,9 @@ float2 CL_V_SPIRAL(const float2 in, const float w){
 
     return r1 * (float2)((precalc.y + sr), (precalc.x - cr));
 }
+// ----------------------------
 // 010 VAR HIPERBOLIC
+// ----------------------------
 float2 CL_V_HIPERBOLIC(const float2 in, const float w){
     float _SQRT = SQRT(in);
     float rr = Zeps(_SQRT);
@@ -400,7 +427,9 @@ float2 CL_V_HIPERBOLIC(const float2 in, const float w){
 
     return w * (float2)(precalc.x / rr, precalc.y * rr);
 }
+// ----------------------------
 // 011 VAR DIAMOND
+// ----------------------------
 float2 CL_V_DIAMOND(const float2 in, const float w){
     float a, r;
     a = atan2(in.x, in.y);
@@ -418,7 +447,9 @@ float2 CL_V_DIAMOND(const float2 in, const float w){
     );
 #endif
 }
+// ----------------------------
 // 012 VAR EX
+// ----------------------------
 float2 CL_V_EX(const float2 in, const float w){
     float a, r, n0, n1, m0, m1;
     a = ATAN(in);
@@ -438,7 +469,9 @@ float2 CL_V_EX(const float2 in, const float w){
         m0 - m1
     );
 }
+// ----------------------------
 // 013 VAR JULIA
+// ----------------------------
 float2 CL_V_JULIA(const float2 in, const float w, x128_state_t* state){
     float r, a, sa, ca;
     a = 0.5 * ATAN(in);
@@ -449,14 +482,18 @@ float2 CL_V_JULIA(const float2 in, const float w, x128_state_t* state){
 
     return r * (float2)(ca, sa);
 }
+// ----------------------------
 // 014 VAR BENT
+// ----------------------------
 float2 CL_V_BENT(const float2 in, const float w){
     float nx = select(in.x, in.x * 2.0f, in.x < 0.0f);
     float ny = select(in.y, in.y * 0.5f, in.y < 0.0f);
 
     return w * (float2)(nx, ny);
 }
+// ----------------------------
 // 015 VAR WAVES
+// ----------------------------
 float2 CL_V_WAVES(const float2 in, const float w, const float b, const float c, const float e, const float f){
     float m_Dx2 = 1.0f / Zeps(c * c);
     float m_Dy2 = 1.0f / Zeps(f * f);
@@ -473,14 +510,18 @@ float2 CL_V_WAVES(const float2 in, const float w, const float b, const float c, 
     );
 #endif
 }
+// ----------------------------
 // 016 VAR FISHEYE
+// ----------------------------
 float2 CL_V_FISHEYE(const float2 in, const float w){
     float r = SQRT(in);
     r = 2.0f * w / (r + 1.0f);
 
     return r * in;
 }
+// ----------------------------
 // 017 VAR POPCORN
+// ----------------------------
 float2 CL_V_POPCORN(const float2 in, const float w, const float c, const float f){
 #ifdef USE_NATIVE
     return w * in + (float2)(c, f) * native_sin(native_tan(3.0f * in.yx));
@@ -488,7 +529,9 @@ float2 CL_V_POPCORN(const float2 in, const float w, const float c, const float f
     return w * in + (float2)(c, f) * sin(tan(3.0f * in.yx));
 #endif
 }
+// ----------------------------
 // 018 VAR EXPONENTIAL
+// ----------------------------
 float2 CL_V_EXPONENTIAL(const float2 in, const float w){
     float dx, dy, sdy, cdy;
 #ifdef USE_NATIVE
@@ -501,7 +544,9 @@ float2 CL_V_EXPONENTIAL(const float2 in, const float w){
 
     return dx * (float2)(cdy, sdy);
 }
+// ----------------------------
 // 019 VAR POWER
+// ----------------------------
 float2 CL_V_POWER(const float2 in, const float w){
     float _SQRT = SQRT(in);
     float2 precalc = in / _SQRT;
@@ -509,7 +554,9 @@ float2 CL_V_POWER(const float2 in, const float w){
 
     return r * precalc.yx;
 }
+// ----------------------------
 // 020 VAR COSINE
+// ----------------------------
 float2 CL_V_COSINE(const float2 in, const float w){
     float a, sa, ca;
     a = in.x * M_PI;
@@ -520,7 +567,9 @@ float2 CL_V_COSINE(const float2 in, const float w){
         -sa * sinh(in.y)
     );
 }
+// ----------------------------
 // 021 VAR RINGS
+// ----------------------------
 float2 CL_V_RINGS(const float2 in, const float w, const float c){
     float _SQRT, dx, r;
     _SQRT = SQRT(in);
@@ -531,7 +580,9 @@ float2 CL_V_RINGS(const float2 in, const float w, const float c){
 
     return r * precalc.yx;
 }
+// ----------------------------
 // 022 VAR FAN
+// ----------------------------
 float2 CL_V_FAN(const float2 in, const float w, const float c, const float f){
     float dx, dx2, a, sa, ca;
     dx = M_PI * Zeps(c * c);
@@ -542,13 +593,17 @@ float2 CL_V_FAN(const float2 in, const float w, const float c, const float f){
 
     return w * SQRT(in) * (float2)(ca, sa);
 }
+// ----------------------------
 // 023 VAR BUBBLE
+// ----------------------------
 float2 CL_V_BUBBLE(const float2 in, const float w){
     float r = w / (0.25f * SUMSQ(in) + 1.0f);
 
     return r * in;
 }
+// ----------------------------
 // 024 VAR CYLINDER
+// ----------------------------
 float2 CL_V_CYLINDER(const float2 in, const float w){
 #ifdef USE_NATIVE
     return w * (float2)(native_sin(in.x), in.y);
@@ -556,13 +611,17 @@ float2 CL_V_CYLINDER(const float2 in, const float w){
     return w * (float2)(sin(in.x), in.y);
 #endif
 }
+// ----------------------------
 // 025 VAR EYEFISH
+// ----------------------------
 float2 CL_V_EYEFISH(const float2 in, const float w){
     float r =  (w * 2.0f) / (1.0f + SQRT(in));
 
     return r * in;
 }
+// ----------------------------
 // 026 VAR BLUR
+// ----------------------------
 float2 CL_V_BLUR(const float2 in, const float w, x128_state_t* state){
     float tmpr, sr, cr, r;
     tmpr = x128_next_float(state) * M_TAU;
@@ -573,6 +632,15 @@ float2 CL_V_BLUR(const float2 in, const float w, x128_state_t* state){
 }
 
 
+
+// ----------------------------
+// CL FLAM3 variations dispatch
+//
+// Each iterations of the chaos game will select one variation to be applied to the incoming point/sample.
+// The dispatch functions will take care of finding the one and execute it.
+// OpenCL 2.0 has function pointers (along with many other improvements that this implementation will massively benefit from),
+// but meanwhile this seem to be working great and much more performant than the CVEX code base solution.
+// ----------------------------
 
 float2 CL_V_DISPATCH(
     const int type, 
@@ -653,8 +721,14 @@ float2 CL_V_DISPATCH_COMPILER(
 
 
 
+// ----------------------------
+// CL FLAM3 kernel
+//
+// The main Kernel function.
+// This will be called from the Houdini OpenCL node.
+// ----------------------------
 
-__kernel void flam3( 
+__kernel void flam3cl( 
     uint OPID,
     int P_length,
     __global float * restrict P,
@@ -720,7 +794,7 @@ __kernel void flam3(
     if (gid >= P_length || RES > MAX_XFORMS)
         return;
         
-    // Copy data to local memory
+    // copy data to local memory
     int lid = get_local_id(0);
     int lsize = get_local_size(0);
     
@@ -741,15 +815,15 @@ __kernel void flam3(
     __local int4 local_VT[MAX_XFORMS];
     __local float4 local_VW[MAX_XFORMS];
 
-    // Copy cooperatively
+    // copy cooperatively
     for(int i = lid; i < RES; i += lsize){
         // CDF
         local_IW[i] = IW[i];
-        // Pre affine
+        // pre affine
         local_X[i] = X[i];
         local_Y[i] = Y[i];
         local_O[i] = O[i];
-        // Post affine
+        // post affine
         local_POST[i] = POST[i];
         local_PX[i] = PX[i];
         local_PY[i] = PY[i];
@@ -761,7 +835,7 @@ __kernel void flam3(
     
     int TOTAL_ELEMENTS = RES * 3;
     for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
-        // Shader
+        // shader
         local_SHD[i] = SHD[i];
     }
     if(XS){
@@ -773,7 +847,7 @@ __kernel void flam3(
     }
     barrier(CLK_LOCAL_MEM_FENCE);   // Wait to complete the copy
     
-    // Init
+    // init
     int idx;
     int4 _vt;
     float clr = 0.0f;
@@ -789,12 +863,12 @@ __kernel void flam3(
     // Build starting sample (Biunit)
     mem = (float2)(x128_next_neg1pos1(&rng), x128_next_neg1pos1(&rng));
     
-    // If XAOS, pick a starting iterator from distribution
+    // if XAOS, pick a starting iterator from distribution
     if(XS) idx = sample_cdf_binary(local_IW, RES, x128_next_float(&rng));
     
     for (int i = 0; i < 1024; ++i){
     
-        // Xform selection
+        // xform selection
         r = x128_next_float(&rng);
         idx = (XS) ? sample_cdf_binary(&local_XST[idx * RES], RES, r) : sample_cdf_binary(local_IW, RES, r);
         
@@ -819,14 +893,14 @@ __kernel void flam3(
         // post affine
         if(local_POST[idx]) _tmp = affine(_tmp, local_PX[idx], local_PY[idx], local_PO[idx]);
 
-        // Color
+        // color
         _prev_clr = clr = local_SHD[idx] + local_SHD[idx + RES] * _prev_clr;
         
-        // Update
+        // update
         mem = _tmp;
     }
     
-    // Get this sample Alpha value
+    // get this sample Alpha value
     float a = local_SHD[idx + RES + RES];
     
     // OUT
