@@ -60,7 +60,7 @@ float Zeps(const float x){ return (x==0) ? EPS : x; }
 
 float sgn(const float n){ return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
 
-float fmod(const float a, b){ return (a-floor(a/b)*b); }
+float fmod(const float a, b){ return a - trunc(a / b) * b; }
 
 void sincos(const float a; float sa, ca){ sa=sin(a); ca=cos(a); }
 

@@ -286,7 +286,7 @@ __llvm_entry:
   %a1 = load double, double* %a
   %b3 = load double, double* %b
   %output = call double @"div@FF"(double %a1, double %b3)
-  %return = call double @"floor@FF"(double %output)
+  %return = call double @"trunc@FF"(double %output)
   %output5 = fmul double %return, %b3
   %output6 = fsub double %a1, %output5
   ret double %output6
@@ -296,7 +296,7 @@ __llvm_entry:
 declare double @"div@FF"(double, double) #1
 
 ; Function Attrs: nounwind readnone
-declare double @"floor@FF"(double) #1
+declare double @"trunc@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"sincos@FFF"(double* %a, double* %sa, double* %ca) #0 {
@@ -1811,7 +1811,7 @@ declare double @"cosh@FF"(double) #1
 declare double @"sinh@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"V_RINGS@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %d) #0 {
+define private void @"V_RINGS@UUFF"(<2 x double>* %p, <2 x double>* %_p, double* %w, double* %c) #0 {
 __llvm_entry:
   %0 = alloca <2 x double>
   %1 = alloca double
@@ -1823,8 +1823,8 @@ __llvm_entry:
   %_p2 = load <2 x double>, <2 x double>* %_p
   %cast = call <2 x double> @"set@UF"(double %SQRT)
   %output = call <2 x double> @"div@UU"(<2 x double> %_p2, <2 x double> %cast)
-  %d4 = load double, double* %d
-  %output6 = fmul double %d4, %d4
+  %c4 = load double, double* %c
+  %output6 = fmul double %c4, %c4
   store double %output6, double* %1
   %Zeps = call double @"Zeps@FF"(double* %1)
   %w8 = load double, double* %w
@@ -2091,6 +2091,9 @@ end42:                                            ; preds = %true41, %end
 ; Function Attrs: nounwind
 declare { double, double, double, double } @"assign@FFFFP"(<4 x double>) #2
 
+; Function Attrs: nounwind readnone
+declare double @"floor@FF"(double) #1
+
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_PDJ@UUFP"(<2 x double>* %p, <2 x double>* %_p, double* %w, <4 x double>* %pp) #0 {
 __llvm_entry:
@@ -2203,9 +2206,6 @@ __llvm_entry:
   store <2 x double> %output30, <2 x double>* %p
   ret void
 }
-
-; Function Attrs: nounwind readnone
-declare double @"trunc@FF"(double) #1
 
 ; Function Attrs: alwaysinline nounwind
 define private void @"V_JULIASCOPE@UUFU"(<2 x double>* %p, <2 x double>* %_p, double* %w, <2 x double>* %juliascope) #0 {

@@ -235,12 +235,12 @@ void V_COSINE(vector2 p; const vector2 _p; const float w){
     p = w * set(nx, ny);
 }
 // 21 (precalc _p)
-void V_RINGS(vector2 p; const vector2 _p; const float w, d){
+void V_RINGS(vector2 p; const vector2 _p; const float w, c){
     float _SQRT, dx, rr;
     _SQRT = SQRT(_p);
     vector2 precalc = _p / _SQRT;
     
-    dx = Zeps(d*d);
+    dx = Zeps(c*c);
     rr = _SQRT;
     rr = w * (fmod(rr+dx, 2*dx) - dx + rr * (1 - dx));
 
