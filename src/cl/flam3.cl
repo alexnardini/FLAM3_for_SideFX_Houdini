@@ -282,11 +282,11 @@ inline float2 affine(const float2 pos, const float2 X, const float2 Y, const flo
 // They all make distinctions for native and not native OpenCl functions.
 // ----------------------------
 
-#define EPS     2.220446049250313e-016
-#define M_TAU   6.283185307179586476925
-#define M_1_2PI 0.159154943091895335769
-// #define M_1_PI  0.318309886183790671538
-// #define M_2_PI  0.636619772367581343076
+#define EPS     2.220446049250313e-016f
+#define M_TAU   6.283185307179586476925f
+#define M_1_2PI 0.159154943091895335769f
+// #define M_1_PI  0.318309886183790671538f
+// #define M_2_PI  0.636619772367581343076f
 #define FLOAT_MAX_TAN 8388607.0f
 #define FLOAT_MIN_TAN -FLOAT_MAX_TAN
 
@@ -807,19 +807,21 @@ float2 CL_V_BLOB(const float2 in, const float w, const float4 blob){
     return w * rr * precalc;
 }
 // ----------------------------
-// 030 VAR JULIAN
+// 031 VAR JULIAN
 // ----------------------------
 float2 CL_V_JULIAN(const float2 in, const float w, x128_state_t* state, const float2 julian){
-    
-    float inv_jx, julian_cn, a, r2, tmpr, rr, sa, ca;
-    
-    inv_jx = 1.0f / julian.x;
+    float inv_jx, julian_cn, rr, tmpr, sa, ca;
+#ifdef USE_NATIVE
+    inv_jx = native_recip(julian.x);
+#else
+    inv_jx = recip(julian.x);
+#endif
     julian_cn = julian.y * inv_jx * 0.5f;
 
-    int t_rnd = (int)(julian.x * x128_next_float(state));
-    a = ATANYX(in);
-    r2 = SUMSQ(in);
+    float r2 = SUMSQ(in);
+    float a  = ATANYX(in);
 
+    int t_rnd = (int)(julian.x * x128_next_float(state));
     tmpr = (a + M_TAU * t_rnd) * inv_jx;
 #ifdef USE_NATIVE
     rr = w * native_powr(r2, julian_cn);
@@ -828,6 +830,33 @@ float2 CL_V_JULIAN(const float2 in, const float w, x128_state_t* state, const fl
 #endif
 
     sincos_fast(tmpr, &sa, &ca);
+
+    return rr * (float2)(ca, sa);
+}
+// ----------------------------
+// 032 VAR JULIASCOPE
+// ----------------------------
+float2 CL_V_JULIASCOPE(const float2 in, const float w, x128_state_t* state, const float2 juliascope){
+    int t_rnd;
+    float _ATANYX, julian_rN, julian_cn, tmpr, rr, sa, ca;
+
+    float inv_jx = 1.0f / juliascope.x;
+
+    _ATANYX = ATANYX(in);
+    julian_rN = juliascope.x;
+    julian_cn = juliascope.y * inv_jx * 0.5f;
+
+    t_rnd = (int)(julian_rN * x128_next_float(state));
+
+    float sign = (t_rnd & 1) ? -1.0f : 1.0f;
+    tmpr = (M_TAU * t_rnd + sign * _ATANYX) * inv_jx;
+
+    sincos_fast(tmpr, &sa, &ca);
+#ifdef USE_NATIVE
+    rr = w * native_powr(SUMSQ(in), julian_cn);
+#else
+    rr = w * powr(SUMSQ(in), julian_cn);
+#endif
 
     return rr * (float2)(ca, sa);
 }
@@ -889,6 +918,7 @@ float2 CL_V_DISPATCH(
         case 29:    return CL_V_PDJ(in, w, PRM_F4[PRM_F4_IDX_PDJW]);
         case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
         case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
+        case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
 
         default:    return w * in;
     }
