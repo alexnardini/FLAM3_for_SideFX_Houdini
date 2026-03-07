@@ -860,6 +860,17 @@ float2 CL_V_JULIASCOPE(const float2 in, const float w, x128_state_t* state, cons
 
     return rr * (float2)(ca, sa);
 }
+// ----------------------------
+// 033 VAR GAUSSIAN BLUR
+// ----------------------------
+float2 CL_V_GAUSSIAN_BLUR(const float2 in, const float w, x128_state_t* state){
+    float ang, rr, sa, ca;
+    ang = x128_next_float(state) * M_TAU;
+    rr = w * (x128_next_float(state) + x128_next_float(state) + x128_next_float(state) + x128_next_float(state) - 2.0f);
+    sincos_fast(ang, &sa, &ca);
+
+    return rr * (float2)(ca, sa);
+}
 
 
 // ----------------------------
@@ -867,8 +878,6 @@ float2 CL_V_JULIASCOPE(const float2 in, const float w, x128_state_t* state, cons
 //
 // Each iterations of the chaos game will select one variation to be applied to the incoming point/sample.
 // The dispatch will take care of finding the one and execute it.
-// OpenCL 2.0 has function pointers (along with many other improvements that this implementation will massively benefit from),
-// but meanwhile this seem to be working great and much more performant than the CVEX code base.
 // ----------------------------
 
 float2 CL_V_DISPATCH(
@@ -919,6 +928,7 @@ float2 CL_V_DISPATCH(
         case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
         case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
         case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
+        case 33:    return CL_V_GAUSSIAN_BLUR(in, w, state);
 
         default:    return w * in;
     }
