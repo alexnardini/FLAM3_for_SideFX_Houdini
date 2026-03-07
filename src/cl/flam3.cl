@@ -795,7 +795,7 @@ float2 CL_V_BLOB(const float2 in, const float w, const float4 blob){
     float _SQRT, low, high, wave, blob_coeff, rr, aa, bdiff;
     _SQRT = SQRT(in);
     float2 precalc = in / _SQRT;
-    
+
     aa = ATAN(in);
     bdiff = blob.y - blob.x;
 #ifdef USE_NATIVE
@@ -806,16 +806,40 @@ float2 CL_V_BLOB(const float2 in, const float w, const float4 blob){
 
     return w * rr * precalc;
 }
+// ----------------------------
+// 030 VAR JULIAN
+// ----------------------------
+float2 CL_V_JULIAN(const float2 in, const float w, x128_state_t* state, const float2 julian){
+    
+    float inv_jx, julian_cn, a, r2, tmpr, rr, sa, ca;
+    
+    inv_jx = 1.0f / julian.x;
+    julian_cn = julian.y * inv_jx * 0.5f;
 
+    int t_rnd = (int)(julian.x * x128_next_float(state));
+    a = ATANYX(in);
+    r2 = SUMSQ(in);
+
+    tmpr = (a + M_TAU * t_rnd) * inv_jx;
+#ifdef USE_NATIVE
+    rr = w * native_powr(r2, julian_cn);
+#else
+    rr = w * powr(r2, julian_cn);
+#endif
+
+    sincos_fast(tmpr, &sa, &ca);
+
+    return rr * (float2)(ca, sa);
+}
 
 
 // ----------------------------
 // CL FLAM3 variations dispatch
 //
 // Each iterations of the chaos game will select one variation to be applied to the incoming point/sample.
-// The dispatch functions will take care of finding the one and execute it.
+// The dispatch will take care of finding the one and execute it.
 // OpenCL 2.0 has function pointers (along with many other improvements that this implementation will massively benefit from),
-// but meanwhile this seem to be working great and much more performant than the CVEX code base solution.
+// but meanwhile this seem to be working great and much more performant than the CVEX code base.
 // ----------------------------
 
 float2 CL_V_DISPATCH(
@@ -864,6 +888,7 @@ float2 CL_V_DISPATCH(
         case 28:    return CL_V_NGON(in, w, PRM_F4[PRM_F4_IDX_NGON], PRM_F4[PRM_F4_IDX_NGON_PRECALC]);
         case 29:    return CL_V_PDJ(in, w, PRM_F4[PRM_F4_IDX_PDJW]);
         case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
+        case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
 
         default:    return w * in;
     }
@@ -872,6 +897,9 @@ float2 CL_V_DISPATCH(
 
 
 /*
+// I like this method but I do not like the idea
+// to have all the variations functions share the same arguments set.
+
 #define OCL_VAR_LIST            \
     VAR(0, CL_V_LINEAR)        \
     VAR(1, CL_V_SINUSOIDAL)    \
