@@ -6,9 +6,105 @@
 // Constants
 // ----------------------------
 enum {
-    MAX_XFORMS           = 20, 
-    MAX_XFORMS_XAOS_SIZE = MAX_XFORMS * MAX_XFORMS, 
-    MAX_XFORM_VARS       = 4
+    MAX_XFORMS                  = 20, 
+    MAX_XFORMS_XAOS_SIZE        = MAX_XFORMS * MAX_XFORMS, 
+    MAX_XFORM_VARS              = 4,
+    MAX_XFORM_PP_VARS           = 3,
+
+    SHD_NUM_SIZE                = 3,
+
+    // ----------------------------
+    // PRM F sizes  
+    // ----------------------------
+    PRM_NUM_F                   = 7,
+    PRM_NUM_F_SIZE              = PRM_NUM_F * MAX_XFORMS,
+    // ----------------------------
+    // PRM F parametrics indexes  
+    // ----------------------------
+    PRM_F_IDX_RINGS2VAL         = 0,    // value
+    PRM_F_IDX_BIPOLARSHIFT      = 1,    // shift
+    PRM_F_IDX_CELLSIZE          = 2,    // size
+    PRM_F_IDX_RADIALBLUR        = 3,    // angle
+    PRM_F_IDX_ESCHERBETA        = 4,    // beta
+    PRM_F_IDX_POPCORN2C         = 5,    // c
+    PRM_F_IDX_FLUXSPREAD        = 6,    // spread
+
+    // ----------------------------
+    // PRM F2 sizes  
+    // ----------------------------
+    PRM_NUM_F2                  = 29,
+    PRM_NUM_F2_SIZE             = PRM_NUM_F2 * MAX_XFORMS,
+    // ----------------------------
+    // PRM F2 parametrics indexes  
+    // ----------------------------
+    PRM_F2_IDX_CURL             = 0,    // c1, c2
+    PRM_F2_IDX_JULIAN           = 1,    // power, distance
+    PRM_F2_IDX_JULIASCOPE       = 2,    // power, distance
+    PRM_F2_IDX_FAN2             = 3,    // x, y
+    PRM_F2_IDX__RECTANGLES      = 4,    // x, y
+    PRM_F2_IDX_DISC2            = 5,    // rot, twist
+    PRM_F2_IDX_FLOWER           = 6,    // petals, holes
+    PRM_F2_IDX_CONIC            = 7,    // eccentricity, holes
+    PRM_F2_IDX_PARABOLA         = 8,    // height, width
+    PRM_F2_IDX_BENT2            = 9,    // x, y
+    PRM_F2_IDX_LAZYSUSAN        = 10,   // x, y
+    PRM_F2_IDX_MODULUS          = 11,   // x, y
+    PRM_F2_IDX_POPCORN2         = 12,   // x, y
+    PRM_F2_IDX_SEPARATION       = 13,   // x, y
+    PRM_F2_IDX_SEPARATIONIN     = 14,   // inside_x, inside_y
+    PRM_F2_IDX_SPLIT            = 15,   // x, y
+    PRM_F2_IDX_SPLITS           = 16,   // x, y
+    PRM_F2_IDX_STRIPES          = 17,   // space, warp
+    PRM_F2_IDX_WHORL            = 18,   // inside, outside
+    PRM_F2_IDX_WAVES2SCALE      = 19,   // scale_x, scale_y
+    PRM_F2_IDX_WAVES2FREQ       = 20,   // frequency_x,  frequency_y
+    PRM_F2_IDX_CURVELENGTH      = 21,   // lenght_x, lenght_y
+    PRM_F2_IDX_CURVEAMP         = 22,   // amplitude_x, amplitude_y
+    PRM_F2_IDX_PERSP            = 23,   // angle, distance
+    PRM_F2_IDX_BWRAPTWIST       = 24,   // in_twist, out_twist
+    PRM_F2_IDX_POLYNOMIALPOW    = 25,   // pow_x, pow_y
+    PRM_F2_IDX_POLYNOMIALLC     = 26,   // Lc_x, Lc_y
+    PRM_F2_IDX_POLYNOMIALSC     = 27,   // Sc_x, Sc_y
+    PRM_F2_IDX_CROP             = 28,   // area, zero
+
+    // ----------------------------
+    // PRM F3 sizes  
+    // ----------------------------
+    PRM_NUM_F3                  = 9,
+    PRM_NUM_F3_SIZE             = PRM_NUM_F3 * MAX_XFORMS,
+    // ----------------------------
+    // PRM F3 parametrics indexes  
+    // ----------------------------
+    PRM_F3_IDX_BLOB             = 0,    // low, high, wave
+    PRM_F3_IDX_PIE              = 1,    // slices, thickness, rotation
+    PRM_F3_IDX_SUPERSHAPE       = 2,    // m, rnd, holes
+    PRM_F3_IDX_SUPERSHAPEN      = 3,    // n1, n2, n3
+    PRM_F3_IDX_CPOW             = 4,    // power, r, i
+    PRM_F3_IDX_LAZYSUSAN        = 5,    // spin, twist, space
+    PRM_F3_IDX_LAZYSUSANSTS     = 6,    // spin, twist, space
+    PRM_F3_IDX_BWRAPS           = 7,    // size, space, gain
+    PRM_F3_IDX_PTSYM            = 8,    // order, center_x, center_y
+
+    // ----------------------------
+    // PRM F4 sizes  
+    // ----------------------------
+    PRM_NUM_F4                  = 11,
+    PRM_NUM_F4_SIZE             = PRM_NUM_F4 * MAX_XFORMS,
+    // ----------------------------
+    // PRM F4 parametrics indexes  
+    // ----------------------------
+    PRM_F4_IDX_NGON             = 0,    // pow, sides, corners, circle
+    PRM_F4_IDX_NGON_PRECALC     = 1,    // cpower, csides, csidesinv, 1.0
+    PRM_F4_IDX_PDJW             = 2,    // wA, wB, wC, wD
+    PRM_F4_IDX_OSCOPE           = 3,    // frequency, amplitude, damping, separation
+    PRM_F4_IDX_WEDGE            = 4,    // swirl, angle, hole, count
+    PRM_F4_IDX_WEDGEJULIA       = 5,    // power, angle, dist, count
+    PRM_F4_IDX_WEDGESPH         = 6,    // swirl, angle, hole, count
+    PRM_F4_IDX_AUGER            = 7,    // frequency, scale, symmetry, weight
+    PRM_F4_IDX_MOBIUSRE         = 8,    // reA, reB, reC, reD
+    PRM_F4_IDX_MOBIUSIM         = 9,    // imA, imB, imC, imD
+    PRM_F4_IDX_CROPLTRB         = 10,    // left, top, right, bottom
+
 };
 
 
@@ -233,7 +329,8 @@ inline void sincos_fast(float a, float* s, float* c)
 #endif
 }
 
-// To be used with an improved Elliptic version which helps with rounding errors. For 64bit(DP, when and if I'll get to add support for it)
+// To be used with an improved Elliptic version which helps with rounding errors.
+// For 64bit(DP, when and if I'll find the time to add support for it)
 // Source: https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html
 inline float Sqrt1pm1(const float x){
     if (-0.0625 < x && x < 0.0625)
@@ -292,7 +389,7 @@ inline float Sqrt1pm1(const float x) {
 //
 // All the variations/plugins being implemented.
 // The CVEX code base has been the starting point
-// and they all have been upgraded for OpenCL.
+// and they have been upgraded for OpenCL.
 // ----------------------------
 
 // ----------------------------
@@ -548,11 +645,20 @@ float2 CL_V_EXPONENTIAL(const float2 in, const float w){
 // 019 VAR POWER
 // ----------------------------
 float2 CL_V_POWER(const float2 in, const float w){
-    float _SQRT = SQRT(in);
-    float2 precalc = in / _SQRT;
-    float r = w * pow(_SQRT, precalc[0]);
+    float r2 = in.x * in.x + in.y * in.y;
+    if (r2 == 0.0f)
+        return (float2)(0.0f, 0.0f);
 
-    return r * precalc.yx;
+    float inv_r = native_rsqrt(r2);
+    float r = r2 * inv_r;
+    float2 n = in * inv_r;
+#ifdef USE_NATIVE
+    float amp = w * native_exp(n.x * native_log(r));
+#else
+    float amp = w * exp(n.x * log(r));
+#endif
+
+    return amp * (float2)(n.y, n.x);
 }
 // ----------------------------
 // 020 VAR COSINE
@@ -630,6 +736,76 @@ float2 CL_V_BLUR(const float2 in, const float w, x128_state_t* state){
 
     return r * (float2)(cr, sr);
 }
+// ----------------------------
+// 027 VAR CURL
+// ----------------------------
+float2 CL_V_CURL(const float2 in, const float w, const float2 c){
+    float re, im, r;
+    
+    re = 1.0f + c.x * in.x + c.y * ((in.x * in.x) - (in.y * in.y));
+    im = c.x * in.y + (2.0f * c.y) *  in.x * in.y;
+    r = w / Zeps((re * re) + (im * im));
+
+    return r * (float2)(
+        in.x * re + in.y * im, 
+        in.y * re - in.x * im
+    );
+}
+// ----------------------------
+// 028 VAR NGON
+// ----------------------------
+float2 CL_V_NGON(const float2 in, const float w, const float4 ngon, const float4 ngon_precalc){
+    float r2 = in.x * in.x + in.y * in.y;
+#ifdef USE_NATIVE
+    float r_factor = (r2 == 0.0f) ? 0.0f : native_exp(ngon_precalc.x * native_log(r2));
+#else
+    float r_factor = (r2 == 0.0f) ? 0.0f : exp(ngon_precalc.x * log(r2));
+#endif
+
+    float theta = atan2(in.y, in.x);
+
+    float phi = theta - ngon_precalc.y * floor(theta * ngon_precalc.z);
+    phi -= ngon_precalc.y * (phi > 0.5f * ngon_precalc.y);
+#ifdef USE_NATIVE
+    float amp = (ngon.z * (1.0f / native_cos(phi) - 1.0f) + ngon.w) * w * r_factor;
+#else
+    float amp = (ngon.z * (1.0f / cos(phi) - 1.0f) + ngon.w) * w * r_factor;
+#endif
+
+    return amp * in;
+}
+// ----------------------------
+// 029 VAR PDG
+// ----------------------------
+float2 CL_V_PDJ(const float2 in, const float w, const float4 pdj){
+#ifdef USE_NATIVE
+    float ox = native_sin(pdj.x * in.y) - native_cos(pdj.y * in.x);
+    float oy = native_sin(pdj.z * in.x) - native_cos(pdj.w * in.y);
+#else
+    float ox = sin(pp.x * in.y) - cos(pp.y * in.x);
+    float oy = sin(pp.z * in.x) - cos(pp.w * in.y);
+#endif
+
+    return w * (float2)(ox, oy);
+}
+// ----------------------------
+// 030 VAR BLOB
+// ----------------------------
+float2 CL_V_BLOB(const float2 in, const float w, const float4 blob){
+    float _SQRT, low, high, wave, blob_coeff, rr, aa, bdiff;
+    _SQRT = SQRT(in);
+    float2 precalc = in / _SQRT;
+    
+    aa = ATAN(in);
+    bdiff = blob.y - blob.x;
+#ifdef USE_NATIVE
+    rr = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * native_sin(blob.z * aa)));
+#else
+    rr = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * sin(blob.z * aa)));
+#endif
+
+    return w * rr * precalc;
+}
 
 
 
@@ -647,8 +823,12 @@ float2 CL_V_DISPATCH(
     const float2 in, 
     const float w, 
     const float2 y,
-    const float2 o,  
-    x128_state_t* state
+    const float2 o, 
+    x128_state_t* state, 
+    __local const float* PRM_F, 
+    __local const float2* PRM_F2, 
+    __local const float4* PRM_F3,   // Casted as float4 instead of float3 so it map correctly
+    __local const float4* PRM_F4 
     )
 {
     switch(type)
@@ -680,11 +860,14 @@ float2 CL_V_DISPATCH(
         case 24:    return CL_V_CYLINDER(in, w);
         case 25:    return CL_V_EYEFISH(in, w);
         case 26:    return CL_V_BLUR(in, w, state);
+        case 27:    return CL_V_CURL(in, w, PRM_F2[PRM_F2_IDX_CURL]);
+        case 28:    return CL_V_NGON(in, w, PRM_F4[PRM_F4_IDX_NGON], PRM_F4[PRM_F4_IDX_NGON_PRECALC]);
+        case 29:    return CL_V_PDJ(in, w, PRM_F4[PRM_F4_IDX_PDJW]);
+        case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
 
         default:    return w * in;
     }
 }
-
 
 
 
@@ -787,7 +970,23 @@ __kernel void flam3cl(
     int VW_length,
     int VW_tuplesize,
     __global int * restrict VW_index,
-    __global float4 * restrict VW
+    __global float4 * restrict VW,
+    int PRM_F_length,
+    int PRM_F_tuplesize,
+    __global int * restrict PRM_F_index,
+    __global float * restrict PRM_F,
+    int PRM_F2_length,
+    int PRM_F2_tuplesize,
+    __global int * restrict PRM_F2_index,
+    __global float2 * restrict PRM_F2,
+    int PRM_F3_length,
+    int PRM_F3_tuplesize,
+    __global int * restrict PRM_F3_index,
+    __global float4 * restrict PRM_F3,   // Casted as float4 instead of float3 so it map correctly
+    int PRM_F4_length,
+    int PRM_F4_tuplesize,
+    __global int * restrict PRM_F4_index,
+    __global float4 * restrict PRM_F4
 )
 {
     int gid = get_global_id(0);
@@ -798,22 +997,37 @@ __kernel void flam3cl(
     int lid = get_local_id(0);
     int lsize = get_local_size(0);
     
+    // CDF
     __local float local_IW[MAX_XFORMS];
+
+    // XAOS
     __local float local_XST[MAX_XFORMS_XAOS_SIZE];
 
+    // shader
     __local float local_SHD[MAX_XFORMS * 3];
 
+    // pre affine
+    // recycle whats being used by the xform handles viz
     __local float2 local_X[MAX_XFORMS];
     __local float2 local_Y[MAX_XFORMS];
     __local float2 local_O[MAX_XFORMS];
 
+    // post affine
+    // recycle whats being used by the xform handles viz
     __local int local_POST[MAX_XFORMS];
     __local float2 local_PX[MAX_XFORMS];
     __local float2 local_PY[MAX_XFORMS];
     __local float2 local_PO[MAX_XFORMS];
 
+    // VAR variations
     __local int4 local_VT[MAX_XFORMS];
     __local float4 local_VW[MAX_XFORMS];
+
+    // PRE, VAR and POST parameterics
+    __local float local_PRM_F[PRM_NUM_F_SIZE];
+    __local float2 local_PRM_F2[PRM_NUM_F2_SIZE];
+    __local float4 local_PRM_F3[PRM_NUM_F3_SIZE];
+    __local float4 local_PRM_F4[PRM_NUM_F4_SIZE];
 
     // copy cooperatively
     for(int i = lid; i < RES; i += lsize){
@@ -828,20 +1042,39 @@ __kernel void flam3cl(
         local_PX[i] = PX[i];
         local_PY[i] = PY[i];
         local_PO[i] = PO[i];
-
+        // VAR variations
         local_VT[i] = convert_int4(VT[i]);
         local_VW[i] = VW[i];
     }
-    
-    int TOTAL_ELEMENTS = RES * 3;
+    // shader
+    int TOTAL_ELEMENTS = RES * SHD_NUM_SIZE;
     for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
-        // shader
         local_SHD[i] = SHD[i];
     }
+    // parametrics float
+    TOTAL_ELEMENTS = RES * PRM_NUM_F;
+    for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+        local_PRM_F[i] = PRM_F[i];
+    }
+    // parametrics float2
+    TOTAL_ELEMENTS = RES * PRM_NUM_F2;
+    for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+        local_PRM_F2[i] = PRM_F2[i];
+    }
+    // parametrics float3
+    TOTAL_ELEMENTS = RES * PRM_NUM_F3;
+    for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+        local_PRM_F3[i] = PRM_F3[i];
+    }
+    // parametrics float4
+    TOTAL_ELEMENTS = RES * PRM_NUM_F4;
+    for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+        local_PRM_F4[i] = PRM_F4[i];
+    }
     if(XS){
-        int TOTAL_ELEMENTS_XAOS = RES * RES;
-        for(int i = lid; i < TOTAL_ELEMENTS_XAOS; i += lsize){
-            // Xaos
+        // Xaos
+        TOTAL_ELEMENTS = RES * RES;
+        for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
             local_XST[i] = XST[i];
         }
     }
@@ -860,7 +1093,7 @@ __kernel void flam3cl(
     x128_state_t rng;
     rng_init(&rng, gid + OPID);  // unique per thread, per node
     
-    // Build starting sample (Biunit)
+    // build starting sample (Biunit)
     mem = (float2)(x128_next_neg1pos1(&rng), x128_next_neg1pos1(&rng));
     
     // if XAOS, pick a starting iterator from distribution
@@ -872,6 +1105,12 @@ __kernel void flam3cl(
         r = x128_next_float(&rng);
         idx = (XS) ? sample_cdf_binary(&local_XST[idx * RES], RES, r) : sample_cdf_binary(local_IW, RES, r);
         
+        // parameterics data
+        __local float* xf_prm_f   = &local_PRM_F[idx * PRM_NUM_F];
+        __local float2* xf_prm_f2 = &local_PRM_F2[idx * PRM_NUM_F2];
+        __local float4* xf_prm_f3 = &local_PRM_F3[idx * PRM_NUM_F3];
+        __local float4* xf_prm_f4 = &local_PRM_F4[idx * PRM_NUM_F4];
+        
         // pre affine
         _y = local_Y[idx]; _o = local_O[idx];
         mem = affine(mem, local_X[idx], _y, _o);
@@ -882,10 +1121,10 @@ __kernel void flam3cl(
         _vt = local_VT[idx];
         _vw = local_VW[idx];
         _tmp = (float2)(0.0f, 0.0f);
-        if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(_vt.x, mem, _vw.x, _y, _o, &rng);
-        if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(_vt.y, mem, _vw.y, _y, _o, &rng);
-        if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(_vt.z, mem, _vw.z, _y, _o, &rng);
-        if (_vw.w != 0.0f) _tmp += CL_V_DISPATCH(_vt.w, mem, _vw.w, _y, _o, &rng);
+        if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(_vt.x, mem, _vw.x, _y, _o, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(_vt.y, mem, _vw.y, _y, _o, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(_vt.z, mem, _vw.z, _y, _o, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.w != 0.0f) _tmp += CL_V_DISPATCH(_vt.w, mem, _vw.w, _y, _o, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         
 
         
@@ -900,7 +1139,7 @@ __kernel void flam3cl(
         mem = _tmp;
     }
     
-    // get this sample Alpha value
+    // Alpha value
     float a = local_SHD[idx + RES + RES];
     
     // OUT
