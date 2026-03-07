@@ -101,19 +101,19 @@ float Sqrt1pm1(float x){
 }
 
 void precalc_V_DISC2(vector disc2_precalc; const float rot, twist){
-    // This is the only one to benefit from the precalc
+    // This is the only one to benefit from the precalc in CVEX
 
     // PRECALC
-    // disc2_precalc[idx][0] = timespi  (d0)
-    // disc2_precalc[idx][1] = sinadd   (d1)
-    // disc2_precalc[idx][2] = cosadd   (d2)
-    float k, d0, d1, d2;
+    // disc2_precalc[idx][0] = timespi
+    // disc2_precalc[idx][1] = sinadd
+    // disc2_precalc[idx][2] = cosadd
+    float a, b, k, d0, d1, d2;
     
     d0 = rot * M_PI;
     sincos(twist, d1, d2);
     d2 -= 1;
-    if(twist > ( 2*M_PI)){ k = (1 + twist - 2*M_PI); d2*=k; d1*=k; }
-    if(twist < (-2*M_PI)){ k = (1 + twist + 2*M_PI); d2*=k; d1*=k; }
+    if(twist >  M_TAU){ k = (1 + twist - M_TAU); d2*=k; d1*=k; }
+    if(twist < -M_TAU){ k = (1 + twist + M_TAU); d2*=k; d1*=k; }
     disc2_precalc = set(d0, d1, d2);
 }
 
