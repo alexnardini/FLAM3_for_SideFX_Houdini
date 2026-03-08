@@ -712,8 +712,7 @@ float2 CL_V_JULIA(  __private const float2 in,
 {
     float r, a, sa, ca;
     a = 0.5 * ATAN(in);
-    if(rng_next_float(state) < 0.5)
-        a += M_PI;
+    a += select(0.0f, (float)M_PI, rng_next_float(state) < 0.5f);
     r = w * sqrt(SQRT(in));
     sincos_fast(a, &sa, &ca);
 
@@ -882,7 +881,11 @@ float2 CL_V_BUBBLE( __private const float2 in,
                     __private const float w
                     )
 {
+#if USE_FMA
+    float r = w / fma(0.25f, SUMSQ(in), 1.0f);
+#else
     float r = w / (0.25f * SUMSQ(in) + 1.0f);
+#endif
 
     return r * in;
 }
@@ -934,10 +937,21 @@ float2 CL_V_CURL(   __private const float2 in,
                     )
 {
     float re, im, r;
-    
+
+#if USE_FMA
+    float x2 = in.x * in.x;
+    float y2 = in.y * in.y;
+    re = fma(c.y, (x2 - y2), fma(c.x, in.x, 1.0f));
+    im = fma(2.0f * c.y, in.x * in.y, c.x * in.y);
+#else
     re = 1.0f + c.x * in.x + c.y * ((in.x * in.x) - (in.y * in.y));
     im = c.x * in.y + (2.0f * c.y) *  in.x * in.y;
+#endif
+#if USE_NATIVE
+    r = w * native_recip(Zeps(fma(re, re, im * im)));
+#else
     r = w / Zeps((re * re) + (im * im));
+#endif
 
     return r * (float2)(
         in.x * re + in.y * im, 
@@ -1058,8 +1072,12 @@ float2 CL_V_JULIASCOPE( __private const float2 in,
 {
     int t_rnd;
     float _ATANYX, julian_rN, sign, julian_cn, tmpr, rr, sa, ca;
-
+    
+#if USE_NATIVE
+    float inv_jx = native_recip(juliascope.x);
+#else
     float inv_jx = 1.0f / juliascope.x;
+#endif
 
     _ATANYX = ATANYX(in);
     // julian_rN = juliascope.x;
@@ -1397,7 +1415,7 @@ float2 CL_V_DISPATCH(
     __private x128_state_t* state, 
     __local const float* PRM_F, 
     __local const float2* PRM_F2, 
-    __local const float4* PRM_F3,   // Casted as float4 instead of float3 so it map correctly
+    __local const float4* PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
     __local const float4* PRM_F4 
     )
 {
@@ -1573,7 +1591,7 @@ __kernel void flam3cl(
     int PRM_F3_length,
     int PRM_F3_tuplesize,
     __global int * restrict PRM_F3_index,
-    __global float4 * restrict PRM_F3,   // Casted as float4 instead of float3 so it map correctly
+    __global float4 * restrict PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
     int PRM_F4_length,
     int PRM_F4_tuplesize,
     __global int * restrict PRM_F4_index,
@@ -1639,7 +1657,7 @@ __kernel void flam3cl(
     // Float2 array
     int total_PRM_F2    = RES * PRM_NUM_F2;
     // Float4 arrays
-    int total_PRM_F3    = RES * PRM_NUM_F3; // Marked as F3 becasue it was meant to be a vector from vex
+    int total_PRM_F3    = RES * PRM_NUM_F3; // Marked as F3 becasue it was meant to be a vector array from vex
     int total_PRM_F4    = RES * PRM_NUM_F4;
 
     // SHD
