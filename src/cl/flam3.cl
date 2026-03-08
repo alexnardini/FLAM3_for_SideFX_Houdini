@@ -881,7 +881,7 @@ float2 CL_V_CURL(   __private const float2 in,
 float2 CL_V_NGON(   __private const float2 in, 
                     __private const float w, 
                     __private const float4 ngon, 
-                    __private const float4 ngon_precalc
+                    __private const float4 ngon_precalc // cpower csides csidesinv unused
                     )
 {
     float r2 = in.x * in.x + in.y * in.y;
@@ -908,7 +908,7 @@ float2 CL_V_NGON(   __private const float2 in,
 // ----------------------------
 float2 CL_V_PDJ(__private const float2 in, 
                 __private const float w, 
-                __private const float4 pdj
+                __private const float4 pdj  // wA wB wC wD
                 )
 {
 #ifdef USE_NATIVE
@@ -926,7 +926,7 @@ float2 CL_V_PDJ(__private const float2 in,
 // ----------------------------
 float2 CL_V_BLOB(   __private const float2 in, 
                     __private const float w, 
-                    __private const float4 blob
+                    __private const float4 blob // low high wave unused
                     )
 {
     float _SQRT, low, high, wave, blob_coeff, rr, aa, bdiff;
@@ -949,7 +949,7 @@ float2 CL_V_BLOB(   __private const float2 in,
 float2 CL_V_JULIAN( __private const float2 in, 
                     __private const float w, 
                     x128_state_t* state, 
-                    __private const float2 julian
+                    __private const float2 julian   // power distance
                     )
 {
     int t_rnd;
@@ -982,7 +982,7 @@ float2 CL_V_JULIAN( __private const float2 in,
 float2 CL_V_JULIASCOPE( __private const float2 in, 
                         __private const float w, 
                         x128_state_t* state, 
-                        __private const float2 juliascope
+                        __private const float2 juliascope   // power distance
                         )
 {
     int t_rnd;
@@ -1028,7 +1028,7 @@ float2 CL_V_GAUSSIAN_BLUR(  __private const float2 in,
 // ----------------------------
 float2 CL_V_FAN2(   __private const float2 in, 
                     __private const float w, 
-                    __private const float2 fan2
+                    __private const float2 fan2 // x y
                     )
 {
     float dx, dx2, inv_dx, a, r, ady, tt, sa, ca;
@@ -1060,7 +1060,7 @@ float2 CL_V_FAN2(   __private const float2 in,
 // ----------------------------
 float2 CL_V_RINGS2( __private const float2 in, 
                     __private const float w, 
-                    __private const float rings2val
+                    __private const float rings2val // value
                     )
 {
     float _SQRT, rr, dx;
@@ -1280,7 +1280,7 @@ __kernel void flam3cl(
 
     __local affine_t local_PRE_AFFINE[MAX_XFORMS];
     __local affine_t local_POST_AFFINE[MAX_XFORMS];
-    __local int local_POST[MAX_XFORMS]; // toggles
+    __local int local_POST[MAX_XFORMS]; // post affine toggles
 
     // VAR variations
     __local int4 local_VT[MAX_XFORMS];
@@ -1363,7 +1363,7 @@ __kernel void flam3cl(
     if(XS) idx = sample_cdf_binary(local_IW, RES, x128_next_float(&rng));
     
     for (int i = 0; i < 1024; ++i){
-    
+        
         // xform selection
         r = x128_next_float(&rng);
         idx = (XS) ? sample_cdf_binary(&local_XST[idx * RES], RES, r) : sample_cdf_binary(local_IW, RES, r);
@@ -1374,14 +1374,12 @@ __kernel void flam3cl(
         __local float4* xf_prm_f3 = &local_PRM_F3[idx * PRM_NUM_F3];
         __local float4* xf_prm_f4 = &local_PRM_F4[idx * PRM_NUM_F4];
         
-        
-
         // pre affine 
         affine_t pa = local_PRE_AFFINE[idx];
         mem = affine(mem, pa);
         
         
-        
+
         // VAR
         _vt = local_VT[idx];
         _vw = local_VW[idx];
@@ -1390,15 +1388,13 @@ __kernel void flam3cl(
         if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(_vt.y, mem, _vw.y, pa.xy.zw, pa.o.xy, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(_vt.z, mem, _vw.z, pa.xy.zw, pa.o.xy, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         if (_vw.w != 0.0f) _tmp += CL_V_DISPATCH(_vt.w, mem, _vw.w, pa.xy.zw, pa.o.xy, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-        
 
         
         
-        // affine post
         if(local_POST[idx]){
             affine_t po = local_POST_AFFINE[idx];
-            mem = affine(mem, po);
-        }
+            _tmp = affine(_tmp, po);
+            }
 
         // color
         _prev_clr = clr = local_SHD[idx] + local_SHD[idx + RES] * _prev_clr;
