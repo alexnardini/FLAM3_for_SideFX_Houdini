@@ -260,15 +260,25 @@ inline int sample_cdf_binary(__local const float* CDF, const int length, const f
 // ----------------------------
 // CL FLAM3 affine transform
 // ----------------------------
-inline float2 affine(const float2 pos, const float2 X, const float2 Y, const float2 O)
+inline float2 affine(const float2 in, const float2 X, const float2 Y, const float2 O)
 {
-    float px = pos.x;
-    float py = pos.y;
+    // Referece affine
+    // return (float2)(
+    //     /*A*/in.x * X.x + /*B*/in.y * Y.x + /*C*/O.x,
+    //     /*D*/in.x * X.y + /*E*/in.y * Y.y + /*F*/O.y
+    // );
 
+#ifdef USE_FMA
     return (float2)(
-        /*A*/px * X.x + /*B*/py * Y.x + /*C*/O.x,
-        /*D*/px * X.y + /*E*/py * Y.y + /*F*/O.y
+        fma(in.y, Y.x, fma(in.x, X.x, O.x)),
+        fma(in.y, Y.y, fma(in.x, X.y, O.y))
     );
+#else
+    return (float2)(
+        dot(in, (float2)(X.x, Y.x)) + O.x,
+        dot(in, (float2)(X.y, Y.y)) + O.y
+    );
+#endif
 }
 
 
@@ -810,6 +820,7 @@ float2 CL_V_BLOB(const float2 in, const float w, const float4 blob){
 // 031 VAR JULIAN
 // ----------------------------
 float2 CL_V_JULIAN(const float2 in, const float w, x128_state_t* state, const float2 julian){
+    int t_rnd;
     float inv_jx, julian_cn, rr, tmpr, sa, ca;
 #ifdef USE_NATIVE
     inv_jx = native_recip(julian.x);
@@ -821,7 +832,7 @@ float2 CL_V_JULIAN(const float2 in, const float w, x128_state_t* state, const fl
     float r2 = SUMSQ(in);
     float a  = ATANYX(in);
 
-    int t_rnd = (int)(julian.x * x128_next_float(state));
+    t_rnd = (int)(julian.x * x128_next_float(state));
     tmpr = (a + M_TAU * t_rnd) * inv_jx;
 #ifdef USE_NATIVE
     rr = w * native_powr(r2, julian_cn);
@@ -838,7 +849,7 @@ float2 CL_V_JULIAN(const float2 in, const float w, x128_state_t* state, const fl
 // ----------------------------
 float2 CL_V_JULIASCOPE(const float2 in, const float w, x128_state_t* state, const float2 juliascope){
     int t_rnd;
-    float _ATANYX, julian_rN, julian_cn, tmpr, rr, sa, ca;
+    float _ATANYX, julian_rN, sign, julian_cn, tmpr, rr, sa, ca;
 
     float inv_jx = 1.0f / juliascope.x;
 
@@ -848,7 +859,7 @@ float2 CL_V_JULIASCOPE(const float2 in, const float w, x128_state_t* state, cons
 
     t_rnd = (int)(julian_rN * x128_next_float(state));
 
-    float sign = (t_rnd & 1) ? -1.0f : 1.0f;
+    sign = (t_rnd & 1) ? -1.0f : 1.0f;
     tmpr = (M_TAU * t_rnd + sign * _ATANYX) * inv_jx;
 
     sincos_fast(tmpr, &sa, &ca);
@@ -870,6 +881,48 @@ float2 CL_V_GAUSSIAN_BLUR(const float2 in, const float w, x128_state_t* state){
     sincos_fast(ang, &sa, &ca);
 
     return rr * (float2)(ca, sa);
+}
+// ----------------------------
+// 034 VAR FAN2
+// ----------------------------
+float2 CL_V_FAN2(const float2 in, const float w, const float2 fan2){
+    float dx, dx2, inv_dx, a, r, ady, tt, sa, ca;
+    dx  = M_PI_F * Zeps(fan2.x * fan2.x);
+    dx2 = 0.5f * dx;
+#ifdef USE_NATIVE
+    inv_dx = native_recip(dx);
+#else
+    inv_dx = recip(dx);
+#endif
+
+    a = ATAN(in);
+#ifdef USE_NATIVE
+    r = w * native_sqrt(SUMSQ(in));
+#else
+    r = w * sqrt(SUMSQ(in));
+#endif
+
+    ady = a + fan2.y;
+    tt = ady - dx * (int)(ady * inv_dx);
+    a += dx2 * (1.0f - 2.0f * step(dx2, tt));
+
+    sincos_fast(a, &sa, &ca);
+
+    return r * (float2)(sa, ca);
+}
+// ----------------------------
+// 035 VAR RINGS2
+// ----------------------------
+float2 CL_V_RINGS2(const float2 in, const float w, const float rings2val){
+    float _SQRT, rr, dx;
+    int nrand;
+    _SQRT = SQRT(in);
+    float2 precalc = in / _SQRT;
+    rr = _SQRT;
+    dx = rings2val * rings2val;
+    rr += -2.0f * dx * (int)((rr + dx)/(2.0f * dx)) + rr * (1.0f - dx);
+
+    return w * rr * precalc;
 }
 
 
@@ -929,6 +982,8 @@ float2 CL_V_DISPATCH(
         case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
         case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
         case 33:    return CL_V_GAUSSIAN_BLUR(in, w, state);
+        case 34:    return CL_V_FAN2(in, w, PRM_F2[PRM_F2_IDX_FAN2]);
+        case 35:    return CL_V_RINGS2(in, w, PRM_F[PRM_F_IDX_RINGS2VAL]);
 
         default:    return w * in;
     }
@@ -1153,7 +1208,7 @@ __kernel void flam3cl(
     int4 _vt;
     float clr = 0.0f;
     float _prev_clr = 0.0f;
-    float2 _y, _o, _tmp, mem;
+    float2 mem, _tmp, _y, _o;
     float4 _vw;
     
     // RNG init
