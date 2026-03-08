@@ -1298,10 +1298,10 @@ __kernel void flam3cl(
         local_IW[i] = IW[i];
         // pre affine
         local_PRE_AFFINE[i].xy = (float4)(X[i], Y[i]);
-        local_PRE_AFFINE[i].o = (float4)(O[i], 0, 0);
+        local_PRE_AFFINE[i].o = (float4)(O[i], 0.0f, 0.0f);
         // post affine
         local_POST_AFFINE[i].xy = (float4)(PX[i], PY[i]);
-        local_POST_AFFINE[i].o = (float4)(PO[i], 0, 0);
+        local_POST_AFFINE[i].o = (float4)(PO[i], 0.0f, 0.0f);
         // post affine toggles
         local_POST[i] = POST[i];
 
