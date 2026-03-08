@@ -1,6 +1,8 @@
-#define USE_FMA     // Enable fused multiply-add if desired
-#define USE_NATIVE  // Enable native ocl functions for speed but less accuracy
-#define PSCL 0.001f
+#define USE_FMA         1   // Enable fused multiply-add if desired
+#define USE_NATIVE      1   // Enable native ocl functions for speed but less accuracy
+#define USE_RNG_X128    1   // Use a more accurate 32bit RNG generator
+
+#define PSCL 0.001f         // Default point scale ( @pscale )
 
 // ----------------------------
 // Constants
@@ -41,7 +43,7 @@ enum {
     PRM_F2_IDX_JULIAN           = 1,    // power, distance
     PRM_F2_IDX_JULIASCOPE       = 2,    // power, distance
     PRM_F2_IDX_FAN2             = 3,    // x, y
-    PRM_F2_IDX__RECTANGLES      = 4,    // x, y
+    PRM_F2_IDX_RECTANGLES       = 4,    // x, y
     PRM_F2_IDX_DISC2            = 5,    // rot, twist
     PRM_F2_IDX_FLOWER           = 6,    // petals, holes
     PRM_F2_IDX_CONIC            = 7,    // eccentricity, holes
@@ -103,7 +105,7 @@ enum {
     PRM_F4_IDX_AUGER            = 7,    // frequency, scale, symmetry, weight
     PRM_F4_IDX_MOBIUSRE         = 8,    // reA, reB, reC, reD
     PRM_F4_IDX_MOBIUSIM         = 9,    // imA, imB, imC, imD
-    PRM_F4_IDX_CROPLTRB         = 10,    // left, top, right, bottom
+    PRM_F4_IDX_CROPLTRB         = 10,   // left, top, right, bottom
 
 };
 
@@ -130,14 +132,14 @@ typedef struct {
 // ----------------------------
 // Rotate left
 // ----------------------------
-inline uint rotate_left(uint x, int k) {
+static inline uint rotate_left(uint x, int k) {
     return (x << k) | (x >> (32 - k));
 }
 
 // ----------------------------
 // SplitMix32 for per-thread seeding
 // ----------------------------
-inline uint splitmix32(uint seed) {
+static inline uint splitmix32(uint seed) {
     uint z = seed + 0x9E3779B9u;
     z = (z ^ (z >> 16)) * 0x85EBCA6Bu;
     z = (z ^ (z >> 13)) * 0xC2B2AE35u;
@@ -145,20 +147,39 @@ inline uint splitmix32(uint seed) {
 }
 
 // ----------------------------
-// Initialize RNG state for a work-item
+// Initialize x64 RNG state for a work-item
 // gid = get_global_id(0) or other unique thread index
 // ----------------------------
-inline void rng_init(x128_state_t* state, uint gid) {
+static inline void x64_rng_init(x128_state_t* state, uint gid) {
+    state->s0 = gid + 0;
+    state->s1 = gid ^ 0x9E3779B9u;
+}
+
+// ----------------------------
+// Initialize x128 RNG state for a work-item
+// gid = get_global_id(0) or other unique thread index
+// ----------------------------
+static inline void x128_rng_init(x128_state_t* state, uint gid) {
     state->s0 = splitmix32(gid + 0);
     state->s1 = splitmix32(gid + 1);
     state->s2 = splitmix32(gid + 2);
     state->s3 = splitmix32(gid + 3);
 }
+// ----------------------------
+// initialize RNG state for X128 or X64 based on #define (32bit or 24bit)
+// ----------------------------
+static inline void rng_init(x128_state_t* state, uint gid){
+#if USE_RNG_X128
+    x128_rng_init(state, gid);
+#else
+    x64_rng_init(state, gid);
+#endif
+}
 
 // ----------------------------
 // Next uint32 random
 // ----------------------------
-inline uint x128_next_uint(x128_state_t* state) {
+static inline uint x128_next_uint(x128_state_t* state) {
     uint result = state->s0 + state->s3;
 
     uint t = state->s1 << 9;
@@ -178,7 +199,7 @@ inline uint x128_next_uint(x128_state_t* state) {
 // ----------------------------
 // Float in [0,1)
 // ----------------------------
-inline float x128_next_float(x128_state_t* state) {
+static inline float x128_next_float(x128_state_t* state) {
     uint r = x128_next_uint(state);
     return (float)(r >> 8) * (1.0f / 16777216.0f); // 1/2^24
 }
@@ -186,9 +207,9 @@ inline float x128_next_float(x128_state_t* state) {
 // ----------------------------
 // Float in [lower, upper)
 // ----------------------------
-inline float x128_next_float_range(x128_state_t* state, float lower, float upper) {
+static inline float x128_next_float_range(x128_state_t* state, float lower, float upper) {
     float f = x128_next_float(state);
-#ifdef USE_FMA
+#if USE_FMA
     return fma(f, upper - lower, lower);
 #else
     return f * (upper - lower) + lower;
@@ -198,9 +219,9 @@ inline float x128_next_float_range(x128_state_t* state, float lower, float upper
 // ----------------------------
 // Float in [-1,1)
 // ----------------------------
-inline float x128_next_neg1pos1(x128_state_t* state) {
+static inline float x128_next_neg1pos1(x128_state_t* state) {
     float f = x128_next_float(state);
-#ifdef USE_FMA
+#if USE_FMA
     return fma(f, 2.0f, -1.0f);
 #else
     return f * 2.0f - 1.0f;
@@ -210,7 +231,7 @@ inline float x128_next_neg1pos1(x128_state_t* state) {
 // ----------------------------
 // Float in [-0.5,0.5)
 // ----------------------------
-inline float x128_next_0505(x128_state_t* state) {
+static inline float x128_next_0505(x128_state_t* state) {
     float f = x128_next_float(state);
     return f - 0.5f;
 }
@@ -218,23 +239,59 @@ inline float x128_next_0505(x128_state_t* state) {
 
 // ----------------------------
 // GPU RNG: xoroshiro64+ variant (outputs float in [0,1) using top 24 bits)
-float rand_x64(uint *s0, uint *s1) {
-    uint _s0 = *s0;
-    uint _s1 = *s1;
+// ----------------------------
+// Float in [0,1)
+// ----------------------------
+static inline float x64_next_float(x128_state_t* state) {
+    uint _s0 = state->s0;
+    uint _s1 = state->s1;
     uint result = (_s0 + _s1);
 
     uint t = _s1 ^ _s0;
-    *s0 = rotate_left(_s0, 26) ^ t ^ (t << 9);
-    *s1 = rotate_left(t, 13);
+    state->s0 = rotate_left(_s0, 26) ^ t ^ (t << 9);
+    state->s1 = rotate_left(t, 13);
 
     return (float)(result >> 8) / 16777216.0f; // Get the upper 24bit for more uniform randomness
 }
+// ----------------------------
+// Float in [-1,1)
+// ----------------------------
+static inline float x64_next_neg1pos1(x128_state_t* state) {
+    float f = x64_next_float(state);
+#if USE_FMA
+    return fma(f, 2.0f, -1.0f);
+#else
+    return f * 2.0f - 1.0f;
+#endif
+}
 
+// ----------------------------
+// Run X128 or X64 based on #define (32bit or 24bit)
+// Float in [0,1)
+// ----------------------------
+static inline float rng_next_float(x128_state_t* state){
+#if USE_RNG_X128
+    return x128_next_float(state);
+#else
+    return x64_next_float(state);
+#endif
+}
+// ----------------------------
+// Run X128 or X64 based on #define (32bit or 24bit)
+// Float in [-1,1)
+// ----------------------------
+static inline float rng_next_neg1pos1(x128_state_t* state){
+#if USE_RNG_X128
+    return x128_next_neg1pos1(state);
+#else
+    return x64_next_neg1pos1(state);
+#endif
+}
 
 // ----------------------------
 // CL FLAM3 CDF binary
 // ----------------------------
-inline int sample_cdf_binary(__local const float* CDF, const int length, const float u_rand) {
+static inline int sample_cdf_binary(__local const float* CDF, const int length, const float u_rand) {
     if (length <= 0) return 0;
 
     // scale u_rand to the range of the CDF
@@ -256,7 +313,6 @@ inline int sample_cdf_binary(__local const float* CDF, const int length, const f
     return low; // first index where CDF[idx] > target
 }
 
-
 // ----------------------------
 // CL FLAM3 affine transform
 // 32-byte aligned
@@ -265,7 +321,7 @@ typedef struct {
     float4 xy;  // X.x X.y Y.x Y.y
     float4 o;   // O.x O.y unused unused
 } affine_t;
-inline float2 affine(__private const float2 in, __private const affine_t affine)
+static inline float2 affine(__private const float2 in, __private const affine_t affine)
 {
     // Referece affine
     // /*A*/in.x * X.x + /*B*/in.y * Y.x + /*C*/O.x,
@@ -287,7 +343,7 @@ inline float2 affine(__private const float2 in, __private const affine_t affine)
         affine.o.y → O.y
     */
 
-#ifdef USE_FMA
+#if USE_FMA
     return (float2)(
         fma(in.x, affine.xy.x, fma(in.y, affine.xy.z, affine.o.x)),
         fma(in.x, affine.xy.y, fma(in.y, affine.xy.w, affine.o.y))
@@ -319,38 +375,38 @@ inline float2 affine(__private const float2 in, __private const affine_t affine)
 #define FLOAT_MAX_TAN 8388607.0f
 #define FLOAT_MIN_TAN -FLOAT_MAX_TAN
 
-inline float ATAN(const float2 p){return atan2(p.x, p.y); }
+static inline float ATAN(const float2 p){return atan2(p.x, p.y); }
 
-inline float ATANYX(const float2 p){ return atan2(p.y, p.x); }
+static inline float ATANYX(const float2 p){ return atan2(p.y, p.x); }
 
-inline float SUMSQ(const float2 p){ return dot(p, p); }
+static inline float SUMSQ(const float2 p){ return dot(p, p); }
 
-inline float SQRT(const float2 p){
-#ifdef USE_NATIVE
+static inline float SQRT(const float2 p){
+#if USE_NATIVE
     return native_sqrt(dot(p, p));
 #else
     return sqrt(dot(p, p));
 #endif
 }
 
-inline float SafeTan(const float x){ 
-#ifdef USE_NATIVE
+static inline float SafeTan(const float x){ 
+#if USE_NATIVE
     return native_tan(clamp(x, FLOAT_MIN_TAN, FLOAT_MAX_TAN));
 #else
     return tan(clamp(x, FLOAT_MIN_TAN, FLOAT_MAX_TAN)); 
 #endif
 }
 
-inline float Zeps(const float x) { return x + (x == 0) * EPS; }
+static inline float Zeps(const float x) { return x + (x == 0) * EPS; }
 
-// inline float sgn(const float n){ return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
-inline float sgn(const float n){ return (float)((0 < n) - (n < 0)); }
+// static inline float sgn(const float n){ return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
+static inline float sgn(const float n){ return (float)((0 < n) - (n < 0)); }
 
-inline float fmod_custom(const float a, const float b){ return a - trunc(a / b) * b; }
+static inline float fmod_custom(const float a, const float b){ return a - trunc(a / b) * b; }
 
-inline void sincos_fast(float a, float* s, float* c)
+static inline void sincos_fast(float a, float* s, float* c)
 {
-#ifdef USE_NATIVE
+#if USE_NATIVE
     *s = native_sin(a);
     *c = native_cos(a);
 #else
@@ -361,7 +417,7 @@ inline void sincos_fast(float a, float* s, float* c)
 // To be used with an improved Elliptic version which helps with rounding errors.
 // For 64bit(DP, when and if I'll find the time to add support for it)
 // Source: https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html
-inline float Sqrt1pm1(const float x){
+static inline float Sqrt1pm1(const float x){
     if (-0.0625 < x && x < 0.0625)
     {
         float num = 0;
@@ -385,7 +441,7 @@ inline float Sqrt1pm1(const float x){
         den += 1;
         return num / den;
     }
-#ifdef USE_NATIVE
+#if USE_NATIVE
     return native_sqrt(1 + x) - 1;
 #else
     return sqrt(1 + x) - 1;
@@ -395,13 +451,13 @@ inline float Sqrt1pm1(const float x){
 // UNROLLED
 // select() is branchless, but floating-point evaluation of (x > -0.0625f) & (x < 0.0625f) may be handled slightly differently by the GPU hardware.
 // This can result in tiny differences at the boundary (x ≈ -0.0625 or 0.0625) due to rounding.
-inline float Sqrt1pm1(const float x) {
+static inline float Sqrt1pm1(const float x) {
     // Small-x approximation using rational polynomial
     float num = (((1.0f/32.0f * x + 5.0f/16.0f) * x + 3.0f/4.0f) * x + 1.0f/2.0f) * x + 1.0f/32.0f * x; 
     float den = ((((1.0f/256.0f * x + 5.0f/32.0f) * x + 15.0f/16.0f) * x + 7.0f/4.0f) * x + 1.0f);
     
     float approx = num / den;
-#ifdef USE_NATIVE
+#if USE_NATIVE
     float normal = native_sqrt(1.0f + x) - 1.0f;
 #else
     float normal = sqrt(1.0f + x) - 1.0f;
@@ -437,7 +493,7 @@ float2 CL_V_SINUSOIDAL( __private const float2 in,
                         __private const float w
                         )
 {
-#ifdef USE_NATIVE
+#if USE_NATIVE
     return w * native_sin(in);
 #else
     return w * sin(in);
@@ -451,6 +507,7 @@ float2 CL_V_SPHERICAL(  __private const float2 in,
                         )
 {
     float r2 = w / Zeps(SUMSQ(in));
+
     return r2 * in;
 }
 // ----------------------------
@@ -513,10 +570,19 @@ float2 CL_V_HANDKERCHIEF(   __private const float2 in,
 {
     float a = ATAN(in);
     float _SQRT = SQRT(in);
-#ifdef USE_NATIVE
-    return w * _SQRT * (float2)(native_sin(a + _SQRT), native_cos(a - _SQRT));
+
+    float a_SQRT = w * _SQRT;
+
+#if USE_NATIVE
+    return a_SQRT * (float2)(
+        native_sin(a + _SQRT), 
+        native_cos(a - _SQRT)
+    );
 #else
-    return w * _SQRT * (float2)(sin(a + _SQRT), cos(a - _SQRT));
+    return a_SQRT * (float2)(
+        sin(a + _SQRT), 
+        cos(a - _SQRT)
+    );
 #endif
 }
 // ----------------------------
@@ -530,7 +596,8 @@ float2 CL_V_HEART(  __private const float2 in,
     _SQRT = SQRT(in);
     a = _SQRT * ATAN(in);
     r = w * _SQRT;
-#ifdef USE_NATIVE
+
+#if USE_NATIVE
     return (float2)(
         r * native_sin(a),
         (-r) * native_cos(a)
@@ -554,7 +621,9 @@ float2 CL_V_DISC(   __private const float2 in,
     r = SQRT(in) * M_PI;
     sincos_fast(r, &sr, &cr);
 
-    return w * a * (float2)(sr, cr);
+    float wa = w * a;
+
+    return wa * (float2)(sr, cr);
 }
 // ----------------------------
 // 009 VAR SPIRAL
@@ -596,7 +665,7 @@ float2 CL_V_DIAMOND(__private const float2 in,
     a = atan2(in.x, in.y);
     r = SQRT(in);
 
-#ifdef USE_NATIVE
+#if USE_NATIVE
     return w * (float2)(
         native_sin(a) * native_cos(r), 
         native_cos(a) * native_sin(r)
@@ -618,7 +687,7 @@ float2 CL_V_EX( __private const float2 in,
     float a, r, n0, n1, m0, m1;
     a = ATAN(in);
     r = SQRT(in);
-#ifdef USE_NATIVE
+#if USE_NATIVE
     n0 = native_sin(a + r);
     n1 = native_cos(a - r);
 #else
@@ -643,7 +712,7 @@ float2 CL_V_JULIA(  __private const float2 in,
 {
     float r, a, sa, ca;
     a = 0.5 * ATAN(in);
-    if(x128_next_float(state) < 0.5)
+    if(rng_next_float(state) < 0.5)
         a += M_PI;
     r = w * sqrt(SQRT(in));
     sincos_fast(a, &sa, &ca);
@@ -676,7 +745,7 @@ float2 CL_V_WAVES(  __private const float2 in,
     float m_Dx2 = 1.0f / Zeps(c * c);
     float m_Dy2 = 1.0f / Zeps(f * f);
     
-#ifdef USE_NATIVE
+#if USE_NATIVE
     return w * (float2)(
         in.x + b * native_sin(in.y * m_Dx2), 
         in.y + e * native_sin(in.x * m_Dy2)
@@ -709,7 +778,7 @@ float2 CL_V_POPCORN(__private const float2 in,
                     __private const float f
                     )
 {
-#ifdef USE_NATIVE
+#if USE_NATIVE
     return w * in + (float2)(c, f) * native_sin(native_tan(3.0f * in.yx));
 #else
     return w * in + (float2)(c, f) * sin(tan(3.0f * in.yx));
@@ -723,7 +792,7 @@ float2 CL_V_EXPONENTIAL(__private const float2 in,
                         )
 {
     float dx, dy, sdy, cdy;
-#ifdef USE_NATIVE
+#if USE_NATIVE
     dx = w * native_exp(in.x - 1.0f);
 #else
     dx = w * exp(in.x - 1.0f);
@@ -747,7 +816,7 @@ float2 CL_V_POWER(  __private const float2 in,
     float inv_r = native_rsqrt(r2);
     float r = r2 * inv_r;
     float2 n = in * inv_r;
-#ifdef USE_NATIVE
+#if USE_NATIVE
     float amp = w * native_exp(n.x * native_log(r));
 #else
     float amp = w * exp(n.x * log(r));
@@ -824,7 +893,7 @@ float2 CL_V_CYLINDER(   __private const float2 in,
                         __private const float w
                         )
 {
-#ifdef USE_NATIVE
+#if USE_NATIVE
     return w * (float2)(native_sin(in.x), in.y);
 #else
     return w * (float2)(sin(in.x), in.y);
@@ -837,7 +906,7 @@ float2 CL_V_EYEFISH(__private const float2 in,
                     __private const float w
                     )
 {
-    float r =  (w * 2.0f) / (1.0f + SQRT(in));
+    float r = (w * 2.0f) / (1.0f + SQRT(in));
 
     return r * in;
 }
@@ -850,9 +919,9 @@ float2 CL_V_BLUR(   __private const float2 in,
                     )
 {
     float tmpr, sr, cr, r;
-    tmpr = x128_next_float(state) * M_TAU;
+    tmpr = rng_next_float(state) * M_TAU;
     sincos_fast(tmpr, &sr, &cr);
-    r = w * x128_next_float(state);
+    r = w * rng_next_float(state);
 
     return r * (float2)(cr, sr);
 }
@@ -885,7 +954,7 @@ float2 CL_V_NGON(   __private const float2 in,
                     )
 {
     float r2 = in.x * in.x + in.y * in.y;
-#ifdef USE_NATIVE
+#if USE_NATIVE
     float r_factor = (r2 == 0.0f) ? 0.0f : native_exp(ngon_precalc.x * native_log(r2));
 #else
     float r_factor = (r2 == 0.0f) ? 0.0f : exp(ngon_precalc.x * log(r2));
@@ -895,7 +964,7 @@ float2 CL_V_NGON(   __private const float2 in,
 
     float phi = theta - ngon_precalc.y * floor(theta * ngon_precalc.z);
     phi -= ngon_precalc.y * (phi > 0.5f * ngon_precalc.y);
-#ifdef USE_NATIVE
+#if USE_NATIVE
     float amp = (ngon.z * (1.0f / native_cos(phi) - 1.0f) + ngon.w) * w * r_factor;
 #else
     float amp = (ngon.z * (1.0f / cos(phi) - 1.0f) + ngon.w) * w * r_factor;
@@ -911,7 +980,7 @@ float2 CL_V_PDJ(__private const float2 in,
                 __private const float4 pdj  // wA wB wC wD
                 )
 {
-#ifdef USE_NATIVE
+#if USE_NATIVE
     float ox = native_sin(pdj.x * in.y) - native_cos(pdj.y * in.x);
     float oy = native_sin(pdj.z * in.x) - native_cos(pdj.w * in.y);
 #else
@@ -935,13 +1004,15 @@ float2 CL_V_BLOB(   __private const float2 in,
 
     aa = ATAN(in);
     bdiff = blob.y - blob.x;
-#ifdef USE_NATIVE
+#if USE_NATIVE
     rr = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * native_sin(blob.z * aa)));
 #else
     rr = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * sin(blob.z * aa)));
 #endif
 
-    return w * rr * precalc;
+    float wrr = w * rr;
+
+    return wrr * precalc;
 }
 // ----------------------------
 // 031 VAR JULIAN
@@ -954,7 +1025,7 @@ float2 CL_V_JULIAN( __private const float2 in,
 {
     int t_rnd;
     float inv_jx, julian_cn, rr, tmpr, sa, ca;
-#ifdef USE_NATIVE
+#if USE_NATIVE
     inv_jx = native_recip(julian.x);
 #else
     inv_jx = recip(julian.x);
@@ -964,9 +1035,9 @@ float2 CL_V_JULIAN( __private const float2 in,
     float r2 = SUMSQ(in);
     float a  = ATANYX(in);
 
-    t_rnd = (int)(julian.x * x128_next_float(state));
+    t_rnd = (int)(julian.x * rng_next_float(state));
     tmpr = (a + M_TAU * t_rnd) * inv_jx;
-#ifdef USE_NATIVE
+#if USE_NATIVE
     rr = w * native_powr(r2, julian_cn);
 #else
     rr = w * powr(r2, julian_cn);
@@ -982,7 +1053,7 @@ float2 CL_V_JULIAN( __private const float2 in,
 float2 CL_V_JULIASCOPE( __private const float2 in, 
                         __private const float w, 
                         x128_state_t* state, 
-                        __private const float2 juliascope   // power distance
+                        __private const float2 juliascope   // power(julian_rN) distance
                         )
 {
     int t_rnd;
@@ -991,16 +1062,16 @@ float2 CL_V_JULIASCOPE( __private const float2 in,
     float inv_jx = 1.0f / juliascope.x;
 
     _ATANYX = ATANYX(in);
-    julian_rN = juliascope.x;
+    // julian_rN = juliascope.x;
     julian_cn = juliascope.y * inv_jx * 0.5f;
 
-    t_rnd = (int)(julian_rN * x128_next_float(state));
+    t_rnd = (int)(juliascope.x * rng_next_float(state));
 
     sign = (t_rnd & 1) ? -1.0f : 1.0f;
     tmpr = (M_TAU * t_rnd + sign * _ATANYX) * inv_jx;
 
     sincos_fast(tmpr, &sa, &ca);
-#ifdef USE_NATIVE
+#if USE_NATIVE
     rr = w * native_powr(SUMSQ(in), julian_cn);
 #else
     rr = w * powr(SUMSQ(in), julian_cn);
@@ -1017,8 +1088,8 @@ float2 CL_V_GAUSSIAN_BLUR(  __private const float2 in,
                             )
 {
     float ang, rr, sa, ca;
-    ang = x128_next_float(state) * M_TAU;
-    rr = w * (x128_next_float(state) + x128_next_float(state) + x128_next_float(state) + x128_next_float(state) - 2.0f);
+    ang = rng_next_float(state) * M_TAU;
+    rr = w * (rng_next_float(state) + rng_next_float(state) + rng_next_float(state) + rng_next_float(state) - 2.0f);
     sincos_fast(ang, &sa, &ca);
 
     return rr * (float2)(ca, sa);
@@ -1034,14 +1105,14 @@ float2 CL_V_FAN2(   __private const float2 in,
     float dx, dx2, inv_dx, a, r, ady, tt, sa, ca;
     dx  = M_PI_F * Zeps(fan2.x * fan2.x);
     dx2 = 0.5f * dx;
-#ifdef USE_NATIVE
+#if USE_NATIVE
     inv_dx = native_recip(dx);
 #else
     inv_dx = recip(dx);
 #endif
 
     a = ATAN(in);
-#ifdef USE_NATIVE
+#if USE_NATIVE
     r = w * native_sqrt(SUMSQ(in));
 #else
     r = w * sqrt(SUMSQ(in));
@@ -1071,7 +1142,241 @@ float2 CL_V_RINGS2( __private const float2 in,
     dx = rings2val * rings2val;
     rr += -2.0f * dx * (int)((rr + dx)/(2.0f * dx)) + rr * (1.0f - dx);
 
-    return w * rr * precalc;
+    float wrr = w * rr;
+
+    return wrr * precalc;
+}
+// ----------------------------
+// 036 VAR RECTANGLES
+// ----------------------------
+float2 CL_V_RECTANGLES( __private const float2 in, 
+                        __private const float w, 
+                        __private const float2 rectangles // x y
+                        )
+{
+    float2 invr, t, m;
+    invr = 1.0f / rectangles; // TO DO: compute in vex land
+#if USE_FMA
+    t = floor(in * invr);
+    m = fma(t, 2.0f * rectangles, rectangles) - in;
+#else
+    m = (2.0f * floor(in * invr) + 1.0f) * rectangles - in;
+#endif
+
+    return select(
+        w * m, 
+        w * in, 
+        rectangles == 0.0f
+    );
+}
+// ----------------------------
+// 037 VAR RADIAL BLUR
+// ----------------------------
+float2 CL_V_RADIALBLUR(__private const float2 in, 
+                    __private const float w, 
+                    __private x128_state_t* state, 
+                    __private const float angle // angle
+                    )
+{
+    float rndG, tmpa, ra, rz, sa, ca, m_spin, m_zoom;
+
+    sincos_fast(angle * M_PI_2, &m_spin, &m_zoom);  // TO DO: compute in vex land
+    
+    rndG = w * (rng_next_float(state) +
+                rng_next_float(state) +
+                rng_next_float(state) +
+                rng_next_float(state) - 2.0f);
+
+    ra = SQRT(in);
+#if USE_FMA
+    tmpa = fma(m_spin, rndG, ATANYX(in));
+    sincos_fast(tmpa, &sa, &ca);
+    rz = fma(m_zoom, rndG, -1.0f);
+
+    return fma(rz, in, ra * (float2)(ca, sa));
+#else
+    tmpa = ATANYX(in) + m_spin * rndG;
+    sincos_fast(tmpa, &sa, &ca);
+    rz = m_zoom * rndG - 1.0f;
+
+    return ra * (float2)(ca, sa) + rz * in;
+#endif
+}
+// ----------------------------
+// 038 VAR PIE
+// ----------------------------
+float2 CL_V_PIE(__private const float2 in, 
+                __private const float w, 
+                __private x128_state_t* state, 
+                __private const float4 pie  // slices thickness rotation
+                )
+{
+    float a, rr, sa, ca, sl;
+
+    sl = (int)(rng_next_float(state) * pie.x);
+    a = pie.z + M_TAU * (sl + rng_next_float(state) * pie.y) / pie.x;
+    rr = w * rng_next_float(state);
+    sincos_fast(a, &sa, &ca);
+
+    return rr * (float2)(ca, sa);
+}
+// ----------------------------
+// 039 VAR ARCH
+// ----------------------------
+float2 CL_V_ARCH(   __private const float2 in, 
+                    __private const float w, 
+                    __private x128_state_t* state
+                    )
+{
+    float a, sa, ca;
+    a = rng_next_float(state) * w * M_PI;
+    sincos_fast(a, &sa, &ca);
+
+#if USE_NATIVE
+    float sa2 = sa * sa;
+    float inv_ca = native_recip(ca);
+    return w * (float2)(sa, sa2 * inv_ca);
+#else
+    return w * (float2)(sa, (sa * sa) / ca);
+#endif
+}
+// ----------------------------
+// 040 VAR TANGENT
+// ----------------------------
+float2 CL_V_TANGENT(__private const float2 in, 
+                    __private const float w
+                    )
+{
+#if USE_NATIVE
+    return w * (float2)(
+        native_sin(in.x) / native_cos(in.y), 
+        native_tan(in.y)
+    );
+#else
+    return w * (float2)(
+        sin(in.x) / cos(in.y), 
+        tan(in.y)
+    );
+#endif
+}
+// ----------------------------
+// 041 VAR SQUARE
+// ----------------------------
+float2 CL_V_SQUARE( __private const float2 in, 
+                    __private const float w, 
+                    __private x128_state_t* state
+                    )
+{
+    return w * (float2)(
+        rng_next_float(state) - 0.5, 
+        rng_next_float(state) - 0.5
+    );
+}
+// ----------------------------
+// 042 VAR RAYS
+// ----------------------------
+float2 CL_V_RAYS(__private const float2 in, 
+                 __private const float w, 
+                 __private x128_state_t* state
+                 )
+{
+    float ang, r, tanr;
+
+    ang = w * rng_next_float(state) * M_PI;
+#if USE_NATIVE
+    r = w * native_recip(Zeps(SUMSQ(in)));
+    tanr = w * native_tan(ang) * r;
+
+    return tanr * (float2)(native_cos(in.x), native_sin(in.y));
+#else
+    r = w / Zeps(SUMSQ(in));
+    tanr = w * tan(ang) * r;
+
+    return tanr * (float2)(cos(in.x), sin(in.y));
+#endif
+}
+// ----------------------------
+// 043 VAR BLADE
+// ----------------------------
+float2 CL_V_BLADE(  __private const float2 in, 
+                    __private const float w, 
+                    __private x128_state_t* state
+                    )
+{
+    float r, sr, cr;
+
+    r = w * rng_next_float(state) * SQRT(in);
+    sincos_fast(r, &sr, &cr);
+
+    float wx = w * in.x;
+
+    return wx * (float2)(
+        cr + sr, 
+        cr - sr
+    );
+}
+// ----------------------------
+// 044 VAR SECANT2
+// ----------------------------
+float2 CL_V_SECANT2(__private const float2 in, 
+                    __private const float w
+                    )
+{
+    float rr, sr, cr, icr;
+    rr = w * SQRT(in);
+    sincos_fast(rr, &sr, &cr);
+#if USE_NATIVE
+    icr = native_recip(cr);
+#else
+    icr = 1.0f / cr;
+#endif
+
+    return w * (float2)(
+        in.x, 
+        select(icr - 1.0f, icr + 1.0f, cr < 0)
+    );
+}
+// ----------------------------
+// 045 VAR TWINTRIAN
+// ----------------------------
+float2 CL_V_TWINTRIAN(  __private const float2 in, 
+                        __private const float w, 
+                        __private x128_state_t* state
+                        )
+{
+    float r, sr, ss, cr, diff;
+    r = rng_next_float(state) * w * SQRT(in);
+    sincos_fast(r, &sr, &cr);
+    ss = sr * sr;
+#if USE_NATIVE
+    // diff = native_log10(sr * sr) + cr;
+    diff = native_log(ss) * 0.4342944819f + cr;
+#else
+    diff = log10(ss) + cr;
+#endif
+    diff = select(diff, -30.0f, !isfinite(diff) | isnan(diff));
+
+    float wx = w * in.x;
+
+    return wx * (float2)(
+        diff,
+        diff - sr * M_PI
+    );
+}
+// ----------------------------
+// 046 VAR TWINTRIAN
+// ----------------------------
+float2 CL_V_CROSS(  __private const float2 in, 
+                    __private const float w, 
+                    __private const int F3C
+                    )
+{
+    float r, inxy;
+    inxy = (in.x - in.y) * (in.x + in.y);
+
+    r = select(w / Zeps(inxy), w / Zeps(fabs(inxy)), F3C);
+
+    return r * in;
 }
 
 
@@ -1088,6 +1393,7 @@ float2 CL_V_DISPATCH(
     __private const float w, 
     __private const float2 y,
     __private const float2 o, 
+    __private const int F3C, 
     __private x128_state_t* state, 
     __local const float* PRM_F, 
     __local const float2* PRM_F2, 
@@ -1133,6 +1439,17 @@ float2 CL_V_DISPATCH(
         case 33:    return CL_V_GAUSSIAN_BLUR(in, w, state);
         case 34:    return CL_V_FAN2(in, w, PRM_F2[PRM_F2_IDX_FAN2]);
         case 35:    return CL_V_RINGS2(in, w, PRM_F[PRM_F_IDX_RINGS2VAL]);
+        case 36:    return CL_V_RECTANGLES(in, w, PRM_F2[PRM_F2_IDX_RECTANGLES]);
+        case 37:    return CL_V_RADIALBLUR(in, w, state, PRM_F[PRM_F_IDX_RADIALBLUR]);
+        case 38:    return CL_V_PIE(in, w, state, PRM_F3[PRM_F3_IDX_PIE]);
+        case 39:    return CL_V_ARCH(in, w, state);
+        case 40:    return CL_V_TANGENT(in, w);
+        case 41:    return CL_V_SQUARE(in, w, state);
+        case 42:    return CL_V_RAYS(in, w, state);
+        case 43:    return CL_V_BLADE(in, w, state);
+        case 44:    return CL_V_SECANT2(in, w);
+        case 45:    return CL_V_TWINTRIAN(in, w, state);
+        case 46:    return CL_V_CROSS(in, w, F3C);
 
         default:    return w * in;
     }
@@ -1184,6 +1501,8 @@ float2 CL_V_DISPATCH_COMPILER(
 // ----------------------------
 
 __kernel void flam3cl( 
+    int FF,
+    int F3C,
     uint OPID,
     int P_length,
     __global float * restrict P,
@@ -1289,7 +1608,7 @@ __kernel void flam3cl(
     // PRE, VAR and POST parameterics
     __local float local_PRM_F[PRM_NUM_F_SIZE];
     __local float2 local_PRM_F2[PRM_NUM_F2_SIZE];
-    __local float4 local_PRM_F3[PRM_NUM_F3_SIZE];
+    __local float4 local_PRM_F3[PRM_NUM_F3_SIZE];   // Marked as F3 becasue it was meant to be a vector from vex
     __local float4 local_PRM_F4[PRM_NUM_F4_SIZE];
 
     // copy cooperatively
@@ -1309,38 +1628,83 @@ __kernel void flam3cl(
         local_VT[i] = convert_int4(VT[i]);
         local_VW[i] = VW[i];
     }
-    // shader
-    int TOTAL_ELEMENTS = RES * SHD_NUM_SIZE;
-    for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+
+    // Copy arrays of floats in float4 chunks
+    // and handle the remainders if any.
+    
+    // Float arrays
+    int total_SHD       = RES * SHD_NUM_SIZE;
+    int total_XAOS      = RES * RES;
+    int total_PRM_F     = RES * PRM_NUM_F;
+    // Float2 array
+    int total_PRM_F2    = RES * PRM_NUM_F2;
+    // Float4 arrays
+    int total_PRM_F3    = RES * PRM_NUM_F3; // Marked as F3 becasue it was meant to be a vector from vex
+    int total_PRM_F4    = RES * PRM_NUM_F4;
+
+    // SHD
+    int num_f4_SHD = total_SHD >> 2;
+    for(int i = lid; i < num_f4_SHD; i += lsize)
+        ((__local float4*)local_SHD)[i] = ((__global float4*)SHD)[i];
+    for(int i = (num_f4_SHD << 2) + lid; i < total_SHD; i += lsize)
         local_SHD[i] = SHD[i];
-    }
-    // parametrics float
-    TOTAL_ELEMENTS = RES * PRM_NUM_F;
-    for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+    // PRM_F
+    int num_f4_PRM_F = total_PRM_F >> 2;
+    for(int i = lid; i < num_f4_PRM_F; i += lsize)
+        ((__local float4*)local_PRM_F)[i] = ((__global float4*)PRM_F)[i];
+    for(int i = (num_f4_PRM_F << 2) + lid; i < total_PRM_F; i += lsize)
         local_PRM_F[i] = PRM_F[i];
-    }
-    // parametrics float2
-    TOTAL_ELEMENTS = RES * PRM_NUM_F2;
-    for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+    // PRM_F2
+    for(int i = lid; i < total_PRM_F2; i += lsize)
         local_PRM_F2[i] = PRM_F2[i];
-    }
-    // parametrics float3
-    TOTAL_ELEMENTS = RES * PRM_NUM_F3;
-    for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+    // PRM_F3
+    for(int i = lid; i < total_PRM_F3; i += lsize)
         local_PRM_F3[i] = PRM_F3[i];
-    }
-    // parametrics float4
-    TOTAL_ELEMENTS = RES * PRM_NUM_F4;
-    for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+    // PRM_F4
+    for(int i = lid; i < total_PRM_F4; i += lsize)
         local_PRM_F4[i] = PRM_F4[i];
-    }
+
     if(XS){
-        // Xaos
-        TOTAL_ELEMENTS = RES * RES;
-        for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+        // XST
+        int num_f4 = total_XAOS >> 2;
+        for(int i = lid; i < num_f4; i += lsize)
+            ((__local float4*)local_XST)[i] = ((__global float4*)XST)[i];
+        for(int i = (num_f4 << 2) + lid; i < total_XAOS; i += lsize)
             local_XST[i] = XST[i];
-        }
     }
+
+    // // shader
+    // int TOTAL_ELEMENTS = RES * SHD_NUM_SIZE;
+    // for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+    //     local_SHD[i] = SHD[i];
+    // }
+    // // parametrics float
+    // TOTAL_ELEMENTS = RES * PRM_NUM_F;
+    // for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+    //     local_PRM_F[i] = PRM_F[i];
+    // }
+    // // parametrics float2
+    // TOTAL_ELEMENTS = RES * PRM_NUM_F2;
+    // for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+    //     local_PRM_F2[i] = PRM_F2[i];
+    // }
+    // // parametrics float3
+    // TOTAL_ELEMENTS = RES * PRM_NUM_F3;
+    // for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+    //     local_PRM_F3[i] = PRM_F3[i];
+    // }
+    // // parametrics float4
+    // TOTAL_ELEMENTS = RES * PRM_NUM_F4;
+    // for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+    //     local_PRM_F4[i] = PRM_F4[i];
+    // }
+    // if(XS){
+    //     // Xaos
+    //     int TOTAL_ELEMENTS = RES * RES;
+    //     for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
+    //         local_XST[i] = XST[i];
+    //     }
+    // }
     barrier(CLK_LOCAL_MEM_FENCE);   // Wait to complete the copy
     
     // init
@@ -1357,19 +1721,19 @@ __kernel void flam3cl(
     rng_init(&rng, gid + OPID);  // unique per thread, per node
     
     // build starting sample (Biunit)
-    mem = (float2)(x128_next_neg1pos1(&rng), x128_next_neg1pos1(&rng));
+    mem = (float2)(rng_next_neg1pos1(&rng), rng_next_neg1pos1(&rng));
     
     // if XAOS, pick a starting iterator from distribution
-    if(XS) idx = sample_cdf_binary(local_IW, RES, x128_next_float(&rng));
+    if(XS) idx = sample_cdf_binary(local_IW, RES, rng_next_float(&rng));
     
     for (int i = 0; i < 1024; ++i){
         
         // xform selection
-        r = x128_next_float(&rng);
+        r = rng_next_float(&rng);
         idx = (XS) ? sample_cdf_binary(&local_XST[idx * RES], RES, r) : sample_cdf_binary(local_IW, RES, r);
         
         // parameterics data
-        __local float* xf_prm_f   = &local_PRM_F[idx * PRM_NUM_F];
+        __local float*  xf_prm_f  = &local_PRM_F[idx * PRM_NUM_F];
         __local float2* xf_prm_f2 = &local_PRM_F2[idx * PRM_NUM_F2];
         __local float4* xf_prm_f3 = &local_PRM_F3[idx * PRM_NUM_F3];
         __local float4* xf_prm_f4 = &local_PRM_F4[idx * PRM_NUM_F4];
@@ -1384,10 +1748,10 @@ __kernel void flam3cl(
         _vt = local_VT[idx];
         _vw = local_VW[idx];
         _tmp = (float2)(0.0f, 0.0f);
-        if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(_vt.x, mem, _vw.x, pa.xy.zw, pa.o.xy, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-        if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(_vt.y, mem, _vw.y, pa.xy.zw, pa.o.xy, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-        if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(_vt.z, mem, _vw.z, pa.xy.zw, pa.o.xy, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-        if (_vw.w != 0.0f) _tmp += CL_V_DISPATCH(_vt.w, mem, _vw.w, pa.xy.zw, pa.o.xy, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(_vt.x, mem, _vw.x, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(_vt.y, mem, _vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(_vt.z, mem, _vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.w != 0.0f) _tmp += CL_V_DISPATCH(_vt.w, mem, _vw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
 
         
         
@@ -1404,7 +1768,7 @@ __kernel void flam3cl(
     }
     
     // Alpha value
-    float a = local_SHD[idx + RES + RES];
+    float a = local_SHD[(RES << 1) + idx];
     
     // OUT
     vstore3((float3)(mem, 0.0f), gid, P);
