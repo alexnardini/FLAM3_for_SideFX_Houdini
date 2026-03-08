@@ -259,24 +259,43 @@ inline int sample_cdf_binary(__local const float* CDF, const int length, const f
 
 // ----------------------------
 // CL FLAM3 affine transform
+// (32-byte aligned, padded)
 // ----------------------------
-inline float2 affine(const float2 in, const float2 X, const float2 Y, const float2 O)
+typedef struct {
+    float4 xy;  // x.x y.x x.y y.y
+    float4 o;   // o.x o.y unused unused
+} affine_t;
+inline float2 affine(const float2 in, const affine_t affine)
 {
     // Referece affine
-    // return (float2)(
-    //     /*A*/in.x * X.x + /*B*/in.y * Y.x + /*C*/O.x,
-    //     /*D*/in.x * X.y + /*E*/in.y * Y.y + /*F*/O.y
-    // );
+    // /*A*/in.x * X.x + /*B*/in.y * Y.x + /*C*/O.x,
+    // /*D*/in.x * X.y + /*E*/in.y * Y.y + /*F*/O.y
+
+    /*
+    Correct mapping:
+
+        affine.xy.x → X.x
+
+        affine.xy.y → X.y
+
+        affine.xy.z → Y.x
+
+        affine.xy.w → Y.y
+
+        affine.o.x → O.x
+
+        affine.o.y → O.y
+    */
 
 #ifdef USE_FMA
     return (float2)(
-        fma(in.y, Y.x, fma(in.x, X.x, O.x)),
-        fma(in.y, Y.y, fma(in.x, X.y, O.y))
+        fma(in.x, affine.xy.x, fma(in.y, affine.xy.z, affine.o.x)),
+        fma(in.x, affine.xy.y, fma(in.y, affine.xy.w, affine.o.y))
     );
 #else
     return (float2)(
-        dot(in, (float2)(X.x, Y.x)) + O.x,
-        dot(in, (float2)(X.y, Y.y)) + O.y
+        /*A*/in.x * affine.xy.x + /*B*/in.y * affine.xy.z + /*C*/affine.o.x,
+        /*D*/in.x * affine.xy.y + /*E*/in.y * affine.xy.w + /*F*/affine.o.y
     );
 #endif
 }
@@ -1129,18 +1148,9 @@ __kernel void flam3cl(
     // shader
     __local float local_SHD[MAX_XFORMS * 3];
 
-    // pre affine
-    // recycle whats being used by the xform handles viz
-    __local float2 local_X[MAX_XFORMS];
-    __local float2 local_Y[MAX_XFORMS];
-    __local float2 local_O[MAX_XFORMS];
-
-    // post affine
-    // recycle whats being used by the xform handles viz
-    __local int local_POST[MAX_XFORMS];
-    __local float2 local_PX[MAX_XFORMS];
-    __local float2 local_PY[MAX_XFORMS];
-    __local float2 local_PO[MAX_XFORMS];
+    __local affine_t local_PRE_AFFINE[MAX_XFORMS];
+    __local affine_t local_POST_AFFINE[MAX_XFORMS];
+    __local int local_POST[MAX_XFORMS]; // toggles
 
     // VAR variations
     __local int4 local_VT[MAX_XFORMS];
@@ -1157,14 +1167,14 @@ __kernel void flam3cl(
         // CDF
         local_IW[i] = IW[i];
         // pre affine
-        local_X[i] = X[i];
-        local_Y[i] = Y[i];
-        local_O[i] = O[i];
+        local_PRE_AFFINE[i].xy = (float4)(X[i], Y[i]);
+        local_PRE_AFFINE[i].o = (float4)(O[i], 0, 0);
         // post affine
+        local_POST_AFFINE[i].xy = (float4)(PX[i], PY[i]);
+        local_POST_AFFINE[i].o = (float4)(PO[i], 0, 0);
+        // post affine toggles
         local_POST[i] = POST[i];
-        local_PX[i] = PX[i];
-        local_PY[i] = PY[i];
-        local_PO[i] = PO[i];
+
         // VAR variations
         local_VT[i] = convert_int4(VT[i]);
         local_VW[i] = VW[i];
@@ -1234,9 +1244,11 @@ __kernel void flam3cl(
         __local float4* xf_prm_f3 = &local_PRM_F3[idx * PRM_NUM_F3];
         __local float4* xf_prm_f4 = &local_PRM_F4[idx * PRM_NUM_F4];
         
-        // pre affine
-        _y = local_Y[idx]; _o = local_O[idx];
-        mem = affine(mem, local_X[idx], _y, _o);
+        
+
+        // pre affine 
+        affine_t pa = local_PRE_AFFINE[idx]; // Copy affine data to private memory (registers)
+        mem = affine(mem, pa);
         
         
         
@@ -1244,16 +1256,19 @@ __kernel void flam3cl(
         _vt = local_VT[idx];
         _vw = local_VW[idx];
         _tmp = (float2)(0.0f, 0.0f);
-        if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(_vt.x, mem, _vw.x, _y, _o, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-        if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(_vt.y, mem, _vw.y, _y, _o, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-        if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(_vt.z, mem, _vw.z, _y, _o, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-        if (_vw.w != 0.0f) _tmp += CL_V_DISPATCH(_vt.w, mem, _vw.w, _y, _o, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(_vt.x, mem, _vw.x, pa.xy.zw, pa.o.xy, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(_vt.y, mem, _vw.y, pa.xy.zw, pa.o.xy, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(_vt.z, mem, _vw.z, pa.xy.zw, pa.o.xy, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.w != 0.0f) _tmp += CL_V_DISPATCH(_vt.w, mem, _vw.w, pa.xy.zw, pa.o.xy, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         
 
         
         
-        // post affine
-        if(local_POST[idx]) _tmp = affine(_tmp, local_PX[idx], local_PY[idx], local_PO[idx]);
+        // affine post
+        if(local_POST[idx]){
+            affine_t po = local_POST_AFFINE[idx]; // Copy affine data to private memory (registers)
+            mem = affine(mem, po);
+        }
 
         // color
         _prev_clr = clr = local_SHD[idx] + local_SHD[idx + RES] * _prev_clr;
