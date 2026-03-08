@@ -259,13 +259,13 @@ inline int sample_cdf_binary(__local const float* CDF, const int length, const f
 
 // ----------------------------
 // CL FLAM3 affine transform
-// (32-byte aligned, padded)
+// 32-byte aligned
 // ----------------------------
 typedef struct {
-    float4 xy;  // x.x y.x x.y y.y
-    float4 o;   // o.x o.y unused unused
+    float4 xy;  // X.x X.y Y.x Y.y
+    float4 o;   // O.x O.y unused unused
 } affine_t;
-inline float2 affine(const float2 in, const affine_t affine)
+inline float2 affine(__private const float2 in, __private const affine_t affine)
 {
     // Referece affine
     // /*A*/in.x * X.x + /*B*/in.y * Y.x + /*C*/O.x,
@@ -424,13 +424,19 @@ inline float Sqrt1pm1(const float x) {
 // ----------------------------
 // 000 VAR LINEAR
 // ----------------------------
-float2 CL_V_LINEAR(const float2 in, const float w){
+float2 CL_V_LINEAR( __private const float2 in, 
+                    __private const float w
+                    )
+{
     return w * in;
 }
 // ----------------------------
 // 001 VAR SINUSOIDAL
 // ----------------------------
-float2 CL_V_SINUSOIDAL(const float2 in, const float w){
+float2 CL_V_SINUSOIDAL( __private const float2 in, 
+                        __private const float w
+                        )
+{
 #ifdef USE_NATIVE
     return w * native_sin(in);
 #else
@@ -440,14 +446,19 @@ float2 CL_V_SINUSOIDAL(const float2 in, const float w){
 // ----------------------------
 // 002 VAR SPHERICAL
 // ----------------------------
-float2 CL_V_SPHERICAL(const float2 in, const float w){
+float2 CL_V_SPHERICAL(  __private const float2 in, 
+                        __private const float w
+                        )
+{
     float r2 = w / Zeps(SUMSQ(in));
     return r2 * in;
 }
 // ----------------------------
 // 003 VAR SWIRL
 // ----------------------------
-float2 CL_V_SWIRL(float2 in, float w)
+float2 CL_V_SWIRL(  __private float2 in, 
+                    __private float w
+                    )
 {
     float r = SUMSQ(in);
 
@@ -462,7 +473,10 @@ float2 CL_V_SWIRL(float2 in, float w)
 // ----------------------------
 // 004 VAR HORSESHOWE
 // ----------------------------
-float2 CL_V_HORSESHOE(const float2 in, const float w){
+float2 CL_V_HORSESHOE(  __private const float2 in, 
+                        __private const float w
+                        )
+{
     float x = in.x;
     float y = in.y;
 
@@ -480,7 +494,10 @@ float2 CL_V_HORSESHOE(const float2 in, const float w){
 // ----------------------------
 // 005 VAR POLAR
 // ----------------------------
-float2 CL_V_POLAR(const float2 in, const float w){
+float2 CL_V_POLAR(  __private const float2 in, 
+                    __private const float w
+                    )
+{
     float nx, ny;
     nx = ATAN(in) * M_1_PI;
     ny = SQRT(in) - 1.0;
@@ -490,7 +507,10 @@ float2 CL_V_POLAR(const float2 in, const float w){
 // ----------------------------
 // 006 VAR HANDKERCHIEF
 // ----------------------------
-float2 CL_V_HANDKERCHIEF(const float2 in, const float w){
+float2 CL_V_HANDKERCHIEF(   __private const float2 in, 
+                            __private const float w
+                            )
+{
     float a = ATAN(in);
     float _SQRT = SQRT(in);
 #ifdef USE_NATIVE
@@ -502,7 +522,10 @@ float2 CL_V_HANDKERCHIEF(const float2 in, const float w){
 // ----------------------------
 // 007 VAR HEART
 // ----------------------------
-float2 CL_V_HEART(const float2 in, const float w){
+float2 CL_V_HEART(  __private const float2 in, 
+                    __private const float w
+                    )
+{
     float _SQRT, a, r;
     _SQRT = SQRT(in);
     a = _SQRT * ATAN(in);
@@ -522,7 +545,10 @@ float2 CL_V_HEART(const float2 in, const float w){
 // ----------------------------
 // 008 VAR DISC
 // ----------------------------
-float2 CL_V_DISC(const float2 in, const float w){
+float2 CL_V_DISC(   __private const float2 in, 
+                    __private const float w
+                    )
+{
     float a, r, sr, cr;
     a  = ATAN(in) * M_1_PI;
     r = SQRT(in) * M_PI;
@@ -533,7 +559,10 @@ float2 CL_V_DISC(const float2 in, const float w){
 // ----------------------------
 // 009 VAR SPIRAL
 // ----------------------------
-float2 CL_V_SPIRAL(const float2 in, const float w){
+float2 CL_V_SPIRAL( __private const float2 in, 
+                    __private const float w
+                    )
+{
     float _SQRT, r, r1, sr, cr;
     _SQRT = SQRT(in);
     float2 precalc = in / _SQRT;
@@ -546,7 +575,10 @@ float2 CL_V_SPIRAL(const float2 in, const float w){
 // ----------------------------
 // 010 VAR HIPERBOLIC
 // ----------------------------
-float2 CL_V_HIPERBOLIC(const float2 in, const float w){
+float2 CL_V_HIPERBOLIC( __private const float2 in, 
+                        __private const float w
+                        )
+{
     float _SQRT = SQRT(in);
     float rr = Zeps(_SQRT);
     float2 precalc = in / _SQRT;
@@ -556,7 +588,10 @@ float2 CL_V_HIPERBOLIC(const float2 in, const float w){
 // ----------------------------
 // 011 VAR DIAMOND
 // ----------------------------
-float2 CL_V_DIAMOND(const float2 in, const float w){
+float2 CL_V_DIAMOND(__private const float2 in,
+                    __private const float w
+                    )
+{
     float a, r;
     a = atan2(in.x, in.y);
     r = SQRT(in);
@@ -576,7 +611,10 @@ float2 CL_V_DIAMOND(const float2 in, const float w){
 // ----------------------------
 // 012 VAR EX
 // ----------------------------
-float2 CL_V_EX(const float2 in, const float w){
+float2 CL_V_EX( __private const float2 in, 
+                __private const float w
+                )
+{
     float a, r, n0, n1, m0, m1;
     a = ATAN(in);
     r = SQRT(in);
@@ -598,7 +636,11 @@ float2 CL_V_EX(const float2 in, const float w){
 // ----------------------------
 // 013 VAR JULIA
 // ----------------------------
-float2 CL_V_JULIA(const float2 in, const float w, x128_state_t* state){
+float2 CL_V_JULIA(  __private const float2 in, 
+                    __private const float w, 
+                    __private x128_state_t* state
+                    )
+{
     float r, a, sa, ca;
     a = 0.5 * ATAN(in);
     if(x128_next_float(state) < 0.5)
@@ -611,7 +653,10 @@ float2 CL_V_JULIA(const float2 in, const float w, x128_state_t* state){
 // ----------------------------
 // 014 VAR BENT
 // ----------------------------
-float2 CL_V_BENT(const float2 in, const float w){
+float2 CL_V_BENT(   __private const float2 in, 
+                    __private const float w
+                    )
+{
     float nx = select(in.x, in.x * 2.0f, in.x < 0.0f);
     float ny = select(in.y, in.y * 0.5f, in.y < 0.0f);
 
@@ -620,7 +665,14 @@ float2 CL_V_BENT(const float2 in, const float w){
 // ----------------------------
 // 015 VAR WAVES
 // ----------------------------
-float2 CL_V_WAVES(const float2 in, const float w, const float b, const float c, const float e, const float f){
+float2 CL_V_WAVES(  __private const float2 in, 
+                    __private const float w, 
+                    __private const float b, 
+                    __private const float c, 
+                    __private const float e, 
+                    __private const float f
+                    )
+{
     float m_Dx2 = 1.0f / Zeps(c * c);
     float m_Dy2 = 1.0f / Zeps(f * f);
     
@@ -639,7 +691,10 @@ float2 CL_V_WAVES(const float2 in, const float w, const float b, const float c, 
 // ----------------------------
 // 016 VAR FISHEYE
 // ----------------------------
-float2 CL_V_FISHEYE(const float2 in, const float w){
+float2 CL_V_FISHEYE(__private const float2 in, 
+                    __private const float w
+                    )
+{
     float r = SQRT(in);
     r = 2.0f * w / (r + 1.0f);
 
@@ -648,7 +703,12 @@ float2 CL_V_FISHEYE(const float2 in, const float w){
 // ----------------------------
 // 017 VAR POPCORN
 // ----------------------------
-float2 CL_V_POPCORN(const float2 in, const float w, const float c, const float f){
+float2 CL_V_POPCORN(__private const float2 in, 
+                    __private const float w, 
+                    __private const float c, 
+                    __private const float f
+                    )
+{
 #ifdef USE_NATIVE
     return w * in + (float2)(c, f) * native_sin(native_tan(3.0f * in.yx));
 #else
@@ -658,7 +718,10 @@ float2 CL_V_POPCORN(const float2 in, const float w, const float c, const float f
 // ----------------------------
 // 018 VAR EXPONENTIAL
 // ----------------------------
-float2 CL_V_EXPONENTIAL(const float2 in, const float w){
+float2 CL_V_EXPONENTIAL(__private const float2 in, 
+                        __private const float w
+                        )
+{
     float dx, dy, sdy, cdy;
 #ifdef USE_NATIVE
     dx = w * native_exp(in.x - 1.0f);
@@ -673,7 +736,10 @@ float2 CL_V_EXPONENTIAL(const float2 in, const float w){
 // ----------------------------
 // 019 VAR POWER
 // ----------------------------
-float2 CL_V_POWER(const float2 in, const float w){
+float2 CL_V_POWER(  __private const float2 in, 
+                    __private const float w
+                    )
+{
     float r2 = in.x * in.x + in.y * in.y;
     if (r2 == 0.0f)
         return (float2)(0.0f, 0.0f);
@@ -692,7 +758,10 @@ float2 CL_V_POWER(const float2 in, const float w){
 // ----------------------------
 // 020 VAR COSINE
 // ----------------------------
-float2 CL_V_COSINE(const float2 in, const float w){
+float2 CL_V_COSINE( __private const float2 in, 
+                    __private const float w
+                    )
+{
     float a, sa, ca;
     a = in.x * M_PI;
     sincos_fast(a, &sa, &ca);
@@ -705,7 +774,11 @@ float2 CL_V_COSINE(const float2 in, const float w){
 // ----------------------------
 // 021 VAR RINGS
 // ----------------------------
-float2 CL_V_RINGS(const float2 in, const float w, const float c){
+float2 CL_V_RINGS(  __private const float2 in, 
+                    __private const float w, 
+                    __private const float c
+                    )
+{
     float _SQRT, dx, r;
     _SQRT = SQRT(in);
     float2 precalc = in / _SQRT;
@@ -718,7 +791,12 @@ float2 CL_V_RINGS(const float2 in, const float w, const float c){
 // ----------------------------
 // 022 VAR FAN
 // ----------------------------
-float2 CL_V_FAN(const float2 in, const float w, const float c, const float f){
+float2 CL_V_FAN(__private const float2 in, 
+                __private const float w, 
+                __private const float c, 
+                __private const float f
+                )
+{
     float dx, dx2, a, sa, ca;
     dx = M_PI * Zeps(c * c);
     dx2 = 0.5f * dx;
@@ -731,7 +809,10 @@ float2 CL_V_FAN(const float2 in, const float w, const float c, const float f){
 // ----------------------------
 // 023 VAR BUBBLE
 // ----------------------------
-float2 CL_V_BUBBLE(const float2 in, const float w){
+float2 CL_V_BUBBLE( __private const float2 in, 
+                    __private const float w
+                    )
+{
     float r = w / (0.25f * SUMSQ(in) + 1.0f);
 
     return r * in;
@@ -739,7 +820,10 @@ float2 CL_V_BUBBLE(const float2 in, const float w){
 // ----------------------------
 // 024 VAR CYLINDER
 // ----------------------------
-float2 CL_V_CYLINDER(const float2 in, const float w){
+float2 CL_V_CYLINDER(   __private const float2 in, 
+                        __private const float w
+                        )
+{
 #ifdef USE_NATIVE
     return w * (float2)(native_sin(in.x), in.y);
 #else
@@ -749,7 +833,10 @@ float2 CL_V_CYLINDER(const float2 in, const float w){
 // ----------------------------
 // 025 VAR EYEFISH
 // ----------------------------
-float2 CL_V_EYEFISH(const float2 in, const float w){
+float2 CL_V_EYEFISH(__private const float2 in, 
+                    __private const float w
+                    )
+{
     float r =  (w * 2.0f) / (1.0f + SQRT(in));
 
     return r * in;
@@ -757,7 +844,11 @@ float2 CL_V_EYEFISH(const float2 in, const float w){
 // ----------------------------
 // 026 VAR BLUR
 // ----------------------------
-float2 CL_V_BLUR(const float2 in, const float w, x128_state_t* state){
+float2 CL_V_BLUR(   __private const float2 in, 
+                    __private const float w, 
+                    __private x128_state_t* state
+                    )
+{
     float tmpr, sr, cr, r;
     tmpr = x128_next_float(state) * M_TAU;
     sincos_fast(tmpr, &sr, &cr);
@@ -768,7 +859,11 @@ float2 CL_V_BLUR(const float2 in, const float w, x128_state_t* state){
 // ----------------------------
 // 027 VAR CURL
 // ----------------------------
-float2 CL_V_CURL(const float2 in, const float w, const float2 c){
+float2 CL_V_CURL(   __private const float2 in, 
+                    __private const float w, 
+                    __private const float2 c
+                    )
+{
     float re, im, r;
     
     re = 1.0f + c.x * in.x + c.y * ((in.x * in.x) - (in.y * in.y));
@@ -783,7 +878,12 @@ float2 CL_V_CURL(const float2 in, const float w, const float2 c){
 // ----------------------------
 // 028 VAR NGON
 // ----------------------------
-float2 CL_V_NGON(const float2 in, const float w, const float4 ngon, const float4 ngon_precalc){
+float2 CL_V_NGON(   __private const float2 in, 
+                    __private const float w, 
+                    __private const float4 ngon, 
+                    __private const float4 ngon_precalc
+                    )
+{
     float r2 = in.x * in.x + in.y * in.y;
 #ifdef USE_NATIVE
     float r_factor = (r2 == 0.0f) ? 0.0f : native_exp(ngon_precalc.x * native_log(r2));
@@ -806,7 +906,11 @@ float2 CL_V_NGON(const float2 in, const float w, const float4 ngon, const float4
 // ----------------------------
 // 029 VAR PDG
 // ----------------------------
-float2 CL_V_PDJ(const float2 in, const float w, const float4 pdj){
+float2 CL_V_PDJ(__private const float2 in, 
+                __private const float w, 
+                __private const float4 pdj
+                )
+{
 #ifdef USE_NATIVE
     float ox = native_sin(pdj.x * in.y) - native_cos(pdj.y * in.x);
     float oy = native_sin(pdj.z * in.x) - native_cos(pdj.w * in.y);
@@ -820,7 +924,11 @@ float2 CL_V_PDJ(const float2 in, const float w, const float4 pdj){
 // ----------------------------
 // 030 VAR BLOB
 // ----------------------------
-float2 CL_V_BLOB(const float2 in, const float w, const float4 blob){
+float2 CL_V_BLOB(   __private const float2 in, 
+                    __private const float w, 
+                    __private const float4 blob
+                    )
+{
     float _SQRT, low, high, wave, blob_coeff, rr, aa, bdiff;
     _SQRT = SQRT(in);
     float2 precalc = in / _SQRT;
@@ -838,7 +946,12 @@ float2 CL_V_BLOB(const float2 in, const float w, const float4 blob){
 // ----------------------------
 // 031 VAR JULIAN
 // ----------------------------
-float2 CL_V_JULIAN(const float2 in, const float w, x128_state_t* state, const float2 julian){
+float2 CL_V_JULIAN( __private const float2 in, 
+                    __private const float w, 
+                    x128_state_t* state, 
+                    __private const float2 julian
+                    )
+{
     int t_rnd;
     float inv_jx, julian_cn, rr, tmpr, sa, ca;
 #ifdef USE_NATIVE
@@ -866,7 +979,12 @@ float2 CL_V_JULIAN(const float2 in, const float w, x128_state_t* state, const fl
 // ----------------------------
 // 032 VAR JULIASCOPE
 // ----------------------------
-float2 CL_V_JULIASCOPE(const float2 in, const float w, x128_state_t* state, const float2 juliascope){
+float2 CL_V_JULIASCOPE( __private const float2 in, 
+                        __private const float w, 
+                        x128_state_t* state, 
+                        __private const float2 juliascope
+                        )
+{
     int t_rnd;
     float _ATANYX, julian_rN, sign, julian_cn, tmpr, rr, sa, ca;
 
@@ -893,7 +1011,11 @@ float2 CL_V_JULIASCOPE(const float2 in, const float w, x128_state_t* state, cons
 // ----------------------------
 // 033 VAR GAUSSIAN BLUR
 // ----------------------------
-float2 CL_V_GAUSSIAN_BLUR(const float2 in, const float w, x128_state_t* state){
+float2 CL_V_GAUSSIAN_BLUR(  __private const float2 in, 
+                            __private const float w, 
+                            __private x128_state_t* state
+                            )
+{
     float ang, rr, sa, ca;
     ang = x128_next_float(state) * M_TAU;
     rr = w * (x128_next_float(state) + x128_next_float(state) + x128_next_float(state) + x128_next_float(state) - 2.0f);
@@ -904,7 +1026,11 @@ float2 CL_V_GAUSSIAN_BLUR(const float2 in, const float w, x128_state_t* state){
 // ----------------------------
 // 034 VAR FAN2
 // ----------------------------
-float2 CL_V_FAN2(const float2 in, const float w, const float2 fan2){
+float2 CL_V_FAN2(   __private const float2 in, 
+                    __private const float w, 
+                    __private const float2 fan2
+                    )
+{
     float dx, dx2, inv_dx, a, r, ady, tt, sa, ca;
     dx  = M_PI_F * Zeps(fan2.x * fan2.x);
     dx2 = 0.5f * dx;
@@ -932,7 +1058,11 @@ float2 CL_V_FAN2(const float2 in, const float w, const float2 fan2){
 // ----------------------------
 // 035 VAR RINGS2
 // ----------------------------
-float2 CL_V_RINGS2(const float2 in, const float w, const float rings2val){
+float2 CL_V_RINGS2( __private const float2 in, 
+                    __private const float w, 
+                    __private const float rings2val
+                    )
+{
     float _SQRT, rr, dx;
     int nrand;
     _SQRT = SQRT(in);
@@ -953,12 +1083,12 @@ float2 CL_V_RINGS2(const float2 in, const float w, const float rings2val){
 // ----------------------------
 
 float2 CL_V_DISPATCH(
-    const int type, 
-    const float2 in, 
-    const float w, 
-    const float2 y,
-    const float2 o, 
-    x128_state_t* state, 
+    __private const int type, 
+    __private const float2 in, 
+    __private const float w, 
+    __private const float2 y,
+    __private const float2 o, 
+    __private x128_state_t* state, 
     __local const float* PRM_F, 
     __local const float2* PRM_F2, 
     __local const float4* PRM_F3,   // Casted as float4 instead of float3 so it map correctly
@@ -1247,7 +1377,7 @@ __kernel void flam3cl(
         
 
         // pre affine 
-        affine_t pa = local_PRE_AFFINE[idx]; // Copy affine data to private memory (registers)
+        affine_t pa = local_PRE_AFFINE[idx];
         mem = affine(mem, pa);
         
         
@@ -1266,7 +1396,7 @@ __kernel void flam3cl(
         
         // affine post
         if(local_POST[idx]){
-            affine_t po = local_POST_AFFINE[idx]; // Copy affine data to private memory (registers)
+            affine_t po = local_POST_AFFINE[idx];
             mem = affine(mem, po);
         }
 
