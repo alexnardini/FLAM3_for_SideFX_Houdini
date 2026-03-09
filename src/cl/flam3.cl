@@ -1,6 +1,5 @@
 #define USE_FMA         1   // Enable fused multiply-add if desired
 #define USE_NATIVE      1   // Enable native ocl functions for speed but less accuracy
-#define USE_RNG_X128    1   // Use a more accurate 32bit RNG generator
 
 #define PSCL 0.001f         // Default point scale ( @pscale )
 
@@ -147,15 +146,6 @@ static inline uint splitmix32(uint seed) {
 }
 
 // ----------------------------
-// Initialize x64 RNG state for a work-item
-// gid = get_global_id(0) or other unique thread index
-// ----------------------------
-static inline void x64_rng_init(x128_state_t* state, uint gid) {
-    state->s0 = gid + 0;
-    state->s1 = gid ^ 0x9E3779B9u;
-}
-
-// ----------------------------
 // Initialize x128 RNG state for a work-item
 // gid = get_global_id(0) or other unique thread index
 // ----------------------------
@@ -164,16 +154,6 @@ static inline void x128_rng_init(x128_state_t* state, uint gid) {
     state->s1 = splitmix32(gid + 1);
     state->s2 = splitmix32(gid + 2);
     state->s3 = splitmix32(gid + 3);
-}
-// ----------------------------
-// initialize RNG state for X128 or X64 based on #define (32bit or 24bit)
-// ----------------------------
-static inline void rng_init(x128_state_t* state, uint gid){
-#if USE_RNG_X128
-    x128_rng_init(state, gid);
-#else
-    x64_rng_init(state, gid);
-#endif
 }
 
 // ----------------------------
@@ -236,57 +216,6 @@ static inline float x128_next_0505(x128_state_t* state) {
     return f - 0.5f;
 }
 
-
-// ----------------------------
-// GPU RNG: xoroshiro64+ variant (outputs float in [0,1) using top 24 bits)
-// ----------------------------
-// Float in [0,1)
-// ----------------------------
-static inline float x64_next_float(x128_state_t* state) {
-    uint _s0 = state->s0;
-    uint _s1 = state->s1;
-    uint result = (_s0 + _s1);
-
-    uint t = _s1 ^ _s0;
-    state->s0 = rotate_left(_s0, 26) ^ t ^ (t << 9);
-    state->s1 = rotate_left(t, 13);
-
-    return (float)(result >> 8) / 16777216.0f; // Get the upper 24bit for more uniform randomness
-}
-// ----------------------------
-// Float in [-1,1)
-// ----------------------------
-static inline float x64_next_neg1pos1(x128_state_t* state) {
-    float f = x64_next_float(state);
-#if USE_FMA
-    return fma(f, 2.0f, -1.0f);
-#else
-    return f * 2.0f - 1.0f;
-#endif
-}
-
-// ----------------------------
-// Run X128 or X64 based on #define (32bit or 24bit)
-// Float in [0,1)
-// ----------------------------
-static inline float rng_next_float(x128_state_t* state){
-#if USE_RNG_X128
-    return x128_next_float(state);
-#else
-    return x64_next_float(state);
-#endif
-}
-// ----------------------------
-// Run X128 or X64 based on #define (32bit or 24bit)
-// Float in [-1,1)
-// ----------------------------
-static inline float rng_next_neg1pos1(x128_state_t* state){
-#if USE_RNG_X128
-    return x128_next_neg1pos1(state);
-#else
-    return x64_next_neg1pos1(state);
-#endif
-}
 
 // ----------------------------
 // CL FLAM3 CDF binary
@@ -712,7 +641,7 @@ float2 CL_V_JULIA(  __private const float2 in,
 {
     float r, a, sa, ca;
     a = 0.5 * ATAN(in);
-    a += select(0.0f, (float)M_PI, rng_next_float(state) < 0.5f);
+    a += select(0.0f, (float)M_PI, x128_next_float(state) < 0.5f);
     r = w * sqrt(SQRT(in));
     sincos_fast(a, &sa, &ca);
 
@@ -922,9 +851,9 @@ float2 CL_V_BLUR(   __private const float2 in,
                     )
 {
     float tmpr, sr, cr, r;
-    tmpr = rng_next_float(state) * M_TAU;
+    tmpr = x128_next_float(state) * M_TAU;
     sincos_fast(tmpr, &sr, &cr);
-    r = w * rng_next_float(state);
+    r = w * x128_next_float(state);
 
     return r * (float2)(cr, sr);
 }
@@ -1049,7 +978,7 @@ float2 CL_V_JULIAN( __private const float2 in,
     float r2 = SUMSQ(in);
     float a  = ATANYX(in);
 
-    t_rnd = (int)(julian.x * rng_next_float(state));
+    t_rnd = (int)(julian.x * x128_next_float(state));
     tmpr = (a + M_TAU * t_rnd) * inv_jx;
 #if USE_NATIVE
     rr = w * native_powr(r2, julian_cn);
@@ -1083,7 +1012,7 @@ float2 CL_V_JULIASCOPE( __private const float2 in,
     // julian_rN = juliascope.x;
     julian_cn = juliascope.y * inv_jx * 0.5f;
 
-    t_rnd = (int)(juliascope.x * rng_next_float(state));
+    t_rnd = (int)(juliascope.x * x128_next_float(state));
 
     sign = (t_rnd & 1) ? -1.0f : 1.0f;
     tmpr = (M_TAU * t_rnd + sign * _ATANYX) * inv_jx;
@@ -1106,8 +1035,8 @@ float2 CL_V_GAUSSIAN_BLUR(  __private const float2 in,
                             )
 {
     float ang, rr, sa, ca;
-    ang = rng_next_float(state) * M_TAU;
-    rr = w * (rng_next_float(state) + rng_next_float(state) + rng_next_float(state) + rng_next_float(state) - 2.0f);
+    ang = x128_next_float(state) * M_TAU;
+    rr = w * (x128_next_float(state) + x128_next_float(state) + x128_next_float(state) + x128_next_float(state) - 2.0f);
     sincos_fast(ang, &sa, &ca);
 
     return rr * (float2)(ca, sa);
@@ -1200,10 +1129,10 @@ float2 CL_V_RADIALBLUR(__private const float2 in,
 
     sincos_fast(angle * M_PI_2, &m_spin, &m_zoom);  // TO DO: compute in vex land
     
-    rndG = w * (rng_next_float(state) +
-                rng_next_float(state) +
-                rng_next_float(state) +
-                rng_next_float(state) - 2.0f);
+    rndG = w * (x128_next_float(state) +
+                x128_next_float(state) +
+                x128_next_float(state) +
+                x128_next_float(state) - 2.0f);
 
     ra = SQRT(in);
 #if USE_FMA
@@ -1231,9 +1160,9 @@ float2 CL_V_PIE(__private const float2 in,
 {
     float a, rr, sa, ca, sl;
 
-    sl = (int)(rng_next_float(state) * pie.x);
-    a = pie.z + M_TAU * (sl + rng_next_float(state) * pie.y) / pie.x;
-    rr = w * rng_next_float(state);
+    sl = (int)(x128_next_float(state) * pie.x);
+    a = pie.z + M_TAU * (sl + x128_next_float(state) * pie.y) / pie.x;
+    rr = w * x128_next_float(state);
     sincos_fast(a, &sa, &ca);
 
     return rr * (float2)(ca, sa);
@@ -1247,7 +1176,7 @@ float2 CL_V_ARCH(   __private const float2 in,
                     )
 {
     float a, sa, ca;
-    a = rng_next_float(state) * w * M_PI;
+    a = x128_next_float(state) * w * M_PI;
     sincos_fast(a, &sa, &ca);
 
 #if USE_NATIVE
@@ -1286,8 +1215,8 @@ float2 CL_V_SQUARE( __private const float2 in,
                     )
 {
     return w * (float2)(
-        rng_next_float(state) - 0.5, 
-        rng_next_float(state) - 0.5
+        x128_next_float(state) - 0.5, 
+        x128_next_float(state) - 0.5
     );
 }
 // ----------------------------
@@ -1300,7 +1229,7 @@ float2 CL_V_RAYS(__private const float2 in,
 {
     float ang, r, tanr;
 
-    ang = w * rng_next_float(state) * M_PI;
+    ang = w * x128_next_float(state) * M_PI;
 #if USE_NATIVE
     r = w * native_recip(Zeps(SUMSQ(in)));
     tanr = w * native_tan(ang) * r;
@@ -1323,7 +1252,7 @@ float2 CL_V_BLADE(  __private const float2 in,
 {
     float r, sr, cr;
 
-    r = w * rng_next_float(state) * SQRT(in);
+    r = w * x128_next_float(state) * SQRT(in);
     sincos_fast(r, &sr, &cr);
 
     float wx = w * in.x;
@@ -1363,7 +1292,7 @@ float2 CL_V_TWINTRIAN(  __private const float2 in,
                         )
 {
     float r, sr, ss, cr, diff;
-    r = rng_next_float(state) * w * SQRT(in);
+    r = x128_next_float(state) * w * SQRT(in);
     sincos_fast(r, &sr, &cr);
     ss = sr * sr;
 #if USE_NATIVE
@@ -1647,7 +1576,7 @@ __kernel void flam3cl(
         local_VW[i] = VW[i];
     }
 
-    // Copy arrays of floats in float4 chunks
+    // Copy arrays of floats in chunks of float4s
     // and handle the remainders if any.
     
     // Float arrays
@@ -1736,18 +1665,18 @@ __kernel void flam3cl(
     // RNG init
     float r;
     x128_state_t rng;
-    rng_init(&rng, gid + OPID);  // unique per thread, per node
+    x128_rng_init(&rng, gid + OPID);  // unique per thread, per node
     
     // build starting sample (Biunit)
-    mem = (float2)(rng_next_neg1pos1(&rng), rng_next_neg1pos1(&rng));
+    mem = (float2)(x128_next_neg1pos1(&rng), x128_next_neg1pos1(&rng));
     
     // if XAOS, pick a starting iterator from distribution
-    if(XS) idx = sample_cdf_binary(local_IW, RES, rng_next_float(&rng));
+    if(XS) idx = sample_cdf_binary(local_IW, RES, x128_next_float(&rng));
     
     for (int i = 0; i < 1024; ++i){
         
         // xform selection
-        r = rng_next_float(&rng);
+        r = x128_next_float(&rng);
         idx = (XS) ? sample_cdf_binary(&local_XST[idx * RES], RES, r) : sample_cdf_binary(local_IW, RES, r);
         
         // parameterics data
