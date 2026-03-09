@@ -72,7 +72,7 @@ enum {
     // ----------------------------
     // PRM F3 sizes  
     // ----------------------------
-    PRM_NUM_F3                  = 9,
+    PRM_NUM_F3                  = 10,
     PRM_NUM_F3_SIZE             = PRM_NUM_F3 * MAX_XFORMS,
     // ----------------------------
     // PRM F3 parametrics indexes  
@@ -86,6 +86,9 @@ enum {
     PRM_F3_IDX_LAZYSUSANSTS     = 6,    // spin, twist, space
     PRM_F3_IDX_BWRAPS           = 7,    // size, space, gain
     PRM_F3_IDX_PTSYM            = 8,    // order, center_x, center_y
+    // ----------------------------
+    // PRM F3 precalc  
+    PRM_F3_IDX_DISC2_PRECALC    = 9,    // timespi, sinadd, cosadd
 
     // ----------------------------
     // PRM F4 sizes  
@@ -668,8 +671,8 @@ float2 CL_V_DIAMOND(__private const float2 in,
     );
 #else
     return w * (float2)(
-        sin(a) * cos(rr), 
-        cos(a) * sin(rr)
+        sin(a) * cos(r), 
+        cos(a) * sin(r)
     );
 #endif
 }
@@ -994,8 +997,8 @@ float2 CL_V_PDJ(__private const float2 in,
     float ox = native_sin(pdj.x * in.y) - native_cos(pdj.y * in.x);
     float oy = native_sin(pdj.z * in.x) - native_cos(pdj.w * in.y);
 #else
-    float ox = sin(pp.x * in.y) - cos(pp.y * in.x);
-    float oy = sin(pp.z * in.x) - cos(pp.w * in.y);
+    float ox = sin(pdj.x * in.y) - cos(pdj.y * in.x);
+    float oy = sin(pdj.z * in.x) - cos(pdj.w * in.y);
 #endif
 
     return w * (float2)(ox, oy);
@@ -1038,7 +1041,7 @@ float2 CL_V_JULIAN( __private const float2 in,
 #if USE_NATIVE
     inv_jx = native_recip(julian.x);
 #else
-    inv_jx = recip(julian.x);
+    inv_jx = half_recip(julian.x);
 #endif
     julian_cn = julian.y * inv_jx * 0.5f;
 
@@ -1122,7 +1125,7 @@ float2 CL_V_FAN2(   __private const float2 in,
 #if USE_NATIVE
     inv_dx = native_recip(dx);
 #else
-    inv_dx = recip(dx);
+    inv_dx = half_recip(dx);
 #endif
 
     a = ATAN(in);
@@ -1392,6 +1395,58 @@ float2 CL_V_CROSS(  __private const float2 in,
 
     return r * in;
 }
+// ----------------------------
+// 047 VAR DISC2
+// ----------------------------
+float2 CL_V_DISC2(  __private const float2 in, 
+                    __private const float w, 
+                    __private const float2 disc2,   // rot twist
+                    __private const float4 disc2_pc // (F3) disc2_timespi disc2_sinadd disc2_cosadd
+                    )
+{
+    float r, t, sr, cr;
+
+    t = disc2_pc.x * (in.x + in.y);
+    sincos_fast(t, &sr, &cr);
+    r = w * ATAN(in) / M_PI;
+
+    return r * (float2)(
+        sr + disc2_pc.z, 
+        cr + disc2_pc.y
+    );
+}
+// ----------------------------
+// 047 VAR DISC2
+// ----------------------------
+float2 CL_V_SUPERSHAPE(  __private const float2 in, 
+                    __private const float w, 
+                    __private x128_state_t* state, 
+                    __private const float4 supershape,  // (F3) m rnd holes
+                    __private const float4 supershape_n // (F3) n1 n2 n3
+                    )
+{
+    float _SQRT, theta, st, ct, tt, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1;
+
+    ss_pm_4 = supershape.x * 0.25f;
+    ss_pneg1_n1 = -1.0f / supershape_n.x;
+    float inv_sy = 1.0f - supershape.y;
+
+    _SQRT = SQRT(in);
+    float inv_sqrt = 1.0f / _SQRT;
+
+    theta = ss_pm_4 * ATANYX(in) + M_PI_4;
+    sincos_fast(theta, &st, &ct);
+    float rnd = supershape.y * rng_next_float(state) + inv_sy * _SQRT - supershape.z;
+#if USE_NATIVE
+    tt = native_powr(fabs(ct), supershape_n.y) + native_powr(fabs(st), supershape_n.z);
+    rr = w * rnd * native_powr(tt, ss_pneg1_n1) * inv_sqrt;
+#else
+    tt = powr(fabs(ct), supershape_n.y) + powr(fabs(st), supershape_n.z);
+    rr = w * rnd * powr(tt, ss_pneg1_n1) * inv_sqrt;
+#endif
+
+    return rr * in;
+}
 
 
 // ----------------------------
@@ -1464,6 +1519,8 @@ float2 CL_V_DISPATCH(
         case 44:    return CL_V_SECANT2(in, w);
         case 45:    return CL_V_TWINTRIAN(in, w, state);
         case 46:    return CL_V_CROSS(in, w, F3C);
+        case 47:    return CL_V_DISC2(in, w, PRM_F2[PRM_F2_IDX_DISC2], PRM_F3[PRM_F3_IDX_DISC2_PRECALC]);
+        case 48:    return CL_V_SUPERSHAPE(in, w, state, PRM_F3[PRM_F3_IDX_SUPERSHAPE], PRM_F3[PRM_F3_IDX_SUPERSHAPEN]);
 
         default:    return w * in;
     }
