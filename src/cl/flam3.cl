@@ -2004,6 +2004,14 @@ __kernel void flam3cl(
     int PO_tuplesize,
     __global int * restrict PO_index,
     __global float2 * restrict PO,
+    int PPVT_length,
+    int PPVT_tuplesize,
+    __global int * restrict PPVT_index,
+    __global float4 * restrict PPVT,
+    int PPVW_length,
+    int PPVW_tuplesize,
+    __global int * restrict PPVW_index,
+    __global float4 * restrict PPVW,
     int VT_length,
     int VT_tuplesize,
     __global int * restrict VT_index,
@@ -2028,6 +2036,7 @@ __kernel void flam3cl(
     int PRM_F4_tuplesize,
     __global int * restrict PRM_F4_index,
     __global float4 * restrict PRM_F4
+
 )
 {
     int gid = get_global_id(0);
@@ -2051,6 +2060,9 @@ __kernel void flam3cl(
     __local affine_t local_POST_AFFINE[MAX_XFORMS];
     __local int local_POST[MAX_XFORMS]; // post affine toggles
 
+    // PRE/POST variations
+    __local int4 local_PPVT[MAX_XFORMS];
+    __local float4 local_PPVW[MAX_XFORMS];
     // VAR variations
     __local int4 local_VT[MAX_XFORMS];
     __local float4 local_VW[MAX_XFORMS];
@@ -2073,6 +2085,10 @@ __kernel void flam3cl(
         local_POST_AFFINE[i].o = (float4)(PO[i], 0.0f, 0.0f);
         // post affine toggles
         local_POST[i] = POST[i];
+
+        // PRE/POST variations
+        local_PPVT[i] = convert_int4(PPVT[i]);
+        local_PPVW[i] = PPVW[i];
 
         // VAR variations
         local_VT[i] = convert_int4(VT[i]);
@@ -2159,11 +2175,11 @@ __kernel void flam3cl(
     
     // init
     int idx;
-    int4 _vt;
+    int4 _vt, _ppvt;
     float clr = 0.0f;
     float _prev_clr = 0.0f;
     float2 mem, _tmp, _y, _o;
-    float4 _vw;
+    float4 _vw, _ppvw;
     
     // RNG init
     float r;
@@ -2191,9 +2207,15 @@ __kernel void flam3cl(
         // pre affine 
         affine_t pa = local_PRE_AFFINE[idx];
         mem = affine(mem, pa);
-        
-        
 
+        // PRE/POST data
+        _ppvt = local_PPVT[idx];
+        _ppvw = local_PPVW[idx];
+        // PRE
+        if (_ppvw.x != 0.0f) mem = mem; // Place holder for PRE_BLUR
+        if (_ppvw.y != 0.0f) mem = CL_V_DISPATCH(_ppvt.y, mem, _ppvw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_ppvw.z != 0.0f) mem = CL_V_DISPATCH(_ppvt.z, mem, _ppvw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        
         // VAR
         _vt = local_VT[idx];
         _vw = local_VW[idx];
@@ -2203,8 +2225,10 @@ __kernel void flam3cl(
         if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(_vt.z, mem, _vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         if (_vw.w != 0.0f) _tmp += CL_V_DISPATCH(_vt.w, mem, _vw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
 
-        
-        
+        // POST
+        if (_ppvw.w != 0.0f) _tmp = CL_V_DISPATCH(_ppvt.w, _tmp, _ppvw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+
+        // post affine    
         if(local_POST[idx]){
             affine_t po = local_POST_AFFINE[idx];
             _tmp = affine(_tmp, po);
