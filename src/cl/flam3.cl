@@ -1569,7 +1569,7 @@ float2 CL_V_BIPOLAR(__private const float2 in,
 
     x2y2 = dot(in, in);
     tt = x2y2 + 1.0f;
-    x2 = in.x * in.x;
+    x2 = 2.0f * in.x;
     ps = -M_PI_2 * shift;
 
     y = 0.5f * atan2(2.0f * in.y, x2y2 - 1.0f) + ps;
@@ -1654,7 +1654,7 @@ float2 CL_V_BUTTERFLY(  __private const float2 in,
     float wx, y2, r;
 
     wx = w * 1.3029400317411197908970256609023f;
-    y2 = in.y * 2.0f;
+    y2 = 2.0f * in.y;
 #if USE_NATIVE
     r = wx * native_sqrt(fabs(in.y * in.x) / (Zeps(in.x * in.x + y2 * y2)));
 #else
@@ -1746,7 +1746,7 @@ float2 CL_V_EDISC(  __private const float2 in,
     float tmp, tmp2, rr1, rr2, xmax, aa1, aa2, ww, snv, csv, snhu, cshu;
 
     tmp  = SUMSQ(in) + 1.0f;
-    tmp2 = in.x + in.x;
+    tmp2 = 2.0f * in.x;
 #if USE_NATIVE
     rr1 = native_sqrt(tmp + tmp2);
     rr2 = native_sqrt(tmp - tmp2);
