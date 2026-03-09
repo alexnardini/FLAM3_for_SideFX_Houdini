@@ -2138,40 +2138,7 @@ __kernel void flam3cl(
         for(int i = (num_f4 << 2) + lid; i < total_XAOS; i += lsize)
             local_XST[i] = XST[i];
     }
-
-    // // shader
-    // int TOTAL_ELEMENTS = RES * SHD_NUM_SIZE;
-    // for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
-    //     local_SHD[i] = SHD[i];
-    // }
-    // // parametrics float
-    // TOTAL_ELEMENTS = RES * PRM_NUM_F;
-    // for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
-    //     local_PRM_F[i] = PRM_F[i];
-    // }
-    // // parametrics float2
-    // TOTAL_ELEMENTS = RES * PRM_NUM_F2;
-    // for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
-    //     local_PRM_F2[i] = PRM_F2[i];
-    // }
-    // // parametrics float3
-    // TOTAL_ELEMENTS = RES * PRM_NUM_F3;
-    // for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
-    //     local_PRM_F3[i] = PRM_F3[i];
-    // }
-    // // parametrics float4
-    // TOTAL_ELEMENTS = RES * PRM_NUM_F4;
-    // for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
-    //     local_PRM_F4[i] = PRM_F4[i];
-    // }
-    // if(XS){
-    //     // Xaos
-    //     int TOTAL_ELEMENTS = RES * RES;
-    //     for(int i = lid; i < TOTAL_ELEMENTS; i += lsize){
-    //         local_XST[i] = XST[i];
-    //     }
-    // }
-    barrier(CLK_LOCAL_MEM_FENCE);   // Wait to complete the copy
+    barrier(CLK_LOCAL_MEM_FENCE);   // Wait for the copy to complete
     
     // init
     int idx;
@@ -2216,9 +2183,10 @@ __kernel void flam3cl(
         if (_ppvw.y != 0.0f) mem = CL_V_DISPATCH(_ppvt.y, mem, _ppvw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         if (_ppvw.z != 0.0f) mem = CL_V_DISPATCH(_ppvt.z, mem, _ppvw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         
-        // VAR
+        // VAR data
         _vt = local_VT[idx];
         _vw = local_VW[idx];
+        // VAR
         _tmp = (float2)(0.0f, 0.0f);
         if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(_vt.x, mem, _vw.x, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(_vt.y, mem, _vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
