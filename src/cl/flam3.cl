@@ -594,6 +594,7 @@ float2 CL_V_HEART(  __private const float2 in,
                     )
 {
     float _SQRT, a, r;
+
     _SQRT = SQRT(in);
     a = _SQRT * ATAN(in);
     r = w * _SQRT;
@@ -618,6 +619,7 @@ float2 CL_V_DISC(   __private const float2 in,
                     )
 {
     float a, r, sr, cr;
+
     a  = ATAN(in) * M_1_PI;
     r = SQRT(in) * M_PI;
     sincos_fast(r, &sr, &cr);
@@ -686,6 +688,7 @@ float2 CL_V_EX( __private const float2 in,
                 )
 {
     float a, r, n0, n1, m0, m1;
+
     a = ATAN(in);
     r = SQRT(in);
 #if USE_NATIVE
@@ -712,6 +715,7 @@ float2 CL_V_JULIA(  __private const float2 in,
                     )
 {
     float r, a, sa, ca;
+
     a = 0.5 * ATAN(in);
     a += select(0.0f, (float)M_PI, rng_next_float(state) < 0.5f);
     r = w * sqrt(SQRT(in));
@@ -792,6 +796,7 @@ float2 CL_V_EXPONENTIAL(__private const float2 in,
                         )
 {
     float dx, dy, sdy, cdy;
+
 #if USE_NATIVE
     dx = w * native_exp(in.x - 1.0f);
 #else
@@ -810,6 +815,7 @@ float2 CL_V_POWER(  __private const float2 in,
                     )
 {
     float r2 = in.x * in.x + in.y * in.y;
+
     if (r2 == 0.0f)
         return (float2)(0.0f, 0.0f);
 
@@ -832,6 +838,7 @@ float2 CL_V_COSINE( __private const float2 in,
                     )
 {
     float a, sa, ca;
+
     a = in.x * M_PI;
     sincos_fast(a, &sa, &ca);
 
@@ -849,6 +856,7 @@ float2 CL_V_RINGS(  __private const float2 in,
                     )
 {
     float _SQRT, dx, r;
+
     _SQRT = SQRT(in);
     float2 precalc = in / _SQRT;
 
@@ -867,6 +875,7 @@ float2 CL_V_FAN(__private const float2 in,
                 )
 {
     float dx, dx2, a, sa, ca;
+
     dx = M_PI * Zeps(c * c);
     dx2 = 0.5f * dx;
     a = ATAN(in);
@@ -923,6 +932,7 @@ float2 CL_V_BLUR(   __private const float2 in,
                     )
 {
     float tmpr, sr, cr, r;
+
     tmpr = rng_next_float(state) * M_TAU;
     sincos_fast(tmpr, &sr, &cr);
     r = w * rng_next_float(state);
@@ -951,7 +961,7 @@ float2 CL_V_CURL(   __private const float2 in,
 #if USE_NATIVE
     r = w * native_recip(Zeps(fma(re, re, im * im)));
 #else
-    r = w * half_recip(Zeps(fma(re, re, im * im)));
+    r = w * 1.0f / Zeps(fma(re, re, im * im));
 #endif
 
     return r * (float2)(
@@ -968,21 +978,23 @@ float2 CL_V_NGON(   __private const float2 in,
                     __private const float4 ngon_precalc // cpower csides csidesinv unused
                     )
 {
-    float r2 = in.x * in.x + in.y * in.y;
+    float r2, r_factor, theta, phi, amp;
+
+    r2 = in.x * in.x + in.y * in.y;
 #if USE_NATIVE
-    float r_factor = (r2 == 0.0f) ? 0.0f : native_exp(ngon_precalc.x * native_log(r2));
+    r_factor = (r2 == 0.0f) ? 0.0f : native_exp(ngon_precalc.x * native_log(r2));
 #else
-    float r_factor = (r2 == 0.0f) ? 0.0f : exp(ngon_precalc.x * log(r2));
+    r_factor = (r2 == 0.0f) ? 0.0f : exp(ngon_precalc.x * log(r2));
 #endif
 
-    float theta = atan2(in.y, in.x);
+    theta = atan2(in.y, in.x);
 
-    float phi = theta - ngon_precalc.y * floor(theta * ngon_precalc.z);
+    phi = theta - ngon_precalc.y * floor(theta * ngon_precalc.z);
     phi -= ngon_precalc.y * (phi > 0.5f * ngon_precalc.y);
 #if USE_NATIVE
-    float amp = (ngon.z * (1.0f / native_cos(phi) - 1.0f) + ngon.w) * w * r_factor;
+    amp = (ngon.z * (1.0f / native_cos(phi) - 1.0f) + ngon.w) * w * r_factor;
 #else
-    float amp = (ngon.z * (1.0f / cos(phi) - 1.0f) + ngon.w) * w * r_factor;
+    amp = (ngon.z * (1.0f / cos(phi) - 1.0f) + ngon.w) * w * r_factor;
 #endif
 
     return amp * in;
@@ -1014,6 +1026,7 @@ float2 CL_V_BLOB(   __private const float2 in,
                     )
 {
     float _SQRT, low, high, wave, blob_coeff, rr, aa, bdiff;
+
     _SQRT = SQRT(in);
     float2 precalc = in / _SQRT;
 
@@ -1040,10 +1053,11 @@ float2 CL_V_JULIAN( __private const float2 in,
 {
     int t_rnd;
     float inv_jx, julian_cn, rr, tmpr, sa, ca;
+
 #if USE_NATIVE
     inv_jx = native_recip(julian.x);
 #else
-    inv_jx = half_recip(julian.x);
+    inv_jx = 1.0f / julian.x;
 #endif
     julian_cn = julian.y * inv_jx * 0.5f;
 
@@ -1077,7 +1091,7 @@ float2 CL_V_JULIASCOPE( __private const float2 in,
 #if USE_NATIVE
     float inv_jx = native_recip(juliascope.x);
 #else
-    float inv_jx = half_recip(juliascope.x);
+    float inv_jx = 1.0f / juliascope.x;
 #endif
 
     _ATANYX = ATANYX(in);
@@ -1107,6 +1121,7 @@ float2 CL_V_GAUSSIAN_BLUR(  __private const float2 in,
                             )
 {
     float ang, rr, sa, ca;
+
     ang = rng_next_float(state) * M_TAU;
     rr = w * (rng_next_float(state) + rng_next_float(state) + rng_next_float(state) + rng_next_float(state) - 2.0f);
     sincos_fast(ang, &sa, &ca);
@@ -1122,12 +1137,13 @@ float2 CL_V_FAN2(   __private const float2 in,
                     )
 {
     float dx, dx2, inv_dx, a, r, ady, tt, sa, ca;
+
     dx  = M_PI_F * Zeps(fan2.x * fan2.x);
     dx2 = 0.5f * dx;
 #if USE_NATIVE
     inv_dx = native_recip(dx);
 #else
-    inv_dx = half_recip(dx);
+    inv_dx = 1.0f / dx;
 #endif
 
     a = ATAN(in);
@@ -1155,6 +1171,7 @@ float2 CL_V_RINGS2( __private const float2 in,
 {
     float _SQRT, rr, dx;
     int nrand;
+
     _SQRT = SQRT(in);
     float2 precalc = in / _SQRT;
     rr = _SQRT;
@@ -1174,6 +1191,7 @@ float2 CL_V_RECTANGLES( __private const float2 in,
                         )
 {
     float2 invr, t, m;
+
     invr = 1.0f / rectangles; // TO DO: compute in vex land
 #if USE_FMA
     t = floor(in * invr);
@@ -1248,6 +1266,7 @@ float2 CL_V_ARCH(   __private const float2 in,
                     )
 {
     float a, sa, ca;
+
     a = rng_next_float(state) * w * M_PI;
     sincos_fast(a, &sa, &ca);
     float sa2 = sa * sa;
@@ -1256,7 +1275,7 @@ float2 CL_V_ARCH(   __private const float2 in,
     
     float inv_ca = native_recip(ca);
 #else
-    float inv_ca = half_recip(ca);
+    float inv_ca = 1.0f / ca;
 #endif
 
     return w * (float2)(
@@ -1313,7 +1332,7 @@ float2 CL_V_RAYS(__private const float2 in,
 
     return tanr * (float2)(native_cos(in.x), native_sin(in.y));
 #else
-    r = w * half_recip(Zeps(SUMSQ(in)));
+    r = w * (1.0f / Zeps(SUMSQ(in)));
     tanr = w * tan(ang) * r;
 
     return tanr * (float2)(cos(in.x), sin(in.y));
@@ -1347,12 +1366,13 @@ float2 CL_V_SECANT2(__private const float2 in,
                     )
 {
     float rr, sr, cr, icr;
+
     rr = w * SQRT(in);
     sincos_fast(rr, &sr, &cr);
 #if USE_NATIVE
     icr = native_recip(cr);
 #else
-    icr = half_recip(cr);
+    icr = 1.0f / cr;
 #endif
 
     return w * (float2)(
@@ -1369,6 +1389,7 @@ float2 CL_V_TWINTRIAN(  __private const float2 in,
                         )
 {
     float r, sr, ss, cr, diff;
+
     r = rng_next_float(state) * w * SQRT(in);
     sincos_fast(r, &sr, &cr);
     ss = sr * sr;
@@ -1396,6 +1417,7 @@ float2 CL_V_CROSS(  __private const float2 in,
                     )
 {
     float r, inxy;
+
     inxy = (in.x - in.y) * (in.x + in.y);
 
     r = select(w / Zeps(inxy), w / Zeps(fabs(inxy)), F3C);
@@ -1423,7 +1445,7 @@ float2 CL_V_DISC2(  __private const float2 in,
     );
 }
 // ----------------------------
-// 047 VAR DISC2
+// 048 VAR DISC2
 // ----------------------------
 float2 CL_V_SUPERSHAPE(  __private const float2 in, 
                     __private const float w, 
@@ -1453,6 +1475,346 @@ float2 CL_V_SUPERSHAPE(  __private const float2 in,
 #endif
 
     return rr * in;
+}
+// ----------------------------
+// 049 VAR FLOWER
+// ----------------------------
+float2 CL_V_FLOWER( __private const float2 in, 
+                    __private const float w, 
+                    __private x128_state_t* state, 
+                    __private const float2 flower   // petals holes
+                    )
+{
+    float theta, r;
+
+    theta = ATANYX(in);
+#if USE_NATIVE
+    float n_theta = native_cos(flower.x * theta);
+    r = w * (rng_next_float(state) - flower.y) * n_theta * native_rsqrt(dot(in, in));
+#else
+    float n_theta = cos(flower.x * theta);
+    r = w * (rng_next_float(state) - flower.y) * n_theta / SQRT(in);
+#endif
+
+    return r * in;
+}
+// ----------------------------
+// 050 VAR CONIC
+// ----------------------------
+float2 CL_V_CONIC(  __private const float2 in, 
+                    __private const float w, 
+                    __private x128_state_t* state, 
+                    __private const float2 conic    // eccentricity holes
+                    )
+{
+    float _SQRT, ct, r;
+
+    float rnd = rng_next_float(state) - conic.y;
+    
+#if USE_NATIVE
+    float inv_len = native_rsqrt(dot(in, in));
+    ct = in.x * inv_len;
+#else
+    float inv_len = rsqrt(dot(in, in));
+    ct = in.x * inv_len;
+    r = w * rnd * conic.x / (1.0f + conic.x * ct) / _SQRT;
+#endif
+    
+    r = w * rnd * conic.x * inv_len / (1.0f + conic.x * ct);
+
+    return r * in;
+}
+// ----------------------------
+// 051 VAR PARABOLA
+// ----------------------------
+float2 CL_V_PARABOLA(   __private const float2 in, 
+                        __private const float w, 
+                        __private x128_state_t* state, 
+                        __private const float2 parabola // height width
+                        )
+{
+    float r, sr, cr;
+
+    r = SQRT(in);
+    sincos_fast(r, &sr, &cr);
+
+    float sr2 = sr * sr;
+
+    return w * (float2)(
+        parabola.x * sr2 * rng_next_float(state), 
+        parabola.y * cr  * rng_next_float(state)
+    );
+}
+// ----------------------------
+// 052 VAR BENT2
+// ----------------------------
+float2 CL_V_BENT2(  __private const float2 in, 
+                    __private const float w, 
+                    __private const float2 bent2    // x y
+                    )
+{
+    float2 r = select(in, in * bent2, in < 0.0f);
+
+return w * r;
+}
+// ----------------------------
+// 053 VAR BIPOLAR
+// ----------------------------
+float2 CL_V_BIPOLAR(__private const float2 in, 
+                    __private const float w, 
+                    __private const float shift // shift
+                    )
+{
+    float x2y2, tt, x2, ps, y;
+
+    x2y2 = dot(in, in);
+    tt = x2y2 + 1.0f;
+    x2 = in.x * in.x;
+    ps = -M_PI_2 * shift;
+
+    y = 0.5f * atan2(2.0f * in.y, x2y2 - 1.0f) + ps;
+
+    if (y > M_PI_2)
+        y = -M_PI_2 + (y + M_PI_2) - M_PI * floor((y + M_PI_2) * native_recip(M_PI));
+    else if (y < -M_PI_2)
+        y = M_PI_2 - ((M_PI_2 - y) - M_PI * floor((M_PI_2 - y) * (1.0f / M_PI)));
+
+#if USE_NATIVE
+    float lx = native_log(tt + x2) - native_log(tt - x2);
+#else
+    float lx = log(tt + x2) - log(tt - x2);
+#endif
+
+    return w * (float2)(
+        0.25f * M_2_PI * lx,
+        M_2_PI * y
+    );
+}
+// ----------------------------
+// 054 VAR BOARDERS
+// ----------------------------
+float2 CL_V_BOARDERS(   __private const float2 in, 
+                        __private const float w, 
+                        __private x128_state_t* state
+                        )
+{
+    float roundX, roundY, offsetX, offsetY, halfX, halfY, signX, signY;
+
+    roundX = rint(in.x);
+    roundY = rint(in.y);
+    offsetX = in.x - roundX;
+    offsetY = in.y - roundY;
+
+    halfX = offsetX * 0.5f;
+    halfY = offsetY * 0.5f;
+    signX = copysign(0.25f, offsetX);
+    signY = copysign(0.25f, offsetY);
+
+    float rnd = rng_next_float(state);
+
+    if (rnd >= 0.75f) {
+        return (float2)(halfX + roundX, halfY + roundY);
+    } else {
+        if (fabs(offsetX) >= fabs(offsetY)) {
+            // Horizontal
+            if (offsetX >= 0.0f) {
+                return w * (float2)(
+                    halfX + roundX + signX,
+                    halfY + roundY + 0.25f * offsetY * native_recip(offsetX)
+                );
+            } else {
+                return w * (float2)(
+                    halfX + roundX - 0.25f,
+                    halfY + roundY - 0.25f * offsetY * native_recip(offsetX)
+                );
+            }
+        } else {
+            // Vertical
+            if (offsetY >= 0.0f) {
+                return w * (float2)(
+                    halfX + roundX + 0.25f * offsetX * native_recip(offsetY),
+                    halfY + roundY + 0.25f
+                );
+            } else {
+                return w * (float2)(
+                    halfX + roundX - 0.25f * offsetX * native_recip(offsetY),
+                    halfY + roundY - 0.25f
+                );
+            }
+        }
+    }
+}
+// ----------------------------
+// 055 VAR BUTTERFLY
+// ----------------------------
+float2 CL_V_BUTTERFLY(  __private const float2 in, 
+                        __private const float w
+                        )
+{
+    float wx, y2, r;
+
+    wx = w * 1.3029400317411197908970256609023f;
+    y2 = in.y * 2.0f;
+#if USE_NATIVE
+    r = wx * native_sqrt(fabs(in.y * in.x) / (Zeps(in.x * in.x + y2 * y2)));
+#else
+    r = wx * sqrt(fabs(in.y * in.x) / (Zeps(in.x * in.x + y2 * y2)));
+#endif
+
+    return r * (float2)(in.x, y2);
+}
+// ----------------------------
+// 056 VAR BIPOLAR
+// ----------------------------
+float2 CL_V_CELL(__private const float2 in, 
+                __private const float w, 
+                __private const float size  // size
+                )
+{
+    float inv_cell_size, xs, ys, x, y, dx, dy;
+
+#if USE_NATIVE
+    inv_cell_size = native_recip(size);
+#else
+    inv_cell_size = 1.0f / size;
+#endif
+
+    x = floor(in.x * inv_cell_size);
+    y = floor(in.y * inv_cell_size);
+    xs = x * size;
+    ys = y * size;
+    dx = in.x - xs;
+    dy = in.y - ys;
+
+    if (y >= 0.0f) {
+        y *= 2.0f;
+        if (x >= 0.0f)
+            x *= 2.0f;
+        else
+            x = -(2.0f * x + 1.0f);
+    }
+    else {
+        y = -(2.0f * y + 1.0f);
+        if (x >= 0.0f)
+            x *= 2.0f;
+        else
+            x = -(2.0f * x + 1.0f);
+    }
+
+    return (float2)(
+        w  * (dx + x * size), 
+        -w * (dy + y * size)
+    );
+}
+// ----------------------------
+// 057 VAR CPOW
+// ----------------------------
+float2 CL_V_CPOW(   __private const float2 in, 
+                    __private const float w, 
+                    __private x128_state_t* state, 
+                    __private const float4 cpow // power, r, i
+                    )
+{
+    float aa, lnr, va, vc, vd, ang, sa, ca, mm;
+
+    aa = ATANYX(in);
+#if USE_NATIVE
+    lnr = 0.5f * native_log(SUMSQ(in));
+#else
+    lnr = 0.5f * log(SUMSQ(in));
+#endif
+    va = M_TAU  / cpow.x;
+    vc = cpow.y / cpow.x;
+    vd = cpow.z / cpow.x;
+    ang = vc * aa + vd * lnr + va * floor(cpow.x * rng_next_float(state));
+#if USE_NATIVE
+    mm = w * native_exp(vc * lnr - vd * aa);
+#else
+    mm = w * exp(vc * lnr - vd * aa);
+#endif
+    sincos_fast(ang, &sa, &ca);
+
+    return mm * (float2)(ca, sa);
+}
+// ----------------------------
+// 058 VAR EDISC
+// ----------------------------
+float2 CL_V_EDISC(  __private const float2 in, 
+                    __private const float w
+                    )
+{
+    float tmp, tmp2, rr1, rr2, xmax, aa1, aa2, ww, snv, csv, snhu, cshu;
+
+    tmp  = SUMSQ(in) + 1.0f;
+    tmp2 = in.x + in.x;
+#if USE_NATIVE
+    rr1 = native_sqrt(tmp + tmp2);
+    rr2 = native_sqrt(tmp - tmp2);
+#else
+    rr1 = sqrt(tmp + tmp2);
+    rr2 = sqrt(tmp - tmp2);
+#endif
+    xmax = Zeps((rr1 + rr2) * 0.5f);
+#if USE_NATIVE
+    float t = native_sqrt(xmax - 1.0f);
+    aa1 = native_log(xmax + t);
+#else
+    float t = sqrt(xmax - 1.0f);
+    aa1 = log(xmax + t);
+#endif
+    aa2 = -acos(in.x / xmax);
+    ww = w * 0.08642783653f; // precomputed 1/11.57034632
+
+    sincos_fast(aa1, &snv, &csv);
+
+    // sinh/cosh together
+#if USE_NATIVE
+    float e = native_exp(aa2);
+    float ei = native_recip(e);
+#else
+    float e = exp(aa2);
+    float ei = 1.0f / e;
+#endif
+    snhu = 0.5f * (e - ei);
+    cshu = 0.5f * (e + ei);
+
+    snv = (in.y > 0.0f) ? -snv : snv;
+
+    return ww * (float2)(
+        cshu * csv, 
+        snhu * snv
+    );
+}
+// ----------------------------
+// 059 VAR EDISC
+// ----------------------------
+float2 CL_V_ELLIPTIC(__private const float2 in, 
+                    __private const float w
+                    )
+{
+    float x2, sq, u, v, xmaxm1, a, ssx, weightDivPiDiv2;
+
+    x2 = in.x + in.x;
+    sq = SUMSQ(in);
+    u = sq + x2;
+    v = sq - x2;
+
+    xmaxm1 = 0.5f * (Sqrt1pm1(u) + Sqrt1pm1(v));
+    a = in.x / (1.0f + xmaxm1);
+#if USE_NATIVE
+    ssx = xmaxm1 > 0.0f ? native_sqrt(xmaxm1) : 0.0f;
+#else
+    ssx = xmaxm1 > 0.0f ? sqrt(xmaxm1) : 0.0f;
+#endif
+
+    float wscale = w * (2.0f / M_PI);
+    float logterm = log1p(xmaxm1 + ssx);
+    float y = copysign(wscale * logterm, in.y);
+
+    return (float2)(
+        wscale * asin(clamp(a, -1.0f, 1.0f)),
+        y
+    );
 }
 
 
@@ -1528,6 +1890,17 @@ float2 CL_V_DISPATCH(
         case 46:    return CL_V_CROSS(in, w, F3C);
         case 47:    return CL_V_DISC2(in, w, PRM_F2[PRM_F2_IDX_DISC2], PRM_F3[PRM_F3_IDX_DISC2_PRECALC]);
         case 48:    return CL_V_SUPERSHAPE(in, w, state, PRM_F3[PRM_F3_IDX_SUPERSHAPE], PRM_F3[PRM_F3_IDX_SUPERSHAPEN]);
+        case 49:    return CL_V_FLOWER(in, w, state, PRM_F2[PRM_F2_IDX_FLOWER]);
+        case 50:    return CL_V_CONIC(in, w, state, PRM_F2[PRM_F2_IDX_CONIC]);
+        case 51:    return CL_V_PARABOLA(in, w, state, PRM_F2[PRM_F2_IDX_PARABOLA]);
+        case 52:    return CL_V_BENT2(in, w, PRM_F2[PRM_F2_IDX_BENT2]);
+        case 53:    return CL_V_BIPOLAR(in, w, PRM_F[PRM_F_IDX_BIPOLARSHIFT]);
+        case 54:    return CL_V_BOARDERS(in, w, state);
+        case 55:    return CL_V_BUTTERFLY(in, w);
+        case 56:    return CL_V_CELL(in, w, PRM_F[PRM_F_IDX_CELLSIZE]);
+        case 57:    return CL_V_CPOW(in, w, state, PRM_F3[PRM_F3_IDX_CPOW]);
+        case 58:    return CL_V_EDISC(in, w);
+        case 59:    return CL_V_ELLIPTIC(in, w);
 
         default:    return w * in;
     }
