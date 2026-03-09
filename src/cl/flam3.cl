@@ -99,16 +99,18 @@ enum {
     // PRM F4 parametrics indexes  
     // ----------------------------
     PRM_F4_IDX_NGON             = 0,    // pow, sides, corners, circle
-    PRM_F4_IDX_NGON_PRECALC     = 1,    // cpower, csides, csidesinv, 1.0
-    PRM_F4_IDX_PDJW             = 2,    // wA, wB, wC, wD
-    PRM_F4_IDX_OSCOPE           = 3,    // frequency, amplitude, damping, separation
-    PRM_F4_IDX_WEDGE            = 4,    // swirl, angle, hole, count
-    PRM_F4_IDX_WEDGEJULIA       = 5,    // power, angle, dist, count
-    PRM_F4_IDX_WEDGESPH         = 6,    // swirl, angle, hole, count
-    PRM_F4_IDX_AUGER            = 7,    // frequency, scale, symmetry, weight
-    PRM_F4_IDX_MOBIUSRE         = 8,    // reA, reB, reC, reD
-    PRM_F4_IDX_MOBIUSIM         = 9,    // imA, imB, imC, imD
-    PRM_F4_IDX_CROPLTRB         = 10,   // left, top, right, bottom
+    PRM_F4_IDX_PDJW             = 1,    // wA, wB, wC, wD
+    PRM_F4_IDX_OSCOPE           = 2,    // frequency, amplitude, damping, separation
+    PRM_F4_IDX_WEDGE            = 3,    // swirl, angle, hole, count
+    PRM_F4_IDX_WEDGEJULIA       = 4,    // power, angle, dist, count
+    PRM_F4_IDX_WEDGESPH         = 5,    // swirl, angle, hole, count
+    PRM_F4_IDX_AUGER            = 6,    // frequency, scale, symmetry, weight
+    PRM_F4_IDX_MOBIUSRE         = 7,    // reA, reB, reC, reD
+    PRM_F4_IDX_MOBIUSIM         = 8,    // imA, imB, imC, imD
+    PRM_F4_IDX_CROPLTRB         = 9,    // left, top, right, bottom
+    // ----------------------------
+    // PRM F4 precalc  
+    PRM_F4_IDX_NGON_PRECALC     = 10,   // cpower, csides, csidesinv, 1.0
 
 };
 
@@ -949,7 +951,7 @@ float2 CL_V_CURL(   __private const float2 in,
 #if USE_NATIVE
     r = w * native_recip(Zeps(fma(re, re, im * im)));
 #else
-    r = w / Zeps((re * re) + (im * im));
+    r = w * half_recip(Zeps(fma(re, re, im * im)));
 #endif
 
     return r * (float2)(
@@ -1075,7 +1077,7 @@ float2 CL_V_JULIASCOPE( __private const float2 in,
 #if USE_NATIVE
     float inv_jx = native_recip(juliascope.x);
 #else
-    float inv_jx = 1.0f / juliascope.x;
+    float inv_jx = half_recip(juliascope.x);
 #endif
 
     _ATANYX = ATANYX(in);
@@ -1248,14 +1250,19 @@ float2 CL_V_ARCH(   __private const float2 in,
     float a, sa, ca;
     a = rng_next_float(state) * w * M_PI;
     sincos_fast(a, &sa, &ca);
+    float sa2 = sa * sa;
 
 #if USE_NATIVE
-    float sa2 = sa * sa;
+    
     float inv_ca = native_recip(ca);
-    return w * (float2)(sa, sa2 * inv_ca);
 #else
-    return w * (float2)(sa, (sa * sa) / ca);
+    float inv_ca = half_recip(ca);
 #endif
+
+    return w * (float2)(
+        sa, 
+        sa2 * inv_ca
+    );
 }
 // ----------------------------
 // 040 VAR TANGENT
@@ -1306,7 +1313,7 @@ float2 CL_V_RAYS(__private const float2 in,
 
     return tanr * (float2)(native_cos(in.x), native_sin(in.y));
 #else
-    r = w / Zeps(SUMSQ(in));
+    r = w * half_recip(Zeps(SUMSQ(in)));
     tanr = w * tan(ang) * r;
 
     return tanr * (float2)(cos(in.x), sin(in.y));
@@ -1345,7 +1352,7 @@ float2 CL_V_SECANT2(__private const float2 in,
 #if USE_NATIVE
     icr = native_recip(cr);
 #else
-    icr = 1.0f / cr;
+    icr = half_recip(cr);
 #endif
 
     return w * (float2)(
