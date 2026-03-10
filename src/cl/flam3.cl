@@ -109,7 +109,7 @@ enum {
     PRM_F4_IDX_CROPLTRB         = 9,    // left, top, right, bottom
     // ----------------------------
     // PRM F4 precalc  
-    PRM_F4_IDX_NGON_PRECALC     = 10,   // cpower, csides, csidesinv, 1.0
+    PRM_F4_IDX_NGON_PRECALC     = 10,   // cpower, csides, csidesinv, unusued(1.0)
 
 };
 
@@ -968,10 +968,15 @@ static float2 CL_V_CURL(__private const float2 in,
     re = 1.0f + c.x * in.x + c.y * ((in.x * in.x) - (in.y * in.y));
     im = c.x * in.y + (2.0f * c.y) *  in.x * in.y;
 #endif
-#if USE_NATIVE
-    r = w * native_recip(Zeps(fma(re, re, im * im)));
+#if USE_FMA
+    float value = fma(re, re, im * im);
 #else
-    r = w * 1.0f / Zeps(fma(re, re, im * im));
+    float value = (re * re) + (im * im);
+#endif
+#if USE_NATIVE
+    r = w * native_recip(Zeps(value));
+#else
+    r = w * 1.0f / Zeps(value);
 #endif
 
     return r * (float2)(
@@ -985,7 +990,7 @@ static float2 CL_V_CURL(__private const float2 in,
 static float2 CL_V_NGON(__private const float2 in, 
                         __private const float w, 
                         __private const float4 ngon, 
-                        __private const float4 ngon_precalc // cpower csides csidesinv unused
+                        __private const float4 ngon_precalc // cpower csides csidesinv unusued(1.0)
                         )
 {
     float r2, r_factor, theta, phi, amp;
@@ -1909,7 +1914,7 @@ static float2 CL_V_FOCI(__private const float2 in,
 #if USE_NATIVE
     tmp = w * native_recip(Zeps(expx + expnx - cn));
 #else
-    tmp = w * recip(Zeps(expx + expnx - cn));
+    tmp = w * (1.0f / Zeps(expx + expnx - cn));
 #endif
 
     return tmp * (float2)(expx - expnx, sn);
@@ -2260,6 +2265,7 @@ __kernel void flam3cl(
     for(int i = lid; i < RES; i += lsize){
         // CDF
         local_IW[i] = IW[i];
+        
         // pre affine
         local_PRE_AFFINE[i].xy = (float4)(X[i], Y[i]);
         local_PRE_AFFINE[i].o = (float4)(O[i], 0.0f, 0.0f);
@@ -2397,8 +2403,7 @@ __kernel void flam3cl(
     
     // OUT
     vstore3((float3)(mem, 0.0f), gid, P);
-    vstore(PSCL * a, gid, PSCALE);
-    vstore(clr, gid, COLOR);
-    vstore(a, gid, ALPHA);
-    
+    ALPHA[gid]  = a;
+    COLOR[gid]  = clr;
+    PSCALE[gid] = PSCL;
 }
