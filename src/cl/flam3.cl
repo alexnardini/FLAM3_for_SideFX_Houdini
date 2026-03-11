@@ -523,9 +523,9 @@ static float2 CL_V_HORSESHOE(__private const float2 in,
 
     r = w / Zeps(SQRT(in));
 
-    return (float2)(
-        (xx - yy) * r,
-        (2.0f * xy) * r
+    return r * (float2)(
+        (xx - yy),
+        (2.0f * xy)
     );
 }
 // ----------------------------
@@ -602,7 +602,7 @@ static float2 CL_V_DISC(__private const float2 in,
     float a, r, sr, cr;
 
     a  = ATAN(in) * M_1_PI;
-    r = SQRT(in) * M_PI;
+    r  = SQRT(in) * M_PI;
     sincos_fast(r, &sr, &cr);
 
     float wa = w * a;
@@ -703,7 +703,11 @@ static float2 CL_V_JULIA(__private const float2 in,
 
     a = 0.5 * ATAN(in);
     a += select(0.0f, (float)M_PI, rng_next_float(state) < 0.5f);
+#if USE_NATIVE
+    r = w * native_sqrt(SQRT(in));
+#else
     r = w * sqrt(SQRT(in));
+#endif
     sincos_fast(a, &sa, &ca);
 
     return r * (float2)(ca, sa);
@@ -898,9 +902,15 @@ static float2 CL_V_CYLINDER(__private const float2 in,
                             )
 {
 #if USE_NATIVE
-    return w * (float2)(native_sin(in.x), in.y);
+    return w * (float2)(
+        native_sin(in.x), 
+        in.y
+    );
 #else
-    return w * (float2)(sin(in.x), in.y);
+    return w * (float2)(
+        sin(in.x), 
+        in.y
+    );
 #endif
 }
 // ----------------------------
@@ -1200,9 +1210,9 @@ static float2 CL_V_RECTANGLES(__private const float2 in,
     m = (2.0f * floor(in * invr) + 1.0f) * rectangles - in;
 #endif
 
-    return select(
-        w * m, 
-        w * in, 
+    return w * select(
+        m, 
+        in, 
         rectangles == 0.0f
     );
 }
@@ -1419,7 +1429,7 @@ static float2 CL_V_CROSS(__private const float2 in,
     float r, inxy;
 
     inxy = (in.x - in.y) * (in.x + in.y);
-    r = select(w / Zeps(inxy), w / Zeps(fabs(inxy)), F3C);
+    r = w / select(Zeps(inxy), Zeps(fabs(inxy)), F3C);
 
     return r * in;
 }
@@ -1455,6 +1465,9 @@ static float2 CL_V_SUPERSHAPE(__private const float2 in,
 {
     float _SQRT, theta, st, ct, t, r, ss_pm_4, ss_pneg1_n1;
 
+    // TO DO: compute in vex land
+    // I did but made no difference and I prefer to keep it here
+    // so the wrangle core node in Houdini's land remain more performant.
     ss_pm_4 = supershape.x * 0.25f;
     ss_pneg1_n1 = -1.0f / supershape_n.x;
     float inv_sy = 1.0f - supershape.y;
@@ -1557,7 +1570,7 @@ static float2 CL_V_BENT2(__private const float2 in,
 return w * r;
 }
 // ----------------------------
-// 053 VAR BIPOLAR - The most expensive so far due to: atan2()
+// 053 VAR BIPOLAR - The most expensive so far
 // ----------------------------
 static float2 CL_V_BIPOLAR(__private const float2 in, 
                         __private const float w, 
@@ -1572,7 +1585,7 @@ static float2 CL_V_BIPOLAR(__private const float2 in,
     ps = -M_PI_2 * shift;
 
     y = 0.5f * atan2(2.0f * in.y, x2y2 - 1.0f) + ps;
-
+    // 
 #if USE_NATIVE
     if (y > M_PI_2)
         y = -M_PI_2 + (y + M_PI_2) - M_PI * floor((y + M_PI_2) * native_recip(M_PI));
@@ -1666,7 +1679,7 @@ static float2 CL_V_BUTTERFLY(__private const float2 in,
     return r * (float2)(in.x, y2);
 }
 // ----------------------------
-// 056 VAR BIPOLAR
+// 056 VAR CELL
 // ----------------------------
 static float2 CL_V_CELL(__private const float2 in, 
                         __private const float w, 
@@ -2413,10 +2426,16 @@ static float2 CL_V_TAN(__private const float2 in,
 
     #if USE_NATIVE
         den = w / Zeps(native_cos(xy.x) + cosh(xy.y));
-        return den * (float2)(native_sin(xy.x), sinh(xy.y));
+        return den * (float2)(
+            native_sin(xy.x), 
+            sinh(xy.y)
+        );
     #else
         den = w / Zeps(cos(xy.x) + cosh(xy.y));
-        return den * (float2)(sin(xy.x), sinh(xy.y));
+        return den * (float2)(
+            sin(xy.x), 
+            sinh(xy.y)
+        );
     #endif
     }
 }
@@ -2442,7 +2461,10 @@ static float2 CL_V_SEC(__private const float2 in,
     den = w * (2.0f / Zeps(cos(xy2.x) + cosh(xy2.y)));
 #endif
 
-    return den * (float2)(seccos * seccosh, secsin * secsinh);
+    return den * (float2)(
+        seccos * seccosh, 
+        secsin * secsinh
+    );
 }
 // ----------------------------
 // 086 VAR CSC
@@ -2630,6 +2652,111 @@ static float2 CL_V_COTH(__private const float2 in,
 
     return den * (float2)(cothsinh, cothsin);
 }
+// ----------------------------
+// 094 VAR AUGER
+// ----------------------------
+static float2 CL_V_AUGER(__private const float2 in, 
+                    __private const float w, 
+                    __private const float4 auger    // frequency, scale, symmetry, weight
+                    )
+{
+    float s, t, dy, dx;
+
+    float m_HalfScale = auger.y / 2.0f;
+    float2 sta = auger.x * in;
+#if USE_NATIVE
+    s = native_sin(sta.x);
+    t = native_sin(sta.y);
+#else
+    s = sin(sta.x);
+    t = sin(sta.y);
+#endif
+    dx = in.x + auger.w * (m_HalfScale * t + fabs(in.x) * t);
+    dy = in.y + auger.w * (m_HalfScale * s + fabs(in.y) * s);
+
+    return w * (float2)((
+        in.x + auger.z * (dx - in.x)), 
+        dy
+    );
+}
+// ----------------------------
+// 095 VAR FLUX
+// ----------------------------
+static float2 CL_V_FLUX(__private const float2 in, 
+                        __private const float w, 
+                        __private const float spread    // spread
+                        )
+{
+    float r1, r2, xpw, xmw, avgr, avga, sa, ca;
+
+    xpw = in.x + w;
+    xmw = in.x - w;
+
+    float iny2 = in.y * in.y;
+    r1 = iny2 + xpw * xpw;
+    r2 = iny2 + xmw * xmw;
+
+#if USE_NATIVE
+    avgr = w * (2.0f + spread) * native_sqrt(native_sqrt(r1)) * native_rsqrt(native_sqrt(r2));
+#else
+    avgr = w * (2.0f + spread) * sqrt(sqrt(r1)) * rsqrt(sqrt(r2));
+#endif
+    avga = 0.5f * (atan2(in.y, xmw) - atan2(in.y, xpw));
+
+    sincos_fast(avga, &sa, &ca);
+
+    return avgr * (float2)(ca, sa);
+}
+// ----------------------------
+// 096 VAR MOBIUS
+// ----------------------------
+static float2 CL_V_MOBIUS(__private const float2 in, 
+                        __private const float w, 
+                        __private const float4 re,  // reA, reB, reC, reD -> real
+                        __private const float4 im   // imA, imB, imC, imD -> imaginary
+                        )
+{
+    float reu, imu, rev, imv, inv;
+
+    reu = re.x * in.x - im.x * in.y + re.y;
+    imu = re.x * in.y + im.x * in.x + im.y;
+
+    rev = re.z * in.x - im.z * in.y + re.w;
+    imv = re.z * in.y + im.z * in.x + im.w;
+
+#if USE_NATIVE
+    inv = native_rsqrt(rev*rev + imv*imv);
+#else
+    inv = rsqrt(rev*rev + imv*imv);
+#endif
+    inv *= inv;
+    inv *= w;
+
+    return inv * (float2)(
+        reu * rev + imu * imv,
+        imu * rev - reu * imv
+    );
+}
+
+
+
+
+
+// ----------------------------
+// 100 VAR HEMISPHERE
+// ----------------------------
+static float2 CL_V_HEMISPHERE(__private const float2 in, 
+                            __private const float w 
+                            )
+{
+#if USE_NATIVE
+    float t = w * native_rsqrt(SUMSQ(in) + 1.0f);
+#else
+    float t = w * rsqrt(SUMSQ(in) + 1.0f);
+#endif
+
+    return t * in;
+}
 
 
 
@@ -2771,8 +2898,12 @@ static float2 CL_V_DISPATCH(
         case 91:    return CL_V_SECH(in, w, F3C);
         case 92:    return CL_V_CSCH(in, w, F3C);
         case 93:    return CL_V_COTH(in, w, F3C);
+        case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
+        case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
+        case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
 
 
+        case 100:    return CL_V_HEMISPHERE(in, w);
 
         case 103:    return CL_V_UNPOLAR(in, w);
 
