@@ -1962,15 +1962,14 @@ static float2 CL_V_PREBLUR(__private const float w,
                         )
 {
     float rnd1, rndA, rndG, sa, ca;
-
-    rnd1 = rng_next_float(state);
-    rndG = w * (rnd1 + 
+    
+    rndA = rng_next_float(state) * M_TAU;
+    rndG = w * (rng_next_float(state) + 
                 rng_next_float(state) + 
                 rng_next_float(state) + 
                 rng_next_float(state) - 
                 2.0f
                 );
-    rndA = rnd1 * M_TAU;
     sincos_fast(rndA, &sa, &ca);
 
     return rndG * (float2)(ca, sa);
