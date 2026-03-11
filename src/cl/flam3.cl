@@ -2214,7 +2214,7 @@ static float2 CL_V_WEDGEJULIA(__private const float2 in,
                             __private const float4 wedgejulia   // power, angle, dist, count
                             )
 {
-    float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, aa, cc, sa, ca;
+    float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, a, cc, sa, ca;
 
     // precalc
     wedgeJulia_cf = 1.0 - wedgejulia.y * wedgejulia.w * M_1_2PI;
@@ -2227,20 +2227,121 @@ static float2 CL_V_WEDGEJULIA(__private const float2 in,
     rr = w * powr(SUMSQ(in), wedgeJulia_cn);
 #endif
     t_rnd = (int)((wedgeJulia_rN) * rng_next_float(state));
-    aa = (ATANYX(in) + M_TAU * t_rnd) / wedgejulia.x;
+    a = (ATANYX(in) + M_TAU * t_rnd) / wedgejulia.x;
 #if USE_FMA
-    float tmp = fma(wedgejulia.w, aa, (float)M_PI) * M_1_2PI;
+    float tmp = fma(wedgejulia.w, a, (float)M_PI) * M_1_2PI;
     cc = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
 #else
     cc = floor( (wedgejulia.w * aa + M_PI) * M_1_2PI );
 #endif
-    aa = aa * wedgeJulia_cf + cc * wedgejulia.y;
-    sincos_fast(aa, &sa, &ca);
+    a = a * wedgeJulia_cf + cc * wedgejulia.y;
+    sincos_fast(a, &sa, &ca);
 
     return rr * (float2)(ca, sa);
 }
+// ----------------------------
+// 077 VAR WEDGESPH
+// ----------------------------
+static float2 CL_V_WEDGESPH(__private const float2 in, 
+                            __private const float w, 
+                            __private const float4 wedgesph // swirl, angle, hole, count
+                            )
+{
+    float r, a, cc, comp_fac, sa, ca;
 
+#if USE_NATIVE
+    r = native_recip(Zeps(SQRT(in)));
+#else
+    r = 1.0f / Zeps(SQRT(in));
+#endif
+    a = ATANYX(in) + wedgesph.x * r;
+#if USE_FMA
+    float tmp = fma(wedgesph.w, a, (float)M_PI) * M_1_2PI;
+    cc = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
+#else
+    cc = floor( (wedgesph.w * a + M_PI) * M_1_2PI );
+#endif
+    comp_fac = 1.0f - wedgesph.y * wedgesph.w * M_1_2PI;
+#if USE_FMA
+    a = fma(a, comp_fac, cc * wedgesph.y);
+#else
+    a = a * comp_fac + cc * wedgesph.y;
+#endif
+    sincos_fast(a, &sa, &ca);
+    r = w * (r + wedgesph.z);
 
+    return r * (float2)(ca, sa);
+}
+// ----------------------------
+// 078 VAR WHORL
+// ----------------------------
+static float2 CL_V_WHORL(__private const float2 in, 
+                        __private const float w, 
+                        __private const float2 whorl    // inside, outside
+                        )
+{
+    float r, a, sa, ca;
+
+    r = SQRT(in);
+    float2 Owmr = whorl / (w - r);
+    float base = ATANYX(in);
+    a = base + select(Owmr.y, Owmr.x, r < w);
+    sincos_fast(a, &sa, &ca);
+    
+    return w * r * (float2)(ca, sa);
+}
+// ----------------------------
+// 079 VAR WAVES2
+// ----------------------------
+static float2 CL_V_WAVES2(__private const float2 in, 
+                        __private const float w, 
+                        __private const float2 scl,     // scale x, scale y
+                        __private const float2 freq     // frequency x, frequency y
+                        )
+{
+#if USE_NATIVE
+    return w * (in + scl * native_sin(in.yx * freq));
+#else
+    return w * (in + scl * sin(in.yx * freq));
+#endif
+}
+// ----------------------------
+// 080 VAR EXP
+// ----------------------------
+static float2 CL_V_EXP(__private const float2 in, 
+                    __private const float w
+                    )
+{
+    float expe, sy, cy;
+
+#if USE_NATIVE
+    expe = w * native_exp(in.x);
+#else
+    expe = w * exp(in.x);
+#endif
+    sincos_fast(in.y, &sy, &cy);
+
+    return expe * (float2)(cy, sy);
+}
+// ----------------------------
+// 081 VAR LOG
+// ----------------------------
+static float2 CL_V_LOG(__private const float2 in, 
+                    __private const float w
+                    )
+{
+#if USE_NATIVE
+    return w * (float2)(
+        0.5 * native_log(SUMSQ(in)), 
+        ATANYX(in)
+    );
+#else
+    return w * (float2)(
+        0.5 * log(SUMSQ(in)), 
+        ATANYX(in)
+    );
+#endif
+}
 
 
 // ----------------------------
@@ -2364,6 +2465,11 @@ static float2 CL_V_DISPATCH(
         case 74:    return CL_V_STRIPES(in, w, PRM_F2[PRM_F2_IDX_STRIPES]);
         case 75:    return CL_V_WEDGE(in, w, PRM_F4[PRM_F4_IDX_WEDGE]);
         case 76:    return CL_V_WEDGEJULIA(in, w, state, PRM_F4[PRM_F4_IDX_WEDGEJULIA]);
+        case 77:    return CL_V_WEDGESPH(in, w, PRM_F4[PRM_F4_IDX_WEDGESPH]);
+        case 78:    return CL_V_WHORL(in, w, PRM_F2[PRM_F2_IDX_WHORL]);
+        case 79:    return CL_V_WAVES2(in, w, PRM_F2[PRM_F2_IDX_WAVES2SCALE], PRM_F2[PRM_F2_IDX_WAVES2FREQ]);
+        case 80:    return CL_V_EXP(in, w);
+        case 81:    return CL_V_LOG(in, w);
 
 
 
