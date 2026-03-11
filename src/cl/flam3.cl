@@ -111,6 +111,11 @@ enum {
     // PRM F4 precalc  
     PRM_F4_IDX_NGON_PRECALC     = 10,   // cpower, csides, csidesinv, unusued(1.0)
 
+    // ----------------------------
+    // PRM FF RES  
+    // ----------------------------
+    FF_PRM_RES                  = 2,
+
 };
 
 
@@ -912,8 +917,7 @@ static float2 CL_V_EYEFISH(__private const float2 in,
 // ----------------------------
 // 026 VAR BLUR
 // ----------------------------
-static float2 CL_V_BLUR(__private const float2 in, 
-                        __private const float w, 
+static float2 CL_V_BLUR(__private const float w, 
                         __private x128_state_t* state
                         )
 {
@@ -1018,7 +1022,7 @@ static float2 CL_V_BLOB(__private const float2 in,
                         __private const float4 blob // low high wave unused
                         )
 {
-    float _SQRT, low, high, wave, blob_coeff, rr, aa, bdiff;
+    float _SQRT, low, high, wave, blob_coeff, r, aa, bdiff;
 
     _SQRT = SQRT(in);
     float2 precalc = in / _SQRT;
@@ -1026,12 +1030,12 @@ static float2 CL_V_BLOB(__private const float2 in,
     aa = ATAN(in);
     bdiff = blob.y - blob.x;
 #if USE_NATIVE
-    rr = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * native_sin(blob.z * aa)));
+    r = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * native_sin(blob.z * aa)));
 #else
-    rr = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * sin(blob.z * aa)));
+    r = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * sin(blob.z * aa)));
 #endif
 
-    float wrr = w * rr;
+    float wrr = w * r;
 
     return wrr * precalc;
 }
@@ -1045,7 +1049,7 @@ static float2 CL_V_JULIAN(__private const float2 in,
                         )
 {
     int t_rnd;
-    float inv_jx, julian_cn, rr, tmpr, sa, ca;
+    float inv_jx, julian_cn, r, tmpr, sa, ca;
 
 #if USE_NATIVE
     inv_jx = native_recip(julian.x);
@@ -1060,14 +1064,14 @@ static float2 CL_V_JULIAN(__private const float2 in,
     t_rnd = (int)(julian.x * rng_next_float(state));
     tmpr = (a + M_TAU * t_rnd) * inv_jx;
 #if USE_NATIVE
-    rr = w * native_powr(r2, julian_cn);
+    r = w * native_powr(r2, julian_cn);
 #else
-    rr = w * powr(r2, julian_cn);
+    r = w * powr(r2, julian_cn);
 #endif
 
     sincos_fast(tmpr, &sa, &ca);
 
-    return rr * (float2)(ca, sa);
+    return r * (float2)(ca, sa);
 }
 // ----------------------------
 // 032 VAR JULIASCOPE
@@ -1079,7 +1083,7 @@ static float2 CL_V_JULIASCOPE(__private const float2 in,
                             )
 {
     int t_rnd;
-    float _ATANYX, julian_rN, sign, julian_cn, tmpr, rr, sa, ca;
+    float _ATANYX, julian_rN, sign, julian_cn, tmpr, r, sa, ca;
     
 #if USE_NATIVE
     float inv_jx = native_recip(juliascope.x);
@@ -1097,18 +1101,17 @@ static float2 CL_V_JULIASCOPE(__private const float2 in,
 
     sincos_fast(tmpr, &sa, &ca);
 #if USE_NATIVE
-    rr = w * native_powr(SUMSQ(in), julian_cn);
+    r = w * native_powr(SUMSQ(in), julian_cn);
 #else
-    rr = w * powr(SUMSQ(in), julian_cn);
+    r = w * powr(SUMSQ(in), julian_cn);
 #endif
 
-    return rr * (float2)(ca, sa);
+    return r * (float2)(ca, sa);
 }
 // ----------------------------
 // 033 VAR GAUSSIAN BLUR
 // ----------------------------
-static float2 CL_V_GAUSSIAN_BLUR(__private const float2 in, 
-                                __private const float w, 
+static float2 CL_V_GAUSSIAN_BLUR(__private const float w, 
                                 __private x128_state_t* state
                                 )
 {
@@ -1133,7 +1136,7 @@ static float2 CL_V_FAN2(__private const float2 in,
                         __private const float2 fan2 // x y
                         )
 {
-    float dx, dx2, inv_dx, a, r, ady, tt, sa, ca;
+    float dx, dx2, inv_dx, a, r, ady, t, sa, ca;
 
     dx  = M_PI_F * Zeps(fan2.x * fan2.x);
     dx2 = 0.5f * dx;
@@ -1151,8 +1154,8 @@ static float2 CL_V_FAN2(__private const float2 in,
 #endif
 
     ady = a + fan2.y;
-    tt = ady - dx * (int)(ady * inv_dx);
-    a += dx2 * (1.0f - 2.0f * step(dx2, tt));
+    t = ady - dx * (int)(ady * inv_dx);
+    a += dx2 * (1.0f - 2.0f * step(dx2, t));
 
     sincos_fast(a, &sa, &ca);
 
@@ -1166,16 +1169,16 @@ static float2 CL_V_RINGS2(__private const float2 in,
                         __private const float rings2val // value
                         )
 {
-    float _SQRT, rr, dx;
+    float _SQRT, r, dx;
     int nrand;
 
     _SQRT = SQRT(in);
     float2 precalc = in / _SQRT;
-    rr = _SQRT;
+    r = _SQRT;
     dx = rings2val * rings2val;
-    rr += -2.0f * dx * (int)((rr + dx)/(2.0f * dx)) + rr * (1.0f - dx);
+    r += -2.0f * dx * (int)((r + dx)/(2.0f * dx)) + r * (1.0f - dx);
 
-    float wrr = w * rr;
+    float wrr = w * r;
 
     return wrr * precalc;
 }
@@ -1241,20 +1244,19 @@ static float2 CL_V_RADIALBLUR(__private const float2 in,
 // ----------------------------
 // 038 VAR PIE
 // ----------------------------
-static float2 CL_V_PIE(__private const float2 in, 
-                    __private const float w, 
+static float2 CL_V_PIE(__private const float w, 
                     __private x128_state_t* state, 
                     __private const float4 pie  // slices thickness rotation
                     )
 {
-    float a, rr, sa, ca, sl;
+    float a, r, sa, ca, sl;
 
     sl = (int)(rng_next_float(state) * pie.x);
     a = pie.z + M_TAU * (sl + rng_next_float(state) * pie.y) / pie.x;
-    rr = w * rng_next_float(state);
+    r = w * rng_next_float(state);
     sincos_fast(a, &sa, &ca);
 
-    return rr * (float2)(ca, sa);
+    return r * (float2)(ca, sa);
 }
 // ----------------------------
 // 039 VAR ARCH
@@ -1304,8 +1306,7 @@ static float2 CL_V_TANGENT(__private const float2 in,
 // ----------------------------
 // 041 VAR SQUARE
 // ----------------------------
-static float2 CL_V_SQUARE(__private const float2 in, 
-                        __private const float w, 
+static float2 CL_V_SQUARE(__private const float w, 
                         __private x128_state_t* state
                         )
 {
@@ -1364,10 +1365,10 @@ static float2 CL_V_SECANT2(__private const float2 in,
                         __private const float w
                         )
 {
-    float rr, sr, cr, icr;
+    float r, sr, cr, icr;
 
-    rr = w * SQRT(in);
-    sincos_fast(rr, &sr, &cr);
+    r = w * SQRT(in);
+    sincos_fast(r, &sr, &cr);
 #if USE_NATIVE
     icr = native_recip(cr);
 #else
@@ -1394,7 +1395,7 @@ static float2 CL_V_TWINTRIAN(__private const float2 in,
     ss = sr * sr;
 #if USE_NATIVE
     // diff = native_log10(ss) + cr;
-    diff = native_log(ss) * 0.4342944819f + cr;
+    diff = native_log(ss) * 0.434294481903251827651f + cr;
 #else
     diff = log10(ss) + cr;
 #endif
@@ -1452,7 +1453,7 @@ static float2 CL_V_SUPERSHAPE(__private const float2 in,
                             __private const float4 supershape_n // (F3) n1 n2 n3
                         )
 {
-    float _SQRT, theta, st, ct, tt, tt1, tt2, rr, ss_pm_4, ss_pneg1_n1;
+    float _SQRT, theta, st, ct, t, r, ss_pm_4, ss_pneg1_n1;
 
     ss_pm_4 = supershape.x * 0.25f;
     ss_pneg1_n1 = -1.0f / supershape_n.x;
@@ -1465,14 +1466,14 @@ static float2 CL_V_SUPERSHAPE(__private const float2 in,
     sincos_fast(theta, &st, &ct);
     float rnd = supershape.y * rng_next_float(state) + inv_sy * _SQRT - supershape.z;
 #if USE_NATIVE
-    tt = native_powr(fabs(ct), supershape_n.y) + native_powr(fabs(st), supershape_n.z);
-    rr = w * rnd * native_powr(tt, ss_pneg1_n1) * inv_sqrt;
+    t = native_powr(fabs(ct), supershape_n.y) + native_powr(fabs(st), supershape_n.z);
+    r = w * rnd * native_powr(t, ss_pneg1_n1) * inv_sqrt;
 #else
-    tt = powr(fabs(ct), supershape_n.y) + powr(fabs(st), supershape_n.z);
-    rr = w * rnd * powr(tt, ss_pneg1_n1) * inv_sqrt;
+    t = powr(fabs(ct), supershape_n.y) + powr(fabs(st), supershape_n.z);
+    r = w * rnd * powr(t, ss_pneg1_n1) * inv_sqrt;
 #endif
 
-    return rr * in;
+    return r * in;
 }
 // ----------------------------
 // 049 VAR FLOWER
@@ -1744,18 +1745,18 @@ static float2 CL_V_EDISC(__private const float2 in,
                         __private const float w
                         )
 {
-    float tmp, tmp2, rr1, rr2, xmax, aa1, aa2, ww, snv, csv, snhu, cshu;
+    float tmp, tmp2, r1, r2, xmax, aa1, aa2, ww, snv, csv, snhu, cshu;
 
     tmp  = SUMSQ(in) + 1.0f;
     tmp2 = 2.0f * in.x;
 #if USE_NATIVE
-    rr1 = native_sqrt(tmp + tmp2);
-    rr2 = native_sqrt(tmp - tmp2);
+    r1 = native_sqrt(tmp + tmp2);
+    r2 = native_sqrt(tmp - tmp2);
 #else
-    rr1 = sqrt(tmp + tmp2);
-    rr2 = sqrt(tmp - tmp2);
+    r1 = sqrt(tmp + tmp2);
+    r2 = sqrt(tmp - tmp2);
 #endif
-    xmax = Zeps((rr1 + rr2) * 0.5f);
+    xmax = Zeps((r1 + r2) * 0.5f);
 #if USE_NATIVE
     float t = native_sqrt(xmax - 1.0f);
     aa1 = native_log(xmax + t);
@@ -1764,7 +1765,7 @@ static float2 CL_V_EDISC(__private const float2 in,
     aa1 = log(xmax + t);
 #endif
     aa2 = -acos(in.x / xmax);
-    ww = w * 0.08642783653f; // precomputed 1/11.57034632
+    ww = w * 0.086424247393025485907f;  // precomputed 1/11.57034632
 
     sincos_fast(aa1, &snv, &csv);
 
@@ -1937,17 +1938,17 @@ static float2 CL_V_LOONIE( __private const float2 in,
                         __private const float w
                         )
 {
-    float rr, rr2, w2;
+    float r, r2, w2;
 
-    rr2 = SUMSQ(in);
+    r2 = SUMSQ(in);
     w2 = w * w;
-    if(rr2 < w2){
+    if(r2 < w2){
 #if USE_NATIVE
-        rr = w * native_sqrt(w2 / rr2 - 1.0f);
+        r = w * native_sqrt(w2 / r2 - 1.0f);
 #else
-        rr = w * sqrt(w2 / rr2 - 1.0f);
+        r = w * sqrt(w2 / r2 - 1.0f);
 #endif
-        return rr * in;
+        return r * in;
     }
     else{
         return w * in;
@@ -1998,7 +1999,7 @@ static float2 CL_V_OSCOPE( __private const float2 in,
                         __private const float4 oscope   // frequency, amplitude, damping, separation
                         )
 {
-    float tpf, absx, cosval, decay, tt, cond;
+    float tpf, absx, cosval, decay, t, cond;
 
     tpf = M_TAU * oscope.x;
     absx = fabs(in.x);
@@ -2009,12 +2010,12 @@ static float2 CL_V_OSCOPE( __private const float2 in,
     cosval = cos(tpf * in.x);
     decay = (oscope.z == 0.0f) ? 1.0f : exp(-absx * oscope.z);
 #endif
-    tt = oscope.y * decay * cosval + oscope.w;
+    t = oscope.y * decay * cosval + oscope.w;
 
     float2 flipped = w * (float2)(in.x, -in.y);
     float2 normal  = w * in;
 
-    cond = (fabs(in.y) <= tt) ? 1.0f : 0.0f; 
+    cond = (fabs(in.y) <= t) ? 1.0f : 0.0f; 
     return normal * (1.0f - cond) + flipped * cond;
 }
 // ----------------------------
@@ -2061,18 +2062,18 @@ static float2 CL_V_SCRY(__private const float2 in,
                         __private const float w
                         )
 {
-    float tt, rr;
+    float t, r;
 
-    tt = SUMSQ(in);
+    t = SUMSQ(in);
 #if USE_NATIVE
-    float val = (SQRT(in) * (tt + native_recip(Zeps(w))));
-    rr = native_recip(val);
+    float val = (SQRT(in) * (t + native_recip(Zeps(w))));
+    r = native_recip(val);
 #else
-    float val = (SQRT(in) * (tt + 1.0f / Zeps(w)));
-    rr = 1.0f / val;
+    float val = (SQRT(in) * (t + 1.0f / Zeps(w)));
+    r = 1.0f / val;
 #endif
 
-    return rr * in;
+    return r * in;
 }
 // ----------------------------
 // 071 VAR SEPARATION
@@ -2114,8 +2115,8 @@ static float2 CL_V_SPLIT(__private const float2 in,
 #if USE_NATIVE
     float2 scaled, t, t2, cos_approx, eps, mask;
 
-    scaled = in * split * 3.14159265f;
-    t = fmod(scaled, 2.0f * 3.14159265f);
+    scaled = in * split * 3.141592653589793238462f;
+    t = fmod(scaled, 2.0f * 3.141592653589793238462f);
     t2 = t * t;
     cos_approx = 1.0f + 
                 t2 * (-0.5f + 
@@ -2341,13 +2342,170 @@ static float2 CL_V_LOG(__private const float2 in,
     );
 #endif
 }
+// ----------------------------
+// 082 VAR SIN
+// ----------------------------
+static float2 CL_V_SIN(__private const float2 in, 
+                    __private const float w, 
+                    __private const int F3C
+                    )
+{
+    float2 xy = in * (F3C ? 1.0f : (float)M_PI_2);
+
+    #if USE_NATIVE
+    return w * (float2)(
+        native_sin(xy.x) * cosh(xy.y),
+        native_cos(xy.x) * sinh(xy.y)
+    );
+    #else
+    return w * (float2)(
+        sin(xy.x) * cosh(xy.y),
+        cos(xy.x) * sinh(xy.y)
+    );
+    #endif
+}
+// ----------------------------
+// 083 VAR COS
+// ----------------------------
+static float2 CL_V_COS(__private const float2 in, 
+                    __private const float w, 
+                    __private const int F3C
+                    )
+{
+    float2 xy = in * (F3C ? 1.0f : (float)M_PI_2);
+
+    #if USE_NATIVE
+    return w * (float2)(
+        native_cos(xy.x)  * cosh(xy.y),
+        -native_sin(xy.x) * sinh(xy.y)
+    );
+    #else
+    return w * (float2)(
+        cos(xy.x)  * cosh(xy.y),
+        -sin(xy.x) * sinh(xy.y)
+    );
+    #endif
+}
+// ----------------------------
+// 084 VAR TAN
+// ----------------------------
+static float2 CL_V_TAN(__private const float2 in, 
+                    __private const float w, 
+                    __private const int F3C
+                    )
+{
+    float tansin, tancos, tansinh, tancosh, den;
+
+    if(F3C){
+        sincos_fast(2.0f * in.x, &tansin, &tancos);
+        float iny2 = 2.0f * in.y;
+        tansinh = sinh(iny2);
+        tancosh = cosh(iny2);
+    #if USE_NATIVE
+        den = w * native_recip(Zeps(tancos + tancosh));
+    #else
+        den = w / Zeps(tancos + tancosh);
+    #endif
+        return den * (float2)(tansin, tansinh);
+    }
+    else{
+        float2 xy = in * (float)M_PI_2;
+
+    #if USE_NATIVE
+        den = w / Zeps(native_cos(xy.x) + cosh(xy.y));
+        return den * (float2)(native_sin(xy.x), sinh(xy.y));
+    #else
+        den = w / Zeps(cos(xy.x) + cosh(xy.y));
+        return den * (float2)(sin(xy.x), sinh(xy.y));
+    #endif
+    }
+}
+// ----------------------------
+// 085 VAR SEC
+// ----------------------------
+static float2 CL_V_SEC(__private const float2 in, 
+                    __private const float w, 
+                    __private const int F3C
+                    )
+{
+    float secsin, seccos, secsinh, seccosh, den;
+
+    if(F3C){
+        sincos_fast(in.x, &secsin, &seccos);
+        secsinh = sinh(in.y);
+        seccosh = cosh(in.y);
+        float2 xy2 = in * 2.0f;
+    #if USE_NATIVE
+        den = w * (2.0f / Zeps(native_cos(xy2.x) + cosh(xy2.y)));
+    #else
+        den = w * (2.0f / Zeps(cos(xy2.x) + cosh(xy2.y)));
+    #endif
+
+    return den * (float2)(seccos * seccosh, secsin * secsinh);
+    }
+    else{
+        float2 xy = in * (float)M_PI;
+        float2 xy2 = xy * 2.0f;
+        sincos_fast(xy.x, &secsin, &seccos);
+        secsinh = sinh(xy.y);
+        seccosh = cosh(xy.y);
+    #if USE_NATIVE
+        den = w * (2.0f / Zeps(native_cos(xy2.x) + cosh(xy2.y)));
+    #else
+        den = w * (2.0f / Zeps(cos(xy2.x) + cosh(xy2.y)));
+    #endif
+
+        return den * (float2)(seccos * seccosh, secsin * secsinh); 
+    }
+}
+// ----------------------------
+// 086 VAR CSC
+// ----------------------------
+static float2 CL_V_CSC(__private const float2 in, 
+                    __private const float w, 
+                    __private const int F3C
+                    )
+{
+    float cscsin, csccos, cscsinh, csccosh, den;
+
+    if(F3C){
+        sincos_fast(in.x, &cscsin, &csccos);
+        cscsinh = sinh(in.y);
+        csccosh = cosh(in.y);
+        float2 xy2 = in * 2.0f;
+    #if USE_NATIVE
+        den = w * 2.0f / Zeps(cosh(xy2.y) - native_cos(xy2.x));
+    #else
+        den = w * 2.0f / Zeps(cosh(xy2.y) - cos(xy2.x));
+    #endif
+
+        return den * (float2)(cscsin * csccosh, -csccos * cscsinh);
+    }
+    else{
+        float d;
+        float2 xy = in * (float)M_PI_2;
+        float2 xy2 = xy * 2.0f;
+        sincos_fast(xy.x, &cscsin, &csccos);
+        cscsinh = sinh(xy.y);
+        csccosh = cosh(xy.y);
+    #if USE_NATIVE
+        den = w * 2.0f / Zeps(cosh(xy2.y) - native_cos(xy2.x));
+    #else
+        den = w * 2.0f / Zeps(cosh(xy2.y) - cos(xy2.x));
+    #endif
+
+        return den * (float2)(cscsin * csccosh, csccos * cscsinh);
+    }
+}
+
+
 
 
 // ----------------------------
 // 103 VAR UNPOLAR
 // ----------------------------
 static float2 CL_V_UNPOLAR(__private const float2 in, 
-                        __private const float w
+                        __private const float w 
                         )
 {
     float m_Vvar2, r, sa, ca;
@@ -2372,17 +2530,17 @@ static float2 CL_V_UNPOLAR(__private const float2 in,
 // ----------------------------
 
 static float2 CL_V_DISPATCH(
-    __private const int type, 
-    __private const float2 in, 
-    __private const float w, 
-    __private const float2 y,
-    __private const float2 o, 
-    __private const int F3C, 
+    __private const int     type, 
+    __private const float2  in, 
+    __private const float   w, 
+    __private const float2  y,
+    __private const float2  o, 
+    __private const int     F3C, 
     __private x128_state_t* state, 
-    __local const float* PRM_F, 
-    __local const float2* PRM_F2, 
-    __local const float4* PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
-    __local const float4* PRM_F4 
+    __local const float*    PRM_F, 
+    __local const float2*   PRM_F2, 
+    __local const float4*   PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
+    __local const float4*   PRM_F4 
     )
 {
     switch(type)
@@ -2413,22 +2571,22 @@ static float2 CL_V_DISPATCH(
         case 23:    return CL_V_BUBBLE(in, w);
         case 24:    return CL_V_CYLINDER(in, w);
         case 25:    return CL_V_EYEFISH(in, w);
-        case 26:    return CL_V_BLUR(in, w, state);
+        case 26:    return CL_V_BLUR(w, state);
         case 27:    return CL_V_CURL(in, w, PRM_F2[PRM_F2_IDX_CURL]);
         case 28:    return CL_V_NGON(in, w, PRM_F4[PRM_F4_IDX_NGON], PRM_F4[PRM_F4_IDX_NGON_PRECALC]);
         case 29:    return CL_V_PDJ(in, w, PRM_F4[PRM_F4_IDX_PDJW]);
         case 30:    return CL_V_BLOB(in, w, PRM_F3[PRM_F3_IDX_BLOB]);
         case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
         case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
-        case 33:    return CL_V_GAUSSIAN_BLUR(in, w, state);
+        case 33:    return CL_V_GAUSSIAN_BLUR(w, state);
         case 34:    return CL_V_FAN2(in, w, PRM_F2[PRM_F2_IDX_FAN2]);
         case 35:    return CL_V_RINGS2(in, w, PRM_F[PRM_F_IDX_RINGS2VAL]);
         case 36:    return CL_V_RECTANGLES(in, w, PRM_F2[PRM_F2_IDX_RECTANGLES]);
         case 37:    return CL_V_RADIALBLUR(in, w, state, PRM_F[PRM_F_IDX_RADIALBLUR]);
-        case 38:    return CL_V_PIE(in, w, state, PRM_F3[PRM_F3_IDX_PIE]);
+        case 38:    return CL_V_PIE(w, state, PRM_F3[PRM_F3_IDX_PIE]);
         case 39:    return CL_V_ARCH(in, w, state);
         case 40:    return CL_V_TANGENT(in, w);
-        case 41:    return CL_V_SQUARE(in, w, state);
+        case 41:    return CL_V_SQUARE(w, state);
         case 42:    return CL_V_RAYS(in, w, state);
         case 43:    return CL_V_BLADE(in, w, state);
         case 44:    return CL_V_SECANT2(in, w);
@@ -2469,6 +2627,11 @@ static float2 CL_V_DISPATCH(
         case 79:    return CL_V_WAVES2(in, w, PRM_F2[PRM_F2_IDX_WAVES2SCALE], PRM_F2[PRM_F2_IDX_WAVES2FREQ]);
         case 80:    return CL_V_EXP(in, w);
         case 81:    return CL_V_LOG(in, w);
+        case 82:    return CL_V_SIN(in, w, F3C);
+        case 83:    return CL_V_COS(in, w, F3C);
+        case 84:    return CL_V_TAN(in, w, F3C);
+        case 85:    return CL_V_SEC(in, w, F3C);
+        case 86:    return CL_V_CSC(in, w, F3C);
 
 
 
