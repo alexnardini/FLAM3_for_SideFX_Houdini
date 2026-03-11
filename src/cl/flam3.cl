@@ -1178,9 +1178,9 @@ static float2 CL_V_RINGS2(__private const float2 in,
     dx = rings2val * rings2val;
     r += -2.0f * dx * (int)((r + dx)/(2.0f * dx)) + r * (1.0f - dx);
 
-    float wrr = w * r;
+    float wr = w * r;
 
-    return wrr * precalc;
+    return wr * precalc;
 }
 // ----------------------------
 // 036 VAR RECTANGLES
@@ -2430,33 +2430,19 @@ static float2 CL_V_SEC(__private const float2 in,
 {
     float secsin, seccos, secsinh, seccosh, den;
 
-    if(F3C){
-        sincos_fast(in.x, &secsin, &seccos);
-        secsinh = sinh(in.y);
-        seccosh = cosh(in.y);
-        float2 xy2 = in * 2.0f;
-    #if USE_NATIVE
-        den = w * (2.0f / Zeps(native_cos(xy2.x) + cosh(xy2.y)));
-    #else
-        den = w * (2.0f / Zeps(cos(xy2.x) + cosh(xy2.y)));
-    #endif
+    float2 xy = in * (F3C ? 1.0f : (float)M_PI);
+
+    sincos_fast(xy.x, &secsin, &seccos);
+    secsinh = sinh(xy.y);
+    seccosh = cosh(xy.y);
+    float2 xy2 = xy * 2.0f;
+#if USE_NATIVE
+    den = w * (2.0f / Zeps(native_cos(xy2.x) + cosh(xy2.y)));
+#else
+    den = w * (2.0f / Zeps(cos(xy2.x) + cosh(xy2.y)));
+#endif
 
     return den * (float2)(seccos * seccosh, secsin * secsinh);
-    }
-    else{
-        float2 xy = in * (float)M_PI;
-        float2 xy2 = xy * 2.0f;
-        sincos_fast(xy.x, &secsin, &seccos);
-        secsinh = sinh(xy.y);
-        seccosh = cosh(xy.y);
-    #if USE_NATIVE
-        den = w * (2.0f / Zeps(native_cos(xy2.x) + cosh(xy2.y)));
-    #else
-        den = w * (2.0f / Zeps(cos(xy2.x) + cosh(xy2.y)));
-    #endif
-
-        return den * (float2)(seccos * seccosh, secsin * secsinh); 
-    }
 }
 // ----------------------------
 // 086 VAR CSC
@@ -2468,36 +2454,182 @@ static float2 CL_V_CSC(__private const float2 in,
 {
     float cscsin, csccos, cscsinh, csccosh, den;
 
-    if(F3C){
-        sincos_fast(in.x, &cscsin, &csccos);
-        cscsinh = sinh(in.y);
-        csccosh = cosh(in.y);
-        float2 xy2 = in * 2.0f;
-    #if USE_NATIVE
-        den = w * 2.0f / Zeps(cosh(xy2.y) - native_cos(xy2.x));
-    #else
-        den = w * 2.0f / Zeps(cosh(xy2.y) - cos(xy2.x));
-    #endif
+    float2 xy = in * (F3C ? 1.0f : (float)M_PI_2);
 
-        return den * (float2)(cscsin * csccosh, -csccos * cscsinh);
-    }
-    else{
-        float d;
-        float2 xy = in * (float)M_PI_2;
-        float2 xy2 = xy * 2.0f;
-        sincos_fast(xy.x, &cscsin, &csccos);
-        cscsinh = sinh(xy.y);
-        csccosh = cosh(xy.y);
-    #if USE_NATIVE
-        den = w * 2.0f / Zeps(cosh(xy2.y) - native_cos(xy2.x));
-    #else
-        den = w * 2.0f / Zeps(cosh(xy2.y) - cos(xy2.x));
-    #endif
+    sincos_fast(xy.x, &cscsin, &csccos);
+    cscsinh = sinh(xy.y);
+    csccosh = cosh(xy.y);
+    float2 xy2 = xy * 2.0f;
+#if USE_NATIVE
+    den = w * 2.0f / Zeps(cosh(xy2.y) - native_cos(xy2.x));
+#else
+    den = w * 2.0f / Zeps(cosh(xy2.y) - cos(xy2.x));
+#endif
 
-        return den * (float2)(cscsin * csccosh, csccos * cscsinh);
-    }
+    float y_sign = F3C ? -1.0f : 1.0f;
+
+    return den * (float2)(
+        cscsin * csccosh, 
+        y_sign * csccos * cscsinh
+    );
 }
+// ----------------------------
+// 087 VAR COT
+// ----------------------------
+static float2 CL_V_COT(__private const float2 in, 
+                    __private const float w, 
+                    __private const int F3C
+                    )
+{
+    float cotsin, cotcos, cotsinh, cotcosh, den;
 
+    float2 xy = in * (F3C ? 2.0f : (float)M_PI_2);
+
+    sincos_fast(xy.x, &cotsin, &cotcos);
+    cotsinh = sinh(xy.y);
+    cotcosh = cosh(xy.y);
+    den = w / (cotcosh - cotcos);
+
+    float y_sign = F3C ? -1.0f : 1.0f;
+
+    return den * (float2)(
+        cotsin, 
+        y_sign * cotsinh);
+}
+// ----------------------------
+// 088 VAR SINH
+// ----------------------------
+static float2 CL_V_SINH(__private const float2 in, 
+                    __private const float w, 
+                    __private const int F3C
+                    )
+{
+    float sinhsin, sinhcos, sinhsinh, sinhcosh;
+
+    float2 xy = in * (F3C ? 1.0f : (float)M_PI_4);
+
+    sincos_fast(xy.y, &sinhsin, &sinhcos);
+    sinhsinh = sinh(xy.x);
+    sinhcosh = cosh(xy.x);
+
+    return w * (float2)(
+        sinhsinh * sinhcos, 
+        sinhcosh * sinhsin
+    );
+}
+// ----------------------------
+// 089 VAR COSH
+// ----------------------------
+static float2 CL_V_COSH(__private const float2 in, 
+                    __private const float w, 
+                    __private const int F3C
+                    )
+{
+    float coshsin, coshcos, coshsinh, coshcosh;
+
+    float2 xy = in * (F3C ? 1.0f : (float)M_PI_2);
+
+    sincos_fast(xy.y, &coshsin, &coshcos);
+    coshsinh = sinh(xy.x);
+    coshcosh = cosh(xy.x);
+
+    return w * (float2)(
+        coshcosh * coshcos, 
+        coshsinh * coshsin
+    );
+}
+// ----------------------------
+// 090 VAR TANH
+// ----------------------------
+static float2 CL_V_TANH(__private const float2 in, 
+                    __private const float w, 
+                    __private const int F3C
+                    )
+{
+    float tanhsin, tanhcos, tanhsinh, tanhcosh, den;
+
+    float2 xy = in * (F3C ? 2.0f : (float)M_PI_2);
+
+    sincos_fast(xy.y, &tanhsin, &tanhcos);
+    tanhsinh = sinh(xy.x);
+    tanhcosh = cosh(xy.x);
+    den = 1.0f / Zeps(tanhcos + tanhcosh);
+
+    return w * den * (float2)(tanhsinh, tanhsin);
+}
+// ----------------------------
+// 091 VAR TANH
+// ----------------------------
+static float2 CL_V_SECH(__private const float2 in, 
+                    __private const float w, 
+                    __private const int F3C
+                    )
+{
+    float sechsin, sechcos, sechsinh, sechcosh, den;
+
+    float2 xy = in * (F3C ? 1.0f : (float)M_PI_4);
+
+    sincos_fast(xy.y, &sechsin, &sechcos);
+    sechsinh = sinh(xy.x);
+    sechcosh = cosh(xy.x);
+
+    den = w * 2.0f / Zeps(cos(2.0f * xy.y) + cosh(2.0f * xy.x));
+
+    float y_sign = F3C ? -1.0f : 1.0f;
+
+    return den * (float2)(
+        sechcos * sechcosh, 
+        y_sign * sechsin * sechsinh
+    );
+}
+// ----------------------------
+// 092 VAR CSCH
+// ----------------------------
+static float2 CL_V_CSCH(__private const float2 in, 
+                    __private const float w, 
+                    __private const int F3C
+                    )
+{
+    float cschsin, cschcos, cschsinh, cschcosh, den;
+
+    float2 xy = in * (F3C ? 1.0f : (float)M_PI_4);
+
+    float2 in2 = 2.0f * xy;
+    sincos_fast(xy.y, &cschsin, &cschcos);
+    cschsinh = sinh(xy.x);
+    cschcosh = cosh(xy.x);
+#if USE_NATIVE
+    den = w * 2.0f / Zeps(cosh(in2.x) - native_cos(in2.y));
+#else
+    den = w * 2.0f / Zeps(cosh(in2.x) - cos(in2.y));
+#endif
+
+    float y_sign = F3C ? -1.0f : 1.0f;
+
+    return den * (float2)(
+        cschsinh * cschcos, 
+        y_sign * cschcosh * cschsin
+    );
+}
+// ----------------------------
+// 093 VAR COTH
+// ----------------------------
+static float2 CL_V_COTH(__private const float2 in, 
+                    __private const float w, 
+                    __private const int F3C
+                    )
+{
+    float cothsin, cothcos, cothsinh, cothcosh, den;
+
+    float2 xy = in * (F3C ? 2.0f : (float)M_PI_2);
+
+    sincos_fast(xy.y, &cothsin, &cothcos);
+    cothsinh = sinh(xy.x);
+    cothcosh = cosh(xy.x);
+    den = w / Zeps(cothcosh - cothcos);
+
+    return den * (float2)(cothsinh, cothsin);
+}
 
 
 
@@ -2632,6 +2764,13 @@ static float2 CL_V_DISPATCH(
         case 84:    return CL_V_TAN(in, w, F3C);
         case 85:    return CL_V_SEC(in, w, F3C);
         case 86:    return CL_V_CSC(in, w, F3C);
+        case 87:    return CL_V_COT(in, w, F3C);
+        case 88:    return CL_V_SINH(in, w, F3C);
+        case 89:    return CL_V_COSH(in, w, F3C);
+        case 90:    return CL_V_TANH(in, w, F3C);
+        case 91:    return CL_V_SECH(in, w, F3C);
+        case 92:    return CL_V_CSCH(in, w, F3C);
+        case 93:    return CL_V_COTH(in, w, F3C);
 
 
 
@@ -2899,7 +3038,7 @@ __kernel void flam3cl(
         
         // xform selection
         r = rng_next_float(&rng);
-        idx = (XS) ? sample_cdf_binary(&local_XST[idx * RES], RES, r) : sample_cdf_binary(local_IW, RES, r);
+        idx = XS ? sample_cdf_binary(&local_XST[idx * RES], RES, r) : sample_cdf_binary(local_IW, RES, r);
         
         // parameterics data
         __local float*  xf_prm_f  = &local_PRM_F[idx * PRM_NUM_F];
