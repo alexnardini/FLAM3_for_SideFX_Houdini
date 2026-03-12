@@ -400,8 +400,7 @@ static inline float SafeTan(const float x){
 
 static inline float Zeps(const float x) { return x + (x == 0) * EPS; }
 
-// static inline float sgn(const float n){ return (n < 0) ? -1 : (n > 0) ? 1 : 0; }
-static inline float sgn(const float n){ return (float)((0 < n) - (n < 0)); }
+static inline float sgn(const float n){ return (float)((0.0f < n) - (n < 0.0f)); }
 
 static inline float fmod_custom(const float a, const float b){ return a - trunc(a / b) * b; }
 
@@ -2229,7 +2228,9 @@ static float2 CL_V_WEDGEJULIA(__private const float2 in,
 {
     float wedgeJulia_cf, wedgeJulia_rN, wedgeJulia_cn, rr, t_rnd, a, cc, sa, ca;
 
-    // precalc
+    // TO DO: compute in vex land
+    // I did but made no difference and I prefer to keep it here
+    // so the wrangle core node in Houdini's land remain more performant.
     wedgeJulia_cf = 1.0 - wedgejulia.y * wedgejulia.w * M_1_2PI;
     wedgeJulia_rN = fabs(wedgejulia.x);
     wedgeJulia_cn = wedgejulia.z / wedgejulia.x / 2.0;
@@ -2737,11 +2738,147 @@ static float2 CL_V_MOBIUS(__private const float2 in,
         imu * rev - reu * imv
     );
 }
+// ----------------------------
+// 097 VAR CURVE
+// ----------------------------
+static float2 CL_V_CURVE(__private const float2 in, 
+                        __private const float w, 
+                        __private const int F3C,  
+                        __private const float2 lenght,      // lenght_x, lenght_y
+                        __private const float2 amplitude    // amplitude_x, amplitude_y
+                        )
+{
+    float lx, ly;
 
+    if(F3C){
+    #if USE_NATIVE
+		lx = native_recip(fmax((lenght.x * lenght.x), 1e-20f));
+		ly = native_recip(fmax((lenght.y * lenght.y), 1e-20f));
+        return w * (float2)(
+            in.x + amplitude.x * native_exp(-in.y * in.y * lx), 
+            in.y + amplitude.y * native_exp(-in.x * in.x * ly)
+        );
+    #else
+		lx = 1.0f / fmax((lenght.x * lenght.x), 1e-20f);
+		ly = 1.0f / fmax((lenght.y * lenght.y), 1e-20f);
+        return w * (float2)(
+            in.x + amplitude.x * exp(-in.y * in.y * lx), 
+            in.y + amplitude.y * exp(-in.x * in.x * ly)
+        );
+    #endif
+    }
+    else{
+    #if USE_NATIVE
+        return w * (float2)(
+            in.x + amplitude.x * native_exp(-in.y * in.y / Zeps(lenght.x)),
+            in.y + amplitude.y * native_exp(-in.x * in.x / Zeps(lenght.y))
+        );
+    #else
+        return w* (float2)(
+            in.x + amplitude.x * exp(-in.y * in.y / Zeps(lenght.x)),
+            in.y + amplitude.y * exp(-in.x * in.x / Zeps(lenght.y))
+        );
+    #endif
+    }
+}
+// ----------------------------
+// 098 VAR PERSPECTIVE
+// ----------------------------
+static float2 CL_V_PERSPECTIVE(__private const float2 in, 
+                            __private const float w, 
+                            __private const float2 presp    // angle, distance
+                            )
+{
+    float t, ang, vsin, vfcos;
 
+    ang = presp.x * M_PI_2;
+#if USE_NATIVE
+    vsin = native_sin(ang);
+    vfcos = presp.y * native_cos(ang);
+#else
+    vsin = sin(ang);
+    vfcos = presp.y * cos(ang);
+#endif
+    t = w / (presp.y - in.y * vsin);
 
+    return t * (float2)(
+        presp.y * in.x, 
+        vfcos * in.y
+    );
+}
+// ----------------------------
+// 099 VAR BWRAPS
+// ----------------------------
+static float2 CL_V_BWRAPS(__private const float2 in, 
+                        __private const float w, 
+                        __private const float4 bwraps,  // size, space, gain
+                        __private const float2 twist    // in_twist, out_twist
+                        )
+{
+     float g2, r2, rfactor, max_bubble, vx, vy, cx, cy, lx, ly, r, theta, sa, ca;
 
+    // TO DO: compute in vex land
+    // I did but made no difference and I prefer to keep it here
+    // so the wrangle core node in Houdini's land remain more performant.
+    float radius = 0.5f * (bwraps.x / (1.0f + bwraps.y * bwraps.y ));
+#if USE_NATIVE
+    g2 = native_sqrt(fabs(bwraps.z)) / bwraps.x + 1e-6f;
+#else
+    g2 = sqrt(fabs(bwraps.z)) / bwraps.x + 1e-6f;
+#endif
+    max_bubble = g2 * radius;
+#if USE_NATIVE
+    float den = 0.25f * max_bubble * max_bubble + 1.0f;
+    max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble * native_recip(den);
+#else
+    max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble * 1.0f / ( (max_bubble * max_bubble) / 4.0f + 1.0f);
+#endif
+    r2 = radius * radius;
+    rfactor = radius / max_bubble;
 
+    if(bwraps.x == 0.0f){
+
+        return w * in;
+    }
+    else{
+        vx = in.x;
+        vy = in.y;
+        cx = (floor(vx / bwraps.x) + 0.5f) * bwraps.x;
+        cy = (floor(vy / bwraps.x) + 0.5f) * bwraps.x;
+        lx = vx - cx;
+        ly = vy - cy;
+        float l2 = lx * lx + ly * ly;
+
+        if(l2 > r2){
+
+            return w * in;
+        }
+        else{
+            lx *= g2;
+            ly *= g2;
+            r = rfactor / Zeps(l2 / 4.0f + 1.0f);
+
+            lx *= r;
+            ly *= r;
+            r = l2 / r2;
+        #if USE_FMA
+            theta = fma(twist.x, (1.0f - r), twist.y * r);
+        #else
+            theta = twist.x * (1.0f - r) + twist.y * r;
+        #endif
+            sincos_fast(theta, &sa, &ca);
+        #if USE_FMA
+            vx = fma( sa, ly, fma(ca, lx, cx));
+            vy = fma(-sa, lx, fma(ca, ly, cy));
+        #else
+            vx = cx + ca * lx + sa * ly;
+            vy = cy - sa * lx + ca * ly;
+        #endif
+
+            return w * (float2)(vx, vy);
+        }
+    }
+}
 // ----------------------------
 // 100 VAR HEMISPHERE
 // ----------------------------
@@ -2757,9 +2894,91 @@ static float2 CL_V_HEMISPHERE(__private const float2 in,
 
     return t * in;
 }
+// ----------------------------
+// 101 VAR POLYNOMIAL
+// ----------------------------
+static float2 CL_V_POLYNOMIAL(__private const float2 in, 
+                            __private const float w, 
+                            __private const float2 powr,    // pow_x, pow_y
+                            __private const float2 lc,      // lc_x, lc_y
+                            __private const float2 sc       // sc_x, sc_y
+                            )
+{
+    float xp, yp;
 
+    float abs_w = fabs(w);
+    float2 in_abs_w = abs_w * fabs(in);
 
+#if USE_NATIVE
+    xp = native_powr(abs_w * in_abs_w.x, powr.x);
+    yp = native_powr(abs_w * in_abs_w.y, powr.y);
+#else
+    xp = powr(abs_w * in_abs_w.x, powr.x);
+    yp = powr(abs_w * in_abs_w.y, powr.y);
+#endif
+#if USE_FMA
+    return (float2)(
+        fma(xp, sgn(in.x), fma(lc.x, in.x, sc.x)), 
+        fma(yp, sgn(in.y), fma(lc.y, in.y, sc.y))
+    );
+#else
+    return (float2)(
+        xp * sgn(in.x) + lc.x * in.x + sc.x, 
+        yp * sgn(in.y) + lc.y * in.y + sc.y
+    );
+#endif
+}
+// ----------------------------
+// 102 VAR CROP
+// ----------------------------
+static float2 CL_V_CROP(__private const float2 in, 
+                        __private const float w, 
+                        __private x128_state_t* state, 
+                        __private const float4 ltrb,    // left, top, right, bottom
+                        __private const float2 az       // area, zero
+                        )
+{
+    float x0, x1, y0, y1, rx, ry, w2, h2;
+    int left, right, top, bottom;
 
+    float2 p = in;
+
+    x0 = fmin(ltrb.x, ltrb.z);
+    x1 = fmax(ltrb.x, ltrb.z);
+    y0 = fmin(ltrb.y, ltrb.w);
+    y1 = fmax(ltrb.y, ltrb.w);
+
+    w2 = (x1 - x0) * (0.5f * az.x);
+    h2 = (y1 - y0) * (0.5f * az.x);
+
+    rx = rng_next_float(state);
+    ry = rng_next_float(state);
+
+    // conditions
+    left   = p.x < x0;
+    right  = p.x > x1;
+    top    = p.y > y1;
+    bottom = p.y < y0;
+
+    // replacements
+    float xL = x0 + rx * w2;
+    float xR = x1 - rx * w2;
+    float yB = y0 + ry * h2;
+    float yT = y1 - ry * h2;
+
+    
+    p.x = left   ? xL : p.x;
+    p.x = right  ? xR : p.x;
+    p.y = bottom ? yB : p.y;
+    p.y = top    ? yT : p.y;
+
+    int outside = left | right | bottom | top;
+
+    if (outside && az.y != 0.0f)
+        p = (float2)(0.0f);
+
+    return w * p;
+}
 // ----------------------------
 // 103 VAR UNPOLAR
 // ----------------------------
@@ -2779,6 +2998,113 @@ static float2 CL_V_UNPOLAR(__private const float2 in,
 
     return m_Vvar2 * r * (float2)(sa, ca);
 }
+// ----------------------------
+// 104 VAR GLYNNIA
+// ----------------------------
+static float2 CL_V_GLYNNIA(__private const float2 in, 
+                        __private const float w, 
+                        __private x128_state_t* state
+                        )
+{
+    float r, m_V2, d, y2;
+
+    r = SQRT(in);
+    m_V2 = w * 0.7071067811865475f;
+
+    d = r + in.x;
+    y2 = in.y * in.y;
+
+    if (r > 1.0f)
+    {
+        if (rng_next_float(state) > 0.5f)
+        {
+        #if USE_NATIVE
+            float s = native_sqrt(d);
+        #else
+            float s = sqrt(d);
+        #endif
+
+            return (float2)(
+                m_V2 * s,
+                -(m_V2 / s) * in.y
+            );
+        }
+        else
+        {
+        #if USE_NATIVE
+            float inv = w / native_sqrt(r * (y2 + d*d));
+        #else
+            float inv = w / sqrt(r * (y2 + d*d));
+        #endif
+            return inv * (float2)(d, in.y);
+        }
+    }
+    else
+    {
+        if (rng_next_float(state) > 0.5f)
+        {
+        #if USE_NATIVE
+            float s = Zeps(native_sqrt(d));
+        #else
+            float s = Zeps(sqrt(d));
+        #endif
+
+            return (float2)(
+                -(m_V2 * s),
+                -(m_V2 / s) * in.y
+            );
+        }
+        else
+        {
+        #if USE_NATIVE
+            float inv = w / Zeps(native_sqrt(r * (y2 + d*d)));
+        #else
+            float inv = w / Zeps(sqrt(r * (y2 + d*d)));
+        #endif
+
+            return (float2)(
+                -(inv * d),
+                inv * in.y
+            );
+        }
+    }
+}
+// ----------------------------
+// 105 VAR POINT SYMMETRY
+// ----------------------------
+static float2 CL_V_POINT_SYMMETRY(__private const float2 in, 
+                                __private const float w, 
+                                __private x128_state_t* state, 
+                                __private const float4 ptsym    // order, center_x, center_y
+                                )
+{
+    float order, twoPiDivOrder, angle, dx, dy, sa, ca, x, y;
+
+    order = Zeps(ptsym.x);
+    twoPiDivOrder = M_TAU / order;
+    int k = (int)(rng_next_float(state) * order);
+    angle = k * twoPiDivOrder;
+
+    float cx = ptsym.y;
+    float cy = ptsym.z;
+    dx = (in.x - cx) * w;
+    dy = (in.y - cy) * w;
+    sincos_fast(angle, &sa, &ca);
+#if USE_FMA
+    x = fma(dx, ca, dy * sa);
+    y = fma(dy, ca, -dx * sa);
+#else
+    x = dx * ca + dy * sa;
+    y = dy * ca - dx * sa;
+#endif
+
+    return (float2)(
+        cx + x, 
+        cy + y
+    );
+}
+
+
 
 
 // ----------------------------
@@ -2901,11 +3227,15 @@ static float2 CL_V_DISPATCH(
         case 94:    return CL_V_AUGER(in, w, PRM_F4[PRM_F4_IDX_AUGER]);
         case 95:    return CL_V_FLUX(in, w, PRM_F[PRM_F_IDX_FLUXSPREAD]);
         case 96:    return CL_V_MOBIUS(in, w, PRM_F4[PRM_F4_IDX_MOBIUSRE], PRM_F4[PRM_F4_IDX_MOBIUSIM]);
-
-
-        case 100:    return CL_V_HEMISPHERE(in, w);
-
-        case 103:    return CL_V_UNPOLAR(in, w);
+        case 97:    return CL_V_CURVE(in, w, F3C, PRM_F2[PRM_F2_IDX_CURVELENGTH], PRM_F2[PRM_F2_IDX_CURVEAMP]);
+        case 98:    return CL_V_PERSPECTIVE(in, w, PRM_F2[PRM_F2_IDX_PERSP]);
+        case 99:    return CL_V_BWRAPS(in, w, PRM_F3[PRM_F3_IDX_BWRAPS], PRM_F2[PRM_F2_IDX_BWRAPTWIST]);
+        case 100:   return CL_V_HEMISPHERE(in, w);
+        case 101:   return CL_V_POLYNOMIAL(in, w, PRM_F2[PRM_F2_IDX_POLYNOMIALPOW], PRM_F2[PRM_F2_IDX_POLYNOMIALLC], PRM_F2[PRM_F2_IDX_POLYNOMIALSC]);
+        case 102:   return CL_V_CROP(in, w, state, PRM_F4[PRM_F4_IDX_CROPLTRB], PRM_F2[PRM_F2_IDX_CROP]);
+        case 103:   return CL_V_UNPOLAR(in, w);
+        case 104:   return CL_V_GLYNNIA(in, w, state);
+        case 105:   return CL_V_POINT_SYMMETRY(in, w, state, PRM_F3[PRM_F3_IDX_PTSYM]);
 
         default:    return w * in;
     }
@@ -3204,8 +3534,8 @@ __kernel void flam3cl(
 
         // post affine    
         if(local_POST[idx]){
-            affine_t po = local_POST_AFFINE[idx];
-            _tmp = affine(_tmp, po);
+            affine_t ap = local_POST_AFFINE[idx];
+            _tmp = affine(_tmp, ap);
             }
 
         // color
