@@ -16,10 +16,16 @@ enum {
     SHD_NUM_SIZE                = 3,
 
     // ----------------------------
+    // RES PRM FF -> FF and PP (2)  
+    // ----------------------------
+    FF_RES_PRM                  = 2,
+
+    // ----------------------------
     // PRM F sizes  
     // ----------------------------
     PRM_NUM_F                   = 7,
     PRM_NUM_F_SIZE              = PRM_NUM_F * MAX_XFORMS,
+    FF_PRM_NUM_F_SIZE           = PRM_NUM_F * FF_RES_PRM,
     // ----------------------------
     // PRM F parametrics indexes  
     // ----------------------------
@@ -36,6 +42,7 @@ enum {
     // ----------------------------
     PRM_NUM_F2                  = 29,
     PRM_NUM_F2_SIZE             = PRM_NUM_F2 * MAX_XFORMS,
+    FF_PRM_NUM_F2_SIZE          = PRM_NUM_F2 * FF_RES_PRM,
     // ----------------------------
     // PRM F2 parametrics indexes  
     // ----------------------------
@@ -74,6 +81,7 @@ enum {
     // ----------------------------
     PRM_NUM_F3                  = 9,
     PRM_NUM_F3_SIZE             = PRM_NUM_F3 * MAX_XFORMS,
+    FF_PRM_NUM_F3_SIZE          = PRM_NUM_F3 * FF_RES_PRM,
     // ----------------------------
     // PRM F3 parametrics indexes  
     // ----------------------------
@@ -94,6 +102,7 @@ enum {
     // ----------------------------
     PRM_NUM_F4                  = 11,
     PRM_NUM_F4_SIZE             = PRM_NUM_F4 * MAX_XFORMS,
+    FF_PRM_NUM_F4_SIZE          = PRM_NUM_F4 * FF_RES_PRM,
     // ----------------------------
     // PRM F4 parametrics indexes  
     // ----------------------------
@@ -110,11 +119,6 @@ enum {
     // ----------------------------
     // PRM F4 precalc  
     PRM_F4_IDX_NGON_PRECALC     = 10,   // cpower, csides, csidesinv, unusued(1.0)
-
-    // ----------------------------
-    // PRM FF RES  
-    // ----------------------------
-    FF_PRM_RES                  = 2,
 
 };
 
@@ -623,7 +627,10 @@ static float2 CL_V_SPIRAL(__private const float2 in,
     r1 = w / r;
     sincos_fast(r, &sr, &cr);
 
-    return r1 * (float2)((precalc.y + sr), (precalc.x - cr));
+    return r1 * (float2)(
+        precalc.y + sr, 
+        precalc.x - cr
+    );
 }
 // ----------------------------
 // 010 VAR HIPERBOLIC
@@ -638,7 +645,10 @@ static float2 CL_V_HIPERBOLIC(__private const float2 in,
     r = Zeps(_SQRT);
     float2 precalc = in / _SQRT;
 
-    return w * (float2)(precalc.x / r, precalc.y * r);
+    return w * (float2)(
+        precalc.x / r, 
+        precalc.y * r
+    );
 }
 // ----------------------------
 // 011 VAR DIAMOND
@@ -1339,12 +1349,18 @@ static float2 CL_V_RAYS(__private const float2 in,
     r = w * native_recip(Zeps(SUMSQ(in)));
     tanr = w * native_tan(ang) * r;
 
-    return tanr * (float2)(native_cos(in.x), native_sin(in.y));
+    return tanr * (float2)(
+        native_cos(in.x), 
+        native_sin(in.y)
+    );
 #else
     r = w * (1.0f / Zeps(SUMSQ(in)));
     tanr = w * tan(ang) * r;
 
-    return tanr * (float2)(cos(in.x), sin(in.y));
+    return tanr * (float2)(
+        cos(in.x), 
+        sin(in.y)
+    );
 #endif
 }
 // ----------------------------
@@ -1472,7 +1488,11 @@ static float2 CL_V_SUPERSHAPE(__private const float2 in,
     float inv_sy = 1.0f - supershape.y;
 
     _SQRT = SQRT(in);
+#if USE_NATIVE
+    float inv_sqrt = native_recip(_SQRT);
+#else
     float inv_sqrt = 1.0f / _SQRT;
+#endif
 
     theta = ss_pm_4 * ATANYX(in) + M_PI_4;
     sincos_fast(theta, &st, &ct);
@@ -1576,32 +1596,63 @@ static float2 CL_V_BIPOLAR(__private const float2 in,
                         __private const float shift // shift
                         )
 {
-    float x2y2, tt, x2, ps, y;
+//     float x2y2, tt, x2, ps, y;
+
+//     x2y2 = dot(in, in);
+//     tt = x2y2 + 1.0f;
+//     x2 = 2.0f * in.x;
+//     ps = -M_PI_2 * shift;
+
+//     y = 0.5f * atan2(2.0f * in.y, x2y2 - 1.0f) + ps;
+//     // 
+// #if USE_NATIVE
+//     if (y > M_PI_2)
+//         y = -M_PI_2 + (y + M_PI_2) - M_PI * floor((y + M_PI_2) * native_recip(M_PI));
+//     else if (y < -M_PI_2)
+//         y = M_PI_2 - ((M_PI_2 - y) - M_PI * floor((M_PI_2 - y) * native_recip(M_PI)));
+//     // float lx = native_log(tt + x2) - native_log(tt - x2);
+//     float lx = native_log((tt + x2) / (tt - x2));
+// #else
+//     if (y > M_PI_2)
+//         y = -M_PI_2 + (y + M_PI_2) - M_PI * floor((y + M_PI_2) * (1.0f / M_PI));
+//     else if (y < -M_PI_2)
+//         y = M_PI_2 - ((M_PI_2 - y) - M_PI * floor((M_PI_2 - y) * (1.0f / M_PI)));
+//     // float lx = log(tt + x2) - log(tt - x2);
+//     float lx = log((tt + x2) / (tt - x2));
+// #endif
+
+//     return w * (float2)(
+//         0.25f * M_2_PI * lx,
+//         M_2_PI * y
+//     );
+
+
+    float x2y2, tt, x2, ps, y, lx;
+
+    const float invpi = 0.31830988618f;
+    const float two_invpi = 0.63661977236f;
+    const float quarter_two_invpi = 0.15915494309f;
 
     x2y2 = dot(in, in);
     tt = x2y2 + 1.0f;
-    x2 = 2.0f * in.x;
     ps = -M_PI_2 * shift;
 
-    y = 0.5f * atan2(2.0f * in.y, x2y2 - 1.0f) + ps;
-    // 
-#if USE_NATIVE
-    if (y > M_PI_2)
-        y = -M_PI_2 + (y + M_PI_2) - M_PI * floor((y + M_PI_2) * native_recip(M_PI));
-    else if (y < -M_PI_2)
-        y = M_PI_2 - ((M_PI_2 - y) - M_PI * floor((M_PI_2 - y) * native_recip(M_PI)));
-    float lx = native_log(tt + x2) - native_log(tt - x2);
+#if USE_FMA
+    y = fma(0.5f, atan2(2.0f * in.y, x2y2 - 1.0f), ps);
 #else
-    if (y > M_PI_2)
-        y = -M_PI_2 + (y + M_PI_2) - M_PI * floor((y + M_PI_2) * (1.0f / M_PI));
-    else if (y < -M_PI_2)
-        y = M_PI_2 - ((M_PI_2 - y) - M_PI * floor((M_PI_2 - y) * (1.0f / M_PI)));
-    float lx = log(tt + x2) - log(tt - x2);
+    y = 0.5f * atan2(2.0f * in.y, x2y2 - 1.0f) + ps;
+#endif
+
+    y = y - M_PI * floor((y + M_PI_2) * invpi);
+#if USE_NATIVE
+    lx = native_log((tt + 2.0f * in.x) / (tt - 2.0f * in.x));
+#else
+    lx = log((tt + 2.0f * in.x) / (tt - 2.0f * in.x));
 #endif
 
     return w * (float2)(
-        0.25f * M_2_PI * lx,
-        M_2_PI * y
+        quarter_two_invpi * lx,
+        two_invpi * y
     );
 }
 // ----------------------------
@@ -1781,7 +1832,6 @@ static float2 CL_V_EDISC(__private const float2 in,
 
     sincos_fast(aa1, &snv, &csv);
 
-    // sinh/cosh together
 #if USE_NATIVE
     float e = native_exp(aa2);
     float ei = native_recip(e);
@@ -1907,7 +1957,10 @@ static float2 CL_V_FOCI(__private const float2 in,
     tmp = w * (1.0f / Zeps(expx + expnx - cn));
 #endif
 
-    return tmp * (float2)(expx - expnx, sn);
+    return tmp * (float2)(
+        expx - expnx, 
+        sn
+    );
 
 }
 // ----------------------------
@@ -2039,9 +2092,15 @@ static float2 CL_V_POLAR2(__private const float2 in,
 {
     float p2v = w / M_PI;
 #if USE_NATIVE
-    return (float2)(p2v * ATAN(in), (0.5f * p2v) * native_log(SUMSQ(in)));
+    return (float2)(
+        p2v * ATAN(in), 
+        (0.5f * p2v) * native_log(SUMSQ(in))
+    );
 #else
-    return (float2)(p2v * ATAN(in), (0.5f * p2v) * log(SUMSQ(in)));
+    return (float2)(
+        p2v * ATAN(in), 
+        (0.5f * p2v) * log(SUMSQ(in))
+    );
 #endif
 }
 // ----------------------------
@@ -2752,15 +2811,15 @@ static float2 CL_V_CURVE(__private const float2 in,
 
     if(F3C){
     #if USE_NATIVE
-		lx = native_recip(fmax((lenght.x * lenght.x), 1e-20f));
-		ly = native_recip(fmax((lenght.y * lenght.y), 1e-20f));
+                lx = native_recip(fmax((lenght.x * lenght.x), 1e-20f));
+                ly = native_recip(fmax((lenght.y * lenght.y), 1e-20f));
         return w * (float2)(
             in.x + amplitude.x * native_exp(-in.y * in.y * lx), 
             in.y + amplitude.y * native_exp(-in.x * in.x * ly)
         );
     #else
-		lx = 1.0f / fmax((lenght.x * lenght.x), 1e-20f);
-		ly = 1.0f / fmax((lenght.y * lenght.y), 1e-20f);
+                lx = 1.0f / fmax((lenght.x * lenght.x), 1e-20f);
+                ly = 1.0f / fmax((lenght.y * lenght.y), 1e-20f);
         return w * (float2)(
             in.x + amplitude.x * exp(-in.y * in.y * lx), 
             in.y + amplitude.y * exp(-in.x * in.x * ly)
@@ -2774,7 +2833,7 @@ static float2 CL_V_CURVE(__private const float2 in,
             in.y + amplitude.y * native_exp(-in.x * in.x / Zeps(lenght.y))
         );
     #else
-        return w* (float2)(
+        return w * (float2)(
             in.x + amplitude.x * exp(-in.y * in.y / Zeps(lenght.x)),
             in.y + amplitude.y * exp(-in.x * in.x / Zeps(lenght.y))
         );
@@ -3495,6 +3554,8 @@ __kernel void flam3cl(
     // if XAOS, pick a starting xform from distribution
     if(XS) idx = sample_cdf_binary(local_IW, RES, rng_next_float(&rng));
     
+    float idxs[1024];
+
     for (int i = 0; i < 1024; ++i){
         
         // xform selection
@@ -3553,4 +3614,217 @@ __kernel void flam3cl(
     ALPHA[gid]  = a;
     COLOR[gid]  = clr;
     PSCALE[gid] = PSCL;
+}
+
+
+
+
+
+// ----------------------------
+// CL FLAM3 FF kernel (place holder)
+//
+// The FF(finalXform) Kernel function.
+// This will be called from the Houdini OpenCL node.
+// ----------------------------
+
+__kernel void flam3cl_FF( 
+    int FF,
+    int F3C,
+    uint OPID,
+    int P_length,
+    __global float * restrict P,
+    int X_length,
+    int X_tuplesize,
+    __global int * restrict X_index,
+    __global float2 * restrict X,
+    int Y_length,
+    int Y_tuplesize,
+    __global int * restrict Y_index,
+    __global float2 * restrict Y,
+    int O_length,
+    int O_tuplesize,
+    __global int * restrict O_index,
+    __global float2 * restrict O,
+    int POST_length,
+    int POST_tuplesize,
+    __global int * restrict POST_index,
+    __global int * restrict POST,
+    int PX_length,
+    int PX_tuplesize,
+    __global int * restrict PX_index,
+    __global float2 * restrict PX,
+    int PY_length,
+    int PY_tuplesize,
+    __global int * restrict PY_index,
+    __global float2 * restrict PY,
+    int PO_length,
+    int PO_tuplesize,
+    __global int * restrict PO_index,
+    __global float2 * restrict PO,
+    int PPVT_length,
+    int PPVT_tuplesize,
+    __global int * restrict PPVT_index,
+    __global float4 * restrict PPVT,
+    int PPVW_length,
+    int PPVW_tuplesize,
+    __global int * restrict PPVW_index,
+    __global float4 * restrict PPVW,
+    int VT_length,
+    int VT_tuplesize,
+    __global int * restrict VT_index,
+    __global float4 * restrict VT,
+    int VW_length,
+    int VW_tuplesize,
+    __global int * restrict VW_index,
+    __global float4 * restrict VW,
+    int PRM_F_length,
+    int PRM_F_tuplesize,
+    __global int * restrict PRM_F_index,
+    __global float * restrict PRM_F,
+    int PRM_F2_length,
+    int PRM_F2_tuplesize,
+    __global int * restrict PRM_F2_index,
+    __global float2 * restrict PRM_F2,
+    int PRM_F3_length,
+    int PRM_F3_tuplesize,
+    __global int * restrict PRM_F3_index,
+    __global float4 * restrict PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
+    int PRM_F4_length,
+    int PRM_F4_tuplesize,
+    __global int * restrict PRM_F4_index,
+    __global float4 * restrict PRM_F4
+
+)
+{
+    int gid = get_global_id(0);
+    if (gid >= P_length || !FF)
+        return;
+        
+    // copy data to local memory
+    int lid = get_local_id(0);
+    int lsize = get_local_size(0);
+
+    __local affine_t local_PRE_AFFINE[MAX_XFORMS];
+    __local affine_t local_POST_AFFINE[MAX_XFORMS];
+    __local int local_POST[MAX_XFORMS]; // post affine toggles
+
+    // PRE/POST variations
+    __local int4 local_PPVT[MAX_XFORMS];
+    __local float4 local_PPVW[MAX_XFORMS];
+    // VAR variations
+    __local int4 local_VT[MAX_XFORMS];
+    __local float4 local_VW[MAX_XFORMS];
+
+    // PRE, VAR and POST parameterics
+    __local float local_PRM_F[FF_PRM_NUM_F_SIZE];
+    __local float2 local_PRM_F2[FF_PRM_NUM_F2_SIZE];
+    __local float4 local_PRM_F3[FF_PRM_NUM_F3_SIZE];   // Marked as F3 becasue it was meant to be a vector array from vex
+    __local float4 local_PRM_F4[FF_PRM_NUM_F4_SIZE];
+
+    // copy cooperatively
+    for(int i = lid; i < FF_RES_PRM; i += lsize){
+        
+        // pre affine
+        local_PRE_AFFINE[i].xy = (float4)(X[i], Y[i]);
+        local_PRE_AFFINE[i].o = (float4)(O[i], 0.0f, 0.0f);
+        // post affine
+        local_POST_AFFINE[i].xy = (float4)(PX[i], PY[i]);
+        local_POST_AFFINE[i].o = (float4)(PO[i], 0.0f, 0.0f);
+        // post affine toggles
+        local_POST[i] = POST[i];
+
+        // PRE/POST variations
+        local_PPVT[i] = convert_int4(PPVT[i]);
+        local_PPVW[i] = PPVW[i];
+
+        // VAR variations
+        local_VT[i] = convert_int4(VT[i]);
+        local_VW[i] = VW[i];
+    }
+
+    // Copy arrays of floats in chunks of float4s
+    // and handle the remainders if any.
+    
+    // Float arrays
+    int total_PRM_F     = FF_RES_PRM * PRM_NUM_F;
+    // Float2 array
+    int total_PRM_F2    = FF_RES_PRM * PRM_NUM_F2;
+    // Float4 arrays
+    int total_PRM_F3    = FF_RES_PRM * PRM_NUM_F3; // Marked as F3 becasue it was meant to be a vector array from vex
+    int total_PRM_F4    = FF_RES_PRM * PRM_NUM_F4;
+
+    // PRM_F
+    int num_f4_PRM_F = total_PRM_F >> 2;
+    for(int i = lid; i < num_f4_PRM_F; i += lsize)
+        ((__local float4*)local_PRM_F)[i] = ((__global float4*)PRM_F)[i];
+    for(int i = (num_f4_PRM_F << 2) + lid; i < total_PRM_F; i += lsize)
+        local_PRM_F[i] = PRM_F[i];
+    // PRM_F2
+    for(int i = lid; i < total_PRM_F2; i += lsize)
+        local_PRM_F2[i] = PRM_F2[i];
+    // PRM_F3
+    for(int i = lid; i < total_PRM_F3; i += lsize)
+        local_PRM_F3[i] = PRM_F3[i];
+    // PRM_F4
+    for(int i = lid; i < total_PRM_F4; i += lsize)
+        local_PRM_F4[i] = PRM_F4[i];
+
+    barrier(CLK_LOCAL_MEM_FENCE);   // Wait for the copy to complete
+    
+    // init
+    int idx;
+    int4 _vt, _ppvt;
+    float2 mem, _tmp, _y, _o;
+    float4 _vw, _ppvw;
+    
+    // RNG init
+    float r;
+    x128_state_t rng;
+    rng_init(&rng, gid + OPID);  // unique per thread, per node
+    
+    // get sample
+    mem = vload3(gid, P).xy;
+    
+    // parameterics data
+    __local float*  xf_prm_f  = &local_PRM_F[idx * PRM_NUM_F];
+    __local float2* xf_prm_f2 = &local_PRM_F2[idx * PRM_NUM_F2];
+    __local float4* xf_prm_f3 = &local_PRM_F3[idx * PRM_NUM_F3];
+    __local float4* xf_prm_f4 = &local_PRM_F4[idx * PRM_NUM_F4];
+    
+    // pre affine 
+    affine_t pa = local_PRE_AFFINE[idx];
+    mem = affine(mem, pa);
+
+    // PRE/POST data
+    _ppvt = local_PPVT[idx];
+    _ppvw = local_PPVW[idx];
+    // PRE
+    if (_ppvw.x > 0.0f) mem += CL_V_PREBLUR(_ppvw.x, &rng);
+    if (_ppvw.y > 0.0f) mem  = CL_V_DISPATCH(_ppvt.y, mem, _ppvw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+    if (_ppvw.z > 0.0f) mem  = CL_V_DISPATCH(_ppvt.z, mem, _ppvw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+    
+    // VAR data
+    _vt = local_VT[idx];
+    _vw = local_VW[idx];
+    // VAR
+    _tmp = (float2)(0.0f, 0.0f);
+    if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(0, mem, _vw.x, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+    if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(0, mem, _vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+    if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(0, mem, _vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+    if (_vw.w != 0.0f) _tmp += CL_V_DISPATCH(0, mem, _vw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+
+    // POST
+    if (_ppvw.w > 0.0f) _tmp = CL_V_DISPATCH(_ppvt.w, _tmp, _ppvw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+
+    // post affine    
+    if(local_POST[idx]){
+        affine_t ap = local_POST_AFFINE[idx];
+        _tmp = affine(_tmp, ap);
+        }
+    
+    // update
+    mem = _tmp;
+    
+    // OUT
+    vstore3((float3)(mem, 0.0f), gid, P);
 }
