@@ -2874,60 +2874,74 @@ static float2 CL_V_BWRAPS(__private const float2 in,
                         __private const float2 twist    // in_twist, out_twist
                         )
 {
-     float g2, r2, rfactor, max_bubble, vx, vy, cx, cy, lx, ly, r, theta, sa, ca;
+    float g2, r2, rfactor, max_bubble, vx, vy, cx, cy, lx, ly, r, theta, sa, ca;
 
-    // TO DO: compute in vex land
-    // I did but made no difference and I prefer to keep it here
-    // so the wrangle core node in Houdini's land remain more performant.
-    float radius = 0.5f * (bwraps.x / (1.0f + bwraps.y * bwraps.y ));
+    // precalc
+    float radius = 0.5f * (bwraps.x / (1.0f + bwraps.y * bwraps.y));
+
 #if USE_NATIVE
     g2 = native_sqrt(fabs(bwraps.z)) / bwraps.x + 1e-6f;
 #else
     g2 = sqrt(fabs(bwraps.z)) / bwraps.x + 1e-6f;
 #endif
+
     max_bubble = g2 * radius;
+
 #if USE_NATIVE
     float den = 0.25f * max_bubble * max_bubble + 1.0f;
     max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble * native_recip(den);
 #else
-    max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble * 1.0f / ( (max_bubble * max_bubble) / 4.0f + 1.0f);
+    max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble * 1.0f / ((max_bubble * max_bubble) / 4.0f + 1.0f);
 #endif
+
     r2 = radius * radius;
     rfactor = radius / max_bubble;
 
-    if(bwraps.x == 0.0f){
-
+    if (bwraps.x == 0.0f)
+    {
         return w * in;
     }
-    else{
+    else
+    {
         vx = in.x;
         vy = in.y;
+
         cx = (floor(vx / bwraps.x) + 0.5f) * bwraps.x;
         cy = (floor(vy / bwraps.x) + 0.5f) * bwraps.x;
+
         lx = vx - cx;
         ly = vy - cy;
+
         float l2 = lx * lx + ly * ly;
 
-        if(l2 > r2){
-
+        if (l2 > r2)
+        {
             return w * in;
         }
-        else{
+        else
+        {
             lx *= g2;
             ly *= g2;
+            l2 = lx * lx + ly * ly;
+
             r = rfactor / Zeps(l2 / 4.0f + 1.0f);
 
             lx *= r;
             ly *= r;
+            l2 = lx * lx + ly * ly;
+
             r = l2 / r2;
+
         #if USE_FMA
             theta = fma(twist.x, (1.0f - r), twist.y * r);
         #else
             theta = twist.x * (1.0f - r) + twist.y * r;
         #endif
+
             sincos_fast(theta, &sa, &ca);
+
         #if USE_FMA
-            vx = fma( sa, ly, fma(ca, lx, cx));
+            vx = fma(sa, ly, fma(ca, lx, cx));
             vy = fma(-sa, lx, fma(ca, ly, cy));
         #else
             vx = cx + ca * lx + sa * ly;
@@ -2972,8 +2986,8 @@ static float2 CL_V_POLYNOMIAL(__private const float2 in,
     xp = native_powr(abs_w * in_abs_w.x, powr.x);
     yp = native_powr(abs_w * in_abs_w.y, powr.y);
 #else
-    xp = powr(abs_w * in_abs_w.x, powr.x);
-    yp = powr(abs_w * in_abs_w.y, powr.y);
+    xp = pow(abs_w * in_abs_w.x, powr.x);
+    yp = pow(abs_w * in_abs_w.y, powr.y);
 #endif
 #if USE_FMA
     return (float2)(
@@ -3338,14 +3352,13 @@ static float2 CL_V_DISPATCH_COMPILER(
 
 
 // ----------------------------
-// CL FLAM3 kernel
+// CL FLAM3 kernel (xforms/iterators)
 //
 // The main Kernel function.
 // This will be called from the Houdini OpenCL node.
 // ----------------------------
 
-__kernel void flam3cl( 
-    int FF,
+__kernel void cl_flam3( 
     int F3C,
     uint OPID,
     int P_length,
@@ -3430,11 +3443,10 @@ __kernel void flam3cl(
     int PRM_F4_tuplesize,
     __global int * restrict PRM_F4_index,
     __global float4 * restrict PRM_F4
-
 )
 {
     int gid = get_global_id(0);
-    if (gid >= P_length || RES > MAX_XFORMS)
+    if (gid >= P_length)
         return;
         
     // copy data to local memory
@@ -3540,7 +3552,7 @@ __kernel void flam3cl(
     int4 _vt, _ppvt;
     float clr = 0.0f;
     float _prev_clr = 0.0f;
-    float2 mem, _tmp, _y, _o;
+    float2 mem, _tmp;
     float4 _vw, _ppvw;
     
     // RNG init
@@ -3595,8 +3607,8 @@ __kernel void flam3cl(
 
         // post affine    
         if(local_POST[idx]){
-            affine_t ap = local_POST_AFFINE[idx];
-            _tmp = affine(_tmp, ap);
+            // affine_t ap = local_POST_AFFINE[idx];
+            _tmp = affine(_tmp, local_POST_AFFINE[idx]);
             }
 
         // color
@@ -3621,78 +3633,51 @@ __kernel void flam3cl(
 
 
 // ----------------------------
-// CL FLAM3 FF kernel (place holder)
+// CL FLAM3 FF kernel (finalXform)
 //
 // The FF(finalXform) Kernel function.
 // This will be called from the Houdini OpenCL node.
 // ----------------------------
 
-__kernel void flam3cl_FF( 
+__kernel void cl_flam3_ff( 
     int FF,
     int F3C,
     uint OPID,
     int P_length,
     __global float * restrict P,
-    int X_length,
-    int X_tuplesize,
-    __global int * restrict X_index,
-    __global float2 * restrict X,
-    int Y_length,
-    int Y_tuplesize,
-    __global int * restrict Y_index,
-    __global float2 * restrict Y,
-    int O_length,
-    int O_tuplesize,
-    __global int * restrict O_index,
-    __global float2 * restrict O,
-    int POST_length,
-    int POST_tuplesize,
-    __global int * restrict POST_index,
-    __global int * restrict POST,
-    int PX_length,
-    int PX_tuplesize,
-    __global int * restrict PX_index,
-    __global float2 * restrict PX,
-    int PY_length,
-    int PY_tuplesize,
-    __global int * restrict PY_index,
-    __global float2 * restrict PY,
-    int PO_length,
-    int PO_tuplesize,
-    __global int * restrict PO_index,
-    __global float2 * restrict PO,
-    int PPVT_length,
-    int PPVT_tuplesize,
-    __global int * restrict PPVT_index,
-    __global float4 * restrict PPVT,
-    int PPVW_length,
-    int PPVW_tuplesize,
-    __global int * restrict PPVW_index,
-    __global float4 * restrict PPVW,
-    int VT_length,
-    int VT_tuplesize,
-    __global int * restrict VT_index,
-    __global float4 * restrict VT,
-    int VW_length,
-    int VW_tuplesize,
-    __global int * restrict VW_index,
-    __global float4 * restrict VW,
-    int PRM_F_length,
-    int PRM_F_tuplesize,
-    __global int * restrict PRM_F_index,
-    __global float * restrict PRM_F,
-    int PRM_F2_length,
-    int PRM_F2_tuplesize,
-    __global int * restrict PRM_F2_index,
-    __global float2 * restrict PRM_F2,
-    int PRM_F3_length,
-    int PRM_F3_tuplesize,
-    __global int * restrict PRM_F3_index,
-    __global float4 * restrict PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
-    int PRM_F4_length,
-    int PRM_F4_tuplesize,
-    __global int * restrict PRM_F4_index,
-    __global float4 * restrict PRM_F4
+    int FF_X_length,
+    int FF_X_tuplesize,
+    global int * restrict FF_X_index,
+    global float2 * restrict FF_X,
+    int FF_Y_length,
+    int FF_Y_tuplesize,
+    global int * restrict FF_Y_index,
+    global float2 * restrict FF_Y,
+    int FF_O_length,
+    int FF_O_tuplesize,
+    global int * restrict FF_O_index,
+    global float2 * restrict FF_O,
+    int    FF_POST,     // ON(1) or OFF(0)
+    float4 FF_PRE_VT,   // PREV1T, unused(0), unused(0), unused(0) -> Just in case I need more in the future
+    float4 FF_PRE_VW,   // PREV1W, unused(0), unused(0), unused(0) -> Just in case I need more in the future
+    float4 FF_VPP_VT,   // V1T, V2T, POSTV1T, POSTV2T
+    float4 FF_VPP_VW,   // V1W, V2W, POSTV1W, POSTV2W
+    int FF_PRM_F_length,
+    int FF_PRM_F_tuplesize,
+    __global int * restrict FF_PRM_F_index,
+    __global float * restrict FF_PRM_F,
+    int FF_PRM_F2_length,
+    int FF_PRM_F2_tuplesize,
+    __global int * restrict FF_PRM_F2_index,
+    __global float2 * restrict FF_PRM_F2,
+    int FF_PRM_F3_length,
+    int FF_PRM_F3_tuplesize,
+    __global int * restrict FF_PRM_F3_index,
+    __global float4 * restrict FF_PRM_F3,   // Casted as float4 instead of float3 array so it map correctly
+    int FF_PRM_F4_length,
+    int FF_PRM_F4_tuplesize,
+    __global int * restrict FF_PRM_F4_index,
+    __global float4 * restrict FF_PRM_F4
 
 )
 {
@@ -3704,77 +3689,54 @@ __kernel void flam3cl_FF(
     int lid = get_local_id(0);
     int lsize = get_local_size(0);
 
-    __local affine_t local_PRE_AFFINE[MAX_XFORMS];
-    __local affine_t local_POST_AFFINE[MAX_XFORMS];
-    __local int local_POST[MAX_XFORMS]; // post affine toggles
+    __local affine_t local_FF_AFFINE[FF_RES_PRM];
 
-    // PRE/POST variations
-    __local int4 local_PPVT[MAX_XFORMS];
-    __local float4 local_PPVW[MAX_XFORMS];
-    // VAR variations
-    __local int4 local_VT[MAX_XFORMS];
-    __local float4 local_VW[MAX_XFORMS];
-
-    // PRE, VAR and POST parameterics
-    __local float local_PRM_F[FF_PRM_NUM_F_SIZE];
-    __local float2 local_PRM_F2[FF_PRM_NUM_F2_SIZE];
-    __local float4 local_PRM_F3[FF_PRM_NUM_F3_SIZE];   // Marked as F3 becasue it was meant to be a vector array from vex
-    __local float4 local_PRM_F4[FF_PRM_NUM_F4_SIZE];
+    // // PRE, VAR and POST parameterics
+    __local float local_FF_PRM_F[FF_PRM_NUM_F_SIZE];
+    __local float2 local_FF_PRM_F2[FF_PRM_NUM_F2_SIZE];
+    __local float4 local_FF_PRM_F3[FF_PRM_NUM_F3_SIZE];   // Marked as F3 becasue it was meant to be a vector array from vex
+    __local float4 local_FF_PRM_F4[FF_PRM_NUM_F4_SIZE];
 
     // copy cooperatively
     for(int i = lid; i < FF_RES_PRM; i += lsize){
         
-        // pre affine
-        local_PRE_AFFINE[i].xy = (float4)(X[i], Y[i]);
-        local_PRE_AFFINE[i].o = (float4)(O[i], 0.0f, 0.0f);
-        // post affine
-        local_POST_AFFINE[i].xy = (float4)(PX[i], PY[i]);
-        local_POST_AFFINE[i].o = (float4)(PO[i], 0.0f, 0.0f);
-        // post affine toggles
-        local_POST[i] = POST[i];
-
-        // PRE/POST variations
-        local_PPVT[i] = convert_int4(PPVT[i]);
-        local_PPVW[i] = PPVW[i];
-
-        // VAR variations
-        local_VT[i] = convert_int4(VT[i]);
-        local_VW[i] = VW[i];
+        // pre and post affine
+        local_FF_AFFINE[i].xy = (float4)(FF_X[i], FF_Y[i]);
+        local_FF_AFFINE[i].o = (float4)(FF_O[i], 0.0f, 0.0f);
     }
 
     // Copy arrays of floats in chunks of float4s
     // and handle the remainders if any.
     
     // Float arrays
-    int total_PRM_F     = FF_RES_PRM * PRM_NUM_F;
+    int ff_total_PRM_F     = FF_RES_PRM * PRM_NUM_F;
     // Float2 array
-    int total_PRM_F2    = FF_RES_PRM * PRM_NUM_F2;
+    int ff_total_PRM_F2    = FF_RES_PRM * PRM_NUM_F2;
     // Float4 arrays
-    int total_PRM_F3    = FF_RES_PRM * PRM_NUM_F3; // Marked as F3 becasue it was meant to be a vector array from vex
-    int total_PRM_F4    = FF_RES_PRM * PRM_NUM_F4;
+    int ff_total_PRM_F3    = FF_RES_PRM * PRM_NUM_F3; // Marked as F3 becasue it was meant to be a vector array from vex
+    int ff_total_PRM_F4    = FF_RES_PRM * PRM_NUM_F4;
 
     // PRM_F
-    int num_f4_PRM_F = total_PRM_F >> 2;
+    int num_f4_PRM_F = ff_total_PRM_F >> 2;
     for(int i = lid; i < num_f4_PRM_F; i += lsize)
-        ((__local float4*)local_PRM_F)[i] = ((__global float4*)PRM_F)[i];
-    for(int i = (num_f4_PRM_F << 2) + lid; i < total_PRM_F; i += lsize)
-        local_PRM_F[i] = PRM_F[i];
+        ((__local float4*)local_FF_PRM_F)[i] = ((__global float4*)FF_PRM_F)[i];
+    for(int i = (num_f4_PRM_F << 2) + lid; i < ff_total_PRM_F; i += lsize)
+        local_FF_PRM_F[i] = FF_PRM_F[i];
     // PRM_F2
-    for(int i = lid; i < total_PRM_F2; i += lsize)
-        local_PRM_F2[i] = PRM_F2[i];
+    for(int i = lid; i < ff_total_PRM_F2; i += lsize)
+        local_FF_PRM_F2[i] = FF_PRM_F2[i];
     // PRM_F3
-    for(int i = lid; i < total_PRM_F3; i += lsize)
-        local_PRM_F3[i] = PRM_F3[i];
+    for(int i = lid; i < ff_total_PRM_F3; i += lsize)
+        local_FF_PRM_F3[i] = FF_PRM_F3[i];
     // PRM_F4
-    for(int i = lid; i < total_PRM_F4; i += lsize)
-        local_PRM_F4[i] = PRM_F4[i];
+    for(int i = lid; i < ff_total_PRM_F4; i += lsize)
+        local_FF_PRM_F4[i] = FF_PRM_F4[i];
 
     barrier(CLK_LOCAL_MEM_FENCE);   // Wait for the copy to complete
     
     // init
-    int idx;
     int4 _vt, _ppvt;
-    float2 mem, _tmp, _y, _o;
+    float2 mem, _tmp;
     float4 _vw, _ppvw;
     
     // RNG init
@@ -3785,41 +3747,38 @@ __kernel void flam3cl_FF(
     // get sample
     mem = vload3(gid, P).xy;
     
-    // parameterics data
-    __local float*  xf_prm_f  = &local_PRM_F[idx * PRM_NUM_F];
-    __local float2* xf_prm_f2 = &local_PRM_F2[idx * PRM_NUM_F2];
-    __local float4* xf_prm_f3 = &local_PRM_F3[idx * PRM_NUM_F3];
-    __local float4* xf_prm_f4 = &local_PRM_F4[idx * PRM_NUM_F4];
+    // ff parameterics data
+    __local float*  ff_prm_f  = &local_FF_PRM_F[0];
+    __local float2* ff_prm_f2 = &local_FF_PRM_F2[0];
+    __local float4* ff_prm_f3 = &local_FF_PRM_F3[0];
+    __local float4* ff_prm_f4 = &local_FF_PRM_F4[0];
+
+    // pp parameterics data
+    __local float*  pp_prm_f  = &local_FF_PRM_F[PRM_NUM_F];
+    __local float2* pp_prm_f2 = &local_FF_PRM_F2[PRM_NUM_F2];
+    __local float4* pp_prm_f3 = &local_FF_PRM_F3[PRM_NUM_F3];
+    __local float4* pp_prm_f4 = &local_FF_PRM_F4[PRM_NUM_F4];
     
     // pre affine 
-    affine_t pa = local_PRE_AFFINE[idx];
+    affine_t pa = local_FF_AFFINE[0];
     mem = affine(mem, pa);
 
-    // PRE/POST data
-    _ppvt = local_PPVT[idx];
-    _ppvw = local_PPVW[idx];
     // PRE
-    if (_ppvw.x > 0.0f) mem += CL_V_PREBLUR(_ppvw.x, &rng);
-    if (_ppvw.y > 0.0f) mem  = CL_V_DISPATCH(_ppvt.y, mem, _ppvw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-    if (_ppvw.z > 0.0f) mem  = CL_V_DISPATCH(_ppvt.z, mem, _ppvw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+    if (FF_PRE_VW.x > 0.0f) mem  = CL_V_DISPATCH(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, pp_prm_f, pp_prm_f2, pp_prm_f3, pp_prm_f4);
     
-    // VAR data
-    _vt = local_VT[idx];
-    _vw = local_VW[idx];
     // VAR
     _tmp = (float2)(0.0f, 0.0f);
-    if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(0, mem, _vw.x, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-    if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(0, mem, _vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-    if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(0, mem, _vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
-    if (_vw.w != 0.0f) _tmp += CL_V_DISPATCH(0, mem, _vw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+    if (FF_VPP_VW.x != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.x, mem, FF_VPP_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, ff_prm_f, ff_prm_f2, ff_prm_f3, ff_prm_f4);
+    if (FF_VPP_VW.y != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.y, mem, FF_VPP_VW.y, pa.xy.zw, pa.o.xy, F3C, &rng, ff_prm_f, ff_prm_f2, ff_prm_f3, ff_prm_f4);
 
-    // POST
-    if (_ppvw.w > 0.0f) _tmp = CL_V_DISPATCH(_ppvt.w, _tmp, _ppvw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+    // // POST
+    if (FF_VPP_VW.z > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.z, _tmp, FF_VPP_VW.z, pa.xy.zw, pa.o.xy, F3C, &rng, pp_prm_f, pp_prm_f2, pp_prm_f3, pp_prm_f4);
+    if (FF_VPP_VW.w > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.w, _tmp, FF_VPP_VW.w, pa.xy.zw, pa.o.xy, F3C, &rng, pp_prm_f, pp_prm_f2, pp_prm_f3, pp_prm_f4);
 
     // post affine    
-    if(local_POST[idx]){
-        affine_t ap = local_POST_AFFINE[idx];
-        _tmp = affine(_tmp, ap);
+    if(FF_POST){
+        // affine_t ap = local_FF_AFFINE[1];
+        _tmp = affine(_tmp, local_FF_AFFINE[1]);
         }
     
     // update
