@@ -2439,6 +2439,42 @@ _These preferences affect how the software behaves and appears but do not direct
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
+| **PREFS** | `gpu_iter` | `from H21` |
+
+### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
+
+Token: 128
+```
+128                         
+```
+
+Token: 256
+```
+256
+```
+Token: 512
+```
+512
+```
+
+<p align="left"><img width="48" height="48" src="../icons/icon_optionOCLSVG.svg" /></p>
+
+Token: 1024
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionOCLSVG.svg]1024
+```
+
+Token: 2048
+```
+2048
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Houdini version |
+|:---|:---|---:|
 | **PREFS** | `xm` | `from H20.5` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
