@@ -78,6 +78,7 @@ __status__: str = nodetype.hdaModule().__status__
 __module_filename__: str = nodetype.hdaModule().__module_filename__
 __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
 __vcc_compiler__: str = nodetype.hdaModule().__vcc_compiler__
+__opencl__: str = nodetype.hdaModule().__opencl__
 __h_version_min__: int = nodetype.hdaModule().__h_version_min__
 __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
@@ -12856,7 +12857,7 @@ class flam3h_about_utils
         # year = datetime.now().strftime("%Y")
         
         flam3h_author: str = f"AUTHOR: {__author__}"
-        flam3h_code: str = f"CODE: cvex {__vcc_compiler__}, Python {__py_version__}"
+        flam3h_code: str = f"CODE: opencl {__opencl__}, cvex {__vcc_compiler__}, python {__py_version__}"
         flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_code}\n{__copyright__}"
         
