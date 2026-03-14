@@ -1,3 +1,27 @@
+/*  
+ /  Tested on:  Houdini 21.0
+ /
+ /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
+ /  Author:     Alessandro Nardini
+ /  date:       January 2026, Last revised March 2026
+ /  License:    GPL
+ /  Copyright:  2021, © F stands for liFe ( made in Italy )
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm"
+ /  Authors:    Scott Draves, Erik Reckase
+ /
+ /  Paper:      https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Github:     https://github.com/scottdraves/flam3
+ /  Date:       December 2002, Last revised May 2015
+ /
+ /  Name:       CL FLAM3 "OPENCL"
+ /
+ /  Comment:    OpenCL FLAM3
+*/
+
+
 #define USE_FMA         1   // Enable fused multiply-add if desired
 #define USE_NATIVE      1   // Enable native ocl functions for speed but less accuracy
 #define USE_RNG_X128    1   // Use RNG x128 random number generator instead of x64 (32bit vs 24bit)
@@ -3360,7 +3384,8 @@ static float2 CL_V_DISPATCH_COMPILER(
 
 __kernel void cl_flam3( 
     int F3C,
-    uint OPID,
+    int OPID,
+    int ITER,
     int P_length,
     __global float * restrict P,
     int PSCALE_length,
@@ -3444,11 +3469,7 @@ __kernel void cl_flam3(
     __global int * restrict PRM_F4_index,
     __global float4 * restrict PRM_F4
 )
-{
-    int gid = get_global_id(0);
-    if (gid >= P_length)
-        return;
-        
+{        
     // copy data to local memory
     int lid = get_local_id(0);
     int lsize = get_local_size(0);
@@ -3546,6 +3567,10 @@ __kernel void cl_flam3(
             local_XST[i] = XST[i];
     }
     barrier(CLK_LOCAL_MEM_FENCE);   // Wait for the copy to complete
+
+    int gid = get_global_id(0);
+    if (gid >= P_length)
+        return;
     
     // init
     int idx;
@@ -3568,7 +3593,7 @@ __kernel void cl_flam3(
     
     float idxs[1024];
 
-    for (int i = 0; i < 1024; ++i){
+    for (int i = 0; i < ITER; ++i){
         
         // xform selection
         r = rng_next_float(&rng);
@@ -3640,9 +3665,8 @@ __kernel void cl_flam3(
 // ----------------------------
 
 __kernel void cl_flam3_ff( 
-    int FF,
     int F3C,
-    uint OPID,
+    int OPID,
     int P_length,
     __global float * restrict P,
     int FF_X_length,
@@ -3681,14 +3705,11 @@ __kernel void cl_flam3_ff(
 
 )
 {
-    int gid = get_global_id(0);
-    if (gid >= P_length || !FF)
-        return;
-        
     // copy data to local memory
     int lid = get_local_id(0);
     int lsize = get_local_size(0);
 
+    // pre and post affine
     __local affine_t local_FF_AFFINE[FF_RES_PRM];
 
     // // PRE, VAR and POST parameterics
@@ -3733,6 +3754,10 @@ __kernel void cl_flam3_ff(
         local_FF_PRM_F4[i] = FF_PRM_F4[i];
 
     barrier(CLK_LOCAL_MEM_FENCE);   // Wait for the copy to complete
+
+    int gid = get_global_id(0);
+    if (gid >= P_length)
+        return;
     
     // init
     int4 _vt, _ppvt;
