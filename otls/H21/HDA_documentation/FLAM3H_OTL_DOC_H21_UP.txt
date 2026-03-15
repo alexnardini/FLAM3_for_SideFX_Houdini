@@ -169,9 +169,16 @@ _It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`*
     
     == GLOBAL: Iterations == (GLBITERATIONS)
 
-iterations [Icon:TOP/xmlinput]:
+iterations (CPU) [Icon:TOP/xmlinput]:
     #id: GLOBAL
     Number of [iterations|Wp:Iteration] to use.
+
+    <br />
+
+    _When in GPU mode (_[Smallicon:opdef:.?icon_optionOCLSVG.svg]_) you wont need to come down to compromises_,<br />
+    _but you can change the iterations number being used in the preferences tab under the GPU section if you desire_.<br />
+
+    <br />
     
     You must experiment with the number of iterations and always go as low as possible to save on execution time.
     You went too low when the fractal Flame start to turn *_blocky_*, which happens when it crosses its own minimum.
@@ -2084,6 +2091,8 @@ store the HSV values being used if different from defaults.
 
 
 == MB: Motion blur parameters == (MB)
+
+_Motion Blur is not available in GPU mode_.
     
 ~~~
 :box:
@@ -2104,7 +2113,7 @@ _It is not yet clear to me if the issue became just the for loop, or the for loo
 
     == MB == (MBPRM)
 
-on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+on (CPU) [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: MB
     *`Off`* by default.
 
@@ -2130,7 +2139,7 @@ on [Icon:NETVIEW/time_dependent_badge] [Icon:TOP/xmlinput] [Icon:DATATYPES/boole
 
     <br />
 
-MB reset [Icon:opdef:.?icon_actionButtonSVG.svg]:
+MB reset (CPU) [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: MB
     [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
     
@@ -2141,19 +2150,19 @@ MB reset [Icon:opdef:.?icon_actionButtonSVG.svg]:
 
     == MB: Settings == (MBSETTINGS)
 
-FPS [Icon:TOP/xmlinput]:
+FPS (CPU) [Icon:TOP/xmlinput]:
     #id: MB
     Desired Frames per second.
 
     Frames per second ( [FPS|Wp:Frame_rate] ) significantly impacts the appearance of motion blur in video, with lower frame rates like 24 or 30 FPS naturally exhibiting more motion blur.
     
-Samples [Icon:TOP/xmlinput]:
+Samples (CPU) [Icon:TOP/xmlinput]:
     #id: MB
     Motion blur samples.
 
     Higher values increase the quality and produce a smoother blur.
     
-Shutter time [Icon:TOP/xmlinput]:
+Shutter time (CPU) [Icon:TOP/xmlinput]:
     #id: MB
     [Shutter time|Wp:Shutter_(photography)]
 
@@ -2164,7 +2173,7 @@ Shutter time [Icon:TOP/xmlinput]:
 
     == MB: Viz == (MBVIZ)
     
-Viz mb [Icon:DATATYPES/boolean]:
+Viz mb (CPU) [Icon:DATATYPES/boolean]:
     #id: MB
     *`Off`* by default.
 
@@ -2278,8 +2287,10 @@ Reload [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #display: rounded white
 
     == IN: Prefs == (INPREFS)
+
+    _IN: Prefs are not available in GPU mode_.
     
-Iterations on Load:
+Iterations on Load (CPU):
     #id: IN
     Set a number of iterations to use every time you load a Flame from a *.flame file.
 
@@ -2303,7 +2314,7 @@ Iterations on Load:
 
     <br />
     
-Force iterations on Load [Icon:DATATYPES/boolean]:
+Force iterations on Load (CPU) [Icon:DATATYPES/boolean]:
     #id: IN
     *`Off`* by default.
 
@@ -2319,7 +2330,7 @@ Force iterations on Load [Icon:DATATYPES/boolean]:
 
     <br />
 
-Override iterations from Flame name [Icon:DATATYPES/boolean]:
+Override iterations from Flame name (CPU) [Icon:DATATYPES/boolean]:
     #id: IN
     *`Off`* by default.
 
@@ -3306,11 +3317,44 @@ _When you save a Flame preset to the Clipboard, it will be rootless (not under a
 :box:
     #display: rounded white
 
+    == Prefs: GPU == (PREFSGPU)
+
+
+use GPU [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+    #id: prefs
+    *`On`* by default.
+
+    Run the algorithm entirely on the GPU device.
+
+    This can be hundreds of times faster compared to the CPU(_CVEX_) implementation<br />
+    depending on the system' GPU being used.
+    <br /><br />
+
+iterations (GPU) [Icon:TOP/xmlinput]:
+    #id: prefs
+    Number of iterations to use with the GPU implementation.
+
+    _Some of the menu labels possess a bookmark icon_:
+
+    - [Largeicon:opdef:.?icon_optionOCLSVG.svg] mark the default preset.
+    <br /><br />
+
+Reset iterations (GPU) [Icon:opdef:.?icon_actionButtonSVG.svg]:
+    #id: prefs
+    [Largeicon:opdef:.?icon_optionOCLSVG.svg]
+    
+    ((LMB)) to reset the GPU iterations to its default: *`1024`*<br />
+
+
+
+:box:
+    #display: rounded white
+
     == Prefs: General == (PREFSGENERAL)
 
 
 palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
-    #id: PALETOUTTE
+    #id: prefs
     *`On`* by default.
 
     *`[256+]`*<br />
@@ -3344,7 +3388,7 @@ palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     <br />
 
 SOLO Follow [Icon:DATATYPES/boolean]:
-    #id: PALETOUTTE
+    #id: prefs
     *`On`* by default.
 
     When any iterator has its xform handle in SOLO mode already ([Icon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]),<br />
@@ -4192,9 +4236,15 @@ _A list of all parametric variations and their parametric parameter's names_
 :box:
     #display: rounded gray
     
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Iterator's count:
-        #id: Limitations
+    [Icon:opdef:.?icon_optionOCLSVG.svg] *GPU*
+        #id: LimitationsGPU
     
+    FLAM3H(tm) GPU allow a maximum of *`20`* active iterators.<br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *CPU*
+        #id: LimitationsCPU
+
+    When running on the CPU:<br />
     FLAM3H(tm) allows you to create as many iterators as you wish.<br />
 
     However,<br />
