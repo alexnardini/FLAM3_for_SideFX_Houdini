@@ -398,6 +398,19 @@ static inline float2 affine(__private const float2 in, __private const affine_t 
 // They can make distinctions between native and not native OpenCl functions.
 // ----------------------------
 
+// The following should be automatically included from within Houdini
+// but just in case
+#ifndef M_PI
+    #define M_PI 3.141592653589793238462f
+#endif
+#ifndef M_1_PI
+    #define M_1_PI  0.318309886183790671538f
+#endif
+#ifndef M_2_PI
+    #define M_2_PI  0.636619772367581343076f
+#endif
+// end just in case
+
 #define EPS     2.220446049250313e-016f
 #define M_TAU   6.283185307179586476925f
 #define M_1_2PI 0.159154943091895335769f
