@@ -3329,7 +3329,7 @@ _When you save a Flame preset to the Clipboard, it will be rootless (not under a
     == Prefs: GPU == (PREFSGPU)
 
 
-use GPU [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
+use GPU [Icon:DATATYPES/boolean]:
     #id: prefs
     *`On`* by default.
 
@@ -3339,7 +3339,7 @@ use GPU [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     depending on the system' GPU being used.
     <br /><br />
 
-iterations (GPU) [Icon:TOP/xmlinput]:
+iterations (GPU):
     #id: prefs
     Number of iterations to use with the GPU implementation.
 
