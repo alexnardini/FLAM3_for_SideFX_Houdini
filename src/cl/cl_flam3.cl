@@ -1575,7 +1575,7 @@ static float2 CL_V_CONIC(__private const float2 in,
                         __private const float2 conic    // eccentricity holes
                         )
 {
-    float _SQRT, ct, r;
+    float ct, r;
 
     float rnd = rng_next_float(state) - conic.y;
     
@@ -1584,9 +1584,7 @@ static float2 CL_V_CONIC(__private const float2 in,
     ct = in.x * inv_len;
 #else
     float inv_len = rsqrt(dot(in, in));
-    _SQRT = SQRT(in);
     ct = in.x * inv_len;
-    r = w * rnd * conic.x / (1.0f + conic.x * ct) / _SQRT;
 #endif
     
     r = w * rnd * conic.x * inv_len / (1.0f + conic.x * ct);
