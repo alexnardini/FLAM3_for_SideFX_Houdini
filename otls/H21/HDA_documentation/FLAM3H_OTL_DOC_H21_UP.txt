@@ -3336,7 +3336,7 @@ use GPU [Icon:DATATYPES/boolean]:
     Run the algorithm entirely on the GPU device.
 
     This can be hundreds of times faster compared to the CPU(_CVEX_) implementation<br />
-    depending on the system' GPU being used.
+    depending on the system' GPU device being used.
     <br /><br />
 
 iterations (GPU):
