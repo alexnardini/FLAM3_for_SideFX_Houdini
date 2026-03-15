@@ -3401,8 +3401,6 @@ __kernel void cl_flam3(
     int ITER,
     int P_length,
     __global float * restrict P,
-    int PSCALE_length,
-    __global float * restrict PSCALE,
     int COLOR_length,
     __global float * restrict COLOR,
     int ALPHA_length,
@@ -3663,7 +3661,6 @@ __kernel void cl_flam3(
     vstore3((float3)(mem, 0.0f), gid, P);
     ALPHA[gid]  = a;
     COLOR[gid]  = clr;
-    PSCALE[gid] = PSCL;
 }
 
 
