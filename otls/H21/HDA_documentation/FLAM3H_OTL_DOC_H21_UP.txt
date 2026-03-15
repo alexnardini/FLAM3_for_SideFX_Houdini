@@ -42,7 +42,7 @@ These days, FLAM3H(tm) has all the features found in other third-party programs,
 
 Additionally, when combined with Houdini's [procedural|Wp:Procedural_generation] paradigm and toolsets, fractal Flames reach previously unheard-of levels of possibilities.
 
-_Worlds - author: Alessandro Nardini_
+_Cool eDisc - author: Pillemaster_
 [Image:opdef:.?FLAM3H_DOC_intro.jpg]
 _A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
 
@@ -390,6 +390,15 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     - After the algorithm transforms the points, it is possible for some of those points to shoot to infinity. Turn this *`On`* to get rid of those points.
     - When an iterator's opacity is *`0`*(Zero), you can turn this option *`On`* to get rid of those points since *opacity* == *`@pscale`* ( *`@widths`* _in Solaris_ ) you do not need them anymore.
     - If rendering a Flame seems unusually slow, it's probably because certain points wind up being really far from the Zero world. Those points will be eliminated if this option is turned *`On`*.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*
+
+    This functionality is CPU only.<br />
+    When in GPU mode, having this *`On`*/Active will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.
+
+    Keep this *`Off`* while editing your fractal flames in GPU mode to go full speed<br />
+    and Activate it only if/when needed: (_e.g. before any rendering or to check the final result from time to time if any iterators' opacity is *`0`*(Zero) or *`NaN`* values are present_).
     <br /><br />
 
     TIP:
