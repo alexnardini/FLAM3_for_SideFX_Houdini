@@ -2290,6 +2290,7 @@ class flam3h_scripts
         flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
         if hou.isUIAvailable():
             
+            # Will need to come back to this and re work everything a little better, good for now.
             gpu: int = node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
             if gpu: platform: str = 'OpenCL'
             else: platform: str = 'CVEX 32bit'
@@ -2540,6 +2541,7 @@ class flam3h_scripts
                 
         if FIRST_TIME_MSG is True and ( first_instance_32bit is True or first_instance_64bit is True ): # type: ignore
             
+            # Will need to come back to this and re work everything a little better, good for now.
             gpu: int = self.node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
             __module_version__: str = '.'.join((__py_version__.split('.'))[:2])
             
@@ -2620,6 +2622,7 @@ class flam3h_scripts
             
             __module_version__: str = '.'.join((__py_version__.split('.'))[:2])
             
+            # Will need to come back to this and re work everything a little better, good for now.
             gpu: int = self.node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
             
             if cvex_precision == 32:
@@ -5893,7 +5896,7 @@ class flam3h_general_utils
         """    
         node: hou.SopNode = self.node
         
-        # If GPU mode updated the default iterations number and parm name
+        # If in GPU mode, update the default iterations number and parm name
         gpu: int = node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
         
         if gpu:
@@ -23516,7 +23519,8 @@ class pyside_master:
                 
                 if (self.f3h_node is not None and self.h_valid) or self.splash_screen:
                     self._load_image_pixmap()
-                    
+                    # If in GPU mode update the splash screen short message
+                    # Will need to come back to this and re work everything a little better, good for now.
                     gpu: int = self.f3h_node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
                     if gpu and self.links is False: self.info = "compiling GPU nodes\n"
                 
