@@ -22,6 +22,11 @@
 */
 
 
+/* For now we are compiling using: -cl-fast-relaxed-math
+ / so the USE_NATIVE wont make much difference as the compiler will optimize aggressively anyway.
+ / In the future will add the following as a compiler kernel options inside houdini.
+*/
+
 #define USE_FMA         1   // Enable fused multiply-add if desired
 #define USE_NATIVE      1   // Enable native ocl functions for speed but less accuracy
 #define USE_RNG_X128    1   // Use RNG x128 random number generator instead of x64 (32bit vs 24bit)
@@ -656,16 +661,22 @@ static float2 CL_V_SPIRAL(__private const float2 in,
                         __private const float w
                         )
 {
-    float _SQRT, r, r1, sr, cr;
+    float r, r1, sr, cr;
 
-    _SQRT = SQRT(in);
-    float2 precalc = in / _SQRT;
-    r = Zeps(_SQRT);
+#if USE_NATIVE
+    float inv_sqrt = native_rsqrt(dot(in, in));
+    float2 precalc = in * inv_sqrt;
+    r = Zeps(native_recip(inv_sqrt));
+#else
+    float inv_sqrt = rsqrt(dot(in, in));
+    float2 precalc = in * inv_sqrt;
+    r = Zeps(1.0f / inv_sqrt);
+#endif
     r1 = w / r;
     sincos_fast(r, &sr, &cr);
 
     return r1 * (float2)(
-        precalc.y + sr, 
+        precalc.y + sr,
         precalc.x - cr
     );
 }
@@ -896,13 +907,17 @@ static float2 CL_V_RINGS(__private const float2 in,
                         __private const float c
                         )
 {
-    float _SQRT, dx, r;
+    float dx, r;
 
-    _SQRT = SQRT(in);
-    float2 precalc = in / _SQRT;
+#if USE_NATIVE
+    float inv_sqrt = native_rsqrt(dot(in, in));
+#else
+    float inv_sqrt = rsqrt(dot(in, in));
+#endif
+    float2 precalc = in * inv_sqrt;
 
-    dx = Zeps(c * c);
-    r = w * (fmod(_SQRT + dx, 2.0f * dx) - dx + _SQRT * (1.0f - dx));
+    dx = Zeps(c);
+    r = w * (fmod(inv_sqrt + dx, 2.0f * dx) - dx + inv_sqrt * (1.0f - dx));
 
     return r * precalc.yx;
 }
@@ -1078,9 +1093,9 @@ static float2 CL_V_BLOB(__private const float2 in,
                         __private const float4 blob // low high wave unused
                         )
 {
-    float _SQRT, low, high, wave, blob_coeff, r, aa, bdiff;
+    float d, r, aa, bdiff;
 
-    _SQRT = SQRT(in);
+    float _SQRT = SQRT(in);
     float2 precalc = in / _SQRT;
 
     aa = ATAN(in);
