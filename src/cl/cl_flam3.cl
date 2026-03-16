@@ -794,9 +794,13 @@ static float2 CL_V_WAVES(__private const float2 in,
                         )
 {
     float m_Dx2, m_Dy2;
-    
+#if USE_NATIVE
+    m_Dx2 = native_recip(Zeps(c * c));
+    m_Dy2 = native_recip(Zeps(f * f));
+#else
     m_Dx2 = 1.0f / Zeps(c * c);
     m_Dy2 = 1.0f / Zeps(f * f);
+#endif
     
 #if USE_NATIVE
     return w * (float2)(
@@ -1059,7 +1063,7 @@ static float2 CL_V_NGON(__private const float2 in,
     phi = theta - ngon_precalc.y * floor(theta * ngon_precalc.z);
     phi -= ngon_precalc.y * (phi > 0.5f * ngon_precalc.y);
 #if USE_NATIVE
-    amp = (ngon.z * (1.0f / native_cos(phi) - 1.0f) + ngon.w) * w * r_factor;
+    amp = (ngon.z * (native_recip(native_cos(phi)) - 1.0f) + ngon.w) * w * r_factor;
 #else
     amp = (ngon.z * (1.0f / cos(phi) - 1.0f) + ngon.w) * w * r_factor;
 #endif
@@ -1263,8 +1267,11 @@ static float2 CL_V_RECTANGLES(__private const float2 in,
                             )
 {
     float2 invr, t, m;
-
-    invr = 1.0f / rectangles; // TO DO: compute in vex land
+#if USE_NATIVE
+    invr = native_recip(rectangles);
+#else
+    invr = 1.0f / rectangles;
+#endif
 #if USE_FMA
     t = floor(in * invr);
     m = fma(t, 2.0f * rectangles, rectangles) - in;
@@ -1537,7 +1544,11 @@ static float2 CL_V_SUPERSHAPE(__private const float2 in,
     // I did but made no difference and I prefer to keep it here
     // so the wrangle core node in Houdini's land remain more performant.
     ss_pm_4 = supershape.x * 0.25f;
+#if USE_NATIVE
+    ss_pneg1_n1 = native_recip(supershape_n.x) * -1.0f;
+#else
     ss_pneg1_n1 = -1.0f / supershape_n.x;
+#endif
     float inv_sy = 1.0f - supershape.y;
 
     _SQRT = SQRT(in);
@@ -2687,7 +2698,11 @@ static float2 CL_V_TANH(__private const float2 in,
     sincos_fast(xy.y, &tanhsin, &tanhcos);
     tanhsinh = sinh(xy.x);
     tanhcosh = cosh(xy.x);
+#if USE_NATIVE
+    den = native_recip(Zeps(tanhcos + tanhcosh));
+#else
     den = 1.0f / Zeps(tanhcos + tanhcosh);
+#endif
 
     return w * den * (float2)(tanhsinh, tanhsin);
 }
