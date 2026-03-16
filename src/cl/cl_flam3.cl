@@ -2843,15 +2843,15 @@ static float2 CL_V_CURVE(__private const float2 in,
 
     if(F3C){
     #if USE_NATIVE
-                lx = native_recip(fmax((lenght.x * lenght.x), 1e-20f));
-                ly = native_recip(fmax((lenght.y * lenght.y), 1e-20f));
+        lx = native_recip(fmax((lenght.x * lenght.x), 1e-20f));
+        ly = native_recip(fmax((lenght.y * lenght.y), 1e-20f));
         return w * (float2)(
             in.x + amplitude.x * native_exp(-in.y * in.y * lx), 
             in.y + amplitude.y * native_exp(-in.x * in.x * ly)
         );
     #else
-                lx = 1.0f / fmax((lenght.x * lenght.x), 1e-20f);
-                ly = 1.0f / fmax((lenght.y * lenght.y), 1e-20f);
+        lx = 1.0f / fmax((lenght.x * lenght.x), 1e-20f);
+        ly = 1.0f / fmax((lenght.y * lenght.y), 1e-20f);
         return w * (float2)(
             in.x + amplitude.x * exp(-in.y * in.y * lx), 
             in.y + amplitude.y * exp(-in.x * in.x * ly)
