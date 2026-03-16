@@ -31,7 +31,7 @@
 #define USE_NATIVE      1   // Enable native ocl functions for speed but less accuracy
 #define USE_RNG_X128    1   // Use RNG x128 random number generator instead of x64 (32bit vs 24bit)
 
-// This is defined in the Houdini environment and here as a place holder only for now.
+// This is defined in the Houdini environment and must match.
 #define PSCL 0.001f         // Default point scale ( @pscale )
 
 // ----------------------------
@@ -3420,6 +3420,8 @@ __kernel void cl_flam3(
     __global float * restrict COLOR,
     int ALPHA_length,
     __global float * restrict ALPHA,
+    int PSCALE_length,
+    __global float * restrict PSCALE,
     int    RES,
     int IW_length,
     int IW_tuplesize,
@@ -3676,6 +3678,7 @@ __kernel void cl_flam3(
     vstore3((float3)(mem, 0.0f), gid, P);
     ALPHA[gid]  = a;
     COLOR[gid]  = clr;
+    PSCALE[gid]  = PSCL * a;
 }
 
 
