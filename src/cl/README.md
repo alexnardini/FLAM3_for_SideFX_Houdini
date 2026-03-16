@@ -7,16 +7,16 @@ Implementation of the algorithm using OpenCL for high performance.<br>
 It run billions of iterations per second in Houdini Sop.<br>
 
 _This file include everything_:<br>
-- the variations functions,
-- the RNG noises, 
-- variation dispatch,
+- variations' functions,
+- variations' dispatch,
+- RNG noises, 
 - weighted probabilities,
 - the chaos game,
 - CDF sampling,
 - kernels,
-- and everything else...
+- everything else...
 
 <br>
 
-In this implementation, the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node<br>
-to maximize performance since the data is already on the GPU.
+To maximize performance and since the data is already on the GPU<br>
+the **FF**(_finalXform_) run as a separate kernel in its own OpenCL node.<br>
