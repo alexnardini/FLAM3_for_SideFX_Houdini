@@ -4142,12 +4142,34 @@ _A list of all parametric variations and their parametric parameter's names_
 :box:
     #display: rounded white
 
-@Cvex
+@code OpenCL and Cvex
+
+== OpenCL == (CODEOCL)
 
 :box:
     #display: inverted pink
 
-    *FLAM3H(tm) Cvex*. _How to Compile and update_.
+    *FLAM3H(tm) OpenCL*.
+    
+    OpenCL has been used to implement the algorithm so it can fully run on the system GPU device.<br />
+
+    Thanks to this, *FLAM3H(tm) * entered the high performance implementation category<br />
+    fully developed within the SideFX Houdini environment, no HDK.
+
+    It makes real-time fractal flame editing in Houdini possible<br />
+    by running billions of iterations per second on AMD and Nvidia GPUs.<br />
+
+    Compared to Cvex, OpenCL development adds a few layers of complexity.<br />
+    The need to use and track pointers, the ability to work in different GPU device memory spaces,<br />
+    and other factors enable a much more customized and elegant implementation than Houdini Cvex.<br />
+
+
+== Cvex == (CODECVEX)
+
+:box:
+    #display: inverted pink
+
+    *FLAM3H(tm) Cvex*.
     
     In this section,<br /> 
     you will find information on how to compile and then update FLAM3H(tm) Cvex code in case you'd like to modify/extend its core functionalities.
@@ -4162,66 +4184,69 @@ _A list of all parametric variations and their parametric parameter's names_
     this results in the least amount of code required to implement the entire algorithm.<br /> 
     Be as conservative as you can if you want to add anything.
 
+    <br />
 
-== Cvex: How to compile == (COMPILE)
+    == Cvex: How to compile == (COMPILE)
     
-:box:
-    #display: rounded gray
-    
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Compile Cvex:
-        #id: Cvex
-    
-    _SideFX made this part very easy_:
-    
-    # Open a Houdini 19 or higher, Command line Tools shell
-    # Navigate into the directory where the cvex source files are located
-    # To compile any of the available cvex source files, run this command:
-    
-        {{{
-        #!vex
-        vcc -c cvex sourceFile.vfl -o outputFile.vex
-        }}}
-    
-    - *vcc* is the name of the Houdini's cvex/vex compiler
-    - *-c* to specify a Houdini context, in this case the context is: *cvex*
-    - *-o* to specify an output filename ( *.vex* _extension_ )
-    
-    The FLAM3H(tm) source files are already named as expected.
-    
-    - The output file name must be the same as the input source file name<br />
-    ( _only the file extension will be different, of course_ ).
-    
-        - Source -> _"cvex_TheFractalFlameAlgorithm.*vfl*"_
-    
-        - Output -> _"cvex_TheFractalFlameAlgorithm.*vex*"_
-    
-== Cvex: How to update FLAM3H(tm) node == (UPDATE)
-    
-:box:
-    #display: rounded gray
-    
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] Reload Cvex:
-        #id: Cvex
-    
-    Inside the FLAM3H(tm) node, you will find many wrangle core nodes running a compiled Cvex file.
-    
-    If you end up updating the Cvex code yourself by extending it: 
-    
-    # Update the sourceFile.*vfl* with all the changes/additions you desire, and follow the above steps on *Cvex: How to compile*.
-    # Once you are ready, remove the old compiled Cvex file from: *FLAM3H(tm) *-> *Type properties* -> *extra files*.
-    # Locate the new compiled Cvex file and load it back inside *FLAM3H(tm) * -> *Type properties* -> *extra files*.
-    # Before you click: *Add file*, remove the extension from the filename inside the "*Section name*"
-        - e.g. From: _*cvex_TheFractalFlameAlgorithm.vex*_ To: _*cvex_TheFractalFlameAlgorithm*_
-    # Click *Apply* or *Accept* to confirm your changes.
-    # Go inside the FLAM3H(tm) node and on any of the *`wrangle core`* nodes, click the:
+    :box:
+        #display: rounded gray
         
-        * *`Reload Cvex icon`*: [Largeicon:opdef:.?icon_cvex_compileSVG.svg]
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] Compile Cvex:
+            #id: Cvex
+        
+        _SideFX made this part very easy_:
+        
+        # Open a Houdini 19 or higher, Command line Tools shell
+        # Navigate into the directory where the cvex source files are located
+        # To compile any of the available cvex source files, run this command:
+        
+            {{{
+            #!vex
+            vcc -c cvex sourceFile.vfl -o outputFile.vex
+            }}}
+        
+        - *vcc* is the name of the Houdini's cvex/vex compiler
+        - *-c* to specify a Houdini context, in this case the context is: *cvex*
+        - *-o* to specify an output filename ( *.vex* _extension_ )
+        
+        The FLAM3H(tm) source files are already named as expected.
+        
+        - The output file name must be the same as the input source file name<br />
+        ( _only the file extension will be different, of course_ ).
+        
+            - Source -> _"cvex_TheFractalFlameAlgorithm.*vfl*"_
+        
+            - Output -> _"cvex_TheFractalFlameAlgorithm.*vex*"_
     
-    You just need to click it once,<br />
-    and it will reload all the compiled Cvex code files included, the wrangle core node you click the icon from is not important.
+    <br />
+
+    == Cvex: How to update FLAM3H(tm) node == (UPDATE)
     
-    Once clicked and as soon as FLAM3H(tm) cook again,<br />
-    it will Re-Compile all FLAM3H(tm) Cvex nodes. Depending on your PC configuration it can take up to *`1`*(one) minute. It is a one time compile process.
+    :box:
+        #display: rounded gray
+        
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] Reload Cvex:
+            #id: Cvex
+        
+        Inside the FLAM3H(tm) node, you will find many wrangle core nodes running a compiled Cvex file.
+        
+        If you end up updating the Cvex code yourself by extending it: 
+        
+        # Update the sourceFile.*vfl* with all the changes/additions you desire, and follow the above steps on *Cvex: How to compile*.
+        # Once you are ready, remove the old compiled Cvex file from: *FLAM3H(tm) *-> *Type properties* -> *extra files*.
+        # Locate the new compiled Cvex file and load it back inside *FLAM3H(tm) * -> *Type properties* -> *extra files*.
+        # Before you click: *Add file*, remove the extension from the filename inside the "*Section name*"
+            - e.g. From: _*cvex_TheFractalFlameAlgorithm.vex*_ To: _*cvex_TheFractalFlameAlgorithm*_
+        # Click *Apply* or *Accept* to confirm your changes.
+        # Go inside the FLAM3H(tm) node and on any of the *`wrangle core`* nodes, click the:
+            
+            * *`Reload Cvex icon`*: [Largeicon:opdef:.?icon_cvex_compileSVG.svg]
+        
+        You just need to click it once,<br />
+        and it will reload all the compiled Cvex code files included, the wrangle core node you click the icon from is not important.
+        
+        Once clicked and as soon as FLAM3H(tm) cook again,<br />
+        it will Re-Compile all FLAM3H(tm) Cvex nodes. Depending on your PC configuration it can take up to *`1`*(one) minute. It is a one time compile process.
 
 
 
