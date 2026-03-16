@@ -13280,7 +13280,9 @@ If you type a negative number, it will be reset to a value of: 1"""
         """
 
         
-        ALL_msg = """ The iteration number you want your fractal flame to use when you load it back into FLAM3H™
+        ALL_msg = """ FLAM3H™ CPU(Cvex) only
+        
+The iteration number you want your fractal flame to use when you load it back into FLAM3H™
 can be baked into the preset name you choose for it. 
 
 For instance,
@@ -13333,6 +13335,7 @@ class xml_keys:
     XML_ROOT_CHAOS: Final = 'ifs'
 
     XML_APP_NAME_FLAM3H: Final = 'FLAM3H'
+    XML_APP_NAME_FLAM3H_CL: Final = 'FLAM3H-CL'
     XML_APP_NAME_FRACTORIUM: Final = 'EMBER'
 
     XML_NAME: Final = 'flame'
@@ -21748,10 +21751,16 @@ class out_flame_utils
         Returns:
             (dict): a dictionary with all the flame properties to be written out.
         """   
+        node: hou.SopNode = self.node
+        
+        # Make distinction between GPU and CPU.
+        if node.parm(f3h_tabs.PREFS.PRM_GPU).eval(): _F3H_APP_NAME: str = xml_keys.XML_APP_NAME_FLAM3H_CL
+        else: _F3H_APP_NAME: str = xml_keys.XML_APP_NAME_FLAM3H
+        
         # If "use Fractorium parametric prm names" OUT option is ON, lets append the EMBER name to the app name
         # so that we can pick up the proper parametric parameter names if we load it back in Houdini.
-        if self.node.parm(f3h_tabs.OUT.PRM_USE_FRACTORIUM_PRM_NAMES).eval(): _XML_APP_NAME = f"{xml_keys.XML_APP_NAME_FRACTORIUM}-{xml_keys.XML_APP_NAME_FLAM3H}"
-        else: _XML_APP_NAME = xml_keys.XML_APP_NAME_FLAM3H
+        if node.parm(f3h_tabs.OUT.PRM_USE_FRACTORIUM_PRM_NAMES).eval(): _XML_APP_NAME = f"{xml_keys.XML_APP_NAME_FRACTORIUM}-{_F3H_APP_NAME}"
+        else: _XML_APP_NAME = _F3H_APP_NAME
         
         return {xml_keys.XML_VERSION: f'{_XML_APP_NAME}-{flam3h_general_utils.my_system()}-{__version__}',
                 xml_keys.XML_XF_NAME: f3r.flame_name,
