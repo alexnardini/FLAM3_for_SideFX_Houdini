@@ -3676,8 +3676,8 @@ __kernel void cl_flam3(
     
     // OUT
     vstore3((float3)(mem, 0.0f), gid, P);
-    ALPHA[gid]  = a;
-    COLOR[gid]  = clr;
+    ALPHA[gid]   = a;
+    COLOR[gid]   = clr;
     PSCALE[gid]  = PSCL * a;
 }
 
