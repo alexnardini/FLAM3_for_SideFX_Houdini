@@ -4102,7 +4102,9 @@ class flam3h_general_utils
         Returns:
             (None):                            
         """ 
-        self.kwargs['parmtuple'].set(val)
+        prm = self.kwargs['parmtuple']
+        prm.lock(False) # Always unlock just in case
+        prm.set(val)
 
 
     def menus_refresh_enum_prefs(self) -> None:
