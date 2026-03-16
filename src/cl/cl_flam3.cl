@@ -501,7 +501,7 @@ static inline float Sqrt1pm1(const float x){
 //
 // All the variations/plugins being implemented.
 // The CVEX code base has been the starting point
-// and they have been upgraded for OpenCL.
+// and they have been upgraded to be GPU friendly.
 // ----------------------------
 
 // ----------------------------
@@ -1659,42 +1659,7 @@ static float2 CL_V_BIPOLAR(__private const float2 in,
                         __private const float shift // shift
                         )
 {
-//     float x2y2, tt, x2, ps, y;
-
-//     x2y2 = dot(in, in);
-//     tt = x2y2 + 1.0f;
-//     x2 = 2.0f * in.x;
-//     ps = -M_PI_2 * shift;
-
-//     y = 0.5f * atan2(2.0f * in.y, x2y2 - 1.0f) + ps;
-//     // 
-// #if USE_NATIVE
-//     if (y > M_PI_2)
-//         y = -M_PI_2 + (y + M_PI_2) - M_PI * floor((y + M_PI_2) * native_recip(M_PI));
-//     else if (y < -M_PI_2)
-//         y = M_PI_2 - ((M_PI_2 - y) - M_PI * floor((M_PI_2 - y) * native_recip(M_PI)));
-//     // float lx = native_log(tt + x2) - native_log(tt - x2);
-//     float lx = native_log((tt + x2) / (tt - x2));
-// #else
-//     if (y > M_PI_2)
-//         y = -M_PI_2 + (y + M_PI_2) - M_PI * floor((y + M_PI_2) * (1.0f / M_PI));
-//     else if (y < -M_PI_2)
-//         y = M_PI_2 - ((M_PI_2 - y) - M_PI * floor((M_PI_2 - y) * (1.0f / M_PI)));
-//     // float lx = log(tt + x2) - log(tt - x2);
-//     float lx = log((tt + x2) / (tt - x2));
-// #endif
-
-//     return w * (float2)(
-//         0.25f * M_2_PI * lx,
-//         M_2_PI * y
-//     );
-
-
     float x2y2, tt, x2, ps, y, lx;
-
-    const float invpi = 0.31830988618f;
-    const float two_invpi = 0.63661977236f;
-    const float quarter_two_invpi = 0.15915494309f;
 
     x2y2 = dot(in, in);
     tt = x2y2 + 1.0f;
@@ -1706,7 +1671,7 @@ static float2 CL_V_BIPOLAR(__private const float2 in,
     y = 0.5f * atan2(2.0f * in.y, x2y2 - 1.0f) + ps;
 #endif
 
-    y = y - M_PI * floor((y + M_PI_2) * invpi);
+    y = y - M_PI * floor((y + M_PI_2) * M_1_PI);
 #if USE_NATIVE
     lx = native_log((tt + 2.0f * in.x) / (tt - 2.0f * in.x));
 #else
@@ -1714,8 +1679,8 @@ static float2 CL_V_BIPOLAR(__private const float2 in,
 #endif
 
     return w * (float2)(
-        quarter_two_invpi * lx,
-        two_invpi * y
+        M_1_2PI * lx,
+        M_2_PI * y
     );
 }
 // ----------------------------
@@ -3421,7 +3386,7 @@ static float2 CL_V_DISPATCH_COMPILER(
 // ----------------------------
 // CL FLAM3 kernel (xforms/iterators)
 //
-// The main Kernel function.
+// The main FLAM3 Kernel function.
 // This will be called from the Houdini OpenCL node.
 // ----------------------------
 
@@ -3633,8 +3598,6 @@ __kernel void cl_flam3(
     
     // if XAOS, pick a starting xform from distribution
     if(XS) idx = sample_cdf_binary(local_IW, RES, rng_next_float(&rng));
-    
-    float idxs[1024];
 
     for (int i = 0; i < ITER; ++i){
         
