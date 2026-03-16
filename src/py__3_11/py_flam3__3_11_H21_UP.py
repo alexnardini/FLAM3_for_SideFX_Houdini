@@ -2012,7 +2012,7 @@ class flam3h_scripts
 
     """    
     
-    __slots__ = ("_kwargs", "_node")
+    __slots__ = ("_kwargs", "_node", "_gpu")
     
     def __init__(self, kwargs: dict) -> None:
         """
@@ -2024,6 +2024,7 @@ class flam3h_scripts
         """  
         self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
+        self._gpu: hou.Parm | None = self._node.parm(f3h_tabs.PREFS.PRM_GPU)
         
         
     @staticmethod
@@ -2483,6 +2484,13 @@ class flam3h_scripts
     def node(self) -> hou.SopNode:
         return self._node
     
+    @property
+    def gpu(self) -> bool:
+        if self._gpu is not None:
+            return bool(self._gpu.eval())
+        else:
+            return False
+    
     
     def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
         """Check FLAM3H™ compatibility based on the type of range(of Houdini versions)</br>
@@ -2521,6 +2529,7 @@ class flam3h_scripts
         Returns:
             (None):
         """
+        gpu: bool = self.gpu
         
         try:
             hou.session.F3H_FIRST_INSTANCE_32BIT # type: ignore
@@ -2542,7 +2551,6 @@ class flam3h_scripts
         if FIRST_TIME_MSG is True and ( first_instance_32bit is True or first_instance_64bit is True ): # type: ignore
             
             # Will need to come back to this and re work everything a little better, good for now.
-            gpu: int = self.node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
             __module_version__: str = '.'.join((__py_version__.split('.'))[:2])
             
             if cvex_precision == 32 and first_instance_32bit is True:
@@ -2623,7 +2631,7 @@ class flam3h_scripts
             __module_version__: str = '.'.join((__py_version__.split('.'))[:2])
             
             # Will need to come back to this and re work everything a little better, good for now.
-            gpu: int = self.node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
+            gpu: bool = self.gpu
             
             if cvex_precision == 32:
                 if gpu: platform: str = 'OpenCL'
