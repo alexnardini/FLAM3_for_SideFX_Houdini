@@ -3604,7 +3604,13 @@ __kernel void cl_flam3(
         // xform selection
         r = rng_next_float(&rng);
         idx = XS ? sample_cdf_binary(&local_XST[idx * RES], RES, r) : sample_cdf_binary(local_IW, RES, r);
-
+        
+        // parameterics data
+        __local float*  xf_prm_f  = &local_PRM_F[idx * PRM_NUM_F];
+        __local float2* xf_prm_f2 = &local_PRM_F2[idx * PRM_NUM_F2];
+        __local float4* xf_prm_f3 = &local_PRM_F3[idx * PRM_NUM_F3];
+        __local float4* xf_prm_f4 = &local_PRM_F4[idx * PRM_NUM_F4];
+        
         // pre affine 
         affine_t pa = local_PRE_AFFINE[idx];
         mem = affine(mem, pa);
@@ -3614,25 +3620,27 @@ __kernel void cl_flam3(
         _ppvw = local_PPVW[idx];
         // PRE
         if (_ppvw.x > 0.0f) mem += CL_V_PREBLUR(_ppvw.x, &rng);
-        if (_ppvw.y > 0.0f) mem  = CL_V_DISPATCH(_ppvt.y, mem, _ppvw.y, pa.xy.zw, pa.o.xy, F3C, &rng, &local_PRM_F[idx * PRM_NUM_F], &local_PRM_F2[idx * PRM_NUM_F2], &local_PRM_F3[idx * PRM_NUM_F3], &local_PRM_F4[idx * PRM_NUM_F4]);
-        if (_ppvw.z > 0.0f) mem  = CL_V_DISPATCH(_ppvt.z, mem, _ppvw.z, pa.xy.zw, pa.o.xy, F3C, &rng, &local_PRM_F[idx * PRM_NUM_F], &local_PRM_F2[idx * PRM_NUM_F2], &local_PRM_F3[idx * PRM_NUM_F3], &local_PRM_F4[idx * PRM_NUM_F4]);
+        if (_ppvw.y > 0.0f) mem  = CL_V_DISPATCH(_ppvt.y, mem, _ppvw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_ppvw.z > 0.0f) mem  = CL_V_DISPATCH(_ppvt.z, mem, _ppvw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         
         // VAR data
         _vt = local_VT[idx];
         _vw = local_VW[idx];
         // VAR
         _tmp = (float2)(0.0f, 0.0f);
-        if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(_vt.x, mem, _vw.x, pa.xy.zw, pa.o.xy, F3C, &rng, &local_PRM_F[idx * PRM_NUM_F], &local_PRM_F2[idx * PRM_NUM_F2], &local_PRM_F3[idx * PRM_NUM_F3], &local_PRM_F4[idx * PRM_NUM_F4]);
-        if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(_vt.y, mem, _vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, &local_PRM_F[idx * PRM_NUM_F], &local_PRM_F2[idx * PRM_NUM_F2], &local_PRM_F3[idx * PRM_NUM_F3], &local_PRM_F4[idx * PRM_NUM_F4]);
-        if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(_vt.z, mem, _vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, &local_PRM_F[idx * PRM_NUM_F], &local_PRM_F2[idx * PRM_NUM_F2], &local_PRM_F3[idx * PRM_NUM_F3], &local_PRM_F4[idx * PRM_NUM_F4]);
-        if (_vw.w != 0.0f) _tmp += CL_V_DISPATCH(_vt.w, mem, _vw.w, pa.xy.zw, pa.o.xy, F3C, &rng, &local_PRM_F[idx * PRM_NUM_F], &local_PRM_F2[idx * PRM_NUM_F2], &local_PRM_F3[idx * PRM_NUM_F3], &local_PRM_F4[idx * PRM_NUM_F4]);
+        if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(_vt.x, mem, _vw.x, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(_vt.y, mem, _vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(_vt.z, mem, _vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
+        if (_vw.w != 0.0f) _tmp += CL_V_DISPATCH(_vt.w, mem, _vw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
 
         // POST
-        if (_ppvw.w > 0.0f) _tmp = CL_V_DISPATCH(_ppvt.w, _tmp, _ppvw.w, pa.xy.zw, pa.o.xy, F3C, &rng, &local_PRM_F[idx * PRM_NUM_F], &local_PRM_F2[idx * PRM_NUM_F2], &local_PRM_F3[idx * PRM_NUM_F3], &local_PRM_F4[idx * PRM_NUM_F4]);
+        if (_ppvw.w > 0.0f) _tmp = CL_V_DISPATCH(_ppvt.w, _tmp, _ppvw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
 
         // post affine    
-        if(local_POST[idx]) _tmp = affine(_tmp, local_POST_AFFINE[idx]);
-
+        if(local_POST[idx]){
+            // affine_t ap = local_POST_AFFINE[idx];
+            _tmp = affine(_tmp, local_POST_AFFINE[idx]);
+            }
 
         // color
         _prev_clr = clr = local_SHD[idx] + local_SHD[idx + RES] * _prev_clr;
@@ -3770,25 +3778,39 @@ __kernel void cl_flam3_ff(
     // get sample
     mem = vload3(gid, P).xy;
     
+    // ff parameterics data
+    __local float*  ff_prm_f  = &local_FF_PRM_F[0];
+    __local float2* ff_prm_f2 = &local_FF_PRM_F2[0];
+    __local float4* ff_prm_f3 = &local_FF_PRM_F3[0];
+    __local float4* ff_prm_f4 = &local_FF_PRM_F4[0];
+
+    // pp parameterics data
+    __local float*  pp_prm_f  = &local_FF_PRM_F[PRM_NUM_F];
+    __local float2* pp_prm_f2 = &local_FF_PRM_F2[PRM_NUM_F2];
+    __local float4* pp_prm_f3 = &local_FF_PRM_F3[PRM_NUM_F3];
+    __local float4* pp_prm_f4 = &local_FF_PRM_F4[PRM_NUM_F4];
+    
     // pre affine 
     affine_t pa = local_FF_AFFINE[0];
     mem = affine(mem, pa);
 
     // PRE
-    if (FF_PRE_VW.x > 0.0f) mem = CL_V_DISPATCH(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, &local_FF_PRM_F[PRM_NUM_F], &local_FF_PRM_F2[PRM_NUM_F2], &local_FF_PRM_F3[PRM_NUM_F3], &local_FF_PRM_F4[PRM_NUM_F4]);
+    if (FF_PRE_VW.x > 0.0f) mem  = CL_V_DISPATCH(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, pp_prm_f, pp_prm_f2, pp_prm_f3, pp_prm_f4);
     
     // VAR
     _tmp = (float2)(0.0f, 0.0f);
-    if (FF_VPP_VW.x != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.x, mem, FF_VPP_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, &local_FF_PRM_F[0], &local_FF_PRM_F2[0], &local_FF_PRM_F3[0], &local_FF_PRM_F4[0]);
-    if (FF_VPP_VW.y != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.y, mem, FF_VPP_VW.y, pa.xy.zw, pa.o.xy, F3C, &rng, &local_FF_PRM_F[0], &local_FF_PRM_F2[0], &local_FF_PRM_F3[0], &local_FF_PRM_F4[0]);
+    if (FF_VPP_VW.x != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.x, mem, FF_VPP_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, ff_prm_f, ff_prm_f2, ff_prm_f3, ff_prm_f4);
+    if (FF_VPP_VW.y != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.y, mem, FF_VPP_VW.y, pa.xy.zw, pa.o.xy, F3C, &rng, ff_prm_f, ff_prm_f2, ff_prm_f3, ff_prm_f4);
 
     // // POST
-    if (FF_VPP_VW.z > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.z, _tmp, FF_VPP_VW.z, pa.xy.zw, pa.o.xy, F3C, &rng, &local_FF_PRM_F[PRM_NUM_F], &local_FF_PRM_F2[PRM_NUM_F2], &local_FF_PRM_F3[PRM_NUM_F3], &local_FF_PRM_F4[PRM_NUM_F4]);
-    if (FF_VPP_VW.w > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.w, _tmp, FF_VPP_VW.w, pa.xy.zw, pa.o.xy, F3C, &rng, &local_FF_PRM_F[PRM_NUM_F], &local_FF_PRM_F2[PRM_NUM_F2], &local_FF_PRM_F3[PRM_NUM_F3], &local_FF_PRM_F4[PRM_NUM_F4]);
+    if (FF_VPP_VW.z > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.z, _tmp, FF_VPP_VW.z, pa.xy.zw, pa.o.xy, F3C, &rng, pp_prm_f, pp_prm_f2, pp_prm_f3, pp_prm_f4);
+    if (FF_VPP_VW.w > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.w, _tmp, FF_VPP_VW.w, pa.xy.zw, pa.o.xy, F3C, &rng, pp_prm_f, pp_prm_f2, pp_prm_f3, pp_prm_f4);
 
     // post affine    
-    if(FF_POST) _tmp = affine(_tmp, local_FF_AFFINE[1]);
-
+    if(FF_POST){
+        // affine_t ap = local_FF_AFFINE[1];
+        _tmp = affine(_tmp, local_FF_AFFINE[1]);
+        }
     
     // update
     mem = _tmp;
