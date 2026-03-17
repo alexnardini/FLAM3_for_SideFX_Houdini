@@ -19,6 +19,7 @@ _The following are Houdini versions where FLAM3H™ is fully functional, tested 
 
 <br/>
 <br/>
+<br/>
 
 # The Fractal Flame Algorithm
 ![FLAM3 Intro image](./img/GITHUB_intro_img.jpg)
@@ -27,6 +28,8 @@ _The following are Houdini versions where FLAM3H™ is fully functional, tested 
 
 ## FLAM3 for SideFX Houdini - aka: FLAM3H™
 **_A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_**
+
+<br/>
 
 <p align="center">
   <img width="160" height="160" src="./img/LOGO_F_github.svg" />
@@ -42,6 +45,8 @@ As a result, it became a somewhat conservative implementation, it has everything
 A big commitment I needed to honor was to learn how to do fractal art. 
 Building a fractal art tool without knowing what a fractal artist needs and feels while doing it is kind of meaningless. And thus, while creating this tool, I engaged in so much fractal art with it that I unavoidably developed a love for the field.
 It was important, so I could shape and steer this tool in the right direction.
+
+<br/>
 
 ### Why inside Houdini ?
 
@@ -76,6 +81,9 @@ they can be fed into a pipeline like any other piece of data.
 
 - <b>Interactive Development Flow</b></br>The tool can be modified in-place without affecting the running environment, enabling anyone to add and change its data and toolkits while monitoring the results in real time and ensuring that the updated version will function properly on all platforms that Houdini is running on.
 
+<br/>
+<br/>
+
 ### Description
 
 `FLAM3H™ node OTL documentation`
@@ -84,34 +92,40 @@ they can be fed into a pipeline like any other piece of data.
 FLAM3H™ is a high performance implementation of the fractal Flame algorithm
 fully developed within the SideFX Houdini environment, no HDK.
 
-- It run on GPU as well on CPU.<br>
+- **Supported devices**<br>It run on GPU as well on CPU.<br>
 
-- The GPU mode is available only in FLAM3H™ for H21 and up.
+- **GPU availability**<br>GPU mode is only available with FLAM3H™ for H21 and up.
 
-- OpenCL has been used to implement the algorithm so it can fully run on the system GPU device.<br>
+- **GPU OpenCL**<br>OpenCL (_-cl-std=CL1.2_) has been used to implement the algorithm so it can fully run on the system GPU device.<br>
 It makes real-time fractal flame editing in Houdini possible by running billions of iterations per second on AMD and Nvidia GPUs.<br>
 
-- The CPU mode uses Houdini's Cvex (_vector expression language_).<br>
+- **GPU performance**<br>FLAM3H™ GPU mode (_the default in H21 and up_) is hundreds of times faster than the CPU(Cvex) mode depending on the system' GPU device being used. Tests using an Nvidia RTX 4090 device reveal throughput ranging from 50 to 100 billion iterations per second. The tests were performed with a variety of Flame presets over 500 millions points at 1024 iterations each (_the GPU mode iterations default_).
+
+- **CPU**<br>CPU mode uses Houdini's Cvex (_vector expression language_).<br>
 Although Cvex it's not a real-time thing, it will still be a lot of fun if you have a powerful CPU (_two powerful CPUs are even better_).
 
 <br>
+<br>
 
-FLAM3H™ GPU mode (_the default in H21 and up_) is hundreds of times faster than the CPU(Cvex) mode depending on the system' GPU device being used. Tests using an Nvidia RTX 4090 device reveal throughput ranging from 50 to 100 billion iterations per second. The tests were performed with a variety of Flame presets using 500 millions points at 1024 iterations each (_the GPU iterations default_).
+_Additionally_:
 
+- The code went up and down and finally settled on the most minimalistic version in favor of performance.
 
-
-The code went up and down and finally settled on the most minimalistic version in favor of performance.
-
-Part of the work is done inside the HDA in the Houdini environment
+- Part of the work is done inside the HDA in the Houdini environment
 like attribute binding, UI building, parameter creations, their visibility conditions, the final compile and much more.
 
-Python has been used to enhance the user experience and add functionalities like:
-copy/paste iterator data, load/save palette's libraries, load/save Flame's file format, responses/automations to user actions, and much more.
+- Python has been used to enhance the user experience and add functionalities like:
+  - copy/paste iterator data
+  - load/save palette's libraries
+  - load/save Flame's file format
+  - responses/automations to user actions
+  - and much more...
 
-FLAM3H™ generates a live point cloud of the fractal Flame being worked on, which is the actual render.
+- FLAM3H™ generates a live point cloud of the fractal Flame being worked on, which is the actual render.
 From there to the final image, it is left to the users (_aka points rendering_).
 With Houdini integrated Karma renderer, you will be able to render the generated fractal Flames in nearly real time.
 
+<br/>
 
 ### Karma render note
 
@@ -136,6 +150,8 @@ Fully available only with FLAM3H™USD HDA versions for Houdini H20.5 and up.
 `Its Pink - Author: Plangkye`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_Hviewport_02_Karma.jpg)
 
+<br/>
+
 ##  Highly inspired by Apophysis and its workflow design
 
 My first curiosity with fractal Flames led me to download and experiment with Apophysis.
@@ -152,6 +168,8 @@ Or you can use Apophysis or Fractorium to author your Flames first and load them
 
 **Download Fractorium here**: [**Fractorium download**](http://fractorium.com/)
 
+<br/>
+
 ## Viewport live point cloud
 
 FLAM3H™ generate a live point cloud of the fractal Flame you are working on.
@@ -167,6 +185,8 @@ Following are some screenshots showing it for a few different Flame presets.
 `Crystal Eggs - Author: Alessandro Nardini`
 ![FLAM3HOUDINI viewport](./img/FLAM3H_Hviewport_03_H19.jpg)
 
+<br/>
+
 ## Camera sensor
 
 All the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal Flames when they are saved from FLAM3H™.
@@ -180,6 +200,8 @@ Once framed, you can save the Flame and be sure it will be framed the same in al
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_01.jpg)
 ![Fractorium to FLAM3HOUDINI 01](./img/FLAM3H_camera_sensor_to_Fractorium_02.jpg)
 `Camera sensor: FLAM3H™ to Fractorium`
+
+<br/>
 
 ## Load Flames files authored with Apophysis, Fractorium, etc.
 
@@ -198,6 +220,8 @@ FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the sa
 `Flipped disk. Source: Fractorium`
 ![Fractorium to FLAM3HOUDINI 03](./img/FractoriumToFLAM3HOUDINI_00.jpg)
 
+<br/>
+
 ## List of all available variations/plugins
 
 _Note that all the followings, are also available as PRE__ _and/or POST__ _variations._
@@ -205,6 +229,8 @@ _Note that all the followings, are also available as PRE__ _and/or POST__ _varia
 _`Arch` `Auger` `Bent` `Bent2` `Bipolar` `Blade` `Blob` `Blur` `Boarders` `Bubble` `Butterfly` `Bwraps` `Cell` `Conic` `Cos` `Cosh` `Cosine` `Cot` `Coth` `Cpow` `Crop` `Cross` `Csc` `Csch` `Curl` `Curve` `Cylinder` `Diamond` `Disc` `Disc2` `Edisc` `Elliptic` `Escher` `Ex` `Exp` `Exponential` `Eyefish` `Fan` `Fan2` `Fisheye` `Flower` `Flux` `Foci` `Gaussian_blur` `Glynnia` `Handkerchief` `Heart` `Hemisphere` `Horseshoe` `Hyperbolic` `Julia` `JuliaN` `Juliascope` `Lazysusan` `Linear` `Log` `Loonie` `Mobius` `Modulus` `Ngon` `Noise` `Oscope` `Parabola` `Pdj` `Perspective` `Pie` `Point_symmetry` `Polar` `Polar2` `Polynomial` `Popcorn` `Popcorn2` `Power` `Pre_blur` `Radialblur` `Rays` `Rectangles` `Rings` `Rings2` `Scry` `Sec` `Secant2` `Sech` `Separation` `Sin` `Sinh` `Sinusoidal` `Spherical` `Spiral` `Split` `Splits` `Square` `Stripes` `Supershape` `Swirl` `Tan` `Tangent` `Tanh` `Twintrian` `Unpolar` `Waves` `Waves2` `Wedge` `Wedgejulia` `Wedgesph` `Whorl`_
 
 _They are 106, if you were wondering..._
+
+<br/>
 
 ## User experience
 
@@ -226,6 +252,8 @@ Any parameter that is available in FLAM3H™ can be animated using any of the Ho
 FLAM3H™ comes with a straightforward utility LOP node call **FLAM3H™USD** to makes it easier to move the fractal Flame point cloud into the USD context Solaris. This node allow to set up and render FLAM3H™ fractal Flames using Houdini's Karma renderer within a few clicks.
 
 To finish, FLAM3H™ features a detailed documentation that is designed to provide you with all the informations you would need. This also extend to generous tooltips for each parameter in the FLAM3H™ Houdini user interface.
+
+<br/>
 
 ## Considerations
 
@@ -262,12 +290,16 @@ Some require thousands of iterations to show you the proper results; some of the
 
 _The following screenshots show FLAM3H™ with Houdini Karma interactive on the left, and Fractorium with the same Flame file on the right_.
 
+<br/>
+
 ### Lets start with this gnarl preset:
 
 Iterations needed in FLAM3H™ to resolve: **1280**
 
 `ieddaka gnarl. Author: zuek`
 ![Chaotica to FLAM3HOUDINI 00](./img/ChaoticaToFLAM3HOUDINI_00.jpg)
+
+<br/>
 
 ### The next two are a bit more speedy:
 
@@ -280,12 +312,16 @@ Iterations needed in FLAM3H™ to resolve: **512**
 `lazyswirls. Author: meckie`
 ![Chaotica to FLAM3HOUDINI 02](./img/ChaoticaToFLAM3HOUDINI_02.jpg)
 
+<br/>
+
 ### This one is quick and beautiful:
 
 Iterations needed in FLAM3H™ to resolve: **64**
 
 `majestic. Author: tatasz`
 ![Chaotica to FLAM3HOUDINI 03](./img/ChaoticaToFLAM3HOUDINI_03.jpg)
+
+<br/>
 
 ### And the last one:
 
@@ -316,6 +352,8 @@ Every aspect of this algorithm, once understood, looks simple on the surface, bu
 
 It is time to park this project for a little bit, but I really, really loved the long journey on this topic, and I will now forever love fractal Flames as a whole, they are awesome  ( and addictive )!
 
+<br/>
+
 ## Example Flame files
 
 Some of the example Flame files I'm using as a proof of correctness and shipped with this implementation were created or authored by some incredible fractal artists using a variety of open source and free apps like Apophysis and Fractorium among the most popular.
@@ -329,6 +367,7 @@ Please be sure to check out their gallery:
 [TyranWave](https://www.deviantart.com/tyrantwave/gallery), 
 [Zy0rg](https://www.deviantart.com/zy0rg/gallery)
 
+<br/>
 
 ## References
 
