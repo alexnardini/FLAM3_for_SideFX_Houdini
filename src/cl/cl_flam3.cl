@@ -584,7 +584,7 @@ static float2 CL_V_POLAR(__private const float2 in,
     float nx, ny;
 
     nx = ATAN(in) * M_1_PI;
-    ny = SQRT(in) - 1.0;
+    ny = SQRT(in) - 1.0f;
 
     return w * (float2)(nx, ny);
 }
@@ -1390,8 +1390,8 @@ static float2 CL_V_SQUARE(__private const float w,
                         )
 {
     return w * (float2)(
-        rng_next_float(state) - 0.5, 
-        rng_next_float(state) - 0.5
+        rng_next_float(state) - 0.5f, 
+        rng_next_float(state) - 0.5f
     );
 }
 // ----------------------------
@@ -2016,7 +2016,7 @@ static float2 CL_V_LAZYSUSAN(__private const float2 in,
         );
     }
     else{
-        r = w * (1.0 + lazysusan.z / r);
+        r = w * (1.0f + lazysusan.z / r);
 
         return r * (float2)(
             xx + lazy.x, 
@@ -3093,7 +3093,7 @@ static float2 CL_V_UNPOLAR(__private const float2 in,
 {
     float m_Vvar2, r, sa, ca;
 
-    m_Vvar2 = (w / M_PI) * 0.5;
+    m_Vvar2 = (w / M_PI) * 0.5f;
 #if USE_NATIVE
     r = native_exp(in.y);
 #else
@@ -3613,7 +3613,7 @@ __kernel void cl_flam3(
         
         // pre affine 
         affine_t pa = local_PRE_AFFINE[idx];
-        mem = affine(mem, pa);
+        mem = affine(mem, local_PRE_AFFINE[idx]);
 
         // PRE/POST data
         _ppvt = local_PPVT[idx];
@@ -3636,11 +3636,8 @@ __kernel void cl_flam3(
         // POST
         if (_ppvw.w > 0.0f) _tmp = CL_V_DISPATCH(_ppvt.w, _tmp, _ppvw.w, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
 
-        // post affine    
-        if(local_POST[idx]){
-            // affine_t ap = local_POST_AFFINE[idx];
-            _tmp = affine(_tmp, local_POST_AFFINE[idx]);
-            }
+        // post affine
+        if(local_POST[idx]) _tmp = affine(_tmp, local_POST_AFFINE[idx]);
 
         // color
         _prev_clr = clr = local_SHD[idx] + local_SHD[idx + RES] * _prev_clr;
@@ -3807,10 +3804,7 @@ __kernel void cl_flam3_ff(
     if (FF_VPP_VW.w > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.w, _tmp, FF_VPP_VW.w, pa.xy.zw, pa.o.xy, F3C, &rng, pp_prm_f, pp_prm_f2, pp_prm_f3, pp_prm_f4);
 
     // post affine    
-    if(FF_POST){
-        // affine_t ap = local_FF_AFFINE[1];
-        _tmp = affine(_tmp, local_FF_AFFINE[1]);
-        }
+    if(FF_POST) _tmp = affine(_tmp, local_FF_AFFINE[1]);
     
     // update
     mem = _tmp;
