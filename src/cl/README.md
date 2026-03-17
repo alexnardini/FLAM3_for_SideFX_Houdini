@@ -1,5 +1,5 @@
 
-# <img width="48" height="48" src="../../icons/icon_optionOCLSVG.svg" /> OpenCL
+# <img width="48" height="48" src="../../icons/icon_tag_oclSVG.svg" /> OpenCL
 ## File name: [**`cl_flam3.cl`**](cl_flam3.cl)
 ## Houdini version: H21 and up
 ### Description:

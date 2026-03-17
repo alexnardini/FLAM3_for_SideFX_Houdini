@@ -18,7 +18,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_alexnardini_50s_Heros_HQ.json`**](F3H_LOCK_alexnardini_50s_Heros_HQ.json)</br>_color keys_: **512**
     1. - 50s Superman
     2. - 50s Thor
@@ -49,7 +49,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_alexnardini_ArchViz_HQ_set_A.json`**](F3H_LOCK_alexnardini_ArchViz_HQ_set_A.json)</br>_color keys_: **512**
     1. - ArchViz_HQ_set_A_01
     2. - ArchViz_HQ_set_A_02
@@ -81,7 +81,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_alexnardini_ArchViz_HQ_set_B.json`**](F3H_LOCK_alexnardini_ArchViz_HQ_set_B.json)</br>_color keys_: **512**
     1. - ArchViz_HQ_set_B_01
     2. - ArchViz_HQ_set_B_02
@@ -111,7 +111,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_alexnardini_ArchViz_HQ_set_C.json`**](F3H_LOCK_alexnardini_ArchViz_HQ_set_C.json)</br>_color keys_: **512**
     1. - ArchViz_HQ_set_C_01
     2. - ArchViz_HQ_set_C_02
@@ -139,7 +139,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_alexnardini_HQ_set_A.json`**](F3H_LOCK_alexnardini_HQ_set_A.json)</br>_color keys_: **512**
     1. - a women in pink and cyan hairs
     2. - Shiny cyborg enjoying the moment
@@ -171,7 +171,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_alexnardini_HQ_set_B.json`**](F3H_LOCK_alexnardini_HQ_set_B.json)</br>_color keys_: **512**
     1. - Pink hairy punk girls
     2. - Walkmen girls in Japan
@@ -211,7 +211,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_alexnardini_HQ_set_C.json`**](F3H_LOCK_alexnardini_HQ_set_C.json)</br>_color keys_: **512**
     1. - Golden tree at the pool
     2. - Sunset war for the kids
@@ -250,7 +250,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_alexnardini_HQ_set_D.json`**](F3H_LOCK_alexnardini_HQ_set_D.json)</br>_color keys_: **512**
     1. - Interior and lemons
     2. - Alone inside fantasy worlds
@@ -274,7 +274,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_alexnardini_MultiVibrance_SHQ.json`**](F3H_LOCK_alexnardini_MultiVibrance_SHQ.json)</br>_color keys_: **1024**
     1. - MultiFrame_SHQ_01
     2. - MultiFrame_SHQ_02
@@ -300,7 +300,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_alexnardini_PORTRAITS_HQ_set_A.json`**](F3H_LOCK_alexnardini_PORTRAITS_HQ_set_A.json)</br>_color keys_: **512**
     1. - At the Pool
     2. - Eiffel on a rainy night
@@ -328,7 +328,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_boxtail_pack_03_triangle.json`**](F3H_LOCK_boxtail_pack_03_triangle.json)</br>_color keys_: **256**
     1. - At_corner
     2. - Beam
@@ -364,7 +364,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_boxtail_pack_04.json`**](F3H_LOCK_boxtail_pack_04.json)</br>_color keys_: **256**
     1. - After_hard_day
     2. - Alone_floating_stone
@@ -403,7 +403,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_fardareismai_pack_01_A.json`**](F3H_LOCK_fardareismai_pack_01_A.json)</br>_color keys_: **256**
     1. - a_really_pleasing_red_thing
     2. - a_warm_dark_place
@@ -452,7 +452,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_fardareismai_pack_01_B.json`**](F3H_LOCK_fardareismai_pack_01_B.json)</br>_color keys_: **256**
     1. - grey_and_red_forever
     2. - grey_with_orange
@@ -502,7 +502,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_fardareismai_pack_01_C.json`**](F3H_LOCK_fardareismai_pack_01_C.json)</br>_color keys_: **256**
     1. - pink_and_blue
     2. - pink_and_green
@@ -549,7 +549,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_fardareismai_pack_02_A.json`**](F3H_LOCK_fardareismai_pack_02_A.json)</br>_color keys_: **256**
     1. - agnus_dei
     2. - beige_with_colors
@@ -590,7 +590,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_fardareismai_pack_02_B.json`**](F3H_LOCK_fardareismai_pack_02_B.json)</br>_color keys_: **256**
     1. - midnight_reflection
     2. - morning_reflection
@@ -631,7 +631,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_tatasz_pack_01.json`**](F3H_LOCK_tatasz_pack_01.json)</br>_color keys_: **256**
     1. - tatasz_pack_01_01
     2. - tatasz_pack_01_02
@@ -657,7 +657,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_tatasz_pack_02_colder.json`**](F3H_LOCK_tatasz_pack_02_colder.json)</br>_color keys_: **256**
     1. - tatasz_pack_02_colder_01
     2. - tatasz_pack_02_colder_10
@@ -683,7 +683,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_tatasz_pack_02_dark.json`**](F3H_LOCK_tatasz_pack_02_dark.json)</br>_color keys_: **256**
     1. - tatasz_pack_02_dark_11
     2. - tatasz_pack_02_dark_14
@@ -701,7 +701,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_tatasz_pack_02_warmer.json`**](F3H_LOCK_tatasz_pack_02_warmer.json)</br>_color keys_: **256**
     1. - tatasz_pack_02_warmer_16
     2. - tatasz_pack_02_warmer_18
@@ -724,7 +724,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_tatasz_pack_03.json`**](F3H_LOCK_tatasz_pack_03.json)</br>_color keys_: **256**
     1. - tatasz_pack_03_01
     2. - tatasz_pack_03_10
@@ -750,7 +750,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_tatasz_pack_04_A.json`**](F3H_LOCK_tatasz_pack_04_A.json)</br>_color keys_: **256**
     1. - tatasz_pack_04_01
     2. - tatasz_pack_04_02
@@ -800,7 +800,7 @@ List of every Palette library files and their Presets contents list.
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionCPSVG.svg" /> json
+- # <img width="48" height="48" src="../icons/icon_tag_paletteSVG.svg" /> json
 - ## File name: [**`F3H_LOCK_tatasz_pack_04_B.json`**](F3H_LOCK_tatasz_pack_04_B.json)</br>_color keys_: **256**
     1. - tatasz_pack_04_45
     2. - tatasz_pack_04_46

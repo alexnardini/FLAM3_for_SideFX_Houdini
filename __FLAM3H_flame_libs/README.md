@@ -17,7 +17,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_APOPHYSIS_base_forms.flame`**](F3H_LOCK_APOPHYSIS_base_forms.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_base_forms.flame#L2-L40) - gas energy::**16**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_base_forms.flame#L41-L80) - spherical::**64**
@@ -35,7 +35,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_APOPHYSIS_CJ_Julia_Uncovered_2_1.flame`**](F3H_LOCK_APOPHYSIS_CJ_Julia_Uncovered_2_1.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_CJ_Julia_Uncovered_2_1.flame#L2-L41) - CJ-Julia method-01::**16**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_CJ_Julia_Uncovered_2_1.flame#L42-L82) - CJ-Julia method-01 extra xform::**16**
@@ -49,7 +49,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_APOPHYSIS_CJ_Starter_Flame_Pack_V.flame`**](F3H_LOCK_APOPHYSIS_CJ_Starter_Flame_Pack_V.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_CJ_Starter_Flame_Pack_V.flame#L2-L39) - CJ-Starter flame pack 01::**16**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_CJ_Starter_Flame_Pack_V.flame#L40-L77) - CJ-Starter flame pack 02::**16**
@@ -63,7 +63,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_APOPHYSIS_FlamePackG3.flame`**](F3H_LOCK_APOPHYSIS_FlamePackG3.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_FlamePackG3.flame#L2-L40) - Sai-Flame mesh::**16**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_FlamePackG3.flame#L41-L78) - Sai-Flame ribbons::**24**
@@ -90,7 +90,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_APOPHYSIS_FlamepackIIIbyNeonrauschen.flame`**](F3H_LOCK_APOPHYSIS_FlamepackIIIbyNeonrauschen.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_FlamepackIIIbyNeonrauschen.flame#L2-L41) - Frank Hebben::**128**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_FlamepackIIIbyNeonrauschen.flame#L42-L79) - Copyright 2009::**48**
@@ -98,7 +98,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_APOPHYSIS_from_random_batch.flame`**](F3H_LOCK_APOPHYSIS_from_random_batch.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_from_random_batch.flame#L2-L40) - Apo7X-101::**12**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_from_random_batch.flame#L41-L79) - Apo7X-108::**12**
@@ -129,7 +129,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_APOPHYSIS_LucyFlamepack.flame`**](F3H_LOCK_APOPHYSIS_LucyFlamepack.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_LucyFlamepack.flame#L2-L40) - loonie splits::**64**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_LucyFlamepack.flame#L41-L81) - lazy splits::**128**
@@ -147,7 +147,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_APOPHYSIS_sb_flamepack_fractatious_2.flame`**](F3H_LOCK_APOPHYSIS_sb_flamepack_fractatious_2.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_sb_flamepack_fractatious_2.flame#L2-L42) - APO-SB-Cyl1::**64**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_sb_flamepack_fractatious_2.flame#L43-L83) - Tusks::**64**
@@ -157,7 +157,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_APOPHYSIS_SephFlamePack.flame`**](F3H_LOCK_APOPHYSIS_SephFlamePack.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_SephFlamePack.flame#L2-L40) - Bubbles::**64**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_APOPHYSIS_SephFlamePack.flame#L41-L79) - Egyptean ancient rooms::**48**
@@ -167,7 +167,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_FRACTORIUM_b33rheart_sierpinski.flame`**](F3H_LOCK_FRACTORIUM_b33rheart_sierpinski.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_FRACTORIUM_b33rheart_sierpinski.flame#L2-L40) - Equilateral_Sierpinski_triangle_by_b33rheart::**24**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_FRACTORIUM_b33rheart_sierpinski.flame#L41-L80) - Eq._Sierpinski_triangle_filled_with_itself_by_b33rheart::**24**
@@ -179,7 +179,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_FRACTORIUM_base_forms.flame`**](F3H_LOCK_FRACTORIUM_base_forms.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_FRACTORIUM_base_forms.flame#L2-L41) - Spherical::**32**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_FRACTORIUM_base_forms.flame#L42-L82) - Mobius A::**64**
@@ -198,7 +198,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_FRACTORIUM_c-91_examples.flame`**](F3H_LOCK_FRACTORIUM_c-91_examples.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_FRACTORIUM_c-91_examples.flame#L2-L43) - C-91-1::**32**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_FRACTORIUM_c-91_examples.flame#L44-L83) - C-91-3::**16**
@@ -209,7 +209,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_FRACTORIUM_pillemaster_hexagonal_tilings.flame`**](F3H_LOCK_FRACTORIUM_pillemaster_hexagonal_tilings.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_FRACTORIUM_pillemaster_hexagonal_tilings.flame#L2-L41) - new_Hextile_11::**16**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_FRACTORIUM_pillemaster_hexagonal_tilings.flame#L42-L81) - new_Hextile_12::**16**
@@ -267,7 +267,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_FRACTORIUM_tatasz_substitution.flame`**](F3H_LOCK_FRACTORIUM_tatasz_substitution.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_FRACTORIUM_tatasz_substitution.flame#L2-L41) - 1::**16**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_FRACTORIUM_tatasz_substitution.flame#L42-L81) - 2::**16**
@@ -287,7 +287,7 @@ _The number at the end of each preset's name indicates the iteration number that
 </br>
 </br>
 
-- # <img width="48" height="48" src="../icons/icon_optionFlameINEntrieSVG.svg" /> flame
+- # <img width="48" height="48" src="../icons/icon_tag_inSVG.svg" /> flame
 - ## File name: [**`F3H_LOCK_tatasz_examples.flame`**](F3H_LOCK_tatasz_examples.flame)
     1. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_tatasz_examples.flame#L2-L46) - bipolar by tatasz::**64**
     2. - [**_Permalink_**](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/4f2ddf8acdc89208fc5c163e9c8f55bdde1e3aba/__FLAM3H_flame_libs/F3H_LOCK_tatasz_examples.flame#L47-L86) - forest by tatasz::**24**
