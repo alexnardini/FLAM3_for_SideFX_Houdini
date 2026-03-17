@@ -66,7 +66,9 @@ _with its seemingly endless possibilities, effects, and_ [patterns|Wp:Pattern].
 <br />
 [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) - what is it ?*
 
-FLAM3H(tm) as the name suggests, is the implementation of "the fractal Flame algorithm" inside SideFX Houdini.<br />
+FLAM3H(tm) is a high performance implementation of the fractal Flame algorithm<br />
+fully developed within the SideFX Houdini environment, no HDK.<br />
+
 There have been different revisions of the same algorithm in the past years, this is the implementation of FLAM3.
 
 Fractal art is not easy at all in the beginning.<br />
@@ -4173,19 +4175,22 @@ _A list of all parametric variations and their parametric parameter's names_
 :box:
     #display: inverted pink
 
-    *FLAM3H(tm) OpenCL*.
+    [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) OpenCL*.
     
     OpenCL has been used to implement the algorithm so it can fully run on the system GPU device.<br />
 
-    Thanks to this, *FLAM3H(tm) * entered the high performance implementation category<br />
+    Thanks to this, FLAM3H(tm) entered the high performance implementation category<br />
     fully developed within the SideFX Houdini environment, no HDK.
 
     It makes real-time fractal flame editing in Houdini possible<br />
     by running billions of iterations per second on AMD and Nvidia GPUs.<br />
 
     Compared to Cvex, OpenCL development adds a few layers of complexity.<br />
-    The need to use and track pointers, the ability to work in different GPU device memory spaces,<br />
+
+    Beside being really fast,<br />
+    the need to use and track pointers, the ability to work in different GPU device memory spaces,<br />
     and other factors enable a much more customized and elegant implementation than Houdini Cvex.<br />
+    <br />
 
 
 == Cvex == (CODECVEX)
@@ -4193,8 +4198,61 @@ _A list of all parametric variations and their parametric parameter's names_
 :box:
     #display: inverted pink
 
-    *FLAM3H(tm) Cvex*.
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) Cvex*.
     
+    Cvex stands for "_Callable Vex_". It's essentially a context of Vex designed to Run as a function-like kernel.
+
+    _From the Houdini documentation_:
+
+    :box:
+        #display: rounded raised pink
+
+        “Unlike other Vex contexts which provide global variables and special functions related to the purpose of the context (_such as channel query functions in the chop context_),
+        the Cvex context is designed for hosting generic, low-level programs, so it provides only the generic functions common to all contexts, and no special pre-defined global variables.“
+
+    It is FLAM3H(tm) CPU implementation.
+
+    <br />
+
+    _CVEX behaves similarly to a kernel system like OpenCL in a few key ways_:
+
+    :box:
+        #display: rounded raised pink
+
+        *1 - Kernel-style execution*
+
+        - Cvex code is compiled into a callable kernel/function.
+        - It runs over many elements (_points, voxels, samples_).
+        - The caller controls execution, not the code itself.
+
+        _This is very similar to how an OpenCL kernel is launched over a work grid_.
+
+    :box:
+        #display: rounded raised pink
+
+        *2 - Explicit inputs/outputs*
+
+        _CVEX requires_:
+
+        - Defined parameters
+        - Exported outputs.
+        - No implicit bindings like @P
+
+        _Just like OpenCL kernels take buffers and write results_.
+
+    :box:
+        #display: rounded raised pink
+
+        *3 - Data-parallel mindset*
+
+        _Both are designed for_:
+
+        - SIMD / parallel execution.
+        - Running the same logic over large datasets.
+
+    <br />
+    <br />
+
     In this section,<br /> 
     you will find information on how to compile and then update FLAM3H(tm) Cvex code in case you'd like to modify/extend its core functionalities.
 
@@ -4213,7 +4271,7 @@ _A list of all parametric variations and their parametric parameter's names_
     == Cvex: How to compile == (COMPILE)
     
     :box:
-        #display: rounded gray
+        #display: rounded raised gray
         
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] Compile Cvex:
             #id: Cvex
@@ -4247,7 +4305,7 @@ _A list of all parametric variations and their parametric parameter's names_
     == Cvex: How to update FLAM3H(tm) node == (UPDATE)
     
     :box:
-        #display: rounded gray
+        #display: rounded raised gray
         
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] Reload Cvex:
             #id: Cvex
