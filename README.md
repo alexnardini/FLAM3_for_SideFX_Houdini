@@ -81,12 +81,26 @@ they can be fed into a pipeline like any other piece of data.
 `FLAM3H™ node OTL documentation`
 ![FLAM3HOUDINI Karma rendering viewport](./img/FLAM3H_OTL_documentation.jpg)
 
-CVEX has been used to implement the algorithm in its entirety.
-Although it's not a real-time thing, it will be a lot of fun if you have a powerful CPU (two powerful CPUs are even better).
+FLAM3H™ is a high performance implementation of the fractal Flame algorithm
+fully developed within the SideFX Houdini environment, no HDK.
+
+- It run on GPU as well on CPU.<br>
+
+- The GPU mode is available only in FLAM3H™ for H21 and up.
+
+- OpenCL has been used to implement the algorithm so it can fully run on the system GPU device.<br>
+It makes real-time fractal flame editing in Houdini possible by running billions of iterations per second on AMD and Nvidia GPUs.<br>
+
+- The CPU mode uses Houdini's Cvex (_vector expression language_).<br>
+Although Cvex it's not a real-time thing, it will still be a lot of fun if you have a powerful CPU (_two powerful CPUs are even better_).
+
+<br>
+
+FLAM3H™ GPU mode (_the default in H21 and up_) is hundreds of times faster than the CPU(Cvex) mode depending on the system' GPU device being used. Tests using an Nvidia RTX 4090 device reveal throughput ranging from 50 to 100 billion iterations per second. The tests were performed with a variety of Flame presets using 500 millions points at 1024 iterations each (_the GPU iterations default_).
+
+
 
 The code went up and down and finally settled on the most minimalistic version in favor of performance.
-The language allowed me to take many shortcuts. He is dealing with execution threading and memory management and has offered me
-fast, ready-to-use functions like **creating and sampling a cdf**, a very robust **random number generator**, and more.
 
 Part of the work is done inside the HDA in the Houdini environment
 like attribute binding, UI building, parameter creations, their visibility conditions, the final compile and much more.
@@ -95,8 +109,9 @@ Python has been used to enhance the user experience and add functionalities like
 copy/paste iterator data, load/save palette's libraries, load/save Flame's file format, responses/automations to user actions, and much more.
 
 FLAM3H™ generates a live point cloud of the fractal Flame being worked on, which is the actual render.
-From there to the final image, it is left to the users ( aka points rendering ).
+From there to the final image, it is left to the users (_aka points rendering_).
 With Houdini integrated Karma renderer, you will be able to render the generated fractal Flames in nearly real time.
+
 
 ### Karma render note
 
@@ -193,7 +208,7 @@ _They are 106, if you were wondering..._
 
 ## User experience
 
-Using Houdini's cvex/vex language, this implementation initially concentrated only on the core algorithm. However, it gradually became apparent that a significant portion of the work needed to be focused on the user experience and how all the algorithm pieces are stitched together in a meaningful way for the user, making this part of the project very time consuming.
+This implementation initially concentrated only on the core algorithm. However, it gradually became apparent that a significant portion of the work needed to be focused on the user experience and how all the algorithm pieces are stitched together in a meaningful way for the user, making this part of the project very time consuming.
 
 Because FLAM3H™ was designed with fractal artists in mind, many internal automation that could be done to provide a seamless and pleasurable experience has been completed.
 
