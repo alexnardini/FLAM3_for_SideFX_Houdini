@@ -42,7 +42,7 @@ These days, FLAM3H(tm) has all the features found in other third-party programs,
 
 Additionally, when combined with Houdini's [procedural|Wp:Procedural_generation] paradigm and toolsets, fractal Flames reach previously unheard-of levels of possibilities.
 
-_Cool eDisc - author: Pillemaster_
+_Cool EDisc - author: Pillemaster_
 [Image:opdef:.?FLAM3H_DOC_intro.jpg]
 _A huge special thanks and lots of gratitude toward my family who kept up with me for so long while I was inside the fractal Flame bubble!_
 
@@ -4200,7 +4200,8 @@ _A list of all parametric variations and their parametric parameter's names_
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) Cvex*.
     
-    Cvex stands for "_Callable Vex_". It's essentially a context of Vex designed to Run as a function-like kernel.
+    It is FLAM3H(tm) CPU implementation.<br />
+    Cvex stands for "_Callable Vex_". It's essentially a context of Vex designed to run as a function-like kernel.
 
     _From the Houdini documentation_:
 
@@ -4209,8 +4210,6 @@ _A list of all parametric variations and their parametric parameter's names_
 
         “Unlike other Vex contexts which provide global variables and special functions related to the purpose of the context (_such as channel query functions in the chop context_),
         the Cvex context is designed for hosting generic, low-level programs, so it provides only the generic functions common to all contexts, and no special pre-defined global variables.“
-
-    It is FLAM3H(tm) CPU implementation.
 
     <br />
 
@@ -4259,8 +4258,7 @@ _A list of all parametric variations and their parametric parameter's names_
     For example,<br />
     you may want to add more variations to its current arsenal of already implemented variations ( _currently there are *106* implemented_ ).
     
-    Extending the Cvex code base,<br /> 
-    most likely require you to update/extend the Python code base as well, since both go hand in hand with many of the core algorithm functionalities.
+    Extending the Cvex code base most likely require you to update/extend the Python code base as well, since both go hand in hand with many of the core algorithm functionalities.
 
     In order to improve speed, the Cvex code base has been scaled down to its bare minimum;<br />
     this results in the least amount of code required to implement the entire algorithm.<br /> 
@@ -4344,8 +4342,10 @@ _A list of all parametric variations and their parametric parameter's names_
     *FLAM3H(tm) Limitations*.
     
     The following are limitations to keep in mind when authoring your Flames in Fractorium or Apophysis to be loaded inside FLAM3H(tm).
+
     Some of these limitations are in place to maintain performance within the Cvex language restrictions.<br />
     Some other are caused by Houdini bugs, in those cases a reference to the bug submission is provided.
+    <br />
 
 == Limitations: Iterators count ==
     
@@ -4356,6 +4356,8 @@ _A list of all parametric variations and their parametric parameter's names_
         #id: LimitationsGPU
     
     FLAM3H(tm) GPU allow a maximum of *`20`* active iterators.<br />
+
+    <br />
 
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *CPU*
         #id: LimitationsCPU
