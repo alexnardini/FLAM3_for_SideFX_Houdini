@@ -3341,6 +3341,14 @@ use GPU [Icon:DATATYPES/boolean]:
 
     This can be hundreds of times faster compared to the CPU(_CVEX_) implementation<br />
     depending on the system' GPU device being used.
+
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*
+
+    When GPU mode is *`On`*, having the SYS Tab *RIP*(_Remove Invalid Points_) toggle *`On`* will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.
+
+    Keep the *RIP*(_Remove Invalid Points_) toggle *`Off`* while editing your fractal Flames in GPU mode to go full speed, 
+    and Activate it only if/when needed: (_e.g. before any rendering or to check the final result from time to time if any iterators' opacity is *`0`*(Zero) or *`NaN`* values are present_).
     <br /><br />
 
 iterations (GPU):
