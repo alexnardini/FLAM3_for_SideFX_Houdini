@@ -399,6 +399,8 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     <br />
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*
 
+    <br />
+
     :box:
         #display: rounded raised gray
 
@@ -409,9 +411,18 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         and Activate it only if/when needed: (_e.g. before any rendering or to check the final result from time to time if any iterators' opacity is *`0`*(Zero) or *`NaN`* values are present_).
     <br /><br />
 
-    TIP:
-        #display: orange
-        When loading hip files and/or Flame presets FLAM3H(tm) will check if any of the iterators have their shader opacity set to *`0`*(Zero) and if so, it will switch this toggle *`On`*.<br />
+    :box:
+        #display: raised orange
+
+        *GPU*(_OpenCL_) mode:
+        - FLAM3H(tm) will not employ any automation at all, giving the user the option to switch this toggle *`On`* or *`Off`* as he pleases.<br />
+
+        <br />
+
+        *CPU*(_Cvex_) mode:
+        - If any of the iterators have their shader opacity set to *`0`*(Zero) FLAM3H(tm) will detect this and it will switch this toggle *`On`* when:
+            - Loading hip files and/or Flame presets.
+            - Cloning FLAM3H(tm) nodes.
 
 :box:
     #display: rounded white

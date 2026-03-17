@@ -1815,7 +1815,7 @@ class flam3h_iterator_FF(flam3h_iterator_prm_names):
 ##########################################
 ##########################################
 
-  
+
 class flam3h_prm_utils:
     """
 class f3h_prm_utils
@@ -3128,7 +3128,7 @@ class flam3h_scripts
                 # init OUT PRESETS
                 flam3h_general_utils(self.kwargs).flam3h_init_presets_OUT_PRESETS()
                 # init RIP: Remove Invalid Points
-                flam3h_iterator_utils.flam3h_on_load_opacity_zero(node)
+                flam3h_iterator_utils.flam3h_on_load_opacity_zero(node, self.gpu)
                 
                 # Set color correction curves to their defaults if there is need to do it (ex: hip files with older version of FLAM3H™)
                 out_flame_utils.out_render_curves_set_defaults_on_load(node)
@@ -3200,7 +3200,7 @@ class flam3h_scripts
                 # Reset memory mpidx prm data
                 flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
                 # init RIP: Remove Invalid Points: ALL
-                flam3h_iterator_utils.flam3h_on_load_opacity_zero(node, True)
+                flam3h_iterator_utils.flam3h_on_load_opacity_zero(node, self.gpu, True)
                 
                 # Clear menu caches
                 # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
@@ -7183,30 +7183,36 @@ class flam3h_iterator_utils
             
             
     @staticmethod
-    def flam3h_on_load_opacity_zero(node: hou.SopNode, f3h_all: bool = False) -> None:
-        """Check each iterator's shader opacity and if any of them is 0(Zero) activate the Remove Invalid Option(RIP)
+    def flam3h_on_load_opacity_zero(node: hou.SopNode, gpu: bool, f3h_all: bool = False) -> None:
+        """If on CPU(Cvex) mode,</br>
+        check each iterator's shader opacity and if any of them is 0(Zero) activate the Remove Invalid Option(RIP).
+        
+        If on GPU(OpenCL) mode,<br>
+        Just leave things as they are.
 
         Args:
             node(hou.SopNode): The current FLAM3H™ node being loaded in the hip file.
+            gpu(bool): If we are in GPU mode just leave things as they are.
             f3h_all(bool): Default to: False</br>Perform this check and correct if needed for all FLAM3H™ nodes in the scene.
 
         Returns:
             (None):
         """  
-        iter_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
-        if iter_count:
-            shader_alpha_name: str = flam3h_iterator_prm_names().shader_alpha
-            if f3h_all:
-                for f3h in node.type().instances():
-                    f3h_all_lambda_min_opacity: Callable[[], float] = lambda: min((f3h.parm(f'{shader_alpha_name}_{idx}').eval() for idx in range(1, iter_count + 1)))
-                    try:
-                        if not f3h.parm(f3h_tabs.PREFS.PVT_PRM_RIP).eval() and f3h_all_lambda_min_opacity() == 0: # This is the one that can possibly fail
-                            flam3h_prm_utils.private_prm_set(f3h, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
-                    except AttributeError:
-                        pass
-            else:
-                lambda_min_opacity: Callable[[], float] = lambda: min((node.parm(f'{shader_alpha_name}_{idx}').eval() for idx in range(1, iter_count + 1)))
-                if lambda_min_opacity() == 0: flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
+        if gpu is False:
+            iter_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
+            if iter_count:
+                shader_alpha_name: str = flam3h_iterator_prm_names().shader_alpha
+                if f3h_all:
+                    for f3h in node.type().instances():
+                        f3h_all_lambda_min_opacity: Callable[[], float] = lambda: min((f3h.parm(f'{shader_alpha_name}_{idx}').eval() for idx in range(1, iter_count + 1)))
+                        try:
+                            if not f3h.parm(f3h_tabs.PREFS.PVT_PRM_RIP).eval() and f3h_all_lambda_min_opacity() == 0: # This is the one that can possibly fail
+                                flam3h_prm_utils.private_prm_set(f3h, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
+                        except AttributeError:
+                            pass
+                else:
+                    lambda_min_opacity: Callable[[], float] = lambda: min((node.parm(f'{shader_alpha_name}_{idx}').eval() for idx in range(1, iter_count + 1)))
+                    if lambda_min_opacity() == 0: flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
 
 
     @staticmethod
@@ -15785,7 +15791,7 @@ class in_flame_utils
 
     """
     
-    __slots__ = ("_kwargs", "_node")
+    __slots__ = ("_kwargs", "_node", "_gpu")
     
     def __init__(self, kwargs: dict) -> None:
         """
@@ -15797,6 +15803,7 @@ class in_flame_utils
         """ 
         self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
+        self._gpu: hou.Parm | None = self._node.parm(f3h_tabs.PREFS.PRM_GPU)
         
         
     @staticmethod
@@ -17849,6 +17856,13 @@ class in_flame_utils
     @property
     def node(self) -> hou.SopNode:
         return self._node
+    
+    @property
+    def gpu(self) -> bool:
+        if self._gpu is not None:
+            return bool(self._gpu.eval())
+        else:
+            return False
 
 
     def in_copy_section_render_stats_msg(self) -> None:
@@ -18862,17 +18876,24 @@ class in_flame_utils
         assert apo_data.xforms is not None
         self.in_to_flam3h_reset_iterators_parms( node, len(apo_data.xforms) )
         
-        # RIP: if there are ZERO opacities, always turn RIP toggle ON
-        if apo_data.opacity is not None and min(apo_data.opacity) == 0.0:
-            flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
+        # Lets automate only when we are in CPU(Cvex) mode
+        # otherwise if we are in GPU(OpenCL) mode just turn the RIP toggle OFF
+        # so we can go fast and let the user decide after the fact.
+        if self.gpu:
+            flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 0)
             
         else:
-            # Otherwise set RIP toggle accordingly from the XML data if any
-            if apo_data.sys_flam3h_rip is not None:
-                flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, apo_data.sys_flam3h_rip)
+            # RIP: if there are ZERO opacities, always turn RIP toggle ON
+            if apo_data.opacity is not None and min(apo_data.opacity) == 0.0:
+                flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
+                
             else:
-                # Otherwise always turn it OFF
-                flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 0)
+                # Otherwise set RIP toggle accordingly from the XML data if any
+                if apo_data.sys_flam3h_rip is not None:
+                    flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, apo_data.sys_flam3h_rip)
+                else:
+                    # Otherwise always turn it OFF
+                    flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 0)
 
         # Set iterators
         self.in_flam3h_set_iterators(0, node, apo_data, preset_id)
