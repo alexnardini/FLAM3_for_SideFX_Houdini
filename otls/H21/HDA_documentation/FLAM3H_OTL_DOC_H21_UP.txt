@@ -2101,7 +2101,7 @@ store the HSV values being used if different from defaults.
 
 == MB: Motion blur parameters == (MB)
 
-_Motion Blur is not available in GPU mode_.
+_This Tab will be disabled when FLAM3H(tm) run in GPU mode_ ([Smallicon:opdef:.?icon_optionOCLSVG.svg]).
     
 ~~~
 :box:
