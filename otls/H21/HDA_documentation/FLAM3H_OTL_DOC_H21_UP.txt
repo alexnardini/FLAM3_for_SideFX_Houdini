@@ -395,15 +395,15 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Tips*
 
     This functionality is CPU only.<br />
-    When in GPU mode, having this *`On`*/Active will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.
+    When in GPU mode ([Smallicon:opdef:.?icon_optionOCLSVG.svg]), having this *`On`*/Active will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.
 
-    Keep this *`Off`* while editing your fractal flames in GPU mode to go full speed<br />
+    Keep this *`Off`* while editing your fractal Flames in GPU mode to go full speed<br />
     and Activate it only if/when needed: (_e.g. before any rendering or to check the final result from time to time if any iterators' opacity is *`0`*(Zero) or *`NaN`* values are present_).
     <br /><br />
 
     TIP:
         #display: orange
-        When loading hip files FLAM3H(tm) will check if any of the iterators have their shader opacity set to *`0`*(Zero) and if so, it will switch this toggle *`On`*.<br />
+        When loading hip files and/or Flame presets FLAM3H(tm) will check if any of the iterators have their shader opacity set to *`0`*(Zero) and if so, it will switch this toggle *`On`*.<br />
 
 :box:
     #display: rounded white
@@ -2297,7 +2297,7 @@ Reload [Icon:opdef:.?icon_actionButtonSVG.svg]:
 
     == IN: Prefs == (INPREFS)
 
-    _IN: Prefs are not available in GPU mode_.
+    _This Tab will be hidden when FLAM3H(tm) run in GPU mode_ ([Smallicon:opdef:.?icon_optionOCLSVG.svg]).
     
 Iterations on Load (CPU):
     #id: IN
@@ -2863,6 +2863,8 @@ Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     
     It will automatically append the iterations number to the Flame name you enter.
     It will also autocorrect the Flame name string based on internally defined rules.
+
+    _This option will be disbaled when FLAM3H(tm) run in GPU mode_ ([Smallicon:opdef:.?icon_optionOCLSVG.svg]).
     <br /><br />
 
     TIP:
