@@ -1277,7 +1277,7 @@ Opacity [Icon:TOP/xmlinput]:
 
     ~~~
     :box:
-        #display: rounded gray
+        #display: raised rounded gray
 
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
 
@@ -1293,6 +1293,8 @@ Opacity [Icon:TOP/xmlinput]:
 
         Most use the outputs of the pre affine transforms as input points which are then modified via various calculations. However, some do not use the pre affine points at all. For these, you will notice that dragging the pre affine transforms around has no effect on the final output image.
             
+    <br />
+    
     :box:
         #display: rounded gray
         
