@@ -180,7 +180,9 @@ iterations (CPU) [Icon:TOP/xmlinput]:
     :box:
         #display: rounded raised gray
 
-        _When in GPU mode (_[Smallicon:opdef:.?icon_optionOCLSVG.svg]_) you wont need to come down to compromises_,<br />
+        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+
+        _When in GPU mode, you wont need to come down to compromises_,<br />
         _but you can change the iterations number being used in the preferences tab under the GPU section if you desire_.<br />
 
     <br />
@@ -404,8 +406,9 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     :box:
         #display: rounded raised gray
 
-        This functionality is CPU only.<br />
-        When in GPU mode ([Smallicon:opdef:.?icon_optionOCLSVG.svg]), having this *`On`*/Active will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.
+        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+
+        When in GPU mode, having this *`On`*/Active will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.
 
         Keep this *`Off`* while editing your fractal Flames in GPU mode to go full speed<br />
         and Activate it only if/when needed: (_e.g. before any rendering or to check the final result from time to time if any iterators' opacity is *`0`*(Zero) or *`NaN`* values are present_).
@@ -415,12 +418,12 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         #display: raised orange
         <br />
         [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
-        - FLAM3H(tm) will not employ any automation at all, giving the user the option to switch this toggle *`On`* or *`Off`* as he pleases.<br />
+        - When in GPU mode, FLAM3H(tm) will not employ any automation at all, giving the user the option to switch this toggle *`On`* or *`Off`* as he pleases.<br />
 
         <br />
 
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
-        - If any of the iterators have their shader opacity set to *`0`*(Zero) FLAM3H(tm) will detect this and it will switch this toggle *`On`* when:
+        - When in CPU mode, if any of the iterators have their shader opacity set to *`0`*(Zero) FLAM3H(tm) will detect this and it will switch this toggle *`On`* when:
             - Loading hip files and/or Flame presets.
             - Cloning FLAM3H(tm) nodes.
 
@@ -565,6 +568,8 @@ xforms handles VIZ [Icon:DATATYPES/boolean]:
     == SYS: Tag == (SYSTAG)
 [Image:opdef:.?FLAM3H_DOC_tag.svg]
 _The above tag reference's image shows a Flame with 1(one) iterator and the FF(finalXform) active._
+
+<br />
 
 TAG [Icon:DATATYPES/boolean]:
     #id: SYS
@@ -2120,7 +2125,12 @@ store the HSV values being used if different from defaults.
 
 == MB: Motion blur parameters == (MB)
 
-_This Tab will be disabled when FLAM3H(tm) run in GPU mode_ ([Smallicon:opdef:.?icon_optionOCLSVG.svg]).
+:box:
+    #display: rounded raised gray
+
+    [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+
+    _When in GPU mode, this Tab will be disabled_.
     
 ~~~
 :box:
@@ -2316,7 +2326,13 @@ Reload [Icon:opdef:.?icon_actionButtonSVG.svg]:
 
     == IN: Prefs == (INPREFS)
 
-    _This Tab will be hidden when FLAM3H(tm) run in GPU mode_ ([Smallicon:opdef:.?icon_optionOCLSVG.svg]).
+    :box:
+        #display: rounded raised gray
+
+        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+
+        _When in GPU mode, this Tab will be hidden_.
+
     
 Iterations on Load (CPU):
     #id: IN
@@ -2327,6 +2343,7 @@ Iterations on Load (CPU):
 
     TIP:
         #display: orange
+
         If "add iterations to Flame name" OUT tab option is *`Off`*/Disabled:
     
         The iterations number you want your fractal Flame to use when you load it back into FLAM3H(tm) can be baked into the preset name you choose for it.
@@ -2886,7 +2903,9 @@ Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     :box:
         #display: rounded raised gray
 
-        _When FLAM3H(tm) run in GPU mode_ ([Smallicon:opdef:.?icon_optionOCLSVG.svg]) _this option will be disabled as it is not needed_.
+        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+
+        _When in GPU mode, this option will be disabled as it is not needed_.
     <br /><br />
 
     TIP:
@@ -4198,7 +4217,7 @@ _A list of all parametric variations and their parametric parameter's names_
 
     Compared to Cvex, OpenCL development adds a few layers of complexity.<br />
 
-    Beside being really fast,<br />
+    Beside being really fast on GPU,<br />
     the need to use and track pointers, the ability to work in different GPU device memory spaces,<br />
     and other factors enable a much more customized and elegant implementation than Houdini Cvex.<br />
     <br />
