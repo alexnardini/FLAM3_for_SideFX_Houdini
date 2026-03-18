@@ -650,7 +650,7 @@ class f3h_tabs:
         PRM_FLASH_MSG: Final = 'flashmsg'
         PRM_ITERATOR_BOOKMARK_ICONS: Final = 'itericons'
         PRM_ENUMERATE_MENU: Final = 'enumeratemenu'
-        PRM_CVEX_PRECISION: Final = 'vex_precision'
+        PRM_CVEX_PRECISION: Final = 'vex_precision' # We use this for both OpenCL and Cvex float precision. At the moment OpenCL can only be SP(Single Precision/32bit)
         PRM_XAOS_MODE: Final = 'xm'
         PRM_CAMERA_HANDLE: Final = 'camhandle'
         PRM_CAMERA: Final= 'fcam'
@@ -2258,7 +2258,7 @@ class flam3h_scripts
         """Set the hou.session variable to hold the cvex precision being used on first instance node creation time.</br>
 
         Args:
-            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter.
             
         Returns:
             (None):

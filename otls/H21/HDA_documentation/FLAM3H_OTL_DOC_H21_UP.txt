@@ -413,13 +413,13 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     :box:
         #display: raised orange
-
-        *GPU*(_OpenCL_) mode:
+        <br />
+        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
         - FLAM3H(tm) will not employ any automation at all, giving the user the option to switch this toggle *`On`* or *`Off`* as he pleases.<br />
 
         <br />
 
-        *CPU*(_Cvex_) mode:
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
         - If any of the iterators have their shader opacity set to *`0`*(Zero) FLAM3H(tm) will detect this and it will switch this toggle *`On`* when:
             - Loading hip files and/or Flame presets.
             - Cloning FLAM3H(tm) nodes.
