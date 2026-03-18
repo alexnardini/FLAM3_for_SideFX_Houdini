@@ -2789,9 +2789,9 @@ static float2 CL_V_FLUX(__private const float2 in,
     r2 = iny2 + xmw * xmw;
 
 #if USE_NATIVE
-    avgr = w * (2.0f + spread) * native_sqrt(native_sqrt(r1)) * native_rsqrt(native_sqrt(r2));
+    avgr = w * (2.0f + spread) * native_sqrt(native_sqrt(r1 / r2));
 #else
-    avgr = w * (2.0f + spread) * sqrt(sqrt(r1)) * rsqrt(sqrt(r2));
+    avgr = w * (2.0f + spread) * sqrt(sqrt(r1 / r2));
 #endif
     avga = 0.5f * (atan2(in.y, xmw) - atan2(in.y, xpw));
 
