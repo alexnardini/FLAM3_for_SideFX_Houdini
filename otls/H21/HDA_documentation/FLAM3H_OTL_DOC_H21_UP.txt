@@ -214,6 +214,7 @@ iterations (CPU) [Icon:TOP/xmlinput]:
 
     TIP:
         #display: orange
+
         When: " *add iterations to Flame name* " toggle is *`On`* inside the OUT tab,
         changing the iterations' parameter will update the Flame name, if any have been typed.
 
@@ -473,6 +474,7 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     TIP:
         #display: orange
+
         In Fractorium you can go to "Options" to find the exact same checkbox.
 
         From Fractorium *`v25.25.12.1`*,<br />
@@ -626,6 +628,7 @@ TAG [Icon:DATATYPES/boolean]:
 
     TIP:
         #display: orange
+
         When in OUT Camera sensor mode, the SYS tab Tag icon will turn red to allow to exit the mode also when inside a different tab other than the OUT tab.
         Once clicked, it will exit the mode and back to being the default Tag blue icon:
         
@@ -732,6 +735,7 @@ mini-menu CP Presets [Icon:BUTTONS/pane_menu]:
 
     TIP:
         #display: orange
+
         To populate this menu, load a FLAM3H™ palette *.json file first inside the CP tab,<br />
         or ((SHIFT)) + ((LMB)) the icon to open a floating file chooser.
 
@@ -782,6 +786,7 @@ mini-menu IN Presets [Icon:BUTTONS/pane_menu]:
 
     TIP:
         #display: orange
+
         To populate this menu, load a valid *.flame file first inside the IN tab,<br />
         or ((SHIFT)) + ((LMB)) the icon to open a floating file chooser.
 
@@ -807,6 +812,7 @@ IN Preset reload [Icon:opdef:.?icon_actionButtonSVG.svg]:
 
     TIP:
         #display: orange
+
         - Loading a Flame from the Clipboard is useful when going back and forth with a third-party application like for example: Fractorium.
         - In Fractorium, you can alter the Flame, copy it into the Clipboard, and then load it from the Clipboard inside FLAM3H(tm) to see the changes.
     
@@ -851,6 +857,7 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
 
     TIP:
         #display: orange
+
         To populate this menu, load a valid *.flame file first inside the OUT tab.
         
         
@@ -1080,6 +1087,7 @@ Enable/Disable iterator [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     TIP:
         #display: orange
+
         If an iterator is disabled, it won't be included when saving the Flame out into a Flame file.
         In case you still want to include the inactive iterator in the file, set its Weight to *`0`*(Zero) instead.
     
@@ -1295,26 +1303,8 @@ Opacity [Icon:TOP/xmlinput]:
             
     <br />
     
-    :box:
-        #display: rounded gray
-        
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Variations bookmark icons*
-
-        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`*/Active will cause the selected variation name in each of their menu parameter to possess a bookmark icon next to its label to display their state:
-        
-        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
-        - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
-        - [Largeicon:opdef:.?icon_StarSwapRedSVG.svg] when its weight is above *`1`*(one).
-        - [Largeicon:opdef:.?icon_StarSwapCyanSVG.svg] when its weight is below *`0`*(Zero).
-        
-        _PRE and POST bookmark icons:_
-        
-        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
-        - [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
-        - [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above *`1`*(one).
-    
     TIP:
-        #display: orange
+        #display: orange raised
 
         _Each iterator allows up to *`8`*(eight) variations_:
             
@@ -1344,6 +1334,7 @@ menu pre_blur [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
     TIP:
         #display: orange
+
         When authoring your Flame in Fractorium or Apophysis, if you are planning to load them inside FLAM3H(tm)
         remeber that the variation *`pre_gaussian_blur`* will be remapped to *`pre_blur`* on Flame load by default if it is the first one in the list of applied *`PRE`* variations.
 
@@ -1503,6 +1494,7 @@ pre affine [Icon:TOP/xmlinput]:
 
     TIP:
         #display: orange
+
         A linear transformation cannot be used to translate a set of points. 
         
         To translate a set of points, we need to use an [Affine transformations|Wp:Affine_transformation]. 
@@ -1607,6 +1599,7 @@ post affine [Icon:TOP/xmlinput]:
     
 TIP:
     #display: orange
+    
     _What parameter you will control is indicated by the name of the parametric parameter;_
     
     _Nevertheless, some parameters only include the initial letters of the parameter they relate to in their names since they encapsulate more than one parametric parameter._
@@ -1726,26 +1719,8 @@ FF: copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
 
     == FF: Variations == (FFVARS)
     
-    :box:
-        #display: rounded gray
-
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Variations bookmark icons*
-        
-        When the preference's option: " *iterator menus bookmark icons* " toggle is *`On`*/Active will cause the selected variation name in each of their menu parameter to possess a bookmark icon next to its label to display their state:
-        
-        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
-        - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
-        - [Largeicon:opdef:.?icon_StarSwapRedSVG.svg] when its weight is above *`1`*(one).
-        - [Largeicon:opdef:.?icon_StarSwapCyanSVG.svg] when its weight is below *`0`*(Zero).
-
-        Pre and Post types:
-        
-        - [Largeicon:opdef:.?icon_optionDisabledZeroIterSVG.svg] when its weight is *`0`*(Zero).
-        - [Largeicon:opdef:.?icon_optionStarWhitePBSVG.svg] when its weight is above *`0`*(Zero) and less or equal to *`1`*(one).
-        - [Largeicon:opdef:.?icon_optionStarWhitePBHSVG.svg] when its weight is above *`1`*(one).
-    
     TIP:
-        #display: orange
+        #display: orange raised
         
         _FF iterator allow up to *`5`*(five) variations_:
         - *`1`*(one) *`PRE`*
@@ -1814,6 +1789,7 @@ FF: w [Icon:TOP/xmlinput]:
 
     TIP:
         #display: orange
+
         In order to lower the cost of the computation, it is preferable to set a variation weight to zero rather than retaining it at extremely low values if their impact is negligible.
 
         The variation will be fully disregarded when its weight is *`0`*(Zero).
@@ -1847,6 +1823,7 @@ FF: post affine [Icon:TOP/xmlinput]:
     
     TIP:
         #display: orange
+
         _What parameter you will control is indicated by the name of the parametric parameter;_
         
         _Nevertheless, some parameters only include the initial letter of the parameter they relate to in their name since they encapsulate more than one parametric parameter._
@@ -1928,6 +1905,7 @@ HSV palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
 
     TIP:
         #display: orange
+
         When the OUT tab options _"*palette HSV*"_ toggle is *`On`*/Active,<br />
         this palette will be saved into the XML Flame preset file instead.
 
@@ -2025,6 +2003,7 @@ palette [Icon:TOP/xmlinput] [Icon:TOP/jsoninput] [Icon:DATATYPES/ramp]:
 
     TIP:
         #display: orange
+
         When you are adding more than *`256`* colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
     
 :box:
@@ -2049,6 +2028,7 @@ JSON file [Icon:DATATYPES/string]:
 
     TIP:
         #display: orange
+
         Once you are happy with a palette library you built, you can rename the file to start with: "*`F3H_LOCK`*"
         to prevent any further modifications to it.
         
@@ -2386,6 +2366,7 @@ Reload [Icon:opdef:.?icon_actionButtonSVG.svg]:
 
     TIP:
         #display: orange
+
         - Loading a Flame from the Clipboard is useful when going back and forth with a third-party application like for example: Fractorium.
         - In Fractorium, you can alter the Flame, copy it into the Clipboard, and then load it from the Clipboard inside FLAM3H(tm) to see the changes.
 
@@ -2688,6 +2669,7 @@ Copy/Paste SENSOR/RENDER preset settings:
 
 TIP:
     #display: orange
+
     _FLAM3H(tm) allows you to save your Flames in the standard *.flame file format_
     _so that you can load them back inside any other applications like Fractorium, Apophysis and others._
     
@@ -2727,6 +2709,7 @@ OUT flame ( *.flame type ) [Icon:DATATYPES/string]:
 
     TIP:
         #display: orange
+
         When you have finished creating a FLAM3H(tm) library, you can rename the file to begin with "*`F3H_LOCK`*" to prevent any future alterations.
 
         You can rename a lib file, for instance, called "_*my_grandJulia.flame*_" to "*`F3H_LOCK`*_*_my_grandJulia.flame*_" to keep it secure.
@@ -2785,6 +2768,7 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
     TIP:
         #display: orange
+
         *FLAM3H(tm) CPU(Cvex) only*
 
         If "*add iterations to Flame name*" option is *`Off`*/Disabled:
@@ -2986,6 +2970,7 @@ Add iterations to Flame name [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     TIP:
         #display: orange
+
         When *`On`*/Active, and once you type in a Flame name, changing the iterations number will update the Flame name too.
 
 :box:
@@ -3523,6 +3508,7 @@ palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     TIP:
         #display: orange
+
         - Fractorium will work properly when loading a Flame with more than *`256`* colors.
         - When you are adding more than *`256`* colors keys to the palette either by editing it or by loading a Flame or Palette preset with that many colors, a message in the CP tab UI will show up as: *`[256+]`*.
 
@@ -3559,6 +3545,7 @@ flash messages (network editor) [Icon:DATATYPES/boolean]:
 
     TIP:
         #display: orange
+
         Flash messages will be displayed also in any of the available Lop viewers.
 
         This will make them easier to understand because the network editor will probably be covered with parameter editor interfaces while in Solaris and when using the companion *`FLAM3H`*(tm) *`USD`* HDA.
@@ -4172,6 +4159,7 @@ _A list of all parametric variations and their parametric parameter's names_
 
     TIP:
         #display: orange
+
         When using Mantra, you can take advantage of _delayed loads_ to greatly increase the amount of points you can render, in which case you must bake those points out in a *`*.bgeo.sc`* files first.
         
         A non-deterministic random number generator was used to construct FLAM3H(tm), and it lies at the heart of the algorithm.
