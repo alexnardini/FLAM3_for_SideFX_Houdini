@@ -152,6 +152,7 @@ _If you'd like to get close to a fractal Flame editor vibe, set the_ [viewport|W
 _Best would be to use one of the Desktop files provided (HD or 4K) as they set everything up for you_.
 
 _At the moment of this writing (up to H21)_:<br />
+
 _It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`* and set the Renderer to_ [OpenGL|Wp:OpenGL] _as it provide a better points visualization in the viewport when millions of them are displayed and/or their viewport point size is smaller than *`1`*(one). Changing the viewer renderer will require a restart of Houdini_.
 
 
@@ -352,6 +353,8 @@ mini-menu Select Iterator [Icon:BUTTONS/pane_menu]:
     <br /><br />
     
     NOTE:
+        #display: raised
+
         This feature is not working over the Network Editor's Parameter Dialog displayed when pressing the ((p)) key in Houdini versions prior to *`21.0.489`*
         
         Please, open a Parameter Editor in its own pane tab or floating panel for this feature to work.
@@ -416,16 +419,25 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
     :box:
         #display: raised orange
+
+        _This toggle activation and/or deactivation can also be triggered by FLAM3H(tm) automations' system_.<br />
+
+        _Following are different cases based on the device being used: GPU or CPU_: 
+
         <br />
+        
         [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
-        - When in GPU mode, FLAM3H(tm) will not employ any automation at all, giving the user the option to switch this toggle *`On`* or *`Off`* as he pleases.<br />
+        - When in GPU mode, FLAM3H(tm) will always switch this toggle *`Off`* only when loading Flames presets to keep the GPU at full speed otherwise it will not employ any automation at all, giving the user the option to switch this toggle *`On`* or *`Off`* as he pleases.
 
         <br />
 
         [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
-        - When in CPU mode, if any of the iterators have their shader opacity set to *`0`*(Zero) FLAM3H(tm) will detect this and it will switch this toggle *`On`* when:
-            - Loading hip files and/or Flame presets.
-            - Cloning FLAM3H(tm) nodes.
+        <br />
+
+        When in CPU mode, if any of the iterators have their shader opacity set to *`0`*(Zero) FLAM3H(tm) will detect this and it will switch this toggle *`On`* when:
+
+        - Loading hip files and/or Flame presets.
+        - Cloning FLAM3H(tm) nodes.
 
 :box:
     #display: rounded white
@@ -469,6 +481,8 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     <br />
 
     NOTE:
+        #display: raised
+        
         The behavior of the *`Cross`* and *`Curve`* variations are also different in Flam3/Apophysis versus Chaotica.
 
     <br />
@@ -656,6 +670,15 @@ loaddef:
     when loading the default Sierpiński triangle from this icon,<br />
     it will also reset the FLAM3H(tm) UI and options toggles to their defaults including the OUT render properties (_[Icon:TOP/xmlinput] SENSOR, RENDER and CC CURVES settings_).
 
+    <br />
+
+    :box:
+        #display: rounded raised gray
+
+        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+
+        _When in GPU mode, it will also reset the GPU iterations to its default: *`1024`*_<br />
+
 :box:
     #display: rounded white
     
@@ -675,6 +698,8 @@ frame viewport:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         When in camera sensor mode, the re-frame will be based on the Camera sensor bounding box instead.
         
         The icon will change into a red version of itself: 
@@ -830,6 +855,8 @@ mini-menu OUT Presets [Icon:BUTTONS/pane_menu]:
         
         
     NOTE:
+        #display: raised
+
         Saving Flames from this icon, will always use a default name that uses the current date and time.
 
         In case you'd like to give your Flames a proper name, you can do so from inside the OUT tab.
@@ -891,14 +918,20 @@ number of iterators [Icon:TOP/xmlinput]:
     Every iterator acts as a container for functions, the algorithm will mix or shuffle iterators based on your logic.
 
     <br />
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
 
-    Xforms have the most effect over the look of the final output image. Discussing every possible technique for using them is beyond the scope of this project. For such information, you should follow the numerous Apophysis tutorials that are available on Deviant Art and elsewhere. This article is limited to some basic performance considerations when using xforms.
+    :box:
+        #display: rounded raised gray
 
-    The number of xforms does not affect performance because only one is chosen to be applied on each iteration. Choosing a random xform among 5 takes the same amount of time as choosing among 50. However, the number of variations in each xform does affect performance.
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
 
-    Adding a post affine transform to an xform will also affect performance since it’s an additional affine that must be applied each time the xform is selected. Applying an affine is very simple so the performance impact shouldn’t be too noticeable.
-    <br /><br />
+        Xforms have the most effect over the look of the final output image. Discussing every possible technique for using them is beyond the scope of this project. For such information, you should follow the numerous Apophysis tutorials that are available on Deviant Art and elsewhere. This article is limited to some basic performance considerations when using xforms.
+
+        The number of xforms does not affect performance because only one is chosen to be applied on each iteration. Choosing a random xform among 5 takes the same amount of time as choosing among 50. However, the number of variations in each xform does affect performance.
+
+        Adding a post affine transform to an xform will also affect performance since it’s an additional affine that must be applied each time the xform is selected. Applying an affine is very simple so the performance impact shouldn’t be too noticeable.
+        <br /><br />
+
+    <br />
 
     _The following control icons are provided_:
 
@@ -920,6 +953,8 @@ number of iterators [Icon:TOP/xmlinput]:
     <br />
 
     NOTE:
+        #display: raised
+
         The order of the iterators does not matter at all.
 
         Based on each iterator's Weight and combined with their xaos settings, the algorithm will select and execute them based on your logic.
@@ -975,6 +1010,8 @@ note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         The text you write here will be stored with the Flame preset file on Save and also shown inside third-party applications like Apophysis and Fractorium as the iterator's name.
 
     <br />
@@ -1107,23 +1144,30 @@ W [Icon:TOP/xmlinput]:
 xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FLAME
     
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
-    
-    _What is xaos ?_
-    
-    Xaos provides more fine-grained control over the selection of xforms on each iteration.
-    It is expressed as a probability modifier for each xform in relation to every other xform.
+    :box:
+        #display: rounded raised gray
 
-    The default state is for all elements to have a value of *`1`*(one), which means that xaos is not used.
-    When any element is changed to something other than *`1`*(one), xaos is in effect.
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
+        
+        _What is xaos ?_
+        
+        Xaos provides more fine-grained control over the selection of xforms on each iteration.
+        It is expressed as a probability modifier for each xform in relation to every other xform.
 
-    Xaos specifies how likely a xform is to be chosen based on the previous xform that was chosen.
-    Alternatively, this can also be expressed as the probability modifier of the next chosen xform based on the currently chosen one.
-    These two methods of stating xaos are known as “from” and “to”.
+        The default state is for all elements to have a value of *`1`*(one), which means that xaos is not used.
+        When any element is changed to something other than *`1`*(one), xaos is in effect.
+
+        Xaos specifies how likely a xform is to be chosen based on the previous xform that was chosen.
+        Alternatively, this can also be expressed as the probability modifier of the next chosen xform based on the currently chosen one.
+        These two methods of stating xaos are known as “from” and “to”.
     
+    <br />
+
     [Image:opdef:.?FLAM3H_DOC_xaos_pathsSVG.svg]
     _The above image shows five iterators with one variation each and how they are connected to each other through a hypothetical xaos setting._
     
+    <br />
+
     The default mode is xaos TO. You can change it to use xaos FROM mode instead in the preferences tab.
     
     Xaos TO and xaos FROM are at their core each other's reflections. This means they are the same data, but one is the transpose of the other.
@@ -1160,6 +1204,8 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
         - When saving out Flame files, xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO.
         
     NOTE:
+        #display: raised
+
         - This parameter can not be animated.
 
     <br />
@@ -1313,16 +1359,20 @@ menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     * When using parametric variations, their parameters will populate the *VARS* tab.
 
     <br />
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
 
-    When applying an iterator (_aka: xform or transform_) to an input point, variations are traditionally applied in between the pre affine and post affine transforms.
+    :box:
+        #display: rounded raised gray
 
-    As the algorithm evolved over time, users realized it would be useful to be able to apply one or more variations in between the output of the pre affine transform and the application of the first *`VAR`* variation. These are known as *`PRE`* variations. They differ from regular *`VAR`* variations in that their outputs are usually assigned rather than summed. This has the effect of making an adjustment to the point before it’s used as inputs to all of the regular *`VAR`* variations.
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
 
-    If multiple *`PRE`* variations are used, their outputs are not summed, they are assigned. It is for this reason that order matters for them.
+        When applying an iterator (_aka: xform or transform_) to an input point, variations are traditionally applied in between the pre affine and post affine transforms.
 
-    In practice,<br />
-    *`PRE`* and *`POST`* variations are used to achieve a specific effect and are therefore most useful when only one of each is used. Multiple *`PRE`* and *`POST`* variations rarely produce desirable or controllable effects.
+        As the algorithm evolved over time, users realized it would be useful to be able to apply one or more variations in between the output of the pre affine transform and the application of the first *`VAR`* variation. These are known as *`PRE`* variations. They differ from regular *`VAR`* variations in that their outputs are usually assigned rather than summed. This has the effect of making an adjustment to the point before it’s used as inputs to all of the regular *`VAR`* variations.
+
+        If multiple *`PRE`* variations are used, their outputs are not summed, they are assigned. It is for this reason that order matters for them.
+
+        In practice,<br />
+        *`PRE`* and *`POST`* variations are used to achieve a specific effect and are therefore most useful when only one of each is used. Multiple *`PRE`* and *`POST`* variations rarely produce desirable or controllable effects.
     
     <br />
 
@@ -1422,7 +1472,9 @@ pre affine Scale:
     <br /><br />
 
     NOTE:
-        This parameter can not be animated.
+        #display: raised
+
+        - This parameter can not be animated.
 
     <br />
 
@@ -1505,6 +1557,8 @@ pre affine Rot [Icon:TOP/xmlinput]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         The resulting affine coefficients are not updated in the UI but passed directly internally to the algorithm.
 
     <br />
@@ -1622,6 +1676,8 @@ FF: note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         The text you write here will be stored with the Flame file and will also appear inside Apophysis and Fractorium as the name of the finalXform(_FF_) iterator.
 
     <br />
@@ -1901,6 +1957,8 @@ mini-menu bases  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         - When loading Flame presets,<br />if this XML key is missing it will always be set to: *`linear`*
         - Being a custom FLAM3H™ XML data,<br />it wont be recognized by third party applications on load.
 
@@ -1931,6 +1989,8 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         - Saving out a Flame into a file, will also save the palette lookup samples value so that you can restore it once you load the Flame back into FLAM3H(tm).
         - If you are loading a Flame file preset from another software or from older versions of FLAM3H(tm) without the lookup samples XML key in the file, the default value of *`256`* will be used instead.
         - Saving a Flame out will always save the palette with *`256`* color's keys. If you created a palette with more than *`256`* colors, for example with *`1024`* color keys and sample it with *`1024`* samples to take into account all the subtle color changes, turn *`On`* the *PREFS options* tab toggle -> *`palette 256+`*.
@@ -1988,7 +2048,9 @@ JSON file [Icon:DATATYPES/string]:
     TIP:
         #display: orange
         Once you are happy with a palette library you built, you can rename the file to start with: "*`F3H_LOCK`*"
-        to prevent any further modifications to it. For example, if you have a lib file called "_*my_rainbows_colors.json*_"
+        to prevent any further modifications to it.
+        
+        For example, if you have a lib file called "_*my_rainbows_colors.json*_"
         you can rename it to: "*`F3H_LOCK`*_*_my_rainbows_colors.json*_" to keep it safe.
     
 :box:
@@ -2025,6 +2087,8 @@ Save Palette [Icon:opdef:.?icon_actionButtonSVG.svg]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         - The maximun color a palette can have when saving it is *`1024`*.
         - When saving out a palette file, it will try to downsample the usual *`256`* color count standard.
         - When saving out Flame files from the OUT tab, it will always sample and save the palette as a *`256`*-color palette standard, unless you turn *`On`* the *PREFS options* tab toggle -> *`palette 256+`*.
@@ -2222,6 +2286,8 @@ Viz mb (CPU) [Icon:DATATYPES/boolean]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         When rendering,<br />
         keep in mind to turn this *`Off`* to avoid superimposing a darker color.
         
@@ -2419,6 +2485,8 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         *You need to reload the current Flame preset for this change to take place*.
 
         F3H affine style format are only available when you save a Flame preset out from FLAM3H(tm) using the OUT tab's option "F3H affine style" whitch is *`On`*/Active by default.
@@ -2448,6 +2516,8 @@ Copy render properties on Load [Icon:DATATYPES/boolean]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         *You need to reload the current Flame preset for this change to take place*.
 
     <br />
@@ -2691,6 +2761,8 @@ Save Flame [Icon:opdef:.?icon_actionButtonSVG.svg]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         Keep in mind that you can not utilize a variation more than once in any of the available variation's types. 
 
         While this is doable within the tool, it is not compatible with the FLAM3 file format as it requires that a variation be used only once per type ( _types:_ *`PRE`*, *`VAR`*, *`POST`* )
@@ -2839,6 +2911,8 @@ F3H affine style (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         There are no reasons to turn this toggle *`Off`* as it cause no harm, however if you would like to have the Flame preset saved without the F3H affine style XML keys at all, turn this *`Off`*.
 
     <br />
@@ -3067,18 +3141,22 @@ Scale(lens) [Icon:TOP/xmlinput]:
     This XML key is an inexpensive method of achieving *`zoom`* since you will have to manually change the *`quality`* from within the host software because it won't be improved once loaded into third-party apps like Fractorium or Apophysis.
 
     <br />
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
 
-    When fractal Flames are zoomed in, they will degrade in appearance and become more speckled/noisy.
+    :box:
+        #display: rounded raised gray
 
-    *`Scale`* zooms the image without a corresponding increase in *`quality`*. For images with a small *`scale`* value, or a *`quality`* value that is already large, this shouldn’t increase the noise by much. However, for the inverse situation, you might need to increase the quality a bit to compensate for the increased scale.
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
 
-    *`Zoom`* does what *`scale`* does, however it greatly increases the *`quality`* to compensate.
+        When fractal Flames are zoomed in, they will degrade in appearance and become more speckled/noisy.
 
-    In most cases, using *`zoom`* is overkill and will result in very lengthy renders. You might have a low value for *`quality`*, but after *`zoom`* increases it behind the scenes, the final *`quality`* used will be quite large.
-    
-    <br />
-    _It is for this reason that only [Icon:TOP/xmlinput] *`scale`* is provided in FLAM3H(tm)._
+        *`Scale`* zooms the image without a corresponding increase in *`quality`*. For images with a small *`scale`* value, or a *`quality`* value that is already large, this shouldn’t increase the noise by much. However, for the inverse situation, you might need to increase the quality a bit to compensate for the increased scale.
+
+        *`Zoom`* does what *`scale`* does, however it greatly increases the *`quality`* to compensate.
+
+        In most cases, using *`zoom`* is overkill and will result in very lengthy renders. You might have a low value for *`quality`*, but after *`zoom`* increases it behind the scenes, the final *`quality`* used will be quite large.
+        
+        <br />
+        _It is for this reason that only [Icon:TOP/xmlinput] *`scale`* is provided in FLAM3H(tm)._
 
     <br />
     
@@ -3392,8 +3470,11 @@ use GPU [Icon:DATATYPES/boolean]:
         When GPU mode is *`On`*, having the SYS Tab *RIP*(_Remove Invalid Points_) toggle *`On`* will slow down as it will be taxing to cleanup the incoming point cloud from the GPU nodes.
 
         Keep the *RIP*(_Remove Invalid Points_) toggle *`Off`* while editing your fractal Flames in GPU mode to go full speed, 
-        and Activate it only if/when needed: (_e.g. before any rendering or to check the final result from time to time if any iterators' opacity is *`0`*(Zero) or *`NaN`* values are present_).
-    <br /><br />
+        and Activate it only if/when needed.
+        
+        (_e.g. before any rendering or to check the final result from time to time if any iterators' opacity is *`0`*(Zero) or *`NaN`* values are present_).
+    
+    <br />
 
 iterations (GPU):
     #id: prefs
@@ -3496,6 +3577,8 @@ Iterative color attribute [Icon:DATATYPES/boolean]:
     <br />
 
     NOTE:
+        #display: raised
+
         When this option is turned *`On`*/Active the final point cloud memory consumption will be *`~12%`* higher.
 
 :box:
@@ -3557,6 +3640,8 @@ menu xaos modes [Icon:BUTTONS/pane_menu]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         Xaos FROM mode will internally be converted into xaos TO on save and reloaded as xaos TO when saving out Flame files.
 
 :box:
@@ -3596,6 +3681,8 @@ Camera handle [Icon:DATATYPES/boolean]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         The handles are properly scaled and visible only when looking through a perspective type of camera, not when looking through an orthogonal type of camera.
     
     
@@ -3647,7 +3734,10 @@ menu type [Icon:BUTTONS/pane_menu]:
     <br /><br />
 
     NOTE:
+        #display: raised
+
         At the moment of this writing (up to H21):<br />
+
         It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`* and set the Renderer to *`OpenGL`* as it provide a better points visualization in the viewport when millions of them are displayed and/or their viewport point size is smaller than *`1`*(one).<br />
         
         Changing the viewer renderer will require a restart of Houdini.
@@ -4427,6 +4517,8 @@ _A list of all parametric variations and their parametric parameter's names_
     <br /><br />
 
     NOTE:
+        #display: raised
+
         The weight of the *`PRE`* variations can not be negative in FLAM3H(tm).
 
 :box:
@@ -4447,6 +4539,8 @@ _A list of all parametric variations and their parametric parameter's names_
     <br /><br />
 
     NOTE:
+        #display: raised
+
         The weight of the *`POST`* variation can not be negative in FLAM3H(tm).
     
 :box:
@@ -4479,6 +4573,8 @@ _A list of all parametric variations and their parametric parameter's names_
     <br /><br />
 
     NOTE:
+        #display: raised
+
         The weight of the FF *`PRE`* variations can not be negative in FLAM3H(tm).
 
     
@@ -4501,6 +4597,8 @@ _A list of all parametric variations and their parametric parameter's names_
     <br /><br />
 
     NOTE:
+        #display: raised
+
         The weight of the FF *`POST`* variations can not be negative in FLAM3H(tm).
        
 :box:
@@ -4532,6 +4630,8 @@ _A list of all parametric variations and their parametric parameter's names_
     <br /><br />
 
     NOTE:
+        #display: raised
+
         _When saving a Flame out from Fractorium/Apophysis with a finalXform(FF) remember to set the finalXform color to:_
         - Color -> *`0`*(Zero)
         - Color Speed -> *`0`*(Zero) ( _this is the most important_ )
