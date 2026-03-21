@@ -12,7 +12,7 @@ Each file contain multiple Flame presets, read the HDA documentation to know mor
 List of every Flame library files and their Presets contents list.</br>
 A Github Permalink is also provided for each preset to directly jump to its XML code.</br></br>
 
-_The number at the end of each preset's name indicates the iteration number that will be used to load the preset_.
+_The number at the end of each preset's name indicates the iteration number that will be used to load the preset when FLAM3H™ is in CPU mode_.
 
 </br>
 </br>

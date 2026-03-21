@@ -4285,7 +4285,7 @@ _A list of all parametric variations and their parametric parameter's names_
 :box:
     #display: inverted pink
 
-    [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) OpenCL*.
+    [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) OpenCL*
     
     OpenCL has been used to implement the algorithm so it can fully run on the system GPU device.<br />
 
@@ -4308,7 +4308,7 @@ _A list of all parametric variations and their parametric parameter's names_
 :box:
     #display: inverted pink
 
-    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) Cvex*.
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) Cvex*
     
     It is FLAM3H(tm) CPU implementation.<br />
     Cvex stands for "_Callable Vex_". It's essentially a context of Vex designed to run as a function-like kernel.
