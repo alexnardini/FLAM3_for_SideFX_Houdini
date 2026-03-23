@@ -16,7 +16,7 @@
  /  Github:     https://github.com/scottdraves/flam3
  /  Date:       December 2002, Last revised May 2015
  /
- /  Name:       CL FLAM3 "OPENCL"
+ /  Name:       CL FLAM3 "OPENCL" (From the CVEX code base as a starting point)
  /
  /  Comment:    OpenCL FLAM3
 */
@@ -1120,7 +1120,7 @@ static float2 CL_V_BLOB(__private const float2 in,
 // ----------------------------
 static float2 CL_V_JULIAN(__private const float2 in, 
                         __private const float w, 
-                        x128_state_t* state, 
+                        __private x128_state_t* state, 
                         __private const float2 julian   // power distance
                         )
 {
@@ -1154,7 +1154,7 @@ static float2 CL_V_JULIAN(__private const float2 in,
 // ----------------------------
 static float2 CL_V_JULIASCOPE(__private const float2 in, 
                             __private const float w, 
-                            x128_state_t* state, 
+                            __private x128_state_t* state, 
                             __private const float2 juliascope   // power(julian_rN) distance
                             )
 {
