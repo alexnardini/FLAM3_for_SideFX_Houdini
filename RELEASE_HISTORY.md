@@ -34,6 +34,25 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v2.0.00 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.00) ###
+
+#### FLAM3H™ v2.0.00 indie -> H21.0 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20.5 ####
+
+- **New H21 UP ONLY**: Added GPU support
+- **Fix H21 UP ONLY**: Palette HSV application is now slightly faster.
+- **H21 UP ONLY Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v1.9.85 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.85) ###
 
 #### FLAM3H™ v1.9.85 indie -> H21.0 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20.5 ####
