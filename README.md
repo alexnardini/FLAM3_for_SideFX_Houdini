@@ -279,7 +279,7 @@ In reality, though, I've never used more than 20 iterators in any of the fractal
 Almost all fractal Flame images on my website and instagram use an average of 64 iterations max,
 Some use less, and some use a bit more. A few exceptions went above 128 and up to 256/512. 
 
-Some Flames need truly an high number of iterations to be resolved correctly but with the GPU implementation in FLAM3H™ for H21 and up this is not an issue anymore as it can run thousands of iterations per point with easy (_assuming the system GPU device is powerful enough_).
+Some Flames need truly an high number of iterations to be resolved correctly but with the GPU implementation in FLAM3H™ for H21 and up you can now run thousands of iterations per point with easy (_assuming the system GPU device is powerful enough_).
 
 Listed below are presets from Chaotica software that were converted to FLAM3H™. They were chosen because some of them are very expensive to solve and because they make use of variations I've already implemented.
 
@@ -380,6 +380,10 @@ Reference C: [**Github :: Apophysis 7x from Mark Townsend, Ronald Hordijk, Peter
 Reference D: [**PDF :: The Fractal Flame Algorithm publication**](https://flam3.com/flame_draves.pdf)
 
 Reference E: [**WEB :: A more accurate Elliptic variation from Claude Heiland-Allen**](https://mathr.co.uk/blog/2017-11-01_a_more_accurate_elliptic_variation.html)
+
+Reference F: [**WEB :: pseudorandom number generators (PRNGs) from David Blackman and Sebastiano Vigna**](https://prng.di.unimi.it)
+
+Reference G: [**WEB :: xoshiro128+ 1.0, 32-bit generator for 32-bit floating-point numbers from David Blackman and Sebastiano Vigna**](https://prng.di.unimi.it/xoshiro128plus.c)
 
 </br>
 </br>
