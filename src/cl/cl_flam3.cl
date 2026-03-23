@@ -2214,6 +2214,7 @@ static float2 CL_V_SPLIT(__private const float2 in,
 #if USE_NATIVE
     float2 scaled, t, t2, cos_approx, eps, mask;
 
+    // M_PI hard coded so I dnt have to cast this costant to float (for speed).
     scaled = in * split * 3.141592653589793238462f;
     t = fmod(scaled, 2.0f * 3.141592653589793238462f);
     t2 = t * t;
@@ -3351,6 +3352,8 @@ static float2 CL_V_DISPATCH(
 /*
 // I like this method but I do not like the idea
 // to have all the variations functions share the same arguments set.
+// Perhaps with CL 2.0 and up it is better for function pointers
+// so I leave this here as a place holder.
 
 #define OCL_VAR_LIST            \
     VAR(0, CL_V_LINEAR)        \
