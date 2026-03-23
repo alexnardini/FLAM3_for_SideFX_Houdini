@@ -38,7 +38,7 @@ They are all available in this Github repository.
 
 #### FLAM3H™ v2.0.00 indie -> H21.0 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20.5 ####
 
-- **New H21 UP ONLY**: Added GPU support
+- **New H21 UP ONLY**: Added GPU support.</br>Depending on the GPU device being used in the system, the FLAM3H™ GPU mode (the default in H21 and up) can be hundreds of times quicker than the CPU (Cvex) mode. Tests using an Nvidia RTX 4090 device show throughput ranging from ~40 to ~140 billion iterations per second, which practically enables the creation of high-quality point clouds with hundreds of millions of points in seconds as well as real-time fractal Flame editing within Houdini. A range of Flame settings were tested across 500 million points at 1024 (_the GPU mode iterations default_) and 2048 iterations, respectively.
 - **Fix H21 UP ONLY**: Palette HSV application is now slightly faster.
 - **Updated HDA documentation. H21 UP ONLY**
 - **Small fixes/improvements as part of an ongoing polishing pass. H21 UP ONLY**
