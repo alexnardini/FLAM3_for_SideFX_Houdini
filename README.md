@@ -99,7 +99,7 @@ fully developed within the SideFX Houdini environment, no HDK.
 - **GPU OpenCL**<br>OpenCL (_-cl-std=CL1.2_) has been used to implement the algorithm so it can fully run on the system GPU device.<br>
 It makes real-time fractal flame editing in Houdini possible by running billions of iterations per second on AMD and Nvidia GPUs.<br>
 
-- **GPU performance**<br>FLAM3H™ GPU mode (_the default in H21 and up_) can be hundreds of times faster than the CPU(_Cvex_) mode depending on the system' GPU device being used. Tests using an Nvidia RTX 4090 device reveal throughput ranging from ~40 to ~140 billion iterations per second effectively allowing real-time fractal Flame editing inside Houdini and the generation of hundreds of millions high quality point clouds in seconds. The tests were performed with a variety of Flame presets over 500 millions points at 1024 (_the GPU mode iterations default_) and 2048 iterations each.
+- **GPU performance**<br>Depending on the GPU device being used in the system, the FLAM3H™ GPU mode (_the default in H21 and up_) can be hundreds of times quicker than the CPU (_Cvex_) mode. Tests using an Nvidia RTX 4090 device show throughput ranging from ~40 to ~140 billion iterations per second, which practically enables the creation of high-quality point clouds with hundreds of millions of points in seconds as well as real-time fractal Flame editing within Houdini. A range of Flame settings were tested across 500 million points at 1024 (_the GPU mode iterations default_) and 2048 iterations, respectively.
 
 - **CPU**<br>CPU mode uses Houdini's Cvex (_Callable vector expression language_).<br>
 Although Cvex it's not a real-time thing, it will still be a lot of fun if you have a powerful CPU (_two powerful CPUs are even better_).
