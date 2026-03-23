@@ -40,7 +40,8 @@ They are all available in this Github repository.
 
 - **New H21 UP ONLY**: Added GPU support
 - **Fix H21 UP ONLY**: Palette HSV application is now slightly faster.
-- **H21 UP ONLY Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation. H21 UP ONLY**
+- **Small fixes/improvements as part of an ongoing polishing pass. H21 UP ONLY**
 
 
 

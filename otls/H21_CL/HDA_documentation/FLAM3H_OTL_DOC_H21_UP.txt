@@ -2393,6 +2393,10 @@ Iterations on Load (CPU):
     TIP:
         #display: orange
 
+        <br />
+
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU(Cvex) only*
+
         If "add iterations to Flame name" OUT tab option is *`Off`*/Disabled:
     
         The iterations number you want your fractal Flame to use when you load it back into FLAM3H(tm) can be baked into the preset name you choose for it.
@@ -2769,9 +2773,11 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     TIP:
         #display: orange
 
-        *FLAM3H(tm) CPU(Cvex) only*
+        <br />
 
-        If "*add iterations to Flame name*" option is *`Off`*/Disabled:
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU(Cvex) only*
+
+        If "add iterations to Flame name" option is *`Off`*/Disabled:
     
         The iterations number you want your fractal Flame to use when you load it back into FLAM3H(tm) can be baked into the preset name you choose for it.
 
