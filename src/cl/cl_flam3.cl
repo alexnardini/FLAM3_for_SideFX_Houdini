@@ -1214,7 +1214,7 @@ static float2 CL_V_FAN2(__private const float2 in,
 {
     float dx, dx2, inv_dx, a, r, ady, t, sa, ca;
 
-    dx  = M_PI_F * Zeps(fan2.x * fan2.x);
+    dx  = M_PI * Zeps(fan2.x * fan2.x);
     dx2 = 0.5f * dx;
 #if USE_NATIVE
     inv_dx = native_recip(dx);
