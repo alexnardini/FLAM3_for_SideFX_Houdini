@@ -48,8 +48,6 @@
 enum {
     MAX_XFORMS                  = 20, 
     MAX_XFORMS_XAOS_SIZE        = MAX_XFORMS * MAX_XFORMS, 
-    MAX_XFORM_VARS              = 4,
-    MAX_XFORM_PP_VARS           = 3,
 
     SHD_NUM_SIZE                = 3,
 
