@@ -7,7 +7,8 @@
  /  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
  /  IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  /
- /  Tested on:  Houdini 21.0
+ /  Tested on:  Houdini 20.5
+ /              Houdini 21.0
  /
  /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
