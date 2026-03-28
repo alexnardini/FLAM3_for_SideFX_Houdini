@@ -109,7 +109,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **GLOBAL** | `icon_iter_gpu` | `from H21` |
+| **GLOBAL** | `icon_iter_gpu` | `from H20.5` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionOCLSVG.svg" /></p>
@@ -2455,7 +2455,7 @@ _These preferences affect how the software behaves and appears but do not direct
 
 | Tab | Parameter name | Houdini version |
 |:---|:---|---:|
-| **PREFS** | `gpu_iter` | `from H21` |
+| **PREFS** | `gpu_iter` | `from H20.5` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons
 

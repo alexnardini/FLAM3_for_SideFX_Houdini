@@ -2179,7 +2179,7 @@ _but do not directly impact the visual characteristics of individual fractal Fla
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `gpu` |  `toggle` | `from H21` |
+| **PREFS** | `gpu` |  `toggle` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
@@ -2193,7 +2193,7 @@ hou.phm().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm(), kwarg
 
 | Tab | Parameter name | Parameter type |  Houdini version |
 |:---|:---|---:|---:|
-| **PREFS** | `gpu_iter` |  `gpu_iter` | `from H21` |
+| **PREFS** | `gpu_iter` |  `gpu_iter` | `from H20.5` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
