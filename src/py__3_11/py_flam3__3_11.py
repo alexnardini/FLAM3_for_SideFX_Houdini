@@ -2296,19 +2296,24 @@ class flam3h_scripts
         flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
         if hou.isUIAvailable():
             
+            # Will need to come back to this and re work everything a little better, good for now.
+            gpu: int = node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
+            if gpu: platform: str = 'OpenCL'
+            else: platform: str = 'CVEX 32bit'
+            
             # If there are not any Sop viewer lets cook it since this is the first node instance of FLAM3H™
             viewers: list[hou.SceneViewer] = flam3h_general_utils.util_getSceneViewers()
-            if flam3h_general_utils.util_is_context_available_viewer_SOP(viewers) is False and flam3h_general_utils.util_is_context_available_viewer('Object') is False: node.cook(force=True)
+            if flam3h_general_utils.util_is_context_available_viewer_SOP(viewers) is False: node.cook(force=True)
             elif sys_updated_mode == hou.updateMode.Manual: # type: ignore
                 node.cook(force=True)
-                
-            if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ CVEX 32bit compile", details = None, details_label = None, details_expanded = False) == 0: # type: ignore
+            
+            if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = f"FLAM3H™ {platform} compile", details = None, details_label = None, details_expanded = False) == 0: # type: ignore
                 flam3h_scripts.set_first_instance_global_var(cvex_precision)
                 hou.setUpdateMode(sys_updated_mode)
                 # Close pyside panel if open from first time (splash screen)
                 pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False)
                 # Print to the Houdini console
-                print(f"\n-> FLAM3H™ CVEX nodes compile: DONE\n")
+                print(f"\n-> FLAM3H™ {platform} nodes compile: DONE\n")
                 
             flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
             
