@@ -8,7 +8,7 @@
 """Simple utility node to quickly render FLAM3H(tm) fractal Flames in Solaris."""
 
 == Welcome to FLAM3H(tm) USD for SideFX Houdini ==
-( _From H19.x to H20.5.x only_ )
+( _From H19 to H20 only_ )
 
 A simple utility node to make rendering FLAM3H(tm) fractal Flames in Solaris for previews easy.<br />
 It offers the very fundamental functionalities to setup your fractal Flames point cloud and start rendering with Karma within a few clicks.<br />

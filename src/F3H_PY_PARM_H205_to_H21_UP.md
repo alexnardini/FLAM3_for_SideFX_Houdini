@@ -80,7 +80,7 @@ to: **py_flam3__3_11**
 import toolutils
 
 # Set some HDA infos
-__version__ = "2.0.00"
+__version__ = "2.0.02"
 __status__  = "Production"
 __h_versions__: tuple = (210,)
 __range_type__: bool = False # True for closed range. False for open range
@@ -152,11 +152,12 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 import toolutils
 
 # Set some HDA infos
-__version__ = "1.9.77"
+__version__ = "2.0.02"
 __status__  = "Production"
 __h_versions__: tuple = (205,)
 __range_type__: bool = True # True for closed range. False for open range
 __vcc_compiler__ = "21.0.440"
+__opencl__ = "1.2"
 
 # The following are min and max Houdini version where FLAM3H™ can run.
 # The max version is always most likely the latest Houdini version released by SideFX

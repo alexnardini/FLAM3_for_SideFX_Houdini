@@ -78,6 +78,7 @@ __status__: str = nodetype.hdaModule().__status__
 __module_filename__: str = nodetype.hdaModule().__module_filename__
 __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
 __vcc_compiler__: str = nodetype.hdaModule().__vcc_compiler__
+__opencl__: str = nodetype.hdaModule().__opencl__
 __h_version_min__: int = nodetype.hdaModule().__h_version_min__
 __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 
@@ -470,6 +471,7 @@ class f3h_tabs:
         # Default globals
         DEFAULT_DENSITY: Final = 500000
         DEFAULT_ITERATIONS: Final = 10
+        DEFAULT_ITERATIONS_GPU: Final = 1024
         
         PRM_DENSITY: Final = 'ptcount'
         PRM_DENSITY_PRESETS: Final = 'ptcount_presets'
@@ -647,6 +649,8 @@ class f3h_tabs:
         Everything related to the PREFS tab parameters names and miscellaneous constants.</br>
         
         '''
+        PRM_GPU: Final = 'gpu'
+        PRM_GPU_ITER: Final = 'gpu_iter'
         PRM_PALETTE_256_PLUS: Final = 'paletteplus'
         PRM_SOLO_FOLLOW: Final = 'solo_follow'
         PRM_FLASH_MSG: Final = 'flashmsg'
@@ -2013,7 +2017,7 @@ class flam3h_scripts
 
     """    
     
-    __slots__ = ("_kwargs", "_node")
+    __slots__ = ("_kwargs", "_node", "_gpu")
     
     def __init__(self, kwargs: dict) -> None:
         """
@@ -2025,6 +2029,7 @@ class flam3h_scripts
         """  
         self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
+        self._gpu: hou.Parm | None = self._node.parm(f3h_tabs.PREFS.PRM_GPU)
         
         
     @staticmethod
@@ -2479,6 +2484,13 @@ class flam3h_scripts
     def node(self) -> hou.SopNode:
         return self._node
     
+    @property
+    def gpu(self) -> bool:
+        if self._gpu is not None:
+            return bool(self._gpu.eval())
+        else:
+            return False
+    
     
     def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
         """Check FLAM3H™ compatibility based on the type of range(of Houdini versions)</br>
@@ -2517,6 +2529,7 @@ class flam3h_scripts
         Returns:
             (None):
         """
+        gpu: bool = self.gpu
         
         try:
             hou.session.F3H_FIRST_INSTANCE_32BIT # type: ignore
@@ -2544,10 +2557,13 @@ class flam3h_scripts
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
                 sys_updated_mode: hou.EnumValue = hou.session.F3H_SYS_UPDATE_MODE # type: ignore
                 
-                _MSG_INFO = f"FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ CVEX nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H™ CVEX nodes compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
+                if gpu: platform: str = 'OpenCL'
+                else: platform: str = 'CVEX'
                 
-                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0, splash_screen=True)
+                _MSG_INFO = f"FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ {platform} nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
+                _MSG_DONE = f"FLAM3H™ {platform} nodes compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
+                
+                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0, splash_screen=True, f3h_node=self.node)
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                 else:
@@ -2558,10 +2574,13 @@ class flam3h_scripts
                 hou.setUpdateMode(hou.updateMode.AutoUpdate) # type: ignore
                 sys_updated_mode: hou.EnumValue = hou.session.F3H_SYS_UPDATE_MODE # type: ignore
                 
-                _MSG_INFO = f"FLAM3H™ v{__version__} 64-bit  first instance -> Compiling FLAM3H™ CVEX 64-bit nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H™ CVEX 64-bit nodes compile: DONE\nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
+                if gpu: platform: str = 'OpenCL'
+                else: platform: str = 'CVEX 64-bit'
                 
-                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0, splash_screen=True)
+                _MSG_INFO = f"FLAM3H™ v{__version__} 64-bit  first instance -> Compiling FLAM3H™ {platform} nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
+                _MSG_DONE = f"FLAM3H™ {platform} nodes compile: DONE\nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
+                
+                pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0, splash_screen=True, f3h_node=self.node)
                 if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
                     self.flam3h_check_first_node_instance_msg_status_bar_display_flag(node, cvex_precision, _MSG_INFO, _MSG_DONE, sys_updated_mode) # type: ignore
                 else:
@@ -2610,12 +2629,19 @@ class flam3h_scripts
             
             __module_version__: str = '.'.join((__py_version__.split('.'))[:2])
             
+            # Will need to come back to this and re work everything a little better, good for now.
+            gpu: bool = self.gpu
+            
             if cvex_precision == 32:
-                _MSG_INFO = f" FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ CVEX node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H™ CVEX node compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
+                if gpu: platform: str = 'OpenCL'
+                else: platform: str = 'CVEX'
+                _MSG_INFO = f" FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ {platform} node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
+                _MSG_DONE = f"FLAM3H™ {platform} node compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
             else:
-                _MSG_INFO = f" FLAM3H™ v{__version__} 64-bit  first instance -> Compiling FLAM3H™ CVEX 64-bit node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H™ CVEX 64-bit node compile: DONE\nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
+                if gpu: platform: str = 'OpenCL'
+                else: platform: str = 'CVEX 64-bit'
+                _MSG_INFO = f" FLAM3H™ v{__version__} 64-bit  first instance -> Compiling FLAM3H™ {platform} node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
+                _MSG_DONE = f"FLAM3H™ {platform} node compile: DONE\nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
             
             density: int = node.parm(f3h_tabs.GLB.PRM_DENSITY).eval()
             if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
@@ -3101,7 +3127,7 @@ class flam3h_scripts
                 # init OUT PRESETS
                 flam3h_general_utils(self.kwargs).flam3h_init_presets_OUT_PRESETS()
                 # init RIP: Remove Invalid Points
-                flam3h_iterator_utils.flam3h_on_load_opacity_zero(node)
+                flam3h_iterator_utils.flam3h_on_load_opacity_zero(node, self.gpu)
                 
                 # Set color correction curves to their defaults if there is need to do it (ex: hip files with older version of FLAM3H™)
                 out_flame_utils.out_render_curves_set_defaults_on_load(node)
@@ -3173,7 +3199,7 @@ class flam3h_scripts
                 # Reset memory mpidx prm data
                 flam3h_iterator_utils.iterator_mpidx_mem_set(node, 0)
                 # init RIP: Remove Invalid Points: ALL
-                flam3h_iterator_utils.flam3h_on_load_opacity_zero(node, True)
+                flam3h_iterator_utils.flam3h_on_load_opacity_zero(node, self.gpu, True)
                 
                 # Clear menu caches
                 # This is needed to help to updates the menus from time to time so to pick up sneaky changes to the loaded files
@@ -5878,11 +5904,23 @@ class flam3h_general_utils
             (None):
         """    
         node: hou.SopNode = self.node
-
-        parms_dict: dict = {f3h_tabs.GLB.PRM_DENSITY: density, 
-                            f3h_tabs.GLB.PRM_DENSITY_PRESETS: 1, 
-                            f3h_tabs.GLB.PRM_ITERATIONS: iter, 
-                            f3h_tabs.SYS.PRM_TAG_SIZE: 0}
+        
+        # If in GPU mode, update the default iterations number and parm name
+        gpu: int = node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
+        
+        if gpu:
+            parms_dict: dict = {f3h_tabs.GLB.PRM_DENSITY: density, 
+                                f3h_tabs.GLB.PRM_DENSITY_PRESETS: 1, 
+                                f3h_tabs.GLB.PRM_ITERATIONS: iter, 
+                                f3h_tabs.PREFS.PRM_GPU_ITER: f3h_tabs.GLB.DEFAULT_ITERATIONS_GPU, 
+                                f3h_tabs.SYS.PRM_TAG_SIZE: 0}
+            
+        else:
+            parms_dict: dict = {f3h_tabs.GLB.PRM_DENSITY: density, 
+                                f3h_tabs.GLB.PRM_DENSITY_PRESETS: 1, 
+                                f3h_tabs.GLB.PRM_ITERATIONS: iter, 
+                                f3h_tabs.SYS.PRM_TAG_SIZE: 0}
+            
         flam3h_prm_utils.setParms(node, parms_dict)
         
         flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_TAG, 0)
@@ -7079,30 +7117,36 @@ class flam3h_iterator_utils
             
             
     @staticmethod
-    def flam3h_on_load_opacity_zero(node: hou.SopNode, f3h_all: bool = False) -> None:
-        """Check each iterator's shader opacity and if any of them is 0(Zero) activate the Remove Invalid Option(RIP)
+    def flam3h_on_load_opacity_zero(node: hou.SopNode, gpu: bool, f3h_all: bool = False) -> None:
+        """If on CPU(Cvex) mode,</br>
+        check each iterator's shader opacity and if any of them is 0(Zero) activate the Remove Invalid Option(RIP).
+        
+        If on GPU(OpenCL) mode,<br>
+        Just leave things as they are.
 
         Args:
             node(hou.SopNode): The current FLAM3H™ node being loaded in the hip file.
+            gpu(bool): If we are in GPU mode just leave things as they are.
             f3h_all(bool): Default to: False</br>Perform this check and correct if needed for all FLAM3H™ nodes in the scene.
 
         Returns:
             (None):
         """  
-        iter_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
-        if iter_count:
-            shader_alpha_name: str = flam3h_iterator_prm_names().shader_alpha
-            if f3h_all:
-                for f3h in node.type().instances():
-                    f3h_all_lambda_min_opacity: Callable[[], float] = lambda: min((f3h.parm(f'{shader_alpha_name}_{idx}').eval() for idx in range(1, iter_count + 1)))
-                    try:
-                        if not f3h.parm(f3h_tabs.PREFS.PVT_PRM_RIP).eval() and f3h_all_lambda_min_opacity() == 0: # This is the one that can possibly fail
-                            flam3h_prm_utils.private_prm_set(f3h, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
-                    except AttributeError:
-                        pass
-            else:
-                lambda_min_opacity: Callable[[], float] = lambda: min((node.parm(f'{shader_alpha_name}_{idx}').eval() for idx in range(1, iter_count + 1)))
-                if lambda_min_opacity() == 0: flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
+        if gpu is False:
+            iter_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
+            if iter_count:
+                shader_alpha_name: str = flam3h_iterator_prm_names().shader_alpha
+                if f3h_all:
+                    for f3h in node.type().instances():
+                        f3h_all_lambda_min_opacity: Callable[[], float] = lambda: min((f3h.parm(f'{shader_alpha_name}_{idx}').eval() for idx in range(1, iter_count + 1)))
+                        try:
+                            if not f3h.parm(f3h_tabs.PREFS.PVT_PRM_RIP).eval() and f3h_all_lambda_min_opacity() == 0: # This is the one that can possibly fail
+                                flam3h_prm_utils.private_prm_set(f3h, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
+                        except AttributeError:
+                            pass
+                else:
+                    lambda_min_opacity: Callable[[], float] = lambda: min((node.parm(f'{shader_alpha_name}_{idx}').eval() for idx in range(1, iter_count + 1)))
+                    if lambda_min_opacity() == 0: flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
 
 
     @staticmethod
@@ -10627,7 +10671,12 @@ class flam3h_iterator_utils
         flam3h_general_utils.reset_density(node)
         # Iterations
         prm_iterations = node.parm(f3h_tabs.GLB.PRM_ITERATIONS)
-        flam3h_prm_utils.set(node, prm_iterations, f3h_tabs.GLB.DEFAULT_ITERATIONS)
+        gpu: int = node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
+        if gpu:
+            prm_iterations = node.parm(f3h_tabs.PREFS.PRM_GPU_ITER)
+            flam3h_prm_utils.set(node, prm_iterations, f3h_tabs.GLB.DEFAULT_ITERATIONS_GPU)
+        else:
+            flam3h_prm_utils.set(node, prm_iterations, f3h_tabs.GLB.DEFAULT_ITERATIONS)
 
         # FF vars
         self.flam3h_reset_FF()
@@ -12622,7 +12671,7 @@ class flam3h_about_utils
         # year = datetime.now().strftime("%Y")
         
         flam3h_author: str = f"AUTHOR: {__author__}"
-        flam3h_code: str = f"CODE: cvex {__vcc_compiler__}, Python {__py_version__}"
+        flam3h_code: str = f"CODE: opencl {__opencl__}, cvex {__vcc_compiler__}, python {__py_version__}"
         flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_code}\n{__copyright__}"
         
@@ -13044,6 +13093,7 @@ class xml_keys:
     XML_ROOT_CHAOS: Final = 'ifs'
 
     XML_APP_NAME_FLAM3H: Final = 'FLAM3H'
+    XML_APP_NAME_FLAM3H_CL: Final = 'FLAM3H-CL'
     XML_APP_NAME_FRACTORIUM: Final = 'EMBER'
 
     XML_NAME: Final = 'flame'
@@ -15493,7 +15543,7 @@ class in_flame_utils
 
     """
     
-    __slots__ = ("_kwargs", "_node")
+    __slots__ = ("_kwargs", "_node", "_gpu")
     
     def __init__(self, kwargs: dict) -> None:
         """
@@ -15505,6 +15555,7 @@ class in_flame_utils
         """ 
         self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
+        self._gpu: hou.Parm | None = self._node.parm(f3h_tabs.PREFS.PRM_GPU)
         
         
     @staticmethod
@@ -17557,6 +17608,13 @@ class in_flame_utils
     @property
     def node(self) -> hou.SopNode:
         return self._node
+    
+    @property
+    def gpu(self) -> bool:
+        if self._gpu is not None:
+            return bool(self._gpu.eval())
+        else:
+            return False
 
 
     def in_copy_section_render_stats_msg(self) -> None:
@@ -18569,17 +18627,24 @@ class in_flame_utils
         assert apo_data.xforms is not None
         self.in_to_flam3h_reset_iterators_parms( node, len(apo_data.xforms) )
         
-        # RIP: if there are ZERO opacities, always turn RIP toggle ON
-        if apo_data.opacity is not None and min(apo_data.opacity) == 0.0:
-            flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
+        # Lets automate only when we are in CPU(Cvex) mode
+        # otherwise if we are in GPU(OpenCL) mode just turn the RIP toggle OFF
+        # so we can go fast and let the user decide after the fact.
+        if self.gpu:
+            flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 0)
             
         else:
-            # Otherwise set RIP toggle accordingly from the XML data if any
-            if apo_data.sys_flam3h_rip is not None:
-                flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, apo_data.sys_flam3h_rip)
+            # RIP: if there are ZERO opacities, always turn RIP toggle ON
+            if apo_data.opacity is not None and min(apo_data.opacity) == 0.0:
+                flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 1)
+                
             else:
-                # Otherwise always turn it OFF
-                flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 0)
+                # Otherwise set RIP toggle accordingly from the XML data if any
+                if apo_data.sys_flam3h_rip is not None:
+                    flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, apo_data.sys_flam3h_rip)
+                else:
+                    # Otherwise always turn it OFF
+                    flam3h_prm_utils.private_prm_set(node, f3h_tabs.PREFS.PVT_PRM_RIP, 0)
 
         # Set iterators
         self.in_flam3h_set_iterators(0, node, apo_data, preset_id)
@@ -21339,7 +21404,9 @@ class out_flame_utils
         node: hou.SopNode = self.node
         iter_num: int = node.parm(f3h_tabs.GLB.PRM_ITERATIONS).eval()
         flame_name: str = str(node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).eval()).strip()
-        autoadd: int = node.parm(f3h_tabs.OUT.PRM_AUTO_ADD_ITER_NUM).eval()
+        gpu: int = node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
+        if gpu: autoadd: int = 0
+        else: autoadd: int = node.parm(f3h_tabs.OUT.PRM_AUTO_ADD_ITER_NUM).eval()
         
         return iter_num, flame_name, autoadd
 
@@ -21456,10 +21523,16 @@ class out_flame_utils
         Returns:
             (dict): a dictionary with all the flame properties to be written out.
         """   
+        node: hou.SopNode = self.node
+        
+        # Make distinction between GPU and CPU.
+        if node.parm(f3h_tabs.PREFS.PRM_GPU).eval(): _F3H_APP_NAME: str = xml_keys.XML_APP_NAME_FLAM3H_CL
+        else: _F3H_APP_NAME: str = xml_keys.XML_APP_NAME_FLAM3H
+        
         # If "use Fractorium parametric prm names" OUT option is ON, lets append the EMBER name to the app name
         # so that we can pick up the proper parametric parameter names if we load it back in Houdini.
-        if self.node.parm(f3h_tabs.OUT.PRM_USE_FRACTORIUM_PRM_NAMES).eval(): _XML_APP_NAME = f"{xml_keys.XML_APP_NAME_FRACTORIUM}-{xml_keys.XML_APP_NAME_FLAM3H}"
-        else: _XML_APP_NAME = xml_keys.XML_APP_NAME_FLAM3H
+        if node.parm(f3h_tabs.OUT.PRM_USE_FRACTORIUM_PRM_NAMES).eval(): _XML_APP_NAME = f"{xml_keys.XML_APP_NAME_FRACTORIUM}-{_F3H_APP_NAME}"
+        else: _XML_APP_NAME = _F3H_APP_NAME
         
         return {xml_keys.XML_VERSION: f'{_XML_APP_NAME}-{flam3h_general_utils.my_system()}-{__version__}',
                 xml_keys.XML_XF_NAME: f3r.flame_name,
@@ -23234,7 +23307,13 @@ class pyside_master:
                 self.setWindowFlags(QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
                 self.setFixedSize(self.window_width, self.window_height)
                 
-                if (self.f3h_node is not None and self.h_valid) or self.splash_screen: self._load_image_pixmap()
+                if (self.f3h_node is not None and self.h_valid) or self.splash_screen:
+                    self._load_image_pixmap()
+                    # If in GPU mode update the splash screen short message
+                    # Will need to come back to this and re work everything a little better, good for now.
+                    gpu: int = self.f3h_node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
+                    if gpu and self.links is False: self.info = "compiling GPU nodes\n"
+                    
                 self._center_window()
                 self._build_ui()
 
