@@ -37,8 +37,15 @@
 */
 
 #define USE_FMA         1   // Enable fused multiply-add if desired
-#define USE_NATIVE      1   // Enable native ocl functions for speed but less accuracy
-#define USE_RNG_X128    1   // Use RNG x128 random number generator instead of x64 (32bit vs 24bit)
+
+// The following have been added as OpenCL compiler options flags in Houdini and can be toggled on/off for testing and performance/accuracy tradeoffs.
+// Testing their definition here just in case.
+#ifndef USE_NATIVE
+    #define USE_NATIVE      1   // Enable native ocl functions for speed but less accuracy
+#endif
+#ifndef USE_RNG_X128
+    #define USE_RNG_X128    1   // Use RNG x128 random number generator instead of x64 (32bit vs 24bit)
+#endif
 
 // This is defined in the Houdini environment and must match.
 #define PSCL 0.001f         // Default point scale ( @pscale )
