@@ -33,7 +33,6 @@
 
 /* For now we are compiling using: -cl-fast-relaxed-math
  / so the USE_NATIVE wont make much difference as the compiler will optimize aggressively anyway.
- / In the future will add the following as a compiler kernel options inside houdini.
 */
 
 #define USE_FMA         1   // Enable fused multiply-add if desired
