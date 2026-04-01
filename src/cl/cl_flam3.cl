@@ -2332,9 +2332,9 @@ static float2 CL_V_WEDGEJULIA(__private const float2 in,
     // TO DO: compute in vex land
     // I did but made no difference and I prefer to keep it here
     // so the wrangle core node in Houdini's land remain more performant.
-    wedgeJulia_cf = 1.0 - wedgejulia.y * wedgejulia.w * M_1_2PI;
+    wedgeJulia_cf = 1.0f - wedgejulia.y * wedgejulia.w * M_1_2PI;
     wedgeJulia_rN = fabs(wedgejulia.x);
-    wedgeJulia_cn = wedgejulia.z / wedgejulia.x / 2.0;
+    wedgeJulia_cn = wedgejulia.z / wedgejulia.x / 2.0f;
     
 #if USE_NATIVE
     rr = w * native_powr(SUMSQ(in), wedgeJulia_cn);
