@@ -257,7 +257,11 @@ static inline uint x128_next_uint(x128_state_t* state) {
 // ----------------------------
 static inline float x128_next_float(x128_state_t* state) {
     uint r = x128_next_uint(state);
+#if USE_NATIVE
+    return (float)(r >> 8) * native_recip(16777216.0f); // 1/2^24
+#else
     return (float)(r >> 8) * (1.0f / 16777216.0f); // 1/2^24
+#endif
 }
 
 // ----------------------------
@@ -303,7 +307,11 @@ static inline float x64_next_float(uint *s0, uint *s1) {
     *s1 = rotate_left(t, 13);
 
     // return (float)(result & 0x00FFFFFFu) / 16777216.0f;
+#if USE_NATIVE
+    return native_divide((float)(result >> 8), 16777216.0f); // Get the upper 24bit for more uniform randomness
+#else
     return (float)(result >> 8) / 16777216.0f; // Get the upper 24bit for more uniform randomness
+#endif
 }
 // ----------------------------
 // Float in [-1,1)
@@ -462,7 +470,13 @@ static inline float Zeps(const float x) { return x + (x == 0) * EPS; }
 
 static inline float sgn(const float n){ return (float)((0.0f < n) - (n < 0.0f)); }
 
-static inline float fmod_custom(const float a, const float b){ return a - trunc(a / b) * b; }
+static inline float fmod_custom(const float a, const float b){
+#if USE_NATIVE
+    return a - trunc(native_divide(a, b)) * b;
+#else
+    return a - trunc(a / b) * b;
+#endif
+}
 
 static inline void sincos_fast(float a, float* s, float* c)
 {
@@ -482,24 +496,48 @@ static inline float Sqrt1pm1(const float x){
     {
         float num = 0;
         float den = 0;
+    #if USE_NATIVE
+        num += native_recip(32.0f);
+        den += native_recip(256.0f);
+    #else
         num += 1.0f / 32;
         den += 1.0f / 256;
+    #endif
         num *= x;
         den *= x;
+    #if USE_NATIVE
+        num += native_divide(5.0f, 16.0f);
+        den += native_divide(5.0f, 32.0f);
+    #else
         num += 5.0f / 16;
         den += 5.0f / 32;
+    #endif
         num *= x;
         den *= x;
+    #if USE_NATIVE
+        num += native_divide(3.0f, 4.0f);
+        den += native_divide(15.0f, 16.0f);
+    #else
         num += 3.0f / 4;
         den += 15.0f / 16;
+    #endif
         num *= x;
         den *= x;
+    #if USE_NATIVE
+        num += native_recip(2.0f);
+        den += native_divide(7.0f, 4.0f);
+    #else
         num += 1.0f / 2;
         den += 7.0f / 4;
+    #endif
         num *= x;
         den *= x;
         den += 1;
+    #if USE_NATIVE
+        return native_divide(num, den);
+    #else
         return num / den;
+    #endif
     }
 #if USE_NATIVE
     return native_sqrt(1 + x) - 1;
@@ -549,7 +587,11 @@ static float2 CL_V_SPHERICAL(
     __private const float w
     )
 {
+#if USE_NATIVE
+    float r2 = native_divide(w, Zeps(SUMSQ(in)));
+#else
     float r2 = w / Zeps(SUMSQ(in));
+#endif
 
     return r2 * in;
 }
@@ -585,7 +627,11 @@ static float2 CL_V_HORSESHOE(
     yy = in.y * in.y;
     xy = in.x * in.y;
 
+#if USE_NATIVE
+    r = native_divide(w, Zeps(SQRT(in)));
+#else
     r = w / Zeps(SQRT(in));
+#endif
 
     return r * (float2)(
         (xx - yy),
@@ -691,12 +737,13 @@ static float2 CL_V_SPIRAL(
     float inv_sqrt = native_rsqrt(dot(in, in));
     float2 precalc = in * inv_sqrt;
     r = Zeps(native_recip(inv_sqrt));
+    r1 = native_divide(w, r);
 #else
     float inv_sqrt = rsqrt(dot(in, in));
     float2 precalc = in * inv_sqrt;
     r = Zeps(1.0f / inv_sqrt);
-#endif
     r1 = w / r;
+#endif
     sincos_fast(r, &sr, &cr);
 
     return r1 * (float2)(
@@ -716,10 +763,18 @@ static float2 CL_V_HIPERBOLIC(
 
     _SQRT = SQRT(in);
     r = Zeps(_SQRT);
+#if USE_NATIVE
+    float2 precalc = native_divide(in, _SQRT);
+#else
     float2 precalc = in / _SQRT;
+#endif
 
     return w * (float2)(
+    #if USE_NATIVE
+        native_divide(precalc.x, r),
+    #else
         precalc.x / r, 
+    #endif
         precalc.y * r
     );
 }
@@ -852,7 +907,12 @@ static float2 CL_V_FISHEYE(
     )
 {
     float r = SQRT(in);
+
+#if USE_NATIVE
+    r = 2.0f * native_divide(w, (r + 1.0f));
+#else
     r = 2.0f * w / (r + 1.0f);
+#endif
 
     return r * in;
 }
@@ -990,9 +1050,17 @@ static float2 CL_V_BUBBLE(
     )
 {
 #if USE_FMA
-    float r = w / fma(0.25f, SUMSQ(in), 1.0f);
+    #if USE_NATIVE
+        float r = native_divide(w, fma(0.25f, SUMSQ(in), 1.0f));
+    #else
+        float r = w / fma(0.25f, SUMSQ(in), 1.0f);
+    #endif
 #else
-    float r = w / (0.25f * SUMSQ(in) + 1.0f);
+    #if USE_NATIVE
+        float r = native_divide(w, (0.25f * SUMSQ(in) + 1.0f));
+    #else
+        float r = w / (0.25f * SUMSQ(in) + 1.0f);
+    #endif
 #endif
 
     return r * in;
@@ -1025,7 +1093,11 @@ static float2 CL_V_EYEFISH(
     __private const float w
     )
 {
+#if USE_NATIVE
+    float r = native_divide(w * 2.0f, (1.0f + SQRT(in)));
+#else
     float r = (w * 2.0f) / (1.0f + SQRT(in));
+#endif
 
     return r * in;
 }
@@ -1144,7 +1216,11 @@ static float2 CL_V_BLOB(
     float d, r, aa, bdiff;
 
     float _SQRT = SQRT(in);
+#if USE_NATIVE
+    float2 precalc = native_divide(in, _SQRT);
+#else
     float2 precalc = in / _SQRT;
+#endif
 
     aa = ATAN(in);
     bdiff = blob.y - blob.x;
@@ -1297,7 +1373,11 @@ static float2 CL_V_RINGS2(
     int nrand;
 
     _SQRT = SQRT(in);
+#if USE_NATIVE
+    float2 precalc = native_divide(in, _SQRT);
+#else
     float2 precalc = in / _SQRT;
+#endif
     r = _SQRT;
     dx = rings2val * rings2val;
     r += -2.0f * dx * (int)((r + dx)/(2.0f * dx)) + r * (1.0f - dx);
@@ -1382,7 +1462,11 @@ static float2 CL_V_PIE(
     float a, r, sa, ca, sl;
 
     sl = (int)(rng_next_float(state) * pie.x);
+#if USE_NATIVE
+    a = pie.z + native_divide(M_TAU * (sl + rng_next_float(state) * pie.y), pie.x);
+#else
     a = pie.z + M_TAU * (sl + rng_next_float(state) * pie.y) / pie.x;
+#endif
     r = w * rng_next_float(state);
     sincos_fast(a, &sa, &ca);
 
@@ -1425,7 +1509,7 @@ static float2 CL_V_TANGENT(
 {
 #if USE_NATIVE
     return w * (float2)(
-        native_sin(in.x) / native_cos(in.y), 
+        native_divide(native_sin(in.x), native_cos(in.y)), 
         native_tan(in.y)
     );
 #else
@@ -1563,7 +1647,11 @@ static float2 CL_V_CROSS(
     float r, inxy;
 
     inxy = (in.x - in.y) * (in.x + in.y);
+#if USE_NATIVE
+    r = native_divide(w, select(Zeps(inxy), Zeps(fabs(inxy)), F3C));
+#else
     r = w / select(Zeps(inxy), Zeps(fabs(inxy)), F3C);
+#endif
 
     return r * in;
 }
@@ -1581,7 +1669,11 @@ static float2 CL_V_DISC2(
 
     t = disc2_pc.x * (in.x + in.y);
     sincos_fast(t, &sr, &cr);
+#if USE_NATIVE
+    r = native_divide(w * ATAN(in), (float)M_PI);
+#else
     r = w * ATAN(in) / M_PI;
+#endif
 
     return r * (float2)(
         sr + disc2_pc.z, 
@@ -1672,12 +1764,12 @@ static float2 CL_V_CONIC(
 #if USE_NATIVE
     float inv_len = native_rsqrt(dot(in, in));
     ct = in.x * inv_len;
+    r = native_divide(w * rnd * conic.x * inv_len, (1.0f + conic.x * ct));
 #else
     float inv_len = rsqrt(dot(in, in));
     ct = in.x * inv_len;
-#endif
-    
     r = w * rnd * conic.x * inv_len / (1.0f + conic.x * ct);
+#endif
 
     return r * in;
 }
@@ -1739,7 +1831,7 @@ static float2 CL_V_BIPOLAR(
 
     y = y - M_PI * floor((y + M_PI_2) * M_1_PI);
 #if USE_NATIVE
-    lx = native_log((tt + 2.0f * in.x) / (tt - 2.0f * in.x));
+    lx = native_log(native_divide(tt + 2.0f * in.x, tt - 2.0f * in.x));
 #else
     lx = log((tt + 2.0f * in.x) / (tt - 2.0f * in.x));
 #endif
@@ -1817,7 +1909,7 @@ static float2 CL_V_BUTTERFLY(
     wx = w * 1.3029400317411197908970256609023f;
     y2 = 2.0f * in.y;
 #if USE_NATIVE
-    r = wx * native_sqrt(fabs(in.y * in.x) / (Zeps(in.x * in.x + y2 * y2)));
+    r = wx * native_sqrt(native_divide(fabs(in.y * in.x), (Zeps(in.x * in.x + y2 * y2))));
 #else
     r = wx * sqrt(fabs(in.y * in.x) / (Zeps(in.x * in.x + y2 * y2)));
 #endif
@@ -1883,12 +1975,15 @@ static float2 CL_V_CPOW(
     aa = ATANYX(in);
 #if USE_NATIVE
     lnr = 0.5f * native_log(SUMSQ(in));
+    va = native_divide((float)M_TAU, cpow.x);
+    vc = native_divide(cpow.y, cpow.x);
+    vd = native_divide(cpow.z, cpow.x);
 #else
     lnr = 0.5f * log(SUMSQ(in));
-#endif
     va = M_TAU  / cpow.x;
     vc = cpow.y / cpow.x;
     vd = cpow.z / cpow.x;
+#endif
     ang = vc * aa + vd * lnr + va * floor(cpow.x * rng_next_float(state));
 #if USE_NATIVE
     mm = w * native_exp(vc * lnr - vd * aa);
@@ -1922,11 +2017,12 @@ static float2 CL_V_EDISC(
 #if USE_NATIVE
     float t = native_sqrt(xmax - 1.0f);
     aa1 = native_log(xmax + t);
+    aa2 = -acos(native_divide(in.x, xmax));
 #else
     float t = sqrt(xmax - 1.0f);
     aa1 = log(xmax + t);
-#endif
     aa2 = -acos(in.x / xmax);
+#endif
     ww = w * 0.086424247393025485907f;  // precomputed 1/11.57034632
 
     sincos_fast(aa1, &snv, &csv);
@@ -1964,14 +2060,16 @@ static float2 CL_V_ELLIPTIC(
     v = sq - x2;
 
     xmaxm1 = 0.5f * (Sqrt1pm1(u) + Sqrt1pm1(v));
-    a = in.x / (1.0f + xmaxm1);
 #if USE_NATIVE
+    a = native_divide(in.x, (1.0f + xmaxm1));
     ssx = xmaxm1 > 0.0f ? native_sqrt(xmaxm1) : 0.0f;
+    float wscale = w * (native_divide(2.0f, 3.141592653589793238462f));
 #else
+    a = in.x / (1.0f + xmaxm1);
     ssx = xmaxm1 > 0.0f ? sqrt(xmaxm1) : 0.0f;
+    float wscale = w * (2.0f / M_PI);
 #endif
 
-    float wscale = w * (2.0f / M_PI);
     float logterm = log1p(xmaxm1 + ssx);
     float y = copysign(wscale * logterm, in.y);
 
@@ -2092,7 +2190,11 @@ static float2 CL_V_LAZYSUSAN(
         );
     }
     else{
+    #if USE_NATIVE
+        r = w * (1.0f + native_divide(lazysusan.z, r));
+    #else
         r = w * (1.0f + lazysusan.z / r);
+    #endif
 
         return r * (float2)(
             xx + lazy.x, 
@@ -2114,7 +2216,7 @@ static float2 CL_V_LOONIE(
     w2 = w * w;
     if(r2 < w2){
 #if USE_NATIVE
-        r = w * native_sqrt(w2 / r2 - 1.0f);
+        r = w * native_sqrt(native_divide(w2, r2) - 1.0f);
 #else
         r = w * sqrt(w2 / r2 - 1.0f);
 #endif
@@ -2159,7 +2261,11 @@ static float2 CL_V_MODULUS(
 
     period = 2.0f * modulus;
     r = in + modulus;
+#if USE_NATIVE
+    r -= period * floor(native_divide(r, period));
+#else
     r -= period * floor(r / period);
+#endif
 
     return w * (r - modulus);
 }
@@ -2199,13 +2305,15 @@ static float2 CL_V_POLAR2(
     __private const float w
     )
 {
-    float p2v = w / M_PI;
+    
 #if USE_NATIVE
+    float p2v = native_divide(w, 3.141592653589793238462f);
     return (float2)(
         p2v * ATAN(in), 
         (0.5f * p2v) * native_log(SUMSQ(in))
     );
 #else
+    float p2v = w / M_PI;
     return (float2)(
         p2v * ATAN(in), 
         (0.5f * p2v) * log(SUMSQ(in))
@@ -2410,15 +2518,22 @@ static float2 CL_V_WEDGEJULIA(
     // so the wrangle core node in Houdini's land remain more performant.
     wedgeJulia_cf = 1.0f - wedgejulia.y * wedgejulia.w * M_1_2PI;
     wedgeJulia_rN = fabs(wedgejulia.x);
+#if USE_NATIVE
+    wedgeJulia_cn = native_divide(wedgejulia.z, wedgejulia.x * 2.0f);
+#else
     wedgeJulia_cn = wedgejulia.z / wedgejulia.x / 2.0f;
+#endif
     
 #if USE_NATIVE
     rr = w * native_powr(SUMSQ(in), wedgeJulia_cn);
+    t_rnd = (int)((wedgeJulia_rN) * rng_next_float(state));
+    a = native_divide(ATANYX(in) + M_TAU * t_rnd, wedgejulia.x);
 #else
     rr = w * powr(SUMSQ(in), wedgeJulia_cn);
-#endif
     t_rnd = (int)((wedgeJulia_rN) * rng_next_float(state));
     a = (ATANYX(in) + M_TAU * t_rnd) / wedgejulia.x;
+#endif
+
 #if USE_FMA
     float tmp = fma(wedgejulia.w, a, (float)M_PI) * M_1_2PI;
     cc = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
@@ -2476,7 +2591,11 @@ static float2 CL_V_WHORL(
     float r, a, sa, ca;
 
     r = SQRT(in);
+#if USE_NATIVE
+    float2 Owmr = native_divide(whorl, (w - r));
+#else
     float2 Owmr = whorl / (w - r);
+#endif
     float base = ATANYX(in);
     a = base + select(Owmr.y, Owmr.x, r < w);
     sincos_fast(a, &sa, &ca);
@@ -2611,7 +2730,7 @@ static float2 CL_V_TAN(
         float2 xy = in * (float)M_PI_2;
 
     #if USE_NATIVE
-        den = w / Zeps(native_cos(xy.x) + cosh(xy.y));
+        den = native_divide(w, Zeps(native_cos(xy.x) + cosh(xy.y)));
         return den * (float2)(
             native_sin(xy.x), 
             sinh(xy.y)
@@ -2643,7 +2762,7 @@ static float2 CL_V_SEC(
     seccosh = cosh(xy.y);
     float2 xy2 = xy * 2.0f;
 #if USE_NATIVE
-    den = w * (2.0f / Zeps(native_cos(xy2.x) + cosh(xy2.y)));
+    den = w * (native_divide(2.0f, Zeps(native_cos(xy2.x) + cosh(xy2.y))));
 #else
     den = w * (2.0f / Zeps(cos(xy2.x) + cosh(xy2.y)));
 #endif
@@ -2671,7 +2790,7 @@ static float2 CL_V_CSC(
     csccosh = cosh(xy.y);
     float2 xy2 = xy * 2.0f;
 #if USE_NATIVE
-    den = w * 2.0f / Zeps(cosh(xy2.y) - native_cos(xy2.x));
+    den = native_divide(w * 2.0f, Zeps(cosh(xy2.y) - native_cos(xy2.x)));
 #else
     den = w * 2.0f / Zeps(cosh(xy2.y) - cos(xy2.x));
 #endif
@@ -2699,7 +2818,11 @@ static float2 CL_V_COT(
     sincos_fast(xy.x, &cotsin, &cotcos);
     cotsinh = sinh(xy.y);
     cotcosh = cosh(xy.y);
+#if USE_NATIVE
+    den = native_divide(w, (cotcosh - cotcos));
+#else
     den = w / (cotcosh - cotcos);
+#endif
 
     float y_sign = F3C ? -1.0f : 1.0f;
 
@@ -2791,8 +2914,11 @@ static float2 CL_V_SECH(
     sincos_fast(xy.y, &sechsin, &sechcos);
     sechsinh = sinh(xy.x);
     sechcosh = cosh(xy.x);
-
+#if USE_NATIVE
+    den = native_divide(w * 2.0f, Zeps(native_cos(2.0f * xy.y) + cosh(2.0f * xy.x)));
+#else
     den = w * 2.0f / Zeps(cos(2.0f * xy.y) + cosh(2.0f * xy.x));
+#endif
 
     float y_sign = F3C ? -1.0f : 1.0f;
 
@@ -2819,7 +2945,7 @@ static float2 CL_V_CSCH(
     cschsinh = sinh(xy.x);
     cschcosh = cosh(xy.x);
 #if USE_NATIVE
-    den = w * 2.0f / Zeps(cosh(in2.x) - native_cos(in2.y));
+    den = native_divide(w * 2.0f, Zeps(cosh(in2.x) - native_cos(in2.y)));
 #else
     den = w * 2.0f / Zeps(cosh(in2.x) - cos(in2.y));
 #endif
@@ -2847,7 +2973,11 @@ static float2 CL_V_COTH(
     sincos_fast(xy.y, &cothsin, &cothcos);
     cothsinh = sinh(xy.x);
     cothcosh = cosh(xy.x);
+#if USE_NATIVE
+    den = native_divide(w, Zeps(cothcosh - cothcos));
+#else
     den = w / Zeps(cothcosh - cothcos);
+#endif
 
     return den * (float2)(cothsinh, cothsin);
 }
@@ -2862,8 +2992,13 @@ static float2 CL_V_AUGER(
 {
     float s, t, dy, dx;
 
+#if USE_NATIVE
+    float m_HalfScale = native_divide(auger.y, 2.0f);
+#else
     float m_HalfScale = auger.y / 2.0f;
+#endif
     float2 sta = auger.x * in;
+
 #if USE_NATIVE
     s = native_sin(sta.x);
     t = native_sin(sta.y);
@@ -2898,7 +3033,7 @@ static float2 CL_V_FLUX(
     r2 = iny2 + xmw * xmw;
 
 #if USE_NATIVE
-    avgr = w * (2.0f + spread) * native_sqrt(native_sqrt(r1 / r2));
+    avgr = w * (2.0f + spread) * native_sqrt(native_sqrt(native_divide(r1, r2)));
 #else
     avgr = w * (2.0f + spread) * sqrt(sqrt(r1 / r2));
 #endif
@@ -2972,8 +3107,8 @@ static float2 CL_V_CURVE(
     else{
     #if USE_NATIVE
         return w * (float2)(
-            in.x + amplitude.x * native_exp(-in.y * in.y / Zeps(lenght.x)),
-            in.y + amplitude.y * native_exp(-in.x * in.x / Zeps(lenght.y))
+            in.x + amplitude.x * native_exp(native_divide(-in.y * in.y, Zeps(lenght.x))),
+            in.y + amplitude.y * native_exp(native_divide(-in.x * in.x, Zeps(lenght.y)))
         );
     #else
         return w * (float2)(
@@ -2998,11 +3133,12 @@ static float2 CL_V_PERSPECTIVE(
 #if USE_NATIVE
     vsin = native_sin(ang);
     vfcos = presp.y * native_cos(ang);
+    t = native_divide(w, (presp.y - in.y * vsin));
 #else
     vsin = sin(ang);
     vfcos = presp.y * cos(ang);
-#endif
     t = w / (presp.y - in.y * vsin);
+#endif
 
     return t * (float2)(
         presp.y * in.x, 
@@ -3021,12 +3157,13 @@ static float2 CL_V_BWRAPS(
 {
     float g2, r2, rfactor, max_bubble, vx, vy, cx, cy, lx, ly, r, theta, sa, ca;
 
+#if USE_NATIVE
+    // precalc
+    float radius = 0.5f * (native_divide(bwraps.x, (1.0f + bwraps.y * bwraps.y)));
+    g2 = native_divide(native_sqrt(fabs(bwraps.z)), bwraps.x) + 1e-6f;
+#else
     // precalc
     float radius = 0.5f * (bwraps.x / (1.0f + bwraps.y * bwraps.y));
-
-#if USE_NATIVE
-    g2 = native_sqrt(fabs(bwraps.z)) / bwraps.x + 1e-6f;
-#else
     g2 = sqrt(fabs(bwraps.z)) / bwraps.x + 1e-6f;
 #endif
 
@@ -3035,12 +3172,13 @@ static float2 CL_V_BWRAPS(
 #if USE_NATIVE
     float den = 0.25f * max_bubble * max_bubble + 1.0f;
     max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble * native_recip(den);
+    r2 = radius * radius;
+    rfactor = native_divide(radius, max_bubble);
 #else
     max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble * 1.0f / ((max_bubble * max_bubble) / 4.0f + 1.0f);
-#endif
-
     r2 = radius * radius;
     rfactor = radius / max_bubble;
+#endif
 
     if (bwraps.x == 0.0f)
     {
@@ -3050,9 +3188,13 @@ static float2 CL_V_BWRAPS(
     {
         vx = in.x;
         vy = in.y;
-
+    #if USE_NATIVE
+        cx = (floor(native_divide(vx, bwraps.x)) + 0.5f) * bwraps.x;
+        cy = (floor(native_divide(vy, bwraps.x)) + 0.5f) * bwraps.x;
+    #else
         cx = (floor(vx / bwraps.x) + 0.5f) * bwraps.x;
         cy = (floor(vy / bwraps.x) + 0.5f) * bwraps.x;
+    #endif
 
         lx = vx - cx;
         ly = vy - cy;
@@ -3068,14 +3210,22 @@ static float2 CL_V_BWRAPS(
             lx *= g2;
             ly *= g2;
             l2 = lx * lx + ly * ly;
-
+            
+        #if USE_NATIVE
+            r = native_divide(rfactor, Zeps(l2 / 4.0f + 1.0f));
+        #else
             r = rfactor / Zeps(l2 / 4.0f + 1.0f);
+        #endif
 
             lx *= r;
             ly *= r;
             l2 = lx * lx + ly * ly;
 
+        #if USE_NATIVE
+            r = native_divide(l2, r2);
+        #else
             r = l2 / r2;
+        #endif
 
         #if USE_FMA
             theta = fma(twist.x, (1.0f - r), twist.y * r);
@@ -3210,10 +3360,11 @@ static float2 CL_V_UNPOLAR(
 {
     float m_Vvar2, r, sa, ca;
 
-    m_Vvar2 = (w / M_PI) * 0.5f;
 #if USE_NATIVE
+    m_Vvar2 = native_divide(w, 3.141592653589793238462f) * 0.5f;
     r = native_exp(in.y);
 #else
+    m_Vvar2 = (w / M_PI) * 0.5f;
     r = exp(in.y);
 #endif
     sincos_fast(in.x, &sa, &ca);
@@ -3243,19 +3394,24 @@ static float2 CL_V_GLYNNIA(
         {
         #if USE_NATIVE
             float s = native_sqrt(d);
+
+            return (float2)(
+                m_V2 * s,
+                -(native_divide(m_V2, s)) * in.y
+            );
         #else
             float s = sqrt(d);
-        #endif
 
             return (float2)(
                 m_V2 * s,
                 -(m_V2 / s) * in.y
             );
+        #endif
         }
         else
         {
         #if USE_NATIVE
-            float inv = w / native_sqrt(r * (y2 + d*d));
+            float inv = native_divide(w, native_sqrt(r * (y2 + d*d)));
         #else
             float inv = w / sqrt(r * (y2 + d*d));
         #endif
@@ -3268,19 +3424,24 @@ static float2 CL_V_GLYNNIA(
         {
         #if USE_NATIVE
             float s = Zeps(native_sqrt(d));
+
+            return (float2)(
+                -(m_V2 * s),
+                -(native_divide(m_V2, s)) * in.y
+            );
         #else
             float s = Zeps(sqrt(d));
-        #endif
 
             return (float2)(
                 -(m_V2 * s),
                 -(m_V2 / s) * in.y
             );
+        #endif
         }
         else
         {
         #if USE_NATIVE
-            float inv = w / Zeps(native_sqrt(r * (y2 + d*d)));
+            float inv = native_divide(w, Zeps(native_sqrt(r * (y2 + d*d))));
         #else
             float inv = w / Zeps(sqrt(r * (y2 + d*d)));
         #endif
@@ -3305,7 +3466,11 @@ static float2 CL_V_POINT_SYMMETRY(
     float order, twoPiDivOrder, angle, dx, dy, sa, ca, x, y;
 
     order = Zeps(ptsym.x);
+#if USE_NATIVE
+    twoPiDivOrder = native_divide(6.283185307179586476925f, order);
+#else
     twoPiDivOrder = M_TAU / order;
+#endif
     int k = (int)(rng_next_float(state) * order);
     angle = k * twoPiDivOrder;
 
