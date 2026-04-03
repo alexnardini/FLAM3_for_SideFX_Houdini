@@ -1051,7 +1051,14 @@ static float2 CL_V_FAN(
     dx = M_PI * Zeps(c * c);
     dx2 = 0.5f * dx;
     a = ATAN(in);
+    
+#if USE_NATIVE
+    float t = (a + f) * native_recip(dx);
+    float wrapped = (t - floor(t)) * dx;
+    a += (wrapped > dx2) ? -dx2 : dx2;
+#else
     a += (fmod(a + f, dx) > dx2) ? -dx2 : dx2;
+#endif
     sincos_fast(a, &sa, &ca);
 
     return w * SQRT(in) * (float2)(ca, sa);
@@ -2530,7 +2537,7 @@ static float2 CL_V_SPLIT(
 
     // M_PI hard coded so I dnt have to cast this costant to float (for speed).
     scaled = in * split * 3.141592653589793238462f;
-    t = fmod(scaled, 2.0f * 3.141592653589793238462f);
+    t = fmod(scaled, M_TAU);
     t2 = t * t;
     cos_approx = 1.0f + 
                 t2 * (-0.5f + 
