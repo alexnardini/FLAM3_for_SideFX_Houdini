@@ -2613,9 +2613,15 @@ static float2 CL_V_WEDGE(
     m_CompFac = 1 - wedge.y * wedge.w * M_1_2PI;
     r = SQRT(in);
     a = ATANYX(in) + wedge.x * r;
+#if USE_FMA
+    float tmp = fma(wedge.w, a, 3.141592653589793238462f) * M_1_2PI;
+    c = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
+    a = fma(a, m_CompFac, c * wedge.y);
+#else
     float tmp = (wedge.w * a + M_PI) * M_1_2PI;
     c = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
     a = a * m_CompFac + c * wedge.y;
+#endif
     r = w * (r + wedge.z);
 #if USE_NATIVE
     return r * (float2)(
