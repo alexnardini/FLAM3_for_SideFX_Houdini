@@ -881,17 +881,15 @@ static float2 CL_V_WAVES(
 #if USE_NATIVE
     m_Dx2 = native_recip(Zeps(c * c));
     m_Dy2 = native_recip(Zeps(f * f));
-#else
-    m_Dx2 = 1.0f / Zeps(c * c);
-    m_Dy2 = 1.0f / Zeps(f * f);
-#endif
-    
-#if USE_NATIVE
+
     return w * (float2)(
         in.x + b * native_sin(in.y * m_Dx2), 
         in.y + e * native_sin(in.x * m_Dy2)
     );
 #else
+    m_Dx2 = 1.0f / Zeps(c * c);
+    m_Dy2 = 1.0f / Zeps(f * f);
+
     return w * (float2)(
         in.x + b * sin(in.y * m_Dx2), 
         in.y + e * sin(in.x * m_Dy2)
@@ -1007,17 +1005,34 @@ static float2 CL_V_RINGS(
     __private const float c
     )
 {
-    float dx, r;
+    float _SQRT, inv_sqrt, dx, two_dx, t, wrapped, r;
 
-#if USE_NATIVE
-    float inv_sqrt = native_rsqrt(dot(in, in));
-#else
-    float inv_sqrt = rsqrt(dot(in, in));
-#endif
+    _SQRT = SQRT(in);
+    inv_sqrt = native_recip(_SQRT);
     float2 precalc = in * inv_sqrt;
 
-    dx = Zeps(c);
-    r = w * (fmod(inv_sqrt + dx, 2.0f * dx) - dx + inv_sqrt * (1.0f - dx));
+    dx = Zeps(c * c);
+
+#if USE_NATIVE
+    two_dx = 2.0f * dx;
+    t = (_SQRT + dx) * native_recip(two_dx);
+    t = t - floor(t);
+    wrapped = t * two_dx;
+    #if USE_FMA
+        r = w * (wrapped - dx + fma(-_SQRT, dx, _SQRT));
+    #else
+        r = w * wrapped - dx + _SQRT * (1.0f - dx);
+    #endif
+#else
+    #if USE_FMA
+        wrapped = fmod(_SQRT + dx, 2.0f * dx);
+        t = fma(-_SQRT, dx, _SQRT);
+        float u = fma(-1.0f, dx, wrapped);
+        r = fma(w, (u + t), 0.0f);
+    #else
+        r = w * (fmod(_SQRT + dx, 2.0f * dx) - dx + _SQRT * (1.0f - dx));
+    #endif
+#endif
 
     return r * precalc.yx;
 }
