@@ -34,11 +34,11 @@
 /* For now we are compiling using: -cl-fast-relaxed-math
  / so the USE_NATIVE wont make much difference as the compiler will optimize aggressively anyway.
 */
-
-#define USE_FMA         1   // Enable fused multiply-add if desired
-
 // The following have been added as OpenCL compiler options flags in Houdini and can be toggled on/off for testing and performance/accuracy tradeoffs.
 // Testing their definition here just in case.
+#ifndef USE_FMA
+    #define USE_FMA         1   // Enable fused multiply-add if desired
+#endif
 #ifndef USE_NATIVE
     #define USE_NATIVE      1   // Enable native ocl functions for speed but less accuracy
 #endif
@@ -842,7 +842,7 @@ static float2 CL_V_JULIA(
     float r, a, sa, ca;
 
     a = 0.5 * ATAN(in);
-    a += select(0.0f, (float)M_PI, rng_next_float(state) < 0.5f);
+    a += select(0.0f, 3.141592653589793238462f, rng_next_float(state) < 0.5f);
 #if USE_NATIVE
     r = w * native_sqrt(SQRT(in));
 #else
@@ -1354,8 +1354,11 @@ static float2 CL_V_FAN2(
 
     ady = a + fan2.y;
     t = ady - dx * (int)(ady * inv_dx);
+#if USE_FMA
+    a += dx2 * fma(-2.0f, step(dx2, t), 1.0f);
+#else
     a += dx2 * (1.0f - 2.0f * step(dx2, t));
-
+#endif
     sincos_fast(a, &sa, &ca);
 
     return r * (float2)(sa, ca);
@@ -1380,8 +1383,19 @@ static float2 CL_V_RINGS2(
 #endif
     r = _SQRT;
     dx = rings2val * rings2val;
-    r += -2.0f * dx * (int)((r + dx)/(2.0f * dx)) + r * (1.0f - dx);
-
+#if USE_NATIVE
+    #if USE_FMA
+        r += fma(-2.0f * dx, (int)(native_divide(r + dx, 2.0f * dx)), r * (1.0f - dx));
+    #else
+        r += -2.0f * dx * (int)(native_divide(r + dx, 2.0f * dx)) + r * (1.0f - dx);
+    #endif
+#else
+    #if USE_FMA
+        r += fma(-2.0f * dx, (int)((r + dx) / (2.0f * dx)), r * (1.0f - dx));
+    #else
+        r += -2.0f * dx * (int)((r + dx) / (2.0f * dx)) + r * (1.0f - dx);
+    #endif
+#endif
     float wr = w * r;
 
     return wr * precalc;
@@ -1632,7 +1646,11 @@ static float2 CL_V_TWINTRIAN(
 
     return wx * (float2)(
         diff,
+    #if USE_FMA
+        fma(-sr, 3.141592653589793238462f, diff)
+    #else
         diff - sr * M_PI
+    #endif
     );
 }
 // ----------------------------
@@ -1670,7 +1688,7 @@ static float2 CL_V_DISC2(
     t = disc2_pc.x * (in.x + in.y);
     sincos_fast(t, &sr, &cr);
 #if USE_NATIVE
-    r = native_divide(w * ATAN(in), (float)M_PI);
+    r = native_divide(w * ATAN(in), 3.141592653589793238462f);
 #else
     r = w * ATAN(in) / M_PI;
 #endif
@@ -1764,11 +1782,19 @@ static float2 CL_V_CONIC(
 #if USE_NATIVE
     float inv_len = native_rsqrt(dot(in, in));
     ct = in.x * inv_len;
-    r = native_divide(w * rnd * conic.x * inv_len, (1.0f + conic.x * ct));
+    #if USE_FMA
+        r = native_divide(w * rnd * conic.x * inv_len, fma(conic.x, ct, 1.0f));
+    #else
+        r = native_divide(w * rnd * conic.x * inv_len, (1.0f + conic.x * ct));
+    #endif
 #else
     float inv_len = rsqrt(dot(in, in));
     ct = in.x * inv_len;
-    r = w * rnd * conic.x * inv_len / (1.0f + conic.x * ct);
+    #if USE_FMA
+        r = w * rnd * conic.x * inv_len / fma(conic.x, ct, 1.0f);
+    #else
+        r = w * rnd * conic.x * inv_len / (1.0f + conic.x * ct);
+    #endif
 #endif
 
     return r * in;
@@ -1831,9 +1857,17 @@ static float2 CL_V_BIPOLAR(
 
     y = y - M_PI * floor((y + M_PI_2) * M_1_PI);
 #if USE_NATIVE
-    lx = native_log(native_divide(tt + 2.0f * in.x, tt - 2.0f * in.x));
+    #if USE_FMA
+        lx = native_log(native_divide(fma(2.0f, in.x, tt), fma(-2.0f, in.x, tt)));
+    #else
+        lx = native_log(native_divide(tt + 2.0f * in.x, tt - 2.0f * in.x));
+    #endif
 #else
-    lx = log((tt + 2.0f * in.x) / (tt - 2.0f * in.x));
+    #if USE_FMA
+        lx = log((fma(2.0f, in.x, tt)) / (fma(-2.0f, in.x, tt)));   
+    #else
+        lx = log((tt + 2.0f * in.x) / (tt - 2.0f * in.x));
+    #endif
 #endif
 
     return w * (float2)(
@@ -1868,7 +1902,21 @@ static float2 CL_V_BOARDERS(
         return (float2)(halfX + roundX, halfY + roundY);
     else {
         if (fabs(offsetX) >= fabs(offsetY)) {
+            
             // Horizontal
+        #if USE_FMA
+            if (offsetX >= 0.0f) {
+                return w * (float2)(
+                    halfX + roundX + signX,
+                    fma(0.25f * offsetY, native_recip(offsetX), halfY + roundY)
+                );
+            } else {
+                return w * (float2)(
+                    halfX + roundX - 0.25f,
+                    fma(-0.25f * offsetY, native_recip(offsetX), halfY + roundY)
+                );
+            }
+        #else
             if (offsetX >= 0.0f) {
                 return w * (float2)(
                     halfX + roundX + signX,
@@ -1880,8 +1928,24 @@ static float2 CL_V_BOARDERS(
                     halfY + roundY - 0.25f * offsetY * native_recip(offsetX)
                 );
             }
+        #endif
+
         } else {
+            
             // Vertical
+        #if USE_FMA
+            if (offsetY >= 0.0f) {
+                return w * (float2)(
+                    fma(0.25f * offsetX, native_recip(offsetY), halfX + roundX),
+                    halfY + roundY + 0.25f
+                );
+            } else {
+                return w * (float2)(
+                    fma(-0.25f * offsetX, native_recip(offsetY), halfX + roundX), 
+                    halfY + roundY - 0.25f
+                );
+            }
+        #else
             if (offsetY >= 0.0f) {
                 return w * (float2)(
                     halfX + roundX + 0.25f * offsetX * native_recip(offsetY),
@@ -1893,6 +1957,8 @@ static float2 CL_V_BOARDERS(
                     halfY + roundY - 0.25f
                 );
             }
+        #endif
+
         }
     }
 }
@@ -1909,9 +1975,17 @@ static float2 CL_V_BUTTERFLY(
     wx = w * 1.3029400317411197908970256609023f;
     y2 = 2.0f * in.y;
 #if USE_NATIVE
-    r = wx * native_sqrt(native_divide(fabs(in.y * in.x), (Zeps(in.x * in.x + y2 * y2))));
+    #if USE_FMA
+        r = wx * native_sqrt(native_divide(fabs(in.y * in.x), (Zeps(fma(in.x, in.x, y2 * y2)))));
+    #else
+        r = wx * native_sqrt(native_divide(fabs(in.y * in.x), (Zeps(in.x * in.x + y2 * y2))));
+    #endif
 #else
-    r = wx * sqrt(fabs(in.y * in.x) / (Zeps(in.x * in.x + y2 * y2)));
+    #if USE_FMA
+        r = wx * sqrt(fabs(in.y * in.x) / (Zeps(fma(in.x, in.x, y2 * y2))));
+    #else
+        r = wx * sqrt(fabs(in.y * in.x) / (Zeps(in.x * in.x + y2 * y2)));
+    #endif
 #endif
 
     return r * (float2)(in.x, y2);
@@ -1940,6 +2014,26 @@ static float2 CL_V_CELL(
     dx = in.x - xs;
     dy = in.y - ys;
 
+#if USE_FMA
+    if (y >= 0.0f) {
+        y *= 2.0f;
+        if (x >= 0.0f)
+            x *= 2.0f;
+        else
+            x = -(fma(2.0f, x, 1.0f));
+    }
+    else {
+        y = -(fma(2.0f, y, 1.0f));
+        if (x >= 0.0f)
+            x *= 2.0f;
+        else
+            x = -(fma(2.0f, x, 1.0f));
+    }
+    return (float2)(
+        w  * fma(x, size, dx),
+        -w * fma(y, size, dy)
+    );
+#else
     if (y >= 0.0f) {
         y *= 2.0f;
         if (x >= 0.0f)
@@ -1954,11 +2048,11 @@ static float2 CL_V_CELL(
         else
             x = -(2.0f * x + 1.0f);
     }
-
     return (float2)(
         w  * (dx + x * size), 
         -w * (dy + y * size)
     );
+#endif
 }
 // ----------------------------
 // 057 VAR CPOW
@@ -1975,7 +2069,7 @@ static float2 CL_V_CPOW(
     aa = ATANYX(in);
 #if USE_NATIVE
     lnr = 0.5f * native_log(SUMSQ(in));
-    va = native_divide((float)M_TAU, cpow.x);
+    va = native_divide(6.283185307179586476925f, cpow.x);
     vc = native_divide(cpow.y, cpow.x);
     vd = native_divide(cpow.z, cpow.x);
 #else
@@ -1986,9 +2080,17 @@ static float2 CL_V_CPOW(
 #endif
     ang = vc * aa + vd * lnr + va * floor(cpow.x * rng_next_float(state));
 #if USE_NATIVE
-    mm = w * native_exp(vc * lnr - vd * aa);
+    #if USE_FMA
+         mm = w * native_exp(fma(vc, lnr, -vd * aa));
+    #else
+        mm = w * native_exp(vc * lnr - vd * aa);
+    #endif
 #else
-    mm = w * exp(vc * lnr - vd * aa);
+    #if USE_FMA
+        mm = w * exp(fma(vc, lnr, -vd * aa));
+    #else
+        mm = w * exp(vc * lnr - vd * aa);
+    #endif
 #endif
     sincos_fast(ang, &sa, &ca);
 
@@ -2118,7 +2220,7 @@ static float2 CL_V_ESCHER(
 #if USE_FMA
     float exp_arg = fma(vc, lnr, -vd * aa);
 #else
-    float exp_arg = vc * lnr - vd * aa
+    float exp_arg = vc * lnr - vd * aa;
 #endif
 #if USE_NATIVE
     mm = w * native_exp(exp_arg);
@@ -2294,8 +2396,12 @@ static float2 CL_V_OSCOPE(
     float2 flipped = w * (float2)(in.x, -in.y);
     float2 normal  = w * in;
 
-    cond = (fabs(in.y) <= t) ? 1.0f : 0.0f; 
+    cond = (fabs(in.y) <= t) ? 1.0f : 0.0f;
+#if USE_FMA
+    return fma(normal, 1.0f - cond, flipped * cond);
+#else
     return normal * (1.0f - cond) + flipped * cond;
+#endif
 }
 // ----------------------------
 // 068 VAR POLAR2
@@ -2527,18 +2633,26 @@ static float2 CL_V_WEDGEJULIA(
 #if USE_NATIVE
     rr = w * native_powr(SUMSQ(in), wedgeJulia_cn);
     t_rnd = (int)((wedgeJulia_rN) * rng_next_float(state));
-    a = native_divide(ATANYX(in) + M_TAU * t_rnd, wedgejulia.x);
+    #if USE_FMA
+        a = native_divide(fma(M_TAU, t_rnd, ATANYX(in)), wedgejulia.x);
+    #else
+        a = native_divide(ATANYX(in) + M_TAU * t_rnd, wedgejulia.x);
+    #endif
 #else
     rr = w * powr(SUMSQ(in), wedgeJulia_cn);
     t_rnd = (int)((wedgeJulia_rN) * rng_next_float(state));
-    a = (ATANYX(in) + M_TAU * t_rnd) / wedgejulia.x;
+    #if USE_FMA
+        a = fma(M_TAU, t_rnd, ATANYX(in)) / wedgejulia.x;
+    #else
+        a = (ATANYX(in) + M_TAU * t_rnd) / wedgejulia.x;
+    #endif
 #endif
 
 #if USE_FMA
-    float tmp = fma(wedgejulia.w, a, (float)M_PI) * M_1_2PI;
+    float tmp = fma(wedgejulia.w, a, 3.141592653589793238462f) * M_1_2PI;
     cc = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
 #else
-    cc = floor( (wedgejulia.w * aa + M_PI) * M_1_2PI );
+    cc = floor( (wedgejulia.w * a + M_PI) * M_1_2PI );
 #endif
     a = a * wedgeJulia_cf + cc * wedgejulia.y;
     sincos_fast(a, &sa, &ca);
@@ -2563,7 +2677,7 @@ static float2 CL_V_WEDGESPH(
 #endif
     a = ATANYX(in) + wedgesph.x * r;
 #if USE_FMA
-    float tmp = fma(wedgesph.w, a, (float)M_PI) * M_1_2PI;
+    float tmp = fma(wedgesph.w, a, 3.141592653589793238462f) * M_1_2PI;
     cc = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
 #else
     cc = floor( (wedgesph.w * a + M_PI) * M_1_2PI );
@@ -2613,9 +2727,17 @@ static float2 CL_V_WAVES2(
     )
 {
 #if USE_NATIVE
-    return w * (in + scl * native_sin(in.yx * freq));
+    #if USE_FMA
+        return w * fma(scl, native_sin(in.yx * freq), in);
+    #else
+        return w * (in + scl * native_sin(in.yx * freq));
+    #endif
 #else
-    return w * (in + scl * sin(in.yx * freq));
+    #if USE_FMA
+        return w * fma(scl, sin(in.yx * freq), in);
+    #else
+        return w * (in + scl * sin(in.yx * freq));
+    #endif
 #endif
 }
 // ----------------------------
@@ -2755,7 +2877,7 @@ static float2 CL_V_SEC(
 {
     float secsin, seccos, secsinh, seccosh, den;
 
-    float2 xy = in * (F3C ? 1.0f : (float)M_PI);
+    float2 xy = in * (F3C ? 1.0f : 3.141592653589793238462f);
 
     sincos_fast(xy.x, &secsin, &seccos);
     secsinh = sinh(xy.y);
@@ -3024,7 +3146,7 @@ static float2 CL_V_FLUX(
     )
 {
     float r1, r2, xpw, xmw, avgr, avga, sa, ca;
-
+    
     xpw = in.x + w;
     xmw = in.x - w;
 
@@ -3133,11 +3255,19 @@ static float2 CL_V_PERSPECTIVE(
 #if USE_NATIVE
     vsin = native_sin(ang);
     vfcos = presp.y * native_cos(ang);
-    t = native_divide(w, (presp.y - in.y * vsin));
+    #if USE_FMA
+        t = native_divide(w, fma(-in.y, vsin, presp.y));
+    #else
+        t = native_divide(w, (presp.y - in.y * vsin));
+    #endif
 #else
     vsin = sin(ang);
     vfcos = presp.y * cos(ang);
-    t = w / (presp.y - in.y * vsin);
+    #if USE_FMA
+        t = w / fma(-in.y, vsin, presp.y);
+    #else
+        t = w / (presp.y - in.y * vsin);
+    #endif
 #endif
 
     return t * (float2)(
@@ -3170,7 +3300,11 @@ static float2 CL_V_BWRAPS(
     max_bubble = g2 * radius;
 
 #if USE_NATIVE
-    float den = 0.25f * max_bubble * max_bubble + 1.0f;
+    #if USE_FMA
+        float den = fma(0.25f * max_bubble, max_bubble, 1.0f);
+    #else
+        float den = 0.25f * max_bubble * max_bubble + 1.0f;
+    #endif
     max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble * native_recip(den);
     r2 = radius * radius;
     rfactor = native_divide(radius, max_bubble);
@@ -3332,11 +3466,17 @@ static float2 CL_V_CROP(
     bottom = p.y < y0;
 
     // replacements
+#if USE_FMA
+    float xL = fma(rx, w2, x0);
+    float xR = fma(-rx, w2, x1);
+    float yB = fma(ry, h2, y0);
+    float yT = fma(-ry, h2, y1);
+#else
     float xL = x0 + rx * w2;
     float xR = x1 - rx * w2;
     float yB = y0 + ry * h2;
     float yT = y1 - ry * h2;
-
+#endif
     
     p.x = left   ? xL : p.x;
     p.x = right  ? xR : p.x;
