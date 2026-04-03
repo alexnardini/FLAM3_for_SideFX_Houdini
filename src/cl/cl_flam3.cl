@@ -12,7 +12,7 @@
  /
  /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       December 2025, Last revised March 2026
+ /  date:       December 2025, Last revised April 2026
  /  License:    GPL
  /  Copyright:  2021, © F stands for liFe ( made in Italy )
  /
@@ -56,7 +56,7 @@ enum {
     MAX_XFORMS                  = 20, 
     MAX_XFORMS_XAOS_SIZE        = MAX_XFORMS * MAX_XFORMS, 
 
-    SHD_NUM_SIZE                = 3,
+    SHD_NUM_SIZE                = 3,    // TO DO: Bring this to 4 (last one being unused) to avoid having to copy a remainder of 1-3 floats when copying to local memory using float4 vectors 
 
     // ----------------------------
     // RES PRM FF -> FF and PP (2)  
