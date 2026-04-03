@@ -84,7 +84,7 @@ enum {
     // ----------------------------
     // PRM F2 sizes  
     // ----------------------------
-    PRM_NUM_F2                  = 29,
+    PRM_NUM_F2                  = 30,
     PRM_NUM_F2_SIZE             = PRM_NUM_F2 * MAX_XFORMS,
     FF_PRM_NUM_F2_SIZE          = PRM_NUM_F2 * FF_RES_PRM,
     // ----------------------------
@@ -119,6 +119,7 @@ enum {
     PRM_F2_IDX_POLYNOMIALLC     = 26,   // Lc_x, Lc_y
     PRM_F2_IDX_POLYNOMIALSC     = 27,   // Sc_x, Sc_y
     PRM_F2_IDX_CROP             = 28,   // area, zero
+    PRM_F2_IDX_UNUSED_0         = 29,    // unused - so they are multiple of 4 and we do not need to copy a remainder of 1 float2 when copying to local memory using float4 vectors
 
     // ----------------------------
     // PRM F3 sizes  
@@ -4012,8 +4013,9 @@ __kernel void cl_flam3(
     // for(int i = (num_f4_PRM_F << 2) + lid; i < total_PRM_F; i += lsize)
     //     local_PRM_F[i] = PRM_F[i];
     // PRM_F2
-    for(int i = lid; i < total_PRM_F2; i += lsize)
-        local_PRM_F2[i] = PRM_F2[i];
+    int num_f4_PRM_F2 = total_PRM_F2 >> 1;
+    for(int i = lid; i < num_f4_PRM_F2; i += lsize)
+        ((__local float4*)local_PRM_F2)[i] = ((__global float4*)PRM_F2)[i];
     // PRM_F3
     for(int i = lid; i < total_PRM_F3; i += lsize)
         local_PRM_F3[i] = PRM_F3[i];
@@ -4202,8 +4204,9 @@ __kernel void cl_flam3_ff(
     // for(int i = (num_f4_PRM_F << 2) + lid; i < ff_total_PRM_F; i += lsize)
     //     local_FF_PRM_F[i] = FF_PRM_F[i];
     // PRM_F2
-    for(int i = lid; i < ff_total_PRM_F2; i += lsize)
-        local_FF_PRM_F2[i] = FF_PRM_F2[i];
+    int num_f4_PRM_F2 = ff_total_PRM_F2 >> 1;
+    for(int i = lid; i < num_f4_PRM_F2; i += lsize)
+        ((__local float4*)local_FF_PRM_F2)[i] = ((__global float4*)FF_PRM_F2)[i];
     // PRM_F3
     for(int i = lid; i < ff_total_PRM_F3; i += lsize)
         local_FF_PRM_F3[i] = FF_PRM_F3[i];
