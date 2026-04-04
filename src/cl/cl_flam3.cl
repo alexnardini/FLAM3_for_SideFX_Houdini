@@ -2095,7 +2095,7 @@ static float2 CL_V_CPOW(
     aa = ATANYX(in);
 #if USE_NATIVE
     lnr = 0.5f * native_log(SUMSQ(in));
-    va = native_divide(6.283185307179586476925f, cpow.x);
+    va = native_divide((float)M_TAU, cpow.x);
     vc = native_divide(cpow.y, cpow.x);
     vd = native_divide(cpow.z, cpow.x);
 #else
@@ -3654,7 +3654,7 @@ static float2 CL_V_POINT_SYMMETRY(
 
     order = Zeps(ptsym.x);
 #if USE_NATIVE
-    twoPiDivOrder = native_divide(6.283185307179586476925f, order);
+    twoPiDivOrder = native_divide((float)M_TAU, order);
 #else
     twoPiDivOrder = M_TAU / order;
 #endif
