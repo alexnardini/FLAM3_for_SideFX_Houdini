@@ -119,7 +119,7 @@ enum {
     PRM_F2_IDX_POLYNOMIALLC     = 26,   // Lc_x, Lc_y
     PRM_F2_IDX_POLYNOMIALSC     = 27,   // Sc_x, Sc_y
     PRM_F2_IDX_CROP             = 28,   // area, zero
-    PRM_F2_IDX_UNUSED_0         = 29,    // unused - so they are multiple of 4 and we do not need to copy a remainder of 1 float2 when copying to local memory using float4 vectors
+    PRM_F2_IDX_UNUSED_0         = 29,   // unused - so they are multiple of 4 and we do not need to copy a remainder of 1 float2 when copying to local memory using float4 vectors
 
     // ----------------------------
     // PRM F3 sizes  
@@ -3553,7 +3553,7 @@ static float2 CL_V_GLYNNIA(
     float r, m_V2, d, y2;
 
     r = SQRT(in);
-    m_V2 = w * 0.7071067811865475f;
+    m_V2 = w * 0.707106781186547524401f;
 
     d = r + in.x;
     y2 = in.y * in.y;
@@ -3581,9 +3581,17 @@ static float2 CL_V_GLYNNIA(
         else
         {
         #if USE_NATIVE
-            float inv = native_divide(w, native_sqrt(r * (y2 + d*d)));
+            #if USE_FMA
+                float inv = native_divide(w, native_sqrt(r * fma(d, d, y2)));
+            #else
+                float inv = native_divide(w, native_sqrt(r * (y2 + d * d)));
+            #endif
         #else
-            float inv = w / sqrt(r * (y2 + d*d));
+            #if USE_FMA
+                float inv = w / sqrt(r * fma(d, d, y2));
+            #else
+                float inv = w / sqrt(r * (y2 + d * d));
+            #endif
         #endif
             return inv * (float2)(d, in.y);
         }
@@ -3611,9 +3619,17 @@ static float2 CL_V_GLYNNIA(
         else
         {
         #if USE_NATIVE
-            float inv = native_divide(w, Zeps(native_sqrt(r * (y2 + d*d))));
+            #if USE_FMA
+                float inv = native_divide(w, Zeps(native_sqrt(r * fma(d, d, y2))));
+            #else
+                float inv = native_divide(w, Zeps(native_sqrt(r * (y2 + d * d))));
+            #endif
         #else
-            float inv = w / Zeps(sqrt(r * (y2 + d*d)));
+            #if USE_FMA
+                float inv = w / Zeps(sqrt(r * fma(d, d, y2)));
+            #else
+                float inv = w / Zeps(sqrt(r * (y2 + d * d)));
+            #endif
         #endif
 
             return (float2)(
