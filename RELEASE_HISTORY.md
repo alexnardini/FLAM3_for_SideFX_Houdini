@@ -41,7 +41,7 @@ They are all available in this Github repository.
 _This update require a restart of Houdini to fully pickup the changes_.
 
 - **Fix**: GPU Rings variation did produce different results from its CPU version (_the reference_). It is now fixed.
-- **Fix**: Better memory allignment for the GPU parameterics data. Can now be ~4% faster.
+- **Fix**: Better memory alignment for the GPU parametrics data. Can now be ~4% faster.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
