@@ -948,7 +948,7 @@ hou.phm().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
-| **FLAME** | `mp_add_#` |  `geometry data` | `from H21 UP` |
+| **FLAME** | `mp_add_#` |  `geometry data` | `from H21 UP` | `v1.x` `v2.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
