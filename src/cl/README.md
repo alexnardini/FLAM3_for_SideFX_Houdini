@@ -7,13 +7,13 @@ Implementation of the algorithm using OpenCL for high performance.<br>
 It run billions of iterations per second in Houdini Sop.<br>
 
 _This file include everything_:<br>
-- variations' functions,
-- variations' dispatch,
-- RNG noises, 
-- weighted probabilities,
-- the chaos game,
-- CDF sampling,
-- kernels,
+- variations' functions
+- variations' dispatch
+- RNG noises
+- weighted probabilities
+- the chaos game
+- CDF sampling
+- kernels
 - everything else...
 
 <br>
