@@ -358,11 +358,11 @@ static inline float rng_next_neg1pos1(x128_state_t* state){
 static inline int sample_cdf_binary(__local const float* CDF, const int length, const float u_rand) {
     if (length <= 0) return 0;
 
-    // scale u_rand to the range of the CDF
-    float target = u_rand * CDF[length - 1];
-
     int low = 0;
     int high = length - 1;
+
+    // scale u_rand to the range of the CDF
+    float target = u_rand * CDF[high];
 
     // binary search for first CDF[idx] > target
     while (low < high) {
