@@ -34,6 +34,8 @@
 /* For now we are compiling using: -cl-fast-relaxed-math
  / so the USE_NATIVE wont make much difference as the compiler will optimize aggressively anyway.
 */
+
+
 // The following have been added as OpenCL compiler options flags in Houdini and can be toggled on/off for testing and performance/accuracy tradeoffs.
 // Testing their definition here just in case.
 #ifndef USE_FMA
@@ -43,7 +45,7 @@
     #define USE_NATIVE      1   // Enable native ocl functions for speed but less accuracy
 #endif
 #ifndef USE_RNG_X128
-    #define USE_RNG_X128    1   // Use RNG x128 random number generator instead of x64 (32bit vs 24bit)
+    #define USE_RNG_X128    1   // Enable RNG x128 random number generator instead of x64 (32bit vs 24bit)
 #endif
 
 // This is defined in the Houdini environment and must match.
@@ -844,7 +846,7 @@ static float2 CL_V_JULIA(
     float r, a, sa, ca;
 
     a = 0.5 * ATAN(in);
-    a += select(0.0f, 3.141592653589793238462f, rng_next_float(state) < 0.5f);
+    a += select(0.0f, (float)M_PI, rng_next_float(state) < 0.5f);
 #if USE_NATIVE
     r = w * native_sqrt(SQRT(in));
 #else
@@ -1671,7 +1673,7 @@ static float2 CL_V_TWINTRIAN(
     return wx * (float2)(
         diff,
     #if USE_FMA
-        fma(-sr, 3.141592653589793238462f, diff)
+        fma(-sr, (float)M_PI, diff)
     #else
         diff - sr * M_PI
     #endif
@@ -1712,7 +1714,7 @@ static float2 CL_V_DISC2(
     t = disc2_pc.x * (in.x + in.y);
     sincos_fast(t, &sr, &cr);
 #if USE_NATIVE
-    r = native_divide(w * ATAN(in), 3.141592653589793238462f);
+    r = native_divide(w * ATAN(in), (float)M_PI);
 #else
     r = w * ATAN(in) / M_PI;
 #endif
@@ -2189,7 +2191,7 @@ static float2 CL_V_ELLIPTIC(
 #if USE_NATIVE
     a = native_divide(in.x, (1.0f + xmaxm1));
     ssx = xmaxm1 > 0.0f ? native_sqrt(xmaxm1) : 0.0f;
-    float wscale = w * (native_divide(2.0f, 3.141592653589793238462f));
+    float wscale = w * (native_divide(2.0f, (float)M_PI));
 #else
     a = in.x / (1.0f + xmaxm1);
     ssx = xmaxm1 > 0.0f ? sqrt(xmaxm1) : 0.0f;
@@ -2437,7 +2439,7 @@ static float2 CL_V_POLAR2(
 {
     
 #if USE_NATIVE
-    float p2v = native_divide(w, 3.141592653589793238462f);
+    float p2v = native_divide(w, (float)M_PI);
     return (float2)(
         p2v * ATAN(in), 
         (0.5f * p2v) * native_log(SUMSQ(in))
@@ -2537,8 +2539,7 @@ static float2 CL_V_SPLIT(
 #if USE_NATIVE
     float2 scaled, t, t2, cos_approx, eps, mask;
 
-    // M_PI hard coded so I dnt have to cast this costant to float (for speed).
-    scaled = in * split * 3.141592653589793238462f;
+    scaled = in * split * (float)M_PI;
     t = fmod(scaled, M_TAU);
     t2 = t * t;
     cos_approx = 1.0f + 
@@ -2616,7 +2617,7 @@ static float2 CL_V_WEDGE(
     r = SQRT(in);
     a = ATANYX(in) + wedge.x * r;
 #if USE_FMA
-    float tmp = fma(wedge.w, a, 3.141592653589793238462f) * M_1_2PI;
+    float tmp = fma(wedge.w, a, (float)M_PI) * M_1_2PI;
     c = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
     a = fma(a, m_CompFac, c * wedge.y);
 #else
@@ -2679,7 +2680,7 @@ static float2 CL_V_WEDGEJULIA(
 #endif
 
 #if USE_FMA
-    float tmp = fma(wedgejulia.w, a, 3.141592653589793238462f) * M_1_2PI;
+    float tmp = fma(wedgejulia.w, a, (float)M_PI) * M_1_2PI;
     cc = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
 #else
     cc = floor( (wedgejulia.w * a + M_PI) * M_1_2PI );
@@ -2707,7 +2708,7 @@ static float2 CL_V_WEDGESPH(
 #endif
     a = ATANYX(in) + wedgesph.x * r;
 #if USE_FMA
-    float tmp = fma(wedgesph.w, a, 3.141592653589793238462f) * M_1_2PI;
+    float tmp = fma(wedgesph.w, a, (float)M_PI) * M_1_2PI;
     cc = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
 #else
     cc = floor( (wedgesph.w * a + M_PI) * M_1_2PI );
@@ -2907,7 +2908,7 @@ static float2 CL_V_SEC(
 {
     float secsin, seccos, secsinh, seccosh, den;
 
-    float2 xy = in * (F3C ? 1.0f : 3.141592653589793238462f);
+    float2 xy = in * (F3C ? 1.0f : (float)M_PI);
 
     sincos_fast(xy.x, &secsin, &seccos);
     secsinh = sinh(xy.y);
@@ -3531,7 +3532,7 @@ static float2 CL_V_UNPOLAR(
     float m_Vvar2, r, sa, ca;
 
 #if USE_NATIVE
-    m_Vvar2 = native_divide(w, 3.141592653589793238462f) * 0.5f;
+    m_Vvar2 = native_divide(w, (float)M_PI) * 0.5f;
     r = native_exp(in.y);
 #else
     m_Vvar2 = (w / M_PI) * 0.5f;
