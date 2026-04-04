@@ -58,7 +58,7 @@ enum {
     MAX_XFORMS                  = 20, 
     MAX_XFORMS_XAOS_SIZE        = MAX_XFORMS * MAX_XFORMS, 
 
-    SHD_NUM_SIZE                = 3,    // TO DO: Bring this to 4 (last one being unused) to avoid having to copy a remainder of 1-3 floats when copying to local memory using float4 vectors 
+    SHD_NUM_SIZE                = 3, 
 
     // ----------------------------
     // RES PRM FF -> FF and PP (2)  
@@ -4046,8 +4046,8 @@ __kernel void cl_flam3(
     // and handle the remainders if any.
     
     // Float arrays
-    int total_SHD       = RES * SHD_NUM_SIZE;
-    int total_XAOS      = RES * RES;
+    int total_SHD       = RES * SHD_NUM_SIZE + 3;
+    int total_XAOS      = RES * RES + 3;
     int total_PRM_F     = RES * PRM_NUM_F;
     // Float2 array
     int total_PRM_F2    = RES * PRM_NUM_F2;
@@ -4059,14 +4059,10 @@ __kernel void cl_flam3(
     int num_f4_SHD = total_SHD >> 2;
     for(int i = lid; i < num_f4_SHD; i += lsize)
         ((__local float4*)local_SHD)[i] = ((__global float4*)SHD)[i];
-    for(int i = (num_f4_SHD << 2) + lid; i < total_SHD; i += lsize)
-        local_SHD[i] = SHD[i];
     // PRM_F
     int num_f4_PRM_F = total_PRM_F >> 2;
     for(int i = lid; i < num_f4_PRM_F; i += lsize)
         ((__local float4*)local_PRM_F)[i] = ((__global float4*)PRM_F)[i];
-    // for(int i = (num_f4_PRM_F << 2) + lid; i < total_PRM_F; i += lsize)
-    //     local_PRM_F[i] = PRM_F[i];
     // PRM_F2
     int num_f4_PRM_F2 = total_PRM_F2 >> 1;
     for(int i = lid; i < num_f4_PRM_F2; i += lsize)
@@ -4077,15 +4073,13 @@ __kernel void cl_flam3(
     // PRM_F4
     for(int i = lid; i < total_PRM_F4; i += lsize)
         local_PRM_F4[i] = PRM_F4[i];
-
     if(XS){
         // XST
         int num_f4 = total_XAOS >> 2;
         for(int i = lid; i < num_f4; i += lsize)
             ((__local float4*)local_XST)[i] = ((__global float4*)XST)[i];
-        for(int i = (num_f4 << 2) + lid; i < total_XAOS; i += lsize)
-            local_XST[i] = XST[i];
     }
+
     barrier(CLK_LOCAL_MEM_FENCE);   // Wait for the copy to complete
 
     int gid = get_global_id(0);
