@@ -3208,16 +3208,22 @@ static float2 CL_V_MOBIUS(
 {
     float reu, imu, rev, imv, inv;
 
+#if USE_FMA
+    reu = fma(re.x, in.x, fma(-im.x, in.y, re.y));
+    imu = fma(re.x, in.y, fma(im.x, in.x, im.y));
+    rev = fma(re.z, in.x, fma(-im.z, in.y, re.w));
+    imv = fma(re.z, in.y, fma(im.z, in.x, im.w));
+#else
     reu = re.x * in.x - im.x * in.y + re.y;
     imu = re.x * in.y + im.x * in.x + im.y;
-
     rev = re.z * in.x - im.z * in.y + re.w;
     imv = re.z * in.y + im.z * in.x + im.w;
+#endif
 
 #if USE_NATIVE
-    inv = native_rsqrt(rev*rev + imv*imv);
+    inv = native_rsqrt(rev * rev + imv * imv);
 #else
-    inv = rsqrt(rev*rev + imv*imv);
+    inv = rsqrt(rev * rev + imv * imv);
 #endif
     inv *= inv;
     inv *= w;
@@ -3244,30 +3250,62 @@ static float2 CL_V_CURVE(
     #if USE_NATIVE
         lx = native_recip(fmax((lenght.x * lenght.x), 1e-20f));
         ly = native_recip(fmax((lenght.y * lenght.y), 1e-20f));
-        return w * (float2)(
-            in.x + amplitude.x * native_exp(-in.y * in.y * lx), 
-            in.y + amplitude.y * native_exp(-in.x * in.x * ly)
-        );
+
+        #if USE_FMA
+            return w * (float2)(
+                fma(amplitude.x, native_exp(-in.y * in.y * lx), in.x),
+                fma(amplitude.y, native_exp(-in.x * in.x * ly), in.y)
+            );
+        #else
+            return w * (float2)(
+                in.x + amplitude.x * native_exp(-in.y * in.y * lx), 
+                in.y + amplitude.y * native_exp(-in.x * in.x * ly)
+            );
+        #endif
     #else
         lx = 1.0f / fmax((lenght.x * lenght.x), 1e-20f);
         ly = 1.0f / fmax((lenght.y * lenght.y), 1e-20f);
-        return w * (float2)(
-            in.x + amplitude.x * exp(-in.y * in.y * lx), 
-            in.y + amplitude.y * exp(-in.x * in.x * ly)
-        );
+
+        #if USE_FMA
+            return w * (float2)(
+                fma(amplitude.x, exp(-in.y * in.y * lx), in.x),
+                fma(amplitude.y, exp(-in.x * in.x * ly), in.y)
+            );
+        #else
+            return w * (float2)(
+                in.x + amplitude.x * exp(-in.y * in.y * lx), 
+                in.y + amplitude.y * exp(-in.x * in.x * ly)
+            );
+        #endif
     #endif
     }
     else{
     #if USE_NATIVE
-        return w * (float2)(
-            in.x + amplitude.x * native_exp(native_divide(-in.y * in.y, Zeps(lenght.x))),
-            in.y + amplitude.y * native_exp(native_divide(-in.x * in.x, Zeps(lenght.y)))
-        );
+
+        #if USE_FMA
+            return w * (float2)(
+                fma(amplitude.x, native_exp(native_divide(-in.y * in.y, Zeps(lenght.x))), in.x),
+                fma(amplitude.y, native_exp(native_divide(-in.x * in.x, Zeps(lenght.y))), in.y)
+            );
+        #else
+            return w * (float2)(
+                in.x + amplitude.x * native_exp(native_divide(-in.y * in.y, Zeps(lenght.x))),
+                in.y + amplitude.y * native_exp(native_divide(-in.x * in.x, Zeps(lenght.y)))
+            );
+        #endif
     #else
-        return w * (float2)(
-            in.x + amplitude.x * exp(-in.y * in.y / Zeps(lenght.x)),
-            in.y + amplitude.y * exp(-in.x * in.x / Zeps(lenght.y))
-        );
+
+        #if USE_FMA
+            return w * (float2)(
+                fma(amplitude.x, exp(-in.y * in.y / Zeps(lenght.x)), in.x),
+                fma(amplitude.y, exp(-in.x * in.x / Zeps(lenght.y)), in.y)
+            );
+        #else
+            return w * (float2)(
+                in.x + amplitude.x * exp(-in.y * in.y / Zeps(lenght.x)),
+                in.y + amplitude.y * exp(-in.x * in.x / Zeps(lenght.y))
+            );
+        #endif
     #endif
     }
 }
