@@ -4120,6 +4120,7 @@ class flam3h_general_utils
         """ 
         prm = self.kwargs['parmtuple']
         prm.lock(False) # Always unlock just in case
+        prm.deleteAllKeyframes()
         prm.set(val)
 
 
