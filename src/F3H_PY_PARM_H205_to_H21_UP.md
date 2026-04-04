@@ -2193,7 +2193,7 @@ hou.phm().flam3.out_flame_utils(kwargs).out_auto_change_iter_num_to_prm(), kwarg
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
-| **PREFS** | `gpu_iter` |  `gpu_iter` | `from H20.5` | `v2.x` |
+| **PREFS** | `gpu_iter` |  `ordered menu` | `from H20.5` | `v2.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
