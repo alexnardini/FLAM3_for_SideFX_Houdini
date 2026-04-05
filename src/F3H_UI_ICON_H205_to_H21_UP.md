@@ -107,9 +107,9 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 </br>
 </br>
 
-| Tab | Parameter name | Houdini version | FLAM3H™ version | FLAM3H™ version |
-|:---|:---|---:|---:|---:|
-| **GLOBAL** | `icon_iter_gpu` | `from H20.5` | `v1.x` `v2.x` |
+| Tab | Parameter name | Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|
+| **GLOBAL** | `icon_iter_gpu` | `from H20.5` | `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
 <p align="left"><img width="80" height="80" src="../icons/icon_optionOCLSVG.svg" /></p>
