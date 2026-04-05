@@ -1751,8 +1751,11 @@ static float2 CL_V_SUPERSHAPE(
 #else
     float inv_sqrt = 1.0f / _SQRT;
 #endif
-
+#if USE_FMA
+    theta = fma(ss_pm_4, ATANYX(in), (float)M_PI_4);
+#else
     theta = ss_pm_4 * ATANYX(in) + M_PI_4;
+#endif
     sincos_fast(theta, &st, &ct);
     float rnd = supershape.y * rng_next_float(state) + inv_sy * _SQRT - supershape.z;
 #if USE_NATIVE
