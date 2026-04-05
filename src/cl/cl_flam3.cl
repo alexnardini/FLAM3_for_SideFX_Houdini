@@ -1158,13 +1158,10 @@ static float2 CL_V_CURL(
     float y2 = in.y * in.y;
     re = fma(c.y, (x2 - y2), fma(c.x, in.x, 1.0f));
     im = fma(2.0f * c.y, in.x * in.y, c.x * in.y);
+    float value = fma(re, re, im * im);
 #else
     re = 1.0f + c.x * in.x + c.y * ((in.x * in.x) - (in.y * in.y));
     im = c.x * in.y + (2.0f * c.y) *  in.x * in.y;
-#endif
-#if USE_FMA
-    float value = fma(re, re, im * im);
-#else
     float value = (re * re) + (im * im);
 #endif
 #if USE_NATIVE
@@ -1912,80 +1909,63 @@ static float2 CL_V_BOARDERS(
 {
     float roundX, roundY, offsetX, offsetY, halfX, halfY, signX, signY;
 
-    roundX = rint(in.x);
-    roundY = rint(in.y);
+    roundX  = rint(in.x);
+    roundY  = rint(in.y);
+
     offsetX = in.x - roundX;
     offsetY = in.y - roundY;
 
-    halfX = offsetX * 0.5f;
-    halfY = offsetY * 0.5f;
-    signX = copysign(0.25f, offsetX);
-    signY = copysign(0.25f, offsetY);
+    halfX   = offsetX * 0.5f;
+    halfY   = offsetY * 0.5f;
+
+    signX   = copysign(0.25f, offsetX);
+    signY   = copysign(0.25f, offsetY);
+
+    float baseX   = halfX + roundX;
+    float baseY   = halfY + roundY;
 
     float rnd = rng_next_float(state);
 
     if (rnd >= 0.75f)
-        return (float2)(halfX + roundX, halfY + roundY);
-    else {
-        if (fabs(offsetX) >= fabs(offsetY)) {
-            
-            // Horizontal
+        return (float2)(baseX, baseY);
+
+    if (fabs(offsetX) >= fabs(offsetY)) {
+        // Horizontal
+    #if USE_NATIVE
+        float invX = native_recip(offsetX);
+    #else
+        float invX = 1.0f / offsetX;
+    #endif
         #if USE_FMA
-            if (offsetX >= 0.0f) {
-                return w * (float2)(
-                    halfX + roundX + signX,
-                    fma(0.25f * offsetY, native_recip(offsetX), halfY + roundY)
-                );
-            } else {
-                return w * (float2)(
-                    halfX + roundX - 0.25f,
-                    fma(-0.25f * offsetY, native_recip(offsetX), halfY + roundY)
-                );
-            }
+            return w * (float2)(
+                baseX + signX,
+                fma(signX * offsetY, invX, baseY)
+            );
         #else
-            if (offsetX >= 0.0f) {
-                return w * (float2)(
-                    halfX + roundX + signX,
-                    halfY + roundY + 0.25f * offsetY * native_recip(offsetX)
-                );
-            } else {
-                return w * (float2)(
-                    halfX + roundX - 0.25f,
-                    halfY + roundY - 0.25f * offsetY * native_recip(offsetX)
-                );
-            }
+            return w * (float2)(
+                baseX + signX, 
+                baseY + signX * offsetY * invX
+            );
         #endif
 
-        } else {
-            
-            // Vertical
+    } else {
+        // Vertical
+    #if USE_NATIVE
+        float invY = native_recip(offsetY);
+    #else
+        float invY = 1.0f / offsetY;
+    #endif
         #if USE_FMA
-            if (offsetY >= 0.0f) {
-                return w * (float2)(
-                    fma(0.25f * offsetX, native_recip(offsetY), halfX + roundX),
-                    halfY + roundY + 0.25f
-                );
-            } else {
-                return w * (float2)(
-                    fma(-0.25f * offsetX, native_recip(offsetY), halfX + roundX), 
-                    halfY + roundY - 0.25f
-                );
-            }
+            return w * (float2)(
+                fma(signY * offsetX, invY, baseX),
+                baseY + signY
+            );
         #else
-            if (offsetY >= 0.0f) {
-                return w * (float2)(
-                    halfX + roundX + 0.25f * offsetX * native_recip(offsetY),
-                    halfY + roundY + 0.25f
-                );
-            } else {
-                return w * (float2)(
-                    halfX + roundX - 0.25f * offsetX * native_recip(offsetY),
-                    halfY + roundY - 0.25f
-                );
-            }
+            return w * (float2)(
+                baseX + signY * offsetX * invY, 
+                baseY + signY
+            );
         #endif
-
-        }
     }
 }
 // ----------------------------
@@ -2417,7 +2397,12 @@ static float2 CL_V_OSCOPE(
     cosval = cos(tpf * in.x);
     decay = (oscope.z == 0.0f) ? 1.0f : exp(-absx * oscope.z);
 #endif
+
+#if USE_FMA
+    t = fma(oscope.y * decay, cosval, oscope.w);
+#else
     t = oscope.y * decay * cosval + oscope.w;
+#endif
 
     float2 flipped = w * (float2)(in.x, -in.y);
     float2 normal  = w * in;
@@ -2512,14 +2497,25 @@ static float2 CL_V_SEPARATION(
     sx2 = sep.x * sep.x;
     sy2 = sep.y * sep.y;
 #if USE_NATIVE
-    float sqrt_sx2 = native_sqrt(in.x * in.x + sx2);
-    float sqrt_sy2 = native_sqrt(in.y * in.y + sy2);
+    #if USE_FMA
+        float sqrt_sx2 = native_sqrt(fma(in.x, in.x, sx2));
+        float sqrt_sy2 = native_sqrt(fma(in.y, in.y, sy2));
+    #else
+        float sqrt_sx2 = native_sqrt(in.x * in.x + sx2);
+        float sqrt_sy2 = native_sqrt(in.y * in.y + sy2);
+    #endif
 #else
-    float sqrt_sx2 = sqrt(in.x * in.x + sx2);
-    float sqrt_sy2 = sqrt(in.y * in.y + sy2);
+    #if USE_FMA
+        float sqrt_sx2 = sqrt(fma(in.x, in.x, sx2));
+        float sqrt_sy2 = sqrt(fma(in.y, in.y, sy2));
+    #else
+        float sqrt_sx2 = sqrt(in.x * in.x + sx2);
+        float sqrt_sy2 = sqrt(in.y * in.y + sy2);
+    #endif
 #endif
     float insx = in.x * ins.x;
     float insy = in.y * ins.y;
+
     if(in.x > 0.0f) x = w * (sqrt_sx2 - insx);
     else x = w * -(sqrt_sx2 + insx);
     if(in.y > 0.0f) y = w * (sqrt_sy2 - insy);
@@ -3159,13 +3155,24 @@ static float2 CL_V_AUGER(
     s = sin(sta.x);
     t = sin(sta.y);
 #endif
+#if USE_FMA
+    dx = fma(auger.x, fma(m_HalfScale, t, fabs(in.x) * t), in.x);
+    dy = fma(auger.w, fma(m_HalfScale, s, fabs(in.y) * s), in.y);
+#else
     dx = in.x + auger.w * (m_HalfScale * t + fabs(in.x) * t);
     dy = in.y + auger.w * (m_HalfScale * s + fabs(in.y) * s);
-
-    return w * (float2)((
-        in.x + auger.z * (dx - in.x)), 
+#endif
+#if USE_FMA
+    return w * (float2)(
+        fma(auger.z, (dx - in.x), in.x), 
         dy
     );
+#else
+    return w * (float2)(
+        in.x + auger.z * (dx - in.x), 
+        dy
+    );
+#endif
 }
 // ----------------------------
 // 095 VAR FLUX
