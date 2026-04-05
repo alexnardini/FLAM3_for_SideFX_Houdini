@@ -1289,7 +1289,11 @@ static float2 CL_V_JULIAN(
     float a  = ATANYX(in);
 
     t_rnd = (int)(julian.x * rng_next_float(state));
+#if USE_FMA
+    tmpr = fma(M_TAU, t_rnd, a) * inv_jx;
+#else
     tmpr = (a + M_TAU * t_rnd) * inv_jx;
+#endif
 #if USE_NATIVE
     r = w * native_powr(r2, julian_cn);
 #else
@@ -1325,7 +1329,11 @@ static float2 CL_V_JULIASCOPE(
     t_rnd = (int)(juliascope.x * rng_next_float(state));
 
     sign = (t_rnd & 1) ? -1.0f : 1.0f;
+#if USE_FMA
+    tmpr = fma(M_TAU, t_rnd, sign * _ATANYX) * inv_jx;
+#else
     tmpr = (M_TAU * t_rnd + sign * _ATANYX) * inv_jx;
+#endif
 
     sincos_fast(tmpr, &sa, &ca);
 #if USE_NATIVE
