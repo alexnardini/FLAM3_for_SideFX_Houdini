@@ -1248,9 +1248,17 @@ static float2 CL_V_BLOB(
     aa = ATAN(in);
     bdiff = blob.y - blob.x;
 #if USE_NATIVE
-    r = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * native_sin(blob.z * aa)));
+    #if USE_FMA
+        r = _SQRT * fma(bdiff, fma(0.5f, native_sin(blob.z * aa), 0.5f), blob.x);
+    #else
+        r = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * native_sin(blob.z * aa)));
+    #endif
 #else
-    r = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * sin(blob.z * aa)));
+    #if USE_FMA
+        r = _SQRT * fma(bdiff, fma(0.5f, sin(blob.z * aa), 0.5f), blob.x);
+    #else
+        r = _SQRT * (blob.x + bdiff * (0.5f + 0.5f * sin(blob.z * aa)));
+    #endif
 #endif
 
     float wrr = w * r;
