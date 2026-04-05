@@ -665,19 +665,19 @@ static float2 CL_V_HANDKERCHIEF(
     __private const float w
     )
 {
-    float _SQRT, a_SQRT, a;
+    float _SQRT, w_SQRT, a;
 
     a = ATAN(in);
     _SQRT = SQRT(in);
-    a_SQRT = w * _SQRT;
+    w_SQRT = w * _SQRT;
 
 #if USE_NATIVE
-    return a_SQRT * (float2)(
+    return w_SQRT * (float2)(
         native_sin(a + _SQRT), 
         native_cos(a - _SQRT)
     );
 #else
-    return a_SQRT * (float2)(
+    return w_SQRT * (float2)(
         sin(a + _SQRT), 
         cos(a - _SQRT)
     );
