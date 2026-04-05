@@ -4292,12 +4292,6 @@ __kernel void cl_flam3_ff(
     // get sample
     mem = vload3(gid, P).xy;
     
-    // ff parameterics data
-    __local float*  ff_prm_f  = &local_FF_PRM_F[0];
-    __local float2* ff_prm_f2 = &local_FF_PRM_F2[0];
-    __local float4* ff_prm_f3 = &local_FF_PRM_F3[0];
-    __local float4* ff_prm_f4 = &local_FF_PRM_F4[0];
-
     // pp parameterics data
     __local float*  pp_prm_f  = &local_FF_PRM_F[PRM_NUM_F];
     __local float2* pp_prm_f2 = &local_FF_PRM_F2[PRM_NUM_F2];
@@ -4313,8 +4307,8 @@ __kernel void cl_flam3_ff(
     
     // VAR
     _tmp = (float2)(0.0f, 0.0f);
-    if (FF_VPP_VW.x != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.x, mem, FF_VPP_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, ff_prm_f, ff_prm_f2, ff_prm_f3, ff_prm_f4);
-    if (FF_VPP_VW.y != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.y, mem, FF_VPP_VW.y, pa.xy.zw, pa.o.xy, F3C, &rng, ff_prm_f, ff_prm_f2, ff_prm_f3, ff_prm_f4);
+    if (FF_VPP_VW.x != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.x, mem, FF_VPP_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, local_FF_PRM_F, local_FF_PRM_F2, local_FF_PRM_F3, local_FF_PRM_F4);
+    if (FF_VPP_VW.y != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.y, mem, FF_VPP_VW.y, pa.xy.zw, pa.o.xy, F3C, &rng, local_FF_PRM_F, local_FF_PRM_F2, local_FF_PRM_F3, local_FF_PRM_F4);
 
     // // POST
     if (FF_VPP_VW.z > 0.0f) _tmp = CL_V_DISPATCH(FF_VPP_VT.z, _tmp, FF_VPP_VW.z, pa.xy.zw, pa.o.xy, F3C, &rng, pp_prm_f, pp_prm_f2, pp_prm_f3, pp_prm_f4);
