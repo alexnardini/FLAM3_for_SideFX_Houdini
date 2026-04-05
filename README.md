@@ -279,7 +279,7 @@ In reality, though, I've never used more than 20 iterators in any of the fractal
 Almost all fractal Flame images on my website and instagram use an average of 64 iterations max,
 Some use less, and some use a bit more. A few exceptions went above 128 and up to 256/512. 
 
-Some Flames need truly an high number of iterations to be resolved correctly but with the GPU implementation in FLAM3H™ for H21 and up you can now run thousands of iterations per point with easy (_assuming the system GPU device is powerful enough_).
+Some Flames need truly an high number of iterations to be resolved correctly but with the GPU implementation in FLAM3H™ for H20.5 and up you can now run thousands of iterations per point with easy (_assuming the system GPU device is powerful enough_).
 
 Listed below are presets from Chaotica software that were converted to FLAM3H™. They were chosen because some of them are very expensive to solve and because they make use of variations I've already implemented.
 
