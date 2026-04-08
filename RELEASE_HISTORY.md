@@ -40,7 +40,7 @@ They are all available in this Github repository.
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
-- **Fix**: Safer OpenCL memory layout for Xaos data. This should prevent rare crashes, is any, on some GPU devices and drivers.
+- **Fix**: Safer OpenCL memory layout for Xaos data. This should prevent rare crashes, if any, on some GPU devices and drivers.
 
 
 
