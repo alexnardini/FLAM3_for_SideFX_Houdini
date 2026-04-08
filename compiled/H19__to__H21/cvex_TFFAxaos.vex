@@ -31,92 +31,8 @@ source_filename = "TFFAxaos"
 @23 = private constant [3 x i8] c"XS\00"
 @24 = private constant [4 x i8] c"XST\00"
 
-; Function Attrs: nounwind readnone
-declare double @"div@FF"(double, double) #0
-
-; Function Attrs: nounwind readnone
-declare double @"getcomp@FUI"(<2 x double>, i64) #0
-
-; Function Attrs: nounwind readnone
-declare double @"atan2@FFF"(double, double) #0
-
-; Function Attrs: nounwind readnone
-declare double @"sqrt@FF"(double) #0
-
-; Function Attrs: nounwind readnone
-declare double @"neg@FF"(double) #0
-
-; Function Attrs: nounwind
-declare double @"clamp@FFFF"(double, double, double) #1
-
-; Function Attrs: nounwind readnone
-declare double @"tan@FF"(double) #0
-
-; Function Attrs: nounwind readnone
-declare i64 @"neg@II"(i64) #0
-
-; Function Attrs: nounwind readnone
-declare double @"floor@FF"(double) #0
-
-; Function Attrs: nounwind readnone
-declare double @"sin@FF"(double) #0
-
-; Function Attrs: nounwind readnone
-declare double @"cos@FF"(double) #0
-
-; Function Attrs: nounwind readnone
-declare double @"log@FF"(double) #0
-
-; Function Attrs: nounwind readnone
-declare i64 @"and@III"(i64, i64) #0
-
-; Function Attrs: nounwind readnone
-declare <3 x double> @"set@VFFF"(double, double, double) #0
-
-; Function Attrs: nounwind readnone
-declare <2 x double> @"setcomp@UFI"(<2 x double>, double, i64) #0
-
-; Function Attrs: nounwind readnone
-declare <3 x double> @"setcomp@VFI"(<3 x double>, double, i64) #0
-
-; Function Attrs: nounwind
-declare double @"abs@FF"(double) #1
-
-; Function Attrs: nounwind readnone
-declare double @"getcomp@FVI"(<3 x double>, i64) #0
-
-; Function Attrs: nounwind
-declare double @"nrandom@F:S"(i8*) #1
-
-; Function Attrs: nounwind readnone
-declare <2 x double> @"set@UFF"(double, double) #0
-
-; Function Attrs: nounwind
-declare double @"sum@FU"(<2 x double>) #1
-
-; Function Attrs: nounwind readnone
-declare i64 @"isfinite@IF"(double) #0
-
-; Function Attrs: nounwind readnone
-declare i64 @"not@II"(i64) #0
-
-; Function Attrs: nounwind readnone
-declare i64 @"isnan@IF"(double) #0
-
-; Function Attrs: nounwind readnone
-declare i64 @"or@III"(i64, i64) #0
-
-; Function Attrs: nounwind
-declare double @"length@FU"(<2 x double>) #1
-
-; Function Attrs: nounwind
-declare <4 x double> @"set@2UU"(<2 x double>, <2 x double>) #1
-
-; Function Attrs: nounwind readnone
-declare <4 x double> @"rotate@2F"(<4 x double>, double) #0
-
 ; Function Attrs: alwaysinline nounwind
-define private void @"XAOS_transpose_s@[S[SI"(i8*** %XAOS, i8*** %T, i64* %size) #2 {
+define private void @"XAOS_transpose_s@[S[SI"(i8*** %XAOS, i8*** %T, i64* %size) #0 {
 __llvm_entry:
   br label %cond
 
@@ -157,22 +73,16 @@ end8:                                             ; preds = %cond3
 }
 
 ; Function Attrs: nounwind readnone
-declare i64 @"lt@III"(i64, i64) #0
+declare i64 @"lt@III"(i64, i64) #1
 
 ; Function Attrs: nounwind readnone
-declare i8* @"getcomp@S[SI"(i8**, i64) #0
+declare i8* @"getcomp@S[SI"(i8**, i64) #1
 
 ; Function Attrs: nounwind
-declare i8** @"append@[SS"(i8**, i8*) #1
-
-; Function Attrs: nounwind readnone
-declare double @"getcomp@F[FI"(double*, i64) #0
-
-; Function Attrs: nounwind readnone
-declare i64 @"len@I[F"(double*) #0
+declare i8** @"append@[SS"(i8**, i8*) #2
 
 ; Function Attrs: alwaysinline nounwind
-define private void @"_TFFAxaos@I[F[F"(i64* %_bound_XS, double** %_bound_IW, double** %_bound_XST) #2 {
+define private void @"_TFFAxaos@I[F[F"(i64* %_bound_XS, double** %_bound_IW, double** %_bound_XST) #0 {
 __llvm_entry:
   %xaos_tos_t = alloca i8**
   %0 = alloca i8**
@@ -528,7 +438,10 @@ end310:                                           ; preds = %cond305
 
 true336:                                          ; preds = %end261
   store i64 1, i64* %_bound_XS
-  store double* %XAOS_TO.2, double** %_bound_XST
+  %return340 = call i64 @"len@I[F"(double* %XAOS_TO.2)
+  %output341 = add i64 %return340, 3
+  %output342 = call double* @"resize@[FI"(double* %XAOS_TO.2, i64 %output341)
+  store double* %output342, double** %_bound_XST
   br label %end337
 
 end337:                                           ; preds = %true336, %end261
@@ -536,112 +449,124 @@ end337:                                           ; preds = %true336, %end261
 }
 
 ; Function Attrs: nounwind readnone
-declare i64 @"chi@IS"(i8*) #0
+declare i64 @"chi@IS"(i8*) #1
 
 ; Function Attrs: nounwind
-declare i64* @"detail@[IIS"(i64, i8*) #1
+declare i64* @"detail@[IIS"(i64, i8*) #2
 
 ; Function Attrs: nounwind
-declare double* @"detail@[FIS"(i64, i8*) #1
+declare double* @"detail@[FIS"(i64, i8*) #2
 
 ; Function Attrs: nounwind
-declare i8** @"detail@[SIS"(i64, i8*) #1
+declare i8** @"detail@[SIS"(i64, i8*) #2
 
 ; Function Attrs: nounwind readnone
-declare i64 @"eq@III"(i64, i64) #0
+declare i64 @"len@I[F"(double*) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"eq@III"(i64, i64) #1
+
+; Function Attrs: nounwind readnone
+declare double @"getcomp@F[FI"(double*, i64) #1
+
+; Function Attrs: nounwind readnone
+declare i64 @"and@III"(i64, i64) #1
 
 ; Function Attrs: nounwind
-declare void @"warning@S"(i8*) #1
+declare void @"warning@S"(i8*) #2
 
 ; Function Attrs: nounwind
-declare void @"error@S"(i8*) #1
+declare void @"error@S"(i8*) #2
 
 ; Function Attrs: nounwind readnone
-declare i64 @"len@I[S"(i8**) #0
+declare i64 @"len@I[S"(i8**) #1
 
 ; Function Attrs: nounwind readnone
-declare i8* @"concat@SSS"(i8*, i8*) #0
+declare i8* @"concat@SSS"(i8*, i8*) #1
 
 ; Function Attrs: nounwind readnone
-declare i8* @"chs@SS"(i8*) #0
+declare i8* @"chs@SS"(i8*) #1
 
 ; Function Attrs: nounwind readnone
-declare i8** @"split@[SSS"(i8*, i8*) #0
+declare i8** @"split@[SSS"(i8*, i8*) #1
 
 ; Function Attrs: nounwind
-declare i8* @"strip@SS"(i8*) #1
+declare i8* @"strip@SS"(i8*) #2
 
 ; Function Attrs: nounwind
-declare i8* @"toupper@SS"(i8*) #1
+declare i8* @"toupper@SS"(i8*) #2
 
 ; Function Attrs: nounwind readnone
-declare i64 @"eq@ISS"(i8*, i8*) #0
+declare i64 @"eq@ISS"(i8*, i8*) #1
 
 ; Function Attrs: nounwind readnone
-declare i8* @"concat@SSS:S"(i8*, i8*, i8*) #0
+declare i64 @"not@II"(i64) #1
+
+; Function Attrs: nounwind readnone
+declare i8* @"concat@SSS:S"(i8*, i8*, i8*) #1
 
 ; Function Attrs: nounwind
-declare i8** @"slice@[S[SIIIIII"(i8**, i64, i64, i64, i64, i64, i64) #1
+declare i8** @"slice@[S[SIIIIII"(i8**, i64, i64, i64, i64, i64, i64) #2
 
 ; Function Attrs: nounwind readnone
-declare i8* @"join@S[SS"(i8**, i8*) #0
+declare i8* @"join@S[SS"(i8**, i8*) #1
 
 ; Function Attrs: nounwind readnone
-declare i8* @"getcomp@SSI"(i8*, i64) #0
+declare i8* @"getcomp@SSI"(i8*, i64) #1
 
 ; Function Attrs: nounwind readnone
-declare i8* @"slice@SSIIIIII"(i8*, i64, i64, i64, i64, i64, i64) #0
+declare i8* @"slice@SSIIIIII"(i8*, i64, i64, i64, i64, i64, i64) #1
 
 ; Function Attrs: nounwind
-declare i64 @"isdigit@IS"(i8*) #1
+declare i64 @"isdigit@IS"(i8*) #2
 
 ; Function Attrs: nounwind readnone
-declare { i8*, i8** } @"pop@S[SI"(i8**, i64) #0
+declare { i8*, i8** } @"pop@S[SI"(i8**, i64) #1
 
 ; Function Attrs: nounwind readnone
-declare double @"atof@FS"(i8*) #0
+declare double @"atof@FS"(i8*) #1
 
 ; Function Attrs: nounwind readnone
-declare double @"max@FFF"(double, double) #0
+declare double @"max@FFF"(double, double) #1
 
 ; Function Attrs: nounwind
-declare double* @"append@[FF"(double*, double) #1
+declare double* @"append@[FF"(double*, double) #2
 
 ; Function Attrs: nounwind readnone
-declare double* @"resize@[FIF"(double*, i64, double) #0
+declare double* @"resize@[FIF"(double*, i64, double) #1
 
 ; Function Attrs: nounwind readnone
-declare i8** @"resize@[SIS"(i8**, i64, i8*) #0
+declare i8** @"resize@[SIS"(i8**, i64, i8*) #1
 
 ; Function Attrs: nounwind readnone
-declare i8** @"resize@[SI"(i8**, i64) #0
+declare i8** @"resize@[SI"(i8**, i64) #1
 
 ; Function Attrs: nounwind readnone
-declare i64 @"getcomp@I[II"(i64*, i64) #0
+declare i64 @"getcomp@I[II"(i64*, i64) #1
 
 ; Function Attrs: nounwind readnone
-declare { double, double* } @"pop@F[FI"(double*, i64) #0
+declare { double, double* } @"pop@F[FI"(double*, i64) #1
 
 ; Function Attrs: nounwind
-declare i8** @"append@[S[S"(i8**, i8**) #1
+declare i8** @"append@[S[S"(i8**, i8**) #2
 
 ; Function Attrs: nounwind
-declare double @"min@F[F"(double*) #1
+declare double @"min@F[F"(double*) #2
 
 ; Function Attrs: nounwind
-declare double @"max@F[F"(double*) #1
+declare double @"max@F[F"(double*) #2
 
 ; Function Attrs: nounwind readnone
-declare double* @"create_cdf@[F[F"(double*) #0
+declare double* @"create_cdf@[F[F"(double*) #1
 
 ; Function Attrs: nounwind
-declare double* @"append@[F[F"(double*, double*) #1
+declare double* @"append@[F[F"(double*, double*) #2
 
 ; Function Attrs: nounwind readnone
-declare double* @"resize@[FI"(double*, i64) #0
+declare double* @"resize@[FI"(double*, i64) #1
 
 ; Function Attrs: nounwind
-define void @TFFAxaos(i64 %XS, double* %IW, double* %XST) #1 {
+define void @TFFAxaos(i64 %XS, double* %IW, double* %XST) #2 {
 __llvm_entry:
   %"<IW>" = alloca double*
   %"<XST>" = alloca double*
@@ -672,9 +597,9 @@ __llvm_entry:
   ret void
 }
 
-attributes #0 = { nounwind readnone }
-attributes #1 = { nounwind }
-attributes #2 = { alwaysinline nounwind }
+attributes #0 = { alwaysinline nounwind }
+attributes #1 = { nounwind readnone }
+attributes #2 = { nounwind }
 attributes #3 = { nounwind readonly }
 
 !context = !{!0}
@@ -682,7 +607,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"21.0.440"}
+!1 = !{!"21.0.596"}
 !2 = !{!"64"}
 !3 = !{!""}
 

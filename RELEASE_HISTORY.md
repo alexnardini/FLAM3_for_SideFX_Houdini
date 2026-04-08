@@ -34,6 +34,25 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v2.0.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.10) ###
+
+#### FLAM3H™ v2.0.10 indie -> H21.0 UP</br>FLAM3H™ v2.0.10 indie -> H20.5 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+- **Fix**: Safer OpenCL memory layout for Xaos data. This should prevent rare crashes, is any, on some GPU devices and drivers.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v2.0.09 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.09) ###
 
 #### FLAM3H™ v2.0.09 indie -> H21.0 UP</br>FLAM3H™ v2.0.09 indie -> H20.5 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
