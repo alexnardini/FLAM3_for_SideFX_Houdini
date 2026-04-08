@@ -4069,7 +4069,6 @@ __kernel void cl_flam3(
     }
 
     // Copy arrays of floats in chunks of float4s
-    // and handle the remainders if any.
     
     // Float arrays
     int total_SHD       = RES * SHD_NUM_SIZE + 3;
