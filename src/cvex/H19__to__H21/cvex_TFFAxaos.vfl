@@ -165,7 +165,7 @@ _TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
     _bound_IW = create_cdf(IW);
     if(x_chk){
         _bound_XS = 1;
-        resize(XAOS_TO, len(XAOS_TO) + 3);
+        if(ch("gpu")) resize(XAOS_TO, len(XAOS_TO) + 3);
         _bound_XST = (float[])XAOS_TO;
     }
 }
