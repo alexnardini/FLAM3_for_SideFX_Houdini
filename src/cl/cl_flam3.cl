@@ -56,9 +56,10 @@
 // ----------------------------
 enum {
     MAX_XFORMS                  = 20, 
-    MAX_XFORMS_XAOS_SIZE        = MAX_XFORMS * MAX_XFORMS, 
+    MAX_XFORMS_XAOS_SIZE        = MAX_XFORMS * MAX_XFORMS + 3,      // Done also in vex land, so they are multiple of 4 and we do not need to copy a remainder of 1-3 floats when copying to local memory using float4 vectors
 
     SHD_NUM_SIZE                = 3, 
+    MAX_SHD_NUM_SIZE            = MAX_XFORMS * SHD_NUM_SIZE + 3,    // Done also in vex land, so they are multiple of 4 and we do not need to copy a remainder of 1-3 floats when copying to local memory using float4 vectors
 
     // ----------------------------
     // RES PRM FF -> FF and PP (2)  
@@ -81,7 +82,7 @@ enum {
     PRM_F_IDX_ESCHERBETA        = 4,    // beta
     PRM_F_IDX_POPCORN2C         = 5,    // c
     PRM_F_IDX_FLUXSPREAD        = 6,    // spread
-    PRM_F_IDX_UNUSED_0          = 7,    // unused - so they are multiple of 4 and we do not need to copy a remainder of 1-3 floats when copying to local memory using float4 vectors
+    PRM_F_IDX_UNUSED_0          = 7,    // unused - Done also in vex land, so they are multiple of 4 and we do not need to copy a remainder of 1-3 floats when copying to local memory using float4 vectors
 
     // ----------------------------
     // PRM F2 sizes  
@@ -121,7 +122,7 @@ enum {
     PRM_F2_IDX_POLYNOMIALLC     = 26,   // Lc_x, Lc_y
     PRM_F2_IDX_POLYNOMIALSC     = 27,   // Sc_x, Sc_y
     PRM_F2_IDX_CROP             = 28,   // area, zero
-    PRM_F2_IDX_UNUSED_0         = 29,   // unused - so they are multiple of 4 and we do not need to copy a remainder of 1 float2 when copying to local memory using float4 vectors
+    PRM_F2_IDX_UNUSED_0         = 29,   // unused - Done also in vex land, so they are multiple of 4 and we do not need to copy a remainder of 1 float2 when copying to local memory using float4 vectors
 
     // ----------------------------
     // PRM F3 sizes  
@@ -4026,7 +4027,7 @@ __kernel void cl_flam3(
     __local float local_XST[MAX_XFORMS_XAOS_SIZE];
 
     // shader
-    __local float local_SHD[MAX_XFORMS * 3];
+    __local float local_SHD[MAX_SHD_NUM_SIZE];
 
     __local affine_t local_PRE_AFFINE[MAX_XFORMS];
     __local affine_t local_POST_AFFINE[MAX_XFORMS];
