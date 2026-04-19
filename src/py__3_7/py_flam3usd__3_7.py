@@ -324,6 +324,7 @@ class flam3husd_scripts
 * flam3husd_compatible(h_version: int, this_h_versions: tuple, kwargs: Union[dict, None], msg: bool) -> bool:
 * flam3husd_compatible_range_close(kwargs: Union[dict, None], msg: bool) -> bool:
 * flam3husd_compatible_range_open(kwargs: Union[dict, None], msg: bool) -> bool:
+* unpin_parameter_editor_with_f3husd_node(f3husd_node: hou.SopNode) -> None:
 
 @METHODS
 * flam3husd_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
@@ -694,6 +695,27 @@ class flam3husd_scripts
         else:
             
             return flam3husd_scripts.flam3husd_compatible(h_version, this_h_versions, kwargs, msg)
+        
+        
+    @staticmethod
+    def unpin_parameter_editor_with_f3husd_node(f3husd_node: hou.SopNode) -> None:
+        """If a FLAM3H™ node is on display in a pinned Parameter Editor, unpin that parameter Editor.<br/>
+        This is specifically made for:
+        * def flam3h_on_deleted(self) -> None:
+        
+        to avoid a menu error happening sometime when deleting multiple FLAM3H™ nodes in one go while one of them was on display in a pinned Parameter Editor.</br>
+
+        Args:
+            f3husd_node(hou.SopNode): The FLAM3H™USD node to check if its parameter are being pinned inside a Parameter Editor.
+            
+        Returns:
+            (None):
+        """  
+    
+        pe: list[hou.ParameterEditor] = flam3husd_general_utils.util_getParameterEditors(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY)
+        for p in pe:
+            if p.currentNode() == f3husd_node and p.isPin():
+                p.setPin(False)
 
 
     # CLASS: PROPERTIES
@@ -1140,6 +1162,7 @@ class flam3husd_scripts
             (None):
         """
         node: hou.LopNode = self.node
+        self.unpin_parameter_editor_with_f3husd_node(node)
         node_instances: tuple = node.type().instances()
 
         _flam3husd_is_valid_flam3h_node: Callable[[Union[hou.LopNode, None]], None] = self.flam3husd_is_valid_flam3h_node
@@ -1177,7 +1200,7 @@ class flam3husd_general_utils
 * karma_cpu_hydra_renderer_name() -> str:
 * houdini_version(digit: int = 1) -> int:
 * util_auto_set_f3h_parameter_editor(f3h_node: hou.SopNode) -> None:
-* util_getParameterEditors() -> list:
+* util_getParameterEditors(nodeTypeCategory: str = F3H_NODE_TYPE_NAME_CATEGORY) -> list:
 * util_getSceneViewers() -> list:
 * util_is_context(context: str, viewport: hou.paneTabType) -> bool:
 * util_is_context_available_viewer(context: str) -> bool:
@@ -1337,18 +1360,19 @@ class flam3husd_general_utils
     
     
     @staticmethod
-    def util_getParameterEditors() -> list:
+    def util_getParameterEditors(nodeTypeCategory: str = F3H_NODE_TYPE_NAME_CATEGORY) -> list:
         """Return a list of Parameter Editors currently open in this Houdini session.
-        It will collect only the Parameter Editors with a FLAM3H node parameter on display already.
+        It will collect only the Parameter Editors with a FLAM3H™ node parameter on display already.
         
         Args:
             (None):
+            nodeTypeCategory(str): Default to: F3H_NODE_TYPE_NAME_CATEGORY (FLAM3H™). The node type category to check for in the parameter editors.
             
         Returns:
             (list): [return a list of open Parmaeter Editors with a FLAM3H™ node on display]
         """    
-        parms: tuple = hou.ui.paneTabs() # type: ignore
-        return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == F3H_NODE_TYPE_NAME_CATEGORY]
+        parms: tuple[Any, ...] = hou.ui.paneTabs() # type: ignore
+        return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == nodeTypeCategory]
     
 
     @staticmethod
