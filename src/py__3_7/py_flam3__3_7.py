@@ -17879,7 +17879,6 @@ class out_flame_utils
 * out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> list[list[str]]:
 * out_xaos_collect_vactive(node: hou.SopNode, fill: list, prm: str) -> list[list[str]]:
 * _out_pretty_print(current: lxmlET.Element, parent: Union[lxmlET.Element, None] = None, index: int = -1, depth: int = 0) -> None: #type: ignore
-* _out_pretty_print(current, parent=None, index: int=-1, depth: int=0) -> None:
 * menu_out_presets_loop(menu: list, i: int, item: str) -> None:
 * menu_out_presets_loop_enum(menu: list, i: int, item: str) -> None:
 * out_collect_var_section_names(node: hou.SopNode, var_section: str = "VAR") -> Union[list[str], None]:

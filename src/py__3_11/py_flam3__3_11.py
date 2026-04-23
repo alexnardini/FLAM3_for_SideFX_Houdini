@@ -19410,7 +19410,6 @@ class out_flame_utils
 * out_xaos_collect(node: hou.SopNode, iter_count: int, prm: str) -> TA_XAOS_Collect:
 * out_xaos_collect_vactive(node: hou.SopNode, fill: list[list[str]] | list[list[float]], prm: str) -> list[list[str] | list[Never]]:
 * _out_pretty_print(current: lxmlET._Element, parent: lxmlET._Element | None = None, index: int = -1, depth: int = 0) -> None: #type: ignore
-* _out_pretty_print(current, parent=None, index: int=-1, depth: int=0) -> None:
 * menu_out_presets_loop(menu: TA_Menu, i: int, item: str) -> None:
 * menu_out_presets_loop_enum(menu: TA_Menu, i: int, item: str) -> None:
 * out_collect_var_section_names_dict(node: hou.SopNode, mode: bool = False, var_section: str = "VAR") -> dict[str, list[str]] | bool:
