@@ -12339,19 +12339,25 @@ class flam3h_palette_utils
             (None):
         """  
         node: hou.SopNode = self.node
+        rmpsrc: hou.Ramp = node.parm(f3h_tabs.CP.PRM_RAMP_SRC_NAME).evalAsRamp()
+        rmphsv = node.parm(f3h_tabs.CP.PRM_RAMP_HSV_NAME)
         hsvprm_vals: tuple[float, float, float] = node.parmTuple(f3h_tabs.CP.PRM_RAMP_HSV_VAL_NAME).eval()
         if hsvprm_vals[0] != 1 or hsvprm_vals[1] != 1 or hsvprm_vals[2] != 1:
             
             # Apply color correction
-            rmpsrc: hou.Ramp = node.parm(f3h_tabs.CP.PRM_RAMP_SRC_NAME).evalAsRamp()
             _hsv_to_rgb: Callable[[float, float, float], tuple[float, float, float]] = colorsys.hsv_to_rgb
             _rgb_to_hsv: Callable[[float, float, float], tuple[float, float, float]] = colorsys.rgb_to_hsv
             _RGBs: list[tuple[float, float, float]] = [_hsv_to_rgb(h + hsvprm_vals[0], s * hsvprm_vals[1], v * hsvprm_vals[2]) for h, s, v in (_rgb_to_hsv(r, g, b) for r, g, b in rmpsrc.values())]
             
             # Set the ramp
-            rmphsv = node.parm(f3h_tabs.CP.PRM_RAMP_HSV_NAME)
             rmphsv.lock(False)
             rmphsv.set(hou.Ramp(rmpsrc.basis(), rmpsrc.keys(), _RGBs))
+            
+        else:
+            # Clear and re-set
+            # self.delete_ramp_all_keyframes(rmphsv) # this get a little expensive to run every time and since the *.flame format do not support animations we can avoid it.
+            rmphsv.lock(False)
+            rmphsv.set(rmpsrc)
 
 
     def palette_lock(self) -> None:
