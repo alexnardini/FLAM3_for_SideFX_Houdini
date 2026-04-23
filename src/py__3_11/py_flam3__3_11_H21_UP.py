@@ -7053,8 +7053,9 @@ class flam3h_iterator_utils
             # As a way to prevent the already expensive double cook to be even more expensive.
             with hou.undos.disabler(): # type: ignore
                 prm_density = node.parm(f3h_tabs.GLB.PRM_DENSITY)
-                if prm_density.eval() > 2000000:
-                    prm_density.set(500000)
+                limit_density: int = 5000000 if node.parm(f3h_tabs.PREFS.PRM_GPU).eval() else 1000000
+                if prm_density.eval() > limit_density:
+                    prm_density.set(f3h_tabs.GLB.DEFAULT_DENSITY)
                     node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS).set(1)
             
             mpmem_x: list[int] = [] # This is used as index lookup
