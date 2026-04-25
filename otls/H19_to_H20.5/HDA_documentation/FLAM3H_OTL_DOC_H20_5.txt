@@ -3449,7 +3449,7 @@ use GPU [Icon:DATATYPES/boolean]:
     #id: prefs
     *`On`* by default.
 
-    Run the algorithm entirely on the GPU device.
+    Run the algorithm entirely on the [GPU|Wp:Graphics_processing_unit] device.
 
     This can be hundreds of times faster compared to the CPU(_CVEX_) implementation<br />
     depending on the system' GPU device being used.
