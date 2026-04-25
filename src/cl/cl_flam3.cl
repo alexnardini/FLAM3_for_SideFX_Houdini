@@ -614,8 +614,13 @@ static float2 CL_V_SWIRL(
     sincos_fast(r, &sr, &cr);
 
     return w * (float2)(
+    #if USE_FMA
+         fma(sr, in.x, -cr * in.y),
+         fma(cr, in.x, sr * in.y)
+    #else
         sr * in.x - cr * in.y,
         cr * in.x + sr * in.y
+    #endif
     );
 }
 // ----------------------------
