@@ -36,7 +36,7 @@ They are all available in this Github repository.
 
 ### [<ins>v2.0.11 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.11) ###
 
-#### FLAM3H™ v2.0.11 indie -> H21.0 UP</br>FLAM3H™ v2.0.11 indie -> H20.5 UP</br>FLAM3H™ v1.9.78 indie -> H19.0 to H20 ####
+#### FLAM3H™ v2.0.11 indie -> H21.0 UP</br>FLAM3H™ v2.0.11 indie -> H20.5</br>FLAM3H™ v1.9.78 indie -> H19.0 to H20 ####
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
@@ -53,7 +53,7 @@ They are all available in this Github repository.
 
 ### [<ins>v2.0.10 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.10) ###
 
-#### FLAM3H™ v2.0.10 indie -> H21.0 UP</br>FLAM3H™ v2.0.10 indie -> H20.5 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
+#### FLAM3H™ v2.0.10 indie -> H21.0 UP</br>FLAM3H™ v2.0.10 indie -> H20.5</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
@@ -72,7 +72,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 ### [<ins>v2.0.09 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.09) ###
 
-#### FLAM3H™ v2.0.09 indie -> H21.0 UP</br>FLAM3H™ v2.0.09 indie -> H20.5 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
+#### FLAM3H™ v2.0.09 indie -> H21.0 UP</br>FLAM3H™ v2.0.09 indie -> H20.5</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
@@ -92,7 +92,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 ### [<ins>v2.0.07 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.07) ###
 
-#### FLAM3H™ v2.0.07 indie -> H21.0 UP</br>FLAM3H™ v2.0.07 indie -> H20.5 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
+#### FLAM3H™ v2.0.07 indie -> H21.0 UP</br>FLAM3H™ v2.0.07 indie -> H20.5</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
@@ -113,7 +113,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 ### [<ins>v2.0.04 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.04) ###
 
-#### FLAM3H™ v2.0.04 indie -> H21.0 UP</br>FLAM3H™ v2.0.04 indie -> H20.5 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
+#### FLAM3H™ v2.0.04 indie -> H21.0 UP</br>FLAM3H™ v2.0.04 indie -> H20.5</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
 
 - **Fix**: More native functions in the OpenCL code.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -131,7 +131,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 
 ### [<ins>v2.0.02 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.02) ###
 
-#### FLAM3H™ v2.0.02 indie -> H21.0 UP</br>FLAM3H™ v2.0.02 indie -> H20.5 UP</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
+#### FLAM3H™ v2.0.02 indie -> H21.0 UP</br>FLAM3H™ v2.0.02 indie -> H20.5</br>FLAM3H™ v1.9.77 indie -> H19.0 to H20 ####
 
 - **New**: Added GPU support also to FLAM3H™ for H20.5.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
