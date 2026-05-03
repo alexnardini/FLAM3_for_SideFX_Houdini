@@ -4947,7 +4947,7 @@ class flam3h_general_utils
         node: hou.SopNode = self.node
         
         xfviz_solo: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO).eval()
-        xfviz_solo_mp_idx: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX).eval() # this need to one higher than 0(Zero)
+        xfviz_solo_mp_idx: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX).eval() # this need to be one higher than 0(Zero)
         xfviz_solo_follow: int = node.parm(f3h_tabs.PREFS.PRM_SOLO_FOLLOW).eval()
         xfviz_out_sensor: int = node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval()
         
@@ -11011,6 +11011,8 @@ class flam3h_iterator_utils
     def iterators_count(self) -> None:
         """This is used as a callback script.</br></br>
         
+        It can follow an xf_viz if On and the user change multiparameter tab directly or</br></br>
+        
         Every time an iterator is added or removed</br>
         this will run and execute based on iterator's number: Zero or more then Zero.</br>
 
@@ -11021,28 +11023,35 @@ class flam3h_iterator_utils
             (None):
         """
 
-        node: hou.SopNode = self.node
-        # Clear menu cache
-        self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
-        
-        iterators_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
-        
-        if not iterators_count:
-            
-            # Do all it's needed in this case
-            self.iterators_count_zero(node)
-            
-        else:
-            
-            # Do all it's needed in this case
-            self.iterators_count_not_zero(node)
+        kwargs: dict = self.kwargs
+        ui_change_type: str = kwargs.get('ui_change_type')
+        if ui_change_type is not None:
+            if ui_change_type == 'multiparm_tab_changed':
+                flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz_solo_follow(str(kwargs['new_tab'] + 1))
 
-        # This is probably not needed but I leave it here for now
-        #
-        # If OUT Camera sensor viz mode is ON.
-        if node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
-            # We can avoid to set the clipping planes as they are already set
-            flam3h_general_utils(self.kwargs).util_set_front_viewer()
+        else:
+            node: hou.SopNode = self.node
+            # Clear menu cache
+            self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
+            
+            iterators_count: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
+            
+            if not iterators_count:
+                
+                # Do all it's needed in this case
+                self.iterators_count_zero(node)
+                
+            else:
+                
+                # Do all it's needed in this case
+                self.iterators_count_not_zero(node)
+
+            # This is probably not needed but I leave it here for now
+            #
+            # If OUT Camera sensor viz mode is ON.
+            if node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval():
+                # We can avoid to set the clipping planes as they are already set
+                flam3h_general_utils(self.kwargs).util_set_front_viewer()
             
             
     def iterator_vactive_and_update(self) -> None:

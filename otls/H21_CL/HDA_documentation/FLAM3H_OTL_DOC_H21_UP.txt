@@ -3532,7 +3532,7 @@ SOLO Follow [Icon:DATATYPES/boolean]:
     *`On`* by default.
 
     When any iterator has its xform handle in SOLO mode already ([Icon:opdef:.?icon_xfHandlesEnabledMPIDXSVG.svg]),<br />
-    it causes the iterator that is picked from the SYS tab's select iterator mini-menu to be automatically configured to be in SOLO mode.
+    it causes the iterator that is selected or picked from the SYS tab's select iterator mini-menu to be automatically configured to be in SOLO mode.
     
     This enables you to swiftly go over each one automatically.
 
