@@ -4947,7 +4947,7 @@ class flam3h_general_utils
         node: hou.SopNode = self.node
         
         xfviz_solo: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO).eval()
-        xfviz_solo_mp_idx: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX).eval() # this need to be one higher than 0(Zero)
+        xfviz_solo_mp_idx: int = node.parm(f3h_tabs.PREFS.PVT_PRM_XF_VIZ_SOLO_MP_IDX).eval() # this need to be higher than 0(Zero)
         xfviz_solo_follow: int = node.parm(f3h_tabs.PREFS.PRM_SOLO_FOLLOW).eval()
         xfviz_out_sensor: int = node.parm(f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR).eval()
         
@@ -11023,14 +11023,49 @@ class flam3h_iterator_utils
             (None):
         """
 
+        node: hou.SopNode = self.node
         kwargs: dict = self.kwargs
         ui_change_type: str = kwargs.get('ui_change_type')
         if ui_change_type is not None:
+            
             if ui_change_type == 'multiparm_tab_changed':
-                flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz_solo_follow(str(kwargs['new_tab'] + 1))
+                
+                mp_id: int = kwargs['new_tab'] + 1
+                flam3h_general_utils(kwargs).flam3h_toggle_mp_xf_viz_solo_follow(str(mp_id))
+                
+                # Probably we can avoid to do all of this if the user is just switching tabs directly as it can be annoying...?
+                '''
+                from_FLAM3H_NODE, mp_id_from, isDELETED = self.prm_paste_update_for_undo(node)
+                
+                n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
+                _MSG: str = f"iterator: {mp_id}"
+                active: int = node.parm(f"{n.main_vactive}_{mp_id}").eval()
+                weight: float = node.parm(f"{n.main_weight}_{mp_id}").eval()
+                
+                if node == from_FLAM3H_NODE and mp_id_from == mp_id:
+                    if active and weight > 0:
+                        flam3h_general_utils.flash_message(node, f"{_MSG} (Marked)")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} (Marked)", 'MSG')
+                    elif active and weight == 0:
+                        flam3h_general_utils.flash_message(node, f"{_MSG} (Zero Weight and Marked)")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} (Zero Weight and Marked)", 'MSG')
+                    else:
+                        flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled and Marked)")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} (Disabled and Marked)", 'MSG')
+                    
+                else:
+                    if active and weight > 0:
+                        flam3h_general_utils.flash_message(node, _MSG)
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
+                    elif active and weight == 0:
+                        flam3h_general_utils.flash_message(node, f"{_MSG} (Zero Weight)")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} (Zero Weight)", 'MSG')
+                    else:
+                        flam3h_general_utils.flash_message(node, f"{_MSG} (Disabled)")
+                        flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG} (Disabled)", 'MSG')
+                '''                
 
         else:
-            node: hou.SopNode = self.node
             # Clear menu cache
             self.destroy_cachedUserData(node, f3h_cachedUserData.iter_sel)
             
