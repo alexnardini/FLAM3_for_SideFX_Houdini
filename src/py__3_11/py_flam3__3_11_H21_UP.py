@@ -11011,9 +11011,9 @@ class flam3h_iterator_utils
     def iterators_count(self) -> None:
         """This is used as a callback script.</br></br>
         
-        It can follow an xf_viz if On and the user change multiparameter tab directly or</br></br>
+        - It can follow an xf_viz if On while the user change multiparameter tab directly or</br></br>
         
-        Every time an iterator is added or removed</br>
+        - Every time an iterator is added or removed</br>
         this will run and execute based on iterator's number: Zero or more then Zero.</br>
 
         Args:
