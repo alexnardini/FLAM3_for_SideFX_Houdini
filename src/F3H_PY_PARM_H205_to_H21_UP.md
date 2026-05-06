@@ -84,7 +84,7 @@ __version__ = "2.0.12"
 __status__  = "Production"
 __h_versions__: tuple = (210,)
 __range_type__: bool = False # True for closed range. False for open range
-__vcc_compiler__ = "21.0.440"
+__vcc_compiler__ = "21.0.700"
 __opencl__ = "1.2"
 
 # The following are min and max Houdini version where FLAM3H™ can run.
