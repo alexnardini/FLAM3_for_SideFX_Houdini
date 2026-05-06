@@ -19484,7 +19484,7 @@ class out_flame_utils
     """
 
     __slots__ = ("_cached_data", 
-                 "_kwargs", "_node", 
+                 "_kwargs", "_node", "_gpu", 
                  "_flam3h_iter_prm_names", "_flam3h_iter", "_flam3h_iter_FF", "_flam3h_do_FF", 
                  "_iter_count", "_palette", "_palette_hsv_do", "_palette_plus_do", "_f3h_affine", "_xm", 
                  "_flam3h_rip", "_flam3h_mb_do", "_flam3h_f3c", "_flam3h_cp_lookup_samples", "_flam3h_cp_basis")
@@ -19499,6 +19499,7 @@ class out_flame_utils
         """ 
         self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
+        self._gpu: hou.Parm | None = self._node.parm(f3h_tabs.PREFS.PRM_GPU)
         
         self._flam3h_iter_prm_names: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
         self._flam3h_iter: flam3h_iterator = flam3h_iterator()
@@ -19708,7 +19709,7 @@ class out_flame_utils
 
     
     @staticmethod
-    def out_auto_add_iter_num(iter_num: int, name: str, autoadd: int, flame: bool = True) -> str:
+    def out_auto_add_iter_num(iter_num: int, name: str, autoadd: int, flame: bool = True, gpu: bool = False) -> str:
         """It will check and correct the passed Flame name and add the iteration number to it if needed.</br>
         Additionally, when the "flame" arg is set to False, it will just autocorrect the passed name, to be used for example for the Palette name.</br>
 
@@ -19717,6 +19718,7 @@ class out_flame_utils
             flame_name(str): The Flame name to check and correct
             autoadd(int): Auto add iter num toggle value (This toggle will eventually be removed from FLAM3H™ at some point)
             flame(bool): Default to: True(Flame)</br>Use False for Palette
+            gpu(bool): Default to False</br>Use True when in GPU mode.
 
         Returns:
             (str): A new name with either the iterations number added to it if needed or corrected or both.
@@ -19777,7 +19779,11 @@ class out_flame_utils
                 _join: Callable[[Iterable[str]], str] = ''.join
                 rp_clean: list = [_join(letter for letter in item.strip() if letter.isalnum() or letter in f3h_char.ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
                 if flame:
-                    if autoadd: name_new: str = ' '.join(rp_clean) + f3h_tabs.IN.DEFAULT_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
+                    if autoadd:
+                        if gpu:
+                            name_new: str = ' '.join(rp_clean)
+                        else:
+                            name_new: str = ' '.join(rp_clean) + f3h_tabs.IN.DEFAULT_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
                     else: name_new: str = ' '.join(rp_clean)
                     
                 else: name_new: str = ' '.join(rp_clean)
@@ -19802,7 +19808,7 @@ class out_flame_utils
 
     
     @staticmethod 
-    def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
+    def out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int, gpu: bool = False) -> str:
         """It will check the passed Flame name </br>
         and update the iteration number when changing iterations.</br>
         If no iteration number is present in the passed Flame name</br>
@@ -19812,6 +19818,7 @@ class out_flame_utils
             iter_num(int): the current iteration's number
             flame_name(str): The Flame name to check
             autoadd(int): Auto add iter num toggle value
+            gpu(bool): Default to False</br>Use True when in GPU mode.
 
         Returns:
             (str): A new Flame name with the iter num updated/added if needed.
@@ -19821,7 +19828,7 @@ class out_flame_utils
             flame_name = flame_name.strip()
             if flame_name:
                 
-                flame_name = out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+                flame_name = out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd, True, gpu)
                 rp: tuple[str, str, str] = flame_name.rpartition(f3h_tabs.IN.DEFAULT_ITERATIONS_FLAME_NAME_DIV)
 
                 is_int: bool = False
@@ -19892,7 +19899,7 @@ class out_flame_utils
         
         
     @staticmethod
-    def out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
+    def out_flame_default_name(node: hou.SopNode, autoadd: int, gpu: bool = False) -> str:
         """Create a default name to be used for the output Flame file path.</br>
 
         Args:
@@ -19905,7 +19912,7 @@ class out_flame_utils
         flame_name: str = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
         iter_num: int = node.parm(f3h_tabs.GLB.PRM_ITERATIONS).eval()
         
-        return out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+        return out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd, True, gpu)
     
     
     @staticmethod
@@ -20588,6 +20595,13 @@ class out_flame_utils
     @property
     def node(self) -> hou.SopNode:
         return self._node
+    
+    @property
+    def gpu(self) -> bool:
+        if self._gpu is not None:
+            return bool(self._gpu.eval())
+        else:
+            return False
 
     @cached_slot_property
     def flam3h_iter_prm_names(self) -> flam3h_iterator_prm_names:
@@ -20988,7 +21002,7 @@ class out_flame_utils
                     flame_name: str = self.out_remove_iter_num(menu_label)
                     iter_num: int = node.parm(f3h_tabs.GLB.PRM_ITERATIONS).eval()
                     autoadd: int = node.parm(f3h_tabs.OUT.PRM_AUTO_ADD_ITER_NUM).eval()
-                    flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+                    flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd, True, self.gpu)
                     
                     prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
                     flam3h_prm_utils.set(node, prm, flame_name_new)
@@ -21433,7 +21447,7 @@ class out_flame_utils
         """
         node: hou.SopNode = self.node
         iter_num, flame_name, autoadd = self.out_auto_add_iter_data()
-        flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+        flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd, True, self.gpu)
         
         prm = node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME)
         flam3h_prm_utils.set(node, prm, flame_name_new)
@@ -21461,7 +21475,7 @@ class out_flame_utils
             prm.deleteAllKeyframes()
             
             if autoadd:
-                flame_name_new: str = self.out_auto_change_iter_num(iter_num, flame_name, autoadd)
+                flame_name_new: str = self.out_auto_change_iter_num(iter_num, flame_name, autoadd, self.gpu)
                 prm.set(flame_name_new)
                 
                 # Update "iter num on load" if "force iterations on Load" toggle is ON 
@@ -22312,11 +22326,11 @@ class out_flame_utils
         autoadd: int = self.node.parm(f3h_tabs.OUT.PRM_AUTO_ADD_ITER_NUM).eval()
         
         if not flame_name:
-            return self.out_flame_default_name(self.node, autoadd)
+            return self.out_flame_default_name(self.node, autoadd, self.gpu)
         
         # otherwise get that name and use it
         iter_num: int = self.node.parm(f3h_tabs.GLB.PRM_ITERATIONS).eval()
-        return self.out_auto_add_iter_num(iter_num, flame_name, autoadd)
+        return self.out_auto_add_iter_num(iter_num, flame_name, autoadd, True, self.gpu)
         
         
     def __out_xf_data(self, prm_name: str) -> tuple[str, ...]:

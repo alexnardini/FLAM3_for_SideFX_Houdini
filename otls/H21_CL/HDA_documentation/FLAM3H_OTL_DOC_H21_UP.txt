@@ -949,15 +949,6 @@ number of iterators [Icon:TOP/xmlinput]:
     Adding and Deleting iterators from here will also update all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.
     
     <br />
-    <br />
-
-    _Limitations *H21 and up*_:
-    <br />
-    - Adding and/or removing iterators (_inbetween_)<br />
-    using the native menu displayed when you ((RMB)) on any multi parameter tab label wont update all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.<br />
-    Always use the add/remove iterator's button/icon: [Smallicon:opdef:.?icon_AddDelIteratorSVG.svg]
-
-    <br />
 
     NOTE:
         #display: raised
@@ -990,15 +981,6 @@ Add/Del iterators [Icon:TOP/xmlinput] [Icon:opdef:.?icon_actionButtonSVG.svg]:
 
     _Additionally_:
     - ((CTRL)) + ((LMB)) to delete this iterator.
-
-    <br />
-    <br />
-
-    _Limitations *H21 and up*_:
-    <br />
-    - Adding and/or removing iterators (_inbetween_)<br />
-    using the native menu displayed when you ((RMB)) on any multi parameter tab label wont update all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.<br />
-    Always use this button/icon: [Smallicon:opdef:.?icon_AddDelIteratorSVG.svg]
 
     <br />
 
@@ -4640,10 +4622,6 @@ _A list of all parametric variations and their parametric parameter's names_
 :box:
     #display: rounded gray
     [Icon:opdef:.?icon_optionStarBlueSVG.svg] *New multiparameter features*<br /><br />
-    
-    - Adding and/or removing iterators (_inbetween_)<br />
-    using the native menu displayed when you ((RMB)) on any multi parameter tab label wont update all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.<br />
-    Always use the add/remove iterator's button/icon: [Smallicon:opdef:.?icon_AddDelIteratorSVG.svg]
 
     - Copy and Paste iterators<br />
     using the native menu displayed when you ((RMB)) on any multi parameter tab label wont update all the FLAM3H(tm) internal data.<br />

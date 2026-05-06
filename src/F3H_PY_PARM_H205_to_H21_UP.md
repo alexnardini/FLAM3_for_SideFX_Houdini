@@ -152,11 +152,11 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 import toolutils
 
 # Set some HDA infos
-__version__ = "2.0.11"
+__version__ = "2.0.12"
 __status__  = "Production"
 __h_versions__: tuple = (205,)
 __range_type__: bool = True # True for closed range. False for open range
-__vcc_compiler__ = "21.0.440"
+__vcc_compiler__ = "21.0.770"
 __opencl__ = "1.2"
 
 # The following are min and max Houdini version where FLAM3H™ can run.
