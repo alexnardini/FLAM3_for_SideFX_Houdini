@@ -439,9 +439,8 @@ end310:                                           ; preds = %cond305
 
 true336:                                          ; preds = %end261
   store i64 1, i64* %_bound_XS
-  %return338 = call double @"ch@FS"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @23, i64 0, i64 0))
-  %cast = fptosi double %return338 to i64
-  %24 = icmp ne i64 %cast, 0
+  %return338 = call i64 @"chi@IS"(i8* getelementptr inbounds ([4 x i8], [4 x i8]* @23, i64 0, i64 0))
+  %24 = icmp ne i64 %return338, 0
   br i1 %24, label %true339, label %end340
 
 end337:                                           ; preds = %end340, %end261
@@ -576,9 +575,6 @@ declare double* @"append@[F[F"(double*, double*) #2
 ; Function Attrs: nounwind readnone
 declare double* @"resize@[FI"(double*, i64) #1
 
-; Function Attrs: nounwind readnone
-declare double @"ch@FS"(i8*) #1
-
 ; Function Attrs: nounwind
 define void @TFFAxaos(i64 %XS, double* %IW, double* %XST) #2 {
 __llvm_entry:
@@ -621,7 +617,7 @@ attributes #3 = { nounwind readonly }
 !precision = !{!2}
 
 !0 = !{!"cvex"}
-!1 = !{!"21.0.596"}
+!1 = !{!"21.0.700"}
 !2 = !{!"64"}
 !3 = !{!""}
 

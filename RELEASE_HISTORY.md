@@ -34,6 +34,24 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v2.0.12 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.12) ###
+
+#### FLAM3H™ v2.0.12 indie -> H21.0 UP</br>FLAM3H™ v2.0.11 indie -> H20.5</br>FLAM3H™ v1.9.78 indie -> H19.0 to H20 ####
+
+- **New H21 UP ONLY**: xform viz SOLO follow mode now work also when the user change the iterator focus himself (_clicking on a different iterator tab's number with the mouse_) and not only with the SYS select iterator mini-menu.
+- **New H21 UP ONLY**: Recompiled cvex code using the latest H21.0.700 (_seem nothing has changed but for piece of mind_).
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v2.0.11 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.11) ###
 
 #### FLAM3H™ v2.0.11 indie -> H21.0 UP</br>FLAM3H™ v2.0.11 indie -> H20.5</br>FLAM3H™ v1.9.78 indie -> H19.0 to H20 ####

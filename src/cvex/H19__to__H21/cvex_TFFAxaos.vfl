@@ -15,7 +15,7 @@
  /
  /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       Jan 2022, Last revised April 2026
+ /  date:       Jan 2022, Last revised May 2026
  /  License:    GPL
  /  Copyright:  2021, © F stands for liFe ( made in Italy )
  /
@@ -165,7 +165,7 @@ _TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
     _bound_IW = create_cdf(IW);
     if(x_chk){
         _bound_XS = 1;
-        if(ch("gpu")) resize(XAOS_TO, len(XAOS_TO) + 3);
+        if(chi("gpu")) resize(XAOS_TO, len(XAOS_TO) + 3);
         _bound_XST = (float[])XAOS_TO;
     }
 }
