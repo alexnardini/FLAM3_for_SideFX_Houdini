@@ -4133,7 +4133,7 @@ __kernel void cl_flam3(
     // build starting sample (Biunit)
     mem = (float2)(rng_next_neg1pos1(&rng), rng_next_neg1pos1(&rng));
     
-    // if XAOS, pick a starting xform from distribution
+    // if XAOS, pick a starting iterator/xform from distribution
     if(XS) idx = sample_cdf_binary(local_IW, RES, rng_next_float(&rng));
 
     for (int i = 0; i < ITER; ++i){
@@ -4150,7 +4150,7 @@ __kernel void cl_flam3(
         
         // pre affine 
         affine_t pa = local_PRE_AFFINE[idx];
-        mem = affine(mem, local_PRE_AFFINE[idx]);
+        mem = affine(mem, pa);
 
         // PRE/POST data
         _ppvt = local_PPVT[idx];
