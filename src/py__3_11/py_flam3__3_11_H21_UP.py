@@ -19690,10 +19690,10 @@ class out_flame_utils
 * out_render_curves_compare(node: hou.SopNode, mode: bool = False) -> bool:
 * out_render_curves_compare_and_set_toggle(node: hou.SopNode) -> None:
 * out_render_curves_set_defaults_on_load(node: hou.SopNode):
-* out_auto_add_iter_num(iter_num: int, name: str, autoadd: int, flame: bool = True) -> str:
-* out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int) -> str:
+* out_auto_add_iter_num(iter_num: int, name: str, autoadd: int, flame: bool = True, gpu: bool = False) -> str:
+* out_auto_change_iter_num(iter_num: int, flame_name: str, autoadd: int, gpu: bool = False) -> str:
 * out_remove_iter_num(flame_name: str) -> str:
-* out_flame_default_name(node: hou.SopNode, autoadd: int) -> str:
+* out_flame_default_name(node: hou.SopNode, autoadd: int, gpu: bool = False) -> str:
 * out_util_round_float(val: float) -> str:
 * out_util_round_floats(val_list: TA_RoundFloats) -> TA_STR_ListUnflattened:
 * out_util_vars_duplicate(vars: list[str]) -> list[str]:
