@@ -19780,6 +19780,7 @@ class out_flame_utils
                 rp_clean: list = [_join(letter for letter in item.strip() if letter.isalnum() or letter in f3h_char.ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
                 if flame:
                     if autoadd:
+                        # We want to add the iterations number to the Flame name only when in CPU(Cvex) mode.
                         name_new: str = ' '.join(rp_clean) if gpu else ' '.join(rp_clean) + f3h_tabs.IN.DEFAULT_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
                     else: name_new: str = ' '.join(rp_clean)
                     
