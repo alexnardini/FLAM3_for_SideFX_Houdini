@@ -11025,7 +11025,7 @@ class flam3h_iterator_utils
 
         node: hou.SopNode = self.node
         kwargs: dict = self.kwargs
-        ui_change_type: str = kwargs.get('ui_change_type')
+        ui_change_type: str | None = kwargs.get('ui_change_type')
         if ui_change_type is not None:
             
             if ui_change_type == 'multiparm_tab_changed':
