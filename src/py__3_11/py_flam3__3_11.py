@@ -19718,7 +19718,7 @@ class out_flame_utils
             flame_name(str): The Flame name to check and correct
             autoadd(int): Auto add iter num toggle value (This toggle will eventually be removed from FLAM3H™ at some point)
             flame(bool): Default to: True(Flame)</br>Use False for Palette
-            gpu(bool): Default to False</br>Use True when in GPU mode.
+            gpu(bool): Default to False</br>Use True when in GPU mode.</br>We want to add the iterations number to the Flame name only when in CPU(Cvex) mode.
 
         Returns:
             (str): A new name with either the iterations number added to it if needed or corrected or both.
@@ -19780,10 +19780,7 @@ class out_flame_utils
                 rp_clean: list = [_join(letter for letter in item.strip() if letter.isalnum() or letter in f3h_char.ALLOWED_OUT_AUTO_ADD_ITER_NUM) for item in rp]
                 if flame:
                     if autoadd:
-                        if gpu:
-                            name_new: str = ' '.join(rp_clean)
-                        else:
-                            name_new: str = ' '.join(rp_clean) + f3h_tabs.IN.DEFAULT_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
+                        name_new: str = ' '.join(rp_clean) if gpu else ' '.join(rp_clean) + f3h_tabs.IN.DEFAULT_ITERATIONS_FLAME_NAME_DIV + str(iter_num)
                     else: name_new: str = ' '.join(rp_clean)
                     
                 else: name_new: str = ' '.join(rp_clean)
@@ -19818,7 +19815,7 @@ class out_flame_utils
             iter_num(int): the current iteration's number
             flame_name(str): The Flame name to check
             autoadd(int): Auto add iter num toggle value
-            gpu(bool): Default to False</br>Use True when in GPU mode.
+            gpu(bool): Default to False</br>Use True when in GPU mode.</br>We want to add the iterations number to the Flame name only when in CPU(Cvex) mode.
 
         Returns:
             (str): A new Flame name with the iter num updated/added if needed.
@@ -19905,6 +19902,7 @@ class out_flame_utils
         Args:
             node(hou.SopNode): Current FLAM3H™ houdini node
             autoadd(int): Autoadd ON/OFF value. If ON, it will auto add the iteration number to the filename, otherwise not.
+            gpu(bool): Default to False</br>Use True when in GPU mode.</br>We want to add the iterations number to the Flame name only when in CPU(Cvex) mode.
 
         Returns:
             (str): Return a default name composed of today's date and time.
