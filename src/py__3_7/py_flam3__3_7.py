@@ -15359,7 +15359,12 @@ class in_flame_utils
         if node.parm(IN_PVT_ISVALID_PRESET).eval():
             
             if node.parm(IN_PVT_CLIPBOARD_TOGGLE).eval():
-                menu_label: str = str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_CB)[-1].strip()
+                try:
+                    menu_label: str = str(node.parm(IN_PRESETS).menuLabels()[preset_id]).split(FLAM3H_ICON_STAR_FLAME_LOAD_CB)[-1].strip()
+                except IndexError:
+                    # this can happen when a Flame was loaded from the Clipboard already but an invalid file path is present
+                    # in hip files created with older version of FLAM3H™ causing the issue. For now this is enough to solve it.
+                    return ''
                 # We are using "str.lstrip()" because the preset name has been "str.strip()" already in the above line.
                 # and there are only the leading white spaces left from the menu enumaration index number string to remove.
                 if toggle_PREFS_ENUMERATE_MENU: return ':'.join(str(menu_label).split(':')[1:]).lstrip()
