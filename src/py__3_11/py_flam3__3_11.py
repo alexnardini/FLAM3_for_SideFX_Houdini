@@ -4134,13 +4134,14 @@ class flam3h_general_utils
         node: hou.SopNode = self.node
         prm_gpu_iter: hou.Parm = node.parm(f3h_tabs.PREFS.PRM_GPU_ITER)
         
-        gpu_iter_items: list[int] = [128, 256, 512, 1024, 2048, 4096]
+        gpu_iter_items: list[int] = [int(x) for x in prm_gpu_iter.menuItems()] # [128, 256, 512, 1024, 2048, 4096]
         current_index: int = gpu_iter_items.index(prm_gpu_iter.eval())
-        index: int = (current_index - 1) % len(gpu_iter_items)
+        
+        index: int = (current_index + 1) % len(gpu_iter_items) if self.kwargs['shiftclick'] else (current_index - 1) % len(gpu_iter_items)
         prm_gpu_iter.set(gpu_iter_items[index]) # type: ignore
         
         self.flash_message(node, f"GPU: {gpu_iter_items[index]}")
-        _MSG: str = f"GPU iterations set to: {gpu_iter_items[index]}"
+        _MSG: str = f"{node.name()} -> GPU iterations set to: {gpu_iter_items[index]}"
         self.set_status_msg(_MSG, 'MSG')
 
 

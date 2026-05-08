@@ -181,6 +181,7 @@ iterations (GPU):
     
     _Usage_:
     - ((LMB)) to cycle through the available GPU iterations presets.<br />Presets are: *`128`*, *`256`*, *`512`*, *`1024`*, *`2048`*, *`4096`*.<br />It will cycle backward.
+    - ((SHIFT)) + ((LMB)) It will cycle forward.
     
     _Additionally_,<br />
     _you can change the number of iterations being used by the GPU in the preferences tab under the GPU section_.
@@ -195,7 +196,7 @@ iterations (GPU):
         - reset FLAM3H™ to the Sierpiński triangle ([Smallicon:opdef:.?icon_SierpinskyDefSVG.svg])
         - set its iterator's count to *`0`*(_Zero_)
         
-        the GPU iterations will be reset to a value of: *`1024`*.
+        the GPU iterations will be reset to its default value of: *`1024`*.
 
     <br />
 
