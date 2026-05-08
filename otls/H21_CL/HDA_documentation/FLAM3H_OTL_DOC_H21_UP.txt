@@ -266,8 +266,8 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     _The menu labels possess a bookmark icon_:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] default preset of *`500k`*(_thousands_). This is what should be used while editing fractal Flames most of the time.
-    - [Largeicon:opdef:.?icon_StarSwapCyanSmallSVG.svg] presets from *`1`* to *`15`* millions.
-    - [Largeicon:opdef:.?icon_optionEnabledMidSVG.svg] presets from *`25`* to *`250`* millions.
+    - [Largeicon:opdef:.?icon_StarSwapCyanSmallSVG.svg] presets from *`1`* to *`25`* millions.
+    - [Largeicon:opdef:.?icon_optionEnabledMidSVG.svg] presets from *`50`* to *`250`* millions.
     - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] presets from *`500`* millions to *`1 Billion`*.
 
     <br />
