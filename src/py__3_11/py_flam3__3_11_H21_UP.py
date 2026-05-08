@@ -4146,7 +4146,7 @@ class flam3h_general_utils
         except KeyError:
             index: int = (current_index - 1) % len(gpu_iter_items)
             
-        prm_gpu_iter.set(gpu_iter_items[index]) # type: ignore
+        flam3h_prm_utils.set(node, prm_gpu_iter, gpu_iter_items[index])
         
         self.flash_message(node, f"GPU: {gpu_iter_items[index]}")
         _MSG: str = f"{node.name()} -> GPU iterations set to: {gpu_iter_items[index]}"
