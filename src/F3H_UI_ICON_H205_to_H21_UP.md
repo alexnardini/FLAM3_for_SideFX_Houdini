@@ -1,7 +1,7 @@
 ```python
 #   Title:      FLAM3H™. SideFX Houdini FLAM3: UI ICON MAP
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       September 2025, Last revised April 2026
+#   date:       September 2025, Last revised May 2026
 #   License:    GPL, CC BY-SA 4.0
 #   Copyright:  (c) 2021 F stands for liFe
 #
@@ -112,10 +112,10 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
 | **GLOBAL** | `icon_iter_gpu` | `from H20.5` | `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
-<p align="left"><img width="80" height="80" src="../icons/icon_optionOCLSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionToolOCLSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionOCLSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSVG.svg
 ```
 
 </br>
@@ -2489,10 +2489,10 @@ Token: 2048
 </br>
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_optionOCLSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionToolOCLSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionOCLSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSVG.svg
 ```
 
 </br>

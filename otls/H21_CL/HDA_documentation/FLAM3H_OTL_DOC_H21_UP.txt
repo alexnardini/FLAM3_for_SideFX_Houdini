@@ -174,7 +174,7 @@ _It is suggested to go to the Houdini: *`Edit`*->*`Preferences`*->*`3Dviewport`*
 
 iterations (GPU):
     #id: GLOBAL
-    [Icon:opdef:.?icon_optionOCLSVG.svg]
+    [Largeicon:opdef:.?icon_optionToolOCLSVG.svg]
 
     When this icon is visible mean FLAM3H™ is running in GPU mode.<br />
     It is intended to be an handy shortcut instead of always going inside the Preference's tab to change the GPU iterations number.
@@ -3490,7 +3490,7 @@ iterations (GPU):
 
 Reset iterations (GPU) [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: prefs
-    [Largeicon:opdef:.?icon_optionOCLSVG.svg]
+    [Largeicon:opdef:.?icon_optionToolOCLSVG.svg]
     
     ((LMB)) to reset the GPU iterations to its default: *`1024`*<br />
 
