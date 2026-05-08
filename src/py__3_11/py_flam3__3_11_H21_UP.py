@@ -13028,11 +13028,6 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         PC_name: str = f"Machine name: {hou.machineName()}"
         Platform: str = f"Platform: {hou.applicationPlatformInfo()}"
         
-        # GPU section
-        gpu_section_header: str = 'GPU DEVICES'
-        gpu_devices_gpumem: list[str] = hou.hscript('gpumem -l')
-        gpu_devices: str = '\n'.join([x[:-1] for x in gpu_devices_gpumem if x])
-        
         build: tuple[str, ...] = (Implementation_build, nnl,
                                 code_references, nnl,
                                 special_thanks, nnl,
@@ -13043,11 +13038,20 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
                                 Python_version, nl,
                                 User, nl,
                                 PC_name, nl,
-                                Platform,
-                                nnl,
-                                gpu_section_header, nl,
-                                gpu_devices
+                                Platform
                                 )
+        
+        # GPU section is only available in Houdini 21.0 and above since it relies on the "gpumem" hscript command that was added in this version.
+        if flam3h_general_utils.houdini_version(2) >= 210:
+            
+            gpu_section_header: str = 'GPU DEVICES'
+            gpu_devices_gpumem: list[str] = hou.hscript('gpumem -l')
+            gpu_devices: str = '\n'.join([x[:-1] for x in gpu_devices_gpumem if x])
+            
+            build += (  nnl, 
+                        gpu_section_header, nl, 
+                        gpu_devices
+                        )
         
         self.node.parm(f3h_tabs.ABOUT.MSG_PRM_F3H_ABOUT).set(''.join(build))
 
