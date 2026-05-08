@@ -181,7 +181,6 @@ iterations (GPU):
     
     _Usage_:
     - ((LMB)) to cycle through the available GPU iterations presets.<br />Presets are: *`128`*, *`256`*, *`512`*, *`1024`*, *`2048`*, *`4096`*.<br />It will cycle backward.
-    - ((SHIFT)) + ((LMB)) It will cycle forward.
     
     _Additionally_,<br />
     _you can change the number of iterations being used by the GPU in the preferences tab under the GPU section_.
