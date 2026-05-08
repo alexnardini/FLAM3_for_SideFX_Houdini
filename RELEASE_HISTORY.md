@@ -40,7 +40,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 #### FLAM3H™ v2.0.14 indie -> H21.0 UP</br>FLAM3H™ v2.0.13 indie -> H20.5</br>FLAM3H™ v1.9.79 indie -> H19.0 to H20 ####
 
-- **New**: Added ability to cycle through the available GPU iterations presets from the GLOBAL tab OpenCL's icon. It will cycle backward.
+- **New**: Added ability to cycle through the available GPU iterations presets from the GLOBAL tab OpenCL's icon. You will be able to cycle backward and forward.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
