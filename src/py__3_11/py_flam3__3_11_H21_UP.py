@@ -13018,8 +13018,9 @@ C-91, Gabor Timar, Golubaja, Pillemaster,
 Plangkye, Tatasz, Triptychaos, TyrantWave,
 Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         
+        host_header: str = 'HOST'
         h_version: str = '.'.join(str(x) for x in hou.applicationVersion())
-        Houdini_version: str = f"HOST\nSideFX Houdini {h_version}"
+        Houdini_version: str = f"SideFX Houdini {h_version}"
         Python_version: str = f"Python: {python_version()}"
         license_type: str = str(hou.licenseCategory()).split(".")[-1]
         Houdini_license: str = f"License: {license_type}"
@@ -13027,16 +13028,25 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         PC_name: str = f"Machine name: {hou.machineName()}"
         Platform: str = f"Platform: {hou.applicationPlatformInfo()}"
         
+        # GPU section
+        gpu_section_header: str = 'GPU DEVICES'
+        gpu_devices_gpumem: list[str] = hou.hscript('gpumem -l')
+        gpu_devices: str = '\n'.join([x[:-1] for x in gpu_devices_gpumem if x])
+        
         build: tuple[str, ...] = (Implementation_build, nnl,
                                 code_references, nnl,
                                 special_thanks, nnl,
                                 example_flames, nnl,
+                                host_header, nl,
                                 Houdini_version, nl,
                                 Houdini_license, nl,
                                 Python_version, nl,
                                 User, nl,
                                 PC_name, nl,
-                                Platform
+                                Platform,
+                                nnl,
+                                gpu_section_header, nl,
+                                gpu_devices
                                 )
         
         self.node.parm(f3h_tabs.ABOUT.MSG_PRM_F3H_ABOUT).set(''.join(build))

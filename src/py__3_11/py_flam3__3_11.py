@@ -12729,8 +12729,9 @@ C-91, Gabor Timar, Golubaja, Pillemaster,
 Plangkye, Tatasz, Triptychaos, TyrantWave,
 Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         
+        host_header: str = 'HOST'
         h_version: str = '.'.join(str(x) for x in hou.applicationVersion())
-        Houdini_version: str = f"HOST\nSideFX Houdini {h_version}"
+        Houdini_version: str = f"SideFX Houdini {h_version}"
         Python_version: str = f"Python: {python_version()}"
         license_type: str = str(hou.licenseCategory()).split(".")[-1]
         Houdini_license: str = f"License: {license_type}"
@@ -12742,12 +12743,13 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
                                 code_references, nnl,
                                 special_thanks, nnl,
                                 example_flames, nnl,
+                                host_header, nl,
                                 Houdini_version, nl,
                                 Houdini_license, nl,
                                 Python_version, nl,
                                 User, nl,
                                 PC_name, nl,
-                                Platform
+                                Platform,
                                 )
         
         self.node.parm(f3h_tabs.ABOUT.MSG_PRM_F3H_ABOUT).set(''.join(build))
