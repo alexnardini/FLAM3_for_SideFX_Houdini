@@ -3335,6 +3335,7 @@ class flam3h_general_utils
 
 @METHODS
 * reset_parm(self, val: tuple[int | float, ...]) -> None:
+* gpu_iterations_cycle(self) -> None:
 * menus_refresh_enum_prefs(self) -> None:
 * get_node_path(self, node_name: str) -> str | None:
 * util_set_clipping_viewers(self) -> None:
@@ -4122,6 +4123,29 @@ class flam3h_general_utils
         prm.lock(False) # Always unlock just in case
         prm.deleteAllKeyframes()
         prm.set(val)
+        
+        
+    def gpu_iterations_cycle(self) -> None:
+        """Cycle and set GPU iterations.</br></br>
+        It will cycle through a list of GPU iterations values</br>and set the selected one into the PREFS tab's GPU iterations parameter.</br>
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):                            
+        """ 
+        node: hou.SopNode = self.node
+        prm_gpu_iter: hou.Parm = node.parm(f3h_tabs.PREFS.PRM_GPU_ITER)
+        
+        gpu_iter_items: list[int] = [128, 256, 512, 1024, 2048, 4096]
+        current_index: int = gpu_iter_items.index(prm_gpu_iter.eval())
+        index: int = (current_index - 1) % len(gpu_iter_items)
+        prm_gpu_iter.set(gpu_iter_items[index]) # type: ignore
+        
+        self.flash_message(node, f"GPU: {gpu_iter_items[index]}")
+        _MSG: str = f"GPU iterations set to: {gpu_iter_items[index]}"
+        self.set_status_msg(_MSG, 'MSG')
 
 
     def menus_refresh_enum_prefs(self) -> None:
@@ -23637,6 +23661,7 @@ class pyside_master:
                     self._load_image_pixmap()
                     # If in GPU mode update the splash screen short message
                     # Will need to come back to this and re work everything a little better, good for now.
+                    assert self.f3h_node is not None # just to be sure for the type checker, we already check this on the line above
                     gpu: int = self.f3h_node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
                     if gpu and self.links is False: self.info = "compiling GPU nodes\n"
                 
