@@ -80,7 +80,7 @@ to: **py_flam3__3_11**
 import toolutils
 
 # Set some HDA infos
-__version__ = "2.0.12"
+__version__ = "2.0.14"
 __status__  = "Production"
 __h_versions__: tuple = (210,)
 __range_type__: bool = False # True for closed range. False for open range
@@ -152,7 +152,7 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 import toolutils
 
 # Set some HDA infos
-__version__ = "2.0.12"
+__version__ = "2.0.13"
 __status__  = "Production"
 __h_versions__: tuple = (205,)
 __range_type__: bool = True # True for closed range. False for open range
@@ -458,6 +458,19 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_deleted()
 
 _Parameters to define the quality of the fractal Flame algorithm solution._
 
+</br>
+
+| Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|---:|
+| **GLOBAL** | `icon_iter_gpu` | `button` | `from H20.5` | `v2.x` |
+
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
+```python
+hou.phm().flam3.flam3h_general_utils(kwargs).gpu_iterations_cycle()
+```
+
+</br>
+</br>
 </br>
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
