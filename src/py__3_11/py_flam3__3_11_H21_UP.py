@@ -13063,13 +13063,18 @@ Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
         if flam3h_general_utils.houdini_version(2) >= 210:
             
             gpu_section_header: str = 'GPU DEVICES'
-            gpu_devices_gpumem: list[str] = hou.hscript('gpumem -l')
-            gpu_devices: str = '\n'.join([x[:-1] for x in gpu_devices_gpumem if x])
-            
-            build += (  nnl, 
-                        gpu_section_header, nl, 
-                        gpu_devices
-                        )
+            try:
+                gpu_devices_gpumem: list[str] = hou.hscript('gpumem -l')
+            except:
+                print(f"{self.node.name()}: Error while trying to get GPU devices info with the \"gpumem\" hscript command.\nThis command should be available in Houdini 21.0 and above.")
+                pass 
+            else:
+                gpu_devices: str = '\n'.join([x[:-1] for x in gpu_devices_gpumem if x])
+                
+                build += (  nnl, 
+                            gpu_section_header, nl, 
+                            gpu_devices
+                            )
         
         self.node.parm(f3h_tabs.ABOUT.MSG_PRM_F3H_ABOUT).set(''.join(build))
 
