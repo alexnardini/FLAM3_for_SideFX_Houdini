@@ -21464,8 +21464,7 @@ class out_flame_utils
         node: hou.SopNode = self.node
         iter_num: int = node.parm(f3h_tabs.GLB.PRM_ITERATIONS).eval()
         flame_name: str = str(node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).eval()).strip()
-        gpu: int = node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
-        if gpu: autoadd: int = 0
+        if self.gpu: autoadd: int = 0
         else: autoadd: int = node.parm(f3h_tabs.OUT.PRM_AUTO_ADD_ITER_NUM).eval()
         
         return iter_num, flame_name, autoadd
@@ -21586,7 +21585,7 @@ class out_flame_utils
         node: hou.SopNode = self.node
         
         # Make distinction between GPU and CPU.
-        if node.parm(f3h_tabs.PREFS.PRM_GPU).eval(): _F3H_APP_NAME: str = xml_keys.XML_APP_NAME_FLAM3H_CL
+        if self.gpu: _F3H_APP_NAME: str = xml_keys.XML_APP_NAME_FLAM3H_CL
         else: _F3H_APP_NAME: str = xml_keys.XML_APP_NAME_FLAM3H
         
         # If "use Fractorium parametric prm names" OUT option is ON, lets append the EMBER name to the app name
