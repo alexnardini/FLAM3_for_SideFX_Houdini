@@ -18937,7 +18937,7 @@ class in_flame_utils
             _MSG: str = f"{node.name()}: LOAD Flame preset: \"{out_flame_utils.out_remove_iter_num(preset_name)}\" -> Completed"
             
         flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-        flam3h_general_utils.flash_message(node, f"{preset_name}")
+        flam3h_general_utils.flash_message(node, f"{out_flame_utils.out_remove_iter_num(preset_name)}" if self.gpu else f"{preset_name}")
 
 
     def in_to_flam3h_init_data_ALT(self) -> TA_F3H_Init:
