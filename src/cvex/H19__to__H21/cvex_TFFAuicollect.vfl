@@ -15,7 +15,7 @@
  /
  /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       October 2020, Last revised October 2025
+ /  date:       October 2020, Last revised May 2026
  /  License:    GPL
  /  Copyright:  2021, © F stands for liFe ( made in Italy )
  /
@@ -231,7 +231,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
 
 
     // SYS
-    int FF, RIP, MB, F3C, ITER, XS, XM;
+    int FF, RIP, MB, F3C, ITER, XS, XM, GPU;
     ITER = detail(1, "ITER");
     FF = detail(1, "FF");
     RIP = detail(1, "RIP");
@@ -239,6 +239,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     MB = detail(1, "MB");
     XS = detail(1, "XS");
     XM = chi("xm");
+    GPU = chi("gpu");
 
     // GEM TAG
     gemtag GEMTAG;
@@ -267,7 +268,7 @@ _TFFAuicollect(string _bound_VARTYPE[]){
     // SYS options
     if(RIP) append(T, "RIP");
     if(F3C) append(T, "F3C");
-    if(MB) append(T, "MB");
+    if(MB && !GPU) append(T, "MB");
 
     // BUILD iterators
     for(int i=0; i<RES; ++i){
