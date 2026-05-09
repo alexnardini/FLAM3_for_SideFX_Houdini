@@ -720,6 +720,10 @@ frame viewport:
     [Largeicon:opdef:.?icon_FrameBlueSVG.svg]
     
     Re-frame current viewport based on a centered bounding box.
+
+    _Usage_:
+    - ((LMB)) Reframe keeping the current viewports type.
+    - ((SHIFT)) + ((LMB)) Reframe while setting the viewports to *Front* type.<br />(_This is handy for proper fractal Flame editing as it matches third-party standalone applications view style_).
     
     This is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.
 

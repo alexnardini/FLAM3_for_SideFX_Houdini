@@ -4608,6 +4608,7 @@ class flam3h_general_utils
 
     def util_viewport_bbox_frame(self) -> None:
         """Re-frame the current viewport based on camera sensor node's bounding box.</br>
+        Alternatively, SHIFT+CLICK to reframe the viewport while setting it to front type.</br>
         
         Args:
             (self):
@@ -4627,6 +4628,10 @@ class flam3h_general_utils
             self.util_set_front_viewer()
         
         else:
+            
+            try: _SHIFT_CLICK: bool = self.kwargs['shiftclick']
+            except KeyError: _SHIFT_CLICK: bool = False
+            
             viewports: list[hou.SceneViewer] = self.util_getSceneViewers()
             num_viewers: int = len(viewports)
             if num_viewers:
@@ -4634,6 +4639,13 @@ class flam3h_general_utils
                 for v in viewports:
                     
                     view: hou.GeometryViewport = v.curViewport()
+                    
+                    try:
+                        if _SHIFT_CLICK and view.type() != hou.geometryViewportType.Front: # type: ignore
+                            view.changeType(hou.geometryViewportType.Front) # type: ignore
+                    except KeyError:
+                        pass
+                    
                     if self.bbox_reframe_path is not None:
                         node_bbox: hou.SopNode = hou.node(self.bbox_reframe_path)
                         view.frameBoundingBox(node_bbox.geometry().boundingBox())
@@ -4644,12 +4656,18 @@ class flam3h_general_utils
                         self.set_status_msg(_MSG, 'WARN')
                         
                 if num_viewers == 1:
-                    _MSG: str = f"viewport REFRAMED"
+                    try:
+                        _MSG: str = f"viewport REFRAMED (front)" if _SHIFT_CLICK else f"viewport REFRAMED"
+                    except KeyError:
+                        _MSG: str = f"viewport REFRAMED"
                     self.flash_message(node, _MSG)
                     self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                     
                 else:
-                    _MSG: str = f"viewports REFRAMED"
+                    try:
+                        _MSG: str = f"viewports REFRAMED (front)" if _SHIFT_CLICK else f"viewports REFRAMED"
+                    except KeyError:
+                        _MSG: str = f"viewports REFRAMED"
                     self.flash_message(node, _MSG)
                     self.set_status_msg(f"{node.name()}: {_MSG}", 'MSG')
                     
