@@ -477,18 +477,36 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     #id: SYS
     *`On`* by default.
 
+    Flam3 compatibility.
+
+    The behavior of the:
+    
+    - *`Cos`*
+    - *`Cosh`*
+    - *`Cot`*
+    - *`Coth`*
+    - *`Csc`*
+    - *`Csch`*
+    - *`Sec`*
+    - *`Sech`*
+    - *`Sin`*
+    - *`Sinh`*
+    - *`Tan`*
+    - *`Tanh`*
+    - *`Cross`*
+    - *`Curve`*
+
+    variations are different in Flam3/Apophysis versus Chaotica.
+
     <br />
 
     - [Largeicon:opdef:.?icon_optionF3CEnabledSVG.svg] *Checked*: use the Flam3/Apophysis behavior (_Default_).
     - [Largeicon:opdef:.?icon_optionF3CDisabledSVG.svg] *Unchecked*: use the Chaotica behavior.
     
     <br />
-
-    Flam3 compatibility.
-
-    The behavior of the *`Cos`*, *`Cosh`*, *`Cot`*, *`Coth`*, *`Csc`*, *`Csch`*, *`Sec`*, *`Sech`*, *`Sin`*, *`Sinh`*, *`Tan`* and *`Tanh`* variations are different in Flam3/Apophysis versus Chaotica.
     
-    These variations are also referred to as: *trigonometric variations*.<br />
+    Most of these variations are also referred to as: *trigonometric variations*.<br />
+    ( _*`Cos`*, *`Cosh`*, *`Cot`*, *`Coth`*, *`Csc`*, *`Csch`*, *`Sec`*, *`Sech`*, *`Sin`*, *`Sinh`*, *`Tan`*, *`Tanh`*_ )
 
     In a fractal Flame,<br />
     each point's position is updated by applying a variation (_a mathemathical transform_). Trigonometric variations are simply those based on the standard [trigonometric functions|Wp:Trigonometric_functions] (_and their_ [hyperbolic|Wp:Hyperbolic_functions] _counterparts_).
@@ -513,7 +531,18 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     NOTE:
         #display: raised
         
-        The behavior of the *`Cross`* and *`Curve`* variations are also different in Flam3/Apophysis versus Chaotica.
+        The behavior of the:
+
+        - *`Bipolar`*
+        - *`Edisc`* 
+        - *`Escher`*
+        - *`Fan2`*
+        - *`Glynnia`*
+        - *`Julia`*
+        - *`JuliaN`*
+        - *`JuliaScope`*
+        
+        variations are also different in Flam3/Apophysis versus Chaotica and FLAM3H(tm) do not implement these Chaotica variants just yet (_Fractorium does_).
 
     <br />
 
