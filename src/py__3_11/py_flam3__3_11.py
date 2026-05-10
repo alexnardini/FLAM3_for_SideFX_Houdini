@@ -12750,7 +12750,7 @@ Tatasz, Triptychaos, TyrantWave, Zy0rg, b33rheart."""
                                 Platform
                                 )
         
-        self.node.parm(f3h_tabs.ABOUT.MSG_PRM_F3H_ABOUT).set(''.join(build))
+        flam3h_prm_utils.set(self.node, f3h_tabs.ABOUT.MSG_PRM_F3H_ABOUT, ''.join(build))
 
 
     def flam3h_about_plugins_msg(self) -> None:
@@ -12770,7 +12770,8 @@ Tatasz, Triptychaos, TyrantWave, Zy0rg, b33rheart."""
         _len: Callable[[list[Any]], int] = len
         vars_txt: str = ''.join( [_join(grp) + "." if idx == (_len(vars_sorted_grp)-1) else _join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
         vars_txt_MSG: str = f"They are also available as PRE and POST.\n\nNumber of plugins/variations: {len(vars_sorted)}\n\n{vars_txt}"
-        self.node.parm(f3h_tabs.ABOUT.MSG_PRM_F3H_PLUGINS).set(vars_txt_MSG)
+        
+        flam3h_prm_utils.set(self.node, f3h_tabs.ABOUT.MSG_PRM_F3H_PLUGINS, vars_txt_MSG)
         
         
     def flam3h_about_web_msg(self) -> None:
