@@ -45,6 +45,7 @@ _This is a re-release of the same version with some minor improvements that did 
 - **New**: The variations parametric parameters inside their respective VARS folder inside each iterator and FF are now alphabetically ordered instead of being ordered using their callable index value. This make more sense to the end user.
 - **Fix**: When in CPU(Cvex) mode with Motion Blur ON and the viewport TAG ON, switching to GPU mode should have removed the **MB** keyword from the viewport TAG. It is now fixed. 
 - **Fix**: When Motion Blur is active and we switch to GPU mode, FLAM3H kept generating a fractional amount of the total point count. it is now fixed.
+- **Updated OTLs repository structure**
 - **Updated HDA documentation.**
 
 
