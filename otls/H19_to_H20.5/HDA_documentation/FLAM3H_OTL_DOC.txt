@@ -652,7 +652,7 @@ loaddef:
 :box:
     #display: rounded white
     
-    == SYS: Frame current viewport == (SYSDEFAULT)
+    == SYS: Frame current viewport == (SYSREFRAME)
     
 frame viewport:
     #id: SYS
