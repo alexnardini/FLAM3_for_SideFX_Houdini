@@ -8032,7 +8032,7 @@ class flam3h_iterator_utils
         * 3: iter_sel_o</br><b>list[float]</b></br>iterators shader's opacity</br></br>
         * 4: iter_xfviz_solo_idx</br><b>int</b></br>xform handle SOLO mode iterator mp idx</br></br>
         * 5: iter_xfviz_out_sensor</br><b>int</b></br>camera sensor toggle parameter</br></br>
-        * 6: mem_id<b>int</b></br>The marked iterator number, Zero for no iterators being marked</br>
+        * 6: mem_id</br><b>int</b></br>The marked iterator number, Zero for no iterators being marked</br>
 
         Args:
             (self):
@@ -12735,7 +12735,7 @@ Tatasz, Triptychaos, TyrantWave, Zy0rg, b33rheart."""
         Houdini_version: str = f"SideFX Houdini {h_version}, {license_type}"
         Python_version: str = f"Python: {python_version()}"
         User: str = f"User: {hou.userName()}"
-        PC_name: str = f"Machine name: {hou.machineName()}"
+        PC_name: str = f"Name: {hou.machineName()}"
         Platform: str = f"Platform: {hou.applicationPlatformInfo()}"
         
         build: tuple[str, ...] = (Implementation_build, nnl,
