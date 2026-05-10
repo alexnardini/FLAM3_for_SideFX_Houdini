@@ -41,7 +41,7 @@ _This is a re-release of the same version with some minor improvements that did 
 #### FLAM3H™ v2.0.17 indie -> H21.0 UP</br>FLAM3H™ v2.0.15 indie -> H20.5</br>FLAM3H™ v1.9.79 indie -> H19.0 to H20 ####
 
 - **New H21 UP ONLY**: The SYS tab reframe button/icon now offer the ability to reframe while setting the viewports to Front type. 
-- **New**: The variations parameteric parameters inside their repsective VARS folder inside each iterator and FF are now alphabetically ordered instead of being ordered using their callable index value. This make more sense to the end user.
+- **New**: The variations parametric parameters inside their respective VARS folder inside each iterator and FF are now alphabetically ordered instead of being ordered using their callable index value. This make more sense to the end user.
 - **Fix**: When in CPU(Cvex) mode with Motion Blur ON and the viewport TAG ON, switching to GPU mode should have removed the **MB** keyword from the viewport TAG. It is now fixed. 
 - **Updated HDA documentation.**
 
