@@ -6239,7 +6239,7 @@ class flam3h_iterator_utils
 * iterator_vactive_and_update(self) -> None:
     """    
     
-    __slots__ = ("_kwargs", "_node")
+    __slots__ = ("_kwargs", "_node", "_gpu")
     
     def __init__(self, kwargs: dict) -> None:
         """
@@ -6251,6 +6251,7 @@ class flam3h_iterator_utils
         """ 
         self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
+        self._gpu: hou.Parm | None = self._node.parm(f3h_tabs.PREFS.PRM_GPU)
         
         
     @staticmethod
@@ -7325,6 +7326,13 @@ class flam3h_iterator_utils
     @property
     def node(self) -> hou.SopNode:
         return self._node
+    
+    @property
+    def gpu(self) -> bool:
+        if self._gpu is not None:
+            return bool(self._gpu.eval())
+        else:
+            return False
     
     
     def iterator_affine_scale(self) -> None:
@@ -10147,7 +10155,7 @@ class flam3h_iterator_utils
             # Print to Houdini's status bar
             _MSG: str = f"{node.name()}: LOAD Flame preset: \"Sierpiński triangle\" -> Completed"
             flam3h_general_utils.set_status_msg(_MSG, 'IMP')
-            flam3h_general_utils.flash_message(node, f"Sierpiński triangle::10")
+            flam3h_general_utils.flash_message(node, f"Sierpiński triangle" if self.gpu else f"Sierpiński triangle::10")
             
     
     def flam3h_reset_iterator(self) -> None:
