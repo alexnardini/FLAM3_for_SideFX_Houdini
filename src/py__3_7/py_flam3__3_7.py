@@ -11845,32 +11845,30 @@ Fractorium :: ({__license__})"""
 Praveen Brijwal"""
 
         example_flames: str = """EXAMPLE FLAMES
-C-91, Gabor Timar, Golubaja, Pillemaster,
-Plangkye, Tatasz, Triptychaos, TyrantWave,
-Zy0rg, Seph, Lucy, b33rheart, Neonrauschen."""
+C-91, GaborTimar, Golubaja, Lucy,
+Neonrauschen, Pillemaster, Plangkye, Seph,
+Tatasz, Triptychaos, TyrantWave, Zy0rg, b33rheart."""
         
         host_header: str = 'HOST'
         h_version: str = '.'.join(str(x) for x in hou.applicationVersion())
-        Houdini_version: str = f"SideFX Houdini {h_version}"
-        Python_version: str = f"Python: {python_version()}"
         license_type: str = str(hou.licenseCategory()).split(".")[-1]
-        Houdini_license: str = f"License: {license_type}"
+        Houdini_version: str = f"SideFX Houdini {h_version}, {license_type}"
+        Python_version: str = f"Python: {python_version()}"
         User: str = f"User: {hou.userName()}"
         PC_name: str = f"Machine name: {hou.machineName()}"
         Platform: str = f"Platform: {hou.applicationPlatformInfo()}"
         
-        build: tuple = (Implementation_build, nnl,
-                        code_references, nnl,
-                        special_thanks, nnl,
-                        example_flames, nnl,
-                        host_header, nl,
-                        Houdini_version, nl,
-                        Houdini_license, nl,
-                        Python_version, nl,
-                        User, nl,
-                        PC_name, nl,
-                        Platform
-                        )
+        build: tuple[str, ...] = (Implementation_build, nnl,
+                                code_references, nnl,
+                                special_thanks, nnl,
+                                example_flames, nnl,
+                                host_header, nl,
+                                Houdini_version, nl,
+                                Python_version, nl,
+                                User, nl,
+                                PC_name, nl,
+                                Platform
+                                )
         
         self.node.parm(MSG_FLAM3H_ABOUT).set(''.join(build))
 
