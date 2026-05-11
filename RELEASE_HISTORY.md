@@ -35,6 +35,23 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v2.0.18 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.18) ###
+
+#### FLAM3H™ v2.0.18 indie -> H21.0 UP</br>FLAM3H™ v2.0.16 indie -> H20.5</br>FLAM3H™ v1.9.79 indie -> H19.0 to H20 ####
+
+- **Fix**: On Creation there were some issues in recognizing the correct starting platform in some of the info messages. It is now fixed.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v2.0.17 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.17) ###
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.

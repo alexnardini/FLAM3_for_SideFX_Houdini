@@ -730,7 +730,7 @@ class f3h_pvt:
                                 f3h_tabs.IN.PVT_PRM_CLIPBOARD_TOGGLE, 
                                 f3h_tabs.OUT.PVT_PRM_ISVALID_FILE, 
                                 f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 
-                                f3h_tabs.PREFS.PRM_CVEX_PRECISION, 
+                                f3h_tabs.PREFS.PRM_CVEX_PRECISION, # This is temporary until I figure out a better way to handle the precision settings for both Cvex and OpenCL, which currently share the same parameter.
                                 f3h_tabs.PREFS.PVT_PRM_F3C, 
                                 f3h_tabs.PREFS.PVT_PRM_XAOS_AUTO_SPACE,
                                 f3h_tabs.PREFS.PVT_PRM_INT_0,

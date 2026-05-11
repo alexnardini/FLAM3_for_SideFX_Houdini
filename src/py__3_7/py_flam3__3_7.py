@@ -460,7 +460,7 @@ PVT_ALL: tuple = (  CP_PVT_ISVALID_FILE,
                     IN_PVT_CLIPBOARD_TOGGLE, 
                     OUT_PVT_ISVALID_FILE, 
                     OUT_RENDER_PROPERTIES_SENSOR, 
-                    PREFS_CVEX_PRECISION, 
+                    PREFS_CVEX_PRECISION, # This is temporary until I figure out a better way to handle the precision settings.
                     PREFS_PVT_F3C, 
                     PREFS_PVT_XAOS_AUTO_SPACE,
                     PREFS_PVT_INT_0,
