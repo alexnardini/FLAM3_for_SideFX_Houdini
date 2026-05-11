@@ -2266,7 +2266,7 @@ class flam3h_scripts
         """Set the hou.session variable to hold the cvex precision being used on first instance node creation time.</br>
 
         Args:
-            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter.
+            cvex_precision(int): 32 or 64 (bit) - This is the cvex precision preference's option parameter.
             
         Returns:
             (None):
@@ -2288,7 +2288,7 @@ class flam3h_scripts
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
-            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            cvex_precision(int): 32 or 64 (bit) - This is the cvex precision preference's option parameter
             _MSG_INFO(str): The message to print in the status bar
             _MSG_DONE(str): The message to print in the hou window 
             sys_updated_mode(hou.EnumValue): houdini updated mode before dropping a FLAM3H™ node for the first time ( stored from the preFirstCreate script )
@@ -2301,8 +2301,11 @@ class flam3h_scripts
             
             # Will need to come back to this and re work everything a little better, good for now.
             gpu: int = node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
-            if gpu: platform: str = 'OpenCL'
-            else: platform: str = 'CVEX 32bit'
+            platform: str = '__n/a__'
+            if gpu: platform = 'OpenCL'
+            else:
+                if cvex_precision == 32: platform = 'CVEX 32-bit'
+                elif cvex_precision == 64: platform = 'CVEX 64-bit'
             
             # If there are not any Sop viewer lets cook it since this is the first node instance of FLAM3H™
             viewers: list[hou.SceneViewer] = flam3h_general_utils.util_getSceneViewers()
@@ -2336,7 +2339,7 @@ class flam3h_scripts
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
-            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            cvex_precision(int): 32 or 64 (bit) - This is the cvex precision preference's option parameter
             _MSG_INFO(str): The message to print in the status bar
             _MSG_DONE(str): The message to print in the hou window 
             sys_updated_mode(hou.EnumValue): houdini updated mode before dropping a FLAM3H™ node for the first time ( stored from the preFirstCreate script )
@@ -2353,8 +2356,15 @@ class flam3h_scripts
         # Close pyside panel if open from first time (splash screen)
         pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False)
         
+        gpu: int = node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
+        platform: str = '__n/a__'
+        if gpu: platform = 'OpenCL'
+        else:
+            if cvex_precision == 32: platform = 'CVEX 32-bit'
+            elif cvex_precision == 64: platform = 'CVEX 64-bit'
+            
         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
-        print(f"\nFLAM3H CVEX node compile: DONE\n")
+        print(f"\nFLAM3H {platform} node compile: DONE\n")
         
         
     @staticmethod
@@ -2362,9 +2372,9 @@ class flam3h_scripts
         """Set the hou.session variable to hold the cvex precision being used during the Houdini session.</br>
 
         Args:
-            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter
-            first_instance_32bit(bool): 32bit or 64bit - Was this FLAM3H™ node instance created with this cvex precision ?
-            first_instance_64bit(bool): 32bit or 64bit - Was this FLAM3H™ node instance created with this cvex precision ?
+            cvex_precision(int): 32 or 64 (bit) - This is the cvex precision preference's option parameter
+            first_instance_32bit(bool): True or False - Was this FLAM3H™ node instance created with this cvex precision ?
+            first_instance_64bit(bool): True or False - Was this FLAM3H™ node instance created with this cvex precision ?
             
         Returns:
             (None):
@@ -2567,9 +2577,9 @@ class flam3h_scripts
                 sys_updated_mode: hou.EnumValue = hou.session.F3H_SYS_UPDATE_MODE # type: ignore
                 
                 if gpu: platform: str = 'OpenCL'
-                else: platform: str = 'CVEX'
+                else: platform: str = 'CVEX 32-bit'
                 
-                _MSG_INFO = f"FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ {platform} nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
+                _MSG_INFO = f"FLAM3H™ v{__version__} first instance -> Compiling FLAM3H™ {platform} nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H™ {platform} nodes compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
                 
                 pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0, splash_screen=True, f3h_node=self.node)
@@ -2586,7 +2596,7 @@ class flam3h_scripts
                 if gpu: platform: str = 'OpenCL'
                 else: platform: str = 'CVEX 64-bit'
                 
-                _MSG_INFO = f"FLAM3H™ v{__version__} 64-bit  first instance -> Compiling FLAM3H™ {platform} nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
+                _MSG_INFO = f"FLAM3H™ v{__version__} first instance -> Compiling FLAM3H™ {platform} nodes. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
                 _MSG_DONE = f"FLAM3H™ {platform} nodes compile: DONE\nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
                 
                 pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, auto_close_ms=0, splash_screen=True, f3h_node=self.node)
@@ -2641,16 +2651,15 @@ class flam3h_scripts
             # Will need to come back to this and re work everything a little better, good for now.
             gpu: bool = self.gpu
             
-            if cvex_precision == 32:
-                if gpu: platform: str = 'OpenCL'
-                else: platform: str = 'CVEX'
-                _MSG_INFO = f" FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ {platform} node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H™ {platform} node compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
+            _MSG_INFO: str = '__no info__'
+            _MSG_DONE: str = '__no info when done__'
+            platform: str = '__n/a__'
+            if gpu: platform = 'OpenCL'
             else:
-                if gpu: platform: str = 'OpenCL'
-                else: platform: str = 'CVEX 64-bit'
-                _MSG_INFO = f" FLAM3H™ v{__version__} 64-bit  first instance -> Compiling FLAM3H™ {platform} node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H™ {platform} node compile: DONE\nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
+                if cvex_precision == 32: platform = 'CVEX 32-bit'
+                elif cvex_precision == 64: platform = 'CVEX 64-bit'
+            _MSG_INFO = f" FLAM3H™ v{__version__} first instance -> Compiling FLAM3H™ {platform} node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
+            _MSG_DONE = f"FLAM3H™ {platform} node compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
             
             density: int = node.parm(f3h_tabs.GLB.PRM_DENSITY).eval()
             if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
@@ -2658,7 +2667,7 @@ class flam3h_scripts
                 node.parm(f3h_tabs.GLB.PRM_DENSITY).set(1)
                 node.cook(force=True)
                 if hou.isUIAvailable():
-                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = "FLAM3H™ CVEX 64bit compile", details = None, details_label = None, details_expanded = False) == 0: # type: ignore
+                    if hou.ui.displayMessage(_MSG_DONE, buttons=("Got it, thank you",), severity = hou.severityType.Message, default_choice = 0, close_choice = -1, help = None, title = f"FLAM3H™ {platform} compile", details = None, details_label = None, details_expanded = False) == 0: # type: ignore
                         # node.cook(force=True)
                         self.flam3h_set_first_instance_global_var(cvex_precision, first_instance_32bit, first_instance_64bit)
 

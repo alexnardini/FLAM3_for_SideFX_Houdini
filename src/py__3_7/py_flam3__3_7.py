@@ -1804,7 +1804,7 @@ class flam3h_scripts
         """Set the hou.session variable to hold the cvex precision being used on first instance node creation time.
 
         Args:
-            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            cvex_precision(int): 32 or 64 (bit) - This is the cvex precision preference's option parameter
             
         Returns:
             (None):
@@ -1826,7 +1826,7 @@ class flam3h_scripts
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
-            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            cvex_precision(int): 32 or 64 (bit) - This is the cvex precision preference's option parameter
             _MSG_INFO(str): The message to print in the status bar
             _MSG_DONE(str): The message to print in the hou window 
             sys_updated_mode(hou.EnumValue): houdini updated mode before dropping a FLAM3H™ node for the first time ( stored from the preFirstCreate script )
@@ -1836,6 +1836,11 @@ class flam3h_scripts
         """
         flam3h_general_utils.set_status_msg(_MSG_INFO, 'WARN')
         if hou.isUIAvailable():
+            
+            # Will need to come back to this and re work everything a little better, good for now.
+            platform: str = '__n/a__'
+            if cvex_precision == 32: platform = 'CVEX 32-bit'
+            elif cvex_precision == 64: platform = 'CVEX 64-bit'
             
             # If there are not any Sop viewer lets cook it since this is the first node instance of FLAM3H™
             viewers: list[hou.SceneViewer] = flam3h_general_utils.util_getSceneViewers()
@@ -1849,7 +1854,7 @@ class flam3h_scripts
                 # Close pyside panel if open from first time (splash screen)
                 pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False)
                 # Print to the Houdini console
-                print(f"\n-> FLAM3H™ CVEX nodes compile: DONE\n")
+                print(f"\n-> FLAM3H™ {platform} nodes compile: DONE\n")
                 
             flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
         else:
@@ -1868,7 +1873,7 @@ class flam3h_scripts
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
-            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter
+            cvex_precision(int): 32 or 64 (bit) - This is the cvex precision preference's option parameter
             _MSG_INFO(str): The message to print in the status bar
             _MSG_DONE(str): The message to print in the hou window 
             sys_updated_mode(hou.EnumValue): houdini updated mode before dropping a FLAM3H™ node for the first time ( stored from the preFirstCreate script )
@@ -1885,8 +1890,12 @@ class flam3h_scripts
         # Close pyside panel if open from first time (splash screen)
         pyside_utils.pyside_panels_safe_launch(pyside_master.F3H_msg_panel, run=False)
         
+        platform: str = '__n/a__'
+        if cvex_precision == 32: platform = 'CVEX 32-bit'
+        elif cvex_precision == 64: platform = 'CVEX 64-bit'
+        
         flam3h_general_utils.set_status_msg(_MSG_DONE, 'IMP')
-        print(f"\nFLAM3H CVEX node compile: DONE\n")
+        print(f"\nFLAM3H {platform} node compile: DONE\n")
         
         
     @staticmethod
@@ -1894,9 +1903,9 @@ class flam3h_scripts
         """Set the hou.session variable to hold the cvex precision being used during the Houdini session.
 
         Args:
-            cvex_precision(int): 32bit or 64bit - This is the cvex precision preference's option parameter
-            first_instance_32bit(bool): 32bit or 64bit - Was this FLAM3H™ node instance created with this cvex precision ?
-            first_instance_64bit(bool): 32bit or 64bit - Was this FLAM3H™ node instance created with this cvex precision ?
+            cvex_precision(int): 32 or 64 (bit) - This is the cvex precision preference's option parameter
+            first_instance_32bit(bool): True or False - Was this FLAM3H™ node instance created with this cvex precision ?
+            first_instance_64bit(bool): True or False - Was this FLAM3H™ node instance created with this cvex precision ?
             
         Returns:
             (None):
@@ -2153,12 +2162,13 @@ class flam3h_scripts
             
             __module_version__ = '.'.join((__py_version__.split('.'))[:2])
             
-            if cvex_precision == 32:
-                _MSG_INFO = f" FLAM3H™ v{__version__}  first instance -> Compiling FLAM3H™ CVEX node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H™ CVEX node compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
-            else:
-                _MSG_INFO = f" FLAM3H™ v{__version__} 64-bit  first instance -> Compiling FLAM3H™ CVEX 64-bit node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
-                _MSG_DONE = f"FLAM3H™ CVEX 64-bit node compile: DONE\nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
+            _MSG_INFO: str = '__no info__'
+            _MSG_DONE: str = '__no info when done__'
+            platform: str = '__n/a__'
+            if cvex_precision == 32: platform = 'CVEX 32-bit'
+            elif cvex_precision == 64: platform = 'CVEX 64-bit'
+            _MSG_INFO = f" FLAM3H™ v{__version__} first instance -> Compiling FLAM3H™ {platform} node. Depending on your PC configuration it can take up to 1(one) minute. It is a one time compile process."
+            _MSG_DONE = f"FLAM3H™ {platform} node compile: DONE \nversion: {__version__} - {__status__}\nF3H Python module: {__module_version__}"
             
             density: int = node.parm(GLB_DENSITY).eval()
             if node.isGenericFlagSet(hou.nodeFlag.Display): # type: ignore
