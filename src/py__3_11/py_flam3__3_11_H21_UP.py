@@ -732,6 +732,7 @@ class f3h_pvt:
                                 f3h_tabs.IN.PVT_PRM_CLIPBOARD_TOGGLE, 
                                 f3h_tabs.OUT.PVT_PRM_ISVALID_FILE, 
                                 f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR, 
+                                f3h_tabs.PREFS.PRM_CVEX_PRECISION, 
                                 f3h_tabs.PREFS.PVT_PRM_F3C, 
                                 f3h_tabs.PREFS.PVT_PRM_XAOS_AUTO_SPACE,
                                 f3h_tabs.PREFS.PVT_PRM_INT_0,
@@ -5238,7 +5239,7 @@ class flam3h_general_utils
             # Check and Update this data
             flam3h_iterator_utils(self.kwargs).update_xml_last_loaded(False)
         
-        # Retrieve the filepath from the history (preview valid F3H json file path used)
+        # Retrieve the filepath from the history (preview valid F3H palette json file path used)
         cp_presets_filepath_history: str | None = node.cachedUserData(f3h_cachedUserData.cp_presets_filepath)
         
         prm = node.parm(f3h_tabs.CP.PRM_PALETTE_PRESETS)
@@ -5361,7 +5362,7 @@ class flam3h_general_utils
         flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
         # Check and Update this data
         flam3h_iterator_utils(self.kwargs).update_xml_last_loaded(False)
-        # Retrieve the filepath from the history (preview valid F3H json file path used)
+        # Retrieve the filepath from the history (preview valid F3H flame file path used)
         in_presets_filepath_history: str | None = node.cachedUserData(f3h_cachedUserData.in_presets_filepath)
         
         is_valid: int = node.parm(f3h_tabs.IN.PVT_PRM_ISVALID_FILE).eval()
@@ -5473,7 +5474,7 @@ class flam3h_general_utils
             flam3h_iterator_utils(self.kwargs).destroy_all_menus_data(node)
             # Check and Update this data
             flam3h_iterator_utils(self.kwargs).update_xml_last_loaded(False)
-        # Retrieve the filepath from the history (preview valid F3H json file path used)
+        # Retrieve the filepath from the history (preview valid F3H flam file path used)
         out_presets_filepath_history: str | None = node.cachedUserData(f3h_cachedUserData.out_presets_filepath)
         
         is_valid: int = node.parm(f3h_tabs.OUT.PVT_PRM_ISVALID_FILE).eval()
