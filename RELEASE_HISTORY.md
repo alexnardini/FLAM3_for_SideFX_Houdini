@@ -42,6 +42,7 @@ They are all available in this Github repository.
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
 
 - **Fix**: On Creation there were some issues in recognizing the correct starting platform in some of the info messages. It is now fixed.
+- **Updated HDA documentation.**
 
 
 
