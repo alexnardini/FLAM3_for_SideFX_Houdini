@@ -3540,14 +3540,14 @@ palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     It will allow the OUT Flame to be saved with more than *`256`* color keys assuming you created a palette with this many colors, otherwise it will always save the Flame preset using *`256`* color keys.
     
     If the palette color keys are less than *`256`*, it will always sample the palette at *`256`* when saving out the Flame preset.<br />
-    The maximun Palette color keys you can use are *`1024`*, if you create a Palette with more, it will be clamped and sampled at *`1024`*.
+    The maximun Palette color keys you can use are *`1024`*, if you create a Palette with more, it will be sampled at *`1024`*.
 
     _It will use a banding system to determine how many colors/samples to use_:
     
     - Anything below *`256`* color keys, it will always sample and save the Flame using a palette with *`256`* colors.
     - Anything above *`256`* color keys and below/equal *`512`*, it will use *`512`* colors/samples on save.
     - Anything above *`512`* color keys and below/equal *`1024`*, it will use *`1024`* colors/samples on save.
-    - Anything above *`1024`* color keys they will be clamped and sampled at *`1024`* colors.
+    - Anything above *`1024`* color keys they will be sampled at *`1024`* colors.
     <br /><br />
 
     TIP:
@@ -4368,7 +4368,7 @@ _A list of all parametric variations and their parametric parameter's names_
     Compared to Cvex, OpenCL development adds a few layers of complexity.<br />
 
     Beside being really fast on GPU,<br />
-    the need to use and track pointers, the ability to work in different GPU device memory spaces,<br />
+    the need to use and track [pointers|Wp:Pointer_(computer_programming)], the ability to work in different GPU device memory spaces,<br />
     and other factors enable a much more customized and elegant implementation than Houdini Cvex.<br />
     <br />
 
