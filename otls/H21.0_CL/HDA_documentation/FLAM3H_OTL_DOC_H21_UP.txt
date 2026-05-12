@@ -4220,9 +4220,29 @@ _A list of all parametric variations and their parametric parameter's names_
 
         When using Mantra, you can take advantage of _delayed loads_ to greatly increase the amount of points you can render, in which case you must bake those points out in a *`*.bgeo.sc`* files first.
         
+        <br />
+
+        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
+
         A non-deterministic random number generator was used to construct FLAM3H(tm), and it lies at the heart of the algorithm.
         As a result, the points produced by FLAM3H(tm) nodes will always be in a little bit of a different location every time it cook.
         This is perfect for cloning FLAM3H(tm) nodes and layering them into a single fractal Flame to improve the quality of the final result.
+
+        <br />
+
+        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
+
+        The GPU mode introduce temporal coherency.<br />
+        It mean that when you animate your fractal Flame, its points/samples wont scramble around<br />
+        due to a non-deterministic [PRNG|Wp:Pseudorandom_number_generator]. This also make stable instancing possible<br />
+        as well as computing velocity vectors properly.
+
+        However,<br />
+        each FLAM3H(tm) node introduce a different seed offset to still make possible to clone them<br />
+        and layer their output into one single fractal Flame to improve the quality of the final result, just like in the CPU mode.
+
+
+
 
 :box:
     #display: rounded white
