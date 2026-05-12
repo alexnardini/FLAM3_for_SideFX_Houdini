@@ -3640,6 +3640,15 @@ Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
     
     When you turn this toggle back *`Off`*, Houdini will save the current FLAM3H(tm) definition and match it in order to force the menus to update inside the multiparameter FLAME tab. It will aslo revert the density value to its default *`500k`*(_thousands_) points as a way to reduce the waiting time.
 
+    <br />
+    
+    NOTE:
+        #display: raised
+
+        *This feature has been put on hold since the addition of the GPU* ([Icon:opdef:.?icon_optionOCLSVG.svg]) *mode for speed purposes*.
+
+        It is still present in FLAM3H™ v1.x.
+
 :box:
     #display: round white
     
