@@ -3545,7 +3545,7 @@ palette 256+ (PREFS) [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     It will allow the OUT Flame to be saved with more than *`256`* color keys assuming you created a palette with this many colors, otherwise it will always save the Flame preset using *`256`* color keys.
     
     If the palette color keys are less than *`256`*, it will always sample the palette at *`256`* when saving out the Flame preset.<br />
-    The maximun Palette color keys you can use are *`1024`*, if you create a Palette with more, it will be sampled at *`1024`*.
+    The maximun Palette color keys you can use are *`1024`*, if you create a Palette with more, it will be sampled at *`1024`* colors.
 
     _It will use a banding system to determine how many colors/samples to use_:
     
@@ -4365,7 +4365,7 @@ _A list of all parametric variations and their parametric parameter's names_
 
     [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) OpenCL*
     
-    OpenCL has been used to implement the algorithm so it can fully run on the system GPU device.<br />
+    [OpenCL|Wp:OpenCL] has been used to implement the algorithm so it can fully run on the system GPU device.<br />
 
     Thanks to this, FLAM3H(tm) entered the high performance implementation category<br />
     fully developed within the SideFX Houdini environment, no HDK.
