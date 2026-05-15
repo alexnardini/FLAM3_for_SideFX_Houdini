@@ -12956,7 +12956,8 @@ class flam3h_about_utils():
 class flam3h_about_utils
 
 @STATICMETHOD
-* flam3h_about_show_info_panel() -> None:
+* flam3h_about_format_items(items: list[str] | tuple[str, ...], exclude: list[str] | tuple[str, ...] = (), npl: int = 5, capitalize: bool = False) -> tuple[str, int]:
+* flam3h_about_show_info_panel(node: hou.SopNode) -> None:
 
 @METHODS
 * flam3h_about_msg(self) -> None:
@@ -12983,6 +12984,30 @@ class flam3h_about_utils
         """ 
         self._kwargs: dict[str, Any] = kwargs
         self._node: hou.SopNode = kwargs['node']
+
+
+    @staticmethod
+    def flam3h_about_format_items(items: list[str] | tuple[str, ...], exclude: list[str] | tuple[str, ...] = (), npl: int = 5, capitalize: bool = False) -> tuple[str, int]:
+        """Format a list of items into a string with n items per line.</br>
+        Args:
+            items(list[str] | tuple[str, ...]): The list or tuple of items to format.
+            exclude(list[str] | tuple[str, ...]): Default to: <b>Empty Tuple</b><br>The list of items to exclude.
+            npl(int): Default to: <b>5</b><br>The number of items per line.
+            capitalize(bool): Default to: <b>False</b><br>Whether to capitalize each item.
+
+        Returns:
+            (str): The formatted string.<br><b>(int)</b>:<br>The number of items in the formatted string.
+        """ 
+        
+        items_sorted: list[str] = [item for item in sorted(items) if item not in exclude]
+        if capitalize:
+            _str_capitalize: Callable[[str], str] = str.capitalize
+            items_sorted = [_str_capitalize(item) for item in items_sorted]
+        items_sorted_grp: list[list[str]] = [items_sorted[i:i + npl] for i in range(0, len(items_sorted), npl)]
+        _join: Callable[[Iterable[str]], str] = ', '.join
+        _len: Callable[[list[Any]], int] = len
+        items_txt: str = ''.join( [_join(grp) + "." if idx == (_len(items_sorted_grp)-1) else _join(grp) + ",\n" for idx, grp in enumerate(items_sorted_grp)] )
+        return items_txt, _len(items_sorted)
         
         
     @staticmethod
@@ -13019,7 +13044,7 @@ class flam3h_about_utils
     @property
     def node(self) -> hou.SopNode:
         return self._node
-        
+
 
     def flam3h_about_msg(self) -> None:
         """Build and set the FLAM3H™ about message.</br>
@@ -13049,11 +13074,10 @@ Fractorium :: ({__license__})"""
         special_thanks: str = """SPECIAL THANKS
 Praveen Brijwal"""
 
-        example_flames: str = """EXAMPLE FLAMES
-C-91, GaborTimar, Golubaja, Lucy,
-Neonrauschen, Pillemaster, Plangkye, Seph,
-Tatasz, Triptychaos, TyrantWave, Zy0rg, b33rheart."""
-        
+        example_flames_header: str = 'EXAMPLE FLAMES'
+        items: tuple = ('C-91', 'GaborTimar', 'Golubaja', 'Lucy', 'Neonrauschen', 'Pillemaster', 'Plangkye', 'Seph', 'Tatasz', 'Triptychaos', 'TyrantWave', 'Zy0rg', 'b33rheart')
+        example_flames: str = self.flam3h_about_format_items(items)[0]
+
         host_header: str = 'HOST'
         h_version: str = '.'.join(str(x) for x in hou.applicationVersion())
         license_type: str = str(hou.licenseCategory()).split(".")[-1]
@@ -13066,6 +13090,7 @@ Tatasz, Triptychaos, TyrantWave, Zy0rg, b33rheart."""
         build: tuple[str, ...] = (Implementation_build, nnl,
                                 code_references, nnl,
                                 special_thanks, nnl,
+                                example_flames_header, nl,
                                 example_flames, nnl,
                                 host_header, nl,
                                 Houdini_version, nl,
@@ -13079,9 +13104,8 @@ Tatasz, Triptychaos, TyrantWave, Zy0rg, b33rheart."""
         if flam3h_general_utils.houdini_version(2) >= 210:
             
             gpu_section_header: str = 'GPU DEVICES'
-            try:
-                gpu_devices_gpumem: list[str] = hou.hscript('gpumem -l')
-            except:
+            gpu_devices_gpumem: list[str] = hou.hscript('gpumem -l')
+            if 'unknown' in gpu_devices_gpumem[-1].lower():
                 print(f"{self.node.name()}: Error while trying to get GPU devices info with the \"gpumem\" hscript command.\nThis command should be available in Houdini 21.0 and above.")
                 pass 
             else:
@@ -13104,14 +13128,9 @@ Tatasz, Triptychaos, TyrantWave, Zy0rg, b33rheart."""
         Returns:
             (None):
         """    
-        _str_capitalize: Callable[[str], str] = str.capitalize
-        vars_sorted: list[str] = [_str_capitalize(var) for var in sorted(VARS_FLAM3_DICT_IDX.keys()) if var not in ("linear3d",)]
-        n: int = 5
-        vars_sorted_grp: list[list[str]] = [vars_sorted[i:i + n] for i in range(0, len(vars_sorted), n)]
-        _join: Callable[[Iterable[str]], str] = ', '.join
-        _len: Callable[[list[Any]], int] = len
-        vars_txt: str = ''.join( [_join(grp) + "." if idx == (_len(vars_sorted_grp)-1) else _join(grp) + ",\n" for idx, grp in enumerate(vars_sorted_grp)] )
-        vars_txt_MSG: str = f"They are also available as PRE and POST.\n\nNumber of plugins/variations: {len(vars_sorted)}\n\n{vars_txt}"
+        
+        vars_txt, num_items = self.flam3h_about_format_items(list(VARS_FLAM3_DICT_IDX.keys()), ("linear3d",), 5, True)
+        vars_txt_MSG: str = f"They are also available as PRE and POST.\n\nNumber of plugins/variations: {num_items}\n\n{vars_txt}"
         
         flam3h_prm_utils.set(self.node, f3h_tabs.ABOUT.MSG_PRM_F3H_PLUGINS, vars_txt_MSG)
         
