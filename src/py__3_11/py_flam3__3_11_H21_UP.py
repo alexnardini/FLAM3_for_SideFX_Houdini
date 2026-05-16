@@ -472,6 +472,8 @@ class f3h_tabs:
         '''
         # Default globals
         DEFAULT_DENSITY: Final = 500000
+        DEFAULT_DENSITY_XAOS_SHUFFLE_LIMIT: Final = 1000000     # When shuffling iterators while Xaos is ON, revert to DEFAULT_DENSITY if density is higher than this value
+        DEFAULT_DENSITY_XAOS_SHUFFLE_LIMIT_GPU: Final = 5000000 # When shuffling iterators while Xaos is ON in GPU mode, revert to DEFAULT_DENSITY if density is higher than this value
         DEFAULT_ITERATIONS: Final = 10
         DEFAULT_ITERATIONS_GPU: Final = 1024
         
@@ -7111,7 +7113,7 @@ class flam3h_iterator_utils
             # As a way to prevent the already expensive double cook to be even more expensive.
             with hou.undos.disabler(): # type: ignore
                 prm_density = node.parm(f3h_tabs.GLB.PRM_DENSITY)
-                limit_density: int = 5000000 if node.parm(f3h_tabs.PREFS.PRM_GPU).eval() else 1000000
+                limit_density: int = f3h_tabs.GLB.DEFAULT_DENSITY_XAOS_SHUFFLE_LIMIT_GPU if node.parm(f3h_tabs.PREFS.PRM_GPU).eval() else f3h_tabs.GLB.DEFAULT_DENSITY_XAOS_SHUFFLE_LIMIT
                 if prm_density.eval() > limit_density:
                     prm_density.set(f3h_tabs.GLB.DEFAULT_DENSITY)
                     node.parm(f3h_tabs.GLB.PRM_DENSITY_PRESETS).set(1)
