@@ -4392,8 +4392,7 @@ _A list of all parametric variations and their parametric parameter's names_
         the Cvex context is designed for hosting generic, low-level programs, so it provides only the generic functions common to all contexts, and no special pre-defined global variables.“
 
     <br />
-
-    _CVEX behaves similarly to a kernel system like OpenCL in a few key ways_:
+    _CVEX behaves similarly to a_ [_kernel_|Wp:OpenCL#OpenCL_kernel_language] _system like OpenCL in a few key ways_:
 
     :box:
         #display: rounded raised pink
@@ -4426,7 +4425,7 @@ _A list of all parametric variations and their parametric parameter's names_
 
         _Both are designed for_:
 
-        - SIMD / parallel execution.
+        - [SIMD|Wp:Single_instruction,_multiple_data] / parallel execution. 
         - Running the same logic over large datasets.
 
     <br />
@@ -4438,7 +4437,7 @@ _A list of all parametric variations and their parametric parameter's names_
     For example,<br />
     you may want to add more variations to its current arsenal of already implemented variations ( _currently there are *106* implemented_ ).
     
-    Extending the Cvex code base most likely require you to update/extend the Python code base as well, since both go hand in hand with many of the core algorithm functionalities.
+    Extending the Cvex code base most likely require you to update/extend the Python code base as well, since both go hand in hand with many of the core algorithm functionalities (_as well as update/extend the OpenCL code base to maintain feature parity_).
 
     In order to improve speed, the Cvex code base has been scaled down to its bare minimum;<br />
     this results in the least amount of code required to implement the entire algorithm.<br /> 
