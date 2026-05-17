@@ -459,7 +459,7 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
         <br />
 
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
+        [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
         <br />
 
         When in CPU mode, if any of the iterators have their shader opacity set to *`0`*(Zero) FLAM3H(tm) will detect this and it will switch this toggle *`On`* when:
@@ -981,20 +981,14 @@ number of iterators [Icon:TOP/xmlinput]:
     Every iterator acts as a container for functions, the algorithm will mix or shuffle iterators based on your logic.
 
     <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
 
-    :box:
-        #display: rounded raised gray
+    Xforms have the most effect over the look of the final output image. Discussing every possible technique for using them is beyond the scope of this project. For such information, you should follow the numerous Apophysis tutorials that are available on Deviant Art and elsewhere. This article is limited to some basic performance considerations when using xforms.
 
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *From Fractorium help page*
+    The number of xforms does not affect performance because only one is chosen to be applied on each iteration. Choosing a random xform among 5 takes the same amount of time as choosing among 50. However, the number of variations in each xform does affect performance.
 
-        Xforms have the most effect over the look of the final output image. Discussing every possible technique for using them is beyond the scope of this project. For such information, you should follow the numerous Apophysis tutorials that are available on Deviant Art and elsewhere. This article is limited to some basic performance considerations when using xforms.
-
-        The number of xforms does not affect performance because only one is chosen to be applied on each iteration. Choosing a random xform among 5 takes the same amount of time as choosing among 50. However, the number of variations in each xform does affect performance.
-
-        Adding a post affine transform to an xform will also affect performance since it’s an additional affine that must be applied each time the xform is selected. Applying an affine is very simple so the performance impact shouldn’t be too noticeable.
-        <br /><br />
-
-    <br />
+    Adding a post affine transform to an xform will also affect performance since it’s an additional affine that must be applied each time the xform is selected. Applying an affine is very simple so the performance impact shouldn’t be too noticeable.
+    <br /><br />
 
     _The following control icons are provided_:
 
@@ -1002,13 +996,14 @@ number of iterators [Icon:TOP/xmlinput]:
     - [Largeicon:BUTTONS/minus] to reduce the number of iterators by *`1`*(one). It will remove one from the end.
     - *CLEAR* button -> to remove all the iterators in one go.
 
-    Adding and Deleting iterators from here will also update all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.
-    
-    <br />
+    <br /><br />
+    _Additionally,_<br />
+    _each iterator posses the following control icons_:
+
+    - [Largeicon:BUTTONS/multi_insertbefore] to insert a new iterator before the selected iterator.
+    - [Largeicon:BUTTONS/multi_remove] to remove the selected iterator.
 
     NOTE:
-        #display: raised
-
         The order of the iterators does not matter at all.
 
         Based on each iterator's Weight and combined with their xaos settings, the algorithm will select and execute them based on your logic.
@@ -1020,26 +1015,6 @@ number of iterators [Icon:TOP/xmlinput]:
     #display: rounded white
     
     == Iterator == (FLAMEITER)
-
-Add/Del iterators [Icon:TOP/xmlinput] [Icon:opdef:.?icon_actionButtonSVG.svg]:
-    #id: FLAMEADDDEL
-
-    Each iterator possess the following control icon:
-
-    <br />
-    [Largeicon:opdef:.?icon_AddDelIteratorSVG.svg]<br />
-
-    From this icon you will be able to Add and/or Delete iterators while updating all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.
-
-    _Usage_:
-    - ((LMB)) to insert an iterator Before.
-    - ((SHIFT)) + ((LMB)) to insert an iterator After.
-
-    _Additionally_:
-    - ((CTRL)) + ((LMB)) to delete this iterator.
-
-    <br />
-
 
 note [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
     #id: FLAME
@@ -2433,7 +2408,7 @@ Iterations on Load (CPU):
 
         <br />
 
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU(Cvex) only*
+        [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU(Cvex) only*
 
         If "add iterations to Flame name" OUT tab option is *`Off`*/Disabled:
     
@@ -2813,7 +2788,7 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
         <br />
 
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU(Cvex) only*
+        [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU(Cvex) only*
 
         If "add iterations to Flame name" option is *`Off`*/Disabled:
     
@@ -4217,9 +4192,9 @@ _A list of all parametric variations and their parametric parameter's names_
         
         <br />
 
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
+        [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
 
-        A non-deterministic random number generator was used to construct FLAM3H(tm), and it lies at the heart of the algorithm.
+        A non-deterministic random number generator ([Mersenne Twister|Wp:Mersenne_Twister]) was used to construct FLAM3H(tm), and it lies at the heart of the algorithm.
         As a result, the points produced by FLAM3H(tm) nodes will always be in a little bit of a different location every time it cook.
         This is perfect for cloning FLAM3H(tm) nodes and layering them into a single fractal Flame to improve the quality of the final result.
 
