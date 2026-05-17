@@ -460,7 +460,7 @@ RIP [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
         <br />
 
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
+        [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
         <br />
 
         When in CPU mode, if any of the iterators have their shader opacity set to *`0`*(Zero) FLAM3H(tm) will detect this and it will switch this toggle *`On`* when:
@@ -982,36 +982,7 @@ number of iterators [Icon:TOP/xmlinput]:
     #id: FLAME
     
     Number of iterators (_aka: xforms or transforms_) to use.<br />
-    
-    Every iterator acts as a container for functions, the algorithm will mix or shuffle iterators based on your logic.
 
-    However,<br />
-    You can manually click and drag an iterator manually to reorder them as you like (_Shuffle iterators_).
-
-    When a shuffle is performed and Xaos is *`On`*(_Active_),<br />
-    FLAM3H(tm) will check the density value and if it is higher than a limit it will revert it to its default value of: *`500k`*(_thousands_).
-
-    :box:
-        #display: rounded raised gray
-
-        _The limit vary based on the mode FLAM3H(tm) is currently running_:
-
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
-        - The limit is: *`1M`*(_million_)
-
-        [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*
-        - The limit is: *`5M`*(_millions_)
-
-    <br />
-
-    _The following control icons are provided_:
-
-    - [Largeicon:BUTTONS/add] to add a new iterator at the end of the existing set of iterators.
-    - [Largeicon:BUTTONS/minus] to reduce the number of iterators by *`1`*(one). It will remove one from the end.
-    - *CLEAR* button -> to remove all the iterators in one go.
-
-    Adding and Deleting iterators from here will also update all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.
-    
     <br />
 
     :box:
@@ -1024,7 +995,35 @@ number of iterators [Icon:TOP/xmlinput]:
         The number of xforms does not affect performance because only one is chosen to be applied on each iteration. Choosing a random xform among 5 takes the same amount of time as choosing among 50. However, the number of variations in each xform does affect performance.
 
         Adding a post affine transform to an xform will also affect performance since it’s an additional affine that must be applied each time the xform is selected. Applying an affine is very simple so the performance impact shouldn’t be too noticeable.
-        <br /><br />
+        <br />
+
+    <br />
+    
+    Every iterator acts as a container for functions, the algorithm will mix or shuffle iterators based on your logic.
+
+    However,<br />
+    You can manually click and drag an iterator manually to reorder them as you like (_Shuffle iterators_).
+
+    :box:
+        #display: rounded raised gray
+
+        When a shuffle is performed and Xaos is *`On`*(_Active_),<br />
+        FLAM3H(tm) will check the density value and if it is higher than a limit it will revert it to its default value of: *`500k`*(_thousands_).
+
+        _The limit vary based on the device FLAM3H(tm) is currently running on_:
+
+        - [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*: The limit is: *`1M`*(_million_)
+        - [Smallicon:opdef:.?icon_optionOCLSVG.svg] *FLAM3H(tm) GPU*: The limit is: *`5M`*(_millions_)
+
+    <br />
+
+    _The following control icons are provided_:
+
+    - [Largeicon:BUTTONS/add] to add a new iterator at the end of the existing set of iterators.
+    - [Largeicon:BUTTONS/minus] to reduce the number of iterators by *`1`*(one). It will remove one from the end.
+    - *CLEAR* button -> to remove all the iterators in one go.
+
+    Adding and Deleting iterators from here will also update all the FLAM3H(tm) internal data and each iterators' xaos string accordingly.
 
     <br />
 
@@ -2455,7 +2454,7 @@ Iterations on Load (CPU):
 
         <br />
 
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU(Cvex) only*
+        [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU(Cvex) only*
 
         If "add iterations to Flame name" OUT tab option is *`Off`*/Disabled:
     
@@ -2835,7 +2834,7 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
         <br />
 
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU(Cvex) only*
+        [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU(Cvex) only*
 
         If "add iterations to Flame name" option is *`Off`*/Disabled:
     
@@ -4239,9 +4238,9 @@ _A list of all parametric variations and their parametric parameter's names_
         
         <br />
 
-        [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
+        [Smallicon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) CPU*
 
-        A non-deterministic random number generator was used to construct FLAM3H(tm), and it lies at the heart of the algorithm.
+        A non-deterministic random number generator ([Mersenne Twister|Wp:Mersenne_Twister]) was used to construct FLAM3H(tm), and it lies at the heart of the algorithm.
         As a result, the points produced by FLAM3H(tm) nodes will always be in a little bit of a different location every time it cook.
         This is perfect for cloning FLAM3H(tm) nodes and layering them into a single fractal Flame to improve the quality of the final result.
 
@@ -4417,8 +4416,7 @@ _A list of all parametric variations and their parametric parameter's names_
         the Cvex context is designed for hosting generic, low-level programs, so it provides only the generic functions common to all contexts, and no special pre-defined global variables.“
 
     <br />
-
-    _CVEX behaves similarly to a kernel system like OpenCL in a few key ways_:
+    _CVEX behaves similarly to a_ [_kernel_|Wp:OpenCL#OpenCL_kernel_language] _system like OpenCL in a few key ways_:
 
     :box:
         #display: rounded raised pink
@@ -4451,7 +4449,7 @@ _A list of all parametric variations and their parametric parameter's names_
 
         _Both are designed for_:
 
-        - SIMD / parallel execution.
+        - [SIMD|Wp:Single_instruction,_multiple_data] / parallel execution. 
         - Running the same logic over large datasets.
 
     <br />
