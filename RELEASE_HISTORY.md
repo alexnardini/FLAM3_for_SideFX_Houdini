@@ -35,6 +35,26 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v2.0.20 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.20) ###
+
+#### FLAM3H™ v2.0.20 indie -> H21.0 UP</br>FLAM3H™ v2.0.16 indie -> H20.5</br>FLAM3H™ v1.9.79 indie -> H19.0 to H20 ####
+
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
+
+- **Fix H21 UP ONLY**: Updated a few UI icons.
+- **Updated HDA documentation H20.5 and H21.0**: Finally got to update some parts of the documentation since the introduction of the GPU mode.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v2.0.18 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.18) ###
 
 #### FLAM3H™ v2.0.18 indie -> H21.0 UP</br>FLAM3H™ v2.0.16 indie -> H20.5</br>FLAM3H™ v1.9.79 indie -> H19.0 to H20 ####
