@@ -2151,11 +2151,19 @@ static float2 CL_V_EDISC(
 #if USE_NATIVE
     float t = native_sqrt(xmax - 1.0f);
     aa1 = native_log(xmax + t);
-    aa2 = (1.0f - 2.0f * (float)F3C) * acos(native_divide(in.x, xmax));
+    #if USE_FMA
+        aa2 = fma(-2.0f, (float)F3C, 1.0f) * acos(native_divide(in.x, xmax));
+    #else
+        aa2 = (1.0f - 2.0f * (float)F3C) * acos(native_divide(in.x, xmax));
+    #endif
 #else
     float t = sqrt(xmax - 1.0f);
     aa1 = log(xmax + t);
-    aa2 = (1.0f - 2.0f * (float)F3C) * acos(in.x / xmax);
+    #if USE_FMA
+        aa2 = fma(-2.0f, (float)F3C, 1.0f) * acos(in.x / xmax);
+    #else
+        aa2 = (1.0f - 2.0f * (float)F3C) * acos(in.x / xmax);
+    #endif
 #endif
     ww = w * 0.086424247393025485907f;  // precomputed 1/11.57034632
 
