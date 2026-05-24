@@ -1377,6 +1377,7 @@ static float2 CL_V_GAUSSIAN_BLUR(
 static float2 CL_V_FAN2(
     __private const float2 in, 
     __private const float w, 
+    __private const int F3C, 
     __private const float2 fan2 // x y
     )
 {
@@ -1406,7 +1407,7 @@ static float2 CL_V_FAN2(
 #endif
     sincos_fast(a, &sa, &ca);
 
-    return r * (float2)(sa, ca);
+    return r * (F3C ? (float2)(sa, ca) : (float2)(ca, sa));
 }
 // ----------------------------
 // 035 VAR RINGS2
@@ -3818,7 +3819,7 @@ static float2 CL_V_DISPATCH(
         case 31:    return CL_V_JULIAN(in, w, state, PRM_F2[PRM_F2_IDX_JULIAN]);
         case 32:    return CL_V_JULIASCOPE(in, w, state, PRM_F2[PRM_F2_IDX_JULIASCOPE]);
         case 33:    return CL_V_GAUSSIAN_BLUR(w, state);
-        case 34:    return CL_V_FAN2(in, w, PRM_F2[PRM_F2_IDX_FAN2]);
+        case 34:    return CL_V_FAN2(in, w, F3C, PRM_F2[PRM_F2_IDX_FAN2]);
         case 35:    return CL_V_RINGS2(in, w, PRM_F[PRM_F_IDX_RINGS2VAL]);
         case 36:    return CL_V_RECTANGLES(in, w, PRM_F2[PRM_F2_IDX_RECTANGLES]);
         case 37:    return CL_V_RADIALBLUR(in, w, state, PRM_F[PRM_F_IDX_RADIALBLUR]);

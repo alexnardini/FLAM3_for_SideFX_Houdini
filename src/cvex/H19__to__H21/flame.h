@@ -254,7 +254,7 @@ vector2 FLAME(const int idx, T, f3c; const vector2 pos, y, o; const float w){
             // 34 Fan2 ( parametric )
             else if(T==34){
                 vector2 fan2 = detail(-22, "fan2")[idx]; // GMP.fan2[idx];
-                V_FAN2(p, _p, w, fan2);
+                V_FAN2(f3c, p, _p, w, fan2);
                 return p; }
         }
     }

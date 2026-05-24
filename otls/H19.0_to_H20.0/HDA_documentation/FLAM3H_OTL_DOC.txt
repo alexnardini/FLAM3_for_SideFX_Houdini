@@ -417,6 +417,7 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     - *`Cross`*
     - *`Curve`*
     - *`Edisc`* 
+    - *`Fan2`*
 
     variations are different in Flam3/Apophysis versus Chaotica.
 
@@ -457,7 +458,6 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
 
         - *`Bipolar`*
         - *`Escher`*
-        - *`Fan2`*
         - *`Glynnia`*
         - *`Julia`*
         - *`JuliaN`*

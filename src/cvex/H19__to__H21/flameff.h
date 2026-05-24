@@ -254,7 +254,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, y, o; con
             // 34 Fan2 ( parametric )
             else if(T==34){
                 vector2 fan2 = chu(concat(prx, "fan2"));
-                V_FAN2(p, _p, w, fan2);
+                V_FAN2(f3c, p, _p, w, fan2);
                 return p; }
         }
     }
