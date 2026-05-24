@@ -1407,7 +1407,8 @@ static float2 CL_V_FAN2(
 #endif
     sincos_fast(a, &sa, &ca);
 
-    return r * (F3C ? (float2)(sa, ca) : (float2)(ca, sa));
+    float2 v = (float2)(ca, sa);
+    return r * (F3C ? v.yx : v);
 }
 // ----------------------------
 // 035 VAR RINGS2
