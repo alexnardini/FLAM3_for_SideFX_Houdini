@@ -2132,7 +2132,8 @@ static float2 CL_V_CPOW(
 // ----------------------------
 static float2 CL_V_EDISC(
     __private const float2 in, 
-    __private const float w
+    __private const float w, 
+    __private const int F3C
     )
 {
     float tmp, tmp2, r1, r2, xmax, aa1, aa2, ww, snv, csv, snhu, cshu;
@@ -2150,11 +2151,11 @@ static float2 CL_V_EDISC(
 #if USE_NATIVE
     float t = native_sqrt(xmax - 1.0f);
     aa1 = native_log(xmax + t);
-    aa2 = -acos(native_divide(in.x, xmax));
+    aa2 = (1.0f - 2.0f * (float)F3C) * acos(native_divide(in.x, xmax));
 #else
     float t = sqrt(xmax - 1.0f);
     aa1 = log(xmax + t);
-    aa2 = -acos(in.x / xmax);
+    aa2 = (1.0f - 2.0f * (float)F3C) * acos(in.x / xmax);
 #endif
     ww = w * 0.086424247393025485907f;  // precomputed 1/11.57034632
 
@@ -3833,7 +3834,7 @@ static float2 CL_V_DISPATCH(
         case 55:    return CL_V_BUTTERFLY(in, w);
         case 56:    return CL_V_CELL(in, w, PRM_F[PRM_F_IDX_CELLSIZE]);
         case 57:    return CL_V_CPOW(in, w, state, PRM_F3[PRM_F3_IDX_CPOW]);
-        case 58:    return CL_V_EDISC(in, w);
+        case 58:    return CL_V_EDISC(in, w, F3C);
         case 59:    return CL_V_ELLIPTIC(in, w);
         case 60:    return CL_V_NOISE(in, w, state);
         case 61:    return CL_V_ESCHER(in, w, PRM_F[PRM_F_IDX_ESCHERBETA]);

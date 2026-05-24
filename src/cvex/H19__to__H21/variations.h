@@ -776,7 +776,7 @@ void V_CPOW(vector2 p; const vector2 _p; const float w; const vector cpow){
     p = mm * set(ca, sa);
 }
 // 58
-void V_EDISC(vector2 p; const vector2 _p; const float w){
+void V_EDISC(const int f3c; vector2 p; const vector2 _p; const float w){
     float tmp, tmp2, rr1, rr2, xmax, aa1, aa2, ww, snv, csv, snhu, cshu, _px, _py;
     assign(_px, _py, _p);
 
@@ -786,7 +786,7 @@ void V_EDISC(vector2 p; const vector2 _p; const float w){
     rr2 = sqrt(tmp-tmp2);
     xmax = Zeps((rr1+rr2) * 0.5);
     aa1 = log(xmax + (sqrt(xmax - 1.0)));
-    aa2 = -acos(_px/xmax);
+    aa2 = (1.0 - 2.0 * f3c) * acos(_px/xmax);
     ww = w / 11.57034632;
     sincos(aa1, snv, csv);
     snhu = sinh(aa2);

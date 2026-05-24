@@ -371,7 +371,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, y, o; con
                 return p; }
             // 58 EDISC
             else if(T==58){
-                V_EDISC(p, _p, w);
+                V_EDISC(f3c, p, _p, w);
                 return p; }
             // 59 ELLIPTIC
             else if(T==59){

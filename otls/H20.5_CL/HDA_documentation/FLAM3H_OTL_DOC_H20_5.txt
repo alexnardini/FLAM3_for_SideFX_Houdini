@@ -494,6 +494,7 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
     - *`Tanh`*
     - *`Cross`*
     - *`Curve`*
+    - *`Edisc`* 
 
     variations are different in Flam3/Apophysis versus Chaotica.
 
@@ -533,7 +534,6 @@ F3C [Icon:TOP/xmlinput] [Icon:DATATYPES/boolean]:
         The behavior of the:
 
         - *`Bipolar`*
-        - *`Edisc`* 
         - *`Escher`*
         - *`Fan2`*
         - *`Glynnia`*
