@@ -35,6 +35,26 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v2.0.22 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.22) ###
+
+#### FLAM3H™ v2.0.22 indie -> H21.0 UP</br>FLAM3H™ v2.0.18 indie -> H20.5</br>FLAM3H™ v1.9.80 indie -> H19.0 to H20 ####
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+- **New**: The variations: **Edisc**, **Escher** and **Fan2** now also have a not flam3 compatible( _!**F3C**_ ) variant.
+- **Updated HDA documentation.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v2.0.20 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.20) ###
 
 #### FLAM3H™ v2.0.20 indie -> H21.0 UP</br>FLAM3H™ v2.0.16 indie -> H20.5</br>FLAM3H™ v1.9.79 indie -> H19.0 to H20 ####
