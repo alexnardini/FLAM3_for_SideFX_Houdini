@@ -2570,9 +2570,8 @@ static float2 CL_V_SPLIT(
                 t2 * (0.0000248016f + 
                 t2 * (-2.7557319e-7f + 
                 t2 * 2.0876757e-9f)))));
-
-    eps = (float2)(0.0005f, 0.0005f); 
-    mask = sign(cos_approx + eps);
+    
+    mask = sign(cos_approx + (float2)((float)EPS, (float)EPS));
 
     return w * in * mask.yx;
 #else
