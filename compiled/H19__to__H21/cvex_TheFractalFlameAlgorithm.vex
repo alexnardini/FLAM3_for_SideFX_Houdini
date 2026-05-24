@@ -2326,24 +2326,19 @@ __llvm_entry:
   %phi = select i1 %return, double %output32, double %output35
   store double %phi, double* %3
   call void @"sincos@FFF"(double* %3, double* %sa, double* %ca)
-  %f3c38 = load i64, i64* %f3c
-  %4 = icmp ne i64 %f3c38, 0
-  br i1 %4, label %true39, label %false40
+  %ca37 = load double, double* %ca
+  %sa38 = load double, double* %sa
+  %return39 = call <2 x double> @"set@UFF"(double %ca37, double %sa38)
+  %f3c41 = load i64, i64* %f3c
+  %4 = icmp ne i64 %f3c41, 0
+  br i1 %4, label %true42, label %end44
 
-true39:                                           ; preds = %__llvm_entry
-  %sa42 = load double, double* %sa
-  %ca43 = load double, double* %ca
-  %return44 = call <2 x double> @"set@UFF"(double %sa42, double %ca43)
-  br label %end41
+true42:                                           ; preds = %__llvm_entry
+  %return46 = call <2 x double> @"swizzle@UUII"(<2 x double> %return39, i64 1, i64 0)
+  br label %end44
 
-false40:                                          ; preds = %__llvm_entry
-  %ca45 = load double, double* %ca
-  %sa46 = load double, double* %sa
-  %return47 = call <2 x double> @"set@UFF"(double %ca45, double %sa46)
-  br label %end41
-
-end41:                                            ; preds = %false40, %true39
-  %phi48 = phi <2 x double> [ %return44, %true39 ], [ %return47, %false40 ]
+end44:                                            ; preds = %__llvm_entry, %true42
+  %phi48 = phi <2 x double> [ %return46, %true42 ], [ %return39, %__llvm_entry ]
   %cast49 = call <2 x double> @"set@UF"(double %output14)
   %output50 = call <2 x double> @"mul@UU"(<2 x double> %cast49, <2 x double> %phi48)
   store <2 x double> %output50, <2 x double>* %p

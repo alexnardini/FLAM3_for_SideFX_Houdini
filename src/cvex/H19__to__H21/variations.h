@@ -436,7 +436,8 @@ void V_FAN2(const int f3c; vector2 p; const vector2 _p; const float w; const vec
     aa = (tt>dx2) ? aa-dx2 : aa+dx2;
     sincos(aa, sa, ca);
 
-    p = rr * (f3c ? set(sa, ca) : set(ca, sa));
+    vector2 v = set(ca, sa);
+    p = rr * (f3c ? v.yx : v);
 }
 // 35 ( parametric ) (precalc _p)
 void V_RINGS2(vector2 p; const vector2 _p; const float w, rings2val){
