@@ -384,7 +384,7 @@ vector2 FLAMEFF(const string prx; const int T, f3c; const vector2 pos, y, o; con
             // 61 ESCHER ( parametric )
             else if(T==61){
                 float beta = chf(concat(prx, "escherbeta"));
-                V_ESCHER(p, _p, w, beta);
+                V_ESCHER(f3c, p, _p, w, beta);
                 return p; }
             // 62 FOCI
             else if(T==62){

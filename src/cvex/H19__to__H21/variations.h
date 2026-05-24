@@ -849,9 +849,11 @@ void V_NOISE(vector2 p; const vector2 _p; const float w){
     p = _p * rr * set(cosr, sinr);
 }
 // 61 ( parametric )
-void V_ESCHER(vector2 p; const vector2 _p; const float w, beta){
+void V_ESCHER(const int f3c;vector2 p; const vector2 _p; const float w, beta){
     float aa, lnr, seb, ceb, vc, vd, mm, nn, sn, cn;
-    aa = ATANYX(_p);
+
+    vector2 _in = f3c ? _p.yx : _p;
+    aa = ATAN(_in);
     lnr = 0.5 * log(SUMSQ(_p));
     sincos(beta, seb, ceb);
     vc = 0.5 * (1.0 + ceb);

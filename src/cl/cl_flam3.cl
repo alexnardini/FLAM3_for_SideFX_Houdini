@@ -2245,12 +2245,14 @@ static float2 CL_V_NOISE(
 static float2 CL_V_ESCHER(
     __private const float2 in, 
     __private const float w, 
+    __private const int F3C, 
     __private const float beta  // beta
     )
 {
     float aa, lnr, seb, ceb, vc, vd, mm, nn, sn, cn;
     
-    aa = ATANYX(in);
+    float2 _in = F3C ? in.yx : in;
+    aa = ATAN(_in);
 #if USE_NATIVE
     lnr = 0.5f * native_log(SUMSQ(in));
 #else
@@ -3847,7 +3849,7 @@ static float2 CL_V_DISPATCH(
         case 58:    return CL_V_EDISC(in, w, F3C);
         case 59:    return CL_V_ELLIPTIC(in, w);
         case 60:    return CL_V_NOISE(in, w, state);
-        case 61:    return CL_V_ESCHER(in, w, PRM_F[PRM_F_IDX_ESCHERBETA]);
+        case 61:    return CL_V_ESCHER(in, w, F3C, PRM_F[PRM_F_IDX_ESCHERBETA]);
         case 62:    return CL_V_FOCI(in, w);
         case 63:    return CL_V_LAZYSUSAN(in, w, PRM_F3[PRM_F3_IDX_LAZYSUSANSTS], PRM_F2[PRM_F2_IDX_LAZYSUSAN]);
         case 64:    return CL_V_LOONIE(in, w);

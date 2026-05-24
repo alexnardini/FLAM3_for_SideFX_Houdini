@@ -387,7 +387,7 @@ vector2 FLAME(const int idx, T, f3c; const vector2 pos, y, o; const float w){
             // 61 ESCHER ( parametric )
             else if(T==61){
                 float beta[] = detail(-36, "escher_beta"); // GMP.escher_beta[idx];
-                V_ESCHER(p, _p, w, beta[idx]);
+                V_ESCHER(f3c, p, _p, w, beta[idx]);
                 return p; }
             // 62 FOCI
             else if(T==62){
