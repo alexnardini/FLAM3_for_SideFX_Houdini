@@ -64,12 +64,38 @@ from inspect import cleandoc as i_cleandoc
 
 F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
 nodetype = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
-__version__ = nodetype.hdaModule().__version__
-__status__ = nodetype.hdaModule().__status__
-__range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
-__vcc_compiler__: str = nodetype.hdaModule().__vcc_compiler__
-__h_version_min__: int = nodetype.hdaModule().__h_version_min__
-__h_version_max__: int = nodetype.hdaModule().__h_version_max__
+try:
+    __version__: str = nodetype.hdaModule().__version__
+except AttributeError:
+    __version__: str = "Unknown"
+try:
+    __status__: str = nodetype.hdaModule().__status__
+except AttributeError:
+    __status__: str = "Unknown"
+try:
+    __module_filename__: str = nodetype.hdaModule().__module_filename__
+except AttributeError:
+    __module_filename__: str = "Unknown"
+try:
+    __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
+except AttributeError:
+    __range_type__: bool = True
+try:
+    __vcc_compiler__: str = nodetype.hdaModule().__vcc_compiler__
+except AttributeError:
+    __vcc_compiler__: str = "Unknown"
+try:
+    __opencl__: str = nodetype.hdaModule().__opencl__
+except AttributeError:
+    __opencl__: str = "Unknown"
+try:
+    __h_version_min__: int = nodetype.hdaModule().__h_version_min__
+except AttributeError:
+    __h_version_min__: int = 0
+try:
+    __h_version_max__: int = nodetype.hdaModule().__h_version_max__
+except AttributeError:
+    __h_version_max__: int = 0
 
 
 '''
@@ -81,11 +107,11 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
     ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
     IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-    Tested on:  PYTHON v3.7.13  (H19)
+    Tested on:  PYTHON v3.7.13  (H19.0)
                 PYTHON v3.9.10  (H19.5)
-                PYTHON v3.10.10 (H20)
+                PYTHON v3.10.10 (H20.0)
 
-    Title:      FLAM3H™ H10 to H20. SideFX Houdini FLAM3: PYTHON
+    Title:      FLAM3H™ H190 to H200. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
     date:       January 2022, Last revised May 2026 (cloned from: py_flam3__3_7.py)
                 This is the source file.

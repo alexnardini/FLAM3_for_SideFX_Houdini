@@ -73,14 +73,38 @@ from inspect import cleandoc as i_cleandoc
 
 F3H_NODE_TYPE_NAME_CATEGORY: str = 'alexnardini::Sop/FLAM3H'
 nodetype: hou.SopNodeType = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
-__version__: str = nodetype.hdaModule().__version__
-__status__: str = nodetype.hdaModule().__status__
-__module_filename__: str = nodetype.hdaModule().__module_filename__
-__range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
-__vcc_compiler__: str = nodetype.hdaModule().__vcc_compiler__
-__opencl__: str = nodetype.hdaModule().__opencl__
-__h_version_min__: int = nodetype.hdaModule().__h_version_min__
-__h_version_max__: int = nodetype.hdaModule().__h_version_max__
+try:
+    __version__: str = nodetype.hdaModule().__version__
+except AttributeError:
+    __version__: str = "Unknown"
+try:
+    __status__: str = nodetype.hdaModule().__status__
+except AttributeError:
+    __status__: str = "Unknown"
+try:
+    __module_filename__: str = nodetype.hdaModule().__module_filename__
+except AttributeError:
+    __module_filename__: str = "Unknown"
+try:
+    __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
+except AttributeError:
+    __range_type__: bool = True
+try:
+    __vcc_compiler__: str = nodetype.hdaModule().__vcc_compiler__
+except AttributeError:
+    __vcc_compiler__: str = "Unknown"
+try:
+    __opencl__: str = nodetype.hdaModule().__opencl__
+except AttributeError:
+    __opencl__: str = "Unknown"
+try:
+    __h_version_min__: int = nodetype.hdaModule().__h_version_min__
+except AttributeError:
+    __h_version_min__: int = 0
+try:
+    __h_version_max__: int = nodetype.hdaModule().__h_version_max__
+except AttributeError:
+    __h_version_max__: int = 0
 
 
 '''
@@ -92,7 +116,7 @@ __h_version_max__: int = nodetype.hdaModule().__h_version_max__
     ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
     IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-    Tested on:  PYTHON v3.11.7  (H20.5, H21)
+    Tested on:  PYTHON v3.11.7  (H20.5, H21.0)
 
     Title:      FLAM3H™ H205. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
@@ -10725,12 +10749,13 @@ class flam3h_iterator_utils
         flam3h_general_utils.reset_density(node)
         # Iterations
         prm_iterations = node.parm(f3h_tabs.GLB.PRM_ITERATIONS)
-        gpu: int = node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
-        if gpu:
+        try:
+            node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
+        except AttributeError:
+            flam3h_prm_utils.set(node, prm_iterations, f3h_tabs.GLB.DEFAULT_ITERATIONS)
+        else:
             prm_iterations = node.parm(f3h_tabs.PREFS.PRM_GPU_ITER)
             flam3h_prm_utils.set(node, prm_iterations, f3h_tabs.GLB.DEFAULT_ITERATIONS_GPU)
-        else:
-            flam3h_prm_utils.set(node, prm_iterations, f3h_tabs.GLB.DEFAULT_ITERATIONS)
 
         # FF vars
         self.flam3h_reset_FF()
