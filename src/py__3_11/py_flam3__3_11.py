@@ -10748,6 +10748,8 @@ class flam3h_iterator_utils
         # Reset/Set density
         flam3h_general_utils.reset_density(node)
         # Iterations
+        # inside a try/except block just in case the user has an older version of the node and does not have the PRM_GPU parm yet.
+        # This is mostly useful on creation (first node instance).
         prm_iterations = node.parm(f3h_tabs.GLB.PRM_ITERATIONS)
         try:
             node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
