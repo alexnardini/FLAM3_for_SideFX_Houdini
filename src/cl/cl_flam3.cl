@@ -1420,7 +1420,6 @@ static float2 CL_V_RINGS2(
     )
 {
     float _SQRT, r, dx;
-    int nrand;
 
     _SQRT = SQRT(in);
 #if USE_NATIVE
