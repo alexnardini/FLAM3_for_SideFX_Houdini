@@ -79,61 +79,61 @@ try:
     __v__: int = nodetype.hdaModule().__v__
 except AttributeError:
     __v__: int = 0
-    print(f"FLAM3H™ python module is missing: \"__v__\"\nSet to a backup value of: {__v__}\n")
+    print(f"ERROR - FLAM3H™ python module is missing: \"__v__\"\n-> Set to a backup value of: {__v__}\n")
 try:
     # this is the full version number, for example version 1.9.80 or 2.0.22, as string
     __version__: str = nodetype.hdaModule().__version__
 except AttributeError:
     __version__: str = "Unknown"
-    print(f"FLAM3H™ python module is missing: \"__version__\"\nSet to a backup value of: {__version__}\n")
+    print(f"ERROR - ERROR - FLAM3H™ python module is missing: \"__version__\"\n-> Set to a backup value of: {__version__}\n")
 try:
     # This is the status of the tool for this version, for example Prototype or Production
     __status__: str = nodetype.hdaModule().__status__
 except AttributeError:
     __status__: str = "Unknown"
-    print(f"FLAM3H™ python module is missing: \"__status__\"\nSet to a backup value of: {__status__}\n")
+    print(f"ERROR - FLAM3H™ python module is missing: \"__status__\"\n-> Set to a backup value of: {__status__}\n")
 try:
     # This is the module file name given to the file loaded inside the Extra Files section of FLAM3H™
     __module_filename__: str = nodetype.hdaModule().__module_filename__
 except AttributeError:
     __module_filename__: str = "Unknown"
-    print(f"FLAM3H™ python module is missing: \"__module_filename__\"\nSet to a backup value of: {__module_filename__}\n")
+    print(f"ERROR - FLAM3H™ python module is missing: \"__module_filename__\"\n-> Set to a backup value of: {__module_filename__}\n")
 try:
     # This is a tuple containing all the houdini versions where this FLAM3H™ OTL is allowed to run
     __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__
 except AttributeError:
     __h_versions__: tuple[int, ...] = (999,)
-    print(f"FLAM3H™ python module is missing: \"__h_versions__\"\nSet to a backup value of: {__h_versions__}\n")
+    print(f"ERROR - FLAM3H™ python module is missing: \"__h_versions__\"\n-> Set to a backup value of: {__h_versions__}\n")
 try:
     # This is telling us if FLAM3H™ will run only on a selected Houdini version numbers or also beyound those.
     __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
 except AttributeError:
     __range_type__: bool = True
-    print(f"FLAM3H™ python module is missing: \"__range_type__\"\nSet to a backup value of: {__range_type__}\n")
+    print(f"ERROR - FLAM3H™ python module is missing: \"__range_type__\"\n-> Set to a backup value of: {__range_type__}\n")
 try:
     # This is the full Houdini dot version used to compile all the cvex code included
     __vcc_compiler__: str = nodetype.hdaModule().__vcc_compiler__
 except AttributeError:
     __vcc_compiler__: str = "Unknown"
-    print(f"FLAM3H™ python module is missing: \"__vcc_compiler__\"\nSet to a backup value of: {__vcc_compiler__}\n")
+    print(f"ERROR - FLAM3H™ python module is missing: \"__vcc_compiler__\"\n-> Set to a backup value of: {__vcc_compiler__}\n")
 try:
     # This is the OpenCL language version number being used to compile the OpenCL kernel code included
     __opencl__: str = nodetype.hdaModule().__opencl__
 except AttributeError:
     __opencl__: str = "Unknown"
-    print(f"FLAM3H™ python module is missing: \"__opencl__\"\nSet to a backup value of: {__opencl__}\n")
+    print(f"ERROR - FLAM3H™ python module is missing: \"__opencl__\"\n-> Set to a backup value of: {__opencl__}\n")
 try:
     # This is the least Houdini version allowed
     __h_version_min__: int = nodetype.hdaModule().__h_version_min__
 except AttributeError:
     __h_version_min__: int = 0
-    print(f"FLAM3H™ python module is missing: \"__h_version_min__\"\nSet to a backup value of: {__h_version_min__}\n")
+    print(f"ERROR - FLAM3H™ python module is missing: \"__h_version_min__\"\n-> Set to a backup value of: {__h_version_min__}\n")
 try:
     # This is the max Houdini version allowed. if "__range_type__" is False, it will run beyound this version regardless
     __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 except AttributeError:
     __h_version_max__: int = 0
-    print(f"FLAM3H™ python module is missing: \"__h_version_max__\"\nSet to a backup value of: {__h_version_max__}\n")
+    print(f"ERROR - FLAM3H™ python module is missing: \"__h_version_max__\"\n-> Set to a backup value of: {__h_version_max__}\n")
 
 
 '''
