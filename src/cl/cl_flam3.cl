@@ -2581,13 +2581,14 @@ static float2 CL_V_SPLIT(
     #if USE_FMA
         tx = floor(fma(in.x, split.x, 0.5f));
         ty = floor(fma(in.y, split.y, 0.5f));
+        sx = fma(-2.0f, (float)((int)tx & 1), 1.0f);
+        sy = fma(-2.0f, (float)((int)ty & 1), 1.0f);
     #else
         tx = floor(in.x * split.x + 0.5f);
         ty = floor(in.y * split.y + 0.5f);
+        sx = 1.0f - 2.0f * (float)((int)tx & 1);
+        sy = 1.0f - 2.0f * (float)((int)ty & 1);
     #endif
-
-    sx = 1.0f - 2.0f * (float)((int)tx & 1);
-    sy = 1.0f - 2.0f * (float)((int)ty & 1);
 
     return w * in * (float2)(sy, sx);
 
