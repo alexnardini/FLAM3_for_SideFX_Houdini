@@ -2553,10 +2553,16 @@ static float2 CL_V_SEPARATION(
     float insx = in.x * ins.x;
     float insy = in.y * ins.y;
 
-    if(in.x > 0.0f) x = w * (sqrt_sx2 - insx);
-    else x = w * -(sqrt_sx2 + insx);
-    if(in.y > 0.0f) y = w * (sqrt_sy2 - insy);
-    else y = w * -(sqrt_sy2 + insy);
+    float sx = (in.x > 0.0f) ? 1.0f : -1.0f;
+    float sy = (in.y > 0.0f) ? 1.0f : -1.0f;
+
+    #if USE_FMA
+        x = w * fma(sx, sqrt_sx2, -insx);
+        y = w * fma(sy, sqrt_sy2, -insy);
+    #else
+        x = w * (sx * sqrt_sx2 - insx);
+        y = w * (sy * sqrt_sy2 - insy);
+    #endif
 
     return (float2)(x, y);
 }
@@ -2570,22 +2576,21 @@ static float2 CL_V_SPLIT(
     )
 {
 #if USE_NATIVE
-    float2 scaled, t, t2, cos_approx, eps, mask;
+    float tx, ty, sx, sy;
 
-    scaled = in * split * (float)M_PI;
-    t = fmod(scaled, M_TAU);
-    t2 = t * t;
-    cos_approx = 1.0f + 
-                t2 * (-0.5f + 
-                t2 * (0.0416666667f + 
-                t2 * (-0.0013888889f + 
-                t2 * (0.0000248016f + 
-                t2 * (-2.7557319e-7f + 
-                t2 * 2.0876757e-9f)))));
-    
-    mask = sign(cos_approx + (float2)((float)EPS, (float)EPS));
+    #if USE_FMA
+        tx = floor(fma(in.x, split.x, 0.5f));
+        ty = floor(fma(in.y, split.y, 0.5f));
+    #else
+        tx = floor(in.x * split.x + 0.5f);
+        ty = floor(in.y * split.y + 0.5f);
+    #endif
 
-    return w * in * mask.yx;
+    sx = 1.0f - 2.0f * (float)((int)tx & 1);
+    sy = 1.0f - 2.0f * (float)((int)ty & 1);
+
+    return w * in * (float2)(sy, sx);
+
 #else
     float x, y;
 
