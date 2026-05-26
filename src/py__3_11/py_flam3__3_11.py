@@ -85,7 +85,7 @@ try:
     __version__: str = nodetype.hdaModule().__version__
 except AttributeError:
     __version__: str = "Unknown"
-    print(f"ERROR - ERROR - FLAM3H™ python module is missing: \"__version__\"\n-> Set to a backup value of: {__version__}\n")
+    print(f"ERROR - FLAM3H™ python module is missing: \"__version__\"\n-> Set to a backup value of: {__version__}\n")
 try:
     # This is the status of the tool for this version, for example Prototype or Production
     __status__: str = nodetype.hdaModule().__status__
