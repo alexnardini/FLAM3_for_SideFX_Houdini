@@ -71,44 +71,69 @@ from numpy import searchsorted as np_searchsorted
 from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 
+# Lets get some data from the HDA python module section
 F3H_NODE_TYPE_NAME_CATEGORY: str = 'alexnardini::Sop/FLAM3H'
 nodetype: hou.SopNodeType = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
 try:
+    # This is the major version number only, for example version 1 or version 2, as integer
     __v__: int = nodetype.hdaModule().__v__
 except AttributeError:
     __v__: int = 0
+    print(f"FLAM3H™ python module is missing: \"__v__\"\nSet to a backup value of: {__v__}\n")
 try:
+    # this is the full version number, for example version 1.9.80 or 2.0.22, as string
     __version__: str = nodetype.hdaModule().__version__
 except AttributeError:
     __version__: str = "Unknown"
+    print(f"FLAM3H™ python module is missing: \"__version__\"\nSet to a backup value of: {__version__}\n")
 try:
+    # This is the status of the tool for this version, for example Prototype or Production
     __status__: str = nodetype.hdaModule().__status__
 except AttributeError:
     __status__: str = "Unknown"
+    print(f"FLAM3H™ python module is missing: \"__status__\"\nSet to a backup value of: {__status__}\n")
 try:
+    # This is the module file name given to the file loaded inside the Extra Files section of FLAM3H™
     __module_filename__: str = nodetype.hdaModule().__module_filename__
 except AttributeError:
     __module_filename__: str = "Unknown"
+    print(f"FLAM3H™ python module is missing: \"__module_filename__\"\nSet to a backup value of: {__module_filename__}\n")
 try:
+    # This is a tuple containing all the houdini versions where this FLAM3H™ OTL is allowed to run
+    __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__
+except AttributeError:
+    __h_versions__: tuple[int, ...] = (999,)
+    print(f"FLAM3H™ python module is missing: \"__h_versions__\"\nSet to a backup value of: {__h_versions__}\n")
+try:
+    # This is telling us if FLAM3H™ will run only on a selected Houdini version numbers or also beyound those.
     __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
 except AttributeError:
     __range_type__: bool = True
+    print(f"FLAM3H™ python module is missing: \"__range_type__\"\nSet to a backup value of: {__range_type__}\n")
 try:
+    # This is the full Houdini dot version used to compile all the cvex code included
     __vcc_compiler__: str = nodetype.hdaModule().__vcc_compiler__
 except AttributeError:
     __vcc_compiler__: str = "Unknown"
+    print(f"FLAM3H™ python module is missing: \"__vcc_compiler__\"\nSet to a backup value of: {__vcc_compiler__}\n")
 try:
+    # This is the OpenCL language version number being used to compile the OpenCL kernel code included
     __opencl__: str = nodetype.hdaModule().__opencl__
 except AttributeError:
     __opencl__: str = "Unknown"
+    print(f"FLAM3H™ python module is missing: \"__opencl__\"\nSet to a backup value of: {__opencl__}\n")
 try:
+    # This is the least Houdini version allowed
     __h_version_min__: int = nodetype.hdaModule().__h_version_min__
 except AttributeError:
     __h_version_min__: int = 0
+    print(f"FLAM3H™ python module is missing: \"__h_version_min__\"\nSet to a backup value of: {__h_version_min__}\n")
 try:
+    # This is the max Houdini version allowed. if "__range_type__" is False, it will run beyound this version regardless
     __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 except AttributeError:
     __h_version_max__: int = 0
+    print(f"FLAM3H™ python module is missing: \"__h_version_max__\"\nSet to a backup value of: {__h_version_max__}\n")
 
 
 '''
@@ -2220,12 +2245,11 @@ class flam3h_scripts
             (bool): True if compatible otherwise False.
         """ 
         h_version: int = flam3h_general_utils.houdini_version(2)
-        this_h_versions: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
         
         # checks the full available range in the tuple
-        if h_version < this_h_versions[0] or h_version > this_h_versions[-1]:
+        if h_version < __h_versions__[0] or h_version > __h_versions__[-1]:
             
-            if msg: flam3h_scripts.flam3h_compatible_h_versions_msg(this_h_versions)
+            if msg: flam3h_scripts.flam3h_compatible_h_versions_msg(__h_versions__)
             
             if kwargs is not None:
                 # Just in case I will need to do something
@@ -2234,7 +2258,7 @@ class flam3h_scripts
             return False
         
         # This will probably never evaluate with the range close, but just in case.
-        return flam3h_scripts.flam3h_compatible(h_version, this_h_versions, kwargs, msg)
+        return flam3h_scripts.flam3h_compatible(h_version, __h_versions__, kwargs, msg)
 
 
     @staticmethod
@@ -2251,7 +2275,6 @@ class flam3h_scripts
             (bool): True if compatible otherwise False.
         """ 
         h_version: int = flam3h_general_utils.houdini_version(2)
-        this_h_versions: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
         
         # Only for the latest FLAM3H™ on the latest Houdini version (and its latest python module version), otherwise the full range is checked.
         #
@@ -2262,9 +2285,9 @@ class flam3h_scripts
         # if h_version < this_h_versions[0] or h_version > this_h_versions[-1]:
         #   ... 
         # Most likely the range will be closed again once SideFX update the vcc compiler and LLVM.
-        if h_version < this_h_versions[0]:
+        if h_version < __h_versions__[0]:
             
-            if msg: flam3h_scripts.flam3h_compatible_h_versions_msg(this_h_versions)
+            if msg: flam3h_scripts.flam3h_compatible_h_versions_msg(__h_versions__)
             
             if kwargs is not None:
                 # Just in case I will need to do something
@@ -2272,7 +2295,7 @@ class flam3h_scripts
             
             return False
             
-        return flam3h_scripts.flam3h_compatible(h_version, this_h_versions, kwargs, msg)
+        return flam3h_scripts.flam3h_compatible(h_version, __h_versions__, kwargs, msg)
 
 
     @staticmethod
@@ -2941,7 +2964,6 @@ class flam3h_scripts
         node: hou.SopNode = self.node
         
         flam3h_prm_utils.private_prm_set(self.node, f3h_tabs.PREFS.PVT_PRM_H_VALID, 0)
-        __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™ HDA PythonModule module.
         
         _MSG_H_VERSIONS = flam3h_scripts.flam3h_compatible_h_versions_msg(__h_versions__, False)
 
@@ -23639,7 +23661,7 @@ class pyside_master:
 
         APP_COPYRIGHT: str = (
             "\n"
-            f"v{__version__} indie {flam3h_scripts.flam3h_compatible_h_versions_msg(nodetype.hdaModule().__h_versions__, False, True)}, {__license__} - {__copyright__} ( made in Italy )"
+            f"v{__version__} indie {flam3h_scripts.flam3h_compatible_h_versions_msg(__h_versions__, False, True)}, {__license__} - {__copyright__} ( made in Italy )"
         )
         
         # milliseconds
