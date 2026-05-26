@@ -65,6 +65,10 @@ from inspect import cleandoc as i_cleandoc
 F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
 nodetype = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
 try:
+    __v__: int = nodetype.hdaModule().__v__
+except AttributeError:
+    __v__: int = 0
+try:
     __version__: str = nodetype.hdaModule().__version__
 except AttributeError:
     __version__: str = "Unknown"
@@ -11869,7 +11873,14 @@ class flam3h_about_utils
         # year = datetime.now().strftime("%Y")
         
         flam3h_author: str = f"AUTHOR: {__author__}"
-        flam3h_code: str = f"CODE: cvex {__vcc_compiler__}, Python {__py_version__}"
+
+        if __v__ > 1:
+            flam3h_code: str = f"CODE: opencl {__opencl__}, cvex {__vcc_compiler__}, python {__py_version__}"
+        elif __v__ == 1:
+            flam3h_code: str = f"CODE: cvex {__vcc_compiler__}, python {__py_version__}"
+        else:
+            flam3h_code: str = f"CODE: *cvex {__vcc_compiler__}, *python {__py_version__}"
+            
         flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_code}\n{__copyright__}"
         

@@ -79,6 +79,7 @@ to: **py_flam3__3_11**
 import toolutils
 
 # Set some HDA infos
+__v__ = 1
 __version__ = "1.9.80"
 __status__  = "Production"
 __h_versions__: tuple = (190, 195, 200)
