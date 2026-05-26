@@ -503,7 +503,7 @@ class f3h_tabs:
         
         PRM_DENSITY: Final = 'ptcount'
         PRM_DENSITY_PRESETS: Final = 'ptcount_presets'
-        PRM_ITERATIONS: Final = 'iter'
+        PRM_CPU_ITER: Final = 'iter'
         
         
     class SYS:
@@ -6012,14 +6012,14 @@ class flam3h_general_utils
         if gpu:
             parms_dict: dict = {f3h_tabs.GLB.PRM_DENSITY: density, 
                                 f3h_tabs.GLB.PRM_DENSITY_PRESETS: 1, 
-                                f3h_tabs.GLB.PRM_ITERATIONS: iter, 
+                                f3h_tabs.GLB.PRM_CPU_ITER: iter, 
                                 f3h_tabs.PREFS.PRM_GPU_ITER: f3h_tabs.GLB.DEFAULT_ITERATIONS_GPU, 
                                 f3h_tabs.SYS.PRM_TAG_SIZE: 0}
             
         else:
             parms_dict: dict = {f3h_tabs.GLB.PRM_DENSITY: density, 
                                 f3h_tabs.GLB.PRM_DENSITY_PRESETS: 1, 
-                                f3h_tabs.GLB.PRM_ITERATIONS: iter, 
+                                f3h_tabs.GLB.PRM_CPU_ITER: iter, 
                                 f3h_tabs.SYS.PRM_TAG_SIZE: 0}
             
         flam3h_prm_utils.setParms(node, parms_dict)
@@ -11015,21 +11015,18 @@ class flam3h_iterator_utils
         for p in node.parms():
             if not p.isLocked():
                 p.deleteAllKeyframes()
-            
+        
         # GLOBAL
         # Reset/Set density
         flam3h_general_utils.reset_density(node)
         # Iterations
-        # inside a try/except block just in case the user has an older version of the node and does not have the PRM_GPU parm yet.
-        # This is mostly useful on creation (first node instance).
-        prm_iterations = node.parm(f3h_tabs.GLB.PRM_ITERATIONS)
-        try:
-            node.parm(f3h_tabs.PREFS.PRM_GPU).eval()
-        except AttributeError:
-            flam3h_prm_utils.set(node, prm_iterations, f3h_tabs.GLB.DEFAULT_ITERATIONS)
+        # This is mostly useful on creation (first node instance) and when loading a FLAM3H otl version that is older (no gpu).
+        if self.gpu:
+            prm_iterations_gpu = node.parm(f3h_tabs.PREFS.PRM_GPU_ITER)
+            flam3h_prm_utils.set(node, prm_iterations_gpu, f3h_tabs.GLB.DEFAULT_ITERATIONS_GPU)
         else:
-            prm_iterations = node.parm(f3h_tabs.PREFS.PRM_GPU_ITER)
-            flam3h_prm_utils.set(node, prm_iterations, f3h_tabs.GLB.DEFAULT_ITERATIONS_GPU)
+            prm_iterations_cpu = node.parm(f3h_tabs.GLB.PRM_CPU_ITER)
+            flam3h_prm_utils.set(node, prm_iterations_cpu, f3h_tabs.GLB.DEFAULT_ITERATIONS)
 
         # FF vars
         self.flam3h_reset_FF()
@@ -18805,7 +18802,7 @@ class in_flame_utils
             (None):
         """
         iter_on_load: int = self.node.parm(f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD).eval()
-        flam3h_prm_utils.set(self.node, f3h_tabs.GLB.PRM_ITERATIONS, iter_on_load)
+        flam3h_prm_utils.set(self.node, f3h_tabs.GLB.PRM_CPU_ITER, iter_on_load)
         
         # update Flame preset name if any
         out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
@@ -18826,7 +18823,7 @@ class in_flame_utils
             
             prm_iter_num_on_load = node.parm(f3h_tabs.IN.PRM_ITER_NUM_ON_LOAD)
             iternumonload: int = prm_iter_num_on_load.eval()
-            iter: int = node.parm(f3h_tabs.GLB.PRM_ITERATIONS).eval()
+            iter: int = node.parm(f3h_tabs.GLB.PRM_CPU_ITER).eval()
             if iternumonload == iter:
                 pass
             
@@ -20318,7 +20315,7 @@ class out_flame_utils
             (str): Return a default name composed of today's date and time.
         """
         flame_name: str = datetime.now().strftime("Flame_%b-%d-%Y_%H%M%S")
-        iter_num: int = node.parm(f3h_tabs.GLB.PRM_ITERATIONS).eval()
+        iter_num: int = node.parm(f3h_tabs.GLB.PRM_CPU_ITER).eval()
         
         return out_flame_utils.out_auto_add_iter_num(iter_num, flame_name, autoadd, True, gpu)
     
@@ -21408,7 +21405,7 @@ class out_flame_utils
                 menu_label: str | None = self.out_presets_get_selected_menu_label()
                 if menu_label is not None:
                     flame_name: str = self.out_remove_iter_num(menu_label)
-                    iter_num: int = node.parm(f3h_tabs.GLB.PRM_ITERATIONS).eval()
+                    iter_num: int = node.parm(f3h_tabs.GLB.PRM_CPU_ITER).eval()
                     autoadd: int = node.parm(f3h_tabs.OUT.PRM_AUTO_ADD_ITER_NUM).eval()
                     flame_name_new: str = self.out_auto_add_iter_num(iter_num, flame_name, autoadd, True, self.gpu)
                     
@@ -21835,7 +21832,7 @@ class out_flame_utils
             (tuple[int, str, int]): A tuple with the needed data
         """
         node: hou.SopNode = self.node
-        iter_num: int = node.parm(f3h_tabs.GLB.PRM_ITERATIONS).eval()
+        iter_num: int = node.parm(f3h_tabs.GLB.PRM_CPU_ITER).eval()
         flame_name: str = str(node.parm(f3h_tabs.OUT.PRM_FLAME_PRESET_NAME).eval()).strip()
         if self.gpu: autoadd: int = 0
         else: autoadd: int = node.parm(f3h_tabs.OUT.PRM_AUTO_ADD_ITER_NUM).eval()
@@ -22736,7 +22733,7 @@ class out_flame_utils
             return self.out_flame_default_name(self.node, autoadd, self.gpu)
         
         # otherwise get that name and use it
-        iter_num: int = self.node.parm(f3h_tabs.GLB.PRM_ITERATIONS).eval()
+        iter_num: int = self.node.parm(f3h_tabs.GLB.PRM_CPU_ITER).eval()
         return self.out_auto_add_iter_num(iter_num, flame_name, autoadd, True, self.gpu)
         
         
