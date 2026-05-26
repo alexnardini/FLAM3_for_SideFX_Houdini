@@ -4151,7 +4151,7 @@ __kernel void cl_flam3(
         
         // xform selection
         r = rng_next_float(&rng);
-        idx = XS ? sample_cdf_binary(&local_XST[idx * RES], RES, r) : sample_cdf_binary(local_IW, RES, r);
+        idx = sample_cdf_binary(XS ? &local_XST[idx * RES] : local_IW, RES, r);
         
         // parameterics data
         __local float*  xf_prm_f  = &local_PRM_F[idx * PRM_NUM_F];
