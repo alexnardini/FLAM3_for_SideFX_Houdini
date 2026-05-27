@@ -82,6 +82,9 @@ import toolutils
 __v__ = 1
 __version__ = "1.9.81"
 __status__  = "Production"
+# Note:
+# The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:
+# 190, 195, 200, 205, 210 and so on.
 __h_versions__: tuple = (190, 195, 200)
 __range_type__: bool = True # True for closed range. False for open range
 __vcc_compiler__ = "21.0.770"
@@ -99,7 +102,7 @@ try:
     __h_version_max__: int = __h_versions__[-1]
 except:
     __h_version_min__: int = 999
-    __h_version_max__: int = 999
+    __h_version_max__: int = __h_version_min__
 
 def houdini_version(digit: int=1) -> int:
     """Retrieve the major Houdini version number currently in use.
@@ -177,6 +180,9 @@ try:
     __h_versions__: tuple = nodetype.hdaModule().__h_versions__
 except AttributeError:
     __h_versions__: tuple = (999,)
+else:
+    if not nodetype.hdaModule().flam3.is_nonempty_int_tuple(__h_versions__):
+        __h_versions__: tuple = (999,)
 try:
     # This is telling us if FLAM3H™ will run only on a selected Houdini version numbers or also beyound those.
     __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range

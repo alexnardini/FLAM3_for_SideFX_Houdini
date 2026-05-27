@@ -83,6 +83,9 @@ import toolutils
 __v__ = 2
 __version__ = "2.0.23"
 __status__  = "Production"
+# Note:
+# The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:
+# 190, 195, 200, 205, 210 and so on.
 __h_versions__: tuple = (210,)
 __range_type__: bool = False # True for closed range. False for open range
 __vcc_compiler__ = "21.0.700"
@@ -100,7 +103,7 @@ try:
     __h_version_max__: int = __h_versions__[-1]
 except:
     __h_version_min__: int = 999
-    __h_version_max__: int = 999
+    __h_version_max__: int = __h_version_min__
 
 
 def houdini_version(digit: int=1) -> int:
@@ -160,6 +163,9 @@ import toolutils
 __v__ = 2
 __version__ = "2.0.19"
 __status__  = "Production"
+# Note:
+# The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:
+# 190, 195, 200, 205, 210 and so on.
 __h_versions__: tuple = (205,)
 __range_type__: bool = True # True for closed range. False for open range
 __vcc_compiler__ = "21.0.770"
@@ -173,7 +179,11 @@ __opencl__ = "1.2"
 # - (py_flam3__3_11) -> def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
 # - (py_flam3__3_7)  -> def flam3h_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
 __h_version_min__: int = 190
-__h_version_max__: int = __h_versions__[-1]
+try:
+    __h_version_max__: int = __h_versions__[-1]
+except:
+    __h_version_min__: int = 999
+    __h_version_max__: int = __h_version_min__
 
 
 def houdini_version(digit: int=1) -> int:
@@ -254,6 +264,9 @@ try:
     __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__
 except AttributeError:
     __h_versions__: tuple[int, ...] = (999,)
+else:
+    if not nodetype.hdaModule().flam3.is_nonempty_int_tuple(__h_versions__):
+        __h_versions__: tuple[int, ...] = (999,)
 try:
     # This is telling us if FLAM3H™ will run only on a selected Houdini version numbers or also beyound those.
     __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range

@@ -71,6 +71,27 @@ from numpy import searchsorted as np_searchsorted
 from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 
+
+def is_nonempty_int_tuple(value: tuple) -> bool:
+    """Check if a tuple contain only integers.</br>
+    This is done to be sure the FLAM3H™ dunder data: __h_versions__ is valid.</br>
+    
+    Note:
+        The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:
+        - 190, 195, 200, 205, 210 and so on.
+
+    Args:
+        value(str): The tuple to check</br>
+
+    Returns:
+        (bool): True if it contain only integers and False if not (including if empty)
+    """
+    return (
+            isinstance(value, tuple) and
+            len(value) > 0 and
+            all(type(x) is int for x in value)
+    )
+
 # Lets get some data from the HDA python module section
 F3H_NODE_TYPE_NAME_CATEGORY: str = 'alexnardini::Sop/FLAM3H'
 nodetype: hou.SopNodeType = hou.nodeType(F3H_NODE_TYPE_NAME_CATEGORY)
@@ -104,6 +125,10 @@ try:
 except AttributeError:
     __h_versions__: tuple[int, ...] = (999,)
     print(f"ERROR - FLAM3H™ python module is missing: \"__h_versions__\"\n-> Set to a backup value of: {__h_versions__}\n")
+else:
+    if not is_nonempty_int_tuple(__h_versions__):
+        __h_versions__: tuple[int, ...] = (999,)
+        print(f"WARNING - FLAM3H™ python module data: \"__h_versions__\" is not a valid data\n-> Set to a backup value of: {__h_versions__}\n")
 try:
     # This is telling us if FLAM3H™ will run only on a selected Houdini version numbers or also beyound those.
     __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
