@@ -13103,7 +13103,7 @@ class flam3h_about_utils
         elif __v__ == 1:
             flam3h_code: str = f"CODE: cvex {__vcc_compiler__}, python {__py_version__}"
         else:
-            flam3h_code: str = f"CODE: *cvex {__vcc_compiler__}, *python {__py_version__}"
+            flam3h_code: str = f"CODE: **opencl, **cvex, **python"
             
         flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_code}\n{__copyright__}"
