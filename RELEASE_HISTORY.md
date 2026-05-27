@@ -43,6 +43,7 @@ _This is a re-release of the same version with some minor improvements that did 
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
+- **New**: Added proper python module dunder's data messages.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
