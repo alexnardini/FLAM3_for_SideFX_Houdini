@@ -263,12 +263,18 @@ try:
     # This is the least Houdini version allowed
     __h_version_min__: int = nodetype.hdaModule().__h_version_min__
 except AttributeError:
-    __h_version_min__: int = 999
+    if __h_versions__[0] != 999:
+        __h_version_min__: int = __h_versions__[0]
+    else:
+        __h_version_min__: int = 999
 try:
     # This is the max Houdini version allowed. if "__range_type__" is False, it will run beyound this version regardless
     __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 except AttributeError:
-    __h_version_max__: int = 999
+    if __h_versions__[0] != 999:
+        __h_version_max__: int = __h_versions__[-1]
+    else:
+        __h_version_max__: int = 999
 
 
 def flam3h_first_time() -> bool:
