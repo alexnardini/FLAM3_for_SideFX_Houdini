@@ -297,29 +297,41 @@ try:
     __v__: int = nodetype.hdaModule().__v__
 except AttributeError:
     __v__: int = 0
+else:
+    if not isinstance(__v__, int):
+        __v__: int = 0
 try:
     # this is the full version number, for example version 1.9.80 or 2.0.22, as string
     __version__: str = nodetype.hdaModule().__version__
 except AttributeError:
     __version__: str = "Unknown"
+else:
+    if not isinstance(__version__, str):
+        __version__: str = "Unknown"
 try:
     # This is the status of the tool for this version, for example Prototype or Production
     __status__: str = nodetype.hdaModule().__status__
 except AttributeError:
     __status__: str = "Unknown"
+else:
+    if not isinstance(__status__, str):
+        __status__: str = "Unknown"
 try:
     # This is a tuple containing all the houdini versions where this FLAM3H™ OTL is allowed to run
     __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__
 except AttributeError:
     __h_versions__: tuple[int, ...] = (999,)
 else:
-    if not nodetype.hdaModule().flam3.is_nonempty_int_tuple(__h_versions__):
+    if not nodetype.hdaModule().is_nonempty_int_tuple(__h_versions__):
         __h_versions__: tuple[int, ...] = (999,)
 try:
     # This is telling us if FLAM3H™ will run only on a selected Houdini version numbers or also beyound those.
     __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
 except AttributeError:
     __range_type__: bool = True
+else:
+    if not isinstance(__range_type__, bool):
+        __range_type__: bool = True
 try:
     # This is the least Houdini version allowed
     __h_version_min__: int = nodetype.hdaModule().__h_version_min__
@@ -328,6 +340,9 @@ except AttributeError:
         __h_version_min__: int = __h_versions__[0]
     else:
         __h_version_min__: int = 999
+else:
+    if not isinstance(__h_version_min__, int):
+        __h_version_min__: int = 999
 try:
     # This is the max Houdini version allowed. if "__range_type__" is False, it will run beyound this version regardless
     __h_version_max__: int = nodetype.hdaModule().__h_version_max__
@@ -335,6 +350,9 @@ except AttributeError:
     if __h_versions__[0] != 999:
         __h_version_max__: int = __h_versions__[-1]
     else:
+        __h_version_max__: int = 999
+else:
+    if not isinstance(__h_version_max__, int):
         __h_version_max__: int = 999
 
 
