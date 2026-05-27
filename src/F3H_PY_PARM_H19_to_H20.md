@@ -153,12 +153,41 @@ from datetime import datetime
 # Get some HDA infos from the HDA module
 FLAM3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'
 nodetype = hou.nodeType(FLAM3H_NODE_TYPE_NAME_CATEGORY)
-__version__ = nodetype.hdaModule().__version__
-__status__ = nodetype.hdaModule().__status__
-__h_versions__: tuple = nodetype.hdaModule().__h_versions__
-__range_type__: bool = nodetype.hdaModule().__range_type__
-__h_version_min__: int = nodetype.hdaModule().__h_version_min__
-__h_version_max__: int = nodetype.hdaModule().__h_version_max__
+try:
+    # This is the major version number only, for example version 1 or version 2, as integer
+    __v__: int = nodetype.hdaModule().__v__
+except AttributeError:
+    __v__: int = 0
+try:
+    # this is the full version number, for example version 1.9.80 or 2.0.22, as string
+    __version__: str = nodetype.hdaModule().__version__
+except AttributeError:
+    __version__: str = "Unknown"
+try:
+    # This is the status of the tool for this version, for example Prototype or Production
+    __status__: str = nodetype.hdaModule().__status__
+except AttributeError:
+    __status__: str = "Unknown"
+try:
+    # This is a tuple containing all the houdini versions where this FLAM3H™ OTL is allowed to run
+    __h_versions__: tuple = nodetype.hdaModule().__h_versions__
+except AttributeError:
+    __h_versions__: tuple = (999,)
+try:
+    # This is telling us if FLAM3H™ will run only on a selected Houdini version numbers or also beyound those.
+    __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
+except AttributeError:
+    __range_type__: bool = True
+try:
+    # This is the least Houdini version allowed
+    __h_version_min__: int = nodetype.hdaModule().__h_version_min__
+except AttributeError:
+    __h_version_min__: int = 999
+try:
+    # This is the max Houdini version allowed. if "__range_type__" is False, it will run beyound this version regardless
+    __h_version_max__: int = nodetype.hdaModule().__h_version_max__
+except AttributeError:
+    __h_version_max__: int = 999
 
 
 def flam3h_first_time() -> bool:
