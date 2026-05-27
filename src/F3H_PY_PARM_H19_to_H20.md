@@ -95,7 +95,11 @@ __opencl__ = "n/a"
 # - (py_flam3__3_11) -> def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
 # - (py_flam3__3_7)  -> def flam3h_compatible_type(self, range_type: bool, kwargs: Union[dict, None] = None, msg: bool = True) -> bool:
 __h_version_min__: int = 190
-__h_version_max__: int = __h_versions__[-1]
+try:
+    __h_version_max__: int = __h_versions__[-1]
+except:
+    __h_version_min__: int = 999
+    __h_version_max__: int = 999
 
 def houdini_version(digit: int=1) -> int:
     """Retrieve the major Houdini version number currently in use.

@@ -1034,8 +1034,8 @@ static float2 CL_V_RINGS(
         r = w * wrapped - dx + _SQRT * (1.0f - dx);
     #endif
 #else
+    wrapped = fmod(_SQRT + dx, 2.0f * dx);
     #if USE_FMA
-        wrapped = fmod(_SQRT + dx, 2.0f * dx);
         t = fma(-_SQRT, dx, _SQRT);
         float u = fma(-1.0f, dx, wrapped);
         r = fma(w, (u + t), 0.0f);
