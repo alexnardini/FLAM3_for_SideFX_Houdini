@@ -89,7 +89,7 @@ def is_nonempty_int_tuple(value: tuple) -> bool:
     return (
             isinstance(value, tuple) and
             len(value) > 0 and
-            all(type(x) is int for x in value)
+            all(type(x) is int and len(str(abs(x))) == 3 for x in value)
     )
 
 # Lets get some data from the HDA python module section

@@ -62,6 +62,7 @@ if TYPE_CHECKING:
 from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 
+
 def is_nonempty_int_tuple(value: tuple) -> bool:
     """Check if a tuple contain only integers.</br>
     This is done to be sure the FLAM3H™ dunder data: __h_versions__ is valid.</br>
@@ -79,8 +80,9 @@ def is_nonempty_int_tuple(value: tuple) -> bool:
     return (
             isinstance(value, tuple) and
             len(value) > 0 and
-            all(type(x) is int for x in value)
+            all(type(x) is int and len(str(abs(x))) == 3 for x in value)
     )
+
 
 # Lets get some data from the HDA python module section
 F3H_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Sop/FLAM3H'

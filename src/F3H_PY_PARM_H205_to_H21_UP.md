@@ -91,6 +91,27 @@ __range_type__: bool = False # True for closed range. False for open range
 __vcc_compiler__ = "21.0.700"
 __opencl__ = "1.2"
 
+
+def is_nonempty_int_tuple(value: tuple) -> bool:
+    """Check if a tuple contain only integers.</br>
+    This is done to be sure the FLAM3H™ dunder data: __h_versions__ is valid.</br>
+    
+    Note:
+        The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:
+        - 190, 195, 200, 205, 210 and so on.
+
+    Args:
+        value(str): The tuple to check</br>
+
+    Returns:
+        (bool): True if it contain only integers and False if not (including if empty)
+    """
+    return (
+            isinstance(value, tuple) and
+            len(value) > 0 and
+            all(type(x) is int and len(str(abs(x))) == 3 for x in value)
+    )
+
 # The following are min and max Houdini version where FLAM3H™ can run.
 # The max version is always most likely the latest Houdini version released by SideFX
 # unless it is a closed range due to moving into newer Houdini and FLAM3H™ versions.
@@ -101,6 +122,9 @@ __opencl__ = "1.2"
 __h_version_min__: int = 190
 try:
     __h_version_max__: int = __h_versions__[-1]
+    if not is_nonempty_int_tuple(__h_versions__):
+        __h_version_min__: int = 999
+        __h_version_max__: int = __h_version_min__
 except:
     __h_version_min__: int = 999
     __h_version_max__: int = __h_version_min__
@@ -171,6 +195,27 @@ __range_type__: bool = True # True for closed range. False for open range
 __vcc_compiler__ = "21.0.770"
 __opencl__ = "1.2"
 
+
+def is_nonempty_int_tuple(value: tuple) -> bool:
+    """Check if a tuple contain only integers.</br>
+    This is done to be sure the FLAM3H™ dunder data: __h_versions__ is valid.</br>
+    
+    Note:
+        The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:
+        - 190, 195, 200, 205, 210 and so on.
+
+    Args:
+        value(str): The tuple to check</br>
+
+    Returns:
+        (bool): True if it contain only integers and False if not (including if empty)
+    """
+    return (
+            isinstance(value, tuple) and
+            len(value) > 0 and
+            all(type(x) is int and len(str(abs(x))) == 3 for x in value)
+    )
+
 # The following are min and max Houdini version where FLAM3H™ can run.
 # The max version is always most likely the latest Houdini version released by SideFX
 # unless it is a closed range due to moving into newer Houdini and FLAM3H™ versions.
@@ -181,6 +226,9 @@ __opencl__ = "1.2"
 __h_version_min__: int = 190
 try:
     __h_version_max__: int = __h_versions__[-1]
+    if not is_nonempty_int_tuple(__h_versions__):
+        __h_version_min__: int = 999
+        __h_version_max__: int = __h_version_min__
 except:
     __h_version_min__: int = 999
     __h_version_max__: int = __h_version_min__
