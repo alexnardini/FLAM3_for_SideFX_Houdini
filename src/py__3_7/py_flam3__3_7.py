@@ -117,14 +117,20 @@ try:
     # This is the least Houdini version allowed
     __h_version_min__: int = nodetype.hdaModule().__h_version_min__
 except AttributeError:
-    __h_version_min__: int = 999
-    print(f"ERROR - FLAM3H™ python module is missing: \"__h_version_min__\"\n-> Set to a backup value of: {__h_version_min__}\n")
+    if __h_versions__[0] != 999:
+        __h_version_min__: int = __h_versions__[0]
+    else:
+        __h_version_min__: int = 999
+        print(f"ERROR - FLAM3H™ python module is missing: \"__h_version_min__\"\n-> Set to a backup value of: {__h_version_min__}\n")
 try:
     # This is the max Houdini version allowed. if "__range_type__" is False, it will run beyound this version regardless
     __h_version_max__: int = nodetype.hdaModule().__h_version_max__
 except AttributeError:
-    __h_version_max__: int = 999
-    print(f"ERROR - FLAM3H™ python module is missing: \"__h_version_max__\"\n-> Set to a backup value of: {__h_version_max__}\n")
+    if __h_versions__[0] != 999:
+        __h_version_max__: int = __h_versions__[-1]
+    else:
+        __h_version_max__: int = 999
+        print(f"ERROR - FLAM3H™ python module is missing: \"__h_version_max__\"\n-> Set to a backup value of: {__h_version_max__}\n")
 
 
 '''
