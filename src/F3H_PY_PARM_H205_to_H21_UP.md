@@ -2326,7 +2326,7 @@ hou.phm().flam3.flam3h_general_utils(kwargs).menus_refresh_enum_prefs(), kwargs[
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
-| **PREFS** | `itericons` |  `toggle` | `from H20.5` | `v1.x` `v2.x` |
+| **PREFS** | `itericons` |  `toggle` | `from H20.5` | `v1.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
 ```python
