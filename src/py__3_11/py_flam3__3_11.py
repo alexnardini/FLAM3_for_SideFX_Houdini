@@ -3007,11 +3007,17 @@ class flam3h_scripts
         
         flam3h_prm_utils.private_prm_set(self.node, f3h_tabs.PREFS.PVT_PRM_H_VALID, 0)
         
-        _MSG_H_VERSIONS = flam3h_scripts.flam3h_compatible_h_versions_msg(__h_versions__, False)
-
-        _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
-        _MSG_ABOUT = f"This FLAM3H™ version need {_MSG_H_VERSIONS} to work."
-        _MSG_DESCRIPTIVE_MSG = f"FLAM3H™ v{__version__}\nYou need {_MSG_H_VERSIONS}"
+        if __h_versions__[0] != 999:
+            _MSG_H_VERSIONS = flam3h_scripts.flam3h_compatible_h_versions_msg(__h_versions__, False)
+            _MSG_INFO = f"ERROR -> FLAM3H™ version: {__version__}. This Houdini version is not compatible with this FLAM3H™ version. you need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
+            _MSG_ABOUT = f"This FLAM3H™ version need {_MSG_H_VERSIONS} to work."
+            _MSG_DESCRIPTIVE_MSG = f"FLAM3H™ v{__version__}\nYou need {_MSG_H_VERSIONS}"
+            
+        else:
+            _MSG = f"FLAM3H™ python module dunder's data is not valid."
+            _MSG_INFO = f"ERROR -> {_MSG}"
+            _MSG_ABOUT = _MSG
+            _MSG_DESCRIPTIVE_MSG = _MSG
         
         # Set proper messages in the about tabs
         node.parm(f3h_tabs.ABOUT.MSG_PRM_F3H_ABOUT).set(_MSG_ABOUT)

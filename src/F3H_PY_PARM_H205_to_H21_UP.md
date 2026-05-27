@@ -484,20 +484,36 @@ def flam3h_not_compatible_first_time_msg() -> None:
         (None):
     """ 
     
-    _MSG_H_VERSIONS = nodetype.hdaModule().flam3.flam3h_scripts.flam3h_compatible_h_versions_msg(__h_versions__, False)
-    _MSG_INFO = f"\n-> FLAM3H™ version: {__version__} - {__status__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
+    if __h_versions__[0] != 999:
+        _MSG_H_VERSIONS = nodetype.hdaModule().flam3.flam3h_scripts.flam3h_compatible_h_versions_msg(__h_versions__, False)
+        _MSG_INFO = f"\n-> FLAM3H™ version: {__version__} - {__status__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
+                
+        if hou.isUIAvailable():
+
+            print(_MSG_INFO)
+
+            _MSG_INFO_SB = f"-> FLAM3H™ version: {__version__} - {__status__}. This Houdini version is not compatible with this FLAM3H™ version. You need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
+            hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
+
+            hou.ui.displayMessage(f"Sorry, you need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False)
+
+        else:
+            print(_MSG_INFO)
             
-    if hou.isUIAvailable():
-
-        print(_MSG_INFO)
-
-        _MSG_INFO_SB = f"-> FLAM3H™ version: {__version__} - {__status__}. This Houdini version is not compatible with this FLAM3H™ version. You need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
-        hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
-
-        hou.ui.displayMessage(f"Sorry, you need {_MSG_H_VERSIONS} to run this FLAM3H™ version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ Houdini version check", details=None, details_label=None, details_expanded=False)
-
     else:
-        print(_MSG_INFO)
+        _MSG_INFO = f"FLAM3H™ python module dunder's data is not valid."
+                
+        if hou.isUIAvailable():
+
+            print(_MSG_INFO)
+
+            _MSG_INFO_SB = f"-> {_MSG_INFO}"
+            hou.ui.setStatusMessage(_MSG_INFO_SB, hou.severityType.Error) # type: ignore
+
+            hou.ui.displayMessage(_MSG_INFO, buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™ invalid dunder's data", details=None, details_label=None, details_expanded=False)
+
+        else:
+            print(_MSG_INFO)
 
 
 if flam3h_first_time():
