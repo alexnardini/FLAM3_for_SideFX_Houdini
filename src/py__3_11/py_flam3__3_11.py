@@ -330,10 +330,6 @@ else:
 '''
 
 
-# File lock prefix
-FLAM3H_LIB_LOCK = 'F3H_LOCK'
-
-
 # @Decorator
 def cached_slot_property(func):
     name = func.__name__
@@ -531,6 +527,8 @@ class f3h_tabs:
     PRM_ITERATORS_COUNT: Final = 'flamefunc'
     # Node descriptive parameter
     PRM_DESCRIPTIVE: Final = 'descriptive_msg'
+    # File lock prefix
+    PRX_FLAM3H_LIB_LOCK: Final = 'F3H_LOCK'
     
     # The following dictionaires are to speed up the pairing of the variation type and their weight parameter's names.
     # They are hard coded so they will need to be changed if the parameters names change in the FLAM3H™ UI.
@@ -3751,7 +3749,7 @@ class flam3h_general_utils
             (bool): True if locked. False if not.
         """
         if filepath is not False:
-            if os.path.exists(filepath) and os.path.split(str(filepath))[-1].upper().startswith(FLAM3H_LIB_LOCK):
+            if os.path.exists(filepath) and os.path.split(str(filepath))[-1].upper().startswith(f3h_tabs.PRX_FLAM3H_LIB_LOCK):
                 return True
             
             return False
@@ -11857,7 +11855,7 @@ class flam3h_palette_utils
                     
                     if flam3h_general_utils.isLOCK(out_path_checked):
                         ui_text = f"This Palette library is Locked."
-                        ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
+                        ALL_msg = f"This Palette library is Locked and you can not modify this file.\n\nTo Lock a Palete lib file just rename it using:\n\"{f3h_tabs.PRX_FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a palette library you built, you can rename the file to start with: \"{f3h_tabs.PRX_FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_rainbows_colors.json\"\nyou can rename it to: \"{f3h_tabs.PRX_FLAM3H_LIB_LOCK}_my_rainbows_colors.json\" to keep it safe."
                         _MSG: str = f"{node.name()}: PALETTE library file -> is LOCKED"
                         flam3h_general_utils.set_status_msg(_MSG, 'WARN')
                         flam3h_general_utils.flash_message(node, f"This Palette file is LOCKED")
@@ -22345,7 +22343,7 @@ class out_flame_utils
 
                     if flam3h_general_utils.isLOCK(out_path_checked):
                         ui_text: str = f"This Flame library is Locked."
-                        ALL_msg: str = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{FLAM3H_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
+                        ALL_msg: str = f"This Flame library is Locked and you can not modify this file.\n\nTo Lock a Flame lib file just rename it using:\n\"{f3h_tabs.PRX_FLAM3H_LIB_LOCK}\" as the start of the filename.\n\nOnce you are happy with a Flame library you built, you can rename the file to start with: \"{f3h_tabs.PRX_FLAM3H_LIB_LOCK}\"\nto prevent any further modifications to it. For example if you have a lib file call: \"my_grandJulia.flame\"\nyou can rename it to: \"{f3h_tabs.PRX_FLAM3H_LIB_LOCK}_my_grandJulia.flame\" to keep it safe."
                         _MSG: str = "FLAME library file -> is LOCKED"
                         # Print to Houdini's status bar
                         flam3h_general_utils.set_status_msg(f"{node.name()}: {_MSG}", 'WARN')
