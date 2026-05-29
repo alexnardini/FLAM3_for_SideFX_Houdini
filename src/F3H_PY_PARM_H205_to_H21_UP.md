@@ -72,10 +72,20 @@ to: **py_flam3__3_11**
 | **PythonModule** | The **`flam3`** module is created out of the **`py_flam3__x_x`** file located inside the **Extra Files** section.</br>Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule** | 
 
 ```python
+
+# ███████╗██╗░░░░░░█████╗░███╗░░░███╗██████╗░██╗░░██╗
+# ██╔════╝██║░░░░░██╔══██╗████╗░████║╚════██╗██║░░██║
+# █████╗░░██║░░░░░███████║██╔████╔██║░█████╔╝███████║
+# ██╔══╝░░██║░░░░░██╔══██║██║╚██╔╝██║░╚═══██╗██╔══██║
+# ██║░░░░░███████╗██║░░██║██║░╚═╝░██║██████╔╝██║░░██║
+# ╚═╝░░░░░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝
+#
 #   Title:      FLAM3H™. SideFX Houdini FLAM3
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
+#
+#   File:       PythonModule
 
 import toolutils
 
@@ -176,10 +186,20 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 | **PythonModule** | The **`flam3`** module is created out of the **`py_flam3__x_x`** file located inside the **Extra Files** section.</br>Inside the **OTL**->**type_properties**->**Scripts**->**PythonModule** | 
 
 ```python
+
+# ███████╗██╗░░░░░░█████╗░███╗░░░███╗██████╗░██╗░░██╗
+# ██╔════╝██║░░░░░██╔══██╗████╗░████║╚════██╗██║░░██║
+# █████╗░░██║░░░░░███████║██╔████╔██║░█████╔╝███████║
+# ██╔══╝░░██║░░░░░██╔══██║██║╚██╔╝██║░╚═══██╗██╔══██║
+# ██║░░░░░███████╗██║░░██║██║░╚═╝░██║██████╔╝██║░░██║
+# ╚═╝░░░░░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝
+#
 #   Title:      FLAM3H™. SideFX Houdini FLAM3
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
+#
+#   File:       PythonModule
 
 import toolutils
 
@@ -282,10 +302,21 @@ flam3 = toolutils.createModuleFromSection("flam3", kwargs["type"], __module_file
 
 
 ```python
+
+# ███████╗██╗░░░░░░█████╗░███╗░░░███╗██████╗░██╗░░██╗
+# ██╔════╝██║░░░░░██╔══██╗████╗░████║╚════██╗██║░░██║
+# █████╗░░██║░░░░░███████║██╔████╔██║░█████╔╝███████║
+# ██╔══╝░░██║░░░░░██╔══██║██║╚██╔╝██║░╚═══██╗██╔══██║
+# ██║░░░░░███████╗██║░░██║██║░╚═╝░██║██████╔╝██║░░██║
+# ╚═╝░░░░░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝
+#
 #   Title:      FLAM3H™. SideFX Houdini FLAM3
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
+#
+#   File:       PreFirstCreate
+
 
 from datetime import datetime
 
@@ -535,10 +566,20 @@ else:
 | **OnCreated** | Initialize what the tool need when you create its node in the network editor.</br>Inside: **OTL**->**type_properties**->**Scripts**->**OnCreated** | 
 
 ```python
+
+# ███████╗██╗░░░░░░█████╗░███╗░░░███╗██████╗░██╗░░██╗
+# ██╔════╝██║░░░░░██╔══██╗████╗░████║╚════██╗██║░░██║
+# █████╗░░██║░░░░░███████║██╔████╔██║░█████╔╝███████║
+# ██╔══╝░░██║░░░░░██╔══██║██║╚██╔╝██║░╚═══██╗██╔══██║
+# ██║░░░░░███████╗██║░░██║██║░╚═╝░██║██████╔╝██║░░██║
+# ╚═╝░░░░░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝
+#
 #   Title:      FLAM3H™. SideFX Houdini FLAM3
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
+#
+#   File:       OnCreated
 
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_create()
 ```
@@ -554,10 +595,20 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_create()
 | **OnLoaded** | When loading hip files with FLAM3H™ nodes in it do some checks.</br>Inside: **OTL**->**type_properties**->**Scripts**->**OnLoaded** | 
 
 ```python
+
+# ███████╗██╗░░░░░░█████╗░███╗░░░███╗██████╗░██╗░░██╗
+# ██╔════╝██║░░░░░██╔══██╗████╗░████║╚════██╗██║░░██║
+# █████╗░░██║░░░░░███████║██╔████╔██║░█████╔╝███████║
+# ██╔══╝░░██║░░░░░██╔══██║██║╚██╔╝██║░╚═══██╗██╔══██║
+# ██║░░░░░███████╗██║░░██║██║░╚═╝░██║██████╔╝██║░░██║
+# ╚═╝░░░░░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝
+#
 #   Title:      FLAM3H™. SideFX Houdini FLAM3
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
+#
+#   File:       OnLoaded
 
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_loaded()
 ```
@@ -573,10 +624,20 @@ kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_loaded()
 | **OnLoaded** | When deleting a FLAM3H™ node.</br>Inside: **OTL**->**type_properties**->**Scripts**->**OnDeleted** | 
 
 ```python
+
+# ███████╗██╗░░░░░░█████╗░███╗░░░███╗██████╗░██╗░░██╗
+# ██╔════╝██║░░░░░██╔══██╗████╗░████║╚════██╗██║░░██║
+# █████╗░░██║░░░░░███████║██╔████╔██║░█████╔╝███████║
+# ██╔══╝░░██║░░░░░██╔══██║██║╚██╔╝██║░╚═══██╗██╔══██║
+# ██║░░░░░███████╗██║░░██║██║░╚═╝░██║██████╔╝██║░░██║
+# ╚═╝░░░░░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝
+#
 #   Title:      FLAM3H™. SideFX Houdini FLAM3
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
 #   Copyright:  (c) 2021 F stands for liFe
+#
+#   File:       OnDeleted
 
 kwargs["node"].hdaModule().flam3.flam3h_scripts(kwargs).flam3h_on_deleted()
 ```
