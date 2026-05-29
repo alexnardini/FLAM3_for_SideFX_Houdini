@@ -40,13 +40,96 @@ else:
     from PySide6.QtSvg import QSvgRenderer
     from PySide6.QtGui import QPainter
 
+
+# Lets get some data from the HDA python module section
 FLAM3HUSD_NODE_TYPE_NAME_CATEGORY = 'alexnardini::Lop/FLAM3HUSD'
 nodetype = hou.nodeType(FLAM3HUSD_NODE_TYPE_NAME_CATEGORY)
-__version__ = nodetype.hdaModule().__version__
-__status__ = nodetype.hdaModule().__status__
-__range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
-__h_version_min__: int = nodetype.hdaModule().__h_version_min__
-__h_version_max__: int = nodetype.hdaModule().__h_version_max__
+try:
+    # This is the major version number only, for example version 1 or version 2, as integer
+    __v__: int = nodetype.hdaModule().__v__
+except AttributeError:
+    __v__: int = 0
+    print(f"ERROR - FLAM3H™ python module is missing: \"__v__\"\n-> Set to a backup value of: {__v__}\n")
+else:
+    if not isinstance(__v__, int):
+        __v__: int = 0
+        print(f"WARNING - FLAM3H™ python module data: \"__v__\" is not a valid data\n-> Set to a backup value of: {__v__}\n")
+try:
+    # this is the full version number, for example version 1.9.80 or 2.0.22, as string
+    __version__: str = nodetype.hdaModule().__version__
+except AttributeError:
+    __version__: str = "Unknown"
+    print(f"ERROR - FLAM3H™ python module is missing: \"__version__\"\n-> Set to a backup value of: {__version__}\n")
+else:
+    if not isinstance(__version__, str):
+        __version__: str = "Unknown"
+        print(f"WARNING - FLAM3H™ python module data: \"__version__\" is not a valid data\n-> Set to a backup value of: {__version__}\n")
+try:
+    # This is the status of the tool for this version, for example Prototype or Production
+    __status__: str = nodetype.hdaModule().__status__
+except AttributeError:
+    __status__: str = "Unknown"
+    print(f"ERROR - FLAM3H™ python module is missing: \"__status__\"\n-> Set to a backup value of: {__status__}\n")
+else:
+    if not isinstance(__status__, str):
+        __status__: str = "Unknown"
+        print(f"WARNING - FLAM3H™ python module data: \"__status__\" is not a valid data\n-> Set to a backup value of: {__status__}\n")
+try:
+    # This is the module file name given to the file loaded inside the Extra Files section of FLAM3H™
+    __module_filename__: str = nodetype.hdaModule().__module_filename__
+except AttributeError:
+    __module_filename__: str = "Unknown"
+    print(f"ERROR - FLAM3H™ python module is missing: \"__module_filename__\"\n-> Set to a backup value of: {__module_filename__}\n")
+else:
+    if not isinstance(__module_filename__, str):
+        __module_filename__: str = "Unknown"
+        print(f"WARNING - FLAM3H™ python module data: \"__module_filename__\" is not a valid data\n-> Set to a backup value of: {__module_filename__}\n")
+try:
+    # This is a tuple containing all the houdini versions where this FLAM3H™ OTL is allowed to run
+    __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__
+except AttributeError:
+    __h_versions__: tuple[int, ...] = (999,)
+    print(f"ERROR - FLAM3H™ python module is missing: \"__h_versions__\"\n-> Set to a backup value of: {__h_versions__}\n")
+else:
+    if not nodetype.hdaModule().is_nonempty_int_tuple(__h_versions__):
+        __h_versions__: tuple[int, ...] = (999,)
+        print(f"WARNING - FLAM3H™ python module data: \"__h_versions__\" is not a valid data\n-> Set to a backup value of: {__h_versions__}\n")
+try:
+    # This is telling us if FLAM3H™ will run only on a selected Houdini version numbers or also beyound those.
+    __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
+except AttributeError:
+    __range_type__: bool = True
+    print(f"ERROR - FLAM3H™ python module is missing: \"__range_type__\"\n-> Set to a backup value of: {__range_type__}\n")
+else:
+    if not isinstance(__range_type__, bool):
+        __range_type__: bool = True
+        print(f"WARNING - FLAM3H™ python module data: \"__range_type__\" is not a valid data\n-> Set to a backup value of: {__range_type__}\n")
+try:
+    # This is the least Houdini version allowed
+    __h_version_min__: int = nodetype.hdaModule().__h_version_min__
+except AttributeError:
+    if __h_versions__[0] != 999:
+        __h_version_min__: int = __h_versions__[0]
+    else:
+        __h_version_min__: int = 999
+        print(f"ERROR - FLAM3H™ python module is missing: \"__h_version_min__\"\n-> Set to a backup value of: {__h_version_min__}\n")
+else:
+    if not isinstance(__h_version_min__, int):
+        __h_version_min__: int = 999
+        print(f"WARNING - FLAM3H™ python module data: \"__h_version_min__\" is not a valid data\n-> Set to a backup value of: {__h_version_min__}\n")
+try:
+    # This is the max Houdini version allowed. if "__range_type__" is False, it will run beyound this version regardless
+    __h_version_max__: int = nodetype.hdaModule().__h_version_max__
+except AttributeError:
+    if __h_versions__[0] != 999:
+        __h_version_max__: int = __h_versions__[-1]
+    else:
+        __h_version_max__: int = 999
+        print(f"ERROR - FLAM3H™ python module is missing: \"__h_version_max__\"\n-> Set to a backup value of: {__h_version_max__}\n")
+else:
+    if not isinstance(__h_version_max__, int):
+        __h_version_max__: int = 999
+        print(f"WARNING - FLAM3H™ python module data: \"__h_version_max__\" is not a valid data\n-> Set to a backup value of: {__h_version_max__}\n")
 
 
 '''
@@ -736,7 +819,7 @@ class flam3husd_scripts
     def flam3husd_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
         """Tell if this FLAM3H™USD version is compatible with this Houdini version
         
-        * range_close -> mean FLAM3H™USD will run only on Houdini versions included inside: nodetype.hdaModule().__h_versions__
+        * range_close -> mean FLAM3H™USD will run only on Houdini versions included inside: __h_versions__
         
         Args:
             kwargs(dict | None): When needed, this must be the class' self.kwargs, or None
@@ -746,12 +829,11 @@ class flam3husd_scripts
             (bool): True if compatible otherwise False.
         """ 
         h_version: int = flam3husd_general_utils.houdini_version(2)
-        this_h_versions: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™USD HDA PythonModule module.
         
         # checks the full available range in the tuple
-        if h_version < this_h_versions[0] or h_version > this_h_versions[-1]:
+        if h_version < __h_versions__[0] or h_version > __h_versions__[-1]:
             
-            if msg: flam3husd_scripts.flam3husd_compatible_h_versions_msg(this_h_versions)
+            if msg: flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__)
             
             if kwargs is not None:
                 # Just in case I will need to do something
@@ -760,14 +842,14 @@ class flam3husd_scripts
             return False
         
         # This will probably never evaluate with the range close, but just in case.
-        return flam3husd_scripts.flam3husd_compatible(h_version, this_h_versions, kwargs, msg)
+        return flam3husd_scripts.flam3husd_compatible(h_version, __h_versions__, kwargs, msg)
 
 
     @staticmethod
     def flam3husd_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
         """Tell if this FLAM3H™USD version is compatible with this Houdini version
         
-        * range_open -> mean it allow FLAM3H™USD to run on newer versions of Houdini than the versions included inside: nodetype.hdaModule().__h_versions__ before being properly fine tuned.
+        * range_open -> mean it allow FLAM3H™USD to run on newer versions of Houdini than the versions included inside: __h_versions__ before being properly fine tuned.
 
         Args:
             kwargs(dict | None): When needed, this must be the class' self.kwargs, or None
@@ -777,7 +859,6 @@ class flam3husd_scripts
             (bool): True if compatible otherwise False.
         """ 
         h_version: int = flam3husd_general_utils.houdini_version(2)
-        this_h_versions: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™USD HDA PythonModule module.
         
         # Only for the latest FLAM3H™USD on the latest Houdini version (and its latest python module version), otherwise the full range is checked.
         #
@@ -785,12 +866,12 @@ class flam3husd_scripts
         # but we allow it to run regardless for now.
         # the files: "py_flam3__3_11.py" and "py_flam3__3_7.py" checks the full available range in the tuple:
         # e.g.
-        # if h_version < this_h_versions[0] or h_version > this_h_versions[-1]:
+        # if h_version < __h_versions__[0] or h_version > __h_versions__[-1]:
         #   ... 
         # Most likely the range will be closed again once SideFX update the vcc compiler and LLVM.
-        if h_version < this_h_versions[0]:
+        if h_version < __h_versions__[0]:
             
-            if msg: flam3husd_scripts.flam3husd_compatible_h_versions_msg(this_h_versions)
+            if msg: flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__)
             
             if kwargs is not None:
                 # Just in case I will need to do something
@@ -798,7 +879,7 @@ class flam3husd_scripts
             
             return False
             
-        return flam3husd_scripts.flam3husd_compatible(h_version, this_h_versions, kwargs, msg)
+        return flam3husd_scripts.flam3husd_compatible(h_version, __h_versions__, kwargs, msg)
     
     
     @staticmethod
@@ -838,8 +919,8 @@ class flam3husd_scripts
     def flam3husd_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
         """Check FLAM3H™USD compatibility based on the type of range(of Houdini versions)
         
-        * range_open -> mean it allow FLAM3H™USD to run on newer versions of Houdini than the versions included inside: nodetype.hdaModule().__h_versions__ before being properly fine tuned.
-        * range_close -> mean FLAM3H™USD will run only on Houdini versions included inside: nodetype.hdaModule().__h_versions__
+        * range_open -> mean it allow FLAM3H™USD to run on newer versions of Houdini than the versions included inside: __h_versions__ before being properly fine tuned.
+        * range_close -> mean FLAM3H™USD will run only on Houdini versions included inside: __h_versions__
 
         Args:
             range_type(bool): True for closed range. False for open range. This is set inside the HDA's -> Type Properties -> Scripts -> PythonModule
@@ -1010,12 +1091,16 @@ class flam3husd_scripts
         node: hou.LopNode = self.node
         
         flam3husd_prm_utils.private_prm_set(self.node, f3husd_tabs.PREFS.PVT_PRM_H_VALID, 0)
-        __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__ # type: ignore # This is set inside each FLAM3H™USD HDA PythonModule module.
-        
-        _MSG_H_VERSIONS = flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__, False)
 
-        _MSG_INFO = f"ERROR -> FLAM3H™USD version: {__version__}. This Houdini version is not compatible with this FLAM3H™USD version. you need {_MSG_H_VERSIONS} to run this FLAM3H™USD version"
-        _MSG_ABOUT = f"This FLAM3H™USD version need {_MSG_H_VERSIONS} to work."
+        if __h_versions__[0] != 999:
+            _MSG_H_VERSIONS = flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__, False)
+            _MSG_INFO = f"ERROR -> FLAM3H™USD version: {__version__}. This Houdini version is not compatible with this FLAM3H™USD version. you need {_MSG_H_VERSIONS} to run this FLAM3H™USD version"
+            _MSG_ABOUT = f"This FLAM3H™USD version need {_MSG_H_VERSIONS} to work."
+            
+        else:
+            _MSG = f"FLAM3HUSD™ python module dunder's data is not valid."
+            _MSG_INFO = f"ERROR -> {_MSG}"
+            _MSG_ABOUT = _MSG
         
         # Set proper messages in the about tabs
         parms_dict: dict = {f3husd_tabs.PREFS.MSG_PRM_ERROR: _MSG_ABOUT, # type: ignore
@@ -2428,7 +2513,7 @@ class flam3husd_about_utils
         # year = datetime.now().strftime("%Y")
         
         flam3h_author: str = f"AUTHOR: {__author__}"
-        flam3h_cvex_version: str = f"CODE: vex H{flam3husd_scripts.flam3husd_h_versions_build_data(nodetype.hdaModule().__h_versions__, True)}"
+        flam3h_cvex_version: str = f"CODE: vex H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_versions__, True)}"
         flam3h_python_version: str = f"Python {__py_version__}"
         flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{__copyright__}"
@@ -2605,7 +2690,7 @@ class pyside_master:
 
         APP_COPYRIGHT: str = (
             "\n"
-            f"v{__version__} indie {flam3husd_scripts.flam3husd_compatible_h_versions_msg(nodetype.hdaModule().__h_versions__, False, True)}, {__license__} - {__copyright__} ( made in Italy )"
+            f"v{__version__} indie {flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__, False, True)}, {__license__} - {__copyright__} ( made in Italy )"
         )
         
         # milliseconds
