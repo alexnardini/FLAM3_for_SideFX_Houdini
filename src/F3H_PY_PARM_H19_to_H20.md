@@ -398,7 +398,7 @@ def flam3h_not_compatible_first_time_msg() -> None:
     """ 
     
     if __h_versions__[0] != 999:
-        _MSG_H_VERSIONS = nodetype.hdaModule().flam3.flam3h_scripts.flam3h_compatible_h_versions_msg(__h_versions__, False)
+        _MSG_H_VERSIONS = nodetype.hdaModule().flam3.flam3h_scripts.flam3h_compatible_h_versions_msg(False)
         _MSG_INFO = f"\n-> FLAM3H™ version: {__version__} - {__status__}\n\nThis Houdini version is not compatible with this FLAM3H™ version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3H™ version"
                 
         if hou.isUIAvailable():

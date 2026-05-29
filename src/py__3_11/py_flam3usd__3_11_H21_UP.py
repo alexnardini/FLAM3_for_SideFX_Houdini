@@ -510,11 +510,11 @@ class flam3husd_scripts
 * flam3husd_on_create_load_first_instance(node: hou.LopNode, msg: bool = True, limit: bool = True) -> bool:
 * flam3husd_on_create_lock_parms(node: hou.LopNode) -> None:
 * flam3husd_h_versions_build_data(__h_versions__: tuple | int, last_index: bool = False) -> str:
-* flam3husd_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True, ps_cls_about: bool = False) -> str:
-* flam3husd_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
+* flam3husd_compatible_h_versions_msg(msg: bool = True, ps_cls_about: bool = False) -> str:
+* flam3husd_compatible(h_version: int, kwargs: dict | None, msg: bool) -> bool:
 * flam3husd_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
 * flam3husd_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
-* unpin_parameter_editor_with_f3husd_node(f3husd_node: hou.SopNode) -> None:
+* unpin_parameter_editor_with_f3husd_node(f3husd_node: hou.LopNode) -> None:
 
 @METHODS
 * flam3husd_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
@@ -725,52 +725,54 @@ class flam3husd_scripts
 
 
     @staticmethod
-    def flam3husd_compatible_h_versions_msg(this_h_versions: tuple, msg: bool = True, ps_cls_about: bool = False) -> str:
+    def flam3husd_compatible_h_versions_msg(msg: bool = True, ps_cls_about: bool = False) -> str:
         """Build and fire a message letting the user know the Houdini version/s needed to run the installed FLAM3H™USD HDA version.
 
         Args:
-            this_h_versions(tuple): a tuple containing all the Houdini version numbers. This is coming from the HDA's PythonModule: __h_versions__
             msg(bool): Default to True. When False it will not execute the: hou.ui.displayMessage
             ps_cls_about(bool): Default to False. If True, will build the message string for the pyside about panel.
 
         Returns:
             (str): Only the part of the message string with the allowed Houdini versions, to be used to compose the final message.
         """ 
-        if len(this_h_versions) > 1:
+        
+        _DUNDER: bool = __h_versions__[-1] == 999
+        
+        if len(__h_versions__) > 1:
             if __range_type__ is True: 
                 
                 if ps_cls_about:
-                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)}"
+                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_versions__)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_versions__, True)}"
                 else:
-                    _MSG_H_VERSIONS = f"from H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)}"
+                    _MSG_H_VERSIONS = f"from H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_versions__)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_versions__, True)}"
                     
             else:
                 
                 if ps_cls_about:
-                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)}*"
+                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_versions__)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_versions__, True)}*"
                 else:
-                    _MSG_H_VERSIONS = f"from H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions, True)} and up"
+                    _MSG_H_VERSIONS = f"from H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_versions__)} to H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_versions__, True)} and up"
                     
         else:
             
             if __range_type__ is True:
-                _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)}"
+                _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_versions__)}"
                 
             else:
                 
                 if ps_cls_about:
-                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)}*"
+                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_versions__)}*"
                 else:
-                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(this_h_versions)} and up"
+                    _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_versions__)} and up"
     
-        if msg and hou.isUIAvailable():
+        if msg and hou.isUIAvailable() and not _DUNDER:
             hou.ui.displayMessage(f"Sorry, You need {_MSG_H_VERSIONS} to run this FLAM3H™USD version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™USD Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
 
         return _MSG_H_VERSIONS
 
 
     @staticmethod
-    def flam3husd_compatible(h_version: int, this_h_versions: tuple, kwargs: dict | None, msg: bool) -> bool:
+    def flam3husd_compatible(h_version: int, kwargs: dict | None, msg: bool) -> bool:
         """This is to be run inside:
         
         * def flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
@@ -780,7 +782,6 @@ class flam3husd_scripts
         
         Args:
             h_version(int): This Houdini version.
-            this_h_versions(tuple): The allowed Houdini versions this FLAM3H™USD can run with.
             kwargs(dict | None): When needed, this must be the class' self.kwargs. In the case of this definition, it will be passed in from the containing definition args. Or None
             msg(bool): When False it will not run the hou display messages.
 
@@ -789,7 +790,7 @@ class flam3husd_scripts
         """ 
         
         # If it is a match
-        if h_version in this_h_versions:
+        if h_version in __h_versions__:
             return True
         
         # We never know what will happen with the next major release of Houdini
@@ -814,7 +815,7 @@ class flam3husd_scripts
         
         else:
             
-            if msg: flam3husd_scripts.flam3husd_compatible_h_versions_msg(this_h_versions)
+            if msg: flam3husd_scripts.flam3husd_compatible_h_versions_msg()
             
             if kwargs is not None:
                 # Just in case I will need to do something
@@ -841,7 +842,7 @@ class flam3husd_scripts
         # checks the full available range in the tuple
         if h_version < __h_versions__[0] or h_version > __h_versions__[-1]:
             
-            if msg: flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__)
+            if msg: flam3husd_scripts.flam3husd_compatible_h_versions_msg()
             
             if kwargs is not None:
                 # Just in case I will need to do something
@@ -850,7 +851,7 @@ class flam3husd_scripts
             return False
         
         # This will probably never evaluate with the range close, but just in case.
-        return flam3husd_scripts.flam3husd_compatible(h_version, __h_versions__, kwargs, msg)
+        return flam3husd_scripts.flam3husd_compatible(h_version, kwargs, msg)
 
 
     @staticmethod
@@ -879,7 +880,7 @@ class flam3husd_scripts
         # Most likely the range will be closed again once SideFX update the vcc compiler and LLVM.
         if h_version < __h_versions__[0]:
             
-            if msg: flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__)
+            if msg: flam3husd_scripts.flam3husd_compatible_h_versions_msg()
             
             if kwargs is not None:
                 # Just in case I will need to do something
@@ -887,11 +888,11 @@ class flam3husd_scripts
             
             return False
             
-        return flam3husd_scripts.flam3husd_compatible(h_version, __h_versions__, kwargs, msg)
+        return flam3husd_scripts.flam3husd_compatible(h_version, kwargs, msg)
     
     
     @staticmethod
-    def unpin_parameter_editor_with_f3husd_node(f3husd_node: hou.SopNode) -> None:
+    def unpin_parameter_editor_with_f3husd_node(f3husd_node: hou.LopNode) -> None:
         """If a FLAM3H™ node is on display in a pinned Parameter Editor, unpin that parameter Editor.<br/>
         This is specifically made for:
         * def flam3h_on_deleted(self) -> None:
@@ -899,7 +900,7 @@ class flam3husd_scripts
         to avoid a menu error happening sometime when deleting multiple FLAM3H™ nodes in one go while one of them was on display in a pinned Parameter Editor.</br>
 
         Args:
-            f3husd_node(hou.SopNode): The FLAM3H™USD node to check if its parameter are being pinned inside a Parameter Editor.
+            f3husd_node(hou.LopNode): The FLAM3H™USD node to check if its parameter are being pinned inside a Parameter Editor.
             
         Returns:
             (None):
@@ -1101,7 +1102,7 @@ class flam3husd_scripts
         flam3husd_prm_utils.private_prm_set(self.node, f3husd_tabs.PREFS.PVT_PRM_H_VALID, 0)
         
         if __h_versions__[0] != 999:
-            _MSG_H_VERSIONS = flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__, False)
+            _MSG_H_VERSIONS = flam3husd_scripts.flam3husd_compatible_h_versions_msg(False)
             _MSG_INFO = f"ERROR -> FLAM3H™USD version: {__version__}. This Houdini version is not compatible with this FLAM3H™USD version. you need {_MSG_H_VERSIONS} to run this FLAM3H™USD version"
             _MSG_ABOUT = f"This FLAM3H™USD version need {_MSG_H_VERSIONS} to work."
             
@@ -2729,7 +2730,7 @@ class pyside_master:
 
         APP_COPYRIGHT: str = (
             "\n"
-            f"v{__version__} indie {flam3husd_scripts.flam3husd_compatible_h_versions_msg(__h_versions__, False, True)}, {__license__} - {__copyright__} ( made in Italy )"
+            f"v{__version__} indie {flam3husd_scripts.flam3husd_compatible_h_versions_msg(False, True)}, {__license__} - {__copyright__} ( made in Italy )"
         )
         
         # milliseconds
