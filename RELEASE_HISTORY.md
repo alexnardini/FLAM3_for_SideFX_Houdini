@@ -41,12 +41,14 @@ They are all available in this Github repository.
 
 - **New**: Added text art to sources.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
 
 #### FLAM3H™USD v0.2.55 indie -> H21.0 UP</br>FLAM3H™USD v0.2.52 indie -> H20.5</br>FLAM3H™USD v0.2.48 indie -> H19.0 to H20 ####
 
 - **New**: Added text art to sources.
 - **New**: Added proper python module dunder's data and messages.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
 
 
 
