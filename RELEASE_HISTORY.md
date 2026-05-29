@@ -40,12 +40,14 @@ They are all available in this Github repository.
 #### FLAM3H™ v2.0.24 indie -> H21.0 UP</br>FLAM3H™ v2.0.20 indie -> H20.5</br>FLAM3H™ v1.9.82 indie -> H19.0 to H20 ####
 
 - **New**: Added text art to sources.
+- **New H21 UP ONLY**: Added text art to wrangles.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
 #### FLAM3H™USD v0.2.55 indie -> H21.0 UP</br>FLAM3H™USD v0.2.52 indie -> H20.5</br>FLAM3H™USD v0.2.48 indie -> H19.0 to H20 ####
 
 - **New**: Added text art to sources.
+- **New H21 UP ONLY**: Added text art to wrangles.
 - **New**: Added proper python module dunder's data and messages.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
