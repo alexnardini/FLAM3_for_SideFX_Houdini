@@ -3,7 +3,7 @@
 #context: lop
 #namespace: alexnardini
 #internal: FLAM3H(tm) USD
-#version: 0.2.50 - Prototype
+#version: 0.2.55 - Prototype
 
 """Simple utility node to quickly render FLAM3H(tm) fractal Flames in Solaris."""
 
@@ -200,7 +200,7 @@ menu Renderer [Icon:BUTTONS/pane_menu]:
     At the moment the choices are:
     - *`Houdini`*<br />This can be either `OpenGL` or `Vulkan` depending on your Houdini version and its 3D Viewports' preferences settings.
     - *`Karma CPU`*<br />When rendering fractal Flames, especially with a very high point count, this is the recommended option. It is also the only option capable of rendering the FLAM3H(tm) xforms handle viz geometries correctly.
-    - *`Karma XPU`*<br />This is provided for completeness; when rendering interactively, you may receive a faster feedback. Mostly for previews and as a way to keep the CPU load focused on the processing of the fractal Flames while fine tuning parameters.
+    - *`Karma XPU`*<br />This is provided for completeness; when rendering interactively, you may receive a faster feedback. Mostly for previews as it is preferable to use *`Karma CPU`* when FLAM3H(tm) is running in GPU mode (_the default_) .
 
     <br />
 
