@@ -4350,7 +4350,7 @@ _A list of all parametric variations and their parametric parameter's names_
         All source code and Houdini-related source materials are licensed under the<br />
         *GNU General Public License v3.0* (LICENSE).<br />
 
-        _For this project, “source code” includes not only conventional files but also Houdini-specific assets in their editable form, such as_:
+        _For this project, the term “source code” (as used in the GPL) includes not only conventional source files, but also all Houdini-related source materials that define the functionality of the tool. This includes, but is not limited to_:
         - Digital Assets (_.otl, .hda, .hdalc, .hdanc_)
         - Node networks and sub-networks
         - Custom node definitions and parameter interfaces
@@ -4358,7 +4358,7 @@ _A list of all parametric variations and their parametric parameter's names_
         - Shelf tools, scripts, and presets
         - Any related configuration or scene files that represent the tool in its preferred form for making modifications
 
-        _These are all considered part of the “preferred form of the work for making modifications” under the GPL and must be shared under the same terms_.
+        _All of the above are considered part of the “source code” and are therefore covered by the GNU General Public License v3.0_.
 
         _See the LICENSE file in the repository for details_.
 
