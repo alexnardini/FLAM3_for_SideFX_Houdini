@@ -35,6 +35,30 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v2.0.24 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.24) ###
+
+#### FLAM3H™ v2.0.24 indie -> H21.0 UP</br>FLAM3H™ v2.0.20 indie -> H20.5</br>FLAM3H™ v1.9.82 indie -> H19.0 to H20 ####
+
+- **New**: Added text art to sources.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+#### FLAM3H™USD v0.2.55 indie -> H21.0 UP</br>FLAM3H™USD v0.2.52 indie -> H20.5</br>FLAM3H™USD v0.2.48 indie -> H19.0 to H20 ####
+
+- **New**: Added text art to sources.
+- **New**: Added proper python module dunder's data and messages.
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v2.0.23 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.23) ###
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
