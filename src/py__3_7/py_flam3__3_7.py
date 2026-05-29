@@ -7592,7 +7592,7 @@ class flam3h_iterator_utils
                 # If any of the iterators is in SOLO mode, change accordeingly to the selection
                 flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_solo_follow(preset_id)
                 
-                _MSG: str = f"iterator: {preset_id}"
+                _MSG: str = f"{preset_id}"
                 active: int = node.parm(f"{flam3h_iterator_prm_names().main_vactive}_{preset_id}").eval()
                 weight: float = node.parm(f"{flam3h_iterator_prm_names().main_weight}_{preset_id}").eval()
                 

@@ -8314,7 +8314,7 @@ class flam3h_iterator_utils
                 flam3h_general_utils(self.kwargs).flam3h_toggle_mp_xf_viz_solo_follow(str(preset_id))
                 
                 n: flam3h_iterator_prm_names = flam3h_iterator_prm_names()
-                _MSG: str = f"iterator: {preset_id}"
+                _MSG: str = f"{preset_id}"
                 active: int = node.parm(f"{n.main_vactive}_{preset_id}").eval()
                 weight: float = node.parm(f"{n.main_weight}_{preset_id}").eval()
                 
