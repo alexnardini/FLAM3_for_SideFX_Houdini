@@ -2280,7 +2280,7 @@ class flam3h_scripts
     def flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
         """Tell if this FLAM3H™ version is compatible with this Houdini version</br>
         
-        * range_close -> mean FLAM3H™ will run only on Houdini versions included inside:</br>nodetype.hdaModule().__h_versions__
+        * range_close -> mean FLAM3H™ will run only on Houdini versions included inside:</br>__h_versions__
         
         Args:
             kwargs(dict | None): When needed, this must be the class' self.kwargs, or None
@@ -2310,7 +2310,7 @@ class flam3h_scripts
     def flam3h_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
         """Tell if this FLAM3H™ version is compatible with this Houdini version</br>
         
-        * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside:</br>nodetype.hdaModule().__h_versions__ before being properly fine tuned.
+        * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside:</br>__h_versions__ before being properly fine tuned.
 
         Args:
             kwargs(dict | None): When needed, this must be the class' self.kwargs, or None
@@ -2612,8 +2612,8 @@ class flam3h_scripts
     def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
         """Check FLAM3H™ compatibility based on the type of range(of Houdini versions)</br>
         
-        * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside:</br>nodetype.hdaModule().__h_versions__ before being properly fine tuned.
-        * range_close -> mean FLAM3H™ will run only on Houdini versions included inside:</br>nodetype.hdaModule().__h_versions__
+        * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside:</br>__h_versions__ before being properly fine tuned.
+        * range_close -> mean FLAM3H™ will run only on Houdini versions included inside:</br>__h_versions__
 
         Args:
             range_type(bool): True for closed range. False for open range. This is set inside the HDA's -> Type Properties -> Scripts -> PythonModule
