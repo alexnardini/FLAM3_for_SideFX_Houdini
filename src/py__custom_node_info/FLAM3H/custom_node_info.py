@@ -1,3 +1,11 @@
+
+# ███████╗██╗░░░░░░█████╗░███╗░░░███╗██████╗░██╗░░██╗
+# ██╔════╝██║░░░░░██╔══██╗████╗░████║╚════██╗██║░░██║
+# █████╗░░██║░░░░░███████║██╔████╔██║░█████╔╝███████║
+# ██╔══╝░░██║░░░░░██╔══██║██║╚██╔╝██║░╚═══██╗██╔══██║
+# ██║░░░░░███████╗██║░░██║██║░╚═╝░██║██████╔╝██║░░██║
+# ╚═╝░░░░░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝
+#
 #   Title:      FLAM3H™ Custom node info
 #   Author:     F stands for liFe ( made in Italy )
 #   License:    GPL
@@ -18,4 +26,3 @@ addLabeledText("Description", "The Fractal Flame Algorithm: FLAM3 - Create fract
 addLabeledText("Copyright", f"{__copyright__} (made in Italy)")
 addLabeledText("Version", f"{__version__} - {__status__}")
 addLabeledText("Lic", __license__)
-
