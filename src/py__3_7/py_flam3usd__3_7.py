@@ -1005,7 +1005,7 @@ class flam3husd_scripts
             _MSG_ABOUT = f"This FLAM3H™USD version need {_MSG_H_VERSIONS} to work."
             
         else:
-            _MSG = f"FLAM3HUSD™ python module dunder's data is not valid."
+            _MSG = f"FLAM3H™USD python module dunder's data is not valid."
             _MSG_INFO = f"ERROR -> {_MSG}"
             _MSG_ABOUT = _MSG
         
