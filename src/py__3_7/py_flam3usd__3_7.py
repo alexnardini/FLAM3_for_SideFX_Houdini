@@ -1038,6 +1038,7 @@ class flam3husd_scripts
                             MSG_F3HUSD_ABOUT_ERROR: _MSG_ABOUT
                             }
         flam3husd_prm_utils.setParms(node, parms_dict)
+        flam3husd_about_utils(self.kwargs).flam3husd_about_web_msg()
         
         # ERROR in the status bar
         if hou.isUIAvailable(): hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
