@@ -2425,13 +2425,13 @@ class flam3husd_about_utils
         
         # year = datetime.now().strftime("%Y")
         
-        flam3h_author: str = f"AUTHOR: {__author__}"
-        flam3h_cvex_version: str = f"CODE: vex H{flam3husd_scripts.flam3husd_h_versions_build_data(flam3husd_general_utils.houdini_version(2), True)}"
-        flam3h_python_version: str = f"python {__py_version__}"
-        flam3h_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
-        Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_cvex_version}, {flam3h_python_version}\n{__copyright__}"
+        flam3husd_author: str = f"AUTHOR: {__author__}"
+        flam3husd_cvex_code: str = f"CODE: vex H{flam3husd_scripts.flam3husd_h_versions_build_data(flam3husd_general_utils.houdini_version(2), True)}"
+        flam3husd_python_version: str = f"python {__py_version__}"
+        flam3husd_houdini_version: str = f"VERSION: {__version__} - {__status__} :: ({__license__})"
+        Implementation_build: str = f"{flam3husd_author}\n{flam3husd_houdini_version}\n{flam3husd_cvex_code}, {flam3husd_python_version}\n{__copyright__}"
         
-        build: tuple = (Implementation_build, nl
+        build: tuple = (Implementation_build, 
                         )
         
         build_about_msg: str = "".join(build)
