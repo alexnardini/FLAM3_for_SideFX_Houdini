@@ -49,6 +49,7 @@ They are all available in this Github repository.
 - **New**: Added text art to sources.
 - **New**: Added text art to wrangles.
 - **New**: Added proper python module dunder's data and messages.
+- **New**: Added about box web links.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 - **Updated HDA documentation.**
 
