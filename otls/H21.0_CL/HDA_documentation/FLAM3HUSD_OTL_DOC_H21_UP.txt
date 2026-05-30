@@ -445,6 +445,63 @@ menu Presets [Icon:BUTTONS/pane_menu]:
         - _*`Tone map`* parameter menu is available only<br />from FLAM3H(tm) USD HDA versions for Houdini 20.5 and up_.
 
 
+== About == (ABOUT)
+
+~~~
+:box:
+    #display: raised inverted teal
+
+    *About.* _Here you will find informations about FLAM3H(tm) USD._
+
+
+About:
+    #id: about
+    Display informations about FLAM3H(tm) USD.<br /><br />
+    Author, code languages used, version number, code references and much more can be found inside here.
+
+    
+Web links [Icon:opdef:.?icon_actionButtonSVG.svg]:
+    #id: about
+    A list of useful web links to check out.<br /><br /><br />
+
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *FLAM3H(tm) web links*<br />
+    _The following are web links related to FLAM3H(tm). _<br /><br />
+    
+    [Largeicon:opdef:.?iconSVGB.svg] 
+    - ((LMB)) to open a web browser to the FLAM3H(tm) website.
+    
+    <br />
+    [Largeicon:opdef:.?icon_GithubBlackSVG.svg] 
+    - ((LMB)) to open a web browser to the FLAM3H(tm) github repository.
+     
+    <br />
+    [Largeicon:opdef:.?icon_InstagramSVG.svg] 
+    - ((LMB)) to open a web browser to the FLAM3H(tm) instagram account. 
+
+    <br />
+    [Largeicon:opdef:.?icon_youtube_red_play.svg] 
+    - ((LMB)) to open a web browser to the FLAM3H(tm) youtube video tutorials.<br /><br /><br />
+     
+    <br />
+    [Icon:opdef:.?icon_optionStarBlueSVG.svg] *Web links*<br />
+    _The following are web links about the original the fractal Flame algorithm and related implementations_.<br /><br />
+
+    [Largeicon:opdef:.?icon_WhiteSVG.svg] 
+    - ((LMB)) to open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) publication's PDF. 
+     
+    <br />
+    [Largeicon:opdef:.?icon_GithubWhiteSVG.svg] 
+    - ((LMB)) to open a web browser to the original "The Fractal Flame Algorithm" (FLAM3) github repository. 
+
+    <br />
+    [Largeicon:opdef:.?icon_GithubBlueSVG.svg] 
+    - ((LMB)) to open a web browser to the Fractorium github repository.
+
+    <br />
+    [Largeicon:opdef:.?icon_FractoriumWebSVG.svg] 
+    - ((LMB)) to open a web browser to the Fractorium website.
+
+
 
 :box:
     #display: rounded white

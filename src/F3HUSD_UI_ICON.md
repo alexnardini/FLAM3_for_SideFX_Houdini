@@ -303,3 +303,153 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWarningSVG.svg
 ```
 opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg
 ```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|
+| **ABOUT** | `icon_f3h_links` | `from H20.5` | `v1.x` `v2.x` |
+
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|
+| **ABOUT** | `flam3homepage` | `from H20.5` | `v1.x` `v2.x` |
+
+### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
+<p align="left"><img width="80" height="80" src="../icons/iconSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?iconSVGB.svg
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|
+| **ABOUT** | `flam3github` | `from H20.5` | `v1.x` `v2.x` |
+
+### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
+<p align="left"><img width="80" height="80" src="../icons/icon_GithubBlackSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_GithubBlackSVG.svg
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|
+| **ABOUT** | `flam3insta` | `from H20.5` | `v1.x` `v2.x` |
+
+### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
+<p align="left"><img width="80" height="80" src="../icons/icon_InstagramSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_InstagramSVG.svg
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|
+| **ABOUT** | `flam3youtube` | `from H20.5` | `v1.x` `v2.x` |
+
+### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
+<p align="left"><img width="80" height="80" src="../icons/icon_youtube_red_play.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_youtube_red_play.svg
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|
+| **ABOUT** | `icon_f3_links` | `from H20.5` | `v1.x` `v2.x` |
+
+### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|
+| **ABOUT** | `tffa_pdf` | `from H20.5` | `v1.x` `v2.x` |
+
+### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
+<p align="left"><img width="80" height="80" src="../icons/icon_WhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_WhiteSVG.svg
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|
+| **ABOUT** | `tffa_flam3github` | `from H20.5` | `v1.x` `v2.x` |
+
+### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
+<p align="left"><img width="80" height="80" src="../icons/icon_GithubWhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_GithubWhiteSVG.svg
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|
+| **ABOUT** | `fract_git` | `from H20.5` | `v1.x` `v2.x` |
+
+### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
+<p align="left"><img width="80" height="80" src="../icons/icon_GithubBlueSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_GithubBlueSVG.svg
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|
+| **ABOUT** | `fract_web` | `from H20.5` | `v1.x` `v2.x` |
+
+### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
+<p align="left"><img width="80" height="80" src="../icons/icon_FractoriumWebSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_FractoriumWebSVG.svg
+```

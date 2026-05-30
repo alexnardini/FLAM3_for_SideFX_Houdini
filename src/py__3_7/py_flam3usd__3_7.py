@@ -23,6 +23,7 @@ from typing import Callable
 from platform import python_version
 from datetime import datetime
 from typing import Union
+from webbrowser import open as www_open
 
 import builtins
 
@@ -213,6 +214,17 @@ PREFS_PVT_VIEWPORT_PT_SIZE_MEM = 'vpptsize_mem'
 
 # MSG PRM
 MSG_F3HUSD_ABOUT = 'msg_f3husd_about'
+# ABOUT tab: Message parameters
+MSG_FLAM3H_ABOUT = 'flam3about_msg'
+MSG_FLAM3H_PLUGINS = 'flam3plugins_msg'
+MSG_FLAM3H_WEB = 'flam3h_heading_web'
+MSG_FLAM3H_GIT = 'flam3h_heading_git'
+MSG_FLAM3H_INSTA = 'flam3h_heading_insta'
+MSG_FLAM3H_YOUTUBE = 'flam3h_heading_youtube'
+MSG_FLAM3_PDF = 'flam3_heading_pdf'
+MSG_FLAM3_GIT = 'flam3_heading_git'
+MSG_FRACT_GITHUB = 'fract_heading_git'
+MSG_FRACT_WEB = 'fract_heading_web'
 # MSG PRM ERROR
 MSG_F3HUSD_ERROR = 'msg_f3husd_error'
 MSG_F3HUSD_ABOUT_ERROR = 'msg_f3husd_about_error'
@@ -1064,6 +1076,7 @@ class flam3husd_scripts
             self.flam3husd_on_create_set_prefs_viewport()
             # Set about box
             flam3husd_about_utils(self.kwargs).flam3husd_about_msg()
+            flam3husd_about_utils(self.kwargs).flam3husd_about_web_msg()
         
             # Lock data parameters
             self.flam3husd_on_create_lock_parms(node)
@@ -1164,6 +1177,7 @@ class flam3husd_scripts
                 
             # Set about box
             flam3husd_about_utils(self.kwargs).flam3husd_about_msg()
+            flam3husd_about_utils(self.kwargs).flam3husd_about_web_msg()
             
             # Lock data parameters
             self.flam3husd_on_create_lock_parms(self.node)
@@ -2357,7 +2371,16 @@ class flam3husd_about_utils
 * flam3husd_about_show_info_panel(node: hou.SopNode) -> None:
 
 @METHODS
-* flam3husd_about_msg(self):
+* flam3husd_about_msg(self) -> None:
+* flam3husd_about_plugins_msg(self) -> None:
+* flam3husd_about_web_msg(self) -> None:
+* flam3husd_about_web_homepage(self) -> None:
+* flam3husd_about_web_github(self) -> None:
+* flam3husd_about_web_instagram(self) -> None:
+* flam3husd_about_web_youtube(self) -> None:
+* flam3husd_about_web_flam3_paper(self) -> None:
+* flam3husd_about_web_flam3_github(self) -> None:
+* flam3husd_web_run(self, key: str) -> None:
 
     """
     
@@ -2395,6 +2418,7 @@ class flam3husd_about_utils
                                                 fade_in_ms=400, 
                                                 fade_out_ms=400
                                                )
+        
 
 
     # CLASS: PROPERTIES
@@ -2437,6 +2461,185 @@ class flam3husd_about_utils
         build_about_msg: str = "".join(build)
 
         flam3husd_prm_utils.set(self.node, MSG_F3HUSD_ABOUT, build_about_msg)
+        
+        
+    def flam3husd_about_web_msg(self) -> None:
+        """Build and set the FLAM3H™ about web heading's msgs.</br>
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """    
+        
+        node: hou.LopNode = self.node
+        
+        # values
+        _FLAM3HWEB_MSG: str = 'FLAM3H™ web'
+        _FLAM3HGIT_MSG: str = 'FLAM3H™ github'
+        _FLAM3HINSTA_MSG: str = 'FLAM3H™ instagram'
+        _FLAM3HYOUTUBE_MSG: str = 'FLAM3H™ youtube tutorials'
+        _FLAM3PDF_MSG: str = 'The Fractal Flame Algorithm(FLAM3) pdf'
+        _FLAM3GIT_MSG: str = 'The Fractal Flame Algorithm(FLAM3) github'
+        _FRACTGIT_MSG: str = 'Fractorium github'
+        _FRACTWEB_MSG: str = 'Fractorium web'
+        
+        # {prm_name: value, ...}
+        about_web: dict[str, str] = {   MSG_FLAM3H_WEB: _FLAM3HWEB_MSG,
+                                        MSG_FLAM3H_GIT: _FLAM3HGIT_MSG,
+                                        MSG_FLAM3H_INSTA: _FLAM3HINSTA_MSG,
+                                        MSG_FLAM3H_YOUTUBE: _FLAM3HYOUTUBE_MSG,
+                                        MSG_FLAM3_PDF: _FLAM3PDF_MSG,
+                                        MSG_FLAM3_GIT: _FLAM3GIT_MSG,
+                                        MSG_FRACT_GITHUB: _FRACTGIT_MSG,
+                                        MSG_FRACT_WEB: _FRACTWEB_MSG
+                                        }
+        
+        flam3husd_prm_utils.setParms(node, about_web)
+        
+
+    def flam3husd_about_web_homepage(self) -> None:
+        """Open a web browser to the FLAM3H™ homepage.</br>
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """
+        page: str = "https://www.alexnardini.net/"
+        www_open(page)
+        
+
+    def flam3husd_about_web_github(self) -> None:
+        """Open a web browser to the FLAM3H™ github repository.</br>
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        page: str = "https://github.com/alexnardini/FLAM3_for_SideFX_Houdini"
+        www_open(page)
+        
+
+    def flam3husd_about_web_instagram(self) -> None:
+        """Open a web browser to the FLAM3H™ instagram account.</br>
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        page: str = "https://www.instagram.com/alexnardini/"
+        www_open(page)
+    
+    
+    def flam3husd_about_web_youtube(self) -> None:
+        """Open a web browser to the FLAM3H™ youtube video tutorials.</br>
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        page: str = "https://www.youtube.com/@alexnardiniITALY/videos"
+        www_open(page)
+
+
+    def flam3husd_about_web_flam3_paper(self) -> None:
+        """Open a web browser to the original "the fractal flame algorithm" publication/paper pdf.</br>
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        page: str = "https://flam3.com/flame_draves.pdf"
+        www_open(page)
+        
+
+    def flam3husd_about_web_flam3_github(self) -> None:
+        """Open a web browser to the original FLAM3 github repository.</br>
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        page: str = "https://github.com/scottdraves/flam3"
+        www_open(page)
+        
+        
+    def flam3husd_about_web_bitbucket(self) -> None:
+        """Open a web browser to the Fractorium Bitbucket repository.</br>
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        page: str = "https://bitbucket.org/mfeemster/fractorium/src/master/"
+        www_open(page)
+        
+        
+    def flam3husd_about_web_fractorium_github(self) -> None:
+        """Open a web browser to the Fractorium Bitbucket repository.</br>
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        page: str = "https://github.com/mfeemster/fractorium/tree/master"
+        www_open(page)
+        
+        
+    def flam3husd_about_web_fractorium(self) -> None:
+        """Open a web browser to the Fractorium Bitbucket repository.</br>
+        
+        Args:
+            (self):
+            
+        Returns:
+            (None):
+        """  
+        page: str = "http://fractorium.com/"
+        www_open(page)
+        
+        
+    def flam3husd_web_run(self, key: str) -> None:
+        """Select the appropriate web open definition to run.</br>
+
+        Args:
+            (self):
+            key(str): The key value that define whitch web definition to run.
+
+        Returns:
+            (None):
+        """
+        
+        web: dict[str, Callable[[], None]] = {'web': self.flam3husd_about_web_homepage,
+                                              'git': self.flam3husd_about_web_github,
+                                              'insta': self.flam3husd_about_web_instagram,
+                                              'youtube': self.flam3husd_about_web_youtube,
+                                              'paper': self.flam3husd_about_web_flam3_paper,
+                                              'flam3git': self.flam3husd_about_web_flam3_github,
+                                              'fractbitbucket': self.flam3husd_about_web_bitbucket,
+                                              'fractgithub': self.flam3husd_about_web_fractorium_github,
+                                              'fractweb': self.flam3husd_about_web_fractorium,
+                                            }
+        
+        run: Callable[[], None] | None = web.get(key)
+        if run is not None: run()
         
         
 # PYSIDE start here (panels and such)
