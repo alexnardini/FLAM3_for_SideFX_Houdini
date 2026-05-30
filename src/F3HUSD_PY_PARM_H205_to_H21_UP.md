@@ -455,7 +455,9 @@ def flam3husd_not_compatible_first_time_msg() -> None:
         (None):
     """ 
     
-    if __h_versions__[0] != 999:
+    _DUNDER: bool = __h_versions__[-1] == 999
+    
+    if not _DUNDER:
         _MSG_H_VERSIONS = nodetype.hdaModule().flam3usd.flam3husd_scripts.flam3husd_compatible_h_versions_msg(False)
         _MSG_INFO = f"\n-> FLAM3H™USD version: {__version__} - {__status__}\n\nThis Houdini version is not compatible with this FLAM3H™USD version.\nYou need {_MSG_H_VERSIONS} to run this FLAM3H™USD version"
                 

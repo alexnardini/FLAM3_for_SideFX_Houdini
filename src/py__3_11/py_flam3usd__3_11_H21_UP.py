@@ -1101,7 +1101,9 @@ class flam3husd_scripts
         
         flam3husd_prm_utils.private_prm_set(self.node, f3husd_tabs.PREFS.PVT_PRM_H_VALID, 0)
         
-        if __h_versions__[0] != 999:
+        _DUNDER: bool = __h_versions__[-1] == 999
+        
+        if not _DUNDER:
             _MSG_H_VERSIONS = flam3husd_scripts.flam3husd_compatible_h_versions_msg(False)
             _MSG_INFO = f"ERROR -> FLAM3H™USD version: {__version__}. This Houdini version is not compatible with this FLAM3H™USD version. you need {_MSG_H_VERSIONS} to run this FLAM3H™USD version"
             _MSG_ABOUT = f"This FLAM3H™USD version need {_MSG_H_VERSIONS} to work."
