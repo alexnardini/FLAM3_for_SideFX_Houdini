@@ -746,7 +746,7 @@ hou.pwd().hdaModule().flam3usd.flam3husd_about_utils.flam3husd_about_show_info_p
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
-| **ABOUT** | `flam3homepage` |  `geometry data` | `from H20.5` | `v1.x` `v2.x` |
+| **ABOUT** | `flam3homepage` |  `geometry data` | `H19 to H20` | `v1.x` `v2.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -759,7 +759,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
-| **ABOUT** | `flam3github` |  `geometry data` | `from H20.5` | `v1.x` `v2.x` |
+| **ABOUT** | `flam3github` |  `geometry data` | `H19 to H20` | `v1.x` `v2.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -772,7 +772,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
-| **ABOUT** | `flam3insta` |  `geometry data` | `from H20.5` | `v1.x` `v2.x` |
+| **ABOUT** | `flam3insta` |  `geometry data` | `H19 to H20` | `v1.x` `v2.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -785,7 +785,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
-| **ABOUT** | `flam3youtube` |  `geometry data` | `from H20.5` | `v1.x` `v2.x` |
+| **ABOUT** | `flam3youtube` |  `geometry data` | `H19 to H20` | `v1.x` `v2.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -798,7 +798,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
-| **ABOUT** | `tffa_pdf` |  `geometry data` | `from H20.5` | `v1.x` `v2.x` |
+| **ABOUT** | `tffa_pdf` |  `geometry data` | `H19 to H20` | `v1.x` `v2.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -811,7 +811,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
-| **ABOUT** | `tffa_flam3github` |  `geometry data` | `from H20.5` | `v1.x` `v2.x` |
+| **ABOUT** | `tffa_flam3github` |  `geometry data` | `H19 to H20` | `v1.x` `v2.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -824,7 +824,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
-| **ABOUT** | `fract_git` |  `geometry data` | `from H20.5` | `v1.x` `v2.x` |
+| **ABOUT** | `fract_git` |  `geometry data` | `H19 to H20` | `v1.x` `v2.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
@@ -837,7 +837,7 @@ kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
-| **ABOUT** | `fract_web` |  `geometry data` | `from H20.5` | `v1.x` `v2.x` |
+| **ABOUT** | `fract_web` |  `geometry data` | `H19 to H20` | `v1.x` `v2.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
 ```python
