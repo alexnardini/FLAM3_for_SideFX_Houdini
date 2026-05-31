@@ -5149,8 +5149,12 @@ class flam3h_general_utils
                 
                 if flash_message:
                     
-                    _MSG: str = f"{mp_idx}"
-                    flam3h_general_utils.flash_message(node, f"{_MSG}")
+                    # There must be at least one viewport
+                    viewers: list[hou.SceneViewer] = self.util_getSceneViewers()
+                    if self.util_is_context_available_viewer_SOP(viewers):
+                        
+                        _MSG: str = f"{mp_idx}"
+                        flam3h_general_utils.flash_message(node, f"{_MSG}")
 
             
             
