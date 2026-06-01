@@ -511,7 +511,7 @@ class f3h_nodeNames:
     # If not, some functionalities will stop working.
     DEFAULT_OUT_BBOX_SENSOR: Final = 'OUT_bbox_sensor' # prefix
     DEFAULT_OUT_BBOX_REFRAME: Final = 'OUT_bbox_reframe' # prefix
-    DEFAULT_XFVIZGL: Final = 'XFVIZ_GL'
+    DEFAULT_XFVIZGL: Final = '_XFVIZ_GL'
     DEFAULT_TFFA_XAOS: Final = '_TFFAxaos'
 
 

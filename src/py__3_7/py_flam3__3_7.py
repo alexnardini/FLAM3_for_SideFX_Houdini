@@ -374,7 +374,7 @@ AUTO_NAME_OUT = 'Flame'
 # If not, some functionalities will stop working.
 NODE_NAME_OUT_BBOX_SENSOR = 'OUT_bbox_sensor' # prefix
 NODE_NAME_OUT_BBOX_REFRAME = 'OUT_bbox_reframe' # prefix
-NODE_NAME_PREFS_XFVIZ = 'XFVIZ_GL'
+NODE_NAME_PREFS_XFVIZ = '_XFVIZ_GL'
 NODE_NAME_TFFA_XAOS = '_TFFAxaos'
 
 # GLB tab: Parameters at hand
