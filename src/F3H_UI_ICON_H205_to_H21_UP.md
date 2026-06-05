@@ -2689,7 +2689,7 @@ _Here you will find informations about FLAM3H™._
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWarningToolSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningToolSVG.svg
 ```
 
 </br>
@@ -2704,7 +2704,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueToolSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueToolSVG.svg
 ```
 
 </br>

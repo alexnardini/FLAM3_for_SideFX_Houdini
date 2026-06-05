@@ -286,7 +286,7 @@ _Here you will find informations about FLAM3H™USD._
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarWarningToolSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWarningSVG.svg
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWarningToolSVG.svg
 ```
 
 </br>
@@ -301,7 +301,7 @@ opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWarningSVG.svg
 <p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueToolSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg
+opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueToolSVG.svg
 ```
 
 </br>
