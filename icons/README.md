@@ -489,6 +489,45 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_ffH
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_ffHandlesEnabledToolSVG.svg" /></p>
+<b><p align="center">icon_ffHandlesEnabledToolSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledToolSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledToolSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_ffHandlesEnabledToolSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_ffHandlesEnabledToolSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_ffHandlesEnabledToolSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_ffHandlesEnabledToolSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_FractoriumWebSVG.svg" /></p>
 <b><p align="center">icon_FractoriumWebSVG.svg</p></b>
 <p align="center">......</p>
@@ -567,6 +606,45 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Fra
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_FrameBlueToolSVG_old.svg" /></p>
+<b><p align="center">icon_FrameBlueToolSVG_old.svg</b> (<i>used up to FLAM3H™ for H20.5</i>)</p>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueToolSVG_old.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueToolSVG_old.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_FrameBlueToolSVG_old.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_FrameBlueToolSVG_old.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_FrameBlueToolSVG_old.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_FrameBlueToolSVG_old.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_FrameBlueSVG.svg" /></p>
 <b><p align="center">icon_FrameBlueSVG.svg</p></b>
 <p align="center">......</p>
@@ -601,6 +679,45 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_FrameBlueSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_FrameBlueToolSVG.svg" /></p>
+<b><p align="center">icon_FrameBlueToolSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueToolSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueToolSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_FrameBlueToolSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_Framicon_FrameBlueToolSVGeBlueSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_FrameBlueToolSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_FrameBlueToolSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -645,6 +762,45 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Fra
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_FrameRedToolSVG_old.svg" /></p>
+<b><p align="center">icon_FrameRedToolSVG_old.svg</b> (<i>used up to FLAM3H™ for H20.5</i>)</p>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_FrameRedToolSVG_old.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_FrameRedToolSVG_old.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_FrameRedToolSVG_old.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_FrameRedToolSVG_old.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_FrameRedToolSVG_old.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_FrameRedToolSVG_old.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_FrameRedSVG.svg" /></p>
 <b><p align="center">icon_FrameRedSVG.svg</p></b>
 <p align="center">......</p>
@@ -679,6 +835,45 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FrameRedSVG.svg
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_FrameRedSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_FrameRedToolSVG.svg" /></p>
+<b><p align="center">icon_FrameRedToolSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_FrameRedToolSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_FrameRedToolSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_FrameRedToolSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_FrameRedToolSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_FrameRedToolSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_FrameRedToolSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -796,6 +991,45 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionCPSVG.svg
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionCPSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_optionCPToolSVG.svg" /></p>
+<b><p align="center">icon_optionCPToolSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionCPToolSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionCPToolSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_optionCPToolSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_optionCPToolSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_optionCPToolSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionCPToolSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -1580,6 +1814,45 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_opt
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_optionStarBlueToolSVG.svg" /></p>
+<b><p align="center">icon_optionStarBlueToolSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueToolSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueToolSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_optionStarBlueToolSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_optionStarBlueToolSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_optionStarBlueToolSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarBlueToolSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_optionStarOrangeSVG.svg" /></p>
 <b><p align="center">icon_optionStarOrangeSVG.svg</b> (<i>unused</i>)</p>
 <p align="center">......</p>
@@ -1731,6 +2004,45 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningSVG.svg
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarWarningSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_optionStarWarningToolSVG.svg" /></p>
+<b><p align="center">icon_optionStarWarningToolSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningToolSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningToolSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_optionStarWarningToolSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_optionStarWarningToolSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_optionStarWarningToolSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_optionStarWarningToolSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
@@ -2321,6 +2633,45 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_Tag
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_TagOBlueMenuBigToolSVG.svg" /></p>
+<b><p align="center">icon_TagOBlueMenuBigToolSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuBigToolSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueMenuBigToolSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_TagOBlueMenuBigToolSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_TagOBlueMenuBigToolSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_TagOBlueMenuBigToolSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_TagOBlueMenuBigToolSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_TagOBlueMenuMidSVG.svg" /></p>
 <b><p align="center">icon_TagOBlueMenuMidSVG.svg</p></b>
 <p align="center">......</p>
@@ -2710,6 +3061,45 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_xfH
 
 
 <p align="center">
+  <img width="160" height="160" src="./icon_xfHandlesEnabledToolSVG.svg" /></p>
+<b><p align="center">icon_xfHandlesEnabledToolSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledToolSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledToolSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_xfHandlesEnabledToolSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_xfHandlesEnabledToolSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_xfHandlesEnabledToolSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_xfHandlesEnabledToolSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
   <img width="160" height="160" src="./icon_xfHandlesEnabledMPIDXSVG.svg" /></p>
 <b><p align="center">icon_xfHandlesEnabledMPIDXSVG.svg</p></b>
 <p align="center">......</p>
@@ -2744,6 +3134,45 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_xfHandlesEnabledMPIDXSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_xfHandlesEnabledMPIDXToolSVG.svg" /></p>
+<b><p align="center">icon_xfHandlesEnabledMPIDXToolSVG.svg</p></b>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXToolSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXToolSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_xfHandlesEnabledMPIDXToolSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_xfHandlesEnabledMPIDXToolSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_xfHandlesEnabledMPIDXToolSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_xfHandlesEnabledMPIDXToolSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
