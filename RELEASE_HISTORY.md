@@ -37,6 +37,8 @@ They are all available in this Github repository.
 
 ### [<ins>v2.0.28 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.28) ###
 
+_This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
+
 #### FLAM3H™ v2.0.28 indie -> H21.0 UP</br>FLAM3H™ v2.0.23 indie -> H20.5</br>FLAM3H™ v1.9.83 indie -> H19.0 to H20 ####
 
 - **New H20.5 UP ONLY**: The HDA network now has discoverable code snippet parameters the user can hide/unhide with the click of a button. This make it very handy to inspect, modify and cleanup code nodes on the fly.
