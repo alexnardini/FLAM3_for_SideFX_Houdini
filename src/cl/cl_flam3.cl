@@ -2214,13 +2214,12 @@ static float2 CL_V_ELLIPTIC(
 #if USE_NATIVE
     a = native_divide(in.x, (1.0f + xmaxm1));
     ssx = xmaxm1 > 0.0f ? native_sqrt(xmaxm1) : 0.0f;
-    float wscale = w * (native_divide(2.0f, (float)M_PI));
 #else
     a = in.x / (1.0f + xmaxm1);
     ssx = xmaxm1 > 0.0f ? sqrt(xmaxm1) : 0.0f;
-    float wscale = w * (2.0f / M_PI);
 #endif
 
+    float wscale = w * 0.636619772367581343076; // (2.0f / M_PI);
     float logterm = log1p(xmaxm1 + ssx);
     float y = copysign(wscale * logterm, in.y);
 
