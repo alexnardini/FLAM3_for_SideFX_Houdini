@@ -1770,7 +1770,7 @@ static float2 CL_V_SUPERSHAPE(
     // so the wrangle core node in Houdini's land remain more performant.
     ss_pm_4 = supershape.x * 0.25f;
 #if USE_NATIVE
-    ss_pneg1_n1 = native_recip(supershape_n.x) * -1.0f;
+    ss_pneg1_n1 = -native_recip(supershape_n.x);
 #else
     ss_pneg1_n1 = -1.0f / supershape_n.x;
 #endif
