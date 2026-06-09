@@ -2533,6 +2533,22 @@ opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
 
 | Tab | Parameter name | Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|
+| **PREFS** | `cullamount` | `from H20.5` | `v1.x` `v2.x` |
+
+### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
+```
+
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|
 | **PREFS** | `vptype` | `from H20.5` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_menuButtonSVG.svg" /> Menu icons

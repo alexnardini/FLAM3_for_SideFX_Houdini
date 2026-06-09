@@ -2394,6 +2394,19 @@ kwargs['parm'].deleteAllKeyframes()
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
+| **PREFS** | `cullamount` |  `float` | `H19 to H20` | `v1.x` |
+
+- ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Callback Script
+```python
+kwargs['node'].hdaModule().flam3.flam3h_prm_utils.set(kwargs['node'], kwargs['parmtuple'], 0.99, True)
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|---:|
 | **PREFS** | `fcam` |  `Operator Path` | `H19 to H20` | `v1.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script

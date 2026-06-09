@@ -930,10 +930,10 @@ F3H_traceback_print_infos(e: Any, traceback_info: bool = False, extra_info: str 
     
     __slots__ = ("_kwargs", "_node")
     
-    def __init__(self, kwargs: dict) -> None:
+    def __init__(self, kwargs: dict[str, Any]) -> None:
         """
         Args:
-            kwargs(dict): this FLAM3H™ node houdini kwargs.
+            kwargs(dict[str, Any]): this FLAM3H™ node houdini kwargs.
             
         Returns:
             (None):
@@ -2101,9 +2101,9 @@ class flam3h_scripts
 @STATICMETHODS
 * flam3h_h_versions_build_data(__h_versions__: tuple[int, ...] | int, last_index: bool = False) -> str:
 * flam3h_compatible_h_versions_msg(msg: bool = True, ps_cls_about: bool = False) -> str:
-* flam3h_compatible(h_version: int, kwargs: dict | None, msg: bool) -> bool:
-* flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
-* flam3h_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
+* flam3h_compatible(h_version: int, kwargs: dict[str, Any] | None, msg: bool) -> bool:
+* flam3h_compatible_range_close(kwargs: dict[str, Any] | None, msg: bool) -> bool:
+* flam3h_compatible_range_open(kwargs: dict[str, Any] | None, msg: bool) -> bool:
 * flam3h_on_create_lock_parms(node: hou.SopNode) -> None:
 * set_first_instance_global_var(cvex_precision: int) -> None:
 * flam3h_check_first_node_instance_msg_status_bar_display_flag(node: hou.SopNode, cvex_precision: int, _MSG_INFO: str, _MSG_DONE: str, sys_updated_mode: hou.EnumValue) -> None:
@@ -2114,7 +2114,7 @@ class flam3h_scripts
 * hou_session_data_clear_and_restore() -> None:
 
 @METHODS
-* flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
+* flam3h_compatible_type(self, range_type: bool, kwargs: dict[str, Any] | None = None, msg: bool = True) -> bool:
 * flam3h_check_first_node_instance_msg(self, FIRST_TIME_MSG: bool = True) -> None:
 * flam3h_check_first_node_instance_prefs_cvex_precision_msg(self) -> None:
 * flam3h_on_create_set_houdini_session_data(self) -> None:
@@ -2132,7 +2132,7 @@ class flam3h_scripts
     
     __slots__ = ("_kwargs", "_node", "_gpu")
     
-    def __init__(self, kwargs: dict) -> None:
+    def __init__(self, kwargs: dict[str, Any]) -> None:
         """
         Args:
             kwargs(dict): this FLAM3H™ node houdini kwargs.
@@ -2233,11 +2233,11 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_compatible(h_version: int, kwargs: dict | None, msg: bool) -> bool:
+    def flam3h_compatible(h_version: int, kwargs: dict[str, Any] | None, msg: bool) -> bool:
         """This is to be run inside:</br>
         
-        * def flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
-        * def flam3h_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
+        * def flam3h_compatible_range_close(kwargs: dict[str, Any] | None, msg: bool) -> bool:
+        * def flam3h_compatible_range_open(kwargs: dict[str, Any] | None, msg: bool) -> bool:
         
         It is for when FLAM3H™ is allowed to run inside the current Houdini version.
         
@@ -2287,13 +2287,13 @@ class flam3h_scripts
         
 
     @staticmethod
-    def flam3h_compatible_range_close(kwargs: dict | None, msg: bool) -> bool:
+    def flam3h_compatible_range_close(kwargs: dict[str, Any] | None, msg: bool) -> bool:
         """Tell if this FLAM3H™ version is compatible with this Houdini version</br>
         
         * range_close -> mean FLAM3H™ will run only on Houdini versions included inside:</br>__h_versions__
         
         Args:
-            kwargs(dict | None): When needed, this must be the class' self.kwargs, or None
+            kwargs(dict[str, Any] | None): When needed, this must be the class' self.kwargs, or None
             msg(bool): When False it will not run the hou display messages.
 
         Returns:
@@ -2317,13 +2317,13 @@ class flam3h_scripts
 
 
     @staticmethod
-    def flam3h_compatible_range_open(kwargs: dict | None, msg: bool) -> bool:
+    def flam3h_compatible_range_open(kwargs: dict[str, Any] | None, msg: bool) -> bool:
         """Tell if this FLAM3H™ version is compatible with this Houdini version</br>
         
         * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside:</br>__h_versions__ before being properly fine tuned.
 
         Args:
-            kwargs(dict | None): When needed, this must be the class' self.kwargs, or None
+            kwargs(dict[str, Any] | None): When needed, this must be the class' self.kwargs, or None
             msg(bool): When False it will not run the hou display messages.
 
         Returns:
@@ -2619,7 +2619,7 @@ class flam3h_scripts
             return False
     
     
-    def flam3h_compatible_type(self, range_type: bool, kwargs: dict | None = None, msg: bool = True) -> bool:
+    def flam3h_compatible_type(self, range_type: bool, kwargs: dict[str, Any] | None = None, msg: bool = True) -> bool:
         """Check FLAM3H™ compatibility based on the type of range(of Houdini versions)</br>
         
         * range_open -> mean it allow FLAM3H™ to run on newer versions of Houdini than the versions included inside:</br>__h_versions__ before being properly fine tuned.
@@ -2627,7 +2627,7 @@ class flam3h_scripts
 
         Args:
             range_type(bool): True for closed range. False for open range. This is set inside the HDA's -> Type Properties -> Scripts -> PythonModule
-            kwargs(dict | None): Default to: None</br>When needed, this must be the class' self.kwargs
+            kwargs(dict[str, Any] | None): Default to: None</br>When needed, this must be the class' self.kwargs
             msg(bool): Default to: True</br>When False it will not run the hou display messages.
 
         Returns:
@@ -3076,7 +3076,7 @@ class flam3h_scripts
             if f3h != node:
                 flam3h_prm_utils.private_prm_set(f3h, FLAM3H_PVT_H_VALID, 1)
                 # Restore about tab infos
-                f3h_kwargs: dict = copy(self.kwargs)
+                f3h_kwargs: dict[str, Any] = copy(self.kwargs)
                 f3h_kwargs['node'] = f3h
                 flam3h_about_utils(f3h_kwargs).flam3h_about_msg()
                 flam3h_about_utils(f3h_kwargs).flam3h_about_plugins_msg()
@@ -3454,7 +3454,7 @@ class flam3h_general_utils
 * util_set_stashed_cam() -> None:
 * util_clear_xf_viz_stashed_wire_width_data() -> None:
 * util_xf_viz_set_stashed_wire_width() -> None:
-* util_xf_viz_force_cook(node: hou.SopNode, kwargs: dict) -> None:
+* util_xf_viz_force_cook(node: hou.SopNode, kwargs: dict[str, Any]) -> None:
 * util_store_all_viewers_color_scheme_onCreate() -> None:
 * mp_xf_viz_solo_follow_prev_off(node: hou.SopNode) -> None:
 
@@ -3506,10 +3506,10 @@ class flam3h_general_utils
     __slots__ = ("_cached_data", 
                  "_kwargs", "_node", "_bbox_sensor_path", "_bbox_reframe_path")
     
-    def __init__(self, kwargs: dict) -> None:
+    def __init__(self, kwargs: dict[str, Any]) -> None:
         """
         Args:
-            kwargs(dict): this FLAM3H™ node houdini kwargs.
+            kwargs(dict[str, Any]): this FLAM3H™ node houdini kwargs.
             
         Returns:
             (None):
@@ -4105,7 +4105,7 @@ class flam3h_general_utils
 
 
     @staticmethod
-    def util_xf_viz_force_cook(node: hou.SopNode, kwargs: dict) -> None:
+    def util_xf_viz_force_cook(node: hou.SopNode, kwargs: dict[str, Any]) -> None:
         """Force viewport xforms handles VIZ to cook when the mode is OFF</br>
         to have the geometry ready when the user turn the mode ON.</br>
         
@@ -4113,7 +4113,7 @@ class flam3h_general_utils
 
         Args:
             node(hou.SopNode): This FLAM3H™ node
-            kwargs:(dict): this FLAM3H™ node kwargs
+            kwargs:(dict[str, Any]): this FLAM3H™ node kwargs
             
         Returns:
             (None):
@@ -4433,9 +4433,9 @@ class flam3h_general_utils
             * def flam3h_outsensor_toggle(self, prm_name: str = f3h_tabs.OUT.PVT_PRM_RENDER_PROPERTIES_SENSOR) -> None:
             * def iterators_count(self) -> None:
             * def util_viewport_bbox_frame(self) -> None:
-            * def in_copy_render_all_stats_msg(kwargs: dict,  apo_data: in_flame_iter_data | None=None, clipboard: bool=False) -> None:
-            * def in_copy_sensor_stats_msg(kwargs: dict) -> None:
-            * def in_copy_render_stats_msg(kwargs: dict) -> None:
+            * def in_copy_render_all_stats_msg(kwargs: dict[str, Any],  apo_data: in_flame_iter_data | None=None, clipboard: bool=False) -> None:
+            * def in_copy_sensor_stats_msg(kwargs: dict[str, Any]) -> None:
+            * def in_copy_render_stats_msg(kwargs: dict[str, Any]) -> None:
             * def menu_sensor_resolution_set(self, update=True) -> None:
             * def reset_OUT_kwargs(self) -> None:
             * def reset_OUT(self, mode=0) -> None:
@@ -6402,7 +6402,7 @@ class flam3h_iterator_utils
     
     __slots__ = ("_kwargs", "_node", "_gpu")
     
-    def __init__(self, kwargs: dict) -> None:
+    def __init__(self, kwargs: dict[str, Any]) -> None:
         """
         Args:
             kwargs(dict): this FLAM3H™ node houdini kwargs.
@@ -7743,9 +7743,9 @@ class flam3h_iterator_utils
         * def json_to_flam3h_ramp_SET_PRESET_DATA(self, node: hou.SopNode) -> None:
         * def json_to_flam3h_ramp(self, use_kwargs: bool = True) -> None:
         * def ui_xaos_infos(self) -> None:
-        * def in_copy_render_all_stats_msg(kwargs: dict,  apo_data: in_flame_iter_data | None = None, clipboard: bool = False, flash_message: bool = False) -> None:
-        * def in_copy_sensor_stats_msg(kwargs: dict) -> None:
-        * def in_copy_render_stats_msg(kwargs: dict) -> None:
+        * def in_copy_render_all_stats_msg(kwargs: dict[str, Any],  apo_data: in_flame_iter_data | None = None, clipboard: bool = False, flash_message: bool = False) -> None:
+        * def in_copy_sensor_stats_msg(kwargs: dict[str, Any]) -> None:
+        * def in_copy_render_stats_msg(kwargs: dict[str, Any]) -> None:
         * def reset_OUT_kwargs(self) -> None:
         * def out_XML(self) -> None:
             
@@ -8685,7 +8685,7 @@ class flam3h_iterator_utils
             (None):
         """
         node: hou.SopNode = self.node
-        kwargs: dict = self.kwargs
+        kwargs: dict[str, Any] = self.kwargs
         
         glb_density: int = node.parm(f3h_tabs.GLB.PRM_DENSITY).eval()
         
@@ -9712,7 +9712,7 @@ class flam3h_iterator_utils
         # current iterator
         s_mp_index: int = self.kwargs['script_multiparm_index']
         mp_idx: str = str(s_mp_index)
-        kwargs: dict = self.kwargs
+        kwargs: dict[str, Any] = self.kwargs
         
         f3h_iter: flam3h_iterator = flam3h_iterator()
         if kwargs['shift']:
@@ -9749,7 +9749,7 @@ class flam3h_iterator_utils
         # current iterator
         s_mp_index: int = self.kwargs['script_multiparm_index']
         mp_idx: str = str(s_mp_index)
-        kwargs: dict = self.kwargs
+        kwargs: dict[str, Any] = self.kwargs
         
         f3h_iter: flam3h_iterator = flam3h_iterator()
         if kwargs['shift']:
@@ -9783,7 +9783,7 @@ class flam3h_iterator_utils
         # Check and Update this data
         self.update_xml_last_loaded()
         
-        kwargs: dict = self.kwargs
+        kwargs: dict[str, Any] = self.kwargs
         
         f3h_iter_FF: flam3h_iterator_FF = flam3h_iterator_FF()
         if kwargs['shift']:
@@ -9817,7 +9817,7 @@ class flam3h_iterator_utils
         # Check and Update this data
         self.update_xml_last_loaded()
         
-        kwargs: dict = self.kwargs
+        kwargs: dict[str, Any] = self.kwargs
         
         f3h_iter_FF: flam3h_iterator_FF = flam3h_iterator_FF()
         if kwargs['shift']:
@@ -11216,7 +11216,7 @@ class flam3h_iterator_utils
         """
 
         node: hou.SopNode = self.node
-        kwargs: dict = self.kwargs
+        kwargs: dict[str, Any] = self.kwargs
         ui_change_type: str | None = kwargs.get('ui_change_type')
         if ui_change_type is not None:
             
@@ -11337,7 +11337,7 @@ class flam3h_palette_utils
     
     __slots__ = ("_kwargs", "_node", "_palette_plus_do")
     
-    def __init__(self, kwargs: dict) -> None:
+    def __init__(self, kwargs: dict[str, Any]) -> None:
         """
         Args:
             kwargs(dict): this FLAM3H™ node houdini kwargs.
@@ -13070,7 +13070,7 @@ class flam3h_about_utils
     
     __slots__ = ("_kwargs", "_node")
     
-    def __init__(self, kwargs: dict) -> None:
+    def __init__(self, kwargs: dict[str, Any]) -> None:
         """
         Args:
             kwargs(dict): this FLAM3H™ node houdini kwargs.
@@ -13438,7 +13438,7 @@ class flam3h_ui_msg_utils
     
     __slots__ = ("_kwargs", "_node")
     
-    def __init__(self, kwargs: dict) -> None:
+    def __init__(self, kwargs: dict[str, Any]) -> None:
         """
         Args:
             kwargs(dict): this FLAM3H™ node houdini kwargs.
@@ -16005,10 +16005,10 @@ class in_flame_utils
 * in_copy_sensor(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
 * in_copy_render(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
 * in_copy_render_cc_curves(node: hou.SopNode, f3r: in_flame_iter_data, preset_id: int) -> None:
-* in_copy_render_all_stats_msg(kwargs: dict,  apo_data: in_flame_iter_data | None = None, clipboard: bool = False, flash_message: bool = False) -> None:
-* in_copy_sensor_stats_msg(kwargs: dict) -> None:
-* in_copy_render_stats_msg(kwargs: dict) -> None:
-* in_copy_cc_curves_stats_msg(kwargs: dict) -> None:
+* in_copy_render_all_stats_msg(kwargs: dict[str, Any],  apo_data: in_flame_iter_data | None = None, clipboard: bool = False, flash_message: bool = False) -> None:
+* in_copy_sensor_stats_msg(kwargs: dict[str, Any]) -> None:
+* in_copy_render_stats_msg(kwargs: dict[str, Any]) -> None:
+* in_copy_cc_curves_stats_msg(kwargs: dict[str, Any]) -> None:
 * in_util_vars_dict_type_maker(vars_dict: dict, func: Callable) -> dict:
 * in_xml_key_val(xform: dict, key_name: str, default_val: float = 0) -> float:
 * menu_in_presets_loop(node: hou.SopNode, menu: TA_Menu, i: int, item: str | list[Never], in_idx: int, is_clipboard: int) -> None:
@@ -16057,7 +16057,7 @@ class in_flame_utils
     
     __slots__ = ("_kwargs", "_node", "_gpu")
     
-    def __init__(self, kwargs: dict) -> None:
+    def __init__(self, kwargs: dict[str, Any]) -> None:
         """
         Args:
             kwargs(dict): this FLAM3H™ node houdini kwargs.
@@ -17634,7 +17634,7 @@ class in_flame_utils
     
     
     @staticmethod
-    def in_copy_render_all_stats_msg(kwargs: dict,  apo_data: in_flame_iter_data | None = None, clipboard: bool = False, flash_message: bool = False) -> None:
+    def in_copy_render_all_stats_msg(kwargs: dict[str, Any],  apo_data: in_flame_iter_data | None = None, clipboard: bool = False, flash_message: bool = False) -> None:
         """Copy the loaded IN Flame preset ALL properties into the OUT Flame render properties to be written out.</br>
 
         Args:
@@ -17717,7 +17717,7 @@ class in_flame_utils
 
 
     @staticmethod
-    def in_copy_sensor_stats_msg(kwargs: dict) -> None:
+    def in_copy_sensor_stats_msg(kwargs: dict[str, Any]) -> None:
         """Copy the loaded IN Flame preset SENSOR properties into the OUT Flame render properties to be written out.</br>
 
         Args:
@@ -17779,7 +17779,7 @@ class in_flame_utils
         
 
     @staticmethod
-    def in_copy_render_stats_msg(kwargs: dict) -> None:
+    def in_copy_render_stats_msg(kwargs: dict[str, Any]) -> None:
         """Copy the loaded IN Flame preset RENDER properties into the OUT Flame render properties to be written out.</br>
 
         Args:
@@ -17851,11 +17851,11 @@ class in_flame_utils
             
             
     @staticmethod
-    def in_copy_cc_curves_stats_msg(kwargs: dict) -> None:
+    def in_copy_cc_curves_stats_msg(kwargs: dict[str, Any]) -> None:
         """Copy the loaded IN Flame preset CC CURVES data into the OUT Flame render color correction curves properties to be written out.</br>
 
         Args:
-            kwargs(dict): this FLAM3H™ node houdini kwargs.
+            kwargs(dict[str, Any]): this FLAM3H™ node houdini kwargs.
             
         Returns:
             (None):
@@ -18144,7 +18144,7 @@ class in_flame_utils
         Returns:
             (None):
         """
-        kwargs: dict = self.kwargs
+        kwargs: dict[str, Any] = self.kwargs
         if kwargs["ctrl"]:
             self.in_copy_render_stats_msg(kwargs)
         else:
@@ -19995,7 +19995,7 @@ class out_flame_utils
                  "_iter_count", "_palette", "_palette_hsv_do", "_palette_plus_do", "_f3h_affine", "_xm", 
                  "_flam3h_rip", "_flam3h_mb_do", "_flam3h_f3c", "_flam3h_cp_lookup_samples", "_flam3h_cp_basis")
 
-    def __init__(self, kwargs: dict) -> None:
+    def __init__(self, kwargs: dict[str, Any]) -> None:
         """
         Args:
             kwargs(dict): this FLAM3H™ node houdini kwargs.
@@ -21489,7 +21489,7 @@ class out_flame_utils
         """
         
         node: hou.SopNode = self.node
-        kwargs: dict = self.kwargs
+        kwargs: dict[str, Any] = self.kwargs
         
         if kwargs['shift']:
             out_flame_utils(kwargs).out_to_flam3h_quick()
@@ -21707,7 +21707,7 @@ class out_flame_utils
         # Check and Update this data
         flam3h_iterator_utils(self.kwargs).update_xml_last_loaded()
         
-        kwargs: dict = self.kwargs
+        kwargs: dict[str, Any] = self.kwargs
             
         if kwargs['shift']:
             # Reset only the Camera Sensor
@@ -22648,7 +22648,7 @@ class out_flame_utils
         iterators_num: int = node.parm(f3h_tabs.PRM_ITERATORS_COUNT).eval()
         if iterators_num:
             
-            kwargs: dict = self.kwargs
+            kwargs: dict[str, Any] = self.kwargs
             
             out_path: str = os.path.expandvars(node.parm(f3h_tabs.OUT.PRM_PATH).eval())
             out_path_checked: str | bool = self.out_check_outpath(node, out_path, f3h_tabs.OUT.DEFAULT_FILE_EXT, f3h_tabs.OUT.DEFAULT_AUTO_NAME)
@@ -23232,10 +23232,10 @@ class out_flame_render_properties(out_flame_utils):
                  "_flame_cp_mode", 
                  "_flam3h_sys_rip", "_flam3h_cp_hsv", "_flam3h_mb_fps", "_flam3h_mb_samples", "_flam3h_mb_shutter", "_flam3h_cp_samples", "_flam3h_cp_samples_basis", "_flam3h_prefs_f3c")
 
-    def __init__(self, kwargs: dict) -> None:
+    def __init__(self, kwargs: dict[str, Any]) -> None:
         """
         Args:
-            kwargs(dict): this FLAM3H™ node houdini kwargs.
+            kwargs(dict[str, Any]): this FLAM3H™ node houdini kwargs.
             
         Returns:
             (None):
@@ -23411,10 +23411,10 @@ class out_flame_xforms_data(out_flame_utils):
                  "_finalxf_name", "_finalxf_preaffine", "_finalxf_f3h_preaffine", "_finalxf_f3h_preaffine_angle", "_finalxf_postaffine", "_finalxf_f3h_postaffine", "_finalxf_f3h_postaffine_angle", 
                  "_palette_hex",)
     
-    def __init__(self, kwargs: dict) -> None:
+    def __init__(self, kwargs: dict[str, Any]) -> None:
         """
         Args:
-            kwargs(dict): this FLAM3H™ node houdini kwargs.
+            kwargs(dict[str, Any]): this FLAM3H™ node houdini kwargs.
             
         Returns:
             (None):
