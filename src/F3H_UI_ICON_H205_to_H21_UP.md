@@ -145,12 +145,12 @@ The pre-built icons menu python lists being used:
 <p align="left"><img width="48" height="48" src="../icons/icon_optionStarWhiteSVG.svg" />
 <img width="48" height="48" src="../icons/icon_StarSwapCyanSmallSVG.svg" />
 <img width="48" height="48" src="../icons/icon_optionEnabledMidSVG.svg" />
-<img width="48" height="48" src="../icons/icon_optionStarRedHighSVG.svg" />
+<img width="48" height="48" src="../icons/icon_optionEnabledHighSVG.svg" />
 </p>
 
 ```python
 # class f3h_menus
-DENSITY: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
+DENSITY: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]1 Billion', 14, '']
 ```
 
 </br>
@@ -160,12 +160,12 @@ DENSITY: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_opt
 <img width="48" height="48" src="../icons/icon_StarSwapCyanSmallXFVIZOFFSVG.svg" />
 <img width="48" height="48" src="../icons/icon_StarSwapCyanSmallSVG.svg" />
 <img width="48" height="48" src="../icons/icon_optionEnabledMidSVG.svg" />
-<img width="48" height="48" src="../icons/icon_optionStarRedHighSVG.svg" />
+<img width="48" height="48" src="../icons/icon_optionEnabledHighSVG.svg" />
 </p>
 
 ```python
 # class f3h_menus
-DENSITY_XFVIZ_OFF: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZOFFSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
+DENSITY_XFVIZ_OFF: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZOFFSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZOFFSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]1 Billion', 14, '']
 ```
 
 </br>
@@ -175,12 +175,12 @@ DENSITY_XFVIZ_OFF: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3
 <img width="48" height="48" src="../icons/icon_StarSwapCyanSmallXFVIZSVG.svg" />
 <img width="48" height="48" src="../icons/icon_StarSwapCyanSmallSVG.svg" />
 <img width="48" height="48" src="../icons/icon_optionEnabledMidSVG.svg" />
-<img width="48" height="48" src="../icons/icon_optionStarRedHighSVG.svg" />
+<img width="48" height="48" src="../icons/icon_optionEnabledHighSVG.svg" />
 </p>
 
 ```python
 # class f3h_menus
-DENSITY_XFVIZ_ON: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
+DENSITY_XFVIZ_ON: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]1 Billion', 14, '']
 ```
 
 </br>
@@ -190,22 +190,22 @@ DENSITY_XFVIZ_ON: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H
 <img width="48" height="48" src="../icons/icon_StarSwapCyanSmallXFVIZSOLOSVG.svg" />
 <img width="48" height="48" src="../icons/icon_StarSwapCyanSmallSVG.svg" />
 <img width="48" height="48" src="../icons/icon_optionEnabledMidSVG.svg" />
-<img width="48" height="48" src="../icons/icon_optionStarRedHighSVG.svg" />
+<img width="48" height="48" src="../icons/icon_optionEnabledHighSVG.svg" />
 </p>
 
 ```python
 # class f3h_menus
-DENSITY_XFVIZ_ON_SOLO: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSOLOSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1 Billion', 14, '']
+DENSITY_XFVIZ_ON_SOLO: Final[TA_Menu] = [-1, '', 1, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteXFVIZSOLOSVG.svg]...', 2, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]1M', 3, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]2M', 4, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallXFVIZSOLOSVG.svg]5M', 5, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]15M', 6, '![opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapCyanSmallSVG.svg]25M', 7, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]50M', 8, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]100M', 9, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]150M', 10, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledMidSVG.svg]250M', 11, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]500M', 12, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]750M', 13, '![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]1 Billion', 14, '']
 ```
 
 </br>
 </br>
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteToolSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteToolSVG.svg
 ```
 
 </br>
@@ -1223,10 +1223,10 @@ opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg
 | **FLAME** | `xaos_#` | `from H20.5` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueKwargsSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueToolSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueKwargsSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueToolSVG.svg
 ```
 
 </br>
@@ -1840,10 +1840,10 @@ Token: 1024
 | **CP** | `palette` | `from H20.5` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteToolSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteToolSVG.svg
 ```
 
 </br>
@@ -2134,10 +2134,10 @@ opdef:/alexnardini::Sop/FLAM3H?icon_WhiteSVG.svg
 | **IN** | `in_f3h_affine` | `from H20.5` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteKwargsSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteToolSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteKwargsSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteToolSVG.svg
 ```
 
 </br>
@@ -2309,10 +2309,10 @@ PRESETS_INVALID: Final[TA_Menu] = [-1, '![opdef:/alexnardini::Sop/FLAM3H?icon_op
 </br>
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueKwargsSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueToolSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueKwargsSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueToolSVG.svg
 ```
 
 </br>
@@ -2489,10 +2489,10 @@ Token: 2048
 </br>
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_optionToolOCLSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionOCLSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionOCLSVG.svg
 ```
 
 </br>
@@ -2520,10 +2520,10 @@ Token: 0
 | **PREFS** | `ptcount` | `from H20.5` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button icon 
-<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarWhiteToolSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteToolSVG.svg
 ```
 
 

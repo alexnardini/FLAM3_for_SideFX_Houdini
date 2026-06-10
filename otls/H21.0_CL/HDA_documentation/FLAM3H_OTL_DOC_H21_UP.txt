@@ -268,7 +268,7 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] default preset of *`500k`*(_thousands_). This is what should be used while editing fractal Flames most of the time.
     - [Largeicon:opdef:.?icon_StarSwapCyanSmallSVG.svg] presets from *`1`* to *`25`* millions.
     - [Largeicon:opdef:.?icon_optionEnabledMidSVG.svg] presets from *`50`* to *`250`* millions.
-    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] presets from *`500`* millions to *`1 Billion`*.
+    - [Largeicon:opdef:.?icon_optionEnabledHighSVG.svg] presets from *`500`* millions to *`1 Billion`*.
 
     <br />
     When using a custom density value from inside the preferences density tab,<br />
@@ -300,7 +300,7 @@ menu density presets [Icon:BUTTONS/pane_menu]:
     
 Reset density [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: Global
-    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    [Largeicon:opdef:.?icon_optionStarWhiteToolSVG.svg]
     
     ((LMB)) to reset density to its default: *`500k`*(_thousands_)<br />
     This is what should be used while editing fractal Flames most of the time.
@@ -1279,7 +1279,7 @@ xaos [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
         
 auto space xaos weights / xaos information tips [Icon:DATATYPES/boolean] [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: FLAME
-    [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
+    [Largeicon:opdef:.?icon_optionStarBlueToolSVG.svg]
     
     Activate/Deactivate auto space xaos weights option.
 
@@ -2052,7 +2052,7 @@ palette [Icon:TOP/xmlinput] [Icon:TOP/jsoninput] [Icon:DATATYPES/ramp]:
     _Additionally_,<br />
     _the palette parameter come with the following_ ([Smallicon:opdef:.?icon_actionButtonSVG.svg])_Action button_: <br />
 
-    - [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+    - [Largeicon:opdef:.?icon_optionStarWhiteToolSVG.svg]
 
     _Usage_:
 
@@ -2544,7 +2544,7 @@ F3H affine style (IN) [Icon:DATATYPES/boolean]:
 
 Reload preset with "F3H affine style" changes [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: IN
-    [Largeicon:opdef:.?icon_optionStarWhiteKwargsSVG.svg]
+    [Largeicon:opdef:.?icon_optionStarWhiteToolSVG.svg]
 
     _Usage_:
     
@@ -2895,7 +2895,7 @@ menu OUT file contents ( info ) [Icon:BUTTONS/pane_menu]:
 
 Copy selected preset name / Flame name informations and tips [Icon:opdef:.?icon_optionStarBlueSVG.svg] [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: FLAME
-    [Largeicon:opdef:.?icon_optionStarBlueKwargsSVG.svg]
+    [Largeicon:opdef:.?icon_optionStarBlueToolSVG.svg]
 
     Copy the selected OUT preset name into the Flame name string field.
 
@@ -3539,7 +3539,7 @@ iterations (GPU):
 
 Reset iterations (GPU) [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: prefs
-    [Largeicon:opdef:.?icon_optionToolOCLSVG.svg]
+    [Largeicon:opdef:.?icon_optionOCLSVG.svg]
     
     ((LMB)) to reset the GPU iterations to its default: *`1024`*<br />
 
@@ -3727,7 +3727,7 @@ Density :
 
 Reset density [Icon:opdef:.?icon_actionButtonSVG.svg]:
     #id: prefs
-    [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg]
+    [Largeicon:opdef:.?icon_optionStarWhiteToolSVG.svg]
     - ((LMB)) to reset density to a default value of *`500k`*(_thousands_).
 
 :box:
