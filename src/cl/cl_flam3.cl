@@ -901,16 +901,26 @@ static float2 CL_V_WAVES(
     m_Dy2 = native_recip(Zeps(f * f));
 
     return w * (float2)(
+    #if USE_FMA
+        fma(b, native_sin(in.y * m_Dx2), in.x), 
+        fma(e, native_sin(in.x * m_Dy2), in.y)
+    #else
         in.x + b * native_sin(in.y * m_Dx2), 
         in.y + e * native_sin(in.x * m_Dy2)
+    #endif
     );
 #else
     m_Dx2 = 1.0f / Zeps(c * c);
     m_Dy2 = 1.0f / Zeps(f * f);
 
     return w * (float2)(
+    #if USE_FMA
+        fma(b, sin(in.y * m_Dx2), in.x), 
+        fma(e, sin(in.x * m_Dy2), in.y)
+    #else
         in.x + b * sin(in.y * m_Dx2), 
         in.y + e * sin(in.x * m_Dy2)
+    #endif
     );
 #endif
 }
@@ -1185,8 +1195,13 @@ static float2 CL_V_CURL(
 #endif
 
     return r * (float2)(
+    #if USE_FMA
+        fma(in.x, re, in.y * im), 
+        fma(in.y, re, -in.x * im)
+    #else
         in.x * re + in.y * im, 
         in.y * re - in.x * im
+    #endif
     );
 }
 // ----------------------------
@@ -2219,7 +2234,7 @@ static float2 CL_V_ELLIPTIC(
     ssx = xmaxm1 > 0.0f ? sqrt(xmaxm1) : 0.0f;
 #endif
 
-    float wscale = w * 0.636619772367581343076; // (2.0f / M_PI);
+    float wscale = w * 0.636619772367581343076f; // (2.0f / M_PI);
     float logterm = log1p(xmaxm1 + ssx);
     float y = copysign(wscale * logterm, in.y);
 
@@ -2619,8 +2634,13 @@ static float2 CL_V_SPLITS(
     __private const float2 splits   // x, y
     )
 {
-    float2 s = 2.0f * step(0.0f, in) - 1.0f;
-    return w * (in + s * splits);
+    #if USE_FMA
+        float2 s = fma(2.0f, step(0.0f, in), -1.0f);
+        return w * fma(s, splits, in);
+    #else
+        float2 s = 2.0f * step(0.0f, in) - 1.0f;
+        return w * (in + s * splits);
+    #endif
 }
 // ----------------------------
 // 074 VAR STRIPES
@@ -3285,8 +3305,13 @@ static float2 CL_V_MOBIUS(
     inv *= w;
 
     return inv * (float2)(
+    #if USE_FMA
+        fma(reu, rev, imu * imv),
+        fma(imu, rev, -reu * imv)
+    #else
         reu * rev + imu * imv,
         imu * rev - reu * imv
+    #endif
     );
 }
 // ----------------------------
@@ -3457,8 +3482,11 @@ static float2 CL_V_BWRAPS(
 
         lx = vx - cx;
         ly = vy - cy;
-
+    #if USE_FMA
+        float l2 = fma(lx, lx, ly * ly);
+    #else
         float l2 = lx * lx + ly * ly;
+    #endif
 
         if (l2 > r2)
         {
@@ -3468,7 +3496,11 @@ static float2 CL_V_BWRAPS(
         {
             lx *= g2;
             ly *= g2;
+        #if USE_FMA
+            l2 = fma(lx, lx, ly * ly);
+        #else
             l2 = lx * lx + ly * ly;
+        #endif
             
         #if USE_NATIVE
             r = native_divide(rfactor, Zeps(l2 / 4.0f + 1.0f));
@@ -3478,7 +3510,11 @@ static float2 CL_V_BWRAPS(
 
             lx *= r;
             ly *= r;
+        #if USE_FMA
+            l2 = fma(lx, lx, ly * ly);
+        #else
             l2 = lx * lx + ly * ly;
+        #endif
 
         #if USE_NATIVE
             r = native_divide(l2, r2);
