@@ -1967,7 +1967,7 @@ menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/pane_menu]:
 
     - [Largeicon:opdef:.?icon_optionStarWhiteSVG.svg] mark the standard preset, *`256`* samples (_Default_).
     - [Largeicon:opdef:.?icon_optionEnabledSVG.svg] indicate a medium preset, *`512`* samples.
-    - [Largeicon:opdef:.?icon_optionStarRedHighSVG.svg] indicate a more computational expensive preset, *`1024`* samples.
+    - [Largeicon:opdef:.?icon_optionEnabledHighSVG.svg] indicate a more computational expensive preset, *`1024`* samples.
     
     <br />
     Lookup samples have no connection on the palette you design. Only a few color keys can be made;

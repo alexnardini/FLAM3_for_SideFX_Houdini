@@ -1824,11 +1824,11 @@ Token: 512
 ```
 ![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledSVG.svg]512
 ```
-<p align="left"><img width="48" height="48" src="../icons/icon_optionStarRedHighSVG.svg" /></p>
+<p align="left"><img width="48" height="48" src="../icons/icon_optionEnabledHighSVG.svg" /></p>
 Token: 1024
 
 ```
-![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedHighSVG.svg]1024     
+![opdef:/alexnardini::Sop/FLAM3H?icon_optionEnabledHighSVG.svg]1024   
 ```
 
 </br>
