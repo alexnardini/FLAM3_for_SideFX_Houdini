@@ -35,6 +35,23 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v2.0.30 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.30) ###
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v2.0.28 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.28) ###
 
 _This is a re-release of the same version with some minor improvements that did not make it in the first attempt_.
