@@ -198,7 +198,7 @@ else:
 
     Title:      FLAM3H™ H190 to H200. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
-    date:       January 2022, Last revised May 2026 (cloned from: py_flam3__3_7.py)
+    date:       January 2022, Last revised June 2026 (cloned from: py_flam3__3_7.py)
                 This is the source file.
 
     Name:       PY_FLAM3__3_7 "PYTHON"

@@ -205,7 +205,7 @@ else:
 
     Title:      FLAM3H™ H205. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
-    date:       April 2025, Last revised May 2026 (cloned from: py_flam3__3_7.py)
+    date:       April 2025, Last revised June 2026 (cloned from: py_flam3__3_7.py)
                 Source file start date: January 2022
 
     Name:       PY_FLAM3__3_11 "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
