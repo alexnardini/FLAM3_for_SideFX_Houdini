@@ -41,8 +41,9 @@
 
 
 
-// DP prep
-//
+/* DP prep
+ / When and if I'll find the time to add support for it.
+*/
 #ifdef USE_DOUBLE
     #define REAL_C(x) x
     #define EPS             2.220446049250313e-016
