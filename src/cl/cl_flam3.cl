@@ -39,23 +39,10 @@
 */
 
 
-
-
-/* DP prep
- / When and if I'll find the time to add support for it.
-*/
-#ifdef USE_DOUBLE
-    #define REAL_C(x) x
-    #define EPS             2.220446049250313e-016
-#else
-    #define REAL_C(x) x##f
-    #define EPS             1.1920929e-7f
-#endif
-
-
 /* For now we are compiling using: -cl-fast-relaxed-math
  / so the USE_NATIVE wont make much difference as the compiler will optimize aggressively anyway.
 */
+
 
 // The following have been added as OpenCL compiler options flags in Houdini and can be toggled on/off for testing and performance/accuracy tradeoffs.
 // Testing their definition here just in case.
@@ -454,20 +441,24 @@ static inline float2 affine(__private const float2 in, __private const affine_t 
 // The following should be automatically included from within Houdini
 // but just in case
 #ifndef M_PI
-    #define M_PI REAL_C(3.141592653589793238462)
+    #define M_PI 3.141592653589793238462f
 #endif
 #ifndef M_1_PI
-    #define M_1_PI  REAL_C(0.318309886183790671538)
+    #define M_1_PI  0.318309886183790671538f
 #endif
 #ifndef M_2_PI
-    #define M_2_PI  REAL_C(0.636619772367581343076)
+    #define M_2_PI  0.636619772367581343076f
 #endif
 // end just in case
 
+// Machine epsilon for double precison
+// #define EPS     2.220446049250313e-016
 
+// Machine epsilon for single precision
+#define EPS     1.1920929e-7f
 
-#define M_TAU   REAL_C(6.283185307179586476925)
-#define M_1_2PI REAL_C(0.159154943091895335769)
+#define M_TAU   6.283185307179586476925f
+#define M_1_2PI 0.159154943091895335769f
 #define FLOAT_MAX_TAN 8388607.0f
 #define FLOAT_MIN_TAN -FLOAT_MAX_TAN
 
@@ -1719,7 +1710,7 @@ static float2 CL_V_TWINTRIAN(
     ss = sr * sr;
 #if USE_NATIVE
     // diff = native_log10(ss) + cr;
-    diff = native_log(ss) * REAL_C(0.434294481903251827651) + cr;
+    diff = native_log(ss) * 0.434294481903251827651f + cr;
 #else
     diff = log10(ss) + cr;
 #endif
@@ -2041,7 +2032,7 @@ static float2 CL_V_BUTTERFLY(
 {
     float wx, y2, r;
 
-    wx = w * REAL_C(1.3029400317411197908970256609023);
+    wx = w * 1.3029400317411197908970256609023f;
     y2 = 2.0f * in.y;
 #if USE_NATIVE
     #if USE_FMA
@@ -2248,7 +2239,7 @@ static float2 CL_V_ELLIPTIC(
     ssx = xmaxm1 > 0.0f ? sqrt(xmaxm1) : 0.0f;
 #endif
 
-    float wscale = w * REAL_C(0.636619772367581343076); // (2.0f / M_PI);
+    float wscale = w * 0.636619772367581343076f; // (2.0f / M_PI);
     float logterm = log1p(xmaxm1 + ssx);
     float y = copysign(wscale * logterm, in.y);
 
