@@ -451,7 +451,12 @@ static inline float2 affine(__private const float2 in, __private const affine_t 
 #endif
 // end just in case
 
-#define EPS     2.220446049250313e-016f
+// Machine epsilon for double precison
+// #define EPS     2.220446049250313e-016
+
+// Machine epsilon for single precision
+#define EPS     1.1920929e-7f
+
 #define M_TAU   6.283185307179586476925f
 #define M_1_2PI 0.159154943091895335769f
 #define FLOAT_MAX_TAN 8388607.0f
