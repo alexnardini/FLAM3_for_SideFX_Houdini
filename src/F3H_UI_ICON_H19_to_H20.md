@@ -668,7 +668,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_SierpinskyDefSVG.svg
 | **SYS** | `frameview` | `from H19 to H20` | `v1.x` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
-<p align="left"><img width="80" height="80" src="../icons/icon_FrameBlueSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_FrameBlueSVG_old.svg" /></p>
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg
@@ -683,7 +683,7 @@ opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg
 | **SYS** | `frameviewsensor` | `from H19 to H20` | `v1.x` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
-<p align="left"><img width="80" height="80" src="../icons/icon_FrameRedSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_FrameRedSVG_old.svg" /></p>
 
 ```
 opdef:/alexnardini::Sop/FLAM3H?icon_FrameRedSVG.svg
