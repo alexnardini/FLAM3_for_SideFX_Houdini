@@ -2233,10 +2233,10 @@ static float2 CL_V_ELLIPTIC(
     xmaxm1 = 0.5f * (Sqrt1pm1(u) + Sqrt1pm1(v));
 #if USE_NATIVE
     a = native_divide(in.x, (1.0f + xmaxm1));
-    ssx = xmaxm1 > 0.0f ? native_sqrt(xmaxm1) : 0.0f;
+    ssx = native_sqrt(fmax(xmaxm1, 0.0f));
 #else
     a = in.x / (1.0f + xmaxm1);
-    ssx = xmaxm1 > 0.0f ? sqrt(xmaxm1) : 0.0f;
+    ssx = sqrt(fmax(xmaxm1, 0.0f));
 #endif
 
     float wscale = w * 0.636619772367581343076f; // (2.0f / M_PI);
