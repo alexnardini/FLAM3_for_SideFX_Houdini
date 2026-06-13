@@ -362,7 +362,11 @@ static inline float rng_next_neg1pos1(x128_state_t* state){
 }
 
 // ----------------------------
-// CL FLAM3 CDF binary
+// CL FLAM3 SAMPLE CDF binary
+//
+// This will need to be revised and battle tested more at some point
+// because for a max of 20 xforms it might not be the fastest option,
+// even tho with more capable GPUs the xform limit may easily increase.
 // ----------------------------
 static inline int sample_cdf_binary(__local const float* CDF, const int length, const float u_rand) {
     if (length <= 0) return 0;
@@ -375,12 +379,19 @@ static inline int sample_cdf_binary(__local const float* CDF, const int length, 
 
     // binary search for first CDF[idx] > target
     while (low < high) {
-        int mid = low + (high - low) / 2;
-        if (CDF[mid] > target) {
-            high = mid;
-        } else {
-            low = mid + 1;
-        }
+        int mid = low + ((high - low) >> 1);
+        
+        // branchless
+        int cond = (CDF[mid] > target);
+        high = select(high, mid, cond);
+        low  = select(low + 1, low, cond);
+
+        // branch
+        // if (CDF[mid] > target) {
+        //     high = mid;
+        // } else {
+        //     low = mid + 1;
+        // }
     }
 
     return low; // first index where CDF[idx] > target
@@ -438,8 +449,10 @@ static inline float2 affine(__private const float2 in, __private const affine_t 
 // They can make distinctions between native and not native OpenCl functions.
 // ----------------------------
 
-// The following should be automatically included from within Houdini
-// but just in case
+
+// Automatically included from Houdini (if not already defined)
+// Mathematical reference value.
+// Currently evaluated in float precision (remove 'f' for double precision).
 #ifndef M_PI
     #define M_PI 3.141592653589793238462f
 #endif
@@ -1052,18 +1065,17 @@ static float2 CL_V_RINGS(
     t = t - floor(t);
     wrapped = t * two_dx;
     #if USE_FMA
-        r = w * (wrapped - dx + fma(-_SQRT, dx, _SQRT));
+        r = fma(w, wrapped, fma(-_SQRT, dx, _SQRT - dx));
     #else
         r = w * wrapped - dx + _SQRT * (1.0f - dx);
     #endif
 #else
     wrapped = fmod(_SQRT + dx, 2.0f * dx);
     #if USE_FMA
-        t = fma(-_SQRT, dx, _SQRT);
-        float u = fma(-1.0f, dx, wrapped);
-        r = fma(w, (u + t), 0.0f);
+        float term = fma(-_SQRT, dx, _SQRT);
+        r = w * (wrapped - dx + term);
     #else
-        r = w * (fmod(_SQRT + dx, 2.0f * dx) - dx + _SQRT * (1.0f - dx));
+        r = w * (wrapped - dx + _SQRT * (1.0f - dx));
     #endif
 #endif
 
@@ -1804,11 +1816,13 @@ static float2 CL_V_SUPERSHAPE(
 #endif
 #if USE_FMA
     theta = fma(ss_pm_4, ATANYX(in), (float)M_PI_4);
+    sincos_fast(theta, &st, &ct);
+    float rnd = fma(supershape.y, rng_next_float(state), fma(inv_sy, _SQRT, -supershape.z));
 #else
     theta = ss_pm_4 * ATANYX(in) + M_PI_4;
-#endif
     sincos_fast(theta, &st, &ct);
     float rnd = supershape.y * rng_next_float(state) + inv_sy * _SQRT - supershape.z;
+#endif
 #if USE_NATIVE
     t = native_powr(fabs(ct), supershape_n.y) + native_powr(fabs(st), supershape_n.z);
     r = w * rnd * native_powr(t, ss_pneg1_n1) * inv_sqrt;
@@ -2681,19 +2695,17 @@ static float2 CL_V_WEDGE(
     __private const float4 wedge    // swirl, angle, hole, count
     )
 {
-    float r, a, c, m_CompFac;
+    float r, a, cc, m_CompFac;
 
     m_CompFac = 1 - wedge.y * wedge.w * M_1_2PI;
     r = SQRT(in);
     a = ATANYX(in) + wedge.x * r;
 #if USE_FMA
-    float tmp = fma(wedge.w, a, (float)M_PI) * M_1_2PI;
-    c = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
-    a = fma(a, m_CompFac, c * wedge.y);
+    cc = floor(fma(wedge.w, a, (float)M_PI) * M_1_2PI);
+    a = fma(a, m_CompFac, cc * wedge.y);
 #else
-    float tmp = (wedge.w * a + M_PI) * M_1_2PI;
-    c = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
-    a = a * m_CompFac + c * wedge.y;
+    cc = floor( (wedge.w * a + M_PI) * M_1_2PI );
+    a = a * m_CompFac + cc * wedge.y;
 #endif
     r = w * (r + wedge.z);
 #if USE_NATIVE
@@ -2728,7 +2740,7 @@ static float2 CL_V_WEDGEJULIA(
 #if USE_NATIVE
     wedgeJulia_cn = native_divide(wedgejulia.z, wedgejulia.x * 2.0f);
 #else
-    wedgeJulia_cn = wedgejulia.z / wedgejulia.x / 2.0f;
+    wedgeJulia_cn = wedgejulia.z / (wedgejulia.x * 2.0f);
 #endif
     
 #if USE_NATIVE
@@ -2750,8 +2762,7 @@ static float2 CL_V_WEDGEJULIA(
 #endif
 
 #if USE_FMA
-    float tmp = fma(wedgejulia.w, a, (float)M_PI) * M_1_2PI;
-    cc = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
+    cc = floor(fma(wedgejulia.w, a, (float)M_PI) * M_1_2PI);
 #else
     cc = floor( (wedgejulia.w * a + M_PI) * M_1_2PI );
 #endif
@@ -2778,8 +2789,7 @@ static float2 CL_V_WEDGESPH(
 #endif
     a = ATANYX(in) + wedgesph.x * r;
 #if USE_FMA
-    float tmp = fma(wedgesph.w, a, (float)M_PI) * M_1_2PI;
-    cc = (float)((int)(tmp - (tmp < 0.0f ? 1.0f : 0.0f)));
+    cc = floor(fma(wedgesph.w, a, (float)M_PI) * M_1_2PI);
 #else
     cc = floor( (wedgesph.w * a + M_PI) * M_1_2PI );
 #endif
@@ -3444,11 +3454,19 @@ static float2 CL_V_BWRAPS(
 
 #if USE_NATIVE
     // precalc
-    float radius = 0.5f * (native_divide(bwraps.x, (1.0f + bwraps.y * bwraps.y)));
+    #if USE_FMA
+        float radius = 0.5f * (native_divide(bwraps.x, fma(bwraps.y, bwraps.y, 1.0f)));
+    #else
+        float radius = 0.5f * (native_divide(bwraps.x, (1.0f + bwraps.y * bwraps.y)));
+    #endif
     g2 = native_divide(native_sqrt(fabs(bwraps.z)), bwraps.x) + 1e-6f;
 #else
     // precalc
-    float radius = 0.5f * (bwraps.x / (1.0f + bwraps.y * bwraps.y));
+    #if USE_FMA
+        float radius = 0.5f * (bwraps.x / fma(bwraps.y, bwraps.y, 1.0f));
+    #else
+        float radius = 0.5f * (bwraps.x / (1.0f + bwraps.y * bwraps.y));
+    #endif
     g2 = sqrt(fabs(bwraps.z)) / bwraps.x + 1e-6f;
 #endif
 
@@ -3954,42 +3972,6 @@ static float2 CL_V_DISPATCH(
 
 
 
-/*
-// I like this method but I do not like the idea
-// to have all the variations functions share the same arguments set.
-// Perhaps with CL 2.0 and up it is better for function pointers
-// so I leave this here as a place holder.
-
-#define OCL_VAR_LIST            \
-    VAR(0, CL_V_LINEAR)        \
-    VAR(1, CL_V_SINUSOIDAL)    \
-    VAR(2, CL_V_SPHERICAL)     \
-    VAR(3, CL_V_SWIRL)         \
-    VAR(4, CL_V_HORSESHOE)     \
-    VAR(5, CL_V_POLAR)         \
-    VAR(6, CL_V_HANDKERCHIEF)  \
-    VAR(7, CL_V_HEART)         \
-    VAR(8, CL_V_DISC)          
-
-
-static float2 CL_V_DISPATCH_COMPILER(
-    const int type, 
-    const float2 in, 
-    const float w, 
-    const float2 x, 
-    const float2 y
-    )
-{
-    switch(type)
-    {
-        #define CASE(ID, OCL_VAR) case ID: return OCL_VAR(in, w, x, y);
-        OCL_VAR_LIST
-        #undef CASE
-    }
-    return (float2)(0.0f, 0.0f);
-}
-*/
-
 
 // ----------------------------
 // CL FLAM3 kernel (xforms/iterators)
@@ -4229,7 +4211,7 @@ __kernel void cl_flam3(
         _vt = local_VT[idx];
         _vw = local_VW[idx];
         // VAR
-        _tmp = (float2)(0.0f, 0.0f);
+        _tmp = (float2)(0.0f);
         if (_vw.x != 0.0f) _tmp += CL_V_DISPATCH(_vt.x, mem, _vw.x, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         if (_vw.y != 0.0f) _tmp += CL_V_DISPATCH(_vt.y, mem, _vw.y, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
         if (_vw.z != 0.0f) _tmp += CL_V_DISPATCH(_vt.z, mem, _vw.z, pa.xy.zw, pa.o.xy, F3C, &rng, xf_prm_f, xf_prm_f2, xf_prm_f3, xf_prm_f4);
@@ -4392,7 +4374,7 @@ __kernel void cl_flam3_ff(
     if (FF_PRE_VW.x > 0.0f) mem  = CL_V_DISPATCH(FF_PRE_VT.x, mem, FF_PRE_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, pp_prm_f, pp_prm_f2, pp_prm_f3, pp_prm_f4);
     
     // VAR
-    _tmp = (float2)(0.0f, 0.0f);
+    _tmp = (float2)(0.0f);
     if (FF_VPP_VW.x != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.x, mem, FF_VPP_VW.x, pa.xy.zw, pa.o.xy, F3C, &rng, local_FF_PRM_F, local_FF_PRM_F2, local_FF_PRM_F3, local_FF_PRM_F4);
     if (FF_VPP_VW.y != 0.0f) _tmp += CL_V_DISPATCH(FF_VPP_VT.y, mem, FF_VPP_VW.y, pa.xy.zw, pa.o.xy, F3C, &rng, local_FF_PRM_F, local_FF_PRM_F2, local_FF_PRM_F3, local_FF_PRM_F4);
 
