@@ -2447,11 +2447,15 @@ static float2 CL_V_MODULUS(
 
     period = 2.0f * modulus;
     r = in + modulus;
+    
+float2 invPeriod =
 #if USE_NATIVE
-    r -= period * floor(native_divide(r, period));
+    native_recip(period);
 #else
-    r -= period * floor(r / period);
+    1.0f / period;
 #endif
+
+    r -= period * floor(r * invPeriod);
 
     return w * (r - modulus);
 }
