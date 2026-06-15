@@ -2576,7 +2576,7 @@ kwargs['parm'].deleteAllKeyframes()
 
 - ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Callback Script
 ```python
-kwargs['node'].hdaModule().flam3.flam3h_prm_utils.set(kwargs['node'], kwargs['parmtuple'], 0.99, True)
+kwargs['node'].hdaModule().flam3.flam3h_general_utils(kwargs).reset_parm((0.99,))
 ```
 
 </br>
