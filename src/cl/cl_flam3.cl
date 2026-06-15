@@ -3459,7 +3459,9 @@ static float2 CL_V_BWRAPS(
     #else
         float radius = 0.5f * (native_divide(bwraps.x, (1.0f + bwraps.y * bwraps.y)));
     #endif
+
     g2 = native_divide(native_sqrt(fabs(bwraps.z)), bwraps.x) + 1e-6f;
+    
 #else
     // precalc
     #if USE_FMA
@@ -3467,24 +3469,35 @@ static float2 CL_V_BWRAPS(
     #else
         float radius = 0.5f * (bwraps.x / (1.0f + bwraps.y * bwraps.y));
     #endif
+
     g2 = sqrt(fabs(bwraps.z)) / bwraps.x + 1e-6f;
+
 #endif
 
     max_bubble = g2 * radius;
+    float mb2 = max_bubble * max_bubble;
 
 #if USE_NATIVE
     #if USE_FMA
-        float den = fma(0.25f * max_bubble, max_bubble, 1.0f);
+        float den = fma(0.25f, mb2, 1.0f);
     #else
-        float den = 0.25f * max_bubble * max_bubble + 1.0f;
+        float den = 0.25f * mb2 + 1.0f;
     #endif
+
     max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble * native_recip(den);
     r2 = radius * radius;
-    rfactor = native_divide(radius, max_bubble);
+    rfactor = radius * native_recip(max_bubble);
+
 #else
-    max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble * 1.0f / ((max_bubble * max_bubble) / 4.0f + 1.0f);
+    #if USE_FMA
+        max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble / fma(0.25f, mb2, 1.0f);
+    #else
+        max_bubble = (max_bubble > 2.0f) ? 1.0f : max_bubble / (0.25f * mb2 + 1.0f);
+    #endif
+
     r2 = radius * radius;
     rfactor = radius / max_bubble;
+
 #endif
 
     if (bwraps.x == 0.0f)
@@ -3495,16 +3508,19 @@ static float2 CL_V_BWRAPS(
     {
         vx = in.x;
         vy = in.y;
+
     #if USE_NATIVE
-        cx = (floor(native_divide(vx, bwraps.x)) + 0.5f) * bwraps.x;
-        cy = (floor(native_divide(vy, bwraps.x)) + 0.5f) * bwraps.x;
+        float inv_bw = native_recip(bwraps.x);
     #else
-        cx = (floor(vx / bwraps.x) + 0.5f) * bwraps.x;
-        cy = (floor(vy / bwraps.x) + 0.5f) * bwraps.x;
+        float inv_bw = 1.0f / bwraps.x;
     #endif
+
+        cx = (floor(vx * inv_bw) + 0.5f) * bwraps.x;
+        cy = (floor(vy * inv_bw) + 0.5f) * bwraps.x;
 
         lx = vx - cx;
         ly = vy - cy;
+
     #if USE_FMA
         float l2 = fma(lx, lx, ly * ly);
     #else
@@ -3526,13 +3542,22 @@ static float2 CL_V_BWRAPS(
         #endif
             
         #if USE_NATIVE
-            r = native_divide(rfactor, Zeps(l2 / 4.0f + 1.0f));
+            #if USE_FMA
+                r = rfactor * native_recip(Zeps(fma(l2, 0.25f, 1.0f)));
+            #else
+                r = rfactor * native_recip(Zeps(l2 * 0.25f + 1.0f));
+            #endif
         #else
-            r = rfactor / Zeps(l2 / 4.0f + 1.0f);
+            #if USE_FMA
+                r = rfactor / Zeps(fma(l2, 0.25f, 1.0f));
+            #else
+                r = rfactor / Zeps(l2 * 0.25f + 1.0f);
+            #endif
         #endif
 
             lx *= r;
             ly *= r;
+
         #if USE_FMA
             l2 = fma(lx, lx, ly * ly);
         #else
