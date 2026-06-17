@@ -1722,7 +1722,11 @@ static float2 CL_V_TWINTRIAN(
     ss = sr * sr;
 #if USE_NATIVE
     // diff = native_log10(ss) + cr;
-    diff = native_log(ss) * 0.434294481903251827651f + cr;
+    #if USE_FMA
+        diff = fma(native_log(ss), 0.434294481903251827651f, cr);
+    #else
+        diff = native_log(ss) * 0.434294481903251827651f + cr;
+    #endif
 #else
     diff = log10(ss) + cr;
 #endif
@@ -3662,7 +3666,7 @@ static float2 CL_V_CROP(
     )
 {
     float x0, x1, y0, y1, rx, ry, w2, h2;
-    int left, right, top, bottom;
+    bool left, right, top, bottom, outside;
 
     float2 p = in;
 
@@ -3701,7 +3705,7 @@ static float2 CL_V_CROP(
     p.y = bottom ? yB : p.y;
     p.y = top    ? yT : p.y;
 
-    int outside = left | right | bottom | top;
+    outside = left | right | bottom | top;
 
     if (outside && az.y != 0.0f)
         p = (float2)(0.0f);
