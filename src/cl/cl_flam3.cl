@@ -2152,10 +2152,15 @@ static float2 CL_V_CPOW(
     vc = cpow.y / cpow.x;
     vd = cpow.z / cpow.x;
 #endif
+#if USE_FMA
+    float term = va * floor(cpow.x * rng_next_float(state));
+    ang = fma(vc, aa, fma(vd, lnr, term));
+#else
     ang = vc * aa + vd * lnr + va * floor(cpow.x * rng_next_float(state));
+#endif
 #if USE_NATIVE
     #if USE_FMA
-         mm = w * native_exp(fma(vc, lnr, -vd * aa));
+        mm = w * native_exp(fma(vc, lnr, -vd * aa));
     #else
         mm = w * native_exp(vc * lnr - vd * aa);
     #endif
@@ -3736,83 +3741,79 @@ static float2 CL_V_GLYNNIA(
     float r, m_V2, d, y2;
 
     r = SQRT(in);
-    m_V2 = w * 0.707106781186547524401f;
-
     d = r + in.x;
     y2 = in.y * in.y;
+    m_V2 = w * 0.707106781186547524401f;
+    bool cond = rng_next_float(state) > 0.5f;
 
     if (r > 1.0f)
     {
-        if (rng_next_float(state) > 0.5f)
+        if(cond)
         {
         #if USE_NATIVE
-            float s = native_sqrt(d);
-
-            return (float2)(
-                m_V2 * s,
-                -(native_divide(m_V2, s)) * in.y
-            );
+            float rs = native_rsqrt(d);
         #else
-            float s = sqrt(d);
+            float rs = rsqrt(d);
+        #endif
+            float s  = d * rs;
+            float mv2_rs = m_V2 * rs;
 
             return (float2)(
                 m_V2 * s,
-                -(m_V2 / s) * in.y
+                -mv2_rs * in.y
             );
-        #endif
         }
         else
         {
-        #if USE_NATIVE
-            #if USE_FMA
-                float inv = native_divide(w, native_sqrt(r * fma(d, d, y2)));
-            #else
-                float inv = native_divide(w, native_sqrt(r * (y2 + d * d)));
-            #endif
+        #if USE_FMA
+            float dd_y2 = fma(d, d, y2);
         #else
-            #if USE_FMA
-                float inv = w / sqrt(r * fma(d, d, y2));
-            #else
-                float inv = w / sqrt(r * (y2 + d * d));
-            #endif
+            float dd_y2 = d * d + y2;
         #endif
+
+        #if USE_NATIVE
+            float denom = native_sqrt(r * dd_y2);
+            float inv = native_divide(w, Zeps(denom));
+        #else
+            float denom = sqrt(r * dd_y2);
+            float inv = w / Zeps(denom);
+        #endif
+
             return inv * (float2)(d, in.y);
         }
     }
     else
     {
-        if (rng_next_float(state) > 0.5f)
+        if(cond)
         {
         #if USE_NATIVE
-            float s = Zeps(native_sqrt(d));
-
-            return (float2)(
-                -(m_V2 * s),
-                -(native_divide(m_V2, s)) * in.y
-            );
+            float rs = native_rsqrt(d);
         #else
-            float s = Zeps(sqrt(d));
+            float rs = rsqrt(d);
+        #endif
+
+            float s = d * rs;
+            float k = m_V2 * rs;
 
             return (float2)(
                 -(m_V2 * s),
-                -(m_V2 / s) * in.y
+                -k * in.y
             );
-        #endif
         }
         else
         {
-        #if USE_NATIVE
-            #if USE_FMA
-                float inv = native_divide(w, Zeps(native_sqrt(r * fma(d, d, y2))));
-            #else
-                float inv = native_divide(w, Zeps(native_sqrt(r * (y2 + d * d))));
-            #endif
+        #if USE_FMA
+            float dd_y2 = fma(d, d, y2);
         #else
-            #if USE_FMA
-                float inv = w / Zeps(sqrt(r * fma(d, d, y2)));
-            #else
-                float inv = w / Zeps(sqrt(r * (y2 + d * d)));
-            #endif
+            float dd_y2 = d * d + y2;
+        #endif
+
+        float t = r * dd_y2;
+
+        #if USE_NATIVE
+            float inv = native_divide(w, Zeps(native_sqrt(t)));
+        #else
+            float inv = w / Zeps(sqrt(t));
         #endif
 
             return (float2)(
