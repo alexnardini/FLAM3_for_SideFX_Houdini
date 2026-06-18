@@ -2077,60 +2077,37 @@ static float2 CL_V_CELL(
     __private const float size  // size
     )
 {
-    float inv_cell_size, xs, ys, x, y, dx, dy;
+    float inv_cell_size, x, y, dx, dy;
 
-#if USE_NATIVE
-    inv_cell_size = native_recip(size);
-#else
-    inv_cell_size = 1.0f / size;
-#endif
+    #if USE_NATIVE
+        inv_cell_size = native_recip(size);
+    #else
+        inv_cell_size = 1.0f / size;
+    #endif
 
-    x = floor(in.x * inv_cell_size);
-    y = floor(in.y * inv_cell_size);
-    xs = x * size;
-    ys = y * size;
-    dx = in.x - xs;
-    dy = in.y - ys;
+    x  = floor(in.x * inv_cell_size);
+    y  = floor(in.y * inv_cell_size);
 
-#if USE_FMA
-    if (y >= 0.0f) {
-        y *= 2.0f;
-        if (x >= 0.0f)
-            x *= 2.0f;
-        else
-            x = -(fma(2.0f, x, 1.0f));
-    }
-    else {
-        y = -(fma(2.0f, y, 1.0f));
-        if (x >= 0.0f)
-            x *= 2.0f;
-        else
-            x = -(fma(2.0f, x, 1.0f));
-    }
-    return (float2)(
-        w  * fma(x, size, dx),
-        -w * fma(y, size, dy)
-    );
-#else
-    if (y >= 0.0f) {
-        y *= 2.0f;
-        if (x >= 0.0f)
-            x *= 2.0f;
-        else
-            x = -(2.0f * x + 1.0f);
-    }
-    else {
-        y = -(2.0f * y + 1.0f);
-        if (x >= 0.0f)
-            x *= 2.0f;
-        else
-            x = -(2.0f * x + 1.0f);
-    }
-    return (float2)(
-        w  * (dx + x * size), 
-        -w * (dy + y * size)
-    );
-#endif
+    dx = in.x - x * size;
+    dy = in.y - y * size;
+
+    int ix = (int)x;
+    int iy = (int)y;
+
+    ix = (ix << 1) ^ (ix >> 31);
+    iy = (iy << 1) ^ (iy >> 31);
+
+    #if USE_FMA
+        return (float2)(
+            w * fma((float)ix, size, dx),
+            -w * fma((float)iy, size, dy)
+        );
+    #else
+        return (float2)(
+            w * ((float)ix * size + dx),
+            -w * ((float)iy * size + dy)
+        );
+    #endif
 }
 // ----------------------------
 // 057 VAR CPOW
