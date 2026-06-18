@@ -35,6 +35,25 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v2.0.32 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.32) ###
+
+#### FLAM3H™ v2.0.32 indie -> H21.0 UP</br>FLAM3H™ v2.0.27 indie -> H20.5</br>FLAM3H™ v1.9.83 indie -> H19.0 to H20 ####
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+- **OpenCL variations BWRAPS, MODULUS, CPOW, GLYNNIA, TWINTRIAN, CROP and CELL have been updated/improved. H20.5 UP ONLY**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v2.0.31 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.31) ###
 
 #### FLAM3H™ v2.0.31 indie -> H21.0 UP</br>FLAM3H™ v2.0.26 indie -> H20.5</br>FLAM3H™ v1.9.83 indie -> H19.0 to H20 ####
