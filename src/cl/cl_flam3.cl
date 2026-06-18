@@ -3366,6 +3366,7 @@ static float2 CL_V_CURVE(
     #endif
     }
     else{
+        // This need to be revised at some point
     #if USE_NATIVE
 
         #if USE_FMA
