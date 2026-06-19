@@ -2079,17 +2079,22 @@ static float2 CL_V_CELL(
 {
     float inv_cell_size, x, y, dx, dy;
 
-    #if USE_NATIVE
-        inv_cell_size = native_recip(size);
-    #else
-        inv_cell_size = 1.0f / size;
-    #endif
+#if USE_NATIVE
+    inv_cell_size = native_recip(size);
+#else
+    inv_cell_size = 1.0f / size;
+#endif
 
     x  = floor(in.x * inv_cell_size);
     y  = floor(in.y * inv_cell_size);
 
+#if USE_FMA
+    dx = fma(-x, size, in.x);
+    dy = fma(-y, size, in.y);
+#else
     dx = in.x - x * size;
     dy = in.y - y * size;
+#endif
 
     int ix = (int)x;
     int iy = (int)y;
