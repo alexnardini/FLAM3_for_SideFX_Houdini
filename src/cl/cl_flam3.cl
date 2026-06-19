@@ -3793,9 +3793,11 @@ static float2 CL_V_GLYNNIA(
         float t = r * dd_y2;
 
         #if USE_NATIVE
-            float inv = native_divide(w, Zeps(native_sqrt(t)));
+            float denom = native_sqrt(t);
+            float inv = native_divide(w, Zeps(denom));
         #else
-            float inv = w / Zeps(sqrt(t));
+            float denom = sqrt(t);
+            float inv = w / Zeps(denom);
         #endif
 
             return (float2)(
