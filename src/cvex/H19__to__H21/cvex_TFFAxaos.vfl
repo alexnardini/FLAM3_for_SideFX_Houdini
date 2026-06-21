@@ -22,7 +22,7 @@
  /
  /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini
- /  date:       Jan 2022, Last revised May 2026
+ /  date:       Jan 2022, Last revised June 2026
  /  License:    GPL
  /  Copyright:  2021, © F stands for liFe ( made in Italy )
  /
@@ -129,9 +129,10 @@ _TFFAxaos(int _bound_XS; float _bound_IW[], _bound_XST[])
         int trace = 0;
         for(int j=0; j<inum; ++j){
             if(!VA[j]){ 
-                pop(xaos, j-trace);
+                int idx = j-trace;
+                pop(xaos, idx);
                 // For "xaos FROM" string
-                pop(varxaos_strip, j-trace);
+                pop(varxaos_strip, idx);
                 trace++;
             }
         }
