@@ -1008,7 +1008,7 @@ static float2 CL_V_POWER(
 
     r2 = SUMSQ(in);
     if (r2 == 0.0f)
-        return (float2)(0.0f, 0.0f);
+        return (float2)(0.0f);
 #if USE_NATIVE
     inv_r = native_rsqrt(r2);
 #else
@@ -1979,7 +1979,7 @@ static float2 CL_V_BOARDERS(
     __private x128_state_t* state
     )
 {
-    float roundX, roundY, offsetX, offsetY, halfX, halfY, signX, signY;
+    float roundX, roundY, offsetX, offsetY, signX, signY;
 
     roundX  = rint(in.x);
     roundY  = rint(in.y);
@@ -1987,14 +1987,16 @@ static float2 CL_V_BOARDERS(
     offsetX = in.x - roundX;
     offsetY = in.y - roundY;
 
-    halfX   = offsetX * 0.5f;
-    halfY   = offsetY * 0.5f;
-
     signX   = copysign(0.25f, offsetX);
     signY   = copysign(0.25f, offsetY);
 
-    float baseX   = halfX + roundX;
-    float baseY   = halfY + roundY;
+#if USE_FMA
+    float baseX   = fma(offsetX, 0.5f, roundX);
+    float baseY   = fma(offsetY, 0.5f, roundY);
+#else
+    float baseX   = offsetX * 0.5f + roundX;
+    float baseY   = offsetY * 0.5f + roundY;
+#endif
 
     float rnd = rng_next_float(state);
 
