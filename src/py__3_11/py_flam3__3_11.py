@@ -7095,7 +7095,7 @@ class flam3h_iterator_utils
             _note_split: list[str] = _note.split()
             if len(_note_split) > 1 and (search_iter in _note_split[-1].rpartition(search_iter) or search_FF in _note_split[-1].rpartition(search_FF)):
                 note: str = f"({' '.join(_note_split[0:-1])}) "
-            elif len(_note.split(".")) > 1 and ("iter" in _note.split(".") or "FF" in _note.split(".")):
+            elif len(ns := _note.split(".")) > 1 and ("iter" in ns or "FF" in ns):
                 note: str = ""
             else:
                 note: str = f"({_note}) "
