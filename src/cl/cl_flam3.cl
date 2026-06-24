@@ -1244,10 +1244,18 @@ static float2 CL_V_NGON(
 
     phi = theta - ngon_precalc.y * floor(theta * ngon_precalc.z);
     phi -= ngon_precalc.y * (phi > 0.5f * ngon_precalc.y);
+
 #if USE_NATIVE
-    amp = (ngon.z * (native_recip(native_cos(phi)) - 1.0f) + ngon.w) * w * r_factor;
+    float r = native_recip(native_cos(phi));
 #else
-    amp = (ngon.z * (1.0f / cos(phi) - 1.0f) + ngon.w) * w * r_factor;
+    float r = 1.0f / cos(phi);
+#endif
+    float s = w * r_factor;
+    
+#if USE_FMA
+    amp = fma(ngon.z, r, ngon.w - ngon.z) * s;
+#else
+    amp = (ngon.z * r + (ngon.w - ngon.z)) * s;
 #endif
 
     return amp * in;
