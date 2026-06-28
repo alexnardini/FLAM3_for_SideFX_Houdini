@@ -23418,7 +23418,10 @@ class pyside_master:
             f"v{__version__} indie {flam3h_scripts.flam3h_compatible_h_versions_msg(False, True)}, {__license__} - {__copyright__} ( made in Italy )"
         )
         
+        # __v__ 2
         IMAGE_CREDIT: str = 'Cool EDisc - author: Pillemaster'
+        if __v__ == 1:
+            IMAGE_CREDIT: str = 'Worlds - author: Alessandro Nardini'
         
         # milliseconds
         FADE_IN_DURATION_MS: int = 0
@@ -23578,6 +23581,13 @@ class pyside_master:
                 svg_bytes: QtCore.QByteArray = QtCore.QByteArray(section_svg.binaryContents())
                 self.SVG_ICON = SvgIcon(svg_bytes, parent=self.banner_container)
                 self.SVG_ICON.resize(self.svg_icon_width, self.svg_icon_height)
+                
+                # SVG Shadow
+                shadow = QtWidgets.QGraphicsDropShadowEffect(self.SVG_ICON)
+                shadow.setBlurRadius(16)
+                shadow.setOffset(6, 4)
+                shadow.setColor(QtGui.QColor(0, 0, 0, 180))
+                self.SVG_ICON.setGraphicsEffect(shadow)
             
             
         # CENTER WINDOW
@@ -23631,7 +23641,8 @@ class pyside_master:
             # Banner
             self.banner_container: QtWidgets.QWidget = QtWidgets.QWidget()
             self.banner_container.setFixedSize(self.window_width, self.banner_height)
-            self.banner_container.setStyleSheet("background: black;") # transparent
+            # self.banner_container.setStyleSheet("background: black;") # transparent
+            self.banner_container.setStyleSheet("background-color: rgb(24, 24, 24);")
             main_layout.addWidget(self.banner_container)
 
             self.image_label: QtWidgets.QLabel = QtWidgets.QLabel(self.banner_container)
@@ -23645,24 +23656,52 @@ class pyside_master:
                 self.font_os = QtGui.QFont("Segoe UI")
 
             # Image credit
-            self.credit_label = QtWidgets.QLabel(self.IMAGE_CREDIT, self.banner_container)
-            font = QtGui.QFont(self.font_os)
-            font.setPointSize(9)
-            self.credit_label.setFont(font)
-            self.credit_label.setStyleSheet("""
-                QLabel {
-                    color: white;
-                    background-color: rgba(0, 0, 0, 120);
-                    padding: 2px 6px;
-                    border-radius: 3px;
-                }
-            """)
-            self.credit_label.adjustSize()
-            self._position_credit_label()
+            if self.h_valid:
+                self.credit_label = QtWidgets.QLabel(self.IMAGE_CREDIT, self.banner_container)
+                font = QtGui.QFont(self.font_os)
+                font.setPointSize(9)
+                self.credit_label.setFont(font)
+                self.credit_label.setStyleSheet("""
+                    QLabel {
+                        color: white;
+                        background-color: rgba(0, 0, 0, 120);
+                        padding: 2px 6px;
+                        border-radius: 3px;
+                    }
+                """)
+                self.credit_label.adjustSize()
+                self._position_credit_label()
 
             # Svg
             self._load_svg_icon()
             self._position_svg_icon()
+            
+            
+            # SVG text label (NEW)
+            self.svg_text_label = QtWidgets.QLabel("An implementation of the original fractal Flame algorithm\ninside a procedural environment", self.banner_container)
+            if not self.h_valid:
+                text: str = self.f3h_node.parm(f3h_tabs.ABOUT.MSG_PRM_F3H_ABOUT).eval() if self.f3h_node is not None else 'Error'
+                self.svg_text_label.setText(f"Error\n{text}")
+            self.svg_text_label.setAlignment(QtCore.Qt.AlignCenter)
+            font = QtGui.QFont(self.font_os)
+            font.setPointSize(10)
+            font.setBold(True)
+            self.svg_text_label.setFont(font)
+            self.svg_text_label.setStyleSheet("""
+                QLabel {
+                    color: white;
+                    background-color: rgba(0, 0, 0, 0);
+                }
+            """)
+            self.svg_text_label.adjustSize()
+            self._position_svg_text()
+            # SVG text shadow
+            shadow = QtWidgets.QGraphicsDropShadowEffect(self.svg_text_label)
+            shadow.setBlurRadius(0)  # <- makes it sharp (no soft blur)
+            shadow.setOffset(2, 2)   # <- pixel offset (x, y)
+            shadow.setColor(QtGui.QColor(0, 0, 0, 255))  # dark semi-transparent shadow
+            self.svg_text_label.setGraphicsEffect(shadow)
+
 
             # Title
             title_label: QtWidgets.QLabel = QtWidgets.QLabel(self.app_name, self)
@@ -23766,6 +23805,17 @@ class pyside_master:
                 x: int = (self.banner_container.width() - self.SVG_ICON.width()) // 2
                 y: int = (self.banner_container.height() - self.SVG_ICON.height()) // 2
                 self.SVG_ICON.move(x, y)
+
+
+        # SVG TEXT POSITION
+        def _position_svg_text(self) -> None:
+            if self.SVG_ICON and hasattr(self, "svg_text_label"):
+
+                svg_center_x = self.SVG_ICON.x() + self.SVG_ICON.width() // 2
+                x = svg_center_x - self.svg_text_label.width() // 2
+                # place just below SVG
+                y = self.SVG_ICON.y() + self.SVG_ICON.height() + int(5 * self.dpi_scale)
+                self.svg_text_label.move(x, y)
                 
                 
         # FADE OUT ANIMATION

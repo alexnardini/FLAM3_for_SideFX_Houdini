@@ -349,12 +349,12 @@ else:
         __status__: str = "Unknown"
 try:
     # This is a tuple containing all the houdini versions where this FLAM3H™ OTL is allowed to run
-    __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__
+    __h_versions__: tuple = nodetype.hdaModule().__h_versions__
 except AttributeError:
-    __h_versions__: tuple[int, ...] = (999,)
+    __h_versions__: tuple = (999,)
 else:
     if not nodetype.hdaModule().is_nonempty_int_tuple(__h_versions__):
-        __h_versions__: tuple[int, ...] = (999,)
+        __h_versions__: tuple = (999,)
 try:
     # This is telling us if FLAM3H™ will run only on a selected Houdini version numbers or also beyound those.
     __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
