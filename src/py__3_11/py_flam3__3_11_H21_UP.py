@@ -23731,6 +23731,8 @@ class pyside_master:
             f"v{__version__} indie {flam3h_scripts.flam3h_compatible_h_versions_msg(False, True)}, {__license__} - {__copyright__} ( made in Italy )"
         )
         
+        IMAGE_CREDIT: str = 'Cool EDisc - author: Pillemaster'
+        
         # milliseconds
         FADE_IN_DURATION_MS: int = 0
         FADE_OUT_DURATION_MS: int = 0
@@ -23951,14 +23953,30 @@ class pyside_master:
             self.image_label.setAlignment(QtCore.Qt.AlignCenter)
             self._update_banner()
 
-            # Svg
-            self._load_svg_icon()
-            self._position_svg_icon()
-
             # Init font, dn't needed but just in case!
             if self.font_os is None:
                 # in my case being on windows
                 self.font_os = QtGui.QFont("Segoe UI")
+            
+            # Image credit
+            self.credit_label = QtWidgets.QLabel(self.IMAGE_CREDIT, self.banner_container)
+            font = QtGui.QFont(self.font_os)
+            font.setPointSize(9)
+            self.credit_label.setFont(font)
+            self.credit_label.setStyleSheet("""
+                QLabel {
+                    color: white;
+                    background-color: rgba(0, 0, 0, 120);
+                    padding: 2px 6px;
+                    border-radius: 3px;
+                }
+            """)
+            self.credit_label.adjustSize()
+            self._position_credit_label()
+
+            # Svg
+            self._load_svg_icon()
+            self._position_svg_icon()
 
 
             # Title
@@ -24046,6 +24064,17 @@ class pyside_master:
                     self.image_label.setAlignment(QtCore.Qt.AlignCenter)
 
 
+        # IMAGE CREDITS POSITION
+        def _position_credit_label(self) -> None:
+            if hasattr(self, "credit_label"):
+                margin = self.dpi_scale # int(10 * self.dpi_scale)
+
+                x = self.banner_container.width() - self.credit_label.width() - margin
+                y = self.banner_container.height() - self.credit_label.height() - margin
+
+                self.credit_label.move(x, y)
+
+
         # SVG POSITION
         def _position_svg_icon(self) -> None:
             if self.SVG_ICON:
@@ -24068,6 +24097,7 @@ class pyside_master:
         def resizeEvent(self, event: QtGui.QResizeEvent) -> None:
             super().resizeEvent(event)
             self._position_svg_icon()
+            self._position_credit_label()
             self._update_banner()
 
 
