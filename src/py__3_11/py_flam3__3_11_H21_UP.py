@@ -23962,6 +23962,10 @@ class pyside_master:
             self.image_label: QtWidgets.QLabel = QtWidgets.QLabel(self.banner_container)
             self.image_label.setGeometry(0, 0, self.window_width, self.banner_height)
             self.image_label.setAlignment(QtCore.Qt.AlignCenter)
+            # Transparency
+            # effect = QtWidgets.QGraphicsOpacityEffect(self.image_label)
+            # effect.setOpacity(0.75)   # Adjust between 0.0 and 1.0
+            # self.image_label.setGraphicsEffect(effect)
             self._update_banner()
 
             # Init font, dn't needed but just in case!
@@ -23993,7 +23997,7 @@ class pyside_master:
             
             # SVG text label (NEW)
             self.svg_text_label = QtWidgets.QLabel("An implementation of the original fractal Flame algorithm\ninside a procedural environment", self.banner_container)
-            if not self.h_valid:
+            if not self.h_valid and not self.splash_screen:
                 text: str = self.f3h_node.parm(f3h_tabs.ABOUT.MSG_PRM_F3H_ABOUT).eval() if self.f3h_node is not None else 'Error'
                 self.svg_text_label.setText(f"Error\n{text}")
             self.svg_text_label.setAlignment(QtCore.Qt.AlignCenter)
