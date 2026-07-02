@@ -2928,6 +2928,13 @@ class pyside_master:
                 svg_bytes: QtCore.QByteArray = QtCore.QByteArray(section_svg.binaryContents())
                 self.SVG_ICON = SvgIcon(svg_bytes, parent=self.banner_container)
                 self.SVG_ICON.resize(self.svg_icon_size, self.svg_icon_size)
+                
+                # SVG Shadow
+                shadow = QtWidgets.QGraphicsDropShadowEffect(self.SVG_ICON)
+                shadow.setBlurRadius(16)
+                shadow.setOffset(6, 4)
+                shadow.setColor(QtGui.QColor(0, 0, 0, 180))
+                self.SVG_ICON.setGraphicsEffect(shadow)
             
             
         # CENTER WINDOW
