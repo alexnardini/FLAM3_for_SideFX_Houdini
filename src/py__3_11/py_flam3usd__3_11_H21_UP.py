@@ -155,7 +155,7 @@ else:
 
     Title:      SideFX Houdini FLAM3H™USD H21 UP
     Author:     F stands for liFe ( made in Italy )
-    date:       August 2025, Last revised June 2026 (cloned from: py_flam3usd__3_11.py)
+    date:       August 2025, Last revised July 2026 (cloned from: py_flam3usd__3_11.py)
                 Source file start date: April 2025
 
     Name:       PY_FLAM3USD__3_11_H21_UP "PYTHON" ( The ending filename digits represent the least python version needed to run this code )
@@ -2939,6 +2939,8 @@ class pyside_master:
             f"v{__version__} indie {flam3husd_scripts.flam3husd_compatible_h_versions_msg(False, True)}, {__license__} - {__copyright__} ( made in Italy )"
         )
         
+        IMAGE_CREDIT: str = 'Frozen - author: Alessandro Nardini'
+        
         # milliseconds
         FADE_IN_DURATION_MS: int = 0
         FADE_OUT_DURATION_MS: int = 0
@@ -3060,6 +3062,13 @@ class pyside_master:
                 svg_bytes: QtCore.QByteArray = QtCore.QByteArray(section_svg.binaryContents())
                 self.SVG_ICON = SvgIcon(svg_bytes, parent=self.banner_container)
                 self.SVG_ICON.resize(self.svg_icon_size, self.svg_icon_size)
+                
+                # SVG Shadow
+                shadow = QtWidgets.QGraphicsDropShadowEffect(self.SVG_ICON)
+                shadow.setBlurRadius(16)
+                shadow.setOffset(6, 4)
+                shadow.setColor(QtGui.QColor(0, 0, 0, 180))
+                self.SVG_ICON.setGraphicsEffect(shadow)
             
             
         # CENTER WINDOW
@@ -3113,23 +3122,65 @@ class pyside_master:
             # Banner
             self.banner_container: QtWidgets.QWidget = QtWidgets.QWidget()
             self.banner_container.setFixedSize(self.window_width, self.banner_height)
-            self.banner_container.setStyleSheet("background: black;") # transparent
+            # self.banner_container.setStyleSheet("background: black;") # transparent
+            self.banner_container.setStyleSheet("background-color: rgb(24, 24, 24);")
             main_layout.addWidget(self.banner_container)
 
             self.image_label: QtWidgets.QLabel = QtWidgets.QLabel(self.banner_container)
             self.image_label.setGeometry(0, 0, self.window_width, self.banner_height)
             self.image_label.setAlignment(QtCore.Qt.AlignCenter)
             self._update_banner()
-
-            # Svg
-            self._load_svg_icon()
-            self._position_svg_icon()
-
+            
             # Init font, dn't needed but just in case!
             if self.font_os is None:
                 # in my case being on windows
                 self.font_os = QtGui.QFont("Segoe UI")
+                
+            # Image credit
+            if self.h_valid:
+                self.credit_label = QtWidgets.QLabel(self.IMAGE_CREDIT, self.banner_container)
+                font = QtGui.QFont(self.font_os)
+                font.setPointSize(9)
+                self.credit_label.setFont(font)
+                self.credit_label.setStyleSheet("""
+                    QLabel {
+                        color: white;
+                        background-color: rgba(0, 0, 0, 120);
+                        padding: 2px 6px;
+                        border-radius: 3px;
+                    }
+                """)
+                self.credit_label.adjustSize()
+                self._position_credit_label()
 
+            # Svg
+            self._load_svg_icon()
+            self._position_svg_icon()
+            
+            # SVG text label (NEW)
+            self.svg_text_label = QtWidgets.QLabel("Render FLAM3H™ fractal Flames in USD Solaris", self.banner_container)
+            if not self.h_valid and not self.splash_screen:
+                text: str = self.f3husd_node.parm(f3husd_tabs.ABOUT.MSG_PRM_ABOUT_ERROR).eval() if self.f3husd_node is not None else 'Error'
+                self.svg_text_label.setText(f"Error\n{text}")
+            self.svg_text_label.setAlignment(QtCore.Qt.AlignCenter)
+            font = QtGui.QFont(self.font_os)
+            font.setPointSize(10)
+            font.setBold(True)
+            self.svg_text_label.setFont(font)
+            self.svg_text_label.setStyleSheet("""
+                QLabel {
+                    color: white;
+                    background-color: rgba(0, 0, 0, 0);
+                }
+            """)
+            self.svg_text_label.adjustSize()
+            self._position_svg_text()
+            # SVG text shadow
+            shadow = QtWidgets.QGraphicsDropShadowEffect(self.svg_text_label)
+            shadow.setBlurRadius(0)  # <- makes it sharp (no soft blur)
+            shadow.setOffset(2, 2)   # <- pixel offset (x, y)
+            shadow.setColor(QtGui.QColor(0, 0, 0, 255))  # dark semi-transparent shadow
+            self.svg_text_label.setGraphicsEffect(shadow)
 
             # Title
             title_label: QtWidgets.QLabel = QtWidgets.QLabel(self.APP_NAME, self)
@@ -3214,6 +3265,17 @@ class pyside_master:
                     font.setPointSize(72)
                     self.image_label.setFont(font)
                     self.image_label.setAlignment(QtCore.Qt.AlignCenter)
+                    
+                    
+        # IMAGE CREDITS POSITION
+        def _position_credit_label(self) -> None:
+            if hasattr(self, "credit_label"):
+                margin: float = self.dpi_scale # int(10 * self.dpi_scale)
+
+                x: int = self.banner_container.width() - self.credit_label.width() - margin
+                y: int = self.banner_container.height() - self.credit_label.height() - margin
+
+                self.credit_label.move(x, y)
 
 
         # SVG POSITION
@@ -3222,6 +3284,17 @@ class pyside_master:
                 x: int = (self.banner_container.width() - self.SVG_ICON.width()) // 2
                 y: int = (self.banner_container.height() - self.SVG_ICON.height()) // 2
                 self.SVG_ICON.move(x, y)
+                
+                
+        # SVG TEXT POSITION
+        def _position_svg_text(self) -> None:
+            if self.SVG_ICON and hasattr(self, "svg_text_label"):
+
+                svg_center_x = self.SVG_ICON.x() + self.SVG_ICON.width() // 2
+                x = svg_center_x - self.svg_text_label.width() // 2
+                # place just below SVG
+                y = self.SVG_ICON.y() + self.SVG_ICON.height() + int(5 * self.dpi_scale)
+                self.svg_text_label.move(x, y)
                 
                 
         # FADE OUT ANIMATION
