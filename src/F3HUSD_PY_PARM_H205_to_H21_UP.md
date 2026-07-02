@@ -1,7 +1,7 @@
 ```python
 #   Title:      FLAM3H™USD. SideFX Houdini FLAM3USD: PYTHON MAP PRM Definitions
 #   Author:     F stands for liFe ( made in Italy )
-#   date:       March 2025, Last revised June 2026
+#   date:       March 2025, Last revised July 2026
 #   License:    GPL
 #   Copyright:  2023, © F stands for liFe ( made in Italy )
 #
@@ -90,7 +90,7 @@ import toolutils
 
 # Set some HDA infos
 __v__ = 0
-__version__ = "0.2.58"
+__version__ = "0.2.59"
 __status__ = "Prototype"
 # Note:
 # The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:
@@ -203,7 +203,7 @@ import toolutils
 
 # Set some HDA infos
 __v__ = 0
-__version__ = "0.2.54"
+__version__ = "0.2.55"
 __status__ = "Prototype"
 # Note:
 # The intgers contained into this __h_versions__ tuple must be Houdini version numbers composed of 3 digits:
@@ -341,12 +341,12 @@ else:
         __status__: str = "Unknown"
 try:
     # This is a tuple containing all the houdini versions where this FLAM3H™ OTL is allowed to run
-    __h_versions__: tuple[int, ...] = nodetype.hdaModule().__h_versions__
+    __h_versions__: tuple = nodetype.hdaModule().__h_versions__
 except AttributeError:
-    __h_versions__: tuple[int, ...] = (999,)
+    __h_versions__: tuple = (999,)
 else:
     if not nodetype.hdaModule().is_nonempty_int_tuple(__h_versions__):
-        __h_versions__: tuple[int, ...] = (999,)
+        __h_versions__: tuple = (999,)
 try:
     # This is telling us if FLAM3H™ will run only on a selected Houdini version numbers or also beyound those.
     __range_type__: bool = nodetype.hdaModule().__range_type__  # True for closed range. False for open range
