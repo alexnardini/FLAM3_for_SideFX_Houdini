@@ -3278,8 +3278,14 @@ static float2 CL_V_FLUX(
     xmw = in.x - w;
 
     float iny2 = in.y * in.y;
+
+#if USE_FMA
+    r1 = fma(xpw, xpw, iny2);
+    r2 = fma(xmw, xmw, iny2);
+#else
     r1 = iny2 + xpw * xpw;
     r2 = iny2 + xmw * xmw;
+#endif
 
 #if USE_NATIVE
     avgr = w * (2.0f + spread) * native_sqrt(native_sqrt(native_divide(r1, r2)));
