@@ -1,0 +1,929 @@
+{
+    name	parameters
+    groupsimple {
+        name    "folder_sys"
+        label   "sys"
+        grouptag { "group_type" "simple" }
+
+        parm {
+            name    "sys_help"
+            label   "FLAM3HUSD Documentation"
+            type    button
+            nolabel
+            joinnext
+            default { "0" }
+            help    "Display FLAM3HUSD Documentation"
+            parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_F_docStarSVG.svg" }
+            parmtag { "script_callback" "hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display_help(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "empty_0"
+            label   "Label"
+            type    data
+            nolabel
+            joinnext
+            default { "0" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "sys_reframe"
+            label   "Re-frame"
+            type    button
+            nolabel
+            joinnext
+            default { "0" }
+            help    "Re-frame current viewports based on a centered bounding box\\nand set all of them to type: Front ( for undistorted fractal Flames rendering )\\n\\nThis is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.\\n\\nAdditionally,\\nit will set the viewports clipping planes to proper values every time is invoked.\\n\\nNOTE:\\nThis Reframe will only work with LOP viewers."
+            parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_FrameRedSVG.svg" }
+            parmtag { "script_callback" "hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_viewport_bbox_frame(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "empty_1"
+            label   "Label"
+            type    data
+            nolabel
+            joinnext
+            default { "0" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "empty_2"
+            label   "Label"
+            type    data
+            nolabel
+            joinnext
+            default { "0" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "empty_3"
+            label   "Label"
+            type    data
+            nolabel
+            joinnext
+            default { "0" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "empty_4"
+            label   "Label"
+            type    data
+            nolabel
+            joinnext
+            default { "0" }
+            parmtag { "script_callback_language" "python" }
+        }
+        parm {
+            name    "flam3hpath"
+            label   "FLAM3H™ node"
+            type    oppath
+            default { "" }
+            help    "Select a FLAM3H™ node to import"
+            parmtag { "autoscope" "0000000000000000" }
+            parmtag { "opfilter" "!!SOP!!" }
+            parmtag { "oprelative" "." }
+            parmtag { "script_action" "node = kwargs['node']\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_cycle_import()\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+            parmtag { "script_action_help" "[LMB] to import a FLAM3H node or to import the next FLAM3H node instance. [SHIFT+LMB] to import a FLAM3H node or to import the preview FLAM3H node instance. If nothing has been imported yet, it will import the FLAM3H node that has not been imported already by others FLAM3USD nodes if any, otherwise it will import the first one to start with. See the HDA documentation for more infos." }
+            parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionFlameINEntrieSVG.svg" }
+            parmtag { "script_callback" "hou.pwd().hdaModule().flam3usd.flam3husd_scripts(kwargs).flam3husd_is_valid_flam3h_node(), kwargs['parm'].deleteAllKeyframes()" }
+            parmtag { "script_callback_language" "python" }
+        }
+    }
+
+    group {
+        name    "folder_prefs"
+        label   "PREFS"
+
+        groupsimple {
+            name    "folder_error"
+            label   "Error"
+            hidewhentab "{ h_valid == 1 }"
+            grouptag { "group_type" "simple" }
+
+            parm {
+                name    "icon_error"
+                label   "Error"
+                type    button
+                nolabel
+                joinnext
+                default { "Please,\nimport a valid FLAM3H node\nto render using FLAM3HUSD." }
+                disablewhen "{ disabled == 1 }"
+                parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWarningSVG.svg" }
+                parmtag { "script_callback" "" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "msg_error"
+                label   "msg_error"
+                type    label
+                default { "Error" }
+                disablewhen "{ disabled == 1 }"
+                parmtag { "sidefx::look" "heading" }
+            }
+            parm {
+                name    "msg_f3husd_error"
+                label   "msg_f3husd_error"
+                type    label
+                default { "" }
+                parmtag { "sidefx::look" "block" }
+            }
+        }
+
+        groupsimple {
+            name    "folder_tip"
+            label   "Tip"
+            hidewhentab "{ f3h_valid == 1 } { h_valid == 0 }"
+            grouptag { "group_type" "simple" }
+
+            parm {
+                name    "icon_tip"
+                label   "Tip"
+                type    button
+                nolabel
+                joinnext
+                default { "Please,\nimport a valid FLAM3H node\nto render using FLAM3HUSD." }
+                disablewhen "{ disabled == 1 }"
+                parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg" }
+                parmtag { "script_callback" "" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "msg_tip"
+                label   "msg_tip"
+                type    label
+                default { "Tip" }
+                disablewhen "{ disabled == 1 }"
+                parmtag { "sidefx::look" "heading" }
+            }
+            parm {
+                name    "msg_f3husd_tip"
+                label   "msg_f3husd_tip"
+                type    label
+                default { "Please,\nimport a valid FLAM3H™ node." }
+                parmtag { "sidefx::look" "block" }
+            }
+        }
+
+        groupsimple {
+            name    "folder_viewport"
+            label   "Viewport"
+            hidewhentab "{ f3h_valid == 0 }"
+            grouptag { "group_type" "simple" }
+
+            parm {
+                name    "setdark"
+                label   "dark"
+                type    toggle
+                default { "0" }
+                help    "OFF by default.\\nSet dark viewport color scheme"
+                parmtag { "script_callback" "hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "rndtype"
+                label   "renderer"
+                type    ordinal
+                default { "0" }
+                help    "Types of Viewport renderer to use.\\n\\nAt the moment the choices are:\\n\\n- Houdini\\nThis can be either OpenGL or Vulkan\\ndepending on your Houdini version and preferences settings.\\n\\n- Karma CPU"
+                menu {
+                    "0" "Houdini"
+                    "1" "Karma CPU     "
+                }
+                parmtag { "script_action" "node = kwargs['node']\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer()\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+                parmtag { "script_action_help" "If you manually changed the viewport renderer, clicking this icon will set all viewers to this renderer." }
+                parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererMenuSVG.svg" }
+                parmtag { "script_callback" "hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).setHydraRenderer(), kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "sepparm_viewport"
+                label   "Spacer"
+                type    separator
+                default { "" }
+                parmtag { "sidefx::layout_height" "medium" }
+                parmtag { "sidefx::look" "blank" }
+            }
+        }
+
+        groupsimple {
+            name    "folder_houdini"
+            label   "Houdini"
+            hidewhentab "{ f3h_valid == 0 } { rndtype != 0 }"
+            grouptag { "group_type" "simple" }
+
+            parm {
+                name    "vptype"
+                label   "display"
+                type    ordinal
+                default { "0" }
+                help    "Types of Viewport Point Display"
+                menu {
+                    "0" "![opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg]Points      "
+                    "1" "Pixels                "
+                }
+                parmtag { "script_callback" "hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleDisplay(), kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "vpptsize"
+                label   "size"
+                type    float
+                default { "1" }
+                help    "If display type is set to Points,\\nthis parameter will set the size of those points in the viewport."
+                disablewhen "{ rndtype != 0 }"
+                hidewhen "{ vptype == 1 }"
+                range   { 0.1! 2 }
+                parmtag { "script_action" "node = kwargs['node']\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(1.0)\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+                parmtag { "script_action_help" "Reset this parameter to a value of: 1.0" }
+                parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg" }
+                parmtag { "script_callback" "hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(), kwargs['parm'].deleteAllKeyframes()" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "sepparm_h_gl"
+                label   "Spacer"
+                type    separator
+                default { "" }
+                parmtag { "sidefx::layout_height" "medium" }
+                parmtag { "sidefx::look" "blank" }
+            }
+        }
+
+        groupsimple {
+            name    "folder_karma"
+            label   "Karma"
+            hidewhentab "{ f3h_valid == 0 } { rndtype != 1 rndtype != 2 }"
+            grouptag { "group_type" "simple" }
+
+            groupsimple {
+                name    "folder_points"
+                label   "Points"
+                hidewhentab "{ rndtype != 1 rndtype != 2 }"
+                grouptag { "group_type" "simple" }
+
+                parm {
+                    name    "widths"
+                    label   "widths"
+                    type    float
+                    default { "1" }
+                    help    "The point attribute @pscale will become @widths when importing FLAM3H into Stage/Solaris.\\n\\nThis option, which is a multiplier, enables rapid adjustments while Karma is rendering interactively."
+                    disablewhen "{ rndtype != 1 }"
+                    range   { 0 1 }
+                    parmtag { "autoscope" "0000000000000000" }
+                    parmtag { "script_action" "node = kwargs['node']\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(1.0, 'widths')\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+                    parmtag { "script_action_help" "Reset this parameter to a value of: 1.0" }
+                    parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg" }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "sepparm_karma_points"
+                    label   "Spacer"
+                    type    separator
+                    default { "" }
+                    parmtag { "sidefx::layout_height" "medium" }
+                    parmtag { "sidefx::look" "blank" }
+                }
+            }
+
+            groupcollapsible {
+                name    "folder_xfviz"
+                label   "Handles"
+                hidewhentab "{ h_19_0 == 1 }"
+                grouptag { "group_type" "collapsible" }
+                grouptag { "sidefx::header_parm" "xfviz" }
+
+                parm {
+                    name    "xfviz"
+                    label   "import"
+                    type    toggle
+                    default { "0" }
+                    help    "OFF by default.\\nImport the FLAM3H™ xforms handles VIZ\\nto be rendered together with the fractal Flame.\\n\\nSometime you may want to render the handles purely for debug."
+                    parmtag { "script_callback" "hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "widths_xf_viz"
+                    label   "widths"
+                    type    float
+                    default { "2" }
+                    help    "Adjust the thickness of the FLAM3H xforms handles VIZ.\\n\\nThis option, which is a multiplier, enables rapid adjustments while Karma is rendering interactively."
+                    disablewhen "{ xfviz == 0 }"
+                    range   { 0! 5 }
+                    parmtag { "autoscope" "0000000000000000" }
+                    parmtag { "script_action" "node = kwargs['node']\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(2.0, 'widths_xf_viz')\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+                    parmtag { "script_action_help" "Reset this parameter to a value of: 1.0" }
+                    parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWhiteSVG.svg" }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "sepparm_karma_handles"
+                    label   "Spacer"
+                    type    separator
+                    default { "" }
+                    parmtag { "sidefx::layout_height" "medium" }
+                    parmtag { "sidefx::look" "blank" }
+                }
+            }
+
+            groupsimple {
+                name    "folder_karma_settings"
+                label   "Settings"
+                grouptag { "group_type" "simple" }
+
+                parm {
+                    name    "pxsamples_cpu"
+                    label   "CPU samples"
+                    type    integer
+                    default { "128" }
+                    help    "Set the Karma renderer pixel samples"
+                    range   { 16! 1024 }
+                    parmtag { "script_action" "node = kwargs['node']\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).viewportParticleSize(128, 'pxsamples_cpu')\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+                    parmtag { "script_action_help" "Reset this parameter to a value of: 128" }
+                    parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg" }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "denoiser"
+                    label   "denoiser"
+                    type    string
+                    default { "off" }
+                    help    "OFF by default.\\nSelect between the available denoisers."
+                    menu {
+                        "off"   "-                           "
+                        "optix" "NVIDIA OptiX"
+                        "oidn"  "Intel OIDN"
+                    }
+                    parmtag { "autoscope" "0000000000000000" }
+                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "sepparm_karma_settings"
+                    label   "Spacer"
+                    type    separator
+                    default { "" }
+                    parmtag { "sidefx::layout_height" "medium" }
+                    parmtag { "sidefx::look" "blank" }
+                }
+            }
+
+            groupsimple {
+                name    "folder_shader"
+                label   "FLAM3H™ Shader"
+                hidewhentab "{ rndtype != 1 rndtype != 2 }"
+                grouptag { "group_type" "simple" }
+
+                parm {
+                    name    "use_f3h_shader"
+                    label   "use Shader"
+                    type    toggle
+                    default { "0" }
+                    help    "OFF by default.\\nUse the FLAM3H™ materialX shader"
+                    parmtag { "script_action" "node = kwargs['node']\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).reset_flam3h_shader()\nnode.hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+                    parmtag { "script_action_help" "Reset the FLAM3H Shader parameters to their default values" }
+                    parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_rendererKarmaPropertiesSVG.svg" }
+                    parmtag { "script_callback" "hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "f3h_gamma"
+                    label   "gamma"
+                    type    float
+                    default { "1" }
+                    help    "Adjust the FLAM3H™ Shader Gamma"
+                    disablewhen "{ use_f3h_shader == 0 }"
+                    range   { 0.01! 2 }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "sepparm_shader_gamma"
+                    label   "Spacer"
+                    type    separator
+                    default { "" }
+                    parmtag { "sidefx::layout_height" "medium" }
+                    parmtag { "sidefx::look" "blank" }
+                }
+                parm {
+                    name    "f3h_hsv_h"
+                    label   "H"
+                    type    float
+                    default { "1" }
+                    help    "Adjust the FLAM3H™ Shader Hue"
+                    disablewhen "{ use_f3h_shader == 0 }"
+                    range   { 0 2 }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "f3h_hsv_s"
+                    label   "S"
+                    type    float
+                    default { "1" }
+                    help    "Adjust the FLAM3H™ Shader Saturation"
+                    disablewhen "{ use_f3h_shader == 0 }"
+                    range   { 0! 2 }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "f3h_hsv_v"
+                    label   "V"
+                    type    float
+                    default { "1" }
+                    help    "Adjust the FLAM3H™ Shader Value"
+                    disablewhen "{ use_f3h_shader == 0 }"
+                    range   { 1! 2 }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "sepparm_shader_hsv"
+                    label   "Spacer"
+                    type    separator
+                    default { "" }
+                    hidewhen "{ h_19_0 == 1 }"
+                    parmtag { "sidefx::layout_height" "medium" }
+                    parmtag { "sidefx::look" "blank" }
+                }
+                parm {
+                    name    "f3h_emission"
+                    label   "emission"
+                    type    float
+                    default { "1" }
+                    help    "Adjust the FLAM3H™ Shader emission.\\nControl how strong the light emitted by the fractal Flame points is.\\n\\nHigher values increase the additive effect,\\nlower values decrease it until a value of 0(Zero) which result in a full black color.\\n\\nNOTE:\\nThis parameter is only availabe in FLAM3HUSD HDA versions for Houdini 19.5 and up."
+                    disablewhen "{ use_f3h_shader == 0 }"
+                    hidewhen "{ h_19_0 == 1 }"
+                    range   { 0! 2 }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "f3h_transmission"
+                    label   "transmission"
+                    type    float
+                    default { "0" }
+                    help    "Adjust the FLAM3H™ Shader transmission.\\nControl how the emission is transmitted across the fractal Flame points.\\n\\nYou should increase this value to get a correct point color values accumulation effects,\\nwith a value of 1(one) being the suggested one and keep the Emission parameter' value at 1(one) to start with.\\n\\nWhen this value is higher than 0(Zero),\\nthe resulting rendered image will loose its Alpha channel but the visual benefits are far greater.\\n\\nNOTE:\\nThis parameter is only availabe in FLAM3HUSD HDA versions for Houdini 20.5 and up."
+                    disablewhen "{ use_f3h_shader == 0 }"
+                    hidewhen "{ h_20_5_up == 0 }"
+                    range   { 0! 1! }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "sepparm_shader_end"
+                    label   "Spacer"
+                    type    separator
+                    default { "" }
+                    parmtag { "sidefx::layout_height" "medium" }
+                    parmtag { "sidefx::look" "blank" }
+                }
+            }
+
+            group {
+                name    "folder_tonemap"
+                label   "Tone map"
+                hidewhentab "{ h_20_5_up == 0 }"
+
+                parm {
+                    name    "tonemap"
+                    label   "presets"
+                    type    string
+                    default { "off" }
+                    help    "OFF by default.\\nSelect a tone map preset to apply to the rendered image.\\n\\nNOTE:\\nThis parameter is only availabe in FLAM3H™USD HDA versions for Houdini 20.5 and up."
+                    hidewhen "{ h_20_5_up == 0 }"
+                    menu {
+                        "off"       "-"
+                        "reinhard"  "Reinhard"
+                        "ward"      "Ward"
+                        "unreal"    "Unreal"
+                        "aces"      "Aces"
+                        "hable"     "Hable"
+                        "hable2"    "Hable2"
+                    }
+                    parmtag { "autoscope" "0000000000000000" }
+                    parmtag { "script_callback" "kwargs['parm'].deleteAllKeyframes(), hou.pwd().hdaModule().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "sepparm_tonemap_end"
+                    label   "Spacer"
+                    type    separator
+                    default { "" }
+                    hidewhen "{ h_20_5_up == 0 }"
+                    parmtag { "sidefx::layout_height" "medium" }
+                    parmtag { "sidefx::look" "blank" }
+                }
+            }
+
+        }
+
+        groupsimple {
+            name    "folder_data"
+            label   "DATA"
+            invisibletab
+            disablewhentab "{ disabled == 1 }"
+            grouptag { "group_type" "simple" }
+
+            parm {
+                name    "disabled"
+                label   "Disabled"
+                type    toggle
+                invisible
+                default { "1" }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "h_valid"
+                label   "Valid version"
+                type    toggle
+                default { "1" }
+                help    "On by default.\\nHUSD version valid for this Houdini version ?"
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "f3h_valid"
+                label   "F3H valid import"
+                type    toggle
+                default { "0" }
+                help    "Off by default.\\nIs the imported FLAM3H™ node a valid one ?"
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "h_19_0"
+                label   "H19.0"
+                type    toggle
+                default { "0" }
+                help    "Off by default.\\nIs this H19.0 ?"
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "h_20_5_up"
+                label   "H20_5 UP"
+                type    toggle
+                default { "0" }
+                help    "Off by default.\\nIs this H19.0 ?"
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "sepparm_data_00"
+                label   "Separator"
+                type    separator
+                default { "" }
+            }
+            parm {
+                name    "rndtype_mem"
+                label   "MEM renderer"
+                type    integer
+                default { "0" }
+                range   { 0 10 }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "vptype_mem"
+                label   "MEM display"
+                type    integer
+                default { "0" }
+                range   { 0 10 }
+                parmtag { "script_callback_language" "python" }
+            }
+            parm {
+                name    "vpptsize_mem"
+                label   "MEM size"
+                type    float
+                default { "0" }
+                range   { 0.1! 2 }
+                parmtag { "script_callback_language" "python" }
+            }
+        }
+
+    }
+
+    group {
+        name    "folder_prefs_1"
+        label   "about"
+
+        parm {
+            name    "aboutdisable"
+            label   "disable"
+            type    toggle
+            invisible
+            nolabel
+            default { "1" }
+            parmtag { "script_callback_language" "python" }
+        }
+        groupsimple {
+            name    "folder_about_flam3husd"
+            label   "FLAM3H™USD"
+            grouptag { "group_type" "simple" }
+
+            groupcollapsible {
+                name    "folder_about_infos"
+                label   "about"
+                grouptag { "group_default" "1" }
+                grouptag { "group_type" "collapsible" }
+
+                parm {
+                    name    "icon_about_error"
+                    label   "About error"
+                    type    button
+                    nolabel
+                    joinnext
+                    default { "0" }
+                    help    "Informations about FLAM3H™USD\\n\\n[LMB] to display an about box panel."
+                    hidewhen "{ h_valid == 1 }"
+                    parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarWarningSVG.svg" }
+                    parmtag { "script_callback" "hou.pwd().hdaModule().flam3usd.flam3husd_about_utils.flam3husd_about_show_info_panel(kwargs['node'])" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "f3husd_about_error_heading"
+                    label   "f3husd_about_error_heading"
+                    type    label
+                    default { "About FLAM3HUSD Error" }
+                    disablewhen "{ aboutdisable == 1 }"
+                    hidewhen "{ h_valid == 1 }"
+                    parmtag { "sidefx::look" "heading" }
+                }
+                parm {
+                    name    "msg_f3husd_about_error"
+                    label   "msg_f3husd_about_error"
+                    type    label
+                    default { "" }
+                    hidewhen "{ h_valid == 1 }"
+                    parmtag { "sidefx::look" "block" }
+                }
+                parm {
+                    name    "icon_about"
+                    label   "About"
+                    type    button
+                    nolabel
+                    joinnext
+                    default { "0" }
+                    help    "Informations about FLAM3H™USD\\n\\n[LMB] to display an about box panel."
+                    hidewhen "{ h_valid == 0 }"
+                    parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg" }
+                    parmtag { "script_callback" "hou.pwd().hdaModule().flam3usd.flam3husd_about_utils.flam3husd_about_show_info_panel(kwargs['node'])" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "f3husd_about_heading"
+                    label   "f3husd_about_heading"
+                    type    label
+                    default { "About FLAM3HUSD" }
+                    disablewhen "{ aboutdisable == 1 }"
+                    hidewhen "{ h_valid == 0 }"
+                    parmtag { "sidefx::look" "heading" }
+                }
+                parm {
+                    name    "msg_f3husd_about"
+                    label   "flam3husdabout_msg"
+                    type    label
+                    default { "" }
+                    hidewhen "{ h_valid == 0 }"
+                    parmtag { "sidefx::look" "block" }
+                }
+            }
+
+            groupcollapsible {
+                name    "f_aboutweb"
+                label   "about web links"
+                grouptag { "group_type" "collapsible" }
+
+                parm {
+                    name    "empty_about_01"
+                    label   "empty"
+                    type    geometrydata
+                    nolabel
+                    default { "0" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "icon_f3h_links"
+                    label   "FLAM3H links"
+                    type    button
+                    nolabel
+                    joinnext
+                    default { "0" }
+                    help    "List of web links about FLAM3H™"
+                    disablewhen "{ aboutdisable == 1 }"
+                    parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg" }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "empty_about_02"
+                    label   "empty"
+                    type    geometrydata
+                    nolabel
+                    default { "0" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "flam3homepage"
+                    label   "flam3homepage"
+                    type    geometrydata
+                    nolabel
+                    joinnext
+                    default { "0" }
+                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_run('web')" }
+                    parmtag { "script_action_help" "Open a web browser to the FLAM3H website." }
+                    parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?iconSVGB.svg" }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "flam3h_heading_web"
+                    label   "flam3h_heading_web"
+                    type    label
+                    default { "" }
+                    disablewhen "{ aboutdisable == 1 }"
+                    parmtag { "sidefx::look" "heading" }
+                }
+                parm {
+                    name    "flam3github"
+                    label   "flam3github"
+                    type    geometrydata
+                    nolabel
+                    joinnext
+                    default { "0" }
+                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_run('git')" }
+                    parmtag { "script_action_help" "Open a web browser to the FLAM3H Github." }
+                    parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_GithubBlackSVG.svg" }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "flam3h_heading_git"
+                    label   "flam3h_heading_git"
+                    type    label
+                    default { "" }
+                    disablewhen "{ aboutdisable == 1 }"
+                    parmtag { "sidefx::look" "heading" }
+                }
+                parm {
+                    name    "flam3insta"
+                    label   "flam3insta"
+                    type    geometrydata
+                    nolabel
+                    joinnext
+                    default { "0" }
+                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_run('insta')" }
+                    parmtag { "script_action_help" "Open a web browser to the FLAM3H Instagram." }
+                    parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_InstagramSVG.svg" }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "flam3h_heading_insta"
+                    label   "flam3h_heading_insta"
+                    type    label
+                    default { "" }
+                    disablewhen "{ aboutdisable == 1 }"
+                    parmtag { "sidefx::look" "heading" }
+                }
+                parm {
+                    name    "flam3youtube"
+                    label   "flam3youtube"
+                    type    geometrydata
+                    nolabel
+                    joinnext
+                    default { "0" }
+                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_run('youtube')" }
+                    parmtag { "script_action_help" "Open a web browser to the FLAM3H youtube video tutorials." }
+                    parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_youtube_red_play.svg" }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "flam3h_heading_youtube"
+                    label   "flam3h_heading_youtube"
+                    type    label
+                    default { "" }
+                    disablewhen "{ aboutdisable == 1 }"
+                    parmtag { "sidefx::look" "heading" }
+                }
+                parm {
+                    name    "empty_about_03"
+                    label   "empty"
+                    type    geometrydata
+                    nolabel
+                    default { "0" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "icon_f3_links"
+                    label   "FLAM3 links"
+                    type    button
+                    nolabel
+                    joinnext
+                    default { "0" }
+                    help    "List of web links about the original: The Fractal Flame Algorithm (flam3) and the Fractorium app."
+                    disablewhen "{ aboutdisable == 1 }"
+                    parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_optionStarBlueSVG.svg" }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "empty_about_04"
+                    label   "empty"
+                    type    geometrydata
+                    nolabel
+                    default { "0" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "tffa_pdf"
+                    label   "TFFApdf"
+                    type    geometrydata
+                    nolabel
+                    joinnext
+                    default { "0" }
+                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_run('paper')" }
+                    parmtag { "script_action_help" "Open a web browser to the Fractal Flame Algorithm PDF publication." }
+                    parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_WhiteSVG.svg" }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "flam3_heading_pdf"
+                    label   "flam3_heading_pdf"
+                    type    label
+                    default { "" }
+                    disablewhen "{ aboutdisable == 1 }"
+                    parmtag { "sidefx::look" "heading" }
+                }
+                parm {
+                    name    "tffa_flam3github"
+                    label   "TFFAflam3Github"
+                    type    geometrydata
+                    nolabel
+                    joinnext
+                    default { "0" }
+                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_run('flam3git')" }
+                    parmtag { "script_action_help" "Open a web browser to the original FLAM3 Github." }
+                    parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_GithubWhiteSVG.svg" }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "flam3_heading_git"
+                    label   "flam3_heading_git"
+                    type    label
+                    default { "" }
+                    disablewhen "{ aboutdisable == 1 }"
+                    parmtag { "sidefx::look" "heading" }
+                }
+                parm {
+                    name    "fract_git"
+                    label   "Fractorium github"
+                    type    geometrydata
+                    nolabel
+                    joinnext
+                    default { "0" }
+                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_run('fractgithub')" }
+                    parmtag { "script_action_help" "Open a web browser to the Fractorium Github code repository." }
+                    parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_GithubBlueSVG.svg" }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "fract_heading_git"
+                    label   "fract_heading_git"
+                    type    label
+                    default { "" }
+                    disablewhen "{ aboutdisable == 1 }"
+                    parmtag { "sidefx::look" "heading" }
+                }
+                parm {
+                    name    "fract_web"
+                    label   "Fractorium bitbucket"
+                    type    geometrydata
+                    nolabel
+                    joinnext
+                    default { "0" }
+                    parmtag { "script_action" "kwargs['node'].hdaModule().flam3usd.flam3husd_about_utils(kwargs).flam3husd_web_run('fractweb')" }
+                    parmtag { "script_action_help" "Open a web browser to the Fractorium website." }
+                    parmtag { "script_action_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_FractoriumWebSVG.svg" }
+                    parmtag { "script_callback" "" }
+                    parmtag { "script_callback_language" "python" }
+                }
+                parm {
+                    name    "fract_heading_web"
+                    label   "fract_heading_web"
+                    type    label
+                    default { "" }
+                    disablewhen "{ aboutdisable == 1 }"
+                    parmtag { "sidefx::look" "heading" }
+                }
+            }
+
+        }
+
+    }
+
+}
