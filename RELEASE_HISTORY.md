@@ -41,10 +41,12 @@ They are all available in this Github repository.
 
 _This update require a restart of Houdini to fully pickup the changes_.
 
+- **New**: Added HDAs dialog script files to the source code.
 - **Small fixes/improvements as part of an ongoing polishing pass H20.5 UP ONLY**
 
 #### FLAM3H™USD v0.2.59 indie -> H21.0 UP</br>FLAM3H™USD v0.2.55 indie -> H20.5</br>FLAM3H™USD v0.2.49 indie -> H19.0 to H20 ####
 
+- **New**: Added HDAs dialog script files to the source code.
 - **Small fixes/improvements as part of an ongoing polishing pass H20.5 UP ONLY**
 
 
