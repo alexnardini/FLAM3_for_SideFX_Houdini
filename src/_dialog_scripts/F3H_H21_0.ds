@@ -60,7 +60,7 @@
             default { "0" }
             help    "FLAM3H™ is running in CPU(CVEX) mode.\\n\\n[LMB]\\nto switch to the GPU mode.\\n\\nThe iterations number to use to resolve this fractal Flame.\\n\\nYou must experiment with the number of iterations\\nand always go as low as possible to save on execution time.\\nYou went too low when the fractal Flame start to turn blocky,\\nwhich happens when it crosses its own minimum.\\n\\nIt is advised that occasionally you bump up this number a little\\nto see if there is anything you are overlooking.\\n\\nFor instance,\\ncertain Flames can seem completely different with higher number of iterations."
             hidewhen "{ flamefunc == 0 } { gpu == 1 }"
-            parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueToolSVG.svg" }
+            parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).cpu_switch_to_gpu()" }
             parmtag { "script_callback_language" "python" }
         }
