@@ -97,10 +97,10 @@ Token: 1
 | **GLOBAL** | `icon_iter` | `from H20.5` | `v1.x` `v2.x` |
 
 ### <img width="16" height="16" src="../icons/icon_buttonButtonSVG.svg" /> Button icon
-<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueSVG.svg" /></p>
+<p align="left"><img width="80" height="80" src="../icons/icon_optionStarBlueToolSVG.svg" /></p>
 
 ```
-opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg
+opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueToolSVG.svg
 ```
 
 </br>

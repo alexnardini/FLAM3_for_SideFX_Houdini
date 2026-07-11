@@ -661,9 +661,22 @@ _Parameters to define the quality of the fractal Flame algorithm solution._
 
 | Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
 |:---|:---|---:|---:|---:|
-| **GLOBAL** | `icon_iter_gpu` | `button` | `from H20.5` | `v2.x` |
+| **GLOBAL** | `icon_iter` | `button` | `from H21.0` | `v2.x` |
 
 - ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script
+```python
+hou.phm().flam3.flam3h_general_utils(kwargs).cpu_switch_to_gpu()
+```
+
+</br>
+</br>
+</br>
+
+| Tab | Parameter name | Parameter type |  Houdini version | FLAM3H™ version |
+|:---|:---|---:|---:|---:|
+| **GLOBAL** | `icon_iter_gpu` | `button` | `from H20.5` | `v2.x` |
+
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> Callback Script `(Some functionalities only work from H21.0 up.)`
 ```python
 hou.phm().flam3.flam3h_general_utils(kwargs).gpu_iterations_cycle()
 ```

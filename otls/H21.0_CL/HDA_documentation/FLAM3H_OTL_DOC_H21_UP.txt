@@ -182,6 +182,7 @@ iterations (GPU):
     _Usage_:
     - ((LMB)) to cycle through the available GPU iterations presets.<br />Presets are: *`128`*, *`256`*, *`512`*, *`1024`*, *`2048`*, *`4096`*.<br />It will cycle backward.
     - ((SHIFT)) + ((LMB)) It will cycle forward.
+    - ((CTRL)) + ((LMB)) It will switch to the CPU(_Cvex_) mode ([Smallicon:opdef:.?icon_optionStarBlueToolSVG.svg]).
     
     _Additionally_,<br />
     _you can change the number of iterations being used by the GPU in the preferences tab under the GPU section_.
@@ -197,6 +198,17 @@ iterations (GPU):
         - set its iterator's count to *`0`*(_Zero_)
         
         the GPU iterations will be reset to its default value of: *`1024`*.
+
+    <br />
+
+switch to GPU (CPU):
+    #id: GLOBAL
+    [Largeicon:opdef:.?icon_optionStarBlueToolSVG.svg]
+
+    When this icon is visible mean FLAM3H™ is running in CPU mode.<br />
+
+    _Usage_:
+    - ((LMB)) to switch to the GPU mode ([Smallicon:opdef:.?icon_optionOCLSVG.svg]).
 
     <br />
 

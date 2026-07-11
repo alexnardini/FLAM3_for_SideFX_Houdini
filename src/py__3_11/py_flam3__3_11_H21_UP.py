@@ -3461,6 +3461,7 @@ class flam3h_general_utils
 @METHODS
 * reset_parm(self, val: tuple[int | float, ...]) -> None:
 * gpu_iterations_cycle(self) -> None:
+* cpu_switch_to_gpu(self) -> None:
 * menus_refresh_enum_prefs(self) -> None:
 * get_node_path(self, node_name: str) -> str | None:
 * util_set_clipping_viewers(self) -> None:
@@ -4252,7 +4253,8 @@ class flam3h_general_utils
         
     def gpu_iterations_cycle(self) -> None:
         """Cycle and set GPU iterations.</br></br>
-        It will cycle through a list of GPU iterations values</br>and set the selected one into the PREFS tab's GPU iterations parameter.</br>
+        It will cycle through a list of GPU iterations values</br>and set the selected one into the PREFS tab's GPU iterations parameter.</br></br>
+        Alternatively, it can switch the GPU mode OFF with CTRL+Click.</br>
         
         Args:
             (self):
@@ -4261,21 +4263,44 @@ class flam3h_general_utils
             (None):                            
         """ 
         node: hou.SopNode = self.node
-        prm_gpu_iter: hou.Parm = node.parm(f3h_tabs.PREFS.PRM_GPU_ITER)
         
-        gpu_iter_items: list[int] = [int(x) for x in prm_gpu_iter.menuItems()] # [128, 256, 512, 1024, 2048, 4096]
-        current_index: int = gpu_iter_items.index(prm_gpu_iter.eval())
-        
-        try:
-            index: int = (current_index + 1) % len(gpu_iter_items) if self.kwargs['shiftclick'] else (current_index - 1) % len(gpu_iter_items)
-        except KeyError:
-            index: int = (current_index - 1) % len(gpu_iter_items)
+        ctrlclick: bool = self.kwargs.get('ctrlclick', False)
+        shiftclick: bool = self.kwargs.get('shiftclick', False)
+
+        if ctrlclick:
             
-        flam3h_prm_utils.set(node, prm_gpu_iter, gpu_iter_items[index])
+            node.parm(f3h_tabs.PREFS.PRM_GPU).set(0)
+
+        else:
+            
+            prm_gpu_iter: hou.Parm = node.parm(f3h_tabs.PREFS.PRM_GPU_ITER)
+            gpu_iter_items: list[int] = [int(x) for x in prm_gpu_iter.menuItems()]
+            current_index: int = gpu_iter_items.index(prm_gpu_iter.eval())
+
+            index: int = (
+                (current_index + 1) % len(gpu_iter_items)
+                if shiftclick
+                else (current_index - 1) % len(gpu_iter_items)
+            )
+            
+            flam3h_prm_utils.set(node, prm_gpu_iter, gpu_iter_items[index])
+            
+            self.flash_message(node, f"GPU: {gpu_iter_items[index]}")
+            _MSG: str = f"{node.name()} -> GPU iterations set to: {gpu_iter_items[index]}"
+            self.set_status_msg(_MSG, 'MSG')
+            
+            
+    def cpu_switch_to_gpu(self) -> None:
+        """Switch to GPU mode if the CPU mode is currently ON.</br>
         
-        self.flash_message(node, f"GPU: {gpu_iter_items[index]}")
-        _MSG: str = f"{node.name()} -> GPU iterations set to: {gpu_iter_items[index]}"
-        self.set_status_msg(_MSG, 'MSG')
+        Args:
+            (self):
+            
+        Returns:
+            (None):                            
+        """ 
+        
+        self.node.parm(f3h_tabs.PREFS.PRM_GPU).set(1)
 
 
     def menus_refresh_enum_prefs(self) -> None:
