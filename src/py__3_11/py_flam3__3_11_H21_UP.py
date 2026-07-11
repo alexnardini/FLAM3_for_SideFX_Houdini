@@ -18523,6 +18523,12 @@ class in_flame_utils
             (str): The string message to print into the IN infos stats for the loaded Flame preset.
         """   
         vars_used_heading: str = 'Variations used:'
+        
+        _BLUR_PRE_NAME: str = 'Pre_blur_pre' # This is the final name the Blur variation will have when used inside the PRE section.
+        # We are goint to remove the "Pre_" prefix so to not mistake it with the standard "Pre_blur" variation
+        blur_pre_idx: int = vars_used.index(_BLUR_PRE_NAME) if _BLUR_PRE_NAME in vars_used else -1
+        if blur_pre_idx != -1: vars_used[blur_pre_idx] = 'Blur_pre'
+        
         result_grp: TA_STR_ListUnflattened = [vars_used[i:i + grp_num] for i in range(0, len(vars_used), grp_num)]  
         vars_used_msg: str = f"{vars_used_heading} {int(len(vars_used))}\n{self.in_util_join_vars_grp(result_grp)}"
         
