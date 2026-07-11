@@ -3838,7 +3838,7 @@ static float2 CL_V_POINT_SYMMETRY(
     __private const float4 ptsym    // order, center_x, center_y
     )
 {
-    float order, twoPiDivOrder, angle, dx, dy, sa, ca, x, y;
+    float order, twoPiDivOrder, dx, dy, sa, ca, x, y;
 
     order = Zeps(ptsym.x);
 #if USE_NATIVE
@@ -3847,13 +3847,12 @@ static float2 CL_V_POINT_SYMMETRY(
     twoPiDivOrder = M_TAU / order;
 #endif
     int k = (int)(rng_next_float(state) * order);
-    angle = k * twoPiDivOrder;
 
     float cx = ptsym.y;
     float cy = ptsym.z;
     dx = (in.x - cx) * w;
     dy = (in.y - cy) * w;
-    sincos_fast(angle, &sa, &ca);
+    sincos_fast(k * twoPiDivOrder, &sa, &ca);
 #if USE_FMA
     x = fma(dx, ca, dy * sa);
     y = fma(dy, ca, -dx * sa);
