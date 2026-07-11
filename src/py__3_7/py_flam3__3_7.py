@@ -12548,6 +12548,7 @@ VARS_FLAM3_DICT_IDX: dict[str, int] = { "linear": 0,
                                         "cylinder": 24,
                                         "eyefish": 25,
                                         "blur": 26,
+                                        "blur_pre": 26,    # This is a FLAM3H™ only variation to allow to use "Blur" variation in the PRE section without loading back the standard "pre_blur" instead, just like Chaotica does. Unfortunately Fractorium does not have this variation available in the PRE section yet, but only in VAR and POST sections.
                                         "curl": 27,
                                         "ngon": 28,
                                         "pdj": 29,
@@ -18056,7 +18057,8 @@ class out_flame_utils
                             WEIGHTS_tuple: tuple, 
                             XFORM: lxmlET.Element, # type: ignore
                             MP_IDX: str, 
-                            FUNC: Callable) -> list[str]:
+                            FUNC: Callable, 
+                            BLUR_PRE: bool = False) -> list[str]:
 * out_build_XML(self, flame: lxmlET._Element, msg: bool = True) -> bool:
 * out_XML_to_var(self, msg: bool = True) -> str:
 * out_userData_XML_last_loaded(self, data_name: str = FLAM3H_USER_DATA_XML_LAST, flame_name: Union[str, None] = None) -> None:
@@ -20139,17 +20141,27 @@ class out_flame_utils
                                     WEIGHTS_tuple: tuple, 
                                     XFORM: lxmlET.Element, # type: ignore
                                     MP_IDX: str, 
-                                    FUNC: Callable) -> list[str]:
-        """Set this iterator variations types parameters, weights parameters and their parametric parameters inside the xform (lxmlET.Element) to be written out into the XML file.
+                                    FUNC: Callable, 
+                                    BLUR_PRE: bool = False) -> list[str]:
+        """Set this iterator variations:
+        * types parameters
+        * weights parameters and their parametric parameters
+        
+        inside the xform (lxmlET._Element) to be written out into the XML file.
+        
         It will also return a list of used variations in the provided iterator/xform.
         
         Args:
             varsPRM(tuple): FLAM3H™ variation's types and their parametric parameters names.
-            TYPES_tuple(tuple): FLAM3H™ variation's types parameters names.
-            WEIGHTS_tuple(tuple): FLAM3H™ variation's weights parameters names.
-            XFORM(lxmlET.Element): The current xform (lxmlET.Element) to populate.
+            TYPES_tuple(tuple[str, ...]): FLAM3H™ variation's types parameters names.
+            WEIGHTS_tuple(tuple[tuple[str, int], ...]): FLAM3H™ variation's weights parameters names.
+            XFORM(lxmlET._Element): The current xform (lxmlET._Element) to populate.
             MP_IDX(str): Current multiparameter index
-            FUNC(Callable): Callable definition to convert variation's names between VAR, PRE and POST: in_flame_utils.in_util_make_NULL, in_flame_utils.in_util_make_PRE, in_flame_utils.in_util_make_POST
+            FUNC(Callable): Callable definition to convert variation's names between VAR, PRE and POST.</br>
+                - in_flame_utils.in_util_make_NULL
+                - in_flame_utils.in_util_make_PRE
+                - in_flame_utils.in_util_make_POST
+            BLUR_PRE(bool): Default to: <b>False</b></br>True to check if the "<b>Blur</b>" variation is being used in the PRE section</br>so we can properly load it back instead of loading it back as the standard "<b>pre_blur</b>" variation.
 
         Returns:
             (list[str]): List of used variation in this iterator/xform
@@ -20162,7 +20174,10 @@ class out_flame_utils
                 v_type: int = node.parm(f"{TYPES_tuple[idx]}{MP_IDX}").eval()
                 v_name: str = in_flame_utils.in_get_dict_key_from_value(VARS_FLAM3_DICT_IDX, v_type)
                 names.append(v_name)
-                XFORM.set(FUNC(v_name), self.out_util_round_float(prm_w))
+                if BLUR_PRE:
+                    XFORM.set(FUNC(f"{v_name}_pre") if v_type == 26 else FUNC(v_name), self.out_util_round_float(prm_w))
+                else:
+                    XFORM.set(FUNC(v_name), self.out_util_round_float(prm_w))
                 vars_prm: tuple = varsPRM[v_type]
                 if vars_prm[-1]:
                     f3h_prm: tuple = varsPRM[v_type][1:-1]
@@ -20241,7 +20256,7 @@ class out_flame_utils
                 xf.set(XML_XF_OPACITY, f3d.xf_opacity[iter])
                 f3h_iter = flam3h_iterator()
                 names_VARS.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_varsT, f3h_iter.sec_varsW, xf, mp_idx, in_flame_utils.in_util_make_NULL))
-                names_VARS_PRE.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_prevarsT, f3h_iter.sec_prevarsW[1:], xf, mp_idx, in_flame_utils.in_util_make_PRE))
+                names_VARS_PRE.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_prevarsT, f3h_iter.sec_prevarsW[1:], xf, mp_idx, in_flame_utils.in_util_make_PRE, True))
                 names_VARS_POST.append(self.out_populate_xform_vars_XML(flam3h_varsPRM().varsPRM, f3h_iter.sec_postvarsT, f3h_iter.sec_postvarsW, xf, mp_idx, in_flame_utils.in_util_make_POST))
         
         # SET finalxform (FF)
@@ -20267,7 +20282,7 @@ class out_flame_utils
                     finalxf.set(XML_FLAM3H_POST_AFFINE_ANGLE, f3d.finalxf_f3h_postaffine_angle)
             f3h_iter_FF = flam3h_iterator_FF()
             names_VARS_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM}").varsPRM_FF(), f3h_iter_FF.sec_varsT_FF, f3h_iter_FF.sec_varsW_FF, finalxf, '', in_flame_utils.in_util_make_NULL)
-            names_VARS_PRE_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), f3h_iter_FF.sec_prevarsT_FF, f3h_iter_FF.sec_prevarsW_FF, finalxf, '', in_flame_utils.in_util_make_PRE)
+            names_VARS_PRE_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), f3h_iter_FF.sec_prevarsT_FF, f3h_iter_FF.sec_prevarsW_FF, finalxf, '', in_flame_utils.in_util_make_PRE, True)
             names_VARS_POST_FF = self.out_populate_xform_vars_XML(flam3h_varsPRM_FF(f"{PRX_FF_PRM_POST}").varsPRM_FF(), f3h_iter_FF.sec_postvarsT_FF, f3h_iter_FF.sec_postvarsW_FF, finalxf, '', in_flame_utils.in_util_make_POST)
         
         # SET palette
