@@ -151,7 +151,8 @@ else:
     ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
     IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-    Tested on:  PYTHON v3.11.7  (H21)
+    Tested on:  PYTHON v3.11.7  (H21.0)
+                PYTHON v3.13.10 (H22.0)
 
     Title:      SideFX Houdini FLAM3H™USD H21 UP
     Author:     F stands for liFe ( made in Italy )

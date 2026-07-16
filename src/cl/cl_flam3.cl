@@ -17,6 +17,7 @@
  /
  /  Tested on:  Houdini 20.5
  /              Houdini 21.0
+ /              Houdini 22.0
  /
  /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
  /  Author:     Alessandro Nardini

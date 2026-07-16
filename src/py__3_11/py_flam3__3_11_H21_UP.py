@@ -202,6 +202,7 @@ else:
     IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
     Tested on:  PYTHON v3.11.7  (H21.0)
+                PYTHON v3.13.10 (H22.0)
 
     Title:      FLAM3H™ H210 UP. SideFX Houdini FLAM3: PYTHON
     Author:     F stands for liFe ( made in Italy )
