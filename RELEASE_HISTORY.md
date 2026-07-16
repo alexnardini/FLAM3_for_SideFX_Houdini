@@ -36,6 +36,34 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v2.0.37 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.37) ###
+
+#### FLAM3H™ v2.0.37 indie -> H22.0 UP</br>FLAM3H™ v2.0.35 indie -> H21.0</br>FLAM3H™ v2.0.29 indie -> H20.5</br>FLAM3H™ v1.9.84 indie -> H19.0 to H20 ####
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+- **New**: Added FLAM3H™ for **H22.0** version.
+- **New H22.0 Only**: Reworked a little the iterators/FF UI parameter interface.
+- **New**: Recompiled all **Cvex** code using the latest **H22.0.368** vcc compiler (_No major changes but for piece of mind_).
+- **New**: Updated Houdini version' compatibilities ranges for each HDA (FLAM3H™ and FLAM3H™USD).
+- **Updated HDA documentation.**
+- **Updated GIT documentation.**
+
+#### FLAM3H™USD v0.2.60 indie -> H22.0 UP</br>FLAM3H™USD v0.2.59 indie -> H21.0</br>FLAM3H™USD v0.2.55 indie -> H20.5</br>FLAM3H™USD v0.2.49 indie -> H19.0 to H20 ####
+
+- **New**: Added FLAM3H™USD for **H22.0** version.
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v2.0.35 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.35) ###
 
 #### FLAM3H™ v2.0.35 indie -> H21.0 UP</br>FLAM3H™ v2.0.29 indie -> H20.5</br>FLAM3H™ v1.9.84 indie -> H19.0 to H20 ####
