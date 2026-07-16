@@ -11052,7 +11052,16 @@ class flam3h_iterator_utils
             (None):
         """
         node: hou.SopNode = self.node
-        s_mp_index: int = self.kwargs['script_multiparm_index']
+        
+        if flam3h_general_utils.houdini_version(2) < 220:
+            shiftclick: bool = self.kwargs.get('shift', False)
+            ctrlclick: bool = self.kwargs.get('ctrl', False)
+            s_mp_index: int = self.kwargs['script_multiparm_index']
+        else:
+            shiftclick: bool = self.kwargs.get('shiftclick', False)
+            ctrlclick: bool = self.kwargs.get('ctrlclick', False)
+            s_mp_index: int = int(self.kwargs['script_multiparm_index'])
+            
         # iterators count
         mp_prm: hou.Parm = self.node.parm(f3h_tabs.PRM_ITERATORS_COUNT)
         mp_prm.lock(False)
@@ -11067,7 +11076,7 @@ class flam3h_iterator_utils
             flam3h_prm_utils.set(node, prm_mpmem, str(mp_id))
         
         # INSERT AFTER
-        if self.kwargs["shift"]:
+        if shiftclick:
 
             mp_prm.insertMultiParmInstance(s_mp_index)
             
@@ -11080,7 +11089,7 @@ class flam3h_iterator_utils
                 pass # Most likely not a parameter editor in its own pane tab or floating panel in Houdini versions prior to 21.0.489
         
         # DELETE THIS INSTANCE
-        elif self.kwargs['ctrl']:
+        elif ctrlclick:
 
             mp_prm.removeMultiParmInstance(s_mp_index - 1)
 

@@ -1,0 +1,93 @@
+/*
+ /  ███████╗██╗░░░░░░█████╗░███╗░░░███╗██████╗░██╗░░██╗
+ /  ██╔════╝██║░░░░░██╔══██╗████╗░████║╚════██╗██║░░██║
+ /  █████╗░░██║░░░░░███████║██╔████╔██║░█████╔╝███████║
+ /  ██╔══╝░░██║░░░░░██╔══██║██║╚██╔╝██║░╚═══██╗██╔══██║
+ /  ██║░░░░░███████╗██║░░██║██║░╚═╝░██║██████╔╝██║░░██║
+ /  ╚═╝░░░░░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝
+ /
+ /  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ /  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ /  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ /  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ /  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ /  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
+ /  IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ /
+ /  Tested on:  Houdini 19.0
+ /              Houdini 19.5
+ /              Houdini 20.0
+ /              Houdini 20.5
+ /              Houdini 21.0
+ /
+ /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
+ /  Author:     Alessandro Nardini
+ /  date:       October 2020, Last revised May 2022
+ /  License:    GPL
+ /  Copyright:  2021, © F stands for liFe ( made in Italy )
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm"
+ /  Authors:    Scott Draves, Erik Reckase
+ /
+ /  Paper:      https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Github:     https://github.com/scottdraves/flam3
+ /  Date:       December 2002, Last revised May 2015
+ /
+ /  Name:       CAMHANDLES "CVEX"
+ /
+ /  Comment:    Camera handles.
+*/
+
+
+#pragma opname  "TFFAcamhandles"
+#pragma oplabel "TFFAcamhandles"
+#pragma opmininputs 1
+#pragma opmaxinputs 1
+
+
+void
+_TFFAcamhandles(vector4 _bound_orient)
+{
+
+    float   n_pscale, f_pscale;
+    vector  center_from_NDC, cam_center, cam_pos, cam_dir,
+            px, py, pz, x, y, z,
+            near_pos, far_pos;
+
+    string CAM = chs("fcam");
+    float hp = ch(concat(CAM, "/near"))+0.05;
+    center_from_NDC = set(0.5, 0.5, -1);
+    cam_center = fromNDC(CAM, center_from_NDC);
+    cam_pos = point(1, "P", 0);
+    cam_dir = normalize(cam_pos - cam_center);
+    px = fromNDC(CAM, set(1, 0.5, -1));
+    py = fromNDC(CAM, set(0.5, 1, -1));
+    pz = cam_center + cam_dir;
+    x = normalize(px - cam_center);
+    y = normalize(py - cam_center);
+    z = normalize(pz - cam_center);
+
+    matrix3 m3 = set(x, y, z);
+    _bound_orient = quaternion(m3);
+
+    far_pos=near_pos=cam_pos - (cam_dir * hp);
+    int near = addpoint(0, near_pos);
+    int far = addpoint(0, far_pos);
+    f_pscale=n_pscale=distance(cam_pos, near_pos);
+    setpointattrib(0, "orient", near, _bound_orient, "set");
+    setpointattrib(0, "Cd", near, {1,0.7,0}, "set");
+    setpointattrib(0, "pscale", near, (float)0.19 * n_pscale, "set");
+    setpointattrib(0, "orient", far, _bound_orient, "set");
+    setpointattrib(0, "Cd", far, {1,1,1}, "set");
+    setpointattrib(0, "pscale", far, (float)0.22 * f_pscale, "set");
+    // remove init pt
+    removepoint(0, 0);
+}
+
+cvex
+TFFAcamhandles(export vector4 orient = {0,0,0,1})
+{
+    _TFFAcamhandles(orient);
+}

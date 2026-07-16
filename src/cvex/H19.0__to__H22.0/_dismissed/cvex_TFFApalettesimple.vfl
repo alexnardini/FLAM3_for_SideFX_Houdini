@@ -1,0 +1,81 @@
+/*
+ /  ███████╗██╗░░░░░░█████╗░███╗░░░███╗██████╗░██╗░░██╗
+ /  ██╔════╝██║░░░░░██╔══██╗████╗░████║╚════██╗██║░░██║
+ /  █████╗░░██║░░░░░███████║██╔████╔██║░█████╔╝███████║
+ /  ██╔══╝░░██║░░░░░██╔══██║██║╚██╔╝██║░╚═══██╗██╔══██║
+ /  ██║░░░░░███████╗██║░░██║██║░╚═╝░██║██████╔╝██║░░██║
+ /  ╚═╝░░░░░╚══════╝╚═╝░░╚═╝╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝
+ /
+ /  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ /  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ /  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ /  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ /  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ /  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
+ /  IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ /
+ /  Tested on:  Houdini 19.0
+ /              Houdini 19.5
+ /              Houdini 20.0
+ /              Houdini 20.5
+ /              Houdini 21.0
+ /
+ /  Title:      FLAM3H™. SideFX Houdini FLAM3: 2D
+ /  Author:     Alessandro Nardini
+ /  date:       October 2020, Last revised May 2022
+ /  License:    GPL
+ /  Copyright:  2021, © F stands for liFe ( made in Italy )
+ /
+ /  info:       Based on the original: "The Fractal Flame Algorithm"
+ /  Authors:    Scott Draves, Erik Reckase
+ /
+ /  Paper:      https://flam3.com/flame_draves.pdf
+ /  Date:       September 2003, Last revised November 2008
+ /
+ /  Github:     https://github.com/scottdraves/flam3
+ /  Date:       December 2002, Last revised May 2015
+ /
+ /  Name:       PALETTESIMPLE "CVEX"
+ /
+ /  Comment:    THIS IS NOT USED ANYMORE: I'll leave it as it may come handy again.
+*/
+
+
+#pragma opname  "TFFApalettesimple"
+#pragma oplabel "TFFApalettesimple"
+#pragma opmininputs 1
+#pragma opmaxinputs 1
+
+void
+_TFFApalettesimple(const float _bound_clr; float _bound_Alpha; vector _bound_Cd; const float _bound_mb_mod)
+{
+    int domb, vizmb;
+    float mb_mod = _bound_mb_mod;
+    vector color, HSV;
+    HSV  = chv("hsv");
+    domb   = chi("domb");
+    vizmb  = chi("vizmb");
+
+    float clr = _bound_clr;
+    float alpha = _bound_Alpha;
+    color = chramp("palette", clr);
+    if(HSV[0]!=1 || HSV[1]!=1 || HSV[2]!=1){
+        vector clrHSV = rgbtohsv(color);
+        clrHSV[0] += HSV[0];
+        clrHSV[1] *= HSV[1];
+        clrHSV[2] *= HSV[2];
+        color = hsvtorgb(clrHSV);
+    }
+    if(domb && vizmb){ color*=mb_mod; alpha*=mb_mod; }
+    _bound_Cd = color;
+    _bound_Alpha = alpha;
+}
+
+cvex
+TFFApalettesimple( const float clr = 0;
+                   export float Alpha = 0;
+	               export vector Cd = 1;
+	               const float mb_mod = 0)
+{
+    _TFFApalettesimple(clr, Alpha, Cd, mb_mod);
+}

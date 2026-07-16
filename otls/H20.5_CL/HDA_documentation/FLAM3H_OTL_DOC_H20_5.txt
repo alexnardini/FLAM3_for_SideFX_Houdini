@@ -6,7 +6,7 @@
 #version: 2.0.29 - Production
 
 """The Fractal Flame Algorithm: FLAM3 - Create fractal art in Houdini 
-( vcc compiler: v21.0.770 )"""
+( vcc compiler: v22.0.368 )"""
 
 == Welcome to FLAM3 for SideFX Houdini - aka: FLAM3H(tm) ==
 ( _For H20.5 only_ )
