@@ -4271,6 +4271,7 @@ class flam3h_general_utils
         if ctrlclick:
             
             node.parm(f3h_tabs.PREFS.PRM_GPU).set(0)
+            out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
 
         else:
             
@@ -4302,6 +4303,7 @@ class flam3h_general_utils
         """ 
         
         self.node.parm(f3h_tabs.PREFS.PRM_GPU).set(1)
+        out_flame_utils(self.kwargs).out_auto_change_iter_num_to_prm()
 
 
     def menus_refresh_enum_prefs(self) -> None:
