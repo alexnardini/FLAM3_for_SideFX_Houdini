@@ -32,7 +32,7 @@ This documentation adopt the use of badges to signal some parameter's types and 
 
 _Below a list of the currently adopted badges and their meaning_:
 
-- [Icon:BUTTONS/pane_menu] it is either a menu or a mini-menu.
+- [Icon:BUTTONS/ramp_presets] it is either a menu or a mini-menu.
 
 - [Icon:opdef:.?icon_actionButtonSVG.svg] it is an Action button.
 
@@ -193,7 +193,7 @@ Dark [Icon:DATATYPES/boolean]:
 
     <br />
     
-menu Renderer [Icon:BUTTONS/pane_menu]:
+menu Renderer [Icon:BUTTONS/ramp_presets]:
     #id: PREFS
     Select from a variety of Hydra renderers.
 
@@ -228,7 +228,7 @@ Force renderer [Icon:opdef:.?icon_actionButtonSVG.svg]:
     
     == PREFS: Renderer Houdini == (OPTIONSGL)
     
-menu Display [Icon:BUTTONS/pane_menu]:
+menu Display [Icon:BUTTONS/ramp_presets]:
     #id: PREFS
     Either points or pixels should be selected for the viewport particle display mode.
 
@@ -361,7 +361,7 @@ Reset pixel samples [Icon:opdef:.?icon_actionButtonSVG.svg]:
 
     <br />
     
-menu Denoiser [Icon:BUTTONS/pane_menu]:
+menu Denoiser [Icon:BUTTONS/ramp_presets]:
     #id: PREFS
     Options to choose from the available Karma denoisers.
 
@@ -435,7 +435,7 @@ Shader parameters:
     
     == PREFS: Renderer Karma Tone map == (OPTIONSTONEMAP)
 
-menu Presets [Icon:BUTTONS/pane_menu]:
+menu Presets [Icon:BUTTONS/ramp_presets]:
     #id: PREFS
     This is a parameter menu with some tone mapping presets to apply to the interactive viewport rendering image.
 
