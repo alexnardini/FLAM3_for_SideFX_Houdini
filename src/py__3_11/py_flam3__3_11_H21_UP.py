@@ -13238,20 +13238,38 @@ Praveen Brijwal"""
                                 Platform
                                 )
         
-        # GPU section is only available in Houdini 21.0 and above since it relies on the "gpumem" hscript command that was added in this version.
-        if flam3h_general_utils.houdini_version(2) >= 210:
+        gpu_section_header: str = 'GPU DEVICES'
+        
+        h_version: int = flam3h_general_utils.houdini_version(2)
+        if h_version == 210:
+            # GPU section is only available in Houdini 21.0 and above since it relies on the "gpumem" hscript command that was added in this version.
             
-            gpu_section_header: str = 'GPU DEVICES'
-            gpu_devices_gpumem: list[str] = hou.hscript('gpumem -l')
-            if 'unknown' in gpu_devices_gpumem[-1].lower():
+            gpu_devices: list[str] = hou.hscript('gpumem -l')
+            if 'unknown' in gpu_devices[-1].lower():
                 print(f"{self.node.name()}: Error while trying to get GPU devices info with the \"gpumem\" hscript command.\nThis command should be available in Houdini 21.0 and above.")
                 pass 
             else:
-                gpu_devices: str = '\n'.join([x[:-1] for x in gpu_devices_gpumem if x])
+                gpu_devices_str: str = '\n'.join([x[:-1] for x in gpu_devices if x])
                 
                 build += (  nnl, 
                             gpu_section_header, nl, 
-                            gpu_devices
+                            gpu_devices_str
+                            )
+         
+        elif h_version >= 220:
+            # Houdini 22.0 added OpenCL devices queries directly to their HOM python API, so we can use it to get the GPU devices info.
+            
+            gpu_devices: tuple[hou.openCLDevice, ...] = hou.opencl.devices(hou.openCLDeviceType.GPU)
+            if gpu_devices:
+                gpu_devices_build: list = []
+                for gpu in gpu_devices:
+                    gpu_devices_build.append(f"{gpu.label()} - Driver: {gpu.driverVersion()}")
+                
+                gpu_devices_str: str = gpu_devices_build[0] if len(gpu_devices_build) == 1 else '\n'.join(gpu_devices_build)
+                
+                build += (  nnl, 
+                            gpu_section_header, nl, 
+                            gpu_devices_str
                             )
         
         flam3h_prm_utils.set(self.node, f3h_tabs.ABOUT.MSG_PRM_F3H_ABOUT, ''.join(build))
