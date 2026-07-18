@@ -2,12 +2,11 @@
     "python.analysis.typeCheckingMode": "basic",
     "python.analysis.diagnosticMode": "openFilesOnly",
 
-    "python.defaultInterpreterPath": "C:/Program Files/Side Effects Software/Houdini 22.0.368/python313/python3.13.exe",
-    "python.autoComplete.extraPaths":[
-        "C:/Program Files/Side Effects Software/Houdini 22.0.368/houdini/python3.13libs"
-    ], 
-    "python.analysis.extraPaths":[
-        "C:/Program Files/Side Effects Software/Houdini 22.0.368/houdini/python3.13libs"
+    "python.defaultInterpreterPath": "C:/Users/alexnardini/AppData/Local/Programs/Python/Python313/python.exe",
+
+    "python.analysis.extraPaths": [
+        "C:/Program Files/Side Effects Software/Houdini 22.0.368/houdini/python3.13libs",
+        "C:/Users/alexnardini/AppData/Local/Programs/Python/Python313/Lib/site-packages"
     ],
     
     "python.analysis.diagnosticSeverityOverrides": {
