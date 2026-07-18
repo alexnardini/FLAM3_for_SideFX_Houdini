@@ -23797,7 +23797,7 @@ class out_flame_xforms_data(out_flame_utils):
 ##########################################
 
 
-class SvgIcon(QtWidgets.QWidget): # pyright: ignore -> this is becasue the import branches at the top
+class SvgIcon(QtWidgets.QWidget): # pyright: ignore[reportGeneralTypeIssues]  # this is becasue the import branches at the top
     """A QWidget for displaying an SVG image.</br></br>
 
     This widget wraps a QSvgRenderer to render SVG content inside a QWidget.</br>
@@ -23942,7 +23942,7 @@ class pyside_master:
     
     """ 
     
-    class F3H_msg_panel(QtWidgets.QWidget): # pyright: ignore -> this is becasue the import branches at the top
+    class F3H_msg_panel(QtWidgets.QWidget): # pyright: ignore[reportGeneralTypeIssues]  # this is becasue the import branches at the top
         """A default PySide meassage panel.</br></br>
 
         Can be used in different scenarios to display a short message nicely.</br></br>

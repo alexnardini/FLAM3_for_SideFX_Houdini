@@ -165,11 +165,16 @@ def py_module_vars() -> str:
         (None):
     """ 
     h: int = houdini_version(2)
-    if h < 205: 
-        __module_filename__: str = "py_flam3__3_7"
+    
+    __module_filename__: str
+    
+    if h < 205:
+        __module_filename__ = "py_flam3__3_7"
+    elif h < 220:
+        __module_filename__ = "py_flam3__3_11_H21_UP"
     else:
-        __module_filename__: str = "py_flam3__3_11_H21_UP"
-
+        __module_filename__ = "py_flam3__3_13"
+    
     return __module_filename__
 
 
