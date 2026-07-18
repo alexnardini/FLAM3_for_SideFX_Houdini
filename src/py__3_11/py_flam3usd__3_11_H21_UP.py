@@ -38,7 +38,6 @@ else:
     __pyside_version__ = 6
 
 from typing import (
-    TYPE_CHECKING,
     Any,
     Final,
     Callable,
