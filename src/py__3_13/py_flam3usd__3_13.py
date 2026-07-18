@@ -2988,7 +2988,6 @@ class pyside_master:
                      ):
             super().__init__(parent)
             
-            from typing import cast
             app = cast(QtWidgets.QApplication | None, QtWidgets.QApplication.instance())
             if app:
                 
@@ -3084,7 +3083,6 @@ class pyside_master:
         def _center_window(self) -> None:
             
             try:
-                from typing import cast
                 main_win: QtWidgets.QMainWindow = cast(
                     QtWidgets.QMainWindow,
                     hou.qt.mainWindow()  # pyright: ignore[reportAttributeAccessIssue]
