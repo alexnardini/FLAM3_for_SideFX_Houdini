@@ -35,20 +35,17 @@ import builtins
 
 __pyside_version__: int | None = None
 try:
-    from PySide6 import QtWidgets, QtGui, QtCore
-    __pyside_version__ = 6
-except ImportError:
-    try:
-        from PySide2 import QtWidgets, QtGui, QtCore
-        __pyside_version__ = 2
-    except ImportError:
-        pass
-    else:
-        from PySide2.QtSvg import QSvgRenderer
-        from PySide2.QtGui import QPainter
-else:
-    from PySide6.QtSvg import QSvgRenderer
+    from PySide6 import QtCore, QtGui, QtWidgets
     from PySide6.QtGui import QPainter
+    from PySide6.QtSvg import QSvgRenderer
+except ImportError:
+    from PySide2 import QtCore, QtGui, QtWidgets
+    from PySide2.QtGui import QPainter
+    from PySide2.QtSvg import QSvgRenderer
+
+    __pyside_version__ = 2
+else:
+    __pyside_version__ = 6
 
 
 # Lets get some data from the HDA python module section
