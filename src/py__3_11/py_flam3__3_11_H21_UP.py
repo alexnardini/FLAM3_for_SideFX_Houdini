@@ -60,7 +60,6 @@ from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
 
 from typing import (
-    TYPE_CHECKING,
     Any,
     Final,
     Never,
