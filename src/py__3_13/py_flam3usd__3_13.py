@@ -39,11 +39,11 @@ else:
 
 from typing import (
     Any,
+    cast,
     Final,
     Callable,
     Protocol,
     Type,
-    TypeAlias,
 )
 
 
@@ -400,7 +400,7 @@ class f3h_prm_utils
             prm.lock(False)
             prm.deleteAllKeyframes()
             if revertToDefaults: prm.revertToDefaults()
-            else: prm.set(data) # type: ignore
+            else: prm.set(data) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
             
         else:
             print(f"{node.name()}: The passed in parameter is not valid:\n{_prm}")
@@ -431,7 +431,7 @@ class f3h_prm_utils
                 if revertToDefaults: prm.revertToDefaults()
         
         if prm is not None and not revertToDefaults:
-            node.setParms(  # type: ignore
+            node.setParms(  # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
                             parms_dict
                             ) 
         else:
@@ -460,7 +460,7 @@ class f3h_prm_utils
             prm.lock(False)
             prm.deleteAllKeyframes()
             if revertToDefaults: prm.revertToDefaults()
-            else: prm.set(data) # type: ignore # the set method for the hou.Parm exist but it is not recognized
+            else: prm.set(data) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
             prm.lock(True)
             
         else:
@@ -576,7 +576,7 @@ class flam3husd_scripts
         if node.parm(f3husd_tabs.PREFS.PVT_PRM_H_VALID).eval():
             
             # displayFlag
-            display_flag: bool = node.isGenericFlagSet(hou.nodeFlag.Display) # type: ignore
+            display_flag: bool = node.isGenericFlagSet(hou.nodeFlag.Display) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
                 
             f3h_all_instances: tuple[hou.SopNode, ...] = hou.nodeType(f3h_hda.F3H_NODE_TYPE_NAME_CATEGORY).instances()
             if f3h_all_instances:
@@ -775,7 +775,17 @@ class flam3husd_scripts
                     _MSG_H_VERSIONS = f"H{flam3husd_scripts.flam3husd_h_versions_build_data(__h_versions__)} and up"
     
         if msg and hou.isUIAvailable() and not _DUNDER:
-            hou.ui.displayMessage(f"Sorry, You need {_MSG_H_VERSIONS} to run this FLAM3H™USD version", buttons=("Got it, thank you",), severity=hou.severityType.Error, default_choice=0, close_choice=-1, help=None, title="FLAM3H™USD Houdini version check", details=None, details_label=None, details_expanded=False) # type: ignore
+            hou.ui.displayMessage(
+                f"Sorry, You need {_MSG_H_VERSIONS} to run this FLAM3H™USD version", # pyright: ignore[reportArgumentType]
+                buttons=("Got it, thank you",), 
+                severity=hou.severityType.Error, # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+                default_choice=0, close_choice=-1, 
+                help=None, 
+                title="FLAM3H™USD Houdini version check", 
+                details=None, 
+                details_label=None, 
+                details_expanded=False
+            )
 
         return _MSG_H_VERSIONS
 
@@ -809,14 +819,14 @@ class flam3husd_scripts
         elif h_version > __h_version_max__:
             
             try:
-                _H_VERSION_ALLOWED: bool =  hou.session.F3HUSD_H_VERSION_ALLOWED # type: ignore
+                _H_VERSION_ALLOWED: bool =  hou.session.F3HUSD_H_VERSION_ALLOWED # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
             except AttributeError:
                 _H_VERSION_ALLOWED: bool = False
             
             if _H_VERSION_ALLOWED is False:
                 
                 # Do not show me this Display Message window again when creating succesive instances of this HDA
-                hou.session.F3HUSD_H_VERSION_ALLOWED = True # type: ignore
+                hou.session.F3HUSD_H_VERSION_ALLOWED = True # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
                     
                 return True
             
@@ -1028,7 +1038,7 @@ class flam3husd_scripts
         
         # Update dark history
         flam3husd_general_utils.util_store_all_viewers_color_scheme_onCreate() # init Dark viewers data, needed for the next definition to run
-        flam3husd_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
+        flam3husd_general_utils(self.kwargs).colorSchemeDark(False)
         # Set other FLAM3H™USD instances to dark if any
         all_f3husd: tuple[hou.LopNode, ...] = node.type().instances()
         all_f3husd_vpptsize: list[float] = []
@@ -1049,12 +1059,12 @@ class flam3husd_scripts
                     break
         else:
             flam3husd_prm_utils.set(node, f3husd_tabs.PREFS.PRM_VIEWPORT_DARK, 1)
-            flam3husd_general_utils(self.kwargs).colorSchemeDark(False) # type: ignore
+            flam3husd_general_utils(self.kwargs).colorSchemeDark(False)
     
         # If we collected some data, set
         if all_f3husd_vpptsize:
             
-            parms_dict: dict = {f3husd_tabs.PREFS.PRM_VIEWPORT_PT_SIZE: all_f3husd_vpptsize[0], # type: ignore
+            parms_dict: dict = {f3husd_tabs.PREFS.PRM_VIEWPORT_PT_SIZE: all_f3husd_vpptsize[0], 
                                 f3husd_tabs.PREFS.PRM_VIEWPORT_PT_TYPE: all_f3husd_vptype[0]
                                 }
             flam3husd_prm_utils.setParms(node, parms_dict)
@@ -1064,7 +1074,7 @@ class flam3husd_scripts
             flam3husd_prm_utils.private_prm_set(node, f3husd_tabs.PREFS.PVT_PRM_VIEWPORT_PT_TYPE_MEM, all_f3husd_vptype[0])
             
         else:
-            Pixels = hou.viewportParticleDisplay.Pixels # type: ignore
+            Pixels = hou.viewportParticleDisplay.Pixels # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
             
             for view in flam3husd_general_utils.util_getSceneViewers():
                 
@@ -1123,14 +1133,14 @@ class flam3husd_scripts
             _MSG_ABOUT = _MSG
         
         # Set proper messages in the about tabs
-        parms_dict: dict = {f3husd_tabs.PREFS.MSG_PRM_ERROR: _MSG_ABOUT, # type: ignore
+        parms_dict: dict = {f3husd_tabs.PREFS.MSG_PRM_ERROR: _MSG_ABOUT, 
                             f3husd_tabs.ABOUT.MSG_PRM_ABOUT_ERROR: _MSG_ABOUT
                             }
         flam3husd_prm_utils.setParms(node, parms_dict)
         flam3husd_about_utils(self.kwargs).flam3husd_about_web_msg()
             
         # ERROR in the status bar
-        if hou.isUIAvailable(): hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # type: ignore
+        if hou.isUIAvailable(): hou.ui.setStatusMessage(_MSG_INFO, hou.severityType.Error) # pyright: ignore[reportArgumentType, reportAttributeAccessIssue]  # Houdini HOM API
 
 
     def flam3husd_on_create(self) -> None:
@@ -1191,7 +1201,7 @@ class flam3husd_scripts
         """
         
         # For now we set both cases the same
-        if hou.hipFile.isLoadingHipFile(): #type: ignore
+        if hou.hipFile.isLoadingHipFile(): # pyright: ignore[reportCallIssue]  # Houdini HOM API
             self.flam3husd_on_create_compatible_false()
         else:
             self.flam3husd_on_create_compatible_false()
@@ -1226,7 +1236,7 @@ class flam3husd_scripts
             flam3husd_prm_utils.private_prm_set(self.node, h_valid_prm, 1)
             
             # Clear messages just in case
-            parms_dict: dict = {f3husd_tabs.PREFS.MSG_PRM_ERROR: '', # type: ignore
+            parms_dict: dict = {f3husd_tabs.PREFS.MSG_PRM_ERROR: '', 
                                 f3husd_tabs.ABOUT.MSG_PRM_ABOUT_ERROR: ''
                                 }
             flam3husd_prm_utils.setParms(node, parms_dict)
@@ -1259,7 +1269,7 @@ class flam3husd_scripts
             # Check if we are importing a valid FLAM3H™ node
             self.flam3husd_is_valid_flam3h_node()
             # When cloning FLAM3H™USD nodes, check if other FLAM3H™USD nodes still have a valid FLAM3H™ node imported and disable them if not.
-            if not hou.hipFile.isLoadingHipFile(): #type: ignore
+            if not hou.hipFile.isLoadingHipFile(): # pyright: ignore[reportCallIssue]  # Houdini HOM API
                 
                 _flam3husd_is_valid_flam3h_node: Callable[[hou.LopNode | None], None] = self.flam3husd_is_valid_flam3h_node
                 for f3husd in self.node.type().instances():
@@ -1300,7 +1310,7 @@ class flam3husd_scripts
         
         for v in views:
             # Store only if it is a Lop viewer
-            if (flam3husd_general_utils.util_is_context('Lop', v) and v.isViewingSceneGraph()) and not hou.hipFile.isLoadingHipFile(): # type: ignore
+            if (flam3husd_general_utils.util_is_context('Lop', v) and v.isViewingSceneGraph()) and not hou.hipFile.isLoadingHipFile(): # pyright: ignore[reportCallIssue]  # Houdini HOM API
                 renderers.append(hou.SceneViewer.currentHydraRenderer(v))
 
         if renderers:
@@ -1396,7 +1406,7 @@ class flam3husd_scripts
             
             # Delete the Houdini update mode data if needed
             try:
-                del hou.session.HUSD_CS_STASH_DICT # type: ignore
+                del hou.session.HUSD_CS_STASH_DICT # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
             except AttributeError:
                 pass
 
@@ -1614,7 +1624,7 @@ class flam3husd_general_utils
         Returns:
             (list): [return a list of open Parmaeter Editors with a FLAM3H™ node on display]
         """    
-        parms: tuple[Any, ...] = hou.ui.paneTabs() # type: ignore
+        parms: tuple[Any, ...] = hou.ui.paneTabs() # pyright: ignore[reportCallIssue]  # Houdini HOM API
         return [p for p in parms if isinstance(p, hou.ParameterEditor) and p.currentNode().type().nameWithCategory() == nodeTypeCategory]
 
 
@@ -1628,7 +1638,7 @@ class flam3husd_general_utils
         Returns:
             (list): [return a list of open scene viewers]
         """    
-        views: tuple[Any, ...] = hou.ui.paneTabs() # type: ignore
+        views: tuple[Any, ...] = hou.ui.paneTabs() # pyright: ignore[reportCallIssue]  # Houdini HOM API
         return [v for v in views if isinstance(v, hou.SceneViewer)]
     
 
@@ -1645,7 +1655,7 @@ class flam3husd_general_utils
         Returns:
             (bool): [True if we are in Solaris and False if we are not.]
         """    
-        context_now: hou.NodeTypeCategory = hou.ui.findPaneTab(viewport.name()).pwd().childTypeCategory() # type: ignore
+        context_now: hou.NodeTypeCategory = hou.ui.findPaneTab(viewport.name()).pwd().childTypeCategory() # pyright: ignore[reportCallIssue]  # Houdini HOM API
         if str(context_now.name()).lower() == context.lower():
             return True
         
@@ -1716,7 +1726,7 @@ class flam3husd_general_utils
             (None):
         """  
         if hou.isUIAvailable():
-            for ne in (p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor): ne.flashMessage(img, msg, timer) # type: ignore
+            for ne in (p for p in hou.ui.paneTabs() if p.type() == hou.paneTabType.NetworkEditor): ne.flashMessage(img, msg, timer) # pyright: ignore[reportCallIssue, reportAttributeAccessIssue]  # Houdini HOM API
             # Force the flash message to appear in any Lop viewers available.
             # This is being done because it is more handy for the user to read the message in the Lop viewers
             # when working through the FLAM3H™USD HDA instead of the network editor that it is usually covered with parameters editor interfaces.
@@ -1744,14 +1754,14 @@ class flam3husd_general_utils
         """
 
         if hou.isUIAvailable():
-            st: dict[str, hou.EnumValue] = { 'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning }  # type: ignore
+            st: dict[str, hou.EnumValue] = { 'MSG': hou.severityType.Message, 'IMP': hou.severityType.ImportantMessage, 'WARN': hou.severityType.Warning }  # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
             severityType: hou.EnumValue | None = st.get(type)
             if severityType is not None:
-                hou.ui.setStatusMessage(msg, st.get(type)) # type: ignore
+                hou.ui.setStatusMessage(msg, st.get(type)) # pyright: ignore[reportArgumentType]
             else:
                 # If the selected severity type is not found, use the default severity type: hou.severityType.Message
                 # This mostly not to make it error out if the user make a typo or such.
-                hou.ui.setStatusMessage(msg, hou.severityType.Message) # type: ignore
+                hou.ui.setStatusMessage(msg, hou.severityType.Message) # pyright: ignore[reportArgumentType, reportAttributeAccessIssue] # Houdini HOM API
         
 
     @staticmethod
@@ -1767,7 +1777,7 @@ class flam3husd_general_utils
         """  
         # Check if the required data exist already
         try:
-            hou.session.HUSD_CS_STASH_DICT # type: ignore
+            hou.session.HUSD_CS_STASH_DICT # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
             _EXIST: bool = True
         except AttributeError:
             _EXIST: bool = False
@@ -1781,24 +1791,24 @@ class flam3husd_general_utils
             
                 settings: hou.GeometryViewportSettings = v.curViewport().settings()
                 _CS: hou.EnumValue = settings.colorScheme()
-                if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                if _CS != hou.viewportColorScheme.Dark: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                     views_scheme.append(_CS)
                     views_keys.append(v.name())
                     
         # Always store and update this data if we collected something
         if views_scheme and views_keys:
-            new: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # type: ignore
+            new: dict[str, hou.viewportColorScheme] = dict(zip(views_keys, views_scheme)) # pyright: ignore[reportAssignmentType]  # Houdini HOM API
             if _EXIST:
                 # Check if it needs an update
-                if new != hou.session.HUSD_CS_STASH_DICT: #type: ignore
-                    __old_to_update: dict[str, hou.viewportColorScheme] = hou.session.HUSD_CS_STASH_DICT.copy() #type: ignore
+                if new != hou.session.HUSD_CS_STASH_DICT: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
+                    __old_to_update: dict[str, hou.viewportColorScheme] = hou.session.HUSD_CS_STASH_DICT.copy() # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                     for key, value in new.items():
-                        if value != hou.viewportColorScheme.Dark: # type: ignore
+                        if value != hou.viewportColorScheme.Dark: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                             if key not in __old_to_update.keys(): __old_to_update[key] = value
-                    hou.session.HUSD_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = __old_to_update #type: ignore
+                    hou.session.HUSD_CS_STASH_DICT = cast(dict[str, hou.viewportColorScheme], __old_to_update) # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
             else:
                 # otherwise create
-                hou.session.HUSD_CS_STASH_DICT: dict[str, hou.viewportColorScheme] = new # type: ignore
+                hou.session.HUSD_CS_STASH_DICT = cast(dict[str, hou.viewportColorScheme], new) # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
 
 
     # CLASS: PROPERTIES
@@ -1996,7 +2006,7 @@ class flam3husd_general_utils
                 
                 curView: hou.GeometryViewport = view.curViewport()
                 settings = curView.settings()
-                settings.setHomeAutoAdjustsClip( hou.viewportHomeClipMode.Neither ) # type: ignore
+                settings.setHomeAutoAdjustsClip( hou.viewportHomeClipMode.Neither ) # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                 settings.setClipPlanes( (0.001, 1000) )
                 settings.homeAutoAdjustClip()
                 settings.clipPlanes()
@@ -2054,8 +2064,8 @@ class flam3husd_general_utils
                     num_viewers_lop = num_viewers_lop + 1
 
                     view: hou.GeometryViewport = v.curViewport()
-                    if view.type() != hou.geometryViewportType.Front: # type: ignore
-                        view.changeType(hou.geometryViewportType.Front) # type: ignore
+                    if view.type() != hou.geometryViewportType.Front: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
+                        view.changeType(hou.geometryViewportType.Front) # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                         
                     if self.bbox_reframe_path is not None:
                         node_bbox: hou.SopNode = hou.node(self.bbox_reframe_path)
@@ -2111,12 +2121,12 @@ class flam3husd_general_utils
                     view = v.curViewport()
                     settings = view.settings()
                     _CS = settings.colorScheme()
-                    if _CS != hou.viewportColorScheme.Dark: # type: ignore
+                    if _CS != hou.viewportColorScheme.Dark: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                         views_scheme.append(_CS)
                         views_keys.append(v.name())
             
             # Always store and update this data
-            hou.session.HUSD_CS_STASH_DICT: dict[str, hou.EnumValue] = dict(zip(views_keys, views_scheme)) # type: ignore
+            hou.session.HUSD_CS_STASH_DICT = cast(dict[str, hou.EnumValue], dict(zip(views_keys, views_scheme))) # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
 
 
     def colorSchemeDark(self, update_others: bool = True) -> None:
@@ -2153,8 +2163,8 @@ class flam3husd_general_utils
                         
                         settings: hou.GeometryViewportSettings = v.curViewport().settings()
                         _CS: hou.EnumValue = settings.colorScheme()
-                        if _CS != hou.viewportColorScheme.Dark: # type: ignore
-                            settings.setColorScheme(hou.viewportColorScheme.Dark) # type: ignore
+                        if _CS != hou.viewportColorScheme.Dark: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
+                            settings.setColorScheme(hou.viewportColorScheme.Dark) # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                             if dark is False: dark = True
                 
                 if lop_viewers:
@@ -2170,14 +2180,14 @@ class flam3husd_general_utils
                 else:
                     flam3husd_prm_utils.set(node, prm, 0)
                     
-                    if not hou.hipFile.isLoadingHipFile(): # type: ignore
+                    if not hou.hipFile.isLoadingHipFile(): # pyright: ignore[reportCallIssue]  # Houdini HOM API
                         _MSG: str = f"No Lop viewers available."
                         self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Lop viewer to either set to Dark or restore.", 'WARN')
                         self.flash_message(f"{_MSG}")
                     
             else:
                 
-                try: _STASH_DICT: dict[str, hou.EnumValue] | None = hou.session.HUSD_CS_STASH_DICT # type: ignore
+                try: _STASH_DICT: dict[str, hou.EnumValue] | None = hou.session.HUSD_CS_STASH_DICT # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                 except AttributeError: _STASH_DICT: dict[str, hou.EnumValue] | None = None
                 
                 dark = False
@@ -2195,7 +2205,7 @@ class flam3husd_general_utils
                             if _STASH is not None:
                                 settings: hou.GeometryViewportSettings = v.curViewport().settings()
                                 _CS: hou.EnumValue = settings.colorScheme()
-                                if _CS == hou.viewportColorScheme.Dark: # type: ignore
+                                if _CS == hou.viewportColorScheme.Dark: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                                     settings.setColorScheme(_STASH)
                                     if dark is False: dark = True
                                 
@@ -2208,7 +2218,7 @@ class flam3husd_general_utils
                     
                     try:
                         
-                        if hou.session.HUSD_CS_STASH_DICT: # type: ignore
+                        if hou.session.HUSD_CS_STASH_DICT: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                             
                             if lop_viewers is False:
                                 flam3husd_prm_utils.set(node, prm, 1)
@@ -2230,7 +2240,7 @@ class flam3husd_general_utils
         else:
             flam3husd_prm_utils.set(node, prm, 0)
             
-            if not hou.hipFile.isLoadingHipFile(): # type: ignore
+            if not hou.hipFile.isLoadingHipFile(): # pyright: ignore[reportCallIssue]  # Houdini HOM API
                 _MSG = f"No Lop viewers in the current Houdini Desktop."
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one viewer to either set to Dark or restore.", 'WARN')
                 self.flash_message(f"Dark: {_MSG}")
@@ -2262,8 +2272,8 @@ class flam3husd_general_utils
         pttype: int = node.parm(f3husd_tabs.PREFS.PRM_VIEWPORT_PT_TYPE).eval()
         pttype_mem: int = node.parm(f3husd_tabs.PREFS.PVT_PRM_VIEWPORT_PT_TYPE_MEM).eval()
         
-        Points: hou.EnumValue = hou.viewportParticleDisplay.Points # type: ignore
-        Pixels: hou.EnumValue = hou.viewportParticleDisplay.Pixels # type: ignore
+        Points: hou.EnumValue = hou.viewportParticleDisplay.Points # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+        Pixels: hou.EnumValue = hou.viewportParticleDisplay.Pixels # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
 
         lop_viewers: bool = False
 
@@ -2331,7 +2341,7 @@ class flam3husd_general_utils
         """
         node: hou.LopNode = self.node
         
-        Points: hou.EnumValue = hou.viewportParticleDisplay.Points # type: ignore
+        Points: hou.EnumValue = hou.viewportParticleDisplay.Points # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
         ptsize: float = node.parm(prm_name_size).eval()
         ptsize_mem: float = node.parm(f3husd_tabs.PREFS.PVT_PRM_VIEWPORT_PT_SIZE_MEM).eval()
         
@@ -2477,7 +2487,7 @@ class flam3husd_general_utils
         Returns:
             (None):
         """
-        hou.ui.displayNodeHelp(self.node.type()) # type: ignore
+        hou.ui.displayNodeHelp(self.node.type()) # pyright: ignore[reportCallIssue]  # Houdini HOM API
 
 
 # FLAM3H™USD ABOUT start here
@@ -3077,7 +3087,7 @@ class pyside_master:
                 from typing import cast
                 main_win: QtWidgets.QMainWindow = cast(
                     QtWidgets.QMainWindow,
-                    hou.qt.mainWindow()  # type: ignore[attr-defined]
+                    hou.qt.mainWindow()  # pyright: ignore[reportAttributeAccessIssue]
                 )
                 houdini_geom: QtCore.QRect = main_win.frameGeometry()
                 
