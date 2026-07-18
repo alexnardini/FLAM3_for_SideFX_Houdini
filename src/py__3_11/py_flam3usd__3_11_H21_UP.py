@@ -17,16 +17,6 @@ __maintainer__ = "Alessandro Nardini"
 import hou
 import nodesearch
 
-from typing import Any
-from typing import Type
-from typing import Final
-from typing import Callable
-from typing import Protocol
-from typing import TypeAlias
-# This do not seem to work in Lop context
-# from typing import TYPE_CHECKING 
-# if TYPE_CHECKING:
-#     from typing import TypeAlias
 from platform import python_version
 from datetime import datetime
 from webbrowser import open as www_open
@@ -46,6 +36,16 @@ except ImportError:
     __pyside_version__ = 2
 else:
     __pyside_version__ = 6
+
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Final,
+    Callable,
+    Protocol,
+    Type,
+    TypeAlias,
+)
 
 
 # Lets get some data from the HDA python module section
