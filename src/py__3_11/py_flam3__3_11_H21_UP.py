@@ -1,4 +1,3 @@
-from __future__ import division
 from __future__ import annotations
 
 
@@ -30,20 +29,17 @@ import builtins
 
 __pyside_version__: int | None = None
 try:
-    from PySide6 import QtWidgets, QtGui, QtCore
-    __pyside_version__ = 6
-except ImportError:
-    try:
-        from PySide2 import QtWidgets, QtGui, QtCore
-        __pyside_version__ = 2
-    except ImportError:
-        pass
-    else:
-        from PySide2.QtSvg import QSvgRenderer
-        from PySide2.QtGui import QPainter
-else:
-    from PySide6.QtSvg import QSvgRenderer
+    from PySide6 import QtCore, QtGui, QtWidgets
     from PySide6.QtGui import QPainter
+    from PySide6.QtSvg import QSvgRenderer
+except ImportError:
+    from PySide2 import QtCore, QtGui, QtWidgets
+    from PySide2.QtGui import QPainter
+    from PySide2.QtSvg import QSvgRenderer
+
+    __pyside_version__ = 2
+else:
+    __pyside_version__ = 6
 
 from math import sin
 from math import cos
@@ -53,16 +49,6 @@ from platform import system as platform_system
 from collections.abc import Iterable
 from collections.abc import Callable
 from collections.abc import KeysView
-from typing import Any
-from typing import Type
-from typing import Final
-from typing import Never
-from typing import TypeVar
-from typing import Protocol
-from typing import TYPE_CHECKING
-if TYPE_CHECKING:
-    from typing import TypeAlias
-    
 from sys import stdout as sys_stdout
 from itertools import count as it_count
 from itertools import islice as it_islice
@@ -70,15 +56,29 @@ from textwrap import wrap
 from datetime import datetime
 from re import sub as re_sub
 from re import search as re_search
-from numpy import pad as np_pad
-from numpy import resize as np_resize
-from numpy import array as np_array
-from numpy import float32 as np_float32
-from numpy.typing import NDArray
-from numpy import transpose as np_transpose
-from numpy import searchsorted as np_searchsorted
 from webbrowser import open as www_open
 from inspect import cleandoc as i_cleandoc
+
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Final,
+    Never,
+    Protocol,
+    Type,
+    TypeAlias,
+    TypeVar,
+)
+
+from numpy import (
+    array as np_array,
+    float32 as np_float32,
+    pad as np_pad,
+    resize as np_resize,
+    searchsorted as np_searchsorted,
+    transpose as np_transpose,
+)
+from numpy.typing import NDArray
 
 
 # Lets get some data from the HDA python module section
