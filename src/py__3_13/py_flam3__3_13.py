@@ -337,7 +337,16 @@ else:
 '''
 
 
-# @Decorator
+# FLAM3H™ @decorators
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+
 def cached_slot_property(func):
     name = func.__name__
 
@@ -359,23 +368,81 @@ I'll put the aliases and TypeVars into their own class for namespace
 once and if SideFX update to python 3.12 or higher, for now just here.
 '''
 
-# TypeAlias
-type TA_PrmData = int | float | str | tuple | hou.Ramp | hou.Vector3 | hou.Vector2
+# FLAM3H™ TypeAlias
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+
+type Triple[T] = tuple[T, T, T]
 type TA_Affine = list[Iterable[float]]
-type TA_OUT_Pre_Affine = tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]
-type TA_OUT_Post_Affine = tuple[tuple[str | list[Never], ...], tuple[str | list[Never], ...], tuple[str | list[Never], ...]]
-type TA_OUT_Affine_FF = tuple[str, str, str]
+type TA_OUT_Pre_Affine = Triple[tuple[str, ...]]
+type TA_OUT_Post_Affine = Triple[tuple[str | list[Never], ...]]
+type TA_OUT_Affine_FF = Triple[str]
+
+type TA_PrmData = (
+    int 
+    | float 
+    | str 
+    | tuple 
+    | hou.Ramp 
+    | hou.Vector3 
+    | hou.Vector2
+)
+
+type TA_TypeVarCollection = (
+    str 
+    | list 
+    | tuple 
+    | KeysView
+)
+
+type TA_XformVarKeys = (
+    Iterable[str] 
+    | dict[str, int] 
+    | dict[str, Iterable[str]] 
+    | KeysView 
+    | None
+)
+
+type TA_TypeMaker = (
+    list 
+    | float 
+    | hou.Vector2 
+    | hou.Vector3 
+    | hou.Vector4
+)
+
+type TA_MNode = (
+    hou.SopNode 
+    | None
+)
+
+type TA_M = (
+    int 
+    | None
+)
+
 type TA_STR_ListUnflattened = list[list[str]]
 type TA_XAOS_Collect = list[list[str | float] | list[Never]]
 type TA_RoundFloats = Iterable[Iterable[str | float]]
-type TA_TypeVarCollection = str | list | tuple | KeysView
-type TA_XformVarKeys = Iterable[str] | dict[str, int] | dict[str, Iterable[str]] | KeysView | None
-type TA_TypeMaker = list | float | hou.Vector2 | hou.Vector3 | hou.Vector4
 type TA_F3H_Init = tuple[str | None, bool, int, str, bool, bool]
-type TA_MNode = hou.SopNode | None
-type TA_M = int | None
 type TA_Menu = list[int | str]
 
+
+# FLAM3H™ misc namespace collections
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
+##########################################
 
 class f3h_char:
     '''
