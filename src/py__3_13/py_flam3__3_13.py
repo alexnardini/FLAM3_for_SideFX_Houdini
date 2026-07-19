@@ -22,6 +22,7 @@ import nodesearch
 import os
 import json
 import colorsys
+import platform
 import traceback
 import lxml.etree as lxmlET
 
@@ -461,6 +462,7 @@ class f3h_HDAsections:
     
     '''
     HDA_SECTION_IMG_BANNER: Final = 'FLAM3H_DOC_intro.jpg'
+    HDA_SECTION_SVG_LOGO_BLACK: Final = 'iconSVG.svg'
     HDA_SECTION_SVG_LOGO_WHITE: Final = 'iconSVGW.svg'
     HDA_SECTION_SVG_LOGO_RED: Final = 'iconSVGR.svg'
 
@@ -3678,6 +3680,23 @@ class flam3h_general_utils
             (bool): True if it is a flat tuple and False if not
         """ 
         return isinstance(x, tuple) and not any(isinstance(el, list | tuple | set) for el in x)
+    
+    
+    @staticmethod
+    def detect_os():
+        system = platform.system()
+
+        if system == "Linux":
+            info = platform.freedesktop_os_release()
+            return info["PRETTY_NAME"]
+
+        elif system == "Windows":
+            return platform.platform()
+
+        elif system == "Darwin":
+            return "macOS " + platform.mac_ver()[0]
+
+        return system
         
     
     @staticmethod
@@ -13365,11 +13384,11 @@ Praveen Brijwal"""
         host_header: str = 'HOST'
         h_version_str: str = '.'.join(str(x) for x in hou.applicationVersion())
         license_type: str = str(hou.licenseCategory()).split(".")[-1]
-        Houdini_version: str = f"SideFX Houdini {h_version_str}, {license_type}"
-        Python_version: str = f"Python: {python_version()}"
-        User: str = f"User: {hou.userName()}"
-        PC_name: str = f"Name: {hou.machineName()}"
-        Platform: str = f"Platform: {hou.applicationPlatformInfo()}"
+        houdini_v: str = f"SideFX Houdini {h_version_str}, {license_type}"
+        python_v: str = f"Python: {python_version()}"
+        ws: str = f"WS: {hou.machineName()}"
+        user: str = f"User: {hou.userName()}"
+        platform: str = f"Platform: {flam3h_general_utils.detect_os()}"
         
         build: tuple[str, ...] = (Implementation_build, nnl,
                                 code_references, nnl,
@@ -13377,11 +13396,11 @@ Praveen Brijwal"""
                                 example_flames_header, nl,
                                 example_flames, nnl,
                                 host_header, nl,
-                                Houdini_version, nl,
-                                Python_version, nl,
-                                User, nl,
-                                PC_name, nl,
-                                Platform
+                                houdini_v, nl,
+                                python_v, nl,
+                                ws, nl,
+                                user, nl,
+                                platform
                                 )
         
         gpu_section_header: str = 'GPU DEVICES'
@@ -13405,9 +13424,9 @@ Praveen Brijwal"""
         elif h_version >= 220:
             # Houdini 22.0 added OpenCL devices queries directly to their HOM python API, so we can use it to get the GPU devices info.
             
-            from typing import Any, cast
+            from typing import cast
             gpu_devices = cast(
-                tuple[Any, ...],
+                tuple[hou.OpenCLDevice, ...],
                 hou.opencl.devices(hou.openCLDeviceType.GPU) # pyright: ignore[reportCallIssue, reportAttributeAccessIssue]
             )
             
@@ -24038,7 +24057,7 @@ class pyside_master:
         )
         
         # __v__ 2
-        IMAGE_CREDIT: str = 'Cool EDisc - author: Pillemaster'
+        IMAGE_CREDIT: str = 'Escher Teal - author: Plangkye'
         if __v__ == 1:
             IMAGE_CREDIT: str = 'Worlds - author: Alessandro Nardini'
         
@@ -24055,12 +24074,13 @@ class pyside_master:
         
         BASE_BANNER_HEIGHT: int = 300
         
-        BASE_SVG_ICON_WIDTH: int = 96
+        BASE_SVG_ICON_WIDTH: int = 64
         
         IMG_PIXMAP: QtGui.QPixmap | None = None
         IMG_PIXMAP_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_IMG_BANNER
         
         SVG_ICON: SvgIcon | None = None
+        SVG_ICON_B_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_SVG_LOGO_BLACK
         SVG_ICON_W_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_SVG_LOGO_WHITE
         SVG_ICON_R_SECTION_NAME: str = f3h_HDAsections.HDA_SECTION_SVG_LOGO_RED
         
@@ -24209,7 +24229,7 @@ class pyside_master:
                 shadow = QtWidgets.QGraphicsDropShadowEffect(self.SVG_ICON)
                 shadow.setBlurRadius(16)
                 shadow.setOffset(6, 4)
-                shadow.setColor(QtGui.QColor(0, 0, 0, 180))
+                shadow.setColor(QtGui.QColor(0, 0, 0, 120))
                 self.SVG_ICON.setGraphicsEffect(shadow)
             
             
@@ -24481,11 +24501,13 @@ class pyside_master:
         def mouseMoveEvent(self, event: QtGui.QMouseEvent) -> None:
             if event.buttons() == QtCore.Qt.MouseButton.LeftButton and self.BASE_DRAG_POSITION:
                 
+                delta: QtCore.QPoint = QtCore.QPoint()
                 if __pyside_version__ == 6:
                     delta = event.globalPosition().toPoint() - self.BASE_DRAG_POSITION
                 elif __pyside_version__ == 2:
                     delta = event.globalPos() - self.BASE_DRAG_POSITION
                     
+                if delta == QtCore.QPoint(0, 0): print("PySide panel: no placement, using Top-Left.")
                 self.move(self.x() + delta.x(), self.y() + delta.y())
                 
                 if __pyside_version__ == 6:
