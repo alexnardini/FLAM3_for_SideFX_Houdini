@@ -125,7 +125,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Display FLAM3H™ Documentation"
+            help    "[LMB] to display FLAM3H™ Documentation"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_F_docStarSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_display_help(), kwargs['parm'].deleteAllKeyframes()" }
             parmtag { "script_callback_language" "python" }
@@ -208,7 +208,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Enable RIP\\n\\nRemove invalid points. INF, NAN, Zero Opacity and out-of-bounds points.\\n\\nAfter the algorithm transforms the points,\\nit is possible for some of those points to shoot to infinity.\\n\\nTurn this ON while rendering ( particularly for a sequence )\\nto correct any failed or black frames that may appear.\\n\\nIf rendering a flame seems unusually slow,\\nit’s probably because certain points wind up being really far from the zero world.\\nThose points will be eliminated if this option is turned ON.\\n\\nTIPS:\\nThis functionality is CPU only.\\nWhen in GPU mode, having this ON/Active will slow down\\nas it will be taxing to cleanup the incoming point cloud from the GPU nodes.\\nKeep this OFF while editing your fractal flames in GPU mode to go full speed\\nand Activate it only if/when needed: (e.g. before any rendering or to check the final result from time to time if any iterators' opacity is 0(Zero) or NaN values are present).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[LMB] to enable RIP\\n\\nRemove invalid points. INF, NAN, Zero Opacity and out-of-bounds points.\\n\\nAfter the algorithm transforms the points,\\nit is possible for some of those points to shoot to infinity.\\n\\nTurn this ON while rendering ( particularly for a sequence )\\nto correct any failed or black frames that may appear.\\n\\nIf rendering a flame seems unusually slow,\\nit’s probably because certain points wind up being really far from the zero world.\\nThose points will be eliminated if this option is turned ON.\\n\\nTIPS:\\nThis functionality is CPU only.\\nWhen in GPU mode, having this ON/Active will slow down\\nas it will be taxing to cleanup the incoming point cloud from the GPU nodes.\\nKeep this OFF while editing your fractal flames in GPU mode to go full speed\\nand Activate it only if/when needed: (e.g. before any rendering or to check the final result from time to time if any iterators' opacity is 0(Zero) or NaN values are present).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 } { outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { rip == 1 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPDisabledSVG.svg" }
@@ -222,7 +222,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Disable RIP\\n\\nRemove invalid points. INF, NAN, Zero Opacity and out-of-bounds points.\\n\\nAfter the algorithm transforms the points,\\nit is possible for some of those points to shoot to infinity.\\n\\nTurn this ON while rendering ( particularly for a sequence )\\nto correct any failed or black frames that may appear.\\n\\nIf rendering a flame seems unusually slow,\\nit’s probably because certain points wind up being really far from the zero world.\\nThose points will be eliminated if this option is turned ON.\\n\\nTIPS:\\nThis functionality is CPU only.\\nWhen in GPU mode, having this ON/Active will slow down\\nas it will be taxing to cleanup the incoming point cloud from the GPU nodes.\\nKeep this OFF while editing your fractal flames in GPU mode to go full speed\\nand Activate it only if/when needed: (e.g. before any rendering or to check the final result from time to time if any iterators' opacity is 0(Zero) or NaN values are present).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[LMB] to disable RIP\\n\\nRemove invalid points. INF, NAN, Zero Opacity and out-of-bounds points.\\n\\nAfter the algorithm transforms the points,\\nit is possible for some of those points to shoot to infinity.\\n\\nTurn this ON while rendering ( particularly for a sequence )\\nto correct any failed or black frames that may appear.\\n\\nIf rendering a flame seems unusually slow,\\nit’s probably because certain points wind up being really far from the zero world.\\nThose points will be eliminated if this option is turned ON.\\n\\nTIPS:\\nThis functionality is CPU only.\\nWhen in GPU mode, having this ON/Active will slow down\\nas it will be taxing to cleanup the incoming point cloud from the GPU nodes.\\nKeep this OFF while editing your fractal flames in GPU mode to go full speed\\nand Activate it only if/when needed: (e.g. before any rendering or to check the final result from time to time if any iterators' opacity is 0(Zero) or NaN values are present).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { rip == 0 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPEnabledSVG.svg" }
@@ -388,7 +388,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Enable viewport TAG.\\n\\nTAG allow you to review your fractal Flame construction infos in one compact viewport string.\\nHowever, it has a cost and the default behavior is for it to be OFF.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[LMB] to enable viewport TAG.\\n\\nTAG allow you to review your fractal Flame construction infos in one compact viewport string.\\nHowever, it has a cost and the default behavior is for it to be OFF.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { tag == 1 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG_disabled.svg" }
@@ -402,7 +402,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Disable viewport TAG.\\n\\nNext to this icon on the right there is a menu to choose different tag sizes.\\n\\nTAG allow you to review your fractal Flame construction infos in one compact viewport string.\\nHowever, it has a cost and the default behavior is for it to be OFF.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[LMB] to disable viewport TAG.\\n\\nNext to this icon on the right there is a menu to choose different tag sizes.\\n\\nTAG allow you to review your fractal Flame construction infos in one compact viewport string.\\nHowever, it has a cost and the default behavior is for it to be OFF.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { tag == 0 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg" }
