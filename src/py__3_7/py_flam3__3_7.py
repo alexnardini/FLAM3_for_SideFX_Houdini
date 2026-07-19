@@ -5570,7 +5570,7 @@ class flam3h_iterator_utils:
 class flam3h_iterator_utils
 
 @STATICMETHODS
-* flam3h_iterator_is_default_name(name: str, regex: str = "^[^\d\s()]+(?: [^\d\s()]+)*[\d]+") -> bool:
+* flam3h_iterator_is_default_name(name: str, regex: str = "^[^\\d\\s()]+(?: [^\\d\\s()]+)*[\\d]+") -> bool:
 * flam3h_update_iterators_names(node: hou.SopNode, iter_count: int) -> None:
 * flam3h_on_loaded_set_density_menu(node: hou.SopNode) -> None:
 * sierpinski_settings(node: hou.SopNode) -> None:
@@ -5685,7 +5685,7 @@ class flam3h_iterator_utils
 
 
     @staticmethod
-    def flam3h_iterator_is_default_name(name: str, regex: str = "^[^\d\s()]+(?: [^\d\s()]+)*[\d]+") -> bool:
+    def flam3h_iterator_is_default_name(name: str, regex: str = "^[^\\d\\s()]+(?: [^\\d\\s()]+)*[\\d]+") -> bool:
         """Check if an iterator name is a default name or not.
         
         Args:
