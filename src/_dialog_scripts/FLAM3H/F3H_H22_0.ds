@@ -166,7 +166,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "ON by default.\\nAllow you to Enable or Disable the FF (finalXform).\\n\\nFor example this FF is now Disabled. [LMB] to Enable it.\\n\\nIterators like Final Flame (FF) or finalXform function like camera lenses.\\nIt allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "Allow you to Enable or Disable the FF (finalXform).\\n\\nFor example this FF is now Disabled. [LMB] to Enable it.\\n\\nIterators like Final Flame (FF) or finalXform function like camera lenses.\\nIt allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { doff == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg" }
@@ -180,7 +180,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "ON by default.\\nAllow you to Enable or Disable the FF (finalXform).\\n\\nFor example this FF is now Enabled. [LMB] to Disable it.\\n\\nIterators like Final Flame (FF) or finalXform function like camera lenses.\\nIt allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "Allow you to Enable or Disable the FF (finalXform).\\n\\nFor example this FF is now Enabled. [LMB] to Disable it.\\n\\nIterators like Final Flame (FF) or finalXform function like camera lenses.\\nIt allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { doff == 0 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg" }
@@ -250,7 +250,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "\\nF3C: Unchecked -> Chaotica behavior\\n\\nThe behavior of the:\\nCos, Cosh, Cot, Coth, Csc, Csch, Sec, Sech, Sin, Sinh, Tan, Tanh, Cross, Curve, Edisc, Escher, Fan2\\nvariations are different in flam3/Apophysis versus Chaotica.\\n\\nChecked: use the Apophysis behavior.\\n\\nUnchecked: use the Chaotica behavior.\\n\\nThe behavior of the:\\nBipolar, Glynnia, Julia, JuliaN, JuliaScope\\nvariations are also different in Flam3/Apophysis versus Chaotica\\nand FLAM3H™ do not implement these Chaotica variants just yet (Fractorium does).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "\\nF3C: Unchecked -> Chaotica behavior\\n\\n[LMB] to enable <b>F3C</b>.\\n\\nThe behavior of the:\\nCos, Cosh, Cot, Coth, Csc, Csch, Sec, Sech, Sin, Sinh, Tan, Tanh, Cross, Curve, Edisc, Escher, Fan2\\nvariations are different in flam3/Apophysis versus Chaotica.\\n\\nChecked: use the Apophysis behavior.\\n\\nUnchecked: use the Chaotica behavior.\\n\\nThe behavior of the:\\nBipolar, Glynnia, Julia, JuliaN, JuliaScope\\nvariations are also different in Flam3/Apophysis versus Chaotica\\nand FLAM3H™ do not implement these Chaotica variants just yet (Fractorium does).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { f3c == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CDisabledSVG.svg" }
@@ -264,7 +264,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "\\nF3C: Checked -> Flam3/Apophysis behavior\\n\\nThe behavior of the:\\nCos, Cosh, Cot, Coth, Csc, Csch, Sec, Sech, Sin, Sinh, Tan, Tanh, Cross, Curve, Edisc, Escher, Fan2\\nvariations are different in flam3/Apophysis versus Chaotica.\\n\\nChecked: use the Apophysis behavior.\\n\\nUnchecked: use the Chaotica behavior.\\n\\nThe behavior of the:\\nBipolar, Glynnia, Julia, JuliaN, JuliaScope\\nvariations are also different in Flam3/Apophysis versus Chaotica\\nand FLAM3H™ do not implement these Chaotica variants just yet (Fractorium does).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "\\nF3C: Checked -> Flam3/Apophysis behavior\\n\\n[LMB] to disable <b>F3C</b>.\\n\\nThe behavior of the:\\nCos, Cosh, Cot, Coth, Csc, Csch, Sec, Sech, Sin, Sinh, Tan, Tanh, Cross, Curve, Edisc, Escher, Fan2\\nvariations are different in flam3/Apophysis versus Chaotica.\\n\\nChecked: use the Apophysis behavior.\\n\\nUnchecked: use the Chaotica behavior.\\n\\nThe behavior of the:\\nBipolar, Glynnia, Julia, JuliaN, JuliaScope\\nvariations are also different in Flam3/Apophysis versus Chaotica\\nand FLAM3H™ do not implement these Chaotica variants just yet (Fractorium does).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { f3c == 0 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CEnabledSVG.svg" }
@@ -649,7 +649,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "ON by default.\\nAllow you to Enable or Disable this iterator.\\n\\nFor example this iterator is now Disabled. [LMB] to Enable it.\\n\\nIf an xform/iterator is disabled\\nit wont be included when saving the Flame out into a flame file.\\nIn case you still want to include the inactive iterator into the file\\nset its Weight to 0(Zero) instead.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+                help    "Allow you to Enable or Disable this iterator.\\n\\nFor example this iterator is now Disabled. [LMB] to Enable it.\\n\\nIf an xform/iterator is disabled\\nit wont be included when saving the Flame out into a flame file.\\nIn case you still want to include the inactive iterator into the file\\nset its Weight to 0(Zero) instead.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
                 hidewhen "{ vactive_# == 1 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()" }
@@ -662,7 +662,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "ON by default.\\nAllow you to Enable or Disable this iterator.\\n\\nFor example this iterator is now Enabled. [LMB] to Disable it.\\n\\nIf an xform/iterator is disabled\\nit wont be included when saving the Flame out into a flame file.\\nIn case you still want to include the inactive iterator into the file\\nset its Weight to 0(Zero) instead.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+                help    "Allow you to Enable or Disable this iterator.\\n\\nFor example this iterator is now Enabled. [LMB] to Disable it.\\n\\nIf an xform/iterator is disabled\\nit wont be included when saving the Flame out into a flame file.\\nIn case you still want to include the inactive iterator into the file\\nset its Weight to 0(Zero) instead.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
                 hidewhen "{ vactive_# == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()" }
@@ -5587,7 +5587,7 @@
                     label   "update sensor"
                     type    toggle
                     default { "1" }
-                    help    "ON by default.\\nEvery change to the camera sensor parameters will update the sensor viewport viz.\\n\\nTurn this OFF to disable any sensor viewport's updates."
+                    help    "Every change to the camera sensor parameters will update the sensor viewport viz.\\n\\nTurn this OFF to disable any sensor viewport's updates."
                     disablewhen "{ outsensor == 0 }"
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
@@ -6175,7 +6175,7 @@
                     label   "dark"
                     type    toggle
                     default { "0" }
-                    help    "OFF by default.\\nSet dark viewport color scheme"
+                    help    "Set dark viewport color scheme"
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).colorSchemeDark(), kwargs['parm'].deleteAllKeyframes()" }
                     parmtag { "script_callback_language" "python" }
                 }

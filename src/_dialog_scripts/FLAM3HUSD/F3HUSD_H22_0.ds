@@ -13,7 +13,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Display FLAM3H™USD Documentation"
+            help    "[LMB] to display FLAM3H™USD Documentation"
             parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_F_docStarSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display_help(), hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
             parmtag { "script_callback_language" "python" }
@@ -25,7 +25,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Re-frame current viewports based on a centered bounding box\\nand set all of them to type: Front ( for undistorted fractal Flames rendering )\\n\\nThis is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.\\n\\nAdditionally,\\nit will set the viewports clipping planes to proper values every time is invoked.\\n\\nNOTE:\\nThis Reframe will only work with LOP viewers."
+            help    "[LMB] to re-frame current viewports based on a centered bounding box\\nand set all of them to type: Front ( for undistorted fractal Flames rendering )\\n\\nThis is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.\\n\\nAdditionally,\\nit will set the viewports clipping planes to proper values every time is invoked.\\n\\nNOTE:\\nThis Reframe will only work with LOP viewers."
             parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_FrameRedSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_viewport_bbox_frame(), hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
             parmtag { "script_callback_language" "python" }
