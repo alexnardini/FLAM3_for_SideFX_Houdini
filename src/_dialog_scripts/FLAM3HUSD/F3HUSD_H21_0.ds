@@ -3,7 +3,7 @@
     groupsimple {
         name    "folder_sys"
         label   "sys"
-        disablewhentab "{ h_valid == 0 }"
+        hidewhentab "{ h_valid == 0 }"
         grouptag { "group_type" "simple" }
 
         parm {
@@ -95,6 +95,7 @@
     group {
         name    "folder_prefs"
         label   "PREFS"
+        hidewhentab "{ h_valid == 0 }"
 
         groupsimple {
             name    "folder_error"

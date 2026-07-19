@@ -3,7 +3,8 @@
     groupsimple {
         name    "f_flam3h_global"
         label   "global"
-        disablewhentab "{ flamefunc == 0 } { h_valid == 0 }"
+        disablewhentab "{ flamefunc == 0 }"
+        hidewhentab "{ h_valid == 0 }"
         grouptag { "group_type" "simple" }
 
         parm {
@@ -114,7 +115,7 @@
     groupsimple {
         name    "f_flam3h_sys"
         label   "sys"
-        disablewhentab "{ h_valid == 0 }"
+        hidewhentab "{ h_valid == 0 }"
         grouptag { "group_type" "simple" }
 
         parm {

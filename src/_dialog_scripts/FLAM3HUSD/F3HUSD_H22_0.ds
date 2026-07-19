@@ -3,7 +3,7 @@
     groupsimple {
         name    "folder_sys"
         label   "sys"
-        disablewhentab "{ h_valid == 0 }"
+        hidewhentab "{ h_valid == 0 }"
         grouptag { "group_type" "simple" }
 
         parm {
@@ -13,7 +13,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Display FLAM3HUSD Documentation"
+            help    "Display FLAM3H™USD Documentation"
             parmtag { "button_icon" "opdef:/alexnardini::Lop/FLAM3HUSD?icon_F_docStarSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3usd.flam3husd_general_utils(kwargs).flam3husd_display_help(), hou.phm().flam3usd.flam3husd_general_utils(kwargs).util_flam3h_node_exist(True)" }
             parmtag { "script_callback_language" "python" }
@@ -86,6 +86,7 @@
     group {
         name    "folder_prefs"
         label   "PREFS"
+        hidewhentab "{ h_valid == 0 }"
 
         groupsimple {
             name    "folder_error"

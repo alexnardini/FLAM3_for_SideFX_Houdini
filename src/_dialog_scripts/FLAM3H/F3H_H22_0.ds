@@ -3,7 +3,8 @@
     groupsimple {
         name    "f_flam3h_global"
         label   "global"
-        disablewhentab "{ flamefunc == 0 } { h_valid == 0 }"
+        disablewhentab "{ flamefunc == 0 }"
+        hidewhentab "{ h_valid == 0 }"
         grouptag { "group_type" "simple" }
 
         parm {
@@ -114,7 +115,7 @@
     groupsimple {
         name    "f_flam3h_sys"
         label   "sys"
-        disablewhentab "{ h_valid == 0 }"
+        hidewhentab "{ h_valid == 0 }"
         grouptag { "group_type" "simple" }
 
         parm {
@@ -1839,7 +1840,7 @@
                         type    vector2
                         size    2
                         default { "1" "0" }
-                        help    "pre: X.x, X.y ( A, D )"
+                        help    "pre: X.x, X.y ( [A], [D] )"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
@@ -1850,7 +1851,7 @@
                         type    vector2
                         size    2
                         default { "0" "1" }
-                        help    "pre: Y.x, Y.y ( B, E )"
+                        help    "pre: Y.x, Y.y ( [B], [E] )"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
@@ -1861,7 +1862,7 @@
                         type    vector2
                         size    2
                         default { "0" "0" }
-                        help    "pre (offset): O.x, O.y ( C, F )"
+                        help    "pre (offset): O.x, O.y ( [C], [F] )"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
                     }
@@ -1910,7 +1911,7 @@
                         type    vector2
                         size    2
                         default { "1" "0" }
-                        help    "post: X.x, X.y ( A, D )"
+                        help    "post: X.x, X.y ( [A], [D] )"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
@@ -1921,7 +1922,7 @@
                         type    vector2
                         size    2
                         default { "0" "1" }
-                        help    "post: Y.x, Y.y ( B, E )"
+                        help    "post: Y.x, Y.y ( [B], [E] )"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
@@ -1932,7 +1933,7 @@
                         type    vector2
                         size    2
                         default { "0" "0" }
-                        help    "post (offset): O.x, O.y ( C, F )"
+                        help    "post (offset): O.x, O.y ( [C], [F] )"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
                     }
@@ -3366,7 +3367,7 @@
                     type    vector2
                     size    2
                     default { "1" "0" }
-                    help    "FF pre: X.x, X.y ( A, D )"
+                    help    "FF pre: X.x, X.y ( [A], [D] )"
                     range   { -1 1 }
                     parmtag { "script_callback" "" }
                     parmtag { "script_callback_language" "python" }
@@ -3377,7 +3378,7 @@
                     type    vector2
                     size    2
                     default { "0" "1" }
-                    help    "FF pre: Y.x, Y.y ( B, E )"
+                    help    "FF pre: Y.x, Y.y ( [B], [E] )"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -3387,7 +3388,7 @@
                     type    vector2
                     size    2
                     default { "0" "0" }
-                    help    "FF pre (offset): O.x, O.y ( C, F )"
+                    help    "FF pre (offset): O.x, O.y ( [C], [F] )"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -3436,7 +3437,7 @@
                     type    vector2
                     size    2
                     default { "1" "0" }
-                    help    "FF post: X.x, X.y ( A, D )"
+                    help    "FF post: X.x, X.y ( [A], [D] )"
                     range   { -1 1 }
                     parmtag { "script_callback" "" }
                     parmtag { "script_callback_language" "python" }
@@ -3447,7 +3448,7 @@
                     type    vector2
                     size    2
                     default { "0" "1" }
-                    help    "FF post: Y.x, Y.y ( B, E )"
+                    help    "FF post: Y.x, Y.y ( [B], [E] )"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -3457,7 +3458,7 @@
                     type    vector2
                     size    2
                     default { "0" "0" }
-                    help    "FF post (offset): O.x, O.y ( C, F )"
+                    help    "FF post (offset): O.x, O.y ( [C], [F] )"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
