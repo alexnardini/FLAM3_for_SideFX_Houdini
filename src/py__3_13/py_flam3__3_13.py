@@ -13424,10 +13424,9 @@ Praveen Brijwal"""
         elif h_version >= 220:
             # Houdini 22.0 added OpenCL devices queries directly to their HOM python API, so we can use it to get the GPU devices info.
             
-            from typing import cast
             gpu_devices = cast(
                 tuple[hou.OpenCLDevice, ...],
-                hou.opencl.devices(hou.openCLDeviceType.GPU) # pyright: ignore[reportCallIssue, reportAttributeAccessIssue]
+                hou.opencl.devices(hou.openCLDeviceType.GPU) # pyright: ignore[reportCallIssue, reportAttributeAccessIssue]  # Houdini HOM API
             )
             
             if gpu_devices:

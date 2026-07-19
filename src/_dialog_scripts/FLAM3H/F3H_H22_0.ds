@@ -452,7 +452,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Reset FLAM3H™ and load the default Sierpiński triangle preset.\\n\\nAdditionally:\\nit will also reset the FLAM3H™ UI and options toggles to their defaults including\\nthe OUT render properties (SENSOR, RENDER and CC CURVES settings).\\n\\nWhen in GPU mode,\\nit will also reset the GPU iterations to its default: 1024"
+            help    "[LMB] to reset FLAM3H™ and load the default Sierpiński triangle preset.\\n\\nAdditionally:\\nit will also reset the FLAM3H™ UI and options toggles to their defaults including\\nthe OUT render properties (SENSOR, RENDER and CC CURVES settings).\\n\\nWhen in GPU mode,\\nit will also reset the GPU iterations to its default: 1024"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_SierpinskyDefSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).flam3h_default()" }
             parmtag { "script_callback_language" "python" }
