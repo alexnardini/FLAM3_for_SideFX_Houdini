@@ -41,6 +41,7 @@ except ImportError:
 else:
     __pyside_version__ = 6
 
+from warnings import deprecated
 from math import sin
 from math import cos
 from copy import copy
@@ -5102,7 +5103,7 @@ class flam3h_general_utils
                 self.set_status_msg(f"{node.name()}: {_MSG} You need at least one Sop viewer for the xforms handles VIZ to work.", 'WARN')
                 self.flash_message(node, f"{_MSG}")
                 
-    
+                
     def flam3h_all_mp_xf_viz_check(self) -> bool:
         """ NOT USED YET</br>
         Check if any multiparameter have its xf_viz ON.</br>
@@ -21832,6 +21833,7 @@ class out_flame_utils
         return f3h_tabs.CP.DEFAULT_COUNT_256
 
 
+    @deprecated("This function is not used anymore, use: def menu_sensor_resolution(self) -> TA_Menu:")
     def __menu_sensor_resolution(self) -> TA_Menu:
         """ NOT USED ANYMORE</br>
         and it has been prefixed with two underscores (__)</br>
