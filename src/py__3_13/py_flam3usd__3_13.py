@@ -854,7 +854,7 @@ class flam3husd_scripts
             if _H_VERSION_ALLOWED is False:
                 
                 # Do not show me this Display Message window again when creating succesive instances of this HDA
-                hou.session.F3HUSD_H_VERSION_ALLOWED = True # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
+                hou.session.F3HUSD_H_VERSION_ALLOWED = cast(bool, True) # pyright: ignore[reportAttributeAccessIssue]  # Houdini HOM API
                     
                 return True
             
