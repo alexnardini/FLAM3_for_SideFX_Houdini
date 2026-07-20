@@ -24013,10 +24013,12 @@ class pyside_utils
             _MSG: str = """
 WARNING: This \"PySide\" and/or \"Qt\" versions are not supported just yet.
 Supported and tested versions are:\n
-FLAM3H™ H20.5 - PySide2 version: 5.15.15
-FLAM3H™ H20.5 - Qt version: 5.15.2
+FLAM3H™ H22.0 - PySide6 version: 6.8.3
+FLAM3H™ H22.0 - Qt version: 6.8.3
 FLAM3H™ H21.0 - PySide6 version: 6.5.3
 FLAM3H™ H21.0 - Qt version: 6.5.3
+FLAM3H™ H20.5 - PySide2 version: 5.15.15
+FLAM3H™ H20.5 - Qt version: 5.15.2
 """
             print(f"{_MSG}\n")
 
