@@ -1633,12 +1633,21 @@ class flam3husd_general_utils
         Returns:
             (None):
         """ 
+        _MSG_PRINT: bool = False
         
         pe: list[hou.ParameterEditor] = flam3husd_general_utils.util_getParameterEditors()
         for p in pe:
-            if p.currentNode() != f3h_node and p.isPin():
-                p.setCurrentNode(f3h_node, False)
-    
+            current_node = p.currentNode()
+            if current_node != f3h_node and p.isPin():
+                # If this is a pinned parameter editor with a FLAM3H™ node on display
+                if current_node.parent() == f3h_node.parent():
+                    # If the new imported FLAM3H™ node live inside the same parent node as the one currently on display inside this pinned parameter editor,
+                    # lets display it to match this newly imported FLAM3H™ node
+                    p.setCurrentNode(f3h_node, False)
+                else:
+                    # I'll be back to this at some point, for now just a message but will eventually be fixed.
+                    print(f"{datetime.now().strftime('%b-%d-%Y %H:%M:%S')}\nThe imported FLAM3H™ nodes must live inside the same parent node as the preview one for the pinned parameter editors to be updated with it.\nFLAM3H™ import: {f3h_node.path()}\nFLAM3H™ pinned: {current_node.path()}\n")
+
     
     @staticmethod
     def util_getParameterEditors(nodeTypeCategory: str = f3h_hda.F3H_NODE_TYPE_NAME_CATEGORY) -> list[hou.ParameterEditor]:
@@ -3367,11 +3376,13 @@ class pyside_master:
         def mouseMoveEvent(self, event: QtGui.QMouseEvent) -> None:
             if event.buttons() == QtCore.Qt.MouseButton.LeftButton and self.BASE_DRAG_POSITION:
                 
+                delta: QtCore.QPoint = QtCore.QPoint()
                 if __pyside_version__ == 6:
                     delta = event.globalPosition().toPoint() - self.BASE_DRAG_POSITION
                 elif __pyside_version__ == 2:
                     delta = event.globalPos() - self.BASE_DRAG_POSITION
                     
+                if delta == QtCore.QPoint(0, 0): print("FLAM3H™USD\nPySide panel: no placement, using Top-Left.")
                 self.move(self.x() + delta.x(), self.y() + delta.y())
                 
                 if __pyside_version__ == 6:
