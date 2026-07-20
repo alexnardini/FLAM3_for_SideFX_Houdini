@@ -9515,7 +9515,7 @@ class flam3h_iterator_utils
         elif self.kwargs["shift"]:
             with hou.undos.group(f"FLAM3H™ unmark iterator SHIFT {s_mp_index}"): # pyright: ignore[reportCallIssue]  # Houdini HOM API
                 self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
-                if flam3h_iterator_utils.exist_user_data(node):
+                if self.exist_user_data(node):
                     self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                     for mp_id in range(1, iter_num + 1):
                         prm_mpmem = node.parm(f"{mpmem_name}_{mp_id}")
@@ -9531,7 +9531,7 @@ class flam3h_iterator_utils
             if self.exist_user_data(node) and int(self.get_user_data(node)) == s_mp_index and s_mp_index == hou.session.F3H_MARKED_ITERATOR_MP_IDX and node == hou.session.F3H_MARKED_ITERATOR_NODE: # pyright: ignore[reportAttributeAccessIssue] # Houdini HOM API
                 with hou.undos.group(f"FLAM3H™ unmark iterator CLICK {s_mp_index}"): # pyright: ignore[reportCallIssue]  # Houdini HOM API
                     self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
-                    if flam3h_iterator_utils.exist_user_data(node):
+                    if self.exist_user_data(node):
                         self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                         for mp_id in range(1, iter_num + 1):
                             prm_mpmem = node.parm(f"{mpmem_name}_{mp_id}")
@@ -9542,7 +9542,7 @@ class flam3h_iterator_utils
             else:
                 with hou.undos.group(f"FLAM3H™ mark iterator CLICK {s_mp_index}"): # pyright: ignore[reportCallIssue]  # Houdini HOM API
                     self.destroy_cachedUserData_all_f3h(node, f3h_cachedUserData.edge_case_01)
-                    if flam3h_iterator_utils.exist_user_data(node):
+                    if self.exist_user_data(node):
                         self.destroy_userData(node, f"{f3h_userData.PRX}_{f3h_userData.MARKED_ITER_LABEL}")
                         for mp_id in range(1, iter_num + 1):
                             prm_mpmem = node.parm(f"{mpmem_name}_{mp_id}")
@@ -13370,9 +13370,7 @@ class flam3h_about_utils
         Implementation_build: str = f"{flam3h_author}\n{flam3h_houdini_version}\n{flam3h_code}\n{__copyright__}"
         
         code_references: str = f"""CODE REFERENCES
-Flam3 :: ({__license__})
-Apophysis :: ({__license__})
-Fractorium :: ({__license__})"""
+Flam3, Apophysis, Fractorium :: ({__license__})"""
 
         special_thanks: str = """SPECIAL THANKS
 Praveen Brijwal"""
@@ -24506,7 +24504,7 @@ class pyside_master:
                 elif __pyside_version__ == 2:
                     delta = event.globalPos() - self.BASE_DRAG_POSITION
                     
-                if delta == QtCore.QPoint(0, 0): print("PySide panel: no placement, using Top-Left.")
+                if delta == QtCore.QPoint(0, 0): print("FLAM3H™\nPySide panel: no placement, using Top-Left.")
                 self.move(self.x() + delta.x(), self.y() + delta.y())
                 
                 if __pyside_version__ == 6:

@@ -36,6 +36,34 @@ They are all available in this Github repository.
 </br>
 
 
+### [<ins>v2.0.40 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.40) ###
+
+#### FLAM3H™ v2.0.40 indie -> H22.0 UP</br>FLAM3H™ v2.0.35 indie -> H21.0</br>FLAM3H™ v2.0.29 indie -> H20.5</br>FLAM3H™ v1.9.84 indie -> H19.0 to H20 ####
+
+_This update require a restart of Houdini to fully pickup the changes_.
+
+- **New H22 Only**: First migration release to: **python 3.13.10** ( _from Python 3.11.7_ ).
+- **New H22 Only**: New banner image (_Documentation and About box panel_).
+- **Python code improvements H22 Only**
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+- **Updated HDA documentation.**
+
+#### FLAM3H™USD v0.2.62 indie -> H22.0 UP</br>FLAM3H™USD v0.2.60 indie -> H21.0</br>FLAM3H™USD v0.2.56 indie -> H20.5</br>FLAM3H™USD v0.2.50 indie -> H19.0 to H20 ####
+
+- **New H22 Only**: First migration release to: **python 3.13.10** ( _from Python 3.11.7_ ).
+- **Small fixes/improvements as part of an ongoing polishing pass.**
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+
 ### [<ins>v2.0.37 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.37) ###
 
 #### FLAM3H™ v2.0.37 indie -> H22.0 UP</br>FLAM3H™ v2.0.35 indie -> H21.0</br>FLAM3H™ v2.0.29 indie -> H20.5</br>FLAM3H™ v1.9.84 indie -> H19.0 to H20 ####
