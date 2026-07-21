@@ -178,7 +178,7 @@
                 label   "renderer"
                 type    ordinal
                 default { "0" }
-                help    "Types of Viewport renderer to use.\\n\\nAt the moment the choices are:\\n\\n- Houdini\\nThis can be either OpenGL or Vulkan\\ndepending on your Houdini version and preferences settings.\\n\\n- Karma CPU\\nThis is the recommended choice.\\n\\n- Karma XPU\\nThis is being added just for completeness."
+                help    "Types of Viewport renderer to use.\\n\\nAt the moment the choices are:\\n\\n[<b>Houdini</b>]\\nThis is using the Vulkan viewport.\\n\\n[<b>Karma CPU</b>]\\nThis is the recommended choice.\\n\\n[<b>Karma XPU</b>]\\nThis is being added just for completeness."
                 menu {
                     "0" "Houdini"
                     "1" "Karma CPU     "
@@ -515,7 +515,7 @@
                     label   "presets"
                     type    string
                     default { "off" }
-                    help    "OFF by default.\\nSelect a tone map preset to apply to the rendered image.\\n\\nNOTE:\\nThis parameter is only availabe in FLAM3H™USD HDA versions for Houdini 20.5 and up."
+                    help    "Select a tone map preset to apply to the rendered image.\\n\\nNOTE:\\nThis parameter is only availabe in FLAM3H™USD HDA versions for Houdini 20.5 and up."
                     hidewhen "{ h_20_5_up == 0 }"
                     menu {
                         "off"       "-                           "
