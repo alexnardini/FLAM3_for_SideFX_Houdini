@@ -59,7 +59,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "FLAM3H™ is running in CPU(CVEX) mode.\\n\\n[LMB]\\nto switch to the GPU mode.\\n\\nThe iterations number to use to resolve this fractal Flame.\\n\\nYou must experiment with the number of iterations\\nand always go as low as possible to save on execution time.\\nYou went too low when the fractal Flame start to turn blocky,\\nwhich happens when it crosses its own minimum.\\n\\nIt is advised that occasionally you bump up this number a little\\nto see if there is anything you are overlooking.\\n\\nFor instance,\\ncertain Flames can seem completely different with higher number of iterations."
+            help    "FLAM3H™ is running in CPU(CVEX) mode.\\n\\n[<b>LMB</b>]\\nto switch to the GPU mode.\\n\\nThe iterations number to use to resolve this fractal Flame.\\n\\nYou must experiment with the number of iterations\\nand always go as low as possible to save on execution time.\\nYou went too low when the fractal Flame start to turn blocky,\\nwhich happens when it crosses its own minimum.\\n\\nIt is advised that occasionally you bump up this number a little\\nto see if there is anything you are overlooking.\\n\\nFor instance,\\ncertain Flames can seem completely different with higher number of iterations."
             hidewhen "{ flamefunc == 0 } { gpu == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).cpu_switch_to_gpu()" }
@@ -72,7 +72,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "FLAM3H™ is running in GPU mode.\\n\\n[LMB]\\nto cycle through the available GPU iterations presets.\\nPresets are: 128, 256, 512, 1024, 2048, 4096.\\nIt will cycle backward.\\n\\n[SHIFT+LMB]\\nIt will cycle forward.\\n\\n[CTRL+LMB]\\nIt will switch to the CPU(Cvex) mode.\\nWhen switching to CPU(Cvex) mode for the very first time,\\nHoudini will compile all the FLAM3H™ CPU(CVEX) nodes.\\nDepending on your PC configuration it can take up to 1(one) minute.\\nIt is a one time compile process.\\n\\nAdditionally,\\nyou can change the number of iterations being used by the GPU\\nin the preferences tab under the GPU section.\\n\\nNOTE:\\nEverytime you either:\\n- load a Flame preset\\n- reset FLAM3H™ to the Sierpiński triangle\\n- set its iterator's count to 0(Zero)\\nthe GPU iterations will be reset to its default value of: 1024"
+            help    "FLAM3H™ is running in GPU mode.\\n\\n[<b>LMB</b>]\\nto cycle through the available GPU iterations presets.\\nPresets are: 128, 256, 512, 1024, 2048, 4096.\\nIt will cycle backward.\\n\\n[<b>SHIFT+LMB</b>]\\nIt will cycle forward.\\n\\n[<b>CTRL+LMB</b>]\\nIt will switch to the CPU(Cvex) mode.\\nWhen switching to CPU(Cvex) mode for the very first time,\\nHoudini will compile all the FLAM3H™ CPU(CVEX) nodes.\\nDepending on your PC configuration it can take up to 1(one) minute.\\nIt is a one time compile process.\\n\\nAdditionally,\\nyou can change the number of iterations being used by the GPU\\nin the preferences tab under the GPU section.\\n\\n\\n<b>NOTE</b>:\\nEverytime you either:\\n<ul><li>Load a Flame preset</li><li>Reset FLAM3H™ to the Sierpiński triangle</li><li>Set its iterator's count to 0(Zero)</li></ul>\\nthe GPU iterations will be reset to its default value of: 1024"
             hidewhen "{ flamefunc == 0 } { gpu == 0 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionToolOCLSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).gpu_iterations_cycle()" }
@@ -125,7 +125,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "[LMB] to display FLAM3H™ Documentation"
+            help    "[<b>LMB</b>] to display FLAM3H™ Documentation"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_F_docStarSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_display_help(), kwargs['parm'].deleteAllKeyframes()" }
             parmtag { "script_callback_language" "python" }
@@ -166,7 +166,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Allow you to Enable or Disable the FF (finalXform).\\n\\nFor example this FF is now Disabled. [LMB] to Enable it.\\n\\nIterators like Final Flame (FF) or finalXform function like camera lenses.\\nIt allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "Allow you to Enable or Disable the FF (finalXform).\\n\\nFor example this FF is now Disabled. [<b>LMB</b>] to Enable it.\\n\\nIterators like Final Flame (FF) or finalXform function like camera lenses.\\nIt allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { doff == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg" }
@@ -180,7 +180,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Allow you to Enable or Disable the FF (finalXform).\\n\\nFor example this FF is now Enabled. [LMB] to Disable it.\\n\\nIterators like Final Flame (FF) or finalXform function like camera lenses.\\nIt allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "Allow you to Enable or Disable the FF (finalXform).\\n\\nFor example this FF is now Enabled. [<b>LMB</b>] to Disable it.\\n\\nIterators like Final Flame (FF) or finalXform function like camera lenses.\\nIt allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { doff == 0 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg" }
@@ -208,7 +208,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "[LMB] to enable RIP\\n\\nRemove invalid points. INF, NAN, Zero Opacity and out-of-bounds points.\\n\\nAfter the algorithm transforms the points,\\nit is possible for some of those points to shoot to infinity.\\n\\nTurn this ON while rendering ( particularly for a sequence )\\nto correct any failed or black frames that may appear.\\n\\nIf rendering a flame seems unusually slow,\\nit’s probably because certain points wind up being really far from the zero world.\\nThose points will be eliminated if this option is turned ON.\\n\\nTIPS:\\nThis functionality is CPU only.\\nWhen in GPU mode, having this ON/Active will slow down\\nas it will be taxing to cleanup the incoming point cloud from the GPU nodes.\\nKeep this OFF while editing your fractal flames in GPU mode to go full speed\\nand Activate it only if/when needed: (e.g. before any rendering or to check the final result from time to time if any iterators' opacity is 0(Zero) or NaN values are present).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[<b>LMB</b>] to enable RIP\\n\\nRemove invalid points. INF, NAN, Zero Opacity and out-of-bounds points.\\n\\nAfter the algorithm transforms the points,\\nit is possible for some of those points to shoot to infinity.\\n\\nTurn this ON while rendering ( particularly for a sequence )\\nto correct any failed or black frames that may appear.\\n\\nIf rendering a flame seems unusually slow,\\nit’s probably because certain points wind up being really far from the zero world.\\nThose points will be eliminated if this option is turned ON.\\n\\nTIPS:\\nThis functionality is CPU only.\\nWhen in GPU mode, having this ON/Active will slow down\\nas it will be taxing to cleanup the incoming point cloud from the GPU nodes.\\nKeep this OFF while editing your fractal flames in GPU mode to go full speed\\nand Activate it only if/when needed: (e.g. before any rendering or to check the final result from time to time if any iterators' opacity is 0(Zero) or NaN values are present).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 } { outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { rip == 1 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPDisabledSVG.svg" }
@@ -222,7 +222,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "[LMB] to disable RIP\\n\\nRemove invalid points. INF, NAN, Zero Opacity and out-of-bounds points.\\n\\nAfter the algorithm transforms the points,\\nit is possible for some of those points to shoot to infinity.\\n\\nTurn this ON while rendering ( particularly for a sequence )\\nto correct any failed or black frames that may appear.\\n\\nIf rendering a flame seems unusually slow,\\nit’s probably because certain points wind up being really far from the zero world.\\nThose points will be eliminated if this option is turned ON.\\n\\nTIPS:\\nThis functionality is CPU only.\\nWhen in GPU mode, having this ON/Active will slow down\\nas it will be taxing to cleanup the incoming point cloud from the GPU nodes.\\nKeep this OFF while editing your fractal flames in GPU mode to go full speed\\nand Activate it only if/when needed: (e.g. before any rendering or to check the final result from time to time if any iterators' opacity is 0(Zero) or NaN values are present).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[<b>LMB</b>] to disable RIP\\n\\nRemove invalid points. INF, NAN, Zero Opacity and out-of-bounds points.\\n\\nAfter the algorithm transforms the points,\\nit is possible for some of those points to shoot to infinity.\\n\\nTurn this ON while rendering ( particularly for a sequence )\\nto correct any failed or black frames that may appear.\\n\\nIf rendering a flame seems unusually slow,\\nit’s probably because certain points wind up being really far from the zero world.\\nThose points will be eliminated if this option is turned ON.\\n\\nTIPS:\\nThis functionality is CPU only.\\nWhen in GPU mode, having this ON/Active will slow down\\nas it will be taxing to cleanup the incoming point cloud from the GPU nodes.\\nKeep this OFF while editing your fractal flames in GPU mode to go full speed\\nand Activate it only if/when needed: (e.g. before any rendering or to check the final result from time to time if any iterators' opacity is 0(Zero) or NaN values are present).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { rip == 0 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionRIPEnabledSVG.svg" }
@@ -250,7 +250,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "\\nF3C: Unchecked -> Chaotica behavior\\n\\n[LMB] to enable <b>F3C</b>.\\n\\nThe behavior of the:\\nCos, Cosh, Cot, Coth, Csc, Csch, Sec, Sech, Sin, Sinh, Tan, Tanh, Cross, Curve, Edisc, Escher, Fan2\\nvariations are different in flam3/Apophysis versus Chaotica.\\n\\nChecked: use the Apophysis behavior.\\n\\nUnchecked: use the Chaotica behavior.\\n\\nThe behavior of the:\\nBipolar, Glynnia, Julia, JuliaN, JuliaScope\\nvariations are also different in Flam3/Apophysis versus Chaotica\\nand FLAM3H™ do not implement these Chaotica variants just yet (Fractorium does).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "\\nF3C: Unchecked -> Chaotica behavior\\n\\n[<b>LMB</b>] to enable <b>F3C</b>.\\n\\nThe behavior of the:\\nCos, Cosh, Cot, Coth, Csc, Csch, Sec, Sech, Sin, Sinh, Tan, Tanh, Cross, Curve, Edisc, Escher, Fan2\\nvariations are different in flam3/Apophysis versus Chaotica.\\n\\nChecked: use the Apophysis behavior.\\n\\nUnchecked: use the Chaotica behavior.\\n\\nThe behavior of the:\\nBipolar, Glynnia, Julia, JuliaN, JuliaScope\\nvariations are also different in Flam3/Apophysis versus Chaotica\\nand FLAM3H™ do not implement these Chaotica variants just yet (Fractorium does).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { f3c == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CDisabledSVG.svg" }
@@ -264,7 +264,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "\\nF3C: Checked -> Flam3/Apophysis behavior\\n\\n[LMB] to disable <b>F3C</b>.\\n\\nThe behavior of the:\\nCos, Cosh, Cot, Coth, Csc, Csch, Sec, Sech, Sin, Sinh, Tan, Tanh, Cross, Curve, Edisc, Escher, Fan2\\nvariations are different in flam3/Apophysis versus Chaotica.\\n\\nChecked: use the Apophysis behavior.\\n\\nUnchecked: use the Chaotica behavior.\\n\\nThe behavior of the:\\nBipolar, Glynnia, Julia, JuliaN, JuliaScope\\nvariations are also different in Flam3/Apophysis versus Chaotica\\nand FLAM3H™ do not implement these Chaotica variants just yet (Fractorium does).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "\\nF3C: Checked -> Flam3/Apophysis behavior\\n\\n[<b>LMB</b>] to disable <b>F3C</b>.\\n\\nThe behavior of the:\\nCos, Cosh, Cot, Coth, Csc, Csch, Sec, Sech, Sin, Sinh, Tan, Tanh, Cross, Curve, Edisc, Escher, Fan2\\nvariations are different in flam3/Apophysis versus Chaotica.\\n\\nChecked: use the Apophysis behavior.\\n\\nUnchecked: use the Chaotica behavior.\\n\\nThe behavior of the:\\nBipolar, Glynnia, Julia, JuliaN, JuliaScope\\nvariations are also different in Flam3/Apophysis versus Chaotica\\nand FLAM3H™ do not implement these Chaotica variants just yet (Fractorium does).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 }"
             hidewhen "{ flamefunc == 0 } { f3c == 0 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionF3CEnabledSVG.svg" }
@@ -292,7 +292,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "[LMB] to enable the xforms handles VIZ in the viewport.\\n\\nThese handles are not editable, but only for visualization purpose.\\nThey will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator of the fractal Flame.\\n\\nYou can adjust their wire curve thickness in the preferences tab\\nusing the prefs viewport -> \"wire width\" parameter.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nWARNING:\\nTurn this OFF when rendering.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[<b>LMB</b>] to enable the xforms handles VIZ in the viewport.\\n\\nThese handles are not editable, but only for visualization purpose.\\nThey will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator of the fractal Flame.\\n\\nYou can adjust their wire curve thickness in the preferences tab\\nusing the prefs viewport -> \"wire width\" parameter.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nWARNING:\\nTurn this OFF when rendering.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 } { ptcount > 5000000 }"
             hidewhen "{ flamefunc == 0 } { vizhandles == 1 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg" }
@@ -306,7 +306,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "[LMB] to disable the xforms handles VIZ in the viewport.\\n\\nThese handles are not editable, but only for visualization purpose.\\nThey will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator of the fractal Flame.\\n\\nYou can adjust their wire curve thickness in the preferences tab\\nusing the prefs viewport -> \"wire width\" parameter.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nWARNING:\\nTurn this OFF when rendering.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[<b>LMB</b>] to disable the xforms handles VIZ in the viewport.\\n\\nThese handles are not editable, but only for visualization purpose.\\nThey will be helpful to better grasp how the affine values (PRE and POST affine) are acting over each iterator of the fractal Flame.\\n\\nYou can adjust their wire curve thickness in the preferences tab\\nusing the prefs viewport -> \"wire width\" parameter.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nWARNING:\\nTurn this OFF when rendering.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 } { ptcount > 5000000 }"
             hidewhen "{ flamefunc == 0 } { vizhandles == 0 } { vizhandles_solo == 1 vizhandlesff_solo == 1 } { vizhandles_solo == 1 } { vizhandlesff_solo == 1 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledSVG.svg" }
@@ -320,7 +320,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "[LMB] to disable the xforms handles VIZ SOLO mode\\nand revert to display all xforms handles VIZ together.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[<b>LMB</b>] to disable the xforms handles VIZ SOLO mode\\nand revert to display all xforms handles VIZ together.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 } { ptcount > 5000000 }"
             hidewhen "{ flamefunc == 0 } { vizhandles == 0 } { vizhandles_solo == 0 vizhandlesff_solo == 1 } { vizhandles_solo == 0 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg" }
@@ -334,7 +334,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "[LMB] to disable the xforms handles VIZ SOLO mode\\nand revert to display all xforms handles VIZ together.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[<b>LMB</b>] to disable the xforms handles VIZ SOLO mode\\nand revert to display all xforms handles VIZ together.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ flamefunc == 0 } { ptcount > 5000000 }"
             hidewhen "{ flamefunc == 0 } { vizhandles == 0 } { vizhandles_solo == 1 vizhandlesff_solo == 0 } { vizhandlesff_solo == 0 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledSVG.svg" }
@@ -348,7 +348,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "EXIT sensor viz mode. Camera sensor update ON.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[<b>LMB</b>] to EXIT sensor viz mode. (<i> Camera sensor update ON </i>).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             hidewhen "{ outsensor == 0 } { outsensorupdate == 0 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()" }
@@ -361,7 +361,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "EXIT sensor viz mode. Camera sensor update OFF.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[<b>LMB</b>] to EXIT sensor viz mode. (<i> Camera sensor update OFF </i>).\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             hidewhen "{ outsensor == 0 } { outsensorupdate == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagORedOffSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()" }
@@ -388,7 +388,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "[LMB] to enable viewport TAG.\\n\\nTAG allow you to review your fractal Flame construction infos in one compact viewport string.\\nHowever, it has a cost and the default behavior is for it to be OFF.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[<b>LMB</b>] to enable viewport TAG.\\n\\nTAG allow you to review your fractal Flame construction infos in one compact viewport string.\\nHowever, it has a cost and the default behavior is for it to be OFF.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { tag == 1 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG_disabled.svg" }
@@ -402,7 +402,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "[LMB] to disable viewport TAG.\\n\\nNext to this icon on the right there is a menu to choose different tag sizes.\\n\\nTAG allow you to review your fractal Flame construction infos in one compact viewport string.\\nHowever, it has a cost and the default behavior is for it to be OFF.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[<b>LMB</b>] to disable viewport TAG.\\n\\nNext to this icon on the right there is a menu to choose different tag sizes.\\n\\nTAG allow you to review your fractal Flame construction infos in one compact viewport string.\\nHowever, it has a cost and the default behavior is for it to be OFF.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             disablewhen "{ outsensor == 1 }"
             hidewhen "{ flamefunc == 0 } { tag == 0 } { outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagOBlueSVG.svg" }
@@ -452,7 +452,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "[LMB] to reset FLAM3H™ and load the default Sierpiński triangle preset.\\n\\nAdditionally:\\nit will also reset the FLAM3H™ UI and options toggles to their defaults including\\nthe OUT render properties (SENSOR, RENDER and CC CURVES settings).\\n\\nWhen in GPU mode,\\nit will also reset the GPU iterations to its default: 1024"
+            help    "[<b>LMB</b>] to reset FLAM3H™ and load the default Sierpiński triangle preset.\\n\\nAdditionally:\\nit will also reset the FLAM3H™ UI and options toggles to their defaults including\\nthe OUT render properties (SENSOR, RENDER and CC CURVES settings).\\n\\nWhen in GPU mode,\\nit will also reset the GPU iterations to its default: 1024"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_SierpinskyDefSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).flam3h_default()" }
             parmtag { "script_callback_language" "python" }
@@ -464,7 +464,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Re-frame current viewport based on a centered bounding box.\\n\\n[LMB]\\nReframe keeping the current viewports type.\\n\\n[SHIFT+LMB]\\nReframe while setting the viewports to Front type.\\n\\nThis is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.\\n\\nWhen in camera sensor mode the re-frame will be based on the Camera sensor bounding box instead.\\n\\nAdditionally,\\nit will set the viewports clipping planes to proper values every time is invoked.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "Re-frame current viewport based on a centered bounding box.\\n\\n[<b>LMB</b>]\\nReframe keeping the current viewports type.\\n\\n[<b>SHIFT+LMB</b>]\\nReframe while setting the viewports to Front type.\\n\\nThis is being added because it occasionally happens that the camera viewport frames the current Flame really small due to some of its points ending up being really far away from the zero world position.\\n\\nWhen in camera sensor mode the re-frame will be based on the Camera sensor bounding box instead.\\n\\nAdditionally,\\nit will set the viewports clipping planes to proper values every time is invoked.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             hidewhen "{ outsensor == 1 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_FrameBlueSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).util_viewport_bbox_frame(), kwargs['parm'].deleteAllKeyframes()" }
@@ -477,7 +477,7 @@
             nolabel
             joinnext
             default { "0" }
-            help    "Re-frame sensor viz.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+            help    "[<b>LMB</b>] to re-frame sensor viz.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
             hidewhen "{ outsensor == 0 }"
             parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_FrameRedSVG.svg" }
             parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).util_set_front_viewer(False), kwargs['parm'].deleteAllKeyframes()" }
@@ -649,7 +649,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "Allow you to Enable or Disable this iterator.\\n\\nFor example this iterator is now Disabled. [LMB] to Enable it.\\n\\nIf an xform/iterator is disabled\\nit wont be included when saving the Flame out into a flame file.\\nIn case you still want to include the inactive iterator into the file\\nset its Weight to 0(Zero) instead.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+                help    "Allow you to Enable or Disable this iterator.\\n\\nFor example this iterator is now Disabled. [<b>LMB</b>] to Enable it.\\n\\nIf an xform/iterator is disabled\\nit wont be included when saving the Flame out into a flame file.\\nIn case you still want to include the inactive iterator into the file\\nset its Weight to 0(Zero) instead.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
                 hidewhen "{ vactive_# == 1 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionDisabledSVG.svg" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()" }
@@ -662,7 +662,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "Allow you to Enable or Disable this iterator.\\n\\nFor example this iterator is now Enabled. [LMB] to Disable it.\\n\\nIf an xform/iterator is disabled\\nit wont be included when saving the Flame out into a flame file.\\nIn case you still want to include the inactive iterator into the file\\nset its Weight to 0(Zero) instead.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+                help    "Allow you to Enable or Disable this iterator.\\n\\nFor example this iterator is now Enabled. [<b>LMB</b>] to Disable it.\\n\\nIf an xform/iterator is disabled\\nit wont be included when saving the Flame out into a flame file.\\nIn case you still want to include the inactive iterator into the file\\nset its Weight to 0(Zero) instead.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
                 hidewhen "{ vactive_# == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarYellowOrangeSVG.svg" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).iterator_vactive_and_update(), kwargs['parm'].deleteAllKeyframes()" }
@@ -675,7 +675,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "[LMB] to enable this iterator's xform handle VIZ only (SOLO mode).\\n\\nWhen the SYS -> \"xforms handles VIZ\" is ON this icon will become available.\\n\\nIf the FF is ON its xform handle VIZ will always be displayed\\ntogether with this iterator xform handle VIZ.\\n\\nWhen enabled (SOLO mode), it causes the iterator that is selected or picked\\nfrom the SYS tab select iterator mini-menu to be automatically configured to be in SOLO mode.\\nThis enables you to swiftly go over each one automatically.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+                help    "[<b>LMB</b>] to enable this iterator's xform handle VIZ only (SOLO mode).\\n\\nWhen the SYS -> \"xforms handles VIZ\" is ON this icon will become available.\\n\\nIf the FF is ON its xform handle VIZ will always be displayed\\ntogether with this iterator xform handle VIZ.\\n\\nWhen enabled (SOLO mode), it causes the iterator that is selected or picked\\nfrom the SYS tab select iterator mini-menu to be automatically configured to be in SOLO mode.\\nThis enables you to swiftly go over each one automatically.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
                 disablewhen "{ vizhandles == 0 } { vactive_# == 0 } { iw_# == 0 } { outsensor == 1 } { ptcount > 5000000 }"
                 hidewhen "{ xfviz_# == 1 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg" }
@@ -689,7 +689,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "[LMB] to disable this iterator's xform handle VIZ SOLO mode\\nand revert to display all xforms handles VIZ together.\\n\\nIt causes the iterator that is picked from the SYS tab select iterator mini-menu\\nto be automatically configured to be in SOLO mode as well.\\nThis enables you to swiftly go over each one automatically.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+                help    "[<b>LMB</b>] to disable this iterator's xform handle VIZ SOLO mode\\nand revert to display all xforms handles VIZ together.\\n\\nIt causes the iterator that is picked from the SYS tab select iterator mini-menu\\nto be automatically configured to be in SOLO mode as well.\\nThis enables you to swiftly go over each one automatically.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
                 disablewhen "{ vizhandles == 0 } { vactive_# == 0 } { iw_# == 0 } { outsensor == 1 } { ptcount > 5000000 }"
                 hidewhen "{ xfviz_# == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesEnabledMPIDXSVG.svg" }
@@ -703,7 +703,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "[LMB] to insert an iterator Before.\\n\\n[SHIFT+LMB] to insert an iterator After.\\n\\n[CTRL+LMB] to delete this iterator.\\n\\nNOTE:\\nThis icon is what you must use to Add and Delete iterators since it is updating all the FLAM3H internal data and each iterators' xaos string accordingly."
+                help    "[<b>LMB</b>] to insert an iterator Before.\\n\\n[<b>SHIFT+LMB</b>] to insert an iterator After.\\n\\n[<b>CTRL+LMB</b>] to delete this iterator.\\n\\nNOTE:\\nThis icon is what you must use to Add and Delete iterators since it is updating all the FLAM3H internal data and each iterators' xaos string accordingly."
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_AddDelIteratorSVG.svg" }
                 parmtag { "script_callback" "hou.phm().flam3.flam3h_iterator_utils(kwargs).add_iterator()" }
                 parmtag { "script_callback_language" "python" }
@@ -1840,7 +1840,7 @@
                         type    vector2
                         size    2
                         default { "1" "0" }
-                        help    "pre: X.x, X.y ( [A], [D] )"
+                        help    "pre: X.x, X.y ( [<b>A</b>], [<b>D</b>] )"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
@@ -1851,7 +1851,7 @@
                         type    vector2
                         size    2
                         default { "0" "1" }
-                        help    "pre: Y.x, Y.y ( [B], [E] )"
+                        help    "pre: Y.x, Y.y ( [<b>B</b>], [<b>E</b>] )"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
@@ -1862,7 +1862,7 @@
                         type    vector2
                         size    2
                         default { "0" "0" }
-                        help    "pre (offset): O.x, O.y ( [C], [F] )"
+                        help    "pre (offset): O.x, O.y ( [<b>C</b>], [<b>F</b>] )"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
                     }
@@ -1911,7 +1911,7 @@
                         type    vector2
                         size    2
                         default { "1" "0" }
-                        help    "post: X.x, X.y ( [A], [D] )"
+                        help    "post: X.x, X.y ( [<b>A</b>], [<b>D</b>] )"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
@@ -1922,7 +1922,7 @@
                         type    vector2
                         size    2
                         default { "0" "1" }
-                        help    "post: Y.x, Y.y ( [B], [E] )"
+                        help    "post: Y.x, Y.y ( [<b>B</b>], [<b>E</b>] )"
                         range   { -1 1 }
                         parmtag { "script_callback" "" }
                         parmtag { "script_callback_language" "python" }
@@ -1933,7 +1933,7 @@
                         type    vector2
                         size    2
                         default { "0" "0" }
-                        help    "post (offset): O.x, O.y ( [C], [F] )"
+                        help    "post (offset): O.x, O.y ( [<b>C</b>], [<b>F</b>] )"
                         range   { -1 1 }
                         parmtag { "script_callback_language" "python" }
                     }
@@ -2575,7 +2575,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "ON by default.\\nAllow you to Enable or Disable the FF (finalXform).\\n\\nFor example this FF is now Disabled. [LMB] to Enable it.\\n\\nIterators like Final Flame (FF) or finalXform function like camera lenses.\\nIt allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+                help    "ON by default.\\nAllow you to Enable or Disable the FF (finalXform).\\n\\nFor example this FF is now Disabled. [<b>LMB</b>] to Enable it.\\n\\nIterators like Final Flame (FF) or finalXform function like camera lenses.\\nIt allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
                 disablewhen "{ flamefunc == 0 }"
                 hidewhen "{ flamefunc == 0 } { doff == 1 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionFFDisabledSVG.svg" }
@@ -2589,7 +2589,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "ON by default.\\nAllow you to Enable or Disable the FF (finalXform).\\n\\nFor example this FF is now Enabled. [LMB] to Disable it.\\n\\nIterators like Final Flame (FF) or finalXform function like camera lenses.\\nIt allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+                help    "ON by default.\\nAllow you to Enable or Disable the FF (finalXform).\\n\\nFor example this FF is now Enabled. [<b>LMB</b>] to Disable it.\\n\\nIterators like Final Flame (FF) or finalXform function like camera lenses.\\nIt allows for a great deal of creative experimentation by taking the combined result of all the iterators inside the FLAME Tab and applying further modifications to that result.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
                 disablewhen "{ flamefunc == 0 }"
                 hidewhen "{ flamefunc == 0 } { doff == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionFFEnabledSVG.svg" }
@@ -2603,7 +2603,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "[LMB] to enable the FF xform handle VIZ only (SOLO mode).\\n\\nWhen the SYS -> \"xforms handles VIZ\" is ON this icon will become available.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points.\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+                help    "[<b>LMB</b>] to enable the FF xform handle VIZ only (SOLO mode).\\n\\nWhen the SYS -> \"xforms handles VIZ\" is ON this icon will become available.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points.\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
                 disablewhen "{ vizhandles == 0 } { doff == 0 } { outsensor == 1 } { ptcount > 5000000 }"
                 hidewhen "{ vizhandlesff_solo == 1 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_xfHandlesDisabledSVG.svg" }
@@ -2617,7 +2617,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "[LMB] to disable the FF xform handle VIZ SOLO mode\\nand revert to display all xforms handles VIZ together.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points.\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+                help    "[<b>LMB</b>] to disable the FF xform handle VIZ SOLO mode\\nand revert to display all xforms handles VIZ together.\\n\\nThe viewport handles will be automatically disabled\\nif the FLAM3H™ density value is raised above 5M(millions) points.\\nor when the OUT camera sensor VIZ mode is ON.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
                 disablewhen "{ vizhandles == 0 } { outsensor == 1 } { ptcount > 5000000 }"
                 hidewhen "{ vizhandlesff_solo == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_ffHandlesEnabledSVG.svg" }
@@ -3367,7 +3367,7 @@
                     type    vector2
                     size    2
                     default { "1" "0" }
-                    help    "FF pre: X.x, X.y ( [A], [D] )"
+                    help    "FF pre: X.x, X.y ( [<b>A</b>], [<b>D</b>] )"
                     range   { -1 1 }
                     parmtag { "script_callback" "" }
                     parmtag { "script_callback_language" "python" }
@@ -3378,7 +3378,7 @@
                     type    vector2
                     size    2
                     default { "0" "1" }
-                    help    "FF pre: Y.x, Y.y ( [B], [E] )"
+                    help    "FF pre: Y.x, Y.y ( [<b>B</b>], [<b>E</b>] )"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -3388,7 +3388,7 @@
                     type    vector2
                     size    2
                     default { "0" "0" }
-                    help    "FF pre (offset): O.x, O.y ( [C], [F] )"
+                    help    "FF pre (offset): O.x, O.y ( [<b>C</b>], [<b>F</b>] )"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -3437,7 +3437,7 @@
                     type    vector2
                     size    2
                     default { "1" "0" }
-                    help    "FF post: X.x, X.y ( [A], [D] )"
+                    help    "FF post: X.x, X.y ( [<b>A</b>], [<b>D</b>] )"
                     range   { -1 1 }
                     parmtag { "script_callback" "" }
                     parmtag { "script_callback_language" "python" }
@@ -3448,7 +3448,7 @@
                     type    vector2
                     size    2
                     default { "0" "1" }
-                    help    "FF post: Y.x, Y.y ( [B], [E] )"
+                    help    "FF post: Y.x, Y.y ( [<b>B</b>], [<b>E</b>] )"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -3458,7 +3458,7 @@
                     type    vector2
                     size    2
                     default { "0" "0" }
-                    help    "FF post (offset): O.x, O.y ( [C], [F] )"
+                    help    "FF post (offset): O.x, O.y ( [<b>C</b>], [<b>F</b>] )"
                     range   { -1 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -5254,7 +5254,7 @@
                 nolabel
                 joinnext
                 default { "0" }
-                help    "[LMB] to copy ALL the loaded Flame preset renderer properties (SENSOR, RENDER and CC CURVES settings) intos the OUT render properties.\\n\\nAll the renderer settings of a Flame preset loaded from the clipboard will be automatically copied into the OUT renderer properties on load."
+                help    "[<b>LMB</b>] to copy ALL the loaded Flame preset renderer properties (SENSOR, RENDER and CC CURVES settings) intos the OUT render properties.\\n\\nAll the renderer settings of a Flame preset loaded from the clipboard will be automatically copied into the OUT renderer properties on load."
                 disablewhen "{ inisvalidpreset == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg" }
                 parmtag { "script_callback" "hou.phm().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()" }
@@ -5281,7 +5281,7 @@
                 label   "SENSOR"
                 type    button
                 default { "0" }
-                help    "[LMB] to copy only the loaded Flame preset SENSOR settings intos the OUT Sensor settings.\\n\\nAll the render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load (SENSOR, RENDER and CC CURVES settings)."
+                help    "[<b>LMB</b>] to copy only the loaded Flame preset SENSOR settings intos the OUT Sensor settings.\\n\\nAll the render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load (SENSOR, RENDER and CC CURVES settings)."
                 disablewhen "{ inisvalidpreset == 0 }"
                 hidewhen "{ inisvalidpreset == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg" }
@@ -5301,7 +5301,7 @@
                 label   "RENDER"
                 type    button
                 default { "0" }
-                help    "[LMB] to copy only the loaded Flame preset RENDER and CC CURVES settings intos the OUT Renderer serttings.\\n\\nAll the render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load (SENSOR, RENDER and CC CURVES settings)."
+                help    "[<b>LMB</b>] to copy only the loaded Flame preset RENDER and CC CURVES settings intos the OUT Renderer serttings.\\n\\nAll the render properties of a Flame preset loaded from the clipboard will be automatically copied into the OUT render properties on load (SENSOR, RENDER and CC CURVES settings)."
                 disablewhen "{ inisvalidpreset == 0 }"
                 hidewhen "{ inisvalidpreset == 0 }"
                 parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteAffineSVG.svg" }
@@ -5477,7 +5477,7 @@
                     label   "ENTER sensor viz"
                     type    button
                     default { "0" }
-                    help    "ENTER sensor viz mode.\\n\\nAll the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H™.\\n\\nA portion of the render parameters deal with the camera and how the fractal flame you just saved is framed. The FLAM3H™ camera sensor will precisely display the image framing.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+                    help    "[<b>LMB</b>] to ENTER sensor viz mode.\\n\\nAll the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H™.\\n\\nA portion of the render parameters deal with the camera and how the fractal flame you just saved is framed. The FLAM3H™ camera sensor will precisely display the image framing.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
                     hidewhen "{ outsensor == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG_disabled.svg" }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()" }
@@ -5488,7 +5488,7 @@
                     label   "EXIT sensor viz"
                     type    button
                     default { "0" }
-                    help    "EXIT sensor viz mode. Camera sensor update ON.\\n\\nAll the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H™.\\n\\nA portion of the render parameters deal with the camera and how the fractal flame you just saved is framed. The FLAM3H™ camera sensor will precisely display the image framing.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+                    help    "[<b>LMB</b>] to EXIT sensor viz mode. (<i> Camera sensor update ON </i>).\\n\\nAll the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H™.\\n\\nA portion of the render parameters deal with the camera and how the fractal flame you just saved is framed. The FLAM3H™ camera sensor will precisely display the image framing.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
                     hidewhen "{ outsensor == 0 } { outsensorupdate == 0 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagORedSVG.svg" }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()" }
@@ -5499,7 +5499,7 @@
                     label   "EXIT sensor viz"
                     type    button
                     default { "0" }
-                    help    "EXIT sensor viz mode. Camera sensor update OFF.\\n\\nAll the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H™.\\n\\nA portion of the render parameters deal with the camera and how the fractal flame you just saved is framed. The FLAM3H™ camera sensor will precisely display the image framing.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
+                    help    "[<b>LMB</b>] to EXIT sensor viz mode. (<i> Camera sensor update OFF </i>).\\n\\nAll the render settings required by third-party programs such as Apophysis and Fractorium are stored together with the fractal flames when they are saved from FLAM3H™.\\n\\nA portion of the render parameters deal with the camera and how the fractal flame you just saved is framed. The FLAM3H™ camera sensor will precisely display the image framing.\\n\\nNOTE:\\nThis has the important property to update and refresh all the Presets menus data\\n(CP, IN and OUT presets menus)"
                     hidewhen "{ outsensor == 0 } { outsensorupdate == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_TagORedOffSVG.svg" }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_general_utils(kwargs).flam3h_outsensor_toggle(), kwargs['parm'].deleteAllKeyframes()" }
@@ -5542,7 +5542,7 @@
                     type    button
                     nolabel
                     default { "0" }
-                    help    "[LMB] to copy ALL the currently loaded IN Flame preset render properties (SENSOR, RENDER and CC CURVES settings) into here, the OUT render properties.\\nWhen you load a Flame preset from a file or from the Clipboard, this icon will become available.\\n\\nAll the render properties of a Flame preset loaded from the clipboard will be automatically copied into here, the OUT render properties, on load.\\n\\nNOTE:\\nYou can load all the render properties of a Flame preset stored in the Clipboard into here\\nusing [ALT+LMB] from the above \"edit render properties\" toggle parameter kwargs star icon. "
+                    help    "[<b>LMB</b>] to copy ALL the currently loaded IN Flame preset render properties (SENSOR, RENDER and CC CURVES settings) into here, the OUT render properties.\\nWhen you load a Flame preset from a file or from the Clipboard, this icon will become available.\\n\\nAll the render properties of a Flame preset loaded from the clipboard will be automatically copied into here, the OUT render properties, on load.\\n\\nNOTE:\\nYou can load all the render properties of a Flame preset stored in the Clipboard into here\\nusing [<b>ALT+LMB</b>] from the above \"edit render properties\" toggle parameter kwargs star icon. "
                     disablewhen "{ inisvalidpreset == 0 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_StarSwapRedCopyPasteInfosSVG.svg" }
                     parmtag { "script_callback" "hou.phm().flam3.in_flame_utils.in_copy_render_all_stats_msg(kwargs, None, False, True), kwargs['parm'].deleteAllKeyframes()" }
@@ -5689,7 +5689,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "CC Curves at their defaults.\\n\\n[LMB] to copy all the color correction curves data from the currently loaded IN Flame preset.\\nIf the loaded IN Flame preset have its color correction curves data at default values, the copy will be skipped.\\n\\nThese color correction curves data can not be edited.\\nThe data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H™ so to keep and preserve the original color correction data intact."
+                    help    "CC Curves at their defaults.\\n\\n[<b>LMB</b>] to copy all the color correction curves data from the currently loaded IN Flame preset.\\nIf the loaded IN Flame preset have its color correction curves data at default values, the copy will be skipped.\\n\\nThese color correction curves data can not be edited.\\nThe data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H™ so to keep and preserve the original color correction data intact."
                     hidewhen "{ outccdefault == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWhiteSVG.svg" }
                     parmtag { "script_callback" "hou.phm().flam3.in_flame_utils.in_copy_cc_curves_stats_msg(kwargs), kwargs['parm'].deleteAllKeyframes()" }
@@ -5702,7 +5702,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "CC Curves modified.\\n\\n[LMB] to reset all the color correction curves to their defaults (no color correction).\\n\\nThese color correction curves data can not be edited.\\nThe data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H™ so to keep and preserve the original color correction data intact."
+                    help    "CC Curves modified.\\n\\n[<b>LMB</b>] to reset all the color correction curves to their defaults (no color correction).\\n\\nThese color correction curves data can not be edited.\\nThe data is stored here from the loaded Flame preset, and it will be saved into the file when you save the Flame preset out from FLAM3H™ so to keep and preserve the original color correction data intact."
                     hidewhen "{ outccdefault == 0 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarRedSVG.svg" }
                     parmtag { "script_callback" "hou.phm().flam3.out_flame_utils.out_render_curves_set_and_retrieve_defaults(kwargs['node']), kwargs['parm'].deleteAllKeyframes()" }
@@ -6742,7 +6742,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "Informations about FLAM3H™.\\n\\n[LMB] to display an about box panel."
+                    help    "Informations about FLAM3H™.\\n\\n[<b>LMB</b>] to display an about box panel."
                     hidewhen "{ h_valid == 1 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarWarningToolSVG.svg" }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_about_utils.flam3h_about_show_info_panel(kwargs['node'])" }
@@ -6764,7 +6764,7 @@
                     nolabel
                     joinnext
                     default { "0" }
-                    help    "Informations about FLAM3H™.\\n\\n[LMB] to display an about box panel."
+                    help    "Informations about FLAM3H™.\\n\\n[<b>LMB</b>] to display an about box panel."
                     hidewhen "{ h_valid == 0 }"
                     parmtag { "button_icon" "opdef:/alexnardini::Sop/FLAM3H?icon_optionStarBlueToolSVG.svg" }
                     parmtag { "script_callback" "hou.phm().flam3.flam3h_about_utils.flam3h_about_show_info_panel(kwargs['node'])" }
