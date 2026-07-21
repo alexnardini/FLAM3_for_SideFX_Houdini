@@ -371,6 +371,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_cve
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 
+
 <p align="center">
   <img width="160" height="160" src="./icon_cvex_headerSVG.svg" /></p>
 <b><p align="center">icon_cvex_headerSVG.svg</b> (<i>used only for DOC purposes</i>)</p>
@@ -406,6 +407,45 @@ opdef:/alexnardini::Sop/FLAM3H?icon_cvex_headerSVG.svg
 
 ```
 https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_cvex_headerSVG.svg
+```
+<p align="center">...</p></br/></br/></br/></br/>
+
+
+<p align="center">
+  <img width="160" height="160" src="./icon_dataTypeMenuSVG.svg" /></p>
+<b><p align="center">icon_dataTypeMenuSVG.svg</b> (<i>H22.0 and up only</i>)</p>
+<p align="center">......</p>
+<p align="center">
+
+<b>"Parameter Buttom" / "Action Button" icon</b>
+
+```
+opdef:/alexnardini::Sop/FLAM3H?icon_dataTypeMenuSVG.svg
+```
+<b>Menu bookmark icon</b>
+
+```
+![opdef:/alexnardini::Sop/FLAM3H?icon_dataTypeMenuSVG.svg] Label
+```
+<b>DOC icon</b>
+
+```
+[Icon:opdef:.?icon_dataTypeMenuSVG.svg]
+```
+<b>DOC icon Small</b>
+
+```
+[Smallicon:opdef:.?icon_dataTypeMenuSVG.svg]
+```
+<b>DOC icon Large</b>
+
+```
+[Largeicon:opdef:.?icon_dataTypeMenuSVG.svg]
+```
+<b>GITHUB</b>
+
+```
+https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_dataTypeMenuSVG.svg
 ```
 <p align="center">...</p></br/></br/></br/></br/>
 

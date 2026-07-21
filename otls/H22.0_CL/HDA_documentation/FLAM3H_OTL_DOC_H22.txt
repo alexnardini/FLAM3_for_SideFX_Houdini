@@ -107,9 +107,9 @@ This documentation adopt the use of badges to signal some parameter's types and 
 
 _Below a list of the currently adopted badges and their meaning_:
 
-- [Icon:BUTTONS/ramp_presets] it is either a menu or a mini-menu.
+- [Icon:opdef:.?icon_dataTypeMenuSVG.svg] it is either a menu or a mini-menu.
 
-- [Icon:opdef:.?icon_actionButtonSVG.svg] it is an Action button.
+- [Icon:DATATYPES/string] it is a string.
 
 - [Icon:DATATYPES/boolean] it is a toggle.
 
@@ -119,7 +119,7 @@ _Below a list of the currently adopted badges and their meaning_:
 
 - [Icon:TOP/jsoninput] the data this parameter represent or enable will be stored into the JSON palette file on save.
 
-- [Icon:DATATYPES/string] it is a string.
+- [Icon:opdef:.?icon_actionButtonSVG.svg] it is an Action button.
 
 - [Icon:NETVIEW/time_dependent_badge] it is time dependant.
 
@@ -260,7 +260,7 @@ iterations (CPU) [Icon:TOP/xmlinput]:
     == GLOBAL: Density presets == (GLBDENSITY)
 
     
-menu density presets [Icon:BUTTONS/ramp_presets]:
+menu density presets [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: GLOBAL
     Will allow you to select a density value quickly from some presets.
 
@@ -354,7 +354,7 @@ FLAM3H(tm) documentation:
     
     == SYS: mini-menu Select Iterator == (SYSUTILSMINI)
 
-mini-menu Select Iterator [Icon:BUTTONS/ramp_presets]:
+mini-menu Select Iterator [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: SYS
 
     A quick shortcut mini-menu to quickly change focus to a desired multi-parameter's tab number. The menu entries are populated using each iterator’s note/name.
@@ -708,7 +708,7 @@ TAG [Icon:DATATYPES/boolean]:
 
     <br />
          
-mini-menu TAG size [Icon:BUTTONS/ramp_presets]:
+mini-menu TAG size [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: SYS
     Set different viewport TAG sizes.
 
@@ -782,7 +782,7 @@ frame viewport:
     
     == SYS: CP color palette == (SYSCP)
     
-mini-menu CP Presets [Icon:BUTTONS/ramp_presets]:
+mini-menu CP Presets [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: SYS
     Select a preset from the [CP tab|#CP] JSON file that is currently open and load it.<br /><br />
     This is being introduced since it is convenient to switch palette preset without constantly entering the CP tab.
@@ -833,7 +833,7 @@ CP Preset reload [Icon:opdef:.?icon_actionButtonSVG.svg]:
     
     == SYS: IN Flame presets == (SYSIN)
     
-mini-menu IN Presets [Icon:BUTTONS/ramp_presets]:
+mini-menu IN Presets [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: SYS
     Select a preset from the [IN tab|#INF] Flame file that is presently open and load it.<br /><br />
     This is being introduced since it is convenient to switch Flame presets without constantly entering the IN tab.
@@ -889,7 +889,7 @@ IN Preset reload [Icon:opdef:.?icon_actionButtonSVG.svg]:
     
     == SYS: OUT Flame presets == (SYSOUT)
     
-mini-menu OUT Presets [Icon:BUTTONS/ramp_presets]:
+mini-menu OUT Presets [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: SYS
     This menu is only for informational purposes.
 
@@ -1099,9 +1099,9 @@ copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
 
     When you paste the data, it wil copy everything from the marked iterator but not xaos.
     
-    Once an iterator has been marked, you can use the mini-menu [Icon:BUTTONS/ramp_presets] next to the icon to copy individual sections from the marked iterator, including xaos.
+    Once an iterator has been marked, you can use the mini-menu [Icon:opdef:.?icon_dataTypeMenuSVG.svg] next to the icon to copy individual sections from the marked iterator, including xaos.
     
-    Every item in the mini-menu [Icon:BUTTONS/ramp_presets] is named exactly like every folder an iterator possess.<br />
+    Every item in the mini-menu [Icon:opdef:.?icon_dataTypeMenuSVG.svg] is named exactly like every folder an iterator possess.<br />
     The sections items in the mini-menu have a bookmark icon that change based on the marked iterator status:
 
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieSVG.svg] when the marked iterator is *`On`*/Active.
@@ -1109,7 +1109,7 @@ copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
     - [Largeicon:opdef:.?icon_optionDisabledSelIterSVG.svg] when the marked iterator is *`Off`*/Disabled.
 
     <br />
-    When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) (_or when using the nearby mini-menu_ [Icon:BUTTONS/ramp_presets]) from inside another iterator either on the same FLAM3H(tm) node or on a different one.
+    When you mark an iterator, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) (_or when using the nearby mini-menu_ [Icon:opdef:.?icon_dataTypeMenuSVG.svg]) from inside another iterator either on the same FLAM3H(tm) node or on a different one.
     This way you can keep the iterator marked while working and paste again its data somewhere else after making additional changes to its contents.
 
     _Usage_:
@@ -1135,7 +1135,7 @@ copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
     - Copy and Paste iterators<br />
     using the native menu displayed when you ((RMB)) on any multi parameter tab label wont update all the FLAM3H(tm) internal data.<br />
     Always use this copy/paste iterator's button/icon: [Smallicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg]<br />
-    and/or its nearby mini-menu [Icon:BUTTONS/ramp_presets] to copy only individual sections of an iterator.
+    and/or its nearby mini-menu [Icon:opdef:.?icon_dataTypeMenuSVG.svg] to copy only individual sections of an iterator.
 
     <br />
 
@@ -1390,7 +1390,7 @@ Opacity [Icon:TOP/xmlinput]:
         
         _they will all share the same *`re:abcd`* and *`im:abcd`* parameters (FLAME: VARS tab)._
      
-menu Pre_Blur [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
+menu Pre_Blur [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: FLAME
     Enable Pre_Blur variation.
     
@@ -1405,7 +1405,7 @@ menu Pre_Blur [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
         remeber that the variation *`pre_gaussian_blur`* will be remapped to *`Pre_Blur`* on Flame load by default if it is the first one in the list of applied *`PRE`* variations.
 
 
-menu PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
+menu PRE [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: FLAMEPRE
     *`PRE`* variations for the selected iterator.
 
@@ -1446,7 +1446,7 @@ swap PRE vars [Icon:opdef:.?icon_actionButtonSVG.svg]:
     - ((CTRL)) + ((LMB)) to swap only the variation names.
     
     
-menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
+menu VAR [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: FLAME
     Variations for the selected iterator.
 
@@ -1463,7 +1463,7 @@ menu VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
         Laying down a new FLAM3H(tm) node and activating the finalXform (*FF*) with the default Sierpiński triangle will allow you to experiment with the variations inside the FF tab and see what happens while using the Sierpiński triangle coming from the FLAME tab as a base playground.
         Don't forget to play around with the pre-affine coefficients a bit to see what you can obtain.
 
-menu POST [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
+menu POST [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: FLAME
     *`POST`* Variation for the selected iterator.
 
@@ -1751,16 +1751,16 @@ FF: copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
     
     This icon allows you to mark a FLAM3H(tm) node's FF for being copied, and then copy the data from the marked FF into a separate FLAM3H(tm) node.
 
-    Once the FF has been marked, you can use the mini-menu [Icon:BUTTONS/ramp_presets] next to the icon to copy individual sections from the marked FF.
+    Once the FF has been marked, you can use the mini-menu [Icon:opdef:.?icon_dataTypeMenuSVG.svg] next to the icon to copy individual sections from the marked FF.
     
-    Every item in the mini-menu [Icon:BUTTONS/ramp_presets] is named exactly like every folder the FF iterator possess.<br />
+    Every item in the mini-menu [Icon:opdef:.?icon_dataTypeMenuSVG.svg] is named exactly like every folder the FF iterator possess.<br />
     The sections items in the mini-menu have a bookmark icon that change based on the marked FF status:
 
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFSVG.svg] when the marked FF is *`On`*/Active.
     - [Largeicon:opdef:.?icon_StarSwapRedCopyPasteEntrieFFOffSVG.svg] when the marked FF is *`Off`*/Disabled.
     
     <br />
-    When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) (_or when using the nearby mini-menu_ [Icon:BUTTONS/ramp_presets]) from inside another FLAM3H(tm) node' FF.
+    When you mark an FF, you establish a live connection with it and the data will be copied from it only when you ((ALT)) + ((LMB)) (_or when using the nearby mini-menu_ [Icon:opdef:.?icon_dataTypeMenuSVG.svg]) from inside another FLAM3H(tm) node' FF.
     This way you can keep the FF marked while working and paste again its data somewhere else after making additional changes to its contents.
 
     _Usage_:
@@ -1795,7 +1795,7 @@ FF: copy/paste [Icon:opdef:.?icon_actionButtonSVG.svg]:
         
         _Variation's name that end with an asterisk(*`*`*) are dependent while if they end with 3 dots(*`...`*) are parametric._
     
-menu FF PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
+menu FF PRE [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: FF
     *`PRE`* variation for the FF iterator.
     
@@ -1808,7 +1808,7 @@ menu FF PRE [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
     <br />
     
     
-menu FF VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
+menu FF VAR [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: FF
     Variations for the FF iterator.
 
@@ -1819,7 +1819,7 @@ menu FF VAR [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
     
     * When using parametric variations, their parameters will populate the *FF: VARS* tab.
 
-menu FF POST [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
+menu FF POST [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: FF
     *`POST`* Variations for the FF iterator.
 
@@ -1980,7 +1980,7 @@ HSV palette [Icon:TOP/xmlinput] [Icon:DATATYPES/ramp]:
     
     == CP: Palette == (CPRAMP)
 
-mini-menu bases  [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
+mini-menu bases  [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: PALETTE
 
     The interpolation methods between lookup samples color keys' values.
@@ -2011,7 +2011,7 @@ mini-menu bases  [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
     <br />
 
     
-menu lookup samples  [Icon:TOP/xmlinput] [Icon:BUTTONS/ramp_presets]:
+menu lookup samples  [Icon:TOP/xmlinput] [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: PALETTE
     
     The amount of lookup samples to use to sample this palette.
@@ -2050,7 +2050,7 @@ palette [Icon:TOP/xmlinput] [Icon:TOP/jsoninput] [Icon:DATATYPES/ramp]:
 
     _The palette parameter come with the following tool icons_:
 
-    - mini-menu [Icon:BUTTONS/ramp_presets] to select between the palette color keys interpolation methods (_bases_).
+    - mini-menu [Icon:opdef:.?icon_dataTypeMenuSVG.svg] to select between the palette color keys interpolation methods (_bases_).
     - [Largeicon:BUTTONS/ramp_flip_y] to invert the palette's color values (_e.g. Black will become White_).
     - [Largeicon:BUTTONS/ramp_flip_x] to flip the palette's colors horizontally.
     - [Largeicon:BUTTONS/image_color_picker] to display the ramp generator.
@@ -2090,7 +2090,7 @@ JSON file [Icon:DATATYPES/string]:
 
     A FLAM3H™ palette library file is a [JSON|Wp:JSON] type of file.
 
-    The mini-menu [Icon:BUTTONS/ramp_presets] next to the file field, will display an history of files previously loaded.
+    The mini-menu [Icon:opdef:.?icon_dataTypeMenuSVG.svg] next to the file field, will display an history of files previously loaded.
     <br /><br />
 
     TIP:
@@ -2155,7 +2155,7 @@ Palette name [Icon:TOP/jsoninput] [Icon:DATATYPES/string]:
     
     == CP: Presets == (CPPRESETS)
         
-menu CP file contents [Icon:BUTTONS/ramp_presets]:
+menu CP file contents [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: PALETTE
     When you load a json palette file, use this menu to display all the palettes included in the loaded file and select one to load.
     
@@ -2374,7 +2374,7 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
     <br />
     Load *.flame files. They can come from FLAM3H(tm) or also authored with Apophysis, Fractorium and other flam3-compatible applications.
 
-    The mini-menu [Icon:BUTTONS/ramp_presets] next to the file field, will display an history of files previously loaded.
+    The mini-menu [Icon:opdef:.?icon_dataTypeMenuSVG.svg] next to the file field, will display an history of files previously loaded.
     
     <br />
     _The only restrictions are_:
@@ -2391,7 +2391,7 @@ IN flame ( *.flame type ) [Icon:DATATYPES/string]:
         - *`2`*(two) *`POST`*
         - For a total of *`5`*(five) variations for the finalXform(_FF_). If it finds more on load, the excess ones will be discarded.
     
-menu IN file contents [Icon:BUTTONS/ramp_presets]:
+menu IN file contents [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: IN
     Every *.flame file can contain multiple Flames.
 
@@ -2775,7 +2775,7 @@ OUT flame ( *.flame type ) [Icon:DATATYPES/string]:
 
     A *.flame file is an [XML|Wp:XML] formatted type of file.
 
-    The mini-menu [Icon:BUTTONS/ramp_presets] next to the file field, will display an history of files previously loaded.
+    The mini-menu [Icon:opdef:.?icon_dataTypeMenuSVG.svg] next to the file field, will display an history of files previously loaded.
     <br /><br />
 
     TIP:
@@ -2866,7 +2866,7 @@ Flame name (OUT) [Icon:TOP/xmlinput] [Icon:DATATYPES/string]:
 
     == OUT: menu file contents == (OUTMENUCONTENTS)
     
-menu OUT file contents ( info ) [Icon:BUTTONS/ramp_presets]:
+menu OUT file contents ( info ) [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: OUT
     This menu is only for informational purposes.
 
@@ -3158,7 +3158,7 @@ Resolution [Icon:TOP/xmlinput]:
     The sensor resolution: [Icon:TOP/xmlinput] *`size`*
     
     
-mini-menu Resolution presets [Icon:BUTTONS/ramp_presets]:
+mini-menu Resolution presets [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: OUT
     Select a sensor resolution from a list of presets.
 
@@ -3683,7 +3683,7 @@ Iterator menus bookmark icons [Icon:DATATYPES/boolean]:
     
     == Prefs: Cvex (hidden)== (PREFSCVEX)
 
-cvex precision modes (hidden) [Icon:BUTTONS/ramp_presets]:
+cvex precision modes (hidden) [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: prefs
     Switch between the default Single Precision ( [32-bit|Wp:32-bit_computing] ) or Double Precision ( [64-bit|Wp:64-bit_computing] ).
     <br /><br />
@@ -3699,7 +3699,7 @@ cvex precision modes (hidden) [Icon:BUTTONS/ramp_presets]:
 
     == Prefs: Xaos == (PREFSXAOS)
         
-menu xaos modes [Icon:BUTTONS/ramp_presets]:
+menu xaos modes [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: prefs
     Select to use xaos in either *xaos TO* or *xaos FROM* mode.
     
@@ -3795,7 +3795,7 @@ Dark [Icon:DATATYPES/boolean]:
     [Icon:NETWORKS/sop] *Context aware*<br />
     - This option is context aware, and it will function only if a Sop viewer is available.
     
-menu type [Icon:BUTTONS/ramp_presets]:
+menu type [Icon:opdef:.?icon_dataTypeMenuSVG.svg]:
     #id: prefs
     Set the viewport particle display mode to either *`points`* or *`pixels`*.
 
@@ -4731,7 +4731,7 @@ _A list of all parametric variations and their parametric parameter's names_
     - Copy and Paste iterators<br />
     using the native menu displayed when you ((RMB)) on any multi parameter tab label wont update all the FLAM3H(tm) internal data.<br />
     Always use the copy/paste iterator's button/icon: [Smallicon:opdef:.?icon_StarSwapRedCopyPasteSVG.svg]<br />
-    and/or its nearby mini-menu [Icon:BUTTONS/ramp_presets] to copy only individual sections of an iterator.
+    and/or its nearby mini-menu [Icon:opdef:.?icon_dataTypeMenuSVG.svg] to copy only individual sections of an iterator.
 
 
 
