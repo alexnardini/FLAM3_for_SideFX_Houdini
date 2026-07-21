@@ -35,6 +35,8 @@ They are all available in this Github repository.
 
 </br>
 
+<details>
+<summary>2026 Releases</summary>
 
 ### [<ins>v2.0.40 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.40) ###
 
@@ -853,15 +855,13 @@ _This update require a restart of Houdini to fully pickup the changes_.
 - **Fix**: Fixed a rare bug with the mini-menu select iterator not being updated when a marked iterator of the same number index is being marked and unmarked on two different FLAM3H™ nodes after an undo.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-
-
 <br>
 <br>
 
+</details>
 
-
-
-
+<details>
+<summary>2025 Releases</summary>
 
 ### [<ins>v1.9.65 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.65) ###
 
@@ -3076,10 +3076,13 @@ _This simple utility node got an upgrade._
 
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
-
 <br>
 <br>
 
+</details>
+
+<details>
+<summary>2024 Releases</summary>
 
 ### [<ins>v1.6.78 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.78) ###
 
@@ -4692,10 +4695,13 @@ _More small things:_
 - **Improved Python code.**
 - **Updated HDA documentation.** 
 
-
 <br>
 <br>
 
+</details>
+
+<details>
+<summary>2023 Releases</summary>
 
 ### [<ins>v1.1.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.90) ###
 
@@ -5195,10 +5201,13 @@ _Will update once H20 release._
 - Updated OTL Help/Documentation a bit.
 - Little code cleanup there and there.
 
-
 <br>
 <br>
 
+</details>
+
+<details>
+<summary>2022 Releases</summary>
 
 ### [<ins>v0.9.1 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.1) ###
 
@@ -5312,10 +5321,13 @@ _Will update once H20 release._
 - Color speed can now be a negative value too.
 - Added color opacity, this allow to build simple but proper fractal flame containers.
 
-
 <br>
 <br>
 
+</details>
+
+<details>
+<summary>2021 Releases</summary>
 
 ### [<ins>v0.8.5 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.5) ###
 
@@ -5448,9 +5460,12 @@ _Will update once H20 release._
 
 #### FLAM3H™ H18.x ####
 
-
 <br>
 <br>
 
+</details>
+
+<br>
+<br>
 
 ..._plus many more from when I first started and this project was not on GitHub yet_.
