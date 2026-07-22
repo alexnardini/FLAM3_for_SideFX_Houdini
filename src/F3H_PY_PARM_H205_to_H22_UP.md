@@ -1298,9 +1298,13 @@ hou.phm().flam3.flam3h_iterator_utils(kwargs).iterators_count()
 | **FLAME** | `mp_add_#` |  `geometry data` | `H21` | `v1.x` `v2.x` |
 | | | `button` | `from H22` | `v2.x` |
 
-- ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> Action Button Script
+- ### <img width="16" height="16" src="../icons/icon_actionButtonSVG.svg" /> H21 Action Button Script
 ```python
 kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).add_iterator()
+```
+- ### <img width="16" height="16" src="../icons/icon_callbackButtonSVG.svg" /> H22 Callback Script
+```python
+hou.phm().flam3.flam3h_iterator_utils(kwargs).add_iterator()
 ```
 
 </br>

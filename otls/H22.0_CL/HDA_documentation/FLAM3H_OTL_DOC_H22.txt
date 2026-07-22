@@ -1049,7 +1049,7 @@ number of iterators [Icon:TOP/xmlinput]:
     
     == Iterator == (FLAMEITER)
 
-Add/Del iterators [Icon:TOP/xmlinput] [Icon:opdef:.?icon_actionButtonSVG.svg]:
+Add/Del iterators [Icon:TOP/xmlinput]:
     #id: FLAMEADDDEL
 
     Each iterator possess the following control icon:

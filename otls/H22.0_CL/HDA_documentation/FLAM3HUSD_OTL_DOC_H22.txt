@@ -34,9 +34,9 @@ _Below a list of the currently adopted badges and their meaning_:
 
 - [Icon:opdef:.?icon_dataTypeMenuSVG.svg] it is either a menu or a mini-menu.
 
-- [Icon:DATATYPES/boolean] it is a toggle.
-
 - [Icon:DATATYPES/string] it is a string.
+
+- [Icon:DATATYPES/boolean] it is a toggle.
 
 - [Icon:opdef:.?icon_actionButtonSVG.svg] it is an Action button.
 

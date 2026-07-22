@@ -413,7 +413,7 @@ https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/blob/main/icons/icon_cve
 
 <p align="center">
   <img width="160" height="160" src="./icon_dataTypeMenuSVG.svg" /></p>
-<b><p align="center">icon_dataTypeMenuSVG.svg</b> (<i>H22.0 and up only</i>)</p>
+<b><p align="center">icon_dataTypeMenuSVG.svg</b> (<i>H22.0 and up. Used only for DOC purposes</i>)</p>
 <p align="center">......</p>
 <p align="center">
 
