@@ -887,7 +887,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "The weight of the <b>PRE_blur</b>.<br/><br/>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><b>PRE_blur</b> variation in this implementation is hard-coded inside the chaos game to be as fast as it can possibly be.<br/><br/>It will always be the first <b>PRE</b> variation the algorithm runs."
+                    help    "<h2>PRE blur weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>).<br/><br/><b>PRE_blur</b> variation in this implementation is hard-coded inside the chaos game to be as fast as it can possibly be.<br/><br/>It will always be the first <b>PRE</b> variation the algorithm runs."
                     range   { 0! 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1013,7 +1013,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "The weight of <b>PRE_var_01</b>.<br/><br/>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>)."
+                    help    "<h2>PRE 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>)."
                     range   { 0! 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1139,7 +1139,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "The weight of <b>PRE_var_02</b>.<br/><br/>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>)."
+                    help    "<h2>PRE 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>)."
                     range   { 0! 1 }
                     parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_iter_pre_vars()" }
                     parmtag { "script_action_help" "[LMB] to swap the order of the PRE Variations and their weights. [CTRL+LMB] to swap the variation's names only." }
@@ -1276,7 +1276,7 @@
                     label   "   w"
                     type    float
                     default { "1" }
-                    help    "The weight of <b>VAR_01</b>.<br/><br/>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
+                    help    "<h2>VAR 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1402,7 +1402,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "The weight of <b>VAR_02</b>.<br/><br/>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
+                    help    "<h2>VAR 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1528,7 +1528,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "The weight of <b>VAR_03</b>.<br/><br/>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
+                    help    "<h2>VAR 03 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1654,7 +1654,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "The weight of <b>VAR_04</b>.<br/><br/>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
+                    help    "<h2>VAR 04 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
                     range   { 0 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -1788,7 +1788,7 @@
                     label   "   w"
                     type    float
                     default { "0" }
-                    help    "The weight of <b>POST_var_01</b>.<br/><br/>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>)."
+                    help    "<h2>POST 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>)."
                     range   { 0! 1 }
                     parmtag { "script_callback_language" "python" }
                 }
@@ -2791,7 +2791,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "The weight of <b>FF PRE_var_01</b>.<br/><br/>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>)."
+                help    "<h2>PRE 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>)."
                 range   { 0! 1 }
                 parmtag { "script_callback_language" "python" }
             }
@@ -2925,7 +2925,7 @@
                 label   "   w"
                 type    float
                 default { "1" }
-                help    "The weight of <b>FF VAR_01</b>.<br/><br/>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
+                help    "<h2>VAR 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
                 range   { 0 1 }
                 parmtag { "script_callback" "" }
                 parmtag { "script_callback_language" "python" }
@@ -3052,7 +3052,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "The weight of <b>FF VAR_02</b>.<br/><br/>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
+                help    "<h2>VAR 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>) and negative too."
                 range   { 0 1 }
                 parmtag { "script_callback_language" "python" }
             }
@@ -3186,7 +3186,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "The weight of <b>FF POST_var_01</b>.<br/><br/>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>)."
+                help    "<h2>POST 01 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>)."
                 range   { 0! 1 }
                 parmtag { "script_callback_language" "python" }
             }
@@ -3312,7 +3312,7 @@
                 label   "   w"
                 type    float
                 default { "0" }
-                help    "The weight of <b>FF POST_var_02</b>.<br/><br/>Set it to <b>0</b>(<i>Zero</i>) to disable it.<br/>Can be set higher than <b>1</b>(<i>one</i>)."
+                help    "<h2>POST 02 weight</h2>Set it to <b>0</b>(<i>Zero</i>) to disable it. Can be set higher than <b>1</b>(<i>one</i>)."
                 range   { 0! 1 }
                 parmtag { "script_action" "kwargs['node'].hdaModule().flam3.flam3h_iterator_utils(kwargs).swap_FF_post_vars()\n" }
                 parmtag { "script_action_help" "[LMB] to swap the order of the POST Variations and their weights. [CTRL+LMB] to swap the variation's names only." }
