@@ -36,7 +36,7 @@ They are all available in this Github repository.
 </br>
 
 <details>
-<summary>2026 Releases</summary>
+<summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2026 Releases</summary>
 
 ### [<ins>v2.0.40 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v2.0.40) ###
 
@@ -863,7 +863,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 </details>
 
 <details>
-<summary>2025 Releases</summary>
+<summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2025 Releases</summary>
 
 ### [<ins>v1.9.65 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.9.65) ###
 
@@ -3084,7 +3084,7 @@ _This simple utility node got an upgrade._
 </details>
 
 <details>
-<summary>2024 Releases</summary>
+<summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2024 Releases</summary>
 
 ### [<ins>v1.6.78 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.6.78) ###
 
@@ -4703,7 +4703,7 @@ _More small things:_
 </details>
 
 <details>
-<summary>2023 Releases</summary>
+<summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2023 Releases</summary>
 
 ### [<ins>v1.1.90 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v1.1.90) ###
 
@@ -5209,7 +5209,7 @@ _Will update once H20 release._
 </details>
 
 <details>
-<summary>2022 Releases</summary>
+<summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2022 Releases</summary>
 
 ### [<ins>v0.9.1 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.9.1) ###
 
@@ -5329,7 +5329,7 @@ _Will update once H20 release._
 </details>
 
 <details>
-<summary>2021 Releases</summary>
+<summary style="font-size: 2rem; font-weight: bold;"><img src="./icons/iconSVGR.svg" width="64" height="40" style="vertical-align: middle;"> 2021 Releases</summary>
 
 ### [<ins>v0.8.5 indie</ins>](https://github.com/alexnardini/FLAM3_for_SideFX_Houdini/releases/tag/v0.8.5) ###
 
@@ -5470,4 +5470,3 @@ _Will update once H20 release._
 <br>
 <br>
 
-..._plus many more from when I first started and this project was not on GitHub yet_.
