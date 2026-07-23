@@ -368,11 +368,6 @@ def cached_slot_property(func):
     return cached
 
 
-'''
-I'll put the aliases and TypeVars into their own class for namespace
-once and if SideFX update to python 3.12 or higher, for now just here.
-'''
-
 # FLAM3H™ TypeAlias
 ##########################################
 ##########################################
