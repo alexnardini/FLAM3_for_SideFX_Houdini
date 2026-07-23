@@ -45,6 +45,7 @@ They are all available in this Github repository.
 _This update require a restart of Houdini to fully pickup the changes_.
 
 - **New H22 Only**: First migration release to: **python 3.13.10** ( _from Python 3.11.7_ ).
+- **New H22 Only**: Parameters' tooltips now uses the new html formatting syntax. Too bad Action Button parameters can not take advantage of it in their help/tooltip field.
 - **New H22 Only**: New banner image (_Documentation and About box panel_).
 - **Python code improvements H22 Only**
 - **Small fixes/improvements as part of an ongoing polishing pass.**
@@ -53,6 +54,7 @@ _This update require a restart of Houdini to fully pickup the changes_.
 #### FLAM3H™USD v0.2.62 indie -> H22.0 UP</br>FLAM3H™USD v0.2.60 indie -> H21.0</br>FLAM3H™USD v0.2.56 indie -> H20.5</br>FLAM3H™USD v0.2.50 indie -> H19.0 to H20 ####
 
 - **New H22 Only**: First migration release to: **python 3.13.10** ( _from Python 3.11.7_ ).
+- **New H22 Only**: Parameters' tooltips now uses the new html formatting syntax. Too bad Action Button parameters can not take advantage of it in their help/tooltip field.
 - **Small fixes/improvements as part of an ongoing polishing pass.**
 
 
