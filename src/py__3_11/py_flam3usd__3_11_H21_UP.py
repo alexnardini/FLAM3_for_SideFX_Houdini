@@ -29,11 +29,14 @@ try:
     from PySide6.QtGui import QPainter
     from PySide6.QtSvg import QSvgRenderer
 except ImportError:
-    from PySide2 import QtCore, QtGui, QtWidgets
-    from PySide2.QtGui import QPainter
-    from PySide2.QtSvg import QSvgRenderer
-
-    __pyside_version__ = 2
+    try:
+        from PySide2 import QtCore, QtGui, QtWidgets
+        from PySide2.QtGui import QPainter
+        from PySide2.QtSvg import QSvgRenderer
+    except ImportError:
+        pass
+    else:
+        __pyside_version__ = 2
 else:
     __pyside_version__ = 6
 
